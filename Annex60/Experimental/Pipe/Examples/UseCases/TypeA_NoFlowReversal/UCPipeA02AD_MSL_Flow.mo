@@ -1,5 +1,6 @@
 within Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal;
-model UCPipeA01MSL_Basic "Demonstrating basic functionality of pipe model"
+model UCPipeA02AD_MSL_Flow
+  "Demonstrating pipe model with varying flow velocities"
 
   extends Modelica.Icons.Example;
 
@@ -30,8 +31,10 @@ model UCPipeA01MSL_Basic "Demonstrating basic functionality of pipe model"
   Modelica.Blocks.Sources.Constant constTemp(k=273.15 + 60)
     "Constant supply temperature signal"
     annotation (Placement(transformation(extent={{-118,0},{-98,20}})));
-  Modelica.Blocks.Sources.Constant constDP(k=dp_test)
-    "Add pressure difference between source and sink"
+  Modelica.Blocks.Sources.Sine varyDP(
+    freqHz=0.05,
+    amplitude=dp_test/2,
+    offset=dp_test/2) "Add pressure difference between source and sink"
     annotation (Placement(transformation(extent={{-156,30},{-136,50}})));
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,50},{-98,70}})));
@@ -66,7 +69,7 @@ equation
       points={{-97,10},{-90,10},{-90,32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(constDP.y, add.u2) annotation (Line(
+  connect(varyDP.y, add.u2) annotation (Line(
       points={{-135,40},{-128,40},{-128,54},{-120,54}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -89,14 +92,14 @@ equation
   connect(pipeMSL.port_b, TempSink.port_a)
     annotation (Line(points={{20,30},{56,30}}, color={0,127,255}));
   annotation (Documentation(info="<html>
-<p>This use case aims at demonstrating most basic functionalities of the pipe
-model. The pressure difference between <code>source</code> and <code>sink</code> is kept constant, as
-is the supply temperature at <code>source</code>.</p>
-<p>The main focus of this use case is that the model checks <code>True</code> in pedantic mode
-and simulates without warnings or errors.</p>
+<p>This use case aims at demonstrating the functionality of the pipe with varying
+flow velocities. The pressure difference between <code>source</code> and <code>sink</code> is varied
+as a sine function. The supply temperature at <code>source</code> is kept constant.</p>
+<p>The pipe model should vary mass flows according to the pressure states at both
+its ends, with larger pressure differences leading to higher mass flow rates.</p>
 <h4 id=\"typical-use-and-important-parameters\">Typical use and important parameters</h4>
-<p>The pressure difference between <code>source</code> and <code>sink</code> can be adjusted via the
-<code>dp_test</code> variable.</p>
+<p>The maximum pressure difference between <code>source</code> and <code>sink</code> can be adjusted via
+the <code>dp_test</code> variable.</p>
 <h4 id=\"implementation\">Implementation</h4>
 <p>In order for the MSL pipe model to check <code>True</code> in pedantic mode and simulate
 without warnings, the following modifications have been added:</p>
@@ -116,6 +119,6 @@ First implementation</li>
     Diagram(coordinateSystem(extent={{-180,-120},{180,120}},
           preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-180,-120},{180,120}})),
-    experiment(StopTime=2000, Interval=1),
+    experiment(StopTime=3000, Interval=1),
     __Dymola_experimentSetupOutput);
-end UCPipeA01MSL_Basic;
+end UCPipeA02AD_MSL_Flow;

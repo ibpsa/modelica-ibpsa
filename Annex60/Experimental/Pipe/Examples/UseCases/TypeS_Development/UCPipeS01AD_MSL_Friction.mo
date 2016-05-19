@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe.Examples.UseCases.TypeS_Development;
-model UCPipeS01MSL_Friction
+model UCPipeS01AD_MSL_Friction
   "Verifying the pressure - mass flow relation for two short pipes in series compared to one long pipe"
 
   extends Modelica.Icons.Example;
@@ -172,4 +172,4 @@ First implementation</li>
     Icon(coordinateSystem(extent={{-180,-120},{180,120}})),
     experiment(StopTime=2000, Interval=1),
     __Dymola_experimentSetupOutput);
-end UCPipeS01MSL_Friction;
+end UCPipeS01AD_MSL_Friction;

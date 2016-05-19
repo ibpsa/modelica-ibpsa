@@ -1,5 +1,6 @@
 within Annex60.Experimental.Pipe.Examples.UseCases.TypeB_FlowReversal;
-model UCPipeB01MSL_Flow "Demonstrating pipe model with varying flow directions"
+model UCPipeB02AD_MSL_Temperature
+  "Demonstrating pipe model with varying flow directions and temperatures"
 
   extends Modelica.Icons.Example;
 
@@ -57,9 +58,11 @@ model UCPipeB01MSL_Flow "Demonstrating pipe model with varying flow directions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-170,90})));
-  Modelica.Blocks.Sources.Constant constTemp(k=273.15 + 60)
-    "Constant supply temperature signal"
-    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
+  Modelica.Blocks.Sources.Sine     constTemp(
+    amplitude=5,
+    offset=273.15 + 55,
+    freqHz=0.0005) "Constant supply temperature signal"
+    annotation (Placement(transformation(extent={{-118,0},{-98,20}})));
 equation
   connect(PAtm.y,sink. p_in)
                             annotation (Line(points={{147,76},{154,76},{154,36},
@@ -91,15 +94,13 @@ equation
     annotation (Line(points={{-139,54},{-120,54}}, color={0,0,127}));
   connect(pressureSignal.y[1], gain.u)
     annotation (Line(points={{-170,79},{-170,54},{-162,54}}, color={0,0,127}));
-  connect(constTemp.y, source.T_in) annotation (Line(points={{-99,10},{-94,10},
-          {-94,32},{-90,32}}, color={0,0,127}));
+  connect(source.T_in, constTemp.y) annotation (Line(points={{-90,32},{-94,32},
+          {-94,10},{-97,10}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>This use case aims at demonstrating the correct behavior of the pipe model for
-flow reversal. It is similar to <em>UCPipeA04</em>, with the addition that the pressure
-at <code>source</code> can be lower than the pressure at <code>sink</code>, causing the flow direction
-to reverse.</p>
-<p>In the case of flow reversal, the temperatures at both sides of the pipe should
-exhibit realistic behavior.</p>
+<p>This use case aims at demonstrating the behavior of the pipe with flow reversals
+and varying temperatures. It is similar to <em>UCPipeB01</em>, with the addition of
+temperature waves caused by varying temperatures at <code>source</code> and <code>sink</code>.</p>
+<p>Temperature waves should be propagated correctly through the pipe.</p>
 <h4 id=\"typical-use-and-important-parameters\">Typical use and important parameters</h4>
 <p>The maximum pressure difference between <code>source</code> and <code>sink</code> can be adjusted via
 the <code>dp_test</code> variable.</p>
@@ -124,4 +125,4 @@ First implementation</li>
     Icon(coordinateSystem(extent={{-180,-120},{180,120}})),
     experiment(StopTime=200000, Interval=1),
     __Dymola_experimentSetupOutput);
-end UCPipeB01MSL_Flow;
+end UCPipeB02AD_MSL_Temperature;

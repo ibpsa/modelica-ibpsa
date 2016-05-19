@@ -1,5 +1,6 @@
-within Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal;
-model UCPipeA02MSL_Flow "Demonstrating pipe model with varying flow velocities"
+within Annex60.Experimental.Pipe.Examples.UseCases.TypeB_FlowReversal;
+model UCPipeB01AD_MSL_Flow
+  "Demonstrating pipe model with varying flow directions"
 
   extends Modelica.Icons.Example;
 
@@ -27,14 +28,6 @@ model UCPipeA02MSL_Flow "Demonstrating pipe model with varying flow velocities"
   Fluid.Sensors.MassFlowRate         masFloSer(redeclare package Medium =
         Medium) "Mass flow rate sensor for the two pipes in series"
     annotation (Placement(transformation(extent={{88,20},{108,40}})));
-  Modelica.Blocks.Sources.Constant constTemp(k=273.15 + 60)
-    "Constant supply temperature signal"
-    annotation (Placement(transformation(extent={{-118,0},{-98,20}})));
-  Modelica.Blocks.Sources.Sine varyDP(
-    freqHz=0.05,
-    amplitude=dp_test/2,
-    offset=dp_test/2) "Add pressure difference between source and sink"
-    annotation (Placement(transformation(extent={{-156,30},{-136,50}})));
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,50},{-98,70}})));
   Fluid.Sensors.TemperatureTwoPort TempSink(redeclare package Medium = Medium,
@@ -55,6 +48,19 @@ model UCPipeA02MSL_Flow "Demonstrating pipe model with varying flow velocities"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   inner Modelica.Fluid.System system "System for MSL pipe model"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
+  Modelica.Blocks.Math.Gain gain(k=dp_test)
+    annotation (Placement(transformation(extent={{-160,44},{-140,64}})));
+  Modelica.Blocks.Sources.CombiTimeTable pressureSignal(smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments, table=[0,
+        1; 3000,1; 5000,0; 10000,0; 12000,-1; 17000,1; 19000,0; 30000,0; 32000,1;
+        50000,1; 52000,0; 80000,0; 82000,-1; 100000,-1; 102000,0; 150000,0; 152000,
+        1; 160000,1; 162000,0; 163500,0; 165500,1; 200000,1])
+    "Signal for flow direction"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-170,90})));
+  Modelica.Blocks.Sources.Constant constTemp(k=273.15 + 60)
+    "Constant supply temperature signal"
+    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
 equation
   connect(PAtm.y,sink. p_in)
                             annotation (Line(points={{147,76},{154,76},{154,36},
@@ -63,14 +69,6 @@ equation
   connect(sink.ports[1],masFloSer. port_b) annotation (Line(
       points={{120,28},{108,30}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(constTemp.y, source.T_in) annotation (Line(
-      points={{-97,10},{-90,10},{-90,32}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(varyDP.y, add.u2) annotation (Line(
-      points={{-135,40},{-128,40},{-128,54},{-120,54}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, source.p_in) annotation (Line(
       points={{-97,60},{-94,60},{-94,36},{-90,36}},
@@ -90,12 +88,19 @@ equation
     annotation (Line(points={{-40,30},{0,30}}, color={0,127,255}));
   connect(pipeMSL.port_b, TempSink.port_a)
     annotation (Line(points={{20,30},{56,30}}, color={0,127,255}));
+  connect(gain.y, add.u2)
+    annotation (Line(points={{-139,54},{-120,54}}, color={0,0,127}));
+  connect(pressureSignal.y[1], gain.u)
+    annotation (Line(points={{-170,79},{-170,54},{-162,54}}, color={0,0,127}));
+  connect(constTemp.y, source.T_in) annotation (Line(points={{-99,10},{-94,10},
+          {-94,32},{-90,32}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>This use case aims at demonstrating the functionality of the pipe with varying
-flow velocities. The pressure difference between <code>source</code> and <code>sink</code> is varied
-as a sine function. The supply temperature at <code>source</code> is kept constant.</p>
-<p>The pipe model should vary mass flows according to the pressure states at both
-its ends, with larger pressure differences leading to higher mass flow rates.</p>
+<p>This use case aims at demonstrating the correct behavior of the pipe model for
+flow reversal. It is similar to <em>UCPipeA04</em>, with the addition that the pressure
+at <code>source</code> can be lower than the pressure at <code>sink</code>, causing the flow direction
+to reverse.</p>
+<p>In the case of flow reversal, the temperatures at both sides of the pipe should
+exhibit realistic behavior.</p>
 <h4 id=\"typical-use-and-important-parameters\">Typical use and important parameters</h4>
 <p>The maximum pressure difference between <code>source</code> and <code>sink</code> can be adjusted via
 the <code>dp_test</code> variable.</p>
@@ -118,6 +123,6 @@ First implementation</li>
     Diagram(coordinateSystem(extent={{-180,-120},{180,120}},
           preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-180,-120},{180,120}})),
-    experiment(StopTime=3000, Interval=1),
+    experiment(StopTime=200000, Interval=1),
     __Dymola_experimentSetupOutput);
-end UCPipeA02MSL_Flow;
+end UCPipeB01AD_MSL_Flow;

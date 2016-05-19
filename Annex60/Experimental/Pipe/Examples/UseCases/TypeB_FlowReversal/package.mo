@@ -2,6 +2,7 @@ within Annex60.Experimental.Pipe.Examples.UseCases;
 package TypeB_FlowReversal "Use cases with flow reversal"
 extends Modelica.Icons.ExamplesPackage;
 
+
 annotation (Documentation(info="<html>
 <h2 id=\"type-b-flow-reversal\">Type B: Flow reversal</h2>
 <h3 id=\"ucpipeb01\">UCPipeB01</h3>

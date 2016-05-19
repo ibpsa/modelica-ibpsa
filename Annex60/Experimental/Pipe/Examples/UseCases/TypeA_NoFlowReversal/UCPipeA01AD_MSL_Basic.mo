@@ -1,6 +1,5 @@
 within Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal;
-model UCPipeA03MSL_Temperature
-  "Demonstrating pipe model for varying temperatures"
+model UCPipeA01AD_MSL_Basic "Demonstrating basic functionality of pipe model"
 
   extends Modelica.Icons.Example;
 
@@ -28,11 +27,8 @@ model UCPipeA03MSL_Temperature
   Fluid.Sensors.MassFlowRate         masFloSer(redeclare package Medium =
         Medium) "Mass flow rate sensor for the two pipes in series"
     annotation (Placement(transformation(extent={{88,20},{108,40}})));
-  Modelica.Blocks.Sources.Ramp     constTemp(
-    offset=273.15,
-    duration=800,
-    startTime=100,
-    height=129) "Constant supply temperature signal"
+  Modelica.Blocks.Sources.Constant constTemp(k=273.15 + 60)
+    "Constant supply temperature signal"
     annotation (Placement(transformation(extent={{-118,0},{-98,20}})));
   Modelica.Blocks.Sources.Constant constDP(k=dp_test)
     "Add pressure difference between source and sink"
@@ -93,17 +89,14 @@ equation
   connect(pipeMSL.port_b, TempSink.port_a)
     annotation (Line(points={{20,30},{56,30}}, color={0,127,255}));
   annotation (Documentation(info="<html>
-<p>This use case aims at demonstrating the functionality of the pipe with varying
-temperatures. The pressure difference between <code>source</code> and <code>sink</code> is kept
-constant.The supply temperature is varied as a ramp function between 0 and 129
-degC, as the current <em>Annex60</em> media implementation does not allow temperatures
-higher than 130 degC.</p>
-<p>The pipe model should simulate successfully over the whole temperature range. In
-the case with heat losses taken into account, higher temperatures should lead to
-higher heat losses.</p>
+<p>This use case aims at demonstrating most basic functionalities of the pipe
+model. The pressure difference between <code>source</code> and <code>sink</code> is kept constant, as
+is the supply temperature at <code>source</code>.</p>
+<p>The main focus of this use case is that the model checks <code>True</code> in pedantic mode
+and simulates without warnings or errors.</p>
 <h4 id=\"typical-use-and-important-parameters\">Typical use and important parameters</h4>
-<p>The maximum pressure difference between <code>source</code> and <code>sink</code> can be adjusted via
-the <code>dp_test</code> variable.</p>
+<p>The pressure difference between <code>source</code> and <code>sink</code> can be adjusted via the
+<code>dp_test</code> variable.</p>
 <h4 id=\"implementation\">Implementation</h4>
 <p>In order for the MSL pipe model to check <code>True</code> in pedantic mode and simulate
 without warnings, the following modifications have been added:</p>
@@ -123,6 +116,6 @@ First implementation</li>
     Diagram(coordinateSystem(extent={{-180,-120},{180,120}},
           preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-180,-120},{180,120}})),
-    experiment(StopTime=3000, Interval=1),
+    experiment(StopTime=2000, Interval=1),
     __Dymola_experimentSetupOutput);
-end UCPipeA03MSL_Temperature;
+end UCPipeA01AD_MSL_Basic;
