@@ -51,9 +51,10 @@ model SimpleRoomOneElement "Illustrates the use of ThermalZoneOneElement"
     wfWin={0.5,0.5},
     withLongwave=true,
     aExt=0.7,
-    alphaExtOut=20,
-    alphaRad=5,
+    alphaWallOut=20,
+    alphaRadWall=5,
     alphaWinOut=20,
+    alphaRadWin=5,
     aWin=0.03,
     eExt=0.9,
     TGround=285.15) "Computes equivalent air temperature"
@@ -146,7 +147,7 @@ equation
     annotation (Line(points={{22.8,
     -52},{28,-52},{28,-74},{48,-74}}, color={0,0,127}));
   connect(const.y, eqAirTemp.sunblind)
-    annotation (Line(points={{-13.7,17},{-12,17},{-12,8},{-14,8},{-14,8}},
+    annotation (Line(points={{-13.7,17},{-12,17},{-12,8},{-14,8}},
     color={0,0,127}));
   connect(HDifTil.HSkyDifTil, corGDoublePane.HSkyDifTil)
     annotation (Line(
@@ -166,7 +167,7 @@ equation
     annotation (Line(
     points={{-47,24},{-4,24},{-4,62},{4,62}}, color={0,0,127}));
   connect(solRad.y, eqAirTemp.HSol)
-    annotation (Line(points={{-27.5,11},{-26,11},{-26,2},{-26,2}},
+    annotation (Line(points={{-27.5,11},{-26,11},{-26,2}},
     color={0,0,127}));
   connect(weaDat.weaBus, HDifTil[1].weaBus)
     annotation (Line(

@@ -7,6 +7,8 @@ model VDI6007WithWindow
     "Windows' convective coefficient of heat transfer (outdoor)";
   parameter Modelica.SIunits.Emissivity aWin
     "Coefficient of absorption of the windows";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRadWin
+    "Coefficient of heat transfer for linearized radiation for windows";
   Modelica.SIunits.TemperatureDifference delTEqLWWin
     "Equivalent long wave temperature for windows";
   Modelica.SIunits.TemperatureDifference delTEqSWWin[n]
@@ -23,10 +25,10 @@ initial equation
   "The sum of the weightfactors (windows)  is <0.9 or >1.1.
   Normally, the sum should be 1.", level=AssertionLevel.warning);
 equation
-  delTEqLW=(TBlaSky-TDryBul)*(eExt*alphaRad/(alphaRad+alphaExtOut));
-  delTEqLWWin=(TBlaSky-TDryBul)*(eExt*alphaRad/(alphaRad+alphaWinOut));
-  delTEqSW=HSol*aExt/(alphaRad+alphaExtOut);
-  delTEqSWWin=HSol*aWin/(alphaRad+alphaWinOut);
+  delTEqLW=(TBlaSky-TDryBul)*(eExt*alphaRadWall/(alphaRadWall+alphaWallOut));
+  delTEqLWWin=(TBlaSky-TDryBul)*(eExt*alphaRadWin/(alphaRadWin+alphaWinOut));
+  delTEqSW=HSol*aExt/(alphaRadWall+alphaWallOut);
+  delTEqSWWin=HSol*aWin/(alphaRadWin+alphaWinOut);
   if withLongwave then
     TEqWin=TDryBul.+(delTEqLWWin.+delTEqSWWin).*abs(sunblind.-1);
     TEqWall=TDryBul.+delTEqLW.+delTEqSW;

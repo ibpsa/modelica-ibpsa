@@ -98,8 +98,7 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-59,59})));
-  Modelica.Blocks.Math.Product product1
-    "Solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product1 "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
@@ -124,8 +123,8 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     annotation (Placement(transformation(extent={{-90,-8},{-74,8}})));
   EquivalentAirTemperature.VDI6007 eqAirTemp(
     aExt=0.7,
-    alphaExtOut=20,
-    alphaRad=5,
+    alphaWallOut=20,
+    alphaRadWall=5,
     eExt=0.9,
     withLongwave=false,
     n=1,

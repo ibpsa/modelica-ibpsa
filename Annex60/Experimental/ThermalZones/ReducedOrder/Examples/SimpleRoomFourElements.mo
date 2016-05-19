@@ -65,9 +65,10 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     wfGround=0,
     withLongwave=true,
     aExt=0.7,
-    alphaExtOut=20,
-    alphaRad=5,
+    alphaWallOut=20,
+    alphaRadWall=5,
     alphaWinOut=20,
+    alphaRadWin=5,
     aWin=0.03,
     eExt=0.9,
     n=2,
@@ -139,8 +140,8 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     wfWall={1},
     wfWin={0},
     wfGround=0,
-    alphaExtOut=20,
-    alphaRad=5,
+    alphaWallOut=20,
+    alphaRadWall=5,
     TGround=285.15) "Computes equivalent air temperature for roof"
     annotation (Placement(transformation(extent={{30,74},{50,94}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperatureRoof

@@ -56,9 +56,10 @@ model SimpleRoomTwoElements "Illustrates the use of ThermalZoneTwoElements"
     wfWin={0.5,0.5},
     withLongwave=true,
     aExt=0.7,
-    alphaExtOut=20,
-    alphaRad=5,
+    alphaWallOut=20,
+    alphaRadWall=5,
     alphaWinOut=20,
+    alphaRadWin=5,
     aWin=0.03,
     eExt=0.9,
     TGround=285.15) "Computes equivalent air temperature"

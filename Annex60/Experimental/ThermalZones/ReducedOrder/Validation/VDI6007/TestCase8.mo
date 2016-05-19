@@ -122,8 +122,7 @@ model TestCase8 "VDI 6007 Test Case 8 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-61,59})));
-  Modelica.Blocks.Math.Product product1
-    "Solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product1 "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
@@ -138,16 +137,15 @@ model TestCase8 "VDI 6007 Test Case 8 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-25,59})));
-  Modelica.Blocks.Math.Product product
-    "Solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,84},{4,94}})));
   EquivalentAirTemperature.VDI6007 eqAirTemp(
     n=2,
     wfGround=0,
     aExt=0.7,
-    alphaExtOut=20,
-    alphaRad=5,
+    alphaWallOut=20,
+    alphaRadWall=5,
     eExt=0.9,
     withLongwave=false,
     wfWall={0.05796831135677373,0.13249899738691134},
@@ -303,8 +301,8 @@ equation
     annotation (
     Line(points={{68,-56},{94,-56},{94,20},{92,20}}, color={191,0,0}));
   connect(product1.y, thermalZoneTwoElements.solRad[1])
-    annotation (Line(points
-    ={{4.5,70},{16,70},{26,70},{26,30.5},{43,30.5}}, color={0,0,127}));
+    annotation (Line(points=
+     {{4.5,70},{16,70},{26,70},{26,30.5},{43,30.5}}, color={0,0,127}));
   connect(product.y, thermalZoneTwoElements.solRad[2])
     annotation (Line(points=
     {{4.5,89},{26,89},{26,31.5},{43,31.5}}, color={0,0,127}));

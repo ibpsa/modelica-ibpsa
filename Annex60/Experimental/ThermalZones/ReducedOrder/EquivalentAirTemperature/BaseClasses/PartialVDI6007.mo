@@ -13,10 +13,10 @@ partial model PartialVDI6007
     "Weight factor of the ground (0 if not considered)";
   parameter Modelica.SIunits.Temperature TGround
     "Temperature of the ground in contact with floor plate";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExtOut
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWallOut
     "Exterior walls convective coefficient of heat transfer (outdoor)";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
-    "Coefficient of heat transfer for linearized radiation";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRadWall
+    "Coefficient of heat transfer for linearized radiation for exterior walls";
   parameter Boolean withLongwave=true
     "Set to true to include longwave radiation exchange"
     annotation(choices(checkBox = true));
