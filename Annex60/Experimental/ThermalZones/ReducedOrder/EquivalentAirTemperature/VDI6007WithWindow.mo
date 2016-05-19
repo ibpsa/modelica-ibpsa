@@ -3,10 +3,12 @@ model VDI6007WithWindow
   "Equivalent air temperature as defined in VDI 6007 Part 1 with modifications"
   extends BaseClasses.PartialVDI6007;
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWinOut
-    "Windows' convective coefficient of heat transfer (outdoor)";
   parameter Modelica.SIunits.Emissivity aWin
     "Coefficient of absorption of the windows";
+  parameter Modelica.SIunits.Emissivity eWin
+    "Coefficient of emission of the windows";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWinOut
+    "Windows' convective coefficient of heat transfer (outdoor)";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRadWin
     "Coefficient of heat transfer for linearized radiation for windows";
   Modelica.SIunits.TemperatureDifference delTEqLWWin
@@ -26,7 +28,7 @@ initial equation
   Normally, the sum should be 1.", level=AssertionLevel.warning);
 equation
   delTEqLW=(TBlaSky-TDryBul)*(eExt*alphaRadWall/(alphaRadWall+alphaWallOut));
-  delTEqLWWin=(TBlaSky-TDryBul)*(eExt*alphaRadWin/(alphaRadWin+alphaWinOut));
+  delTEqLWWin=(TBlaSky-TDryBul)*(eWin*alphaRadWin/(alphaRadWin+alphaWinOut));
   delTEqSW=HSol*aExt/(alphaRadWall+alphaWallOut);
   delTEqSWWin=HSol*aWin/(alphaRadWin+alphaWinOut);
   if withLongwave then

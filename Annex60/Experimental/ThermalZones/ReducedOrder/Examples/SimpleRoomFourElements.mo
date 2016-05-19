@@ -74,7 +74,8 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     n=2,
     wfWall={0.3043478260869566,0.6956521739130435},
     wfWin={0.5,0.5},
-    TGround=285.15) "Computes equivalent air temperature"
+    TGround=285.15,
+    eWin=0.9) "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[2]
     "Sums up solar radiation of both directions"
@@ -183,7 +184,7 @@ equation
     annotation (Line(points={{22.8,-52},{28,-52},{28,-74},{48,-74}},
     color={0,0,127}));
   connect(const.y, eqAirTemp.sunblind)
-    annotation (Line(points={{-13.7,17},{-12,17},{-12,8},{-14,8},{-14,8}},
+    annotation (Line(points={{-13.7,17},{-12,17},{-12,8},{-14,8}},
     color={0,0,127}));
   connect(HDifTil.HSkyDifTil, corGDoublePane.HSkyDifTil)
     annotation (Line(points={{-47,36},{-28,36},{-6,36},{-6,58},{0,58},{0,57.8},{
@@ -201,7 +202,7 @@ equation
     annotation (Line(points={{-47,24},{-4,24},{-4,54},{4,54}},
     color={0,0,127}));
   connect(solRad.y, eqAirTemp.HSol)
-    annotation (Line(points={{-27.5,11},{-26,11},{-26,2},{-26,2}},
+    annotation (Line(points={{-27.5,11},{-26,11},{-26,2}},
     color={0,0,127}));
   connect(weaDat.weaBus, HDifTil[1].weaBus)
     annotation (Line(points={{-76,62},{-74,62},{-74,30},{-68,30}},
@@ -269,8 +270,8 @@ equation
     annotation (Line(points={{28,78},{-96,78},{-96,-2},{-38,-2},{-38,-10},{-26,-10}},
     color={0,0,127}));
   connect(eqAirTempVDI.TBlaSky, eqAirTemp.TBlaSky)
-    annotation (Line(points={{28,84},{-34,84},{-34,84},{-98,84},{-98,-8},{-58,-8},
-    {-58,2},{-32,2},{-32,-4},{-26,-4}},
+    annotation (Line(points={{28,84},{-34,84},{-98,84},{-98,-8},{-58,-8},{-58,2},
+          {-32,2},{-32,-4},{-26,-4}},
     color={0,0,127}));
   connect(eqAirTempVDI.HSol[1], weaBus.HGloHor)
     annotation (Line(points={{28,90},{-100,90},{-100,6},{-83,6}},

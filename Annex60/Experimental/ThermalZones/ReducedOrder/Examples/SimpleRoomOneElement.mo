@@ -57,7 +57,8 @@ model SimpleRoomOneElement "Illustrates the use of ThermalZoneOneElement"
     alphaRadWin=5,
     aWin=0.03,
     eExt=0.9,
-    TGround=285.15) "Computes equivalent air temperature"
+    TGround=285.15,
+    eWin=0.9) "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[2]
     "Sums up solar radiation of both directions"
