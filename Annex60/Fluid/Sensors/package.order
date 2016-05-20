@@ -2,6 +2,7 @@ UsersGuide
 Density
 DensityTwoPort
 EnthalpyFlowRate
+FlowVelocity
 LatentEnthalpyFlowRate
 MassFlowRate
 MassFraction
