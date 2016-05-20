@@ -47,9 +47,10 @@ model SimpleRoomTwoElements "Illustrates the use of ThermalZoneTwoElements"
     ATransparent={7,7},
     AExt={3.5,8},
     redeclare package Medium = Modelica.Media.Air.SimpleAir,
-    volAir(dynBal(m(fixed=true), U(fixed=true))),
     extWallRC(thermCapExt(each der_T(fixed=true))),
-    T_start=295.15) "Thermal zone"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=295.15,
+    intWallRC(thermCapInt(each der_T(fixed=true)))) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   EquivalentAirTemperature.VDI6007WithWindow eqAirTemp(
     n=2,

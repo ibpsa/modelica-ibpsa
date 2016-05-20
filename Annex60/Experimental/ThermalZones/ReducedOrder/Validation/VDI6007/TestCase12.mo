@@ -26,6 +26,9 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     AWin={0},
     ATransparent={7},
     AExt={10.5},
+    extWallRC(thermCapExt(each der_T(fixed=true))),
+    intWallRC(thermCapInt(each der_T(fixed=true))),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
@@ -125,8 +128,7 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-59,59})));
-  Modelica.Blocks.Math.Product product1
-    "Solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product1 "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1

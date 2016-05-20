@@ -114,8 +114,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     annotation (Placement(transformation(extent={{-16,80},{-4,92}})));
   Modelica.Blocks.Logical.Switch switchCoo "Switch to limit cooling power"
     annotation (Placement(transformation(extent={{-46,81},{-36,91}})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold=0)
-    "Threshold for sunblind for one direction"
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold=0, y(start=
+          false)) "Threshold for sunblind for one direction"
     annotation (Placement(transformation(
     extent={{-5,-5},{5,5}},
     rotation=0,
@@ -143,8 +143,8 @@ equation
     points={{86,-34},{86,-34},{96,-34},{96,20},{92,20}}, color={191,0,0}));
   connect(cool.port, thermalZoneTwoElements.intWallIndoorSurface)
     annotation (
-    Line(points={{22,86},{26,86},{26,84},{26,84},{26,72},{4,72},{4,-24},{44,-24},
-          {44,-6},{56,-6},{56,-2}},
+    Line(points={{22,86},{26,86},{26,84},{26,72},{4,72},{4,-24},{44,-24},{44,-6},
+          {56,-6},{56,-2}},
                       color={191,0,0}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{43,31}}, color={0,0,127}));

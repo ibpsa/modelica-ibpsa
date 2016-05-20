@@ -20,11 +20,13 @@ model TestCase8 "VDI 6007 Test Case 8 model"
     CInt={12391363.8631},
     RExtRem=0.01913729904,
     VAir=0,
-    T_start=295.15,
     nOrientations=2,
     AWin={0,0},
     ATransparent={7,7},
-    AExt={10.5,15}) "Thermal zone"
+    AExt={10.5,15},
+    extWallRC(thermCapExt(each der_T(fixed=true))),
+    T_start=295.15,
+    intWallRC(thermCapInt(each der_T(fixed=true)))) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
     "Outdoor convective heat transfer"
