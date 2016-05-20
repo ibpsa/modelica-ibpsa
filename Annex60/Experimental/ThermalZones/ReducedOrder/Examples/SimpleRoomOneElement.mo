@@ -42,6 +42,8 @@ model SimpleRoomOneElement "Illustrates the use of ThermalZoneOneElement"
     ATransparent={7,7},
     AExt={3.5,8},
     redeclare package Medium = Modelica.Media.Air.SimpleAir,
+    extWallRC(thermCapExt(each der_T(fixed=true))),
+    volAir(dynBal(m(fixed=true), U(fixed=true))),
     T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   EquivalentAirTemperature.VDI6007WithWindow eqAirTemp(
