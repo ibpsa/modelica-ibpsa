@@ -68,22 +68,22 @@ equation
     color={191,0,0},
     smooth=Smooth.None));
   if not ATotExt > 0 and not ATotWin > 0 and AInt > 0 then
-    connect(thermSplitterIntGains.signalOutput[1], intWallRC.port_a);
-    connect(thermSplitterSolRad.signalOutput[1], intWallRC.port_a);
+    connect(thermSplitterIntGains.portOut[1], intWallRC.port_a);
+    connect(thermSplitterSolRad.portOut[1], intWallRC.port_a);
   elseif ATotExt > 0 and not ATotWin > 0 and AInt > 0 or not ATotExt > 0 and ATotWin > 0
     and AInt > 0 then
-    connect(thermSplitterIntGains.signalOutput[2], intWallRC.port_a);
-    connect(thermSplitterSolRad.signalOutput[2], intWallRC.port_a);
+    connect(thermSplitterIntGains.portOut[2], intWallRC.port_a);
+    connect(thermSplitterSolRad.portOut[2], intWallRC.port_a);
   elseif ATotExt > 0 and ATotWin > 0 and AInt > 0 then
-    connect(thermSplitterIntGains.signalOutput[3], intWallRC.port_a)
+    connect(thermSplitterIntGains.portOut[3], intWallRC.port_a)
       annotation (Line(
       points={{190,86},{190,86},{190,86},{160,86},{160,-40},{182,-40}},
       color={191,0,0},
       smooth=Smooth.None));
-    connect(thermSplitterSolRad.signalOutput[3], intWallRC.port_a)
+    connect(thermSplitterSolRad.portOut[3], intWallRC.port_a)
       annotation (
       Line(
-      points={{-136,146},{-58,146},{-58,96},{160,96},{160,-40},{182,-40}},
+      points={{-122,146},{-58,146},{-58,96},{160,96},{160,-40},{182,-40}},
       color={191,0,0},
       smooth=Smooth.None));
   end if;

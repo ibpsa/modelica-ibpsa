@@ -20,8 +20,7 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     "Vector of areas of windows by orientations"
     annotation(Dialog(group="Windows"));
 
-  parameter Modelica.SIunits.Area ATransparent[nOrientations]
-    "Vector of areas of transparent (solar radiation transmittend) elements by
+  parameter Modelica.SIunits.Area ATransparent[nOrientations] "Vector of areas of transparent (solar radiation transmittend) elements by
     orientations"
     annotation(Dialog(group="Windows"));
 
@@ -211,8 +210,7 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     annotation (Placement(transformation(extent={{210,76},{190,96}})));
 
   BaseClasses.ThermSplitter thermSplitterSolRad(splitFactor=
-    splitFactorSolRad, nOut=dimension, nIn=nOrientations) if ATot > 0
-    "Splits incoming solar radiation into seperate gains for each wall
+    splitFactorSolRad, nOut=dimension, nIn=nOrientations) if ATot > 0 "Splits incoming solar radiation into seperate gains for each wall
     element, weighted by their area"
     annotation (Placement(transformation(extent={{-138,138},{-122,154}})));
 
@@ -261,8 +259,7 @@ protected
     BaseClasses.splitFacVal(dimension, 1, AArray, fill(0, 1), fill(0, 1))
     "Share of each wall surface area that is non-zero";
   parameter Real splitFactorSolRad[dimension, nOrientations]=
-    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin)
-    "Share of each wall surface area that is non-zero, for each orientation
+    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin) "Share of each wall surface area that is non-zero, for each orientation
     seperately";
 equation
   connect(volAir.ports, ports)
@@ -285,12 +282,12 @@ equation
     points={{-195.5,146},{-166,146}},
     color={0,0,127},
     smooth=Smooth.None));
-  connect(thermSplitterIntGains.signalInput[1], intGainsRad)
+  connect(thermSplitterIntGains.portIn[1], intGainsRad)
     annotation (Line(
     points={{210,86},{220,86},{220,80},{242,80}},
     color={191,0,0},
     smooth=Smooth.None));
-  connect(radHeatSol.port, thermSplitterSolRad.signalInput)
+  connect(radHeatSol.port, thermSplitterSolRad.portIn)
     annotation (Line(
     points={{-146,146},{-138,146}},
     color={191,0,0},
@@ -306,31 +303,31 @@ equation
     color={191,0,0},
     smooth=Smooth.None));
   if ATotExt > 0 and ATotWin > 0 then
-    connect(thermSplitterSolRad.signalOutput[1], convExtWall.solid)
+    connect(thermSplitterSolRad.portOut[1], convExtWall.solid)
       annotation (
       Line(
       points={{-122,146},{-68,146},{-68,-12},{-126,-12},{-126,-40},{-114,-40}},
       color={191,0,0},
       smooth=Smooth.None));
-    connect(thermSplitterIntGains.signalOutput[1], convExtWall.solid)
+    connect(thermSplitterIntGains.portOut[1], convExtWall.solid)
       annotation (Line(
       points={{190,86},{-62,86},{-62,-16},{-118,-16},{-118,-40},{-114,-40}},
       color={191,0,0},
       smooth=Smooth.None));
-    connect(thermSplitterSolRad.signalOutput[2], convWin.solid)
+    connect(thermSplitterSolRad.portOut[2], convWin.solid)
       annotation (
       Line(points={{-122,146},{-76,146},{-76,94},{-134,94},{-134,40},{-116,40}},
       color={191,0,0}));
-    connect(thermSplitterIntGains.signalOutput[2], convWin.solid)
+    connect(thermSplitterIntGains.portOut[2], convWin.solid)
       annotation (
       Line(points={{190,86},{190,86},{-120,86},{-120,64},{-120,40},{-116,40}},
       color={191,0,0}));
   elseif not ATotExt > 0 and ATotWin > 0 then
-    connect(thermSplitterSolRad.signalOutput[1], convWin.solid);
-    connect(thermSplitterIntGains.signalOutput[1], convWin.solid);
+    connect(thermSplitterSolRad.portOut[1], convWin.solid);
+    connect(thermSplitterIntGains.portOut[1], convWin.solid);
   elseif ATotExt > 0 and not ATotWin > 0 then
-    connect(thermSplitterSolRad.signalOutput[1], convExtWall.solid);
-    connect(thermSplitterIntGains.signalOutput[1], convExtWall.solid);
+    connect(thermSplitterSolRad.portOut[1], convExtWall.solid);
+    connect(thermSplitterIntGains.portOut[1], convExtWall.solid);
   end if;
   connect(eRadSol.u, solRad)
     annotation (Line(points={{-207,146},{-214,146},{-214,140},{-260,140}},
@@ -373,7 +370,7 @@ equation
     annotation (Line(points={{-114,-40},{-134,-40},{-152,-40},{-152,-58},{-208,
     -58},{-208,-140},{-160,-140},{-160,-180}},
     color={191,0,0}));
-  connect(TMeanRadSensor.port, thermSplitterIntGains.signalInput[1])
+  connect(TMeanRadSensor.port, thermSplitterIntGains.portIn[1])
     annotation (
     Line(points={{210,100},{210,100},{210,100},{210,86}}, color={191,
     0,0}));

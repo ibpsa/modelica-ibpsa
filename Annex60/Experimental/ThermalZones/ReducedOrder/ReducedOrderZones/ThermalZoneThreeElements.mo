@@ -107,29 +107,29 @@ equation
     color={191,0,0},
     smooth=Smooth.None));
   if not ATotExt > 0 and not ATotWin > 0 and not AInt > 0 and AFloor > 0 then
-    connect(thermSplitterIntGains.signalOutput[1], floorRC.port_a);
-    connect(floorRC.port_a, thermSplitterSolRad.signalOutput[1]);
+    connect(thermSplitterIntGains.portOut[1], floorRC.port_a);
+    connect(floorRC.port_a, thermSplitterSolRad.portOut[1]);
   elseif ATotExt > 0 and not ATotWin > 0 and not AInt > 0 and AFloor > 0
     or not ATotExt > 0 and ATotWin > 0 and not AInt > 0 and AFloor > 0
     or not ATotExt > 0 and not ATotWin > 0 and AInt > 0 and AFloor > 0 then
-    connect(thermSplitterIntGains.signalOutput[2], floorRC.port_a);
-    connect(floorRC.port_a, thermSplitterSolRad.signalOutput[2]);
+    connect(thermSplitterIntGains.portOut[2], floorRC.port_a);
+    connect(floorRC.port_a, thermSplitterSolRad.portOut[2]);
   elseif not ATotExt > 0 and ATotWin > 0 and AInt > 0 and AFloor > 0
     or ATotExt > 0 and not ATotWin > 0 and AInt > 0 and AFloor > 0
     or ATotExt > 0 and ATotWin > 0 and not AInt > 0 and AFloor > 0 then
-    connect(thermSplitterIntGains.signalOutput[3], floorRC.port_a);
-    connect(floorRC.port_a, thermSplitterSolRad.signalOutput[3]);
+    connect(thermSplitterIntGains.portOut[3], floorRC.port_a);
+    connect(floorRC.port_a, thermSplitterSolRad.portOut[3]);
   elseif ATotExt > 0 and ATotWin > 0 and AInt > 0 and AFloor > 0 then
-    connect(thermSplitterIntGains.signalOutput[4], floorRC.port_a)
+    connect(thermSplitterIntGains.portOut[4], floorRC.port_a)
       annotation (
       Line(
       points={{190,86},{190,80},{-38,80},{-38,-132},{-12,-132},{-12,-137.091}},
       color={191,0,0},
       smooth=Smooth.None));
-    connect(floorRC.port_a, thermSplitterSolRad.signalOutput[4])
+    connect(floorRC.port_a, thermSplitterSolRad.portOut[4])
       annotation (
       Line(
-      points={{-12,-137.091},{-12,-132},{-42,-132},{-42,146},{-136,146}},
+      points={{-12,-137.091},{-12,-132},{-42,-132},{-42,146},{-122,146}},
       color={191,0,0},
       smooth=Smooth.None));
   end if;
@@ -150,7 +150,8 @@ equation
     color={191,0,0}));
   connect(floorRC.port_a, floorIndoorSurface)
     annotation (Line(points={{-12,-137.091},{-12,-137.091},{-12,-132},{-80,-132},
-    {-80,-180}}, color={191,0,0}));
+          {-80,-180}},
+                 color={191,0,0}));
   annotation (defaultComponentName="thermZone",
   Diagram(coordinateSystem(
     extent={{-240,-180},{240,180}},

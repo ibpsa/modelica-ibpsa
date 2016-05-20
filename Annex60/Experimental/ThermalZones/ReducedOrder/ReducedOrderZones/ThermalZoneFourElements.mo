@@ -127,8 +127,8 @@ equation
     6},{-54,6},{-54,132},{-12,132},{-12,130}}, color={191,0,0}));
   if not ATotExt > 0 and not ATotWin > 0 and not AInt > 0 and not AFloor > 0
     and ARoof > 0 then
-    connect(thermSplitterIntGains.signalOutput[1], roofRC.port_a);
-    connect(roofRC.port_a, thermSplitterSolRad.signalOutput[1]);
+    connect(thermSplitterIntGains.portOut[1], roofRC.port_a);
+    connect(roofRC.port_a, thermSplitterSolRad.portOut[1]);
   elseif ATotExt > 0 and not ATotWin > 0 and not AInt > 0 and not AFloor > 0
     and ARoof > 0
      or not ATotExt > 0 and ATotWin > 0 and not AInt > 0 and not AFloor > 0
@@ -137,8 +137,8 @@ equation
      and ARoof > 0
      or not ATotExt > 0 and not ATotWin > 0 and not AInt > 0 and AFloor > 0
      and ARoof > 0 then
-    connect(thermSplitterIntGains.signalOutput[2], roofRC.port_a);
-    connect(roofRC.port_a, thermSplitterSolRad.signalOutput[2]);
+    connect(thermSplitterIntGains.portOut[2], roofRC.port_a);
+    connect(roofRC.port_a, thermSplitterSolRad.portOut[2]);
   elseif ATotExt > 0 and ATotWin > 0 and not AInt > 0 and not AFloor > 0 and ARoof > 0
      or ATotExt > 0 and not ATotWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0
      or ATotExt > 0 and not ATotWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
@@ -146,20 +146,20 @@ equation
      or not ATotExt > 0 and ATotWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
      or not ATotExt > 0 and not ATotWin > 0 and AInt > 0 and AFloor > 0
      and ARoof > 0 then
-    connect(thermSplitterIntGains.signalOutput[3], roofRC.port_a);
-    connect(roofRC.port_a, thermSplitterSolRad.signalOutput[3]);
+    connect(thermSplitterIntGains.portOut[3], roofRC.port_a);
+    connect(roofRC.port_a, thermSplitterSolRad.portOut[3]);
   elseif not ATotExt > 0 and ATotWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0
      or ATotExt > 0 and not ATotWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0
      or ATotExt > 0 and ATotWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
      or ATotExt > 0 and ATotWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0 then
-    connect(thermSplitterIntGains.signalOutput[4], roofRC.port_a);
-    connect(roofRC.port_a, thermSplitterSolRad.signalOutput[4]);
+    connect(thermSplitterIntGains.portOut[4], roofRC.port_a);
+    connect(roofRC.port_a, thermSplitterSolRad.portOut[4]);
   elseif ATotExt > 0 and ATotWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0 then
-    connect(thermSplitterSolRad.signalOutput[5], roofRC.port_b)
+    connect(thermSplitterSolRad.portOut[5], roofRC.port_b)
     annotation (Line(
-    points={{-136,146},{-88,146},{-38,146},{-38,142},{-12,142},{-12,144}},
+    points={{-122,146},{-122,146},{-38,146},{-38,142},{-12,142},{-12,144}},
     color={191,0,0}));
-    connect(thermSplitterIntGains.signalOutput[5], roofRC.port_b)
+    connect(thermSplitterIntGains.portOut[5], roofRC.port_b)
     annotation (Line(points={{190,86},{190,86},{190,138},{-12,138},{-12,144}},
     color={191,0,0}));
   end if;

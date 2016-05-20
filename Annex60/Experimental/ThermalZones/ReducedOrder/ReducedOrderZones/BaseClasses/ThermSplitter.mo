@@ -6,19 +6,18 @@ model ThermSplitter "A simple model which weights a given set of thermal inputs
   parameter Integer nIn "Number of splitter inputs";
   parameter Real splitFactor[nOut, nIn]= fill(1/nOut, nOut, nIn)
     "Matrix of split factor for outputs (between 0 and 1 for each row)";
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a signalInput[nIn]
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portIn[nIn]
     "Single thermal input"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a signalOutput[nOut]
-    "Set of thermal outputs"
-    annotation (Placement(transformation(extent={{80,-20},{120,20}}),
-        iconTransformation(extent={{80,-20},{120,20}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portOut[nOut]
+    "Set of thermal outputs" annotation (Placement(transformation(extent={{80,-20},
+            {120,20}}), iconTransformation(extent={{80,-20},{120,20}})));
 
 equation
-  signalOutput.Q_flow = - signalInput.Q_flow * transpose(splitFactor)
+  portOut.Q_flow = - portIn.Q_flow * transpose(splitFactor)
     "Connecting the output vector according to desired dimension";
 
-  signalInput.T = signalOutput.T * splitFactor
+  portIn.T = portOut.T * splitFactor
     "Equivalent building temperature rerouted to SignalInput";
 
   annotation (defaultComponentName="theSpl",Diagram(coordinateSystem(
