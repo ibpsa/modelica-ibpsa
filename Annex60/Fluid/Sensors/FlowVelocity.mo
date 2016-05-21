@@ -81,7 +81,7 @@ annotation (defaultComponentName="senVolFlo",
         Text(
           extent={{160,120},{0,90}},
           lineColor={0,0,0},
-          textString="V_flow"),
+          textString="velocity"),
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
         Line(points={{70,0},{100,0}}, color={0,128,255})}),
@@ -96,6 +96,17 @@ volumetric flow rate is computed using a first order differential equation.
 Setting <code>tau=0</code> is <i>not</i> recommend. See
 <a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
 Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+In order to use the flow velocity sensor, the cross sectional area of the flow
+channel <code>crossSection</code> must be specified in <code>m**2</code>. For a
+circular flow channel (e.g. a round pipe) of diameter <code>diameter</code>, the
+cross sectional area can be specified as <code>crossSection = diameter *
+diameter / 4 * Modelica.Constants.pi</code>. See <a
+href=\"modelica://Annex60.Fluid.Sensors.Examples.FlowVelocity\">
+Annex60.Fluid.Sensors.Examples.FlowVelocity</a> for an example implementation
+with <code>diameter = 0.1</code>.
 </p>
 </html>", revisions="<html>
 <ul>

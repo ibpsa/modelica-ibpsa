@@ -5,7 +5,7 @@ model FlowVelocity "Test model for the flow velocity sensor"
 
   package Medium = Annex60.Media.Air "Medium model";
 
-  parameter Modelica.SIunits.Area crossSection = 0.1
+  parameter Modelica.SIunits.Area crossSection = 0.1*0.1/4*Modelica.Constants.pi
     "Cross sectional area of flow channel";
 
   Annex60.Fluid.Sources.Boundary_pT sin(
@@ -24,8 +24,8 @@ model FlowVelocity "Test model for the flow velocity sensor"
 
   Modelica.Blocks.Sources.Ramp ramp(
     duration=60,
-    height=-6,
-    offset=3) "Signal for mass flow rate"
+    height=-0.2,
+    offset=0.1) "Signal for mass flow rate"
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
   Annex60.Fluid.Sensors.FlowVelocity   senDyn(
     redeclare package Medium = Medium,
