@@ -5,6 +5,8 @@ model UCPipeB02AD_MSL_Temperature
   extends Modelica.Icons.Example;
 
   package Medium = Annex60.Media.Water;
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.9
+    "Nominal mass flow rate";
 
   parameter Modelica.SIunits.Pressure dp_test = 200
     "Differential pressure for the test used in ramps";
@@ -31,10 +33,10 @@ model UCPipeB02AD_MSL_Temperature
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,50},{-98,70}})));
   Fluid.Sensors.TemperatureTwoPort TempSink(redeclare package Medium = Medium,
-      m_flow_nominal=0.5) "Temperature at the pipe's sink side"
+      m_flow_nominal=m_flow_nominal) "Temperature at the pipe's sink side"
     annotation (Placement(transformation(extent={{56,20},{76,40}})));
   Fluid.Sensors.TemperatureTwoPort TempSource(redeclare package Medium = Medium,
-      m_flow_nominal=0.5) "Temperature at the pipe's source side"
+      m_flow_nominal=m_flow_nominal) "Temperature at the pipe's source side"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Fluid.Pipes.DynamicPipe pipeMSL(
     nNodes=10,
@@ -62,7 +64,7 @@ model UCPipeB02AD_MSL_Temperature
     amplitude=5,
     offset=273.15 + 55,
     freqHz=0.0005) "Constant supply temperature signal"
-    annotation (Placement(transformation(extent={{-118,0},{-98,20}})));
+    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
 equation
   connect(PAtm.y,sink. p_in)
                             annotation (Line(points={{147,76},{154,76},{154,36},
@@ -95,7 +97,7 @@ equation
   connect(pressureSignal.y[1], gain.u)
     annotation (Line(points={{-170,79},{-170,54},{-162,54}}, color={0,0,127}));
   connect(source.T_in, constTemp.y) annotation (Line(points={{-90,32},{-94,32},
-          {-94,10},{-97,10}}, color={0,0,127}));
+          {-94,10},{-99,10}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>This use case aims at demonstrating the behavior of the pipe with flow reversals
 and varying temperatures. It is similar to <em>UCPipeB01</em>, with the addition of
