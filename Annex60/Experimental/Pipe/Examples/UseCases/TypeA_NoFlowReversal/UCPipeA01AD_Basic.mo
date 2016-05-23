@@ -43,12 +43,12 @@ model UCPipeA01AD_Basic "Demonstrating basic functionality of pipe model"
   Fluid.Sensors.TemperatureTwoPort TempSource(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Temperature at the pipe's source side"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  PipeAdiabaticPlugFlow            pipeMSL(
+  PipeAdiabaticPlugFlow pipeAd(
     redeclare package Medium = Medium,
     length=100,
     diameter=0.1,
     m_flow_small=1e-4,
-    m_flow_nominal=m_flow_nominal) "Dynamic pipe from MSL for reference test"
+    m_flow_nominal=m_flow_nominal) "Dynamic pipe adiabatic"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 equation
   connect(PAtm.y,sink. p_in)
@@ -81,9 +81,9 @@ equation
       smooth=Smooth.None));
   connect(PAtm.y, add.u1) annotation (Line(points={{147,76},{154,76},{154,100},{
           -128,100},{-128,66},{-120,66}}, color={0,0,127}));
-  connect(TempSource.port_b, pipeMSL.port_a)
+  connect(TempSource.port_b, pipeAd.port_a)
     annotation (Line(points={{-40,30},{0,30}}, color={0,127,255}));
-  connect(pipeMSL.port_b, TempSink.port_a)
+  connect(pipeAd.port_b, TempSink.port_a)
     annotation (Line(points={{20,30},{56,30}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>This use case aims at demonstrating most basic functionalities of the pipe

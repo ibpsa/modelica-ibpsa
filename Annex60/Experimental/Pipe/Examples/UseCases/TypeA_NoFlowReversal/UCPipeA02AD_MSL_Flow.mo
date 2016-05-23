@@ -5,6 +5,8 @@ model UCPipeA02AD_MSL_Flow
   extends Modelica.Icons.Example;
 
   package Medium = Annex60.Media.Water;
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.9
+    "Nominal mass flow rate";
 
   parameter Modelica.SIunits.Pressure dp_test = 200
     "Differential pressure for the test used in ramps";
@@ -32,17 +34,17 @@ model UCPipeA02AD_MSL_Flow
     "Constant supply temperature signal"
     annotation (Placement(transformation(extent={{-118,0},{-98,20}})));
   Modelica.Blocks.Sources.Sine varyDP(
-    freqHz=0.05,
     amplitude=dp_test/2,
-    offset=dp_test/2) "Add pressure difference between source and sink"
+    offset=dp_test/2,
+    freqHz=0.005) "Add pressure difference between source and sink"
     annotation (Placement(transformation(extent={{-156,30},{-136,50}})));
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,50},{-98,70}})));
   Fluid.Sensors.TemperatureTwoPort TempSink(redeclare package Medium = Medium,
-      m_flow_nominal=0.5) "Temperature at the pipe's sink side"
+      m_flow_nominal=m_flow_nominal) "Temperature at the pipe's sink side"
     annotation (Placement(transformation(extent={{56,20},{76,40}})));
   Fluid.Sensors.TemperatureTwoPort TempSource(redeclare package Medium = Medium,
-      m_flow_nominal=0.5) "Temperature at the pipe's source side"
+      m_flow_nominal=m_flow_nominal) "Temperature at the pipe's source side"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Fluid.Pipes.DynamicPipe pipeMSL(
     nNodes=10,

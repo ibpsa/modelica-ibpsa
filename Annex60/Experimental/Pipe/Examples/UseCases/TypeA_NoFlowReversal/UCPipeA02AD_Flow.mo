@@ -1,6 +1,5 @@
 within Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal;
-model UCPipeA03AD_MSL_Temperature
-  "Demonstrating pipe model for varying temperatures"
+model UCPipeA02AD_Flow "Demonstrating pipe model with varying flow velocities"
 
   extends Modelica.Icons.Example;
 
@@ -30,14 +29,13 @@ model UCPipeA03AD_MSL_Temperature
   Fluid.Sensors.MassFlowRate         masFloSer(redeclare package Medium =
         Medium) "Mass flow rate sensor for the two pipes in series"
     annotation (Placement(transformation(extent={{88,20},{108,40}})));
-  Modelica.Blocks.Sources.Ramp     constTemp(
-    offset=273.15,
-    duration=800,
-    startTime=100,
-    height=129) "Constant supply temperature signal"
+  Modelica.Blocks.Sources.Constant constTemp(k=273.15 + 60)
+    "Constant supply temperature signal"
     annotation (Placement(transformation(extent={{-118,0},{-98,20}})));
-  Modelica.Blocks.Sources.Constant constDP(k=dp_test)
-    "Add pressure difference between source and sink"
+  Modelica.Blocks.Sources.Sine varyDP(
+    amplitude=dp_test/2,
+    offset=dp_test/2,
+    freqHz=0.005) "Add pressure difference between source and sink"
     annotation (Placement(transformation(extent={{-156,30},{-136,50}})));
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,50},{-98,70}})));
@@ -47,18 +45,13 @@ model UCPipeA03AD_MSL_Temperature
   Fluid.Sensors.TemperatureTwoPort TempSource(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Temperature at the pipe's source side"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Fluid.Pipes.DynamicPipe pipeMSL(
-    nNodes=10,
+  PipeAdiabaticPlugFlow pipeAd(
     redeclare package Medium = Medium,
     length=100,
     diameter=0.1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    flowModel(
-    m_flow_small =         1e-4),
-    T_start=293.15) "Dynamic pipe from MSL for reference test"
+    m_flow_small=1e-4,
+    m_flow_nominal=m_flow_nominal) "Dynamic pipe adiabatic"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  inner Modelica.Fluid.System system "System for MSL pipe model"
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
 equation
   connect(PAtm.y,sink. p_in)
                             annotation (Line(points={{147,76},{154,76},{154,36},
@@ -72,7 +65,7 @@ equation
       points={{-97,10},{-90,10},{-90,32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(constDP.y, add.u2) annotation (Line(
+  connect(varyDP.y, add.u2) annotation (Line(
       points={{-135,40},{-128,40},{-128,54},{-120,54}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -90,35 +83,18 @@ equation
       smooth=Smooth.None));
   connect(PAtm.y, add.u1) annotation (Line(points={{147,76},{154,76},{154,100},{
           -128,100},{-128,66},{-120,66}}, color={0,0,127}));
-  connect(TempSource.port_b, pipeMSL.port_a)
+  connect(TempSource.port_b, pipeAd.port_a)
     annotation (Line(points={{-40,30},{0,30}}, color={0,127,255}));
-  connect(pipeMSL.port_b, TempSink.port_a)
+  connect(pipeAd.port_b, TempSink.port_a)
     annotation (Line(points={{20,30},{56,30}}, color={0,127,255}));
   annotation (Documentation(info="<html>
-<p>This use case aims at demonstrating the functionality of the pipe with varying
-temperatures. The pressure difference between <code>source</code> and <code>sink</code> is kept
-constant.The supply temperature is varied as a ramp function between 0 and 129
-degC, as the current <em>Annex60</em> media implementation does not allow temperatures
-higher than 130 degC.</p>
-<p>The pipe model should simulate successfully over the whole temperature range. In
-the case with heat losses taken into account, higher temperatures should lead to
-higher heat losses.</p>
-<h4 id=\"typical-use-and-important-parameters\">Typical use and important parameters</h4>
-<p>The maximum pressure difference between <code>source</code> and <code>sink</code> can be adjusted via
-the <code>dp_test</code> variable.</p>
-<h4 id=\"implementation\">Implementation</h4>
-<p>In order for the MSL pipe model to check <code>True</code> in pedantic mode and simulate
-without warnings, the following modifications have been added:</p>
-<ul>
-<li><code>energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial</code> to fix the initial
-temperature values</li>
-<li><code>flowModel(m_flow_small = 1e-4)</code> and <code>T_start=293.15</code> to avoid Dymola errors
-regarding circular references for the start temperature and <code>m_flow_small</code> via
-the <code>system</code> component</li>
-</ul>
+<p>This use case aims at demonstrating the functionality of the pipe with varying flow velocities. The pressure difference between <code><span style=\"font-family: Courier New,courier;\">source</span></code> and <code><span style=\"font-family: Courier New,courier;\">sink</span></code> is varied as a sine function. The supply temperature at <code><span style=\"font-family: Courier New,courier;\">source</span></code> is kept constant.</p>
+<p>The pipe model should vary mass flows according to the pressure states at both its ends, with larger pressure differences leading to higher mass flow rates.</p>
+<p><b><a name=\"typical-use-and-important-parameters\">T</a>ypical use and important parameters</b></p>
+<p>The maximum pressure difference between <code><span style=\"font-family: Courier New,courier;\">source</span></code> and <code><span style=\"font-family: Courier New,courier;\">sink</span></code> can be adjusted via the <code><span style=\"font-family: Courier New,courier;\">dp_test</span></code> variable.</p>
 </html>", revisions="<html>
 <ul>
-<li>May 18, 2016 by Marcus Fuchs: <br>
+<li>May 23, 2016 by Marcus Fuchs: <br>
 First implementation</li>
 </ul>
 </html>"),
@@ -127,4 +103,4 @@ First implementation</li>
     Icon(coordinateSystem(extent={{-180,-120},{180,120}})),
     experiment(StopTime=3000, Interval=1),
     __Dymola_experimentSetupOutput);
-end UCPipeA03AD_MSL_Temperature;
+end UCPipeA02AD_Flow;

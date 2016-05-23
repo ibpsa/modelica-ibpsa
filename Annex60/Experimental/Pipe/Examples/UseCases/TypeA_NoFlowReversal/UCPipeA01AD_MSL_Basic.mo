@@ -4,6 +4,8 @@ model UCPipeA01AD_MSL_Basic "Demonstrating basic functionality of pipe model"
   extends Modelica.Icons.Example;
 
   package Medium = Annex60.Media.Water;
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.9
+    "Nominal mass flow rate";
 
   parameter Modelica.SIunits.Pressure dp_test = 200
     "Differential pressure for the test used in ramps";
@@ -36,10 +38,10 @@ model UCPipeA01AD_MSL_Basic "Demonstrating basic functionality of pipe model"
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,50},{-98,70}})));
   Fluid.Sensors.TemperatureTwoPort TempSink(redeclare package Medium = Medium,
-      m_flow_nominal=0.5) "Temperature at the pipe's sink side"
+      m_flow_nominal=m_flow_nominal) "Temperature at the pipe's sink side"
     annotation (Placement(transformation(extent={{56,20},{76,40}})));
   Fluid.Sensors.TemperatureTwoPort TempSource(redeclare package Medium = Medium,
-      m_flow_nominal=0.5) "Temperature at the pipe's source side"
+      m_flow_nominal=m_flow_nominal) "Temperature at the pipe's source side"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Fluid.Pipes.DynamicPipe pipeMSL(
     nNodes=10,
