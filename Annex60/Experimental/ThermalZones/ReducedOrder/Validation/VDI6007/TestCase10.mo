@@ -17,16 +17,16 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     AWin={0},
     ATransparent={7},
     AExt={28},
-    alphaExt=1.866666666,
-    RExt={0.001719576},
     RExtRem=0.011638548,
-    CExt={4338700},
     alphaInt=2.398275862,
-    RInt={0.000779929},
-    CInt={12334000},
-    extWallRC(thermCapExt(each der_T(fixed=true))),
+    RExt={0.00171957697767797},
+    CExt={4338751.41},
+    RInt={0.000779671554640369},
+    CInt={12333949.4129606},
+    alphaExt=2.075,
+    intWallRC(thermCapInt(each T(fixed=true))),
     T_start=290.75,
-    intWallRC(thermCapInt(each der_T(fixed=true))))
+    extWallRC(thermCapExt(each T(fixed=true))))
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     "Outdoor air temperature"
