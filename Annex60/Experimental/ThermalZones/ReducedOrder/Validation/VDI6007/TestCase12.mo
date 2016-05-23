@@ -26,10 +26,10 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     AWin={0},
     ATransparent={7},
     AExt={10.5},
-    extWallRC(thermCapExt(each der_T(fixed=true))),
-    intWallRC(thermCapInt(each der_T(fixed=true))),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=295.15) "Thermal zone"
+    T_start=295.15,
+    extWallRC(thermCapExt(each T(fixed=true))),
+    intWallRC(thermCapInt(each T(fixed=true)))) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     "Outdoor air temperature"

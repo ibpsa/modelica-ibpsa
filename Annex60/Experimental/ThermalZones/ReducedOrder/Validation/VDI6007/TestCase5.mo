@@ -24,9 +24,9 @@ model TestCase5 "VDI 6007 Test Case 5 model"
     AWin={0},
     ATransparent={7},
     AExt={10.5},
-    extWallRC(thermCapExt(each der_T(fixed=true))),
+    extWallRC(thermCapExt(each T(fixed=true))),
     T_start=295.15,
-    intWallRC(thermCapInt(each der_T(fixed=true)))) "Thermal zone"
+    intWallRC(thermCapInt(each T(fixed=true)))) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     "Outdoor air temperature"
