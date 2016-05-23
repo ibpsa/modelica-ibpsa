@@ -100,11 +100,11 @@ Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
 <h4>Typical use and important parameters</h4>
 <p>
 In order to use the flow velocity sensor, the cross sectional area of the flow
-channel <code>crossSection</code> must be specified in <code>m**2</code>. For a
+channel <code>crossSection</code> must be specified in <code>m<sub>2</sub></code>. For a
 circular flow channel (e.g. a round pipe) of diameter <code>diameter</code>, the
 cross sectional area can be specified as <code>crossSection = diameter *
-diameter / 4 * Modelica.Constants.pi</code>. See <a
-href=\"modelica://Annex60.Fluid.Sensors.Examples.FlowVelocity\">
+diameter / 4 * Modelica.Constants.pi</code>. See
+<a href=\"modelica://Annex60.Fluid.Sensors.Examples.FlowVelocity\">
 Annex60.Fluid.Sensors.Examples.FlowVelocity</a> for an example implementation
 with <code>diameter = 0.1</code>.
 </p>
