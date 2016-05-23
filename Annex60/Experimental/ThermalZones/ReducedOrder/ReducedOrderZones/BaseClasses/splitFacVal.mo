@@ -50,7 +50,7 @@ algorithm
   <code>AExt</code> and <code>AWin</code>. The function is used to
   calculate the split factors for
   <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.ThermSplitter\">
-  Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.ThermSplitter</a>.
+  Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.ThermSplitter</a>.</p>
   For internal gains, the calculation is:
   <p align=\"center\" style=\"font-style:italic;\">
  SplitFac<sub>i</sub> = AArray[i]

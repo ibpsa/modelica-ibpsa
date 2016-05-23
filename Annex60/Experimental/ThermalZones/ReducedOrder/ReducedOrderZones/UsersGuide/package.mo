@@ -17,8 +17,8 @@ and lack of data availability
 justify simpler models. However, this package allows users to
 choose between models with one to four wall elements, and to define the
 number of RC-elements per wall for each wall. The latter can be done by setting
-<i>n<sub>k </i></sub>, which is the length of the vectors for resistances
-<i>R<sub>k</i></sub> and capacitances <i>C<sub>k</i></sub>).
+<i>n<sub>k</sub></i>, which is the length of the vectors for resistances
+<i>R<sub>k</sub></i> and capacitances <i>C<sub>k</sub></i>).
 </p>
 <p>
 All models within this package are based on thermal networks and use chains
@@ -97,7 +97,7 @@ simplify modelling as well as the system&apos;s numerics:</p>
 Instead of using Stefan&apos;s Law for radiation exchange
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q = &epsilon; &sigma; (T<sub>1<sup>4</sub></sup> - T<sub>2<sup>4</sub></sup>)
+Q = &epsilon; &sigma; (T<sub>1<sup>4</sup></sub> - T<sub>2<sup>4</sup></sub>)
 </p>
 <p>,
 the models use a linearized approach
@@ -111,7 +111,7 @@ the radiative heat transfer coefficient
 <i>&alpha;<sub>rad</sub></i> is often set to
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&alpha;<sub>rad</sub> = 4 &epsilon; &sigma; T<sub>m<sup>3</sup>
+&alpha;<sub>rad</sub> = 4 &epsilon; &sigma; T<sub>m<sup>3</sup></sub>
 </p>
 <p>
 where <i>T<sub>m</sub></i>
