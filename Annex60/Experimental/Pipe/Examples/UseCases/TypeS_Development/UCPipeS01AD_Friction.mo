@@ -147,7 +147,6 @@ case, it is kept constant.</p>
 the <code>dp_test</code> variable.</p>
 <h4 id=\"current-issues\">Current issues</h4>
 <ul>
-<li>The pipe model causes errors in pedantic mode: <pre class=\"editor-colors lang-text\"><div class=\"line\"><span class=\"text plain\"><span class=\"meta paragraph text\"><span>Using&nbsp;conditionally&nbsp;enabled&nbsp;variable&nbsp;V_flow&nbsp;outside&nbsp;of&nbsp;connect.</span></span></span></div></pre></li>
 <li>Initial conditions are not fully specified</li>
 <li>There are differences in the mass flow rates between the single pipe and the 
 serial pipes </li>

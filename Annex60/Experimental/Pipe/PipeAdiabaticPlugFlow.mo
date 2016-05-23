@@ -142,6 +142,6 @@ equation
 <p>First implementation of an adiabatic pipe using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. The temperature propagation is handled by the PipeLosslessPlugFlow component.</p>
 <p>This component includes water volumes at the in- and outlet to account for the thermal capacity of the pipe walls. Logically, each volume should contain half of the pipe&apos;s real water volume. However, this leads to an overestimation, probably because only part of the pipe is affected by temperature changes (see Benonysson, 1991). The ratio of the pipe to be included in the thermal capacity is to be investigated further. </p>
 <p><b><a name=\"current-issues\">C</a>urrent issues</b></p>
-<p>Model causes errors in pedantic mode as shown in <a href=\"modelica://Annex60.Experimental.Pipe.Examples.UseCases.TypeS_Development.UCPipeS01AD_Friction\">Annex60.Experimental.Pipe.Examples.UseCases.TypeS_Development.UCPipeS01AD_Friction</a> </p>
+<p>For the same length and diameter, there is a significant difference between the mass flow rate with this model and the MSL pipe model (see <a href=\"modelica://Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal.UCPipeA01AD_Basic\">Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal.UCPipeA01AD_Basic</a>)</p>
 </html>"));
 end PipeAdiabaticPlugFlow;
