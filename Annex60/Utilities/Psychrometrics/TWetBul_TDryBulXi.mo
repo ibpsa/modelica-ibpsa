@@ -158,10 +158,6 @@ For a model that takes the relative humidity instead of the mass fraction as an 
 <a href=\"modelica://Annex60.Utilities.Psychrometrics.TWetBul_TDryBulPhi\">
 Annex60.Utilities.Psychrometrics.TWetBul_TDryBulPhi</a>.
 </p>
-<p>
-For a use of this model, see for example
-<a href=\"modelica://Annex60.Fluid.Sensors.WetBulbTemperature\">Annex60.Fluid.Sensors.WetBulbTemperature</a>
-</p>
 <h4>References</h4>
 <p>
 Stull, Roland.
@@ -180,6 +176,11 @@ May 24, 2016, by Filip Jorissen:<br/>
 Corrected exact implementation. 
 See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">#474</a> 
 for a discussion.
+</li>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
 </li>
 <li>
 November 17, 2014, by Michael Wetter:<br/>
