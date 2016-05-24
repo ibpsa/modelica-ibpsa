@@ -16,18 +16,18 @@ model ExteriorWall "Exterior wall consisting of variable number of RC elements"
   parameter Modelica.SIunits.Temperature T_start
     "Initial temperature of capacitances"
     annotation(Dialog(group="Thermal mass"));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermResExt[n](
-    R=RExt) "vector of thermal resistors connecting port_a and capacitors"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermResExtRem(
-    R=RExtRem) "single thermal resistor connecting least capacitor to port_b"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a "interior port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
     iconTransformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b "exterior port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
     iconTransformation(extent={{90,-10},{110,10}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermResExt[n](
+    R=RExt) "vector of thermal resistors connecting port_a and capacitors"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermResExtRem(
+    R=RExtRem) "single thermal resistor connecting least capacitor to port_b"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor thermCapExt[n](
     C=CExt, each T(start=T_start)) "vector of thermal capacitors"
     annotation (Placement(transformation(extent={{-10,-12},{10,-32}})));

@@ -73,6 +73,24 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     "Additional heat port at indoor surface of exterior walls"
     annotation(Dialog(group="Exterior walls"),choices(checkBox = true));
 
+protected
+  parameter Modelica.SIunits.Area ATot=sum(AArray) "Sum of wall surface areas";
+  parameter Modelica.SIunits.Area ATotExt=sum(AExt)
+    "Sum of exterior wall surface areas";
+  parameter Modelica.SIunits.Area ATotWin=sum(AWin)
+    "Sum of window surface areas";
+  parameter Modelica.SIunits.Area[:] AArray = {ATotExt, ATotWin}
+    "List of all wall surface areas";
+  parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray})
+    "Number of non-zero wall surface areas";
+  parameter Real splitFactor[dimension, 1]=
+    BaseClasses.splitFacVal(dimension, 1, AArray, fill(0, 1), fill(0, 1))
+    "Share of each wall surface area that is non-zero";
+  parameter Real splitFactorSolRad[dimension, nOrientations]=
+    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin) "Share of each wall surface area that is non-zero, for each orientation
+    seperately";
+
+public
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
     redeclare package Medium = Medium)
     "Auxilliary fluid inlets and outlets to indoor air volume"
@@ -90,6 +108,34 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     annotation (Placement(transformation(
     extent={{-252,-50},{-232,-30}}), iconTransformation(extent={{-252,-50},{
     -232,-30}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a window if ATotWin > 0
+    "Ambient port for windows"
+    annotation (Placement(transformation(extent={{-252,30},{-232,50}}),
+    iconTransformation(extent={{-252,30},{-232,50}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsConv if
+    ATot > 0 or VAir > 0 "Auxilliary port for internal convective gains"
+    annotation (Placement(
+    transformation(extent={{230,30},{250,50}}), iconTransformation(extent={{230,30},
+    {250,50}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsRad if ATot > 0
+    "Auxilliary port for internal radiative gains"
+    annotation (Placement(
+    transformation(extent={{232,70},{252,90}}),
+    iconTransformation(extent={{232,70},{252,90}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a windowIndoorSurface if
+    indoorPortWin "Auxilliary port at indoor surface of windows"
+    annotation (Placement(transformation(extent={{-210,-190},{-190,-170}}),
+    iconTransformation(extent={{-210,-190},{-190,-170}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWallIndoorSurface if
+    indoorPortExtWalls "Auxilliary port at indoor surface of exterior walls"
+    annotation (Placement(
+    transformation(extent={{-170,-190},{-150,-170}}), iconTransformation(
+    extent={{-170,-190},{-150,-170}})));
 
   Modelica.Blocks.Interfaces.RealInput solRad[nOrientations](
     final quantity="RadiantEnergyFluenceRate",
@@ -112,23 +158,6 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     annotation (Placement(transformation(extent={{240,110},{260,130}}),
     iconTransformation(extent={{240,110},{260,130}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a windowIndoorSurface if
-    indoorPortWin "Auxilliary port at indoor surface of windows"
-    annotation (Placement(transformation(extent={{-210,-190},{-190,-170}}),
-    iconTransformation(extent={{-210,-190},{-190,-170}})));
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWallIndoorSurface if
-    indoorPortExtWalls "Auxilliary port at indoor surface of exterior walls"
-    annotation (Placement(
-    transformation(extent={{-170,-190},{-150,-170}}), iconTransformation(
-    extent={{-170,-190},{-150,-170}})));
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsRad if ATot > 0
-    "Auxilliary port for internal radiative gains"
-    annotation (Placement(
-    transformation(extent={{232,70},{252,90}}),
-    iconTransformation(extent={{232,70},{252,90}})));
-
   Fluid.MixingVolumes.MixingVolume volAir(
     redeclare final package Medium = Medium,
     final nPorts=nPorts,
@@ -144,20 +173,9 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     final C_start=C_start) if VAir > 0 "Indoor air volume"
     annotation (Placement(transformation(extent={{38,-10},{18,10}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsConv if
-    ATot > 0 or VAir > 0 "Auxilliary port for internal convective gains"
-    annotation (Placement(
-    transformation(extent={{230,30},{250,50}}), iconTransformation(extent={{230,30},
-    {250,50}})));
-
   Modelica.Thermal.HeatTransfer.Components.Convection convExtWall if ATotExt > 0
     "Convective heat transfer of exterior walls"
     annotation (Placement(transformation(extent={{-114,-30},{-94,-50}})));
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a window if ATotWin > 0
-    "Ambient port for windows"
-    annotation (Placement(transformation(extent={{-252,30},{-232,50}}),
-    iconTransformation(extent={{-252,30},{-232,50}})));
 
   Modelica.Blocks.Sources.Constant alphaExtWallConst(k=ATotExt*alphaExt) if ATotExt > 0
     "Coefficient of convective heat transfer for exterior walls"
@@ -245,22 +263,6 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
   Modelica.Blocks.Math.Sum sumSolRad(nin=nOrientations) if
     ratioWinConRad > 0 "Sums up solar radiation from different directions"
     annotation (Placement(transformation(extent={{-186,118},{-174,130}})));
-protected
-  parameter Modelica.SIunits.Area ATot=sum(AArray) "Sum of wall surface areas";
-  parameter Modelica.SIunits.Area ATotExt=sum(AExt)
-    "Sum of exterior wall surface areas";
-  parameter Modelica.SIunits.Area ATotWin=sum(AWin)
-    "Sum of window surface areas";
-  parameter Modelica.SIunits.Area[:] AArray = {ATotExt, ATotWin}
-    "List of all wall surface areas";
-  parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray})
-    "Number of non-zero wall surface areas";
-  parameter Real splitFactor[dimension, 1]=
-    BaseClasses.splitFacVal(dimension, 1, AArray, fill(0, 1), fill(0, 1))
-    "Share of each wall surface area that is non-zero";
-  parameter Real splitFactorSolRad[dimension, nOrientations]=
-    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin) "Share of each wall surface area that is non-zero, for each orientation
-    seperately";
 equation
   connect(volAir.ports, ports)
     annotation (Line(

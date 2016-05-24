@@ -25,6 +25,15 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
   parameter Boolean indoorPortFloor = false
     "Additional heat port at indoor surface of floor plate"
     annotation(Dialog(group="Floor plate"),choices(checkBox = true));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a floor if  AFloor > 0
+    "Ambient port for floor plate"
+    annotation (Placement(transformation(extent={{-10,-190},{10,-170}}),
+    iconTransformation(extent={{-10,-190},{10,-170}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a floorIndoorSurface if
+    indoorPortFloor "Auxilliary port at indoor surface of floor plate"
+    annotation (Placement(
+    transformation(extent={{-90,-190},{-70,-170}}), iconTransformation(
+    extent={{-90,-190},{-70,-170}})));
   BaseClasses.ExteriorWall floorRC(
     n=nFloor,
     RExt=RFloor,
@@ -63,10 +72,6 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
     extent={{-10,-10},{10,10}},
     rotation=0,
     origin={204,-106})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a floor if  AFloor > 0
-    "Ambient port for floor plate"
-    annotation (Placement(transformation(extent={{-10,-190},{10,-170}}),
-    iconTransformation(extent={{-10,-190},{10,-170}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resFloorWin(
    G=min(ATotWin, AFloor)*alphaRad) if  ATotWin > 0 and AFloor > 0
     "Resistor between floor plate and windows"
@@ -75,11 +80,6 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
     extent={{-10,-10},{10,10}},
     rotation=-90,
     origin={-80,-110})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a floorIndoorSurface if
-    indoorPortFloor "Auxilliary port at indoor surface of floor plate"
-    annotation (Placement(
-    transformation(extent={{-90,-190},{-70,-170}}), iconTransformation(
-    extent={{-90,-190},{-70,-170}})));
 equation
   connect(floorRC.port_a, convFloor.solid)
     annotation (Line(
