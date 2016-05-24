@@ -4,7 +4,7 @@ model FlowVelocity "Test model for the flow velocity sensor"
 
   package Medium = Annex60.Media.Air "Medium model";
 
-  parameter Modelica.SIunits.Area crossSection = 0.1*0.1/4*Modelica.Constants.pi
+  parameter Modelica.SIunits.Area A = 0.1*0.1/4*Modelica.Constants.pi
     "Cross sectional area of flow channel";
 
   Annex60.Fluid.Sources.Boundary_pT sin(
@@ -29,15 +29,13 @@ model FlowVelocity "Test model for the flow velocity sensor"
   Annex60.Fluid.Sensors.FlowVelocity   senDyn(
     redeclare package Medium = Medium,
     m_flow_nominal=10,
-    crossSection=crossSection)
-    "Sensor configured to use a dynamic model for the density"
+    A=A) "Sensor configured to use a dynamic model for the density"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Annex60.Fluid.Sensors.FlowVelocity   senSteSta(
     redeclare package Medium = Medium,
     m_flow_nominal=10,
     tau=0,
-    crossSection=crossSection)
-    "Sensor configured to use a steady-state model for the density"
+    A=A) "Sensor configured to use a steady-state model for the density"
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
 equation
   connect(ramp.y, masFloRat.m_flow_in) annotation (Line(
