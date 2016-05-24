@@ -74,7 +74,7 @@ equation
   V_flow = port_a.m_flow/d;
   // Flow velocity
   velocity = V_flow / A;
-annotation (defaultComponentName="senVolFlo",
+annotation (defaultComponentName="senVel",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Text(
