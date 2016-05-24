@@ -103,9 +103,16 @@ initial equation
   </html>",
   revisions="<html>
   <ul>
-  <li><i>October 2014,&nbsp;</i> by Peter Remmen:<br>Implemented.</li>
-  <li><i>September 2015,&nbsp;</i> by Moritz Lauster:<br>Got rid of cardinality
-  and used assert for warnings.<br>Adapted to Annex 60 requirements.</li>
+  <li>
+  September 2015, by Moritz Lauster:<br/>
+  Got rid of cardinality
+  and used assert for warnings.<br/>
+  Adapted to Annex 60 requirements.
+  </li>
+  <li>
+  October 2014, by Peter Remmen:<br/>
+  Implemented.
+  </li>
   </ul>
   </html>"));
 end PartialVDI6007;

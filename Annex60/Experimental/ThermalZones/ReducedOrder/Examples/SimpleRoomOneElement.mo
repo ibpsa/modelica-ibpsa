@@ -258,7 +258,9 @@ equation
   Removed call to <code>Modelica.Utilities.Files.loadResource</code>
   as this did not work for the regression tests.
   </li>
-  <li>February 25, 2016, by Moritz Lauster:<br>Implemented. </li>
+  <li>February 25, 2016, by Moritz Lauster:<br/>
+  Implemented. 
+  </li>
   </ul>
   </html>"),
   experiment(StopTime=3.1536e+007, Interval=3600),

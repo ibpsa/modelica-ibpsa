@@ -75,7 +75,10 @@ equation
   April 27, 2016, by Michael Wetter:<br/>
   Added graphical connections.
   </li>
-  <li>April 17, 2015, by Moritz Lauster:<br>Implemented. </li>
+  <li>
+  April 17, 2015, by Moritz Lauster:<br/>
+  Implemented. 
+  </li>
   </ul>
   </html>"),  Icon(coordinateSystem(preserveAspectRatio=false,  extent=
   {{-100,-100},{100,120}}), graphics={  Rectangle(extent = {{-86, 60}, {-34, 26}},

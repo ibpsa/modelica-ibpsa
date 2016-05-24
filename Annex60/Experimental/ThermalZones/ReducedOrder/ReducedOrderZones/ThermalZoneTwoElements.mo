@@ -123,7 +123,10 @@ equation
     fillPattern=FillPattern.Solid,
     textString="Interior Walls")}), Documentation(revisions="<html>
   <ul>
-  <li>April 18, 2015, by Moritz Lauster:<br>First implementation. </li>
+  <li>
+  April 18, 2015, by Moritz Lauster:<br/>
+  First implementation. 
+  </li>
   </ul>
   </html>", info="<html>
   <p>This model distinguishes between internal

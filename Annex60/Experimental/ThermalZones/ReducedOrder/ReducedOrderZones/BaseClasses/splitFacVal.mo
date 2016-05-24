@@ -88,8 +88,9 @@ algorithm
   </p>
   </html>", revisions="<html>
   <ul>
-  <li>December 15, 2015 by Moritz
-  Lauster:<br>First Implementation. </li>
+  <li>December 15, 2015 by Moritz Lauster:<br/>
+  First Implementation. 
+  </li>
   </ul>
   </html>"));
 end splitFacVal;

@@ -133,7 +133,10 @@ equation
   heating power.</p>
   </html>", revisions="<html>
   <ul>
-  <li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
+  <li>
+  January 11, 2016, by Moritz Lauster:<br/>
+  Implemented. 
+  </li>
   </ul>
   </html>"),
   __Dymola_Commands(file=
