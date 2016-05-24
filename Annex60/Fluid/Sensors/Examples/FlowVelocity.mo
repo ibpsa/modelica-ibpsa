@@ -1,6 +1,5 @@
 within Annex60.Fluid.Sensors.Examples;
 model FlowVelocity "Test model for the flow velocity sensor"
-  import Annex60;
   extends Modelica.Icons.Example;
 
   package Medium = Annex60.Media.Air "Medium model";
