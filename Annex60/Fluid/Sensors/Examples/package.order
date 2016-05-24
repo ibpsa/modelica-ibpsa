@@ -1,6 +1,5 @@
 Density
 EnthalpyFlowRate
-FlowVelocity
 MassFraction
 MoistAirEnthalpyFlowRate
 PPM
@@ -11,4 +10,5 @@ SpecificEntropy
 TemperatureDryBulb
 TemperatureWetBulb
 TraceSubstances
+Velocity
 VolumeFlowRate

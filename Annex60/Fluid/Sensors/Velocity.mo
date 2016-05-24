@@ -1,5 +1,5 @@
 within Annex60.Fluid.Sensors;
-model FlowVelocity "Ideal sensor for flow velocity"
+model Velocity "Ideal sensor for flow velocity"
   extends Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
   parameter Medium.Density
@@ -16,8 +16,7 @@ model FlowVelocity "Ideal sensor for flow velocity"
     "Mass fraction used to compute d_start"
     annotation (Dialog(group="Initialization"));
 
-  parameter Modelica.SIunits.Area crossSection
-    "Cross sectional area of flow channel";
+  parameter Modelica.SIunits.Area A "Cross sectional area of flow channel";
   Modelica.SIunits.VolumeFlowRate V_flow
     "Volume flow rate from port_a to port_b";
   Modelica.Blocks.Interfaces.RealOutput velocity(final quantity="Velocity",
@@ -74,7 +73,7 @@ equation
   // Volume flow rate
   V_flow = port_a.m_flow/d;
   // Flow velocity
-  velocity = V_flow / crossSection;
+  velocity = V_flow / A;
 annotation (defaultComponentName="senVolFlo",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -119,4 +118,4 @@ Annex60.Fluid.Sensors.VolumeFlowRate</a>.
 </li>
 </ul>
 </html>"));
-end FlowVelocity;
+end Velocity;

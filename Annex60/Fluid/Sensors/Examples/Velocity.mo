@@ -1,5 +1,5 @@
 within Annex60.Fluid.Sensors.Examples;
-model FlowVelocity "Test model for the flow velocity sensor"
+model Velocity "Test model for the flow velocity sensor"
   extends Modelica.Icons.Example;
 
   package Medium = Annex60.Media.Air "Medium model";
@@ -26,12 +26,12 @@ model FlowVelocity "Test model for the flow velocity sensor"
     height=-0.2,
     offset=0.1) "Signal for mass flow rate"
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
-  Annex60.Fluid.Sensors.FlowVelocity   senDyn(
+  Annex60.Fluid.Sensors.Velocity senDyn(
     redeclare package Medium = Medium,
     m_flow_nominal=10,
     A=A) "Sensor configured to use a dynamic model for the density"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Annex60.Fluid.Sensors.FlowVelocity   senSteSta(
+  Annex60.Fluid.Sensors.Velocity senSteSta(
     redeclare package Medium = Medium,
     m_flow_nominal=10,
     tau=0,
@@ -51,7 +51,7 @@ equation
       points={{48,0},{60,0}},
       color={0,127,255}));
     annotation (experiment(StopTime=60),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/FlowVelocity.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/Velocity.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -72,4 +72,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FlowVelocity;
+end Velocity;
