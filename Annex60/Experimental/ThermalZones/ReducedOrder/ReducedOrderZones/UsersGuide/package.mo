@@ -77,6 +77,13 @@ shifted reaction of the room temperature to environmental impacts
 (Lauster, Bruentjen <i>et al.</i>, 2014).
 However, the user is free to choose whether keeping windows seperately
 (<code>AWin</code>) or merging them (<code>AExt=AExterior+AWindows, AWin=0</code>).
+ The window areas can be defined seperately for solar 
+radiation (vector <code>ATransparent</code>) and heat transfer 
+(vector <code>AWin</code>). For cases where the windows are kept seperately, 
+<code>ATransparent</code> and <code>AWin</code> are equal. When merging
+windows and exterior walls,  <code>AWin</code> can be set to zero while 
+<code>ATransparent</code> still represents the actual window area for solar 
+radiation calculations.
 The transmission of solar radiation through windows is split up into two parts.
 One part is connected to the indoor radiative heat exchange mesh network using
 a
@@ -84,11 +91,7 @@ a
 Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.ThermSplitter</a>,
 while the other part is directly linked to the convective network. The split
 factor <code>ratioWinConRad </code> is a window property and depends on the
-glazing and used materials. For solar radiation through windows, the vector of areas
-<code>ATransparent</code> is used. In most cases, this should be equal to
-<code>AWin</code>, but there might be cases (e.g. windows are lumped with
-exterior walls and solar radiation is present) where e.g. <code>AWin</code> is
-equal to zero and <code>ATransparent</code> is equal to the actual window areas.</p>
+glazing and used materials.
 <p>Regarding indoor radiative heat exchange, a couple of design decisions
 simplify modelling as well as the system&apos;s numerics:</p>
 <ul>
