@@ -92,6 +92,7 @@ Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.The
 while the other part is directly linked to the convective network. The split
 factor <code>ratioWinConRad </code> is a window property and depends on the
 glazing and used materials.
+</p>
 <p>Regarding indoor radiative heat exchange, a couple of design decisions
 simplify modelling as well as the system&apos;s numerics:</p>
 <ul>
