@@ -30,13 +30,11 @@ model ThermalZoneFourElements "Thermal Zone with four elements for exterior wall
     "ambient port for roof"
       annotation (Placement(transformation(extent={{-22,
       160},{-2,180}}), iconTransformation(extent={{-22,160},{-2,180}})));
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a roofIndoorSurface if
      indoorPortRoof "auxilliary port at indoor surface of roof"
       annotation (Placement(
       transformation(extent={{-50,-190},{-30,-170}}), iconTransformation(
       extent={{-50,-190},{-30,-170}})));
-
   BaseClasses.ExteriorWall roofRC(
     RExt=RRoof,
     RExtRem=RRoofRem,
@@ -61,7 +59,6 @@ model ThermalZoneFourElements "Thermal Zone with four elements for exterior wall
      extent={{-5,-5},{5,5}},
      rotation=180,
      origin={22,120})));
-
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIntRoof(
     G=min(AInt, ARoof)*alphaRad) if
        AInt > 0 and ARoof > 0 "Resistor between interior walls and roof"
@@ -207,10 +204,11 @@ equation
   </html>", info="<html>
   <p>
   This model adds another element for the roof. Roofs commonly
-  exhibit the same excitations as exterior walls but have different coefficients of
-  heat transfer due to their orientation. Adding an extra element for the roof
+  exhibit the same excitations as exterior walls but have different coefficients
+  of heat transfer due to their orientation. Adding an extra element for the roof
   might lead to a finer resolution of the dynamic behaviour but increases
-  calculation times. The roof is parameterized via the length of the RC-chain <code>nRoof</code>,
+  calculation times. The roof is parameterized via the length of the RC-chain
+  <code>nRoof</code>,
   the vector of capacities <code>CRoof[nRoof]</code>, the vector of resistances
   <code>RRoof[nRoof]</code> and remaining resistances <code>RRoofRem</code>.
   </p>

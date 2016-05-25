@@ -209,6 +209,7 @@ model TestCase8 "VDI 6007 Test Case 8 model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{4,-10},{16,2}})));
+    
 equation
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
@@ -329,7 +330,7 @@ equation
   <ul>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
-  Implemented. 
+  Implemented.
   </li>
   </ul>
   </html>"),

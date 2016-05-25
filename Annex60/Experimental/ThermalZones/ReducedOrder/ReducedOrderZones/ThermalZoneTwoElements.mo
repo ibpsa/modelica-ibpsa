@@ -26,7 +26,6 @@ model ThermalZoneTwoElements
     indoorPortIntWalls "Auxilliary port at indoor surface of interior walls"
     annotation (Placement(transformation(extent={{-130,-190},{-110,-170}}),
     iconTransformation(extent={{-130,-190},{-110,-170}})));
-
   BaseClasses.InteriorWall intWallRC(
     n=nInt,
     RInt=RInt,
@@ -50,7 +49,7 @@ model ThermalZoneTwoElements
     G=min(ATotWin, AInt)*alphaRad) if  ATotWin > 0 and AInt > 0
     "Resistor between interior walls and windows"
     annotation (Placement(transformation(extent={{74,-118},{94,-98}})));
-
+    
 equation
   connect(resExtWallIntWall.port_a, convExtWall.solid)
     annotation (Line(
@@ -125,15 +124,15 @@ equation
   <ul>
   <li>
   April 18, 2015, by Moritz Lauster:<br/>
-  First implementation. 
+  First implementation.
   </li>
   </ul>
   </html>", info="<html>
   <p>This model distinguishes between internal
-  thermal masses and exterior walls. While exterior walls contribute to heat transfer
-  to the ambient, adiabatic conditions apply to internal masses. Parameters
-  for the internal wall
-  element are the length of the RC-chain <code>nInt</code>, the vector of the capacities
+  thermal masses and exterior walls. While exterior walls contribute to heat
+  transfer to the ambient, adiabatic conditions apply to internal masses.
+  Parameters for the internal wall element are the length of the RC-chain
+  <code>nInt</code>, the vector of the capacities
   <code>CInt[nInt]</code> and the vector of the resistances <code>RInt[nInt]</code>.
   This approach allows considering the dynamic behaviour induced by internal
   heat storage.

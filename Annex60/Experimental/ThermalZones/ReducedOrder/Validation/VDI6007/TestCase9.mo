@@ -124,7 +124,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-61,59})));
-  Modelica.Blocks.Math.Product product1 "Solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product1
+    "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
@@ -139,7 +140,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-25,59})));
-  Modelica.Blocks.Math.Product product "Solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product
+    "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,84},{4,94}})));
   EquivalentAirTemperature.VDI6007 eqAirTemp(
@@ -227,6 +229,7 @@ model TestCase9 "VDI 6007 Test Case 9 model"
   Modelica.Blocks.Math.Gain gain(k=65.99081593)
     "Convert long-wave radiation into black body sky temperature"
     annotation (Placement(transformation(extent={{-52,-10},{-46,-4}})));
+    
 equation
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
@@ -354,7 +357,7 @@ equation
   <ul>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
-  Implemented. 
+  Implemented.
   </li>
   </ul>
   </html>"),

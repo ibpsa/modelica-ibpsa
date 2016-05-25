@@ -1,8 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase7 "VDI 6007 Test Case 7 model"
   extends Modelica.Icons.Example;
-  package Medium = Modelica.Media.Air.SimpleAir "Medium model";
-  parameter Real m_flow_nominal = 10 "Nominal mass flow";
 
   ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
     redeclare package Medium = Modelica.Media.Air.SimpleAir,
@@ -101,6 +99,7 @@ model TestCase7 "VDI 6007 Test Case 7 model"
   Modelica.Blocks.Math.Gain gainHeaCoo(k=500)
     "Gain for heating and cooling controller"
     annotation (Placement(transformation(extent={{8,-42},{20,-30}})));
+    
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -149,7 +148,7 @@ equation
   <ul>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
-  Implemented. 
+  Implemented.
   </li>
   </ul>
   </html>"),

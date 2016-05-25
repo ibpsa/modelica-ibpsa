@@ -1,8 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase11 "VDI 6007 Test Case 11 model"
   extends Modelica.Icons.Example;
-  package Medium = Modelica.Media.Air.SimpleAir "Medium model";
-  parameter Real m_flow_nominal = 10 "Nominal mass flow";
 
   ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
     alphaExt=2.7,
@@ -124,6 +122,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     annotation (Placement(transformation(extent={{-90,-4},{-82,4}})));
   Modelica.Blocks.Logical.Switch switchHea "Switch to limit heating power"
     annotation (Placement(transformation(extent={{-44,-39},{-34,-29}})));
+    
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -197,7 +196,7 @@ equation
   <ul>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
-  Implemented. 
+  Implemented.
   </li>
   </ul>
   </html>"),

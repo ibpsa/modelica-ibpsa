@@ -1,5 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses;
 model ExteriorWall "Exterior wall consisting of variable number of RC elements"
+  
   parameter Integer n(min = 1) "Number of RC-elements";
   parameter Modelica.SIunits.ThermalResistance RExt[n](
     each min=Modelica.Constants.small)
@@ -77,7 +78,7 @@ equation
   </li>
   <li>
   April 17, 2015, by Moritz Lauster:<br/>
-  Implemented. 
+  Implemented.
   </li>
   </ul>
   </html>"),  Icon(coordinateSystem(preserveAspectRatio=false,  extent=

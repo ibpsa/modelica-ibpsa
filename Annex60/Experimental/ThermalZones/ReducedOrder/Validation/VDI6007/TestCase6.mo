@@ -92,6 +92,7 @@ model TestCase6 "VDI 6007 Test Case 6 model"
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
     "Convert set temperature from degC to Kelvin"
     annotation (Placement(transformation(extent={{34,-40},{46,-28}})));
+    
 equation
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
@@ -135,7 +136,7 @@ equation
   <ul>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
-  Implemented. 
+  Implemented.
   </li>
   </ul>
   </html>"),

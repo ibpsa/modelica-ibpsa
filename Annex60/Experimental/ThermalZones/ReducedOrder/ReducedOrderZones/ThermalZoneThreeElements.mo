@@ -25,6 +25,7 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
   parameter Boolean indoorPortFloor = false
     "Additional heat port at indoor surface of floor plate"
     annotation(Dialog(group="Floor plate"),choices(checkBox = true));
+    
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a floor if  AFloor > 0
     "Ambient port for floor plate"
     annotation (Placement(transformation(extent={{-10,-190},{10,-170}}),
@@ -80,6 +81,7 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
     extent={{-10,-10},{10,10}},
     rotation=-90,
     origin={-80,-110})));
+
 equation
   connect(floorRC.port_a, convFloor.solid)
     annotation (Line(
@@ -190,7 +192,8 @@ equation
   dynamic behaviour but increases calculation times. The floor plate is
   parameterized via the length of the RC-chain <code>nFloor</code>,
   the vector of the capacities
-  <code>CFloor[nFloor]</code>, the vector of the resistances <code>RFloor[nFloor]</code>
+  <code>CFloor[nFloor]</code>, the vector of the resistances
+  <code>RFloor[nFloor]</code>
   and the remaining resistance <code>RFloorRem</code>.
   </p>
   <p>

@@ -20,12 +20,14 @@ partial model PartialVDI6007
   parameter Boolean withLongwave=true
     "Set to true to include longwave radiation exchange"
     annotation(choices(checkBox = true));
+    
   Modelica.SIunits.Temperature TEqWall[n] "Equivalent wall temperature";
   Modelica.SIunits.Temperature TEqWin[n] "Equivalent window temperature";
   Modelica.SIunits.TemperatureDifference delTEqLW
     "Equivalent long wave temperature";
   Modelica.SIunits.TemperatureDifference delTEqSW[n]
     "Equivalent short wave temperature";
+
   Modelica.Blocks.Interfaces.RealInput HSol[n](
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") "Solar radiation per unit area"
@@ -56,6 +58,7 @@ partial model PartialVDI6007
     extent={{-20,-20},{20,20}},
     rotation=-90,
     origin={0,120})));
+
 initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround) > 0.1),
   "The sum of the weighting factors (walls,windows and ground) in eqAirTemp is close

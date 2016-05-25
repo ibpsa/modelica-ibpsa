@@ -6,6 +6,7 @@ initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround - 1) < 0.1),
   "The sum of the weighting factors (walls,windows and ground)  is
   <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
+  
 equation
   delTEqLW=(TBlaSky-TDryBul)*(eExt*alphaRadWall/(alphaRadWall+alphaWallOut*0.93));
   delTEqSW=HSol*aExt/(alphaRadWall+alphaWallOut);

@@ -1,5 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses;
 model InteriorWall "Interior wall consisting of variable number of RC elements"
+
   parameter Integer n(min = 1) "Number of RC-elements";
   parameter Modelica.SIunits.ThermalResistance RInt[n](
    each min=Modelica.Constants.small)
@@ -46,9 +47,11 @@ equation
   thermal effects within the wall. All effects are considered as one-dimensional
   normal to the wall&apos;s surface. This model is thought for interior wall
   elements that only serve as heat storage elements. The RC-chain is defined via
-  a vector of capacities <code>CInt[n]</code> and a vector of resistances <code>RInt[n]</code>.
+  a vector of capacities <code>CInt[n]</code> and a vector of resistances
+  <code>RInt[n]</code>.
   Resistances and capacities are connected alternately, starting with the first
-  resistance <code>RInt[1]</code>, from heat <code>port_a</code> into the wall. </p>
+  resistance <code>RInt[1]</code>, from heat <code>port_a</code> into the wall.
+  </p>
   <p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/BaseClasses/IntMassVarRC/IntMassVarRC.png\" alt=\"image\"/> </p>
   </html>",  revisions="<html>
   <ul>
@@ -58,7 +61,7 @@ equation
   </li>
   <li>
   April 17, 2015, by Moritz Lauster:<br/>
-  Implemented. 
+  Implemented.
   </li>
   </ul>
   </html>"),  Icon(coordinateSystem(preserveAspectRatio = true, extent=

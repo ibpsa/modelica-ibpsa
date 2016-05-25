@@ -88,6 +88,7 @@ protected
     "Overall coefficient of heat transfer for double pane window";
   Modelica.SIunits.TransmissionCoefficient[n] CorG_dir
     "Transmission coefficient correction factor for direct radiation";
+    
 equation
   for i in 1:n loop
     Ta_dir[i]= (((((A6*con.to_deg(inc[i])+A5)*con.to_deg(inc[i])+A4)*con.to_deg(inc[i])+A3)*

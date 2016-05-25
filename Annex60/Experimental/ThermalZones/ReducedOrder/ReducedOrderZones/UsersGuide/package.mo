@@ -77,12 +77,12 @@ shifted reaction of the room temperature to environmental impacts
 (Lauster, Bruentjen <i>et al.</i>, 2014).
 However, the user is free to choose whether keeping windows seperately
 (<code>AWin</code>) or merging them (<code>AExt=AExterior+AWindows, AWin=0</code>).
- The window areas can be defined seperately for solar 
-radiation (vector <code>ATransparent</code>) and heat transfer 
-(vector <code>AWin</code>). For cases where the windows are kept seperately, 
+ The window areas can be defined seperately for solar
+radiation (vector <code>ATransparent</code>) and heat transfer
+(vector <code>AWin</code>). For cases where the windows are kept seperately,
 <code>ATransparent</code> and <code>AWin</code> are equal. When merging
-windows and exterior walls,  <code>AWin</code> can be set to zero while 
-<code>ATransparent</code> still represents the actual window area for solar 
+windows and exterior walls,  <code>AWin</code> can be set to zero while
+<code>ATransparent</code> still represents the actual window area for solar
 radiation calculations.
 The transmission of solar radiation through windows is split up into two parts.
 One part is connected to the indoor radiative heat exchange mesh network using
@@ -184,7 +184,8 @@ moves from indoor to outdoor.</p>
 moves from indoor to outdoor.</p>
 <p><code>R...Rem</code> is the remaining resistance between <code>C[end]</code>
 and outdoor surface of wall element. This resistance can be used to ensure that
-the sum of all resistances and coefficients of heat transfer is equal to the U-Value.
+the sum of all resistances and coefficients of heat transfer is equal to the
+U-Value.
 It represents the part of the wall that cannot be activated and thus does not
 take part at heat storage.
 </p>

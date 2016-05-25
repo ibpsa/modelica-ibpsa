@@ -134,6 +134,7 @@ model TestCase5 "VDI 6007 Test Case 5 model"
     extent={{-6,-6},{6,6}},
     rotation=-90,
     origin={-26,38})));
+    
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -201,7 +202,7 @@ equation
   <ul>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
-  Implemented. 
+  Implemented.
   </li>
   </ul>
   </html>"),

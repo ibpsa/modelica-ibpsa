@@ -100,7 +100,8 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-59,59})));
-  Modelica.Blocks.Math.Product product1 "Solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product1
+    "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
@@ -157,6 +158,7 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={28,-19})));
+    
 equation
   connect(personsRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
@@ -238,7 +240,7 @@ equation
   <ul>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
-  Implemented. 
+  Implemented.
   </li>
   </ul>
   </html>"),

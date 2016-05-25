@@ -36,7 +36,9 @@ considered by multiplying the long-wave correction terms for windows with the
 status variable minus one. The sunblind status is defined per orientation.
 </p>
 <p>The correction term for short-wave radiation does not count for windows and
-is calculated with the help of the solar radiation for the specific orientations as</p>
+is calculated with the help of the solar radiation for the specific orientations
+as
+</p>
 <p align=\"center\"  style=\"font-style:italic;\">
 &Delta;T<sub>EqSW</sub> = H<sub>Sol
 </sub>a<sub>Ext</sub>/(&alpha;<sub>Rad</sub>+&alpha;<sub>Ext</sub>).
@@ -46,11 +48,13 @@ With the equations above, one equivalent air temperature per orientation
 and wall or window is calculated. These equivalent air temperatures are then
 aggregated weighting each entry with a weighting factor. In this part, constant
 temperatures of ground coupled elements or adjacent rooms can be considered.
-The sum of weighting factors per calculated equivalent air temperature must be one.
+The sum of weighting factors per calculated equivalent air temperature must be
+one.
 If you consider two equivalent air temperatures, one for walls and one for
-windows, the sum of weighting factors should be one per category. In the given case,
-the weighting factors are calculated with the <i>U</i>-value and area of the concerned wall
-elements as</p>
+windows, the sum of weighting factors should be one per category. In the given
+case, the weighting factors are calculated with the <i>U</i>-value and area of
+the concerned wall elements as
+</p>
 <p align=\"center\"  style=\"font-style:italic;\">
 WeighFac<sub>i</sub> =
 U<sub>i </sub>A<sub>i</sub>/&Sigma;U<sub>i </sub>A<sub>i</sub>

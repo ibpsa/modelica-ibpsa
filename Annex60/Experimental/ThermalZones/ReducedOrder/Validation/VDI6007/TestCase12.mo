@@ -1,6 +1,7 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase12 "VDI 6007 Test Case 12 model"
   extends Modelica.Icons.Example;
+
   package Medium = Modelica.Media.Air.SimpleAir "Medium model";
 
   ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
@@ -128,7 +129,8 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-59,59})));
-  Modelica.Blocks.Math.Product product1 "Solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product1
+    "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
@@ -163,6 +165,7 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     annotation (Placement(transformation(extent={{-32,-72},{-12,-52}})));
   Modelica.Blocks.Math.Gain gain1(k=-1) "Reverses ventilation rate"
     annotation (Placement(transformation(extent={{-62,-61},{-48,-47}})));
+    
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -252,7 +255,7 @@ equation
   <ul>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
-  Implemented. 
+  Implemented.
   </li>
   </ul>
   </html>"),
