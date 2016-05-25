@@ -19,8 +19,8 @@ model Velocity "Ideal sensor for flow velocity"
   parameter Modelica.SIunits.Area A "Cross sectional area of flow channel";
   Modelica.SIunits.VolumeFlowRate V_flow
     "Volume flow rate from port_a to port_b";
-  Modelica.Blocks.Interfaces.RealOutput velocity(final quantity="Velocity",
-                                               final unit="m/s")
+  Modelica.Blocks.Interfaces.RealOutput v(final quantity="Velocity",
+                                          final unit="m/s")
     "Flow velocity from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
@@ -73,14 +73,14 @@ equation
   // Volume flow rate
   V_flow = port_a.m_flow/d;
   // Flow velocity
-  velocity = V_flow / A;
+  v = V_flow / A;
 annotation (defaultComponentName="senVel",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Text(
-          extent={{160,120},{0,90}},
+          extent={{48,120},{8,78}},
           lineColor={0,0,0},
-          textString="velocity"),
+          textString="v"),
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
         Line(points={{70,0},{100,0}}, color={0,128,255})}),
@@ -88,6 +88,8 @@ annotation (defaultComponentName="senVel",
 <p>
 This model outputs the flow velocity flowing from
 <code>port_a</code> to <code>port_b</code>.
+</p>
+<p>
 The sensor is ideal, i.e., it does not influence the fluid.
 If the parameter <code>tau</code> is non-zero, then the measured
 density that is used to convert the mass flow rate into
