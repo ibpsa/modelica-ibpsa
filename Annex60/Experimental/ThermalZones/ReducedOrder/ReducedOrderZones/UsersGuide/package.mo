@@ -18,11 +18,11 @@ justify simpler models. However, this package allows users to
 choose between models with one to four wall elements, and to define the
 number of RC-elements per wall for each wall. The latter can be done by setting
 <i>n<sub>k</sub></i>, which is the length of the vectors for resistances
-<i>R<sub>k</sub></i> and capacitances <i>C<sub>k</sub></i>).
+<i>R<sub>k</sub></i> and capacities <i>C<sub>k</sub></i>).
 </p>
 <p>
 All models within this package are based on thermal networks and use chains
-of thermal resistances and capacitances to reflect heat transfer and heat
+of thermal resistances and capacities to reflect heat transfer and heat
 storage. Thermal network models generally focus on one-dimensional heat
 transfer calculations. A geometrically correct representation of all walls of
 a thermal zone is thus not possible. To reduce simulation effort, it is
@@ -72,7 +72,7 @@ Part 1 (VDI, 2012). The heat transfer element for the windows allows to model
 the windows without any thermal capacity, as windows have negligible thermal
 mass. Hence, it is not necessary to discretize the window element and heat
 conduction is simply handled by a thermal resistance. Merging windows and
-exterior walls lead to a virtual capacitance for the windows and result in a
+exterior walls leads to a virtual capacity for the windows and results in a
 shifted reaction of the room temperature to environmental impacts
 (Lauster, Bruentjen <i>et al.</i>, 2014).
 However, the user is free to choose whether keeping windows seperately
