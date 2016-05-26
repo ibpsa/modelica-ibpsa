@@ -154,7 +154,7 @@ equation
     annotation (Line(points={{-12,-137.091},{-12,-137.091},{-12,-132},{-80,-132},
           {-80,-180}},
                  color={191,0,0}));
-  annotation (defaultComponentName="thermZone",
+  annotation (defaultComponentName="theZon",
   Diagram(coordinateSystem(
     extent={{-240,-180},{240,180}},
     preserveAspectRatio=false), graphics={

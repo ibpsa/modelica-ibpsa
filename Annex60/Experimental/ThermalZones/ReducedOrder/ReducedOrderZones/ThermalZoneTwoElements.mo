@@ -106,7 +106,7 @@ equation
   connect(convIntWall.fluid, TIndAirSensor.port)
     annotation (Line(points={{128,-40},{66,-40},{66,0},{80,0}},
     color={191,0,0}));
-  annotation (defaultComponentName="thermZone",Diagram(coordinateSystem(
+  annotation (defaultComponentName="theZon",Diagram(coordinateSystem(
   preserveAspectRatio=false, extent={{-240,-180},{240,180}}), graphics={
   Polygon(
     points={{116,-18},{230,-18},{230,-80},{140,-80},{138,-80},{116,-80},{116,
