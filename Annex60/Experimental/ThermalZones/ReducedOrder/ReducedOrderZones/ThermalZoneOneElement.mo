@@ -57,25 +57,27 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     "Additional heat port at indoor surface of exterior walls"
     annotation(Dialog(group="Exterior walls"),choices(checkBox = true));
 
-protected
-  parameter Modelica.SIunits.Area ATot=sum(AArray) "Sum of wall surface areas";
-  parameter Modelica.SIunits.Area ATotExt=sum(AExt)
-    "Sum of exterior wall surface areas";
-  parameter Modelica.SIunits.Area ATotWin=sum(AWin)
-    "Sum of window surface areas";
-  parameter Modelica.SIunits.Area[:] AArray = {ATotExt, ATotWin}
-    "List of all wall surface areas";
-  parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray})
-    "Number of non-zero wall surface areas";
-  parameter Real splitFactor[dimension, 1]=
-    BaseClasses.splitFacVal(dimension, 1, AArray, fill(0, 1), fill(0, 1))
-    "Share of each wall surface area that is non-zero";
-  parameter Real splitFactorSolRad[dimension, nOrientations]=
-    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin)
-    "Share of each wall surface area that is non-zero, for each orientation
-    seperately";
+  Modelica.Blocks.Interfaces.RealInput solRad[nOrientations](
+    final quantity="RadiantEnergyFluenceRate",
+    final unit="W/m2") "Solar radiation transmitted through windows"
+    annotation (
+    Placement(transformation(extent={{-280,120},{-240,160}}),
+    iconTransformation(extent={{-260,140},{-240,160}})));
 
-public
+  Modelica.Blocks.Interfaces.RealOutput TIndAir(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") if ATot > 0 or VAir > 0 "Indoor air temperature"
+    annotation (Placement(transformation(extent={{240,150},{260,170}}),
+    iconTransformation(extent={{240,150},{260,170}})));
+
+  Modelica.Blocks.Interfaces.RealOutput TMeanRad(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") if ATot > 0 "Mean indoor radiation temperature"
+    annotation (Placement(transformation(extent={{240,110},{260,130}}),
+    iconTransformation(extent={{240,110},{260,130}})));
+
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
     redeclare package Medium = Medium)
     "Auxilliary fluid inlets and outlets to indoor air volume"
@@ -115,24 +117,7 @@ public
     annotation (Placement(
     transformation(extent={{-170,-190},{-150,-170}}), iconTransformation(
     extent={{-170,-190},{-150,-170}})));
-  Modelica.Blocks.Interfaces.RealInput solRad[nOrientations](
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") "Solar radiation transmitted through windows"
-    annotation (
-    Placement(transformation(extent={{-280,120},{-240,160}}),
-    iconTransformation(extent={{-260,140},{-240,160}})));
-  Modelica.Blocks.Interfaces.RealOutput TIndAir(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC") if ATot > 0 or VAir > 0 "Indoor air temperature"
-    annotation (Placement(transformation(extent={{240,150},{260,170}}),
-    iconTransformation(extent={{240,150},{260,170}})));
-  Modelica.Blocks.Interfaces.RealOutput TMeanRad(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC") if ATot > 0 "Mean indoor radiation temperature"
-    annotation (Placement(transformation(extent={{240,110},{260,130}}),
-    iconTransformation(extent={{240,110},{260,130}})));
+
   Fluid.MixingVolumes.MixingVolume volAir(
     redeclare final package Medium = Medium,
     final nPorts=nPorts,
@@ -224,7 +209,25 @@ public
   Modelica.Blocks.Math.Sum sumSolRad(nin=nOrientations) if
     ratioWinConRad > 0 "Sums up solar radiation from different directions"
     annotation (Placement(transformation(extent={{-186,118},{-174,130}})));
-    
+
+protected
+  parameter Modelica.SIunits.Area ATot=sum(AArray) "Sum of wall surface areas";
+  parameter Modelica.SIunits.Area ATotExt=sum(AExt)
+    "Sum of exterior wall surface areas";
+  parameter Modelica.SIunits.Area ATotWin=sum(AWin)
+    "Sum of window surface areas";
+  parameter Modelica.SIunits.Area[:] AArray = {ATotExt, ATotWin}
+    "List of all wall surface areas";
+  parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray})
+    "Number of non-zero wall surface areas";
+  parameter Real splitFactor[dimension, 1]=
+    BaseClasses.splitFacVal(dimension, 1, AArray, fill(0, 1), fill(0, 1))
+    "Share of each wall surface area that is non-zero";
+  parameter Real splitFactorSolRad[dimension, nOrientations]=
+    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin)
+    "Share of each wall surface area that is non-zero, for each orientation
+    seperately";
+
 equation
   connect(volAir.ports, ports)
     annotation (Line(
