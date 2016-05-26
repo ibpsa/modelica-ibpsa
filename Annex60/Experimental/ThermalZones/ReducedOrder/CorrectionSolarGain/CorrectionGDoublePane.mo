@@ -88,7 +88,7 @@ protected
     "Overall coefficient of heat transfer for double pane window";
   Modelica.SIunits.TransmissionCoefficient[n] CorG_dir
     "Transmission coefficient correction factor for direct radiation";
-    
+
 equation
   for i in 1:n loop
     Ta_dir[i]= (((((A6*con.to_deg(inc[i])+A5)*con.to_deg(inc[i])+A4)*con.to_deg(inc[i])+A3)*
@@ -126,7 +126,7 @@ equation
   transparent elements with any orientation and inclination by means of
   solar transmission correction factors. Transmission properties of transparent
   elements are in general dependent on the solar incidence angle. To take this
-  dependency into account, correction factors can multiplied with the solar
+  dependency into account, correction factors can be multiplied with the solar
   radiation. These factors should not be mistaken as calculation of solar
   radiation on tilted surfaces, calculation of <i>g</i>-values or consideration of
   sunblinds, as it is an additional step. The implemented calculations are
