@@ -44,7 +44,7 @@ equation
   end if;
   TEqAir = TEqWall*wfWall + TGround*wfGround;
   TEqAirWindow = TEqWin*wfWin;
-  annotation (defaultComponentName="eqAirTemp",Documentation(revisions="<html>
+  annotation (defaultComponentName = "equAirTem",Documentation(revisions="<html>
   <ul>
   <li>September 2015, by Moritz Lauster:<br/>
   Got rid of cardinality

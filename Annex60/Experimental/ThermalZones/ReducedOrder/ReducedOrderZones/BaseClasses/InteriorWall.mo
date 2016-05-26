@@ -38,7 +38,7 @@ equation
   connect(port_a,thermResInt[1].port_a) annotation (Line(points={{-100,0},{-80,0},
           {-80,0},{-60,0}},  color={191,0,0}));
 
- annotation(defaultComponentName="intWallRC",Diagram(coordinateSystem(
+ annotation(defaultComponentName = "intWalRC",Diagram(coordinateSystem(
   preserveAspectRatio=false,   extent={{-100,-100},{100,120}})),
   Documentation(info="<html>
   <p><code>InteriorWall</code> represents heat storage within walls. It links a

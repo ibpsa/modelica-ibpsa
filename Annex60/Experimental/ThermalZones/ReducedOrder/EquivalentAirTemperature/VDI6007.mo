@@ -18,7 +18,7 @@ equation
     TEqWall=TDryBul.+delTEqSW;
   end if;
   TEqAir = TEqWall*wfWall + TEqWin*wfWin + TGround*wfGround;
-  annotation (defaultComponentName="eqAirTemp",Documentation(revisions="<html>
+  annotation (defaultComponentName = "equAirTem",Documentation(revisions="<html>
   <ul>
   <li>September 2015, by Moritz Lauster:<br/>
   Got rid of cardinality

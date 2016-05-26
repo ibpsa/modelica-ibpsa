@@ -54,7 +54,7 @@ equation
 
   connect(thermResExtRem.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={191,0,0}));
-  annotation(defaultComponentName="extWallRC",
+  annotation(defaultComponentName = "extWalRC",
   Diagram(coordinateSystem(preserveAspectRatio = false, extent=
   {{-100, -100}, {100, 120}})),           Documentation(info="<html>
   <p><code>ExteriorWall</code> represents heat conduction and heat storage
