@@ -47,7 +47,7 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.ThermalResistance RExtRem(
     min=Modelica.Constants.small)
-    "Resistance of remaining resistor RExtRem between capacitance n and outside"
+    "Resistance of remaining resistor RExtRem between capacity n and outside"
     annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.HeatCapacity CExt[nExt](
     each min=Modelica.Constants.small)

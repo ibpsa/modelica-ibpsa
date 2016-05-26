@@ -7,7 +7,7 @@ annotation (Documentation(info="<html>
 <p>This package package contains models for
 calculating an equivalent air temperature. There are two common ways to
 consider solar radiation hitting exterior surfaces. One way is to consider
-the resulting heat load at the wall&apos;s capacitance. The other way is to
+the resulting heat load at the wall&apos;s capacity. The other way is to
 add correction terms to the outdoor air temperature. The models in the package
 <a href=\"modelica://Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature\">
 Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature</a>

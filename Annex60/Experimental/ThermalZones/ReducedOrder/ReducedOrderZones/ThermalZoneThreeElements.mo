@@ -16,7 +16,7 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
     annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.ThermalResistance RFloorRem(
     min=Modelica.Constants.small)
-    "Resistance of remaining resistor RFloorRem between capacitance n and outside"
+    "Resistance of remaining resistor RFloorRem between capacity n and outside"
     annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.HeatCapacity CFloor[nExt](
     each min=Modelica.Constants.small)

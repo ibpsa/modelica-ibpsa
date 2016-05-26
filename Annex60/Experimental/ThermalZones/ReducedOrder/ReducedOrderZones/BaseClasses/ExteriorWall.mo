@@ -15,7 +15,7 @@ model ExteriorWall "Exterior wall consisting of variable number of RC elements"
     "Vector of heat capacities, from port_a to port_b"
     annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.Temperature T_start
-    "Initial temperature of capacitances"
+    "Initial temperature of capacities"
     annotation(Dialog(group="Thermal mass"));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a "interior port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
@@ -67,7 +67,7 @@ equation
   vector of resistances <code>RExt[n]</code>. Resistances and capacities are
   connected alternately, starting with the first resistance <code>RExt[1]</code>,
   from heat <code>port_a</code> to heat <code>port_b</code>. <code>RExtRem</code>
-  is the resistance between the last capacitance <code>CExt[end]</code> and the
+  is the resistance between the last capacity <code>CExt[end]</code> and the
   heat <code>port_b</code>.</p>
   <p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/BaseClasses/ExtMassVarRC/ExtMassVarRC.png\" alt=\"image\"/> </p>
   </html>",  revisions="<html>

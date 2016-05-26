@@ -16,7 +16,7 @@ model ThermalZoneFourElements "Thermal Zone with four elements for exterior wall
     annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.ThermalResistance RRoofRem(
     min=Modelica.Constants.small)
-    "Resistance of remaining resistor RRoofRem between capacitance n and outside"
+    "Resistance of remaining resistor RRoofRem between capacity n and outside"
     annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.HeatCapacity CRoof[nExt](
     each min=Modelica.Constants.small)
