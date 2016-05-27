@@ -30,9 +30,10 @@ model TWetBul_TDryBulPhi "Model to test the wet bulb temperature computation"
   Annex60.Utilities.Psychrometrics.X_pTphi x_pTphi "Computes mass fraction"
     annotation (Placement(transformation(extent={{-22,-36},{-10,-24}})));
 
-block Assertions
-  extends Modelica.Blocks.Icons.Block;
-  constant Modelica.SIunits.Temperature dT_max=0.1
+protected
+  block Assertions
+    extends Modelica.Blocks.Icons.Block;
+    constant Modelica.SIunits.Temperature dT_max=0.1
       "Maximum allowed deviation with reference result";
 
     Modelica.Blocks.Interfaces.RealInput phi "Relative humidity"
@@ -43,20 +44,19 @@ block Assertions
     Modelica.Blocks.Interfaces.RealInput wetBulXi_TWetBul
       "Wet bulb temperature from wetBulXi_phi"
       annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-equation
-  // Validation of one data point based on example 17.1 in
-  // Ananthanarayanan, P. N. Basic refrigeration and air conditioning. Tata McGraw-Hill Education, 2013.
-  if abs(phi-0.48)<0.001 then
-    assert(abs(wetBulPhi_TWetBul - 21.1-273.15) < dT_max,
-    "Error in computation of wet bulb temperature, deviation with reference result is larger than "
-     + String(dT_max) + " K since the wet bulb temperature equals " +String(wetBulPhi_TWetBul));
-  end if;
+  equation
+    // Validation of one data point based on example 17.1 in
+    // Ananthanarayanan, P. N. Basic refrigeration and air conditioning. Tata McGraw-Hill Education, 2013.
+    if abs(phi-0.48)<0.001 then
+      assert(abs(wetBulPhi_TWetBul - 21.1-273.15) < dT_max,
+      "Error in computation of wet bulb temperature, deviation with reference result is larger than "
+       + String(dT_max) + " K since the wet bulb temperature equals " +String(wetBulPhi_TWetBul));
+    end if;
 
-  assert(abs(wetBulPhi_TWetBul-wetBulXi_TWetBul)<1e-2, "Inconsistent implementation of wetBulPhi and wetBulXi.");
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-end Assertions;
+    assert(abs(wetBulPhi_TWetBul-wetBulXi_TWetBul)<1e-2, "Inconsistent implementation of wetBulPhi and wetBulXi.");
+  end Assertions;
 
-  Assertions assertions
+  Assertions assertions "Verifies that the results are correct"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 equation
   connect(p.y, wetBulPhi.p)
