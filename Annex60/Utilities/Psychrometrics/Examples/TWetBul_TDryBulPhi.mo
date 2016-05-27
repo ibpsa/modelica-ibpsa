@@ -43,7 +43,6 @@ block Assertions
     Modelica.Blocks.Interfaces.RealInput wetBulXi_TWetBul
       "Wet bulb temperature from wetBulXi_phi"
       annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 equation
   // Validation of one data point based on example 17.1 in
   // Ananthanarayanan, P. N. Basic refrigeration and air conditioning. Tata McGraw-Hill Education, 2013.
@@ -54,6 +53,7 @@ equation
   end if;
 
   assert(abs(wetBulPhi_TWetBul-wetBulXi_TWetBul)<1e-2, "Inconsistent implementation of wetBulPhi and wetBulXi.");
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 end Assertions;
 
   Assertions assertions
