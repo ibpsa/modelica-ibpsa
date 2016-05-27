@@ -46,6 +46,7 @@ model UCPipeS01AD_Friction
   PipeAdiabaticPlugFlow            pipeMSL100(
     redeclare package Medium = Medium,
     length=100,
+    use_dh=true,
     dh=0.1,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal) "Dynamic pipe from MSL for reference test"
@@ -75,6 +76,7 @@ model UCPipeS01AD_Friction
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   PipeAdiabaticPlugFlow            pipeMSL50_1(
     redeclare package Medium = Medium,
+    use_dh=true,
     dh=0.1,
     length=50,
     m_flow_small=1e-4,
@@ -82,6 +84,7 @@ model UCPipeS01AD_Friction
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   PipeAdiabaticPlugFlow            pipeMSL50_2(
     redeclare package Medium = Medium,
+    use_dh=true,
     dh=0.1,
     length=50,
     m_flow_small=1e-4,

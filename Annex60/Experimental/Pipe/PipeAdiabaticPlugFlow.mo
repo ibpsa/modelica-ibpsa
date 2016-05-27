@@ -9,7 +9,8 @@ model PipeAdiabaticPlugFlow
   parameter Modelica.SIunits.Length thickness = 0.002;
   parameter Modelica.SIunits.Length Lcap = 1
     "Length over which transient effects typically take place";
-  parameter Modelica.SIunits.Length dh = 0.05 "Pipe diameter";
+  parameter Modelica.SIunits.Length dh = 0.05 "Hydraulic diameter"
+    annotation(Dialog(enable = use_dh);
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.HeatCapacity Cpipe = length*((dh+thickness)^2 - dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall
     "Heat capacity of pipe wall";
@@ -52,7 +53,7 @@ model PipeAdiabaticPlugFlow
   // fixme: propagate use_dh and set default to false
   Annex60.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare final package Medium = Medium,
-    use_dh=true,
+    final use_dh=use_dh,
     final dh=dh,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
