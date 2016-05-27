@@ -3,17 +3,20 @@ model PipeAdiabaticPlugFlow
   "Pipe model using spatialDistribution for temperature delay without heat losses"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
+  parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
+    annotation(Evaluate=true);
+
   parameter Modelica.SIunits.Length thickness = 0.002;
   parameter Modelica.SIunits.Length Lcap = 1
     "Length over which transient effects typically take place";
-  parameter Modelica.SIunits.Length diameter = 0.05 "Pipe diameter";
+  parameter Modelica.SIunits.Length dh = 0.05 "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.HeatCapacity Cpipe = length*((diameter+thickness)^2 - diameter^2)*Modelica.Constants.pi/4*cpipe*rho_wall
+  parameter Modelica.SIunits.HeatCapacity Cpipe = length*((dh+thickness)^2 - dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall
     "Heat capacity of pipe wall";
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe = 500 "For steel";
   parameter Modelica.SIunits.Density rho_wall = 8000 "For steel";
 
-  /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
+  /*parameter Modelica.SIunits.ThermalConductivity k = 0.005
     "Heat conductivity of pipe's surroundings";*/
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
@@ -40,7 +43,7 @@ model PipeAdiabaticPlugFlow
       mu_a=mu_default,
       mu_b=mu_default,
       length=length,
-      diameter=diameter,
+      diameter=dh,
       roughness=roughness,
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
@@ -50,7 +53,7 @@ model PipeAdiabaticPlugFlow
   Annex60.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare final package Medium = Medium,
     use_dh=true,
-    final dh=diameter,
+    final dh=dh,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
     dp(nominal=if Medium.nXi == 0 then 100*length else 5*length))
@@ -83,7 +86,7 @@ protected
   Annex60.Experimental.Pipe.PipeLosslessPlugFlow temperatureDelay(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
-    final D=diameter,
+    final D=dh,
     final L=length,
     final allowFlowReversal=allowFlowReversal)
     "Model for temperature wave propagation with spatialDistribution operator"
@@ -93,13 +96,13 @@ public
     nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    V=Lcap*diameter^2/4*Modelica.Constants.pi)
+    V=Lcap*dh^2/4*Modelica.Constants.pi)
     annotation (Placement(transformation(extent={{-60,0},{-80,20}})));
   Fluid.MixingVolumes.MixingVolume vol1(
     nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    V=Lcap*diameter^2/4*Modelica.Constants.pi)
+    V=Lcap*dh^2/4*Modelica.Constants.pi)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 equation
   connect(res.port_b, temperatureDelay.port_a) annotation (Line(

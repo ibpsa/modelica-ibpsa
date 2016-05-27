@@ -53,7 +53,7 @@ model UCPipeB01AD_Flow "Demonstrating pipe model with varying flow directions"
   PipeAdiabaticPlugFlow pipeAd(
     redeclare package Medium = Medium,
     length=100,
-    diameter=0.1,
+    dh=0.1,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal) "Dynamic pipe adiabatic"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));

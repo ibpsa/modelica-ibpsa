@@ -46,7 +46,7 @@ model UCPipeS01AD_Friction
   PipeAdiabaticPlugFlow            pipeMSL100(
     redeclare package Medium = Medium,
     length=100,
-    diameter=0.1,
+    dh=0.1,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal) "Dynamic pipe from MSL for reference test"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -75,14 +75,14 @@ model UCPipeS01AD_Friction
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   PipeAdiabaticPlugFlow            pipeMSL50_1(
     redeclare package Medium = Medium,
-    diameter=0.1,
+    dh=0.1,
     length=50,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal) "Dynamic pipe from MSL for reference test"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   PipeAdiabaticPlugFlow            pipeMSL50_2(
     redeclare package Medium = Medium,
-    diameter=0.1,
+    dh=0.1,
     length=50,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal) "Dynamic pipe from MSL for reference test"
@@ -148,7 +148,7 @@ the <code>dp_test</code> variable.</p>
 <h4 id=\"current-issues\">Current issues</h4>
 <ul>
 <li>Initial conditions are not fully specified</li>
-<li>There are differences in the mass flow rates between the single pipe and the 
+<li>There are differences in the mass flow rates between the single pipe and the
 serial pipes </li>
 </ul>
 </html>", revisions="<html>
