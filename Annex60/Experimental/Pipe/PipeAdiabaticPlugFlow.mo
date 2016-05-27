@@ -32,7 +32,7 @@ model PipeAdiabaticPlugFlow
     "Average height of surface asperities (default: smooth steel pipe)"
       annotation(Dialog(group="Geometry"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")= 2*dpStraightPipe_nominal
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")= dpStraightPipe_nominal
     "Pressure drop at nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
 
