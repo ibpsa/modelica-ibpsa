@@ -95,9 +95,6 @@ and simulates without warnings or errors.</p>
 <h4 id=\"typical-use-and-important-parameters\">Typical use and important parameters</h4>
 <p>The pressure difference between <code>source</code> and <code>sink</code> can be adjusted via the
 <code>dp_test</code> variable.</p>
-<h4 id=\"current-issues\">Current issues</h4>
-<ul>
-<li>For the same length and diameter, there is a significant difference between the mass flow rate with this model and the MSL pipe model</li>
 </html>", revisions="<html>
 <ul>
 <li>May 18, 2016 by Marcus Fuchs: <br>
