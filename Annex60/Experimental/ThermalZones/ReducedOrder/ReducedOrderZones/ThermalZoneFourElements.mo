@@ -36,11 +36,11 @@ model ThermalZoneFourElements "Thermal Zone with four elements for exterior wall
       transformation(extent={{-50,-190},{-30,-170}}), iconTransformation(
       extent={{-50,-190},{-30,-170}})));
   BaseClasses.ExteriorWall roofRC(
-    RExt=RRoof,
-    RExtRem=RRoofRem,
-    CExt=CRoof,
-    n=nRoof,
-    T_start=T_start) if ARoof > 0 "RC-element for roof"
+    final RExt=RRoof,
+    final RExtRem=RRoofRem,
+    final CExt=CRoof,
+    final n=nRoof,
+    final T_start=T_start) if ARoof > 0 "RC-element for roof"
     annotation (Placement(
     transformation(
     extent={{10,-11},{-10,11}},
@@ -53,14 +53,14 @@ model ThermalZoneFourElements "Thermal Zone with four elements for exterior wall
     rotation=90,
     origin={-12,120})));
   Modelica.Blocks.Sources.Constant alphaRoofConst(
-    k=ARoof*alphaRoof) if
+    final k=ARoof*alphaRoof) if
        ARoof > 0 "Coefficient of convective heat transfer for roof"
      annotation (Placement(transformation(
      extent={{-5,-5},{5,5}},
      rotation=180,
      origin={22,120})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIntRoof(
-    G=min(AInt, ARoof)*alphaRad) if
+    final G=min(AInt, ARoof)*alphaRad) if
        AInt > 0 and ARoof > 0 "Resistor between interior walls and roof"
       annotation (Placement(
       transformation(
@@ -68,14 +68,14 @@ model ThermalZoneFourElements "Thermal Zone with four elements for exterior wall
       rotation=-90,
       origin={186,10})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resRoofWin(
-    G=min(ARoof, ATotWin)*alphaRad) if
+    final G=min(ARoof, ATotWin)*alphaRad) if
        ARoof > 0 and ATotWin > 0 "Resistor between roof and windows"
       annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={-154,100})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resRoofFloor(
-    G=min(ARoof, AFloor)*alphaRad) if
+    final G=min(ARoof, AFloor)*alphaRad) if
        ARoof > 0 and AFloor > 0 "Resistor between floor plate and roof"
       annotation (Placement(
       transformation(
@@ -83,7 +83,7 @@ model ThermalZoneFourElements "Thermal Zone with four elements for exterior wall
       rotation=-90,
       origin={-56,-112})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallRoof(
-      G=min(ATotExt, ARoof)*alphaRad) if    ATotExt > 0 and ARoof > 0
+    final G=min(ATotExt, ARoof)*alphaRad) if    ATotExt > 0 and ARoof > 0
     "Resistor between exterior walls and roof"
       annotation (Placement(
       transformation(

@@ -16,11 +16,11 @@ model InteriorWall "Interior wall consisting of variable number of RC elements"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a "interior port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
     iconTransformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermResInt[n](R=RInt)
-    "vector of resistors connecting port and capacitors"
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermResInt[n](
+    final R=RInt) "vector of resistors connecting port and capacitors"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor thermCapInt[n](
-    C=CInt, each T(start=T_start)) "vector of capacitors"
+    final C=CInt, each T(start=T_start)) "vector of capacitors"
     annotation (Placement(transformation(extent={{-10,-12},{10,-32}})));
 equation
   // Connecting inner elements thermResInt[i]--thermCapInt[i] to n groups

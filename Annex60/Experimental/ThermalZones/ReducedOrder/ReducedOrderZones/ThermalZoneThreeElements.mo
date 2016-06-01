@@ -25,7 +25,7 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
   parameter Boolean indoorPortFloor = false
     "Additional heat port at indoor surface of floor plate"
     annotation(Dialog(group="Floor plate"),choices(checkBox = true));
-    
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a floor if  AFloor > 0
     "Ambient port for floor plate"
     annotation (Placement(transformation(extent={{-10,-190},{10,-170}}),
@@ -36,11 +36,11 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
     transformation(extent={{-90,-190},{-70,-170}}), iconTransformation(
     extent={{-90,-190},{-70,-170}})));
   BaseClasses.ExteriorWall floorRC(
-    n=nFloor,
-    RExt=RFloor,
-    RExtRem=RFloorRem,
-    CExt=CFloor,
-    T_start=T_start) if AFloor > 0 "RC-element for floor plate"
+    final n=nFloor,
+    final RExt=RFloor,
+    final RExtRem=RFloorRem,
+    final CExt=CFloor,
+    final T_start=T_start) if AFloor > 0 "RC-element for floor plate"
     annotation (Placement(transformation(
     extent={{9,-12},{-9,12}},
     rotation=90,
@@ -51,14 +51,14 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
     extent={{-8,8},{8,-8}},
     rotation=90,
     origin={-12,-116})));
-  Modelica.Blocks.Sources.Constant alphaFloorConst(k=AFloor*alphaFloor) if
+  Modelica.Blocks.Sources.Constant alphaFloorConst(final k=AFloor*alphaFloor) if
     AFloor > 0 "Coefficient of convective heat transfer for floor"
     annotation (Placement(transformation(
     extent={{-5,-5},{5,5}},
     rotation=180,
     origin={12,-116})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallFloor(
-   G=min(ATotExt, AFloor)*alphaRad) if  ATotExt > 0 and AFloor > 0
+   final G=min(ATotExt, AFloor)*alphaRad) if  ATotExt > 0 and AFloor > 0
     "Resistor between exterior walls and floor"
     annotation (Placement(
     transformation(
@@ -66,7 +66,7 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
     rotation=-90,
     origin={-144,-111})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIntWallFloor(
-   G=min(AFloor, AInt)*alphaRad) if  AInt > 0 and AFloor > 0
+   final G=min(AFloor, AInt)*alphaRad) if  AInt > 0 and AFloor > 0
     "Resistor between interior walls and floor"
     annotation (Placement(
     transformation(
@@ -74,7 +74,7 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
     rotation=0,
     origin={204,-106})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resFloorWin(
-   G=min(ATotWin, AFloor)*alphaRad) if  ATotWin > 0 and AFloor > 0
+   final G=min(ATotWin, AFloor)*alphaRad) if  ATotWin > 0 and AFloor > 0
     "Resistor between floor plate and windows"
     annotation (Placement(
     transformation(

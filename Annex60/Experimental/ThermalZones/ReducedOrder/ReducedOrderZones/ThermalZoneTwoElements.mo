@@ -27,10 +27,10 @@ model ThermalZoneTwoElements
     annotation (Placement(transformation(extent={{-130,-190},{-110,-170}}),
     iconTransformation(extent={{-130,-190},{-110,-170}})));
   BaseClasses.InteriorWall intWallRC(
-    n=nInt,
-    RInt=RInt,
-    CInt=CInt,
-    T_start=T_start) if AInt > 0 "RC-element for interior walls"
+    final n=nInt,
+    final RInt=RInt,
+    final CInt=CInt,
+    final T_start=T_start) if AInt > 0 "RC-element for interior walls"
     annotation (Placement(transformation(extent={{182,-50},{202,-28}})));
   Modelica.Thermal.HeatTransfer.Components.Convection convIntWall if AInt > 0
     "Convective heat transfer of interior walls"
@@ -42,14 +42,14 @@ model ThermalZoneTwoElements
     rotation=-90,
     origin={138,-61})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallIntWall(
-    G=min(ATotExt, AInt)*alphaRad) if  ATotExt > 0 and AInt > 0
+    final G=min(ATotExt, AInt)*alphaRad) if  ATotExt > 0 and AInt > 0
     "Resistor between exterior walls and interior walls"
     annotation (Placement(transformation(extent={{138,-116},{158,-96}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIntWallWin(
-    G=min(ATotWin, AInt)*alphaRad) if  ATotWin > 0 and AInt > 0
+    final G=min(ATotWin, AInt)*alphaRad) if  ATotWin > 0 and AInt > 0
     "Resistor between interior walls and windows"
     annotation (Placement(transformation(extent={{74,-118},{94,-98}})));
-    
+
 equation
   connect(resExtWallIntWall.port_a, convExtWall.solid)
     annotation (Line(
