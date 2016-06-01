@@ -45,6 +45,8 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
     extent={{9,-12},{-9,12}},
     rotation=90,
     origin={-12,-145})));
+
+protected
   Modelica.Thermal.HeatTransfer.Components.Convection convFloor if AFloor > 0
     "Convective heat transfer of floor"
     annotation (Placement(transformation(

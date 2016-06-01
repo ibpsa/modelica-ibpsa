@@ -23,6 +23,11 @@ model ExteriorWall "Exterior wall consisting of variable number of RC elements"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b "exterior port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
     iconTransformation(extent={{90,-10},{110,10}})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor thermCapExt[n](
+    final C=CExt, each T(start=T_start)) "vector of thermal capacitors"
+    annotation (Placement(transformation(extent={{-10,-12},{10,-32}})));
+
+protected
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermResExt[n](
     final R=RExt)
     "vector of thermal resistors connecting port_a and capacitors"
@@ -31,9 +36,7 @@ model ExteriorWall "Exterior wall consisting of variable number of RC elements"
     final R=RExtRem)
     "single thermal resistor connecting least capacitor to port_b"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor thermCapExt[n](
-    final C=CExt, each T(start=T_start)) "vector of thermal capacitors"
-    annotation (Placement(transformation(extent={{-10,-12},{10,-32}})));
+
 equation
   // Connecting inner elements thermResExt[i]--thermCapExt[i] to n groups
   for i in 1:n loop

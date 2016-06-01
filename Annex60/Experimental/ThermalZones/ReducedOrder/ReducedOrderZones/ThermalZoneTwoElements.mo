@@ -32,6 +32,8 @@ model ThermalZoneTwoElements
     final CInt=CInt,
     final T_start=T_start) if AInt > 0 "RC-element for interior walls"
     annotation (Placement(transformation(extent={{182,-50},{202,-28}})));
+
+protected
   Modelica.Thermal.HeatTransfer.Components.Convection convIntWall if AInt > 0
     "Convective heat transfer of interior walls"
     annotation (Placement(transformation(extent={{148,-30},{128,-50}})));

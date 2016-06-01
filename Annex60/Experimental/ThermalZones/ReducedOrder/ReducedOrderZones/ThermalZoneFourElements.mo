@@ -46,6 +46,8 @@ model ThermalZoneFourElements "Thermal Zone with four elements for exterior wall
     extent={{10,-11},{-10,11}},
     rotation=90,
     origin={-12,155})));
+
+protected
   Modelica.Thermal.HeatTransfer.Components.Convection convRoof if
      ARoof > 0 "Convective heat transfer of roof"
     annotation (Placement(transformation(
