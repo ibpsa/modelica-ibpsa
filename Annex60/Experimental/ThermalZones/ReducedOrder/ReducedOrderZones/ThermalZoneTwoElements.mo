@@ -105,7 +105,7 @@ equation
   connect(intWallRC.port_a, intWallIndoorSurface)
     annotation (Line(points={{182,-40},{168,-40},{168,-82},{-120,-82},{-120,-180}},
     color={191,0,0}));
-  connect(convIntWall.fluid, TIndAirSensor.port)
+  connect(convIntWall.fluid, senTAir.port)
     annotation (Line(points={{128,-40},{66,-40},{66,0},{80,0}},
     color={191,0,0}));
   annotation (defaultComponentName="theZon",Diagram(coordinateSystem(

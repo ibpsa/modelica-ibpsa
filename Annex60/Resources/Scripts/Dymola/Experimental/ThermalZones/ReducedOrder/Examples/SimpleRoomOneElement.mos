@@ -2,7 +2,7 @@ simulateModel("Annex60.Experimental.ThermalZones.ReducedOrder.Examples.SimpleRoo
 createPlot(id = 1,
  position = {55, 50, 697, 502},
  x = "time",
- y = {"thermalZoneOneElement.TIndAir"},
+ y = {"thermalZoneOneElement.TAir"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,

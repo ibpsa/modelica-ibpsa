@@ -28,13 +28,13 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     intWallRC(thermCapInt(each der_T(fixed=true))),
     T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(T=295.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
+  Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
-  Modelica.Blocks.Sources.CombiTimeTable internalGains(
+  Modelica.Blocks.Sources.CombiTimeTable intGai(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 21600,1000;
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
@@ -101,13 +101,13 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     annotation (Placement(transformation(extent={{8,-42},{20,-30}})));
     
 equation
-  connect(thermalConductorWall.fluid, prescribedTemperature.port)
+  connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
-  connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
+  connect(thermalZoneTwoElements.extWall, theConWall.solid)
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
-  connect(alphaWall.y, thermalConductorWall.Gc)
+  connect(alphaWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
-  connect(internalGains.y[1], machinesRad.Q_flow)
+  connect(intGai.y[1], machinesRad.Q_flow)
     annotation (Line(points={{
     22.8,-88},{22.8,-88},{48,-88}}, color={0,0,127}));
   connect(machinesRad.port, thermalZoneTwoElements.intGainsRad)
@@ -120,7 +120,7 @@ equation
     annotation (Line(points={{30.5,31},{36.25,31},{43,31}}, color={0,0,127}));
   connect(from_degC.y, conHeaCoo.u_s)
     annotation (Line(points={{-25.4,-36},{-19.6,-36}}, color={0,0,127}));
-  connect(thermalZoneTwoElements.TIndAir, conHeaCoo.u_m) annotation (Line(
+  connect(thermalZoneTwoElements.TAir, conHeaCoo.u_m) annotation (Line(
         points={{93,32},{100,32},{100,-54},{-10,-54},{-10,-45.6}}, color={0,0,
           127}));
   connect(conHeaCoo.y, gainHeaCoo.u)

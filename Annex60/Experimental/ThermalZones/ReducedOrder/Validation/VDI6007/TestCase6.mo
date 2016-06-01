@@ -28,13 +28,13 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     RExtRem=0.038959197,
     T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(T=295.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{5,-5},{17,7}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
+  Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
-  Modelica.Blocks.Sources.CombiTimeTable internalGains(
+  Modelica.Blocks.Sources.CombiTimeTable intGai(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 21600,1000;
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
@@ -76,7 +76,7 @@ model TestCase6 "VDI 6007 Test Case 6 model"
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
     "Sensor for ideal heater/cooler"
     annotation (Placement(transformation(extent={{90,-40},{78,-28}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature1
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem1
     "Prescribed temperature for ideal heater/cooler"
     annotation (Placement(transformation(extent={{56,-40},{68,-28}})));
   Modelica.Blocks.Sources.CombiTimeTable setTemp(
@@ -94,26 +94,26 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     annotation (Placement(transformation(extent={{34,-40},{46,-28}})));
     
 equation
-  connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
+  connect(thermalZoneTwoElements.extWall, theConWall.solid)
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
-  connect(alphaWall.y, thermalConductorWall.Gc)
+  connect(alphaWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
-  connect(internalGains.y[1], machinesRad.Q_flow)
+  connect(intGai.y[1], machinesRad.Q_flow)
     annotation (Line(points={{22.8,-74},{36,-74},{48,-74}}, color={0,0,127}));
   connect(machinesRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (
     Line(points={{68,-74},{84,-74},{98,-74},{98,24},{92.2,24}},
     color={191,0,0}));
-  connect(prescribedTemperature1.port, heatFlowSensor.port_b)
+  connect(preTem1.port, heatFlowSensor.port_b)
     annotation (Line(points={{68,-34},{73,-34},{78,-34}}, color={191,0,0}));
   connect(heatFlowSensor.port_a, thermalZoneTwoElements.intGainsConv)
     annotation (Line(points={{90,-34},{94,-34},{94,20},{92,20}}, color={191,
     0,0}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{37.25,31},{43,31}}, color={0,0,127}));
-  connect(prescribedTemperature.port, thermalConductorWall.fluid) annotation (
+  connect(preTem.port, theConWall.fluid) annotation (
       Line(points={{17,1},{21.5,1},{21.5,1},{26,1}}, color={191,0,0}));
-  connect(from_degC.y, prescribedTemperature1.T)
+  connect(from_degC.y, preTem1.T)
     annotation (Line(points={{46.6,-34},{54.8,-34}}, color={0,0,127}));
   connect(setTemp.y[1], from_degC.u)
     annotation (Line(points={{20.8,-34},{32.8,-34}}, color={0,0,127}));

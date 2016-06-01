@@ -2,7 +2,7 @@ simulateModel("Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007
 createPlot(id = 1,
  position = {55, 50, 1297, 602},
  x = "time",
- y = {"thermalZoneTwoElements.TIndAir","reference.y[1]"},
+ y = {"thermalZoneTwoElements.TAir","reference.y[1]"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,

@@ -28,10 +28,10 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     T_start=290.75,
     alphaExt=2.4)
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
-  Modelica.Blocks.Sources.CombiTimeTable internalGains(
+  Modelica.Blocks.Sources.CombiTimeTable intGai(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     table=[0,0,0,0; 3600,0,0,0; 7200,0,0,0; 10800,0,0,0; 14400,0,0,0; 18000,0,0,
         0; 21600,0,0,0; 25200,0,0,0; 25200,80,80,200; 28800,80,80,200; 32400,80,
@@ -61,13 +61,13 @@ model TestCase10 "VDI 6007 Test Case 10 model"
         5166000,26; 5169600,25.9; 5173200,25.8; 5176800,25.7; 5180400,25.6])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv(T_ref=
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv(T_ref=
         290.75) "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad(T_ref=
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad(T_ref=
         290.75) "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsConv(T_ref=
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon(T_ref=
         290.75) "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
@@ -133,8 +133,8 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     n=1,
     wfWall={0.04646093176283288},
     wfWin={0.32441554918476245},
-    wfGround=0.6291235190524047,
-    TGround=288.15) "Equivalent air temperature"
+    wfGro=0.6291235190524047,
+    TGro=288.15) "Equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-4},{-4,14}})));
   Modelica.Blocks.Sources.Constant const(k=273.15)
     "Dummy black body sky temperature"
@@ -148,7 +148,7 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     extent={{-3,-3},{3,3}},
     rotation=-90,
     origin={-15,23})));
-  Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
+  Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{34,5},{24,-5}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=28*9.75)
@@ -160,16 +160,16 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     origin={28,-19})));
     
 equation
-  connect(personsRad.port, thermalZoneTwoElements.intGainsRad)
+  connect(perRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
     points={{68,-92},{68,-92},{98,-92},{98,24},{92.2,24}}, color={191,0,0}));
-  connect(internalGains.y[1], personsRad.Q_flow)
+  connect(intGai.y[1], perRad.Q_flow)
     annotation (Line(points={{22.8,
     -52},{30,-52},{38,-52},{38,-92},{48,-92}}, color={0,0,127}));
-  connect(internalGains.y[2], personsConv.Q_flow)
+  connect(intGai.y[2], perCon.Q_flow)
     annotation (Line(points={{
     22.8,-52},{38,-52},{38,-74},{48,-74}}, color={0,0,127}));
-  connect(internalGains.y[3], machinesConv.Q_flow)
+  connect(intGai.y[3], macConv.Q_flow)
     annotation (Line(points={{
     22.8,-52},{38,-52},{38,-56},{48,-56}}, color={0,0,127}));
   connect(tableSolRadWindow.y[1],greaterThreshold1. u)
@@ -194,7 +194,7 @@ equation
   connect(const.y,eqAirTemp. TBlaSky)
     annotation (Line(points={{-49.7,7},{-28.85,7},{-28.85,5},{-26,5}},
     color={0,0,127}));
-  connect(eqAirTemp.TEqAir, prescribedTemperature.T)
+  connect(eqAirTemp.TEqAir, preTem.T)
     annotation (Line(points={{-3,5},{0.9,5},{0.9,0},{6.8,0}},
     color={0,0,127}));
   connect(HSol.y, eqAirTemp.HSol[1])
@@ -203,17 +203,17 @@ equation
   connect(sunblind.y, eqAirTemp.sunblind[1])
     annotation (Line(points={{-15,19.7},{-15,15.85},{-14,15.85},{-14,15.8}},
     color={0,0,127}));
-  connect(alphaWall.y,thermalConductorWall. Gc)
+  connect(alphaWall.y,theConWall. Gc)
     annotation (Line(points={{28,-14.6},{29,-14.6},{29,-5}}, color={0,0,127}));
-  connect(prescribedTemperature.port, thermalConductorWall.fluid)
+  connect(preTem.port, theConWall.fluid)
     annotation (Line(points={{20,0},{24,0}}, color={191,0,0}));
-  connect(thermalConductorWall.solid, thermalZoneTwoElements.extWall)
+  connect(theConWall.solid, thermalZoneTwoElements.extWall)
     annotation (Line(points={{34,0},{40,0},{40,12},{43.8,12}}, color={191,0,0}));
-  connect(personsConv.port, thermalZoneTwoElements.intGainsConv)
+  connect(perCon.port, thermalZoneTwoElements.intGainsConv)
     annotation (
     Line(points={{68,-74},{82,-74},{96,-74},{96,20},{92,20}}, color={191,
     0,0}));
-  connect(machinesConv.port, thermalZoneTwoElements.intGainsConv)
+  connect(macConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
     Line(points={{68,-56},{96,-56},{96,20},{92,20}}, color={191,0,0}));
   connect(product1.y, thermalZoneTwoElements.solRad[1])

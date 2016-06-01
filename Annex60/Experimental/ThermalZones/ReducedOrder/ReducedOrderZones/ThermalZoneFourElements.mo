@@ -165,7 +165,7 @@ equation
   connect(alphaRoofConst.y, convRoof.Gc)
     annotation (Line(points={{16.5,120},{
     7.25,120},{-2,120}}, color={0,0,127}));
-  connect(convRoof.fluid, TIndAirSensor.port)
+  connect(convRoof.fluid, senTAir.port)
     annotation (Line(points={{-12,110},{-12,110},{-12,96},{66,96},{66,0},{80,0}},
                                                  color={191,0,0}));
   connect(roofRC.port_b, roofIndoorSurface)

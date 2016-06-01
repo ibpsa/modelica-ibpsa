@@ -149,7 +149,7 @@ equation
   connect(alphaFloorConst.y, convFloor.Gc)
     annotation (Line(points={{6.5,-116},{6,-116},{-4,-116}},
     color={0,0,127}));
-  connect(convFloor.fluid, TIndAirSensor.port)
+  connect(convFloor.fluid, senTAir.port)
     annotation (Line(points={{-12,-108},{-12,-40},{66,-40},{66,0},{80,0}},
     color={191,0,0}));
   connect(floorRC.port_a, floorIndoorSurface)

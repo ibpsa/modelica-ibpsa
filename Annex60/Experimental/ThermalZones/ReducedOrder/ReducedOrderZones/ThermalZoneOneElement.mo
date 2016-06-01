@@ -64,14 +64,14 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     Placement(transformation(extent={{-280,120},{-240,160}}),
     iconTransformation(extent={{-260,140},{-240,160}})));
 
-  Modelica.Blocks.Interfaces.RealOutput TIndAir(
+  Modelica.Blocks.Interfaces.RealOutput TAir(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") if ATot > 0 or VAir > 0 "Indoor air temperature"
     annotation (Placement(transformation(extent={{240,150},{260,170}}),
     iconTransformation(extent={{240,150},{260,170}})));
 
-  Modelica.Blocks.Interfaces.RealOutput TMeanRad(
+  Modelica.Blocks.Interfaces.RealOutput TRad(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") if ATot > 0 "Mean indoor radiation temperature"
@@ -219,10 +219,10 @@ protected
     extent={{-10,-10},{10,10}},
     rotation=-90,
     origin={-146,10})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TIndAirSensor if
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTAir if
     ATot > 0 or VAir > 0 "Indoor air temperature sensor"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TMeanRadSensor if
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTRad if
     ATot > 0 "Mean indoor radiation temperatur sensor"
     annotation (Placement(
     transformation(
@@ -315,23 +315,23 @@ equation
   connect(alphaExtWallConst.y, convExtWall.Gc)
     annotation (Line(points={{-104,-55.5},{-104,-50}},
     color={0,0,127}));
-  connect(convExtWall.fluid, TIndAirSensor.port)
+  connect(convExtWall.fluid, senTAir.port)
     annotation (Line(points={{-94,-40},{66,-40},{66,0},{80,0}},
     color={191,0,0}));
-  connect(convHeatSol.port, TIndAirSensor.port)
+  connect(convHeatSol.port, senTAir.port)
     annotation (Line(
     points={{-146,124},{-62,124},{-62,92},{66,92},{66,0},{80,0}},
     color={191,0,0},
     pattern=LinePattern.Dash));
-  connect(intGainsConv, TIndAirSensor.port)
+  connect(intGainsConv, senTAir.port)
     annotation (Line(points={{240,40},{66,40},{66,0},{80,0}},
     color={191,0,0}));
-  connect(convWin.fluid, TIndAirSensor.port)
+  connect(convWin.fluid, senTAir.port)
     annotation (Line(points={{-96,40},{66,40},{66,0},{80,0}},
     color={191,0,0}));
-  connect(volAir.heatPort, TIndAirSensor.port)
+  connect(volAir.heatPort, senTAir.port)
     annotation (Line(points={{38,0},{58,0},{80,0}}, color={191,0,0}));
-  connect(TIndAirSensor.T, TIndAir)
+  connect(senTAir.T, TAir)
     annotation (Line(points={{100,0},{108,0},{108,160},{250,160}},
     color={0,0,127}));
   connect(convWin.solid, windowIndoorSurface)
@@ -342,11 +342,11 @@ equation
     annotation (Line(points={{-114,-40},{-134,-40},{-152,-40},{-152,-58},{-208,
     -58},{-208,-140},{-160,-140},{-160,-180}},
     color={191,0,0}));
-  connect(TMeanRadSensor.port, thermSplitterIntGains.portIn[1])
+  connect(senTRad.port, thermSplitterIntGains.portIn[1])
     annotation (
     Line(points={{210,100},{210,100},{210,100},{210,86}}, color={191,
     0,0}));
-  connect(TMeanRadSensor.T, TMeanRad)
+  connect(senTRad.T, TRad)
     annotation (Line(points={{210,120},{210,128},{228,128},{228,128},{228,120},
     {250,120}}, color={0,0,127}));
   connect(solRad, eConvSol.u)

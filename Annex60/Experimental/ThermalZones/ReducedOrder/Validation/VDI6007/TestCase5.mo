@@ -28,13 +28,13 @@ model TestCase5 "VDI 6007 Test Case 5 model"
     T_start=295.15,
     intWallRC(thermCapInt(each T(fixed=true)))) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
+  Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
-  Modelica.Blocks.Sources.CombiTimeTable internalGains(
+  Modelica.Blocks.Sources.CombiTimeTable intGai(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     table=[0,0,0,0; 3600,0,0,0; 7200,0,0,0; 10800,0,0,0; 14400,0,0,0; 18000,0,0,
         0; 21600,0,0,0; 25200,0,0,0; 25200,80,80,200; 28800,80,80,200; 32400,80,
@@ -64,7 +64,7 @@ model TestCase5 "VDI 6007 Test Case 5 model"
         5166000,45.4; 5169600,45.4; 5173200,45.3; 5176800,45.2; 5180400,45.1])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
@@ -88,10 +88,10 @@ model TestCase5 "VDI 6007 Test Case 5 model"
         297.85; 75600,297.85; 75600,296.05; 79200,296.05; 79200,295.05; 82800,
         295.05; 82800,294.05; 86400,294.05]) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-28,-8},{-12,8}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad
     "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsConv
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon
     "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
@@ -136,25 +136,25 @@ model TestCase5 "VDI 6007 Test Case 5 model"
     origin={-26,38})));
     
 equation
-  connect(thermalConductorWall.fluid, prescribedTemperature.port)
+  connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
-  connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
+  connect(thermalZoneTwoElements.extWall, theConWall.solid)
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
-  connect(alphaWall.y, thermalConductorWall.Gc)
+  connect(alphaWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
-  connect(outdoorTemp.y[1], prescribedTemperature.T)
+  connect(outdoorTemp.y[1], preTem.T)
     annotation (Line(points={{-11.2,0},{6.8,0}}, color={0,0,127}));
-  connect(personsRad.port, thermalZoneTwoElements.intGainsRad)
+  connect(perRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
     points={{68,-92},{68,-92},{98,-92},{98,24},{92.2,24}},
     color={191,0,0}));
-  connect(internalGains.y[1], personsRad.Q_flow)
+  connect(intGai.y[1], perRad.Q_flow)
     annotation (Line(points={{22.8,
     -52},{30,-52},{38,-52},{38,-92},{48,-92}}, color={0,0,127}));
-  connect(internalGains.y[2], personsConv.Q_flow)
+  connect(intGai.y[2], perCon.Q_flow)
     annotation (Line(points={{
     22.8,-52},{38,-52},{38,-74},{48,-74}}, color={0,0,127}));
-  connect(internalGains.y[3], machinesConv.Q_flow)
+  connect(intGai.y[3], macConv.Q_flow)
     annotation (Line(points={{
     22.8,-52},{38,-52},{38,-56},{48,-56}}, color={0,0,127}));
   connect(tableSolRadWindow.y[1],greaterThreshold1. u)
@@ -174,11 +174,11 @@ equation
   connect(switch1.y, product1.u2)
     annotation (Line(points={{-26,31.4},{-26,28},
     {-10,28},{-10,67},{-7,67}}, color={0,0,127}));
-  connect(personsConv.port, thermalZoneTwoElements.intGainsConv)
+  connect(perCon.port, thermalZoneTwoElements.intGainsConv)
     annotation (
     Line(points={{68,-74},{82,-74},{94,-74},{94,20},{92,20}}, color={191,
     0,0}));
-  connect(machinesConv.port, thermalZoneTwoElements.intGainsConv)
+  connect(macConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
     Line(points={{68,-56},{94,-56},{94,20},{92,20}},     color={191,0,0}));
   connect(product1.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points=

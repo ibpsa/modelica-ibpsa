@@ -9,9 +9,9 @@ partial model PartialVDI6007
   parameter Integer n "Number of orientations (without ground)";
   parameter Real wfWall[n](each final unit="1") "Weight factors of the walls";
   parameter Real wfWin[n](each final unit="1") "Weight factors of the windows";
-  parameter Real wfGround(unit="1")
+  parameter Real wfGro(unit="1")
     "Weight factor of the ground (0 if not considered)";
-  parameter Modelica.SIunits.Temperature TGround
+  parameter Modelica.SIunits.Temperature TGro
     "Temperature of the ground in contact with floor plate";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWallOut
     "Exterior walls convective coefficient of heat transfer (outdoor)";
@@ -60,7 +60,7 @@ partial model PartialVDI6007
     origin={0,120})));
 
 initial equation
-  assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround) > 0.1),
+  assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGro) > 0.1),
   "The sum of the weighting factors (walls,windows and ground) in eqAirTemp is close
    to 0. If there are no walls, windows and ground at all, this might be
    irrelevant.", level=AssertionLevel.warning);

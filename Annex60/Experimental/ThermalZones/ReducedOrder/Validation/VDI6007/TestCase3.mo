@@ -28,13 +28,13 @@ model TestCase3 "VDI 6007 Test Case 3 model"
     T_start=295.15,
     intWallRC(thermCapInt(each der_T(fixed=true)))) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(T=295.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
+  Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
-  Modelica.Blocks.Sources.CombiTimeTable internalGains(
+  Modelica.Blocks.Sources.CombiTimeTable intGai(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 21600,1000;
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
@@ -62,7 +62,7 @@ model TestCase3 "VDI 6007 Test Case 3 model"
         5166000,49.8; 5169600,49.5; 5173200,49.3; 5176800,49.1; 5180400,48.9])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
@@ -76,16 +76,16 @@ model TestCase3 "VDI 6007 Test Case 3 model"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
     
 equation
-  connect(thermalConductorWall.fluid, prescribedTemperature.port)
+  connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
-  connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
+  connect(thermalZoneTwoElements.extWall, theConWall.solid)
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
-  connect(alphaWall.y, thermalConductorWall.Gc)
+  connect(alphaWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
-  connect(internalGains.y[1], machinesConv.Q_flow)
+  connect(intGai.y[1], macConv.Q_flow)
     annotation (Line(points={{
     22.8,-52},{36,-52},{36,-74},{48,-74}}, color={0,0,127}));
-  connect(machinesConv.port, thermalZoneTwoElements.intGainsConv) annotation (
+  connect(macConv.port, thermalZoneTwoElements.intGainsConv) annotation (
       Line(points={{68,-74},{82,-74},{98,-74},{98,20},{92,20}}, color={191,0,0}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{36.25,31},{43,31}}, color={0,0,127}));

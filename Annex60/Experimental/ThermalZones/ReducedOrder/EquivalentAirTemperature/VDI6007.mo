@@ -3,7 +3,7 @@ model VDI6007 "Equivalent air temperature as defined in VDI 6007 Part 1"
   extends BaseClasses.PartialVDI6007;
 
 initial equation
-  assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround - 1) < 0.1),
+  assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGro - 1) < 0.1),
   "The sum of the weighting factors (walls,windows and ground)  is
   <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
   
@@ -17,7 +17,7 @@ equation
     TEqWin=TDryBul*ones(n);
     TEqWall=TDryBul.+delTEqSW;
   end if;
-  TEqAir = TEqWall*wfWall + TEqWin*wfWin + TGround*wfGround;
+  TEqAir = TEqWall*wfWall + TEqWin*wfWin + TGro*wfGro;
   annotation (defaultComponentName = "equAirTem",Documentation(revisions="<html>
   <ul>
   <li>September 2015, by Moritz Lauster:<br/>

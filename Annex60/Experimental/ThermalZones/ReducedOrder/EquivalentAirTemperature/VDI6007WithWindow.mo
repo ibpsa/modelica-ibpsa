@@ -17,13 +17,13 @@ model VDI6007WithWindow
   Modelica.SIunits.TemperatureDifference delTEqSWWin[n]
     "Eqiuvalent short wave temperature for windows";
     
-  Modelica.Blocks.Interfaces.RealOutput TEqAirWindow(final unit="K")
+  Modelica.Blocks.Interfaces.RealOutput TEqAirWin(final unit="K")
     "Equivalent air temperature for windows (no short-wave radiation)"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
     iconTransformation(extent={{100,28},{120,48}})));
 
 initial equation
-  assert(noEvent(abs(sum(wfWall) + wfGround - 1) < 0.1),
+  assert(noEvent(abs(sum(wfWall) + wfGro - 1) < 0.1),
   "The sum of the weightfactors (walls and ground)  is <0.9 or >1.1.
    Normally, the sum should be 1.", level=AssertionLevel.warning);
   assert(noEvent(abs(sum(wfWin) - 1) < 0.1),
@@ -42,8 +42,8 @@ equation
     TEqWin=TDryBul.+delTEqSWWin.*abs(sunblind.-1);
     TEqWall=TDryBul.+delTEqSW;
   end if;
-  TEqAir = TEqWall*wfWall + TGround*wfGround;
-  TEqAirWindow = TEqWin*wfWin;
+  TEqAir = TEqWall*wfWall + TGro*wfGro;
+  TEqAirWin = TEqWin*wfWin;
   annotation (defaultComponentName = "equAirTem",Documentation(revisions="<html>
   <ul>
   <li>September 2015, by Moritz Lauster:<br/>
