@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
+within Annex60.ThermalZones.ReducedOrder.RC;
 model ThreeElements "Thermal Zone with three elements for exterior walls,
   interior walls and floor plate"
     extends TwoElements(AArray={ATotExt,ATotWin,AInt,AFloor});
@@ -202,7 +202,7 @@ equation
   The image below shows the RC-network of this model.
   </p>
   <p align=\"center\">
-  <img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneThreeElements/ThreeElements.png\" alt=\"image\"/>
+  <img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/ThreeElements/ThreeElements.png\" alt=\"image\"/>
   </p>
   </html>"));
 end ThreeElements;

@@ -1,4 +1,4 @@
-within Annex60.Experimental;
+within Annex60;
 package ThermalZones "Models for BuildingPhysics"
     extends Modelica.Icons.Package;
 

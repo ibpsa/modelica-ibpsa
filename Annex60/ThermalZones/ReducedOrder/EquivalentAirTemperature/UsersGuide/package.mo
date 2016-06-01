@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature;
+within Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
@@ -9,8 +9,8 @@ calculating an equivalent air temperature. There are two common ways to
 consider solar radiation hitting exterior surfaces. One way is to consider
 the resulting heat load at the wall&apos;s capacity. The other way is to
 add correction terms to the outdoor air temperature. The models in the package
-<a href=\"modelica://Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature\">
-Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature</a>
+<a href=\"modelica://Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature\">
+Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature</a>
 follow the second approach. This approach is, for example, described in the German
 Guideline VDI 6007 Part 1 (VDI, 2012). The influence of indoor temperatures
 via heat transfer through exterior walls is neglected. The exterior wall&apos;s

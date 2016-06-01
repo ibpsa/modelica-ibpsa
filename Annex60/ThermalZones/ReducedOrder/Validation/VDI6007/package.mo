@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.Validation;
+within Annex60.ThermalZones.ReducedOrder.Validation;
 package VDI6007
   "Validation according to VDI 6007-1"
   extends Modelica.Icons.ExamplesPackage;

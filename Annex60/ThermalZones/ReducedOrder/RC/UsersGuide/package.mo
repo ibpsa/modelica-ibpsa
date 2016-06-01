@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
+within Annex60.ThermalZones.ReducedOrder.RC;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
@@ -48,11 +48,11 @@ heating/cooling power.
 <h4>Architecture</h4>
 <p>
 Each wall element uses either
-<a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.ExteriorWall\">
-Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.ExteriorWall</a>
+<a href=\"Annex60.ThermalZones.ReducedOrder.RC.BaseClasses.ExteriorWall\">
+Annex60.ThermalZones.ReducedOrder.RC.BaseClasses.ExteriorWall</a>
 or
-<a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.InteriorWall\">
-Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.InteriorWall</a>
+<a href=\"Annex60.ThermalZones.ReducedOrder.RC.BaseClasses.InteriorWall\">
+Annex60.ThermalZones.ReducedOrder.RC.BaseClasses.InteriorWall</a>
 to describe heat conduction and storage within the wall, depending if the wall
 contributes to heat transfer to the outdoor environment (exterior walls) or can
 be considered as simple heat storage elements (interior walls). The number of
@@ -87,8 +87,8 @@ radiation calculations.
 The transmission of solar radiation through windows is split up into two parts.
 One part is connected to the indoor radiative heat exchange mesh network using
 a
-<a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.ThermSplitter\">
-Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.ThermSplitter</a>,
+<a href=\"Annex60.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter\">
+Annex60.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter</a>,
 while the other part is directly linked to the convective network. The split
 factor <code>ratioWinConRad </code> is a window property and depends on the
 glazing and used materials.
@@ -153,16 +153,16 @@ radiative internal gains, it is common to define the heat flow independently of
 temperature and thus of area as well, assuming that the temperature of the
 source is high compared to the wall surface temperatures.
 By using a
-<a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.ThermSplitter\">
-Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.ThermSplitter</a>
+<a href=\"Annex60.ThermalZones.ReducedOrder.ROM.BaseClasses.ThermSplitter\">
+Annex60.ThermalZones.ReducedOrder.ROM.BaseClasses.ThermSplitter</a>
 that distributes the heat flow of the source over the walls according to their
 area, we support this simplified approach. For solar radiation through windows,
 the area of exterior walls and windows with the same orientation as the incoming
 radiation is not taken into account for the distribution as such surfaces cannot
 be hit by the particular radiation. This calculation is performed for each
 orientation seperately using
-<a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.splitFacVal\">
-Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.splitFacVal</a>.
+<a href=\"Annex60.ThermalZones.ReducedOrder.ROM.BaseClasses.splitFacVal\">
+Annex60.ThermalZones.ReducedOrder.ROM.BaseClasses.splitFacVal</a>.
 </p>
 </li>
 </ul>
@@ -170,8 +170,8 @@ Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.splitFacVal</a>.
 <p>
 The models in this package are typically used in combination with models from
 the parent package
-<a href=\"Annex60.Experimental.ThermalZones.ReducedOrder\">
-Annex60.Experimental.ThermalZones.ReducedOrder</a>.
+<a href=\"Annex60.ThermalZones.ReducedOrder\">
+Annex60.ThermalZones.ReducedOrder</a>.
 A typical application is one building out of a large building stock for
 which the heating and cooling power over a year in hourly time steps should be
 calculated and is afterwards aggregated to the building stock&apos;s overall
@@ -202,7 +202,7 @@ radiation and have a specific surface temperature, e.g. a floor heating.
 Calculation of transient thermal response of rooms and buildings - modelling of
 rooms.</p>
 <p>M. Lauster, A. Bruentjen, H. Leppmann, M. Fuchs, R. Streblow, D. Mueller.
-<a href=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/UsersGuide/BauSIM2014_208-2_p1192.pdf\">Improving a LoOrder Building Model for Urban Scale Applications</a>.
+<a href=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/ROM/UsersGuide/BauSIM2014_208-2_p1192.pdf\">Improving a LoOrder Building Model for Urban Scale Applications</a>.
 <i>Proceedings of BauSim 2014: 5th German-Austrian IBPSA Conference</i>,
 p. 511-518, Aachen, Germany. Sep. 22-24, 2014.</p>
 <p>M. Lauster, J. Teichmann, M. Fuchs, R. Streblow, D. Mueller. Low Order
@@ -210,7 +210,7 @@ Thermal Network Models for Dynamic Simulations of Buildings on City District
 Scale. <i>Building and Environment</i>, 73, 223-231, 2014.
 <a href=\"http://dx.doi.org/10.1016/j.buildenv.2013.12.016\">doi:10.1016/j.buildenv.2013.12.016</a></p>
 <p>M. Lauster, M. Fuchs, M. Huber, P. Remmen, R. Streblow, D. Mueller.
-<a href=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/UsersGuide/p2241.pdf\">Adaptive Thermal Building Modeland Methods for Scalable Simulations of Multiple Buildings using Modelica</a>.
+<a href=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/ROM/UsersGuide/p2241.pdf\">Adaptive Thermal Building Modeland Methods for Scalable Simulations of Multiple Buildings using Modelica</a>.
 <i>Proceedings of BS2015: 14th Conference of International Building Performance
 Simulation Association</i>, p. 339-346, Hyderabad, India. Dec. 7-9, 2015. </p>
 </html>"));

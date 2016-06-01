@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature;
+within Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature;
 model VDI6007 "Equivalent air temperature as defined in VDI 6007 Part 1"
   extends BaseClasses.PartialVDI6007;
 

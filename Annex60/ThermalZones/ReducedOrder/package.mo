@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones;
+within Annex60.ThermalZones;
 package ReducedOrder
   "Reduced order models based on VDI 6007"
   extends Modelica.Icons.Package;

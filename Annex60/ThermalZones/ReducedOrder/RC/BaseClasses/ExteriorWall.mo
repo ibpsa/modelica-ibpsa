@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses;
+within Annex60.ThermalZones.ReducedOrder.RC.BaseClasses;
 model ExteriorWall "Exterior wall consisting of variable number of RC elements"
 
   parameter Integer n(min = 1) "Number of RC-elements";
@@ -74,7 +74,7 @@ equation
   from heat <code>port_a</code> to heat <code>port_b</code>. <code>RExtRem</code>
   is the resistance between the last capacity <code>CExt[end]</code> and the
   heat <code>port_b</code>.</p>
-  <p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/BaseClasses/ExtMassVarRC/ExtMassVarRC.png\" alt=\"image\"/> </p>
+  <p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/ROM/BaseClasses/ExtMassVarRC/ExtMassVarRC.png\" alt=\"image\"/> </p>
   </html>",  revisions="<html>
   <ul>
   <li>

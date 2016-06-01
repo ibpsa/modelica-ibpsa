@@ -1,8 +1,8 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
+within Annex60.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase10 "VDI 6007 Test Case 10 model"
   extends Modelica.Icons.Example;
 
-  ReducedOrderZones.TwoElements thermalZoneTwoElements(
+  RC.TwoElements thermalZoneTwoElements(
     redeclare final package Medium = Modelica.Media.Air.SimpleAir,
     gWin=1,
     nExt=1,
@@ -245,6 +245,6 @@ equation
   </ul>
   </html>"),
   __Dymola_Commands(file=
-  "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase10.mos"
+  "modelica://Annex60/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase10.mos"
         "Simulate and plot"));
 end TestCase10;

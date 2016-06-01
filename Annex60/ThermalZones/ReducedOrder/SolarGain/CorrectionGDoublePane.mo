@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain;
+within Annex60.ThermalZones.ReducedOrder.SolarGain;
 model CorrectionGDoublePane
   "Correction of the solar gain factor according to VDI6007 Part 3"
   extends BaseClasses.PartialCorrectionG;

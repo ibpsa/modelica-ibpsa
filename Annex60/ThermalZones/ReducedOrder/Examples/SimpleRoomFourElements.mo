@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.Examples;
+within Annex60.ThermalZones.ReducedOrder.Examples;
 model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
   extends Modelica.Icons.Example;
 
@@ -22,10 +22,10 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     azi={3.1415926535898,4.7123889803847})
     "Calculates direct solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-68,52},{-48,72}})));
-  CorrectionSolarGain.CorrectionGDoublePane corGDouPan(UWin=2.1, n=2)
+  SolarGain.CorrectionGDoublePane corGDouPan(UWin=2.1, n=2)
     "Correction factor for solar transmission"
     annotation (Placement(transformation(extent={{6,46},{26,66}})));
-  ReducedOrderZones.FourElements thermalZoneFourElements(
+  RC.FourElements thermalZoneFourElements(
     VAir=52.5,
     alphaExt=2.7,
     alphaWin=2.7,
@@ -297,14 +297,14 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>This example shows the application of
-  <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.ThermalZoneFourElements\">
-  Annex60.Experimental.ThermalZones.ReducedOrder.ROM.ThermalZoneFourElements</a>
+  <a href=\"Annex60.ThermalZones.ReducedOrder.ROM.ThermalZoneFourElements\">
+  Annex60.ThermalZones.ReducedOrder.ROM.ThermalZoneFourElements</a>
   in combination with
-  <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp\">
-  Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp</a>
+  <a href=\"Annex60.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp\">
+  Annex60.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp</a>
   and
-  <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain.CorGDoublePane\">
-  Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain.CorGDoublePane</a>.
+  <a href=\"Annex60.ThermalZones.ReducedOrder.SolarGain.CorGDoublePane\">
+  Annex60.ThermalZones.ReducedOrder.SolarGain.CorGDoublePane</a>.
   Solar radiation on tilted surface is calculated using models of
   Annex60. The thermal zone is a simple room defined in Guideline
   VDI 6007 Part 1 (VDI, 2012). All models, parameters and inputs
@@ -338,6 +338,6 @@ equation
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
   100}})),
   __Dymola_Commands(file=
-  "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElements.mos"
+  "modelica://Annex60/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElements.mos"
         "Simulate and plot"));
 end SimpleRoomFourElements;

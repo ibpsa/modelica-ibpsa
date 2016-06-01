@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
+within Annex60.ThermalZones.ReducedOrder.RC;
 model OneElement "Thermal Zone with one element for exterior walls"
   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
 
@@ -464,7 +464,7 @@ using the parameter <code>mSenFac</code>.
 The image below shows the RC-network of this model.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneOneElement/OneElement.png\" alt=\"image\"/>
+<img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/OneElement/OneElement.png\" alt=\"image\"/>
 </p>
   </html>",
 revisions="<html>
