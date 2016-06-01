@@ -1,7 +1,7 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
-model ThermalZoneTwoElements
+model TwoElements
   "Thermal Zone with two elements for exterior and interior walls"
-  extends ThermalZoneOneElement(AArray={ATotExt,ATotWin,AInt});
+  extends OneElement(AArray={ATotExt,ATotWin,AInt});
 
   parameter Modelica.SIunits.Area AInt "Area of interior walls"
     annotation(Dialog(group="Interior walls"));
@@ -156,4 +156,4 @@ equation
   extent={{-64,74},{60,-50}},
   lineColor={0,0,0},
   textString="2")}));
-end ThermalZoneTwoElements;
+end TwoElements;

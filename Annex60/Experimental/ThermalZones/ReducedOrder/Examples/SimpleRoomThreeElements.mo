@@ -25,7 +25,7 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
   CorrectionSolarGain.CorrectionGDoublePane corGDouPan(n=2, UWin=2.1)
     "Correction factor for solar transmission"
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
-  ReducedOrderZones.ThermalZoneThreeElements thermalZoneThreeElements(
+  ReducedOrderZones.ThreeElements thermalZoneThreeElements(
     VAir=52.5,
     alphaExt=2.7,
     alphaWin=2.7,

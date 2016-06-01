@@ -2,7 +2,7 @@ within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase9 "VDI 6007 Test Case 9 model"
   extends Modelica.Icons.Example;
 
-  ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
+  ReducedOrderZones.TwoElements thermalZoneTwoElements(
     redeclare final package Medium = Modelica.Media.Air.SimpleAir,
     alphaExt=2.7,
     alphaWin=2.7,

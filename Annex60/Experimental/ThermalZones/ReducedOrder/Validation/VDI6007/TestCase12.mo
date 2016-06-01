@@ -4,7 +4,7 @@ model TestCase12 "VDI 6007 Test Case 12 model"
 
   package Medium = Modelica.Media.Air.SimpleAir "Medium model";
 
-  ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
+  ReducedOrderZones.TwoElements thermalZoneTwoElements(
     alphaExt=2.7,
     alphaWin=2.7,
     gWin=1,

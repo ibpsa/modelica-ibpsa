@@ -1,7 +1,7 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
-model ThermalZoneThreeElements "Thermal Zone with three elements for exterior walls,
+model ThreeElements "Thermal Zone with three elements for exterior walls,
   interior walls and floor plate"
-    extends ThermalZoneTwoElements(AArray={ATotExt,ATotWin,AInt,AFloor});
+    extends TwoElements(AArray={ATotExt,ATotWin,AInt,AFloor});
 
   parameter Modelica.SIunits.Area AFloor "Area of floor plate"
     annotation(Dialog(group="Floor plate"));
@@ -205,4 +205,4 @@ equation
   <img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneThreeElements/ThreeElements.png\" alt=\"image\"/>
   </p>
   </html>"));
-end ThermalZoneThreeElements;
+end ThreeElements;

@@ -1,5 +1,5 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
-model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
+model OneElement "Thermal Zone with one element for exterior walls"
   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
 
   parameter Modelica.SIunits.Volume VAir "Air volume of the zone"
@@ -475,4 +475,4 @@ revisions="<html>
   </li>
   </ul>
   </html>"));
-end ThermalZoneOneElement;
+end OneElement;

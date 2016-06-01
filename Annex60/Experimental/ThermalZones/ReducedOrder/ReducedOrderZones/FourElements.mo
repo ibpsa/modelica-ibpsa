@@ -1,7 +1,7 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
-model ThermalZoneFourElements "Thermal Zone with four elements for exterior walls,
+model FourElements "Thermal Zone with four elements for exterior walls,
   interior walls, floor plate and roof"
-  extends ThermalZoneThreeElements(AArray={ATotExt,ATotWin,AInt,AFloor,ARoof});
+  extends ThreeElements(AArray={ATotExt,ATotWin,AInt,AFloor,ARoof});
 
   parameter Modelica.SIunits.Area ARoof "Area of roof"
     annotation(Dialog(group="Roof"));
@@ -221,4 +221,4 @@ equation
   <img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneFourElements/FourElements.png\" alt=\"image\"/>
   </p>
   </html>"));
-end ThermalZoneFourElements;
+end FourElements;
