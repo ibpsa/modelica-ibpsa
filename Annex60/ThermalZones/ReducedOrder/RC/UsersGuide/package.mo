@@ -210,7 +210,7 @@ Thermal Network Models for Dynamic Simulations of Buildings on City District
 Scale. <i>Building and Environment</i>, 73, 223-231, 2014.
 <a href=\"http://dx.doi.org/10.1016/j.buildenv.2013.12.016\">doi:10.1016/j.buildenv.2013.12.016</a></p>
 <p>M. Lauster, M. Fuchs, M. Huber, P. Remmen, R. Streblow, D. Mueller.
-<a href=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/UsersGuide/p2241.pdf\">Adaptive Thermal Building Modeland Methods for Scalable Simulations of Multiple Buildings using Modelica</a>.
+<a href=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/UsersGuide/p2241.pdf\">Adaptive Thermal Building Models and Methods for Scalable Simulations of Multiple Buildings using Modelica</a>.
 <i>Proceedings of BS2015: 14th Conference of International Building Performance
 Simulation Association</i>, p. 339-346, Hyderabad, India. Dec. 7-9, 2015. </p>
 </html>"));

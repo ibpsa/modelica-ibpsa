@@ -97,8 +97,7 @@ model SimpleRoomTwoElements "Illustrates the use of ThermalZoneTwoElements"
         0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,0,0,0;
         86400,0,0,0],
     columns={2,3,4},
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
-    "Table with profiles for persons (radiative and convective) and machines
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Table with profiles for persons (radiative and convective) and machines
     (convective)"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.Constant const[2](each k=0)
@@ -125,7 +124,7 @@ model SimpleRoomTwoElements "Illustrates the use of ThermalZoneTwoElements"
     extent={{4,-4},{-4,4}},
     rotation=90,
     origin={32,38})));
-    
+
 equation
   connect(eqAirTemp.TEqAirWin, preTem1.T)
     annotation (Line(
@@ -239,14 +238,14 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>This example shows the application of
-  <a href=\"Annex60.ThermalZones.ReducedOrder.RC.ThermalZoneTwoElements\">
-  Annex60.ThermalZones.ReducedOrder.RC.ThermalZoneTwoElements</a>
+  <a href=\"Annex60.ThermalZones.ReducedOrder.RC.TwoElements\">
+  Annex60.ThermalZones.ReducedOrder.RC.TwoElements</a>
   in combination with
-  <a href=\"Annex60.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp\">
-  Annex60.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp</a>
+  <a href=\"Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
+ Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a>
   and
-  <a href=\"Annex60.ThermalZones.ReducedOrder.SolarGain.CorGDoublePane\">
-  Annex60.ThermalZones.ReducedOrder.SolarGain.CorGDoublePane</a>.
+  <a href=\"Annex60.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane\">
+  Annex60.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane</a>.
   Solar radiation on tilted surface is calculated using models of
   Annex60. The thermal zone is a simple room defined in Guideline
   VDI 6007 Part 1 (VDI, 2012). All models, parameters and inputs

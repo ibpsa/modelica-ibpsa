@@ -20,7 +20,7 @@ partial model PartialVDI6007
   parameter Boolean withLongwave=true
     "Set to true to include longwave radiation exchange"
     annotation(choices(checkBox = true));
-    
+
   Modelica.SIunits.Temperature TEqWall[n] "Equivalent wall temperature";
   Modelica.SIunits.Temperature TEqWin[n] "Equivalent window temperature";
   Modelica.SIunits.TemperatureDifference delTEqLW
@@ -101,7 +101,7 @@ initial equation
   Line(points={{10,-72},{30,-40},{78,-40}}, color={0,0,0}),
   Line(points={{30,14},{30,-40}}, color={0,0,0})}),
   Documentation(info="<html>
-  <p><code>PartialVDI6007</code> is a partial model for <code>EqAirTemp</code>
+  <p><code>PartialVDI6007</code> is a partial model for <code>EquivalentAirTemperature</code>
   models.</p>
   </html>",
   revisions="<html>
