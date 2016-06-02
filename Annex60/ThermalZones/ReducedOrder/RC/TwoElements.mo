@@ -143,7 +143,7 @@ equation
   The image below shows the RC-network of this model.
   </p>
   <p align=\"center\">
-  <img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/TwoElements/TwoElements.png\" alt=\"image\"/>
+  <img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/TwoElements.png\" alt=\"image\"/>
   </p>
   </html>"),
   Icon(coordinateSystem(extent={{-240,-180},{240,180}},

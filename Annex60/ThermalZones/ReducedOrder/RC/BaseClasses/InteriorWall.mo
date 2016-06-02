@@ -55,7 +55,7 @@ equation
   Resistances and capacities are connected alternately, starting with the first
   resistance <code>RInt[1]</code>, from heat <code>port_a</code> into the wall.
   </p>
-  <p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/ROM/BaseClasses/IntMassVarRC/IntMassVarRC.png\" alt=\"image\"/> </p>
+  <p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/BaseClasses/IntMassVarRC/IntMassVarRC.png\" alt=\"image\"/> </p>
   </html>",  revisions="<html>
   <ul>
   <li>

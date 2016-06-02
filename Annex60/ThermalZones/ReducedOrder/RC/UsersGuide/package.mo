@@ -153,16 +153,16 @@ radiative internal gains, it is common to define the heat flow independently of
 temperature and thus of area as well, assuming that the temperature of the
 source is high compared to the wall surface temperatures.
 By using a
-<a href=\"Annex60.ThermalZones.ReducedOrder.ROM.BaseClasses.ThermSplitter\">
-Annex60.ThermalZones.ReducedOrder.ROM.BaseClasses.ThermSplitter</a>
+<a href=\"Annex60.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter\">
+Annex60.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter</a>
 that distributes the heat flow of the source over the walls according to their
 area, we support this simplified approach. For solar radiation through windows,
 the area of exterior walls and windows with the same orientation as the incoming
 radiation is not taken into account for the distribution as such surfaces cannot
 be hit by the particular radiation. This calculation is performed for each
 orientation seperately using
-<a href=\"Annex60.ThermalZones.ReducedOrder.ROM.BaseClasses.splitFacVal\">
-Annex60.ThermalZones.ReducedOrder.ROM.BaseClasses.splitFacVal</a>.
+<a href=\"Annex60.ThermalZones.ReducedOrder.RC.BaseClasses.splitFacVal\">
+Annex60.ThermalZones.ReducedOrder.RC.BaseClasses.splitFacVal</a>.
 </p>
 </li>
 </ul>
@@ -202,7 +202,7 @@ radiation and have a specific surface temperature, e.g. a floor heating.
 Calculation of transient thermal response of rooms and buildings - modelling of
 rooms.</p>
 <p>M. Lauster, A. Bruentjen, H. Leppmann, M. Fuchs, R. Streblow, D. Mueller.
-<a href=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/ROM/UsersGuide/BauSIM2014_208-2_p1192.pdf\">Improving a LoOrder Building Model for Urban Scale Applications</a>.
+<a href=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/UsersGuide/BauSIM2014_208-2_p1192.pdf\">Improving a Low Order Building Model for Urban Scale Applications</a>.
 <i>Proceedings of BauSim 2014: 5th German-Austrian IBPSA Conference</i>,
 p. 511-518, Aachen, Germany. Sep. 22-24, 2014.</p>
 <p>M. Lauster, J. Teichmann, M. Fuchs, R. Streblow, D. Mueller. Low Order
@@ -210,7 +210,7 @@ Thermal Network Models for Dynamic Simulations of Buildings on City District
 Scale. <i>Building and Environment</i>, 73, 223-231, 2014.
 <a href=\"http://dx.doi.org/10.1016/j.buildenv.2013.12.016\">doi:10.1016/j.buildenv.2013.12.016</a></p>
 <p>M. Lauster, M. Fuchs, M. Huber, P. Remmen, R. Streblow, D. Mueller.
-<a href=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/ROM/UsersGuide/p2241.pdf\">Adaptive Thermal Building Modeland Methods for Scalable Simulations of Multiple Buildings using Modelica</a>.
+<a href=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/UsersGuide/p2241.pdf\">Adaptive Thermal Building Modeland Methods for Scalable Simulations of Multiple Buildings using Modelica</a>.
 <i>Proceedings of BS2015: 14th Conference of International Building Performance
 Simulation Association</i>, p. 339-346, Hyderabad, India. Dec. 7-9, 2015. </p>
 </html>"));

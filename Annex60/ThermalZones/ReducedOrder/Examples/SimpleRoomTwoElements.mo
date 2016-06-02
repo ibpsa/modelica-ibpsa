@@ -239,8 +239,8 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>This example shows the application of
-  <a href=\"Annex60.ThermalZones.ReducedOrder.ROM.ThermalZoneTwoElements\">
-  Annex60.ThermalZones.ReducedOrder.ROM.ThermalZoneTwoElements</a>
+  <a href=\"Annex60.ThermalZones.ReducedOrder.RC.ThermalZoneTwoElements\">
+  Annex60.ThermalZones.ReducedOrder.RC.ThermalZoneTwoElements</a>
   in combination with
   <a href=\"Annex60.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp\">
   Annex60.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp</a>

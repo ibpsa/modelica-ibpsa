@@ -218,7 +218,7 @@ equation
   The image below shows the RC-network of this model.
   </p>
   <p align=\"center\">
-  <img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/FourElements/FourElements.png\" alt=\"image\"/>
+  <img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/FourElements.png\" alt=\"image\"/>
   </p>
   </html>"));
 end FourElements;

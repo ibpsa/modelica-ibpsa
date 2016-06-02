@@ -202,7 +202,7 @@ equation
   The image below shows the RC-network of this model.
   </p>
   <p align=\"center\">
-  <img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/ThreeElements/ThreeElements.png\" alt=\"image\"/>
+  <img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/ThreeElements.png\" alt=\"image\"/>
   </p>
   </html>"));
 end ThreeElements;

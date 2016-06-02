@@ -15,8 +15,7 @@ model OneElement "Thermal Zone with one element for exterior walls"
   parameter Modelica.SIunits.Area AWin[nOrientations]
     "Vector of areas of windows by orientations"
     annotation(Dialog(group="Windows"));
-  parameter Modelica.SIunits.Area ATransparent[nOrientations]
-    "Vector of areas of transparent (solar radiation transmittend) elements by
+  parameter Modelica.SIunits.Area ATransparent[nOrientations] "Vector of areas of transparent (solar radiation transmittend) elements by
     orientations"
     annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWin
@@ -154,8 +153,7 @@ model OneElement "Thermal Zone with one element for exterior walls"
   BaseClasses.ThermSplitter thermSplitterSolRad(
     final splitFactor=splitFactorSolRad,
     final nOut=dimension,
-    final nIn=nOrientations) if ATot > 0
-    "Splits incoming solar radiation into seperate gains for each wall
+    final nIn=nOrientations) if ATot > 0 "Splits incoming solar radiation into seperate gains for each wall
     element, weighted by their area"
     annotation (Placement(transformation(extent={{-138,138},{-122,154}})));
   BaseClasses.ExteriorWall extWallRC(
@@ -180,8 +178,7 @@ protected
     BaseClasses.splitFacVal(dimension, 1, AArray, fill(0, 1), fill(0, 1))
     "Share of each wall surface area that is non-zero";
   parameter Real splitFactorSolRad[dimension, nOrientations]=
-    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin)
-    "Share of each wall surface area that is non-zero, for each orientation
+    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin) "Share of each wall surface area that is non-zero, for each orientation
     seperately";
   Modelica.Thermal.HeatTransfer.Components.Convection convExtWall if ATotExt > 0
     "Convective heat transfer of exterior walls"
@@ -464,7 +461,7 @@ using the parameter <code>mSenFac</code>.
 The image below shows the RC-network of this model.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/OneElement/OneElement.png\" alt=\"image\"/>
+<img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/OneElement.png\" alt=\"image\"/>
 </p>
   </html>",
 revisions="<html>
