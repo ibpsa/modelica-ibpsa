@@ -112,7 +112,7 @@ public
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlow    tau_unused_maxClause(diameter=diameter)
+  BaseClasses.PDETime_massFlow tau_unused(diameter=diameter)
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   BaseClasses.PDETime_massFlow         tau_used(               diameter=
         diameter)
@@ -138,7 +138,7 @@ equation
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
     annotation (Line(points={{-44,0},{-52,0},{-60,0}},
                                                color={0,127,255}));
-  connect(senMasFlo.m_flow, tau_unused_maxClause.m_flow) annotation (Line(
+  connect(senMasFlo.m_flow, tau_unused.m_flow) annotation (Line(
       points={{-34,-11},{-34,-40},{-22,-40}},
       color={0,0,127},
       smooth=Smooth.None));

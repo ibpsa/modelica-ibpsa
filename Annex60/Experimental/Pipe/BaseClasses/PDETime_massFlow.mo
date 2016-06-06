@@ -23,7 +23,7 @@ model PDETime_massFlow "Delay time for given normalized velocity"
   Real u=m_flow/(len*rho*diameter^2/4*Modelica.Constants.pi)
     "Normalized fluid velocity";
   Real t=time;
-  Real eps=1e-10 "Dead band for zero flow criterium";
+  parameter Real eps=1e-10 "Dead band for zero flow criterium";
 
   Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow of fluid" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),

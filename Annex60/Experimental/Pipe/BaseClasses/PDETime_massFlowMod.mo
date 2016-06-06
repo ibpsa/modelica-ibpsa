@@ -29,7 +29,7 @@ model PDETime_massFlowMod "Delay time for given normalized velocity"
   Modelica.SIunits.Time trackEnd
     "Delay time of a mass flow rate period is stored";
   Modelica.SIunits.Time track;
-    Real epsilon = 0.000001;
+  parameter Real epsilon = 1e-10;
 
 equation
  v = m_flow/(rho*(diameter^2)/4*Modelica.Constants.pi);
