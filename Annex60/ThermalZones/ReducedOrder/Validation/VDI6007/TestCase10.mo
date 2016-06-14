@@ -158,7 +158,7 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={28,-19})));
-    
+
 equation
   connect(perRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
@@ -230,11 +230,11 @@ equation
   <li>daily profile for outdoor air temperature in hourly steps</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
   <li>daily profile for solar radiation through the windows in hourly steps</li>
-  <li>sunblind closes at &GT;100 W/m2</li>
+  <li>sunblind closes at &gt;100 W/m2</li>
   <li>no long-wave radiation exchange between exterior wall, windows and ambient
   environment</li>
   </ul>
-  <p><br>This test case is thought to test linking to ajdacent rooms with fixed
+  <p><br/>This test case is thought to test linking to ajdacent rooms with fixed
   temperature.</p>
   </html>", revisions="<html>
   <ul>

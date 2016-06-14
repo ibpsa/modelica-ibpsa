@@ -74,7 +74,7 @@ model TestCase1 "VDI 6007 Test Case 1 model"
     origin={30,-18})));
   Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
-    
+
 equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -103,7 +103,7 @@ equation
   <li>no long-wave radiation exchange between exterior wall, windows and ambient
   environment</li>
   </ul>
-  <p><br>This test case is thought to test basic functionalities.</p>
+  <p><br/>This test case is thought to test basic functionalities.</p>
   </html>", revisions="<html>
   <ul>
   <li>

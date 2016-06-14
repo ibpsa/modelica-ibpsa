@@ -165,7 +165,7 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     annotation (Placement(transformation(extent={{-32,-72},{-12,-52}})));
   Modelica.Blocks.Math.Gain gain1(k=-1) "Reverses ventilation rate"
     annotation (Placement(transformation(extent={{-62,-61},{-48,-47}})));
-    
+
 equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -245,7 +245,7 @@ equation
   <li>daily profile for outdoor air temperature in hourly steps</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
   <li>daily profile for solar radiation through the windows in hourly steps</li>
-  <li>sunblind closes at &GT;100 W/m2</li>
+  <li>sunblind closes at &gt;100 W/m2</li>
   <li>no long-wave radiation exchange between exterior wall, windows and ambient
   environment</li>
   <li>daily profile for ventilation in hourly time steps</li>

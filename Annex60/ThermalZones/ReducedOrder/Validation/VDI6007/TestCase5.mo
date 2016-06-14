@@ -134,7 +134,7 @@ model TestCase5 "VDI 6007 Test Case 5 model"
     extent={{-6,-6},{6,6}},
     rotation=-90,
     origin={-26,38})));
-    
+
 equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -192,7 +192,7 @@ equation
   <li>daily profile for outdoor air temperature in hourly steps</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
   <li>daily profile for solar radiation through the windows in hourly steps</li>
-  <li>sunblind closes at &GT;100 W/m2</li>
+  <li>sunblind closes at &gt;100 W/m2</li>
   <li>no long-wave radiation exchange between exterior wall, windows and ambient
   environment</li>
   </ul>

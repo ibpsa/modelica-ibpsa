@@ -229,7 +229,7 @@ model TestCase9 "VDI 6007 Test Case 9 model"
   Modelica.Blocks.Math.Gain gain(k=65.99081593)
     "Convert long-wave radiation into black body sky temperature"
     annotation (Placement(transformation(extent={{-52,-10},{-46,-4}})));
-    
+
 equation
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
@@ -346,7 +346,7 @@ equation
   <li>daily profile for outdoor air temperature in hourly steps</li>
   <li>daily profile for solar radiation on the exterior wall</li>
   <li>daily profile for solar radiation through the windows in hourly steps</li>
-  <li>sunblind closes at &GT;100 W/m2</li>
+  <li>sunblind closes at &gt;100 W/m2</li>
   <li>long-wave radiation exchange between exterior wall, windows and ambient
   environment</li>
   </ul>
