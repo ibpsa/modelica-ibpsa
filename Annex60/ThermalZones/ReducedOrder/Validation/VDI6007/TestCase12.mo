@@ -27,13 +27,13 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     AWin={0},
     ATransparent={7},
     AExt={10.5},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=295.15,
     extWallRC(thermCapExt(each T(fixed=true))),
-    intWallRC(thermCapInt(each T(fixed=true)))) "Thermal zone"
+    intWallRC(thermCapInt(each T(fixed=true))),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
-    "Outdoor air temperature"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem(port(T(
+          start=300))) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
   Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer"
@@ -236,7 +236,8 @@ equation
     annotation (Line(points=
     {{4.5,70},{12,70},{22,70},{22,31},{43,31}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-  -100},{100,100}})), Documentation(info="<html>
+  -100},{100,100}})),
+  Documentation(info="<html>
   <p>Test Case 12 of the VDI 6007 Part 1: Calculation of indoor air temperature
   excited by a radiative and convective heat source for room version S. It is
   based of Test Case 5 and adds ventilation.</p>
