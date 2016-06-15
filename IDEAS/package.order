@@ -1,6 +1,4 @@
 UsersGuide
-PartialSimInfoManager
-SimInfoManager
 Airflow
 BoundaryConditions
 Buildings
@@ -14,4 +12,3 @@ Utilities
 Types
 Examples
 Experimental
-
