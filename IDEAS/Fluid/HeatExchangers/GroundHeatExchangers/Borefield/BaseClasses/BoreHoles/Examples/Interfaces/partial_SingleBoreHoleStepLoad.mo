@@ -62,10 +62,7 @@ partial model partial_SingleBoreHoleStepLoad
     T_start=gen.T_start) "Temperature at the outlet of the borefield"
     annotation (Placement(transformation(extent={{34,-54},{50,-38}})));
 
-    Real Rb_sim;
-    Real Q;
 equation
-    Q = max(TSen_bor_in.port_a.m_flow*4180*(TSen_bor_in.T-TSen_bor_out.T),1);
   connect(pum.port_a, hea.port_b) annotation (Line(
       points={{-14,0},{6,0}},
       color={0,127,255},

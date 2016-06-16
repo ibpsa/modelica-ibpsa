@@ -21,10 +21,7 @@ model SingleBoreHole2UTubeSerStepLoadScript
      gen=gen) "NbSer boreholes in series"   annotation (Placement(transformation(
           extent={{-12,-58},{12,-34}}, rotation=0)));
 
-    Real Q;
 equation
-    Rb_sim = (TSen_bor_in.T+TSen_bor_out.T - 2*borHolSer.borHol[1].borHolSeg[1].intHEX.port.T)/2/(Q/gen.hSeg);
-
   connect(TSen_bor_in.port_b, borHolSer.port_a) annotation (Line(
       points={{-38,-46},{-12,-46}},
       color={0,127,255},

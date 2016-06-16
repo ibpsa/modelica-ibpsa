@@ -3,7 +3,7 @@ model AirLeakage "air leakage due to limied air tightness"
 
 extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
     final allowFlowReversal=false,
-    final m_flow_nominal=V/3600*n50/n50toAch);
+    final m_flow_nominal=V*rho_default/3600*n50/n50toAch);
 
   parameter Modelica.SIunits.Volume V "zone air volume";
   parameter Real n50(min=0)=0.4 "n50-value of airtightness";
@@ -18,7 +18,7 @@ extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
     control_m_flow=true,
     allowFlowReversal=false)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Blocks.Sources.RealExpression reaExpMflo(y=V*rho_default/3600*n50/20)
+  Modelica.Blocks.Sources.RealExpression reaExpMflo(y=V*rho_default/3600*n50/n50toAch)
     annotation (Placement(transformation(extent={{-86,20},{-40,40}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if  sim.computeConservationOfEnergy
     annotation (Placement(transformation(extent={{-60,50},{-80,70}})));

@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Actuators.Valves.Simplified;
 model ThreeWayValveMotor
   "Ideal three way valve with a krane controlled with a Real input with value between 0 and 1"
-  extends BaseClasses.Partial3WayValve;
+  extends BaseClasses.Partial3WayValve(idealSource(dp_start=0));
 
 public
   Modelica.Blocks.Interfaces.RealInput ctrl(min=0, max=1)
