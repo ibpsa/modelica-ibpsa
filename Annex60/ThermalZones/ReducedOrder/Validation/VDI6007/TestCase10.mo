@@ -229,7 +229,7 @@ equation
   <li>daily profile for outdoor air temperature in hourly steps</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
   <li>daily profile for solar radiation through the windows in hourly steps</li>
-  <li>sunblind closes at &gt;100 W/m2</li>
+  <li>sunblind closes at &gt;100 W/m<sup>2</sup></li>
   <li>no long-wave radiation exchange between exterior wall, windows and ambient
   environment</li>
   </ul>
