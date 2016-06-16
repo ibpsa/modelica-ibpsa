@@ -25,7 +25,6 @@ model ControlledFlowMachine
         origin={-10,32})));
   Annex60.Fluid.Movers.SpeedControlled_y fan1(
     redeclare package Medium = Medium,
-    per(pressure(final V_flow={0,1.8,3}, dp={1000,600,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   FixedResistances.FixedResistanceDpM dp1(
@@ -69,7 +68,6 @@ model ControlledFlowMachine
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
   Annex60.Fluid.Movers.SpeedControlled_Nrpm fan4(
     redeclare package Medium = Medium,
-    per(pressure(final V_flow={0,1.8,3}, dp={1000,600,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Modelica.Blocks.Math.Gain gain(k=1500) "Converts y to nominal rpm"
