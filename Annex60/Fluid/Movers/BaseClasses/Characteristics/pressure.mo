@@ -7,7 +7,8 @@ function pressure
   input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
   input Modelica.SIunits.VolumeFlowRate VDelta_flow "Small volume flow rate";
-  input Modelica.SIunits.PressureDifference dpDelta(displayUnit="Pa") "Small pressure";
+  input Modelica.SIunits.PressureDifference dpDelta(displayUnit="Pa")
+    "Small pressure";
 
   input Modelica.SIunits.VolumeFlowRate V_flow_max
     "Maximum volume flow rate at r_N=1 and dp=0";
@@ -36,13 +37,14 @@ protected
       "Pressure performance data";
     input Integer dimD "Dimension of data vector";
 
-    output Modelica.SIunits.PressureDifference dp(displayUnit="Pa") "Pressure raise";
+    output Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
+      "Pressure raise";
 
   protected
     Modelica.SIunits.VolumeFlowRate rat "Ratio of V_flow/r_N";
     Integer i "Integer to select data interval";
   algorithm
-    rat := V_flow/r_N;
+    rat := V_flow*Annex60.Utilities.Math.Functions.inverseXRegularized(r_N,1e-10);
     i :=1;
     // Since the coefficients for the spline were evaluated for
     // rat_nominal = V_flow_nominal/r_N_nominal = V_flow_nominal/1, we use
@@ -53,7 +55,7 @@ protected
        end if;
     end for;
     // Extrapolate or interpolate the data
-    dp:=r_N^2*Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+    dp:=sign(r_N)*r_N^2*Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
                 x=rat,
                 x1=per.V_flow[i],
                 x2=per.V_flow[i + 1],
@@ -65,25 +67,26 @@ protected
   end performanceCurve;
 
 algorithm
-  if r_N >= delta then
-     dp := performanceCurve(V_flow=V_flow, r_N=r_N, d=d,
-                            per=per, dimD=dimD);
-  elseif r_N <= delta/2 then
-    dp := flowApproximationAtOrigin(r_N=r_N, V_flow=V_flow,
-                                    VDelta_flow=  VDelta_flow, dpDelta=dpDelta,
-                                    delta=delta, cBar=cBar);
-  else
-    dp := Modelica.Fluid.Utilities.regStep(x=r_N-0.75*delta,
-                                           y1=performanceCurve(V_flow=V_flow, r_N=r_N, d=d,
-                                                               per=per, dimD=dimD),
-                                           y2=flowApproximationAtOrigin(r_N=r_N, V_flow=V_flow,
-                                                   VDelta_flow=VDelta_flow, dpDelta=dpDelta,
-                                                   delta=delta, cBar=cBar),
-                                           x_small=delta/4);
-  end if;
+//   if true or r_N >= delta then
+//      dp := performanceCurve(V_flow=V_flow, r_N=r_N, d=d,
+//                             per=per, dimD=dimD);
+//   elseif r_N <= delta/2 then
+//     dp := flowApproximationAtOrigin(r_N=r_N, V_flow=V_flow,
+//                                     VDelta_flow=  VDelta_flow, dpDelta=dpDelta,
+//                                     delta=delta, cBar=cBar);
+//   else
+//     dp := Modelica.Fluid.Utilities.regStep(x=r_N-0.75*delta,
+//                                            y1=performanceCurve(V_flow=V_flow, r_N=r_N, d=d,
+//                                                                per=per, dimD=dimD),
+//                                            y2=flowApproximationAtOrigin(r_N=r_N, V_flow=V_flow,
+//                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+//                                                    delta=delta, cBar=cBar),
+//                                            x_small=delta/4);
+//   end if;
   // linear equation for being able to handle r_N=0, see
   // Annex60/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
-  dp := dp - V_flow*kRes;
+  dp := performanceCurve(V_flow=V_flow, r_N=r_N, d=d,
+                            per=per, dimD=dimD) - V_flow*kRes;
   annotation(smoothOrder=1,
               Documentation(info="<html>
 <p>
