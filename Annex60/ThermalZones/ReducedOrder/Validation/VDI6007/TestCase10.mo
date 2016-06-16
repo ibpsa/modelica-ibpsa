@@ -100,8 +100,7 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-59,59})));
-  Modelica.Blocks.Math.Product product1
-    "Solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product1 "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
@@ -234,7 +233,7 @@ equation
   <li>no long-wave radiation exchange between exterior wall, windows and ambient
   environment</li>
   </ul>
-  <p><br/>This test case is thought to test linking to ajdacent rooms with fixed
+  <p>This test case is thought to test linking to ajdacent rooms with fixed
   temperature.</p>
   </html>", revisions="<html>
   <ul>
