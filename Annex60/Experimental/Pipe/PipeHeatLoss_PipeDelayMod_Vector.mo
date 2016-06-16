@@ -141,24 +141,9 @@ public
     annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
-  DHNLibrary.DistrictHeating.ComponentsMSL.Pipes.SpatialPipe.parts.ClosedVolume
-    volume(
-    redeclare package Medium = Medium,
-    use_portsData=false,
-    V=V,
-    scale=scale,
-    nPorts=nPorts + 1,
-    p_start=p_start,
-    use_T_start=use_T_start,
-    T_start=T_start,
-    h_start=h_start,
-    X_start=X_start,
-    C_start=C_start)
-    annotation (Placement(transformation(extent={{70,4},{90,24}})));
 equation
   //heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
   for i in 1:nPorts loop
-  connect(volume.ports[i+1], ports[i]);
   end for;
 
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
@@ -189,8 +174,6 @@ equation
       points={{23,-54},{28,-54},{28,32},{44,32},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heatLoss.port_b, volume.ports[1]) annotation (Line(points={{60,0},{66,
-          0},{66,-8},{80,-8},{80,4}}, color={0,127,255}));
   connect(port_a, reverseHeatLoss.port_b)
     annotation (Line(points={{-100,0},{-90,0},{-80,0}}, color={0,127,255}));
   annotation (

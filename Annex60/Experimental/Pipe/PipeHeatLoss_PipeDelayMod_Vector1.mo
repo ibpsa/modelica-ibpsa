@@ -1,9 +1,30 @@
 within Annex60.Experimental.Pipe;
-model PipeHeatLoss_PipeDelay
+model PipeHeatLoss_PipeDelayMod_Vector1
   "Pipe model using spatialDistribution for temperature delay with heat losses modified and one delay operator at pipe level"
-  extends Annex60.Fluid.Interfaces.PartialTwoPort;
-
+extends Annex60.Fluid.Interfaces.PartialTwoPortVector;
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
+   parameter Integer nPorts "Number of ports"   annotation(Dialog(connectorSizing=true));
+   parameter Real scaleVolume=0.9 "Factor for volume and spatial operator";
+   parameter Real scale=1;
+
+  parameter Modelica.Media.Interfaces.Types.AbsolutePressure p_start=volume.system.p_start
+    "Start value of pressure" annotation (Dialog(tab="VolumeInit"));
+  parameter Boolean use_T_start=true "= true, use T_start, otherwise h_start"
+    annotation (Dialog(tab="VolumeInit"));
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start=volume.system.T_start
+    annotation (Dialog(tab="VolumeInit"));
+  parameter Modelica.Media.Interfaces.Types.SpecificEnthalpy h_start=if volume.use_T_start
+       then Medium.specificEnthalpy_pTX(
+      volume.p_start,
+      volume.T_start,
+      volume.X_start) else Medium.h_default "Start value of specific enthalpy"
+    annotation (Dialog(tab="VolumeInit"));
+  parameter Modelica.Media.Interfaces.Types.MassFraction X_start[Medium.nX]=
+      Medium.X_default "Start value of mass fractions m_i/m"
+    annotation (Dialog(tab="VolumeInit"));
+  parameter Modelica.Media.Interfaces.Types.ExtraProperty C_start[Medium.nC]=
+      fill(0, Medium.nC) "Start value of trace substances"
+    annotation (Dialog(tab="VolumeInit"));
 
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
@@ -11,7 +32,7 @@ model PipeHeatLoss_PipeDelay
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
-
+parameter Real V= ((diameter/2)^2)*Modelica.Constants.pi*length "Volume";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
@@ -69,7 +90,8 @@ protected
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation (Dialog(group="Advanced", enable=use_mu_default));
 
-  PipeAdiabaticPlugFlow pipeAdiabaticPlugFlow(
+  PipeAdiabaticPlugFlowForVector
+                        pipeAdiabaticPlugFlow(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
@@ -78,7 +100,7 @@ protected
     m_flow_nominal=m_flow_nominal,
     Lcap=Lcap)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
-    annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(state=sta_default)
@@ -112,29 +134,26 @@ public
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlow tau_unused(diameter=diameter)
+  BaseClasses.PDETime_massFlowMod tau_unused(diameter=diameter, length=length)
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  BaseClasses.PDETime_massFlow         tau_used(               diameter=
+  BaseClasses.PDETime_massFlowMod tau_used(length=length, diameter=
         diameter)
     annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
 equation
-  heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
+  //heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
+  for i in 1:nPorts loop
+  end for;
 
-  connect(port_a, reverseHeatLoss.port_b)
-    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
-    annotation (Line(points={{10,2},{26,2},{26,0},{40,0}},
-                                                    color={0,127,255}));
-  connect(port_b, heatLoss.port_b)
-    annotation (Line(points={{100,0},{60,0}},        color={0,127,255}));
+    annotation (Line(points={{10,0},{40,0}},        color={0,127,255}));
   connect(T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{0,100},{0,100},
           {0,54},{0,40},{-70,40},{-70,10}}, color={0,0,127}));
   connect(heatLoss.T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{50,10},
           {50,40},{-70,40},{-70,10}}, color={0,0,127}));
   connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
-    annotation (Line(points={{-10,2},{-18,0},{-24,0}},
+    annotation (Line(points={{-10,0},{-18,0},{-24,0}},
                                                color={0,127,255}));
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
     annotation (Line(points={{-44,0},{-52,0},{-60,0}},
@@ -155,9 +174,11 @@ equation
       points={{23,-54},{28,-54},{28,32},{44,32},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(port_a, reverseHeatLoss.port_b)
+    annotation (Line(points={{-100,0},{-90,0},{-80,0}}, color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Ellipse(extent={{-90,92},{-48,50}}, lineColor={28,108,200},
@@ -202,13 +223,18 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
-<li>November 30, 2015 by Bram van der Heijde:<br>Minor corrections of heat transfer parameters;</li>
-<li>November 10, 2015 by Bram van der Heijde:<br>Implementation in current form with delay calculated once instead of twice. </li>
-<li>October 10, 2015 by Marcus Fuchs:<br>Copy Icon from KUL implementation and rename model; Replace resistance and temperature delay by an adiabatic pipe; </li>
-<li>September, 2015 by Marcus Fuchs:<br>First implementation as PipeHeatLossA60Ref</li>
+<li>
+October 10, 2015 by Marcus Fuchs:<br/>
+Copy Icon from KUL implementation and rename model; Replace resistance and temperature delay by an adiabatic pipe;
+</li>
+<li>
+September, 2015 by Marcus Fuchs:<br/>
+First implementation.
+</li>
 </ul>
 </html>", info="<html>
-<p>Implementation of a pipe with heat loss using the time delay based heat losses and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </p>
-<p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used in front of and behind the time delay. The delay time is calculated once on the pipe level and supplied to both heat loss operators. </p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Implementation of a pipe with heat loss using the time delay based heat losses and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used in front of and behind the time delay. The delay time is calculated once on the pipe level and supplied to both heat loss operators. </span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">This component uses a modified delay operator.</span></p>
 </html>"));
-end PipeHeatLoss_PipeDelay;
+end PipeHeatLoss_PipeDelayMod_Vector1;

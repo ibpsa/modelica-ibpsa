@@ -1,13 +1,17 @@
 within Annex60.Experimental.Pipe;
-model PipeHeatLoss_PipeDelay
+model PipeHeatLoss_PipeDelayMod_voctorized
   "Pipe model using spatialDistribution for temperature delay with heat losses modified and one delay operator at pipe level"
-  extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
-  output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
-
+  //output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium "Medium in the component";
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
+  parameter Integer nPorts "Number of ports"   annotation(Dialog(connectorSizing=true));
+    parameter Boolean allowFlowReversal = true
+    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
@@ -69,7 +73,8 @@ protected
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation (Dialog(group="Advanced", enable=use_mu_default));
 
-  PipeAdiabaticPlugFlow pipeAdiabaticPlugFlow(
+  PipeAdiabaticPlugFlowForVector
+                        pipeAdiabaticPlugFlow(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
@@ -78,7 +83,7 @@ protected
     m_flow_nominal=m_flow_nominal,
     Lcap=Lcap)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
-    annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(state=sta_default)
@@ -112,29 +117,45 @@ public
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlow tau_unused(diameter=diameter)
+  BaseClasses.PDETime_massFlowMod tau_unused(diameter=diameter, length=length)
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  BaseClasses.PDETime_massFlow         tau_used(               diameter=
+  BaseClasses.PDETime_massFlowMod tau_used(length=length, diameter=
         diameter)
     annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
-equation
-  heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
+  Modelica.Fluid.Vessels.ClosedVolume volume(nPorts=nPorts + 1,
+    V=1,
+    use_portsData=false,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{64,6},{84,26}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare final package Medium = Medium,
+     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+     h_outflow(start = Medium.h_default))
+    "Fluid connector a (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{-116,-10},{-96,10}})));
 
-  connect(port_a, reverseHeatLoss.port_b)
-    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts](redeclare each package
+      Medium =
+            Medium)  annotation (Placement(transformation(extent={{-12,-40},{12,40}},
+      origin={100,0}), iconTransformation(extent={{-12,-41},{12,41}}, origin={
+            100,-1})));
+
+equation
+  //heat_losses = actualStream(ports_b.h_outflow) - actualStream(port_a.h_outflow);
+  for i in 1:nPorts loop
+  connect(volume.ports[i+1], ports_b[i]);
+  end for;
+
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
-    annotation (Line(points={{10,2},{26,2},{26,0},{40,0}},
-                                                    color={0,127,255}));
-  connect(port_b, heatLoss.port_b)
-    annotation (Line(points={{100,0},{60,0}},        color={0,127,255}));
+    annotation (Line(points={{10,0},{40,0}},        color={0,127,255}));
   connect(T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{0,100},{0,100},
           {0,54},{0,40},{-70,40},{-70,10}}, color={0,0,127}));
   connect(heatLoss.T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{50,10},
           {50,40},{-70,40},{-70,10}}, color={0,0,127}));
   connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
-    annotation (Line(points={{-10,2},{-18,0},{-24,0}},
+    annotation (Line(points={{-10,0},{-18,0},{-24,0}},
                                                color={0,127,255}));
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
     annotation (Line(points={{-44,0},{-52,0},{-60,0}},
@@ -155,9 +176,13 @@ equation
       points={{23,-54},{28,-54},{28,32},{44,32},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(heatLoss.port_b, volume.ports[1])
+    annotation (Line(points={{60,0},{74,0},{74,6}}, color={0,127,255}));
+  connect(port_a, reverseHeatLoss.port_b) annotation (Line(points={{-106,0},{-94,
+          0},{-94,0},{-80,0}}, color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Ellipse(extent={{-90,92},{-48,50}}, lineColor={28,108,200},
@@ -202,13 +227,18 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
-<li>November 30, 2015 by Bram van der Heijde:<br>Minor corrections of heat transfer parameters;</li>
-<li>November 10, 2015 by Bram van der Heijde:<br>Implementation in current form with delay calculated once instead of twice. </li>
-<li>October 10, 2015 by Marcus Fuchs:<br>Copy Icon from KUL implementation and rename model; Replace resistance and temperature delay by an adiabatic pipe; </li>
-<li>September, 2015 by Marcus Fuchs:<br>First implementation as PipeHeatLossA60Ref</li>
+<li>
+October 10, 2015 by Marcus Fuchs:<br/>
+Copy Icon from KUL implementation and rename model; Replace resistance and temperature delay by an adiabatic pipe;
+</li>
+<li>
+September, 2015 by Marcus Fuchs:<br/>
+First implementation.
+</li>
 </ul>
 </html>", info="<html>
-<p>Implementation of a pipe with heat loss using the time delay based heat losses and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </p>
-<p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used in front of and behind the time delay. The delay time is calculated once on the pipe level and supplied to both heat loss operators. </p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Implementation of a pipe with heat loss using the time delay based heat losses and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used in front of and behind the time delay. The delay time is calculated once on the pipe level and supplied to both heat loss operators. </span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">This component uses a modified delay operator.</span></p>
 </html>"));
-end PipeHeatLoss_PipeDelay;
+end PipeHeatLoss_PipeDelayMod_voctorized;

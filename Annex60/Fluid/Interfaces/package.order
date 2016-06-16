@@ -17,3 +17,4 @@ LumpedVolumeDeclarations
 PrescribedOutletStateParameters
 TwoPortFlowResistanceParameters
 Examples
+PartialTwoPort_vector
