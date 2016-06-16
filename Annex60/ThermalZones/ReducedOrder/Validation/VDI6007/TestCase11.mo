@@ -122,7 +122,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     annotation (Placement(transformation(extent={{-90,-4},{-82,4}})));
   Modelica.Blocks.Logical.Switch switchHea "Switch to limit heating power"
     annotation (Placement(transformation(extent={{-44,-39},{-34,-29}})));
-    
+
 equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -184,7 +184,7 @@ equation
   of a pure convective ideal cooler.</p>
   <p>Boundary Condtions:</p>
   <ul>
-  <li>constant outdoor air temperature 22 degC</li>
+  <li>constant outdoor air temperature 22&deg;C</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
   <li>no solar or short-wave radiation through the windows</li>
   <li>no long-wave radiation exchange between exterior wall, windows and ambient

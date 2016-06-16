@@ -87,7 +87,7 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     "Set temperature for ideal heater/cooler"
     annotation (Placement(transformation(extent={{-68,-44},{-52,-28}})));
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
-    "convert set temperature from degC to Kelvin"
+    "Convert set temperature from degC to Kelvin"
     annotation (Placement(transformation(extent={{-38,-42},{-26,-30}})));
   Controls.Continuous.LimPID conHeaCoo(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -99,7 +99,7 @@ model TestCase7 "VDI 6007 Test Case 7 model"
   Modelica.Blocks.Math.Gain gainHeaCoo(k=500)
     "Gain for heating and cooling controller"
     annotation (Placement(transformation(extent={{8,-42},{20,-30}})));
-    
+
 equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -136,7 +136,7 @@ equation
   similar with Test Case 6, but with a maximum heating/cooling power.</p>
   <p>Boundary Condtions:</p>
   <ul>
-  <li>constant outdoor air temperature 22 degC</li>
+  <li>constant outdoor air temperature 22&deg;C</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
   <li>no solar or short-wave radiation through the windows</li>
   <li>no long-wave radiation exchange between exterior wall, windows and ambient

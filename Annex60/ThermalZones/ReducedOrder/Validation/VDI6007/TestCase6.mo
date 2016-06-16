@@ -92,7 +92,7 @@ model TestCase6 "VDI 6007 Test Case 6 model"
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
     "Convert set temperature from degC to Kelvin"
     annotation (Placement(transformation(extent={{34,-40},{46,-28}})));
-    
+
 equation
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
@@ -124,7 +124,7 @@ equation
   based on Test Case 2.</p>
   <p>Boundary Condtions:</p>
   <ul>
-  <li>constant outdoor air temperature 22 degC</li>
+  <li>constant outdoor air temperature 22&deg;C</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
   <li>no solar or short-wave radiation through the windows</li>
   <li>no long-wave radiation exchange between exterior wall, windows and ambient

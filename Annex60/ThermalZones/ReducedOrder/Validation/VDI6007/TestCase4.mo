@@ -97,7 +97,7 @@ equation
   excited by a radiative heat source for room version L.</p>
   <p>Boundary Condtions:</p>
   <ul>
-  <li>constant outdoor air temperature 22 degC</li>
+  <li>constant outdoor air temperature 22&deg;C</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
   <li>no solar or short-wave radiation through the windows</li>
   <li>no long-wave radiation exchange between exterior wall, windows and ambient
