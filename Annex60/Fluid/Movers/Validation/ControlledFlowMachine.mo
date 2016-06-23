@@ -3,19 +3,13 @@ model ControlledFlowMachine "Fans with different control signals as input"
   extends Modelica.Icons.Example;
   extends Annex60.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine(
     fan4(addPowerToMedium=false, filteredSpeed=false,
-      redeclare Annex60.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     fan1(addPowerToMedium=false,
-      redeclare Annex60.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
-      filteredSpeed=true,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     fan2(addPowerToMedium=false, filteredSpeed=false,
-      redeclare Annex60.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     fan3(addPowerToMedium=false, filteredSpeed=false,
-      redeclare Annex60.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    gain(k=3580));
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   annotation (
 experiment(StopTime=600),

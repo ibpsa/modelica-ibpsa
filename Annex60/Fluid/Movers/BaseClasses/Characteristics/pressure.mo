@@ -44,7 +44,9 @@ protected
     Modelica.SIunits.VolumeFlowRate rat "Ratio of V_flow/r_N";
     Integer i "Integer to select data interval";
   algorithm
-    rat := V_flow*Annex60.Utilities.Math.Functions.inverseXRegularized(r_N,1e-10);
+    rat :=
+      V_flow*Annex60.Utilities.Math.Functions.inverseXRegularized(r_N,1e-10);
+
     i :=1;
     // Since the coefficients for the spline were evaluated for
     // rat_nominal = V_flow_nominal/r_N_nominal = V_flow_nominal/1, we use
@@ -55,7 +57,7 @@ protected
        end if;
     end for;
     // Extrapolate or interpolate the data
-    dp:=sign(r_N)*r_N^2*Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+    dp:=Annex60.Utilities.Math.Functions.spliceFunction(pos=sign(r_N)*r_N^2,neg=1e-4*r_N,x=r_N-1e-4,deltax=1e-4)*Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
                 x=rat,
                 x1=per.V_flow[i],
                 x2=per.V_flow[i + 1],
