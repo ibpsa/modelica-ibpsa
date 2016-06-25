@@ -72,8 +72,8 @@ model CoolingAndHeating
     redeclare package Medium = MediumA,
     m_flow_nominal=0.1,
     V=30,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=296.15) "Air volume for room"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Air volume for room"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
   Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 25)
     "Cooling set-point temperature"
@@ -153,6 +153,14 @@ for both heating and cooling mode. An air volume is maintained at a temperature 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 25, 2016, by Michael Wetter:<br/>
+Changed medium start temperature to avoid conflicting
+start values of the same precedence in Dymola 2016.
+See
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/485\">
+issue 485</a>.
+</li>
 <li>
 June 14, 2016, by Michael Wetter:<br/>
 Revised implementation.
