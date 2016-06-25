@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams;
+within Annex60.Fluid.HeatExchangers.ActiveBeams;
 package Data "Package with performance data"
   extends Modelica.Icons.MaterialPropertiesPackage;
 

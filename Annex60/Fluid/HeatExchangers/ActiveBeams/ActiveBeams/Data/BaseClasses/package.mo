@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams.Data;
+within Annex60.Fluid.HeatExchangers.ActiveBeams.Data;
 package BaseClasses "Base classes for performance data"
 
 annotation (Documentation(info="<html>

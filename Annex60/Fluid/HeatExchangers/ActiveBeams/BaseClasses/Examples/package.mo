@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
+within Annex60.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
 package Examples
   extends Modelica.Icons.ExamplesPackage;
 
@@ -6,8 +6,8 @@ package Examples
 annotation (Documentation(info="<html>
 <p>
 This package contains examples for the use of models that can be found in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses</a>.
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.BaseClasses\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.BaseClasses</a>.
 </p>
 </html>"));
 end Examples;

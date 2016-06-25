@@ -1,7 +1,7 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams.Data;
+within Annex60.Fluid.HeatExchangers.ActiveBeams.Data;
 package Trox "Performance data for Trox"
   record DID632A_nozzleH_lenght6ft_cooling =
-    Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Generic (
+    Annex60.Fluid.HeatExchangers.ActiveBeams.Data.Generic (
       primaryAir(
         r_V = {0,0.714286, 1,1.2857},
         f =   {0,0.823403, 1,1.1256}),
@@ -39,7 +39,7 @@ Performance data for Trox active beam for cooling mode.
 
 
   record DID632A_nozzleH_lenght6ft_heating =
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Generic (
+      Annex60.Fluid.HeatExchangers.ActiveBeams.Data.Generic (
       dT(
         f = {0,0.5,1},
         r_dT=

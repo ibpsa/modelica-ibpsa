@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
+within Annex60.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
 model DerivativesCubicSpline "Cubic spline for interpolation"
   extends Modelica.Blocks.Icons.Block;
   parameter Real[:] xd={0,0.5,1};
@@ -16,7 +16,7 @@ protected
 initial algorithm
   // Get the derivative values at the support points
 
-  dMonotone := Buildings.Utilities.Math.Functions.splineDerivatives(
+  dMonotone := Annex60.Utilities.Math.Functions.splineDerivatives(
     x=xd,
     y=yd,
     ensureMonotonicity=true);
@@ -30,7 +30,7 @@ algorithm
   end for;
   // Extrapolate or interpolate the data
   y :=
-    Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+    Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
     x=u,
     x1=xd[i],
     x2=xd[i + 1],
@@ -40,7 +40,7 @@ algorithm
     y2d=dMonotone[i + 1]);
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/CubicHermite.mos"
+          "modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/CubicHermite.mos"
         "Simulate and plot"),
     experiment(StopTime=1.0),defaultComponentName="cubSpl",
     Documentation(info="<html>

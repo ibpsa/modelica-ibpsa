@@ -1,16 +1,16 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Examples;
+within Annex60.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Examples;
 model Convector
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Water "Water model";
+  package Medium = Annex60.Media.Water "Water model";
 
-  Buildings.Fluid.Sources.MassFlowSource_T wat(
+  Annex60.Fluid.Sources.MassFlowSource_T wat(
     redeclare package Medium = Medium,
     m_flow=0.094,
     T=288.15,
     nPorts=1)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Fluid.Sources.FixedBoundary bou(
+  Annex60.Fluid.Sources.FixedBoundary bou(
     redeclare package Medium = Medium, nPorts=1) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   Modelica.Blocks.Sources.Ramp airFlo(height=0.0792, duration=4)
@@ -18,7 +18,7 @@ model Convector
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Sources.Constant rooTem(k=273.15 + 25) "Room air temperature"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Convector con(
+  Annex60.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Convector con(
     redeclare package Medium = Medium,
     nBeams=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -30,7 +30,7 @@ model Convector
       dpWat_nominal=10000,
       dpAir_nominal=100)) "Convector model"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     m_flow_nominal=0.094) "Temperature sensor"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
@@ -46,13 +46,13 @@ equation
     annotation (Line(points={{50,0},{60,0}}, color={0,127,255}));
   connect(wat.ports[1], con.port_a)
     annotation (Line(points={{-60,0},{-30,0},{0,0}}, color={0,127,255}));
-  annotation (experiment(StopTime=10),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/BaseClasses/Examples/Convector.mos"
+  annotation (experiment(StopTime=10),__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/BaseClasses/Examples/Convector.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 The example tests the implementation of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Convector\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Convector</a>.
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Convector\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Convector</a>.
 The room air temperature and the water mass flow rate are constant while the air flow rate varys with a ramp.
 </p>
 </html>", revisions="<html>

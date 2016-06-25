@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams.Data.BaseClasses;
+within Annex60.Fluid.HeatExchangers.ActiveBeams.Data.BaseClasses;
 record TemperatureDifference "Record for temperature difference"
   extends Modelica.Icons.Record;
   parameter Real r_dT[:](each min=0, each final unit="1")

@@ -1,12 +1,12 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams;
+within Annex60.Fluid.HeatExchangers.ActiveBeams;
 package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams\">
-Buildings.Fluid.HeatExchangers.ActiveBeams</a>.
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams\">
+Annex60.Fluid.HeatExchangers.ActiveBeams</a>.
 </p>
 <p>
 Note that most validation models contain simple input data

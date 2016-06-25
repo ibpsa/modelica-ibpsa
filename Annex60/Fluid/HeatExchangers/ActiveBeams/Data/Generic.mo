@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams.Data;
+within Annex60.Fluid.HeatExchangers.ActiveBeams.Data;
 record Generic "Generic data record for active beam"
    extends Modelica.Icons.Record;
 
@@ -6,7 +6,7 @@ record Generic "Generic data record for active beam"
     r_V={0,0.2,1},
     f={0,0.5,1}) "Performance data for primary air";
   parameter
-    Buildings.Fluid.HeatExchangers.ActiveBeams.Data.BaseClasses.WaterFlow water(
+    Annex60.Fluid.HeatExchangers.ActiveBeams.Data.BaseClasses.WaterFlow water(
       r_V={0,0.5,1},
       f={0,0.7,1}) "Performance data for water";
 

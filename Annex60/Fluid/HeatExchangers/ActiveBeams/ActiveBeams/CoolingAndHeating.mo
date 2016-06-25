@@ -1,6 +1,6 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams;
+within Annex60.Fluid.HeatExchangers.ActiveBeams;
 model CoolingAndHeating "Active beam unit for heating and cooling"
-  extends Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling(sum(nin=2));
+  extends Annex60.Fluid.HeatExchangers.ActiveBeams.Cooling(sum(nin=2));
 
   replaceable parameter Data.Generic perHea "Performance data for heating"
     annotation (
@@ -114,20 +114,20 @@ equation
           Documentation(info="<html>
 <p>
 This model is identical to
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling</a>,
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.Cooling\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.Cooling</a>,
 except that an additional water stream and convector is added to allow for heating
 in addition to cooling.
 </p>
 <p>
 For a description of the equations, see the
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">
 User's Guide</a>.
 </p>
 <p>
 Performance data are available from
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Data\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.Data</a>.
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.Data\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.Data</a>.
 </p>
 </html>", revisions="<html>
 <ul>

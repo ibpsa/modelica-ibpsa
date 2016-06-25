@@ -1,8 +1,8 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
+within Annex60.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
 model Convector "Heat exchanger for the water stream"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal = per.mWat_flow_nominal*nBeams);
-  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+  extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true,
     final dp_nominal = per.dpWat_nominal "Don't multiply with nBeams, as the beams are in parallel");
 

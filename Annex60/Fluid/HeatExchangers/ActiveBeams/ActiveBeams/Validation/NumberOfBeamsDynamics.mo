@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams.Validation;
+within Annex60.Fluid.HeatExchangers.ActiveBeams.Validation;
 model NumberOfBeamsDynamics
   "Validation model for the dynamic response for one and multiple beams"
   extends NumberOfBeams(
@@ -21,15 +21,15 @@ model NumberOfBeamsDynamics
     step2(startTime=300));
   annotation (
 experiment(StopTime=500),
-   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Validation/NumberOfBeamsDynamics.mos"
+   __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Validation/NumberOfBeamsDynamics.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This model validates whether the transient response is indeed
 independent of the number of beams.
 The model is similar to
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Validation.NumberOfBeams\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.Validation.NumberOfBeams</a>,
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.Validation.NumberOfBeams\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.Validation.NumberOfBeams</a>,
 except that it is configured with a dynamic balance and non-default initial conditions.
 </p>
 </html>", revisions="<html>

@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams;
+within Annex60.Fluid.HeatExchangers.ActiveBeams;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   annotation (preferredView="info",
@@ -9,7 +9,7 @@ Active beams are devices used for heating, cooling and ventilation of spaces.
 A schematic diagram of an active beam unit is given below.
 </p>
 <p align=\"center\" >
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/ActiveBeams/schematicAB.png\" border=\"1\"/>
+<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/HeatExchangers/ActiveBeams/schematicAB.png\" border=\"1\"/>
 </p>
 <p>
 The active beam unit consists of a primary air plenum, a mixing chamber, a heat exchanger (coil) and several nozzles.
@@ -21,23 +21,23 @@ The conditioned induced air is then mixed with primary air, and the mixture desc
 </p>
 <p>
 This package contains two models. The model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling</a>
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.Cooling\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.Cooling</a>
 is for cooling only, while the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>
 has two water streams, one for heating and one for cooling.
 </p>
 
 <h4>Model equations for cooling</h4>
 <p>
 The performance of the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling</a>
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.Cooling\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.Cooling</a>
 is computed based on manufacturer data
 specified in the package
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Data\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.Data</a>.
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.Data\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.Data</a>.
 </p>
 <p>
 For off-design conditions, the performance is adjusted using modification factors
@@ -50,13 +50,13 @@ which injects room air and mixes it with the primary air.
 <p>
 The heat flow rate
 <i>Q<sub>sa</sub> </i> is delivered to a thermal zone such as
-<a href=\"modelica://Buildings.Rooms.MixedAir\">
-Buildings.Rooms.MixedAir</a>
+<a href=\"modelica://Annex60.Rooms.MixedAir\">
+Annex60.Rooms.MixedAir</a>
 through the fluid ports, while the heat flow rate from the convector <i>Q<sub>c,Beam</sub></i>
 is coupled directly to the heat port.
 See for example
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Examples.CoolingOnly\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.Examples.CoolingOnly</a>
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.Examples.CoolingOnly\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.Examples.CoolingOnly</a>
 for how to connect these heat flow rates to a control volume.
 </p>
 <p>
@@ -108,8 +108,8 @@ and the nominal water flow rate used to rate the beam performance.
 <h4>Model equations for heating</h4>
 <p>
 The performance of the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>
 is computed identical to the above described model that only provides cooling,
 with the exception that this model contains an additional water stream that
 can be used to provide heating.

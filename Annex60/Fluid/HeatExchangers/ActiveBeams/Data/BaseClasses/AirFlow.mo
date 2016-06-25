@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams.Data.BaseClasses;
+within Annex60.Fluid.HeatExchangers.ActiveBeams.Data.BaseClasses;
 record AirFlow "Record for primary air parameters"
   extends Modelica.Icons.Record;
   parameter Real r_V[:](each min=0, each final unit="1")

@@ -1,23 +1,23 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams.Examples;
+within Annex60.Fluid.HeatExchangers.ActiveBeams.Examples;
 model CoolingAndHeating
   extends Modelica.Icons.Example;
 
-  package MediumA = Buildings.Media.Air "Medium model for air";
+  package MediumA = Annex60.Media.Air "Medium model for air";
 
-  package MediumW = Buildings.Media.Water "Medium model for water";
+  package MediumW = Annex60.Media.Water "Medium model for water";
 
-  Buildings.Fluid.Sources.FixedBoundary sin_1(
+  Annex60.Fluid.Sources.FixedBoundary sin_1(
     redeclare package Medium = MediumW,
     nPorts=1) "Sink chilled water"
     annotation (Placement(transformation(extent={{100,90},{80,110}})));
-  Buildings.Fluid.Sources.MassFlowSource_T souAir(
+  Annex60.Fluid.Sources.MassFlowSource_T souAir(
     redeclare package Medium = MediumA,
     m_flow=0.0792,
     use_m_flow_in=false,
     nPorts=1,
     T=285.85) "Source air"
     annotation (Placement(transformation(extent={{100,10},{80,30}})));
-  Buildings.Fluid.Sources.FixedBoundary bou(
+  Annex60.Fluid.Sources.FixedBoundary bou(
     redeclare package Medium = MediumA,
     nPorts=1) "Sink air"
     annotation (Placement(transformation(extent={{100,-110},{80,-90}})));
@@ -33,7 +33,7 @@ model CoolingAndHeating
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut(T=301.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
-  Buildings.Controls.Continuous.LimPID conHea(
+  Annex60.Controls.Continuous.LimPID conHea(
     yMax=0.094,
     Td=0,
     reverseAction=false,
@@ -59,7 +59,7 @@ model CoolingAndHeating
     nPorts=1,
     T=320.95) "Source hot water"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Fluid.Sources.FixedBoundary sin_2(
+  Annex60.Fluid.Sources.FixedBoundary sin_2(
     redeclare package Medium = MediumW,
     nPorts=1) "Sink hot water"
     annotation (Placement(transformation(extent={{100,50},{80,70}})));
@@ -68,7 +68,7 @@ model CoolingAndHeating
     amplitude=1,
     phase=-1.5707963267949) "Source for thermal loads"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume vol(nPorts=2,
+  Annex60.Fluid.MixingVolumes.MixingVolume vol(nPorts=2,
     redeclare package Medium = MediumA,
     m_flow_nominal=0.1,
     V=30,
@@ -78,7 +78,7 @@ model CoolingAndHeating
   Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 25)
     "Cooling set-point temperature"
     annotation (Placement(transformation(extent={{-110,20},{-90,40}})));
-  Buildings.Controls.Continuous.LimPID conCoo(
+  Annex60.Controls.Continuous.LimPID conCoo(
     yMax=0.094,
     reverseAction=true,
     Td=0,
@@ -88,13 +88,13 @@ model CoolingAndHeating
     "Controller for cooling"
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
 
-  Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea(
+  Annex60.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea(
     redeclare package MediumWat = MediumW,
     redeclare package MediumAir = MediumA,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
+      Annex60.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating perHea,
+      Annex60.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating perHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Active Beam"
     annotation (Placement(transformation(extent={{26,48},{54,72}})));
@@ -140,14 +140,14 @@ equation
   connect(pumHea.ports[1], beaCooHea.watHea_a)
     annotation (Line(points={{0,60},{13,60},{26,60}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -120},{120,120}})),experiment(StopTime=172800),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/CoolingAndHeating.mos"
+            -120},{120,120}})),experiment(StopTime=172800),__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/CoolingAndHeating.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-120,-120},{120,120}})),
      Documentation(info="<html>
 <p>
 This example tests the implementation of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>
 for both heating and cooling mode. An air volume is maintained at a temperature between <i>22&circ;</i>C and
 <i>25&circ;</i>C by two controllers that regulate the water flow rate in the active beam.
 </p>

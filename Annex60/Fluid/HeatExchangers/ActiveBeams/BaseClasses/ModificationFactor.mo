@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
+within Annex60.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
 model ModificationFactor "Factor to modify nominal capacity"
   extends Modelica.Blocks.Icons.Block;
 
@@ -107,8 +107,8 @@ equation
             Documentation(info="<html>
 <p>
 This model determines the three modification factors described in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide</a>
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.UsersGuide</a>
 by comparing the actual values of air mass flow rate,
 water mass flow rate and room-water temperature difference with the nominal values.
 The three modification factors are then multiplied.

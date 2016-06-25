@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams;
+within Annex60.Fluid.HeatExchangers.ActiveBeams;
 model Cooling "Active beam unit for cooling"
 
   replaceable package MediumWat = Modelica.Media.Interfaces.PartialMedium
@@ -122,7 +122,7 @@ model Cooling "Active beam unit for cooling"
                            noEvent(actualStream(air_b.Xi_outflow))) if
          show_T "Medium properties in port air_b";
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaToRoo
+  Annex60.HeatTransfer.Sources.PrescribedHeatFlow heaToRoo
     "Heat tranferred to the room (in addition to heat from supply air)" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -269,18 +269,18 @@ Model of an active beam, based on the EnergyPlus beam model  <code>AirTerminal:S
 </p>
 <p>
 This model operates only in cooling mode. For a model that operates in both heating and cooling mode,
-use <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>.
+use <a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>.
 </p>
 <p>
 For a description of the equations, see the
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">
 User's Guide</a>.
 </p>
 <p>
 Performance data are available from
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Data\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.Data</a>.
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.ActiveBeams.Data\">
+Annex60.Fluid.HeatExchangers.ActiveBeams.Data</a>.
 </p>
 <h4>References</h4>
 <ul>
