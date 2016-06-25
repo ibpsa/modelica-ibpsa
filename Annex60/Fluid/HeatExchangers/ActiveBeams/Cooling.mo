@@ -122,7 +122,7 @@ model Cooling "Active beam unit for cooling"
                            noEvent(actualStream(air_b.Xi_outflow))) if
          show_T "Medium properties in port air_b";
 
-  Annex60.HeatTransfer.Sources.PrescribedHeatFlow heaToRoo
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaToRoo
     "Heat tranferred to the room (in addition to heat from supply air)" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
