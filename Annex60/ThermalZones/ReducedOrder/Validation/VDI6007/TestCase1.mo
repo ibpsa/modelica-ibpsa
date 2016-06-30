@@ -47,20 +47,21 @@ model TestCase1 "VDI 6007 Test Case 1 model"
     columns={2},
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,27.7;
-        25200,27.9; 28800,28.1; 32400,28.4; 36000,28.6; 39600,28.8; 43200,29;
-        46800,29.2; 50400,29.4; 54000,29.6; 57600,29.8; 61200,30; 64800,24.5;
-        68400,24.5; 72000,24.5; 75600,24.5; 79200,24.5; 82800,24.5; 86400,37.7;
-        781200,37.6; 784800,37.5; 788400,37.5; 792000,37.4; 795600,37.3; 799200,
-        43; 802800,43.2; 806400,43.3; 810000,43.5; 813600,43.6; 817200,43.8;
-        820800,43.9; 824400,44.1; 828000,44.3; 831600,44.4; 835200,44.6; 838800,
-        44.7; 842400,39.1; 846000,39.1; 849600,39; 853200,38.9; 856800,38.9;
-        860400,38.8; 864000,49.9; 5101200,49.8; 5104800,49.7; 5108400,49.6;
-        5112000,49.4; 5115600,49.3; 5119200,54.9; 5122800,55.1; 5126400,55.2;
-        5130000,55.3; 5133600,55.4; 5137200,55.5; 5140800,55.6; 5144400,55.7;
-        5148000,55.8; 5151600,55.9; 5155200,56.1; 5158800,56.2; 5162400,50.6;
-        5166000,50.4; 5169600,50.3; 5173200,50.2; 5176800,50.1; 5180400,50])
-    "Reference results"
+    offset={273.15},
+    table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
+        25200,27.7; 28800,27.9; 32400,28.1; 36000,28.4; 39600,28.6; 43200,28.8;
+        46800,29; 50400,29.2; 54000,29.4; 57600,29.6; 61200,29.8; 64800,30;
+        68400,24.5; 72000,24.5; 75600,24.5; 79200,24.5; 82800,24.5; 86400,24.5;
+        781200,37.7; 784800,37.6; 788400,37.5; 792000,37.5; 795600,37.4; 799200,
+        37.3; 802800,43; 806400,43.2; 810000,43.3; 813600,43.5; 817200,43.6;
+        820800,43.8; 824400,43.9; 828000,44.1; 831600,44.3; 835200,44.4; 838800,
+        44.6; 842400,44.7; 846000,39.1; 849600,39.1; 853200,39; 856800,38.9;
+        860400,38.9; 864000,38.8; 5101200,49.9; 5104800,49.8; 5108400,49.7;
+        5112000,49.6; 5115600,49.4; 5119200,49.3; 5122800,54.9; 5126400,55.1;
+        5130000,55.2; 5133600,55.3; 5137200,55.4; 5140800,55.5; 5144400,55.6;
+        5148000,55.7; 5151600,55.8; 5155200,55.9; 5158800,56.1; 5162400,56.2;
+        5166000,50.6; 5169600,50.4; 5173200,50.3; 5176800,50.2; 5180400,50.1;
+        5184000,50]) "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow machines"
@@ -75,6 +76,18 @@ model TestCase1 "VDI 6007 Test Case 1 model"
   Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
 
+  BaseClasses.AssertEqualityThreePeriods assEqu(
+    startTime=3600,
+    endTime=86400,
+    startTime2=781200,
+    endTime2=864000,
+    startTime3=5101200,
+    endTime3=5184000,
+    threShold=0.15) "Checks validation criteria"
+    annotation (Placement(transformation(extent={{84,46},{94,56}})));
+  Modelica.Blocks.Math.Mean mean(f=1/3600)
+    "Hourly mean of indoor air temperature"
+    annotation (Placement(transformation(extent={{62,46},{72,56}})));
 equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -91,6 +104,12 @@ equation
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{36.25,31},{43,31}},
                                              color={0,0,127}));
+  connect(thermalZoneTwoElements.TAir, mean.u) annotation (Line(points={{93,32},
+          {98,32},{98,42},{52,42},{52,51},{61,51}}, color={0,0,127}));
+  connect(mean.y, assEqu.u2) annotation (Line(points={{72.5,51},{78,51},{78,48},
+          {83,48}}, color={0,0,127}));
+  connect(reference.y[1], assEqu.u1) annotation (Line(points={{97,82},{100,82},
+          {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 1 of the VDI 6007 Part 1: Calculation of indoor air temperature
