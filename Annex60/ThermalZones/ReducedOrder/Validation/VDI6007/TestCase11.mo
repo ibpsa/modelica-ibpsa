@@ -105,8 +105,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     Td=5,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMax=1,
-    Ti=1.54,
-    k=0.09) "Heating and cooling controller"
+    Ti=1.55,
+    k=0.1) "Heating and cooling controller"
     annotation (Placement(transformation(extent={{-50,16},{-34,32}})));
   Modelica.Blocks.Math.Gain gainCoo(k=500) "Gain for cooling"
     annotation (Placement(transformation(extent={{-16,80},{-4,92}})));
@@ -173,16 +173,12 @@ equation
     annotation (Line(points={{-61.4,24},{-51.6,24}}, color={0,0,127}));
   connect(switchCoo.y, gainCoo.u) annotation (Line(points={{-35.5,86},{-26.75,
           86},{-17.2,86}}, color={0,0,127}));
-  connect(conHeaCoo.y, greaterThreshold1.u) annotation (Line(points={{-33.2,24},
-          {-28,24},{-28,40},{-76,40},{-76,51},{-73,51}}, color={0,0,127}));
   connect(greaterThreshold1.y, switchCoo.u2) annotation (Line(points={{-61.5,51},
           {-54,51},{-54,86},{-47,86}}, color={255,0,255}));
   connect(DefPow.y, switchCoo.u1) annotation (Line(points={{-81.6,0},{-76,0},{
           -76,14},{-98,14},{-98,90},{-47,90}}, color={0,0,127}));
   connect(greaterThreshold1.y, switchHea.u2) annotation (Line(points={{-61.5,51},
           {-54,51},{-54,-34},{-45,-34}}, color={255,0,255}));
-  connect(conHeaCoo.y, switchCoo.u3) annotation (Line(points={{-33.2,24},{-24,
-          24},{-24,74},{-52,74},{-52,82},{-47,82}}, color={0,0,127}));
   connect(conHeaCoo.y, switchHea.u1) annotation (Line(points={{-33.2,24},{-24,
           24},{-24,-24},{-50,-24},{-50,-30},{-45,-30}}, color={0,0,127}));
   connect(thermalZoneTwoElements.TAir, conHeaCoo.u_m) annotation (Line(
@@ -204,9 +200,14 @@ equation
   connect(coolFlowSensor.Q_flow, add.u1)
     annotation (Line(points={{14,66},{14,60},{43,60}}, color={0,0,127}));
   connect(heatFlowSensor.Q_flow, add.u2) annotation (Line(points={{82,-40},{82,
-          -50},{0,-50},{0,54},{43,54}}, color={0,0,127}));
+          -58},{0,-58},{0,54},{43,54}}, color={0,0,127}));
   connect(add.y, mean.u)
     annotation (Line(points={{54.5,57},{54.5,57},{63,57}}, color={0,0,127}));
+  connect(greaterThreshold1.u, switchHea.u1) annotation (Line(points={{-73,51},
+          {-76,51},{-76,40},{-24,40},{-24,-24},{-50,-24},{-50,-30},{-45,-30}},
+        color={0,0,127}));
+  connect(conHeaCoo.y, switchCoo.u3) annotation (Line(points={{-33.2,24},{-24,
+          24},{-24,68},{-52,68},{-52,82},{-47,82}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 11 of the VDI 6007 Part 1: Calculation of heat load excited with
