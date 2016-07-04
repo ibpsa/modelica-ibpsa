@@ -46,20 +46,21 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     columns={2},
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    table=[0,17.6; 3600,17.6; 7200,17.5; 10800,17.5; 14400,17.6; 18000,17.8;
-        21600,18; 25200,20; 28800,19.7; 32400,20; 36000,20.3; 39600,20.5; 43200,
-        20.6; 46800,20.7; 50400,20.8; 54000,21.5; 57600,21.4; 61200,19.8; 64800,
-        19.7; 68400,19.6; 72000,19.6; 75600,19.5; 79200,19.5; 82800,19.5; 86400,
-        24.7; 781200,24.6; 784800,24.5; 788400,24.4; 792000,24.4; 795600,24.5;
-        799200,24.6; 802800,26.6; 806400,26.2; 810000,26.4; 813600,26.6; 817200,
-        26.8; 820800,26.9; 824400,26.9; 828000,26.9; 831600,27.5; 835200,27.4;
-        838800,25.7; 842400,25.5; 846000,25.3; 849600,25.3; 853200,25.2; 856800,
-        25.1; 860400,25; 864000,25.5; 5101200,25.3; 5104800,25.2; 5108400,25.1;
-        5112000,25.1; 5115600,25.2; 5119200,25.3; 5122800,27.3; 5126400,26.9;
-        5130000,27.1; 5133600,27.3; 5137200,27.4; 5140800,27.5; 5144400,27.5;
-        5148000,27.5; 5151600,28.1; 5155200,28; 5158800,26.3; 5162400,26.1;
-        5166000,26; 5169600,25.9; 5173200,25.8; 5176800,25.7; 5180400,25.6])
-    "Reference results"
+    table=[0,17.6; 3600,17.6; 7200,17.6; 10800,17.5; 14400,17.5; 18000,17.6;
+        21600,17.8; 25200,18; 28800,20; 32400,19.7; 36000,20; 39600,20.3; 43200,
+        20.5; 46800,20.6; 50400,20.7; 54000,20.8; 57600,21.5; 61200,21.4; 64800,
+        19.8; 68400,19.7; 72000,19.6; 75600,19.6; 79200,19.5; 82800,19.5; 86400,
+        19.5; 781200,24.7; 784800,24.6; 788400,24.5; 792000,24.4; 795600,24.4;
+        799200,24.5; 802800,24.6; 806400,26.6; 810000,26.2; 813600,26.4; 817200,
+        26.6; 820800,26.8; 824400,26.9; 828000,26.9; 831600,26.9; 835200,27.5;
+        838800,27.4; 842400,25.7; 846000,25.5; 849600,25.3; 853200,25.3; 856800,
+        25.2; 860400,25.1; 864000,25; 5101200,25.5; 5104800,25.3; 5108400,25.2;
+        5112000,25.1; 5115600,25.1; 5119200,25.2; 5122800,25.3; 5126400,27.3;
+        5130000,26.9; 5133600,27.1; 5137200,27.3; 5140800,27.4; 5144400,27.5;
+        5148000,27.5; 5151600,27.5; 5155200,28.1; 5158800,28; 5162400,26.3;
+        5166000,26.1; 5169600,26; 5173200,25.9; 5176800,25.8; 5180400,25.7;
+        5184000,25.6],
+    offset={273.15}) "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv(T_ref=
         290.75) "Convective heat flow machines"
@@ -158,6 +159,18 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     rotation=90,
     origin={28,-19})));
 
+  BaseClasses.AssertEqualityThreePeriods assEqu(
+    startTime=3600,
+    endTime=86400,
+    startTime2=781200,
+    endTime2=864000,
+    startTime3=5101200,
+    endTime3=5184000,
+    threShold=0.15) "Checks validation criteria"
+    annotation (Placement(transformation(extent={{84,46},{94,56}})));
+  Modelica.Blocks.Math.Mean mean(f=1/3600)
+    "Hourly mean of indoor air temperature"
+    annotation (Placement(transformation(extent={{62,46},{72,56}})));
 equation
   connect(perRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
@@ -218,6 +231,12 @@ equation
   connect(product1.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points=
     {{4.5,70},{14,70},{28,70},{28,31},{43,31}}, color={0,0,127}));
+  connect(thermalZoneTwoElements.TAir,mean. u) annotation (Line(points={{93,32},
+          {98,32},{98,42},{52,42},{52,51},{61,51}}, color={0,0,127}));
+  connect(mean.y,assEqu. u2) annotation (Line(points={{72.5,51},{78,51},{78,48},
+          {83,48}}, color={0,0,127}));
+  connect(reference.y[1],assEqu. u1) annotation (Line(points={{97,82},{100,82},
+          {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 10 of the VDI 6007 Part 1: Calculation of indoor air temperature
