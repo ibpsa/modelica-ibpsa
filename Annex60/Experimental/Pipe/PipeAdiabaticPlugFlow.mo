@@ -10,11 +10,11 @@ model PipeAdiabaticPlugFlow
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
   parameter Modelica.SIunits.Length dh = 0.05 "Hydraulic diameter"
-    annotation(Dialog(enable = use_dh);
+    annotation(Dialog(enable = use_dh));
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.HeatCapacity Cpipe = length*((dh+thickness)^2 - dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall
-      2 - diameter^2)*Modelica.Constants.pi/4*cpipe*rho_wall
-    "Heat capacity of pipe wall";
+        - diameter^2;
+                      Modelica.Constants.pi Error "Heat capacity of pipe wall";
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe=500 "For steel";
   parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
 
@@ -36,7 +36,7 @@ model PipeAdiabaticPlugFlow
     annotation (Dialog(group="Geometry"));
 
   parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")= dpStraightPipe_nominal
-    dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
+    "Pressure drop at nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
   final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
@@ -148,7 +148,8 @@ equation
           fillPattern=FillPattern.HorizontalCylinder)}),
     Documentation(revisions="<html>
 <ul>
-<li>May 27, 2016 by Marcus Fuchs:<br>Introduce <code>use_dh</code> and adjust <code>dp_nominal</code>. </li>
+<li>July 4, 2016 by Bram van der Heijde:<br>Introduce <code><span style=\"font-family: Courier New,courier;\">pipVol</span></code>.</li>
+<li>May 27, 2016 by Marcus Fuchs:<br>Introduce <code><span style=\"font-family: Courier New,courier;\">use_dh</span></code> and adjust <code><span style=\"font-family: Courier New,courier;\">dp_nominal</span></code>. </li>
 <li>May 19, 2016 by Marcus Fuchs:<br>Add current issue and link to example in documentation.</li>
 <li>April 2, 2016 by Bram van der Heijde:<br>Add volumes and pipe capacity at inlet and outlet of the pipe.</li>
 <li>October 10, 2015 by Marcus Fuchs:<br>Copy Icon from KUL implementation and rename model. </li>

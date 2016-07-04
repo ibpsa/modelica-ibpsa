@@ -335,6 +335,7 @@ equation
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>
+<li><span style=\"font-family: MS Shell Dlg 2;\">July 4, 2016 by Bram van der Heijde:<br>Introduce <code></span><span style=\"font-family: Courier New,courier;\">pipVol</code></span><span style=\"font-family: MS Shell Dlg 2;\">.</span></li>
 <li>February 18, 2016 by Bram van der Heijde:<br>First implementation, based on <code><span style=\"font-family: Courier New,courier;\">DoublePipe_PipeDelay</span></code></li>
 </ul>
 </html>", info="<html>

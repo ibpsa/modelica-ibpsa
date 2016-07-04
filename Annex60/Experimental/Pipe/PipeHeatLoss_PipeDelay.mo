@@ -204,6 +204,7 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
+<li><span style=\"font-family: MS Shell Dlg 2;\">July 4, 2016 by Bram van der Heijde:<br>Introduce <code></span><span style=\"font-family: Courier New,courier;\">pipVol</code></span><span style=\"font-family: MS Shell Dlg 2;\">.</span></li>
 <li>November 30, 2015 by Bram van der Heijde:<br>Minor corrections of heat transfer parameters;</li>
 <li>November 10, 2015 by Bram van der Heijde:<br>Implementation in current form with delay calculated once instead of twice. </li>
 <li>October 10, 2015 by Marcus Fuchs:<br>Copy Icon from KUL implementation and rename model; Replace resistance and temperature delay by an adiabatic pipe; </li>

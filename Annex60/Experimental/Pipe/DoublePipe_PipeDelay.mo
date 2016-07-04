@@ -340,6 +340,7 @@ equation
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>
+<li><span style=\"font-family: MS Shell Dlg 2;\">July 4, 2016 by Bram van der Heijde:<br>Introduce <code></span><span style=\"font-family: Courier New,courier;\">pipVol</code></span><span style=\"font-family: MS Shell Dlg 2;\">.</span></li>
 <li>February 15, 2015 by Bram van der Heijde:<br>Fix issues due to new implementation of PartialFourPort. </li>
 <li>December 1, 2015 by Bram van der Heijde:<br>First implementation using Annex 60 components, based on the single pipe model lay-out. </li>
 <li>July 2015 by Arnout Aertgeerts:<br>First implementation (outside Annex 60) of double heat loss pipe. Flow reversal not possible.</li>
