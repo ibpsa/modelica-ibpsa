@@ -99,7 +99,8 @@ protected
     diameter=diameter,
     length=length,
     m_flow_nominal=m_flow_nominal,
-    redeclare final package Medium = Medium)
+    redeclare final package Medium = Medium,
+    pipVol=pipVol)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
@@ -137,7 +138,8 @@ protected
     final allowFlowReversal=allowFlowReversal,
     diameter=diameter,
     length=length,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    pipVol=pipVol)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -176,6 +178,8 @@ public
         rotation=180,
         origin={-26,60})));
 
+  parameter Boolean pipVol=true
+    "Flag to decide whether volumes are included at the end points of the pipe";
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);

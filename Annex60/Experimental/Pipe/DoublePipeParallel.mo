@@ -99,7 +99,8 @@ protected
     diameter=diameter,
     length=length,
     m_flow_nominal=m_flow_nominal,
-    redeclare final package Medium = Medium)
+    redeclare final package Medium = Medium,
+    pipVol=pipVol)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
@@ -118,7 +119,8 @@ protected
     final allowFlowReversal=allowFlowReversal,
     diameter=diameter,
     length=length,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    pipVol=pipVol)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -170,6 +172,8 @@ public
     Rs=Rs,
     m_flow_small=m_flow_small)
     annotation (Placement(transformation(extent={{-50,-50},{-70,-70}})));
+  parameter Boolean pipVol=true
+    "Flag to decide whether volumes are included at the end points of the pipe";
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);
@@ -210,7 +214,7 @@ equation
   connect(T_amb, heatLossReturn.T_amb) annotation (Line(points={{0,100},{0,74},
           {32,74},{32,-82},{64,-82},{64,-70}}, color={0,0,127}));
   connect(pipeSupplyAdiabaticPlugFlow.port_b, heatLossSupply.port_a)
-    annotation (Line(points={{10,60},{50,60},{50,60}}, color={0,127,255}));
+    annotation (Line(points={{10,60},{50,60}},         color={0,127,255}));
   connect(heatLossSupply.port_b, port_b1)
     annotation (Line(points={{70,60},{100,60},{100,60}}, color={0,127,255}));
   connect(heatLossReturnReverse.T_2out, heatLossSupplyReverse.T_2in)
