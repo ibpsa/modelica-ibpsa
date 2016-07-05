@@ -73,9 +73,11 @@ protected
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
-    diameter=diameter,
+    dh=diameter,
     length=length,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    Lcap=Lcap,
+    pipVol=pipVol)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -107,13 +109,17 @@ public
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlow    tau_unused_maxClause(diameter=diameter)
+  BaseClasses.PDETime_massFlow tau_unused(diameter=diameter)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   BaseClasses.PDETime_massFlow         tau_used(               diameter=
         diameter)
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  parameter Modelica.SIunits.Length Lcap=1
+    "Length over which transient effects typically take place";
+  parameter Boolean pipVol=true
+    "Flag to decide whether volumes are included at the end points of the pipe";
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
@@ -129,7 +135,7 @@ equation
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
     annotation (Line(points={{-44,0},{-52,0},{-60,0}},
                                                color={0,127,255}));
-  connect(senMasFlo.m_flow, tau_unused_maxClause.m_flow) annotation (Line(
+  connect(senMasFlo.m_flow, tau_unused.m_flow) annotation (Line(
       points={{-34,-11},{-34,-30},{-22,-30}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -196,6 +202,7 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
+<li><span style=\"font-family: MS Shell Dlg 2;\">July 4, 2016 by Bram van der Heijde:<br>Introduce <code></span><span style=\"font-family: Courier New,courier;\">pipVol</code></span><span style=\"font-family: MS Shell Dlg 2;\">.</span></li>
 <li>November 30, 2015 by Bram van der Heijde:<br>Minor corrections of heat transfer parameters;</li>
 <li>November 10, 2015 by Bram van der Heijde:<br>Implementation in current form with delay calculated once instead of twice. </li>
 <li>October 10, 2015 by Marcus Fuchs:<br>Copy Icon from KUL implementation and rename model; Replace resistance and temperature delay by an adiabatic pipe; </li>

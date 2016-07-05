@@ -17,15 +17,16 @@ package Medium = Annex60.Media.Water;
     diameter=0.05248,
     length=39,
     thicknessIns(displayUnit="mm") = 0.013,
-    lambdaI=0.12,
-    R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi)                                                                                                     annotation (Placement(transformation(
+    R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi,
+    lambdaI=0.04)                                                                                                     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-34,0})));
   Fluid.HeatExchangers.HeaterCooler_T Boiler(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dp_nominal=0)                            annotation (Placement(
+    dp_nominal=0,
+    T_start=290.15)                          annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -43,6 +44,8 @@ package Medium = Annex60.Media.Water;
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Data.PipeDataULg150801 pipeDataULg150801
     annotation (Placement(transformation(extent={{-32,-60},{-12,-40}})));
+  Modelica.Blocks.Sources.Constant Tamb(k=273 + 18)
+    "Ambient temperature in degrees"
   Modelica.Blocks.Math.UnitConversions.From_degC Tin
     "Ambient temperature in degrees"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
@@ -91,31 +94,27 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     Documentation(info="<html>
-<p>
-The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataULg150801\">
-experimental data</a> from a real district heating network. This data is used to validate pipe models.</p>
-<p>Pipe's temperature is not initialized, thus the first 70 seconds should be disregarded.</p>
-
+<p>The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataULg150801\">experimental data</a> from a real district heating network. This data is used to validate pipe models.</p>
+<p>Pipe&apos;s temperature is not initialized, thus the first 70 seconds should be disregarded. </p>
+<p>The insulation used is Tubolit 60/13. For this material, a thermal conductivity of about 0.04 W/m<sup>2</sup>K can be found (<a href=\"http://www.armacell.com/WWW/armacell/ACwwwAttach.nsf/ansFiles/PDS_Range_Tubolit_CHf.pdf/$File/PDS_Range_Tubolit_CHf.pdf\">source</a>).</p>
 <p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
-<p><img src=\"modelica://Annex60/Resources/Images/Experimental/ULgTestBench.png\" border=\"1\"/></p>
+<p><img src=\"modelica://Annex60/Resources/Images/Experimental/ULgTestBench.png\"/> </p>
 
 <p><b><span style=\"color: #008000;\">Calibration</span></b> </p>
 <p>
 There are some incertainties about the heat loss coefficient between pipe and surrounding air as well as regarding the heat conductivity of the insulation material. With the <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataULg150801\">
-given data</a>, the length specific thermal resistance <code>R = 1.21315 </code> (mK/W). <code>R</code> calculated as follows:
+given data</a>, the length specific thermal resistance <code>R = 2.164 </code> (mK/W). <code>R</code> calculated as follows:
 </p>
 <p>
-<code>R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi</code>  
+<code>R=((1/(2*pipe.lambdaI)*log((0.0603+2*pipe.thicknessIns)/(0.0603)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi</code>  
 </p>
 <p>
-However, it is with <code> R = 0.028 </code> (mK/W) that good results for the outlet temperature when the inlet temperature is close to 68 °C are obtained. Furthermore, a value of <code> R = 0.0155 </code> (mK/W) gives better results for the outlet temperature when the inlet temperature is close to 48 °C.</p>
-<p> It seems that a correct value for <code>R</code> should be between 0.0155 (mK/W) and 0.028 (mK/W).</p>
+<code>U = 1/R = 0.462 W/mK </code> 
+</p>
 </html>", revisions="<html>
 <ul>
-<li>
-Januar 26, 2016 by Carles Ribas:<br/>
-First implementation.
-</li>
+<li>April 2, 2016 by Bram van der Heijde:<br>Change thermal conductivity and put boundary condition in K.</li>
+<li>Januar 26, 2016 by Carles Ribas:<br>First implementation. </li>
 </ul>
 </html>"),
     experiment(StopTime=875),__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeULg.mos"
