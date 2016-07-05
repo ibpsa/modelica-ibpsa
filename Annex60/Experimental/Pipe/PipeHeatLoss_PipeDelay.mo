@@ -73,7 +73,7 @@ protected
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
-    diameter=diameter,
+    dh=diameter,
     length=length,
     m_flow_nominal=m_flow_nominal,
     Lcap=Lcap,

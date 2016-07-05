@@ -3,18 +3,17 @@ model PipeAdiabaticPlugFlow
   "Pipe model using spatialDistribution for temperature delay without heat losses"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
-    annotation(Evaluate=true);
+  parameter Boolean use_dh=false "Set to true to specify hydraulic diameter"
+    annotation (Evaluate=true);
 
   parameter Modelica.SIunits.Length thickness=0.002;
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
-  parameter Modelica.SIunits.Length dh = 0.05 "Hydraulic diameter"
-    annotation(Dialog(enable = use_dh));
+  parameter Modelica.SIunits.Length dh=0.05 "Hydraulic diameter"
+    annotation (Dialog(enable=use_dh));
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.HeatCapacity Cpipe = length*((dh+thickness)^2 - dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall
-        - diameter^2;
-                      Modelica.Constants.pi Error "Heat capacity of pipe wall";
+  parameter Modelica.SIunits.HeatCapacity Cpipe=length*((dh + thickness)^2 - dh^
+      2)*Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe=500 "For steel";
   parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
 
@@ -35,8 +34,8 @@ model PipeAdiabaticPlugFlow
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")= dpStraightPipe_nominal
-    "Pressure drop at nominal mass flow rate"
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=
+    dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
   final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
@@ -98,13 +97,13 @@ public
     nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    V=Lcap*diameter^2/4*Modelica.Constants.pi) if pipVol
+    V=Lcap*dh^2/4*Modelica.Constants.pi) if pipVol
     annotation (Placement(transformation(extent={{-60,0},{-80,20}})));
   Fluid.MixingVolumes.MixingVolume vol1(
     nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    V=Lcap*diameter^2/4*Modelica.Constants.pi) if pipVol
+    V=Lcap*dh^2/4*Modelica.Constants.pi) if pipVol
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 equation
   connect(res.port_b, temperatureDelay.port_a) annotation (Line(
@@ -128,10 +127,10 @@ equation
   end if;
 
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
         Rectangle(
           extent={{-100,40},{100,-42}},
           lineColor={0,0,0},
