@@ -43,13 +43,13 @@ model UCPipeS01AD_Friction
         Medium, m_flow_nominal=m_flow_nominal)
     "Temperature at the pipe's source side for single pipe"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  PipeAdiabaticPlugFlow            pipeMSL100(
+  PipeAdiabaticPlugFlow pipeA60_100(
     redeclare package Medium = Medium,
     length=100,
-    use_dh=true,
     dh=0.1,
     m_flow_small=1e-4,
-    m_flow_nominal=m_flow_nominal) "Dynamic pipe from MSL for reference test"
+    m_flow_nominal=m_flow_nominal,
+    use_dh=false) "Dynamic pipe from Annex60 for reference test"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.Ramp reverseDP(
     duration=1800,
@@ -74,21 +74,21 @@ model UCPipeS01AD_Friction
         Medium, m_flow_nominal=m_flow_nominal)
     "Temperature at the pipe's source side for pipes in series"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  PipeAdiabaticPlugFlow            pipeMSL50_1(
+  PipeAdiabaticPlugFlow pipeA60_50_1(
     redeclare package Medium = Medium,
-    use_dh=true,
     dh=0.1,
     length=50,
     m_flow_small=1e-4,
-    m_flow_nominal=m_flow_nominal) "Dynamic pipe from MSL for reference test"
+    m_flow_nominal=m_flow_nominal,
+    use_dh=false) "Dynamic pipe from MSL for reference test"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  PipeAdiabaticPlugFlow            pipeMSL50_2(
+  PipeAdiabaticPlugFlow pipeA60_50_2(
     redeclare package Medium = Medium,
-    use_dh=true,
     dh=0.1,
     length=50,
     m_flow_small=1e-4,
-    m_flow_nominal=m_flow_nominal) "Dynamic pipe from MSL for reference test"
+    m_flow_nominal=m_flow_nominal,
+    use_dh=false) "Dynamic pipe from MSL for reference test"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 equation
   connect(PAtm.y,sink. p_in)
@@ -115,9 +115,9 @@ equation
       points={{-68,30},{-60,30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TempSourceSin.port_b, pipeMSL100.port_a)
+  connect(TempSourceSin.port_b, pipeA60_100.port_a)
     annotation (Line(points={{-40,30},{0,30}}, color={0,127,255}));
-  connect(pipeMSL100.port_b, TempSinkSin.port_a)
+  connect(pipeA60_100.port_b, TempSinkSin.port_a)
     annotation (Line(points={{20,30},{56,30}}, color={0,127,255}));
   connect(decreaseP.y, add.u1) annotation (Line(points={{-139,84},{-128,84},{
           -128,66},{-120,66}}, color={0,0,127}));
@@ -127,15 +127,15 @@ equation
       points={{88,-30},{76,-30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TempSourceSer.port_b, pipeMSL50_1.port_a)
+  connect(TempSourceSer.port_b, pipeA60_50_1.port_a)
     annotation (Line(points={{-40,-30},{-20,-30}}, color={0,127,255}));
   connect(TempSourceSer.port_a, source.ports[2])
     annotation (Line(points={{-60,-30},{-68,26}}, color={0,127,255}));
   connect(masFloSer.port_b, sink.ports[2])
     annotation (Line(points={{108,-30},{120,26}}, color={0,127,255}));
-  connect(pipeMSL50_1.port_b, pipeMSL50_2.port_a)
+  connect(pipeA60_50_1.port_b, pipeA60_50_2.port_a)
     annotation (Line(points={{0,-30},{20,-30}}, color={0,127,255}));
-  connect(pipeMSL50_2.port_b, TempSinkSer.port_a)
+  connect(pipeA60_50_2.port_b, TempSinkSer.port_a)
     annotation (Line(points={{40,-30},{56,-30}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>This use case aims at demonstrating the pressure loss behavior of the pipe
