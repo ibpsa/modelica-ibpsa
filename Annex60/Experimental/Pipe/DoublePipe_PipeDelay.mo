@@ -99,7 +99,8 @@ protected
     diameter=diameter,
     length=length,
     m_flow_nominal=m_flow_nominal,
-    redeclare final package Medium = Medium)
+    redeclare final package Medium = Medium,
+    pipVol=pipVol)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
@@ -137,7 +138,8 @@ protected
     final allowFlowReversal=allowFlowReversal,
     diameter=diameter,
     length=length,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    pipVol=pipVol)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -176,6 +178,8 @@ public
         rotation=180,
         origin={-26,60})));
 
+  parameter Boolean pipVol=true
+    "Flag to decide whether volumes are included at the end points of the pipe";
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);
@@ -336,6 +340,7 @@ equation
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>
+<li><span style=\"font-family: MS Shell Dlg 2;\">July 4, 2016 by Bram van der Heijde:<br>Introduce <code></span><span style=\"font-family: Courier New,courier;\">pipVol</code></span><span style=\"font-family: MS Shell Dlg 2;\">.</span></li>
 <li>February 15, 2015 by Bram van der Heijde:<br>Fix issues due to new implementation of PartialFourPort. </li>
 <li>December 1, 2015 by Bram van der Heijde:<br>First implementation using Annex 60 components, based on the single pipe model lay-out. </li>
 <li>July 2015 by Arnout Aertgeerts:<br>First implementation (outside Annex 60) of double heat loss pipe. Flow reversal not possible.</li>
