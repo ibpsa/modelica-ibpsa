@@ -46,26 +46,30 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
-    columns={2,3},
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    table=[0,22,0; 3600,22,0; 7200,22,0; 10800,22,0; 14400,22,0; 18000,22,0;
-        21600,22,0; 25200,24.9,500; 28800,25.2,500; 32400,25.6,500; 36000,25.9,
-        500; 39600,26.2,500; 43200,26.5,500; 46800,26.8,500; 50400,27,464;
-        54000,27,397; 57600,27,333; 61200,27,272; 64800,27,215; 68400,25.3,-500;
-        72000,25.2,-500; 75600,25.1,-500; 79200,24.9,-500; 82800,24.8,-500;
-        86400,24.7,-500; 781200,26.2,-500; 784800,26.1,-500; 788400,26,-500;
-        792000,25.8,-500; 795600,25.7,-500; 799200,25.6,-500; 802800,27,126;
-        806400,27,76; 810000,27,28; 813600,27,-121; 817200,27,-391; 820800,27,-500;
-        824400,27.1,-500; 828000,27.2,-500; 831600,27.3,-500; 835200,27.4,-500;
-        838800,27.5,-500; 842400,27.6,-500; 846000,27,-500; 849600,26.9,-500;
-        853200,26.7,-500; 856800,26.6,-500; 860400,26.5,-500; 864000,26.4,-500;
-        5101200,26.2,-500; 5104800,26.1,-500; 5108400,26,-500; 5112000,25.8,-500;
-        5115600,25.7,-500; 5119200,25.6,-500; 5122800,27,126; 5126400,27,76;
-        5130000,27,28; 5133600,27,-122; 5137200,27,-391; 5140800,27,-500;
-        5144400,27.1,-500; 5148000,27.2,-500; 5151600,27.3,-500; 5155200,27.4,-500;
-        5158800,27.5,-500; 5162400,27.6,-500; 5166000,27,-500; 5169600,26.9,-500;
-        5173200,26.7,-500; 5176800,26.6,-500; 5180400,26.5,-500; 5184000,26.4,-500])
-    "Reference results"
+    columns={2,3,4},
+    table=[0,22,0,0; 3600,22,0,0; 7200,22,0,0; 10800,22,0,0; 14400,22,0,0;
+        18000,22,0,0; 21600,22,0,500; 25200,24.9,500,500; 28800,25.2,500,500;
+        32400,25.6,500,500; 36000,25.9,500,500; 39600,26.2,500,500; 43200,26.5,
+        500,500; 46800,26.8,500,464; 50400,27,464,397; 54000,27,397,333; 57600,
+        27,333,272; 61200,27,272,215; 64800,27,215,-500; 68400,25.3,-500,-500;
+        72000,25.2,-500,-500; 75600,25.1,-500,-500; 79200,24.9,-500,-500; 82800,
+        24.8,-500,-500; 86400,24.7,-500,-500; 781200,26.2,-500,-500; 784800,
+        26.1,-500,-500; 788400,26,-500,-500; 792000,25.8,-500,-500; 795600,25.7,
+        -500,-500; 799200,25.6,-500,126; 802800,27,126,76; 806400,27,76,28;
+        810000,27,28,100; 813600,27,-121,-391; 817200,27,-391,-500; 820800,27,-500,
+        -500; 824400,27.1,-500,-500; 828000,27.2,-500,-500; 831600,27.3,-500,-500;
+        835200,27.4,-500,-500; 838800,27.5,-500,-500; 842400,27.6,-500,-500;
+        846000,27,-500,-500; 849600,26.9,-500,-500; 853200,26.7,-500,-500;
+        856800,26.6,-500,-500; 860400,26.5,-500,-500; 864000,26.4,-500,-500;
+        5101200,26.2,-500,-500; 5104800,26.1,-500,-500; 5108400,26,-500,-500;
+        5112000,25.8,-500,-500; 5115600,25.7,-500,-500; 5119200,25.6,-500,126;
+        5122800,27,126,76; 5126400,27,76,28; 5130000,27,28,100; 5133600,27,-122,
+        -391; 5137200,27,-391,-500; 5140800,27,-500,-500; 5144400,27.1,-500,-500;
+        5148000,27.2,-500,-500; 5151600,27.3,-500,-500; 5155200,27.4,-500,-500;
+        5158800,27.5,-500,-500; 5162400,27.6,-500,-500; 5166000,27,-500,-500;
+        5169600,26.9,-500,-500; 5173200,26.7,-500,-500; 5176800,26.6,-500,-500;
+        5180400,26.5,-500,-500; 5184000,26.4,-500,-500]) "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     "Radiative heat flow machines"
@@ -105,8 +109,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     Td=5,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMax=1,
-    Ti=1.55,
-    k=0.1) "Heating and cooling controller"
+    k=0.1,
+    Ti=1.2) "Heating and cooling controller"
     annotation (Placement(transformation(extent={{-50,16},{-34,32}})));
   Modelica.Blocks.Math.Gain gainCoo(k=500) "Gain for cooling"
     annotation (Placement(transformation(extent={{-16,80},{-4,92}})));
@@ -132,17 +136,39 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Modelica.Blocks.Math.Add add(k1=1, k2=-1) "addition for mean of results"
     annotation (Placement(transformation(extent={{44,52},{54,62}})));
   BaseClasses.AssertEqualityThreePeriods assEqu(
-    startTime=3600,
     endTime=86400,
-    startTime2=781200,
     endTime2=864000,
-    startTime3=5101200,
     endTime3=5184000,
-    threShold=1.5) "Checks validation criteria"
+    threShold=1.5,
+    startTime=3600,
+    startTime2=781200,
+    startTime3=5101200) "Checks validation criteria"
     annotation (Placement(transformation(extent={{84,52},{94,62}})));
   Modelica.Blocks.Math.Mean mean(f=1/3600)
     "Hourly mean of indoor air temperature"
-    annotation (Placement(transformation(extent={{64,52},{74,62}})));
+    annotation (Placement(transformation(extent={{66,52},{76,62}})));
+  Modelica.Blocks.Logical.Timer timer
+    annotation (Placement(transformation(extent={{32,85},{42,95}})));
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold
+    annotation (Placement(transformation(extent={{50,92},{58,100}})));
+  Modelica.Blocks.Logical.LessEqualThreshold lessEqualThreshold(threshold=60)
+    annotation (Placement(transformation(extent={{50,80},{58,88}})));
+  Modelica.Blocks.Logical.And and1
+    annotation (Placement(transformation(extent={{64,86},{72,94}})));
+  Modelica.Blocks.Logical.Switch switchMea "Switch to limit cooling power"
+    annotation (Placement(transformation(extent={{66,69},{72,76}})));
+  Modelica.Blocks.Logical.Not not1
+    annotation (Placement(transformation(extent={{-86,-74},{-78,-66}})));
+  Modelica.Blocks.Logical.Timer timer1
+    annotation (Placement(transformation(extent={{-66,-75},{-56,-65}})));
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold2
+    annotation (Placement(transformation(extent={{-46,-68},{-38,-60}})));
+  Modelica.Blocks.Logical.LessEqualThreshold lessEqualThreshold1(threshold=60)
+    annotation (Placement(transformation(extent={{-46,-80},{-38,-72}})));
+  Modelica.Blocks.Logical.And and2
+    annotation (Placement(transformation(extent={{-32,-72},{-24,-64}})));
+  Modelica.Blocks.Logical.Or or1
+    annotation (Placement(transformation(extent={{42,65},{50,73}})));
 equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -155,7 +181,7 @@ equation
     22.8,-88},{22.8,-88},{48,-88}}, color={0,0,127}));
   connect(machinesRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (
-    Line(points={{68,-88},{84,-88},{98,-88},{98,24},{92.2,24}},
+    Line(points={{68,-88},{68,-88},{96,-88},{96,24},{92.2,24}},
     color={191,0,0}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{43,31}}, color={0,0,127}));
@@ -193,7 +219,7 @@ equation
   connect(coolFlowSensor.port_b, thermalZoneTwoElements.intWallIndoorSurface)
     annotation (Line(points={{8,72},{4,72},{4,-24},{44,-24},{44,-6},{56,-6},{56,
           -2}}, color={191,0,0}));
-  connect(mean.y,assEqu. u2) annotation (Line(points={{74.5,57},{78,57},{78,54},
+  connect(mean.y,assEqu. u2) annotation (Line(points={{76.5,57},{78,57},{78,54},
           {83,54}}, color={0,0,127}));
   connect(reference.y[2], assEqu.u1) annotation (Line(points={{97,82},{100,82},
           {100,66},{80,66},{80,60},{83,60}}, color={0,0,127}));
@@ -201,13 +227,46 @@ equation
     annotation (Line(points={{14,66},{14,60},{43,60}}, color={0,0,127}));
   connect(heatFlowSensor.Q_flow, add.u2) annotation (Line(points={{82,-40},{82,
           -58},{0,-58},{0,54},{43,54}}, color={0,0,127}));
-  connect(add.y, mean.u)
-    annotation (Line(points={{54.5,57},{54.5,57},{63,57}}, color={0,0,127}));
   connect(greaterThreshold1.u, switchHea.u1) annotation (Line(points={{-73,51},
           {-76,51},{-76,40},{-24,40},{-24,-24},{-50,-24},{-50,-30},{-45,-30}},
         color={0,0,127}));
   connect(conHeaCoo.y, switchCoo.u3) annotation (Line(points={{-33.2,24},{-24,
           24},{-24,68},{-52,68},{-52,82},{-47,82}}, color={0,0,127}));
+  connect(greaterThreshold1.y, timer.u) annotation (Line(points={{-61.5,51},{
+          -10,51},{-10,63},{28,63},{28,90},{31,90}}, color={255,0,255}));
+  connect(timer.y, lessEqualThreshold.u) annotation (Line(points={{42.5,90},{46,
+          90},{46,84},{49.2,84}}, color={0,0,127}));
+  connect(timer.y, greaterThreshold.u) annotation (Line(points={{42.5,90},{46,
+          90},{46,96},{49.2,96}}, color={0,0,127}));
+  connect(lessEqualThreshold.y, and1.u2) annotation (Line(points={{58.4,84},{60,
+          84},{60,86.8},{63.2,86.8}}, color={255,0,255}));
+  connect(greaterThreshold.y, and1.u1) annotation (Line(points={{58.4,96},{60,
+          96},{60,90},{63.2,90}}, color={255,0,255}));
+  connect(add.y, switchMea.u3) annotation (Line(points={{54.5,57},{60,57},{60,
+          69.7},{65.4,69.7}}, color={0,0,127}));
+  connect(switchMea.y, mean.u) annotation (Line(points={{72.3,72.5},{74,72.5},{
+          74,66},{62,66},{62,57},{65,57}}, color={0,0,127}));
+  connect(reference.y[3], switchMea.u1) annotation (Line(points={{97,82},{100,
+          82},{100,68},{58,68},{58,75.3},{65.4,75.3}}, color={0,0,127}));
+  connect(not1.y, timer1.u) annotation (Line(points={{-77.6,-70},{-67,-70},{-67,
+          -70}}, color={255,0,255}));
+  connect(lessEqualThreshold1.y, and2.u2) annotation (Line(points={{-37.6,-76},
+          {-36,-76},{-36,-71.2},{-32.8,-71.2}}, color={255,0,255}));
+  connect(greaterThreshold2.y, and2.u1) annotation (Line(points={{-37.6,-64},{
+          -36,-64},{-36,-68},{-32.8,-68}}, color={255,0,255}));
+  connect(timer1.y, lessEqualThreshold1.u) annotation (Line(points={{-55.5,-70},
+          {-50,-70},{-50,-76},{-46.8,-76}}, color={0,0,127}));
+  connect(timer1.y, greaterThreshold2.u) annotation (Line(points={{-55.5,-70},{
+          -50,-70},{-50,-64},{-46.8,-64}}, color={0,0,127}));
+  connect(or1.y, switchMea.u2) annotation (Line(points={{50.4,69},{56,69},{56,
+          72.5},{65.4,72.5}}, color={255,0,255}));
+  connect(and1.y, or1.u1) annotation (Line(points={{72.4,90},{74,90},{74,81},{
+          60,81},{60,77},{38,77},{38,69},{41.2,69}}, color={255,0,255}));
+  connect(and2.y, or1.u2) annotation (Line(points={{-23.6,-68},{-19,-68},{-19,
+          -48},{-19,48},{-7,48},{-7,56},{37,56},{37,65.8},{41.2,65.8}}, color={
+          255,0,255}));
+  connect(greaterThreshold1.y, not1.u) annotation (Line(points={{-61.5,51},{-54,
+          51},{-54,-60},{-90,-60},{-90,-70},{-86.8,-70}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 11 of the VDI 6007 Part 1: Calculation of heat load excited with
