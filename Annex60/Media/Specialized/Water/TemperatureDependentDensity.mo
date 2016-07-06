@@ -811,15 +811,25 @@ and therefore leads to faster simulation.
 <img src=\"modelica://Annex60/Resources/Images/Media/Water/plotCp.png\" border=\"1\"
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
+
+
+<p>
+Viscosity and thermal conductivity are calculated as a function of temperature. The correlation used to calculate the thermal conductivity is:
+</p>
+
+&lambda;(T) = &lambda;(298.15 K) &sdot; (-1.48445+4.12292&sdot;(T/298.15)-1.63866&sdot;(T/298.15)<sup>2</sup>)
+
+<p>
+Where &lambda;(298.15 K) = 0.6065 W/mK is the adopted standard value of the thermal conductivity of water at 198.15 K and 0.1 MPa.
+</p>
+
 <p>
 The enthalpy is computed using the convention that <i>h=0</i>
 if <i>T=0</i> &deg;C.
 </p>
 <h4>Limitations</h4>
 <p>
-Specific heat capacity, thermal conductivity and viscosity are constant.
-Water is modeled as an incompressible liquid.
-There are no phase changes.
+Phase changes are not modeled.
 </p>
 </html>", revisions="<html>
 <ul>
