@@ -30,9 +30,9 @@ initial equation
   t4 = time + startTime3;
   t5 = time + endTime3;
 equation
-  if noEvent(time >= t0) and noEvent(time <= t1) or
-     noEvent(time >= t2) and noEvent(time <= t3) or
-     noEvent(time >= t4) and noEvent(time <= t5) then
+  if (time >= t0) and (time <= t1) or
+     (time >= t2) and (time <= t3) or
+     (time >= t4) and (time <= t5) then
     assert(noEvent(abs(u1 - u2) < threShold), message + "\n"
       + "  time       = " + String(time) + "\n"
       + "  u1         = " + String(u1) + "\n"
@@ -57,7 +57,9 @@ revisions="<html>
 <ul>
 <li>
 October 10, 2013, by Michael Wetter:<br/>
-Reformulated model to allow scheduling of time events as opposed to state events.
+Reformulated model to allow scheduling of time events as opposed to state events,
+and removed <code>noEvent</code> operator which is not needed as these
+are only time events.
 </li>
 <li>
 June 29, 2016, by Moritz Lauster:<br/>
