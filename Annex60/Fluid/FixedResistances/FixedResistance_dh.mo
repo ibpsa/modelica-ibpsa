@@ -35,49 +35,8 @@ m&#775; = k
 &radic;<span style=\"text-decoration:overline;\">&Delta;P</span>,
 </p>
 <p>
-where
-<i>k</i> is a constant and
-<i>&Delta;P</i> is the pressure drop.
-The constant <i>k</i> is equal to
-<code>k=m_flow_nominal/sqrt(dp_nominal)</code>,
-where <code>m_flow_nominal</code> and <code>dp_nominal</code>
-are parameters.
-In the region
-<code>abs(m_flow) &lt; m_flow_turbulent</code>,
-the square root is replaced by a differentiable function
-with finite slope.
-The value of <code>m_flow_turbulent</code> is
-computed as follows:
-</p>
-<ul>
-<li>
-If the parameter <code>use_dh</code> is <code>false</code>
-(the default setting),
-the equation
-<code>m_flow_turbulent = deltaM * abs(m_flow_nominal)</code>,
-where <code>deltaM=0.3</code> and
-<code>m_flow_nominal</code> are parameters that can be set by the user.
-</li>
-<li>
-Otherwise, the equation
-<code>m_flow_turbulent = eta_nominal*dh/4*&pi;*ReC</code> is used,
-where
-<code>eta_nominal</code> is the dynamic viscosity, obtained from
-the medium model. The parameter
-<code>dh</code> is the hydraulic diameter and
-<code>ReC=4000</code> is the critical Reynolds number, which both
-can be set by the user.
-</li>
-</ul>
-<p>
-The figure below shows the pressure drop for the parameters
-<code>m_flow_nominal=5</code> kg/s,
-<code>dp_nominal=10</code> Pa and
-<code>deltaM=0.3</code>.
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
-</p>
+where <i>k</i> is a constant and <i>&Delta;P</i> is the pressure drop. 
+The constant <i>k</i> is equal to <code>k=m_flow_nominal/sqrt(dp_nominal)</code>, where <code>m_flow_nominal</code> and <code>dp_nominal</code> are parameters. In the region <code>abs(m_flow) &LT; m_flow_turbulent</code>, the square root is replaced by a differentiable function with finite slope. The value of <code>m_flow_turbulent</code> is computed as <code>m_flow_turbulent = eta_nominal*dh/4*&pi;*ReC</code> is used, where <code>eta_nominal</code> is the dynamic viscosity, obtained from the medium model. The parameter <code>dh</code> is the hydraulic diameter and <code>ReC=4000</code> is the critical Reynolds number, which both can be set by the user. </p>
 <p>
 If the parameter
 <code>show_T</code> is set to <code>true</code>,
@@ -135,6 +94,10 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 8, 2016 by Bram van der Heijde:<br>Split off from <code>use_dh=true</code> 
+part of <code>Annex60.Fluid.FixedResistances.FixedResistanceDpM</code>. 
+</li>
 <li>
 November 26, 2014, by Michael Wetter:<br/>
 Added the required <code>annotation(Evaluate=true)</code> so

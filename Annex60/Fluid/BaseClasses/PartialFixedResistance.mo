@@ -91,38 +91,15 @@ In the region
 <code>abs(m_flow) &lt; m_flow_turbulent</code>,
 the square root is replaced by a differentiable function
 with finite slope.
-The value of <code>m_flow_turbulent</code> is
-computed as follows:
+The value of 
+<code>
+m_flow_turbulent</code> is computed in <code>
+
+Annex60.Fluid.FixedResistances.FixedResistance_dp</code> 
+or in <code>
+Annex60.Fluid.FixedResistances.FixedResistance_dh</code>.
 </p>
-<ul>
-<li>
-If the parameter <code>use_dh</code> is <code>false</code>
-(the default setting),
-the equation
-<code>m_flow_turbulent = deltaM * abs(m_flow_nominal)</code>,
-where <code>deltaM=0.3</code> and
-<code>m_flow_nominal</code> are parameters that can be set by the user.
-</li>
-<li>
-Otherwise, the equation
-<code>m_flow_turbulent = eta_nominal*dh/4*&pi;*ReC</code> is used,
-where
-<code>eta_nominal</code> is the dynamic viscosity, obtained from
-the medium model. The parameter
-<code>dh</code> is the hydraulic diameter and
-<code>ReC=4000</code> is the critical Reynolds number, which both
-can be set by the user.
-</li>
-</ul>
-<p>
-The figure below shows the pressure drop for the parameters
-<code>m_flow_nominal=5</code> kg/s,
-<code>dp_nominal=10</code> Pa and
-<code>deltaM=0.3</code>.
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
-</p>
+
 <p>
 If the parameter
 <code>show_T</code> is set to <code>true</code>,
@@ -167,7 +144,7 @@ Annex60.Fluid.BaseClasses.FlowModels</a>,
 This package contains regularized implementations of the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;
 </p>
 <p>
 and its inverse function.
@@ -180,6 +157,14 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 7, 2016 by Bram van der Heijde:<br/>
+Moved from <code>Annex60.Fluid.FixedResistances.FixedResistanceDpM</code> 
+to <code>Annex60.Fluid.BaseClasses.PartialFixedResistance</code>. 
+Moved parameters <code>ReC</code>, <code>dh</code> and <code>use_dh</code> 
+to <code>FixedResistance_dp</code>. Moved parameter <code>Delta_M</code> and 
+<code>assert(dh)</code>to <code>FixedResistance_dh</code>.
+</li>
 <li>
 November 26, 2014, by Michael Wetter:<br/>
 Added the required <code>annotation(Evaluate=true)</code> so
