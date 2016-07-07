@@ -235,8 +235,7 @@ equation
   connect(corGDouPan.solarRadWinTrans, thermalZoneTwoElements.solRad)
     annotation (Line(points={{27,64},{34,64},{40,64},{40,31},{43,31}}, color={0,
     0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-  -100},{100,100}})), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
   <p>This example shows the application of
   <a href=\"Annex60.ThermalZones.ReducedOrder.RC.TwoElements\">
   Annex60.ThermalZones.ReducedOrder.RC.TwoElements</a>
@@ -274,8 +273,6 @@ equation
   </ul>
   </html>"),
   experiment(StopTime=3.1536e+007, Interval=3600),
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-  100}})),
   __Dymola_Commands(file=
   "modelica://Annex60/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomTwoElements.mos"
         "Simulate and plot"));

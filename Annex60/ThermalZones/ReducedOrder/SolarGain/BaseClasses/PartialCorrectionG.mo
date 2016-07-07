@@ -35,8 +35,7 @@ partial model PartialCorrectionG
     final unit="W/m2") "transmitted solar radiation through windows"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
     iconTransformation(extent={{100,-10},{120,10}})));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-  -100,-100},{100,100}})),Icon(coordinateSystem(
+  annotation (Icon(coordinateSystem(
   preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
   Rectangle(
   extent={{-100,100},{100,-100}},

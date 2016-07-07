@@ -33,7 +33,5 @@ equation
   </html>", info="<html>
   <p><code>VDI6007</code> is a strict implementation of the calculations defined
   in VDI 6007 Part 1. The sum of all weightfactors should be one.</p>
-  </html>"),
-  Diagram(coordinateSystem(preserveAspectRatio=false,
-  extent={{-100,-100},{100,100}})));
+  </html>"));
 end VDI6007;

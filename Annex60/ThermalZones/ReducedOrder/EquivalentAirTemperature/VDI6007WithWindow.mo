@@ -63,9 +63,5 @@ equation
   case heat transfer through windows and exterior walls is handled seperately in
   the Reduced Order Model. The sum of all weightfactors for windows should be
   one as well as the sum for all wall elements.</p>
-  </html>"),
-  Icon(coordinateSystem(preserveAspectRatio=false,
-  extent={{-100,-100},{100,100}})),
-  Diagram(coordinateSystem(preserveAspectRatio=false,
-  extent={{-100,-100},{100,100}})));
+  </html>"));
 end VDI6007WithWindow;

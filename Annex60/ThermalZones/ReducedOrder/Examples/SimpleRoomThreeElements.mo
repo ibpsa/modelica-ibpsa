@@ -259,8 +259,7 @@ equation
     -22},{67,-22},{67,-19.2}}, color={0,0,127}));
   connect(corGDouPan.solarRadWinTrans, thermalZoneThreeElements.solRad)
     annotation (Line(points={{27,64},{40,64},{40,31},{43,31}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-  -100},{100,100}})), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
   <p>This example shows the application of
   <a href=\"Annex60.ThermalZones.ReducedOrder.RC.ThreeElements\">
   Annex60.ThermalZones.ReducedOrder.RC.ThreeElements</a>
@@ -299,8 +298,6 @@ equation
   </ul>
   </html>"),
   experiment(StopTime=3.1536e+007, Interval=3600),
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-  100}})),
   __Dymola_Commands(file=
   "modelica://Annex60/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomThreeElements.mos"
         "Simulate and plot"));

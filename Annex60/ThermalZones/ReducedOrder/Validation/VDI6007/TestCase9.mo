@@ -367,8 +367,7 @@ equation
           {83,48}}, color={0,0,127}));
   connect(reference.y[1],assEqu. u1) annotation (Line(points={{97,82},{100,82},
           {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-  -100},{100,100}})), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
   <p>Test Case 9 of the VDI 6007 Part 1: Calculation of indoor air
   temperature excited by a radiative and convective heat source for
   room version S with two exterior walls. It is based on Test Case 8.</p>

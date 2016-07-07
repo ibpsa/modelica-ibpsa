@@ -140,8 +140,7 @@ equation
           {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
   connect(heatFlowSensor.Q_flow, mean.u) annotation (Line(points={{84,-40},{84,
           -54},{-6,-54},{-6,51},{61,51}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-  -100},{100,100}})), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
   <p>Test Case 6 of the VDI 6007 Part 1: Calculation of heat load excited with a
   given radiative heat source and a setpoint profile for room version S. Is
   based on Test Case 2.</p>

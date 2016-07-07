@@ -133,7 +133,6 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     "Threshold for switching between heating and cooling"
     annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
-        rotation=0,
         origin={-67,51})));
   Modelica.Blocks.Sources.Constant DefPow(k=0)
     "Default power"

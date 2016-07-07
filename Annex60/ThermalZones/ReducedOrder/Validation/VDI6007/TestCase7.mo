@@ -165,8 +165,7 @@ equation
     annotation (Line(points={{61,51},{54.5,51}}, color={0,0,127}));
   connect(gainMea.u, heatFlowSensor.Q_flow) annotation (Line(points={{43,51},{
           -74,51},{-74,-68},{78,-68},{78,-42}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-  -100},{100,100}})), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
   <p>Test Case 7 of the VDI 6007 Part 1: Calculation of heat load excited with a
   given radiative heat source and a setpoint profile for room version S. Is
   similar with Test Case 6, but with a maximum heating/cooling power.</p>
