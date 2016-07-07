@@ -30,9 +30,9 @@ initial equation
   t4 = time + startTime3;
   t5 = time + endTime3;
 equation
-  if noEvent(time > t0) and noEvent(time < t1) or
-     noEvent(time > t2) and noEvent(time < t3) or
-     noEvent(time > t4) and noEvent(time < t5) then
+  if noEvent(time >= t0) and noEvent(time <= t1) or
+     noEvent(time >= t2) and noEvent(time <= t3) or
+     noEvent(time >= t4) and noEvent(time <= t5) then
     assert(noEvent(abs(u1 - u2) < threShold), message + "\n"
       + "  time       = " + String(time) + "\n"
       + "  u1         = " + String(u1) + "\n"
@@ -50,29 +50,17 @@ Documentation(info="<html>
 <p>
 Model that triggers an assert if
 <i>|u1-u2| &gt; threShold</i>
-and <i>t &gt; t<sub>0</sub></i>.
+and <i>t</i> is within user-defined time intervals.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 October 10, 2013, by Michael Wetter:<br/>
-Reformulated model to avoid an event iteration.
+Reformulated model to allow scheduling of time events as opposed to state events.
 </li>
 <li>
-September 10, 2013, by Michael Wetter:<br/>
-Added <code>time</code> in print statement as OpenModelica,
-in its error message, does not output the time when the assert is triggered.
-</li>
-<li>
-January 23, 2013, by Michael Wetter:<br/>
-Replaced <code>when</code> test with <code>if</code> test as
-equations within a <code>when</code> section are only evaluated
-when the condition becomes true.
-This fixes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/72\">issue 72</a>.
-</li>
-<li>
-April 17, 2008, by Michael Wetter:<br/>
+June 29, 2016, by Moritz Lauster:<br/>
 First implementation.
 </li>
 </ul>
