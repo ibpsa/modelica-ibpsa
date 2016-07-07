@@ -6,6 +6,10 @@ model FixedResistance_dp
         if computeFlowResistance then
           deltaM*m_flow_nominal_pos
         else 0);
+
+  parameter Real deltaM(min=0.01) = 0.3
+    "Fraction of nominal mass flow rate where transition to turbulent occurs"
+    annotation (Evaluate=true, Dialog(enable=not use_dh and not linearized));
   annotation (
     defaultComponentName="res",
     Documentation(info="<html>

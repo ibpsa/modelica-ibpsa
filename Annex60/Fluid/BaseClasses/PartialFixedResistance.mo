@@ -7,10 +7,6 @@ partial model PartialFixedResistance "Partial fixed flow resistance"
   //                        deltaM * m_flow_nominal_pos
   //          else 0);
 
-  parameter Real deltaM(min=0.01) = 0.3
-    "Fraction of nominal mass flow rate where transition to turbulent occurs"
-    annotation (Evaluate=true, Dialog(enable=not use_dh and not linearized));
-
   final parameter Real k(unit="") = if computeFlowResistance then
     m_flow_nominal_pos/sqrt(dp_nominal_pos) else 0
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
