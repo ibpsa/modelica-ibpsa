@@ -26,7 +26,8 @@ model TestCase4 "VDI 6007 Test Case 4 model"
     AExt={10.5},
     extWallRC(thermCapExt(each der_T(fixed=true))),
     T_start=295.15,
-    intWallRC(thermCapInt(each der_T(fixed=true)))) "Thermal zone"
+    intWallRC(thermCapInt(each der_T(fixed=true))))
+    "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(T=295.15)
     "Outdoor air temperature"
@@ -40,7 +41,8 @@ model TestCase4 "VDI 6007 Test Case 4 model"
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2}) "Table with internal gains"
+    columns={2})
+    "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -61,7 +63,8 @@ model TestCase4 "VDI 6007 Test Case 4 model"
         5148000,52.4; 5151600,52.6; 5155200,52.8; 5158800,53; 5162400,53.2;
         5166000,50.2; 5169600,49.9; 5173200,49.7; 5176800,49.5; 5180400,49.2;
         5184000,49],
-    offset={273.15}) "Reference results"
+    offset={273.15})
+    "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     "Radiative heat flow machines"
@@ -73,7 +76,8 @@ model TestCase4 "VDI 6007 Test Case 4 model"
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
+  Modelica.Blocks.Sources.Constant const(k=0)
+    "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
   BaseClasses.AssertEqualityThreePeriods assEqu(
     startTime=3600,
@@ -82,7 +86,8 @@ model TestCase4 "VDI 6007 Test Case 4 model"
     endTime2=864000,
     startTime3=5101200,
     endTime3=5184000,
-    threShold=0.15) "Checks validation criteria"
+    threShold=0.15)
+    "Checks validation criteria"
     annotation (Placement(transformation(extent={{84,46},{94,56}})));
   Modelica.Blocks.Math.Mean mean(f=1/3600)
     "Hourly mean of indoor air temperature"

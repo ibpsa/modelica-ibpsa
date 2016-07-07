@@ -27,7 +27,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     AExt={10.5},
     extWallRC(thermCapExt(each der_T(fixed=true))),
     T_start=295.15,
-    intWallRC(thermCapInt(each der_T(fixed=true)))) "Thermal zone"
+    intWallRC(thermCapInt(each der_T(fixed=true))))
+    "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(
     T=295.15)
@@ -42,7 +43,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2}) "Table with internal gains"
+    columns={2})
+    "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-96},{22,-80}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -83,7 +85,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
+  Modelica.Blocks.Sources.Constant const(k=0)
+    "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heat
     "Ideal heater with limit"
@@ -123,13 +126,15 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Modelica.Blocks.Logical.Switch switchCoo
     "Switch to limit cooling power"
     annotation (Placement(transformation(extent={{-46,81},{-36,91}})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(
-    threshold=0, y(start=false))
-    "Threshold for sunblind for one direction"
+  Modelica.Blocks.Logical.Hysteresis hysteresis(
+    uLow=-0.0000001,
+    uHigh=0.0000001,
+    y(start=true))
+    "Threshold for switching between heating and cooling"
     annotation (Placement(transformation(
-    extent={{-5,-5},{5,5}},
-    rotation=0,
-    origin={-67,51})));
+        extent={{-5,-5},{5,5}},
+        rotation=0,
+        origin={-67,51})));
   Modelica.Blocks.Sources.Constant DefPow(k=0)
     "Default power"
     annotation (Placement(transformation(extent={{-90,-4},{-82,4}})));
@@ -203,12 +208,12 @@ equation
     annotation (Line(points={{-61.4,24},{-51.6,24}}, color={0,0,127}));
   connect(switchCoo.y, gainCoo.u) annotation (Line(points={{-35.5,86},{-26.75,
           86},{-17.2,86}}, color={0,0,127}));
-  connect(greaterThreshold1.y, switchCoo.u2) annotation (Line(points={{-61.5,51},
-          {-54,51},{-54,86},{-47,86}}, color={255,0,255}));
+  connect(hysteresis.y, switchCoo.u2) annotation (Line(points={{-61.5,51},{-54,
+          51},{-54,86},{-47,86}}, color={255,0,255}));
   connect(DefPow.y, switchCoo.u1) annotation (Line(points={{-81.6,0},{-76,0},{
           -76,14},{-98,14},{-98,90},{-47,90}}, color={0,0,127}));
-  connect(greaterThreshold1.y, switchHea.u2) annotation (Line(points={{-61.5,51},
-          {-54,51},{-54,-34},{-45,-34}}, color={255,0,255}));
+  connect(hysteresis.y, switchHea.u2) annotation (Line(points={{-61.5,51},{-54,
+          51},{-54,-34},{-45,-34}}, color={255,0,255}));
   connect(conHeaCoo.y, switchHea.u1) annotation (Line(points={{-33.2,24},{-24,
           24},{-24,-24},{-50,-24},{-50,-30},{-45,-30}}, color={0,0,127}));
   connect(thermalZoneTwoElements.TAir, conHeaCoo.u_m) annotation (Line(
@@ -229,9 +234,9 @@ equation
   connect(heatFlowSensor.Q_flow, add.u2) annotation (Line(points={{82,-40},{82,-58},
           {0,-58},{0,52},{32,52},{32,64},{38,64}},
                                         color={0,0,127}));
-  connect(greaterThreshold1.u, switchHea.u1) annotation (Line(points={{-73,51},
-          {-76,51},{-76,40},{-24,40},{-24,-24},{-50,-24},{-50,-30},{-45,-30}},
-        color={0,0,127}));
+  connect(hysteresis.u, switchHea.u1) annotation (Line(points={{-73,51},{-76,51},
+          {-76,40},{-24,40},{-24,-24},{-50,-24},{-50,-30},{-45,-30}}, color={0,
+          0,127}));
   connect(conHeaCoo.y, switchCoo.u3) annotation (Line(points={{-33.2,24},{-24,
           24},{-24,68},{-52,68},{-52,82},{-47,82}}, color={0,0,127}));
   connect(add.y, switchMea.u3) annotation (Line(points={{61,70},{69,70},{69,73},
@@ -247,8 +252,8 @@ equation
     annotation (Line(points={{41,130},{44,130},{58,130}}, color={255,0,255}));
   connect(thr.y, switchMea.u2) annotation (Line(points={{121,130},{130,130},{
           134,130},{136,130},{136,129.5},{138,129.5}},       color={255,0,255}));
-  connect(cha.u, greaterThreshold1.y) annotation (Line(points={{-22,130},{-54,130},
-          {-54,51},{-61.5,51}}, color={255,0,255}));
+  connect(cha.u, hysteresis.y) annotation (Line(points={{-22,130},{-54,130},{-54,
+          51},{-61.5,51}}, color={255,0,255}));
   connect(switchMea.y, mean.u) annotation (Line(points={{161,129.5},{170,129.5},
           {170,100},{140,100},{140,80},{148,80}}, color={0,0,127}));
   connect(reference.y[2], assEqu.u2) annotation (Line(points={{101,90},{114,90},
@@ -276,7 +281,7 @@ equation
   <ul>
   <li>
   July 7, 2016, by Moritz Lauster:<br/>
-  Added automatic check against validation thresholds.
+  Added automatic check against validation thresholds and changes threshold to hysteresis.
   </li>
   <li>
   July 6, 2016, by Michael Wetter:<br/>

@@ -26,7 +26,8 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     AExt={10.5},
     extWallRC(thermCapExt(each der_T(fixed=true))),
     intWallRC(thermCapInt(each der_T(fixed=true))),
-    T_start=295.15) "Thermal zone"
+    T_start=295.15)
+    "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(
     T=295.15)
@@ -41,7 +42,8 @@ model TestCase7 "VDI 6007 Test Case 7 model"
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2}) "Table with internal gains"
+    columns={2})
+    "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-96},{22,-80}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -64,7 +66,8 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad(
-    T_ref=295.15) "Radiative heat flow machines"
+    T_ref=295.15)
+    "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-98},{68,-78}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
     "Outdoor coefficient of heat transfer for walls"
@@ -73,7 +76,8 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
+  Modelica.Blocks.Sources.Constant const(k=0)
+    "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaCoo(
     T_ref=295.15)
@@ -97,7 +101,8 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     yMax=1,
     yMin=-1,
     k=0.1,
-    Ti=4) "Heating and cooling controller"
+    Ti=4)
+    "Heating and cooling controller"
     annotation (Placement(transformation(extent={{-18,-44},{-2,-28}})));
   Modelica.Blocks.Math.Gain gainHeaCoo(k=500)
     "Gain for heating and cooling controller"
@@ -109,7 +114,8 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     endTime2=864000,
     startTime3=5101200,
     endTime3=5184000,
-    threShold=1.5) "Checks validation criteria"
+    threShold=1.5)
+    "Checks validation criteria"
     annotation (Placement(transformation(extent={{84,46},{94,56}})));
   Modelica.Blocks.Math.Mean mean(f=1/3600)
     "Hourly mean of indoor air temperature"
@@ -117,7 +123,8 @@ model TestCase7 "VDI 6007 Test Case 7 model"
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
     "Sensor for ideal heater/cooler"
     annotation (Placement(transformation(extent={{84,-42},{72,-30}})));
-  Modelica.Blocks.Math.Gain gainMea(k=-1) "Gain for mean block"
+  Modelica.Blocks.Math.Gain gainMea(k=-1)
+    "Gain for mean block"
     annotation (Placement(transformation(extent={{44,46},{54,56}})));
 equation
   connect(theConWall.fluid, preTem.port)

@@ -26,7 +26,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     AExt={10.5,15},
     T_start=295.15,
     extWallRC(thermCapExt(each T(fixed=true))),
-    intWallRC(thermCapInt(each T(fixed=true)))) "Thermal zone"
+    intWallRC(thermCapInt(each T(fixed=true))))
+    "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer"
@@ -39,7 +40,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
         200; 50400,80,80,200; 54000,80,80,200; 57600,80,80,200; 61200,80,80,200;
         61200,0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,
         0,0,0; 86400,0,0,0],
-    columns={2,3,4}) "Table with internal gains"
+    columns={2,3,4})
+    "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -60,7 +62,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
         42.9; 5148000,43.2; 5151600,43.4; 5155200,44.1; 5158800,44.1; 5162400,
         42.3; 5166000,42; 5169600,41.6; 5173200,41.5; 5176800,41.3; 5180400,
         41.2; 5184000,41],
-    offset={273.15}) "Reference results"
+    offset={273.15})
+    "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow machines"
@@ -84,7 +87,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
         304.15; 57600,304.15; 57600,303.95; 61200,303.95; 61200,303.25; 64800,
         303.25; 64800,302.05; 68400,302.05; 68400,300.15; 72000,300.15; 72000,
         297.85; 75600,297.85; 75600,296.05; 79200,296.05; 79200,295.05; 82800,
-        295.05; 82800,294.05; 86400,294.05]) "Outdoor air temperature"
+        295.05; 82800,294.05; 86400,294.05])
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-92,-32},{-78,-18}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad
     "Radiative heat flow persons"
@@ -103,7 +107,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
         475; 54000,98,528; 57600,98,528; 57600,59,492; 61200,59,492; 61200,38,
         359; 64800,38,359; 64800,17,147; 68400,17,147; 68400,0,0; 72000,0,0;
         82800,0,0; 86400,0,0],
-    columns={2,3}) "Solar radiation"
+    columns={2,3})
+    "Solar radiation"
     annotation (Placement(transformation(extent={{-92,66},{-78,80}})));
   Modelica.Blocks.Sources.Constant g_sunblind(k=0.15)
     "g value for sunblind closed"
@@ -143,7 +148,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-25,59})));
-  Modelica.Blocks.Math.Product product "Solar radiation times g value
+  Modelica.Blocks.Math.Product product
+    "Solar radiation times g value
     for sunblind (open or closed) for one direction"
     annotation (Placement(transformation(extent={{-6,84},{4,94}})));
   EquivalentAirTemperature.VDI6007 eqAirTemp(
@@ -156,7 +162,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     wfWall={0.05796831135677373,0.13249899738691134},
     wfWin={0.4047663456281575,0.4047663456281575},
     withLongwave=true,
-    TGro=285.15) "Equivalent air temperature"
+    TGro=285.15)
+    "Equivalent air temperature"
     annotation (Placement(transformation(extent={{-26,-16},{-6,2}})));
   Modelica.Blocks.Math.Add add(k1=-1)
     "Computes 1 - g_sunblind for one direction"
@@ -223,7 +230,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
         54000,457.5; 54000,452.5; 57600,452.5; 57600,445; 61200,445; 61200,
         438.5; 64800,438.5; 64800,437; 68400,437; 68400,420; 72000,420; 72000,
         412.5; 75600,412.5; 75600,405; 79200,405; 79200,397.5; 82800,397.5;
-        82800,390; 86400,390]) "Long-wave radiation from sky"
+        82800,390; 86400,390])
+    "Long-wave radiation from sky"
     annotation (Placement(transformation(extent={{-92,-12},{-78,2}})));
   Modelica.Blocks.Math.Sqrt sqrt
     "Root of H_sky for black body sky temperature"

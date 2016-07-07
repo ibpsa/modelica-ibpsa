@@ -39,7 +39,8 @@ model TestCase10 "VDI 6007 Test Case 10 model"
         200; 50400,80,80,200; 54000,80,80,200; 57600,80,80,200; 61200,80,80,200;
         61200,0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,
         0,0,0; 86400,0,0,0],
-    columns={2,3,4}) "Table with internal gains"
+    columns={2,3,4})
+    "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -60,16 +61,20 @@ model TestCase10 "VDI 6007 Test Case 10 model"
         5148000,27.5; 5151600,27.5; 5155200,28.1; 5158800,28; 5162400,26.3;
         5166000,26.1; 5169600,26; 5173200,25.9; 5176800,25.8; 5180400,25.7;
         5184000,25.6],
-    offset={273.15}) "Reference results"
+    offset={273.15})
+    "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv(
-    T_ref=290.75) "Convective heat flow machines"
+    T_ref=290.75)
+    "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad(
-    T_ref=290.75) "Radiative heat flow persons"
+    T_ref=290.75)
+    "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon(
-    T_ref=290.75) "Convective heat flow persons"
+    T_ref=290.75)
+    "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -80,7 +85,8 @@ model TestCase10 "VDI 6007 Test Case 10 model"
         46800,359; 46800,287; 50400,287; 50400,186; 54000,186; 54000,98; 57600,
         98; 57600,59; 61200,59; 61200,38; 64800,38; 64800,17; 68400,17; 68400,0;
         72000,0; 82800,0; 86400,0],
-    columns={2}) "Solar radiation"
+    columns={2})
+    "Solar radiation"
     annotation (Placement(transformation(extent={{-84,66},{-70,80}})));
   Modelica.Blocks.Sources.Constant g_sunblind(k=0.15)
     "g value for sunblind closed"
@@ -124,7 +130,8 @@ model TestCase10 "VDI 6007 Test Case 10 model"
         304.15; 57600,304.15; 57600,303.95; 61200,303.95; 61200,303.25; 64800,
         303.25; 64800,302.05; 68400,302.05; 68400,300.15; 72000,300.15; 72000,
         297.85; 75600,297.85; 75600,296.05; 79200,296.05; 79200,295.05; 82800,
-        295.05; 82800,294.05; 86400,294.05]) "Outdoor air temperature"
+        295.05; 82800,294.05; 86400,294.05])
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-90,-8},{-74,8}})));
   EquivalentAirTemperature.VDI6007 eqAirTemp(
     aExt=0.7,
@@ -136,12 +143,14 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     wfWall={0.04646093176283288},
     wfWin={0.32441554918476245},
     wfGro=0.6291235190524047,
-    TGro=288.15) "Equivalent air temperature"
+    TGro=288.15)
+    "Equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-4},{-4,14}})));
   Modelica.Blocks.Sources.Constant const(k=273.15)
     "Dummy black body sky temperature"
     annotation (Placement(transformation(extent={{-56,4},{-50,10}})));
-  Modelica.Blocks.Sources.Constant HSol(k=0) "Solar radiation on walls"
+  Modelica.Blocks.Sources.Constant HSol(k=0)
+    "Solar radiation on walls"
     annotation (Placement(transformation(extent={{-84,22},{-78,28}})));
   Modelica.Blocks.Sources.Constant sunblind(k=0)
     "Dummy for g value of sunblinds (open)"
@@ -167,7 +176,8 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     endTime2=864000,
     startTime3=5101200,
     endTime3=5184000,
-    threShold=0.15) "Checks validation criteria"
+    threShold=0.15)
+    "Checks validation criteria"
     annotation (Placement(transformation(extent={{84,46},{94,56}})));
   Modelica.Blocks.Math.Mean mean(f=1/3600)
     "Hourly mean of indoor air temperature"

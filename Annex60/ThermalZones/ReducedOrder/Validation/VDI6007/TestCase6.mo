@@ -26,7 +26,8 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     RInt={0.000595515},
     CInt={14836200},
     RExtRem=0.038959197,
-    T_start=295.15) "Thermal zone"
+    T_start=295.15)
+    "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(T=295.15)
     "Outdoor air temperature"
@@ -40,7 +41,8 @@ model TestCase6 "VDI 6007 Test Case 6 model"
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2}) "Table with internal gains"
+    columns={2})
+    "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-82},{22,-66}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -59,10 +61,12 @@ model TestCase6 "VDI 6007 Test Case 6 model"
         5122800,-163; 5126400,-120; 5130000,-78; 5133600,-39; 5137200,-2;
         5140800,33; 5144400,67; 5148000,99; 5151600,130; 5155200,159; 5158800,
         187; 5162400,214; 5166000,1004; 5169600,960; 5173200,919; 5176800,880;
-        5180400,843; 5184000,808]) "Reference results"
+        5180400,843; 5184000,808])
+    "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad(
-    T_ref=295.15) "Radiative heat flow machines"
+    T_ref=295.15)
+    "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
     "Outdoor coefficient of heat transfer for walls"
@@ -71,7 +75,8 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
+  Modelica.Blocks.Sources.Constant const(k=0)
+    "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
     "Sensor for ideal heater/cooler"
@@ -99,7 +104,8 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     endTime2=864000,
     startTime3=5101200,
     endTime3=5184000,
-    threShold=1.5) "Checks validation criteria"
+    threShold=1.5)
+    "Checks validation criteria"
     annotation (Placement(transformation(extent={{84,46},{94,56}})));
   Modelica.Blocks.Math.Mean mean(f=1/3600)
     "Hourly mean of indoor air temperature"
