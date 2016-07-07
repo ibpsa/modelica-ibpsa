@@ -254,7 +254,7 @@ equation
   excited by a radiative and convective heat source for room version S. It is
   based on Test Case 5, but with a non-adiabatic floor plate to an adjacent room
   with a fixed temperature.</p>
-  <p>Boundary Condtions:</p>
+  <h4>Boundary conditions</h4>
   <ul>
   <li>daily profile for outdoor air temperature in hourly steps</li>
   <li>no solar or short-wave radiation on the exterior wall</li>

@@ -118,7 +118,7 @@ equation
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 4 of the VDI 6007 Part 1: Calculation of indoor air temperature
   excited by a radiative heat source for room version L.</p>
-  <p>Boundary Condtions:</p>
+  <h4>Boundary conditions</h4>
   <ul>
   <li>constant outdoor air temperature 22&deg;C</li>
   <li>no solar or short-wave radiation on the exterior wall</li>

@@ -170,7 +170,7 @@ equation
   <p>Test Case 7 of the VDI 6007 Part 1: Calculation of heat load excited with a
   given radiative heat source and a setpoint profile for room version S. Is
   similar with Test Case 6, but with a maximum heating/cooling power.</p>
-  <p>Boundary Condtions:</p>
+  <h4>Boundary conditions</h4>
   <ul>
   <li>constant outdoor air temperature 22&deg;C</li>
   <li>no solar or short-wave radiation on the exterior wall</li>

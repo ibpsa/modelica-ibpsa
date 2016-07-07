@@ -267,7 +267,7 @@ equation
   excited with a given radiative heat source and a setpoint profile
   for room version S. It is based on Test Case 7, but with a cooling ceiling for
   cooling purposes instead of a pure convective ideal cooler.</p>
-  <p>Boundary Condtions:</p>
+  <h4>Boundary conditions</h4>
   <ul>
   <li>constant outdoor air temperature 22&deg;C</li>
   <li>no solar or short-wave radiation on the exterior wall</li>

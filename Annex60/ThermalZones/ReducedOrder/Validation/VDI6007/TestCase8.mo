@@ -345,7 +345,7 @@ equation
   <p>Test Case 8 of the VDI 6007 Part 1: Calculation of indoor air
   temperature excited by a radiative and convective heat source for
   room version S with two exterior walls. It is based on Test Case 5.</p>
-  <p>Boundary Condtions:</p>
+  <h4>Boundary conditions</h4>
   <ul>
   <li>daily profile for outdoor air temperature in hourly steps</li>
   <li>daily profile for solar radiation on the exterior wall</li>

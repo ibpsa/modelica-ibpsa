@@ -145,7 +145,7 @@ equation
   <p>Test Case 6 of the VDI 6007 Part 1: Calculation of heat load excited with a
   given radiative heat source and a setpoint profile for room version S. Is
   based on Test Case 2.</p>
-  <p>Boundary Condtions:</p>
+  <h4>Boundary conditions</h4>
   <ul>
   <li>constant outdoor air temperature 22&deg;C</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
