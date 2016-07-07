@@ -13,7 +13,7 @@ model Window "Multipane window"
            dT_nominal=dT_nominal_a),
     QTra_design(fixed=false),
     Qgai(y=-(propsBus_a.surfCon.Q_flow +
-        propsBus_a.surfRad.Q_flow + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow)),
+        propsBus_a.surfRad.Q_flow + propsBus_a.iSolDif.Q_flow + propsBus_a.iSolDir.Q_flow)),
     E(y=0),
     layMul(
       A=A*(1 - frac),

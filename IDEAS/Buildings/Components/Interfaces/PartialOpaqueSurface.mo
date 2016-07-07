@@ -41,7 +41,7 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif(final Q_flow=0);
 
 initial equation
-  assert(constructionType.incLastLay == IDEAS.Types.Tilt.Other or
+  assert(IDEAS.Utilities.Math.Functions.isAngle(constructionType.incLastLay, IDEAS.Types.Tilt.Other) or
     constructionType.incLastLay >= inc - Modelica.Constants.pi/3 - Modelica.Constants.eps and
     constructionType.incLastLay <= inc + Modelica.Constants.pi/3 + Modelica.Constants.eps,
     "The inclination of a wall, a floor or a ceiling does not correspond to its record.");

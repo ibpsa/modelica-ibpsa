@@ -9,7 +9,7 @@ model RadSolData "Selects or generates correct solar data for this surface"
     "Offset azimuth angle of irradation data calculated in solBus";
   parameter Boolean solDataInBus=
    isRoof or
-    (inc==IDEAS.Types.Tilt.Wall
+    (IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Types.Tilt.Wall)
       and abs(sin((azi-offsetAzi)*numAzi))<0.05)
     "True if solBus contains correct data for this surface"
     annotation(Evaluate=true);
@@ -37,7 +37,7 @@ model RadSolData "Selects or generates correct solar data for this surface"
   Modelica.Blocks.Interfaces.RealOutput Tenv "Environment temperature"
     annotation (Placement(transformation(extent={{96,-30},{116,-10}})));
 protected
-      parameter Boolean isRoof = ceilingInc == inc
+      parameter Boolean isRoof = IDEAS.Utilities.Math.Functions.isAngle(ceilingInc, inc)
     "Surface is a horizontal surface";
   IDEAS.BoundaryConditions.Climate.Meteo.Solar.ShadedRadSol radSol(
     final inc=inc,

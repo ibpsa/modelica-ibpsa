@@ -11,7 +11,7 @@ model MonoLayerDynamic "Dynamic layer for uniform solid."
   parameter Modelica.Fluid.Types.Dynamics energyDynamics= Modelica.Fluid.Types.Dynamics.FixedInitial
     "Static (steady state) or transient (dynamic) thermal conduction model"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  final parameter Boolean present=mat.d <> 0;
+  final parameter Boolean present=mat.d > Modelica.Constants.small;
   final parameter Integer nSta=max(nStaMin, mat.nSta) "Number of states";
   final parameter Real R=mat.R "Total specific thermal resistance";
   final parameter Modelica.SIunits.HeatCapacity Ctot=A*mat.rho*mat.c*mat.d
