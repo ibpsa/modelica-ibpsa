@@ -29,9 +29,10 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
 protected
   parameter Medium.ThermodynamicState sta_default=
      Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
-  parameter Modelica.SIunits.DynamicViscosity eta_default=Medium.dynamicViscosity(sta_default)
+  parameter Modelica.SIunits.DynamicViscosity eta_default=
+      Medium.dynamicViscosity(sta_default)
     "Dynamic viscosity, used to compute transition to turbulent flow regime";
-
+    // FIXME: eta_default could be moved to Fluid.FixedResistances.FixedResistance_dh since it's only used there
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal)
     "Absolute value of nominal flow rate";
   final parameter Modelica.SIunits.PressureDifference dp_nominal_pos(displayUnit="Pa") = abs(dp_nominal)
