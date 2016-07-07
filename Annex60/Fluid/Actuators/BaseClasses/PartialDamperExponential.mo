@@ -120,7 +120,7 @@ models.
 <p>
 For a description of the opening characteristics and typical parameter values, see the damper model
 <a href=\"modelica://Annex60.Fluid.Actuators.Dampers.Exponential\">
-Exponential</a>.
+Annex60.Fluid.Actuators.Dampers.Exponential</a>.
 </p>
 </html>",
 revisions="<html>
