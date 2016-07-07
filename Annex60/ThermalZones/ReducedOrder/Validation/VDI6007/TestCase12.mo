@@ -283,7 +283,7 @@ equation
   environment</li>
   <li>daily profile for ventilation in hourly time steps</li>
   </ul>
-  <p>This test case is thought to test infiltration and ventilation.</p>
+  <p>This test validates infiltration and ventilation.</p>
   </html>", revisions="<html>
   <ul>
   <li>

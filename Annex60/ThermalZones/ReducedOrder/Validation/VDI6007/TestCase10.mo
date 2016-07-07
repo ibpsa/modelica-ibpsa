@@ -264,7 +264,7 @@ equation
   <li>no long-wave radiation exchange between exterior wall, windows
   and ambient environment</li>
   </ul>
-  <p>This test case is thought to test linking to ajdacent rooms with
+  <p>This test validates linking to ajdacent rooms with
   fixed temperature.</p>
   </html>", revisions="<html>
   <ul>

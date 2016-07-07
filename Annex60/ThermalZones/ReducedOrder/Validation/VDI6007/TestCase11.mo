@@ -275,7 +275,7 @@ equation
   <li>no long-wave radiation exchange between exterior wall, windows and ambient
   environment</li>
   </ul>
-  <p>This test case is thought to test implementation of cooling ceiling or
+  <p>This test validates implementation of cooling ceiling or
   floor heating.</p>
   </html>", revisions="<html>
   <ul>

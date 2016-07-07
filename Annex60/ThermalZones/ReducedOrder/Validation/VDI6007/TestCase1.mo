@@ -126,7 +126,7 @@ equation
   <li>no long-wave radiation exchange between exterior wall, windows
   and ambient environment</li>
   </ul>
-  <p>This test case is thought to test basic functionalities.</p>
+  <p>This test validates basic functionalities.</p>
   </html>", revisions="<html>
   <ul>
   <li>

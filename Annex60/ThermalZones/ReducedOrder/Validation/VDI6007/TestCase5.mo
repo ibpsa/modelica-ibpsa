@@ -223,7 +223,7 @@ equation
   <li>no long-wave radiation exchange between exterior wall, windows
   and ambient environment</li>
   </ul>
-  <p>This test case is thought to test reaction of indoor air
+  <p>This test validates reaction of indoor air
   temperature at mixed internal gains and outdoor impacts.</p>
   </html>", revisions="<html>
   <ul>

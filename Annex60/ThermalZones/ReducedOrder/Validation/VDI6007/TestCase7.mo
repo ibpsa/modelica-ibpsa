@@ -178,7 +178,7 @@ equation
   <li>no long-wave radiation exchange between exterior wall, windows
   and ambient environment</li>
   </ul>
-  <p>This test case is thought to test heat load calculation with
+  <p>This test validates heat load calculation with
   maximum heating power.</p>
   </html>", revisions="<html>
   <ul>
