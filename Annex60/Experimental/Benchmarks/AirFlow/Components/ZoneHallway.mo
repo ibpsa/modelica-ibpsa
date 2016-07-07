@@ -149,9 +149,6 @@ equation
   connect(oriOutTop.port_b, port_a_toOutside) annotation (Line(
       points={{88,60},{100,60}},
       color={0,127,255}));
-  connect(port_a1,port_a1)  annotation (Line(
-      points={{-60,-100},{-60,-100}},
-      color={0,127,255}));
   connect(ori.port_b,port_a1)  annotation (Line(
       points={{-40,-90},{-40,-94},{-60,-100}},
       color={0,127,255}));
@@ -218,6 +215,12 @@ in order to be part of a scalable benchmark. </p>
 Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April, 25, 2016 by Marcus Fuchs:<br/>
+Removed wrong connection statement. This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/454\"> #454</a>,
+to prevent a warning in OpenModelica.
+</li>
 <li>
 September, 2, 2015 by Marcus Fuchs:<br/>
 Add start values to the ports and temperature in the <code>ThermalConductor</code> and the
