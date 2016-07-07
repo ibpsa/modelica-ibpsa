@@ -120,7 +120,8 @@ model TestCase5 "VDI 6007 Test Case 5 model"
     extent={{-3,-3},{3,3}},
     rotation=-90,
     origin={-33,57})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold=100)
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(
+    threshold=100)
     "Threshold for sunblind"
     annotation (Placement(transformation(
     extent={{-5,-5},{5,5}},
@@ -135,7 +136,6 @@ model TestCase5 "VDI 6007 Test Case 5 model"
     extent={{-6,-6},{6,6}},
     rotation=-90,
     origin={-26,38})));
-
   BaseClasses.AssertEqualityThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
@@ -204,21 +204,27 @@ equation
           {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
-  <p>Test Case 5 of the VDI 6007 Part 1: Calculation of indoor air temperature
-  excited by a radiative and convective heat source for room version S.</p>
+  <p>Test Case 5 of the VDI 6007 Part 1: Calculation of indoor air
+  temperature excited by a radiative and convective heat source for
+  room version S.</p>
   <p>Boundary Condtions:</p>
   <ul>
   <li>daily profile for outdoor air temperature in hourly steps</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
-  <li>daily profile for solar radiation through the windows in hourly steps</li>
+  <li>daily profile for solar radiation through the windows in hourly
+  steps</li>
   <li>sunblind closes at &gt;100 W/m<sup>2</sup></li>
-  <li>no long-wave radiation exchange between exterior wall, windows and ambient
-  environment</li>
+  <li>no long-wave radiation exchange between exterior wall, windows
+  and ambient environment</li>
   </ul>
-  <p>This test case is thought to test reaction of indoor air temperature at
-  mixed internal gains and outdoor impacts.</p>
+  <p>This test case is thought to test reaction of indoor air
+  temperature at mixed internal gains and outdoor impacts.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 7, 2016, by Moritz Lauster:<br/>
+  Added automatic check against validation thresholds.
+  </li>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
   Implemented.

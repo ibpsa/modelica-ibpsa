@@ -130,7 +130,8 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-59,59})));
-  Modelica.Blocks.Math.Product product1 "Solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product1
+    "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
@@ -165,7 +166,6 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     annotation (Placement(transformation(extent={{-32,-72},{-12,-52}})));
   Modelica.Blocks.Math.Gain gain1(k=-1) "Reverses ventilation rate"
     annotation (Placement(transformation(extent={{-62,-61},{-48,-47}})));
-
   BaseClasses.AssertEqualityThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
@@ -272,6 +272,10 @@ equation
   <p>This test case is thought to test infiltration and ventilation.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 7, 2016, by Moritz Lauster:<br/>
+  Added automatic check against validation thresholds.
+  </li>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
   Implemented.

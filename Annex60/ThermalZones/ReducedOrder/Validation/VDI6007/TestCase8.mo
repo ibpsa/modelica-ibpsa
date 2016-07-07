@@ -119,14 +119,16 @@ model TestCase8 "VDI 6007 Test Case 8 model"
     extent={{-3,-3},{3,3}},
     rotation=-90,
     origin={-61,43})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold=100)
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(
+    threshold=100)
     "Threshold for sunblind for one direction"
     annotation (Placement(transformation(
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-61,59})));
-  Modelica.Blocks.Math.Product product1 "Solar radiation times g value for sunblind (open or closed) for one
-    direction"
+  Modelica.Blocks.Math.Product product1
+    "Solar radiation times g value for sunblind (open or closed) for
+    one direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
     "Determines g value for sunblind (open or closed) for one direction"
@@ -140,8 +142,8 @@ model TestCase8 "VDI 6007 Test Case 8 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-25,59})));
-  Modelica.Blocks.Math.Product product "Solar radiation times g value for sunblind (open or closed) for one
-    direction"
+  Modelica.Blocks.Math.Product product "Solar radiation times g value
+    for sunblind (open or closed) for one direction"
     annotation (Placement(transformation(extent={{-6,84},{4,94}})));
   EquivalentAirTemperature.VDI6007 eqAirTemp(
     n=2,
@@ -164,7 +166,8 @@ model TestCase8 "VDI 6007 Test Case 8 model"
     extent={{-4,-4},{4,4}},
     rotation=-90,
     origin={-58,16})));
-  Modelica.Blocks.Sources.Constant const1(k=1) "Constant for 1 - g_sunblind"
+  Modelica.Blocks.Sources.Constant const1(k=1)
+    "Constant for 1 - g_sunblind"
     annotation (Placement(transformation(extent={{-70,22},{-64,28}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWall(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -194,7 +197,8 @@ model TestCase8 "VDI 6007 Test Case 8 model"
     rotation=-90,
     origin={-27,45})));
   Modelica.Blocks.Logical.Switch switch2
-    "Determines g value for sunblind (open or closed) for one direction"
+    "Determines g value for sunblind (open or closed) for one
+    direction"
     annotation (Placement(transformation(
     extent={{-4,-4},{4,4}},
     rotation=-90,
@@ -205,12 +209,12 @@ model TestCase8 "VDI 6007 Test Case 8 model"
     extent={{-4,-4},{4,4}},
     rotation=-90,
     origin={-24,18})));
-  Modelica.Blocks.Sources.Constant const2(k=1) "Constant for 1 - g_sunblind"
+  Modelica.Blocks.Sources.Constant const2(k=1)
+    "Constant for 1 - g_sunblind"
     annotation (Placement(transformation(extent={{-36,24},{-30,30}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{4,-10},{16,2}})));
-
   BaseClasses.AssertEqualityThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
@@ -330,23 +334,28 @@ equation
           {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
-  <p>Test Case 8 of the VDI 6007 Part 1: Calculation of indoor air temperature
-  excited by a radiative and convective heat source for room version S with two
-  exterior walls. It is based on Test Case 5.</p>
+  <p>Test Case 8 of the VDI 6007 Part 1: Calculation of indoor air
+  temperature excited by a radiative and convective heat source for
+  room version S with two exterior walls. It is based on Test Case 5.</p>
   <p>Boundary Condtions:</p>
   <ul>
   <li>daily profile for outdoor air temperature in hourly steps</li>
   <li>daily profile for solar radiation on the exterior wall</li>
-  <li>daily profile for solar radiation through the windows in hourly steps</li>
+  <li>daily profile for solar radiation through the windows in hourly
+  steps</li>
   <li>sunblind closes at &gt;100 W/m<sup>2</sup></li>
-  <li>no long-wave radiation exchange between exterior wall, windows and ambient
-  environment</li>
+  <li>no long-wave radiation exchange between exterior wall, windows
+  and ambient environment</li>
   </ul>
-  <p>This test case is thought to test reaction of indoor air temperature at
-  mixed internal gains and outdoor impacts including solar radiation on exterior
-  walls.</p>
+  <p>This test case is thought to test reaction of indoor air
+  temperature at mixed internal gains and outdoor impacts including
+  solar radiation on exterior walls.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 7, 2016, by Moritz Lauster:<br/>
+  Added automatic check against validation thresholds.
+  </li>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
   Implemented.

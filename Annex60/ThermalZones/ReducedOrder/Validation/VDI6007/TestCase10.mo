@@ -62,14 +62,14 @@ model TestCase10 "VDI 6007 Test Case 10 model"
         5184000,25.6],
     offset={273.15}) "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv(T_ref=
-        290.75) "Convective heat flow machines"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv(
+    T_ref=290.75) "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad(T_ref=
-        290.75) "Radiative heat flow persons"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad(
+    T_ref=290.75) "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon(T_ref=
-        290.75) "Convective heat flow persons"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon(
+    T_ref=290.75) "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -95,14 +95,16 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     extent={{-3,-3},{3,3}},
     rotation=-90,
     origin={-33,57})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold=100)
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(
+    threshold=100)
     "Threshold for sunblind for one direction"
     annotation (Placement(transformation(
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-59,59})));
-  Modelica.Blocks.Math.Product product1 "Solar radiation times g value for sunblind (open or closed) for one
-    direction"
+  Modelica.Blocks.Math.Product product1
+    "Solar radiation times g value for sunblind (open or closed) for
+    one direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
     "Determines g value for sunblind (open or closed) for one direction"
@@ -158,7 +160,6 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={28,-19})));
-
   BaseClasses.AssertEqualityThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
@@ -247,15 +248,20 @@ equation
   <ul>
   <li>daily profile for outdoor air temperature in hourly steps</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
-  <li>daily profile for solar radiation through the windows in hourly steps</li>
+  <li>daily profile for solar radiation through the windows in hourly
+  steps</li>
   <li>sunblind closes at &gt;100 W/m<sup>2</sup></li>
-  <li>no long-wave radiation exchange between exterior wall, windows and ambient
-  environment</li>
+  <li>no long-wave radiation exchange between exterior wall, windows
+  and ambient environment</li>
   </ul>
-  <p>This test case is thought to test linking to ajdacent rooms with fixed
-  temperature.</p>
+  <p>This test case is thought to test linking to ajdacent rooms with
+  fixed temperature.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 7, 2016, by Moritz Lauster:<br/>
+  Added automatic check against validation thresholds.
+  </li>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
   Implemented.

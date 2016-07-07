@@ -28,7 +28,8 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     intWallRC(thermCapInt(each der_T(fixed=true))),
     T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(T=295.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(
+    T=295.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
   Modelica.Thermal.HeatTransfer.Components.Convection theConWall
@@ -62,8 +63,8 @@ model TestCase7 "VDI 6007 Test Case 7 model"
         5173200,-500; 5176800,-500; 5180400,-500; 5184000,-500])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad(T_ref=
-        295.15) "Radiative heat flow machines"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad(
+    T_ref=295.15) "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-98},{68,-78}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
     "Outdoor coefficient of heat transfer for walls"
@@ -74,7 +75,8 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     origin={30,-18})));
   Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaCoo(T_ref=295.15)
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaCoo(
+    T_ref=295.15)
     "Ideal heater/cooler with limit"
     annotation (Placement(transformation(extent={{44,-46},{64,-26}})));
   Modelica.Blocks.Sources.CombiTimeTable setTemp(
@@ -100,7 +102,6 @@ model TestCase7 "VDI 6007 Test Case 7 model"
   Modelica.Blocks.Math.Gain gainHeaCoo(k=500)
     "Gain for heating and cooling controller"
     annotation (Placement(transformation(extent={{8,-42},{20,-30}})));
-
   BaseClasses.AssertEqualityThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
@@ -167,13 +168,17 @@ equation
   <li>constant outdoor air temperature 22&deg;C</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
   <li>no solar or short-wave radiation through the windows</li>
-  <li>no long-wave radiation exchange between exterior wall, windows and ambient
-  environment</li>
+  <li>no long-wave radiation exchange between exterior wall, windows
+  and ambient environment</li>
   </ul>
-  <p>This test case is thought to test heat load calculation with maximum
-  heating power.</p>
+  <p>This test case is thought to test heat load calculation with
+  maximum heating power.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 7, 2016, by Moritz Lauster:<br/>
+  Added automatic check against validation thresholds.
+  </li>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
   Implemented.

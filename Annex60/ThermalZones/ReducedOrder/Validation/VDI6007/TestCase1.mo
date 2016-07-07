@@ -75,7 +75,6 @@ model TestCase1 "VDI 6007 Test Case 1 model"
     origin={30,-18})));
   Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
-
   BaseClasses.AssertEqualityThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
@@ -92,7 +91,7 @@ equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
+    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},color={191,0,0}));
   connect(alphaWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(intGai.y[1], macConv.Q_flow)
@@ -112,19 +111,23 @@ equation
           {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
-  <p>Test Case 1 of the VDI 6007 Part 1: Calculation of indoor air temperature
-  excited by a convective heat source for room version S.</p>
+  <p>Test Case 1 of the VDI 6007 Part 1: Calculation of indoor air
+  temperature excited by a convective heat source for room version S.</p>
   <p>Boundary Condtions:</p>
   <ul>
   <li>constant outdoor air temperature 22&deg;C</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
   <li>no solar or short-wave radiation through the windows</li>
-  <li>no long-wave radiation exchange between exterior wall, windows and ambient
-  environment</li>
+  <li>no long-wave radiation exchange between exterior wall, windows
+  and ambient environment</li>
   </ul>
   <p>This test case is thought to test basic functionalities.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 7, 2016, by Moritz Lauster:<br/>
+  Added automatic check against validation thresholds.
+  </li>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
   Implemented.

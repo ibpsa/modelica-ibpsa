@@ -75,7 +75,6 @@ model TestCase4 "VDI 6007 Test Case 4 model"
     origin={30,-18})));
   Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
-
   BaseClasses.AssertEqualityThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
@@ -119,12 +118,16 @@ equation
   <li>constant outdoor air temperature 22&deg;C</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
   <li>no solar or short-wave radiation through the windows</li>
-  <li>no long-wave radiation exchange between exterior wall, windows and ambient
-  environment</li>
+  <li>no long-wave radiation exchange between exterior wall, windows
+  and ambient environment</li>
   </ul>
   <p>This test case is thought to test basic functionalities.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 7, 2016, by Moritz Lauster:<br/>
+  Added automatic check against validation thresholds.
+  </li>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
   Implemented.
