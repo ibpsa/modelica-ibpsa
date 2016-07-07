@@ -78,7 +78,12 @@ International Modelica Conference</i>, p. 125-133, Lund, Sweden. Mar. 10-12,
 end UsersGuide;
 
 
-annotation (Documentation(info="<html>
-This package contains models to calculate an equivalent air temperature taking into account short-wave and long-wave radiation on exterior surfaces.
+
+
+  annotation (Documentation(info="<html>
+<p>
+This package contains models to calculate an equivalent air temperature
+taking into account short-wave and long-wave radiation on exterior surfaces.
+</p>
 </html>"));
 end EquivalentAirTemperature;
