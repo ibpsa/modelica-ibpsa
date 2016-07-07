@@ -846,6 +846,11 @@ Phase changes are not modeled.
 </html>", revisions="<html>
 <ul>
 <li>
+July 7, 2016, by Carles Ribas Tugores:<br/>
+Correct Documentation. This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/487\">#487</a>.
+</li>
+<li>
 June 6, 2015, by Michael Wetter:<br/>
 Set <code>AbsolutePressure(start=p_default)</code>
 and <code>Temperature(start=T_default)</code>
