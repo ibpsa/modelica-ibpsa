@@ -16,7 +16,7 @@ model VDI6007WithWindow
     "Equivalent long wave temperature for windows";
   Modelica.SIunits.TemperatureDifference delTEqSWWin[n]
     "Eqiuvalent short wave temperature for windows";
-    
+
   Modelica.Blocks.Interfaces.RealOutput TEqAirWin(final unit="K")
     "Equivalent air temperature for windows (no short-wave radiation)"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
