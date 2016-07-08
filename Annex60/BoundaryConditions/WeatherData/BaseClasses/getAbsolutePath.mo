@@ -26,7 +26,7 @@ Replaced <code>ModelicaServices.ExternalReferences.loadResource</code> with
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Improved algorithm that determines the absolute path of the file.
-Now the function works from any directory as long as the <code>Buildings</code> library
+Now the function works from any directory as long as the <code>Annex60</code> library
 is on the <code>MODELICAPATH</code>.
 </li>
 <li>
