@@ -128,7 +128,8 @@ model Precalculated_dp "Example to show use of the function dpPre"
     startTime=500,
     height=100)    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
   Fluid.Sensors.Temperature T_pipeMSL_out(redeclare package Medium =
-        MediumMSLpipe) "Temperature sensor"
+        MediumMSLpipe)
+    "Temperature sensor"
     annotation (Placement(transformation(extent={{70,-80},{50,-60}})));
 equation
   connect(sou_MSL.ports[1], pipeAdiabaticPlugFlow3.port_a)
@@ -184,7 +185,9 @@ equation
           {-82,-86}}, color={0,0,127}));
   connect(T_pipeMSL_out.port, pipeAdiabaticPlugFlow3.port_b)
     annotation (Line(points={{60,-80},{60,-90},{0,-90}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},
+  annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Experimental/Pipe/Examples/Comparisons/Precalculated_dp.mos"
+        "Simulate and plot"),
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},
             {120,120}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})));
 end Precalculated_dp;

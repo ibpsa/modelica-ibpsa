@@ -1,0 +1,7 @@
+simulateModel("Annex60.Experimental.Pipe.Examples.Comparisons.Precalculated_dp", stopTime=5000, method="dassl", resultFile="Pre_dp");
+createPlot(id=1, position={55, 50, 1116, 572}, y={"dp_T40.y", "dp_T60.y", "dp_T80.y", "dp_MSL.y"}, 
+range={0.0, 200000.0, 10.0, 60.0}, grid=true, subPlot=1, filename="Pre_dp.mat");
+createPlot(id=1, position={55, 50, 1116, 283}, y={"ramp_T_MSL.y","T_pipeMSL_out.T"}, 
+range={0.0, 200000.0, -0.6000000000000001, 0.6000000000000001}, grid=true, subPlot=2);
+createPlot(id=1, position={55, 50, 1116, 283}, y={"m_flow"}, 
+range={0.0, 200000.0, -0.6000000000000001, 0.6000000000000001}, grid=true, subPlot=3);
