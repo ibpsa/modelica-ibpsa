@@ -836,7 +836,7 @@ Where <i>&lambda;(298.15 K) = 0.6065</i>  W/mK is the adopted standard value of 
 </p>
 <p align=\"center\">
 <img src=\"modelica://Annex60/Resources/Images/Media/Water/plotLambda.png\" border=\"1\"
-alt=\"Thermal conducitiviy as a function of temperature\"/>
+alt=\"Thermal conductivity as a function of temperature\"/>
 </p>
 
 <p>
