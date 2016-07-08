@@ -7,7 +7,7 @@ model FixedResistance_dp
           deltaM*m_flow_nominal_pos
         else 0);
 
-  parameter Real deltaM(min=0.01) = 0.3
+  parameter Real deltaM(min=1e-5) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Evaluate=true, Dialog(enable=not use_dh and not linearized));
   annotation (
@@ -151,8 +151,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={Text(
           extent={{-102,86},{-4,22}},
           lineColor={0,0,255},

@@ -1,11 +1,6 @@
 within Annex60.Fluid.BaseClasses;
 partial model PartialFixedResistance "Partial fixed flow resistance"
   extends Annex60.Fluid.BaseClasses.PartialResistance;
-  //     final m_flow_turbulent = if (computeFlowResistance and use_dh) then
-  //                        eta_default*dh/4*Modelica.Constants.pi*ReC
-  //                        elseif (computeFlowResistance) then
-  //                        deltaM * m_flow_nominal_pos
-  //          else 0);
 
   final parameter Real k(unit="") = if computeFlowResistance then
     m_flow_nominal_pos/sqrt(dp_nominal_pos) else 0

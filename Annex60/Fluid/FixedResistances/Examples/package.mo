@@ -1,11 +1,6 @@
 within Annex60.Fluid.FixedResistances;
 package Examples "Collection of models that illustrate model use and test models"
   extends Modelica.Icons.ExamplesPackage;
-<<<<<<< HEAD
-=======
-
-
->>>>>>> d1ec678... Add Fluid.FixedResistances.FixedResistance_dp, ~_dh and Fluid.BaseClasses.PartialFixedResistance
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains examples for the use of models that can be found in
