@@ -824,7 +824,7 @@ alt=\"Relative variation of specific heat capacity with temperature\"/>
 
 
 <p>
-Viscosity and thermal conductivity are calculated as a function of temperature. The correlation used to calculate the thermal conductivity is:
+Thermal conductivity is calculated as a function of temperature as shown in the figure below. The correlation used to calculate the thermal conductivity is:
 </p>
 
 <p align=\"center\" style=\"font-style:italic;\">
@@ -832,8 +832,25 @@ Viscosity and thermal conductivity are calculated as a function of temperature. 
 </p>
 
 <p>
-Where <i>&lambda;(298.15 K) = 0.6065</i>  W/mK is the adopted standard value of the thermal conductivity of water at 198.15 K and 0.1 MPa.
+Where <i>&lambda;(298.15 K) = 0.6065</i>  W/mK is the adopted standard value of the thermal conductivity of water at 298.15 K and 0.1 MPa.
 </p>
+<p align=\"center\">
+<img src=\"modelica://Annex60/Resources/Images/Media/Water/plotLambda.png\" border=\"1\"
+alt=\"Thermal conducitiviy as a function of temperature\"/>
+</p>
+
+<p>
+Dynamic viscosity is calculated as the product of density and kinematic viscosity, both temperature dependent. While the kinematic viscosity 
+has its own <a href=\"modelica://Annex60.Media.Specialized.Water.TemperatureDependentDensity.kinematicViscosity\">
+implementation</a> of the correlation with temperature. Results of the kinematic viscosity as a function of temperature are shown in the figure below.
+  
+</p>
+</p>
+<p align=\"center\">
+<img src=\"modelica://Annex60/Resources/Images/Media/Water/plotKinVis.png\" border=\"1\"
+alt=\"Kinematic viscosity as a function of temperature\"/>
+</p>
+
 
 <p>
 The enthalpy is computed using the convention that <i>h=0</i>
