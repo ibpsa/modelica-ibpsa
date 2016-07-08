@@ -155,5 +155,9 @@ First implementation.
           textString="dp_nominal=%dp_nominal"), Text(
           extent={{-106,106},{6,60}},
           lineColor={0,0,255},
-          textString="m0=%m_flow_nominal")}));
+          textString="m0=%m_flow_nominal"),
+        Text(
+          extent={{64,38},{114,24}},
+          lineColor={255,255,255},
+          textString="dh")}));
 end FixedResistance_dh;

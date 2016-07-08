@@ -151,12 +151,17 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
         graphics={Text(
           extent={{-102,86},{-4,22}},
           lineColor={0,0,255},
           textString="dp_nominal=%dp_nominal"), Text(
           extent={{-106,106},{6,60}},
           lineColor={0,0,255},
-          textString="m0=%m_flow_nominal")}));
+          textString="m0=%m_flow_nominal"),
+        Text(
+          extent={{64,38},{114,24}},
+          lineColor={255,255,255},
+          textString="dp")}));
 end FixedResistance_dp;
