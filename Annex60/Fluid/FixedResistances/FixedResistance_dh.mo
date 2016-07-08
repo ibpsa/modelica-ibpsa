@@ -157,7 +157,7 @@ First implementation.
           lineColor={0,0,255},
           textString="m0=%m_flow_nominal"),
         Text(
-          extent={{64,38},{114,24}},
+          extent={{-24,6},{26,-8}},
           lineColor={255,255,255},
           textString="dh")}));
 end FixedResistance_dh;
