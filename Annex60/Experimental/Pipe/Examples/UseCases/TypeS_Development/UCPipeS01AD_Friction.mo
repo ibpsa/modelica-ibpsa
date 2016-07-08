@@ -49,7 +49,8 @@ model UCPipeS01AD_Friction
     dh=0.1,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
-    use_dh=false) "Dynamic pipe from Annex60 for reference test"
+    use_dh=true,
+    from_dp=true) "Dynamic pipe from Annex60 for reference test"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.Ramp reverseDP(
     duration=1800,
@@ -80,7 +81,8 @@ model UCPipeS01AD_Friction
     length=50,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
-    use_dh=false) "Dynamic pipe from MSL for reference test"
+    use_dh=true,
+    from_dp=true) "Dynamic pipe from MSL for reference test"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   PipeAdiabaticPlugFlow pipeA60_50_2(
     redeclare package Medium = Medium,
@@ -88,7 +90,8 @@ model UCPipeS01AD_Friction
     length=50,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
-    use_dh=false) "Dynamic pipe from MSL for reference test"
+    use_dh=true,
+    from_dp=true) "Dynamic pipe from MSL for reference test"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 equation
   connect(PAtm.y,sink. p_in)
@@ -148,14 +151,15 @@ case, it is kept constant.</p>
 <h4 id=\"typical-use-and-important-parameters\">Typical use and important parameters</h4>
 <p>The maximum pressure difference between <code>source</code> and <code>sink</code> can be adjusted via
 the <code>dp_test</code> variable.</p>
+<p>Differences in the mass flow rate for the serial and single pipes can be solved by setting <code>from_dp</code> to <code>true</code>. The reason for the discrepancy are slight differences in the basic flow functions for pressure drop and mass flow calculations.</p>
 <h4 id=\"current-issues\">Current issues</h4>
 <ul>
 <li>Initial conditions are not fully specified</li>
-<li>There are differences in the mass flow rates between the single pipe and the
-serial pipes </li>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>July 8, 2016 by Bram van der Heijde: <br>
+Propagate <code>from_dp</code></li>
 <li>May 19, 2016 by Marcus Fuchs: <br>
 First implementation</li>
 </ul>
