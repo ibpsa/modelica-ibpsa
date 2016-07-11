@@ -8,10 +8,16 @@ package Medium =
   input Modelica.SIunits.Diameter d "Diameter";
   input Modelica.SIunits.MassFlowRate m_flow "Nominal mass flow rate";
   input Modelica.SIunits.Temperature T_nominal "Nominal Temperature";
+  input Modelica.SIunits.Pressure p_nominal = 200000
+    "Nominal static gauge pressure";
   output Modelica.SIunits.Pressure dp "Pressure loss along the pipe";
 
+  final parameter Modelica.SIunits.Pressure p_nom_abs = 101325+p_nominal
+    "Convert to absolute pressure";
+
 protected
-  Modelica.SIunits.DynamicViscosity eta "Dynamic viscosity at nominal conditions";
+  Modelica.SIunits.DynamicViscosity eta
+    "Dynamic viscosity at nominal conditions";
   Modelica.SIunits.Density rho "Density at nominal conditions";
   Modelica.SIunits.ReynoldsNumber Re "Reynolds number";
   Modelica.SIunits.Velocity v "Fluid velocity";
@@ -21,18 +27,17 @@ protected
 
 algorithm
   eta :=Medium.dynamicViscosity(Medium.setState_pTX(
-    300000,
+    p_nom_abs,
     T_nominal,
     {1}));
   rho :=Medium.density(Medium.setState_pTX(
-    300000,
+    p_nom_abs,
     T_nominal,
     {1}));
   A_cross := Modelica.Constants.pi*(d/2)^2;
   (Re,v) := Modelica.Fluid.Dissipation.Utilities.Functions.General.ReynoldsNumber(A_cross,Modelica.Constants.pi*d,rho,eta,m_flow);
   f := 0.25/(log10((e/(3.7*d))+(5.74/(Re^0.9))))^2;
   dp := f*(length/d)*rho*v*v/2;
-
 
   annotation (Documentation(info="<html>
 <p>
