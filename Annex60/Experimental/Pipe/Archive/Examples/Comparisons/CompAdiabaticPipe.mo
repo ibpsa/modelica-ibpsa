@@ -59,7 +59,7 @@ model CompAdiabaticPipe
   Annex60.Experimental.Pipe.PipeAdiabaticPlugFlow A60Adiabatic(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
-    diameter=diameter,
+    dh=diameter,
     length=length,
     m_flow_nominal=0.5) "Annex 60 adiabatic pipe"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));

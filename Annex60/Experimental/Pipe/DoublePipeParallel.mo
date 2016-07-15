@@ -96,10 +96,12 @@ protected
   PipeAdiabaticPlugFlow pipeSupplyAdiabaticPlugFlow(
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
-    diameter=diameter,
+    dh=diameter,
     length=length,
     m_flow_nominal=m_flow_nominal,
-    redeclare final package Medium = Medium)
+    redeclare final package Medium = Medium,
+    pipVol=pipVol,
+    from_dp=from_dp)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
@@ -109,9 +111,11 @@ protected
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
-    diameter=diameter,
+    dh=diameter,
     length=length,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    pipVol=pipVol,
+    from_dp=from_dp)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -170,6 +174,11 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Ambient temperature of pipe's surroundings"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  parameter Boolean pipVol=true
+    "Flag to decide whether volumes are included at the end points of the pipe";
+  parameter Boolean from_dp=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);
@@ -330,6 +339,7 @@ equation
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>
+<li><span style=\"font-family: MS Shell Dlg 2;\">July 4, 2016 by Bram van der Heijde:<br>Introduce <code></span><span style=\"font-family: Courier New,courier;\">pipVol</code></span><span style=\"font-family: MS Shell Dlg 2;\">.</span></li>
 <li>February 18, 2016 by Bram van der Heijde:<br>First implementation, based on <code><span style=\"font-family: Courier New,courier;\">DoublePipe_PipeDelay</span></code></li>
 </ul>
 </html>", info="<html>
