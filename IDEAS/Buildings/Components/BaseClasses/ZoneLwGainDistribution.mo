@@ -25,17 +25,17 @@ model ZoneLwGainDistribution "distribution of radiative internal gains"
     "longwave surface emissivities" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={0,100})));
+        origin={-40,100})));
   Modelica.Blocks.Interfaces.RealInput[nSurf] epsSw
     "shortwave surface emissivities" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-40,100})));
+        origin={-80,100})));
   Modelica.Blocks.Interfaces.RealInput[nSurf] area "surface areas" annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={40,100})));
+        origin={0,100})));
 
 protected
   final parameter Real[nSurf] areaAbsDifSol(fixed=false)
@@ -53,14 +53,27 @@ protected
     "weightfactor for received direct shortwave solar radiation";
   final parameter Real[nSurf] weightFactorGain(fixed=false)
     "weightfactor for received direct shortwave solar radiation";
-
+  final parameter Real[nSurf] areaFloor(each fixed=false)
+    "Effective floor surface area for each surface";
+public
+Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={40,100})));
+  Modelica.Blocks.Interfaces.RealInput[nSurf] azi "Surface azimuth angles"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={80,100})));
 initial equation
 
   areaAbsDifSol = area .* epsSw;
   areaAbsGain = area .* epsLw;
-  weightFactorDir = area ./ (ones(nSurf)*sum(area));
+  weightFactorDir = areaFloor/sum(areaFloor);
   weightFactorDif = areaAbsDifSol ./ (ones(nSurf)*areaAbsDifTotSol);
   weightFactorGain = areaAbsGain ./ (ones(nSurf)*areaAbsTotGain);
+  areaFloor = {if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor) then area[i] else area[i]/10 for i in 1:nSurf};
 
 equation
   for k in 1:nSurf loop
@@ -75,7 +88,6 @@ equation
   radGain.T = TRad;
 
   annotation (
-    Diagram(graphics),
     Icon(graphics={
         Line(points={{-40,10},{40,10}}, color={191,0,0}),
         Line(points={{-40,10},{-30,16}}, color={191,0,0}),
@@ -108,5 +120,12 @@ equation
           smooth=Smooth.None)}),
     Documentation(info="<html>
 <p>The exchange of longwave radiation in a zone has been previously described in the building component models and further considering the heat balance of the interior surface. Here, an expression based on <i>radiant interchange configuration factors</i> or <i>view factors</i> is avoided based on a delta-star transformation and by definition of a <i>radiant star temperature</i> <img src=\"modelica://IDEAS/Images/equations/equation-rE4hQkmG.png\"/>. Literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption. This <img src=\"modelica://IDEAS/Images/equations/equation-rE4hQkmG.png\"/> can be derived from the law of energy conservation in the radiant star node as <img src=\"modelica://IDEAS/Images/equations/equation-iH8dRZqh.png\"/> must equal zero. Long wave radiation from internal sources are dealt with by including them in the heat balance of the radiant star node resulting in a diffuse distribution of the radiative source.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 15, 2016 by Filip Jorissen:<br/>
+Now assuming that all beam radiation falls onto the floor.
+</li>
+</ul>
 </html>"));
 end ZoneLwGainDistribution;

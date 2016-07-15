@@ -28,8 +28,7 @@ model Zone "thermal building zone"
   final parameter Modelica.SIunits.Power QRH_design=A*fRH
     "Additional power required to compensate for the effects of intermittent heating";
   parameter Real fRH=11
-    "Reheat factor for calculation of design heat load, (EN 12831, table D.10 Annex D)"
-                                                                                        annotation(Dialog(group="Design heat load"));
+    "Reheat factor for calculation of design heat load, (EN 12831, table D.10 Annex D)" annotation(Dialog(group="Design heat load"));
   parameter Modelica.SIunits.Area A = V/hZone "Total conditioned floor area" annotation(Dialog(group="Design heat load"));
   parameter Modelica.SIunits.Length hZone = 2.8
     "Zone height: distance between floor and ceiling";
@@ -102,7 +101,7 @@ equation
       smooth=Smooth.None));
 
   connect(propsBus.area, radDistr.area) annotation (Line(
-      points={{-100.1,39.9},{-80,39.9},{-80,-46},{-60,-46}},
+      points={{-100.1,39.9},{-80,39.9},{-80,-50},{-60,-50}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -138,14 +137,14 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsLw, radDistr.epsLw) annotation (Line(
-      points={{-100.1,39.9},{-80,39.9},{-80,-50},{-60,-50}},
+      points={{-100.1,39.9},{-80,39.9},{-80,-54},{-60,-54}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsSw, radDistr.epsSw) annotation (Line(
-      points={{-100.1,39.9},{-80,39.9},{-80,-54},{-60,-54}},
+      points={{-100.1,39.9},{-80,39.9},{-80,-58},{-60,-58}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -205,7 +204,12 @@ end for;
           {2,-30},{100,-30}}, color={191,0,0}));
   connect(airModel.Tair, add.u[2]) annotation (Line(points={{-19.2,24},{26,24},{
           26,0.6},{64.8,0.6}}, color={0,0,127}));
-  annotation (
+  connect(radDistr.inc, propsBus.inc) annotation (Line(points={{-60,-46},{
+          -80,-46},{-80,39.9},{-100.1,39.9}}, color={0,0,127}));
+  connect(radDistr.azi, propsBus.azi) annotation (Line(points={{-60,-42},{-80,
+          -42},{-80,39.9},{-100.1,39.9}},     color={0,0,127}));
+
+   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
     Documentation(info="<html>
