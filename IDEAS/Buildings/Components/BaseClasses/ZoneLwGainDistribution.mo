@@ -2,7 +2,7 @@ within IDEAS.Buildings.Components.BaseClasses;
 model ZoneLwGainDistribution "distribution of radiative internal gains"
 
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
-
+  Real test;
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir
     "direct solar radiation gains received through windows"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
@@ -53,8 +53,12 @@ protected
     "weightfactor for received direct shortwave solar radiation";
   final parameter Real[nSurf] weightFactorGain(fixed=false)
     "weightfactor for received direct shortwave solar radiation";
-  final parameter Real[nSurf] areaFloor(each fixed=false)
-    "Effective floor surface area for each surface";
+  final parameter Modelica.SIunits.Area AfloorTot(fixed=false)
+    "Total floor surface area";
+  final parameter Real ASWotherSurface(fixed=false)
+    "Total absorption surface on surfaces other than the floor";
+  final parameter Real fraTotAbsFloor(fixed=false)
+    "Fraction of the bream radiation that is absorbed by the floor";
 public
 Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
     annotation (Placement(transformation(
@@ -70,10 +74,14 @@ initial equation
 
   areaAbsDifSol = area .* epsSw;
   areaAbsGain = area .* epsLw;
-  weightFactorDir = areaFloor/sum(areaFloor);
+  weightFactorDir = {if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor)
+                     then area[i]*epsSw[i]/AfloorTot
+                     else (1-fraTotAbsFloor)*area[i]*epsSw[i]/ASWotherSurface for i in 1:nSurf};
   weightFactorDif = areaAbsDifSol ./ (ones(nSurf)*areaAbsDifTotSol);
   weightFactorGain = areaAbsGain ./ (ones(nSurf)*areaAbsTotGain);
-  areaFloor = {if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor) then area[i] else area[i]/10 for i in 1:nSurf};
+  AfloorTot = sum({if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor) then area[i] else 0 for i in 1:nSurf}); //ok
+  fraTotAbsFloor = sum({if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor) then area[i]*epsSw[i] else 0 for i in 1:nSurf})/AfloorTot; //ok
+  ASWotherSurface = sum({if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor) then 0 else area[i]*epsSw[i] for i in 1:nSurf}); //ok
 
 equation
   for k in 1:nSurf loop
@@ -86,6 +94,7 @@ equation
   iSolDir.T = 273.15;
   iSolDif.T = 273.15;
   radGain.T = TRad;
+  test = sum(iSolDif.Q_flow) + sum(iSolDir.Q_flow) + radGain.Q_flow + sum(radSurfTot.Q_flow);
 
   annotation (
     Icon(graphics={
@@ -124,7 +133,8 @@ equation
 <ul>
 <li>
 July 15, 2016 by Filip Jorissen:<br/>
-Now assuming that all beam radiation falls onto the floor.
+New absorption model for beam radiation based
+on limited absorption of short wave radiation of the floors.
 </li>
 </ul>
 </html>"));
