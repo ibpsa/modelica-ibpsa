@@ -13,7 +13,7 @@ model PipeAdiabatic_TStep
 
   Annex60.Experimental.Pipe.PipeAdiabaticPlugFlow pipe50_1(
     redeclare package Medium = Medium,
-    diameter=0.1,
+    dh=0.1,
     length=50,
     m_flow_nominal=0.5) "Pipe 1 in series of two 50 m pipes"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
@@ -60,7 +60,7 @@ model PipeAdiabatic_TStep
     annotation (Placement(transformation(extent={{-118,60},{-98,80}})));
   Annex60.Experimental.Pipe.PipeAdiabaticPlugFlow pipe50_2(
     redeclare package Medium = Medium,
-    diameter=0.1,
+    dh=0.1,
     length=50,
     m_flow_nominal=0.5) "Pipe 2 of two 50 m pipes in series"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
@@ -74,7 +74,7 @@ model PipeAdiabatic_TStep
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Annex60.Experimental.Pipe.PipeAdiabaticPlugFlow pipe100(
     redeclare package Medium = Medium,
-    diameter=0.1,
+    dh=0.1,
     length=100,
     m_flow_nominal=0.5) "Pipe with 100 m length in parallel to 2 x 50 m pipes"
     annotation (Placement(transformation(

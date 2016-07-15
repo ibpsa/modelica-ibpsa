@@ -56,7 +56,7 @@ model PipeHeatLossKUL
     dp_nominal=dp_nominal,
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
-    diameter=diameter,
+    dh=diameter,
     length=length,
     roughness=roughness)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
