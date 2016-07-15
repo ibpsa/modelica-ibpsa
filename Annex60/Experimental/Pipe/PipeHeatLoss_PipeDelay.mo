@@ -140,7 +140,7 @@ equation
     annotation (Line(points={{-44,0},{-52,0},{-60,0}},
                                                color={0,127,255}));
   connect(senMasFlo.m_flow, tau_unused.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-40},{-22,-40}},
+      points={{-34,-11},{-34,-30},{-22,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(

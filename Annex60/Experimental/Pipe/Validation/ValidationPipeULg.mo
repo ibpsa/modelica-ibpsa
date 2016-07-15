@@ -46,7 +46,6 @@ package Medium = Annex60.Media.Water;
     annotation (Placement(transformation(extent={{-32,-60},{-12,-40}})));
   Modelica.Blocks.Sources.Constant Tamb(k=273 + 18)
     "Ambient temperature in Kelvin"
-    annotation (Placement(transformation(extent={{0,40},{-20,60}})));
   Modelica.Blocks.Math.UnitConversions.From_degC Tin
     "Ambient temperature in degrees"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));

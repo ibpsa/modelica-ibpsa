@@ -182,7 +182,6 @@ public
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Ambient temperature of pipe's surroundings"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean from_dp=false
