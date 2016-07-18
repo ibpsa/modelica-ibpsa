@@ -1,4 +1,6 @@
 LimPID
+LimPIDPedantic
+IntegratorWithReset
 NumberOfRequests
 OffTimer
 PIDHysteresis

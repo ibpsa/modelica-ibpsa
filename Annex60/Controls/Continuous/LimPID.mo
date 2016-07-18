@@ -11,9 +11,30 @@ block LimPID
 
   parameter Boolean reverseAction = false
     "Set to true for throttling the water flow rate through a cooling coil controller";
+  parameter Boolean withResetIntegrator = false
+    "Enables option to trigger a reset for the integrator part";
+  Modelica.Blocks.Interfaces.BooleanInput resetI if withResetIntegrator
+    "Resets optionally the integrator output to its start value when trigger input becomes true. (See also Source Code of LimPID.)"
+    annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));
+  Modelica.Blocks.Routing.BooleanPassThrough resetIPassThrough
+    annotation (Placement(transformation(extent={{-52,-62},{-44,-54}})));
+  Modelica.Blocks.Sources.BooleanConstant resetIFalse(k=false) if not withResetIntegrator
+    "Necessary to compensate if withResetIntegrator = false"
+    annotation (Placement(transformation(extent={{-68,-80},{-60,-72}})));
+
 protected
   parameter Real revAct = if reverseAction then -1 else 1;
-  annotation (
+
+equation
+  when resetIPassThrough.y == true then
+      reinit(I.y,I.y_start);
+  end when;
+
+  connect(resetI, resetIPassThrough.u) annotation (Line(points={{-120,-66},{-56,
+          -66},{-56,-58},{-52.8,-58}}, color={255,0,255}));
+  connect(resetIFalse.y, resetIPassThrough.u) annotation (Line(points={{-59.6,-76},
+          {-52.8,-76},{-52.8,-58}}, color={255,0,255}));
+   annotation (
 defaultComponentName="conPID",
 Documentation(info="<html>
 <p>
