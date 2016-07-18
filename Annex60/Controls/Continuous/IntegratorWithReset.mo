@@ -2,9 +2,9 @@ within Annex60.Controls.Continuous;
 block IntegratorWithReset "Output the integral of the input signal"
   extends Modelica.Blocks.Continuous.Integrator;
   parameter Boolean withResetIntegrator = false
-    "Enables option to trigger a reset for the integrator part";
+    "Enables option to trigger a reset for the integrator part" annotation(Dialog(group="Integrator Reset"), choices(checkBox=true));
   parameter Real yReset = y_start
-    "Value to which the output is reset if boolean trigger has a rising edge";
+    "Value to which the output is reset if boolean trigger has a rising edge" annotation(Dialog(group="Integrator Reset"));
   Modelica.Blocks.Interfaces.BooleanInput resetI if withResetIntegrator
     "Resets optionally the integrator output to its start value when trigger input becomes true. See also source code for when algorithm."
     annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));

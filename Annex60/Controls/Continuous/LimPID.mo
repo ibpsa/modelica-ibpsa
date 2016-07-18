@@ -111,9 +111,10 @@ public
   parameter Boolean reverseAction = false
     "Set to true for throttling the water flow rate through a cooling coil controller";
   parameter Boolean withResetIntegrator = false
-    "Enables option to trigger a reset for the integrator part";
+    "Enables option to trigger a reset for the integrator part" annotation(Dialog(group="Integrator Reset"), choices(checkBox=true));
   parameter Real intResetValue = 0
-    "Value to which the output of the integrator is reset if boolean trigger has a rising edge";
+    "Value to which the output of the integrator is reset if boolean trigger has a rising edge"
+                                                                                                annotation(Dialog(group="Integrator Reset"));
   Modelica.Blocks.Interfaces.BooleanInput resetI if withResetIntegrator
     "Resets optionally the integrator output to its start value when trigger input becomes true. (See also Source Code of LimPID.)"
     annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));
