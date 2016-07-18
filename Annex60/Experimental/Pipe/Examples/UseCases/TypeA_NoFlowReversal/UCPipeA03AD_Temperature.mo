@@ -50,7 +50,6 @@ model UCPipeA03AD_Temperature
   PipeAdiabaticPlugFlow pipeAd(
     redeclare package Medium = Medium,
     length=100,
-    use_dh=true,
     dh=0.1,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal) "Dynamic pipe adiabatic"

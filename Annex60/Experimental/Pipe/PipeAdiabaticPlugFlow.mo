@@ -3,9 +3,6 @@ model PipeAdiabaticPlugFlow
   "Pipe model using spatialDistribution for temperature delay without heat losses"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Boolean use_dh=false "Set to true to specify hydraulic diameter"
-    annotation (Evaluate=true);
-
   parameter Modelica.SIunits.Length thickness=0.002;
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
