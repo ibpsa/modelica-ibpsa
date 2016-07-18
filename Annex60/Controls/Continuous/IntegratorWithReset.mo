@@ -1,56 +1,36 @@
 within Annex60.Controls.Continuous;
 block IntegratorWithReset "Output the integral of the input signal"
-  import Modelica.Blocks.Types.Init;
-  parameter Real k(unit="1")=1 "Integrator gain";
-
-  /* InitialState is the default, because it was the default in Modelica 2.2
-     and therefore this setting is backward compatible
-  */
-  parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
-    "Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
-                                                                                    annotation(Evaluate=true,
-      Dialog(group="Initialization"));
-  parameter Real y_start=0 "Initial or guess value of output (= state)"
-    annotation (Dialog(group="Initialization"));
-  extends Modelica.Blocks.Interfaces.SISO(y(start=y_start));
-
-  Modelica.Blocks.Interfaces.BooleanInput resetI
+  extends Modelica.Blocks.Continuous.Integrator;
+  parameter Boolean withResetIntegrator = false
+    "Enables option to trigger a reset for the integrator part";
+  parameter Real yReset = y_start
+    "Value to which the output is reset if boolean trigger has a rising edge";
+  Modelica.Blocks.Interfaces.BooleanInput resetI if withResetIntegrator
     "Resets optionally the integrator output to its start value when trigger input becomes true. See also source code for when algorithm."
     annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));
 
-initial equation
-  if initType == Init.SteadyState then
-     der(y) = 0;
-  elseif initType == Init.InitialState or
-         initType == Init.InitialOutput then
-    y = y_start;
-  end if;
-equation
-  der(y) = k*u;
+  Modelica.Blocks.Routing.BooleanPassThrough resetIPassThrough
+    annotation (Placement(transformation(extent={{-82,-52},{-66,-36}})));
+  Modelica.Blocks.Sources.BooleanConstant resetIFalse(k=false) if not withResetIntegrator
+    "Necessary to compensate if withResetIntegrator = false"
+    annotation (Placement(transformation(extent={{-100,-90},{-88,-78}})));
 
-  when resetI == true then
-      reinit(y,y_start);
+equation
+  when edge(resetIPassThrough.y) then
+      reinit(y,yReset);
   end when;
 
+  connect(resetIFalse.y,resetIPassThrough. u) annotation (Line(points={{-87.4,-84},
+          {-87.4,-44},{-83.6,-44}}, color={255,0,255}));
+  connect(resetI, resetIPassThrough.u) annotation (Line(points={{-120,-66},{-96,
+          -66},{-96,-44},{-83.6,-44}}, color={255,0,255}));
   annotation (
     Documentation(info="<html>
-<p>
-This blocks computes output <b>y</b> (element-wise) as
-<i>integral</i> of the input <b>u</b> multiplied with
-the gain <i>k</i>:
-</p>
-<pre>
-         k
-     y = - u
-         s
-</pre>
-
-<p>
-It might be difficult to initialize the integrator in steady state.
-This is discussed in the description of package
-<a href=\"modelica://Modelica.Blocks.Continuous#info\">Continuous</a>.
-</p>
-
+<p>It is possible to reset the output of<span style=\"font-family: MS Shell Dlg 2;\"> integrator</span><code>y</code> to the chosen value <code>yReset</code> when <code>resetI</code> has a rising edge.</p>
+</html>", revisions="<html>
+<ul>
+<li>July 18, 2016, by Philipp Mehrfeld:<br>First implementation. </li>
+</ul>
 </html>"), Icon(coordinateSystem(
           preserveAspectRatio=true,
           extent={{-100.0,-100.0},{100.0,100.0}},
