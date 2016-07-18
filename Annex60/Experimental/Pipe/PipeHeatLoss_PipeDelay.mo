@@ -23,23 +23,6 @@ model PipeHeatLoss_PipeDelay
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") = 2*
-    dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-
-  final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
-      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal,
-      rho_a=rho_default,
-      rho_b=rho_default,
-      mu_a=mu_default,
-      mu_b=mu_default,
-      length=length,
-      diameter=diameter,
-      roughness=roughness,
-      m_flow_small=m_flow_small)
-    "Pressure loss of a straight pipe at m_flow_nominal";
-
   parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
   parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026

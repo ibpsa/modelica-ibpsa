@@ -32,25 +32,6 @@ model PipeAdiabaticPlugFlow
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") =
-    dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-
-  final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
-      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal,
-      rho_a=rho_default,
-      rho_b=rho_default,
-      mu_a=mu_default,
-      mu_b=mu_default,
-      length=length,
-      diameter=dh,
-      roughness=roughness,
-      m_flow_small=m_flow_small)
-    "Pressure loss of a straight pipe at m_flow_nominal";
-
-  // fixme: shouldn't dp(nominal) be around 100 Pa/m?
-  // fixme: propagate use_dh and set default to false
   Annex60.Fluid.FixedResistances.FixedResistance_dh res(
     redeclare final package Medium = Medium,
     final dh=dh,
