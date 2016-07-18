@@ -53,9 +53,8 @@ model PipeAdiabaticPlugFlow
 
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
   // fixme: propagate use_dh and set default to false
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM res(
+  Annex60.Fluid.FixedResistances.FixedResistance_dh         res(
     redeclare final package Medium = Medium,
-    final use_dh=use_dh,
     final dh=dh,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
