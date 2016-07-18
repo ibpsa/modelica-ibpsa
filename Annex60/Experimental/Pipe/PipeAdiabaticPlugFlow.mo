@@ -58,8 +58,8 @@ model PipeAdiabaticPlugFlow
     final dh=dh,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
-    dp(nominal=if Medium.nXi == 0 then 100*length else 5*length))
-    "Pressure drop calculation for this pipe"
+    dp(nominal=if Medium.nXi == 0 then 100*length else 5*length),
+    from_dp=from_dp) "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 protected
@@ -104,6 +104,9 @@ public
     m_flow_nominal=m_flow_nominal,
     V=Lcap*dh^2/4*Modelica.Constants.pi) if pipVol
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
+  parameter Boolean from_dp=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
 equation
   connect(res.port_b, temperatureDelay.port_a) annotation (Line(
       points={{-20,0},{20,0}},

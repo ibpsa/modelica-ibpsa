@@ -96,11 +96,12 @@ protected
   PipeAdiabaticPlugFlow pipeSupplyAdiabaticPlugFlow(
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
-    diameter=diameter,
+    dh=diameter,
     length=length,
     m_flow_nominal=m_flow_nominal,
     redeclare final package Medium = Medium,
-    pipVol=pipVol)
+    pipVol=pipVol,
+    from_dp=from_dp)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
@@ -136,10 +137,11 @@ protected
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
-    diameter=diameter,
+    dh=diameter,
     length=length,
     m_flow_nominal=m_flow_nominal,
-    pipVol=pipVol)
+    pipVol=pipVol,
+    from_dp=from_dp)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -180,6 +182,9 @@ public
 
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
+  parameter Boolean from_dp=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Dialog(tab="Advanced"));
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);
