@@ -2,16 +2,10 @@ within Annex60.Fluid.FixedResistances;
 model FixedResistanceDpM
   "Fixed flow resistance with dp and m_flow as parameter"
   extends Annex60.Fluid.BaseClasses.PartialResistance(
-    final m_flow_turbulent = if (computeFlowResistance and use_dh) then
-                       eta_default*dh/4*Modelica.Constants.pi*ReC
-                       elseif (computeFlowResistance) then
+    m_flow_turbulent = if computeFlowResistance then
                        deltaM * m_flow_nominal_pos
          else 0);
-  parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
-       annotation(Evaluate=true,
-                  Dialog(enable = not linearized));
-  parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
-       annotation(Dialog(enable = use_dh and not linearized));
+
   parameter Real ReC(min=0)=4000
     "Reynolds number where transition to turbulent starts"
        annotation(Dialog(enable = use_dh and not linearized));
@@ -33,15 +27,6 @@ initial equation
  end if;
 
  assert(m_flow_nominal_pos > 0, "m_flow_nominal_pos must be non-zero. Check parameters.");
- assert(m_flow_nominal_pos > m_flow_turbulent,
-   "In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent.
-  m_flow_nominal = " + String(m_flow_nominal) + "
-  dh      = " + String(dh) + "
- To correct it, set dh < " +
-     String(     4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC) + "
-  Suggested value:   dh = " +
-                String(1/10*4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC),
-                AssertionLevel.warning);
 
 equation
   // Pressure drop calculation

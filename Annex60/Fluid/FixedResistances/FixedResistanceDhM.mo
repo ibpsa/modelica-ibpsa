@@ -1,67 +1,30 @@
-within Annex60.Fluid.BaseClasses;
-partial model PartialFixedResistance "Partial fixed flow resistance"
-  extends Annex60.Fluid.BaseClasses.PartialResistance;
+within Annex60.Fluid.FixedResistances;
+model FixedResistanceDhM
+  "Fixed flow resistance with dh and m_flow as parameter"
+  extends Annex60.Fluid.FixedResistances.FixedResistanceDpM(
+    final m_flow_turbulent=
+        if computeFlowResistance then
+          eta_default*dh/4*Modelica.Constants.pi*ReC
+        else 0,
+        final deltaM = 1);
 
-  final parameter Real k(unit="") = if computeFlowResistance then
-    m_flow_nominal_pos/sqrt(dp_nominal_pos) else 0
-    "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-protected
-  final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
-    "Flag to enable/disable computation of flow resistance"
-    annotation (Evaluate=true);
+  parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
+    annotation (Dialog(enable=use_dh and not linearized));
+  parameter Real ReC(min=0) = 4000
+    "Reynolds number where transition to turbulent starts";
+
 initial equation
-  if computeFlowResistance then
-    assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
-  end if;
 
-  assert(m_flow_nominal_pos > 0, "m_flow_nominal_pos must be non-zero. Check parameters.");
-
-equation
-  // Pressure drop calculation
-  if computeFlowResistance then
-    if linearized then
-      m_flow*m_flow_nominal_pos = k^2*dp;
-    else
-      if homotopyInitialization then
-        if from_dp then
-          m_flow = homotopy(actual=
-            Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-            dp=dp,
-            k=k,
-            m_flow_turbulent=m_flow_turbulent), simplified=m_flow_nominal_pos*
-            dp/dp_nominal_pos);
-        else
-          dp = homotopy(actual=
-            Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-            m_flow=m_flow,
-            k=k,
-            m_flow_turbulent=m_flow_turbulent), simplified=dp_nominal_pos*
-            m_flow/m_flow_nominal_pos);
-        end if;
-        // from_dp
-      else
-        // do not use homotopy
-        if from_dp then
-          m_flow = Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-            dp=dp,
-            k=k,
-            m_flow_turbulent=m_flow_turbulent);
-        else
-          dp = Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-            m_flow=m_flow,
-            k=k,
-            m_flow_turbulent=m_flow_turbulent);
-        end if;
-        // from_dp
-      end if;
-      // homotopyInitialization
-    end if;
-    // linearized
-  else
-    // do not compute flow resistance
-    dp = 0;
-  end if;
-  // computeFlowResistance
+  assert(
+    m_flow_nominal_pos > m_flow_turbulent,
+    "In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent.
+  m_flow_nominal = " + String(m_flow_nominal) + "
+  dh      = " + String(dh) + "
+ To correct it, set dh < " + String(4*m_flow_nominal/eta_default/Modelica.Constants.pi
+      /ReC) + "
+  Suggested value:   dh = " + String(1/10*4*m_flow_nominal/eta_default/Modelica.Constants.pi
+      /ReC),
+    AssertionLevel.warning);
 
   annotation (
     defaultComponentName="res",
@@ -75,26 +38,8 @@ m&#775; = k
 &radic;<span style=\"text-decoration:overline;\">&Delta;P</span>,
 </p>
 <p>
-where
-<i>k</i> is a constant and
-<i>&Delta;P</i> is the pressure drop.
-The constant <i>k</i> is equal to
-<code>k=m_flow_nominal/sqrt(dp_nominal)</code>,
-where <code>m_flow_nominal</code> and <code>dp_nominal</code>
-are parameters.
-In the region
-<code>abs(m_flow) &lt; m_flow_turbulent</code>,
-the square root is replaced by a differentiable function
-with finite slope.
-The value of 
-<code>
-m_flow_turbulent</code> is computed in <code>
-
-Annex60.Fluid.FixedResistances.FixedResistance_dp</code> 
-or in <code>
-Annex60.Fluid.FixedResistances.FixedResistance_dh</code>.
-</p>
-
+where <i>k</i> is a constant and <i>&Delta;P</i> is the pressure drop. 
+The constant <i>k</i> is equal to <code>k=m_flow_nominal/sqrt(dp_nominal)</code>, where <code>m_flow_nominal</code> and <code>dp_nominal</code> are parameters. In the region <code>abs(m_flow) &LT; m_flow_turbulent</code>, the square root is replaced by a differentiable function with finite slope. The value of <code>m_flow_turbulent</code> is computed as <code>m_flow_turbulent = eta_nominal*dh/4*&pi;*ReC</code> is used, where <code>eta_nominal</code> is the dynamic viscosity, obtained from the medium model. The parameter <code>dh</code> is the hydraulic diameter and <code>ReC=4000</code> is the critical Reynolds number, which both can be set by the user. </p>
 <p>
 If the parameter
 <code>show_T</code> is set to <code>true</code>,
@@ -139,7 +84,7 @@ Annex60.Fluid.BaseClasses.FlowModels</a>,
 This package contains regularized implementations of the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;
+  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 and its inverse function.
@@ -153,12 +98,8 @@ This leads to simpler equations.
 </html>", revisions="<html>
 <ul>
 <li>
-July 7, 2016 by Bram van der Heijde:<br/>
-Moved from <code>Annex60.Fluid.FixedResistances.FixedResistanceDpM</code> 
-to <code>Annex60.Fluid.BaseClasses.PartialFixedResistance</code>. 
-Moved parameters <code>ReC</code>, <code>dh</code> and <code>use_dh</code> 
-to <code>FixedResistance_dp</code>. Moved parameter <code>Delta_M</code> and 
-<code>assert(dh)</code>to <code>FixedResistance_dh</code>.
+July 8, 2016 by Bram van der Heijde:<br>Split off from <code>use_dh=true</code> 
+part of <code>Annex60.Fluid.FixedResistances.FixedResistanceDpM</code>. 
 </li>
 <li>
 November 26, 2014, by Michael Wetter:<br/>
@@ -217,5 +158,9 @@ First implementation.
           textString="dp_nominal=%dp_nominal"), Text(
           extent={{-106,106},{6,60}},
           lineColor={0,0,255},
-          textString="m0=%m_flow_nominal")}));
-end PartialFixedResistance;
+          textString="m0=%m_flow_nominal"),
+        Text(
+          extent={{-24,6},{26,-8}},
+          lineColor={255,255,255},
+          textString="dh")}));
+end FixedResistanceDhM;
