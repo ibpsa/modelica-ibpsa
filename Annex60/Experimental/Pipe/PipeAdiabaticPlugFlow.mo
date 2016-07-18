@@ -28,10 +28,6 @@ model PipeAdiabaticPlugFlow
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Height roughness=2.5e-5
-    "Average height of surface asperities (default: smooth steel pipe)"
-    annotation (Dialog(group="Geometry"));
-
   Annex60.Fluid.FixedResistances.FixedResistance_dh res(
     redeclare final package Medium = Medium,
     final dh=dh,
