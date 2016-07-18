@@ -65,8 +65,7 @@ model ZoneExample
     nSurf=2,
     redeclare package Medium = Medium,
     allowFlowReversal=true,
-    V=20,
-    redeclare BaseClasses.ZoneAirModels.None airModel)
+    V=20)
          annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Shading.ShadingControl shadingControl
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
