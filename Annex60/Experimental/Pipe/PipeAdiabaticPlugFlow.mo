@@ -9,11 +9,12 @@ model PipeAdiabaticPlugFlow
   parameter Modelica.SIunits.Length dh=0.05 "Hydraulic diameter"
     annotation (Dialog(enable=use_dh));
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.HeatCapacity Cpipe=length*((dh + thickness)^2 - dh^
-      2)*Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
+  parameter Modelica.SIunits.HeatCapacity Cpipe=length*((dh + thickness)^2 - dh
+      ^2)*Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe=500 "For steel";
   parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
 
+  parameter Modelica.SIunits.Temperature T_nominal=273.15 + 70;
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
 
@@ -31,7 +32,7 @@ model PipeAdiabaticPlugFlow
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") =
     dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
@@ -50,12 +51,15 @@ model PipeAdiabaticPlugFlow
 
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
   // fixme: propagate use_dh and set default to false
-  Annex60.Fluid.FixedResistances.FixedResistance_dh         res(
+  Annex60.Fluid.FixedResistances.FixedResistance_dh res(
     redeclare final package Medium = Medium,
     final dh=dh,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal,
-    dp(nominal=if Medium.nXi == 0 then 100*length else 5*length),
+    final dp_nominal=Annex60.Experimental.Pipe.BaseClasses.dPpre(
+        length,
+        dh,
+        m_flow_nominal,
+        T_nominal),
     from_dp=from_dp) "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
@@ -104,6 +108,7 @@ public
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
+
 equation
   connect(res.port_b, temperatureDelay.port_a) annotation (Line(
       points={{-20,0},{20,0}},
@@ -126,10 +131,10 @@ equation
   end if;
 
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={
         Rectangle(
           extent={{-100,40},{100,-42}},
           lineColor={0,0,0},
