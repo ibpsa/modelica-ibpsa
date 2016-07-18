@@ -24,7 +24,8 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
-    "Turbulent flow if |m_flow| >= m_flow_turbulent";
+    "Turbulent flow if |m_flow| >= m_flow_turbulent"
+    annotation (Dialog(tab="Advanced"));
 
 protected
   parameter Medium.ThermodynamicState sta_default=
@@ -37,6 +38,7 @@ protected
     "Absolute value of nominal flow rate";
   final parameter Modelica.SIunits.PressureDifference dp_nominal_pos(displayUnit="Pa") = abs(dp_nominal)
     "Absolute value of nominal pressure difference";
+
 equation
   // Isenthalpic state transformation (no storage and no loss of energy)
   port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) else Medium.h_default;
