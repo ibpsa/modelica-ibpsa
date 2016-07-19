@@ -39,8 +39,11 @@ partial model PartialSimInfoManager
   parameter SI.Angle ceilingInc = IDEAS.Types.Tilt.Ceiling
     "Ceiling inclination angle"
     annotation(Dialog(tab="Incidence angles"));
+  parameter Boolean DST = false
+    "boolean to take into account daylight saving time"
+    annotation(Dialog(tab="Advanced"));
 
-public
+
   Modelica.SIunits.Irradiance solDirPer
     "direct irradiation on normal to solar zenith";
   Modelica.SIunits.Irradiance solDirHor
@@ -71,7 +74,7 @@ public
   Modelica.SIunits.Energy Etot "Total internal energy";
   Modelica.SIunits.Energy Qint "Total energy from boundary";
 
-  Real hCon=IDEAS.Utilities.Math.Functions.spliceFunction(x=Va-5, pos= 7.1*abs(Va)^(0.78), neg=  4.0*Va + 5.6, deltax=0.5);
+  Real hCon=IDEAS.Utilities.Math.Functions.spliceFunction(x=Va-5, pos= 7.1*abs(Va)^(0.78), neg = 4.0*Va + 5.6, deltax=0.5);
   Real TePow4 = Te^4;
   Real TskyPow4 = Tsky^4;
   Real angDec=asin(-sin(23.45*Modelica.Constants.pi/180)*cos((timLoc/86400 +
@@ -87,9 +90,9 @@ public
   Modelica.Blocks.Sources.RealExpression solDirPerExp(y=solDirPer)
     "Perpendicular direct solar radiation"
     annotation (Placement(transformation(extent={{-124,10},{-104,30}})));
+
+
 protected
-  final parameter Boolean DST = true
-    "boolean to take into account daylight saving time";
   final parameter Integer yr = 2014 "depcited year for DST only";
 
   final parameter Boolean BesTest = Modelica.Utilities.Strings.isEqual(filNam, "BesTest.txt")
@@ -103,7 +106,7 @@ protected
   IDEAS.BoundaryConditions.Climate.Time.SimTimes timMan(
     timZonSta=timZonSta,
     lon=lon,
-    DST=false,
+    DST=DST,
     ifSolCor=true)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 

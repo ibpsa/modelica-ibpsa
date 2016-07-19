@@ -6,7 +6,6 @@ model Bui920 "BESTEST Building model case 920"
     ATrans=1,
     VZones={gF.V});
 
-protected
   IDEAS.Buildings.Components.Zone gF(nSurf=8, V=129.6, n50=0.5*20,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{40,0},{80,40}})));
