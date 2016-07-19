@@ -100,40 +100,40 @@ equation
   der(EAnnCoo900[6]) = max(0,Case950.PCoo)*MWh;
 
   when sample(600,600) then
-    QPeaHea600[1] = max(QPeaHea600[1],-Case600.PHea)*kW;
-    QPeaHea600[2] = max(QPeaHea600[2],-Case610.PHea)*kW;
-    QPeaHea600[3] = max(QPeaHea600[3],-Case620.PHea)*kW;
-    QPeaHea600[4] = max(QPeaHea600[4],-Case630.PHea)*kW;
-    QPeaHea600[5] = max(QPeaHea600[5],-Case640.PHea)*kW;
-    QPeaHea600[6] = max(QPeaHea600[6],-Case650.PHea)*kW;
-    QPeaCoo600[1] =  max(QPeaCoo600[1],Case600.PCoo)*kW;
-    QPeaCoo600[2] =  max(QPeaCoo600[2],Case610.PCoo)*kW;
-    QPeaCoo600[3] =  max(QPeaCoo600[3],Case620.PCoo)*kW;
-    QPeaCoo600[4] =  max(QPeaCoo600[4],Case630.PCoo)*kW;
-    QPeaCoo600[5] =  max(QPeaCoo600[5],Case640.PCoo)*kW;
-    QPeaCoo600[6] =  max(QPeaCoo600[6],Case650.PCoo)*kW;
-    QPeaHea900[1] = max(QPeaHea900[1],-Case900.PHea)*kW;
-    QPeaHea900[2] = max(QPeaHea900[2],-Case910.PHea)*kW;
-    QPeaHea900[3] = max(QPeaHea900[3],-Case920.PHea)*kW;
-    QPeaHea900[4] = max(QPeaHea900[4],-Case930.PHea)*kW;
-    QPeaHea900[5] = max(QPeaHea900[5],-Case940.PHea)*kW;
-    QPeaHea900[6] = max(QPeaHea900[6],-Case950.PHea)*kW;
-    QPeaCoo900[1] =  max(QPeaCoo900[1],Case900.PCoo)*kW;
-    QPeaCoo900[2] =  max(QPeaCoo900[2],Case910.PCoo)*kW;
-    QPeaCoo900[3] =  max(QPeaCoo900[3],Case920.PCoo)*kW;
-    QPeaCoo900[4] =  max(QPeaCoo900[4],Case930.PCoo)*kW;
-    QPeaCoo900[5] =  max(QPeaCoo900[5],Case940.PCoo)*kW;
-    QPeaCoo900[6] =  max(QPeaCoo900[6],Case950.PCoo)*kW;
+    QPeaHea600[1] = max(pre(QPeaHea600[1]),-Case600.PHea)*kW;
+    QPeaHea600[2] = max(pre(QPeaHea600[2]),-Case610.PHea)*kW;
+    QPeaHea600[3] = max(pre(QPeaHea600[3]),-Case620.PHea)*kW;
+    QPeaHea600[4] = max(pre(QPeaHea600[4]),-Case630.PHea)*kW;
+    QPeaHea600[5] = max(pre(QPeaHea600[5]),-Case640.PHea)*kW;
+    QPeaHea600[6] = max(pre(QPeaHea600[6]),-Case650.PHea)*kW;
+    QPeaCoo600[1] =  max(pre(QPeaCoo600[1]),Case600.PCoo)*kW;
+    QPeaCoo600[2] =  max(pre(QPeaCoo600[2]),Case610.PCoo)*kW;
+    QPeaCoo600[3] =  max(pre(QPeaCoo600[3]),Case620.PCoo)*kW;
+    QPeaCoo600[4] =  max(pre(QPeaCoo600[4]),Case630.PCoo)*kW;
+    QPeaCoo600[5] =  max(pre(QPeaCoo600[5]),Case640.PCoo)*kW;
+    QPeaCoo600[6] =  max(pre(QPeaCoo600[6]),Case650.PCoo)*kW;
+    QPeaHea900[1] = max(pre(QPeaHea900[1]),-Case900.PHea)*kW;
+    QPeaHea900[2] = max(pre(QPeaHea900[2]),-Case910.PHea)*kW;
+    QPeaHea900[3] = max(pre(QPeaHea900[3]),-Case920.PHea)*kW;
+    QPeaHea900[4] = max(pre(QPeaHea900[4]),-Case930.PHea)*kW;
+    QPeaHea900[5] = max(pre(QPeaHea900[5]),-Case940.PHea)*kW;
+    QPeaHea900[6] = max(pre(QPeaHea900[6]),-Case950.PHea)*kW;
+    QPeaCoo900[1] =  max(pre(QPeaCoo900[1]),Case900.PCoo)*kW;
+    QPeaCoo900[2] =  max(pre(QPeaCoo900[2]),Case910.PCoo)*kW;
+    QPeaCoo900[3] =  max(pre(QPeaCoo900[3]),Case920.PCoo)*kW;
+    QPeaCoo900[4] =  max(pre(QPeaCoo900[4]),Case930.PCoo)*kW;
+    QPeaCoo900[5] =  max(pre(QPeaCoo900[5]),Case940.PCoo)*kW;
+    QPeaCoo900[6] =  max(pre(QPeaCoo900[6]),Case950.PCoo)*kW;
 
-    Tmax[1]=max(Tmax[1], Case600FF.building.gF.TSensor);
-    Tmax[2]=max(Tmax[2], Case650FF.building.gF.TSensor);
-    Tmax[3]=max(Tmax[3], Case900FF.building.gF.TSensor);
-    Tmax[4]=max(Tmax[4], Case950FF.building.gF.TSensor);
+    Tmax[1]=max(pre(Tmax[1]), Case600FF.building.gF.TSensor);
+    Tmax[2]=max(pre(Tmax[2]), Case650FF.building.gF.TSensor);
+    Tmax[3]=max(pre(Tmax[3]), Case900FF.building.gF.TSensor);
+    Tmax[4]=max(pre(Tmax[4]), Case950FF.building.gF.TSensor);
 
-    Tmin[1]=min(Tmin[1], Case600FF.building.gF.TSensor);
-    Tmin[2]=min(Tmin[2], Case650FF.building.gF.TSensor);
-    Tmin[3]=min(Tmin[3], Case900FF.building.gF.TSensor);
-    Tmin[4]=min(Tmin[4], Case950FF.building.gF.TSensor);
+    Tmin[1]=min(pre(Tmin[1]), Case600FF.building.gF.TSensor);
+    Tmin[2]=min(pre(Tmin[2]), Case650FF.building.gF.TSensor);
+    Tmin[3]=min(pre(Tmin[3]), Case900FF.building.gF.TSensor);
+    Tmin[4]=min(pre(Tmin[4]), Case950FF.building.gF.TSensor);
   end when;
 
   annotation (
