@@ -12,7 +12,7 @@ model WindowDynamics "Comparison of three window dynamics options"
     A=1,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two,
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S)
     annotation (Placement(transformation(extent={{-54,-82},{-44,-62}})));
@@ -35,7 +35,7 @@ model WindowDynamics "Comparison of three window dynamics options"
     A=1,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None,
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.None,
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S)
     annotation (Placement(transformation(extent={{-54,-32},{-44,-12}})));
@@ -43,7 +43,7 @@ model WindowDynamics "Comparison of three window dynamics options"
     A=1,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Combined,
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Combined,
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S)
     annotation (Placement(transformation(extent={{-54,-56},{-44,-36}})));

@@ -12,7 +12,7 @@ model OverhangAndScreen "Roof overhangs and screen shading"
     "Distance between window upper edge and overhang lower edge";
   parameter Real shaCorr=0.24 "Shortwave transmittance of shortwave radiation";
 
-  extends IDEAS.Buildings.Components.Interfaces.DoubleShading(
+  extends IDEAS.Buildings.Components.Shading.Interfaces.DoubleShading(
       redeclare IDEAS.Buildings.Components.Shading.Screen stateShading1(
         azi=azi,
         shaCorr=shaCorr),
