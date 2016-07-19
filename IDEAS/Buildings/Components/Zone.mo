@@ -1,12 +1,11 @@
 within IDEAS.Buildings.Components;
-model Zone "thermal building zone"
+model Zone "Building zone model"
   extends IDEAS.Buildings.Components.Interfaces.PartialZone(
     Eexpr(y=E),
     useFluPor = airModel.useFluPor);
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    redeclare replaceable package Medium = IDEAS.Media.Air,
-    final mSenFac = 1);
+    replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choicesAllMatching = true);
 
 
   parameter Modelica.SIunits.Volume V "Total zone air volume"
@@ -124,6 +123,8 @@ public
 
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
+
+
 
 
 
