@@ -39,10 +39,12 @@ partial model PartialSimInfoManager
   parameter SI.Angle ceilingInc = IDEAS.Types.Tilt.Ceiling
     "Ceiling inclination angle"
     annotation(Dialog(tab="Incidence angles"));
+  parameter Boolean DST = false
+    "boolean to take into account daylight saving time"
+    annotation(Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Temperature Tenv_nom= 280
     "Nominal ambient temperature, only used when linearising equations";
 
-public
   Modelica.SIunits.Irradiance solDirPer
     "direct irradiation on normal to solar zenith";
   Modelica.SIunits.Irradiance solDirHor
@@ -89,9 +91,9 @@ public
   Modelica.Blocks.Sources.RealExpression solDirPerExp(y=solDirPer)
     "Perpendicular direct solar radiation"
     annotation (Placement(transformation(extent={{-124,10},{-104,30}})));
+
+
 protected
-  final parameter Boolean DST = true
-    "boolean to take into account daylight saving time";
   final parameter Integer yr = 2014 "depcited year for DST only";
 
   final parameter Boolean BesTest = Modelica.Utilities.Strings.isEqual(filNam, "BesTest.txt")
@@ -105,7 +107,7 @@ protected
   IDEAS.BoundaryConditions.Climate.Time.SimTimes timMan(
     timZonSta=timZonSta,
     lon=lon,
-    DST=false,
+    DST=DST,
     ifSolCor=true)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
