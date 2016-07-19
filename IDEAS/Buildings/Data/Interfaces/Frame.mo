@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Data.Interfaces;
-partial record Frame "Record structure for window frames"
+partial record Frame "Template record for window frames"
 
   extends Modelica.Icons.MaterialProperty;
 
