@@ -32,7 +32,7 @@ model Zone "thermal building zone"
   parameter Boolean calculateViewFactor = false
     "Explicit calculation of view factors: works well only for rectangular zones!"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange"));
-  final parameter Modelica.SIunits.Power QInf_design=1012*1.204*V/3600*n50/20*(273.15
+  final parameter Modelica.SIunits.Power QInf_design=1012*1.204*V/3600*n50/n50toAch*(273.15
        + 21 - sim.Tdes)
     "Design heat losses from infiltration at reference outdoor temperature";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1*1.224*V/3600;
