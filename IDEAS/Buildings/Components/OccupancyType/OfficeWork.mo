@@ -13,5 +13,9 @@ July 18, 2016 by Filip Jorissen:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+See documentation in IDEAS.Buildings.Components.OccupancyType.PartialOccupancyType.
+</p>
 </html>"));
 end OfficeWork;
