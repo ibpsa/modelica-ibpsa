@@ -51,6 +51,7 @@ model Zone "Building zone model"
     redeclare package Medium = Medium,
     nSurf=nSurf,
     Vtot=V,
+    final T_start=T_start,
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal,
     n50=n50,
@@ -77,7 +78,9 @@ model Zone "Building zone model"
     choicesAllMatching=true,
     Dialog(group="Occupants"),
     Placement(transformation(extent={{40,-20},{60,0}})));
-
+  parameter Medium.Temperature T_start=Medium.T_default
+    "Start value of temperature"
+    annotation(Dialog(tab = "Initialization"));
   parameter Real fRH=11
     "Reheat factor for calculation of design heat load, (EN 12831, table D.10 Annex D)" annotation(Dialog(tab="Advanced",group="Design heat load"));
 
@@ -123,6 +126,7 @@ public
 
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
+
 
 
 
