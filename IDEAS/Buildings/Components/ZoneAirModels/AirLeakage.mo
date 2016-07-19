@@ -1,4 +1,4 @@
-within IDEAS.Buildings.Components.BaseClasses.ZoneAirModels;
+within IDEAS.Buildings.Components.ZoneAirModels;
 model AirLeakage "air leakage due to limied air tightness"
 
 extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(

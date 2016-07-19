@@ -1,4 +1,4 @@
-within IDEAS.Buildings.Components.BaseClasses.ZoneAirModels;
+within IDEAS.Buildings.Components.ZoneAirModels;
 partial model PartialAirModel "Partial for air models"
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -16,7 +16,7 @@ partial model PartialAirModel "Partial for air models"
   parameter Boolean useFluPor = true "Set to false to remove fluid ports";
   constant Boolean computeTSensorAsFunctionOfZoneAir = true "Set to false if TSensor in zone model should not take into account the value of the zone air temperature";
   Modelica.SIunits.Energy E "Model internal energy";
-  Modelica.Blocks.Interfaces.RealOutput Tair "Zone air temperature"
+  Modelica.Blocks.Interfaces.RealOutput TAir "Zone air temperature"
     annotation (Placement(transformation(extent={{98,-70},{118,-50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSurf] ports_surf
     "Heat convection ports for surfaces"
@@ -40,6 +40,14 @@ partial model PartialAirModel "Partial for air models"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] ports_air
     "Heat convection ports for air volumes"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Modelica.Blocks.Interfaces.RealInput mWat_flow
+    "Moisture mass flow rate being added to the zone air"
+    annotation (Placement(transformation(extent={{128,60},{88,100}})));
+  Modelica.Blocks.Interfaces.RealInput C_flow[max(Medium.nC,1)]
+    "Trace substance mass flow rate being added to the zone air"
+    annotation (Placement(transformation(extent={{128,20},{88,60}})));
+  Modelica.Blocks.Interfaces.RealOutput phi "Zone air relative humidity"
+    annotation (Placement(transformation(extent={{98,-50},{118,-30}})));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
