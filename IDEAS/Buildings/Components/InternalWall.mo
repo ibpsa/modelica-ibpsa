@@ -14,7 +14,8 @@ model InternalWall "interior opaque wall between two zones"
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
     annotation(Dialog(tab="Convection"));
   parameter Modelica.SIunits.Temperature TRef_b=291.15
-    "Reference temperature of zone on side of propsBus_b, for calculation of design heat loss" annotation (Dialog(group="Design heat loss"));
+    "Reference temperature of zone on side of propsBus_b, for calculation of design heat loss"
+     annotation (Dialog(group="Design power",tab="Advanced"));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb[constructionType.nGain]
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));

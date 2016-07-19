@@ -6,6 +6,10 @@ Window
 Zone
 Shading
 ThermalBridges
-Examples
+ZoneAirModels
+Comfort
+InternalGains
+OccupancyType
 Interfaces
 BaseClasses
+Examples
