@@ -33,7 +33,7 @@ model CavityWalls
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S,
     redeclare Data.Glazing.Ins2Ar glazing,
-    windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two)
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two)
     "Window with linear convection correlations inside the window"
     annotation (Placement(transformation(extent={{-54,-56},{-44,-36}})));
 equation

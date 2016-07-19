@@ -41,7 +41,7 @@ partial model PartialSurface "Partial model for building envelope component"
         rotation=-90,
         origin={50,20})));
 
-  BaseClasses.InteriorConvection intCon_a(
+  BaseClasses.ConvectiveHeatTransfer.InteriorConvection intCon_a(
     linearise=linearise_a,
     dT_nominal=dT_nominal_a,
     final inc=inc) "Convective heat transfer correlation for port_a"
@@ -55,7 +55,8 @@ protected
     "Inclination angle expression";
   Modelica.Blocks.Sources.RealExpression E if
        sim.computeConservationOfEnergy "Model internal energy";
-  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if
+  IDEAS.Buildings.Components.BaseClasses.ConservationOfEnergy.PrescribedEnergy
+    prescribedHeatFlowE if
        sim.computeConservationOfEnergy
     "Component for computing conservation of energy";
   Modelica.Blocks.Sources.RealExpression Qgai if
@@ -65,8 +66,8 @@ protected
     "Component for computing conservation of energy";
 
 protected
-  IDEAS.Buildings.Components.BaseClasses.MultiLayer layMul(final inc=inc,
-      energyDynamics=energyDynamics)
+  IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.MultiLayer
+    layMul(final inc=inc, energyDynamics=energyDynamics)
     "Multilayer component that allows simulating walls, windows and other surfaces"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 

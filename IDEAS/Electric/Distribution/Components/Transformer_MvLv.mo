@@ -75,25 +75,25 @@ protected
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-90,-20})));
-  Buildings.Components.BaseClasses.HeatCapacitor capHotSpot(C=CHs)
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capHotSpot(C=CHs)
                                                             annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={22,4})));
-  Buildings.Components.BaseClasses.HeatCapacitor capOil(C=CTo)
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capOil(C=CTo)
                                                         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={22,-16})));
-  Buildings.Components.BaseClasses.ThermalResistor resOil(R=RHs)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor resOil(R=RHs)
                                                           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={12,-6})));
-  Buildings.Components.BaseClasses.ThermalResistor resOut(R=RTo)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor resOut(R=RTo)
                                                           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -200,7 +200,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(phase1.port_a, thColl.port_a[1]) annotation (Line(
-      points={{6,48},{12,48},{12,24.6667}},
+      points={{6,48},{12,48},{12,24}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(phase2.port_a, thColl.port_a[2]) annotation (Line(
@@ -208,7 +208,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(phase3.port_a, thColl.port_a[3]) annotation (Line(
-      points={{-2,28},{12,28},{12,23.3333}},
+      points={{-2,28},{12,28},{12,24}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(resOut.port_b, T_Bou.port) annotation (Line(

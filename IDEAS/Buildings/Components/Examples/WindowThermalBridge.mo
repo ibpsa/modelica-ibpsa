@@ -47,7 +47,7 @@ model WindowThermalBridge "Comparison of three window dynamics options"
     windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Combined,
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S,
-    redeclare Interfaces.ThermalBridge briType(G=5))
+    redeclare ThermalBridges.BaseClasses.ThermalBridge briType(G=5))
     annotation (Placement(transformation(extent={{-54,-56},{-44,-36}})));
 equation
   connect(zone1.propsBus[1], outerWall.propsBus_a) annotation (Line(
