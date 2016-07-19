@@ -38,7 +38,8 @@ model Zone "thermal building zone"
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1*1.224*V/3600;
   final parameter Modelica.SIunits.Power QRH_design=A*fRH
     "Additional power required to compensate for the effects of intermittent heating";
-
+  final parameter Modelica.SIunits.Power Q_design(fixed=false)
+    "Total design heat losses for the zone";
 
   replaceable ZoneAirModels.WellMixedAir airModel(
     redeclare package Medium = Medium,
@@ -90,8 +91,6 @@ model Zone "thermal building zone"
   Modelica.SIunits.Energy E = airModel.E;
 
 protected
-  final parameter Modelica.SIunits.Power Q_design(fixed=false)
-    "Total design heat losses for the zone";
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwGainDistribution
     radDistr(final nSurf=nSurf) "distribution of radiative internal gains"
     annotation (Placement(transformation(
@@ -125,6 +124,7 @@ public
 
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
+
 
 
 
