@@ -74,56 +74,56 @@ initial equation
   Tmax=fill(294.15,4);
 
 equation
-  der(EAnnHea600[1]) = max(0,Case600.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnHea600[2]) = max(0,Case610.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnHea600[3]) = max(0,Case620.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnHea600[4]) = max(0,Case630.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnHea600[5]) = max(0,Case640.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnHea600[6]) = max(0,Case650.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnCoo600[1]) = -min(0,Case600.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnCoo600[2]) = -min(0,Case610.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnCoo600[3]) = -min(0,Case620.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnCoo600[4]) = -min(0,Case630.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnCoo600[5]) = -min(0,Case640.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnCoo600[6]) = -min(0,Case650.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnHea900[1]) = max(0,Case900.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnHea900[2]) = max(0,Case910.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnHea900[3]) = max(0,Case920.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnHea900[4]) = max(0,Case930.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnHea900[5]) = max(0,Case940.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnHea900[6]) = max(0,Case950.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnCoo900[1]) = -min(0,Case900.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnCoo900[2]) = -min(0,Case910.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnCoo900[3]) = -min(0,Case920.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnCoo900[4]) = -min(0,Case930.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnCoo900[5]) = -min(0,Case940.building.heatPortCon[1].Q_flow)*MWh;
-  der(EAnnCoo900[6]) = -min(0,Case950.building.heatPortCon[1].Q_flow)*MWh;
+  der(EAnnHea600[1]) = max(0,Case600.building.PHea)*MWh;
+  der(EAnnHea600[2]) = max(0,Case610.building.PHea)*MWh;
+  der(EAnnHea600[3]) = max(0,Case620.building.PHea)*MWh;
+  der(EAnnHea600[4]) = max(0,Case630.building.PHea)*MWh;
+  der(EAnnHea600[5]) = max(0,Case640.building.PHea)*MWh;
+  der(EAnnHea600[6]) = max(0,Case650.building.PHea)*MWh;
+  der(EAnnCoo600[1]) = max(0,Case600.building.PCoo)*MWh;
+  der(EAnnCoo600[2]) = max(0,Case610.building.PCoo)*MWh;
+  der(EAnnCoo600[3]) = max(0,Case620.building.PCoo)*MWh;
+  der(EAnnCoo600[4]) = max(0,Case630.building.PCoo)*MWh;
+  der(EAnnCoo600[5]) = max(0,Case640.building.PCoo)*MWh;
+  der(EAnnCoo600[6]) = max(0,Case650.building.PCoo)*MWh;
+  der(EAnnHea900[1]) = max(0,Case900.building.PHea)*MWh;
+  der(EAnnHea900[2]) = max(0,Case910.building.PHea)*MWh;
+  der(EAnnHea900[3]) = max(0,Case920.building.PHea)*MWh;
+  der(EAnnHea900[4]) = max(0,Case930.building.PHea)*MWh;
+  der(EAnnHea900[5]) = max(0,Case940.building.PHea)*MWh;
+  der(EAnnHea900[6]) = max(0,Case950.building.PHea)*MWh;
+  der(EAnnCoo900[1]) = max(0,Case900.building.PCoo)*MWh;
+  der(EAnnCoo900[2]) = max(0,Case910.building.PCoo)*MWh;
+  der(EAnnCoo900[3]) = max(0,Case920.building.PCoo)*MWh;
+  der(EAnnCoo900[4]) = max(0,Case930.building.PCoo)*MWh;
+  der(EAnnCoo900[5]) = max(0,Case940.building.PCoo)*MWh;
+  der(EAnnCoo900[6]) = max(0,Case950.building.PCoo)*MWh;
 
   when sample(600,600) then
-    QPeaHea600[1] = max(QPeaHea600[1],Case600.building.heatPortCon[1].Q_flow)*kW;
-    QPeaHea600[2] = max(QPeaHea600[2],Case610.building.heatPortCon[1].Q_flow)*kW;
-    QPeaHea600[3] = max(QPeaHea600[3],Case620.building.heatPortCon[1].Q_flow)*kW;
-    QPeaHea600[4] = max(QPeaHea600[4],Case630.building.heatPortCon[1].Q_flow)*kW;
-    QPeaHea600[5] = max(QPeaHea600[5],Case640.building.heatPortCon[1].Q_flow)*kW;
-    QPeaHea600[6] = max(QPeaHea600[6],Case650.building.heatPortCon[1].Q_flow)*kW;
-    QPeaCoo600[1] =  max(QPeaCoo600[1],-Case600.building.heatPortCon[1].Q_flow)*kW;
-    QPeaCoo600[2] =  max(QPeaCoo600[2],-Case610.building.heatPortCon[1].Q_flow)*kW;
-    QPeaCoo600[3] =  max(QPeaCoo600[3],-Case620.building.heatPortCon[1].Q_flow)*kW;
-    QPeaCoo600[4] =  max(QPeaCoo600[4],-Case630.building.heatPortCon[1].Q_flow)*kW;
-    QPeaCoo600[5] =  max(QPeaCoo600[5],-Case640.building.heatPortCon[1].Q_flow)*kW;
-    QPeaCoo600[6] =  max(QPeaCoo600[6],-Case650.building.heatPortCon[1].Q_flow)*kW;
-    QPeaHea900[1] = max(QPeaHea900[1],Case900.building.heatPortCon[1].Q_flow)*kW;
-    QPeaHea900[2] = max(QPeaHea900[2],Case910.building.heatPortCon[1].Q_flow)*kW;
-    QPeaHea900[3] = max(QPeaHea900[3],Case920.building.heatPortCon[1].Q_flow)*kW;
-    QPeaHea900[4] = max(QPeaHea900[4],Case930.building.heatPortCon[1].Q_flow)*kW;
-    QPeaHea900[5] = max(QPeaHea900[5],Case940.building.heatPortCon[1].Q_flow)*kW;
-    QPeaHea900[6] = max(QPeaHea900[6],Case950.building.heatPortCon[1].Q_flow)*kW;
-    QPeaCoo900[1] =  max(QPeaCoo900[1],-Case900.building.heatPortCon[1].Q_flow)*kW;
-    QPeaCoo900[2] =  max(QPeaCoo900[2],-Case910.building.heatPortCon[1].Q_flow)*kW;
-    QPeaCoo900[3] =  max(QPeaCoo900[3],-Case920.building.heatPortCon[1].Q_flow)*kW;
-    QPeaCoo900[4] =  max(QPeaCoo900[4],-Case930.building.heatPortCon[1].Q_flow)*kW;
-    QPeaCoo900[5] =  max(QPeaCoo900[5],-Case940.building.heatPortCon[1].Q_flow)*kW;
-    QPeaCoo900[6] =  max(QPeaCoo900[6],-Case950.building.heatPortCon[1].Q_flow)*kW;
+    QPeaHea600[1] = max(QPeaHea600[1],Case600.building.PHea)*kW;
+    QPeaHea600[2] = max(QPeaHea600[2],Case610.building.PHea)*kW;
+    QPeaHea600[3] = max(QPeaHea600[3],Case620.building.PHea)*kW;
+    QPeaHea600[4] = max(QPeaHea600[4],Case630.building.PHea)*kW;
+    QPeaHea600[5] = max(QPeaHea600[5],Case640.building.PHea)*kW;
+    QPeaHea600[6] = max(QPeaHea600[6],Case650.building.PHea)*kW;
+    QPeaCoo600[1] =  max(QPeaCoo600[1],Case600.building.PCoo)*kW;
+    QPeaCoo600[2] =  max(QPeaCoo600[2],Case610.building.PCoo)*kW;
+    QPeaCoo600[3] =  max(QPeaCoo600[3],Case620.building.PCoo)*kW;
+    QPeaCoo600[4] =  max(QPeaCoo600[4],Case630.building.PCoo)*kW;
+    QPeaCoo600[5] =  max(QPeaCoo600[5],Case640.building.PCoo)*kW;
+    QPeaCoo600[6] =  max(QPeaCoo600[6],Case650.building.PCoo)*kW;
+    QPeaHea900[1] = max(QPeaHea900[1],Case900.building.PHea)*kW;
+    QPeaHea900[2] = max(QPeaHea900[2],Case910.building.PHea)*kW;
+    QPeaHea900[3] = max(QPeaHea900[3],Case920.building.PHea)*kW;
+    QPeaHea900[4] = max(QPeaHea900[4],Case930.building.PHea)*kW;
+    QPeaHea900[5] = max(QPeaHea900[5],Case940.building.PHea)*kW;
+    QPeaHea900[6] = max(QPeaHea900[6],Case950.building.PHea)*kW;
+    QPeaCoo900[1] =  max(QPeaCoo900[1],Case900.building.PCoo)*kW;
+    QPeaCoo900[2] =  max(QPeaCoo900[2],Case910.building.PCoo)*kW;
+    QPeaCoo900[3] =  max(QPeaCoo900[3],Case920.building.PCoo)*kW;
+    QPeaCoo900[4] =  max(QPeaCoo900[4],Case930.building.PCoo)*kW;
+    QPeaCoo900[5] =  max(QPeaCoo900[5],Case940.building.PCoo)*kW;
+    QPeaCoo900[6] =  max(QPeaCoo900[6],Case950.building.PCoo)*kW;
 
     Tmax[1]=max(Tmax[1], Case600FF.building.gF.TSensor);
     Tmax[2]=max(Tmax[2], Case650FF.building.gF.TSensor);
@@ -138,9 +138,9 @@ equation
 
   annotation (
     experiment(
-      StopTime=3.1536e+007,
-      Interval=3600,
-      Tolerance=1e-007),
+      StopTime=3.1536e+07,
+      __Dymola_NumberOfIntervals=5000,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput,
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics={Text(
