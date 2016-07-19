@@ -3,13 +3,13 @@ model Case200
   Modelica.SIunits.Temperature TAir = building.TSensor[1];
 
   extends IDEAS.Buildings.Validation.Interfaces.BesTestCase(
-    redeclare IDEAS.Buildings.Validation.BaseClasses.Structure.Bui200 building,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.None occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Bangbang
+    redeclare replaceable IDEAS.Buildings.Validation.BaseClasses.Structure.Bui200 building,
+    redeclare replaceable IDEAS.Buildings.Validation.BaseClasses.Occupant.None occupant,
+    redeclare replaceable IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Bangbang
       heatingSystem(VZones=building.VZones),
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
+    redeclare replaceable IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
       ventilationSystem,
-    redeclare IDEAS.Templates.Interfaces.BaseClasses.CausalInhomeFeeder
+    redeclare replaceable IDEAS.Templates.Interfaces.BaseClasses.CausalInhomeFeeder
       inHomeGrid);
 
 end Case200;
