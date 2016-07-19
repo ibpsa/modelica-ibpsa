@@ -3,7 +3,6 @@ model BuildingShade
   "Component for modeling shade cast by distant objects such as buildings and treelines"
   extends IDEAS.Buildings.Components.Shading.Interfaces.PartialShading(
                                                              final controlled=false);
-
   parameter Modelica.SIunits.Length L "Horizontal distance to object";
   parameter Modelica.SIunits.Length dh
     "Height difference between top of object and top of window";
