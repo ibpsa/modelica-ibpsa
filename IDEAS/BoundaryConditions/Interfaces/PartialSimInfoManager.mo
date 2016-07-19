@@ -6,8 +6,9 @@ partial model PartialSimInfoManager
   parameter String filNam = "Uccle.TMY" "Name of weather data file"
     annotation(Dialog(enable=useTmy3Reader));
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") = 0.88749992463912
-    "latitude of the locatioin";
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg") = 0.075921822461753;
+    "Latitude of the location";
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg") = 0.075921822461753
+    "Longitude of the location";
   parameter Modelica.SIunits.Time timZonSta(displayUnit="h") = 3600
     "standard time zone";
   parameter Integer numAzi=4 "Number of azimuth angles that are calculated"
