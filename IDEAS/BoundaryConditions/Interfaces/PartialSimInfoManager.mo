@@ -42,7 +42,8 @@ partial model PartialSimInfoManager
   parameter Boolean DST = false
     "boolean to take into account daylight saving time"
     annotation(Dialog(tab="Advanced"));
-
+  parameter Modelica.SIunits.Temperature Tenv_nom= 280
+    "Nominal ambient temperature, only used when linearising equations";
 
   Modelica.SIunits.Irradiance solDirPer
     "direct irradiation on normal to solar zenith";
@@ -174,7 +175,8 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a Qgai
     "Thermal gains in model"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  IDEAS.Buildings.Components.BaseClasses.EnergyPort E "Model internal energy"
+  IDEAS.Buildings.Components.BaseClasses.ConservationOfEnergy.EnergyPort E
+    "Model internal energy"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
   Modelica.Blocks.Sources.RealExpression CEnv(y=0)

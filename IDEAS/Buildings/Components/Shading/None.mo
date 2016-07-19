@@ -1,6 +1,7 @@
 within IDEAS.Buildings.Components.Shading;
 model None "No solar shadeing"
-  extends IDEAS.Buildings.Components.Interfaces.StateShading(final controlled=false);
+  extends IDEAS.Buildings.Components.Shading.Interfaces.PartialShading(
+                                                             final controlled=false);
 
 equation
   connect(solDir, iSolDir) annotation (Line(
