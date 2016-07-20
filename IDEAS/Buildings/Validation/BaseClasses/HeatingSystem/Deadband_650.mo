@@ -14,9 +14,9 @@ protected
 equation
   for i in 1:nZones loop
     if Theat > TSensor[i] then
-      heatPortCon[i].Q_flow = -1*C[i]*(Theat - TSensor[i]);
+      heatPortCon[i].Q_flow = -0.1*C[i]*(Theat - TSensor[i]);
     elseif Tcool < TSensor[i] then
-      heatPortCon[i].Q_flow = -1*C[i]*(Tcool - TSensor[i]);
+      heatPortCon[i].Q_flow = -0.1*C[i]*(Tcool - TSensor[i]);
     else
       heatPortCon[i].Q_flow = 0;
     end if;
