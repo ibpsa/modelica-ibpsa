@@ -141,7 +141,7 @@ equation
       StopTime=3.1536e+07,
       __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Lsodar"),
-    __Dymola_experimentSetupOutput,
+    __Dymola_experimentSetupOutput(events=false),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics={Text(
           extent={{-78,68},{-40,60}},
