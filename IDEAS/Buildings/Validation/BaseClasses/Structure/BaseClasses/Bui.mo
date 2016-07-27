@@ -12,7 +12,8 @@ model Bui "Base model"
     corrCV=0.822,
     T_start=293.15,
     redeclare package Medium = Medium,
-    nSurf=6)    annotation (Placement(transformation(extent={{40,0},{80,40}})));
+    nSurf=6,
+    hZone=2.7)  annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
