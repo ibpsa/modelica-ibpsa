@@ -1,8 +1,9 @@
 within IDEAS.Buildings.Validation.BaseClasses.Structure;
 model Bui600 "BESTEST Building model case 600"
 
-  extends IDEAS.Buildings.Validation.BaseClasses.Structure.BaseClasses.Bui(gF(nSurf=
-          8));
+  extends IDEAS.Buildings.Validation.BaseClasses.Structure.BaseClasses.Bui(
+    wall(AWall={21.6,16.2,9.6,16.2}),
+    gF(nSurf=8));
 
   IDEAS.Buildings.Components.Window[2] win(
     final A={6,6},
