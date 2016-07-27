@@ -215,10 +215,16 @@ This model generates the results in the figures below.
 Reference results are from http://simulationresearch.lbl.gov/dirpubs/epl_bestest_ash.pdf.
 </p>
 <p>
+Case 600 series results:<br>
 <img src=\"modelica://IDEAS/Resources/Images/BESTEST/case600.png\"/>
 </p>
 <p>
+Case 900 series results:<br>
 <img src=\"modelica://IDEAS/Resources/Images/BESTEST/case900.png\"/>
+</p>
+<p>
+Free floating temperature results:<br>
+<img src=\"modelica://IDEAS/Resources/Images/BESTEST/T_FF.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
