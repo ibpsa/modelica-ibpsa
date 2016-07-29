@@ -265,12 +265,8 @@ block Extractor
           origin={0,-120},
           extent={{-20,-20},{20,20}},
           rotation=90)));
-algorithm
-    for i in 1:nin loop
-      if index == i then
-        y:=u[i];
-      end if;
-    end for;
+equation
+  y = sum({if index == i then u[i] else 0 for i in 1:nin});
   annotation (Icon(coordinateSystem(
           preserveAspectRatio=true,
           extent={{-100,-100},{100,100}}), graphics={
@@ -371,6 +367,7 @@ initial equation
              are correct or add the pressure curve of the mover.
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
+
 
 
 
