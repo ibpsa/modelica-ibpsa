@@ -151,9 +151,11 @@ protected
       inputType == Annex60.Fluid.Types.InputType.Constant
     "Constant input set point"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+
   Extractor extractor(final nin=size(stageInputs,1)) if
       inputType == Annex60.Fluid.Types.InputType.Stages "Stage input extractor"
     annotation (Placement(transformation(extent={{-50,60},{-30,40}})));
+
   Modelica.Blocks.Routing.RealPassThrough inputSwitch
     "Dummy connection for easy connection of input options"
     annotation (
@@ -255,21 +257,22 @@ protected
     r_V(start=m_flow_nominal/rho_default),
     final preVar=preVar) "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
-block Extractor
-  "Extract scalar signal out of signal vector dependent on IntegerRealInput index"
 
-  extends Modelica.Blocks.Interfaces.MISO;
+protected
+  block Extractor
+    "Extract scalar signal out of signal vector dependent on IntegerRealInput index"
+    extends Modelica.Blocks.Interfaces.MISO;
 
-  Modelica.Blocks.Interfaces.IntegerInput index             annotation (Placement(
+    Modelica.Blocks.Interfaces.IntegerInput index "Integer input for control input"
+    annotation (Placement(
           transformation(
           origin={0,-120},
           extent={{-20,-20},{20,20}},
           rotation=90)));
-equation
+  equation
   y = sum({if index == i then u[i] else 0 for i in 1:nin});
-  annotation (Icon(coordinateSystem(
-          preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}), graphics={
+
+  annotation (Icon(graphics={
           Rectangle(
             extent={{-80,50},{-40,-50}},
             lineColor={0,0,127},
@@ -333,7 +336,8 @@ equation
             lineColor={255,128,0},
             fillColor={255,128,0},
             fillPattern=FillPattern.Solid)}));
-end Extractor;
+  end Extractor;
+
 initial equation
   // The control signal is dp or m_flow but the user did not provide a pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
@@ -367,10 +371,6 @@ initial equation
              are correct or add the pressure curve of the mover.
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
-
-
-
-
 
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
@@ -528,6 +528,11 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+July 29, 2016, by Michael Wetter:<br/>
+Made <code>Extractor</code> protected so that it can be removed later
+with a backwards compatible change.
+</li>
 <li>
 July 19, 2016, by Filip Jorissen:<br/>
 Created custom implementation for extractor.
