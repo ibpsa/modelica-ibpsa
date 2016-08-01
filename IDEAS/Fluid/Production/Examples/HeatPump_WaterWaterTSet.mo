@@ -24,7 +24,8 @@ model HeatPump_WaterWaterTSet
       heatPumpData,
     use_modulation_security=false,
     deltaT_security=5,
-    use_modulationSignal=true)
+    use_modulationSignal=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-2,0})));
@@ -33,7 +34,9 @@ model HeatPump_WaterWaterTSet
     redeclare package Medium = Medium,
     tau=30,
     m_flow_nominal=4200/3600,
-    inputType=IDEAS.Fluid.Types.InputType.Constant)
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    filteredSpeed=false)
     annotation (Placement(transformation(extent={{-52,8},{-32,28}})));
   Sensors.TemperatureTwoPort TBrine_out(redeclare package Medium = Medium,
       m_flow_nominal=4200/3600)
@@ -44,7 +47,9 @@ model HeatPump_WaterWaterTSet
     tau=30,
     m_flow_nominal=2550/3600,
     inputType=IDEAS.Fluid.Types.InputType.Constant,
-    dp_nominal=50000)
+    dp_nominal=50000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    filteredSpeed=false)
     annotation (Placement(transformation(extent={{48,-28},{28,-8}})));
   Sensors.TemperatureTwoPort TWater_out(redeclare package Medium = Medium,
       m_flow_nominal=2550/3600)
