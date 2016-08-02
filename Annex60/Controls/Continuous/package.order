@@ -1,5 +1,4 @@
 LimPID
-IntegratorWithReset
 NumberOfRequests
 OffTimer
 PIDHysteresis
