@@ -71,16 +71,12 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     withLongwave=true,
     aExt=0.7,
     alphaWallOut=20,
-    alphaRadWall=5,
+    alphaRad=5,
     alphaWinOut=20,
-    alphaRadWin=5,
-    aWin=0.03,
-    eExt=0.9,
     n=2,
     wfWall={0.3043478260869566,0.6956521739130435},
     wfWin={0.5,0.5},
-    TGro=285.15,
-    eWin=0.9) "Computes equivalent air temperature"
+    TGro=285.15) "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[2]
     "Sums up solar radiation of both directions"
@@ -141,13 +137,12 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     rotation=180,origin={84,-22})));
   EquivalentAirTemperature.VDI6007 eqAirTempVDI(
     aExt=0.7,
-    eExt=0.9,
     n=1,
     wfWall={1},
     wfWin={0},
     wfGro=0,
     alphaWallOut=20,
-    alphaRadWall=5,
+    alphaRad=5,
     TGro=285.15) "Computes equivalent air temperature for roof"
     annotation (Placement(transformation(extent={{30,74},{50,94}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTemRoof

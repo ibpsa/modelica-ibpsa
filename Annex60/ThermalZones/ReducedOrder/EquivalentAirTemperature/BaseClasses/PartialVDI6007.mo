@@ -4,8 +4,6 @@ partial model PartialVDI6007
 
   parameter Modelica.SIunits.Emissivity aExt
     "Coefficient of absorption of exterior walls (outdoor)";
-  parameter Modelica.SIunits.Emissivity eExt
-    "Coefficient of emission of exterior walls (outdoor)";
   parameter Integer n "Number of orientations (without ground)";
   parameter Real wfWall[n](each final unit="1") "Weight factors of the walls";
   parameter Real wfWin[n](each final unit="1") "Weight factors of the windows";
@@ -15,8 +13,8 @@ partial model PartialVDI6007
     "Temperature of the ground in contact with floor plate";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWallOut
     "Exterior walls convective coefficient of heat transfer (outdoor)";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRadWall
-    "Coefficient of heat transfer for linearized radiation for exterior walls";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
+    "Coefficient of heat transfer for linearized radiation";
   parameter Boolean withLongwave=true
     "Set to true to include longwave radiation exchange"
     annotation(choices(checkBox = true));
@@ -25,6 +23,8 @@ partial model PartialVDI6007
   Modelica.SIunits.Temperature TEqWin[n] "Equivalent window temperature";
   Modelica.SIunits.TemperatureDifference delTEqLW
     "Equivalent long wave temperature";
+  Modelica.SIunits.TemperatureDifference delTEqLWWin
+    "Equivalent long wave temperature for windows";
   Modelica.SIunits.TemperatureDifference delTEqSW[n]
     "Equivalent short wave temperature";
 
@@ -65,6 +65,18 @@ initial equation
    equivalent air temperature calculation is close to 0.
    If there are no walls, windows and ground at all, this might be
    irrelevant.", level=AssertionLevel.warning);
+
+equation
+  delTEqLW=(TBlaSky-TDryBul)*alphaRad/(alphaRad+alphaWallOut);
+  delTEqSW=HSol*aExt/(alphaRad+alphaWallOut);
+  if withLongwave then
+    TEqWin=TDryBul.+delTEqLWWin*abs(sunblind.-1);
+    TEqWall=TDryBul.+delTEqLW.+delTEqSW;
+  else
+    TEqWin=TDryBul*ones(n);
+    TEqWall=TDryBul.+delTEqSW;
+  end if;
+
   annotation (  Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-100,-100},{100,100}}),
   graphics={
