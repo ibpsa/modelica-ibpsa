@@ -28,12 +28,25 @@ T<sub>EqAirExt</sub> = T
 </p>
 <p>
 The correction term for long-wave radiation is based on the black body sky
-temperature and dry bulb temperature,</p>
+temperature and dry bulb temperature.</p>
 <p align=\"center\" style=\"font-style:italic;\">
 &Delta;T<sub>EqLW</sub> =
 (T<sub>BlaSky</sub>-T<sub>DryBul</sub>)
-&epsilon;<sub>Ext </sub>&alpha;<sub>Rad</sub>/
+&alpha;<sub>Rad</sub>/
 (&alpha;<sub>Rad</sub>+&alpha;<sub>Ext</sub>).
+</p>
+<p>
+The Guideline VDI 6007 Part 1 considers in 
+addition an environmental temperature and tilt angles for all orientations. As 
+necessary inputs for the environmental temperature are not defined in TMY weather 
+data sets, the influence of this temperature is not considered in the presented 
+models. It is in any case a minor effect as black-body sky temperature and 
+environmental temperature hardly differ. Furthermore, the Guideline VDI 6007 Part 
+1 calculates the correction term for each orientation seperately with individual
+radiative and convective coefficients of heat transfer. In the presented models, 
+the user can define only one radiative and one convective coefficient of heat 
+transfer. When using area-weighted coefficients, the impact is of minor 
+importance for typical values.
 </p>
 <p>If a sunblind is present, the current status (closed = 1 and open = 0) is
 considered by multiplying the long-wave correction terms for windows with the
