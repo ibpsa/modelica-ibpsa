@@ -128,4 +128,41 @@ equation
   minute = (unixTimeStamp-daysSinceEpoch*3600*24-hour*3600)/60;
   day = integer(1+floor((unixTimeStamp-epochLastMonth)/3600/24));
 
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+August 3, 2016, by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<p>
+This blocks computes the unix time stamp, date and time 
+and the day of the week based on the Modelica
+variables <code>time</code>.
+Parameters need to be provided such that these computations are done correctly.
+The block currently contains support for the calendar of 2010 up to 2020.
+Day light saving time is currently not supported.
+</p>
+<h4>Main equations</h4>
+<p>
+First the unix time stamp corresponding to the current time is computed.
+From this variables the corresponding, year, date and time are computed using functions
+such as <code>floor()</code>, <code>ceil()</code> etc.
+</p>
+<h4>Assumption and limitations</h4>
+<p>
+The implementation currently only supports simulations from year 2010 up to 2020.
+Day light saving and time zones are currently not supported.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+The user must define which time and date correspond to <code>time = 0</code>
+using the model parameters.
+The user can choose from new year, midnight from a number of years, or define a custom date and time.
+</p>
+<h4>Implementation</h4>
+<p>
+The model was implemented such that no events are being generated for computing what minute of the day it is.
+</p>
+"));
 end CalendarTime;

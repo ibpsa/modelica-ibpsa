@@ -14,10 +14,13 @@ type TimeReference = enumeration(
   "Use this to set date corresponding to time = 0"
   annotation (Documentation(info="<html>
 <p>
-This type may be used to indicate to Modelica what it means if <code>time = 0</code>. 
-I.e. this may mean that it is new year 2015, 
-or that it is new year 1970 (corresponding to unix time stamp = 0). 
-This reference is required when a data file does not start on new years day, 
-or when the user needs to know what day of the week it is. 
+Type for choosing how to set the reference time in the CalendarTime block.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 3, 2016, by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));

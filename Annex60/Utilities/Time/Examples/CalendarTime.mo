@@ -26,5 +26,17 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Utilities/Time/Examples/CalendarTime.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+August 3, 2016, by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model demonstrates the use of the CalendarTime block.
+</p>
+</html>"));
 end CalendarTime;
