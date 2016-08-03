@@ -27,34 +27,43 @@ model CalendarTime
   Modelica.Blocks.Interfaces.RealOutput unixTimeStamp
     "Unix time stamp at GMT+0"
         annotation (Placement(transformation(extent={{96,-70},{116,-50}})));
-  Modelica.Blocks.Interfaces.IntegerOutput weekDayInt
-    "Integer output representing week day (monday = 1, sunday = 7)"
-    annotation (Placement(transformation(extent={{96,-30},{116,-10}})));
-  Modelica.Blocks.Interfaces.IntegerOutput day "Day of the month"
-    annotation (Placement(transformation(extent={{96,30},{116,50}})));
-  discrete Modelica.Blocks.Interfaces.IntegerOutput month "Month of the year"
-    annotation (Placement(transformation(extent={{96,10},{116,30}})));
   discrete Modelica.Blocks.Interfaces.IntegerOutput year "Year"
     annotation (Placement(transformation(extent={{96,-10},{116,10}})));
+  discrete Modelica.Blocks.Interfaces.IntegerOutput month "Month of the year"
+    annotation (Placement(transformation(extent={{96,10},{116,30}})));
+  Modelica.Blocks.Interfaces.IntegerOutput day "Day of the month"
+    annotation (Placement(transformation(extent={{96,30},{116,50}})));
   Modelica.Blocks.Interfaces.IntegerOutput hour "Hour of the day"
     annotation (Placement(transformation(extent={{96,50},{116,70}})));
   Modelica.Blocks.Interfaces.RealOutput minute "Minute of the hour"
     annotation (Placement(transformation(extent={{96,70},{116,90}})));
+  Modelica.Blocks.Interfaces.IntegerOutput weekDayInt
+    "Integer output representing week day (monday = 1, sunday = 7)"
+    annotation (Placement(transformation(extent={{96,-30},{116,-10}})));
 
 protected
   parameter Modelica.SIunits.Time timOff(fixed=false) "Time offset";
-  constant Integer firstYear = 2010;
+  constant Integer firstYear = 2010
+    "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
   constant Real timeStampsNewYear[12] = {1262304000, 1293840000, 1325376000, 1356998400, 1388534400, 1420070400, 1451606400, 1483228800, 1514764800, 1546300800, 1577836800, 1609459200}
     "Epoch time stamps for new years day 2010 to 2021";
-  constant Boolean isLeapYear[11] = {false, false, true, false, false, false, true, false, false, false, true}  "List of leap years starting from firstYear (2010), up to 2020";
-  constant Integer dayInMonth[12] = {31, 28, 31, 30, 31,30, 31,31, 30, 31, 30, 31} "Number of days in month";
-  Integer daysSinceEpoch "Number of days that passed since 1st of january 1970";
-  discrete Integer yearIndex;
-  discrete Real epochLastMonth;
+  constant Boolean isLeapYear[11] = {false, false, true, false, false, false, true, false, false, false, true}
+    "List of leap years starting from firstYear (2010), up to 2020";
+  constant Integer dayInMonth[12] = {31, 28, 31, 30, 31,30, 31,31, 30, 31, 30, 31}
+    "Number of days in each month";
+  Integer daysSinceEpoch
+    "Number of days that passed since 1st of january 1970";
+  discrete Integer yearIndex
+    "Index of the current year in timeStampsNewYear";
+  discrete Real epochLastMonth
+    "Unix time stamp of the beginning of the current month";
 initial equation
-  assert(dayInMonth[monthRef] + (if monthRef==2 and isLeapYear[yearRef-firstYear + 1] then 1 else 0) >=dayRef, "The day number you chose is larger than the number of days contained by the month you chose!");
+  assert(dayInMonth[monthRef] + (if monthRef==2 and isLeapYear[yearRef-firstYear + 1] then 1 else 0) >=dayRef,
+    "The day number you chose is larger than the number of days contained by the month you chose!");
 
+// compute the offset to be added to time based on the parameters specified by the user
 initial algorithm
+
     if timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.UnixTimeStamp then
       timOff :=0;
     elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2010 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2010 then
@@ -75,6 +84,10 @@ initial algorithm
       timOff :=timeStampsNewYear[8];
     elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2018 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2018 then
       timOff :=timeStampsNewYear[9];
+    elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2018 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2019 then
+      timOff :=timeStampsNewYear[10];
+    elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2018 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2020 then
+      timOff :=timeStampsNewYear[11];
     else
       timOff :=0;
       assert(false, "No valid TimeReference was specified!");
@@ -86,7 +99,9 @@ initial algorithm
       3600*hourRef + 60*minuteRef + secondRef;
     end if;
 
+
 initial algorithm
+  // iterate to find the year at initialisation
   year :=0;
   for i in 1:size(timeStampsNewYear,1) loop
     if unixTimeStamp < timeStampsNewYear[i] then
@@ -97,6 +112,7 @@ initial algorithm
   end for;
   assert(not year == 0, "Could not identify starting year");
 
+  // iterate to find the month at initialisation
   epochLastMonth := timeStampsNewYear[yearIndex];
   for i in 1:12 loop
     if (unixTimeStamp-epochLastMonth)/3600/24 <  (if i==2 and isLeapYear[yearIndex] then 1 + dayInMonth[i] else dayInMonth[i]) then
@@ -109,24 +125,28 @@ initial algorithm
   end for;
 
 equation
+  // compute unix time step based on found offset
+  unixTimeStamp = time + timOff;
 
+  // update the year when passing the epoch time stamp of the next year
   when (unixTimeStamp > timeStampsNewYear[pre(yearIndex)+1]) then
     yearIndex=pre(yearIndex)+1;
     assert(yearIndex<=size(timeStampsNewYear,1), "Overflow of epoch buffer: timeStampsNewYear needs to be extended beyond the year " + String(firstYear+size(timeStampsNewYear,1)));
     year = pre(year) + 1;
   end when;
+  // update the month when passing the last day of the current month
   when unixTimeStamp - pre(epochLastMonth) > (if pre(month)==2 and isLeapYear[yearIndex] then 1 + dayInMonth[pre(month)] else dayInMonth[pre(month)])*3600*24 then
     month = if pre(month) == 12 then 1 else pre(month) + 1;
     epochLastMonth = pre(epochLastMonth) + (if pre(month)==2 and isLeapYear[yearIndex] then 1 + dayInMonth[pre(month)] else dayInMonth[pre(month)])*3600*24;
   end when;
 
-  unixTimeStamp = time + timOff;
+  // compute other variables that can be computed without generating when() statements
   daysSinceEpoch = integer(floor(unixTimeStamp/3600/24));
   weekDayInt=rem(4+daysSinceEpoch-1,7)+1;
+  day = integer(1+floor((unixTimeStamp-epochLastMonth)/3600/24));
   hour = integer(floor(rem(unixTimeStamp,3600*24)/3600));
   // using Real variables and operations for minutes since otherwise too many events are generated
-  minute = (unixTimeStamp-daysSinceEpoch*3600*24-hour*3600)/60;
-  day = integer(1+floor((unixTimeStamp-epochLastMonth)/3600/24));
+  minute = (unixTimeStamp-daysSinceEpoch*60*24-hour*60);
 
   annotation (Documentation(revisions="<html>
 <ul>

@@ -10,7 +10,9 @@ type TimeReference = enumeration(
     NY2015 "New year 2015, 00:00:00 GMT",
     NY2016 "New year 2016, 00:00:00 GMT",
     NY2017 "New year 2017, 00:00:00 GMT",
-    NY2018 "New year 2018, 00:00:00 GMT")
+    NY2018 "New year 2018, 00:00:00 GMT",
+    NY2019 "New year 2019, 00:00:00 GMT",
+    NY2020 "New year 2020, 00:00:00 GMT")
   "Use this to set date corresponding to time = 0"
   annotation (Documentation(info="<html>
 <p>
