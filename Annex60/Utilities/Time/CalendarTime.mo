@@ -5,22 +5,22 @@ model CalendarTime
   parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef;
   parameter Integer yearRef(min=firstYear, max=2018) = 2016
     "Year when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom));
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
   parameter Integer monthRef(min=1, max=12) = 1
     "Month when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom));
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
   parameter Integer dayRef(min=1, max=31) = 1
     "Day when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom));
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
   parameter Integer hourRef(min=0, max=23) = 0
     "Hour when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom));
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
   parameter Integer minuteRef(min=0, max=59) = 0
     "Minute when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom));
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
   parameter Integer secondRef(min=0, max=59) = 0
     "Second when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom));
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
 
   Modelica.Blocks.Interfaces.RealInput tim "Simulation time"
     annotation (Placement(transformation(extent={{-126,-20},{-86,20}})));
@@ -64,36 +64,36 @@ initial equation
 // compute the offset to be added to time based on the parameters specified by the user
 initial algorithm
 
-    if timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.UnixTimeStamp then
+    if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.UnixTimeStamp then
       timOff :=0;
-    elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2010 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2010 then
+    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2010 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2010 then
       timOff :=timeStampsNewYear[1];
-    elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2011 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2011 then
+    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2011 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2011 then
       timOff :=timeStampsNewYear[2];
-    elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2012 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2012 then
+    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2012 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2012 then
       timOff :=timeStampsNewYear[3];
-    elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2013 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2013 then
+    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2013 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2013 then
       timOff :=timeStampsNewYear[4];
-    elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2014 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2014 then
+    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2014 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2014 then
       timOff :=timeStampsNewYear[5];
-    elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2015 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2015 then
+    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2015 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2015 then
       timOff :=timeStampsNewYear[6];
-    elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2016 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2016 then
+    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2016 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2016 then
       timOff :=timeStampsNewYear[7];
-    elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2017 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2017 then
+    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2017 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2017 then
       timOff :=timeStampsNewYear[8];
-    elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2018 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2018 then
+    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2018 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2018 then
       timOff :=timeStampsNewYear[9];
-    elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2018 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2019 then
+    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2018 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2019 then
       timOff :=timeStampsNewYear[10];
-    elseif timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2018 or timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom and yearRef == 2020 then
+    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2018 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2020 then
       timOff :=timeStampsNewYear[11];
     else
       timOff :=0;
       assert(false, "No valid TimeReference was specified!");
     end if;
 
-    if timRef == Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.Custom then
+    if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom then
       timOff :=timOff + ((dayRef - 1) + sum({dayInMonth[i] for i in 1:(monthRef - 1)})
        + (if monthRef > 2 and isLeapYear[yearRef - firstYear + 1] then 1 else 0))*3600*24 +
       3600*hourRef + 60*minuteRef + secondRef;
