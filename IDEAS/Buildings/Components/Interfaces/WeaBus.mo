@@ -6,6 +6,10 @@ expandable connector WeaBus "Data bus that stores weather data"
   Modelica.SIunits.Temperature Te "Ambient sensible temperature" annotation ();
   Modelica.SIunits.Temperature Tdes "Design temperature?" annotation ();
   Real hConExt "Exterior convective heat transfer coefficient" annotation ();
+  Real X_wEnv(start=0.01) "Environment air water mass fraction"
+                                annotation ();
+  Real CEnv(start=1e-6) "Environment air trace substance mass fraction"
+                                annotation ();
   annotation (
     defaultComponentName="weaBus",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

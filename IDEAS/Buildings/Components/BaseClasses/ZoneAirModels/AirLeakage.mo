@@ -93,10 +93,10 @@ equation
 
   connect(reaExpX_air.y, bou.X_in[2])
     annotation (Line(points={{-19,66},{14,66},{14,42}}, color={0,0,127}));
-
+  if Medium.nC>0 then
   connect(bou.C_in[1], weaBus.CEnv)
     annotation (Line(points={{18,42},{18,86},{-40,86}}, color={0,0,127}));
-
+  end if;
   connect(reaPasThr.u, weaBus.X_wEnv)
     annotation (Line(points={{14,80},{14,86},{-40,86}}, color={0,0,127}));
   connect(reaPasThr.y, bou.X_in[1]) annotation (Line(points={{14,57},{14,57},{14,
