@@ -19,7 +19,8 @@ expandable connector ZoneBus
     annotation(HideResult=true);
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b Qgai if computeConservationOfEnergy
     "Heat gains in model" annotation ();
-  IDEAS.Buildings.Components.BaseClasses.EnergyPort E if  computeConservationOfEnergy
+  IDEAS.Buildings.Components.BaseClasses.ConservationOfEnergy.EnergyPort E if
+                                                          computeConservationOfEnergy
     "Internal energy in model" annotation ();
   Modelica.SIunits.Angle inc annotation ();
   Modelica.SIunits.Angle azi annotation ();

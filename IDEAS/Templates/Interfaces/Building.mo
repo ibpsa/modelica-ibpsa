@@ -27,8 +27,8 @@ model Building
     final nEmbPorts=building.nEmb,
     final InInterface=InInterface,
     final Q_design=Q_design) "Thermal building heating system" annotation (
-      Placement(transformation(extent={{-20,-10},{20,10}})), choicesAllMatching
-      =true);
+      Placement(transformation(extent={{-20,-10},{20,10}})), choicesAllMatching=
+       true);
   replaceable IDEAS.Templates.Interfaces.BaseClasses.Occupant occupant
     constrainedby IDEAS.Templates.Interfaces.BaseClasses.Occupant(nZones=
         building.nZones) "Building occupant" annotation (Placement(
@@ -36,8 +36,8 @@ model Building
   replaceable IDEAS.Templates.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid
     constrainedby IDEAS.Templates.Interfaces.BaseClasses.CausalInhomeFeeder
     "Inhome low-voltage electricity grid system" annotation (Placement(
-        transformation(extent={{32,-10},{52,10}})), __Dymola_choicesAllMatching
-      =true);
+        transformation(extent={{32,-10},{52,10}})), __Dymola_choicesAllMatching=
+       true);
 
   replaceable IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem ventilationSystem
     constrainedby IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem(
@@ -67,7 +67,8 @@ model Building
     if                                           isDH
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
   final parameter Boolean InInterface = true;
-
+initial equation
+   voltageSource.pin_n.reference.gamma=0;
 equation
   connect(heatingSystem.TSet, occupant.TSet) annotation (Line(
       points={{0,-10.2},{0,-30}},

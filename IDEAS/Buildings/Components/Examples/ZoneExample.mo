@@ -80,7 +80,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(commonWall1.propsBus_a, zone.propsBus[2]) annotation (Line(
-      points={{9,-33},{6,-33},{6,-5.5},{20,-5.5}},
+      points={{9,-33.8333},{6,-33.8333},{6,-5.5},{20,-5.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -104,7 +104,7 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(commonWall1.propsBus_b, zone1.propsBus[1]) annotation (Line(
-      points={{7,-43},{6.5,-43},{6.5,-55},{20,-55}},
+      points={{9,-42.1667},{6.5,-42.1667},{6.5,-55},{20,-55}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -113,7 +113,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), __Dymola_Commands(file=
+            -100},{100,100}})),           __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Components/Examples/ZoneExample.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

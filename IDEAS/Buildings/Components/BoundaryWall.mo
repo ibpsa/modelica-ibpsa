@@ -19,29 +19,29 @@ model BoundaryWall "Opaque wall with boundary conditions"
             -30},{-94,-10}})));
 
 protected
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow(final
-      alpha=0) if                                                                use_Q_in
+  final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/8)
+    "Wall U-value";
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow(
+     final alpha=0) if use_Q_in
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature if use_T_in
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/8)
-    "Wall U-value";
+
 
 equation
   if use_Q_in then
-  connect(Q_flow, prescribedHeatFlow.Q_flow) annotation (Line(
+    connect(Q_flow, prescribedHeatFlow.Q_flow) annotation (Line(
       points={{-104,-20},{-60,-20}},
       color={0,0,127},
       smooth=Smooth.None));
-
   end if;
+
   if use_T_in then
-  connect(T, prescribedTemperature.T) annotation (Line(
+    connect(T, prescribedTemperature.T) annotation (Line(
       points={{-104,20},{-62,20}},
       color={0,0,127},
       smooth=Smooth.None));
-
   end if;
 
   connect(layMul.port_b, prescribedHeatFlow.port) annotation (Line(points={{-10,0},

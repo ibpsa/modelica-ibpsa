@@ -10,13 +10,17 @@ model structure "Example detailed building structure model"
 
   //Definition of the thermal zones
   Components.Zone gF(V=216.0, nSurf=8,
-    redeclare package Medium = Medium) "second floor (sF) with sleeping area"
+    redeclare package Medium = Medium,
+    airModel(massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)) "second floor (sF) with sleeping area"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Components.Zone fF(V=216.0, nSurf=8,
-    redeclare package Medium = Medium) "second floor (sF) with sleeping area"
+    redeclare package Medium = Medium,
+    airModel(massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)) "second floor (sF) with sleeping area"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Components.Zone sF(V=216.0, nSurf=8,
-    redeclare package Medium = Medium) "second floor (sF) with sleeping area"
+    redeclare package Medium = Medium,
+    airModel(massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial))
+                                       "second floor (sF) with sleeping area"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   //Definition of the building envelope for gF
   Components.OuterWall[3] gF_ext(

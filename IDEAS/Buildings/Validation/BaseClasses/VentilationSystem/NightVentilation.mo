@@ -3,7 +3,7 @@ model NightVentilation "BESTEST nightventilation system"
   extends IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem(final nLoads=1);
 
 protected
-  IDEAS.Occupants.Components.Schedule occ(occupancy=3600*{7,18},
+  IDEAS.BoundaryConditions.Occupants.Components.Schedule occ(occupancy=3600*{7,18},
       firstEntryOccupied=true) "Occupancy shedule";
   final parameter Real corrCV=0.822
     "Air density correction for BESTEST at high altitude";

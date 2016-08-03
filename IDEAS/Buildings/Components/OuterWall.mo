@@ -1,6 +1,5 @@
 within IDEAS.Buildings.Components;
 model OuterWall "Opaque building envelope construction"
-
    extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
      dT_nominal_a=-3,
      QTra_design(fixed=false));
@@ -11,15 +10,16 @@ model OuterWall "Opaque building envelope construction"
     "Total solar irradiance";
 
 protected
-  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(
-    final A=AWall)
+  IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.ExteriorConvection
+    extCon(final A=AWall)
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-22,-28},{-42,-8}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs
+  IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorSolarAbsorption
+    solAbs
     "determination of absorbed solar radiation by wall based on incident radiation"
     annotation (Placement(transformation(extent={{-22,-8},{-42,12}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation extRad(
-    final A=AWall)
+  IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorHeatRadiation
+    extRad(final A=AWall)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-22,12},{-42,32}})));
   Modelica.Blocks.Math.Gain gainDir(k=AWall)

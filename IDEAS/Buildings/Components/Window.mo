@@ -23,16 +23,20 @@ model Window "Multipane window"
       dT_nom_air=5,
       linIntCon=true));
 
-   parameter Modelica.SIunits.Area A "Total window and windowframe area";
-
-   parameter Real frac(
+  parameter Modelica.SIunits.Area A "Total window and windowframe area";
+  parameter Real frac(
     min=0,
     max=1) = 0.15 "Area fraction of the window frame";
-
-  // Construction parameters ---------------------------------------------------
+  parameter IDEAS.Buildings.Components.Interfaces.WindowDynamicsType
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two
+    "Type of dynamics for glazing and frame: using zero, one combined or two states"
+    annotation (Dialog(tab="Dynamics"));
+  parameter Real fraC = if windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two and fraType.present then frac else 0
+    "Fraction of thermal mass C that is attributed to frame"
+    annotation(Dialog(tab="Dynamics", enable=windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two));
 
   replaceable IDEAS.Buildings.Components.ThermalBridges.LineLosses briType constrainedby
-    IDEAS.Buildings.Components.Interfaces.ThermalBridge
+    IDEAS.Buildings.Components.ThermalBridges.BaseClasses.ThermalBridge
     "Thermal bridge of window edge" annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
 
@@ -41,7 +45,8 @@ model Window "Multipane window"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
   replaceable IDEAS.Buildings.Components.Shading.None shaType constrainedby
-    Interfaces.StateShading(final azi=azi) "First shading type"  annotation (Placement(transformation(extent={{-50,-60},
+    Shading.Interfaces.PartialShading(
+                            final azi=azi) "First shading type"  annotation (Placement(transformation(extent={{-50,-60},
             {-40,-40}})),
       __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
 
@@ -59,30 +64,22 @@ model Window "Multipane window"
        briType.present "Themal bridge of the window perimeter"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
-  // Numerical model parameters ------------------------------------------------
-
-  parameter IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType
-    windowDynamicsType = IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two
-    "Type of dynamics for glazing and frame: using zero, one combined or two states"
-    annotation(Dialog(tab="Dynamics"));
-  parameter Real fraC = if windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two and fraType.present then frac else 0
-    "Fraction of thermal mass C that is attributed to frame"
-    annotation(Dialog(tab="Dynamics", enable=windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two));
 
 protected
   final parameter Real U_value=glazing.U_value*(1-frac)+fraType.U_value*frac
     "Window U-value";
 
-  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eCon(final A=A*(1
-         - frac))
+  IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.ExteriorConvection
+    eCon(final A=A*(1 - frac))
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,-38},{-40,-18}})));
 
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation skyRad(final A=A
-        *(1 - frac))
+  IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorHeatRadiation
+    skyRad(final A=A*(1 - frac), Tenv_nom=sim.Tenv_nom)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
-  IDEAS.Buildings.Components.BaseClasses.SwWindowResponse solWin(
+  IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.SwWindowResponse
+    solWin(
     final nLay=glazing.nLay,
     final SwAbs=glazing.SwAbs,
     final SwTrans=glazing.SwTrans,
@@ -90,16 +87,19 @@ protected
     final SwAbsDif=glazing.SwAbsDif)
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection iConFra(final A=A*frac,
-      final inc=inc) if fraType.present
+  IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.InteriorConvection
+    iConFra(final A=A*frac, final inc=inc) if
+                        fraType.present
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation skyRadFra(final
-      A=A*frac) if       fraType.present
+  IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorHeatRadiation
+    skyRadFra(final A=A*frac, Tenv_nom=sim.Tenv_nom) if
+                         fraType.present
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,80},{-40,100}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eConFra(final A=A*
-        frac) if fraType.present
+  IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.ExteriorConvection
+    eConFra(final A=A*frac) if
+                 fraType.present
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,60},{-40,80}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(final G=
@@ -118,20 +118,20 @@ protected
     annotation (Placement(transformation(extent={{-70,-34},{-62,-26}})));
   Modelica.Blocks.Math.Gain gainDif(k=A*(1 - frac))
     annotation (Placement(transformation(extent={{-70,-46},{-62,-38}})));
-  Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
-    annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapGla(C=Cgla, T(fixed=true, start=T_start)) if
-                                                                                addCapGla
+  Modelica.Blocks.Routing.RealPassThrough Tdes
+    "Design temperature passthrough since propsBus variables cannot be addressed directly";
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapGla(
+     C=Cgla, T(fixed=true, start=T_start)) if addCapGla
     "Heat capacitor for glazing"
     annotation (Placement(transformation(extent={{6,-12},{26,-32}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapFra(C=Cfra, T(fixed=true, start=T_start)) if
-                                                                                addCapFra
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapFra(
+     C=Cfra, T(fixed=true, start=T_start)) if addCapFra
     "Heat capacitor for frame"
     annotation (Placement(transformation(extent={{6,88},{26,108}})));
 
 protected
-  final parameter Boolean addCapGla =  not windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None;
-  final parameter Boolean addCapFra =  fraType.present and windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two;
+  final parameter Boolean addCapGla =  not windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.None;
+  final parameter Boolean addCapFra =  fraType.present and windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two;
 
   final parameter Modelica.SIunits.HeatCapacity Cgla = layMul.C*(1- fraC)
     "Heat capacity of glazing state";
@@ -166,7 +166,6 @@ equation
       points={{-10,8},{-14,8},{-14,3.4},{-20,3.4}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(shaType.Ctrl, Ctrl) annotation (Line(
       points={{-45,-60},{-50,-60},{-50,-110}},
       color={0,0,127},
@@ -204,7 +203,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
-      points={{-80,-42},{-108,-42},{-108,20},{-28,20},{-28,19.9},{100.1,19.9}},
+      points={{-80,-42},{-80,20},{0,20},{0,19.9},{100.1,19.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -248,11 +247,7 @@ equation
       points={{-20,-37},{100.1,-37},{100.1,19.9}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(Tdes.u, propsBus_a.weaBus.Tdes) annotation (Line(
-      points={{58,80},{100.1,80},{100.1,19.9}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
+  connect(Tdes.u, propsBus_a.weaBus.Tdes);
   connect(shaType.iSolDir, solWin.solDir)
     annotation (Line(points={{-40,-44},{-26,-44},{-10,-44}}, color={0,0,127}));
   connect(shaType.iSolDif, solWin.solDif)
@@ -263,7 +258,7 @@ equation
     annotation (Line(points={{16,-12},{16,0},{10,0}},     color={191,0,0}));
   connect(heaCapFra.port, layFra.port_a)
     annotation (Line(points={{16,88},{16,80},{10,80}}, color={191,0,0}));
-  if windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Combined then
+  if windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Combined then
     connect(heaCapGla.port, layFra.port_a) annotation (Line(points={{16,-12},{16,
             -12},{16,80},{10,80}},  color={191,0,0}));
   end if;

@@ -56,6 +56,11 @@ algorithm
   wattsLaw.Q := -Modelica.ComplexMath.imag(plugToPin_p.plug_p.pin[1].v*
     Modelica.ComplexMath.conj(plugToPin_p.plug_p.pin[1].i));
 
+initial equation
+  // initial state for voltage
+  voltageSource.pin_p.reference.gamma=0;
+
+
 equation
   connect(nodeSingle, plugToPin_p.plug_p) annotation (Line(
       points={{-100,0},{-80,0},{-80,-20},{-80,-20}},
