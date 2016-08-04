@@ -3,7 +3,7 @@ model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
   extends Modelica.Blocks.Icons.Block;
   parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef;
-  parameter Integer yearRef(min=firstYear, max=2018) = 2016
+  parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
     "Year when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
   parameter Integer monthRef(min=1, max=12) = 1
@@ -45,6 +45,7 @@ protected
   parameter Modelica.SIunits.Time timOff(fixed=false) "Time offset";
   constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
+  constant Integer lastYear = firstYear + size(timeStampsNewYear,1) - 1;
   constant Real timeStampsNewYear[12] = {1262304000, 1293840000, 1325376000, 1356998400, 1388534400, 1420070400, 1451606400, 1483228800, 1514764800, 1546300800, 1577836800, 1609459200}
     "Epoch time stamps for new years day 2010 to 2021";
   constant Boolean isLeapYear[11] = {false, false, true, false, false, false, true, false, false, false, true}
@@ -57,50 +58,71 @@ protected
     "Index of the current year in timeStampsNewYear";
   discrete Real epochLastMonth
     "Unix time stamp of the beginning of the current month";
-initial equation
-  assert(dayInMonth[monthRef] + (if monthRef==2 and isLeapYear[yearRef-firstYear + 1] then 1 else 0) >=dayRef,
+
+initial algorithm
+  // check if yearRef is in the valid range
+  assert(not timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom
+         or yearRef>=firstYear and yearRef<=lastYear,
+    "\nThe value you chose for yearRef (=" + String(yearRef) + ") is outside of the validity range of " + String(firstYear) + " to " + String(lastYear) + "!\n");
+  // check if the day number exists for the chosen month and year
+  assert(not timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom
+         or dayInMonth[monthRef] + (if monthRef==2 and isLeapYear[yearRef-firstYear + 1] then 1 else 0) >=dayRef,
     "The day number you chose is larger than the number of days contained by the month you chose!");
 
-// compute the offset to be added to time based on the parameters specified by the user
-initial algorithm
+  // compute the offset to be added to time based on the parameters specified by the user
+  if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.UnixTimeStamp then
+    timOff :=0;
+  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2010 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2010 then
+    timOff :=timeStampsNewYear[1];
+  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2011 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2011 then
+    timOff :=timeStampsNewYear[2];
+  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2012 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2012 then
+    timOff :=timeStampsNewYear[3];
+  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2013 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2013 then
+    timOff :=timeStampsNewYear[4];
+  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2014 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2014 then
+    timOff :=timeStampsNewYear[5];
+  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2015 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2015 then
+    timOff :=timeStampsNewYear[6];
+  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2016 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2016 then
+    timOff :=timeStampsNewYear[7];
+  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2017 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2017 then
+    timOff :=timeStampsNewYear[8];
+  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2018 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2018 then
+    timOff :=timeStampsNewYear[9];
+  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2018 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2019 then
+    timOff :=timeStampsNewYear[10];
+  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2018 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2020 then
+    timOff :=timeStampsNewYear[11];
+  else
+    timOff :=0;
+    // this code should not be reachable
+    assert(false, "No valid TimeReference could be identified! This is a bug, please submit a bug report for the CalendarTime model.");
+  end if;
 
+  // add additional offset when using a custom date and time
+  if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom then
+    timOff :=timOff + ((dayRef - 1) + sum({dayInMonth[i] for i in 1:(monthRef - 1)})
+     + (if monthRef > 2 and isLeapYear[yearRef - firstYear + 1] then 1 else 0))*3600*24 +
+    3600*hourRef + 60*minuteRef + secondRef;
+  end if;
+
+
+   // input data range checks at initial time
+  assert(tim + timOff >= timeStampsNewYear[1],
     if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.UnixTimeStamp then
-      timOff :=0;
-    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2010 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2010 then
-      timOff :=timeStampsNewYear[1];
-    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2011 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2011 then
-      timOff :=timeStampsNewYear[2];
-    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2012 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2012 then
-      timOff :=timeStampsNewYear[3];
-    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2013 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2013 then
-      timOff :=timeStampsNewYear[4];
-    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2014 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2014 then
-      timOff :=timeStampsNewYear[5];
-    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2015 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2015 then
-      timOff :=timeStampsNewYear[6];
-    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2016 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2016 then
-      timOff :=timeStampsNewYear[7];
-    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2017 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2017 then
-      timOff :=timeStampsNewYear[8];
-    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2018 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2018 then
-      timOff :=timeStampsNewYear[9];
-    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2018 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2019 then
-      timOff :=timeStampsNewYear[10];
-    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2018 or timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2020 then
-      timOff :=timeStampsNewYear[11];
-    else
-      timOff :=0;
-      assert(false, "No valid TimeReference was specified!");
-    end if;
+      "\nCould initialise date in the CalendarTime block. \nYou selected 1970 as the time=0 reference. \nTherefore the simulation startTime must be at least " + String(timeStampsNewYear[1]) + "!\n"
+    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom then
+      if yearRef <firstYear then
+        "\nCould not initialise date in the CalendarTime block. \nYou selected a custom time=0 reference. \nThe minimum value for yearRef is then " + String(firstYear) + " but your value is " + String(yearRef) + "!\n"
+      else
+        "\nCould not initialise date in the CalendarTime block. \nYou selected a custom time=0 reference. \nPossibly your startTime is too small.\n"
+    else  "Could not initialise date in the CalendarTime block. \nPossibly your startTime is negative?");
+  assert(tim + timOff < timeStampsNewYear[size(timeStampsNewYear,1)],
+    if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef >= lastYear then
+      "\nCould not initialise date in the CalendarTime block. \nYou selected a custom time=0 reference. \nThe maximum value for yearRef is then " + String(lastYear) + " but your value is " + String(yearRef) + "!\n"
+    else "\nCould not initialise date in the CalendarTime block. \nPossibly your startTime is too large.\n");
 
-    if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom then
-      timOff :=timOff + ((dayRef - 1) + sum({dayInMonth[i] for i in 1:(monthRef - 1)})
-       + (if monthRef > 2 and isLeapYear[yearRef - firstYear + 1] then 1 else 0))*3600*24 +
-      3600*hourRef + 60*minuteRef + secondRef;
-    end if;
-
-
-initial algorithm
   // iterate to find the year at initialisation
   year :=0;
   for i in 1:size(timeStampsNewYear,1) loop
@@ -110,7 +132,6 @@ initial algorithm
       break;
     end if;
   end for;
-  assert(not year == 0, "Could not identify starting year");
 
   // iterate to find the month at initialisation
   epochLastMonth := timeStampsNewYear[yearIndex];
@@ -126,7 +147,7 @@ initial algorithm
 
 equation
   // compute unix time step based on found offset
-  unixTimeStamp = time + timOff;
+  unixTimeStamp = tim + timOff;
 
   // update the year when passing the epoch time stamp of the next year
   when (unixTimeStamp > timeStampsNewYear[pre(yearIndex)+1]) then
