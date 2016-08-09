@@ -62,8 +62,8 @@ block LimPID
         transformation(extent={{-80,-10},{-60,10}}, rotation=0)));
   Modelica.Blocks.Math.Gain P(k=1) annotation (Placement(transformation(extent={
             {-40,40},{-20,60}}, rotation=0)));
-  IntegratorWithReset                   I(
-    withResetIntegrator=withResetIntegrator,
+  Utilities.Math.IntegratorWithReset I(
+    use_reset=use_reset,
     yReset=intResetValue,
     k=unitTime/Ti,
     y_start=xi_start,
@@ -110,12 +110,12 @@ public
       Placement(transformation(extent={{10,-55},{0,-45}}, rotation=0)));
   parameter Boolean reverseAction = false
     "Set to true for throttling the water flow rate through a cooling coil controller";
-  parameter Boolean withResetIntegrator = false
+  parameter Boolean use_reset = false
     "Enables option to trigger a reset for the integrator part" annotation(Dialog(group="Integrator Reset"), choices(checkBox=true));
   parameter Real intResetValue = 0
     "Value to which the output of the integrator is reset if boolean trigger has a rising edge"
                                                                                                 annotation(Dialog(group="Integrator Reset"));
-  Modelica.Blocks.Interfaces.BooleanInput resetI if withResetIntegrator
+  Modelica.Blocks.Interfaces.BooleanInput reset if  use_reset
     "Resets optionally the integrator output to its start value when trigger input becomes true. (See also Source Code of LimPID.)"
     annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));
 protected
@@ -184,8 +184,8 @@ equation
           -14,0},{-2,0}}, color={0,0,127}));
   connect(Izero.y, addPID.u3) annotation (Line(points={{-0.5,-50},{-10,-50},{
           -10,-8},{-2,-8}}, color={0,0,127}));
-  connect(resetI, I.resetI) annotation (Line(points={{-120,-66},{-88,-66},{-50,-66},
-          {-50,-56.6},{-42,-56.6}}, color={255,0,255}));
+  connect(reset, I.reset) annotation (Line(points={{-120,-66},{-54,-66},{-54,-56.6},
+          {-42,-56.6}}, color={255,0,255}));
    annotation (
 defaultComponentName="conPID",
 Documentation(info="<html>
@@ -195,7 +195,7 @@ Documentation(info="<html>
 <li>for a heating coil with a two-way valve, set <code>reverseAction = false</code>, </li>
 <li>for a cooling coils with a two-way valve, set <code>reverseAction = true</code>. </li>
 </ul>
-<p><br><span style=\"font-family: MS Shell Dlg 2;\">If parameter</span> <code>withResetIntegrator </code><span style=\"font-family: MS Shell Dlg 2;\">is true the output of the integrator is reset to </span><code>intResetValue</code><span style=\"font-family: MS Shell Dlg 2;\"> when the boolean input r</span><code>esetI</code><span style=\"font-family: MS Shell Dlg 2;\"> has a rising edge.</span></p>
+<p><br><span style=\"font-family: MS Shell Dlg 2;\">If parameter</span> <code>use_reset </code><span style=\"font-family: MS Shell Dlg 2;\">is true the output of the integrator is reset to </span><code>intResetValue</code><span style=\"font-family: MS Shell Dlg 2;\"> when the boolean input </span><code>reset</code><span style=\"font-family: MS Shell Dlg 2;\"> has a rising edge.</span></p>
 </html>",
 revisions="<html>
 <ul>
