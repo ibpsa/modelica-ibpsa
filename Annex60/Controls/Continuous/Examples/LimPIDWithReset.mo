@@ -42,7 +42,7 @@ equation
   connect(booleanPulse.y, limPIWithReset.reset) annotation (Line(points={{-19,
           40},{4,40},{4,3.4},{18,3.4}}, color={255,0,255}));
  annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPID.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPIDWithReset.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>

@@ -3,9 +3,9 @@ block IntegratorWithReset "Output the integral of the input signal"
   extends Modelica.Blocks.Continuous.Integrator;
   parameter Boolean use_reset = false
     "Enables option to trigger a reset for the integrator part" annotation(Evaluate=true, Dialog(group="Integrator Reset"), choices(checkBox=true));
-  parameter Real yReset = y_start
+  parameter Real y_reset = y_start
     "Value to which the output is reset if boolean trigger has a rising edge" annotation(Dialog(group="Integrator Reset"));
-  Modelica.Blocks.Interfaces.BooleanInput reset if  use_reset
+  Modelica.Blocks.Interfaces.BooleanInput reset if use_reset
     "Resets optionally the integrator output to its start value when trigger input becomes true. See also source code for when algorithm."
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -19,21 +19,27 @@ block IntegratorWithReset "Output the integral of the input signal"
 equation
   if use_reset then
     when edge(resetPassThrough.y) then
-      reinit(y,yReset);
+      reinit(y, y_reset);
     end when;
   end if;
 
   connect(resetFalse.y, resetPassThrough.u) annotation (Line(points={{-87.4,-84},
           {-87.4,-44},{-83.6,-44}}, color={255,0,255}));
-  connect(reset, resetPassThrough.u) annotation (Line(points={{-120,-80},{-96,
-          -80},{-96,-44},{-83.6,-44}},
-                                  color={255,0,255}));
+  connect(reset, resetPassThrough.u) annotation (Line(points={{-120,-80},{-96,-80},
+          {-96,-44},{-83.6,-44}}, color={255,0,255}));
   annotation (
     Documentation(info="<html>
 <p>It is possible to reset the output of<span style=\"font-family: MS Shell Dlg 2;\"> integrator</span><code>y</code> to the chosen value <code>yReset</code> when <code>reset</code> has a rising edge.</p>
 </html>", revisions="<html>
 <ul>
-<li>July 18, 2016, by Philipp Mehrfeld:<br>First implementation. </li>
+<li>
+August 9, 2016, by Michael Wetter:<br/>
+Revised model.
+</li>
+<li>
+July 18, 2016, by Philipp Mehrfeld:<br/>
+First implementation.
+</li>
 </ul>
 </html>"), Icon(coordinateSystem(
           preserveAspectRatio=true,

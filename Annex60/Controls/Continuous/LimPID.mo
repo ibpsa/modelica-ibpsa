@@ -56,6 +56,7 @@ block LimPID
   parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
   constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
+  // fixme: comments are missing. Also check in LimPID whether these should be protected and parameters final
   Modelica.Blocks.Math.Add addP(k1=revAct*wp, k2=-revAct) annotation (Placement(
         transformation(extent={{-80,40},{-60,60}}, rotation=0)));
   Modelica.Blocks.Math.Add addD(k1=revAct*wd, k2=-revAct) if with_D annotation (Placement(
@@ -64,7 +65,7 @@ block LimPID
             {-40,40},{-20,60}}, rotation=0)));
   Utilities.Math.IntegratorWithReset I(
     use_reset=use_reset,
-    yReset=intResetValue,
+    y_reset=intResetValue,
     k=unitTime/Ti,
     y_start=xi_start,
     initType=if initType == InitPID.SteadyState then Init.SteadyState else if
@@ -113,8 +114,7 @@ public
   parameter Boolean use_reset = false
     "Enables option to trigger a reset for the integrator part" annotation(Dialog(group="Integrator Reset"), choices(checkBox=true));
   parameter Real intResetValue = 0
-    "Value to which the output of the integrator is reset if boolean trigger has a rising edge"
-                                                                                                annotation(Dialog(group="Integrator Reset"));
+    "Value to which the output of the integrator is reset if boolean trigger has a rising edge" annotation(Dialog(group="Integrator Reset"));
   Modelica.Blocks.Interfaces.BooleanInput reset if  use_reset
     "Resets optionally the integrator output to its start value when trigger input becomes true. (See also Source Code of LimPID.)"
     annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));
@@ -184,8 +184,8 @@ equation
           -14,0},{-2,0}}, color={0,0,127}));
   connect(Izero.y, addPID.u3) annotation (Line(points={{-0.5,-50},{-10,-50},{
           -10,-8},{-2,-8}}, color={0,0,127}));
-  connect(reset, I.reset) annotation (Line(points={{-120,-66},{-54,-66},{-54,-56.6},
-          {-42,-56.6}}, color={255,0,255}));
+  connect(reset, I.reset) annotation (Line(points={{-120,-66},{-54,-66},{-54,-58},
+          {-42,-58}},   color={255,0,255}));
    annotation (
 defaultComponentName="conPID",
 Documentation(info="<html>
