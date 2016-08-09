@@ -1,0 +1,6 @@
+simulateModel("Annex60.Utilities.Math.Examples.IntegratorWithReset", method="dassl", resultFile="IntegratorWithReset");
+createPlot(id=1, position={35, 30, 592, 651}, y={"expSine.y"}, range={0.0, 1.0, 90.0, 130.0}, grid=true, filename="IntegratorWithReset.mat", colors={{28,108,200}});
+createPlot(id=1, position={35, 30, 592, 159}, y={"booleanPulse.y"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={35, 30, 592, 158}, y={"intWitRes1.y", "intWitRes2.y"}, range={0.0, 1.0, -10.0, 30.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 592, 158}, y={"intNoReset.y"}, range={0.0, 1.0, -50.0, 150.0}, grid=true, subPlot=4, colors={{28,108,200}});
+
