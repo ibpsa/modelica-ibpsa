@@ -9,7 +9,7 @@ block IntegratorWithReset "Output the integral of the input signal"
     "Resets optionally the integrator output to its start value when trigger input becomes true. See also source code for when algorithm."
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-
+        // fixme: check if these instances are needed.
   Modelica.Blocks.Routing.BooleanPassThrough resetPassThrough
     annotation (Placement(transformation(extent={{-82,-52},{-66,-36}})));
   Modelica.Blocks.Sources.BooleanConstant resetFalse(k=false) if  not use_reset
@@ -28,8 +28,21 @@ equation
   connect(reset, resetPassThrough.u) annotation (Line(points={{-120,-80},{-96,-80},
           {-96,-44},{-83.6,-44}}, color={255,0,255}));
   annotation (
+defaultComponentName="intWitRes",
     Documentation(info="<html>
-<p>It is possible to reset the output of<span style=\"font-family: MS Shell Dlg 2;\"> integrator</span><code>y</code> to the chosen value <code>yReset</code> when <code>reset</code> has a rising edge.</p>
+<p>
+This model is similar to
+<a href=\"modelica://Modelica.Blocks.Continuous.Integrator\">
+Modelica.Blocks.Continuous.Integrator</a>
+except that it has an optional parameter <code>use_reset</code>.
+If <code>use_reset = true</code>, then the input connector <code>reset</code>
+is enabled. If its signal has a rising edge, then the output of the
+integrator is reset to the parameter value <code>y_reset</code>.
+</p>
+<p>
+See <a href=\"modelica://Annex60.Utilities.Math.Examples.IntegratorWithReset\">
+Annex60.Utilities.Math.Examples.IntegratorWithReset</a> for an example.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
