@@ -7,7 +7,8 @@ block IntegratorWithReset "Output the integral of the input signal"
     "Value to which the output is reset if boolean trigger has a rising edge" annotation(Dialog(group="Integrator Reset"));
   Modelica.Blocks.Interfaces.BooleanInput reset if  use_reset
     "Resets optionally the integrator output to its start value when trigger input becomes true. See also source code for when algorithm."
-    annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Modelica.Blocks.Routing.BooleanPassThrough resetPassThrough
     annotation (Placement(transformation(extent={{-82,-52},{-66,-36}})));
@@ -24,8 +25,9 @@ equation
 
   connect(resetFalse.y, resetPassThrough.u) annotation (Line(points={{-87.4,-84},
           {-87.4,-44},{-83.6,-44}}, color={255,0,255}));
-  connect(reset, resetPassThrough.u) annotation (Line(points={{-120,-66},{-96,-66},
-          {-96,-44},{-83.6,-44}}, color={255,0,255}));
+  connect(reset, resetPassThrough.u) annotation (Line(points={{-120,-80},{-96,
+          -80},{-96,-44},{-83.6,-44}},
+                                  color={255,0,255}));
   annotation (
     Documentation(info="<html>
 <p>It is possible to reset the output of<span style=\"font-family: MS Shell Dlg 2;\"> integrator</span><code>y</code> to the chosen value <code>yReset</code> when <code>reset</code> has a rising edge.</p>
