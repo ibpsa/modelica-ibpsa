@@ -3,17 +3,17 @@ partial record Construction "Template record for surface structure: define/order
 
   extends Modelica.Icons.MaterialProperty;
 
-  parameter Integer nLay(min=1)
+  parameter Integer nLay(min=1)=size(mats,1)
     "Number of layers of the construction, including gaps";
-  parameter Integer nGain = 0
-    "Number of gain heat ports";
-  parameter Integer locGain[max(nGain,1)](each min=1) = {1}
+  parameter Integer nGain = size(locGain,1) 
+  	"Number of gain heat ports";
+  parameter Integer locGain[:](each min=1) = {1}
     "Location of possible embedded system: between layer locGain and layer locGain + 1";
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Insulation
     insulationType(final d=insulationTickness) constrainedby
-    IDEAS.Buildings.Data.Interfaces.Insulation
-    "Thermal insulation type, may be used to define 1 instance of mats[:]";
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Material[nLay] mats
+    IDEAS.Buildings.Data.Interfaces.Insulation 
+	"Thermal insulation type, may be used to define 1 instance of mats[:]";
+  parameter IDEAS.Buildings.Data.Interfaces.Material[:] mats
     "Array of materials. The last layer is connected to propsBus_a.";
   parameter Modelica.SIunits.Length insulationTickness = 0
     "Thermal insulation thickness of insulationType";
@@ -26,5 +26,13 @@ partial record Construction "Template record for surface structure: define/order
 <p>The <code>Construction.mo</code> partial describes the material data required for building construction modelling.</p>
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>No validation required.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+Augustus 1, 2016 by Filip Jorissen:<br/>
+Set default <code>nLay(min=1)=size(mats,1)</code> 
+and <code>nGain = size(locGain,1)</code>.
+</li>
+</ul>
 </html>"));
 end Construction;

@@ -9,7 +9,7 @@ model ThermostatSetback "BESTEST thermostat setback heating system"
   parameter Real[nZones] C = VZones * corrCV * 1012 * 1.204;
 
 protected
-  IDEAS.Occupants.Components.Schedule occ(occupancy=3600*{7,23},
+  IDEAS.BoundaryConditions.Occupants.Components.Schedule occ(occupancy=3600*{7,23},
       firstEntryOccupied=true) "Occupancy shedule";
   parameter Modelica.SIunits.Temperature Tbase=283.15
     "Heating on below 10degC if non-occupied";
