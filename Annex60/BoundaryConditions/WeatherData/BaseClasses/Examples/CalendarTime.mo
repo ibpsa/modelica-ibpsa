@@ -1,6 +1,8 @@
 within Annex60.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CalendarTime
   import Annex60;
+    // fixme: this should probably be deleted as it is the same or similar to
+  // Annex60.Utilities.Time.Examples.CalendarTime, which I just reviewed
   Annex60.BoundaryConditions.WeatherData.BaseClasses.CalendarTime calendarTime(
       timRef=Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference.NY2013)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));

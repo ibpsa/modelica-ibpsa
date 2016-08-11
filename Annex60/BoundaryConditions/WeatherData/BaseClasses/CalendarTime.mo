@@ -2,6 +2,8 @@ within Annex60.BoundaryConditions.WeatherData.BaseClasses;
 model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
   extends Modelica.Blocks.Icons.Block;
+  // fixme: this should probably be deleted as it is the same or similar to
+  // Annex60.Utilities.Time.CalendarTime, which I just reviewed
   parameter Annex60.BoundaryConditions.WeatherData.BaseClasses.TimeReference timRef;
   parameter Integer yearRef(min=firstYear, max=2018) = 2016
     "Year when time = 0"
