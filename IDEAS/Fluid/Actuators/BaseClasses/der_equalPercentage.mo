@@ -41,7 +41,7 @@ This function computes the derivative of the opening characteristics of an equal
 </p><p>
 The function is the derivative of
 <a href=\"modelica://IDEAS.Fluid.Actuators.BaseClasses.equalPercentage\">
-TwoWayValveEqualPercentage</a>.
+IDEAS.Fluid.Actuators.BaseClasses.equalPercentage</a>.
 </p>
 </html>",
 revisions="<html>
