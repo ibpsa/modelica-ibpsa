@@ -1,0 +1,25 @@
+// Modelica experiment script written by modelicares 2016-07-20
+import Modelica.Utilities.Files.copy;
+import Modelica.Utilities.Files.createDirectory;
+Advanced.TranslationInCommandLog = true "Also include translation log in command log";
+Evaluate=true;
+Advanced.EfficientMinorEvents=true;
+cd("/tmp/rendering/scripts");
+openModel("package.mo");
+cd("/tmp/rendering/scripts");
+destination = "/media/psf/Home/Documents/Software/IDEAS-git/IDEAS/Scripts/";
+
+// Experiment 1
+ok = simulateModel(problem="IDEAS.Buildings.Validation.BESTEST", stopTime=31536000, method="LSodar", numberOfIntervals=5000);
+if ok then
+    savelog();
+    createDirectory(destination + "1");
+    copy("dsin.txt", destination + "1/dsin.txt", true);
+    copy("dslog.txt", destination + "1/dslog.txt", true);
+    copy("dsres.mat", destination + "1/dsres.mat", true);
+    copy("dymosim", destination + "1/dymosim", true);
+    copy("dymolalg.txt", destination + "1/dymolalg.txt", true);
+end if;
+clearlog();
+
+exit();
