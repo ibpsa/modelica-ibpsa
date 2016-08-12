@@ -2,6 +2,7 @@ within Annex60.Utilities.Time;
 model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
   extends Modelica.Blocks.Icons.Block;
+
   parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef;
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
     "Year when time = 0"
@@ -24,26 +25,25 @@ model CalendarTime
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
   parameter Integer secondRef(min=0, max=59) = 0 "Second when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-    // fixme: units are missing
-  Modelica.Blocks.Interfaces.RealInput tim "Simulation time"
+  Modelica.Blocks.Interfaces.RealInput tim(
+    final quantity="Time",
+    final unit="s") "Simulation time"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-    // fixme: units are missing
-  Modelica.Blocks.Interfaces.RealOutput unixTimeStamp
+  Modelica.Blocks.Interfaces.RealOutput unixTimeStamp(final unit="s")
     "Unix time stamp at GMT+0"
         annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   discrete Modelica.Blocks.Interfaces.IntegerOutput year "Year"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   discrete Modelica.Blocks.Interfaces.IntegerOutput month "Month of the year"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
-  Modelica.Blocks.Interfaces.IntegerOutput day "Day of the month"
+  Modelica.Blocks.Interfaces.RealOutput day "Day of the month"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.IntegerOutput hour "Hour of the day"
+  Modelica.Blocks.Interfaces.RealOutput hour "Hour of the day"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput minute "Minute of the hour"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  // fixme: why is there not a second of the minute?
-  Modelica.Blocks.Interfaces.IntegerOutput weekDayInt
-    "Integer output representing week day (monday = 1, sunday = 7)"
+  Modelica.Blocks.Interfaces.RealOutput weekDay
+    "Integer output representing week day ( monday = 1, sunday = 7 )"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
 
 protected
@@ -160,6 +160,7 @@ initial algorithm
        Possibly your startTime is too large.");
 
   // iterate to find the year at initialisation
+initial algorithm
   year :=0;
   for i in 1:size(timeStampsNewYear,1) loop
     if unixTimeStamp < timeStampsNewYear[i] then
@@ -186,38 +187,17 @@ equation
   // compute unix time step based on found offset
   unixTimeStamp = tim + timOff;
 
-  // fixme: Both "when" constructs need to be rewritten.
-  // Now, you use "when time > t* then ..."
-  //   This is inefficient as the integrator will go over t* and then search
-  //   for the event.
-  //   If you were to write "when time >= t* then ...", then the simulator
-  //   can schedule a time event for t=t*.
-  //   You can try this with the model
-  /* 
-  model TestWhen
-  Integer i(start=0);
-
-equation 
-when time >= pre(i)*0.1 then  // Change >= to > to see that it triggers state events
-    i = pre(i) + 1;
-  end when;
-
-end TestWhen;
-*/
-
   // update the year when passing the epoch time stamp of the next year
-  when (unixTimeStamp > timeStampsNewYear[pre(yearIndex)+1]) then
+  when unixTimeStamp  >= timeStampsNewYear[pre(yearIndex)+1] then
     yearIndex=pre(yearIndex)+1;
     assert(yearIndex<=size(timeStampsNewYear,1),
-      "Overflow of epoch buffer: timeStampsNewYear needs to be extended beyond the year "
+      "Index out of range for epoch vector: timeStampsNewYear needs to be extended beyond the year "
         + String(firstYear+size(timeStampsNewYear,1)));
-    // fixme: I don't understand why this is an overflow.
-    // did you mean to say "Index out of range for epoch buffer..."?
     year = pre(year) + 1;
   end when;
 
   // update the month when passing the last day of the current month
-  when unixTimeStamp - pre(epochLastMonth) >
+  when unixTimeStamp >= pre(epochLastMonth) +
       (if pre(month)==2 and isLeapYear[yearIndex]
         then 1 + dayInMonth[pre(month)] else dayInMonth[pre(month)])*3600*24 then
     month = if pre(month) == 12 then 1 else pre(month) + 1;
@@ -228,13 +208,9 @@ end TestWhen;
 
   // compute other variables that can be computed without using when() statements
   daysSinceEpoch = integer(floor(unixTimeStamp/3600/24));
-  // fixme: I see why you want to use Real for minutes and I think this is a good design.
-  // However, I would make weekDay, day and hour also Reals. Then, we have one design principle
-  // (e.g., day, hour, minute are all Real and users need to convert to integer if they need an integer)
-  // rather than having a special case for minute
-  weekDayInt=rem(4+daysSinceEpoch-1,7)+1;
-  day = integer(1+floor((unixTimeStamp-epochLastMonth)/3600/24));
-  hour = integer(floor(rem(unixTimeStamp,3600*24)/3600));
+  weekDay=rem(4+daysSinceEpoch-1,7)+1;
+  day = 1+floor((unixTimeStamp-epochLastMonth)/3600/24);
+  hour = floor(rem(unixTimeStamp,3600*24)/3600);
   // using Real variables and operations for minutes since otherwise too many events are generated
   minute = (unixTimeStamp-daysSinceEpoch*60*24-hour*60);
 
