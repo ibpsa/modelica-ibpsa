@@ -33,15 +33,15 @@ protected
   parameter Modelica.SIunits.Time timOff(fixed=false) "Time offset";
   // final parameters since the user may wrongly assume that this model shifts the
   // actual time of the simulation
-  final parameter Integer monthRef(min=1, max=12) = 1 "Month when time = 0"
+  parameter Integer monthRef(min=1, max=12) = 1 "Month when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  final parameter Integer dayRef(min=1, max=31) = 1 "Day when time = 0"
+  parameter Integer dayRef(min=1, max=31) = 1 "Day when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  final parameter Integer hourRef(min=0, max=23) = 0 "Hour when time = 0"
+  parameter Integer hourRef(min=0, max=23) = 0 "Hour when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  final parameter Integer minuteRef(min=0, max=59) = 0 "Minute when time = 0"
+  parameter Integer minuteRef(min=0, max=59) = 0 "Minute when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  final parameter Integer secondRef(min=0, max=59) = 0 "Second when time = 0"
+  parameter Integer secondRef(min=0, max=59) = 0 "Second when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
   constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
