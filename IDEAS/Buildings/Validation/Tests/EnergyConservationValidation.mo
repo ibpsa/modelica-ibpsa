@@ -5,8 +5,8 @@ model EnergyConservationValidation
     sim(computeConservationOfEnergy=true,
         strictConservationOfEnergy=true,
         Emax=1),
-    zone(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    zone1(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+    zone(airModel(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)),
+    zone1(airModel(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)));
 
   annotation (
     experiment(

@@ -67,7 +67,7 @@ protected
   final parameter Boolean dynamicLayer= not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
     "True when modelling thermal dynamics"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  final parameter Boolean realLayer = (mat.d <> 0)
+  final parameter Boolean realLayer = mat.d > Modelica.Constants.small
     "True when the layer has a non-zero thickness";
 
   final parameter Boolean airLayer = mat.gas

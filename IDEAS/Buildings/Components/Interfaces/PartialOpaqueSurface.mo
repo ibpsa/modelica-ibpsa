@@ -2,10 +2,11 @@ within IDEAS.Buildings.Components.Interfaces;
 partial model PartialOpaqueSurface
   "Partial component for the opaque surfaces of the building envelope"
 
-  replaceable IDEAS.Buildings.Data.Constructions.CavityWall constructionType
-    constrainedby Data.Constructions.CavityWall(final insulationType=
-        insulationType, final insulationTickness=insulationThickness)
-    "Type of building construction" annotation (
+  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionType
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
+      final insulationType=insulationType,
+      final insulationTickness=insulationThickness)
+    "Building component material structure" annotation (
     __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
     Dialog(group="Construction details"));
@@ -20,18 +21,19 @@ partial model PartialOpaqueSurface
       T_start=ones(constructionType.nLay)*T_start,
       nGain=constructionType.nGain));
 
-  parameter Modelica.SIunits.Area AWall "Total wall area";
-
-  parameter Modelica.SIunits.Length insulationThickness
-    "Thermal insulation thickness"
-    annotation (Dialog(group="Construction details"));
-
-  replaceable Data.Insulation.Rockwool                 insulationType
-    constrainedby Data.Insulation.Rockwool(  final d=insulationThickness)
-    "Type of thermal insulation" annotation (
+  replaceable parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType
+    constrainedby IDEAS.Buildings.Data.Interfaces.Insulation(
+      final d=insulationThickness)
+    "Thermal insulation type, propagated into constructionType" annotation (
     __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-34,90},{-30,94}})),
     Dialog(group="Construction details"));
+
+  parameter Modelica.SIunits.Area AWall
+    "Component surface area";
+  parameter Modelica.SIunits.Length insulationThickness
+    "Thermal insulation thickness"
+    annotation (Dialog(group="Construction details"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb[constructionType.nGain]
     "Port for gains by embedded active layers"
@@ -41,7 +43,7 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif(final Q_flow=0);
 
 initial equation
-  assert(constructionType.incLastLay == IDEAS.Types.Tilt.Other or
+  assert(IDEAS.Utilities.Math.Functions.isAngle(constructionType.incLastLay, IDEAS.Types.Tilt.Other) or
     constructionType.incLastLay >= inc - Modelica.Constants.pi/3 - Modelica.Constants.eps and
     constructionType.incLastLay <= inc + Modelica.Constants.pi/3 + Modelica.Constants.eps,
     "The inclination of a wall, a floor or a ceiling does not correspond to its record.");

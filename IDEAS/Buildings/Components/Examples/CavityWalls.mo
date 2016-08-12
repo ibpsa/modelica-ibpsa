@@ -1,11 +1,12 @@
 within IDEAS.Buildings.Components.Examples;
 model CavityWalls
   "Check of air cavity models in glazing and partially filled cavity walls"
+  extends Modelica.Icons.Example;
   package Medium = IDEAS.Media.Air;
   inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
 
-  extends Modelica.Icons.Example;
+
   IDEAS.Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium,
       nPorts=1)
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
@@ -25,24 +26,22 @@ model CavityWalls
       constructionType,
     redeclare Data.Insulation.Rockwool insulationType,
     AWall=10) "Vertical wall with partially filled cavity"
-    annotation (Placement(transformation(extent={{-54,-32},{-44,-12}})));
+    annotation (Placement(transformation(extent={{-56,-20},{-46,0}})));
 
-  IDEAS.Buildings.Components.Window winLin(
+  IDEAS.Buildings.Components.Window win(
     A=1,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S,
-    redeclare Data.Glazing.Ins2Ar glazing,
-    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two)
-    "Window with linear convection correlations inside the window"
-    annotation (Placement(transformation(extent={{-54,-56},{-44,-36}})));
+    redeclare Data.Glazing.Ins2Ar glazing) "Window"
+    annotation (Placement(transformation(extent={{-56,-60},{-46,-40}})));
 equation
   connect(outerWall.propsBus_a, zone1.propsBus[2]) annotation (Line(
-      points={{-44,-20},{-28,-20},{-28,-16},{20,-16},{20,-57}},
+      points={{-46,-8},{20,-8},{20,-16},{20,-57}},
       color={255,204,51},
       thickness=0.5));
-  connect(winLin.propsBus_a, zone1.propsBus[1]) annotation (Line(
-      points={{-44,-44},{-32,-44},{20,-44},{20,-55}},
+  connect(win.propsBus_a, zone1.propsBus[1]) annotation (Line(
+      points={{-46,-48},{-46,-48},{20,-48},{20,-55}},
       color={255,204,51},
       thickness=0.5));
   connect(zone1.flowPort_In, bou.ports[1])
@@ -54,10 +53,18 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+February 10, 2016, by Filip Jorissen:<br/>
+Improved documentation and implementation.
+</li>
+<li>
 February 16, 2016, by Glenn Reynders:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Model for unit testing the cavity wall correlation implementation.
+</p>
 </html>"),
     experiment(StopTime=1e+06, __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput);

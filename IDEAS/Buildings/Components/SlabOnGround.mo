@@ -6,7 +6,7 @@ model SlabOnGround "opaque floor on ground slab"
         dT_nominal_a=-3);
 
   parameter Modelica.SIunits.Length PWall = 4*sqrt(AWall)
-    "Total wall perimeter";
+    "Total floor slab perimeter";
   parameter Modelica.SIunits.Temperature TeAvg = 273.15+10.8
     "Annual average outdoor temperature";
   parameter Modelica.SIunits.Temperature TiAvg = 273.15+22

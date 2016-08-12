@@ -1,0 +1,16 @@
+simulateModel("IDEAS.Buildings.Components.Examples.WallUnitTest", stopTime=1e+06, method="dassl", resultFile="WallUnitTest");
+
+createPlot(id=1, 
+position={0, 0, 1262, 707}, 
+y={"boundaryWall.propsBus_a.surfRad.Q_flow", "internalWall.propsBus_a.surfRad.Q_flow", "internalWall.propsBus_b.surfRad.Q_flow", "outerWall.propsBus_a.surfRad.Q_flow", "slabOnGround.propsBus_a.surfRad.Q_flow"}, 
+range={0.0, 1000000.0, -20.0, 180.0}, 
+erase=false, 
+grid=true, 
+colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=1, position={0, 0, 1262, 351}, y={"boundaryWall.propsBus_a.iSolDir.Q_flow", "boundaryWall.propsBus_a.iSolDif.Q_flow", "internalWall.propsBus_a.iSolDir.Q_flow", "internalWall.propsBus_a.iSolDif.Q_flow", "internalWall.propsBus_b.iSolDir.Q_flow", "internalWall.propsBus_b.iSolDif.Q_flow", "outerWall.propsBus_a.iSolDir.Q_flow", "outerWall.propsBus_a.iSolDif.Q_flow", "slabOnGround.propsBus_a.iSolDir.Q_flow", "slabOnGround.propsBus_a.iSolDif.Q_flow"}, 
+range={0.0, 1000000.0, -1.5, 1.5}, 
+erase=false, 
+grid=true, 
+subPlot=2, 
+colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}, {244,125,35}, {102,44,145}, {28,108,200}, {238,46,47}}, 
+patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Dash, LinePattern.Dash});

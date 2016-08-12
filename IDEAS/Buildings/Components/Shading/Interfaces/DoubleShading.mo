@@ -1,6 +1,7 @@
 within IDEAS.Buildings.Components.Shading.Interfaces;
 model DoubleShading "Two shading components in series"
-  extends PartialShading(final controlled=stateShading1.controlled or
+  extends PartialShading(
+    final controlled=stateShading1.controlled or
         stateShading2.controlled);
   replaceable PartialShading stateShading1 constrainedby PartialShading(azi=azi)
     "First shading device"
@@ -44,9 +45,15 @@ equation
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
 <li>
-December 2014, by Filip Jorissenr:<br/>
+July 18, 2016 by Filip Jorissen:<br/>
+Cleaned up implementation and documentation.
+</li>
+<li>
+December 2014, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>This model can be extended or used if two shading models need to be combined.</p>
 </html>"));
 end DoubleShading;

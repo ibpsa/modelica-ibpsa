@@ -7,9 +7,9 @@ model Bui "Base model"
     VZones={gF.V});
 
   IDEAS.Buildings.Components.Zone gF(
+    airModel(mSenFac=0.822),
     V=129.6,
     n50=0.822*0.5*20,
-    corrCV=0.822,
     T_start=293.15,
     redeclare package Medium = Medium,
     nSurf=6,

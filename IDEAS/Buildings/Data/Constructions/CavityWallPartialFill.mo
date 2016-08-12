@@ -2,7 +2,6 @@ within IDEAS.Buildings.Data.Constructions;
 record CavityWallPartialFill
   "Classic cavity wall construction with partially-filled cavity"
  extends IDEAS.Buildings.Data.Interfaces.Construction(
-    nLay=5,
     incLastLay = IDEAS.Types.Tilt.Wall,
     mats={
       IDEAS.Buildings.Data.Materials.BrickHe(d=0.08),
