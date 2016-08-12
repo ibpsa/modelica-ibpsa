@@ -28,8 +28,6 @@ equation
   connect(calendarTimeCustom.tim, modTim.y) annotation (Line(points={{-22,-30},{
           -30,-30},{-30,0},{-41,0}},  color={0,0,127}));
 
-  // fixme: the experiment StopTime annotation is missing, which is needed for the
-  // model to be run by the OpenModelica regression tests
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Utilities/Time/Examples/CalendarTime.mos"
@@ -48,5 +46,6 @@ This model demonstrates the use of the
 Annex60.Utilities.Time.CalendarTime</a>
 block.
 </p>
-</html>"));
+</html>"),
+    experiment(StopTime=1e+08));
 end CalendarTime;
