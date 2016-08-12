@@ -116,7 +116,7 @@ algorithm
     startTime := time;
   end when;
 
-  when initial() or sample(startTime, bfData.gen.tStep) then
+  when initial() or sample(startTime + bfData.gen.tStep, bfData.gen.tStep) then
     QAve_flow := (U - UOld)/bfData.gen.tStep;
     UOld := U;
 
