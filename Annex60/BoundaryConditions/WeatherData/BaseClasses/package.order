@@ -1,4 +1,3 @@
-CalendarTime
 CheckBlackBodySkyTemperature
 CheckCeilingHeight
 CheckIRRadiation
@@ -15,8 +14,6 @@ ConvertTime
 EquationOfTime
 LocalCivilTime
 SolarTime
-TimeReference
-WeekDay
 getAbsolutePath
 getHeaderElementTMY3
 getLatitudeTMY3
