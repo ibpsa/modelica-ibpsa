@@ -1,14 +1,16 @@
 within IDEAS.Buildings.Components;
-model BoundaryWall "Opaque wall with boundary conditions"
+model BoundaryWall "Opaque wall with optional prescribed heat flow rate or temperature boundary conditions"
   extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
      final QTra_design=U_value*AWall*(273.15 + 21 - TRef_a),
      dT_nominal_a=-1,
      layMul(monLay(energyDynamics=cat(1, {(if use_T_in and energyDynamics ==  Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics)}, fill(energyDynamics, layMul.nLay-1)))));
 
   parameter Boolean use_T_in = false
-    "Get the boundary temperature from the input connector";
+    "Get the boundary temperature from the input connector"
+    annotation(Dialog(group="Boundary conditions"));
   parameter Boolean use_Q_in = false
-    "Get the boundary heat flux from the input connector";
+    "Get the boundary heat flux from the input connector"
+    annotation(Dialog(group="Boundary conditions"));
 
   Modelica.Blocks.Interfaces.RealInput T if use_T_in annotation (Placement(transformation(
           extent={{-114,10},{-94,30}}),iconTransformation(extent={{-114,10},{

@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Data.Constructions;
 record CavityWall
-  "Example - Classic cavity wall construction with fully-filled cavity"
+  "Classic cavity wall construction with fully-filled cavity"
 
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     final mats={Materials.BrickMe(d=0.08),

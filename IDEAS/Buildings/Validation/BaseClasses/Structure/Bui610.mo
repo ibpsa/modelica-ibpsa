@@ -8,7 +8,7 @@ model Bui610 "BESTEST Building model case 610"
 
   IDEAS.Buildings.Components.Zone gF(nSurf=8, V=129.6,
     n50=0.822*0.5*20,
-    corrCV=0.822,
+    airModel(mSenFac=0.822),
     T_start=293.15,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{40,-2},{80,38}})));

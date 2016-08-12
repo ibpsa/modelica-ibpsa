@@ -6,18 +6,19 @@ partial model PartialSurface "Partial model for building envelope component"
     annotation (Placement(transformation(extent={{30,-100},{50,-80}})));
 
   parameter Modelica.SIunits.Angle inc
-    "Inclination of the wall, i.e. 90deg denotes vertical";
+    "Inclination (tilt) angle of the wall, see IDEAS.Types.Tilt";
   parameter Modelica.SIunits.Angle azi
-    "Azimuth of the wall, i.e. 0deg denotes South";
+    "Azimuth angle of the wall, i.e. see IDEAS.Types.Azimuth";
   parameter Modelica.SIunits.Power QTra_design
     "Design heat losses at reference temperature of the boundary space"
-    annotation (Dialog(tab="Design power"));
+    annotation (Dialog(group="Design power",tab="Advanced"));
   parameter Modelica.SIunits.Temperature T_start=293.15
-    "Start temperature for each of the layers";
+    "Start temperature for each of the layers"
+    annotation(Dialog(tab="Dynamics", group="Initial condition"));
 
   parameter Modelica.SIunits.Temperature TRef_a=291.15
     "Reference temperature of zone on side of propsBus_a, for calculation of design heat loss"
-    annotation (Dialog(group="Design heat loss"));
+    annotation (Dialog(group="Design power",tab="Advanced"));
   parameter Boolean linearise_a=false
     "= true, if convective heat transfer should be linearised"
     annotation (Dialog(tab="Convection"));

@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Data.Constructions;
-record TABS "Example - Classic TABS floor"
+record TABS "Classic TABS floor"
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     locGain={4},
     incLastLay = IDEAS.Types.Tilt.Floor,

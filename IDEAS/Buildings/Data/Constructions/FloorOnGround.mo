@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Data.Constructions;
-record FloorOnGround "Example - Floor on ground for floor heating system"
+record FloorOnGround "Floor on ground for floor heating system"
 
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     locGain={3},

@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Data.Interfaces;
 record Glazing
-
+  "Template record for glazing, based on  Window software by LBNL"
   extends Modelica.Icons.MaterialProperty;
 
   parameter Integer nLay(min=1)

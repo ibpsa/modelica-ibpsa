@@ -25,12 +25,16 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
-        graphics),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}})),
     Diagram(graphics),
     Documentation(info="<html>
-<p><h4><font color=\"#008000\">General description</font></h4></p>
-<p><h5>Goal</h5></p>
-<p>The <code>Screen.mo</code> model describes the transient behaviour of solar irradiance on a window behind a solar screen parallel to the window.</p>
+<p>Shading model of a controllable screen. The transmitted direct solar irradiance varies linearly between [0, 1] with the control input. A fraction shaCorr is converted into diffuse light that enters the building.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 18, 2016 by Filip Jorissen:<br/>
+Cleaned up implementation and documentation.
+</li>
+</ul>
 </html>"));
 end Screen;

@@ -6,11 +6,25 @@ method="dassl",
 resultFile="BuildingShadeExample");
 
 createPlot(id=1, 
-position={0, 0, 1156, 757}, 
-y={"buildingShade.iSolDir", "none.iSolDir"}, 
+position={0, 0, 1742, 774}, 
+y={"buildingShade.iSolDir", "none.iSolDir", "overhang.iSolDir", "screen.iSolDir", "sideFins.iSolDir"}, 
 range={2480000.0, 3020000.0, 0.0, 800.0}, 
 autoscale=false, 
 grid=true, 
-colors={{28,108,200}, {238,46,47}});
-
-
+colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=1, 
+position={0, 0, 1742, 256}, 
+y={"buildingShade.iSolDif", "none.iSolDif", "overhang.iSolDif", "screen.iSolDif", "sideFins.iSolDif"}, 
+range={2000000.0, 3000000.0, -50.0, 300.0}, 
+autoscale=false, 
+grid=true, 
+subPlot=2, 
+colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=1, 
+position={0, 0, 1742, 255}, 
+y={"none.iAngInc", "buildingShade.iAngInc", "overhang.iAngInc", "screen.iAngInc", "sideFins.iAngInc"}, 
+range={2000000.0, 3000000.0, 0.0, 2.5}, 
+autoscale=false, 
+grid=true, 
+subPlot=3, 
+colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});

@@ -10,7 +10,7 @@ model Bui900 "BESTEST Building model case 900"
     nSurf=8,
     V=129.6,
     n50=0.5*20,
-    corrCV=0.822,
+    airModel(mSenFac=0.822),
     T_start=293.15,
     redeclare package Medium = Medium,
     hZone=2.7)
