@@ -7,24 +7,7 @@ model CalendarTime
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
     "Year when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  // fixme: The xxxRef is dangerous and should be removed.
-  // The problem is that users may use them, and then the simulation time
-  // time=0 is somewhere different than Jan. 1, 0:00. In this case,
-  // ReaderTMY3 and the computations of the sun position, and maybe
-  // other data readers that use the convention that t=0 is Jan 1, midnight,
-  // will all produce wrong results. All building simulation programs I
-  // know of do use t=0 as midnight Jan 1, and then compute the actual time
-  // based on startTime.
-  parameter Integer monthRef(min=1, max=12) = 1 "Month when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  parameter Integer dayRef(min=1, max=31) = 1 "Day when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  parameter Integer hourRef(min=0, max=23) = 0 "Hour when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  parameter Integer minuteRef(min=0, max=59) = 0 "Minute when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  parameter Integer secondRef(min=0, max=59) = 0 "Second when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
+
   Modelica.Blocks.Interfaces.RealInput tim(
     final quantity="Time",
     final unit="s") "Simulation time"
@@ -48,6 +31,18 @@ model CalendarTime
 
 protected
   parameter Modelica.SIunits.Time timOff(fixed=false) "Time offset";
+  // final parameters since the user may wrongly assume that this model shifts the
+  // actual time of the simulation
+  final parameter Integer monthRef(min=1, max=12) = 1 "Month when time = 0"
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
+  final parameter Integer dayRef(min=1, max=31) = 1 "Day when time = 0"
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
+  final parameter Integer hourRef(min=0, max=23) = 0 "Hour when time = 0"
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
+  final parameter Integer minuteRef(min=0, max=59) = 0 "Minute when time = 0"
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
+  final parameter Integer secondRef(min=0, max=59) = 0 "Second when time = 0"
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
   constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
   constant Integer lastYear = firstYear + size(timeStampsNewYear,1) - 1;
@@ -221,7 +216,8 @@ August 3, 2016, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>", info="<p>
+</html>", info="<html>
+<p>
 This blocks computes the unix time stamp, date and time 
 and the day of the week based on the Modelica
 variables <code>time</code>.
@@ -244,12 +240,16 @@ Day light saving and time zones are currently not supported.
 <p>
 The user must define which time and date correspond to <code>time = 0</code>
 using the model parameters.
-The user can choose from new year, midnight from a number of years, or define a custom date and time.
+The user can choose from new year, midnight for a number of years, including 1970, which corresponds to a unix stamp of 0.
 </p>
 <h4>Implementation</h4>
 <p>
 The model was implemented such that no events are being generated for computing what minute of the day it is.
+The model also contains an implementation for setting time=0 for any day/month other than january first.
+This is however not activated in the current model since these options may wrongly give the impression
+that it changes the time based on which the solar irradiation and TMY3 data is computed/read.
 </p>
-"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
 end CalendarTime;
