@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.ZoneAirModels;
 model Thermal
-  "Simple thermal zone air model without other fluid properties or mass exchange"
+  "Thermal-only air model without other fluid properties or mass exchange"
   extends IDEAS.Buildings.Components.ZoneAirModels.PartialAirModel(
     m_flow_nominal=0,
     nSurf=1,

@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.InternalGains;
-model None "No occupancy model: no heat, moisture, or CO2 gains"
+model None "No occupancy: no heat, moisture, or CO2 gains"
   extends BaseClasses.PartialOccupancyGains(
                            final requireInput=false);
   Modelica.Blocks.Sources.Constant constWatFlow(final k=0)

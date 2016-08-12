@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.InternalGains;
 model Simple
-  "Simple occupancy model with constant levels of sensible, latent and CO2 heat production per person"
+  "Constant sensible, latent and CO2 heat production per person"
   extends BaseClasses.PartialOccupancyGains(
                            final requireInput=true);
   parameter Modelica.SIunits.Power QlatPp = occupancyType.QlatPp

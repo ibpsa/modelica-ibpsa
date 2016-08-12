@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.OccupancyType;
 record OfficeWork
-  "Properties for typical office work. Based on Fanger and Ashrae Fundamentals"
+  "Properties for typical office work."
   extends PartialOccupancyType(
     QlatPp=45,
     QsenPp=73,
@@ -16,6 +16,15 @@ First implementation
 </html>", info="<html>
 <p>
 See documentation in IDEAS.Buildings.Components.OccupancyType.PartialOccupancyType.
+This model is based on Fanger and Ashrae Fundamentals (2009).
 </p>
+<h4>References</h4>
+<ul>
+<li>
+ASHRAE Handbook, Fundamentals.
+ American Society of Heating, Refrigerating and Air-Conditioning Engineers,
+Chapter 18, Internal Heat Gains; pages 18.4; Atlanta, USA, 2009.
+</li>
+</ul>
 </html>"));
 end OfficeWork;

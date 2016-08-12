@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.Comfort;
 model Fanger
-  "Fangers thermal comfort model - Based on Buildings library"
+  "Fangers thermal comfort model"
   extends IDEAS.Buildings.Components.Comfort.BaseClasses.PartialComfort;
   Modelica.Blocks.Interfaces.RealOutput PMV "PMV"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
@@ -179,6 +179,9 @@ equation
   annotation (
 defaultComponentName="com",
     Documentation(info="<html>
+<p>
+This model is based on the buildings library.
+</p>
 <p>
 Thermal comfort model according to Fanger, as described in
 the ASHRAE Fundamentals (1997).
