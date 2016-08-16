@@ -12,6 +12,20 @@ partial record SinglePipeData
   parameter Modelica.SIunits.ThermalConductivity lambdaGS=14.6
     "Equivalent conductivity of ground surface";
 
+  // Added this for wall capacity calculations.
+  // The given inner diameter reflects the inner diameter of the insulation
+  // layer, not the nominal diameter (which is approx. Di-2s).
+  parameter Modelica.SIunits.Length s=0.0032
+    "Inner wall thickness of pipe (inside of Di)";
+  parameter Modelica.SIunits.SpecificHeatCapacity cW=490
+    "Inner wall thermal capacity";
+
+  parameter Modelica.SIunits.Density rhoW=7850 "Density of wall material";
+  final parameter Modelica.SIunits.Area areaW=Modelica.Constants.pi*(ri^2 - (ri
+       - s)^2) "Cross-section of inner pipe wall";
+  final parameter Annex60.Experimental.Pipe.Types.ThermalCapacityPerLength CW=
+      areaW*rhoW*cW "Thermal capacity per length of inner wall";
+
   parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
   final parameter Modelica.SIunits.Length Heff=H + lambdaI/lambdaGS
     "Effective buried depth, corrected for ground conductivity";
@@ -31,9 +45,7 @@ partial record SinglePipeData
           fillPattern=FillPattern.Solid,
           extent={{-100.0,-75.0},{100.0,75.0}},
           radius=25.0),
-        Line(
-          points={{-100,0},{100,0}},
-          color={64,64,64}),
+        Line(points={{-100,0},{100,0}}, color={64,64,64}),
         Line(
           origin={0,-50},
           points={{-100.0,0.0},{100.0,0.0}},
