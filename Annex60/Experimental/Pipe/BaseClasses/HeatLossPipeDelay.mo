@@ -5,10 +5,6 @@ model HeatLossPipeDelay
 
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
-
-  parameter Modelica.SIunits.Area A_surf=2*Modelica.Constants.pi*(diameter/2 +
-      thicknessIns)*length "Outer surface area of the pipe";
 
   parameter Modelica.SIunits.Area A_cross=Modelica.Constants.pi*diameter*
       diameter/4 "Cross sectional area";

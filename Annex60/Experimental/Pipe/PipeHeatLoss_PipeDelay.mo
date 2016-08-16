@@ -5,9 +5,15 @@ model PipeHeatLoss_PipeDelay
 
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 
-  parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
+  replaceable parameter
+    BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE50S
+    pipeData constrainedby BaseClasses.SinglePipeConfig.SinglePipeData(H=H)
+    "Select pipe dimensions" annotation (choicesAllMatching=true, Placement(
+        transformation(extent={{-96,-96},{-76,-76}})));
+
+  parameter Modelica.SIunits.Diameter diameter=pipeData.Di "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
+  parameter Modelica.SIunits.Length H = 2 "Buried depth of pipe";
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
@@ -40,9 +46,11 @@ model PipeHeatLoss_PipeDelay
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
-  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
-  parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
+  parameter Types.ThermalResistanceLength R=pipeData.hInvers/(lambdaI*2*
+      Modelica.Constants.pi);
+  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
+      diameter/2)^2*cp_default;
+  parameter Modelica.SIunits.ThermalConductivity lambdaI=pipeData.lambdaI
     "Heat conductivity";
 
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
@@ -97,7 +105,6 @@ public
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
-    thicknessIns=thicknessIns,
     C=C,
     R=R,
     m_flow_small=m_flow_small)
@@ -107,7 +114,6 @@ public
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
-    thicknessIns=thicknessIns,
     C=C,
     R=R,
     m_flow_small=m_flow_small)
@@ -116,8 +122,7 @@ public
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
   BaseClasses.PDETime_massFlow tau_unused(diameter=diameter)
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  BaseClasses.PDETime_massFlow         tau_used(               diameter=
-        diameter)
+  BaseClasses.PDETime_massFlow tau_used(diameter=diameter)
     annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
@@ -132,19 +137,17 @@ equation
   connect(port_a, reverseHeatLoss.port_b)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
-    annotation (Line(points={{10,0},{40,0}},        color={0,127,255}));
+    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   connect(port_b, heatLoss.port_b)
-    annotation (Line(points={{100,0},{60,0}},        color={0,127,255}));
+    annotation (Line(points={{100,0},{60,0}}, color={0,127,255}));
   connect(T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{0,100},{0,100},
           {0,54},{0,40},{-70,40},{-70,10}}, color={0,0,127}));
   connect(heatLoss.T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{50,10},
           {50,40},{-70,40},{-70,10}}, color={0,0,127}));
   connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
-    annotation (Line(points={{-10,0},{-18,0},{-24,0}},
-                                               color={0,127,255}));
+    annotation (Line(points={{-10,0},{-18,0},{-24,0}}, color={0,127,255}));
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
-    annotation (Line(points={{-44,0},{-52,0},{-60,0}},
-                                               color={0,127,255}));
+    annotation (Line(points={{-44,0},{-52,0},{-60,0}}, color={0,127,255}));
   connect(senMasFlo.m_flow, tau_unused.m_flow) annotation (Line(
       points={{-34,-11},{-34,-40},{-22,-40}},
       color={0,0,127},
@@ -166,7 +169,9 @@ equation
             100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
-        Ellipse(extent={{-90,92},{-48,50}}, lineColor={28,108,200},
+        Ellipse(
+          extent={{-90,92},{-48,50}},
+          lineColor={28,108,200},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(

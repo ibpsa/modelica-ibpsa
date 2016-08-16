@@ -33,6 +33,10 @@ partial record SinglePipeData
   final parameter Modelica.SIunits.Length ro=Do/2 "Equivalent outer radius";
   final parameter Modelica.SIunits.Length ri=Di/2 "Equivalent inner radius";
 
+  // h calculation
+  final parameter Real hInvers=lambdaI/lambdaG*Modelica.Math.log(2*Heff/ro) +
+      Modelica.Math.log(ro/ri);
+
   annotation (Icon(graphics={
         Text(
           lineColor={0,0,255},
