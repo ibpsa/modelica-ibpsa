@@ -39,14 +39,16 @@ extends Modelica.Icons.Example;
     m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=115,
     Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal,
     redeclare
-      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR80S
-      pipeData)
+      Annex60.Experimental.Pipe.BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
+      pipeData(
+      Di=825e-3,
+      Do=825e-3 + 45e-3,
+      lambdaI=0.024))
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
     //thicknessIns=0.045,
   PipeHeatLoss_PipeDelayMod pip4(
@@ -55,13 +57,15 @@ extends Modelica.Icons.Example;
     m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal,
     redeclare
-      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR80S
-      pipeData)        annotation (Placement(transformation(
+      Annex60.Experimental.Pipe.BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
+      pipeData(
+      Di=825e-3,
+      Do=825e-3 + 45e-3,
+      lambdaI=0.024))  annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={10,40})));
@@ -72,13 +76,15 @@ extends Modelica.Icons.Example;
     m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal,
     redeclare
-      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR80S
-      pipeData)
+      Annex60.Experimental.Pipe.BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
+      pipeData(
+      Di=825e-3,
+      Do=825e-3 + 45e-3,
+      lambdaI=0.024))
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
     //thicknessIns=0.045,
   PipeHeatLoss_PipeDelayMod pip2(
@@ -87,13 +93,15 @@ extends Modelica.Icons.Example;
     m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal,
     redeclare
-      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR80S
-      pipeData)        annotation (Placement(transformation(
+      Annex60.Experimental.Pipe.BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
+      pipeData(
+      Di=825e-3,
+      Do=825e-3 + 45e-3,
+      lambdaI=0.024))  annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,40})));
@@ -104,13 +112,15 @@ extends Modelica.Icons.Example;
     m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal,
     redeclare
-      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR80S
-      pipeData)        annotation (Placement(transformation(
+      Annex60.Experimental.Pipe.BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
+      pipeData(
+      Di=825e-3,
+      Do=825e-3 + 45e-3,
+      lambdaI=0.024))  annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-10})));
@@ -142,14 +152,16 @@ extends Modelica.Icons.Example;
     m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=20,
     Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal,
     redeclare
-      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR80S
-      pipeData)
+      Annex60.Experimental.Pipe.BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
+      pipeData(
+      Di=825e-3,
+      Do=825e-3 + 45e-3,
+      lambdaI=0.024))
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
