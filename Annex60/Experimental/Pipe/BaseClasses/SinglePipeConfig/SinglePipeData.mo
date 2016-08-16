@@ -59,9 +59,11 @@ partial record SinglePipeData
           points={{0.0,75.0},{0.0,-75.0}},
           color={64,64,64})}), Documentation(revisions="<html>
 <ul>
-<li>July 18, 2016 by Bram van der Heijde: <br>FIrst implementation</li>
+<li>August 16, 2016 by Bram van der Heijde: <br>Added parameter for wall capacity calculation</li>
+<li>July 18, 2016 by Bram van der Heijde: <br>First implementation</li>
 </ul>
 </html>", info="<html>
 <p>Basic record structure for single pipe dimensions and insulation parameters.</p>
+<p>The inner wall parameters are for a steel pipe wall. Another extend should be made for the case of plastic pipes, where these parameters are overridden. </p>
 </html>"));
 end SinglePipeData;
