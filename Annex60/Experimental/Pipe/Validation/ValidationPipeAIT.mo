@@ -38,71 +38,83 @@ extends Modelica.Icons.Example;
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     diameter=0.0825,
-    thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=115,
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    redeclare
+      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR80S
+      pipeData)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
+    //thicknessIns=0.045,
   PipeHeatLoss_PipeDelayMod pip4(
     redeclare package Medium = Medium,
     length=29,
     m_flow_nominal=1,
     diameter=0.0825,
-    thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
-                       annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    redeclare
+      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR80S
+      pipeData)        annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={10,40})));
+    //thicknessIns=0.045,
   PipeHeatLoss_PipeDelayMod pip5(
     redeclare package Medium = Medium,
     length=20,
     m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
-    thicknessIns=0.045,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    redeclare
+      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR80S
+      pipeData)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
+    //thicknessIns=0.045,
   PipeHeatLoss_PipeDelayMod pip2(
     redeclare package Medium = Medium,
     length=76,
     m_flow_nominal=1,
     diameter=0.0825,
-    thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
-                       annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    redeclare
+      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR80S
+      pipeData)        annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,40})));
+    //thicknessIns=0.045,
   PipeHeatLoss_PipeDelayMod pip3(
     redeclare package Medium = Medium,
     length=38,
     m_flow_nominal=1,
     diameter=0.0825,
-    thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
-                       annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    redeclare
+      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR80S
+      pipeData)        annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-10})));
+    //thicknessIns=0.045,
   Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataAIT151218.data)
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Data.PipeDataAIT151218 pipeDataAIT151218
@@ -129,16 +141,19 @@ extends Modelica.Icons.Example;
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     diameter=0.0825,
-    thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=20,
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    redeclare
+      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR80S
+      pipeData)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
+    //thicknessIns=0.045,
   Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium
       = Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
