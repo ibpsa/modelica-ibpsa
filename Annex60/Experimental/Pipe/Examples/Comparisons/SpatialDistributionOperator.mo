@@ -228,8 +228,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     annotation (experiment(StopTime=180000, __Dymola_NumberOfIntervals=5000),Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -180},{160,140}}),
-                        graphics),
+            -180},{160,140}})),
     Documentation(info="<html>
 <p>The main purpose of this example is to show the behaviour of the <code>spatialDistribution</code> operator with different implementations and conditions, trying to understand it towards a correct and efficient implementation.</p>
 

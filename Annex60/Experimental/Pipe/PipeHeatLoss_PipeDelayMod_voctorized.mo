@@ -1,38 +1,21 @@
 within Annex60.Experimental.Pipe;
-model PipeHeatLoss_PipeDelayMod_Vector
+model PipeHeatLoss_PipeDelayMod_voctorized
   "Pipe model using spatialDistribution for temperature delay with heat losses modified and one delay operator at pipe level"
-extends Annex60.Fluid.Interfaces.PartialTwoPortVector;
-  output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
-   parameter Integer nPorts "Number of ports"   annotation(Dialog(connectorSizing=true));
-   parameter Real scaleVolume=0.9 "Factor for volume and spatial operator";
-   parameter Real scale=1;
 
-  parameter Modelica.Media.Interfaces.Types.AbsolutePressure p_start=volume.system.p_start
-    "Start value of pressure" annotation (Dialog(tab="VolumeInit"));
-  parameter Boolean use_T_start=true "= true, use T_start, otherwise h_start"
-    annotation (Dialog(tab="VolumeInit"));
-  parameter Modelica.Media.Interfaces.Types.Temperature T_start=volume.system.T_start
-    annotation (Dialog(tab="VolumeInit"));
-  parameter Modelica.Media.Interfaces.Types.SpecificEnthalpy h_start=if volume.use_T_start
-       then Medium.specificEnthalpy_pTX(
-      volume.p_start,
-      volume.T_start,
-      volume.X_start) else Medium.h_default "Start value of specific enthalpy"
-    annotation (Dialog(tab="VolumeInit"));
-  parameter Modelica.Media.Interfaces.Types.MassFraction X_start[Medium.nX]=
-      Medium.X_default "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="VolumeInit"));
-  parameter Modelica.Media.Interfaces.Types.ExtraProperty C_start[Medium.nC]=
-      fill(0, Medium.nC) "Start value of trace substances"
-    annotation (Dialog(tab="VolumeInit"));
-
+  //output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium "Medium in the component";
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
+  parameter Integer nPorts "Number of ports"   annotation(Dialog(connectorSizing=true));
+    parameter Boolean allowFlowReversal = true
+    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
-parameter Real V= ((diameter/2)^2)*Modelica.Constants.pi*length "Volume";
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
@@ -141,9 +124,28 @@ public
     annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
+  Modelica.Fluid.Vessels.ClosedVolume volume(nPorts=nPorts + 1,
+    V=1,
+    use_portsData=false,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{64,6},{84,26}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare final package Medium = Medium,
+     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+     h_outflow(start = Medium.h_default))
+    "Fluid connector a (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{-116,-10},{-96,10}})));
+
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts](redeclare each package
+      Medium =
+            Medium)  annotation (Placement(transformation(extent={{-12,-40},{12,40}},
+      origin={100,0}), iconTransformation(extent={{-12,-41},{12,41}}, origin={
+            100,-1})));
+
 equation
-  //heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
+  //heat_losses = actualStream(ports_b.h_outflow) - actualStream(port_a.h_outflow);
   for i in 1:nPorts loop
+  connect(volume.ports[i+1], ports_b[i]);
   end for;
 
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
@@ -174,8 +176,10 @@ equation
       points={{23,-54},{28,-54},{28,32},{44,32},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(port_a, reverseHeatLoss.port_b)
-    annotation (Line(points={{-100,0},{-90,0},{-80,0}}, color={0,127,255}));
+  connect(heatLoss.port_b, volume.ports[1])
+    annotation (Line(points={{60,0},{74,0},{74,6}}, color={0,127,255}));
+  connect(port_a, reverseHeatLoss.port_b) annotation (Line(points={{-106,0},{-94,
+          0},{-94,0},{-80,0}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
@@ -237,4 +241,4 @@ First implementation.
 <p><span style=\"font-family: MS Shell Dlg 2;\">The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used in front of and behind the time delay. The delay time is calculated once on the pipe level and supplied to both heat loss operators. </span></p>
 <p><span style=\"font-family: MS Shell Dlg 2;\">This component uses a modified delay operator.</span></p>
 </html>"));
-end PipeHeatLoss_PipeDelayMod_Vector;
+end PipeHeatLoss_PipeDelayMod_voctorized;
