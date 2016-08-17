@@ -11,11 +11,9 @@ model ViewFactorVerification
     timZonSta=-28800)
     annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
 
-  replaceable Cases.Case900 CaseVf(building(gF(calculateViewFactor=true)))
-    constrainedby Interfaces.BesTestCase
+  IDEAS.Buildings.Validation.Cases.Case900 CaseVf(building(gF(calculateViewFactor=true)))
     annotation (Placement(transformation(extent={{-76,4},{-64,16}})));
-  replaceable Cases.Case900 CaseNoVf(building(gF(calculateViewFactor=false)))
-    constrainedby Interfaces.BesTestCase
+  IDEAS.Buildings.Validation.Cases.Case900 CaseNoVf(building(gF(calculateViewFactor=false)))
     annotation (Placement(transformation(extent={{-76,-16},{-64,-4}})));
 initial equation
 

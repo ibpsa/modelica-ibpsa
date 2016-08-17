@@ -41,6 +41,7 @@ partial model partial_multipleBoreHoles
 
   // Parameters for the aggregation technic
 protected
+  parameter Modelica.SIunits.Time t0(fixed=false);
   parameter Integer nbHEX = bfData.gen.nVer * bfData.gen.nbSer;
   parameter Integer indexFirstLayerHEX[:] = {1 + (i-1)*bfData.gen.nVer for i in 1:bfData.gen.nbSer};
   final parameter Integer p_max=5
@@ -80,6 +81,8 @@ public
   BaseClasses.MassFlowRateMultiplier massFlowRateMultiplier1(redeclare package
       Medium = Medium, k=bfData.gen.nbBh)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+initial equation
+  t0=time;
 
 initial algorithm
   // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same length as the number of aggregated pulse and cover lenSim
@@ -102,7 +105,7 @@ initial algorithm
 equation
   Q_flow = port_a.m_flow*(actualStream(port_a.h_outflow) - actualStream(port_b.h_outflow));
 
-  assert(time < lenSim, "The chosen value for lenSim is too small. It cannot cover the whole simulation time!");
+  assert(time - t0 < lenSim, "The chosen value for lenSim is too small. It cannot cover the whole simulation time!");
 
   der(U) = Q_flow
     "Integration of load to calculate below the average load/(discrete time step)";
@@ -113,7 +116,7 @@ algorithm
     startTime := time;
   end when;
 
-  when initial() or sample(startTime, bfData.gen.tStep) then
+  when initial() or sample(startTime + bfData.gen.tStep, bfData.gen.tStep) then
     QAve_flow := (U - UOld)/bfData.gen.tStep;
     UOld := U;
 

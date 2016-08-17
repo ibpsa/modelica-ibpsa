@@ -1,47 +1,50 @@
 within IDEAS.Buildings.Components.Shading.Interfaces;
 partial model PartialShading "Window shading partial"
-
-  parameter Boolean controlled=true;
-
-  parameter Modelica.SIunits.Angle azi "window azimuth";
+  parameter Boolean controlled=true
+    "if true, shading has a control input"
+    annotation(Evaluate=true);
+  parameter Modelica.SIunits.Angle azi
+    "Window azimuth angle"
+    annotation(Dialog(group="Window properties"));
 
   Modelica.Blocks.Interfaces.RealInput solDir
-    "direct solar illuminance on surface se" annotation (Placement(
+    "Direct solar illuminance on surface" annotation (Placement(
         transformation(extent={{-80,30},{-40,70}}), iconTransformation(extent={
             {-60,50},{-40,70}})));
   Modelica.Blocks.Interfaces.RealInput solDif
-    "diffuse solar illuminance on surface s" annotation (Placement(
+    "Diffuse solar illuminance on surface" annotation (Placement(
         transformation(extent={{-80,-10},{-40,30}}), iconTransformation(extent=
             {{-60,10},{-40,30}})));
-  Modelica.Blocks.Interfaces.RealInput angZen "angle of incidence" annotation (
+  Modelica.Blocks.Interfaces.RealInput angZen
+    "Angle of incidence" annotation (
       Placement(transformation(extent={{-80,-90},{-40,-50}}),
         iconTransformation(extent={{-60,-70},{-40,-50}})));
   Modelica.Blocks.Interfaces.RealOutput iSolDir
-    "direct solar illuminance on surface se" annotation (Placement(
+    "Direct solar illuminance on surface" annotation (Placement(
         transformation(extent={{20,30},{60,70}}), iconTransformation(extent={{
             40,50},{60,70}})));
   Modelica.Blocks.Interfaces.RealOutput iSolDif
-    "diffuse solar illuminance on surface s" annotation (Placement(
+    "Diffuse solar illuminance on surface" annotation (Placement(
         transformation(extent={{20,-10},{60,30}}), iconTransformation(extent={{
             40,10},{60,30}})));
   Modelica.Blocks.Interfaces.RealOutput iAngInc
-    "angle of incidence after transmittance through shading (or not)"
+    "Angle of incidence after transmittance through (possible) shading"
     annotation (Placement(transformation(extent={{20,-70},{60,-30}}),
         iconTransformation(extent={{40,-50},{60,-30}})));
 
-  Modelica.Blocks.Interfaces.RealInput angInc "angle of incidence" annotation (
+  Modelica.Blocks.Interfaces.RealInput angInc "Inclination angle" annotation (
       Placement(transformation(extent={{-80,-70},{-40,-30}}),
         iconTransformation(extent={{-60,-50},{-40,-30}})));
-  Modelica.Blocks.Interfaces.RealInput angAzi "angle of incidence" annotation (
+  Modelica.Blocks.Interfaces.RealInput angAzi "Azimuth angle" annotation (
       Placement(transformation(extent={{-80,-110},{-40,-70}}),
         iconTransformation(extent={{-60,-90},{-40,-70}})));
-  Modelica.Blocks.Interfaces.RealInput Ctrl if controlled
+  Modelica.Blocks.Interfaces.RealInput Ctrl(min=0, max=1) if controlled
     "Control signal between 0 and 1, i.e. 1 is fully closed" annotation (
       Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=-90,
         origin={-10,-110}), iconTransformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,-100})));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
@@ -81,5 +84,15 @@ partial model PartialShading "Window shading partial"
           points={{4,60},{4,-20}},
           color={0,0,0},
           thickness=0.5,
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+July 18, 2016 by Filip Jorissen:<br/>
+Cleaned up implementation and documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>Partial model for shading computations.</p>
+</html>"));
 end PartialShading;

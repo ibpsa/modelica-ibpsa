@@ -6,8 +6,9 @@ partial model PartialSimInfoManager
   parameter String filNam = "Uccle.TMY" "Name of weather data file"
     annotation(Dialog(enable=useTmy3Reader));
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") = 0.88749992463912
-    "latitude of the locatioin";
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg") = 0.075921822461753;
+    "Latitude of the location";
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg") = 0.075921822461753
+    "Longitude of the location";
   parameter Modelica.SIunits.Time timZonSta(displayUnit="h") = 3600
     "standard time zone";
   parameter Integer numAzi=4 "Number of azimuth angles that are calculated"
@@ -39,10 +40,12 @@ partial model PartialSimInfoManager
   parameter SI.Angle ceilingInc = IDEAS.Types.Tilt.Ceiling
     "Ceiling inclination angle"
     annotation(Dialog(tab="Incidence angles"));
+  parameter Boolean DST = false
+    "boolean to take into account daylight saving time"
+    annotation(Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Temperature Tenv_nom= 280
     "Nominal ambient temperature, only used when linearising equations";
 
-public
   Modelica.SIunits.Irradiance solDirPer
     "direct irradiation on normal to solar zenith";
   Modelica.SIunits.Irradiance solDirHor
@@ -89,9 +92,9 @@ public
   Modelica.Blocks.Sources.RealExpression solDirPerExp(y=solDirPer)
     "Perpendicular direct solar radiation"
     annotation (Placement(transformation(extent={{-124,10},{-104,30}})));
+
+
 protected
-  final parameter Boolean DST = true
-    "boolean to take into account daylight saving time";
   final parameter Integer yr = 2014 "depcited year for DST only";
 
   final parameter Boolean BesTest = Modelica.Utilities.Strings.isEqual(filNam, "BesTest.txt")
@@ -105,7 +108,7 @@ protected
   IDEAS.BoundaryConditions.Climate.Time.SimTimes timMan(
     timZonSta=timZonSta,
     lon=lon,
-    DST=false,
+    DST=DST,
     ifSolCor=true)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
@@ -248,26 +251,31 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   for i in 1:numAzi+1 loop
-  connect(radSol[i].F2, skyBrightnessCoefficients.F2) annotation (Line(points={{
+    connect(radSol[i].F2, skyBrightnessCoefficients.F2) annotation (Line(points={{
           19.6,40},{2,40},{2,72},{-6,72}}, color={0,0,127}));
-  connect(radSol[i].F1, skyBrightnessCoefficients.F1) annotation (Line(points={{
+    connect(radSol[i].F1, skyBrightnessCoefficients.F1) annotation (Line(points={{
           19.6,42},{4,42},{4,76},{-6,76}}, color={0,0,127}));
-  connect(hour.y, radSol[i].angHou) annotation (Line(points={{-103,44},{-90,44},
+    connect(hour.y, radSol[i].angHou) annotation (Line(points={{-103,44},{-90,44},
           {-90,24},{14,24},{14,48},{19.6,48}}, color={0,0,127}));
-  connect(zenithAngle.y, radSol[i].angZen) annotation (Line(points={{-103,56},{-84,
+    connect(zenithAngle.y, radSol[i].angZen) annotation (Line(points={{-103,56},{-84,
           56},{-84,30},{16,30},{16,46},{19.6,46}}, color={0,0,127}));
-  connect(dec.y, radSol[i].angDec) annotation (Line(points={{-103,32},{-92,32},{
+    connect(dec.y, radSol[i].angDec) annotation (Line(points={{-103,32},{-92,32},{
           -92,22},{12,22},{12,50},{19.6,50}}, color={0,0,127}));
-  connect(radSol[i].solDirPer, solDirPerExp.y) annotation (Line(points={{19.6,60},
+    connect(radSol[i].solDirPer, solDirPerExp.y) annotation (Line(points={{19.6,60},
           {6,60},{6,20},{-103,20}}, color={0,0,127}));
-  connect(radSol[i].solDifHor, solDifHorIn.y) annotation (Line(points={{19.6,56},
+    connect(radSol[i].solDifHor, solDifHorIn.y) annotation (Line(points={{19.6,56},
           {10,56},{10,28},{-86,28},{-86,72},{-103,72}}, color={0,0,127}));
-  connect(solGloHorIn.y, radSol[i].solGloHor) annotation (Line(points={{-103,88},
+    connect(solGloHorIn.y, radSol[i].solGloHor) annotation (Line(points={{-103,88},
           {-88,88},{-88,26},{8,26},{8,58},{19.6,58}}, color={0,0,127}));
-  connect(TskyPow4Expr.y, radSol[i].TskyPow4)
+    connect(TskyPow4Expr.y, radSol[i].TskyPow4)
     annotation (Line(points={{-103,102},{28,102},{28,60.6}}, color={0,0,127}));
-  connect(TePow4Expr.y, radSol[i].TePow4) annotation (Line(points={{-103,116},{-90,
+    connect(TePow4Expr.y, radSol[i].TePow4) annotation (Line(points={{-103,116},{-90,
           116},{34,116},{34,60.6}}, color={0,0,127}));
+    connect(radSol[i].solBus, weaBus.solBus[i]) annotation (Line(
+      points={{40,50},{60.05,50},{60.05,28.05}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
   end for;
   connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
       points={{-6,76},{4,76},{4,34},{60,34},{60,28}},
@@ -314,12 +322,7 @@ equation
       points={{1,-10},{60.05,-10},{60.05,28.05}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(radSol.solBus, weaBus.solBus) annotation (Line(
-      points={{40,50},{60.05,50},{60.05,28.05}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
-  connect(fixedTemperature.port, Qgai)
+    connect(fixedTemperature.port, Qgai)
     annotation (Line(points={{20,-70},{0,-70},{0,-100}},  color={191,0,0}));
 
   connect(CEnv.y, weaBus.CEnv) annotation (Line(points={{1,-40},{1,-40},{60,-40},

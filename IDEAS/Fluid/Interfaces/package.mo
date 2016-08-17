@@ -116,12 +116,12 @@ see the <i>info</i> section of the class.
 <!-- ============================================== -->
 <tr>
   <td>
-    <a href=\"modelica://IDEAS.Fluid.Interfaces.TemperatureControlledHeatFlow\">
-                         IDEAS.Fluid.Interfaces.TemperatureControlledHeatFlow</a>
+    <a href=\"modelica://IDEAS.Fluid.Interfaces.PrescribedOutletState\">
+                         IDEAS.Fluid.Interfaces.PrescribedOutletState</a>
   </td>
   <td>
     This model calculates a prescribed heat flow (e.g. for an ideal heater or cooler),
-    depending on a set temperature TSet.
+    depending on a set temperature <code>TSet</code>.
   </td>
 </tr>
 <!-- ============================================== -->

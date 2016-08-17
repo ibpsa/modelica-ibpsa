@@ -3,20 +3,23 @@ model Overhang "Roof overhangs"
   extends IDEAS.Buildings.Components.Shading.Interfaces.PartialShading(
                                                              final controlled=false);
 
-  // Window properties
-  parameter Modelica.SIunits.Length hWin "Window height";
-  parameter Modelica.SIunits.Length wWin "Window width";
-  final parameter Modelica.SIunits.Area aWin = hWin*wWin "Window area";
+  parameter Modelica.SIunits.Length hWin(min=0) "Window height"
+    annotation(Dialog(group="Window properties"));
+  parameter Modelica.SIunits.Length wWin(min=0) "Window width"
+    annotation(Dialog(group="Window properties"));
 
-  // Overhang properties
-  parameter Modelica.SIunits.Length wLeft
-    "Left overhang width measured from the window corner";
-  parameter Modelica.SIunits.Length wRight
-    "Right overhang width measured from the window corner";
-  parameter Modelica.SIunits.Length dep
-    "Overhang depth perpendicular to the wall plane";
-  parameter Modelica.SIunits.Length gap
-    "Distance between window upper edge and overhang lower edge";
+  parameter Modelica.SIunits.Length wLeft(min=0)
+    "Left overhang width measured from the window corner"
+    annotation(Dialog(group="Overhang properties"));
+  parameter Modelica.SIunits.Length wRight(min=0)
+    "Right overhang width measured from the window corner"
+    annotation(Dialog(group="Overhang properties"));
+  parameter Modelica.SIunits.Length dep(min=0)
+    "Overhang depth perpendicular to the wall plane"
+    annotation(Dialog(group="Overhang properties"));
+  parameter Modelica.SIunits.Length gap(min=0)
+    "Distance between window upper edge and overhang lower edge"
+    annotation(Dialog(group="Overhang properties"));
 
   Real fraSun(final min=0,final max=1, final unit="1")
     "Fraction of window area exposed to the sun";
@@ -99,8 +102,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics), Documentation(info="<html>
-<p><h4><font color=\"#008000\">General description</font></h4></p>
-<p><h5>Goal</h5></p>
-<p>The <code>Overhang.mo</code> model describes the transient behaviour of solar irradiance on a window below a non-fixed horizontal or vertical overhang.</p>
+<p>Shading model of an overhang above a window.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 18, 2016 by Filip Jorissen:<br/>
+Cleaned up implementation and documentation.
+</li>
+</ul>
 </html>"));
 end Overhang;

@@ -49,19 +49,22 @@ that are used in the lumped  volume model, and in models that extend the
 lumped volume model.
 </p>
 <p>
-These parameters are used by
+These parameters are used for example by
 <a href=\"modelica://IDEAS.Fluid.Interfaces.ConservationEquation\">
 IDEAS.Fluid.Interfaces.ConservationEquation</a>,
 <a href=\"modelica://IDEAS.Fluid.MixingVolumes.MixingVolume\">
-IDEAS.Fluid.MixingVolumes.MixingVolume</a>,
-<a href=\"modelica://IDEAS.Rooms.MixedAir\">
-IDEAS.Rooms.MixedAir</a>, and by
-<a href=\"modelica://IDEAS.Rooms.BaseClasses.MixedAir\">
-IDEAS.Rooms.BaseClasses.MixedAir</a>.
+IDEAS.Fluid.MixingVolumes.MixingVolume</a> and
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.Radiators.RadiatorEN442_2\">
+IDEAS.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Added <code>quantity=Medium.substanceNames</code> for <code>X_start</code>.

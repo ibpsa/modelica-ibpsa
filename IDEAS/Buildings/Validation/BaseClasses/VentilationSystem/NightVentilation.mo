@@ -3,7 +3,7 @@ model NightVentilation "BESTEST nightventilation system"
   extends IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem(final nLoads=1);
 
 protected
-  IDEAS.Occupants.Components.Schedule occ(occupancy=3600*{7,18},
+  IDEAS.BoundaryConditions.Occupants.Components.Schedule occ(occupancy=3600*{7,18},
       firstEntryOccupied=true) "Occupancy shedule";
   final parameter Real corrCV=0.822
     "Air density correction for BESTEST at high altitude";
@@ -17,13 +17,13 @@ public
   Fluid.Sources.FixedBoundary bou(redeclare package Medium =
         IDEAS.Media.Air, final nPorts=nZones)
     annotation (Placement(transformation(extent={{-68,-30},{-88,-10}})));
-  Modelica.Blocks.Sources.RealExpression m_flow_in(y=1703.16*corrCV*1.024/3600*Occupancy)
+  Modelica.Blocks.Sources.RealExpression m_flow_in(y=1703.16*(287*sim.Te/83200)/3600*ventilate)
     annotation (Placement(transformation(extent={{-12,38},{-32,58}})));
   Modelica.Blocks.Sources.RealExpression T_in(y=sim.Te)
     annotation (Placement(transformation(extent={{-10,-8},{-30,12}})));
 
 protected
-  Real Occupancy = if occ.occupied then 1 else 0;
+  Real ventilate = if occ.occupied then 0 else 1;
 
 equation
   wattsLawPlug.P[1] = 0;

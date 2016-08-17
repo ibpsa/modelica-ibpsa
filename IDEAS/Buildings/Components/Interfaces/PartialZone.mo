@@ -7,7 +7,7 @@ partial model PartialZone "Partial model for thermal building zones"
     "Number of surfaces adjacent to and heat exchangeing with the zone";
   parameter Boolean useFluPor = true
     "Set to false to disable the use of fluid ports"
-    annotation(Dialog(tab="Advanced"));
+    annotation(Dialog(tab="Advanced", group="Air model"));
   outer IDEAS.BoundaryConditions.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
