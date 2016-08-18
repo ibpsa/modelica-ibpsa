@@ -3,7 +3,7 @@ model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef;
+  parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef "fixme: add comment";
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
     "Year when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
@@ -33,19 +33,19 @@ protected
   parameter Modelica.SIunits.Time timOff(fixed=false) "Time offset";
   // final parameters since the user may wrongly assume that this model shifts the
   // actual time of the simulation
-  parameter Integer monthRef(min=1, max=12) = 1 "Month when time = 0"
+  final parameter Integer monthRef(min=1, max=12) = 1 "Month when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  parameter Integer dayRef(min=1, max=31) = 1 "Day when time = 0"
+  final parameter Integer dayRef(min=1, max=31) = 1 "Day when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  parameter Integer hourRef(min=0, max=23) = 0 "Hour when time = 0"
+  final parameter Integer hourRef(min=0, max=23) = 0 "Hour when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  parameter Integer minuteRef(min=0, max=59) = 0 "Minute when time = 0"
+  final parameter Integer minuteRef(min=0, max=59) = 0 "Minute when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  parameter Integer secondRef(min=0, max=59) = 0 "Second when time = 0"
+  final parameter Integer secondRef(min=0, max=59) = 0 "Second when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  constant Integer firstYear = 2010
+  final constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
-  constant Integer lastYear = firstYear + size(timeStampsNewYear,1) - 1;
+  final constant Integer lastYear = firstYear + size(timeStampsNewYear,1) - 1;
   constant Real timeStampsNewYear[12] = {
     1262304000, 1293840000, 1325376000,
     1356998400, 1388534400, 1420070400,
@@ -57,7 +57,7 @@ protected
     false, false, true, false,
     false, false, true}
     "List of leap years starting from firstYear (2010), up to 2020";
-  constant Integer dayInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+  final constant Integer dayInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
     "Number of days in each month";
   Integer daysSinceEpoch "Number of days that passed since 1st of January 1970";
   discrete Integer yearIndex "Index of the current year in timeStampsNewYear";
@@ -209,7 +209,9 @@ equation
   // using Real variables and operations for minutes since otherwise too many events are generated
   minute = (unixTimeStamp-daysSinceEpoch*60*24-hour*60);
 
-  annotation (Documentation(revisions="<html>
+  annotation (
+    defaultComponentName="calTim",
+  Documentation(revisions="<html>
 <ul>
 <li>
 August 3, 2016, by Filip Jorissen:<br/>
@@ -220,10 +222,10 @@ First implementation.
 <p>
 This blocks computes the unix time stamp, date and time 
 and the day of the week based on the Modelica
-variables <code>time</code>.
+variable <code>time</code>.
 Parameters need to be provided such that these computations are done correctly.
 The block currently contains support for the calendar of 2010 up to 2020.
-Day light saving time is currently not supported.
+Daylight saving time is currently not supported.
 </p>
 <h4>Main equations</h4>
 <p>
@@ -234,22 +236,20 @@ such as <code>floor()</code>, <code>ceil()</code> etc.
 <h4>Assumption and limitations</h4>
 <p>
 The implementation currently only supports simulations from year 2010 up to 2020.
-Day light saving and time zones are currently not supported.
+Daylight saving and time zones are currently not supported.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
 The user must define which time and date correspond to <code>time = 0</code>
 using the model parameters.
-The user can choose from new year, midnight for a number of years, including 1970, which corresponds to a unix stamp of 0.
+The user can choose from new year, midnight for a number of years, including 1970, which corresponds to a unix stamp of <i>0</i>.
 </p>
 <h4>Implementation</h4>
 <p>
-The model was implemented such that no events are being generated for computing what minute of the day it is.
+The model was implemented such that no events are being generated for computing the minute of the day.
 The model also contains an implementation for setting time=0 for any day/month other than january first.
 This is however not activated in the current model since these options may wrongly give the impression
 that it changes the time based on which the solar irradiation and TMY3 data is computed/read.
 </p>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+</html>"));
 end CalendarTime;
