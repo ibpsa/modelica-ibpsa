@@ -16,7 +16,9 @@ type TimeReference = enumeration(
   "Use this to set date corresponding to time = 0"
   annotation (Documentation(info="<html>
 <p>
-Type for choosing how to set the reference time in the CalendarTime block.
+Type for choosing how to set the reference time in
+<a href=\"modelica://Annex60.Utilities.Time.CalendarTime\">
+Annex60.Utilities.Time.CalendarTime</a>.
 </p>
 </html>", revisions="<html>
 <ul>
