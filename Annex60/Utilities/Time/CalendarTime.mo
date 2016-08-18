@@ -30,19 +30,6 @@ model CalendarTime
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
 
 protected
-  parameter Modelica.SIunits.Time timOff(fixed=false) "Time offset";
-  // final parameters since the user may wrongly assume that this model shifts the
-  // actual time of the simulation
-  final parameter Integer monthRef(min=1, max=12) = 1 "Month when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  final parameter Integer dayRef(min=1, max=31) = 1 "Day when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  final parameter Integer hourRef(min=0, max=23) = 0 "Hour when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  final parameter Integer minuteRef(min=0, max=59) = 0 "Minute when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  final parameter Integer secondRef(min=0, max=59) = 0 "Second when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
   final constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
   final constant Integer lastYear = firstYear + size(timeStampsNewYear,1) - 1;
@@ -59,6 +46,19 @@ protected
     "List of leap years starting from firstYear (2010), up to 2020";
   final constant Integer dayInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
     "Number of days in each month";
+  parameter Modelica.SIunits.Time timOff(fixed=false) "Time offset";
+  // final parameters since the user may wrongly assume that this model shifts the
+  // actual time of the simulation
+  final constant Integer monthRef(min=1, max=12) = 1 "Month when time = 0"
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
+  final constant Integer dayRef(min=1, max=31) = 1 "Day when time = 0"
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
+  final constant Integer hourRef(min=0, max=23) = 0 "Hour when time = 0"
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
+  final constant Integer minuteRef(min=0, max=59) = 0 "Minute when time = 0"
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
+  final constant Integer secondRef(min=0, max=59) = 0 "Second when time = 0"
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
   Integer daysSinceEpoch "Number of days that passed since 1st of January 1970";
   discrete Integer yearIndex "Index of the current year in timeStampsNewYear";
   discrete Real epochLastMonth
