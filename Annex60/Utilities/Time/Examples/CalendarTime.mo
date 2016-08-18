@@ -1,5 +1,5 @@
 within Annex60.Utilities.Time.Examples;
-model CalendarTime
+model CalendarTime "Example for the calendar time model"
   extends Modelica.Icons.Example;
   Annex60.Utilities.Time.CalendarTime calendarTime2016(
     timRef=Annex60.Utilities.Time.BaseClasses.TimeReference.NY2016)
