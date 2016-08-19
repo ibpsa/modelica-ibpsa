@@ -2,18 +2,26 @@ within IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer;
 model ExteriorConvection "exterior surface convection"
 
   parameter Modelica.SIunits.Area A "surface area";
-
+  parameter Boolean linearise = false "Use constant convection coefficient"
+    annotation(Evaluate=true);
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hConExtLin = 18.3
+    "Fixed exterior convection coefficient used when linearising equations"
+     annotation(Dialog(enable=linearize));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput Te
+  Modelica.Blocks.Interfaces.RealInput Te(unit="K",displayUnit="degC")
     annotation (Placement(transformation(extent={{-120,-68},{-80,-28}})));
-  Modelica.Blocks.Interfaces.RealInput hConExt
+  Modelica.Blocks.Interfaces.RealInput hConExt(unit="W/(m2.K)")
     "Exterior convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-120,-110},{-80,-70}})));
 
 equation
-  port_a.Q_flow = hConExt*A*(port_a.T - Te);
+  if linearise then
+    port_a.Q_flow = A*hConExtLin *(port_a.T - Te);
+  else
+    port_a.Q_flow = A*hConExt*(port_a.T - Te);
+  end if;
 
   annotation (Icon(graphics={
         Rectangle(

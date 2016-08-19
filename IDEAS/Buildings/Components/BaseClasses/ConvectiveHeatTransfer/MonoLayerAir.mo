@@ -67,7 +67,8 @@ public
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 equation
   if not (ceiling or floor or vertical) then
-    assert(false, "Could not find suitible correlation for air cavity! Please change the inclination to wall, ceiling or floor or remove the air layer.");
+    assert(false, "Could not find suitable correlation for air cavity! Please change the inclination to wall, ceiling or floor or remove the air layer.",
+         level=AssertionLevel.warning);
   end if;
 
   port_a.Q_flow + port_b.Q_flow + port_emb.Q_flow=0;

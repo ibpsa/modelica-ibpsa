@@ -100,7 +100,7 @@ protected
         rotation=-90,
         origin={-50,-50})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
-    radDistrLw(final nSurf=nSurf, final linearise=linearise) if
+    radDistrLw(final nSurf=nSurf, final linearise=linearise or sim.linearise) if
                                                  not calculateViewFactor
     "internal longwave radiative heat exchange" annotation (Placement(
         transformation(
@@ -126,16 +126,6 @@ public
 
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
-
-
-
-
-
-
-
-
-
-
 
 
 equation

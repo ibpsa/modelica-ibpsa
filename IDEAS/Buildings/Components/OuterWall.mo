@@ -4,6 +4,13 @@ model OuterWall "Opaque building envelope construction"
      dT_nominal_a=-3,
      QTra_design(fixed=false));
 
+  parameter Boolean linExtCon=sim.linExtCon
+    "= true, if exterior convective heat transfer should be linearised (uses average wind speed)"
+    annotation(Dialog(tab="Convection"));
+  parameter Boolean linExtRad=sim.linExtRad
+    "= true, if exterior radiative heat transfer should be linearised"
+    annotation(Dialog(tab="Radiation"));
+
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
   Modelica.SIunits.Power QSolIrr = (gainDir.y + gainDif.y)
@@ -11,7 +18,7 @@ model OuterWall "Opaque building envelope construction"
 
 protected
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.ExteriorConvection
-    extCon(final A=AWall)
+    extCon(final A=AWall, linearise=linExtCon or sim.linearise)
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-22,-28},{-42,-8}})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorSolarAbsorption
@@ -19,7 +26,7 @@ protected
     "determination of absorbed solar radiation by wall based on incident radiation"
     annotation (Placement(transformation(extent={{-22,-8},{-42,12}})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorHeatRadiation
-    extRad(final A=AWall)
+    extRad(final A=AWall, linearise=linExtRad or sim.linearise)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-22,12},{-42,32}})));
   Modelica.Blocks.Math.Gain gainDir(k=AWall)
@@ -29,10 +36,11 @@ protected
   BoundaryConditions.Climate.Meteo.Solar.RadSolData radSolData(
     inc=inc,
     azi=azi,
-    numAzi=sim.numAzi,
-    offsetAzi=sim.offsetAzi,
-    ceilingInc=sim.ceilingInc,
-    lat=sim.lat)
+    lat=sim.lat,
+    final outputAngles=sim.outputAngles,
+    useLinearisation=sim.linearise,
+    incAndAziInBus=sim.incAndAziInBus,
+    numIncAndAziInBus=sim.numIncAndAziInBus)
     annotation (Placement(transformation(extent={{-94,-4},{-74,16}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough";
 initial equation

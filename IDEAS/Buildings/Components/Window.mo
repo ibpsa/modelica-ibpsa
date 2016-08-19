@@ -9,7 +9,7 @@ model Window "Multipane window"
     dT_nominal_a=-3,
     intCon_a(final A=
            A*(1 - frac),
-           linearise=linearise_a,
+           linearise=linIntCon_a or sim.linearise,
            dT_nominal=dT_nominal_a),
     QTra_design(fixed=false),
     Qgai(y=-(propsBus_a.surfCon.Q_flow +
@@ -22,6 +22,12 @@ model Window "Multipane window"
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       dT_nom_air=5,
       linIntCon=true));
+  parameter Boolean linExtCon=sim.linExtCon
+    "= true, if exterior convective heat transfer should be linearised (uses average wind speed)"
+    annotation(Dialog(tab="Convection"));
+  parameter Boolean linExtRad=sim.linExtRad
+    "= true, if exterior radiative heat transfer should be linearised"
+    annotation(Dialog(tab="Radiation"));
 
   parameter Modelica.SIunits.Area A "Total window and windowframe area";
   parameter Real frac(
@@ -70,12 +76,13 @@ protected
     "Window U-value";
 
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.ExteriorConvection
-    eCon(final A=A*(1 - frac))
+    eCon(final A=A*(1 - frac), linearise=linExtCon or sim.linearise)
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,-38},{-40,-18}})));
 
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorHeatRadiation
-    skyRad(final A=A*(1 - frac), Tenv_nom=sim.Tenv_nom)
+    skyRad(final A=A*(1 - frac), Tenv_nom=sim.Tenv_nom,
+    linearise=linExtRad or sim.linearise)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.SwWindowResponse
@@ -88,17 +95,19 @@ protected
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.InteriorConvection
-    iConFra(final A=A*frac, final inc=inc) if
+    iConFra(final A=A*frac, final inc=inc,
+    linearise=linIntCon_a or sim.linearise) if
                         fraType.present
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorHeatRadiation
-    skyRadFra(final A=A*frac, Tenv_nom=sim.Tenv_nom) if
+    skyRadFra(final A=A*frac, Tenv_nom=sim.Tenv_nom,
+    linearise=linExtRad or sim.linearise) if
                          fraType.present
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,80},{-40,100}})));
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.ExteriorConvection
-    eConFra(final A=A*frac) if
+    eConFra(final A=A*frac, linearise=linExtCon or sim.linearise) if
                  fraType.present
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,60},{-40,80}})));
@@ -109,10 +118,10 @@ protected
   BoundaryConditions.Climate.Meteo.Solar.RadSolData radSolData(
     inc=inc,
     azi=azi,
-    numAzi=sim.numAzi,
-    offsetAzi=sim.offsetAzi,
-    ceilingInc=sim.ceilingInc,
-    lat=sim.lat)
+    lat=sim.lat,
+    outputAngles=sim.outputAngles,
+    incAndAziInBus=sim.incAndAziInBus,
+    numIncAndAziInBus=sim.numIncAndAziInBus)
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   Modelica.Blocks.Math.Gain gainDir(k=A*(1 - frac))
     annotation (Placement(transformation(extent={{-70,-34},{-62,-26}})));
@@ -140,6 +149,9 @@ protected
 
 initial equation
   QTra_design = (U_value*A + briType.G) *(273.15 + 21 - Tdes.y);
+
+
+
 
 equation
   connect(eCon.port_a, layMul.port_b) annotation (Line(
