@@ -24,6 +24,9 @@ typedef struct {
     unsigned char buffer[64];
 } SHA1_CTX;
 
+
+void ModelicaFormatMessage(const char *string, ...);
+
 void SHA1Transform(unsigned long state[5], unsigned char buffer[64]);
 void SHA1Init(SHA1_CTX* context);
 void SHA1Update(SHA1_CTX* context, unsigned char* data, unsigned int len);
@@ -176,14 +179,16 @@ unsigned char finalcount[8];
 /*************************************************************/
 
 
-long double sha1(char* path)
+const char* sha1(char* path)
 {
 int i, j;
-long double sha;
+
 long double sha_el;
 SHA1_CTX context;
 unsigned char digest[20], buffer[16384];
 FILE* file;
+	
+	
 
 	if (!(file = fopen(path, "rb"))) {
 		fputs("Unable to open file.", stderr);
@@ -197,17 +202,10 @@ FILE* file;
     }
     SHA1Final(digest, &context);
     fclose(file);
-
-	sha = 0;
-	i = 0;
-	while(i<5){
-		j = 0;
-		while(j<4){
-			sha_el = (int) digest[i*4+j];
-			sha = sha*1000 + sha_el; 
-			j++;
-		}
-		i++;
-	}
+	
+	// convert digest into human readable list of HEX characters
+	char* sha = malloc(40*sizeof(char));
+	sprintf(sha, "%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x", digest[0], digest[1], digest[2], digest[3], digest[4], digest[5], digest[6], digest[7], digest[8], digest[9], digest[10], digest[11], digest[12], digest[13], digest[14], digest[15], digest[17], digest[18], digest[19]);
+	//ModelicaFormatMessage("Computed sha for path %s. with result %s \n", path, sha);
 return sha;
 }
