@@ -10,7 +10,7 @@ model BuildingShadeExample
   inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,-12},{-80,8}})));
 protected
-  Interfaces.WeaBus                  weaBus(numSolBus=sim.numAzi + 1)
+  Interfaces.WeaBus                  weaBus(numSolBus=sim.numIncAndAziInBus)
     annotation (Placement(transformation(extent={{-64,24},{-44,44}})));
 public
   Shading.None none(azi=azi.k)
@@ -46,7 +46,7 @@ public
     annotation (Placement(transformation(extent={{-24,-100},{-14,-80}})));
 equation
   connect(sim.weaBus, weaBus) annotation (Line(
-      points={{-84,0.8},{-84,2},{-54,2},{-54,4},{-54,4},{-54,34},{-54,34}},
+      points={{-84,0.8},{-84,34},{-54,34}},
       color={255,204,51},
       thickness=0.5));
   connect(buildingShade.solDir, weaBus.solBus[2].iSolDir) annotation (Line(points={{-24,36},

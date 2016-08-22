@@ -43,7 +43,7 @@ model WallUnitTest "Unit test for verifying results for all wall components"
     "Fixed dummy zone temperature"
     annotation (Placement(transformation(extent={{80,60},{60,80}})));
 protected
-  Interfaces.ZoneBus propsBus_a1(numAzi=sim.numAzi, computeConservationOfEnergy=
+  Interfaces.ZoneBus propsBus_a1(numIncAndAziInBus=sim.numIncAndAziInBus, computeConservationOfEnergy=
        sim.computeConservationOfEnergy)                          "If inc = Floor, then propsbus_a should be connected to the zone above this floor.
     If inc = ceiling, then propsbus_a should be connected to the zone below this ceiling.
     If component is an outerWall, porpsBus_a should be connect to the zone."
@@ -52,14 +52,14 @@ public
   inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 protected
-  Interfaces.WeaBus weaBus1(numSolBus=sim.numAzi + 1)
+  Interfaces.WeaBus weaBus1(numSolBus=sim.numIncAndAziInBus)
     annotation (Placement(transformation(extent={{-2,88},{18,108}})));
 public
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature Tzone1(T=293.15)
     "Fixed dummy zone temperature"
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
 protected
-  Interfaces.ZoneBus propsBus_a2(numAzi=sim.numAzi, computeConservationOfEnergy=
+  Interfaces.ZoneBus propsBus_a2(numIncAndAziInBus=sim.numIncAndAziInBus, computeConservationOfEnergy=
        sim.computeConservationOfEnergy)                          "If inc = Floor, then propsbus_a should be connected to the zone above this floor.
     If inc = ceiling, then propsbus_a should be connected to the zone below this ceiling.
     If component is an outerWall, porpsBus_a should be connect to the zone."
@@ -69,7 +69,7 @@ public
     "Fixed dummy zone temperature"
     annotation (Placement(transformation(extent={{80,-20},{60,0}})));
 protected
-  Interfaces.ZoneBus propsBus_a3(numAzi=sim.numAzi, computeConservationOfEnergy=
+  Interfaces.ZoneBus propsBus_a3(numIncAndAziInBus=sim.numIncAndAziInBus, computeConservationOfEnergy=
        sim.computeConservationOfEnergy)                          "If inc = Floor, then propsbus_a should be connected to the zone above this floor.
     If inc = ceiling, then propsbus_a should be connected to the zone below this ceiling.
     If component is an outerWall, porpsBus_a should be connect to the zone."
@@ -79,7 +79,7 @@ public
     "Fixed dummy zone temperature"
     annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
 protected
-  Interfaces.ZoneBus propsBus_a4(numAzi=sim.numAzi, computeConservationOfEnergy=
+  Interfaces.ZoneBus propsBus_a4(numIncAndAziInBus=sim.numIncAndAziInBus, computeConservationOfEnergy=
        sim.computeConservationOfEnergy)                          "If inc = Floor, then propsbus_a should be connected to the zone above this floor.
     If inc = ceiling, then propsbus_a should be connected to the zone below this ceiling.
     If component is an outerWall, porpsBus_a should be connect to the zone."
@@ -89,7 +89,7 @@ public
     "Fixed dummy zone temperature"
     annotation (Placement(transformation(extent={{-100,22},{-80,42}})));
 protected
-  Interfaces.ZoneBus propsBus_a5(numAzi=sim.numAzi, computeConservationOfEnergy=
+  Interfaces.ZoneBus propsBus_a5(numIncAndAziInBus=sim.numIncAndAziInBus, computeConservationOfEnergy=
        sim.computeConservationOfEnergy)                          "If inc = Floor, then propsbus_a should be connected to the zone above this floor.
     If inc = ceiling, then propsbus_a should be connected to the zone below this ceiling.
     If component is an outerWall, porpsBus_a should be connect to the zone."

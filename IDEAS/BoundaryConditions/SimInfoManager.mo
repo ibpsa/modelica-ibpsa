@@ -89,11 +89,8 @@ south, west, east, north and horizontal.
 Whenever a surface needs the solar incidence angels for one of these orientations
 these precomputed values will be used.
 The default orientations can be changed using parameters 
-<code>numAzi</code> and <code>offsetAzi</code>.
-<code>NumAzi</code> determines how many vertical surfaces are precomputed. 
-<code>OffsetAzi</code> determines the offset for the first surface.
-The surface azimuth angles are then computed as
-<code>fill(offsetAzi, numAzi) + (0:numAzi-1)*Modelica.Constants.pi*2/numAzi)</code>.
+<code>incAndAziInBus</code>.
+<code>incAndAziInBus</code> determines for which inclination and azimuth the solar radiation is pre-computed.
 </li>
 <li>Conservation of energy within the building can be checked by setting <code>computeConservationOfEnergy=true</code>.
 Conservation of energy is checked by computing the internal energy for 

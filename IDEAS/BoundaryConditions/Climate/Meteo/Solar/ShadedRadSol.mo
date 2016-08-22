@@ -22,6 +22,7 @@ protected
   Modelica.Blocks.Sources.RealExpression TenvExpr(
     y=(Fssky*TskyPow4 + (1 - Fssky)*TePow4)^0.25) "Environment temperature"
     annotation (Placement(transformation(extent={{0,70},{60,90}})));
+
 equation
   connect(angleAzimuth.angDec, angSolar.angDec) annotation (Line(
       points={{0,-44},{-66,-44},{-66,36},{-40,36}},

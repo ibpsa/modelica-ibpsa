@@ -42,7 +42,7 @@ extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
     allowFlowReversal=false)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 protected
-  Interfaces.WeaBus weaBus(numSolBus=sim.numAzi + 1)
+  Interfaces.WeaBus weaBus(numSolBus=sim.numIncAndAziInBus)
     annotation (Placement(transformation(extent={{-50,76},{-30,96}})));
 public
   Modelica.Blocks.Sources.RealExpression reaExpX_air(y=1 - reaPasThr.y)
