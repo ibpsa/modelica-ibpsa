@@ -34,7 +34,8 @@ model structure "Example detailed building structure model"
         extent={{-5.5,-10.5},{5.5,10.5}},
         rotation=90,
         origin={-17.5,-75.5})));
-  Components.Window[3] gF_win(
+  replaceable Components.Window[
+                    3] gF_win(
     A={5.5,1,5.5},
     azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
     redeclare IDEAS.Buildings.Data.Glazing.Ins2Kr glazing,
@@ -45,7 +46,8 @@ model structure "Example detailed building structure model"
         rotation=90,
         origin={10.5,-75.5})));
 
-  Components.SlabOnGround gF_floor(
+  replaceable Components.SlabOnGround
+                          gF_floor(
     redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType,
     insulationThickness=0.14,
     AWall=72,
@@ -69,7 +71,8 @@ model structure "Example detailed building structure model"
         extent={{-5.5,-10.5},{5.5,10.5}},
         rotation=90,
         origin={-17.5,-15.5})));
-  Components.Window[3] fF_win(
+  replaceable Components.Window[
+                    3] fF_win(
     A={5.5,1,5.5},
     azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
     redeclare IDEAS.Buildings.Data.Glazing.Ins2Kr glazing,
@@ -102,7 +105,8 @@ model structure "Example detailed building structure model"
         extent={{-5.5,-10.5},{5.5,10.5}},
         rotation=90,
         origin={-17.5,44.5})));
-  Components.Window[3] sF_win(
+  replaceable Components.Window[
+                    3] sF_win(
     A={5.5,1,5.5},
     azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
     redeclare IDEAS.Buildings.Data.Glazing.Ins2Kr glazing,

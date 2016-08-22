@@ -21,8 +21,9 @@ partial model PartialZone "Partial model for thermal building zones"
     "Sensor temperature of the zone, i.e. operative temeprature" annotation (
       Placement(transformation(extent={{96,-10},{116,10}}), iconTransformation(
           extent={{96,-10},{116,10}})));
-  ZoneBus[nSurf] propsBus(each final numAzi=sim.numAzi,
-      each final computeConservationOfEnergy=sim.computeConservationOfEnergy)
+  ZoneBus[nSurf] propsBus(each final numIncAndAziInBus=sim.numIncAndAziInBus,
+      each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
+      each weaBus(final outputAngles=sim.outputAngles))
                           annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=-90,
@@ -36,7 +37,6 @@ partial model PartialZone "Partial model for thermal building zones"
   Modelica.Fluid.Interfaces.FluidPort_a flowPort_In(redeclare package Medium = Medium)
     if                                                                                    useFluPor
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
-
 protected
   Modelica.Blocks.Sources.RealExpression Eexpr if
        sim.computeConservationOfEnergy "Internal energy model";
@@ -63,12 +63,14 @@ initial equation
 equation
   connect(sim.Qgai, dummy1);
   connect(sim.E, dummy2);
-for i in 1:nSurf loop
+  for i in 1:nSurf loop
+     if not sim.linearise then
   connect(sim.weaBus, propsBus[i].weaBus) annotation (Line(
-       points={{-84,92.8},{-84,100},{-100.1,100},{-100.1,39.9}},
+       points={{-84,92.8},{-84,96},{-84,96},{-84,100},{-100.1,100},{-100.1,39.9}},
        color={255,204,51},
        thickness=0.5,
        smooth=Smooth.None));
+     end if;
   connect(dummy1, propsBus[i].Qgai);
   connect(dummy2, propsBus[i].E);
 end for;

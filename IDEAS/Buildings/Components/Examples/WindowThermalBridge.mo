@@ -13,7 +13,7 @@ model WindowThermalBridge "Comparison of three window thermal bridge options"
     A=1,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two,
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S)
     annotation (Placement(transformation(extent={{-54,-100},{-44,-80}})));
@@ -36,7 +36,7 @@ model WindowThermalBridge "Comparison of three window thermal bridge options"
     A=1,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None,
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.None,
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S,
     redeclare ThermalBridges.LineLosses briType)
@@ -45,7 +45,7 @@ model WindowThermalBridge "Comparison of three window thermal bridge options"
     A=1,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Combined,
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Combined,
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S,
     redeclare ThermalBridges.BaseClasses.ThermalBridge briType(G=5))
