@@ -2,7 +2,6 @@ within IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer;
 model ZoneLwGainDistribution "distribution of radiative internal gains"
 
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
-  Real test;
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir
     "Direct solar radiation gains received through windows"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
@@ -91,7 +90,6 @@ equation
   iSolDir.T = TRad;
   iSolDif.T = TRad;
   radGain.T = TRad;
-  test = sum(iSolDif.Q_flow) + sum(iSolDir.Q_flow) + radGain.Q_flow + sum(radSurfTot.Q_flow);
 
   annotation (
     Icon(graphics={
@@ -125,7 +123,30 @@ equation
           thickness=0.5,
           smooth=Smooth.None)}),
     Documentation(info="<html>
-<p>The exchange of longwave radiation in a zone has been previously described in the building component models and further considering the heat balance of the interior surface. Here, an expression based on <i>radiant interchange configuration factors</i> or <i>view factors</i> is avoided based on a delta-star transformation and by definition of a <i>radiant star temperature</i> <img src=\"modelica://IDEAS/Images/equations/equation-rE4hQkmG.png\"/>. Literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption. This <img src=\"modelica://IDEAS/Images/equations/equation-rE4hQkmG.png\"/> can be derived from the law of energy conservation in the radiant star node as <img src=\"modelica://IDEAS/Images/equations/equation-iH8dRZqh.png\"/> must equal zero. Long wave radiation from internal sources are dealt with by including them in the heat balance of the radiant star node resulting in a diffuse distribution of the radiative source.</p>
+<p>
+This model computes how radiative gains are redistributed among all surfaces.
+We consider 1) diffuse solar gains, 
+2) beam solar gains and 
+3) other, long wave, internal gains, e.g. from occupants.
+</p>
+<p>
+Diffuse solar gains are redistributed by computing a weighting factor equal to the surface area multiplied with the
+shortwave emissivity of the surface.
+This factor is used to redistribute the diffuse solar gains among all surfaces.
+</p>
+<p>
+Internal gains from occupants are redistributed in the same way, but using
+the long wave emissivity instead of the short wave emissivity.
+</p>
+<p>
+Direct/bream solar gains are redistributed by assuming that a fixed fraction of the beam solar
+gains are absorbed by the floor. 
+This fraction equals the short wave emissivity of the floor. 
+If there are multiple floors (based on the inclination angle) 
+then their area and emissivity are used to compute a weight factor for the floors.
+The remaining radiation is redistributed over all other surfaces, again using the shortwave emissivity
+and surface area to determine the relative fractions.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
