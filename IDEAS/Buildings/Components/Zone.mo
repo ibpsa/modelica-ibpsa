@@ -128,6 +128,7 @@ initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 
 
+equation
   connect(radDistr.radGain, gainRad) annotation (Line(
       points={{-46.2,-60},{100,-60}},
       color={191,0,0},
@@ -137,7 +138,7 @@ initial equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(propsBus.area, radDistr.area) annotation (Line(
-      points={{-100.1,39.9},{-80,39.9},{-80,-50},{-60,-50}},
+      points={{-100.1,39.9},{-80,39.9},{-80,-58},{-60,-58}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -194,9 +195,9 @@ initial equation
       points={{-50,-60},{-50,-64},{-100.1,-64},{-100.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
-    connect(radDistr.azi, propsBus.azi) annotation (Line(points={{-60,-42},{
+    connect(radDistr.azi[i], propsBus[i].azi) annotation (Line(points={{-60,-42},{
           -70,-42},{-80,-42},{-80,39.9},{-100.1,39.9}}, color={0,0,127}));
-    connect(radDistr.inc, propsBus.inc) annotation (Line(points={{-60,-46},{
+    connect(radDistr.inc[i], propsBus[i].inc) annotation (Line(points={{-60,-46},{
           -80,-46},{-80,39.9},{-100.1,39.9}}, color={0,0,127}));
   end for;
 
