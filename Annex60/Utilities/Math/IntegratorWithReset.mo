@@ -1,33 +1,36 @@
 within Annex60.Utilities.Math;
 block IntegratorWithReset "Output the integral of the input signal"
   extends Modelica.Blocks.Continuous.Integrator;
+
   parameter Boolean use_reset = false
-    "Enables option to trigger a reset for the integrator part" annotation(Evaluate=true, Dialog(group="Integrator Reset"), choices(checkBox=true));
+    "Enables option to trigger a reset for the integrator part"
+    annotation(Evaluate=true, Dialog(group="Integrator reset"), choices(checkBox=true));
+
   parameter Real y_reset = y_start
     "Value to which the output is reset if boolean trigger has a rising edge"
-    annotation(Dialog(group="Integrator Reset"));
+    annotation(Dialog(enable=use_reset,
+                      group="Integrator reset"));
+
   Modelica.Blocks.Interfaces.BooleanInput reset if use_reset
     "Resets the integrator output to its start value when trigger input becomes true"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-        // fixme: check if these instances are needed.
-  Modelica.Blocks.Routing.BooleanPassThrough resetPassThrough
-    annotation (Placement(transformation(extent={{-82,-52},{-66,-36}})));
-  Modelica.Blocks.Sources.BooleanConstant resetFalse(k=false) if  not use_reset
-    "Necessary to compensate if use_reset = false"
-    annotation (Placement(transformation(extent={{-100,-90},{-88,-78}})));
+
+protected
+  Modelica.Blocks.Interfaces.BooleanInput reset_internal
+    "Needed to use conditional connector reset";
 
 equation
+  connect(reset, reset_internal);
+
   if use_reset then
-    when edge(resetPassThrough.y) then
+    when edge(reset_internal) then
       reinit(y, y_reset);
     end when;
+  else
+    reset_internal = false;
   end if;
 
-  connect(resetFalse.y, resetPassThrough.u) annotation (Line(points={{-87.4,-84},
-          {-87.4,-44},{-83.6,-44}}, color={255,0,255}));
-  connect(reset, resetPassThrough.u) annotation (Line(points={{-120,-80},{-96,-80},
-          {-96,-44},{-83.6,-44}}, color={255,0,255}));
   annotation (
 defaultComponentName="intWitRes",
     Documentation(info="<html>
@@ -46,6 +49,11 @@ Annex60.Utilities.Math.Examples.IntegratorWithReset</a> for an example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 9, 2016, by Michael Wetter:<br/>
+Reformulated model using a conditional connector to use the same
+design pattern as is used in other models.
+</li>
 <li>
 August 9, 2016, by Michael Wetter:<br/>
 Revised model.
