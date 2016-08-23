@@ -24,6 +24,7 @@ model IntegratorWithReset "Test model for integrator with reset"
     "Integrator without reset"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Modelica.Blocks.Sources.SampleTrigger sampleTrigger(period=0.2)
+    "Sample trigger"
     annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
 equation
   connect(expSine.y, intWitRes1.u)
