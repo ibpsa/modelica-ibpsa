@@ -6,7 +6,7 @@ extends Modelica.Icons.Example;
   Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,
     use_T_in=true,
-    nPorts=2,
+    nPorts=1,
     use_m_flow_in=true)
               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -139,7 +139,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
-  Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=2, redeclare package Medium
+  Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium
       = Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -213,7 +213,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_a, Point1.ports[1]) annotation (Line(
-      points={{80,-20},{80,-32}},
+      points={{80,-20},{80,-26},{80,-32},{82,-32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, pip1.port_a) annotation (Line(
@@ -225,7 +225,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, ExcludedBranch.ports[1]) annotation (Line(
-      points={{80,0},{80,30},{80,60},{82,60}},
+      points={{80,0},{80,30},{80,60},{80,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(DataReader.y[5], Point1.m_flow_in) annotation (Line(

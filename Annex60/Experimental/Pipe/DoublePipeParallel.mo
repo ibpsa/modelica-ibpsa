@@ -105,7 +105,6 @@ protected
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-
 protected
   PipeAdiabaticPlugFlow pipeReturnAdiabaticPlugFlow(
     redeclare final package Medium = Medium,
@@ -171,13 +170,15 @@ public
     m_flow_small=m_flow_small,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-50,-50},{-70,-70}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Ambient temperature of pipe's surroundings"
-  parameter Boolean pipVol=true
-    "Flag to decide whether volumes are included at the end points of the pipe";
+
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Ambient temperature of pipe's surroundings (undisturbed ground/surface)"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  parameter Boolean pipVol=true
+    "Flag to decide whether volumes are included at the end points of the pipe";
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);
@@ -221,15 +222,16 @@ equation
           {{66,50},{68,50},{68,20},{68,-16},{58,-16},{58,-50}}, color={0,0,127}));
   connect(heatLossSupply.T_2in, heatLossReturn.T_2out) annotation (Line(points=
           {{54,50},{54,50},{54,24},{54,-24},{70,-24},{70,-50}}, color={0,0,127}));
-  connect(heatLossSupplyReverse.heatPort, heatPort) annotation (Line(points={{
-          -60,70},{-60,90},{0,90},{0,100}}, color={191,0,0}));
-  connect(heatLossSupply.heatPort, heatPort) annotation (Line(points={{60,70},{
-          60,90},{0,90},{0,100}}, color={191,0,0}));
   connect(heatLossSupply.heatPort, heatLossReturnReverse.heatPort) annotation (
-      Line(points={{60,70},{60,90},{80,90},{80,-90},{-60,-90},{-60,-70}}, color
-        ={191,0,0}));
+      Line(points={{60,70},{60,90},{80,90},{80,-90},{-60,-90},{-60,-70}}, color=
+         {191,0,0}));
   connect(heatLossReturn.heatPort, heatLossReturnReverse.heatPort) annotation (
       Line(points={{64,-70},{64,-90},{-60,-90},{-60,-70}}, color={191,0,0}));
+  connect(heatLossSupplyReverse.heatPort, heatLossReturnReverse.heatPort)
+    annotation (Line(points={{-60,70},{-60,90},{80,90},{80,-90},{-60,-90},{-60,
+          -70}}, color={191,0,0}));
+  connect(heatLossSupplyReverse.heatPort, heatPort) annotation (Line(points={{
+          -60,70},{-60,90},{0,90},{0,100}}, color={191,0,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
