@@ -12,7 +12,7 @@ model LimPIDWithReset
     yMin=-1,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     use_reset=true,
-    intResetValue=0,
+    y_reset=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Constant const(k=0.5)

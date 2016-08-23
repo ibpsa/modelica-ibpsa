@@ -64,8 +64,8 @@ block LimPID
   Modelica.Blocks.Math.Gain P(k=1) annotation (Placement(transformation(extent={
             {-40,40},{-20,60}}, rotation=0)));
   Utilities.Math.IntegratorWithReset I(
-    use_reset=use_reset,
-    y_reset=intResetValue,
+    final use_reset=use_reset,
+    final y_reset=y_reset,
     k=unitTime/Ti,
     y_start=xi_start,
     initType=if initType == InitPID.SteadyState then Init.SteadyState else if
@@ -109,17 +109,24 @@ public
       Placement(transformation(extent={{-30,20},{-20,30}}, rotation=0)));
   Modelica.Blocks.Sources.Constant Izero(k=0) if not with_I annotation (
       Placement(transformation(extent={{10,-55},{0,-45}}, rotation=0)));
+
   parameter Boolean reverseAction = false
     "Set to true for throttling the water flow rate through a cooling coil controller";
+
   parameter Boolean use_reset = false
-    "Enables option to trigger a reset for the integrator part" annotation(Dialog(group="Integrator Reset"), choices(checkBox=true));
-  parameter Real intResetValue = 0
-    "Value to which the output of the integrator is reset if boolean trigger has a rising edge" annotation(Dialog(group="Integrator Reset"));
+    "Enables option to trigger a reset for the integrator part"
+    annotation(Evaluate=true, Dialog(group="Integrator reset"));
+
+  parameter Real y_reset = y_start
+    "Value to which the output is reset if boolean trigger has a rising edge"
+    annotation(Dialog(enable=use_reset,
+                      group="Integrator reset"));
   Modelica.Blocks.Interfaces.BooleanInput reset if  use_reset
     "Resets optionally the integrator output to its start value when trigger input becomes true. (See also Source Code of LimPID.)"
     annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));
 protected
-  parameter Real revAct = if reverseAction then -1 else 1;
+  final parameter Real revAct = if reverseAction then -1 else 1
+    "Switch for sign for reverse action";
 initial equation
   if initType==InitPID.InitialOutput then
      gainPID.y = y_start;
@@ -189,19 +196,42 @@ equation
    annotation (
 defaultComponentName="conPID",
 Documentation(info="<html>
-<p>This model is identical to <a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a> except that it can be configured to have a reverse action and that the integrator can optionally be reset. </p>
-<p>If the parameter <code>reverseAction=false</code> (the default), then <code>u_m &LT; u_s</code> increases the controller output, otherwise the controller output is decreased. Thus, </p>
+<p>This model is identical to
+<a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>,
+except that it can be configured to have a reverse action and that the integrator can optionally be reset.
+</p>
+<p>If the parameter <code>reverseAction=false</code> (the default), then
+<code>u_m &lt; u_s</code> increases the controller output,
+otherwise the controller output is decreased. Thus,
+</p>
 <ul>
 <li>for a heating coil with a two-way valve, set <code>reverseAction = false</code>, </li>
 <li>for a cooling coils with a two-way valve, set <code>reverseAction = true</code>. </li>
 </ul>
-<p><br><span style=\"font-family: MS Shell Dlg 2;\">If parameter</span> <code>use_reset </code><span style=\"font-family: MS Shell Dlg 2;\">is true the output of the integrator is reset to </span><code>intResetValue</code><span style=\"font-family: MS Shell Dlg 2;\"> when the boolean input </span><code>reset</code><span style=\"font-family: MS Shell Dlg 2;\"> has a rising edge.</span></p>
+<p>
+If the parameter <code>use_reset=true</code>, then the output of the integrator
+is reset to <code>y_reset</code>
+when the boolean input <code>reset</code> has a rising edge.
+This allows for example to reset the integrator in order to start the controller
+with a zero output signal whenever an equipment that it controls is switched on.
+By default, <code>use_reset=false</code>.
+</p>
 </html>",
 revisions="<html>
 <ul>
-<li>July 18, 2016, by Philipp Mehrfeld:<br>integrator&apos;s output can be reset.</li>
-<li>March 15, 2016, by Michael Wetter:<br>Changed the default value to <code>strict=true</code> in order to avoid events when the controller saturates. This is for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/433\">issue 433</a>. </li>
-<li>February 24, 2010, by Michael Wetter:<br>First implementation. </li>
+<li>July 18, 2016, by Philipp Mehrfeld:<br/>
+integrator&apos;s output can be reset.
+</li>
+<li>
+March 15, 2016, by Michael Wetter:<br/>
+Changed the default value to <code>strict=true</code> in order to avoid events
+when the controller saturates.
+This is for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/433\">issue 433</a>.
+</li>
+<li>
+February 24, 2010, by Michael Wetter:<br/>
+First implementation.
+</li>
 </ul>
 </html>"), Icon(graphics={
         Rectangle(
