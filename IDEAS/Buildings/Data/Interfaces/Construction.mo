@@ -5,14 +5,14 @@ partial record Construction "Template record for surface structure: define/order
 
   parameter Integer nLay(min=1)=size(mats,1)
     "Number of layers of the construction, including gaps";
-  parameter Integer nGain = size(locGain,1) 
-  	"Number of gain heat ports";
+  parameter Integer nGain = size(locGain,1)
+   "Number of gain heat ports";
   parameter Integer locGain[:](each min=1) = {1}
     "Location of possible embedded system: between layer locGain and layer locGain + 1";
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Insulation
     insulationType(final d=insulationTickness) constrainedby
-    IDEAS.Buildings.Data.Interfaces.Insulation 
-	"Thermal insulation type, may be used to define 1 instance of mats[:]";
+    IDEAS.Buildings.Data.Interfaces.Insulation
+ "Thermal insulation type, may be used to define 1 instance of mats[:]";
   parameter IDEAS.Buildings.Data.Interfaces.Material[:] mats
     "Array of materials. The last layer is connected to propsBus_a.";
   parameter Modelica.SIunits.Length insulationTickness = 0
