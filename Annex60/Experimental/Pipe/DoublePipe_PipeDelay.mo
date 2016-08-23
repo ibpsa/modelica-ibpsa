@@ -106,12 +106,6 @@ protected
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
 public
-  Modelica.Blocks.Interfaces.RealInput T_amb(unit="K", displayUnit="degC")
-    "Ambient temperature for pipe's surroundings" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,100})));
   BaseClasses.HeatLossDoublePipeDelay heatLossSupplyReverse(
     redeclare final package Medium = Medium,
     diameter=diameter,
@@ -119,7 +113,8 @@ public
     C=C,
     Ra=Ra,
     Rs=Rs,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-40,50},{-60,70}})));
 
   BaseClasses.HeatLossDoublePipeDelay heatLossSupply(
@@ -129,7 +124,8 @@ public
     C=C,
     Ra=Ra,
     Rs=Rs,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{52,50},{72,70}})));
 
 protected
@@ -155,7 +151,9 @@ public
     C=C,
     Ra=Ra,
     Rs=Rs,
-    m_flow_small=m_flow_small) annotation (Placement(transformation(
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
+                               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-62,-58})));
@@ -167,7 +165,9 @@ public
     C=C,
     Ra=Ra,
     Rs=Rs,
-    m_flow_small=m_flow_small) annotation (Placement(transformation(
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
+                               annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={50,-60})));
@@ -180,11 +180,14 @@ public
         rotation=180,
         origin={-26,60})));
 
-  parameter Boolean pipVol=true
-    "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Advanced"));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Ambient temperature of pipe's surroundings (undisturbed ground/surface)"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  parameter Boolean pipVol=true
+    "Flag to decide whether volumes are included at the end points of the pipe";
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);
@@ -202,7 +205,7 @@ equation
   connect(port_b2, heatLossReturn.port_b) annotation (Line(points={{-100,-60},{
           -72,-60},{-72,-58}}, color={0,127,255}));
   connect(heatLossReturnReverse.port_b, port_a2) annotation (Line(points={{60,-60},
-          {100,-60},{100,-60}}, color={0,127,255}));
+          {100,-60}},           color={0,127,255}));
   connect(heatLossSupplyReverse.port_a, senMasFlo.port_a)
     annotation (Line(points={{-40,60},{-36,60}}, color={0,127,255}));
   connect(senMasFlo.port_b, pipeSupplyAdiabaticPlugFlow.port_a)
@@ -219,16 +222,6 @@ equation
           {{-68,-48},{-68,30},{56,30},{56,50}}, color={0,0,127}));
   connect(heatLossSupply.T_2out, heatLossReturn.T_2in) annotation (Line(points=
           {{68,50},{68,-30},{-56,-30},{-56,-48}}, color={0,0,127}));
-  connect(T_amb, heatLossSupplyReverse.T_amb) annotation (Line(points={{0,100},
-          {0,78},{-50,78},{-50,70}}, color={0,0,127}));
-  connect(heatLossSupply.T_amb, heatLossSupplyReverse.T_amb) annotation (Line(
-        points={{62,70},{62,78},{-50,78},{-50,70}}, color={0,0,127}));
-  connect(heatLossSupply.T_amb, heatLossReturnReverse.T_amb) annotation (Line(
-        points={{62,70},{62,78},{80,78},{80,-80},{50,-80},{50,-70}}, color={0,0,
-          127}));
-  connect(heatLossReturn.T_amb, heatLossSupplyReverse.T_amb) annotation (Line(
-        points={{-62,-68},{-62,-80},{-80,-80},{-80,78},{-50,78},{-50,70}},
-        color={0,0,127}));
   connect(pDETime_massFlow.tau, heatLossSupplyReverse.Tau_in) annotation (Line(
         points={{11,0},{24,0},{24,76},{-44,76},{-44,70}}, color={0,0,127}));
   connect(heatLossSupply.Tau_in, heatLossSupplyReverse.Tau_in) annotation (Line(
@@ -237,6 +230,16 @@ equation
           {{11,0},{24,0},{24,-80},{-56,-80},{-56,-68}}, color={0,0,127}));
   connect(heatLossReturnReverse.Tau_in, heatLossReturn.Tau_in) annotation (Line(
         points={{44,-70},{44,-80},{-56,-80},{-56,-68}}, color={0,0,127}));
+  connect(heatLossReturnReverse.heatPort, heatLossReturn.heatPort) annotation (
+      Line(points={{50,-70},{50,-84},{-62,-84},{-62,-68}}, color={191,0,0}));
+  connect(heatLossSupplyReverse.heatPort, heatPort) annotation (Line(points={{
+          -50,70},{-50,86},{0,86},{0,100}}, color={191,0,0}));
+  connect(heatLossSupply.heatPort, heatPort) annotation (Line(points={{62,70},{
+          62,86},{0,86},{0,100}}, color={191,0,0}));
+  connect(heatPort, heatPort)
+    annotation (Line(points={{0,100},{0,100}}, color={191,0,0}));
+  connect(heatLossReturnReverse.heatPort, heatPort) annotation (Line(points={{
+          50,-70},{50,-84},{28,-84},{28,86},{0,86},{0,100}}, color={191,0,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),

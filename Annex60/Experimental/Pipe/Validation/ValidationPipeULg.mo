@@ -45,14 +45,17 @@ package Medium = Annex60.Media.Water;
   Data.PipeDataULg150801 pipeDataULg150801
     annotation (Placement(transformation(extent={{-32,-60},{-12,-40}})));
   Modelica.Blocks.Sources.Constant Tamb(k=273 + 18)
-    "Ambient temperature in degrees"
-    annotation (Placement(transformation(extent={{0,40},{-20,60}})));
-  Modelica.Blocks.Math.UnitConversions.From_degC Tin
-    "Ambient temperature in degrees"
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+    "Ambient temperature in Kelvin", Error;
   Modelica.Blocks.Math.UnitConversions.From_degC Tout
     "Ambient temperature in degrees"
     annotation (Placement(transformation(extent={{40,-88},{60,-68}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=291.15)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-34,70})));
+  Modelica.Blocks.Math.UnitConversions.From_degC Tin
+    "Input temperature into pipe"
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 equation
   connect(Sewer1.ports[1], pipe.port_b) annotation (Line(
       points={{-74,0},{-44,0}},
@@ -74,22 +77,16 @@ equation
       points={{26,0},{60,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe.T_amb, Tamb.y) annotation (Line(
-      points={{-34,10},{-34,50},{-21,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(DataReader.y[5], Tin.u) annotation (Line(
-      points={{21,-50},{38,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Tin.y, Boiler.TSet) annotation (Line(
-      points={{61,-50},{90,-50},{90,30},{34,30},{34,6},{28,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(DataReader.y[3], Tout.u) annotation (Line(
       points={{21,-50},{21,-78},{38,-78}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(fixedTemperature.port, pipe.heatPort)
+    annotation (Line(points={{-34,60},{-34,35},{-34,10}}, color={191,0,0}));
+  connect(DataReader.y[5], Tin.u)
+    annotation (Line(points={{21,-50},{29.5,-50},{38,-50}}, color={0,0,127}));
+  connect(Tin.y, Boiler.TSet) annotation (Line(points={{61,-50},{78,-50},{92,
+          -50},{92,30},{36,30},{36,6},{28,6}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     Documentation(info="<html>
