@@ -50,10 +50,13 @@ model ValidationPipeAIT_Subset1
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,-26})));
-  Modelica.Blocks.Sources.Constant const(k=0)
-    annotation (Placement(transformation(extent={{28,2},{8,22}})));
   Modelica.Blocks.Sources.Constant const1(k=-0.1)
     annotation (Placement(transformation(extent={{-20,80},{-40,100}})));
+  Modelica.Thermal.HeatTransfer.Celsius.FixedTemperature fixedTemperature(T=0)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={0,0})));
 equation
   connect(pip2.port_b, Point2.ports[1]) annotation (Line(
       points={{-70,44},{-70,60}},
@@ -63,12 +66,12 @@ equation
     annotation (Line(points={{-70,24},{-70,24},{-70,-16}}, color={0,127,255}));
   connect(ExcludedBranch.ports[1], pip1.port_a) annotation (Line(points={{-70,-72},
           {-70,-72},{-70,-36}}, color={0,127,255}));
-  connect(const.y, pip2.T_amb) annotation (Line(points={{7,12},{-26,12},{-26,34},
-          {-60,34}}, color={0,0,127}));
-  connect(const.y, pip1.T_amb) annotation (Line(points={{7,12},{-26,12},{-26,
-          -26},{-60,-26}}, color={0,0,127}));
   connect(const1.y, Point2.m_flow_in) annotation (Line(points={{-41,90},{-52,90},
           {-52,90},{-62,90},{-62,86},{-62,86},{-62,80}}, color={0,0,127}));
+  connect(pip2.heatPort, fixedTemperature.port) annotation (Line(points={{-60,
+          34},{-34,34},{-34,1.33227e-015},{-10,1.33227e-015}}, color={191,0,0}));
+  connect(pip1.heatPort, fixedTemperature.port) annotation (Line(points={{-60,
+          -26},{-34,-26},{-34,1.33227e-015},{-10,1.33227e-015}}, color={191,0,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
