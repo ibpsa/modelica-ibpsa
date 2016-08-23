@@ -4,7 +4,7 @@ block IntegratorWithReset "Output the integral of the input signal"
 
   parameter Boolean use_reset = false
     "Enables option to trigger a reset for the integrator part"
-    annotation(Evaluate=true, Dialog(group="Integrator reset"), choices(checkBox=true));
+    annotation(Evaluate=true, Dialog(group="Integrator reset"));
 
   parameter Real y_reset = y_start
     "Value to which the output is reset if boolean trigger has a rising edge"
