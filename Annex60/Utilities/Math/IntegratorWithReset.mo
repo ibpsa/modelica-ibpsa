@@ -4,9 +4,10 @@ block IntegratorWithReset "Output the integral of the input signal"
   parameter Boolean use_reset = false
     "Enables option to trigger a reset for the integrator part" annotation(Evaluate=true, Dialog(group="Integrator Reset"), choices(checkBox=true));
   parameter Real y_reset = y_start
-    "Value to which the output is reset if boolean trigger has a rising edge" annotation(Dialog(group="Integrator Reset"));
+    "Value to which the output is reset if boolean trigger has a rising edge"
+    annotation(Dialog(group="Integrator Reset"));
   Modelica.Blocks.Interfaces.BooleanInput reset if use_reset
-    "Resets optionally the integrator output to its start value when trigger input becomes true. See also source code for when algorithm."
+    "Resets the integrator output to its start value when trigger input becomes true"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
         // fixme: check if these instances are needed.
