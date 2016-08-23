@@ -1,5 +1,6 @@
 BalancingValve
 CollectorUnit
+CollectorUnit_static
 FlowController
 FluidCollector
 MixingCircuit_EqualPercentage
