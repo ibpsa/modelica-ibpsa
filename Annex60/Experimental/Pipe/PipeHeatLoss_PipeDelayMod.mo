@@ -23,23 +23,6 @@ model PipeHeatLoss_PipeDelayMod
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") = 2*
-    dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-
-  final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
-      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal,
-      rho_a=rho_default,
-      rho_b=rho_default,
-      mu_a=mu_default,
-      mu_b=mu_default,
-      length=length,
-      diameter=diameter,
-      roughness=roughness,
-      m_flow_small=m_flow_small)
-    "Pressure loss of a straight pipe at m_flow_nominal";
-
   parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
   parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
@@ -78,7 +61,8 @@ protected
     m_flow_nominal=m_flow_nominal,
     Lcap=Lcap,
     pipVol=pipVol,
-    from_dp=from_dp)
+    from_dp=from_dp,
+    T_nominal=T_nominal)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -123,6 +107,7 @@ public
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Temperature T_nominal=273.15 + 70;
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 

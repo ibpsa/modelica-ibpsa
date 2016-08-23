@@ -38,21 +38,6 @@ model DoublePipe_PipeDelay
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") = 2*
-    dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
-      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal,
-      rho_a=rho_default,
-      rho_b=rho_default,
-      mu_a=mu_default,
-      mu_b=mu_default,
-      length=length,
-      diameter=diameter,
-      roughness=roughness,
-      m_flow_small=m_flow_small)
-    "Pressure loss of a straight pipe at m_flow_nominal";
 
   parameter Modelica.SIunits.Temperature T_start=393.15
     "Start temperature to initialize the problem";
@@ -101,7 +86,8 @@ protected
     m_flow_nominal=m_flow_nominal,
     redeclare final package Medium = Medium,
     pipVol=pipVol,
-    from_dp=from_dp)
+    from_dp=from_dp,
+    T_nominal=T_nominal)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
@@ -137,7 +123,8 @@ protected
     length=length,
     m_flow_nominal=m_flow_nominal,
     pipVol=pipVol,
-    from_dp=from_dp)
+    from_dp=from_dp,
+    T_nominal=T_nominal)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -188,6 +175,7 @@ public
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
+  parameter Modelica.SIunits.Temperature T_nominal=273.15 + 70;
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);
