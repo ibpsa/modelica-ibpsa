@@ -50,11 +50,8 @@ model SpatialDistributionOperator
   Modelica.Blocks.Sources.Constant PAtm1(
                                         k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{-158,88},{-138,108}})));
-  Modelica.Blocks.Sources.Constant const3(k=273.15 + 5),
-    m_flow_small=1e-4*0.5,
-    m_flow_nominal=0.5,
-    thicknessIns=0.02,
-    lambdaI=0.01;
+  Modelica.Blocks.Sources.Constant const3(k=273.15 + 5);
+
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In1(
                                                        redeclare package Medium
       = Medium, m_flow_nominal=0.5)
@@ -133,7 +130,9 @@ model SpatialDistributionOperator
   Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelayMod PipeDelayMod(
     diameter=diameter,
     length=length,
-    thicknessIns=0.02)
+    thicknessIns=0.02,
+    redeclare package Medium = Medium,
+    m_flow_nominal=0.5)
     annotation (Placement(transformation(extent={{14,-22},{34,-2}})));
 equation
   connect(PAtm.y, sin1.p_in)
