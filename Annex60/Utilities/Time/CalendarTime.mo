@@ -53,12 +53,6 @@ protected
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
   final constant Integer dayRef(min=1, max=31) = 1 "Day when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  final constant Integer hourRef(min=0, max=23) = 0 "Hour when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  final constant Integer minuteRef(min=0, max=59) = 0 "Minute when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
-  final constant Integer secondRef(min=0, max=59) = 0 "Second when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
   Integer daysSinceEpoch "Number of days that passed since 1st of January 1970";
   discrete Integer yearIndex "Index of the current year in timeStampsNewYear";
   discrete Real epochLastMonth
@@ -122,8 +116,7 @@ initial algorithm
   // add additional offset when using a custom date and time
   if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom then
     timOff :=timOff + ((dayRef - 1) + sum({dayInMonth[i] for i in 1:(monthRef - 1)})
-     + (if monthRef > 2 and isLeapYear[yearRef - firstYear + 1] then 1 else 0))*3600*24 +
-    3600*hourRef + 60*minuteRef + secondRef;
+     + (if monthRef > 2 and isLeapYear[yearRef - firstYear + 1] then 1 else 0))*3600*24;
   end if;
 
    // input data range checks at initial time
