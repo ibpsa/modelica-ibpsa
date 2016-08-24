@@ -2,9 +2,8 @@ within IDEAS.Buildings.Components.Shading;
 model Screen "Exterior screen"
   extends IDEAS.Buildings.Components.Shading.Interfaces.PartialShading(
                                                              final controlled=true);
-  replaceable parameter Data.Interfaces.Screen screen
-    annotation (choicesAllMatching = true, Placement(transformation(extent={{60,60},{80,80}})));
-  parameter Real shaCorr=screen.G "Shortwave transmittance of shortwave radiation";
+
+  parameter Real shaCorr=0.24 "Shortwave transmittance of shortwave radiation";
 
 protected
   Modelica.Blocks.Nonlinear.Limiter limiter(
