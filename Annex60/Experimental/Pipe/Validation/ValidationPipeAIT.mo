@@ -153,7 +153,7 @@ extends Modelica.Icons.Example;
     "Length over which transient effects typically take place";
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
-  parameter Boolean allowFlowReversal=false
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
 equation
   connect(pip3.port_a, pip5.port_b) annotation (Line(
