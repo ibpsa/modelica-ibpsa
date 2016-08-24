@@ -25,7 +25,7 @@ model ValidationMSLAIT
   Fluid.Sources.MassFlowSource_T Point3(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=2) annotation (Placement(transformation(
+    nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-46,-50})));
@@ -60,7 +60,7 @@ model ValidationMSLAIT
         rotation=90,
         origin={50,-20})));
   Fluid.Sources.FixedBoundary ExcludedBranch(redeclare package Medium = Medium,
-      nPorts=2) annotation (Placement(transformation(
+      nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,70})));
@@ -233,7 +233,7 @@ equation
   connect(pip0.port_a, Point1.ports[1])
     annotation (Line(points={{80,-20},{80,-32},{82,-32}}, color={0,127,255}));
   connect(pip0.port_b, ExcludedBranch.ports[1])
-    annotation (Line(points={{80,0},{80,60},{82,60}}, color={0,127,255}));
+    annotation (Line(points={{80,0},{80,60},{80,60}}, color={0,127,255}));
   connect(prescribedTemperature.port, res0.port_b) annotation (Line(points={{60,
           -90},{60,-90},{146,-90},{146,-10},{140,-10}}, color={191,0,0}));
   connect(pip0.heatPorts, col0.port_a) annotation (Line(points={{84.4,-9.9},{
@@ -259,7 +259,7 @@ equation
   connect(res2.port_b, res0.port_b) annotation (Line(points={{-20,34},{-16,34},{
           -16,124},{-12,124},{146,124},{146,-10},{140,-10}}, color={191,0,0}));
   connect(pip3.port_b, Point3.ports[1]) annotation (Line(points={{-46,-22},{-46,
-          -40},{-48,-40}}, color={0,127,255}));
+          -40},{-46,-40}}, color={0,127,255}));
   connect(pip3.port_a, pip2.port_a) annotation (Line(points={{-46,-2},{-46,
           10},{-70,10},{-70,30}}, color={0,127,255}));
   connect(pip3.heatPorts, col3.port_a) annotation (Line(points={{-41.6,-12.1},
