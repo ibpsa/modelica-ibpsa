@@ -224,7 +224,7 @@ This blocks computes the unix time stamp, date and time
 and the day of the week based on the Modelica
 variable <code>time</code>.
 Parameters need to be provided such that these computations are done correctly.
-The block currently contains support for the calendar of 2010 up to 2020.
+The block currently supports calendar time computations from 2010 up to 2020.
 Daylight saving time is currently not supported.
 </p>
 <h4>Main equations</h4>
@@ -235,14 +235,18 @@ such as <code>floor()</code>, <code>ceil()</code> etc.
 </p>
 <h4>Assumption and limitations</h4>
 <p>
-The implementation currently only supports simulations from year 2010 up to 2020.
+The implementation currently only supports date computations from year 2010 up to 2020.
 Daylight saving and time zones are currently not supported.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
 The user must define which time and date correspond to <code>time = 0</code>
 using the model parameters.
-The user can choose from new year, midnight for a number of years, including 1970, which corresponds to a unix stamp of <i>0</i>.
+The user can choose from new year, midnight for a number of years: 
+2010 - 2020 and also 1970, which corresponds to a unix stamp of <i>0</i>.
+(Note that although choosing the reference time equal to 0 at 1970 is allowed, 
+the actual simulation time must be within the 2010-2020 range.
+For instance <code>time = 1262304000</code> corresponds to the 1st of january 2010.)
 </p>
 <h4>Implementation</h4>
 <p>
