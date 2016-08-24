@@ -5,7 +5,7 @@ model CalendarTime
 
   parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef "Enumeration for choosing how reference time (time = 0) should be defined";
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
-    "Year when time = 0"
+    "Year when time = 0, used when timRef=Custom"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
 
   Modelica.Blocks.Interfaces.RealInput tim(
