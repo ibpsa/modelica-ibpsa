@@ -75,8 +75,6 @@ model ValidationMSLAIT
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
-
-  parameter Integer[1] NPM=2 "Number of discretization nodes per meter";
   Modelica.Fluid.Pipes.DynamicPipe pip0(
     nParallel=1,
     diameter=0.0825,
@@ -85,7 +83,7 @@ model ValidationMSLAIT
     length=20,
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
-    nNodes=length)     annotation (Placement(transformation(
+    nNodes=20)         annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
@@ -108,7 +106,7 @@ model ValidationMSLAIT
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=115,
-    nNodes=length)     annotation (Placement(transformation(
+    nNodes=115)        annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={38,10})));
@@ -127,7 +125,7 @@ model ValidationMSLAIT
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=76,
     diameter=diameter,
-    nNodes=length)     annotation (Placement(transformation(
+    nNodes=76)         annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-70,40})));
@@ -146,7 +144,7 @@ model ValidationMSLAIT
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=38,
-    nNodes=length)     annotation (Placement(transformation(
+    nNodes=38)         annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-12})));
@@ -168,7 +166,7 @@ model ValidationMSLAIT
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=29,
-    nNodes=length)     annotation (Placement(transformation(
+    nNodes=29)         annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={10,40})));
@@ -190,7 +188,7 @@ model ValidationMSLAIT
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=20,
-    nNodes=length)     annotation (Placement(transformation(
+    nNodes=20)         annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-10,10})));
@@ -297,8 +295,8 @@ equation
   connect(senTem_p3.port, pip3.port_b) annotation (Line(points={{-80,-32},{-46,-32},
           {-46,-22}}, color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     experiment(StopTime=603900),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
