@@ -3,7 +3,7 @@ model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef "fixme: add comment";
+  parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef "Enumeration for choosing how reference time (time = 0) should be defined";
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
     "Year when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
