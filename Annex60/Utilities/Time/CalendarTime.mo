@@ -200,7 +200,7 @@ equation
   day = 1+floor((unixTimeStamp-epochLastMonth)/3600/24);
   hour = floor(rem(unixTimeStamp,3600*24)/3600);
   // using Real variables and operations for minutes since otherwise too many events are generated
-  minute = (unixTimeStamp-daysSinceEpoch*60*24-hour*60);
+  minute = (unixTimeStamp/60-daysSinceEpoch*60*24-hour*60);
 
   annotation (
     defaultComponentName="calTim",
