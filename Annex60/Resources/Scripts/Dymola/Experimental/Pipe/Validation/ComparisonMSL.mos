@@ -1,0 +1,28 @@
+Evaluate:=true;
+OutputCPUtime:=true;
+
+translateModel("Annex60.Experimental.Pipe.Validation.ValidationPipeAIT")
+simulateModel("Annex60.Experimental.Pipe.Validation.ValidationPipeAIT", stopTime=603900, method="dassl", resultFile="ValidationPipeAIT");
+// experiment StopTime=603900
+translateModel("Annex60.Experimental.Pipe.Validation.ValidationMSLAIT")
+simulateModel("Annex60.Experimental.Pipe.Validation.ValidationMSLAIT", stopTime=603900, method="dassl", resultFile="ValidationMSLAIT");
+// experiment StopTime=603900
+
+removePlots();
+Advanced.FilenameInLegend = false;
+Advanced.SequenceInLegend = true;
+Advanced.PlotLegendTooltip = true;
+Advanced.FullPlotTooltip = true;
+Advanced.DefaultAutoErase = true;
+Advanced.Legend.Horizontal = true;
+
+createPlot(id=1, position={15, 0, 586, 208}, y={"CPUtime", "CPUtime"}, heading="CPU time comparison", range={0.0, 650000.0, -2.0, 8.0}, grid=true, filename="ValidationPipeAIT.mat", legendLocation=4, legends={"CPU time A60 pipe", "CPU Time MSL pipe"}, leftTitleType=2, leftTitle="CPU time", bottomTitleType=2, bottomTitle="Simulation time", colors={{28,108,200}, {238,46,47}}, rightTitleType=0);
+createPlot(id=2, position={16, 83, 586, 572}, y={"senTem_p2.T", "senTem_p2.T"}, range={0.0, 650000.0, 0.0, 100.0}, grid=true, filename="ValidationPipeAIT.mat", legends={"Point 2 T MSL", "Point 2 T A60"}, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={16, 83, 586, 186}, y={"senTem_p3.T", "senTem_p3.T"}, range={0.0, 650000.0, 0.0, 100.0}, grid=true, legends={"Point 3 T MSL", "Point 3 T A60"}, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={16, 83, 586, 187}, y={"senTem_p4.T", "senTem_p4.T"}, range={140000.0, 380000.0, 60.0, 100.0}, autoscale=false, grid=true, legends={"Point 4 T MSL", "Point 4 T A60"}, subPlot=3, colors={{28,108,200}, {238,46,47}}, range2={0.6000000000000001, 1.0});
+createPlot(id=3, position={615, 0, 661, 651}, y={"pip0.heatPort.Q_flow"}, range={0.0, 650000.0, -500.0, 100.0}, grid=true, filename="ValidationPipeAIT.mat", colors={{28,108,200}});
+plotExpression(apply( -ValidationMSLAIT[end].res0.Q_flow), false, "MSL res0 heat flow", 3);
+createPlot(id=3, position={615, 0, 661, 213}, y={"pip1.heatPort.Q_flow"}, range={0.0, 650000.0, -5000.0, 1000.0}, grid=true, subPlot=2, colors={{28,108,200}});
+plotExpression(apply( -ValidationMSLAIT[end].res1.Q_flow), false, "MSL res1 heat flow", 3);
+createPlot(id=3, position={615, 0, 661, 213}, y={"pip2.heatPort.Q_flow"}, range={0.0, 650000.0, -4000.0, 1000.0}, grid=true, subPlot=3, colors={{28,108,200}});
+plotExpression(apply( -ValidationMSLAIT[end].res2.Q_flow), false, "MSL res2 heat flow", 3);

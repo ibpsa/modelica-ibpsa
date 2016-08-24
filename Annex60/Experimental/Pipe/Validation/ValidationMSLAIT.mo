@@ -75,6 +75,8 @@ model ValidationMSLAIT
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
+
+  parameter Integer[1] NPM=2 "Number of discretization nodes per meter";
   Modelica.Fluid.Pipes.DynamicPipe pip0(
     nParallel=1,
     diameter=0.0825,
@@ -83,7 +85,7 @@ model ValidationMSLAIT
     length=20,
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
-    nNodes=10) annotation (Placement(transformation(
+    nNodes=length)     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
@@ -105,8 +107,8 @@ model ValidationMSLAIT
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
-    nNodes=10,
-    length=115) annotation (Placement(transformation(
+    length=115,
+    nNodes=length)     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={38,10})));
@@ -123,9 +125,9 @@ model ValidationMSLAIT
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
-    nNodes=10,
     length=76,
-    diameter=diameter) annotation (Placement(transformation(
+    diameter=diameter,
+    nNodes=length)     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-70,40})));
@@ -143,8 +145,8 @@ model ValidationMSLAIT
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
-    nNodes=10,
-    length=38) annotation (Placement(transformation(
+    length=38,
+    nNodes=length)     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-12})));
@@ -165,8 +167,8 @@ model ValidationMSLAIT
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
-    nNodes=10,
-    length=29) annotation (Placement(transformation(
+    length=29,
+    nNodes=length)     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={10,40})));
@@ -187,8 +189,8 @@ model ValidationMSLAIT
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
-    nNodes=10,
-    length=20) annotation (Placement(transformation(
+    length=20,
+    nNodes=length)     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-10,10})));
@@ -233,17 +235,17 @@ equation
   connect(pip0.port_a, Point1.ports[1])
     annotation (Line(points={{80,-20},{80,-32},{82,-32}}, color={0,127,255}));
   connect(pip0.port_b, ExcludedBranch.ports[1])
-    annotation (Line(points={{80,0},{80,60},{80,60}}, color={0,127,255}));
+    annotation (Line(points={{80,0},{80,60}}, color={0,127,255}));
   connect(prescribedTemperature.port, res0.port_b) annotation (Line(points={{60,
           -90},{60,-90},{146,-90},{146,-10},{140,-10}}, color={191,0,0}));
-  connect(pip0.heatPorts, col0.port_a) annotation (Line(points={{84.4,-9.9},{
-          92,-9.9},{92,-10}}, color={127,0,0}));
+  connect(pip0.heatPorts, col0.port_a) annotation (Line(points={{84.4,-9.9},{92,
+          -9.9},{92,-10}}, color={127,0,0}));
   connect(res0.port_a, col0.port_b)
     annotation (Line(points={{120,-10},{116,-10},{112,-10}}, color={191,0,0}));
   connect(col1.port_b, res1.port_a)
     annotation (Line(points={{60,30},{68,30}}, color={191,0,0}));
-  connect(pip1.heatPorts, col1.port_a) annotation (Line(points={{37.9,14.4},{
-          37.9,30.2},{40,30.2},{40,30}}, color={127,0,0}));
+  connect(pip1.heatPorts, col1.port_a) annotation (Line(points={{37.9,14.4},{37.9,
+          30.2},{40,30.2},{40,30}}, color={127,0,0}));
   connect(res1.port_b, res0.port_b) annotation (Line(points={{88,30},{146,30},{146,
           -10},{140,-10}}, color={191,0,0}));
   connect(senTem_p2.port, pip2.port_b)
@@ -258,12 +260,12 @@ equation
     annotation (Line(points={{-40,34},{-40,34}}, color={191,0,0}));
   connect(res2.port_b, res0.port_b) annotation (Line(points={{-20,34},{-16,34},{
           -16,124},{-12,124},{146,124},{146,-10},{140,-10}}, color={191,0,0}));
-  connect(pip3.port_b, Point3.ports[1]) annotation (Line(points={{-46,-22},{-46,
-          -40},{-46,-40}}, color={0,127,255}));
-  connect(pip3.port_a, pip2.port_a) annotation (Line(points={{-46,-2},{-46,
-          10},{-70,10},{-70,30}}, color={0,127,255}));
-  connect(pip3.heatPorts, col3.port_a) annotation (Line(points={{-41.6,-12.1},
-          {-40,-12.1},{-40,-12},{-38,-12}}, color={127,0,0}));
+  connect(pip3.port_b, Point3.ports[1])
+    annotation (Line(points={{-46,-22},{-46,-40}}, color={0,127,255}));
+  connect(pip3.port_a, pip2.port_a) annotation (Line(points={{-46,-2},{-46,10},{
+          -70,10},{-70,30}}, color={0,127,255}));
+  connect(pip3.heatPorts, col3.port_a) annotation (Line(points={{-41.6,-12.1},{-40,
+          -12.1},{-40,-12},{-38,-12}}, color={127,0,0}));
   connect(col3.port_b, res3.port_a)
     annotation (Line(points={{-18,-12},{-10,-12},{-10,-20}}, color={191,0,0}));
   connect(res3.port_b, res0.port_b) annotation (Line(points={{-10,-40},{-10,-54},
@@ -284,19 +286,19 @@ equation
     annotation (Line(points={{0,10},{28,10}}, color={0,127,255}));
   connect(pip5.port_b, pip2.port_a)
     annotation (Line(points={{-20,10},{-70,10},{-70,30}}, color={0,127,255}));
-  connect(col5.port_a, pip5.heatPorts) annotation (Line(points={{-36,110},{-36,
-          110},{-36,64},{-12,64},{-12,14.4},{-10.1,14.4}}, color={191,0,0}));
+  connect(col5.port_a, pip5.heatPorts) annotation (Line(points={{-36,110},{-36,110},
+          {-36,64},{-12,64},{-12,14.4},{-10.1,14.4}}, color={191,0,0}));
   connect(col5.port_b, res5.port_a)
     annotation (Line(points={{-36,130},{-36,134},{-28,134}}, color={191,0,0}));
   connect(res5.port_b, res0.port_b) annotation (Line(points={{-8,134},{30,134},{
           30,124},{146,124},{146,-10},{140,-10}}, color={191,0,0}));
-  connect(pip1.port_a, pip0.port_b) annotation (Line(points={{48,10},{62,10},
-          {80,10},{80,0}}, color={0,127,255}));
-  connect(senTem_p3.port, pip3.port_b) annotation (Line(points={{-80,-32},{-46,
-          -32},{-46,-22}}, color={0,127,255}));
+  connect(pip1.port_a, pip0.port_b) annotation (Line(points={{48,10},{62,10},{80,
+          10},{80,0}}, color={0,127,255}));
+  connect(senTem_p3.port, pip3.port_b) annotation (Line(points={{-80,-32},{-46,-32},
+          {-46,-22}}, color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
     experiment(StopTime=603900),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
@@ -317,5 +319,6 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
 </ul>
 </html>"),
     __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationMSLAIT.mos"
-        "Simulate and plot"));
+        "Simulate and plot", file="Resources/Scripts/Dymola/Experimental/Pipe/Validation/ComparisonMSLA60.mos"
+        "Compare MSL and A60"));
 end ValidationMSLAIT;
