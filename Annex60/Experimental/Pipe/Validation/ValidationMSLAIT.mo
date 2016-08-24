@@ -1,8 +1,11 @@
 within Annex60.Experimental.Pipe.Validation;
 model ValidationMSLAIT
   "Validation pipe against data from Austrian Institute of Technology with standard library components"
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
+  /*TODO: change nNodes for pipes. For fair comparison, n should be adapted to 
+  make the Courant number close to 1, but this is only possible for a narrow 
+  range of mass flow rates, which is a sstrength of the new pipe model.*/
   Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,
     use_T_in=true,
@@ -15,21 +18,21 @@ extends Modelica.Icons.Example;
   Fluid.Sources.MassFlowSource_T Point4(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1)           annotation (Placement(transformation(
+    nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={10,70})));
   Fluid.Sources.MassFlowSource_T Point3(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=2)           annotation (Placement(transformation(
+    nPorts=2) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-46,-50})));
   Fluid.Sources.MassFlowSource_T Point2(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1)           annotation (Placement(transformation(
+    nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-70,70})));
@@ -52,12 +55,12 @@ extends Modelica.Icons.Example;
   Fluid.Sensors.Temperature senTem_p4(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{30,56},{50,76}})));
   Fluid.Sensors.Temperature senTem_p1(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=90,
         origin={50,-20})));
-  Fluid.Sources.FixedBoundary ExcludedBranch(          redeclare package Medium
-      = Medium, nPorts=2)
-                annotation (Placement(transformation(
+  Fluid.Sources.FixedBoundary ExcludedBranch(redeclare package Medium = Medium,
+      nPorts=2) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,70})));
@@ -86,13 +89,12 @@ extends Modelica.Icons.Example;
         origin={80,-10})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi
-      /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResistor(R=R/
-        MSLpip0.length)
+  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/
+      Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res0(R=R/MSLpip0.length)
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector(m=
-        MSLpip0.nNodes) annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector col0(m=MSLpip0.nNodes)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={102,-10})));
@@ -108,13 +110,12 @@ extends Modelica.Icons.Example;
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={38,10})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector1(m=
-       MSLpip1.nNodes) annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector col1(m=MSLpip1.nNodes)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,30})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResistor1(R=R/
-        MSLpip1.length)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res1(R=R/MSLpip1.length)
     annotation (Placement(transformation(extent={{68,20},{88,40}})));
   Modelica.Fluid.Pipes.DynamicPipe MSLpip2(
     nParallel=1,
@@ -124,18 +125,16 @@ extends Modelica.Icons.Example;
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     nNodes=10,
     length=76,
-    diameter=diameter)
-               annotation (Placement(transformation(
+    diameter=diameter) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-70,40})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector2(m=
-       MSLpip2.nNodes) annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector col2(m=MSLpip2.nNodes)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,34})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResistor2(R=R/
-        MSLpip2.length)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res2(R=R/MSLpip2.length)
     annotation (Placement(transformation(extent={{-40,24},{-20,44}})));
   Modelica.Fluid.Pipes.DynamicPipe MSLpip3(
     nParallel=1,
@@ -149,13 +148,13 @@ extends Modelica.Icons.Example;
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-12})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector3(m=
-       MSLpip3.nNodes) annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector col3(m=MSLpip3.nNodes)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-28,-12})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResistor3(R=R/
-        MSLpip3.length) annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res3(R=R/MSLpip3.length)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-10,-30})));
@@ -171,13 +170,13 @@ extends Modelica.Icons.Example;
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={10,40})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector4(m=
-       MSLpip4.nNodes) annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector col4(m=MSLpip4.nNodes)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-4,76})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResistor4(R=R/
-        MSLpip4.length) annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res4(R=R/MSLpip4.length)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-4,104})));
@@ -193,13 +192,12 @@ extends Modelica.Icons.Example;
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-10,10})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector5(m=
-       MSLpip5.nNodes) annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector col5(m=MSLpip5.nNodes)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-36,120})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResistor5(R=R/
-        MSLpip5.length)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res5(R=R/MSLpip5.length)
     annotation (Placement(transformation(extent={{-28,124},{-8,144}})));
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.024
     "Heat conductivity";
@@ -235,19 +233,19 @@ equation
   connect(MSLpip0.port_a, Point1.ports[1])
     annotation (Line(points={{80,-20},{80,-32},{82,-32}}, color={0,127,255}));
   connect(MSLpip0.port_b, ExcludedBranch.ports[1])
-    annotation (Line(points={{80,0},{80,60},{82,60}},      color={0,127,255}));
-  connect(prescribedTemperature.port, thermalResistor.port_b) annotation (Line(
-        points={{60,-90},{60,-90},{146,-90},{146,-10},{140,-10}}, color={191,0,0}));
-  connect(MSLpip0.heatPorts, thermalCollector.port_a) annotation (Line(points={{
-          84.4,-9.9},{92,-9.9},{92,-10}}, color={127,0,0}));
-  connect(thermalResistor.port_a, thermalCollector.port_b)
+    annotation (Line(points={{80,0},{80,60},{82,60}}, color={0,127,255}));
+  connect(prescribedTemperature.port, res0.port_b) annotation (Line(points={{60,
+          -90},{60,-90},{146,-90},{146,-10},{140,-10}}, color={191,0,0}));
+  connect(MSLpip0.heatPorts, col0.port_a) annotation (Line(points={{84.4,-9.9},
+          {92,-9.9},{92,-10}}, color={127,0,0}));
+  connect(res0.port_a, col0.port_b)
     annotation (Line(points={{120,-10},{116,-10},{112,-10}}, color={191,0,0}));
-  connect(thermalCollector1.port_b, thermalResistor1.port_a)
+  connect(col1.port_b, res1.port_a)
     annotation (Line(points={{60,30},{68,30}}, color={191,0,0}));
-  connect(MSLpip1.heatPorts, thermalCollector1.port_a) annotation (Line(points={
-          {37.9,14.4},{37.9,30.2},{40,30.2},{40,30}}, color={127,0,0}));
-  connect(thermalResistor1.port_b, thermalResistor.port_b) annotation (Line(
-        points={{88,30},{146,30},{146,-10},{140,-10}}, color={191,0,0}));
+  connect(MSLpip1.heatPorts, col1.port_a) annotation (Line(points={{37.9,14.4},
+          {37.9,30.2},{40,30.2},{40,30}}, color={127,0,0}));
+  connect(res1.port_b, res0.port_b) annotation (Line(points={{88,30},{146,30},{
+          146,-10},{140,-10}}, color={191,0,0}));
   connect(MSLpip1.port_a, ExcludedBranch.ports[2])
     annotation (Line(points={{48,10},{78,10},{78,60}}, color={0,127,255}));
   connect(senTem_p2.port, MSLpip2.port_b)
@@ -256,56 +254,53 @@ equation
     annotation (Line(points={{-70,50},{-70,60}}, color={0,127,255}));
   connect(senTemIn_p2.port, MSLpip2.port_a) annotation (Line(points={{-90,10},{-84,
           10},{-70,10},{-70,30}}, color={0,127,255}));
-  connect(thermalCollector2.port_a, MSLpip2.heatPorts) annotation (Line(points={
-          {-60,34},{-65.6,34},{-65.6,40.1}}, color={191,0,0}));
-  connect(thermalCollector2.port_b, thermalResistor2.port_a)
+  connect(col2.port_a, MSLpip2.heatPorts) annotation (Line(points={{-60,34},{-65.6,
+          34},{-65.6,40.1}}, color={191,0,0}));
+  connect(col2.port_b, res2.port_a)
     annotation (Line(points={{-40,34},{-40,34}}, color={191,0,0}));
-  connect(thermalResistor2.port_b, thermalResistor.port_b) annotation (Line(
-        points={{-20,34},{-16,34},{-16,124},{-12,124},{146,124},{146,-10},{140,-10}},
-        color={191,0,0}));
+  connect(res2.port_b, res0.port_b) annotation (Line(points={{-20,34},{-16,34},
+          {-16,124},{-12,124},{146,124},{146,-10},{140,-10}}, color={191,0,0}));
   connect(MSLpip3.port_b, Point3.ports[1]) annotation (Line(points={{-46,-22},{-46,
           -40},{-48,-40}}, color={0,127,255}));
   connect(senTem_p3.port, Point3.ports[2]) annotation (Line(points={{-80,-32},{-44,
           -32},{-44,-40}}, color={0,127,255}));
   connect(MSLpip3.port_a, MSLpip2.port_a) annotation (Line(points={{-46,-2},{-46,
           10},{-70,10},{-70,30}}, color={0,127,255}));
-  connect(MSLpip3.heatPorts, thermalCollector3.port_a) annotation (Line(points={
-          {-41.6,-12.1},{-40,-12.1},{-40,-12},{-38,-12}}, color={127,0,0}));
-  connect(thermalCollector3.port_b, thermalResistor3.port_a)
+  connect(MSLpip3.heatPorts, col3.port_a) annotation (Line(points={{-41.6,-12.1},
+          {-40,-12.1},{-40,-12},{-38,-12}}, color={127,0,0}));
+  connect(col3.port_b, res3.port_a)
     annotation (Line(points={{-18,-12},{-10,-12},{-10,-20}}, color={191,0,0}));
-  connect(thermalResistor3.port_b, thermalResistor.port_b) annotation (Line(
-        points={{-10,-40},{-10,-54},{146,-54},{146,-10},{140,-10}}, color={191,0,
-          0}));
+  connect(res3.port_b, res0.port_b) annotation (Line(points={{-10,-40},{-10,-54},
+          {146,-54},{146,-10},{140,-10}}, color={191,0,0}));
   connect(Point4.ports[1], MSLpip4.port_b)
     annotation (Line(points={{10,60},{10,55},{10,50}}, color={0,127,255}));
   connect(senTem_p4.port, MSLpip4.port_b)
     annotation (Line(points={{40,56},{10,56},{10,50}}, color={0,127,255}));
-  connect(thermalCollector4.port_a, MSLpip4.heatPorts)
+  connect(col4.port_a, MSLpip4.heatPorts)
     annotation (Line(points={{-4,66},{-4,40.1},{5.6,40.1}}, color={191,0,0}));
-  connect(thermalResistor4.port_a, thermalCollector4.port_b)
+  connect(res4.port_a, col4.port_b)
     annotation (Line(points={{-4,94},{-4,86}}, color={191,0,0}));
-  connect(thermalResistor4.port_b, thermalResistor.port_b) annotation (Line(
-        points={{-4,114},{-4,124},{146,124},{146,-10},{140,-10}}, color={191,0,0}));
+  connect(res4.port_b, res0.port_b) annotation (Line(points={{-4,114},{-4,124},
+          {146,124},{146,-10},{140,-10}}, color={191,0,0}));
   connect(MSLpip4.port_a, MSLpip1.port_b)
     annotation (Line(points={{10,30},{10,10},{28,10}}, color={0,127,255}));
   connect(MSLpip5.port_a, MSLpip1.port_b)
     annotation (Line(points={{0,10},{28,10}}, color={0,127,255}));
   connect(MSLpip5.port_b, MSLpip2.port_a)
     annotation (Line(points={{-20,10},{-70,10},{-70,30}}, color={0,127,255}));
-  connect(thermalCollector5.port_a, MSLpip5.heatPorts) annotation (Line(points={
-          {-36,110},{-36,110},{-36,64},{-12,64},{-12,14.4},{-10.1,14.4}}, color=
-         {191,0,0}));
-  connect(thermalCollector5.port_b, thermalResistor5.port_a)
+  connect(col5.port_a, MSLpip5.heatPorts) annotation (Line(points={{-36,110},{-36,
+          110},{-36,64},{-12,64},{-12,14.4},{-10.1,14.4}}, color={191,0,0}));
+  connect(col5.port_b, res5.port_a)
     annotation (Line(points={{-36,130},{-36,134},{-28,134}}, color={191,0,0}));
-  connect(thermalResistor5.port_b, thermalResistor.port_b) annotation (Line(
-        points={{-8,134},{30,134},{30,124},{146,124},{146,-10},{140,-10}},
-        color={191,0,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
+  connect(res5.port_b, res0.port_b) annotation (Line(points={{-8,134},{30,134},
+          {30,124},{146,124},{146,-10},{140,-10}}, color={191,0,0}));
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     experiment(StopTime=603900),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
-<p>The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model.</p>
+<p>The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model in <a href=\"modelica://Annex60.Experimental.Pipe.Validation.ValidationPipeAIT\">ValidationPipeAIT</a>. This model compares its performance with the original Modelica Standard Library pipes.</p>
 <p>Pipes&apos; temperatures are not initialized, thus results of outflow temperature before apprixmately the first 10000 seconds should no be considered. </p>
 <p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
 <p><img src=\"modelica://Annex60/Resources/Images/Experimental/AITTestBench.png\"/> </p>
@@ -320,7 +315,7 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
 <li>July 4, 2016 by Bram van der Heijde:<br>Added parameters to test the influence of allowFlowReversal and the presence of explicit volumes in the pipe.</li>
 <li>January 26, 2016 by Carles Ribas:<br>First implementation. </li>
 </ul>
-</html>"), __Dymola_Commands(file=
-          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationMSLAIT.mos"
+</html>"),
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationMSLAIT.mos"
         "Simulate and plot"));
 end ValidationMSLAIT;
