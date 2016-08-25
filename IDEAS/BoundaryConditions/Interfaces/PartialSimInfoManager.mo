@@ -65,6 +65,9 @@ partial model PartialSimInfoManager
   parameter Modelica.SIunits.Temperature Tenv_nom= 280
     "Nominal ambient temperature, only used when linearising equations";
 
+  parameter Real ppmCO2 = 400 "Default CO2 concentration in [ppm] when using air medium containing CO2"
+    annotation(Dialog(tab="Advanced", group="CO2"));
+
   Modelica.SIunits.Irradiance solDirPer
     "direct irradiation on normal to solar zenith";
   Modelica.SIunits.Irradiance solDirHor
@@ -200,7 +203,7 @@ public
     "Model internal energy"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
-  Modelica.Blocks.Sources.RealExpression CEnv(y=0)
+  Modelica.Blocks.Sources.RealExpression CEnv(y=ppmCO2*44/29/1e6)
     "Concentration of trace substance in surroundings"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Modelica.Blocks.Sources.RealExpression TGround(y=TdesGround)
