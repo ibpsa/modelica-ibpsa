@@ -81,24 +81,22 @@ model SwWindowResponse "shortwave window respones"
         extent={{-7,-7},{7,7}},
         rotation=90,
         origin={-7,19})));
-  Modelica.Blocks.Math.Product[nLay] SwAbsDifProd annotation (Placement(
-        transformation(
-        extent={{-7,-7},{7,7}},
-        rotation=90,
-        origin={19,17})));
-  Modelica.Blocks.Math.Product SwTransDifProd annotation (Placement(
-        transformation(
-        extent={{-7,-7},{7,7}},
-        rotation=90,
-        origin={45,17})));
   Modelica.Blocks.Math.Add[nLay] add annotation (Placement(transformation(
         extent={{8,-8},{-8,8}},
         rotation=-90,
         origin={-32,48})));
 
+  Modelica.Blocks.Math.Gain[   nLay] SwAbsDifProd(k=SwAbsDif)  annotation (Placement(
+        transformation(
+        extent={{-7,-7},{7,7}},
+        rotation=90,
+        origin={25,21})));
+  Modelica.Blocks.Math.Gain    SwTransDifProd(k=SwTransDif)  annotation (Placement(
+        transformation(
+        extent={{-7,-7},{7,7}},
+        rotation=90,
+        origin={51,21})));
 equation
-  SwAbsDifProd.u2 = SwAbsDif;
-  SwTransDifProd.u2 = SwTransDif;
 
   connect(Abs_flow.port, iSolAbs) annotation (Line(
       points={{4.89859e-016,86},{0,86},{0,100}},
@@ -111,10 +109,6 @@ equation
   connect(Dif_flow.port, iSolDif) annotation (Line(
       points={{20,-86},{20,-100}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(solDif, SwTransDifProd.u1) annotation (Line(
-      points={{-100,20},{-62,20},{-62,2},{40.8,2},{40.8,8.6}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(solDir, SwTransDirProd.u1) annotation (Line(
       points={{-100,60},{-60,60},{-60,4},{-11.2,4},{-11.2,10.6}},
@@ -134,26 +128,16 @@ equation
         points={{-100,60},{-60,60},{-60,4},{-37.2,4},{-37.2,10.6}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(solDif, SwAbsDifProd[i].u1) annotation (Line(
-        points={{-100,20},{-62,20},{-62,2},{14.8,2},{14.8,8.6}},
-        color={0,0,127},
-        smooth=Smooth.None));
+    connect(SwAbsDifProd[i].u, solDif) annotation (Line(points={{25,12.6},{25,2},{
+          -64,2},{-64,20},{-100,20}}, color={0,0,127}));
   end for;
 
-  connect(SwTransDifProd.y, Dif_flow.Q_flow) annotation (Line(
-      points={{45,24.7},{45,32},{66,32},{66,-44},{20,-44},{20,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(SwTransDirProd.y, Dir_flow.Q_flow) annotation (Line(
       points={{-7,26.7},{-7,50},{80,50},{80,-54},{-20,-54},{-20,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(SwAbsDirProd.y, add.u2) annotation (Line(
       points={{-33,26.7},{-33,31.35},{-36.8,31.35},{-36.8,38.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(SwAbsDifProd.y, add.u1) annotation (Line(
-      points={{19,24.7},{19,32},{-27.2,32},{-27.2,38.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, Abs_flow.Q_flow) annotation (Line(
@@ -166,6 +150,13 @@ equation
           {-29,-21.8}}, color={0,0,127}));
   connect(radToDeg.y, SwTransDir.u) annotation (Line(points={{-39.1,-43},{-3,
           -43},{-3,-21.8}}, color={0,0,127}));
+  connect(SwAbsDifProd.y, add.u1) annotation (Line(points={{25,28.7},{25,34},{-27.2,
+          34},{-27.2,38.4}}, color={0,0,127}));
+  connect(SwTransDifProd.y, Dif_flow.Q_flow) annotation (Line(points={{51,28.7},
+          {51,34},{38,34},{38,-60},{20,-60},{20,-70}}, color={0,0,127}));
+
+   connect(SwTransDifProd.u, solDif) annotation (Line(points={{51,12.6},{51,2},{-64,
+          2},{-64,20},{-100,20}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
