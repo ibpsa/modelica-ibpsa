@@ -85,6 +85,7 @@ protected
     linearise=linExtRad or sim.linearise)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
+  replaceable
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.SwWindowResponse
     solWin(
     final nLay=glazing.nLay,
