@@ -25,7 +25,7 @@ model Zone "Building zone model"
   parameter Real n50toAch=20 "Conversion fractor from n50 to Air Change Rate"
     annotation(Dialog(tab="Advanced", group="Air model"));
 
-  parameter Boolean linearise=true
+  parameter Boolean linIntRad=sim.linIntRad
     "Linearized computation of long wave radiation"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange"));
   parameter Boolean calculateViewFactor = false
@@ -100,7 +100,7 @@ protected
         rotation=-90,
         origin={-50,-50})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
-    radDistrLw(final nSurf=nSurf, final linearise=linearise or sim.linearise) if
+    radDistrLw(final nSurf=nSurf, final linearise=linIntRad or sim.linearise) if
                                                  not calculateViewFactor
     "internal longwave radiative heat exchange" annotation (Placement(
         transformation(
@@ -126,6 +126,7 @@ public
 
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
+
 
 
 equation
