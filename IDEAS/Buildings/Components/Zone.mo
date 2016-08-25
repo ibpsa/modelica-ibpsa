@@ -138,7 +138,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(propsBus.area, radDistr.area) annotation (Line(
-      points={{-100.1,39.9},{-80,39.9},{-80,-46},{-60,-46}},
+      points={{-100.1,39.9},{-80,39.9},{-80,-58},{-60,-58}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -195,7 +195,12 @@ equation
       points={{-50,-60},{-50,-64},{-100.1,-64},{-100.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
+    connect(radDistr.azi[i], propsBus[i].azi) annotation (Line(points={{-60,-42},{
+          -70,-42},{-80,-42},{-80,39.9},{-100.1,39.9}}, color={0,0,127}));
+    connect(radDistr.inc[i], propsBus[i].inc) annotation (Line(points={{-60,-46},{
+          -80,-46},{-80,39.9},{-100.1,39.9}}, color={0,0,127}));
   end for;
+
   connect(radDistr.radSurfTot, radDistrLw.port_a) annotation (Line(
       points={{-50,-40},{-50,-20}},
       color={191,0,0},
@@ -235,9 +240,19 @@ equation
           {-26,74},{-26,88},{20,88},{20,100}}, color={0,127,255}));
   connect(airModel.ports_air[1], gainCon) annotation (Line(points={{-20,30},{2,30},
           {2,-30},{100,-30}}, color={191,0,0}));
-  connect(airModel.TAir, add.u[2]) annotation (Line(points={{-19.2,24},{-10,24},
-          {-10,10.6},{22.8,10.6}},
+  connect(airModel.TAir, add.u[2]) annotation (Line(points={{-19.2,24},{40,24},{
+          40,10.6},{22.8,10.6}},
                                color={0,0,127}));
+  connect(radDistr.azi, propsBus.azi) annotation (Line(points={{-60,-42},{
+          -70,-42},{-80,-42},{-80,39.9},{-100.1,39.9}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(radDistr.inc, propsBus.inc) annotation (Line(points={{-60,-46},{
+          -80,-46},{-80,39.9},{-100.1,39.9}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   connect(intGai.portCon, airModel.ports_air[1]) annotation (Line(points={{40,30},
           {40,30},{30,30},{-20,30}}, color={191,0,0}));
   connect(intGai.portRad, radDistr.radGain) annotation (Line(points={{40,26},{4,
