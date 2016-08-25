@@ -64,13 +64,11 @@ equation
   connect(sim.Qgai, dummy1);
   connect(sim.E, dummy2);
   for i in 1:nSurf loop
-     if not sim.linearise then
   connect(sim.weaBus, propsBus[i].weaBus) annotation (Line(
        points={{-84,92.8},{-84,96},{-84,96},{-84,100},{-100.1,100},{-100.1,39.9}},
        color={255,204,51},
        thickness=0.5,
        smooth=Smooth.None));
-     end if;
   connect(dummy1, propsBus[i].Qgai);
   connect(dummy2, propsBus[i].E);
 end for;

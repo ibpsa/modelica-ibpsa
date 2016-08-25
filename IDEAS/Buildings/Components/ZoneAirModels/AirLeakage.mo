@@ -42,7 +42,7 @@ extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
     allowFlowReversal=false)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 protected
-  Interfaces.WeaBus weaBus(numSolBus=sim.numIncAndAziInBus)
+  Interfaces.WeaBus weaBus(numSolBus=sim.numIncAndAziInBus, outputAngles=sim.outputAngles)
     annotation (Placement(transformation(extent={{-50,76},{-30,96}})));
 public
   Modelica.Blocks.Sources.RealExpression reaExpX_air(y=1 - reaPasThr.y)
@@ -95,10 +95,12 @@ equation
     annotation (Line(points={{-19,66},{14,66},{14,42}}, color={0,0,127}));
   if Medium.nC>0 then
   connect(bou.C_in[1], weaBus.CEnv)
-    annotation (Line(points={{18,42},{18,86},{-40,86}}, color={0,0,127}));
+    annotation (Line(points={{18,42},{18,86.05},{-39.95,86.05}},
+                                                        color={0,0,127}));
   end if;
   connect(reaPasThr.u, weaBus.X_wEnv)
-    annotation (Line(points={{14,80},{14,86},{-40,86}}, color={0,0,127}));
+    annotation (Line(points={{14,80},{14,86.05},{-39.95,86.05}},
+                                                        color={0,0,127}));
   connect(reaPasThr.y, bou.X_in[1]) annotation (Line(points={{14,57},{14,57},{14,
           52},{14,42}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
