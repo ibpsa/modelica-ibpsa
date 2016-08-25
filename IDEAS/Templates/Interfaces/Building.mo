@@ -5,6 +5,7 @@ model Building
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   replaceable package Medium=IDEAS.Media.Water;
+  replaceable package MediumAir=IDEAS.Media.Air;
 
   parameter Boolean standAlone=true;
   parameter Boolean isDH=false "True if the building is connected to a DH grid";
@@ -14,9 +15,11 @@ model Building
   final parameter Modelica.SIunits.Power[building.nZones] Q_design = building.Q_design+ventilationSystem.Q_design
     "Total design heat load for heating system based on heat losses";
 
-  replaceable IDEAS.Templates.Interfaces.BaseClasses.Structure building
-    constrainedby IDEAS.Templates.Interfaces.BaseClasses.Structure(final
-      T_start=T_start) "Building structure" annotation (Placement(
+  replaceable IDEAS.Templates.Interfaces.BaseClasses.Structure building(
+      redeclare package Medium = MediumAir)
+    constrainedby IDEAS.Templates.Interfaces.BaseClasses.Structure(
+      redeclare package Medium = MediumAir,
+      final T_start=T_start) "Building structure" annotation (Placement(
         transformation(extent={{-66,-10},{-36,10}})), choicesAllMatching=true);
 
   replaceable IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem heatingSystem
@@ -39,8 +42,10 @@ model Building
         transformation(extent={{32,-10},{52,10}})), __Dymola_choicesAllMatching=
        true);
 
-  replaceable IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem ventilationSystem
+  replaceable IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem ventilationSystem(
+      redeclare package Medium = MediumAir)
     constrainedby IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem(
+      redeclare package Medium = MediumAir,
       final nZones=building.nZones, final VZones=building.VZones)
     "Ventilation system" annotation (Placement(transformation(extent={{-20,20},
             {20,40}})), choicesAllMatching=true);
@@ -69,6 +74,8 @@ model Building
   final parameter Boolean InInterface = true;
 initial equation
    voltageSource.pin_n.reference.gamma=0;
+
+
 equation
   connect(heatingSystem.TSet, occupant.TSet) annotation (Line(
       points={{0,-10.2},{0,-30}},

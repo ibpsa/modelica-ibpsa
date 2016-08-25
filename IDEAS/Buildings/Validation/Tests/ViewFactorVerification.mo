@@ -16,7 +16,7 @@ model ViewFactorVerification
   IDEAS.Buildings.Validation.Cases.Case900 CaseNoVf(building(gF(calculateViewFactor=false)))
     annotation (Placement(transformation(extent={{-76,-16},{-64,-4}})));
 initial equation
-
+  assert(abs(CaseVf.building.gF.radDistr.iSolDir.Q_flow + CaseVf.building.gF.radDistr.iSolDif.Q_flow + CaseVf.building.gF.radDistr.radGain.Q_flow+ sum(CaseVf.building.gF.radDistr.radSurfTot.Q_flow))<1e-4, "Energy is not conserved in zone model!");
  for i in 1:6 loop
      assert( abs(sum(CaseVf.building.gF.zoneLwDistributionViewFactor.vieFacTot[i,:])-1) < Modelica.Constants.eps*1000, "View factors do not sum up to one for row " + String(i) +  "!: "+ String(abs(sum(CaseVf.building.gF.zoneLwDistributionViewFactor.vieFacTot[i,:])-1)));
  end for;

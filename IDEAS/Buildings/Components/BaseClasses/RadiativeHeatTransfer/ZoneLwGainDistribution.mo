@@ -2,7 +2,6 @@ within IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer;
 model ZoneLwGainDistribution "distribution of radiative internal gains"
 
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir
     "Direct solar radiation gains received through windows"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
@@ -39,7 +38,7 @@ model ZoneLwGainDistribution "distribution of radiative internal gains"
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={40,100})));
+        origin={0,100})));
 
 protected
   final parameter Real[nSurf] weightFactorDir(each final fixed=false)
@@ -50,13 +49,33 @@ protected
     "weightfactor for received direct shortwave solar radiation";
   final parameter Real[nSurf] weightFactorTRad(each final fixed=false)
     "weightfactor for received direct shortwave solar radiation";
-
+  final parameter Modelica.SIunits.Area AfloorTot(fixed=false)
+    "Total floor surface area";
+  final parameter Real ASWotherSurface(fixed=false)
+    "Total absorption surface on surfaces other than the floor";
+  final parameter Real fraTotAbsFloor(fixed=false)
+    "Fraction of the bream radiation that is absorbed by the floor";
+public
+Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={40,100})));
+  Modelica.Blocks.Interfaces.RealInput[nSurf] azi "Surface azimuth angles"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={80,100})));
 initial equation
-
-  weightFactorDir = area / sum(area);
-  weightFactorTRad = weightFactorDir;
+  weightFactorDir = {if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor)
+                     then area[i]*epsSw[i]/AfloorTot
+                     else (1-fraTotAbsFloor)*area[i]*epsSw[i]/ASWotherSurface for i in 1:nSurf};
   weightFactorDif = area .* epsSw / sum(area .* epsSw);
   weightFactorGain = area .* epsLw / sum(area .* epsLw);
+  AfloorTot = sum({if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor) then area[i] else 0 for i in 1:nSurf});
+  fraTotAbsFloor = sum({if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor) then area[i]*epsSw[i] else 0 for i in 1:nSurf})/AfloorTot;
+  ASWotherSurface = sum({if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor) then 0 else area[i]*epsSw[i] for i in 1:nSurf});
+  weightFactorTRad = weightFactorDir;
 
 equation
   for k in 1:nSurf loop
@@ -73,7 +92,6 @@ equation
   radGain.T = TRad;
 
   annotation (
-    Diagram(graphics),
     Icon(graphics={
         Line(points={{-40,10},{40,10}}, color={191,0,0}),
         Line(points={{-40,10},{-30,16}}, color={191,0,0}),
@@ -105,9 +123,36 @@ equation
           thickness=0.5,
           smooth=Smooth.None)}),
     Documentation(info="<html>
-<p>The exchange of longwave radiation in a zone has been previously described in the building component models and further considering the heat balance of the interior surface. Here, an expression based on <i>radiant interchange configuration factors</i> or <i>view factors</i> is avoided based on a delta-star transformation and by definition of a <i>radiant star temperature</i> <img src=\"modelica://IDEAS/Images/equations/equation-rE4hQkmG.png\"/>. Literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption. This <img src=\"modelica://IDEAS/Images/equations/equation-rE4hQkmG.png\"/> can be derived from the law of energy conservation in the radiant star node as <img src=\"modelica://IDEAS/Images/equations/equation-iH8dRZqh.png\"/> must equal zero. Long wave radiation from internal sources are dealt with by including them in the heat balance of the radiant star node resulting in a diffuse distribution of the radiative source.</p>
+<p>
+This model computes how radiative gains are redistributed among all surfaces.
+We consider 1) diffuse solar gains, 
+2) beam solar gains and 
+3) other, long wave, internal gains, e.g. from occupants.
+</p>
+<p>
+Diffuse solar gains are redistributed by computing a weighting factor equal to the surface area multiplied with the
+shortwave emissivity of the surface.
+This factor is used to redistribute the diffuse solar gains among all surfaces.
+</p>
+<p>
+Internal gains from occupants are redistributed in the same way, but using
+the long wave emissivity instead of the short wave emissivity.
+</p>
+<p>
+Direct/bream solar gains are redistributed by assuming that a fixed fraction of the beam solar
+gains are absorbed by the floor. 
+This fraction equals the short wave emissivity of the floor. 
+If there are multiple floors (based on the inclination angle) 
+then their area and emissivity are used to compute a weight factor for the floors.
+The remaining radiation is redistributed over all other surfaces, again using the shortwave emissivity
+and surface area to determine the relative fractions.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 15, 2016 by Filip Jorissen:<br/>
+New absorption model for beam radiation.
+</li>
 <li>
 July 12, 2016 by Filip Jorissen:<br/>
 Simplified implementation by removing intermediate variables.
