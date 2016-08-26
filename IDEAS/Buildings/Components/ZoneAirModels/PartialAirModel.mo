@@ -16,6 +16,7 @@ partial model PartialAirModel "Partial for air models"
   parameter Boolean useFluPor = true "Set to false to remove fluid ports";
   constant Boolean computeTSensorAsFunctionOfZoneAir = true "Set to false if TSensor in zone model should not take into account the value of the zone air temperature";
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") "Model internal energy";
+  Modelica.Blocks.Interfaces.RealOutput QGai(unit="J/s") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput TAir "Zone air temperature"
     annotation (Placement(transformation(extent={{98,-70},{118,-50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSurf] ports_surf
@@ -51,6 +52,10 @@ partial model PartialAirModel "Partial for air models"
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
+<li>
+August 26, 2016 by Filip Jorissen:<br/>
+Added support for conservation of energy.
+</li>
 <li>
 April 30, 2016, by Filip Jorissen:<br/>
 First implementation.

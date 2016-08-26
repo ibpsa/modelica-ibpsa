@@ -6,8 +6,12 @@ model EnergyConservationValidation
         strictConservationOfEnergy=true,
         Emax=1),
     zone(airModel(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)),
-    zone1(airModel(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)));
+    zone1(airModel(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+      redeclare Components.OccupancyType.OfficeWork occTyp,
+      redeclare Components.InternalGains.Simple intGai));
 
+  Modelica.Blocks.Sources.Constant const(k=0)
+    annotation (Placement(transformation(extent={{82,-68},{62,-48}})));
   annotation (
     experiment(
       StopTime=5e+06,
@@ -22,9 +26,16 @@ model EnergyConservationValidation
     Documentation(revisions="<html>
 <ul>
 <li>
+August 26, 2016 by Filip Jorissen:<br/>
+Included occupancy in the check.
+</li>
+<li>
 June 14, 2015, Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
+equation
+  connect(const.y,zone1.nOcc);
+
 end EnergyConservationValidation;

@@ -16,6 +16,7 @@ model Thermal
     "Constant output for relative humidity"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 equation
+  QGai=0;
   E=heaCap.T*heaCap.C;
   for i in 1:nSurf loop
   connect(heaCap.port, ports_surf[i])
@@ -33,6 +34,10 @@ equation
     annotation (Line(points={{61,-40},{108,-40},{108,-40}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+August 26, 2016 by Filip Jorissen:<br/>
+Added support for conservation of energy.
+</li>
 <li>
 July 18, 2016 by Filip Jorissen:<br/>
 First implementation
