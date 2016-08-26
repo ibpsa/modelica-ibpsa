@@ -38,4 +38,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
+equation
+  connect(const.y,zone1.nOcc);
+
 end EnergyConservationValidation;
