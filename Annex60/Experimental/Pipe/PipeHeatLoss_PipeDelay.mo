@@ -96,9 +96,13 @@ public
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlow tau_unused(diameter=diameter)
+  BaseClasses.PDETime_massFlow tau_unused(diameter=diameter,
+    len=length,
+    rho=rho_default)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  BaseClasses.PDETime_massFlow tau_used(diameter=diameter)
+  BaseClasses.PDETime_massFlow tau_used(diameter=diameter,
+    len=length,
+    rho=rho_default)
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
