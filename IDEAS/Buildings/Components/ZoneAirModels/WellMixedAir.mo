@@ -59,6 +59,7 @@ equation
          but air is not being refreshed (for instance using ventilation or air leakage models)?",
          level=AssertionLevel.warning);
  E=vol.U;
+ QGai=preHeaFloLat.Q_flow;
   connect(vol.ports[1], port_a) annotation (Line(points={{3.2,10},{3.2,10},{40,10},
           {40,100}},  color={0,127,255}));
   connect(vol.ports[2], port_b)
@@ -101,6 +102,10 @@ equation
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
+<li>
+August 26, 2016 by Filip Jorissen:<br/>
+Added support for conservation of energy.
+</li>
 <li>
 April 30, 2016, by Filip Jorissen:<br/>
 First implementation.

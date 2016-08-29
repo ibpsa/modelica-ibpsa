@@ -27,6 +27,7 @@ model None "Non-physical zone air model that disables convective heat transfer"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 equation
   E=0;
+  QGai=0;
 
   connect(inf.y,TAir)
     annotation (Line(points={{61,-60},{84,-60},{108,-60}},
@@ -39,6 +40,10 @@ equation
     annotation (Line(points={{61,-40},{108,-40}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+August 26, 2016 by Filip Jorissen:<br/>
+Added support for conservation of energy.
+</li>
 <li>
 July 18, 2016 by Filip Jorissen:<br/>
 First implementation

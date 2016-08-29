@@ -1,6 +1,9 @@
 within IDEAS.Buildings.Components;
 model Zone "Building zone model"
   extends IDEAS.Buildings.Components.Interfaces.PartialZone(
+    Qgai(y=(if sim.openSystemConservationOfEnergy
+            then airModel.QGai
+            else gainCon.Q_flow + gainRad.Q_flow + airModel.QGai)),
     Eexpr(y=E),
     useFluPor = airModel.useFluPor);
     replaceable package Medium =
@@ -129,6 +132,7 @@ initial equation
 
 
 
+
 equation
   connect(radDistr.radGain, gainRad) annotation (Line(
       points={{-46.2,-60},{100,-60}},
@@ -139,7 +143,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(propsBus.area, radDistr.area) annotation (Line(
-      points={{-100.1,39.9},{-80,39.9},{-80,-58},{-60,-58}},
+      points={{-100.1,39.9},{-80,39.9},{-80,-50},{-60,-50}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -293,6 +297,10 @@ It can be enabled using parameter <code>calculateViewFactor</code>.
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 26, 2016 by Filip Jorissen:<br/>
+Added support for conservation of energy of air model.
+</li>
 <li>
 April 30, 2016, by Filip Jorissen:<br/>
 Added replaceable air model implementation.
