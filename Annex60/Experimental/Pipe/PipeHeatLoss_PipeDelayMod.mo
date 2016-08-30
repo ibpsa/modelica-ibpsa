@@ -93,10 +93,12 @@ public
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
   BaseClasses.PDETime_massFlowMod tau_unused_maxClause(diameter=diameter,
-      length=length)
+      length=length,
+    rho=rho_default)
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   BaseClasses.PDETime_massFlowMod tau_used(length=length, diameter=
-        diameter)
+        diameter,
+    rho=rho_default)
     annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
