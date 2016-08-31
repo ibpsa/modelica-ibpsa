@@ -1,0 +1,4 @@
+simulateModel("Annex60.Controls.Continuous.Examples.LimPIDWithReset", method="dassl", resultFile="LimPIDWithReset");
+createPlot(id=1, position={15, 10, 822, 681}, y={"booleanPulse.y"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, filename="LimPIDWithReset.mat", colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 822, 223}, y={"limPIOri.I.y", "limPIWithReset.I.y"}, range={0.0, 1.0, -0.1, 0.1}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 822, 223}, y={"limPIOri.y", "limPIWithReset.y"}, range={0.0, 1.0, -1.0, 1.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
