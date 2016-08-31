@@ -119,5 +119,8 @@ First implementation</li>
           preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-180,-120},{180,120}})),
     experiment(StopTime=40000, Interval=1),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Experimental/Pipe/Examples/UseCases/TypeA_NoFlowReversal/UCPipeA04HL_ZeroFlow.mos"
+        "Simulate and Plot"));
 end UCPipeA04HL_ZeroFlow;
