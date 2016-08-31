@@ -53,8 +53,7 @@ model UCPipeB02Mod_Temperature
     offset=273.15 + 55,
     freqHz=0.0005) "Constant supply temperature signal"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  PipeHeatLoss_PipeDelayMod
-                        pipeAd(
+  PipeHeatLossMod pipeAd(
     redeclare package Medium = Medium,
     length=100,
     m_flow_small=1e-4,
