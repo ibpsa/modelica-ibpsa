@@ -21,13 +21,11 @@ model Zone "Building zone model"
   parameter Real n50(min=0.01)=0.4
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa"
     annotation(Dialog(group="Building physics"));
-
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Advanced", group="Air model"));
   parameter Real n50toAch=20 "Conversion fractor from n50 to Air Change Rate"
     annotation(Dialog(tab="Advanced", group="Air model"));
-
   parameter Boolean linIntRad=sim.linIntRad
     "Linearized computation of long wave radiation"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange"));
@@ -42,6 +40,11 @@ model Zone "Building zone model"
     "Additional power required to compensate for the effects of intermittent heating";
   final parameter Modelica.SIunits.Power Q_design(fixed=false)
     "Total design heat losses for the zone";
+  parameter Medium.Temperature T_start=Medium.T_default
+    "Start value of temperature"
+    annotation(Dialog(tab = "Initialization"));
+  parameter Real fRH=11
+    "Reheat factor for calculation of design heat load, (EN 12831, table D.10 Annex D)" annotation(Dialog(tab="Advanced",group="Design heat load"));
 
   replaceable ZoneAirModels.WellMixedAir airModel(
     redeclare package Medium = Medium,
@@ -81,29 +84,21 @@ model Zone "Building zone model"
     choicesAllMatching=true,
     Dialog(group="Occupants"),
     Placement(transformation(extent={{40,-20},{60,0}})));
-  parameter Medium.Temperature T_start=Medium.T_default
-    "Start value of temperature"
-    annotation(Dialog(tab = "Initialization"));
-  parameter Real fRH=11
-    "Reheat factor for calculation of design heat load, (EN 12831, table D.10 Annex D)" annotation(Dialog(tab="Advanced",group="Design heat load"));
-
   Modelica.SIunits.Power QTra_design=sum(propsBus.QTra_design)
     "Total design transmission heat losses for the zone";
-
-
-  Modelica.SIunits.Temperature TAir=airModel.TAir;
-  Modelica.SIunits.Temperature TStar=radDistr.TRad;
+  Modelica.Blocks.Interfaces.RealOutput TAir(unit="K") = airModel.TAir;
+  Modelica.Blocks.Interfaces.RealOutput TStar(unit="K") = radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
 
 protected
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwGainDistribution
-    radDistr(final nSurf=nSurf) "distribution of radiative internal gains"
+    radDistr(nSurf=nSurf) "distribution of radiative internal gains"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-50,-50})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
-    radDistrLw(final nSurf=nSurf, final linearise=linIntRad or sim.linearise) if
+    radDistrLw(nSurf=nSurf, final linearise=linIntRad or sim.linearise) if
                                                  not calculateViewFactor
     "internal longwave radiative heat exchange" annotation (Placement(
         transformation(
@@ -117,7 +112,7 @@ protected
 public
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistributionViewFactor
     zoneLwDistributionViewFactor(
-      final nSurf=nSurf,
+      nSurf=nSurf,
       final hZone=hZone) if calculateViewFactor annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -130,9 +125,6 @@ public
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 
-
-
-
 equation
   connect(radDistr.radGain, gainRad) annotation (Line(
       points={{-46.2,-60},{100,-60}},
@@ -142,49 +134,49 @@ equation
       points={{-40,-50},{-6,-50},{-6,9.4},{22.8,9.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(propsBus.area, radDistr.area) annotation (Line(
+  connect(propsBus[1:nSurf].area, radDistr.area[1:nSurf]) annotation (Line(
       points={{-100.1,39.9},{-80,39.9},{-80,-50},{-60,-50}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(propsBus.area, radDistrLw.A) annotation (Line(
+  connect(propsBus[1:nSurf].area, radDistrLw.A[1:nSurf]) annotation (Line(
       points={{-100.1,39.9},{-80,39.9},{-80,-14},{-60,-14}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(propsBus.epsLw, radDistrLw.epsLw) annotation (Line(
+  connect(propsBus[1:nSurf].epsLw, radDistrLw.epsLw[1:nSurf]) annotation (Line(
       points={{-100.1,39.9},{-80,39.9},{-80,-10},{-60,-10}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(propsBus.epsLw, zoneLwDistributionViewFactor.epsLw) annotation (Line(
+  connect(propsBus[1:nSurf].epsLw, zoneLwDistributionViewFactor.epsLw[1:nSurf]) annotation (Line(
       points={{-100.1,39.9},{-80,39.9},{-80,-10},{-40,-10}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(propsBus.area, zoneLwDistributionViewFactor.A) annotation (Line(
+  connect(propsBus[1:nSurf].area, zoneLwDistributionViewFactor.A[1:nSurf]) annotation (Line(
       points={{-100.1,39.9},{-80,39.9},{-80,-14},{-40,-14}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(propsBus.epsLw, radDistr.epsLw) annotation (Line(
+  connect(propsBus[1:nSurf].epsLw, radDistr.epsLw[1:nSurf]) annotation (Line(
       points={{-100.1,39.9},{-80,39.9},{-80,-50},{-60,-50}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(propsBus.epsSw, radDistr.epsSw) annotation (Line(
+  connect(propsBus[1:nSurf].epsSw, radDistr.epsSw[1:nSurf]) annotation (Line(
       points={{-100.1,39.9},{-80,39.9},{-80,-54},{-60,-54}},
       color={127,0,0},
       smooth=Smooth.None), Text(
@@ -200,21 +192,16 @@ equation
       points={{-50,-60},{-50,-64},{-100.1,-64},{-100.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
-    connect(radDistr.azi[i], propsBus[i].azi) annotation (Line(points={{-60,-42},{
-          -70,-42},{-80,-42},{-80,39.9},{-100.1,39.9}}, color={0,0,127}));
-    connect(radDistr.inc[i], propsBus[i].inc) annotation (Line(points={{-60,-46},{
-          -80,-46},{-80,39.9},{-100.1,39.9}}, color={0,0,127}));
   end for;
-
   connect(radDistr.radSurfTot, radDistrLw.port_a) annotation (Line(
       points={{-50,-40},{-50,-20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(zoneLwDistributionViewFactor.inc, propsBus.inc) annotation (Line(
+  connect(zoneLwDistributionViewFactor.inc[1:nSurf], propsBus[1:nSurf].inc) annotation (Line(
       points={{-34,-1.77636e-15},{-34,4},{-80,4},{-80,39.9},{-100.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(zoneLwDistributionViewFactor.azi, propsBus.azi) annotation (Line(
+  connect(zoneLwDistributionViewFactor.azi[1:nSurf], propsBus[1:nSurf].azi) annotation (Line(
       points={{-26,-1.77636e-15},{-26,8},{-80,8},{-80,39.9},{-100.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -226,17 +213,17 @@ equation
   connect(add.y, TSensor) annotation (Line(points={{36.6,10},{36.6,10},{54,10},{
           80,10},{80,0},{106,0}},
                    color={0,0,127}));
-  connect(radDistr.radSurfTot, propsBus.surfRad) annotation (Line(points={{-50,-40},
+  connect(radDistr.radSurfTot[1:nSurf], propsBus[1:nSurf].surfRad) annotation (Line(points={{-50,-40},
           {-50,-30},{-80,-30},{-80,39.9},{-100.1,39.9}},      color={191,0,0}));
-  connect(airModel.ports_surf, propsBus.surfCon) annotation (Line(points={{-40,30},
+  connect(airModel.ports_surf[1:nSurf], propsBus[1:nSurf].surfCon) annotation (Line(points={{-40,30},
           {-80,30},{-80,40},{-98,40},{-100.1,40},{-100.1,39.9}},  color={191,0,0}));
-  connect(airModel.inc, propsBus.inc) annotation (Line(points={{-40.8,38},{-80,
+  connect(airModel.inc[1:nSurf], propsBus[1:nSurf].inc) annotation (Line(points={{-40.8,38},{-80,
           38},{-80,40},{-82,40},{-100.1,40},{-100.1,39.9}},
                                                         color={0,0,127}));
-  connect(airModel.azi, propsBus.azi) annotation (Line(points={{-40.8,34},{-80,
+  connect(airModel.azi[1:nSurf], propsBus[1:nSurf].azi) annotation (Line(points={{-40.8,34},{-80,
           34},{-80,40},{-98,40},{-100.1,40},{-100.1,39.9}},
                                                          color={0,0,127}));
-  connect(airModel.A, propsBus.area) annotation (Line(points={{-40.6,24},{-80,
+  connect(airModel.A[1:nSurf], propsBus[1:nSurf].area) annotation (Line(points={{-40.6,24},{-80,
           24},{-80,40},{-96,40},{-100.1,40},{-100.1,39.9}},
                                                         color={0,0,127}));
   connect(airModel.port_b, flowPort_Out) annotation (Line(points={{-34,40},{-34,
@@ -245,15 +232,15 @@ equation
           {-26,74},{-26,88},{20,88},{20,100}}, color={0,127,255}));
   connect(airModel.ports_air[1], gainCon) annotation (Line(points={{-20,30},{2,30},
           {2,-30},{100,-30}}, color={191,0,0}));
-  connect(airModel.TAir, add.u[2]) annotation (Line(points={{-19.2,24},{40,24},{
-          40,10.6},{22.8,10.6}},
+  connect(airModel.TAir, add.u[2]) annotation (Line(points={{-19.2,24},{-6,24},{
+          -6,10.6},{22.8,10.6}},
                                color={0,0,127}));
-  connect(radDistr.azi, propsBus.azi) annotation (Line(points={{-60,-42},{
+  connect(radDistr.azi[1:nSurf], propsBus[1:nSurf].azi) annotation (Line(points={{-60,-42},{
           -70,-42},{-80,-42},{-80,39.9},{-100.1,39.9}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(radDistr.inc, propsBus.inc) annotation (Line(points={{-60,-46},{
+  connect(radDistr.inc[1:nSurf], propsBus[1:nSurf].inc) annotation (Line(points={{-60,-46},{
           -80,-46},{-80,39.9},{-100.1,39.9}}, color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -272,8 +259,8 @@ equation
           -10,24},{-19.2,24}}, color={0,0,127}));
   connect(comfort.TRad, radDistr.TRad) annotation (Line(points={{39,-4},{-6,-4},
           {-6,-50},{-40,-50}}, color={0,0,127}));
-  connect(comfort.phi, airModel.phi) annotation (Line(points={{39,-8},{39,-8},{-8,
-          -8},{-8,26},{-19.2,26}}, color={0,0,127}));
+  connect(comfort.phi, airModel.phi) annotation (Line(points={{39,-8},{-12,-8},{
+          -12,26},{-19.2,26}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
