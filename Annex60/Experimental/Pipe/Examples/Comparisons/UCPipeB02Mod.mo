@@ -173,7 +173,10 @@ equation
     Diagram(coordinateSystem(extent={{-180,-120},{180,120}},
           preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-180,-120},{180,120}})),
-    experiment(StopTime=200000, Interval=1),
+    experiment(
+      StopTime=200000,
+      Interval=10,
+      Tolerance=1e-006),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Experimental/Pipe/Examples/Comparisons/UCPipeB02Mod.mos"
