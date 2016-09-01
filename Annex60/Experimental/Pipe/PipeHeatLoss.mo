@@ -1,6 +1,5 @@
 within Annex60.Experimental.Pipe;
-model PipeHeatLoss_PipeDelay
-  "Pipe model using spatialDistribution for temperature delay with heat losses modified and one delay operator at pipe level"
+model PipeHeatLoss "Pipe model using spatialDistribution for temperature delay"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
@@ -207,4 +206,4 @@ equation
 <p>Implementation of a pipe with heat loss using the time delay based heat losses and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </p>
 <p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used in front of and behind the time delay. The delay time is calculated once on the pipe level and supplied to both heat loss operators. </p>
 </html>"));
-end PipeHeatLoss_PipeDelay;
+end PipeHeatLoss;

@@ -66,8 +66,7 @@ package TimeDelay
     Modelica.Blocks.Sources.Constant PAtm1(
                                           k=101325) "Atmospheric pressure"
         annotation (Placement(transformation(extent={{-158,88},{-138,108}})));
-    Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay
-      A60PipeHeatLossMod_noabs(
+    Annex60.Experimental.Pipe.PipeHeatLoss A60PipeHeatLossMod_noabs(
       redeclare package Medium = Medium,
       m_flow_small=1e-4*0.5,
       diameter=diameter,
@@ -76,7 +75,7 @@ package TimeDelay
       thicknessIns=0.02,
       lambdaI=0.01) "Annex 60 modified pipe with heat losses"
       annotation (Placement(transformation(extent={{8,28},{28,48}})));
-    Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelayMod  A60PipeHeatLossMod2(
+    Annex60.Experimental.Pipe.PipeHeatLossMod A60PipeHeatLossMod2(
       redeclare package Medium = Medium,
       m_flow_small=1e-4*0.5,
       diameter=diameter,

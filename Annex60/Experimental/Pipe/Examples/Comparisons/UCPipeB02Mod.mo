@@ -52,7 +52,7 @@ model UCPipeB02Mod "Comparing behaviour of PipeHeatLoss and ~Mod"
     offset=273.15 + 55,
     freqHz=0.0005) "Constant supply temperature signal"
     annotation (Placement(transformation(extent={{-166,0},{-146,20}})));
-  PipeHeatLoss_PipeDelay pipeAd(
+  PipeHeatLoss pipeAd(
     redeclare package Medium = Medium,
     length=100,
     m_flow_small=1e-4,
@@ -88,7 +88,7 @@ model UCPipeB02Mod "Comparing behaviour of PipeHeatLoss and ~Mod"
         Medium, m_flow_nominal=m_flow_nominal)
     "Temperature at the pipe's source side"
     annotation (Placement(transformation(extent={{-60,-94},{-40,-74}})));
-  PipeHeatLoss_PipeDelayMod pipeAdMod(
+  PipeHeatLossMod pipeAdMod(
     redeclare package Medium = Medium,
     length=100,
     m_flow_small=1e-4,
@@ -173,7 +173,10 @@ equation
     Diagram(coordinateSystem(extent={{-180,-120},{180,120}},
           preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-180,-120},{180,120}})),
-    experiment(StopTime=200000, Interval=1),
+    experiment(
+      StopTime=200000,
+      Interval=10,
+      Tolerance=1e-006),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Experimental/Pipe/Examples/Comparisons/UCPipeB02Mod.mos"

@@ -126,5 +126,8 @@ First implementation</li>
           preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-180,-120},{180,120}})),
     experiment(StopTime=3000, Interval=1),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Experimental/Pipe/Examples/UseCases/TypeA_NoFlowReversal/UCPipeA03AD_MSL_Temperature.mos"
+        "Simulate and Plot"));
 end UCPipeA03AD_MSL_Temperature;

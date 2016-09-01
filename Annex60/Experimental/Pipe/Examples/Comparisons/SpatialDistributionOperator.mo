@@ -100,7 +100,7 @@ model SpatialDistributionOperator
     "Sink at with constant pressure, turns into source at the end of experiment"
                           annotation (Placement(transformation(extent={{128,112},
             {108,132}})));
-  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay PipeDelay(
+  Annex60.Experimental.Pipe.PipeHeatLoss PipeDelay(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
@@ -127,7 +127,7 @@ model SpatialDistributionOperator
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature1(T=
         278.15)
     annotation (Placement(transformation(extent={{-22,110},{-2,130}})));
-  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelayMod PipeDelayMod(
+  Annex60.Experimental.Pipe.PipeHeatLossMod PipeDelayMod(
     diameter=diameter,
     length=length,
     thicknessIns=0.02,
