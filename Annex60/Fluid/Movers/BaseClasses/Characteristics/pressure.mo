@@ -57,6 +57,11 @@ protected
        end if;
     end for;
     // Extrapolate or interpolate the data
+    // fixme: I don't understand how this behaves for 0 < r_N < 1E-10 (as also rat depends on r_N).
+    //        - what is wrong with the linear functional form for which we can prove its functional dependence on r_N, and dp/dV?
+    //        - maybe we can have a better transition to zero using \Delta p^-(r, V) = -\Delta \hat p(V) + r^2 * h(V/\delta, \mathcal S'_n),
+    //          rather than the linear approximation that we have now. The idea is to use the same function at r_N=\Delta, but replace
+    //          the problematic V/r_N term by V/\Delta.
     dp:=Annex60.Utilities.Math.Functions.spliceFunction(pos=sign(r_N)*r_N^2,neg=1e-4*r_N,x=r_N-1e-4,deltax=1e-4)*Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
                 x=rat,
                 x1=per.V_flow[i],
