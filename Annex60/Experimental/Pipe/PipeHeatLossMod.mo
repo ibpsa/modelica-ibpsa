@@ -133,18 +133,14 @@ equation
       points={{-34,-11},{-34,-54},{0,-54}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(tau_used.tau, reverseHeatLoss.tau) annotation (Line(
-      points={{23,-54},{28,-54},{28,32},{-64,32},{-64,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(tau_used.tau, heatLoss.tau) annotation (Line(
-      points={{23,-54},{28,-54},{28,32},{44,32},{44,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(reverseHeatLoss.heatPort, heatPort) annotation (Line(points={{-70,10},
           {-70,40},{0,40},{0,100}}, color={191,0,0}));
   connect(heatLoss.heatPort, heatPort) annotation (Line(points={{50,10},{50,40},
           {0,40},{0,100}}, color={191,0,0}));
+  connect(tau_used.tauRev, reverseHeatLoss.tau) annotation (Line(points={{23,
+          -50},{26,-50},{26,28},{-64,28},{-64,10}}, color={0,0,127}));
+  connect(tau_used.tau, heatLoss.tau) annotation (Line(points={{23,-58},{32,-58},
+          {32,28},{44,28},{44,10}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
