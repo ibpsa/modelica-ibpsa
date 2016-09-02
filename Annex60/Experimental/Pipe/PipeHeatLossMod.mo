@@ -92,14 +92,10 @@ public
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlowMod tau_unused_maxClause(diameter=diameter,
-      length=length,
-    rho=rho_default)
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   BaseClasses.PDETime_massFlowMod tau_used(length=length, diameter=
         diameter,
     rho=rho_default)
-    annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   parameter Modelica.SIunits.Length Lcap=1
@@ -125,20 +121,16 @@ equation
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
     annotation (Line(points={{-44,0},{-52,0},{-60,0}},
                                                color={0,127,255}));
-  connect(senMasFlo.m_flow, tau_unused_maxClause.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-40},{-22,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-54},{0,-54}},
+      points={{-34,-11},{-34,-40},{-12,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tau_used.tau, reverseHeatLoss.tau) annotation (Line(
-      points={{23,-54},{28,-54},{28,32},{-64,32},{-64,10}},
+      points={{11,-40},{28,-40},{28,32},{-64,32},{-64,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tau_used.tau, heatLoss.tau) annotation (Line(
-      points={{23,-54},{28,-54},{28,32},{44,32},{44,10}},
+      points={{11,-40},{28,-40},{28,32},{44,32},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(reverseHeatLoss.heatPort, heatPort) annotation (Line(points={{-70,10},
