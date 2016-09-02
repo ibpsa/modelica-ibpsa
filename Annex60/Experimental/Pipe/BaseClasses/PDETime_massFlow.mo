@@ -13,8 +13,8 @@ model PDETime_massFlow "Delay time for given normalized velocity"
   Modelica.SIunits.Time track_b;
   Modelica.SIunits.Time tau_a;
   Modelica.SIunits.Time tau_b;
-  Modelica.SIunits.Time inp_a;
-  Modelica.SIunits.Time inp_b;
+  Modelica.SIunits.Time inp_a(start=0);
+  Modelica.SIunits.Time inp_b(start=0);
   Boolean v_a "Is the fluid flowing from a to b?";
   Boolean v_b "Is the fluid flowing from b to a?";
   Boolean v_0 "Is the fluid standing still?";
@@ -29,7 +29,7 @@ model PDETime_massFlow "Delay time for given normalized velocity"
       Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.RealOutput tau "Time delay"
+  Modelica.Blocks.Interfaces.RealOutput tau(start=0) "Time delay"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   //initial equation
   //fr = false;
