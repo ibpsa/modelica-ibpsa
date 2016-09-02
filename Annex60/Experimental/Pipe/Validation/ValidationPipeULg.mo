@@ -11,14 +11,15 @@ package Medium = Annex60.Media.Water;
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={70,0})));
-  PipeHeatLoss_PipeDelayMod pipe(
+  PipeHeatLossMod pipe(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     diameter=0.05248,
     length=39,
     thicknessIns(displayUnit="mm") = 0.013,
-    R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi,
-    lambdaI=0.04)                                                                                                     annotation (Placement(transformation(
+    R=((1/(2*pipe.lambdaI)*log((0.0603/2 + pipe.thicknessIns)/(0.0603/2))) + 1/
+        (5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi,
+    lambdaI=0.04) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-34,0})));

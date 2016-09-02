@@ -11,7 +11,7 @@ model ValidationPipeAIT_Subset1
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-70,70})));
-  PipeHeatLoss_PipeDelayMod pip2(
+  PipeHeatLossMod pip2(
     redeclare package Medium = Medium,
     length=76,
     m_flow_nominal=1,
@@ -36,7 +36,7 @@ model ValidationPipeAIT_Subset1
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,-82})));
-  PipeHeatLoss_PipeDelayMod pip1(
+  PipeHeatLossMod pip1(
     redeclare package Medium = Medium,
     length=76,
     m_flow_nominal=1,
