@@ -3,7 +3,7 @@ model ValidationPipeAIT_pipeDelay
   "Validation pipe against data from Austrian Institute of Technology"
   extends Modelica.Icons.Example;
     replaceable model Pipe =
-      Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay;
+      Annex60.Experimental.Pipe.PipeHeatLoss;
 
   Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,
