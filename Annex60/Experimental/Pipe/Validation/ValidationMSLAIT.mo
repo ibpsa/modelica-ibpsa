@@ -316,7 +316,7 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
 <li>January 26, 2016 by Carles Ribas:<br>First implementation. </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationMSLAIT.mos"
-        "Simulate and plot", file="Resources/Scripts/Dymola/Experimental/Pipe/Validation/ComparisonMSLA60.mos"
-        "Compare MSL and A60"));
+    __Dymola_Commands(file=
+          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationMSLAIT.mos"
+        "Simulate and plot"));
 end ValidationMSLAIT;
