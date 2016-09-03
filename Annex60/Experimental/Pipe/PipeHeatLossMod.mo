@@ -142,9 +142,6 @@ equation
             100,100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
-        Ellipse(extent={{-90,92},{-48,50}}, lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-100,40},{100,-40}},
           lineColor={0,0,0},
@@ -155,10 +152,6 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
-        Rectangle(
-          extent={{-26,30},{30,-30}},
-          lineColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder),
         Rectangle(
           extent={{-100,50},{100,40}},
           lineColor={175,175,175},
@@ -175,13 +168,25 @@ equation
           lineColor={0,0,0},
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-30,30},{28,-30}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={215,202,187}),
         Ellipse(
-          extent={{-90,92},{-48,50}},
+          extent={{-92,94},{-50,52}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{24,22},{-24,-22}},
           lineColor={28,108,200},
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid,
+          origin={-52,94},
+          rotation=180)}),
     Documentation(revisions="<html>
 <ul>
 <li><span style=\"font-family: MS Shell Dlg 2;\">July 4, 2016 by Bram van der Heijde:<br>Introduce <code></span><span style=\"font-family: Courier New,courier;\">pipVol</code></span><span style=\"font-family: MS Shell Dlg 2;\">.</span></li>

@@ -150,7 +150,7 @@ extends Modelica.Icons.Example;
     "Length over which transient effects typically take place";
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
-  parameter Boolean allowFlowReversal=false
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
 equation
   connect(pip3.port_a, pip5.port_b) annotation (Line(
@@ -210,7 +210,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_a, Point1.ports[1]) annotation (Line(
-      points={{80,-20},{80,-26},{80,-32},{82,-32}},
+      points={{80,-20},{80,-32},{82,-32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, pip1.port_a) annotation (Line(
@@ -222,7 +222,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, ExcludedBranch.ports[1]) annotation (Line(
-      points={{80,0},{80,30},{80,60},{80,60}},
+      points={{80,0},{80,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(DataReader.y[5], Point1.m_flow_in) annotation (Line(

@@ -236,10 +236,6 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Rectangle(
-          extent={{-28,74},{28,46}},
-          lineColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
           extent={{-100,84},{100,80}},
           lineColor={175,175,175},
           fillColor={255,255,255},
@@ -273,10 +269,6 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Rectangle(
-          extent={{-28,-46},{28,-74}},
-          lineColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
           extent={{-100,-36},{100,-40}},
           lineColor={175,175,175},
           fillColor={255,255,255},
@@ -294,25 +286,11 @@ equation
           fillPattern=FillPattern.Solid,
           origin={40,-15},
           rotation=360),
-        Ellipse(extent={{-90,94},{-48,52}}, lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-90,94},{-48,52}},
-          lineColor={28,108,200},
-          startAngle=30,
-          endAngle=90,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
         Polygon(
           points={{40,74},{40,46},{66,60},{40,74}},
           lineColor={28,108,200},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(
-          points={{-40,60},{42,60}},
-          color={255,255,255},
-          thickness=0.5),
         Polygon(
           points={{-13,14},{-13,-14},{13,0},{-13,14}},
           lineColor={28,108,200},
@@ -320,11 +298,39 @@ equation
           fillPattern=FillPattern.Solid,
           origin={53,-60},
           rotation=360),
+        Rectangle(
+          extent={{-28,74},{28,46}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={215,202,187}),
+        Line(
+          points={{-40,60},{42,60}},
+          color={255,255,255},
+          thickness=0.5),
+        Rectangle(
+          extent={{-28,-46},{28,-74}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={215,202,187}),
         Line(
           points={{-41,0},{41,0}},
           color={255,255,255},
           thickness=0.5,
           origin={1,-60},
+          rotation=180),
+        Ellipse(
+          extent={{-88,94},{-46,52}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{24,22},{-24,-22}},
+          lineColor={28,108,200},
+          startAngle=30,
+          endAngle=90,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid,
+          origin={-48,94},
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>
