@@ -146,11 +146,6 @@ equation
             100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
-        Ellipse(
-          extent={{-90,92},{-48,50}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-100,40},{100,-40}},
           lineColor={0,0,0},

@@ -54,9 +54,11 @@ model UCPipeA04HL_ZeroFlow
     length=100,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
-    diameter=0.1,
-    thicknessIns=0.02) "Dynamic pipe adiabatic"
+    diameter=0.1)
+      "Dynamic pipe adiabatic"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
+                //,
+    //thicknessIns=0.02
   Modelica.Thermal.HeatTransfer.Celsius.FixedTemperature fixedTemperature(T=10)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 equation

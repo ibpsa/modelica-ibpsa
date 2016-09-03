@@ -7,7 +7,7 @@ partial record SinglePipeData
 
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.028
     "Thermal conductivity of pipe insulation material";
-  parameter Modelica.SIunits.ThermalConductivity lambdaG=2
+  parameter Modelica.SIunits.ThermalConductivity lambdaG=1
     "Thermal conductivity of ground layers";
   parameter Modelica.SIunits.ThermalConductivity lambdaGS=14.6
     "Equivalent conductivity of ground surface";

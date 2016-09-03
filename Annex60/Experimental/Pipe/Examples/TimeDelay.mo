@@ -17,8 +17,8 @@ package TimeDelay
     Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
         annotation (Placement(transformation(extent={{126,76},{146,96}})));
 
-    Annex60.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium
-        = Medium,
+    Annex60.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
+          Medium,
       use_p_in=true,
       use_T_in=true,
       nPorts=2,
@@ -26,8 +26,8 @@ package TimeDelay
       "Source with high pressure at beginning and lower pressure at end of experiment"
                             annotation (Placement(transformation(extent={{-88,28},
               {-68,48}})));
-    Annex60.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium
-        = Medium,
+    Annex60.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
+          Medium,
       nPorts=2,
       use_p_in=true,
       T=283.15)
@@ -72,18 +72,18 @@ package TimeDelay
       diameter=diameter,
       length=length,
       m_flow_nominal=0.5,
-      thicknessIns=0.02,
       lambdaI=0.01) "Annex 60 modified pipe with heat losses"
       annotation (Placement(transformation(extent={{8,28},{28,48}})));
+      //thicknessIns=0.02,
     Annex60.Experimental.Pipe.PipeHeatLossMod A60PipeHeatLossMod2(
       redeclare package Medium = Medium,
       m_flow_small=1e-4*0.5,
       diameter=diameter,
       length=length,
       m_flow_nominal=0.5,
-      thicknessIns=0.02,
       lambdaI=0.01) "Annex 60 modified pipe with heat losses"
       annotation (Placement(transformation(extent={{16,-22},{36,-2}})));
+      //thicknessIns=0.02,
     Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In1(
                                                          redeclare package
         Medium =

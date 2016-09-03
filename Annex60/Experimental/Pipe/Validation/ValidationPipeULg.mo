@@ -14,15 +14,16 @@ package Medium = Annex60.Media.Water;
   PipeHeatLossMod pipe(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    diameter=0.05248,
     length=39,
-    thicknessIns(displayUnit="mm") = 0.013,
-    R=((1/(2*pipe.lambdaI)*log((0.0603/2 + pipe.thicknessIns)/(0.0603/2))) + 1/
-        (5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi,
-    lambdaI=0.04) annotation (Placement(transformation(
+    pipeData(
+      Di=0.05248,
+      Do=0.05248 + 2*0.013,
+      lambdaI=0.04))
+                  annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-34,0})));
+    //thicknessIns(displayUnit="mm") = 0.013,
   Fluid.HeatExchangers.HeaterCooler_T Boiler(
     redeclare package Medium = Medium,
     m_flow_nominal=1,

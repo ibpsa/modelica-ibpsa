@@ -43,12 +43,7 @@ extends Modelica.Icons.Example;
     Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal,
-    redeclare
-      Annex60.Experimental.Pipe.BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
-      pipeData(
-      Di=825e-3,
-      Do=825e-3 + 45e-3,
-      lambdaI=0.024))
+    pipeData)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PipeHeatLossMod pip4(
     redeclare package Medium = Medium,
@@ -59,17 +54,12 @@ extends Modelica.Icons.Example;
     Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal,
-    redeclare
-      Annex60.Experimental.Pipe.BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
-      pipeData(
-      Di=825e-3,
-      Do=825e-3 + 45e-3,
-      lambdaI=0.024))  annotation (Placement(transformation(
+    pipeData)          annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={10,40})));
     //thicknessIns=0.045,
-  PipeHeatLoss_PipeDelayMod pip5(
+  PipeHeatLossMod pip5(
     redeclare package Medium = Medium,
     length=20,
     m_flow_nominal=1,
@@ -78,12 +68,7 @@ extends Modelica.Icons.Example;
     Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal,
-    redeclare
-      Annex60.Experimental.Pipe.BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
-      pipeData(
-      Di=825e-3,
-      Do=825e-3 + 45e-3,
-      lambdaI=0.024))
+    pipeData)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
   PipeHeatLossMod pip2(
     redeclare package Medium = Medium,
@@ -94,17 +79,12 @@ extends Modelica.Icons.Example;
     Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal,
-    redeclare
-      Annex60.Experimental.Pipe.BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
-      pipeData(
-      Di=825e-3,
-      Do=825e-3 + 45e-3,
-      lambdaI=0.024))  annotation (Placement(transformation(
+    pipeData)          annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,40})));
     //thicknessIns=0.045,
-  PipeHeatLoss_PipeDelayMod pip3(
+  PipeHeatLoss pip3(
     redeclare package Medium = Medium,
     length=38,
     m_flow_nominal=1,
@@ -113,12 +93,7 @@ extends Modelica.Icons.Example;
     Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal,
-    redeclare
-      Annex60.Experimental.Pipe.BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
-      pipeData(
-      Di=825e-3,
-      Do=825e-3 + 45e-3,
-      lambdaI=0.024))  annotation (Placement(transformation(
+    pipeData)          annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-10})));
@@ -154,18 +129,13 @@ extends Modelica.Icons.Example;
     Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal,
-    redeclare
-      Annex60.Experimental.Pipe.BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
-      pipeData(
-      Di=825e-3,
-      Do=825e-3 + 45e-3,
-      lambdaI=0.024))
+    pipeData)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
     //thicknessIns=0.045,
-  Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium
-      = Medium) annotation (Placement(transformation(
+  Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium =
+        Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,70})));
@@ -180,6 +150,12 @@ extends Modelica.Icons.Example;
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
+  BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
+    pipeData(
+    Di=825e-3,
+    Do=825e-3 + 2*45e-3,
+    lambdaI=0.024)
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 equation
   connect(pip3.port_a, pip5.port_b) annotation (Line(
       points={{-46,0},{-46,10},{-20,10}},

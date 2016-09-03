@@ -17,7 +17,7 @@ model DoublePipeParallel
 
   replaceable parameter
     BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR20S pipeData
-    constrainedby BaseClasses.DoublePipeConfig.PipeData(H=H)
+    constrainedby BaseClasses.DoublePipeConfig.DoublePipeData(H=H)
     "Select pipe dimensions" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-96,-96},{-76,-76}})));
 
