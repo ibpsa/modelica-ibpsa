@@ -1,7 +1,7 @@
 PipeLosslessPlugFlow
 PipeAdiabaticPlugFlow
-PipeHeatLoss_PipeDelay
-PipeHeatLoss_PipeDelayMod
+PipeHeatLoss
+PipeHeatLossMod
 DoublePipe_PipeDelay
 DoublePipeParallel
 BaseClasses

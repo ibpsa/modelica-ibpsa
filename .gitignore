@@ -14,6 +14,7 @@ dymosim.exe
 dymosim.exp
 dymosim.lib
 empty.txt
+failure
 modelDescription.xml
 request
 stat
@@ -24,3 +25,4 @@ success
 *.py[cod]
 simulator.log
 unitTests.log
+*.orig

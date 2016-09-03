@@ -42,11 +42,6 @@ model IndependentSupplyAndReturnPipeDelay
       pipeData,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.Constant const3(k=5) annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={0,90})));
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -110,9 +105,12 @@ model IndependentSupplyAndReturnPipeDelay
   Annex60.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-30,46},{-10,66}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+        278.15) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={0,90})));
 equation
-  connect(doublePipe.T_amb, const3.y)
-    annotation (Line(points={{0,10},{0,10},{0,79}}, color={0,0,127}));
   connect(PAtm.y, supplySink.p_in) annotation (Line(points={{99,10},{92,10},{92,
           38},{82,38}}, color={0,0,127}));
   connect(PAtm.y, returnSource.p_in) annotation (Line(points={{99,10},{92,10},{
@@ -163,6 +161,8 @@ equation
     annotation (Line(points={{-30,30},{-30,30},{-30,56}}, color={0,127,255}));
   connect(doublePipe.port_a1, senMasFlo.port_b)
     annotation (Line(points={{-10,6},{-10,6},{-10,56}}, color={0,127,255}));
+  connect(fixedTemperature.port, doublePipe.heatPort)
+    annotation (Line(points={{0,80},{0,45},{0,10}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{140,100}})),
     Icon(coordinateSystem(extent={{-200,-100},{140,100}})),

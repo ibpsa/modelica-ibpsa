@@ -49,7 +49,6 @@ model UCPipeS01AD_Friction
     dh=0.1,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
-    use_dh=true,
     from_dp=true) "Dynamic pipe from Annex60 for reference test"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.Ramp reverseDP(
@@ -81,7 +80,6 @@ model UCPipeS01AD_Friction
     length=50,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
-    use_dh=true,
     from_dp=true) "Dynamic pipe from MSL for reference test"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   PipeAdiabaticPlugFlow pipeA60_50_2(
@@ -90,7 +88,6 @@ model UCPipeS01AD_Friction
     length=50,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
-    use_dh=true,
     from_dp=true) "Dynamic pipe from MSL for reference test"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 equation
