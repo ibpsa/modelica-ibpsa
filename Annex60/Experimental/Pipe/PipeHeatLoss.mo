@@ -1,6 +1,5 @@
 within Annex60.Experimental.Pipe;
-model PipeHeatLoss_PipeDelayMod
-  "Pipe model using spatialDistribution for temperature delay with heat losses modified and one delay operator at pipe level"
+model PipeHeatLoss "Pipe model using spatialDistribution for temperature delay"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
@@ -23,8 +22,10 @@ model PipeHeatLoss_PipeDelayMod
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
-  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
+  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/
+      Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
+  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*
+      (diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
     "Heat conductivity";
 
@@ -78,7 +79,8 @@ public
     thicknessIns=thicknessIns,
     C=C,
     R=R,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
 
   BaseClasses.HeatLossPipeDelay heatLoss(
@@ -88,20 +90,20 @@ public
     thicknessIns=thicknessIns,
     C=C,
     R=R,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlowMod tau_unused_maxClause(diameter=diameter,
-      length=length)
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  BaseClasses.PDETime_massFlowMod tau_used(length=length, diameter=
-        diameter)
-    annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  BaseClasses.PDETime_massFlow tau_used(diameter=diameter,
+    len=length,
+    rho=rho_default)
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Temperature boundary condition to pipe (undisturbed ground of surface temperature)"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean from_dp=false
@@ -114,41 +116,37 @@ equation
   connect(port_a, reverseHeatLoss.port_b)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
-    annotation (Line(points={{10,0},{40,0}},        color={0,127,255}));
+    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   connect(port_b, heatLoss.port_b)
-    annotation (Line(points={{100,0},{60,0}},        color={0,127,255}));
+    annotation (Line(points={{100,0},{60,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
-    annotation (Line(points={{-10,0},{-18,0},{-24,0}},
-                                               color={0,127,255}));
+    annotation (Line(points={{-10,0},{-18,0},{-24,0}}, color={0,127,255}));
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
-    annotation (Line(points={{-44,0},{-52,0},{-60,0}},
-                                               color={0,127,255}));
-  connect(senMasFlo.m_flow, tau_unused_maxClause.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-40},{-22,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
+    annotation (Line(points={{-44,0},{-52,0},{-60,0}}, color={0,127,255}));
   connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-54},{0,-54}},
+      points={{-34,-11},{-34,-40},{-12,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tau_used.tau, reverseHeatLoss.tau) annotation (Line(
-      points={{23,-54},{28,-54},{28,32},{-64,32},{-64,10}},
+      points={{11,-40},{28,-40},{28,32},{-64,32},{-64,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tau_used.tau, heatLoss.tau) annotation (Line(
-      points={{23,-54},{28,-54},{28,32},{44,32},{44,10}},
+      points={{11,-40},{28,-40},{28,32},{44,32},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(reverseHeatLoss.heatPort, heatPort) annotation (Line(points={{-70,10},
-          {-70,40},{0,40},{0,100}}, color={191,0,0}));
-  connect(heatLoss.heatPort, heatPort) annotation (Line(points={{50,10},{50,40},
-          {0,40},{0,100}}, color={191,0,0}));
+  connect(reverseHeatLoss.heatPort, heatLoss.heatPort) annotation (Line(points=
+          {{-70,10},{-70,40},{50,40},{50,10}}, color={191,0,0}));
+  connect(heatLoss.heatPort, heatPort) annotation (Line(points={{50,10},{50,10},
+          {50,40},{0,40},{0,100}}, color={191,0,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
-        Ellipse(extent={{-90,92},{-48,50}}, lineColor={28,108,200},
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={
+        Ellipse(
+          extent={{-90,92},{-48,50}},
+          lineColor={28,108,200},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
@@ -191,12 +189,13 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li><span style=\"font-family: MS Shell Dlg 2;\">July 4, 2016 by Bram van der Heijde:<br>Introduce <code></span><span style=\"font-family: Courier New,courier;\">pipVol</code></span><span style=\"font-family: MS Shell Dlg 2;\">.</span></li>
+<li>November 30, 2015 by Bram van der Heijde:<br>Minor corrections of heat transfer parameters;</li>
+<li>November 10, 2015 by Bram van der Heijde:<br>Implementation in current form with delay calculated once instead of twice. </li>
 <li>October 10, 2015 by Marcus Fuchs:<br>Copy Icon from KUL implementation and rename model; Replace resistance and temperature delay by an adiabatic pipe; </li>
-<li>September, 2015 by Marcus Fuchs:<br>First implementation. </li>
+<li>September, 2015 by Marcus Fuchs:<br>First implementation as PipeHeatLossA60Ref</li>
 </ul>
 </html>", info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Implementation of a pipe with heat loss using the time delay based heat losses and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used in front of and behind the time delay. The delay time is calculated once on the pipe level and supplied to both heat loss operators. </span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">This component uses a modified delay operator.</span></p>
+<p>Implementation of a pipe with heat loss using the time delay based heat losses and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </p>
+<p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used in front of and behind the time delay. The delay time is calculated once on the pipe level and supplied to both heat loss operators. </p>
 </html>"));
-end PipeHeatLoss_PipeDelayMod;
+end PipeHeatLoss;

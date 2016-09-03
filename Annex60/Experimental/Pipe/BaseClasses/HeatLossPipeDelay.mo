@@ -17,10 +17,8 @@ model HeatLossPipeDelay
   parameter Types.ThermalResistanceLength R;
   final parameter Modelica.SIunits.Time tau_char=R*C;
 
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Tin_a
-    "Temperature at port_a for in-flowing fluid";
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Tout_b
-    "Temperature at port_b for out-flowing fluid";
+  Modelica.SIunits.Temp_K Tin_a "Temperature at port_a for in-flowing fluid";
+  Modelica.SIunits.Temp_K Tout_b "Temperature at port_b for out-flowing fluid";
   Modelica.SIunits.Temperature T_amb=heatPort.T "Environment temperature";
   Modelica.SIunits.HeatFlowRate Qloss "Heat losses from pipe to environment";
   Modelica.SIunits.EnthalpyFlowRate portA=inStream(port_a.h_outflow);

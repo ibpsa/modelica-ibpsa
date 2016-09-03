@@ -96,7 +96,7 @@ model NoReverseCompHeatLossPipe
   Modelica.Blocks.Sources.Constant PAtm1(
                                         k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{-156,-32},{-136,-12}})));
-  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay     A60PipeHeatLossMod2(
+  Annex60.Experimental.Pipe.PipeHeatLoss A60PipeHeatLossMod2(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
