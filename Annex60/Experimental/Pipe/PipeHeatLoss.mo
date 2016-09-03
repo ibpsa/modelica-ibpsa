@@ -160,10 +160,6 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Rectangle(
-          extent={{-26,30},{30,-30}},
-          lineColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
           extent={{-100,50},{100,40}},
           lineColor={175,175,175},
           fillColor={255,255,255},
@@ -180,12 +176,19 @@ equation
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-90,92},{-48,50}},
+          extent={{24,22},{-24,-22}},
           lineColor={28,108,200},
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid,
+          origin={-50,92},
+          rotation=180),
+        Rectangle(
+          extent={{-30,30},{28,-30}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={215,202,187})}),
     Documentation(revisions="<html>
 <ul>
 <li><span style=\"font-family: MS Shell Dlg 2;\">July 4, 2016 by Bram van der Heijde:<br>Introduce <code></span><span style=\"font-family: Courier New,courier;\">pipVol</code></span><span style=\"font-family: MS Shell Dlg 2;\">.</span></li>
