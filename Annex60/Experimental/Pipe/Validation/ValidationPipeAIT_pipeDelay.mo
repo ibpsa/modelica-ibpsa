@@ -39,26 +39,21 @@ model ValidationPipeAIT_pipeDelay
   Pipe pip1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    diameter=0.0825,
-    lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=115,
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    pipeData=pipeData)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
     //thicknessIns=0.045,
   Pipe pip4(
     redeclare package Medium = Medium,
     length=29,
     m_flow_nominal=1,
-    diameter=0.0825,
-    lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
-                       annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    pipeData=pipeData) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={10,40})));
@@ -67,25 +62,20 @@ model ValidationPipeAIT_pipeDelay
     redeclare package Medium = Medium,
     length=20,
     m_flow_nominal=1,
-    diameter=0.0825,
-    lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    pipeData=pipeData)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
     //thicknessIns=0.045,
   Pipe pip2(
     redeclare package Medium = Medium,
     length=76,
     m_flow_nominal=1,
-    diameter=0.0825,
-    lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
-                       annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    pipeData=pipeData) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,40})));
@@ -94,13 +84,10 @@ model ValidationPipeAIT_pipeDelay
     redeclare package Medium = Medium,
     length=38,
     m_flow_nominal=1,
-    diameter=0.0825,
-    lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
-                       annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    pipeData=pipeData) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-10})));
@@ -130,13 +117,11 @@ model ValidationPipeAIT_pipeDelay
   Pipe pip0(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    diameter=0.0825,
-    lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=20,
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    pipeData=pipeData)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
@@ -157,6 +142,12 @@ model ValidationPipeAIT_pipeDelay
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
+  BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
+    pipeData(
+    Di=825e-3,
+    Do=825e-3 + 2*45e-3,
+    lambdaI=0.024)
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 equation
   connect(pip3.port_a, pip5.port_b) annotation (Line(
       points={{-46,0},{-46,10},{-20,10}},
@@ -215,7 +206,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_a, Point1.ports[1]) annotation (Line(
-      points={{80,-20},{80,-26},{80,-32},{82,-32}},
+      points={{80,-20},{80,-32},{82,-32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, pip1.port_a) annotation (Line(
@@ -227,7 +218,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, ExcludedBranch.ports[1]) annotation (Line(
-      points={{80,0},{80,30},{80,60},{80,60}},
+      points={{80,0},{80,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(DataReader.y[5], Point1.m_flow_in) annotation (Line(
