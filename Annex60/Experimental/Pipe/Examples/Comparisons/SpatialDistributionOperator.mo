@@ -53,8 +53,8 @@ model SpatialDistributionOperator
   Modelica.Blocks.Sources.Constant const3(k=273.15 + 5);
 
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In1(
-                                                       redeclare package Medium
-      = Medium, m_flow_nominal=0.5)
+                                                       redeclare package Medium =
+        Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-56,-56},{-36,-36}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out1(
@@ -106,12 +106,11 @@ model SpatialDistributionOperator
     diameter=diameter,
     length=length,
     m_flow_nominal=0.5,
-    thicknessIns=0.02,
     lambdaI=0.01)
     annotation (Placement(transformation(extent={{2,62},{22,82}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In2(
-                                                       redeclare package Medium
-      = Medium, m_flow_nominal=0.5)
+                                                       redeclare package Medium =
+        Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-68,62},{-48,82}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out2(
@@ -130,7 +129,6 @@ model SpatialDistributionOperator
   Annex60.Experimental.Pipe.PipeHeatLossMod PipeDelayMod(
     diameter=diameter,
     length=length,
-    thicknessIns=0.02,
     redeclare package Medium = Medium,
     m_flow_nominal=0.5)
     annotation (Placement(transformation(extent={{14,-56},{34,-36}})));
