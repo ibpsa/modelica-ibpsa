@@ -31,11 +31,6 @@ model CrossFlowForward "In order to test a cross flow double pipe"
     use_p_in=true,
     use_T_in=true,
     nPorts=1) annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
-  Modelica.Blocks.Sources.Constant const3(k=5) annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={0,90})));
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -50,7 +45,7 @@ model CrossFlowForward "In order to test a cross flow double pipe"
     "Atmospheric pressure" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-160,-50})));
+        origin={-168,-48})));
   Modelica.Blocks.Math.Gain gain(k=dp_test)
     annotation (Placement(transformation(extent={{-156,16},{-136,36}})));
   Modelica.Blocks.Math.Add add
@@ -85,8 +80,7 @@ model CrossFlowForward "In order to test a cross flow double pipe"
         0.1; 50000,0.1; 50010,0; 80000,0; 82000,1; 120000,1; 122000,0; 150000,0;
         152000,1; 160000,1; 162000,0; 163500,0; 165500,1; 200000,1])
     annotation (Placement(transformation(extent={{-188,16},{-168,36}})));
-  Annex60.Experimental.Pipe.DoublePipe_PipeDelay
-                                               doublePipeParallel(
+  Annex60.Experimental.Pipe.DoublePipe_PipeDelay doublePipeCross(
     length=length,
     redeclare
       Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR100S
@@ -104,6 +98,9 @@ model CrossFlowForward "In order to test a cross flow double pipe"
   Annex60.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+        278.15)
+    annotation (Placement(transformation(extent={{-26,80},{-6,100}})));
 equation
   connect(PAtm.y, supplySink.p_in) annotation (Line(points={{99,10},{92,10},{92,
           38},{82,38}}, color={0,0,127}));
@@ -140,11 +137,9 @@ equation
           {-94,50},{-94,34},{-82,34}}, color={0,0,127}));
   connect(gain.u, combiTimeTable.y[1])
     annotation (Line(points={{-158,26},{-167,26}}, color={0,0,127}));
-  connect(senTemSupplyOut.port_a, doublePipeParallel.port_b1) annotation (Line(
+  connect(senTemSupplyOut.port_a, doublePipeCross.port_b1) annotation (Line(
         points={{30,30},{20,30},{20,6},{10,6}}, color={0,127,255}));
-  connect(const3.y, doublePipeParallel.T_amb)
-    annotation (Line(points={{0,79},{0,10},{0,10}}, color={0,0,127}));
-  connect(TReturn.y, add2.u1) annotation (Line(points={{-149,-50},{-138,-50},{
+  connect(TReturn.y, add2.u1) annotation (Line(points={{-157,-48},{-138,-48},{
           -138,-84},{-122,-84}}, color={0,0,127}));
   connect(step.y, add2.u2) annotation (Line(points={{-157,-82},{-150,-82},{-150,
           -94},{-122,-94},{-122,-96}}, color={0,0,127}));
@@ -153,14 +148,16 @@ equation
                                           color={0,0,127}));
   connect(add2.y, returnSource.T_in) annotation (Line(points={{-99,-90},{2,-90},
           {98,-90},{98,-26},{82,-26}}, color={0,0,127}));
-  connect(senTemReturnOut.port_a, doublePipeParallel.port_b2) annotation (Line(
+  connect(senTemReturnOut.port_a, doublePipeCross.port_b2) annotation (Line(
         points={{-30,-30},{-20,-30},{-20,-6},{-10,-6}}, color={0,127,255}));
-  connect(doublePipeParallel.port_a2, senTemReturnIn.port_b) annotation (Line(
+  connect(doublePipeCross.port_a2, senTemReturnIn.port_b) annotation (Line(
         points={{10,-6},{20,-6},{20,-30},{30,-30}}, color={0,127,255}));
   connect(senTemSupplyIn.port_b, senMasFlo.port_a)
     annotation (Line(points={{-30,30},{-30,30}}, color={0,127,255}));
-  connect(doublePipeParallel.port_a1, senMasFlo.port_b)
+  connect(doublePipeCross.port_a1, senMasFlo.port_b)
     annotation (Line(points={{-10,6},{-10,6},{-10,30}}, color={0,127,255}));
+  connect(fixedTemperature.port, doublePipeCross.heatPort)
+    annotation (Line(points={{-6,90},{0,90},{0,10}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{140,100}})),
     Icon(coordinateSystem(extent={{-200,-100},{140,100}})),

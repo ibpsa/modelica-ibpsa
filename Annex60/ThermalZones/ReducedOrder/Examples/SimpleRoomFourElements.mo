@@ -160,8 +160,7 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     origin={67,47})));
   Modelica.Blocks.Sources.Constant alphaRoof(k=25*11.5)
     "Outdoor coefficient of heat transfer for roof"
-    annotation (Placement(transformation(extent={{4,-4},{-4,4}},rotation=0,
-    origin={86,47})));
+    annotation (Placement(transformation(extent={{4,-4},{-4,4}},origin={86,47})));
   Modelica.Blocks.Sources.Constant const1(each k=0)
     "Sets sunblind signal to zero (open)"
     annotation (Placement(transformation(extent={{68,90},{62,96}})));
@@ -293,8 +292,7 @@ equation
                                       color={0,0,127}));
   connect(corGDouPan.solarRadWinTrans, thermalZoneFourElements.solRad)
     annotation (Line(points={{27,56},{40,56},{40,31},{43,31}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-  -100},{100,100}})), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
   <p>This example shows the application of
   <a href=\"Annex60.ThermalZones.ReducedOrder.RC.FourElements\">
   Annex60.ThermalZones.ReducedOrder.RC.FourElements</a>
@@ -334,8 +332,6 @@ equation
   </ul>
   </html>"),
   experiment(StopTime=3.1536e+007, Interval=3600),
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-  100}})),
   __Dymola_Commands(file=
   "modelica://Annex60/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElements.mos"
         "Simulate and plot"));

@@ -91,14 +91,6 @@ protected
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-public
-  Modelica.Blocks.Interfaces.RealInput T_amb(unit="K", displayUnit="degC")
-    "Ambient temperature for pipe's surroundings" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,100})));
-
 protected
   PipeAdiabaticPlugFlow pipeReturnAdiabaticPlugFlow(
     redeclare final package Medium = Medium,
@@ -132,7 +124,8 @@ public
     C=C,
     Ra=Ra,
     Rs=Rs,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-50,50},{-70,70}})));
   BaseClasses.HeatLossDoubleParallel heatLossSupply(
     redeclare package Medium = Medium,
@@ -141,7 +134,8 @@ public
     C=C,
     Ra=Ra,
     Rs=Rs,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
   BaseClasses.HeatLossDoubleParallel heatLossReturn(
     redeclare package Medium = Medium,
@@ -150,7 +144,8 @@ public
     C=C,
     Ra=Ra,
     Rs=Rs,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{54,-50},{74,-70}})));
   BaseClasses.HeatLossDoubleParallel heatLossReturnReverse(
     redeclare package Medium = Medium,
@@ -159,13 +154,18 @@ public
     C=C,
     Ra=Ra,
     Rs=Rs,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-50,-50},{-70,-70}})));
-  parameter Boolean pipVol=true
-    "Flag to decide whether volumes are included at the end points of the pipe";
+
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Ambient temperature of pipe's surroundings (undisturbed ground/surface)"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  parameter Boolean pipVol=true
+    "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Modelica.SIunits.Temperature T_nominal=273.15 + 70;
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
@@ -175,14 +175,6 @@ equation
     annotation (Line(points={{-16,60},{-13,60},{-10,60}}, color={0,127,255}));
   connect(senMasFlo.m_flow, pDETime_massFlow.m_flow) annotation (Line(points={{
           -26,49},{-26,49},{-26,0},{-12,0}}, color={0,0,127}));
-  connect(heatLossSupply.T_amb, heatLossSupplyReverse.T_amb) annotation (Line(
-        points={{60,70},{60,74},{-60,74},{-60,70}}, color={0,0,127}));
-  connect(T_amb, heatLossSupplyReverse.T_amb) annotation (Line(points={{0,100},
-          {0,74},{-60,74},{-60,70}},
-                                   color={0,0,127}));
-  connect(T_amb, heatLossReturnReverse.T_amb) annotation (Line(points={{0,100},
-          {0,74},{32,74},{32,-82},{-60,-82},{-60,-70}},
-                                                      color={0,0,127}));
   connect(pDETime_massFlow.tau, heatLossSupplyReverse.Tau_in) annotation (Line(
         points={{11,0},{26,0},{26,78},{-54,78},{-54,70}},
                                                         color={0,0,127}));
@@ -199,17 +191,15 @@ equation
   connect(heatLossSupplyReverse.port_b, port_a1)
     annotation (Line(points={{-70,60},{-85,60},{-100,60}}, color={0,127,255}));
   connect(heatLossSupplyReverse.port_a, senMasFlo.port_a)
-    annotation (Line(points={{-50,60},{-36,60},{-36,60}}, color={0,127,255}));
+    annotation (Line(points={{-50,60},{-36,60}},          color={0,127,255}));
   connect(pDETime_massFlow.tau, heatLossReturnReverse.Tau_in) annotation (Line(
         points={{11,0},{26,0},{26,-86},{-54,-86},{-54,-70}}, color={0,0,127}));
   connect(pDETime_massFlow.tau, heatLossReturn.Tau_in) annotation (Line(points=
           {{11,0},{26,0},{26,-86},{58,-86},{58,-70}}, color={0,0,127}));
-  connect(T_amb, heatLossReturn.T_amb) annotation (Line(points={{0,100},{0,74},
-          {32,74},{32,-82},{64,-82},{64,-70}}, color={0,0,127}));
   connect(pipeSupplyAdiabaticPlugFlow.port_b, heatLossSupply.port_a)
     annotation (Line(points={{10,60},{50,60}},         color={0,127,255}));
   connect(heatLossSupply.port_b, port_b1)
-    annotation (Line(points={{70,60},{100,60},{100,60}}, color={0,127,255}));
+    annotation (Line(points={{70,60},{100,60}},          color={0,127,255}));
   connect(heatLossReturnReverse.T_2out, heatLossSupplyReverse.T_2in)
     annotation (Line(points={{-66,-50},{-66,-50},{-66,-20},{-54,-20},{-54,50}},
         color={0,0,127}));
@@ -220,6 +210,16 @@ equation
           {{66,50},{68,50},{68,20},{68,-16},{58,-16},{58,-50}}, color={0,0,127}));
   connect(heatLossSupply.T_2in, heatLossReturn.T_2out) annotation (Line(points=
           {{54,50},{54,50},{54,24},{54,-24},{70,-24},{70,-50}}, color={0,0,127}));
+  connect(heatLossSupply.heatPort, heatLossReturnReverse.heatPort) annotation (
+      Line(points={{60,70},{60,90},{80,90},{80,-90},{-60,-90},{-60,-70}}, color=
+         {191,0,0}));
+  connect(heatLossReturn.heatPort, heatLossReturnReverse.heatPort) annotation (
+      Line(points={{64,-70},{64,-90},{-60,-90},{-60,-70}}, color={191,0,0}));
+  connect(heatLossSupplyReverse.heatPort, heatLossReturnReverse.heatPort)
+    annotation (Line(points={{-60,70},{-60,90},{80,90},{80,-90},{-60,-90},{-60,
+          -70}}, color={191,0,0}));
+  connect(heatLossSupplyReverse.heatPort, heatPort) annotation (Line(points={{
+          -60,70},{-60,90},{0,90},{0,100}}, color={191,0,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
@@ -235,10 +235,6 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
-        Rectangle(
-          extent={{-28,74},{28,46}},
-          lineColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder),
         Rectangle(
           extent={{-100,84},{100,80}},
           lineColor={175,175,175},
@@ -273,10 +269,6 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Rectangle(
-          extent={{-28,-46},{28,-74}},
-          lineColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
           extent={{-100,-36},{100,-40}},
           lineColor={175,175,175},
           fillColor={255,255,255},
@@ -294,25 +286,11 @@ equation
           fillPattern=FillPattern.Solid,
           origin={40,-15},
           rotation=360),
-        Ellipse(extent={{-90,94},{-48,52}}, lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-90,94},{-48,52}},
-          lineColor={28,108,200},
-          startAngle=30,
-          endAngle=90,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
         Polygon(
           points={{40,74},{40,46},{66,60},{40,74}},
           lineColor={28,108,200},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(
-          points={{-40,60},{42,60}},
-          color={255,255,255},
-          thickness=0.5),
         Polygon(
           points={{-13,14},{-13,-14},{13,0},{-13,14}},
           lineColor={28,108,200},
@@ -320,11 +298,39 @@ equation
           fillPattern=FillPattern.Solid,
           origin={53,-60},
           rotation=360),
+        Rectangle(
+          extent={{-28,74},{28,46}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={215,202,187}),
+        Line(
+          points={{-40,60},{42,60}},
+          color={255,255,255},
+          thickness=0.5),
+        Rectangle(
+          extent={{-28,-46},{28,-74}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={215,202,187}),
         Line(
           points={{-41,0},{41,0}},
           color={255,255,255},
           thickness=0.5,
           origin={1,-60},
+          rotation=180),
+        Ellipse(
+          extent={{-88,94},{-46,52}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{24,22},{-24,-22}},
+          lineColor={28,108,200},
+          startAngle=30,
+          endAngle=90,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid,
+          origin={-48,94},
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>
