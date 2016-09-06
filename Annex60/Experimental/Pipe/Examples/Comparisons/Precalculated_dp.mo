@@ -6,10 +6,10 @@ model Precalculated_dp "Example to show use of the function dpPre"
       Annex60.Media.Specialized.Water.TemperatureDependentDensity;
 
   //Parameter pipe
-  parameter Modelica.SIunits.Length length = 100 "Pipe length";
-  parameter Modelica.SIunits.Diameter d = 0.04
+  parameter Modelica.SIunits.Length length = 1 "Pipe length";
+  parameter Modelica.SIunits.Diameter d = 0.025
                                               "Pipe diameter";
-  parameter Modelica.SIunits.MassFlowRate m_flow = 3 "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow = 0.3 "Nominal mass flow rate";
 
 
   Fluid.Sources.MassFlowSource_T sou_T40(
@@ -122,11 +122,12 @@ model Precalculated_dp "Example to show use of the function dpPre"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Modelica.Blocks.Math.Feedback dp_T40
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
-  Modelica.Blocks.Sources.Ramp ramp_T_MSL(
-    duration=2000,
-    offset=273.15 + 10,
-    startTime=500,
-    height=100)    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
+  Modelica.Blocks.Sources.TimeTable
+                               ramp_T_MSL(table=[0.0,273.15 + 10; 500,273.15 + 10;
+        500,273.15 + 30; 1000,273.15 + 30; 1000,273.15 + 50; 1500,273.15 + 50; 1500,
+        273.15 + 70; 2000,273.15 + 70; 2000,273.15 + 90; 2500,273.15 + 90; 2500,
+        273.15 + 110; 3000,273.15 + 110])
+                   annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
   Fluid.Sensors.Temperature T_pipeMSL_out(redeclare package Medium =
         MediumMSLpipe)
     "Temperature sensor"
