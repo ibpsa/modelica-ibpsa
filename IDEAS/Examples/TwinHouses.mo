@@ -4,7 +4,7 @@ package TwinHouses
   extends Modelica.Icons.ExamplesPackage;
   model BuildingN2_Exp1
     "Model for simulation of experiment 1 for the N2 building"
-
+   extends Modelica.Icons.Example;
     BaseClasses.Structures.TwinhouseN2 struct(T_start={303.15,303.15,303.15,303.15,303.15,303.15,
           303.15})
       annotation (Placement(transformation(extent={{-42,-10},{-12,10}})));
@@ -25,7 +25,6 @@ package TwinHouses
       redeclare package Medium = IDEAS.Media.Air)
       annotation (Placement(transformation(extent={{0,20},{40,40}})));
     inner IDEAS.BoundaryConditions.SimInfoManager sim(
-      filDir="C:/Users/glenn/Documents/0_BackUp/TwinHousesv2/",
       filNam="weatherinput.TMY",
       weaDat(
         pAtmSou=IDEAS.BoundaryConditions.Types.DataSource.Parameter,
@@ -47,7 +46,7 @@ package TwinHouses
       tableOnFile=true,
       tableName="data",
       fileName=
-          "C:/Users/glenn/Documents/0_BackUp/TwinHousesv2/weatherinput.txt",
+          IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(Modelica.Utilities.Files.loadResource("modelica://IDEAS") + "//Inputs//"+"weatherinput.txt"),
       columns=2:30,
       smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative2)
       "input for solGloHor and solDifHor measured at TTH"
@@ -596,7 +595,7 @@ package TwinHouses
         smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
         tableOnFile=true,
         tableName="data",
-        fileName="C:/Users/glenn/Documents/0_BackUp/TwinHousesv2/bc_TTH_N2.txt",
+        fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(Modelica.Utilities.Files.loadResource("modelica://IDEAS") + "/Inputs/"+ "bc_TTH_N2.txt"),
         columns={2,3})
           annotation (Placement(transformation(extent={{-120,-86},{-100,-66}})));
       Modelica.Blocks.Math.UnitConversions.From_degC[2] from_degC
@@ -743,148 +742,6 @@ package TwinHouses
     end Structures;
 
     package HeatingSystems
-      model ElectricHeating_Twinhouse_heatInput
-        "Electric heating Twinhouse|exp2| heat input"
-
-        extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
-          nLoads=1);
-
-      parameter Real[nZones] Crad "thermal mass of radiator";
-      parameter Real[nZones] Kemission "heat transfer coefficient";
-      parameter Real COP=1;
-      Real[nZones] TsetIDEAL;
-      final parameter Real frad=0.3 "radiative fraction";
-        Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nZones] IDEAL_heating_con
-          annotation (Placement(transformation(extent={{8,-12},{-12,8}})));
-
-        Modelica.Blocks.Tables.CombiTable1Ds measuredInput(
-          tableOnFile=true,
-          tableName="data",
-          smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-          fileName="C:/Users/glenn/Documents/0_BackUp/TwinHousesv2/meas_TTH_N2.txt",
-          columns={9,10,11,12,13,14,15})
-          annotation (Placement(transformation(extent={{38,24},{58,44}})));
-        Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nZones] IDEAL_heating_rad
-          annotation (Placement(transformation(extent={{6,-44},{-14,-24}})));
-      equation
-
-      P[1] = QHeaSys/COP;
-      Q[1] = 0;
-      TsetIDEAL=measuredInput.y[1:7];
-      // if TsetIDEAL[1]>274 and time <2.1e7 then
-      // IDEAL_heating_con[1].Q_flow=0.7*(max(min(200000*(303.15-TSensor[1]),2000),0)+combiTimeTable.y[8]);
-      //
-      //     for i in 3:nZones loop
-      // IDEAL_heating_con[i].Q_flow=0.7*(max(min(200000*(303.15-TSensor[i]),2000),0)+combiTimeTable.y[i+6]);
-      //     end for;
-      //     elseif TsetIDEAL[1]>274 and time >2.1e7 then
-      // IDEAL_heating_con[1].Q_flow=0.7*(max(min(200000*(298.15-TSensor[1]),2000),0)+combiTimeTable.y[8]);
-      //
-      //     for i in 3:nZones loop
-      // IDEAL_heating_con[i].Q_flow=0.7*(max(min(200000*(298.15-TSensor[i]),2000),0)+combiTimeTable.y[i+6]);
-      //     end for;
-      // else
-        IDEAL_heating_con[1].Q_flow=0.7*( measuredInput.y[1]);
-        IDEAL_heating_con[2].Q_flow=0;
-        IDEAL_heating_con[3].Q_flow=0.7*( measuredInput.y[2]);
-        IDEAL_heating_con[4].Q_flow=0.7*( measuredInput.y[3]);
-        IDEAL_heating_con[5].Q_flow=0.7*( measuredInput.y[4]+measuredInput.y[5]);
-        IDEAL_heating_con[6].Q_flow=0.7*( measuredInput.y[6]);
-        IDEAL_heating_con[7].Q_flow=0.7*( measuredInput.y[7]);
-      //end if;
-
-      IDEAL_heating_rad.Q_flow=IDEAL_heating_con.Q_flow/0.7*0.3;
-      QHeaSys=sum(heatPortRad.Q_flow+heatPortCon.Q_flow);
-      connect(measuredInput.u,sim.timMan.timCal);
-        connect(IDEAL_heating_con.port, heatPortCon) annotation (Line(
-            points={{-12,-2},{-106,-2},{-106,20},{-200,20}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        connect(IDEAL_heating_rad.port, heatPortRad) annotation (Line(
-            points={{-14,-34},{-108,-34},{-108,-20},{-200,-20}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},
-                  {200,100}}), graphics={Text(
-                extent={{70,38},{84,32}},
-                lineColor={28,108,200},
-                textString="Order of outputs: 
-1: heat elp living
-2: heat elp bath
-3: heat elp bed1
-4: heat elp kit
-5: heat gainvent kit 
-6: heat elp hall
-7: heat elp bed 2")}));
-      end ElectricHeating_Twinhouse_heatInput;
-
-      model ElectricHeating_Twinhouse_TempinputInit
-        "Electric heating Twinhouse|exp2| temp input except for rolbs"
-
-         extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
-          nLoads=1);
-
-      parameter Real[nZones] Crad "thermal mass of radiator";
-      parameter Real[nZones] Kemission "heat transfer coefficient";
-      parameter Real COP=1;
-      Real[nZones] QheatSim;
-      Real[nZones] TsetIDEAL;
-      final parameter Real frad=0.3 "radiative fraction";
-        Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nZones] IDEAL_heating_con
-          annotation (Placement(transformation(extent={{8,-12},{-12,8}})));
-
-        Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
-          tableOnFile=true,
-          tableName="data",
-          smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-          extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
-          offset={273.15,273.15,273.15,273.15,273.15,273.15,273.15,0,0,0,0,0,0},
-          columns={7,11,13,16,3,4,5,28,29,30,24,26,27},
-          fileName="../Inputs/boundariesTwin_exp2.txt")
-          annotation (Placement(transformation(extent={{38,24},{58,44}})));
-        Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nZones] IDEAL_heating_rad
-          annotation (Placement(transformation(extent={{6,-44},{-14,-24}})));
-      equation
-      QheatSim=IDEAL_heating_con.Q_flow+IDEAL_heating_rad.Q_flow;
-      P[1] = QHeaSys/COP;
-      Q[1] = 0;
-      TsetIDEAL=combiTimeTable.y[1:7];
-       if  time <9.2e6 then
-      IDEAL_heating_con[1].Q_flow=0.7*(max(min(200000*(303.15-TSensor[1]),2000),0));
-           for i in 3:4 loop
-       IDEAL_heating_con[i].Q_flow=0.7*(max(min(200000*(303.15-TSensor[i]),2000),0));
-           end for;
-       elseif  time > 9.75e6 and time < 1.02e7 then
-      IDEAL_heating_con[1].Q_flow=0.7*(max(min(200000*(303.15-TSensor[1]),2000),0));
-           for i in 3:4 loop
-       IDEAL_heating_con[i].Q_flow=0.7*(max(min(200000*(303.15-TSensor[i]),2000),0));
-           end for;
-
-       else
-        IDEAL_heating_con[1].Q_flow=0.7*(0+combiTimeTable.y[8]);
-
-          for i in 3:4 loop
-      IDEAL_heating_con[i].Q_flow=0.7*(0+combiTimeTable.y[i+6]);
-          end for;
-      end if;
-      for i in 5:nZones loop
-       IDEAL_heating_con[i].Q_flow=0.7*(max(min(200000*(295.15-TSensor[i]),2000),0));
-           end for;
-      IDEAL_heating_con[2].Q_flow=0;
-
-      IDEAL_heating_rad.Q_flow=IDEAL_heating_con.Q_flow/0.7*0.3;
-      QHeaSys=sum(heatPortRad.Q_flow+heatPortCon.Q_flow);
-        connect(IDEAL_heating_con.port, heatPortCon) annotation (Line(
-            points={{-12,-2},{-106,-2},{-106,20},{-200,20}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        connect(IDEAL_heating_rad.port, heatPortRad) annotation (Line(
-            points={{-14,-34},{-108,-34},{-108,-20},{-200,-20}},
-            color={191,0,0},
-            smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},
-                  {200,100}}), graphics));
-      end ElectricHeating_Twinhouse_TempinputInit;
 
       model ElectricHeating_Twinhouse_exp1
         "Electric heating Twinhouse|exp2| alternative temperature or heat input"
@@ -904,7 +761,7 @@ package TwinHouses
           tableOnFile=true,
           tableName="data",
           smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-          fileName="C:/Users/glenn/Documents/0_BackUp/TwinHousesv2/meas_TTH_N2.txt",
+          fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(Modelica.Utilities.Files.loadResource("modelica://IDEAS") + "/Inputs/"+"meas_TTH_N2.txt"),
           columns=2:15)
           annotation (Placement(transformation(extent={{38,24},{58,44}})));
         Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nZones] IDEAL_heating_rad
@@ -999,7 +856,7 @@ package TwinHouses
           tableOnFile=true,
           tableName="data",
           smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-          fileName="C:/Users/glenn/Documents/0_BackUp/TwinHousesv2/bc_TTH_N2.txt",
+          fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(Modelica.Utilities.Files.loadResource("modelica://IDEAS") + "/Inputs/"+"bc_TTH_N2.txt"),
           columns={4,5})
           annotation (Placement(transformation(extent={{28,-64},{14,-50}})));
 
@@ -1044,8 +901,8 @@ package TwinHouses
         connect(flowPort_In[2], spl.port_1) annotation (Line(points={{-200,
                 14.2857},{-172,14.2857},{-172,22},{-144,22}},
                                       color={0,0,0}));
-        connect(spl.port_3, flowPort_Out[3]) annotation (Line(points={{-134,12},{
-                -134,12},{-134,-22.8571},{-200,-22.8571}},
+        connect(spl.port_3, flowPort_Out[3]) annotation (Line(points={{-134,12},
+                {-134,12},{-134,-22.8571},{-200,-22.8571}},
                                             color={0,127,255}));
         connect(spl.port_2, flowPort_Out[4]) annotation (Line(points={{-124,22},{-110,
                 22},{-110,-20},{-200,-20}}, color={0,127,255}));
