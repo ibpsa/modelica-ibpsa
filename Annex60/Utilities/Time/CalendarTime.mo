@@ -151,20 +151,21 @@ initial algorithm
 initial algorithm
   year :=0;
   for i in 1:size(timeStampsNewYear,1) loop
-    if unixTimeStamp < timeStampsNewYear[i] then
+    // may be reformulated using break if JModelica fixes bug
+    if unixTimeStamp < timeStampsNewYear[i] and (if i == 1 then true else unixTimeStamp >= timeStampsNewYear[i-1]) then
       yearIndex :=i - 1;
       year :=firstYear + i - 2;
-      break;
     end if;
   end for;
 
   // iterate to find the month at initialisation
   epochLastMonth := timeStampsNewYear[yearIndex];
+  month:=13;
   for i in 1:12 loop
     if (unixTimeStamp-epochLastMonth)/3600/24 <
       (if i==2 and isLeapYear[yearIndex] then 1 + dayInMonth[i] else dayInMonth[i]) then
-      month :=i;
-      break;
+      // construction below avoids the need of a break, which bugs out jmodelica
+      month :=min(i,month);
     else
       epochLastMonth :=epochLastMonth + (if i == 2 and isLeapYear[yearIndex]
          then 1 + dayInMonth[i] else dayInMonth[i])*3600*24;
