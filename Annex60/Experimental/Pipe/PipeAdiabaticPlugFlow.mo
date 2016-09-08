@@ -14,7 +14,6 @@ model PipeAdiabaticPlugFlow
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe=500 "For steel";
   parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
 
-  parameter Modelica.SIunits.Temperature T_nominal=273.15 + 70;
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
 
@@ -28,15 +27,32 @@ model PipeAdiabaticPlugFlow
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
 
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=
+    dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+
+  parameter Modelica.SIunits.Height roughness=2.5e-5
+    "Average height of surface asperities (default: smooth steel pipe)"
+    annotation (Dialog(group="Geometry"));
+
+  final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
+      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+      m_flow=m_flow_nominal,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
+      length=length,
+      diameter=dh,
+      roughness=roughness,
+      m_flow_small=m_flow_small)
+    "Pressure loss of a straight pipe at m_flow_nominal";
+
   Annex60.Fluid.FixedResistances.FixedResistance_dh res(
     redeclare final package Medium = Medium,
     final dh=dh,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=Annex60.Experimental.Pipe.BaseClasses.dPpre(
-        length,
-        dh,
-        m_flow_nominal,
-        T_nominal),
+    final dp_nominal=dp_nominal,
     from_dp=from_dp) "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 

@@ -61,8 +61,7 @@ protected
     m_flow_nominal=m_flow_nominal,
     Lcap=Lcap,
     pipVol=pipVol,
-    from_dp=from_dp,
-    T_nominal=T_nominal)
+    from_dp=from_dp)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -105,7 +104,6 @@ public
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Temperature T_nominal=273.15 + 70;
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
