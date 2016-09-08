@@ -95,14 +95,10 @@ public
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlow tau_unused(diameter=diameter,
-    len=length,
-    rho=rho_default)
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   BaseClasses.PDETime_massFlow tau_used(diameter=diameter,
     len=length,
     rho=rho_default)
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
@@ -127,20 +123,16 @@ equation
     annotation (Line(points={{-10,0},{-18,0},{-24,0}}, color={0,127,255}));
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
     annotation (Line(points={{-44,0},{-52,0},{-60,0}}, color={0,127,255}));
-  connect(senMasFlo.m_flow, tau_unused.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-30},{-22,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-50},{-2,-50}},
+      points={{-34,-11},{-34,-40},{-12,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tau_used.tau, reverseHeatLoss.tau) annotation (Line(
-      points={{21,-50},{28,-50},{28,32},{-64,32},{-64,10}},
+      points={{11,-40},{28,-40},{28,32},{-64,32},{-64,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tau_used.tau, heatLoss.tau) annotation (Line(
-      points={{21,-50},{28,-50},{28,32},{44,32},{44,10}},
+      points={{11,-40},{28,-40},{28,32},{44,32},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(reverseHeatLoss.heatPort, heatLoss.heatPort) annotation (Line(points=
@@ -168,10 +160,6 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Rectangle(
-          extent={{-26,30},{30,-30}},
-          lineColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
           extent={{-100,50},{100,40}},
           lineColor={175,175,175},
           fillColor={255,255,255},
@@ -188,12 +176,19 @@ equation
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-90,92},{-48,50}},
+          extent={{24,22},{-24,-22}},
           lineColor={28,108,200},
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid,
+          origin={-50,92},
+          rotation=180),
+        Rectangle(
+          extent={{-30,30},{28,-30}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={215,202,187})}),
     Documentation(revisions="<html>
 <ul>
 <li><span style=\"font-family: MS Shell Dlg 2;\">July 4, 2016 by Bram van der Heijde:<br>Introduce <code></span><span style=\"font-family: Courier New,courier;\">pipVol</code></span><span style=\"font-family: MS Shell Dlg 2;\">.</span></li>

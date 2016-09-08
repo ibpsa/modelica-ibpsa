@@ -124,8 +124,9 @@ equation
           fillColor={0,127,255}),
         Rectangle(
           extent={{-26,30},{30,-28}},
-          lineColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder)}),
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={215,202,187})}),
     Documentation(revisions="<html>
 <ul>
 <li>July 4, 2016 by Bram van der Heijde:<br>Introduce <code><span style=\"font-family: Courier New,courier;\">pipVol</span></code>.</li>

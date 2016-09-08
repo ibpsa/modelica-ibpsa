@@ -1,7 +1,9 @@
 within Annex60.Experimental.Pipe.Validation;
-model ValidationPipeAIT
+model ValidationPipeAIT_pipeDelay
   "Validation pipe against data from Austrian Institute of Technology"
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
+    replaceable model Pipe =
+      Annex60.Experimental.Pipe.PipeHeatLoss;
 
   Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,
@@ -34,7 +36,7 @@ extends Modelica.Icons.Example;
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-70,70})));
-  PipeHeatLossMod pip1(
+  Pipe pip1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     diameter=0.0825,
@@ -46,7 +48,7 @@ extends Modelica.Icons.Example;
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
-  PipeHeatLossMod pip4(
+  Pipe pip4(
     redeclare package Medium = Medium,
     length=29,
     m_flow_nominal=1,
@@ -56,11 +58,12 @@ extends Modelica.Icons.Example;
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal)
+                       annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={10,40})));
-  PipeHeatLossMod pip5(
+  Pipe pip5(
     redeclare package Medium = Medium,
     length=20,
     m_flow_nominal=1,
@@ -72,7 +75,7 @@ extends Modelica.Icons.Example;
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
-  PipeHeatLossMod pip2(
+  Pipe pip2(
     redeclare package Medium = Medium,
     length=76,
     m_flow_nominal=1,
@@ -82,11 +85,12 @@ extends Modelica.Icons.Example;
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal)
+                       annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,40})));
-  PipeHeatLossMod pip3(
+  Pipe pip3(
     redeclare package Medium = Medium,
     length=38,
     m_flow_nominal=1,
@@ -96,7 +100,8 @@ extends Modelica.Icons.Example;
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal)
+                       annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-10})));
@@ -122,7 +127,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={50,-20})));
-  PipeHeatLossMod pip0(
+  Pipe pip0(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     diameter=0.0825,
@@ -132,8 +137,8 @@ extends Modelica.Icons.Example;
     length=20,
     Lcap=Lcap,
     pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
+    allowFlowReversal=allowFlowReversal)
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
   Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium
@@ -150,7 +155,7 @@ extends Modelica.Icons.Example;
     "Length over which transient effects typically take place";
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
-  parameter Boolean allowFlowReversal=true
+  parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
 equation
   connect(pip3.port_a, pip5.port_b) annotation (Line(
@@ -210,7 +215,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_a, Point1.ports[1]) annotation (Line(
-      points={{80,-20},{80,-32},{82,-32}},
+      points={{80,-20},{80,-26},{80,-32},{82,-32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, pip1.port_a) annotation (Line(
@@ -222,7 +227,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, ExcludedBranch.ports[1]) annotation (Line(
-      points={{80,0},{80,60}},
+      points={{80,0},{80,30},{80,60},{80,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(DataReader.y[5], Point1.m_flow_in) annotation (Line(
@@ -333,4 +338,4 @@ equation
 </ul>
 </html>"), __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeAIT.mos"
         "Simulate and plot"));
-end ValidationPipeAIT;
+end ValidationPipeAIT_pipeDelay;
