@@ -14,7 +14,6 @@ model PipeAdiabaticPlugFlow
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe=500 "For steel";
   parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
 
-  parameter Modelica.SIunits.Temperature T_nominal=273.15 + 70;
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
 
