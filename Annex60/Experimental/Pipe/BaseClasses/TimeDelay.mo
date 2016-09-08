@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe.BaseClasses;
-model PDETime_massFlow "Delay time for given normalized velocity"
+model TimeDelay "Delay time for given normalized velocity"
 
   Real x(start=0) "Normalized transport distance";
   Modelica.SIunits.Time timeOut_a
@@ -123,9 +123,10 @@ equation
 <p><span style=\"font-family: MS Shell Dlg 2;\">Calculates time delay as the difference between the current simulation time and the inlet time. The inlet time is propagated with the corresponding fluid parcel using the spatialDistribution function. This components requires the mass flow through (one of) the pipe(s) and the pipe dimensions in order to derive information about the fluid propagation. </span></p>
 </html>", revisions="<html>
 <ul>
+<li>September 9, 2016 by Bram van der Heijde:<br>Rename from PDETime_massFlow to TimeDelay</li>
 <li>November 6, 2015 by Bram van der Heijde:<br>Adapted flow parameter to mass flow rate instead of velocity. This change should also fix the reverse and zero flow issues.</li>
-<li>October 13, 2015 by Marcus Fuchs:<br>Use <code><span style=\"font-family: Courier New,courier;\">abs()</span></code> of normalized velocity input in order to avoid negative delay times. </li>
+<li>October 13, 2015 by Marcus Fuchs:<br>Use <code>abs()</code> of normalized velocity input in order to avoid negative delay times. </li>
 <li>July 2015 by Arnout Aertgeerts:<br>First implementation. </li>
 </ul>
 </html>"));
-end PDETime_massFlow;
+end TimeDelay;

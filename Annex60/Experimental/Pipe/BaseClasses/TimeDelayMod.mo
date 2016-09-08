@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe.BaseClasses;
-model PDETime_massFlowMod "Delay time for given normalized velocity"
+model TimeDelayMod "Delay time for given normalized velocity"
 
   Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow of fluid" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -130,10 +130,12 @@ equation
 <p><span style=\"font-family: MS Shell Dlg 2;\">This component has a different handling of zero flow periods in order to prevent glitches in the output delay time. </span></p>
 </html>", revisions="<html>
 <ul>
+<li>September 9, 2016 by Bram van der Heijde:</li>
+<p>Rename from PDETime_massFlowMod to TimeDelayMod</p>
 <li><span style=\"font-family: MS Shell Dlg 2;\">December 2015 by Carles Ribas Tugores:<br>Modification in delay calculation to fix issues.</span></li>
 <li><span style=\"font-family: MS Shell Dlg 2;\">November 6, 2015 by Bram van der Heijde:<br>Adapted flow parameter to mass flow rate instead of velocity. This change should also fix the reverse and zero flow issues.</span></li>
-<li>October 13, 2015 by Marcus Fuchs:<br>Use <code><span style=\"font-family: Courier New,courier;\">abs()</span></code> of normalized velocity input in order to avoid negative delay times. </li>
+<li>October 13, 2015 by Marcus Fuchs:<br>Use <code>abs()</code> of normalized velocity input in order to avoid negative delay times. </li>
 <li>July 2015 by Arnout Aertgeerts:<br>First implementation. </li>
 </ul>
 </html>"));
-end PDETime_massFlowMod;
+end TimeDelayMod;
