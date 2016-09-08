@@ -9,9 +9,9 @@ model PDETime_massFlowMod "Delay time for given normalized velocity"
   parameter Modelica.SIunits.Density rho=1000 "Standard density of fluid";
   Modelica.SIunits.Time time_out_rev "Reverse flow direction output time";
   Modelica.SIunits.Time time_out_des "Design flow direction output time";
-  Modelica.SIunits.Length x(start=0)
+  Real x(start=0)
     "Spatial coordiante for spatialDistribution operator";
-  Modelica.SIunits.Velocity v "Fluid velocity";
+  Modelica.SIunits.Frequency u "Normalized fluid velocity (1/s)";
   Modelica.Blocks.Interfaces.RealOutput tau
     "Time delay for design flow direction"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
@@ -21,14 +21,14 @@ model PDETime_massFlowMod "Delay time for given normalized velocity"
   parameter Real epsilon=1e-10;
 
 equation
-  v = m_flow/(rho*(diameter^2)/4*Modelica.Constants.pi);
+  u = m_flow/(rho*(diameter^2)/4*Modelica.Constants.pi)/length;
 
-  der(x) = v;
+  der(x) = u;
   (time_out_rev,time_out_des) = spatialDistribution(
     time,
     time,
-    x/length,
-    v >= 0,
+    x,
+    noEvent(u >= 0),
     {0.0,1.0},
     {0.0,0.0});
 
