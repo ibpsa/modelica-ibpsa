@@ -12,10 +12,10 @@ package TwinHouses
       nEmbPorts=0,
       nZones=struct.nZones,
       InInterface=true,
-      Q_design={2000,2000,2000,2000,2000,2000,2000},
       nLoads=0,
       Crad={1000,1000,1000,1000,1100,1000,100},
-      Kemission={10,10,10,10,11,10,10})
+      Q_design={2000,750,750,750,750,750,750},
+      Kemission={100,100,100,100,110,100,100})
       annotation (Placement(transformation(extent={{0,-10},{40,10}})));
      // nLoads=0,
        // Qdesign={2000,0,2000,2000,2000,2000,2000},
@@ -37,7 +37,9 @@ package TwinHouses
         totSkyCov=0.6,
         opaSkyCov=0.6),
       lat=0.83555892609977,
-      lon=0.20469221467389)
+      lon=0.20469221467389,
+      linIntRad=false,
+      linExtRad=false)
       annotation (Placement(transformation(extent={{-68,64},{-48,84}})));
 
     Modelica.Blocks.Sources.RealExpression[8] noInput
@@ -52,7 +54,11 @@ package TwinHouses
       "input for solGloHor and solDifHor measured at TTH"
       annotation (Placement(transformation(extent={{-92,64},{-72,84}})));
   equation
-    connect(inputSolTTH.u, sim.timMan.timCal);
+    if time> 20044800 then
+    inputSolTTH.u= sim.timMan.timCal;
+    else
+    inputSolTTH.u = 20044800;
+    end if;
     connect(sim.weaDat.HGloHor_in, inputSolTTH.y[8]);
     connect(sim.weaDat.HDifHor_in, inputSolTTH.y[10]);
     connect(struct.heatPortEmb, heaSys.heatPortEmb)
@@ -79,7 +85,7 @@ package TwinHouses
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)),
       experiment(
-        StartTime=2.00448e+007,
+        StartTime=1.5e+007,
         StopTime=2.35872e+007,
         Interval=900,
         Tolerance=1e-006));
@@ -108,7 +114,7 @@ package TwinHouses
 
      // Declaration of zones
     IDEAS.Buildings.Components.Zone Living(nSurf=18,
-    V=83.957560875,
+    V=86.417818,
      n50=2.2,
      fRH=22,
      allowFlowReversal=false,
@@ -118,7 +124,7 @@ package TwinHouses
                 {-89,76}})));
 
     IDEAS.Buildings.Components.Zone Corridor(nSurf=10,
-    V=13.6264425,
+    V=12.085281,
      n50=2.2,
      fRH=22,
      allowFlowReversal=false,
@@ -127,7 +133,7 @@ package TwinHouses
                 {-58,76}})));
 
     IDEAS.Buildings.Components.Zone Bathroom(nSurf=8,
-    V=12.67672075,
+    V=15.4423035,
      n50=2.2,
      fRH=22,
      allowFlowReversal=false,
@@ -136,7 +142,7 @@ package TwinHouses
                 {-28,76}})));
 
     IDEAS.Buildings.Components.Zone Bedroom1(nSurf=11,
-    V=17.63205,
+    V=27.6164065,
      n50=2.2,
      fRH=22,
      allowFlowReversal=false,
@@ -145,7 +151,7 @@ package TwinHouses
                 {2,76}})));
 
     IDEAS.Buildings.Components.Zone Kitchen(nSurf=10,
-    V=26.5607105,
+    V=18.5590575,
      n50=1.62,
      fRH=22,
      allowFlowReversal=false,
@@ -154,7 +160,7 @@ package TwinHouses
                 {32,76}})));
 
     IDEAS.Buildings.Components.Zone Entrance(nSurf=8,
-    V=22.887327,
+    V=14.6518875,
      n50=1.62,
      fRH=22,
      allowFlowReversal=false,
@@ -163,7 +169,7 @@ package TwinHouses
                 {62,76}})));
 
     IDEAS.Buildings.Components.Zone Bedroom2(nSurf=12,
-    V=17.640745,
+    V=26.817258,
      n50=1.62,
      fRH=22,
      allowFlowReversal=false,
@@ -735,7 +741,12 @@ package TwinHouses
     connect(W23.T,from_degC[1].y);
     connect(W24.T,from_degC[2].y);
     connect(W25.T,from_degC[1].y);
-    connect(inputAtticAndBasement.u,sim.timMan.timCal);
+     if time> 20044800 then
+      inputAtticAndBasement.u= sim.timMan.timCal;
+      else
+      inputAtticAndBasement.u = 20044800;
+      end if;
+
       connect(inputAtticAndBasement.y, from_degC.u) annotation (Line(points={{-99,
               -76},{-92.5,-76},{-86,-76}}, color={0,0,127}));
     end TwinhouseN2;
@@ -780,13 +791,13 @@ package TwinHouses
         IDEAL_heating_con[6].Q_flow=0.7*max(0,100000*(273.15+30-TSensor[6]));
         IDEAL_heating_con[7].Q_flow=0.7*max(0,100000*(273.15+30-TSensor[7]));
       elseif time >=20044800 and time < 20800000 then
-        IDEAL_heating_con[1].Q_flow=0.7*( min(max(0,100000*(273.15+30-TSensor[1])),2000));
+        IDEAL_heating_con[1].Q_flow=0.7*( min(max(0,100000*(273.15+30-TSensor[1])),Q_design[1]));
         IDEAL_heating_con[2].Q_flow=0;
-        IDEAL_heating_con[3].Q_flow=0.7*( min(max(0,100000*(273.15+30-TSensor[3])),2000));
-        IDEAL_heating_con[4].Q_flow=0.7*( min(max(0,100000*(273.15+30-TSensor[4])),2000));
-        IDEAL_heating_con[5].Q_flow=0.7*( min(max(0,100000*(273.15+30-TSensor[5])),2000));
-        IDEAL_heating_con[6].Q_flow=0.7*( min(max(0,100000*(273.15+30-TSensor[6])),2000));
-        IDEAL_heating_con[7].Q_flow=0.7*( min(max(0,100000*(273.15+30-TSensor[7])),2000));
+        IDEAL_heating_con[3].Q_flow=0.7*( min(max(0,100000*(273.15+30-TSensor[3])),Q_design[3]));
+        IDEAL_heating_con[4].Q_flow=0.7*( min(max(0,100000*(273.15+30-TSensor[4])),Q_design[4]));
+        IDEAL_heating_con[5].Q_flow=0.7*( min(max(0,100000*(273.15+30-TSensor[5])),Q_design[5]));
+        IDEAL_heating_con[6].Q_flow=0.7*( min(max(0,100000*(273.15+30-TSensor[6])),Q_design[6]));
+        IDEAL_heating_con[7].Q_flow=0.7*( min(max(0,100000*(273.15+30-TSensor[7])),Q_design[7]));
       elseif time>=20800000 and time < 22119000 then
         IDEAL_heating_con[1].Q_flow=0.7*( measuredInput.y[8]);
         IDEAL_heating_con[2].Q_flow=0;
@@ -796,13 +807,13 @@ package TwinHouses
         IDEAL_heating_con[6].Q_flow=0.7*( measuredInput.y[13]);
         IDEAL_heating_con[7].Q_flow=0.7*( measuredInput.y[14]);
       elseif time>=22119000 and time < 22637400 then
-        IDEAL_heating_con[1].Q_flow=0.7*( min(max(0,100000*(273.15+25-TSensor[1])),2000));
+       IDEAL_heating_con[1].Q_flow=0.7*( min(max(0,100000*(273.15+25-TSensor[1])),Q_design[1]));
         IDEAL_heating_con[2].Q_flow=0;
-        IDEAL_heating_con[3].Q_flow=0.7*( min(max(0,100000*(273.15+25-TSensor[3])),2000));
-        IDEAL_heating_con[4].Q_flow=0.7*( min(max(0,100000*(273.15+25-TSensor[4])),2000));
-        IDEAL_heating_con[5].Q_flow=0.7*( min(max(0,100000*(273.15+25-TSensor[5])),2000));
-        IDEAL_heating_con[6].Q_flow=0.7*( min(max(0,100000*(273.15+25-TSensor[6])),2000));
-        IDEAL_heating_con[7].Q_flow=0.7*( min(max(0,100000*(273.15+25-TSensor[7])),2000));
+        IDEAL_heating_con[3].Q_flow=0.7*( min(max(0,100000*(273.15+25-TSensor[3])),Q_design[3]));
+        IDEAL_heating_con[4].Q_flow=0.7*( min(max(0,100000*(273.15+25-TSensor[4])),Q_design[4]));
+        IDEAL_heating_con[5].Q_flow=0.7*( min(max(0,100000*(273.15+25-TSensor[5])),Q_design[5]));
+        IDEAL_heating_con[6].Q_flow=0.7*( min(max(0,100000*(273.15+25-TSensor[6])),Q_design[6]));
+        IDEAL_heating_con[7].Q_flow=0.7*( min(max(0,100000*(273.15+25-TSensor[7])),Q_design[7]));
       else
         IDEAL_heating_con[1].Q_flow=0;
         IDEAL_heating_con[2].Q_flow=0;
@@ -815,7 +826,12 @@ package TwinHouses
 
       IDEAL_heating_rad.Q_flow=IDEAL_heating_con.Q_flow/0.7*0.3;
       QHeaSys=sum(heatPortRad.Q_flow+heatPortCon.Q_flow);
-      connect(measuredInput.u,sim.timMan.timCal);
+
+      if time> 20044800 then
+        measuredInput.u= sim.timMan.timCal;
+        else
+        measuredInput.u = 20044800;
+        end if;
         connect(IDEAL_heating_con.port, heatPortCon) annotation (Line(
             points={{-12,-2},{-106,-2},{-106,20},{-200,20}},
             color={191,0,0},
@@ -897,7 +913,11 @@ package TwinHouses
         P[1:nLoads_min] = zeros(nLoads_min);
         Q[1:nLoads_min] = zeros(nLoads_min);
         connect(flowPort_Out[1], source[1].ports[1]);
-      connect(measuredInput.u,sim.timMan.timCal);
+      if time> 20044800 then
+        measuredInput.u= sim.timMan.timCal;
+        else
+        measuredInput.u = 20044800;
+        end if;
         connect(flowPort_In[2], spl.port_1) annotation (Line(points={{-200,
                 14.2857},{-172,14.2857},{-172,22},{-144,22}},
                                       color={0,0,0}));
