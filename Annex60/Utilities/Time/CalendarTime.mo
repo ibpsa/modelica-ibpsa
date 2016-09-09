@@ -24,10 +24,12 @@ model CalendarTime
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Modelica.Blocks.Interfaces.RealOutput day "Day of the month"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
+    // fixme: if hour is constrained to be an integer, it should be an IntegerOutput
   Modelica.Blocks.Interfaces.RealOutput hour "Hour of the day"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput minute "Minute of the hour"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
+  // fixme: if weekDay is constrained to be an integer, it should be an IntegerOutput
   Modelica.Blocks.Interfaces.RealOutput weekDay
     "Integer output representing week day (monday = 1, sunday = 7)"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
