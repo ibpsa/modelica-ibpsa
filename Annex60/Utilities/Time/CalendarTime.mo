@@ -2,10 +2,13 @@ within Annex60.Utilities.Time;
 model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
   extends Modelica.Blocks.Icons.Block;
-
-  parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef "Enumeration for choosing how reference time (time = 0) should be defined";
+  // fixme: - add a graphical icon for this block.
+  //        - remove state event every one hour.
+  //        - add labels on icon layer for outputs
+  parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef
+    "Enumeration for choosing how reference time (time = 0) should be defined";
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
-    "Year when time = 0, used when timRef=Custom"
+    "Year when time = 0, used if timRef=Custom"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
 
   Modelica.Blocks.Interfaces.RealInput tim(
@@ -26,7 +29,7 @@ model CalendarTime
   Modelica.Blocks.Interfaces.RealOutput minute "Minute of the hour"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput weekDay
-    "Integer output representing week day ( monday = 1, sunday = 7 )"
+    "Integer output representing week day (monday = 1, sunday = 7)"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
 
 protected
@@ -43,7 +46,7 @@ protected
     false, false, true, false,
     false, false, true, false,
     false, false, true}
-    "List of leap years starting from firstYear (2010), up to 2020";
+    "List of leap years starting from firstYear (2010), up to and including 2020";
   final constant Integer dayInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
     "Number of days in each month";
   parameter Modelica.SIunits.Time timOff(fixed=false) "Time offset";
@@ -110,7 +113,7 @@ initial algorithm
     timOff :=0;
     // this code should not be reachable
     assert(false, "No valid TimeReference could be identified.
-   This is a bug, please submit a bug report for the this model.");
+   This is a bug, please submit a bug report.");
   end if;
 
   // add additional offset when using a custom date and time
@@ -147,7 +150,7 @@ initial algorithm
        "Could not initialise date in the CalendarTime block.
        Possibly your startTime is too large.");
 
-  // iterate to find the year at initialisation
+  // iterate to find the year at initialization
 initial algorithm
   year :=0;
   for i in 1:size(timeStampsNewYear,1) loop
@@ -158,7 +161,7 @@ initial algorithm
     end if;
   end for;
 
-  // iterate to find the month at initialisation
+  // iterate to find the month at initialization
   epochLastMonth := timeStampsNewYear[yearIndex];
   for i in 1:12 loop
     if (unixTimeStamp-epochLastMonth)/3600/24 <
@@ -176,7 +179,7 @@ equation
   unixTimeStamp = tim + timOff;
 
   // update the year when passing the epoch time stamp of the next year
-  when unixTimeStamp  >= timeStampsNewYear[pre(yearIndex)+1] then
+  when unixTimeStamp >= timeStampsNewYear[pre(yearIndex)+1] then
     yearIndex=pre(yearIndex)+1;
     assert(yearIndex<=size(timeStampsNewYear,1),
       "Index out of range for epoch vector: timeStampsNewYear needs to be extended beyond the year "
@@ -198,7 +201,7 @@ equation
   daysSinceEpoch = integer(floor(unixTimeStamp/3600/24));
   weekDay=rem(4+daysSinceEpoch-1,7)+1;
   day = 1+floor((unixTimeStamp-epochLastMonth)/3600/24);
-  hour = floor(rem(unixTimeStamp,3600*24)/3600);
+  hour = floor(rem(unixTimeStamp,3600*24)/3600); // fixme: reformulate to avoid a state event every hour
   // using Real variables and operations for minutes since otherwise too many events are generated
   minute = (unixTimeStamp/60-daysSinceEpoch*60*24-hour*60);
 
@@ -216,20 +219,17 @@ First implementation.
 This blocks computes the unix time stamp, date and time 
 and the day of the week based on the Modelica
 variable <code>time</code>.
-Parameters need to be provided such that these computations are done correctly.
-The block currently supports calendar time computations from 2010 up to 2020.
-Daylight saving time is currently not supported.
 </p>
 <h4>Main equations</h4>
 <p>
 First the unix time stamp corresponding to the current time is computed.
 From this variables the corresponding, year, date and time are computed using functions
-such as <code>floor()</code>, <code>ceil()</code> etc.
+such as <code>floor()</code> and <code>ceil()</code>.
 </p>
 <h4>Assumption and limitations</h4>
 <p>
-The implementation currently only supports date computations from year 2010 up to 2020.
-Daylight saving and time zones are currently not supported.
+The implementation only supports date computations from year 2010 up to and including 2020.
+Daylight saving and time zones are not supported.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
@@ -244,9 +244,10 @@ For instance <code>time = 1262304000</code> corresponds to the 1st of january 20
 <h4>Implementation</h4>
 <p>
 The model was implemented such that no events are being generated for computing the minute of the day.
-The model also contains an implementation for setting time=0 for any day/month other than january first.
+The model also contains an implementation for setting <code>time=0</code>
+for any day and month other than January first.
 This is however not activated in the current model since these options may wrongly give the impression
-that it changes the time based on which the solar irradiation and TMY3 data is computed/read.
+that it changes the time based on which the solar position is computed and TMY3 data are read.
 </p>
 </html>"));
 end CalendarTime;
