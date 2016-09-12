@@ -23,7 +23,7 @@ algorithm
        a=a, b=b, c=c, d=d, e=e, f=f);
 
   annotation (smoothOrder=2,
-  derivative(order=2,
+  derivative(order=1,
           zeroDerivative=delta,
           zeroDerivative=deltaInv,
           zeroDerivative=a,
