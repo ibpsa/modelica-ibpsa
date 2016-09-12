@@ -11,10 +11,14 @@ model CalendarTime
     "Year when time = 0, used if timRef=Custom"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
 
+  // fixme: why would this need to be an input, rather than just using the
+  // built-in time variable? I don't see a use case where this should be
+  // different from time.
   Modelica.Blocks.Interfaces.RealInput tim(
     final quantity="Time",
     final unit="s") "Simulation time"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealOutput unixTimeStamp(final unit="s")
     "Unix time stamp at GMT+0"
         annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
@@ -24,7 +28,9 @@ model CalendarTime
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Modelica.Blocks.Interfaces.RealOutput day "Day of the month"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-    // fixme: if hour is constrained to be an integer, it should be an IntegerOutput
+    // fixme: if hour is constrained to be an integer, it should be an IntegerOutput,
+    //        as users would in my opinion expect a real number if it is declared
+    //        as a Real data type
   Modelica.Blocks.Interfaces.RealOutput hour "Hour of the day"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput minute "Minute of the hour"
@@ -218,7 +224,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This blocks computes the unix time stamp, date and time 
+This blocks computes the unix time stamp, date and time
 and the day of the week based on the Modelica
 variable <code>time</code>.
 </p>
@@ -236,12 +242,19 @@ Daylight saving and time zones are not supported.
 <h4>Typical use and important parameters</h4>
 <p>
 The user must define which time and date correspond to <code>time = 0</code>
-using the model parameters.
-The user can choose from new year, midnight for a number of years: 
+using the model parameters <code>timRef</code>, and, if
+<code>timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom</code>,
+the parameter <code>yearRef</code>.
+
+The user can choose from new year, midnight for a number of years:
 2010 - 2020 and also 1970, which corresponds to a unix stamp of <i>0</i>.
-(Note that although choosing the reference time equal to 0 at 1970 is allowed, 
+(Note that although choosing the reference time equal to 0 at 1970 is allowed,
 the actual simulation time must be within the 2010-2020 range.
-For instance <code>time = 1262304000</code> corresponds to the 1st of january 2010.)
+For instance <code>time = 1262304000</code> corresponds to the 1st of january 2010.
+fixme: I don't understand this example. Does this mean that if I want to simulate January 1,
+I need to set startTime = 1262304000 in Dymola, and set timRef = Annex60.Utilities.Time.BaseClasses.TimeReference.2010?
+I would have thought we can simply set time=0 and timRef = Annex60.Utilities.Time.BaseClasses.TimeReference.2010.
+Please explain and/or make the example clearer.)
 </p>
 <h4>Implementation</h4>
 <p>
