@@ -254,7 +254,11 @@ For instance <code>time = 1262304000</code> corresponds to the 1st of january 20
 fixme: I don't understand this example. Does this mean that if I want to simulate January 1,
 I need to set startTime = 1262304000 in Dymola, and set timRef = Annex60.Utilities.Time.BaseClasses.TimeReference.2010?
 I would have thought we can simply set time=0 and timRef = Annex60.Utilities.Time.BaseClasses.TimeReference.2010.
-Please explain and/or make the example clearer.)
+Please explain and/or make the example clearer.
+Also, because the data type is 0:00:00 GMT, how would the configuration differ if a building in London vs. a 
+building in the California time zone is simulated? This block should probably be configured the same as
+both models would start at startTime=0 if we start at midnight Jan. 1, but the 0:00:00 GMT reference suggests
+that there should be different parameterization.)
 </p>
 <h4>Implementation</h4>
 <p>
