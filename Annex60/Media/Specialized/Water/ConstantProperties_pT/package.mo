@@ -38,6 +38,8 @@ package ConstantProperties_pT "Model for liquid water with constant properties a
     "Maximum temperature valid for medium model";
 
   extends Annex60.Media.Water(
+    p_default=p_nominal,
+    reference_p=p_nominal,
     cp_const=cp_nominal,
     d_const=d_nominal,
     eta_const=eta_nominal,
@@ -99,8 +101,8 @@ First implementation
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={95,95,95}),
-      Text(
-        extent={{-104,40},{56,-36}},
-        lineColor={238,46,47},
-        textString="pT")}));
+        Text(
+          extent={{-104,40},{56,-36}},
+          lineColor={238,46,47},
+          textString="pT")}));
 end ConstantProperties_pT;
