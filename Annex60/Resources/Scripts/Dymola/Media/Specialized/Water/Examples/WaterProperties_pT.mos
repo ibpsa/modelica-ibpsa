@@ -1,4 +1,4 @@
-simulateModel("Annex60.Media.Specialized.Water.Examples.WaterProperties_pT", method="dassl", resultFile="MediaExamplesWaterProperties_pT");
+simulateModel("Annex60.Media.Specialized.Water.Examples.WaterProperties_pT", method="dassl", resultFile="WaterProperties_pT");
 
 createPlot(
   id   = 1,
