@@ -38,6 +38,7 @@ package ConstantProperties_pT "Model for liquid water with constant properties a
     "Maximum temperature valid for medium model";
 
   extends Annex60.Media.Water(
+    mediumName="ConstantPropertyWater(p="+String(p_nominal)+",T="+String(T_nominal)+")",
     p_default=p_nominal,
     reference_p=p_nominal,
     cp_const=cp_nominal,
