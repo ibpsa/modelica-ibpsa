@@ -4,12 +4,8 @@ model CalendarTimeMonths "Validation model for the calendar time model"
   Annex60.Utilities.Time.CalendarTime calTim(timRef=Annex60.Utilities.Time.BaseClasses.TimeReference.NY2015)
     "Computes date and time assuming time=0 corresponds to new year 2015"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Annex60.Utilities.Time.ModelTime modTim "Model time"
-    annotation (Placement(transformation(extent={{-62,-10},{-42,10}})));
 
 equation
-  connect(modTim.y, calTim.tim)
-    annotation (Line(points={{-41,0},{-30,0},{-22,0}}, color={0,0,127}));
 
   annotation (
     __Dymola_Commands(file="Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonths.mos"
