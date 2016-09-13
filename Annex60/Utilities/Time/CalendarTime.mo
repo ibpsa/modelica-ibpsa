@@ -2,16 +2,23 @@ within Annex60.Utilities.Time;
 model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
   extends Modelica.Blocks.Icons.Block;
-
-  parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef "Enumeration for choosing how reference time (time = 0) should be defined";
+  // fixme: - add a graphical icon for this block.
+  //        - remove state event every one hour.
+  //        - add labels on icon layer for outputs
+  parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef
+    "Enumeration for choosing how reference time (time = 0) should be defined";
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
-    "Year when time = 0, used when timRef=Custom"
+    "Year when time = 0, used if timRef=Custom"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
 
+  // fixme: why would this need to be an input, rather than just using the
+  // built-in time variable? I don't see a use case where this should be
+  // different from time.
   Modelica.Blocks.Interfaces.RealInput tim(
     final quantity="Time",
     final unit="s") "Simulation time"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealOutput unixTimeStamp(final unit="s")
     "Unix time stamp at GMT+0"
         annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
@@ -21,12 +28,16 @@ model CalendarTime
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Modelica.Blocks.Interfaces.RealOutput day "Day of the month"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
+    // fixme: if hour is constrained to be an integer, it should be an IntegerOutput,
+    //        as users would in my opinion expect a real number if it is declared
+    //        as a Real data type
   Modelica.Blocks.Interfaces.RealOutput hour "Hour of the day"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput minute "Minute of the hour"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
+  // fixme: if weekDay is constrained to be an integer, it should be an IntegerOutput
   Modelica.Blocks.Interfaces.RealOutput weekDay
-    "Integer output representing week day ( monday = 1, sunday = 7 )"
+    "Integer output representing week day (monday = 1, sunday = 7)"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
 
 protected
@@ -43,7 +54,7 @@ protected
     false, false, true, false,
     false, false, true, false,
     false, false, true}
-    "List of leap years starting from firstYear (2010), up to 2020";
+    "List of leap years starting from firstYear (2010), up to and including 2020";
   final constant Integer dayInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
     "Number of days in each month";
   parameter Modelica.SIunits.Time timOff(fixed=false) "Time offset";
@@ -110,7 +121,7 @@ initial algorithm
     timOff :=0;
     // this code should not be reachable
     assert(false, "No valid TimeReference could be identified.
-   This is a bug, please submit a bug report for the this model.");
+   This is a bug, please submit a bug report.");
   end if;
 
   // add additional offset when using a custom date and time
@@ -147,7 +158,7 @@ initial algorithm
        "Could not initialise date in the CalendarTime block.
        Possibly your startTime is too large.");
 
-  // iterate to find the year at initialisation
+  // iterate to find the year at initialization
 initial algorithm
   year :=0;
   for i in 1:size(timeStampsNewYear,1) loop
@@ -158,7 +169,7 @@ initial algorithm
     end if;
   end for;
 
-  // iterate to find the month at initialisation
+  // iterate to find the month at initialization
   epochLastMonth := timeStampsNewYear[yearIndex];
   month:=13;
   for i in 1:12 loop
@@ -177,7 +188,7 @@ equation
   unixTimeStamp = tim + timOff;
 
   // update the year when passing the epoch time stamp of the next year
-  when unixTimeStamp  >= timeStampsNewYear[pre(yearIndex)+1] then
+  when unixTimeStamp >= timeStampsNewYear[pre(yearIndex)+1] then
     yearIndex=pre(yearIndex)+1;
     assert(yearIndex<=size(timeStampsNewYear,1),
       "Index out of range for epoch vector: timeStampsNewYear needs to be extended beyond the year "
@@ -199,7 +210,7 @@ equation
   daysSinceEpoch = integer(floor(unixTimeStamp/3600/24));
   weekDay=rem(4+daysSinceEpoch-1,7)+1;
   day = 1+floor((unixTimeStamp-epochLastMonth)/3600/24);
-  hour = floor(rem(unixTimeStamp,3600*24)/3600);
+  hour = floor(rem(unixTimeStamp,3600*24)/3600); // fixme: reformulate to avoid a state event every hour
   // using Real variables and operations for minutes since otherwise too many events are generated
   minute = (unixTimeStamp/60-daysSinceEpoch*60*24-hour*60);
 
@@ -214,40 +225,49 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This blocks computes the unix time stamp, date and time 
+This blocks computes the unix time stamp, date and time
 and the day of the week based on the Modelica
 variable <code>time</code>.
-Parameters need to be provided such that these computations are done correctly.
-The block currently supports calendar time computations from 2010 up to 2020.
-Daylight saving time is currently not supported.
 </p>
 <h4>Main equations</h4>
 <p>
 First the unix time stamp corresponding to the current time is computed.
 From this variables the corresponding, year, date and time are computed using functions
-such as <code>floor()</code>, <code>ceil()</code> etc.
+such as <code>floor()</code> and <code>ceil()</code>.
 </p>
 <h4>Assumption and limitations</h4>
 <p>
-The implementation currently only supports date computations from year 2010 up to 2020.
-Daylight saving and time zones are currently not supported.
+The implementation only supports date computations from year 2010 up to and including 2020.
+Daylight saving and time zones are not supported.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
 The user must define which time and date correspond to <code>time = 0</code>
-using the model parameters.
-The user can choose from new year, midnight for a number of years: 
+using the model parameters <code>timRef</code>, and, if
+<code>timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom</code>,
+the parameter <code>yearRef</code>.
+
+The user can choose from new year, midnight for a number of years:
 2010 - 2020 and also 1970, which corresponds to a unix stamp of <i>0</i>.
-(Note that although choosing the reference time equal to 0 at 1970 is allowed, 
+(Note that although choosing the reference time equal to 0 at 1970 is allowed,
 the actual simulation time must be within the 2010-2020 range.
-For instance <code>time = 1262304000</code> corresponds to the 1st of january 2010.)
+For instance <code>time = 1262304000</code> corresponds to the 1st of january 2010.
+fixme: I don't understand this example. Does this mean that if I want to simulate January 1,
+I need to set startTime = 1262304000 in Dymola, and set timRef = Annex60.Utilities.Time.BaseClasses.TimeReference.2010?
+I would have thought we can simply set time=0 and timRef = Annex60.Utilities.Time.BaseClasses.TimeReference.2010.
+Please explain and/or make the example clearer.
+Also, because the data type is 0:00:00 GMT, how would the configuration differ if a building in London vs. a 
+building in the California time zone is simulated? This block should probably be configured the same as
+both models would start at startTime=0 if we start at midnight Jan. 1, but the 0:00:00 GMT reference suggests
+that there should be different parameterization.)
 </p>
 <h4>Implementation</h4>
 <p>
 The model was implemented such that no events are being generated for computing the minute of the day.
-The model also contains an implementation for setting time=0 for any day/month other than january first.
+The model also contains an implementation for setting <code>time=0</code>
+for any day and month other than January first.
 This is however not activated in the current model since these options may wrongly give the impression
-that it changes the time based on which the solar irradiation and TMY3 data is computed/read.
+that it changes the time based on which the solar position is computed and TMY3 data are read.
 </p>
 </html>"));
 end CalendarTime;
