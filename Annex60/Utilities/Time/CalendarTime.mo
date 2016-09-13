@@ -3,42 +3,48 @@ model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
   extends Modelica.Blocks.Icons.Block;
   // fixme: - add a graphical icon for this block.
+              //FJ: I could not think of anything better than copying the ModelTime symbol
   //        - remove state event every one hour.
-  //        - add labels on icon layer for outputs
+              //FJ: see comment on github: I prefer readable code over fixing an event every one hour in an optional model, which should be bugfixed in dymola in the first place
   parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef
     "Enumeration for choosing how reference time (time = 0) should be defined";
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
     "Year when time = 0, used if timRef=Custom"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
+  parameter Modelica.SIunits.Time offset = 0
+    "Offset that is added to 'time', may be used for computing time in different time zone"
+    annotation(Dialog(tab="Advanced"));
 
   // fixme: why would this need to be an input, rather than just using the
   // built-in time variable? I don't see a use case where this should be
   // different from time.
-  Modelica.Blocks.Interfaces.RealInput tim(
-    final quantity="Time",
-    final unit="s") "Simulation time"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
+  // FJ: in my model I need it because my measurement data
+  // (that are read using a combitimetable, which directly uses the time variable)
+  // are in a different time zone so the unix time stamp needs to be offset by one hour
+  // I added a parameter for this instead
   Modelica.Blocks.Interfaces.RealOutput unixTimeStamp(final unit="s")
     "Unix time stamp at GMT+0"
-        annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+        annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
+        iconTransformation(extent={{100,-90},{120,-70}})));
   discrete Modelica.Blocks.Interfaces.IntegerOutput year "Year"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-32},{120,-12}}),
+        iconTransformation(extent={{100,-32},{120,-12}})));
   discrete Modelica.Blocks.Interfaces.IntegerOutput month "Month of the year"
-    annotation (Placement(transformation(extent={{100,10},{120,30}})));
-  Modelica.Blocks.Interfaces.RealOutput day "Day of the month"
-    annotation (Placement(transformation(extent={{100,30},{120,50}})));
-    // fixme: if hour is constrained to be an integer, it should be an IntegerOutput,
-    //        as users would in my opinion expect a real number if it is declared
-    //        as a Real data type
-  Modelica.Blocks.Interfaces.RealOutput hour "Hour of the day"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{100,-4},{120,16}}),
+        iconTransformation(extent={{100,-4},{120,16}})));
+  Modelica.Blocks.Interfaces.IntegerOutput day "Day of the month"
+    annotation (Placement(transformation(extent={{100,24},{120,44}}),
+        iconTransformation(extent={{100,24},{120,44}})));
+  Modelica.Blocks.Interfaces.IntegerOutput hour "Hour of the day"
+    annotation (Placement(transformation(extent={{100,52},{120,72}}),
+        iconTransformation(extent={{100,52},{120,72}})));
   Modelica.Blocks.Interfaces.RealOutput minute "Minute of the hour"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  // fixme: if weekDay is constrained to be an integer, it should be an IntegerOutput
-  Modelica.Blocks.Interfaces.RealOutput weekDay
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
+  Modelica.Blocks.Interfaces.IntegerOutput weekDay
     "Integer output representing week day (monday = 1, sunday = 7)"
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+    annotation (Placement(transformation(extent={{100,-60},{120,-40}}),
+        iconTransformation(extent={{100,-60},{120,-40}})));
 
 protected
   final constant Integer firstYear = 2010
@@ -68,6 +74,7 @@ protected
   discrete Integer yearIndex "Index of the current year in timeStampsNewYear";
   discrete Real epochLastMonth
     "Unix time stamp of the beginning of the current month";
+
 
 initial algorithm
   // check if yearRef is in the valid range
@@ -131,7 +138,7 @@ initial algorithm
   end if;
 
    // input data range checks at initial time
-  assert(tim + timOff >= timeStampsNewYear[1],
+  assert(time + offset + timOff >= timeStampsNewYear[1],
     if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.UnixTimeStamp then
       "Could initialise date in the CalendarTime block.
    You selected 1970 as the time=0 reference.
@@ -149,7 +156,7 @@ initial algorithm
         "Could not initialise date in the CalendarTime block.
    Possibly your startTime is negative?");
 
-  assert(tim + timOff < timeStampsNewYear[size(timeStampsNewYear,1)],
+  assert(time + offset + timOff < timeStampsNewYear[size(timeStampsNewYear,1)],
     if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef >= lastYear then
       "Could not initialise date in the CalendarTime block.
    You selected a custom time=0 reference.
@@ -175,7 +182,7 @@ initial algorithm
   for i in 1:12 loop
     if (unixTimeStamp-epochLastMonth)/3600/24 <
       (if i==2 and isLeapYear[yearIndex] then 1 + dayInMonth[i] else dayInMonth[i]) then
-      // construction below avoids the need of a break, which bugs out jmodelica
+      // construction below avoids the need of a break, which bugs out JModelica
       month :=min(i,month);
     else
       epochLastMonth :=epochLastMonth + (if i == 2 and isLeapYear[yearIndex]
@@ -185,7 +192,7 @@ initial algorithm
 
 equation
   // compute unix time step based on found offset
-  unixTimeStamp = tim + timOff;
+  unixTimeStamp = time + offset + timOff;
 
   // update the year when passing the epoch time stamp of the next year
   when unixTimeStamp >= timeStampsNewYear[pre(yearIndex)+1] then
@@ -208,9 +215,9 @@ equation
 
   // compute other variables that can be computed without using when() statements
   daysSinceEpoch = integer(floor(unixTimeStamp/3600/24));
-  weekDay=rem(4+daysSinceEpoch-1,7)+1;
-  day = 1+floor((unixTimeStamp-epochLastMonth)/3600/24);
-  hour = floor(rem(unixTimeStamp,3600*24)/3600); // fixme: reformulate to avoid a state event every hour
+  weekDay=integer(rem(4+daysSinceEpoch-1,7)+1);
+  day = integer(1+floor((unixTimeStamp-epochLastMonth)/3600/24));
+  hour = integer(floor(rem(unixTimeStamp,3600*24)/3600));
   // using Real variables and operations for minutes since otherwise too many events are generated
   minute = (unixTimeStamp/60-daysSinceEpoch*60*24-hour*60);
 
@@ -269,5 +276,52 @@ for any day and month other than January first.
 This is however not activated in the current model since these options may wrongly give the impression
 that it changes the time based on which the solar position is computed and TMY3 data are read.
 </p>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Text(
+          extent={{-34,90},{96,80}},
+          lineColor={28,108,200},
+          horizontalAlignment=TextAlignment.Right,
+          textString="Minute"),
+        Text(
+          extent={{-28,66},{96,56}},
+          lineColor={28,108,200},
+          horizontalAlignment=TextAlignment.Right,
+          textString="Hour"),
+        Text(
+          extent={{-38,40},{96,28}},
+          lineColor={28,108,200},
+          horizontalAlignment=TextAlignment.Right,
+          textString="Day"),
+        Text(
+          extent={{-50,12},{96,2}},
+          lineColor={28,108,200},
+          horizontalAlignment=TextAlignment.Right,
+          textString="Month"),
+        Text(
+          extent={{-70,-16},{96,-26}},
+          lineColor={28,108,200},
+          horizontalAlignment=TextAlignment.Right,
+          textString="Year"),
+        Text(
+          extent={{-68,-40},{96,-52}},
+          lineColor={28,108,200},
+          horizontalAlignment=TextAlignment.Right,
+          textString="Weekday"),
+        Text(
+          extent={{-102,-72},{94,-84}},
+          lineColor={28,108,200},
+          horizontalAlignment=TextAlignment.Right,
+          textString="Unix timestamp"),
+        Ellipse(
+          extent={{-94,94},{16,-16}},
+          lineColor={160,160,164},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-40,38},{-64,62}},
+          thickness=0.5),
+        Line(
+          points={{-40,38},{-14,38}},
+          thickness=0.5)}));
 end CalendarTime;
