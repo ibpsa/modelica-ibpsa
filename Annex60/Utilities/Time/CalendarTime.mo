@@ -2,9 +2,7 @@ within Annex60.Utilities.Time;
 model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
   extends Modelica.Blocks.Icons.Block;
-  // fixme: - add a graphical icon for this block.
-              //FJ: I could not think of anything better than copying the ModelTime symbol
-  //        - remove state event every one hour.
+  // fixme   - remove state event every one hour.
               //FJ: see comment on github: I prefer readable code over fixing an event every one hour in an optional model, which should be bugfixed in dymola in the first place
   parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef
     "Enumeration for choosing how reference time (time = 0) should be defined";
@@ -15,13 +13,6 @@ model CalendarTime
     "Offset that is added to 'time', may be used for computing time in different time zone"
     annotation(Dialog(tab="Advanced"));
 
-  // fixme: why would this need to be an input, rather than just using the
-  // built-in time variable? I don't see a use case where this should be
-  // different from time.
-  // FJ: in my model I need it because my measurement data
-  // (that are read using a combitimetable, which directly uses the time variable)
-  // are in a different time zone so the unix time stamp needs to be offset by one hour
-  // I added a parameter for this instead
   Modelica.Blocks.Interfaces.RealOutput unixTimeStamp(final unit="s")
     "Unix time stamp at GMT+0"
         annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
@@ -140,29 +131,29 @@ initial algorithm
    // input data range checks at initial time
   assert(time + offset + timOff >= timeStampsNewYear[1],
     if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.UnixTimeStamp then
-      "Could initialise date in the CalendarTime block.
+      "Could initialize date in the CalendarTime block.
    You selected 1970 as the time=0 reference.
    Therefore the simulation startTime must be at least " + String(timeStampsNewYear[1]) + "."
     elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom then
       if yearRef <firstYear then
-        "Could not initialise date in the CalendarTime block.
+        "Could not initialize date in the CalendarTime block.
    You selected a custom time=0 reference.
    The minimum value for yearRef is then " + String(firstYear) + " but your value is " + String(yearRef) + "."
       else
-        "Could not initialise date in the CalendarTime block.
+        "Could not initialize date in the CalendarTime block.
    You selected a custom time=0 reference.
    Possibly your startTime is too small."
       else
-        "Could not initialise date in the CalendarTime block.
+        "Could not initialize date in the CalendarTime block.
    Possibly your startTime is negative?");
 
   assert(time + offset + timOff < timeStampsNewYear[size(timeStampsNewYear,1)],
     if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef >= lastYear then
-      "Could not initialise date in the CalendarTime block.
+      "Could not initialize date in the CalendarTime block.
    You selected a custom time=0 reference.
    The maximum value for yearRef is then " + String(lastYear) + " but your value is " + String(yearRef) + "."
     else
-       "Could not initialise date in the CalendarTime block.
+       "Could not initialize date in the CalendarTime block.
        Possibly your startTime is too large.");
 
   // iterate to find the year at initialization
@@ -255,10 +246,10 @@ using the model parameters <code>timRef</code>, and, if
 the parameter <code>yearRef</code>.
 
 The user can choose from new year, midnight for a number of years:
-2010 - 2020 and also 1970, which corresponds to a unix stamp of <i>0</i>.
+2010 to 2020 and also 1970, which corresponds to a unix stamp of <i>0</i>.
 (Note that although choosing the reference time equal to 0 at 1970 is allowed,
 the actual simulation time must be within the 2010-2020 range.
-For instance <code>time = 1262304000</code> corresponds to the 1st of january 2010.
+For instance <code>time = 1262304000</code> corresponds to the 1st of January 2010.
 fixme: I don't understand this example. Does this mean that if I want to simulate January 1,
 I need to set startTime = 1262304000 in Dymola, and set timRef = Annex60.Utilities.Time.BaseClasses.TimeReference.2010?
 I would have thought we can simply set time=0 and timRef = Annex60.Utilities.Time.BaseClasses.TimeReference.2010.
