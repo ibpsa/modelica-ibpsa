@@ -1,7 +1,7 @@
 within Annex60.Utilities.Time;
 model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
-  extends Modelica.Blocks.Icons.Block;
+  extends Modelica.Blocks.Icons.DiscreteBlock;
   // fixme   - remove state event every one hour.
               //FJ: see comment on github: I prefer readable code over fixing an event every one hour in an optional model, which should be bugfixed in dymola in the first place
   parameter Annex60.Utilities.Time.Types.TimeReference timRef
@@ -23,16 +23,16 @@ model CalendarTime
   discrete Modelica.Blocks.Interfaces.IntegerOutput month "Month of the year"
     annotation (Placement(transformation(extent={{100,-4},{120,16}}),
         iconTransformation(extent={{100,-4},{120,16}})));
-  Modelica.Blocks.Interfaces.IntegerOutput day "Day of the month"
+  Modelica.Blocks.Interfaces.IntegerOutput day(fixed=false) "Day of the month"
     annotation (Placement(transformation(extent={{100,24},{120,44}}),
         iconTransformation(extent={{100,24},{120,44}})));
-  Modelica.Blocks.Interfaces.IntegerOutput hour "Hour of the day"
+  Modelica.Blocks.Interfaces.IntegerOutput hour(fixed=false) "Hour of the day"
     annotation (Placement(transformation(extent={{100,52},{120,72}}),
         iconTransformation(extent={{100,52},{120,72}})));
   Modelica.Blocks.Interfaces.RealOutput minute "Minute of the hour"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.Blocks.Interfaces.IntegerOutput weekDay
+  Modelica.Blocks.Interfaces.IntegerOutput weekDay(fixed=false)
     "Integer output representing week day (monday = 1, sunday = 7)"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}}),
         iconTransformation(extent={{100,-60},{120,-40}})));
@@ -61,12 +61,33 @@ protected
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.Types.TimeReference.Custom));
   final constant Integer dayRef(min=1, max=31) = 1 "Day when time = 0"
     annotation(Dialog(enable=timRef==Annex60.Utilities.Time.Types.TimeReference.Custom));
-  Integer daysSinceEpoch "Number of days that passed since 1st of January 1970";
+  Integer daysSinceEpoch(fixed=false) "Number of days that passed since 1st of January 1970";
   discrete Integer yearIndex "Index of the current year in timeStampsNewYear";
   discrete Real epochLastMonth
     "Unix time stamp of the beginning of the current month";
 
+  final parameter Modelica.SIunits.Time hourSampleStart(fixed=false)
+    "Time when the sampling every hour starts";
+  final parameter Modelica.SIunits.Time daySampleStart(fixed=false)
+    "Time when the sampling every day starts";
 
+
+  Boolean hourSampleTrigger "True, if hourly sample time instant";
+  Boolean daySampleTrigger "True, if daily sample time instant";
+
+  Boolean firstHourSampling(fixed=true, start=true)
+    "=true if the hour is sampled the first time";
+  Boolean firstDaySampling(fixed=true, start=true)
+    "=true if the day is sampled the first time";
+initial equation
+  hourSampleStart = integer(time/3600)*3600;
+  daySampleStart  = integer(time/(3600*24))*3600*24;
+
+  hour = integer(floor(rem(unixTimeStamp,3600*24)/3600));
+  daysSinceEpoch = integer(floor(unixTimeStamp/3600/24));
+
+  day = integer(1+floor((unixTimeStamp-epochLastMonth)/3600/24));
+  weekDay = integer(rem(4+daysSinceEpoch-1,7)+1);
 initial algorithm
   // check if yearRef is in the valid range
   assert(not timRef == Annex60.Utilities.Time.Types.TimeReference.Custom
@@ -205,10 +226,31 @@ equation
   end when;
 
   // compute other variables that can be computed without using when() statements
-  daysSinceEpoch = integer(floor(unixTimeStamp/3600/24));
-  weekDay=integer(rem(4+daysSinceEpoch-1,7)+1);
-  day = integer(1+floor((unixTimeStamp-epochLastMonth)/3600/24));
-  hour = integer(floor(rem(unixTimeStamp,3600*24)/3600));
+  hourSampleTrigger =sample(hourSampleStart, 3600);
+  when hourSampleTrigger then
+    if pre(firstHourSampling) then
+      hour = integer(floor(rem(unixTimeStamp,3600*24)/3600));
+    else
+      hour = if (pre(hour) == 23) then 0 else (pre(hour) + 1);
+    end if;
+    firstHourSampling = false;
+  end when;
+
+  daySampleTrigger =sample(daySampleStart, 86400);
+  when daySampleTrigger then
+    if pre(firstDaySampling) then
+      daysSinceEpoch = integer(floor(unixTimeStamp/3600/24));
+      weekDay=integer(rem(4+daysSinceEpoch-1,7)+1);
+
+    else
+      daysSinceEpoch = pre(daysSinceEpoch) + 1;
+      weekDay = if (pre(weekDay) == 7) then 1 else (pre(weekDay) + 1);
+    end if;
+    day = integer(1+floor((unixTimeStamp-epochLastMonth)/3600/24));
+
+    firstDaySampling = false;
+  end when;
+
   // using Real variables and operations for minutes since otherwise too many events are generated
   minute = (unixTimeStamp/60-daysSinceEpoch*60*24-hour*60);
 
