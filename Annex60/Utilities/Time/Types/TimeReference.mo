@@ -1,6 +1,5 @@
-within Annex60.Utilities.Time.BaseClasses;
-// fixme: this should be in Annex60.Utilities.Time.Types.TimeReference
-//        and maybe call it ZeroTime
+within Annex60.Utilities.Time.Types;
+// fixme: maybe call this zero time?
 type TimeReference = enumeration(
     UnixTimeStamp "Thu, 01 Jan 1970 00:00:00 GMT",
     Custom "User specified",
@@ -23,7 +22,7 @@ Type for choosing how to set the reference time in
 Annex60.Utilities.Time.CalendarTime</a>.
 </p>
 <p>
-For example, <code>Annex60.Utilities.Time.BaseClasses.TimeReference.NY2016</code>
+For example, <code>Annex60.Utilities.Time.Types.TimeReference.NY2016</code>
 means that if the Modelica built-in variable <code>time=0</code>, it is
 January 1, 2016, 0:00:00 GMT.
 // fixme: We have a problem here: Suppose you model California. Then, time=0 is
@@ -34,7 +33,9 @@ January 1, 2016, 0:00:00 GMT.
 <ul>
 <li>
 September 10, 2016, by Michael Wetter:<br/>
-Revised implementation.
+Revised implementation and moved to new package
+<a href=\"modelica://Annex60.Utilities.Time.CalendarTime.Types\">
+Annex60.Utilities.Time.CalendarTime.Types</a>.
 </li>
 <li>
 August 3, 2016, by Filip Jorissen:<br/>

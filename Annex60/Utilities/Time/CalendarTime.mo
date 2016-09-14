@@ -4,11 +4,11 @@ model CalendarTime
   extends Modelica.Blocks.Icons.Block;
   // fixme   - remove state event every one hour.
               //FJ: see comment on github: I prefer readable code over fixing an event every one hour in an optional model, which should be bugfixed in dymola in the first place
-  parameter Annex60.Utilities.Time.BaseClasses.TimeReference timRef
+  parameter Annex60.Utilities.Time.Types.TimeReference timRef
     "Enumeration for choosing how reference time (time = 0) should be defined";
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
     "Year when time = 0, used if timRef=Custom"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.Types.TimeReference.Custom));
   parameter Modelica.SIunits.Time offset = 0
     "Offset that is added to 'time', may be used for computing time in different time zone"
     annotation(Dialog(tab="Advanced"));
@@ -58,9 +58,9 @@ protected
   // final parameters since the user may wrongly assume that this model shifts the
   // actual time of the simulation
   final constant Integer monthRef(min=1, max=12) = 1 "Month when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.Types.TimeReference.Custom));
   final constant Integer dayRef(min=1, max=31) = 1 "Day when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom));
+    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.Types.TimeReference.Custom));
   Integer daysSinceEpoch "Number of days that passed since 1st of January 1970";
   discrete Integer yearIndex "Index of the current year in timeStampsNewYear";
   discrete Real epochLastMonth
@@ -69,51 +69,51 @@ protected
 
 initial algorithm
   // check if yearRef is in the valid range
-  assert(not timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom
+  assert(not timRef == Annex60.Utilities.Time.Types.TimeReference.Custom
          or yearRef>=firstYear and yearRef<=lastYear,
     "The value you chose for yearRef (=" + String(yearRef) + ") is outside of
    the validity range of " + String(firstYear) + " to " + String(lastYear) + ".");
 
   // check if the day number exists for the chosen month and year
-  assert(not timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom
+  assert(not timRef == Annex60.Utilities.Time.Types.TimeReference.Custom
          or dayInMonth[monthRef] + (if monthRef==2 and isLeapYear[yearRef-firstYear + 1] then 1 else 0) >=dayRef,
     "The day number you chose is larger than the number of days contained by the month you chose.");
 
   // compute the offset to be added to time based on the parameters specified by the user
-  if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.UnixTimeStamp then
+  if timRef == Annex60.Utilities.Time.Types.TimeReference.UnixTimeStamp then
     timOff :=0;
-  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2010 or
-    timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2010 then
+  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2010 or
+    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2010 then
       timOff :=timeStampsNewYear[1];
-  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2011 or
-    timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2011 then
+  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2011 or
+    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2011 then
       timOff :=timeStampsNewYear[2];
-  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2012 or
-    timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2012 then
+  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2012 or
+    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2012 then
       timOff :=timeStampsNewYear[3];
-  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2013 or
-    timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2013 then
+  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2013 or
+    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2013 then
       timOff :=timeStampsNewYear[4];
-  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2014 or
-    timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2014 then
+  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2014 or
+    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2014 then
       timOff :=timeStampsNewYear[5];
-  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2015 or
-    timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2015 then
+  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2015 or
+    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2015 then
       timOff :=timeStampsNewYear[6];
-  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2016 or
-    timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2016 then
+  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2016 or
+    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2016 then
       timOff :=timeStampsNewYear[7];
-  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2017 or
-    timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2017 then
+  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2017 or
+    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2017 then
       timOff :=timeStampsNewYear[8];
-  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2018 or
-    timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2018 then
+  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2018 or
+    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2018 then
       timOff :=timeStampsNewYear[9];
-  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2018 or
-    timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2019 then
+  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2018 or
+    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2019 then
       timOff :=timeStampsNewYear[10];
-  elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.NY2018 or
-    timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef == 2020 then
+  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2018 or
+    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2020 then
       timOff :=timeStampsNewYear[11];
   else
     timOff :=0;
@@ -123,18 +123,18 @@ initial algorithm
   end if;
 
   // add additional offset when using a custom date and time
-  if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom then
+  if timRef == Annex60.Utilities.Time.Types.TimeReference.Custom then
     timOff :=timOff + ((dayRef - 1) + sum({dayInMonth[i] for i in 1:(monthRef - 1)})
      + (if monthRef > 2 and isLeapYear[yearRef - firstYear + 1] then 1 else 0))*3600*24;
   end if;
 
    // input data range checks at initial time
   assert(time + offset + timOff >= timeStampsNewYear[1],
-    if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.UnixTimeStamp then
+    if timRef == Annex60.Utilities.Time.Types.TimeReference.UnixTimeStamp then
       "Could initialize date in the CalendarTime block.
    You selected 1970 as the time=0 reference.
    Therefore the simulation startTime must be at least " + String(timeStampsNewYear[1]) + "."
-    elseif timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom then
+    elseif timRef == Annex60.Utilities.Time.Types.TimeReference.Custom then
       if yearRef <firstYear then
         "Could not initialize date in the CalendarTime block.
    You selected a custom time=0 reference.
@@ -148,7 +148,7 @@ initial algorithm
    Possibly your startTime is negative?");
 
   assert(time + offset + timOff < timeStampsNewYear[size(timeStampsNewYear,1)],
-    if timRef == Annex60.Utilities.Time.BaseClasses.TimeReference.Custom and yearRef >= lastYear then
+    if timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef >= lastYear then
       "Could not initialize date in the CalendarTime block.
    You selected a custom time=0 reference.
    The maximum value for yearRef is then " + String(lastYear) + " but your value is " + String(yearRef) + "."
@@ -242,7 +242,7 @@ Daylight saving and time zones are not supported.
 <p>
 The user must define which time and date correspond to <code>time = 0</code>
 using the model parameters <code>timRef</code>, and, if
-<code>timRef==Annex60.Utilities.Time.BaseClasses.TimeReference.Custom</code>,
+<code>timRef==Annex60.Utilities.Time.Types.TimeReference.Custom</code>,
 the parameter <code>yearRef</code>.
 
 The user can choose from new year, midnight for a number of years:
@@ -251,8 +251,8 @@ The user can choose from new year, midnight for a number of years:
 the actual simulation time must be within the 2010-2020 range.
 For instance <code>time = 1262304000</code> corresponds to the 1st of January 2010.
 fixme: I don't understand this example. Does this mean that if I want to simulate January 1,
-I need to set startTime = 1262304000 in Dymola, and set timRef = Annex60.Utilities.Time.BaseClasses.TimeReference.2010?
-I would have thought we can simply set time=0 and timRef = Annex60.Utilities.Time.BaseClasses.TimeReference.2010.
+I need to set startTime = 1262304000 in Dymola, and set timRef = Annex60.Utilities.Time.Types.TimeReference.2010?
+I would have thought we can simply set time=0 and timRef = Annex60.Utilities.Time.Types.TimeReference.2010.
 Please explain and/or make the example clearer.
 Also, because the data type is 0:00:00 GMT, how would the configuration differ if a building in London vs. a 
 building in the California time zone is simulated? This block should probably be configured the same as
