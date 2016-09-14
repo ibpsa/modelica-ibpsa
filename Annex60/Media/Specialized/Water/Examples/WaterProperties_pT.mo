@@ -18,7 +18,9 @@ equation
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
-This example checks thermophysical properties of the medium.
+This example checks the thermophysical properties of the medium
+<a href=\"modelica://Annex60.Media.Specialized.Water.Examples.WaterProperties_pT\">
+Annex60.Media.Specialized.Water.Examples.WaterProperties_pT</a>.
 </p>
 </html>",
 revisions="<html>
