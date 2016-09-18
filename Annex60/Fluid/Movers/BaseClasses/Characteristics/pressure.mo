@@ -5,9 +5,11 @@ function pressure
 
   input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
-  input Real d[:] "Coefficients for polynomial of pressure vs. flow rate";
-  input Real dpMax(unit="Pa") "Maximum pressure drop at nominal speed, for regularisation";
-  input Real V_flow_max(unit="m3/s") "Maximum flow rate at nominal speed, for regularisation";
+  input Real d[:] "Derivatives of flow rate vs. pressure at the support points";
+  input Modelica.SIunits.PressureDifference dpMax(displayUnit="Pa")
+    "Maximum pressure drop at nominal speed, for regularisation";
+  input Modelica.SIunits.VolumeFlowRate V_flow_max
+    "Maximum flow rate at nominal speed, for regularisation";
   input Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal per
     "Pressure performance data";
 
