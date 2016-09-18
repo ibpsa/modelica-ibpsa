@@ -372,20 +372,28 @@ equation
        V_flow*kRes + dp_internal = homotopy(actual=cha.pressure(
                                                      V_flow=V_flow,
                                                      r_N=r_N,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
                                                      d=preDer1,
                                                      per=pCur1),
                                            simplified=r_N * (cha.pressure(
                                                      V_flow=V_flow_nominal,
                                                      r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
                                                      d=preDer1,
                                                      per=pCur1)
                                +(V_flow-V_flow_nominal) * (cha.pressure(
                                                      V_flow=(1+delta)*V_flow_nominal,
                                                      r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
                                                      d=preDer1,
                                                      per=pCur1)
                                        -cha.pressure(V_flow=(1-delta)*V_flow_nominal,
                                                      r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
                                                      d=preDer1,
                                                      per=pCur1))
                                                     /(2*delta*V_flow_nominal)));
@@ -393,6 +401,8 @@ equation
     else
        V_flow*kRes + dp_internal= cha.pressure(V_flow=V_flow,
                                                r_N=r_N,
+                                               dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
                                                d=preDer1,
                                                per=pCur1);
     end if;     // end of computation for this branch
@@ -401,20 +411,28 @@ equation
        V_flow*kRes + dp_internal = homotopy(actual=cha.pressure(
                                                      V_flow=V_flow,
                                                      r_N=r_N,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
                                                      d=preDer2,
                                                      per=pCur2),
                                             simplified=r_N * (cha.pressure(
                                                      V_flow=V_flow_nominal,
                                                      r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
                                                      d=preDer2,
                                                      per=pCur2)
                                +(V_flow-V_flow_nominal) * (cha.pressure(
                                                      V_flow=(1+delta)*V_flow_nominal,
                                                      r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
                                                      d=preDer2,
                                                      per=pCur2)
                                        -cha.pressure(V_flow=(1-delta)*V_flow_nominal,
                                                      r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
                                                      d=preDer2,
                                                      per=pCur2))
                                                     /(2*delta*V_flow_nominal)));
@@ -422,6 +440,8 @@ equation
     else
        V_flow*kRes + dp_internal= cha.pressure(V_flow=V_flow,
                                                       r_N=r_N,
+                                                      dpMax=dpMax,
+                                                      V_flow_max=V_flow_max,
                                                       d=preDer2,
                                                       per=pCur2);
     end if;     // end of computation for this branch
@@ -430,20 +450,28 @@ equation
        V_flow*kRes + dp_internal = homotopy(actual=cha.pressure(
                                                      V_flow=V_flow,
                                                      r_N=r_N,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
                                                      d=preDer3,
                                                      per=pCur3),
                           simplified=r_N * (cha.pressure(
                                                      V_flow=V_flow_nominal,
                                                      r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
                                                      d=preDer3,
                                                      per=pCur3)
                                +(V_flow-V_flow_nominal)*
                                        (cha.pressure(V_flow=(1+delta)*V_flow_nominal,
                                                      r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
                                                      d=preDer3,
                                                      per=pCur3)
                                        -cha.pressure(V_flow=(1-delta)*V_flow_nominal,
                                                      r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
                                                      d=preDer3,
                                                      per=pCur3))
                                                     /(2*delta*V_flow_nominal)));
@@ -451,6 +479,8 @@ equation
     else
        V_flow*kRes + dp_internal= cha.pressure(V_flow=V_flow,
                                                       r_N=r_N,
+                                                      dpMax=dpMax,
+                                                      V_flow_max=V_flow_max,
                                                       d=preDer3,
                                                       per=pCur3);
     end if;

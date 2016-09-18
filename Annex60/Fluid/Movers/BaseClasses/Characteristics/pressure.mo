@@ -6,6 +6,8 @@ function pressure
   input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
   input Real d[:] "Coefficients for polynomial of pressure vs. flow rate";
+  input Real dpMax(unit="Pa") "Maximum pressure drop at nominal speed, for regularisation";
+  input Real V_flow_max(unit="m3/s") "Maximum flow rate at nominal speed, for regularisation";
   input Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal per
     "Pressure performance data";
 
@@ -50,7 +52,8 @@ algorithm
   // In the assignment below,
   // dp -> 0 as r_N -> 0 quadratically, because rat is bounded
   // by the above regularization
-  dp:=r_N^2*Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+  if r_N>=0 then
+    dp:=r_N^2*Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
               x=rat,
               x1=per.V_flow[i],
               x2=per.V_flow[i + 1],
@@ -58,6 +61,9 @@ algorithm
               y2=per.dp[i + 1],
               y1d=d[i],
               y2d=d[i+1]);
+  else
+    dp:=-r_N^2*(dpMax-dpMax/V_flow_max*V_flow);
+  end if;
 annotation(smoothOrder=1,
 Documentation(info="<html>
 <p>
@@ -87,7 +93,7 @@ The function allows <i>r<sub>N</sub></i> to be zero.
   revisions="<html>
 <ul>
 <li>
-September 8, 2016, by Michael Wetter:<br/>
+September 8, 2016, by Michael Wetter and Filip Jorissen:<br/>
 Changed implementation to allow <code>r_N = 0</code>.<br/>
 This is
 for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/458\">#458</a>.
