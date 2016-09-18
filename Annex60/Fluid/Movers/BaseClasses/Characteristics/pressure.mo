@@ -6,8 +6,8 @@ function pressure
   input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
   input Real d[:] "Coefficients for polynomial of pressure vs. flow rate";
-  input Real dpMax;
-  input Real V_flow_max;
+  input Real dpMax(unit="Pa") "Maximum pressure drop at nominal speed, for regularisation";
+  input Real V_flow_max(unit="m3/s") "Maximum flow rate at nominal speed, for regularisation";
   input Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal per
     "Pressure performance data";
 
@@ -53,7 +53,7 @@ algorithm
   // dp -> 0 as r_N -> 0 quadratically, because rat is bounded
   // by the above regularization
   if r_N>=0 then
-    dp:=sign(r_N)*r_N^2*Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+    dp:=r_N^2*Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
               x=rat,
               x1=per.V_flow[i],
               x2=per.V_flow[i + 1],
