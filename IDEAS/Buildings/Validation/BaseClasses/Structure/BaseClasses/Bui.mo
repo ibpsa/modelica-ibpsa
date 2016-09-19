@@ -34,7 +34,7 @@ model Bui "Base model"
     redeclare parameter Data.Insulation.insulation insulationType,
     insulationThickness=1.003,
     final AWall=48,
-    final inc=IDEAS.Types.Tilt.Floor,
+    inc=IDEAS.Types.Tilt.Floor,
     final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
