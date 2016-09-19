@@ -76,12 +76,11 @@ model PumpCurveDerivatives
   Modelica.Blocks.Continuous.Der ddp_dm_flow
     "Derivative of dp for changing m_flow"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Utilities.Diagnostics.AssertInequality assIne(threShold=1e-8)
+  Annex60.Utilities.Diagnostics.AssertInequality assIne(threShold=1e-8)
     "Assertion check for positive derivatives"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Sensors.RelativePressure               relPre1(
-                                                redeclare package Medium =
-        Medium) annotation (Placement(transformation(
+  Annex60.Fluid.Sensors.RelativePressure relPre1(
+    redeclare package Medium = Medium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={-50,-70})));
   Modelica.Blocks.Continuous.Der ddp_dNrpm "Derivative of dp for changing rpm"
@@ -92,10 +91,10 @@ model PumpCurveDerivatives
   Modelica.Blocks.Continuous.Der dm_flow_dNrpm
     "Derivative of m_flow for changing rpm"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Utilities.Diagnostics.AssertInequality assIne1(threShold=1e-8)
+  Annex60.Utilities.Diagnostics.AssertInequality assIne1(threShold=1e-8)
     "Assertion check for positive derivatives"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Utilities.Diagnostics.AssertInequality assIne2(threShold=1e-8)
+  Annex60.Utilities.Diagnostics.AssertInequality assIne2(threShold=1e-8)
     "Assertion check for positive derivatives"
     annotation (Placement(transformation(extent={{40,-100},{60,-120}})));
   Modelica.Blocks.Sources.Constant zero(k=0) "Zero threshold"
