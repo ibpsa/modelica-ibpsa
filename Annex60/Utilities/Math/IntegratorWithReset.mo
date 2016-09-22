@@ -3,35 +3,48 @@ block IntegratorWithReset "Output the integral of the input signal"
   extends Modelica.Blocks.Continuous.Integrator;
   parameter Boolean use_reset = false
     "Enables option to trigger a reset for the integrator part" annotation(Evaluate=true, Dialog(group="Integrator Reset"), choices(checkBox=true));
+  parameter Annex60.BoundaryConditions.Types.DataSource yResetSou=Annex60.BoundaryConditions.Types.DataSource.Parameter annotation(Dialog(group="Integrator Reset", enable = if use_reset then true else false), Evaluate=true, choices(choice=Annex60.BoundaryConditions.Types.DataSource.Parameter "Use parameter", choice=Annex60.BoundaryConditions.Types.DataSource.Input "Use input connector"));
   parameter Real yReset = y_start
-    "Value to which the output is reset if boolean trigger has a rising edge" annotation(Dialog(group="Integrator Reset"));
+    "Value to which the output is reset if boolean trigger has a rising edge" annotation(Evaluate=true, Dialog(group="Integrator Reset", enable = if use_reset and yResetSou==Annex60.BoundaryConditions.Types.DataSource.Parameter then true else false));
   Modelica.Blocks.Interfaces.BooleanInput reset if  use_reset
     "Resets optionally the integrator output to its start value when trigger input becomes true. See also source code for when algorithm."
-    annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));
+    annotation (Placement(transformation(extent={{-140,50},{-100,90}})));
 
-  Modelica.Blocks.Routing.BooleanPassThrough resetPassThrough
-    annotation (Placement(transformation(extent={{-82,-52},{-66,-36}})));
-  Modelica.Blocks.Sources.BooleanConstant resetFalse(k=false) if  not use_reset
-    "Necessary to compensate if use_reset = false"
-    annotation (Placement(transformation(extent={{-100,-90},{-88,-78}})));
-
+  Modelica.Blocks.Interfaces.RealInput yReset_in if use_reset and yResetSou==Annex60.BoundaryConditions.Types.DataSource.Input
+    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
+protected
+  Modelica.Blocks.Interfaces.BooleanInput reset_internal;
+  Real yReset_nonParam;
+  Modelica.Blocks.Interfaces.RealInput yReset_internal annotation(Evaluate=true);
 equation
+  yReset_nonParam=if yResetSou == Annex60.BoundaryConditions.Types.DataSource.Parameter then yReset else y_start;
+
   if use_reset then
-    when edge(resetPassThrough.y) then
-      reinit(y,yReset);
+    connect(reset_internal, reset);
+  else
+    reset_internal = false;
+  end if;
+
+  if use_reset and yResetSou == Annex60.BoundaryConditions.Types.DataSource.Parameter then
+    yReset_internal = yReset_nonParam;
+  elseif use_reset and yResetSou == Annex60.BoundaryConditions.Types.DataSource.Input then
+    connect(yReset_in, yReset_internal);
+  else
+    yReset_internal = y;
+  end if;
+
+  if use_reset then
+    when edge(reset_internal) then
+      reinit(y,yReset_internal);
     end when;
   end if;
 
-  connect(resetFalse.y, resetPassThrough.u) annotation (Line(points={{-87.4,-84},
-          {-87.4,-44},{-83.6,-44}}, color={255,0,255}));
-  connect(reset, resetPassThrough.u) annotation (Line(points={{-120,-66},{-96,-66},
-          {-96,-44},{-83.6,-44}}, color={255,0,255}));
   annotation (
     Documentation(info="<html>
-<p>It is possible to reset the output of<span style=\"font-family: MS Shell Dlg 2;\"> integrator</span><code>y</code> to the chosen value <code>yReset</code> when <code>reset</code> has a rising edge.</p>
+<p>When <code>use_reset = true</code> then it is possible to reset the output of<span style=\"font-family: MS Shell Dlg 2;\"> integrator</span><code>y</code> to the chosen parameter <code>yReset (yResetSou = use Parameter)</code> or to the connected input <code>yReset_in (yResetSou = use Input)</code> when <code>reset</code> has a rising edge.</p>
 </html>", revisions="<html>
 <ul>
-<li>July 18, 2016, by Philipp Mehrfeld:<br>First implementation. </li>
+<li>September 22, 2016, by Philipp Mehrfeld:<br>First implementation. </li>
 </ul>
 </html>"), Icon(coordinateSystem(
           preserveAspectRatio=true,

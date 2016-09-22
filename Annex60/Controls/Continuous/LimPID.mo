@@ -55,6 +55,8 @@ block LimPID
           "Initialization"));
   parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
+  parameter Boolean use_reset = false
+    "Enables option to trigger a reset for the integrator part" annotation(Evaluate=true, Dialog(group="Integrator Reset"), choices(checkBox=true));
   constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
   Modelica.Blocks.Math.Add addP(k1=revAct*wp, k2=-revAct) annotation (Placement(
         transformation(extent={{-80,40},{-60,60}}, rotation=0)));
@@ -63,13 +65,13 @@ block LimPID
   Modelica.Blocks.Math.Gain P(k=1) annotation (Placement(transformation(extent={
             {-40,40},{-20,60}}, rotation=0)));
   Utilities.Math.IntegratorWithReset I(
-    use_reset=use_reset,
-    yReset=intResetValue,
     k=unitTime/Ti,
     y_start=xi_start,
     initType=if initType == InitPID.SteadyState then Init.SteadyState else if
         initType == InitPID.InitialState or initType == InitPID.DoNotUse_InitialIntegratorState
-         then Init.InitialState else Init.NoInit) if with_I annotation (
+         then Init.InitialState else Init.NoInit,
+    yResetSou=Annex60.BoundaryConditions.Types.DataSource.Input,
+    use_reset=use_reset) if                              with_I annotation (Evaluate=true,
       Placement(transformation(extent={{-40,-60},{-20,-40}}, rotation=0)));
   Modelica.Blocks.Continuous.Derivative D(
     k=Td/unitTime,
@@ -98,6 +100,11 @@ block LimPID
     strict=strict,
     limitsAtInit=limitsAtInit) annotation (Placement(transformation(extent={{70,
             -10},{90,10}}, rotation=0)));
+  Modelica.Blocks.Interfaces.BooleanInput reset if  use_reset
+    "Resets optionally the PID output to zero when trigger input becomes true."
+    annotation (Evaluate=true, Placement(transformation(extent={{-140,-86},{-100,-46}})));
+  Modelica.Blocks.Math.Add addForReset(k1=-1, k2=-1) if use_reset "Calculates the necessary value to set the PID output to zero"
+    annotation (Placement(transformation(extent={{-30,-34},{-40,-24}})));
 protected
   parameter Boolean with_I = controllerType==SimpleController.PI or
                              controllerType==SimpleController.PID annotation(Evaluate=true, HideResult=true);
@@ -110,14 +117,7 @@ public
       Placement(transformation(extent={{10,-55},{0,-45}}, rotation=0)));
   parameter Boolean reverseAction = false
     "Set to true for throttling the water flow rate through a cooling coil controller";
-  parameter Boolean use_reset = false
-    "Enables option to trigger a reset for the integrator part" annotation(Dialog(group="Integrator Reset"), choices(checkBox=true));
-  parameter Real intResetValue = 0
-    "Value to which the output of the integrator is reset if boolean trigger has a rising edge"
-                                                                                                annotation(Dialog(group="Integrator Reset"));
-  Modelica.Blocks.Interfaces.BooleanInput reset if  use_reset
-    "Resets optionally the integrator output to its start value when trigger input becomes true. (See also Source Code of LimPID.)"
-    annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));
+
 protected
   parameter Real revAct = if reverseAction then -1 else 1;
 initial equation
@@ -184,8 +184,16 @@ equation
           -14,0},{-2,0}}, color={0,0,127}));
   connect(Izero.y, addPID.u3) annotation (Line(points={{-0.5,-50},{-10,-50},{
           -10,-8},{-2,-8}}, color={0,0,127}));
-  connect(reset, I.reset) annotation (Line(points={{-120,-66},{-54,-66},{-54,-56.6},
-          {-42,-56.6}}, color={255,0,255}));
+  connect(reset, I.reset) annotation (Line(points={{-120,-66},{-54,-66},{-54,-43},
+          {-42,-43}},   color={255,0,255}));
+  connect(P.y, addForReset.u1) annotation (Line(points={{-19,50},{-14,50},{-10,50},
+          {-10,-4},{-12,-4},{-12,-26},{-29,-26}}, color={0,0,127}));
+  connect(D.y, addForReset.u2) annotation (Line(points={{-19,0},{-18,0},{-18,-32},
+          {-29,-32}}, color={0,0,127}));
+  connect(Dzero.y, addForReset.u2) annotation (Line(points={{-19.5,25},{-16,25},
+          {-16,-32},{-29,-32}}, color={0,0,127}));
+  connect(addForReset.y, I.yReset_in) annotation (Line(points={{-40.5,-29},{-48,
+          -29},{-48,-57},{-42,-57}}, color={0,0,127}));
    annotation (
 defaultComponentName="conPID",
 Documentation(info="<html>
@@ -195,7 +203,7 @@ Documentation(info="<html>
 <li>for a heating coil with a two-way valve, set <code>reverseAction = false</code>, </li>
 <li>for a cooling coils with a two-way valve, set <code>reverseAction = true</code>. </li>
 </ul>
-<p><br><span style=\"font-family: MS Shell Dlg 2;\">If parameter</span> <code>use_reset </code><span style=\"font-family: MS Shell Dlg 2;\">is true the output of the integrator is reset to </span><code>intResetValue</code><span style=\"font-family: MS Shell Dlg 2;\"> when the boolean input </span><code>reset</code><span style=\"font-family: MS Shell Dlg 2;\"> has a rising edge.</span></p>
+<p><br><span style=\"font-family: MS Shell Dlg 2;\">If parameter</span> <code>use_reset </code><span style=\"font-family: MS Shell Dlg 2;\">is true the output of the LimPID model is reset to </span><code>0</code><span style=\"font-family: MS Shell Dlg 2;\"> when the boolean input </span><code>reset</code><span style=\"font-family: MS Shell Dlg 2;\"> has a rising edge.</span></p>
 </html>",
 revisions="<html>
 <ul>
