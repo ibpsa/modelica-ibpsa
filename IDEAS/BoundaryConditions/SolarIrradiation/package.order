@@ -1,5 +1,8 @@
 DiffuseIsotropic
 DiffusePerez
 DirectTiltedSurface
+RadSol
+RadSolData
+ShadedRadSol
 Examples
 BaseClasses
