@@ -36,7 +36,7 @@ equation
                        deltaX = 1e-5) + tmp1)/(1 + tmp1),
         l = 1,
         u = 8,
-        deltaX = 0.1));
+        deltaX = 0.01));
   annotation (
     defaultComponentName="skyCle",
     Documentation(info="<html>
