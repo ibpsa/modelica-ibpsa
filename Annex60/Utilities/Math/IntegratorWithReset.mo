@@ -3,14 +3,14 @@ block IntegratorWithReset "Output the integral of the input signal"
   extends Modelica.Blocks.Continuous.Integrator;
   parameter Boolean use_reset = false
     "Enables option to trigger a reset for the integrator part" annotation(Evaluate=true, Dialog(group="Integrator Reset"), choices(checkBox=true));
-  parameter Annex60.BoundaryConditions.Types.DataSource yResetSou=Annex60.BoundaryConditions.Types.DataSource.Parameter annotation(Dialog(group="Integrator Reset", enable = if use_reset then true else false), Evaluate=true, choices(choice=Annex60.BoundaryConditions.Types.DataSource.Parameter "Use parameter", choice=Annex60.BoundaryConditions.Types.DataSource.Input "Use input connector"));
+  parameter Annex60.BoundaryConditions.Types.DataSource yResetSou=Annex60.BoundaryConditions.Types.DataSource.Parameter "Either reset to parameter yReset or to variable input connector." annotation(Dialog(group="Integrator Reset", enable = if use_reset then true else false), Evaluate=true, choices(choice=Annex60.BoundaryConditions.Types.DataSource.Parameter "Use parameter", choice=Annex60.BoundaryConditions.Types.DataSource.Input "Use input connector"));
   parameter Real yReset = y_start
     "Value to which the output is reset if boolean trigger has a rising edge" annotation(Evaluate=true, Dialog(group="Integrator Reset", enable = if use_reset and yResetSou==Annex60.BoundaryConditions.Types.DataSource.Parameter then true else false));
   Modelica.Blocks.Interfaces.BooleanInput reset if  use_reset
     "Resets optionally the integrator output to its start value when trigger input becomes true. See also source code for when algorithm."
     annotation (Placement(transformation(extent={{-140,50},{-100,90}})));
 
-  Modelica.Blocks.Interfaces.RealInput yReset_in if use_reset and yResetSou==Annex60.BoundaryConditions.Types.DataSource.Input
+  Modelica.Blocks.Interfaces.RealInput yReset_in if use_reset and yResetSou==Annex60.BoundaryConditions.Types.DataSource.Input "Here desired variable can be connected to which the integrator's output is reset to."
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
 protected
   Modelica.Blocks.Interfaces.BooleanInput reset_internal;
