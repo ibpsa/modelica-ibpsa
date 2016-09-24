@@ -59,8 +59,9 @@ the implementation is not simplified for
 <code>HGloHor &lt; Modelica.Constants.small</code>.
 </p>
 <p>
-The regularization in the <code>Annex60.Utilities.Math.Functions.smoothMax</code>
-call is such that it usually is not trigger.
+The function call
+<code>Annex60.Utilities.Math.Functions.smoothMax</code>
+is such that the regularization is usually not triggered.
 </p>
 </html>", revisions="<html>
 <ul>
