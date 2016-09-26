@@ -118,6 +118,15 @@ equation
   revisions="<html>
   <ul>
   <li>
+  September 26, 2016, by Moritz Lauster:<br/>
+  Removed deprecated parameters and values 0.93 and eExt.<br/>
+  Renamed alphaRadWall to alphaRad. Deleted alphaRadWin.<br/>
+  Moved calculations from <a href=\"modelica://Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007\">
+  Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007</a> and 
+  <a href=\"modelica://Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
+  Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a> to here.
+  </li>
+  <li>
   September 2015, by Moritz Lauster:<br/>
   Got rid of cardinality
   and used assert for warnings.<br/>

@@ -12,6 +12,11 @@ equation
   TEqAir = TEqWall*wfWall + TEqWin*wfWin + TGro*wfGro;
   annotation (defaultComponentName = "equAirTem",Documentation(revisions="<html>
   <ul>
+  <li>
+  September 26, 2016, by Moritz Lauster:<br/>
+  Moved calculations to <a href=\"modelica://Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007\">
+  Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007</a>.
+  </li>
   <li>September 2015, by Moritz Lauster:<br/>
   Got rid of cardinality
   and used assert for warnings.<br/>
