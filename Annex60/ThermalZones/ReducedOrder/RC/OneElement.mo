@@ -128,7 +128,7 @@ model OneElement "Thermal Zone with one element for exterior walls"
     final C_start=C_start,
     final C_nominal=C_nominal,
     final mSenFac=mSenFac,
-    final use_C_flow=false) if      VAir > 0 "Indoor air volume"
+    final use_C_flow=false) if VAir > 0 "Indoor air volume"
     annotation (Placement(transformation(extent={{38,-10},{18,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor resWin(final R=RWin) if
     ATotWin > 0 "Resistor for windows"
