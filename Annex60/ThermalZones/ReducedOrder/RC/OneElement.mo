@@ -145,16 +145,14 @@ model OneElement "Thermal Zone with one element for exterior walls"
   BaseClasses.ThermSplitter thermSplitterIntGains(
     final splitFactor=splitFactor,
     final nOut=dimension,
-    final nIn=1) if ATot > 0 "Splits incoming internal gains into
-    seperate gains for each wall element,
-    weighted by their area"
+    final nIn=1) if ATot > 0
+    "Splits incoming internal gains into seperate gains for each wall element, weighted by their area"
     annotation (Placement(transformation(extent={{210,76},{190,96}})));
   BaseClasses.ThermSplitter thermSplitterSolRad(
     final splitFactor=splitFactorSolRad,
     final nOut=dimension,
     final nIn=nOrientations) if ATot > 0 and sum(ATransparent) > 0
-    "Splits incoming solar radiation into seperate gains for each wall
-    element, weighted by their area"
+    "Splits incoming solar radiation into seperate gains for each wall element, weighted by their area"
     annotation (Placement(transformation(extent={{-138,138},{-122,154}})));
   BaseClasses.ExteriorWall extWallRC(
     final n=nExt,
@@ -179,8 +177,7 @@ protected
     "Share of each wall surface area that is non-zero";
   parameter Real splitFactorSolRad[dimension, nOrientations]=
     BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin)
-    "Share of each wall surface area that is non-zero, for each orientation
-    seperately";
+    "Share of each wall surface area that is non-zero, for each orientation seperately";
   Modelica.Thermal.HeatTransfer.Components.Convection convExtWall if ATotExt > 0
     "Convective heat transfer of exterior walls"
     annotation (Placement(transformation(extent={{-114,-30},{-94,-50}})));
@@ -471,7 +468,8 @@ revisions="<html>
   <li>
   September 26, 2016, by Moritz Lauster:<br/>
   Added conditional statements to solar radiation part.<br/>
-  Deleted conditional statements of splitFactor and splitFactorSolRad.
+  Deleted conditional statements of
+  <code>splitFactor</code> and <code>splitFactorSolRad</code>.
   </li>
   <li>
   April 17, 2015, by Moritz Lauster:<br/>
