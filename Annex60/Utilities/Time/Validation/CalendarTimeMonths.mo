@@ -1,7 +1,7 @@
 within Annex60.Utilities.Time.Validation;
 model CalendarTimeMonths "Validation model for the calendar time model"
   extends Modelica.Icons.Example;
-  Annex60.Utilities.Time.CalendarTime calTim(timRef=Annex60.Utilities.Time.Types.TimeReference.NY2015)
+  Annex60.Utilities.Time.CalendarTime calTim(zerTim=Annex60.Utilities.Time.Types.ZeroTime.NY2015)
     "Computes date and time assuming time=0 corresponds to new year 2015"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 

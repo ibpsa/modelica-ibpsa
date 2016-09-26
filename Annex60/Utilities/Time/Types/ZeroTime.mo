@@ -1,6 +1,5 @@
 within Annex60.Utilities.Time.Types;
-// fixme: maybe call this zero time?
-type TimeReference = enumeration(
+type ZeroTime = enumeration(
     UnixTimeStamp "Thu, 01 Jan 1970 00:00:00 GMT",
     Custom "User specified",
     NY2010 "New year 2010, 00:00:00 GMT",
@@ -24,10 +23,7 @@ Annex60.Utilities.Time.CalendarTime</a>.
 <p>
 For example, <code>Annex60.Utilities.Time.Types.TimeReference.NY2016</code>
 means that if the Modelica built-in variable <code>time=0</code>, it is
-January 1, 2016, 0:00:00 GMT.
-// fixme: We have a problem here: Suppose you model California. Then, time=0 is
-//        midnight in California, and at t=12*3600 the sun is on the top. Hence,
-//        it should be 0:00 in the local time zone, not in GMT.
+January 1, 2016, 0:00:00 local time.
 </p>
 </html>", revisions="<html>
 <ul>

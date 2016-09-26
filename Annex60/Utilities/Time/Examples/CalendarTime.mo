@@ -2,7 +2,7 @@ within Annex60.Utilities.Time.Examples;
 model CalendarTime "Example for the calendar time model"
   extends Modelica.Icons.Example;
   Annex60.Utilities.Time.CalendarTime calendarTime2016(
-    timRef=Annex60.Utilities.Time.Types.TimeReference.NY2016)
+    zerTim=Annex60.Utilities.Time.Types.ZeroTime.NY2016)
     "Computes date and time assuming time=0 corresponds to new year 2016"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
 

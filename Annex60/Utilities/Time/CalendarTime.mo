@@ -2,13 +2,11 @@ within Annex60.Utilities.Time;
 model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
   extends Modelica.Blocks.Icons.DiscreteBlock;
-  // fixme   - remove state event every one hour.
-              //FJ: see comment on github: I prefer readable code over fixing an event every one hour in an optional model, which should be bugfixed in dymola in the first place
-  parameter Annex60.Utilities.Time.Types.TimeReference timRef
+  parameter Annex60.Utilities.Time.Types.ZeroTime zerTim
     "Enumeration for choosing how reference time (time = 0) should be defined";
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
-    "Year when time = 0, used if timRef=Custom"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.Types.TimeReference.Custom));
+    "Year when time = 0, used if zerTim=Custom"
+    annotation(Dialog(enable=zerTim==Annex60.Utilities.Time.Types.ZeroTime.Custom));
   parameter Modelica.SIunits.Time offset = 0
     "Offset that is added to 'time', may be used for computing time in different time zone"
     annotation(Dialog(tab="Advanced"));
@@ -58,9 +56,9 @@ protected
   // final parameters since the user may wrongly assume that this model shifts the
   // actual time of the simulation
   final constant Integer monthRef(min=1, max=12) = 1 "Month when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.Types.TimeReference.Custom));
+    annotation(Dialog(enable=zerTim==Annex60.Utilities.Time.Types.ZeroTime.Custom));
   final constant Integer dayRef(min=1, max=31) = 1 "Day when time = 0"
-    annotation(Dialog(enable=timRef==Annex60.Utilities.Time.Types.TimeReference.Custom));
+    annotation(Dialog(enable=zerTim==Annex60.Utilities.Time.Types.ZeroTime.Custom));
   Integer daysSinceEpoch(fixed=false) "Number of days that passed since 1st of January 1970";
   discrete Integer yearIndex "Index of the current year in timeStampsNewYear";
   discrete Real epochLastMonth
@@ -90,72 +88,72 @@ initial equation
   weekDay = integer(rem(4+daysSinceEpoch-1,7)+1);
 initial algorithm
   // check if yearRef is in the valid range
-  assert(not timRef == Annex60.Utilities.Time.Types.TimeReference.Custom
+  assert(not zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom
          or yearRef>=firstYear and yearRef<=lastYear,
     "The value you chose for yearRef (=" + String(yearRef) + ") is outside of
    the validity range of " + String(firstYear) + " to " + String(lastYear) + ".");
 
   // check if the day number exists for the chosen month and year
-  assert(not timRef == Annex60.Utilities.Time.Types.TimeReference.Custom
+  assert(not zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom
          or dayInMonth[monthRef] + (if monthRef==2 and isLeapYear[yearRef-firstYear + 1] then 1 else 0) >=dayRef,
     "The day number you chose is larger than the number of days contained by the month you chose.");
 
   // compute the offset to be added to time based on the parameters specified by the user
-  if timRef == Annex60.Utilities.Time.Types.TimeReference.UnixTimeStamp then
+  if zerTim == Annex60.Utilities.Time.Types.ZeroTime.UnixTimeStamp then
     timOff :=0;
-  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2010 or
-    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2010 then
+  elseif zerTim == Annex60.Utilities.Time.Types.ZeroTime.NY2010 or
+    zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2010 then
       timOff :=timeStampsNewYear[1];
-  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2011 or
-    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2011 then
+  elseif zerTim == Annex60.Utilities.Time.Types.ZeroTime.NY2011 or
+    zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2011 then
       timOff :=timeStampsNewYear[2];
-  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2012 or
-    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2012 then
+  elseif zerTim == Annex60.Utilities.Time.Types.ZeroTime.NY2012 or
+    zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2012 then
       timOff :=timeStampsNewYear[3];
-  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2013 or
-    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2013 then
+  elseif zerTim == Annex60.Utilities.Time.Types.ZeroTime.NY2013 or
+    zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2013 then
       timOff :=timeStampsNewYear[4];
-  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2014 or
-    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2014 then
+  elseif zerTim == Annex60.Utilities.Time.Types.ZeroTime.NY2014 or
+    zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2014 then
       timOff :=timeStampsNewYear[5];
-  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2015 or
-    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2015 then
+  elseif zerTim == Annex60.Utilities.Time.Types.ZeroTime.NY2015 or
+    zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2015 then
       timOff :=timeStampsNewYear[6];
-  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2016 or
-    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2016 then
+  elseif zerTim == Annex60.Utilities.Time.Types.ZeroTime.NY2016 or
+    zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2016 then
       timOff :=timeStampsNewYear[7];
-  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2017 or
-    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2017 then
+  elseif zerTim == Annex60.Utilities.Time.Types.ZeroTime.NY2017 or
+    zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2017 then
       timOff :=timeStampsNewYear[8];
-  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2018 or
-    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2018 then
+  elseif zerTim == Annex60.Utilities.Time.Types.ZeroTime.NY2018 or
+    zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2018 then
       timOff :=timeStampsNewYear[9];
-  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2018 or
-    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2019 then
+  elseif zerTim == Annex60.Utilities.Time.Types.ZeroTime.NY2018 or
+    zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2019 then
       timOff :=timeStampsNewYear[10];
-  elseif timRef == Annex60.Utilities.Time.Types.TimeReference.NY2018 or
-    timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef == 2020 then
+  elseif zerTim == Annex60.Utilities.Time.Types.ZeroTime.NY2018 or
+    zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2020 then
       timOff :=timeStampsNewYear[11];
   else
     timOff :=0;
     // this code should not be reachable
-    assert(false, "No valid TimeReference could be identified.
+    assert(false, "No valid ZeroTime could be identified.
    This is a bug, please submit a bug report.");
   end if;
 
   // add additional offset when using a custom date and time
-  if timRef == Annex60.Utilities.Time.Types.TimeReference.Custom then
+  if zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom then
     timOff :=timOff + ((dayRef - 1) + sum({dayInMonth[i] for i in 1:(monthRef - 1)})
      + (if monthRef > 2 and isLeapYear[yearRef - firstYear + 1] then 1 else 0))*3600*24;
   end if;
 
    // input data range checks at initial time
   assert(time + offset + timOff >= timeStampsNewYear[1],
-    if timRef == Annex60.Utilities.Time.Types.TimeReference.UnixTimeStamp then
+    if zerTim == Annex60.Utilities.Time.Types.ZeroTime.UnixTimeStamp then
       "Could initialize date in the CalendarTime block.
    You selected 1970 as the time=0 reference.
    Therefore the simulation startTime must be at least " + String(timeStampsNewYear[1]) + "."
-    elseif timRef == Annex60.Utilities.Time.Types.TimeReference.Custom then
+    elseif zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom then
       if yearRef <firstYear then
         "Could not initialize date in the CalendarTime block.
    You selected a custom time=0 reference.
@@ -169,7 +167,7 @@ initial algorithm
    Possibly your startTime is negative?");
 
   assert(time + offset + timOff < timeStampsNewYear[size(timeStampsNewYear,1)],
-    if timRef == Annex60.Utilities.Time.Types.TimeReference.Custom and yearRef >= lastYear then
+    if zerTim == Annex60.Utilities.Time.Types.ZeroTime.Custom and yearRef >= lastYear then
       "Could not initialize date in the CalendarTime block.
    You selected a custom time=0 reference.
    The maximum value for yearRef is then " + String(lastYear) + " but your value is " + String(yearRef) + "."
@@ -283,23 +281,19 @@ Daylight saving and time zones are not supported.
 <h4>Typical use and important parameters</h4>
 <p>
 The user must define which time and date correspond to <code>time = 0</code>
-using the model parameters <code>timRef</code>, and, if
-<code>timRef==Annex60.Utilities.Time.Types.TimeReference.Custom</code>,
+using the model parameters <code>zerTim</code>, and, if
+<code>zerTim==Annex60.Utilities.Time.Types.ZeroTime.Custom</code>,
 the parameter <code>yearRef</code>.
 
 The user can choose from new year, midnight for a number of years:
-2010 to 2020 and also 1970, which corresponds to a unix stamp of <i>0</i>.
-(Note that although choosing the reference time equal to 0 at 1970 is allowed,
+2010 to 2020 and also 1970. 
+The latter corresponds to a unix stamp of <i>0</i>.
+(Note that when choosing the reference time equal to 0 at 1970,
 the actual simulation time must be within the 2010-2020 range.
-For instance <code>time = 1262304000</code> corresponds to the 1st of January 2010.
-fixme: I don't understand this example. Does this mean that if I want to simulate January 1,
-I need to set startTime = 1262304000 in Dymola, and set timRef = Annex60.Utilities.Time.Types.TimeReference.2010?
-I would have thought we can simply set time=0 and timRef = Annex60.Utilities.Time.Types.TimeReference.2010.
-Please explain and/or make the example clearer.
-Also, because the data type is 0:00:00 GMT, how would the configuration differ if a building in London vs. a 
-building in the California time zone is simulated? This block should probably be configured the same as
-both models would start at startTime=0 if we start at midnight Jan. 1, but the 0:00:00 GMT reference suggests
-that there should be different parameterization.)
+For instance <code>startTime = 1262304000</code> corresponds 
+to the simulation starting on the 1st of January 2010 
+when setting <code>zerTim = ZeroTime.UnixTimeStamp</code>.
+This is within the 2010-2020 range and is therefore allowed.)
 </p>
 <h4>Implementation</h4>
 <p>
