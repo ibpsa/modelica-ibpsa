@@ -175,10 +175,10 @@ protected
   parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray})
     "Number of non-zero wall surface areas";
   parameter Real splitFactor[dimension, 1]=
-    BaseClasses.splitFacVal(dimension, 1, AArray, fill(0, 1), fill(0, 1)) if sum(AArray) > 0
+    BaseClasses.splitFacVal(dimension, 1, AArray, fill(0, 1), fill(0, 1))
     "Share of each wall surface area that is non-zero";
   parameter Real splitFactorSolRad[dimension, nOrientations]=
-    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin) if sum(AArray) > 0
+    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin)
     "Share of each wall surface area that is non-zero, for each orientation
     seperately";
   Modelica.Thermal.HeatTransfer.Components.Convection convExtWall if ATotExt > 0
@@ -463,11 +463,16 @@ using the parameter <code>mSenFac</code>.
 The image below shows the RC-network of this model.
 </p>
 <p align=\"center\">
-<img src=\"modelica://AixLib/Resources/Images/ThermalZones/ReducedOrder/RC/OneElement.png\" alt=\"image\"/>
+<img src=\"modelica://Annex60/Resources/Images/ThermalZones/ReducedOrder/RC/OneElement.png\" alt=\"image\"/>
 </p>
   </html>",
 revisions="<html>
   <ul>
+  <li>
+  September 26, 2016, by Moritz Lauster:<br/>
+  Added conditional statements to solar radiation part.<br/>
+  Deleted conditional statements of splitFactor and splitFactorSolRad.
+  </li>
   <li>
   April 17, 2015, by Moritz Lauster:<br/>
   First implementation.
