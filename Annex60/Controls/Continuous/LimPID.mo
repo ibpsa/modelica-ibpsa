@@ -1,16 +1,23 @@
 within Annex60.Controls.Continuous;
 block LimPID
   "P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting"
+  import Modelica.Blocks.Types.InitPID;
+  import Modelica.Blocks.Types.Init;
+  import Modelica.Blocks.Types.SimpleController;
   extends Modelica.Blocks.Interfaces.SVcontrol;
   output Real controlError = u_s - u_m
     "Control error (set point - measurement)";
-
-
+  parameter .Modelica.Blocks.Types.SimpleController controllerType=
+         .Modelica.Blocks.Types.SimpleController.PID "Type of controller";
   parameter Real k(min=0, unit="1") = 1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5
     "Time constant of Integrator block" annotation (Dialog(enable=
+          controllerType == .Modelica.Blocks.Types.SimpleController.PI or
+          controllerType == .Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time Td(min=0)=0.1
     "Time constant of Derivative block" annotation (Dialog(enable=
+          controllerType == .Modelica.Blocks.Types.SimpleController.PD or
+          controllerType == .Modelica.Blocks.Types.SimpleController.PID));
   parameter Real yMax(start=1)=1 "Upper limit of output";
   parameter Real yMin=0 "Lower limit of output";
   parameter Real wp(min=0) = 1 "Set-point weight for Proportional block (0..1)";
@@ -25,6 +32,7 @@ block LimPID
     "The higher Nd, the more ideal the derivative block"
        annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+  parameter .Modelica.Blocks.Types.InitPID initType= .Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
                                      annotation(Evaluate=true,
       Dialog(group="Initialization"));
@@ -43,6 +51,7 @@ block LimPID
                          enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real y_start=0 "Initial value of output"
+    annotation(Dialog(enable=initType == .Modelica.Blocks.Types.InitPID.InitialOutput, group=
           "Initialization"));
   parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
@@ -61,16 +70,18 @@ block LimPID
             {-40,40},{-20,60}}, rotation=0)));
   Utilities.Math.IntegratorWithReset I(
     final use_reset=use_reset,
-    final yReset=intResetValue,
     k=unitTime/Ti,
     y_start=xi_start,
-         then Init.InitialState else Init.NoInit) if with_I "Integral term" annotation (
+    initType=if initType == Modelica.Blocks.Types.InitPID.SteadyState then Modelica.Blocks.Types.Init.SteadyState else if
+        initType == Modelica.Blocks.Types.InitPID.InitialState or initType == Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
+         then Modelica.Blocks.Types.Init.InitialState else Modelica.Blocks.Types.Init.NoInit,
+    yResetSou=Annex60.BoundaryConditions.Types.DataSource.Input) if                              with_I "Integral term" annotation (Evaluate=true,
+      Placement(transformation(extent={{-40,-60},{-20,-40}}, rotation=0)));
 
   Modelica.Blocks.Continuous.Derivative D(
     k=Td/unitTime,
     T=max([Td/Nd,1.e-14]),
     x_start=xd_start,
-
     initType=if initType == Modelica.Blocks.Types.InitPID.SteadyState or
                 initType == Modelica.Blocks.Types.InitPID.InitialOutput
              then
@@ -106,18 +117,20 @@ block LimPID
   Modelica.Blocks.Nonlinear.Limiter limiter(
     uMax=yMax,
     uMin=yMin,
-    limitsAtInit=limitsAtInit) "Output limiter" annotation (Placement(transformation(extent={{70,
+    strict=strict) "Output limiter" annotation (Placement(transformation(extent={{70,
             -10},{90,10}}, rotation=0)));
   Modelica.Blocks.Interfaces.BooleanInput reset if  use_reset
     "Resets optionally the PID output to zero when trigger input becomes true."
     annotation (Evaluate=true, Placement(transformation(extent={{-140,-86},{-100,-46}})));
-  Modelica.Blocks.Math.Add addForReset(k1=-1, k2=-1) if use_reset "Calculates the necessary value to set the PID output to zero"
+  Modelica.Blocks.Math.Add addForRes(k1=-1, k2=-1) if   use_reset
+    "Calculates the necessary value to set the PID output to zero"
     annotation (Placement(transformation(extent={{-30,-34},{-40,-24}})));
 protected
   parameter Boolean with_I = controllerType==Modelica.Blocks.Types.SimpleController.PI or
                              controllerType==Modelica.Blocks.Types.SimpleController.PID annotation(Evaluate=true, HideResult=true);
   parameter Boolean with_D = controllerType==Modelica.Blocks.Types.SimpleController.PD or
                              controllerType==Modelica.Blocks.Types.SimpleController.PID annotation(Evaluate=true, HideResult=true);
+
 public
   Modelica.Blocks.Sources.Constant Dzero(k=0) if not with_D annotation (
       Placement(transformation(extent={{-30,20},{-20,30}}, rotation=0)));
@@ -195,14 +208,14 @@ equation
 
   connect(reset, I.reset) annotation (Line(points={{-120,-66},{-54,-66},{-54,-43},
           {-42,-43}},   color={255,0,255}));
-  connect(P.y, addForReset.u1) annotation (Line(points={{-19,50},{-14,50},{-10,50},
+  connect(P.y, addForRes.u1) annotation (Line(points={{-19,50},{-14,50},{-10,50},
           {-10,-4},{-12,-4},{-12,-26},{-29,-26}}, color={0,0,127}));
-  connect(D.y, addForReset.u2) annotation (Line(points={{-19,0},{-18,0},{-18,-32},
+  connect(D.y, addForRes.u2) annotation (Line(points={{-19,0},{-18,0},{-18,-32},
           {-29,-32}}, color={0,0,127}));
-  connect(Dzero.y, addForReset.u2) annotation (Line(points={{-19.5,25},{-16,25},
-          {-16,-32},{-29,-32}}, color={0,0,127}));
-  connect(addForReset.y, I.yReset_in) annotation (Line(points={{-40.5,-29},{-48,
-          -29},{-48,-57},{-42,-57}}, color={0,0,127}));
+  connect(Dzero.y, addForRes.u2) annotation (Line(points={{-19.5,25},{-16,25},{
+          -16,-32},{-29,-32}}, color={0,0,127}));
+  connect(addForRes.y, I.yReset_in) annotation (Line(points={{-40.5,-29},{-48,-29},
+          {-48,-57},{-42,-57}}, color={0,0,127}));
    annotation (
 defaultComponentName="conPID",
 Documentation(info="<html>
