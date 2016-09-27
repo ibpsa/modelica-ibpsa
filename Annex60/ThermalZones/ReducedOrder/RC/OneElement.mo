@@ -85,16 +85,16 @@ model OneElement "Thermal Zone with one element for exterior walls"
     extent={{-45,-12},{45,12}},
     origin={85,-180}),iconTransformation(
     extent={{-30.5,-8},{30.5,8}},
-    origin={150,-171.5})));
+    origin={150,-179.5})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWall if ATotExt > 0
     "Ambient port for exterior walls"
     annotation (Placement(transformation(
-    extent={{-252,-50},{-232,-30}}), iconTransformation(extent={{-252,-50},{
-    -232,-30}})));
+    extent={{-250,-50},{-230,-30}}), iconTransformation(extent={{-250,-50},{
+            -230,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a window if ATotWin > 0
     "Ambient port for windows"
-    annotation (Placement(transformation(extent={{-252,30},{-232,50}}),
-    iconTransformation(extent={{-252,30},{-232,50}})));
+    annotation (Placement(transformation(extent={{-250,30},{-230,50}}),
+    iconTransformation(extent={{-250,30},{-230,50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsConv if
     ATot > 0 or VAir > 0 "Auxilliary port for internal convective gains"
     annotation (Placement(
@@ -103,8 +103,8 @@ model OneElement "Thermal Zone with one element for exterior walls"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsRad if ATot > 0
     "Auxilliary port for internal radiative gains"
     annotation (Placement(
-    transformation(extent={{232,70},{252,90}}),
-    iconTransformation(extent={{232,70},{252,90}})));
+    transformation(extent={{230,70},{250,90}}),
+    iconTransformation(extent={{230,70},{250,90}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a windowIndoorSurface if
     indoorPortWin "Auxilliary port at indoor surface of windows"
     annotation (Placement(transformation(extent={{-210,-190},{-190,-170}}),
@@ -236,7 +236,7 @@ equation
     smooth=Smooth.None));
   connect(resWin.port_a, window)
     annotation (Line(
-    points={{-180,40},{-242,40}},
+    points={{-180,40},{-240,40}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(resWin.port_b, convWin.solid)
@@ -251,7 +251,7 @@ equation
     smooth=Smooth.None));
   connect(thermSplitterIntGains.portIn[1], intGainsRad)
     annotation (Line(
-    points={{210,86},{220,86},{220,80},{242,80}},
+    points={{210,86},{220,86},{220,80},{240,80}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(radHeatSol.port, thermSplitterSolRad.portIn)
@@ -261,7 +261,7 @@ equation
     smooth=Smooth.None));
   connect(extWallRC.port_b, extWall)
     annotation (Line(
-    points={{-178,-40},{-242,-40}},
+    points={{-178,-40},{-240,-40}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(extWallRC.port_a, convExtWall.solid)
@@ -407,40 +407,40 @@ equation
   grid={2,2}),
    graphics={
   Rectangle(
-    extent={{-220,160},{220,-160}},
+    extent={{-240,180},{240,-180}},
     lineColor={0,0,0},
     fillColor={215,215,215},
     fillPattern=FillPattern.Forward),
   Rectangle(
-    extent={{-210,150},{210,-150}},
+    extent={{-230,170},{230,-170}},
     lineColor={0,0,0},
     fillColor={230,230,230},
     fillPattern=FillPattern.Solid),
   Line(
-    points={{-210,-150},{-108,-58},{-108,60},{-210,150}},
+    points={{-226,-170},{-124,-74},{-124,76},{-230,170}},
     color={0,0,0},
     smooth=Smooth.None),
   Line(
-    points={{-108,60},{2,60},{108,60},{210,134}},
+    points={{-124,76},{2,76},{124,76},{230,170}},
     color={0,0,0},
     smooth=Smooth.None),
   Line(
-    points={{108,60},{108,-58},{210,-150}},
+    points={{124,76},{124,-74},{230,-170}},
     color={0,0,0},
     smooth=Smooth.None),
   Line(
-    points={{-108,-58},{108,-58}},
+    points={{-124,-74},{124,-74}},
     color={0,0,0},
     smooth=Smooth.None),
   Text(
-    extent={{-260,236},{24,152}},
+    extent={{-260,266},{24,182}},
     lineColor={0,0,255},
     lineThickness=0.5,
     fillColor={236,99,92},
     fillPattern=FillPattern.Solid,
     textString="%name"),
   Text(
-    extent={{-68,60},{56,-64}},
+    extent={{-67,60},{57,-64}},
     lineColor={0,0,0},
     textString="1")}),
   Documentation(info="<html>
