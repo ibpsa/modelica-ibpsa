@@ -40,6 +40,7 @@ equation
   end if;
 
   annotation (
+defaultComponentName="intWitRes",
     Documentation(info="<html>
 <p>When <code>use_reset = true</code> then it is possible to reset the output of<span style=\"font-family: MS Shell Dlg 2;\"> integrator</span><code>y</code> to the chosen parameter <code>yReset (yResetSou = use Parameter)</code> or to the connected input <code>yReset_in (yResetSou = use Input)</code> when <code>reset</code> has a rising edge.</p>
 </html>", revisions="<html>
