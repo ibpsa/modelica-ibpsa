@@ -336,16 +336,5 @@ First implementation.
           visible=strict,
           points={{30,60},{81,60}},
           color={255,0,0},
-          smooth=Smooth.None)}),
-    Diagram(graphics={Text(
-          extent={{10,76},{38,46}},
-          lineColor={238,46,47},
-          textString="fixme:
- This would be much more useful if
- xi_reset would not only be a
- parameter, but also optional an input. We could use Types.DataSource with
- enumeration(Parameter, Input). Then,
- one can easily construct a continuous
- output signal with integrator reset.",
-          horizontalAlignment=TextAlignment.Left)}));
+          smooth=Smooth.None)}));
 end LimPID;
