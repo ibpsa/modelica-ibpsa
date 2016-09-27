@@ -1,5 +1,6 @@
 within Annex60.ThermalZones.ReducedOrder.Examples;
-model SimpleRoomThreeElements "Illustrates the use of ThreeElements"
+model SimpleRoomThreeElements
+  "Illustrates the use of a thermal zone with three heat conduction elements"
   extends Modelica.Icons.Example;
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
