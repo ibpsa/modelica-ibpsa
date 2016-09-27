@@ -37,9 +37,11 @@ temperature and dry bulb temperature.</p>
 </p>
 <p>
 The Guideline VDI 6007 Part 1 considers in 
-addition an environmental temperature and tilt angles for all orientations. As 
+addition an environmental temperature due to radiation (similar to the black body 
+sky temperature) and tilt angles for all orientations. As 
 necessary inputs for the environmental temperature are not defined in TMY weather 
-data sets, the influence of this temperature is not considered in the presented 
+data sets (radiation from the environment is missing), the influence of this 
+temperature is not considered in the presented 
 models. It is in any case a minor effect as black-body sky temperature and 
 environmental temperature hardly differ. Furthermore, the Guideline VDI 6007 Part 
 1 calculates the correction term for each orientation seperately with individual

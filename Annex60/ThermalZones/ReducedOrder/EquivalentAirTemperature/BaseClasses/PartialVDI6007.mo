@@ -51,7 +51,10 @@ partial model PartialVDI6007
     displayUnit="degC") "Equivalent air temperature"
     annotation (Placement(
     transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput sunblind[n]
+  Modelica.Blocks.Interfaces.RealInput sunblind[n](
+    each min=0,
+    each max=0,
+    each final unit="1")
     "Opening factor of sunblinds for each direction (0 - open to 1 - closed)"
     annotation (Placement(
     transformation(
@@ -70,7 +73,7 @@ equation
   delTEqLW=(TBlaSky-TDryBul)*alphaRad/(alphaRad+alphaWallOut);
   delTEqSW=HSol*aExt/(alphaRad+alphaWallOut);
   if withLongwave then
-    TEqWin=TDryBul.+delTEqLWWin*abs(sunblind.-1);
+    TEqWin=TDryBul.+delTEqLWWin*(ones(n)-sunblind);
     TEqWall=TDryBul.+delTEqLW.+delTEqSW;
   else
     TEqWin=TDryBul*ones(n);
@@ -119,9 +122,13 @@ equation
   <ul>
   <li>
   September 26, 2016, by Moritz Lauster:<br/>
-  Removed deprecated parameters and values 0.93 and eExt.<br/>
-  Renamed alphaRadWall to alphaRad. Deleted alphaRadWin.<br/>
-  Moved calculations from <a href=\"modelica://Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007\">
+  Removed deprecated parameters and values 
+  0.93 and <code>eExt</code>.<br/>
+  Renamed <code>alphaRadWall</code> to 
+  <code>alphaRad</code>. Deleted 
+  <code>alphaRadWin</code>.<br/>
+  Moved calculations from 
+  <a href=\"modelica://Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007\">
   Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007</a> and 
   <a href=\"modelica://Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
   Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a> to here.
