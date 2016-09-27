@@ -12,7 +12,7 @@ model CalendarTime
     annotation(Dialog(tab="Advanced"));
 
   Modelica.Blocks.Interfaces.RealOutput unixTimeStamp(final unit="s")
-    "Unix time stamp at GMT+0"
+    "Unix time stamp at local time"
         annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
         iconTransformation(extent={{100,-90},{120,-70}})));
   discrete Modelica.Blocks.Interfaces.IntegerOutput year "Year"
