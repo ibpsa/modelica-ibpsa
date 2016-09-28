@@ -13,9 +13,6 @@ model MonoLayer "single material layer"
 
   parameter Boolean linIntCon=false
     "Linearise interior convection inside air layers / cavities in walls";
-  parameter Boolean placeCapacityAtSurf_b=true
-    "Set to true to place last capacity at the surface b of the layer."
-    annotation (Dialog(tab="Dynamics"), enable=dynamicLayer and realLayer and not airLayer);
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=if mat.glass then Modelica.Fluid.Types.Dynamics.SteadyState else Modelica.Fluid.Types.Dynamics.FixedInitial
     "Static (steady state) or transient (dynamic) thermal conduction model"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
@@ -40,7 +37,6 @@ model MonoLayer "single material layer"
     A=A,
     mat=mat,
     T_start=T_start,
-    placeCapacityAtSurf_b=placeCapacityAtSurf_b,
     energyDynamics=energyDynamics) if
                             dynamicLayer and realLayer and not airLayer
     "Dynamic monolayer for solid"
