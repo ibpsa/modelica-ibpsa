@@ -4,8 +4,6 @@ partial model PartialVDI6007
 
   parameter Modelica.SIunits.Emissivity aExt
     "Coefficient of absorption of exterior walls (outdoor)";
-  parameter Modelica.SIunits.Emissivity eExt
-    "Coefficient of emission of exterior walls (outdoor)";
   parameter Integer n "Number of orientations (without ground)";
   parameter Real wfWall[n](each final unit="1") "Weight factors of the walls";
   parameter Real wfWin[n](each final unit="1") "Weight factors of the windows";
@@ -15,8 +13,8 @@ partial model PartialVDI6007
     "Temperature of the ground in contact with floor plate";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWallOut
     "Exterior walls convective coefficient of heat transfer (outdoor)";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRadWall
-    "Coefficient of heat transfer for linearized radiation for exterior walls";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
+    "Coefficient of heat transfer for linearized radiation";
   parameter Boolean withLongwave=true
     "Set to true to include longwave radiation exchange"
     annotation(choices(checkBox = true));
@@ -25,6 +23,8 @@ partial model PartialVDI6007
   Modelica.SIunits.Temperature TEqWin[n] "Equivalent window temperature";
   Modelica.SIunits.TemperatureDifference delTEqLW
     "Equivalent long wave temperature";
+  Modelica.SIunits.TemperatureDifference delTEqLWWin
+    "Equivalent long wave temperature for windows";
   Modelica.SIunits.TemperatureDifference delTEqSW[n]
     "Equivalent short wave temperature";
 
@@ -51,7 +51,10 @@ partial model PartialVDI6007
     displayUnit="degC") "Equivalent air temperature"
     annotation (Placement(
     transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput sunblind[n]
+  Modelica.Blocks.Interfaces.RealInput sunblind[n](
+    each min=0,
+    each max=1,
+    each final unit="1")
     "Opening factor of sunblinds for each direction (0 - open to 1 - closed)"
     annotation (Placement(
     transformation(
@@ -65,6 +68,18 @@ initial equation
    equivalent air temperature calculation is close to 0.
    If there are no walls, windows and ground at all, this might be
    irrelevant.", level=AssertionLevel.warning);
+
+equation
+  delTEqLW=(TBlaSky-TDryBul)*alphaRad/(alphaRad+alphaWallOut);
+  delTEqSW=HSol*aExt/(alphaRad+alphaWallOut);
+  if withLongwave then
+    TEqWin=TDryBul.+delTEqLWWin*(ones(n)-sunblind);
+    TEqWall=TDryBul.+delTEqLW.+delTEqSW;
+  else
+    TEqWin=TDryBul*ones(n);
+    TEqWall=TDryBul.+delTEqSW;
+  end if;
+
   annotation (  Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-100,-100},{100,100}}),
   graphics={
@@ -104,6 +119,19 @@ initial equation
   </html>",
   revisions="<html>
   <ul>
+  <li>
+  September 26, 2016, by Moritz Lauster:<br/>
+  Removed deprecated parameters and values 
+  0.93 and <code>eExt</code>.<br/>
+  Renamed <code>alphaRadWall</code> to 
+  <code>alphaRad</code>. Deleted 
+  <code>alphaRadWin</code>.<br/>
+  Moved calculations from 
+  <a href=\"modelica://Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007\">
+  Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007</a> and 
+  <a href=\"modelica://Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
+  Annex60.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a> to here.
+  </li>
   <li>
   September 2015, by Moritz Lauster:<br/>
   Got rid of cardinality

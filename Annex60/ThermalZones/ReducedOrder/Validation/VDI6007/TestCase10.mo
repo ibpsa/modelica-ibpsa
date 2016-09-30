@@ -136,8 +136,7 @@ model TestCase10 "VDI 6007 Test Case 10 model"
   EquivalentAirTemperature.VDI6007 eqAirTemp(
     aExt=0.7,
     alphaWallOut=20,
-    alphaRadWall=5,
-    eExt=0.9,
+    alphaRad=5,
     withLongwave=false,
     n=1,
     wfWall={0.04646093176283288},
