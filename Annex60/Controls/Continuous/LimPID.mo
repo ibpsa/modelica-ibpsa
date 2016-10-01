@@ -54,33 +54,61 @@ block LimPID
           "Initialization"));
   parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
-  constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
+
+  parameter Boolean reverseAction = false
+    "Set to true for throttling the water flow rate through a cooling coil controller";
+
+  parameter Annex60.Types.Reset reset = Annex60.Types.Reset.Disabled
+    "Type of controller output reset"
+    annotation(Evaluate=true, Dialog(group="Integrator reset"));
+
+  parameter Real y_reset=xi_start
+    "Value to which the controller output is reset if the boolean trigger has a rising edge, used if reset == Annex60.Types.Reset.Parameter"
+    annotation(Dialog(enable=reset == Annex60.Types.Reset.Parameter,
+                      group="Integrator reset"));
+
+  Modelica.Blocks.Interfaces.BooleanInput trigger if
+       reset <> Annex60.Types.Reset.Disabled
+    "Resets the controller output when trigger becomes true"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-80,-120})));
+
+  Modelica.Blocks.Interfaces.RealInput y_reset_in if
+       reset == Annex60.Types.Reset.Input
+    "Input signal for state to which integrator is reset, enabled if reset = Annex60.Types.Reset.Input"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
   Modelica.Blocks.Math.Add addP(k1=revAct*wp, k2=-revAct) "Adder for P gain"
-                                                          annotation (Placement(
+   annotation (Placement(
         transformation(extent={{-80,40},{-60,60}}, rotation=0)));
   Modelica.Blocks.Math.Add addD(k1=revAct*wd, k2=-revAct) if with_D
-    "Adder for D gain"                                              annotation (Placement(
+    "Adder for D gain"
+    annotation (Placement(
         transformation(extent={{-80,-10},{-60,10}}, rotation=0)));
   Modelica.Blocks.Math.Gain P(k=1) "Proportional term"
                                    annotation (Placement(transformation(extent={
             {-40,40},{-20,60}}, rotation=0)));
   Utilities.Math.IntegratorWithReset I(
-    final use_reset=use_reset,
-    final y_reset=xi_reset,
-    k=unitTime/Ti,
-    y_start=xi_start,
-    initType=if initType == Modelica.Blocks.Types.InitPID.SteadyState then
-        Modelica.Blocks.Types.Init.SteadyState else if initType == Modelica.Blocks.Types.InitPID.InitialState
-         or initType == Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
-         then Modelica.Blocks.Types.Init.InitialState else Modelica.Blocks.Types.Init.NoInit) if
-       with_I "Integral term" annotation (Placement(transformation(extent={{-40,
-            -60},{-20,-40}}, rotation=0)));
+    final reset=if reset == Annex60.Types.Reset.Disabled then reset else Annex60.Types.Reset.Input,
+    final y_reset=y_reset,
+    final k=unitTime/Ti,
+    final y_start=xi_start,
+    final initType=if initType == Modelica.Blocks.Types.InitPID.SteadyState then
+        Modelica.Blocks.Types.Init.SteadyState
+             else if initType == Modelica.Blocks.Types.InitPID.InitialState
+                  or initType == Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
+             then Modelica.Blocks.Types.Init.InitialState
+             else Modelica.Blocks.Types.Init.NoInit) if
+       with_I "Integral term"
+       annotation (Placement(transformation(extent={{-40,
+            -60},{-20,-40}})));
+
   Modelica.Blocks.Continuous.Derivative D(
-    k=Td/unitTime,
-    T=max([Td/Nd,1.e-14]),
-    x_start=xd_start,
-    initType=if initType == Modelica.Blocks.Types.InitPID.SteadyState or
+    final k=Td/unitTime,
+    final T=max([Td/Nd,1.e-14]),
+    final x_start=xd_start,
+    final initType=if initType == Modelica.Blocks.Types.InitPID.SteadyState or
                 initType == Modelica.Blocks.Types.InitPID.InitialOutput
              then
                Modelica.Blocks.Types.Init.SteadyState
@@ -91,72 +119,91 @@ block LimPID
                  Modelica.Blocks.Types.Init.NoInit) if with_D "Derivative term"
                                                      annotation (Placement(
         transformation(extent={{-40,-10},{-20,10}}, rotation=0)));
-  Modelica.Blocks.Math.Gain gainPID(k=k) "Multiplier for control gain"
-                                         annotation (Placement(transformation(
-          extent={{30,-10},{50,10}}, rotation=0)));
+
   Modelica.Blocks.Math.Add3 addPID(
     final k1=1,
     final k2=1,
     final k3=1) "Adder for the gains"
-                                   annotation (Placement(transformation(extent={
-            {0,-10},{20,10}}, rotation=0)));
-  Modelica.Blocks.Math.Add3 addI(k1=revAct, k2=-revAct) if with_I
-    "Adder for I gain"                                            annotation (Placement(
-        transformation(extent={{-80,-60},{-60,-40}}, rotation=0)));
-  Modelica.Blocks.Math.Add addSat(k1=+1, k2=-1) if with_I
-    "Adder for integrator feedback"                       annotation (Placement(
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+
+
+protected
+  constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
+
+  final parameter Real revAct = if reverseAction then -1 else 1
+    "Switch for sign for reverse action";
+
+  parameter Boolean with_I = controllerType==Modelica.Blocks.Types.SimpleController.PI or
+                             controllerType==Modelica.Blocks.Types.SimpleController.PID
+    annotation(Evaluate=true, HideResult=true);
+  parameter Boolean with_D = controllerType==Modelica.Blocks.Types.SimpleController.PD or
+                             controllerType==Modelica.Blocks.Types.SimpleController.PID
+    annotation(Evaluate=true, HideResult=true);
+
+  Modelica.Blocks.Sources.Constant Dzero(k=0) if not with_D
+    annotation(Placement(transformation(extent={{-30,20},{-20,30}})));
+  Modelica.Blocks.Sources.Constant Izero(k=0) if not with_I "Zero input signal"
+    annotation(Placement(transformation(extent={{10,-55},{0,-45}})));
+
+  Modelica.Blocks.Interfaces.RealInput y_reset_internal
+   "Internal connector for controller output reset"
+   annotation(Evaluate=true);
+
+  Modelica.Blocks.Math.Add3 addI(
+    final k1=revAct,
+    final k2=-revAct) if with_I
+    "Adder for I gain"
+       annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+
+  Modelica.Blocks.Math.Add addSat(
+    final k1=+1,
+    final k2=-1) if with_I
+    "Adder for integrator feedback"
+    annotation (Placement(
         transformation(
         origin={80,-50},
         extent={{-10,-10},{10,10}},
         rotation=270)));
+
+  Modelica.Blocks.Math.Gain gainPID(final k=k) "Multiplier for control gain"
+   annotation (Placement(transformation(
+          extent={{30,-10},{50,10}})));
+
   Modelica.Blocks.Math.Gain gainTrack(k=1/(k*Ni)) if with_I
-    "Gain for anti-windup compensation"                     annotation (
-      Placement(transformation(extent={{40,-80},{20,-60}}, rotation=0)));
+    "Gain for anti-windup compensation"
+    annotation (
+      Placement(transformation(extent={{60,-80},{40,-60}}, rotation=0)));
+
   Modelica.Blocks.Nonlinear.Limiter limiter(
     uMax=yMax,
     uMin=yMin,
     strict=strict) "Output limiter"
-                               annotation (Placement(transformation(extent={{70,
-            -10},{90,10}}, rotation=0)));
-protected
-  parameter Boolean with_I = controllerType==Modelica.Blocks.Types.SimpleController.PI or
-                             controllerType==Modelica.Blocks.Types.SimpleController.PID annotation(Evaluate=true, HideResult=true);
-  parameter Boolean with_D = controllerType==Modelica.Blocks.Types.SimpleController.PD or
-                             controllerType==Modelica.Blocks.Types.SimpleController.PID annotation(Evaluate=true, HideResult=true);
-public
-  Modelica.Blocks.Sources.Constant Dzero(k=0) if not with_D annotation (
-      Placement(transformation(extent={{-30,20},{-20,30}}, rotation=0)));
-  Modelica.Blocks.Sources.Constant Izero(k=0) if not with_I "Zero input signal"
-                                                            annotation (
-      Placement(transformation(extent={{10,-55},{0,-45}}, rotation=0)));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
-  parameter Boolean reverseAction = false
-    "Set to true for throttling the water flow rate through a cooling coil controller";
 
-  parameter Boolean use_reset = false
-    "Enables option to trigger a reset for the integrator part"
-    annotation(Evaluate=true, Dialog(group="Integrator reset"));
-
-  parameter Real xi_reset=xi_start
-    "Value to which the integrator output is reset if the boolean trigger has a rising edge"
-    annotation(Dialog(enable=use_reset,
-                      group="Integrator reset"));
-  Modelica.Blocks.Interfaces.BooleanInput reset if  use_reset
-    "Resets optionally the integrator output to its start value when trigger input becomes true. (See also Source Code of LimPID.)"
-    annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));
-protected
-  final parameter Real revAct = if reverseAction then -1 else 1
-    "Switch for sign for reverse action";
+  Modelica.Blocks.Sources.RealExpression intRes(
+    final y=y_reset_internal/k - addPID.u1 - addPID.u2) if
+       reset <> Annex60.Types.Reset.Disabled
+    "Signal source for integrator reset"
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 initial equation
   if initType==Modelica.Blocks.Types.InitPID.InitialOutput then
      gainPID.y = y_start;
   end if;
+
 equation
   assert(yMax >= yMin, "LimPID: Limits must be consistent. However, yMax (=" + String(yMax) +
                        ") < yMin (=" + String(yMin) + ")");
   if initType == Modelica.Blocks.Types.InitPID.InitialOutput and (y_start < yMin or y_start > yMax) then
       Modelica.Utilities.Streams.error("LimPID: Start value y_start (=" + String(y_start) +
          ") is outside of the limits of yMin (=" + String(yMin) +") and yMax (=" + String(yMax) + ")");
+  end if;
+
+  // Equations for conditional connectors
+  connect(y_reset_in, y_reset_internal);
+
+  if reset <> Annex60.Types.Reset.Input then
+    y_reset_internal = y_reset;
   end if;
 
   connect(u_s, addP.u1) annotation (Line(points={{-120,0},{-96,0},{-96,56},{
@@ -187,10 +234,10 @@ equation
           -20},{86,-20},{86,-38}}, color={0,0,127}));
   connect(limiter.y, y)
     annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
-  connect(addSat.y, gainTrack.u) annotation (Line(points={{80,-61},{80,-70},{
-          42,-70}}, color={0,0,127}));
-  connect(gainTrack.y, addI.u3) annotation (Line(points={{19,-70},{-88,-70},{
-          -88,-58},{-82,-58}}, color={0,0,127}));
+  connect(addSat.y, gainTrack.u) annotation (Line(points={{80,-61},{80,-70},{62,
+          -70}},    color={0,0,127}));
+  connect(gainTrack.y, addI.u3) annotation (Line(points={{39,-70},{-88,-70},{-88,
+          -58},{-82,-58}},     color={0,0,127}));
   connect(u_m, addP.u2) annotation (Line(
       points={{0,-120},{0,-92},{-92,-92},{-92,44},{-82,44}},
       color={0,0,127},
@@ -207,8 +254,10 @@ equation
           -14,0},{-2,0}}, color={0,0,127}));
   connect(Izero.y, addPID.u3) annotation (Line(points={{-0.5,-50},{-10,-50},{
           -10,-8},{-2,-8}}, color={0,0,127}));
-  connect(reset, I.reset) annotation (Line(points={{-120,-66},{-54,-66},{-54,-58},
-          {-42,-58}},   color={255,0,255}));
+  connect(trigger, I.trigger) annotation (Line(points={{-80,-120},{-80,-88},{-30,
+          -88},{-30,-62}}, color={255,0,255}));
+  connect(intRes.y, I.y_reset_in) annotation (Line(points={{-59,-80},{-50,-80},{
+          -50,-58},{-42,-58}}, color={0,0,127}));
    annotation (
 defaultComponentName="conPID",
 Documentation(info="<html>
@@ -233,17 +282,34 @@ otherwise the controller output is decreased. Thus,
 </li>
 <li>
 <p>
-It can be configured to enable an input port that allows an integrator reset.
-</p>
+It can be configured to enable an input port that allows resetting the controller
+output. The controller output can be reset as follows:
+<ul>
+<li>
 <p>
-To do so, set <code>use_reset=true</code>, which enables the boolean input port
-<code>reset</code>. Whenever the boolean input
-<code>reset</code> has a rising edge, the output of the
-integrator is reset to the value <code>y_reset</code>.
-This allows for example to reset the integrator in order to start the controller
-with a zero output signal whenever an equipment that it controls is switched on.
-By default, <code>use_reset=false</code>.
+If <code>reset = Annex60.Types.Reset.Disabled</code>, which is the default,
+then the controller output is never reset.
 </p>
+</li>
+<li>
+<p>
+If <code>reset = Annex60.Types.Reset.Parameter</code>, then a boolean
+input signal <code>trigger</code> is enabled. Whenever the value of
+this input changes from <code>false</code> to <code>true</code>,
+the controller output is reset by setting <code>y</code>
+to the value of the parameter <code>y_reset</code>.
+</p>
+</li>
+<li>
+<p>
+If <code>reset = Annex60.Types.Reset.Input</code>, then a boolean
+input signal <code>trigger</code> is enabled. Whenever the value of
+this input changes from <code>false</code> to <code>true</code>,
+the controller output is reset by setting <code>y</code>
+to the value of the input signal <code>y_reset_in</code>.
+</p>
+</li>
+</ul>
 </li>
 <li>
 The parameter <code>limitsAtInit</code> has been removed.
@@ -255,6 +321,10 @@ Some parameters assignments in the instances have been made final.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 29, 2016, by Michael Wetter:<br/>
+Refactored model.
+</li>
 <li>
 August 25, 2016, by Michael Wetter:<br/>
 Removed parameter <code>limitsAtInit</code> because it was only propagated to
@@ -328,16 +398,5 @@ First implementation.
           visible=strict,
           points={{30,60},{81,60}},
           color={255,0,0},
-          smooth=Smooth.None)}),
-    Diagram(graphics={Text(
-          extent={{10,76},{38,46}},
-          lineColor={238,46,47},
-          textString="fixme:
- This would be much more useful if
- xi_reset would not only be a
- parameter, but also optional an input. We could use Types.DataSource with
- enumeration(Parameter, Input). Then,
- one can easily construct a continuous
- output signal with integrator reset.",
-          horizontalAlignment=TextAlignment.Left)}));
+          smooth=Smooth.None)}));
 end LimPID;
