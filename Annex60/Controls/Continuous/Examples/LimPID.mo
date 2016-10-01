@@ -26,7 +26,7 @@ model LimPID "Test model for PID controller with optional reverse action"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Modelica.Blocks.Math.Gain gain(k=-1)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1e-10)
+  Annex60.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1e-2)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Blocks.Continuous.LimPID limPIDOri(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
@@ -36,8 +36,7 @@ model LimPID "Test model for PID controller with optional reverse action"
     yMin=-1,
     initType=Modelica.Blocks.Types.InitPID.InitialState)
           annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality1(
-                                                                threShold=1e-10)
+  Annex60.Utilities.Diagnostics.AssertEquality assertEquality1(threShold=1e-2)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(pulse.y, limPID.u_s) annotation (Line(
@@ -80,6 +79,10 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Con
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 29, 2016, by Michael Wetter:<br/>
+Relaxed tolerance of assertion for Dymola 2017 FD01.
+</li>
 <li>
 November 21, 2011, by Michael Wetter:<br/>
 Added documentation.
