@@ -1,5 +1,5 @@
-within Annex60.Controls.Continuous.Examples;
-model LimPIDWithReset
+within Annex60.Controls.Continuous.Validation;
+model LimPIDReset
   "Test model for PID controller with optional intgerator reset"
   extends Modelica.Icons.Example;
 
@@ -91,7 +91,7 @@ equation
   connect(limPIDDef.y, assEqu.u2) annotation (Line(points={{41,30},{48,30},{48,
           44},{58,44}}, color={0,0,127}));
  annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPIDWithReset.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Continuous/Validation/LimPIDReset.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -121,4 +121,4 @@ with integrator reset enabled. Whenever the boolean pulse input becomes true,
 the integrator is reset to <code>y_reset</code>.
 </p>
 </html>"));
-end LimPIDWithReset;
+end LimPIDReset;
