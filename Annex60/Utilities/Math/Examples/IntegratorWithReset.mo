@@ -1,43 +1,58 @@
 within Annex60.Utilities.Math.Examples;
 model IntegratorWithReset "Test model for integrator with reset"
+  import Annex60;
   extends Modelica.Icons.Example;
-  Modelica.Blocks.Sources.ExpSine expSine(
-    amplitude=100,
-    freqHz=2,
-    damping=15,
-    offset=100) "Exponential sine as source term"
+  Modelica.Blocks.Sources.Constant cons(k=10) "Constant as source term"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   Annex60.Utilities.Math.IntegratorWithReset intWitRes1(
-    use_reset=true, y_start=5)
-                    "Integrator with reset"
+    y_start=5, reset=Annex60.Types.Reset.Parameter,
+    k=0.5,
+    y_reset=2)                                      "Integrator with reset"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
+
   Annex60.Utilities.Math.IntegratorWithReset intWitRes2(
-    use_reset=true, y_reset=10,
-    y_start=-5)
-               "Integrator with reset and y_reset = 2"
-    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
+    y_reset=10,
+    y_start=-5,
+    reset=Annex60.Types.Reset.Input,
+    k=0.5)     "Integrator with reset and y_reset = 2"
+    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Modelica.Blocks.Sources.BooleanPulse booleanPulse(width=50, period=0.2)
     "Boolean pulse"
-    annotation (Placement(transformation(extent={{-60,-28},{-40,-8}})));
-  Annex60.Utilities.Math.IntegratorWithReset intNoReset(use_reset=false)
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+  Annex60.Utilities.Math.IntegratorWithReset intNoReset(
+    reset=Annex60.Types.Reset.Disabled,
+    k=0.5,
+    y_start=1)
     "Integrator without reset"
-    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Modelica.Blocks.Sources.SampleTrigger sampleTrigger(period=0.2)
     "Sample trigger"
-    annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Modelica.Blocks.Sources.Ramp ramp(
+    height=-1,
+    duration=1,
+    offset=-2) "Ramp as a source term"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+  Annex60.Utilities.Math.IntegratorWithReset intDef
+    "Integrator with default values"
+    annotation (Placement(transformation(extent={{-12,-90},{8,-70}})));
 equation
-  connect(expSine.y, intWitRes1.u)
-    annotation (Line(points={{-39,70},{-26,70},{-26,30},{-12,30}},
-                                                 color={0,0,127}));
-  connect(intNoReset.u, expSine.y) annotation (Line(points={{-12,-50},{-12,-50},
-          {-26,-50},{-26,70},{-39,70}}, color={0,0,127}));
-  connect(expSine.y, intWitRes2.u) annotation (Line(points={{-39,70},{-39,70},{-26,
-          70},{-26,-10},{-12,-10}},                       color={0,0,127}));
-  connect(sampleTrigger.y, intWitRes1.reset)
-    annotation (Line(points={{-39,22},{-12,22}}, color={255,0,255}));
-  connect(booleanPulse.y, intWitRes2.reset) annotation (Line(points={{-39,-18},{
-          -26,-18},{-12,-18}}, color={255,0,255}));
+  connect(cons.y, intWitRes1.u) annotation (Line(points={{-39,70},{-26,70},{-26,
+          30},{-12,30}}, color={0,0,127}));
+  connect(intNoReset.u, cons.y) annotation (Line(points={{-12,70},{-12,70},{-28,
+          70},{-39,70}}, color={0,0,127}));
+  connect(cons.y, intWitRes2.u) annotation (Line(points={{-39,70},{-39,70},{-26,
+          70},{-26,-20},{-12,-20}}, color={0,0,127}));
+  connect(sampleTrigger.y, intWitRes1.trigger) annotation (Line(points={{-39,10},
+          {0,10},{0,18}},             color={255,0,255}));
+  connect(booleanPulse.y, intWitRes2.trigger)
+    annotation (Line(points={{-39,-60},{0,-60},{0,-32}},   color={255,0,255}));
+  connect(ramp.y, intWitRes2.y_reset_in) annotation (Line(points={{-39,-20},{
+          -39,-20},{-34,-20},{-34,-28},{-12,-28}},
+                                     color={0,0,127}));
+  connect(cons.y, intDef.u) annotation (Line(points={{-39,70},{-26,70},{-26,-80},
+          {-14,-80}}, color={0,0,127}));
 annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/IntegratorWithReset.mos"
         "Simulate and plot"),
@@ -46,7 +61,8 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Ma
 This model tests the implementation of
 <a href=\"modelica://Annex60.Utilities.Math.IntegratorWithReset\">
 Annex60.Utilities.Math.IntegratorWithReset</a>
-with and without reset, and with different values for the integrator reset.
+with and without reset, and with different start values
+and reset values.
 </p>
 <p>
 The integrator <code>intWitRes1</code> is triggered by a sample trigger
@@ -57,11 +73,15 @@ Hence, <code>intWitRes1</code> starts with <code>y(0)=y_reset</code> while
 </html>", revisions="<html>
 <ul>
 <li>
+September 29, 2016, by Michael Wetter:<br/>
+Added more test cases and adapted model to new parameterization.
+</li>
+<li>
 August 23, 2016, by Michael Wetter:<br/>
 Extended example to test initialization.
 </li>
 <li>
-August 02, 2016, by Philipp Mehrfeld:<br/>
+August 2, 2016, by Philipp Mehrfeld:<br/>
 First implementation.
 </li>
 </ul>
