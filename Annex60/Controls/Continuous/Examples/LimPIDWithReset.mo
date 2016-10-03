@@ -27,51 +27,48 @@ protected
 
     Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap(C=10, T(fixed=true,
           start=293.15)) "Heat capacitor"
-      annotation (Placement(transformation(extent={{0,0},{20,20}})));
+      annotation (Placement(transformation(extent={{-38,0},{-18,20}})));
     Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
       "Temperature sensor"
-      annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-    Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
-      "Heat flow sensor"
-      annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+      annotation (Placement(transformation(extent={{50,-10},{70,10}})));
     Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
       "Prescribed heat flow rate"
-      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+      annotation (Placement(transformation(extent={{-78,-10},{-58,10}})));
     Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W") annotation (Placement(
           transformation(extent={{-120,-10},{-100,10}})));
     Modelica.Blocks.Interfaces.RealOutput T(unit="K") annotation (Placement(
           transformation(extent={{100,-10},{120,10}})));
     Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=5)
       "Thermal conductor"
-      annotation (Placement(transformation(extent={{-28,-50},{-8,-30}})));
+      annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
     Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBou(T=293.15)
       "Boundary condition"
-      annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+      annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
     Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon1(G=1)
       "Thermal conductor"
-      annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+      annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap1(C=10, T(fixed=true,
           start=293.15)) "Heat capacitor"
-      annotation (Placement(transformation(extent={{44,0},{64,20}})));
+      annotation (Placement(transformation(extent={{20,0},{40,20}})));
   equation
-    connect(preHea.port,heaFloSen. port_a)
-      annotation (Line(points={{-40,0},{-30,0}}, color={191,0,0}));
-    connect(heaFloSen.port_b,cap. port)
-      annotation (Line(points={{-10,0},{0,0},{10,0}},    color={191,0,0}));
     connect(Q_flow, preHea.Q_flow)
-      annotation (Line(points={{-110,0},{-96,0},{-60,0}}, color={0,0,127}));
+      annotation (Line(points={{-110,0},{-78,0}},         color={0,0,127}));
     connect(T, temSen.T)
-      annotation (Line(points={{110,0},{90,0}},        color={0,0,127}));
+      annotation (Line(points={{110,0},{70,0}},        color={0,0,127}));
     connect(TBou.port, theCon.port_a)
-      annotation (Line(points={{-40,-40},{-34,-40},{-28,-40}}, color={191,0,0}));
+      annotation (Line(points={{-60,-40},{-60,-40},{-50,-40}}, color={191,0,0}));
     connect(cap.port, theCon1.port_a)
-      annotation (Line(points={{10,0},{20,0}}, color={191,0,0}));
+      annotation (Line(points={{-28,0},{-28,0},{-10,0}},
+                                               color={191,0,0}));
     connect(theCon1.port_b, cap1.port)
-      annotation (Line(points={{40,0},{54,0}}, color={191,0,0}));
+      annotation (Line(points={{10,0},{30,0}}, color={191,0,0}));
     connect(cap1.port, temSen.port)
-      annotation (Line(points={{54,0},{62,0},{70,0}}, color={191,0,0}));
+      annotation (Line(points={{30,0},{30,0},{50,0}}, color={191,0,0}));
     connect(theCon.port_b, cap.port)
-      annotation (Line(points={{-8,-40},{10,-40},{10,0}}, color={191,0,0}));
+      annotation (Line(points={{-30,-40},{-30,-40},{-20,-40},{-20,0},{-28,0}},
+                                                          color={191,0,0}));
+    connect(preHea.port, cap.port)
+      annotation (Line(points={{-58,0},{-28,0}}, color={191,0,0}));
     annotation (Documentation(info="<html>
 <p>
 Plant model for
