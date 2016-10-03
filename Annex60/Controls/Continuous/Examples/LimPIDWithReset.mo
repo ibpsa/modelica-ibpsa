@@ -153,6 +153,10 @@ Controller model for
 <a href=\"modelica://Annex60.Controls.Continuous.Examples.LimPIDWithReset\">
 Annex60.Controls.Continuous.Examples.LimPIDWithReset</a>.
 </p>
+<p>
+The controller is reset whenever the input signal becomes bigger than
+<i>30</i>&deg;C.
+</p>
 <h4>Implementation</h4>
 <p>
 To compare the effect of the controller output reset, the plant and control
