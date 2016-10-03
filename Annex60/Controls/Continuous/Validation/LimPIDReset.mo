@@ -98,11 +98,11 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Con
 <li>
 September 29, 2016, by Michael Wetter:<br/>
 Revised example to increase code coverage.
-</li> 
+</li>
 <li>
 August 25, 2016, by Michael Wetter:<br/>
 Revised documentation and added script for regression test.
-</li>    
+</li>
 <li>
 August 02, 2016, by Philipp Mehrfeld:<br/>
 First implementation.
