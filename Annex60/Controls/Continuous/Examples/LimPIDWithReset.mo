@@ -4,15 +4,13 @@ model LimPIDWithReset
   extends Modelica.Icons.Example;
 
   Plant plaWitRes "Plant connected to controller with reset" annotation (
-      Placement(transformation(rotation=0, extent={{20,40},{40,60}})));
+      Placement(transformation(extent={{20,40},{40,60}})));
   Controller conWitRes(reset=Annex60.Types.Reset.Parameter)
-    "Controller with reset" annotation (Placement(transformation(rotation=0,
-          extent={{-40,40},{-20,60}})));
+    "Controller with reset" annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Plant plaNoRes "Plant connected to controller without reset" annotation (
-      Placement(transformation(rotation=0, extent={{20,-20},{40,0}})));
+      Placement(transformation(extent={{20,-20},{40,0}})));
   Controller conNoRes(reset=Annex60.Types.Reset.Disabled)
-    "Controller without reset" annotation (Placement(transformation(rotation=0,
-          extent={{-40,-20},{-20,0}})));
+    "Controller without reset" annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Modelica.Blocks.Sources.Pulse TSet(
     amplitude=20,
     width=50,
@@ -40,9 +38,9 @@ protected
       "Prescribed heat flow rate"
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W") annotation (Placement(
-          transformation(rotation=0, extent={{-120,-10},{-100,10}})));
+          transformation(extent={{-120,-10},{-100,10}})));
     Modelica.Blocks.Interfaces.RealOutput T(unit="K") annotation (Placement(
-          transformation(rotation=0, extent={{100,-10},{120,10}})));
+          transformation(extent={{100,-10},{120,10}})));
     Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=5)
       "Thermal conductor"
       annotation (Placement(transformation(extent={{-28,-50},{-8,-30}})));
@@ -130,7 +128,7 @@ First implementation.
       annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
     Modelica.Blocks.Interfaces.RealOutput y annotation (Placement(transformation(
-            rotation=0, extent={{100,-10},{120,10}}), iconTransformation(extent={{
+            extent={{100,-10},{120,10}}), iconTransformation(extent={{
               100,-10},{120,10}})));
 
   equation

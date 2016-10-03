@@ -121,7 +121,7 @@ Annex60.Utilities.Math.Examples.IntegratorWithReset</a> for an example.
 To adjust the icon layer, the code of
 <a href=\"modelica://Modelica.Blocks.Continuous.Integrator\">
 Modelica.Blocks.Continuous.Integrator</a>
-has been copied into this model rather than extended. 
+has been copied into this model rather than extended.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -170,8 +170,5 @@ Icon(coordinateSystem(
             extent={{70,-14},{370,26}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          textString="y")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}})));
+          textString="y")}));
 end IntegratorWithReset;

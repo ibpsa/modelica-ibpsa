@@ -81,13 +81,13 @@ block LimPID
 
   Modelica.Blocks.Math.Add addP(k1=revAct*wp, k2=-revAct) "Adder for P gain"
    annotation (Placement(
-        transformation(extent={{-80,40},{-60,60}}, rotation=0)));
+        transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Math.Add addD(k1=revAct*wd, k2=-revAct) if with_D
     "Adder for D gain"
     annotation (Placement(
-        transformation(extent={{-80,-10},{-60,10}}, rotation=0)));
+        transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Math.Gain P(k=1) "Proportional term"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Utilities.Math.IntegratorWithReset I(
     final reset=if reset == Annex60.Types.Reset.Disabled then reset else Annex60.Types.Reset.Input,
     final y_reset=y_reset,
@@ -116,7 +116,7 @@ block LimPID
                else
                  Modelica.Blocks.Types.Init.NoInit) if with_D "Derivative term"
                                                      annotation (Placement(
-        transformation(extent={{-40,-10},{-20,10}}, rotation=0)));
+        transformation(extent={{-40,-10},{-20,10}})));
 
   Modelica.Blocks.Math.Add3 addPID(
     final k1=1,
@@ -172,7 +172,7 @@ protected
   Modelica.Blocks.Math.Gain gainTrack(k=1/(k*Ni)) if with_I
     "Gain for anti-windup compensation"
     annotation (
-      Placement(transformation(extent={{60,-80},{40,-60}}, rotation=0)));
+      Placement(transformation(extent={{60,-80},{40,-60}})));
 
   Modelica.Blocks.Nonlinear.Limiter limiter(
     final uMax=yMax,
