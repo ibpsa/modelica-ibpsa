@@ -87,8 +87,7 @@ block LimPID
     annotation (Placement(
         transformation(extent={{-80,-10},{-60,10}}, rotation=0)));
   Modelica.Blocks.Math.Gain P(k=1) "Proportional term"
-                                   annotation (Placement(transformation(extent={
-            {-40,40},{-20,60}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}}, rotation=0)));
   Utilities.Math.IntegratorWithReset I(
     final reset=if reset == Annex60.Types.Reset.Disabled then reset else Annex60.Types.Reset.Input,
     final y_reset=y_reset,
@@ -101,8 +100,7 @@ block LimPID
              then Modelica.Blocks.Types.Init.InitialState
              else Modelica.Blocks.Types.Init.NoInit) if
        with_I "Integral term"
-       annotation (Placement(transformation(extent={{-40,
-            -60},{-20,-40}})));
+       annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Modelica.Blocks.Continuous.Derivative D(
     final k=Td/unitTime,
@@ -126,7 +124,6 @@ block LimPID
     final k3=1) "Adder for the gains"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-
 protected
   constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
 
@@ -140,10 +137,13 @@ protected
                              controllerType==Modelica.Blocks.Types.SimpleController.PID
     annotation(Evaluate=true, HideResult=true);
 
-  Modelica.Blocks.Sources.Constant Dzero(k=0) if not with_D
-    annotation(Placement(transformation(extent={{-30,20},{-20,30}})));
-  Modelica.Blocks.Sources.Constant Izero(k=0) if not with_I "Zero input signal"
-    annotation(Placement(transformation(extent={{10,-55},{0,-45}})));
+  Modelica.Blocks.Sources.Constant Dzero(final k=0) if not with_D
+    annotation(Evaluate=true, HideResult=true,
+               Placement(transformation(extent={{-30,20},{-20,30}})));
+
+  Modelica.Blocks.Sources.Constant Izero(final k=0) if not with_I "Zero input signal"
+    annotation(Evaluate=true, HideResult=true,
+               Placement(transformation(extent={{10,-55},{0,-45}})));
 
   Modelica.Blocks.Interfaces.RealInput y_reset_internal
    "Internal connector for controller output reset"
@@ -175,9 +175,9 @@ protected
       Placement(transformation(extent={{60,-80},{40,-60}}, rotation=0)));
 
   Modelica.Blocks.Nonlinear.Limiter limiter(
-    uMax=yMax,
-    uMin=yMin,
-    strict=strict) "Output limiter"
+    final uMax=yMax,
+    final uMin=yMin,
+    final strict=strict) "Output limiter"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
 
@@ -310,6 +310,15 @@ to the value of the input signal <code>y_reset_in</code>.
 </p>
 </li>
 </ul>
+<p>
+Note that this controller implements an integrator anti-windup. Therefore,
+for most applications, keeping the default setting of
+<code>reset = Annex60.Types.Reset.Disabled</code> is sufficient.
+Examples where it may be beneficial to reset the controller output are situations
+where the equipment control input should continuously increase as the equipment is
+switched on, such as as a light dimmer that may slowly increase the luminance, or
+a variable speed drive of a motor that should continuously increase the speed.
+</p>
 </li>
 <li>
 The parameter <code>limitsAtInit</code> has been removed.
