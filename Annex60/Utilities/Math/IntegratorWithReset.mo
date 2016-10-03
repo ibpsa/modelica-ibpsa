@@ -1,6 +1,7 @@
 within Annex60.Utilities.Math;
 block IntegratorWithReset "Output the integral of the input signal"
   import Modelica.Blocks.Types.Init;
+
   parameter Real k(unit="1")=1 "Integrator gain";
 
   /* InitialState is the default, because it was the default in Modelica 2.2
@@ -153,26 +154,24 @@ Icon(coordinateSystem(
           lineColor={0,0,0},
           textString="y_reset",
           horizontalAlignment=TextAlignment.Left),
-        Bitmap(extent={{-62,-56},{66,64}}, fileName=
+        Bitmap(extent={{-54,-50},{60,50}}, fileName=
               "modelica://Annex60/Resources/Images/Utilities/Math/int.png"),
           Text(
             extent={{-88,56},{206,92}},
           lineColor={0,0,0},
           textString="k=%k",
-          horizontalAlignment=TextAlignment.Left)}),
+          horizontalAlignment=TextAlignment.Left),
+          Text(
+            extent={{-92,-12},{208,28}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          textString="u"),
+          Text(
+            extent={{70,-14},{370,26}},
+          lineColor={0,0,0},
+          horizontalAlignment=TextAlignment.Left,
+          textString="y")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}), graphics={
-        Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
-        Line(points={{-100,0},{-60,0}}, color={0,0,255}),
-        Line(points={{60,0},{100,0}}, color={0,0,255}),
-        Text(
-          extent={{-36,60},{32,2}},
-          lineColor={0,0,0},
-          textString="k"),
-        Text(
-          extent={{-32,0},{36,-58}},
-          lineColor={0,0,0},
-          textString="s"),
-        Line(points={{-46,0},{46,0}})}));
+        extent={{-100,-100},{100,100}})));
 end IntegratorWithReset;
