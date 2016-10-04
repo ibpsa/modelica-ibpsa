@@ -1,5 +1,6 @@
 within Annex60.ThermalZones.ReducedOrder.Examples;
-model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
+model SimpleRoomThreeElements
+  "Illustrates the use of a thermal zone with three heat conduction elements"
   extends Modelica.Icons.Example;
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -221,15 +222,15 @@ equation
     thickness=0.5));
   connect(perRad.port, thermalZoneThreeElements.intGainsRad)
     annotation (
-    Line(points={{68,-32},{84,-32},{100,-32},{100,24},{92.2,24}},
+    Line(points={{68,-32},{84,-32},{100,-32},{100,24},{92,24}},
     color={191,0,0}));
   connect(theConWin.solid, thermalZoneThreeElements.window)
-    annotation (Line(points={{38,21},{40,21},{40,20},{43.8,20}}, color=
+    annotation (Line(points={{38,21},{40,21},{40,20},{44,20}},   color=
     {191,0,0}));
   connect(preTem1.port, theConWin.fluid)
     annotation (Line(points={{20,20},{28,20},{28,21}}, color={191,0,0}));
   connect(thermalZoneThreeElements.extWall, theConWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},
+    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}},
     color={191,0,0}));
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -259,8 +260,7 @@ equation
     -22},{67,-22},{67,-19.2}}, color={0,0,127}));
   connect(corGDouPan.solarRadWinTrans, thermalZoneThreeElements.solRad)
     annotation (Line(points={{27,64},{40,64},{40,31},{43,31}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-  -100},{100,100}})), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
   <p>This example shows the application of
   <a href=\"Annex60.ThermalZones.ReducedOrder.RC.ThreeElements\">
   Annex60.ThermalZones.ReducedOrder.RC.ThreeElements</a>
@@ -299,8 +299,6 @@ equation
   </ul>
   </html>"),
   experiment(StopTime=3.1536e+007, Interval=3600),
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-  100}})),
   __Dymola_Commands(file=
   "modelica://Annex60/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomThreeElements.mos"
         "Simulate and plot"));

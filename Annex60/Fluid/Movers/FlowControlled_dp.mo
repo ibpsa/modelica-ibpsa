@@ -157,7 +157,7 @@ and
 <a href=\"modelica://Annex60.Fluid.Movers.FlowControlled_y\">
 Annex60.Fluid.Movers.FlowControlled_y</a>.<br/>
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/457\">
 issue 457</a>.
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
