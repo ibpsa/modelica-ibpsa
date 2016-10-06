@@ -91,9 +91,10 @@ public
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlowMod tau_used(length=length, diameter=
+  BaseClasses.TimeDelay           tau_used(               diameter=
         diameter,
-    rho=rho_default)
+    rho=rho_default,
+    len=length)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));

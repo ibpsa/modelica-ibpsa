@@ -94,7 +94,7 @@ public
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlow tau_used(diameter=diameter,
+  BaseClasses.TimeDelay        tau_used(diameter=diameter,
     len=length,
     rho=rho_default)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
