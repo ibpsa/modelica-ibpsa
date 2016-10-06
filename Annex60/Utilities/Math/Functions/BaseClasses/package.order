@@ -5,3 +5,4 @@ der_regNonZeroPower
 der_smoothTransition
 der_spliceFunction
 smoothTransition
+der_inverseXRegularized
