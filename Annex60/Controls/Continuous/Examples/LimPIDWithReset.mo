@@ -24,20 +24,32 @@ protected
     "Plant model"
     extends Modelica.Blocks.Icons.Block;
 
+    Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
+      "Heat flow rate added to system"
+      annotation (Placement(
+          transformation(extent={{-120,-10},{-100,10}})));
+    Modelica.Blocks.Interfaces.RealOutput T(unit="K")
+      "Controlled temperature"
+      annotation (Placement(
+          transformation(extent={{100,-10},{120,10}})));
 
-    Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap(C=10, T(fixed=true,
-          start=293.15)) "Heat capacitor"
+    Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap(
+      C=10,
+      T(fixed=true,
+        start=293.15)) "Heat capacitor"
       annotation (Placement(transformation(extent={{-38,0},{-18,20}})));
+    Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap1(
+      C=10,
+      T(fixed=true,
+          start=293.15)) "Heat capacitor"
+      annotation (Placement(transformation(extent={{20,0},{40,20}})));
+
     Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
       "Temperature sensor"
       annotation (Placement(transformation(extent={{50,-10},{70,10}})));
     Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
       "Prescribed heat flow rate"
       annotation (Placement(transformation(extent={{-78,-10},{-58,10}})));
-    Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W") annotation (Placement(
-          transformation(extent={{-120,-10},{-100,10}})));
-    Modelica.Blocks.Interfaces.RealOutput T(unit="K") annotation (Placement(
-          transformation(extent={{100,-10},{120,10}})));
     Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=5)
       "Thermal conductor"
       annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
@@ -47,9 +59,7 @@ protected
     Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon1(G=1)
       "Thermal conductor"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-    Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap1(C=10, T(fixed=true,
-          start=293.15)) "Heat capacitor"
-      annotation (Placement(transformation(extent={{20,0},{40,20}})));
+
   equation
     connect(Q_flow, preHea.Q_flow)
       annotation (Line(points={{-110,0},{-78,0}},         color={0,0,127}));
@@ -94,6 +104,7 @@ First implementation.
 
   model Controller "PID controller with optional output reset"
     extends Modelica.Blocks.Icons.Block;
+
     parameter Types.Reset reset=Annex60.Types.Reset.Disabled
       "Type of controller output reset";
 
@@ -109,13 +120,19 @@ First implementation.
           rotation=90,
           origin={0,-110})));
 
+    Modelica.Blocks.Interfaces.RealOutput y
+      "Control signal"
+      annotation (Placement(transformation(
+            extent={{100,-10},{120,10}}), iconTransformation(extent={{
+              100,-10},{120,10}})));
+
     Annex60.Controls.Continuous.LimPID conPID(
       final reset=reset,
       yMax=1,
       yMin=0,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=1,
-      k=10) "PID controller"
+      k=10) "PI controller"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Modelica.Blocks.Math.Gain gain(k=5000)
                                           "Gain for heat flow rate"
@@ -123,10 +140,6 @@ First implementation.
     Modelica.Blocks.Logical.GreaterThreshold trigger(threshold=303.15)
       "Trigger input for controller reset"
       annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-
-    Modelica.Blocks.Interfaces.RealOutput y annotation (Placement(transformation(
-            extent={{100,-10},{120,10}}), iconTransformation(extent={{
-              100,-10},{120,10}})));
 
   equation
     connect(conPID.y,gain. u)
