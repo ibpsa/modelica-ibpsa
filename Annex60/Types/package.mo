@@ -31,11 +31,25 @@ Use this setting to use reset the integrator to the value of the parameter.
 from the input signal.
 </td></tr>
  </table>
+</html>", revisions="<html>
+<ul>
+<li>
+September 29, 2016, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains type definitions.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 30 2010, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Types;
