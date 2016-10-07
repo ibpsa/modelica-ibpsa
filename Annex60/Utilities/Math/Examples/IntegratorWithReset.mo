@@ -1,6 +1,5 @@
 within Annex60.Utilities.Math.Examples;
 model IntegratorWithReset "Test model for integrator with reset"
-  import Annex60;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Constant cons(k=10) "Constant as source term"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
