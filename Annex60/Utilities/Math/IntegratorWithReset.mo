@@ -1,6 +1,6 @@
 within Annex60.Utilities.Math;
 block IntegratorWithReset "Output the integral of the input signal"
-  import Modelica.Blocks.Types.Init;
+  extends Modelica.Blocks.Interfaces.SISO(y(start=y_start));
 
   parameter Real k(unit="1")=1 "Integrator gain";
 
@@ -15,16 +15,15 @@ block IntegratorWithReset "Output the integral of the input signal"
   parameter Real y_start=0 "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
 
-  extends Modelica.Blocks.Interfaces.SISO(y(start=y_start));
-
   parameter Annex60.Types.Reset reset = Annex60.Types.Reset.Disabled
     "Type of integrator reset";
 
   parameter Real y_reset = 0
     "Value to which integrator is reset, used if reset = Annex60.Types.Reset.Parameter"
     annotation(Evaluate=true,
-               enable=reset == Annex60.Types.Reset.Input.Parameter,
-               Dialog(group="Integrator reset"));
+               Dialog(
+                 enable=reset == Annex60.Types.Reset.Input.Parameter,
+                 group="Integrator reset"));
 
   Modelica.Blocks.Interfaces.RealInput y_reset_in if
        reset == Annex60.Types.Reset.Input
@@ -48,10 +47,10 @@ protected
     "Needed to use conditional connector trigger";
 
 initial equation
-  if initType == Init.SteadyState then
+  if initType == Modelica.Blocks.Types.Init.SteadyState then
      der(y) = 0;
-  elseif initType == Init.InitialState or
-         initType == Init.InitialOutput then
+  elseif initType == Modelica.Blocks.Types.Init.InitialState or
+         initType == Modelica.Blocks.Types.Init.InitialOutput then
     y = y_start;
   end if;
 
