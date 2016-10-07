@@ -132,16 +132,20 @@ protected
 
   parameter Boolean with_I = controllerType==Modelica.Blocks.Types.SimpleController.PI or
                              controllerType==Modelica.Blocks.Types.SimpleController.PID
+    "Boolean flag to enable integral action"
     annotation(Evaluate=true, HideResult=true);
   parameter Boolean with_D = controllerType==Modelica.Blocks.Types.SimpleController.PD or
                              controllerType==Modelica.Blocks.Types.SimpleController.PID
+    "Boolean flag to enable derivative action"
     annotation(Evaluate=true, HideResult=true);
 
   Modelica.Blocks.Sources.Constant Dzero(final k=0) if not with_D
+    "Zero input signal"
     annotation(Evaluate=true, HideResult=true,
                Placement(transformation(extent={{-30,20},{-20,30}})));
 
-  Modelica.Blocks.Sources.Constant Izero(final k=0) if not with_I "Zero input signal"
+  Modelica.Blocks.Sources.Constant Izero(final k=0) if not with_I
+    "Zero input signal"
     annotation(Evaluate=true, HideResult=true,
                Placement(transformation(extent={{10,-55},{0,-45}})));
 
@@ -186,6 +190,7 @@ protected
        reset <> Annex60.Types.Reset.Disabled
     "Signal source for integrator reset"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+
 initial equation
   if initType==Modelica.Blocks.Types.InitPID.InitialOutput then
      gainPID.y = y_start;
