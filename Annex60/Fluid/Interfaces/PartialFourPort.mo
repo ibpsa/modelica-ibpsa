@@ -9,7 +9,7 @@ partial model PartialFourPort "Partial model with four ports"
       annotation (choicesAllMatching = true);
 
   parameter Boolean allowFlowReversal1 = true
-    "= = false to simplify equations, assuming, but not enforcing, no flow reversal in medium 1"
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal in medium 1"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Boolean allowFlowReversal2 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal in medium 2"
