@@ -10,6 +10,9 @@ block TWetBul_TDryBulXi
 
   parameter Boolean approximateWetBulb=false
     "Set to true to approximate wet bulb temperature" annotation (Evaluate=true);
+  Modelica.SIunits.MassFraction XiSat(start=0.01,
+                                      nominal=0.01)
+    "Water vapor mass fraction at saturation";
 
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     start=303,
@@ -36,9 +39,6 @@ protected
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
 
-  Modelica.SIunits.MassFraction XiSat(start=0.01,
-                                      nominal=0.01)
-    "Water vapor mass fraction at saturation";
   Modelica.SIunits.MassFraction XiSatRefIn
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 
@@ -71,9 +71,9 @@ equation
   else
     XiSatRefIn=(1-Xi[iWat])*XiSat/(1-XiSat);
     XiSat  = IDEAS.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=  IDEAS.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
-      p=     p,
-      phi=   1);
+      pSat = IDEAS.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
+      p =    p,
+      phi =  1);
     (TWetBul-IDEAS.Utilities.Psychrometrics.Constants.T_ref) * (
               (1-Xi[iWat]) * IDEAS.Utilities.Psychrometrics.Constants.cpAir +
               XiSatRefIn * IDEAS.Utilities.Psychrometrics.Constants.cpSte +
