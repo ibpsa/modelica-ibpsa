@@ -105,7 +105,7 @@ First implementation.
   model Controller "PID controller with optional output reset"
     extends Modelica.Blocks.Icons.Block;
 
-    parameter Types.Reset reset=Annex60.Types.Reset.Disabled
+    parameter Annex60.Types.Reset reset=Annex60.Types.Reset.Disabled
       "Type of controller output reset";
 
     Modelica.Blocks.Interfaces.RealInput TSet(unit="K") "Temperature set point"
@@ -173,6 +173,11 @@ twice in the system model with the appropriate control settings.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+October 10, 2016, by Michael Wetter:<br/>
+Added full path in the type declaration.<br/>
+This is for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/540\">issue 540</a>.
+</li>
 <li>
 October 3, 2016, by Michael Wetter:<br/>
 First implementation.
