@@ -4,7 +4,7 @@ model Damper
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Air;
 
-  Annex60.Fluid.Actuators.Dampers.Exponential res(
+  Exponential                                 res(
   redeclare package Medium = Medium,
     m_flow_nominal=1,
     filteredOpening=false)

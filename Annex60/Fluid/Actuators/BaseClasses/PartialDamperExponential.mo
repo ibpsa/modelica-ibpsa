@@ -3,18 +3,14 @@ partial model PartialDamperExponential
   "Partial model for air dampers with exponential opening characteristics"
    extends Annex60.Fluid.BaseClasses.PartialResistance(
       m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
-      eta_default*ReC*sqrt(area)*facRouDuc);
+      eta_default*ReC*sqrt(A)*facRouDuc);
    extends Annex60.Fluid.Actuators.BaseClasses.ActuatorSignal;
  parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
  parameter Real deltaM = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
    annotation(Dialog(enable=use_deltaM));
- parameter Boolean use_v_nominal = true
-    "Set to true to use face velocity to compute area";
- parameter Modelica.SIunits.Velocity v_nominal=1 "Nominal face velocity"
-   annotation(Dialog(enable=use_v_nominal));
- parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
+ parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/1
     "Face area"
    annotation(Dialog(enable=not use_v_nominal));
  parameter Boolean roundDuct = false
@@ -59,9 +55,6 @@ protected
     (Modelica.Math.log(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1)}
     "Polynomial coefficients for curve fit for y > yu";
  parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
- parameter Modelica.SIunits.Area area=
-    if use_v_nominal then m_flow_nominal/rho_default/v_nominal else A
-    "Face velocity used in the computation";
 initial equation
   assert(k0 > k1, "k0 must be bigger than k1.");
   assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
@@ -71,7 +64,7 @@ equation
         else
           Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   // flow coefficient, k=m_flow/sqrt(dp)
-  kDam=sqrt(2*rho)*area/Annex60.Fluid.Actuators.BaseClasses.exponentialDamper(
+  kDam=sqrt(2*rho)*A/Annex60.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=y_actual,
     a=a,
     b=b,
