@@ -27,7 +27,7 @@ model Damper
     T=293.15)                                       annotation (Placement(
         transformation(extent={{74,10},{54,30}})));
 
-  Exponential res_linear(
+  Exponential resLinear(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     filteredOpening=false,
@@ -43,12 +43,12 @@ equation
   connect(sin.ports[1], res.port_b) annotation (Line(
       points={{54,22},{20,22}},
       color={0,127,255}));
-  connect(res_linear.port_b, sin.ports[2]) annotation (Line(points={{20,-20},{32,
+  connect(resLinear.port_b, sin.ports[2]) annotation (Line(points={{20,-20},{32,
           -20},{32,18},{54,18}}, color={0,127,255}));
-  connect(res_linear.port_a, sou.ports[2]) annotation (Line(points={{0,-20},{-20,
+  connect(resLinear.port_a, sou.ports[2]) annotation (Line(points={{0,-20},{-20,
           -20},{-20,18},{-48,18}}, color={0,127,255}));
-  connect(yRam.y, res_linear.y) annotation (Line(points={{1,50},{26,50},{26,-2},
-          {10,-2},{10,-8}}, color={0,0,127}));
+  connect(yRam.y, resLinear.y) annotation (Line(points={{1,50},{26,50},{26,-2},{
+          10,-2},{10,-8}}, color={0,0,127}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),
@@ -62,7 +62,7 @@ pressures. The control signal of the damper is a ramp.
 <ul>
 <li>
 October 12, 2016 by David Blum:<br/>
-Added damper <code>res_linear</code> with <code>linearized=true</code>.
+Added damper <code>resLinear</code> with <code>linearized=true</code>.
 </li>
 <li>
 July 20, 2007 by Michael Wetter:<br/>
