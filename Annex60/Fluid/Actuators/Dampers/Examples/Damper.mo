@@ -1,6 +1,6 @@
 within Annex60.Fluid.Actuators.Dampers.Examples;
 model Damper
-  "Damper with constant pressure difference and varying control signal"
+  "Dampers with constant pressure difference and varying control signal.  One damper uses a linear relation between mass flow and pressure drop."
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Air;
 
@@ -43,10 +43,10 @@ equation
   connect(sin.ports[1], res.port_b) annotation (Line(
       points={{54,22},{20,22}},
       color={0,127,255}));
-  connect(res_linear.port_b, sin.ports[2]) annotation (Line(points={{20,-20},{
-          32,-20},{32,18},{54,18}}, color={0,127,255}));
-  connect(res_linear.port_a, sou.ports[2]) annotation (Line(points={{0,-20},{
-          -20,-20},{-20,18},{-48,18}}, color={0,127,255}));
+  connect(res_linear.port_b, sin.ports[2]) annotation (Line(points={{20,-20},{32,
+          -20},{32,18},{54,18}}, color={0,127,255}));
+  connect(res_linear.port_a, sou.ports[2]) annotation (Line(points={{0,-20},{-20,
+          -20},{-20,18},{-48,18}}, color={0,127,255}));
   connect(yRam.y, res_linear.y) annotation (Line(points={{1,50},{26,50},{26,-2},
           {10,-2},{10,-8}}, color={0,0,127}));
     annotation (experiment(StopTime=1.0),
@@ -54,12 +54,16 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Actuat
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-Test model for the air damper.
-The air damper is connected to models for constant inlet and outlet
+Test model for the air damper with and without linearization of the pressure-flow relationship.
+The air dampers are connected to models for constant inlet and outlet
 pressures. The control signal of the damper is a ramp.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 12, 2016 by David Blum:<br/>
+Added damper <code>res_linear</code> with <code>linearized=true</code>.
+</li>
 <li>
 July 20, 2007 by Michael Wetter:<br/>
 First implementation.

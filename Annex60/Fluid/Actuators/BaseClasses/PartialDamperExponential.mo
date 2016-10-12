@@ -122,6 +122,14 @@ Annex60.Fluid.Actuators.Dampers.Exponential</a>.
 revisions="<html>
 <ul>
 <li>
+October 12, 2016 by David Blum:<br/>
+Removed parameters <code>use_v_nominal</code> and <code>v_nominal</code>, 
+along with variable <code>area</code>, to simplify parameterization 
+of the model.  Also added assertion statements upon initialization
+for parameters <code>k0</code> and <code>k1</code> so that they fall within
+suggested ranges found in ASHRAE 825-RP.
+</li>
+<li>
 January 27, 2015 by Michael Wetter:<br/>
 Set <code>Evaluate=true</code> for <code>use_constant_density</code>.
 This is a structural parameter. Adding this annotation leads to fewer
