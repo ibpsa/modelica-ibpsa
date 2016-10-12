@@ -5,8 +5,7 @@ model Damper
   package Medium = Annex60.Media.Air;
 
   Annex60.Fluid.Actuators.Dampers.Exponential res(
-    A=1,
-    redeclare package Medium = Medium,
+  redeclare package Medium = Medium,
     m_flow_nominal=1,
     filteredOpening=false)
          annotation (Placement(transformation(extent={{0,10},{20,30}})));
@@ -15,14 +14,14 @@ model Damper
     offset=0,
     startTime=0.2,
     height=1)    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Annex60.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
-      = Medium,
+  Annex60.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
+        Medium,
     nPorts=1,
     p(displayUnit="Pa") = 101335,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-68,10},{-48,30}})));
-  Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
-      = Medium,
+  Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
+        Medium,
     nPorts=1,
     p(displayUnit="Pa") = 101325,
     T=293.15)                                       annotation (Placement(
