@@ -49,6 +49,14 @@ partial model PartialAirModel "Partial for air models"
     annotation (Placement(transformation(extent={{128,20},{88,60}})));
   Modelica.Blocks.Interfaces.RealOutput phi "Zone air relative humidity"
     annotation (Placement(transformation(extent={{98,-50},{118,-30}})));
+protected
+  final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+  final parameter Modelica.SIunits.Density rho_default = Medium.density(
+    state=state_default) "Medium default density";
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default = Medium.specificHeatCapacityCp(state=state_default);
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>

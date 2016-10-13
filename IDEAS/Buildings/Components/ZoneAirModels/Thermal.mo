@@ -6,7 +6,7 @@ model Thermal
     nSurf=1,
     useFluPor=false);
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=Vtot*1.204*1014
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=Vtot*rho_default*cp_default
         *mSenFac) "Heat capacitor that represents the zone air heat capacity"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
@@ -15,6 +15,9 @@ model Thermal
   Modelica.Blocks.Sources.Constant zero(k=0)
     "Constant output for relative humidity"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+  AirLeakageThermal airLeakageThermal(rho_default=rho_default, cp_default=cp_default,
+    V=Vtot)
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 equation
   QGai=0;
   E=heaCap.T*heaCap.C;
@@ -32,6 +35,8 @@ equation
     annotation (Line(points={{20,-60},{108,-60}}, color={0,0,127}));
   connect(zero.y, phi)
     annotation (Line(points={{61,-40},{108,-40},{108,-40}}, color={0,0,127}));
+  connect(airLeakageThermal.heatPort, heaCap.port) annotation (Line(points={{0,40},
+          {-10,40},{-20,40},{-20,0},{0,0}}, color={191,0,0}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

@@ -28,7 +28,9 @@ protected
     n50=n50,
     show_T=false,
     V=Vtot,
-    n50toAch=n50toAch) if useAirLeakage
+    n50toAch=n50toAch,
+    rho_default=rho_default) if
+                          useAirLeakage
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
 protected
