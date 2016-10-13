@@ -19,8 +19,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     linearized=linearized,
     use_deltaM=use_deltaM,
     deltaM=deltaM,
-    use_v_nominal=use_v_nominal,
-    v_nominal=v_nominal,
     roundDuct=roundDuct,
     ReC=ReC,
     a=a,
@@ -63,8 +61,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     linearized=linearized,
     use_deltaM=use_deltaM,
     deltaM=deltaM,
-    use_v_nominal=use_v_nominal,
-    v_nominal=v_nominal,
     roundDuct=roundDuct,
     ReC=ReC,
     a=a,
@@ -89,8 +85,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     linearized=linearized,
     use_deltaM=use_deltaM,
     deltaM=deltaM,
-    use_v_nominal=use_v_nominal,
-    v_nominal=v_nominal,
     roundDuct=roundDuct,
     ReC=ReC,
     a=a,
@@ -296,8 +290,7 @@ equation
           fillPattern=FillPattern.Solid),
         Line(
           points={{0,40},{0,10},{0,12}},
-          color={0,0,255}),
-                             Text(
+          color={0,0,255}),  Text(
           extent={{-50,-84},{48,-132}},
           lineColor={0,0,255},
           textString=
