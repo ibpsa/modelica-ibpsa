@@ -129,6 +129,12 @@ system of equations.
 </html>", revisions="<html>
 <ul>
 <li>
+October 14, 2017 by Michael Wetter:<br/>
+Added to Annex 60 library.<br/>
+This is for
+<a href=\"modelica://https://github.com/iea-annex60/modelica-annex60/issues/451\">issue 451</a>.
+</li>
+<li>
 Removed parameter <code>dynamicBalance</code> that overwrote the setting
 of <code>energyDynamics</code> and <code>massDynamics</code>.
 This is for
