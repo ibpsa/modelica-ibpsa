@@ -38,7 +38,6 @@ model SplitterFixedResistanceDpM
     Modelica.Blocks.Sources.Constant P2(k=101325)
     "Constant pressure signal"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={50,40})));
     Modelica.Blocks.Sources.Ramp P1(
     offset=101320,
