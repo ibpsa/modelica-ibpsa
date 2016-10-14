@@ -1,10 +1,10 @@
-within Buildings.Fluid.FixedResistances;
+within Annex60.Fluid.FixedResistances;
 model SplitterFixedResistanceDpM
   "Flow splitter with fixed resistance at each port"
-    extends Buildings.BaseClasses.BaseIcon;
-    extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
+    extends Annex60.BaseClasses.BaseIcon;
+    extends Annex60.Fluid.BaseClasses.PartialThreeWayResistance(
     mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
-      redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
+      redeclare Annex60.Fluid.FixedResistances.FixedResistanceDpM res1(
             final allowFlowReversal=true,
             from_dp=from_dp,
             final m_flow_nominal=m_flow_nominal[1],
@@ -14,7 +14,7 @@ model SplitterFixedResistanceDpM
             linearized=linearized,
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM),
-      redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
+      redeclare Annex60.Fluid.FixedResistances.FixedResistanceDpM res2(
             final allowFlowReversal=true,
             from_dp=from_dp,
             final m_flow_nominal=m_flow_nominal[2],
@@ -24,7 +24,7 @@ model SplitterFixedResistanceDpM
             linearized=linearized,
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM),
-      redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
+      redeclare Annex60.Fluid.FixedResistances.FixedResistanceDpM res3(
             final allowFlowReversal=true,
             from_dp=from_dp,
             final m_flow_nominal=m_flow_nominal[3],
@@ -86,8 +86,8 @@ a mixing volume can be modeled.
 </p>
 <p>
 The pressure drop is implemented using the model
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>.
+<a href=\"modelica://Annex60.Fluid.FixedResistances.FixedResistanceDpM\">
+Annex60.Fluid.FixedResistances.FixedResistanceDpM</a>.
 If its nominal pressure drop is set to zero, then the pressure drop
 model will be removed.
 For example, the pressure drop declaration
@@ -102,13 +102,13 @@ as shown in the figure below. Note that <code>port_3</code> is set to negative v
 The negative values indicate that at the nominal conditions, fluid is leaving the component.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png\"/>
+<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png\"/>
 </p>
 <p>
 Optionally, at the fluid junction, a control volume can be modeled.
 This is implemented using the model
-<a href=\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\">
-Buildings.Fluid.Delays.DelayFirstOrder</a>.
+<a href=\"modelica://Annex60.Fluid.Delays.DelayFirstOrder\">
+Annex60.Fluid.Delays.DelayFirstOrder</a>.
 The fluid volume is modeled if
 <code>energyDynamics &lt;&gt; Modelica.Fluid.Types.Dynamics.SteadyState</code>.
 The control volume has the size
@@ -144,7 +144,7 @@ to avoid flow reversal in large flow networks where such a setting may be useful
 <li>
 June 11, 2008 by Michael Wetter:<br/>
 Based class on
-<a href=\"modelica://Buildings.Fluid.BaseClasses.PartialThreeWayFixedResistance\">
+<a href=\"modelica://Annex60.Fluid.BaseClasses.PartialThreeWayFixedResistance\">
 PartialThreeWayFixedResistance</a>.
 </li>
 <li>

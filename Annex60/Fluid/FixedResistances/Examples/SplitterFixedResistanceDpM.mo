@@ -1,31 +1,31 @@
-within Buildings.Fluid.FixedResistances.Examples;
+within Annex60.Fluid.FixedResistances.Examples;
 model SplitterFixedResistanceDpM
   "Test model for the three way splitter/mixer model"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.Air;
+ package Medium = Annex60.Media.Air;
 
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
+  Annex60.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
     m_flow_nominal={1,2,3},
     dh={1,2,3},
     redeclare package Medium = Medium,
     dp_nominal(each displayUnit="Pa") = {5,10,15},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Splitter"
     annotation (Placement(transformation(extent={{-16,-10},{4,10}})));
-  Buildings.Fluid.Sources.Boundary_pT bou1(
+  Annex60.Fluid.Sources.Boundary_pT bou1(
     redeclare package Medium = Medium,
     T=273.15 + 10,
     use_p_in=true,
     nPorts=1)
      annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
-  Buildings.Fluid.Sources.Boundary_pT bou2(
+  Annex60.Fluid.Sources.Boundary_pT bou2(
     redeclare package Medium = Medium,
     T=273.15 + 20,
     use_p_in=true,
     nPorts=1)
     annotation (Placement(transformation(
           extent={{52,-10},{32,10}})));
-  Buildings.Fluid.Sources.Boundary_pT bou3(
+  Annex60.Fluid.Sources.Boundary_pT bou3(
     redeclare package Medium = Medium,
     T=273.15 + 30,
     use_p_in=true,
@@ -67,6 +67,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/SplitterFixedResistanceDpM.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/SplitterFixedResistanceDpM.mos"
         "Simulate and plot"));
 end SplitterFixedResistanceDpM;
