@@ -1,7 +1,6 @@
 within Annex60.Fluid.FixedResistances;
 model SplitterFixedResistanceDpM
   "Flow splitter with fixed resistance at each port"
-    extends Annex60.BaseClasses.BaseIcon;
     extends Annex60.Fluid.BaseClasses.PartialThreeWayResistance(
     mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
       redeclare Annex60.Fluid.FixedResistances.FixedResistanceDpM res1(
@@ -76,7 +75,11 @@ model SplitterFixedResistanceDpM
           extent={{-38,36},{40,-40}},
           lineColor={0,0,127},
           fillColor={0,0,127},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-151,142},{149,102}},
+          lineColor={0,0,255},
+          textString="%name")}),
 defaultComponentName="spl",
     Documentation(info="<html>
 <p>
