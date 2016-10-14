@@ -1,15 +1,15 @@
 within Annex60.Fluid.FixedResistances.Examples;
 model SplitterFixedResistanceDpM
   "Test model for the three way splitter/mixer model"
+  import Annex60;
   extends Modelica.Icons.Example;
 
  package Medium = Annex60.Media.Air "Medium model";
 
   Annex60.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
-    m_flow_nominal={1,2,3},
-    dh={1,2,3},
     redeclare package Medium = Medium,
-    dp_nominal(each displayUnit="Pa") = {5,10,15},
+    m_flow_nominal={1,2,3},
+    dp_nominal = {5,10,15},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Splitter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Annex60.Fluid.Sources.Boundary_pT bou1(

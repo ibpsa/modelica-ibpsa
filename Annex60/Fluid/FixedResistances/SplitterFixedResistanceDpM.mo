@@ -34,22 +34,28 @@ model SplitterFixedResistanceDpM
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM));
 
-  parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
-    annotation(Evaluate=true, Dialog(enable = not linearized));
+  parameter Boolean use_dh = false
+    "= true, use dh and ReC, otherwise use deltaM"
+    annotation(Evaluate=true,
+               Dialog(group = "Transition to laminar",
+                      enable = not linearized));
   parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal
     "Mass flow rate. Set negative at outflowing ports." annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Pressure[3] dp_nominal(each displayUnit = "Pa")
-    "Pressure. Set negative at outflowing ports."
+    "Pressure drop at nominal mass flow rate, set to zero or negative number at outflowing ports."
     annotation(Dialog(group = "Nominal condition"));
   parameter Real deltaM(min=0) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
-       annotation(Dialog(enable = not use_dh and not linearized));
+       annotation(Dialog(group = "Transition to laminar",
+                         enable = not use_dh and not linearized));
 
   parameter Modelica.SIunits.Length[3] dh={1, 1, 1} "Hydraulic diameter"
-    annotation(Dialog(enable = use_dh and not linearized));
+    annotation(Dialog(group = "Transition to laminar",
+                      enable = use_dh and not linearized));
   parameter Real[3] ReC(each min=0)={4000, 4000, 4000}
     "Reynolds number where transition to turbulent starts"
-      annotation(Dialog(enable = use_dh and not linearized));
+      annotation(Dialog(group = "Transition to laminar",
+                        enable = use_dh and not linearized));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
@@ -131,6 +137,7 @@ system of equations.
 <li>
 October 14, 2017 by Michael Wetter:<br/>
 Added to Annex 60 library.<br/>
+Updated comment for parameter <code>use_dh</code>.<br/>
 This is for
 <a href=\"modelica://https://github.com/iea-annex60/modelica-annex60/issues/451\">issue 451</a>.
 </li>
