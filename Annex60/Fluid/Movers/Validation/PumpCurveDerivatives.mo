@@ -159,9 +159,7 @@ equation
           {22,-4},{38,-4}}, color={0,0,127}));
   connect(assIne.u2, zero.y) annotation (Line(points={{38,-16},{28.5,-16},{28.5,
           -89}},  color={0,0,127}));
-  annotation (experiment(__Dymola_NumberOfIntervals=50000, __Dymola_Algorithm=
-          "Euler"),
-__Dymola_Commands(file=
+  annotation (__Dymola_Commands(file=
           "modelica://Annex60/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveDerivatives.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -192,6 +190,5 @@ for a discussion and validation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-140},{140,120}},
-          preserveAspectRatio=false)),
-    __Dymola_experimentSetupOutput(events=false));
+          preserveAspectRatio=false)));
 end PumpCurveDerivatives;
