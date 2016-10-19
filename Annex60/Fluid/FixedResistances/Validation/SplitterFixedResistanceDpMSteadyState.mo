@@ -97,7 +97,7 @@ The splitter model has been configured as a steady-state model.
 </html>", revisions="<html>
 <ul>
 <li>
-October 14, 2017 by Michael Wetter:<br/>
+October 14, 2016, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
 <a href=\"modelica://https://github.com/iea-annex60/modelica-annex60/issues/451\">issue 451</a>.
