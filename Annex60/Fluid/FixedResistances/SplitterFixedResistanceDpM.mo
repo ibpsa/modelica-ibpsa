@@ -34,16 +34,19 @@ model SplitterFixedResistanceDpM
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM));
 
+  parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal
+    "Mass flow rate. Set negative at outflowing ports." annotation(Dialog(group = "Nominal condition"));
+
+  parameter Modelica.SIunits.Pressure[3] dp_nominal(each displayUnit = "Pa")
+    "Pressure drop at nominal mass flow rate, set to zero or negative number at outflowing ports."
+    annotation(Dialog(group = "Nominal condition"));
+
   parameter Boolean use_dh = false
     "= true, use dh and ReC, otherwise use deltaM"
     annotation(Evaluate=true,
                Dialog(group = "Transition to laminar",
                       enable = not linearized));
-  parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal
-    "Mass flow rate. Set negative at outflowing ports." annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure[3] dp_nominal(each displayUnit = "Pa")
-    "Pressure drop at nominal mass flow rate, set to zero or negative number at outflowing ports."
-    annotation(Dialog(group = "Nominal condition"));
+
   parameter Real deltaM(min=0) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Dialog(group = "Transition to laminar",
@@ -52,6 +55,7 @@ model SplitterFixedResistanceDpM
   parameter Modelica.SIunits.Length[3] dh={1, 1, 1} "Hydraulic diameter"
     annotation(Dialog(group = "Transition to laminar",
                       enable = use_dh and not linearized));
+
   parameter Real[3] ReC(each min=0)={4000, 4000, 4000}
     "Reynolds number where transition to turbulent starts"
       annotation(Dialog(group = "Transition to laminar",
@@ -59,6 +63,7 @@ model SplitterFixedResistanceDpM
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
+
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
@@ -135,7 +140,7 @@ system of equations.
 </html>", revisions="<html>
 <ul>
 <li>
-October 14, 2017 by Michael Wetter:<br/>
+October 14, 2016 by Michael Wetter:<br/>
 Added to Annex 60 library.<br/>
 Updated comment for parameter <code>use_dh</code>.<br/>
 This is for
