@@ -2,8 +2,7 @@ within Annex60.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
     extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
      show_T=false,
-     dp(start=0,
-        nominal=if dp_nominal_pos > Modelica.Constants.eps
+     dp(nominal=if dp_nominal_pos > Modelica.Constants.eps
           then dp_nominal_pos else 1),
      m_flow(
         nominal=if m_flow_nominal_pos > Modelica.Constants.eps

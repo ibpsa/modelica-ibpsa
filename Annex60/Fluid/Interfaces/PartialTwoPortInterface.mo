@@ -16,9 +16,10 @@ partial model PartialTwoPortInterface
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  Modelica.SIunits.MassFlowRate m_flow(start=0) = port_a.m_flow
+  Modelica.SIunits.MassFlowRate m_flow(start=m_flow_start) = port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
-  Modelica.SIunits.PressureDifference dp(start=0, displayUnit="Pa")
+
+  Modelica.SIunits.PressureDifference dp(start=dp_start, displayUnit="Pa")
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a=
@@ -32,6 +33,13 @@ partial model PartialTwoPortInterface
                           noEvent(actualStream(port_b.h_outflow)),
                           noEvent(actualStream(port_b.Xi_outflow))) if
           show_T "Medium properties in port_b";
+
+protected
+  final parameter Modelica.SIunits.MassFlowRate m_flow_start = 0
+  "Start value for m_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
+  final parameter Modelica.SIunits.PressureDifference dp_start(displayUnit="Pa") = 0
+  "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
+
 equation
   dp = port_a.p - port_b.p;
   annotation (
