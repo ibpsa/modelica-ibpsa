@@ -8,6 +8,7 @@ model Damper
   redeclare package Medium = Medium,
     m_flow_nominal=1,
     filteredOpening=false)
+    "A damper with quadratic relationship between m_flow and dp"
          annotation (Placement(transformation(extent={{0,12},{20,32}})));
     Modelica.Blocks.Sources.Ramp yRam(
     duration=0.3,
@@ -32,6 +33,7 @@ model Damper
     m_flow_nominal=1,
     filteredOpening=false,
     linearized=true)
+    "A damper with linear relationship between m_flow and dp (linearized = true)"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 equation
   connect(yRam.y, res.y) annotation (Line(
