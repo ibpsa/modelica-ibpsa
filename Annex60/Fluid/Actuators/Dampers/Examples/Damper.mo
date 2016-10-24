@@ -1,6 +1,6 @@
 within Annex60.Fluid.Actuators.Dampers.Examples;
 model Damper
-  "Dampers with constant pressure difference and varying control signal.  One damper uses a linear relation between mass flow and pressure drop."
+  "Dampers with constant pressure difference and varying control signal."
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Air;
 
