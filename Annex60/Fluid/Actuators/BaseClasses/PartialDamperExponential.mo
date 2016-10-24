@@ -10,7 +10,8 @@ partial model PartialDamperExponential
  parameter Real deltaM = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
    annotation(Dialog(enable=use_deltaM));
- parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/1
+ parameter Modelica.SIunits.Velocity v_nominal = 1 "Nominal face velocity";
+ parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
     "Face area"
    annotation(Dialog(enable=not use_v_nominal));
  parameter Boolean roundDuct = false
@@ -123,9 +124,9 @@ revisions="<html>
 <ul>
 <li>
 October 12, 2016 by David Blum:<br/>
-Removed parameters <code>use_v_nominal</code> and <code>v_nominal</code>, 
-along with variable <code>area</code>, to simplify parameterization 
-of the model.  Also added assertion statements upon initialization
+Removed parameter <code>v_nominal</code> and variable <code>area</code>, 
+to simplify parameterization of the model.  
+Also added assertion statements upon initialization
 for parameters <code>k0</code> and <code>k1</code> so that they fall within
 suggested ranges found in ASHRAE 825-RP.
 </li>
