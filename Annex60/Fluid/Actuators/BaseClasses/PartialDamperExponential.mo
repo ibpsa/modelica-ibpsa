@@ -128,7 +128,8 @@ Removed parameter <code>v_nominal</code> and variable <code>area</code>,
 to simplify parameterization of the model.  
 Also added assertion statements upon initialization
 for parameters <code>k0</code> and <code>k1</code> so that they fall within
-suggested ranges found in ASHRAE 825-RP.
+suggested ranges found in ASHRAE 825-RP. This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/544\">#544</a>.
 </li>
 <li>
 January 27, 2015 by Michael Wetter:<br/>
