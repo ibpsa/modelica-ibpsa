@@ -37,8 +37,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Real deltaM = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation(Dialog(enable=use_deltaM));
-  parameter Boolean use_v_nominal = true
-    "Set to true to use face velocity to compute area";
   parameter Modelica.SIunits.Velocity v_nominal=1 "Nominal face velocity"
     annotation(Dialog(enable=use_v_nominal));
 
