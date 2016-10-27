@@ -19,6 +19,9 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
   input Real phi
     "Ratio actual to nominal mass flow rate of valve, phi=Kv(y)/Kv(y=1)";
 protected
+ constant Boolean assertPhiPos = true
+   "Assert that phi is positive"
+   annotation(Evauate=true);
  parameter Real kFixed(unit="", min=0) = if dpFixed_nominal > Modelica.Constants.eps
     then m_flow_nominal / sqrt(dpFixed_nominal) else 0
     "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
@@ -29,7 +32,10 @@ protected
 initial equation
   assert(dpFixed_nominal > -Modelica.Constants.eps, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
         + String(dpFixed_nominal) + " Pa.");
-
+equation
+  if assertPhiPos then
+    assert(phi>0, "Negative valve control signals are not allowed, but found phi=" + String(phi));
+  end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={
         Polygon(
@@ -101,6 +107,14 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 27, 2016, by Filip Jorissen:<br/>
+Added assert for <code>phi > 0</code>.
+This fixes a bug that caused valves to behave
+like pumps for negative control signals.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/558\">#558</a>.
+</li>
 <li>
 April 23, 2016, by Michael Wetter:<br/>
 Changed test in assertion from <code>dpFixed_nominal > -Modelica.Constants.small</code>
