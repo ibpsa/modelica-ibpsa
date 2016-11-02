@@ -3,13 +3,13 @@ model ReverseFlowHumidifier
   "Model that tests the reverse flow for a humidifier"
   extends Modelica.Icons.Example;
 package Medium = Annex60.Media.Air;
-  Modelica.Blocks.Math.Add                     cheTem(k2=-1)
+  Modelica.Blocks.Math.Add cheTem(k2=-1)
     "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
-  Modelica.Blocks.Math.Add                     cheEnt(k2=-1)
+  Modelica.Blocks.Math.Add cheEnt(k2=-1)
     "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Modelica.Blocks.Math.Add                     cheMas(k2=-1)
+  Modelica.Blocks.Math.Add cheMas(k2=-1)
     "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Annex60.Fluid.MassExchangers.Humidifier_u humBac(

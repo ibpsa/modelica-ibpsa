@@ -104,25 +104,25 @@ model Humidifier_u
     m_flow_nominal=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{-20,22},{0,42}})));
-  Modelica.Blocks.Math.Add                     che1(k2=-1)
+  Modelica.Blocks.Math.Add che1(k2=-1)
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
   Modelica.Blocks.Sources.RealExpression y1(y=hea2.staB.T)
     annotation (Placement(transformation(extent={{40,150},{140,170}})));
   Modelica.Blocks.Sources.RealExpression y2(y=hea1.staB.T)
     annotation (Placement(transformation(extent={{40,130},{140,150}})));
-  Modelica.Blocks.Math.Add                     che2(k2=-1)
+  Modelica.Blocks.Math.Add che2(k2=-1)
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
   Modelica.Blocks.Sources.RealExpression y3(y=hea2.staA.T)
     annotation (Placement(transformation(extent={{40,110},{140,130}})));
   Modelica.Blocks.Sources.RealExpression y4(y=hea1.staA.T)
     annotation (Placement(transformation(extent={{40,90},{140,110}})));
-  Modelica.Blocks.Math.Add                     che3(k2=-1)
+  Modelica.Blocks.Math.Add che3(k2=-1)
     annotation (Placement(transformation(extent={{160,38},{180,58}})));
   Modelica.Blocks.Sources.RealExpression y5(y=hea4.staB.T)
     annotation (Placement(transformation(extent={{40,48},{140,68}})));
   Modelica.Blocks.Sources.RealExpression y6(y=hea3.staB.T)
     annotation (Placement(transformation(extent={{40,28},{140,48}})));
-  Modelica.Blocks.Math.Add                     che4(k2=-1)
+  Modelica.Blocks.Math.Add che4(k2=-1)
     annotation (Placement(transformation(extent={{160,-2},{180,18}})));
   Modelica.Blocks.Sources.RealExpression y7(y=hea4.staA.T)
     annotation (Placement(transformation(extent={{40,8},{140,28}})));
@@ -202,14 +202,14 @@ model Humidifier_u
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{-20,-180},{0,
             -160}})));
-  Modelica.Blocks.Math.Add                     che5(k2=-1)
+  Modelica.Blocks.Math.Add che5(k2=-1)
     annotation (Placement(transformation(extent={{160,-62},{180,-42}})));
   Modelica.Blocks.Sources.RealExpression y9(y=hea6.staB.T)
     annotation (Placement(transformation(extent={{40,-50},{140,-30}})));
   Modelica.Blocks.Sources.RealExpression y10(
                                             y=hea5.staB.T)
     annotation (Placement(transformation(extent={{40,-72},{140,-52}})));
-  Modelica.Blocks.Math.Add                     che6(k2=-1)
+  Modelica.Blocks.Math.Add che6(k2=-1)
     annotation (Placement(transformation(extent={{158,-102},{178,-82}})));
   Modelica.Blocks.Sources.RealExpression y11(
                                             y=hea6.staA.T)
@@ -217,7 +217,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y12(
                                             y=hea5.staA.T)
     annotation (Placement(transformation(extent={{40,-112},{140,-92}})));
-  Modelica.Blocks.Math.Add                     che7(k2=-1)
+  Modelica.Blocks.Math.Add che7(k2=-1)
     annotation (Placement(transformation(extent={{160,-164},{180,-144}})));
   Modelica.Blocks.Sources.RealExpression y13(
                                             y=hea8.staB.T)
@@ -225,7 +225,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y14(
                                             y=hea7.staB.T)
     annotation (Placement(transformation(extent={{40,-174},{140,-154}})));
-  Modelica.Blocks.Math.Add                     che8(k2=-1)
+  Modelica.Blocks.Math.Add che8(k2=-1)
     annotation (Placement(transformation(extent={{160,-204},{180,-184}})));
   Modelica.Blocks.Sources.RealExpression y15(
                                             y=hea8.staA.T)
@@ -233,25 +233,25 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y16(
                                             y=hea7.staA.T)
     annotation (Placement(transformation(extent={{40,-214},{140,-194}})));
-  Modelica.Blocks.Math.Add                     che9(k2=-1)
+  Modelica.Blocks.Math.Add che9(k2=-1)
     annotation (Placement(transformation(extent={{160,-300},{180,-280}})));
   Modelica.Blocks.Sources.RealExpression y17(y=hea2.staB.T)
     annotation (Placement(transformation(extent={{40,-290},{140,-270}})));
   Modelica.Blocks.Sources.RealExpression y18(y=hea5.staB.T)
     annotation (Placement(transformation(extent={{40,-310},{140,-290}})));
-  Modelica.Blocks.Math.Add                     che10(k2=-1)
+  Modelica.Blocks.Math.Add che10(k2=-1)
     annotation (Placement(transformation(extent={{160,-260},{180,-240}})));
   Modelica.Blocks.Sources.RealExpression y19(y=hea4.staA.T)
     annotation (Placement(transformation(extent={{40,-250},{140,-230}})));
   Modelica.Blocks.Sources.RealExpression y20(y=hea7.staA.T)
     annotation (Placement(transformation(extent={{40,-270},{140,-250}})));
-  Modelica.Blocks.Math.Add                     che11(k2=-1)
+  Modelica.Blocks.Math.Add che11(k2=-1)
     annotation (Placement(transformation(extent={{340,140},{360,160}})));
   Modelica.Blocks.Sources.RealExpression y21(y=hea2.staB.X[1])
     annotation (Placement(transformation(extent={{220,150},{320,170}})));
   Modelica.Blocks.Sources.RealExpression y22(y=hea1.staB.X[1])
     annotation (Placement(transformation(extent={{220,130},{320,150}})));
-  Modelica.Blocks.Math.Add                     che12(k2=-1)
+  Modelica.Blocks.Math.Add che12(k2=-1)
     annotation (Placement(transformation(extent={{340,100},{360,120}})));
   Modelica.Blocks.Sources.RealExpression y23(
                                             y=hea2.staA.X[1])
@@ -259,7 +259,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y24(
                                             y=hea1.staA.X[1])
     annotation (Placement(transformation(extent={{220,90},{320,110}})));
-  Modelica.Blocks.Math.Add                     che13(k2=-1)
+  Modelica.Blocks.Math.Add che13(k2=-1)
     annotation (Placement(transformation(extent={{340,38},{360,58}})));
   Modelica.Blocks.Sources.RealExpression y25(
                                             y=hea4.staB.X[1])
@@ -267,7 +267,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y26(
                                             y=hea3.staB.X[1])
     annotation (Placement(transformation(extent={{220,28},{320,48}})));
-  Modelica.Blocks.Math.Add                     che14(k2=-1)
+  Modelica.Blocks.Math.Add che14(k2=-1)
     annotation (Placement(transformation(extent={{340,-2},{360,18}})));
   Modelica.Blocks.Sources.RealExpression y27(
                                             y=hea4.staA.X[1])
@@ -275,7 +275,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y28(
                                             y=hea3.staA.X[1])
     annotation (Placement(transformation(extent={{220,-12},{320,8}})));
-  Modelica.Blocks.Math.Add                     che15(k2=-1)
+  Modelica.Blocks.Math.Add che15(k2=-1)
     annotation (Placement(transformation(extent={{340,-62},{360,-42}})));
   Modelica.Blocks.Sources.RealExpression y29(
                                             y=hea6.staB.X[1])
@@ -283,7 +283,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y30(
                                             y=hea5.staB.X[1])
     annotation (Placement(transformation(extent={{220,-72},{320,-52}})));
-  Modelica.Blocks.Math.Add                     che16(k2=-1)
+  Modelica.Blocks.Math.Add che16(k2=-1)
     annotation (Placement(transformation(extent={{340,-102},{360,-82}})));
   Modelica.Blocks.Sources.RealExpression y31(
                                             y=hea6.staA.X[1])
@@ -291,7 +291,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y32(
                                             y=hea5.staA.X[1])
     annotation (Placement(transformation(extent={{220,-112},{320,-92}})));
-  Modelica.Blocks.Math.Add                     che17(k2=-1)
+  Modelica.Blocks.Math.Add che17(k2=-1)
     annotation (Placement(transformation(extent={{340,-164},{360,-144}})));
   Modelica.Blocks.Sources.RealExpression y33(
                                             y=hea8.staB.X[1])
@@ -299,7 +299,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y34(
                                             y=hea7.staB.X[1])
     annotation (Placement(transformation(extent={{220,-174},{320,-154}})));
-  Modelica.Blocks.Math.Add                     che18(k2=-1)
+  Modelica.Blocks.Math.Add che18(k2=-1)
     annotation (Placement(transformation(extent={{340,-204},{360,-184}})));
   Modelica.Blocks.Sources.RealExpression y35(
                                             y=hea8.staA.X[1])
@@ -307,13 +307,13 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y36(
                                             y=hea7.staA.X[1])
     annotation (Placement(transformation(extent={{220,-214},{320,-194}})));
-  Modelica.Blocks.Math.Add                     che19(k2=-1)
+  Modelica.Blocks.Math.Add che19(k2=-1)
     annotation (Placement(transformation(extent={{340,-300},{360,-280}})));
   Modelica.Blocks.Sources.RealExpression y37(y=hea2.staB.X[1])
     annotation (Placement(transformation(extent={{220,-290},{320,-270}})));
   Modelica.Blocks.Sources.RealExpression y38(y=hea5.staB.X[1])
     annotation (Placement(transformation(extent={{220,-310},{320,-290}})));
-  Modelica.Blocks.Math.Add                     che20(k2=-1)
+  Modelica.Blocks.Math.Add che20(k2=-1)
     annotation (Placement(transformation(extent={{340,-260},{360,-240}})));
   Modelica.Blocks.Sources.RealExpression y39(y=hea4.staA.X[1])
     annotation (Placement(transformation(extent={{220,-250},{320,-230}})));

@@ -99,9 +99,9 @@ model HeaterCooler_u
     m_flow_nominal=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{62,-20},{82,0}})));
-  Modelica.Blocks.Math.Add                     che1(k2=-1)
+  Modelica.Blocks.Math.Add che1(k2=-1)
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
-  Modelica.Blocks.Math.Add                     che2(k2=-1)
+  Modelica.Blocks.Math.Add che2(k2=-1)
     annotation (Placement(transformation(extent={{160,116},{180,136}})));
   Annex60.Fluid.HeatExchangers.HeaterCooler_u hea5(
     redeclare package Medium = Medium,
@@ -172,9 +172,9 @@ model HeaterCooler_u
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{60,-320},{80,
             -300}})));
-  Modelica.Blocks.Math.Add                     che9(k2=-1)
+  Modelica.Blocks.Math.Add che9(k2=-1)
     annotation (Placement(transformation(extent={{160,-400},{180,-380}})));
-  Modelica.Blocks.Math.Add                     che10(k2=-1)
+  Modelica.Blocks.Math.Add che10(k2=-1)
     annotation (Placement(transformation(extent={{160,-360},{180,-340}})));
 
   Annex60.Fluid.Sensors.TemperatureTwoPort
@@ -217,13 +217,13 @@ model HeaterCooler_u
     m_flow_nominal=0.5,
     tau=0) "Temperature sensor"
     annotation (Placement(transformation(extent={{50,22},{70,42}})));
-  Modelica.Blocks.Math.Add                     che3(k2=-1)
+  Modelica.Blocks.Math.Add che3(k2=-1)
     annotation (Placement(transformation(extent={{162,0},{182,20}})));
-  Modelica.Blocks.Math.Add                     che4(k2=-1)
+  Modelica.Blocks.Math.Add che4(k2=-1)
     annotation (Placement(transformation(extent={{162,60},{182,80}})));
-  Modelica.Blocks.Math.Add                     che5(k2=-1)
+  Modelica.Blocks.Math.Add che5(k2=-1)
     annotation (Placement(transformation(extent={{160,-164},{180,-144}})));
-  Modelica.Blocks.Math.Add                     che6(k2=-1)
+  Modelica.Blocks.Math.Add che6(k2=-1)
     annotation (Placement(transformation(extent={{162,-102},{182,-82}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort
                                       senTem6b(redeclare package Medium = Medium,
@@ -245,9 +245,9 @@ model HeaterCooler_u
     m_flow_nominal=0.5,
     tau=0) "Temperature sensor"
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
-  Modelica.Blocks.Math.Add                     che7(k2=-1)
+  Modelica.Blocks.Math.Add che7(k2=-1)
     annotation (Placement(transformation(extent={{160,-284},{180,-264}})));
-  Modelica.Blocks.Math.Add                     che8(k2=-1)
+  Modelica.Blocks.Math.Add che8(k2=-1)
     annotation (Placement(transformation(extent={{160,-240},{180,-220}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort
                                       senTem8b(redeclare package Medium = Medium,

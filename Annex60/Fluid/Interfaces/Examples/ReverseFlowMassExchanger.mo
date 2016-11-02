@@ -3,13 +3,13 @@ model ReverseFlowMassExchanger
   "Model that tests the reverse flow for a mass exchanger"
   extends Modelica.Icons.Example;
 package Medium = Annex60.Media.Air;
-  Modelica.Blocks.Math.Add                     cheTem(k2=-1)
+  Modelica.Blocks.Math.Add cheTem(k2=-1)
     "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{160,0},{180,20}})));
-  Modelica.Blocks.Math.Add                     cheEnt(k2=-1)
+  Modelica.Blocks.Math.Add cheEnt(k2=-1)
     "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{160,-30},{180,-10}})));
-  Modelica.Blocks.Math.Add                     cheMas(k2=-1)
+  Modelica.Blocks.Math.Add cheMas(k2=-1)
     "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
   Modelica.Fluid.Sources.MassFlowSource_T source2(
@@ -75,13 +75,13 @@ package Medium = Annex60.Media.Air;
     annotation (Placement(transformation(extent={{-350,60},{-330,80}})));
   Sensors.MassFraction senMas4(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-270,60},{-250,80}})));
-  Modelica.Blocks.Math.Add                     cheTem1(k2=-1)
+  Modelica.Blocks.Math.Add cheTem1(k2=-1)
     "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
-  Modelica.Blocks.Math.Add                     cheEnt1(k2=-1)
+  Modelica.Blocks.Math.Add cheEnt1(k2=-1)
     "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
-  Modelica.Blocks.Math.Add                     cheMas1(k2=-1)
+  Modelica.Blocks.Math.Add cheMas1(k2=-1)
     "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
   Modelica.Fluid.Sources.MassFlowSource_T source3(

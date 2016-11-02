@@ -4,10 +4,10 @@ model TraceSubstanceConservationSteadyState
   extends
     Annex60.Fluid.MixingVolumes.Validation.BaseClasses.TraceSubstanceConservation(
      sou(X={0,1}));
-  Modelica.Blocks.Math.Add                     cheEquTra2(k2=-1)
+  Modelica.Blocks.Math.Add cheEquTra2(k2=-1)
     "Check for equality of trace substances"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Modelica.Blocks.Math.Add                     cheEquTra1(k2=-1)
+  Modelica.Blocks.Math.Add cheEquTra1(k2=-1)
     "Check for equality of trace substances"
     annotation (Placement(transformation(extent={{80,-70},{100,-90}})));
   Modelica.Blocks.Sources.Constant const(k=sou.m_flow*sou.C[1])

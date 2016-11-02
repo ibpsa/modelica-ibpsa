@@ -35,7 +35,7 @@ model EnthalpyFlowRate "Test model for the enthalpy flow rate sensors"
   Annex60.Fluid.Sensors.MassFlowRate senM_flow(
     redeclare package Medium = Medium) "Mass flow rate sensor"
                 annotation (Placement(transformation(extent={{28,-20},{48,0}})));
-  Modelica.Blocks.Math.Add                     cheEqu(k2=-1)
+  Modelica.Blocks.Math.Add cheEqu(k2=-1)
     "Check for equality of the enthalpy flow rate computations"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Modelica.Blocks.Math.Product pro "Computes the enthalphy flow rate"

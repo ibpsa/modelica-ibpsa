@@ -57,7 +57,7 @@ model MoistureMixingConservation
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Modelica.Blocks.Sources.Constant mWatFlo2(k=0.003) "Water mass flow rate 2"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Modelica.Blocks.Math.Add                     cheMasFra(k2=-1)
+  Modelica.Blocks.Math.Add cheMasFra(k2=-1)
     "Check for water conservation"
     annotation (Placement(transformation(extent={{140,-40},{160,-60}})));
   Annex60.Fluid.Sensors.MassFractionTwoPort senMasFra(
@@ -72,7 +72,7 @@ model MoistureMixingConservation
   Annex60.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium, allowFlowReversal=false) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,30},{80,10}})));
-  Modelica.Blocks.Math.Add                     cheMasFlo(k2=-1)
+  Modelica.Blocks.Math.Add cheMasFlo(k2=-1)
     "Check for conservation of mass"
     annotation (Placement(transformation(extent={{140,-120},{160,-140}})));
   Modelica.Blocks.Sources.Constant mFloSol "Solution mass flow rate"
@@ -83,7 +83,7 @@ model MoistureMixingConservation
     m_flow_nominal=1,
     tau=0) "Specific enthalpy flow rate sensor"
     annotation (Placement(transformation(extent={{20,30},{40,10}})));
-  Modelica.Blocks.Math.Add                     cheSpeEnt(k2=-1)
+  Modelica.Blocks.Math.Add cheSpeEnt(k2=-1)
     "Check for conservation of energy"
     annotation (Placement(transformation(extent={{140,-200},{160,-220}})));
   Modelica.Blocks.Sources.Constant hSol "Solution mass flow rate"
