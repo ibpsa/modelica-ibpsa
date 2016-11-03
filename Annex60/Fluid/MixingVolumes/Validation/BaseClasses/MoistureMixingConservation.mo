@@ -1,5 +1,5 @@
 within Annex60.Fluid.MixingVolumes.Validation.BaseClasses;
-model MoistureMixingConservation
+partial model MoistureMixingConservation
   "Partial for checking conservation of mass for independent mass fraction"
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Air;
@@ -178,6 +178,10 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Added missing <code>partial</code> keyword.
+</li>
 <li>
 May 22 2015 by Filip Jorissen:<br/>
 First implementation.
