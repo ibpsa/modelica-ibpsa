@@ -19,14 +19,14 @@ partial model PartialFourPortInterface
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  Medium1.MassFlowRate m1_flow(start=0) = port_a1.m_flow
+  Medium1.MassFlowRate m1_flow = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
-  Modelica.SIunits.PressureDifference dp1(start=0, displayUnit="Pa")
+  Modelica.SIunits.PressureDifference dp1(displayUnit="Pa")
     "Pressure difference between port_a1 and port_b1";
 
-  Medium2.MassFlowRate m2_flow(start=0) = port_a2.m_flow
+  Medium2.MassFlowRate m2_flow = port_a2.m_flow
     "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)";
-  Modelica.SIunits.PressureDifference dp2(start=0, displayUnit="Pa")
+  Modelica.SIunits.PressureDifference dp2(displayUnit="Pa")
     "Pressure difference between port_a2 and port_b2";
 
   Medium1.ThermodynamicState sta_a1=
@@ -82,6 +82,13 @@ mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Removed start values for mass flow rate and pressure difference
+to simplify the parameter window.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/552\">#552</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

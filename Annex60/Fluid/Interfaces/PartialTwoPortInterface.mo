@@ -67,6 +67,13 @@ Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+November 3, 2016, by Michael Wetter:<br/>
+Removed start values for mass flow rate and pressure difference
+to simplify the parameter window.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/552\">#552</a>.
+</li>
+<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
