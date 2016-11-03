@@ -112,6 +112,8 @@ equation
   der(U) = Q_flow
     "Integration of load to calculate below the average load/(discrete time step)";
 
+  assert(port_a.m_flow>-Modelica.Constants.eps or allowFlowReversal, "Flow reversal may not occurs in borefield except
+  if allowFlowReversal is set to true in the model");
 algorithm
   // Set the start time for the sampling
   when initial() then
