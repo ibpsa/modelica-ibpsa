@@ -9,14 +9,14 @@ model MixingVolume "Test model for mixing volumes"
     startTime=0.5,
     height=-10,
     offset=101330)
-                 annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Annex60.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
-      = Medium, T=293.15,
+                 annotation (Placement(transformation(extent={{-100,56},{-80,76}})));
+  Annex60.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
+        Medium, T=293.15,
     use_p_in=true,
     nPorts=3)                                       annotation (Placement(
         transformation(extent={{-70,48},{-50,68}})));
-  Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
-      = Medium,
+  Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
+        Medium,
     nPorts=3,
     use_p_in=false,
     p=101325,
@@ -63,7 +63,8 @@ model MixingVolume "Test model for mixing volumes"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
          annotation (Placement(transformation(extent={{0,60},{22,80}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality
+  Annex60.Utilities.Diagnostics.AssertEquality assertEquality(
+    threShold=1e-2*1E5)
     annotation (Placement(transformation(extent={{160,72},{180,92}})));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium =
         Medium, m_flow_nominal=2) "Enthalpy flow rate"
@@ -93,8 +94,9 @@ model MixingVolume "Test model for mixing volumes"
     m_flow_nominal=2,
     dp_nominal=2.5)
              annotation (Placement(transformation(extent={{80,-92},{100,-72}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality1
-    annotation (Placement(transformation(extent={{156,10},{176,30}})));
+  Annex60.Utilities.Diagnostics.AssertEquality assertEquality1(
+    threShold=1e-2*1E5)
+    annotation (Placement(transformation(extent={{160,10},{180,30}})));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium =
         Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
@@ -107,12 +109,12 @@ model MixingVolume "Test model for mixing volumes"
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 equation
-  connect(P.y, sou.p_in) annotation (Line(points={{-79,70},{-72,70},{-72,66}},
+  connect(P.y, sou.p_in) annotation (Line(points={{-79,66},{-72,66}},
                     color={0,0,127}));
   connect(res2.port_a, entFloRat.port_b) annotation (Line(points={{80,60},{60,
           60}}, color={0,127,255}));
   connect(entFloRat2.H_flow, assertEquality1.u2) annotation (Line(points={{50,-71},
-          {50,-24},{140,-24},{140,14},{154,14}},
+          {50,-24},{140,-24},{140,14},{158,14}},
                                     color={0,0,127}));
   connect(zero.y, vol2.mWat_flow) annotation (Line(points={{-19,-20},{-12,-20},
           {-12,-64},{-2,-64}}, color={0,0,127}));
@@ -165,7 +167,7 @@ equation
       points={{50,71},{50,88},{158,88}},
       color={0,0,127}));
   connect(entFloRat.H_flow, assertEquality1.u1) annotation (Line(
-      points={{50,71},{50,88},{140,88},{140,26},{154,26}},
+      points={{50,71},{50,88},{140,88},{140,26},{158,26}},
       color={0,0,127}));
   connect(entFloRat1.H_flow, assertEquality.u2) annotation (Line(
       points={{50,21},{50,40},{146,40},{146,76},{158,76}},

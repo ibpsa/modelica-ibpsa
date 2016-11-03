@@ -12,7 +12,8 @@ model MoistureMixingConservationDynamicBalance
         massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     mFloSol(k=sum(m_start)),
     hSol(k=sum(U_start)),
-    mWatFlo3(k=0));
+    mWatFlo3(k=0),
+    assSpeEnt(threShold=1E5*1E-2));
 
     parameter Modelica.SIunits.Mass[3] m_start(each fixed=false)
     "Initial mass of the mixing volumes";

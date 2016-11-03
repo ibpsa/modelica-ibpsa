@@ -4,8 +4,7 @@ model TraceSubstanceConservationDynamicBalance
   extends
     Annex60.Fluid.MixingVolumes.Validation.BaseClasses.TraceSubstanceConservation(
      vol(massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      C_nominal=zeros(Medium.nC)));
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   Modelica.Blocks.Continuous.Integrator intTraSubIn(
     k=1,
