@@ -28,7 +28,7 @@ protected
 
   Real k(unit="s/kg")
     "Coefficient used in the computation of the convective heat transfer coefficient";
-
+  Modelica.SIunits.MassFlowRate m_flow_abs = IDEAS.Utilities.Math.Functions.spliceFunction(m_flow,-m_flow,m_flow,m_flow_nominal/30);
 algorithm
   // ********** Convection resistance **********
   // Dittus-Boelter: h = 0.023*k_f*Re*Pr/(2*rTub)
@@ -38,7 +38,7 @@ algorithm
   // Convection
   h := 0.023*kMed*(cpMed*mueMed/kMed)^(0.35)/(2*rTub_in)*
     IDEAS.Utilities.Math.Functions.regNonZeroPower(
-            x=m_flow*k,
+            x=m_flow_abs*k,
             n=0.8,
             delta=0.01*m_flow_nominal*k);
   RFlu2pipe := 1/(2*Modelica.Constants.pi*rTub_in*hSeg*h);
