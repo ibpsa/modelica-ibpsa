@@ -86,6 +86,13 @@ this base class.
 </html>", revisions="<html>
 <ul>
 <li>
+November 3, 2016, by Michael Wetter:<br/>
+Removed start value for pressure difference
+to simplify the parameter window.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/552\">#552</a>.
+</li>
+<li>
 January 26, 2016, by Michael Wetter:<br/>
 Avoided assignment of <code>dp(nominal=0)</code> if <code>dp_nominal_pos = 0</code>
 and of <code>m_flow(nominal=0)</code> if <code>m_flow_nominal_pos = 0</code>
