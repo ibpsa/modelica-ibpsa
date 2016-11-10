@@ -115,14 +115,14 @@ model RectangularZone
     annotation(Dialog(tab="Advanced", group="Convective heat exchange"));
   parameter Interfaces.WindowDynamicsType windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two
     "Type of dynamics for glazings and frames: using zero, one combined or two states"
-    annotation(Dialog(tab="Windows", group="Advanced"));
+    annotation(Dialog(group="Windows", tab="Advanced"));
   parameter Real fraC=if winCei.windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two
        and winCei.fraType.present then winCei.frac else 0
     "Fraction of thermal mass C that is attributed to frame"
-    annotation(Dialog(tab="Windows", group="Advanced"));
+    annotation(Dialog(group="Windows", tab="Advanced"));
   parameter SI.TemperatureDifference dT_nominal_win=-3
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
-    annotation(Dialog(tab="Windows", group="Advanced"));
+    annotation(Dialog(group="Convective heat transfer", tab="Advanced"));
   parameter Boolean linExtCon=sim.linExtCon
     "= true, if exterior convective heat transfer should be linearised (uses average wind speed)"
     annotation(Dialog(tab="Advanced", group="Convective heat exchange"));
@@ -192,24 +192,102 @@ model RectangularZone
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazingA
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type of window of face A"
     annotation (choicesAllMatching=true,
-    Dialog(tab="Face A", group="Window details"));
+    Dialog(tab="Face A", group="Window details",
+           enable = bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWallAndWindow or
+                    bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+                    bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow or
+                    bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow));
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazingB
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type of window of face B"
     annotation (choicesAllMatching=true,
-    Dialog(tab="Face B", group="Window details"));
+    Dialog(tab="Face B", group="Window details",
+           enable = bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWallAndWindow or
+                    bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+                    bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow or
+                    bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow));
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazingC
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type of window of face C"
     annotation (choicesAllMatching=true,
-    Dialog(tab="Face C", group="Window details"));
+    Dialog(tab="Face C", group="Window details",
+           enable = bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWallAndWindow or
+                    bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+                    bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow or
+                    bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow));
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazingD
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type of window of face D"
     annotation (choicesAllMatching=true,
-    Dialog(tab="Face D", group="Window details"));
+    Dialog(tab="Face D", group="Window details",
+           enable = bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWallAndWindow or
+                    bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+                    bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow or
+                    bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow));
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazingCei
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type of window of ceiling"
-    annotation (choicesAllMatching=true,
-    Dialog(tab="Ceiling", group="Window details"));
+    annotation (
+           choicesAllMatching=true,
+           Dialog(tab="Ceiling", group="Window details",
+           enable = bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWallAndWindow or
+                    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+                    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow or
+                    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow));
 
+  replaceable parameter IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties shaTypA
+    constrainedby
+    IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties
+    "Shading type and properties of window of face A"
+    annotation (
+           choicesAllMatching=true,
+           Dialog(tab="Face A", group="Window details",
+           enable = bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWallAndWindow or
+                    bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+                    bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow or
+                    bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow));
+  replaceable parameter IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties shaTypB
+    constrainedby
+    IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties
+    "Shading type and properties of window of face B"
+    annotation (
+           choicesAllMatching=true,
+           Dialog(tab="Face B", group="Window details",
+           enable = bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWallAndWindow or
+                    bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+                    bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow or
+                    bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow));
+  replaceable parameter IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties shaTypC
+    constrainedby
+    IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties
+    "Shading type and properties of window of face C"
+    annotation (
+           choicesAllMatching=true,
+           Dialog(tab="Face C", group="Window details",
+           enable = bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWallAndWindow or
+                    bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+                    bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow or
+                    bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow));
+  replaceable parameter IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties shaTypD
+    constrainedby
+    IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties
+    "Shading type and properties of window of face D"
+    annotation (
+           choicesAllMatching=true,
+           Dialog(tab="Face D", group="Window details",
+           enable = bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWallAndWindow or
+                    bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+                    bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow or
+                    bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow));
+  replaceable parameter IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties shaTypCei
+    constrainedby
+    IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties
+    "Shading type and properties of window of ceiling"
+    annotation (
+           choicesAllMatching=true,
+           Dialog(tab="Ceiling", group="Window details",
+           enable = bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWallAndWindow or
+                    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+                    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow or
+                    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow));
+
+protected
   IDEAS.Buildings.Components.Window winA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
     glazing(
       nLay=glazingA.nLay,
@@ -230,7 +308,22 @@ model RectangularZone
     linExtCon=linExtCon,
     linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
-    fraC=fraC) if
+    fraC=fraC,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+  controlled=shaTypA.controlled,
+  shaType=shaTypA.shaType,
+  hWin=shaTypA.hWin,
+  wWin=shaTypA.wWin,
+  wLeft=shaTypA.wLeft,
+  wRight=shaTypA.wRight,
+  ovDep=shaTypA.ovDep,
+  ovGap=shaTypA.ovGap,
+  hFin=shaTypA.hFin,
+  finDep=shaTypA.finDep,
+  finGap=shaTypA.finGap,
+  L=shaTypA.L,
+  dh=shaTypA.dh,
+  shaCorr=shaTypA.shaCorr))) if
        hasWinA
     "Window for face A of this zone" annotation (Placement(transformation(extent={{-100,0},{-90,20}})));
   IDEAS.Buildings.Components.Window winB(
@@ -255,7 +348,22 @@ model RectangularZone
     linExtCon=linExtCon,
     linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
-    fraC=fraC) if
+    fraC=fraC,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+  controlled=shaTypB.controlled,
+  shaType=shaTypB.shaType,
+  hWin=shaTypB.hWin,
+  wWin=shaTypB.wWin,
+  wLeft=shaTypB.wLeft,
+  wRight=shaTypB.wRight,
+  ovDep=shaTypB.ovDep,
+  ovGap=shaTypB.ovGap,
+  hFin=shaTypB.hFin,
+  finDep=shaTypB.finDep,
+  finGap=shaTypB.finGap,
+  L=shaTypB.L,
+  dh=shaTypB.dh,
+  shaCorr=shaTypB.shaCorr))) if
        hasWinB
     "Window for face B of this zone" annotation (Placement(
         transformation(
@@ -283,7 +391,22 @@ model RectangularZone
     linExtCon=linExtCon,
     linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
-    fraC=fraC) if
+    fraC=fraC,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+  controlled=shaTypC.controlled,
+  shaType=shaTypC.shaType,
+  hWin=shaTypC.hWin,
+  wWin=shaTypC.wWin,
+  wLeft=shaTypC.wLeft,
+  wRight=shaTypC.wRight,
+  ovDep=shaTypC.ovDep,
+  ovGap=shaTypC.ovGap,
+  hFin=shaTypC.hFin,
+  finDep=shaTypC.finDep,
+  finGap=shaTypC.finGap,
+  L=shaTypC.L,
+  dh=shaTypC.dh,
+  shaCorr=shaTypC.shaCorr))) if
        hasWinC
     "Window for face C of this zone" annotation (Placement(
         transformation(
@@ -311,7 +434,22 @@ model RectangularZone
     linExtCon=linExtCon,
     linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
-    fraC=fraC) if
+    fraC=fraC,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+      controlled=shaTypD.controlled,
+  shaType=shaTypD.shaType,
+  hWin=shaTypD.hWin,
+  wWin=shaTypD.wWin,
+  wLeft=shaTypD.wLeft,
+  wRight=shaTypD.wRight,
+  ovDep=shaTypD.ovDep,
+  ovGap=shaTypD.ovGap,
+  hFin=shaTypD.hFin,
+  finDep=shaTypD.finDep,
+  finGap=shaTypD.finGap,
+  L=shaTypD.L,
+  dh=shaTypD.dh,
+  shaCorr=shaTypD.shaCorr))) if
        hasWinD
     "Window for face D of this zone" annotation (Placement(
         transformation(
@@ -338,7 +476,22 @@ model RectangularZone
     linExtCon=linExtCon,
     linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
-    fraC=fraC) if
+    fraC=fraC,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+      controlled=shaTypCei.controlled,
+  shaType=shaTypCei.shaType,
+  hWin=shaTypCei.hWin,
+  wWin=shaTypCei.wWin,
+  wLeft=shaTypCei.wLeft,
+  wRight=shaTypCei.wRight,
+  ovDep=shaTypCei.ovDep,
+  ovGap=shaTypCei.ovGap,
+  hFin=shaTypCei.hFin,
+  finDep=shaTypCei.finDep,
+  finGap=shaTypCei.finGap,
+  L=shaTypCei.L,
+  dh=shaTypCei.dh,
+  shaCorr=shaTypCei.shaCorr))) if
        hasWinCei
     "Window for ceiling of this zone" annotation (Placement(
         transformation(
@@ -863,6 +1016,24 @@ protected
   final parameter Integer indExtD = indExtC + (if hasExtD then 1 else 0);
   final parameter Integer indExtFlo = indExtD + (if hasExtFlo then 1 else 0);
   final parameter Integer indExtCei = indExtFlo + (if hasExtCei then 1 else 0);
+initial equation
+  assert(not bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround, "The value for bouTypA is not supported");
+  assert(not bouTypB==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround, "The value for bouTypB is not supported");
+  assert(not bouTypC==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround, "The value for bouTypC is not supported");
+  assert(not bouTypD==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround, "The value for bouTypD is not supported");
+  assert(not bouTypCei==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround, "The value for bouTypCei is not supported");
+  assert(not (bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall or
+              bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow or
+              bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+              bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWallAndWindow or
+              bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow), "The value for bouTypFlo is not supported");
+  assert(not (bouTypCei==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
+              bouTypCei==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow),
+              "Using internal walls for the ceiling is not allowed because it is considered bad practice. 
+              Use instead the 'External'  connection to connect the the floor of the surface above, 
+              or use this option to connect and internal wall externally.");
+
+
 
 equation
   connect(intA.propsBus_a, propsBusInt[1]) annotation (Line(
