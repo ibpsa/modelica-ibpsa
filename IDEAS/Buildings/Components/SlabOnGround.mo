@@ -16,12 +16,7 @@ model SlabOnGround "opaque floor on ground slab"
     "Amplitude of variation of monthly average outdoor temperature";
   parameter Modelica.SIunits.TemperatureDifference dTiAvg = 2
     "Amplitude of variation of monthly average indoor temperature";
-  parameter Boolean linearise=true
-    "= true, if convective heat transfer should be linearised"
-    annotation(Dialog(tab="Convection"));
-  parameter Modelica.Fluid.Types.Dynamics energyDynamicsLayMul[constructionType.nLay]=
-    cat(1, {if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics}, fill(energyDynamics, constructionType.nLay - 1))
-    "Energy dynamics for construction layer";
+
   Modelica.SIunits.HeatFlowRate Qm = UEqui*AWall*(TiAvg - TeAvg) - Lpi*dTiAvg*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*dTeAvg*cos(2*3.1415/12*(m - 1 - beta))
     "Two-dimensional correction for edge flow";
 
@@ -30,6 +25,9 @@ protected
   final parameter IDEAS.Buildings.Data.Materials.Ground ground1(final d=0.50);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground2(final d=0.33);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground3(final d=0.17);
+  final parameter Modelica.Fluid.Types.Dynamics energyDynamicsLayMul[constructionType.nLay]=
+    cat(1, fill(energyDynamics, constructionType.nLay - 1),{if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics})
+    "Energy dynamics for construction layer";
   final parameter Real U_value=1/(1/6 + sum(constructionType.mats.R) + 0)
     "Floor theoretical U-value";
 
