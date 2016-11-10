@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components;
-model RectangularZone
+model RectangularZoneTemplate
   "Rectangular zone including walls, floor and ceiling"
   extends IDEAS.Buildings.Components.Interfaces.PartialZone(
     calculateViewFactor=true,
@@ -804,6 +804,7 @@ protected
     hasIntFlo
     "Internal wall for zone floor"
     annotation (Placement(transformation(extent={{-176,-80},{-164,-60}})));
+public
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusA(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
@@ -815,8 +816,8 @@ protected
         rotation=-90,
         origin={-188,10}), iconTransformation(
         extent={{-20,20},{20,-20}},
-        rotation=-90,
-        origin={-80,40})));
+        rotation=180,
+        origin={-58,100})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusB(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
@@ -828,8 +829,8 @@ protected
         rotation=-90,
         origin={-188,-10}), iconTransformation(
         extent={{-20,20},{20,-20}},
-        rotation=-90,
-        origin={-80,40})));
+        rotation=90,
+        origin={90,60})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusC(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
@@ -841,8 +842,8 @@ protected
         rotation=-90,
         origin={-188,-30}), iconTransformation(
         extent={{-20,20},{20,-20}},
-        rotation=-90,
-        origin={-80,40})));
+        rotation=0,
+        origin={0,-90})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusD(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
@@ -855,7 +856,7 @@ protected
         origin={-188,-50}), iconTransformation(
         extent={{-20,20},{20,-20}},
         rotation=-90,
-        origin={-80,40})));
+        origin={-90,0})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusFlo(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
@@ -867,8 +868,8 @@ protected
         rotation=-90,
         origin={-188,-70}), iconTransformation(
         extent={{-20,20},{20,-20}},
-        rotation=-90,
-        origin={-80,40})));
+        rotation=180,
+        origin={0,-60})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusCei(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
@@ -880,8 +881,8 @@ protected
         rotation=-90,
         origin={-188,-90}), iconTransformation(
         extent={{-20,20},{20,-20}},
-        rotation=-90,
-        origin={-80,40})));
+        rotation=180,
+        origin={-2,60})));
 protected
   final parameter Boolean hasWinA=
     bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWallAndWindow or
@@ -1033,8 +1034,6 @@ initial equation
               Use instead the 'External'  connection to connect the the floor of the surface above, 
               or use this option to connect and internal wall externally.");
 
-
-
 equation
   connect(intA.propsBus_a, propsBusInt[1]) annotation (Line(
       points={{-165,12},{-152,12},{-152,40},{-80,40}},
@@ -1181,8 +1180,32 @@ equation
       thickness=0.5));
   end if;
 
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-220,-100},
-            {100,100}})),                                        Diagram(
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, initialScale=
+            0.1), graphics={
+        Text(
+          extent={{-60,-72},{-30,-38}},
+          lineColor={28,108,200},
+          textString="Flo"),
+        Text(
+          extent={{92,76},{112,110}},
+          lineColor={28,108,200},
+          textString="B"),
+        Text(
+          extent={{-50,-120},{-30,-86}},
+          lineColor={28,108,200},
+          textString="C"),
+        Text(
+          extent={{-114,16},{-94,50}},
+          lineColor={28,108,200},
+          textString="D"),
+        Text(
+          extent={{18,44},{46,80}},
+          lineColor={28,108,200},
+          textString="Cei"),
+        Text(
+          extent={{-90,98},{-70,132}},
+          lineColor={28,108,200},
+          textString="A")}),                                     Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-220,-100},{100,100}}),
                     graphics={
         Text(
@@ -1209,4 +1232,4 @@ equation
           extent={{-220,20},{-200,0}},
           lineColor={28,108,200},
           textString="A")}));
-end RectangularZone;
+end RectangularZoneTemplate;
