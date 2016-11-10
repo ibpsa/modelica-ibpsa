@@ -2,7 +2,7 @@ within IDEAS.Buildings.Components.Interfaces;
 partial model PartialOpaqueSurface
   "Partial component for the opaque surfaces of the building envelope"
 
-  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionType
+  replaceable parameter IDEAS.Buildings.Data.Interfaces.Construction constructionType
     constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
       final insulationType=insulationType,
       final insulationTickness=insulationThickness)

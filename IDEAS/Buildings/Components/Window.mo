@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components;
 model Window "Multipane window"
-  replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazing
+  replaceable IDEAS.Buildings.Data.Interfaces.Glazing glazing
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
@@ -41,12 +41,12 @@ model Window "Multipane window"
     "Fraction of thermal mass C that is attributed to frame"
     annotation(Dialog(tab="Dynamics", enable=windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two));
 
-  replaceable IDEAS.Buildings.Components.ThermalBridges.LineLosses briType constrainedby
+  replaceable parameter IDEAS.Buildings.Components.ThermalBridges.LineLosses briType constrainedby
     IDEAS.Buildings.Components.ThermalBridges.BaseClasses.ThermalBridge
     "Thermal bridge of window edge" annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
 
-  replaceable IDEAS.Buildings.Data.Frames.None fraType
+  replaceable parameter IDEAS.Buildings.Data.Frames.None fraType
     constrainedby IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
@@ -150,6 +150,8 @@ protected
 
 initial equation
   QTra_design = (U_value*A + briType.G) *(273.15 + 21 - Tdes.y);
+
+
 
 
 
