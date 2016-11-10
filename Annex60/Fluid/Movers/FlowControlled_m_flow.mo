@@ -38,7 +38,7 @@ model FlowControlled_m_flow
 
   // By default, set massFlowRates proportional to (speed/speed_nominal)
   parameter Modelica.SIunits.MassFlowRate[:] massFlowRates=
-    m_flow_nominal*{speeds[i]/speeds[end] for i in 1:size(per.speeds, 1)}
+    m_flow_nominal*{per.speeds[i]/per.speeds[end] for i in 1:size(per.speeds, 1)}
     "Vector of mass flow rate set points, used when inputType=Stage"
     annotation(Dialog(enable=inputType == Annex60.Fluid.Types.InputType.Stages));
 
