@@ -1,7 +1,8 @@
 within IDEAS.Buildings.Components.Shading.Interfaces;
 record ShadingProperties
+  "Default: no shading"
   extends Modelica.Icons.Record;
-  parameter Boolean controlled=true
+  parameter Boolean controlled=false
     "if true, shading has a control input"
     annotation(Evaluate=true);
   parameter IDEAS.Buildings.Components.Shading.Interfaces.ShadingType shaType=

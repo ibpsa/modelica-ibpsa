@@ -3,7 +3,7 @@ model RectangularZoneTemplate
   "Rectangular zone including walls, floor and ceiling"
   extends IDEAS.Buildings.Components.Interfaces.PartialZone(
     calculateViewFactor=true,
-    final nSurf=indExtFlo+nSurfExt,
+    final nSurf=indExtCei+nSurfExt,
     final V=l*w*h,
     final hZone=h,
     final A=l*w);
@@ -116,10 +116,6 @@ model RectangularZoneTemplate
   parameter Interfaces.WindowDynamicsType windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two
     "Type of dynamics for glazings and frames: using zero, one combined or two states"
     annotation(Dialog(group="Windows", tab="Advanced"));
-  parameter Real fraC=if winCei.windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two
-       and winCei.fraType.present then winCei.frac else 0
-    "Fraction of thermal mass C that is attributed to frame"
-    annotation(Dialog(group="Windows", tab="Advanced"));
   parameter SI.TemperatureDifference dT_nominal_win=-3
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
     annotation(Dialog(group="Convective heat transfer", tab="Advanced"));
@@ -135,56 +131,72 @@ model RectangularZoneTemplate
   parameter SI.TemperatureDifference dT_nominal_out=-3
     "Nominal temperature difference for outer walls, used for linearisation, negative temperatures indicate the solid is colder"
     annotation(Dialog(tab="Advanced", group="Convective heat transfer"));
+  parameter SI.TemperatureDifference dT_nominal_sla=-3
+    "Nominal temperature difference of slab on ground, used for linearisation, negative temperatures indicate the solid is colder"
+    annotation(Dialog(tab="Advanced", group="Convective heat transfer"));
   parameter SI.Temperature TeAvg=273.15 + 10.8
     "Annual average outdoor temperature"
-    annotation(Dialog(tab="Floor", group="Slab on ground", enable=bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround));
+    annotation(Dialog(tab="Floor", group="Slab on ground", enable=bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround));
   parameter SI.Temperature TiAvg=273.15 + 22
     "Annual average indoor temperature"
-    annotation(Dialog(tab="Floor", group="Slab on ground", enable=bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround));
+    annotation(Dialog(tab="Floor", group="Slab on ground", enable=bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround));
   parameter SI.TemperatureDifference dTeAvg=4
     "Amplitude of variation of monthly average outdoor temperature"
-    annotation(Dialog(tab="Floor", group="Slab on ground", enable=bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround));
+    annotation(Dialog(tab="Floor", group="Slab on ground", enable=bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround));
   parameter SI.TemperatureDifference dTiAvg=2
     "Amplitude of variation of monthly average indoor temperature"
-    annotation(Dialog(tab="Floor", group="Slab on ground", enable=bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround));
+    annotation(Dialog(tab="Floor", group="Slab on ground", enable=bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround));
   parameter SI.TemperatureDifference dT_nominal_intA=1
     "Nominal temperature difference between zone air and interior walls, used for linearisation"
     annotation(Dialog(tab="Advanced", group="Convective heat transfer"));
   parameter SI.TemperatureDifference dT_nominal_intB=1
     "Nominal temperature difference between interior walls exterior connection, used for linearisation"
     annotation(Dialog(tab="Advanced", group="Convective heat transfer"));
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Construction constructionTypeA
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
+    //fixme: current model sets all insulation to zero thickness
+  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionTypeA
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
+      redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
+      insulationTickness=0)
     "Material structure of face A" annotation (
     choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
     Dialog(tab="Face A",group="Construction details"));
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Construction constructionTypeB
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
+  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionTypeB
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
+      redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
+      insulationTickness=0)
     "Material structure of face B" annotation (
     choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
     Dialog(tab="Face B",group="Construction details"));
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Construction constructionTypeC
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
+  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionTypeC
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
+      redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
+      insulationTickness=0)
     "Material structure of face C" annotation (
     choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
     Dialog(tab="Face C",group="Construction details"));
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Construction constructionTypeD
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
+  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionTypeD
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
+      redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
+      insulationTickness=0)
     "Material structure of face D" annotation (
     choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
     Dialog(tab="Face D",group="Construction details"));
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Construction constructionTypeCei
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
+  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionTypeCei
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
+      redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
+      insulationTickness=0)
     "Material structure of ceiling" annotation (
     choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
     Dialog(tab="Ceiling",group="Construction details"));
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Construction constructionTypeFlo
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
+  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionTypeFlo
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
+      redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
+      insulationTickness=0)
     "Material structure of floor" annotation (
     choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
@@ -308,7 +320,6 @@ protected
     linExtCon=linExtCon,
     linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
-    fraC=fraC,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
   controlled=shaTypA.controlled,
   shaType=shaTypA.shaType,
@@ -348,7 +359,6 @@ protected
     linExtCon=linExtCon,
     linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
-    fraC=fraC,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
   controlled=shaTypB.controlled,
   shaType=shaTypB.shaType,
@@ -391,7 +401,6 @@ protected
     linExtCon=linExtCon,
     linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
-    fraC=fraC,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
   controlled=shaTypC.controlled,
   shaType=shaTypC.shaType,
@@ -434,7 +443,6 @@ protected
     linExtCon=linExtCon,
     linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
-    fraC=fraC,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
       controlled=shaTypD.controlled,
   shaType=shaTypD.shaType,
@@ -476,7 +484,6 @@ protected
     linExtCon=linExtCon,
     linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
-    fraC=fraC,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
       controlled=shaTypCei.controlled,
   shaType=shaTypCei.shaType,
@@ -500,7 +507,7 @@ protected
         origin={-95,-90})));
 
   IDEAS.Buildings.Components.BoundaryWall bouA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeA.nLay,
       nGain=constructionTypeA.nGain,
       locGain=constructionTypeA.locGain,
@@ -518,7 +525,7 @@ protected
   IDEAS.Buildings.Components.BoundaryWall bouB(
            inc=IDEAS.Types.Tilt.Wall,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeB.nLay,
       nGain=constructionTypeB.nGain,
       locGain=constructionTypeB.locGain,
@@ -535,11 +542,12 @@ protected
     annotation (Placement(transformation(extent={{-120,-20},{-110,0}})));
   IDEAS.Buildings.Components.BoundaryWall bouC(inc=IDEAS.Types.Tilt.Wall,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeC.nLay,
       nGain=constructionTypeC.nGain,
       locGain=constructionTypeC.locGain,
-      incLastLay=constructionTypeC.incLastLay),
+      incLastLay=constructionTypeC.incLastLay,
+      mats=constructionTypeC.mats),
     azi=aziA + Modelica.Constants.pi,
     T_start=T_start,
     linIntCon_a=linIntCon,
@@ -552,12 +560,12 @@ protected
   IDEAS.Buildings.Components.BoundaryWall bouD(inc=IDEAS.Types.Tilt.Wall, azi=aziA
          + Modelica.Constants.pi/2*3,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeD.nLay,
       nGain=constructionTypeD.nGain,
-      locGain=constructionTypeC.locGain,
-      incLastLay=constructionTypeC.incLastLay,
-      mats=constructionTypeC.mats),
+      locGain=constructionTypeD.locGain,
+      incLastLay=constructionTypeD.incLastLay,
+      mats=constructionTypeD.mats),
     T_start=T_start,
     linIntCon_a=linIntCon,
     energyDynamics=energyDynamics,
@@ -569,7 +577,7 @@ protected
   IDEAS.Buildings.Components.BoundaryWall bouFlo(inc=IDEAS.Types.Tilt.Floor, azi=aziA,
     AWall=A,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeFlo.nLay,
       nGain=constructionTypeFlo.nGain,
       locGain=constructionTypeFlo.locGain,
@@ -584,7 +592,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-80},{-110,-60}})));
   IDEAS.Buildings.Components.BoundaryWall bouCei(inc=IDEAS.Types.Tilt.Ceiling, azi=aziA,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeCei.nLay,
       nGain=constructionTypeCei.nGain,
       locGain=constructionTypeCei.locGain,
@@ -599,7 +607,7 @@ protected
     "Boundary wall for zone ceiling"
     annotation (Placement(transformation(extent={{-120,-100},{-110,-80}})));
   IDEAS.Buildings.Components.OuterWall outA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeA.nLay,
       nGain=constructionTypeA.nGain,
       locGain=constructionTypeA.locGain,
@@ -619,7 +627,7 @@ protected
   IDEAS.Buildings.Components.OuterWall outB(
       inc=IDEAS.Types.Tilt.Wall,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeB.nLay,
       nGain=constructionTypeB.nGain,
       locGain=constructionTypeB.locGain,
@@ -638,11 +646,12 @@ protected
     annotation (Placement(transformation(extent={{-140,-20},{-130,0}})));
   IDEAS.Buildings.Components.OuterWall outC(inc=IDEAS.Types.Tilt.Wall,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeC.nLay,
       nGain=constructionTypeC.nGain,
       locGain=constructionTypeC.locGain,
-      incLastLay=constructionTypeC.incLastLay),
+      incLastLay=constructionTypeC.incLastLay,
+      mats=constructionTypeC.mats),
     azi=aziA + Modelica.Constants.pi,
     T_start=T_start,
     linIntCon_a=linIntCon,
@@ -657,12 +666,12 @@ protected
   IDEAS.Buildings.Components.OuterWall outD(inc=IDEAS.Types.Tilt.Wall, azi=aziA +
         Modelica.Constants.pi/2*3,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeD.nLay,
       nGain=constructionTypeD.nGain,
-      locGain=constructionTypeC.locGain,
-      incLastLay=constructionTypeC.incLastLay,
-      mats=constructionTypeC.mats),
+      locGain=constructionTypeD.locGain,
+      incLastLay=constructionTypeD.incLastLay,
+      mats=constructionTypeD.mats),
     T_start=T_start,
     linIntCon_a=linIntCon,
     energyDynamics=energyDynamics,
@@ -675,7 +684,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-60},{-130,-40}})));
   IDEAS.Buildings.Components.OuterWall outCei(inc=IDEAS.Types.Tilt.Ceiling, azi=aziA,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeCei.nLay,
       nGain=constructionTypeCei.nGain,
       locGain=constructionTypeCei.locGain,
@@ -691,10 +700,12 @@ protected
        hasOutCei
     "Outer wall for zone ceiling"
     annotation (Placement(transformation(extent={{-140,-100},{-130,-80}})));
-  IDEAS.Buildings.Components.SlabOnGround slaOnGro(inc=IDEAS.Types.Tilt.Floor, azi=aziA,
+  IDEAS.Buildings.Components.SlabOnGround slaOnGro(
+    inc=IDEAS.Types.Tilt.Floor,
+    azi=aziA,
     AWall=A,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeFlo.nLay,
       nGain=constructionTypeFlo.nGain,
       locGain=constructionTypeFlo.locGain,
@@ -707,12 +718,13 @@ protected
     TeAvg=TeAvg,
     TiAvg=TiAvg,
     dTeAvg=dTeAvg,
-    dTiAvg=dTiAvg) if
-     bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround
+    dTiAvg=dTiAvg,
+    dT_nominal_a=dT_nominal_sla) if
+     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround
     "Slab on ground model for zone floor"
     annotation (Placement(transformation(extent={{-160,-80},{-150,-60}})));
   IDEAS.Buildings.Components.InternalWall intA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeA.nLay,
       nGain=constructionTypeA.nGain,
       locGain=constructionTypeA.locGain,
@@ -732,7 +744,7 @@ protected
   IDEAS.Buildings.Components.InternalWall intB(
            inc=IDEAS.Types.Tilt.Wall,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeB.nLay,
       nGain=constructionTypeB.nGain,
       locGain=constructionTypeB.locGain,
@@ -751,11 +763,12 @@ protected
     annotation (Placement(transformation(extent={{-176,-20},{-164,0}})));
   IDEAS.Buildings.Components.InternalWall intC(inc=IDEAS.Types.Tilt.Wall,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeC.nLay,
       nGain=constructionTypeC.nGain,
       locGain=constructionTypeC.locGain,
-      incLastLay=constructionTypeC.incLastLay),
+      incLastLay=constructionTypeC.incLastLay,
+      mats=constructionTypeC.mats),
     azi=aziA + Modelica.Constants.pi,
     T_start=T_start,
     linIntCon_a=linIntCon,
@@ -770,12 +783,12 @@ protected
   IDEAS.Buildings.Components.InternalWall intD(inc=IDEAS.Types.Tilt.Wall, azi=aziA
          + Modelica.Constants.pi/2*3,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeD.nLay,
       nGain=constructionTypeD.nGain,
-      locGain=constructionTypeC.locGain,
-      incLastLay=constructionTypeC.incLastLay,
-      mats=constructionTypeC.mats),
+      locGain=constructionTypeD.locGain,
+      incLastLay=constructionTypeD.incLastLay,
+      mats=constructionTypeD.mats),
     T_start=T_start,
     linIntCon_a=linIntCon,
     energyDynamics=energyDynamics,
@@ -789,7 +802,7 @@ protected
   IDEAS.Buildings.Components.InternalWall intFlo(inc=IDEAS.Types.Tilt.Floor, azi=aziA,
     AWall=A,
     insulationThickness=0,
-    constructionType(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeFlo.nLay,
       nGain=constructionTypeFlo.nGain,
       locGain=constructionTypeFlo.locGain,
@@ -809,7 +822,10 @@ public
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
     each weaBus(final outputAngles=sim.outputAngles)) if
-       hasExtBusA
+       bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+    bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
+    bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow or
+    bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of face A"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
@@ -822,7 +838,10 @@ public
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
     each weaBus(final outputAngles=sim.outputAngles)) if
-       hasExtBusB
+       bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+    bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
+    bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow or
+    bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of face B"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
@@ -835,7 +854,10 @@ public
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
     each weaBus(final outputAngles=sim.outputAngles)) if
-       hasExtBusC
+       bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+    bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
+    bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow or
+    bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of face C"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
@@ -848,7 +870,10 @@ public
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
     each weaBus(final outputAngles=sim.outputAngles)) if
-       hasExtBusD
+       bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+    bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
+    bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow or
+    bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of face D"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
@@ -861,7 +886,10 @@ public
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
     each weaBus(final outputAngles=sim.outputAngles)) if
-       hasExtBusFlo
+       bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
+    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow or
+    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of floor"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
@@ -874,7 +902,10 @@ public
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
     each weaBus(final outputAngles=sim.outputAngles)) if
-       hasExtBusCei
+       bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
+    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
+    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow or
+    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface of ceiling: internal walls should be modelled as the floor of the zone above"
     annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
@@ -957,36 +988,6 @@ protected
   final parameter Boolean hasIntFlo=
     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall;
-  final parameter Boolean hasExtBusA=
-    bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
-    bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
-    bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow or
-    bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.External;
-  final parameter Boolean hasExtBusB=
-    bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
-    bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
-    bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow or
-    bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.External;
-  final parameter Boolean hasExtBusC=
-    bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
-    bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
-    bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow or
-    bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.External;
-  final parameter Boolean hasExtBusD=
-    bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
-    bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
-    bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow or
-    bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.External;
-  final parameter Boolean hasExtBusFlo=
-    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
-    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
-    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow or
-    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.External;
-  final parameter Boolean hasExtBusCei=
-    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
-    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
-    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow or
-    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.External;
   final parameter Boolean hasExtA=
     bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow or
     bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.External;
@@ -1033,6 +1034,20 @@ initial equation
               "Using internal walls for the ceiling is not allowed because it is considered bad practice. 
               Use instead the 'External'  connection to connect the the floor of the surface above, 
               or use this option to connect and internal wall externally.");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 equation
   connect(intA.propsBus_a, propsBusInt[1]) annotation (Line(
@@ -1180,22 +1195,22 @@ equation
       thickness=0.5));
   end if;
 
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, initialScale=
-            0.1), graphics={
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
+        graphics={
         Text(
           extent={{-60,-72},{-30,-38}},
           lineColor={28,108,200},
           textString="Flo"),
         Text(
-          extent={{92,76},{112,110}},
+          extent={{120,-14},{140,20}},
           lineColor={28,108,200},
           textString="B"),
         Text(
-          extent={{-50,-120},{-30,-86}},
+          extent={{-10,-122},{10,-94}},
           lineColor={28,108,200},
           textString="C"),
         Text(
-          extent={{-114,16},{-94,50}},
+          extent={{-122,-14},{-102,20}},
           lineColor={28,108,200},
           textString="D"),
         Text(
@@ -1203,7 +1218,7 @@ equation
           lineColor={28,108,200},
           textString="Cei"),
         Text(
-          extent={{-90,98},{-70,132}},
+          extent={{-10,114},{10,148}},
           lineColor={28,108,200},
           textString="A")}),                                     Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-220,-100},{100,100}}),
