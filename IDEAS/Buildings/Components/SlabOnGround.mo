@@ -3,8 +3,7 @@ model SlabOnGround "opaque floor on ground slab"
    extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
      QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes),
         dT_nominal_a=-3,
-    redeclare replaceable Data.Constructions.FloorOnGround constructionType,
-    layMul(monLay(energyDynamics=energyDynamicsLayMul)));
+    redeclare replaceable Data.Constructions.FloorOnGround constructionType);
 
   parameter Modelica.SIunits.Length PWall = 4*sqrt(AWall)
     "Total floor slab perimeter";
@@ -19,14 +18,14 @@ model SlabOnGround "opaque floor on ground slab"
   parameter Boolean linearise=true
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Convection"));
-  parameter Modelica.Fluid.Types.Dynamics energyDynamicsLayMul[constructionType.nLay]=
-    cat(1, {if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics}, fill(energyDynamics, constructionType.nLay - 1))
-    "Energy dynamics for construction layer";
   Modelica.SIunits.HeatFlowRate Qm = UEqui*AWall*(TiAvg - TeAvg) - Lpi*dTiAvg*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*dTeAvg*cos(2*3.1415/12*(m - 1 - beta))
     "Two-dimensional correction for edge flow";
 
 //Calculation of heat loss based on ISO 13370
 protected
+  final parameter Modelica.Fluid.Types.Dynamics energyDynamicsLayGro[3]=
+    cat(1, fill(energyDynamics, 2), {if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics})
+    "Energy dynamics for construction layer";
   final parameter IDEAS.Buildings.Data.Materials.Ground ground1(final d=0.50);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground2(final d=0.33);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground3(final d=0.17);
@@ -51,7 +50,8 @@ protected
     final inc=inc,
     final nLay=3,
     final mats={ground1,ground2,ground3},
-    final T_start={TeAvg,TeAvg,TeAvg})
+    final T_start={TeAvg,TeAvg,TeAvg},
+    monLay(energyDynamics=energyDynamicsLayGro))
     "Declaration of array of resistances and capacitances for ground simulation"
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow periodicFlow(T_ref=284.15)
@@ -130,6 +130,13 @@ equation
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 10, 2016 by Filip Jorissen:<br/>
+Changed state initial equation conflict fix by
+changing energyDynamics of ground, since sometimes
+the first monLay element of layMul does not contain energyDynamics
+and therefore the old fix failed.
+</li>
 <li>
 September 27, 2016 by Filip Jorissen:<br/>
 Different initialisation for state between layMul 
