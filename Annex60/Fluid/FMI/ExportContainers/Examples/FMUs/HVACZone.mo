@@ -76,8 +76,7 @@ block HVACZone
     allowFlowReversal1=allowFlowReversal,
     allowFlowReversal2=allowFlowReversal) "Heat recovery"
     annotation (Placement(transformation(extent={{-82,80},{-62,100}})));
-  HeatExchangers.ConstantEffectiveness
-                                    cooCoi(
+  HeatExchangers.ConstantEffectiveness cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=mW_flow_nominal,
@@ -93,12 +92,11 @@ block HVACZone
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-14,94})));
-  Sources.Boundary_pT
-                  out(
+  Sources.Boundary_pT out(
     nPorts=2,
     redeclare package Medium = MediumA,
     use_T_in=true,
-    use_X_in=true)                      "Outside air boundary condition"
+    use_X_in=true) "Outside air boundary condition"
     annotation (Placement(transformation(extent={{-112,84},{-92,104}})));
   Sources.MassFlowSource_T souWat(
     nPorts=1,
@@ -156,8 +154,7 @@ block HVACZone
     redeclare package Medium = MediumA,
     linearized=true,
     dp_nominal=10,
-    m_flow_nominal=mA_flow_nominal)
-                   "Fixed resistance for supply air inlet"
+    m_flow_nominal=mA_flow_nominal) "Fixed resistance for supply air inlet"
     annotation (Placement(transformation(extent={{86,130},{106,150}})));
   FixedResistances.FixedResistanceDpM resRet1(
     redeclare package Medium = MediumA,
