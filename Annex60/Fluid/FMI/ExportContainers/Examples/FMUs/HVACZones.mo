@@ -1,6 +1,7 @@
 within Annex60.Fluid.FMI.ExportContainers.Examples.FMUs;
 block HVACZones
   "Declaration of an FMU that exports a simple convective only HVAC system for two zones"
+  import Annex60;
   extends Annex60.Fluid.FMI.ExportContainers.HVACZones(
     redeclare final package Medium = MediumA,
     nZon = 2,
@@ -77,22 +78,25 @@ block HVACZones
     allowFlowReversal1=allowFlowReversal,
     allowFlowReversal2=allowFlowReversal) "Heat recovery"
     annotation (Placement(transformation(extent={{-88,80},{-68,100}})));
-  HeatExchangers.ConstantEffectiveness cooCoi(
-    redeclare package Medium1 = MediumW,
-    redeclare package Medium2 = MediumA,
-    m1_flow_nominal=mW_flow_nominal,
-    m2_flow_nominal=mA_flow_nominal,
+
+  replaceable Annex60.Fluid.HeatExchangers.ConstantEffectiveness cooCoi(
     dp1_nominal=6000,
     dp2_nominal=200,
     show_T=true,
     allowFlowReversal1=allowFlowReversal,
-    allowFlowReversal2=allowFlowReversal)
+    allowFlowReversal2=allowFlowReversal) constrainedby
+    Annex60.Fluid.Interfaces.PartialFourPortInterface(
+        redeclare package Medium1 = MediumW,
+        redeclare package Medium2 = MediumA,
+        m1_flow_nominal=mW_flow_nominal,
+        m2_flow_nominal=mA_flow_nominal)
     "Cooling coil (with sensible cooling only)"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-18,94})));
+
   Sources.Boundary_pT out(
     nPorts=3,
     redeclare package Medium = MediumA,
@@ -193,7 +197,7 @@ block HVACZones
     linearized=true,
     m_flow_nominal=0.5*mA_flow_nominal) "Fixed resistance for return air duct"
     annotation (Placement(transformation(extent={{40,20},{20,40}})));
-  Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
+  Annex60.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
     "Computes outside air mass fraction"
     annotation (Placement(transformation(extent={{-150,60},{-130,80}})));
 equation
@@ -331,6 +335,12 @@ ports which are exposed at the FMU interface.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 11, 2016, by Michael Wetter:<br/>
+Made the cooling coil replaceable because the Buildings library
+uses the model for validation with a cooling coil model that is not
+in the Annex 60 library.
+</li>
 <li>
 April 16, 2016 by Michael Wetter:<br/>
 First implementation.
