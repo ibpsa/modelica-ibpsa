@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI;
+within Annex60.Fluid.FMI;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   annotation (preferredView="info",
@@ -25,8 +25,8 @@ The main packages are as follows:
 </tr>
 <tr>
   <td>
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers\">
-  Buildings.Fluid.FMI.ExportContainers</a>
+  <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers\">
+  Annex60.Fluid.FMI.ExportContainers</a>
   </td>
   <td>
   <p>
@@ -34,62 +34,62 @@ The main packages are as follows:
   </p>
   <p>
   To export an HVAC component or system with a single inlet and outlet port, instantiate
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort\">
-  Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort</a>
+  <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.ReplaceableTwoPort\">
+  Annex60.Fluid.FMI.ExportContainers.ReplaceableTwoPort</a>
   with a replaceable model,
   or extend from
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.PartialTwoPort\">
-  Buildings.Fluid.FMI.ExportContainers.PartialTwoPort</a>
+  <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.PartialTwoPort\">
+  Annex60.Fluid.FMI.ExportContainers.PartialTwoPort</a>
   and add components.<br/>
   See
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.Fan\">
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.Fan</a>
+  <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.Fan\">
+  Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.Fan</a>
   and
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume\">
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume</a>.
+  <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume\">
+  Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume</a>.
   </p>
   <p>
   To export an HVAC system that serves a single thermal zone, extend from
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACZone\">
-  Buildings.Fluid.FMI.ExportContainers.HVACZone</a>
+  <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.HVACZone\">
+  Annex60.Fluid.FMI.ExportContainers.HVACZone</a>
   and add the HVAC system.<br/>
   See
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone\">
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone</a>.
+  <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone\">
+  Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone</a>.
   </p>
   <p>
   To export an HVAC system that serves multiple thermal zones, extend from
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACZones\">
-  Buildings.Fluid.FMI.ExportContainers.HVACZones</a>
+  <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.HVACZones\">
+  Annex60.Fluid.FMI.ExportContainers.HVACZones</a>
   and add the HVAC system.<br/>
   See
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones\">
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones</a>.
+  <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones\">
+  Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones</a>.
   </p>
   <p>
   To export a single thermal zone, extend from
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZone\">
-  Buildings.Fluid.FMI.ExportContainers.ThermalZone</a>
+  <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.ThermalZone\">
+  Annex60.Fluid.FMI.ExportContainers.ThermalZone</a>
   and add the thermal zone.<br/>
   See
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>.
+  <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
+  Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>.
   </p>
   <p>
   To export multiple thermal zones, extend from
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZones\">
-  Buildings.Fluid.FMI.ExportContainers.ThermalZones</a>
+  <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.ThermalZones\">
+  Annex60.Fluid.FMI.ExportContainers.ThermalZones</a>
   and add the thermal zone models.<br/>
   See
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones\">
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones</a>.
+  <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones\">
+  Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones</a>.
   </p>
   </td>
 </tr>
 <tr>
   <td>
-  <a href=\"modelica://Buildings.Fluid.FMI.Adaptors\">
-  Buildings.Fluid.FMI.Adaptors</a>
+  <a href=\"modelica://Annex60.Fluid.FMI.Adaptors\">
+  Annex60.Fluid.FMI.Adaptors</a>
   </td>
   <td>
   <p>
@@ -101,23 +101,23 @@ The main packages are as follows:
 <tr>
 <td>
   <p>
-  <a href=\"modelica://Buildings.Fluid.FMI.Conversion\">
-  Buildings.Fluid.FMI.Conversion</a>
+  <a href=\"modelica://Annex60.Fluid.FMI.Conversion\">
+  Annex60.Fluid.FMI.Conversion</a>
   </p>
 </td>
 <td>
   <p>
   Package with blocks that convert between the signal connectors of
-  <a href=\"modelica://Buildings.Fluid.FMI.Interfaces\">
-  Buildings.Fluid.FMI.Interfaces</a>
+  <a href=\"modelica://Annex60.Fluid.FMI.Interfaces\">
+  Annex60.Fluid.FMI.Interfaces</a>
   and the real input and output signal connectors of the Modelica Standard Library.
   </p>
 </td>
 </tr>
 <tr>
 <td>
-  <a href=\"modelica://Buildings.Fluid.FMI.Interfaces\">
-  Buildings.Fluid.FMI.Interfaces</a>
+  <a href=\"modelica://Annex60.Fluid.FMI.Interfaces\">
+  Annex60.Fluid.FMI.Interfaces</a>
 </td>
 <td>
   <p>
@@ -129,8 +129,8 @@ The main packages are as follows:
 </table>
 <p>
 The package
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs\">
+Annex60.Fluid.FMI.ExportContainers.Examples.FMUs</a>
 contains various examples in which HVAC components, HVAC systems
 and thermal zones are exported as an FMU.
 </p>
@@ -138,8 +138,8 @@ and thermal zones are exported as an FMU.
 <p>
 Users who want to export a single thermofluid flow component, or a
 subsystem of thermofluid flow components, can use the block
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort\">
-Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.ReplaceableTwoPort\">
+Annex60.Fluid.FMI.ExportContainers.ReplaceableTwoPort</a>.
 This block has a fluid inlet, a fluid outlet, and a replaceable
 component that can replaced with an HVAC component or system that
 has an inlet and outlet fluid port.
@@ -147,21 +147,21 @@ has an inlet and outlet fluid port.
 <p>
 Users who want to export a whole HVAC system that serves a single thermal zone
 can do so by extending the partial block
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACZone\">
-Buildings.Fluid.FMI.ExportContainers.HVACZone</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.HVACZone\">
+Annex60.Fluid.FMI.ExportContainers.HVACZone</a>.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone\">
+Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone</a>
 illustrates how this can be accomplished.<br/>
 Similar export containers and examples are implemented for HVAC systems that serve multiple thermal zones.
 </p>
 <p>
 Conversely, to export a thermal zone, users can extend the partial block
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZone\">
-Buildings.Fluid.FMI.ExportContainers.ThermalZone</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.ThermalZone\">
+Annex60.Fluid.FMI.ExportContainers.ThermalZone</a>.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
+Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>
 illustrates how this can be accomplished.<br/>
 Similar export containers and examples are implemented for models of multiple thermal zones.
 </p>
@@ -174,12 +174,12 @@ down menu <code>Commands -&gt; Export FMU</code>.
 <h4>Options</h4>
 <p>
 In the
-<a href=\"modelica://Buildings.Fluid\">Buildings.Fluid</a> package,
+<a href=\"modelica://Annex60.Fluid\">Annex60.Fluid</a> package,
 most models have a boolean parameter called <code>allowFlowReversal</code>.
 If set to <code>true</code>, then the flow can be in either direction,
 otherwise it needs to be from the inlet to the outlet port.
 This parameter is also used in the
-<a href=\"modelica://Buildings.Fluid.FMI\">Buildings.Fluid.FMI</a> package.
+<a href=\"modelica://Annex60.Fluid.FMI\">Annex60.Fluid.FMI</a> package.
 The package was designed in such a way that an FMU,
 if exported with <code>allowFlowReversal=false</code>
 has as input the mass flow rate,
@@ -206,8 +206,8 @@ used, and the component computes no pressure drop.
 Setting <code>use_p_in=false</code> therefore leads to fewer
 equations, but it requires a component that specifies the mass
 flow rate, such as
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.IdealSource_m_flow\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.IdealSource_m_flow</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.IdealSource_m_flow\">
+Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.IdealSource_m_flow</a>.
 </p>
 <h4>Notes</h4>
 <p>
@@ -220,8 +220,8 @@ For models with control volumes,
 the mass balance must be configured using
 <code>massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState</code>
 when used with the media
-<a href=\"modelica://Buildings.Media.Air\">
-Buildings.Media.Air</a>.
+<a href=\"modelica://Annex60.Media.Air\">
+Annex60.Media.Air</a>.
 Otherwise, the translation stops with the error
 </p>
 <pre>
@@ -230,34 +230,34 @@ The model requires derivatives of some inputs as listed below:
 </pre>
 <p>
 The reason is that for
-<a href=\"modelica://Buildings.Media.Air\">
-Buildings.Media.Air</a>,
+<a href=\"modelica://Annex60.Media.Air\">
+Annex60.Media.Air</a>,
 mass is proportional to pressure and pressure is proportional
 to density. Hence, <i>dm/dt</i> requires <i>dp/dt</i>,
 but the time derivative of the pressure is not an input to the model.
 </p>
 <p>
-For <a href=\"modelica://Buildings.Media.Water\">
-Buildings.Media.Water</a>, this setting is not needed
+For <a href=\"modelica://Annex60.Media.Water\">
+Annex60.Media.Water</a>, this setting is not needed
 as the mass is independent of pressure.
 </p>
 </li>
 <li>
 <p>
 The model
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FlowMachine_m_flow\">
-Buildings.Fluid.FixedResistances.FlowMachine_m_flow</a>
+<a href=\"modelica://Annex60.Fluid.FixedResistances.FlowMachine_m_flow\">
+Annex60.Fluid.FixedResistances.FlowMachine_m_flow</a>
 cannot be exported as an FMU.
 This is because it assignes the mass flow rate.
 However, the input connector
-<a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Inlet\">
-Buildings.Fluid.FMI.Interfaces.Inlet</a>
+<a href=\"modelica://Annex60.Fluid.FMI.Interfaces.Inlet\">
+Annex60.Fluid.FMI.Interfaces.Inlet</a>
 already declares the mass flow rate as an input.
 Therefore, the mass flow rate is overdetermined.
 As a fall back, if a user needs to set the mass flow rate, he/she can
 do so by using
-<a href=\"modelica://Buildings.Fluid.FMI.IdealSource_m_flow\">
-Buildings.Fluid.FMI.IdealSource_m_flow</a>,
+<a href=\"modelica://Annex60.Fluid.FMI.IdealSource_m_flow\">
+Annex60.Fluid.FMI.IdealSource_m_flow</a>,
 which takes as an input signal the mass flow rate. If this differs
 from the mass flow rate of the inlet connector, the simulation
 will stop with an error.
@@ -269,8 +269,8 @@ When connecting fluid flow components in a loop,
 be careful to avoid circular assignments for example for the temperature,
 as these can of course not be simulated.
 An example of such an ill-posed problem is to connect the outlet of
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>
+<a href=\"modelica://Annex60.Fluid.FixedResistances.FixedResistanceDpM\">
+Annex60.Fluid.FixedResistances.FixedResistanceDpM</a>
 to its inlet. In this situation, neither pressure, nor mass flow rate or temperature
 can be computed. To model such loops, a control volume with a dynamic energy
 balance must be presented, and the medium needs to be compressible.
@@ -278,7 +278,7 @@ balance must be presented, and the medium needs to be compressible.
 <h4>References</h4>
 <p>
 Michael Wetter, Marcus Fuchs and Thierry Stephane Nouidui.<br/>
-<a href=\"modelica://Buildings/Resources/Images/Fluid/FMI/UsersGuide/2015-WetterFuchsNouidui.pdf\">
+<a href=\"modelica://Annex60/Resources/Images/Fluid/FMI/UsersGuide/2015-WetterFuchsNouidui.pdf\">
 Design choices for thermofluid flow components and systems that are exported as Functional Mockup Units</a>.<br/>
 <i>Proc. of the 11th International Modelica Conference</i>,
    p. 31-41,

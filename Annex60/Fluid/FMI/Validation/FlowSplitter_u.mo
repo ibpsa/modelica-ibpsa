@@ -1,7 +1,7 @@
-within Buildings.Fluid.FMI.Validation;
+within Annex60.Fluid.FMI.Validation;
 model FlowSplitter_u "Flow splitter"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air "Medium model";
+  package Medium = Annex60.Media.Air "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
@@ -93,7 +93,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/FlowSplitter_u.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/Validation/FlowSplitter_u.mos"
         "Simulate and plot"),
     experiment(StopTime=1));
 end FlowSplitter_u;

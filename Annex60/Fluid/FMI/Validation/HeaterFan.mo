@@ -1,8 +1,8 @@
-within Buildings.Fluid.FMI.Validation;
+within Annex60.Fluid.FMI.Validation;
 model HeaterFan
   "Heater and fan in series, model configured to allow flow reversal"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air "Medium model";
+  package Medium = Annex60.Media.Air "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10
     "Nominal mass flow rate";
@@ -137,8 +137,8 @@ which is an input to the fan model.
 </p>
 <p>
 For a model with that computes the mass flow rate based on the pressure drop, see
-<a href=\"modelica://Buildings.Fluid.FMI.Validation.HeaterFanPressureDriven\">
-Buildings.Fluid.FMI.Validation.HeaterFanPressureDriven</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.Validation.HeaterFanPressureDriven\">
+Annex60.Fluid.FMI.Validation.HeaterFanPressureDriven</a>.
 </p>
 <p>
 For this example, the models are not exported as FMUs. However, the
@@ -158,7 +158,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFan.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFan.mos"
         "Simulate and plot"),
     experiment(StopTime=1));
 end HeaterFan;

@@ -1,8 +1,8 @@
-within Buildings.Fluid.FMI.Validation;
+within Annex60.Fluid.FMI.Validation;
 model HeaterFan_noReverseFlow
   "Heater and fan in series, model configured to not allow flow reversal"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air "Medium model";
+  package Medium = Annex60.Media.Air "Medium model";
 
   final parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)";
@@ -104,14 +104,14 @@ equation
 This example demonstrates how to configure a model with a heater
 and a fan that causes a pressure rise in the air stream.
 The model is identical with
-<a href=\"modelica://Buildings.Fluid.FMI.Validation.HeaterFan\">
-Buildings.Fluid.FMI.Validation.HeaterFan</a>
+<a href=\"modelica://Annex60.Fluid.FMI.Validation.HeaterFan\">
+Annex60.Fluid.FMI.Validation.HeaterFan</a>
 except that reverse flow is not allowed due to the parameter
 <code>allowFlowReversal=false</code>.
 Consequently, the connectors for the fluid properties for the reverse flow
 are removed, and the blocks on the right hand side of the model
-<a href=\"modelica://Buildings.Fluid.FMI.Validation.HeaterFan\">
-Buildings.Fluid.FMI.Validation.HeaterFan</a>
+<a href=\"modelica://Annex60.Fluid.FMI.Validation.HeaterFan\">
+Annex60.Fluid.FMI.Validation.HeaterFan</a>
 have been deleted.
 </p>
 </html>", revisions="<html>
@@ -128,7 +128,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFan_noReverseFlow.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFan_noReverseFlow.mos"
         "Simulate and plot"),
     experiment(StopTime=1));
 end HeaterFan_noReverseFlow;

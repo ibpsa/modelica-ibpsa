@@ -1,6 +1,6 @@
-within Buildings.Fluid.FMI.Conversion;
+within Annex60.Fluid.FMI.Conversion;
 block AirToOutlet
-  "Conversion from real signals for a fluid to a Buildings.Fluid.FMI.Interfaces.Outlet connector"
+  "Conversion from real signals for a fluid to a Annex60.Fluid.FMI.Interfaces.Outlet connector"
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
@@ -35,7 +35,7 @@ block AirToOutlet
                 transformation(
                 extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Fluid.FMI.Interfaces.Outlet outlet(
+  Annex60.Fluid.FMI.Interfaces.Outlet outlet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=false) "Fluid outlet"
@@ -89,7 +89,7 @@ protected
     "Internal connector for water vapor concentration in kg/kg total air";
 
    // Conditional connectors for the backward flowing medium
-  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+  Annex60.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
 
@@ -158,13 +158,13 @@ equation
 <p>
 Block that takes real inputs for properties of an air-based HVAC
 system and converts them to an outlet connector of type
-<a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Outlet\">
-Buildings.Fluid.FMI.Interfaces.Outlet</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.Interfaces.Outlet\">
+Annex60.Fluid.FMI.Interfaces.Outlet</a>.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.HVAC\">
-Buildings.Fluid.FMI.Adaptors.HVAC</a>
+<a href=\"modelica://Annex60.Fluid.FMI.Adaptors.HVAC\">
+Annex60.Fluid.FMI.Adaptors.HVAC</a>
 for its usage.
 </p>
 </html>", revisions="<html>

@@ -1,12 +1,12 @@
-within Buildings.Fluid.FMI.ExportContainers;
+within Annex60.Fluid.FMI.ExportContainers;
 package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers\">
-Buildings.Fluid.FMI.ExportContainers</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers\">
+Annex60.Fluid.FMI.ExportContainers</a>.
 </p>
 <p>
 Note that most validation models contain simple input data

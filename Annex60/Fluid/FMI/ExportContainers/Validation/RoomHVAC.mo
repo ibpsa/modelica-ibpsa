@@ -1,12 +1,12 @@
-within Buildings.Fluid.FMI.ExportContainers.Validation;
+within Annex60.Fluid.FMI.ExportContainers.Validation;
 model RoomHVAC
   "Validation model for connected single thermal zone and HVAC system"
  extends Modelica.Icons.Example;
 
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone hvaCon
+  Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone hvaCon
     "Block that encapsulates the HVAC system"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone rooCon
+  Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone rooCon
     "Block that encapsulates the thermal zone"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   BaseCase baseCase
@@ -22,7 +22,7 @@ model RoomHVAC
 
 protected
     model BaseCase "Base case model used for the validation of the FMI interfaces"
-    extends Buildings.Examples.Tutorial.SpaceCooling.System3(
+    extends Annex60.Examples.Tutorial.SpaceCooling.System3(
       vol(energyDynamics=
       Modelica.Fluid.Types.Dynamics.FixedInitial),
       fan(nominalValuesDefineDefaultPressureCurve=true),
@@ -35,16 +35,16 @@ the coupling of a convective thermal zone with an air-based HVAC system.
 </p>
 <p>
 It is based on
-<a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
-Buildings.Examples.Tutorial.SpaceCooling.System3</a>,
+<a href=\"modelica://Annex60.Examples.Tutorial.SpaceCooling.System3\">
+Annex60.Examples.Tutorial.SpaceCooling.System3</a>,
 and it assign some parameters to have the same configuration as
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone\">
+Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone</a>.
 </p>
 <p>
 The model which is validated using this model is
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
-Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
+Annex60.Fluid.FMI.ExportContainers.Validation.RoomHVAC
 </a>.
 </p>
 </html>"), Icon(graphics={
@@ -112,13 +112,13 @@ Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC
 
   model TwoRooms "Model with two simple thermal zones, each having three air flow paths"
     extends
-      Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones;
+      Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones;
 
     annotation (Documentation(info="<html>
 <p>
 This model extends
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones\">
+Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones</a>
 to implement two simple thermal zones.
 </p>
 </html>", revisions="<html>
@@ -156,8 +156,8 @@ The model has the following three parts:
 <ul>
 <li>
 The block <code>baseCase</code> is the base case model, which is adapted from
-<a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
-Buildings.Examples.Tutorial.SpaceCooling.System3</a>
+<a href=\"modelica://Annex60.Examples.Tutorial.SpaceCooling.System3\">
+Annex60.Examples.Tutorial.SpaceCooling.System3</a>
 to have the same flow resistances as the models that are here validated.
 </li>
 <li>
@@ -189,7 +189,7 @@ temperature trajectory.
 With Dymola 2017, we obtain the trajectories shown below.
 </p>
 <p align=\"center\">
-<img alt=\"Simulation results\" src=\"modelica://Buildings/Resources/Images/Fluid/FMI/ExportContainers/Validation/RoomConvectiveHVACConvective.png\" border=\"1\" />
+<img alt=\"Simulation results\" src=\"modelica://Annex60/Resources/Images/Fluid/FMI/ExportContainers/Validation/RoomConvectiveHVACConvective.png\" border=\"1\" />
 </p>
 </html>", revisions="<html>
 <ul>
@@ -203,7 +203,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Validation/RoomHVAC.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Validation/RoomHVAC.mos"
         "Simulate and plot"),
     experiment(StartTime=1.5552e+07, StopTime=15638400));
 end RoomHVAC;

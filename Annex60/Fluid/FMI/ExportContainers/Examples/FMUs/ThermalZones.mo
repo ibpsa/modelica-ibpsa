@@ -1,12 +1,12 @@
-within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
+within Annex60.Fluid.FMI.ExportContainers.Examples.FMUs;
 model ThermalZones
   "Declaration of an FMU that exports multiple thermal zones"
-  extends Buildings.Fluid.FMI.ExportContainers.ThermalZones(
+  extends Annex60.Fluid.FMI.ExportContainers.ThermalZones(
     redeclare final package Medium = MediumA,
     nPorts =  3,
     nZon = 2);
 
-  replaceable package MediumA = Buildings.Media.Air "Medium for air";
+  replaceable package MediumA = Annex60.Media.Air "Medium for air";
 
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
 
@@ -31,10 +31,10 @@ model ThermalZones
     "Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback";
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    pAtmSou=Annex60.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=TOut_nominal,
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
-    TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File,
+    filNam="modelica://Annex60/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    TDryBulSou=Annex60.BoundaryConditions.Types.DataSource.File,
     computeWetBulbTemperature=false) "Weather data reader"
     annotation (Placement(transformation(extent={{150,130},{130,150}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
@@ -194,14 +194,14 @@ HVAC system only. The thermal zones are connected to an adaptor so that
 they can be coupled
 to an air-based HVAC system. The thermal zone is
 taken from
-<a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
-Buildings.Examples.Tutorial.SpaceCooling.System3
+<a href=\"modelica://Annex60.Examples.Tutorial.SpaceCooling.System3\">
+Annex60.Examples.Tutorial.SpaceCooling.System3
 </a>.
 </p>
 <p>
 The example extends from
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZones\">
-Buildings.Fluid.FMI.ExportContainers.ThermalZones</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.ThermalZones\">
+Annex60.Fluid.FMI.ExportContainers.ThermalZones</a>
 which provides
 the input and output signals that are needed to interface
 the acausal thermal zone models with causal connectors of FMI.
@@ -219,6 +219,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/ThermalZones.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/ThermalZones.mos"
         "Export FMU"));
 end ThermalZones;

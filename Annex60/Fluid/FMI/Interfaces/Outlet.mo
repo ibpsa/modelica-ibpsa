@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Interfaces;
+within Annex60.Fluid.FMI.Interfaces;
 connector Outlet "Connector for fluid outlet"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
@@ -13,14 +13,14 @@ connector Outlet "Connector for fluid outlet"
 
   output Medium.MassFlowRate m_flow
     "Mass flow rate from the connection point into the component";
-  Buildings.Fluid.FMI.Interfaces.PressureOutput p if
+  Annex60.Fluid.FMI.Interfaces.PressureOutput p if
        use_p_in "Thermodynamic pressure in the connection point";
 
-  input Buildings.Fluid.FMI.Interfaces.FluidProperties backward(
+  input Annex60.Fluid.FMI.Interfaces.FluidProperties backward(
     redeclare final package Medium = Medium) if
        allowFlowReversal "Inflowing properties";
 
-  output Buildings.Fluid.FMI.Interfaces.FluidProperties forward(
+  output Annex60.Fluid.FMI.Interfaces.FluidProperties forward(
     redeclare final package Medium = Medium) "Outflowing properties";
 
   annotation (defaultComponentName="outlet",

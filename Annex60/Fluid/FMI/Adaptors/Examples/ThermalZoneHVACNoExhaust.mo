@@ -1,11 +1,11 @@
-within Buildings.Fluid.FMI.Adaptors.Examples;
+within Annex60.Fluid.FMI.Adaptors.Examples;
 model ThermalZoneHVACNoExhaust
   "Example of a thermal zone and an HVAC system both exposed using the FMI adaptor"
   extends Modelica.Icons.Example;
 
-  replaceable package MediumA = Buildings.Media.Air "Medium for air";
+  replaceable package MediumA = Annex60.Media.Air "Medium for air";
 
-  Buildings.Fluid.FMI.Adaptors.HVAC hvacAda(
+  Annex60.Fluid.FMI.Adaptors.HVAC hvacAda(
     redeclare final package Medium=MediumA, nPorts=2)
     "Adaptor for an HVAC system that is exposed through an FMI interface"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
@@ -18,7 +18,7 @@ model ThermalZoneHVACNoExhaust
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=VRoo*2*1.2/3600
     "Nominal mass flow rate";
 
-  Buildings.Fluid.FMI.Adaptors.ThermalZone con(redeclare package Medium =
+  Annex60.Fluid.FMI.Adaptors.ThermalZone con(redeclare package Medium =
         MediumA, nPorts=2) "Adaptor for thermal zone"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Modelica.Blocks.Sources.Pulse TSet(
@@ -40,7 +40,7 @@ model ThermalZoneHVACNoExhaust
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
     dp_nominal=1200,
-    inputType=Buildings.Fluid.Types.InputType.Constant,
+    inputType=Annex60.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     filteredSpeed=false)
                      "Fan or pump"
@@ -166,11 +166,11 @@ also implemented in Modelica)")}),
 <p>
 This example demonstrates how to
 use the adaptors
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.HVAC\">
-Buildings.Fluid.FMI.Adaptors.HVAC</a>
+<a href=\"modelica://Annex60.Fluid.FMI.Adaptors.HVAC\">
+Annex60.Fluid.FMI.Adaptors.HVAC</a>
 and
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.ThermalZone\">
-Buildings.Fluid.FMI.Adaptors.ThermalZone</a>
+<a href=\"modelica://Annex60.Fluid.FMI.Adaptors.ThermalZone\">
+Annex60.Fluid.FMI.Adaptors.ThermalZone</a>
 </p>
 <p>
 On the left hand side is an HVAC system with supply and return air stream.
@@ -192,7 +192,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACNoExhaust.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACNoExhaust.mos"
         "Simulate and plot"),
     experiment(StopTime=172800));
 end ThermalZoneHVACNoExhaust;

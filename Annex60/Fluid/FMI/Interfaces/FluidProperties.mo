@@ -1,11 +1,11 @@
-within Buildings.Fluid.FMI.Interfaces;
+within Annex60.Fluid.FMI.Interfaces;
 connector FluidProperties "Type definition for fluid properties"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
 
   Medium.Temperature T "Temperature";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w if
+  Annex60.Fluid.FMI.Interfaces.MassFractionConnector X_w if
        Medium.nXi > 0 "Water vapor mass fractions per kg total air";
   Medium.ExtraProperty C[Medium.nC] "Properties c_i/m";
 
@@ -31,11 +31,11 @@ unless <code>Medium.nC=0</code>.
 </ul>
 <p>
 These quantities are used in the connectors
-<a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Inlet\">
-Buildings.Fluid.FMI.Interfaces.Inlet</a>
+<a href=\"modelica://Annex60.Fluid.FMI.Interfaces.Inlet\">
+Annex60.Fluid.FMI.Interfaces.Inlet</a>
 and
-<a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Outlet\">
-Buildings.Fluid.FMI.Interfaces.Outlet</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.Interfaces.Outlet\">
+Annex60.Fluid.FMI.Interfaces.Outlet</a>.
 </p>
 <p>
 Note that none of these quantities is declared to be an

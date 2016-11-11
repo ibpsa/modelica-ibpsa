@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI;
+within Annex60.Fluid.FMI;
 package Conversion "Package with blocks that convert between different connectors"
   extends Modelica.Icons.Package;
 
@@ -13,11 +13,11 @@ package Conversion "Package with blocks that convert between different connector
 <p>
 This package contains blocks to convert between scalar input-output signals
 and the composite input-output connectors
-<a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Inlet\">
-Buildings.Fluid.FMI.Interfaces.Inlet</a>
+<a href=\"modelica://Annex60.Fluid.FMI.Interfaces.Inlet\">
+Annex60.Fluid.FMI.Interfaces.Inlet</a>
 and
-<a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Outlet\">
-Buildings.Fluid.FMI.Interfaces.Outlet</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.Interfaces.Outlet\">
+Annex60.Fluid.FMI.Interfaces.Outlet</a>.
 </p>
 </html>"));
 end Conversion;

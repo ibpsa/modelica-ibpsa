@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.ExportContainers;
+within Annex60.Fluid.FMI.ExportContainers;
 partial block HVACZones
   "Partial block to export an HVAC system that has no radiative component and that serves multiple zones as an FMU"
 
@@ -167,13 +167,13 @@ and add your HVAC system. By extending from this model, the top-level
 signal connectors on the right stay at the top-level, and hence
 will be visible at the FMI interface.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones\">
+Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones</a>
 shows how a simple HVAC system that serves two rooms can be implemented and exported as
 an FMU.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
-Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
+Annex60.Fluid.FMI.ExportContainers.Validation.RoomHVAC</a>
 shows how such an FMU can be connected
 to a room model that has signal flow.
 </p>
@@ -246,15 +246,15 @@ all equal, while for a stratified room model, they can be different.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones\">
+Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones</a>
 for a model that uses this model.
 </p>
 <p>
 For models that only have one thermal zone connected to the HVAC system,
 use the simpler model
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACZone\">
-Buildings.Fluid.FMI.ExportContainers.HVACZone</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.HVACZone\">
+Annex60.Fluid.FMI.ExportContainers.HVACZone</a>.
 </p>
 <h4>Assumption and limitations</h4>
 <p>
@@ -270,8 +270,8 @@ to be the same.
 The reason is that setting a pressure can lead to non-physical system models,
 for example if a mass flow rate is imposed and the HVAC system is connected
 to a model that sets a pressure boundary condition such as
-<a href=\"modelica://Buildings.Fluid.Sources.Outside\">
-Buildings.Fluid.Sources.Outside</a>.
+<a href=\"modelica://Annex60.Fluid.Sources.Outside\">
+Annex60.Fluid.Sources.Outside</a>.
 Also, setting a pressure would make it impossible to use multiple instances
 of this model (one for each thermal zone) and build in Modelica an airflow network
 model with pressure driven mass flow rates.

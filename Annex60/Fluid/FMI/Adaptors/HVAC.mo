@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Adaptors;
+within Annex60.Fluid.FMI.Adaptors;
 model HVAC
   "Adaptor for connecting an HVAC system to signal ports which then can be exposed at an FMI interface"
 
@@ -7,7 +7,7 @@ model HVAC
      annotation (choicesAllMatching=true);
 
   // Don't use annotation(Dialog(connectorSizing=true)) for nPorts because
-  // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones
+  // otherwise, in Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones
   // the fluid ports can not be assigned between the different zones by the user.
   parameter Integer nPorts(min=2) "Number of ports"
       annotation (Dialog(connectorSizing=false));
@@ -66,7 +66,7 @@ protected
     final m_flow=0) "Boundary conditions for HVAC system"
     annotation (Placement(transformation(extent={{0,-10},{-20,10}})));
 
-  Buildings.Fluid.FMI.Conversion.AirToOutlet con[nPorts](
+  Annex60.Fluid.FMI.Conversion.AirToOutlet con[nPorts](
       redeclare each final package Medium = Medium,
       each final allowFlowReversal=true)
     "Converter between the different connectors"
@@ -77,7 +77,7 @@ protected
     each allowFlowReversal=true) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Fluid.FMI.BaseClasses.X_w_toX x_w_toX(
+  Annex60.Fluid.FMI.BaseClasses.X_w_toX x_w_toX(
     redeclare final package Medium = Medium) if
        Medium.nXi > 0 "Conversion from X_w to X"
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
@@ -243,9 +243,9 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
             Bitmap(extent={{30,-102},{92,-40}},fileName=
-            "modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png"),
+            "modelica://Annex60/Resources/Images/Fluid/FMI/FMI_icon.png"),
             Bitmap(extent={{-96,52},{-24,108}},fileName=
-            "modelica://Buildings/Resources/Images/Fluid/FMI/modelica_icon.png")}),
+            "modelica://Annex60/Resources/Images/Fluid/FMI/modelica_icon.png")}),
     Documentation(info="<html>
 <p>
 Adaptor that can be used to connect an HVAC system (with acausal ports)
@@ -308,8 +308,8 @@ of all fluid connections to <code>ports</code> to be equal.
 The reason is that setting a pressure can lead to non-physical system models,
 for example if a mass flow rate is imposed and the HVAC system is connected
 to a model that sets a pressure boundary condition such as
-<a href=\"modelica://Buildings.Fluid.Sources.Outside\">
-Buildings.Fluid.Sources.Outside</a>.
+<a href=\"modelica://Annex60.Fluid.Sources.Outside\">
+Annex60.Fluid.Sources.Outside</a>.
 Also, setting a pressure would make it impossible to use multiple instances
 of this model (one for each thermal zone) and build in Modelica an airflow network
 model with pressure driven mass flow rates.
@@ -322,8 +322,8 @@ in models that are connected to <code>ports</code>.
 <h4>Typical use and important parameters</h4>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACZone\">
-Buildings.Fluid.FMI.ExportContainers.HVACZone</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.HVACZone\">
+Annex60.Fluid.FMI.ExportContainers.HVACZone</a>
 for a model that uses this model.
 </p>
 </html>", revisions="<html>

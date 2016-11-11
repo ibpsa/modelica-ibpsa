@@ -1,8 +1,8 @@
-within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
+within Annex60.Fluid.FMI.ExportContainers.Examples.FMUs;
 block ResistanceVolume
   "Declaration of an FMU that exports a flow resistance and control volume"
-  extends Buildings.Fluid.FMI.ExportContainers.PartialTwoPort(
-    redeclare package Medium = Buildings.Media.Air);
+  extends Annex60.Fluid.FMI.ExportContainers.PartialTwoPort(
+    redeclare package Medium = Annex60.Media.Air);
 
   parameter Modelica.SIunits.Volume V=1 "Volume";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
@@ -15,12 +15,12 @@ block ResistanceVolume
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 protected
-  Buildings.Fluid.FMI.Adaptors.Inlet bouIn(
+  Annex60.Fluid.FMI.Adaptors.Inlet bouIn(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=use_p_in) "Boundary model for inlet"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Fluid.FMI.Adaptors.Outlet bouOut(
+  Annex60.Fluid.FMI.Adaptors.Outlet bouOut(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=use_p_in) "Boundary component for outlet"
@@ -35,7 +35,7 @@ protected
     final dp_nominal=if use_p_in then dp_nominal else 0,
     final allowFlowReversal=allowFlowReversal) "Flow resistance"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume vol(
+  Annex60.Fluid.MixingVolumes.MixingVolume vol(
     nPorts=2,
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -83,16 +83,16 @@ equation
 This example demonstrates how to export an FMU with a
 flow resistance and a control volume.
 The FMU has an instance of
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> and
-<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
-Buildings.Fluid.MixingVolumes.MixingVolume</a>.
+<a href=\"modelica://Annex60.Fluid.FixedResistances.FixedResistanceDpM\">
+Annex60.Fluid.FixedResistances.FixedResistanceDpM</a> and
+<a href=\"modelica://Annex60.Fluid.MixingVolumes.MixingVolume\">
+Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 <p>
 The mass dynamics has been set to
 <code>massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState</code>.
 See the
-<a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">user's guide</a>
+<a href=\"modelica://Annex60.Fluid.FMI.UsersGuide\">user's guide</a>
 for the rationale.
 </p>
 </html>", revisions="<html>
@@ -109,7 +109,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/ResistanceVolume.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/ResistanceVolume.mos"
         "Export FMU"),
     Icon(graphics={
         Rectangle(

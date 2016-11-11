@@ -1,9 +1,9 @@
-within Buildings.Fluid.FMI.Conversion.Validation;
+within Annex60.Fluid.FMI.Conversion.Validation;
 model InletToAirMoistAir
-  "Validation model for inlet to Buildings.Media.Air conversion without trace substances"
+  "Validation model for inlet to Annex60.Media.Air conversion without trace substances"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = Buildings.Media.Air
+  replaceable package Medium = Annex60.Media.Air
      constrainedby Modelica.Media.Interfaces.PartialMedium "Medium model";
   parameter Boolean use_p_in = false
     "= true to use a pressure from connector, false to output Medium.p_default"
@@ -14,7 +14,7 @@ model InletToAirMoistAir
   Modelica.Blocks.Sources.Constant T(k=295.13) "Room temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Fluid.FMI.Conversion.InletToAir conAir(
+  Annex60.Fluid.FMI.Conversion.InletToAir conAir(
     redeclare package Medium = Medium, allowFlowReversal=false)
                                        "Converter for air"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
@@ -32,7 +32,7 @@ model InletToAirMoistAir
   Modelica.Blocks.Sources.Constant C[Medium.nC](each k=0.01) if
      Medium.nC > 0 "Trace substances for forward flow"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Fluid.FMI.Conversion.InletToAir conAirRevFlo(redeclare package
+  Annex60.Fluid.FMI.Conversion.InletToAir conAirRevFlo(redeclare package
       Medium = Medium, allowFlowReversal=true)
     "Converter for air with reverse flow"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
@@ -83,12 +83,12 @@ annotation (
     Documentation(info="<html>
 <p>
 This example validates the conversion model
-<a href=\"modelica://Buildings.Fluid.FMI.Conversion.InletToAir\">
-Buildings.Fluid.FMI.Conversion.InletToAir
+<a href=\"modelica://Annex60.Fluid.FMI.Conversion.InletToAir\">
+Annex60.Fluid.FMI.Conversion.InletToAir
 </a>.
 The medium used is
-<a href=\"modelica://Buildings.Media.Air\">
-Buildings.Media.Air
+<a href=\"modelica://Annex60.Media.Air\">
+Annex60.Media.Air
 </a>
 without trace substances.
 The top model has no reverse flow, whereas the
@@ -106,7 +106,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/InletToAirMoistAir.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/InletToAirMoistAir.mos"
         "Simulate and plot"),
     experiment(StopTime=1));
 end InletToAirMoistAir;

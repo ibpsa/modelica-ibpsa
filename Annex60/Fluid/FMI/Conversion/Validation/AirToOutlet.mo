@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Conversion.Validation;
+within Annex60.Fluid.FMI.Conversion.Validation;
 model AirToOutlet "Validation model for air to outlet conversion"
   extends Modelica.Icons.Example;
 
@@ -15,23 +15,23 @@ model AirToOutlet "Validation model for air to outlet conversion"
   Modelica.Blocks.Sources.Constant C[1](k={1E-5}) "Trace substances"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
-  Buildings.Fluid.FMI.Conversion.AirToOutlet conAirNoC(
-    redeclare package Medium = Buildings.Media.Air,
+  Annex60.Fluid.FMI.Conversion.AirToOutlet conAirNoC(
+    redeclare package Medium = Annex60.Media.Air,
     final allowFlowReversal=allowFlowReversal)
     "Converter for air without trace substances"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
-  Buildings.Fluid.FMI.Conversion.AirToOutlet conAirWithC(
-    redeclare package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}),
+  Annex60.Fluid.FMI.Conversion.AirToOutlet conAirWithC(
+    redeclare package Medium = Annex60.Media.Air(extraPropertiesNames={"CO2"}),
     final allowFlowReversal=allowFlowReversal)
     "Converter for air with trace substances"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Fluid.FMI.Conversion.AirToOutlet conDryAirNoC(
+  Annex60.Fluid.FMI.Conversion.AirToOutlet conDryAirNoC(
     redeclare package Medium = Modelica.Media.Air.SimpleAir,
     final allowFlowReversal=allowFlowReversal)
     "Converter for dry air without trace substances"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Buildings.Fluid.FMI.Conversion.AirToOutlet conDryAirWithC(
+  Annex60.Fluid.FMI.Conversion.AirToOutlet conDryAirWithC(
     redeclare package Medium = Modelica.Media.Air.SimpleAir(extraPropertiesNames={"CO2"}),
     final allowFlowReversal=allowFlowReversal)
     "Converter for dry air with trace substances"
@@ -65,8 +65,8 @@ annotation (
     Documentation(info="<html>
 <p>
 This example validates the conversion model
-<a href=\"modelica://Buildings.Fluid.FMI.Conversion.AirToOutlet\">
-Buildings.Fluid.FMI.Conversion.AirToOutlet</a>
+<a href=\"modelica://Annex60.Fluid.FMI.Conversion.AirToOutlet\">
+Annex60.Fluid.FMI.Conversion.AirToOutlet</a>
 for the situation without reverse flow.
 </p>
 <p>
@@ -82,7 +82,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/AirToOutlet.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/AirToOutlet.mos"
         "Simulate and plot"),
     experiment(StopTime=1));
 end AirToOutlet;

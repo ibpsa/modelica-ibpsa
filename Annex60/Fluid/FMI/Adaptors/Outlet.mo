@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Adaptors;
+within Annex60.Fluid.FMI.Adaptors;
 model Outlet "Adaptor for connecting a fluid outlet to the FMI interface"
 
   replaceable package Medium =
@@ -13,7 +13,7 @@ model Outlet "Adaptor for connecting a fluid outlet to the FMI interface"
     "= true to use a pressure from connector, false to output Medium.p_default"
     annotation(Evaluate=true);
 
-  Buildings.Fluid.FMI.Interfaces.Outlet outlet(
+  Annex60.Fluid.FMI.Interfaces.Outlet outlet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=use_p_in) "Fluid outlet"
@@ -26,7 +26,7 @@ model Outlet "Adaptor for connecting a fluid outlet to the FMI interface"
         transformation(extent={{-110,-10},{-90,10}}),
           iconTransformation(extent={{-110,
             -10},{-90,10}})));
-  Buildings.Fluid.FMI.Interfaces.PressureInput p if
+  Annex60.Fluid.FMI.Interfaces.PressureInput p if
        use_p_in "Pressure to be sent to outlet"
               annotation (
       Placement(transformation(
@@ -34,15 +34,15 @@ model Outlet "Adaptor for connecting a fluid outlet to the FMI interface"
         rotation=90,
         origin={0,-120})));
 protected
-  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+  Annex60.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
-  Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
+  Annex60.Fluid.FMI.Interfaces.PressureOutput p_in_internal
     "Internal connector for pressure";
 
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
+  Annex60.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
     "Internal connector for mass fraction of forward flow properties";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal
+  Annex60.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal
     "Internal connector for mass fraction of backward flow properties";
 initial equation
    assert(Medium.nXi < 2,
@@ -75,8 +75,8 @@ equation
     bacPro_internal.T  = Medium.T_default;
     bacPro_internal.C  = fill(0, Medium.nC);
     if Medium.nXi > 0 then
-      // This test for nXi is needed for Buildings.Fluid.FMI.Validation.HeaterFan_noReverseFlow
-      // to work with Buildings.Media.Water
+      // This test for nXi is needed for Annex60.Fluid.FMI.Validation.HeaterFan_noReverseFlow
+      // to work with Annex60.Media.Water
       connect(bacPro_internal.X_w, X_w_out_internal);
     end if;
   end if;
@@ -134,18 +134,18 @@ equation
 <p>
 Model that is used to connect a fluid port with an output signal.
 The model needs to be used in conjunction with an instance of
-<a href=\"modelica://Buildings.Fluid.FMI.InletAdaptor\">
-Buildings.Fluid.FMI.InletAdaptor</a> in order for
+<a href=\"modelica://Annex60.Fluid.FMI.InletAdaptor\">
+Annex60.Fluid.FMI.InletAdaptor</a> in order for
 fluid mass flow rate and pressure to be properly assigned to
 the acausal fluid models.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.PartialTwoPortComponent\">
-Buildings.Fluid.FMI.ExportContainers.PartialTwoPortComponent</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.PartialTwoPortComponent\">
+Annex60.Fluid.FMI.ExportContainers.PartialTwoPortComponent</a>
 or
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume\">
+Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume</a>
 for how to use this model.
 </p>
 </html>", revisions="<html>

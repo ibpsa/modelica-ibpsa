@@ -1,13 +1,13 @@
-within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
+within Annex60.Fluid.FMI.ExportContainers.Examples.FMUs;
 block HVACZones
   "Declaration of an FMU that exports a simple convective only HVAC system for two zones"
-  extends Buildings.Fluid.FMI.ExportContainers.HVACZones(
+  extends Annex60.Fluid.FMI.ExportContainers.HVACZones(
     redeclare final package Medium = MediumA,
     nZon = 2,
     nPorts = 3);
 
-  replaceable package MediumA = Buildings.Media.Air "Medium for air";
-  replaceable package MediumW = Buildings.Media.Water "Medium for water";
+  replaceable package MediumA = Annex60.Media.Air "Medium for air";
+  replaceable package MediumW = Annex60.Media.Water "Medium for water";
 
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
@@ -84,7 +84,7 @@ block HVACZones
     m2_flow_nominal=mA_flow_nominal,
     dp1_nominal=6000,
     UA_nominal=-QCoiC_flow_nominal/
-        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+        Annex60.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=THeaRecLvg,
         T_b1=TASup_nominal,
         T_a2=TWSup_nominal,
@@ -140,10 +140,10 @@ block HVACZones
     "Conversion from boolean to real for water flow rate"
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    pAtmSou=Annex60.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=TOut_nominal,
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
-    TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File,
+    filNam="modelica://Annex60/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    TDryBulSou=Annex60.BoundaryConditions.Types.DataSource.File,
     computeWetBulbTemperature=false) "Weather data reader"
     annotation (Placement(transformation(extent={{-152,130},{-132,150}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
@@ -164,7 +164,7 @@ block HVACZones
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mA_flow_nominal/10,
-    inputType=Buildings.Fluid.Types.InputType.Constant)
+    inputType=Annex60.Fluid.Types.InputType.Constant)
     "Supply air fan that extracts a constant amount of outside air"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   FixedResistances.FixedResistanceDpM res(
@@ -315,14 +315,14 @@ equation
 This example demonstrates how to export a model of an HVAC system
 that only provides convective cooling to two thermal zones.
 The example is similar to
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone\">
+Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone</a>
 except that is serves two thermal zones rather than one.
 </p>
 <p>
 The example extends from
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACZones\">
-Buildings.Fluid.FMI.ExportContainers.HVACZones
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.HVACZones\">
+Annex60.Fluid.FMI.ExportContainers.HVACZones
 </a>
 which provides the input and output signals that are needed to interface
 the acausal HVAC system model with causal connectors of FMI.
@@ -339,6 +339,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/HVACZones.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/HVACZones.mos"
         "Export FMU"));
 end HVACZones;

@@ -1,8 +1,8 @@
-within Buildings.Fluid.FMI.Validation;
+within Annex60.Fluid.FMI.Validation;
 model HeaterFanPressureDriven
   "Heater and fan in series, model configured to allow flow reversal and pressure driven flow rate"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air "Medium model";
+  package Medium = Annex60.Media.Air "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10
     "Nominal mass flow rate";
@@ -148,8 +148,8 @@ an equality constraint on the pressure between the sink and the source.
 It also outputs a signal for the mass flow rate. Hence, this component is
 used to declare how to break the algebraic loop in this signal flow diagram.
 For a model with prescribed mass flow rate, see
-<a href=\"modelica://Buildings.Fluid.FMI.Validation.HeaterFan\">
-Buildings.Fluid.FMI.Validation.HeaterFan</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.Validation.HeaterFan\">
+Annex60.Fluid.FMI.Validation.HeaterFan</a>.
 </p>
 <p>
 For this example, the models are not exported as FMUs. However, the
@@ -169,7 +169,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFanPressureDriven.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFanPressureDriven.mos"
         "Simulate and plot"),
     experiment(StopTime=1));
 end HeaterFanPressureDriven;

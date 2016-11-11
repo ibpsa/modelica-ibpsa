@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Interfaces;
+within Annex60.Fluid.FMI.Interfaces;
 connector Inlet "Connector for fluid inlet"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
@@ -13,12 +13,12 @@ connector Inlet "Connector for fluid inlet"
 
   input Medium.MassFlowRate m_flow
     "Mass flow rate from the connection point into the component";
-  Buildings.Fluid.FMI.Interfaces.PressureInput p if
+  Annex60.Fluid.FMI.Interfaces.PressureInput p if
      use_p_in "Thermodynamic pressure in the connection point";
 
-  input Buildings.Fluid.FMI.Interfaces.FluidProperties forward(
+  input Annex60.Fluid.FMI.Interfaces.FluidProperties forward(
     redeclare final package Medium = Medium) "Inflowing properties";
-  output Buildings.Fluid.FMI.Interfaces.FluidProperties backward(
+  output Annex60.Fluid.FMI.Interfaces.FluidProperties backward(
     redeclare final package Medium = Medium) if
        allowFlowReversal "Outflowing properties";
 

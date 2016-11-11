@@ -1,7 +1,7 @@
-within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
+within Annex60.Fluid.FMI.ExportContainers.Validation.FMUs;
 block ThermalZoneAir1 "Validation of simple thermal zone"
-  extends Buildings.Fluid.FMI.ExportContainers.ThermalZone(
-    redeclare package Medium = Buildings.Media.Air,
+  extends Annex60.Fluid.FMI.ExportContainers.ThermalZone(
+    redeclare package Medium = Annex60.Media.Air,
     nPorts =  2);
 
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
@@ -110,8 +110,8 @@ equation
     Documentation(info="<html>
 <p>
 This example validates that
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZone\">
-Buildings.Fluid.FMI.ExportContainers.ThermalZone
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.ThermalZone\">
+Annex60.Fluid.FMI.ExportContainers.ThermalZone
 </a>
 exports correctly as an FMU.
 </p>
@@ -128,6 +128,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Validation/FMUs/ThermalZoneAir1.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Validation/FMUs/ThermalZoneAir1.mos"
         "Export FMU"));
 end ThermalZoneAir1;

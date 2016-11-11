@@ -1,9 +1,9 @@
-within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
+within Annex60.Fluid.FMI.ExportContainers.Examples.FMUs;
 block Humidifier_u
   "Declaration of an FMU that exports an ideal humidifier"
-   extends Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
-     redeclare replaceable package Medium = Buildings.Media.Air,
-     redeclare final Buildings.Fluid.MassExchangers.Humidifier_u com(
+   extends Annex60.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
+     redeclare replaceable package Medium = Annex60.Media.Air,
+     redeclare final Annex60.Fluid.MassExchangers.Humidifier_u com(
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=if use_p_in then dp_nominal else 0,
       final mWat_flow_nominal=mWat_flow_nominal,
@@ -37,14 +37,14 @@ This example demonstrates how to export an FMU with a humidifier
 that takes as an input signal the normalized mass flow rate of water that
 will be added to the medium.
 The FMU has an instance of
-<a href=\"modelica://Buildings.Fluid.MassExchangers.Humidifier_u\">
-Buildings.Fluid.MassExchangers.Humidifier_u</a>.
+<a href=\"modelica://Annex60.Fluid.MassExchangers.Humidifier_u\">
+Annex60.Fluid.MassExchangers.Humidifier_u</a>.
 </p>
 <p>
 The mass dynamics has been set to
 <code>massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState</code>.
 See the
-<a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">user's guide</a>
+<a href=\"modelica://Annex60.Fluid.FMI.UsersGuide\">user's guide</a>
 for the rationale.
 </p>
 </html>", revisions="<html>
@@ -61,7 +61,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/Humidifier_u.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/Humidifier_u.mos"
         "Export FMU"),
     Icon(graphics={
         Polygon(

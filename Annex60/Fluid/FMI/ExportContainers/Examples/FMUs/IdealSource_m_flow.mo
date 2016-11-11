@@ -1,7 +1,7 @@
-within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
+within Annex60.Fluid.FMI.ExportContainers.Examples.FMUs;
 block IdealSource_m_flow "Declaration of an FMU that exports a mass flow source and sink"
-   extends Buildings.Fluid.FMI.ExportContainers.PartialTwoPort(
-     redeclare replaceable package Medium = Buildings.Media.Air);
+   extends Annex60.Fluid.FMI.ExportContainers.PartialTwoPort(
+     redeclare replaceable package Medium = Annex60.Media.Air);
 
   Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s")
     "Prescribed mass flow rate"
@@ -43,7 +43,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/IdealSource_m_flow.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/IdealSource_m_flow.mos"
         "Export FMU"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={

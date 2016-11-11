@@ -1,6 +1,6 @@
-within Buildings.Fluid.FMI.Conversion;
+within Annex60.Fluid.FMI.Conversion;
 block InletToAir
-  "Conversion from real signals for a fluid to a Buildings.Fluid.FMI.Interfaces.Inlet connector"
+  "Conversion from real signals for a fluid to a Annex60.Fluid.FMI.Interfaces.Inlet connector"
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
@@ -11,7 +11,7 @@ block InletToAir
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Evaluate=true);
 
-  Buildings.Fluid.FMI.Interfaces.Inlet inlet(
+  Annex60.Fluid.FMI.Interfaces.Inlet inlet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=false) "Fluid outlet"
@@ -73,7 +73,7 @@ block InletToAir
     annotation (Placement(transformation(extent={{100,-100},{140,-60}})));
 
 protected
-  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+  Annex60.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
 
@@ -129,8 +129,8 @@ equation
     Documentation(info="<html>
 <p>
 Block that takes an inlet connector of type
-<a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Inlet\">
-Buildings.Fluid.FMI.Interfaces.Inlet
+<a href=\"modelica://Annex60.Fluid.FMI.Interfaces.Inlet\">
+Annex60.Fluid.FMI.Interfaces.Inlet
 </a>
 and converts
 it to real outputs for properties of an air-based
@@ -161,8 +161,8 @@ and the return air properties are in the connector
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.ThermalZone\">
-Buildings.Fluid.FMI.Adaptors.ThermalZone</a>
+<a href=\"modelica://Annex60.Fluid.FMI.Adaptors.ThermalZone\">
+Annex60.Fluid.FMI.Adaptors.ThermalZone</a>
 for its usage.
 </p>
 </html>", revisions="<html>

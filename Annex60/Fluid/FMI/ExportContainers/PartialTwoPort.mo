@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.ExportContainers;
+within Annex60.Fluid.FMI.ExportContainers;
 partial block PartialTwoPort
   "Partial block to be used as a container to export a thermofluid flow model with two ports"
   replaceable package Medium =
@@ -44,8 +44,8 @@ whether flow reversal is allowed.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume\">
+Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume</a>
 for a block that extends this partial block.
 </p>
 </html>", revisions="<html>

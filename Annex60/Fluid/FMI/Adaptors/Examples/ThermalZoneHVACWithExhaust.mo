@@ -1,7 +1,7 @@
-within Buildings.Fluid.FMI.Adaptors.Examples;
+within Annex60.Fluid.FMI.Adaptors.Examples;
 model ThermalZoneHVACWithExhaust
   "Example of a thermal zone and an HVAC system both exposed using the FMI adaptor"
-  extends Buildings.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust(
+  extends Annex60.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust(
     hvacAda(nPorts=3),
     out(nPorts=3),
     con(nPorts=3),
@@ -12,7 +12,7 @@ model ThermalZoneHVACWithExhaust
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
     dp_nominal=1200,
-    inputType=Buildings.Fluid.Types.InputType.Constant,
+    inputType=Annex60.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     filteredSpeed=false,
     m_flow_nominal=0.1*m_flow_nominal) "Constant air exhaust"
@@ -30,16 +30,16 @@ equation
 <p>
 This example demonstrates how to
 use the adaptors
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.HVAC\">
-Buildings.Fluid.FMI.Adaptors.HVAC</a>
+<a href=\"modelica://Annex60.Fluid.FMI.Adaptors.HVAC\">
+Annex60.Fluid.FMI.Adaptors.HVAC</a>
 and
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.ThermalZone\">
-Buildings.Fluid.FMI.Adaptors.ThermalZone</a>
+<a href=\"modelica://Annex60.Fluid.FMI.Adaptors.ThermalZone\">
+Annex60.Fluid.FMI.Adaptors.ThermalZone</a>
 </p>
 <p>
 It is identical to
-<a href=\"Buildings.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust\">
-Buildings.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust</a>
+<a href=\"Annex60.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust\">
+Annex60.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust</a>
 except that it adds a forced exhaust air stream.
 </p>
 </html>", revisions="<html>
@@ -50,7 +50,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACWithExhaust.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACWithExhaust.mos"
         "Simulate and plot"),
     experiment(StopTime=172800));
 end ThermalZoneHVACWithExhaust;

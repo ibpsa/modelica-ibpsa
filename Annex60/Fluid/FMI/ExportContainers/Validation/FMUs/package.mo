@@ -1,12 +1,12 @@
-within Buildings.Fluid.FMI.ExportContainers.Validation;
+within Annex60.Fluid.FMI.ExportContainers.Validation;
 package FMUs "Collection of validation models for FMU export"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers\">
-Buildings.Fluid.FMI.ExportContainers</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers\">
+Annex60.Fluid.FMI.ExportContainers</a>.
 The test are done for different media, with and without flow
 reversal, and for air with zero, one or two contaminants.
 </p>

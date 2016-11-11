@@ -1,7 +1,7 @@
-within Buildings.Fluid.FMI;
+within Annex60.Fluid.FMI;
 model Sink_T
   "Model of a sink with temperature for reverse flow as an input that can be exported as an FMU"
-  extends Buildings.BaseClasses.BaseIcon;
+  extends Annex60.BaseClasses.BaseIcon;
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
@@ -34,7 +34,7 @@ model Sink_T
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=use_p_in) "Fluid port"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
-  Buildings.Fluid.FMI.Interfaces.PressureOutput p if
+  Annex60.Fluid.FMI.Interfaces.PressureOutput p if
      use_p_in "Pressure"
   annotation (
       Placement(transformation(
@@ -45,12 +45,12 @@ model Sink_T
         rotation=180,
         origin={-120,-80})));
 protected
-  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+  Annex60.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
-  Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
+  Annex60.Fluid.FMI.Interfaces.PressureOutput p_in_internal
     "Internal connector for pressure";
-  output Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
+  output Annex60.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
     "Internal connector for mass fraction of forward flow properties";
 
 equation
@@ -100,8 +100,8 @@ These properties are used during reverse flow.
 </p>
 <p>
 For a system of components with the connectors of the
-<a href=\"modelica://Buildings.Fluid.FMI\">
-Buildings.Fluid.FMI</a>
+<a href=\"modelica://Annex60.Fluid.FMI\">
+Annex60.Fluid.FMI</a>
 package, this component is required to set the medium properties
 for the reverse flow.
 </p>

@@ -1,15 +1,15 @@
-within Buildings.Fluid.FMI.Conversion.Validation;
+within Annex60.Fluid.FMI.Conversion.Validation;
 model AirToOutletFlowReversal
   "Validation model for air to outlet converter with flow reversal enabled"
-  extends Buildings.Fluid.FMI.Conversion.Validation.AirToOutlet(
+  extends Annex60.Fluid.FMI.Conversion.Validation.AirToOutlet(
     allowFlowReversal = true);
   BoundaryCondition bouAirNoC(
-    redeclare package Medium = Buildings.Media.Air (
+    redeclare package Medium = Annex60.Media.Air (
       X_default={0.015, 0.985}))
       "Boundary condition" annotation (Placement(
         transformation(extent={{40,50},{60,70}})));
   BoundaryCondition bouAirWithC(
-    redeclare package Medium = Buildings.Media.Air (
+    redeclare package Medium = Annex60.Media.Air (
     X_default={0.015, 0.985},
     extraPropertiesNames={"CO2"}))
    "Boundary condition" annotation (Placement(
@@ -80,14 +80,14 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This example is identical to
-<a href=\"modelica://Buildings.Fluid.FMI.Conversion.Validation.AirToOutlet\">
-Buildings.Fluid.FMI.Conversion.Validation.AirToOutlet</a>,
+<a href=\"modelica://Annex60.Fluid.FMI.Conversion.Validation.AirToOutlet\">
+Annex60.Fluid.FMI.Conversion.Validation.AirToOutlet</a>,
 except that it has reverse flow.
 This tests whether the fluid properties from
 the upstream media are correctly converted to
 the output signals of
-<a href=\"modelica://Buildings.Fluid.FMI.Conversion.AirToOutlet\">
-Buildings.Fluid.FMI.Conversion.AirToOutlet</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.Conversion.AirToOutlet\">
+Annex60.Fluid.FMI.Conversion.AirToOutlet</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -97,7 +97,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/AirToOutletFlowReversal.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/AirToOutletFlowReversal.mos"
         "Simulate and plot"),
     experiment(StopTime=1));
 end AirToOutletFlowReversal;

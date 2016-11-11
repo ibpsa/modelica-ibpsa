@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Adaptors;
+within Annex60.Fluid.FMI.Adaptors;
 model ThermalZone
   "Adaptor for connecting a thermal zone to signal ports which then can be exposed at an FMI interface"
 
@@ -6,7 +6,7 @@ model ThermalZone
     "Medium model within the source" annotation (choicesAllMatching=true);
 
   // Don't use annotation(Dialog(connectorSizing=true)) for nPorts because
-  // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones
+  // otherwise, in Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones
   // the fluid ports can not be assigned between the different zones by the user.
   parameter Integer nPorts(final min=2) "Number of fluid ports"
     annotation (Dialog(connectorSizing=false));
@@ -71,7 +71,7 @@ protected
         nPorts)) "Sum of air mass flow rates"
     annotation (Placement(transformation(extent={{4,72},{16,84}})));
 
-  Buildings.Utilities.Diagnostics.AssertEquality assEqu(
+  Annex60.Utilities.Diagnostics.AssertEquality assEqu(
     message="\"Mass flow rate does not balance. The sum needs to be zero.",
       threShold=1E-4)
     "Tests whether the mass flow rates balance to zero"
@@ -251,9 +251,9 @@ equation
           fillPattern=FillPattern.Solid),
                  Bitmap(extent={{-96,-98},{-30,-50}},
                                                     fileName=
-            "modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png"),
+            "modelica://Annex60/Resources/Images/Fluid/FMI/FMI_icon.png"),
             Bitmap(extent={{0,50},{100,98}},   fileName=
-            "modelica://Buildings/Resources/Images/Fluid/FMI/modelica_icon.png"),
+            "modelica://Annex60/Resources/Images/Fluid/FMI/modelica_icon.png"),
         Rectangle(
           extent={{38,-22},{84,30}},
           lineColor={95,95,95},
@@ -347,8 +347,8 @@ of all fluid connections to <code>ports</code> to be equal.
 The reason is that setting a pressure can lead to non-physical system models,
 for example if a mass flow rate is imposed and the HVAC system is connected
 to a model that sets a pressure boundary condition such as
-<a href=\"modelica://Buildings.Fluid.Sources.Outside\">
-Buildings.Fluid.Sources.Outside</a>.
+<a href=\"modelica://Annex60.Fluid.Sources.Outside\">
+Annex60.Fluid.Sources.Outside</a>.
 Also, setting a pressure would make it impossible to use multiple instances
 of this model (one for each thermal zone) and build in Modelica an airflow network
 model with pressure driven mass flow rates.
@@ -360,8 +360,8 @@ The model has no pressure drop.
 <h4>Typical use</h4>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZone\">
-Buildings.Fluid.FMI.ExportContainers.ThermalZone
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.ThermalZone\">
+Annex60.Fluid.FMI.ExportContainers.ThermalZone
 </a>
 for a model that uses this model.
 </p>

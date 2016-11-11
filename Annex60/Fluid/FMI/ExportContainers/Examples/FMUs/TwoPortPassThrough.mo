@@ -1,8 +1,8 @@
-within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
+within Annex60.Fluid.FMI.ExportContainers.Examples.FMUs;
 block TwoPortPassThrough
   "Declaration of an FMU that exports a block that simply passes all the inputs to the outputs"
-   extends Buildings.Fluid.FMI.ExportContainers.PartialTwoPort(
-     redeclare replaceable package Medium = Buildings.Media.Air);
+   extends Annex60.Fluid.FMI.ExportContainers.PartialTwoPort(
+     redeclare replaceable package Medium = Annex60.Media.Air);
 
 equation
   connect(inlet, outlet) annotation (Line(
@@ -25,7 +25,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/TwoPortPassThrough.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/TwoPortPassThrough.mos"
         "Export FMU"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),

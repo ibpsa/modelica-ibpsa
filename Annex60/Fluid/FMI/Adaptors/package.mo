@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI;
+within Annex60.Fluid.FMI;
 package Adaptors "Package with adaptors to connect models with fluid ports and models with signal ports"
   extends Modelica.Icons.Package;
 

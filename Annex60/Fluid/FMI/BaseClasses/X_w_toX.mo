@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.BaseClasses;
+within Annex60.Fluid.FMI.BaseClasses;
 block X_w_toX "Conversion from Xi to X"
   extends Modelica.Blocks.Icons.Block;
 

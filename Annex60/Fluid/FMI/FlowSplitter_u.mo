@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI;
+within Annex60.Fluid.FMI;
 block FlowSplitter_u "Model of a flow splitter that can be exported as an FMU"
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
@@ -35,10 +35,10 @@ protected
   final parameter Modelica.SIunits.MassFlowRate mAve_flow_nominal=
       sum(m_flow_nominal)/nout "Average nominal mass flow rate";
 protected
-  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+  Annex60.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal = 0
+  Annex60.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal = 0
     "Internal connector for mass fraction of backward flow properties";
 
 initial equation

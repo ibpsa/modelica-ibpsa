@@ -1,7 +1,7 @@
-within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
+within Annex60.Fluid.FMI.ExportContainers.Examples.FMUs;
 block Fan "Declaration of an FMU that exports a fan"
-   extends Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
-     redeclare replaceable package Medium =  Buildings.Media.Air,
+   extends Annex60.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
+     redeclare replaceable package Medium =  Annex60.Media.Air,
      redeclare final Movers.FlowControlled_dp com(
       final m_flow_nominal=m_flow_nominal,
       final filteredSpeed=false,
@@ -30,15 +30,15 @@ equation
 <p>
 This example demonstrates how to export an FMU with a fluid flow component.
 The FMU has an instance of
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FlowMachine_dp\">
-Buildings.Fluid.FixedResistances.FlowMachine_dp</a>.
+<a href=\"modelica://Annex60.Fluid.FixedResistances.FlowMachine_dp\">
+Annex60.Fluid.FixedResistances.FlowMachine_dp</a>.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">
-Buildings.Fluid.FMI.UsersGuide</a> for why there is no model that exports
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
-Buildings.Fluid.Movers.FlowMachine_m_flow</a>.
+<a href=\"modelica://Annex60.Fluid.FMI.UsersGuide\">
+Annex60.Fluid.FMI.UsersGuide</a> for why there is no model that exports
+<a href=\"modelica://Annex60.Fluid.Movers.FlowMachine_m_flow\">
+Annex60.Fluid.Movers.FlowMachine_m_flow</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -54,7 +54,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/Fan.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/Fan.mos"
         "Export FMU"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={

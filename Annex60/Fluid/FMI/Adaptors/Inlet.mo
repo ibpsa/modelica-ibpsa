@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Adaptors;
+within Annex60.Fluid.FMI.Adaptors;
 model Inlet "Adaptor for connecting a fluid inlet to the FMI interface"
 
   replaceable package Medium =
@@ -13,7 +13,7 @@ model Inlet "Adaptor for connecting a fluid inlet to the FMI interface"
     "= true to use a pressure from connector, false to output Medium.p_default"
     annotation(Evaluate=true);
 
-  Buildings.Fluid.FMI.Interfaces.Inlet inlet(
+  Annex60.Fluid.FMI.Interfaces.Inlet inlet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=use_p_in) "Fluid inlet"
@@ -24,7 +24,7 @@ model Inlet "Adaptor for connecting a fluid inlet to the FMI interface"
                 annotation (Placement(
         transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
-  Buildings.Fluid.FMI.Interfaces.PressureOutput p if
+  Annex60.Fluid.FMI.Interfaces.PressureOutput p if
      use_p_in "Pressure"
   annotation (
       Placement(
@@ -33,14 +33,14 @@ model Inlet "Adaptor for connecting a fluid inlet to the FMI interface"
         rotation=270,
         origin={0,-110})));
 protected
-  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+  Annex60.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
-  Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
+  Annex60.Fluid.FMI.Interfaces.PressureOutput p_in_internal
     "Internal connector for pressure";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
+  Annex60.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
     "Internal connector for mass fraction of forward flow properties";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal
+  Annex60.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal
     "Internal connector for mass fraction of backward flow properties";
 initial equation
    assert(Medium.nXi < 2,
@@ -151,18 +151,18 @@ equation
 <p>
 Model that is used to connect an input signal to a fluid port.
 The model needs to be used in conjunction with an instance of
-<a href=\"modelica://Buildings.Fluid.FMI.OutletAdaptor\">
-Buildings.Fluid.FMI.OutletAdaptor</a> in order for
+<a href=\"modelica://Annex60.Fluid.FMI.OutletAdaptor\">
+Annex60.Fluid.FMI.OutletAdaptor</a> in order for
 fluid mass flow rate and pressure to be properly assigned to
 the acausal fluid models.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.PartialTwoPortComponent\">
-Buildings.Fluid.FMI.ExportContainers.PartialTwoPortComponent</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.PartialTwoPortComponent\">
+Annex60.Fluid.FMI.ExportContainers.PartialTwoPortComponent</a>
 or
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume</a>
+<a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume\">
+Annex60.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume</a>
 for how to use this model.
 </p>
 </html>", revisions="<html>

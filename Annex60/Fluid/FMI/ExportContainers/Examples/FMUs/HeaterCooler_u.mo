@@ -1,9 +1,9 @@
-within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
+within Annex60.Fluid.FMI.ExportContainers.Examples.FMUs;
 block HeaterCooler_u
   "Declaration of an FMU that exports an ideal heater or cooler with prescribed heat flow rate"
-   extends Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
-     redeclare replaceable package Medium = Buildings.Media.Air,
-     redeclare final Buildings.Fluid.HeatExchangers.HeaterCooler_u com(
+   extends Annex60.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
+     redeclare replaceable package Medium = Annex60.Media.Air,
+     redeclare final Annex60.Fluid.HeatExchangers.HeaterCooler_u com(
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=if use_p_in then dp_nominal else 0,
       final Q_flow_nominal=Q_flow_nominal,
@@ -30,14 +30,14 @@ equation
 This example demonstrates how to export an FMU with a heater
 that takes as an input signal the normalized heat flow rate.
 The FMU has an instance of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
-Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>.
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.HeaterCooler_u\">
+Annex60.Fluid.HeatExchangers.HeaterCooler_u</a>.
 </p>
 <p>
 The mass dynamics has been set to
 <code>massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState</code>.
 See the
-<a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">user's guide</a>
+<a href=\"modelica://Annex60.Fluid.FMI.UsersGuide\">user's guide</a>
 for the rationale.
 </p>
 </html>", revisions="<html>
@@ -54,7 +54,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/HeaterCooler_u.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/HeaterCooler_u.mos"
         "Export FMU"),
     Icon(graphics={
         Polygon(
