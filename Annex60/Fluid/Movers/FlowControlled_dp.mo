@@ -46,7 +46,7 @@ model FlowControlled_dp
   parameter Modelica.SIunits.PressureDifference[:] heads(
     each min=0,
     each displayUnit="Pa")=
-    dp_nominal*{sqrt(per.speeds[i]/per.speeds[end]) for i in 1:size(per.speeds, 1)}
+    dp_nominal*{(per.speeds[i]/per.speeds[end])^2 for i in 1:size(per.speeds, 1)}
     "Vector of head set points, used when inputType=Stages"
     annotation(Dialog(enable=inputType == Annex60.Fluid.Types.InputType.Stages));
 
@@ -125,7 +125,7 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
-November 10, 2016, by Michael Wetter:<br/>
+November 14, 2016, by Michael Wetter:<br/>
 Changed default values for <code>heads</code>.<br/>
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/583\">#583</a>.
