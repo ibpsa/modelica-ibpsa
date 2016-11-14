@@ -6,7 +6,7 @@ model Thermal
     nSurf=1,
     useFluPor=false);
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=Vtot*rho_default*cp_default
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=if energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState then 0 else Vtot*rho_default*cp_default
         *mSenFac) "Heat capacitor that represents the zone air heat capacity"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem

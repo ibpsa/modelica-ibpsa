@@ -6,7 +6,7 @@ partial model PartialZone "Partial model for thermal building zones"
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state";
-  parameter Real corrCV = 5 "Correction factor for thermal capacity of zone air.";
+  parameter Real mSenFac = 5 "Correction factor for thermal capacity of zone air.";
   parameter Integer nSurf(min=2)
     "Number of surfaces adjacent to and heat exchangeing with the zone";
   parameter Boolean useFluPor = true
