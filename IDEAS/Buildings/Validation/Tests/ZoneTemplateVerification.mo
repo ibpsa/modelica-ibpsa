@@ -10,7 +10,6 @@ model ZoneTemplateVerification
   IDEAS.Buildings.Components.RectangularZoneTemplate rectangularZoneTemplate(
     h=2.7,
     redeclare package Medium = Media.Air,
-    nSurfExt=0,
     aziA=IDEAS.Types.Azimuth.N,
     l=8,
     w=6,
@@ -20,16 +19,15 @@ model ZoneTemplateVerification
     bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
     bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
     hasWinCei=false,
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.LightRoof constructionTypeCei,
+    redeclare IDEAS.Buildings.Validation.Data.Constructions.LightRoof conTypCei,
     bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare Data.Constructions.HeavyFloor constructionTypeFlo,
-    redeclare Data.Constructions.HeavyWall constructionTypeA,
-    redeclare Data.Constructions.HeavyWall constructionTypeB,
-    redeclare Data.Constructions.HeavyWall constructionTypeC,
-    redeclare Data.Constructions.HeavyWall constructionTypeD,
+    redeclare Data.Constructions.HeavyFloor conTypFlo,
+    redeclare Data.Constructions.HeavyWall conTypA,
+    redeclare Data.Constructions.HeavyWall conTypB,
+    redeclare Data.Constructions.HeavyWall conTypC,
+    redeclare Data.Constructions.HeavyWall conTypD,
     hasWinA=true,
     A_winA=12,
     fracA=0,
@@ -38,7 +36,9 @@ model ZoneTemplateVerification
       shaTypA,
     hasWinB=false,
     hasWinC=false,
-    hasWinD=false)
+    hasWinD=false,
+    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
+    nSurfExt=0)
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
