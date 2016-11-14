@@ -25,9 +25,11 @@ model ZoneTemplateExample
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
     bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow,
+    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
+    hasWinC=true,
     bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
-    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow)
+    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
+    hasWinD=true)
     "Rectangular zone template"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
