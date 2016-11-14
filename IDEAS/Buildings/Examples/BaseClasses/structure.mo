@@ -46,8 +46,6 @@ model structure "Example detailed building structure model"
 
   replaceable Components.SlabOnGround
                           gF_floor(
-    redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType,
-    insulationThickness=0.14,
     AWall=72,
     PWall=26,
     inc=IDEAS.Types.Tilt.Floor,
@@ -60,10 +58,8 @@ model structure "Example detailed building structure model"
   //Definition of the building envelope for fF
   Components.OuterWall[3] fF_ext(
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
     AWall={10,21,10},
     azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
-    insulationThickness={0.16,0.16,0.16},
     inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall})
     annotation (Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
@@ -81,8 +77,6 @@ model structure "Example detailed building structure model"
         rotation=90,
         origin={10.5,-15.5})));
   Components.InternalWall fF_floor(
-    redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType,
-    insulationThickness=0.04,
     AWall=74,
     inc=IDEAS.Types.Tilt.Floor,
     azi=IDEAS.Types.Azimuth.S,
@@ -94,10 +88,8 @@ model structure "Example detailed building structure model"
   //Definition of the building envelope for sF
   Components.OuterWall[3] sF_ext(
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
     AWall={10,21,10},
     azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
-    insulationThickness={0.16,0.16,0.16},
     inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall})
     annotation (Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
@@ -115,8 +107,6 @@ model structure "Example detailed building structure model"
         rotation=90,
         origin={10.5,44.5})));
   Components.InternalWall sF_floor(
-    redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType,
-    insulationThickness=0.04,
     AWall=74,
     inc=IDEAS.Types.Tilt.Floor,
     azi=IDEAS.Types.Azimuth.S,
@@ -127,8 +117,6 @@ model structure "Example detailed building structure model"
         origin={-47,44})));
   Components.OuterWall sF_roof(
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Xps insulationType,
-    insulationThickness=0.32,
     AWall=74,
     inc=IDEAS.Types.Tilt.Ceiling,
     azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
