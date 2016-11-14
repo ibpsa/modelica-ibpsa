@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-record LightWall "BESTEST Light wall"
+record LightWall "BESTEST light wall"
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     final mats={
       IDEAS.Buildings.Validation.Data.Materials.WoodSiding(d=0.009),

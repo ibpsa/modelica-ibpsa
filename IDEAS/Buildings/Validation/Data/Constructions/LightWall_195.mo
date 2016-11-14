@@ -1,8 +1,6 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-record LightWall_195 "BESTEST Light wall"
-
+record LightWall_195 "BESTEST light wall for case 195"
   extends IDEAS.Buildings.Data.Interfaces.Construction(
-    final nLay=3,
     final mats={
         IDEAS.Buildings.Validation.Data.Materials.WoodSiding_195(d=0.009),
         IDEAS.Buildings.Validation.Data.Insulation.FiberGlass(d=0.066),

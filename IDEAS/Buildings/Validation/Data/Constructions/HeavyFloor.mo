@@ -1,8 +1,6 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-record HeavyFloor "BESTEST Heavy floor"
-
+record HeavyFloor "BESTEST heavy floor"
   extends IDEAS.Buildings.Data.Interfaces.Construction(
-    final nLay=2,
     incLastLay = IDEAS.Types.Tilt.Floor,
     final mats={
       IDEAS.Buildings.Validation.Data.Insulation.InsulationFloor(d=1.007),

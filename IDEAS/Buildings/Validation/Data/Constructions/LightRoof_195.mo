@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-record LightRoof_195 "BESTEST Light roof"
+record LightRoof_195 "BESTEST light roof for case 195"
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     incLastLay = IDEAS.Types.Tilt.Ceiling,
     final mats={

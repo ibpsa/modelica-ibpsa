@@ -1,6 +1,5 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-record LightFloor "BESTEST Light floor"
-
+record LightFloor "BESTEST light floor"
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     incLastLay = IDEAS.Types.Tilt.Floor,
     mats={

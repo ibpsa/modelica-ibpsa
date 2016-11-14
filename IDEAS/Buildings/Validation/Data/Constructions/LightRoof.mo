@@ -1,8 +1,6 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-record LightRoof "BESTEST Light roof"
-
+record LightRoof "BESTEST light roof"
   extends IDEAS.Buildings.Data.Interfaces.Construction(
-    final nLay=3,
     incLastLay = IDEAS.Types.Tilt.Ceiling,
     final mats={
       IDEAS.Buildings.Validation.Data.Materials.Roofdeck(d=0.019),
