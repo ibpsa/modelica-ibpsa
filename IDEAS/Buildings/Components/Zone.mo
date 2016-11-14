@@ -55,7 +55,7 @@ model Zone "Building zone model"
     n50=n50,
     n50toAch=n50toAch,
     mSenFac=mSenFac,
-    energyDynamics=energyDynamics)
+    energyDynamics=energyDynamicsAir)
                     constrainedby ZoneAirModels.PartialAirModel(
     redeclare package Medium = Medium,
     nSurf=nSurf,
@@ -66,7 +66,7 @@ model Zone "Building zone model"
     n50=n50,
     n50toAch=n50toAch,
     mSenFac=mSenFac,
-    energyDynamics=energyDynamics) "Zone air model" annotation (
+    energyDynamics=energyDynamicsAir) "Zone air model" annotation (
     Placement(transformation(extent={{-40,20},{-20,40}})),
     choicesAllMatching=true,
     Dialog(group="Building physics"));
@@ -129,6 +129,7 @@ public
 
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
+
 
 
 
