@@ -14,8 +14,6 @@ model ZoneExample
   IDEAS.Buildings.Components.BoundaryWall commonWall(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
-    redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-    insulationThickness=0.1,
     AWall=10,
     azi=0,
     inc=1.5707963267949) "Common wall model"
@@ -26,8 +24,6 @@ model ZoneExample
   IDEAS.Buildings.Components.InternalWall internalWall(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
-    redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-    insulationThickness=0.1,
     AWall=10,
     azi=0,
     inc=IDEAS.Types.Tilt.Wall) "Internal wall model" annotation (Placement(
@@ -47,8 +43,6 @@ model ZoneExample
   IDEAS.Buildings.Components.SlabOnGround slabOnGround(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.LightWall
       constructionType,
-    redeclare parameter IDEAS.Buildings.Data.Insulation.Pir insulationType,
-    insulationThickness=0.1,
     AWall=20,
     PWall=3,
     inc=0,
@@ -56,11 +50,8 @@ model ZoneExample
     annotation (Placement(transformation(extent={{-54,20},{-44,40}})));
   IDEAS.Buildings.Components.OuterWall outerWall(
     azi=0,
-    redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
-      constructionType,
-    redeclare parameter IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
+    redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall constructionType,
     AWall=10,
-    insulationThickness=0,
     inc=1.5707963267949) "Outer wall model"
     annotation (Placement(transformation(extent={{-54,-58},{-44,-38}})));
   IDEAS.Buildings.Components.Zone zone1(

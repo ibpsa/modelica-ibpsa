@@ -2,10 +2,8 @@ within IDEAS.Buildings.Components.Interfaces;
 partial model PartialOpaqueSurface
   "Partial component for the opaque surfaces of the building envelope"
 
-  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionType
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
-      final insulationType=insulationType,
-      final insulationTickness=insulationThickness)
+  replaceable parameter IDEAS.Buildings.Data.Interfaces.Construction constructionType
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
     "Building component material structure" annotation (
     __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
@@ -21,19 +19,8 @@ partial model PartialOpaqueSurface
       T_start=ones(constructionType.nLay)*T_start,
       nGain=constructionType.nGain));
 
-  replaceable parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType
-    constrainedby IDEAS.Buildings.Data.Interfaces.Insulation(
-      final d=insulationThickness)
-    "Thermal insulation type, propagated into constructionType" annotation (
-    __Dymola_choicesAllMatching=true,
-    Placement(transformation(extent={{-34,90},{-30,94}})),
-    Dialog(group="Construction details"));
-
-  parameter Modelica.SIunits.Area AWall
+   parameter Modelica.SIunits.Area AWall
     "Component surface area";
-  parameter Modelica.SIunits.Length insulationThickness
-    "Thermal insulation thickness"
-    annotation (Dialog(group="Construction details"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb[constructionType.nGain]
     "Port for gains by embedded active layers"

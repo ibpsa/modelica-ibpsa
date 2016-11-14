@@ -25,10 +25,8 @@ model structure "Example detailed building structure model"
   //Definition of the building envelope for gF
   Components.OuterWall[3] gF_ext(
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
     AWall={10,21,10},
     azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
-    insulationThickness={0.16,0.16,0.16},
     inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall})
     annotation (Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
@@ -150,7 +148,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(sF_floor.propsBus_a, sF.propsBus[7]) annotation (Line(
-      points={{-49,49},{-49,72.75},{40,72.75}},
+      points={{-49,48.1667},{-49,72.75},{40,72.75}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -165,12 +163,12 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(sF_floor.propsBus_b, fF.propsBus[8]) annotation (Line(
-      points={{-51,39},{-51,12.25},{40,12.25}},
+      points={{-49,39.8333},{-49,12.25},{40,12.25}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(fF_floor.propsBus_a, fF.propsBus[7]) annotation (Line(
-      points={{-49,-11},{-49,12.75},{40,12.75}},
+      points={{-49,-11.8333},{-49,12.75},{40,12.75}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -185,7 +183,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(fF_floor.propsBus_b, gF.propsBus[8]) annotation (Line(
-      points={{-51,-21},{-51,-47.75},{40,-47.75}},
+      points={{-49,-20.1667},{-49,-47.75},{40,-47.75}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
