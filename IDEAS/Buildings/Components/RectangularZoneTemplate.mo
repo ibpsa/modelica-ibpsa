@@ -2,11 +2,12 @@ within IDEAS.Buildings.Components;
 model RectangularZoneTemplate
   "Rectangular zone including walls, floor and ceiling"
   extends IDEAS.Buildings.Components.Interfaces.PartialZone(
-    calculateViewFactor=true,
-    final nSurf=indExtCei+nSurfExt,
+    calculateViewFactor=false,
+    final nSurf=indWinCei+nSurfExt,
     final V=l*w*h,
     final hZone=h,
-    final A=l*w);
+    final A=l*w,
+    final fRH=11);
 
   parameter IDEAS.Buildings.Components.Interfaces.BoundaryType bouTypA
     "Modelled boundary(ies) for face A of the zone"
@@ -160,7 +161,10 @@ model RectangularZoneTemplate
     "Material structure of face A" annotation (
     choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
-    Dialog(tab="Face A",group="Construction details"));
+    Dialog(tab="Face A",group="Construction details",
+           enable=not
+                 (bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.External or
+                  bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionTypeB
     constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
       redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
@@ -168,7 +172,10 @@ model RectangularZoneTemplate
     "Material structure of face B" annotation (
     choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
-    Dialog(tab="Face B",group="Construction details"));
+    Dialog(tab="Face B",group="Construction details",
+           enable=not
+                 (bouTypB==IDEAS.Buildings.Components.Interfaces.BoundaryType.External or
+                  bouTypB==IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionTypeC
     constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
       redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
@@ -176,7 +183,10 @@ model RectangularZoneTemplate
     "Material structure of face C" annotation (
     choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
-    Dialog(tab="Face C",group="Construction details"));
+    Dialog(tab="Face C",group="Construction details",
+           enable=not
+                 (bouTypC==IDEAS.Buildings.Components.Interfaces.BoundaryType.External or
+                  bouTypC==IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionTypeD
     constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
       redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
@@ -184,7 +194,10 @@ model RectangularZoneTemplate
     "Material structure of face D" annotation (
     choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
-    Dialog(tab="Face D",group="Construction details"));
+    Dialog(tab="Face D",group="Construction details",
+           enable=not
+                 (bouTypD==IDEAS.Buildings.Components.Interfaces.BoundaryType.External or
+                  bouTypD==IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionTypeCei
     constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
       redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
@@ -192,7 +205,10 @@ model RectangularZoneTemplate
     "Material structure of ceiling" annotation (
     choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
-    Dialog(tab="Ceiling",group="Construction details"));
+    Dialog(tab="Ceiling",group="Construction details",
+           enable=not
+                 (bouTypCei==IDEAS.Buildings.Components.Interfaces.BoundaryType.External or
+                  bouTypCei==IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionTypeFlo
     constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
       redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
@@ -200,7 +216,10 @@ model RectangularZoneTemplate
     "Material structure of floor" annotation (
     choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
-    Dialog(tab="Floor",group="Construction details"));
+    Dialog(tab="Floor",group="Construction details",
+           enable=not
+                 (bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.External or
+                  bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow)));
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazingA
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type of window of face A"
     annotation (choicesAllMatching=true,
@@ -298,7 +317,18 @@ model RectangularZoneTemplate
                     bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWallAndWindow or
                     bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow or
                     bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow));
-
+  IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurfExt] proBusExt(
+    each final numIncAndAziInBus=sim.numIncAndAziInBus,
+    each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
+    each weaBus(final outputAngles=sim.outputAngles)) if nSurfExt>0
+    "Propsbus for connecting additional external surfaces" annotation (
+      Placement(transformation(
+        extent={{-20,20},{20,-20}},
+        rotation=-90,
+        origin={-210,50}), iconTransformation(
+        extent={{-20,20},{20,-20}},
+        rotation=180,
+        origin={-120,100})));
 protected
   IDEAS.Buildings.Components.Window winA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
     glazing(
@@ -682,7 +712,9 @@ protected
        hasOutD
     "Outer wall for face D of this zone"
     annotation (Placement(transformation(extent={{-140,-60},{-130,-40}})));
-  IDEAS.Buildings.Components.OuterWall outCei(inc=IDEAS.Types.Tilt.Ceiling, azi=aziA,
+  IDEAS.Buildings.Components.OuterWall outCei(
+    inc=IDEAS.Types.Tilt.Ceiling,
+    azi=aziA,
     insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=constructionTypeCei.nLay,
@@ -799,7 +831,9 @@ protected
     hasIntD
     "Internal wall for face D of this zone"
     annotation (Placement(transformation(extent={{-176,-60},{-164,-40}})));
-  IDEAS.Buildings.Components.InternalWall intFlo(inc=IDEAS.Types.Tilt.Floor, azi=aziA,
+  IDEAS.Buildings.Components.InternalWall intFlo(
+    inc=IDEAS.Types.Tilt.Floor,
+    azi=aziA,
     AWall=A,
     insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
@@ -833,7 +867,7 @@ public
         origin={-188,10}), iconTransformation(
         extent={{-20,20},{20,-20}},
         rotation=180,
-        origin={-58,100})));
+        origin={-60,90})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusB(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
@@ -1012,12 +1046,7 @@ protected
   final parameter Integer indWinC = indWinB + (if hasWinC then 1 else 0);
   final parameter Integer indWinD = indWinC + (if hasWinD then 1 else 0);
   final parameter Integer indWinCei = indWinD + (if hasWinCei then 1 else 0);
-  final parameter Integer indExtA = indWinCei +  (if hasExtA then 1 else 0);
-  final parameter Integer indExtB = indExtA + (if hasExtB then 1 else 0);
-  final parameter Integer indExtC = indExtB + (if hasExtC then 1 else 0);
-  final parameter Integer indExtD = indExtC + (if hasExtD then 1 else 0);
-  final parameter Integer indExtFlo = indExtD + (if hasExtFlo then 1 else 0);
-  final parameter Integer indExtCei = indExtFlo + (if hasExtCei then 1 else 0);
+
 initial equation
   assert(not bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround, "The value for bouTypA is not supported");
   assert(not bouTypB==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround, "The value for bouTypB is not supported");
@@ -1034,18 +1063,6 @@ initial equation
               "Using internal walls for the ceiling is not allowed because it is considered bad practice. 
               Use instead the 'External'  connection to connect the the floor of the surface above, 
               or use this option to connect and internal wall externally.");
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1159,42 +1176,46 @@ equation
       color={255,204,51},
       thickness=0.5));
   if hasExtA then
-    connect(proBusA, propsBusInt[indExtA]) annotation (Line(
+    connect(proBusA, propsBusInt[1]) annotation (Line(
       points={{-188,10},{-188,10},{-188,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   end if;
   if hasExtB then
-    connect(proBusB, propsBusInt[indExtB]) annotation (Line(
+    connect(proBusB, propsBusInt[2]) annotation (Line(
       points={{-188,-10},{-188,-10},{-188,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   end if;
   if hasExtC then
-    connect(proBusC, propsBusInt[indExtC]) annotation (Line(
+    connect(proBusC, propsBusInt[3]) annotation (Line(
       points={{-188,-30},{-188,-30},{-188,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   end if;
   if hasExtD then
-    connect(proBusD, propsBusInt[indExtD]) annotation (Line(
+    connect(proBusD, propsBusInt[4]) annotation (Line(
       points={{-188,-50},{-188,-50},{-188,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   end if;
   if hasExtFlo then
-    connect(proBusFlo, propsBusInt[indExtFlo]) annotation (Line(
+    connect(proBusFlo, propsBusInt[5]) annotation (Line(
       points={{-188,-70},{-188,-70},{-188,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   end if;
   if hasExtCei then
-    connect(proBusCei, propsBusInt[indExtCei]) annotation (Line(
+    connect(proBusCei, propsBusInt[6]) annotation (Line(
       points={{-188,-90},{-188,-90},{-188,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   end if;
 
+  connect(propsBusInt[(indWinCei+1):(indWinCei+nSurfExt)], proBusExt[1:nSurfExt]) annotation (Line(
+      points={{-80,40},{-82,40},{-82,54},{-82,50},{-210,50}},
+      color={255,204,51},
+      thickness=0.5));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
         graphics={
         Text(
