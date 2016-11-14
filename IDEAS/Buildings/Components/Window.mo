@@ -7,6 +7,7 @@ model Window "Multipane window"
 
   extends IDEAS.Buildings.Components.Interfaces.PartialSurface(
     dT_nominal_a=-3,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     intCon_a(final A=
            A*(1 - frac),
            linearise=linIntCon_a or sim.linearise,
@@ -150,6 +151,7 @@ protected
 
 initial equation
   QTra_design = (U_value*A + briType.G) *(273.15 + 21 - Tdes.y);
+
 
 
 

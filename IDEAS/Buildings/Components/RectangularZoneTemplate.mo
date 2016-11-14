@@ -93,9 +93,6 @@ model RectangularZoneTemplate
     "Area fraction of the window frame of the ceiling"
     annotation(Dialog(tab="Ceiling", group="Window details",
     enable=hasWinCei));
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
-    "Static (steady state) or transient (dynamic) thermal conduction model for all surfaces"
-    annotation(Dialog(tab="Initialization"));
   parameter Boolean linIntCon=sim.linIntCon
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Advanced", group="Convective heat exchange"));
@@ -294,7 +291,6 @@ protected
     redeclare ThermalBridges.None briType,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
@@ -333,7 +329,6 @@ protected
     azi=aziA + Modelica.Constants.pi/2,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
@@ -375,7 +370,6 @@ protected
     azi=aziA + Modelica.Constants.pi,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
@@ -417,7 +411,6 @@ protected
     redeclare ThermalBridges.None briType,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
@@ -458,7 +451,6 @@ protected
     redeclare ThermalBridges.None briType,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
@@ -495,7 +487,6 @@ protected
     insulationThickness=0,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_bou,
     AWall=l*h - (if hasWinA then A_winA else 0)) if
        hasBouA
@@ -513,7 +504,6 @@ protected
     azi=aziA + Modelica.Constants.pi/2,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_bou,
     AWall=l*h - (if hasWinB then A_winB else 0)) if
        hasBouB
@@ -530,7 +520,6 @@ protected
     azi=aziA + Modelica.Constants.pi,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_bou,
     AWall=l*h - (if hasWinC then A_winC else 0)) if
        hasBouC
@@ -547,7 +536,6 @@ protected
       mats=constructionTypeD.mats),
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_bou,
     AWall=l*h - (if hasWinD then A_winD else 0)) if
        hasBouD
@@ -564,7 +552,6 @@ protected
       mats=constructionTypeFlo.mats),
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_bou) if
        hasBouFlo
     "Boundary wall for zone floor"
@@ -579,7 +566,6 @@ protected
       mats=constructionTypeCei.mats),
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_bou,
     AWall=l*h - (if hasWinCei then A_winCei else 0)) if
        hasBouCei
@@ -595,7 +581,6 @@ protected
     insulationThickness=0,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
@@ -615,7 +600,6 @@ protected
     azi=aziA + Modelica.Constants.pi/2,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
@@ -634,7 +618,6 @@ protected
     azi=aziA + Modelica.Constants.pi,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
@@ -653,7 +636,6 @@ protected
       mats=constructionTypeD.mats),
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
@@ -673,7 +655,6 @@ protected
       mats=constructionTypeCei.mats),
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
@@ -694,7 +675,6 @@ protected
       mats=constructionTypeFlo.mats),
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     PWall=2*(l + w),
     TeAvg=TeAvg,
     TiAvg=TiAvg,
@@ -714,7 +694,6 @@ protected
     insulationThickness=0,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
@@ -734,7 +713,6 @@ protected
     azi=aziA + Modelica.Constants.pi/2,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
@@ -753,7 +731,6 @@ protected
     azi=aziA + Modelica.Constants.pi,
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
@@ -772,7 +749,6 @@ protected
       mats=constructionTypeD.mats),
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
@@ -793,7 +769,6 @@ protected
       mats=constructionTypeFlo.mats),
     T_start=T_start,
     linIntCon_a=linIntCon,
-    energyDynamics=energyDynamics,
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB) if
@@ -947,6 +922,7 @@ initial equation
               "Using internal walls for the ceiling is not allowed because it is considered bad practice. 
               Use instead the 'External'  connection to connect the the floor of the surface above, 
               or use this option to connect and internal wall externally.");
+
 
 
 
