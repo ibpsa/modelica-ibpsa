@@ -20,19 +20,17 @@ model ZoneTemplateExample
     redeclare Data.Glazing.GlaBesTest glazingC,
     redeclare Data.Glazing.Ins2Kr glazingD,
     redeclare package Medium = Medium,
-    nSurfExt=0,
     A_winD=3,
     aziA=IDEAS.Types.Azimuth.S,
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow,
-
     bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
     bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow,
-
-    bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)
+    bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
+    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow)
     "Rectangular zone template"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Components/Examples/ZoneExample.mos"
@@ -48,5 +46,6 @@ By Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    experiment(StopTime=1e+06));
 end ZoneTemplateExample;
