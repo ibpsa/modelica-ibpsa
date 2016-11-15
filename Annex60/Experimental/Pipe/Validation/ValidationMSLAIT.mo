@@ -203,8 +203,8 @@ model ValidationMSLAIT
     "Heat conductivity";
   parameter Modelica.SIunits.Length thicknessIns=0.045
     "Thickness of pipe insulation";
-  parameter Modelica.SIunits.Diameter diameter=0.085
-    "Diameter of circular pipe";
+  parameter Modelica.SIunits.Diameter diameter=0.089
+    "Outer diameter of pipe";
 equation
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
       points={{-58,-70},{-54,-70},{-54,-60}},
