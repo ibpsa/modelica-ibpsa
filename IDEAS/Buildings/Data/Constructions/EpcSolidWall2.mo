@@ -7,4 +7,9 @@ record EpcSolidWall2 "EPC: muurtype 2 / wall type 2"
       insulationType,
       Materials.BrickMi(d=0.15)});
 
+  annotation (Documentation(info="<html>
+<p>
+Implementation of the Belgian EPC 'wall type 2'.
+</p>
+</html>"));
 end EpcSolidWall2;

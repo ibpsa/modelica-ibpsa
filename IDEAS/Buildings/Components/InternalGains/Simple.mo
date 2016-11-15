@@ -75,7 +75,14 @@ equation
   connect(gain.u, gaiHea.y)
     annotation (Line(points={{-10,-60},{-39,-60},{-39,-40}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>This occupancy model assumes a constant latent and sensible load per person. We assume this heat gain is caused by the metabolic combustion of suger, resulting into a corresponding CO2 production. The CO2 mass flow rate is added only if the Medium contains CO2. Latent heat is only added if the Medium is a moist air medium. Sensible heat is emitted both as convective and radiant heat using a fixed weighing factor.</p>
+<p>
+This occupancy model assumes a constant latent and sensible load per person. 
+We assume this heat gain is caused by the metabolic combustion of suger, 
+resulting into a corresponding CO2 production. 
+The CO2 mass flow rate is added only if the Medium contains CO2. 
+Latent heat is only added if the Medium is a moist air medium. 
+Sensible heat is emitted both as convective and radiant heat using a fixed weighing factor.
+</p>
 </html>",
         revisions="<html>
 <ul>

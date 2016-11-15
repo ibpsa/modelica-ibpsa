@@ -25,4 +25,18 @@ expandable connector ZoneBus
   Modelica.SIunits.Angle inc annotation ();
   Modelica.SIunits.Angle azi annotation ();
 
+  annotation (Documentation(info="<html>
+<p>
+Connector that contains a weather bus and further
+contains variables and connectors for exchanging 
+heat and information between a zone and a surface.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 22, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
+</li>
+</ul>
+</html>"));
 end ZoneBus;

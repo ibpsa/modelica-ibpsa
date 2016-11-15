@@ -7,4 +7,9 @@ record FloorOnGround "Floor on ground for floor heating system"
     mats={Materials.Concrete(d=0.20),insulationType,Materials.Screed(d=0.08),
         Materials.Concrete(d=0.015)});
 
+  annotation (Documentation(info="<html>
+<p>
+Example implementation of a floor.
+</p>
+</html>"));
 end FloorOnGround;

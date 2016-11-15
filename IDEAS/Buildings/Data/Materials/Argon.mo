@@ -6,4 +6,8 @@ record Argon = IDEAS.Buildings.Data.Interfaces.Material (
     epsSw=0,
     epsLw=0,
     gas=true,
-    mhu=22.9*10e-6) "Argon gass";
+    mhu=22.9*10e-6) "Argon gass" annotation (Documentation(info="<html>
+<p>
+Constant argon thermal properties.
+</p>
+</html>"));

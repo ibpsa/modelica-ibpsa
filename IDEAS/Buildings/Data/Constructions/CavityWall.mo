@@ -8,4 +8,9 @@ record CavityWall
                 Materials.BrickMi(d=0.14),
                 Materials.Gypsum(d=0.015)});
 
+  annotation (Documentation(info="<html>
+<p>
+Example implementation of a cavity wall.
+</p>
+</html>"));
 end CavityWall;

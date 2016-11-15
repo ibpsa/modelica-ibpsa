@@ -7,10 +7,15 @@ partial record Frame "Template record for window frames"
   parameter Real U_value=1.1 "U-value window frame";
 
   annotation (Documentation(info="<html>
-<p><h4><font color=\"#008000\">General description</font></h4></p>
-<p><h5>Goal</h5></p>
-<p>The <code>Frame.mo</code> partial describes the material data required for window frame modelling.</p>
-<p><h4><font color=\"#008000\">Validation </font></h4></p>
-<p>No validation required.</p>
+<p>
+This record may be used to define the thermal properties of a window frame.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 15, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
+</li>
+</ul>
 </html>"));
 end Frame;

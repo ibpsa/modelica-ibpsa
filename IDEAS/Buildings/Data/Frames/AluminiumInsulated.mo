@@ -4,6 +4,9 @@ record AluminiumInsulated "Low U value aluminium frame"
     U_value=0.7);
 
                                           annotation (Documentation(info="<html>
-<p>From: https://windows.lbl.gov/adv_sys/NTNU-LBNL-EuropeanFramesReport.pdf</p>
+<p>
+Well insulated aluminum window frame. 
+</p>
+<p>U value from: https://windows.lbl.gov/adv_sys/NTNU-LBNL-EuropeanFramesReport.pdf</p>
 </html>"));
 end AluminiumInsulated;

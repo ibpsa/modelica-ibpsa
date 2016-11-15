@@ -102,7 +102,7 @@ Instead a prescribed temperature or heat flow rate may be set.
 Parameters <code>use_T_in</code> and <code>use_Q_in</code> may be used
 to enable an input for a prescribed boundary condition temperature or heat flow rate.
 It is not allowed to enabled both. 
-If both are disabled then an adiabatic boundary is assumed.
+If both are disabled then an adiabatic boundary (<code>Q_flow=0</code>) is assumed.
 </p>
 </html>", revisions="<html>
 <ul>

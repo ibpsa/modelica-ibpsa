@@ -10,4 +10,9 @@ record CavityWallPartialFill
       IDEAS.Buildings.Data.Materials.BrickLe(d=0.14),
       IDEAS.Buildings.Data.Materials.Gypsum(d=0.015)});
 
+  annotation (Documentation(info="<html>
+<p>
+Example implementation of a cavity wall with a partially filled cavity.
+</p>
+</html>"));
 end CavityWallPartialFill;

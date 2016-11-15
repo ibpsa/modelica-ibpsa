@@ -140,5 +140,9 @@ February 10, 2015 by Filip Jorissen:<br/>
 Adjusted implementation for grouping of solar calculations.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Partial model that defines the main variables and connectors of a zone model.
+</p>
 </html>"));
 end PartialZone;

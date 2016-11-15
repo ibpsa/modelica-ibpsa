@@ -314,6 +314,10 @@ how occupant comfort may be computed.
 </html>", revisions="<html>
 <ul>
 <li>
+October 22, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
+</li>
+<li>
 August 26, 2016 by Filip Jorissen:<br/>
 Added support for conservation of energy of air model.
 </li>
