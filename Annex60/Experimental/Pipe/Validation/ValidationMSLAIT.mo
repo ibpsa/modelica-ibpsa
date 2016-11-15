@@ -297,7 +297,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
-    experiment(StopTime=603900),
+    experiment(StopTime=603900, Tolerance=1e-005),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model in <a href=\"modelica://Annex60.Experimental.Pipe.Validation.ValidationPipeAIT\">ValidationPipeAIT</a>. This model compares its performance with the original Modelica Standard Library pipes.</p>
@@ -316,7 +316,8 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
 <li>January 26, 2016 by Carles Ribas:<br>First implementation. </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationMSLAIT.mos"
-        "Simulate and plot"));
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationMSLAIT.mos"
+    "Simulate and plot",
+    file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ExportValidationMSLAIT.mos"
+    "Export csv file"));
 end ValidationMSLAIT;
