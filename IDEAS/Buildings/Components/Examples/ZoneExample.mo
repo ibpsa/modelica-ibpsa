@@ -78,7 +78,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(bou.ports[1], zone.flowPort_In) annotation (Line(
+  connect(bou.ports[1], zone.port_a) annotation (Line(
       points={{-40,90},{32,90},{32,4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -102,7 +102,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(zone1.flowPort_In, zone.flowPort_In) annotation (Line(
+  connect(zone1.port_a, zone.port_a) annotation (Line(
       points={{32,-50},{32,0}},
       color={0,0,0},
       smooth=Smooth.None));

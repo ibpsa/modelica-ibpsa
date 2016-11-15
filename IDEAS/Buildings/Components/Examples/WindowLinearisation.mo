@@ -55,7 +55,7 @@ equation
       points={{-44,-48},{-32,-48},{20,-48},{20,-57.3333}},
       color={255,204,51},
       thickness=0.5));
-  connect(zone1.flowPort_In, bou.ports[1])
+  connect(zone1.port_a, bou.ports[1])
     annotation (Line(points={{32,-50},{32,90},{-40,90}}, color={0,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           __Dymola_Commands(file=

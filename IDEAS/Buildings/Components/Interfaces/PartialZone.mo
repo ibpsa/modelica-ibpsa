@@ -31,10 +31,10 @@ partial model PartialZone "Partial model for thermal building zones"
         extent={{-20,20},{20,-20}},
         rotation=-90,
         origin={-100,40})));
-  Modelica.Fluid.Interfaces.FluidPort_b flowPort_Out(redeclare package Medium = Medium)
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = Medium)
     if                                                                                     useFluPor
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
-  Modelica.Fluid.Interfaces.FluidPort_a flowPort_In(redeclare package Medium = Medium)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = Medium)
     if                                                                                    useFluPor
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
 protected

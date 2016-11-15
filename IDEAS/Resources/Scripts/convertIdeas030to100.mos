@@ -1,0 +1,6 @@
+clear
+
+convertClear();
+
+convertElement("IDEAS.Buildings.Components.Zone", "flowPort_Out", "port_b");
+convertElement("IDEAS.Buildings.Components.Zone", "flowPort_In", "port_a");
