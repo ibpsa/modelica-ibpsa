@@ -4,3 +4,4 @@ convertClear();
 
 convertElement("IDEAS.Buildings.Components.Zone", "flowPort_Out", "port_b");
 convertElement("IDEAS.Buildings.Components.Zone", "flowPort_In", "port_a");
+convertElement("IDEAS.Buildings.Components.Zone", "TStar", "TRad");

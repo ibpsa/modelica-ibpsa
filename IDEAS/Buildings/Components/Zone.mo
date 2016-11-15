@@ -87,7 +87,7 @@ model Zone "Building zone model"
   Modelica.SIunits.Power QTra_design=sum(propsBus.QTra_design)
     "Total design transmission heat losses for the zone";
   Modelica.Blocks.Interfaces.RealOutput TAir(unit="K") = airModel.TAir;
-  Modelica.Blocks.Interfaces.RealOutput TStar(unit="K") = radDistr.TRad;
+  Modelica.Blocks.Interfaces.RealOutput TRad(unit="K") = radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
 
 protected
@@ -124,6 +124,7 @@ public
 
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
+
 
 
 equation
