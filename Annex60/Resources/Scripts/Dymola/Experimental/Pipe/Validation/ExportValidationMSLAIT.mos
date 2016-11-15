@@ -1,3 +1,4 @@
+OutputCPUtime=true;
 translateModel("Annex60.Experimental.Pipe.Validation.ValidationMSLAIT");
 simulateModel("Annex60.Experimental.Pipe.Validation.ValidationMSLAIT", stopTime=603900, tolerance=1e-005, method="dassl", resultFile="ValidationMSLAIT");
 
