@@ -203,8 +203,8 @@ model ValidationMSLAIT
     "Heat conductivity";
   parameter Modelica.SIunits.Length thicknessIns=0.045
     "Thickness of pipe insulation";
-  parameter Modelica.SIunits.Diameter diameter=0.085
-    "Diameter of circular pipe";
+  parameter Modelica.SIunits.Diameter diameter=0.089
+    "Outer diameter of pipe";
 equation
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
       points={{-58,-70},{-54,-70},{-54,-60}},
@@ -297,7 +297,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
-    experiment(StopTime=603900),
+    experiment(StopTime=603900, Tolerance=1e-005),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model in <a href=\"modelica://Annex60.Experimental.Pipe.Validation.ValidationPipeAIT\">ValidationPipeAIT</a>. This model compares its performance with the original Modelica Standard Library pipes.</p>
@@ -316,7 +316,8 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
 <li>January 26, 2016 by Carles Ribas:<br>First implementation. </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationMSLAIT.mos"
-        "Simulate and plot"));
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationMSLAIT.mos"
+    "Simulate and plot",
+    file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ExportValidationMSLAIT.mos"
+    "Export csv file"));
 end ValidationMSLAIT;

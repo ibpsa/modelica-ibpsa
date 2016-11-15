@@ -336,6 +336,6 @@ equation
 <li>July 4, 2016 by Bram van der Heijde:<br>Added parameters to test the influence of allowFlowReversal and the presence of explicit volumes in the pipe.</li>
 <li>January 26, 2016 by Carles Ribas:<br>First implementation. </li>
 </ul>
-</html>"), __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeAIT.mos"
-        "Simulate and plot"));
+</html>"), __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ExportValidationPipeAIT_pipeDelay.mos"
+        "Export csv file"));
 end ValidationPipeAIT_pipeDelay;
