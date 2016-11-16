@@ -1,10 +1,10 @@
 within IDEAS.Buildings.Components;
 model SlabOnGround "opaque floor on ground slab"
    extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
-     QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes), layMul(
-        placeCapacityAtSurf_b=false),
+     QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes),
         dT_nominal_a=-3,
-    redeclare replaceable Data.Constructions.FloorOnGround constructionType);
+    redeclare replaceable Data.Constructions.FloorOnGround constructionType,
+    layMul(monLay(energyDynamics=energyDynamicsLayMul)));
 
   parameter Modelica.SIunits.Length PWall = 4*sqrt(AWall)
     "Total floor slab perimeter";
@@ -19,8 +19,11 @@ model SlabOnGround "opaque floor on ground slab"
   parameter Boolean linearise=true
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Convection"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamicsLayMul[constructionType.nLay]=
+    cat(1, {if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics}, fill(energyDynamics, constructionType.nLay - 1))
+    "Energy dynamics for construction layer";
   Modelica.SIunits.HeatFlowRate Qm = UEqui*AWall*(TiAvg - TeAvg) - Lpi*dTiAvg*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*dTeAvg*cos(2*3.1415/12*(m - 1 - beta))
-    "Two-dimensionl correction for edge flow";
+    "Two-dimensional correction for edge flow";
 
 //Calculation of heat loss based on ISO 13370
 protected
@@ -127,6 +130,11 @@ equation
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 27, 2016 by Filip Jorissen:<br/>
+Different initialisation for state between layMul 
+and layGround for avoiding conflicting initial equations.
+</li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation: cleaned up connections and partials.

@@ -7,7 +7,7 @@ partial model partial_multipleBoreHoles
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
     m_flow_nominal=bfData.m_flow_nominal,
     redeclare package Medium = Medium,
-    final allowFlowReversal=false);
+    allowFlowReversal=true);
 
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = bfData.gen.T_start,
     redeclare package Medium = Medium);
@@ -76,10 +76,12 @@ public
     "Thermal power extracted or injected in the borefield"
     annotation (Placement(transformation(extent={{100,42},{120,62}})));
   BaseClasses.MassFlowRateMultiplier massFlowRateMultiplier(redeclare package
-      Medium = Medium, k=1/bfData.gen.nbBh)
+      Medium = Medium, k=1/bfData.gen.nbBh,
+    allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   BaseClasses.MassFlowRateMultiplier massFlowRateMultiplier1(redeclare package
-      Medium = Medium, k=bfData.gen.nbBh)
+      Medium = Medium, k=bfData.gen.nbBh,
+    allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 initial equation
   t0=time;
@@ -110,6 +112,8 @@ equation
   der(U) = Q_flow
     "Integration of load to calculate below the average load/(discrete time step)";
 
+  assert(port_a.m_flow>-Modelica.Constants.eps or allowFlowReversal, "Flow reversal may not occurs in borefield except
+  if allowFlowReversal is set to true in the model");
 algorithm
   // Set the start time for the sampling
   when initial() then

@@ -6,8 +6,7 @@ model MonoLayerDynamic "Dynamic layer for uniform solid."
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the states";
   parameter Integer nStaMin(min=1) = 2 "Minimum number of states";
-  parameter Boolean placeCapacityAtSurf_b = true
-    "Set to true to place last capacity at the surface b of the layer.";
+
   parameter Modelica.Fluid.Types.Dynamics energyDynamics= Modelica.Fluid.Types.Dynamics.FixedInitial
     "Static (steady state) or transient (dynamic) thermal conduction model"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
@@ -20,6 +19,8 @@ model MonoLayerDynamic "Dynamic layer for uniform solid."
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") = sum(T .* C);
 
 protected
+  constant Boolean placeCapacityAtSurf_b = true
+    "Set to true to place last capacity at the surface b of the layer.";
   final parameter Integer nRes = if placeCapacityAtSurf_b then max(nSta - 1, 1) else nSta
     "Number of thermal resistances";
   final parameter Modelica.SIunits.ThermalConductance[nRes] G=fill(

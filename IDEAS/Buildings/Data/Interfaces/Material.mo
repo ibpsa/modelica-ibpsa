@@ -36,7 +36,7 @@ record Material "Template record for properties of building materials"
     "d/sqrt(mat.alpha) of a reference case, ie. 20 cm dense concrete";
   final parameter Real piLay=d/sqrt(alpha)
     "d/sqrt(mat.alpha) of the depicted layer";
-  final parameter Integer nSta(min=1) = max(1, integer(ceil(nStaRef*piLay/piRef)))
+  final parameter Integer nSta(min=2) = max(2, integer(ceil(nStaRef*piLay/piRef)))
     "Actual number of state variables in material";
 
   annotation (Documentation(info="<html>

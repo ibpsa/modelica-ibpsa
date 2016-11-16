@@ -12,10 +12,7 @@ model MultiLayer "multiple material layers in series"
     "Linearise interior convection inside air layers / cavities in walls";
 
   parameter Modelica.SIunits.Temperature T_start[nLay]=ones(nLay)*293.15
-    "Start temperature for each of the layers";
-  parameter Boolean placeCapacityAtSurf_b=true
-    "Set to true to place last capacity at the surface b of the layer."
-    annotation (Dialog(tab="Dynamics"));
+    "Start temperature from port_b to port_a";
   final parameter Modelica.SIunits.ThermalInsulance R=sum(monLay.R)
     "total specific thermal resistance";
   parameter Modelica.SIunits.HeatCapacity C = sum(mats.d.*mats.rho.*mats.c*A)
@@ -44,7 +41,6 @@ model MultiLayer "multiple material layers in series"
         1,
         {0.85},
         mats[1:nLay - 1].epsLw_a),
-    each placeCapacityAtSurf_b=placeCapacityAtSurf_b,
     each energyDynamics=energyDynamics,
     each dT_nom_air=dT_nom_air) "Individual layers"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
