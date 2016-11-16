@@ -10,6 +10,7 @@ dsmodel.c
 dsmodelext*.c
 dsmodelext*.obj
 dsres.txt
+dymosim
 dymosim.exe
 dymosim.exp
 dymosim.lib
