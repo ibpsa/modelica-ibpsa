@@ -103,7 +103,7 @@ revisions="<html>
 <ul>
 <li>
 October 27, 2016, by Filip Jorissen:<br/>
-Added assert for <code>phi &gt;> 0</code>.
+Added assert for <code>phi &gt; 0</code>.
 This fixes a bug that caused valves to behave
 like pumps for negative control signals.
 This is for
