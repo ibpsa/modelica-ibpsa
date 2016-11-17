@@ -29,7 +29,7 @@ initial equation
   assert(dpFixed_nominal > -Modelica.Constants.eps, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
         + String(dpFixed_nominal) + " Pa.");
 equation
-  assert(phi>0, "Valve control signal needs to be bigger than zero, received phi = " + String(phi));
+  assert(phi > -0.2, "Valve control signal needs to be bigger than zero, received phi = " + String(phi));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={
         Polygon(
@@ -101,6 +101,12 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 16, 2017, by Michael Wetter:<br/>
+Relaxed assertion on <code>phi</code>.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/592\">#592</a>.
+</li>
 <li>
 October 27, 2016, by Filip Jorissen:<br/>
 Added assert for <code>phi &gt; 0</code>.
