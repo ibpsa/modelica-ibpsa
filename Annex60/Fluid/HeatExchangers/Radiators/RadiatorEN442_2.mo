@@ -41,6 +41,35 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
+  parameter Boolean use_dh = false
+  "= true, use dh and ReC, otherwise use deltaM"
+       annotation(Evaluate=true,
+                  Dialog(group = "Transition to laminar",
+                         enable = not linearized));
+  parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
+       annotation(Dialog(group = "Transition to laminar",
+                         enable = use_dh and not linearized));
+  parameter Real ReC(min=0)=4000
+    "Reynolds number where transition to turbulent starts"
+       annotation(Dialog(group = "Transition to laminar",
+                         enable = use_dh and not linearized));
+  parameter Real deltaM(min=0.01) = 0.3
+    "Fraction of nominal mass flow rate where transition to turbulent occurs"
+       annotation(Evaluate=true,
+                  Dialog(group = "Transition to laminar",
+                         enable = not use_dh and not linearized));
+
+  parameter Boolean from_dp = false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
+
+  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa") = 0
+    "Pressure drop at nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   // Heat flow rates
   Modelica.SIunits.HeatFlowRate QCon_flow = heatPortCon.Q_flow
     "Heat input into the water due to convective heat transfer with room air";
@@ -59,7 +88,7 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
 
   Fluid.MixingVolumes.MixingVolume[nEle] vol(
     redeclare each package Medium = Medium,
-    each nPorts = 2,
+    each nPorts=2,
     each V=VWat/nEle,
     each final m_flow_nominal = m_flow_nominal,
     each final energyDynamics=energyDynamics,
@@ -152,6 +181,21 @@ protected
     final alpha=0)
     "Heat input into radiator from radiative heat transfer"
     annotation (Placement(transformation(extent={{52,-90},{72,-70}})));
+
+  Annex60.Fluid.FixedResistances.FixedResistanceDpM res(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m_flow_nominal,
+    final from_dp=from_dp,
+    final dp_nominal=dp_nominal,
+    final homotopyInitialization=homotopyInitialization,
+    final linearized=linearized,
+    final use_dh=use_dh,
+    final dh=dh,
+    final ReC=ReC,
+    final deltaM=deltaM) "Pressure drop component"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
 initial equation
   if T_b_nominal > TAir_nominal then
      assert(T_a_nominal > T_b_nominal,
@@ -190,6 +234,13 @@ initial equation
    end for;
 
 
+
+
+
+
+
+
+
 equation
   connect(preCon.port, vol.heatPort)       annotation (Line(
       points={{-28,-38},{-20,-38},{-20,-10},{-9,-10}},
@@ -197,13 +248,9 @@ equation
   connect(preRad.port, vol.heatPort)       annotation (Line(
       points={{-28,-70},{-20,-70},{-20,-10},{-9,-10}},
       color={191,0,0}));
-  connect(port_a, vol[1].ports[1]) annotation (Line(
-      points={{-100,5.55112e-16},{-75.25,5.55112e-16},{-75.25,1.11022e-15},{
-          -50.5,1.11022e-15},{-50.5,5.55112e-16},{-1,5.55112e-16}},
-      color={0,127,255}));
   connect(vol[nEle].ports[2], port_b) annotation (Line(
-      points={{3,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,
-          1.11022e-15},{51.5,5.55112e-16},{100,5.55112e-16}},
+      points={{3,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,1.11022e-15},
+          {51.5,5.55112e-16},{100,5.55112e-16}},
       color={0,127,255}));
   for i in 1:nEle-1 loop
     connect(vol[i].ports[2], vol[i+1].ports[1]) annotation (Line(
@@ -235,6 +282,10 @@ equation
   connect(preSumRad.port, heatPortRad)        annotation (Line(
       points={{72,-80},{86,-80},{86,50},{20,50},{20,72}},
       color={191,0,0}));
+  connect(res.port_a, port_a) annotation (Line(points={{-60,0},{-80,0},{-100,0}},
+                    color={0,127,255}));
+  connect(res.port_b, vol[1].ports[1])
+    annotation (Line(points={{-40,0},{-1,0}},      color={0,127,255}));
   annotation ( Icon(graphics={
         Ellipse(
           extent={{-20,22},{20,-20}},
@@ -334,6 +385,12 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 17, 2016, by Filip Jorissen:<br/>
+Added pressure drop equations and parameters.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/586\">#586</a>.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Set <code>preHea(final alpha=0)</code> as this allows to simplify the
