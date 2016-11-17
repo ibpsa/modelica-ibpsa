@@ -1,6 +1,6 @@
 OutputCPUtime=true;
 translateModel("Annex60.Experimental.Pipe.Validation.ValidationPipeAIT_pipeDelay");
-simulateModel("Annex60.Experimental.Pipe.Validation.ValidationPipeAIT_pipeDelay", stopTime=603900, tolerance=1e-005, method="dassl", resultFile="ValidationPipeAIT_pipeDelay");
+simulateModel("Annex60.Experimental.Pipe.Validation.ValidationPipeAIT_pipeDelay", stopTime=603900, numberOfIntervals=800,tolerance=1e-005, method="dassl", resultFile="ValidationPipeAIT_pipeDelay");
 
 
 n = readTrajectorySize("ValidationPipeAIT_pipeDelay.mat");
