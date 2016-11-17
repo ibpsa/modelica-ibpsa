@@ -89,7 +89,8 @@ model ValidationMSLAIT
         origin={80,-10})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/
+  parameter Types.ThermalResistanceLength R=4.92141;
+  parameter Types.ThermalResistanceLength R_old=1/(lambdaI*2*Modelica.Constants.pi/
       Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res0(R=R/pip0.length)
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
@@ -124,8 +125,8 @@ model ValidationMSLAIT
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=76,
-    diameter=diameter,
-    nNodes=76)         annotation (Placement(transformation(
+    nNodes=76,
+    diameter=0.0825)   annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-70,40})));
