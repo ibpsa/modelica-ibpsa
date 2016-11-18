@@ -69,7 +69,7 @@ model TwoWayTRV "Two way thermostatic radiator valve"
     CvData=IDEAS.Fluid.Types.CvTypes.OpPoint) "Linear valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput T "Temperature measurement" annotation (
+  Modelica.Blocks.Interfaces.RealInput T(unit="K") "Temperature measurement" annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
