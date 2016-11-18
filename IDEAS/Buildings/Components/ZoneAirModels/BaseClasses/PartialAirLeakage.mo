@@ -2,7 +2,7 @@ within IDEAS.Buildings.Components.ZoneAirModels.BaseClasses;
 partial model PartialAirLeakage
   "air leakage due to limied air tightness"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal_airLea "nominal mass flow of air leakage";
-  Modelica.SIunits.SpecificEnthalpy hDiff "Air enthalpy difference between in and out";
+  Modelica.SIunits.SpecificEnthalpy hDiff "Enthalpy difference between air inlet and outlet";
 
   outer IDEAS.BoundaryConditions.SimInfoManager sim
     "Simulation information manager"
@@ -14,16 +14,14 @@ partial model PartialAirLeakage
     annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
   Modelica.Blocks.Sources.RealExpression Qgai(y=-reaExpMflo.y*hDiff)
     annotation (Placement(transformation(extent={{-100,34},{-22,54}})));
+  Modelica.Blocks.Routing.RealPassThrough Te annotation (Placement(
+    transformation(
+    extent={{-10,-10},{10,10}},
+    rotation=270,
+    origin={6,70})));
 protected
   Interfaces.WeaBus weaBus(numSolBus=sim.numIncAndAziInBus, outputAngles=sim.outputAngles)
     annotation (Placement(transformation(extent={{-50,76},{-30,96}})));
-
-public
-  Modelica.Blocks.Routing.RealPassThrough Te annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={6,70})));
 equation
   connect(prescribedHeatFlow.port, sim.Qgai)
     annotation (Line(points={{-80,60},{-90,60},{-90,80}}, color={191,0,0}));
