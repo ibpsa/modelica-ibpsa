@@ -1,4 +1,4 @@
-within IDEAS.Buildings.Components.ZoneAirModels;
+within IDEAS.Buildings.Components.ZoneAirModels.BaseClasses;
 partial model PartialAirModel "Partial for air models"
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -7,12 +7,13 @@ partial model PartialAirModel "Partial for air models"
   parameter Integer nSurf "Number of connected surfaces";
   parameter Integer nSeg(min=1)=1 "Number of air segments";
   parameter Modelica.SIunits.Volume Vtot "Total zone air volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=m_flow_nominal_airLea
     "Nominal mass flow rate";
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports.";
   parameter Real n50=0.4 "n50-value of airtightness";
   parameter Real n50toAch = 20 "Conversion fractor from n50 to Air Change Rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_airLea=Vtot*rho_default/3600*n50/n50toAch "nominal mass flow of air leakage";
   parameter Boolean useFluPor = true "Set to false to remove fluid ports";
   constant Boolean computeTSensorAsFunctionOfZoneAir = true "Set to false if TSensor in zone model should not take into account the value of the zone air temperature";
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") "Model internal energy";

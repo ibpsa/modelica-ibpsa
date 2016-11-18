@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.ZoneAirModels;
 model None "Non-physical zone air model that disables convective heat transfer"
-  extends IDEAS.Buildings.Components.ZoneAirModels.PartialAirModel(
+  extends IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(
     m_flow_nominal=0,
     Vtot=0,
     nSurf=1,

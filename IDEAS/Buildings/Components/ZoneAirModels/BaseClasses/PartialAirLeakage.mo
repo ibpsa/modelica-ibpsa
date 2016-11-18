@@ -1,17 +1,14 @@
 within IDEAS.Buildings.Components.ZoneAirModels.BaseClasses;
-partial model partial_AirLeakage "air leakage due to limied air tightness"
-
-  parameter Modelica.SIunits.Volume V "zone air volume";
-  parameter Real n50(min=0)=0.4 "n50-value of airtightness";
-  parameter Real n50toAch = 20 "Conversion factor from n50 to Air Change Rate";
-  parameter Modelica.SIunits.Density rho_default "Density, used to compute fluid mass";
+partial model PartialAirLeakage
+  "air leakage due to limied air tightness"
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_airLea "nominal mass flow of air leakage";
   Modelica.SIunits.SpecificEnthalpy hDiff "Air enthalpy difference between in and out";
 
   outer IDEAS.BoundaryConditions.SimInfoManager sim
     "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  Modelica.Blocks.Sources.RealExpression reaExpMflo(y=V*rho_default/3600*n50/n50toAch)
+  Modelica.Blocks.Sources.RealExpression reaExpMflo(y=m_flow_nominal_airLea)
     annotation (Placement(transformation(extent={{-86,20},{-40,40}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if  sim.computeConservationOfEnergy
     annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
@@ -20,7 +17,6 @@ partial model partial_AirLeakage "air leakage due to limied air tightness"
 protected
   Interfaces.WeaBus weaBus(numSolBus=sim.numIncAndAziInBus, outputAngles=sim.outputAngles)
     annotation (Placement(transformation(extent={{-50,76},{-30,96}})));
-
 
 public
   Modelica.Blocks.Routing.RealPassThrough Te annotation (Placement(
@@ -67,4 +63,4 @@ Adjusted implementation for computing conservation of energy.
 </li>
 </ul>
 </html>"));
-end partial_AirLeakage;
+end PartialAirLeakage;

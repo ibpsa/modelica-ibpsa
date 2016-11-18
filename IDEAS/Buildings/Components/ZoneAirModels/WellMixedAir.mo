@@ -1,6 +1,7 @@
 within IDEAS.Buildings.Components.ZoneAirModels;
 model WellMixedAir "Zone air model assuming perfectly mixed air"
-  extends PartialAirModel(final nSeg=1, mSenFac=5);
+  extends BaseClasses.PartialAirModel(
+                          final nSeg=1, mSenFac=5);
   parameter Boolean useAirLeakage = true "Set to false to disable airleakage computations";
 
 protected
@@ -25,11 +26,8 @@ protected
         origin={0,0})));
   IDEAS.Buildings.Components.ZoneAirModels.AirLeakage airLeakage(
     redeclare package Medium = Medium,
-    n50=n50,
     show_T=false,
-    V=Vtot,
-    n50toAch=n50toAch,
-    rho_default=rho_default) if
+    m_flow_nominal_airLea=m_flow_nominal_airLea) if
                           useAirLeakage
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 

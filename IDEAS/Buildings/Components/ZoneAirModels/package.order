@@ -1,7 +1,6 @@
 WellMixedAir
 Thermal
 None
-PartialAirModel
 AirLeakage
-BaseClasses
 AirLeakageThermal
+BaseClasses

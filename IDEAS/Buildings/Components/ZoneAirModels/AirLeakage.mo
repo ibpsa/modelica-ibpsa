@@ -3,8 +3,8 @@ model AirLeakage "air leakage due to limied air tightness"
 
 extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
     final allowFlowReversal=false,
-    final m_flow_nominal=V*rho_default/3600*n50/n50toAch);
-extends IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.partial_AirLeakage;
+    final m_flow_nominal=m_flow_nominal_airLea);
+extends IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirLeakage;
   Fluid.Interfaces.IdealSource idealSourceOut(
     redeclare package Medium = Medium,
     control_m_flow=true,
