@@ -10,7 +10,8 @@ partial model PartialAirLeakage
 
   Modelica.Blocks.Sources.RealExpression reaExpMflo(y=m_flow_nominal_airLea)
     annotation (Placement(transformation(extent={{-86,20},{-40,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if  sim.computeConservationOfEnergy
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow_sim if
+                                                                                  sim.computeConservationOfEnergy
     annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
   Modelica.Blocks.Sources.RealExpression Qgai(y=-reaExpMflo.y*hDiff)
     annotation (Placement(transformation(extent={{-100,34},{-22,54}})));
@@ -23,11 +24,10 @@ protected
   Interfaces.WeaBus weaBus(numSolBus=sim.numIncAndAziInBus, outputAngles=sim.outputAngles)
     annotation (Placement(transformation(extent={{-50,76},{-30,96}})));
 equation
-  connect(prescribedHeatFlow.port, sim.Qgai)
+  connect(prescribedHeatFlow_sim.port, sim.Qgai)
     annotation (Line(points={{-80,60},{-90,60},{-90,80}}, color={191,0,0}));
-  connect(Qgai.y, prescribedHeatFlow.Q_flow)
-    annotation (Line(points={{-18.1,44},{-18.1,60},{-60,60}},
-                                                 color={0,0,127}));
+  connect(Qgai.y, prescribedHeatFlow_sim.Q_flow) annotation (Line(points={{-18.1,
+          44},{-18.1,60},{-60,60}}, color={0,0,127}));
   connect(sim.weaBus, weaBus) annotation (Line(
       points={{-84,92.8},{-40,92.8},{-40,86}},
       color={255,204,51},

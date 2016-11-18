@@ -15,8 +15,7 @@ model Thermal
   Modelica.Blocks.Sources.Constant zero(k=0)
     "Constant output for relative humidity"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  AirLeakageThermal airLeakageThermal(rho_default=rho_default, cp_default=cp_default,
-    V=Vtot,
+  AirLeakageThermal airLeakageThermal(cp_default=cp_default,
     m_flow_nominal_airLea=m_flow_nominal_airLea)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 equation
