@@ -40,24 +40,11 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
     annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-
-  parameter Boolean use_dh = false
-  "= true, use dh and ReC, otherwise use deltaM"
-       annotation(Evaluate=true,
-                  Dialog(group = "Transition to laminar",
-                         enable = not linearized));
-  parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
-       annotation(Dialog(group = "Transition to laminar",
-                         enable = use_dh and not linearized));
-  parameter Real ReC(min=0)=4000
-    "Reynolds number where transition to turbulent starts"
-       annotation(Dialog(group = "Transition to laminar",
-                         enable = use_dh and not linearized));
   parameter Real deltaM(min=0.01) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true,
                   Dialog(group = "Transition to laminar",
-                         enable = not use_dh and not linearized));
+                         enable = not linearized));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -86,7 +73,7 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
     "Heat port for radiative heat transfer with room radiation temperature"
     annotation (Placement(transformation(extent={{10,62},{30,82}})));
 
-  Fluid.MixingVolumes.MixingVolume[nEle] vol(
+  Annex60.Fluid.MixingVolumes.MixingVolume[nEle] vol(
     redeclare each package Medium = Medium,
     each nPorts=2,
     each V=VWat/nEle,
@@ -190,9 +177,6 @@ protected
     final dp_nominal=dp_nominal,
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
-    final use_dh=use_dh,
-    final dh=dh,
-    final ReC=ReC,
     final deltaM=deltaM) "Pressure drop component"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
@@ -232,14 +216,6 @@ initial equation
         n=n,
         x0=0.1*k*(T_b_nominal-TAir_nominal)));
    end for;
-
-
-
-
-
-
-
-
 
 equation
   connect(preCon.port, vol.heatPort)       annotation (Line(
