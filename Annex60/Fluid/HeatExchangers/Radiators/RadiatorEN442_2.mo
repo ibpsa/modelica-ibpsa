@@ -177,7 +177,8 @@ protected
     final dp_nominal=dp_nominal,
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
-    final deltaM=deltaM) "Pressure drop component"
+    final deltaM=deltaM,
+    final show_T=false) "Pressure drop component"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 initial equation
@@ -216,6 +217,7 @@ initial equation
         n=n,
         x0=0.1*k*(T_b_nominal-TAir_nominal)));
    end for;
+
 
 equation
   connect(preCon.port, vol.heatPort)       annotation (Line(
