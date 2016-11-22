@@ -6,17 +6,16 @@ extends Modelica.Icons.Example;
   Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,
     use_T_in=true,
-    nPorts=1,
-    use_m_flow_in=true)
-              annotation (Placement(transformation(
+    use_m_flow_in=true,
+    nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={82,-42})));
   package Medium = Annex60.Media.Water;
   Fluid.Sources.MassFlowSource_T Point4(
-    nPorts=1,
     redeclare package Medium = Medium,
-    use_m_flow_in=true) annotation (Placement(transformation(
+    use_m_flow_in=true,
+    nPorts=1)           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={10,70})));
@@ -26,11 +25,11 @@ extends Modelica.Icons.Example;
     use_m_flow_in=true) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-46,-50})));
+        origin={-46,-58})));
   Fluid.Sources.MassFlowSource_T Point2(
-    nPorts=1,
     redeclare package Medium = Medium,
-    use_m_flow_in=true) annotation (Placement(transformation(
+    use_m_flow_in=true,
+    nPorts=1)           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-70,70})));
@@ -112,13 +111,27 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-16,80},{-56,100}})));
   Modelica.Blocks.Sources.RealExpression T_p1(y=DataReader.y[1])
     annotation (Placement(transformation(extent={{18,-74},{58,-54}})));
-  Fluid.Sensors.Temperature senTem_p3(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-70,-32},{-90,-12}})));
-  Fluid.Sensors.Temperature senTem_p2(redeclare package Medium = Medium)
+  Fluid.Sensors.TemperatureTwoPort
+                            senTem_p3(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true)
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-46,-34})));
+  Fluid.Sensors.TemperatureTwoPort
+                            senTem_p2(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true)
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
-  Fluid.Sensors.Temperature senTem_p4(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{30,56},{50,76}})));
-  Fluid.Sensors.Temperature senTem_p1(redeclare package Medium = Medium)
+  Fluid.Sensors.TemperatureTwoPort
+                            senTem_p4(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true)
+    annotation (Placement(transformation(extent={{30,52},{50,72}})));
+  Fluid.Sensors.TemperatureTwoPort
+                            senTem_p1(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={50,-20})));
@@ -144,29 +157,22 @@ extends Modelica.Icons.Example;
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Fluid.Sensors.Temperature senTemIn_p2(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+  Fluid.Sensors.TemperatureTwoPort
+                            senTemIn_p2(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true)
+    annotation (Placement(transformation(extent={{-66,0},{-46,20}})));
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+    "Nominal mass flow rate, used for regularization near zero flow";
 equation
   connect(pip3.port_a, pip5.port_b) annotation (Line(
       points={{-46,0},{-46,10},{-20,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip5.port_b, pip2.port_a) annotation (Line(
-      points={{-20,10},{-70,10},{-70,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip2.port_b, Point2.ports[1]) annotation (Line(
-      points={{-70,50},{-70,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip4.port_b, Point4.ports[1]) annotation (Line(
-      points={{10,50},{10,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip5.port_a, pip1.port_b) annotation (Line(
@@ -177,12 +183,8 @@ equation
       points={{10,30},{10,10},{30,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pip3.port_b, Point3.ports[1]) annotation (Line(
-      points={{-46,-20},{-46,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
-      points={{-58,-70},{-54,-70},{-54,-60}},
+      points={{-58,-70},{-54,-70},{-54,-68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Point2.m_flow_in, m_flow_p2.y) annotation (Line(
@@ -197,28 +199,8 @@ equation
       points={{60,-64},{78,-64},{78,-54}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senTem_p3.port, pip3.port_b) annotation (Line(
-      points={{-80,-32},{-46,-32},{-46,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip4.port_b, senTem_p4.port) annotation (Line(
-      points={{10,50},{10,56},{40,56}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip2.port_b, senTem_p2.port) annotation (Line(
-      points={{-70,50},{-40,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip0.port_a, Point1.ports[1]) annotation (Line(
-      points={{80,-20},{80,-32},{82,-32}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pip0.port_b, pip1.port_a) annotation (Line(
       points={{80,0},{80,10},{50,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem_p1.port, pip0.port_a) annotation (Line(
-      points={{60,-20},{80,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, ExcludedBranch.ports[1]) annotation (Line(
@@ -243,8 +225,27 @@ equation
           -10},{-28,26},{-54,26},{-54,40},{-60,40}}, color={191,0,0}));
   connect(prescribedTemperature.port, pip0.heatPort) annotation (Line(points={{
           60,-90},{100,-90},{100,-10},{90,-10}}, color={191,0,0}));
-  connect(senTemIn_p2.port, pip2.port_a)
-    annotation (Line(points={{-90,10},{-70,10},{-70,30}}, color={0,127,255}));
+  connect(pip2.port_b, senTem_p2.port_a) annotation (Line(points={{-70,50},{-70,
+          52},{-50,52},{-50,60}}, color={0,127,255}));
+  connect(senTem_p2.port_b, Point2.ports[1]) annotation (Line(points={{-30,60},
+          {-30,60},{-30,64},{-30,76},{-58,76},{-58,56},{-70,56},{-70,60}},
+        color={0,127,255}));
+  connect(pip3.port_a, senTemIn_p2.port_b)
+    annotation (Line(points={{-46,0},{-46,10}}, color={0,127,255}));
+  connect(senTemIn_p2.port_a, pip2.port_a)
+    annotation (Line(points={{-66,10},{-70,10},{-70,30}}, color={0,127,255}));
+  connect(pip3.port_b, senTem_p3.port_a)
+    annotation (Line(points={{-46,-20},{-46,-24}}, color={0,127,255}));
+  connect(Point3.ports[1], senTem_p3.port_b)
+    annotation (Line(points={{-46,-48},{-46,-44}}, color={0,127,255}));
+  connect(pip4.port_b, senTem_p4.port_a) annotation (Line(points={{10,50},{10,
+          52},{30,52},{30,62}}, color={0,127,255}));
+  connect(senTem_p4.port_b, Point4.ports[1]) annotation (Line(points={{50,62},{
+          50,54},{10,54},{10,60}}, color={0,127,255}));
+  connect(Point1.ports[1], senTem_p1.port_b)
+    annotation (Line(points={{82,-32},{82,-30},{50,-30}}, color={0,127,255}));
+  connect(senTem_p1.port_a, pip0.port_a) annotation (Line(points={{50,-10},{70,
+          -10},{70,-26},{80,-26},{80,-20}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(StopTime=603900),
