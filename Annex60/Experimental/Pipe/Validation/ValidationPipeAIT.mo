@@ -114,24 +114,28 @@ extends Modelica.Icons.Example;
   Fluid.Sensors.TemperatureTwoPort
                             senTem_p3(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    transferHeat=true)
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-46,-34})));
   Fluid.Sensors.TemperatureTwoPort
                             senTem_p2(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    transferHeat=true)
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
   Fluid.Sensors.TemperatureTwoPort
                             senTem_p4(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    transferHeat=true)
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
     annotation (Placement(transformation(extent={{30,52},{50,72}})));
   Fluid.Sensors.TemperatureTwoPort
                             senTem_p1(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    transferHeat=true)
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={50,-20})));
@@ -149,8 +153,8 @@ extends Modelica.Icons.Example;
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
-  Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium
-      = Medium) annotation (Placement(transformation(
+  Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium =
+        Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,70})));
@@ -160,7 +164,8 @@ extends Modelica.Icons.Example;
   Fluid.Sensors.TemperatureTwoPort
                             senTemIn_p2(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    transferHeat=true)
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
     annotation (Placement(transformation(extent={{-66,0},{-46,20}})));
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
@@ -170,6 +175,8 @@ extends Modelica.Icons.Example;
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
+  parameter Modelica.SIunits.Time tauHeaTra=6000
+    "Time constant for heat transfer, default 20 minutes";
 equation
   connect(pip3.port_a, pip5.port_b) annotation (Line(
       points={{-46,0},{-46,10},{-20,10}},
@@ -227,9 +234,9 @@ equation
           60,-90},{100,-90},{100,-10},{90,-10}}, color={191,0,0}));
   connect(pip2.port_b, senTem_p2.port_a) annotation (Line(points={{-70,50},{-70,
           52},{-50,52},{-50,60}}, color={0,127,255}));
-  connect(senTem_p2.port_b, Point2.ports[1]) annotation (Line(points={{-30,60},
-          {-30,60},{-30,64},{-30,76},{-58,76},{-58,56},{-70,56},{-70,60}},
-        color={0,127,255}));
+  connect(senTem_p2.port_b, Point2.ports[1]) annotation (Line(points={{-30,60},{
+          -30,60},{-30,64},{-30,76},{-58,76},{-58,56},{-70,56},{-70,60}}, color=
+         {0,127,255}));
   connect(pip3.port_a, senTemIn_p2.port_b)
     annotation (Line(points={{-46,0},{-46,10}}, color={0,127,255}));
   connect(senTemIn_p2.port_a, pip2.port_a)
@@ -238,14 +245,14 @@ equation
     annotation (Line(points={{-46,-20},{-46,-24}}, color={0,127,255}));
   connect(Point3.ports[1], senTem_p3.port_b)
     annotation (Line(points={{-46,-48},{-46,-44}}, color={0,127,255}));
-  connect(pip4.port_b, senTem_p4.port_a) annotation (Line(points={{10,50},{10,
-          52},{30,52},{30,62}}, color={0,127,255}));
-  connect(senTem_p4.port_b, Point4.ports[1]) annotation (Line(points={{50,62},{
-          50,54},{10,54},{10,60}}, color={0,127,255}));
+  connect(pip4.port_b, senTem_p4.port_a) annotation (Line(points={{10,50},{10,52},
+          {30,52},{30,62}}, color={0,127,255}));
+  connect(senTem_p4.port_b, Point4.ports[1]) annotation (Line(points={{50,62},{50,
+          54},{10,54},{10,60}}, color={0,127,255}));
   connect(Point1.ports[1], senTem_p1.port_b)
     annotation (Line(points={{82,-32},{82,-30},{50,-30}}, color={0,127,255}));
-  connect(senTem_p1.port_a, pip0.port_a) annotation (Line(points={{50,-10},{70,
-          -10},{70,-26},{80,-26},{80,-20}}, color={0,127,255}));
+  connect(senTem_p1.port_a, pip0.port_a) annotation (Line(points={{50,-10},{70,-10},
+          {70,-26},{80,-26},{80,-20}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(StopTime=603900),
