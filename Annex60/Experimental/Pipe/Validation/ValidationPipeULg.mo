@@ -31,12 +31,12 @@ package Medium = Annex60.Media.Water;
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
-        origin={16,0})));
+        origin={34,0})));
   Fluid.Sources.Boundary_pT Sewer1(redeclare package Medium = Medium, nPorts=1)
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-84,0})));
+        origin={-110,0})));
   Fluid.Sensors.Temperature senTem_out(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-70,6},{-50,26}})));
   Fluid.Sensors.Temperature senTem_in(redeclare package Medium = Medium)
@@ -59,7 +59,7 @@ package Medium = Annex60.Media.Water;
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 equation
   connect(Sewer1.ports[1], pipe.port_b) annotation (Line(
-      points={{-74,0},{-44,0}},
+      points={{-100,0},{-44,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTem_out.port, pipe.port_b) annotation (Line(
@@ -71,11 +71,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pipe.port_a, Boiler.port_b) annotation (Line(
-      points={{-24,0},{6,0}},
+      points={{-24,0},{24,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(Boiler.port_a, WaterCityNetwork.ports[1]) annotation (Line(
-      points={{26,0},{60,0}},
+      points={{44,0},{60,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(DataReader.y[3], Tout.u) annotation (Line(
@@ -86,8 +86,8 @@ equation
     annotation (Line(points={{-34,60},{-34,35},{-34,10}}, color={191,0,0}));
   connect(DataReader.y[5], Tin.u)
     annotation (Line(points={{21,-50},{29.5,-50},{38,-50}}, color={0,0,127}));
-  connect(Tin.y, Boiler.TSet) annotation (Line(points={{61,-50},{78,-50},{92,
-          -50},{92,30},{36,30},{36,6},{28,6}}, color={0,0,127}));
+  connect(Tin.y, Boiler.TSet) annotation (Line(points={{61,-50},{61,-50},{92,
+          -50},{92,26},{54,26},{54,6},{46,6}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     Documentation(info="<html>

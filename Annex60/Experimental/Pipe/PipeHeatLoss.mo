@@ -60,7 +60,6 @@ protected
     dh=diameter,
     length=length,
     m_flow_nominal=m_flow_nominal,
-    Lcap=Lcap,
     pipVol=pipVol,
     from_dp=from_dp)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
@@ -98,8 +97,6 @@ public
     len=length,
     rho=rho_default)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  parameter Modelica.SIunits.Length Lcap=1
-    "Length over which transient effects typically take place";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Temperature boundary condition to pipe (undisturbed ground of surface temperature)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));

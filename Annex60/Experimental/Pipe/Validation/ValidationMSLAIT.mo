@@ -69,8 +69,7 @@ model ValidationMSLAIT
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   Fluid.Sensors.Temperature senTemIn_p2(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  parameter Modelica.SIunits.Length Lcap=1
-    "Length over which transient effects typically take place";
+
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=false

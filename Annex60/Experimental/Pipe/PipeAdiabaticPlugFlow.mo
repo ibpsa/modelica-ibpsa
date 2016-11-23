@@ -3,14 +3,13 @@ model PipeAdiabaticPlugFlow
   "Pipe model using spatialDistribution for temperature delay without heat losses"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Modelica.SIunits.Length thickness=0.002;
-  parameter Modelica.SIunits.Length Lcap=1
+  parameter Modelica.SIunits.Length thickness=0.002
     "Length over which transient effects typically take place";
   parameter Modelica.SIunits.Length dh=0.05 "Hydraulic diameter"
     annotation (Dialog(enable=use_dh));
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.HeatCapacity Cpipe=length*((dh + thickness)^2 - dh
-      ^2)*Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
+  parameter Modelica.SIunits.HeatCapacity walCap=length*((dh + thickness)^2 -
+      dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe=500 "For steel";
   parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
 
@@ -27,13 +26,16 @@ model PipeAdiabaticPlugFlow
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") =
     dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
+
+  final parameter Modelica.SIunits.Volume V=walCap/(rho_default*cp_default)
+    "Equivalent water volume to represent pipe wall thermal inertia";
 
   final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
       Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
@@ -77,6 +79,12 @@ protected
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation (Dialog(group="Advanced", enable=use_mu_default));
 
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default)) "Default specific heat of water";
+
   Annex60.Experimental.Pipe.PipeLosslessPlugFlow temperatureDelay(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
@@ -95,7 +103,7 @@ public
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     V=V) annotation (Placement(transformation(extent={{60,4},{80,24}})));
-  final parameter Modelica.SIunits.Volume V=wallCap/rho_default "Volume";
+
 equation
   connect(res.port_b, temperatureDelay.port_a) annotation (Line(
       points={{-20,0},{20,0}},

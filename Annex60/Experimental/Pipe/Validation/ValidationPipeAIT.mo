@@ -42,7 +42,6 @@ extends Modelica.Icons.Example;
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=115,
-    Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
@@ -54,7 +53,6 @@ extends Modelica.Icons.Example;
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -68,7 +66,6 @@ extends Modelica.Icons.Example;
     lambdaI=0.024,
     thicknessIns=0.045,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
@@ -80,7 +77,6 @@ extends Modelica.Icons.Example;
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -94,7 +90,6 @@ extends Modelica.Icons.Example;
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -130,14 +125,13 @@ extends Modelica.Icons.Example;
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=20,
-    Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
-  Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium
-      = Medium) annotation (Placement(transformation(
+  Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium =
+        Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,70})));
@@ -146,8 +140,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   Fluid.Sensors.Temperature senTemIn_p2(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  parameter Modelica.SIunits.Length Lcap=1
-    "Length over which transient effects typically take place";
+
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=true

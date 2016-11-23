@@ -25,8 +25,7 @@ model ValidationPipeAIT_Subset1
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,34})));
-  parameter Modelica.SIunits.Length Lcap=1
-    "Length over which transient effects typically take place";
+
   parameter Boolean pipVol=false
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=true
@@ -44,7 +43,6 @@ model ValidationPipeAIT_Subset1
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    Lcap=Lcap,
     pipVol=pipVol,
     allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},

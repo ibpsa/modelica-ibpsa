@@ -141,8 +141,8 @@ model ValidationPipeAIT_pipeDelay
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
-  Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium
-      = Medium) annotation (Placement(transformation(
+  Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium =
+        Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,70})));
@@ -151,8 +151,7 @@ model ValidationPipeAIT_pipeDelay
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   Fluid.Sensors.Temperature senTemIn_p2(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  parameter Modelica.SIunits.Length Lcap=1
-    "Length over which transient effects typically take place";
+
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=false
