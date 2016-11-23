@@ -86,43 +86,31 @@ protected
     "Model for temperature wave propagation with spatialDistribution operator"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 public
-  Fluid.MixingVolumes.MixingVolume vol(
-    nPorts=2,
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    V=Lcap*dh^2/4*Modelica.Constants.pi) if pipVol
-    annotation (Placement(transformation(extent={{-60,0},{-80,20}})));
-  Fluid.MixingVolumes.MixingVolume vol1(
-    nPorts=2,
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    V=Lcap*dh^2/4*Modelica.Constants.pi) if pipVol
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
 
+  Fluid.MixingVolumes.MixingVolume vol(
+    nPorts=2,
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    V=V) annotation (Placement(transformation(extent={{60,4},{80,24}})));
+  final parameter Modelica.SIunits.Volume V=wallCap/rho_default "Volume";
 equation
   connect(res.port_b, temperatureDelay.port_a) annotation (Line(
       points={{-20,0},{20,0}},
       color={0,127,255},
       smooth=Smooth.None));
   if pipVol then
-    connect(port_a, vol.ports[1])
-      annotation (Line(points={{-100,0},{-68,0},{-68,0}}, color={0,127,255}));
-    connect(vol.ports[2], res.port_a)
-      annotation (Line(points={{-72,0},{-72,0},{-40,0}}, color={0,127,255}));
-    connect(temperatureDelay.port_b, vol1.ports[1])
-      annotation (Line(points={{40,0},{68,0},{68,0}}, color={0,127,255}));
-    connect(vol1.ports[2], port_b)
-      annotation (Line(points={{72,0},{72,0},{100,0}}, color={0,127,255}));
   else
     connect(port_a, res.port_a)
       annotation (Line(points={{-100,0},{-70,0},{-40,0}}, color={0,127,255}));
-    connect(temperatureDelay.port_b, port_b)
-      annotation (Line(points={{40,0},{70,0},{100,0}}, color={0,127,255}));
   end if;
 
+  connect(temperatureDelay.port_b, vol.ports[1])
+    annotation (Line(points={{40,0},{68,0},{68,4}}, color={0,127,255}));
+  connect(vol.ports[2], port_b)
+    annotation (Line(points={{72,4},{72,0},{100,0}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
