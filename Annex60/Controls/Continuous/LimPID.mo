@@ -315,6 +315,7 @@ to the value of the input signal <code>y_reset_in</code>.
 </p>
 </li>
 </ul>
+</p>
 <p>
 Note that this controller implements an integrator anti-windup. Therefore,
 for most applications, keeping the default setting of
