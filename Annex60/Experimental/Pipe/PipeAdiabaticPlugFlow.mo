@@ -4,29 +4,26 @@ model PipeAdiabaticPlugFlow
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
   parameter Modelica.SIunits.Length thickness=0.002
-    "Length over which transient effects typically take place";
+    "Pipe wall thickness";
   parameter Modelica.SIunits.Length dh=0.05 "Hydraulic diameter"
     annotation (Dialog(enable=use_dh));
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.HeatCapacity walCap=length*((dh + thickness)^2 -
-      dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
+  parameter Modelica.SIunits.HeatCapacity walCap=length*((dh + 2*thickness)^2 - dh^2)*
+      Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe=500 "For steel";
   parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
-
-  parameter Boolean pipVol=true
-    "Flag to decide whether volumes are included at the end points of the pipe";
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005
     "Heat conductivity of pipe's surroundings";*/
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
-    m_flow_nominal) "Small mass flow rate for regularization of zero flow"
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+    "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") =
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=
     dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
@@ -47,8 +44,7 @@ model PipeAdiabaticPlugFlow
       length=length,
       diameter=dh,
       roughness=roughness,
-      m_flow_small=m_flow_small)
-    "Pressure loss of a straight pipe at m_flow_nominal";
+      m_flow_small=m_flow_small) "Pressure loss of a straight pipe at m_flow_nominal";
 
   Annex60.Fluid.FixedResistances.FixedResistance_dh res(
     redeclare final package Medium = Medium,
@@ -67,12 +63,11 @@ protected
   parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
       p=Medium.p_default,
       T=Medium.T_default,
-      X=Medium.X_default)
-    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
+      X=Medium.X_default) "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
     annotation (Dialog(group="Advanced", enable=use_rho_nominal));
 
-  parameter Modelica.SIunits.DynamicViscosity mu_default=
-      Medium.dynamicViscosity(Medium.setState_pTX(
+  parameter Modelica.SIunits.DynamicViscosity mu_default=Medium.dynamicViscosity(
+      Medium.setState_pTX(
       p=Medium.p_default,
       T=Medium.T_default,
       X=Medium.X_default))
@@ -92,38 +87,30 @@ protected
     final L=length,
     final allowFlowReversal=allowFlowReversal)
     "Model for temperature wave propagation with spatialDistribution operator"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 public
-  parameter Boolean from_dp=false
-    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+  parameter Boolean from_dp=false "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
 
   Fluid.MixingVolumes.MixingVolume vol(
-    nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    V=V) annotation (Placement(transformation(extent={{60,4},{80,24}})));
+    V=V,
+    nPorts=2) annotation (Placement(transformation(extent={{60,4},{80,24}})));
 
 equation
-  connect(res.port_b, temperatureDelay.port_a) annotation (Line(
-      points={{-20,0},{20,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  if pipVol then
-  else
-    connect(port_a, res.port_a)
-      annotation (Line(points={{-100,0},{-70,0},{-40,0}}, color={0,127,255}));
-  end if;
-
+  connect(port_a, res.port_a)
+    annotation (Line(points={{-100,0},{-70,0},{-40,0}}, color={0,127,255}));
+  connect(res.port_b, temperatureDelay.port_a)
+    annotation (Line(points={{-20,0},{0,0}}, color={0,127,255}));
   connect(temperatureDelay.port_b, vol.ports[1])
-    annotation (Line(points={{40,0},{68,0},{68,4}}, color={0,127,255}));
+    annotation (Line(points={{20,0},{68,0},{68,4}}, color={0,127,255}));
   connect(vol.ports[2], port_b)
-    annotation (Line(points={{72,4},{72,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{72,4},{72,4},{72,0},{100,0}}, color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
         Rectangle(
           extent={{-100,40},{100,-42}},
           lineColor={0,0,0},
@@ -152,4 +139,5 @@ equation
 <p>First implementation of an adiabatic pipe using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. The temperature propagation is handled by the PipeLosslessPlugFlow component.</p>
 <p>This component includes water volumes at the in- and outlet to account for the thermal capacity of the pipe walls. Logically, each volume should contain half of the pipe&apos;s real water volume. However, this leads to an overestimation, probably because only part of the pipe is affected by temperature changes (see Benonysson, 1991). The ratio of the pipe to be included in the thermal capacity is to be investigated further. </p>
 </html>"));
+
 end PipeAdiabaticPlugFlow;
