@@ -4,8 +4,8 @@ model Deadband_650 "BESTEST deadband heating system"
     final nLoads=1, final nTemSen = nZones);
 
   parameter Modelica.SIunits.Volume[nZones] VZones;
-  parameter Real corrCV = 5 "Correction factor for thermal mass in zone";
-  parameter Real[nZones] C = VZones * corrCV * 1012 * 1.204;
+  parameter Real mSenFac = 5 "Correction factor for thermal mass in zone";
+  parameter Real[nZones] C = VZones * mSenFac * 1012 * 1.204;
 
 protected
   IDEAS.BoundaryConditions.Occupants.Components.Schedule occ(occupancy=3600*{7,18},
