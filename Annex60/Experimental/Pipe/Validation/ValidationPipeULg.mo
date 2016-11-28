@@ -20,7 +20,7 @@ package Medium = Annex60.Media.Water;
         (5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi,
     lambdaI=0.04,
     m_flow_nominal=m_flow_nominal,
-    thickness=3.2e-3)
+    thickness=3.9e-3)
                   annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,

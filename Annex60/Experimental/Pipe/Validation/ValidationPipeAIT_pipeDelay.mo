@@ -45,7 +45,7 @@ model ValidationPipeAIT_pipeDelay
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=115,
     allowFlowReversal=allowFlowReversal,
-    thickness=0.003)
+    thickness=0.0032)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   Pipe pip4(
     redeclare package Medium = Medium,
@@ -56,7 +56,7 @@ model ValidationPipeAIT_pipeDelay
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
-    thickness=0.003)   annotation (Placement(transformation(
+    thickness=0.0032)  annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={10,40})));
@@ -69,7 +69,7 @@ model ValidationPipeAIT_pipeDelay
     thicknessIns=0.045,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
-    thickness=0.003)
+    thickness=0.0032)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
   Pipe pip2(
     redeclare package Medium = Medium,
@@ -80,7 +80,7 @@ model ValidationPipeAIT_pipeDelay
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
-    thickness=0.003)   annotation (Placement(transformation(
+    thickness=0.0032)  annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,40})));
@@ -93,7 +93,7 @@ model ValidationPipeAIT_pipeDelay
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
-    thickness=0.003)   annotation (Placement(transformation(
+    thickness=0.0032)  annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-10})));
@@ -128,7 +128,7 @@ model ValidationPipeAIT_pipeDelay
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=20,
     allowFlowReversal=allowFlowReversal,
-    thickness=0.003)
+    thickness=0.0032)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
