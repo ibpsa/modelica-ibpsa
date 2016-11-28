@@ -54,7 +54,7 @@ package Medium = Annex60.Media.Water;
   Data.PipeDataULg150801 pipeDataULg150801
     annotation (Placement(transformation(extent={{-32,-60},{-12,-40}})));
   Modelica.Blocks.Sources.Constant Tamb(k=273 + 18)
-    "Ambient temperature in Kelvin", Error;
+    "Ambient temperature in Kelvin";
   Modelica.Blocks.Math.UnitConversions.From_degC Tout
     "Ambient temperature in degrees"
     annotation (Placement(transformation(extent={{40,-88},{60,-68}})));

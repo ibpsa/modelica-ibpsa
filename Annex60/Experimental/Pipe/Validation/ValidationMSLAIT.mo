@@ -21,54 +21,41 @@ model ValidationMSLAIT
     nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={10,70})));
+        origin={38,92})));
   Fluid.Sources.MassFlowSource_T Point3(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-46,-50})));
+        origin={-46,-70})));
   Fluid.Sources.MassFlowSource_T Point2(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-70,70})));
+        origin={-60,104})));
   Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataAIT151218.data)
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Data.PipeDataAIT151218 pipeDataAIT151218
     annotation (Placement(transformation(extent={{-30,-100},{-10,-80}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p3(y=-DataReader.y[7])
-    annotation (Placement(transformation(extent={{-100,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p4(y=-DataReader.y[8])
-    annotation (Placement(transformation(extent={{64,80},{24,100}})));
+    annotation (Placement(transformation(extent={{102,102},{62,122}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p2(y=-DataReader.y[6])
-    annotation (Placement(transformation(extent={{-16,80},{-56,100}})));
+    annotation (Placement(transformation(extent={{-100,120},{-60,140}})));
   Modelica.Blocks.Sources.RealExpression T_p1(y=DataReader.y[1])
     annotation (Placement(transformation(extent={{18,-74},{58,-54}})));
-  Fluid.Sensors.Temperature senTem_p3(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-70,-32},{-90,-12}})));
-  Fluid.Sensors.Temperature senTem_p2(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
-  Fluid.Sensors.Temperature senTem_p4(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{30,56},{50,76}})));
-  Fluid.Sensors.Temperature senTem_p1(redeclare package Medium = Medium)
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={50,-20})));
   Fluid.Sources.FixedBoundary ExcludedBranch(redeclare package Medium = Medium,
       nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={80,70})));
+        origin={78,26})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Fluid.Sensors.Temperature senTemIn_p2(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
@@ -83,19 +70,19 @@ model ValidationMSLAIT
     nNodes=20)         annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={80,-10})));
+        origin={80,-8})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Types.ThermalResistanceLength R=4.92141;
   parameter Types.ThermalResistanceLength R_old=1/(lambdaI*2*Modelica.Constants.pi/
       Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res0(R=R/pip0.length)
-    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
+    annotation (Placement(transformation(extent={{120,-18},{140,2}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector col0(m=pip0.nNodes)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={102,-10})));
+        origin={102,-8})));
   Modelica.Fluid.Pipes.DynamicPipe pip1(
     nParallel=1,
     diameter=0.0825,
@@ -112,9 +99,9 @@ model ValidationMSLAIT
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={50,30})));
+        origin={48,50})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res1(R=R/pip1.length)
-    annotation (Placement(transformation(extent={{68,20},{88,40}})));
+    annotation (Placement(transformation(extent={{66,40},{86,60}})));
   Modelica.Fluid.Pipes.DynamicPipe pip2(
     nParallel=1,
     redeclare package Medium = Medium,
@@ -126,7 +113,7 @@ model ValidationMSLAIT
     diameter=0.0825)   annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={-70,40})));
+        origin={-80,40})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector col2(m=pip2.nNodes)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -172,7 +159,7 @@ model ValidationMSLAIT
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-4,76})));
+        origin={-4,78})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res4(R=R/pip4.length)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -203,17 +190,55 @@ model ValidationMSLAIT
     "Thickness of pipe insulation";
   parameter Modelica.SIunits.Diameter diameter=0.089
     "Outer diameter of pipe";
+  Fluid.Sensors.TemperatureTwoPort
+                            senTem_p2(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
+    annotation (Placement(transformation(extent={{-78,60},{-58,80}})));
+  Fluid.Sensors.TemperatureTwoPort
+                            senTem_p3(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-46,-38})));
+  Fluid.Sensors.TemperatureTwoPort senTemIn_p2(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
+    annotation (Placement(transformation(extent={{-60,0},{-80,20}})));
+  Fluid.Sensors.TemperatureTwoPort
+                            senTem_p1(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
+    annotation (Placement(transformation(extent={{52,-42},{32,-22}})));
+  Fluid.Sensors.TemperatureTwoPort
+                            senTem_p4(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
+    annotation (Placement(transformation(extent={{18,54},{38,74}})));
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+    "Nominal mass flow rate, used for regularization near zero flow";
+  parameter Modelica.SIunits.Time tauHeaTra=6500
+    "Time constant for heat transfer, default 20 minutes";
+
 equation
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
-      points={{-58,-70},{-54,-70},{-54,-60}},
+      points={{-58,-90},{-54,-90},{-54,-80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Point2.m_flow_in, m_flow_p2.y) annotation (Line(
-      points={{-62,80},{-62,90},{-58,90}},
+      points={{-52,114},{-52,130},{-58,130}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Point4.m_flow_in, m_flow_p4.y) annotation (Line(
-      points={{18,80},{18,90},{22,90}},
+      points={{46,102},{46,112},{60,112}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T_p1.y, Point1.T_in) annotation (Line(
@@ -226,75 +251,78 @@ equation
       smooth=Smooth.None));
   connect(DataReader.y[9], prescribedTemperature.T)
     annotation (Line(points={{21,-90},{30,-90},{38,-90}}, color={0,0,127}));
-  connect(senTem_p1.port, pip0.port_a)
-    annotation (Line(points={{60,-20},{70,-20},{80,-20}}, color={0,127,255}));
-  connect(pip0.port_a, Point1.ports[1])
-    annotation (Line(points={{80,-20},{80,-32},{82,-32}}, color={0,127,255}));
   connect(pip0.port_b, ExcludedBranch.ports[1])
-    annotation (Line(points={{80,0},{80,60}}, color={0,127,255}));
-  connect(prescribedTemperature.port, res0.port_b) annotation (Line(points={{60,
-          -90},{60,-90},{146,-90},{146,-10},{140,-10}}, color={191,0,0}));
-  connect(pip0.heatPorts, col0.port_a) annotation (Line(points={{84.4,-9.9},{92,
-          -9.9},{92,-10}}, color={127,0,0}));
+    annotation (Line(points={{80,2},{80,16},{78,16}},
+                                              color={0,127,255}));
+  connect(prescribedTemperature.port, res0.port_b) annotation (Line(points={{60,-90},
+          {60,-90},{146,-90},{146,-8},{140,-8}},        color={191,0,0}));
+  connect(pip0.heatPorts, col0.port_a) annotation (Line(points={{84.4,-7.9},{92,
+          -7.9},{92,-8}},  color={127,0,0}));
   connect(res0.port_a, col0.port_b)
-    annotation (Line(points={{120,-10},{116,-10},{112,-10}}, color={191,0,0}));
+    annotation (Line(points={{120,-8},{112,-8}},             color={191,0,0}));
   connect(col1.port_b, res1.port_a)
-    annotation (Line(points={{60,30},{68,30}}, color={191,0,0}));
+    annotation (Line(points={{58,50},{66,50}}, color={191,0,0}));
   connect(pip1.heatPorts, col1.port_a) annotation (Line(points={{37.9,14.4},{37.9,
-          30.2},{40,30.2},{40,30}}, color={127,0,0}));
-  connect(res1.port_b, res0.port_b) annotation (Line(points={{88,30},{146,30},{146,
-          -10},{140,-10}}, color={191,0,0}));
-  connect(senTem_p2.port, pip2.port_b)
-    annotation (Line(points={{-40,50},{-70,50}}, color={0,127,255}));
-  connect(pip2.port_b, Point2.ports[1])
-    annotation (Line(points={{-70,50},{-70,60}}, color={0,127,255}));
-  connect(senTemIn_p2.port, pip2.port_a) annotation (Line(points={{-90,10},{-84,
-          10},{-70,10},{-70,30}}, color={0,127,255}));
-  connect(col2.port_a, pip2.heatPorts) annotation (Line(points={{-60,34},{-65.6,
-          34},{-65.6,40.1}}, color={191,0,0}));
+          30.2},{38,30.2},{38,50}}, color={127,0,0}));
+  connect(res1.port_b, res0.port_b) annotation (Line(points={{86,50},{146,50},{
+          146,-8},{140,-8}},
+                           color={191,0,0}));
+  connect(col2.port_a, pip2.heatPorts) annotation (Line(points={{-60,34},{-75.6,
+          34},{-75.6,40.1}}, color={191,0,0}));
   connect(col2.port_b, res2.port_a)
     annotation (Line(points={{-40,34},{-40,34}}, color={191,0,0}));
-  connect(res2.port_b, res0.port_b) annotation (Line(points={{-20,34},{-16,34},{
-          -16,124},{-12,124},{146,124},{146,-10},{140,-10}}, color={191,0,0}));
-  connect(pip3.port_b, Point3.ports[1])
-    annotation (Line(points={{-46,-22},{-46,-40}}, color={0,127,255}));
-  connect(pip3.port_a, pip2.port_a) annotation (Line(points={{-46,-2},{-46,10},{
-          -70,10},{-70,30}}, color={0,127,255}));
+  connect(res2.port_b, res0.port_b) annotation (Line(points={{-20,34},{-16,34},
+          {-16,124},{-12,124},{146,124},{146,-8},{140,-8}},  color={191,0,0}));
   connect(pip3.heatPorts, col3.port_a) annotation (Line(points={{-41.6,-12.1},{-40,
           -12.1},{-40,-12},{-38,-12}}, color={127,0,0}));
   connect(col3.port_b, res3.port_a)
     annotation (Line(points={{-18,-12},{-10,-12},{-10,-20}}, color={191,0,0}));
   connect(res3.port_b, res0.port_b) annotation (Line(points={{-10,-40},{-10,-54},
-          {146,-54},{146,-10},{140,-10}}, color={191,0,0}));
-  connect(Point4.ports[1], pip4.port_b)
-    annotation (Line(points={{10,60},{10,55},{10,50}}, color={0,127,255}));
-  connect(senTem_p4.port, pip4.port_b)
-    annotation (Line(points={{40,56},{10,56},{10,50}}, color={0,127,255}));
+          {146,-54},{146,-8},{140,-8}},   color={191,0,0}));
   connect(col4.port_a, pip4.heatPorts)
-    annotation (Line(points={{-4,66},{-4,40.1},{5.6,40.1}}, color={191,0,0}));
+    annotation (Line(points={{-4,68},{-4,40.1},{5.6,40.1}}, color={191,0,0}));
   connect(res4.port_a, col4.port_b)
-    annotation (Line(points={{-4,94},{-4,86}}, color={191,0,0}));
-  connect(res4.port_b, res0.port_b) annotation (Line(points={{-4,114},{-4,124},{
-          146,124},{146,-10},{140,-10}}, color={191,0,0}));
+    annotation (Line(points={{-4,94},{-4,92},{-4,88}},
+                                               color={191,0,0}));
+  connect(res4.port_b, res0.port_b) annotation (Line(points={{-4,114},{-4,124},
+          {146,124},{146,-8},{140,-8}},  color={191,0,0}));
   connect(pip4.port_a, pip1.port_b)
     annotation (Line(points={{10,30},{10,10},{28,10}}, color={0,127,255}));
   connect(pip5.port_a, pip1.port_b)
     annotation (Line(points={{0,10},{28,10}}, color={0,127,255}));
-  connect(pip5.port_b, pip2.port_a)
-    annotation (Line(points={{-20,10},{-70,10},{-70,30}}, color={0,127,255}));
   connect(col5.port_a, pip5.heatPorts) annotation (Line(points={{-36,110},{-36,110},
           {-36,64},{-12,64},{-12,14.4},{-10.1,14.4}}, color={191,0,0}));
   connect(col5.port_b, res5.port_a)
     annotation (Line(points={{-36,130},{-36,134},{-28,134}}, color={191,0,0}));
-  connect(res5.port_b, res0.port_b) annotation (Line(points={{-8,134},{30,134},{
-          30,124},{146,124},{146,-10},{140,-10}}, color={191,0,0}));
+  connect(res5.port_b, res0.port_b) annotation (Line(points={{-8,134},{30,134},
+          {30,124},{146,124},{146,-8},{140,-8}},  color={191,0,0}));
   connect(pip1.port_a, pip0.port_b) annotation (Line(points={{48,10},{62,10},{80,
-          10},{80,0}}, color={0,127,255}));
-  connect(senTem_p3.port, pip3.port_b) annotation (Line(points={{-80,-32},{-46,-32},
-          {-46,-22}}, color={0,127,255}));
+          10},{80,2}}, color={0,127,255}));
+  connect(pip2.port_b, senTem_p2.port_a)
+    annotation (Line(points={{-80,50},{-80,70},{-78,70}}, color={0,127,255}));
+  connect(senTem_p2.port_b, Point2.ports[1]) annotation (Line(points={{-58,70},{
+          -58,82},{-58,94},{-60,94}}, color={0,127,255}));
+  connect(senTem_p3.port_a, pip3.port_b) annotation (Line(points={{-46,-28},{-46,
+          -28},{-46,-22}}, color={0,127,255}));
+  connect(senTem_p3.port_b, Point3.ports[1]) annotation (Line(points={{-46,-48},
+          {-46,-48},{-46,-58},{-46,-60}}, color={0,127,255}));
+  connect(pip3.port_a, pip5.port_b) annotation (Line(points={{-46,-2},{-48,-2},{
+          -48,8},{-48,10},{-20,10}}, color={0,127,255}));
+  connect(senTemIn_p2.port_a, pip5.port_b)
+    annotation (Line(points={{-60,10},{-20,10}}, color={0,127,255}));
+  connect(senTemIn_p2.port_b, pip2.port_a)
+    annotation (Line(points={{-80,10},{-80,24},{-80,30}}, color={0,127,255}));
+  connect(pip4.port_b, senTem_p4.port_a) annotation (Line(points={{10,50},{10,50},
+          {10,64},{18,64}}, color={0,127,255}));
+  connect(senTem_p4.port_b, Point4.ports[1])
+    annotation (Line(points={{38,64},{38,82}}, color={0,127,255}));
+  connect(senTem_p1.port_a, Point1.ports[1])
+    annotation (Line(points={{52,-32},{82,-32}}, color={0,127,255}));
+  connect(senTem_p1.port_b, pip0.port_a) annotation (Line(points={{32,-32},{32,-32},
+          {32,-18},{80,-18}}, color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
     experiment(StopTime=603900, Tolerance=1e-005),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
@@ -318,5 +346,6 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
     __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationMSLAIT.mos"
     "Simulate and plot",
     file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ExportValidationMSLAIT.mos"
-    "Export csv file"));
+    "Export csv file"),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ValidationMSLAIT;

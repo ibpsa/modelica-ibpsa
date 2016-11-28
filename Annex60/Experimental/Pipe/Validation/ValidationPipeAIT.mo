@@ -18,7 +18,7 @@ extends Modelica.Icons.Example;
     nPorts=1)           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={10,70})));
+        origin={8,88})));
   Fluid.Sources.MassFlowSource_T Point3(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -32,7 +32,7 @@ extends Modelica.Icons.Example;
     nPorts=1)           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-70,70})));
+        origin={-88,82})));
   PipeHeatLossMod pip1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -54,7 +54,7 @@ extends Modelica.Icons.Example;
     allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={10,40})));
+        origin={8,38})));
   PipeHeatLossMod pip5(
     redeclare package Medium = Medium,
     length=20,
@@ -76,7 +76,7 @@ extends Modelica.Icons.Example;
     allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-70,40})));
+        origin={-88,30})));
   PipeHeatLossMod pip3(
     redeclare package Medium = Medium,
     length=38,
@@ -98,7 +98,7 @@ extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.RealExpression m_flow_p4(y=-DataReader.y[8])
     annotation (Placement(transformation(extent={{128,110},{88,130}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p2(y=-DataReader.y[6])
-    annotation (Placement(transformation(extent={{-16,80},{-56,100}})));
+    annotation (Placement(transformation(extent={{-14,90},{-54,110}})));
   Modelica.Blocks.Sources.RealExpression T_p1(y=DataReader.y[1])
     annotation (Placement(transformation(extent={{18,-74},{58,-54}})));
   Fluid.Sensors.TemperatureTwoPort
@@ -114,13 +114,17 @@ extends Modelica.Icons.Example;
     m_flow_nominal=m_flow_nominal,
     transferHeat=true,
     tauHeaTra=tauHeaTra)
-    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-88,56})));
   Fluid.Sensors.TemperatureTwoPort
                             senTem_p4(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     transferHeat=true,
     tauHeaTra=tauHeaTra)
-    annotation (Placement(transformation(extent={{30,52},{50,72}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={8,62})));
   Fluid.Sensors.TemperatureTwoPort
                             senTem_p1(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -128,7 +132,7 @@ extends Modelica.Icons.Example;
     tauHeaTra=tauHeaTra)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={50,-20})));
+        origin={34,-22})));
   PipeHeatLossMod pip0(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -140,7 +144,7 @@ extends Modelica.Icons.Example;
     allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={80,-10})));
+        origin={80,-2})));
   Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium =
         Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -166,9 +170,9 @@ extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Time tauHeaTra=6500
     "Time constant for heat transfer, default 20 minutes";
   Modelica.Blocks.Logical.Switch switch
-    annotation (Placement(transformation(extent={{54,82},{34,102}})));
+    annotation (Placement(transformation(extent={{54,96},{34,116}})));
   Modelica.Blocks.Sources.RealExpression m_flow_zero(y=0)
-    annotation (Placement(transformation(extent={{128,74},{88,94}})));
+    annotation (Placement(transformation(extent={{134,88},{94,108}})));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=-0.001)
     annotation (Placement(transformation(extent={{78,90},{72,96}})));
 equation
@@ -181,7 +185,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip4.port_a, pip1.port_b) annotation (Line(
-      points={{10,30},{10,10},{30,10}},
+      points={{8,28},{8,10},{30,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
@@ -189,7 +193,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(Point2.m_flow_in, m_flow_p2.y) annotation (Line(
-      points={{-62,80},{-62,90},{-58,90}},
+      points={{-80,92},{-80,100},{-56,100}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T_p1.y, Point1.T_in) annotation (Line(
@@ -197,11 +201,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(pip0.port_b, pip1.port_a) annotation (Line(
-      points={{80,0},{80,10},{50,10}},
+      points={{80,8},{80,10},{50,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, ExcludedBranch.ports[1]) annotation (Line(
-      points={{80,0},{80,60}},
+      points={{80,8},{80,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(DataReader.y[5], Point1.m_flow_in) annotation (Line(
@@ -210,47 +214,51 @@ equation
       smooth=Smooth.None));
   connect(DataReader.y[9], prescribedTemperature.T)
     annotation (Line(points={{21,-90},{30,-90},{38,-90}}, color={0,0,127}));
-  connect(pip4.heatPort, pip1.heatPort) annotation (Line(points={{20,40},{30,40},
-          {40,40},{40,20}}, color={191,0,0}));
+  connect(pip4.heatPort, pip1.heatPort) annotation (Line(points={{18,38},{18,38},
+          {40,38},{40,20}}, color={191,0,0}));
   connect(pip1.heatPort, pip0.heatPort) annotation (Line(points={{40,20},{40,26},
-          {100,26},{100,-10},{90,-10}}, color={191,0,0}));
+          {100,26},{100,-2},{90,-2}},   color={191,0,0}));
   connect(pip1.heatPort, pip2.heatPort) annotation (Line(points={{40,20},{40,26},
-          {-54,26},{-54,40},{-60,40}}, color={191,0,0}));
+          {-54,26},{-54,30},{-78,30}}, color={191,0,0}));
   connect(pip5.heatPort, pip2.heatPort) annotation (Line(points={{-10,20},{-10,
-          26},{-54,26},{-54,40},{-60,40}}, color={191,0,0}));
+          26},{-54,26},{-54,30},{-78,30}}, color={191,0,0}));
   connect(pip3.heatPort, pip2.heatPort) annotation (Line(points={{-36,-10},{-28,
-          -10},{-28,26},{-54,26},{-54,40},{-60,40}}, color={191,0,0}));
-  connect(prescribedTemperature.port, pip0.heatPort) annotation (Line(points={{
-          60,-90},{100,-90},{100,-10},{90,-10}}, color={191,0,0}));
-  connect(pip2.port_b, senTem_p2.port_a) annotation (Line(points={{-70,50},{-70,
-          52},{-50,52},{-50,60}}, color={0,127,255}));
-  connect(senTem_p2.port_b, Point2.ports[1]) annotation (Line(points={{-30,60},{
-          -30,60},{-30,64},{-30,76},{-58,76},{-58,56},{-70,56},{-70,60}}, color=
+          -10},{-28,26},{-54,26},{-54,30},{-78,30}}, color={191,0,0}));
+  connect(prescribedTemperature.port, pip0.heatPort) annotation (Line(points={{60,-90},
+          {100,-90},{100,-2},{90,-2}},           color={191,0,0}));
+  connect(pip2.port_b, senTem_p2.port_a) annotation (Line(points={{-88,40},{-88,
+          44},{-88,46}},          color={0,127,255}));
+  connect(senTem_p2.port_b, Point2.ports[1]) annotation (Line(points={{-88,66},
+          {-88,66},{-88,70},{-88,72}},                                    color=
          {0,127,255}));
   connect(pip3.port_a, senTemIn_p2.port_b)
     annotation (Line(points={{-46,0},{-46,10}}, color={0,127,255}));
   connect(senTemIn_p2.port_a, pip2.port_a)
-    annotation (Line(points={{-66,10},{-70,10},{-70,30}}, color={0,127,255}));
+    annotation (Line(points={{-66,10},{-88,10},{-88,20}}, color={0,127,255}));
   connect(pip3.port_b, senTem_p3.port_a)
     annotation (Line(points={{-46,-20},{-46,-24}}, color={0,127,255}));
   connect(Point3.ports[1], senTem_p3.port_b)
     annotation (Line(points={{-46,-48},{-46,-44}}, color={0,127,255}));
-  connect(pip4.port_b, senTem_p4.port_a) annotation (Line(points={{10,50},{10,52},
-          {30,52},{30,62}}, color={0,127,255}));
-  connect(senTem_p4.port_b, Point4.ports[1]) annotation (Line(points={{50,62},{50,
-          54},{10,54},{10,60}}, color={0,127,255}));
+  connect(pip4.port_b, senTem_p4.port_a) annotation (Line(points={{8,48},{8,52}},
+                            color={0,127,255}));
+  connect(senTem_p4.port_b, Point4.ports[1]) annotation (Line(points={{8,72},{8,
+          68},{8,78}},          color={0,127,255}));
   connect(Point1.ports[1], senTem_p1.port_b)
-    annotation (Line(points={{82,-32},{82,-30},{50,-30}}, color={0,127,255}));
-  connect(senTem_p1.port_a, pip0.port_a) annotation (Line(points={{50,-10},{70,-10},
-          {70,-26},{80,-26},{80,-20}}, color={0,127,255}));
-  connect(switch.u1, m_flow_p4.y) annotation (Line(points={{56,100},{72,100},{72,
-          120},{86,120}}, color={0,0,127}));
+    annotation (Line(points={{82,-32},{82,-32},{34,-32}}, color={0,127,255}));
+  connect(senTem_p1.port_a, pip0.port_a) annotation (Line(points={{34,-12},{70,
+          -12},{70,-12},{80,-12},{80,-12}},
+                                       color={0,127,255}));
+  connect(switch.u1, m_flow_p4.y) annotation (Line(points={{56,114},{72,114},{
+          72,120},{86,120}},
+                          color={0,0,127}));
   connect(m_flow_zero.y, switch.u3)
-    annotation (Line(points={{86,84},{86,84},{56,84}}, color={0,0,127}));
+    annotation (Line(points={{92,98},{92,98},{56,98}}, color={0,0,127}));
   connect(switch.y, Point4.m_flow_in)
-    annotation (Line(points={{33,92},{18,92},{18,80}}, color={0,0,127}));
+    annotation (Line(points={{33,106},{16,106},{16,98}},
+                                                       color={0,0,127}));
   connect(switch.u2, lessThreshold.y)
-    annotation (Line(points={{56,92},{71.7,92},{71.7,93}}, color={255,0,255}));
+    annotation (Line(points={{56,106},{71.7,106},{71.7,93}},
+                                                           color={255,0,255}));
   connect(lessThreshold.u, m_flow_p4.y)
     annotation (Line(points={{78.6,93},{78.6,120},{86,120}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
