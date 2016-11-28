@@ -44,9 +44,8 @@ model ValidationPipeAIT_pipeDelay
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=115,
-    Lcap=Lcap,
-    pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    thickness=0.003)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   Pipe pip4(
     redeclare package Medium = Medium,
@@ -56,10 +55,8 @@ model ValidationPipeAIT_pipeDelay
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    Lcap=Lcap,
-    pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
-                       annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    thickness=0.003)   annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={10,40})));
@@ -71,9 +68,8 @@ model ValidationPipeAIT_pipeDelay
     lambdaI=0.024,
     thicknessIns=0.045,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    Lcap=Lcap,
-    pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    thickness=0.003)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
   Pipe pip2(
     redeclare package Medium = Medium,
@@ -83,10 +79,8 @@ model ValidationPipeAIT_pipeDelay
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    Lcap=Lcap,
-    pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
-                       annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    thickness=0.003)   annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,40})));
@@ -98,10 +92,8 @@ model ValidationPipeAIT_pipeDelay
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    Lcap=Lcap,
-    pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
-                       annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    thickness=0.003)   annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-10})));
@@ -135,9 +127,8 @@ model ValidationPipeAIT_pipeDelay
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=20,
-    Lcap=Lcap,
-    pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    thickness=0.003)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
@@ -152,8 +143,7 @@ model ValidationPipeAIT_pipeDelay
   Fluid.Sensors.Temperature senTemIn_p2(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
-  parameter Boolean pipVol=true
-    "Flag to decide whether volumes are included at the end points of the pipe";
+
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
 equation
@@ -214,7 +204,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_a, Point1.ports[1]) annotation (Line(
-      points={{80,-20},{80,-26},{80,-32},{82,-32}},
+      points={{80,-20},{80,-32},{82,-32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, pip1.port_a) annotation (Line(
@@ -226,7 +216,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, ExcludedBranch.ports[1]) annotation (Line(
-      points={{80,0},{80,30},{80,60},{80,60}},
+      points={{80,0},{80,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(DataReader.y[5], Point1.m_flow_in) annotation (Line(
@@ -332,6 +322,7 @@ equation
 <p><br>It seems that when the solver has to account for the possibility of flow reversal (aFV=true) and the model includes no additional state for the water in the pipe (pipVol = false), very large nonlinear systems appear when translating. However, the advection equation, implemented by the <code><span style=\"font-family: Courier New,courier;\">spatialDistribution</span></code> function should inherently introduce a state. This state is clearly not recognized by the model translator. We see that if additional volumes are introduced, or if flow reversal is disabled the non-linear system is smaller or entirely eliminated. </p>
 </html>", revisions="<html>
 <ul>
+<li>November 28, 2016 by Bram van der Heijde:<br>Remove <code>pipVol.</code></li>
 <li>July 4, 2016 by Bram van der Heijde:<br>Added parameters to test the influence of allowFlowReversal and the presence of explicit volumes in the pipe.</li>
 <li>January 26, 2016 by Carles Ribas:<br>First implementation. </li>
 </ul>

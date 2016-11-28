@@ -70,8 +70,6 @@ model ValidationMSLAIT
   Fluid.Sensors.Temperature senTemIn_p2(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
-  parameter Boolean pipVol=true
-    "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
   Modelica.Fluid.Pipes.DynamicPipe pip0(
@@ -310,6 +308,7 @@ equation
 <p>Where the thermal conductivity of the ground <code><span style=\"font-family: Courier New,courier;\">lambda_g = 2.4 </span></code>W/mK. </p>
 </html>", revisions="<html>
 <ul>
+<li>November 28, 2016 by Bram van der Heijde:<br>Remove <code>pipVol.</code></li>
 <li>August 24, 2016 by Bram van der Heijde:<br>
 Implement validation with MSL pipes for comparison, based on AIT validation.</li>
 <li>July 4, 2016 by Bram van der Heijde:<br>Added parameters to test the influence of allowFlowReversal and the presence of explicit volumes in the pipe.</li>
