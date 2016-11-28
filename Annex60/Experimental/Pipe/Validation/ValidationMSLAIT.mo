@@ -21,7 +21,7 @@ model ValidationMSLAIT
     nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={38,92})));
+        origin={40,88})));
   Fluid.Sources.MassFlowSource_T Point3(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
@@ -43,7 +43,7 @@ model ValidationMSLAIT
   Modelica.Blocks.Sources.RealExpression m_flow_p3(y=-DataReader.y[7])
     annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p4(y=-DataReader.y[8])
-    annotation (Placement(transformation(extent={{102,102},{62,122}})));
+    annotation (Placement(transformation(extent={{174,120},{134,140}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p2(y=-DataReader.y[6])
     annotation (Placement(transformation(extent={{-100,120},{-60,140}})));
   Modelica.Blocks.Sources.RealExpression T_p1(y=DataReader.y[1])
@@ -228,6 +228,12 @@ model ValidationMSLAIT
   parameter Modelica.SIunits.Time tauHeaTra=6500
     "Time constant for heat transfer, default 20 minutes";
 
+  Modelica.Blocks.Logical.Switch switch
+    annotation (Placement(transformation(extent={{88,94},{68,114}})));
+  Modelica.Blocks.Sources.RealExpression m_flow_zero(y=0)
+    annotation (Placement(transformation(extent={{138,70},{98,90}})));
+  Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=-0.001)
+    annotation (Placement(transformation(extent={{114,104},{108,110}})));
 equation
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
       points={{-58,-90},{-54,-90},{-54,-80}},
@@ -235,10 +241,6 @@ equation
       smooth=Smooth.None));
   connect(Point2.m_flow_in, m_flow_p2.y) annotation (Line(
       points={{-52,114},{-52,130},{-58,130}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Point4.m_flow_in, m_flow_p4.y) annotation (Line(
-      points={{46,102},{46,112},{60,112}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T_p1.y, Point1.T_in) annotation (Line(
@@ -315,11 +317,22 @@ equation
   connect(pip4.port_b, senTem_p4.port_a) annotation (Line(points={{10,50},{10,50},
           {10,64},{18,64}}, color={0,127,255}));
   connect(senTem_p4.port_b, Point4.ports[1])
-    annotation (Line(points={{38,64},{38,82}}, color={0,127,255}));
+    annotation (Line(points={{38,64},{38,74},{38,78},{40,78}},
+                                               color={0,127,255}));
   connect(senTem_p1.port_a, Point1.ports[1])
     annotation (Line(points={{52,-32},{82,-32}}, color={0,127,255}));
   connect(senTem_p1.port_b, pip0.port_a) annotation (Line(points={{32,-32},{32,-32},
           {32,-18},{80,-18}}, color={0,127,255}));
+  connect(m_flow_zero.y,switch. u3)
+    annotation (Line(points={{96,80},{96,96},{90,96}}, color={0,0,127}));
+  connect(switch.u1, m_flow_p4.y) annotation (Line(points={{90,112},{114,112},{
+          114,130},{132,130}}, color={0,0,127}));
+  connect(Point4.m_flow_in, switch.y) annotation (Line(points={{48,98},{48,98},
+          {48,104},{67,104}}, color={0,0,127}));
+  connect(switch.u2, lessThreshold.y) annotation (Line(points={{90,104},{107.7,
+          104},{107.7,107}}, color={255,0,255}));
+  connect(lessThreshold.u, m_flow_p4.y) annotation (Line(points={{114.6,107},{
+          130,107},{130,130},{132,130}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
