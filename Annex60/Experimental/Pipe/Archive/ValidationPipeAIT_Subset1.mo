@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Validation;
+within Annex60.Experimental.Pipe.Archive;
 model ValidationPipeAIT_Subset1
   "Validation pipe against data from Austrian Institute of Technology"
   extends Modelica.Icons.Example;
@@ -23,7 +23,6 @@ model ValidationPipeAIT_Subset1
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,34})));
-
 
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
