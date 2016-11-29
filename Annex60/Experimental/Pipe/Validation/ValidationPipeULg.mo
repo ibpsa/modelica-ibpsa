@@ -7,7 +7,8 @@ package Medium = Annex60.Media.Water;
     redeclare package Medium = Medium,
     use_m_flow_in=false,
     nPorts=1,
-    m_flow=1.245)        annotation (Placement(transformation(
+    m_flow=1.245,
+    T=T_ini)             annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={70,0})));
@@ -20,8 +21,8 @@ package Medium = Annex60.Media.Water;
         (5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi,
     lambdaI=0.04,
     m_flow_nominal=m_flow_nominal,
-    thickness=3.9e-3)
-                  annotation (Placement(transformation(
+    thickness=3.9e-3,
+    T_ini=T_ini)  annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-34,0})));
@@ -29,7 +30,7 @@ package Medium = Annex60.Media.Water;
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=0,
-    T_start=290.15)                          annotation (Placement(
+    T_start=T_ini)                           annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -42,12 +43,14 @@ package Medium = Annex60.Media.Water;
   Fluid.Sensors.TemperatureTwoPort
                             senTem_out(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    tau=0)
+    tau=0,
+    T_start=T_ini)
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
   Fluid.Sensors.TemperatureTwoPort
                             senTem_in(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    tau=0)
+    tau=0,
+    T_start=T_ini)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
   Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataULg150801.data)
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
@@ -67,6 +70,8 @@ package Medium = Annex60.Media.Water;
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
+  parameter Modelica.SIunits.Temperature T_ini=17 + 273.15
+    "Initial temperature";
 equation
   connect(Boiler.port_a, WaterCityNetwork.ports[1]) annotation (Line(
       points={{44,0},{60,0}},
