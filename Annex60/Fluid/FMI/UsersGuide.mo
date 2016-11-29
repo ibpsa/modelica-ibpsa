@@ -201,7 +201,7 @@ If <code>use_p_in=true</code>, then the pressure is used from the
 connector, and based on the mass flow rate, the outlet pressure
 is computed and assigned to the outlet connectors.
 If <code>use_p_in=false</code>, then the pressure as declared
-by the contant <code>p_default</code> of the medium model is
+by the constant <code>p_default</code> of the medium model is
 used, and the component computes no pressure drop.
 Setting <code>use_p_in=false</code> therefore leads to fewer
 equations, but it requires a component that specifies the mass
