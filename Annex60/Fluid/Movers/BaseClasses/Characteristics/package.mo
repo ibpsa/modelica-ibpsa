@@ -17,6 +17,15 @@ User's Guide</a> for information about these performance curves.
 revisions="<html>
 <ul>
 <li>
+September 8, 2016, by Michael Wetter:<br/>
+Deleted function <code>performanceCurve</code> as it is no longer needed. Instead, the function
+<a href=\"modelica://Annex60.Fluid.Movers.BaseClasses.Characteristics.pressure\">
+Annex60.Fluid.Movers.BaseClasses.Characteristics.pressure</a>
+is used for all speeds.<br/>
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/458\">#458</a>.
+</li>
+<li>
 September 29, 2011, by Michael Wetter:<br/>
 New implementation due to changes from polynomial to cubic hermite splines.
 </li>

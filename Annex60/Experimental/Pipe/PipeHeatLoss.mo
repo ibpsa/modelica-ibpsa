@@ -76,6 +76,11 @@ protected
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation (Dialog(group="Advanced", enable=use_mu_default));
 
+
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(state=sta_default)
+    "Heat capacity of medium";
+
   PipeAdiabaticPlugFlow pipeAdiabaticPlugFlow(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
@@ -83,16 +88,12 @@ protected
     dh=diameter,
     length=length,
     m_flow_nominal=m_flow_nominal,
-    Lcap=Lcap,
-    pipVol=pipVol,
     from_dp=from_dp,
-    T_nominal=T_nominal)
+    thickness=thickness)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-      Medium.specificHeatCapacityCp(state=sta_default)
-    "Heat capacity of medium";
+
 
 public
   BaseClasses.HeatLossPipeDelay reverseHeatLoss(
@@ -117,21 +118,19 @@ public
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
 
-  BaseClasses.PDETime_massFlow tau_used(diameter=diameter,
+  BaseClasses.TimeDelay tau_used(
+    diameter=diameter,
     len=length,
     rho=rho_default)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  parameter Modelica.SIunits.Length Lcap=1
-    "Length over which transient effects typically take place";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Temperature boundary condition to pipe (undisturbed ground of surface temperature)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  parameter Boolean pipVol=true
-    "Flag to decide whether volumes are included at the end points of the pipe";
+
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Temperature T_nominal=273.15 + 70;
+  parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 

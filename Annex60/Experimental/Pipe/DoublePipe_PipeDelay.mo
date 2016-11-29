@@ -85,9 +85,7 @@ protected
     length=length,
     m_flow_nominal=m_flow_nominal,
     redeclare final package Medium = Medium,
-    pipVol=pipVol,
-    from_dp=from_dp,
-    T_nominal=T_nominal)
+    from_dp=from_dp)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
@@ -122,9 +120,7 @@ protected
     dh=diameter,
     length=length,
     m_flow_nominal=m_flow_nominal,
-    pipVol=pipVol,
-    from_dp=from_dp,
-    T_nominal=T_nominal)
+    from_dp=from_dp)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -159,7 +155,7 @@ public
         rotation=180,
         origin={50,-60})));
 
-  BaseClasses.PDETime_massFlow pDETime_massFlow(len=length, diameter=diameter)
+  BaseClasses.TimeDelay        pDETime_massFlow(len=length, diameter=diameter)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)
     annotation (Placement(transformation(
@@ -173,9 +169,7 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Ambient temperature of pipe's surroundings (undisturbed ground/surface)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  parameter Boolean pipVol=true
-    "Flag to decide whether volumes are included at the end points of the pipe";
-  parameter Modelica.SIunits.Temperature T_nominal=273.15 + 70;
+
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);

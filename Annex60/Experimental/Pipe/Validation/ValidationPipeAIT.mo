@@ -6,42 +6,39 @@ extends Modelica.Icons.Example;
   Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,
     use_T_in=true,
-    nPorts=1,
-    use_m_flow_in=true)
-              annotation (Placement(transformation(
+    use_m_flow_in=true,
+    nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={82,-42})));
   package Medium = Annex60.Media.Water;
   Fluid.Sources.MassFlowSource_T Point4(
-    nPorts=1,
     redeclare package Medium = Medium,
-    use_m_flow_in=true) annotation (Placement(transformation(
+    use_m_flow_in=true,
+    nPorts=1)           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={10,70})));
+        origin={8,88})));
   Fluid.Sources.MassFlowSource_T Point3(
     nPorts=1,
     redeclare package Medium = Medium,
     use_m_flow_in=true) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-46,-50})));
+        origin={-46,-58})));
   Fluid.Sources.MassFlowSource_T Point2(
-    nPorts=1,
     redeclare package Medium = Medium,
-    use_m_flow_in=true) annotation (Placement(transformation(
+    use_m_flow_in=true,
+    nPorts=1)           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-70,70})));
+        origin={-88,82})));
   PipeHeatLossMod pip1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
     length=115,
-    Lcap=Lcap,
-    pipVol=pipVol,
     allowFlowReversal=allowFlowReversal,
     pipeData)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
@@ -51,8 +48,7 @@ extends Modelica.Icons.Example;
     m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
-    Lcap=Lcap,
-    pipVol=pipVol,
+    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
     pipeData)          annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -65,10 +61,10 @@ extends Modelica.Icons.Example;
     m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
-    Lcap=Lcap,
-    pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal,
-    pipeData)
+    pipeData,
+    thicknessIns=0.045,
+    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
+    allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
   PipeHeatLossMod pip2(
     redeclare package Medium = Medium,
@@ -76,24 +72,21 @@ extends Modelica.Icons.Example;
     m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
-    Lcap=Lcap,
-    pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal,
-    pipeData)          annotation (Placement(transformation(
+    pipeData,
+    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
+    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-70,40})));
-    //thicknessIns=0.045,
-  PipeHeatLoss pip3(
+        origin={-88,30})));
+  PipeHeatLossMod pip3(
     redeclare package Medium = Medium,
     length=38,
     m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
-    Lcap=Lcap,
-    pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal,
-    pipeData)          annotation (Placement(transformation(
+    pipeData,
+    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
+    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-10})));
@@ -105,35 +98,54 @@ extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.RealExpression m_flow_p3(y=-DataReader.y[7])
     annotation (Placement(transformation(extent={{-100,-80},{-60,-60}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p4(y=-DataReader.y[8])
-    annotation (Placement(transformation(extent={{64,80},{24,100}})));
+    annotation (Placement(transformation(extent={{128,110},{88,130}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p2(y=-DataReader.y[6])
-    annotation (Placement(transformation(extent={{-16,80},{-56,100}})));
+    annotation (Placement(transformation(extent={{-14,90},{-54,110}})));
   Modelica.Blocks.Sources.RealExpression T_p1(y=DataReader.y[1])
     annotation (Placement(transformation(extent={{18,-74},{58,-54}})));
-  Fluid.Sensors.Temperature senTem_p3(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-70,-32},{-90,-12}})));
-  Fluid.Sensors.Temperature senTem_p2(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
-  Fluid.Sensors.Temperature senTem_p4(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{30,56},{50,76}})));
-  Fluid.Sensors.Temperature senTem_p1(redeclare package Medium = Medium)
+  Fluid.Sensors.TemperatureTwoPort
+                            senTem_p3(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={50,-20})));
+        origin={-46,-34})));
+  Fluid.Sensors.TemperatureTwoPort
+                            senTem_p2(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-88,56})));
+  Fluid.Sensors.TemperatureTwoPort
+                            senTem_p4(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={8,62})));
+  Fluid.Sensors.TemperatureTwoPort
+                            senTem_p1(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={34,-22})));
   PipeHeatLossMod pip0(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
     length=20,
-    Lcap=Lcap,
-    pipVol=pipVol,
-    allowFlowReversal=allowFlowReversal,
-    pipeData)
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+    pipeData,
+    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={80,-10})));
-    //thicknessIns=0.045,
+        origin={80,-2})));
   Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium =
         Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -142,8 +154,12 @@ extends Modelica.Icons.Example;
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Fluid.Sensors.Temperature senTemIn_p2(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+  Fluid.Sensors.TemperatureTwoPort
+                            senTemIn_p2(redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    transferHeat=true,
+    tauHeaTra=tauHeaTra)
+    annotation (Placement(transformation(extent={{-66,0},{-46,20}})));
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
   parameter Boolean pipVol=true
@@ -156,21 +172,19 @@ extends Modelica.Icons.Example;
     Do=825e-3 + 2*45e-3,
     lambdaI=0.024)
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+    "Nominal mass flow rate, used for regularization near zero flow";
+  parameter Modelica.SIunits.Time tauHeaTra=6500
+    "Time constant for heat transfer, default 20 minutes";
+  Modelica.Blocks.Logical.Switch switch
+    annotation (Placement(transformation(extent={{54,96},{34,116}})));
+  Modelica.Blocks.Sources.RealExpression m_flow_zero(y=0)
+    annotation (Placement(transformation(extent={{134,88},{94,108}})));
+  Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=-0.001)
+    annotation (Placement(transformation(extent={{78,90},{72,96}})));
 equation
   connect(pip3.port_a, pip5.port_b) annotation (Line(
       points={{-46,0},{-46,10},{-20,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip5.port_b, pip2.port_a) annotation (Line(
-      points={{-20,10},{-70,10},{-70,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip2.port_b, Point2.ports[1]) annotation (Line(
-      points={{-70,50},{-70,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip4.port_b, Point4.ports[1]) annotation (Line(
-      points={{10,50},{10,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip5.port_a, pip1.port_b) annotation (Line(
@@ -178,55 +192,27 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip4.port_a, pip1.port_b) annotation (Line(
-      points={{10,30},{10,10},{30,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip3.port_b, Point3.ports[1]) annotation (Line(
-      points={{-46,-20},{-46,-40}},
+      points={{8,28},{8,10},{30,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
-      points={{-58,-70},{-54,-70},{-54,-60}},
+      points={{-58,-70},{-54,-70},{-54,-68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Point2.m_flow_in, m_flow_p2.y) annotation (Line(
-      points={{-62,80},{-62,90},{-58,90}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Point4.m_flow_in, m_flow_p4.y) annotation (Line(
-      points={{18,80},{18,90},{22,90}},
+      points={{-80,92},{-80,100},{-56,100}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T_p1.y, Point1.T_in) annotation (Line(
       points={{60,-64},{78,-64},{78,-54}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senTem_p3.port, pip3.port_b) annotation (Line(
-      points={{-80,-32},{-46,-32},{-46,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip4.port_b, senTem_p4.port) annotation (Line(
-      points={{10,50},{10,56},{40,56}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip2.port_b, senTem_p2.port) annotation (Line(
-      points={{-70,50},{-40,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip0.port_a, Point1.ports[1]) annotation (Line(
-      points={{80,-20},{80,-32},{82,-32}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pip0.port_b, pip1.port_a) annotation (Line(
-      points={{80,0},{80,10},{50,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem_p1.port, pip0.port_a) annotation (Line(
-      points={{60,-20},{80,-20}},
+      points={{80,8},{80,10},{50,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, ExcludedBranch.ports[1]) annotation (Line(
-      points={{80,0},{80,60}},
+      points={{80,8},{80,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(DataReader.y[5], Point1.m_flow_in) annotation (Line(
@@ -235,20 +221,53 @@ equation
       smooth=Smooth.None));
   connect(DataReader.y[9], prescribedTemperature.T)
     annotation (Line(points={{21,-90},{30,-90},{38,-90}}, color={0,0,127}));
-  connect(pip4.heatPort, pip1.heatPort) annotation (Line(points={{20,40},{30,40},
-          {40,40},{40,20}}, color={191,0,0}));
+  connect(pip4.heatPort, pip1.heatPort) annotation (Line(points={{18,38},{18,38},
+          {40,38},{40,20}}, color={191,0,0}));
   connect(pip1.heatPort, pip0.heatPort) annotation (Line(points={{40,20},{40,26},
-          {100,26},{100,-10},{90,-10}}, color={191,0,0}));
+          {100,26},{100,-2},{90,-2}},   color={191,0,0}));
   connect(pip1.heatPort, pip2.heatPort) annotation (Line(points={{40,20},{40,26},
-          {-54,26},{-54,40},{-60,40}}, color={191,0,0}));
+          {-54,26},{-54,30},{-78,30}}, color={191,0,0}));
   connect(pip5.heatPort, pip2.heatPort) annotation (Line(points={{-10,20},{-10,
-          26},{-54,26},{-54,40},{-60,40}}, color={191,0,0}));
+          26},{-54,26},{-54,30},{-78,30}}, color={191,0,0}));
   connect(pip3.heatPort, pip2.heatPort) annotation (Line(points={{-36,-10},{-28,
-          -10},{-28,26},{-54,26},{-54,40},{-60,40}}, color={191,0,0}));
-  connect(prescribedTemperature.port, pip0.heatPort) annotation (Line(points={{
-          60,-90},{100,-90},{100,-10},{90,-10}}, color={191,0,0}));
-  connect(senTemIn_p2.port, pip2.port_a)
-    annotation (Line(points={{-90,10},{-70,10},{-70,30}}, color={0,127,255}));
+          -10},{-28,26},{-54,26},{-54,30},{-78,30}}, color={191,0,0}));
+  connect(prescribedTemperature.port, pip0.heatPort) annotation (Line(points={{60,-90},
+          {100,-90},{100,-2},{90,-2}},           color={191,0,0}));
+  connect(pip2.port_b, senTem_p2.port_a) annotation (Line(points={{-88,40},{-88,
+          44},{-88,46}},          color={0,127,255}));
+  connect(senTem_p2.port_b, Point2.ports[1]) annotation (Line(points={{-88,66},
+          {-88,66},{-88,70},{-88,72}},                                    color=
+         {0,127,255}));
+  connect(pip3.port_a, senTemIn_p2.port_b)
+    annotation (Line(points={{-46,0},{-46,10}}, color={0,127,255}));
+  connect(senTemIn_p2.port_a, pip2.port_a)
+    annotation (Line(points={{-66,10},{-88,10},{-88,20}}, color={0,127,255}));
+  connect(pip3.port_b, senTem_p3.port_a)
+    annotation (Line(points={{-46,-20},{-46,-24}}, color={0,127,255}));
+  connect(Point3.ports[1], senTem_p3.port_b)
+    annotation (Line(points={{-46,-48},{-46,-44}}, color={0,127,255}));
+  connect(pip4.port_b, senTem_p4.port_a) annotation (Line(points={{8,48},{8,52}},
+                            color={0,127,255}));
+  connect(senTem_p4.port_b, Point4.ports[1]) annotation (Line(points={{8,72},{8,
+          68},{8,78}},          color={0,127,255}));
+  connect(Point1.ports[1], senTem_p1.port_b)
+    annotation (Line(points={{82,-32},{82,-32},{34,-32}}, color={0,127,255}));
+  connect(senTem_p1.port_a, pip0.port_a) annotation (Line(points={{34,-12},{70,
+          -12},{70,-12},{80,-12},{80,-12}},
+                                       color={0,127,255}));
+  connect(switch.u1, m_flow_p4.y) annotation (Line(points={{56,114},{72,114},{
+          72,120},{86,120}},
+                          color={0,0,127}));
+  connect(m_flow_zero.y, switch.u3)
+    annotation (Line(points={{92,98},{92,98},{56,98}}, color={0,0,127}));
+  connect(switch.y, Point4.m_flow_in)
+    annotation (Line(points={{33,106},{16,106},{16,98}},
+                                                       color={0,0,127}));
+  connect(switch.u2, lessThreshold.y)
+    annotation (Line(points={{56,106},{71.7,106},{71.7,93}},
+                                                           color={255,0,255}));
+  connect(lessThreshold.u, m_flow_p4.y)
+    annotation (Line(points={{78.6,93},{78.6,120},{86,120}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(StopTime=603900),
@@ -335,6 +354,8 @@ equation
 <li>July 4, 2016 by Bram van der Heijde:<br>Added parameters to test the influence of allowFlowReversal and the presence of explicit volumes in the pipe.</li>
 <li>January 26, 2016 by Carles Ribas:<br>First implementation. </li>
 </ul>
-</html>"), __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeAIT.mos"
-        "Simulate and plot"));
+</html>"),    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeAIT.mos"
+        "Simulate and plot",
+    file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ExportValidationPipeAIT.mos"
+    "Export csv file"));
 end ValidationPipeAIT;
