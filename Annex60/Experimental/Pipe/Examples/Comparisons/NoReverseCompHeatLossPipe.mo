@@ -55,8 +55,8 @@ model NoReverseCompHeatLossPipe
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow of the A60 temperature delay"
     annotation (Placement(transformation(extent={{58,-90},{78,-70}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In(redeclare package Medium
-      = Medium, m_flow_nominal=0.5)
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In(redeclare package Medium =
+        Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-58,-90},{-38,-70}})));
   Annex60.Experimental.Pipe.Archive.PipeHeatLossKUL KULHeatLoss(
@@ -78,8 +78,8 @@ model NoReverseCompHeatLossPipe
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow from the KUL lossless pipe"
     annotation (Placement(transformation(extent={{58,-150},{78,-130}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULIn(redeclare package Medium
-      = Medium, m_flow_nominal=0.5)
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULIn(redeclare package Medium =
+        Medium, m_flow_nominal=0.5)
     "Temperature sensor of the inflow to the KUL lossless pipe"
     annotation (Placement(transformation(extent={{-58,-150},{-38,-130}})));
   Modelica.Blocks.Sources.Constant const(k=273.15 + 5)
@@ -102,7 +102,6 @@ model NoReverseCompHeatLossPipe
     diameter=diameter,
     length=length,
     m_flow_nominal=0.5,
-    thicknessIns=0.02,
     lambdaI=0.01) "Annex 60 modified pipe with heat losses"
     annotation (Placement(transformation(extent={{22,0},{42,20}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60ModIn1(

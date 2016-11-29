@@ -51,7 +51,6 @@ model SpatialDistributionOperator
                                         k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{-158,54},{-138,74}})));
   Modelica.Blocks.Sources.Constant const3(k=273.15 + 5);
-
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In1(
                                                        redeclare package Medium =
         Medium, m_flow_nominal=0.5)
@@ -68,13 +67,13 @@ model SpatialDistributionOperator
   Annex60.Experimental.Pipe.BaseClasses.SpatialDistributionOneDirection
     spatialDist_test_Reverse(length=length)
     annotation (Placement(transformation(extent={{-78,-94},{-38,-74}})));
-  Modelica.Blocks.Sources.RealExpression v_reverse(y=-PipeDelayMod.tau_used.v)
+  Modelica.Blocks.Sources.RealExpression v_reverse(y=-PipeDelayMod.tau_used.u)
     "Atmospheric pressure"
     annotation (Placement(transformation(extent={{-200,-94},{-120,-74}})));
   Annex60.Experimental.Pipe.BaseClasses.SpatialDistributionOneDirection
     spatialDist_test(length=length)
     annotation (Placement(transformation(extent={{-80,-114},{-40,-94}})));
-  Modelica.Blocks.Sources.RealExpression v(y=PipeDelayMod.tau_used.v)
+  Modelica.Blocks.Sources.RealExpression v(y=PipeDelayMod.tau_used.u)
     "Atmospheric pressure"
     annotation (Placement(transformation(extent={{-200,-114},{-120,-94}})));
   Annex60.Experimental.Pipe.BaseClasses.SpatialDistributionTwoDirections

@@ -58,8 +58,10 @@ model UCPipeB02Mod "Comparing behaviour of PipeHeatLoss and ~Mod"
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
     diameter=0.1,
-    thicknessIns=0.03) "Dynamic pipe adiabatic"
+    redeclare BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR100S
+      pipeData)   "Dynamic pipe adiabatic"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
+    //,thicknessIns=0.03
   Modelica.Thermal.HeatTransfer.Celsius.FixedTemperature fixedTemperature(T=10)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Fluid.Sources.Boundary_pT sourceMod(
@@ -94,7 +96,8 @@ model UCPipeB02Mod "Comparing behaviour of PipeHeatLoss and ~Mod"
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
     diameter=0.1,
-    thicknessIns=0.03) "Dynamic pipe adiabatic"
+    redeclare BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR100S
+      pipeData)   "Dynamic pipe adiabatic"
     annotation (Placement(transformation(extent={{0,-94},{20,-74}})));
 equation
   connect(PAtm.y,sink. p_in)

@@ -98,7 +98,7 @@ package TimeDelay
     Annex60.Fluid.Sensors.MassFlowRate masFloA1( redeclare package Medium =
           Medium) "Mass flow rate sensor for the A60 temperature delay"
       annotation (Placement(transformation(extent={{78,-26},{98,-6}})));
-    Annex60.Experimental.Pipe.BaseClasses.PDETime_massFlow pDETime_massFlow(len=
+    Annex60.Experimental.Pipe.BaseClasses.TimeDelay        pDETime_massFlow(len=
          length, diameter=diameter)
       annotation (Placement(transformation(extent={{114,-78},{134,-58}})));
     Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
