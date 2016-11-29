@@ -141,7 +141,7 @@ subsystem of thermofluid flow components, can use the block
 <a href=\"modelica://Annex60.Fluid.FMI.ExportContainers.ReplaceableTwoPort\">
 Annex60.Fluid.FMI.ExportContainers.ReplaceableTwoPort</a>.
 This block has a fluid inlet, a fluid outlet, and a replaceable
-component that can replaced with an HVAC component or system that
+component that can be replaced with an HVAC component or system that
 has an inlet and outlet fluid port.
 </p>
 <p>
