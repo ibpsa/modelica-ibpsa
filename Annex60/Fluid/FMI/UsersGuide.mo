@@ -6,7 +6,7 @@ package UsersGuide "User's Guide"
 <p>
 This user's guide describes the FMI package (Wetter et al., 2015).
 The FMI package has been implemented to facilitate the export
-of thermofluid flow models such as HVAC component, HVAC systems
+of thermofluid flow models such as HVAC components, HVAC systems
 and thermal zones as Functional Mockup Units (FMUs).
 This allows to export thermofluid flow models as FMUs so that they can be
 imported in other simulators.
