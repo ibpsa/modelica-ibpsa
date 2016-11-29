@@ -15,12 +15,12 @@ package Medium = Annex60.Media.Water;
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     length=39,
+    thickness=3.9e-3,
     pipeData(
       Di=0.05248,
       Do=0.05248 + 2*0.013,
-      lambdaI=0.04),
-    thickness=3.9e-3)
-                  annotation (Placement(transformation(
+      lambdaI=0.04,
+      s=0.0032))  annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-34,0})));

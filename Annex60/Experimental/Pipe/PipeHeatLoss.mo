@@ -10,19 +10,15 @@ model PipeHeatLoss "Pipe model using spatialDistribution for temperature delay"
     "Select pipe dimensions" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-96,-96},{-76,-76}})));
 
-  parameter Modelica.SIunits.Diameter diameter=pipeData.Di "Pipe diameter";
+
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length H = 2 "Buried depth of pipe";
+  parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
-    m_flow_nominal) "Small mass flow rate for regularization of zero flow"
-    annotation (Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
@@ -45,6 +41,14 @@ model PipeHeatLoss "Pipe model using spatialDistribution for temperature delay"
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
+
+
+  // fixme: shouldn't dp(nominal) be around 100 Pa/m?
+  // fixme: propagate use_dh and set default to false
+
+protected
+    parameter Modelica.SIunits.Length thickness=pipeData.s "Pipe wall thickness";
+  parameter Modelica.SIunits.Diameter diameter=pipeData.Di "Pipe diameter";
   parameter Types.ThermalResistanceLength R=pipeData.hInvers/(lambdaI*2*
       Modelica.Constants.pi);
   parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
@@ -52,10 +56,10 @@ model PipeHeatLoss "Pipe model using spatialDistribution for temperature delay"
   parameter Modelica.SIunits.ThermalConductivity lambdaI=pipeData.lambdaI
     "Thermal conductivity";
 
-  // fixme: shouldn't dp(nominal) be around 100 Pa/m?
-  // fixme: propagate use_dh and set default to false
 
-protected
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
+    m_flow_nominal) "Small mass flow rate for regularization of zero flow"
+    annotation (Dialog(tab="Advanced"));
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
@@ -130,7 +134,7 @@ public
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
+
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
@@ -157,15 +161,15 @@ equation
       points={{11,-40},{28,-40},{28,32},{44,32},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(reverseHeatLoss.heatPort, heatLoss.heatPort) annotation (Line(points=
-          {{-70,10},{-70,40},{50,40},{50,10}}, color={191,0,0}));
+  connect(reverseHeatLoss.heatPort, heatLoss.heatPort) annotation (Line(points={
+          {-70,10},{-70,40},{50,40},{50,10}}, color={191,0,0}));
   connect(heatLoss.heatPort, heatPort) annotation (Line(points={{50,10},{50,10},
           {50,40},{0,40},{0,100}}, color={191,0,0}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
         Ellipse(
           extent={{-90,92},{-48,50}},
           lineColor={28,108,200},

@@ -36,60 +36,54 @@ extends Modelica.Icons.Example;
   PipeHeatLossMod pip1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    diameter=0.0825,
-    lambdaI=0.024,
     length=115,
     allowFlowReversal=allowFlowReversal,
-    pipeData)
+    pipeData,
+    H=0.8)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PipeHeatLossMod pip4(
     redeclare package Medium = Medium,
     length=29,
     m_flow_nominal=1,
-    diameter=0.0825,
-    lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
-    pipeData)          annotation (Placement(transformation(
+    pipeData,
+    H=0.8)             annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={10,40})));
+    //R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     //thicknessIns=0.045,
   PipeHeatLossMod pip5(
     redeclare package Medium = Medium,
     length=20,
     m_flow_nominal=1,
-    diameter=0.0825,
-    lambdaI=0.024,
     pipeData,
-    thicknessIns=0.045,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    H=0.8)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
+    //R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
   PipeHeatLossMod pip2(
     redeclare package Medium = Medium,
     length=76,
     m_flow_nominal=1,
-    diameter=0.0825,
-    lambdaI=0.024,
     pipeData,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    H=0.8)                               annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-88,30})));
+    //R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
   PipeHeatLossMod pip3(
     redeclare package Medium = Medium,
     length=38,
     m_flow_nominal=1,
-    diameter=0.0825,
-    lambdaI=0.024,
     pipeData,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    H=0.8)                               annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-10})));
+    //R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     //thicknessIns=0.045,
   Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataAIT151218.data)
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
@@ -138,11 +132,10 @@ extends Modelica.Icons.Example;
   PipeHeatLossMod pip0(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    diameter=0.0825,
-    lambdaI=0.024,
     length=20,
     pipeData,
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    H=0.8)                               annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-2})));
@@ -169,8 +162,8 @@ extends Modelica.Icons.Example;
   BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
     pipeData(
     Di=825e-3,
-    Do=825e-3 + 2*45e-3,
-    lambdaI=0.024)
+    lambdaI=0.024,
+    Do=825e-3 + 2*pipeData.s + 2*45e-3)
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
@@ -192,7 +185,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip4.port_a, pip1.port_b) annotation (Line(
-      points={{8,28},{8,10},{30,10}},
+      points={{10,30},{10,10},{30,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
@@ -221,8 +214,8 @@ equation
       smooth=Smooth.None));
   connect(DataReader.y[9], prescribedTemperature.T)
     annotation (Line(points={{21,-90},{30,-90},{38,-90}}, color={0,0,127}));
-  connect(pip4.heatPort, pip1.heatPort) annotation (Line(points={{18,38},{18,38},
-          {40,38},{40,20}}, color={191,0,0}));
+  connect(pip4.heatPort, pip1.heatPort) annotation (Line(points={{20,40},{20,40},
+          {40,40},{40,20}}, color={191,0,0}));
   connect(pip1.heatPort, pip0.heatPort) annotation (Line(points={{40,20},{40,26},
           {100,26},{100,-2},{90,-2}},   color={191,0,0}));
   connect(pip1.heatPort, pip2.heatPort) annotation (Line(points={{40,20},{40,26},
@@ -246,15 +239,14 @@ equation
     annotation (Line(points={{-46,-20},{-46,-24}}, color={0,127,255}));
   connect(Point3.ports[1], senTem_p3.port_b)
     annotation (Line(points={{-46,-48},{-46,-44}}, color={0,127,255}));
-  connect(pip4.port_b, senTem_p4.port_a) annotation (Line(points={{8,48},{8,52}},
-                            color={0,127,255}));
+  connect(pip4.port_b, senTem_p4.port_a) annotation (Line(points={{10,50},{10,
+          52},{8,52}},      color={0,127,255}));
   connect(senTem_p4.port_b, Point4.ports[1]) annotation (Line(points={{8,72},{8,
           68},{8,78}},          color={0,127,255}));
   connect(Point1.ports[1], senTem_p1.port_b)
     annotation (Line(points={{82,-32},{82,-32},{34,-32}}, color={0,127,255}));
   connect(senTem_p1.port_a, pip0.port_a) annotation (Line(points={{34,-12},{70,
-          -12},{70,-12},{80,-12},{80,-12}},
-                                       color={0,127,255}));
+          -12},{80,-12}},              color={0,127,255}));
   connect(switch.u1, m_flow_p4.y) annotation (Line(points={{56,114},{72,114},{
           72,120},{86,120}},
                           color={0,0,127}));
