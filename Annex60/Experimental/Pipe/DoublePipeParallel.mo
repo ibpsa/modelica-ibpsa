@@ -107,7 +107,7 @@ protected
         origin={0,-60})));
 
 public
-  BaseClasses.PDETime_massFlow pDETime_massFlow(len=length, diameter=diameter)
+  BaseClasses.TimeDelay        pDETime_massFlow(len=length, diameter=diameter)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)
     annotation (Placement(transformation(
