@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe;
+within Annex60.Experimental.Pipe.Archive;
 model PipeHeatLoss "Pipe model using spatialDistribution for temperature delay"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
@@ -7,7 +7,6 @@ model PipeHeatLoss "Pipe model using spatialDistribution for temperature delay"
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
-
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
@@ -54,7 +53,6 @@ protected
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation (Dialog(group="Advanced", enable=use_mu_default));
 
-
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(state=sta_default)
     "Heat capacity of medium";
@@ -71,8 +69,6 @@ protected
     T_ini=T_ini)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-
 
 public
   BaseClasses.HeatLossPipeDelay reverseHeatLoss(
