@@ -7,18 +7,7 @@ model FixedResistanceDpM
                        elseif (computeFlowResistance) then
                        deltaM * m_flow_nominal_pos
          else 0);
-  parameter Boolean use_dh = false
-  "= true, use dh and ReC, otherwise use deltaM"
-       annotation(Evaluate=true,
-                  Dialog(group = "Transition to laminar",
-                         enable = not linearized));
-  parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
-       annotation(Dialog(group = "Transition to laminar",
-                         enable = use_dh and not linearized));
-  parameter Real ReC(min=0)=4000
-    "Reynolds number where transition to turbulent starts"
-       annotation(Dialog(group = "Transition to laminar",
-                         enable = use_dh and not linearized));
+
   parameter Real deltaM(min=0.01) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true,
@@ -38,16 +27,6 @@ initial equation
  end if;
 
  assert(m_flow_nominal_pos > 0, "m_flow_nominal_pos must be non-zero. Check parameters.");
- assert(m_flow_nominal_pos > m_flow_turbulent,
-   "In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent.
-  m_flow_nominal = " + String(m_flow_nominal) + "
-  dh      = " + String(dh) + "
- To correct it, set dh < " +
-     String(     4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC) + "
-  Suggested value:   dh = " +
-                String(1/10*4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC),
-                AssertionLevel.warning);
-
 equation
   // Pressure drop calculation
   if computeFlowResistance then
@@ -101,28 +80,11 @@ In the region
 the square root is replaced by a differentiable function
 with finite slope.
 The value of <code>m_flow_turbulent</code> is
-computed as follows:
-</p>
-<ul>
-<li>
-If the parameter <code>use_dh</code> is <code>false</code>
-(the default setting),
-the equation
+computed as
 <code>m_flow_turbulent = deltaM * abs(m_flow_nominal)</code>,
 where <code>deltaM=0.3</code> and
 <code>m_flow_nominal</code> are parameters that can be set by the user.
-</li>
-<li>
-Otherwise, the equation
-<code>m_flow_turbulent = eta_nominal*dh/4*&pi;*ReC</code> is used,
-where
-<code>eta_nominal</code> is the dynamic viscosity, obtained from
-the medium model. The parameter
-<code>dh</code> is the hydraulic diameter and
-<code>ReC=4000</code> is the critical Reynolds number, which both
-can be set by the user.
-</li>
-</ul>
+</p>
 <p>
 The figure below shows the pressure drop for the parameters
 <code>m_flow_nominal=5</code> kg/s,
@@ -189,6 +151,13 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 1, 2016, by Michael Wetter:<br/>
+Simplified model by removing the geometry dependent parameters into the new
+model
+<a href=\"modelica://Annex60.Fluid.FixedResistances.HydraulicDiameter\">
+Annex60.Fluid.FixedResistances.HydraulicDiameter</a>.
+</li>
 <li>
 November 23, 2016, by Filip Jorissen:<br/>
 Removed <code>dp_nominal</code> and 
