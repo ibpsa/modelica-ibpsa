@@ -7,6 +7,8 @@ model HydraulicDiameter "Fixed flow resistance with hydraulic diameter and m_flo
   parameter Modelica.SIunits.Length dh=sqrt(4*m_flow_nominal/rho_default/v_nominal/Modelica.Constants.pi)
     "Hydraulic diameter (assuming a round cross section area)";
 
+  parameter Modelica.SIunits.Length length "Length of the pipe";
+
   parameter Real ReC(min=0)=4000
     "Reynolds number where transition to turbulent starts";
 
@@ -28,10 +30,24 @@ model HydraulicDiameter "Fixed flow resistance with hydraulic diameter and m_flo
       mu_a=mu_default,
       mu_b=mu_default,
       length=length,
-      diameter=diameter,
+      diameter=dh,
       roughness=roughness,
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
+
+protected
+  parameter Modelica.Media.Interfaces.PartialMedium.ThermodynamicState state_default=
+    Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) "Default state";
+
+  parameter Modelica.SIunits.Density rho_default = Medium.density(state_default)
+    "Density at nominal condition";
+
+  parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(
+      state_default)
+    "Dynamic viscosity at nominal condition";
 
 initial equation
  assert(m_flow_nominal_pos > m_flow_turbulent,

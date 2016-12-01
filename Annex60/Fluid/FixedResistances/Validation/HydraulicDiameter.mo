@@ -4,28 +4,31 @@ model HydraulicDiameter
   import Annex60;
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.Air;
+ package Medium = Annex60.Media.Air "Medium model";
 
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{40,60},{60,80}})));
    parameter Modelica.SIunits.PressureDifference dp_nominal = 5
     "Nominal pressure drop for each resistance";
     Modelica.Blocks.Sources.Ramp P(
-      duration=1,
-    height=2*dp_nominal*nRes,
-    offset=101325 - dp_nominal*nRes)
+    duration=1,
+    height=2*dp_nominal,
+    offset=101325 - dp_nominal)
                  annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Annex60.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
-               Medium, T=273.15 + 20,
+  Annex60.Fluid.Sources.Boundary_pT sou(
+    redeclare package Medium = Medium,
+    T=273.15 + 20,
     use_p_in=true,
-    nPorts=1)                         annotation (Placement(transformation(
+    nPorts=1)
+    annotation (Placement(transformation(
           extent={{-40,20},{-20,40}})));
-  Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
-               Medium, T=273.15 + 10,
+  Annex60.Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium = Medium,
+    T=273.15 + 10,
     use_p_in=true,
-    nPorts=1)                         annotation (Placement(transformation(
+    nPorts=1)
+    annotation (Placement(transformation(
           extent={{56,20},{36,40}})));
-  parameter Integer nRes( min=2) = 10 "Number of resistances";
 
   FixedResistanceDpM res(
     redeclare package Medium = Medium,
