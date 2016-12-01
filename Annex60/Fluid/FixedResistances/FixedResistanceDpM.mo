@@ -2,17 +2,13 @@ within Annex60.Fluid.FixedResistances;
 model FixedResistanceDpM
   "Fixed flow resistance with dp and m_flow as parameter"
   extends Annex60.Fluid.BaseClasses.PartialResistance(
-    final m_flow_turbulent = if (computeFlowResistance and use_dh) then
-                       eta_default*dh/4*Modelica.Constants.pi*ReC
-                       elseif (computeFlowResistance) then
-                       deltaM * m_flow_nominal_pos
-         else 0);
+    final m_flow_turbulent = if computeFlowResistance then deltaM * m_flow_nominal_pos else 0);
 
   parameter Real deltaM(min=0.01) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true,
                   Dialog(group = "Transition to laminar",
-                         enable = not use_dh and not linearized));
+                         enable = not linearized));
 
   final parameter Real k(unit="") = if computeFlowResistance then
         m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
@@ -160,7 +156,7 @@ Annex60.Fluid.FixedResistances.HydraulicDiameter</a>.
 </li>
 <li>
 November 23, 2016, by Filip Jorissen:<br/>
-Removed <code>dp_nominal</code> and 
+Removed <code>dp_nominal</code> and
 <code>m_flow_nominal</code> labels from icon.
 </li>
 <li>
