@@ -62,7 +62,7 @@ equation
       color={0,0,127}));
  annotation (                      __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresisTimer.mos"
         "Simulate and plot"),
-    experiment(StopTime=86400),
+    experiment(StartTime=0, StopTime=86400, Tolerance=1e-6),
     Documentation(info="<html>
 <p>
 Example that demonstrates the use of the PID controller
