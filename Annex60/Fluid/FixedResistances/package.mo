@@ -32,8 +32,8 @@ in models in which the above pressure drop model need to be replaced by a model 
 </p>
 <p>
 The model
-<a href=\"modelica://Annex60.Fluid.FixedResistances.SplitterFixedResistanceDpM\">
-Annex60.Fluid.FixedResistances.SplitterFixedResistanceDpM</a>
+<a href=\"modelica://Annex60.Fluid.FixedResistances.FlowJunction\">
+Annex60.Fluid.FixedResistances.FlowJunction</a>
 can be used to model flow splitters or flow merges.
 </p>
 </html>"));

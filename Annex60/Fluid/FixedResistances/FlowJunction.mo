@@ -1,5 +1,5 @@
 within Annex60.Fluid.FixedResistances;
-model SplitterFixedResistanceDpM
+model FlowJunction
   "Flow splitter with fixed resistance at each port"
     extends Annex60.Fluid.BaseClasses.PartialThreeWayResistance(
     mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
@@ -168,4 +168,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SplitterFixedResistanceDpM;
+end FlowJunction;
