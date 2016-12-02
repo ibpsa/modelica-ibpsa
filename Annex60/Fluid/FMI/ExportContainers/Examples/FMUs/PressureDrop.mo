@@ -15,8 +15,8 @@ block PressureDrop
 <p>
 This example demonstrates how to export an FMU with a fluid flow component.
 The FMU has an instance of
-<a href=\"modelica://Annex60.Fluid.FixedResistances.FixedResistanceDpM\">
-Annex60.Fluid.FixedResistances.FixedResistanceDpM</a>.
+<a href=\"modelica://Annex60.Fluid.FixedResistances.PressureDrop\">
+Annex60.Fluid.FixedResistances.PressureDrop</a>.
 </p>
 </html>", revisions="<html>
 <ul>

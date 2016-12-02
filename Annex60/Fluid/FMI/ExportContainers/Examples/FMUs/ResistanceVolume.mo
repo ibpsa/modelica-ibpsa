@@ -83,8 +83,8 @@ equation
 This example demonstrates how to export an FMU with a
 flow resistance and a control volume.
 The FMU has an instance of
-<a href=\"modelica://Annex60.Fluid.FixedResistances.FixedResistanceDpM\">
-Annex60.Fluid.FixedResistances.FixedResistanceDpM</a> and
+<a href=\"modelica://Annex60.Fluid.FixedResistances.PressureDrop\">
+Annex60.Fluid.FixedResistances.PressureDrop</a> and
 <a href=\"modelica://Annex60.Fluid.MixingVolumes.MixingVolume\">
 Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
