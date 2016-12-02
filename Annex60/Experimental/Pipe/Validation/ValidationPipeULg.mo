@@ -72,7 +72,7 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     "Initial temperature at pipe inlet";
   parameter Modelica.SIunits.Temperature T_ini_out=pipeDataULg.T_ini_out + 273.15
     "Initial temperature at pipe outlet";
-  replaceable Data.PipeDataULg151204_4
+  replaceable Data.PipeDataULg151204_2
                                      pipeDataULg constrainedby
     Data.BaseClasses.PipeDataULg
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
