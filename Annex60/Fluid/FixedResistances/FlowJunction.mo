@@ -35,25 +35,11 @@ model FlowJunction
     "Pressure drop at nominal mass flow rate, set to zero or negative number at outflowing ports."
     annotation(Dialog(group = "Nominal condition"));
 
-  parameter Boolean use_dh = false
-    "= true, use dh and ReC, otherwise use deltaM"
-    annotation(Evaluate=true,
-               Dialog(group = "Transition to laminar",
-                      enable = not linearized));
-
   parameter Real deltaM(min=0) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Dialog(group = "Transition to laminar",
                          enable = not use_dh and not linearized));
 
-  parameter Modelica.SIunits.Length[3] dh={1, 1, 1} "Hydraulic diameter"
-    annotation(Dialog(group = "Transition to laminar",
-                      enable = use_dh and not linearized));
-
-  parameter Real[3] ReC(each min=0)={4000, 4000, 4000}
-    "Reynolds number where transition to turbulent starts"
-      annotation(Dialog(group = "Transition to laminar",
-                        enable = use_dh and not linearized));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
@@ -133,6 +119,14 @@ system of equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 1, 2016, by Michael Wetter:<br/>
+Renamed model from <code>SplitterFixedResistanceDpM</code> to
+<code>FlowJunction</code> and removed the parameters
+<code>use_dh</code>, <code>dh</code> and <code>ReC</code>.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/451\">issue 451</a>.
+</li>
 <li>
 October 14, 2016 by Michael Wetter:<br/>
 Added to Annex 60 library.<br/>

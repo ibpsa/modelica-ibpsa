@@ -71,6 +71,9 @@ The constant <i>k</i> is equal to
 <code>k=m_flow_nominal/sqrt(dp_nominal)</code>,
 where <code>m_flow_nominal</code> and <code>dp_nominal</code>
 are parameters.
+</p>
+<h4>Assumptions</h4>
+<p>
 In the region
 <code>abs(m_flow) &lt; m_flow_turbulent</code>,
 the square root is replaced by a differentiable function
@@ -90,14 +93,7 @@ The figure below shows the pressure drop for the parameters
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/FixedResistances/PressureDrop.png\"/>
 </p>
-<p>
-If the parameter
-<code>show_T</code> is set to <code>true</code>,
-then the model will compute the
-temperature at its ports. Note that this can lead to state events
-when the mass flow rate approaches zero,
-which can increase computing time.
-</p>
+<h4>Important parameters</h4>
 <p>
 The parameter <code>from_dp</code> is used to determine
 whether the mass flow rate is computed as a function of the
@@ -116,6 +112,14 @@ if one can guarantee that the flow never reverses its direction.
 This can be difficult to guarantee, as pressure imbalance after
 the initialization, or due to medium expansion and contraction,
 can lead to reverse flow.
+</p>
+<p>
+If the parameter
+<code>show_T</code> is set to <code>true</code>,
+then the model will compute the
+temperature at its ports. Note that this can lead to state events
+when the mass flow rate approaches zero,
+which can increase computing time.
 </p>
 <h4>Notes</h4>
 <p>

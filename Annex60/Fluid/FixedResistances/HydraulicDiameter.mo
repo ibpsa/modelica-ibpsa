@@ -71,15 +71,9 @@ where
 <i>&Delta;P</i> is the pressure drop.
 The constant <i>k</i> is equal to
 <code>k=m_flow_nominal/sqrt(dp_nominal)</code>,
-where <code>m_flow_nominal</code> is a parameter
-are parameters.
-By default, the parameter <code>dp_nominal = fac * dpStraightPipe_nominal</code>,
-where <code>dpStraightPipe_nominal</code> is a parameter that is automatically computed
-based on the
-nominal mass flow rate, hydraulic diameter and pipe roughness.
-The factor <code>fac</code> takes into account additional resistances such as
-from bends, and can be changed by the user.
+where <code>m_flow_nominal</code> is a parameter.
 </p>
+<h4>Assumptions</h4>
 <p>
 In the region
 <code>abs(m_flow) &lt; m_flow_turbulent</code>,
@@ -95,13 +89,22 @@ the medium model. The parameter
 <code>ReC=4000</code> is the critical Reynolds number, which both
 can be set by the user.
 </p>
+<h4>Important parameters</h4>
 <p>
-If the parameter
-<code>show_T</code> is set to <code>true</code>,
-then the model will compute the
-temperature at its ports. Note that this can lead to state events
-when the mass flow rate approaches zero,
-which can increase computing time.
+By default, the pressure drop at nominal flow rate is computed as
+<code>dp_nominal = fac * dpStraightPipe_nominal</code>,
+where <code>dpStraightPipe_nominal</code> is a parameter that is automatically computed
+based on the
+nominal mass flow rate, hydraulic diameter and pipe roughness.
+The hydraulic diameter <code>dh</code> is by default
+computed based on the flow velocity <code>v_nominal</code> and nominal
+mass flow rate <code>m_flow_nominal</code>. Hence, users should change the
+default values of <code>dh</code> or <code>v_nominal</code>
+if they are not applicable for their model.
+</p>
+<p>
+The factor <code>fac</code> takes into account additional resistances such as
+from bends. The default value of <code>2</code> can be changed by the user.
 </p>
 <p>
 The parameter <code>from_dp</code> is used to determine
@@ -121,6 +124,14 @@ if one can guarantee that the flow never reverses its direction.
 This can be difficult to guarantee, as pressure imbalance after
 the initialization, or due to medium expansion and contraction,
 can lead to reverse flow.
+</p>
+<p>
+If the parameter
+<code>show_T</code> is set to <code>true</code>,
+then the model will compute the
+temperature at its ports. Note that this can lead to state events
+when the mass flow rate approaches zero,
+which can increase computing time.
 </p>
 <h4>Notes</h4>
 <p>
@@ -166,7 +177,7 @@ First implementation for
 </ul>
 </html>"),
   Icon(graphics={Text(
-          extent={{-40,24},{38,-14}},
+          extent={{-28,18},{50,-20}},
           lineColor={255,255,255},
           textString="dh")}));
 end HydraulicDiameter;
