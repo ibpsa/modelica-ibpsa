@@ -1,6 +1,6 @@
 within Annex60.Fluid.FixedResistances.Examples;
-model HydraulicDiameter
-  "Example model for flow resistance with hydraulic diameter as parameter"
+model PressureDrop
+  "Example model for flow resistance with nominal pressure drop as parameter"
   extends Modelica.Icons.Example;
 
  package Medium = Annex60.Media.Air "Medium model";
@@ -29,13 +29,12 @@ model HydraulicDiameter
     annotation (Placement(transformation(
           extent={{50,-10},{30,10}})));
 
-  Annex60.Fluid.FixedResistances.HydraulicDiameter res(
+  Annex60.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
-    length=10,
     m_flow_nominal=0.2,
-    v_nominal=1,
-    from_dp=true)
-    "Fixed resistance with specified hydraulic diameter"
+    from_dp=true,
+    dp_nominal=10)
+    "Fixed resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
@@ -46,11 +45,12 @@ equation
   connect(res.port_b, sin.ports[1])
     annotation (Line(points={{10,0},{10,0},{30,0}},    color={0,127,255}));
   annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/HydraulicDiameter.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PressureDrop.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example model for a fixed resistance that takes as a parameter the hydraulic diameter.
+Example model for a fixed resistance that takes as a parameter the
+pressure drop at nominal condition.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -61,4 +61,4 @@ First implementation for
 </li>
 </ul>
 </html>"));
-end HydraulicDiameter;
+end PressureDrop;

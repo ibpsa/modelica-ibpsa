@@ -3,3 +3,4 @@ FlowJunctionSteadyStateNoPressureDrop
 PressureDropsExplicit
 PressureDropsParallel
 PressureDropsSeries
+LosslessPipe
