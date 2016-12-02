@@ -12,7 +12,7 @@ model HydraulicDiameter "Fixed flow resistance with hydraulic diameter and m_flo
   parameter Real ReC(min=0)=4000
     "Reynolds number where transition to turbulent starts";
 
-  parameter Modelica.SIunits.Velocity v_nominal = 0.15
+  parameter Modelica.SIunits.Velocity v_nominal = if rho_default < 500 then 1.5 else 0.15
     "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"
     annotation(Dialog(group="Nominal condition"));
 
@@ -35,8 +35,14 @@ model HydraulicDiameter "Fixed flow resistance with hydraulic diameter and m_flo
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
+  Modelica.SIunits.Velocity v = m_flow/(rho_default*ARound)
+    "Flow velocity (assuming a round cross section area)";
+
 protected
-  parameter Modelica.Media.Interfaces.PartialMedium.ThermodynamicState state_default=
+  parameter Modelica.SIunits.Area ARound = dh^2*Modelica.Constants.pi/4
+     "Cross sectional area (assuming a round cross section area)";
+
+  parameter Medium.ThermodynamicState state_default=
     Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
@@ -48,17 +54,6 @@ protected
   parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(
       state_default)
     "Dynamic viscosity at nominal condition";
-
-initial equation
- assert(m_flow_nominal_pos > m_flow_turbulent,
-   "In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent.
-  m_flow_nominal = " + String(m_flow_nominal) + "
-  dh      = " + String(dh) + "
- To correct it, set dh < " +
-     String(     4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC) + "
-  Suggested value:   dh = " +
-                String(1/10*4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC),
-                AssertionLevel.warning);
 
 annotation (defaultComponentName="res",
 Documentation(info="<html>
@@ -99,8 +94,7 @@ the medium model. The parameter
 <code>dh</code> is the hydraulic diameter and
 <code>ReC=4000</code> is the critical Reynolds number, which both
 can be set by the user.
-</li>
-</ul>
+</p>
 <p>
 If the parameter
 <code>show_T</code> is set to <code>true</code>,

@@ -8,8 +8,6 @@ model SplitterFixedResistanceDpM
       from_dp=from_dp,
       final m_flow_nominal=m_flow_nominal[1],
       final dp_nominal=dp_nominal[1],
-      final ReC=ReC[1],
-      final dh=dh[1],
       linearized=linearized,
       homotopyInitialization=homotopyInitialization,
       deltaM=deltaM),
@@ -18,8 +16,6 @@ model SplitterFixedResistanceDpM
       from_dp=from_dp,
       final m_flow_nominal=m_flow_nominal[2],
       final dp_nominal=dp_nominal[2],
-      final ReC=ReC[2],
-      final dh=dh[2],
       linearized=linearized,
       homotopyInitialization=homotopyInitialization,
       deltaM=deltaM),
@@ -28,8 +24,6 @@ model SplitterFixedResistanceDpM
       from_dp=from_dp,
       final m_flow_nominal=m_flow_nominal[3],
       final dp_nominal=dp_nominal[3],
-      final ReC=ReC[3],
-      final dh=dh[3],
       linearized=linearized,
       homotopyInitialization=homotopyInitialization,
       deltaM=deltaM));
@@ -100,8 +94,8 @@ a mixing volume can be modeled.
 </p>
 <p>
 The pressure drop is implemented using the model
-<a href=\"modelica://Annex60.Fluid.FixedResistances.FixedResistanceDpM\">
-Annex60.Fluid.FixedResistances.FixedResistanceDpM</a>.
+<a href=\"modelica://Annex60.Fluid.FixedResistances.PressureDrop\">
+Annex60.Fluid.FixedResistances.PressureDrop</a>.
 If its nominal pressure drop is set to zero, then the pressure drop
 model will be removed.
 For example, the pressure drop declaration
@@ -116,7 +110,7 @@ as shown in the figure below. Note that <code>port_3</code> is set to negative v
 The negative values indicate that at the nominal conditions, fluid is leaving the component.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png\"/>
+<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/FixedResistances/FlowJunction.png\"/>
 </p>
 <p>
 Optionally, at the fluid junction, a control volume can be modeled.

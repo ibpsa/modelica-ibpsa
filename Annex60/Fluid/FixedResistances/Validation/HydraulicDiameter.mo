@@ -1,41 +1,43 @@
 within Annex60.Fluid.FixedResistances.Validation;
 model HydraulicDiameter
   "Validation test for model with hydraulic diameter"
-  import Annex60;
   extends Modelica.Icons.Example;
 
  package Medium = Annex60.Media.Air "Medium model";
 
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{40,60},{60,80}})));
-   parameter Modelica.SIunits.PressureDifference dp_nominal = 5
-    "Nominal pressure drop for each resistance";
+
     Modelica.Blocks.Sources.Ramp P(
     duration=1,
-    height=2*dp_nominal,
-    offset=101325 - dp_nominal)
+    height=20,
+    offset=101325 - 10)
                  annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Annex60.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     T=273.15 + 20,
     use_p_in=true,
     nPorts=1)
+    "Pressure boundary condition"
     annotation (Placement(transformation(
           extent={{-40,20},{-20,40}})));
+
   Annex60.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     T=273.15 + 10,
     use_p_in=true,
     nPorts=1)
+    "Pressure boundary condition"
     annotation (Placement(transformation(
           extent={{56,20},{36,40}})));
 
   Annex60.Fluid.FixedResistances.HydraulicDiameter res(
     redeclare package Medium = Medium,
-    m_flow_nominal=2,
-    dp_nominal=dpStraightPipe_nominal/aaa,
-    dh=0.2,
-    deltaM=0.3) "Fixed resistance with specified hydraulic diameter"
+    length=10,
+    m_flow_nominal=0.2,
+    v_nominal=1,
+    from_dp=true)
+    "Fixed resistance with specified hydraulic diameter"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
 equation
