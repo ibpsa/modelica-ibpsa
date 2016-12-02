@@ -1,5 +1,5 @@
 within Annex60.Fluid.FMI.ExportContainers.Examples.FMUs;
-block FixedResistanceDpM
+block PressureDrop
   "Declaration of an FMU that exports a fixed resistance"
    extends Annex60.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
      redeclare replaceable package Medium = Annex60.Media.Air, redeclare final
@@ -32,7 +32,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/FixedResistanceDpM.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/PressureDrop.mos"
         "Export FMU"),
     Icon(graphics={
         Rectangle(
@@ -45,4 +45,4 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/Ex
           lineColor={0,0,0},
           fillColor={0,127,255},
           fillPattern=FillPattern.HorizontalCylinder)}));
-end FixedResistanceDpM;
+end PressureDrop;
