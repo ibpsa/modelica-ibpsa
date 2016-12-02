@@ -187,8 +187,8 @@ Updated comment for parameter <code>use_dh</code>.
 November 26, 2014, by Michael Wetter:<br/>
 Added the required <code>annotation(Evaluate=true)</code> so
 that the system of nonlinear equations in
-<a href=\"modelica://Annex60.Fluid.FixedResistances.Examples.FixedResistancesExplicit\">
-Annex60.Fluid.FixedResistances.Examples.FixedResistancesExplicit</a>
+<a href=\"modelica://Annex60.Fluid.FixedResistances.Validation.PressureDropsExplicit\">
+Annex60.Fluid.FixedResistances.Validation.PressureDropsExplicit</a>
 remains the same.
 </li>
 <li>

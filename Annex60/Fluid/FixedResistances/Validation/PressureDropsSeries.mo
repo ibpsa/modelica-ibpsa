@@ -1,5 +1,5 @@
-within Annex60.Fluid.FixedResistances.Examples;
-model FixedResistancesSeries "Test of multiple resistances in series"
+within Annex60.Fluid.FixedResistances.Validation;
+model PressureDropsSeries "Test of multiple resistances in series"
   extends Modelica.Icons.Example;
 
  package Medium = Annex60.Media.Air "Medium model";
@@ -51,7 +51,7 @@ equation
       points={{-20,30},{-5.55112e-16,30}},
       color={0,127,255}));
   annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesSeries.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsSeries.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
@@ -65,4 +65,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FixedResistancesSeries;
+end PressureDropsSeries;

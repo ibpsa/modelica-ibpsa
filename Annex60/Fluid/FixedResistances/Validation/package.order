@@ -1,3 +1,5 @@
-HydraulicDiameter
-SplitterFixedResistanceDpMSteadyState
-SplitterFixedResistanceDpMSteadyStateNoPressureDrop
+FlowJunctionSteadyState
+FlowJunctionSteadyStateNoPressureDrop
+PressureDropsExplicit
+PressureDropsParallel
+PressureDropsSeries

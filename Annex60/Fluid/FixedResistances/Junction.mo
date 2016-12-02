@@ -1,5 +1,5 @@
 within Annex60.Fluid.FixedResistances;
-model FlowJunction
+model Junction
   "Flow splitter with fixed resistance at each port"
     extends Annex60.Fluid.BaseClasses.PartialThreeWayResistance(
     mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
@@ -96,7 +96,7 @@ as shown in the figure below. Note that <code>port_3</code> is set to negative v
 The negative values indicate that at the nominal conditions, fluid is leaving the component.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/FixedResistances/FlowJunction.png\"/>
+<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/FixedResistances/Junction.png\"/>
 </p>
 <p>
 If
@@ -162,4 +162,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FlowJunction;
+end Junction;

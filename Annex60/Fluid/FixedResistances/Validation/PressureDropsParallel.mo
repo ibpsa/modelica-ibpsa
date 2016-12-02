@@ -1,5 +1,5 @@
-within Annex60.Fluid.FixedResistances.Examples;
-model FixedResistancesParallel
+within Annex60.Fluid.FixedResistances.Validation;
+model PressureDropsParallel
    "Test with multiple resistances in parallel"
   extends Modelica.Icons.Example;
 
@@ -86,7 +86,7 @@ equation
       color={0,0,127}));
 
 annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesParallel.mos" "Simulate and plot"),
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsParallel.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model tests two resistances in parallel.
@@ -99,4 +99,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FixedResistancesParallel;
+end PressureDropsParallel;
