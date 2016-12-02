@@ -64,7 +64,7 @@ model TwoPortHeatMassExchanger
     final from_dp=from_dp,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp_nominal) "Pressure drop model"
+    final dp_nominal=dp_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 protected

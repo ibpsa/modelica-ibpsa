@@ -123,7 +123,7 @@ model FourPortHeatMassExchanger
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=dp1_nominal,
     final dh=1,
-    final ReC=4000) "Pressure drop model for fluid 1"
+    final ReC=4000) "Flow resistance of fluid 1"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Annex60.Fluid.FixedResistances.PressureDrop preDro2(
@@ -137,7 +137,7 @@ model FourPortHeatMassExchanger
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=dp2_nominal,
     final dh=1,
-    final ReC=4000) "Pressure drop model for fluid 2"
+    final ReC=4000) "Flow resistance of fluid 2"
     annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
 
 protected
