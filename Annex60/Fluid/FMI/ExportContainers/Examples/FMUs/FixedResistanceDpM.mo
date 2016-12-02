@@ -2,10 +2,9 @@ within Annex60.Fluid.FMI.ExportContainers.Examples.FMUs;
 block FixedResistanceDpM
   "Declaration of an FMU that exports a fixed resistance"
    extends Annex60.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
-     redeclare replaceable package Medium = Annex60.Media.Air,
-     redeclare final Annex60.Fluid.FixedResistances.FixedResistanceDpM com(
-      final m_flow_nominal=m_flow_nominal,
-      final dp_nominal=if use_p_in then dp_nominal else 0));
+     redeclare replaceable package Medium = Annex60.Media.Air, redeclare final
+      Annex60.Fluid.FixedResistances.PressureDrop com(final m_flow_nominal=
+          m_flow_nominal, final dp_nominal=if use_p_in then dp_nominal else 0));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";

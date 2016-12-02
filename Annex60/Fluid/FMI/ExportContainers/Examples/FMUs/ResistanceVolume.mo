@@ -29,7 +29,7 @@ protected
   Modelica.Blocks.Math.Feedback pOut if use_p_in "Pressure at component outlet"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
 
-  FixedResistances.FixedResistanceDpM res(
+  FixedResistances.PressureDrop res(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=if use_p_in then dp_nominal else 0,

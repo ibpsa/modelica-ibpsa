@@ -27,7 +27,7 @@ model StaticTwoPortHeatMassExchanger
     final m_flow_small=m_flow_small)
     "Control volume for steady-state energy and mass balance"
     annotation (Placement(transformation(extent={{15,-10}, {35,10}})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro(
+  Annex60.Fluid.FixedResistances.PressureDrop preDro(
     redeclare final package Medium = Medium,
     final use_dh=false,
     final m_flow_nominal=m_flow_nominal,

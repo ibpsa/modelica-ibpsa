@@ -19,7 +19,7 @@ model HeaterCooler_T
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
 protected
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro(
+  Annex60.Fluid.FixedResistances.PressureDrop preDro(
     redeclare final package Medium = Medium,
     final use_dh=false,
     final m_flow_nominal=m_flow_nominal,

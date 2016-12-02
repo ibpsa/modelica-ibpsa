@@ -11,14 +11,14 @@ model FixedResistancesParallel
     height=20,
     offset=101315)
                  annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res1(
+  Annex60.Fluid.FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,
     m_flow_nominal=5,
     dp_nominal=10,
     deltaM=0.3,
     linearized=false,
     from_dp=false)
-             annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
+    annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
   Annex60.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
         Medium,
     T=293.15,
@@ -31,14 +31,14 @@ model FixedResistancesParallel
     nPorts=2,
     use_p_in=true)        annotation (Placement(transformation(extent={{80,28},
             {60,48}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res2(
+  Annex60.Fluid.FixedResistances.PressureDrop res2(
     redeclare package Medium = Medium,
     m_flow_nominal=5,
     dp_nominal=10,
     deltaM=0.3,
     linearized=false,
     from_dp=false)
-             annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
+    annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
   Annex60.Fluid.Sensors.MassFlowRate masFlo2(redeclare package Medium = Medium)
     "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,-10},
             {20,10}})));

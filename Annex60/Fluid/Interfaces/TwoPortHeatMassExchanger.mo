@@ -55,7 +55,7 @@ model TwoPortHeatMassExchanger
     final C_start=C_start) "Volume for fluid stream"
      annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
 
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro(
+  Annex60.Fluid.FixedResistances.PressureDrop preDro(
     redeclare final package Medium = Medium,
     final use_dh=false,
     final m_flow_nominal=m_flow_nominal,

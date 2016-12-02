@@ -30,14 +30,14 @@ model HydraulicDiameter
     annotation (Placement(transformation(
           extent={{56,20},{36,40}})));
 
-  FixedResistanceDpM res(
+  Annex60.Fluid.FixedResistances.HydraulicDiameter res(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
-    dp_nominal=dp_nominal,
-    use_dh=true,
+    dp_nominal=dpStraightPipe_nominal/aaa,
     dh=0.2,
     deltaM=0.3) "Fixed resistance with specified hydraulic diameter"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
+
 equation
   connect(PAtm.y, sin.p_in) annotation (Line(points={{61,70},{70,70},{70,38},{
           58,38}}, color={0,0,127}));

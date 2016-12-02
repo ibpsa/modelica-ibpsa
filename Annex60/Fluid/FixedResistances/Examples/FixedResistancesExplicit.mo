@@ -16,55 +16,55 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
     p=101325)                         annotation (Placement(transformation(
           extent={{120,90},{100,110}})));
 
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res11(
+  Annex60.Fluid.FixedResistances.PressureDrop res11(
     redeclare package Medium = Medium,
     from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
-             annotation (Placement(transformation(extent={{-20,90},{0,110}})));
+    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
 
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res12(
+  Annex60.Fluid.FixedResistances.PressureDrop res12(
     redeclare package Medium = Medium,
     from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
-             annotation (Placement(transformation(extent={{20,90},{40,110}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res22(
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+  Annex60.Fluid.FixedResistances.PressureDrop res22(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
-             annotation (Placement(transformation(extent={{20,50},{40,70}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res21(
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+  Annex60.Fluid.FixedResistances.PressureDrop res21(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
-             annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res31(
+    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+  Annex60.Fluid.FixedResistances.PressureDrop res31(
     redeclare package Medium = Medium,
     from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
-             annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res32(
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+  Annex60.Fluid.FixedResistances.PressureDrop res32(
     redeclare package Medium = Medium,
     from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
-             annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res42(
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  Annex60.Fluid.FixedResistances.PressureDrop res42(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
-             annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res41(
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+  Annex60.Fluid.FixedResistances.PressureDrop res41(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
-             annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Annex60.Fluid.Sources.MassFlowSource_h bou(
     redeclare package Medium = Medium,
     m_flow=1,
@@ -74,20 +74,20 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
     m_flow=1,
     nPorts=1)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Annex60.Fluid.Sources.Boundary_pT sin1(            redeclare package Medium
-      =        Medium, T=273.15 + 10,
+  Annex60.Fluid.Sources.Boundary_pT sin1(            redeclare package Medium =
+               Medium, T=273.15 + 10,
     nPorts=2,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
           extent={{120,-40},{100,-20}})));
-  Annex60.Fluid.Sources.Boundary_ph sin2(            redeclare package Medium
-      =        Medium,
+  Annex60.Fluid.Sources.Boundary_ph sin2(            redeclare package Medium =
+               Medium,
     nPorts=1,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
           extent={{120,50},{100,70}})));
-  Annex60.Fluid.Sources.Boundary_ph sou1(            redeclare package Medium
-      =        Medium,
+  Annex60.Fluid.Sources.Boundary_ph sou1(            redeclare package Medium =
+               Medium,
     nPorts=1,
     p(displayUnit="Pa") = 101335,
     use_p_in=true)                    annotation (Placement(transformation(

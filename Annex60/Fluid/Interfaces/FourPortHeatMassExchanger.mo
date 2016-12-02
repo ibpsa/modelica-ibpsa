@@ -113,7 +113,7 @@ model FourPortHeatMassExchanger
   Modelica.SIunits.HeatFlowRate Q2_flow = vol2.heatPort.Q_flow
     "Heat flow rate into medium 2";
 
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro1(
+  Annex60.Fluid.FixedResistances.PressureDrop preDro1(
     redeclare final package Medium = Medium1,
     final use_dh=false,
     final m_flow_nominal=m1_flow_nominal,
@@ -128,7 +128,7 @@ model FourPortHeatMassExchanger
     final ReC=4000) "Pressure drop model for fluid 1"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro2(
+  Annex60.Fluid.FixedResistances.PressureDrop preDro2(
     redeclare final package Medium = Medium2,
     final use_dh=false,
     final m_flow_nominal=m2_flow_nominal,
