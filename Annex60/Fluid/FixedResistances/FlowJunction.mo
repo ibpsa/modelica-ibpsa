@@ -38,7 +38,7 @@ model FlowJunction
   parameter Real deltaM(min=0) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Dialog(group = "Transition to laminar",
-                         enable = not use_dh and not linearized));
+                         enable = not linearized));
 
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
