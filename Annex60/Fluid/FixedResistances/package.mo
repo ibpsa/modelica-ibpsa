@@ -1,10 +1,13 @@
 within Annex60.Fluid;
 package FixedResistances "Package with models for fixed flow resistances"
   extends Modelica.Icons.VariantsPackage;
-annotation (preferredView="info", Documentation(info="<html>
+
+  annotation (preferredView="info", Documentation(info="<html>
+<p>
 This package contains components models for fixed flow resistances.
 By fixed flow resistance, we mean resistances that do not change the
 flow coefficient
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 k = m &frasl;
 &radic;<span style=\"text-decoration:overline;\">&Delta;P</span>.
@@ -44,5 +47,4 @@ Annex60.Fluid.FixedResistances.FlowJunction</a>
 can be used to model flow splitters or flow merges.
 </p>
 </html>"));
-
 end FixedResistances;
