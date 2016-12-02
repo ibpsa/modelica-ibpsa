@@ -5,10 +5,10 @@ model SplitterFixedResistanceDpM
 
  package Medium = Annex60.Media.Air "Medium model";
 
-  Annex60.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
+  Annex60.Fluid.FixedResistances.FlowJunction spl(
     redeclare package Medium = Medium,
     m_flow_nominal={1,2,3},
-    dp_nominal = {5,10,15},
+    dp_nominal={5,10,15},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Splitter"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Annex60.Fluid.Sources.Boundary_pT bou1(

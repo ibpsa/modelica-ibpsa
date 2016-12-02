@@ -5,7 +5,7 @@ model SplitterFixedResistanceDpMSteadyStateNoPressureDrop
 
  package Medium = Annex60.Media.Air "Medium model";
 
-  Annex60.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
+  Annex60.Fluid.FixedResistances.FlowJunction spl(
     redeclare package Medium = Medium,
     m_flow_nominal={1,2,3},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
