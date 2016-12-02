@@ -53,8 +53,8 @@ model SpatialDistributionOperator
   Modelica.Blocks.Sources.Constant const3(k=273.15 + 5);
 
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In1(
-                                                       redeclare package Medium
-      = Medium, m_flow_nominal=0.5)
+                                                       redeclare package Medium =
+        Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-56,-56},{-36,-36}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out1(
@@ -100,7 +100,7 @@ model SpatialDistributionOperator
     "Sink at with constant pressure, turns into source at the end of experiment"
                           annotation (Placement(transformation(extent={{128,112},
             {108,132}})));
-  Annex60.Experimental.Pipe.PipeHeatLoss PipeDelay(
+  Annex60.Experimental.Pipe.Archive.PipeHeatLoss PipeDelay(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
@@ -110,8 +110,8 @@ model SpatialDistributionOperator
     lambdaI=0.01)
     annotation (Placement(transformation(extent={{2,62},{22,82}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In2(
-                                                       redeclare package Medium
-      = Medium, m_flow_nominal=0.5)
+                                                       redeclare package Medium =
+        Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-68,62},{-48,82}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out2(

@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe;
+within Annex60.Experimental.Pipe.Archive;
 model PipeHeatLoss "Pipe model using spatialDistribution for temperature delay"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
@@ -24,8 +24,8 @@ model PipeHeatLoss "Pipe model using spatialDistribution for temperature delay"
 
   parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/
       Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*
-      (diameter/2)^2*cp_default;
+  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
+      diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
     "Heat conductivity";
 
@@ -53,7 +53,6 @@ protected
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation (Dialog(group="Advanced", enable=use_mu_default));
 
-
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(state=sta_default)
     "Heat capacity of medium";
@@ -66,11 +65,10 @@ protected
     length=length,
     m_flow_nominal=m_flow_nominal,
     from_dp=from_dp,
-    thickness=thickness)
+    thickness=thickness,
+    T_ini=T_ini)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-
 
 public
   BaseClasses.HeatLossPipeDelay reverseHeatLoss(
@@ -109,6 +107,8 @@ public
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
+  parameter Modelica.SIunits.Temperature T_ini=Medium.T_default
+    "Initial temperature in pipe" annotation (Dialog(group="Initialization"));
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
@@ -134,15 +134,15 @@ equation
       points={{11,-40},{28,-40},{28,32},{44,32},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(reverseHeatLoss.heatPort, heatLoss.heatPort) annotation (Line(points=
-          {{-70,10},{-70,40},{50,40},{50,10}}, color={191,0,0}));
+  connect(reverseHeatLoss.heatPort, heatLoss.heatPort) annotation (Line(points={
+          {-70,10},{-70,40},{50,40},{50,10}}, color={191,0,0}));
   connect(heatLoss.heatPort, heatPort) annotation (Line(points={{50,10},{50,10},
           {50,40},{0,40},{0,100}}, color={191,0,0}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
         Ellipse(
           extent={{-90,92},{-48,50}},
           lineColor={28,108,200},

@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe.Data.BaseClasses;
-record PipeDataBaseDefinition
+partial record PipeDataBaseDefinition
   "BaseClass for experimental data from the pipe test bench"
       extends Modelica.Icons.Record;
       parameter Integer n "Number of measurement data point";

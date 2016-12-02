@@ -52,7 +52,7 @@ model UCPipeB02Mod "Comparing behaviour of PipeHeatLoss and ~Mod"
     offset=273.15 + 55,
     freqHz=0.0005) "Constant supply temperature signal"
     annotation (Placement(transformation(extent={{-166,0},{-146,20}})));
-  PipeHeatLoss pipeAd(
+  Archive.PipeHeatLoss pipeAd(
     redeclare package Medium = Medium,
     length=100,
     m_flow_small=1e-4,

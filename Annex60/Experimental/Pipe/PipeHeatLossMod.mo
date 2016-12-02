@@ -23,8 +23,10 @@ model PipeHeatLossMod
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
-  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
+  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/
+      Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
+  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
+      diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
     "Heat conductivity";
 
@@ -60,7 +62,8 @@ protected
     length=length,
     m_flow_nominal=m_flow_nominal,
     from_dp=from_dp,
-    thickness=thickness)
+    thickness=thickness,
+    T_ini=T_ini)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -76,7 +79,8 @@ public
     thicknessIns=thicknessIns,
     C=C,
     R=R,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    T_ini=T_ini)
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
 
   BaseClasses.HeatLossPipeDelay heatLoss(
@@ -86,12 +90,13 @@ public
     thicknessIns=thicknessIns,
     C=C,
     R=R,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    T_ini=T_ini)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.TimeDelay           tau_used(               diameter=
-        diameter,
+  BaseClasses.TimeDelay tau_used(
+    diameter=diameter,
     rho=rho_default,
     len=length)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
@@ -102,21 +107,22 @@ public
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
+
+  parameter Modelica.SIunits.Temperature T_ini=Medium.T_default
+    "Initialization temperature" annotation (Dialog(group="Initialization"));
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
   connect(port_a, reverseHeatLoss.port_b)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
-    annotation (Line(points={{10,0},{40,0}},        color={0,127,255}));
+    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   connect(port_b, heatLoss.port_b)
-    annotation (Line(points={{100,0},{60,0}},        color={0,127,255}));
+    annotation (Line(points={{100,0},{60,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
-    annotation (Line(points={{-10,0},{-18,0},{-24,0}},
-                                               color={0,127,255}));
+    annotation (Line(points={{-10,0},{-18,0},{-24,0}}, color={0,127,255}));
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
-    annotation (Line(points={{-44,0},{-52,0},{-60,0}},
-                                               color={0,127,255}));
+    annotation (Line(points={{-44,0},{-52,0},{-60,0}}, color={0,127,255}));
   connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(
       points={{-34,-11},{-34,-40},{-12,-40}},
       color={0,0,127},
@@ -134,8 +140,8 @@ equation
   connect(heatLoss.heatPort, heatPort) annotation (Line(points={{50,10},{50,40},
           {0,40},{0,100}}, color={191,0,0}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
