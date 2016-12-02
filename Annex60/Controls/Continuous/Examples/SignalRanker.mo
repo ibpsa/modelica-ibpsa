@@ -5,8 +5,7 @@ model SignalRanker "Example model for signal ranker"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Pulse pulse(period=0.25)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Annex60.Controls.Continuous.SignalRanker sigRan(
-                                                  nin=3)
+  Annex60.Controls.Continuous.SignalRanker sigRan(nin=3)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.ExpSine expSine(freqHz=10, damping=1)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
@@ -18,7 +17,7 @@ equation
           {-22,30}},               color={0,0,127}));
   connect(expSine.y, sigRan.u[3]) annotation (Line(points={{-39,70},{-30,70},{
           -30,31.3333},{-22,31.3333}}, color={0,0,127}));
- annotation (experiment(StopTime=1.0),
+ annotation (experiment(StartTime=0.0, StopTime=1.0, Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Continuous/Examples/SignalRanker.mos"
         "Simulate and plot"),
     Documentation(info="<html>

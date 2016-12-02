@@ -201,7 +201,7 @@ equation
   connect(TSet.y, conNoRes.TSet) annotation (Line(points={{-59,0},{-50,0},{-50,-10},
           {-42,-10}}, color={0,0,127}));
  annotation (
-experiment(StopTime=600),
+ experiment(StartTime=0, StopTime=600, Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPIDWithReset.mos"
         "Simulate and plot"),
     Documentation(

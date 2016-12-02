@@ -21,7 +21,7 @@ equation
       points={{-2,-30},{-19,-30}},
       color={255,0,255}));
  annotation (
-experiment(StopTime=1),
+ experiment(StartTime=0, StopTime=1, Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Continuous/Examples/OffTimer.mos"
         "Simulate and plot"),
     Documentation(
