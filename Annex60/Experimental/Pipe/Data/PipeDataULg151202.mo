@@ -2,6 +2,7 @@ within Annex60.Experimental.Pipe.Data;
 record PipeDataULg151202
   "Experimental data from ULg's pipe test bench from December 2, 2015"
   extends Annex60.Experimental.Pipe.Data.BaseClasses.PipeDataULg( final n=5,
+  T_ini = 18.161956,
   data=[
      0,0.589166667,0,18.161956,18.739005,18.777001;
 3.1,0.589166667,0,18.212965,19.204688,28.036172;

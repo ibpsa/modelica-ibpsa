@@ -1,6 +1,7 @@
 within Annex60.Experimental.Pipe.Data.BaseClasses;
 partial record PipeDataULg "Base class for ULg experimental data"
   extends PipeDataBaseDefinition;
+  parameter Modelica.SIunits.Temp_C T_ini = 20 "Initial temperature";
   annotation (Documentation(info="<html>
 <p><b><span style=\"color: #008000;\">Overview</span></b> </p>
 <p>This record contains information of an aproximately 15 minutes long test bench carried out at the University of Liège.</p>

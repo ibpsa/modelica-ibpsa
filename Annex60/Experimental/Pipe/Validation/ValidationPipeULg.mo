@@ -69,9 +69,10 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
-  parameter Modelica.SIunits.Temperature T_ini=14.3 + 273.15
+  parameter Modelica.SIunits.Temperature T_ini=pipeDataULg.T_ini + 273.15
     "Initial temperature";
-  replaceable Data.PipeDataULg151202 pipeDataULg constrainedby
+  replaceable Data.PipeDataULg160118_1
+                                     pipeDataULg constrainedby
     Data.BaseClasses.PipeDataULg
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Math.Gain gain(k=1)

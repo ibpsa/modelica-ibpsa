@@ -1,6 +1,6 @@
 within Annex60.Experimental.Pipe.Data;
 record PipeDataULg150801
-  "Experimental data from ULg's pipe test bench from August 1, 2015"
+  "Experimental data from ULg's pipe test bench from August 1"
   //   Column 1: Time in s
   //   Column 2: Mass flow rate in kg/s
   //   Column 3: Outlet pipe temperature in °C
@@ -8,7 +8,9 @@ record PipeDataULg150801
   //   Column 5: Inlet pipe temperature in °C
   //   Column 6: Inlet water temperature in °C
   extends Annex60.Experimental.Pipe.Data.BaseClasses.PipeDataULg(
-      final n=5, data=[0,1.245,16.902879,16.825644,16.623425,16.620399; 2.87,1.245,
+      final n=5,
+      T_ini = 16.825644,
+      data=[0,1.245,16.902879,16.825644,16.623425,16.620399; 2.87,1.245,
         16.887293,16.809359,16.623658,19.650743; 5.66,1.245,16.888922,16.822853,
         19.140572,29.131984; 8.78,1.245,16.887526,16.823551,24.132507,34.90771;
         11.62,1.245,16.879384,16.804007,28.392719,38.544322; 16.06,1.245,16.861472,
