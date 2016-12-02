@@ -1,6 +1,6 @@
 within Annex60.Fluid.FixedResistances;
 model HydraulicDiameter "Fixed flow resistance with hydraulic diameter and m_flow as parameter"
-  extends Annex60.Fluid.FixedResistances.FixedResistanceDpM(
+  extends Annex60.Fluid.FixedResistances.PressureDrop(
     final deltaM =  eta_default*dh/4*Modelica.Constants.pi*ReC/m_flow_nominal_pos,
     final dp_nominal=fac*dpStraightPipe_nominal);
 
@@ -13,7 +13,7 @@ model HydraulicDiameter "Fixed flow resistance with hydraulic diameter and m_flo
     "Reynolds number where transition to turbulent starts";
 
   parameter Modelica.SIunits.Velocity v_nominal = 0.15
-    "Velocity at m_flow_nominal (used to compute default diameter)"
+    "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
