@@ -7,7 +7,6 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=1.245,
-    T=T_ini,
     use_m_flow_in=true) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -22,15 +21,15 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     lambdaI=0.04,
     m_flow_nominal=m_flow_nominal,
     thickness=3.9e-3,
-    T_ini=T_ini) annotation (Placement(transformation(
+    T_ini_out=T_ini_out,
+    T_ini_in=T_ini_in)   annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-34,0})));
   Fluid.HeatExchangers.HeaterCooler_T Boiler(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dp_nominal=0,
-    T_start=T_ini) annotation (Placement(transformation(
+    dp_nominal=0) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={34,0})));
@@ -43,13 +42,13 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0,
-    T_start=T_ini)
+    T_start=T_ini_out)
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
   Fluid.Sensors.TemperatureTwoPort senTem_in(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0,
-    T_start=T_ini)
+    T_start=T_ini_in)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
   Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataULg.data,
       extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
@@ -69,9 +68,11 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
-  parameter Modelica.SIunits.Temperature T_ini=pipeDataULg.T_ini + 273.15
-    "Initial temperature";
-  replaceable Data.PipeDataULg160118_1
+    parameter Modelica.SIunits.Temperature T_ini_in=pipeDataULg.T_ini_in + 273.15
+    "Initial temperature at pipe inlet";
+  parameter Modelica.SIunits.Temperature T_ini_out=pipeDataULg.T_ini_out + 273.15
+    "Initial temperature at pipe outlet";
+  replaceable Data.PipeDataULg151204_4
                                      pipeDataULg constrainedby
     Data.BaseClasses.PipeDataULg
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));

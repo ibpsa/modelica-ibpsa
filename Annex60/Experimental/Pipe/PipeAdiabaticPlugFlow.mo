@@ -23,7 +23,7 @@ model PipeAdiabaticPlugFlow
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") =
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=
     dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
@@ -56,11 +56,17 @@ model PipeAdiabaticPlugFlow
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 protected
-  parameter Modelica.SIunits.SpecificEnthalpy h_ini=Medium.specificEnthalpy(
+  parameter Modelica.SIunits.SpecificEnthalpy h_ini_in=Medium.specificEnthalpy(
       Medium.setState_pTX(
-      T=T_ini,
+      T=T_ini_in,
       p=Medium.p_default,
-      X=Medium.X_default)) "For initialization of spatialDistribution";
+      X=Medium.X_default)) "For initialization of spatialDistribution inlet";
+
+      parameter Modelica.SIunits.SpecificEnthalpy h_ini_out=Medium.specificEnthalpy(
+      Medium.setState_pTX(
+      T=T_ini_out,
+      p=Medium.p_default,
+      X=Medium.X_default)) "For initialization of spatialDistribution outlet";
 
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
@@ -94,22 +100,24 @@ protected
     final D=dh,
     final L=length,
     final allowFlowReversal=allowFlowReversal,
-    initialValuesH={h_ini,h_ini})
+    initialValuesH={h_ini_in,h_ini_out})
     "Model for temperature wave propagation with spatialDistribution operator"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 public
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Temperature T_ini=Medium.T_default
-    "Initial temperature in pipe" annotation (Dialog(group="Initialization"));
+  parameter Modelica.SIunits.Temperature T_ini_in=Medium.T_default
+    "Initial temperature in pipe at inlet" annotation (Dialog(group="Initialization"));
+  parameter Modelica.SIunits.Temperature T_ini_out=Medium.T_default
+    "Initial temperature in pipe at outlet" annotation (Dialog(group="Initialization"));
 
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     V=V,
     nPorts=2,
-    T_start=T_ini)
+    T_start=T_ini_out)
     annotation (Placement(transformation(extent={{60,4},{80,24}})));
 
 equation

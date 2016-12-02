@@ -9,7 +9,8 @@ record PipeDataULg150801
   //   Column 6: Inlet water temperature in °C
   extends Annex60.Experimental.Pipe.Data.BaseClasses.PipeDataULg(
       final n=5,
-      T_ini = 16.825644,
+      T_ini_in = 16.623425,
+      T_ini_out = 16.825644,
       data=[0,1.245,16.902879,16.825644,16.623425,16.620399; 2.87,1.245,
         16.887293,16.809359,16.623658,19.650743; 5.66,1.245,16.888922,16.822853,
         19.140572,29.131984; 8.78,1.245,16.887526,16.823551,24.132507,34.90771;

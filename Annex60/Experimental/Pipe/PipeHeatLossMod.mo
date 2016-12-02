@@ -63,7 +63,8 @@ protected
     m_flow_nominal=m_flow_nominal,
     from_dp=from_dp,
     thickness=thickness,
-    T_ini=T_ini)
+    T_ini_in=T_ini_in,
+    T_ini_out=T_ini_out)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -80,7 +81,7 @@ public
     C=C,
     R=R,
     m_flow_small=m_flow_small,
-    T_ini=T_ini)
+    T_ini=T_ini_in)
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
 
   BaseClasses.HeatLossPipeDelay heatLoss(
@@ -91,7 +92,7 @@ public
     C=C,
     R=R,
     m_flow_small=m_flow_small,
-    T_ini=T_ini)
+    T_ini=T_ini_out)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
@@ -108,8 +109,10 @@ public
     annotation (Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
 
-  parameter Modelica.SIunits.Temperature T_ini=Medium.T_default
-    "Initialization temperature" annotation (Dialog(group="Initialization"));
+  parameter Modelica.SIunits.Temperature T_ini_in=Medium.T_default
+    "Initialization temperature at pipe inlet" annotation (Dialog(group="Initialization"));
+  parameter Modelica.SIunits.Temperature T_ini_out=Medium.T_default
+    "Initialization temperature at pipe outlet" annotation (Dialog(group="Initialization"));
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
