@@ -1,5 +1,5 @@
 within Annex60.Fluid.FixedResistances;
-model FixedResistanceDpM
+model PressureDrop
   "Fixed flow resistance with dp and m_flow as parameter"
   extends Annex60.Fluid.BaseClasses.PartialResistance(
     final m_flow_turbulent = if computeFlowResistance then deltaM * m_flow_nominal_pos else 0);
@@ -88,7 +88,7 @@ The figure below shows the pressure drop for the parameters
 <code>deltaM=0.3</code>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
+<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/FixedResistances/PressureDrop.png\"/>
 </p>
 <p>
 If the parameter
@@ -201,7 +201,7 @@ To simplify object inheritance tree, revised base classes
 <code>Annex60.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
 <code>Annex60.Fluid.Actuators.BaseClasses.PartialActuator</code>
 and model
-<code>Annex60.Fluid.FixedResistances.FixedResistanceDpM</code>.
+<code>Annex60.Fluid.FixedResistances.PressureDrop</code>.
 </li>
 <li>
 May 30, 2008 by Michael Wetter:<br/>
@@ -215,4 +215,4 @@ First implementation.
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
-end FixedResistanceDpM;
+end PressureDrop;
