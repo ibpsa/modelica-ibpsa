@@ -509,5 +509,8 @@ October 7, 2016, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Basic.mos"
+        "Simulate and plot"));
 end Basic;
