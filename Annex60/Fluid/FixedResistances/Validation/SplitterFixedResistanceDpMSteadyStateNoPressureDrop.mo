@@ -11,13 +11,14 @@ model SplitterFixedResistanceDpMSteadyStateNoPressureDrop
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal={0,0,0}) "Splitter"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-  Sources.MassFlowSource_T bou1(
+
+  Annex60.Fluid.Sources.MassFlowSource_T bou1(
     redeclare package Medium = Medium,
     T=273.15 + 10,
     nPorts=1,
-    use_m_flow_in=true)
-    "Pressure boundary condition"
+    use_m_flow_in=true) "Mass flow boundary condition"
      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
   Annex60.Fluid.Sources.Boundary_pT bou2(
     redeclare package Medium = Medium,
     T=273.15 + 20,
@@ -26,38 +27,43 @@ model SplitterFixedResistanceDpMSteadyStateNoPressureDrop
     "Pressure boundary condition"
     annotation (Placement(transformation(
           extent={{90,-10},{70,10}})));
-  Sources.MassFlowSource_T bou3(
+
+  Annex60.Fluid.Sources.MassFlowSource_T bou3(
     redeclare package Medium = Medium,
     T=273.15 + 30,
     nPorts=1,
-    use_m_flow_in=true)
-    "Pressure boundary condition"
+    use_m_flow_in=true) "Mass flow boundary condition"
     annotation (Placement(transformation(
           extent={{-60,-70},{-40,-50}})));
-    Modelica.Blocks.Sources.Ramp m1_flow(
+
+  Modelica.Blocks.Sources.Ramp m1_flow(
     duration=20,
     startTime=20,
     height=1,
     offset=-1) "Ramp mass flow signal"
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
-    Modelica.Blocks.Sources.Ramp m3_flow(
+
+  Modelica.Blocks.Sources.Ramp m3_flow(
     height=1,
     offset=-1,
     duration=20,
     startTime=70) "Ramp mass flow signal"
     annotation (Placement(transformation(extent={{-92,-62},{-72,-42}})));
+
   Annex60.Fluid.Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     tau=0)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+
   Annex60.Fluid.Sensors.TemperatureTwoPort senTem2(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     tau=0)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
   Annex60.Fluid.Sensors.TemperatureTwoPort senTem3(
     redeclare package Medium = Medium,
     m_flow_nominal=3,

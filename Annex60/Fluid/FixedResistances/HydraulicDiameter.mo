@@ -58,7 +58,7 @@ protected
 annotation (defaultComponentName="res",
 Documentation(info="<html>
 <p>
-This is a model of a resistance with a fixed flow coefficient.
+This is a model of a flow resistance with a fixed flow coefficient.
 The mass flow rate is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -92,19 +92,23 @@ can be set by the user.
 <h4>Important parameters</h4>
 <p>
 By default, the pressure drop at nominal flow rate is computed as
-<code>dp_nominal = fac * dpStraightPipe_nominal</code>,
+</p>
+<pre>
+dp_nominal = fac * dpStraightPipe_nominal,
+</pre>
+<p>
 where <code>dpStraightPipe_nominal</code> is a parameter that is automatically computed
 based on the
-nominal mass flow rate, hydraulic diameter and pipe roughness.
+nominal mass flow rate, hydraulic diameter, pipe roughness and medium properties.
 The hydraulic diameter <code>dh</code> is by default
-computed based on the flow velocity <code>v_nominal</code> and nominal
+computed based on the flow velocity <code>v_nominal</code> and the nominal
 mass flow rate <code>m_flow_nominal</code>. Hence, users should change the
 default values of <code>dh</code> or <code>v_nominal</code>
 if they are not applicable for their model.
 </p>
 <p>
 The factor <code>fac</code> takes into account additional resistances such as
-from bends. The default value of <code>2</code> can be changed by the user.
+for bends. The default value of <code>2</code> can be changed by the user.
 </p>
 <p>
 The parameter <code>from_dp</code> is used to determine
@@ -145,8 +149,8 @@ can be used and combined with models from the
 <p>
 For a model that uses <code>dp_nominal</code> as a parameter rather than
 geoemetric data, use
-<a href=\"modelica://Annex60.Fluid.FixedResistances.FixedResistanceDpM\">
-Annex60.Fluid.FixedResistances.FixedResistanceDpM</a>.
+<a href=\"modelica://Annex60.Fluid.FixedResistances.PressureDrop\">
+Annex60.Fluid.FixedResistances.PressureDrop</a>.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -177,7 +181,7 @@ First implementation for
 </ul>
 </html>"),
   Icon(graphics={Text(
-          extent={{-28,18},{50,-20}},
+          extent={{-40,18},{38,-20}},
           lineColor={255,255,255},
           textString="dh")}));
 end HydraulicDiameter;

@@ -1,5 +1,5 @@
 within Annex60.Fluid;
-package FixedResistances "Package with models for fixed flow resistances (pipes, diffusers etc.)"
+package FixedResistances "Package with models for fixed flow resistances"
   extends Modelica.Icons.VariantsPackage;
 annotation (preferredView="info", Documentation(info="<html>
 This package contains components models for fixed flow resistances.
@@ -19,9 +19,16 @@ Annex60.Airflow.Multizone</a>.
 </p>
 <p>
 The model
-<a href=\"modelica://Annex60.Fluid.FixedResistances.FixedResistanceDpM\">
-Annex60.Fluid.FixedResistances.FixedResistanceDpM</a>
+<a href=\"modelica://Annex60.Fluid.FixedResistances.PressureDrop\">
+Annex60.Fluid.FixedResistances.PressureDrop</a>
 is a fixed flow resistance that takes as parameter a nominal flow rate and a nominal pressure drop. The actual resistance is scaled using the above equation.
+</p>
+<p>
+The model
+<a href=\"modelica://Annex60.Fluid.FixedResistances.HydraulicDiameter\">
+Annex60.Fluid.FixedResistances.HydraulicDiameter</a>
+is a fixed flow resistance that takes as parameter a nominal flow rate and
+a hydraulic diameter. The actual resistance is scaled using the above equation.
 </p>
 <p>
 The model

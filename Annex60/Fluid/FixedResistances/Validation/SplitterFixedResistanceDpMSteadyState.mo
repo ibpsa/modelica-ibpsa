@@ -11,6 +11,7 @@ model SplitterFixedResistanceDpMSteadyState
     dp_nominal={5,10,15},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Splitter"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+
   Annex60.Fluid.Sources.Boundary_pT bou1(
     redeclare package Medium = Medium,
     T=273.15 + 10,
@@ -18,6 +19,7 @@ model SplitterFixedResistanceDpMSteadyState
     nPorts=1)
     "Pressure boundary condition"
      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
   Annex60.Fluid.Sources.Boundary_pT bou2(
     redeclare package Medium = Medium,
     T=273.15 + 20,
@@ -26,6 +28,7 @@ model SplitterFixedResistanceDpMSteadyState
     "Pressure boundary condition"
     annotation (Placement(transformation(
           extent={{90,-10},{70,10}})));
+
   Annex60.Fluid.Sources.Boundary_pT bou3(
     redeclare package Medium = Medium,
     T=273.15 + 30,
@@ -34,30 +37,35 @@ model SplitterFixedResistanceDpMSteadyState
     "Pressure boundary condition"
     annotation (Placement(transformation(
           extent={{-60,-70},{-40,-50}})));
-    Modelica.Blocks.Sources.Ramp P1(
+
+  Modelica.Blocks.Sources.Ramp P1(
     offset=101320,
     height=10,
     duration=20,
     startTime=20) "Ramp pressure signal"
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
-    Modelica.Blocks.Sources.Ramp P3(
-      offset=101320,
-      height=10,
+
+  Modelica.Blocks.Sources.Ramp P3(
+    offset=101320,
+    height=10,
     duration=20,
     startTime=70) "Ramp pressure signal"
     annotation (Placement(transformation(extent={{-92,-62},{-72,-42}})));
+
   Annex60.Fluid.Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     tau=0)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+
   Annex60.Fluid.Sensors.TemperatureTwoPort senTem2(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     tau=0)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
   Annex60.Fluid.Sensors.TemperatureTwoPort senTem3(
     redeclare package Medium = Medium,
     m_flow_nominal=3,
@@ -86,7 +94,7 @@ equation
   annotation (experiment(StopTime=100.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/SplitterFixedResistanceDpMSteadyState.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
+Documentation(info="<html>
 <p>
 This model validates the use of the splitter and mixer model
 for different flow directions.

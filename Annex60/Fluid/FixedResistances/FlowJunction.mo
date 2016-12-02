@@ -29,7 +29,8 @@ model FlowJunction
       deltaM=deltaM));
 
   parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal
-    "Mass flow rate. Set negative at outflowing ports." annotation(Dialog(group = "Nominal condition"));
+    "Mass flow rate. Set negative at outflowing ports."
+    annotation(Dialog(group = "Nominal condition"));
 
   parameter Modelica.SIunits.Pressure[3] dp_nominal(each displayUnit = "Pa")
     "Pressure drop at nominal mass flow rate, set to zero or negative number at outflowing ports."
@@ -71,12 +72,11 @@ model FlowJunction
           extent={{-151,142},{149,102}},
           lineColor={0,0,255},
           textString="%name")}),
-defaultComponentName="spl",
+defaultComponentName="jun",
     Documentation(info="<html>
 <p>
-Model of a flow splitter or mixer with a fixed resistance in each flow leg.
-In each flow lag, a pressure drop can be modeled, and at the fluid junction,
-a mixing volume can be modeled.
+Model of a flow junction with an optional fixed resistance in each flow leg
+and an optional mixing volume at the junction.
 </p>
 <p>
 The pressure drop is implemented using the model
@@ -91,7 +91,7 @@ For example, the pressure drop declaration
   dp_nominal =   {500,    0, -6000}
 </pre>
 <p>
-would model a mixer that has the nominal flow rates and associated pressure drops
+would model a flow mixer that has the nominal flow rates and associated pressure drops
 as shown in the figure below. Note that <code>port_3</code> is set to negative values.
 The negative values indicate that at the nominal conditions, fluid is leaving the component.
 </p>
@@ -99,13 +99,13 @@ The negative values indicate that at the nominal conditions, fluid is leaving th
 <img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/FixedResistances/FlowJunction.png\"/>
 </p>
 <p>
-Optionally, at the fluid junction, a control volume can be modeled.
-This is implemented using the model
+If
+<code>energyDynamics &lt;&gt; Modelica.Fluid.Types.Dynamics.SteadyState</code>,
+then at the flow junction, a fluid volume is modeled.
+The fluid volume is implemented using the model
 <a href=\"modelica://Annex60.Fluid.Delays.DelayFirstOrder\">
 Annex60.Fluid.Delays.DelayFirstOrder</a>.
-The fluid volume is modeled if
-<code>energyDynamics &lt;&gt; Modelica.Fluid.Types.Dynamics.SteadyState</code>.
-The control volume has the size
+The fluid volume has the size
 </p>
 <pre>
   V = sum(abs(m_flow_nominal[:])/3)*tau/rho_nominal

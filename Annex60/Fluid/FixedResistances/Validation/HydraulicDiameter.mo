@@ -5,14 +5,12 @@ model HydraulicDiameter
 
  package Medium = Annex60.Media.Air "Medium model";
 
-    Modelica.Blocks.Sources.Constant PAtm(k=101325)
-      annotation (Placement(transformation(extent={{40,60},{60,80}})));
-
     Modelica.Blocks.Sources.Ramp P(
     duration=1,
     height=20,
-    offset=101325 - 10)
-                 annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    offset=101325 - 10) "Ramp pressure signal"
+    annotation (Placement(transformation(extent={{-92,-2},{-72,18}})));
+
   Annex60.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     T=273.15 + 20,
@@ -20,16 +18,16 @@ model HydraulicDiameter
     nPorts=1)
     "Pressure boundary condition"
     annotation (Placement(transformation(
-          extent={{-40,20},{-20,40}})));
+          extent={{-50,-10},{-30,10}})));
 
   Annex60.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     T=273.15 + 10,
-    use_p_in=true,
-    nPorts=1)
+    nPorts=1,
+    p(displayUnit="Pa") = 101325)
     "Pressure boundary condition"
     annotation (Placement(transformation(
-          extent={{56,20},{36,40}})));
+          extent={{50,-10},{30,10}})));
 
   Annex60.Fluid.FixedResistances.HydraulicDiameter res(
     redeclare package Medium = Medium,
@@ -38,17 +36,15 @@ model HydraulicDiameter
     v_nominal=1,
     from_dp=true)
     "Fixed resistance with specified hydraulic diameter"
-    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-  connect(PAtm.y, sin.p_in) annotation (Line(points={{61,70},{70,70},{70,38},{
-          58,38}}, color={0,0,127}));
-  connect(P.y, sou.p_in) annotation (Line(points={{-59,70},{-52,70},{-52,38},{
-          -42,38}}, color={0,0,127}));
+  connect(P.y, sou.p_in) annotation (Line(points={{-71,8},{-62,8},{-52,8}},
+                    color={0,0,127}));
   connect(sou.ports[1], res.port_a)
-    annotation (Line(points={{-20,30},{0,30}},          color={0,127,255}));
+    annotation (Line(points={{-30,0},{-10,0}},          color={0,127,255}));
   connect(res.port_b, sin.ports[1])
-    annotation (Line(points={{20,30},{20,30},{36,30}}, color={0,127,255}));
+    annotation (Line(points={{10,0},{10,0},{30,0}},    color={0,127,255}));
   annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/HydraulicDiameter.mos"
         "Simulate and plot"),

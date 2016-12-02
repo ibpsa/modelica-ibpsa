@@ -31,21 +31,31 @@ equation
     else
       if homotopyInitialization then
         if from_dp then
-          m_flow=homotopy(actual=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                   m_flow_turbulent=m_flow_turbulent),
-                                   simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+          m_flow=homotopy(
+            actual=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+              dp=dp,
+              k=k,
+              m_flow_turbulent=m_flow_turbulent),
+            simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
         else
-          dp=homotopy(actual=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
-                                   m_flow_turbulent=m_flow_turbulent),
-                    simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+          dp=homotopy(
+            actual=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+              m_flow=m_flow,
+              k=k,
+              m_flow_turbulent=m_flow_turbulent),
+            simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
          end if;  // from_dp
       else // do not use homotopy
         if from_dp then
-          m_flow=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                   m_flow_turbulent=m_flow_turbulent);
+          m_flow=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+            dp=dp,
+            k=k,
+            m_flow_turbulent=m_flow_turbulent);
         else
-          dp=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
-                                   m_flow_turbulent=m_flow_turbulent);
+          dp=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+            m_flow=m_flow,
+            k=k,
+            m_flow_turbulent=m_flow_turbulent);
         end if;  // from_dp
       end if; // homotopyInitialization
     end if; // linearized
@@ -56,8 +66,8 @@ equation
   annotation (defaultComponentName="res",
 Documentation(info="<html>
 <p>
-This is a model of a resistance with a fixed flow coefficient.
-The mass flow rate is computed as
+Model of a flow resistance with a fixed flow coefficient.
+The mass flow rate is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 m&#775; = k
@@ -129,6 +139,12 @@ models from the package
 Modelica.Fluid</a>
 can be used and combined with models from the
 <code>Annex60</code> library.
+</p>
+<p>
+For a model that uses the hydraulic parameter and flow velocity at nominal conditions
+as a parameter, use
+<a href=\"modelica://Annex60.Fluid.FixedResistances.HydraulicDiameter\">
+Annex60.Fluid.FixedResistances.HydraulicDiameter</a>.
 </p>
 <h4>Implementation</h4>
 <p>
