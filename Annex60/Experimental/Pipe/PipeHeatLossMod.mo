@@ -101,7 +101,9 @@ public
   BaseClasses.TimeDelay tau_used(
     diameter=diameter,
     rho=rho_default,
-    len=length)
+    len=length,
+    initDelay=initDelay,
+    m_flowInit=m_flowInit)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
@@ -112,9 +114,14 @@ public
   parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
 
   parameter Modelica.SIunits.Temperature T_ini_in=Medium.T_default
-    "Initialization temperature at pipe inlet" annotation (Dialog(group="Initialization"));
+    "Initialization temperature at pipe inlet" annotation (Dialog(tab="Initialization"));
   parameter Modelica.SIunits.Temperature T_ini_out=Medium.T_default
-    "Initialization temperature at pipe outlet" annotation (Dialog(group="Initialization"));
+    "Initialization temperature at pipe outlet" annotation (Dialog(tab="Initialization"));
+  parameter Boolean initDelay=false
+    "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.SIunits.MassFlowRate m_flowInit=0
+    annotation (Dialog(tab="Initialization", enable=initDelay));
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 

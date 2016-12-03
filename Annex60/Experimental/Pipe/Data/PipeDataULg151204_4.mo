@@ -4,6 +4,7 @@ record PipeDataULg151204_4
   extends Annex60.Experimental.Pipe.Data.BaseClasses.PipeDataULg( final n=5,
   T_ini_out = 27.680506,
   T_ini_in = 31.235366,
+  m_flowIni = 1.257222222,
   data=[
   0,1.257222222,27.097907,27.680506,30.530736,31.235366;
 6.11,1.257222222,27.118166,27.814851,31.70207,40.163225;
