@@ -9,8 +9,8 @@ model TimeDelay "Delay time for given normalized velocity"
   parameter Modelica.SIunits.Length len=100 "length";
   parameter Modelica.SIunits.Length diameter=0.05 "diameter of pipe";
   parameter Modelica.SIunits.Density rho=1000 "Standard density of fluid";
-  Modelica.SIunits.Time track_a;
-  Modelica.SIunits.Time track_b;
+  Modelica.SIunits.Time track_a(start=0);
+  Modelica.SIunits.Time track_b(start=0);
   Modelica.SIunits.Time tau_a;
   Modelica.SIunits.Time tau_b;
   Modelica.SIunits.Time inp_a(start=0);
@@ -24,16 +24,36 @@ model TimeDelay "Delay time for given normalized velocity"
     "Normalized fluid velocity";
   Real t=time;
   parameter Real eps=1e-10 "Dead band for zero flow criterium";
+  parameter Boolean initDelay=false
+    "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
+    annotation (Dialog(group="Initialization"));
+
+  final parameter Modelica.SIunits.Time tInStart= if initDelay then min(len/
+      m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi),0) else 0
+    "Initial value of input time at inlet";
+  final parameter Modelica.SIunits.Time tOutStart=if initDelay then min(-len/
+      m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi),0) else 0
+    "Initial value of input time at outlet";
 
   Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow of fluid" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.RealOutput tau(start=0) "Time delay"
+  Modelica.Blocks.Interfaces.RealOutput tau "Time delay"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   //initial equation
   //fr = false;
   //ff = true;
+
+  parameter Modelica.SIunits.MassFlowRate m_flowInit = 0
+    annotation (Dialog(group="Initialization", enable=initDelay));
+
+initial equation
+  if initDelay then
+    tau=abs(len/m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi));
+  else
+    tau=0;
+  end if;
 equation
   //Speed
   der(x) = u;
@@ -43,7 +63,7 @@ equation
     x,
     u >= 0,
     {0.0,1.0},
-    {0.0,0.0});
+    {tInStart,tOutStart});
 
   /*Annex60.Utilities.Math.Functions.smoothMax(
     time - TimeOut_a,

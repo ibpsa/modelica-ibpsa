@@ -43,8 +43,8 @@ model FirstTestULg
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow of the A60 temperature delay"
     annotation (Placement(transformation(extent={{56,30},{76,50}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In(redeclare package Medium
-      = Medium, m_flow_nominal=0.5)
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In(redeclare package Medium =
+        Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Annex60.Experimental.Pipe.Archive.PipeHeatLossKUL KULHeatLoss(
@@ -66,8 +66,8 @@ model FirstTestULg
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow from the KUL lossless pipe"
     annotation (Placement(transformation(extent={{56,-30},{76,-10}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULIn(redeclare package Medium
-      = Medium, m_flow_nominal=0.5)
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULIn(redeclare package Medium =
+        Medium, m_flow_nominal=0.5)
     "Temperature sensor of the inflow to the KUL lossless pipe"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Blocks.Sources.Constant const(k=273.15 + 18)
