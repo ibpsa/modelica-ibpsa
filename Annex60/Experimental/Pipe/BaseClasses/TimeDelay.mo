@@ -28,10 +28,11 @@ model TimeDelay "Delay time for given normalized velocity"
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(group="Initialization"));
 
-  final parameter Modelica.SIunits.Time tInStart= 0
+  final parameter Modelica.SIunits.Time tInStart= if initDelay then min(len/
+      m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi),0) else 0
     "Initial value of input time at inlet";
-  final parameter Modelica.SIunits.Time tOutStart=if initDelay then -len/
-      m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi) else 0
+  final parameter Modelica.SIunits.Time tOutStart=if initDelay then min(-len/
+      m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi),0) else 0
     "Initial value of input time at outlet";
 
   Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow of fluid" annotation (
@@ -44,12 +45,12 @@ model TimeDelay "Delay time for given normalized velocity"
   //fr = false;
   //ff = true;
 
-  parameter Modelica.SIunits.MassFlowRate m_flowInit(min=1e-12) = 1e-8
+  parameter Modelica.SIunits.MassFlowRate m_flowInit = 0
     annotation (Dialog(group="Initialization", enable=initDelay));
 
 initial equation
   if initDelay then
-    tau=len/m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi);
+    tau=abs(len/m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi));
   else
     tau=0;
   end if;
