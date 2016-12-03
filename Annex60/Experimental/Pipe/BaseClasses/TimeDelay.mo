@@ -30,7 +30,7 @@ model TimeDelay "Delay time for given normalized velocity"
 
   final parameter Modelica.SIunits.Time tInStart= 0
     "Initial value of input time at inlet";
-  final parameter Modelica.SIunits.Time tOutStart=if initDelay then len/
+  final parameter Modelica.SIunits.Time tOutStart=if initDelay then -len/
       m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi) else 0
     "Initial value of input time at outlet";
 
