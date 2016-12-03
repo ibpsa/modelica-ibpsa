@@ -96,13 +96,13 @@ def _write_csv(file_name, d):
     # Set all series to have the same length
     for key in d.keys():
         if len(d[key]) != n:
-            d[key] = [d[key][0] for x in range(n)]
-            #if key == 'time':
-            #    d[key] = np.linspace( \
-            #       np.float64(d[key][0]), \
-            #       np.float64(d[key][-1]), n).tolist()
-            #else:
-            #    d[key] = [d[key][0] for x in range(n)]
+            #d[key] = [d[key][0] for x in range(n)]
+            if ((key == 'time') and (len(d[key])<3)):
+                d[key] = np.linspace( \
+                   np.float64(d[key][0]), \
+                   np.float64(d[key][-1]), n).tolist()
+            else:
+                d[key] = [d[key][0] for x in range(n)]
 
     # Write data as csv file
     with open(file_name, 'w') as f:
