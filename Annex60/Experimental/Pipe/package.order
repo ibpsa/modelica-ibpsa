@@ -1,6 +1,5 @@
 PipeLosslessPlugFlow
 PipeAdiabaticPlugFlow
-PipeHeatLoss
 PipeHeatLossMod
 DoublePipe_PipeDelay
 DoublePipeParallel

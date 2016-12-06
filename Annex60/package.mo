@@ -560,6 +560,6 @@ to solve specific problems.
 </p>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={Bitmap(extent={{-90,90},{90,-90}},
+        graphics={Bitmap(extent={{-90,-90},{90,90}},
         fileName="modelica://Annex60/Resources/Images/iea-ebc-logo.png")}));
 end Annex60;

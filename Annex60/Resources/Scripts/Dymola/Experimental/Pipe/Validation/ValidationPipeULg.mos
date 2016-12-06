@@ -16,7 +16,7 @@ createPlot(id = 1,
  createPlot(id = 1,
  position = {55, 50, 697, 502},
  x = "time",
- y = {"DataReader.y[3]","senTem_out.T"},
+ y = {"DataReader.y[3]","senTem_out.T", "pipe.pipeAdiabaticPlugFlow.senTemDelay.T"},
  range = {0, 600, 1, 0},
  autoscale = true,
  autoerase = true,
@@ -26,4 +26,3 @@ createPlot(id = 1,
  subPlot=2,
  leftTitleType = 1,
  bottomTitleType = 1);
-
