@@ -2,8 +2,7 @@ within Annex60.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
     extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
      show_T=false,
-     dp(start=0,
-        nominal=if dp_nominal_pos > Modelica.Constants.eps
+     dp(nominal=if dp_nominal_pos > Modelica.Constants.eps
           then dp_nominal_pos else 1),
      m_flow(
         nominal=if m_flow_nominal_pos > Modelica.Constants.eps
@@ -29,9 +28,10 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
 protected
   parameter Medium.ThermodynamicState sta_default=
      Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
-  parameter Modelica.SIunits.DynamicViscosity eta_default=Medium.dynamicViscosity(sta_default)
+  parameter Modelica.SIunits.DynamicViscosity eta_default=
+      Medium.dynamicViscosity(sta_default)
     "Dynamic viscosity, used to compute transition to turbulent flow regime";
-
+    // FIXME: eta_default could be moved to Fluid.FixedResistances.FixedResistance_dh since it's only used there
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal)
     "Absolute value of nominal flow rate";
   final parameter Modelica.SIunits.PressureDifference dp_nominal_pos(displayUnit="Pa") = abs(dp_nominal)
@@ -86,6 +86,13 @@ this base class.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Removed start value for pressure difference
+to simplify the parameter window.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/552\">#552</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Avoided assignment of <code>dp(nominal=0)</code> if <code>dp_nominal_pos = 0</code>

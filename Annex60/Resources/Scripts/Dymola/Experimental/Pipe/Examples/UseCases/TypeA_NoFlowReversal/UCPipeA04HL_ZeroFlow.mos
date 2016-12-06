@@ -1,0 +1,13 @@
+translateModel("Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal.UCPipeA04HL_ZeroFlow")
+simulateModel("Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal.UCPipeA04HL_ZeroFlow", stopTime=40000, numberOfIntervals=0, outputInterval=1, method="dassl", resultFile="UCPipeA04HL_ZeroFlow");
+
+removePlots();
+Advanced.FilenameInLegend = false;
+Advanced.SequenceInLegend = true;
+Advanced.PlotLegendTooltip = true;
+Advanced.FullPlotTooltip = true;
+Advanced.DefaultAutoErase = true;
+Advanced.Legend.Horizontal = true;
+createPlot(id=1, position={15, 10, 866, 751}, y={"pipeAd.heatPort.Q_flow"}, range={0.0, 40000.0, -20000.0, 5000.0}, grid=true, filename="UCPipeA04HL_ZeroFlow.mat", colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 866, 247}, y={"pipeAd.heatLoss.Tin_a", "pipeAd.heatLoss.Tout_b"}, range={0.0, 40000.0, 10.0, 70.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 866, 246}, y={"masFloSer.m_flow"}, range={0.0, 40000.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}});

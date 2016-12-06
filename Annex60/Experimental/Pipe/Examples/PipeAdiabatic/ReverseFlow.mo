@@ -9,7 +9,7 @@ model ReverseFlow
   PipeAdiabaticPlugFlow pipeAdiabaticPlugFlow(
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium,
-    diameter=0.1,
+    dh=0.1,
     length=100)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Sources.Boundary_pT sin1(

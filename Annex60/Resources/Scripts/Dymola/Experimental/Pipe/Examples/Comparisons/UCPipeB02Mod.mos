@@ -1,0 +1,18 @@
+translateModel("Annex60.Experimental.Pipe.Examples.Comparisons.UCPipeB02Mod");
+simulateModel("Annex60.Experimental.Pipe.Examples.Comparisons.UCPipeB02Mod", stopTime=200000, numberOfIntervals=0, outputInterval=1, method="dassl", resultFile="UCPipeB02Mod");
+
+removePlots();
+Advanced.FilenameInLegend = false;
+Advanced.SequenceInLegend = true;
+Advanced.PlotLegendTooltip = true;
+Advanced.FullPlotTooltip = true;
+Advanced.DefaultAutoErase = true;
+Advanced.Legend.Horizontal = true;
+createPlot(id=1, position={15, 10, 816, 729}, y={"pipeAd.tau_used.tau", "pipeAdMod.tau_used.tau"}, range={0.0, 200000.0, -5000.0, 55000.0}, grid=true, filename="UCPipeB02Mod.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 816, 224}, y={"masFloSer.m_flow", "masFloSerMod.m_flow"}, range={0.0, 200000.0, -1.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={848, 10, 1085, 1015}, y={"pipeAd.heatPort.Q_flow", "pipeAdMod.heatPort.Q_flow"}, range={0.0, 200000.0, -90000.0, 10000.0}, grid=true, filename="UCPipeB02Mod.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={848, 10, 1085, 205}, y={"pipeAd.heatLoss.Tin_a", "pipeAd.heatLoss.Tout_b", "pipeAdMod.heatLoss.Tout_b"}, range={0.0, 200000.0, 0.0, 80.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={848, 10, 1085, 249}, y={"pipeAd.reverseHeatLoss.Tin_a", "pipeAd.reverseHeatLoss.Tout_b", 
+"pipeAdMod.reverseHeatLoss.Tout_b"}, range={0.0, 200000.0, 0.0, 70.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={848, 10, 1085, 249}, y={"masFloSer.m_flow"}, range={0.0, 200000.0, -1.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
+

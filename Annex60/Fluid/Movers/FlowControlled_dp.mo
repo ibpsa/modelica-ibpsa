@@ -18,8 +18,8 @@ model FlowControlled_dp
           per.pressure
         else
           Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-            V_flow=  {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
-            dp=      {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
+            V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
+            dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
       final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false)));
 
   parameter Modelica.SIunits.PressureDifference dp_start(
@@ -42,9 +42,11 @@ model FlowControlled_dp
     "Constant pump head, used when inputType=Constant"
     annotation(Dialog(enable=inputType == Annex60.Fluid.Types.InputType.Constant));
 
+  // By default, set heads proportional to sqrt(speed/speed_nominal)
   parameter Modelica.SIunits.PressureDifference[:] heads(
     each min=0,
-    each displayUnit="Pa") = dp_nominal*{1}
+    each displayUnit="Pa")=
+    dp_nominal*{(per.speeds[i]/per.speeds[end])^2 for i in 1:size(per.speeds, 1)}
     "Vector of head set points, used when inputType=Stages"
     annotation(Dialog(enable=inputType == Annex60.Fluid.Types.InputType.Stages));
 
@@ -123,6 +125,12 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
+November 14, 2016, by Michael Wetter:<br/>
+Changed default values for <code>heads</code>.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/583\">#583</a>.
+</li>
+<li>
 March 2, 2016, by Filip Jorissen:<br/>
 Refactored model such that it directly extends <code>PartialFlowMachine</code>.
 This is for
@@ -157,7 +165,7 @@ and
 <a href=\"modelica://Annex60.Fluid.Movers.FlowControlled_y\">
 Annex60.Fluid.Movers.FlowControlled_y</a>.<br/>
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/457\">
 issue 457</a>.
 <li>
 April 2, 2015, by Filip Jorissen:<br/>

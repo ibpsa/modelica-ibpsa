@@ -1,0 +1,12 @@
+simulateModel("Annex60.Experimental.Pipe.Examples.UseCases.TypeS_Development.UCPipeS01AD_MSL_Friction", stopTime=20000, numberOfIntervals=0, outputInterval=1, method="dassl", resultFile="UCPipeS01AD_MSL_Friction");
+
+// Plot commands
+removePlots();
+Advanced.FilenameInLegend = false;
+Advanced.SequenceInLegend = true;
+Advanced.PlotLegendTooltip = true;
+Advanced.FullPlotTooltip = true;
+Advanced.DefaultAutoErase = true;
+Advanced.Legend.Horizontal = true;
+createPlot(id=1, position={35, 30, 1166, 653}, y={"masFloSin.m_flow", "masFloSer.m_flow"}, range={0.0, 20000.0, -1.0, 1.0}, grid=true, filename="UCPipeS01AD_MSL_Friction.mat", colors={{28,108,200}, {238,46,47}});
+

@@ -18,7 +18,10 @@ model HeatLossDoublePipeDelay
     "Temperature at port_a for in-flowing fluid";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Tout_b
     "Temperature at port_b for out-flowing fluid";
+  Modelica.SIunits.Temperature T_amb=heatPort.T "Environment temperature";
   Real lambda;
+  Modelica.SIunits.HeatFlowRate Qloss "Heat losses from pipe to environment";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5;
 
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -30,7 +33,7 @@ protected
     "Heat capacity of medium";
 
 public
-  Modelica.Blocks.Interfaces.RealInput T_amb(unit="K", displayUnit="degC")
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Ambient temperature of pipe's surroundings" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
@@ -53,6 +56,13 @@ public
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={-60,100})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,46})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=Qloss)
+    annotation (Placement(transformation(extent={{-38,-10},{-18,10}})));
 equation
   dp = 0;
 
@@ -71,27 +81,29 @@ equation
   // Heat losses
   lambda = Modelica.Math.exp(Tau_in/tau_char);
 
-  Tout_b = T_amb + (4*lambda*sqrt(Ra*Rs)*(Tin_a - T_amb) + (lambda^2 - 1)*(Rs -
-    Ra)*(T_2in - T_amb))/(lambda^2*(Rs + Ra + 2*sqrt(Rs*Ra)) - (Rs + Ra - 2*
+  Tout_b = T_amb + (4*lambda*sqrt(Ra*Rs)*(Tin_a - T_amb) + (lambda^2 - 1)*(Rs
+     - Ra)*(T_2in - T_amb))/(lambda^2*(Rs + Ra + 2*sqrt(Rs*Ra)) - (Rs + Ra - 2*
     sqrt(Rs*Ra)));
 
   T_2out = Tin_a;
 
+  Qloss = Annex60.Utilities.Math.Functions.spliceFunction(
+    pos=(Tin_a - Tout_b)*cp_default,
+    neg=0,
+    x=port_a.m_flow,
+    deltax=m_flow_nominal/1000)*port_a.m_flow;
+
+  connect(heatPort, prescribedHeatFlow.port)
+    annotation (Line(points={{0,100},{0,56}}, color={191,0,0}));
+  connect(prescribedHeatFlow.Q_flow, realExpression.y) annotation (Line(points=
+          {{-4.44089e-016,36},{0,36},{0,0},{-17,0}}, color={0,0,127}));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={
         Rectangle(
           extent={{-80,80},{80,-68}},
           lineColor={255,255,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(extent={{-82,80},{-40,38}}, lineColor={28,108,200}),
-        Ellipse(
-          extent={{-82,80},{-40,38}},
-          lineColor={28,108,200},
-          startAngle=30,
-          endAngle=90,
-          fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-52,2},{42,2},{42,8},{66,0},{42,-8},{42,-2},{-52,-2},{-52,2}},
@@ -102,7 +114,21 @@ equation
           points={{0,60},{38,2},{20,2},{20,-46},{-18,-46},{-18,2},{-36,2},{0,60}},
           lineColor={0,0,0},
           fillColor={238,46,47},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-80,80},{-38,38}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{24,22},{-24,-22}},
+          lineColor={28,108,200},
+          startAngle=30,
+          endAngle=90,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid,
+          origin={-40,80},
+          rotation=180)}),
     Documentation(info="<html>
 <p><span style=\"font-family: MS Shell Dlg 2;\">Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code></span><span style=\"font-family: Courier New,courier;\">PipeAdiabaticPlugFlow</code></span><span style=\"font-family: MS Shell Dlg 2;\"> model.</span></p>
 <p><span style=\"font-family: MS Shell Dlg 2;\">This component requires the delay time and the instantaneous ambient temperature as an input. This component is to be used in double pipes and models influence from other pipes for flow in both directions. </span></p>
@@ -112,6 +138,6 @@ equation
 <li>September, 2015 by Marcus Fuchs:<br>First implementation. </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end HeatLossDoublePipeDelay;

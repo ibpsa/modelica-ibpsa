@@ -171,5 +171,8 @@ First implementation</li>
           preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-180,-120},{180,120}})),
     experiment(StopTime=2000, Interval=1),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Experimental/Pipe/Examples/UseCases/TypeS_Development/UCPipeS01AD_MSL_Friction.mos"
+        "Simulate and Plot"));
 end UCPipeS01AD_MSL_Friction;
