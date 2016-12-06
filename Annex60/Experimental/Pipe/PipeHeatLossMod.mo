@@ -23,13 +23,31 @@ model PipeHeatLossMod
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
-  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
+  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/
+      Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
+  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
+      diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
     "Heat conductivity";
 
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
   // fixme: propagate use_dh and set default to false
+
+
+  PipeAdiabaticPlugFlow pipeAdiabaticPlugFlow(
+    redeclare final package Medium = Medium,
+    final m_flow_small=m_flow_small,
+    final allowFlowReversal=allowFlowReversal,
+    dh=diameter,
+    length=length,
+    m_flow_nominal=m_flow_nominal,
+    from_dp=from_dp,
+    thickness=thickness,
+    T_ini_in=T_ini_in,
+    T_ini_out=T_ini_out)
+    "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
 
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -52,19 +70,6 @@ protected
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation (Dialog(group="Advanced", enable=use_mu_default));
 
-  PipeAdiabaticPlugFlow pipeAdiabaticPlugFlow(
-    redeclare final package Medium = Medium,
-    final m_flow_small=m_flow_small,
-    final allowFlowReversal=allowFlowReversal,
-    dh=diameter,
-    length=length,
-    m_flow_nominal=m_flow_nominal,
-    Lcap=Lcap,
-    pipVol=pipVol,
-    from_dp=from_dp)
-    "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(state=sta_default)
     "Heat capacity of medium";
@@ -77,7 +82,8 @@ public
     thicknessIns=thicknessIns,
     C=C,
     R=R,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    T_ini=T_ini_in)
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
 
   BaseClasses.HeatLossPipeDelay heatLoss(
@@ -87,38 +93,46 @@ public
     thicknessIns=thicknessIns,
     C=C,
     R=R,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    T_ini=T_ini_out)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.TimeDelayMod        tau_used(length=length, diameter=
-        diameter,
+  BaseClasses.TimeDelayMod tau_used(
+    length=length,
+    diameter=diameter,
     rho=rho_default)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  parameter Modelica.SIunits.Length Lcap=1
-    "Length over which transient effects typically take place";
-  parameter Boolean pipVol=true
-    "Flag to decide whether volumes are included at the end points of the pipe";
+
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
+
+  parameter Modelica.SIunits.Temperature T_ini_in=Medium.T_default
+    "Initialization temperature at pipe inlet" annotation (Dialog(tab="Initialization"));
+  parameter Modelica.SIunits.Temperature T_ini_out=Medium.T_default
+    "Initialization temperature at pipe outlet" annotation (Dialog(tab="Initialization"));
+  parameter Boolean initDelay=false
+    "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.SIunits.MassFlowRate m_flowInit=0
+    annotation (Dialog(tab="Initialization", enable=initDelay));
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
   connect(port_a, reverseHeatLoss.port_b)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
-    annotation (Line(points={{10,0},{40,0}},        color={0,127,255}));
+    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   connect(port_b, heatLoss.port_b)
-    annotation (Line(points={{100,0},{60,0}},        color={0,127,255}));
+    annotation (Line(points={{100,0},{60,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
-    annotation (Line(points={{-10,0},{-18,0},{-24,0}},
-                                               color={0,127,255}));
+    annotation (Line(points={{-10,0},{-18,0},{-24,0}}, color={0,127,255}));
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
-    annotation (Line(points={{-44,0},{-52,0},{-60,0}},
-                                               color={0,127,255}));
+    annotation (Line(points={{-44,0},{-52,0},{-60,0}}, color={0,127,255}));
   connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(
       points={{-34,-11},{-34,-40},{-12,-40}},
       color={0,0,127},
@@ -132,8 +146,8 @@ equation
   connect(tau_used.tau, heatLoss.tau) annotation (Line(points={{11,-44},{32,-44},
           {32,28},{44,28},{44,10}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
