@@ -98,12 +98,11 @@ public
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.TimeDelay tau_used(
+  BaseClasses.TimeDelayMod
+                        tau_used(
     diameter=diameter,
     rho=rho_default,
-    len=length,
-    initDelay=initDelay,
-    m_flowInit=m_flowInit)
+    length=length)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
@@ -143,9 +142,9 @@ equation
           {-70,40},{0,40},{0,100}}, color={191,0,0}));
   connect(heatLoss.heatPort, heatPort) annotation (Line(points={{50,10},{50,40},
           {0,40},{0,100}}, color={191,0,0}));
-  connect(tau_used.tauRev, reverseHeatLoss.tau) annotation (Line(points={{23,
-          -50},{26,-50},{26,28},{-64,28},{-64,10}}, color={0,0,127}));
-  connect(tau_used.tau, heatLoss.tau) annotation (Line(points={{23,-58},{32,-58},
+  connect(tau_used.tauRev, reverseHeatLoss.tau) annotation (Line(points={{11,-36},
+          {26,-36},{26,28},{-64,28},{-64,10}},      color={0,0,127}));
+  connect(tau_used.tau, heatLoss.tau) annotation (Line(points={{11,-44},{32,-44},
           {32,28},{44,28},{44,10}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
