@@ -30,8 +30,9 @@ model PipeHeatLossMod
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
     "Heat conductivity";
 
-  parameter Modelica.SIunits.HeatCapacity walCap=length*((diameter + 2*thickness)^2 -
-      diameter^2)*Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
+  parameter Modelica.SIunits.HeatCapacity walCap=length*((diameter + 2*
+      thickness)^2 - diameter^2)*Modelica.Constants.pi/4*cpipe*rho_wall
+    "Heat capacity of pipe wall";
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe=500 "For steel";
   parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
   final parameter Modelica.SIunits.Volume V=walCap/(rho_default*cp_default)
@@ -135,8 +136,7 @@ public
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     V=V,
-    nPorts=1+nPorts)
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    nPorts=nPorts+1) annotation (Placement(transformation(extent={{60,20},{80,40}})));
 equation
   //heat_losses = actualStream(ports_b.h_outflow) - actualStream(port_a.h_outflow);
 
@@ -165,12 +165,14 @@ equation
   connect(heatLoss.heatPort, heatPort) annotation (Line(points={{50,10},{50,40},
           {0,40},{0,100}}, color={191,0,0}));
 
-  annotation (Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}));
-  connect(ports_b, vol.ports)
-    annotation (Line(points={{100,0},{70,0},{70,20}}, color={0,127,255}));
-  connect(heatLoss.port_b, vol.ports[nPorts+1])
+
+  connect(heatLoss.port_b, vol.ports[1])
     annotation (Line(points={{60,0},{70,0},{70,20}}, color={0,127,255}));
+  connect(vol.ports[2:nPorts+1], ports_b[:]) annotation (Line(points={{70,20},{
+          72,20},{72,0},{100,0}},
+                       color={0,127,255}));
   annotation (
+    Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

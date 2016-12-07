@@ -22,10 +22,11 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     m_flow_nominal=m_flow_nominal,
     thickness=3.9e-3,
     T_ini_out=T_ini_out,
-    T_ini_in=T_ini_in)   annotation (Placement(transformation(
+    T_ini_in=T_ini_in,
+    nPorts=1)            annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-34,0})));
+        origin={-30,0})));
   Fluid.HeatExchangers.HeaterCooler_T Boiler(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -62,7 +63,7 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-34,70})));
+        origin={-30,70})));
   Modelica.Blocks.Math.UnitConversions.From_degC Tin
     "Input temperature into pipe"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
@@ -88,23 +89,23 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(fixedTemperature.port, pipe.heatPort)
-    annotation (Line(points={{-34,60},{-34,35},{-34,10}}, color={191,0,0}));
+    annotation (Line(points={{-30,60},{-30,10}},          color={191,0,0}));
   connect(DataReader.y[5], Tin.u)
     annotation (Line(points={{21,-50},{29.5,-50},{38,-50}}, color={0,0,127}));
   connect(Tin.y, Boiler.TSet) annotation (Line(points={{61,-50},{61,-50},{92,-50},
           {92,26},{54,26},{54,6},{46,6}}, color={0,0,127}));
   connect(pipe.port_a, senTem_in.port_b)
-    annotation (Line(points={{-24,0},{-10,0}}, color={0,127,255}));
+    annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
   connect(senTem_in.port_a, Boiler.port_b)
     annotation (Line(points={{10,0},{24,0}}, color={0,127,255}));
-  connect(pipe.port_b, senTem_out.port_a)
-    annotation (Line(points={{-44,0},{-52,0},{-60,0}}, color={0,127,255}));
   connect(Sewer1.ports[1], senTem_out.port_b) annotation (Line(points={{-100,-1.11022e-015},
           {-90,-1.11022e-015},{-90,0},{-80,0}}, color={0,127,255}));
   connect(gain.y, WaterCityNetwork.m_flow_in) annotation (Line(points={{73,-20},
           {88,-20},{88,8},{80,8}}, color={0,0,127}));
   connect(DataReader.y[1], gain.u) annotation (Line(points={{21,-50},{32,-50},{32,
           -20},{50,-20}}, color={0,0,127}));
+  connect(senTem_out.port_a, pipe.ports_b[1])
+    annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
