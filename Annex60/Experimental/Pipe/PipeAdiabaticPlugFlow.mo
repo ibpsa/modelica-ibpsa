@@ -105,13 +105,20 @@ public
   parameter Modelica.SIunits.Temperature T_ini_out=Medium.T_default
     "Initial temperature in pipe at outlet" annotation (Dialog(group="Initialization"));
 
+  Fluid.Sensors.TemperatureTwoPort senTem_delay(
+    m_flow_nominal=m_flow_nominal,
+    tau=0,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
   connect(port_a, res.port_a)
     annotation (Line(points={{-100,0},{-70,0},{-40,0}}, color={0,127,255}));
   connect(res.port_b, temperatureDelay.port_a)
     annotation (Line(points={{-20,0},{0,0}}, color={0,127,255}));
-  connect(temperatureDelay.port_b, port_b)
-    annotation (Line(points={{20,0},{100,0},{100,0}}, color={0,127,255}));
+  connect(temperatureDelay.port_b, senTem_delay.port_a)
+    annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
+  connect(senTem_delay.port_b, port_b)
+    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),

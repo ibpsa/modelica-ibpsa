@@ -3,7 +3,7 @@ model PipeHeatLossMod
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
   extends Annex60.Fluid.Interfaces.PartialTwoPort_vector;
 
-  output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
+  //output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
@@ -134,7 +134,8 @@ public
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     V=V,
-    nPorts=nPorts+1)
+    nPorts=nPorts+1,
+    T_start=T_ini_out)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 equation
   //heat_losses = actualStream(ports_b.h_outflow) - actualStream(port_a.h_outflow);
@@ -148,7 +149,6 @@ equation
   connect(heatLoss.heatPort, heatPort) annotation (Line(points={{50,10},{50,40},
           {0,40},{0,100}}, color={191,0,0}));
 
-  connect(heatLoss.port_b, vol.ports[nPorts+1]);
   connect(tau_used.tauRev, reverseHeatLoss.tau) annotation (Line(points={{11,-36},
           {26,-36},{26,28},{-64,28},{-64,10}}, color={0,0,127}));
   connect(tau_used.tau, heatLoss.tau) annotation (Line(points={{11,-44},{32,-44},

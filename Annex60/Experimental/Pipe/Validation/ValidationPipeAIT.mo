@@ -151,8 +151,8 @@ extends Modelica.Icons.Example;
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-2})));
-  Fluid.Sources.FixedBoundary ExcludedBranch(          redeclare package Medium
-      = Medium, nPorts=1)
+  Fluid.Sources.FixedBoundary ExcludedBranch(          redeclare package Medium =
+        Medium, nPorts=1)
                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -252,11 +252,11 @@ equation
   connect(pip3.ports_b[1], senTem_p3.port_a) annotation (Line(points={{-46,-14},
           {-46,-24},{-46,-24}}, color={0,127,255}));
   connect(pip5.ports_b[2], senTemIn_p2.port_b) annotation (Line(points={{-20,12},
-          {-32,12},{-32,12},{-60,12},{-60,10}}, color={0,127,255}));
+          {-32,12},{-60,12},{-60,10}},          color={0,127,255}));
   connect(pip2.port_a, senTemIn_p2.port_a)
     annotation (Line(points={{-88,20},{-88,10},{-80,10}}, color={0,127,255}));
   connect(pip2.ports_b[1], senTem_p2.port_a)
-    annotation (Line(points={{-88,40},{-88,46},{-88,46}}, color={0,127,255}));
+    annotation (Line(points={{-88,40},{-88,46}},          color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(StopTime=603900),
