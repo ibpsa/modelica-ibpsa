@@ -104,8 +104,8 @@ equation
           {88,-20},{88,8},{80,8}}, color={0,0,127}));
   connect(DataReader.y[1], gain.u) annotation (Line(points={{21,-50},{32,-50},{32,
           -20},{50,-20}}, color={0,0,127}));
-  connect(senTem_out.port_a, pipe.ports_b[1])
-    annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
+  connect(pipe.ports_b[1], senTem_out.port_a)
+    annotation (Line(points={{-40,0},{-50,0},{-60,0}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),

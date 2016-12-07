@@ -41,7 +41,8 @@ extends Modelica.Icons.Example;
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=115,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    nPorts=2)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PipeHeatLossMod pip4(
     redeclare package Medium = Medium,
@@ -51,7 +52,8 @@ extends Modelica.Icons.Example;
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    nPorts=1)                            annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={8,38})));
@@ -63,7 +65,8 @@ extends Modelica.Icons.Example;
     lambdaI=0.024,
     thicknessIns=0.045,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    nPorts=2)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
   PipeHeatLossMod pip2(
     redeclare package Medium = Medium,
@@ -73,8 +76,9 @@ extends Modelica.Icons.Example;
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+    allowFlowReversal=allowFlowReversal,
+    nPorts=1)                            annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-88,30})));
   PipeHeatLossMod pip3(
@@ -85,8 +89,9 @@ extends Modelica.Icons.Example;
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
+    allowFlowReversal=allowFlowReversal,
+    nPorts=1)                            annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-4})));
   Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataAIT151218.data)
@@ -141,12 +146,14 @@ extends Modelica.Icons.Example;
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=20,
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    nPorts=2)                            annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-2})));
-  Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium
-      = Medium) annotation (Placement(transformation(
+  Fluid.Sources.FixedBoundary ExcludedBranch(          redeclare package Medium
+      = Medium, nPorts=1)
+                annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,70})));
@@ -176,10 +183,6 @@ extends Modelica.Icons.Example;
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=-0.001)
     annotation (Placement(transformation(extent={{78,90},{72,96}})));
 equation
-  connect(pip5.port_a, pip1.port_b) annotation (Line(
-      points={{0,10},{30,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
       points={{-58,-70},{-54,-70},{-54,-68}},
       color={0,0,127},
@@ -191,14 +194,6 @@ equation
   connect(T_p1.y, Point1.T_in) annotation (Line(
       points={{60,-64},{78,-64},{78,-54}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(pip0.port_b, pip1.port_a) annotation (Line(
-      points={{80,8},{80,10},{50,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip0.port_b, ExcludedBranch.ports[1]) annotation (Line(
-      points={{80,8},{80,60}},
-      color={0,127,255},
       smooth=Smooth.None));
   connect(DataReader.y[5], Point1.m_flow_in) annotation (Line(
       points={{21,-90},{26,-90},{26,-72},{74,-72},{74,-52}},
@@ -228,8 +223,7 @@ equation
   connect(Point1.ports[1], senTem_p1.port_b)
     annotation (Line(points={{82,-32},{82,-32},{34,-32}}, color={0,127,255}));
   connect(senTem_p1.port_a, pip0.port_a) annotation (Line(points={{34,-12},{70,
-          -12},{70,-12},{80,-12},{80,-12}},
-                                       color={0,127,255}));
+          -12},{80,-12}},              color={0,127,255}));
   connect(switch.u1, m_flow_p4.y) annotation (Line(points={{56,114},{72,114},{
           72,120},{86,120}},
                           color={0,0,127}));
@@ -243,20 +237,26 @@ equation
                                                            color={255,0,255}));
   connect(lessThreshold.u, m_flow_p4.y)
     annotation (Line(points={{78.6,93},{78.6,120},{86,120}}, color={0,0,127}));
-  connect(senTemIn_p2.port_b, pip5.port_b)
-    annotation (Line(points={{-60,10},{-40,10},{-20,10}}, color={0,127,255}));
-  connect(pip3.port_b, pip5.port_b)
-    annotation (Line(points={{-46,6},{-46,10},{-20,10}}, color={0,127,255}));
-  connect(pip3.port_a, senTem_p3.port_a) annotation (Line(points={{-46,-14},{
-          -46,-24},{-46,-24}}, color={0,127,255}));
-  connect(senTem_p2.port_a, pip2.port_a)
-    annotation (Line(points={{-88,46},{-88,43},{-88,40}}, color={0,127,255}));
-  connect(pip2.port_b, senTemIn_p2.port_a)
-    annotation (Line(points={{-88,20},{-88,10},{-80,10}}, color={0,127,255}));
   connect(senTem_p4.port_a, pip4.port_a)
     annotation (Line(points={{8,52},{8,50},{8,48}}, color={0,127,255}));
-  connect(pip4.port_b, pip1.port_b)
-    annotation (Line(points={{8,28},{8,10},{30,10}}, color={0,127,255}));
+  connect(ExcludedBranch.ports[1], pip0.ports_b[1])
+    annotation (Line(points={{80,60},{80,8},{78,8}}, color={0,127,255}));
+  connect(pip1.port_a, pip0.ports_b[2]) annotation (Line(points={{50,10},{62,10},
+          {62,12},{82,12},{82,8}}, color={0,127,255}));
+  connect(pip5.port_a, pip1.ports_b[1])
+    annotation (Line(points={{0,10},{30,10},{30,8}}, color={0,127,255}));
+  connect(pip4.ports_b[1], pip1.ports_b[2]) annotation (Line(points={{8,28},{10,
+          28},{10,14},{10,12},{30,12}}, color={0,127,255}));
+  connect(pip5.ports_b[1], pip3.port_a)
+    annotation (Line(points={{-20,8},{-46,8},{-46,6}}, color={0,127,255}));
+  connect(pip3.ports_b[1], senTem_p3.port_a) annotation (Line(points={{-46,-14},
+          {-46,-24},{-46,-24}}, color={0,127,255}));
+  connect(pip5.ports_b[2], senTemIn_p2.port_b) annotation (Line(points={{-20,12},
+          {-32,12},{-32,12},{-60,12},{-60,10}}, color={0,127,255}));
+  connect(pip2.port_a, senTemIn_p2.port_a)
+    annotation (Line(points={{-88,20},{-88,10},{-80,10}}, color={0,127,255}));
+  connect(pip2.ports_b[1], senTem_p2.port_a)
+    annotation (Line(points={{-88,40},{-88,46},{-88,46}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(StopTime=603900),

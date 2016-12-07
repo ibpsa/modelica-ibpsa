@@ -134,18 +134,11 @@ public
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     V=V,
-    nPorts=nPorts+1) annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    nPorts=nPorts+1)
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
 equation
   //heat_losses = actualStream(ports_b.h_outflow) - actualStream(port_a.h_outflow);
 
-  connect(port_a, reverseHeatLoss.port_b)
-    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
-  connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
-    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
-    annotation (Line(points={{-10,0},{-18,0},{-24,0}}, color={0,127,255}));
-  connect(senMasFlo.port_a, reverseHeatLoss.port_a)
-    annotation (Line(points={{-44,0},{-52,0},{-60,0}}, color={0,127,255}));
   connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(
       points={{-34,-11},{-34,-40},{-12,-40}},
       color={0,0,127},
@@ -155,15 +148,24 @@ equation
   connect(heatLoss.heatPort, heatPort) annotation (Line(points={{50,10},{50,40},
           {0,40},{0,100}}, color={191,0,0}));
 
-  connect(heatLoss.port_b, vol.ports[1])
-    annotation (Line(points={{60,0},{70,0},{70,20}}, color={0,127,255}));
-  connect(vol.ports[2:nPorts+1], ports_b[:]) annotation (Line(points={{70,20},{
-          72,20},{72,0},{100,0}},
-                       color={0,127,255}));
+  connect(heatLoss.port_b, vol.ports[nPorts+1]);
   connect(tau_used.tauRev, reverseHeatLoss.tau) annotation (Line(points={{11,-36},
-          {26,-36},{26,28},{-64,28},{-64,10}},      color={0,0,127}));
+          {26,-36},{26,28},{-64,28},{-64,10}}, color={0,0,127}));
   connect(tau_used.tau, heatLoss.tau) annotation (Line(points={{11,-44},{32,-44},
           {32,28},{44,28},{44,10}}, color={0,0,127}));
+
+  connect(heatLoss.port_b, vol.ports[1])
+    annotation (Line(points={{60,0},{70,0},{70,20}}, color={0,127,255}));
+  connect(vol.ports[2:nPorts+1], ports_b[1:nPorts]) annotation (Line(points={{70,20},{72,20},{72,6},{72,
+          0},{100,0}}, color={0,127,255}));
+  connect(port_a, reverseHeatLoss.port_b)
+    annotation (Line(points={{-100,0},{-80,0},{-80,0}}, color={0,127,255}));
+  connect(reverseHeatLoss.port_a, senMasFlo.port_a)
+    annotation (Line(points={{-60,0},{-52,0},{-44,0}}, color={0,127,255}));
+  connect(senMasFlo.port_b, pipeAdiabaticPlugFlow.port_a)
+    annotation (Line(points={{-24,0},{-17,0},{-10,0}}, color={0,127,255}));
+  connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
+    annotation (Line(points={{10,0},{40,0},{40,0}}, color={0,127,255}));
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

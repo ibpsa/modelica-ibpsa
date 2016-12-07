@@ -3,8 +3,8 @@ partial model PartialTwoPort_vector "Partial component with two ports"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
-  parameter Integer nPorts=1 "Number of ports"
-    annotation(Evaluate=true, Dialog(tab="General",group="Ports"));
+  parameter Integer nPorts=0 "Number of ports"
+    annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"), Evaluate=true);
