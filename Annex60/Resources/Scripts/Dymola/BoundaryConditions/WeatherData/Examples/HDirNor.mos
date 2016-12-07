@@ -1,0 +1,22 @@
+removePlots();
+simulateModel("Annex60.BoundaryConditions.WeatherData.Examples.HDirNor", stopTime=86400, outputInterval=3600, method="dassl", tolerance=1e-06, resultFile="HDirNor");
+createPlot(id=1, 
+ position={0, 0, 1215, 567}, 
+ y={"weaDatInpCon.HGloHor_in", "weaDatInpCon.HDifHor_in"}, 
+ range={0.0, 90000.0, -20.0, 120.0}, 
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true, 
+ filename="HDirNor.mat", 
+ colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, 
+ position={0, 0, 1215, 281}, 
+ y={"weaDatInpCon.weaBus.HDirNor"}, 
+ range={0.0, 90000.0, -200.0, 1400.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true, 
+ grid=true, 
+ subPlot=2, 
+ colors={{28,108,200}});
