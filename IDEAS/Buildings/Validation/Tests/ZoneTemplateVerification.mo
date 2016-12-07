@@ -1,19 +1,8 @@
 within IDEAS.Buildings.Validation.Tests;
 model ZoneTemplateVerification
+  "Model for checking result difference between template and non-template version of case 900"
   import IDEAS;
   extends Modelica.Icons.Example;
-  IDEAS.Buildings.Components.Window win(
-    final A=6,
-    redeclare final parameter Data.Glazing.GlaBesTest glazing,
-    final inc=IDEAS.Types.Tilt.Wall,
-    azi=IDEAS.Types.Azimuth.S,
-    redeclare replaceable IDEAS.Buildings.Components.Shading.None shaType,
-    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType,
-    frac=0) "Second window of bestest house"
-    annotation (Placement(transformation(
-        extent={{-5,-10},{5,10}},
-        rotation=90,
-        origin={27,-18})));
 
 
   IDEAS.Buildings.Validation.BaseClasses.Structure.Bui900 bui900
@@ -38,7 +27,7 @@ model ZoneTemplateVerification
     redeclare Data.Constructions.HeavyWall conTypD,
     hasWinA=true,
     fracA=0,
-    redeclare IDEAS.Buildings.Data.Glazing.GlaBesTest glazingA,
+    redeclare IDEAS.Buildings.Validation.Data.Glazing.GlaBesTest glazingA,
     redeclare IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties
       shaTypA,
     hasWinB=false,
@@ -49,19 +38,11 @@ model ZoneTemplateVerification
     mSenFac=0.822,
     l=8,
     w=6,
-    A_winA=6,
-    outA(AWall=9.6),
-    nSurfExt=1)
+    A_winA=12)
     annotation (Placement(transformation(extent={{0,-20},{-20,0}})));
   inner IDEAS.BoundaryConditions.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-equation
-  connect(win.propsBus_a, rectangularZoneTemplate.proBusExt[1]) annotation (
-      Line(
-      points={{25,-13},{25,0},{2,0}},
-      color={255,204,51},
-      thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=1e+06),
