@@ -1558,8 +1558,8 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 <ul>
 <li>
 December 06, 2016, by Thierry S. Nouidui:<br/>
-Constraint the direct normal radiation to not be bigger than the solar constant when using 
-global and diffuse radiation data provied via inputs' connectors.
+Constrained the direct normal radiation to not be bigger than the solar constant when using 
+global and diffuse solar radiation data provied via the inputs' connectors.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/608\">#608</a>.
 </li>
