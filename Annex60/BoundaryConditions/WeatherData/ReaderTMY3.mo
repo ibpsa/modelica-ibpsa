@@ -650,8 +650,8 @@ equation
       "Get HDirNor using user input file";
   elseif  HSou == Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor then
       Annex60.Utilities.Math.Functions.smoothMin(x1=((HGloHor_in_internal -HDifHor_in_internal)/Annex60.Utilities.Math.Functions.smoothMax(
-         x1=cos(zenAng.zen), x2=epsCos, deltaX=0.1*epsCos)), x2=solCon, deltaX=1e-2)
-       = HDirNor_in_internal
+        x1=cos(zenAng.zen), x2=epsCos, deltaX=0.1*epsCos)), x2=solCon, deltaX=1e-2)
+        = HDirNor_in_internal
       "Calculate the HDirNor using HGloHor and HDifHor according to (A.4.14) and (A.4.15)";
   else
     connect(conDirNorRad.HOut, HDirNor_in_internal)
@@ -1559,7 +1559,7 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 <li>
 December 06, 2016, by Thierry S. Nouidui:<br/>
 Constrained the direct normal radiation to not be bigger than the solar constant when using 
-global and diffuse solar radiation data provied via the inputs' connectors.
+global and diffuse solar radiation data provided via the inputs' connectors.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/608\">#608</a>.
 </li>

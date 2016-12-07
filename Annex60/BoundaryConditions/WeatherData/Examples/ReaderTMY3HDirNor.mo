@@ -1,11 +1,11 @@
 within Annex60.BoundaryConditions.WeatherData.Examples;
-model HDirNor
+model ReaderTMY3HDirNor
   "Test model for calculating the direct normal radiation"
   extends Modelica.Icons.Example;
   Annex60.BoundaryConditions.WeatherData.ReaderTMY3 weaDatInpCon(filNam=
         "modelica://Annex60/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
       HSou=Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor)
-    "Weather data reader with radiation data obtained from input connector"
+    "Weather data reader with radiation data obtained from the inputs' connectors"
     annotation (Placement(transformation(extent={{68,-10},{88,10}})));
 protected
     Modelica.Blocks.Sources.Sine HGloHor1(
@@ -38,7 +38,7 @@ equation
   connect(gaiHDifHor.y, weaDatInpCon.HDifHor_in) annotation (Line(points={{21,-24},
           {21,-24},{42,-24},{42,-7.6},{67,-7.6}}, color={0,0,127}));
   annotation (experiment(StartTime=0,StopTime=86400, Tolerance=1e-6),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/HDirNor.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/ReaderTMY3HDirNor.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -55,4 +55,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HDirNor;
+end ReaderTMY3HDirNor;
