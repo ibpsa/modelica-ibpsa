@@ -2,6 +2,8 @@ within IDEAS.Buildings.Components;
 model RectangularZoneTemplate
   "Rectangular zone including walls, floor and ceiling"
   extends IDEAS.Buildings.Components.Interfaces.PartialZone(
+    redeclare replaceable IDEAS.Buildings.Components.ZoneAirModels.WellMixedAir airModel
+    constrainedby IDEAS.Buildings.Components.ZoneAirModels.PartialAirModel(mSenFac=mSenFac),
     calculateViewFactor=false,
     final nSurf=indWinCei+nSurfExt,
     final V=l*w*h,
@@ -108,6 +110,9 @@ model RectangularZoneTemplate
   parameter Boolean linExtRad=sim.linExtRad
     "= true, if exterior radiative heat transfer should be linearised"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange"));
+  parameter Real mSenFac(min=0.1)=5
+    "Factor for scaling the sensible thermal mass of the zone air"
+    annotation(Dialog(tab="Advanced",group="Air model"));
   parameter SI.TemperatureDifference dT_nominal_bou=-1
     "Nominal temperature difference for boundary walls, used for linearisation, negative temperatures indicate the solid is colder"
     annotation(Dialog(tab="Advanced", group="Convective heat transfer"));
@@ -135,64 +140,51 @@ model RectangularZoneTemplate
   parameter SI.TemperatureDifference dT_nominal_intB=1
     "Nominal temperature difference between interior walls exterior connection, used for linearisation"
     annotation(Dialog(tab="Advanced", group="Convective heat transfer"));
-    //fixme: current model sets all insulation to zero thickness
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypA
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
-      redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
-      insulationTickness=0)
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
     "Material structure of face A" annotation (
     choicesAllMatching=true,
-    Placement(transformation(extent={{-34,78},{-30,82}})),
+    Placement(transformation(extent={{-228,8},{-224,12}})),
     Dialog(tab="Face A",group="Construction details",
            enable=not
                  (bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypB
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
-      redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
-      insulationTickness=0)
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
     "Material structure of face B" annotation (
     choicesAllMatching=true,
-    Placement(transformation(extent={{-34,78},{-30,82}})),
+    Placement(transformation(extent={{-228,-12},{-224,-8}})),
     Dialog(tab="Face B",group="Construction details",
            enable=not
                  (bouTypB==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypC
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
-      redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
-      insulationTickness=0)
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
     "Material structure of face C" annotation (
     choicesAllMatching=true,
-    Placement(transformation(extent={{-34,78},{-30,82}})),
+    Placement(transformation(extent={{-228,-32},{-224,-28}})),
     Dialog(tab="Face C",group="Construction details",
            enable=not
                  (bouTypC==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypD
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
-      redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
-      insulationTickness=0)
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
     "Material structure of face D" annotation (
     choicesAllMatching=true,
-    Placement(transformation(extent={{-34,78},{-30,82}})),
+    Placement(transformation(extent={{-228,-52},{-224,-48}})),
     Dialog(tab="Face D",group="Construction details",
            enable=not
                  (bouTypD==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypCei
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
-      redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
-      insulationTickness=0)
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
     "Material structure of ceiling" annotation (
     choicesAllMatching=true,
-    Placement(transformation(extent={{-34,78},{-30,82}})),
+    Placement(transformation(extent={{-228,-92},{-224,-88}})),
     Dialog(tab="Ceiling",group="Construction details",
            enable=not
                  (bouTypCei==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypFlo
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
-      redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
-      insulationTickness=0)
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
     "Material structure of floor" annotation (
     choicesAllMatching=true,
-    Placement(transformation(extent={{-34,78},{-30,82}})),
+    Placement(transformation(extent={{-228,-72},{-224,-68}})),
     Dialog(tab="Floor",group="Construction details",
            enable=not
                  (bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
@@ -515,7 +507,6 @@ protected
       locGain=conTypA.locGain,
       incLastLay=conTypA.incLastLay,
       mats=conTypA.mats),
-    insulationThickness=0,
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
@@ -525,7 +516,6 @@ protected
     annotation (Placement(transformation(extent={{-120,0},{-110,20}})));
   IDEAS.Buildings.Components.BoundaryWall bouB(
            inc=IDEAS.Types.Tilt.Wall,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypB.nLay,
       nGain=conTypB.nGain,
@@ -536,12 +526,11 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    AWall=l*h - (if hasWinB then A_winB else 0)) if
+    AWall=w*h - (if hasWinB then A_winB else 0)) if
        hasBouB
     "Boundary wall for face A of this zone"
     annotation (Placement(transformation(extent={{-120,-20},{-110,0}})));
   IDEAS.Buildings.Components.BoundaryWall bouC(inc=IDEAS.Types.Tilt.Wall,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypC.nLay,
       nGain=conTypC.nGain,
@@ -558,7 +547,6 @@ protected
     annotation (Placement(transformation(extent={{-120,-40},{-110,-20}})));
   IDEAS.Buildings.Components.BoundaryWall bouD(inc=IDEAS.Types.Tilt.Wall, azi=aziA
          + Modelica.Constants.pi/2*3,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypD.nLay,
       nGain=conTypD.nGain,
@@ -568,13 +556,12 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    AWall=l*h - (if hasWinD then A_winD else 0)) if
+    AWall=w*h - (if hasWinD then A_winD else 0)) if
        hasBouD
     "Boundary wall for face D of this zone"
     annotation (Placement(transformation(extent={{-120,-60},{-110,-40}})));
   IDEAS.Buildings.Components.BoundaryWall bouFlo(inc=IDEAS.Types.Tilt.Floor, azi=aziA,
     AWall=A,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypFlo.nLay,
       nGain=conTypFlo.nGain,
@@ -588,7 +575,6 @@ protected
     "Boundary wall for zone floor"
     annotation (Placement(transformation(extent={{-120,-80},{-110,-60}})));
   IDEAS.Buildings.Components.BoundaryWall bouCei(inc=IDEAS.Types.Tilt.Ceiling, azi=aziA,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypCei.nLay,
       nGain=conTypCei.nGain,
@@ -598,7 +584,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    AWall=l*h - (if hasWinCei then A_winCei else 0)) if
+    AWall=A - (if hasWinCei then A_winCei else 0)) if
        hasBouCei
     "Boundary wall for zone ceiling"
     annotation (Placement(transformation(extent={{-120,-100},{-110,-80}})));
@@ -609,7 +595,6 @@ protected
       locGain=conTypA.locGain,
       incLastLay=conTypA.incLastLay,
       mats=conTypA.mats),
-    insulationThickness=0,
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_out,
@@ -621,7 +606,6 @@ protected
     annotation (Placement(transformation(extent={{-140,0},{-130,20}})));
   IDEAS.Buildings.Components.OuterWall outB(
       inc=IDEAS.Types.Tilt.Wall,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypB.nLay,
       nGain=conTypB.nGain,
@@ -634,12 +618,11 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    AWall=l*h - (if hasWinB then A_winB else 0)) if
+    AWall=w*h - (if hasWinB then A_winB else 0)) if
        hasOutB
     "Outer wall for face B of this zone"
     annotation (Placement(transformation(extent={{-140,-20},{-130,0}})));
   IDEAS.Buildings.Components.OuterWall outC(inc=IDEAS.Types.Tilt.Wall,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypC.nLay,
       nGain=conTypC.nGain,
@@ -658,7 +641,6 @@ protected
     annotation (Placement(transformation(extent={{-140,-40},{-130,-20}})));
   IDEAS.Buildings.Components.OuterWall outD(inc=IDEAS.Types.Tilt.Wall, azi=aziA +
         Modelica.Constants.pi/2*3,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypD.nLay,
       nGain=conTypD.nGain,
@@ -670,14 +652,13 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    AWall=l*h - (if hasWinD then A_winD else 0)) if
+    AWall=w*h - (if hasWinD then A_winD else 0)) if
        hasOutD
     "Outer wall for face D of this zone"
     annotation (Placement(transformation(extent={{-140,-60},{-130,-40}})));
   IDEAS.Buildings.Components.OuterWall outCei(
     inc=IDEAS.Types.Tilt.Ceiling,
     azi=aziA,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypCei.nLay,
       nGain=conTypCei.nGain,
@@ -689,7 +670,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    AWall=l*h - (if hasWinCei then A_winCei else 0)) if
+    AWall=A - (if hasWinCei then A_winCei else 0)) if
        hasOutCei
     "Outer wall for zone ceiling"
     annotation (Placement(transformation(extent={{-140,-100},{-130,-80}})));
@@ -697,7 +678,6 @@ protected
     inc=IDEAS.Types.Tilt.Floor,
     azi=aziA,
     AWall=A,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypFlo.nLay,
       nGain=conTypFlo.nGain,
@@ -722,7 +702,6 @@ protected
       locGain=conTypA.locGain,
       mats=conTypA.mats,
       incLastLay=conTypA.incLastLay),
-    insulationThickness=0,
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_intA,
@@ -734,7 +713,6 @@ protected
     annotation (Placement(transformation(extent={{-176,0},{-164,20}})));
   IDEAS.Buildings.Components.InternalWall intB(
            inc=IDEAS.Types.Tilt.Wall,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypB.nLay,
       nGain=conTypB.nGain,
@@ -747,12 +725,11 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    AWall=l*h - (if hasWinB then A_winB else 0)) if
+    AWall=w*h - (if hasWinB then A_winB else 0)) if
     hasIntB
     "Internal wall for face B of this zone"
     annotation (Placement(transformation(extent={{-176,-20},{-164,0}})));
   IDEAS.Buildings.Components.InternalWall intC(inc=IDEAS.Types.Tilt.Wall,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypC.nLay,
       nGain=conTypC.nGain,
@@ -771,7 +748,6 @@ protected
     annotation (Placement(transformation(extent={{-176,-40},{-164,-20}})));
   IDEAS.Buildings.Components.InternalWall intD(inc=IDEAS.Types.Tilt.Wall, azi=aziA
          + Modelica.Constants.pi/2*3,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypD.nLay,
       nGain=conTypD.nGain,
@@ -783,7 +759,7 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    AWall=l*h - (if hasWinD then A_winD else 0)) if
+    AWall=w*h - (if hasWinD then A_winD else 0)) if
     hasIntD
     "Internal wall for face D of this zone"
     annotation (Placement(transformation(extent={{-176,-60},{-164,-40}})));
@@ -791,7 +767,6 @@ protected
     inc=IDEAS.Types.Tilt.Floor,
     azi=aziA,
     AWall=A,
-    insulationThickness=0,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypFlo.nLay,
       nGain=conTypFlo.nGain,
@@ -953,6 +928,11 @@ initial equation
               "Using internal walls for the ceiling is not allowed because it is considered bad practice. 
               Use instead the 'External'  connection to connect the the floor of the surface above, 
               or use this option to connect and internal wall externally.");
+
+
+
+
+
 
 
 
