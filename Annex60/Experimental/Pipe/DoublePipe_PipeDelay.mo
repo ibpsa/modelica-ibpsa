@@ -7,7 +7,6 @@ model DoublePipe_PipeDelay
       final allowFlowReversal1 = allowFlowReversal,
       final allowFlowReversal2 = allowFlowReversal);
 
-  output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 
   // Geometric parameters
   final parameter Modelica.SIunits.Diameter diameter=pipeData.Di
@@ -171,8 +170,6 @@ public
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
 equation
-  heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
-     + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);
 
   connect(pipeSupplyAdiabaticPlugFlow.port_b, heatLossSupply.port_a)
     annotation (Line(points={{10,60},{52,60}},         color={0,127,255}));
