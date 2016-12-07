@@ -1,30 +1,26 @@
 within Annex60.Fluid.Interfaces;
 partial model PartialTwoPort_vector "Partial component with two ports"
 
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
-  parameter Integer nPorts "Number of ports"   annotation(Dialog(connectorSizing=true));
-  parameter Boolean allowFlowReversal = true
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component" annotation (choicesAllMatching=true);
+  parameter Integer nPorts=0 "Number of ports"
+    annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+    annotation (Dialog(tab="Assumptions"), Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
-     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-     h_outflow(start = Medium.h_default))
+    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    h_outflow(start=Medium.h_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts](    redeclare final
-      package Medium =                                                                Medium,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-     h_outflow(start = Medium.h_default))
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{88,-40},{108,40}})));
-equation
-  connect(ports_b, ports_b)
-    annotation (Line(points={{98,0},{98,0}}, color={0,127,255}));
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts](
+    redeclare each package Medium = Medium,
+    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default))
+    annotation (Placement(transformation(extent={{90,-40},{110,40}})));
   annotation (
     Documentation(info="<html>
 <p>
@@ -77,9 +73,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}), graphics={
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
+        graphics={
         Polygon(
           points={{20,-70},{60,-85},{20,-100},{20,-70}},
           lineColor={0,128,255},
@@ -94,6 +89,6 @@ First implementation.
           extent={{-149,-114},{151,-154}},
           lineColor={0,0,255},
           textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end PartialTwoPort_vector;

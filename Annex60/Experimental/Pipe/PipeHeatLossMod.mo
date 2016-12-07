@@ -1,7 +1,7 @@
 within Annex60.Experimental.Pipe;
 model PipeHeatLossMod
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
-  extends Annex60.Fluid.Interfaces.PartialTwoPort;
+  extends Annex60.Fluid.Interfaces.PartialTwoPort_vector;
 
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 
@@ -29,6 +29,13 @@ model PipeHeatLossMod
       diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
     "Heat conductivity";
+
+  parameter Modelica.SIunits.HeatCapacity walCap=length*((diameter + 2*thickness)^2 -
+      diameter^2)*Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
+  parameter Modelica.SIunits.SpecificHeatCapacity cpipe=500 "For steel";
+  parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
+  final parameter Modelica.SIunits.Volume V=walCap/(rho_default*cp_default)
+    "Equivalent water volume to represent pipe wall thermal inertia";
 
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
   // fixme: propagate use_dh and set default to false
@@ -114,23 +121,29 @@ public
   parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
 
   parameter Modelica.SIunits.Temperature T_ini_in=Medium.T_default
-    "Initialization temperature at pipe inlet" annotation (Dialog(tab="Initialization"));
+    "Initialization temperature at pipe inlet"
+    annotation (Dialog(tab="Initialization"));
   parameter Modelica.SIunits.Temperature T_ini_out=Medium.T_default
-    "Initialization temperature at pipe outlet" annotation (Dialog(tab="Initialization"));
+    "Initialization temperature at pipe outlet"
+    annotation (Dialog(tab="Initialization"));
   parameter Boolean initDelay=false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(tab="Initialization"));
   parameter Modelica.SIunits.MassFlowRate m_flowInit=0
     annotation (Dialog(tab="Initialization", enable=initDelay));
+  Fluid.MixingVolumes.MixingVolume vol(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    V=V,
+    nPorts=1+nPorts)
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
 equation
-  heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
+  //heat_losses = actualStream(ports_b.h_outflow) - actualStream(port_a.h_outflow);
 
   connect(port_a, reverseHeatLoss.port_b)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(port_b, heatLoss.port_b)
-    annotation (Line(points={{100,0},{60,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
     annotation (Line(points={{-10,0},{-18,0},{-24,0}}, color={0,127,255}));
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
@@ -151,6 +164,12 @@ equation
           {-70,40},{0,40},{0,100}}, color={191,0,0}));
   connect(heatLoss.heatPort, heatPort) annotation (Line(points={{50,10},{50,40},
           {0,40},{0,100}}, color={191,0,0}));
+
+  annotation (Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}));
+  connect(ports_b, vol.ports)
+    annotation (Line(points={{100,0},{70,0},{70,20}}, color={0,127,255}));
+  connect(heatLoss.port_b, vol.ports[nPorts+1])
+    annotation (Line(points={{60,0},{70,0},{70,20}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),

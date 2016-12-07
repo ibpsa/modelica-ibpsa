@@ -7,11 +7,7 @@ model PipeAdiabaticPlugFlow
   parameter Modelica.SIunits.Length dh=0.05 "Hydraulic diameter"
     annotation (Dialog(enable=use_dh));
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.HeatCapacity walCap=length*((dh + 2*thickness)^2
-       - dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall
-    "Heat capacity of pipe wall";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpipe=500 "For steel";
-  parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
+
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005
     "Heat conductivity of pipe's surroundings";*/
@@ -30,9 +26,6 @@ model PipeAdiabaticPlugFlow
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
-
-  final parameter Modelica.SIunits.Volume V=walCap/(rho_default*cp_default)
-    "Equivalent water volume to represent pipe wall thermal inertia";
 
   final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
       Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
@@ -112,29 +105,13 @@ public
   parameter Modelica.SIunits.Temperature T_ini_out=Medium.T_default
     "Initial temperature in pipe at outlet" annotation (Dialog(group="Initialization"));
 
-  Fluid.MixingVolumes.MixingVolume vol(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    V=V,
-    nPorts=2,
-    T_start=T_ini_out)
-    annotation (Placement(transformation(extent={{60,4},{80,24}})));
-
-  Fluid.Sensors.TemperatureTwoPort senTemDelay(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    tau=0) annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 equation
   connect(port_a, res.port_a)
     annotation (Line(points={{-100,0},{-70,0},{-40,0}}, color={0,127,255}));
   connect(res.port_b, temperatureDelay.port_a)
     annotation (Line(points={{-20,0},{0,0}}, color={0,127,255}));
-  connect(vol.ports[1], port_b) annotation (Line(points={{68,4},{72,4},{72,0},{
-          100,0}}, color={0,127,255}));
-  connect(temperatureDelay.port_b, senTemDelay.port_a)
-    annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
-  connect(senTemDelay.port_b, vol.ports[2])
-    annotation (Line(points={{50,0},{72,0},{72,4}}, color={0,127,255}));
+  connect(temperatureDelay.port_b, port_b)
+    annotation (Line(points={{20,0},{100,0},{100,0}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
