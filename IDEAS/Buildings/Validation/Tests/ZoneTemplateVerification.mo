@@ -10,7 +10,6 @@ model ZoneTemplateVerification
   IDEAS.Buildings.Components.RectangularZoneTemplate rectangularZoneTemplate(
     h=2.7,
     redeclare package Medium = Media.Air,
-    aziA=IDEAS.Types.Azimuth.N,
     l=8,
     w=6,
     n50=0.822*0.5*20,
@@ -38,7 +37,8 @@ model ZoneTemplateVerification
     hasWinC=false,
     hasWinD=false,
     bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    nSurfExt=0)
+    nSurfExt=0,
+    aziA=IDEAS.Types.Azimuth.S)
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
