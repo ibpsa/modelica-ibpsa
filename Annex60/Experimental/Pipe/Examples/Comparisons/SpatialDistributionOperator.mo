@@ -285,5 +285,4 @@ The standard settings and the Dassl solver are used. Notice that the delay times
 </ul>
 </html>"),
     __Dymola_experimentSetupOutput);
-
 end SpatialDistributionOperator;
