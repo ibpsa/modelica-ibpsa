@@ -36,16 +36,16 @@ partial model PartialSimInfoManager
     annotation(Dialog(tab="Linearisation"));
   parameter Boolean outputAngles=not linearise
     "Output angles in weaBus. Set to false when linearising" annotation(Dialog(tab="Linearisation"));
-  parameter Boolean linIntCon=if linearise then true else false
+  parameter Boolean linIntCon=false
     "= true, if interior convective heat transfer should be linearised"
     annotation (Dialog(tab="Linearisation", group="Convection"));
-  parameter Boolean linExtCon=if linearise then true else false
+  parameter Boolean linExtCon=false
     "= true, if exterior convective heat transfer should be linearised (uses average wind speed)"
     annotation (Dialog(tab="Linearisation", group="Convection"));
-  parameter Boolean linIntRad=if linearise then true else true
+  parameter Boolean linIntRad=true
     "= true, if interior radiative heat transfer should be linearised"
     annotation (Dialog(tab="Linearisation", group="Radiation"));
-  parameter Boolean linExtRad=if linearise then true else false
+  parameter Boolean linExtRad=true
     "= true, if exterior radiative heat transfer should be linearised"
     annotation (Dialog(tab="Linearisation", group="Radiation"));
 
