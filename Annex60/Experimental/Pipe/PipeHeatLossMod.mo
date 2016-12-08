@@ -38,7 +38,7 @@ model PipeHeatLossMod
     length=length,
     m_flow_nominal=m_flow_nominal,
     from_dp=from_dp,
-    thickness=thickness,
+    thickness=pipeData.s,
     T_ini_in=T_ini_in,
     T_ini_out=T_ini_out)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
@@ -78,18 +78,6 @@ protected
       X=Medium.X_default))
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation (Dialog(group="Advanced", enable=use_mu_default));
-
-  PipeAdiabaticPlugFlow pipeAdiabaticPlugFlow(
-    redeclare final package Medium = Medium,
-    final m_flow_small=m_flow_small,
-    final allowFlowReversal=allowFlowReversal,
-    dh=diameter,
-    length=length,
-    m_flow_nominal=m_flow_nominal,
-    from_dp=from_dp,
-    thickness=pipeData.s)
-    "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(state=sta_default)
