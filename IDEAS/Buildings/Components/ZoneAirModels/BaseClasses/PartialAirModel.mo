@@ -21,7 +21,8 @@ partial model PartialAirModel "Partial for air models"
     annotation(Dialog(tab="Advanced"));
   constant Boolean computeTSensorAsFunctionOfZoneAir = true
     "Set to false if TSensor in zone model should not take into account the value of the zone air temperature";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_airLea=Vtot*rho_default/3600*n50/n50toAch "nominal mass flow of air leakage";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_airLea=Vtot*rho_default/3600*n50/n50toAch 
+  	"Nominal mass flow rate of air leakage";
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput QGai(unit="J/s") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput TAir "Zone air temperature"
