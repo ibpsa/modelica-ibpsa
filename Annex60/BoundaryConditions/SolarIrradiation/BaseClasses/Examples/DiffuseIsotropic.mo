@@ -45,7 +45,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(StopTime=8640000),
+  experiment(StartTime=0, StopTime=8640000, Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/BaseClasses/Examples/DiffuseIsotropic.mos"
         "Simulate and plot"));
 end DiffuseIsotropic;

@@ -22,7 +22,7 @@ protected
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 equation
   connect(datRea.y[16], cheWinSpe.winSpeIn) annotation (Line(
-      points={{41,10.069},{50,10.069},{50,10},{58,10}},
+      points={{41,10},{50,10},{50,10},{58,10}},
       color={0,0,127}));
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-39,10},{-22,10}},
@@ -49,7 +49,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(StopTime=8640000),
+  experiment(StartTime=0, StopTime=8640000, Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/CheckWindSpeed.mos"
         "Simulate and plot"));
 end CheckWindSpeed;

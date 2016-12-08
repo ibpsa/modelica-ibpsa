@@ -29,10 +29,10 @@ equation
       points={{-19,0},{-2,0}},
       color={0,0,127}));
   connect(datRea.y[8], conGloRad.HIn) annotation (Line(
-      points={{21,-0.482759},{30,-0.482759},{30,20},{38,20}},
+      points={{21,0},{30,0},{30,20},{38,20}},
       color={0,0,127}));
   connect(datRea.y[10], conDifRad.HIn) annotation (Line(
-      points={{21,-0.344828},{30,-0.344828},{30,-20},{38,-20}},
+      points={{21,0},{30,0},{30,-20},{38,-20}},
       color={0,0,127}));
   connect(modTim.y, timCon.modTim) annotation (Line(
       points={{-59,0},{-42,0}},
@@ -56,7 +56,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(StopTime=8640000),
+  experiment(StartTime=0, StopTime=8640000, Tolerance=1e-6),
 __Dymola_Commands(file=
           "modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertRadiation.mos"
         "Simulate and plot"));
