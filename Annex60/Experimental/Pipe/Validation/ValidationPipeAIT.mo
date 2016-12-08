@@ -263,7 +263,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(StopTime=603900),
-    __Dymola_experimentSetupOutput,
+    __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
 <p>The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model.</p>
 <p>Pipes&apos; temperatures are not initialized, thus results of outflow temperature before apprixmately the first 10000 seconds should no be considered. </p>
@@ -349,5 +349,10 @@ equation
 </html>"),    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeAIT.mos"
         "Simulate and plot",
     file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ExportValidationPipeAIT.mos"
-    "Export csv file"));
+    "Export csv file"),
+    __Dymola_experimentFlags(
+      Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
+      Evaluate=true,
+      OutputCPUtime=true,
+      OutputFlatModelica=false));
 end ValidationPipeAIT;
