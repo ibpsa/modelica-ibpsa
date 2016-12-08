@@ -67,7 +67,11 @@ model ValidationMSLAIT
     length=20,
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
-    nNodes=20)         annotation (Placement(transformation(
+    nNodes=20,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+          dp_nominal(displayUnit="Pa") = 10*pip0.length, m_flow_nominal=0.3))
+                       annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-8})));
@@ -91,7 +95,11 @@ model ValidationMSLAIT
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=115,
-    nNodes=115)        annotation (Placement(transformation(
+    nNodes=115,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+          m_flow_nominal=0.3, dp_nominal=10*pip1.length))
+                       annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={38,10})));
@@ -110,7 +118,11 @@ model ValidationMSLAIT
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=76,
     nNodes=76,
-    diameter=0.0825)   annotation (Placement(transformation(
+    diameter=0.0825,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+          dp_nominal=10*pip2.length, m_flow_nominal=0.3))
+                       annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-80,40})));
@@ -129,7 +141,11 @@ model ValidationMSLAIT
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=38,
-    nNodes=38)         annotation (Placement(transformation(
+    nNodes=38,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+          dp_nominal=10*pip3.length, m_flow_nominal=0.3))
+                       annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-12})));
@@ -151,7 +167,11 @@ model ValidationMSLAIT
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=29,
-    nNodes=29)         annotation (Placement(transformation(
+    nNodes=29,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+          dp_nominal=10*pip4.length, m_flow_nominal=0.3))
+                       annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={10,40})));
@@ -173,7 +193,11 @@ model ValidationMSLAIT
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=20,
-    nNodes=20)         annotation (Placement(transformation(
+    nNodes=20,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+          dp_nominal=10*pip5.length, m_flow_nominal=0.3))
+                       annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-10,10})));

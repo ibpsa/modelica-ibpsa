@@ -35,57 +35,62 @@ extends Modelica.Icons.Example;
         origin={-88,82})));
   PipeHeatLossMod pip1(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=115,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=0.3,
+    dp_nominal=10*pip1.length)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PipeHeatLossMod pip4(
     redeclare package Medium = Medium,
     length=29,
-    m_flow_nominal=1,
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=0.3,
+    dp_nominal=10*pip4.length)           annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={8,38})));
   PipeHeatLossMod pip5(
     redeclare package Medium = Medium,
     length=20,
-    m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
     thicknessIns=0.045,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=0.3,
+    dp_nominal=10*pip5.length)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
   PipeHeatLossMod pip2(
     redeclare package Medium = Medium,
     length=76,
-    m_flow_nominal=1,
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=0.3,
+    dp_nominal=10*pip2.length)           annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-88,30})));
   PipeHeatLossMod pip3(
     redeclare package Medium = Medium,
     length=38,
-    m_flow_nominal=1,
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=0.3,
+    dp_nominal=10*pip3.length)           annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-10})));
@@ -135,13 +140,15 @@ extends Modelica.Icons.Example;
         origin={34,-22})));
   PipeHeatLossMod pip0(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=20,
-    allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=0.3,
+    dp_nominal(displayUnit="Pa") = 10*pip0.length)
+                                         annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-2})));
@@ -246,8 +253,7 @@ equation
   connect(Point1.ports[1], senTem_p1.port_b)
     annotation (Line(points={{82,-32},{82,-32},{34,-32}}, color={0,127,255}));
   connect(senTem_p1.port_a, pip0.port_a) annotation (Line(points={{34,-12},{70,
-          -12},{70,-12},{80,-12},{80,-12}},
-                                       color={0,127,255}));
+          -12},{80,-12}},              color={0,127,255}));
   connect(switch.u1, m_flow_p4.y) annotation (Line(points={{56,114},{72,114},{
           72,120},{86,120}},
                           color={0,0,127}));
