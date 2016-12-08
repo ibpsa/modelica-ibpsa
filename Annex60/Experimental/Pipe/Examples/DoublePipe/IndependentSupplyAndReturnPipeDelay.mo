@@ -42,11 +42,6 @@ model IndependentSupplyAndReturnPipeDelay
       pipeData,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.Constant const3(k=5) annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={0,90})));
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -57,11 +52,11 @@ model IndependentSupplyAndReturnPipeDelay
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,50})));
-  Modelica.Blocks.Sources.Constant TReturn(k=273.15 + 25)
+  Modelica.Blocks.Sources.Constant TReturn(k=273.15 + 30)
     "Atmospheric pressure" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,-50})));
+        origin={-170,-50})));
   Modelica.Blocks.Math.Gain gain(k=dp_test)
     annotation (Placement(transformation(extent={{-156,16},{-136,36}})));
   Modelica.Blocks.Math.Add add
@@ -97,9 +92,25 @@ model IndependentSupplyAndReturnPipeDelay
         0; 150000,0; 152000,1; 160000,1; 162000,0; 163500,0; 165500,1; 200000,
         1])
     annotation (Placement(transformation(extent={{-188,16},{-168,36}})));
+  Modelica.Blocks.Sources.Constant TSupply1(k=273.15 + 55)
+    "Atmospheric pressure" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-170,70})));
+  Modelica.Blocks.Sources.Constant TReturn1(k=273.15 + 25)
+    "Atmospheric pressure" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={110,-50})));
+  Annex60.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
+        Medium)
+    annotation (Placement(transformation(extent={{-30,46},{-10,66}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+        278.15) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={0,90})));
 equation
-  connect(doublePipe.T_amb, const3.y)
-    annotation (Line(points={{0,10},{0,10},{0,79}}, color={0,0,127}));
   connect(PAtm.y, supplySink.p_in) annotation (Line(points={{99,10},{92,10},{92,
           38},{82,38}}, color={0,0,127}));
   connect(PAtm.y, returnSource.p_in) annotation (Line(points={{99,10},{92,10},{
@@ -107,7 +118,7 @@ equation
                           color={0,0,127}));
   connect(TSupply.y, supplySink.T_in) annotation (Line(points={{99,50},{96,50},
           {96,34},{82,34}}, color={0,0,127}));
-  connect(TReturn.y, returnSink.T_in) annotation (Line(points={{-99,-50},{-100,
+  connect(TReturn.y, returnSink.T_in) annotation (Line(points={{-159,-50},{-159,
           -50},{-90,-50},{-90,-26},{-82,-26}},
                            color={0,0,127}));
   connect(gain.y,add. u2)
@@ -130,8 +141,6 @@ equation
           {-30,-30},{-20,-30},{-20,-6},{-10,-6}}, color={0,127,255}));
   connect(supplySource.ports[1], senTemSupplyIn.port_a)
     annotation (Line(points={{-60,30},{-50,30},{-50,30}}, color={0,127,255}));
-  connect(senTemSupplyIn.port_b, doublePipe.port_a1) annotation (Line(points={{
-          -30,30},{-20,30},{-20,6},{-10,6}}, color={0,127,255}));
   connect(doublePipe.port_b1, senTemSupplyOut.port_a) annotation (Line(points={
           {10,6},{20,6},{20,30},{30,30}}, color={0,127,255}));
   connect(senTemSupplyOut.port_b, supplySink.ports[1])
@@ -142,12 +151,18 @@ equation
     annotation (Line(points={{50,-30},{55,-30},{60,-30}}, color={0,127,255}));
   connect(add1.y, returnSink.p_in)
     annotation (Line(points={{-99,-22},{-82,-22},{-82,-22}}, color={0,0,127}));
-  connect(TReturn.y, returnSource.T_in) annotation (Line(points={{-99,-50},{-4,
-          -50},{92,-50},{92,-26},{82,-26}}, color={0,0,127}));
-  connect(TSupply.y, supplySource.T_in) annotation (Line(points={{99,50},{2,50},
-          {-94,50},{-94,34},{-82,34}}, color={0,0,127}));
   connect(gain.u, combiTimeTable.y[1])
     annotation (Line(points={{-158,26},{-167,26}}, color={0,0,127}));
+  connect(TSupply1.y, supplySource.T_in) annotation (Line(points={{-159,70},{
+          -90,70},{-90,34},{-82,34}}, color={0,0,127}));
+  connect(TReturn1.y, returnSource.T_in) annotation (Line(points={{99,-50},{86,
+          -50},{86,-26},{82,-26}}, color={0,0,127}));
+  connect(senTemSupplyIn.port_b, senMasFlo.port_a)
+    annotation (Line(points={{-30,30},{-30,30},{-30,56}}, color={0,127,255}));
+  connect(doublePipe.port_a1, senMasFlo.port_b)
+    annotation (Line(points={{-10,6},{-10,6},{-10,56}}, color={0,127,255}));
+  connect(fixedTemperature.port, doublePipe.heatPort)
+    annotation (Line(points={{0,80},{0,45},{0,10}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{140,100}})),
     Icon(coordinateSystem(extent={{-200,-100},{140,100}})),

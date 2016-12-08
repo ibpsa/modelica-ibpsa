@@ -34,9 +34,6 @@ model PipeLosslessPlugFlow
   parameter Boolean show_T = true
     "= true, if temperatures at port_a and port_b are computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
-  parameter Boolean show_V_flow = true
-    "= true, if volume flow rate at inflowing port is computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
   Modelica.SIunits.Length x(start=0)
     "Spatial coordiante for spatialDistribution operator";
@@ -61,7 +58,7 @@ model PipeLosslessPlugFlow
                          p=  port_b.p,
                          h=  inStream(port_b.h_outflow),
                          X=  inStream(port_b.Xi_outflow))),
-                  m_flow_small) if show_V_flow
+                  m_flow_small)
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
 
   Medium.Temperature port_a_T=
@@ -151,6 +148,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+May 19, 2016 by Marcus Fuchs:<br/>
+Remove condition on <code>show_V_flow</code> for calculation of <code>V_flow</code> to conform with pedantic checking.
+</li>
+<li>
 October 10, 2015 by Marcus Fuchs:<br/>
 Copy Icon from KUL implementation and rename model.
 </li>
@@ -160,6 +161,6 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>A simple model to account for the effect of the temperature delay for a fluid flow throurgh a pipe. It uses the spatialDistribution operator to delay changes in input enthalpy depending on the flow velocity.</p>
+<p>A simple model to account for the effect of the temperature delay for a fluid flow through a pipe. It uses the spatialDistribution operator to delay changes in input enthalpy depending on the flow velocity.</p>
 </html>"));
 end PipeLosslessPlugFlow;

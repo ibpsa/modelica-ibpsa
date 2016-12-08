@@ -10,10 +10,13 @@ dsmodel.c
 dsmodelext*.c
 dsmodelext*.obj
 dsres.txt
+dymosim
 dymosim.exe
 dymosim.exp
 dymosim.lib
 empty.txt
+failure
+help/
 modelDescription.xml
 request
 stat
@@ -24,3 +27,4 @@ success
 *.py[cod]
 simulator.log
 unitTests.log
+*.orig

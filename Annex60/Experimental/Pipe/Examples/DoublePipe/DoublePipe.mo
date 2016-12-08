@@ -16,8 +16,8 @@ model DoublePipe "Simple test of double pipe component"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Step stepT(
     height=20,
-    offset=273.15 + 30,
-    startTime=10000)
+    startTime=10000,
+    offset=273.15 + 50)
     "Step temperature increase to test propagation of temperature wave"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
@@ -47,11 +47,6 @@ model DoublePipe "Simple test of double pipe component"
       pipeData,
     redeclare package Medium = Annex60.Media.Water)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Sources.Constant const3(k=5) annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={10,90})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemSupplyIn(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-32,20},{-12,40}})));
@@ -84,6 +79,7 @@ model DoublePipe "Simple test of double pipe component"
   parameter Modelica.SIunits.Length length=100 "Pipe length";
   parameter Modelica.SIunits.Length thicknessIns=0.01
     "Thickness of pipe insulation";
+  // Real lossRatio = -doublePipe.heatPort.Q_flow/(hea.Q_flow-doublePipe.heatPort.Q_flow) "Ratio of the transport heat losses and the delivered energy from the supply side";
   Annex60.Fluid.HeatExchangers.HeaterCooler_T hea(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -110,6 +106,11 @@ model DoublePipe "Simple test of double pipe component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-52,70})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=278.15)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={0,90})));
 equation
   connect(stepT.y, sou1.T_in) annotation (Line(
       points={{-79,10},{-62,10},{-62,34}},
@@ -117,8 +118,6 @@ equation
       smooth=Smooth.None));
   connect(PAtm.y, sin1.p_in) annotation (Line(points={{-79,-50},{-70,-50},{-70,-18},
           {-62,-18}}, color={0,0,127}));
-  connect(doublePipe.T_amb, const3.y)
-    annotation (Line(points={{10,20},{10,20},{10,79}}, color={0,0,127}));
   connect(sou1.ports[1], senTemSupplyIn.port_a)
     annotation (Line(points={{-40,30},{-36,30},{-32,30}}, color={0,127,255}));
   connect(senTemSupplyIn.port_b, doublePipe.port_a1) annotation (Line(points={{-12,
@@ -151,6 +150,8 @@ equation
       smooth=Smooth.None));
   connect(add.y, sou1.p_in) annotation (Line(points={{-52,59},{-52,59},{-52,52},
           {-52,42},{-62,42},{-62,38}}, color={0,0,127}));
+  connect(fixedTemperature.port, doublePipe.heatPort)
+    annotation (Line(points={{0,80},{0,50},{10,50},{10,20}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), experiment(StopTime=200000),
 __Dymola_Commands(file=

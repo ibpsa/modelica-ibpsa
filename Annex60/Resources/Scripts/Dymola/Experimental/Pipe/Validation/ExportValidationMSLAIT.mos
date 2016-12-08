@@ -1,0 +1,9 @@
+OutputCPUtime=true;
+translateModel("Annex60.Experimental.Pipe.Validation.ValidationMSLAIT");
+simulateModel("Annex60.Experimental.Pipe.Validation.ValidationMSLAIT", stopTime=603900, numberOfIntervals=800,tolerance=1e-005, method="dassl", resultFile="ValidationMSLAIT");
+
+
+n = readTrajectorySize("ValidationMSLAIT.mat");
+var_names = {"Time","CPUtime","pip0.port_a.m_flow","DataReader.y[1]","pip2.port_a.m_flow","senTem_p2.T","DataReader.y[2]","pip3.port_a.m_flow","senTem_p3.T","DataReader.y[3]","pip4.port_a.m_flow","senTem_p4.T","DataReader.y[4]","prescribedTemperature.port.T"};
+trajectories=readTrajectory("ValidationMSLAIT.mat",var_names,n);
+DataFiles.writeCSVmatrix("ValidationMSLAIT.csv",var_names,transpose(trajectories)); 

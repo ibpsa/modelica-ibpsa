@@ -1,0 +1,7 @@
+translateModel("Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal.UCPipeA03AD_MSL_Temperature");
+simulateModel("Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal.UCPipeA03AD_MSL_Temperature", stopTime=3000, numberOfIntervals=0, outputInterval=1, method="dassl", resultFile="UCPipeA03AD_MSL_Temperature");
+
+removePlots();
+
+createPlot(id=1, position={15, 10, 1082, 875}, y={"TempSource.T", "TempSink.T"}, range={0.0, 3000.0, -10.0, 140.0}, grid=true, filename="UCPipeA03AD_MSL_Temperature.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 1082, 434}, y={"masFloSer.m_flow"}, range={0.0, 3000.0, 0.8, 1.0}, grid=true, subPlot=2, colors={{28,108,200}});

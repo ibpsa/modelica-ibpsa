@@ -7,18 +7,23 @@ model FixedResistanceDpM
                        elseif (computeFlowResistance) then
                        deltaM * m_flow_nominal_pos
          else 0);
-  parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
+  parameter Boolean use_dh = false
+  "= true, use dh and ReC, otherwise use deltaM"
        annotation(Evaluate=true,
-                  Dialog(enable = not linearized));
+                  Dialog(group = "Transition to laminar",
+                         enable = not linearized));
   parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
-       annotation(Dialog(enable = use_dh and not linearized));
+       annotation(Dialog(group = "Transition to laminar",
+                         enable = use_dh and not linearized));
   parameter Real ReC(min=0)=4000
     "Reynolds number where transition to turbulent starts"
-       annotation(Dialog(enable = use_dh and not linearized));
+       annotation(Dialog(group = "Transition to laminar",
+                         enable = use_dh and not linearized));
   parameter Real deltaM(min=0.01) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true,
-                  Dialog(enable = not use_dh and not linearized));
+                  Dialog(group = "Transition to laminar",
+                         enable = not use_dh and not linearized));
 
   final parameter Real k(unit="") = if computeFlowResistance then
         m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
@@ -185,6 +190,15 @@ This leads to simpler equations.
 </html>", revisions="<html>
 <ul>
 <li>
+November 23, 2016, by Filip Jorissen:<br/>
+Removed <code>dp_nominal</code> and 
+<code>m_flow_nominal</code> labels from icon.
+</li>
+<li>
+October 14, 2016, by Michael Wetter:<br/>
+Updated comment for parameter <code>use_dh</code>.
+</li>
+<li>
 November 26, 2014, by Michael Wetter:<br/>
 Added the required <code>annotation(Evaluate=true)</code> so
 that the system of nonlinear equations in
@@ -235,11 +249,5 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Text(
-          extent={{-102,86},{-4,22}},
-          lineColor={0,0,255},
-          textString="dp_nominal=%dp_nominal"), Text(
-          extent={{-106,106},{6,60}},
-          lineColor={0,0,255},
-          textString="m0=%m_flow_nominal")}));
+            100}})));
 end FixedResistanceDpM;

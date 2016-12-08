@@ -435,7 +435,7 @@ Many models are based on models from the package
 the same ports to ensure compatibility with models from that library.
 However, a design change is that models from the <code>Annex60</code>
 library do not require the use of
-<a href=\"modelica://Modelica.Fluid.Systems\">Modelica.Fluid.Systems</a>
+<a href=\"modelica://Modelica.Fluid.System\">Modelica.Fluid.System</a>
 as applications in buildings often have multiple fluids with largely varying
 flow rates, and therefore a global declaration is impractical.
 </p>
@@ -482,7 +482,7 @@ version="0.1",
 versionBuild=0,
 versionDate="2013-09-20",
 dateModified = "2013-09-20",
-uses(Modelica(version="3.2.1")),
+uses(Modelica(version="3.2.2")),
 preferredView="info",
 Documentation(info="<html>
 <p>
@@ -560,6 +560,6 @@ to solve specific problems.
 </p>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={Bitmap(extent={{-90,90},{90,-90}},
+        graphics={Bitmap(extent={{-90,-90},{90,90}},
         fileName="modelica://Annex60/Resources/Images/iea-ebc-logo.png")}));
 end Annex60;

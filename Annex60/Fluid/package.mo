@@ -377,9 +377,6 @@ parameters in various model to help the user understand how they are used.
       For most components, engineering experience can be used to estimate a reasonable
       value for <code>tau</code>, and where generally applicable values can be used,
       components already set a default value for <code>tau</code>.
-      See for example
-      <a href=\"modelica://Annex60.Fluid.HeatExchangers.WetCoilDiscretized\">
-      Annex60.Fluid.HeatExchangers.WetCoilDiscretized</a>.
   </td>
 </tr>
 </table>
@@ -397,10 +394,6 @@ This allows models to be fully compatible with
 Modelica.Fluid</a>, and it allows the implementation of
 component models that reuse base classes for heat transfer, mass transfer and
 flow resistance.
-The class inheritance is as follows:
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/UsersGuide/a60.png\"/>
 </p>
 
 </html>"));
