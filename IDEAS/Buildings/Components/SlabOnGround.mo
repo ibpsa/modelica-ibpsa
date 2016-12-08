@@ -4,7 +4,7 @@ model SlabOnGround "opaque floor on ground slab"
      QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes),
         dT_nominal_a=-3,
     redeclare replaceable Data.Constructions.FloorOnGround constructionType,
-    layMul(monLay(monLayDyn(final addRes_b=true))));
+    layMul(monLay(each monLayDyn(final addRes_b=true))));
 
   parameter Modelica.SIunits.Length PWall = 4*sqrt(AWall)
     "Total floor slab perimeter";
