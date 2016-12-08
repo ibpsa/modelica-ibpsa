@@ -5,13 +5,14 @@ function X_pW "Humidity ratio for given water vapor pressure"
                                       min=0.003,
                                       nominal=1000) "Water vapor pressure";
   input Modelica.SIunits.Pressure p=101325 "Total pressure";
-  output Modelica.SIunits.MassFraction X_w(
-    min=0,
-    max=1,
-    nominal=0.01) "Species concentration at dry bulb temperature";
+  output Real X_w(final quantity="MassFraction",
+                  final unit="1",
+                  nominal=0.01) "Species concentration at dry bulb temperature";
 
 protected
-  Modelica.SIunits.MassFraction x_w(nominal=0.01)
+  Real x_w(final quantity="MassFraction",
+           final unit="1",
+           nominal=0.01)
     "Water mass fraction per mass of dry air";
 algorithm
   x_w := 0.62198*p_w/(p - p_w);

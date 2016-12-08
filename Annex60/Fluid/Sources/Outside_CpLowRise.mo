@@ -11,7 +11,7 @@ model Outside_CpLowRise
     annotation (choicesAllMatching=true);
 
   Modelica.SIunits.Angle alpha "Wind incidence angle (0: normal to wall)";
-  Real CpAct(min=0, final unit="1") "Actual wind pressure coefficient";
+  Real CpAct(final unit="1") "Actual wind pressure coefficient";
   Modelica.SIunits.Pressure pWin(displayUnit="Pa")
     "Change in pressure due to wind force";
 protected

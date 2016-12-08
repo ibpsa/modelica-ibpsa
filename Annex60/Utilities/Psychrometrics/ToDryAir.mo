@@ -2,10 +2,12 @@ within Annex60.Utilities.Psychrometrics;
 block ToDryAir
   "Block to convert absolute humidity from [kg/kg total air] to [kg/kg dry air]"
   extends Modelica.Blocks.Icons.Block;
-  Modelica.Blocks.Interfaces.RealOutput XiDry
+  Modelica.Blocks.Interfaces.RealOutput XiDry(final unit="1",
+                                              final quantity="MassFraction")
     "Water vapor concentration in [kg/kg dry air]"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput XiTotalAir
+  Modelica.Blocks.Interfaces.RealInput XiTotalAir(final unit="1",
+                                                  final quantity="MassFraction")
     "Water vapor concentration in [kg/kg total air]"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 

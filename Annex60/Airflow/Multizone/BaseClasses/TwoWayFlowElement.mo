@@ -37,9 +37,9 @@ protected
   Modelica.SIunits.VolumeFlowRate VZer_flow(fixed=false)
     "Minimum net volume flow rate to prevent zero flow";
 
-  Modelica.SIunits.Mass mExcAB(start=0, fixed=true)
+  Real mExcAB(start=0, fixed=true, unit="kg")
     "Air mass exchanged (for purpose of error control only)";
-  Modelica.SIunits.Mass mExcBA(start=0, fixed=true)
+  Real mExcBA(start=0, fixed=true, unit="kg")
     "Air mass exchanged (for purpose of error control only)";
 
   Medium.MassFraction Xi_a1_inflow[Medium1.nXi]

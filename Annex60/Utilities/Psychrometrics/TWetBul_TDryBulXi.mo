@@ -36,10 +36,11 @@ protected
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
 
-  Modelica.SIunits.MassFraction XiSat(start=0.01,
-                                      nominal=0.01)
+  Real XiSat(start=0.01,
+             nominal=0.01,
+             final unit="1")
     "Water vapor mass fraction at saturation";
-  Modelica.SIunits.MassFraction XiSatRefIn
+  Real XiSatRefIn(final unit="1")
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 
  parameter Integer iWat(fixed=false)

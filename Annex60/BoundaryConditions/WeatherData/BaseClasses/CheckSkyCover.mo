@@ -1,10 +1,10 @@
 within Annex60.BoundaryConditions.WeatherData.BaseClasses;
 block CheckSkyCover "Constrains the sky cover to [0, 1]"
   extends Modelica.Blocks.Icons.Block;
-  Modelica.Blocks.Interfaces.RealInput nIn(min=0, max=1)
-    "Input sky cover [0, 10]"
+  Modelica.Blocks.Interfaces.RealInput nIn(unit="1")
+    "Input sky cover [0, 1]"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput nOut(min=0, max=1, unit="1")
+  Modelica.Blocks.Interfaces.RealOutput nOut(unit="1")
     "Sky cover [0, 1]"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 

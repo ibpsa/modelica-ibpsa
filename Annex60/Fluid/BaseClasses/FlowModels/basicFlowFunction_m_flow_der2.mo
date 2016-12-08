@@ -6,7 +6,7 @@ function basicFlowFunction_m_flow_der2
   input Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
   input Real k(unit="")
-    "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+    "Flow coefficient, k=|m_flow|/sqrt(dp), with unit=(kg.m)^(1/2)";
   input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
   input Real m_flow_der(unit="kg/s2")

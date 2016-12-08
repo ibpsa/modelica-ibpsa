@@ -17,7 +17,7 @@ block BlackBody "Calculate black body sky temperature"
     final unit="K",
     displayUnit="degC") "Dew point temperature"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput nOpa( min=0, max=1, unit="1")
+  Modelica.Blocks.Interfaces.RealInput nOpa(unit="1")
     "Opaque sky cover [0, 1]"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealOutput TBlaSky(
@@ -27,13 +27,12 @@ block BlackBody "Calculate black body sky temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput HHorIR(
     unit="W/m2",
-    min=0,
     nominal=100) "Horizontal infrared irradiation"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 protected
   Modelica.SIunits.Temperature TDewPoiK "Dewpoint temperature";
   Modelica.SIunits.Emissivity epsSky "Black-body absorptivity of sky";
-  Real nOpa10(min=0, max=10) "Opaque sky cover in [0, 10]";
+  Real nOpa10 "Opaque sky cover in [0, 10]";
 equation
   if calTSky == Annex60.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover then
     TDewPoiK =  Annex60.Utilities.Math.Functions.smoothMin(TDryBul, TDewPoi, 0.1);

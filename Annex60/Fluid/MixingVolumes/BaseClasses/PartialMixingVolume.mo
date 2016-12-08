@@ -50,7 +50,7 @@ partial model PartialMixingVolume
     "Species concentration of the fluid";
   Modelica.Blocks.Interfaces.RealOutput mXi[Medium.nXi](each unit="kg")
     "Species mass of the component";
-  Medium.ExtraProperty C[Medium.nC](nominal=C_nominal) = COut_internal
+  Real C[Medium.nC](nominal=C_nominal) = COut_internal
     "Trace substance mixture content";
   Modelica.Blocks.Interfaces.RealOutput mC[Medium.nC](each unit="kg")
     "Trace substance mass of the component";

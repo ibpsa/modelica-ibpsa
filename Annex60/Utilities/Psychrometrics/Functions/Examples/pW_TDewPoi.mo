@@ -12,7 +12,7 @@ equation
   p_w = Annex60.Utilities.Psychrometrics.Functions.pW_TDewPoi(T);
   TInv = Annex60.Utilities.Psychrometrics.Functions.TDewPoi_pW(p_w);
   dT = T - TInv;
-  assert(abs(dT) < 10E-12, "Error in function implementation.");
+  assert(abs(dT) < 10E-4, "Error in function implementation.");
   annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_TDewPoi.mos"

@@ -4,7 +4,7 @@ model pW_X "Model to test pW_X and its inverse function"
 
   Modelica.SIunits.MassFraction X "Mass fraction";
   Modelica.SIunits.MassFraction XInv "Mass fraction";
-  Modelica.SIunits.MassFraction dX "Difference between mass fraction";
+  Real dX(unit="1") "Difference between mass fraction";
   Modelica.SIunits.Pressure p_w "Water vapor partial pressure";
   constant Real conv(unit="1/s") = 0.999 "Conversion factor";
 equation

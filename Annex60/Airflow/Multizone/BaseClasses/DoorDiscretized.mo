@@ -30,7 +30,7 @@ protected
   Modelica.SIunits.VolumeFlowRate dVBA_flow[nCom]
     "Volume flow rate through compartment from B to A if positive";
 
-  Real m(min=0.5, max=1) "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
+  Real m "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
   Real kVal "Flow coefficient for each compartment, k = V_flow/ dp^m";
   Modelica.SIunits.Area dA "Compartment area";
 

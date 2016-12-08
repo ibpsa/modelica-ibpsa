@@ -119,7 +119,7 @@ partial model Carnot
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
 
-  Real yPL(final unit="1", min=0) = if COP_is_for_cooling
+  Real yPL(final unit="1") = if COP_is_for_cooling
      then QEva_flow/QEva_flow_nominal
      else QCon_flow/QCon_flow_nominal "Part load ratio";
 
@@ -129,10 +129,10 @@ partial model Carnot
     else Annex60.Utilities.Math.Functions.polynomial(a=a, x=yPL)
     "Efficiency due to part load (etaPL(yPL=1)=1)";
 
-  Real COP(min=0, final unit="1") = etaCarnot_nominal_internal * COPCar * etaPL
+  Real COP(final unit="1") = etaCarnot_nominal_internal * COPCar * etaPL
     "Coefficient of performance";
 
-  Real COPCar(min=0) = TUse / Annex60.Utilities.Math.Functions.smoothMax(
+  Real COPCar(final unit="1") = TUse / Annex60.Utilities.Math.Functions.smoothMax(
     x1=1,
     x2=TCon-TEva,
     deltaX=0.25) "Carnot efficiency";
@@ -182,15 +182,15 @@ protected
 
   final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
-      p=  Medium1.p_default,
-      T=  Medium1.T_default,
-      X=  Medium1.X_default))
+      p = Medium1.p_default,
+      T = Medium1.T_default,
+      X = Medium1.X_default))
     "Specific heat capacity of medium 1 at default medium state";
   final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
     Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
-      p=  Medium2.p_default,
-      T=  Medium2.T_default,
-      X=  Medium2.X_default))
+      p = Medium2.p_default,
+      T = Medium2.T_default,
+      X = Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
 
   Medium1.ThermodynamicState staA1 = Medium1.setState_phX(
@@ -237,6 +237,7 @@ initial equation
   assert(abs(Annex60.Utilities.Math.Functions.polynomial(
          a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
   assert(etaCarnot_nominal_internal < 1,   "Parameters lead to etaCarnot_nominal > 1. Check parameters.");
+
 
 equation
   connect(port_a2, eva.port_a)

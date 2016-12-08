@@ -40,14 +40,12 @@ model ConservationEquation "Lumped volume with mass and energy balance"
      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,110})));
-  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
-                                                          each min=0,
-                                                          each max=1)
+  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1")
     "Leaving species concentration of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,110})));
-  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](each min=0)
+  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC]
     "Leaving trace substances of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -57,17 +55,17 @@ model ConservationEquation "Lumped volume with mass and energy balance"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,20})));
-  Modelica.Blocks.Interfaces.RealOutput mXiOut[Medium.nXi](each min=0, each unit=
-       "kg") "Species mass of the component"
+  Modelica.Blocks.Interfaces.RealOutput mXiOut[Medium.nXi](each unit="kg")
+    "Species mass of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,-20})));
-  Modelica.Blocks.Interfaces.RealOutput mOut(min=0, unit="kg")
+  Modelica.Blocks.Interfaces.RealOutput mOut(unit="kg")
     "Mass of the component" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,60})));
-  Modelica.Blocks.Interfaces.RealOutput mCOut[Medium.nC](each min=0, each unit="kg")
+  Modelica.Blocks.Interfaces.RealOutput mCOut[Medium.nC](each unit="kg")
     "Trace substance mass of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -93,13 +91,13 @@ model ConservationEquation "Lumped volume with mass and energy balance"
      p=p_start,
      X=X_start[1:Medium.nXi])) +
     (T_start - Medium.reference_T)*CSen) "Internal energy of fluid";
-  Modelica.SIunits.Mass m "Mass of fluid";
-  Modelica.SIunits.Mass[Medium.nXi] mXi
+  Real m(unit="kg") "Mass of fluid";
+  Real[Medium.nXi] mXi(each unit="kg")
     "Masses of independent components in the fluid";
-  Modelica.SIunits.Mass[Medium.nC] mC "Masses of trace substances in the fluid";
+  Real[Medium.nC] mC(each unit="kg") "Masses of trace substances in the fluid";
   // C need to be added here because unlike for Xi, which has medium.Xi,
   // there is no variable medium.C
-  Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
+  Real C[Medium.nC](nominal=C_nominal)
     "Trace substance mixture content";
 
   Modelica.SIunits.MassFlowRate mb_flow "Mass flows across boundaries";
@@ -230,9 +228,9 @@ equation
       // If moisture is neglected in mass balance, assume for computation
       // of the mass of air that the air is at Medium.X_default.
       m = fluidVolume*Medium.density(Medium.setState_phX(
-        p=  medium.p,
-        h=  hOut,
-        X=  Medium.X_default));
+        p = medium.p,
+        h = hOut,
+        X = Medium.X_default));
     else
       // Use actual density
       m = fluidVolume*medium.d;

@@ -5,8 +5,8 @@ function basicFlowFunction_dp_der
 
   input Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-  input Real k(min=0, unit="")
-    "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+  input Real k(unit="")
+    "Flow coefficient, k=|m_flow|/sqrt(dp), with unit=(kg.m)^(1/2)";
   input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
   input Real dp_der

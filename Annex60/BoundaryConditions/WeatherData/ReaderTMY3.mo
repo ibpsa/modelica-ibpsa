@@ -46,8 +46,6 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Total sky cover (used if totSkyCov=Parameter). Use 0 <= totSkyCov <= 1"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput totSkyCov_in(
-    min=0,
-    max=1,
     unit="1") if (totSkyCovSou == Annex60.BoundaryConditions.Types.DataSource.Input)
     "Input total sky cover"
     annotation (Placement(transformation(extent={{-240,-58},{-200,-18}}),
@@ -62,8 +60,6 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Opaque sky cover (used if opaSkyCov=Parameter). Use 0 <= opaSkyCov <= 1"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput opaSkyCov_in(
-    min=0,
-    max=1,
     unit="1") if (opaSkyCovSou == Annex60.BoundaryConditions.Types.DataSource.Input)
     "Input opaque sky cover"
     annotation (Placement(transformation(extent={{-240,32},{-200,72}}),
@@ -123,8 +119,6 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     unit="1") = 0.5 "Relative humidity (used if relHum=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput relHum_in(
-    min=0,
-    max=1,
     unit="1") if (relHumSou == Annex60.BoundaryConditions.Types.DataSource.Input)
     "Input relative humidity"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
@@ -138,8 +132,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput winSpe_in(
     final quantity="Velocity",
-    final unit="m/s",
-    min=0) if (winSpeSou == Annex60.BoundaryConditions.Types.DataSource.Input)
+    final unit="m/s") if (winSpeSou == Annex60.BoundaryConditions.Types.DataSource.Input)
     "Input wind speed"
     annotation (Placement(transformation(extent={{-240,-98},{-200,-58}}),
         iconTransformation(extent={{-240,-98},{-200,-58}})));
@@ -311,13 +304,9 @@ protected
     final unit="m",
     displayUnit="m") "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput totSkyCov_in_internal(
-    final quantity="1",
-    min=0,
-    max=1) "Needed to connect to conditional connector";
+    final quantity="1") "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput opaSkyCov_in_internal(
-    final quantity="1",
-    min=0,
-    max=1) "Needed to connect to conditional connector";
+    final quantity="1") "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput TDryBul_in_internal(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -331,9 +320,7 @@ protected
     final unit="K",
     displayUnit="degC") "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput relHum_in_internal(
-    final quantity="1",
-    min=0,
-    max=1) "Needed to connect to conditional connector";
+    final quantity="1") "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput winSpe_in_internal(
     final quantity="Velocity",
     final unit="m/s") "Needed to connect to conditional connector";
@@ -407,8 +394,7 @@ protected
        opaSkyCovSou == Annex60.BoundaryConditions.Types.DataSource.File
     "Convert sky cover from [0...10] to [0...1]"
     annotation (Placement(transformation(extent={{120,-158},{140,-138}})));
-  Annex60.BoundaryConditions.WeatherData.BaseClasses.CheckBlackBodySkyTemperature
-                                                                                  cheTemBlaSky(TMin=0)
+  Annex60.BoundaryConditions.WeatherData.BaseClasses.CheckBlackBodySkyTemperature cheTemBlaSky(TMin=0)
     "Check black body sky temperature"
     annotation (Placement(transformation(extent={{240,-260},{260,-240}})));
 
@@ -551,7 +537,7 @@ equation
     connect(opaSkyCov_in, opaSkyCov_in_internal);
   else
     connect(conOpaSkyCov.u, datRea.y[14]) annotation (Line(
-      points={{118,-148},{30,-148},{30,-29.92},{-59,-29.92}},
+      points={{118,-148},{30,-148},{30,-30},{-59,-30}},
       color={0,0,127}));
     connect(conOpaSkyCov.y, opaSkyCov_in_internal);
   end if;
@@ -779,19 +765,19 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(datRea.y[11], conWinDir.u) annotation (Line(
-      points={{-59,-30.16},{20,-30.16},{20,-270},{118,-270}},
+      points={{-59,-30},{20,-30},{20,-270},{118,-270}},
       color={0,0,127}));
   connect(datRea1.y[1], conHorRad.HIn) annotation (Line(
-      points={{-59,169.25},{20,169.25},{20,250},{118,250}},
+      points={{-59,170},{20,170},{20,250},{118,250}},
       color={0,0,127}));
   connect(cheTemDryBul.TOut, TBlaSkyCom.TDryBul) annotation (Line(
       points={{181,-190},{220,-190},{220,-202},{238,-202}},
       color={0,0,127}));
   connect(datRea.y[1], conTDryBul.u) annotation (Line(
-      points={{-59,-30.96},{20,-30.96},{20,-190},{118,-190}},
+      points={{-59,-30},{20,-30},{20,-190},{118,-190}},
       color={0,0,127}));
   connect(datRea.y[2], conTDewPoi.u) annotation (Line(
-      points={{-59,-30.88},{20,-30.88},{20,-230},{118,-230}},
+      points={{-59,-30},{20,-30},{20,-230},{118,-230}},
       color={0,0,127}));
   connect(cheTemDewPoi.TOut, weaBus.TDewPoi) annotation (Line(
       points={{181,-230},{280,-230},{280,0},{300,0}},
@@ -803,16 +789,16 @@ equation
       points={{238,-207},{220,-207},{220,-230},{181,-230}},
       color={0,0,127}));
   connect(datRea1.y[3], conDirNorRad.HIn) annotation (Line(
-      points={{-59,170.25},{20,170.25},{20,210},{118,210}},
+      points={{-59,170},{20,170},{20,210},{118,210}},
       color={0,0,127}));
   connect(datRea1.y[2], conGloHorRad.HIn) annotation (Line(
-      points={{-59,169.75},{30,169.75},{30,170},{118,170}},
+      points={{-59,170},{30,170},{30,170},{118,170}},
       color={0,0,127}));
   connect(datRea1.y[4], conDifHorRad.HIn) annotation (Line(
-      points={{-59,170.75},{20,170.75},{20,130},{118,130}},
+      points={{-59,170},{20,170},{20,130},{118,130}},
       color={0,0,127}));
   connect(conRelHum.relHumIn, datRea.y[3]) annotation (Line(
-      points={{118,30},{20,30},{20,-30.8},{-59,-30.8}},
+      points={{118,30},{20,30},{20,-30},{-59,-30}},
       color={0,0,127}));
   connect(cheRelHum.relHumOut, weaBus.relHum) annotation (Line(
       points={{181,30},{280,30},{280,0},{300,0}},

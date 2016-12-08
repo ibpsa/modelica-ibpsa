@@ -6,7 +6,7 @@ model ZonalFlow_ACS "Zonal flow with input air change per second"
     "Set to true to use constant density";
   parameter Modelica.SIunits.Volume V "Volume of room";
 
-  Modelica.Blocks.Interfaces.RealInput ACS
+  Modelica.Blocks.Interfaces.RealInput ACS(unit="1/s")
     "Air change per seconds, relative to the smaller of the two volumes"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
 protected
@@ -63,6 +63,10 @@ where <code>ACS</code> is an input and the volume <code>V</code> is a parameter.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 6, 2016, by Michael Wetter:<br/>
+Added units for input signal.
+</li>
 <li>
 August 18, 2014, by Michael Wetter:<br/>
 Removed parameter <code>forceErrorControlOnFlow</code> as it was not used.

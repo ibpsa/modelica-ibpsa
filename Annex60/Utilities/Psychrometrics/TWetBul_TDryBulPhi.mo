@@ -15,7 +15,7 @@ block TWetBul_TDryBulPhi
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
-  Modelica.Blocks.Interfaces.RealInput phi(min=0, max=1)
+  Modelica.Blocks.Interfaces.RealInput phi(final unit="1")
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
@@ -35,10 +35,10 @@ protected
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
-  Modelica.SIunits.MassFraction XiDryBul
+  Real XiDryBul(final unit="1")
     "Water vapor mass fraction at dry bulb state";
-  Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
-  Modelica.SIunits.MassFraction XiSatRefIn
+  Real XiSat(final unit="1") "Water vapor mass fraction at saturation";
+  Real XiSatRefIn(final unit="1")
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 
 equation

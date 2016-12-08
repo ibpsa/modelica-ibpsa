@@ -2,16 +2,21 @@ within Annex60.Utilities.Psychrometrics;
 block pW_X "Water vapor pressure for given humidity ratio"
   extends
     Annex60.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
-  Modelica.Blocks.Interfaces.RealInput X_w(min=0, max=0.99999, nominal=0.1)
+  Modelica.Blocks.Interfaces.RealInput X_w(max=0.99999,
+                                           nominal=0.1,
+                                           final unit="1",
+                                           final quantity="MassFraction")
     "Water concentration at dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}}), iconTransformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealOutput p_w(final quantity="Pressure",
                                            final unit="Pa",
-                                           displayUnit="Pa",
-                                           min = 0) "Water vapor pressure"
+                                           displayUnit="Pa") "Water vapor pressure"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
-  output Modelica.SIunits.MassFraction x_w(min=0, max=1, nominal=0.1, start=0.001)
+  output Real x_w(nominal=0.1,
+                  start=0.001,
+                  final unit="1",
+                  final quantity="MassFraction")
     "Water mass fraction per mass of dry air";
 
 equation

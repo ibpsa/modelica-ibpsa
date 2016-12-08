@@ -2,8 +2,10 @@ within Annex60.Fluid.MassExchangers;
 model ConstantEffectiveness
   "Heat and moisture exchanger with constant effectiveness"
   extends Annex60.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
-  redeclare replaceable package Medium1 = Modelica.Media.Interfaces.PartialCondensingGases,
-  redeclare replaceable package Medium2 = Modelica.Media.Interfaces.PartialCondensingGases,
+  redeclare replaceable package Medium1 =
+        Modelica.Media.Interfaces.PartialCondensingGases,
+  redeclare replaceable package Medium2 =
+        Modelica.Media.Interfaces.PartialCondensingGases,
   sensibleOnly1=false,
   sensibleOnly2=false,
   Q1_flow = epsS * QMax_flow,
@@ -25,8 +27,8 @@ model ConstantEffectiveness
     "Maximum water flow rate from medium 2 to medium 1";
 
 protected
-  parameter Integer i1_w(min=1, fixed=false) "Index for water substance";
-  parameter Integer i2_w(min=1, fixed=false) "Index for water substance";
+  parameter Integer i1_w(fixed=false) "Index for water substance";
+  parameter Integer i2_w(fixed=false) "Index for water substance";
   Real gai1(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
   Real gai2(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
 initial algorithm

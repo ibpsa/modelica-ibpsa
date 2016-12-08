@@ -1,9 +1,9 @@
 within Annex60.Airflow.Multizone;
 model ZonalFlow_m_flow "Zonal flow with input air change per second"
   extends Annex60.Airflow.Multizone.BaseClasses.ZonalFlow;
-   Modelica.Blocks.Interfaces.RealInput mAB_flow "Mass flow rate from A to B"
+   Modelica.Blocks.Interfaces.RealInput mAB_flow(unit="kg/s") "Mass flow rate from A to B"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Modelica.Blocks.Interfaces.RealInput mBA_flow "Mass flow rate from B to A"
+  Modelica.Blocks.Interfaces.RealInput mBA_flow(unit="kg/s") "Mass flow rate from B to A"
     annotation (Placement(transformation(extent={{120,-110},{100,-90}})));
 
 equation
@@ -21,6 +21,10 @@ Input is the mass flow rate from <i>A</i> to <i>B</i> and from <i>B</i> to <i>A<
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 6, 2016, by Michael Wetter:<br/>
+Added units for input signal.
+</li>
 <li>
 August 18, 2014, by Michael Wetter:<br/>
 Removed parameter <code>forceErrorControlOnFlow</code> as it was not used.

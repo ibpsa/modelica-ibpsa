@@ -6,14 +6,14 @@ model WaterVaporPressureDerivativeCheck
   Real y "Function value";
   Real y_comp "Function value for comparison";
   Real err "Integration error";
-  Modelica.SIunits.MassFraction X_w
+  Real X_w
     "Water vapor mass fraction at dry bulb temperature";
   Modelica.SIunits.Pressure p "Total pressure";
 
 initial equation
   y=y_comp;
 equation
-  X_w =  1.001 + 0.999/2*time^3;
+  X_w =  0.5 + 0.9/2*time^3;
   p = 101325+300*time^3;
 
   y=Annex60.Utilities.Psychrometrics.Functions.pW_X(X_w=X_w, p=p);

@@ -14,7 +14,7 @@ model ActuatorSignal
   parameter Real y_start=1 "Initial value of output"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening));
 
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1)
+  Modelica.Blocks.Interfaces.RealInput y(unit="1")
     "Actuator position (0: closed, 1: open)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
           rotation=270,

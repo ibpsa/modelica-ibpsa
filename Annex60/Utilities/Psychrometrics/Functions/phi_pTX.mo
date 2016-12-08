@@ -4,7 +4,8 @@ function phi_pTX
   extends Modelica.Icons.Function;
   input Modelica.SIunits.Pressure p "Absolute pressure of the medium";
   input Modelica.SIunits.Temperature T "Dry bulb temperature";
-  input Modelica.SIunits.MassFraction X_w
+  input Real X_w(final quantity="MassFraction",
+                 final unit="1")
     "Water vapor mass fraction per unit mass total air";
   output Real phi(unit="1") "Relative humidity";
 algorithm

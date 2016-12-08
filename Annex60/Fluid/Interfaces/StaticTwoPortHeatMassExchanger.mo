@@ -44,11 +44,9 @@ model StaticTwoPortHeatMassExchanger
   Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg")
     "Leaving temperature of the component";
 
-  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
-                                                          each min=0,
-                                                          each max=1)
+  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1")
     "Leaving species concentration of the component";
-  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](each min=0)
+  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC]
     "Leaving trace substances of the component";
 
 protected

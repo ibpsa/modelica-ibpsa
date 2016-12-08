@@ -42,14 +42,12 @@ model StaticTwoPortConservationEquation
         rotation=90,
         origin={-50,110})));
 
-  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
-                                                          each min=0,
-                                                          each max=1)
+  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1")
     "Leaving species concentration of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,110})));
-  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](each min=0)
+  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC]
     "Leaving trace substances of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,

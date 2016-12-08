@@ -4,9 +4,8 @@ function X_pSatpphi "Humidity ratio for given water vapor pressure"
   input Modelica.SIunits.AbsolutePressure pSat "Saturation pressure";
   input Modelica.SIunits.Pressure p "Pressure of the fluid";
   input Real phi(min=0, max=1) "Relative humidity";
-  output Modelica.SIunits.MassFraction X_w(
-    min=0,
-    max=1,
+  output Real X_w(
+    final unit="1",
     nominal=0.01) "Water vapor concentration per total mass of air";
 
 protected

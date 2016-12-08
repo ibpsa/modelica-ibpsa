@@ -2,9 +2,9 @@ within Annex60.Utilities.Psychrometrics.Functions.BaseClasses;
 function der_pW_X "Derivative of function pW_X"
   extends Modelica.Icons.Function;
 
-  input Modelica.SIunits.MassFraction X_w(
-    min=0,
-    max=1,
+  input Real X_w(
+    unit="1",
+    max=0.99999,
     nominal=0.01) "Species concentration at dry bulb temperature";
   input Modelica.SIunits.Pressure p=101325 "Total pressure";
 
@@ -15,7 +15,7 @@ function der_pW_X "Derivative of function pW_X"
   output Real dp_w "Differential of water vapor pressure";
 
 protected
-  Modelica.SIunits.MassFraction x_w(nominal=0.01)
+  Real x_w(nominal=0.01)
     "Water mass fraction per mass of dry air";
   Real dX_w_dX "Differential d (x_w) / d X_w";
 algorithm

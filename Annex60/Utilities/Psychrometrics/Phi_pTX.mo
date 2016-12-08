@@ -10,6 +10,7 @@ block Phi_pTX
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput X_w(
     final unit="1",
+    final quantity="MassFraction",
     min=0) "Water vapor mass fraction per unit mass total air"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 

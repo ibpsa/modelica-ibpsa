@@ -8,7 +8,7 @@ model AirToOutlet "Validation model for air to outlet conversion"
 
   Modelica.Blocks.Sources.Constant m_flow(k=0.2) "Mass flow rate"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Sources.Constant h(k=3E5) "Specific enthalpy"
+  Modelica.Blocks.Sources.Constant h(k=0)   "Specific enthalpy"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Constant Xi[1](k={0.01}) "Water vapor concentration"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
@@ -76,6 +76,10 @@ in order to test all combinations of air.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 7, 2016, by Michael Wetter:<br/>
+Changed enthalpy signal to get more realistic temperatures.
+</li>
 <li>
 April 20, 2016 by Michael Wetter:<br/>
 First implementation.

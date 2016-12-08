@@ -33,7 +33,7 @@ partial model PartialCarnot_y
     "Nominal compressor power (at y=1)"
     annotation (Dialog(group="Nominal condition"));
 
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1")
+  Modelica.Blocks.Interfaces.RealInput y(unit="1")
     "Part load ratio of compressor"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
 
