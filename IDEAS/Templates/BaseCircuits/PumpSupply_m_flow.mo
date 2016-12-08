@@ -18,8 +18,7 @@ model PumpSupply_m_flow "Pump on supply duct"
       flowRegulator(
         filteredSpeed=filteredSpeed,
         riseTime=riseTime,
-        init=init,
-        motorCooledByFluid=motorCooledByFluid));
+        init=init));
 
 equation
   connect(u, flowRegulator.m_flow_in) annotation (Line(

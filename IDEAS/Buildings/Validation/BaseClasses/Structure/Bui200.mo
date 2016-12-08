@@ -9,7 +9,7 @@ model Bui200 "BESTEST Building model case 195"
   IDEAS.Buildings.Components.Zone gF(
     V=129.6,
     n50=0,
-    corrCV=0.822,
+    mSenFac=0.822,
     nSurf=8,
     T_start=293.15,
     redeclare package Medium = Medium)

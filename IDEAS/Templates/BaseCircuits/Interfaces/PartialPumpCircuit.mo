@@ -8,7 +8,6 @@ model PartialPumpCircuit
       tau=tauPump,
       energyDynamics=energyDynamics,
       massDynamics=massDynamics,
-      dynamicBalance=dynamicBalance,
       addPowerToMedium=addPowerToMedium));
 
   extends PumpParameters;
