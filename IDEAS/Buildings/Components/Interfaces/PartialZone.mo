@@ -24,7 +24,11 @@ model PartialZone "Building zone model"
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Advanced", group="Air model"));
   parameter Real n50toAch=20 "Conversion fractor from n50 to Air Change Rate"
-    annotation(Dialog(tab="Advanced", group="Air model"));
+   annotation(Dialog(tab="Advanced", group="Air model"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamicsAir=Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance for air model: dynamic (3 initialization options) or steady state";
+  parameter Real mSenFac = 5 "Correction factor for thermal capacity of zone air.";
+
   parameter Boolean linIntRad=sim.linIntRad
     "Linearized computation of long wave radiation"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange"));
@@ -66,7 +70,9 @@ public
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal,
     n50=n50,
-    n50toAch=n50toAch) constrainedby ZoneAirModels.PartialAirModel(
+    n50toAch=n50toAch)
+  constrainedby
+    IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(
     redeclare package Medium = Medium,
     nSurf=nSurf,
     Vtot=V,

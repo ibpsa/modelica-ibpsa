@@ -14,6 +14,7 @@ model Zone "Building zone model"
         rotation=-90,
         origin={-100,40})));
 
+
 equation
   connect(propsBus, propsBusInt) annotation (Line(
       points={{-100,40},{-90,40},{-80,40}},
