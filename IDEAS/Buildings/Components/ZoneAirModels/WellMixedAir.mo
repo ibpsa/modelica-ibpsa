@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.ZoneAirModels;
 model WellMixedAir "Zone air model assuming perfectly mixed air"
-  extends IDEAS.Buildings.Components.ZoneAirModels.PartialAirModel(final nSeg=1, mSenFac=5);
+  extends IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(final nSeg=1, mSenFac=5);
   parameter Boolean useAirLeakage = true "Set to false to disable airleakage computations";
 
 protected
