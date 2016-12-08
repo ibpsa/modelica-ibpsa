@@ -1,4 +1,4 @@
-within IDEAS.Buildings.Components.ZoneAirModels;
+within IDEAS.Buildings.Components.ZoneAirModels.BaseClasses;
 partial model PartialAirModel "Partial for air models"
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -7,9 +7,9 @@ partial model PartialAirModel "Partial for air models"
   parameter Integer nSurf "Number of connected surfaces";
   parameter Integer nSeg(min=1)=1 "Number of air segments";
   parameter Modelica.SIunits.Volume Vtot "Total zone air volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Vtot*rho_default*n50/n50toAch/3600
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=m_flow_nominal_airLea
     "Nominal mass flow rate"
-    annotation(Dialog(tab="Advanced"));
+	annotation(Dialog(tab="Advanced"));
   parameter Boolean allowFlowReversal=true
      "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Advanced"));
@@ -21,6 +21,7 @@ partial model PartialAirModel "Partial for air models"
     annotation(Dialog(tab="Advanced"));
   constant Boolean computeTSensorAsFunctionOfZoneAir = true
     "Set to false if TSensor in zone model should not take into account the value of the zone air temperature";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_airLea=Vtot*rho_default/3600*n50/n50toAch "nominal mass flow of air leakage";
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput QGai(unit="J/s") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput TAir "Zone air temperature"
@@ -60,8 +61,9 @@ protected
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
-  final parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute nominal mass flow rate";
+  final parameter Modelica.SIunits.Density rho_default = Medium.density(
+    state=state_default) "Medium default density";
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default = Medium.specificHeatCapacityCp(state=state_default);
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
