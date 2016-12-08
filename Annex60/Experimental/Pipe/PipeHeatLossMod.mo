@@ -3,8 +3,6 @@ model PipeHeatLossMod
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
-  output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
-
   replaceable parameter
     BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE50S
     pipeData constrainedby BaseClasses.SinglePipeConfig.SinglePipeData(H=H)
@@ -130,8 +128,6 @@ public
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
 equation
-  heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
-
   connect(port_a, reverseHeatLoss.port_b)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
