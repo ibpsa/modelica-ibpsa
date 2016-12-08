@@ -44,7 +44,6 @@ model NoReverseCompHeatLossPipe
     annotation (Placement(transformation(extent={{-118,-100},{-98,-80}})));
   Annex60.Experimental.Pipe.Archive.PipeHeatLossA60Ref A60PipeHeatLoss(
     redeclare package Medium = Medium,
-    m_flow_small=1e-4*0.5,
     diameter=diameter,
     length=length,
     m_flow_nominal=0.5,
@@ -99,11 +98,12 @@ model NoReverseCompHeatLossPipe
   Annex60.Experimental.Pipe.Archive.PipeHeatLoss A60PipeHeatLossMod2(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
-    diameter=diameter,
     length=length,
     m_flow_nominal=0.5,
-    thicknessIns=0.02,
-    lambdaI=0.01) "Annex 60 modified pipe with heat losses"
+    redeclare
+      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR100S
+      pipeData(lambdaI=0.01))
+                  "Annex 60 modified pipe with heat losses"
     annotation (Placement(transformation(extent={{22,0},{42,20}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60ModIn1(
                                                           redeclare package

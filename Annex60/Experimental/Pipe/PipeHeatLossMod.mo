@@ -5,9 +5,14 @@ model PipeHeatLossMod
 
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 
-  parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
+  replaceable parameter
+    BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE50S
+    pipeData constrainedby BaseClasses.SinglePipeConfig.SinglePipeData(H=H)
+    "Select pipe dimensions" annotation (choicesAllMatching=true, Placement(
+        transformation(extent={{-96,-96},{-76,-76}})));
+
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
+  parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
@@ -15,20 +20,11 @@ model PipeHeatLossMod
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
-    m_flow_nominal) "Small mass flow rate for regularization of zero flow"
-    annotation (Dialog(tab="Advanced"));
+
 
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
-
-  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/
-      Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
-      diameter/2)^2*cp_default;
-  parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
-    "Heat conductivity";
 
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
   // fixme: propagate use_dh and set default to false
@@ -50,6 +46,19 @@ model PipeHeatLossMod
 
 
 protected
+  parameter Modelica.SIunits.Length thickness=pipeData.s "Pipe wall thickness";
+  parameter Modelica.SIunits.Diameter diameter=pipeData.Di "Pipe diameter";
+  parameter Types.ThermalResistanceLength R=pipeData.hInvers/(lambdaI*2*
+      Modelica.Constants.pi);
+  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
+      diameter/2)^2*cp_default;
+  parameter Modelica.SIunits.ThermalConductivity lambdaI=pipeData.lambdaI
+    "Thermal conductivity";
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
+    m_flow_nominal) "Small mass flow rate for regularization of zero flow"
+    annotation (Dialog(tab="Advanced"));
+
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
@@ -70,6 +79,18 @@ protected
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation (Dialog(group="Advanced", enable=use_mu_default));
 
+  PipeAdiabaticPlugFlow pipeAdiabaticPlugFlow(
+    redeclare final package Medium = Medium,
+    final m_flow_small=m_flow_small,
+    final allowFlowReversal=allowFlowReversal,
+    dh=diameter,
+    length=length,
+    m_flow_nominal=m_flow_nominal,
+    from_dp=from_dp,
+    thickness=pipeData.s)
+    "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(state=sta_default)
     "Heat capacity of medium";
@@ -79,7 +100,6 @@ public
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
-    thicknessIns=thicknessIns,
     C=C,
     R=R,
     m_flow_small=m_flow_small,
@@ -90,7 +110,6 @@ public
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
-    thicknessIns=thicknessIns,
     C=C,
     R=R,
     m_flow_small=m_flow_small,
@@ -111,7 +130,6 @@ public
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
 
   parameter Modelica.SIunits.Temperature T_ini_in=Medium.T_default
     "Initialization temperature at pipe inlet" annotation (Dialog(tab="Initialization"));
@@ -122,6 +140,7 @@ public
     annotation (Dialog(tab="Initialization"));
   parameter Modelica.SIunits.MassFlowRate m_flowInit=0
     annotation (Dialog(tab="Initialization", enable=initDelay));
+
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
@@ -153,7 +172,7 @@ equation
           {0,40},{0,100}}, color={191,0,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
+            100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
