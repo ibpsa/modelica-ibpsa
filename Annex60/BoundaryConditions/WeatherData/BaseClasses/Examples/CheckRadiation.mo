@@ -11,10 +11,10 @@ model CheckRadiation "Test model for CheckRadiation"
 equation
 
   connect(conGloRad.HOut, cheGloRad.HIn) annotation (Line(
-      points={{41,30},{58,30}},
+      points={{61,20},{60,20},{60,30},{58,30}},
       color={0,0,127}));
   connect(conDifRad.HOut, cheDifRad.HIn) annotation (Line(
-      points={{41,-10},{58,-10}},
+      points={{61,-20},{60,-20},{60,-10},{58,-10}},
       color={0,0,127}));
   annotation (
   Documentation(info="<html>
@@ -30,7 +30,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-experiment(StopTime=8640000),
+experiment(StartTime=0, StopTime=8640000, Tolerance=1e-6),
 __Dymola_Commands(file=
           "modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/CheckRadiation.mos"
         "Simulate and plot"));

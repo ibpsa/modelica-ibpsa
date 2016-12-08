@@ -23,7 +23,7 @@ protected
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 equation
   connect(datRea.y[4], chePre.PIn) annotation (Line(
-      points={{1,9.24138},{10,9.24138},{10,10},{18,10}},
+      points={{1,10},{10,10},{10,10},{18,10}},
       color={0,0,127}));
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-79,10},{-62,10}},
@@ -50,7 +50,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(StopTime=8640000),
+  experiment(StartTime=0, StopTime=8640000, Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/CheckPressure.mos"
         "Simulate and plot"));
 end CheckPressure;
