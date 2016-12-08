@@ -170,7 +170,7 @@ initial algorithm
       elseif IDEAS.Utilities.Math.Functions.isAngle(inc[i], incWall) then
          for k in 0:numAzi-1 loop
            if IDEAS.Utilities.Math.Functions.isAngle(azi[i], aziSouth + k*Modelica.Constants.pi*2/numAzi) then
-             index1:=2+k;
+             index1:=2+k+1;
            break;
            end if;
            //warning
@@ -190,7 +190,7 @@ initial algorithm
           elseif IDEAS.Utilities.Math.Functions.isAngle(inc[j], incWall) then
             for k in 0:numAzi-1 loop
               if IDEAS.Utilities.Math.Functions.isAngle(azi[j], aziSouth + k*Modelica.Constants.pi*2/numAzi) then
-                index2:=2+k;
+                index2:=2+k+1;
                 break;
               end if;
               //warning
@@ -261,5 +261,19 @@ This implementation is only valid for rectangular geometries.
 <p>
 Verification test in IDEAS.Buildings.Validation.Tests.ViewFactorVerification.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 8, 2016 by Filip Jorissen:<br/>
+Fixed indexing bug in algorithm.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+December 8, 2016 by Filip Jorissen:<br/>
+Fixed indexing bug in algorithm.
+</li>
+</ul>
 </html>"));
 end ZoneLwDistributionViewFactor;
