@@ -71,7 +71,7 @@ protected
 public
   IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.MultiLayer
     layMul(final inc=inc, energyDynamics=energyDynamics,
-    linIntCon=sim.linIntCon)
+    linIntCon=sim.linIntCon or sim.linearise)
     "Multilayer component that allows simulating walls, windows and other surfaces"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 
