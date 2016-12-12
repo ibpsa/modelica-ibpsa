@@ -22,7 +22,6 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-120,-280},{180,120}}), graphics),
-    experiment(Tolerance=1e-08),
     Documentation(info="<html>
 <p>
 This test checks if water vapour mass is conserved. 
