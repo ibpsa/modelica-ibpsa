@@ -9,14 +9,8 @@ partial record Construction "Template record for surface structure: define/order
    "Number of gain heat ports";
   parameter Integer locGain[:](each min=1) = {1}
     "Location of possible embedded system: between layer locGain and layer locGain + 1";
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Insulation
-    insulationType(final d=insulationTickness) constrainedby
-    IDEAS.Buildings.Data.Interfaces.Insulation
- "Thermal insulation type, may be used to define 1 instance of mats[:]";
   parameter IDEAS.Buildings.Data.Interfaces.Material[:] mats
     "Array of materials. The last layer is connected to propsBus_a.";
-  parameter Modelica.SIunits.Length insulationTickness = 0
-    "Thermal insulation thickness of insulationType";
   parameter Modelica.SIunits.Angle incLastLay = IDEAS.Types.Tilt.Other
     "Set to IDEAS.Types.Tilt.Floor if the last layer of mats is a floor, to .Ceiling if it is a ceiling and to .Other if other. For verification purposes.";
 
@@ -50,6 +44,10 @@ is used when modeling an air layer.
 <li>
 November 15, 2016, by Filip Jorissen:<br/>
 Revised documentation for IDEAS 1.0.
+November 14, 2016 by Filip Jorissen:<br/>
+Removed insulationType and insulationThickness
+as these parameters could lead to confusion.
+See <a href=https://github.com/open-ideas/IDEAS/issues/583>issue 583</a>.
 </li>
 <li>
 Augustus 1, 2016 by Filip Jorissen:<br/>

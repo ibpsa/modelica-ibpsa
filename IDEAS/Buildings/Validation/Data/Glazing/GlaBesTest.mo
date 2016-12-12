@@ -53,4 +53,4 @@ record GlaBesTest = IDEAS.Buildings.Data.Interfaces.Glazing (
     final U_value=3.0,
     final g_value=0.87,
     final SwAbsDif={0.0796,0.0,0.0585},
-    final SwTransDif=0.652331) "Bestest glazing data";
+    final SwTransDif=0.652331) "BESTEST glazing";
