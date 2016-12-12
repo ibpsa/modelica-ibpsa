@@ -12,7 +12,7 @@ model Vent_TTH
     annotation (Placement(transformation(extent={{28,-64},{14,-50}})));
 
   IDEAS.Fluid.Sources.MassFlowSource_T source[1](
-    redeclare package Medium = IDEAS.Media.Air,
+    redeclare package Medium = Medium,
     use_m_flow_in=true,
      each final nPorts=1,
     use_T_in=true)
@@ -27,18 +27,18 @@ model Vent_TTH
     m_flow_nominal={120,-60,-60}*1.204/3600,
     dp_nominal={50,50,50},
     linearized=true,
-    redeclare package Medium = IDEAS.Media.Air)
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-144,12},{-124,32}})));
   IDEAS.Fluid.Sources.FixedBoundary bou[5](each final nPorts=1,  redeclare
       package Medium =
-        IDEAS.Media.Air)
+        Medium)
     annotation (Placement(transformation(extent={{-120,48},{-142,66}})));
   Modelica.Blocks.Math.Gain massflowInput(k=1.205/3600)
     annotation (Placement(transformation(extent={{-44,-46},{-60,-30}})));
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
     annotation (Placement(transformation(extent={{-38,-76},{-54,-60}})));
   IDEAS.Fluid.Sources.MassFlowSource_T source1[3](
-    redeclare package Medium = IDEAS.Media.Air,
+    redeclare package Medium = Medium,
      each final nPorts=1,
     use_m_flow_in=false,
     use_T_in=false,
@@ -53,11 +53,11 @@ if time> 20044800 then
   else
   measuredInput.u = 20044800;
   end if;
-  connect(flowPort_In[2], spl.port_1) annotation (Line(points={{-200,
-          14.2857},{-172,14.2857},{-172,22},{-144,22}},
+  connect(flowPort_In[2], spl.port_1) annotation (Line(points={{-200,14.2857},{
+          -172,14.2857},{-172,22},{-144,22}},
                                 color={0,0,0}));
-  connect(spl.port_3, flowPort_Out[3]) annotation (Line(points={{-134,12},
-          {-134,12},{-134,-22.8571},{-200,-22.8571}},
+  connect(spl.port_3, flowPort_Out[3]) annotation (Line(points={{-134,12},{-134,
+          12},{-134,-22.8571},{-200,-22.8571}},
                                       color={0,127,255}));
   connect(spl.port_2, flowPort_Out[4]) annotation (Line(points={{-124,22},{-110,
           22},{-110,-20},{-200,-20}}, color={0,127,255}));
