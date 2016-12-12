@@ -51,6 +51,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+November 15, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
+</li>
+<li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation: cleaned up connections and partials.
 </li>
@@ -59,5 +63,11 @@ February 6, 2016 by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model extends 
+<a href=modelica://IDEAS.Buildings.Components.Interfaces.PartialSurface>IDEAS.Buildings.Components.Interfaces.PartialSurface</a>
+with parameters that are typical for opaque surfaces, i.e. all surfaces except windows.
+</p>
 </html>"));
 end PartialOpaqueSurface;

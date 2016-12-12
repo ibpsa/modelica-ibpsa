@@ -1,11 +1,13 @@
 within IDEAS.Buildings.Components.ZoneAirModels;
 model WellMixedAir "Zone air model assuming perfectly mixed air"
-  extends BaseClasses.PartialAirModel(
-                          final nSeg=1, mSenFac=5);
+  extends IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(final nSeg=1, mSenFac=5);
   parameter Boolean useAirLeakage = true "Set to false to disable airleakage computations";
 
 protected
-  Fluid.MixingVolumes.MixingVolumeMoistAir       vol(
+  constant Modelica.SIunits.SpecificEnthalpy lambdaWater = 2260000
+    "Latent heat of evaporation water";
+
+  IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir       vol(
     m_flow_nominal=m_flow_nominal,
     nPorts=5,
     redeclare package Medium = Medium,
@@ -31,9 +33,6 @@ protected
                           useAirLeakage
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
-protected
-  constant Modelica.SIunits.SpecificEnthalpy lambdaWater = 2260000
-    "Latent heat of evaporation water";
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Modelica.Blocks.Math.Gain gaiLat(k=lambdaWater)
@@ -48,10 +47,10 @@ protected
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={64,22})));
-public
-  Fluid.Sensors.RelativeHumidity senRelHum(redeclare package Medium = Medium)
+  IDEAS.Fluid.Sensors.RelativeHumidity senRelHum(redeclare package Medium = Medium)
     "Relative humidity of the zone air"
     annotation (Placement(transformation(extent={{20,-30},{40,-50}})));
+
 equation
   assert(vol.ports[1].Xi_outflow[1] <= 0.1,
          "The water content of the zone air model is very high. 
@@ -103,6 +102,10 @@ equation
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
 <li>
+November 15, 2016 by Filip Jorissen:<br/>
+Revised documentation.
+</li>
+<li>
 August 26, 2016 by Filip Jorissen:<br/>
 Added support for conservation of energy.
 </li>
@@ -111,5 +114,37 @@ April 30, 2016, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Perfectly mixed air model.
+</p>
+<h4>Main equations</h4>
+<p>
+This model computes a single air temperature that is used to 
+evaluate convective heat transfer of all surfaces,
+components connected to gainCon (e.g. radiators), etc.
+The air outlet temperature equals the well mixed air temperature.
+</p>
+<h4>Assumption and limitations</h4>
+<p>
+This model is not valid for buildings where stratification occurs, 
+e.g. when using floor cooling
+or ceiling heating.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+The zone air volume <code>Vto</code> determines the thermal mass of the air.
+This mass may be artificially increased using <code>mSenFac</code> if desired, 
+e.g. to take into account the thermal mass of furniture.
+</p>
+<h4>Dynamics</h4>
+This model only contains states to represent the energy and mass dynamics, 
+typically using a temperature and pressure variable.
+Parameters <code>energyDynamics</code> and <code>massDynamics</code>
+may be used to change the model dynamics.
+<h4>Validation</h4>
+<p>
+See BESTEST.
+</p>
 </html>"));
 end WellMixedAir;

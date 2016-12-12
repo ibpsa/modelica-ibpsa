@@ -37,4 +37,8 @@ Moved epsLw definition to solid layer to be consistent
 with changed implementation of MultiLayerLucent.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Double insulated glazing system with krypton filling.
+</p>
 </html>"));

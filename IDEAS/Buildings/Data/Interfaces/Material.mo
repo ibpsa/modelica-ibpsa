@@ -40,14 +40,15 @@ record Material "Template record for properties of building materials"
     "Actual number of state variables in material";
 
   annotation (Documentation(info="<html>
-<p><h4><font color=\"#008000\">General description</font></h4></p>
-<p><h5>Goal</h5></p>
-<p>The <code>Material.mo</code> partial describes the material data required for building construction modelling.</p>
-<p><h5>Assumptions and limitations</h5></p>
-<p><ol>
-<li>Current number of states in the material layer is determined by a reference number of states in a 20cm concrete slab.</li>
-</ol></p>
-<p><h4><font color=\"#008000\">Validation </font></h4></p>
-<p>No validation required.</p>
+<p>
+This record may be used to define material properties.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 15, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
+</li>
+</ul>
 </html>"));
 end Material;
