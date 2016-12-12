@@ -13,9 +13,7 @@ model WindowLinearisation
     azi=0,
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
-    redeclare parameter IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
     AWall=10,
-    insulationThickness=0,
     inc=IDEAS.Types.Tilt.Floor) "Outer wall model"
     annotation (Placement(transformation(extent={{-54,20},{-44,40}})));
   Zone zone1(

@@ -1,11 +1,9 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-record LightFloor "BESTEST Light floor"
-
+record LightFloor "BESTEST light floor"
   extends IDEAS.Buildings.Data.Interfaces.Construction(
-    final nLay=2,
     incLastLay = IDEAS.Types.Tilt.Floor,
-    final mats={
-      insulationType,
+    mats={
+      IDEAS.Buildings.Validation.Data.Insulation.InsulationFloor(d=1.003),
       IDEAS.Buildings.Validation.Data.Materials.TimberFlooring(d=0.025)});
 
   annotation (Documentation(revisions="<html>
