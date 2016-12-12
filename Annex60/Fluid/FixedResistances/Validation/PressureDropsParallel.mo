@@ -17,19 +17,6 @@ model PressureDropsParallel
     dp_nominal=10,
     deltaM=0.3,
     linearized=false,
-<<<<<<< HEAD:Annex60/Fluid/FixedResistances/Examples/FixedResistancesParallel.mo
-    from_dp=false)
-             annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
-  Annex60.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
-        Medium,
-    T=293.15,
-    nPorts=2,
-    use_p_in=true)        annotation (Placement(transformation(extent={{-70,28},
-            {-50,48}})));
-  Annex60.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
-        Medium,
-    T=283.15,
-=======
     from_dp=true) "Flow resistance"
     annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
 
@@ -43,7 +30,6 @@ model PressureDropsParallel
 
   Annex60.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium,
->>>>>>> master:Annex60/Fluid/FixedResistances/Validation/PressureDropsParallel.mo
     nPorts=2,
     p(displayUnit="Pa") = 101325,
     T=283.15) "Pressure boundary condition"
@@ -98,12 +84,6 @@ equation
   connect(masFlo1.m_flow, assEqu.u2) annotation (Line(
       points={{30,51},{30,64},{38,64}},
       color={0,0,127}));
-<<<<<<< HEAD:Annex60/Fluid/FixedResistances/Examples/FixedResistancesParallel.mo
-    annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesParallel.mos"
-        "Simulate and plot"));
-end FixedResistancesParallel;
-=======
 
 annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsParallel.mos" "Simulate and plot"),
@@ -120,4 +100,3 @@ First implementation.
 </ul>
 </html>"));
 end PressureDropsParallel;
->>>>>>> master:Annex60/Fluid/FixedResistances/Validation/PressureDropsParallel.mo
