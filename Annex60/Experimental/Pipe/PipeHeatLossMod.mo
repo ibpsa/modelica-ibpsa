@@ -12,7 +12,7 @@ model PipeHeatLossMod
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp_nominal=pipeAdiabaticPlugFlow.dp_nominal
+  parameter Modelica.SIunits.Pressure dp_nominal=BaseClasses.dPpre(length, diameter, m_flow_nominal, Medium.T_default)
     "Pressure drop at nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
