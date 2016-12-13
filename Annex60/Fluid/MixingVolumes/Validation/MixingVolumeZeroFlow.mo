@@ -107,7 +107,7 @@ model MixingVolumeZeroFlow
     use_T_in=true) "Source"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Routing.RealPassThrough reaPasThr
-    "Real pass thorugh for unit conversion"
+    "Real pass through for unit conversion"
     annotation (Placement(transformation(extent={{-66,74},{-54,86}})));
 equation
   connect(sou2.ports[1], volNonLinSys.ports[1]) annotation (Line(points={{-40,-22},
