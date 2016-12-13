@@ -126,7 +126,14 @@ equation
           points={{70,80},{70,-80}},
           color={0,0,0},
           thickness=0.5)}), Documentation(info="<html>
-<p>Correlation sources:</p>
+<p>
+Model for computing convective/radiative heat transfer inside air cavities.
+</p>
+<h4>Assumption and limitations</h4>
+<p>
+Only valid for horizontal or vertical surfaces.
+</p>
+<h4>References</h4>
 <pre><span style=\"font-family: Courier New,courier;\">Horizontal:</span>
 <span style=\"font-family: Courier New,courier;\">K.G.T. Hollands, G.D. Raithby, L. Konicek, Correlation equations for free convection heat transfer in horizontal layers of air and water, International Journal of Heat and Mass Transfer, Volume 18, Issues 7&ndash;8, July&ndash;August 1975, Pages 879-884, ISSN 0017-9310, http://dx.doi.org/10.1016/0017-9310(75)90179-9.</span>
 <span style=\"font-family: Courier New,courier;\">(http://www.sciencedirect.com/science/article/pii/0017931075901799)</span>
@@ -139,6 +146,10 @@ equation
 November 10, 2016, by Filip Jorissen:<br/>
 Revised implementation for horizontal surfaces such that
 less state events are generated.
+</li>
+<li>
+November 15, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
 </li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>

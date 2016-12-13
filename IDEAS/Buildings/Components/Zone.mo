@@ -24,25 +24,58 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
     Documentation(info="<html>
-<p><h4><font color=\"#008000\">General description</font></h4></p>
-<p><h5>Goal</h5></p>
-<p>Also the thermal response of a zone can be divided into a convective, longwave radiative and shortwave radiative process influencing both thermal comfort in the depicted zone as well as the response of adjacent wall structures.</p>
-<p><h5>Description</h5></p>
-<p>The air within the zone is modeled based on the assumption that it is well-stirred, i.e. it is characterized by a single uniform air temperature. This is practically accomplished with the mixing caused by the air distribution system. The convective gains and the resulting change in air temperature T_{a} of a single thermal zone can be modeled as a thermal circuit. The resulting heat balance for the air node can be described as c_{a}.V_{a}.dT_{a}/dt = som(Q_{ia}) + sum(h_{ci}.A_{si}.(T_{a}-T_{si})) + sum(m_{az}.(h_{a}-h_{az})) + m_{ae}(h_{a}-h_{ae}) + m_{sys}(h_{a}-h_{sys}) wherefore h_{a} is the specific air enthalpy and where T_{a} is the air temperature of the zone, c_{a} is the specific heat capacity of air at constant pressure, V_{a} is the zone air volume, Q_{a} is a convective internal load, R_{si} is the convective surface resistance of surface s_{i}, A_{si} is the area of surface s_{i}, T_{si} the surface temperature of surface s_{i}, m_{az} is the mass flow rate between zones, m_{ae} is the mass flow rate between the exterior by natural infiltrationa and m_{sys} is the mass flow rate provided by the ventilation system. </p>
-<p>Infiltration and ventilation systems provide air to the zones, undesirably or to meet heating or cooling loads. The thermal energy provided to the zone by this air change rate can be formulated from the difference between the supply air enthalpy and the enthalpy of the air leaving the zone <img src=\"modelica://IDEAS/Images/equations/equation-jiSQ22c0.png\" alt=\"h_a\"/>. It is assumed that the zone supply air mass flow rate is exactly equal to the sum of the air flow rates leaving the zone, and all air streams exit the zone at the zone mean air temperature. The moisture dependence of the air enthalpy is neglected.</p>
-<p>A multiplier for the zone capacitance f_{ca} is included. A f_{ca} equaling unity represents just the capacitance of the air volume in the specified zone. This multiplier can be greater than unity if the zone air capacitance needs to be increased for stability of the simulation. This multiplier increases the capacitance of the air volume by increasing the zone volume and can be done for numerical reasons or to account for the additional capacitances in the zone to see the effect on the dynamics of the simulation. This multiplier is constant throughout the simulation and is set to 5.0 if the value is not defined <a href=\"IDEAS.Buildings.UsersGuide.References\">[Masy 2008]</a>.</p>
-<p>The exchange of longwave radiation in a zone has been previously described in the building component models and further considering the heat balance of the interior surface. Here, an expression based on <i>radiant interchange configuration factors</i> or <i>view factors</i> is avoided based on a delta-star transformation and by definition of a <i>radiant star temperature</i> T_{rs}. Literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption. ThisT_{rs} can be derived from the law of energy conservation in the radiant star node as sum(Q_{si,rs}) must equal zero. Long wave radiation from internal sources are dealt with by including them in the heat balance of the radiant star node resulting in a diffuse distribution of the radiative source.</p>
 <p>
-An option exist that calculates view factors explicitly and derives the thermal resistances 
-between individual surfaces. The implementation however assumes that the zone is rectangular. 
-This is often not the case and therefore the implementation is disabled by default.
-It can be enabled using parameter <code>calculateViewFactor</code>.
+This model is the zone model to which surfaces and HVAC may be connected.
+It contains equations for radiative heat exchange and
+a zone air model.
 </p>
-<p>Transmitted shortwave solar radiation is distributed over all surfaces in the zone in a prescribed scale. This scale is an input value which may be dependent on the shape of the zone and the location of the windows, but literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption.</p>
-<p><h4><font color=\"#008000\">Validation </font></h4></p>
-<p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
+<h4>Typical use and important parameters</h4>
+<p>
+Any number of surfaces may be connected to the 
+<code>propsbus</code> of a zone.
+The number of connected surfaces must be specified
+using the parameter <code>nSurf</code> and 
+each of the nSurf <code>propsbus</code> components 
+needs to be connected to exactly one surface.
+</p>
+<p>
+Parameter <code>V</code> must be used to define the total
+zone air volume.
+</p>
+<p>
+Parameter <code>hZone</code> is the zone height,
+which may be used to define the zone geometry.
+</p>
+<p>
+Parameter <code>A</code> is the total
+surface area of the zone.
+</p>
+<p>
+Replaceable parameter <code>airModel</code> determines
+the type of air model that is used.
+</p>
+<p>
+Parameter <code>occTyp</code> determines
+occupants properties.
+These properties may be used to evaluate internal comfort,
+or to determine internal gains.
+</p>
+<p>
+Parameter <code>intGai</code> determines
+internal gains model type. 
+By default the internal gains model considers
+a fixed sensible and latent heat load and CO2 production per person.
+</p>
+<p>
+Parameter <code>comfort</code> determines
+how occupant comfort may be computed.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 22, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
+</li>
 <li>
 August 26, 2016 by Filip Jorissen:<br/>
 Added support for conservation of energy of air model.

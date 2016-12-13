@@ -15,14 +15,35 @@ partial record Construction "Template record for surface structure: define/order
     "Set to IDEAS.Types.Tilt.Floor if the last layer of mats is a floor, to .Ceiling if it is a ceiling and to .Other if other. For verification purposes.";
 
   annotation (Documentation(info="<html>
-<p><h4><font color=\"#008000\">General description</font></h4></p>
-<p><h5>Goal</h5></p>
-<p>The <code>Construction.mo</code> partial describes the material data required for building construction modelling.</p>
-<p><h4><font color=\"#008000\">Validation </font></h4></p>
-<p>No validation required.</p>
+<p>
+This record may be used to define the structure of constructions (walls).
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+Parameter <code>mats</code> should be used to define 
+the type and thickness of each material layers.
+</p>
+<p>
+Parameter <code>incLastLay</code> may be used
+to define the intended inclination angle
+of the last material layer.
+This is to check if you correctly connect
+models that used this construction since
+otherwise the natural convection correlations
+may be computed for instance assuming a floor
+orientation instead of a ceiling orientation.
+</p>
+<h4>Assumption and limitations</h4>
+<p>
+Edge effects are neglected. 
+A simple correlation for unventilated cavities
+is used when modeling an air layer.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
+November 15, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
 November 14, 2016 by Filip Jorissen:<br/>
 Removed insulationType and insulationThickness
 as these parameters could lead to confusion.

@@ -335,7 +335,9 @@ March, 2015, by Filip Jorissen:<br/>
 Added view factor implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+</html>", info="<html>
+<p>
+Partial model that defines the main variables and connectors of a zone model.
+</p>
+</html>"));
 end PartialZone;

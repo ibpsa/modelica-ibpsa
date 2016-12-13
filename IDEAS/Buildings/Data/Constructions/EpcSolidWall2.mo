@@ -7,7 +7,11 @@ record EpcSolidWall2 "EPC: muurtype 2 / wall type 2"
       IDEAS.Buildings.Data.Insulation.Rockwool(d=0.1),
       IDEAS.Buildings.Data.Materials.BrickMi(d=0.15)});
 
-  annotation (Documentation(revisions="<html>
+
+  annotation (Documentation(info="<html>
+<p>
+Implementation of the Belgian EPC 'wall type 2'.
+</p>
 <ul>
 <li>
 November 14, 2016, by Filip Jorissen:<br/>

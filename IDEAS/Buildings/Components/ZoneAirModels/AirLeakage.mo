@@ -77,6 +77,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+November 15, 2016 by Filip Jorissen:<br/>
+Revised documentation.
+</li>
+<li>
 April 20, 2016, Filip Jorissen:<br/>
 Added missing density factor.
 </li>
@@ -89,5 +93,9 @@ June 14, 2015, Filip Jorissen:<br/>
 Adjusted implementation for computing conservation of energy.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Model for simulating air leakage with the environment.
+</p>
 </html>"));
 end AirLeakage;

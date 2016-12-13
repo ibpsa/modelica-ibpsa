@@ -3,8 +3,8 @@ PartialZone
 SolBus
 WeaBus
 ZoneBus
+WindowBus
 PartialSurface
 PartialOpaqueSurface
-WindowBus
 WindowDynamicsType
 BoundaryType

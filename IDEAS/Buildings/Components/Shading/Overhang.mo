@@ -102,7 +102,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics), Documentation(info="<html>
-<p>Shading model of an overhang above a window.</p>
+<p>
+Shading model of an overhang above a window where
+hWin is the window height,
+wWin is the window width,
+gap is the vertical distance between the window upper edge and the overhang,
+dep is the horizontal distance between the window glazing and the overhang
+and wLeft and wRight are respectively the horizontal overhang widths.
+</p>
+<p><img src=\"modelica://IDEAS/Resources/Images/Buildings/Components/Shading/Overhang.png\"/></p>
 </html>", revisions="<html>
 <ul>
 <li>
