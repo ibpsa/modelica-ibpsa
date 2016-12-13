@@ -10,7 +10,7 @@ model PumpsParallel "Two flow machines in parallel"
   parameter Modelica.SIunits.Density rho_nominal=1000
     "Density, used to compute fluid mass";
 
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM dpIn1(
+  Annex60.Fluid.FixedResistances.PressureDrop dpIn1(
     redeclare package Medium = Medium,
     dp_nominal=1000,
     m_flow_nominal=0.5*m_flow_nominal) "Pressure drop"
@@ -22,7 +22,7 @@ model PumpsParallel "Two flow machines in parallel"
     "Model of a flow machine"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM dpOut1(
+  Annex60.Fluid.FixedResistances.PressureDrop dpOut1(
     redeclare package Medium = Medium,
     dp_nominal=1000,
     m_flow_nominal=0.5*m_flow_nominal) "Pressure drop"
@@ -33,18 +33,18 @@ model PumpsParallel "Two flow machines in parallel"
     nPorts=2,
     T=293.15) annotation (Placement(transformation(extent={{-92,48},{-72,68}})));
 
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM dpIn(
+  Annex60.Fluid.FixedResistances.PressureDrop dpIn(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000) "Pressure drop"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM dpOut3(
+  Annex60.Fluid.FixedResistances.PressureDrop dpOut3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000) "Pressure drop"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM dpIn2(
+  Annex60.Fluid.FixedResistances.PressureDrop dpIn2(
     redeclare package Medium = Medium,
     dp_nominal=1000,
     m_flow_nominal=0.5*m_flow_nominal) "Pressure drop"
@@ -55,7 +55,7 @@ model PumpsParallel "Two flow machines in parallel"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     inputType=Annex60.Fluid.Types.InputType.Constant) "Model of a flow machine"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM dpOut2(
+  Annex60.Fluid.FixedResistances.PressureDrop dpOut2(
     redeclare package Medium = Medium,
     dp_nominal=1000,
     m_flow_nominal=0.5*m_flow_nominal) "Pressure drop"

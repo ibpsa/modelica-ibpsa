@@ -110,10 +110,6 @@ model MixingVolumeZeroFlow
     "Real pass thorugh for unit conversion"
     annotation (Placement(transformation(extent={{-66,74},{-54,86}})));
 equation
-  assert(abs(volNonLinSys.heatPort.Q_flow)<Modelica.Constants.small or time<1,
-    "Heat flow leakage around zero flow.");
-  assert(abs(volLinSys.heatPort.Q_flow)<Modelica.Constants.small or time<1,
-    "Heat flow leakage around zero flow.");
   connect(sou2.ports[1], volNonLinSys.ports[1]) annotation (Line(points={{-40,-22},
           {-40,-20},{-2,-20}}, color={0,127,255}));
   connect(volNonLinSys.ports[2], sin.ports[1]) annotation (Line(points={{2,-20},
@@ -185,6 +181,15 @@ conservation of energy check.
 This is for 
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/470\">
 issue 470</a>.
+</li>
+<li>
+November 2, 2016, by Michael Wetter:<br/>
+Removed assertion as the variable that are tested are already
+part of the regression test.
+Also, the previous implementation mixed graphical with textual programming,
+which we try to avoid.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/441\">issue 441</a>.
 </li>
 <li>
 January 27, 2016, by Michael Wetter:<br/>
