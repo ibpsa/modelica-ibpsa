@@ -144,11 +144,11 @@ equation
   end if;
 
   if prescribedHeatFlowRate then
-    assert(if abs(m_flow) < Modelica.Constants.small
+    assert(noEvent(if abs(m_flow) < Modelica.Constants.small
       then
         abs(Q_flow) < 1E-10
       else
-        abs(Q_flow/cp_default/m_flow) < 200,
+        abs(Q_flow/cp_default/m_flow) < 200),
    "Energy may not be conserved for small mass flow rates. This model may require prescribedHeatFlowRate = false.");
   end if;
 
