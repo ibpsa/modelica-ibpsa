@@ -3,8 +3,6 @@ model PipeHeatLossMod
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
   extends Annex60.Fluid.Interfaces.PartialTwoPort_vector;
 
-  //output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
-
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
@@ -14,6 +12,8 @@ model PipeHeatLossMod
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Pressure dp_nominal=BaseClasses.dPpre(length, diameter, m_flow_nominal, Medium.T_default)
+    "Pressure drop at nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
@@ -52,7 +52,8 @@ model PipeHeatLossMod
     from_dp=from_dp,
     thickness=thickness,
     T_ini_in=T_ini_in,
-    T_ini_out=T_ini_out)
+    T_ini_out=T_ini_out,
+    dp_nominal=dp_nominal)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -130,6 +131,7 @@ public
     annotation (Dialog(tab="Initialization"));
   parameter Modelica.SIunits.MassFlowRate m_flowInit=0
     annotation (Dialog(tab="Initialization", enable=initDelay));
+    
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -138,7 +140,6 @@ public
     T_start=T_ini_out)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 equation
-  //heat_losses = actualStream(ports_b.h_outflow) - actualStream(port_a.h_outflow);
 
   connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(
       points={{-34,-11},{-34,-40},{-12,-40}},

@@ -67,7 +67,11 @@ model ValidationMSLAIT
     length=20,
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
-    nNodes=20)         annotation (Placement(transformation(
+    nNodes=20,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+          dp_nominal(displayUnit="Pa") = 10*pip0.length, m_flow_nominal=0.3))
+                       annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-8})));
@@ -91,7 +95,11 @@ model ValidationMSLAIT
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=115,
-    nNodes=115)        annotation (Placement(transformation(
+    nNodes=115,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+          m_flow_nominal=0.3, dp_nominal=10*pip1.length))
+                       annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={38,10})));
@@ -110,7 +118,11 @@ model ValidationMSLAIT
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=76,
     nNodes=76,
-    diameter=0.0825)   annotation (Placement(transformation(
+    diameter=0.0825,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+          dp_nominal=10*pip2.length, m_flow_nominal=0.3))
+                       annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-80,40})));
@@ -129,7 +141,11 @@ model ValidationMSLAIT
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=38,
-    nNodes=38)         annotation (Placement(transformation(
+    nNodes=38,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+          dp_nominal=10*pip3.length, m_flow_nominal=0.3))
+                       annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-12})));
@@ -151,7 +167,11 @@ model ValidationMSLAIT
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=29,
-    nNodes=29)         annotation (Placement(transformation(
+    nNodes=29,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+          dp_nominal=10*pip4.length, m_flow_nominal=0.3))
+                       annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={10,40})));
@@ -173,7 +193,11 @@ model ValidationMSLAIT
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=20,
-    nNodes=20)         annotation (Placement(transformation(
+    nNodes=20,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+          dp_nominal=10*pip5.length, m_flow_nominal=0.3))
+                       annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-10,10})));
@@ -337,7 +361,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
     experiment(StopTime=603900, Tolerance=1e-005),
-    __Dymola_experimentSetupOutput,
+    __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
 <p>The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model in <a href=\"modelica://Annex60.Experimental.Pipe.Validation.ValidationPipeAIT\">ValidationPipeAIT</a>. This model compares its performance with the original Modelica Standard Library pipes.</p>
 <p>Pipes&apos; temperatures are not initialized, thus results of outflow temperature before apprixmately the first 10000 seconds should no be considered. </p>
@@ -360,5 +384,10 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
     "Simulate and plot",
     file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ExportValidationMSLAIT.mos"
     "Export csv file"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+    __Dymola_experimentFlags(
+      Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
+      Evaluate=true,
+      OutputCPUtime=true,
+      OutputFlatModelica=false));
 end ValidationMSLAIT;

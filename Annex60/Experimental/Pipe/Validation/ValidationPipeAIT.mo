@@ -35,62 +35,67 @@ extends Modelica.Icons.Example;
         origin={-88,82})));
   PipeHeatLossMod pip1(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=115,
     allowFlowReversal=allowFlowReversal,
-    nPorts=2)
+    nPorts=2,
+    m_flow_nominal=0.3,
+    dp_nominal=10*pip1.length)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PipeHeatLossMod pip4(
     redeclare package Medium = Medium,
     length=29,
-    m_flow_nominal=1,
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
-    nPorts=1)                            annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
+    nPorts=1,
+    m_flow_nominal=0.3,
+    dp_nominal=10*pip4.length)           annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
         rotation=90,
         origin={8,38})));
   PipeHeatLossMod pip5(
     redeclare package Medium = Medium,
     length=20,
-    m_flow_nominal=1,
     diameter=0.0825,
     lambdaI=0.024,
     thicknessIns=0.045,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
-    nPorts=2)
+    nPorts=2,
+    m_flow_nominal=0.3,
+    dp_nominal=10*pip5.length)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
   PipeHeatLossMod pip2(
     redeclare package Medium = Medium,
     length=76,
-    m_flow_nominal=1,
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
-    nPorts=1)                            annotation (Placement(transformation(
+    nPorts=1,
+    m_flow_nominal=0.3,
+    dp_nominal=10*pip2.length)           annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-88,30})));
   PipeHeatLossMod pip3(
     redeclare package Medium = Medium,
     length=38,
-    m_flow_nominal=1,
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
-    nPorts=1)                            annotation (Placement(transformation(
+    nPorts=1,   
+    m_flow_nominal=0.3,
+    dp_nominal=10*pip3.length)           annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-4})));
@@ -140,14 +145,16 @@ extends Modelica.Icons.Example;
         origin={34,-22})));
   PipeHeatLossMod pip0(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=20,
     allowFlowReversal=allowFlowReversal,
-    nPorts=2)                            annotation (Placement(transformation(
+    nPorts=2,
+    m_flow_nominal=0.3,
+    dp_nominal(displayUnit="Pa") = 10*pip0.length)
+                                         annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-2})));
@@ -260,7 +267,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(StopTime=603900),
-    __Dymola_experimentSetupOutput,
+    __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
 <p>The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model.</p>
 <p>Pipes&apos; temperatures are not initialized, thus results of outflow temperature before apprixmately the first 10000 seconds should no be considered. </p>

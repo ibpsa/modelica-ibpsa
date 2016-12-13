@@ -137,5 +137,10 @@ equation
     experiment(StopTime=875),
     __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeULg.mos"
         "Simulate and plot"),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput(events=false),
+    __Dymola_experimentFlags(
+      Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
+      Evaluate=true,
+      OutputCPUtime=true,
+      OutputFlatModelica=false));
 end ValidationPipeULg;
