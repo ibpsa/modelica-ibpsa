@@ -5,8 +5,8 @@ model ThermostatSetback "BESTEST thermostat setback heating system"
     final nLoads=1, final nTemSen = nZones);
 
   parameter Modelica.SIunits.Volume[nZones] VZones;
-  parameter Real corrCV = 5 "Correction factor for thermal mass in zone";
-  parameter Real[nZones] C = VZones * corrCV * 1012 * 1.204;
+  parameter Real mSenFac = 5 "Correction factor for thermal mass in zone";
+  parameter Real[nZones] C = VZones * mSenFac * 1012 * 1.204;
   parameter Modelica.SIunits.Power Pmax = 40*230
     "Maximum power that can be provided by feeder: 40A fuse";
 protected

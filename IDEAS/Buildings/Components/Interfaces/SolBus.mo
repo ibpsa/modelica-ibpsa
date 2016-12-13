@@ -11,4 +11,16 @@ expandable connector SolBus
   Real angAzi if outputAngles;
   Modelica.SIunits.Temperature Tenv(start=293.15) annotation ();
 
+  annotation (Documentation(info="<html>
+<p>
+Connector that contains all solar irridiation information for one inclination and tilt angle.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 22, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
+</li>
+</ul>
+</html>"));
 end SolBus;

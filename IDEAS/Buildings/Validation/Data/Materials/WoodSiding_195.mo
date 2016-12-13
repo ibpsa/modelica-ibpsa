@@ -1,5 +1,6 @@
 within IDEAS.Buildings.Validation.Data.Materials;
 record WoodSiding_195
+  "BESTEST wood siding for case 195"
   extends IDEAS.Buildings.Data.Interfaces.Material(
     final k=0.14,
     final c=900,

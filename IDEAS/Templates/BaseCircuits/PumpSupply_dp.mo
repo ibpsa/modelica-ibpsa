@@ -20,7 +20,6 @@ model PumpSupply_dp
       riseTime=riseTime,
       init=init,
       massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      motorCooledByFluid=false,
       addPowerToMedium=false,
       allowFlowReversal=true),                  final useBalancingValve=true,
     balancingValve(show_T=true));

@@ -5,7 +5,7 @@ model NightVentilation "BESTEST nightventilation system"
 protected
   IDEAS.BoundaryConditions.Occupants.Components.Schedule occ(occupancy=3600*{7,18},
       firstEntryOccupied=true) "Occupancy shedule";
-  final parameter Real corrCV=0.822
+  final parameter Real mSenFac=0.822
     "Air density correction for BESTEST at high altitude";
 
 public

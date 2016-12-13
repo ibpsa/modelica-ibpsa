@@ -51,7 +51,7 @@ This model computes the shading cast by a building at
 distance L and height dh on a window with height hWin.
 Diffuse solar radiation is unaffected by this model. 
 </p>
-<p><img src=\"modelica://IDEAS/Images/BuildingShade.png\"/></p>
+<p><img src=\"modelica://IDEAS/Resources/Images/Buildings/Components/Shading/BuildingShade.png\"/></p>
 <h4>Limitations</h4>
 <p>
 This model assumes that the obstructing object is very wide 
