@@ -1,6 +1,6 @@
 within Annex60.Experimental.Pipe.Examples.UseCaseAachen.Components;
 model PipeA60 "Wrapper around A60 pipe model"
-  extends Annex60.Fluid.Interfaces.PartialTwoPort;
+  extends Annex60.Fluid.Interfaces.PartialTwoPort_vector;
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
@@ -72,10 +72,6 @@ public
         Medium, m_flow_nominal=m_flow_nominal,
     T_start=333.15)                            "Temperature at pipe's port a"
     annotation (Placement(transformation(extent={{-86,-10},{-66,10}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTem_b(redeclare package Medium =
-        Medium, m_flow_nominal=m_flow_nominal,
-    T_start=333.15)                            "Temperature at pipe's port b"
-    annotation (Placement(transformation(extent={{68,-10},{88,10}})));
   PipeHeatLossMod pipe(
   redeclare package Medium = Medium,
   diameter=diameter,
@@ -86,7 +82,8 @@ public
   roughness=roughness,
   lambdaI=lambdaIns,
   from_dp=true,
-  dp_nominal=dpStraightPipe_nominal)
+  dp_nominal=dpStraightPipe_nominal,
+    nPorts=nPorts)
   "Pipe model for district heating connection"
   annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=283.15)
@@ -95,14 +92,12 @@ equation
 
   connect(port_a, senTem_a.port_a)
     annotation (Line(points={{-100,0},{-94,0},{-86,0}}, color={0,127,255}));
-  connect(port_b, senTem_b.port_b)
-    annotation (Line(points={{100,0},{94,0},{88,0}}, color={0,127,255}));
 connect(senTem_a.port_b, pipe.port_a)
   annotation (Line(points={{-66,0},{-40,0},{-12,0}}, color={0,127,255}));
-connect(senTem_b.port_a, pipe.port_b)
-  annotation (Line(points={{68,0},{38,0},{8,0}}, color={0,127,255}));
 connect(fixedTemperature.port, pipe.heatPort)
   annotation (Line(points={{-20,50},{-2,50},{-2,10}}, color={191,0,0}));
+  connect(pipe.ports_b[:], ports_b[:])
+    annotation (Line(points={{8,0},{54,0},{100,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(
           extent={{-90,24},{90,-26}},
