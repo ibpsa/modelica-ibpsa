@@ -1,5 +1,5 @@
-within IDEAS.BoundaryConditions.Climate.Meteo.Solar;
-model RadSol "solar angle to surface"
+within IDEAS.BoundaryConditions.SolarIrradiation;
+model RadSol "Block that computes surface-dependent environment data"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 
   parameter Real rho=0.2 "Ground reflectance";
@@ -120,6 +120,10 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 22, 2016 by Filip Jorissen:<br/>
+Reworked implementation such that we use Annex 60 baseclasses.
+</li>
 <li>
 March 25, 2016 by Filip Jorissen:<br/>
 Reworked radSol implementation to use RealInputs instead of weaBus.

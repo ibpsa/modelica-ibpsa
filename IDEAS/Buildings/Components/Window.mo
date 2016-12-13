@@ -116,7 +116,7 @@ protected
         fraType.U_value*A*frac) if fraType.present  annotation (Placement(transformation(extent={{10,70},
             {-10,90}})));
 
-  BoundaryConditions.Climate.Meteo.Solar.RadSolData radSolData(
+  BoundaryConditions.SolarIrradiation.RadSolData radSolData(
     inc=inc,
     azi=azi,
     lat=sim.lat,

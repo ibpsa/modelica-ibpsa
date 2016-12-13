@@ -33,7 +33,7 @@ protected
     annotation (Placement(transformation(extent={{-60,4},{-52,12}})));
   Modelica.Blocks.Math.Gain gainDif(k=AWall)
     annotation (Placement(transformation(extent={{-60,0},{-52,8}})));
-  BoundaryConditions.Climate.Meteo.Solar.RadSolData radSolData(
+  BoundaryConditions.SolarIrradiation.RadSolData radSolData(
     inc=inc,
     azi=azi,
     lat=sim.lat,

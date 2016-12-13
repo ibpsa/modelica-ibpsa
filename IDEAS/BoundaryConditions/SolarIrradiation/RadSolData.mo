@@ -1,4 +1,4 @@
-within IDEAS.BoundaryConditions.Climate.Meteo.Solar;
+within IDEAS.BoundaryConditions.SolarIrradiation;
 model RadSolData "Selects or generates correct solar data for this surface"
   parameter Modelica.SIunits.Angle inc "inclination";
   parameter Modelica.SIunits.Angle azi "azimuth";
@@ -32,7 +32,7 @@ protected
     "True if the {inc,azi} combination is found in incAndAziInBus" annotation(Evaluate=true);
   final parameter Integer solDataIndex=sum( { if sum(abs(incAndAziInBus[i,:] - {inc,azi}))<0.05 then i else 0 for i in 1:numIncAndAziInBus})
     "Index of the {inc,azi} combination in incAndAziInBus" annotation(Evaluate=true);
-  IDEAS.BoundaryConditions.Climate.Meteo.Solar.ShadedRadSol radSol(
+  IDEAS.BoundaryConditions.SolarIrradiation.ShadedRadSol radSol(
     final inc=inc,
     final azi=azi,
     lat=lat,

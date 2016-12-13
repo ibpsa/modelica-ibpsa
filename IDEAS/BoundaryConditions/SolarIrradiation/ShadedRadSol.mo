@@ -1,6 +1,6 @@
-within IDEAS.BoundaryConditions.Climate.Meteo.Solar;
-model ShadedRadSol "Solar angle to surface"
-  extends IDEAS.BoundaryConditions.Climate.Meteo.Solar.RadSol(
+within IDEAS.BoundaryConditions.SolarIrradiation;
+model ShadedRadSol "Block that computes surface-dependent environment data"
+  extends IDEAS.BoundaryConditions.SolarIrradiation.RadSol(
     final remDefVals = true);
 
   final parameter Real Fssky=(1 + cos(inc))/2
@@ -59,6 +59,10 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 22, 2016 by Filip Jorissen:<br/>
+Reworked implementation such that we use Annex 60 baseclasses.
+</li>
 <li>
 March 25, 2016 by Filip Jorissen:<br/>
 Reworked radSol implementation to use RealInputs instead of weaBus.
