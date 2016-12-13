@@ -48,7 +48,6 @@ model ConstantAirFlowRecup
     redeclare each package Medium = Medium,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     each massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    each dynamicBalance=false,
     each filteredSpeed=false)
     annotation (Placement(transformation(extent={{-160,-10},{-180,-30}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)

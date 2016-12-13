@@ -1,5 +1,6 @@
 within IDEAS.Buildings.Validation.Data.Materials;
 record PlasterBoard
+  "BESTEST plasterboard"
   extends IDEAS.Buildings.Data.Interfaces.Material(
     final k=0.160,
     final c=840,

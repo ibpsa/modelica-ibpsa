@@ -11,9 +11,17 @@ expandable connector WindowBus
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
+October 22, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
+</li>
+<li>
 March, 2015 by Filip Jorissen:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Specialized connector
+</p>
 </html>"));
 end WindowBus;
