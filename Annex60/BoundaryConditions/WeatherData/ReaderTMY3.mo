@@ -649,12 +649,15 @@ equation
      connect(HDirNor_in, HDirNor_in_internal)
       "Get HDirNor using user input file";
   elseif  HSou == Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor then
-      (HGloHor_in_internal -HDifHor_in_internal)*
-        Annex60.Utilities.Math.Functions.spliceFunction(
-          x=cos(zenAng.zen),
-          pos=Annex60.Utilities.Math.Functions.inverseXRegularized(cos(zenAng.zen),epsCos),
-          neg=0,
-          deltax=epsCos)
+      Annex60.Utilities.Math.Functions.smoothMin(
+        1400,
+        (HGloHor_in_internal -HDifHor_in_internal)*
+          Annex60.Utilities.Math.Functions.spliceFunction(
+            x=cos(zenAng.zen),
+            pos=Annex60.Utilities.Math.Functions.inverseXRegularized(cos(zenAng.zen),epsCos),
+            neg=0,
+            deltax=epsCos),
+        0.1)
        = HDirNor_in_internal
       "Calculate the HDirNor using HGloHor and HDifHor according to (A.4.14) and (A.4.15)";
   else
