@@ -25,7 +25,7 @@ protected
     annotation (Placement(transformation(extent={{-32,-10},{-12,10}})));
   Modelica.Blocks.Math.Gain gaiHDifHor(k=0.5)
     "Gain for diffuse solar radiation"
-    annotation (Placement(transformation(extent={{0,-34},{20,-14}})));
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
 equation
   connect(HGloHor.y, add.u1) annotation (Line(points={{-67,20},{-52,20},{-52,6},
           {-34,6}}, color={0,0,127}));
@@ -33,10 +33,10 @@ equation
           -6},{-34,-6}}, color={0,0,127}));
   connect(add.y, weaDatInpCon.HGloHor_in) annotation (Line(points={{-11,0},{28,0},
           {28,-13},{67,-13}}, color={0,0,127}));
-  connect(add.y, gaiHDifHor.u) annotation (Line(points={{-11,0},{-6,0},{-6,-2},{
-          -6,-24},{-2,-24}}, color={0,0,127}));
-  connect(gaiHDifHor.y, weaDatInpCon.HDifHor_in) annotation (Line(points={{21,-24},
-          {21,-24},{42,-24},{42,-7.6},{67,-7.6}}, color={0,0,127}));
+  connect(add.y, gaiHDifHor.u) annotation (Line(points={{-11,0},{-6,0},{-6,0},{
+          -6,20},{-2,20}},   color={0,0,127}));
+  connect(gaiHDifHor.y, weaDatInpCon.HDifHor_in) annotation (Line(points={{21,20},
+          {21,20},{50,20},{50,-7.6},{67,-7.6}},   color={0,0,127}));
   annotation (experiment(StartTime=0,StopTime=86400, Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/ReaderTMY3HDirNor.mos"
         "Simulate and plot"),
