@@ -3,17 +3,17 @@ model Simplified6 "Set allowFlowReversal=false"
   extends Simplified5(
     pmpNorth(allowFlowReversal=false),
     pmpSouth(allowFlowReversal=false),
-    tabsSouth1(allowFlowReversal=false),
-    tabsSouth2(allowFlowReversal=false),
+    tabsSouth1(each allowFlowReversal=false),
+    tabsSouth2(each allowFlowReversal=false),
     pipSouth1(allowFlowReversal=false),
     pipSouth2(allowFlowReversal=false),
-    valSouth2(allowFlowReversal=false),
-    valSouth1(allowFlowReversal=false),
-    tabsNorth1(allowFlowReversal=false),
-    valNorth1(allowFlowReversal=false),
+    valSouth2(each allowFlowReversal=false),
+    valSouth1(each allowFlowReversal=false),
+    tabsNorth1(each allowFlowReversal=false),
+    valNorth1(each allowFlowReversal=false),
     pipNorth1(allowFlowReversal=false),
     pipNorth2(allowFlowReversal=false),
-    valNorth2(allowFlowReversal=false),
+    valNorth2(each allowFlowReversal=false),
     tabsNorth2(allowFlowReversal=false),
     pumpHea(allowFlowReversal=false),
     vol(allowFlowReversal=false),
@@ -26,6 +26,10 @@ The model is further simplified: set <code>allowFlowReversal=false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 14, 2016, by Michael Wetter:<br/>
+Added missing <code>each</code> keywords.
+</li>
 <li>
 October 7, 2016, by Filip Jorissen:<br/>
 First implementation.
