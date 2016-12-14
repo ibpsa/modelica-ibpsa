@@ -1,7 +1,11 @@
 within Annex60.Experimental.Pipe.Data;
 record PipeDataULg151204_1
-  "Experimental data from ULg's pipe test bench from 15-12-04 an increase followed by a decrease temperature"
-  extends Annex60.Experimental.Pipe.Data.BaseClasses.PipeDataBaseDefinition( final n=5,
+  "Experimental data from ULg's pipe test bench from December 4, 2015 (1); 
+  increase followed by a decrease in temperature"
+  extends Annex60.Experimental.Pipe.Data.BaseClasses.PipeDataULg( final n=5,
+  T_ini_out = 13.981566,
+  T_ini_in = 14.020424,
+  m_flowIni = 1.61778,
   data=[
  0,1.618,14.4,14,14.2,14;
 2.9,1.618,14.4,14,14.3,16.8;
