@@ -136,6 +136,6 @@ First implementation.
 </ul>
 </html>"),
     experiment(
-      StartTime=0.0, StopTime=1200,
-      Tolerance=1e-6));
+      StopTime=1200,
+      Tolerance=1e-05));
 end HeaterCooler_u;

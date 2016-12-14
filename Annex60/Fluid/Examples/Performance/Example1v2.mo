@@ -24,7 +24,7 @@ equation
 
   end for;
   annotation (experiment(
-      Tolerance=1e-6, StartTime=0.0, StopTime=20),
+      StopTime=10000),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-20},{100,
             100}}), graphics),
     Documentation(info="<html>

@@ -38,7 +38,7 @@ equation
   connect(sin.ports[1], res.port_b) annotation (Line(
       points={{54,20},{20,20}},
       color={0,127,255}));
-    annotation (experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
+    annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),
 Documentation(info="<html>

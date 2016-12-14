@@ -27,7 +27,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
+  experiment(StopTime=1),
 __Dymola_Commands(file=
           "modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/CheckBlackBodySkyTemperature.mos"
         "Simulate and plot"),

@@ -24,7 +24,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(Tolerance=1e-6, StartTime=0, StopTime=8640000),
+  experiment(StopTime=8640000),
 __Dymola_Commands(file=
           "modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/CheckRelativeHumidity.mos"
         "Simulate and plot"));

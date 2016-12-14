@@ -77,8 +77,8 @@ equation
     __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneOpenDoor.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=0.0, StopTime=7200,
-      Tolerance=1e-06),
+      StopTime=7200,
+      Tolerance=1e-05),
     Documentation(info="<html>
 <p>
 This model consists of two doors with the same geometry.

@@ -171,5 +171,5 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFanPressureDriven.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0));
+    experiment(StopTime=1));
 end HeaterFanPressureDriven;

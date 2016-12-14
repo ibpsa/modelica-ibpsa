@@ -11,7 +11,7 @@ equation
   // Trigger an error if the derivative implementation is incorrect.
   assert(abs(x-y)/max(1, abs(x)) < 1E-2, "Model has an error.");
 
- annotation(experiment(StartTime=0, StopTime=4, Tolerance=1E-8),
+ annotation(experiment(StopTime=4, Tolerance=1e-08),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PolynomialDerivativeCheck.mos"
         "Simulate and plot"),
     Documentation(info="<html>

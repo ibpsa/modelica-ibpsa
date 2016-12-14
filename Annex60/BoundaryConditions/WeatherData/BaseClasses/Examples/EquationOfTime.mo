@@ -24,7 +24,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(Tolerance=1e-6, StartTime=0.0, StopTime=86400),
+  experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/EquationOfTime.mos"
         "Simulate and plot"));
 end EquationOfTime;

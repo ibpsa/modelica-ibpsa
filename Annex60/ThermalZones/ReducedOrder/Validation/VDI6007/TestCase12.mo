@@ -290,9 +290,7 @@ equation
   </li>
   </ul>
   </html>"),
-  
-experiment(Tolerance=1e-6, StartTime=0.0, StopTime=5.184e+006),
-__Dymola_Commands(file=
+  __Dymola_Commands(file=
   "modelica://Annex60/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase12.mos"
         "Simulate and plot"));
 end TestCase12;

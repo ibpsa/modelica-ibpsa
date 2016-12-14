@@ -52,7 +52,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
+experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mos"
         "Simulate and plot"));
 end GetHeaderElement;

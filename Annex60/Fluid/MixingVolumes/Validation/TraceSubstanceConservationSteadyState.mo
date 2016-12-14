@@ -67,9 +67,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    
-experiment(Tolerance=1e-6, StartTime=0.0, StopTime=2),
-__Dymola_Commands(file=
+    __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/TraceSubstanceConservationSteadyState.mos"
         "Simulate and plot"));
 end TraceSubstanceConservationSteadyState;

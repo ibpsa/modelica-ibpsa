@@ -52,7 +52,7 @@ assert(Annex60.Utilities.Math.Functions.isMonotonic(x_decStrict, strict=true),
 assert(false == Annex60.Utilities.Math.Functions.isMonotonic(x_decWeak, strict=true),
    "Error. Function should have returned true.");
 
-  annotation (experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
+  annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/IsMonotonic.mos"
         "Simulate and plot"),
 Documentation(

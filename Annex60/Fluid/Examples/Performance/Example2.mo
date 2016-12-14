@@ -57,7 +57,7 @@ equation
       color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -40},{40,60}}),    graphics),
-    experiment(Tolerance=1e-6, StartTime=0.0, StopTime=20),
+    experiment(StopTime=1000),
     Documentation(info="<html>
 <p>
 This example demonstrates that the use of the parameter <code>from_dp</code>

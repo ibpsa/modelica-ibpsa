@@ -25,7 +25,7 @@ annotation (
       experiment(
         StartTime=-1,
         StopTime=1,
-        Tolerance=1E-9),
+        Tolerance=1E-10),
       Documentation(info="<html>
 <p>
 This example checks whether the function derivative

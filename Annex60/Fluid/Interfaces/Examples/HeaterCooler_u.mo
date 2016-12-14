@@ -490,7 +490,7 @@ equation
           extent={{-188,-20},{-38,-84}},
           lineColor={0,0,255},
           textString="Same system as above, but with flow reversed")}),
-experiment(Tolerance=1e-6, StartTime=0.0, StopTime=3600),
+experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HeaterCooler_u.mos"
         "Simulate and plot"),
 Documentation(info="<html>

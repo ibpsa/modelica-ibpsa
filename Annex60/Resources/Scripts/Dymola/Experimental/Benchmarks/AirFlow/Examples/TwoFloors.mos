@@ -1,4 +1,4 @@
-simulateModel("Annex60.Experimental.Benchmarks.AirFlow.Examples.TwoFloors", tolerance=1e-6, startTime=0.0, numberOfIntervals=500, stopTime=3600, method="dassl", resultFile="TwoFloors");
+simulateModel("Annex60.Experimental.Benchmarks.AirFlow.Examples.TwoFloors", stopTime=3600, method="dassl", resultFile="TwoFloors");
 createPlot(id = 1,
  position = {55, 50, 697, 502},
  x = "time",

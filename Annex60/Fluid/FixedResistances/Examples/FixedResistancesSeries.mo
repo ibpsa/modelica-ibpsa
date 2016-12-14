@@ -47,7 +47,7 @@ equation
   connect(sou.ports[1], res[1].port_a) annotation (Line(
       points={{-20,30},{-5.55112e-16,30}},
       color={0,127,255}));
-  annotation (experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
+  annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesSeries.mos"
         "Simulate and plot"));
 end FixedResistancesSeries;
