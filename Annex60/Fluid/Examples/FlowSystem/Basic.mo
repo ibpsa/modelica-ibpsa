@@ -477,26 +477,32 @@ equation
       __Dymola_Algorithm="Lsodar"),
     Documentation(info="<html>
 <p>
-Example model demonstrating the use of the Annex60 components in a larger system. 
-This model is extended in Simplified1, Simplified2, Simplified3. 
-In these examples the flow network is simplified in 3 steps, which reduces the size of algebraic loops.
+Example model demonstrating the use of the <code>Annex60</code> components in a larger system. 
+This model is extended in
+<a href=\"modelica://Annex60.Fluid.Examples.FlowSystem.Simplified1\">
+Annex60.Fluid.Examples.FlowSystem.Simplified1</a>,
+<a href=\"modelica://Annex60.Fluid.Examples.FlowSystem.Simplified2\">
+Annex60.Fluid.Examples.FlowSystem.Simplified2</a>,
+<a href=\"modelica://Annex60.Fluid.Examples.FlowSystem.Simplified3\">
+Annex60.Fluid.Examples.FlowSystem.Simplified3</a>.
+In these examples, the flow network is simplified in three steps, which reduces the size of algebraic loops.
 </p>
 <p>
-Description:
-</p>
-<p>
-Model of a hydronic system with a hot and cold water production device, 
+The system model is for a hydronic system with a hot and cold water production device, 
 each having its own circulation pump. 
-The supply water temperature (hot/cold) is selected by switching the bottom two way valves. 
+The warm and cold supply water temperatures are selected by switching the bottom two-way valves. 
 The building consists of a west and east wing. 
-Each wing has multiple zones that are heated/cooled using the hydronic system. 
-Each wing has a north/south section with a different supply temperature, 
+Each wing has multiple zones that are heated or cooled using the hydronic system. 
+Each wing has a north and south section with a different supply temperature, 
 which is controlled using two main three way valves. 
-In total there are therefore 4 supply pipes, 
-which are each connected to 4 or 8 emission devices in the zones. 
-The flow through the emission devices is controlled using two way valves. 
+In total there are therefore four supply pipes, 
+which are each connected to four or eight emission devices in the zones. 
+The flow through the emission devices is controlled using two way valves.
 The emission device itself also generates a pressure drop, 
-represented by components &apos;tabsXXX&apos; . 
+represented by components <code>tabsXXX</code>.
+Note that the emission devices are in the real building
+cooling and heating concrete slabs, but this simplified example
+only models their flow resistance.
 The control model consists of dummy inputs.
 </p>
 </html>", revisions="<html>

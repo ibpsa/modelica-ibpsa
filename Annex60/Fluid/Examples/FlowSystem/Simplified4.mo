@@ -21,7 +21,7 @@ model Simplified4 "Removed valve dynamics"
     valHea(filteredOpening=false));
   annotation (Documentation(info="<html>
 <p>
-The model is further simplified: valve and pump control dynamics were removed.
+The model is further simplified by removing the valve and pump control dynamics.
 </p>
 </html>", revisions="<html>
 <ul>

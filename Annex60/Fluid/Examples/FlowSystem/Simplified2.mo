@@ -7,7 +7,7 @@ model Simplified2 "Using from_dp"
     valNorth2(each from_dp=true));
   annotation (Documentation(info="<html>
 <p>
-The model is further simplified: using <code>from_dp</code> to find more efficient tearing method.
+The model is simplified: using <code>from_dp</code> to find more efficient tearing variables.
 </p>
 </html>", revisions="<html>
 <ul>

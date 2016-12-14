@@ -7,7 +7,8 @@ model Simplified3 "Neglecting pressure drop in splitters"
     spl2(dp_nominal={1000,0,0}));
   annotation (Documentation(info="<html>
 <p>
-The model is further simplified: removing some small pressure drops in bypass to allow sub-circuits to be identified by solver.
+The model is further simplified by removing some small pressure drops in the bypass.
+This allows the solver to identify sub-circuits.
 </p>
 </html>", revisions="<html>
 <ul>

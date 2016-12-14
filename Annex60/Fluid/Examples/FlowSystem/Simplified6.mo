@@ -22,7 +22,7 @@ model Simplified6 "Set allowFlowReversal=false"
     valHea(allowFlowReversal=false));
   annotation (Documentation(info="<html>
 <p>
-The model is further simplified: set <code>allowFlowReversal=false</code>.
+The model is further simplified by setting <code>allowFlowReversal=false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
