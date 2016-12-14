@@ -111,7 +111,7 @@ model Basic "Example implementation of flow system"
     offset=0.5,
     freqHz=0.001)
     "Valve control signal"
-    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Annex60.Fluid.Actuators.Valves.ThreeWayLinear valSouth(
     redeclare package Medium = Medium,
     m_flow_nominal=5,
@@ -289,7 +289,8 @@ equation
             100},{-80,120},{-4,120},{-4,-50},{-50,-50}}, color={0,127,255}));
 
     connect(valSouth1[i].y, sine.y)
-      annotation (Line(points={{-92,60},{-92,60},{-119,60}}, color={0,0,127}));
+      annotation (Line(points={{-92,60},{-92,60},{-98,60},{-98,60},{-98,60},{
+            -98,30},{-119,30}},                              color={0,0,127}));
 
     connect(pipSouth1.port_b, valSouth1[i].port_a) annotation (Line(points={{-80,28},
             {-80,28},{-80,50}},     color={0,127,255}));
@@ -302,8 +303,8 @@ equation
     connect(tabsSouth2[i].port_b, valSouth.port_3) annotation (Line(points={{-40,
             100},{-40,118},{-6,118},{-6,-50},{-50,-50}}, color={0,127,255}));
 
-    connect(valSouth2[i].y, sine.y) annotation (Line(points={{-52,60},{-48,60},{
-            -48,66},{-48,60},{-119,60}}, color={0,0,127}));
+    connect(valSouth2[i].y, sine.y) annotation (Line(points={{-52,60},{-48,60},
+            {-60,60},{-60,30},{-119,30}},color={0,0,127}));
     connect(pipSouth2.port_b, valSouth2[i].port_a) annotation (Line(points={{-40,
             28},{-40,39},{-40,50}}, color={0,127,255}));
     connect(pipNorth2.port_b, valNorth2[i].port_a)
@@ -311,15 +312,20 @@ equation
   end for;
 
   connect(pmpSouth.stage, pmpNorth.stage)
-    annotation (Line(points={{-72,-20},{48,-20}}, color={255,127,0}));
+    annotation (Line(points={{-72,-20},{-88,-20},{-88,-32},{36,-32},{36,-20},{
+          48,-20}},                               color={255,127,0}));
   connect(booleanToInteger.y, pmpSouth.stage)
-    annotation (Line(points={{-119,-20},{-72,-20}}, color={255,127,0}));
-  connect(stepPump.y, booleanToInteger.u) annotation (Line(points={{-159,-20},{-159,
-          -20},{-142,-20}}, color={255,0,255}));
+    annotation (Line(points={{-119,-20},{-108,-20},{-108,-32},{-88,-32},{-88,
+          -20},{-72,-20}},                          color={255,127,0}));
+  connect(stepPump.y, booleanToInteger.u) annotation (Line(points={{-159,-20},{
+          -159,-20},{-142,-20}},
+                            color={255,0,255}));
   connect(valSouth1.y, valNorth1.y)
-    annotation (Line(points={{-92,60},{-92,60},{28,60}}, color={0,0,127}));
-  connect(valSouth2.y,valNorth2. y) annotation (Line(points={{-52,60},{-52,60},{
-          68,60}},                  color={0,0,127}));
+    annotation (Line(points={{-92,60},{-98,60},{-98,30},{-102,30},{14,30},{14,
+          60},{28,60}},                                  color={0,0,127}));
+  connect(valSouth2.y,valNorth2. y) annotation (Line(points={{-52,60},{-60,60},
+          {-60,30},{60,30},{60,30},{60,60},{68,60}},
+                                    color={0,0,127}));
 
   connect(valSouth.port_2, pmpSouth.port_a) annotation (Line(points={{-60,-40},
           {-60,-38},{-60,-30}}, color={0,127,255}));
@@ -350,10 +356,12 @@ equation
           -76},{-10,-64},{-60,-64},{-60,-60}}, color={0,127,255}));
   connect(stepValve.y, valSouth.y) annotation (Line(points={{-119,-50},{-119,-50},
           {-72,-50}}, color={0,0,127}));
-  connect(stepValve.y, valHea.y) annotation (Line(points={{-119,-50},{-72,-50},{
-          -72,-86},{-22,-86}}, color={0,0,127}));
-  connect(valCooExp.y, valCoo.y) annotation (Line(points={{-119,-70},{24,-70},{24,
-          -86}},          color={0,0,127}));
+  connect(stepValve.y, valHea.y) annotation (Line(points={{-119,-50},{-112,-50},
+          {-112,-76},{-28,-76},{-28,-86},{-22,-86}},
+                               color={0,0,127}));
+  connect(valCooExp.y, valCoo.y) annotation (Line(points={{-119,-70},{32,-70},{
+          32,-86},{24,-86},{24,-86}},
+                          color={0,0,127}));
   connect(valCoo.port_b, valSouth.port_1) annotation (Line(points={{12,-76},{12,
           -64},{-60,-64},{-60,-60}}, color={0,127,255}));
   connect(valCoo.port_b,valNorth. port_1) annotation (Line(points={{12,-76},{12,
@@ -372,10 +380,11 @@ equation
           {40,-100}}, color={0,127,255}));
   connect(Tcold.port, vol.heatPort)
     annotation (Line(points={{80,-90},{77,-90},{74,-90}}, color={191,0,0}));
-  connect(pumpHea.stage, pumpCoo.stage) annotation (Line(points={{-60,-118},{-60,
-          -118},{56,-118}}, color={255,127,0}));
+  connect(pumpHea.stage, pumpCoo.stage) annotation (Line(points={{-60,-118},{
+          -60,-114},{56,-114},{56,-118},{56,-118}},
+                            color={255,127,0}));
   connect(pumpHea.stage, booleanToInteger.y) annotation (Line(points={{-60,-118},
-          {-108,-118},{-108,-20},{-119,-20}},
+          {-60,-118},{-60,-114},{-108,-114},{-108,-20},{-119,-20}},
                                            color={255,127,0}));
   connect(valNorth.port_3, spl3.port_1) annotation (Line(points={{50,-50},{50,-52},
           {0,-52},{0,-130},{20,-130}}, color={0,127,255}));
