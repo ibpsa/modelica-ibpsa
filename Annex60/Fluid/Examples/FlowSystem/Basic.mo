@@ -1,7 +1,7 @@
 within Annex60.Fluid.Examples.FlowSystem;
 model Basic "Example implementation of flow system"
   extends Modelica.Icons.Example;
-  package Medium = Annex60.Media.Water;
+  package Medium = Annex60.Media.Water "Medium model";
   Annex60.Fluid.Movers.FlowControlled_dp pmpSouth(
     redeclare package Medium = Medium,
     redeclare replaceable
@@ -11,7 +11,7 @@ model Basic "Example implementation of flow system"
     inputType=Annex60.Fluid.Types.InputType.Stages,
     heads=pmpSouth.dp_nominal*{0,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                                     "Pump to south of building" annotation (
+    "Pump to south of building" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -20,7 +20,7 @@ model Basic "Example implementation of flow system"
     redeclare package Medium = Medium,
     dp_nominal=50000,
     m_flow_nominal=4) "Pipe 1 to south of building"
-                                         annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,18})));
@@ -41,7 +41,7 @@ model Basic "Example implementation of flow system"
     inputType=Annex60.Fluid.Types.InputType.Stages,
     heads=pmpNorth.dp_nominal*{0,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                                     "Pump to north of building" annotation (
+     "Pump to north of building" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -58,7 +58,7 @@ model Basic "Example implementation of flow system"
     redeclare package Medium = Medium,
     dp_nominal=50000,
     m_flow_nominal=3) "Pipe 1 to north of building"
-                                         annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,18})));
@@ -68,7 +68,7 @@ model Basic "Example implementation of flow system"
     each dpValve_nominal=8e4,
     redeclare each package Medium = Medium,
     each m_flow_nominal=1) "Valves on souther tabs section 1"
-                           annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={-80,60})));
@@ -87,7 +87,7 @@ model Basic "Example implementation of flow system"
     each dpValve_nominal=8e4,
     redeclare each package Medium = Medium,
     each m_flow_nominal=1) "Valves on northern tabs section 1"
-                           annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={40,60})));
@@ -110,7 +110,7 @@ model Basic "Example implementation of flow system"
     amplitude=0.5,
     offset=0.5,
     freqHz=0.001)
-                "Valve control signal"
+    "Valve control signal"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Annex60.Fluid.Actuators.Valves.ThreeWayLinear valSouth(
     redeclare package Medium = Medium,
@@ -124,7 +124,7 @@ model Basic "Example implementation of flow system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,-50})));
-  Annex60.Fluid.Actuators.Valves.ThreeWayLinear       valNorth(
+  Annex60.Fluid.Actuators.Valves.ThreeWayLinear valNorth(
     redeclare package Medium = Medium,
     m_flow_nominal=5,
     dpFixed_nominal={20000,0},
@@ -132,7 +132,7 @@ model Basic "Example implementation of flow system"
     dpValve_nominal=10000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Three way valve for controlling supply temperature to north of building"
-                               annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={60,-50})));
@@ -141,28 +141,26 @@ model Basic "Example implementation of flow system"
     dp_nominal=100,
     redeclare package Medium = Medium) "Heating device"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
-  Annex60.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
-        Medium) "Boundary for setting absolute temperature"
+  Annex60.Fluid.Sources.Boundary_pT bou(nPorts=1,
+  redeclare package Medium = Medium) "Boundary for setting absolute temperature"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
   Annex60.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
     m_flow_nominal={10,10,10},
     dp_nominal={1000,10,10},
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                                       "Splitter"
+    "Splitter"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
   Annex60.Fluid.FixedResistances.SplitterFixedResistanceDpM spl1(
     m_flow_nominal={10,10,10},
     dp_nominal={10,10,10},
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                                       "Splitter"
+    "Splitter"
     annotation (Placement(transformation(extent={{-20,-120},{-40,-140}})));
   Annex60.Fluid.Movers.FlowControlled_m_flow pumpHea(
     m_flow_nominal=10,
-    redeclare
-      Annex60.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2
-      per,
+    redeclare Annex60.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2 per,
     redeclare package Medium = Medium,
     inputType=Annex60.Fluid.Types.InputType.Stages,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -177,7 +175,7 @@ model Basic "Example implementation of flow system"
     each m_flow_nominal=10,
     each dpValve_nominal=1e4)
     "Valve for allowing water to be drawn from hot water circuit"
-                              annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={-10,-86})));
@@ -191,7 +189,7 @@ model Basic "Example implementation of flow system"
     each m_flow_nominal=10,
     each dpValve_nominal=1e4)
     "Valve for allowing water to be drawn from cold water circuit"
-                              annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={12,-86})));
@@ -210,7 +208,7 @@ model Basic "Example implementation of flow system"
     dp_nominal={10,10,10},
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                                       "Splitter"
+    "Splitter"
     annotation (Placement(transformation(extent={{20,-120},{40,-140}})));
   Annex60.Fluid.Movers.FlowControlled_m_flow pumpCoo(
     m_flow_nominal=10,
