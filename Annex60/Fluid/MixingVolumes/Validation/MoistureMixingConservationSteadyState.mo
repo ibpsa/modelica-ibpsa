@@ -59,7 +59,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
+    
+experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1),
+__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MoistureMixingConservationSteadyState.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
