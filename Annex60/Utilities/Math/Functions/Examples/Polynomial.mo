@@ -1,12 +1,12 @@
 within Annex60.Utilities.Math.Functions.Examples;
-model PolynomialDerivativeCheck
+model Polynomial
   extends Modelica.Icons.Example;
   Real x "Function value";
 equation
   x=Annex60.Utilities.Math.Functions.polynomial(x=time^3-2, a={2, 4, -4, 5});
 
  annotation(experiment(StopTime=4, Tolerance=1e-06),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PolynomialDerivativeCheck.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/Polynomial.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -36,4 +36,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PolynomialDerivativeCheck;
+end Polynomial;
