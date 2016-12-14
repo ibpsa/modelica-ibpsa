@@ -5,7 +5,7 @@ model PerfectGasTemperatureEnthalpyInversion
   extends Annex60.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion(
     redeclare package Medium = Annex60.Media.Specialized.Air.PerfectGas);
   annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Specialized/Air/Examples/PerfectGasTemperatureEnthalpyInversion.mos"
         "Simulate and plot"),
     Documentation(info="<html>

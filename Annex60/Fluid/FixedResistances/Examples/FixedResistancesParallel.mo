@@ -78,6 +78,6 @@ equation
   connect(masFlo1.m_flow, assEqu.u2) annotation (Line(
       points={{30,51},{30,64},{38,64}},
       color={0,0,127}));
-    annotation (experiment(StopTime=1.0),
+    annotation (experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesParallel.mos" "Simulate and plot"));
 end FixedResistancesParallel;
