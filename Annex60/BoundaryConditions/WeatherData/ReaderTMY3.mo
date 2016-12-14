@@ -649,7 +649,15 @@ equation
      connect(HDirNor_in, HDirNor_in_internal)
       "Get HDirNor using user input file";
   elseif  HSou == Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor then
-      (HGloHor_in_internal -HDifHor_in_internal)/Annex60.Utilities.Math.Functions.smoothMax(x1=cos(zenAng.zen), x2=epsCos, deltaX=0.1*epsCos)
+      Annex60.Utilities.Math.Functions.smoothMin(
+        1400,
+        (HGloHor_in_internal -HDifHor_in_internal)*
+          Annex60.Utilities.Math.Functions.spliceFunction(
+            x=cos(zenAng.zen),
+            pos=Annex60.Utilities.Math.Functions.inverseXRegularized(cos(zenAng.zen),epsCos),
+            neg=0,
+            deltax=epsCos),
+        0.1)
        = HDirNor_in_internal
       "Calculate the HDirNor using HGloHor and HDifHor according to (A.4.14) and (A.4.15)";
   else
@@ -1555,6 +1563,14 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+December 14, 2016, by Filip Jorissen:<br/>
+Changed computation of <code>HDirNor</code>
+when using custom inputs since division by a small
+number caused <code>HDirNor</code> to become very large at night.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/608\">Annex60, #608</a>.
+</li>
 <li>
 April 21, 2016, by Michael Wetter:<br/>
 Introduced <code>absFilNam</code> to avoid multiple calls to
