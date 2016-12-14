@@ -30,7 +30,9 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),
-    __Dymola_Commands(file=
+    
+experiment(Tolerance=1e-06, StartTime=0.0, StopTime=1),
+__Dymola_Commands(file=
           "modelica://Annex60/Resources/Scripts/Dymola/Fluid/Movers/Examples/MoverStages.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -57,6 +59,5 @@ April 2, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    experiment(Tolerance=1e-06));
+</html>"));
 end MoverStages;

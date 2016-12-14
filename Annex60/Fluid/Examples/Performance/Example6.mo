@@ -26,8 +26,6 @@ equation
           extent={{-62,24},{-18,-4}},
           lineColor={0,0,255},
           textString="See code")}),
-    experiment(
-      StopTime=100),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -97,7 +95,9 @@ Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
+    
+experiment(Tolerance=1e-6, StartTime=0.0, StopTime=100),
+__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example6.mos"
         "Simulate and plot"));
 end Example6;

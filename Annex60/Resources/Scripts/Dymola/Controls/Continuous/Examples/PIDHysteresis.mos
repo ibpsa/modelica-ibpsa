@@ -1,4 +1,4 @@
-simulateModel("Annex60.Controls.Continuous.Examples.PIDHysteresis", startTime=0, stopTime=86400, tolerance=1e-6, method="dassl", resultFile="PIDHysteresis");
+simulateModel("Annex60.Controls.Continuous.Examples.PIDHysteresis", startTime=0, numberOfIntervals=500, stopTime=86400, tolerance=1e-6, method="dassl", resultFile="PIDHysteresis");
 
 createPlot(id = 1,
  position = {8, 14, 561, 372},

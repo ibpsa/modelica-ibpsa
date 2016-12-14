@@ -32,7 +32,6 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics),
-    experiment(Tolerance=1e-08),
     Documentation(info="<html>
 <p>
 This test checks if the trace substance flow rate is conserved 
@@ -68,7 +67,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
+    
+experiment(Tolerance=1e-6, StartTime=0.0, StopTime=2),
+__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/TraceSubstanceConservationSteadyState.mos"
         "Simulate and plot"));
 end TraceSubstanceConservationSteadyState;
