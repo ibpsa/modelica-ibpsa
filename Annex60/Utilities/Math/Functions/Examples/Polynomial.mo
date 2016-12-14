@@ -17,6 +17,12 @@ Annex60.Utilities.Math.Functions.polynomial</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+December 14, 2016, by Michael Wetter:<br/>
+Renamed example and removed derivative computation.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/602\">issue 602</a>.
+</li>
+<li>
 April 22, 2016, by Michael Wetter:<br/>
 Changed accuarcy test in assertion to use the relative error because the
 magnitude of <code>x</code> is <i>1E6</i> and hence testing an absolute
