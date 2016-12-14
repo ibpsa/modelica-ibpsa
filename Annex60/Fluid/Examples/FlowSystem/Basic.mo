@@ -388,7 +388,6 @@ equation
   connect(valNorth2.port_b, tabsNorth2.port_a)
     annotation (Line(points={{80,70},{80,80}}, color={0,127,255}));
    annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-160},{100,140}})),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-160},{100,
             140}}), graphics={
         Rectangle(
