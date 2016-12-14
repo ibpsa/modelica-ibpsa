@@ -83,169 +83,117 @@ redeclare package Medium = Medium, redeclare IDEAS.Buildings.Components.ZoneAirM
 // Declaration of walls
 IDEAS.Buildings.Components.OuterWall W1(AWall=9.0436,inc=incWall,azi=aziNorth,
 redeclare parameter BaseClasses.Data.Constructions.extwall_S_N
-                                                   constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001)
+                                                   constructionType)
                           annotation (Placement(transformation(extent={{-145,34},
             {-135,14}})));
 IDEAS.Buildings.Components.OuterWall W2(AWall=8.0524,inc=incWall,azi=aziNorth,
 redeclare parameter BaseClasses.Data.Constructions.extwall_S_N
-                                                   constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001)
+                                                   constructionType)
                           annotation (Placement(transformation(extent={{-130,34},
             {-120,14}})));
 IDEAS.Buildings.Components.OuterWall W3(AWall=12.4384,inc=incWall,azi=aziNorth,
 redeclare parameter BaseClasses.Data.Constructions.extwall_S_N
-                                                   constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001)
+                                                   constructionType)
                           annotation (Placement(transformation(extent={{-115,34},
             {-105,14}})));
 IDEAS.Buildings.Components.OuterWall W4(AWall=12.2344,inc=incWall,azi=aziEast,
 redeclare parameter BaseClasses.Data.Constructions.extwall_E
-                                                 constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001)
+                                                 constructionType)
                           annotation (Placement(transformation(extent={{-100,34},
             {-90,14}})));
 IDEAS.Buildings.Components.OuterWall W5(AWall=10.2664,inc=incWall,azi=aziEast,
 redeclare parameter BaseClasses.Data.Constructions.extwall_E
-                                                 constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001)
+                                                 constructionType)
                           annotation (Placement(transformation(extent={{-85,34},
             {-75,14}})));
 IDEAS.Buildings.Components.OuterWall W6(AWall=11.2832,inc=incWall,azi=aziEast,
 redeclare parameter BaseClasses.Data.Constructions.extwall_E
-                                                 constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001)
+                                                 constructionType)
                           annotation (Placement(transformation(extent={{-70,34},
             {-60,14}})));
 IDEAS.Buildings.Components.OuterWall W7(AWall=13.3584,inc=incWall,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.extwall_S_N
-                                                   constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001)
+                                                   constructionType)
                           annotation (Placement(transformation(extent={{-55,34},
             {-45,14}})));
 IDEAS.Buildings.Components.OuterWall W8(AWall=14.726,inc=incWall,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.extwall_S_N
-                                                   constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001)
+                                                   constructionType)
                           annotation (Placement(transformation(extent={{-40,34},
             {-30,14}})));
 IDEAS.Buildings.Components.OuterWall W9(AWall=16.8428,inc=incWall,azi=aziWest,
 redeclare parameter BaseClasses.Data.Constructions.extwall_Ws
-                                                  constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001)
+                                                  constructionType)
                           annotation (Placement(transformation(extent={{-25,34},
             {-15,14}})));
 IDEAS.Buildings.Components.OuterWall W10(AWall=6.2812,inc=incWall,azi=aziWest,
 redeclare parameter BaseClasses.Data.Constructions.extwall_Wn
-                                                  constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001)
+                                                  constructionType)
                           annotation (Placement(transformation(extent={{-5,34},
             {5,14}})));
 IDEAS.Buildings.Components.OuterWall W11(AWall=10.578,inc=incWall,azi=aziWest,
 redeclare parameter BaseClasses.Data.Constructions.extwall_Wn
-                                                  constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001)
+                                                  constructionType)
                           annotation (Placement(transformation(extent={{10,34},
             {20,14}})));
 IDEAS.Buildings.Components.BoundaryWall W12(AWall=10.86825,inc=incFloor,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ground
                                               constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{25,34},{35,14}})));
 IDEAS.Buildings.Components.BoundaryWall W13(AWall=10.86825,inc=incCeil,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ceiling
                                                constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{40,34},{50,14}})));
 IDEAS.Buildings.Components.BoundaryWall W14(AWall=7.917375,inc=incFloor,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ground
                                               constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{55,34},{65,14}})));
 IDEAS.Buildings.Components.BoundaryWall W15(AWall=7.917375,inc=incCeil,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ceiling
                                                constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{70,34},{80,14}})));
 IDEAS.Buildings.Components.BoundaryWall W16(AWall=16.43065,inc=incFloor,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ground
                                               constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{85,34},{95,14}})));
 IDEAS.Buildings.Components.BoundaryWall W17(AWall=16.43065,inc=incCeil,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ceiling
                                                constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{100,34},{110,14}})));
 IDEAS.Buildings.Components.BoundaryWall W18(AWall=41.153625,inc=incFloor,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ground
                                               constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{115,34},{125,14}})));
 IDEAS.Buildings.Components.BoundaryWall W19(AWall=41.153625,inc=incCeil,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ceiling
                                                constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{-145,6},{-135,-14}})));
 IDEAS.Buildings.Components.BoundaryWall W20(AWall=5.68095,inc=incFloor,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ground
                                               constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{-130,6},{-120,-14}})));
 IDEAS.Buildings.Components.BoundaryWall W21(AWall=5.68095,inc=incCeil,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ceiling
                                                constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{-115,6},{-105,-14}})));
 IDEAS.Buildings.Components.BoundaryWall W22(AWall=8.0754,inc=incFloor,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ground
                                               constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{-100,6},{-90,-14}})));
 IDEAS.Buildings.Components.BoundaryWall W23(AWall=8.0754,inc=incCeil,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ceiling
                                                constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{-85,6},{-75,-14}})));
 IDEAS.Buildings.Components.BoundaryWall W24(AWall=15.1532,inc=incFloor,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ground
                                               constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{-70,6},{-60,-14}})));
 IDEAS.Buildings.Components.BoundaryWall W25(AWall=15.1532,inc=incCeil,azi=aziSouth,
 redeclare parameter BaseClasses.Data.Constructions.ceiling
                                                constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 use_T_in = true) annotation (Placement(transformation(extent={{-55,6},{-45,-14}})));
 IDEAS.Buildings.Components.OuterWall W26(redeclare parameter BaseClasses.Data.Constructions.door_ext
                                                                                          constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=2.014875,inc=incWall,azi = aziNorth)
                                     annotation (Placement(transformation(extent={{-40,6},
             {-30,-14}})));
@@ -375,155 +323,111 @@ A=2.1402,inc=incWall,azi=aziWest,
 
 IDEAS.Buildings.Components.InternalWall W34(redeclare parameter BaseClasses.Data.Constructions.intwall_2
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=11.0208,inc=incWall,azi = 90)
                                    annotation (Placement(transformation(extent={{80,6},{
             90,-14}})));
 IDEAS.Buildings.Components.InternalWall W35(redeclare parameter BaseClasses.Data.Constructions.intwall_1
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=11.0208,inc=incWall,azi = 90)
                                    annotation (Placement(transformation(extent={{95,6},{
             105,-14}})));
 IDEAS.Buildings.Components.InternalWall W36(redeclare parameter BaseClasses.Data.Constructions.intwall_1
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=11.0536,inc=incWall,azi = 90)
                                    annotation (Placement(transformation(extent={{110,6},
             {120,-14}})));
 IDEAS.Buildings.Components.InternalWall W37(redeclare parameter BaseClasses.Data.Constructions.intwall_1
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=8.0524,inc=incWall,azi = 90)
                                   annotation (Placement(transformation(extent={{-145,
             -22},{-135,-42}})));
 IDEAS.Buildings.Components.InternalWall W38(redeclare parameter BaseClasses.Data.Constructions.intwall_2
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=5.9532,inc=incWall,azi = 90)
                                   annotation (Placement(transformation(extent={{-130,
             -22},{-120,-42}})));
 IDEAS.Buildings.Components.InternalWall W39(redeclare parameter BaseClasses.Data.Constructions.intwall_2
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=8.4624,inc=incWall,azi = 90)
                                   annotation (Placement(transformation(extent={{-115,
             -22},{-105,-42}})));
 IDEAS.Buildings.Components.InternalWall W40(redeclare parameter BaseClasses.Data.Constructions.intwall_1
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=10.0368,inc=incWall,azi = 90)
                                    annotation (Placement(transformation(extent={{-100,
             -22},{-90,-42}})));
 IDEAS.Buildings.Components.InternalWall W41(redeclare parameter BaseClasses.Data.Constructions.intwall_2
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=10.0368,inc=incWall,azi = 90)
                                    annotation (Placement(transformation(extent={{-85,-22},
             {-75,-42}})));
 IDEAS.Buildings.Components.InternalWall W42(redeclare parameter BaseClasses.Data.Constructions.intwall_2
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=5.9532,inc=incWall,azi = 90)
                                   annotation (Placement(transformation(extent={{-70,-22},
             {-60,-42}})));
 IDEAS.Buildings.Components.InternalWall W43(redeclare parameter BaseClasses.Data.Constructions.intwall_2
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=8.4624,inc=incWall,azi = 90)
                                   annotation (Placement(transformation(extent={{-55,-22},
             {-45,-42}})));
 IDEAS.Buildings.Components.InternalWall W44(redeclare parameter BaseClasses.Data.Constructions.intwall_1
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=11.2832,inc=incWall,azi = 90)
                                    annotation (Placement(transformation(extent={{-40,-22},
             {-30,-42}})));
 IDEAS.Buildings.Components.InternalWall W45(redeclare parameter BaseClasses.Data.Constructions.door_int
                                                                                             constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=1.893375,inc=incWall,azi = 90)
                                     annotation (Placement(transformation(extent={{-25,-22},
             {-15,-42}})));
 IDEAS.Buildings.Components.InternalWall W46(redeclare parameter BaseClasses.Data.Constructions.door_int
                                                                                             constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=1.893375,inc=incWall,azi = 90)
                                     annotation (Placement(transformation(extent={{-10,-22},
             {0,-42}})));
 IDEAS.Buildings.Components.InternalWall W47(redeclare parameter BaseClasses.Data.Constructions.door_int
                                                                                             constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=1.893375,inc=incWall,azi = 90)
                                     annotation (Placement(transformation(extent={{5,-22},
             {15,-42}})));
 IDEAS.Buildings.Components.InternalWall W48(redeclare parameter BaseClasses.Data.Constructions.door_open
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=1.893375,inc=incWall,azi = 90)
                                     annotation (Placement(transformation(extent={{20,-22},
             {30,-42}})));
 IDEAS.Buildings.Components.InternalWall W49(redeclare parameter BaseClasses.Data.Constructions.door_open
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=1.893375,inc=incWall,azi = 90)
                                     annotation (Placement(transformation(extent={{35,-22},
             {45,-42}})));
 IDEAS.Buildings.Components.InternalWall W50(redeclare parameter BaseClasses.Data.Constructions.door_open
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=1.893375,inc=incWall,azi = 90)
                                     annotation (Placement(transformation(extent={{50,-22},
             {60,-42}})));
 IDEAS.Buildings.Components.InternalWall W51(redeclare parameter BaseClasses.Data.Constructions.column
                                                                                           constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=6.56,inc=incWall,azi = 90)
                                 annotation (Placement(transformation(extent={{65,-22},
             {75,-42}})));
 IDEAS.Buildings.Components.InternalWall W52(redeclare parameter BaseClasses.Data.Constructions.column
                                                                                           constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=6.56,inc=incWall,azi = 90)
                                 annotation (Placement(transformation(extent={{80,-22},
             {90,-42}})));
 IDEAS.Buildings.Components.InternalWall W53(redeclare parameter BaseClasses.Data.Constructions.column
                                                                                           constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=6.56,inc=incWall,azi = 90)
                                 annotation (Placement(transformation(extent={{95,-22},
             {105,-42}})));
 IDEAS.Buildings.Components.InternalWall W54(redeclare parameter BaseClasses.Data.Constructions.column
                                                                                           constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=6.56,inc=incWall,azi = 90)
                                 annotation (Placement(transformation(extent={{110,-22},
             {120,-42}})));
 IDEAS.Buildings.Components.InternalWall W55(redeclare parameter BaseClasses.Data.Constructions.intwall_1
                                                                                              constructionType,
-redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
-insulationThickness=0.001,
 AWall=1.6236,inc=incWall,azi = 90)
                                   annotation (Placement(transformation(extent={{125,-22},
             {135,-42}})));
