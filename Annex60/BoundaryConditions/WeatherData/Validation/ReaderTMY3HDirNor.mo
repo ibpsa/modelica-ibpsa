@@ -1,4 +1,4 @@
-within Annex60.BoundaryConditions.WeatherData.Examples;
+within Annex60.BoundaryConditions.WeatherData.Validation;
 model ReaderTMY3HDirNor
   "Test model for calculating the direct normal radiation"
   extends Modelica.Icons.Example;
@@ -38,13 +38,13 @@ equation
   connect(gaiHDifHor.y, weaDatInpCon.HDifHor_in) annotation (Line(points={{21,20},
           {21,20},{50,20},{50,-7.6},{67,-7.6}},   color={0,0,127}));
   annotation (experiment(StartTime=0,StopTime=86400, Tolerance=1e-6),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/ReaderTMY3HDirNor.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ReaderTMY3HDirNor.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model tests the calculation of the direct normal radiation.
 The instance <code>weaDatInpCon</code> obtains the global horizontal and
-the diffuse horizontal solar radiation from its inputs' connectors.
+the diffuse horizontal solar radiation from its inputs connectors.
 </p>
 </html>",
 revisions="<html>

@@ -223,7 +223,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     Dialog(group="Sky temperature"));
 
   constant Real epsCos = 1e-6 "Small value to avoid division by 0";
-  constant Real solCon = 1367.7 "Solar constant";
+  constant Modelica.SIunits.HeatFlux solCon = 1367.7 "Solar constant";
 
 protected
   final parameter String absFilNam = Annex60.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam)
@@ -649,7 +649,8 @@ equation
      connect(HDirNor_in, HDirNor_in_internal)
       "Get HDirNor using user input file";
   elseif  HSou == Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor then
-      Annex60.Utilities.Math.Functions.smoothMin(x1=((HGloHor_in_internal -HDifHor_in_internal)/Annex60.Utilities.Math.Functions.smoothMax(
+      Annex60.Utilities.Math.Functions.smoothMin(
+        x1=((HGloHor_in_internal -HDifHor_in_internal)/Annex60.Utilities.Math.Functions.smoothMax(
         x1=cos(zenAng.zen), x2=epsCos, deltaX=0.1*epsCos)), x2=solCon, deltaX=1e-2)
         = HDirNor_in_internal
       "Calculate the HDirNor using HGloHor and HDifHor according to (A.4.14) and (A.4.15)";
@@ -1559,7 +1560,7 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 <li>
 December 06, 2016, by Thierry S. Nouidui:<br/>
 Constrained the direct normal radiation to not be bigger than the solar constant when using 
-global and diffuse solar radiation data provided via the inputs' connectors.
+global and diffuse solar radiation data provided via the inputs connectors.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/608\">#608</a>.
 </li>
