@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.ZoneAirModels;
 model None "Non-physical zone air model that disables convective heat transfer"
-  extends IDEAS.Buildings.Components.ZoneAirModels.PartialAirModel(
+  extends IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(
     m_flow_nominal=0,
     Vtot=0,
     nSurf=1,
@@ -41,6 +41,10 @@ equation
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
+November 15, 2016 by Filip Jorissen:<br/>
+Revised documentation.
+</li>
+<li>
 August 26, 2016 by Filip Jorissen:<br/>
 Added support for conservation of energy.
 </li>
@@ -49,5 +53,9 @@ July 18, 2016 by Filip Jorissen:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Zone air model for debugging purposes only.
+</p>
 </html>"));
 end None;

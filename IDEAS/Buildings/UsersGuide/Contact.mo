@@ -10,6 +10,11 @@ class Contact "Contact"
 </tr>
 <tr>
 <td valign=\"top\"><p>Library officer</p></td>
+<td valign=\"top\"><p><a href=\"mailto:filip.jorissen@kuleuven.be\">F. Jorissen</a> </p></td>
+<td valign=\"top\"><p>KU Leuven - University of Leuven</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>Library officer</p></td>
 <td valign=\"top\"><p><a href=\"mailto:ruben.baetens@bwk.kuleuven.be\">R. Baetens</a> </p></td>
 <td valign=\"top\"><p><a href=\"http://bwk.kuleuven.be/bwf/\">KU Leuven - University of Leuven</a></p><p>Building Physics Section, Department of Civil Engineering, KU Leuven, Kasteelpark Arenberg 40 bus 2447, BE-3001 Leuven (Heverlee) Belgium </p></td>
 </tr>
