@@ -192,7 +192,7 @@ To simplify object inheritance tree, revised base classes
 <code>Annex60.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
 <code>Annex60.Fluid.Actuators.BaseClasses.PartialActuator</code>
 and model
-<code>Annex60.Fluid.FixedResistances.FixedResistanceDpM</code>.
+<code>Annex60.Fluid.FixedResistances.PressureDrop</code>.
 </li>
 <li>
 August 12, 2011 by Michael Wetter:<br/>
