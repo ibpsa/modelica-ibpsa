@@ -657,7 +657,7 @@ equation
             pos=Annex60.Utilities.Math.Functions.inverseXRegularized(cos(zenAng.zen),epsCos),
             neg=0,
             deltax=epsCos),
-        1e-4 * solCon)
+        0.1)
         = HDirNor_in_internal
       "Calculate the HDirNor using HGloHor and HDifHor according to (A.4.14) and (A.4.15)";
   else
