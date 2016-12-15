@@ -1,9 +1,9 @@
 within Annex60.Experimental.Pipe.Data;
 record PipeDataULg160104_2 "Experimental data from ULg's pipe test bench from"
   extends Annex60.Experimental.Pipe.Data.BaseClasses.PipeDataULg( final n=5,
-  T_ini_out = 13.981566, // TODO adapt this value
-  T_ini_in = 14.020424,
-  m_flowIni = 1.61778,
+  T_ini_out = 15.0,
+  T_ini_in = 17.9,
+  m_flowIni = 0.2494,
   data=[
 0,0.2494,15.3,15,17.8,17.9;
 3,0.2494,15.3,15,17.8,18;
@@ -2043,6 +2043,7 @@ record PipeDataULg160104_2 "Experimental data from ULg's pipe test bench from"
 10161.2,0.2494,22.1,22.3,21.2,21.1;
 10169,0.2494,22.1,22.2,21.2,21.1;
 10176.5,0.2494,22.1,22.2,21.2,21.1]);
+                         // TODO adapt this value
   annotation (Documentation(revisions="<html>
   <ul>
 <li>
