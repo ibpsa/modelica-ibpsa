@@ -3,8 +3,9 @@ model Outside
   "Test model for source and sink with outside weather data"
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Air "Medium model for air";
-  Annex60.Fluid.Sources.Outside bou(redeclare package Medium = Medium, nPorts=
-       1) "Model with outside conditions"
+  Annex60.Fluid.Sources.Outside bou(
+   redeclare package Medium = Medium,
+   nPorts=1) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Annex60.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Annex60/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
@@ -14,14 +15,17 @@ model Outside
     m_flow=-1,
     nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{90,20},{70,40}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
-        Medium, m_flow_nominal=1) "Temperature sensor"
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTem(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Annex60.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(redeclare package
-      Medium = Medium, m_flow_nominal=1)
+  Annex60.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1) "Sensor for relative humidity"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Annex60.Fluid.Sensors.MassFractionTwoPort senMasFra(redeclare package
-      Medium = Medium, m_flow_nominal=1) "Sensor for mass fraction of water"
+  Annex60.Fluid.Sensors.MassFractionTwoPort senMasFra(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1) "Sensor for mass fraction of water"
     annotation (Placement(transformation(extent={{10,20},{30,40}})));
 equation
   connect(weaDat.weaBus, bou.weaBus)      annotation (Line(
@@ -48,5 +52,21 @@ equation
   annotation (
 experiment(StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This model demonstrates how to connect fluid flow component to a
+boundary condition that has environmental conditions as
+obtained from a weather file.
+The model draws a constant mass flow rate of outside air through
+its components.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+Feb. 9, 2011 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Outside;
