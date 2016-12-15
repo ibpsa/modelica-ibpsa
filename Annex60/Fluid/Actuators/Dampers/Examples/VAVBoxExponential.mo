@@ -37,12 +37,12 @@ model VAVBoxExponential
     A=1.8,
     m_flow_nominal=2)
          annotation (Placement(transformation(extent={{-2,-50},{18,-30}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res(
+  Annex60.Fluid.FixedResistances.PressureDrop res(
     from_dp=true,
     m_flow_nominal=2,
     redeclare package Medium = Medium,
     dp_nominal=5 - 0.45*2^2/1.2/1.8^2/2)
-             annotation (Placement(transformation(extent={{-36,10},{-16,30}})));
+    annotation (Placement(transformation(extent={{-36,10},{-16,30}})));
 
 equation
   connect(yDam.y,dam. y) annotation (Line(

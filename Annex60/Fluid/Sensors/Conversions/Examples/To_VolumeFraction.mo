@@ -79,7 +79,7 @@ model To_VolumeFraction "Example problem for conversion model"
     "CO2 concentration in fresh air supply"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM res(
+  Annex60.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     dp_nominal=10,
     m_flow_nominal=50/3600)
