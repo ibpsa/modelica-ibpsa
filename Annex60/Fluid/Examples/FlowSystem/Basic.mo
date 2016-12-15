@@ -16,7 +16,7 @@ model Basic "Example implementation of flow system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,-20})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM pipSouth1(
+  Annex60.Fluid.FixedResistances.PressureDrop pipSouth1(
     redeclare package Medium = Medium,
     dp_nominal=50000,
     m_flow_nominal=4) "Pipe 1 to south of building"
@@ -24,7 +24,7 @@ model Basic "Example implementation of flow system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,18})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM pipSouth2(
+  Annex60.Fluid.FixedResistances.PressureDrop pipSouth2(
     redeclare package Medium = Medium,
     dp_nominal=50000,
     m_flow_nominal=3) "Pipe 2 to south of building" annotation (Placement(
@@ -46,7 +46,7 @@ model Basic "Example implementation of flow system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={60,-20})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM pipNorth2(
+  Annex60.Fluid.FixedResistances.PressureDrop pipNorth2(
     redeclare package Medium = Medium,
     dp_nominal=50000,
     m_flow_nominal=5) "Pipe 2 to north of building" annotation (Placement(
@@ -54,7 +54,7 @@ model Basic "Example implementation of flow system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,18})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM pipNorth1(
+  Annex60.Fluid.FixedResistances.PressureDrop pipNorth1(
     redeclare package Medium = Medium,
     dp_nominal=50000,
     m_flow_nominal=3) "Pipe 1 to north of building"
@@ -144,14 +144,14 @@ model Basic "Example implementation of flow system"
   Annex60.Fluid.Sources.Boundary_pT bou(nPorts=1,
   redeclare package Medium = Medium) "Boundary for setting absolute temperature"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
-  Annex60.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
+  Annex60.Fluid.FixedResistances.Junction spl(
     m_flow_nominal={10,10,10},
     dp_nominal={1000,10,10},
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  Annex60.Fluid.FixedResistances.SplitterFixedResistanceDpM spl1(
+  Annex60.Fluid.FixedResistances.Junction spl1(
     m_flow_nominal={10,10,10},
     dp_nominal={10,10,10},
     redeclare package Medium = Medium,
@@ -196,14 +196,14 @@ model Basic "Example implementation of flow system"
   Modelica.Blocks.Sources.RealExpression valCooExp(y=1 - stepValve.y)
     "Cooling valve opens when heating valve is closed"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-80}})));
-  Annex60.Fluid.FixedResistances.SplitterFixedResistanceDpM spl2(
+  Annex60.Fluid.FixedResistances.Junction spl2(
     m_flow_nominal={10,10,10},
     dp_nominal={1000,10,10},
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                                        "Splitter"
     annotation (Placement(transformation(extent={{40,-110},{20,-90}})));
-  Annex60.Fluid.FixedResistances.SplitterFixedResistanceDpM spl3(
+  Annex60.Fluid.FixedResistances.Junction spl3(
     m_flow_nominal={10,10,10},
     dp_nominal={10,10,10},
     redeclare package Medium = Medium,
@@ -229,7 +229,7 @@ model Basic "Example implementation of flow system"
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature Tcold(T=273.15 + 10)
     "Cold water temperature"
     annotation (Placement(transformation(extent={{100,-100},{80,-80}})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM tabsSouth1[4](
+  Annex60.Fluid.FixedResistances.PressureDrop tabsSouth1[4](
     redeclare each package Medium = Medium,
     each dp_nominal=50000,
     m_flow_nominal=valSouth1.m_flow_nominal)
@@ -238,7 +238,7 @@ model Basic "Example implementation of flow system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,90})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM tabsSouth2[8](
+  Annex60.Fluid.FixedResistances.PressureDrop tabsSouth2[8](
     redeclare each package Medium = Medium,
     each dp_nominal=50000,
     m_flow_nominal=valSouth2.m_flow_nominal)
@@ -247,7 +247,7 @@ model Basic "Example implementation of flow system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,90})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM tabsNorth1[4](
+  Annex60.Fluid.FixedResistances.PressureDrop tabsNorth1[4](
     redeclare each package Medium = Medium,
     each dp_nominal=50000,
     m_flow_nominal=valNorth1.m_flow_nominal)
@@ -256,7 +256,7 @@ model Basic "Example implementation of flow system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,90})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM tabsNorth2[8](
+  Annex60.Fluid.FixedResistances.PressureDrop tabsNorth2[8](
     redeclare each package Medium = Medium,
     each dp_nominal=50000,
     m_flow_nominal=valNorth2.m_flow_nominal)
