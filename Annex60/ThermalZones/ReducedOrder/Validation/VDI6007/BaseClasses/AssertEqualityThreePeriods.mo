@@ -12,6 +12,13 @@ block AssertEqualityThreePeriods "Assert when condition is violated"
     "Start time for activating the assert (period three)";
   parameter Modelica.SIunits.Time endTime3 = 0
     "Start time for deactivating the assert (period three)";
+
+  Modelica.Blocks.Interfaces.BooleanOutput satisfied(start=true, fixed=true)
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+
+  Modelica.Blocks.Interfaces.RealOutput diff "Difference u1-u2"
+    annotation (Placement(transformation(extent={{100,42},{140,82}}),
+        iconTransformation(extent={{100,42},{140,82}})));
 protected
   parameter Modelica.SIunits.Time t1( fixed=false)
     "Simulation end time period one";
@@ -23,6 +30,7 @@ protected
     "Simulation start time period two";
   parameter Modelica.SIunits.Time t4( fixed=false)
     "Simulation start time period three";
+
 initial equation
   t1 = time + endTime;
   t2 = time + startTime2;
@@ -33,15 +41,16 @@ equation
   if (time >= t0) and (time <= t1) or
      (time >= t2) and (time <= t3) or
      (time >= t4) and (time <= t5) then
-    assert(noEvent(abs(u1 - u2) < threShold), message + "\n"
-      + "  time       = " + String(time) + "\n"
-      + "  u1         = " + String(u1) + "\n"
-      + "  u2         = " + String(u2) + "\n"
-      + "  abs(u1-u2) = " + String(abs(u1-u2)) + "\n"
-      + "  threShold  = " + String(threShold));
+     diff = u1 - u2;
+  else
+    diff = 0; // Test is not needed in this time domain
   end if;
+  /// Output whether test is satisfied, using a small hysteresis that is scaled using thrShold
+  satisfied = not
+                 ( not pre(satisfied) and diff > 1.01*threShold or pre(satisfied) and diff >= 0.99*threShold);
+
 annotation (
-defaultComponentName="assEqu",
+defaultComponentName="assDif",
 Icon(graphics={Text(
           extent={{-84,108},{90,-28}},
           lineColor={255,0,0},
@@ -55,6 +64,12 @@ and <i>t</i> is within user-defined time intervals.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 16, 2016, by Michael Wetter:<br/>
+Reformulated model for
+<a href=\"modelica://https://github.com/iea-annex60/modelica-annex60/issues/623\">
+https://github.com/iea-annex60/modelica-annex60/issues/623</a>.
+</li>
 <li>
 October 10, 2013, by Michael Wetter:<br/>
 Reformulated model to allow scheduling of time events as opposed to state events,
