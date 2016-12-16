@@ -2,6 +2,9 @@ within Annex60.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase12 "VDI 6007 Test Case 12 model"
   extends Modelica.Icons.Example;
 
+  parameter Real threshold = 0.15
+    "Threshold for difference to reference results to satisfy validation 
+    according to the guideline";
   package Medium = Modelica.Media.Air.SimpleAir "Medium model";
 
   RC.TwoElements thermalZoneTwoElements(
@@ -176,19 +179,14 @@ model TestCase12 "VDI 6007 Test Case 12 model"
   Modelica.Blocks.Math.Gain gain1(k=-1)
     "Reverses ventilation rate"
     annotation (Placement(transformation(extent={{-62,-61},{-48,-47}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
-    startTime=3600,
-    endTime=86400,
-    startTime2=781200,
-    endTime2=864000,
-    startTime3=5101200,
-    endTime3=5184000,
-    threShold=0.15)
-    "Checks validation criteria"
-    annotation (Placement(transformation(extent={{84,46},{94,56}})));
+  Modelica.Blocks.Math.Add assEqu(k2=-1)
+    "Calculates difference to reference results"
+    annotation (Placement(transformation(extent={{74,46},{84,56}})));
   Modelica.Blocks.Math.Mean mean(f=1/3600)
     "Hourly mean of indoor air temperature"
-    annotation (Placement(transformation(extent={{62,46},{72,56}})));
+    annotation (Placement(transformation(extent={{56,46},{66,56}})));
+  Modelica.Blocks.Math.Abs abs "Absolute value of difference"
+    annotation (Placement(transformation(extent={{88,46},{98,56}})));
 equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -258,11 +256,13 @@ equation
     annotation (Line(points=
     {{4.5,70},{12,70},{22,70},{22,31},{43,31}}, color={0,0,127}));
   connect(thermalZoneTwoElements.TAir,mean. u) annotation (Line(points={{93,32},
-          {98,32},{98,42},{52,42},{52,51},{61,51}}, color={0,0,127}));
-  connect(mean.y,assEqu. u2) annotation (Line(points={{72.5,51},{78,51},{78,48},
-          {83,48}}, color={0,0,127}));
-  connect(reference.y[1],assEqu. u1) annotation (Line(points={{97,82},{100,82},
-          {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
+          {98,32},{98,42},{52,42},{52,51},{55,51}}, color={0,0,127}));
+  connect(mean.y,assEqu. u2) annotation (Line(points={{66.5,51},{70,51},{70,48},
+          {73,48}}, color={0,0,127}));
+  connect(reference.y[1],assEqu. u1) annotation (Line(points={{97,82},{100,82},{
+          100,62},{70,62},{70,54},{73,54}},  color={0,0,127}));
+  connect(assEqu.y, abs.u)
+    annotation (Line(points={{84.5,51},{87,51}}, color={0,0,127}));
   annotation (  Documentation(info="<html>
   <p>Test Case 12 of the VDI 6007 Part 1: Calculation of indoor air temperature
   excited by a radiative and convective heat source for room version S. It is

@@ -2,6 +2,10 @@ within Annex60.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase11 "VDI 6007 Test Case 11 model"
   extends Modelica.Icons.Example;
 
+  parameter Real threshold = 1.5
+    "Threshold for difference to reference results to satisfy validation 
+    according to the guideline";
+
   RC.TwoElements thermalZoneTwoElements(
     alphaExt=2.7,
     alphaWin=2.7,
@@ -148,16 +152,9 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Modelica.Blocks.Math.Add add(k1=1, k2=-1)
     "Addition for mean of results"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
-    endTime=86400,
-    endTime2=864000,
-    endTime3=5184000,
-    threShold=1.5,
-    startTime=3600,
-    startTime2=781200,
-    startTime3=5101200)
-    "Checks validation criteria"
-    annotation (Placement(transformation(extent={{200,60},{220,80}})));
+  Modelica.Blocks.Math.Add assEqu(k2=-1)
+    "Calculates difference to reference results"
+    annotation (Placement(transformation(extent={{186,60},{206,80}})));
   Modelica.Blocks.Math.Mean mean(f=1/3600)
     "Hourly mean of indoor air temperature"
     annotation (Placement(transformation(extent={{150,70},{170,90}})));
@@ -176,6 +173,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Modelica.Blocks.Logical.Change cha
     "Outputs true if the input changes"
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
+  Modelica.Blocks.Math.Abs abs "Absolute value of difference"
+    annotation (Placement(transformation(extent={{216,60},{236,80}})));
 equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -255,9 +254,11 @@ equation
   connect(switchMea.y, mean.u) annotation (Line(points={{161,129.5},{170,129.5},
           {170,100},{140,100},{140,80},{148,80}}, color={0,0,127}));
   connect(reference.y[2], assEqu.u2) annotation (Line(points={{101,90},{114,90},
-          {120,90},{120,64},{198,64}}, color={0,0,127}));
+          {120,90},{120,64},{184,64}}, color={0,0,127}));
   connect(mean.y, assEqu.u1) annotation (Line(points={{171,80},{180,80},{180,76},
-          {198,76}}, color={0,0,127}));
+          {184,76}}, color={0,0,127}));
+  connect(assEqu.y, abs.u)
+    annotation (Line(points={{207,70},{210.5,70},{214,70}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{240,160}})),
                       Documentation(info="<html>
