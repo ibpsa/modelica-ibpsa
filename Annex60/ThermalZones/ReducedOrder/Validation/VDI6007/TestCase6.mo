@@ -2,6 +2,10 @@ within Annex60.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase6 "VDI 6007 Test Case 6 model"
   extends Modelica.Icons.Example;
 
+  parameter Real threshold = 1.5
+    "Threshold for difference to reference results to satisfy validation 
+    according to the guideline";
+
   RC.TwoElements thermalZoneTwoElements(
     redeclare package Medium = Modelica.Media.Air.SimpleAir,
     alphaExt=2.7,
@@ -96,19 +100,14 @@ model TestCase6 "VDI 6007 Test Case 6 model"
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
     "Convert set temperature from degC to Kelvin"
     annotation (Placement(transformation(extent={{34,-40},{46,-28}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
-    startTime=3600,
-    endTime=86400,
-    startTime2=781200,
-    endTime2=864000,
-    startTime3=5101200,
-    endTime3=5184000,
-    threShold=1.5)
-    "Checks validation criteria"
-    annotation (Placement(transformation(extent={{84,46},{94,56}})));
+  Modelica.Blocks.Math.Add assEqu(k2=-1)
+    "Calculates difference to reference results"
+    annotation (Placement(transformation(extent={{74,46},{84,56}})));
   Modelica.Blocks.Math.Mean mean(f=1/3600)
     "Hourly mean of indoor air temperature"
-    annotation (Placement(transformation(extent={{62,46},{72,56}})));
+    annotation (Placement(transformation(extent={{56,46},{66,56}})));
+  Modelica.Blocks.Math.Abs abs1 "Absolute value of difference"
+    annotation (Placement(transformation(extent={{88,46},{98,56}})));
 equation
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
     annotation (Line(points={{44,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
@@ -133,12 +132,14 @@ equation
     annotation (Line(points={{46.6,-34},{54.8,-34}}, color={0,0,127}));
   connect(setTemp.y[1], from_degC.u)
     annotation (Line(points={{20.8,-34},{32.8,-34}}, color={0,0,127}));
-  connect(mean.y,assEqu. u2) annotation (Line(points={{72.5,51},{78,51},{78,48},
-          {83,48}}, color={0,0,127}));
-  connect(reference.y[1],assEqu. u1) annotation (Line(points={{97,82},{100,82},
-          {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
-  connect(heatFlowSensor.Q_flow, mean.u) annotation (Line(points={{84,-40},{84,
-          -54},{-6,-54},{-6,51},{61,51}}, color={0,0,127}));
+  connect(mean.y,assEqu. u2) annotation (Line(points={{66.5,51},{70,51},{70,48},
+          {73,48}}, color={0,0,127}));
+  connect(reference.y[1],assEqu. u1) annotation (Line(points={{97,82},{100,82},{
+          100,62},{70,62},{70,54},{73,54}},  color={0,0,127}));
+  connect(heatFlowSensor.Q_flow, mean.u) annotation (Line(points={{84,-40},{84,-54},
+          {-6,-54},{-6,51},{55,51}},      color={0,0,127}));
+  connect(assEqu.y, abs1.u)
+    annotation (Line(points={{84.5,51},{86.25,51},{87,51}}, color={0,0,127}));
   annotation ( Documentation(info="<html>
   <p>Test Case 6 of the VDI 6007 Part 1: Calculation of heat load excited with a
   given radiative heat source and a setpoint profile for room version S. Is

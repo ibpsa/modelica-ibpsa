@@ -2,6 +2,10 @@ within Annex60.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase7 "VDI 6007 Test Case 7 model"
   extends Modelica.Icons.Example;
 
+  parameter Real threshold = 1.5
+    "Threshold for difference to reference results to satisfy validation 
+    according to the guideline";
+
   RC.TwoElements thermalZoneTwoElements(
     redeclare package Medium = Modelica.Media.Air.SimpleAir,
     alphaExt=2.7,
@@ -105,25 +109,20 @@ model TestCase7 "VDI 6007 Test Case 7 model"
   Modelica.Blocks.Math.Gain gainHeaCoo(k=500)
     "Gain for heating and cooling controller"
     annotation (Placement(transformation(extent={{8,-42},{20,-30}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
-    startTime=3600,
-    endTime=86400,
-    startTime2=781200,
-    endTime2=864000,
-    startTime3=5101200,
-    endTime3=5184000,
-    threShold=1.5)
-    "Checks validation criteria"
-    annotation (Placement(transformation(extent={{84,46},{94,56}})));
+  Modelica.Blocks.Math.Add assEqu(k2=-1)
+    "Calculates difference to reference results"
+    annotation (Placement(transformation(extent={{74,46},{84,56}})));
   Modelica.Blocks.Math.Mean mean(f=1/3600)
     "Hourly mean of indoor air temperature"
-    annotation (Placement(transformation(extent={{62,46},{72,56}})));
+    annotation (Placement(transformation(extent={{56,46},{66,56}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
     "Sensor for ideal heater/cooler"
     annotation (Placement(transformation(extent={{84,-42},{72,-30}})));
   Modelica.Blocks.Math.Gain gainMea(k=-1)
     "Gain for mean block"
-    annotation (Placement(transformation(extent={{44,46},{54,56}})));
+    annotation (Placement(transformation(extent={{38,46},{48,56}})));
+  Modelica.Blocks.Math.Abs abs1 "Absolute value of difference"
+    annotation (Placement(transformation(extent={{88,46},{98,56}})));
 equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -151,18 +150,20 @@ equation
           -36}},                   color={0,0,127}));
   connect(setTemp.y[1], from_degC.u) annotation (Line(points={{-51.2,-36},{
           -39.2,-36}},             color={0,0,127}));
-  connect(mean.y,assEqu. u2) annotation (Line(points={{72.5,51},{78,51},{78,48},
-          {83,48}}, color={0,0,127}));
-  connect(reference.y[1],assEqu. u1) annotation (Line(points={{97,82},{100,82},
-          {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
+  connect(mean.y,assEqu. u2) annotation (Line(points={{66.5,51},{70,51},{70,48},
+          {73,48}}, color={0,0,127}));
+  connect(reference.y[1],assEqu. u1) annotation (Line(points={{97,82},{100,82},{
+          100,62},{70,62},{70,54},{73,54}},  color={0,0,127}));
   connect(heaCoo.port, heatFlowSensor.port_b)
     annotation (Line(points={{64,-36},{72,-36}}, color={191,0,0}));
   connect(heatFlowSensor.port_a, thermalZoneTwoElements.intGainsConv)
     annotation (Line(points={{84,-36},{96,-36},{96,20},{92,20}}, color={191,0,0}));
   connect(mean.u, gainMea.y)
-    annotation (Line(points={{61,51},{54.5,51}}, color={0,0,127}));
-  connect(gainMea.u, heatFlowSensor.Q_flow) annotation (Line(points={{43,51},{
-          -74,51},{-74,-68},{78,-68},{78,-42}}, color={0,0,127}));
+    annotation (Line(points={{55,51},{48.5,51}}, color={0,0,127}));
+  connect(gainMea.u, heatFlowSensor.Q_flow) annotation (Line(points={{37,51},{-74,
+          51},{-74,-68},{78,-68},{78,-42}},     color={0,0,127}));
+  connect(assEqu.y, abs1.u)
+    annotation (Line(points={{84.5,51},{86.25,51},{87,51}}, color={0,0,127}));
   annotation ( Documentation(info="<html>
   <p>Test Case 7 of the VDI 6007 Part 1: Calculation of heat load excited with a
   given radiative heat source and a setpoint profile for room version S. Is
