@@ -52,7 +52,7 @@ model AdsolairDatasheetSummer
     "This override the temperature of the IEH outlet for validation purposes"
     annotation (Placement(transformation(extent={{-70,48},{-50,68}})));
   IDEAS.Utilities.Psychrometrics.Phi_pTX phi_evap
-    "Relative humidity of evaporator outlet"
+    "Relative humidity of evaporator outlet, for checking with reference result"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
 equation
   connect(Tbot.port, adsolair58.IEH.volBot.heatPort);

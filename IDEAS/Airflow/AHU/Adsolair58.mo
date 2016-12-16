@@ -37,7 +37,6 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     "Nominal pressure drop in bottom channel due to filter fouling";
   parameter Real alpha = 0.5
     "Pressure recovery factor for fixed pressure drop in bottom bypass channel";
-  parameter Boolean use_eNTU=true "Use NTU method for efficiency calculation";
   parameter Real k1=0.45
     "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure";
 
@@ -119,8 +118,10 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     eps_adia_off=adsolairData.eps_adia_off,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_eNTU=use_eNTU,
-    tau=tau) "Indirect evaporative heat exchanger"
+    tau=tau,
+    UA_adia_on=adsolairData.UA_adia_on,
+    UA_adia_off=adsolairData.UA_adia_off,
+    use_eNTU=true) "Indirect evaporative heat exchanger"
     annotation (Placement(transformation(extent={{10,-36},{64,18}})));
   IDEAS.Fluid.MixingVolumes.MixingVolume con(
     nPorts=2,
@@ -510,8 +511,8 @@ equation
     annotation (Line(points={{10,7.2},{0,7.2},{0,20}}, color={0,127,255}));
   connect(IEH.port_b2, eva.ports[1]) annotation (Line(points={{10,-25.2},{10,-44},
           {11.6,-44}}, color={0,127,255}));
-  connect(valRecupBot.port_b, IEH.port_a2) annotation (Line(points={{72,-26},{
-          67,-26},{67,-25.2},{64,-25.2}}, color={0,127,255}));
+  connect(valRecupBot.port_b, IEH.port_a2) annotation (Line(points={{72,-26},{67,
+          -26},{67,-25.2},{64,-25.2}}, color={0,127,255}));
   connect(valBypassBottom.port_b, TSupIn.port_a)
     annotation (Line(points={{72,-68},{64,-68},{34,-68}}, color={0,127,255}));
   connect(TSupIn.port_b, resBot.port_a) annotation (Line(points={{22,-68},{0,-68},
@@ -543,8 +544,8 @@ equation
           {76.4,88.72}}, color={0,0,127}));
   connect(com.port_a, eva.heatPort)
     annotation (Line(points={{22,42},{18,42},{18,-52}}, color={191,0,0}));
-  connect(IEH.TOutBot, com.TinEva) annotation (Line(points={{66.16,-32.76},{34,
-          -32.76},{34,50.8}}, color={0,0,127}));
+  connect(IEH.TOutBot, com.TinEva) annotation (Line(points={{66.16,-32.76},{34,-32.76},
+          {34,50.8}}, color={0,0,127}));
   connect(onExp.y, adsCon.on) annotation (Line(points={{-63,74},{-63,74},{-44.6,
           74}}, color={255,0,255}));
   connect(Tset, adsCon.TSet) annotation (Line(

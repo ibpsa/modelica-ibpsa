@@ -13,11 +13,11 @@ model IndirectEvaporativeHex "Indirect evaporative heat exchanger"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.Time tau = 60
     "Thermal time constant of the heat exchanger";
-  parameter Real UA_adia_on(fixed=false)
-    "UA value when using evaporative cooling, used when use_eNTU"
+  parameter Real UA_adia_on
+    "UA value when using evaporative cooling, used when use_eNTU = true"
     annotation(Dialog(enable=use_eNTU));
-  parameter Real UA_adia_off(fixed=false)
-    "UA value when not using evaporative cooling, used when use_eNTU"
+  parameter Real UA_adia_off
+    "UA value when not using evaporative cooling, used when use_eNTU = true"
     annotation(Dialog(enable=use_eNTU));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance"
@@ -156,9 +156,6 @@ protected
   Real Xw_out_bot=min(Xw_in_bot, Xw_sat_Tout_bot);
   Modelica.SIunits.Temperature T_top_in_wet =  if adiabaticOn then  wetBulIn.TWetBul else T_top_in
     "Temperature of the wet/dry HEX at extracted air inlet";
-  // calculation of thermal power
-  Modelica.SIunits.Power Q_max_top;
-  Modelica.SIunits.Power Q_max_bot;
   //splicefunction required for disabling heat transfer for low mass flow rates
   Modelica.SIunits.Power Qmax "Maximum heat transfer, including latent heat";
   Real C_top "Heat capacity rate of top stream";
@@ -212,63 +209,18 @@ protected
     redeclare package Medium = Medium1)
     "Wet bulb temperature based on wet channel outlet conditions";
 
-initial equation
-  // validation was performed for evapModel=4
-  if evapModel==1 then
-    UA_adia_on=9000;
-    UA_adia_off=11000;
-  elseif evapModel==3 then
-    UA_adia_on=8500;
-    UA_adia_off=11000;
-    elseif evapModel==4 then
-    UA_adia_on=14000;
-    UA_adia_off=23000;
-  else
-    UA_adia_on=11200/5500;
-    UA_adia_off=11000/1500;
-  end if;
 equation
   assert(port_a1.m_flow>-m_flow_small or allowFlowReversal1, "Flow reversal occured, for indirect evaporative heat exchanger model is not valid.");
   assert(port_a2.m_flow>-m_flow_small or allowFlowReversal2, "Flow reversal occured, for indirect evaporative heat exchanger model is not valid.");
 
-  if evapModel ==1 then
-    //own model
-    Q_max_top = port_a1.m_flow*(Medium1.specificEnthalpy(Medium1.setState_pTX(port_a1.p, T_bot_in, {Xw_out_top,1-Xw_out_top}))-inStream(port_a1.h_outflow));
-    Q_max_bot = -port_a2.m_flow*(Medium2.specificEnthalpy(Medium2.setState_pTX(port_a2.p, T_top_in_wet, {Xw_out_bot,1-Xw_out_bot}))-inStream(port_a2.h_outflow));
-    Qmax=IDEAS.Utilities.Math.Functions.spliceFunction(
-                                    x=abs(Q_max_top)-abs(Q_max_bot),
-                                    pos=Q_max_bot,
-                                    neg=Q_max_top,
-                                    deltax=m1_flow_nominal/1000+abs(port_a1.m_flow)*1000);
-    C_top = abs(Q_max_top) *abs(IDEAS.Utilities.Math.Functions.inverseXRegularized(-T_top_in + volTop.T,0.01));
-    C_bot = port_a2.m_flow*Medium2.specificHeatCapacityCp(Medium2.setState_pTX(Medium2.p_default, Medium2.T_default, Medium2.X_default));
-    Q = Qmax*(if use_eNTU then eps_NTU else (if adiabaticOn then eps_adia_on else eps_adia_off));
-  elseif evapModel==3 then
-    C_top=0;
-    C_bot=0;
-      Q_max_top=0;
-      Q_max_bot=0;
-      Qmax=0;
-      Q = (if adiabaticOn then UA_adia_on else UA_adia_off)*((T_bot_in-wetBulOut.TWetBul)-(volBot.heatPort.T-wetBulIn.TWetBul))/log(max(1e-6,(T_bot_in-wetBulOut.TWetBul)/(volBot.heatPort.T-wetBulIn.TWetBul)));
-  elseif evapModel==4 then
-    // similarly: Liu, Z., Allen, W., & Modera, M. (2013). Simplified thermal modeling of indirect evaporative heat exchangers. HVAC&R Research, 19(March), 37–41. doi:10.1080/10789669.2013.763653
-    Q_max_top = 0;
-    Q_max_bot = 0;
+    // model from: Liu, Z., Allen, W., & Modera, M. (2013). Simplified thermal modeling of indirect evaporative heat exchangers. HVAC&R Research, 19(March), 37–41. doi:10.1080/10789669.2013.763653
     Qmax=C_min*(T_bot_in-T_top_in_wet);
     C_top = port_a1.m_flow*(if adiabaticOn
                             then (Medium1.specificEnthalpy(Medium1.setState_pTX(port_a1.p, wetBulOut.TWetBul, {wetBulOut.XiSat,1-wetBulOut.XiSat}))-Medium1.specificEnthalpy(Medium1.setState_pTX(port_a1.p, wetBulIn.TWetBul,  {wetBulIn.XiSat,1-wetBulIn.XiSat})))*IDEAS.Utilities.Math.Functions.inverseXRegularized(wetBulOut.TWetBul-wetBulIn.TWetBul,0.01)
                             else Medium1.specificHeatCapacityCp(Medium1.setState_pTX(Medium1.p_default, Medium1.T_default, Medium1.X_default)));
     C_bot = port_a2.m_flow*Medium2.specificHeatCapacityCp(Medium2.setState_pTX(Medium2.p_default, Medium2.T_default, Medium2.X_default));
     Q = Qmax*(if use_eNTU then eps_NTU else (if adiabaticOn then eps_adia_on else eps_adia_off));
-  else
-    // model from Hasan, A. (2012). Going below the wet-bulb temperature by indirect evaporative cooling: Analysis using a modified ??-NTU method. Applied Energy, 89(1), 237–245. doi:10.1016/j.apenergy.2011.07.005
-    Q_max_top = 0;
-    Q_max_bot = 0;
-    Qmax=C_min*(Medium1.specificEnthalpy(Medium1.setState_pTX(port_a1.p, T_bot_in, {Xw_sat_Tin_bot,1-Xw_sat_Tin_bot}))-inStream(port_a1.h_outflow));
-    C_top = port_a1.m_flow;
-    C_bot = port_a2.m_flow*Medium2.specificHeatCapacityCp(Medium2.setState_pTX(Medium2.p_default, Medium2.T_default, Medium2.X_default))/(if adiabaticOn then 3500 else 1006);
-    Q = Qmax*(if use_eNTU then eps_NTU else (if adiabaticOn then eps_adia_on else eps_adia_off));
-  end if;
+
   connect(preHeaFloTop.port, volTop.heatPort) annotation (Line(
       points={{6,0},{10,0},{10,50}},
       color={191,0,0},

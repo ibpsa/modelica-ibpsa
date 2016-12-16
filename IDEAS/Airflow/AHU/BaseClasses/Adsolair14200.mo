@@ -42,7 +42,9 @@ record Adsolair14200
     A_dam_byp_bot=w_unit*w_blade*4,
     A_dam_rec_bot=w_unit*w_blade*7,
     A_byp_top_min=A_dam_byp_top,
-    A_byp_bot_min=0.15*w_unit);
+    A_byp_bot_min=0.15*w_unit,
+    UA_adia_on=14000,
+    UA_adia_off=23000);
   constant Modelica.SIunits.Pressure dp_filter_fresh = 33;
   constant Modelica.SIunits.Pressure dp_filter_pulsion = 70;
   constant Modelica.SIunits.Pressure dp_filter_dumped = 46;

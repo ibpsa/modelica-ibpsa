@@ -67,6 +67,10 @@ partial record AdsolairData
     "Minimum cross section area of top bypass branch";
   parameter Modelica.SIunits.Area A_byp_bot_min
     "Minimum cross section area of top bypass branch";
+  parameter Modelica.SIunits.ThermalConductance UA_adia_on
+    "UA value of heat exchanger when evaporative cooling is on";
+  parameter Modelica.SIunits.ThermalConductance UA_adia_off
+    "UA value of heat exchanger when evaporative cooling is off";
 
 annotation(Documentation(info="<html>
   <p>

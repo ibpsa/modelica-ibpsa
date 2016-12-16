@@ -59,7 +59,10 @@ model IehSummer
     eps_adia_off=adsolair14200.eps_adia_off,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     eps_adia_on=adsolair14200.eps_adia_on,
-    use_eNTU=true) "Indirect evaporative heat exchanger model"
+    use_eNTU=true,
+    UA_adia_on=adsolair14200.UA_adia_on,
+    UA_adia_off=adsolair14200.UA_adia_off)
+                   "Indirect evaporative heat exchanger model"
     annotation (Placement(transformation(extent={{-38,2},{-4,36}})));
   Modelica.Blocks.Sources.BooleanConstant iehOn(k=true)
     "Indirect evaporative cooling function"
