@@ -480,7 +480,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="Cold")}),
     experiment(
-      StopTime=10000,
+      Tolerance=1e-6, StartTime=0.0, StopTime=1000,
       __Dymola_NumberOfIntervals=20000,
       __Dymola_fixedstepsize=15,
       __Dymola_Algorithm="Lsodar"),
