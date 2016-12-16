@@ -173,7 +173,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Modelica.Blocks.Logical.Change cha
     "Outputs true if the input changes"
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
-  Modelica.Blocks.Math.Abs abs1 "Absolute value of difference"
+  Modelica.Blocks.Math.Abs abs "Absolute value of difference"
     annotation (Placement(transformation(extent={{216,60},{236,80}})));
 equation
   connect(theConWall.fluid, preTem.port)
@@ -257,7 +257,7 @@ equation
           {120,90},{120,64},{184,64}}, color={0,0,127}));
   connect(mean.y, assEqu.u1) annotation (Line(points={{171,80},{180,80},{180,76},
           {184,76}}, color={0,0,127}));
-  connect(assEqu.y, abs1.u)
+  connect(assEqu.y, abs.u)
     annotation (Line(points={{207,70},{210.5,70},{214,70}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{240,160}})),

@@ -121,7 +121,7 @@ model TestCase7 "VDI 6007 Test Case 7 model"
   Modelica.Blocks.Math.Gain gainMea(k=-1)
     "Gain for mean block"
     annotation (Placement(transformation(extent={{38,46},{48,56}})));
-  Modelica.Blocks.Math.Abs abs1 "Absolute value of difference"
+  Modelica.Blocks.Math.Abs abs "Absolute value of difference"
     annotation (Placement(transformation(extent={{88,46},{98,56}})));
 equation
   connect(theConWall.fluid, preTem.port)
@@ -162,7 +162,7 @@ equation
     annotation (Line(points={{55,51},{48.5,51}}, color={0,0,127}));
   connect(gainMea.u, heatFlowSensor.Q_flow) annotation (Line(points={{37,51},{-74,
           51},{-74,-68},{78,-68},{78,-42}},     color={0,0,127}));
-  connect(assEqu.y, abs1.u)
+  connect(assEqu.y, abs.u)
     annotation (Line(points={{84.5,51},{86.25,51},{87,51}}, color={0,0,127}));
   annotation ( Documentation(info="<html>
   <p>Test Case 7 of the VDI 6007 Part 1: Calculation of heat load excited with a

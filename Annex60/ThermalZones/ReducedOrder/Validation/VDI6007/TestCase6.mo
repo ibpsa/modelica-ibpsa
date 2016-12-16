@@ -106,7 +106,7 @@ model TestCase6 "VDI 6007 Test Case 6 model"
   Modelica.Blocks.Math.Mean mean(f=1/3600)
     "Hourly mean of indoor air temperature"
     annotation (Placement(transformation(extent={{56,46},{66,56}})));
-  Modelica.Blocks.Math.Abs abs1 "Absolute value of difference"
+  Modelica.Blocks.Math.Abs abs "Absolute value of difference"
     annotation (Placement(transformation(extent={{88,46},{98,56}})));
 equation
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
@@ -138,7 +138,7 @@ equation
           100,62},{70,62},{70,54},{73,54}},  color={0,0,127}));
   connect(heatFlowSensor.Q_flow, mean.u) annotation (Line(points={{84,-40},{84,-54},
           {-6,-54},{-6,51},{55,51}},      color={0,0,127}));
-  connect(assEqu.y, abs1.u)
+  connect(assEqu.y, abs.u)
     annotation (Line(points={{84.5,51},{86.25,51},{87,51}}, color={0,0,127}));
   annotation ( Documentation(info="<html>
   <p>Test Case 6 of the VDI 6007 Part 1: Calculation of heat load excited with a
