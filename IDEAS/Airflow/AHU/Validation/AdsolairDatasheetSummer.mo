@@ -95,7 +95,7 @@ equation
       __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput(events=false),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Airflow/AHU/Validation/AdsolairDatasheetSummer.mos"
+          "modelica://IDEAS/Resources/Scripts/Dymola/Airflow/AHU/Validation/AdsolairDatasheetSummer.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>Note that the inlet conditions of the evaporator are overwritten by custom equations!</p>

@@ -16,6 +16,6 @@ model IehWinter
     IEH(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
   annotation (experiment(StopTime=500),__Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Airflow/AHU/Validation/IehWinter.mos"
+          "modelica://IDEAS/Resources/Scripts/Dymola/Airflow/AHU/Validation/IehWinter.mos"
         "Simulate and plot"));
 end IehWinter;
