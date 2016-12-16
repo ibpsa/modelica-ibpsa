@@ -31,8 +31,8 @@ model BuildingN2_Exp1
     InInterface=true,
     nLoads=0,
     Crad={1000,1000,1000,1000,1100,1000,100},
-    Q_design={2000,750,750,750,750,750,750},
-    Kemission={100,100,100,100,110,100,100}) "Heat system model"
+    Kemission={100,100,100,100,110,100,100},
+    Q_design={1820,750,750,750,750,750,750}) "Heat system model"
     annotation (Placement(transformation(extent={{0,-10},{40,10}})));
   IDEAS.Examples.TwinHouses.BaseClasses.Ventilation.Vent_TTH vent(
     nZones=struct.nZones,
@@ -86,5 +86,23 @@ equation
       StartTime=1.5e+007,
       StopTime=2.35872e+007,
       Interval=900,
-      Tolerance=1e-006));
+      Tolerance=1e-006),
+    __Dymola_Commands(executeCall(ensureSimulated=true) = {createPlot(
+        id=1,
+        position={0,0,1128,546},
+        y={"struct.TSensor[1]","heaSys.TdegC[1].y"},
+        range={19900000.0,23300000.0,290.0,304.0},
+        autoscale=false,
+        grid=true,
+        filename="BuildingN2_Exp1.mat",
+        colors={{28,108,200},{238,46,47}}),createPlot(
+        id=1,
+        position={0,0,1128,271},
+        y={"heaSys.IDEAL_heating[1]","heaSys.measuredInput.y[8]"},
+        range={19900000.0,23300000.0,-500.0,2500.0},
+        autoscale=false,
+        grid=true,
+        subPlot=2,
+        colors={{28,108,200},{238,46,47}},
+        range2={0.1446,0.1464})} "Simulate and plot"));
 end BuildingN2_Exp1;
