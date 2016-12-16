@@ -1,14 +1,18 @@
 within IDEAS.Airflow.AHU;
 model Adsolair58 "Menerga Adsolair type 58 air handling unit"
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare final
-      package Medium =
-      MediumAir);
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
+    redeclare final package Medium = MediumAir);
+  extends IDEAS.Fluid.Interfaces.PartialFourPortInterface(
+    redeclare final package Medium1 = MediumAir,
+    redeclare final package Medium2 = MediumAir,
+    final m1_flow_nominal=adsolairData.m1_flow_nominal,
+    final m2_flow_nominal=adsolairData.m2_flow_nominal,
+    final allowFlowReversal1=allowFlowReversal,
+    final allowFlowReversal2=allowFlowReversal);
   replaceable package MediumAir =
       IDEAS.Media.Air annotation (
       __Dymola_choicesAllMatching=true);
-  replaceable package MediumHeating =
-      IDEAS.Media.Water
-    annotation (__Dymola_choicesAllMatching=true);
+
   replaceable parameter IDEAS.Airflow.AHU.BaseClasses.Adsolair14200 adsolairData
     constrainedby IDEAS.Airflow.AHU.BaseClasses.AdsolairData annotation (
       choicesAllMatching=true, Placement(transformation(extent={{-138,82},{-122,
@@ -22,7 +26,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
   final parameter Boolean allowFlowReversal=false
     "Flow reversal is not supported"
     annotation(Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_small=adsolairData.m_flow_nominal1/50
+  parameter Modelica.SIunits.MassFlowRate m_flow_small=m1_flow_nominal/50
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Time tau=60
@@ -38,23 +42,23 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure";
 
   //EQUATIONS
-  Modelica.SIunits.Energy E=adCrFlHe.E+evaporator.U + condensor.U;
-  Real BPF=min(1,max(0,IDEAS.Utilities.Math.Functions.spliceFunction(
-         x=abs(adCrFlHe.T_out_bot - evaporator.heatPort.T)-0.2,
-         pos=(evaporator.heatPort.T - simpleCompressor.Teva)*IDEAS.Utilities.Math.Functions.inverseXRegularized(x=adCrFlHe.T_out_bot-simpleCompressor.Teva, delta=0.1),
-         neg=1,
-         deltax=0.1))) "Fraction of air that is bypassed in the evaporator";
-  Real X_sat_evap = IDEAS.Utilities.Psychrometrics.Functions.X_pSatpphi(
-     pSat=IDEAS.Media.Air.saturationPressure(simpleCompressor.Teva), p=evaporator.ports[1].p, phi=1)
+  Modelica.SIunits.Energy E=IEH.E + eva.U + con.U;
+  Real BPF=min(1, max(0, IDEAS.Utilities.Math.Functions.spliceFunction(
+      x=abs(IEH.TOutBot - eva.heatPort.T) - 0.2,
+      pos=(eva.heatPort.T - com.Teva)*
+        IDEAS.Utilities.Math.Functions.inverseXRegularized(x=IEH.TOutBot - com.Teva,
+        delta=0.1),
+      neg=1,
+      deltax=0.1))) "Fraction of air that is bypassed in the evaporator";
+  Real X_sat_evap=IDEAS.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=IDEAS.Media.Air.saturationPressure(com.Teva),
+      p=eva.ports[1].p,
+      phi=1)
     "Water fraction at saturation in evaporator at refrigerant temperature";
-  Real x_out = BPF*adCrFlHe.port_b2.Xi_outflow[1] + (1-BPF)*min(X_sat_evap,adCrFlHe.port_b2.Xi_outflow[1])
-    "Outlet water mass fraction based on BPF";
-  Boolean onAdia = on_internal and Tset < T_fresh_in.T and (pre(onAdia) or Tset<adCrFlHe.T_out_bot)
-    "Hysteresis implementation for switching adiabatic cooling on or off";
-  Boolean onComp = on_internal and onDelAdi.y and Tset < adCrFlHe.T_out_bot and (pre(onComp) or Tset+0.1<adCrFlHe.T_out_bot)
-    "Hysteresis implementation for switching the compressor on or off";
-  Modelica.SIunits.MassFlowRate m_condens = adCrFlHe.port_a2.m_flow * (adCrFlHe.port_b2.Xi_outflow[1]-x_out)
-    "Water condensation mass flow rate in the evaporator.";
+  Real x_out=BPF*IEH.port_b2.Xi_outflow[1] + (1 - BPF)*min(X_sat_evap, IEH.port_b2.Xi_outflow[
+      1]) "Outlet water mass fraction based on BPF";
+  Modelica.SIunits.MassFlowRate m_condens=IEH.port_a2.m_flow*(IEH.port_b2.Xi_outflow[
+      1] - x_out) "Water condensation mass flow rate in the evaporator.";
 
   // PORTS
   Modelica.Blocks.Interfaces.BooleanInput on if use_onOffSignal annotation (Placement(
@@ -62,29 +66,6 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={-20,108})));
-  Modelica.Fluid.Interfaces.FluidPort_a extractedAir(
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    redeclare package Medium = MediumAir)
-    annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
-  Modelica.Fluid.Interfaces.FluidPort_b injectedAir(
-    m_flow(max=if allowFlowReversal then Modelica.Constants.inf else 0),
-    redeclare package Medium = MediumAir)
-    annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
-  Modelica.Fluid.Interfaces.FluidPort_a freshAir(
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    redeclare package Medium = MediumAir)
-    annotation (Placement(transformation(extent={{90,-36},{110,-16}})));
-  Modelica.Fluid.Interfaces.FluidPort_b dumpedAir(
-    m_flow(max=if allowFlowReversal then Modelica.Constants.inf else 0),
-    redeclare package Medium = MediumAir) annotation (Placement(transformation(extent={{90,10},{110,30}})));
-  Modelica.Fluid.Interfaces.FluidPort_b heatingOut(
-    m_flow(max=if allowFlowReversal then Modelica.Constants.inf else 0),
-    redeclare package Medium = MediumHeating)
-    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_a heatingIn(
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    redeclare package Medium = MediumHeating)
-    annotation (Placement(transformation(extent={{-138,-110},{-118,-90}})));
   Modelica.Blocks.Interfaces.RealInput Tset "Setpoints of the valves"
     annotation (Placement(transformation(
         extent={{14,-14},{-14,14}},
@@ -104,22 +85,21 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
         origin={20,102})));
   Modelica.Blocks.Interfaces.RealOutput P
     annotation (Placement(transformation(extent={{96,80},{116,100}})));
-  Modelica.Blocks.Interfaces.RealOutput yValve
-    "Control signal for external 3way valve"
-    annotation (Placement(transformation(extent={{96,-102},{116,-82}})));
     //COMPONENTS
-  IDEAS.Fluid.HeatExchangers.ConstantEffectiveness heater(
-    redeclare package Medium1 = MediumAir,
-    redeclare package Medium2 = MediumHeating,
-    m1_flow_nominal=adsolairData.m1_flow_nominal_heater,
-    m2_flow_nominal=adsolairData.m2_flow_nominal_heater,
-    eps=adsolairData.epsHeating,
-    dp2_nominal=adsolairData.dp2_nominal_heater,
+  replaceable IDEAS.Fluid.Interfaces.FourPortHeatMassExchanger hexSupOut(
+    m1_flow_nominal=m2_flow_nominal,
+    m2_flow_nominal=1,
     dp1_nominal=0,
-    allowFlowReversal1=allowFlowReversal,
-    allowFlowReversal2=false) "Heat exchanger"
-    annotation (Placement(transformation(extent={{-100,-36},{-120,-16}})));
-  IDEAS.Fluid.HeatExchangers.IndirectEvaporativeHex adCrFlHe(
+    redeclare package Medium1 = MediumAir,
+    redeclare package Medium2 = MediumAir,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp2_nominal=1,
+    vol2(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+        massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial))
+    constrainedby IDEAS.Fluid.Interfaces.PartialFourPortInterface
+    "Replaceable model for adding heat exchanger at supply outlet"
+    annotation (Placement(transformation(extent={{-72,-36},{-92,-16}})));
+  IDEAS.Fluid.HeatExchangers.IndirectEvaporativeHex IEH(
     p1_start=p_start,
     T1_start=T_start,
     X1_start=X_start,
@@ -133,19 +113,19 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     m_flow_small=m_flow_small,
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumAir,
-    m1_flow_nominal=adsolairData.m_flow_nominal1,
-    m2_flow_nominal=adsolairData.m_flow_nominal2,
+    m1_flow_nominal=m1_flow_nominal,
+    m2_flow_nominal=m2_flow_nominal,
     eps_adia_on=adsolairData.eps_adia_on,
     eps_adia_off=adsolairData.eps_adia_off,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_eNTU=use_eNTU,
-    tau=tau)
-            annotation (Placement(transformation(extent={{-4,-38},{58,20}})));
-  IDEAS.Fluid.MixingVolumes.MixingVolume condensor(
+    tau=tau) "Indirect evaporative heat exchanger"
+    annotation (Placement(transformation(extent={{10,-36},{64,18}})));
+  IDEAS.Fluid.MixingVolumes.MixingVolume con(
     nPorts=2,
     redeclare package Medium = MediumAir,
-    m_flow_nominal=adsolairData.m_flow_nominal1,
+    m_flow_nominal=m1_flow_nominal,
     mSenFac=mSenFac,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_small=m_flow_small,
@@ -156,8 +136,9 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     C_start=C_start,
     C_nominal=C_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    V=adsolairData.m_flow_nominal1/rho_default*tau)
-           annotation (Placement(transformation(
+    V=m1_flow_nominal/rho_default*tau)
+    "Simple condensor model for active chiller" annotation (Placement(
+        transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={65,35})));
@@ -178,16 +159,16 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
       use_powerCharacteristic=adsolairData.use_powerCharacteristic,
       pressure=adsolairData.pressure),
     init=Modelica.Blocks.Types.Init.NoInit,
-    m_flow_small=adsolairData.m_flow_nominal1/50,
+    m_flow_small=m1_flow_nominal/50,
     riseTime=600,
     filteredSpeed=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    m_flow_nominal=adsolairData.m_flow_nominal1) "Top fan"
-    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
-  IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir evaporator(
+    m_flow_nominal=m1_flow_nominal) "Top fan"
+    annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
+  IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir eva(
     redeclare package Medium = MediumAir,
-    m_flow_nominal=adsolairData.m_flow_nominal2,
+    m_flow_nominal=m2_flow_nominal,
     mSenFac=mSenFac,
     m_flow_small=m_flow_small,
     allowFlowReversal=allowFlowReversal,
@@ -199,11 +180,12 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     nPorts=2,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    V=adsolairData.m_flow_nominal2/rho_default*tau)
-               annotation (Placement(transformation(
+    V=m2_flow_nominal/rho_default*tau)
+    "Simple evaporator model for active chiller"
+    annotation (Placement(transformation(
         extent={{-8,-8},{8,8}},
         rotation=180,
-        origin={-4,-52})));
+        origin={10,-52})));
   IDEAS.Fluid.Movers.FlowControlled_dp fanBot(
     redeclare package Medium = MediumAir,
     p_start=p_start,
@@ -221,37 +203,34 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
       use_powerCharacteristic=adsolairData.use_powerCharacteristic,
       pressure=adsolairData.pressure),
     init=Modelica.Blocks.Types.Init.NoInit,
-    m_flow_small=adsolairData.m_flow_nominal2/50,
+    m_flow_small=m2_flow_nominal/50,
     riseTime=600,
     filteredSpeed=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    m_flow_nominal=adsolairData.m_flow_nominal2) "Bottom fan"
-    annotation (Placement(transformation(extent={{-50,-30},{-70,-10}})));
-  IDEAS.Airflow.AHU.BaseClasses.SimpleCompressorTable simpleCompressor(fraPmin=
-        adsolairData.fraPmin, C=tau/4*adsolairData.G_condensor) annotation (
-      Placement(transformation(
+    m_flow_nominal=m2_flow_nominal) "Bottom fan"
+    annotation (Placement(transformation(extent={{-30,-30},{-50,-10}})));
+  IDEAS.Airflow.AHU.BaseClasses.SimpleCompressorTable com(fraPmin=adsolairData.fraPmin,
+      C=tau/4*adsolairData.G_condensor)
+    "Simple compressor model for active chiller" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={32,42})));
   Modelica.Blocks.Math.Sum sum(nin=5) "Total electrical power consumption"
     annotation (Placement(transformation(extent={{78,82},{94,98}})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort T_fresh_in(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort TSupIn(
     redeclare package Medium = MediumAir,
-    m_flow_nominal=adsolairData.m_flow_nominal2,
+    m_flow_nominal=m2_flow_nominal,
     T_start=293,
     allowFlowReversal=allowFlowReversal,
-    tau=0) "Fresh inlet air temperature"
-    annotation (Placement(transformation(
+    tau=0) "Supply inlet air temperature" annotation (Placement(transformation(
         extent={{6,-6},{-6,6}},
         rotation=0,
         origin={28,-68})));
   Modelica.Blocks.Sources.RealExpression m_condens_exp(y=-m_condens)
     "Real expression for setting water condensation mass flow rate"
-    annotation (Placement(transformation(extent={{54,-48},{34,-68}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemEva
-    "Temperatuer sensor of evaporator"
-    annotation (Placement(transformation(extent={{16,-52},{32,-36}})));
+    annotation (Placement(transformation(extent={{60,-66},{40,-46}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conCon(G=
         adsolairData.G_condensor)
     "Conductor describing the temperature drop in the condensor" annotation (
@@ -260,12 +239,9 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
         rotation=0,
         origin={50,42})));
   Modelica.Blocks.Sources.RealExpression fan_flow_set[2](y=if on_internal then
-        dpSet + {-dumpedAir.p + fanTop.port_b.p,-fanBot.port_a.p + freshAir.p}
+        dpSet + {-port_b1.p + fanTop.port_b.p,-fanBot.port_a.p + port_a2.p}
          else {0.1,0.1}) "Fan flow set points"
-    annotation (Placement(transformation(extent={{-140,42},{-72,28}})));
-  Modelica.Blocks.Sources.BooleanExpression onAdiaExp(y=onAdia)
-    "Expression for outputting onAdia"
-    annotation (Placement(transformation(extent={{120,-6},{100,6}})));
+    annotation (Placement(transformation(extent={{-140,48},{-72,34}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductionFanTop(G=1)
     "Thermal losses in top fan: needed for avoiding singularity when mass flow rate is zero"
     annotation (Placement(transformation(
@@ -281,48 +257,44 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
         extent={{-6,6},{6,-6}},
         rotation=0,
         origin={-86,-6})));
-  Modelica.Blocks.Interfaces.RealOutput TrecupPul
-    "Temperature of pulsion stream before heating battery"
-    annotation (Placement(transformation(extent={{96,-82},{116,-62}})));
-  Modelica.Blocks.Sources.BooleanExpression piHeaterOn(y=on_internal and not
-        onAdiaExp.y and not onCompExp.y and (damPid.y > 0.97 or damPid.y < 0.03))
-    "Enable PI controllers"
-    annotation (Placement(transformation(extent={{0,-90},{40,-74}})));
+  Modelica.Blocks.Interfaces.RealOutput TFanSupOut
+    "Temperature measured behind supply fan"
+    annotation (Placement(transformation(extent={{96,-102},{116,-82}})));
   IDEAS.Fluid.FixedResistances.FixedResistanceDpM resTop(
     allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=adsolairData.m_flow_nominal1,
+    m_flow_nominal=m1_flow_nominal,
     redeclare package Medium = MediumAir,
     from_dp=false,
     dp_nominal=adsolairData.dp_nominal_top + dp_fouling_top)
     "Top pressure drop component"
-    annotation (Placement(transformation(extent={{-40,30},{-20,10}})));
+    annotation (Placement(transformation(extent={{-20,30},{0,10}})));
   IDEAS.Fluid.FixedResistances.FixedResistanceDpM resBot(
     allowFlowReversal=allowFlowReversal,
     redeclare package Medium = MediumAir,
-    m_flow_nominal=adsolairData.m_flow_nominal2,
+    m_flow_nominal=m2_flow_nominal,
     from_dp=false,
     dp_nominal=adsolairData.dp_nominal_bottom + dp_fouling_bot)
     "Bottom pressure drop component"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
-        origin={-30,-20})));
+        origin={-10,-20})));
   TwoWayEqualPercentageAdd                  valBypassBottom(
     redeclare package Medium = MediumAir,
-    m_flow_nominal=adsolairData.m_flow_nominal2,
+    m_flow_nominal=m2_flow_nominal,
     allowFlowReversal=allowFlowReversal,
     filteredOpening=false,
     from_dp=true,
     l=0.001,
     dpAdd=1,
     A=adsolairData.A_dam_byp_bot,
-    dpFixed_nominal=(1 - alpha)*(adsolairData.m_flow_nominal2/(adsolairData.A_byp_bot_min))
+    dpFixed_nominal=(1 - alpha)*(m2_flow_nominal/(adsolairData.A_byp_bot_min))
         ^2/rho_default/2,
     k1=k1)
     annotation (Placement(transformation(extent={{88,-76},{72,-60}})));
   TwoWayEqualPercentageAdd                  valRecupBot(
     redeclare package Medium = MediumAir,
-    m_flow_nominal=adsolairData.m_flow_nominal2,
+    m_flow_nominal=m2_flow_nominal,
     dpFixed_nominal=adsolairData.dp_nominal_bottom_recup,
     allowFlowReversal=allowFlowReversal,
     filteredOpening=false,
@@ -332,28 +304,22 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     A=adsolairData.A_dam_rec_bot,
     k1=k1)
     annotation (Placement(transformation(extent={{88,-34},{72,-18}})));
-  Modelica.Blocks.Sources.RealExpression bypassBoty(y=if on_internal then (if
-        onComp then 0 else min(2 - 2*damPid.y, 1)) else 0)
-    annotation (Placement(transformation(extent={{166,-46},{114,-34}})));
-  Modelica.Blocks.Sources.RealExpression recupBoty(y=if on_internal then (if
-        onComp then 1 else min(2*damPid.y, 1)) else 0)
-    annotation (Placement(transformation(extent={{166,-16},{114,-4}})));
   TwoWayEqualPercentageAdd                  valBypassTop(
     redeclare package Medium = MediumAir,
     allowFlowReversal=allowFlowReversal,
     filteredOpening=false,
     from_dp=true,
     l=0.001,
-    m_flow_nominal=adsolairData.m_flow_nominal1,
+    m_flow_nominal=m1_flow_nominal,
     dpAdd=1,
-    dpFixed_nominal=(adsolairData.m_flow_nominal1/adsolairData.A_byp_top_min)^2
+    dpFixed_nominal=(m1_flow_nominal/adsolairData.A_byp_top_min)^2
         /rho_default/2,
     A=adsolairData.A_dam_byp_top,
     k1=k1)
     annotation (Placement(transformation(extent={{78,58},{94,74}})));
   TwoWayEqualPercentageAdd                  valRecupTop(
     redeclare package Medium = MediumAir,
-    m_flow_nominal=adsolairData.m_flow_nominal2,
+    m_flow_nominal=m2_flow_nominal,
     dpFixed_nominal=adsolairData.dp_nominal_top_recup,
     allowFlowReversal=allowFlowReversal,
     filteredOpening=false,
@@ -363,68 +329,18 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     A=adsolairData.A_dam_rec_top,
     k1=k1)
     annotation (Placement(transformation(extent={{78,36},{94,52}})));
-  Modelica.Blocks.Sources.RealExpression bypassTopy(y=if not onAdia and
-        on_internal and not onComp then 1 -damPid.y  else 0)
-    annotation (Placement(transformation(extent={{156,70},{116,80}})));
-  Modelica.Blocks.Sources.RealExpression recupTopy(y=if on_internal then 1
-         else 0)
-    annotation (Placement(transformation(extent={{154,60},{114,48}})));
-  Solarwind.Controls.SolarwindComponents.BaseClasses.LimPIDAdvanced comPid(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=180,
-    yMax=1,
-    yMin=0,
-    Bp=10,
-    revActPar=true,
-    use_onOffSignal=true,
-    yOutOff=0.6,
-    sat=0.02) "Pi controller for compressor"
-    annotation (Placement(transformation(extent={{4,48},{14,58}})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort T_heater_in(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senTemFanSupOut(
     redeclare package Medium = MediumAir,
-    m_flow_nominal=adsolairData.m_flow_nominal2,
+    m_flow_nominal=m2_flow_nominal,
     tau=tau,
     transferHeat=true,
     TAmb=fixedTemperature.T,
     tauHeaTra=3600,
     allowFlowReversal=allowFlowReversal) "Inlet temperature of the heater"
-                                               annotation (Placement(
-        transformation(
+    annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=180,
-        origin={-86,-20})));
-  Solarwind.Controls.SolarwindComponents.BaseClasses.LimPIDAdvanced heaPid(
-    Td=0,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    yMin=0,
-    yMax=1,
-    use_onOffSignal=true,
-    sat=0.2,
-    Bp=5,
-    yOutOff=0,
-    useDerYLimit=true,
-    derYMaxConst=true,
-    derYMinConst=true,
-    derYmaxyVals={0.03},
-    derYminyVals={-0.03},
-    Ti=120) "PI controller for heating coil valve"
-    annotation (Placement(transformation(extent={{42,-98},{54,-86}})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort T_heater_out(
-    redeclare package Medium = MediumAir,
-    m_flow_nominal=adsolairData.m_flow_nominal2,
-    tau=tau,
-    transferHeat=true,
-    tauHeaTra=3600,
-    TAmb=fixedTemperature.T,
-    allowFlowReversal=allowFlowReversal) "Inlet temperature of the heater"
-                                               annotation (Placement(
-        transformation(
-        extent={{-6,6},{6,-6}},
-        rotation=180,
-        origin={-128,-20})));
-  Modelica.Blocks.Sources.BooleanExpression onCompExp(y=onComp)
-    "On signal for compressor and its PI controller"
-    annotation (Placement(transformation(extent={{-20,74},{0,92}})));
+        origin={-60,-20})));
 model TwoWayEqualPercentageAdd
     "Damper with possibility for adding fixed pressure drop using boolean input"
   extends IDEAS.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv(
@@ -483,31 +399,7 @@ public
         extent={{-6,6},{6,-6}},
         rotation=0,
         origin={-70,10})));
-  Modelica.Blocks.MathBoolean.OnDelay onDelAdi(delayTime=5*tau)
-    "On delay before compressor may be activated"
-    annotation (Placement(transformation(extent={{94,4},{86,12}})));
-  Solarwind.Controls.SolarwindComponents.BaseClasses.LimPIDAdvanced damPid(
-    useBpInput=true,
-    useyMinInput=false,
-    useyMaxInput=false,
-    use_onOffSignal=true,
-    useRevActIn=true,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=120,
-    yMax=1,
-    yMin=0,
-    sat=0.5,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
-    yOutOff=0) "PI controller for dampers"
-    annotation (Placement(transformation(extent={{-38,60},{-28,70}})));
-  Modelica.Blocks.Math.Add add(k1=-1, k2=+1)
-    annotation (Placement(transformation(extent={{-70,60},{-60,70}})));
-  Modelica.Blocks.Math.Abs abs1
-    annotation (Placement(transformation(extent={{-56,60},{-46,70}})));
-  Modelica.Blocks.Sources.BooleanExpression revAct(y=onAdia or onComp or
-        adCrFlHe.T_out_bot < T_fresh_in.T)
-    annotation (Placement(transformation(extent={{-86,70},{-46,90}})));
-  Modelica.Blocks.Sources.RealExpression PPum(y=if onAdiaExp.y then 770 else 0)
+  Modelica.Blocks.Sources.RealExpression PPum(y=if adsCon.onAdia then 770 else 0)
     "Electrical power consumption of circulation pump"
     annotation (Placement(transformation(extent={{40,98},{60,78}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(final k=false)
@@ -516,56 +408,51 @@ public
   Modelica.Blocks.Sources.RealExpression PUnit(y=if on_internal then 780 else 150)
     "Remaing electrical power consumption from unit"
     annotation (Placement(transformation(extent={{40,86},{60,106}})));
-  Modelica.Blocks.Sources.BooleanExpression piValOn(y=on_internal)
-    "Enable PI controllers"
-    annotation (Placement(transformation(extent={{-86,84},{-66,100}})));
 protected
   Modelica.Blocks.Interfaces.BooleanInput on_internal
     "Needed to connect to conditional connector";
+public
+  replaceable BaseClasses.AdsolairController adsCon(tau=tau) constrainedby
+    BaseClasses.AdsolairController "Adsolair controller model"
+    annotation (Placement(transformation(extent={{-44,56},{-24,76}})));
+  Modelica.Blocks.Sources.BooleanExpression onExp(y=on_internal)
+    "AHU control signal"
+    annotation (Placement(transformation(extent={{-84,66},{-64,82}})));
+  Modelica.Blocks.Sources.RealExpression TEvaExp(y=eva.heatPort.T)
+    "Evaporator outlet temperature"
+    annotation (Placement(transformation(extent={{-86,64},{-60,48}})));
 equation
   connect(on,on_internal);
   if not use_onOffSignal then
     on_internal=onOff;
   end if;
-  connect(heatingOut, heater.port_b2) annotation (Line(
-      points={{-90,-100},{-90,-32},{-100,-32}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(heater.port_a2, heatingIn) annotation (Line(
-      points={{-120,-32},{-128,-32},{-128,-100}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(sum.y, P) annotation (Line(
       points={{94.8,90},{106,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(m_condens_exp.y, evaporator.mWat_flow) annotation (Line(
-      points={{33,-58},{14,-58},{14,-58.4},{5.6,-58.4}},
+  connect(m_condens_exp.y, eva.mWat_flow) annotation (Line(
+      points={{39,-56},{26,-56},{26,-58.4},{19.6,-58.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senTemEva.port, evaporator.heatPort) annotation (Line(
-      points={{16,-44},{16,-52},{4,-52}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(simpleCompressor.port_b, conCon.port_a) annotation (Line(
+  connect(com.port_b, conCon.port_a) annotation (Line(
       points={{42,42},{44,42}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conCon.port_b, condensor.heatPort) annotation (Line(
+  connect(conCon.port_b, con.heatPort) annotation (Line(
       points={{56,42},{65,42}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fanTop.P, sum.u[2]) annotation (Line(
-      points={{-49,28},{-58,28},{-58,76},{76.4,76},{76.4,89.36}},
+      points={{-29,28},{-58,28},{-58,76},{76.4,76},{76.4,89.36}},
       color={0,0,127},
       smooth=Smooth.None,
       visible=false));
   connect(fanBot.P, sum.u[3]) annotation (Line(
-      points={{-71,-12},{-72,-12},{-72,-8},{-78,-8},{-78,90},{76.4,90}},
+      points={{-51,-12},{-72,-12},{-72,-8},{-78,-8},{-78,90},{76.4,90}},
       color={0,0,127},
       smooth=Smooth.None,
       visible=false));
-  connect(simpleCompressor.P, sum.u[4]) annotation (Line(
+  connect(com.P, sum.u[4]) annotation (Line(
       points={{40,51.8},{26,51.8},{26,90.64},{76.4,90.64}},
       color={0,0,127},
       visible=false));
@@ -575,141 +462,66 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalConductionFanTop.port_b, fanTop.heatPort) annotation (Line(
-      points={{-80,6},{-60,6},{-60,13.2}},
+      points={{-80,6},{-40,6},{-40,13.2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalConductionfanBot.port_b, fanBot.heatPort) annotation (Line(
-      points={{-80,-6},{-80,-6},{-76,-6},{-76,-26},{-68,-26},{-68,-26.8},{-60,-26.8}},
+      points={{-80,-6},{-40,-6},{-40,-26.8}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fanTop.port_b, resTop.port_a) annotation (Line(
-      points={{-50,20},{-40,20}},
+      points={{-30,20},{-20,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(resBot.port_b, fanBot.port_a) annotation (Line(
-      points={{-40,-20},{-50,-20}},
+      points={{-20,-20},{-30,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(bypassBoty.y, valBypassBottom.y) annotation (Line(
-      points={{111.4,-40},{80,-40},{80,-58.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(recupBoty.y, valRecupBot.y) annotation (Line(
-      points={{111.4,-10},{80,-10},{80,-16.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(bypassTopy.y, valBypassTop.y) annotation (Line(
-      points={{114,75},{86,75},{86,75.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(valRecupTop.port_b, dumpedAir) annotation (Line(
-      points={{94,44},{100,44},{100,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(valBypassTop.port_b, dumpedAir) annotation (Line(
-      points={{94,66},{100,66},{100,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(onAdiaExp.y, adCrFlHe.adiabaticOn) annotation (Line(
-      points={{99,0},{59.24,0},{59.24,-9}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(comPid.y, simpleCompressor.mod) annotation (Line(points={{14.3,53},{24,
-          53},{24,51},{23.6,51}}, color={0,0,127}));
   connect(fan_flow_set[1].y, fanTop.dp_in) annotation (Line(
-      points={{-68.6,35},{-60,35},{-60,32},{-60.2,32}},
+      points={{-68.6,41},{-60,41},{-60,32},{-40.2,32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fan_flow_set[2].y, fanBot.dp_in) annotation (Line(
-      points={{-68.6,35},{-60,35},{-60,-2},{-59.8,-2},{-59.8,-8}},
+      points={{-68.6,41},{-60,41},{-60,-2},{-39.8,-2},{-39.8,-8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(T_heater_in.port_a, fanBot.port_b) annotation (Line(
-      points={{-80,-20},{-70,-20}},
+  connect(senTemFanSupOut.port_a, fanBot.port_b) annotation (Line(
+      points={{-54,-20},{-50,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(T_heater_in.port_b, heater.port_a1) annotation (Line(
-      points={{-92,-20},{-100,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(T_heater_in.T, TrecupPul) annotation (Line(
-      points={{-86,-13.4},{-86,-72},{106,-72}},
+  connect(senTemFanSupOut.T, TFanSupOut) annotation (Line(
+      points={{-60,-13.4},{-60,-92},{106,-92}},
       color={0,0,127},
       smooth=Smooth.None,
-      visible=false));
-  connect(fanTop.port_a, extractedAir) annotation (Line(
-      points={{-70,20},{-140,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(heaPid.y, yValve) annotation (Line(
-      points={{54.36,-92},{106,-92}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(heaPid.u_s, Tset) annotation (Line(
-      points={{40.8,-92},{8,-92},{8,-102}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(heater.port_b1, T_heater_out.port_a) annotation (Line(
-      points={{-120,-20},{-122,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(T_heater_out.port_b, injectedAir) annotation (Line(
-      points={{-134,-20},{-140,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(T_heater_out.T, heaPid.u_m) annotation (Line(
-      points={{-128,-13.4},{-128,-124},{48,-124},{48,-99.2}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      visible=false));
-  connect(recupTopy.y, valRecupTop.y) annotation (Line(points={{112,54},{88.85,54},
-          {88.85,53.6},{86,53.6}},     color={0,0,127}));
-  connect(comPid.u_s, Tset) annotation (Line(
-      points={{3,53},{-34,53},{-34,-102},{8,-102}},
-      color={0,0,127},
       visible=false));
   connect(thermalConductionfanBot.port_a, thermalConductionFanTop.port_a)
     annotation (Line(points={{-92,-6},{-92,0},{-92,6}}, color={191,0,0}));
-  connect(evaporator.TWat, adCrFlHe.T_out_bot) annotation (Line(
-      points={{5.6,-55.84},{5.6,-34.52},{60.48,-34.52}},
+  connect(eva.TWat, IEH.TOutBot) annotation (Line(
+      points={{19.6,-55.84},{19.6,-32.76},{66.16,-32.76}},
       color={0,0,127},
       visible=false));
-  connect(adCrFlHe.port_b1, condensor.ports[1]) annotation (Line(points={{58,8.4},
-          {62,8.4},{62,8},{72,8},{72,36.4}}, color={0,127,255}));
-  connect(condensor.ports[2], valRecupTop.port_a)
+  connect(IEH.port_b1, con.ports[1]) annotation (Line(points={{64,7.2},{62,7.2},
+          {62,8},{72,8},{72,36.4}}, color={0,127,255}));
+  connect(con.ports[2], valRecupTop.port_a)
     annotation (Line(points={{72,33.6},{72,44},{78,44}}, color={0,127,255}));
   connect(valBypassTop.port_a, resTop.port_b) annotation (Line(points={{78,66},{
-          -4,66},{-4,20},{-20,20}},
-                                  color={0,127,255}));
-  connect(adCrFlHe.port_a1, resTop.port_b) annotation (Line(points={{-4,8.4},{-4,
-          8.4},{-4,18},{-4,20},{-20,20}}, color={0,127,255}));
-  connect(adCrFlHe.port_b2, evaporator.ports[1]) annotation (Line(points={{-4,-26.4},
-          {-4,-44},{-2.4,-44}}, color={0,127,255}));
-  connect(onCompExp.y, simpleCompressor.on) annotation (Line(points={{1,83},{28,
-          83},{28,51},{28.8,51}},
-                              color={255,0,255}));
-  connect(piHeaterOn.y, heaPid.on) annotation (Line(points={{42,-82},{46.8,-82},
-          {46.8,-85.52}}, color={255,0,255}));
-  connect(freshAir, valRecupBot.port_a)
-    annotation (Line(points={{100,-26},{96,-26},{88,-26}}, color={0,127,255}));
-  connect(valRecupBot.port_b, adCrFlHe.port_a2) annotation (Line(points={{72,-26},
-          {67,-26},{67,-26.4},{58,-26.4}}, color={0,127,255}));
-  connect(valBypassBottom.port_b, T_fresh_in.port_a)
+          0,66},{0,20}},          color={0,127,255}));
+  connect(IEH.port_a1, resTop.port_b)
+    annotation (Line(points={{10,7.2},{0,7.2},{0,20}}, color={0,127,255}));
+  connect(IEH.port_b2, eva.ports[1]) annotation (Line(points={{10,-25.2},{10,-44},
+          {11.6,-44}}, color={0,127,255}));
+  connect(valRecupBot.port_b, IEH.port_a2) annotation (Line(points={{72,-26},{
+          67,-26},{67,-25.2},{64,-25.2}}, color={0,127,255}));
+  connect(valBypassBottom.port_b, TSupIn.port_a)
     annotation (Line(points={{72,-68},{64,-68},{34,-68}}, color={0,127,255}));
-  connect(T_fresh_in.port_b, resBot.port_a) annotation (Line(points={{22,-68},{-20,
-          -68},{-20,-20}}, color={0,127,255}));
-  connect(valBypassBottom.port_a, freshAir) annotation (Line(points={{88,-68},{100,
-          -68},{100,-26}}, color={0,127,255}));
-  connect(evaporator.ports[2], resBot.port_a) annotation (Line(points={{-5.6,-44},
-          {-20,-44},{-20,-20}}, color={0,127,255}));
-  connect(comPid.u_m, T_heater_out.T) annotation (Line(
-      points={{9,47},{9,-13.4},{-128,-13.4}},
-      color={0,0,127},
-      visible=false));
+  connect(TSupIn.port_b, resBot.port_a) annotation (Line(points={{22,-68},{0,-68},
+          {0,-20}},   color={0,127,255}));
+  connect(eva.ports[2], resBot.port_a) annotation (Line(points={{8.4,-44},{0,-44},
+          {0,-20}},        color={0,127,255}));
   connect(theConEva.port_a, fixedTemperature.port)
     annotation (Line(points={{-76,0},{-100,0},{-100,6}}, color={191,0,0}));
-  connect(theConEva.port_b, evaporator.heatPort) annotation (Line(
-      points={{-64,0},{4,0},{4,-52}},
+  connect(theConEva.port_b, eva.heatPort) annotation (Line(
+      points={{-64,0},{18,0},{18,-52}},
       color={191,0,0},
       visible=false));
   connect(theConCon.port_a, theConEva.port_a)
@@ -718,34 +530,8 @@ equation
       points={{-64,10},{-24,10},{-24,12},{56,12},{56,42}},
       color={191,0,0},
       visible=false));
-  connect(onDelAdi.u, onAdiaExp.y)
-    annotation (Line(points={{95.6,8},{99,8},{99,0}}, color={255,0,255}));
-  connect(T_fresh_in.T, add.u1) annotation (Line(
-      points={{28,-61.4},{-2,-61.4},{-2,-62},{-66,-62},{-66,68},{-71,68}},
-      color={0,0,127},
-      visible=false));
-  connect(T_heater_in.T,damPid. u_m) annotation (Line(
-      points={{-86,-13.4},{-86,59},{-33,59}},
-      color={0,0,127},
-      visible=false));
-  connect(senTemEva.T, add.u2) annotation (Line(
-      points={{32,-44},{-71,-44},{-71,62}},
-      color={0,0,127},
-      visible=false));
-  connect(add.y, abs1.u)
-    annotation (Line(points={{-59.5,65},{-57,65}}, color={0,0,127}));
-  connect(abs1.y,damPid. BpInput) annotation (Line(points={{-45.5,65},{-42.75,65},
-          {-42.75,70},{-39,70}}, color={0,0,127}));
-  connect(Tset,damPid. u_s) annotation (Line(
-      points={{8,-102},{-2,-102},{-39,-102},{-39,65}},
-      color={0,0,127},
-      visible=false));
-  connect(damPid.revAct, revAct.y) annotation (Line(points={{-32.6,70.4},{-32.6,
-          80},{-44,80}}, color={255,0,255}));
   connect(PPum.y, sum.u[5]) annotation (Line(points={{61,88},{76.4,88},{76.4,91.28}},
         color={0,0,127}));
-  connect(valRecupTop.addPreDro, onAdiaExp.y) annotation (Line(points={{82.8,52.48},
-          {76,52.48},{76,0},{99,0}}, color={255,0,255}));
   connect(booleanConstant.y, valBypassTop.addPreDro) annotation (Line(points={{60.5,75},
           {68,75},{68,74.48},{82.8,74.48}},        color={255,0,255}));
   connect(valBypassTop.addPreDro, valRecupBot.addPreDro) annotation (Line(
@@ -755,14 +541,77 @@ equation
         points={{83.2,-59.52},{83.2,-37.76},{83.2,-17.52}}, color={255,0,255}));
   connect(PUnit.y, sum.u[1]) annotation (Line(points={{61,96},{62,96},{62,88.72},
           {76.4,88.72}}, color={0,0,127}));
-  connect(comPid.on, onCompExp.y) annotation (Line(points={{8,58.4},{8,58.4},{8,
-          83},{1,83}}, color={255,0,255}));
-  connect(simpleCompressor.port_a, evaporator.heatPort)
-    annotation (Line(points={{22,42},{4,42},{4,-52}}, color={191,0,0}));
-  connect(piValOn.y,damPid. on) annotation (Line(points={{-65,92},{-34,92},{-34,
-          70.4}}, color={255,0,255}));
-  connect(adCrFlHe.T_out_bot, simpleCompressor.TinEva) annotation (Line(points={
-          {60.48,-34.52},{34,-34.52},{34,50.8}}, color={0,0,127}));
+  connect(com.port_a, eva.heatPort)
+    annotation (Line(points={{22,42},{18,42},{18,-52}}, color={191,0,0}));
+  connect(IEH.TOutBot, com.TinEva) annotation (Line(points={{66.16,-32.76},{34,
+          -32.76},{34,50.8}}, color={0,0,127}));
+  connect(onExp.y, adsCon.on) annotation (Line(points={{-63,74},{-63,74},{-44.6,
+          74}}, color={255,0,255}));
+  connect(Tset, adsCon.TSet) annotation (Line(
+      points={{8,-102},{-44.6,-102},{-44.6,68}},
+      color={0,0,127},
+      visible=false));
+  connect(IEH.TOutBot, adsCon.TIehOutSup) annotation (Line(
+      points={{66.16,-32.76},{-19.76,-32.76},{-19.76,62},{-44.6,62}},
+      color={0,0,127},
+      visible=false));
+  connect(adsCon.TFanOutSup, senTemFanSupOut.T) annotation (Line(
+      points={{-44.6,65},{-60,65},{-60,-13.4}},
+      color={0,0,127},
+      visible=false));
+  connect(adsCon.TIehInSup, TSupIn.T) annotation (Line(
+      points={{-44.6,59},{-110,59},{-110,-61.4},{28,-61.4}},
+      color={0,0,127},
+      visible=false));
+  connect(adsCon.TEvaOut, TEvaExp.y)
+    annotation (Line(points={{-44.6,56},{-56,56},{-58,56},{-58.7,56}},
+                                                       color={0,0,127}));
+  connect(adsCon.onChi, com.on) annotation (Line(
+      points={{-22,59},{-24,59},{-24,51},{28.8,51}},
+      color={255,0,255},
+      visible=false));
+  connect(adsCon.mod, com.mod) annotation (Line(
+      points={{-22,67},{23.6,67},{23.6,51}},
+      color={0,0,127},
+      visible=false));
+  connect(adsCon.yBypTop, valBypassTop.y) annotation (Line(
+      points={{-23,75.8},{6,75.8},{6,75.6},{86,75.6}},
+      color={0,0,127},
+      visible=false));
+  connect(adsCon.yRecTop, valRecupTop.y) annotation (Line(
+      points={{-23,74},{4,74},{4,53.6},{86,53.6}},
+      color={0,0,127},
+      visible=false));
+  connect(adsCon.yBypBot, valBypassBottom.y) annotation (Line(
+      points={{-23,70},{0,70},{0,-58.4},{80,-58.4}},
+      color={0,0,127},
+      visible=false));
+  connect(adsCon.yRecBot, valRecupBot.y) annotation (Line(
+      points={{-23,72},{80,72},{80,-16.4}},
+      color={0,0,127},
+      visible=false));
+  connect(adsCon.onAdia, valRecupTop.addPreDro) annotation (Line(
+      points={{-22,63},{82.8,63},{82.8,52.48}},
+      color={255,0,255},
+      visible=false));
+  connect(adsCon.onAdia, IEH.adiabaticOn) annotation (Line(
+      points={{-22,63},{-60,63},{-60,60},{65.08,60},{65.08,-9}},
+      color={255,0,255},
+      visible=false));
+  connect(hexSupOut.port_a1, senTemFanSupOut.port_b) annotation (Line(points={{-72,-20},
+          {-66,-20}},                color={0,127,255}));
+  connect(fanTop.port_a, port_a1) annotation (Line(points={{-50,20},{-100,20},{-100,
+          60}}, color={0,127,255}));
+  connect(hexSupOut.port_b1, port_b2) annotation (Line(points={{-92,-20},{-100,-20},
+          {-100,-60}}, color={0,127,255}));
+  connect(valBypassBottom.port_a, port_a2) annotation (Line(points={{88,-68},{100,
+          -68},{100,-60}}, color={0,127,255}));
+  connect(valRecupBot.port_a, port_a2) annotation (Line(points={{88,-26},{100,-26},
+          {100,-60}}, color={0,127,255}));
+  connect(valRecupTop.port_b, port_b1)
+    annotation (Line(points={{94,44},{100,44},{100,60}}, color={0,127,255}));
+  connect(valBypassTop.port_b, port_b1)
+    annotation (Line(points={{94,66},{100,66},{100,60}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-140,-100},{100,100}})),

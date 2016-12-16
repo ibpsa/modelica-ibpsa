@@ -110,7 +110,7 @@ model IndirectEvaporativeHex "Indirect evaporative heat exchanger"
     mSenFac=mSenFac,
     V=m1_flow_nominal/rho_default*tau) "Top heat exchanger volume"
     annotation (Placement(transformation(extent={{10,60},{-10,40}})));
-   Modelica.Blocks.Interfaces.RealOutput T_out_bot "Bottom outlet temperature"
+   Modelica.Blocks.Interfaces.RealOutput TOutBot "Bottom outlet temperature"
     annotation (Placement(transformation(extent={{98,-98},{118,-78}}),
         iconTransformation(extent={{98,-98},{118,-78}})));
    Modelica.Blocks.Sources.RealExpression mFloAdiBot(y=(Xw_out_bot - Xw_in_bot)*
@@ -284,8 +284,8 @@ equation
   connect(temperatureSensor.port, volBot.heatPort)
     annotation (Line(points={{40,-88},{10,-88},{10,-50}},
                                                         color={191,0,0}));
-  connect(temperatureSensor.T, T_out_bot)
-    annotation (Line(points={{60,-88},{108,-88}},           color={0,0,127}));
+  connect(temperatureSensor.T, TOutBot)
+    annotation (Line(points={{60,-88},{108,-88}}, color={0,0,127}));
   connect(theRes.port_a, volBot.heatPort) annotation (Line(points={{32,-14},{32,
           -14},{32,-50},{10,-50}}, color={191,0,0}));
   connect(theRes.port_b, volTop.heatPort)

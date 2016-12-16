@@ -3,9 +3,9 @@ partial record AdsolairData
   "Record containing parameters for the different Adsolair type 58 configurations"
   extends Modelica.Icons.Record;
   extends Solarwind.Fluid.Movers.Data.Generic;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal1
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
     "Nominal mass flow rate of the top duct.";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal2
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
     "Nominal mass flow rate of the bottom duct.";
   parameter Modelica.SIunits.Temperature dT_compressor
     "Nominal temperature difference over the heat pump compressor";
