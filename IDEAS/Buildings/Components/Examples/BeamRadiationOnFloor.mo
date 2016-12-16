@@ -27,5 +27,8 @@ September 8, 2016 by Filip Jorissen:<br/>
 First implementation
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Buildings/Components/Examples/BeamRadiationOnFloor.mos"
+        "Simulate and plot"));
 end BeamRadiationOnFloor;

@@ -68,10 +68,10 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
      sim.computeConservationOfEnergy
     "Component for computing conservation of energy";
-
+public
   IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.MultiLayer
     layMul(final inc=inc, energyDynamics=energyDynamics,
-    linIntCon=sim.linearise)
+    linIntCon=sim.linIntCon)
     "Multilayer component that allows simulating walls, windows and other surfaces"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 
@@ -124,6 +124,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+November 15, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
+</li>
+<li>
 March 8, 2016, by Filip Jorissen:<br/>
 Added energyDynamics parameter.
 </li>
@@ -136,5 +140,36 @@ February 6, 2016 by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Partial model for all surfaces and windows that contains common building blocks such as material layers and parameters.
+</p>
+<h4>Main equations</h4>
+<p>
+Submodel <code>layMul</code> contains equations
+for simulating conductive (and sometimes radiative) heat transfer
+inside material layers.
+</p>
+<h4>Assumption and limitations</h4>
+<p>
+This model assumes 1D heat transfer, i.e. edge effects are neglected.
+Mass exchange (moisture) is not modelled.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+Parameters <code>inc</code> and <code>azi</code> may be
+used to specify the inclination and azimuth/tilt angle of the surface.
+Variables in <a href=modelica://IDEAS.Types.Azimuth>IDEAS.Types.Azimuth</a>
+and <a href=modelica://IDEAS.Types.Tilt>IDEAS.Types.Tilt</a>
+may be used for this purpose or custom variables may be defined.
+</p>
+<h4>Options</h4>
+<p>
+Convection equations may be simplified (linearised) by setting <code>linIntCon_a = true</code>.
+</p>
+<h4>Dynamics</h4>
+<p>
+This model contains multiple state variables for describing the temperature state of the component.
+</p>
 </html>"));
 end PartialSurface;

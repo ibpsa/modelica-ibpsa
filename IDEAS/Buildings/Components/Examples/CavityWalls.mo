@@ -20,11 +20,9 @@ model CavityWalls
   IDEAS.Buildings.Components.OuterWall outerWall(
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S,
-    insulationThickness=0.1,
     redeclare parameter
       IDEAS.Buildings.Data.Constructions.CavityWallPartialFill
       constructionType,
-    redeclare Data.Insulation.Rockwool insulationType,
     AWall=10) "Vertical wall with partially filled cavity"
     annotation (Placement(transformation(extent={{-56,-20},{-46,0}})));
 

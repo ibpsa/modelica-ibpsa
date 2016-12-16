@@ -8,10 +8,10 @@ model RadSolData "Selects or generates correct solar data for this surface"
   parameter Integer numIncAndAziInBus "Number of pre-computed combination of inc and azi for solar radiation";
   parameter Modelica.SIunits.Angle[numIncAndAziInBus,2] incAndAziInBus "Combination of {inclination, azimuth} for which the solar data is available in weaBus.";
   parameter Boolean outputAngles=true "Set to false when linearising only";
-  
+
   input IDEAS.Buildings.Components.Interfaces.WeaBus
-    weaBus(numSolBus=numIncAndAziInBus, 
-	       outputAngles=outputAngles)
+    weaBus(numSolBus=numIncAndAziInBus,
+        outputAngles=outputAngles)
     annotation (HideResults=true,Placement(transformation(extent={{90,70},{110,90}})));
 
   Modelica.Blocks.Interfaces.RealOutput solDir
@@ -46,7 +46,7 @@ protected
     "Required for avoiding warnings?"
                                      annotation (HideResults=true, Placement(
         transformation(extent={{-60,10},{-20,50}})));
-  
+
   Modelica.Blocks.Sources.Constant constAngLin(k=1) if
                                                  solDataInBus and not outputAngles
     "Dummy inputs when linearising. This avoids unnecessary state space inputs."
