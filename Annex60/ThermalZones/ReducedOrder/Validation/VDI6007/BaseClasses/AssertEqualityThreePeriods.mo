@@ -41,13 +41,12 @@ equation
   if (time >= t0) and (time <= t1) or
      (time >= t2) and (time <= t3) or
      (time >= t4) and (time <= t5) then
-     diff = u1 - u2;
+     diff = abs(u1 - u2);
   else
     diff = 0; // Test is not needed in this time domain
   end if;
-  /// Output whether test is satisfied, using a small hysteresis that is scaled using thrShold
-  satisfied = not
-                 ( not pre(satisfied) and diff > 1.01*threShold or pre(satisfied) and diff >= 0.99*threShold);
+  /// Output whether test is satisfied
+  satisfied = not (diff > 1.01*threShold);
 
 annotation (
 defaultComponentName="assDif",
