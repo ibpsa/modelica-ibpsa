@@ -46,7 +46,7 @@ equation
     diff = 0; // Test is not needed in this time domain
   end if;
   /// Output whether test is satisfied
-  satisfied = not (diff > 1.01*threShold);
+  satisfied = not (diff > threShold);
 
 annotation (
 defaultComponentName="assDif",
