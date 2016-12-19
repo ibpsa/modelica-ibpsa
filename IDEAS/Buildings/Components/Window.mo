@@ -41,7 +41,7 @@ model Window "Multipane window"
     "Fraction of thermal mass C that is attributed to frame"
     annotation(Dialog(tab="Dynamics", enable=windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two));
 
-  replaceable IDEAS.Buildings.Data.Frames.None fraType
+  replaceable parameter IDEAS.Buildings.Data.Frames.None fraType
     constrainedby IDEAS.Buildings.Data.Interfaces.Frame       "Window frame type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
@@ -150,6 +150,7 @@ public
     annotation (Placement(transformation(extent={{2,94},{-8,104}})));
 initial equation
   QTra_design = (U_value*A + (if fraType.briTyp.present then fraType.briTyp.G else 0)) *(273.15 + 21 - Tdes.y);
+
 
 
 
@@ -346,6 +347,12 @@ Optional parameter <code>shaType</code> may be used to define the window shading
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 19, 2016, by Filip Jorissen:<br/>
+Removed briType, which had default value LineLoss.
+briType is now part of the Frame model and has default
+value None.
+</li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation: cleaned up connections and partials.
