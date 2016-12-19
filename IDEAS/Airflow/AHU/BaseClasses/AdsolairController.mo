@@ -1,5 +1,6 @@
 within IDEAS.Airflow.AHU.BaseClasses;
 model AdsolairController
+  extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Time tau=60
     "Thermal time constant at nominal flow rate";
 

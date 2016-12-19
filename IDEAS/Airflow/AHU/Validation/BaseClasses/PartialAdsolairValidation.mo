@@ -6,7 +6,7 @@ partial model PartialAdsolairValidation
   IDEAS.Airflow.AHU.Adsolair58 adsolair58(
     redeclare package MediumAir = MediumAir,
     redeclare replaceable IDEAS.Airflow.AHU.BaseClasses.Adsolair14200
-      adsolairData,
+      per,
     tau=60) "Adsolair58 model"
     annotation (Placement(transformation(extent={{-22,0},{2,20}})));
   IDEAS.Fluid.Sources.MassFlowSource_T env(

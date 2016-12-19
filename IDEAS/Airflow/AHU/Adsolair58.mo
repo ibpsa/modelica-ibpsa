@@ -1,20 +1,23 @@
 within IDEAS.Airflow.AHU;
 model Adsolair58 "Menerga Adsolair type 58 air handling unit"
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
-    redeclare final package Medium = MediumAir);
+    redeclare final package Medium = MediumAir,
+    final mSenFac=1);
   extends IDEAS.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = MediumAir,
     redeclare final package Medium2 = MediumAir,
-    final m1_flow_nominal=adsolairData.m1_flow_nominal,
-    final m2_flow_nominal=adsolairData.m2_flow_nominal,
+    final m1_flow_nominal=per.m1_flow_nominal,
+    final m2_flow_nominal=per.m2_flow_nominal,
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversal);
   replaceable package MediumAir =
-      IDEAS.Media.Air annotation (
+      IDEAS.Media.Air
+      "Air medium model" annotation (
       __Dymola_choicesAllMatching=true);
 
-  replaceable parameter IDEAS.Airflow.AHU.BaseClasses.Adsolair14200 adsolairData
-    constrainedby IDEAS.Airflow.AHU.BaseClasses.AdsolairData annotation (
+  replaceable parameter IDEAS.Airflow.AHU.BaseClasses.Adsolair14200 per
+    constrainedby IDEAS.Airflow.AHU.BaseClasses.AdsolairData
+    "Adsolair performance data" annotation (
       choicesAllMatching=true, Placement(transformation(extent={{-138,82},{-122,
             98}})));
 
@@ -30,15 +33,18 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Time tau=60
-    "Thermal time constant at nominal flow rate";
+    "Thermal time constant of evaporator, condensor and heat recovery unit at nominal flow rate"
+    annotation(Dialog(group="Advanced"));
   parameter Modelica.SIunits.Pressure dp_fouling_top=0
     "Nominal pressure drop in top channel due to filter fouling";
   parameter Modelica.SIunits.Pressure dp_fouling_bot=0
     "Nominal pressure drop in bottom channel due to filter fouling";
   parameter Real alpha = 0.5
-    "Pressure recovery factor for fixed pressure drop in bottom bypass channel";
+    "Pressure recovery factor for fixed pressure drop in bottom bypass channel"
+    annotation(Dialog(group="Advanced"));
   parameter Real k1=0.45
-    "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure";
+    "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
+    annotation(Dialog(group="Advanced"));
 
   //EQUATIONS
   Modelica.SIunits.Energy E=IEH.E + eva.U + con.U;
@@ -97,7 +103,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
         massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial))
     constrainedby IDEAS.Fluid.Interfaces.PartialFourPortInterface
     "Replaceable model for adding heat exchanger at supply outlet"
-    annotation (Placement(transformation(extent={{-72,-36},{-92,-16}})));
+    annotation (Dialog(group="Advanced"),Placement(transformation(extent={{-72,-36},{-92,-16}})));
   IDEAS.Fluid.HeatExchangers.IndirectEvaporativeHex IEH(
     p1_start=p_start,
     T1_start=T_start,
@@ -114,14 +120,16 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     redeclare package Medium2 = MediumAir,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
-    eps_adia_on=adsolairData.eps_adia_on,
-    eps_adia_off=adsolairData.eps_adia_off,
+    eps_adia_on=per.eps_adia_on,
+    eps_adia_off=per.eps_adia_off,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     tau=tau,
-    UA_adia_on=adsolairData.UA_adia_on,
-    UA_adia_off=adsolairData.UA_adia_off,
-    use_eNTU=true) "Indirect evaporative heat exchanger"
+    UA_adia_on=per.UA_adia_on,
+    UA_adia_off=per.UA_adia_off,
+    use_eNTU=true,
+    mSenFac=mSenFac)
+                   "Indirect evaporative heat exchanger"
     annotation (Placement(transformation(extent={{10,-36},{64,18}})));
   IDEAS.Fluid.MixingVolumes.MixingVolume con(
     nPorts=2,
@@ -153,12 +161,12 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     C_nominal=C_nominal,
     addPowerToMedium=true,
     per(
-      speed_rpm_nominal=adsolairData.speed_rpm_nominal,
-      hydraulicEfficiency=adsolairData.hydraulicEfficiency,
-      motorEfficiency=adsolairData.motorEfficiency,
-      power=adsolairData.power,
-      use_powerCharacteristic=adsolairData.use_powerCharacteristic,
-      pressure=adsolairData.pressure),
+      speed_rpm_nominal=per.speed_rpm_nominal,
+      hydraulicEfficiency=per.hydraulicEfficiency,
+      motorEfficiency=per.motorEfficiency,
+      power=per.power,
+      use_powerCharacteristic=per.use_powerCharacteristic,
+      pressure=per.pressure),
     init=Modelica.Blocks.Types.Init.NoInit,
     m_flow_small=m1_flow_nominal/50,
     riseTime=600,
@@ -197,12 +205,12 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     allowFlowReversal=allowFlowReversal,
     addPowerToMedium=true,
     per(
-      speed_rpm_nominal=adsolairData.speed_rpm_nominal,
-      motorEfficiency=adsolairData.motorEfficiency,
-      hydraulicEfficiency=adsolairData.hydraulicEfficiency,
-      power=adsolairData.power,
-      use_powerCharacteristic=adsolairData.use_powerCharacteristic,
-      pressure=adsolairData.pressure),
+      speed_rpm_nominal=per.speed_rpm_nominal,
+      motorEfficiency=per.motorEfficiency,
+      hydraulicEfficiency=per.hydraulicEfficiency,
+      power=per.power,
+      use_powerCharacteristic=per.use_powerCharacteristic,
+      pressure=per.pressure),
     init=Modelica.Blocks.Types.Init.NoInit,
     m_flow_small=m2_flow_nominal/50,
     riseTime=600,
@@ -211,8 +219,8 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m2_flow_nominal) "Bottom fan"
     annotation (Placement(transformation(extent={{-30,-30},{-50,-10}})));
-  IDEAS.Airflow.AHU.BaseClasses.SimpleCompressorTable com(fraPmin=adsolairData.fraPmin,
-      C=tau/4*adsolairData.G_condensor)
+  IDEAS.Airflow.AHU.BaseClasses.SimpleCompressorTable com(fraPmin=per.fraPmin,
+      C=tau/4*per.G_condensor)
     "Simple compressor model for active chiller" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -233,7 +241,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     "Real expression for setting water condensation mass flow rate"
     annotation (Placement(transformation(extent={{60,-66},{40,-46}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conCon(G=
-        adsolairData.G_condensor)
+        per.G_condensor)
     "Conductor describing the temperature drop in the condensor" annotation (
       Placement(transformation(
         extent={{-6,6},{6,-6}},
@@ -266,7 +274,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     m_flow_nominal=m1_flow_nominal,
     redeclare package Medium = MediumAir,
     from_dp=false,
-    dp_nominal=adsolairData.dp_nominal_top + dp_fouling_top)
+    dp_nominal=per.dp_nominal_top + dp_fouling_top)
     "Top pressure drop component"
     annotation (Placement(transformation(extent={{-20,30},{0,10}})));
   IDEAS.Fluid.FixedResistances.FixedResistanceDpM resBot(
@@ -274,7 +282,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     redeclare package Medium = MediumAir,
     m_flow_nominal=m2_flow_nominal,
     from_dp=false,
-    dp_nominal=adsolairData.dp_nominal_bottom + dp_fouling_bot)
+    dp_nominal=per.dp_nominal_bottom + dp_fouling_bot)
     "Bottom pressure drop component"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -288,21 +296,21 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     from_dp=true,
     l=0.001,
     dpAdd=1,
-    A=adsolairData.A_dam_byp_bot,
-    dpFixed_nominal=(1 - alpha)*(m2_flow_nominal/(adsolairData.A_byp_bot_min))
+    A=per.A_dam_byp_bot,
+    dpFixed_nominal=(1 - alpha)*(m2_flow_nominal/(per.A_byp_bot_min))
         ^2/rho_default/2,
     k1=k1)
     annotation (Placement(transformation(extent={{88,-76},{72,-60}})));
   TwoWayEqualPercentageAdd                  valRecupBot(
     redeclare package Medium = MediumAir,
     m_flow_nominal=m2_flow_nominal,
-    dpFixed_nominal=adsolairData.dp_nominal_bottom_recup,
+    dpFixed_nominal=per.dp_nominal_bottom_recup,
     allowFlowReversal=allowFlowReversal,
     filteredOpening=false,
     from_dp=true,
     l=0.001,
     dpAdd=1,
-    A=adsolairData.A_dam_rec_bot,
+    A=per.A_dam_rec_bot,
     k1=k1)
     annotation (Placement(transformation(extent={{88,-34},{72,-18}})));
   TwoWayEqualPercentageAdd                  valBypassTop(
@@ -313,21 +321,21 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     l=0.001,
     m_flow_nominal=m1_flow_nominal,
     dpAdd=1,
-    dpFixed_nominal=(m1_flow_nominal/adsolairData.A_byp_top_min)^2
+    dpFixed_nominal=(m1_flow_nominal/per.A_byp_top_min)^2
         /rho_default/2,
-    A=adsolairData.A_dam_byp_top,
+    A=per.A_dam_byp_top,
     k1=k1)
     annotation (Placement(transformation(extent={{78,58},{94,74}})));
   TwoWayEqualPercentageAdd                  valRecupTop(
     redeclare package Medium = MediumAir,
     m_flow_nominal=m2_flow_nominal,
-    dpFixed_nominal=adsolairData.dp_nominal_top_recup,
+    dpFixed_nominal=per.dp_nominal_top_recup,
     allowFlowReversal=allowFlowReversal,
     filteredOpening=false,
     from_dp=true,
     l=0.001,
-    dpAdd=adsolairData.dp_adiabatic,
-    A=adsolairData.A_dam_rec_top,
+    dpAdd=per.dp_adiabatic,
+    A=per.A_dam_rec_top,
     k1=k1)
     annotation (Placement(transformation(extent={{78,36},{94,52}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort senTemFanSupOut(
@@ -415,7 +423,7 @@ protected
 public
   replaceable BaseClasses.AdsolairController adsCon(tau=tau) constrainedby
     BaseClasses.AdsolairController "Adsolair controller model"
-    annotation (Placement(transformation(extent={{-44,56},{-24,76}})));
+    annotation (Dialog(group="Advanced"),Placement(transformation(extent={{-44,56},{-24,76}})));
   Modelica.Blocks.Sources.BooleanExpression onExp(y=on_internal)
     "AHU control signal"
     annotation (Placement(transformation(extent={{-84,66},{-64,82}})));
@@ -625,8 +633,57 @@ equation
 <ul>
 <li>
 October 11, 2016, by Filip Jorissen:<br/>
-Added first implementation.
+First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Validated model of Menerga type 58 air handling unit with a nominal air flow rate of 14200m3/h.
+</p>
+<h4>Main equations</h4>
+<p>
+See references.
+</p>
+<h4>Assumption and limitations</h4>
+<p>
+Flow reversal is not supported. Dynamics are simplified. The chiller contains hard-coded performance data.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+When using the model a temperature set point and the supply/return pressure
+set points need to be provided.
+The unit can either be configured to be always on, or an additional boolean
+input may be used to control the status of the unit.
+Parameter <code>per</code> allows setting the type-specific performance data of the unit.
+Additional pressure drop due to fouling of filters may be specified.
+Other parameters were calibrated in the validation.
+</p>
+<h4>Options</h4>
+<p>
+Parameters k1 and alpha were calibrated.
+An additional heat exchanger may be added by redeclaring <code>hexSupOut</code>.
+The controller model may be changed by redeclaring <code>adsCon</code>.
+</p>
+<h4>Dynamics</h4>
+<p>
+The evaporator, condensor and indirect evaporative heat exchanger contain dynamics.
+Furthermore some temperature sensors contain dynamics and the PI controllers contain a
+state for the integrator.
+All these states have a time constant in the order of 1 minute by default.
+</p>
+<h4>Validation</h4>
+<p>
+This model has been validated using measurement data.
+See the references for a detailed discussion.
+</p>
+<h4>References</h4>
+<p>
+For more information and the model validation see
+</p>
+<p>
+Jorissen, Filip and Wim Boydens and Lieve Helsen. 
+Validated Air Handling Unit Model using Indirect Evaporative Cooling. 
+Journal of Building Performance Simulation (2017).
+</p>
 </html>"));
 end Adsolair58;
