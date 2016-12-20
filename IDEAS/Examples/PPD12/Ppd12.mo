@@ -464,8 +464,9 @@ model Ppd12 "Ppd 12 example model"
   Modelica.Blocks.Sources.Constant Thea(k=273.15 + 70)
     "Supply water temperature set point"
     annotation (Placement(transformation(extent={{402,-114},{382,-94}})));
-  Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=273.15 + 20.5, uHigh=
-        273.15 + 21.5)
+  Modelica.Blocks.Logical.Hysteresis hysteresis(
+    uLow=273.15 + 20.5,
+    uHigh=273.15 + 21.5)
     annotation (Placement(transformation(extent={{250,-92},{270,-72}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=0, realFalse=50000)
     annotation (Placement(transformation(extent={{290,-92},{310,-72}})));
@@ -473,35 +474,35 @@ model Ppd12 "Ppd 12 example model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
-    m_flow_nominal={0.4,0.4,0.4},
+    m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
     dp_nominal=2*{0,0,dp_16mm*5})
     annotation (Placement(transformation(extent={{240,-120},{220,-100}})));
   IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM spl1(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
-    m_flow_nominal={0.4,0.4,0.4},
+    m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
     dp_nominal=2*{dp_26mm*2,0,dp_16mm*2})
     annotation (Placement(transformation(extent={{280,-120},{260,-100}})));
   IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM spl2(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
-    m_flow_nominal={0.4,0.4,0.4},
+    m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
     dp_nominal=2*{dp_26mm*3,0,dp_16mm*5})
     annotation (Placement(transformation(extent={{130,-120},{110,-100}})));
   IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM spl3(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
-    m_flow_nominal={0.4,0.4,0.4},
+    m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
     dp_nominal=2*{0,0,dp_16mm*1.5})
     annotation (Placement(transformation(extent={{100,-120},{80,-100}})));
   IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM spl4(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
-    m_flow_nominal={0.4,0.4,0.4},
+    m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
     dp_nominal=2*{0,dp_16mm*4*2 + dp_26mm*4*2,dp_16mm*5})
     annotation (Placement(transformation(extent={{70,-120},{50,-100}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(
