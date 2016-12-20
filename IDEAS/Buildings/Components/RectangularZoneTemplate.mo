@@ -3,7 +3,9 @@ model RectangularZoneTemplate
   "Rectangular zone including walls, floor and ceiling"
   extends IDEAS.Buildings.Components.Interfaces.PartialZone(
     redeclare replaceable IDEAS.Buildings.Components.ZoneAirModels.WellMixedAir airModel
-    constrainedby IDEAS.Buildings.Components.ZoneAirModels.PartialAirModel(mSenFac=mSenFac),
+    constrainedby
+      IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(
+      mSenFac=mSenFac),
     calculateViewFactor=false,
     final nSurf=indWinCei+nSurfExt,
     final V=l*w*h,
@@ -928,19 +930,6 @@ initial equation
               "Using internal walls for the ceiling is not allowed because it is considered bad practice. 
               Use instead the 'External'  connection to connect the the floor of the surface above, 
               or use this option to connect and internal wall externally.");
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 equation
   connect(intA.propsBus_a, propsBusInt[1]) annotation (Line(
