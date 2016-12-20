@@ -37,7 +37,6 @@ model MonoLayerAir
   Modelica.SIunits.ThermalConductance G=h*A + A*5.86*(1/((1/epsLw_a) + (1/epsLw_b) - 1));
   //when linearising we assume that Nu is the average Nu for positive and negative temperature differences
   //Eqn 5 from Hollands
-  Real tst=1 + (1.44*max(1-1708/Ra,0)+max((Ra/5830)^(1/3)-1,0));
   Real Nu=
     if ceiling or floor then
       (if linearise then
