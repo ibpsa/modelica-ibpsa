@@ -37,39 +37,31 @@ model Ppd12 "Ppd 12 example model"
   inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
   IDEAS.Buildings.Components.BoundaryWall wallSou1(inc=IDEAS.Types.Tilt.Wall,
-    insulationThickness=0,
     azi=south,
-    redeclare Popu12.Data.CommonWall constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.none insulationType,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall constructionType,
     AWall=2.3*lPorch)
     "Common wall on south side"
     annotation (Placement(transformation(extent={{-104,-72},{-94,-52}})));
   IDEAS.Buildings.Components.OuterWall outerWall1(inc=IDEAS.Types.Tilt.Wall,
-      insulationThickness=0,
     AWall=hFloor0*wKitchen,
     azi=east,
-    redeclare Popu12.Data.OuterWall constructionType)
+    redeclare IDEAS.Examples.PPD12.Data.OuterWall constructionType)
     annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-89,-94})));
   IDEAS.Buildings.Components.InternalWall ceilingLiving(
-    insulationThickness=0,
-    redeclare IDEAS.Buildings.Data.Insulation.none insulationType,
     AWall=wZon*lHallway/2,
     azi=0,
-    redeclare Popu12.Data.Floor
+    redeclare IDEAS.Examples.PPD12.Data.Floor
                          constructionType,
     inc=IDEAS.Types.Tilt.Floor)
     "Internal zone between hallway and main zone"
     annotation (Placement(transformation(extent={{94,72},{104,52}})));
   IDEAS.Buildings.Components.InternalWall ceilingLiving1(
-    insulationThickness=0,
-    redeclare IDEAS.Buildings.Data.Insulation.none insulationType,
     azi=0,
     AWall=lHallway*wHallway1,
-    redeclare Popu12.Data.Floor
-                         constructionType,
+    redeclare IDEAS.Examples.PPD12.Data.Floor constructionType,
     inc=IDEAS.Types.Tilt.Floor)
     "Internal zone between hallway and main zone"
     annotation (Placement(transformation(extent={{70,68},{80,88}})));
@@ -77,8 +69,7 @@ model Ppd12 "Ppd 12 example model"
     frac=0.1,
     azi=east,
     redeclare IDEAS.Buildings.Components.ThermalBridges.None briType,
-    redeclare Popu12.Data.PvcInsulated
-                                fraType,
+    redeclare IDEAS.Examples.PPD12.Data.PvcInsulated fraType,
     redeclare IDEAS.Buildings.Data.Glazing.Ins2Ar glazing,
     inc=(IDEAS.Types.Tilt.Wall + IDEAS.Types.Tilt.Ceiling)/2,
     A=1.2*1)                                            "Window bedroom 3"
@@ -87,21 +78,17 @@ model Ppd12 "Ppd 12 example model"
         rotation=90,
         origin={305,-2})));
   IDEAS.Buildings.Components.OuterWall Roof2(
-    insulationThickness=0,
-    redeclare IDEAS.Buildings.Data.Insulation.none insulationType,
     azi=east,
     inc=(IDEAS.Types.Tilt.Wall + IDEAS.Types.Tilt.Ceiling)/2,
     AWall=wBedroom*lHalfBuilding*sqrt(2)/2,
-    redeclare Popu12.Data.Roof
+    redeclare IDEAS.Examples.PPD12.Data.Roof
                         constructionType) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={263,-2})));
   IDEAS.Buildings.Components.OuterWall outerWall6(
-                                                 inc=IDEAS.Types.Tilt.Wall,
-    insulationThickness=0,
-    redeclare Popu12.Data.OuterWall constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.none insulationType,
+    inc=IDEAS.Types.Tilt.Wall,
+    redeclare IDEAS.Examples.PPD12.Data.OuterWall constructionType,
     azi=east,
     AWall=0.5*wBedroom)
     annotation (Placement(transformation(
@@ -113,29 +100,30 @@ model Ppd12 "Ppd 12 example model"
   IDEAS.Buildings.Components.RectangularZoneTemplate living(
     h=hFloor0,
     aziA=east,
-    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow,
+    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
     bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
     bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
+    hasWinC=true,
     l=wZon,
     w=lBuilding,
     redeclare package Medium = MediumAir,
     bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    redeclare Popu12.Data.TripleGlazing
+    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing
                                  glazingC,
     A_winC=2.55*1.74,
     fracC=0.1,
-    redeclare Popu12.Data.OuterWall
-                             constructionTypeC,
-    redeclare Popu12.Data.InteriorWall10
-                                  constructionTypeA,
-    redeclare Popu12.Data.InteriorWall10
-                                  constructionTypeB,
-    redeclare Popu12.Data.CommonWall
-                              constructionTypeD,
-    redeclare Popu12.Data.FloorOnGround
-                                 constructionTypeFlo,
+    redeclare IDEAS.Examples.PPD12.Data.OuterWall
+                             conTypC,
+    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10
+                                  conTypA,
+    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10
+                                  conTypB,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall
+                              conTypD,
+    redeclare IDEAS.Examples.PPD12.Data.FloorOnGround
+                                 conTypFlo,
     nSurfExt=1,
     redeclare Data.Ppd12WestShadingGnd shaTypC,
     airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState))
@@ -149,7 +137,7 @@ model Ppd12 "Ppd 12 example model"
     redeclare package Medium = MediumAir,
     bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    redeclare Popu12.Data.TripleGlazing
+    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing
                                  glazingC,
     A_winC=2.55*1.74,
     fracC=0.1,
@@ -157,12 +145,12 @@ model Ppd12 "Ppd 12 example model"
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
     bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
     l=wHallwayAvg,
-    redeclare Popu12.Data.OuterWall
-                             constructionTypeC,
-    redeclare Popu12.Data.InteriorWall30
-                                  constructionTypeA,
-    redeclare Popu12.Data.CommonWall
-                              constructionTypeB,
+    redeclare IDEAS.Examples.PPD12.Data.OuterWall
+                             conTypC,
+    redeclare IDEAS.Examples.PPD12.Data.InteriorWall30
+                                  conTypA,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall
+                              conTypB,
     nSurfExt=1,
     airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState))
     annotation (Placement(transformation(extent={{-72,60},{-92,40}})));
@@ -172,79 +160,77 @@ model Ppd12 "Ppd 12 example model"
     bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
     redeclare package Medium = MediumAir,
     bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
-    redeclare Popu12.Data.TripleGlazing
+    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing
                                  glazingC,
     A_winC=2.55*1.74,
     fracC=0.1,
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare Popu12.Data.CommonWall
-                              constructionTypeB,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall
+                              conTypB,
     l=wDiner,
     w=lDiner,
     bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
     bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare Popu12.Data.CommonWall
-                              constructionTypeD,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall
+                              conTypD,
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    redeclare Popu12.Data.Roof
-                        constructionTypeCei,
+    redeclare IDEAS.Examples.PPD12.Data.Roof
+                        conTypCei,
     redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall
-      constructionTypeA,
+      conTypA,
     nSurfExt=4,
-    redeclare Popu12.Data.FloorOnGround
-                                 constructionTypeFlo,
+    redeclare IDEAS.Examples.PPD12.Data.FloorOnGround
+                                 conTypFlo,
     airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState))
     annotation (Placement(transformation(extent={{-46,-18},{-26,-38}})));
   IDEAS.Buildings.Components.RectangularZoneTemplate Porch(
     aziA=east,
     redeclare package Medium = MediumAir,
     bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
-    redeclare Popu12.Data.TripleGlazing
-                                 glazingC,
+    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing glazingC,
     A_winC=2.55*1.74,
     fracC=0.1,
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare Popu12.Data.CommonWall
-                              constructionTypeB,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypB,
     bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    redeclare Popu12.Data.Roof
-                        constructionTypeCei,
+    redeclare IDEAS.Examples.PPD12.Data.Roof conTypCei,
     l=wPorch,
     w=lPorch,
     h=2.3,
     bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare Popu12.Data.InteriorWall10
-                                  constructionTypeD,
+    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10 conTypD,
     nSurfExt=0,
-    redeclare Popu12.Data.FloorOnGround
-                                 constructionTypeFlo,
-    bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow,
-    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow,
+    redeclare IDEAS.Examples.PPD12.Data.FloorOnGround conTypFlo,
+    bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
+    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
     redeclare IDEAS.Buildings.Data.Glazing.EpcDouble glazingCei,
     redeclare IDEAS.Buildings.Data.Glazing.EpcDouble glazingA,
+    hasWinCei=true,
+    hasWinA=true,
     A_winA=wPorch*2.3*0.9,
     A_winCei=wPorch*lPorch*0.9,
     redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall
-      constructionTypeA,
+      conTypA,
     airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState))
     annotation (Placement(transformation(extent={{-44,-66},{-24,-86}})));
 
   IDEAS.Buildings.Components.RectangularZoneTemplate bedRoom1(
     aziA=east,
-    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow,
+    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
     bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
+    hasWinC=true,
     redeclare package Medium = MediumAir,
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    redeclare Popu12.Data.TripleGlazing
+    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing
                                  glazingC,
-    redeclare Popu12.Data.OuterWall
-                             constructionTypeC,
-    redeclare Popu12.Data.CommonWall
-                              constructionTypeD,
+    redeclare IDEAS.Examples.PPD12.Data.OuterWall
+                             conTypC,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall
+                              conTypD,
     bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare Popu12.Data.CommonWall
-                              constructionTypeB,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall
+                              conTypB,
     fracC=0.15,
     A_winC=1.9*(1 + 1.5),
     l=wBedroom,
@@ -262,26 +248,27 @@ model Ppd12 "Ppd 12 example model"
     bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
     redeclare package Medium = MediumAir,
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    redeclare Popu12.Data.CommonWall
-                              constructionTypeD,
-    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall
+                              conTypD,
+    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
+    hasWinA=true,
     A_winA=1.21*1.99,
-    redeclare Popu12.Data.OuterWall
-                             constructionTypeA,
-    redeclare Popu12.Data.TripleGlazing
+    redeclare IDEAS.Examples.PPD12.Data.OuterWall
+                             conTypA,
+    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing
                                  glazingA,
     w=lHalfBuilding,
     h=hFloor1,
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
     l=wBathroom,
-    redeclare Popu12.Data.InteriorWall10
-                                  constructionTypeB,
+    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10
+                                  conTypB,
     bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare Popu12.Data.Floor
-                         constructionTypeFlo,
+    redeclare IDEAS.Examples.PPD12.Data.Floor
+                         conTypFlo,
     bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare Popu12.Data.InteriorWall18
-                                  constructionTypeC,
+    redeclare IDEAS.Examples.PPD12.Data.InteriorWall18
+                                  conTypC,
     nSurfExt=0,
     airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState))
                                                      "Bathroom"
@@ -291,10 +278,11 @@ model Ppd12 "Ppd 12 example model"
     aziA=east,
     redeclare package Medium = MediumAir,
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow,
-    redeclare Popu12.Data.OuterWall
-                             constructionTypeA,
-    redeclare Popu12.Data.TripleGlazing
+    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
+    hasWinA=true,
+    redeclare IDEAS.Examples.PPD12.Data.OuterWall
+                             conTypA,
+    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing
                                  glazingA,
     w=lHalfBuilding,
     h=hFloor1,
@@ -302,48 +290,49 @@ model Ppd12 "Ppd 12 example model"
     bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
     l=wHallway2,
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare Popu12.Data.CommonWall
-                              constructionTypeB,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall
+                              conTypB,
     A_winA=1.09*1.69,
     fracA=0.1,
     redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall
-      constructionTypeFlo,
+      conTypFlo,
     bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
     bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare Popu12.Data.InteriorWall10
-                                  constructionTypeC,
+    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10
+                                  conTypC,
     airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState))
     "Stairway"
     annotation (Placement(transformation(extent={{86,26},{66,6}})));
   IDEAS.Buildings.Components.RectangularZoneTemplate bedRoom2(
     aziA=east,
-    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWallAndWindow,
+    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
     bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
+    hasWinC=true,
     redeclare package Medium = MediumAir,
-    redeclare Popu12.Data.TripleGlazing
+    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing
                                  glazingC,
-    redeclare Popu12.Data.CommonWall
-                              constructionTypeD,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall
+                              conTypD,
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare Popu12.Data.CommonWall
-                              constructionTypeB,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall
+                              conTypB,
     fracC=0.15,
     l=wBedroom,
     w=lHalfBuilding,
     h=hFloor1,
     A_winC=1.1*0.66 + 1.1*1.54,
-    redeclare Popu12.Data.InteriorWall18
-                                  constructionTypeC,
+    redeclare IDEAS.Examples.PPD12.Data.InteriorWall18
+                                  conTypC,
     bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare Popu12.Data.InteriorWall10
-                                  constructionTypeA,
+    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10
+                                  conTypA,
     nSurfExt=0,
     bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare Popu12.Data.Floor
-                         constructionTypeFlo,
+    redeclare IDEAS.Examples.PPD12.Data.Floor
+                         conTypFlo,
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare Popu12.Data.FloorAttic
-                              constructionTypeCei,
+    redeclare IDEAS.Examples.PPD12.Data.FloorAttic
+                              conTypCei,
     redeclare Data.Ppd12WestShadingSecond shaTypC,
     airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState))
                           "Master bedroom"
@@ -352,27 +341,28 @@ model Ppd12 "Ppd 12 example model"
     aziA=east,
     bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
     redeclare package Medium = MediumAir,
-    redeclare Popu12.Data.CommonWall
-                              constructionTypeD,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall
+                              conTypD,
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare Popu12.Data.CommonWall
-                              constructionTypeB,
+    redeclare IDEAS.Examples.PPD12.Data.CommonWall
+                              conTypB,
     l=wBedroom,
     w=lHalfBuilding,
     h=hFloor1,
-    redeclare Popu12.Data.InteriorWall10
-                                  constructionTypeA,
+    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10
+                                  conTypA,
     bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare Popu12.Data.Roof
-                        constructionTypeCei,
+    redeclare IDEAS.Examples.PPD12.Data.Roof
+                        conTypCei,
     bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    redeclare Popu12.Data.Floor
-                         constructionTypeFlo,
+    redeclare IDEAS.Examples.PPD12.Data.Floor
+                         conTypFlo,
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.ExternalAndWindow,
+    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
+    hasWinA=true,
     A_winA=1.1*0.73,
     fracA=0.15,
-    redeclare Popu12.Data.TripleGlazing
+    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing
                                  glazingA,
     nSurfExt=3,
     calculateViewFactor=false,
@@ -381,19 +371,15 @@ model Ppd12 "Ppd 12 example model"
     annotation (Placement(transformation(extent={{280,40},{260,20}})));
 
   IDEAS.Buildings.Components.OuterWall Roof1(
-    insulationThickness=0,
-    redeclare IDEAS.Buildings.Data.Insulation.none insulationType,
     inc=(IDEAS.Types.Tilt.Wall + IDEAS.Types.Tilt.Ceiling)/2,
     azi=west,
     AWall=wBedroom*lHalfBuilding*sqrt(2),
-    redeclare Popu12.Data.Roof
+    redeclare IDEAS.Examples.PPD12.Data.Roof
                         constructionType) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={283,-2})));
   IDEAS.Buildings.Components.InternalWall ceilingLiving2(
-    insulationThickness=0,
-    redeclare IDEAS.Buildings.Data.Insulation.none insulationType,
     azi=0,
     redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall
       constructionType,
