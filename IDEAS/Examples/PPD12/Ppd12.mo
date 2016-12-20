@@ -446,16 +446,18 @@ model Ppd12 "Ppd 12 example model"
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     filteredSpeed=false,
     redeclare package Medium = MediumWater,
-    dp_nominal=50000)
+    dp_nominal=50000,
+    allowFlowReversal=false)
     annotation (Placement(transformation(extent={{330,-120},{310,-100}})));
   IDEAS.Fluid.HeatExchangers.HeaterCooler_T hea(
     m_flow_nominal=m_flow_nominal,
     Q_flow_maxHeat=30000,
     Q_flow_maxCool=0,
     dp_nominal=5000,
-    redeclare package Medium = MediumWater)
+    redeclare package Medium = MediumWater,
+    allowFlowReversal=false)
                      "Bulex thermo master T30/35"
-    annotation (Placement(transformation(extent={{370,-122},{350,-102}})));
+    annotation (Placement(transformation(extent={{370,-120},{350,-100}})));
   IDEAS.Fluid.Sources.Boundary_pT       bou1(
     nPorts=1,
     redeclare package Medium = MediumWater,
@@ -475,35 +477,50 @@ model Ppd12 "Ppd 12 example model"
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
     m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
-    dp_nominal=2*{0,0,dp_16mm*5})
+    dp_nominal=2*{0,0,dp_16mm*5},
+    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving)
     annotation (Placement(transformation(extent={{240,-120},{220,-100}})));
   IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM spl1(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
     m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
-    dp_nominal=2*{dp_26mm*2,0,dp_16mm*2})
+    dp_nominal=2*{dp_26mm*2,0,dp_16mm*2},
+    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving)
     annotation (Placement(transformation(extent={{280,-120},{260,-100}})));
   IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM spl2(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
     m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
-    dp_nominal=2*{dp_26mm*3,0,dp_16mm*5})
+    dp_nominal=2*{dp_26mm*3,0,dp_16mm*5},
+    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving)
     annotation (Placement(transformation(extent={{130,-120},{110,-100}})));
   IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM spl3(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
     m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
-    dp_nominal=2*{0,0,dp_16mm*1.5})
+    dp_nominal=2*{0,0,dp_16mm*1.5},
+    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving)
     annotation (Placement(transformation(extent={{100,-120},{80,-100}})));
   IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM spl4(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
     m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
-    dp_nominal=2*{0,dp_16mm*4*2 + dp_26mm*4*2,dp_16mm*5})
+    dp_nominal=2*{0,dp_16mm*4*2 + dp_26mm*4*2,dp_16mm*5},
+    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving)
     annotation (Placement(transformation(extent={{70,-120},{50,-100}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(
     nPorts=9,
@@ -723,7 +740,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(pump.port_a,hea. port_b)
-    annotation (Line(points={{330,-110},{340,-110},{340,-112},{350,-112}},
+    annotation (Line(points={{330,-110},{340,-110},{350,-110}},
                                                      color={0,127,255}));
   connect(radGnd.port_b,radBed1. port_b) annotation (Line(points={{-40,-180},{-40,
           -180},{60,-180}},                          color={0,127,255}));
@@ -735,10 +752,10 @@ equation
           -180},{230,-180}},                           color={0,127,255}));
   connect(radBed2.port_b,radBed3. port_b) annotation (Line(points={{230,-180},{230,
           -180},{270,-180}},                           color={0,127,255}));
-  connect(radBed3.port_b,hea. port_a) annotation (Line(points={{270,-180},{270,-180},
-          {378,-180},{378,-112},{370,-112}},                  color={0,127,255}));
-  connect(bou1.ports[1],hea. port_b) annotation (Line(points={{380,-190},{350,-190},
-          {350,-112}},       color={0,127,255}));
+  connect(radBed3.port_b,hea. port_a) annotation (Line(points={{270,-180},{270,
+          -180},{378,-180},{378,-110},{370,-110}},            color={0,127,255}));
+  connect(bou1.ports[1],hea. port_b) annotation (Line(points={{380,-190},{350,
+          -190},{350,-110}}, color={0,127,255}));
   connect(radGnd.heatPortRad, living.gainRad) annotation (Line(
       points={{-47.2,-172},{-66,-172},{-66,52},{-46,52}},
       color={191,0,0},
@@ -789,8 +806,8 @@ equation
           -82},{320.2,-98}},        color={0,0,127}));
   connect(hysteresis.u, living.TSensor) annotation (Line(points={{248,-82},{-46.6,
           -82},{-46.6,46}}, color={0,0,127}));
-  connect(hea.TSet, Thea.y) annotation (Line(points={{372,-106},{378,-106},{378,
-          -104},{381,-104}}, color={0,0,127}));
+  connect(hea.TSet, Thea.y) annotation (Line(points={{372,-104},{378,-104},{381,
+          -104}},            color={0,0,127}));
   connect(spl1.port_1, pump.port_b)
     annotation (Line(points={{280,-110},{296,-110},{310,-110}},
                                                      color={0,127,255}));
@@ -839,7 +856,7 @@ equation
       color={0,127,255},
       visible=false));
   connect(integrator.u, hea.Q_flow) annotation (Line(points={{350,-66},{349,-66},
-          {349,-106}}, color={0,0,127}));
+          {349,-104}}, color={0,0,127}));
   connect(senTemRadBed1.T, valBed1.T) annotation (Line(points={{49,-148},{49.4,-148},
           {49.4,-140}}, color={0,0,127}));
   connect(senTemRadBed1.port, radBed1.heatPortCon) annotation (Line(points={{49,
