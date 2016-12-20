@@ -41,7 +41,7 @@ equation
   if (time >= t0) and (time <= t1) or
      (time >= t2) and (time <= t3) or
      (time >= t4) and (time <= t5) then
-     diff = u1 - u2;
+     diff = abs(u1 - u2);
   else
     diff = 0; // Test is not needed in this time domain
   end if;
