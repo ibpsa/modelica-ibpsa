@@ -45,9 +45,9 @@ equation
   else
     diff = 0; // Test is not needed in this time domain
   end if;
-  /// Output whether test is satisfied, using a small hysteresis that is scaled using thrShold
-  satisfied = not
-                 ( not pre(satisfied) and diff > 1.01*threShold or pre(satisfied) and diff >= 0.99*threShold);
+  // Output whether test is satisfied, using a small hysteresis that is scaled using threShold
+  satisfied = not ( (pre(satisfied) and diff > 1.01*threShold) or (not pre(satisfied) and diff >= 0.99*threShold));
+
 
 annotation (
 defaultComponentName="assDif",
