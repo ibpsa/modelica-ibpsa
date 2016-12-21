@@ -50,16 +50,17 @@ equation
 
 
 annotation (
-defaultComponentName="assDif",
-Icon(graphics={Text(
-          extent={{-84,108},{90,-28}},
-          lineColor={255,0,0},
-          textString="u1 = u2")}),
+defaultComponentName="verDif",
 Documentation(info="<html>
 <p>
-Model that triggers an assert if
-<i>|u1-u2| &gt; threShold</i>
-and <i>t</i> is within user-defined time intervals.
+Block that outputs <code>satisfied = false</code> if
+<code>abs(u1-u2) &gt; threShold</code> within the prescribed time intervals,
+or <code>satisfied = true</code> otherwise.
+</p>
+<h4>Implementation</h4>
+<p>
+The test uses a hysteresis of plus/minus 1% in order to avoid
+chattering if <code>abs(u1-u2)</code> is near <code>threShold</code>.
 </p>
 </html>",
 revisions="<html>
