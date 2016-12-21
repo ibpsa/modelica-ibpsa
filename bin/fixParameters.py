@@ -8,6 +8,7 @@
 
 import os
 import re
+import webbrowser
 
 def recursive_glob(rootdir='.', suffix=''):
     return [os.path.join(rootdir, filename) for rootdir, dirnames, 
@@ -28,6 +29,9 @@ N_modify_models = 0
     
 # number of .mos scripts with problems
 N_mos_problems = 0
+
+# mos files to fix
+mosToFixed=[]
 
 def capitalize_first(name):
     lst = [word[0].upper() + word[1:] for word in name.split()]
@@ -117,6 +121,50 @@ def replace_resultfile(content, name, value, foundStop):
             foundStop = True
             return foundStop, content
 
+def replace_tolerance_intervals(content, name, value, mos_file):
+    if ("" + name + "=" + "" == "tolerance=" and float(value) > 1e-6):
+        foundStop = False
+        # tolerance="1e-6"
+        consPar = "1e-6"
+        foundStop, content = replace_content(content, name, value, consPar, foundStop)
+        value = "1e-6"
+        # print "\t================================="
+        # rewrite = raw_input("\n\tARE YOU SURE TO REWRITE THE MOS (N/y)?")
+        # rewrite = raw_input("\n\tARE YOU SURE TO REWRITE THE MOS (N/y)?")
+        # rewrite = 'y'
+        # if rewrite == 'y':
+        write_file(mos_file, content)    
+    if ("" + name + "=" + "" == "numberOfIntervals=" and (float(value) != 0 and float(value) < 500)):
+        foundStop = False
+        # tolerance="1e-6"
+        consPar = "500"
+        foundStop, content = replace_content(content, name, value, consPar, foundStop)
+        value = "500"
+        # print "\t================================="
+        # rewrite = raw_input("\n\tARE YOU SURE TO REWRITE THE MOS (N/y)?")
+        # rewrite = raw_input("\n\tARE YOU SURE TO REWRITE THE MOS (N/y)?")
+        # rewrite = 'y'
+        # if rewrite == 'y':
+        write_file(mos_file, content)    
+
+
+def rewrite_file (mos_file):
+    #print "\t================================="
+    rewrite = raw_input("\n\tFound mos_file: " + str(mos_file) 
+                +" with invalid entries (e.g. startTime=startTime, stopTime=stopTime)."
+                +" Do you want to correct them now (Y/N)?" 
+                + "Make sure that these variables are not used in the createPlot() command.")
+    #print
+    rewrite = 'y'
+    if rewrite == 'y':
+        mosToFixed.append(mos_file)
+        webbrowser.open(mos_file)
+        print "Please re-run the conversion script."
+        exit()
+    if rewrite == 'N':
+        print "Please correct the mos file" + str(mos_file) + " before proceeding."
+        exit() 
+
 # Number of .mos files
 N_mos_files = len(mos_files)
 problems=[]
@@ -126,6 +174,7 @@ def fixParameters (name):
     global N_modify_mos
     global N_mos_problems   
     global problems
+    global mosToFixed
 
     N_modify_models=0
     N_modify_mos=0
@@ -160,38 +209,17 @@ def fixParameters (name):
             pModel    = re.compile('simulateModel\("([^\(|^"]+)[\S]*"')
             mModel    = pModel.match(line)
             modelName = mModel.group(1)
-#             if ""+name+"="+name+"" in line.replace(" ", ""):
-#                 value = ""+name+""
+            if ""+name+"="+name+"" in line.replace(" ", ""):
+                value = ""+name+""
+                #print "\t================================="
+                rewrite_file(mos_file)
             if ""+name+"="+"" in line.replace(" ", ""):
                 # Old version, does not work with 86400*900
                 # pTime    = re.compile(r"[\d\S\s.,]*(stopTime=)([\d]*[.]*[\d]*[e]*[+|-]*[\d]*)")
                 pTime    = re.compile(r"[\d\S\s.,]*("+name+"=)([\d]*[.]*[\d]*[eE]*[+|-]*[\d]*[*]*[\d]*[.]*[\d]*[eE]*[+|-]*[\d]*)")
                 mTime    = pTime.match(line)
                 value = mTime.group(2)
-                if (""+name+"="+"" == "tolerance=" and float(value) > 1e-6):
-                    foundStop = False
-                    #tolerance="1e-6"
-                    consPar="1e-6"
-                    foundStop, content = replace_content(content, name, value, consPar, foundStop)
-                    value="1e-6"
-                    #print "\t================================="
-                    #rewrite = raw_input("\n\tARE YOU SURE TO REWRITE THE MOS (N/y)?")
-                    #rewrite = raw_input("\n\tARE YOU SURE TO REWRITE THE MOS (N/y)?")
-                    #rewrite = 'y'
-                    #if rewrite == 'y':
-                    write_file(mos_file, content)    
-                if (""+name+"="+"" == "numberOfIntervals=" and (float(value) != 0 and float(value) < 500)):
-                    foundStop = False
-                    #tolerance="1e-6"
-                    consPar="500"
-                    foundStop, content = replace_content(content, name, value, consPar, foundStop)
-                    value="500"
-                    #print "\t================================="
-                    #rewrite = raw_input("\n\tARE YOU SURE TO REWRITE THE MOS (N/y)?")
-                    #rewrite = raw_input("\n\tARE YOU SURE TO REWRITE THE MOS (N/y)?")
-                    #rewrite = 'y'
-                    #if rewrite == 'y':
-                    write_file(mos_file, content)       
+                replace_tolerance_intervals(content, name, value, mos_file)     
             else:
                 # print "\tThe name is not in the simulation command row... go ahead"
                 found = False
@@ -206,10 +234,12 @@ def fixParameters (name):
                         pTime    = re.compile(r"[\d\S\s.,]*("+name+"=)([\d]*[.]*[\d]*[eE]*[+|-]*[\d]*[*]*[\d]*[.]*[\d]*[eE]*[+|-]*[\d]*)[\S\s.,]*")
                         mTime    = pTime.match(line)
                         value = mTime.group(2)
+                        replace_tolerance_intervals(content, name, value, mos_file)  
                         #startTime = startTime[:-1]
                     if ""+name+"="+name+"" in line.replace(" ", ""):
                         value = ""+name+""
-                            
+                        #print "\t================================="
+                        rewrite_file(mos_file)
                 if found == False:
                     if (name=="startTime"):
                         #print "\t"+ name + " not found, defined the default startTime=0.0"
@@ -238,7 +268,7 @@ def fixParameters (name):
                     #if rewrite == 'y':
                     write_file(mos_file, content) 
                     
-		            #print "\tNew mos script is available!"
+                    #print "\tNew mos script is available!"
                     N_modify_mos += 1    
     
             #print "\t" + name + ": " +str(value)
@@ -289,12 +319,12 @@ def fixParameters (name):
                         #print "\t==================="
                         #print "\t REPLACE"
                         #print "\t"+line
-                         
-                        pName    = re.compile(r"[\d\S\s.,]*("+capitalize_first(name)+"=[\d]*[.]*[\d]*[eE]*[+|-]*[\d]*[*]*[\d]*[.]*[\d]*[eE]*[+|-]*[\d])")
-                        mName    = pName.match(line)
-                        mNameStr  = mName.group(1)
-                         
-                        newLine = line.replace(mNameStr,""+capitalize_first(name)+"="+""+str(value))
+                        pTime    = re.compile(r"[\d\S\s.,]*("+capitalize_first(name)+"=)([\d]*[.]*[\d]*[eE]*[+|-]*[\d]*[*]*[\d]*[.]*[\d]*[eE]*[+|-]*[\d]*)[\S\s.,]*")
+                        mTime    = pTime.match(line)
+                        val = mTime.group(2)
+       
+                        #newLine = line.replace(mNameStr,""+capitalize_first(name)+"="+""+str(value))
+                        newLine = line.replace(""+capitalize_first(name)+"="+"" + str(val), ""+capitalize_first(name)+"="+""+str(value))
                         #print "\t WITH"
                         #print "\t"+newLine
                          
@@ -343,9 +373,13 @@ def fixParameters (name):
                                         pTime    = re.compile(r"[\d\S\s.,]*("+"StartTime"+"=)([\d]*[.]*[\d]*[eE]*[+|-]*[\d]*[*]*[\d]*[.]*[\d]*[eE]*[+|-]*[\d]*)")
                                         mTime    = pTime.match(line)
                                         val = mTime.group(2)
+                                        print " This is the val " + str (val)
+                                        print " This is the value " + str (value)
                                         newLine = line.replace("StartTime="+"" + str(val), ""+capitalize_first(name)+"="+""+str(value))
-                                        #print "\t WITH"
-                                        #print "\t"+newLine
+                                        print "\t REPLACE"
+				        print "\t"+line  
+                                        print "\t WITH"
+                                        print "\t"+newLine
                                         # replace
                                         modelContent[k] = newLine
                                         # replacement done
@@ -386,8 +420,20 @@ def fixParameters (name):
     
 if __name__ == "__main__":
 
+    # First run 
     for i in ["stopTime", "tolerance", "startTime", "numberOfIntervals"]:
     #for i in ["stopTime"]:
+        fixParameters(i)
+        print "Fixing ***"  + str(i) + "*** in the Modelica files."
+        print "\n* Number of mos files = "+str(len(mos_files))
+        print "\n* Number of modified mo = "+str(N_modify_models) 
+        print "\n* Number of modified mos = "+str(N_modify_mos)
+        print "\n* Number of mos scripts with problems = "+str(N_mos_problems)
+        print "\n"
+    
+    # Second run
+    for i in ["stopTime", "tolerance", "startTime", "numberOfIntervals"]:
+        #for i in ["stopTime"]:
         fixParameters(i)
         print "Fixing ***"  + str(i) + "*** in the Modelica files."
         print "\n* Number of mos files = "+str(len(mos_files))
@@ -404,9 +450,11 @@ if __name__ == "__main__":
     n_files_tol_mo, n_files_fmus = number_occurences (mo_files, "mo")
     print "Number of .mo files found " + str (len(mo_files))
     print ".mo files found with **tolerance** " + str (n_files_tol_mo)
+
+    print ".mos files with stopTime=stopTime " + str (mosToFixed)
+    print "Length of .mos files with stopTime=stopTime " + str (len(mosToFixed))
     
-    assert ((n_files_tol_mos-n_files_tol_mo)!=0, 
-            "The number of .mo files with **tolerance** does not match the number of .mos scripts.")
+    assert n_files_tol_mos-n_files_tol_mo == 0, "The number of .mo files with **tolerance** does not match the number of .mos scripts."
         
     print "Number of .mo files without experiment annotation" + str(problems)
     print "Length of .mo files without experiment annotation: " + str(len(problems))
