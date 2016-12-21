@@ -1,5 +1,5 @@
 within Annex60.ThermalZones.ReducedOrder.Validation.VDI6007.BaseClasses;
-block AssertEqualityThreePeriods "Assert when condition is violated"
+block VerifyDifferenceThreePeriods "Assert when condition is violated"
   extends Annex60.Utilities.Diagnostics.BaseClasses.PartialInputCheck(
     message="Inputs differ by more than threShold");
   parameter Modelica.SIunits.Time endTime = 0
@@ -83,4 +83,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AssertEqualityThreePeriods;
+end VerifyDifferenceThreePeriods;
