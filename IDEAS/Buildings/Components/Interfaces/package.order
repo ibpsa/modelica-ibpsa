@@ -6,3 +6,4 @@ WindowBus
 PartialSurface
 PartialOpaqueSurface
 WindowDynamicsType
+DummyConnection
