@@ -6,7 +6,9 @@ model BESTEST
     lat=0.69464104229374,
     lon=-1.8308503853421,
     timZonSta=-7*3600,
-    filNam="BESTEST.TMY")
+    filNam="BESTEST.TMY",
+    linIntRad=false,
+    linExtRad=false)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   //conversion factors for convertion Joule/Watt into MWh/kW

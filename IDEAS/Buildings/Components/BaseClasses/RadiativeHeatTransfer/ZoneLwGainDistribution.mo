@@ -72,10 +72,18 @@ initial equation
                      else (1-fraTotAbsFloor)*area[i]*epsSw[i]/ASWotherSurface for i in 1:nSurf};
   weightFactorDif = area .* epsSw / sum(area .* epsSw);
   weightFactorGain = area .* epsLw / sum(area .* epsLw);
-  AfloorTot = sum({if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor) then area[i] else 0 for i in 1:nSurf});
+  // minimum of Modelica.Constants.small to guard against division by zero
+  AfloorTot = max(Modelica.Constants.small,sum({if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor) then area[i] else 0 for i in 1:nSurf}));
   fraTotAbsFloor = sum({if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor) then area[i]*epsSw[i] else 0 for i in 1:nSurf})/AfloorTot;
   ASWotherSurface = sum({if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor) then 0 else area[i]*epsSw[i] for i in 1:nSurf});
-  weightFactorTRad = weightFactorDir;
+  weightFactorTRad = weightFactorDif;
+
+  assert(AfloorTot>2*Modelica.Constants.small, "WARNING: Zone does not contain a floor surface so incoming beam radiation is spread over all other surfaces! Is this intended? \n", AssertionLevel.warning);
+  assert(AfloorTot<0.9*sum(area), "More than 90% of zone surface area is floor, this is not allowed.");
+  assert(abs(1-sum(weightFactorTRad))<1e-4, "Error in computation of weightFactorTRad, please submit a bug report");
+  assert(abs(1-sum(weightFactorDir))<1e-4, "Error in computation of weightFactorDir, please submit a bug report");
+  assert(abs(1-sum(weightFactorDif))<1e-4, "Error in computation of weightFactorDif, please submit a bug report");
+  assert(abs(1-sum(weightFactorGain))<1e-4, "Error in computation of weightFactorGain, please submit a bug report");
 
 equation
   for k in 1:nSurf loop
@@ -146,9 +154,23 @@ If there are multiple floors (based on the inclination angle)
 then their area and emissivity are used to compute a weight factor for the floors.
 The remaining radiation is redistributed over all other surfaces, again using the shortwave emissivity
 and surface area to determine the relative fractions.
+If there is no floor then the beam radiation is spread over all surfaces and a warning is generated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2016 by Filip Jorissen:<br/>
+Fixed bug in absorption model where
+<code>TRad</code> was computed using coefficients for
+<code>iSolDir</code> instead of <code>iSolDif</code>.
+Added asserts for checking the sum of all 
+weight factors.
+This closes #605.
+</li>
+<li>
+September 8, 2016 by Filip Jorissen:<br/>
+Added warning for when there are no floors and guarded against division by zero.
+</li>
 <li>
 July 15, 2016 by Filip Jorissen:<br/>
 New absorption model for beam radiation.

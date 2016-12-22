@@ -6,4 +6,8 @@ record Air = IDEAS.Buildings.Data.Interfaces.Material (
     epsSw=0,
     epsLw=0,
     gas=true,
-    mhu=18.3*10e-6) "Air";
+    mhu=18.3*10e-6) "Air" annotation (Documentation(info="<html>
+<p>
+Constant air thermal properties.
+</p>
+</html>"));

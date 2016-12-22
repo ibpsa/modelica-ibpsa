@@ -2,10 +2,8 @@ within IDEAS.Buildings.Components.Interfaces;
 partial model PartialOpaqueSurface
   "Partial component for the opaque surfaces of the building envelope"
 
-  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall constructionType
-    constrainedby IDEAS.Buildings.Data.Interfaces.Construction(
-      final insulationType=insulationType,
-      final insulationTickness=insulationThickness)
+  replaceable parameter IDEAS.Buildings.Data.Interfaces.Construction constructionType
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
     "Building component material structure" annotation (
     __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
@@ -21,19 +19,8 @@ partial model PartialOpaqueSurface
       T_start=ones(constructionType.nLay)*T_start,
       nGain=constructionType.nGain));
 
-  replaceable parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType
-    constrainedby IDEAS.Buildings.Data.Interfaces.Insulation(
-      final d=insulationThickness)
-    "Thermal insulation type, propagated into constructionType" annotation (
-    __Dymola_choicesAllMatching=true,
-    Placement(transformation(extent={{-34,90},{-30,94}})),
-    Dialog(group="Construction details"));
-
-  parameter Modelica.SIunits.Area AWall
+   parameter Modelica.SIunits.Area AWall
     "Component surface area";
-  parameter Modelica.SIunits.Length insulationThickness
-    "Thermal insulation thickness"
-    annotation (Dialog(group="Construction details"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb[constructionType.nGain]
     "Port for gains by embedded active layers"
@@ -64,6 +51,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+November 15, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
+</li>
+<li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation: cleaned up connections and partials.
 </li>
@@ -72,5 +63,11 @@ February 6, 2016 by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model extends 
+<a href=modelica://IDEAS.Buildings.Components.Interfaces.PartialSurface>IDEAS.Buildings.Components.Interfaces.PartialSurface</a>
+with parameters that are typical for opaque surfaces, i.e. all surfaces except windows.
+</p>
 </html>"));
 end PartialOpaqueSurface;

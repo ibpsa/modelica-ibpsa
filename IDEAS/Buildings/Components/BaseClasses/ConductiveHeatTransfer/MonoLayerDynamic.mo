@@ -6,26 +6,28 @@ model MonoLayerDynamic "Dynamic layer for uniform solid."
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the states";
   parameter Integer nStaMin(min=1) = 2 "Minimum number of states";
-  parameter Boolean placeCapacityAtSurf_b = true
-    "Set to true to place last capacity at the surface b of the layer.";
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics= Modelica.Fluid.Types.Dynamics.FixedInitial
+
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Static (steady state) or transient (dynamic) thermal conduction model"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
   final parameter Boolean present=mat.d > Modelica.Constants.small;
   final parameter Integer nSta=max(nStaMin, mat.nSta) "Number of states";
   final parameter Real R=mat.R "Total specific thermal resistance";
   final parameter Modelica.SIunits.HeatCapacity Ctot=A*mat.rho*mat.c*mat.d
     "Total heat capacity";
-
+  // This option is for solving problems when connecting a
+  // fixed temperature boundary to a state when linearising a model.
+  constant Boolean addRes_b=false
+    "Set to true to add a resistor at port b.";
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") = sum(T .* C);
 
 protected
-  final parameter Integer nRes = if placeCapacityAtSurf_b then max(nSta - 1, 1) else nSta
-    "Number of thermal resistances";
-  final parameter Modelica.SIunits.ThermalConductance[nRes] G=fill(
-     nRes*A/R, nRes);
-  final parameter Modelica.SIunits.HeatCapacity[nSta] C=Ctot*(if nSta <= 2 or not placeCapacityAtSurf_b
-       then ones(nSta)/nSta else cat(
+  final parameter Integer nRes=if addRes_b then nSta
+       else max(nSta - 1, 1) "Number of thermal resistances";
+  final parameter Modelica.SIunits.ThermalConductance[nRes] G=fill(nRes*A/R,
+      nRes);
+  final parameter Modelica.SIunits.HeatCapacity[nSta] C=Ctot*(if nSta <= 2 or
+      addRes_b then ones(nSta)/nSta else cat(
       1,
       {0.5},
       ones(nSta - 2),
@@ -43,10 +45,10 @@ public
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 initial equation
-  if energyDynamics== Modelica.Fluid.Types.Dynamics.FixedInitial then
+  if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
     T = ones(nSta)*T_start;
-  elseif energyDynamics== Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
-    der(T)=zeros(nSta);
+  elseif energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+    der(T) = zeros(nSta);
   end if;
   assert(nSta >= 1, "Number of states needs to be higher than zero.");
   assert(abs(sum(C) - A*mat.rho*mat.c*mat.d) < 1e-6, "Verification error in MonLayerDynamic");
@@ -55,29 +57,23 @@ initial equation
 equation
   port_a.T = T[1];
 
-  if nSta > 1 and placeCapacityAtSurf_b then
+  if nSta > 1 then
     der(T[1]) = (port_a.Q_flow - Q_flow[1])*Cinv[1];
-    der(T[nSta]) = (Q_flow[nSta - 1] + port_b.Q_flow)*Cinv[nSta];
-    port_b.T = T[nSta];
+    // Q_flow[i] is heat flowing from (i-1) to (i)
+    for i in 1:nSta - 1 loop
+      (T[i] - T[i + 1])*G[i] = Q_flow[i];
+    end for;
+    for i in 2:nRes loop
+      der(T[i]) = (Q_flow[i - 1] - Q_flow[i])*Cinv[i];
+    end for;
 
-    // Q_flow[i] is heat flowing from (i-1) to (i)
-    for i in 1:nSta - 1 loop
-      (T[i] - T[i + 1])*G[i] = Q_flow[i];
-    end for;
-    for i in 2:nSta - 1 loop
-      der(T[i]) = (Q_flow[i - 1] - Q_flow[i])*Cinv[i];
-    end for;
-  elseif nSta > 1 and not placeCapacityAtSurf_b then
-    der(T[1]) = (port_a.Q_flow - Q_flow[1])*Cinv[1];
-    // Q_flow[i] is heat flowing from (i-1) to (i)
-    for i in 1:nSta - 1 loop
-      (T[i] - T[i + 1])*G[i] = Q_flow[i];
-    end for;
-    (T[end] - port_b.T)*G[end] = Q_flow[end];
-    port_b.Q_flow = - Q_flow[end];
-    for i in 2:nSta loop
-      der(T[i]) = (Q_flow[i - 1] - Q_flow[i])*Cinv[i];
-    end for;
+    if not addRes_b then
+      der(T[nSta]) = (Q_flow[nSta - 1] + port_b.Q_flow)*Cinv[nSta];
+      port_b.T = T[nSta];
+    else
+      (T[end] - port_b.T)*G[end] = Q_flow[end];
+      port_b.Q_flow = -Q_flow[end];
+    end if;
   else
     der(port_a.T) = (port_a.Q_flow + port_b.Q_flow)*Cinv[1];
     Q_flow[1] = -port_b.Q_flow;
@@ -114,6 +110,12 @@ equation
 <p>where <img src=\"modelica://IDEAS/Images/equations/equation-I7KXJhSH.png\"/> is the added energy to the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-B0HPmGTu.png\"/> is the temperature of the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-t7aqbnLB.png\"/> is the thermal capacity of the lumped capacity equal to<img src=\"modelica://IDEAS/Images/equations/equation-JieDs0oi.png\"/> for which rho denotes the density and <img src=\"modelica://IDEAS/Images/equations/equation-ml5CM4zK.png\"/> is the specific heat capacity of the material and <img src=\"modelica://IDEAS/Images/equations/equation-hOGNA6h5.png\"/> the equivalent thickness of the lumped element, where <img src=\"modelica://IDEAS/Images/equations/equation-1pDREAb7.png\"/> the heat flux through the lumped resistance and <img src=\"modelica://IDEAS/Images/equations/equation-XYf3O3hw.png\"/> is the total thermal resistance of the lumped resistance and where <img src=\"modelica://IDEAS/Images/equations/equation-dgS5sGAN.png\"/> are internal thermal source.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 8, 2016, by Filip Jorissen and Damien Picard:<br/>
+Revised implementation of placeCapacityAtSurf_b, which has been renamed to addRes_b.
+This is for solving problems when linearising a model.
+See issue 591.
+</li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation.
