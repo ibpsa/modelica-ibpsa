@@ -50,6 +50,12 @@ partial model PartialSurface "Partial model for building envelope component"
     "Convective heat transfer correlation for port_a"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
+  IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.MultiLayer
+    layMul(final inc=inc, energyDynamics=energyDynamics,
+    linIntCon=linIntCon_a or sim.linearise)
+    "Multilayer component for simulating walls, windows and other surfaces"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
+
 protected
   Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design);
 
@@ -68,12 +74,6 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
      sim.computeConservationOfEnergy
     "Component for computing conservation of energy";
-public
-  IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.MultiLayer
-    layMul(final inc=inc, energyDynamics=energyDynamics,
-    linIntCon=sim.linIntCon or sim.linearise)
-    "Multilayer component that allows simulating walls, windows and other surfaces"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 
 equation
   connect(prescribedHeatFlowE.port, propsBus_a.E);
