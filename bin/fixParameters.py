@@ -33,6 +33,8 @@ N_mos_problems = 0
 # mos files to fix
 mosToFixed=[]
 
+N_Runs = 2
+
 def capitalize_first(name):
     lst = [word[0].upper() + word[1:] for word in name.split()]
     return " ".join(lst)
@@ -150,20 +152,25 @@ def replace_tolerance_intervals(content, name, value, mos_file):
 
 def rewrite_file (mos_file):
     #print "\t================================="
-    rewrite = raw_input("\n\tFound mos_file: " + str(mos_file) 
-                +" with invalid entries (e.g. startTime=startTime, stopTime=stopTime)."
-                +" Do you want to correct them now (Y/N)?" 
-                + "Make sure that these variables are not used in the createPlot() command.")
-    #print
-    rewrite = 'y'
-    if rewrite == 'y':
-        mosToFixed.append(mos_file)
-        webbrowser.open(mos_file)
-        print "Please re-run the conversion script."
-        exit()
-    if rewrite == 'N':
-        print "Please correct the mos file" + str(mos_file) + " before proceeding."
-        exit() 
+    print "ERROR: Found mos_file: " + str(mos_file) + \
+    " with invalid entries such startTime=startTime or stopTime=startTime + stopTime." 
+    print "Please correct the mos file  and re-run the conversion script."
+    print "Make sure that these variables are also not used in the createPlot() command of the mos file."
+    exit()
+#     rewrite = raw_input("\n\tFound mos_file: " + str(mos_file) 
+#                 +" with invalid entries (e.g. startTime=startTime, stopTime=stopTime)."
+#                 +" Do you want to correct them now (Y/N)?" 
+#                 + "Make sure that these variables are not used in the createPlot() command.")
+#     #print
+#     rewrite = 'y'
+#     if rewrite == 'y':
+#         mosToFixed.append(mos_file)
+#         webbrowser.open(mos_file)
+#         print "Please re-run the conversion script."
+#         exit()
+#     if rewrite == 'N':
+#         print "Please correct the mos file" + str(mos_file) + " before proceeding."
+#         exit() 
 
 # Number of .mos files
 N_mos_files = len(mos_files)
@@ -376,10 +383,10 @@ def fixParameters (name):
                                         print " This is the val " + str (val)
                                         print " This is the value " + str (value)
                                         newLine = line.replace("StartTime="+"" + str(val), ""+capitalize_first(name)+"="+""+str(value))
-                                        print "\t REPLACE"
-				        print "\t"+line  
-                                        print "\t WITH"
-                                        print "\t"+newLine
+                                        #print "\t REPLACE"
+                                        #print "\t"+line  
+                                        #print "\t WITH"
+                                        #print "\t"+newLine
                                         # replace
                                         modelContent[k] = newLine
                                         # replacement done
@@ -420,27 +427,29 @@ def fixParameters (name):
     
 if __name__ == "__main__":
 
-    # First run 
-    for i in ["stopTime", "tolerance", "startTime", "numberOfIntervals"]:
-    #for i in ["stopTime"]:
-        fixParameters(i)
-        print "Fixing ***"  + str(i) + "*** in the Modelica files."
-        print "\n* Number of mos files = "+str(len(mos_files))
-        print "\n* Number of modified mo = "+str(N_modify_models) 
-        print "\n* Number of modified mos = "+str(N_modify_mos)
-        print "\n* Number of mos scripts with problems = "+str(N_mos_problems)
-        print "\n"
-    
-    # Second run
-    for i in ["stopTime", "tolerance", "startTime", "numberOfIntervals"]:
+    for k in range(N_Runs):
+        print "This is the " + str(k+1) + " run."
+        # First run 
+        for i in ["stopTime", "tolerance", "startTime", "numberOfIntervals"]:
         #for i in ["stopTime"]:
-        fixParameters(i)
-        print "Fixing ***"  + str(i) + "*** in the Modelica files."
-        print "\n* Number of mos files = "+str(len(mos_files))
-        print "\n* Number of modified mo = "+str(N_modify_models) 
-        print "\n* Number of modified mos = "+str(N_modify_mos)
-        print "\n* Number of mos scripts with problems = "+str(N_mos_problems)
-        print "\n"
+            fixParameters(i)
+            print "Fixing ***"  + str(i) + "*** in the Modelica files."
+            print "\n* Number of mos files = "+str(len(mos_files))
+            print "\n* Number of modified mo = "+str(N_modify_models) 
+            print "\n* Number of modified mos = "+str(N_modify_mos)
+            print "\n* Number of mos scripts with problems = "+str(N_mos_problems)
+            print "\n"
+    
+#     # Second run
+#     for i in ["stopTime", "tolerance", "startTime", "numberOfIntervals"]:
+#         #for i in ["stopTime"]:
+#         fixParameters(i)
+#         print "Fixing ***"  + str(i) + "*** in the Modelica files."
+#         print "\n* Number of mos files = "+str(len(mos_files))
+#         print "\n* Number of modified mo = "+str(N_modify_models) 
+#         print "\n* Number of modified mos = "+str(N_modify_mos)
+#         print "\n* Number of mos scripts with problems = "+str(N_mos_problems)
+#         print "\n"
     
     n_files_tol_mos, n_files_fmus = number_occurences (mos_files, "mos")
     print "Number of mos files found " + str (len(mos_files))
