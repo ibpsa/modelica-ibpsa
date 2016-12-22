@@ -40,6 +40,10 @@ equation
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
+November 15, 2016 by Filip Jorissen:<br/>
+Revised documentation.
+</li>
+<li>
 August 26, 2016 by Filip Jorissen:<br/>
 Added support for conservation of energy.
 </li>
@@ -48,5 +52,10 @@ July 18, 2016 by Filip Jorissen:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Zone air model that only considers thermal aspects, 
+i.e. no moisture or trace substances (e.g. CO2) may be computed.
+</p>
 </html>"));
 end Thermal;

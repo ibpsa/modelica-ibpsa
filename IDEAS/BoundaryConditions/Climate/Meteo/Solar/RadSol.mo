@@ -13,36 +13,33 @@ model RadSol "solar angle to surface"
         outputAngles)
     annotation (Placement(transformation(extent={{80,-20},{120,20}})));
 
-  Modelica.Blocks.Interfaces.RealInput angZen
+  Modelica.Blocks.Interfaces.RealInput angZen "Zenith angle"
     annotation (Placement(transformation(extent={{-124,-60},{-84,-20}})));
   Modelica.Blocks.Interfaces.RealInput solDifHor
+    "Diffuse solar irradiation on horizontal surface"
     annotation (Placement(transformation(extent={{-124,40},{-84,80}})));
   Modelica.Blocks.Interfaces.RealInput solGloHor
+    "Global solar irradiation on horizontal surface"
     annotation (Placement(transformation(extent={{-124,60},{-84,100}})));
-  Modelica.Blocks.Interfaces.RealInput F1
+  Modelica.Blocks.Interfaces.RealInput F1 "Circumsolar brightening coefficient"
     annotation (Placement(transformation(extent={{-124,-100},{-84,-60}})));
-  Modelica.Blocks.Interfaces.RealInput F2
+  Modelica.Blocks.Interfaces.RealInput F2 "Horizon brightening coefficient"
     annotation (Placement(transformation(extent={{-124,-120},{-84,-80}})));
   Modelica.Blocks.Interfaces.RealInput solDirPer
+    "Beam solar irradiation on surface perpendicular to beam direction"
     annotation (Placement(transformation(extent={{-124,80},{-84,120}})));
-  Modelica.Blocks.Interfaces.RealInput angHou
+  Modelica.Blocks.Interfaces.RealInput angHou "Hour angle"
     annotation (Placement(transformation(extent={{-124,-40},{-84,0}})));
-  Modelica.Blocks.Interfaces.RealInput angDec
+  Modelica.Blocks.Interfaces.RealInput angDec "Declination angle"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-104,0})));
 
 protected
-  BaseClasses.AngleSolar angSolar(
-    final inc=inc,
-    final azi=azi,
-    final lat=lat) annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  BaseClasses.solDirTil solDirTil(
-    final inc=inc)
+  SolarIrradiation.BaseClasses.DirectTiltedSurface
+                        solDirTil
+    "Computation of direct solar irradiation on tilted surface"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  IDEAS.BoundaryConditions.Climate.Meteo.Solar.BaseClasses.Perez perez(final inc=
-       inc, final rho=rho)
-    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Modelica.Blocks.Sources.Constant dummyValAzi(k=0) if not remDefVals
     "angAzi dummy value when not needed"
     annotation (Placement(transformation(extent={{-20,-98},{-8,-86}})));
@@ -51,47 +48,18 @@ protected
     "Tenv dummy value when not needed"
     annotation (Placement(transformation(extent={{-20,-76},{-8,-64}})));
 
+public
+  SolarGeometry.BaseClasses.IncidenceAngle incAng(
+    lat=lat,
+    azi=azi,
+    til=inc) annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  SolarIrradiation.BaseClasses.DiffusePerez HDifTil(rho=rho, til=inc)
+    "Computation of diffuse solar irradiation on tilted surface"
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+  Modelica.Blocks.Math.Add HDifTilTot
+    "Diffuse solar irradiation including ground reflectance"
+    annotation (Placement(transformation(extent={{40,-16},{52,-4}})));
 equation
-  connect(angSolar.angInc, solDirTil.angSol) annotation (Line(
-      points={{-20,36},{0,36}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solDirTil.solDirPer, solDirPer) annotation (Line(
-      points={{0,32.8},{0,34},{-8,34},{-8,100},{-104,100}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solDirTil.solDirTil, solBus.iSolDir) annotation (Line(
-      points={{20,36},{98,36},{98,0.1},{100.1,0.1}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(perez.angZen, angZen) annotation (Line(
-      points={{0,-5},{-54,-5},{-54,-40},{-104,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(perez.F1, F1) annotation (Line(
-      points={{0,-9},{-56,-9},{-56,-80},{-104,-80}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(perez.solGloHor, solGloHor) annotation (Line(
-      points={{0,-19},{-46,-19},{-46,80},{-104,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(perez.solDifHor, solDifHor) annotation (Line(
-      points={{0,-17},{-48,-17},{-48,60},{-104,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(perez.angInc, angSolar.angInc) annotation (Line(points={{0,-1},{-18,-1},
-          {-18,0},{-18,36},{-20,36}},         color={0,0,127}));
-  connect(perez.solDifTil, solBus.iSolDif) annotation (Line(
-      points={{20,-4},{96,-4},{96,0.1},{100.1,0.1}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(perez.F2, F2) annotation (Line(points={{0,-13},{-58,-13},{-58,-100},{-104,
-          -100}},   color={0,0,127}));
-  connect(angSolar.angInc, solBus.angInc) annotation (Line(
-      points={{-20,36},{-18,36},{-18,60},{100,60},{100,0.1},{100.1,0.1}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(angZen, solBus.angZen) annotation (Line(points={{-104,-40},{100.1,-40},
           {100.1,0.1}}, color={0,0,127}));
   connect(dummyValAzi.y, solBus.angAzi) annotation (Line(
@@ -102,10 +70,37 @@ equation
       points={{-7.4,-70},{100.1,-70},{100.1,0.1}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(angSolar.angDec, angDec) annotation (Line(points={{-40,36},{-66,36},{-66,
-          0},{-104,0}}, color={0,0,127}));
-  connect(angSolar.angHou, angHou) annotation (Line(points={{-40,32},{-64,32},{-64,
-          -20},{-104,-20}}, color={0,0,127}));
+  connect(solDirTil.HDirTil, solBus.iSolDir) annotation (Line(points={{21,30},{
+          100.1,30},{100.1,0.1}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(solDirTil.HDirNor, solDirPer) annotation (Line(points={{-2,36},{-8,36},
+          {-8,100},{-104,100}}, color={0,0,127}));
+  connect(incAng.incAng, solBus.angInc) annotation (Line(points={{-19,50},{
+          100.1,50},{100.1,0.1}}, color={0,0,127}));
+  connect(incAng.decAng, angDec) annotation (Line(points={{-42.2,55.4},{-62,
+          55.4},{-62,0},{-104,0}}, color={0,0,127}));
+  connect(incAng.solHouAng, angHou) annotation (Line(points={{-42,45.2},{-60,
+          45.2},{-60,46},{-60,-20},{-104,-20}}, color={0,0,127}));
+  connect(HDifTil.HSkyDifTil, HDifTilTot.u1)
+    annotation (Line(points={{21,-6},{38.8,-6},{38.8,-6.4}}, color={0,0,127}));
+  connect(HDifTil.HGroDifTil, HDifTilTot.u2) annotation (Line(points={{21,-14},
+          {28.5,-14},{28.5,-13.6},{38.8,-13.6}}, color={0,0,127}));
+  connect(HDifTilTot.y, solBus.iSolDif) annotation (Line(points={{52.6,-10},{
+          100.1,-10},{100.1,0.1}}, color={0,0,127}));
+  connect(HDifTil.HGloHor, solGloHor) annotation (Line(points={{-2,-2},{-46,-2},
+          {-46,80},{-104,80}}, color={0,0,127}));
+  connect(HDifTil.HDifHor, solDifHor) annotation (Line(points={{-2,-5},{-48,-5},
+          {-48,60},{-104,60}}, color={0,0,127}));
+  connect(HDifTil.briCof2, F2) annotation (Line(points={{-2,-11},{-48,-11},{-48,
+          -32},{-48,-100},{-104,-100}}, color={0,0,127}));
+  connect(HDifTil.briCof1, F1) annotation (Line(points={{-2,-8},{-50,-8},{-50,
+          -80},{-104,-80}}, color={0,0,127}));
+  connect(HDifTil.incAng, incAng.incAng) annotation (Line(points={{-2,-17},{-14,
+          -17},{-14,50},{-19,50}}, color={0,0,127}));
+  connect(HDifTil.zen, angZen) annotation (Line(points={{-2,-14},{-2,-16},{-52,
+          -16},{-52,-40},{-104,-40}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),  Icon(graphics={
         Polygon(

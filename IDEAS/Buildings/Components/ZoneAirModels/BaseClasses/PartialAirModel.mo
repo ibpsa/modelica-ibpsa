@@ -8,14 +8,21 @@ partial model PartialAirModel "Partial for air models"
   parameter Integer nSeg(min=1)=1 "Number of air segments";
   parameter Modelica.SIunits.Volume Vtot "Total zone air volume";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=m_flow_nominal_airLea
-    "Nominal mass flow rate";
+    "Nominal mass flow rate"
+	annotation(Dialog(tab="Advanced"));
   parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports.";
+     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
+    annotation(Dialog(tab="Advanced"));
   parameter Real n50=0.4 "n50-value of airtightness";
-  parameter Real n50toAch = 20 "Conversion fractor from n50 to Air Change Rate";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_airLea=Vtot*rho_default/3600*n50/n50toAch "nominal mass flow of air leakage";
-  parameter Boolean useFluPor = true "Set to false to remove fluid ports";
-  constant Boolean computeTSensorAsFunctionOfZoneAir = true "Set to false if TSensor in zone model should not take into account the value of the zone air temperature";
+  parameter Real n50toAch = 20
+    "Conversion fractor from n50 to Air Change Rate"
+    annotation(Dialog(tab="Advanced"));
+  parameter Boolean useFluPor = true "Set to false to remove fluid ports"
+    annotation(Dialog(tab="Advanced"));
+  constant Boolean computeTSensorAsFunctionOfZoneAir = true
+    "Set to false if TSensor in zone model should not take into account the value of the zone air temperature";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_airLea=Vtot*rho_default/3600*n50/n50toAch 
+  	"Nominal mass flow rate of air leakage";
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput QGai(unit="J/s") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput TAir "Zone air temperature"
@@ -62,6 +69,10 @@ protected
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
 <li>
+November 15, 2016 by Filip Jorissen:<br/>
+Revised documentation.
+</li>
+<li>
 August 26, 2016 by Filip Jorissen:<br/>
 Added support for conservation of energy.
 </li>
@@ -70,5 +81,9 @@ April 30, 2016, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Zone air model partial containing main parameters and connectors.
+</p>
 </html>"));
 end PartialAirModel;

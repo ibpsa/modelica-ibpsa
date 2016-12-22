@@ -1,5 +1,6 @@
 within IDEAS.Buildings.Validation.Data.Materials;
 record Roofdeck_195
+  "BESTEST roof deck for case 195"
   extends IDEAS.Buildings.Data.Interfaces.Material(
     final k=0.14,
     final c=900,

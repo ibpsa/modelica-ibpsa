@@ -4,4 +4,8 @@ record Plywood = IDEAS.Buildings.Data.Interfaces.Material (
     c=840,
     rho=1950,
     epsLw=0.86,
-    epsSw=0.44) "Ply wood finishing";
+    epsSw=0.44) "Ply wood finishing" annotation (Documentation(info="<html>
+<p>
+Thermal properties of plywood.
+</p>
+</html>"));

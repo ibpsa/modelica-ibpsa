@@ -3,7 +3,9 @@ record Aluminium "Old aluminium frame"
   extends IDEAS.Buildings.Data.Interfaces.Frame(
     U_value=5.68);
        annotation (Documentation(info="<html>
-<p><span style=\"font-family: Sans Serif;\">Source: Ashrae/LBL Window 7.3 software</span></p>
+<p>
+Aluminum window frame. U value may vary.
+</p>
 </html>"));
 
 end Aluminium;
