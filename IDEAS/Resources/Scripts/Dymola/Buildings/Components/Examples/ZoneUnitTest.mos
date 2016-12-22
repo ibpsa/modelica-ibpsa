@@ -1,4 +1,0 @@
-simulateModel("IDEAS.Buildings.Components.Examples.ZoneUnitTest", stopTime=1000, method="dassl", resultFile="ZoneUnitTest");
-
-createPlot(id=1, position={0, 0, 1008, 509}, y={"zone.propsBus[1].surfCon.Q_flow", "zone.propsBus[2].surfCon.Q_flow"}, range={0.0, 1000.0, -10000.0, 2000.0}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={0, 0, 1008, 252}, y={"zone.propsBus[1].surfRad.Q_flow", "zone.propsBus[2].surfRad.Q_flow"}, range={0.0, 1000.0, -2000.0, 2000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});

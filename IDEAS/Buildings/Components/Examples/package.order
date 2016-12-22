@@ -5,4 +5,5 @@ WindowLinearisation
 CavityWalls
 WindowThermalBridge
 WallUnitTest
-ZoneUnitTest
+ZoneStatic
+ZoneDynamic
