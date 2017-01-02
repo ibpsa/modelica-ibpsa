@@ -4,8 +4,6 @@ model Carnot_TEva
  extends Annex60.Fluid.Chillers.BaseClasses.PartialCarnot_T(
    final COP_is_for_cooling = true,
    final QCon_flow_nominal = -QEva_flow_nominal*(1 + COP_nominal)/COP_nominal,
-   effInpEva=Annex60.Fluid.Types.EfficiencyInput.port_b,
-   effInpCon=Annex60.Fluid.Types.EfficiencyInput.port_a,
    PEle(y=-QEva_flow/COP),
    redeclare HeatExchangers.HeaterCooler_u con(
     final from_dp=from_dp1,
@@ -46,6 +44,7 @@ protected
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 initial equation
   assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
+
 
 equation
   connect(TSet, eva.TSet) annotation (Line(points={{-120,90},{-66,90},{28,90},{28,
@@ -143,12 +142,9 @@ The maximum cooling capacity is set by the parameter <code>QEva_flow_min</code>,
 which is by default set to negative infinity.
 </p>
 <p>
-By default, the coefficient of performance depends on the
-evaporator leaving temperature and the condenser entering
-temperature.
-This can be changed with the parameters
-<code>effInpEva</code> and
-<code>effInpCon</code>.
+The coefficient of performance depends on the
+evaporator and condenser leaving temperature
+since otherwise the second law of thermodynamics may be violated.
 </p>
 <h4>Notes</h4>
 <p>

@@ -2,9 +2,7 @@ within Annex60.Fluid.Chillers;
 model Carnot_y
   "Chiller with performance curve adjusted based on Carnot efficiency"
   extends Annex60.Fluid.Chillers.BaseClasses.PartialCarnot_y(
-    final COP_is_for_cooling = true,
-    effInpEva=Annex60.Fluid.Types.EfficiencyInput.port_b,
-    effInpCon=Annex60.Fluid.Types.EfficiencyInput.port_a);
+    final COP_is_for_cooling = true);
 
   annotation (
 defaultComponentName="chi",
@@ -74,12 +72,9 @@ The maximum cooling capacity is set by the parameter <code>QEva_flow_min</code>,
 which is by default set to negative infinity.
 </p>
 <p>
-By default, the coefficient of performance depends on the
-evaporator leaving temperature and the condenser entering
-temperature.
-This can be changed with the parameters
-<code>effInpEva</code> and
-<code>effInpCon</code>.
+The coefficient of performance depends on the
+evaporator and condenser leaving temperature
+since otherwise the second law of thermodynamics may be violated.
 </p>
 <h4>Notes</h4>
 <p>
@@ -89,6 +84,15 @@ For a similar model that can be used as a heat pump, see
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 2, 2017, by Filip Jorissen:<br/>
+Updated documentation since parameters 
+<code>effInpEva</code> and <code>effInpCon</code>
+were removed.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+issue 497</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Refactored model to use the same base class as
