@@ -72,5 +72,8 @@ January 2, 2017, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Interfaces/Examples/FourPortHeatMassExchanger.mos"
+        "Simulate and plot"));
 end FourPortHeatMassExchanger;
