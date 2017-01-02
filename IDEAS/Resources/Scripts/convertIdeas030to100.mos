@@ -5,3 +5,41 @@ convertClear();
 convertElement("IDEAS.Buildings.Components.Zone", "flowPort_Out", "port_b");
 convertElement("IDEAS.Buildings.Components.Zone", "flowPort_In", "port_a");
 convertElement("IDEAS.Buildings.Components.Zone", "TStar", "TRad");
+
+
+convertModifiers({"IDEAS.Fluid.FixedResistances.FixedResistanceDpM"},
+                  {"dh"},
+                  fill("", 0),
+                  true);
+
+convertModifiers({"IDEAS.Fluid.FixedResistances.FixedResistanceDpM"},
+                  {"ReC"},
+                  fill("", 0),
+                  true);
+
+convertModifiers({"IDEAS.Fluid.FixedResistances.FixedResistanceDpM"},
+                  {"use_dh"},
+                  fill("", 0),
+                  true);
+
+convertClass("IDEAS.Fluid.FixedResistances.FixedResistanceDpM",
+             "IDEAS.Fluid.FixedResistances.PressureDrop");
+
+// Flow junction
+convertModifiers({"IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM"},
+                  {"dh"},
+                  fill("", 0),
+                  true);
+
+convertModifiers({"IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM"},
+                  {"ReC"},
+                  fill("", 0),
+                  true);
+
+convertModifiers({"IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM"},
+                  {"use_dh"},
+                  fill("", 0),
+                  true);
+
+convertClass("IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM",
+             "IDEAS.Fluid.FixedResistances.Junction");
