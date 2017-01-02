@@ -2,6 +2,7 @@ HydraulicDiameter
 InsulatedPipe
 Junction
 LosslessPipe
+ParallelPressureDrop
 Pipe_HeatPort
 PressureDrop
 Examples
