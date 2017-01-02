@@ -147,7 +147,17 @@ equation
         Line(
           points={{-44,60},{-44,-20}},
           smooth=Smooth.None,
-          color={175,175,175})}),
+          color={175,175,175}),
+        Line(
+          points={{-44,-20},{-30,-20},{-30,-70}},
+          smooth=Smooth.None,
+          color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{-44,60},{-30,60},{-30,80},{50,80}},
+          smooth=Smooth.None,
+          color={0,0,0},
+          thickness=0.5)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
@@ -159,6 +169,10 @@ for equations, options, parameters, validation and dynamics that are common for 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 2, 2017, by Filip Jorissen:<br/>
+Updated icon layer.
+</li>
 <li>
 October 22, 2016, by Filip Jorissen:<br/>
 Revised documentation for IDEAS 1.0.

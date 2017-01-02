@@ -102,22 +102,10 @@ equation
           fillColor={175,175,175},
           fillPattern=FillPattern.Backward,
           pattern=LinePattern.None),
-        Line(
-          points={{-50,80},{50,80}},
-          color={95,95,95},
-          smooth=Smooth.None),
-        Line(
-          points={{-50,-70},{50,-70}},
-          color={95,95,95},
-          smooth=Smooth.None),
-        Line(
-          points={{-50,-90},{50,-90}},
-          color={95,95,95},
-          smooth=Smooth.None),
-        Line(
-          points={{-50,100},{50,100}},
-          color={95,95,95},
-          smooth=Smooth.None),
+        Line(points={{-50,80},{50,80}}, color={175,175,175}),
+        Line(points={{-50,-70},{50,-70}}, color={175,175,175}),
+        Line(points={{-50,-90},{50,-90}}, color={175,175,175}),
+        Line(points={{-50,100},{50,100}}, color={175,175,175}),
         Line(
           points={{-10,80},{-10,-70}},
           smooth=Smooth.None,
@@ -146,6 +134,10 @@ which is turned 180 degrees between both side. The value of <code>inc</code> is 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 2, 2017, by Filip Jorissen:<br/>
+Updated icon layer.
+</li>
 <li>
 October 22, 2016, by Filip Jorissen:<br/>
 Revised documentation for IDEAS 1.0.

@@ -3,6 +3,8 @@ model SlabOnGround "opaque floor on ground slab"
    extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
      QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes),
         dT_nominal_a=-3,
+        inc=IDEAS.Types.Tilt.Floor,
+        azi=0,
     redeclare replaceable Data.Constructions.FloorOnGround constructionType,
     layMul(monLay(each monLayDyn(final addRes_b=true))));
 
@@ -140,6 +142,11 @@ zone that is surrounded by air at the ambient temperature.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 2, 2017, by Filip Jorissen:<br/>
+Added default values for parameters <code>inc</code> and 
+<code>azi</code>.
+</li>
 <li>
 October 22, 2016, by Filip Jorissen:<br/>
 Revised documentation for IDEAS 1.0.
