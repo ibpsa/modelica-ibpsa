@@ -194,9 +194,8 @@ model HeightPortHeatMassExchanger
                                annotation (Placement(transformation(extent={{-50,-10},
             {-70,10}})));
 
-  IDEAS.Fluid.FixedResistances.FixedResistanceDpM preDro1(
+  IDEAS.Fluid.FixedResistances.PressureDrop preDro1(
     redeclare final package Medium = Medium1,
-    final use_dh=false,
     final m_flow_nominal=m1_flow_nominal,
     final deltaM=deltaM1,
     final allowFlowReversal=allowFlowReversal1,
@@ -204,14 +203,11 @@ model HeightPortHeatMassExchanger
     final from_dp=from_dp1,
     final linearized=linearizeFlowResistance1,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp1_nominal,
-    final dh=1,
-    final ReC=4000) "Pressure drop model for fluid 1"
+    final dp_nominal=dp1_nominal) "Pressure drop model for fluid 1"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  IDEAS.Fluid.FixedResistances.FixedResistanceDpM preDro2(
+  IDEAS.Fluid.FixedResistances.PressureDrop preDro2(
     redeclare final package Medium = Medium2,
-    final use_dh=false,
     final m_flow_nominal=m2_flow_nominal,
     final deltaM=deltaM2,
     final allowFlowReversal=allowFlowReversal2,
@@ -219,13 +215,10 @@ model HeightPortHeatMassExchanger
     final from_dp=from_dp2,
     final linearized=linearizeFlowResistance2,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp2_nominal,
-    final dh=1,
-    final ReC=4000) "Pressure drop model for fluid 2"
+    final dp_nominal=dp2_nominal) "Pressure drop model for fluid 2"
     annotation (Placement(transformation(extent={{90,20},{70,40}})));
-  IDEAS.Fluid.FixedResistances.FixedResistanceDpM preDro3(
+  IDEAS.Fluid.FixedResistances.PressureDrop preDro3(
     redeclare final package Medium = Medium3,
-    final use_dh=false,
     final m_flow_nominal=m3_flow_nominal,
     final deltaM=deltaM3,
     final allowFlowReversal=allowFlowReversal3,
@@ -233,14 +226,11 @@ model HeightPortHeatMassExchanger
     final from_dp=from_dp3,
     final linearized=linearizeFlowResistance3,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp3_nominal,
-    final dh=1,
-    final ReC=4000) "Pressure drop model for fluid 3"
+    final dp_nominal=dp3_nominal) "Pressure drop model for fluid 3"
     annotation (Placement(transformation(extent={{-90,-42},{-70,-22}})));
 
-  IDEAS.Fluid.FixedResistances.FixedResistanceDpM preDro4(
+  IDEAS.Fluid.FixedResistances.PressureDrop preDro4(
     redeclare final package Medium = Medium4,
-    final use_dh=false,
     final m_flow_nominal=m4_flow_nominal,
     final deltaM=deltaM4,
     final allowFlowReversal=allowFlowReversal4,
@@ -248,9 +238,7 @@ model HeightPortHeatMassExchanger
     final from_dp=from_dp4,
     final linearized=linearizeFlowResistance4,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp4_nominal,
-    final dh=1,
-    final ReC=4000) "Pressure drop model for fluid 4"
+    final dp_nominal=dp4_nominal) "Pressure drop model for fluid 4"
     annotation (Placement(transformation(extent={{86,-90},{66,-70}})));
 protected
   parameter Medium1.ThermodynamicState sta1_nominal=Medium1.setState_pTX(
