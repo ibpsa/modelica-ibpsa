@@ -92,7 +92,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
      T=T_start,
      p=p_start,
      X=X_start[1:Medium.nXi])) +
-    (T_start - Medium.reference_T)*CSen) "Internal energy of fluid";
+    (T_start - Medium.reference_T)*CSen,
+    nominal = 1E5) "Internal energy of fluid";
   Modelica.SIunits.Mass m "Mass of fluid";
   Modelica.SIunits.Mass[Medium.nXi] mXi
     "Masses of independent components in the fluid";
@@ -230,9 +231,9 @@ equation
       // If moisture is neglected in mass balance, assume for computation
       // of the mass of air that the air is at Medium.X_default.
       m = fluidVolume*Medium.density(Medium.setState_phX(
-        p=  medium.p,
-        h=  hOut,
-        X=  Medium.X_default));
+        p = medium.p,
+        h = hOut,
+        X = Medium.X_default));
     else
       // Use actual density
       m = fluidVolume*medium.d;
@@ -328,7 +329,7 @@ This allows to decouple the moisture balance from the pressure drop equations.
 If <code>simplify_mWat_flow = false</code>, then
 the outlet mass flow rate is
 <i>m<sub>out</sub> = m<sub>in</sub>  (1 + &Delta; X<sub>w</sub>)</i>,
-where 
+where
 <i>&Delta; X<sub>w</sub></i> is the change in water vapor mass
 fraction across the component. In this case,
 this component couples
@@ -411,9 +412,13 @@ IDEAS.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+December 22, 2016, by Michael Wetter:<br/>
+Set nominal value for <code>U</code>.<br/>
+This if or <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/637\">637</a>.
+<li>
 February 19, 2016 by Filip Jorissen:<br/>
 Added outputs UOut, mOut, mXiOut, mCOut for being able to
-check conservation of quantities. 
+check conservation of quantities.
 This if or <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">
 issue 247</a>.
 </li>
@@ -435,8 +440,8 @@ Added input <code>C_flow</code> and code for handling trace substance insertions
 </li>
 <li>
 September 3, 2015, by Filip Jorissen and Michael Wetter:<br/>
-Revised implementation for allowing moisture mass flow rate 
-to be approximated using parameter <code>simplify_mWat_flow</code>. 
+Revised implementation for allowing moisture mass flow rate
+to be approximated using parameter <code>simplify_mWat_flow</code>.
 This may lead to smaller algebraic loops.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
@@ -494,7 +499,7 @@ The model requires derivatives of some inputs as listed below:
 1 inlet.p
 </pre>
 when translating
-<code>Buildings.Fluid.FMI.Examples.FMU.HeaterCooler_u</code>
+<code>Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HeaterCooler_u</code>
 with a dynamic energy balance.
 </li>
 <li>
