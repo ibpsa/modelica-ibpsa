@@ -116,7 +116,11 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics), Documentation(info="<html>
-<p>Shading model that simulates a combination of both side fins and a overhang. The implementation is simply a combination of both IDEAS.Buildings.Components.Shading.Overhang and IDEAS.Buildings.Components.Shading.SideFins.</p>
+<p>
+Shading model that simulates a combination of both side fins and a overhang. 
+The implementation is a combination of both IDEAS.Buildings.Components.Shading.Overhang 
+and IDEAS.Buildings.Components.Shading.SideFins.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

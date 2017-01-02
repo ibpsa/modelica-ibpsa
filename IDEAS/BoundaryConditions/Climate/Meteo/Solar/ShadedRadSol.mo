@@ -1,7 +1,7 @@
 within IDEAS.BoundaryConditions.Climate.Meteo.Solar;
 model ShadedRadSol "Solar angle to surface"
-  extends IDEAS.BoundaryConditions.Climate.Meteo.Solar.RadSol(final remDefVals=
-        true);
+  extends IDEAS.BoundaryConditions.Climate.Meteo.Solar.RadSol(
+    final remDefVals = true);
 
   final parameter Real Fssky=(1 + cos(inc))/2
     "radiant-interchange configuration factor between surface and sky";
@@ -15,27 +15,13 @@ model ShadedRadSol "Solar angle to surface"
         origin={40,106})));
 
 protected
-  BaseClasses.AngleAzimuth angleAzimuth(
-    final lat=lat,
-    final azi=azi)
+  SolarGeometry.AngleAzimuth angleAzimuth(final lat=lat, final azi=azi)
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Modelica.Blocks.Sources.RealExpression TenvExpr(
     y=(Fssky*TskyPow4 + (1 - Fssky)*TePow4)^0.25) "Environment temperature"
     annotation (Placement(transformation(extent={{0,70},{60,90}})));
 
 equation
-  connect(angleAzimuth.angDec, angSolar.angDec) annotation (Line(
-      points={{0,-44},{-66,-44},{-66,36},{-40,36}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(angleAzimuth.angHou, angSolar.angHou) annotation (Line(
-      points={{0,-48},{-64,-48},{-64,32},{-40,32}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(angleAzimuth.angZen, perez.angZen) annotation (Line(
-      points={{0,-52},{-54,-52},{-54,-5},{0,-5}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TenvExpr.y, solBus.Tenv) annotation (Line(
       points={{63,80},{100.1,80},{100.1,0.1}},
       color={0,0,127},
@@ -44,6 +30,14 @@ equation
       points={{20,-44},{100.1,-44},{100.1,0.1}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(angleAzimuth.angZen, angZen) annotation (Line(points={{0,-52},{-12,
+          -52},{-52,-52},{-52,-40},{-104,-40}}, color={0,0,127}));
+  connect(angleAzimuth.angHou, angHou) annotation (Line(points={{0,-48},{-60,
+          -48},{-60,-20},{-104,-20}}, color={0,0,127}));
+  connect(angleAzimuth.angDec, angDec) annotation (Line(points={{0,-44},{-62,
+          -44},{-62,0},{-104,0}}, color={0,0,127}));
+  connect(solDirTil.incAng, incAng.incAng) annotation (Line(points={{-2,24},{
+          -14,24},{-14,50},{-19,50}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),  Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),

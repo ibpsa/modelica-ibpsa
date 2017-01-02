@@ -54,7 +54,10 @@ equation
           points={{60,80},{60,-80}},
           color={0,0,0},
           thickness=0.5)}), Documentation(info="<html>
-<p>Basic implementation of Stefan Boltzmanns law for radiation.</p>
+<p>
+Basic implementation of Stefan Boltzmanns law for radiation.
+Heat exchange is linearised by default.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

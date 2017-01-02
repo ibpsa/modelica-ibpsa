@@ -3,6 +3,10 @@ partial model PartialZone "Partial model for thermal building zones"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
+
+  parameter Modelica.Fluid.Types.Dynamics energyDynamicsAir=Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance for air model: dynamic (3 initialization options) or steady state";
+  parameter Real mSenFac = 5 "Correction factor for thermal capacity of zone air.";
   parameter Integer nSurf(min=2)
     "Number of surfaces adjacent to and heat exchangeing with the zone";
   parameter Boolean useFluPor = true
@@ -140,5 +144,9 @@ February 10, 2015 by Filip Jorissen:<br/>
 Adjusted implementation for grouping of solar calculations.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Partial model that defines the main variables and connectors of a zone model.
+</p>
 </html>"));
 end PartialZone;

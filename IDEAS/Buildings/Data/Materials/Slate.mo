@@ -5,4 +5,8 @@ record Slate =IDEAS.Buildings.Data.Interfaces.Material (
     rho=2700,
     epsLw=0.97,
     epsSw=0.9) "Natural slate for roof tiles" annotation (Documentation(
-      revisions=""));
+      revisions="", info="<html>
+<p>
+Thermal properties of slate.
+</p>
+</html>"));

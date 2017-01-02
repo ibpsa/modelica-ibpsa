@@ -28,11 +28,15 @@ expandable connector WeaBus "Data bus that stores weather data"
             100}})),
     Documentation(info="<html>
 <p>
-This component is an expandable connector that is used to implement a bus that contains the weather data.
+Connector that contains all environment information for many inclinations and tilt angles.
 </p>
-</html>
-", revisions="<html>
+</html>",
+   revisions="<html>
 <ul>
+<li>
+October 22, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
+</li>
 <li>
 June 25, 2010, by Wangda Zuo:<br/>
 First implementation.
