@@ -72,7 +72,6 @@ partial model PartialFlowMachine
         origin={0,120})));
 
   Modelica.Blocks.Interfaces.RealOutput y_actual(
-    min=0,
     final unit="1")
     "Actual normalised pump speed that is used for computations"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
@@ -89,16 +88,19 @@ partial model PartialFlowMachine
         iconTransformation(extent={{-10,-78},{10,-58}})));
 
   // Variables
-  Modelica.SIunits.VolumeFlowRate VMachine_flow = eff.V_flow "Volume flow rate";
+  Modelica.SIunits.VolumeFlowRate VMachine_flow(start=_VMachine_flow) = eff.V_flow "Volume flow rate";
   Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
       -preSou.dp "Pressure difference";
 
-  Modelica.SIunits.Efficiency eta =    eff.eta "Global efficiency";
-  Modelica.SIunits.Efficiency etaHyd = eff.etaHyd "Hydraulic efficiency";
-  Modelica.SIunits.Efficiency etaMot = eff.etaMot "Motor efficiency";
+  Real eta(unit="1", final quantity="Efficiency") =    eff.eta "Global efficiency";
+  Real etaHyd(unit="1", final quantity="Efficiency") = eff.etaHyd "Hydraulic efficiency";
+  Real etaMot(unit="1", final quantity="Efficiency") = eff.etaMot "Motor efficiency";
 
   // Quantity to control
 protected
+  final parameter Modelica.SIunits.VolumeFlowRate _VMachine_flow = 0
+    "Start value for VMachine_flow, used to avoid a warning if not specified";
+
   parameter Types.PrescribedVariable preVar "Type of prescribed variable";
 
   // The parameter speedIsInput is required to conditionally remove the instance gain.
@@ -178,7 +180,7 @@ protected
     final prescribedHeatFlowRate=true,
     final allowFlowReversal=allowFlowReversal,
     nPorts=2) "Fluid volume for dynamic model"
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    annotation (Placement(transformation(extent={{-70,0},{-90,20}})));
 
   Modelica.Blocks.Continuous.Filter filter(
      order=2,
@@ -231,7 +233,7 @@ protected
 
   IDEAS.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = Medium) "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{-70,10},{-50,-10}})));
+    annotation (Placement(transformation(extent={{-50,10},{-30,-10}})));
 
   Sensors.RelativePressure senRelPre(
     redeclare final package Medium = Medium) "Head of mover"
@@ -374,11 +376,11 @@ initial equation
 
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
-      points={{-34,-94},{-40,-94},{-40,10},{-20,10}},
+      points={{-34,-94},{-60,-94},{-60,10},{-70,10}},
       color={191,0,0}));
 
   connect(vol.heatPort, heatPort) annotation (Line(
-      points={{-20,10},{-20,10},{-40,10},{-40,-100},{-60,-100}},
+      points={{-70,10},{-70,10},{-60,10},{-60,-100}},
       color={191,0,0}));
   connect(preSou.port_b, port_b) annotation (Line(
       points={{60,0},{100,0}},
@@ -407,13 +409,6 @@ equation
           44,-72},{44,-70},{41,-70}},
                              color={0,0,127}));
 
-  connect(port_a, senMasFlo.port_a)
-    annotation (Line(points={{-100,0},{-86,0},{-70,0}}, color={0,127,255}));
-  connect(senMasFlo.port_b, vol.ports[1])
-    annotation (Line(points={{-50,0},{-12,0}},color={0,127,255}));
-  connect(vol.ports[2], preSou.port_a)
-    annotation (Line(points={{-8,0},{-8,0},{40,0}},
-                                                  color={0,127,255}));
   connect(senRelPre.port_b, preSou.port_a) annotation (Line(points={{43,-20.5},{
           20,-20.5},{20,0},{40,0}},
                                color={0,127,255}));
@@ -431,8 +426,8 @@ equation
           -74},{18,-74}}, color={0,0,127}));
   connect(rho_inlet.y,eff. rho) annotation (Line(points={{-69,-64},{-69,-64},{-34,
           -64}},                          color={0,0,127}));
-  connect(eff.m_flow, senMasFlo.m_flow) annotation (Line(points={{-34,-54},{-60,
-          -54},{-60,-11}},                         color={0,0,127}));
+  connect(eff.m_flow, senMasFlo.m_flow) annotation (Line(points={{-34,-54},{-34,
+          -54},{-40,-54},{-40,-11}},               color={0,0,127}));
   connect(eff.PEle, P) annotation (Line(points={{-11,-59},{0,-59},{0,-50},{90,-50},
           {90,80},{110,80}}, color={0,0,127}));
   connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-56},{-8,-56},{-8,-86},
@@ -444,6 +439,12 @@ equation
           -38},{-18,-38},{-18,-46}},               color={0,0,127}));
   connect(eff.y_out, y_actual) annotation (Line(points={{-11,-48},{92,-48},{92,50},
           {110,50}}, color={0,0,127}));
+  connect(port_a, vol.ports[1])
+    annotation (Line(points={{-100,0},{-78,0},{-78,0}}, color={0,127,255}));
+  connect(vol.ports[2], senMasFlo.port_a)
+    annotation (Line(points={{-82,0},{-82,0},{-50,0}}, color={0,127,255}));
+  connect(senMasFlo.port_b, preSou.port_a)
+    annotation (Line(points={{-30,0},{40,0},{40,0}}, color={0,127,255}));
    annotation(Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),
     graphics={
@@ -529,6 +530,19 @@ and more robust simulation, in particular if the mass flow is equal to zero.
       revisions="<html>
 <ul>
 <li>
+December 2, 2016, by Michael Wetter:<br/>
+Removed <code>min</code> attribute as otherwise numerical noise can cause
+the assertion on the limit to fail.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+</li>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Set start value for <code>VMachine_flow</code> to avoid a warning in
+<a href=\"modelica://IDEAS.Fluid.Movers.Examples.MoverContinuous\">
+IDEAS.Fluid.Movers.Examples.MoverContinuous</a>.
+</li>
+<li>
 July 29, 2016, by Michael Wetter:<br/>
 Made <code>Extractor</code> protected so that it can be removed later
 with a backwards compatible change.
@@ -538,6 +552,15 @@ July 19, 2016, by Filip Jorissen:<br/>
 Created custom implementation for extractor.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/498\">#498</a>.
+</li>
+<li>
+June 16, 2016, by Filip Jorissen:<br/>
+Switched position of mixing volume and mass flow rate sensor.
+This is to have a consistent operating point tuple
+of <code>dp</code> and <code>m_flow</code> when having
+compressible flow.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/458\">#458</a>.
 </li>
 <li>
 February 19, 2016, by Michael Wetter and Filip Jorissen:<br/>
@@ -589,6 +612,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end PartialFlowMachine;
