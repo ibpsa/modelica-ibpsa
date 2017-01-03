@@ -86,9 +86,9 @@ revisions="<html>
 <ul>
 <li>
 January 2, 2017, by Filip Jorissen:<br/>
-Updated documentation since parameters 
+Removed parameters
 <code>effInpEva</code> and <code>effInpCon</code>
-were removed.
+and updated documentation.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
 issue 497</a>.

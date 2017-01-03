@@ -2,8 +2,6 @@ within Annex60.Fluid.HeatPumps;
 model Carnot_y
   "Reversible heat pump with performance curve adjusted based on Carnot efficiency"
  extends Annex60.Fluid.Chillers.BaseClasses.PartialCarnot_y(
-  effInpEva=Annex60.Fluid.Types.EfficiencyInput.port_a,
-  effInpCon=Annex60.Fluid.Types.EfficiencyInput.port_b,
   final COP_is_for_cooling = false);
 
 initial equation
@@ -75,12 +73,9 @@ The maximum heating capacity is set by the parameter <code>QCon_flow_max</code>,
 which is by default set to infinity.
 </p>
 <p>
-By default, the coefficient of performance depends on the
-evaporator entering temperature and the condenser leaving
-temperature.
-This can be changed with the parameters
-<code>effInpEva</code> and
-<code>effInpCon</code>.
+The coefficient of performance depends on the
+evaporator and condenser leaving temperature
+since otherwise the second law of thermodynamics may be violated.
 </p>
 <h4>Notes</h4>
 <p>
@@ -90,6 +85,15 @@ For a similar model that can be used as a chiller, see
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+Removed parameters
+<code>effInpEva</code> and <code>effInpCon</code>
+and updated documentation.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+issue 497</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Refactored model to use the same base class as

@@ -156,6 +156,15 @@ Annex60.Fluid.HeatPumps.Examples.Carnot_TCon</a>.
 revisions="<html>
 <ul>
 <li>
+January 2, 2017, by Filip Jorissen:<br/>
+Removed parameters
+<code>effInpEva</code> and <code>effInpCon</code>
+and updated documentation.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+issue 497</a>.
+</li>
+<li>
 November 25, 2015 by Michael Wetter:<br/>
 First implementation.
 </li>
