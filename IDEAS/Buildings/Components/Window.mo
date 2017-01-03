@@ -281,8 +281,14 @@ equation
           40},{-14,0},{-10,0}},
                             color={191,0,0}));
     annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-60,-100},{60,100}}),
         graphics={
+        Rectangle(
+          extent={{-50,-90},{50,100}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{-46,60},{50,24},{50,-50},{-30,-20},{-46,-20},{-46,60}},
           smooth=Smooth.None,

@@ -91,8 +91,14 @@ equation
   connect(product.y, periodicFlow.Q_flow) annotation (Line(points={{-38.4,40},{-50,
           40},{-50,22},{-40,22}}, color={0,0,127}));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-60,-100},{60,100}}),
         graphics={
+        Rectangle(
+          extent={{-50,-70},{50,100}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-50,-90},{50,-70}},
           fillColor={175,175,175},

@@ -70,8 +70,20 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-60,-100},{60,100}}),
         graphics={
+        Rectangle(
+          extent={{-50,-90},{50,-70}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-50,80},{50,100}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Line(
           points={{-50,80},{50,80}},
           color={175,175,175}),

@@ -32,20 +32,20 @@ model ZoneExample
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S,
     A=2)                       "Window model"
-    annotation (Placement(transformation(extent={{-56,40},{-46,60}})));
+    annotation (Placement(transformation(extent={{-56,40},{-44,60}})));
   IDEAS.Buildings.Components.SlabOnGround slabOnGround(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.LightWall
       constructionType,
     AWall=l*w,
     PWall=2*(l + w))
            "Floor model"
-    annotation (Placement(transformation(extent={{-54,-40},{-44,-20}})));
+    annotation (Placement(transformation(extent={{-56,-40},{-44,-20}})));
   IDEAS.Buildings.Components.OuterWall outerWall(
     azi=0,
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall constructionType,
     inc=IDEAS.Types.Tilt.Wall,
     AWall=(l + w)*2*h)         "Outer wall model"
-    annotation (Placement(transformation(extent={{-54,-62},{-44,-42}})));
+    annotation (Placement(transformation(extent={{-56,-60},{-44,-40}})));
   IDEAS.Buildings.Components.Zone zone1(
     redeclare package Medium = Medium,
     allowFlowReversal=true,
@@ -59,36 +59,36 @@ model ZoneExample
     azi=IDEAS.Types.Azimuth.S,
     AWall=(l + w)*2*h - window.A)
                                "Outer wall model"
-    annotation (Placement(transformation(extent={{-56,20},{-46,40}})));
+    annotation (Placement(transformation(extent={{-56,20},{-44,40}})));
   IDEAS.Buildings.Components.OuterWall Roof(
     azi=0,
     AWall=10,
     redeclare Validation.Data.Constructions.LightRoof constructionType,
     inc=IDEAS.Types.Tilt.Ceiling) "Roof model"
-    annotation (Placement(transformation(extent={{-56,60},{-46,80}})));
+    annotation (Placement(transformation(extent={{-56,60},{-44,80}})));
 equation
   connect(internalWall.propsBus_a, zone.propsBus[1]) annotation (Line(
       points={{-12,-5},{-12,-24.6667},{0,-24.6667}},
       color={255,204,51},
       thickness=0.5));
   connect(slabOnGround.propsBus_a, zone.propsBus[2]) annotation (Line(
-      points={{-44,-28},{-22,-28},{-22,-26},{0,-26}},
+      points={{-45,-28},{-22,-28},{-22,-26},{0,-26}},
       color={255,204,51},
       thickness=0.5));
   connect(outerWall.propsBus_a, zone.propsBus[3]) annotation (Line(
-      points={{-44,-50},{-20,-50},{-20,-27.3333},{0,-27.3333}},
+      points={{-45,-48},{-20,-48},{-20,-27.3333},{0,-27.3333}},
       color={255,204,51},
       thickness=0.5));
   connect(Roof.propsBus_a, zone1.propsBus[1]) annotation (Line(
-      points={{-46,72},{-38,72},{-12,72},{-12,35.5},{0,35.5}},
+      points={{-45,72},{-45,72},{-12,72},{-12,35.5},{0,35.5}},
       color={255,204,51},
       thickness=0.5));
   connect(window.propsBus_a, zone1.propsBus[2]) annotation (Line(
-      points={{-46,52},{-38,52},{-14,52},{-14,34.5},{0,34.5}},
+      points={{-45,52},{-45,52},{-14,52},{-14,34.5},{0,34.5}},
       color={255,204,51},
       thickness=0.5));
   connect(outerWall1.propsBus_a, zone1.propsBus[3]) annotation (Line(
-      points={{-46,32},{-14,32},{-14,33.5},{0,33.5}},
+      points={{-45,32},{-14,32},{-14,33.5},{0,33.5}},
       color={255,204,51},
       thickness=0.5));
   connect(internalWall.propsBus_b, zone1.propsBus[4]) annotation (Line(

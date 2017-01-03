@@ -103,8 +103,14 @@ equation
       smooth=Smooth.None));
   connect(Tdes.u, propsBus_a.weaBus.Tdes);
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-60,-100},{60,100}}),
         graphics={
+        Rectangle(
+          extent={{-50,-90},{50,80}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{-50,60},{-30,60},{-30,80},{50,80},{50,100},{-50,100},{-50,60}},
           pattern=LinePattern.None,

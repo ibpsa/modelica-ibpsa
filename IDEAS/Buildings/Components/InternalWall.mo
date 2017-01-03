@@ -98,6 +98,18 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-60,-100},{60,100}}),
         graphics={
         Rectangle(
+          extent={{-52,-90},{48,-70}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-50,80},{50,100}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
           extent={{-10,80},{10,-70}},
           fillColor={175,175,175},
           fillPattern=FillPattern.Backward,
@@ -116,7 +128,8 @@ equation
           smooth=Smooth.None,
           color={0,0,0},
           thickness=0.5)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-60,-100},{60,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-60,-100},{60,
+            100}})),
     Documentation(info="<html>
 <p>
 This is a wall model that should be used
