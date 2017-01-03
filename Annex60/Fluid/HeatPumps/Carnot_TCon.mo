@@ -46,8 +46,6 @@ initial equation
   assert(QCon_flow_nominal > 0, "Parameter QCon_flow_nominal must be positive.");
   assert(COP_nominal > 1, "The nominal COP of a heat pump must be bigger than one.");
 
-
-
 equation
   connect(TSet, con.TSet) annotation (Line(points={{-120,90},{-80,90},{-80,90},{
           -80,66},{-12,66}}, color={0,0,127}));
@@ -93,7 +91,7 @@ the condenser temperature <i>T<sub>con,0</sub></i>, in which
 case the model computes the Carnot effectivness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&eta;<sub>Carnot,0</sub> = 
+&eta;<sub>Carnot,0</sub> =
   COP<sub>0</sub>
 &frasl;  (T<sub>con,0</sub> &frasl; (T<sub>con,0</sub>-T<sub>eva,0</sub>)).
 </p>
@@ -164,6 +162,15 @@ and updated documentation.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
 issue 497</a>.
+</li>
+<li>
+August 8, 2016, by Michael Wetter:<br/>
+Changed default temperature to compute COP to be the leaving temperature as
+use of the entering temperature can violate the 2nd law if the temperature
+lift is small.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+Annex 60, issue 497</a>.
 </li>
 <li>
 November 25, 2015 by Michael Wetter:<br/>

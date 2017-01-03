@@ -22,7 +22,7 @@ the condenser temperature <i>T<sub>con,0</sub></i>, in which
 case the model computes the Carnot effectivness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&eta;<sub>Carnot,0</sub> = 
+&eta;<sub>Carnot,0</sub> =
   COP<sub>0</sub>
 &frasl;  (T<sub>eva,0</sub> &frasl; (T<sub>con,0</sub>-T<sub>eva,0</sub>)).
 </p>
@@ -94,6 +94,15 @@ This is for
 issue 497</a>.
 </li>
 <li>
+August 8, 2016, by Michael Wetter:<br/>
+Changed default temperature to compute COP to be the leaving temperature as
+use of the entering temperature can violate the 2nd law if the temperature
+lift is small.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+Annex 60, issue 497</a>.
+</li>
+<li>
 January 26, 2016, by Michael Wetter:<br/>
 Refactored model to use the same base class as
 <a href=\"modelica://Annex60.Fluid.HeatPumps.Carnot_y\">Annex60.Fluid.HeatPumps.Carnot_y</a>.
@@ -109,7 +118,7 @@ Corrected wrong computation of <code>staB1</code> and <code>staB2</code>
 which mistakenly used the <code>inStream</code> operator
 for the configuration without flow reversal.
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/476\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/476\">
 issue 476</a>.
 </li>
 <li>
@@ -121,7 +130,7 @@ but it will write a warning so that users can transition their models.
 <br/>
 Corrected <code>assert</code> statement for the efficiency curve.
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/468\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/468\">
 issue 468</a>.
 </li>
 <li>
