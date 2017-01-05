@@ -130,14 +130,16 @@ Non-SI units are to be kept at an absolute minimum, and they must be declared as
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_0_1_build0 "Version 0.1 build 0"
+  class Version_1_0_0 "Version 1.0.0"
     extends Modelica.Icons.ReleaseNotes;
       annotation (preferredView="info", Documentation(info="<html>
 <p>
-First development version of the library.
+First official release of the Annex 60 library.
+Future development will continue on
+<a href=\"https://github.com/ibpsa/modelica\">https://github.com/ibpsa/modelica</a>.
 </p>
 </html>"));
-  end Version_0_1_build0;
+  end Version_1_0_0;
 
     annotation (preferredView="info",
     Documentation(info="<html>
@@ -147,7 +149,7 @@ on the <code>Annex60</code> library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Annex60.UsersGuide.ReleaseNotes.Version_0_1_build0\">Version 0.1</a>(September xxx , 2013)
+<a href=\"modelica://Annex60.UsersGuide.ReleaseNotes.Version_1_0_0\">Version 1.0.0</a>(January 9, 2017)
 </li>
 </ul>
 
@@ -364,7 +366,7 @@ You are under no obligation whatsoever to provide any bug fixes, patches, or upg
 At the top level of your Modelica package and at every important subpackage, add the following notices in the info layer of the package:
 </p>
 <ul><li style=\"list-style-type:none\">
-Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 Copyright (c) 2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory.
+Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 Copyright (c) 2009-2017, The Regents of the University of California, through Lawrence Berkeley National Laboratory.
 </li>
 <li style=\"list-style-type:none\"><i>
 This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>.
@@ -407,7 +409,7 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=\"5\">Copyright</font></h4>
 <p>
-Copyright (c) 2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
+Copyright (c) 2009-2017, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
 </p>
 <p>
 If you have questions about your rights to use or distribute this software, please contact Berkeley Lab's Technology Transfer Department at
@@ -478,10 +480,10 @@ end UsersGuide;
 
 
 annotation (
-version="0.1",
+version="1.0.0",
 versionBuild=0,
-versionDate="2013-09-20",
-dateModified = "2013-09-20",
+versionDate="2017-01-09",
+dateModified = "2017-01-09",
 uses(Modelica(version="3.2.2")),
 preferredView="info",
 Documentation(info="<html>
