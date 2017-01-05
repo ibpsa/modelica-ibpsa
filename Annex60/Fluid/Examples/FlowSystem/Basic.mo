@@ -508,7 +508,7 @@ In total there are therefore four supply pipes,
 which are each connected to four or eight emission devices in the zones. 
 The flow through the emission devices is controlled using two way valves.
 The emission device itself also generates a pressure drop, 
-represented by components <code>tabsXXX</code>.
+represented by components <code>tabsX</code>.
 Note that the emission devices are in the real building
 cooling and heating concrete slabs, but this simplified example
 only models their flow resistance.
