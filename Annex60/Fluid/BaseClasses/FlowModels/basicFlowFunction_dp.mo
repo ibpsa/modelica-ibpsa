@@ -22,8 +22,6 @@ algorithm
            smoothOrder=2,
            derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
              Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der,
-           inverse(dp=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-             m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},
@@ -109,4 +107,6 @@ First implementation.
 </li>
 </ul>
 </html>"));
+           //inverse(dp=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+           //  m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
 end basicFlowFunction_dp;
