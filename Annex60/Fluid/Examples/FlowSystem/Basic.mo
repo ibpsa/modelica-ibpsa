@@ -480,10 +480,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="Cold")}),
     experiment(
-      StopTime=10000,
-      __Dymola_NumberOfIntervals=20000,
-      __Dymola_fixedstepsize=15,
-      __Dymola_Algorithm="Lsodar"),
+      StopTime=10000),
     Documentation(info="<html>
 <p>
 Example model demonstrating the use of the <code>Annex60</code> components in a larger system. 
