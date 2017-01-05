@@ -110,7 +110,7 @@ def _write_csv(file_name, d):
         f.write("time")
         for key in d.keys():
             if key != 'time':
-                f.write(", %s" % key)
+                f.write("; %s" % key)
         f.write("\n")
         # Write data
         for i in range(n):
@@ -119,7 +119,7 @@ def _write_csv(file_name, d):
             for key in d.keys():
                 if key != 'time':
                     vals = d[key]
-                    f.write(", %s" % vals[i])
+                    f.write("; %s" % vals[i])
             f.write("\n")
 
 
