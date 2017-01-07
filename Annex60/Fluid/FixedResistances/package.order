@@ -1,7 +1,8 @@
-FixedResistanceDpM
 FixedResistance_dp
 FixedResistance_dh
+HydraulicDiameter
+Junction
 LosslessPipe
-SplitterFixedResistanceDpM
+PressureDrop
 Examples
 Validation
