@@ -67,7 +67,7 @@ protected
     parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
       "Nominal mass flow rate at chilled water side";
 
-    Sources.MassFlowSource_T sou1(
+    Annex60.Fluid.Sources.MassFlowSource_T sou1(
       redeclare package Medium = Medium1,
       nPorts=1,
       use_m_flow_in=false,
@@ -75,7 +75,7 @@ protected
       m_flow=m1_flow_nominal)
                      "Mass flow rate source"
       annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-    Sources.FixedBoundary sin1(redeclare package Medium = Medium2, nPorts=1)
+    Annex60.Fluid.Sources.FixedBoundary sin1(redeclare package Medium = Medium2, nPorts=1)
       "Pressure source" annotation (Placement(transformation(extent={{-10,-10},{
               10,10}}, origin={-88,-50})));
     Annex60.Fluid.Chillers.Carnot_TEva chi(
@@ -94,34 +94,34 @@ protected
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       use_eta_Carnot_nominal=true) "Chiller model"
       annotation (Placement(transformation(extent={{6,-48},{26,-28}})));
-    Sources.MassFlowSource_T sou2(
+    Annex60.Fluid.Sources.MassFlowSource_T sou2(
       redeclare package Medium = Medium2,
       m_flow=m2_flow_nominal,
       use_T_in=true,
       T=293.15,
       nPorts=1) "Mass flow rate source"
       annotation (Placement(transformation(extent={{102,-60},{82,-40}})));
-    Sensors.EntropyFlowRate S_a1(
+    Annex60.Fluid.Sensors.EntropyFlowRate S_a1(
       redeclare package Medium = Medium1,
       m_flow_nominal=m1_flow_nominal,
       tau=0) "Entropy flow rate sensor"
       annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
-    Sensors.EntropyFlowRate S_a2(
+    Annex60.Fluid.Sensors.EntropyFlowRate S_a2(
       redeclare package Medium = Medium1,
       m_flow_nominal=m1_flow_nominal,
       tau=0) "Entropy flow rate sensor"
       annotation (Placement(transformation(extent={{-30,-60},{-50,-40}})));
-    Sensors.EntropyFlowRate S_a3(
+    Annex60.Fluid.Sensors.EntropyFlowRate S_a3(
       redeclare package Medium = Medium1,
       m_flow_nominal=m1_flow_nominal,
       tau=0) "Entropy flow rate sensor"
       annotation (Placement(transformation(extent={{58,-60},{38,-40}})));
-    Sensors.EntropyFlowRate S_a4(
+    Annex60.Fluid.Sensors.EntropyFlowRate S_a4(
       redeclare package Medium = Medium1,
       m_flow_nominal=m1_flow_nominal,
       tau=0) "Entropy flow rate sensor"
       annotation (Placement(transformation(extent={{38,-20},{58,0}})));
-    Sources.FixedBoundary sin2(redeclare package Medium = Medium2, nPorts=1)
+    Annex60.Fluid.Sources.FixedBoundary sin2(redeclare package Medium = Medium2, nPorts=1)
       "Pressure source" annotation (Placement(transformation(extent={{10,-10},{-10,
               10}}, origin={88,-10})));
     Modelica.Blocks.Math.Add SIn_flow
