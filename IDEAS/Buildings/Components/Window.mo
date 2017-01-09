@@ -1,12 +1,13 @@
 within IDEAS.Buildings.Components;
 model Window "Multipane window"
-  replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazing
+  replaceable IDEAS.Buildings.Data.Interfaces.Glazing glazing
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
 
   extends IDEAS.Buildings.Components.Interfaces.PartialSurface(
     dT_nominal_a=-3,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     intCon_a(final A=
            A*(1 - frac),
            linearise=linIntCon_a or sim.linearise,
@@ -42,8 +43,8 @@ model Window "Multipane window"
     annotation(Dialog(tab="Dynamics", enable=windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two));
 
   replaceable parameter IDEAS.Buildings.Data.Frames.None fraType
-    constrainedby IDEAS.Buildings.Data.Interfaces.Frame       "Window frame type"
-    annotation (__Dymola_choicesAllMatching=true, Dialog(group=
+    constrainedby IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
+    annotation (choicesAllMatching=true, Dialog(group=
           "Construction details"));
   replaceable IDEAS.Buildings.Components.Shading.None shaType constrainedby
     Shading.Interfaces.PartialShading(
@@ -154,6 +155,10 @@ protected
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
 initial equation
   QTra_design = (U_value*A + (if fraType.briTyp.present then fraType.briTyp.G else 0)) *(273.15 + 21 - Tdes.y);
+
+
+
+
 
 
 

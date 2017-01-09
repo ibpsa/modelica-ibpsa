@@ -36,11 +36,16 @@ model MonoLayerAir
 
   Modelica.SIunits.ThermalConductance G=h*A + A*5.86*(1/((1/epsLw_a) + (1/epsLw_b) - 1));
   //when linearising we assume that Nu is the average Nu for positive and negative temperature differences
+  //Eqn 5 from Hollands
   Real Nu=
     if ceiling or floor then
-      if linearise or (port_a.T-port_b.T>0 and ceiling or port_a.T-port_b.T<=0 and floor) then
-        1 + (1.44*(1-1708/Ra)+((Ra/5830)^(1/3)-1))*(if linearise then 0.5 else 1)
-      else 1
+      (if linearise then
+        (1 + (1.44*(1-1708/Ra)+((Ra/5830)^(1/3)-1)))/2
+      else
+        if ceiling then
+          IDEAS.Utilities.Math.Functions.spliceFunction(pos=1 + (1.44*max(1-1708/Ra,0)+max((Ra/5830)^(1/3)-1,0)), neg=1, x=sign(port_a.T-port_b.T)*Ra-500,  deltax=100)
+        else
+          IDEAS.Utilities.Math.Functions.spliceFunction(pos=1 + (1.44*max(1-1708/Ra,0)+max((Ra/5830)^(1/3)-1,0)), neg=1, x=sign(port_b.T-port_a.T)*Ra-500,  deltax=100))
     elseif vertical then
       (if Ra>5e4
         then 0.0673838*Ra^(1/3)
@@ -58,8 +63,8 @@ protected
     annotation(Evaluate=true);
   final parameter Boolean vertical=IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Types.Tilt.Wall)
     annotation(Evaluate=true);
-
-  Real Ra = max(1,Modelica.Constants.g_n*beta*(if linearise then abs(dT_nominal) else abs(port_a.T-port_b.T))*d^3/nu/alpha);
+  final parameter Real coeffRa=Modelica.Constants.g_n*beta*d^3/nu/alpha "Coefficient for evaluating less operations at run time";
+  Real Ra = max(1,(if linearise then abs(dT_nominal) else abs(port_a.T-port_b.T))*coeffRa);
   Modelica.SIunits.CoefficientOfHeatTransfer h = Nu*k/d;
 
 public
@@ -136,6 +141,11 @@ Only valid for horizontal or vertical surfaces.
 <span style=\"font-family: Courier New,courier;\">Wright, J. 1996. A correlation to quantify convective heat transfer between vertical window glazings, ASHRAE Transactions, 102(1): 940-946.</span></pre>
 </html>", revisions="<html>
 <ul>
+<li>
+November 10, 2016, by Filip Jorissen:<br/>
+Revised implementation for horizontal surfaces such that
+less state events are generated.
+</li>
 <li>
 November 15, 2016, by Filip Jorissen:<br/>
 Revised documentation for IDEAS 1.0.
