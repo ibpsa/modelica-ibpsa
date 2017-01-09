@@ -550,16 +550,14 @@ equation
     __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/PPD12/Ppd12.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>Example model of a partially renovated residential dwelling in Belgium.</p>
-<p>To be elaborated on:</p>
-<p>- heating</p>
-<p>- ventilation</p>
-<p>- air flow model</p>
-<p>- control</p>
+<p>
+Example model of a partially renovated terraced house in Belgium.
+This model adds the building heating system.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-December 20, 2016 by Filip Jorissen:<br/>
+January 9, 2017 by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>

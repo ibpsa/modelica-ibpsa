@@ -1,6 +1,17 @@
 within IDEAS.Examples.PPD12;
 model Ventilation "Ppd 12 example model"
-  extends IDEAS.Examples.PPD12.Heating;
+  extends IDEAS.Examples.PPD12.Heating(
+    living(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
+    Diner(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
+    stairWay(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
+
+    bathRoom(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
+
+    bedRoom1(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
+
+    bedRoom2(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
+
+    bedRoom3(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   Fluid.Movers.FlowControlled_m_flow fanSup(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -36,7 +47,7 @@ model Ventilation "Ppd 12 example model"
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
     dp_nominal={0,0,15})
-    annotation (Placement(transformation(extent={{310,130},{290,150}})));
+    annotation (Placement(transformation(extent={{272,130},{252,150}})));
   IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM spl6(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -46,7 +57,7 @@ model Ventilation "Ppd 12 example model"
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
     dp_nominal={0,5,15})
-    annotation (Placement(transformation(extent={{278,130},{258,150}})));
+    annotation (Placement(transformation(extent={{240,130},{220,150}})));
   IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM spl7(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -67,6 +78,15 @@ model Ventilation "Ppd 12 example model"
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
     dp_nominal={5,5,15})
     annotation (Placement(transformation(extent={{120,130},{100,150}})));
+  Fluid.HeatExchangers.ConstantEffectiveness hex(
+    redeclare package Medium1 = MediumAir,
+    redeclare package Medium2 = MediumAir,
+    m1_flow_nominal=m_flow_nominal_air,
+    m2_flow_nominal=m_flow_nominal_air,
+    dp1_nominal=20,
+    dp2_nominal=20,
+    eps=0.75) "Heat recovery unit"
+    annotation (Placement(transformation(extent={{290,150},{310,170}})));
 equation
   connect(hallway.proBusD, living.proBusB) annotation (Line(
       points={{-73,50},{-45,50},{-45,40}},
@@ -181,12 +201,12 @@ equation
           140},{360,172}}, color={0,127,255}));
   connect(fanRet.port_b, bouAir.ports[2]) annotation (Line(points={{340,180},{360,
           180},{360,168}}, color={0,127,255}));
-  connect(spl5.port_3, bedRoom2.flowPort_Out) annotation (Line(points={{300,130},
-          {300,130},{300,86},{300,62},{268,62}}, color={0,127,255}));
+  connect(spl5.port_3, bedRoom2.flowPort_Out) annotation (Line(points={{262,130},
+          {268,130},{268,84},{268,62}},          color={0,127,255}));
   connect(bedRoom2.flowPort_In, bedRoom3.flowPort_In) annotation (Line(points={{
           264,62},{254,62},{250,62},{250,20},{268,20}}, color={0,127,255}));
-  connect(spl6.port_3, bedRoom3.flowPort_In) annotation (Line(points={{268,130},
-          {266,130},{268,130},{268,20}}, color={0,127,255}));
+  connect(spl6.port_3, bedRoom3.flowPort_In) annotation (Line(points={{230,130},
+          {230,20},{268,20}},            color={0,127,255}));
   connect(stairWay.flowPort_Out, bedRoom3.flowPort_Out) annotation (Line(points=
          {{78,6},{80,6},{80,0},{80,8},{272,8},{272,20}}, color={0,127,255}));
   connect(stairWay.flowPort_In, bathRoom.flowPort_In) annotation (Line(points={{
@@ -195,12 +215,10 @@ equation
           {128,60},{122,60},{122,56},{78,56},{78,6}}, color={0,127,255}));
   connect(spl7.port_3, bathRoom.flowPort_Out)
     annotation (Line(points={{140,170},{140,6},{132,6}}, color={0,127,255}));
-  connect(spl7.port_2, fanRet.port_a)
-    annotation (Line(points={{150,180},{320,180}}, color={0,127,255}));
-  connect(spl6.port_1, spl5.port_2) annotation (Line(points={{278,140},{283,140},
-          {290,140}}, color={0,127,255}));
+  connect(spl6.port_1, spl5.port_2) annotation (Line(points={{240,140},{240,140},
+          {252,140}}, color={0,127,255}));
   connect(spl8.port_1, spl6.port_2)
-    annotation (Line(points={{120,140},{258,140}}, color={0,127,255}));
+    annotation (Line(points={{120,140},{220,140}}, color={0,127,255}));
   connect(spl8.port_3, bedRoom1.flowPort_Out) annotation (Line(points={{110,130},
           {110,106},{132,106},{132,60}}, color={0,127,255}));
   connect(spl8.port_2, living.flowPort_In) annotation (Line(points={{100,140},{-38,
@@ -209,8 +227,14 @@ equation
           36},{-34,-38},{-34,-38}}, color={0,127,255}));
   connect(Diner.flowPort_Out, spl7.port_1) annotation (Line(points={{-38,-38},{-40,
           -38},{-40,-2},{-42,-2},{-42,180},{130,180}}, color={0,127,255}));
-  connect(fanSup.port_b, spl5.port_1) annotation (Line(points={{320,140},{315,140},
-          {310,140}}, color={0,127,255}));
+  connect(hex.port_a2, fanSup.port_b) annotation (Line(points={{310,154},{310,
+          140},{320,140}}, color={0,127,255}));
+  connect(hex.port_b2, spl5.port_1) annotation (Line(points={{290,154},{290,140},
+          {272,140}}, color={0,127,255}));
+  connect(hex.port_b1, fanRet.port_a) annotation (Line(points={{310,166},{310,
+          180},{320,180}}, color={0,127,255}));
+  connect(hex.port_a1, spl7.port_2) annotation (Line(points={{290,166},{290,180},
+          {150,180}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -200},{400,240}},
         initialScale=0.1), graphics={
@@ -248,16 +272,14 @@ equation
     __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/PPD12/Ppd12.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>Example model of a partially renovated residential dwelling in Belgium.</p>
-<p>To be elaborated on:</p>
-<p>- heating</p>
-<p>- ventilation</p>
-<p>- air flow model</p>
-<p>- control</p>
+<p>
+Example model of a partially renovated terraced house in Belgium.
+This model adds the building ventilation system.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-December 20, 2016 by Filip Jorissen:<br/>
+January 9, 2017 by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
