@@ -307,7 +307,6 @@ protected
       g_value=glazingA.g_value),
     A=A_winA,
     frac=fracA,
-    redeclare ThermalBridges.None briType,
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_win,
@@ -346,7 +345,6 @@ protected
       g_value=glazingB.g_value),
     A=A_winB,
     frac=fraB,
-    redeclare ThermalBridges.None briType,
     azi=aziA + Modelica.Constants.pi/2,
     T_start=T_start,
     linIntCon_a=linIntCon,
@@ -388,7 +386,6 @@ protected
       g_value=glazingC.g_value),
     A=A_winC,
     frac=fracC,
-    redeclare ThermalBridges.None briType,
     azi=aziA + Modelica.Constants.pi,
     T_start=T_start,
     linIntCon_a=linIntCon,
@@ -431,7 +428,6 @@ protected
       g_value=glazingD.g_value),
     A=A_winD,
     frac=fracD,
-    redeclare ThermalBridges.None briType,
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_win,
@@ -472,7 +468,6 @@ protected
       g_value=glazingCei.g_value),
     A=A_winCei,
     frac=fracCei,
-    redeclare ThermalBridges.None briType,
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_win,
@@ -930,6 +925,7 @@ initial equation
               "Using internal walls for the ceiling is not allowed because it is considered bad practice. 
               Use instead the 'External'  connection to connect the the floor of the surface above, 
               or use this option to connect and internal wall externally.");
+
 
 equation
   connect(intA.propsBus_a, propsBusInt[1]) annotation (Line(
