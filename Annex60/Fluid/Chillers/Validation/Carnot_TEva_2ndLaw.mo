@@ -37,7 +37,7 @@ model Carnot_TEva_2ndLaw
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Modelica.Blocks.Math.Add TConIn "Condensor inlet temperature"
     annotation (Placement(transformation(extent={{0,6},{20,26}})));
-  chiller chi_b(
+  Chiller chi_b(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
     final dTEva_nominal=dTEva_nominal,
@@ -49,7 +49,7 @@ model Carnot_TEva_2ndLaw
       Placement(transformation(rotation=0, extent={{60,-40},{80,-20}})));
 
 protected
-  model chiller "Subsystem model with the chiller"
+  model Chiller "Subsystem model with the chiller"
 
    replaceable package Medium1 = Modelica.Media.Interfaces.PartialMedium
       "Medium model";
@@ -194,7 +194,7 @@ protected
             104,-46}}, color={0,0,127}));
     annotation (Diagram(coordinateSystem(extent={{-120,-100},{140,100}})), Icon(
           coordinateSystem(extent={{-120,-100},{140,100}})));
-  end chiller;
+  end Chiller;
 equation
   connect(TSetEvaLvg.u1, TEvaIn.y) annotation (Line(points={{-42,66},{-50,66},{
           -50,80},{-59,80}},
@@ -225,6 +225,10 @@ despite of a very small temperature lift.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 9, 2017, by Michael Wetter:<br/>
+Renamed internal protected class <code>Chiller</code> to be upper-case.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 Updated model because the option to use the inlet temperatures to compute the COP
