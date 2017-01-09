@@ -200,13 +200,10 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
 IDEAS.Buildings.Components.Window W27(
 A=2.1402,inc=incWall,azi=aziNorth,
     windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(
+      redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05,len=4.62)),
+    redeclare BaseClasses.Data.Materials.Glazing glazing,
     frac=0.397,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=4.62),
     redeclare Buildings.Components.Shading.Box shaType(
       hWin=1.31,
       wWin=1,
@@ -220,14 +217,13 @@ A=2.1402,inc=incWall,azi=aziNorth,
             {-15,-14}})));
 
 IDEAS.Buildings.Components.Window W28(windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
-A=2.1402,inc=incWall,azi=aziEast,
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(
+      redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05, len=4.62)),
+    redeclare BaseClasses.Data.Materials.Glazing  glazing,
+    A=2.1402,
+    inc=incWall,
+    azi=aziEast,
     frac=0.397,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=4.62),
     redeclare Buildings.Components.Shading.Box shaType(
       hWin=1.31,
       wWin=1,
@@ -241,53 +237,49 @@ A=2.1402,inc=incWall,azi=aziEast,
             {0,-14}})));
 
 IDEAS.Buildings.Components.Window W29(windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
-A=2.1402,inc=incWall,azi=aziSouth,
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(
+      redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05, len=4.62)),
+    redeclare BaseClasses.Data.Materials.Glazing  glazing,
+    A=2.1402,
+    inc=incWall,
+    azi=aziSouth,
     frac=0.397,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=4.62),
-      redeclare ClosedBlinds shaType(shaCorr=00.05))
-                                  annotation (Placement(transformation(extent={{5,6},{
+    redeclare ClosedBlinds shaType(shaCorr=0.05))
+    annotation (Placement(transformation(extent={{5,6},{
             15,-14}})));
 
 IDEAS.Buildings.Components.Window W30(windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
-A=2.8527,inc=incWall,azi=aziSouth,
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(
+      redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05,len=6.04)),
+    redeclare BaseClasses.Data.Materials.Glazing glazing,
+    A=2.8527,
+    inc=incWall,
+    azi=aziSouth,
     frac=0.354,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=6.04),
-      redeclare ClosedBlinds shaType(shaCorr=0.05))
+    redeclare ClosedBlinds shaType(shaCorr=0.05))
                                   annotation (Placement(transformation(extent={{20,4},{
             30,-16}})));
 
 IDEAS.Buildings.Components.Window W31(windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
-A=5.8116,inc=incWall,azi=aziSouth,
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(
+      redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05, len=14.4)),
+    redeclare BaseClasses.Data.Materials.Glazing glazing,
+    A=5.8116,
+    inc=incWall,
+    azi=aziSouth,
     frac=0.293,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=14.4),
-      redeclare ClosedBlinds shaType(shaCorr=0.05))
+    redeclare ClosedBlinds shaType(shaCorr=0.05))
                                   annotation (Placement(transformation(extent={{35,6},{
             45,-14}})));
 
 IDEAS.Buildings.Components.Window W32(windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
-A=2.1402,inc=incWall,azi=aziWest,
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(
+      redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05, len=4.62)),
+    redeclare BaseClasses.Data.Materials.Glazing glazing,
+    A=2.1402,
+    inc=incWall,
+    azi=aziWest,
     frac=0.397,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=4.62),
     redeclare Buildings.Components.Shading.Box shaType(
       hWin=1.31,
       wWin=1,
@@ -301,14 +293,13 @@ A=2.1402,inc=incWall,azi=aziWest,
             60,-14}})));
 
 IDEAS.Buildings.Components.Window W33(windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
-A=2.1402,inc=incWall,azi=aziWest,
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(
+      redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05, len=4.62)),
+    redeclare BaseClasses.Data.Materials.Glazing glazing,
+    A=2.1402,
+    inc=incWall,
+    azi=aziWest,
     frac=0.397,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=4.62),
     redeclare Buildings.Components.Shading.Box shaType(
       hWin=1.31,
       wWin=1,
