@@ -79,7 +79,6 @@ model Ppd12 "Ppd 12 example model"
   IDEAS.Buildings.Components.Window winBed3(
     frac=0.1,
     azi=east,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.None briType,
     redeclare IDEAS.Examples.PPD12.Data.PvcInsulated fraType,
     redeclare IDEAS.Buildings.Data.Glazing.Ins2Ar glazing,
     inc=(IDEAS.Types.Tilt.Wall + IDEAS.Types.Tilt.Ceiling)/2,
