@@ -41,13 +41,8 @@ model Window "Multipane window"
     "Fraction of thermal mass C that is attributed to frame"
     annotation(Dialog(tab="Dynamics", enable=windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two));
 
-  replaceable IDEAS.Buildings.Components.ThermalBridges.LineLosses briType constrainedby
-    IDEAS.Buildings.Components.ThermalBridges.BaseClasses.ThermalBridge
-    "Thermal bridge of window edge" annotation (__Dymola_choicesAllMatching=true, Dialog(group=
-          "Construction details"));
-
-  replaceable IDEAS.Buildings.Data.Frames.None fraType
-    constrainedby IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
+  replaceable parameter IDEAS.Buildings.Data.Frames.None fraType
+    constrainedby IDEAS.Buildings.Data.Interfaces.Frame       "Window frame type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
   replaceable IDEAS.Buildings.Components.Shading.None shaType constrainedby
@@ -65,10 +60,6 @@ model Window "Multipane window"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-40,-100})));
-
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theBri(final G=briType.G) if
-       briType.present "Themal bridge of the window perimeter"
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
 
 protected
@@ -112,8 +103,9 @@ protected
                  fraType.present
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,60},{-40,80}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(final G=
-        fraType.U_value*A*frac) if fraType.present  annotation (Placement(transformation(extent={{10,70},
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(final G=(if
+        fraType.briTyp.present then fraType.briTyp.G else 0) + (fraType.U_value)
+        *A*frac) if                fraType.present  annotation (Placement(transformation(extent={{10,70},
             {-10,90}})));
 
   BoundaryConditions.SolarIrradiation.RadSolData radSolData(
@@ -148,8 +140,24 @@ protected
   final parameter Modelica.SIunits.HeatCapacity Cfra = layMul.C*fraC
     "Heat capacity of frame state";
 
+public
+  Modelica.Blocks.Sources.Constant constEpsSwFra(final k=fraType.mat.epsSw)
+    "Shortwave emissivity of frame"
+    annotation (Placement(transformation(extent={{6,46},{-6,58}})));
+public
+  Modelica.Blocks.Sources.Constant constEpsLwFra(final k=fraType.mat.epsLw)
+    "Shortwave emissivity of frame"
+    annotation (Placement(transformation(extent={{2,94},{-8,104}})));
 initial equation
-  QTra_design = (U_value*A + briType.G) *(273.15 + 21 - Tdes.y);
+  QTra_design = (U_value*A + (if fraType.briTyp.present then fraType.briTyp.G else 0)) *(273.15 + 21 - Tdes.y);
+
+
+
+
+
+
+
+
 
 
 
@@ -199,10 +207,6 @@ equation
       points={{-20,70},{-16,70},{-16,80},{-10,80}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.iEpsLw_b, skyRadFra.epsLw) annotation (Line(
-      points={{-10,8},{-14,8},{-14,93.4},{-20,93.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(radSolData.angInc, shaType.angInc) annotation (Line(
       points={{-79.4,-54},{-50,-54}},
       color={0,0,127},
@@ -245,11 +249,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(eConFra.Te, eCon.Te) annotation (Line(
-      points={{-20,65.2},{-20,-32.8}},
+      points={{-20,65.2},{-20,66},{-16,66},{-16,-32.8},{-20,-32.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eCon.hConExt, eConFra.hConExt) annotation (Line(
-      points={{-20,-37},{-20,61}},
+      points={{-20,-37},{-20,-36},{-14,-36},{-14,61},{-20,61}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eCon.Te, propsBus_a.weaBus.Te) annotation (Line(
@@ -275,11 +279,8 @@ equation
     connect(heaCapGla.port, layFra.port_a) annotation (Line(points={{16,-12},{16,
             -12},{16,80},{10,80}},  color={191,0,0}));
   end if;
-  connect(theBri.port_b, layFra.port_a) annotation (Line(points={{10,40},{16,40},
-          {16,80},{10,80}}, color={191,0,0}));
-  connect(theBri.port_a, layMul.port_b) annotation (Line(points={{-10,40},{-14,
-          40},{-14,0},{-10,0}},
-                            color={191,0,0}));
+  connect(skyRadFra.epsLw, constEpsLwFra.y) annotation (Line(points={{-20,93.4},
+          {-14,93.4},{-14,99},{-8.5,99}}, color={0,0,127}));
     annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
@@ -346,6 +347,12 @@ Optional parameter <code>shaType</code> may be used to define the window shading
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 19, 2016, by Filip Jorissen:<br/>
+Removed briType, which had default value LineLoss.
+briType is now part of the Frame model and has default
+value None.
+</li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation: cleaned up connections and partials.
