@@ -17,7 +17,9 @@ model BuildingN2_Exp1
     lat=0.83555892609977,
     lon=0.20469221467389,
     linIntRad=false,
-    linExtRad=false) "Sim info manager"
+    linExtRad=false,
+    radSol(each rho=0.23))
+                     "Sim info manager"
     annotation (Placement(transformation(extent={{-68,64},{-48,84}})));
 
   IDEAS.Examples.TwinHouses.BaseClasses.Structures.TwinhouseN2 struct(T_start={
