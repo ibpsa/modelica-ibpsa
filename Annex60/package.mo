@@ -424,8 +424,8 @@ NOTICE. This software was developed under partial funding from the U.S. Departme
   Documentation(info="<html>
 <p>
 The Modelica <code>Annex60</code> library is a free open-source library
-with basic models that
-codify best practices for the implementation of models for
+with classes (models, functions, etc.) that
+codify and demonstrate best practices for the implementation of models for
 building and community energy and control systems.
 The library is developed within the Annex 60 project
 <a href=\"http://www.iea-annex60.org\">http://www.iea-annex60.org</a>
@@ -494,7 +494,7 @@ alt=\"Logo of IEA EBC\"
 width=\"100\"
 src=\"modelica://Annex60/Resources/Images/iea-ebc-logo.png\" border=\"1\"/>
 The <code>Annex60</code> library is a free library
-that provides basic classes for the development of
+that provides more than 300 classes (models, functions, etc.) for the development of
 Modelica libraries for building and community energy and control systems.
 The library is compatible with models from the Modelica Standard Library,
 in particular with models from
@@ -504,13 +504,15 @@ and
 </p>
 <p>
 The library is developed through the international collaborative project
-<i>New Generation Computational Tools for Building and Community Energy Systems</i>
+<a href=\"http://iea-annex60.org/\">IEA EBC Annex 60</a>,
+<i>New Generation Computational Tools for Building and Community Energy Systems</i>,
 that is carried out within the implementation agreement
-<i>Energy in Buildings and Communities (EBC)</i>
-from the <i>International Energy Agency</i>.
+<a href=\"http://www.iea-ebc.org/\">Energy in Buildings and Communities (EBC)</a>,
+of the
+<a href=\"http://www.iea.org/\">International Energy Agency</a>.
 </p>
 <p>
-The intent of the library is that classes of this library will be extended by
+The intent of the library is that it will be extended by
 implementations of Modelica libraries that are targeted to end-users.
 Major goals are
 </p>
@@ -552,13 +554,21 @@ The <code>IDEAS</code> library from KU Leuven, Belgium, available at
 </li>
 </ul>
 <p>
+The library also contains more than 300 example and validation models. For Dymola,
+each of these example and validation models contains a script that simulates it and
+plots certain variables of interest.
+</p>
+<p>
 The web page for this library is
 <a href=\"https://github.com/iea-annex60/modelica-annex60\">https://github.com/iea-annex60/modelica-annex60</a>.
 Contributions to further advance the library are welcomed.
 Contributions may not only be in the form of model development, but also
-through model use, model testing,
+through model use, model testing and validation,
 requirements definition or providing feedback regarding the model applicability
 to solve specific problems.
+In 2017, the development of the Annex 60 library will be continued under the
+<a href=\"https://ibpsa.github.io/project1/\">IBPSA Project 1</a> at
+<a href=\"https://github.com/ibpsa/modelica\">https://github.com/ibpsa/modelica</a>.
 </p>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
