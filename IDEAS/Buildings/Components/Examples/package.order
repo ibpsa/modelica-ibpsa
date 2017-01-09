@@ -6,3 +6,7 @@ CavityWalls
 WindowThermalBridge
 WallUnitTest
 BeamRadiationOnFloor
+ZoneStatic
+ZoneDynamic
+
+
