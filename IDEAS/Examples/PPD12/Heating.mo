@@ -267,6 +267,11 @@ model Heating "Ppd 12 example model"
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-40,-140})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemGnd annotation
+    (Placement(transformation(
+        extent={{-7,-7},{7,7}},
+        rotation=90,
+        origin={-51,-155})));
 equation
   connect(hallway.proBusD, living.proBusB) annotation (Line(
       points={{-73,50},{-45,50},{-45,40}},
@@ -491,12 +496,14 @@ equation
           -120}},            color={0,127,255}));
   connect(senTemRadBat4.port, radBed3.heatPortCon) annotation (Line(points={{259,
           -162},{260,-162},{260,-168},{262.8,-168}}, color={191,0,0}));
-  connect(senTemGnd.T, valGnd.T) annotation (Line(points={{-51,-148},{-50.6,-148},
-          {-50.6,-140}}, color={0,0,127}));
+  connect(senTemGnd.T, valGnd.T) annotation (Line(points={{-51,-148},{-50.6,
+          -148},{-50.6,-140}},
+                         color={0,0,127}));
   connect(valGnd.port_a, spl4.port_2) annotation (Line(points={{-40,-130},{-40,-110},
           {50,-110}}, color={0,127,255}));
-  connect(senTemGnd.port, radGnd.heatPortCon) annotation (Line(points={{-51,-162},
-          {-50,-162},{-50,-168},{-47.2,-168}}, color={191,0,0}));
+  connect(senTemGnd.port, radGnd.heatPortCon) annotation (Line(points={{-51,
+          -162},{-50,-162},{-50,-168},{-47.2,-168}},
+                                               color={191,0,0}));
   connect(radGnd.port_a, valGnd.port_b) annotation (Line(points={{-40,-160},{-40,
           -150}},            color={0,127,255}));
   connect(sim.weaBus, weaBus1) annotation (Line(
