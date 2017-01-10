@@ -81,11 +81,11 @@ partial model HeatingSystem "Partial heating/cooling system"
         origin={0,-102})));
 
   // --- fluid
-  Fluid.Interfaces.FlowPort_a flowPort_supply(redeclare package Medium = Medium)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = Medium)
     if                                           isDH
     "Supply water connection to the DH grid"
     annotation (Placement(transformation(extent={{150,-110},{170,-90}})));
-  Fluid.Interfaces.FlowPort_b flowPort_return(redeclare package Medium = Medium)
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = Medium)
     if                                           isDH
     "Return water connection to the DH grid"
     annotation (Placement(transformation(extent={{110,-110},{130,-90}})));

@@ -25,9 +25,9 @@ partial model VentilationSystem
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-204,-60})));
-  Fluid.Interfaces.FlowPort_b[nZones] flowPort_Out(redeclare package Medium = Medium)
+  Modelica.Fluid.Interfaces.FluidPort_b[nZones] port_b(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-210,-30},{-190,-10}})));
-  Fluid.Interfaces.FlowPort_a[nZones] flowPort_In(redeclare package Medium = Medium)
+  Modelica.Fluid.Interfaces.FluidPort_a[nZones] port_a(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
