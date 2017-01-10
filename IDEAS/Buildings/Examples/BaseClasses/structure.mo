@@ -226,28 +226,28 @@ equation
       points={{60.6,70},{104,70},{104,-53.3333},{156,-53.3333}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gF.port_b, flowPort_Out[1]) annotation (Line(
+  connect(gF.port_b, port_b[1]) annotation (Line(
       points={{48,-40},{48,-36},{-100,-36},{-100,84},{-22,84},{-22,93.3333},{-20,
           93.3333}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(gF.port_a, flowPort_In[1]) annotation (Line(
+  connect(gF.port_a, port_a[1]) annotation (Line(
       points={{52,-40},{52,-32},{-96,-32},{-96,80},{20,80},{20,93.3333}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(fF.port_b, flowPort_Out[2]) annotation (Line(
+  connect(fF.port_b, port_b[2]) annotation (Line(
       points={{48,20},{48,26},{-100,26},{-100,84},{-20,84},{-20,100}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(fF.port_a, flowPort_In[2]) annotation (Line(
+  connect(fF.port_a, port_a[2]) annotation (Line(
       points={{52,20},{52,30},{-96,30},{-96,80},{20,80},{20,100}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(sF.port_b, flowPort_Out[3]) annotation (Line(
+  connect(sF.port_b, port_b[3]) annotation (Line(
       points={{48,80},{48,84},{-20,84},{-20,106.667}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(sF.port_a, flowPort_In[3]) annotation (Line(
+  connect(sF.port_a, port_a[3]) annotation (Line(
       points={{52,80},{52,88},{20,88},{20,106.667}},
       color={0,0,0},
       smooth=Smooth.None));

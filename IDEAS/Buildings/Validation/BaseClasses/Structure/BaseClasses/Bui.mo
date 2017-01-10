@@ -77,11 +77,11 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(flowPort_Out[1], gF.port_b) annotation (Line(
+  connect(port_b[1], gF.port_b) annotation (Line(
       points={{-20,100},{-20,60},{56,60},{56,40}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(flowPort_In[1], gF.port_a) annotation (Line(
+  connect(port_a[1], gF.port_a) annotation (Line(
       points={{20,100},{20,62},{64,62},{64,40}},
       color={0,0,0},
       smooth=Smooth.None));
