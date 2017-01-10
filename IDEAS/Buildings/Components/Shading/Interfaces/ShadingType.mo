@@ -13,4 +13,5 @@ type ShadingType = enumeration(
     Screen
          "Screen",
     OverhangAndScreen
-                    "Overhang and screen");
+                    "Overhang and screen",
+    BoxAndScreen "Box and screen");

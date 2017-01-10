@@ -197,16 +197,17 @@ IDEAS.Buildings.Components.OuterWall W26(redeclare parameter BaseClasses.Data.Co
 AWall=2.014875,inc=incWall,azi = aziNorth)
                                     annotation (Placement(transformation(extent={{-40,6},
             {-30,-14}})));
-IDEAS.Buildings.Components.Window W27(
-A=2.1402,inc=incWall,azi=aziNorth,
-    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
+  IDEAS.Buildings.Components.Window W27(
+    A=2.1402,
+    inc=incWall,
+    azi=aziNorth,
+    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
+
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
+    redeclare BaseClasses.Data.Materials.Glazing glazing,
     frac=0.397,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=4.62),
+    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=
+          0.05, len=4.62),
     redeclare Buildings.Components.Shading.Box shaType(
       hWin=1.3,
       wWin=1,
@@ -216,18 +217,20 @@ A=2.1402,inc=incWall,azi=aziNorth,
       ovGap=0.07,
       hFin=0.07,
       finDep=0.15,
-      finGap=0.07))               annotation (Placement(transformation(extent={{-25,6},
-            {-15,-14}})));
+      finGap=0.07))
+    annotation (Placement(transformation(extent={{-25,6},{-15,-14}})));
 
-IDEAS.Buildings.Components.Window W28(windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
-A=2.1402,inc=incWall,azi=aziEast,
+  IDEAS.Buildings.Components.Window W28(
+    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
+
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
+    redeclare BaseClasses.Data.Materials.Glazing glazing,
+    A=2.1402,
+    inc=incWall,
+    azi=aziEast,
     frac=0.397,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=4.62),
+    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=
+          0.05, len=4.62),
     redeclare Buildings.Components.Shading.Box shaType(
       hWin=1.3,
       wWin=1,
@@ -237,18 +240,20 @@ A=2.1402,inc=incWall,azi=aziEast,
       ovGap=0.07,
       hFin=0.07,
       finDep=0.15,
-      finGap=0.07))              annotation (Placement(transformation(extent={{-12,6},
-            {-2,-14}})));
+      finGap=0.07))
+    annotation (Placement(transformation(extent={{-12,6},{-2,-14}})));
 
-IDEAS.Buildings.Components.Window W29(windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
-A=2.1402,inc=incWall,azi=aziSouth,
+  IDEAS.Buildings.Components.Window W29(
+    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
+
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
+    redeclare BaseClasses.Data.Materials.Glazing glazing,
+    A=2.1402,
+    inc=incWall,
+    azi=aziSouth,
     frac=0.397,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=4.62),
+    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=
+          0.05, len=4.62),
     redeclare Buildings.Components.Shading.Interfaces.DoubleShading shaType(
         redeclare Buildings.Components.Shading.Box stateShading2(
         hWin=1.3,
@@ -260,18 +265,20 @@ A=2.1402,inc=incWall,azi=aziSouth,
         hFin=0.07,
         finDep=0.15,
         finGap=0.07), redeclare Buildings.Components.Shading.Screen
-        stateShading1(shaCorr=0.05)))                annotation (Placement(transformation(extent={{5,6},{
-            15,-14}})));
+        stateShading1(shaCorr=0.05)))
+    annotation (Placement(transformation(extent={{5,6},{15,-14}})));
 
-IDEAS.Buildings.Components.Window W30(windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
-A=2.8527,inc=incWall,azi=aziSouth,
+  IDEAS.Buildings.Components.Window W30(
+    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
+
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
+    redeclare BaseClasses.Data.Materials.Glazing glazing,
+    A=2.8527,
+    inc=incWall,
+    azi=aziSouth,
     frac=0.354,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=6.04),
+    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=
+          0.05, len=6.04),
     redeclare Buildings.Components.Shading.Interfaces.DoubleShading shaType(
         redeclare Buildings.Components.Shading.Box stateShading2(
         hWin=1.3,
@@ -283,18 +290,20 @@ A=2.8527,inc=incWall,azi=aziSouth,
         hFin=0.07,
         finDep=0.15,
         finGap=0.07), redeclare Buildings.Components.Shading.Screen
-        stateShading1(shaCorr=0.05)))                annotation (Placement(transformation(extent={{20,4},{
-            30,-16}})));
+        stateShading1(shaCorr=0.05)))
+    annotation (Placement(transformation(extent={{20,4},{30,-16}})));
 
-IDEAS.Buildings.Components.Window W31(windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
-A=5.8116,inc=incWall,azi=aziSouth,
+  IDEAS.Buildings.Components.Window W31(
+    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
+
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
+    redeclare BaseClasses.Data.Materials.Glazing glazing,
+    A=5.8116,
+    inc=incWall,
+    azi=aziSouth,
     frac=0.293,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=14.4),
+    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=
+          0.05, len=14.4),
     redeclare Buildings.Components.Shading.Interfaces.DoubleShading shaType(
         redeclare Buildings.Components.Shading.Box stateShading2(
         hWin=1.3,
@@ -306,18 +315,20 @@ A=5.8116,inc=incWall,azi=aziSouth,
         hFin=0.07,
         finDep=0.15,
         finGap=0.07), redeclare Buildings.Components.Shading.Screen
-        stateShading1(shaCorr=0.05)))                annotation (Placement(transformation(extent={{35,6},{
-            45,-14}})));
+        stateShading1(shaCorr=0.05)))
+    annotation (Placement(transformation(extent={{35,6},{45,-14}})));
 
-IDEAS.Buildings.Components.Window W32(windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
-A=2.1402,inc=incWall,azi=aziWest,
+  IDEAS.Buildings.Components.Window W32(
+    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
+
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
+    redeclare BaseClasses.Data.Materials.Glazing glazing,
+    A=2.1402,
+    inc=incWall,
+    azi=aziWest,
     frac=0.397,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=4.62),
+    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=
+          0.05, len=4.62),
     redeclare Buildings.Components.Shading.Box shaType(
       hWin=1.31,
       wWin=1,
@@ -327,18 +338,20 @@ A=2.1402,inc=incWall,azi=aziWest,
       ovGap=0.1,
       hFin=0.1,
       finDep=0.15,
-      finGap=0.1))               annotation (Placement(transformation(extent={{50,6},{
-            60,-14}})));
+      finGap=0.1))
+    annotation (Placement(transformation(extent={{50,6},{60,-14}})));
 
-IDEAS.Buildings.Components.Window W33(windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    redeclare BaseClasses.Data.Constructions.PvcInsulated
-                                              fraType,
-    redeclare BaseClasses.Data.Materials.Glazing
-                                     glazing,
-A=2.1402,inc=incWall,azi=aziWest,
+  IDEAS.Buildings.Components.Window W33(
+    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
+
+    redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
+    redeclare BaseClasses.Data.Materials.Glazing glazing,
+    A=2.1402,
+    inc=incWall,
+    azi=aziWest,
     frac=0.397,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=0.05,
-        len=4.62),
+    redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briType(psi=
+          0.05, len=4.62),
     redeclare Buildings.Components.Shading.Box shaType(
       hWin=1.31,
       wWin=1,
@@ -348,8 +361,8 @@ A=2.1402,inc=incWall,azi=aziWest,
       ovGap=0.1,
       hFin=0.1,
       finDep=0.15,
-      finGap=0.1))               annotation (Placement(transformation(extent={{63,6},{
-            73,-14}})));
+      finGap=0.1))
+    annotation (Placement(transformation(extent={{63,6},{73,-14}})));
 
 IDEAS.Buildings.Components.InternalWall W34(redeclare parameter BaseClasses.Data.Constructions.intwall_2
                                                                                              constructionType,

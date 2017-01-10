@@ -1,5 +1,6 @@
-within IDEAS.Examples.TwinHouses.BaseClasses;
-model ThermalBridges "Thermal bridges for twinhouses based on psi-values of model specification (obtained for inner dimensions)"
+within IDEAS.Examples.TwinHouses.BaseClasses.Structures;
+model ThermalBridges
+  "Thermal bridges for twinhouses based on psi-values of model specification (obtained for inner dimensions)"
 
   Modelica.Blocks.Interfaces.RealInput Te
     annotation (Placement(transformation(extent={{-126,40},{-86,80}})));

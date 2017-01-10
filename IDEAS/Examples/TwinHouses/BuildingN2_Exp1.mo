@@ -14,16 +14,16 @@ model BuildingN2_Exp1
       calTSky=IDEAS.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover,
       totSkyCov=0.6,
       opaSkyCov=0.6),
-    lat=0.83555892609977,
-    lon=0.20469221467389,
     linIntRad=false,
     linExtRad=false,
-    radSol(each rho=0.23))
+    radSol(each rho=0.23),
+    lat=0.83555892609977,
+    lon=0.20469221467389)
                      "Sim info manager"
     annotation (Placement(transformation(extent={{-68,64},{-48,84}})));
 
-  IDEAS.Examples.TwinHouses.BaseClasses.Structures.TwinhouseN2 struct(T_start={
-        303.15,303.15,303.15,303.15,303.15,303.15,303.15})
+  IDEAS.Examples.TwinHouses.BaseClasses.Structures.TwinhouseN2 struct(T_start={303.15,
+        303.15,303.15,303.15,303.15,303.15,303.15})
     "Building envelope model"
     annotation (Placement(transformation(extent={{-42,-10},{-12,10}})));
   IDEAS.Examples.TwinHouses.BaseClasses.HeatingSystems.ElectricHeating_Twinhouse_exp1
@@ -44,21 +44,23 @@ model BuildingN2_Exp1
 
   Modelica.Blocks.Sources.RealExpression[8] noInput(each y=0) "No occupants"
     annotation (Placement(transformation(extent={{-30,-46},{-10,-26}})));
-  Modelica.Blocks.Tables.CombiTable1Ds inputSolTTH(
+  Modelica.Blocks.Sources.CombiTimeTable
+                                       inputSolTTH(
     tableOnFile=true,
     tableName="data",
     fileName=
         IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(Modelica.Utilities.Files.loadResource("modelica://IDEAS") + "//Inputs//"+"weatherinput.txt"),
     columns=2:30,
-    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative2)
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative2,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     "input for solGloHor and solDifHor measured at TTH"
     annotation (Placement(transformation(extent={{-92,64},{-72,84}})));
 equation
-  if time> 20044800 then
-  inputSolTTH.u= sim.timMan.timCal;
-  else
-  inputSolTTH.u = 20044800;
-  end if;
+//   if time> 20044800 then
+//   inputSolTTH.u= sim.timMan.timCal;
+//   else
+//   inputSolTTH.u = 20044800;
+//   end if;
   connect(sim.weaDat.HGloHor_in, inputSolTTH.y[8]);
   connect(sim.weaDat.HDifHor_in, inputSolTTH.y[10]);
   connect(struct.heatPortEmb, heaSys.heatPortEmb)
