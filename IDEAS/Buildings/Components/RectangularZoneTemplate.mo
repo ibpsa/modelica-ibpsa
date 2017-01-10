@@ -311,7 +311,6 @@ protected
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
-    linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
   controlled=shaTypA.controlled,
@@ -350,7 +349,6 @@ protected
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
-    linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
   controlled=shaTypB.controlled,
@@ -391,7 +389,6 @@ protected
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
-    linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
   controlled=shaTypC.controlled,
@@ -432,7 +429,6 @@ protected
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
-    linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
       controlled=shaTypD.controlled,
@@ -472,7 +468,6 @@ protected
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
-    linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
       controlled=shaTypCei.controlled,
@@ -927,6 +922,7 @@ initial equation
               or use this option to connect and internal wall externally.");
 
 
+
 equation
   connect(intA.propsBus_a, propsBusInt[1]) annotation (Line(
       points={{-165,12},{-152,12},{-152,40},{-80,40}},
@@ -1128,5 +1124,17 @@ equation
         Text(
           extent={{-220,20},{-200,0}},
           lineColor={28,108,200},
-          textString="A")}));
+          textString="A")}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+January 10, 2017, by Filip Jorissen:<br/>
+Removed propagation of <code>linExtRad</code> for windows.
+</li>
+<li>
+December, 2017, by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end RectangularZoneTemplate;
