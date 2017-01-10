@@ -138,7 +138,7 @@ initial equation
     kSoi=soi.k,
     kTub=gen.kTub,
     use_Rb=gen.use_Rb,
-    Rb=  gen.Rb,
+    Rb = gen.Rb,
     kMed=kMed,
     mueMed=mueMed,
     cpMed=cpMed,
