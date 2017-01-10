@@ -6,7 +6,7 @@ model structure "Example detailed building structure model"
     nEmb = 3,
     ATrans=211,
     VZones={gF.V,fF.V,sF.V},
-    AZones={gF_floor.AWall,fF_floor.AWall,sF_floor.AWall});
+    AZones={gF_floor.A,fF_floor.A,sF_floor.A});
 
   //Definition of the thermal zones
   Components.Zone gF(V=216.0, nSurf=8,
@@ -25,7 +25,7 @@ model structure "Example detailed building structure model"
   //Definition of the building envelope for gF
   Components.OuterWall[3] gF_ext(
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    AWall={10,21,10},
+    A={10,21,10},
     azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
     inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall})
     annotation (Placement(transformation(
@@ -44,21 +44,20 @@ model structure "Example detailed building structure model"
         rotation=90,
         origin={10.5,-75.5})));
 
-  replaceable Components.SlabOnGround
-                          gF_floor(
-    AWall=72,
+  replaceable Components.SlabOnGround gF_floor(
+    A=72,
     PWall=26,
     inc=IDEAS.Types.Tilt.Floor,
     azi=IDEAS.Types.Azimuth.S,
     redeclare IDEAS.Buildings.Data.Constructions.FloorOnGround constructionType)
-                               annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-47,-76})));
   //Definition of the building envelope for fF
   Components.OuterWall[3] fF_ext(
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    AWall={10,21,10},
+    A={10,21,10},
     azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
     inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall})
     annotation (Placement(transformation(
@@ -77,18 +76,18 @@ model structure "Example detailed building structure model"
         rotation=90,
         origin={10.5,-15.5})));
   Components.InternalWall fF_floor(
-    AWall=74,
+    A=74,
     inc=IDEAS.Types.Tilt.Floor,
     azi=IDEAS.Types.Azimuth.S,
     redeclare IDEAS.Buildings.Data.Constructions.TABS constructionType)
-                               annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-47,-16})));
   //Definition of the building envelope for sF
   Components.OuterWall[3] sF_ext(
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    AWall={10,21,10},
+    A={10,21,10},
     azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
     inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall})
     annotation (Placement(transformation(
@@ -107,17 +106,17 @@ model structure "Example detailed building structure model"
         rotation=90,
         origin={10.5,44.5})));
   Components.InternalWall sF_floor(
-    AWall=74,
+    A=74,
     inc=IDEAS.Types.Tilt.Floor,
     azi=IDEAS.Types.Azimuth.S,
     redeclare IDEAS.Buildings.Data.Constructions.TABS constructionType)
-                               annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-47,44})));
   Components.OuterWall sF_roof(
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    AWall=74,
+    A=74,
     inc=IDEAS.Types.Tilt.Ceiling,
     azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},

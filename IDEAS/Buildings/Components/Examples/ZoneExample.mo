@@ -14,7 +14,7 @@ model ZoneExample
   IDEAS.Buildings.Components.BoundaryWall commonWall(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
-    AWall=10,
+    A=10,
     azi=0,
     inc=1.5707963267949) "Common wall model"
     annotation (Placement(transformation(extent={{-54,-2},{-44,18}})));
@@ -24,7 +24,7 @@ model ZoneExample
   IDEAS.Buildings.Components.InternalWall internalWall(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
-    AWall=10,
+    A=10,
     azi=0,
     inc=IDEAS.Types.Tilt.Wall) "Internal wall model" annotation (Placement(
         transformation(
@@ -43,15 +43,16 @@ model ZoneExample
   IDEAS.Buildings.Components.SlabOnGround slabOnGround(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.LightWall
       constructionType,
-    AWall=20,
+    A=20,
     PWall=3,
     inc=0,
     azi=0) "Floor model"
     annotation (Placement(transformation(extent={{-54,20},{-44,40}})));
   IDEAS.Buildings.Components.OuterWall outerWall(
     azi=0,
-    redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall constructionType,
-    AWall=10,
+    redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
+      constructionType,
+    A=10,
     inc=1.5707963267949) "Outer wall model"
     annotation (Placement(transformation(extent={{-54,-58},{-44,-38}})));
   IDEAS.Buildings.Components.Zone zone1(

@@ -21,7 +21,7 @@ model WindowThermalBridge "Comparison of three window thermal bridge options"
     azi=0,
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
-    AWall=10,
+    A=10,
     inc=IDEAS.Types.Tilt.Floor)
     annotation (Placement(transformation(extent={{-54,20},{-44,40}})));
   Zone zone1(

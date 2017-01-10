@@ -40,9 +40,9 @@ equation
       points={{-20,29.8},{-20,13},{20,13}},
       color={255,204,51},
       thickness=0.5));
-  connect(sou.ports[1], zone.flowPort_In)
+  connect(sou.ports[1], zone.port_a)
     annotation (Line(points={{30,60},{32,60},{32,20}}, color={0,127,255}));
-  connect(sin.ports[1], zone.flowPort_Out)
+  connect(sin.ports[1], zone.port_b)
     annotation (Line(points={{20,50},{28,50},{28,20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

@@ -28,8 +28,6 @@ model Window "Multipane window"
   parameter Boolean linExtRad=sim.linExtRad
     "= true, if exterior radiative heat transfer should be linearised"
     annotation(Dialog(tab="Radiation"));
-
-  parameter Modelica.SIunits.Area A "Total window and windowframe area";
   parameter Real frac(
     min=0,
     max=1) = 0.15 "Area fraction of the window frame";
@@ -150,6 +148,7 @@ protected
 
 initial equation
   QTra_design = (U_value*A + briType.G) *(273.15 + 21 - Tdes.y);
+
 
 
 
@@ -346,6 +345,15 @@ Optional parameter <code>shaType</code> may be used to define the window shading
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 10, 2017, by Filip Jorissen:<br/>
+Removed declaration of 
+<code>A</code> since this is now declared in 
+<a href=modelica://IDEAS.Buildings.Components.Interfaces.PartialSurface>
+IDEAS.Buildings.Components.Interfaces.PartialSurface</a>.
+This is for 
+<a href=https://github.com/open-ideas/IDEAS/issues/609>#609</a>.
+</li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation: cleaned up connections and partials.

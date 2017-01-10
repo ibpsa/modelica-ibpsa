@@ -18,7 +18,7 @@ model Bui "Base model"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
     redeclare parameter Data.Constructions.LightWall constructionType,
-    AWall={21.6,16.2,9.6,16.2},
+    A={21.6,16.2,9.6,16.2},
     final azi={IDEAS.Types.Azimuth.N,IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,
         IDEAS.Types.Azimuth.W},
     final inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,
@@ -29,7 +29,7 @@ model Bui "Base model"
 
   IDEAS.Buildings.Components.BoundaryWall floor(
     redeclare parameter Data.Constructions.LightFloor constructionType,
-    final AWall=48,
+    final A=48,
     inc=IDEAS.Types.Tilt.Floor,
     final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
@@ -37,7 +37,7 @@ model Bui "Base model"
         origin={-19,-14})));
   IDEAS.Buildings.Components.OuterWall roof(
     redeclare final parameter Data.Constructions.LightRoof constructionType,
-    final AWall=48,
+    final A=48,
     final inc=IDEAS.Types.Tilt.Ceiling,
     final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},

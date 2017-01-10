@@ -18,19 +18,19 @@ model Bui200 "BESTEST Building model case 195"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
     redeclare final parameter Data.Constructions.LightWall_195 constructionType,
+
     final azi={IDEAS.Types.Azimuth.N,IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,
         IDEAS.Types.Azimuth.W},
     final inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,
         IDEAS.Types.Tilt.Wall},
-    final AWall={21.6,16.2,21.6,16.2})
-                               annotation (Placement(transformation(
+    final A={21.6,16.2,21.6,16.2}) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-49,-14})));
 
   IDEAS.Buildings.Components.BoundaryWall floor(
     redeclare final parameter Data.Constructions.LightFloor constructionType,
-    final AWall=48,
+    final A=48,
     final inc=IDEAS.Types.Tilt.Floor,
     final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
@@ -38,7 +38,8 @@ model Bui200 "BESTEST Building model case 195"
         origin={-19,-14})));
   IDEAS.Buildings.Components.OuterWall roof(
     redeclare final parameter Data.Constructions.LightRoof_195 constructionType,
-    final AWall=48,
+
+    final A=48,
     final inc=IDEAS.Types.Tilt.Ceiling,
     final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
@@ -47,11 +48,12 @@ model Bui200 "BESTEST Building model case 195"
 
   //fixme: is the implementation of win correct?
   Components.OuterWall[2] win(
-    final AWall={6,6},
-    redeclare final parameter Data.Constructions.HighConductance constructionType,
+    final A={6,6},
+    redeclare final parameter Data.Constructions.HighConductance
+      constructionType,
     final inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall},
-    final azi={IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.S})
-    annotation (Placement(transformation(
+    final azi={IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.S}) annotation (
+      Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));
