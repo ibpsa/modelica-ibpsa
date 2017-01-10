@@ -18,7 +18,6 @@ model Bui200 "BESTEST Building model case 195"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
     redeclare final parameter Data.Constructions.LightWall_195 constructionType,
-
     final azi={IDEAS.Types.Azimuth.N,IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,
         IDEAS.Types.Azimuth.W},
     final inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,
@@ -38,7 +37,6 @@ model Bui200 "BESTEST Building model case 195"
         origin={-19,-14})));
   IDEAS.Buildings.Components.OuterWall roof(
     redeclare final parameter Data.Constructions.LightRoof_195 constructionType,
-
     final A=48,
     final inc=IDEAS.Types.Tilt.Ceiling,
     final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
