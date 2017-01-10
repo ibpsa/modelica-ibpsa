@@ -7,42 +7,10 @@ extends Modelica.Icons.Library;
 import SI = Modelica.SIunits;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 annotation (
   uses(Modelica(version="3.2.2")),
   Icon(graphics),
-  version="0.2",
+  version="1.0.0",
   conversion(
  from(version={"0.2"},
       script="modelica://IDEAS/Resources/Scripts/convertIdeas030to100.mos")),
