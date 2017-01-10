@@ -4,13 +4,9 @@ model Ventilation "Ppd 12 example model"
     living(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
     Diner(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
     stairWay(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
-
     bathRoom(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
-
     bedRoom1(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
-
     bedRoom2(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
-
     bedRoom3(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   Fluid.Movers.FlowControlled_m_flow fanSup(
@@ -20,8 +16,8 @@ model Ventilation "Ppd 12 example model"
     tau=0,
     filteredSpeed=false,
     dp_nominal=300,
-    constantMassFlowRate=100*1.2/3600,
-    redeclare package Medium = MediumAir) "Supply fan"
+    redeclare package Medium = MediumAir,
+    constantMassFlowRate=200*1.2/3600)    "Supply fan"
     annotation (Placement(transformation(extent={{340,130},{320,150}})));
   Fluid.Movers.FlowControlled_m_flow fanRet(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -30,11 +26,11 @@ model Ventilation "Ppd 12 example model"
     tau=0,
     filteredSpeed=false,
     dp_nominal=300,
-    constantMassFlowRate=100*1.2/3600,
-    redeclare package Medium = MediumAir) "Return fan"
+    redeclare package Medium = MediumAir,
+    constantMassFlowRate=200*1.2/3600)    "Return fan"
     annotation (Placement(transformation(extent={{320,170},{340,190}})));
   IDEAS.Fluid.Sources.Boundary_pT bouAir(
-    nPorts=2,
+    nPorts=3,
     use_T_in=true,
     redeclare package Medium = MediumAir) "Boundary for air model"
     annotation (Placement(transformation(extent={{380,160},{360,180}})));
@@ -46,7 +42,7 @@ model Ventilation "Ppd 12 example model"
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
-    dp_nominal={0,0,15})
+    dp_nominal={0,0,100})
     annotation (Placement(transformation(extent={{272,130},{252,150}})));
   IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM spl6(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -56,7 +52,7 @@ model Ventilation "Ppd 12 example model"
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
-    dp_nominal={0,5,15})
+    dp_nominal={0,5,100})
     annotation (Placement(transformation(extent={{240,130},{220,150}})));
   IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM spl7(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -66,7 +62,7 @@ model Ventilation "Ppd 12 example model"
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
-    dp_nominal={0,30,7})
+    dp_nominal={200,0,27})
     annotation (Placement(transformation(extent={{130,170},{150,190}})));
   IDEAS.Fluid.FixedResistances.SplitterFixedResistanceDpM spl8(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -76,16 +72,16 @@ model Ventilation "Ppd 12 example model"
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
-    dp_nominal={5,5,15})
+    dp_nominal={0,5,100})
     annotation (Placement(transformation(extent={{120,130},{100,150}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumAir,
     m1_flow_nominal=m_flow_nominal_air,
     m2_flow_nominal=m_flow_nominal_air,
-    dp1_nominal=20,
-    dp2_nominal=20,
-    eps=0.75) "Heat recovery unit"
+    eps=0.75,
+    dp1_nominal=65,
+    dp2_nominal=225) "Heat recovery unit"
     annotation (Placement(transformation(extent={{290,150},{310,170}})));
 equation
   connect(hallway.proBusD, living.proBusB) annotation (Line(
@@ -197,10 +193,12 @@ equation
       extent={{6,3},{6,3}}));
   connect(bouAir.T_in, weaBus1.Te) annotation (Line(points={{382,174},{404,174},
           {404,80.05},{380.05,80.05}}, color={0,0,127}));
-  connect(fanSup.port_a, bouAir.ports[1]) annotation (Line(points={{340,140},{360,
-          140},{360,172}}, color={0,127,255}));
-  connect(fanRet.port_b, bouAir.ports[2]) annotation (Line(points={{340,180},{360,
-          180},{360,168}}, color={0,127,255}));
+  connect(fanSup.port_a, bouAir.ports[1]) annotation (Line(points={{340,140},{
+          360,140},{360,172.667}},
+                           color={0,127,255}));
+  connect(fanRet.port_b, bouAir.ports[2]) annotation (Line(points={{340,180},{
+          360,180},{360,170}},
+                           color={0,127,255}));
   connect(spl5.port_3, bedRoom2.flowPort_Out) annotation (Line(points={{262,130},
           {268,130},{268,84},{268,62}},          color={0,127,255}));
   connect(bedRoom2.flowPort_In, bedRoom3.flowPort_In) annotation (Line(points={{
@@ -235,6 +233,8 @@ equation
           180},{320,180}}, color={0,127,255}));
   connect(hex.port_a1, spl7.port_2) annotation (Line(points={{290,166},{290,180},
           {150,180}}, color={0,127,255}));
+  connect(Diner.flowPort_In, bouAir.ports[3]) annotation (Line(points={{-34,-38},
+          {30,-38},{30,202},{360,202},{360,167.333}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -200},{400,240}},
         initialScale=0.1), graphics={
