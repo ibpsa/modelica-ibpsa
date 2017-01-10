@@ -7,6 +7,13 @@ convertElement("IDEAS.Buildings.Components.Zone", "flowPort_In", "port_a");
 convertElement("IDEAS.Buildings.Components.Zone", "TStar", "TRad");
 convertElement("IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface", "AWall", "A");
 
+convertElement("IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem", "flowPort_In", "port_a");
+convertElement("IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem", "flowPort_Out", "port_b");
+convertElement("IDEAS.Templates.Interfaces.BaseClasses.Structure", "flowPort_In", "port_a");
+convertElement("IDEAS.Templates.Interfaces.BaseClasses.Structure", "flowPort_Out", "port_b");
+convertElement("IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem", "flowPort_supply", "port_a");
+convertElement("IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem", "flowPort_return", "port_b");
+
 
 convertModifiers({"IDEAS.Fluid.FixedResistances.FixedResistanceDpM"},
                   {"dh"},
