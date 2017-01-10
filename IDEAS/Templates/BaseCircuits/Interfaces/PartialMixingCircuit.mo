@@ -22,7 +22,6 @@ protected
     redeclare package Medium = Medium,
     energyDynamics=energyDynamics,
     massDynamics=massDynamics,
-    dynamicBalance=dynamicBalance,
     final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     final Kv=KvSupply,
     final deltaM=deltaMSupply,

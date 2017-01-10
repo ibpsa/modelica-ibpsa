@@ -38,7 +38,8 @@ model BuildingO5_Exp1
     linIntRad=false,
     linExtRad=false,
     lat=0.83555892609977,
-    lon=0.20469221467389)
+    lon=0.20469221467389,
+    radSol(each rho=0.23))
     annotation (Placement(transformation(extent={{-68,64},{-48,84}})));
 
   Modelica.Blocks.Sources.RealExpression[8] noInput

@@ -10,6 +10,7 @@ parameter Real[nZones] Kemission "heat transfer coefficient";
 parameter Real COP=1;
 Real[nZones] TsetIDEAL;
 final parameter Real frad=0.3 "radiative fraction";
+  Modelica.SIunits.HeatFlowRate IDEAL_heating[nZones];
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nZones] IDEAL_heating_con
     annotation (Placement(transformation(extent={{8,-12},{-12,8}})));
 
@@ -22,8 +23,10 @@ final parameter Real frad=0.3 "radiative fraction";
     annotation (Placement(transformation(extent={{38,24},{58,44}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nZones] IDEAL_heating_rad
     annotation (Placement(transformation(extent={{6,-44},{-14,-24}})));
+  Modelica.Blocks.Math.UnitConversions.From_degC[8] TdegC
+    annotation (Placement(transformation(extent={{110,30},{130,50}})));
 equation
-
+  IDEAL_heating = IDEAL_heating_con.Q_flow/0.7;
 P[1] = QHeaSys/COP;
 Q[1] = 0;
 TsetIDEAL= measuredInput.y[1:7];
@@ -85,6 +88,8 @@ if time> 20044800 then
       points={{-14,-34},{-108,-34},{-108,-20},{-200,-20}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(measuredInput.y[1:8], TdegC[1:8].u) annotation (Line(points={{59,34},{84,34},
+          {84,40},{108,40}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},
             {200,100}}), graphics={Text(
           extent={{66,34},{80,28}},

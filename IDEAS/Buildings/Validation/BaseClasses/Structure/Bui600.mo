@@ -7,7 +7,7 @@ model Bui600 "BESTEST Building model case 600"
 
   IDEAS.Buildings.Components.Window[2] win(
     final A={6,6},
-    redeclare final parameter Data.Glazing.GlaBesTest glazing,
+    redeclare final parameter IDEAS.Buildings.Validation.Data.Glazing.GlaBesTest glazing,
     final inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall},
     azi={IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.S},
     redeclare replaceable IDEAS.Buildings.Components.Shading.None shaType,
@@ -24,5 +24,5 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-150,-100},
-            {150,100}}),       graphics));
+            {150,100}})));
 end Bui600;

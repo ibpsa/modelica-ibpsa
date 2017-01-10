@@ -36,16 +36,16 @@ partial model PartialSimInfoManager
     annotation(Dialog(tab="Linearisation"));
   parameter Boolean outputAngles=not linearise
     "Output angles in weaBus. Set to false when linearising" annotation(Dialog(tab="Linearisation"));
-  parameter Boolean linIntCon= false
+  parameter Boolean linIntCon=false
     "= true, if interior convective heat transfer should be linearised"
     annotation (Dialog(tab="Linearisation", group="Convection"));
-  parameter Boolean linExtCon= false
+  parameter Boolean linExtCon=false
     "= true, if exterior convective heat transfer should be linearised (uses average wind speed)"
     annotation (Dialog(tab="Linearisation", group="Convection"));
-  parameter Boolean linIntRad= true
+  parameter Boolean linIntRad=true
     "= true, if interior radiative heat transfer should be linearised"
     annotation (Dialog(tab="Linearisation", group="Radiation"));
-  parameter Boolean linExtRad= true
+  parameter Boolean linExtRad=true
     "= true, if exterior radiative heat transfer should be linearised"
     annotation (Dialog(tab="Linearisation", group="Radiation"));
 
@@ -159,17 +159,19 @@ protected
     annotation (Placement(transformation(extent={{-124,-22},{-104,-2}})));
   Modelica.Blocks.Sources.RealExpression TEnv(y=Te)
     annotation (Placement(transformation(extent={{-124,-6},{-104,14}})));
-  BoundaryConditions.Climate.Meteo.Solar.BaseClasses.RelativeAirMass
-    relativeAirMass
+  SolarIrradiation.BaseClasses.RelativeAirMass
+    relativeAirMass "Computation of relative air mass"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  BoundaryConditions.Climate.Meteo.Solar.BaseClasses.SkyBrightness
-    skyBrightness
+  SolarIrradiation.BaseClasses.SkyBrightness
+    skyBrightness "Computation of sky brightness"
     annotation (Placement(transformation(extent={{-52,40},{-32,60}})));
-  BoundaryConditions.Climate.Meteo.Solar.BaseClasses.SkyClearness skyClearness
+  SolarIrradiation.BaseClasses.SkyClearness                       skyClearness
+    "Computation of sky clearness"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  BoundaryConditions.Climate.Meteo.Solar.BaseClasses.SkyBrightnessCoefficients
+  SolarIrradiation.BaseClasses.BrighteningCoefficient
     skyBrightnessCoefficients
+    "Computation of sky brightness coefficients F1 and F2"
     annotation (Placement(transformation(extent={{-26,60},{-6,80}})));
 
   Modelica.Blocks.Sources.RealExpression zenithAngle(y=angZen)
@@ -183,11 +185,12 @@ public
   Buildings.Components.Interfaces.WeaBus weaBus(numSolBus=numIncAndAziInBus,
       final outputAngles=outputAngles)
     annotation (Placement(transformation(extent={{50,18},{70,38}})));
-  BoundaryConditions.Climate.Meteo.Solar.ShadedRadSol[numIncAndAziInBus] radSol(
-    inc=incAndAziInBus[:,1],
-    azi=incAndAziInBus[:,2],
+  SolarIrradiation.ShadedRadSol[numIncAndAziInBus] radSol(
+    inc=incAndAziInBus[:, 1],
+    azi=incAndAziInBus[:, 2],
     each lat=lat,
     each outputAngles=outputAngles)
+    "Model for computing solar irradiation and properties of predefined set of tilted surfaces"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
   Modelica.Blocks.Sources.RealExpression TskyPow4Expr(y=TskyPow4)
@@ -247,41 +250,16 @@ equation
       smooth=Smooth.None));
   connect(skyClearness.skyCle, skyBrightnessCoefficients.skyCle) annotation (
       Line(
-      points={{-59.4,80},{-56,80},{-56,72},{-26,72}},
+      points={{-59,80},{-56,80},{-56,76},{-28,76}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(skyBrightness.skyBri, skyBrightnessCoefficients.skyBri) annotation (
       Line(
-      points={{-32,56},{-30,56},{-30,68},{-26,68}},
+      points={{-31,50},{-30,50},{-30,70},{-28,70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(relativeAirMass.relAirMas, skyBrightness.relAirMas) annotation (Line(
-      points={{-60,56},{-52,56}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(zenithAngle.y, relativeAirMass.angZen) annotation (Line(
-      points={{-103,56},{-80,56}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(zenithAngle.y, skyClearness.angZen) annotation (Line(
-      points={{-103,56},{-84,56},{-84,86},{-80,86}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(skyBrightnessCoefficients.angZen, skyClearness.angZen) annotation (
-      Line(
-      points={{-26,76},{-52,76},{-52,96},{-84,96},{-84,86},{-80,86}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(skyClearness.solGloHor, solGloHorIn.y) annotation (Line(
-      points={{-80,80},{-88,80},{-88,88},{-103,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solDifHorIn.y, skyClearness.solDifHor) annotation (Line(
-      points={{-103,72},{-86,72},{-86,74},{-80,74}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(skyClearness.solDifHor, skyBrightness.solDifHor) annotation (Line(
-      points={{-80,74},{-80,66},{-56,66},{-56,50},{-52,50}},
+      points={{-59,50},{-58,50},{-58,54},{-54,54}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -294,10 +272,10 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   for i in 1:numIncAndAziInBus loop
-    connect(radSol[i].F2, skyBrightnessCoefficients.F2) annotation (Line(points=
-           {{19.6,40},{2,40},{2,72},{-6,72}}, color={0,0,127}));
-    connect(radSol[i].F1, skyBrightnessCoefficients.F1) annotation (Line(points=
-           {{19.6,42},{4,42},{4,76},{-6,76}}, color={0,0,127}));
+    connect(radSol[i].F2, skyBrightnessCoefficients.F2) annotation (Line(points={{19.6,40},
+            {2,40},{2,66},{-5,66}},           color={0,0,127}));
+    connect(radSol[i].F1, skyBrightnessCoefficients.F1) annotation (Line(points={{19.6,42},
+            {4,42},{4,74},{-5,74}},           color={0,0,127}));
     connect(hour.y, radSol[i].angHou) annotation (Line(points={{-103,44},{-90,44},
             {-90,24},{14,24},{14,48},{19.6,48}}, color={0,0,127}));
     connect(zenithAngle.y, radSol[i].angZen) annotation (Line(points={{-103,56},
@@ -349,11 +327,11 @@ equation
     end for;
   end if;
   connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
-      points={{-6,76},{4,76},{4,34},{60,34},{60,28}},
+      points={{-5,74},{4,74},{4,34},{60,34},{60,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(skyBrightnessCoefficients.F2, weaBus.F2) annotation (Line(
-      points={{-6,72},{2,72},{2,32},{60,32},{60,28}},
+      points={{-5,66},{2,66},{2,32},{60,32},{60,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solGloHorIn.y, weaBus.solGloHor) annotation (Line(
@@ -382,6 +360,19 @@ equation
       smooth=Smooth.None));
   connect(fixedTemperature.port, Qgai)
     annotation (Line(points={{20,-70},{0,-70},{0,-100}}, color={191,0,0}));
+  connect(skyBrightnessCoefficients.zen, zenithAngle.y) annotation (Line(points=
+         {{-28,64},{-42,64},{-42,62},{-82,62},{-82,56},{-103,56}}, color={0,0,
+          127}));
+  connect(skyBrightness.HDifHor, solDifHorIn.y) annotation (Line(points={{-54,
+          46},{-86,46},{-86,72},{-103,72}}, color={0,0,127}));
+  connect(relativeAirMass.zen, zenithAngle.y) annotation (Line(points={{-82,50},
+          {-84,50},{-84,56},{-103,56}}, color={0,0,127}));
+  connect(skyClearness.zen, zenithAngle.y) annotation (Line(points={{-82,74},{
+          -84,74},{-84,56},{-103,56}}, color={0,0,127}));
+  connect(skyClearness.HDifHor, solDifHorIn.y) annotation (Line(points={{-82,80},
+          {-86,80},{-86,72},{-103,72}}, color={0,0,127}));
+  connect(skyClearness.HGloHor, solGloHorIn.y) annotation (Line(points={{-82,86},
+          {-88,86},{-88,88},{-103,88}}, color={0,0,127}));
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
@@ -463,6 +454,11 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+September 22, 2016 by Filip Jorissen:<br/>
+Reworked implementation such that we use Annex 60 
+baseclasses for boundary condition computations.
+</li>
 <li>
 March 25, 2016 by Filip Jorissen:<br/>
 Reworked radSol implementation to use RealInputs instead of weaBus.

@@ -24,7 +24,7 @@ model SwWindowResponse "shortwave window respones"
     "diffuse solar illuminance on surface s"
     annotation (Placement(transformation(extent={{-120,0},{-80,40}})));
   Modelica.Blocks.Interfaces.RealInput angInc "angle of incidence"
-    annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-120,-60},{-80,-20}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nLay] iSolAbs
     "solar absorptance in the panes"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
@@ -36,7 +36,7 @@ model SwWindowResponse "shortwave window respones"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
   Modelica.Blocks.Math.Gain radToDeg(final k=180/Modelica.Constants.pi)
     "Conversion of radians to degrees"
-    annotation (Placement(transformation(extent={{-58,-52},{-40,-34}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Modelica.Blocks.Tables.CombiTable1Ds SwAbsDir(
     final table=SwAbs,
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
@@ -144,12 +144,12 @@ equation
       points={{-32,56.8},{-32,62},{-4.89859e-016,62},{-4.89859e-016,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(radToDeg.u, angInc) annotation (Line(points={{-59.8,-43},{-76,-43},{
-          -76,-60},{-100,-60}}, color={0,0,127}));
-  connect(radToDeg.y, SwAbsDir.u) annotation (Line(points={{-39.1,-43},{-29,-43},
+  connect(radToDeg.u, angInc) annotation (Line(points={{-62,-40},{-76,-40},{
+          -100,-40}},           color={0,0,127}));
+  connect(radToDeg.y, SwAbsDir.u) annotation (Line(points={{-39,-40},{-29,-40},
           {-29,-21.8}}, color={0,0,127}));
-  connect(radToDeg.y, SwTransDir.u) annotation (Line(points={{-39.1,-43},{-3,
-          -43},{-3,-21.8}}, color={0,0,127}));
+  connect(radToDeg.y, SwTransDir.u) annotation (Line(points={{-39,-40},{-3,-40},
+          {-3,-21.8}},      color={0,0,127}));
   connect(SwAbsDifProd.y, add.u1) annotation (Line(points={{25,28.7},{25,34},{-27.2,
           34},{-27.2,38.4}}, color={0,0,127}));
   connect(SwTransDifProd.y, Dif_flow.Q_flow) annotation (Line(points={{51,28.7},
@@ -220,6 +220,6 @@ equation
           smooth=Smooth.None,
           color={127,0,0})}),
     Documentation(info="<html>
-<p>he properties for absorption by and transmission through the glazingare taken into account depending on the angle of incidence of solar irradiation and are based on the output of the <a href=\"IDEAS.Buildings.UsersGuide.References\">[WINDOW 6.3]</a> software, i.e. the shortwave properties itselves based on the layers in the window are not calculated in the model but are input parameters. </p>
+<p>The properties for absorption by and transmission through the glazingare taken into account depending on the angle of incidence of solar irradiation and are based on the output of the <a href=\"IDEAS.Buildings.UsersGuide.References\">[WINDOW 6.3]</a> software, i.e. the shortwave properties itselves based on the layers in the window are not calculated in the model but are input parameters. </p>
 </html>"));
 end SwWindowResponse;
