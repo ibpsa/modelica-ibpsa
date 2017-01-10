@@ -1,11 +1,49 @@
+
+
 IDEAS v0.3.0
 ============
 
 Modelica model environment for Integrated District Energy Assessment Simulations (IDEAS), allowing simultaneous transient simulation of thermal and electrical systems at both building and feeder level.
 
-### Current release
+### IDEAS v1.0.0
+IDEAS v1.0.0 will be released soon. Changes compared to v0.3 include but are not limited to:
 
-The current release is v0.3, which has been pushed on 2 september 2015. Major changes compared to v0.2 are:
+0. IDEAS 1.0 is based on Annex 60 version 1.0.
+1. The IDEAS packages have been restructured to be more in line with the Annex 60 package structure.
+..* IDEAS.Constants has been replaced by IDEAS.Types
+..* The SimInfoManager has been moved to IDEAS.BoundaryConditions
+..* Interfaces such as HeatingSystem and BaseCircuits have been moved to IDEAS.Templates 
+2. Setting up new Construction records has been simplified. Parameter values of nLay and nGain are now inferred from the other parameters.
+3. Optional parameter incLastLay has been added to Construction records. Users may use this to double-check if InternalWalls are connected as intended.
+4. The way how internal gains may be connected to surfaces has been changed.
+5. Convection and thermal radiation equations have been tuned to be more accurate and faster.
+6. Added an option to the zone model for evaluating thermal comfort.
+7. Added an option to the zone model for computing the sensible and latent heat gains from occupants.
+8. The zone air model is now replaceable such that custom models may be created.
+9. A zone template has been added that allows to add a rectangular zone, including 4 walls, 4 optional windows, a floor and a ceiling.
+10. Some variables have been renamed. A conversion script is provided for converting the user's models to accomodate these changes.
+..* TStar has been renamed into TRad in the zone model.
+..* flowPort_Out and flowPort_In have been renamed in the zone model, heating system, ventilaiton system and structure models.
+..* Some Annex 60 models were renamed.
+11. Added example model of a terraced house in IDEAS.Examples.PPD12
+12. Added twin house validation models in IDEAS.Examples.TwinHouse
+13. Added solar irradiation model for window frames.
+14. Added optional thermal bridge model for windows.
+15. Extended implementation of building shade model.
+16. Fixed bug in view factor implementation.
+17. Updated documentation for many models in IDEAS.Buildings
+18. Added thermostatic valve model: IDEAS.Fluid.Actuators.Valves.TwoWayTRV
+19. Removed insulationType and insulationThickness parameters. These should now be defined in the Construction records.
+20. Harmonised implementation of Perez solar irradiation model with Annex 60 implementation.
+21. Cleaned up implementation of BESTEST models.
+22. Added new, specialised window types.
+23. Added options for model linearisation.
+
+
+
+### IDEAS v0.3.0
+
+IDEAS release v0.3 has been pushed on 2 september 2015. Major changes compared to v0.2 are:
 
 1. Added code for checking conservation of energy
 2. Added options for linear / non-linear radiative heat exchange and convection for exterior and interior faces of walls and floors/ceilings. Respective correlations have been changed.
