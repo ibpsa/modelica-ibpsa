@@ -205,17 +205,16 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
     A=2.1402,
     inc=incWall,
     azi=aziNorth,
-    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05,
         len=4.62)),
     redeclare BaseClasses.Data.Materials.Glazing glazing,
     frac=0.397,
     redeclare Buildings.Components.Shading.Shading shaType(redeclare
-        Data.Shadings.ShaWin1 shaPro, controlled=true))
+        Data.Shadings.ShaWin1 shaPro, controlled=true),
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two)
     annotation (Placement(transformation(extent={{-25,6},{-15,-14}})));
 
   IDEAS.Buildings.Components.Window W28(
-    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05,
         len=4.62)),
     redeclare BaseClasses.Data.Materials.Glazing glazing,
@@ -224,11 +223,11 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
     azi=aziEast,
     frac=0.397,
     redeclare Buildings.Components.Shading.Shading shaType(redeclare
-        Data.Shadings.ShaWin1 shaPro, controlled=true))
+        Data.Shadings.ShaWin1 shaPro, controlled=true),
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two)
     annotation (Placement(transformation(extent={{-10,6},{0,-14}})));
 
   IDEAS.Buildings.Components.Window W29(
-    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05,
         len=4.62)),
     redeclare BaseClasses.Data.Materials.Glazing glazing,
@@ -237,11 +236,11 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
     azi=aziSouth,
     frac=0.397,
     redeclare Buildings.Components.Shading.Shading shaType(redeclare
-        Data.Shadings.ShaWin1 shaPro, controlled=true))
+        Data.Shadings.ShaWin1 shaPro, controlled=true),
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two)
     annotation (Placement(transformation(extent={{5,6},{15,-14}})));
 
   IDEAS.Buildings.Components.Window W30(
-    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05,
         len=6.04)),
     redeclare BaseClasses.Data.Materials.Glazing glazing,
@@ -250,11 +249,11 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
     azi=aziSouth,
     frac=0.354,
     redeclare Buildings.Components.Shading.Shading shaType(redeclare
-        Data.Shadings.ShaWin3 shaPro, controlled=true))
+        Data.Shadings.ShaWin3 shaPro, controlled=true),
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two)
     annotation (Placement(transformation(extent={{20,6},{30,-14}})));
 
   IDEAS.Buildings.Components.Window W31(
-    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05,
         len=14.4)),
     redeclare BaseClasses.Data.Materials.Glazing glazing,
@@ -263,11 +262,11 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
     azi=aziSouth,
     frac=0.293,
     redeclare Buildings.Components.Shading.Shading shaType(redeclare
-        Data.Shadings.ShaWin2 shaPro, controlled=true))
+        Data.Shadings.ShaWin2 shaPro, controlled=true),
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two)
     annotation (Placement(transformation(extent={{35,6},{45,-14}})));
 
   IDEAS.Buildings.Components.Window W32(
-    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05,
         len=4.62)),
     redeclare BaseClasses.Data.Materials.Glazing glazing,
@@ -276,11 +275,11 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
     azi=aziWest,
     frac=0.397,
     redeclare Buildings.Components.Shading.Shading shaType(redeclare
-        Data.Shadings.ShaWin1 shaPro, controlled=true))
-    annotation (Placement(transformation(extent={{50,6},{60,-14}})));
+        Data.Shadings.ShaWin1 shaPro, controlled=true),
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two)
+    annotation (Placement(transformation(extent={{48,6},{58,-14}})));
 
   IDEAS.Buildings.Components.Window W33(
-    windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType(redeclare IDEAS.Buildings.Components.ThermalBridges.LineLosses briTyp(psi=0.05,
         len=4.62)),
     redeclare BaseClasses.Data.Materials.Glazing glazing,
@@ -289,7 +288,8 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
     azi=aziWest,
     frac=0.397,
     redeclare Buildings.Components.Shading.Shading shaType(redeclare
-        Data.Shadings.ShaWin1 shaPro, controlled=true))
+        Data.Shadings.ShaWin1 shaPro, controlled=true),
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two)
     annotation (Placement(transformation(extent={{63,6},{73,-14}})));
 
 IDEAS.Buildings.Components.InternalWall W34(redeclare parameter BaseClasses.Data.Constructions.intwall_2
@@ -590,8 +590,9 @@ connect(W25.T,from_degC[1].y);
           {-4,-86.6667},{-31.8,-86.6667}}, color={0,0,127}));
   connect(W31.Ctrl, controlBlind1.y[1]) annotation (Line(points={{36,6},{14,6},
           {14,-86.6667},{-31.8,-86.6667}}, color={0,0,127}));
-  connect(W32.Ctrl, controlBlind1.y[1]) annotation (Line(points={{51,6},{10,6},
+  connect(W32.Ctrl, controlBlind1.y[1]) annotation (Line(points={{49,6},{10,6},
           {10,-86.6667},{-31.8,-86.6667}}, color={0,0,127}));
   connect(W33.Ctrl, controlBlind1.y[2]) annotation (Line(points={{64,6},{18,6},
           {18,-86},{-31.8,-86}}, color={0,0,127}));
+
 end TwinhouseN2;
