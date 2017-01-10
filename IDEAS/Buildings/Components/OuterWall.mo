@@ -13,8 +13,6 @@ model OuterWall "Opaque building envelope construction"
 
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
-  Modelica.SIunits.Power QSolIrr = (gainDir.y + gainDif.y)
-    "Total solar irradiance";
 
 protected
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.ExteriorConvection
@@ -22,17 +20,13 @@ protected
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-22,-28},{-42,-8}})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorSolarAbsorption
-    solAbs
+    solAbs(A=A)
     "determination of absorbed solar radiation by wall based on incident radiation"
     annotation (Placement(transformation(extent={{-22,-8},{-42,12}})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorHeatRadiation
     extRad(               linearise=linExtRad or sim.linearise, final A=A)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-22,12},{-42,32}})));
-  Modelica.Blocks.Math.Gain gainDir(k=A)
-    annotation (Placement(transformation(extent={{-60,4},{-52,12}})));
-  Modelica.Blocks.Math.Gain gainDif(k=A)
-    annotation (Placement(transformation(extent={{-60,0},{-52,8}})));
   BoundaryConditions.SolarIrradiation.RadSolData radSolData(
     inc=inc,
     azi=azi,
@@ -68,22 +62,6 @@ equation
       points={{-10,8},{-16,8},{-16,25.4},{-22,25.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gainDir.y,solAbs. solDir) annotation (Line(
-      points={{-51.6,8},{-42,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gainDif.y,solAbs. solDif) annotation (Line(
-      points={{-51.6,4},{-42,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radSolData.solDir,gainDir. u) annotation (Line(
-      points={{-73.4,8},{-60.8,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gainDif.u,radSolData. solDif) annotation (Line(
-      points={{-60.8,4},{-68,4},{-68,6},{-73.4,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
       points={{-74,14},{-74,19.9},{100.1,19.9}},
       color={255,204,51},
@@ -102,6 +80,10 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tdes.u, propsBus_a.weaBus.Tdes);
+  connect(radSolData.solDif, solAbs.solDif) annotation (Line(points={{-73.4,6},{
+          -58,6},{-58,4},{-42,4}}, color={0,0,127}));
+  connect(radSolData.solDir, solAbs.solDir)
+    annotation (Line(points={{-73.4,8},{-42,8}},         color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
