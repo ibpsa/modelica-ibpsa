@@ -45,7 +45,8 @@ partial model PartialSimInfoManager
   parameter Boolean linIntRad=true
     "= true, if interior radiative heat transfer should be linearised"
     annotation (Dialog(tab="Linearisation", group="Radiation"));
-  parameter Boolean linExtRad=true
+  // linExtRad = true in windows
+  parameter Boolean linExtRad=false
     "= true, if exterior radiative heat transfer should be linearised"
     annotation (Dialog(tab="Linearisation", group="Radiation"));
 
@@ -454,6 +455,13 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+January 10, 2017 by Filip Jorissen:<br/>
+Set <code>linExtRad = false</code>
+since only for windows is it necessary that
+the variable is true.
+See <a href=https://github.com/open-ideas/IDEAS/issues/615>#615</a>.
+</li>
 <li>
 September 22, 2016 by Filip Jorissen:<br/>
 Reworked implementation such that we use Annex 60 

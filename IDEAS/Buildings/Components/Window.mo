@@ -26,7 +26,7 @@ model Window "Multipane window"
   parameter Boolean linExtCon=sim.linExtCon
     "= true, if exterior convective heat transfer should be linearised (uses average wind speed)"
     annotation(Dialog(tab="Convection"));
-  parameter Boolean linExtRad=sim.linExtRad
+  parameter Boolean linExtRad=true
     "= true, if exterior radiative heat transfer should be linearised"
     annotation(Dialog(tab="Radiation"));
 
@@ -155,6 +155,7 @@ protected
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
 initial equation
   QTra_design = (U_value*A + (if fraType.briTyp.present then fraType.briTyp.G else 0)) *(273.15 + 21 - Tdes.y);
+
 
 
 
@@ -360,6 +361,13 @@ Optional parameter <code>shaType</code> may be used to define the window shading
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 10, 2017 by Filip Jorissen:<br/>
+Set <code>linExtRad = true</code>
+since this leads to linear algebraic loops
+instead of non-linear algebraic loops.
+See <a href=https://github.com/open-ideas/IDEAS/issues/615>#615</a>.
+</li>
 <li>
 December 19, 2016, by Filip Jorissen:<br/>
 Added solar irradiation on window frame.
