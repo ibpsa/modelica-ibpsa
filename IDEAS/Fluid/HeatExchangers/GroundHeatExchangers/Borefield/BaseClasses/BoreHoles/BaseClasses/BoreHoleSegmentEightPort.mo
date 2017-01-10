@@ -1,8 +1,8 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses;
-model BoreHoleSegmentHeightPort "Vertical segment of a borehole"
+model BoreHoleSegmentEightPort "Vertical segment of a borehole"
   extends Interface.PartialBoreHoleSegment;
 
-  extends IDEAS.Fluid.Interfaces.PartialHeightPortInterface(
+  extends IDEAS.Fluid.Interfaces.PartialEightPortInterface(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
     redeclare final package Medium3 = Medium,
@@ -176,4 +176,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end BoreHoleSegmentHeightPort;
+end BoreHoleSegmentEightPort;
