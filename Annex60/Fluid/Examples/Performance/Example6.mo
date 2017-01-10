@@ -95,7 +95,6 @@ Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 </li>
 </ul>
 </html>"),
-    
 experiment(Tolerance=1e-6, StartTime=0.0, StopTime=100),
 __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example6.mos"
