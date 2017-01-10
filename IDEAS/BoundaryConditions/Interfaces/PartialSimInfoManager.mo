@@ -45,9 +45,12 @@ partial model PartialSimInfoManager
   parameter Boolean linIntRad=true
     "= true, if interior radiative heat transfer should be linearised"
     annotation (Dialog(tab="Linearisation", group="Radiation"));
-  // linExtRad = true in windows
   parameter Boolean linExtRad=false
-    "= true, if exterior radiative heat transfer should be linearised"
+    "= true, if exterior radiative heat transfer for walls should be linearised"
+    annotation (Dialog(tab="Linearisation", group="Radiation"));
+  // separate parameter linExtRadWin since window dynamics are steady state by default
+  parameter Boolean linExtRadWin=true
+    "= true, if exterior radiative heat transfer for windows should be linearised"
     annotation (Dialog(tab="Linearisation", group="Radiation"));
 
   parameter Modelica.SIunits.Energy Emax=1
@@ -458,8 +461,9 @@ equation
 <li>
 January 10, 2017 by Filip Jorissen:<br/>
 Set <code>linExtRad = false</code>
+and added new parameter <code>linExtRadWin = true</code>
 since only for windows is it necessary that
-the variable is true.
+<code>linExtRad</code> is true.
 See <a href=https://github.com/open-ideas/IDEAS/issues/615>#615</a>.
 </li>
 <li>

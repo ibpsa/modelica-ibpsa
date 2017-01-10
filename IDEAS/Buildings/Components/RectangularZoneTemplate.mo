@@ -110,8 +110,12 @@ model RectangularZoneTemplate
     "= true, if exterior convective heat transfer should be linearised (uses average wind speed)"
     annotation(Dialog(tab="Advanced", group="Convective heat exchange"));
   parameter Boolean linExtRad=sim.linExtRad
-    "= true, if exterior radiative heat transfer should be linearised"
+    "= true, if exterior radiative heat transfer for walls should be linearised"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange"));
+  parameter Boolean linExtRadWin=sim.linExtRadWin
+    "= true, if exterior radiative heat transfer for windows should be linearised"
+    annotation(Dialog(tab="Advanced", group="Radiative heat exchange"));
+
   parameter Real mSenFac(min=0.1)=5
     "Factor for scaling the sensible thermal mass of the zone air"
     annotation(Dialog(tab="Advanced",group="Air model"));
@@ -328,7 +332,8 @@ protected
   dh=shaTypA.dh,
   shaCorr=shaTypA.shaCorr)),
     fraType(present=fraTypA.present,
-            U_value=fraTypA.U_value)) if
+            U_value=fraTypA.U_value),
+    linExtRad=linExtRadWin) if
        hasWinA
     "Window for face A of this zone" annotation (Placement(transformation(extent={{-100,0},{-90,20}})));
   IDEAS.Buildings.Components.Window winB(
@@ -365,7 +370,8 @@ protected
   L=shaTypB.L,
   dh=shaTypB.dh,
   shaCorr=shaTypB.shaCorr)),
-    fraType(present=fraTypB.present, U_value=fraTypB.U_value)) if
+    fraType(present=fraTypB.present, U_value=fraTypB.U_value),
+    linExtRad=linExtRadWin) if
        hasWinB
     "Window for face B of this zone" annotation (Placement(
         transformation(
@@ -405,7 +411,8 @@ protected
   L=shaTypC.L,
   dh=shaTypC.dh,
   shaCorr=shaTypC.shaCorr)),
-    fraType(present=fraTypC.present, U_value=fraTypC.U_value)) if
+    fraType(present=fraTypC.present, U_value=fraTypC.U_value),
+    linExtRad=linExtRadWin) if
        hasWinC
     "Window for face C of this zone" annotation (Placement(
         transformation(
@@ -445,7 +452,8 @@ protected
   L=shaTypD.L,
   dh=shaTypD.dh,
   shaCorr=shaTypD.shaCorr)),
-    fraType(present=fraTypD.present, U_value=fraTypD.U_value)) if
+    fraType(present=fraTypD.present, U_value=fraTypD.U_value),
+    linExtRad=linExtRadWin) if
        hasWinD
     "Window for face D of this zone" annotation (Placement(
         transformation(
@@ -484,7 +492,8 @@ protected
   L=shaTypCei.L,
   dh=shaTypCei.dh,
   shaCorr=shaTypCei.shaCorr)),
-    fraType(present=fraTypCei.present, U_value=fraTypCei.U_value)) if
+    fraType(present=fraTypCei.present, U_value=fraTypCei.U_value),
+    linExtRad=linExtRadWin) if
        hasWinCei
     "Window for ceiling of this zone" annotation (Placement(
         transformation(
@@ -923,6 +932,7 @@ initial equation
 
 
 
+
 equation
   connect(intA.propsBus_a, propsBusInt[1]) annotation (Line(
       points={{-165,12},{-152,12},{-152,40},{-80,40}},
@@ -1129,7 +1139,7 @@ equation
 <ul>
 <li>
 January 10, 2017, by Filip Jorissen:<br/>
-Removed propagation of <code>linExtRad</code> for windows.
+Added <code>linExtRadWin</code> for windows.
 </li>
 <li>
 December, 2017, by Filip Jorissen:<br/>
