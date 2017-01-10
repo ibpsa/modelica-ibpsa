@@ -990,10 +990,9 @@ equation
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{0.0,0.0},{1000.0,1245.3740344293326}})),
               experiment(
-                StopTime=604800,
-                Interval=3600,
-                Tolerance=0.0001,
-                __Dymola_Algorithm="Dassl"),
+      StopTime=604800,
+      Interval=3600,
+      __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
 <p>This model represents a generic district heating network auto-generated with the Python packages <em>uesgraphs</em> and <em>uesmodels</em>. </p>
 <p>The building positions are taken from OpenStreetMap data for a district in the city of Aachen (The data can be queried from <a href=\"http://www.openstreetmap.org/#map=17/50.78237/6.05746\">http://www.openstreetmap.org/#map=17/50.78237/6.05746</a>). The package <em>uesgraphs</em> imports this data into a Python graph representation including the street network. The heating network is added with a simple algorithm following the street layout to connect 25 buildings to a given supply node. The pipe diameters are designed so that they approach a specific pressure drop of 200 Pa/m for the given maximum heat load of each building for a dT of 20 K between a network supply temperature of 60 degC and a return temperature of 40 degC.</p>
@@ -1003,5 +1002,11 @@ equation
 <ul>
 <li>December 12, 2016 by Marcus Fuchs:<br>First implementation. </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_experimentSetupOutput,
+    __Dymola_experimentFlags(
+      Advanced(GenerateVariableDependencies=false, OutputModelicaCode=true),
+      Evaluate=true,
+      OutputCPUtime=true,
+      OutputFlatModelica=false));
 end AachenGeneric;
