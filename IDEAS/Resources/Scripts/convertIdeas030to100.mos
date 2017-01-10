@@ -5,6 +5,7 @@ convertClear();
 convertElement("IDEAS.Buildings.Components.Zone", "flowPort_Out", "port_b");
 convertElement("IDEAS.Buildings.Components.Zone", "flowPort_In", "port_a");
 convertElement("IDEAS.Buildings.Components.Zone", "TStar", "TRad");
+convertElement("IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface", "AWall", "A");
 
 
 convertModifiers({"IDEAS.Fluid.FixedResistances.FixedResistanceDpM"},
