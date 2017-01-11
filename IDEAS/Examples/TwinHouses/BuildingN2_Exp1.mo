@@ -26,7 +26,7 @@ model BuildingN2_Exp1
         303.15,303.15,303.15,303.15,303.15,303.15})
     "Building envelope model"
     annotation (Placement(transformation(extent={{-42,-10},{-12,10}})));
-  IDEAS.Examples.TwinHouses.BaseClasses.HeatingSystems.ElectricHeating_Twinhouse_exp1
+  IDEAS.Examples.TwinHouses.BaseClasses.HeatingSystems.ElectricHeating_Twinhouse_alt
     heaSys(
     nEmbPorts=0,
     nZones=struct.nZones,
@@ -81,7 +81,8 @@ equation
           for i in 1:struct.nZones loop
           end for;
   connect(noInput[1:7].y, heaSys.TSet) annotation (Line(points={{-9,-36},{20,
-          -36},{20,-10},{20,-10.2}}, color={0,0,127}));
+          -36},{20,-10.2},{20,-10.2}},
+                                     color={0,0,127}));
   connect(noInput[8].y, heaSys.mDHW60C) annotation (Line(points={{-9,-36},{26,
           -36},{26,-10.2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

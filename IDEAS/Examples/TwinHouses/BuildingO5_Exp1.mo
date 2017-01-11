@@ -5,15 +5,14 @@ model BuildingO5_Exp1
   BaseClasses.Structures.TwinhouseO5 struct(T_start={303.15,303.15,303.15,303.15,303.15,303.15,
         303.15}, inputAtticAndBasement(fileName="C:/Users/glenn/Documents/0_BackUp/TwinHousesv2/bc_TTH_O5.txt"))
     annotation (Placement(transformation(extent={{-42,-10},{-12,10}})));
-  BaseClasses.HeatingSystems.ElectricHeating_Twinhouse_exp1 heaSys(
+  BaseClasses.HeatingSystems.ElectricHeating_Twinhouse_alt heaSys(
     nEmbPorts=0,
     nZones=struct.nZones,
     InInterface=true,
     nLoads=0,
     Crad={1000,1000,1000,1000,1100,1000,100},
     Q_design={2000,750,750,750,750,750,750},
-    Kemission={100,100,100,100,110,100,100},
-    measuredInput(fileName="C:/Users/glenn/Documents/0_BackUp/TwinHousesv2/meas_TTH_O5.txt"))
+    Kemission={100,100,100,100,110,100,100})
     annotation (Placement(transformation(extent={{0,-10},{40,10}})));
    // nLoads=0,
      // Qdesign={2000,0,2000,2000,2000,2000,2000},

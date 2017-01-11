@@ -19,6 +19,7 @@ public
  parameter Boolean includeTB = false "optional extension of model to include thermal bridges";
  parameter Boolean includeAirCoup = false "optional extension of model to include increased air coupling";
  parameter Integer Exp = 1 "optional parameter to specify the experiment (default = 1)";
+ parameter String filename = "bc_TTH_N2.txt";
  // Declaration of zones
 IDEAS.Buildings.Components.Zone Living(nSurf=18,
 V=86.417818,
@@ -404,13 +405,14 @@ AWall=1.6236,inc=incWall,azi = 90)
             {135,-42}})));
 
             // input for temperatures of attic and basement
-    Modelica.Blocks.Tables.CombiTable1Ds   inputAtticAndBasement(
+    Modelica.Blocks.Sources.CombiTimeTable inputAtticAndBasement(
     table=[0.0,0.0,0.0; 1000,1,1],
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     tableOnFile=true,
     tableName="data",
-    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(Modelica.Utilities.Files.loadResource("modelica://IDEAS") + "/Inputs/"+ "bc_TTH_N2.txt"),
-    columns={2,3})
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(Modelica.Utilities.Files.loadResource("modelica://IDEAS") + "/Inputs/"+ filename),
+    columns={2,3},
+    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
       annotation (Placement(transformation(extent={{-140,-96},{-120,-76}})));
   Modelica.Blocks.Math.UnitConversions.From_degC[2] from_degC
     annotation (Placement(transformation(extent={{-104,-96},{-84,-76}})));
@@ -553,18 +555,9 @@ connect(W22.T,from_degC[2].y);
 connect(W23.T,from_degC[1].y);
 connect(W24.T,from_degC[2].y);
 connect(W25.T,from_degC[1].y);
-  if time> 20044800 then
-  inputAtticAndBasement.u= sim.timMan.timCal;
-  else
-  inputAtticAndBasement.u = 20044800;
-  end if;
+
     connect(thermalBridges.heatPortRad,heatPortRad);
-//     thermalBridges.heatPortRad[2] = Corridor.gainRad;
-//     thermalBridges.heatPortRad[3] = Bathroom.gainRad;
-//     thermalBridges.heatPortRad[4] = Bedroom1.gainRad;
-//     thermalBridges.heatPortRad[5] = Kitchen.gainRad;
-//     thermalBridges.heatPortRad[6] = Entrance.gainRad;
-//     thermalBridges.heatPortRad[7] = Bedroom2.gainRad;
+
 
    connect(thermalBridges.Tzone[1],  Living.TSensor);
    connect(thermalBridges.Tzone[2],  Corridor.TSensor);

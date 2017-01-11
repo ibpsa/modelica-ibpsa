@@ -2,13 +2,15 @@ within IDEAS.Examples.TwinHouses.BaseClasses.Ventilation;
 model Vent_TTH
   "Ventilation based on measured supply/exhaust rates and temperatures"
   extends IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem(nLoads=0,nZones=7);
+  parameter String filename= "bc_TTH_N2.txt";
 
-  Modelica.Blocks.Tables.CombiTable1Ds   measuredInput(
+  Modelica.Blocks.Sources.CombiTimeTable measuredInput(
     tableOnFile=true,
     tableName="data",
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(Modelica.Utilities.Files.loadResource("modelica://IDEAS") + "/Inputs/"+"bc_TTH_N2.txt"),
-    columns={4,5})
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(Modelica.Utilities.Files.loadResource("modelica://IDEAS") + "/Inputs/"+filename),
+    columns={4,5},
+    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     annotation (Placement(transformation(extent={{28,-64},{14,-50}})));
 
   IDEAS.Fluid.Sources.MassFlowSource_T source[1](
@@ -48,11 +50,7 @@ equation
   P[1:nLoads_min] = zeros(nLoads_min);
   Q[1:nLoads_min] = zeros(nLoads_min);
   connect(flowPort_Out[1], source[1].ports[1]);
-if time> 20044800 then
-  measuredInput.u= sim.timMan.timCal;
-  else
-  measuredInput.u = 20044800;
-  end if;
+
   connect(flowPort_In[2], spl.port_1) annotation (Line(points={{-200,14.2857},{
           -172,14.2857},{-172,22},{-144,22}},
                                 color={0,0,0}));

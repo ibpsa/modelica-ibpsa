@@ -202,7 +202,6 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
     inc=incWall,
     azi=aziNorth,
     windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
-
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
     redeclare BaseClasses.Data.Materials.Glazing glazing,
     frac=0.397,
@@ -222,7 +221,6 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
 
   IDEAS.Buildings.Components.Window W28(
     windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
-
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
     redeclare BaseClasses.Data.Materials.Glazing glazing,
     A=2.1402,
@@ -245,7 +243,6 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
 
   IDEAS.Buildings.Components.Window W29(
     windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
-
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
     redeclare BaseClasses.Data.Materials.Glazing glazing,
     A=2.1402,
@@ -270,7 +267,6 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
 
   IDEAS.Buildings.Components.Window W30(
     windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
-
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
     redeclare BaseClasses.Data.Materials.Glazing glazing,
     A=2.8527,
@@ -295,7 +291,6 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
 
   IDEAS.Buildings.Components.Window W31(
     windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
-
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
     redeclare BaseClasses.Data.Materials.Glazing glazing,
     A=5.8116,
@@ -320,7 +315,6 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
 
   IDEAS.Buildings.Components.Window W32(
     windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
-
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
     redeclare BaseClasses.Data.Materials.Glazing glazing,
     A=2.1402,
@@ -343,7 +337,6 @@ AWall=2.014875,inc=incWall,azi = aziNorth)
 
   IDEAS.Buildings.Components.Window W33(
     windowDynamicsType=IDEAS.Buildings.Components.Examples.Interfaces.WindowDynamicsType.Two,
-
     redeclare BaseClasses.Data.Constructions.PvcInsulated fraType,
     redeclare BaseClasses.Data.Materials.Glazing glazing,
     A=2.1402,
