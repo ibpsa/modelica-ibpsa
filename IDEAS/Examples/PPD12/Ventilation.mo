@@ -269,7 +269,8 @@ equation
       __Dymola_NumberOfIntervals=5000,
       __Dymola_fixedstepsize=15,
       __Dymola_Algorithm="Euler"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/PPD12/Ppd12.mos"
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Examples/PPD12/Ventilation.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

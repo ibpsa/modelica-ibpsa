@@ -502,8 +502,7 @@ equation
       __Dymola_NumberOfIntervals=5000,
       __Dymola_fixedstepsize=15,
       __Dymola_Algorithm="Euler"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/PPD12/Ppd12.mos"
-        "Simulate and plot"),
+    __Dymola_Commands,
     Documentation(info="<html>
 <p>
 Example model of a partially renovated terraced house in Belgium.
