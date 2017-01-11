@@ -297,8 +297,14 @@ equation
   connect(shaType.iSolDif, solAbs.solDif) annotation (Line(points={{-50,-48},{
           -48,-48},{-48,52},{-40,52}}, color={0,0,127}));
     annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-60,-100},{60,100}}),
         graphics={
+        Rectangle(
+          extent={{-50,-90},{50,100}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{-46,60},{50,24},{50,-50},{-30,-20},{-46,-20},{-46,60}},
           smooth=Smooth.None,
@@ -308,20 +314,16 @@ equation
           lineColor={0,0,0}),
         Line(
           points={{-50,60},{-30,60},{-30,80},{50,80}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-50,-20},{-30,-20},{-30,-70},{-30,-70},{52,-70}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-50,60},{-50,66},{-50,100},{50,100}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-50,-20},{-50,-90},{50,-90}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-46,60},{-46,-20}},
           color={0,0,0},
