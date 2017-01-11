@@ -1,371 +1,9 @@
 within IDEAS.Examples.PPD12;
-model Ppd12 "Ppd 12 example model"
-  extends Modelica.Icons.Example;
-  inner IDEAS.BoundaryConditions.SimInfoManager sim
-    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
-  parameter Real n50=8
-    "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
-  package MediumAir = IDEAS.Media.Air;
-  package MediumWater = IDEAS.Media.Water;
+model Heating "Ppd 12 example model"
+  extends IDEAS.Examples.PPD12.Structure;
 
-  // GEOMETRY
-  parameter Modelica.SIunits.Length hFloor0=2.9 "Height of ground floor";
-  parameter Modelica.SIunits.Length hFloor1=2.7 "Height of first floor";
-  parameter Modelica.SIunits.Length hFloor2=2.5 "Height of second floor";
-  parameter Modelica.SIunits.Length lHallway=8 "Length of hallway";
-  parameter Modelica.SIunits.Length wHallwayAvg=(wHallway1+wHallway2)/2 "Hallway width";
-  parameter Modelica.SIunits.Length wHallway1=1.1 "Hallway width";
-  parameter Modelica.SIunits.Length wHallway2=1.4 "Hallway width";
-  parameter Modelica.SIunits.Length wZon=(wZonStr+wBathroom)/2 "Avg living width";
-  parameter Modelica.SIunits.Length wZonStr=3.2 "Living width at street";
-  parameter Modelica.SIunits.Length wBuilding = 4.6;
-  parameter Modelica.SIunits.Length wBathroom = 2.85;
-  parameter Modelica.SIunits.Length lDiner = 3;
-  parameter Modelica.SIunits.Length wBedroom = 4.4;
-  parameter Modelica.SIunits.Length wDiner = 4.5;
-  parameter Modelica.SIunits.Length lPorch = 2;
-  parameter Modelica.SIunits.Length wPorch = wBuilding-wKitchen;
-  parameter Modelica.SIunits.Length wKitchen = 1.4;
-  parameter Modelica.SIunits.Length lHalfBuilding = 3.75;
-  parameter Modelica.SIunits.Length lBuilding = 8;
 
-  parameter Modelica.SIunits.Conversions.NonSIunits.Angle_deg angDelta=26;
-  parameter Modelica.SIunits.Angle north = IDEAS.Types.Azimuth.N + Modelica.SIunits.Conversions.from_deg(angDelta)
-    "Azimuth of the wall, i.e. 0deg denotes South";
-  parameter Modelica.SIunits.Angle south = IDEAS.Types.Azimuth.S + Modelica.SIunits.Conversions.from_deg(angDelta)
-    "Azimuth of the wall, i.e. 0deg denotes South";
-  parameter Modelica.SIunits.Angle west = IDEAS.Types.Azimuth.W + Modelica.SIunits.Conversions.from_deg(angDelta)
-    "Azimuth of the wall, i.e. 0deg denotes South";
-  parameter Modelica.SIunits.Angle east = IDEAS.Types.Azimuth.E + Modelica.SIunits.Conversions.from_deg(angDelta)
-    "Azimuth of the wall, i.e. 0deg denotes South";
-
-  //HVAC
-  parameter Real dp_26mm = 992*(m_flow_nominal/0.4)^2 "Pressure drop per m of duct with diameter of 26/20 mm for flow rate of 0.4kg/s";
-  parameter Real dp_20mm = 2871*(m_flow_nominal/0.4)^2 "Pressure drop per m of duct with diameter of 20/16 mm for flow rate of 0.4kg/s";
-  parameter Real dp_16mm = 11320*(m_flow_nominal/0.4)^2 "Pressure drop per m of duct with diameter of 16/12 mm for flow rate of 0.4kg/s";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.4
-    "Nominal mass flow rate";
-
-  //CONTROL
-  parameter Modelica.SIunits.Temperature TSet=294.15 "Temperature set point";
-
-  IDEAS.Buildings.Components.BoundaryWall com1(
-    inc=IDEAS.Types.Tilt.Wall,
-    azi=south,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall constructionType,
-    AWall=2.3*lPorch) "Common wall on south side"
-    annotation (Placement(transformation(extent={{-104,-72},{-94,-52}})));
-  IDEAS.Buildings.Components.OuterWall out1(
-    inc=IDEAS.Types.Tilt.Wall,
-    AWall=hFloor0*wKitchen,
-    azi=east,
-    redeclare IDEAS.Examples.PPD12.Data.OuterWall constructionType)
-    "Outerwall on east side - kitchen" annotation (Placement(transformation(
-        extent={{-5,-10},{5,10}},
-        rotation=90,
-        origin={-89,-94})));
-  IDEAS.Buildings.Components.InternalWall cei2(
-    AWall=wZon*lHallway/2,
-    azi=0,
-    redeclare IDEAS.Examples.PPD12.Data.Floor constructionType,
-    inc=IDEAS.Types.Tilt.Floor) "Floor between living and bedroom 1"
-    annotation (Placement(transformation(extent={{94,72},{104,52}})));
-  IDEAS.Buildings.Components.InternalWall cei1(
-    azi=0,
-    AWall=lHallway*wHallway1,
-    redeclare IDEAS.Examples.PPD12.Data.Floor constructionType,
-    inc=IDEAS.Types.Tilt.Floor) "Floor between hallway and bedroom 1"
-    annotation (Placement(transformation(extent={{70,68},{80,88}})));
-  IDEAS.Buildings.Components.Window winBed3(
-    frac=0.1,
-    azi=east,
-    redeclare IDEAS.Buildings.Components.ThermalBridges.None briType,
-    redeclare IDEAS.Examples.PPD12.Data.PvcInsulated fraType,
-    redeclare IDEAS.Buildings.Data.Glazing.Ins2Ar glazing,
-    inc=(IDEAS.Types.Tilt.Wall + IDEAS.Types.Tilt.Ceiling)/2,
-    A=1.2*1) "Window roof, bedroom 3"
-    annotation (Placement(transformation(
-        extent={{-5,10},{5,-10}},
-        rotation=90,
-        origin={305,-2})));
-  IDEAS.Buildings.Components.OuterWall Roof2(
-    azi=east,
-    inc=(IDEAS.Types.Tilt.Wall + IDEAS.Types.Tilt.Ceiling)/2,
-    AWall=wBedroom*lHalfBuilding*sqrt(2)/2,
-    redeclare IDEAS.Examples.PPD12.Data.Roof constructionType)
-    "Roof, east side"
-    annotation (Placement(transformation(
-        extent={{-5,-10},{5,10}},
-        rotation=90,
-        origin={263,-2})));
-  IDEAS.Buildings.Components.OuterWall out2(
-    inc=IDEAS.Types.Tilt.Wall,
-    redeclare IDEAS.Examples.PPD12.Data.OuterWall constructionType,
-    azi=east,
-    AWall=0.5*wBedroom)
-    "Outer wall of top floor on east facade" annotation (
-      Placement(transformation(
-        extent={{-5,-10},{5,10}},
-        rotation=90,
-        origin={235,-2})));
-
-  IDEAS.Buildings.Components.RectangularZoneTemplate living(
-    h=hFloor0,
-    aziA=east,
-    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    hasWinC=true,
-    l=wZon,
-    w=lBuilding,
-    redeclare package Medium = MediumAir,
-    bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
-    bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing glazingC,
-    A_winC=2.55*1.74,
-    fracC=0.1,
-    redeclare IDEAS.Examples.PPD12.Data.OuterWall conTypC,
-    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10 conTypA,
-    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10 conTypB,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypD,
-    redeclare IDEAS.Examples.PPD12.Data.FloorOnGround conTypFlo,
-    nSurfExt=1,
-    redeclare Data.Ppd12WestShadingGnd shaTypC,
-    airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    n50=n50)
-    annotation (Placement(transformation(extent={{-26,56},{-46,36}})));
-
-  IDEAS.Buildings.Components.RectangularZoneTemplate hallway(
-    h=hFloor0,
-    aziA=east,
-    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    w=lBuilding,
-    redeclare package Medium = MediumAir,
-    bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
-    bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing
-                                 glazingC,
-    A_winC=2.55*1.74,
-    fracC=0.1,
-    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    l=wHallwayAvg,
-    redeclare IDEAS.Examples.PPD12.Data.OuterWall conTypC,
-    redeclare IDEAS.Examples.PPD12.Data.InteriorWall30 conTypA,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypB,
-    nSurfExt=1,
-    airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    n50=n50)
-    annotation (Placement(transformation(extent={{-72,60},{-92,40}})));
-  IDEAS.Buildings.Components.RectangularZoneTemplate Diner(
-    h=hFloor0,
-    aziA=east,
-    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare package Medium = MediumAir,
-    bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
-    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing glazingC,
-    A_winC=2.55*1.74,
-    fracC=0.1,
-    bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypB,
-    l=wDiner,
-    w=lDiner,
-    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypD,
-    bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    redeclare IDEAS.Examples.PPD12.Data.Roof conTypCei,
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall conTypA,
-    nSurfExt=4,
-    redeclare IDEAS.Examples.PPD12.Data.FloorOnGround conTypFlo,
-    airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    n50=n50)
-    annotation (Placement(transformation(extent={{-46,-18},{-26,-38}})));
-  IDEAS.Buildings.Components.RectangularZoneTemplate Porch(
-    aziA=east,
-    redeclare package Medium = MediumAir,
-    bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
-    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing glazingC,
-    A_winC=2.55*1.74,
-    fracC=0.1,
-    bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypB,
-    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    redeclare IDEAS.Examples.PPD12.Data.Roof conTypCei,
-    l=wPorch,
-    w=lPorch,
-    h=2.3,
-    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10 conTypD,
-    nSurfExt=0,
-    redeclare IDEAS.Examples.PPD12.Data.FloorOnGround conTypFlo,
-    bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    redeclare IDEAS.Buildings.Data.Glazing.EpcDouble glazingCei,
-    redeclare IDEAS.Buildings.Data.Glazing.EpcDouble glazingA,
-    hasWinCei=true,
-    hasWinA=true,
-    A_winA=wPorch*2.3*0.9,
-    A_winCei=wPorch*lPorch*0.9,
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall
-      conTypA,
-    airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    n50=n50)
-    annotation (Placement(transformation(extent={{-44,-66},{-24,-86}})));
-
-  IDEAS.Buildings.Components.RectangularZoneTemplate bedRoom1(
-    aziA=east,
-    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    hasWinC=true,
-    redeclare package Medium = MediumAir,
-    bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing glazingC,
-    redeclare IDEAS.Examples.PPD12.Data.OuterWall conTypC,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypD,
-    bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypB,
-    fracC=0.15,
-    A_winC=1.9*(1 + 1.5),
-    l=wBedroom,
-    w=lHalfBuilding,
-    h=hFloor1,
-    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    nSurfExt=2,
-    redeclare Data.Ppd12WestShadingFirst shaTypC,
-    airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    n50=n50) "Master bedroom"
-    annotation (Placement(transformation(extent={{140,80},{120,60}})));
-
-  IDEAS.Buildings.Components.RectangularZoneTemplate bathRoom(
-    aziA=east,
-    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare package Medium = MediumAir,
-    bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypD,
-    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    hasWinA=true,
-    A_winA=1.21*1.99,
-    redeclare IDEAS.Examples.PPD12.Data.OuterWall conTypA,
-    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing glazingA,
-    w=lHalfBuilding,
-    h=hFloor1,
-    bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    l=wBathroom,
-    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10 conTypB,
-    bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare IDEAS.Examples.PPD12.Data.Floor conTypFlo,
-    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare IDEAS.Examples.PPD12.Data.InteriorWall18 conTypC,
-    nSurfExt=0,
-    airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    n50=n50)
-    "Bathroom"
-    annotation (Placement(transformation(extent={{140,26},{120,6}})));
-
-  IDEAS.Buildings.Components.RectangularZoneTemplate stairWay(
-    aziA=east,
-    redeclare package Medium = MediumAir,
-    bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    hasWinA=true,
-    redeclare IDEAS.Examples.PPD12.Data.OuterWall conTypA,
-    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing glazingA,
-    w=lHalfBuilding,
-    h=hFloor1,
-    nSurfExt=0,
-    bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    l=wHallway2,
-    bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypB,
-    A_winA=1.09*1.69,
-    fracA=0.1,
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall
-      conTypFlo,
-    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10 conTypC,
-    airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    n50=n50)
-    "Stairway"
-    annotation (Placement(transformation(extent={{86,26},{66,6}})));
-  IDEAS.Buildings.Components.RectangularZoneTemplate bedRoom2(
-    aziA=east,
-    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    hasWinC=true,
-    redeclare package Medium = MediumAir,
-    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing glazingC,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypD,
-    bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypB,
-    fracC=0.15,
-    l=wBedroom,
-    w=lHalfBuilding,
-    h=hFloor1,
-    A_winC=1.1*0.66 + 1.1*1.54,
-    redeclare IDEAS.Examples.PPD12.Data.InteriorWall18 conTypC,
-    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10 conTypA,
-    nSurfExt=0,
-    bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare IDEAS.Examples.PPD12.Data.Floor conTypFlo,
-    bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare IDEAS.Examples.PPD12.Data.FloorAttic conTypCei,
-    redeclare Data.Ppd12WestShadingSecond shaTypC,
-    airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    n50=n50)
-    "Master bedroom"
-    annotation (Placement(transformation(extent={{276,82},{256,62}})));
-  IDEAS.Buildings.Components.RectangularZoneTemplate bedRoom3(
-    aziA=east,
-    bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare package Medium = MediumAir,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypD,
-    bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
-    redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypB,
-    l=wBedroom,
-    w=lHalfBuilding,
-    h=hFloor1,
-    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10 conTypA,
-    bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
-    redeclare IDEAS.Examples.PPD12.Data.Roof conTypCei,
-    bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    redeclare IDEAS.Examples.PPD12.Data.Floor conTypFlo,
-    bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-    hasWinA=true,
-    A_winA=1.1*0.73,
-    fracA=0.15,
-    redeclare IDEAS.Examples.PPD12.Data.TripleGlazing glazingA,
-    nSurfExt=3,
-    calculateViewFactor=false,
-    airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    n50=n50)
-    "Master bedroom"
-    annotation (Placement(transformation(extent={{280,40},{260,20}})));
-
-  IDEAS.Buildings.Components.OuterWall Roof1(
-    inc=(IDEAS.Types.Tilt.Wall + IDEAS.Types.Tilt.Ceiling)/2,
-    azi=west,
-    AWall=wBedroom*lHalfBuilding*sqrt(2),
-    redeclare IDEAS.Examples.PPD12.Data.Roof constructionType)
-    "Roof, west side"                     annotation (Placement(transformation(
-        extent={{-5,-10},{5,10}},
-        rotation=90,
-        origin={283,-2})));
-  IDEAS.Buildings.Components.InternalWall cei3(
-    azi=0,
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall
-      constructionType,
-    AWall=lHallway*wHallway2,
-    inc=IDEAS.Types.Tilt.Floor)
-    "Dummy for representing stairway connection between floors"
-    annotation (Placement(transformation(extent={{182,-22},{192,-2}})));
-  IDEAS.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 radGnd(
+   IDEAS.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 radGnd(
     redeclare package Medium = MediumWater,
     Q_flow_nominal=4373,
     T_a_nominal=273.15 + 75,
@@ -522,10 +160,6 @@ model Ppd12 "Ppd 12 example model"
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving)
     annotation (Placement(transformation(extent={{70,-120},{50,-100}})));
-  IDEAS.Fluid.Sources.Boundary_pT bou(
-    nPorts=9,
-    redeclare package Medium = MediumAir)
-    annotation (Placement(transformation(extent={{-106,-138},{-86,-118}})));
   Modelica.Blocks.Continuous.Integrator integrator(k=1/3600000)
     annotation (Placement(transformation(extent={{352,-76},{372,-56}})));
   IDEAS.Fluid.Actuators.Valves.TwoWayTRV valBed1(
@@ -820,41 +454,6 @@ equation
           {100,-110}}, color={0,127,255}));
   connect(spl3.port_2, spl4.port_1)
     annotation (Line(points={{80,-110},{70,-110}}, color={0,127,255}));
-  connect(bou.ports[1], hallway.flowPort_In) annotation (Line(points={{-86,
-          -124.444},{-62,-124.444},{-62,40},{-84,40}},
-                                           color={0,127,255},
-      visible=false));
-  connect(Diner.flowPort_In, bou.ports[2]) annotation (Line(points={{-34,-38},{
-          -60,-38},{-60,-125.333},{-86,-125.333}},
-                                           color={0,127,255},
-      visible=false));
-  connect(Porch.flowPort_In, bou.ports[3]) annotation (Line(points={{-32,-86},{
-          -58,-86},{-58,-126.222},{-86,-126.222}},
-                                           color={0,127,255},
-      visible=false));
-  connect(stairWay.flowPort_In, bou.ports[4]) annotation (Line(points={{74,6},{
-          -6,6},{-6,-127.111},{-86,-127.111}},
-                                        color={0,127,255},
-      visible=false));
-  connect(bathRoom.flowPort_In, bou.ports[5]) annotation (Line(points={{128,6},
-          {22,6},{22,-128},{-86,-128}},    color={0,127,255},
-      visible=false));
-  connect(bedRoom1.flowPort_In, bou.ports[6]) annotation (Line(points={{128,60},
-          {22,60},{22,-128.889},{-86,-128.889}},
-                                             color={0,127,255},
-      visible=false));
-  connect(bedRoom2.flowPort_In, bou.ports[7]) annotation (Line(points={{264,62},
-          {90,62},{90,-129.778},{-86,-129.778}},
-                                             color={0,127,255},
-      visible=false));
-  connect(bedRoom3.flowPort_In, bou.ports[8]) annotation (Line(points={{268,20},
-          {92,20},{92,-130.667},{-86,-130.667}},
-                                             color={0,127,255},
-      visible=false));
-  connect(living.flowPort_In, bou.ports[9]) annotation (Line(
-      points={{-38,36},{-34,36},{-34,30},{-34,-131.556},{-86,-131.556}},
-      color={0,127,255},
-      visible=false));
   connect(integrator.u, hea.Q_flow) annotation (Line(points={{350,-66},{349,-66},
           {349,-104}}, color={0,0,127}));
   connect(senTemRadBed1.T, valBed1.T) annotation (Line(points={{49,-148},{49.4,-148},
@@ -897,16 +496,25 @@ equation
           -120}},            color={0,127,255}));
   connect(senTemRadBat4.port, radBed3.heatPortCon) annotation (Line(points={{259,
           -162},{260,-162},{260,-168},{262.8,-168}}, color={191,0,0}));
-  connect(senTemGnd.T, valGnd.T) annotation (Line(points={{-51,-148},{-50.6,-148},
-          {-50.6,-140}}, color={0,0,127}));
+  connect(senTemGnd.T, valGnd.T) annotation (Line(points={{-51,-148},{-50.6,
+          -148},{-50.6,-140}},
+                         color={0,0,127}));
   connect(valGnd.port_a, spl4.port_2) annotation (Line(points={{-40,-130},{-40,-110},
           {50,-110}}, color={0,127,255}));
-  connect(senTemGnd.port, radGnd.heatPortCon) annotation (Line(points={{-51,-162},
-          {-50,-162},{-50,-168},{-47.2,-168}}, color={191,0,0}));
+  connect(senTemGnd.port, radGnd.heatPortCon) annotation (Line(points={{-51,
+          -162},{-50,-162},{-50,-168},{-47.2,-168}},
+                                               color={191,0,0}));
   connect(radGnd.port_a, valGnd.port_b) annotation (Line(points={{-40,-160},{-40,
           -150}},            color={0,127,255}));
+  connect(sim.weaBus, weaBus1) annotation (Line(
+      points={{384,50.8},{380,50.8},{380,80}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -200},{400,100}},
+            -200},{400,240}},
         initialScale=0.1), graphics={
         Line(points={{-72,-100},{-100,-100},{-100,100},{-68,100},{-68,-10},{0,-10},
               {0,100},{-68,100}}, color={28,108,200}),
@@ -939,21 +547,18 @@ equation
       __Dymola_NumberOfIntervals=5000,
       __Dymola_fixedstepsize=15,
       __Dymola_Algorithm="Euler"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/PPD12/Ppd12.mos"
-        "Simulate and plot"),
+    __Dymola_Commands,
     Documentation(info="<html>
-<p>Example model of a partially renovated residential dwelling in Belgium.</p>
-<p>To be elaborated on:</p>
-<p>- heating</p>
-<p>- ventilation</p>
-<p>- air flow model</p>
-<p>- control</p>
+<p>
+Example model of a partially renovated terraced house in Belgium.
+This model adds the building heating system.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-December 20, 2016 by Filip Jorissen:<br/>
+January 9, 2017 by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end Ppd12;
+end Heating;

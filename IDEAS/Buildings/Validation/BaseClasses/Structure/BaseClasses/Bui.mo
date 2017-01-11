@@ -23,26 +23,26 @@ model Bui "Base model"
         IDEAS.Types.Azimuth.W},
     final inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,
         IDEAS.Types.Tilt.Wall}) annotation (Placement(transformation(
-        extent={{-5,-10},{5,10}},
+        extent={{-5.5,-9.49999},{5.5,9.49999}},
         rotation=90,
-        origin={-49,-14})));
+        origin={-49.5,-14.5})));
 
   IDEAS.Buildings.Components.BoundaryWall floor(
     redeclare parameter Data.Constructions.LightFloor constructionType,
     final AWall=48,
     inc=IDEAS.Types.Tilt.Floor,
     final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
-        extent={{-5,-10},{5,10}},
+        extent={{-5.5,-9.5},{5.5,9.5}},
         rotation=90,
-        origin={-19,-14})));
+        origin={-19.5,-14.5})));
   IDEAS.Buildings.Components.OuterWall roof(
     redeclare final parameter Data.Constructions.LightRoof constructionType,
     final AWall=48,
     final inc=IDEAS.Types.Tilt.Ceiling,
     final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
-        extent={{-5,-10},{5,10}},
+        extent={{-5.5,-9.5},{5.5,9.5}},
         rotation=90,
-        origin={-79,-14})));
+        origin={-79.5,-14.5})));
 
 equation
   connect(temperatureSensor.T, TSensor[1]) annotation (Line(
@@ -63,17 +63,17 @@ equation
       smooth=Smooth.None));
 
   connect(roof.propsBus_a, gF.propsBus[1]) annotation (Line(
-      points={{-81,-9},{-81,31.3333},{40,31.3333}},
+      points={{-81.4,-9.91667},{-81.4,31.3333},{40,31.3333}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(wall.propsBus_a, gF.propsBus[2:5]) annotation (Line(
-      points={{-51,-9},{-51,26},{40,26}},
+      points={{-51.4,-9.91667},{-51.4,26},{40,26}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(floor.propsBus_a, gF.propsBus[6]) annotation (Line(
-      points={{-21,-9},{-21,24.6667},{40,24.6667}},
+      points={{-21.4,-9.91667},{-21.4,24.6667},{40,24.6667}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
