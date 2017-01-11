@@ -3,7 +3,6 @@ model BuildingN2_Exp2 "Model for simulation of experiment2 for the N2 building"
   extends BuildingN2_Exp1(
     inputSolTTH(fileName=
           "C:/Users/glenn/Documents/1_Git/IDEAS/IDEAS/Inputs/weatherinputExp2.txt"),
-
     sim(filNam="weatherinputExp2.txt"),
     struct(Exp=2, filename="bc_TTH_Exp2.txt"),
     vent(filename="bc_TTH_Exp2.txt"),
@@ -11,6 +10,7 @@ model BuildingN2_Exp2 "Model for simulation of experiment2 for the N2 building"
         Schedule={8467200,10198800,11494800,12013200},
         Tinit2=303.15,
         filename="meas_TTH_Exp2.txt")));
+
   annotation (
     experiment(
       StartTime=9.7e+006,
@@ -23,5 +23,7 @@ model BuildingN2_Exp2 "Model for simulation of experiment2 for the N2 building"
       Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
       Evaluate=true,
       OutputCPUtime=true,
-      OutputFlatModelica=false));
+      OutputFlatModelica=false),
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/Twinhouses/BuildingN2_Exp2.mos"
+        "Simulate and plot"));
 end BuildingN2_Exp2;

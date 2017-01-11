@@ -38,8 +38,8 @@ if time <Schedule[2] then
   y[3]=max(0,100000*(Tinit1-TSensor[3]));
   y[4]=max(0,100000*(Tinit1-TSensor[4]));
   y[5]=max(0,100000*(Tinit1-TSensor[5]));
-  y[6]=max(0,100000*(Tinit1+30-TSensor[6]));
-  y[7]=max(0,100000*(Tinit1+30-TSensor[7]));
+  y[6]=max(0,100000*(Tinit1-TSensor[6]));
+  y[7]=max(0,100000*(Tinit1-TSensor[7]));
 elseif (time>=Schedule[2] and time < Schedule[3]) or time >=Schedule[4] then
   y=Pel_IDEAL;
 elseif time>=Schedule[3] and time < Schedule[4] then

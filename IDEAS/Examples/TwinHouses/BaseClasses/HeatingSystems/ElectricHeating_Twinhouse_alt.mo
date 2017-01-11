@@ -9,7 +9,7 @@ model ElectricHeating_Twinhouse_alt
   parameter Real[nZones] Crad "thermal mass of radiator";
   parameter Real[nZones] Kemission "heat transfer coefficient";
   parameter Real COP=1;
-
+  Modelica.SIunits.Power[nZones] Qhea;
   final parameter Real frad=0.3 "radiative fraction";
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nZones] IDEAL_heating_con
     annotation (Placement(transformation(extent={{8,-12},{-12,8}})));
@@ -23,8 +23,8 @@ equation
 
   P[1] = QHeaSys/COP;
   Q[1] = 0;
-  QHeaSys=sum(scheduleExp1_1.y);
-
+  QHeaSys=sum(IDEAL_heating_rad.Q_flow)+sum(IDEAL_heating_con.Q_flow);
+  Qhea = IDEAL_heating_rad.Q_flow+IDEAL_heating_con.Q_flow;
   for i in 1:nZones loop
   IDEAL_heating_rad[i].Q_flow = frad*min(scheduleExp1_1.y[i],Q_design[i]);
   IDEAL_heating_con[i].Q_flow=(1-frad)*min(scheduleExp1_1.y[i],Q_design[i]);
