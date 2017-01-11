@@ -1210,6 +1210,12 @@ in <a href=modelica://IDEAS.Buildings.Validation.Tests.ZoneTemplateVerification2
 IDEAS.Buildings.Validation.Tests.ZoneTemplateVerification2</a>.
 This gives identical results.
 </p>
+<h4>Example</h4>
+<p>
+An example of how this template may be used
+can be found in 
+<a href=modelica://IDEAS.Examples.PPD12>IDEAS.Examples.PPD12</a>.
+</p>
 <h4>Implementation</h4>
 <p>
 Shading types need to be declared using a record instead of
