@@ -1135,7 +1135,7 @@ This model can be used to set up
 zones with a rectangular geometry more quickly.
 This template consists of a zone, four walls, a horizontal roof and a floor
 and five optional windows.
-Additional surfaces may also be connected.
+Additional surfaces may also be connected through external bus connector.
 </p>
 <h4>Main equations</h4>
 <p>
@@ -1159,7 +1159,7 @@ Parameters width <code>w</code>, length <code>l</code>
 and height <code>h</code> need to be defined
 and are used to compute the dimensions of each of the surfaces.
 Parameter <code>aziA</code> represents the azimuth angle
-of surface A (see icon). Other surfaces are rotated by multiples
+of surface A (see icon). Other surfaces are rotated (clockwise) by multiples
 of ninety degrees with respect to <code>aziA</code>.
 Parameter <code>nSurfExt</code> may be used
 to connect additional surfaces to the template. 
