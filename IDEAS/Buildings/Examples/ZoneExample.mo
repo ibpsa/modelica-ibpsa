@@ -97,7 +97,7 @@ equation
       thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Buildings/Components/Examples/ZoneExample.mos"
+          "Resources/Scripts/Dymola/Buildings/Examples/ZoneExample.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
