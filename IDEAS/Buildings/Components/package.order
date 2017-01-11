@@ -4,6 +4,7 @@ OuterWall
 SlabOnGround
 Window
 Zone
+RectangularZoneTemplate
 Shading
 ThermalBridges
 ZoneAirModels

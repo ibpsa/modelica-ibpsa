@@ -21,11 +21,6 @@ model SlabOnGround "opaque floor on ground slab"
   parameter Boolean linearise=sim.linearise
     "= true, if heat flow to ground should be linearized"
     annotation(Dialog(tab="Convection"));
-//  parameter Modelica.Fluid.Types.Dynamics energyDynamicsLayGro[3]= {Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,  Modelica.Fluid.Types.Dynamics.FixedInitial,Modelica.Fluid.Types.Dynamics.FixedInitial}
-//    "Energy dynamics for ground layer";
-//  parameter Modelica.Fluid.Types.Dynamics energyDynamicsLayMul[constructionType.nLay]=
-//    cat(1, fill(energyDynamics, constructionType.nLay - 1),{if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics})
-//    "Energy dynamics for construction layer";
   Modelica.SIunits.HeatFlowRate Qm = if not linearise then UEqui*AWall*(TiAvg - TeAvg) - Lpi*dTiAvg*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*dTeAvg*cos(2*3.1415/12*(m - 1 - beta)) else
     sum({UEqui*AWall*(TiAvg - TeAvg) - Lpi*dTiAvg*cos(2*3.1415/12*(i- 1 + alfa)) + Lpe*dTeAvg*cos(2*3.1415/12*(i - 1 - beta)) for i in 1:12})/12
     "Two-dimensional correction for edge flow";
@@ -33,7 +28,7 @@ model SlabOnGround "opaque floor on ground slab"
 //Calculation of heat loss based on ISO 13370
 protected
   final parameter Modelica.Fluid.Types.Dynamics energyDynamicsLayGro[3]=
- cat(1, fill(energyDynamics, 2), {if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics})
+    cat(1, fill(energyDynamics, 2), {if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics})
  "Energy dynamics for construction layer";
   final parameter IDEAS.Buildings.Data.Materials.Ground ground1(final d=0.50);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground2(final d=0.33);
