@@ -64,8 +64,8 @@ model MixingVolume "Test model for mixing volumes"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
          annotation (Placement(transformation(extent={{0,60},{22,80}})));
-  Utilities.Diagnostics.CheckEquality
-                           cheEqu1        "Check for equality of results"
+  Utilities.Diagnostics.CheckEquality cheEqu1
+    "Check for equality of results"
     annotation (Placement(transformation(extent={{156,72},{176,92}})));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat(
     redeclare package Medium = Medium,
@@ -97,8 +97,8 @@ model MixingVolume "Test model for mixing volumes"
     m_flow_nominal=2,
     dp_nominal=2.5)
     annotation (Placement(transformation(extent={{80,-92},{100,-72}})));
-  Utilities.Diagnostics.CheckEquality
-                           cheEqu2        "Check for equality of results"
+  Utilities.Diagnostics.CheckEquality cheEqu2
+    "Check for equality of results"
     annotation (Placement(transformation(extent={{156,10},{176,30}})));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat2(
     redeclare package Medium = Medium,
