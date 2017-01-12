@@ -20,7 +20,7 @@ model ZoneExample
       constructionType,
     azi=0,
     inc=IDEAS.Types.Tilt.Wall,
-    AWall=l*w)                 "Internal wall model" annotation (Placement(
+    A=l*w)                 "Internal wall model" annotation (Placement(
         transformation(
         extent={{6,-10},{-6,10}},
         rotation=90,
@@ -36,7 +36,7 @@ model ZoneExample
   IDEAS.Buildings.Components.SlabOnGround slabOnGround(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.LightWall
       constructionType,
-    AWall=l*w,
+    A=l*w,
     PWall=2*(l + w))
            "Floor model"
     annotation (Placement(transformation(extent={{-56,-40},{-44,-20}})));
@@ -44,7 +44,7 @@ model ZoneExample
     azi=0,
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall constructionType,
     inc=IDEAS.Types.Tilt.Wall,
-    AWall=(l + w)*2*h)         "Outer wall model"
+    A=(l + w)*2*h)         "Outer wall model"
     annotation (Placement(transformation(extent={{-56,-60},{-44,-40}})));
   IDEAS.Buildings.Components.Zone zone1(
     redeclare package Medium = Medium,
@@ -57,12 +57,11 @@ model ZoneExample
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall constructionType,
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S,
-    AWall=(l + w)*2*h - window.A)
-                               "Outer wall model"
+    A=(l + w)*2*h - window.A)  "Outer wall model"
     annotation (Placement(transformation(extent={{-56,20},{-44,40}})));
   IDEAS.Buildings.Components.OuterWall Roof(
     azi=0,
-    AWall=10,
+    A=10,
     redeclare Validation.Data.Constructions.LightRoof constructionType,
     inc=IDEAS.Types.Tilt.Ceiling) "Roof model"
     annotation (Placement(transformation(extent={{-56,60},{-44,80}})));
