@@ -1,8 +1,6 @@
 Actuators
-BaseCircuits
 Chillers
 Delays
-Domestic_Hot_Water
 FMI
 FixedResistances
 HeatExchangers
@@ -14,7 +12,7 @@ Production
 Sensors
 Sources
 Storage
-Valves
+Taps
 Types
 Examples
 Interfaces

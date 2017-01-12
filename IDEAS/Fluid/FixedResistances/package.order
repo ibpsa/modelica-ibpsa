@@ -2,11 +2,9 @@ HydraulicDiameter
 InsulatedPipe
 Junction
 LosslessPipe
-ParallelFixedResistanceDpM
-Pipe
+ParallelPressureDrop
 Pipe_HeatPort
-Pipe_Insulated
 PressureDrop
-SplitterFixedResistanceDpM
+Pipe_Insulated
 Examples
 Validation
