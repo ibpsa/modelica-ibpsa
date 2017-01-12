@@ -36,7 +36,7 @@ equation
   Pel_IDEAL[2]=0;
   Pel_IDEAL[3]=measuredInput.y[9];
   Pel_IDEAL[4]=measuredInput.y[10];
-  Pel_IDEAL[5]=measuredInput.y[11]+measuredInput.y[12];
+  Pel_IDEAL[5]=measuredInput.y[11]+measuredInput.y[12];//measuremedInput.y[12] is the extra heatloss due to uninsulated duct
   Pel_IDEAL[6]=measuredInput.y[13];
   Pel_IDEAL[7]=measuredInput.y[14];
 if time <Schedule[2] then
@@ -44,7 +44,7 @@ if time <Schedule[2] then
   y[2]=0;
   y[3]=max(0,100000*(Tinit1-TSensor[3]));
   y[4]=max(0,100000*(Tinit1-TSensor[4]));
-  y[5]=max(0,100000*(Tinit1-TSensor[5]));
+  y[5]=max(0,100000*(Tinit1-TSensor[5]))+measuredInput.y[12];
   y[6]=max(0,100000*(Tinit1-TSensor[6]));
   y[7]=max(0,100000*(Tinit1-TSensor[7]));
 elseif (time>=Schedule[2] and time < Schedule[3]) or time >=Schedule[4] then
@@ -54,7 +54,7 @@ elseif time>=Schedule[3] and time < Schedule[4] then
   y[2]=0;
   y[3]=max(0,100000*(Tinit2-TSensor[3]));
   y[4]=max(0,100000*(Tinit2-TSensor[4]));
-  y[5]=max(0,100000*(Tinit2-TSensor[5]));
+  y[5]=max(0,100000*(Tinit2-TSensor[5]))+measuredInput.y[12];
   y[6]=max(0,100000*(Tinit2-TSensor[6]));
   y[7]=max(0,100000*(Tinit2-TSensor[7]));
 else
