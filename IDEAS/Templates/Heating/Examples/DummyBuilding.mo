@@ -61,7 +61,7 @@ equation
         smooth=Smooth.None));
   end if;
 
-  connect(flowPort_Out, flowPort_In) annotation (Line(
+  connect(port_b, port_a) annotation (Line(
       points={{-20,100},{2,100},{2,100},{20,100}},
       color={0,0,0},
       smooth=Smooth.None));

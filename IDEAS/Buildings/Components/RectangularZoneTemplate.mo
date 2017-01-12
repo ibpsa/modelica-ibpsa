@@ -511,7 +511,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    AWall=l*h - (if hasWinA then A_winA else 0)) if
+    A=l*h - (if hasWinA then A_winA else 0)) if
        hasBouA
     "Boundary wall for face A of this zone"
     annotation (Placement(transformation(extent={{-120,0},{-110,20}})));
@@ -527,7 +527,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    AWall=w*h - (if hasWinB then A_winB else 0)) if
+    A=w*h - (if hasWinB then A_winB else 0)) if
        hasBouB
     "Boundary wall for face A of this zone"
     annotation (Placement(transformation(extent={{-120,-20},{-110,0}})));
@@ -542,7 +542,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    AWall=l*h - (if hasWinC then A_winC else 0)) if
+    A=l*h - (if hasWinC then A_winC else 0)) if
        hasBouC
     "Boundary wall for face C of this zone"
     annotation (Placement(transformation(extent={{-120,-40},{-110,-20}})));
@@ -557,12 +557,12 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    AWall=w*h - (if hasWinD then A_winD else 0)) if
+    A=w*h - (if hasWinD then A_winD else 0)) if
        hasBouD
     "Boundary wall for face D of this zone"
     annotation (Placement(transformation(extent={{-120,-60},{-110,-40}})));
   IDEAS.Buildings.Components.BoundaryWall bouFlo(inc=IDEAS.Types.Tilt.Floor, azi=aziA,
-    AWall=A,
+    A=A,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypFlo.nLay,
       nGain=conTypFlo.nGain,
@@ -585,7 +585,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    AWall=A - (if hasWinCei then A_winCei else 0)) if
+    A=A - (if hasWinCei then A_winCei else 0)) if
        hasBouCei
     "Boundary wall for zone ceiling"
     annotation (Placement(transformation(extent={{-120,-100},{-110,-80}})));
@@ -601,7 +601,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    AWall=l*h - (if hasWinA then A_winA else 0)) if
+    A=l*h - (if hasWinA then A_winA else 0)) if
        hasOutA
     "Outer wall for face A of this zone"
     annotation (Placement(transformation(extent={{-140,0},{-130,20}})));
@@ -619,7 +619,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    AWall=w*h - (if hasWinB then A_winB else 0)) if
+    A=w*h - (if hasWinB then A_winB else 0)) if
        hasOutB
     "Outer wall for face B of this zone"
     annotation (Placement(transformation(extent={{-140,-20},{-130,0}})));
@@ -636,7 +636,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    AWall=l*h - (if hasWinC then A_winC else 0)) if
+    A=l*h - (if hasWinC then A_winC else 0)) if
        hasOutC
     "Outer wall for face C of this zone"
     annotation (Placement(transformation(extent={{-140,-40},{-130,-20}})));
@@ -653,7 +653,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    AWall=w*h - (if hasWinD then A_winD else 0)) if
+    A=w*h - (if hasWinD then A_winD else 0)) if
        hasOutD
     "Outer wall for face D of this zone"
     annotation (Placement(transformation(extent={{-140,-60},{-130,-40}})));
@@ -671,14 +671,14 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    AWall=A - (if hasWinCei then A_winCei else 0)) if
+    A=A - (if hasWinCei then A_winCei else 0)) if
        hasOutCei
     "Outer wall for zone ceiling"
     annotation (Placement(transformation(extent={{-140,-100},{-130,-80}})));
   IDEAS.Buildings.Components.SlabOnGround slaOnGro(
     inc=IDEAS.Types.Tilt.Floor,
     azi=aziA,
-    AWall=A,
+    A=A,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypFlo.nLay,
       nGain=conTypFlo.nGain,
@@ -708,7 +708,7 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    AWall=l*h - (if hasWinA then A_winA else 0)) if
+    A=l*h - (if hasWinA then A_winA else 0)) if
     hasIntA
     "Internal wall for face A of this zone"
     annotation (Placement(transformation(extent={{-176,0},{-164,20}})));
@@ -726,7 +726,7 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    AWall=w*h - (if hasWinB then A_winB else 0)) if
+    A=w*h - (if hasWinB then A_winB else 0)) if
     hasIntB
     "Internal wall for face B of this zone"
     annotation (Placement(transformation(extent={{-176,-20},{-164,0}})));
@@ -743,7 +743,7 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    AWall=l*h - (if hasWinC then A_winC else 0)) if
+    A=l*h - (if hasWinC then A_winC else 0)) if
     hasIntC
     "Internal wall for face C of this zone"
     annotation (Placement(transformation(extent={{-176,-40},{-164,-20}})));
@@ -760,14 +760,14 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    AWall=w*h - (if hasWinD then A_winD else 0)) if
+    A=w*h - (if hasWinD then A_winD else 0)) if
     hasIntD
     "Internal wall for face D of this zone"
     annotation (Placement(transformation(extent={{-176,-60},{-164,-40}})));
   IDEAS.Buildings.Components.InternalWall intFlo(
     inc=IDEAS.Types.Tilt.Floor,
     azi=aziA,
-    AWall=A,
+    A=A,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       nLay=conTypFlo.nLay,
       nGain=conTypFlo.nGain,
@@ -929,8 +929,6 @@ initial equation
               "Using internal walls for the ceiling is not allowed because it is considered bad practice. 
               Use instead the 'External'  connection to connect the the floor of the surface above, 
               or use this option to connect and internal wall externally.");
-
-
 
 
 equation

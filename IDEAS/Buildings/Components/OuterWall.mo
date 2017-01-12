@@ -16,15 +16,15 @@ model OuterWall "Opaque building envelope construction"
 
 protected
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.ExteriorConvection
-    extCon(final A=AWall, linearise=linExtCon or sim.linearise)
+    extCon(               linearise=linExtCon or sim.linearise, final A=A)
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-22,-28},{-42,-8}})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorSolarAbsorption
-    solAbs(A=AWall)
+    solAbs(A=A)
     "determination of absorbed solar radiation by wall based on incident radiation"
     annotation (Placement(transformation(extent={{-22,-8},{-42,12}})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorHeatRadiation
-    extRad(final A=AWall, linearise=linExtRad or sim.linearise)
+    extRad(               linearise=linExtRad or sim.linearise, final A=A)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-22,12},{-42,32}})));
   BoundaryConditions.SolarIrradiation.RadSolData radSolData(
@@ -38,7 +38,7 @@ protected
     annotation (Placement(transformation(extent={{-94,-4},{-74,16}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough";
 initial equation
-  QTra_design =U_value*AWall*(273.15 + 21 - Tdes.y);
+  QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
 
 equation
 

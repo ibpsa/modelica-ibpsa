@@ -4,7 +4,7 @@ model ZoneTemplateVerification2
   extends ZoneTemplateVerification(rectangularZoneTemplate(
       A_winA=6,
       nSurfExt=1,
-      outA(AWall=9.6)));
+      outA(A=9.6)));
 
     IDEAS.Buildings.Components.Window win(
     final A=6,

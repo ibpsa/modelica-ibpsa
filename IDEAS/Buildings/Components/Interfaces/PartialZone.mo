@@ -263,9 +263,9 @@ end for;
   connect(airModel.A[1:nSurf], propsBusInt[1:nSurf].area) annotation (Line(
         points={{-40.6,24},{-80,24},{-80,40},{-80.1,40},{-80.1,39.9}}, color={0,
           0,127}));
-  connect(airModel.port_b, flowPort_Out) annotation (Line(points={{-34,40},{-34,
+  connect(airModel.port_b, port_b) annotation (Line(points={{-34,40},{-34,
           100},{-20,100}}, color={0,127,255}));
-  connect(airModel.port_a, flowPort_In) annotation (Line(points={{-26,40},{-26,40},
+  connect(airModel.port_a, port_a) annotation (Line(points={{-26,40},{-26,40},
           {-26,74},{-26,88},{20,88},{20,100}}, color={0,127,255}));
   connect(airModel.ports_air[1], gainCon) annotation (Line(points={{-20,30},{2,30},
           {2,-30},{100,-30}}, color={191,0,0}));

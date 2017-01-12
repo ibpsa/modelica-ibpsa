@@ -64,10 +64,10 @@ equation
         points={{-160,-20},{-150,-20},{-150,8},{-140,8}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(flowPort_In[i], hex.port_a1) annotation (Line(
-      points={{-200,20},{-140,20}},
-      color={0,0,127},
-      smooth=Smooth.None,
+    connect(port_a[i], hex.port_a1) annotation (Line(
+        points={{-200,20},{-140,20}},
+        color={0,0,127},
+        smooth=Smooth.None,
         pattern=LinePattern.Dash));
   end for;
 
@@ -76,7 +76,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(pump.port_b, flowPort_Out) annotation (Line(
+  connect(pump.port_b, port_b) annotation (Line(
       points={{-180,-20},{-200,-20}},
       color={0,0,127},
       smooth=Smooth.None));

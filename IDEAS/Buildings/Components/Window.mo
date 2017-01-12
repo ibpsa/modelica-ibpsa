@@ -29,8 +29,6 @@ model Window "Multipane window"
   parameter Boolean linExtRad=sim.linExtRadWin
     "= true, if exterior radiative heat transfer should be linearised"
     annotation(Dialog(tab="Radiation"));
-
-  parameter Modelica.SIunits.Area A "Total window and windowframe area";
   parameter Real frac(
     min=0,
     max=1) = 0.15 "Area fraction of the window frame";
@@ -155,24 +153,6 @@ protected
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
 initial equation
   QTra_design = (U_value*A + (if fraType.briTyp.present then fraType.briTyp.G else 0)) *(273.15 + 21 - Tdes.y);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 equation
@@ -365,6 +345,15 @@ Optional parameter <code>shaType</code> may be used to define the window shading
 </html>", revisions="<html>
 <ul>
 <li>
+January 10, 2017, by Filip Jorissen:<br/>
+Removed declaration of 
+<code>A</code> since this is now declared in 
+<a href=modelica://IDEAS.Buildings.Components.Interfaces.PartialSurface>
+IDEAS.Buildings.Components.Interfaces.PartialSurface</a>.
+This is for 
+<a href=https://github.com/open-ideas/IDEAS/issues/609>#609</a>.
+</li>
+<li>
 January 10, 2017 by Filip Jorissen:<br/>
 Set <code>linExtRad = sim.linExtRadWin</code>.
 See <a href=https://github.com/open-ideas/IDEAS/issues/615>#615</a>.
@@ -378,6 +367,7 @@ December 19, 2016, by Filip Jorissen:<br/>
 Removed briType, which had default value LineLoss.
 briType is now part of the Frame model and has default
 value None.
+>>>>>>> develop
 </li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>

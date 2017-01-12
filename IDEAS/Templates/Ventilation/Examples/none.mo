@@ -4,8 +4,8 @@ parameter Boolean standAlone=true;
 
 replaceable package Medium =      IDEAS.Media.Air;
 
-  Buildings.Examples.BaseClasses.structure structure(redeclare package Medium
-      = Medium)
+  Buildings.Examples.BaseClasses.structure structure(redeclare package Medium =
+        Medium)
     annotation (Placement(transformation(extent={{-78,-40},{-48,-20}})));
   None none(
     nZones=3,
@@ -50,11 +50,11 @@ equation
       points={{-8,0},{16,0}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(structure.flowPort_Out, none.flowPort_In) annotation (Line(
+  connect(structure.port_b, none.port_a) annotation (Line(
       points={{-65,-20},{-66,-20},{-66,2},{-28,2}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(structure.flowPort_In, none.flowPort_Out) annotation (Line(
+  connect(structure.port_a, none.port_b) annotation (Line(
       points={{-61,-20},{-60,-20},{-60,-2},{-28,-2}},
       color={0,0,0},
       smooth=Smooth.None));
