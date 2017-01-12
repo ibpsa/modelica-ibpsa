@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Interfaces;
-partial model PartialHeightPortInterface
-  "Partial model transporting fluid between four ports without storing mass or energy"
-  extends IDEAS.Fluid.Interfaces.HeightPort;
+partial model PartialEightPortInterface
+  "Partial model transporting fluid between eight ports without storing mass or energy"
+  extends IDEAS.Fluid.Interfaces.EightPort;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -124,23 +124,11 @@ equation
   annotation (
   preferredView="info",
     Documentation(info="<html>
-<p>
-This component defines the interface for models that
-transport four fluid streams between four ports.
-It is similar to
-<a href=\"modelica://IDEAS.Fluid.Interfaces.PartialTwoPortInterface\">
-IDEAS.Fluid.Interfaces.PartialTwoPortInterface</a>,
-but it has height ports instead of two.
-<p>
-The model is used by other models in this package that add heat transfer,
-mass transfer and pressure drop equations.
-</p>
+<p>This component defines the interface for models that transport four fluid streams between eight ports. It is similar to <a href=\"modelica://IDEAS.Fluid.Interfaces.PartialTwoPortInterface\">IDEAS.Fluid.Interfaces.PartialTwoPortInterface</a>, but it has eight ports instead of two. </p>
+<p>The model is used by other models in this package that add heat transfer, mass transfer and pressure drop equations. </p>
 </html>", revisions="<html>
 <ul>
-<li>
-Januari 28, 2015, by Damien Picard:<br/>
-First implementation.
-</li>
+<li>July 2014, by Damien Picard:<br>First implementation. </li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
@@ -148,4 +136,4 @@ First implementation.
                     graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
-end PartialHeightPortInterface;
+end PartialEightPortInterface;

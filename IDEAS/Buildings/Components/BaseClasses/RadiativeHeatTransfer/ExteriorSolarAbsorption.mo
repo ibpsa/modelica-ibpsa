@@ -1,21 +1,28 @@
 within IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer;
 model ExteriorSolarAbsorption
   "shortwave radiation absorption on an exterior surface"
+  parameter Modelica.SIunits.Area A "Surface area";
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Blocks.Interfaces.RealInput solDir
+  Modelica.Blocks.Interfaces.RealInput solDir(unit="W/m2")
     "direct solar illuminance on surface se"
     annotation (Placement(transformation(extent={{120,40},{80,80}})));
-  Modelica.Blocks.Interfaces.RealInput solDif
+  Modelica.Blocks.Interfaces.RealInput solDif(unit="W/m2")
     "diffuse solar illuminance on surface s"
     annotation (Placement(transformation(extent={{120,0},{80,40}})));
   Modelica.Blocks.Interfaces.RealInput epsSw
     "shortwave emissivity of the surface"
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
 
+protected
+  parameter Modelica.SIunits.Area ASw(fixed=false);
+
+initial equation
+  ASw=-A*epsSw;
+
 equation
-  port_a.Q_flow = -(solDir + solDif)*epsSw;
+  port_a.Q_flow = ASw*(solDir + solDif);
 
   annotation (Icon(graphics={
         Rectangle(
@@ -41,6 +48,12 @@ equation
         Line(points={{-40,-10},{-30,-16}}, color={191,0,0})}), Documentation(
         info="<html>
 <p>Transmitted shortwave solar radiation is distributed over all surfaces in the zone in a prescribed scale. This scale is an input value which may be dependent on the shape of the zone and the location of the windows, but literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+Refactored solar absorption to include parameter for A.
+</li>
+</ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));

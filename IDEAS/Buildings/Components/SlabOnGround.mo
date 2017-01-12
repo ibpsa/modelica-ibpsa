@@ -3,6 +3,8 @@ model SlabOnGround "opaque floor on ground slab"
    extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
      QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes),
         dT_nominal_a=-3,
+        inc=IDEAS.Types.Tilt.Floor,
+        azi=0,
     redeclare replaceable Data.Constructions.FloorOnGround constructionType,
     layMul(monLay(each monLayDyn(final addRes_b=true))));
 
@@ -19,11 +21,6 @@ model SlabOnGround "opaque floor on ground slab"
   parameter Boolean linearise=sim.linearise
     "= true, if heat flow to ground should be linearized"
     annotation(Dialog(tab="Convection"));
-//  parameter Modelica.Fluid.Types.Dynamics energyDynamicsLayGro[3]= {Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,  Modelica.Fluid.Types.Dynamics.FixedInitial,Modelica.Fluid.Types.Dynamics.FixedInitial}
-//    "Energy dynamics for ground layer";
-//  parameter Modelica.Fluid.Types.Dynamics energyDynamicsLayMul[constructionType.nLay]=
-//    cat(1, fill(energyDynamics, constructionType.nLay - 1),{if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics})
-//    "Energy dynamics for construction layer";
   Modelica.SIunits.HeatFlowRate Qm = if not linearise then UEqui*AWall*(TiAvg - TeAvg) - Lpi*dTiAvg*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*dTeAvg*cos(2*3.1415/12*(m - 1 - beta)) else
     sum({UEqui*AWall*(TiAvg - TeAvg) - Lpi*dTiAvg*cos(2*3.1415/12*(i- 1 + alfa)) + Lpe*dTeAvg*cos(2*3.1415/12*(i - 1 - beta)) for i in 1:12})/12
     "Two-dimensional correction for edge flow";
@@ -31,7 +28,7 @@ model SlabOnGround "opaque floor on ground slab"
 //Calculation of heat loss based on ISO 13370
 protected
   final parameter Modelica.Fluid.Types.Dynamics energyDynamicsLayGro[3]=
- cat(1, fill(energyDynamics, 2), {if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics})
+    cat(1, fill(energyDynamics, 2), {if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics})
  "Energy dynamics for construction layer";
   final parameter IDEAS.Buildings.Data.Materials.Ground ground1(final d=0.50);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground2(final d=0.33);
@@ -89,8 +86,14 @@ equation
   connect(product.y, periodicFlow.Q_flow) annotation (Line(points={{-38.4,40},{-50,
           40},{-50,22},{-40,22}}, color={0,0,127}));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-60,-100},{60,100}}),
         graphics={
+        Rectangle(
+          extent={{-50,-70},{50,100}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-50,-90},{50,-70}},
           fillColor={175,175,175},
@@ -140,6 +143,11 @@ zone that is surrounded by air at the ambient temperature.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 2, 2017, by Filip Jorissen:<br/>
+Added default values for parameters <code>inc</code> and 
+<code>azi</code>.
+</li>
 <li>
 October 22, 2016, by Filip Jorissen:<br/>
 Revised documentation for IDEAS 1.0.

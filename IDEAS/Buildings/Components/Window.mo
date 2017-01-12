@@ -1,12 +1,13 @@
 within IDEAS.Buildings.Components;
 model Window "Multipane window"
-  replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazing
+  replaceable IDEAS.Buildings.Data.Interfaces.Glazing glazing
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
 
   extends IDEAS.Buildings.Components.Interfaces.PartialSurface(
     dT_nominal_a=-3,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     intCon_a(final A=
            A*(1 - frac),
            linearise=linIntCon_a or sim.linearise,
@@ -25,7 +26,7 @@ model Window "Multipane window"
   parameter Boolean linExtCon=sim.linExtCon
     "= true, if exterior convective heat transfer should be linearised (uses average wind speed)"
     annotation(Dialog(tab="Convection"));
-  parameter Boolean linExtRad=sim.linExtRad
+  parameter Boolean linExtRad=sim.linExtRadWin
     "= true, if exterior radiative heat transfer should be linearised"
     annotation(Dialog(tab="Radiation"));
 
@@ -41,19 +42,14 @@ model Window "Multipane window"
     "Fraction of thermal mass C that is attributed to frame"
     annotation(Dialog(tab="Dynamics", enable=windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two));
 
-  replaceable IDEAS.Buildings.Components.ThermalBridges.LineLosses briType constrainedby
-    IDEAS.Buildings.Components.ThermalBridges.BaseClasses.ThermalBridge
-    "Thermal bridge of window edge" annotation (__Dymola_choicesAllMatching=true, Dialog(group=
-          "Construction details"));
-
-  replaceable IDEAS.Buildings.Data.Frames.None fraType
+  replaceable parameter IDEAS.Buildings.Data.Frames.None fraType
     constrainedby IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
-    annotation (__Dymola_choicesAllMatching=true, Dialog(group=
+    annotation (choicesAllMatching=true, Dialog(group=
           "Construction details"));
   replaceable IDEAS.Buildings.Components.Shading.None shaType constrainedby
     Shading.Interfaces.PartialShading(
-                            final azi=azi) "First shading type"  annotation (Placement(transformation(extent={{-50,-60},
-            {-40,-40}})),
+                            final azi=azi) "First shading type"  annotation (Placement(transformation(extent={{-60,-60},
+            {-50,-40}})),
       __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
 
   Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controlled
@@ -65,10 +61,6 @@ model Window "Multipane window"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-40,-100})));
-
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theBri(final G=briType.G) if
-       briType.present "Themal bridge of the window perimeter"
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
 
 protected
@@ -100,7 +92,7 @@ protected
     linearise=linIntCon_a or sim.linearise) if
                         fraType.present
     "convective surface heat transimission on the interior side of the wall"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorHeatRadiation
     skyRadFra(final A=A*frac, Tenv_nom=sim.Tenv_nom,
     linearise=linExtRad or sim.linearise) if
@@ -112,9 +104,10 @@ protected
                  fraType.present
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,60},{-40,80}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(final G=
-        fraType.U_value*A*frac) if fraType.present  annotation (Placement(transformation(extent={{10,70},
-            {-10,90}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(final G=(if
+        fraType.briTyp.present then fraType.briTyp.G else 0) + (fraType.U_value)
+        *A*frac) if                fraType.present  annotation (Placement(transformation(extent={{10,60},
+            {-10,80}})));
 
   BoundaryConditions.SolarIrradiation.RadSolData radSolData(
     inc=inc,
@@ -125,9 +118,11 @@ protected
     numIncAndAziInBus=sim.numIncAndAziInBus)
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   Modelica.Blocks.Math.Gain gainDir(k=A*(1 - frac))
-    annotation (Placement(transformation(extent={{-70,-34},{-62,-26}})));
+    "Gain for direct solar irradiation"
+    annotation (Placement(transformation(extent={{-42,-46},{-38,-42}})));
   Modelica.Blocks.Math.Gain gainDif(k=A*(1 - frac))
-    annotation (Placement(transformation(extent={{-70,-46},{-62,-38}})));
+    "Gain for diffuse solar irradiation"
+    annotation (Placement(transformation(extent={{-36,-50},{-32,-46}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes
     "Design temperature passthrough since propsBus variables cannot be addressed directly";
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapGla(
@@ -148,8 +143,34 @@ protected
   final parameter Modelica.SIunits.HeatCapacity Cfra = layMul.C*fraC
     "Heat capacity of frame state";
 
+  Modelica.Blocks.Sources.Constant constEpsSwFra(final k=fraType.mat.epsSw)
+    "Shortwave emissivity of frame"
+    annotation (Placement(transformation(extent={{4,46},{-6,56}})));
+  Modelica.Blocks.Sources.Constant constEpsLwFra(final k=fraType.mat.epsLw)
+    "Shortwave emissivity of frame"
+    annotation (Placement(transformation(extent={{4,86},{-6,96}})));
+  IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorSolarAbsorption
+    solAbs(A=A*frac) if fraType.present
+    "Solar absorption model for shortwave radiation"
+    annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
 initial equation
-  QTra_design = (U_value*A + briType.G) *(273.15 + 21 - Tdes.y);
+  QTra_design = (U_value*A + (if fraType.briTyp.present then fraType.briTyp.G else 0)) *(273.15 + 21 - Tdes.y);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -180,39 +201,35 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaType.Ctrl, Ctrl) annotation (Line(
-      points={{-45,-60},{-50,-60},{-50,-110}},
+      points={{-55,-60},{-50,-60},{-50,-110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(iConFra.port_b, propsBus_a.surfCon) annotation (Line(
-      points={{40,80},{46,80},{46,19.9},{100.1,19.9}},
+      points={{40,70},{46,70},{46,19.9},{100.1,19.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layFra.port_a, iConFra.port_a) annotation (Line(
-      points={{10,80},{20,80}},
+      points={{10,70},{20,70}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(skyRadFra.port_a, layFra.port_b) annotation (Line(
-      points={{-20,90},{-16,90},{-16,80},{-10,80}},
+      points={{-20,90},{-16,90},{-16,70},{-10,70}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(eConFra.port_a, layFra.port_b) annotation (Line(
-      points={{-20,70},{-16,70},{-16,80},{-10,80}},
+      points={{-20,70},{-10,70}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.iEpsLw_b, skyRadFra.epsLw) annotation (Line(
-      points={{-10,8},{-14,8},{-14,93.4},{-20,93.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(radSolData.angInc, shaType.angInc) annotation (Line(
-      points={{-79.4,-54},{-50,-54}},
+      points={{-79.4,-54},{-60,-54}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.angAzi, shaType.angAzi) annotation (Line(
-      points={{-79.4,-58},{-50,-58}},
+      points={{-79.4,-58},{-60,-58}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.angZen, shaType.angZen) annotation (Line(
-      points={{-79.4,-56},{-50,-56}},
+      points={{-79.4,-56},{-60,-56}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
@@ -220,24 +237,8 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(shaType.solDif, gainDif.y) annotation (Line(
-      points={{-50,-48},{-56,-48},{-56,-42},{-61.6,-42}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gainDif.u, radSolData.solDif) annotation (Line(
-      points={{-70.8,-42},{-76,-42},{-76,-50},{-79.4,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radSolData.solDir, gainDir.u) annotation (Line(
-      points={{-79.4,-48},{-76,-48},{-76,-30},{-70.8,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gainDir.y, shaType.solDir) annotation (Line(
-      points={{-61.6,-30},{-50,-30},{-50,-44}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(radSolData.Tenv, skyRad.Tenv) annotation (Line(
-      points={{-79.4,-52},{-54,-52},{-54,10},{-20,10},{-20,6}},
+      points={{-79.4,-52},{-64,-52},{-64,10},{-20,10},{-20,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(skyRadFra.Tenv, skyRad.Tenv) annotation (Line(
@@ -245,11 +246,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(eConFra.Te, eCon.Te) annotation (Line(
-      points={{-20,65.2},{-20,-32.8}},
+      points={{-20,65.2},{-20,66},{-16,66},{-16,-32.8},{-20,-32.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eCon.hConExt, eConFra.hConExt) annotation (Line(
-      points={{-20,-37},{-20,61}},
+      points={{-20,-37},{-20,-36},{-14,-36},{-14,61},{-20,61}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eCon.Te, propsBus_a.weaBus.Te) annotation (Line(
@@ -261,28 +262,49 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tdes.u, propsBus_a.weaBus.Tdes);
-  connect(shaType.iSolDir, solWin.solDir)
-    annotation (Line(points={{-40,-44},{-26,-44},{-10,-44}}, color={0,0,127}));
-  connect(shaType.iSolDif, solWin.solDif)
-    annotation (Line(points={{-40,-48},{-25,-48},{-10,-48}}, color={0,0,127}));
-  connect(shaType.iAngInc, solWin.angInc) annotation (Line(points={{-40,-54},{-26,
-          -54},{-26,-56},{-10,-56}},     color={0,0,127}));
+  connect(shaType.iAngInc, solWin.angInc) annotation (Line(points={{-50,-54},{
+          -22,-54},{-22,-54},{-10,-54}}, color={0,0,127}));
   connect(heaCapGla.port, layMul.port_a)
     annotation (Line(points={{16,-12},{16,0},{10,0}},     color={191,0,0}));
   connect(heaCapFra.port, layFra.port_a)
-    annotation (Line(points={{16,88},{16,80},{10,80}}, color={191,0,0}));
+    annotation (Line(points={{16,88},{16,70},{10,70}}, color={191,0,0}));
   if windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Combined then
-    connect(heaCapGla.port, layFra.port_a) annotation (Line(points={{16,-12},{16,
-            -12},{16,80},{10,80}},  color={191,0,0}));
+    connect(heaCapGla.port, layFra.port_a) annotation (Line(points={{16,-12},{
+            16,-12},{16,70},{10,70}},
+                                    color={191,0,0}));
   end if;
-  connect(theBri.port_b, layFra.port_a) annotation (Line(points={{10,40},{16,40},
-          {16,80},{10,80}}, color={191,0,0}));
-  connect(theBri.port_a, layMul.port_b) annotation (Line(points={{-10,40},{-14,
-          40},{-14,0},{-10,0}},
-                            color={191,0,0}));
+  connect(skyRadFra.epsLw, constEpsLwFra.y) annotation (Line(points={{-20,93.4},
+          {-14,93.4},{-14,91},{-6.5,91}}, color={0,0,127}));
+  connect(solAbs.port_a, layFra.port_b) annotation (Line(points={{-20,50},{-16,
+          50},{-16,70},{-10,70}},
+                              color={191,0,0}));
+  connect(solAbs.epsSw, constEpsSwFra.y) annotation (Line(points={{-20,56},{-10,
+          56},{-10,51},{-6.5,51}}, color={0,0,127}));
+  connect(gainDir.y, solWin.solDir)
+    annotation (Line(points={{-37.8,-44},{-10,-44}}, color={0,0,127}));
+  connect(gainDif.y, solWin.solDif) annotation (Line(points={{-31.8,-48},{-22,
+          -48},{-10,-48}}, color={0,0,127}));
+  connect(gainDif.u, shaType.iSolDif) annotation (Line(points={{-36.4,-48},{-48,
+          -48},{-50,-48}}, color={0,0,127}));
+  connect(gainDir.u, shaType.iSolDir)
+    annotation (Line(points={{-42.4,-44},{-50,-44}}, color={0,0,127}));
+  connect(shaType.solDir, radSolData.solDir) annotation (Line(points={{-60,-44},
+          {-76,-44},{-76,-48},{-79.4,-48}}, color={0,0,127}));
+  connect(shaType.solDif, radSolData.solDif) annotation (Line(points={{-60,-48},
+          {-74,-48},{-74,-50},{-79.4,-50}}, color={0,0,127}));
+  connect(shaType.iSolDir, solAbs.solDir)
+    annotation (Line(points={{-50,-44},{-50,56},{-40,56}}, color={0,0,127}));
+  connect(shaType.iSolDif, solAbs.solDif) annotation (Line(points={{-50,-48},{
+          -48,-48},{-48,52},{-40,52}}, color={0,0,127}));
     annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-60,-100},{60,100}}),
         graphics={
+        Rectangle(
+          extent={{-50,-90},{50,100}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{-46,60},{50,24},{50,-50},{-30,-20},{-46,-20},{-46,60}},
           smooth=Smooth.None,
@@ -292,20 +314,16 @@ equation
           lineColor={0,0,0}),
         Line(
           points={{-50,60},{-30,60},{-30,80},{50,80}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-50,-20},{-30,-20},{-30,-70},{-30,-70},{52,-70}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-50,60},{-50,66},{-50,100},{50,100}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-50,-20},{-50,-90},{50,-90}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-46,60},{-46,-20}},
           color={0,0,0},
@@ -346,6 +364,21 @@ Optional parameter <code>shaType</code> may be used to define the window shading
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 10, 2017 by Filip Jorissen:<br/>
+Set <code>linExtRad = sim.linExtRadWin</code>.
+See <a href=https://github.com/open-ideas/IDEAS/issues/615>#615</a>.
+</li>
+<li>
+December 19, 2016, by Filip Jorissen:<br/>
+Added solar irradiation on window frame.
+</li>
+<li>
+December 19, 2016, by Filip Jorissen:<br/>
+Removed briType, which had default value LineLoss.
+briType is now part of the Frame model and has default
+value None.
+</li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation: cleaned up connections and partials.

@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Interfaces;
-model HeightPortHeatMassExchanger
-  "Model transporting four fluid streams between height ports with storing mass or energy"
-  extends IDEAS.Fluid.Interfaces.PartialHeightPortInterface(
+model EightPortHeatMassExchanger
+  "Model transporting four fluid streams between eight ports with storing mass or energy"
+  extends IDEAS.Fluid.Interfaces.PartialEightPortInterface(
     final h_outflow_a1_start = h1_outflow_start,
     final h_outflow_b1_start = h1_outflow_start,
     final h_outflow_a2_start = h2_outflow_start,
@@ -11,7 +11,7 @@ model HeightPortHeatMassExchanger
     final h_outflow_a4_start = h4_outflow_start,
     final h_outflow_b4_start = h4_outflow_start);
 
-  extends IDEAS.Fluid.Interfaces.HeightPortFlowResistanceParameters(
+  extends IDEAS.Fluid.Interfaces.EightPortFlowResistanceParameters(
      final computeFlowResistance1=true, final computeFlowResistance2=true,final computeFlowResistance3=true, final computeFlowResistance4=true);
 
   parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow"
@@ -375,108 +375,13 @@ equation
       smooth=Smooth.None));
   annotation (
     Documentation(info="<html>
-<p>
-This component transports two fluid streams between four ports.
-It provides the basic model for implementing a dynamic heat exchanger.
-</p>
-<p>
-The model can be used as-is, although there will be no heat or mass transfer
-between the two fluid streams.
-To add heat transfer, heat flow can be added to the heat port of the two volumes.
-See for example
-<a href=\"IDEAS.Fluid.Chillers.Carnot\">
-IDEAS.Fluid.Chillers.Carnot</a>.
-To add moisture input into (or moisture output from) volume <code>vol2</code>,
-the model can be replaced as shown in
-<a href=\"modelica://IDEAS.Fluid.HeatExchangers.BaseClasses.HexElement\">
-IDEAS.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
-</p>
+<p>This component transports four fluid streams between eight ports. It provides the basic model for implementing a dynamic heat exchanger. </p>
+<p>The model can be used as-is, although there will be no heat or mass transfer between the four fluid streams. To add heat transfer, heat flow can be added to the heat port of the four volumes.</p>
 <h4>Implementation</h4>
-<p>
-The variable names follow the conventions used in
-<a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">
-Modelica.Fluid.HeatExchangers.BasicHX</a>.
-</p>
+<p>The variable names follow the conventions used in <a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">Modelica.Fluid.HeatExchangers.BasicHX</a>. </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 6, 2014, by Michael Wetter:<br/>
-Changed medium declaration in pressure drop elements to be final.
-</li>
-<li>
-May 28, 2014, by Michael Wetter:<br/>
-Removed <code>annotation(Evaluate=true)</code> for parameters <code>tau1</code>
-and <code>tau2</code>.
-This is needed to allow changing the time constant after translation.
-</li>
-<li>
-November 12, 2013, by Michael Wetter:<br/>
-Removed <code>import Modelica.Constants</code> statement.
-</li>
-<li>
-October 8, 2013, by Michael Wetter:<br/>
-Removed parameter <code>show_V_flow</code>.
-</li>
-<li>
-September 26, 2013, by Michael Wetter:<br/>
-Removed unrequired <code>sum</code> operator.
-</li>
-<li>
-February 6, 2012, by Michael Wetter:<br/>
-Updated documentation.
-</li>
-<li>
-February 3, 2012, by Michael Wetter:<br/>
-Removed assignment of <code>m_flow_small</code> as it is no
-longer used in its base class.
-</li>
-<li>
-July 29, 2011, by Michael Wetter:
-<ul>
-<li>
-Changed values of
-<code>h_outflow_a1_start</code>,
-<code>h_outflow_b1_start</code>,
-<code>h_outflow_a2_start</code> and
-<code>h_outflow_b2_start</code>, and
-declared them as final.
-</li>
-<li>
-Set nominal values for <code>vol1.C</code> and <code>vol2.C</code>.
-</li>
-</ul>
-</li>
-<li>
-July 11, 2011, by Michael Wetter:<br/>
-Changed parameterization of fluid volume so that steady-state balance is
-used when <code>tau = 0</code>.
-</li>
-<li>
-March 25, 2011, by Michael Wetter:<br/>
-Added homotopy operator.
-</li>
-<li>
-April 13, 2009, by Michael Wetter:<br/>
-Added model to compute flow friction.
-</li>
-<li>
-September 10, 2008 by Michael Wetter:<br/>
-Added <code>stateSelect=StateSelect.always</code> for temperature of volume 1.
-</li>
-<li>
-Changed temperature sensor from Celsius to Kelvin.
-Unit conversion should be made during output
-processing.
-<li>
-August 5, 2008, by Michael Wetter:<br/>
-Replaced instances of <code>Delays.DelayFirstOrder</code> with instances of
-<code>MixingVolumes.MixingVolume</code>. This allows to extract liquid for a condensing cooling
-coil model.
-</li>
-<li>
-March 25, 2008, by Michael Wetter:<br/>
-First implementation.
-</li>
+<li>July 2014, by Damien Picard:<br>First implementation. </li>
 </ul>
 </html>"),
     Icon(coordinateSystem(
@@ -515,4 +420,4 @@ First implementation.
           fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics));
-end HeightPortHeatMassExchanger;
+end EightPortHeatMassExchanger;
