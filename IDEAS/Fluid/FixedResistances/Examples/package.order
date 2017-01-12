@@ -1,8 +1,7 @@
-FixedResistancesExplicit
-FixedResistancesParallel
-FixedResistancesSeries
+FlowJunction
 HydraulicCircuit
+HydraulicDiameter
 OpenHydraulicSystem
 Pipe_HeatPortExample
+PressureDrop
 PumpWithPipeHeatPorts
-SplitterFixedResistanceDpM

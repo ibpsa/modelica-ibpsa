@@ -8,10 +8,10 @@ partial model PartialTwoPortTransport
   // based on local dp_nominal
   parameter Modelica.SIunits.PressureDifference dp_start(displayUnit="Pa") = 0
     "Guess value of dp = port_a.p - port_b.p"
-    annotation(Dialog(tab = "Advanced", enable=from_dp));
+    annotation(Dialog(tab = "Advanced"));
   parameter Medium.MassFlowRate m_flow_start = 0
     "Guess value of m_flow = port_a.m_flow"
-    annotation(Dialog(tab = "Advanced", enable=not from_dp));
+    annotation(Dialog(tab = "Advanced"));
   // Note: value of m_flow_small shall be refined by derived model,
   // based on local m_flow_nominal
   parameter Medium.MassFlowRate m_flow_small
@@ -121,6 +121,13 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 15, 2016, by Michael Wetter:<br/>
+Removed wrong annotation, which caused an error in the pedantic model check
+of Dymola 2017 FD01.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/516\">#516</a>.
+</li>
 <li>
 January 22, 2016, by Henning Francke:<br/>
 Corrected type declaration of pressure.

@@ -109,11 +109,10 @@ annotation(Dialog(tab="Flow resistance"));
     each massDynamics=massDynamics)
     annotation (Placement(transformation(extent={{-50,0},{-70,20}})));
 
-  IDEAS.Fluid.FixedResistances.ParallelFixedResistanceDpM res(
+  FixedResistances.ParallelPressureDrop          res(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
-    final use_dh=true,
     allowFlowReversal=allowFlowReversal,
     from_dp=from_dp,
     homotopyInitialization=homotopyInitialization,
@@ -177,7 +176,7 @@ protected
 
 initial equation
    assert(m_flowMin/A_floor*Medium.specificHeatCapacityCp(sta_default)*(R_w_val_min + R_r_val + R_x_val)*nDiscr >= 0.5,
-     "Model is not valid for the set nominal and minimal mass flow rate, discretisation in multiple parts is required", level=  AssertionLevel.warning);
+     "Model is not valid for the set nominal and minimal mass flow rate, discretisation in multiple parts is required", level = AssertionLevel.warning);
   if RadSlaCha.tabs then
     assert(RadSlaCha.S_1 > 0.3*RadSlaCha.T, "Thickness of the concrete or screed layer above the tubes is smaller than 0.3 * the tube interdistance. 
     The model is not valid for this case");
