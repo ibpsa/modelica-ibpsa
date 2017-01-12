@@ -4,6 +4,7 @@ partial model PartialTwinHouse
   extends Modelica.Icons.Example;
   parameter Integer exp = 1 "Experiment number: 1 or 2";
   parameter Integer bui = 1 "Building number 1 (N2), 2 (O5)";
+  parameter Boolean loadVal = false annotation (Evaluate=true);
   final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Inputs/")
     annotation(Evaluate=true);
   final parameter String filNam=if exp == 1  then "WeatherTwinHouseExp1.txt" else "WeatherTwinHouseExp2.txt"
@@ -70,6 +71,13 @@ public
     "input for solGloHor and solDifHor measured at TTH"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 
+  BaseClasses.Data.ValidationDataExp2 validationDataExp2_1 if
+                                                             (loadVal and exp == 2)
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  BaseClasses.Data.ValidationDataN2Exp1 validationDataN2Exp1_1 if (loadVal and exp==1 and bui==1)
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  BaseClasses.Data.ValidationDataO5Exp1 validationDataO5Exp1_1 if (loadVal and exp==1 and bui==2)
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 initial equation
   assert(exp==1 or exp==2, "Only experiment numbers 1 or 2 are supported.");
   assert(not
