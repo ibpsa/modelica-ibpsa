@@ -1,5 +1,5 @@
 within IDEAS.Fluid.Interfaces;
-partial model HeightPort "Partial model with eight ports"
+partial model EightPort "Partial model with eight ports"
 
   replaceable package Medium1 =
       Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
@@ -116,47 +116,13 @@ partial model HeightPort "Partial model with eight ports"
   annotation (
     preferredView="info",
     Documentation(info="<html>
-<p>
-This model defines an interface for components with four ports.
-The parameters <code>allowFlowReversal1</code> and
-<code>allowFlowReversal2</code> may be used by models that extend
-this model to treat flow reversal.
-</p>
-<p>
-This model is identical to
-<a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">
-Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
-</p>
+<p>This model defines an interface for components with eight ports. The parameters <code>allowFlowReversal1,
+</code> <code>allowFlowReversal2</code>, <code>allowFlowReversal3</code> and <code>allowFlowReversal4</code> 
+may be used by models that extend this model to treat flow reversal. </p>
+<p>This model is identical to <a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has eight ports. </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 6, 2014, by Michael Wetter:<br/>
-Changed medium declaration in ports to be final.
-</li>
-<li>
-October 3, 2014, by Michael Wetter:<br/>
-Changed assignment of nominal value to avoid in OpenModelica the warning
-alias set with different nominal values.
-</li>
-<li>
-November 12, 2013, by Michael Wetter:<br/>
-Removed <code>import Modelica.Constants</code> statement.
-</li>
-<li>
-September 26, 2013 by Michael Wetter:<br/>
-Added missing <code>each</code> keyword in declaration of nominal value for
-<code>Xi_outflow</code>.
-</li>
-<li>
-September 17, 2010 by Michael Wetter:<br/>
-Fixed bug: The start value for <code>port_b1.h_outflow</code>
-was set to <code>h_outflow_b2_start</code> instead of <code>h_outflow_b1_start</code>.
-</li>
-<li>
-February 26, 2010 by Michael Wetter:<br/>
-Added start values for outflowing enthalpy because they
-are often iteration variables in nonlinear equation systems.
-</li>
+<li>July 2014, by Damien Picard:<br>First implementation. </li>
 </ul>
 </html>"),
     Icon(coordinateSystem(
@@ -171,4 +137,4 @@ are often iteration variables in nonlinear equation systems.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
                     graphics));
-end HeightPort;
+end EightPort;

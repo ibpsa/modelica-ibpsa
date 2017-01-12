@@ -110,8 +110,12 @@ model RectangularZoneTemplate
     "= true, if exterior convective heat transfer should be linearised (uses average wind speed)"
     annotation(Dialog(tab="Advanced", group="Convective heat exchange"));
   parameter Boolean linExtRad=sim.linExtRad
-    "= true, if exterior radiative heat transfer should be linearised"
+    "= true, if exterior radiative heat transfer for walls should be linearised"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange"));
+  parameter Boolean linExtRadWin=sim.linExtRadWin
+    "= true, if exterior radiative heat transfer for windows should be linearised"
+    annotation(Dialog(tab="Advanced", group="Radiative heat exchange"));
+
   parameter Real mSenFac(min=0.1)=5
     "Factor for scaling the sensible thermal mass of the zone air"
     annotation(Dialog(tab="Advanced",group="Air model"));
@@ -311,7 +315,6 @@ protected
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
-    linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
   controlled=shaTypA.controlled,
@@ -329,7 +332,8 @@ protected
   dh=shaTypA.dh,
   shaCorr=shaTypA.shaCorr)),
     fraType(present=fraTypA.present,
-            U_value=fraTypA.U_value)) if
+            U_value=fraTypA.U_value),
+    linExtRad=linExtRadWin) if
        hasWinA
     "Window for face A of this zone" annotation (Placement(transformation(extent={{-100,0},{-90,20}})));
   IDEAS.Buildings.Components.Window winB(
@@ -350,7 +354,6 @@ protected
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
-    linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
   controlled=shaTypB.controlled,
@@ -367,7 +370,8 @@ protected
   L=shaTypB.L,
   dh=shaTypB.dh,
   shaCorr=shaTypB.shaCorr)),
-    fraType(present=fraTypB.present, U_value=fraTypB.U_value)) if
+    fraType(present=fraTypB.present, U_value=fraTypB.U_value),
+    linExtRad=linExtRadWin) if
        hasWinB
     "Window for face B of this zone" annotation (Placement(
         transformation(
@@ -391,7 +395,6 @@ protected
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
-    linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
   controlled=shaTypC.controlled,
@@ -408,7 +411,8 @@ protected
   L=shaTypC.L,
   dh=shaTypC.dh,
   shaCorr=shaTypC.shaCorr)),
-    fraType(present=fraTypC.present, U_value=fraTypC.U_value)) if
+    fraType(present=fraTypC.present, U_value=fraTypC.U_value),
+    linExtRad=linExtRadWin) if
        hasWinC
     "Window for face C of this zone" annotation (Placement(
         transformation(
@@ -432,7 +436,6 @@ protected
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
-    linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
       controlled=shaTypD.controlled,
@@ -449,7 +452,8 @@ protected
   L=shaTypD.L,
   dh=shaTypD.dh,
   shaCorr=shaTypD.shaCorr)),
-    fraType(present=fraTypD.present, U_value=fraTypD.U_value)) if
+    fraType(present=fraTypD.present, U_value=fraTypD.U_value),
+    linExtRad=linExtRadWin) if
        hasWinD
     "Window for face D of this zone" annotation (Placement(
         transformation(
@@ -472,7 +476,6 @@ protected
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_win,
     linExtCon=linExtCon,
-    linExtRad=linExtRad,
     windowDynamicsType=windowDynamicsType,
     redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
       controlled=shaTypCei.controlled,
@@ -489,7 +492,8 @@ protected
   L=shaTypCei.L,
   dh=shaTypCei.dh,
   shaCorr=shaTypCei.shaCorr)),
-    fraType(present=fraTypCei.present, U_value=fraTypCei.U_value)) if
+    fraType(present=fraTypCei.present, U_value=fraTypCei.U_value),
+    linExtRad=linExtRadWin) if
        hasWinCei
     "Window for ceiling of this zone" annotation (Placement(
         transformation(
@@ -927,7 +931,6 @@ initial equation
               or use this option to connect and internal wall externally.");
 
 
-
 equation
   connect(intA.propsBus_a, propsBusInt[1]) annotation (Line(
       points={{-165,12},{-152,12},{-152,40},{-80,40}},
@@ -1129,5 +1132,115 @@ equation
         Text(
           extent={{-220,20},{-200,0}},
           lineColor={28,108,200},
-          textString="A")}));
+          textString="A")}),
+    Documentation(info="<html>
+<p>
+This model can be used to set up
+zones with a rectangular geometry more quickly.
+This template consists of a zone, four walls, a horizontal roof and a floor
+and five optional windows.
+Additional surfaces may also be connected through external bus connector.
+</p>
+<h4>Main equations</h4>
+<p>
+This model incorporates IDEAS components such as
+<a href=modelica://IDEAS.Buildings.Components.OuterWall>
+IDEAS.Buildings.Components.OuterWall</a> and reproduces
+the same results as a model that would be constructed without 
+the use of this template.
+</p>
+<h4>Assumption and limitations</h4>
+<p>
+This model assumes that the zone has a rectangular
+geometry with width <code>w</code>, length <code>l</code>
+and height <code>h</code>.
+All walls are vertical and both the roof and
+the floor are horizontal.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+Parameters width <code>w</code>, length <code>l</code>
+and height <code>h</code> need to be defined
+and are used to compute the dimensions of each of the surfaces.
+Parameter <code>aziA</code> represents the azimuth angle
+of surface A (see icon). Other surfaces are rotated (clockwise) by multiples
+of ninety degrees with respect to <code>aziA</code>.
+Parameter <code>nSurfExt</code> may be used
+to connect additional surfaces to the template. 
+When doing this, you may need to change the surface areas of
+the surfaces in the template as these are not updated automatically.
+</p>
+<p>
+Six parameter tabs allow to specify further parameters
+that are specific for each of the six surfaces.
+For each surface the surface type may be specified
+using parameters <code>bouTyp*</code>.
+The construction type should be defined
+using <code>conTyp*</code>.
+Parameter <code>hasWin*</code> may be used
+for all orientations except for the floor to add
+a window.
+In this case the window surface area, shading and glazing 
+types need to be provided.
+For non-default shading a record needs to be created that specifies
+the shading properties.
+The surface area of the window is deducted from the surface area
+of the wall such that the total surface areas add up.
+</p>
+<h4>Options</h4>
+<p>
+Advanced options are found under the <code>Advanced</code> 
+parameter tab. 
+The model may also be adapted further by
+overriding the default parameter assignments in the template.
+</p>
+<h4>Dynamics</h4>
+<p>
+This model contains wall dynamics
+and a state for the zone air temperature.
+The zone temperature may be set to steady state using
+parameter <code>energyDynamicsAir</code>, which should
+in general not be done.
+The mass dynamics of the air volume
+may be set to steady state by overriding the default parameter
+assignment in the <code>airModel</code> submodel.
+This removes small time constants
+when the zone model is connected to an air flow circuit. 
+</p>
+<h4>Validation</h4>
+<p>
+This implementation is compared with a manual implementation
+in <a href=modelica://IDEAS.Buildings.Validation.Tests.ZoneTemplateVerification2>
+IDEAS.Buildings.Validation.Tests.ZoneTemplateVerification2</a>.
+This gives identical results.
+</p>
+<h4>Example</h4>
+<p>
+An example of how this template may be used
+can be found in 
+<a href=modelica://IDEAS.Examples.PPD12>IDEAS.Examples.PPD12</a>.
+</p>
+<h4>Implementation</h4>
+<p>
+Shading types need to be declared using a record instead of
+by redeclaring the shading components.
+This is a workaround because redeclared 
+components cannot be propagated.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 11, 2017 by Filip Jorissen:<br/>
+Added documentation
+</li>
+<li>
+January 10, 2017, by Filip Jorissen:<br/>
+Added <code>linExtRadWin</code> for windows.
+</li>
+<li>
+November 14, 2016 by Filip Jorissen:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end RectangularZoneTemplate;
