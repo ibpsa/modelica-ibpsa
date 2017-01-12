@@ -2,12 +2,9 @@ within IDEAS.Examples.TwinHouses;
 model BuildingO5_Exp1
   "Model for simulation of experiment 1 for the O5 building"
  extends BuildingN2_Exp1(
-    inputSolTTH(fileName="C:/Users/glenn/Documents/1_Git/IDEAS/IDEAS/Inputs/weatherinput.txt"),
-    sim(filNam="weatherinput.txt"),
-    redeclare BaseClasses.Structures.TwinhouseO5 struct(Exp=1, filename="bc_TTH_O5.txt"),
-    redeclare BaseClasses.HeatingSystems.ElectricHeating_Twinhouse_alt heaSys(
-        scheduleExp1_1(filename="meas_TTH_O5.txt")),
-    redeclare BaseClasses.Ventilation.Vent_TTH vent(filename="bc_TTH_O5.txt"));
+   bui=2,
+   exp=1,
+   redeclare BaseClasses.Structures.TwinhouseO5 struct);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

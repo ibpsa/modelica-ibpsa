@@ -3,9 +3,9 @@ model BuildingN2_Exp1
   "Model for simulation of experiment 1 for the N2 building"
   extends Modelica.Icons.Example;
   extends IDEAS.Examples.TwinHouses.Interfaces.PartialTwinHouse(
-    redeclare BaseClasses.Structures.TwinhouseN2 struct,
-    redeclare BaseClasses.Ventilation.Vent_TTH vent,
-    redeclare BaseClasses.HeatingSystems.ElectricHeating_Twinhouse_alt heaSys);
+    bui=1,
+    exp=1,
+    redeclare BaseClasses.Structures.TwinhouseN2 struct);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

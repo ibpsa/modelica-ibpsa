@@ -1,9 +1,10 @@
 within IDEAS.Examples.TwinHouses.BaseClasses.HeatingSystems;
-model ScheduleExp1
-  parameter Integer[4] Schedule={20044800,20800000,22119000,22637400};
-  parameter Modelica.SIunits.Temperature Tinit1=303.15;
-  parameter Modelica.SIunits.Temperature Tinit2=298.15;
-  parameter String filename = "meas_TTH_N2.txt";
+model HeatingSchedule "Heating schedule for twin house experiments"
+  parameter Integer exp = 1 "Experiment number: 1 or 2";
+  parameter Integer bui = 1 "Building number 1 (N2), 2 (O5)";
+  final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Inputs/")
+    annotation(Evaluate=true);
+
   Modelica.Blocks.Interfaces.RealInput[7] TSensor
     annotation (Placement(transformation(extent={{-130,-20},{-90,20}})));
   Modelica.Blocks.Interfaces.RealOutput[7] y
@@ -13,9 +14,9 @@ model ScheduleExp1
     tableOnFile=true,
     tableName="data",
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(Modelica.Utilities.Files.loadResource("modelica://IDEAS") + "/Inputs/"+filename),
     columns=2:15,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
+    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
+    fileName=dirPath + filename)
     annotation (Placement(transformation(extent={{-56,50},{-36,70}})));
   Modelica.Blocks.Math.UnitConversions.From_degC[7] TdegC
     annotation (Placement(transformation(extent={{16,56},{36,76}})));
@@ -23,6 +24,12 @@ model ScheduleExp1
     annotation (Placement(transformation(extent={{90,-62},{134,-18}})));
   Modelica.Blocks.Interfaces.RealOutput[7] Pel_IDEAL
     annotation (Placement(transformation(extent={{92,-102},{136,-58}})));
+protected
+  final parameter Integer[4] Schedule= if exp == 1 then {20044800,20800000,22119000,22637400} else {8467200,10198800,11494800,12013200};
+  final parameter Modelica.SIunits.Temperature Tinit1=303.15;
+  final parameter Modelica.SIunits.Temperature Tinit2=if exp == 1 then 298.15 else 303.15;
+  final parameter String filename = if exp==1 and bui== 1 then "MeasurementTwinHouseN2Exp1.txt" elseif exp==2 and bui==1 then "MeasurementTwinHouseN2Exp2.txt" else "MeasurementTwinHouseO5.txt";
+
 equation
   TSet_IDEAL= TdegC.y;
   Pel_IDEAL[1] = measuredInput.y[8];
@@ -76,4 +83,4 @@ end if;
 12: heat gainvent kit 
 13: heat elp hall
 14: heat elp bed 2")}));
-end ScheduleExp1;
+end HeatingSchedule;
