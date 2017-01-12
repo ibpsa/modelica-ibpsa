@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe.Examples.UseCaseAachenMSL.Components;
-model PipeA60 "Wrapper around A60 pipe model"
+model PipeMSL "Wrapper around A60 pipe model"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
   replaceable package Medium =
@@ -83,7 +83,7 @@ public
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,50})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector col(m=pip.nNodes)
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector col(m=nNodes)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -94,17 +94,18 @@ public
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
-    redeclare model FlowModel =
-        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
-          dp_nominal=10*pip.length, m_flow_nominal=0.3),
     length=length,
     diameter=diameter,
-    nNodes=20) annotation (Placement(transformation(
+    nNodes=nNodes,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow)
+               annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={0,0})));
   parameter Types.ThermalResistanceLength R=1/(lambdaIns*2*Modelica.Constants.pi
       /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
+  parameter Integer nNodes=1 "Number of discrete flow volumes";
 equation
 
   connect(port_a, senTem_a.port_a)
@@ -133,4 +134,4 @@ equation
 <li>December 12, 2016 by Marcus Fuchs:<br>First implementation. </li>
 </ul>
 </html>"));
-end PipeA60;
+end PipeMSL;
