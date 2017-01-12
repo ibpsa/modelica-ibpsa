@@ -187,6 +187,7 @@ Library point of contact<br/>
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=\"5\">Acknowledgements</font></h4>
 <p>
+The following grants supported the development of the <code>Annex60</code> library:
 </p>
 <ul>
 <li>
