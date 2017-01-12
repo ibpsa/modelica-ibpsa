@@ -64,7 +64,8 @@ model MixingVolume "Test model for mixing volumes"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
          annotation (Placement(transformation(extent={{0,60},{22,80}})));
-  Modelica.Blocks.Math.Add cheEqu1(k2=-1) "Check for equality of results"
+  Utilities.Diagnostics.CheckEquality
+                           cheEqu1        "Check for equality of results"
     annotation (Placement(transformation(extent={{156,72},{176,92}})));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat(
     redeclare package Medium = Medium,
@@ -96,7 +97,8 @@ model MixingVolume "Test model for mixing volumes"
     m_flow_nominal=2,
     dp_nominal=2.5)
     annotation (Placement(transformation(extent={{80,-92},{100,-72}})));
-  Modelica.Blocks.Math.Add cheEqu2(k2=-1) "Check for equality of results"
+  Utilities.Diagnostics.CheckEquality
+                           cheEqu2        "Check for equality of results"
     annotation (Placement(transformation(extent={{156,10},{176,30}})));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat2(
     redeclare package Medium = Medium,
@@ -171,7 +173,7 @@ equation
           {146,40},{146,76},{154,76}}, color={0,0,127}));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
-experiment(StopTime=2),
+experiment(Tolerance=1e-12, StartTime=0.0, StopTime=2),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolume.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -183,6 +185,11 @@ library.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2017, by Thierry S. Nouidui:<br/>
+Refactored difference blocks for checking integration errors.
+This is needed for the JModelica verification tests.
+</li>
 <li>
 November 4, 2016, by Michael Wetter:<br/>
 Removed wrong use of <code>each</code> keyword.<br/>
