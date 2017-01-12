@@ -508,9 +508,11 @@ as applications in buildings often have multiple fluids with largely varying
 flow rates, and therefore a global declaration is impractical.
 </p>
 <p>
-The development page for this library is
+The development page for this library has been
 <a href=\"https://github.com/iea-annex60/modelica-annex60\">
 https://github.com/iea-annex60/modelica-annex60</a>.
+Future development will continue on
+<a href=\"https://github.com/ibpsa/modelica\">https://github.com/ibpsa/modelica</a>.
 We welcome contributions from different users to further advance this library,
 whether it is through collaborative model development, through model use and testing
 or through requirements definition or by providing feedback regarding the model applicability
