@@ -14,12 +14,12 @@ model Zone "Building zone model"
         rotation=-90,
         origin={-100,40})));
 
-
 equation
   connect(propsBus, propsBusInt) annotation (Line(
       points={{-100,40},{-90,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
+
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),

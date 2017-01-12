@@ -26,11 +26,9 @@ model Window "Multipane window"
   parameter Boolean linExtCon=sim.linExtCon
     "= true, if exterior convective heat transfer should be linearised (uses average wind speed)"
     annotation(Dialog(tab="Convection"));
-  parameter Boolean linExtRad=sim.linExtRad
+  parameter Boolean linExtRad=sim.linExtRadWin
     "= true, if exterior radiative heat transfer should be linearised"
     annotation(Dialog(tab="Radiation"));
-
-  parameter Modelica.SIunits.Area A "Total window and windowframe area";
   parameter Real frac(
     min=0,
     max=1) = 0.15 "Area fraction of the window frame";
@@ -157,22 +155,6 @@ initial equation
   QTra_design = (U_value*A + (if fraType.briTyp.present then fraType.briTyp.G else 0)) *(273.15 + 21 - Tdes.y);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 equation
   connect(eCon.port_a, layMul.port_b) annotation (Line(
       points={{-20,-28},{-14,-28},{-14,0},{-10,0}},
@@ -295,8 +277,14 @@ equation
   connect(shaType.iSolDif, solAbs.solDif) annotation (Line(points={{-50,-48},{
           -48,-48},{-48,52},{-40,52}}, color={0,0,127}));
     annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-60,-100},{60,100}}),
         graphics={
+        Rectangle(
+          extent={{-50,-90},{50,100}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{-46,60},{50,24},{50,-50},{-30,-20},{-46,-20},{-46,60}},
           smooth=Smooth.None,
@@ -306,20 +294,16 @@ equation
           lineColor={0,0,0}),
         Line(
           points={{-50,60},{-30,60},{-30,80},{50,80}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-50,-20},{-30,-20},{-30,-70},{-30,-70},{52,-70}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-50,60},{-50,66},{-50,100},{50,100}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-50,-20},{-50,-90},{50,-90}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-46,60},{-46,-20}},
           color={0,0,0},
@@ -361,6 +345,20 @@ Optional parameter <code>shaType</code> may be used to define the window shading
 </html>", revisions="<html>
 <ul>
 <li>
+January 10, 2017, by Filip Jorissen:<br/>
+Removed declaration of 
+<code>A</code> since this is now declared in 
+<a href=modelica://IDEAS.Buildings.Components.Interfaces.PartialSurface>
+IDEAS.Buildings.Components.Interfaces.PartialSurface</a>.
+This is for 
+<a href=https://github.com/open-ideas/IDEAS/issues/609>#609</a>.
+</li>
+<li>
+January 10, 2017 by Filip Jorissen:<br/>
+Set <code>linExtRad = sim.linExtRadWin</code>.
+See <a href=https://github.com/open-ideas/IDEAS/issues/615>#615</a>.
+</li>
+<li>
 December 19, 2016, by Filip Jorissen:<br/>
 Added solar irradiation on window frame.
 </li>
@@ -369,6 +367,7 @@ December 19, 2016, by Filip Jorissen:<br/>
 Removed briType, which had default value LineLoss.
 briType is now part of the Frame model and has default
 value None.
+>>>>>>> develop
 </li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>

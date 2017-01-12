@@ -28,11 +28,11 @@ equation
       points={{-43.4,-6},{-36,-6},{-36,54},{-10.2,54}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dummyBuilding.flowPort_In,none. flowPort_Out) annotation (Line(
+  connect(dummyBuilding.port_a, none.port_b) annotation (Line(
       points={{-57,10},{-56,10},{-56,60},{-10,60},{-10,58}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(dummyBuilding.flowPort_Out,none. flowPort_In) annotation (Line(
+  connect(dummyBuilding.port_b, none.port_a) annotation (Line(
       points={{-61,10},{-60,10},{-60,64},{-10,64},{-10,62}},
       color={0,0,0},
       smooth=Smooth.None));

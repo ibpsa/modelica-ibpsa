@@ -20,11 +20,11 @@ model Structure "Example detailed building structure model"
     phase={0,261.79938779915,523.5987755983})
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 equation
-  connect(structure.flowPort_Out, none.flowPort_In) annotation (Line(
+  connect(structure.port_b, none.port_a) annotation (Line(
       points={{-23,0},{-24,0},{-24,12},{18,12}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(structure.flowPort_In, none.flowPort_Out) annotation (Line(
+  connect(structure.port_a, none.port_b) annotation (Line(
       points={{-19,0},{-20,0},{-20,8},{18,8}},
       color={0,0,0},
       smooth=Smooth.None));

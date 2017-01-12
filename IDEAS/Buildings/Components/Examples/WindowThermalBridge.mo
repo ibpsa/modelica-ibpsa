@@ -14,7 +14,7 @@ model WindowThermalBridge "Comparison of three window thermal bridge options"
     azi=IDEAS.Types.Azimuth.S,
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
-    AWall=10,
+    A=10,
     inc=IDEAS.Types.Tilt.Floor)
     "Serves as floor for the incident solar irradiation"
     annotation (Placement(transformation(extent={{-54,20},{-44,40}})));
@@ -54,7 +54,7 @@ equation
       points={{-44,-48},{-32,-48},{20,-48},{20,-57.3333}},
       color={255,204,51},
       thickness=0.5));
-  connect(zone.flowPort_In, bou.ports[1])
+  connect(zone.port_a, bou.ports[1])
     annotation (Line(points={{32,-50},{32,90},{-40,90}}, color={0,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           __Dymola_Commands(file=

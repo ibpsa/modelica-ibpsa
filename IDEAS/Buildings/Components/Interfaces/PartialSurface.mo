@@ -9,6 +9,8 @@ partial model PartialSurface "Partial model for building envelope component"
     "Inclination (tilt) angle of the wall, see IDEAS.Types.Tilt";
   parameter Modelica.SIunits.Angle azi
     "Azimuth angle of the wall, i.e. see IDEAS.Types.Azimuth";
+  parameter Modelica.SIunits.Area A
+    "Component surface area";
   parameter Modelica.SIunits.Power QTra_design
     "Design heat losses at reference temperature of the boundary space"
     annotation (Dialog(group="Design power",tab="Advanced"));
@@ -46,13 +48,15 @@ partial model PartialSurface "Partial model for building envelope component"
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.InteriorConvection intCon_a(
     linearise=linIntCon_a or sim.linearise,
     dT_nominal=dT_nominal_a,
-    final inc=inc)
+    final inc=inc,
+    A=A)
     "Convective heat transfer correlation for port_a"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.MultiLayer
     layMul(final inc=inc, energyDynamics=energyDynamics,
-    linIntCon=linIntCon_a or sim.linearise)
+    linIntCon=linIntCon_a or sim.linearise,
+    A=A)
     "Multilayer component for simulating walls, windows and other surfaces"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 
@@ -123,6 +127,15 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-50,-100},{50,100}})),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 10, 2017, by Filip Jorissen:<br/>
+Declared parameter <code>A</code> instead of using
+<code>AWall</code> in 
+<a href=modelica://IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface>
+IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface</a>.
+This is for 
+<a href=https://github.com/open-ideas/IDEAS/issues/609>#609</a>.
+</li>
 <li>
 November 15, 2016, by Filip Jorissen:<br/>
 Revised documentation for IDEAS 1.0.

@@ -38,11 +38,11 @@ equation
       points={{-47.4,-18},{-28,-18},{-28,-18.4},{-8.36,-18.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(none.flowPort_In, building.flowPort_Out) annotation (Line(
+  connect(none.port_a, building.port_b) annotation (Line(
       points={{-20,42},{-65,42},{-65,-2}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(none.flowPort_Out, building.flowPort_In) annotation (Line(
+  connect(none.port_b, building.port_a) annotation (Line(
       points={{-20,38},{-61,38},{-61,-2}},
       color={0,0,0},
       smooth=Smooth.None));

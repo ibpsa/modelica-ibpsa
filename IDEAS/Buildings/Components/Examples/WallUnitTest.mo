@@ -5,31 +5,30 @@ model WallUnitTest "Unit test for verifying results for all wall components"
     redeclare Data.Constructions.CavityWall constructionType,
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S,
-    AWall=2,
-    use_T_in=true)
-             "Boundary wall example"
+    A=2,
+    use_T_in=true) "Boundary wall example"
     annotation (Placement(transformation(extent={{-36,60},{-26,80}})));
   InternalWall internalWall(
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S,
-    AWall=2,
+    A=2,
     redeclare Data.Constructions.EpcSolidWall2 constructionType,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
-                             "Internal wall example"
+    "Internal wall example"
     annotation (Placement(transformation(extent={{-36,20},{-24,40}})));
   OuterWall outerWall(
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S,
-    AWall=2,
+    A=2,
     redeclare Data.Constructions.CavityWallPartialFill constructionType)
     "Outer wall example"
     annotation (Placement(transformation(extent={{-36,-20},{-26,0}})));
   SlabOnGround slabOnGround(
     inc=IDEAS.Types.Tilt.Floor,
     azi=IDEAS.Types.Azimuth.S,
-    AWall=2,
+    A=2,
     redeclare Validation.Data.Constructions.HeavyFloor constructionType)
-             "Slab on ground example"
+    "Slab on ground example"
     annotation (Placement(transformation(extent={{-36,-60},{-26,-40}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature Tzone(T=293.15)
     "Fixed dummy zone temperature"

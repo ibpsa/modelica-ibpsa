@@ -1,7 +1,10 @@
-FixedResistanceDpM
+HydraulicDiameter
 InsulatedPipe
+Junction
 LosslessPipe
-ParallelFixedResistanceDpM
+ParallelPressureDrop
 Pipe_HeatPort
-SplitterFixedResistanceDpM
+PressureDrop
+Pipe_Insulated
 Examples
+Validation
