@@ -7,7 +7,8 @@ block SimTimes
   parameter Modelica.SIunits.Time timZonSta=3600 "standard time zone";
   parameter Boolean DST=false "take into account daylight saving time";
   parameter Integer yr=2010 "depcited year for DST only";
-  parameter Boolean ifSolCor=true;
+  parameter Modelica.SIunits.Time delay=0
+    "Delay [s] for simulations not starting on the first of january";
 
   Modelica.Blocks.Interfaces.RealOutput timSol "solar time"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -31,9 +32,6 @@ protected
     DST=DST,
     yr=yr) annotation (Placement(transformation(extent={{-50,-6},{-30,14}})));
 
-public
-  parameter SI.Time delay=0
-    "Delay [s] for simulations not starting on the first of january";
 equation
   connect(localTime.timLoc, solarTime.timLoc) annotation (Line(
       points={{10,4},{30,4}},

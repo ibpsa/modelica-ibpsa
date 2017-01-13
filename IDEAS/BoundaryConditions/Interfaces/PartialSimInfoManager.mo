@@ -131,8 +131,6 @@ protected
     "Perpendicular direct solar radiation"
     annotation (Placement(transformation(extent={{-124,10},{-104,30}})));
 
-  final parameter Boolean DST=true
-    "boolean to take into account daylight saving time";
   final parameter Integer yr=2014 "depcited year for DST only";
   final parameter Boolean BesTest=Modelica.Utilities.Strings.isEqual(filNam, "BesTest.txt")
     "boolean to determine if this simulation is a BESTEST simulation";
@@ -141,8 +139,7 @@ public
   IDEAS.BoundaryConditions.Climate.Time.SimTimes timMan(
     timZonSta=timZonSta,
     lon=lon,
-    DST=DST,
-    ifSolCor=true)
+    final DST=false)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
   final parameter Integer numIncAndAziInBus = size(incAndAziInBus,1) "Number of pre-computed azimuth";
