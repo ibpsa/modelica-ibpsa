@@ -25,7 +25,9 @@ partial model PartialTwinHouse
     radSol(each rho=0.23),
     lat=0.83555892609977,
     lon=0.20469221467389,
-    filNam=filNam) "Sim info manager"
+    filNam=filNam,
+    timMan(DST=false))
+                   "Sim info manager"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
    replaceable IDEAS.Examples.TwinHouses.BaseClasses.Structures.TwinhouseN2 struct(T_start={303.15,
