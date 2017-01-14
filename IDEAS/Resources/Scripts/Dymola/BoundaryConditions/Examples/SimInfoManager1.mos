@@ -7,4 +7,4 @@ createPlot(id=1, position={0, 0, 1742, 125}, y={"sim.Te", "sim.Tsky", "sim.TeAv"
 {244,125,35}, {102,44,145}, {28,108,200}, {238,46,47}}, patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, 
 LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, 
 LinePattern.Dash, LinePattern.Dash});
-createPlot(id=1, position={0, 0, 1742, 126}, y={"sim.angDec", "sim.angHou", "sim.angZen"}, range={0.0, 1000000.0, -50.0, 100.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={0, 0, 1742, 126}, y={"sim.weaBus.angDec", "sim.weaBus.angHou", "sim.weaBus.angZen"}, range={0.0, 1000000.0, -50.0, 100.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
