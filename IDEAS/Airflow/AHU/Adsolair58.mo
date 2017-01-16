@@ -269,7 +269,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
   Modelica.Blocks.Interfaces.RealOutput TFanSupOut
     "Temperature measured behind supply fan"
     annotation (Placement(transformation(extent={{96,-102},{116,-82}})));
-  IDEAS.Fluid.FixedResistances.FixedResistanceDpM resTop(
+  IDEAS.Fluid.FixedResistances.PressureDrop resTop(
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=m1_flow_nominal,
     redeclare package Medium = MediumAir,
@@ -277,7 +277,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     dp_nominal=per.dp_nominal_top + dp_fouling_top)
     "Top pressure drop component"
     annotation (Placement(transformation(extent={{-20,30},{0,10}})));
-  IDEAS.Fluid.FixedResistances.FixedResistanceDpM resBot(
+  IDEAS.Fluid.FixedResistances.PressureDrop resBot(
     allowFlowReversal=allowFlowReversal,
     redeclare package Medium = MediumAir,
     m_flow_nominal=m2_flow_nominal,
