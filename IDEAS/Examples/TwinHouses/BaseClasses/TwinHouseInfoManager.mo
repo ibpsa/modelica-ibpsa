@@ -19,7 +19,7 @@ model TwinHouseInfoManager
     final filNam=filNam2);
   parameter Integer exp = 1 "Experiment number: 1 or 2";
   parameter Integer bui = 1 "Building number 1 (N2), 2 (O5)";
-  final parameter String filNam3 = "validationdataN2Exp1.txt";
+  final parameter String filNam3 = (if exp == 1 and bui == 1 then "validationdataN2Exp1.txt" elseif exp==2 and bui == 1 then "validationdataExp2.txt" else "validationdataO5Exp1.txt");
   final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Inputs/")    annotation(Evaluate=true);
 
   Modelica.Blocks.Sources.CombiTimeTable inputSolTTH(
@@ -28,17 +28,12 @@ model TwinHouseInfoManager
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative2,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     final fileName=dirPath+filNam3,
-    columns=37:42)
+    columns= (if exp== 1 then 37:42 else {55,56,58,59,60,61}))
     "input for solGloHor and solDifHor measured at TTH"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   RadiationConvertor radCon(final lat=lat, final lon=lon,
     rho={radSol[1].rho,radSol[1].rho,radSol[1].rho})
     annotation (Placement(transformation(extent={{-30,-82},{-10,-62}})));
-  annotation (
-      defaultComponentName="sim",
-    defaultComponentPrefixes="inner",
-    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
 protected
   final parameter String filNam2 = (if exp == 1  then "WeatherTwinHouseExp1.txt" else "WeatherTwinHouseExp2.txt")
     annotation(Evaluate=true);
@@ -67,4 +62,9 @@ equation
           0,127}));
   connect(radCon.angZen, zenithAngle.y) annotation (Line(points={{-30.4,-81.2},
           {-46,-81.2},{-46,30},{-84,30},{-84,56},{-103,56}}, color={0,0,127}));
+  annotation (
+      defaultComponentName="sim",
+    defaultComponentPrefixes="inner",
+    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
 end TwinHouseInfoManager;
