@@ -34,11 +34,6 @@ model TwinHouseInfoManager
   RadiationConvertor radCon(final lat=lat, final lon=lon,
     rho={radSol[1].rho,radSol[1].rho,radSol[1].rho})
     annotation (Placement(transformation(extent={{-30,-82},{-10,-62}})));
-  annotation (
-      defaultComponentName="sim",
-    defaultComponentPrefixes="inner",
-    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
 protected
   final parameter String filNam2 = (if exp == 1  then "WeatherTwinHouseExp1.txt" else "WeatherTwinHouseExp2.txt")
     annotation(Evaluate=true);
@@ -67,4 +62,9 @@ equation
           0,127}));
   connect(radCon.angZen, zenithAngle.y) annotation (Line(points={{-30.4,-81.2},
           {-46,-81.2},{-46,30},{-84,30},{-84,56},{-103,56}}, color={0,0,127}));
+  annotation (
+      defaultComponentName="sim",
+    defaultComponentPrefixes="inner",
+    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
 end TwinHouseInfoManager;
