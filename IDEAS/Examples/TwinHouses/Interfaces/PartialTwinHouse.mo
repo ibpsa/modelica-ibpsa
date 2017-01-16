@@ -9,25 +9,10 @@ partial model PartialTwinHouse
     annotation(Evaluate=true);
   final parameter String filNam=if exp == 1  then "WeatherTwinHouseExp1.txt" else "WeatherTwinHouseExp2.txt"
     annotation(Evaluate=true);
-  inner IDEAS.BoundaryConditions.SimInfoManager sim(
-    weaDat(
-      pAtmSou=IDEAS.BoundaryConditions.Types.DataSource.Parameter,
-      ceiHeiSou=IDEAS.BoundaryConditions.Types.DataSource.Parameter,
-      ceiHei=7,
-      HSou=IDEAS.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor,
-      totSkyCovSou=IDEAS.BoundaryConditions.Types.DataSource.Parameter,
-      opaSkyCovSou=IDEAS.BoundaryConditions.Types.DataSource.Parameter,
-      calTSky=IDEAS.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover,
-      totSkyCov=0.6,
-      opaSkyCov=0.6),
-    linIntRad=false,
-    linExtRad=false,
-    radSol(each rho=0.23),
-    lat=0.83555892609977,
-    lon=0.20469221467389,
-    filNam=filNam,
-    timMan(DST=false))
-                   "Sim info manager"
+
+  inner IDEAS.Examples.TwinHouses.BaseClasses.TwinHouseInfoManager sim(
+    exp=exp,
+    bui=bui) "Sim info manager"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
    replaceable IDEAS.Examples.TwinHouses.BaseClasses.Structures.TwinhouseN2 struct(T_start={303.15,
@@ -61,18 +46,8 @@ partial model PartialTwinHouse
 protected
   Modelica.Blocks.Sources.RealExpression[8] noInput(each y=0) "No occupants"
     annotation (Placement(transformation(extent={{-30,-46},{-10,-26}})));
-public
-  Modelica.Blocks.Sources.CombiTimeTable
-                                       inputSolTTH(
-    tableOnFile=true,
-    tableName="data",
-    columns=2:30,
-    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative2,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
-    final fileName=dirPath+filNam)
-    "input for solGloHor and solDifHor measured at TTH"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 
+public
   BaseClasses.Data.ValidationDataExp2 validationDataExp2_1 if
                                                              (loadVal and exp == 2)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -87,8 +62,6 @@ initial equation
 
 equation
 
-  connect(sim.weaDat.HGloHor_in, inputSolTTH.y[8]);
-  connect(sim.weaDat.HDifHor_in, inputSolTTH.y[10]);
   connect(struct.heatPortEmb, heaSys.heatPortEmb)
     annotation (Line(points={{-12,6},{0,6}}, color={191,0,0}));
   connect(struct.heatPortCon, heaSys.heatPortCon)

@@ -1,5 +1,5 @@
 Advanced.StoreProtectedVariables:=true;
-simulateModel("IDEAS.BoundaryConditions.Examples.SimInfoManager", stopTime=1e+06, method="dassl", resultFile="SimInfoManager2");
+simulateModel("IDEAS.BoundaryConditions.Examples.SimInfoManager", stopTime=3.15e+07, method="dassl", resultFile="SimInfoManager2");
 
 createPlot(id=1, position={0, 0, 1742, 774}, y={"sim.radSol[1].F1", "sim.radSol[1].F2", "sim.skyBrightness.skyBri", "sim.skyClearness.skyCle"}, range={0.0, 1000000.0, -0.5, 2.0}, erase=false, grid=true,  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
 createPlot(id=1, position={0, 0, 1742, 125}, y={"sim.weaBus.solBus[1].iSolDir", "sim.weaBus.solBus[2].iSolDir", 
