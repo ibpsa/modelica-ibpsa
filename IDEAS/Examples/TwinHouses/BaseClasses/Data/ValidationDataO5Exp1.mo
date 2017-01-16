@@ -1,3 +1,4 @@
+within IDEAS.Examples.TwinHouses.BaseClasses.Data;
 model ValidationDataO5Exp1 "Model that reads all validation data for Twinhouse"
 
 final parameter Integer exp = 1 "Experiment number: 1 or 2"; 
