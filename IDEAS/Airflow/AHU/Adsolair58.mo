@@ -681,9 +681,11 @@ See the references for a detailed discussion.
 For more information and the model validation see
 </p>
 <p>
+<a href=http://www.tandfonline.com/doi/full/10.1080/19401493.2016.1273391>
 Jorissen, Filip and Wim Boydens and Lieve Helsen. 
 Validated Air Handling Unit Model using Indirect Evaporative Cooling. 
 Journal of Building Performance Simulation (2017).
+</a>
 </p>
 </html>"));
 end Adsolair58;
