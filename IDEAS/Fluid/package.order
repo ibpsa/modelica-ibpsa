@@ -2,7 +2,7 @@ UsersGuide
 Actuators
 Chillers
 Delays
-Taps
+FMI
 FixedResistances
 HeatExchangers
 HeatPumps
@@ -13,6 +13,7 @@ Production
 Sensors
 Sources
 Storage
+Taps
 Types
 Examples
 Interfaces

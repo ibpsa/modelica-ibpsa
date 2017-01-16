@@ -5,7 +5,7 @@ model InternalWall "interior opaque wall between two zones"
   E(y=layMul.E),
   Qgai(y=(if sim.openSystemConservationOfEnergy
          then 0 else sum(port_emb.Q_flow))),
-  final QTra_design=U_value*AWall*(TRef_a - TRef_b),
+  final QTra_design=U_value*A    *(TRef_a - TRef_b),
     intCon_a);
 
   parameter Boolean linIntCon_b=sim.linIntCon
@@ -38,10 +38,10 @@ protected
 
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.InteriorConvection
     intCon_b(
-    final A=AWall,
     linearise=linIntCon_b or sim.linearise,
     dT_nominal=dT_nominal_b,
-    final inc=inc + Modelica.Constants.pi)
+    final inc=inc + Modelica.Constants.pi,
+    final A=A)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{-22,-10},{-42,10}})));
   Modelica.Blocks.Sources.RealExpression QDesign_b(y=-QTra_design);
@@ -98,26 +98,26 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-60,-100},{60,100}}),
         graphics={
         Rectangle(
+          extent={{-52,-90},{48,-70}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-50,80},{50,100}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
           extent={{-10,80},{10,-70}},
           fillColor={175,175,175},
           fillPattern=FillPattern.Backward,
           pattern=LinePattern.None),
-        Line(
-          points={{-50,80},{50,80}},
-          color={95,95,95},
-          smooth=Smooth.None),
-        Line(
-          points={{-50,-70},{50,-70}},
-          color={95,95,95},
-          smooth=Smooth.None),
-        Line(
-          points={{-50,-90},{50,-90}},
-          color={95,95,95},
-          smooth=Smooth.None),
-        Line(
-          points={{-50,100},{50,100}},
-          color={95,95,95},
-          smooth=Smooth.None),
+        Line(points={{-50,80},{50,80}}, color={175,175,175}),
+        Line(points={{-50,-70},{50,-70}}, color={175,175,175}),
+        Line(points={{-50,-90},{50,-90}}, color={175,175,175}),
+        Line(points={{-50,100},{50,100}}, color={175,175,175}),
         Line(
           points={{-10,80},{-10,-70}},
           smooth=Smooth.None,
@@ -128,7 +128,8 @@ equation
           smooth=Smooth.None,
           color={0,0,0},
           thickness=0.5)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-60,-100},{60,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-60,-100},{60,
+            100}})),
     Documentation(info="<html>
 <p>
 This is a wall model that should be used
@@ -146,6 +147,10 @@ which is turned 180 degrees between both side. The value of <code>inc</code> is 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 2, 2017, by Filip Jorissen:<br/>
+Updated icon layer.
+</li>
 <li>
 October 22, 2016, by Filip Jorissen:<br/>
 Revised documentation for IDEAS 1.0.

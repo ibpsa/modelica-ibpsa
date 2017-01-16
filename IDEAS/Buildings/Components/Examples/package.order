@@ -1,8 +1,9 @@
 BuildingShadeExample
-ZoneExample
 WindowDynamics
 WindowLinearisation
 CavityWalls
 WindowThermalBridge
 WallUnitTest
 BeamRadiationOnFloor
+ZoneStatic
+ZoneDynamic

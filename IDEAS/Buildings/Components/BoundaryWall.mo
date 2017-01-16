@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components;
 model BoundaryWall "Opaque wall with optional prescribed heat flow rate or temperature boundary conditions"
   extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
-     QTra_design=U_value*AWall*(273.15 + 21 - TRef_a),
+     QTra_design=U_value*A    *(273.15 + 21 - TRef_a),
      dT_nominal_a=-1,
      layMul(monLay(energyDynamics=cat(1, {(if not sim.linearise and use_T_in and energyDynamics ==  Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics)}, fill(energyDynamics, layMul.nLay-1)),
           monLayDyn(each addRes_b=(sim.linearise and use_T_in)))));
@@ -12,13 +12,13 @@ model BoundaryWall "Opaque wall with optional prescribed heat flow rate or tempe
   parameter Boolean use_Q_in = false
     "Get the boundary heat flux from the input connector"
     annotation(Dialog(group="Boundary conditions"));
-  Modelica.Blocks.Interfaces.RealInput T if use_T_in annotation (Placement(transformation(
-          extent={{-114,10},{-94,30}}),iconTransformation(extent={{-114,10},{
-            -94,30}})));
+  Modelica.Blocks.Interfaces.RealInput T if use_T_in annotation (Placement(
+        transformation(extent={{-116,10},{-96,30}}), iconTransformation(extent=
+            {{-116,10},{-96,30}})));
   Modelica.Blocks.Interfaces.RealInput Q_flow if use_Q_in annotation (Placement(
-        transformation(extent={{-114,-30},{-94,-10}}),
-                                                    iconTransformation(extent={{-114,
-            -30},{-94,-10}})));
+        transformation(extent={{-116,-30},{-96,-10}}),
+                                                    iconTransformation(extent={{-116,
+            -30},{-96,-10}})));
 protected
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/8)
     "Wall U-value";
@@ -38,7 +38,8 @@ public
 equation
   if use_Q_in then
   connect(Q_flow, proPreQ.u1)
-    annotation (Line(points={{-104,-20},{-89,-20}}, color={0,0,127}));
+    annotation (Line(points={{-106,-20},{-78,-20},{-89,-20}},
+                                                    color={0,0,127}));
   connect(proPreQ.y, prescribedHeatFlow.Q_flow) annotation (Line(points={{-77.5,
           -17},{-69.75,-17},{-69.75,-20},{-60,-20}}, color={0,0,127}));
   connect(proPreQ.u2, propsBus_a.weaBus.dummy) annotation (Line(points={{-89,
@@ -58,7 +59,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
     connect(T, proPreT.u1)
-    annotation (Line(points={{-104,20},{-96,20},{-89,20}}, color={0,0,127}));
+    annotation (Line(points={{-106,20},{-106,20},{-89,20}},color={0,0,127}));
   end if;
 
   connect(layMul.port_b, prescribedHeatFlow.port) annotation (Line(points={{-10,0},
@@ -69,26 +70,34 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-60,-100},{60,100}}),
         graphics={
+        Rectangle(
+          extent={{-50,-90},{50,-70}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-50,80},{50,100}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Line(
           points={{-50,80},{50,80}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-50,-70},{50,-70}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-50,-90},{50,-90}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Line(
           points={{-50,100},{50,100}},
-          color={95,95,95},
-          smooth=Smooth.None),
+          color={175,175,175}),
         Rectangle(
-          extent={{-10,100},{10,-90}},
+          extent={{-10,80},{10,-70}},
           fillColor={175,175,175},
           fillPattern=FillPattern.Backward,
           pattern=LinePattern.None),
@@ -122,6 +131,10 @@ If both are disabled then an adiabatic boundary (<code>Q_flow=0</code>) is assum
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 2, 2017, by Filip Jorissen:<br/>
+Updated icon layer.
+</li>
 <li>
 October 22, 2016, by Filip Jorissen:<br/>
 Revised documentation for IDEAS 1.0.

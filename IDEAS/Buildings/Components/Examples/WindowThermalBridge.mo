@@ -2,75 +2,79 @@ within IDEAS.Buildings.Components.Examples;
 model WindowThermalBridge "Comparison of three window thermal bridge options"
   package Medium = IDEAS.Media.Air;
   extends Modelica.Icons.Example;
-  inner BoundaryConditions.SimInfoManager sim
+  inner BoundaryConditions.SimInfoManager sim "Weather data reader"
     annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
-  Fluid.Sources.Boundary_pT bou(
+  IDEAS.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     nPorts=1)
+    "Pressure boundary"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
-  Window window(
-    A=1,
-    redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
-    redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two,
-    inc=IDEAS.Types.Tilt.Wall,
-    azi=IDEAS.Types.Azimuth.S)
-    annotation (Placement(transformation(extent={{-54,-100},{-44,-80}})));
-  OuterWall outerWall(
-    azi=0,
+  IDEAS.Buildings.Components.OuterWall floor(
+    azi=IDEAS.Types.Azimuth.S,
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
-    AWall=10,
+    A=10,
     inc=IDEAS.Types.Tilt.Floor)
+    "Serves as floor for the incident solar irradiation"
     annotation (Placement(transformation(extent={{-54,20},{-44,40}})));
-  Zone zone1(
+  IDEAS.Buildings.Components.Zone zone(
     redeclare package Medium = Medium,
     allowFlowReversal=true,
-    nSurf=4,
-    V=20)
-         annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  Window window1(
+    V=20,
+    nSurf=3)
+    "Zone model"
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+  IDEAS.Buildings.Components.Window win(
     A=1,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.None,
     inc=IDEAS.Types.Tilt.Wall,
-    azi=IDEAS.Types.Azimuth.S,
-    redeclare ThermalBridges.LineLosses briType)
+    azi=IDEAS.Types.Azimuth.S)
+    "Window without thermal losses"
     annotation (Placement(transformation(extent={{-54,-20},{-44,0}})));
-  Window window2(
+  IDEAS.Buildings.Components.Window winLinLos(
     A=1,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
-    redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Combined,
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S,
-    redeclare ThermalBridges.BaseClasses.ThermalBridge briType(G=5))
+    redeclare IDEAS.Buildings.Data.Frames.PvcLineLoss fraType(briTyp(len=4)))
+    "Window with line losses"
     annotation (Placement(transformation(extent={{-54,-60},{-44,-40}})));
 equation
-  connect(zone1.propsBus[1], outerWall.propsBus_a) annotation (Line(
-      points={{20,-54.5},{20,-54.5},{20,-6},{20,32},{-44,32}},
+  connect(zone.propsBus[1], floor.propsBus_a) annotation (Line(
+      points={{20,-54.6667},{20,-54.6667},{20,-6},{20,32},{-44,32}},
       color={255,204,51},
       thickness=0.5));
-  connect(window1.propsBus_a, zone1.propsBus[2]) annotation (Line(
-      points={{-44,-8},{20,-8},{20,-16},{20,-55.5}},
+  connect(win.propsBus_a, zone.propsBus[2]) annotation (Line(
+      points={{-44,-8},{20,-8},{20,-56}},
       color={255,204,51},
       thickness=0.5));
-  connect(window2.propsBus_a, zone1.propsBus[3]) annotation (Line(
-      points={{-44,-48},{-32,-48},{20,-48},{20,-56.5}},
+  connect(winLinLos.propsBus_a, zone.propsBus[3]) annotation (Line(
+      points={{-44,-48},{-32,-48},{20,-48},{20,-57.3333}},
       color={255,204,51},
       thickness=0.5));
-  connect(window.propsBus_a, zone1.propsBus[4]) annotation (Line(
-      points={{-44,-88},{20,-88},{20,-57.5}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(zone1.flowPort_In, bou.ports[1])
+  connect(zone.port_a, bou.ports[1])
     annotation (Line(points={{32,-50},{32,90},{-40,90}}, color={0,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Buildings/Components/Examples/WindowDynamics.mos"
+          "Resources/Scripts/Dymola/Buildings/Components/Examples/WindowThermalBridge.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
-</html>"));
+<ul>
+<li>
+December 19, 2016 by Filip Jorissen:<br/>
+Revised implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+Model that demonstrates the heat flow rate difference 
+for a window with or without line losses.
+</p>
+</html>"),
+    experiment(
+      StopTime=1e+06,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"));
 end WindowThermalBridge;

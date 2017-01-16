@@ -21,9 +21,9 @@ model CavityWalls
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S,
     redeclare parameter
-      IDEAS.Buildings.Data.Constructions.CavityWallPartialFill
-      constructionType,
-    AWall=10) "Vertical wall with partially filled cavity"
+      IDEAS.Buildings.Data.Constructions.CavityWallPartialFill constructionType,
+
+    A=10) "Vertical wall with partially filled cavity"
     annotation (Placement(transformation(extent={{-56,-20},{-46,0}})));
 
   IDEAS.Buildings.Components.Window win(
@@ -42,7 +42,7 @@ equation
       points={{-46,-48},{-46,-48},{20,-48},{20,-55}},
       color={255,204,51},
       thickness=0.5));
-  connect(zone1.flowPort_In, bou.ports[1])
+  connect(zone1.port_a, bou.ports[1])
     annotation (Line(points={{32,-50},{32,90},{-40,90}}, color={0,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           __Dymola_Commands(file=

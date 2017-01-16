@@ -25,8 +25,8 @@ equation
   P[1:nLoads_min] = zeros(nLoads_min);
   Q[1:nLoads_min] = zeros(nLoads_min);
 
-  connect(flowPort_Out[:], sou[:].ports[1]);
-  connect(flowPort_In[:], sink[:].ports[1]);
+  connect(port_b[:], sou[:].ports[1]);
+  connect(port_a[:], sink[:].ports[1]);
 
   connect(sou.m_flow_in, m_flow_val.y) annotation (Line(
       points={{-162,30},{-148,30},{-148,48},{-143,48}},

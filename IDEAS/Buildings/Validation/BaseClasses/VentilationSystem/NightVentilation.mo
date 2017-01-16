@@ -30,8 +30,8 @@ equation
   wattsLawPlug.Q[1] = 0;
 
   for i in 1:nZones loop
-    connect(flowPort_Out[i],boundary.ports[i]);
-    connect(flowPort_In[i],bou.ports[i]);
+    connect(port_b[i], boundary.ports[i]);
+    connect(port_a[i], bou.ports[i]);
   end for;
 
   connect(boundary.T_in, T_in.y) annotation (Line(

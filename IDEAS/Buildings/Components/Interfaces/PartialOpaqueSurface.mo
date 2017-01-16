@@ -12,15 +12,12 @@ partial model PartialOpaqueSurface
     E(y=layMul.E),
     Qgai(y=layMul.port_b.Q_flow + (if sim.openSystemConservationOfEnergy
          then 0 else sum(port_emb.Q_flow))),
-    intCon_a(A=AWall),
-    layMul(final A=AWall,
+    layMul(
       final nLay=constructionType.nLay,
       final mats=constructionType.mats,
       T_start=ones(constructionType.nLay)*T_start,
       nGain=constructionType.nGain));
 
-   parameter Modelica.SIunits.Area AWall
-    "Component surface area";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb[constructionType.nGain]
     "Port for gains by embedded active layers"
@@ -50,6 +47,15 @@ equation
         graphics),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 10, 2017, by Filip Jorissen:<br/>
+Removed
+<code>AWall</code>  and declared <code>A</code> in 
+<a href=modelica://IDEAS.Buildings.Components.Interfaces.PartialSurface>
+IDEAS.Buildings.Components.Interfaces.PartialSurface</a>.
+This is for 
+<a href=https://github.com/open-ideas/IDEAS/issues/609>#609</a>.
+</li>
 <li>
 November 15, 2016, by Filip Jorissen:<br/>
 Revised documentation for IDEAS 1.0.

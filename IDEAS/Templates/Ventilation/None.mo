@@ -19,8 +19,8 @@ model None "No ventilation"
 equation
   P[1:nLoads_min] = zeros(nLoads_min);
   Q[1:nLoads_min] = zeros(nLoads_min);
-  connect(flowPort_Out[:], sou[:].ports[1]);
-  connect(flowPort_In[:], sink[:].ports[1]);
+  connect(port_b[:], sou[:].ports[1]);
+  connect(port_a[:], sink[:].ports[1]);
   connect(sou.m_flow_in,m_flow_val. y) annotation (Line(
       points={{-154,28},{-140,28},{-140,46},{-135,46}},
       color={0,0,127},

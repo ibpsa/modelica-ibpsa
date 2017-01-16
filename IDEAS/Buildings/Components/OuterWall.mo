@@ -13,26 +13,20 @@ model OuterWall "Opaque building envelope construction"
 
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
-  Modelica.SIunits.Power QSolIrr = (gainDir.y + gainDif.y)
-    "Total solar irradiance";
 
 protected
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.ExteriorConvection
-    extCon(final A=AWall, linearise=linExtCon or sim.linearise)
+    extCon(               linearise=linExtCon or sim.linearise, final A=A)
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-22,-28},{-42,-8}})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorSolarAbsorption
-    solAbs
+    solAbs(A=A)
     "determination of absorbed solar radiation by wall based on incident radiation"
     annotation (Placement(transformation(extent={{-22,-8},{-42,12}})));
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ExteriorHeatRadiation
-    extRad(final A=AWall, linearise=linExtRad or sim.linearise)
+    extRad(               linearise=linExtRad or sim.linearise, final A=A)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-22,12},{-42,32}})));
-  Modelica.Blocks.Math.Gain gainDir(k=AWall)
-    annotation (Placement(transformation(extent={{-60,4},{-52,12}})));
-  Modelica.Blocks.Math.Gain gainDif(k=AWall)
-    annotation (Placement(transformation(extent={{-60,0},{-52,8}})));
   BoundaryConditions.SolarIrradiation.RadSolData radSolData(
     inc=inc,
     azi=azi,
@@ -44,7 +38,7 @@ protected
     annotation (Placement(transformation(extent={{-94,-4},{-74,16}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough";
 initial equation
-  QTra_design =U_value*AWall*(273.15 + 21 - Tdes.y);
+  QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
 
 equation
 
@@ -68,22 +62,6 @@ equation
       points={{-10,8},{-16,8},{-16,25.4},{-22,25.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gainDir.y,solAbs. solDir) annotation (Line(
-      points={{-51.6,8},{-42,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gainDif.y,solAbs. solDif) annotation (Line(
-      points={{-51.6,4},{-42,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radSolData.solDir,gainDir. u) annotation (Line(
-      points={{-73.4,8},{-60.8,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gainDif.u,radSolData. solDif) annotation (Line(
-      points={{-60.8,4},{-68,4},{-68,6},{-73.4,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
       points={{-74,14},{-74,19.9},{100.1,19.9}},
       color={255,204,51},
@@ -102,9 +80,19 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tdes.u, propsBus_a.weaBus.Tdes);
+  connect(radSolData.solDif, solAbs.solDif) annotation (Line(points={{-73.4,6},{
+          -58,6},{-58,4},{-42,4}}, color={0,0,127}));
+  connect(radSolData.solDir, solAbs.solDir)
+    annotation (Line(points={{-73.4,8},{-42,8}},         color={0,0,127}));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-60,-100},{60,100}}),
         graphics={
+        Rectangle(
+          extent={{-50,-90},{50,80}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{-50,60},{-30,60},{-30,80},{50,80},{50,100},{-50,100},{-50,60}},
           pattern=LinePattern.None,
@@ -147,7 +135,17 @@ equation
         Line(
           points={{-44,60},{-44,-20}},
           smooth=Smooth.None,
-          color={175,175,175})}),
+          color={175,175,175}),
+        Line(
+          points={{-44,-20},{-30,-20},{-30,-70}},
+          smooth=Smooth.None,
+          color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{-44,60},{-30,60},{-30,80},{50,80}},
+          smooth=Smooth.None,
+          color={0,0,0},
+          thickness=0.5)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
@@ -159,6 +157,10 @@ for equations, options, parameters, validation and dynamics that are common for 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 2, 2017, by Filip Jorissen:<br/>
+Updated icon layer.
+</li>
 <li>
 October 22, 2016, by Filip Jorissen:<br/>
 Revised documentation for IDEAS 1.0.

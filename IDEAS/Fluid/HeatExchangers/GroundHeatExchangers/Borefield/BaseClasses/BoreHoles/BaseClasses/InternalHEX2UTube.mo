@@ -3,7 +3,7 @@ model InternalHEX2UTube
   "Internal part of a borehole for a double U-Tube configuration. In loop 1, fluid 1 streams from a1 to b1 and comes back from a3 to b3. In loop 2: fluid 2 streams from a2 to b2 and comes back from a4 to b4."
   extends Interface.PartialBoreHoleInternalHEX;
 
-  extends IDEAS.Fluid.Interfaces.HeightPortHeatMassExchanger(
+  extends IDEAS.Fluid.Interfaces.EightPortHeatMassExchanger(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
     redeclare final package Medium3 = Medium,
