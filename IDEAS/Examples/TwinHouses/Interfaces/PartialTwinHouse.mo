@@ -32,7 +32,7 @@ partial model PartialTwinHouse
     nLoads=0,
     Crad={1000,1000,1000,1000,1100,1000,100},
     Kemission={100,100,100,100,110,100,100},
-    Q_design={1820,750,750,750,750,750,750},
+    Q_design={if exp ==1 then 1820 else 1975,750,750,750,750,750,750},
     final exp=exp,
     final bui=bui)                           "Heat system model"
     annotation (Placement(transformation(extent={{0,-10},{40,10}})));
