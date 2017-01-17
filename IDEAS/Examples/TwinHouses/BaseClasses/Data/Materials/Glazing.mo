@@ -2,11 +2,14 @@ within IDEAS.Examples.TwinHouses.BaseClasses.Data.Materials;
 record Glazing =IDEAS.Buildings.Data.Interfaces.Glazing (
     final nLay=3,
     final mats={IDEAS.Buildings.Data.Materials.Glass(
-                                d=0.004,epsLw_a=0.04),
+                                d=0.004,
+                                epsLw_b=0.837),
                 IDEAS.Buildings.Data.Materials.Argon(
                                 d=0.016),
                 IDEAS.Buildings.Data.Materials.Glass(
-                                d=0.004)},
+                                d=0.004,
+                                epsLw_b=0.04,
+                                epsLw_a=0.837)},
     final SwTrans=[0, 0.543;
                   10, 0.546;
                   20, 0.538;
