@@ -149,7 +149,7 @@ on the <code>Annex60</code> library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Annex60.UsersGuide.ReleaseNotes.Version_1_0_0\">Version 1.0.0</a>(January 9, 2017)
+<a href=\"modelica://Annex60.UsersGuide.ReleaseNotes.Version_1_0_0\">Version 1.0.0</a>(January 17, 2017)
 </li>
 </ul>
 
@@ -550,9 +550,8 @@ end UsersGuide;
 
 annotation (
 version="1.0.0",
-versionBuild=0,
-versionDate="2017-01-09",
-dateModified = "2017-01-09",
+versionDate="2017-01-17",
+dateModified = "2017-01-17",
 uses(Modelica(version="3.2.2")),
 preferredView="info",
 Documentation(info="<html>
