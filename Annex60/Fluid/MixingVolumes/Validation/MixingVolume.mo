@@ -64,9 +64,9 @@ model MixingVolume "Test model for mixing volumes"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
          annotation (Placement(transformation(extent={{0,60},{22,80}})));
-  Utilities.Diagnostics.CheckEquality cheEqu1
+  Annex60.Utilities.Diagnostics.CheckEquality cheEqu1
     "Check for equality of results"
-    annotation (Placement(transformation(extent={{156,72},{176,92}})));
+    annotation (Placement(transformation(extent={{156,70},{176,90}})));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat(
     redeclare package Medium = Medium,
     m_flow_nominal=2) "Enthalpy flow rate"
@@ -97,7 +97,7 @@ model MixingVolume "Test model for mixing volumes"
     m_flow_nominal=2,
     dp_nominal=2.5)
     annotation (Placement(transformation(extent={{80,-92},{100,-72}})));
-  Utilities.Diagnostics.CheckEquality cheEqu2
+  Annex60.Utilities.Diagnostics.CheckEquality cheEqu2
     "Check for equality of results"
     annotation (Placement(transformation(extent={{156,10},{176,30}})));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat2(
@@ -166,14 +166,15 @@ equation
       points={{60,10},{80,10}},
       color={0,127,255}));
   connect(entFloRat.H_flow, cheEqu1.u1)
-    annotation (Line(points={{50,71},{50,88},{154,88}}, color={0,0,127}));
-  connect(entFloRat.H_flow, cheEqu2.u1) annotation (Line(points={{50,71},{50,88},
-          {140,88},{140,26},{154,26}}, color={0,0,127}));
-  connect(entFloRat1.H_flow, cheEqu1.u2) annotation (Line(points={{50,21},{50,40},
-          {146,40},{146,76},{154,76}}, color={0,0,127}));
+    annotation (Line(points={{50,71},{50,86},{154,86}}, color={0,0,127}));
+  connect(entFloRat.H_flow, cheEqu2.u1) annotation (Line(points={{50,71},{50,86},
+          {140,86},{140,26},{154,26}}, color={0,0,127}));
+  connect(entFloRat1.H_flow, cheEqu1.u2) annotation (Line(points={{50,21},{50,
+          40},{146,40},{146,74},{154,74}},
+                                       color={0,0,127}));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
-experiment(Tolerance=1e-6, StartTime=0.0, StopTime=2),
+experiment(Tolerance=1E-9, StartTime=0.0, StopTime=2),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolume.mos"
         "Simulate and plot"),
     Documentation(info="<html>
