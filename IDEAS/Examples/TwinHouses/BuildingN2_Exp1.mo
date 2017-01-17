@@ -5,7 +5,7 @@ model BuildingN2_Exp1
   extends IDEAS.Examples.TwinHouses.Interfaces.PartialTwinHouse(
     bui=1,
     exp=1,
-    redeclare BaseClasses.Structures.TwinhouseN2 struct);
+    redeclare BaseClasses.Structures.TwinhouseN2 struct(exp=exp,bui=bui));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

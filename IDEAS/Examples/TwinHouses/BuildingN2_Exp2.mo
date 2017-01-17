@@ -6,7 +6,7 @@ model BuildingN2_Exp2 "Model for simulation of experiment2 for the N2 building"
 
   annotation (
     experiment(
-      StartTime=9.7e+006,
+      StartTime=8e+006,
       StopTime=1.23e+007,
       Interval=900,
       Tolerance=1e-006,

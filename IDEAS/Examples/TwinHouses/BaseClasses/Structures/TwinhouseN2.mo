@@ -654,20 +654,7 @@ equation
   connect(W24.T, from_degC[2].y);
   connect(W25.T, from_degC[1].y);
 
-  connect(thermalBridges.heatPortRad, heatPortRad);
 
-
-  connect(thermalBridges.Tzone[1], Living.TSensor);
-  connect(thermalBridges.Tzone[2], Corridor.TSensor);
-  connect(thermalBridges.Tzone[3], Bathroom.TSensor);
-  connect(thermalBridges.Tzone[4], Bedroom1.TSensor);
-  connect(thermalBridges.Tzone[5], Kitchen.TSensor);
-  connect(thermalBridges.Tzone[6], Entrance.TSensor);
-  connect(thermalBridges.Tzone[7], Bedroom2.TSensor);
-
-  connect(thermalBridges.Te, sim.Te);
-  connect(thermalBridges.Tatt, from_degC[1].y);
-  connect(thermalBridges.Tbas, from_degC[2].y);
 
   connect(inputAtticAndBasement.y, from_degC.u) annotation (Line(points={{-119,
           -86},{-112.5,-86},{-106,-86}}, color={0,0,127}));
@@ -686,11 +673,9 @@ equation
   connect(W31.Ctrl, controlBlind1.y[1]) annotation (Line(points={{36.6667,6},{
           14,6},{14,-86.6667},{-31.8,-86.6667}},
                                            color={0,0,127}));
-  connect(W32.Ctrl, controlBlind1.y[1]) annotation (Line(points={{49.6667,6},{
-          10,6},{10,-86.6667},{-31.8,-86.6667}},
-                                           color={0,0,127}));
+  connect(W32.Ctrl, controlBlind1.y[2]) annotation (Line(points={{49.6667,6},{
+          10,6},{10,-86},{-31.8,-86}},     color={0,0,127}));
   connect(W33.Ctrl, controlBlind1.y[2]) annotation (Line(points={{64.6667,6},{
           18,6},{18,-86},{-31.8,-86}},
                                  color={0,0,127}));
-
 end TwinhouseN2;

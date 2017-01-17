@@ -662,8 +662,8 @@ equation
   connect(W31.Ctrl, controlBlind1.y[1]) annotation (Line(points={{36.6667,6},{
           14,6},{14,-86.6667},{-31.8,-86.6667}},
                                            color={0,0,127}));
-  connect(W32.Ctrl, controlBlind1.y[1]) annotation (Line(points={{51.6667,6},{
-          10,6},{10,-86.6667},{-31.8,-86.6667}},
+  connect(W32.Ctrl, controlBlind1.y[3]) annotation (Line(points={{51.6667,6},{
+          10,6},{10,-85.3333},{-31.8,-85.3333}},
                                            color={0,0,127}));
   connect(W33.Ctrl, controlBlind1.y[2]) annotation (Line(points={{64.6667,6},{
           18,6},{18,-86},{-31.8,-86}},

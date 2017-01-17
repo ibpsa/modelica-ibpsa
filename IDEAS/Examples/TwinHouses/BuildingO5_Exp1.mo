@@ -4,7 +4,7 @@ model BuildingO5_Exp1
  extends BuildingN2_Exp1(
    bui=2,
    exp=1,
-   redeclare BaseClasses.Structures.TwinhouseO5 struct);
+   redeclare BaseClasses.Structures.TwinhouseO5 struct(exp=exp,bui=bui));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

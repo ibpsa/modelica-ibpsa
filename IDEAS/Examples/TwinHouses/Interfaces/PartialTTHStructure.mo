@@ -36,13 +36,13 @@ public
     annotation (Placement(transformation(extent={{-104,-96},{-84,-76}})));
   BaseClasses.Structures.ThermalBridges thermalBridges if includeTB
     annotation (Placement(transformation(extent={{38,-96},{58,-76}})));
-  BaseClasses.controlBlind controlBlind1(exp=exp)
+  BaseClasses.controlBlind controlBlind1(exp=exp,bui=bui)
     annotation (Placement(transformation(extent={{-52,-96},{-32,-76}})));
 equation
 
   connect(thermalBridges.heatPortRad, heatPortRad);
-
-  connect(thermalBridges.Te, sim.Te);
+  connect(thermalBridges.Tzone,TSensor);
+  connect(thermalBridges.Te, sim.TEnv.y);
   connect(thermalBridges.Tatt, from_degC[1].y);
   connect(thermalBridges.Tbas, from_degC[2].y);
 

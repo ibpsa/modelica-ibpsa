@@ -25,9 +25,11 @@ model HeatingSchedule "Heating schedule for twin house experiments"
   Modelica.Blocks.Interfaces.RealOutput[7] Pel_IDEAL
     annotation (Placement(transformation(extent={{92,-102},{136,-58}})));
 protected
-  final parameter Integer[4] Schedule= if exp == 1 then {20044800,20800000,22119000,22637400} else {8467200,10198800,11494800,12013200};
+  final parameter Real[6] Schedule= if exp == 1 then {20044800,20800000,22119000,22637400,3.1536e7,3.16e7} else {8467200,9.187e6,9.6947e6,10198800,11494800,12013200};
   final parameter Modelica.SIunits.Temperature Tinit1=303.15;
+  final parameter Modelica.SIunits.Temperature Tinit1N = (if exp== 1 then Tinit1 else 295.15);
   final parameter Modelica.SIunits.Temperature Tinit2=if exp == 1 then 298.15 else 303.15;
+  final parameter Modelica.SIunits.Temperature Tinit2N = (if exp== 1 then Tinit1 else 295.15);
   final parameter String filename = if exp==1 and bui== 1 then "MeasurementTwinHouseN2Exp1.txt" elseif exp==2 and bui==1 then "MeasurementTwinHouseN2Exp2.txt" else "MeasurementTwinHouseO5.txt";
 
 equation
@@ -44,21 +46,22 @@ if time <Schedule[2] then
   y[2]=0;
   y[3]=max(0,100000*(Tinit1-TSensor[3]));
   y[4]=max(0,100000*(Tinit1-TSensor[4]));
-  y[5]=max(0,100000*(Tinit1-TSensor[5]))+measuredInput.y[12];
-  y[6]=max(0,100000*(Tinit1-TSensor[6]));
-  y[7]=max(0,100000*(Tinit1-TSensor[7]));
-elseif (time>=Schedule[2] and time < Schedule[3]) or time >=Schedule[4] then
+  y[5]=max(0,100000*(Tinit1N-TSensor[5]))+measuredInput.y[12];
+  y[6]=max(0,100000*(Tinit1N-TSensor[6]));
+  y[7]=max(0,100000*(Tinit1N-TSensor[7]));
+elseif (time>=Schedule[2] and time < Schedule[3]) or time >= Schedule[4] and time < Schedule[5] then
   y=Pel_IDEAL;
-elseif time>=Schedule[3] and time < Schedule[4] then
+elseif time>=Schedule[3] and time < Schedule[4] or time >= Schedule[5] and time < Schedule[6] then
   y[1]=max(0,100000*(Tinit2-TSensor[1]));
   y[2]=0;
   y[3]=max(0,100000*(Tinit2-TSensor[3]));
   y[4]=max(0,100000*(Tinit2-TSensor[4]));
-  y[5]=max(0,100000*(Tinit2-TSensor[5]))+measuredInput.y[12];
-  y[6]=max(0,100000*(Tinit2-TSensor[6]));
-  y[7]=max(0,100000*(Tinit2-TSensor[7]));
+  y[5]=max(0,100000*(Tinit2N-TSensor[5]))+measuredInput.y[12];
+  y[6]=max(0,100000*(Tinit2N-TSensor[6]));
+  y[7]=max(0,100000*(Tinit2N-TSensor[7]));
 else
   y=Pel_IDEAL;
+
 end if;
   connect(measuredInput.y[1:7],TdegC [1:7].u) annotation (Line(points={{-35,60},
           {-10,60},{-10,66},{14,66}},

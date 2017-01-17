@@ -19,7 +19,7 @@ model TwinHouseInfoManager
     final filNam=filNam2);
   parameter Integer exp = 1 "Experiment number: 1 or 2";
   parameter Integer bui = 1 "Building number 1 (N2), 2 (O5)";
-  final parameter String filNam3 = "validationdataN2Exp1.txt";
+  final parameter String filNam3 = (if exp == 1 and bui == 1 then "validationdataN2Exp1.txt" elseif exp==2 and bui == 1 then "validationdataExp2.txt" else "validationdataO5Exp1.txt");
   final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Inputs/")    annotation(Evaluate=true);
 
   Modelica.Blocks.Sources.CombiTimeTable inputSolTTH(
@@ -28,7 +28,7 @@ model TwinHouseInfoManager
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative2,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     final fileName=dirPath+filNam3,
-    columns=37:42)
+    columns= (if exp== 1 then 37:42 else {55,56,58,59,60,61}))
     "input for solGloHor and solDifHor measured at TTH"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   RadiationConvertor radCon(final lat=lat, final lon=lon,

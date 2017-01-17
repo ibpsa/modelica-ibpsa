@@ -1,7 +1,7 @@
 within IDEAS.Examples.TwinHouses.BaseClasses.Data;
 model ValidationDataExp2 "Model that reads all validation data for Twinhouse"
 
-final parameter Integer exp = 1 "Experiment number: 1 or 2";
+final parameter Integer exp = 2 "Experiment number: 1 or 2";
 parameter Integer bui = 1 "Building number 1 (N2), 2 (O5)";
 
 final parameter String filNam = "validationdataExp2.txt";
