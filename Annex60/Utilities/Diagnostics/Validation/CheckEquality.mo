@@ -1,30 +1,27 @@
 within Annex60.Utilities.Diagnostics.Validation;
 model CheckEquality "Validation model for the check equality model"
-  import Annex60;
   extends Modelica.Icons.Example;
 
   Annex60.Utilities.Diagnostics.CheckEquality cheEqu
-    annotation (Placement(transformation(extent={{-10,8},{10,28}})));
+    "Checks for equality of the input"
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Modelica.Blocks.Sources.Constant con(k=0.1) "Input"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Modelica.Blocks.Sources.Constant con1(k=0.12) "Input"
+  Modelica.Blocks.Sources.Sine sin1(freqHz=1, amplitude=0.03)
+    "Input"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Annex60.Utilities.Diagnostics.CheckEquality cheEqu1
-    annotation (Placement(transformation(extent={{-10,-72},{10,-52}})));
-  Modelica.Blocks.Sources.Constant con2(k=0.1) "Input"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Modelica.Blocks.Sources.Constant con3(k=0.1) "Input"
-    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+  Modelica.Blocks.Math.Add add "Adder to offset the sin input signal"
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 equation
 
-  connect(con.y, cheEqu.u1) annotation (Line(points={{-39,40},{-20,40},{-20,24},
-          {-12,24}}, color={0,0,127}));
-  connect(con1.y, cheEqu.u2) annotation (Line(points={{-39,0},{-20,0},{-20,12},{
-          -12,12}}, color={0,0,127}));
-  connect(con2.y, cheEqu1.u1) annotation (Line(points={{-39,-40},{-20,-40},{-20,
-          -56},{-12,-56}}, color={0,0,127}));
-  connect(con3.y, cheEqu1.u2) annotation (Line(points={{-39,-80},{-20,-80},{-20,
-          -68},{-12,-68}}, color={0,0,127}));
+  connect(con.y, cheEqu.u1) annotation (Line(points={{-39,40},{-20,40},{-20,26},
+          {18,26}},  color={0,0,127}));
+  connect(add.u1, con.y) annotation (Line(points={{-22,16},{-30,16},{-30,40},{-39,
+          40}}, color={0,0,127}));
+  connect(sin1.y, add.u2) annotation (Line(points={{-39,0},{-30,0},{-30,4},{-22,
+          4}}, color={0,0,127}));
+  connect(add.y, cheEqu.u2) annotation (Line(points={{1,10},{10,10},{10,14},{18,
+          14}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file="Resources/Scripts/Dymola/Utilities/Diagnostics/Validation/CheckEquality.mos"
         "Simulate and plot"),
@@ -38,6 +35,10 @@ Annex60.Utilities.Diagnostics.CheckEquality</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+Januray 17, 2017, by Michael Wetter:<br/>
+Updated example to also test negative difference.
+</li>
 <li>
 Januray 17, 2017, by Thierry S. Nouidui:<br/>
 First implementation.
