@@ -1,0 +1,9 @@
+simulateModel("Annex60.Utilities.Diagnostics.Validation.CheckEquality", startTime=0.0, stopTime=1, tolerance=1e-6, method="dassl", resultFile="CheckEquality");
+createPlot(id=1, 
+  position={0, 0, 1616, 824}, 
+  y={"cheEqu.y", "cheEqu1.y"}, 
+  range={0.0, 2.0, -0.001, 0.020999999999999998}, 
+  grid=true, 
+  filename="CheckEquality.mat", 
+  colors={{28,108,200}, {238,46,47}});
+
