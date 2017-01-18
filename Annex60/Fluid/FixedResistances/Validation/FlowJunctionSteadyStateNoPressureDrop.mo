@@ -45,29 +45,26 @@ model FlowJunctionSteadyStateNoPressureDrop
 
   Modelica.Blocks.Sources.Ramp m3_flow(
     height=1,
-    offset=-1,
     duration=20,
-    startTime=70) "Ramp mass flow signal"
+    startTime=70,
+    offset=1)     "Ramp mass flow signal"
     annotation (Placement(transformation(extent={{-92,-62},{-72,-42}})));
 
   Annex60.Fluid.Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    tau=0)
+    m_flow_nominal=1)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Annex60.Fluid.Sensors.TemperatureTwoPort senTem2(
     redeclare package Medium = Medium,
-    m_flow_nominal=2,
-    tau=0)
+    m_flow_nominal=2)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Annex60.Fluid.Sensors.TemperatureTwoPort senTem3(
     redeclare package Medium = Medium,
-    m_flow_nominal=3,
-    tau=0)
+    m_flow_nominal=3)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 equation
@@ -103,7 +100,7 @@ with no flow resistance.
 <ul>
 <li>
 January 18, 2017, by Michael Wetter:<br/>
-Changed <code>spl.m_flow_nominal</code>.<br/>
+Changed <code>spl.m_flow_nominal</code>, boundary condition and enabled sensor dynamics.<br/>
 This is for
 <a href=\"modelica://https://github.com/iea-annex60/modelica-annex60/issues/657\">issue 657</a>.
 </li>
