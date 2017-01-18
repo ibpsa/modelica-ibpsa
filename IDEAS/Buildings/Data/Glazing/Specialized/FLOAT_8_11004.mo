@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Data.Glazing.Specialized;
 record FLOAT_8_11004 = IDEAS.Buildings.Data.Interfaces.Glazing (
 final nLay=1,
-final mats={ IDEAS.Buildings.Data.Materials.Glass(d=8.0, epsLw_b=0.4)},final SwTrans=[0,0.750;
+final mats={ IDEAS.Buildings.Data.Materials.Glass(d=0.008, epsLw_b=0.4)},final SwTrans=[0,0.750;
 10,0.749;
 20,0.746;
 30,0.739;
