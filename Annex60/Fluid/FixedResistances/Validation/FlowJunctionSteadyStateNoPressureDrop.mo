@@ -7,7 +7,7 @@ model FlowJunctionSteadyStateNoPressureDrop
 
   Annex60.Fluid.FixedResistances.Junction spl(
     redeclare package Medium = Medium,
-    m_flow_nominal={1,2,3},
+    m_flow_nominal={2,2,2},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal={0,0,0}) "Splitter"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
@@ -101,6 +101,12 @@ with no flow resistance.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2017, by Michael Wetter:<br/>
+Changed <code>spl.m_flow_nominal</code>.<br/>
+This is for
+<a href=\"modelica://https://github.com/iea-annex60/modelica-annex60/issues/657\">issue 657</a>.
+</li>
 <li>
 October 14, 2016, by Michael Wetter:<br/>
 First implementation.<br/>
