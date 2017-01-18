@@ -149,7 +149,7 @@ on the <code>Annex60</code> library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Annex60.UsersGuide.ReleaseNotes.Version_1_0_0\">Version 1.0.0</a>(January 9, 2017)
+<a href=\"modelica://Annex60.UsersGuide.ReleaseNotes.Version_1_0_0\">Version 1.0.0</a>(January 17, 2017)
 </li>
 </ul>
 
@@ -509,9 +509,11 @@ as applications in buildings often have multiple fluids with largely varying
 flow rates, and therefore a global declaration is impractical.
 </p>
 <p>
-The development page for this library is
+The development page for this library has been
 <a href=\"https://github.com/iea-annex60/modelica-annex60\">
 https://github.com/iea-annex60/modelica-annex60</a>.
+Future development will continue on
+<a href=\"https://github.com/ibpsa/modelica\">https://github.com/ibpsa/modelica</a>.
 We welcome contributions from different users to further advance this library,
 whether it is through collaborative model development, through model use and testing
 or through requirements definition or by providing feedback regarding the model applicability
@@ -548,9 +550,8 @@ end UsersGuide;
 
 annotation (
 version="1.0.0",
-versionBuild=0,
-versionDate="2017-01-09",
-dateModified = "2017-01-09",
+versionDate="2017-01-17",
+dateModified = "2017-01-17",
 uses(Modelica(version="3.2.2")),
 preferredView="info",
 Documentation(info="<html>
