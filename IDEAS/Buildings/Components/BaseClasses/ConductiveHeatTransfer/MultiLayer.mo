@@ -15,14 +15,15 @@ model MultiLayer "multiple material layers in series"
     "Start temperature from port_b to port_a";
   final parameter Modelica.SIunits.ThermalInsulance R=sum(monLay.R)
     "total specific thermal resistance";
-  parameter Modelica.SIunits.HeatCapacity C = sum(mats.d.*mats.rho.*mats.c*A)
+  final parameter Modelica.SIunits.HeatCapacity C = sum(mats.d.*mats.rho.*mats.c*A)
     "Total heat capacity of the layers"
     annotation(Evaluate=true);
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Static (steady state) or transient (dynamic) thermal conduction model"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter SI.TemperatureDifference dT_nom_air=1
-    "Nominal temperature difference for air layers, used for linearising Rayleigh number";
+    "Nominal temperature difference for air layers, used for linearising Rayleigh number"
+    annotation(Dialog(enable=linIntCon));
 
   Modelica.SIunits.Energy E = sum(monLay.E);
 
