@@ -24,8 +24,7 @@ partial model PartialTwinHouse
     annotation (Placement(transformation(extent={{-42,-10},{-12,10}})));
    replaceable IDEAS.Examples.TwinHouses.BaseClasses.HeatingSystems.ElectricHeating_Twinhouse_alt
       heaSys
-   constrainedby
-    IDEAS.Examples.TwinHouses.BaseClasses.HeatingSystems.ElectricHeating_Twinhouse_alt(
+   constrainedby IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
     nEmbPorts=0,
     nZones=struct.nZones,
     InInterface=true,
