@@ -13,7 +13,7 @@ package Shadings "Package containing the records for the shading devices"
       hFin=0.10,
       finDep=0.15,
       finGap=0.1,
-      shaCorr=0.24,
+      shaCorr=0.0,
       controlled=true);
   end ShaWin1;
 
@@ -29,7 +29,7 @@ package Shadings "Package containing the records for the shading devices"
       hFin=0.10,
       finDep=0.15,
       finGap=0.1,
-      shaCorr=0.24,
+      shaCorr=0.0,
       controlled=true);
   end ShaWin2;
 
@@ -45,7 +45,7 @@ package Shadings "Package containing the records for the shading devices"
       hFin=0.10,
       finDep=0.15,
       finGap=0.1,
-      shaCorr=0.24,
+      shaCorr=0.0,
       controlled=true);
   end ShaWin3;
 

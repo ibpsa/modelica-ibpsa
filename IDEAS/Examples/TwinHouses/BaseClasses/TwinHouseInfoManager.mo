@@ -41,30 +41,36 @@ protected
     annotation(Evaluate=true);
 
 equation
-  connect(weaDat.HDirNor_in, radCon.solDirPer);
-  connect(weaDat.HDifHor_in, radCon.solDifHor);
+  connect(weaDat.HDirNor_in, radCon.HDirNor);
+  connect(weaDat.HDifHor_in, radCon.HDifHor);
 
   connect(radCon.solHouAng, hour.y) annotation (Line(points={{-30.4,-78.6},{-44,
           -78.6},{-44,24},{-90,24},{-90,44},{-103,44}},
                                                  color={0,0,127}));
-  connect(radCon.angDec, dec.y) annotation (Line(points={{-30.4,-76},{-42,-76},{
+  connect(radCon.decAng, dec.y) annotation (Line(points={{-30.4,-76},{-42,-76},{
           -42,22},{-92,22},{-92,32},{-103,32}}, color={0,0,127}));
-  connect(inputSolTTH.y[4], radCon.H_east) annotation (Line(points={{-79,-30},{-36,
+  connect(inputSolTTH.y[4], radCon.HEast) annotation (Line(points={{-79,-30},{-36,
           -30},{-36,-64},{-30.4,-64}}, color={0,0,127}));
-  connect(inputSolTTH.y[5], radCon.H_south) annotation (Line(points={{-79,-30},{
+  connect(inputSolTTH.y[5], radCon.HSouth) annotation (Line(points={{-79,-30},{
           -38,-30},{-38,-68},{-30.4,-68}}, color={0,0,127}));
-  connect(inputSolTTH.y[6], radCon.H_west) annotation (Line(points={{-79,-30},{-40,
+  connect(inputSolTTH.y[6], radCon.HWest) annotation (Line(points={{-79,-30},{-40,
           -30},{-40,-72},{-30.4,-72}}, color={0,0,127}));
-  connect(radCon.F2, skyBrightnessCoefficients.F2) annotation (Line(points={{
-          -30.4,-57.4},{-30.4,50},{-5,50},{-5,66}}, color={0,0,127}));
-  connect(radCon.F1, skyBrightnessCoefficients.F1) annotation (Line(points={{
-          -30.4,-60.4},{-28,-60.4},{-28,46},{-2,46},{-2,74},{-5,74}}, color={0,
-          0,127}));
-  connect(radCon.angZen, zenithAngle.y) annotation (Line(points={{-30.4,-81.2},
-          {-46,-81.2},{-46,30},{-84,30},{-84,56},{-103,56}}, color={0,0,127}));
   annotation (
       defaultComponentName="sim",
     defaultComponentPrefixes="inner",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+January 17, 2017, by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This block extends the normal SimInfoManager and adds 
+computations that are specific to the TwinHouse validation models.
+</p>
+</html>"));
 end TwinHouseInfoManager;

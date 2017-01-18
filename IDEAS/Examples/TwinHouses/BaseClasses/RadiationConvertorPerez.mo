@@ -195,5 +195,23 @@ equation
           58,80}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
+    Documentation(revisions="<html>
+<ul>
+<li>
+January 17, 2017, by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This block is a more accurate version of 
+<a href=modelica://IDEAS.Examples.TwinHouses.BaseClasses.RadiationConvertor>
+IDEAS.Examples.TwinHouses.BaseClasses.RadiationConvertor</a>.
+</p>
+<p>
+However the solution does not converge. 
+This may be either to an implementation error, or because a solution does not exist.
+</p>
+</html>"));
 end RadiationConvertorPerez;
