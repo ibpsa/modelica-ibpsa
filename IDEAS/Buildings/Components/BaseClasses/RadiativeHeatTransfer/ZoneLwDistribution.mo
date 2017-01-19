@@ -4,6 +4,13 @@ model ZoneLwDistribution "internal longwave radiative heat exchange"
   parameter Integer nSurf(min=1) "Number of surfaces connected to the zone";
 
   parameter Boolean linearise=true "Linearise radiative heat exchange";
+  parameter Modelica.SIunits.Temperature Tzone_nom = 295.15
+    "Nominal temperature of environment, used for linearisation"
+    annotation(Dialog(group="Linearisation", enable=linearise));
+  parameter Modelica.SIunits.TemperatureDifference dT_nom = -2
+    "Nominal temperature difference between solid and air, used for linearisation"
+    annotation(Dialog(group="Linearisation", enable=linearise));
+
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSurf] port_a
     "Port for radiative heat exchange"
@@ -33,8 +40,11 @@ protected
      each final unit="K4/W")
     "Thermal resistance for longwave radiative heat exchange";
 
-  IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.HeatRadiation[
-    nSurf] radRes(R=R, each linearise=linearise)
+  IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.HeatRadiation[nSurf] radRes(
+     R=R,
+    each linearise=linearise,
+    dT_nom=dT_nom,
+    Tzone_nom=Tzone_nom)
     "Component that computes radiative heat exchange";
 
 initial equation
@@ -92,6 +102,10 @@ equation
 <p>The exchange of longwave radiation in a zone has been previously described in the building component models and further considering the heat balance of the interior surface. Here, an expression based on <i>radiant interchange configuration factors</i> or <i>view factors</i> is avoided based on a delta-star transformation and by definition of a <i>radiant star temperature</i> <img src=\"modelica://IDEAS/Images/equations/equation-rE4hQkmG.png\"/>. Literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption. This <img src=\"modelica://IDEAS/Images/equations/equation-rE4hQkmG.png\"/> can be derived from the law of energy conservation in the radiant star node as <img src=\"modelica://IDEAS/Images/equations/equation-iH8dRZqh.png\"/> must equal zero. Long wave radiation from internal sources are dealt with by including them in the heat balance of the radiant star node resulting in a diffuse distribution of the radiative source.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 19, 2017 by Filip Jorissen:<br/>
+Propagated parameters for linearisation.
+</li>
 <li>
 July 12, 2016 by Filip Jorissen:<br/>
 Changed implementation to be more intuitive.
