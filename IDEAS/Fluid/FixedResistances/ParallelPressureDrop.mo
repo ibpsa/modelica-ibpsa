@@ -1,5 +1,5 @@
 within IDEAS.Fluid.FixedResistances;
-model ParallelFixedResistanceDpM
+model ParallelPressureDrop
   "Fixed flow resistance with multiple parallel circuits"
   extends IDEAS.Fluid.BaseClasses.PartialResistance(
     final m_flow_turbulent = if (computeFlowResistance and use_dh) then
@@ -222,4 +222,4 @@ First implementation.
           extent={{-106,106},{6,60}},
           lineColor={0,0,255},
           textString="m0=%m_flow_nominal")}));
-end ParallelFixedResistanceDpM;
+end ParallelPressureDrop;
