@@ -113,5 +113,9 @@ January 19, 2017 by Filip Jorissen:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model is a unit test for the convective heat transfer models. 
+</p>
 </html>"));
 end Convection;
