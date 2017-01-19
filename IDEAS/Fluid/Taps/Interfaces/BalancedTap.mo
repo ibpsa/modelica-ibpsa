@@ -1,5 +1,5 @@
-within IDEAS.Fluid.Domestic_Hot_Water;
-partial model partial_DHW "partial DHW model"
+within IDEAS.Fluid.Taps.Interfaces;
+partial model BalancedTap "partial DHW model"
   import IDEAS;
 
   parameter Modelica.SIunits.Temperature TDHWSet(max=273.15 + 60) = 273.15 + 45
@@ -20,9 +20,9 @@ public
         iconTransformation(extent={{-110,-10},{-90,10}})));
 
   Modelica.Blocks.Sources.RealExpression TCold_expr(y=TCold)
-    annotation (Placement(transformation(extent={{26,-40},{46,-20}})));
+    annotation (Placement(transformation(extent={{6,-40},{26,-20}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_cold(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{130,-10},{150,10}})));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium annotation (
       __Dymola_choicesAllMatching=true);
 
@@ -35,123 +35,106 @@ public
     redeclare package Medium = Medium,
     control_m_flow=true,
     allowFlowReversal=false)
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     dynamicBalance=true,
     m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{80,10},{100,-10}})));
+    annotation (Placement(transformation(extent={{60,10},{80,-10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
-    annotation (Placement(transformation(extent={{66,-36},{78,-24}})));
+    annotation (Placement(transformation(extent={{46,-36},{58,-24}})));
 
   Modelica.SIunits.Temperature TDHW_actual = min(THot.T,TDHWSet);
   Modelica.Blocks.Sources.RealExpression mFloCor(y=mFlo60C*(273.15 + 60 - TCold)
         /(TDHWSet - TCold)) "Corrected desired mass flow rate for TDHWSet"
-    annotation (Placement(transformation(extent={{-66,76},{-4,96}})));
+    annotation (Placement(transformation(extent={{-84,76},{-22,96}})));
   Modelica.Blocks.Sources.RealExpression deltaT(y=THot.T - TCold) "THot-TCold"
-    annotation (Placement(transformation(extent={{-66,62},{-40,82}})));
+    annotation (Placement(transformation(extent={{-84,62},{-58,82}})));
   IDEAS.Utilities.Math.SmoothMax deltaT_with_smoothmax(deltaX=0.1)
-    annotation (Placement(transformation(extent={{-28,56},{-10,74}})));
+    annotation (Placement(transformation(extent={{-46,56},{-28,74}})));
   Modelica.Blocks.Sources.RealExpression minValTemDif(y=0.1)
     "minimal value of the temperature difference, to avoid division by zero."
-    annotation (Placement(transformation(extent={{-48,48},{-40,64}})));
+    annotation (Placement(transformation(extent={{-66,48},{-58,64}})));
   Modelica.Blocks.Sources.RealExpression mFloHot_intermediate(y=mFlo60C*(273.15 +
         60 - TCold)/(deltaT_with_smoothmax.y))
     "Requied mass flow rate based on current THot"
-    annotation (Placement(transformation(extent={{-66,28},{-2,50}})));
+    annotation (Placement(transformation(extent={{-84,28},{-20,50}})));
   IDEAS.Utilities.Math.SmoothMin mFloHot(deltaX=1e-3*m_flow_nominal)
     "Hot and cold water flowrate"
-    annotation (Placement(transformation(extent={{18,34},{36,52}})));
+    annotation (Placement(transformation(extent={{0,34},{18,52}})));
 equation
   connect(port_hot, THot.port_a) annotation (Line(
       points={{-100,4.44089e-16},{-88,4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(idealSource.port_a, THot.port_b) annotation (Line(
-      points={{40,0},{-68,0}},
+      points={{30,0},{-68,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(idealSource.port_b, pipe_HeatPort.port_a) annotation (Line(
-      points={{60,0},{80,0}},
+      points={{50,0},{60,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pipe_HeatPort.port_b, port_cold) annotation (Line(
-      points={{100,0},{140,0}},
+      points={{80,0},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(prescribedTemperature.port, pipe_HeatPort.heatPort) annotation (Line(
-      points={{78,-30},{90,-30},{90,-10}},
+      points={{58,-30},{70,-30},{70,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TCold_expr.y, prescribedTemperature.T) annotation (Line(
-      points={{47,-30},{64.8,-30}},
+      points={{27,-30},{44.8,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(deltaT.y,deltaT_with_smoothmax. u1) annotation (Line(
-      points={{-38.7,72},{-34,72},{-34,70.4},{-29.8,70.4}},
+      points={{-56.7,72},{-52,72},{-52,70.4},{-47.8,70.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(minValTemDif.y,deltaT_with_smoothmax. u2) annotation (Line(
-      points={{-39.6,56},{-34,56},{-34,59.6},{-29.8,59.6}},
+      points={{-57.6,56},{-52,56},{-52,59.6},{-47.8,59.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mFloHot_intermediate.y, mFloHot.u2) annotation (Line(
-      points={{1.2,39},{11.6,39},{11.6,37.6},{16.2,37.6}},
+      points={{-16.8,39},{-6.4,39},{-6.4,37.6},{-1.8,37.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mFloCor.y, mFloHot.u1) annotation (Line(
-      points={{-0.9,86},{10,86},{10,48.4},{16.2,48.4}},
+      points={{-18.9,86},{-8,86},{-8,48.4},{-1.8,48.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mFloHot.y, idealSource.m_flow_in) annotation (Line(
-      points={{36.9,43},{44,43},{44,8}},
+      points={{18.9,43},{34,43},{34,8}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(extent={{-100,-40},{140,100}}, preserveAspectRatio=false),
-                   graphics),
-    Icon(coordinateSystem(extent={{-100,-40},{140,100}}, preserveAspectRatio=
+    Diagram(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=false)),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
             false), graphics={
         Line(
           points={{-20,30},{20,-30},{-20,-30},{20,30},{-20,30}},
           color={0,0,127},
           smooth=Smooth.None,
-          origin={-30,0},
+          origin={-50,0},
           rotation=-90),
         Line(
-          points={{-70,0},{-70,0},{-100,0}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{20,40},{20,0},{20,0}},
+          points={{0,40},{0,0},{0,0}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{0,40},{40,40},{34,80},{4,80},{0,40}},
+          points={{-20,40},{20,40},{14,80},{-16,80},{-20,40}},
           color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{-70,20},{-70,-20}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{140,0},{140,0},{110,0}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{110,18},{110,-22}},
-          color={0,128,255},
           smooth=Smooth.None),
         Line(
           points={{-20,30},{20,-30},{-20,-30},{20,30},{-20,30}},
           color={0,0,127},
           smooth=Smooth.None,
-          origin={70,0},
+          origin={50,0},
           rotation=-90),
         Line(
-          points={{0,0},{40,0},{40,-2}},
+          points={{-20,0},{20,0},{20,-2}},
           color={0,0,127},
           smooth=Smooth.None)}),
     Documentation(info="<html>
@@ -196,4 +179,4 @@ equation
 <li>2012 August, Roel De Coninck, first implementation.</li>
 </ul></p>
 </html>"));
-end partial_DHW;
+end BalancedTap;

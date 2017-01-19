@@ -1,7 +1,11 @@
 within IDEAS.Fluid;
-package BaseCircuits 
+package Taps "Domestic Hot Water"
 
 
   extends Modelica.Icons.VariantsPackage;
 
-end BaseCircuits;
+
+
+
+
+end Taps;
