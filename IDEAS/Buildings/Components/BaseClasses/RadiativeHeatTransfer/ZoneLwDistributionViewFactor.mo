@@ -11,12 +11,14 @@ model ZoneLwDistributionViewFactor
   final parameter Integer numAzi = 4;
 
   parameter Modelica.SIunits.Length hZone "Distance between floor and ceiling";
+  parameter Boolean linearise "Linearise radiative heat exchange"
+    annotation(Evaluate=true);
 
   parameter Real[nSurf,nSurf] vieFac(each fixed=false)
     "Emissivity weighted viewfactor from surface to surface"
     annotation(Dialog(tab="Advanced"));
-
-Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
+  final parameter Real[nSurf,nSurf] Umat(each fixed=false);
+  Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -47,21 +49,21 @@ Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
         rotation=270,
         origin={-60,-104})));
 
+
+protected
+  parameter Modelica.SIunits.ThermalConductance coeffLin = 1/R*(2*Tzone_nom+dT_nom)*(Tzone_nom^2+(Tzone_nom+dT_nom)^2)
+    "Coefficient allowing less overhead for evaluation functions. This implementation is an approximation of the real linearization f(u)_lin = df/du|(u=u_bar) * (u-u_bar) + f|u_bar. The accuracy of it has been checked.";
   parameter Real[2+numAzi] Atot(each fixed=false)
     "Total surface area per orientation";
 
   parameter Real[2+numAzi,2+numAzi] vieFacTot(each fixed=false)
     "Emissivity weighted viewfactor from total of surfaces to each other"
     annotation(Dialog(tab="Advanced"));
-//   Real[nSurf] F=A ./ (ones(nSurf)*sum(A) - A) "view factor per surface";
-//   Real[nSurf] R=(ones(nSurf) - epsLw) ./ (A .* epsLw) + (ones(nSurf) - F) ./ A
-//     "heat resistance for logwave radiative heat exchange";
   parameter Real lWall(fixed = false);
-  parameter Real[nSurf,nSurf] Umat(each fixed=false);
+
   parameter Integer index1(fixed=false);
   parameter Integer index2(fixed=false);
   parameter Modelica.SIunits.Area[nSurf] Afloor(each fixed = false);
-
 initial algorithm
   //initialise surface area to zero
   Atot :=zeros(2 + numAzi);
@@ -197,8 +199,8 @@ initial algorithm
             end for;
           end if;
 
-          Umat[i,j] := if vieFacTot[index1, index2]  < Modelica.Constants.small then 0 else 5.68/(1/A[i]/(vieFacTot[index1, index2]*A[j]/Atot[index2])+(1-epsLw[i])/A[i]/epsLw[i]+(1-epsLw[j])/A[j]/epsLw[j]);
-          Umat[j,i] := if vieFacTot[index2, index1]  < Modelica.Constants.small then 0 else 5.68/(1/A[j]/(vieFacTot[index2, index1]*A[i]/Atot[index1])+(1-epsLw[i])/A[i]/epsLw[i]+(1-epsLw[j])/A[j]/epsLw[j]);
+          Umat[i,j] := if vieFacTot[index1, index2]  < Modelica.Constants.small then 0 else Modelica.SIunits.Sigma/(1/A[i]/(vieFacTot[index1, index2]*A[j]/Atot[index2])+(1-epsLw[i])/A[i]/epsLw[i]+(1-epsLw[j])/A[j]/epsLw[j]);
+          Umat[j,i] := if vieFacTot[index2, index1]  < Modelica.Constants.small then 0 else Modelica.SIunits.Sigma/(1/A[j]/(vieFacTot[index2, index1]*A[i]/Atot[index1])+(1-epsLw[i])/A[i]/epsLw[i]+(1-epsLw[j])/A[j]/epsLw[j]);
           end if;
 
         end for;
@@ -206,7 +208,11 @@ end for;
       Umat := Umat-identity(nSurf).*(Umat*ones(nSurf,nSurf));
 
 equation
-  port_a.Q_flow=-Umat*port_a.T;
+  if linearise then
+    port_a.Q_flow=-Umat*port_a.T;
+  else
+    port_a.Q_flow=-Umat*port_a.T^4;
+  end if;
   floorArea=Afloor;
 
   annotation (
