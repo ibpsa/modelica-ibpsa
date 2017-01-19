@@ -83,5 +83,12 @@ January 18, 2017 by Filip Jorissen:<br/>
 First implementation
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model is a unit test for the 
+<a href=modelica://IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.MonoLayer>
+IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.MonoLayer</a> 
+model.
+</p>
 </html>"));
 end MonoLayer;
