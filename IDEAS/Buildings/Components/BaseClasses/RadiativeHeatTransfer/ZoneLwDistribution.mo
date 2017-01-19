@@ -76,18 +76,17 @@ equation
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0},
           lineThickness=0.5),
-        Line(points={{-40,10},{40,10}}, color={191,0,0}),
-        Line(points={{-40,10},{-30,16}}, color={191,0,0}),
-        Line(points={{-40,10},{-30,4}}, color={191,0,0}),
-        Line(points={{-40,-10},{40,-10}}, color={191,0,0}),
-        Line(points={{30,-16},{40,-10}}, color={191,0,0}),
-        Line(points={{30,-4},{40,-10}}, color={191,0,0}),
-        Line(points={{-40,-30},{40,-30}}, color={191,0,0}),
-        Line(points={{-40,-30},{-30,-24}}, color={191,0,0}),
-        Line(points={{-40,-30},{-30,-36}}, color={191,0,0}),
-        Line(points={{-40,30},{40,30}}, color={191,0,0}),
-        Line(points={{30,24},{40,30}}, color={191,0,0}),
-        Line(points={{30,36},{40,30}}, color={191,0,0}),
+        Line(points={{6,0},{64,0}},     color={191,0,0}),
+        Line(points={{6,0},{16,6}},      color={191,0,0}),
+        Line(points={{6,0},{16,-6}},    color={191,0,0}),
+        Line(points={{0,56},{0,12}},      color={191,0,0}),
+        Line(points={{-62,0},{-8,0}},   color={191,0,0}),
+        Line(points={{-5,-3},{5,3}},   color={191,0,0},
+          origin={-13,-3},
+          rotation=180),
+        Line(points={{-5,3},{5,-3}},   color={191,0,0},
+          origin={-13,3},
+          rotation=180),
         Line(
           points={{-68,60},{68,60}},
           color={0,0,0},
@@ -97,11 +96,50 @@ equation
           points={{68,60},{68,-60},{-68,-60},{-68,60}},
           color={0,0,0},
           thickness=0.5,
-          smooth=Smooth.None)}),
+          smooth=Smooth.None),
+        Line(points={{-5,-3},{5,3}},   color={191,0,0},
+          origin={-3,17},
+          rotation=270),
+        Line(points={{-5,3},{5,-3}},   color={191,0,0},
+          origin={3,17},
+          rotation=270),
+        Line(points={{0,-10},{0,-54}},    color={191,0,0}),
+        Line(points={{-5,-3},{5,3}},   color={191,0,0},
+          origin={-3,-49},
+          rotation=270),
+        Line(points={{-5,3},{5,-3}},   color={191,0,0},
+          origin={3,-49},
+          rotation=270),
+        Line(points={{-5,3},{5,-3}},   color={191,0,0},
+          origin={-3,-15},
+          rotation=270),
+        Line(points={{-5,-3},{5,3}},   color={191,0,0},
+          origin={3,-15},
+          rotation=270),
+        Line(points={{-5,-3},{5,3}},   color={191,0,0},
+          origin={3,51},
+          rotation=270),
+        Line(points={{-5,3},{5,-3}},   color={191,0,0},
+          origin={-3,51},
+          rotation=270),
+        Line(points={{-62,0},{-52,-6}}, color={191,0,0}),
+        Line(points={{-62,0},{-52,6}},   color={191,0,0}),
+        Line(points={{-5,3},{5,-3}},   color={191,0,0},
+          origin={59,3},
+          rotation=180),
+        Line(points={{-5,-3},{5,3}},   color={191,0,0},
+          origin={59,-3},
+          rotation=180)}),
     Documentation(info="<html>
 <p>The exchange of longwave radiation in a zone has been previously described in the building component models and further considering the heat balance of the interior surface. Here, an expression based on <i>radiant interchange configuration factors</i> or <i>view factors</i> is avoided based on a delta-star transformation and by definition of a <i>radiant star temperature</i> <img src=\"modelica://IDEAS/Images/equations/equation-rE4hQkmG.png\"/>. Literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption. This <img src=\"modelica://IDEAS/Images/equations/equation-rE4hQkmG.png\"/> can be derived from the law of energy conservation in the radiant star node as <img src=\"modelica://IDEAS/Images/equations/equation-iH8dRZqh.png\"/> must equal zero. Long wave radiation from internal sources are dealt with by including them in the heat balance of the radiant star node resulting in a diffuse distribution of the radiative source.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 19, 2017 by Filip Jorissen:<br/>
+Updated icon for issue
+<a href=https://github.com/open-ideas/IDEAS/issues/641>#641
+</a>.
+</li>
 <li>
 January 19, 2017 by Filip Jorissen:<br/>
 Propagated parameters for linearisation.
