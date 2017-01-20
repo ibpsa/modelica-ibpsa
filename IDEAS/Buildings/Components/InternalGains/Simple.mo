@@ -10,8 +10,8 @@ model Simple
   parameter Real radFra(min=0,max=1) = occupancyType.radFra
     "Radiant fraction of sensible heat exchange, default based on Ashrae fundamentals chap 18.4 for low air velocity";
 protected
-  constant Modelica.SIunits.SpecificEnthalpy lambdaWater = 2260000
-    "Latent heat of evaporation water";
+  constant Modelica.SIunits.SpecificEnthalpy lambdaWater = 2418000
+    "Latent heat of evaporation of water at 35 degrees Celsius";
   constant Modelica.SIunits.SpecificEnthalpy E_glu = 16e6
     "Calorific value of glucose";
   constant Real MM_glu = 180
@@ -86,6 +86,12 @@ Sensible heat is emitted both as convective and radiant heat using a fixed weigh
 </html>",
         revisions="<html>
 <ul>
+<li>
+January 18, 2017 by Filip Jorissen:<br/>
+Changed latent heat of evaporation of water.
+This is for issue
+<a href=https://github.com/open-ideas/IDEAS/issues/635>#635</a>.
+</li>
 <li>
 July 18, 2016 by Filip Jorissen:<br/>
 First implementation

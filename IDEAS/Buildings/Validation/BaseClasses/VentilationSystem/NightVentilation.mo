@@ -17,13 +17,19 @@ public
   Fluid.Sources.FixedBoundary bou(redeclare package Medium =
         IDEAS.Media.Air, final nPorts=nZones)
     annotation (Placement(transformation(extent={{-68,-30},{-88,-10}})));
-  Modelica.Blocks.Sources.RealExpression m_flow_in(y=1703.16*(287*sim.Te/83200)/3600*ventilate)
+  Modelica.Blocks.Sources.RealExpression m_flow_in(y=if ventilate then m_flow else 0)
     annotation (Placement(transformation(extent={{-12,38},{-32,58}})));
   Modelica.Blocks.Sources.RealExpression T_in(y=sim.Te)
     annotation (Placement(transformation(extent={{-10,-8},{-30,12}})));
 
 protected
-  Real ventilate = if occ.occupied then 0 else 1;
+  parameter Modelica.SIunits.Pressure pAmb= 83200 "Ambient pressure is 83kPa";
+  parameter Modelica.SIunits.SpecificHeatCapacity r= 287 "Gas constant";
+  parameter Modelica.SIunits.VolumeFlowRate dotV = 1703.16/3600 "Volumetric flow rate";
+  Modelica.SIunits.Density rho = pAmb/sim.Te/r "Density";
+  Modelica.SIunits.MassFlowRate m_flow = dotV*rho "Mass flow rate that enters the building";
+
+  Boolean ventilate = not occ.occupied;
 
 equation
   wattsLawPlug.P[1] = 0;
@@ -44,5 +50,12 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
-                      graphics));
+                      graphics), Documentation(revisions="<html>
+<ul>
+<li>
+January 14, 2017 by Filip Jorissen:<br/>
+Corrected error in computation of air density.
+</li>
+</ul>
+</html>"));
 end NightVentilation;

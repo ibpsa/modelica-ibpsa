@@ -13,7 +13,7 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
     filNam="BESTEST.TMY",
     lat=0.69464104229374,
     lon=-1.8308503853421,
-    timZonSta=-28800)
+    timZonSta=-7*3600)
     annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
 
   // BESTEST 600 Series
@@ -35,5 +35,8 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
           lineColor={85,0,0},
           fontName="Calibri",
           textStyle={TextStyle.Bold},
-          textString="BESTEST 600 Series")}));
+          textString="BESTEST 600 Series")}),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Buildings/Validation/Tests/Case650.mos"
+        "Simulate and plot"));
 end Case650;

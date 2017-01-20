@@ -199,31 +199,31 @@ equation
   connect(fanRet.port_b, bouAir.ports[2]) annotation (Line(points={{340,180},{
           360,180},{360,170}},
                            color={0,127,255}));
-  connect(spl5.port_3, bedRoom2.flowPort_Out) annotation (Line(points={{262,130},
+  connect(spl5.port_3, bedRoom2.port_b) annotation (Line(points={{262,130},
           {268,130},{268,84},{268,62}},          color={0,127,255}));
-  connect(bedRoom2.flowPort_In, bedRoom3.flowPort_In) annotation (Line(points={{
+  connect(bedRoom2.port_a, bedRoom3.port_a) annotation (Line(points={{
           264,62},{254,62},{250,62},{250,20},{268,20}}, color={0,127,255}));
-  connect(spl6.port_3, bedRoom3.flowPort_In) annotation (Line(points={{230,130},
+  connect(spl6.port_3, bedRoom3.port_a) annotation (Line(points={{230,130},
           {230,20},{268,20}},            color={0,127,255}));
-  connect(stairWay.flowPort_Out, bedRoom3.flowPort_Out) annotation (Line(points=
+  connect(stairWay.port_b, bedRoom3.port_b) annotation (Line(points=
          {{78,6},{80,6},{80,0},{80,8},{272,8},{272,20}}, color={0,127,255}));
-  connect(stairWay.flowPort_In, bathRoom.flowPort_In) annotation (Line(points={{
+  connect(stairWay.port_a, bathRoom.port_a) annotation (Line(points={{
           74,6},{74,6},{74,-6},{74,-4},{128,-4},{128,6}}, color={0,127,255}));
-  connect(bedRoom1.flowPort_In, stairWay.flowPort_Out) annotation (Line(points={
+  connect(bedRoom1.port_a, stairWay.port_b) annotation (Line(points={
           {128,60},{122,60},{122,56},{78,56},{78,6}}, color={0,127,255}));
-  connect(spl7.port_3, bathRoom.flowPort_Out)
+  connect(spl7.port_3, bathRoom.port_b)
     annotation (Line(points={{140,170},{140,6},{132,6}}, color={0,127,255}));
   connect(spl6.port_1, spl5.port_2) annotation (Line(points={{240,140},{240,140},
           {252,140}}, color={0,127,255}));
   connect(spl8.port_1, spl6.port_2)
     annotation (Line(points={{120,140},{220,140}}, color={0,127,255}));
-  connect(spl8.port_3, bedRoom1.flowPort_Out) annotation (Line(points={{110,130},
+  connect(spl8.port_3, bedRoom1.port_b) annotation (Line(points={{110,130},
           {110,106},{132,106},{132,60}}, color={0,127,255}));
-  connect(spl8.port_2, living.flowPort_In) annotation (Line(points={{100,140},{-38,
+  connect(spl8.port_2, living.port_a) annotation (Line(points={{100,140},{-38,
           140},{-38,36}}, color={0,127,255}));
-  connect(living.flowPort_Out, Diner.flowPort_In) annotation (Line(points={{-34,
+  connect(living.port_b, Diner.port_a) annotation (Line(points={{-34,
           36},{-34,-38},{-34,-38}}, color={0,127,255}));
-  connect(Diner.flowPort_Out, spl7.port_1) annotation (Line(points={{-38,-38},{-40,
+  connect(Diner.port_b, spl7.port_1) annotation (Line(points={{-38,-38},{-40,
           -38},{-40,-2},{-42,-2},{-42,180},{130,180}}, color={0,127,255}));
   connect(hex.port_a2, fanSup.port_b) annotation (Line(points={{310,154},{310,
           140},{320,140}}, color={0,127,255}));
@@ -233,8 +233,8 @@ equation
           180},{320,180}}, color={0,127,255}));
   connect(hex.port_a1, spl7.port_2) annotation (Line(points={{290,166},{290,180},
           {150,180}}, color={0,127,255}));
-  connect(Diner.flowPort_In, bouAir.ports[3]) annotation (Line(points={{-34,-38},
-          {30,-38},{30,202},{360,202},{360,167.333}}, color={0,127,255}));
+  connect(Diner.port_a, bouAir.ports[3]) annotation (Line(points={{-34,-38},{30,
+          -38},{30,202},{360,202},{360,167.333}},     color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -200},{400,240}},
         initialScale=0.1), graphics={
