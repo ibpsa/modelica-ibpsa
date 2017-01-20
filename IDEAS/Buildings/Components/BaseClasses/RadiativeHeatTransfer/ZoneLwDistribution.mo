@@ -29,12 +29,20 @@ model ZoneLwDistribution "internal longwave radiative heat exchange"
         origin={0,100})));
 
 protected
-  parameter Real[nSurf] F(
+  parameter Boolean computeCarroll(fixed=false) "if false, then a simplified model is used";
+  parameter Real FMax=5 "Upper bound for F";
+  parameter Real[nSurf] F1(
+     each final fixed=false,
+     each final min=0,
+     each final max=FMax,
+     each start=0.1)
+    "View factor estimate by Carroll";
+  parameter Real[nSurf] F2(
      each final fixed=false,
      each final min=1e-6,
      each final max=1,
-     each start=0.1)
-    "View factor estimate for each surface";
+     each start=1)
+    "Simplified view factor estimate";
   parameter Real[nSurf] R(
      each final fixed=false,
      each final unit="K4/W")
@@ -49,9 +57,35 @@ protected
 
 initial equation
   // see Eqns 29-30 in Liesen, R. J., & Pedersen, C. O. (1997). An Evaluation of Inside Surface Heat Balance Models for Cooling Load Calculations. ASHRAE Transactions, 3(103), 485–502.
-  // the additional min(,) function is used to facilitate convergence of the non-linear algebraic loop
-  F={min(1/(1-A[i].*F[i]/sum(A.*F)),1) for i in 1:nSurf};
-  R=((ones(nSurf) - epsLw) ./ epsLw + ones(nSurf)./F) ./ A/ Modelica.Constants.sigma;
+  // or Eqns 4 and 10 in Carroll, J.A. 1980. An "MRT method" of computing radiant energy exchange in rooms. Proceedings of the 2nd Sys- tems Simulation and Economics Analysis Conference, January 23-25
+  // The additional min(,) and max(,) function cause the Newton solver to find a (wrong) solution instead of crashing.
+
+  // If max(A)<sum(A)/2 is not satisfied, then the non-linear
+  // algebraic loop will not converge and therefore we do not compute
+  // view factors according to Carroll.
+  computeCarroll = max(A)<sum(A)/2;
+  F1= if computeCarroll then {max(0,min(FMax,1/(1 - A[i] .* F1[i]/(A*F1)))) for i in 1:nSurf} else zeros(nSurf);
+  F2= A ./ (ones(nSurf)*sum(A) - A);
+
+  // If Carroll's model converged to a solution for F1
+  // that does not equal the variable bounds
+  // (i.e. the solution converged using the real model equations),
+  // then use this model otherwise use a more simplified model
+  // since a solution was found, but not for the real model equations.
+  // This should only occur for non-physical geometries where
+  // it is difficult to argue whether or not this simplification is correct.
+  R= if computeCarroll and max(F1)<FMax*0.9 then
+        ((ones(nSurf) - epsLw) ./ epsLw + ones(nSurf)./F1) ./ A/ Modelica.Constants.sigma
+      else
+        ((ones(nSurf) - epsLw) ./ (A .* epsLw) + (ones(nSurf) - F2) ./ A)/Modelica.Constants.sigma;
+
+  // Throw a warning when the simplified approach is used.
+  assert(max(F1)<FMax*0.9 and computeCarroll,
+          "WARNING: The view factor computed in ZoneLwDistribution could not properly converge. 
+          A simplified method is used. 
+          This may be caused by trying to model a non-physical geometry.\n",
+          AssertionLevel.warning);
+
 
 equation
   for i in 1:nSurf loop
@@ -110,7 +144,8 @@ leading to a star resistance network.
 </p>
 <h4>References</h4>
 <p>
-Liesen, R. J., & Pedersen, C. O. (1997). An Evaluation of Inside Surface Heat Balance Models for Cooling Load Calculations. ASHRAE Transactions, 3(103), 485–502.
+Liesen, R. J., & Pedersen, C. O. (1997). An Evaluation of Inside Surface Heat Balance Models for Cooling Load Calculations. ASHRAE Transactions, 3(103), 485-502.<br/>
+Carroll, J.A. 1980. An \"MRT method\" of computing radiant energy exchange in rooms. Proceedings of the 2nd Sys- tems Simulation and Economics Analysis Conference, January 23-25
 </p>
 </html>", revisions="<html>
 <ul>
