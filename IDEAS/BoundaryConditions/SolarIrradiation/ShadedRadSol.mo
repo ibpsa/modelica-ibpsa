@@ -3,8 +3,6 @@ model ShadedRadSol "Block that computes surface-dependent environment data"
   extends IDEAS.BoundaryConditions.SolarIrradiation.RadSol(
     final remDefVals = true);
 
-  final parameter Real Fssky=(1 + cos(inc))/2
-    "radiant-interchange configuration factor between surface and sky";
   Modelica.Blocks.Interfaces.RealInput TskyPow4
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=270,
@@ -15,10 +13,22 @@ model ShadedRadSol "Block that computes surface-dependent environment data"
         origin={40,106})));
 
 protected
-  SolarGeometry.AngleAzimuth angleAzimuth(final lat=lat, final azi=azi)
+  final parameter Real Fssky=(1 + cos(inc))/2
+    "radiant-interchange configuration factor between surface and sky";
+  final parameter Real beta = cos(inc/2)
+    "Additional factor for taking into account the line of sight through the atmosphere";
+  final parameter Real coeffSky = Fssky*beta
+    "Dummy parameter for speeding up computations";
+  final parameter Real coeffEnv = 1-Fssky*beta
+    "Dummy parameter for speeding up computations";
+
+  IDEAS.BoundaryConditions.SolarGeometry.AngleAzimuth angleAzimuth(
+    final lat=lat,
+    final azi=azi)
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Modelica.Blocks.Sources.RealExpression TenvExpr(
-    y=(Fssky*TskyPow4 + (1 - Fssky)*TePow4)^0.25) "Environment temperature"
+    y=(coeffSky*TskyPow4 + coeffEnv*TePow4)^0.25)
+    "Environment temperature"
     annotation (Placement(transformation(extent={{0,70},{60,90}})));
 
 equation
@@ -60,6 +70,12 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+January 20, 2017 by Filip Jorissen:<br/>
+Changed computation of Tenv.
+See issue 
+<a href=https://github.com/open-ideas/IDEAS/issues/623>#623</a>.
+</li>
+<li>
 September 22, 2016 by Filip Jorissen:<br/>
 Reworked implementation such that we use Annex 60 baseclasses.
 </li>
@@ -73,5 +89,12 @@ February 10, 2015 by Filip Jorissen:<br/>
 Adjusted implementation for grouping of solar calculations.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Model of equivalent radiative temperature is according to page 73 in
+</p>
+<p>
+Walton, G. N. 1983. Thermal Analysis Research Program Reference Manual. NBSSIR 83-2655. National Bureau of Standards
+</p>
 </html>"));
 end ShadedRadSol;
