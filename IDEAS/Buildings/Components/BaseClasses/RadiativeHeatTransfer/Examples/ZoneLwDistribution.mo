@@ -1,8 +1,11 @@
 within IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.Examples;
 model ZoneLwDistribution
   extends Modelica.Icons.Example;
-  .IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
-    zonLwDist(nSurf=6, linearise=true)
+  parameter Modelica.SIunits.Length l = 2;
+  parameter Modelica.SIunits.Length b = 2;
+  parameter Modelica.SIunits.Length h = 2;
+  IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
+    zonLwDist(nSurf=6, linearise=false)
     "Longwave distribution model using radiant star node"
     annotation (Placement(transformation(extent={{10,60},{-10,80}})));
   Modelica.Blocks.Sources.Ramp ramp(
@@ -18,16 +21,18 @@ model ZoneLwDistribution
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.Constant epsLw(k=1) "Longwave emissivity"
     annotation (Placement(transformation(extent={{100,50},{80,70}})));
-  Modelica.Blocks.Sources.Constant A(k=10) "Heat exchange surface area"
+  Modelica.Blocks.Sources.Constant A[6](k={l*b,l*b,b*h,l*h,b*h,l*h})
+                                              "Heat exchange surface area"
     annotation (Placement(transformation(extent={{100,80},{80,100}})));
-  HeatRadiation intHeaRad(                 R=(1/epsLw.k + 1/epsLw.k - 1)/(
-        Modelica.Constants.sigma*A.k), linearise=false)
+  HeatRadiation intHeaRad(             linearise=false, R=(1/epsLw.k + 1/epsLw.k
+         - 1)/(Modelica.Constants.sigma*A[1].k))
                   "Interior longwave heat radiation model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,30})));
-  ZoneLwDistributionViewFactor zonLwVieFac(hZone=sqrt(A.k), nSurf=6,
-    linearise=false)
+  ZoneLwDistributionViewFactor zonLwVieFac(                 nSurf=6,
+    linearise=false,
+    hZone=h)
     "Longwave distribution model using view factors"
     annotation (Placement(transformation(extent={{10,20},{-10,40}})));
   Modelica.Blocks.Sources.Constant inc[6](k={IDEAS.Types.Tilt.Floor,IDEAS.Types.Tilt.Ceiling,
@@ -40,6 +45,7 @@ model ZoneLwDistribution
     annotation (Placement(transformation(extent={{100,-20},{80,0}})));
 equation
   assert(abs(zonLwVieFac.port_a[1].Q_flow-intHeaRad.port_a.Q_flow)<1e-4, "Model verification results are not identical!");
+  assert(abs(zonLwVieFac.port_a[1].Q_flow-zonLwDist.port_a[1].Q_flow)<1e-4, "Model verification results are not identical!");
   connect(ramp.y,preTem. T)
     annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
   connect(preTem.port, zonLwDist.port_a[1]) annotation (Line(points={{-40,0},{
@@ -50,8 +56,6 @@ equation
             {-10,70}},        color={191,0,0}));
   end for;
   for i in 1:6 loop
-    connect(A.y, zonLwDist.A[i]) annotation (Line(points={{79,90},{38,90},{-4,90},
-            {-4,80}},    color={0,0,127}));
     connect(epsLw.y, zonLwDist.epsLw[i]) annotation (Line(points={{79,60},{79,60},
             {60,60},{60,88},{0,88},{0,80}},    color={0,0,127}));
   end for;
@@ -69,12 +73,18 @@ equation
           {79,-10}},      color={0,0,127}));
   connect(inc.y, zonLwVieFac.inc) annotation (Line(points={{79,30},{46,30},{46,34},
           {10,34}},     color={0,0,127}));
+  connect(A.y, zonLwDist.A)
+    annotation (Line(points={{79,90},{-4,90},{-4,80}}, color={0,0,127}));
     annotation (
     experiment(StopTime=1e+06),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Buildings/Components/BaseClasses/RadiativeHeatTransfer/ZoneLwDistribution.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 20, 2017 by Filip Jorissen:<br/>
+Changed implementation to support more generic dimensions.
+</li>
 <li>
 January 19, 2017 by Filip Jorissen:<br/>
 First implementation
@@ -88,7 +98,7 @@ IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution<
 </p>
 <p>
 Three different approaches are used to model
-a black cube with face surface areas of 10 m2.
+a black cube with face surface areas of 4 m2.
 The emissivity of each surface is one.
 The first surface has a time-varying temperature,
 whereas the five others have a fixed temperature.
@@ -96,8 +106,9 @@ In <code>intHeaRad</code> the five other surfaces are lumped into one surface.
 In <a href=modelica://IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution>zonLwDist</a>
 an equivalent radiant star point is used.
 In <a href=modelica://IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistributionViewFactor>zonLwVieFac</a>
-view factors are computed. This should give identical results as <code>intHeaRad</code>
-since both models are exact. 
+view factors are computed. 
+All three approaches should give exactly the same result for the given
+geometry and emissivities.
 </p>
 </html>"));
 end ZoneLwDistribution;
