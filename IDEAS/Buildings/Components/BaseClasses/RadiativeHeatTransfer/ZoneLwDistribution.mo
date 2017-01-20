@@ -48,8 +48,9 @@ protected
     "Component that computes radiative heat exchange";
 
 initial equation
-  //see Eqns 29-30 in Liesen, R. J., & Pedersen, C. O. (1997). An Evaluation of Inside Surface Heat Balance Models for Cooling Load Calculations. ASHRAE Transactions, 3(103), 485–502.
-  F=ones(nSurf)./(ones(nSurf)-A.*F/sum(A.*F));
+  // see Eqns 29-30 in Liesen, R. J., & Pedersen, C. O. (1997). An Evaluation of Inside Surface Heat Balance Models for Cooling Load Calculations. ASHRAE Transactions, 3(103), 485–502.
+  // the additional min(,) function is used to facilitate convergence of the non-linear algebraic loop
+  F={min(1/(1-A[i].*F[i]/sum(A.*F)),1) for i in 1:nSurf};
   R=((ones(nSurf) - epsLw) ./ epsLw + ones(nSurf)./F) ./ A/ Modelica.Constants.sigma;
 
 equation
