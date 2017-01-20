@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Data.Glazing.Specialized;
 record Noglazingopen_10001 = IDEAS.Buildings.Data.Interfaces.Glazing (
 final nLay=1,
-final mats={ IDEAS.Buildings.Data.Materials.Glass(d=1e-06, epsLw_b=0.4)},final SwTrans=[0,1.000;
+final mats={ IDEAS.Buildings.Data.Materials.Glass(d=0.001, epsLw_b=0.4)},final SwTrans=[0,1.000;
 10,1.000;
 20,1.000;
 30,1.000;
