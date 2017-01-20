@@ -11,7 +11,6 @@ model ZoneLwDistribution "internal longwave radiative heat exchange"
     "Nominal temperature difference between solid and air, used for linearisation"
     annotation(Dialog(group="Linearisation", enable=linearise));
 
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSurf] port_a
     "Port for radiative heat exchange"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -32,8 +31,9 @@ model ZoneLwDistribution "internal longwave radiative heat exchange"
 protected
   parameter Real[nSurf] F(
      each final fixed=false,
-     each final min=0,
-     each final max=1)
+     each final min=1e-6,
+     each final max=1,
+     each start=0.1)
     "View factor estimate for each surface";
   parameter Real[nSurf] R(
      each final fixed=false,
@@ -41,15 +41,16 @@ protected
     "Thermal resistance for longwave radiative heat exchange";
 
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.HeatRadiation[nSurf] radRes(
-     R=R,
+    R=R,
     each linearise=linearise,
-    dT_nom=dT_nom,
-    Tzone_nom=Tzone_nom)
+    each dT_nom=dT_nom,
+    each Tzone_nom=Tzone_nom)
     "Component that computes radiative heat exchange";
 
 initial equation
-  F=A ./ (ones(nSurf)*sum(A) - A);
-  R=((ones(nSurf) - epsLw) ./ (A .* epsLw) + (ones(nSurf) - F) ./ A)/Modelica.Constants.sigma;
+  //see Eqns 29-30 in Liesen, R. J., & Pedersen, C. O. (1997). An Evaluation of Inside Surface Heat Balance Models for Cooling Load Calculations. ASHRAE Transactions, 3(103), 485–502.
+  F=ones(nSurf)./(ones(nSurf)-A.*F/sum(A.*F));
+  R=((ones(nSurf) - epsLw) ./ epsLw + ones(nSurf)./F) ./ A/ Modelica.Constants.sigma;
 
 equation
   for i in 1:nSurf loop
@@ -99,9 +100,25 @@ equation
           thickness=0.5,
           smooth=Smooth.None)}),
     Documentation(info="<html>
-<p>The exchange of longwave radiation in a zone has been previously described in the building component models and further considering the heat balance of the interior surface. Here, an expression based on <i>radiant interchange configuration factors</i> or <i>view factors</i> is avoided based on a delta-star transformation and by definition of a <i>radiant star temperature</i> <img src=\"modelica://IDEAS/Images/equations/equation-rE4hQkmG.png\"/>. Literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption. This <img src=\"modelica://IDEAS/Images/equations/equation-rE4hQkmG.png\"/> can be derived from the law of energy conservation in the radiant star node as <img src=\"modelica://IDEAS/Images/equations/equation-iH8dRZqh.png\"/> must equal zero. Long wave radiation from internal sources are dealt with by including them in the heat balance of the radiant star node resulting in a diffuse distribution of the radiative source.</p>
+<p>
+The Mean Radiant Temperature Network (MRTnet) approach from 
+Carroll (1980) is used to compute the radiative heat transfer.
+This is a computationally efficient approach that does not require exact view factors to be known.
+Each surface exchanges heat with a fictive radiant surface,
+leading to a star resistance network.
+</p>
+<h4>References</h4>
+<p>
+Liesen, R. J., & Pedersen, C. O. (1997). An Evaluation of Inside Surface Heat Balance Models for Cooling Load Calculations. ASHRAE Transactions, 3(103), 485–502.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 20, 2017 by Filip Jorissen:<br/>
+Changed view factor implementation.
+See issue 
+<a href=https://github.com/open-ideas/IDEAS/issues/643>#643</a>.
+</li>
 <li>
 January 19, 2017 by Filip Jorissen:<br/>
 Propagated parameters for linearisation.
