@@ -120,9 +120,6 @@ model IndirectEvaporativeHex "Indirect evaporative heat exchanger"
    Real Xw_in_bot= Xi_bot_in[1] "Water mass fraction of bottom stream";
 
 protected
-  final constant Integer evapModel= 4
-    "Integer for choosing between indirect evaporation models"
-    annotation(Evaluate=true);
   final parameter Modelica.SIunits.Density rho_default=Medium1.density(
      Medium1.setState_pTX(
       T=Medium1.T_default,

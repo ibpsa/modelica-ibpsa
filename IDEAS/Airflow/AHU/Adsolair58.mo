@@ -90,7 +90,11 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
         origin={20,102})));
   Modelica.Blocks.Interfaces.RealOutput P
     annotation (Placement(transformation(extent={{96,80},{116,100}})));
-    //COMPONENTS
+
+  //COMPONENTS
+  replaceable BaseClasses.AdsolairController adsCon(tau=tau) constrainedby
+    BaseClasses.AdsolairController "Adsolair controller model"
+    annotation (Dialog(group="Advanced"),Placement(transformation(extent={{-44,56},{-24,76}})));
   replaceable IDEAS.Fluid.Interfaces.FourPortHeatMassExchanger hexSupOut(
     m1_flow_nominal=m2_flow_nominal,
     m2_flow_nominal=1,
@@ -104,6 +108,13 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     constrainedby IDEAS.Fluid.Interfaces.PartialFourPortInterface
     "Replaceable model for adding heat exchanger at supply outlet"
     annotation (Dialog(group="Advanced"),Placement(transformation(extent={{-72,-36},{-92,-16}})));
+  Modelica.Blocks.Sources.BooleanExpression onExp(y=on_internal)
+    "AHU control signal"
+    annotation (Placement(transformation(extent={{-84,66},{-64,82}})));
+  Modelica.Blocks.Sources.RealExpression TEvaExp(y=eva.heatPort.T)
+    "Evaporator outlet temperature"
+    annotation (Placement(transformation(extent={{-86,64},{-60,48}})));
+
   IDEAS.Fluid.HeatExchangers.IndirectEvaporativeHex IEH(
     p1_start=p_start,
     T1_start=T_start,
@@ -350,6 +361,39 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
         extent={{-6,6},{6,-6}},
         rotation=180,
         origin={-60,-20})));
+
+  Modelica.Blocks.Sources.RealExpression PPum(y=if adsCon.onAdia then 770 else 0)
+    "Electrical power consumption of circulation pump"
+    annotation (Placement(transformation(extent={{40,98},{60,78}})));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(final k=false)
+    "Only valRecupTop has conditional Kv value"
+    annotation (Placement(transformation(extent={{50,70},{60,80}})));
+  Modelica.Blocks.Sources.RealExpression PUnit(y=if on_internal then 780 else 150)
+    "Remaing electrical power consumption from unit"
+    annotation (Placement(transformation(extent={{40,86},{60,106}})));
+
+protected
+  final parameter Modelica.SIunits.Density rho_default=MediumAir.density(
+     MediumAir.setState_pTX(
+      T=MediumAir.T_default,
+      p=MediumAir.p_default,
+      X=MediumAir.X_default[1:MediumAir.nXi]))
+    "Density, used to compute condensor/evaporator volume";
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConEva(G=100)
+    "Required for simulating heat losses in evaporator" annotation (Placement(
+        transformation(
+        extent={{-6,6},{6,-6}},
+        rotation=0,
+        origin={-70,0})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConCon(G=100)
+    "Required for simulating heat losses in condenser" annotation (Placement(
+        transformation(
+        extent={{-6,6},{6,-6}},
+        rotation=0,
+        origin={-70,10})));
+  Modelica.Blocks.Interfaces.BooleanInput on_internal
+    "Needed to connect to conditional connector";
+
 model TwoWayEqualPercentageAdd
     "Damper with possibility for adding fixed pressure drop using boolean input"
   extends IDEAS.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv(
@@ -388,48 +432,6 @@ initial equation
           fillPattern=FillPattern.Solid,
           textString="%%")}));
 end TwoWayEqualPercentageAdd;
-protected
-  final parameter Modelica.SIunits.Density rho_default=MediumAir.density(
-     MediumAir.setState_pTX(
-      T=MediumAir.T_default,
-      p=MediumAir.p_default,
-      X=MediumAir.X_default[1:MediumAir.nXi]))
-    "Density, used to compute condensor/evaporator volume";
-public
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConEva(G=100)
-    "Required for simulating heat losses in evaporator" annotation (Placement(
-        transformation(
-        extent={{-6,6},{6,-6}},
-        rotation=0,
-        origin={-70,0})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConCon(G=100)
-    "Required for simulating heat losses in condenser" annotation (Placement(
-        transformation(
-        extent={{-6,6},{6,-6}},
-        rotation=0,
-        origin={-70,10})));
-  Modelica.Blocks.Sources.RealExpression PPum(y=if adsCon.onAdia then 770 else 0)
-    "Electrical power consumption of circulation pump"
-    annotation (Placement(transformation(extent={{40,98},{60,78}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(final k=false)
-    "Only valRecupTop has conditional Kv value"
-    annotation (Placement(transformation(extent={{50,70},{60,80}})));
-  Modelica.Blocks.Sources.RealExpression PUnit(y=if on_internal then 780 else 150)
-    "Remaing electrical power consumption from unit"
-    annotation (Placement(transformation(extent={{40,86},{60,106}})));
-protected
-  Modelica.Blocks.Interfaces.BooleanInput on_internal
-    "Needed to connect to conditional connector";
-public
-  replaceable BaseClasses.AdsolairController adsCon(tau=tau) constrainedby
-    BaseClasses.AdsolairController "Adsolair controller model"
-    annotation (Dialog(group="Advanced"),Placement(transformation(extent={{-44,56},{-24,76}})));
-  Modelica.Blocks.Sources.BooleanExpression onExp(y=on_internal)
-    "AHU control signal"
-    annotation (Placement(transformation(extent={{-84,66},{-64,82}})));
-  Modelica.Blocks.Sources.RealExpression TEvaExp(y=eva.heatPort.T)
-    "Evaporator outlet temperature"
-    annotation (Placement(transformation(extent={{-86,64},{-60,48}})));
 equation
   connect(on,on_internal);
   if not use_onOffSignal then
@@ -639,6 +641,7 @@ First implementation.
 </html>", info="<html>
 <p>
 Validated model of Menerga type 58 air handling unit with a nominal air flow rate of 14200m3/h.
+This is not a generic model, but a detailed model of a single air handling unit.
 </p>
 <h4>Main equations</h4>
 <p>
