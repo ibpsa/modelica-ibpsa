@@ -2,9 +2,9 @@ within IDEAS.Buildings.Data.Glazing.Specialized;
 record SaintGobainPLANISOLNeutral62426_16_6_13010 =
     IDEAS.Buildings.Data.Interfaces.Glazing (
 final nLay=3,
-final mats={ IDEAS.Buildings.Data.Materials.Glass(d=6.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Argon(d=16.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Glass(d=6.0, epsLw_b=0.4)},final SwTrans=[0,0.355;
+final mats={ IDEAS.Buildings.Data.Materials.Glass(d=0.006, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Argon(d=0.016, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Glass(d=0.006, epsLw_b=0.4)},final SwTrans=[0,0.355;
 10,0.357;
 20,0.351;
 30,0.344;

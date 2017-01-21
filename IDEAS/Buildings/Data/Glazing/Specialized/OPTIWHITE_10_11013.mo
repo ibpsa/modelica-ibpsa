@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Data.Glazing.Specialized;
 record OPTIWHITE_10_11013 = IDEAS.Buildings.Data.Interfaces.Glazing (
 final nLay=1,
-final mats={ IDEAS.Buildings.Data.Materials.Glass(d=9.9, epsLw_b=0.4)},final SwTrans=[0,0.869;
+final mats={ IDEAS.Buildings.Data.Materials.Glass(d=0.0099, epsLw_b=0.4)},final SwTrans=[0,0.869;
 10,0.868;
 20,0.867;
 30,0.863;

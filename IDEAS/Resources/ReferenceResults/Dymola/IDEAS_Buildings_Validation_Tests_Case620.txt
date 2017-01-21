@@ -1,4 +1,4 @@
-last-generated=2017-01-15
+last-generated=2017-01-18
 statistics-initialization=
 {
   "linear": "2, 2, 2, 2"

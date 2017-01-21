@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Data.Glazing.Specialized;
 record Single_5_8_1001 = IDEAS.Buildings.Data.Interfaces.Glazing (
 final nLay=1,
-final mats={ IDEAS.Buildings.Data.Materials.Glass(d=4.0, epsLw_b=0.4)},final SwTrans=[0,0.830;
+final mats={ IDEAS.Buildings.Data.Materials.Glass(d=0.004, epsLw_b=0.4)},final SwTrans=[0,0.830;
 10,0.829;
 20,0.827;
 30,0.823;

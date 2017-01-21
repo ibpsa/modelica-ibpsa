@@ -2,11 +2,11 @@ within IDEAS.Buildings.Data.Glazing.Specialized;
 record Pilk_3_pleINFRASTOPBrilliant6633_OPTITHERMS56_12_6_12_4_12014 =
     IDEAS.Buildings.Data.Interfaces.Glazing (
 final nLay=5,
-final mats={ IDEAS.Buildings.Data.Materials.Glass(d=6.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Argon(d=12.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Glass(d=4.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Argon(d=12.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Glass(d=4.0, epsLw_b=0.4)},final SwTrans=[0,0.240;
+final mats={ IDEAS.Buildings.Data.Materials.Glass(d=0.006, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Argon(d=0.012, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Glass(d=0.004, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Argon(d=0.012, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Glass(d=0.004, epsLw_b=0.4)},final SwTrans=[0,0.240;
 10,0.240;
 20,0.238;
 30,0.235;

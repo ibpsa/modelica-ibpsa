@@ -2,9 +2,9 @@ within IDEAS.Buildings.Data.Glazing.Specialized;
 record LuxguardSilver43_Argon_1_06_16_6_15005 =
     IDEAS.Buildings.Data.Interfaces.Glazing (
 final nLay=3,
-final mats={ IDEAS.Buildings.Data.Materials.Glass(d=6.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Argon(d=16.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Glass(d=6.0, epsLw_b=0.4)},final SwTrans=[0,0.238;
+final mats={ IDEAS.Buildings.Data.Materials.Glass(d=0.006, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Argon(d=0.016, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Glass(d=0.006, epsLw_b=0.4)},final SwTrans=[0,0.238;
 10,0.239;
 20,0.236;
 30,0.231;

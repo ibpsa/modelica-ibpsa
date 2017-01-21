@@ -2,9 +2,9 @@ within IDEAS.Buildings.Data.Glazing.Specialized;
 record PilkingtonOPTITHERMSCoating24_16_4_12004 =
     IDEAS.Buildings.Data.Interfaces.Glazing (
 final nLay=3,
-final mats={ IDEAS.Buildings.Data.Materials.Glass(d=4.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Argon(d=16.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Glass(d=4.0, epsLw_b=0.4)},final SwTrans=[0,0.485;
+final mats={ IDEAS.Buildings.Data.Materials.Glass(d=0.004, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Argon(d=0.016, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Glass(d=0.004, epsLw_b=0.4)},final SwTrans=[0,0.485;
 10,0.485;
 20,0.483;
 30,0.480;
