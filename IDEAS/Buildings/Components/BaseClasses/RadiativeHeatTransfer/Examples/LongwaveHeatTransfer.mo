@@ -7,7 +7,7 @@ model LongwaveHeatTransfer
   HeatRadiation intHeaRadLin(linearise=true, R=intHeaRad.R)
                   "Linearised interior heat radiation model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  .IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
+  IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
     zonLwDist(nSurf=2, linearise=false)
     "Model for longwave radiative heat exchange within a zone"
     annotation (Placement(transformation(extent={{10,-80},{-10,-60}})));
@@ -30,7 +30,7 @@ model LongwaveHeatTransfer
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Modelica.Blocks.Sources.Constant A(k=10) "Heat exchange surface area"
     annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
-  .IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
+  IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
     zonLwDistLin(nSurf=2)
     "Linearised model for longwave radiative heat exchange within a zone"
     annotation (Placement(transformation(extent={{10,-100},{-10,-80}})));

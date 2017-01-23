@@ -35,5 +35,8 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
           lineColor={85,0,0},
           fontName="Calibri",
           textStyle={TextStyle.Bold},
-          textString="BESTEST 900 Series")}));
+          textString="BESTEST 900 Series")}),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Buildings/Validation/Tests/Case900.mos"
+        "Simulate and plot"));
 end Case900;
