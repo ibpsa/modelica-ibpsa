@@ -22,15 +22,15 @@ model Heating_Embedded_DHW_STS
     experiment(StopTime=200000, Interval=900),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
-<p>Model demonstrating the use of the embedded heating system template with storage.</p>
-</html>",     revisions="<html>
-<ul>
-<li>
-January 23, 2017 by Glenn Reynders:<br/>
-First implementation
-</li>
-</ul>
-</html>"),
+    <p>Model demonstrating the use of the embedded heating system template with storage.</p>
+    </html>", revisions="<html>
+    <ul>
+    <li>
+    January 23, 2017 by Glenn Reynders:<br/>
+    Revised
+    </li>
+    </ul>
+    </html>"),
     __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Templates/Heating/Examples/Heating_Embedded_DHW_STS.mos"
         "Simulate and Plot"));
 end Heating_Embedded_DHW_STS;

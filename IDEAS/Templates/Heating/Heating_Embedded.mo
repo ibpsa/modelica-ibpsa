@@ -63,6 +63,7 @@ Its implementation may not reflect best modelling practices.
 January 23, 2017 by Filip Jorissen:<br/>
 Revised implementation and documentation.
 </li>
+<li>2017 January, Glenn Reynders: revision</li>
 <li>2013 June, Roel De Coninck: first version</li>
 </ul>
 </html>"));

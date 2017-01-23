@@ -118,7 +118,7 @@ equation
     <ul>
     <li>
     January 23, 2017 by Glenn Reynders:<br/>
-    First implementation
+    Revised
     </li>
     </ul>
     </html>"),

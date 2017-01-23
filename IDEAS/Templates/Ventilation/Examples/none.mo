@@ -17,7 +17,7 @@ revisions="<html>
 <ul>
 <li>
 January 23, 2017 by Glenn Reynders:<br/>
-First implementation
+minor revision
 </li>
 </ul>
 </html>"),
