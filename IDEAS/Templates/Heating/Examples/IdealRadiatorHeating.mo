@@ -5,6 +5,7 @@ model IdealRadiatorHeating "Example and test for ideal heating with radiators"
   final parameter Integer nZones = 1 "Number of zones";
   IDEAS.Templates.Heating.IdealRadiatorHeating heating(
     final nZones=nZones,
+    Q_design=heating.QNom,
     QNom={20000 for i in 1:nZones},
     t=1,
     nLoads=0,
@@ -29,7 +30,7 @@ model IdealRadiatorHeating "Example and test for ideal heating with radiators"
         origin={86,-30})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
     annotation (Placement(transformation(extent={{76,-80},{96,-60}})));
-  IDEAS.Occupants.Standards.ISO13790 iSO13790_1(
+  IDEAS.BoundaryConditions.Occupants.Standards.ISO13790 iSO13790_1(
     nZones=building.nZones,
     nLoads=0,
     AFloor=building.AZones)
@@ -99,5 +100,17 @@ equation
             -100},{100,100}}),
                       graphics),
     experiment(StopTime=200000, Interval=900),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Documentation(info="<html>
+    <p>Model demonstrating the use of the ideal radiator heating system template.</p>
+    </html>", revisions="<html>
+    <ul>
+    <li>
+    January 23, 2017 by Glenn Reynders:<br/>
+    Revised
+    </li>
+    </ul>
+    </html>"),
+    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Templates/Heating/Examples/IdealRadiatorHeating.mos"
+        "Simulate and Plot"));
 end IdealRadiatorHeating;
