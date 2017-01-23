@@ -12,10 +12,12 @@ model ConstantAirFlowRecup
   IDEAS.Buildings.Examples.BaseClasses.structure structure(redeclare package
       Medium = Medium)
     annotation (Placement(transformation(extent={{-78,-40},{-48,-20}})));
+  replaceable
   IDEAS.Templates.Ventilation.ConstantAirFlowRecup constantAirFlowRecup(
+    n=2.*structure.VZones)
+    constrainedby IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem(
     nZones=3,
     VZones=structure.VZones,
-    n=2.*structure.VZones,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
   IDEAS.Templates.Interfaces.BaseClasses.CausalInhomeFeeder causalInhomeFeeder
