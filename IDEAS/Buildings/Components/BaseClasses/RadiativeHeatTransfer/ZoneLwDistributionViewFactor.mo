@@ -239,18 +239,14 @@ equation
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0},
           lineThickness=0.5),
-        Line(points={{-40,10},{40,10}}, color={191,0,0}),
-        Line(points={{-40,10},{-30,16}}, color={191,0,0}),
-        Line(points={{-40,10},{-30,4}}, color={191,0,0}),
-        Line(points={{-40,-10},{40,-10}}, color={191,0,0}),
-        Line(points={{30,-16},{40,-10}}, color={191,0,0}),
-        Line(points={{30,-4},{40,-10}}, color={191,0,0}),
-        Line(points={{-40,-30},{40,-30}}, color={191,0,0}),
-        Line(points={{-40,-30},{-30,-24}}, color={191,0,0}),
-        Line(points={{-40,-30},{-30,-36}}, color={191,0,0}),
-        Line(points={{-40,30},{40,30}}, color={191,0,0}),
-        Line(points={{30,24},{40,30}}, color={191,0,0}),
-        Line(points={{30,36},{40,30}}, color={191,0,0}),
+        Line(points={{-42,0},{40,0}},     color={191,0,0}),
+        Line(points={{30,-6},{40,0}},    color={191,0,0}),
+        Line(points={{30,6},{40,0}},    color={191,0,0}),
+        Line(points={{-58,6},{-14,50}}, color={191,0,0}),
+        Line(points={{-14,38},{-14,50}},
+                                       color={191,0,0}),
+        Line(points={{-26,50},{-14,50}},
+                                       color={191,0,0}),
         Line(
           points={{-68,60},{68,60}},
           color={0,0,0},
@@ -260,7 +256,51 @@ equation
           points={{68,60},{68,-60},{-68,-60},{-68,60}},
           color={0,0,0},
           thickness=0.5,
-          smooth=Smooth.None)}),
+          smooth=Smooth.None),
+        Line(points={{-32,6},{-42,0}},  color={191,0,0}),
+        Line(points={{-32,-6},{-42,0}},  color={191,0,0}),
+        Line(points={{-58,18},{-58,6}},color={191,0,0}),
+        Line(points={{-46,6},{-58,6}}, color={191,0,0}),
+        Line(points={{14,-52},{58,-8}}, color={191,0,0}),
+        Line(points={{26,-52},{14,-52}},
+                                       color={191,0,0}),
+        Line(points={{14,-40},{14,-52}},
+                                       color={191,0,0}),
+        Line(points={{46,-8},{58,-8}}, color={191,0,0}),
+        Line(points={{58,-20},{58,-8}},color={191,0,0}),
+        Line(points={{-22,-22},{22,22}},color={191,0,0},
+          origin={36,28},
+          rotation=90),
+        Line(points={{14,50},{26,50}}, color={191,0,0}),
+        Line(points={{14,38},{14,50}}, color={191,0,0}),
+        Line(points={{46,6},{58,6}},   color={191,0,0}),
+        Line(points={{58,6},{58,18}},  color={191,0,0}),
+        Line(points={{-14,-52},{-14,-40}},
+                                       color={191,0,0}),
+        Line(points={{-22,-22},{22,22}},color={191,0,0},
+          origin={-36,-30},
+          rotation=90),
+        Line(points={{-58,-20},{-58,-8}},
+                                       color={191,0,0}),
+        Line(points={{-58,-8},{-46,-8}},
+                                       color={191,0,0}),
+        Line(points={{-26,-52},{-14,-52}},
+                                       color={191,0,0}),
+        Line(points={{-41,0},{41,0}},     color={191,0,0},
+          origin={-1,0},
+          rotation=90),
+        Line(points={{-5,3},{5,-3}},    color={191,0,0},
+          origin={-5,35},
+          rotation=90),
+        Line(points={{-5,-3},{5,3}},     color={191,0,0},
+          origin={3,35},
+          rotation=90),
+        Line(points={{-5,-3},{5,3}},     color={191,0,0},
+          origin={-5,-35},
+          rotation=90),
+        Line(points={{-5,3},{5,-3}},    color={191,0,0},
+          origin={3,-35},
+          rotation=90)}),
     Documentation(info="<html>
 <p>
 Computation of longwave radiative heat exchange based on view factors. 
@@ -275,6 +315,12 @@ Verification test in IDEAS.Buildings.Validation.Tests.ViewFactorVerification.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 19, 2017 by Filip Jorissen:<br/>
+Updated icon for issue
+<a href=https://github.com/open-ideas/IDEAS/issues/641>#641
+</a>.
+</li>
 <li>
 January 19, 2017 by Filip Jorissen:<br/>
 Added options for properly linearising heat exchange.
