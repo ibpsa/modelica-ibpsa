@@ -2,11 +2,11 @@ within IDEAS.Buildings.Data.Glazing.Specialized;
 record InterpaneIPLUS3CKR4_8_4_8_4_14005 =
     IDEAS.Buildings.Data.Interfaces.Glazing (
 final nLay=5,
-final mats={ IDEAS.Buildings.Data.Materials.Glass(d=4.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Krypton(d=8.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Glass(d=4.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Krypton(d=8.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Glass(d=4.0, epsLw_b=0.4)},final SwTrans=[0,0.329;
+final mats={ IDEAS.Buildings.Data.Materials.Glass(d=0.004, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Krypton(d=0.008, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Glass(d=0.004, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Krypton(d=0.008, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Glass(d=0.004, epsLw_b=0.4)},final SwTrans=[0,0.329;
 10,0.332;
 20,0.323;
 30,0.312;

@@ -39,27 +39,16 @@ model Structure "Ppd 12 example model"
   parameter Modelica.SIunits.Angle east = IDEAS.Types.Azimuth.E + Modelica.SIunits.Conversions.from_deg(angDelta)
     "Azimuth of the wall, i.e. 0deg denotes South";
 
-  //HVAC
-  parameter Real dp_26mm = 992*(m_flow_nominal/0.4)^2 "Pressure drop per m of duct with diameter of 26/20 mm for flow rate of 0.4kg/s";
-  parameter Real dp_20mm = 2871*(m_flow_nominal/0.4)^2 "Pressure drop per m of duct with diameter of 20/16 mm for flow rate of 0.4kg/s";
-  parameter Real dp_16mm = 11320*(m_flow_nominal/0.4)^2 "Pressure drop per m of duct with diameter of 16/12 mm for flow rate of 0.4kg/s";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.4
-    "Nominal water mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_air=300*1.2/3600
-    "Nominal air mass flow rate";
-
-  //CONTROL
-  parameter Modelica.SIunits.Temperature TSet=294.15 "Temperature set point";
 
   IDEAS.Buildings.Components.BoundaryWall com1(
     inc=IDEAS.Types.Tilt.Wall,
     azi=south,
     redeclare IDEAS.Examples.PPD12.Data.CommonWall constructionType,
-    AWall=2.3*lPorch) "Common wall on south side"
+    A=2.3*lPorch) "Common wall on south side"
     annotation (Placement(transformation(extent={{-104,-72},{-94,-52}})));
   IDEAS.Buildings.Components.OuterWall out1(
     inc=IDEAS.Types.Tilt.Wall,
-    AWall=hFloor0*wKitchen,
+    A=hFloor0*wKitchen,
     azi=east,
     redeclare IDEAS.Examples.PPD12.Data.OuterWall constructionType)
     "Outerwall on east side - kitchen" annotation (Placement(transformation(
@@ -67,14 +56,14 @@ model Structure "Ppd 12 example model"
         rotation=90,
         origin={-89,-94})));
   IDEAS.Buildings.Components.InternalWall cei2(
-    AWall=wZon*lHallway/2,
+    A=wZon*lHallway/2,
     azi=0,
     redeclare IDEAS.Examples.PPD12.Data.Floor constructionType,
     inc=IDEAS.Types.Tilt.Floor) "Floor between living and bedroom 1"
     annotation (Placement(transformation(extent={{94,72},{104,52}})));
   IDEAS.Buildings.Components.InternalWall cei1(
     azi=0,
-    AWall=lHallway*wHallway1,
+    A=lHallway*wHallway1,
     redeclare IDEAS.Examples.PPD12.Data.Floor constructionType,
     inc=IDEAS.Types.Tilt.Floor) "Floor between hallway and bedroom 1"
     annotation (Placement(transformation(extent={{70,68},{80,88}})));
@@ -92,7 +81,7 @@ model Structure "Ppd 12 example model"
   IDEAS.Buildings.Components.OuterWall Roof2(
     azi=east,
     inc=(IDEAS.Types.Tilt.Wall + IDEAS.Types.Tilt.Ceiling)/2,
-    AWall=wBedroom*lHalfBuilding*sqrt(2)/2,
+    A=wBedroom*lHalfBuilding*sqrt(2)/2,
     redeclare IDEAS.Examples.PPD12.Data.Roof constructionType)
     "Roof, east side"
     annotation (Placement(transformation(
@@ -103,7 +92,7 @@ model Structure "Ppd 12 example model"
     inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Examples.PPD12.Data.OuterWall constructionType,
     azi=east,
-    AWall=0.5*wBedroom)
+    A=0.5*wBedroom)
     "Outer wall of top floor on east facade" annotation (
       Placement(transformation(
         extent={{-5,-10},{5,10}},
@@ -343,7 +332,7 @@ model Structure "Ppd 12 example model"
   IDEAS.Buildings.Components.OuterWall Roof1(
     inc=(IDEAS.Types.Tilt.Wall + IDEAS.Types.Tilt.Ceiling)/2,
     azi=west,
-    AWall=wBedroom*lHalfBuilding*sqrt(2),
+    A=wBedroom*lHalfBuilding*sqrt(2),
     redeclare IDEAS.Examples.PPD12.Data.Roof constructionType)
     "Roof, west side"                     annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
@@ -353,7 +342,7 @@ model Structure "Ppd 12 example model"
     azi=0,
     redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall
       constructionType,
-    AWall=lHallway*wHallway2,
+    A=lHallway*wHallway2,
     inc=IDEAS.Types.Tilt.Floor)
     "Dummy for representing stairway connection between floors"
     annotation (Placement(transformation(extent={{182,-22},{192,-2}})));
@@ -374,11 +363,11 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(Diner.proBusExt[2], com1.propsBus_a) annotation (Line(
-      points={{-48,-37.5},{-48,-36},{-94,-36},{-94,-60}},
+      points={{-48,-37.5},{-48,-36},{-94.8333,-36},{-94.8333,-60}},
       color={255,204,51},
       thickness=0.5));
   connect(out1.propsBus_a, Diner.proBusExt[3]) annotation (Line(
-      points={{-91,-89},{-91,-38.5},{-48,-38.5}},
+      points={{-91,-89.8333},{-91,-38.5},{-48,-38.5}},
       color={255,204,51},
       thickness=0.5));
   connect(Porch.proBusC, Diner.proBusA) annotation (Line(
@@ -438,19 +427,19 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(out2.propsBus_a, bedRoom3.proBusA) annotation (Line(
-      points={{233,3},{233,14},{276,14},{276,21}},
+      points={{233,2.16667},{233,14},{276,14},{276,21}},
       color={255,204,51},
       thickness=0.5));
   connect(winBed3.propsBus_a, bedRoom3.proBusExt[1]) annotation (Line(
-      points={{307,3},{307,21.3333},{282,21.3333}},
+      points={{307,2.16667},{307,21.3333},{282,21.3333}},
       color={255,204,51},
       thickness=0.5));
   connect(Roof1.propsBus_a, bedRoom3.proBusExt[2]) annotation (Line(
-      points={{281,3},{281,11.5},{282,11.5},{282,20}},
+      points={{281,2.16667},{281,11.5},{282,11.5},{282,20}},
       color={255,204,51},
       thickness=0.5));
   connect(Roof2.propsBus_a, bedRoom3.proBusCei) annotation (Line(
-      points={{261,3},{261,24},{270.2,24}},
+      points={{261,2.16667},{261,24},{270.2,24}},
       color={255,204,51},
       thickness=0.5));
   connect(cei3.propsBus_a, bedRoom3.proBusExt[3]) annotation (Line(

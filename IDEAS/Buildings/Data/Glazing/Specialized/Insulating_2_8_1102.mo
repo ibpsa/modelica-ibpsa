@@ -1,9 +1,9 @@
 within IDEAS.Buildings.Data.Glazing.Specialized;
 record Insulating_2_8_1102 = IDEAS.Buildings.Data.Interfaces.Glazing (
 final nLay=3,
-final mats={ IDEAS.Buildings.Data.Materials.Glass(d=4.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Air(d=16.0, epsLw_b=0.4),
- IDEAS.Buildings.Data.Materials.Glass(d=4.0, epsLw_b=0.4)},final SwTrans=[0,0.693;
+final mats={ IDEAS.Buildings.Data.Materials.Glass(d=0.004, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Air(d=0.016, epsLw_b=0.4),
+ IDEAS.Buildings.Data.Materials.Glass(d=0.004, epsLw_b=0.4)},final SwTrans=[0,0.693;
 10,0.692;
 20,0.688;
 30,0.681;

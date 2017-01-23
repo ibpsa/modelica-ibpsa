@@ -3,9 +3,9 @@ partial record Construction "Template record for surface structure: define/order
 
   extends Modelica.Icons.MaterialProperty;
 
-  parameter Integer nLay(min=1)=size(mats,1)
+  final parameter Integer nLay(min=1)=size(mats,1)
     "Number of layers of the construction, including gaps";
-  parameter Integer nGain = size(locGain,1)
+  final parameter Integer nGain = size(locGain,1)
    "Number of gain heat ports";
   parameter Integer locGain[:](each min=1) = {1}
     "Location of possible embedded system: between layer locGain and layer locGain + 1";
