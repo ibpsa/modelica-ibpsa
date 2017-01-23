@@ -17,7 +17,10 @@ model Heating_Embedded_DHW_STS
     corFac_val=5,
     AEmb=building.AZones,
     QNom={10000 for i in 1:nZones},
-    nLoads=0) annotation (Placement(transformation(extent={{12,-18},{50,0}})));
+    nLoads=0,
+    InInterface=false,
+    Q_design=heating.QNom)
+              annotation (Placement(transformation(extent={{12,-18},{50,0}})));
   IDEAS.Templates.Heating.Examples.DummyBuilding building(
     nZones=nZones,
     AZones=ones(nZones)*40,
@@ -41,7 +44,7 @@ model Heating_Embedded_DHW_STS
 
   IDEAS.Templates.Ventilation.None none(nZones=nZones, VZones=building.VZones)
     annotation (Placement(transformation(extent={{-32,74},{-12,94}})));
-  IDEAS.Occupants.Standards.ISO13790 occ(
+  IDEAS.BoundaryConditions.Occupants.Standards.ISO13790 occ(
     nZones=building.nZones,
     nLoads=0,
     AFloor=building.AZones)
@@ -114,5 +117,17 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),
     experiment(StopTime=200000, Interval=900),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Documentation(info="<html>
+    <p>Model demonstrating the use of the embedded heating system template with storage.</p>
+    </html>", revisions="<html>
+    <ul>
+    <li>
+    January 23, 2017 by Glenn Reynders:<br/>
+    First implementation
+    </li>
+    </ul>
+    </html>"),
+    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Templates/Heating/Examples/Heating_Embedded_DHW_STS.mos"
+        "Simulate and Plot"));
 end Heating_Embedded_DHW_STS;

@@ -1,7 +1,6 @@
 within IDEAS.Templates.Heating.Examples;
 model Heating_Embedded
   "Example and test for heating system with embedded emission"
-  import IDEAS;
   extends Modelica.Icons.Example;
   final parameter Integer nZones=2 "Number of zones";
   parameter
@@ -14,10 +13,13 @@ model Heating_Embedded
     redeclare IDEAS.Fluid.Production.HP_AirWater_TSet heater,
     each RadSlaCha=radSlaCha_ValidationEmpa,
     QNom={8000 for i in 1:nZones},
+    Q_design=heating.QNom,
     TSupNom=273.15 + 45,
     corFac_val=5,
     AEmb=building.AZones,
-    nLoads=0) annotation (Placement(transformation(extent={{12,-16},{50,2}})));
+    nLoads=0,
+    InInterface=false)
+              annotation (Placement(transformation(extent={{12,-16},{50,2}})));
   IDEAS.Templates.Heating.Examples.DummyBuilding building(
     nZones=nZones,
     AZones=ones(nZones)*40,
@@ -40,7 +42,7 @@ model Heating_Embedded
     annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
   IDEAS.Templates.Ventilation.None none(nZones=nZones, VZones=building.VZones)
     annotation (Placement(transformation(extent={{-42,64},{-22,84}})));
-  IDEAS.Occupants.Standards.ISO13790 occ(
+  IDEAS.BoundaryConditions.Occupants.Standards.ISO13790 occ(
     nZones=building.nZones,
     nLoads=0,
     AFloor=building.AZones)
@@ -71,7 +73,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(building.TSensor,none. TSensor) annotation (Line(
-      points={{-63.36,-12},{-58,-12},{-58,68},{-42.4,68}},
+      points={{-63.36,-12},{-58,-12},{-58,68},{-42.2,68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(none.port_b, building.port_a) annotation (Line(
@@ -97,7 +99,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(occ.mDHW60C, heating.mDHW60C) annotation (Line(
-      points={{36,-40},{36,-16.18},{36.7,-16.18}},
+      points={{33,-40},{33,-16.18},{36.7,-16.18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(occ.heatPortRad, building.heatPortRad) annotation (Line(
@@ -112,5 +114,16 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),
     experiment(StopTime=200000, Interval=900),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,Documentation(info="<html>
+    <p>Model demonstrating the use of the embedded heating system template.</p>
+    </html>", revisions="<html>
+    <ul>
+    <li>
+    January 23, 2017 by Glenn Reynders:<br/>
+    First implementation
+    </li>
+    </ul>
+    </html>"),
+    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Templates/Heating/Examples/Heating_Embedded.mos"
+        "Simulate and Plot"));
 end Heating_Embedded;

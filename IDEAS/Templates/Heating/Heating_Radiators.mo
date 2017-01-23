@@ -12,27 +12,28 @@ model Heating_Radiators
     nZones=1,
     minSup=true,
     TSupMin=273.15 + 30,
-    redeclare Fluid.HeatExchangers.Radiators.Radiator emission[nZones](
-      each TInNom=TSupNom,
-      each TOutNom=TSupNom - dTSupRetNom,
-      TZoneNom=TRoomNom,
-      QNom=QNom,
-      each powerFactor=3.37,
-      redeclare each package Medium = Medium),
-    pumpRad(each filteredMassFlowRate=true),
+    redeclare IDEAS.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 emission[nZones](
+      each T_a_nominal = TSupNom,
+      each T_b_nominal = TSupNom - dTSupRetNom,
+      TAir_nominal= TRoomNom,
+      Q_flow_nominal= QNom,
+      redeclare each package Medium = Medium,
+      allowFlowReversal=false,
+      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+      from_dp=true),
+    pumpRad(each filteredSpeed=true),
     ctrl_Heating(dTHeaterSet=2));
 equation
   QHeaSys = -sum(emission.heatPortCon.Q_flow) - sum(emission.heatPortRad.Q_flow);
-  P[1] = heater.PEl + sum(pumpRad.PEl);
+  P[1] = heater.PEl + sum(pumpRad.P);
   Q[1] = 0;
   connect(emission.heatPortCon, heatPortCon) annotation (Line(
-      points={{142.5,44},{142.5,70},{142,70},{142,96},{-178,96},{-178,20},{-200,
-          20}},
+      points={{132,41.2},{132,70},{142,70},{142,96},{-178,96},{-178,20},{-200,20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(emission.heatPortRad, heatPortRad) annotation (Line(
-      points={{148.5,44},{148.5,72},{148,72},{148,100},{-180,100},{-180,-20},{
-          -200,-20}},
+      points={{138,41.2},{138,72},{148,72},{148,100},{-180,100},{-180,-20},{-200,
+          -20}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (

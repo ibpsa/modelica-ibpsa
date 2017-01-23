@@ -140,7 +140,7 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
         extent={{8,-8},{-8,8}},
         rotation=0,
         origin={90,-92})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
+  Fluid.FixedResistances.Junction                   spl(
     redeclare replaceable package Medium = Medium,
     m_flow_nominal={sum(m_flow_nominal),sum(m_flow_nominal),-sum(m_flow_nominal)},
     dp_nominal={0,0,0})

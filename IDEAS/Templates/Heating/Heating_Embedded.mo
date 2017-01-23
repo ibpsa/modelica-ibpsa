@@ -33,7 +33,7 @@ model Heating_Embedded
     annotation (Placement(transformation(extent={{-162,-30},{-182,-10}})));
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow);
-  P[1] = heater.PEl + sum(pumpRad.PEl);
+  P[1] = heater.PEl + sum(pumpRad.P);
   Q[1] = 0;
   connect(emission[:].heatPortEmb[1], heatPortEmb[:]) annotation (Line(
       points={{135,44},{136,44},{136,98},{-176,98},{-176,60},{-200,60}},

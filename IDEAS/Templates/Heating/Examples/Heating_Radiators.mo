@@ -8,6 +8,7 @@ model Heating_Radiators
     redeclare package Medium = Medium,
     nZones=nZones,
     dTSupRetNom=10,
+    Q_design=heating.QNom,
     redeclare IDEAS.Fluid.Production.Boiler heater,
     corFac_val=7,
     TSupNom=273.15 + 55,
@@ -16,12 +17,12 @@ model Heating_Radiators
     annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
   IDEAS.Templates.Heating.Examples.DummyBuilding building(nZones=nZones, nEmb=0)
     annotation (Placement(transformation(extent={{-78,-22},{-48,-2}})));
-  inner SimInfoManager       sim
+  inner IDEAS.BoundaryConditions.SimInfoManager       sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
   Templates.Ventilation.None none(nZones=nZones, VZones=building.VZones)
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  Occupants.Standards.ISO13790 occ(
+  IDEAS.BoundaryConditions.Occupants.Standards.ISO13790 occ(
     nZones=building.nZones,
     AFloor=building.AZones,
     nLoads=0) annotation (Placement(transformation(extent={{0,-54},{20,-34}})));
@@ -47,7 +48,7 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(building.TSensor,none. TSensor) annotation (Line(
-      points={{-47.4,-18},{-42,-18},{-42,34},{-20.4,34}},
+      points={{-47.4,-18},{-42,-18},{-42,34},{-20.2,34}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(occ.TSet, heating.TSet) annotation (Line(
@@ -55,7 +56,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(occ.mDHW60C, heating.mDHW60C) annotation (Line(
-      points={{16,-34},{16,-22.18},{15.4,-22.18}},
+      points={{13,-34},{13,-22.18},{15.4,-22.18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(occ.heatPortRad, building.heatPortRad) annotation (Line(
@@ -70,5 +71,17 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),     graphics),
     experiment(StopTime=200000, Interval=900),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Documentation(info="<html>
+    <p>Model demonstrating the use of the radiator heating system template.</p>
+    </html>", revisions="<html>
+    <ul>
+    <li>
+    January 23, 2017 by Glenn Reynders:<br/>
+    First implementation
+    </li>
+    </ul>
+    </html>"),
+    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Templates/Heating/Examples/Heating_Radiators.mos"
+        "Simulate and Plot"));
 end Heating_Radiators;

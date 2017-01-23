@@ -32,7 +32,7 @@ model Heating_Embedded_DHW_STS
       TColdWaterNom=TColdWaterNom,
       dTHPTankSet=dTHPTankSet),
     heater(m_flow_nominal=sum(m_flow_nominal) + m_flow_nominal_stoHX),
-    pumpRad(riseTime=100, dpFix=0));
+    pumpRad(riseTime=100));
   // --- Domestic Hot Water (DHW) Parameters
   parameter Integer nOcc = 1 "Number of occupants";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal_DHW = nOcc*dHW.VDayAvg*983/(3600*24)*10
@@ -79,7 +79,7 @@ model Heating_Embedded_DHW_STS
         extent={{-14,-20},{14,20}},
         rotation=0,
         origin={-12,0})));
-  // --- Domestic Hot Water and it hydraulic circuit
+  // --- Domestic Hot Water and its hydraulic circuit
   replaceable IDEAS.Fluid.Taps.BalancedTap dHW(
     TDHWSet=TDHWSet,
     profileType=3,
@@ -91,14 +91,13 @@ model Heating_Embedded_DHW_STS
         extent={{-9,5},{9,-5}},
         rotation=-90,
         origin={-47,1})));
-  IDEAS.Fluid.FixedResistances.InsulatedPipe pipeDHW(redeclare package Medium
-      =                                                                          Medium, m=1,
+  IDEAS.Fluid.FixedResistances.InsulatedPipe pipeDHW(redeclare package Medium =  Medium, m=1,
     UA=10,
     m_flow_nominal=m_flow_nominal_DHW)
     annotation (Placement(transformation(extent={{-28,-32},{-44,-26}})));
   Fluid.Sources.FixedBoundary       absolutePressure1(
-                                                     redeclare package Medium
-      = Medium, use_T=false,
+                                                     redeclare package Medium =
+        Medium, use_T=false,
     nPorts=1)
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=90,
@@ -137,7 +136,7 @@ model Heating_Embedded_DHW_STS
         origin={-80,-8})));
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow) + QDHW;
-  P[1] = heater.PEl + pumpSto.P + sum(pumpRad.PEl);
+  P[1] = heater.PEl + pumpSto.P + sum(pumpRad.P);
   Q[1] = 0;
   // Result variables
   TTankTopSet = ctrl_Heating.TTopSet;
@@ -165,7 +164,7 @@ equation
           {-127,-12},{-127,-14}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
+  connect(emission[:].heatPortEmb[1], heatPortEmb[:]) annotation (Line(
       points={{135,44},{134,44},{134,98},{-180,98},{-180,60},{-190,60},{-190,60},
           {-200,60}},
       color={191,0,0},
