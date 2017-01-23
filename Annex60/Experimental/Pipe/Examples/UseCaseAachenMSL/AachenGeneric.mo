@@ -742,7 +742,8 @@ model AachenGeneric
     T_amb=T_amb,
     m_flow_nominal=1,
     thicknessIns=0.05,
-    lambdaIns=0.03) annotation (Placement(transformation(
+    lambdaIns=0.03,
+    nNodes=nNodes) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=170.50482497607643,
         origin={524.719573846839,1002.0416006938106})));
@@ -812,7 +813,7 @@ model AachenGeneric
         rotation=262.1363874766586,
         origin={541.64,477.959})));
 
-  parameter Integer nNodes=2 "Number of discrete flow volumes";
+  parameter Integer nNodes=20 "Number of discrete flow volumes";
 equation
   // Connections between supplies, pipes, and stations
   connect(stationA3041.port_a, pipe65136542.port_a)
@@ -964,8 +965,9 @@ equation
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{0.0,0.0},{1000.0,1245.3740344293326}})),
               experiment(
-      StopTime=4.32e+006,
-      Interval=300,
+      StartTime=7000,
+      StopTime=8000,
+      Interval=1,
       __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
 <p>This model represents a generic district heating network auto-generated with the Python packages <em>uesgraphs</em> and <em>uesmodels</em>. </p>

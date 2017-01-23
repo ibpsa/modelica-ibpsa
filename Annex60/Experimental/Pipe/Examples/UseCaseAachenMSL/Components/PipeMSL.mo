@@ -98,14 +98,16 @@ public
     diameter=diameter,
     nNodes=nNodes,
     redeclare model FlowModel =
-        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow)
+       Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
+       dp_nominal=10*pip.length, m_flow_nominal=0.3),
+    T_start=333.15)
                annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={0,0})));
   parameter Types.ThermalResistanceLength R=1/(lambdaIns*2*Modelica.Constants.pi
       /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  parameter Integer nNodes=1 "Number of discrete flow volumes";
+  parameter Integer nNodes(min=2)=4 "Number of discrete flow volumes";
 equation
 
   connect(port_a, senTem_a.port_a)

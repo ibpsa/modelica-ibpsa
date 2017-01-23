@@ -11,8 +11,8 @@ package Components
     parameter Modelica.SIunits.Pressure p_supply
       "Supply pressure for the network";
 
-    Annex60.Fluid.Sources.Boundary_pT source(          redeclare package Medium
-        = Medium,
+    Annex60.Fluid.Sources.Boundary_pT source(          redeclare package Medium =
+          Medium,
       p=p_supply,
       use_T_in=true,
       nPorts=1) "Flow source with fixed supply pressure for the network"
@@ -22,15 +22,19 @@ package Components
     Annex60.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
           Medium)
       annotation (Placement(transformation(extent={{64,-10},{84,10}})));
-    Annex60.Fluid.Sensors.TemperatureTwoPort T_supply(redeclare package Medium
-        = Medium, m_flow_nominal=1,
+    Annex60.Fluid.Sensors.TemperatureTwoPort T_supply(redeclare package Medium =
+          Medium, m_flow_nominal=1,
       T_start=333.15) "Supply flow temperature"
       annotation (Placement(transformation(extent={{20,-10},{40,10}})));
     Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
           Medium) "Supply port for the network (named port_b for consistency)"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Sources.Constant const(k=273.15 + 60)
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    Modelica.Blocks.Math.Add add
+      annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    Modelica.Blocks.Sources.Step step(height=10, startTime=7200)
+      annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   equation
 
     connect(senMasFlo.port_a, T_supply.port_b)
@@ -39,8 +43,12 @@ package Components
       annotation (Line(points={{6,20},{6,0},{20,0}}, color={0,127,255}));
     connect(senMasFlo.port_b, port_b)
       annotation (Line(points={{84,0},{100,0}}, color={0,127,255}));
-  connect(const.y, source.T_in)
-    annotation (Line(points={{-19,70},{10,70},{10,42}}, color={0,0,127}));
+    connect(const.y, add.u1) annotation (Line(points={{-59,70},{-50,70},{-50,56},
+            {-42,56}}, color={0,0,127}));
+    connect(step.y, add.u2) annotation (Line(points={{-59,30},{-52,30},{-52,44},
+            {-42,44}}, color={0,0,127}));
+    connect(add.y, source.T_in) annotation (Line(points={{-19,50},{-4,50},{10,
+            50},{10,42}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
             Rectangle(
             extent={{-100,100},{100,-100}},
@@ -129,12 +137,12 @@ package Components
       annotation (Dialog(group="Advanced", enable=use_mu_default));
 
   public
-    Annex60.Fluid.Sensors.TemperatureTwoPort senTem_a(redeclare package Medium
-        = Medium, m_flow_nominal=m_flow_nominal,
+    Annex60.Fluid.Sensors.TemperatureTwoPort senTem_a(redeclare package Medium =
+          Medium, m_flow_nominal=m_flow_nominal,
       T_start=333.15) "Temperature at pipe's port a"
       annotation (Placement(transformation(extent={{-86,-10},{-66,10}})));
-    Annex60.Fluid.Sensors.TemperatureTwoPort senTem_b(redeclare package Medium
-        = Medium, m_flow_nominal=m_flow_nominal,
+    Annex60.Fluid.Sensors.TemperatureTwoPort senTem_b(redeclare package Medium =
+          Medium, m_flow_nominal=m_flow_nominal,
       T_start=333.15) "Temperature at pipe's port b"
       annotation (Placement(transformation(extent={{68,-10},{88,10}})));
     Annex60.Experimental.Pipe.PipeHeatLossMod pipe(

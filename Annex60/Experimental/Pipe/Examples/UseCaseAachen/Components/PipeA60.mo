@@ -83,9 +83,13 @@ public
   lambdaI=lambdaIns,
   from_dp=true,
   dp_nominal=dpStraightPipe_nominal,
-    nPorts=nPorts)
+    nPorts=nPorts,
+    T_ini_in=333.15,
+    T_ini_out=333.15,
+    initDelay=true,
+    m_flowInit=0.45)
   "Pipe model for district heating connection"
-  annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
+  annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=283.15)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
@@ -93,11 +97,11 @@ equation
   connect(port_a, senTem_a.port_a)
     annotation (Line(points={{-100,0},{-94,0},{-86,0}}, color={0,127,255}));
 connect(senTem_a.port_b, pipe.port_a)
-  annotation (Line(points={{-66,0},{-40,0},{-12,0}}, color={0,127,255}));
+  annotation (Line(points={{-66,0},{-10,0}},         color={0,127,255}));
 connect(fixedTemperature.port, pipe.heatPort)
-  annotation (Line(points={{-20,50},{-2,50},{-2,10}}, color={191,0,0}));
+  annotation (Line(points={{-20,50},{0,50},{0,10}},   color={191,0,0}));
   connect(pipe.ports_b[:], ports_b[:])
-    annotation (Line(points={{8,0},{54,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{10,0},{10,0},{100,0}},color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(
           extent={{-90,24},{90,-26}},

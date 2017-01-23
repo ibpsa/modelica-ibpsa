@@ -1098,8 +1098,9 @@ equation
         color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{0.0,0.0},{1000.0,1245.3740344293326}})),
               experiment(
-      StopTime=4.32e+006,
-      Interval=300,
+      StartTime=7000,
+      StopTime=8000,
+      Interval=1,
       __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
 <p>This model represents a generic district heating network auto-generated with the Python packages <em>uesgraphs</em> and <em>uesmodels</em>. </p>

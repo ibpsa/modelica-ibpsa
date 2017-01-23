@@ -23,7 +23,8 @@ model DemandSink "Simple demand model"
   Modelica.Blocks.Sources.CombiTimeTable InputTable(
     tableName="Demand",
     tableOnFile=false,
-    table=flowRateGeneric.data)
+    table=flowRateGeneric.data,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
                   "Table input for prescribed flow" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
