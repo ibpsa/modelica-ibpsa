@@ -6,10 +6,11 @@ model constantAirFlowRecup
   replaceable package Medium = IDEAS.Media.Air;
 
 
-  inner IDEAS.BoundaryConditions.SimInfoManager sim "Simulation information manager for climate data"
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
+    "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  IDEAS.Buildings.Examples.BaseClasses.structure structure(redeclare package Medium =
-        Medium)
+  IDEAS.Buildings.Examples.BaseClasses.structure structure(redeclare package
+      Medium = Medium)
     annotation (Placement(transformation(extent={{-78,-40},{-48,-20}})));
   IDEAS.Templates.Ventilation.ConstantAirFlowRecup constantAirFlowRecup(
     nZones=3,
@@ -66,7 +67,19 @@ equation
       points={{-47.4,-36},{-36,-36},{-36,-6},{-28.2,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Templates/Ventilation/Examples/constantAirFlowRecup.mos"
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics),
+    Documentation(info="<html>
+    <p>Model demonstrating the use of the ventilation system template.</p>
+    </html>", revisions="<html>
+    <ul>
+    <li>
+    January 23, 2017 by Glenn Reynders:<br/>
+    First implementation
+    </li>
+    </ul>
+    </html>"),
+    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Templates/Ventilation/Examples/constantAirFlowRecup.mos"
         "Simulate and Plot"));
 end constantAirFlowRecup;
