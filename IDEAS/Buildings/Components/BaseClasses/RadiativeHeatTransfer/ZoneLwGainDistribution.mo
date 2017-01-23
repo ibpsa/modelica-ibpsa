@@ -38,7 +38,7 @@ model ZoneLwGainDistribution "distribution of radiative internal gains"
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={0,100})));
+        origin={-80,100})));
 
 protected
   final parameter Real[nSurf] weightFactorDir(each final fixed=false)
