@@ -39,17 +39,6 @@ model Structure "Ppd 12 example model"
   parameter Modelica.SIunits.Angle east = IDEAS.Types.Azimuth.E + Modelica.SIunits.Conversions.from_deg(angDelta)
     "Azimuth of the wall, i.e. 0deg denotes South";
 
-  //HVAC
-  parameter Real dp_26mm = 992*(m_flow_nominal/0.4)^2 "Pressure drop per m of duct with diameter of 26/20 mm for flow rate of 0.4kg/s";
-  parameter Real dp_20mm = 2871*(m_flow_nominal/0.4)^2 "Pressure drop per m of duct with diameter of 20/16 mm for flow rate of 0.4kg/s";
-  parameter Real dp_16mm = 11320*(m_flow_nominal/0.4)^2 "Pressure drop per m of duct with diameter of 16/12 mm for flow rate of 0.4kg/s";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.4
-    "Nominal water mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_air=300*1.2/3600
-    "Nominal air mass flow rate";
-
-  //CONTROL
-  parameter Modelica.SIunits.Temperature TSet=294.15 "Temperature set point";
 
   IDEAS.Buildings.Components.BoundaryWall com1(
     inc=IDEAS.Types.Tilt.Wall,
