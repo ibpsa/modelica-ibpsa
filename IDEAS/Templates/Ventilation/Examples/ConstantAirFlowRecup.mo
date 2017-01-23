@@ -1,10 +1,10 @@
 within IDEAS.Templates.Ventilation.Examples;
-model constantAirFlowRecup
+model ConstantAirFlowRecup
+  "Example of ventilation system with constant air flow rate"
   extends Modelica.Icons.Example;
   parameter Boolean standAlone=true;
 
   replaceable package Medium = IDEAS.Media.Air;
-
 
   inner IDEAS.BoundaryConditions.SimInfoManager sim
     "Simulation information manager for climate data"
@@ -35,7 +35,6 @@ model constantAirFlowRecup
     plugFeeder(v(re(start=230), im(start=0))) if not standAlone
     "Electricity connection to the district feeder"
     annotation (Placement(transformation(extent={{78,-10},{98,10}})));
-
 
 equation
   connect(voltageSource.pin_p, ground.pin) annotation (Line(
@@ -71,15 +70,17 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics),
     Documentation(info="<html>
-    <p>Model demonstrating the use of the ventilation system template.</p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    January 23, 2017 by Glenn Reynders:<br/>
-    First implementation
-    </li>
-    </ul>
-    </html>"),
+<p>
+Model demonstrating the use of the ventilation system template.
+</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+January 23, 2017 by Glenn Reynders:<br/>
+First implementation
+</li>
+</ul>
+</html>"),
     __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Templates/Ventilation/Examples/constantAirFlowRecup.mos"
         "Simulate and Plot"));
-end constantAirFlowRecup;
+end ConstantAirFlowRecup;
