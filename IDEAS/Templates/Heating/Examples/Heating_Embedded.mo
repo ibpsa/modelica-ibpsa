@@ -7,6 +7,7 @@ model Heating_Embedded
     IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.RadSlaCha_ValidationEmpa[        nZones]
                                        radSlaCha_ValidationEmpa
     annotation (Placement(transformation(extent={{-94,-98},{-74,-78}})));
+  replaceable
   IDEAS.Templates.Heating.Heating_Embedded heating(
     nZones=nZones,
     dTSupRetNom=5,
@@ -19,14 +20,14 @@ model Heating_Embedded
     AEmb=building.AZones,
     nLoads=0,
     InInterface=false)
-              annotation (Placement(transformation(extent={{12,-16},{50,2}})));
+              annotation (Placement(transformation(extent={{20,-20},{60,0}})));
   IDEAS.Templates.Heating.Examples.DummyBuilding building(
     nZones=nZones,
     AZones=ones(nZones)*40,
     VZones=building.AZones*3,
     UA_building=150,
     nEmb=nZones)
-    annotation (Placement(transformation(extent={{-96,-16},{-64,4}})));
+    annotation (Placement(transformation(extent={{-100,-20},{-68,0}})));
   Modelica.Thermal.HeatTransfer.Components.Convection[nZones] convectionTabs
     annotation (Placement(transformation(
         extent={{8,-8},{-8,8}},
@@ -37,19 +38,19 @@ model Heating_Embedded
     annotation (Placement(transformation(extent={{-6,-12},{-26,8}})));
   inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Modelica.Blocks.Sources.RealExpression[nZones] realExpression(y=11*
-        building.AZones)
-    annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
+  Modelica.Blocks.Sources.RealExpression[nZones] hA(y=11*building.AZones)
+    "Combined heat transfer coefficient"
+    annotation (Placement(transformation(extent={{-20,14},{-40,34}})));
   IDEAS.Templates.Ventilation.None none(nZones=nZones, VZones=building.VZones)
-    annotation (Placement(transformation(extent={{-42,64},{-22,84}})));
+    annotation (Placement(transformation(extent={{20,40},{60,60}})));
   IDEAS.BoundaryConditions.Occupants.Standards.ISO13790 occ(
     nZones=building.nZones,
     nLoads=0,
     AFloor=building.AZones)
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    annotation (Placement(transformation(extent={{20,-60},{60,-40}})));
 equation
   connect(heating.heatPortEmb, nakedTabs.portCore) annotation (Line(
-      points={{12,-1.6},{1.5,-1.6},{1.5,-2},{-6,-2}},
+      points={{20,-4},{1.5,-4},{1.5,-2},{-6,-2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(nakedTabs.port_a, convectionTabs.solid) annotation (Line(
@@ -61,58 +62,55 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortEmb, convectionTabs.fluid) annotation (Line(
-      points={{-64,0},{-56,0}},
+      points={{-68,-4},{-60,-4},{-60,0},{-56,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(building.TSensor, heating.TSensor) annotation (Line(
-      points={{-63.36,-12},{-58,-12},{-58,-28},{0,-28},{0,-12.4},{11.62,-12.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(realExpression.y, convectionTabs.Gc) annotation (Line(
-      points={{-41,40},{-48,40},{-48,8}},
+  connect(hA.y, convectionTabs.Gc) annotation (Line(
+      points={{-41,24},{-48,24},{-48,8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(building.TSensor,none. TSensor) annotation (Line(
-      points={{-63.36,-12},{-58,-12},{-58,68},{-42.2,68}},
+      points={{-67.36,-16},{-58,-16},{-58,44},{19.6,44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(none.port_b, building.port_a) annotation (Line(
-      points={{-42,72},{-77.8667,72},{-77.8667,4}},
+      points={{20,48},{-81.8667,48},{-81.8667,0}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(none.port_a, building.port_b) annotation (Line(
-      points={{-42,76},{-82.1333,76},{-82.1333,4}},
+      points={{20,52},{-86.1333,52},{-86.1333,0}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(heating.heatPortCon, building.heatPortCon) annotation (Line(
-      points={{12,-5.2},{6,-5.2},{6,-6},{-6,-6},{-6,-20},{-56,-20},{-56,-4},{
-          -64,-4}},
+      points={{20,-8},{6,-8},{6,-6},{-6,-6},{-6,-20},{-56,-20},{-56,-8},{-68,-8}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heating.heatPortRad, building.heatPortRad) annotation (Line(
-      points={{12,-8.8},{4,-8.8},{4,-8},{-4,-8},{-4,-22},{-58,-22},{-58,-8},{
-          -64,-8}},
+      points={{20,-12},{4,-12},{4,-8},{-4,-8},{-4,-22},{-58,-22},{-58,-12},{-68,
+          -12}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(occ.TSet, heating.TSet) annotation (Line(
-      points={{30,-40},{31,-40},{31,-16.18}},
+      points={{40,-40},{40,-20.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(occ.mDHW60C, heating.mDHW60C) annotation (Line(
-      points={{33,-40},{33,-16.18},{36.7,-16.18}},
+      points={{46,-40},{46,-20.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(occ.heatPortRad, building.heatPortRad) annotation (Line(
-      points={{20,-52},{-64,-52},{-64,-8}},
+      points={{20,-52},{-68,-52},{-68,-12}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(occ.heatPortCon, building.heatPortCon) annotation (Line(
-      points={{20,-48},{-60,-48},{-60,-4},{-64,-4}},
+      points={{20,-48},{-60,-48},{-60,-8},{-68,-8}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(building.TSensor, heating.TSensor) annotation (Line(points={{-67.36,
+          -16},{19.6,-16},{19.6,-16}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+            100,100}})),
     experiment(StopTime=200000, Interval=900),
     __Dymola_experimentSetupOutput,Documentation(info="<html>
     <p>Model demonstrating the use of the embedded heating system template.</p>

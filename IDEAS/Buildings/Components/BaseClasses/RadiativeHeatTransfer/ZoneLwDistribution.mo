@@ -43,8 +43,8 @@ protected
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.HeatRadiation[nSurf] radRes(
      R=R,
     each linearise=linearise,
-    dT_nom=dT_nom,
-    Tzone_nom=Tzone_nom)
+    each dT_nom=dT_nom,
+    each Tzone_nom=Tzone_nom)
     "Component that computes radiative heat exchange";
 
 initial equation

@@ -15,7 +15,8 @@ model BalancedTap
     tableName="data",
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     columns=2:4,
-    fileName="../Inputs/" + "DHWProfile.txt")
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Inputs/")
+         + "DHWProfile_2d.txt")
     "ratio between the actual DHW mass flow rate (per second) and its average daily mass flow rate (per day)"
                                                                                                         annotation (Placement(visible=
           true, transformation(
