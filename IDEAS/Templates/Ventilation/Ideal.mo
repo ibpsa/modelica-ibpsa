@@ -38,8 +38,5 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{200,100}}), graphics), Icon(coordinateSystem(extent={{-200,
-            -100},{200,100}})),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Templates/Ventilation/Examples/none.mos"
-        "Simulate and Plot"));
+            -100},{200,100}})));
 end Ideal;

@@ -79,6 +79,7 @@ equation
 <p>An example of the use of this model can be found in <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples.Heating_Radiators\">IDEAS.Thermal.HeatingSystems.Examples.Heating_Radiators</a>.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>2017 January, Glenn Reynders: revision</li>
 <li>2013 June, Roel De Coninck: first version</li>
 </ul></p>
 </html>"));

@@ -62,6 +62,13 @@ equation
 <p>No validation performed.</p>
 <p><h4>Example </h4></p>
 <p>An example of the use of this model can be found in<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples.IdealEmbeddedHeating\"> IDEAS.Thermal.HeatingSystems.Examples.IdealEmbeddedHeating</a>.</p>
+</html>", revisions="<html>
+<p><ul>
+<li>2017 January, Glenn Reynders: revision</li>
+<li>2013 June, Roel De Coninck: minor edits and documentation</li>
+<li>2012-2013, Roel De Coninck: many minor and major revisions</li>
+<li>2011, Roel De Coninck: first version</li>
+</ul></p>
 </html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},
             {200,100}}),       graphics),
     Icon(coordinateSystem(extent={{-200,-100},{200,100}})));
