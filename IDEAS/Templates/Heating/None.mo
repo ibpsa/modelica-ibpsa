@@ -41,5 +41,17 @@ equation
   end if;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -100},{200,100}}), graphics));
+            -100},{200,100}}), graphics), Documentation(info="<html>
+<p>
+This example model illustrates how heating systems may be used.
+Its implementation may not reflect best modelling practices.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 23, 2017 by Filip Jorissen:<br/>
+Revised implementation and documentation.
+</li>
+</ul>
+</html>"));
 end None;
