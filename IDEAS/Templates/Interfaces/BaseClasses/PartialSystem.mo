@@ -11,8 +11,9 @@ partial model PartialSystem "General partial for electricity-based systems"
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
     plugLoad(m=1) if nLoads >= 1 "Electricity connection to the Inhome feeder"
     annotation (Placement(transformation(extent={{190,-10},{210,10}})));
-  IDEAS.Electric.BaseClasses.AC.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
-        nLoads) if nLoads >= 1
+  IDEAS.Experimental.Electric.BaseClasses.AC.WattsLawPlug wattsLawPlug(each
+      numPha=1, final nLoads=nLoads) if
+                   nLoads >= 1
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
 
   // --- Sensor
