@@ -1,9 +1,10 @@
-within IDEAS.Electric.Distribution.AC.Components;
+within IDEAS.Experimental.Electric.Distribution.AC.Components;
 model MvLvTransformer_3P
   "Medium to low-voltage transfomer for three-phase grids"
 
-  replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp
-    transformer "Choose a transformer" annotation (choicesAllMatching=true);
+  replaceable parameter
+    IDEAS.Experimental.Electric.Data.Interfaces.TransformerImp transformer
+    "Choose a transformer" annotation (choicesAllMatching=true);
 
   parameter Boolean traTCal = true "Calculate transformer hot spot?" annotation (choices(
         choice=false "No hot spot calculations",
@@ -57,10 +58,10 @@ protected
   parameter Boolean traHeatLosses = traTCal
     "Calculate heatlosses if hot spot temperature is calculated";
 
-  IDEAS.Electric.BaseClasses.AC.Con3PlusNTo3 con3PlusNTo3_HV
+  IDEAS.Experimental.Electric.BaseClasses.AC.Con3PlusNTo3 con3PlusNTo3_HV
     annotation (Placement(transformation(extent={{-60,50},{-40,30}})));
-  IDEAS.Electric.BaseClasses.AC.Con3PlusNTo3 con3PlusNTo3_LV annotation (
-      Placement(transformation(
+  IDEAS.Experimental.Electric.BaseClasses.AC.Con3PlusNTo3 con3PlusNTo3_LV
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={50,40})));

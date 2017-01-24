@@ -1,19 +1,20 @@
-within IDEAS.Electric.Distribution.DC;
+within IDEAS.Experimental.Electric.Distribution.DC;
 model GridDCGeneral
+  import IDEAS;
 
-replaceable parameter Electric.Data.Interfaces.DirectCurrent.GridType grid
-    "Choose a grid Layout" annotation(choicesAllMatching = true);
+replaceable parameter Data.Interfaces.DirectCurrent.GridType grid
+    "Choose a grid Layout" annotation (choicesAllMatching=true);
 
 parameter Integer Nodes=grid.nNodes;
 
-  Electric.Distribution.DC.Components.GridOnlyDC gridOnlyDC(grid=grid)
+  Components.GridOnlyDC gridOnlyDC(grid=grid)
     annotation (Placement(transformation(extent={{-40,-20},{0,20}})));
 
   Modelica.Electrical.Analog.Interfaces.PositivePin[2,grid.nNodes] node2Lines
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Electric.BaseClasses.DC.Con1PlusNTo1
-                               con1PlusNTo1[gridOnlyDC.grid.nNodes]
+  IDEAS.Experimental.Electric.BaseClasses.DC.Con1PlusNTo1 con1PlusNTo1[
+    gridOnlyDC.grid.nNodes]
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 //1,gridOnlyDC.grid.nNodes
   Modelica.Electrical.Analog.Interfaces.PositivePin[1,grid.nNodes] nodes1Phase

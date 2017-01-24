@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.Components;
+within IDEAS.Experimental.Electric.Photovoltaics.Components;
 model PvVoltageCtrlGeneral_InputVGrid
   "Basic controller, with fixed shut down time, with RealInput for grid voltage"
 

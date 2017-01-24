@@ -1,14 +1,16 @@
-within IDEAS.Electric.Distribution.AC.Examples.Components;
+within IDEAS.Experimental.Electric.Distribution.AC.Examples.Components;
 model Transformer
   import IDEAS;
 
   parameter Modelica.SIunits.Temperature THsRef = 326.6;
   parameter Modelica.SIunits.Temperature TToRef = 314.44;
 
-  IDEAS.Electric.Distribution.AC.Components.MvLvTransformer_3P transformer_MvLv(
-      redeclare IDEAS.Electric.Data.TransformerImp.Transfo_100kVA transformer)
+  IDEAS.Experimental.Electric.Distribution.AC.Components.MvLvTransformer_3P
+    transformer_MvLv(redeclare
+      IDEAS.Experimental.Electric.Data.TransformerImp.Transfo_100kVA
+      transformer)
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
-  IDEAS.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=3)
+  IDEAS.Experimental.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=3)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Sine step(
     amplitude=100000,

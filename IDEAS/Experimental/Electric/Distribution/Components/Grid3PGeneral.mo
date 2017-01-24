@@ -1,8 +1,8 @@
-within IDEAS.Electric.Distribution.Components;
+within IDEAS.Experimental.Electric.Distribution.Components;
 model Grid3PGeneral
 
 protected
-  IDEAS.Electric.Distribution.Components.GridOnly3P gridOnly3P(grid=grid)
+  IDEAS.Experimental.Electric.Distribution.Components.GridOnly3P gridOnly3P(grid=grid)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter Real gridFreq=50
     "Grid frequency: should normally not be changed when simulating belgian grids!";
@@ -16,7 +16,7 @@ protected
   //     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
 
 public
-  replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=3)
+  replaceable parameter IDEAS.Experimental.Electric.Data.Interfaces.GridType grid(Pha=3)
     "Choose a grid Layout" annotation (choicesAllMatching=true);
   /*parameter Boolean Loss = true 
     "if true, PLosBra and PGriLosTot gives branch and Grid cable losses"
@@ -90,7 +90,8 @@ public
 protected
   parameter Integer Nodes=grid.nNodes;
 
-  IDEAS.Electric.BaseClasses.Con3PlusNTo3 con3PlusNTo3_1[gridOnly3P.grid.nNodes]
+  IDEAS.Experimental.Electric.BaseClasses.Con3PlusNTo3 con3PlusNTo3_1[
+    gridOnly3P.grid.nNodes]
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[3,

@@ -1,4 +1,4 @@
-within IDEAS.Electric.Connections;
+within IDEAS.Experimental.Electric.Connections;
 model HouseConnector
   "Makes the connections from the in-home connection to the grid, standard 16mm2 Alu.Still needs testing!!"
   extends Modelica.Icons.UnderConstruction;
@@ -18,9 +18,8 @@ model HouseConnector
       choice=4 "3 Phase connection",
       __Dymola_radioButtons=true));
 
-  replaceable parameter IDEAS.Electric.Data.Interfaces.Cable typHouBran=
-      IDEAS.Electric.Data.Cables.PvcAl16()
-    "Cable type used for the connection to the house";
+  replaceable parameter IDEAS.Experimental.Electric.Data.Interfaces.Cable typHouBran=
+      Data.Cables.PvcAl16() "Cable type used for the connection to the house";
 
   parameter Modelica.SIunits.Length lenHouBran=10
     "Length of the cable of the connection to the house";
@@ -28,7 +27,7 @@ model HouseConnector
   /***This creates the branches. TODO:adjust mulfac to cope with single phase connections and single phase equivalent 3 phase connections,
 for 3 phase connections it can stay at default(1)
 Maybe also make sure unused cables have very high impedance so errors will show in results***/
-  IDEAS.Electric.Distribution.BaseClasses.BranchLenTyp[numBran] branch(
+  IDEAS.Experimental.Electric.Distribution.BaseClasses.BranchLenTyp[numBran] branch(
     each len=lenHouBran,
     each typ=typHouBran,
     each mulFac=mulFacZ);

@@ -1,6 +1,6 @@
-within IDEAS.Electric.Distribution.AC.Components;
+within IDEAS.Experimental.Electric.Distribution.AC.Components;
 model Grid_3P "Three-fase grid cable-structure"
-  replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid
+  replaceable parameter IDEAS.Experimental.Electric.Data.Interfaces.GridType grid
     "Choose a grid Layout (with 3 phaze values)"
     annotation (choicesAllMatching=true);
 
@@ -13,8 +13,9 @@ model Grid_3P "Three-fase grid cable-structure"
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin TraGnd
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 
-  IDEAS.Electric.Distribution.AC.BaseClasses.Branch branch[3,Nodes](R=R3, X=X3);
-  IDEAS.Electric.Distribution.AC.BaseClasses.Branch neutral[Nodes](R=
+  IDEAS.Experimental.Electric.Distribution.AC.BaseClasses.Branch branch[3,Nodes](
+      R=R3, X=X3);
+  IDEAS.Experimental.Electric.Distribution.AC.BaseClasses.Branch neutral[Nodes](R=
         Modelica.ComplexMath.real(Z), X=Modelica.ComplexMath.imag(Z));
   Modelica.SIunits.ActivePower PGriTot;
   Modelica.SIunits.ComplexPower SGriTot;

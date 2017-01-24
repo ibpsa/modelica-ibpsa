@@ -1,13 +1,14 @@
-within IDEAS.Electric.Distribution.AC.Examples;
+within IDEAS.Experimental.Electric.Distribution.AC.Examples;
 model TestGridGeneral3P
   import IDEAS;
-  IDEAS.Electric.Distribution.AC.Examples.Components.SinePower risingflankSingle1[3](
-      amplitude=4000)
+  IDEAS.Experimental.Electric.Distribution.AC.Examples.Components.SinePower
+    risingflankSingle1[3](amplitude=4000)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
-  IDEAS.Electric.Distribution.AC.Grid_3P grid3PGeneral(
-    redeclare IDEAS.Electric.Data.Grids.TestGrid2Nodes grid,
-    redeclare IDEAS.Electric.Data.TransformerImp.Transfo_250kVA transformer,
+  IDEAS.Experimental.Electric.Distribution.AC.Grid_3P grid3PGeneral(
+    redeclare IDEAS.Experimental.Electric.Data.Grids.TestGrid2Nodes grid,
+    redeclare IDEAS.Experimental.Electric.Data.TransformerImp.Transfo_250kVA
+      transformer,
     traTCal=true)
     annotation (Placement(transformation(extent={{-36,0},{-16,20}})));
   inner IDEAS.BoundaryConditions.SimInfoManager sim

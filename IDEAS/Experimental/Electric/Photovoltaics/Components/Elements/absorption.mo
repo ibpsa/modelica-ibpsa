@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.Components.Elements;
+within IDEAS.Experimental.Electric.Photovoltaics.Components.Elements;
 model absorption
 
   parameter Modelica.SIunits.Irradiance solRef=1000

@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.Components;
+within IDEAS.Experimental.Electric.Photovoltaics.Components;
 model PvVoltageCtrlGeneral "Basic controller, with fixed shut down time"
 
   parameter Real VMax=248;

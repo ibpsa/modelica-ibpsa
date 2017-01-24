@@ -1,5 +1,5 @@
-within IDEAS.Electric.Data.PvPanels;
-record SanyoHIP230HDE1 = IDEAS.Electric.Data.Interfaces.PvPanel (
+within IDEAS.Experimental.Electric.Data.PvPanels;
+record SanyoHIP230HDE1 = IDEAS.Experimental.Electric.Data.Interfaces.PvPanel (
     I_phr=7.2206,
     I_or=9.5489*10^(-9),
     R_sr=0.3709,

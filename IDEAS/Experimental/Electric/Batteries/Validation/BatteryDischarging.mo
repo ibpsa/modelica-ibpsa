@@ -1,4 +1,4 @@
-within IDEAS.Electric.Batteries.Validation;
+within IDEAS.Experimental.Electric.Batteries.Validation;
 model BatteryDischarging
 extends Modelica.Icons.Example;
 Modelica.SIunits.Power Pnet=1000;
@@ -6,12 +6,12 @@ output Modelica.SIunits.Efficiency SoC = batterySystemGeneral.battery.SoC_out;
 
 protected
   Distribution.AC.Grid_3P gridGeneral(redeclare
-      IDEAS.Electric.Data.Grids.TestGrid2Nodes grid,
+      Data.Grids.TestGrid2Nodes                grid,
     traTCal=false,
-    redeclare IDEAS.Electric.Data.TransformerImp.Transfo_100kVA transformer)
+    redeclare Data.TransformerImp.Transfo_100kVA                transformer)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   AC.BatterySystemGeneral batterySystemGeneral(
-    redeclare IDEAS.Electric.Data.Batteries.LiIon technology,
+    redeclare Data.Batteries.LiIon                technology,
     SoC_start=0.6,
     Pnet=Pnet,
     EBat=10,

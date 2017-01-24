@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics;
+within IDEAS.Experimental.Electric.Photovoltaics;
 package Extern "PV from external files"
 
 

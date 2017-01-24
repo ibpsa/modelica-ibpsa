@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.Components;
+within IDEAS.Experimental.Electric.Photovoltaics.Components;
 model PvVoltageCtrlGeneral_InputVGrid_MovAvg
   "Basic controller based on moving average, with fixed shut down time, with RealInput for grid voltage"
   import IDEAS;

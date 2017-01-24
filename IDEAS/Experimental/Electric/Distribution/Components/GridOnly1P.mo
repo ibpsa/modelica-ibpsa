@@ -1,12 +1,12 @@
-within IDEAS.Electric.Distribution.Components;
+within IDEAS.Experimental.Electric.Distribution.Components;
 model GridOnly1P
 
 public
-  replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=1)
+  replaceable parameter IDEAS.Experimental.Electric.Data.Interfaces.GridType grid(Pha=1)
     "Choose a grid Layout (with 3 phaze values)"
     annotation (choicesAllMatching=true);
 
-  IDEAS.Electric.Distribution.BaseClasses.Branch branch[Nodes](R=
+  IDEAS.Experimental.Electric.Distribution.BaseClasses.Branch branch[Nodes](R=
         Modelica.ComplexMath.real(Z), X=Modelica.ComplexMath.imag(Z));
 
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin TraPin

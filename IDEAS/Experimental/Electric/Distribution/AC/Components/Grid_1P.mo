@@ -1,8 +1,7 @@
-within IDEAS.Electric.Distribution.AC.Components;
+within IDEAS.Experimental.Electric.Distribution.AC.Components;
 model Grid_1P "Single-phase grid"
-replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=1)
-    "Choose a grid layout"
-    annotation (choicesAllMatching=true);
+replaceable parameter IDEAS.Experimental.Electric.Data.Interfaces.GridType grid(Pha=1)
+    "Choose a grid layout" annotation (choicesAllMatching=true);
 
 Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[
                                2,Nodes] node
@@ -15,9 +14,9 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin
                 Ground(i( im(  each start=0)))
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
 
-  IDEAS.Electric.Distribution.AC.BaseClasses.Branch          branch[Nodes](R=
+  IDEAS.Experimental.Electric.Distribution.AC.BaseClasses.Branch branch[Nodes](R=
         Modelica.ComplexMath.real(Z), X=Modelica.ComplexMath.imag(Z));
-  IDEAS.Electric.Distribution.AC.BaseClasses.Branch          neutral[Nodes](R=
+  IDEAS.Experimental.Electric.Distribution.AC.BaseClasses.Branch neutral[Nodes](R=
         Modelica.ComplexMath.real(Z), X=Modelica.ComplexMath.imag(Z));
   Modelica.SIunits.ActivePower PGriTot;
   Modelica.SIunits.ComplexPower SGriTot;

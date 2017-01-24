@@ -1,4 +1,4 @@
-within IDEAS.Electric.BaseClasses.Converters.ConvertersPin;
+within IDEAS.Experimental.Electric.BaseClasses.Converters.ConvertersPin;
 model Inverter "Inverter (DC to AC)"
 extends Modelica.Blocks.Interfaces.BlockIcon;
 extends Partials.Converter;

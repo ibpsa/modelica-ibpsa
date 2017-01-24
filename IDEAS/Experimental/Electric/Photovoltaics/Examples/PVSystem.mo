@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.Examples;
+within IDEAS.Experimental.Electric.Photovoltaics.Examples;
 model PVSystem
   "Only a PV system, see python script for generating profiles from this model"
 
@@ -7,7 +7,7 @@ model PVSystem
   parameter SI.Angle azi=45/180*Modelica.Constants.pi
     annotation (evaluate=False);
 
-  IDEAS.Electric.Photovoltaics.PVSystemGeneral pVSystemGeneral(
+  IDEAS.Experimental.Electric.Photovoltaics.PVSystemGeneral pVSystemGeneral(
     amount=20,
     inc=inc,
     azi=azi) annotation (Placement(transformation(extent={{-38,4},{-18,24}})));

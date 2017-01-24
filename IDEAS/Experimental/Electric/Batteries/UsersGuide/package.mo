@@ -1,4 +1,4 @@
-within IDEAS.Electric.Batteries;
+within IDEAS.Experimental.Electric.Batteries;
 package UsersGuide "User's Guide"
 extends Modelica.Icons.Information;
 

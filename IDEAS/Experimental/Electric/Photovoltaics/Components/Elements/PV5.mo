@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.Components.Elements;
+within IDEAS.Experimental.Electric.Photovoltaics.Components.Elements;
 model PV5 "5-parameter model according to Duffie & Beckman (1991)"
 
   // Modelica.Blocks.Interfaces.BlockIcon;
@@ -6,7 +6,7 @@ model PV5 "5-parameter model according to Duffie & Beckman (1991)"
   parameter Integer n_s=60 "number of cells on the PV panel";
   parameter Modelica.SIunits.Efficiency eff=0.166 "Solar cell efficiency";
 
-  replaceable parameter IDEAS.Electric.Data.Interfaces.PvPanel pvPanel
+  replaceable parameter IDEAS.Experimental.Electric.Data.Interfaces.PvPanel pvPanel
     "Choose a Photovoltaic panel to be used"
     annotation (choicesAllMatching=true);
   //The 5 main parameters

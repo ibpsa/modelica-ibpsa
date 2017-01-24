@@ -1,4 +1,4 @@
-within IDEAS.Electric.Batteries;
+within IDEAS.Experimental.Electric.Batteries;
 model Battery
   extends Modelica.Blocks.Interfaces.BlockIcon;
 

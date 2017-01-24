@@ -1,4 +1,4 @@
-within IDEAS.Electric.BaseClasses.Converters.ConvertersPower;
+within IDEAS.Experimental.Electric.BaseClasses.Converters.ConvertersPower;
 model Converter "Generalized converter model"
 extends Modelica.Blocks.Interfaces.BlockIcon;
 

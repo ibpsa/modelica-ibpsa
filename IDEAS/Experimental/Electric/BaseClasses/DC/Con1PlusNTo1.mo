@@ -1,4 +1,4 @@
-within IDEAS.Electric.BaseClasses.DC;
+within IDEAS.Experimental.Electric.BaseClasses.DC;
 model Con1PlusNTo1
   "Converts the single-phase plus Neutral to single-phase representation to wich powers can be connected"
 

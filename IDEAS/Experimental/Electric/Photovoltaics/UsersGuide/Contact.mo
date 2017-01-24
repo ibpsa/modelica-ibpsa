@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.UsersGuide;
+within IDEAS.Experimental.Electric.Photovoltaics.UsersGuide;
 class Contact "Contact"
   extends Modelica.Icons.Contact;
 

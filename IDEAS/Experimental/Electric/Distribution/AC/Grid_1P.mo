@@ -1,13 +1,13 @@
-within IDEAS.Electric.Distribution.AC;
+within IDEAS.Experimental.Electric.Distribution.AC;
 model Grid_1P
 
   // note: no transformer included, as single-phase grids are mainly used in-building, thus mostly no transformer needed.
-replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=1)
+replaceable parameter IDEAS.Experimental.Electric.Data.Interfaces.GridType grid(Pha=1)
     "Choose a grid layout" annotation (choicesAllMatching=true);
 
   Components.Grid_1P grid_1P(grid=grid)
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
-  IDEAS.Electric.BaseClasses.AC.Con1PlusNTo1 con1PlusNTo1_1[grid_1P.grid.nNodes]
+  IDEAS.Experimental.Electric.BaseClasses.AC.Con1PlusNTo1 con1PlusNTo1_1[grid_1P.grid.nNodes]
     annotation (Placement(transformation(extent={{32,-2},{52,18}})));
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[grid_1P.grid.nNodes] gridNodes1P

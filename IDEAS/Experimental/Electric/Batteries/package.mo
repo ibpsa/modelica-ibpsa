@@ -1,4 +1,4 @@
-within IDEAS.Electric;
+within IDEAS.Experimental.Electric;
 package Batteries "Everything related to battery systems"
 
 

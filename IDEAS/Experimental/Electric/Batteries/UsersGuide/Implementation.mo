@@ -1,4 +1,4 @@
-within IDEAS.Electric.Batteries.UsersGuide;
+within IDEAS.Experimental.Electric.Batteries.UsersGuide;
 class Implementation "Implementation notes"
   extends Modelica.Icons.Information;
 

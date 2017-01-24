@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.Components.Elements;
+within IDEAS.Experimental.Electric.Photovoltaics.Components.Elements;
 model refraction "incidence angle modifier (IAM)"
 
   extends Modelica.Blocks.Interfaces.BlockIcon;

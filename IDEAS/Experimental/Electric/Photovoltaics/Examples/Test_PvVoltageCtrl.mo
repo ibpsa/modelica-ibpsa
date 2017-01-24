@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.Examples;
+within IDEAS.Experimental.Electric.Photovoltaics.Examples;
 model Test_PvVoltageCtrl "Tester for the PV voltage control model"
 
   Components.PvVoltageCtrlGeneral_InputVGrid

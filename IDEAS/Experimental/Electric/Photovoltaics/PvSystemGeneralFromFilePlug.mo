@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics;
+within IDEAS.Experimental.Electric.Photovoltaics;
 model PvSystemGeneralFromFilePlug
   "PV system with separate shut-down controller and plug connector"
 
@@ -16,7 +16,8 @@ model PvSystemGeneralFromFilePlug
        numPha) annotation (Placement(transformation(extent={{92,30},{112,50}},
           rotation=0)));
 
-  IDEAS.Electric.Photovoltaics.Components.ForInputFiles.SimpleDCAC_effP invertor(PNom=PNom)
+  IDEAS.Experimental.Electric.Photovoltaics.Components.ForInputFiles.SimpleDCAC_effP
+    invertor(PNom=PNom)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   BaseClasses.AC.WattsLawPlug wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -26,8 +27,9 @@ model PvSystemGeneralFromFilePlug
     timeOff=timeOff,
     numPha=numPha)
     annotation (Placement(transformation(extent={{26,20},{46,40}})));
-  outer IDEAS.Electric.Photovoltaics.Components.ForInputFiles.PVProfileReader PV1
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  outer
+    IDEAS.Experimental.Electric.Photovoltaics.Components.ForInputFiles.PVProfileReader
+    PV1 annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Interfaces.RealInput VGrid
     annotation (Placement(transformation(extent={{74,-82},{114,-42}})));
 equation

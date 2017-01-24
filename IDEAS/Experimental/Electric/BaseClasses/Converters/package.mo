@@ -1,4 +1,4 @@
-within IDEAS.Electric.BaseClasses;
+within IDEAS.Experimental.Electric.BaseClasses;
 package Converters "Package including power electronic converters"
 extends Modelica.Icons.Package;
 

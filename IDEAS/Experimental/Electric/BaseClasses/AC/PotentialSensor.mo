@@ -1,4 +1,4 @@
-within IDEAS.Electric.BaseClasses.AC;
+within IDEAS.Experimental.Electric.BaseClasses.AC;
 model PotentialSensor
   "For use  with loads. Either symmetrically divided over 3 phases (numPha=3) or single phase (numPha=1)."
 

@@ -1,4 +1,4 @@
-within IDEAS.Electric.Batteries.UsersGuide;
+within IDEAS.Experimental.Electric.Batteries.UsersGuide;
 class References "References"
   extends Modelica.Icons.References;
 

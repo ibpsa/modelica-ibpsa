@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.Examples;
+within IDEAS.Experimental.Electric.Photovoltaics.Examples;
 model UsePVGeneral
 
   PVSystemGeneral pVSystemGeneral(inc=20/180*3.1415, amount=20)
@@ -22,8 +22,9 @@ model UsePVGeneral
       IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
       IDEAS.Climate.Meteo.Files.min15 detail)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  inner IDEAS.Electric.Photovoltaics.Components.ForInputFiles.PVProfileReader PV1(fileName=
-        "../Inputs/PV_Inc20_Azi0.txt")
+  inner
+    IDEAS.Experimental.Electric.Photovoltaics.Components.ForInputFiles.PVProfileReader
+    PV1(fileName="../Inputs/PV_Inc20_Azi0.txt")
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 equation
   connect(ground.pin, voltageSource.pin_n) annotation (Line(

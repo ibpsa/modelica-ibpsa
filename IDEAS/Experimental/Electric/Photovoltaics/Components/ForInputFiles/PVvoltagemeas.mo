@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.Components.ForInputFiles;
+within IDEAS.Experimental.Electric.Photovoltaics.Components.ForInputFiles;
 model PVvoltagemeas
   parameter Integer PVPha=4;
 protected

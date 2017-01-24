@@ -1,4 +1,4 @@
-within IDEAS.Electric.Batteries;
+within IDEAS.Experimental.Electric.Batteries;
 package AC 
 extends Modelica.Icons.Package;
 

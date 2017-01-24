@@ -1,4 +1,4 @@
-within IDEAS.Electric.Distribution.DC.Examples.Components;
+within IDEAS.Experimental.Electric.Distribution.DC.Examples.Components;
 model SinePower
 
   //parameter Integer nNodes=34;
@@ -11,7 +11,7 @@ model SinePower
   Real P=wattsLaw.P;
 
 protected
-  IDEAS.Electric.BaseClasses.DC.WattsLaw wattsLaw annotation (
+  IDEAS.Experimental.Electric.BaseClasses.DC.WattsLaw wattsLaw annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

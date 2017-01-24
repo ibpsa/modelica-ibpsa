@@ -1,4 +1,4 @@
-within IDEAS.Electric.Distribution.AC;
+within IDEAS.Experimental.Electric.Distribution.AC;
 model Grid_1PEq "General model for single-phase equivalent of three-phase grid"
 
 protected
@@ -8,7 +8,7 @@ protected
     "Grid frequency: should normally not be changed when simulating belgian grids!";
 
 public
-  replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=1)
+  replaceable parameter IDEAS.Experimental.Electric.Data.Interfaces.GridType grid(Pha=1)
     "Choose a grid Layout" annotation (choicesAllMatching=true);
 
   parameter Modelica.SIunits.ComplexVoltage VSource=230 + 0*Modelica.ComplexMath.j "Voltage"
@@ -23,7 +23,8 @@ public
 Components.MvLvTransformer_1P transformer_MvLv(transformer=transformer, traTCal=
         traTCal)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-    replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp transformer
+    replaceable parameter
+    IDEAS.Experimental.Electric.Data.Interfaces.TransformerImp transformer
     "Choose a transformer" annotation (choicesAllMatching=true);
     parameter Boolean traTCal = true "Calculate transformer hot spot?" annotation (choices(
         choice=false "No hot spot calculations",

@@ -1,4 +1,4 @@
-within IDEAS.Electric.BaseClasses.Converters.ConvertersPin;
+within IDEAS.Experimental.Electric.BaseClasses.Converters.ConvertersPin;
 model BidirectionalConverter "Bidirectional AC/DC converter"
 extends Modelica.Blocks.Interfaces.BlockIcon;
 extends Partials.Converter;

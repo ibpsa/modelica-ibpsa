@@ -1,14 +1,14 @@
-within IDEAS.Electric.Distribution.AC;
+within IDEAS.Experimental.Electric.Distribution.AC;
 model Grid_3P "General model for three-phase grid"
 
 protected
-  IDEAS.Electric.Distribution.AC.Components.Grid_3P gridOnly3P(grid=grid)
+  IDEAS.Experimental.Electric.Distribution.AC.Components.Grid_3P gridOnly3P(grid=grid)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter Real gridFreq=50
     "Grid frequency: should normally not be changed when simulating belgian grids!";
 
 public
-  replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=3)
+  replaceable parameter IDEAS.Experimental.Electric.Data.Interfaces.GridType grid(Pha=3)
     "Choose a grid Layout" annotation (choicesAllMatching=true);
 
   parameter Modelica.SIunits.ComplexVoltage VSource=230 + 0*Modelica.ComplexMath.j "Voltage"
@@ -24,7 +24,8 @@ public
     Components.MvLvTransformer_3P transformer_MvLv(transformer=transformer, traTCal=
         traTCal)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-     replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp transformer
+     replaceable parameter
+    IDEAS.Experimental.Electric.Data.Interfaces.TransformerImp transformer
     "Choose a transformer" annotation (choicesAllMatching=true);
   parameter Boolean traTCal = true "Calculate transformer hot spot?" annotation (choices(
         choice=false "No hot spot calculations",
@@ -64,7 +65,8 @@ public
 protected
   parameter Integer Nodes=grid.nNodes;
 
-  IDEAS.Electric.BaseClasses.AC.Con3PlusNTo3 con3PlusNTo3_1[gridOnly3P.grid.nNodes]
+  IDEAS.Experimental.Electric.BaseClasses.AC.Con3PlusNTo3 con3PlusNTo3_1[
+    gridOnly3P.grid.nNodes]
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[3,

@@ -1,11 +1,11 @@
-within IDEAS.Electric.Distribution.AC.Examples;
+within IDEAS.Experimental.Electric.Distribution.AC.Examples;
 model TestGridGeneral1P
 
   inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
   inner IDEAS.BoundaryConditions.SimInfoManager sim1
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
-  IDEAS.Electric.Distribution.AC.Examples.Components.SinePower sinePower
+  IDEAS.Experimental.Electric.Distribution.AC.Examples.Components.SinePower sinePower
     annotation (Placement(transformation(extent={{58,-10},{78,10}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
     voltageSource(
@@ -17,8 +17,8 @@ model TestGridGeneral1P
         origin={-66,-10})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
     annotation (Placement(transformation(extent={{-76,-54},{-56,-34}})));
-  IDEAS.Electric.Distribution.AC.Grid_1P grid_1P(redeclare
-      IDEAS.Electric.Data.Grids.TestGrid2Nodes grid)
+  IDEAS.Experimental.Electric.Distribution.AC.Grid_1P grid_1P(redeclare
+      Data.Grids.TestGrid2Nodes grid)
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
 equation
   connect(voltageSource.pin_n, ground.pin) annotation (Line(

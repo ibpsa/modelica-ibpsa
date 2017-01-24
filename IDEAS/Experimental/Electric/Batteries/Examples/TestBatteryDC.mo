@@ -1,4 +1,4 @@
-within IDEAS.Electric.Batteries.Examples;
+within IDEAS.Experimental.Electric.Batteries.Examples;
 model TestBatteryDC
 extends Modelica.Icons.Example;
 Modelica.SIunits.Power Pnet;
@@ -28,7 +28,7 @@ Modelica.SIunits.Power Pnet;
   inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   DC.BatterySystemGeneral batterySystemGeneral(
-    redeclare IDEAS.Electric.Data.Batteries.LiIon technology,
+    redeclare Data.Batteries.LiIon                technology,
     EBat=10,
     SoC_start=0.6,
     DOD_max=0.8,

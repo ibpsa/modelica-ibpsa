@@ -1,19 +1,19 @@
-within IDEAS.Electric.Distribution.Examples;
+within IDEAS.Experimental.Electric.Distribution.Examples;
 model TestGridGeneral
 
-  IDEAS.Electric.Distribution.Examples.Components.SinePower risingflankSingle
+  IDEAS.Experimental.Electric.Distribution.Examples.Components.SinePower risingflankSingle
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  IDEAS.Electric.Distribution.GridGeneral gridGeneral(
-    redeclare IDEAS.Electric.Data.Grids.TestGrid2Nodes grid,
+  IDEAS.Experimental.Electric.Distribution.GridGeneral gridGeneral(
+    redeclare Data.Grids.TestGrid2Nodes grid,
     Phases=1,
     traPre=true)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  IDEAS.Electric.Distribution.GridGeneral gridGeneral1(
-    redeclare IDEAS.Electric.Data.Grids.TestGrid2Nodes grid,
+  IDEAS.Experimental.Electric.Distribution.GridGeneral gridGeneral1(
+    redeclare Data.Grids.TestGrid2Nodes grid,
     Phases=3,
     traPre=true)
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  IDEAS.Electric.Distribution.Examples.Components.SinePower risingflankSingle1[3]
+  IDEAS.Experimental.Electric.Distribution.Examples.Components.SinePower risingflankSingle1[3]
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
 equation

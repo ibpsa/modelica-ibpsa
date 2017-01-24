@@ -1,3 +1,3 @@
-within IDEAS.Electric.Batteries;
+within IDEAS.Experimental.Electric.Batteries;
 package Control 
 end Control;

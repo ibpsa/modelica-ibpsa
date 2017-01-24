@@ -1,4 +1,4 @@
-within IDEAS.Electric.BaseClasses.DC;
+within IDEAS.Experimental.Electric.BaseClasses.DC;
 model WattsLawPlug "For use  with loads."
   parameter Integer nLoads=1;
   Modelica.Electrical.MultiPhase.Interfaces.NegativePlug vi(m=

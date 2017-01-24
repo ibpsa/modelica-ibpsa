@@ -1,4 +1,4 @@
-within IDEAS.Electric;
+within IDEAS.Experimental.Electric;
 package Photovoltaics "Everything related to PV systems"
 
 

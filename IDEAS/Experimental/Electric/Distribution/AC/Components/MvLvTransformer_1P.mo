@@ -1,9 +1,10 @@
-within IDEAS.Electric.Distribution.AC.Components;
+within IDEAS.Experimental.Electric.Distribution.AC.Components;
 model MvLvTransformer_1P
   "Single-phase equivalent of medium to low-voltage transfomer for three-phase grids"
 
-  replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp
-    transformer "Choose a transformer" annotation (choicesAllMatching=true);
+  replaceable parameter
+    IDEAS.Experimental.Electric.Data.Interfaces.TransformerImp transformer
+    "Choose a transformer" annotation (choicesAllMatching=true);
 
  parameter Boolean traTCal = true "Calculate transformer hot spot?" annotation (choices(
         choice=false "No hot spot calculations",

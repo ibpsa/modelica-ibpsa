@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.Extern;
+within IDEAS.Experimental.Electric.Photovoltaics.Extern;
 model PvSystem
   "PV system with separate shut-down controller and plug connector"
 
@@ -24,8 +24,8 @@ model PvSystem
   Modelica.Blocks.Interfaces.RealInput VGrid "Grid voltage for control"
     annotation (Placement(transformation(extent={{-116,30},{-96,50}})));
 
-  IDEAS.Electric.Photovoltaics.Components.ForInputFiles.SimpleDCAC_effP invertor(PNom=-
-        PNom, P_dc_max=-PNom)
+  IDEAS.Experimental.Electric.Photovoltaics.Components.ForInputFiles.SimpleDCAC_effP
+    invertor(PNom=-PNom, P_dc_max=-PNom)
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Modelica.Blocks.Sources.RealExpression PDc(y=strobe.tabPPv.y[id]/strobe.P_nominal
         *PNom)

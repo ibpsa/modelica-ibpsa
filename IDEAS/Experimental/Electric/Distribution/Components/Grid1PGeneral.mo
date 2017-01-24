@@ -1,4 +1,4 @@
-within IDEAS.Electric.Distribution.Components;
+within IDEAS.Experimental.Electric.Distribution.Components;
 model Grid1PGeneral
 
 protected
@@ -16,7 +16,7 @@ protected
   //     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
 
 public
-  replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=1)
+  replaceable parameter IDEAS.Experimental.Electric.Data.Interfaces.GridType grid(Pha=1)
     "Choose a grid Layout" annotation (choicesAllMatching=true);
   /*parameter Boolean Loss = true 
     "if true, PLosBra and PGriLosTot gives branch and Grid cable losses"
@@ -76,7 +76,8 @@ public
 protected
   parameter Integer Nodes=grid.nNodes;
 
-  IDEAS.Electric.BaseClasses.Con3PlusNTo3 con3PlusNTo3_1[gridOnly1P.grid.nNodes]
+  IDEAS.Experimental.Electric.BaseClasses.Con3PlusNTo3 con3PlusNTo3_1[
+    gridOnly1P.grid.nNodes]
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[3,

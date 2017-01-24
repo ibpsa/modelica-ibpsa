@@ -1,4 +1,4 @@
-within IDEAS.Electric.Data.Interfaces;
+within IDEAS.Experimental.Electric.Data.Interfaces;
 record TransformerImp "Transformer type"
 extends Modelica.Icons.MaterialProperty;
 

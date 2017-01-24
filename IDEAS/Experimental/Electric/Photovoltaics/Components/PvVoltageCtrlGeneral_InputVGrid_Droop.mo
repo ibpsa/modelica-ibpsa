@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.Components;
+within IDEAS.Experimental.Electric.Photovoltaics.Components;
 block PvVoltageCtrlGeneral_InputVGrid_Droop "Basic droop controller"
 
   extends Modelica.Blocks.Interfaces.BlockIcon;

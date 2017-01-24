@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics.Components.ForInputFiles;
+within IDEAS.Experimental.Electric.Photovoltaics.Components.ForInputFiles;
 model PVProfileReader "External file with W/Wp production profile"
   Real P_ratio;
 

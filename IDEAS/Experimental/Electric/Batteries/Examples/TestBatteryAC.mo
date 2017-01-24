@@ -1,10 +1,10 @@
-within IDEAS.Electric.Batteries.Examples;
+within IDEAS.Experimental.Electric.Batteries.Examples;
 model TestBatteryAC
 extends Modelica.Icons.Example;
 Modelica.SIunits.Power Pnet;
 
   AC.BatterySystemGeneral batterySystemGeneral(
-    redeclare IDEAS.Electric.Data.Batteries.LiIon technology,
+    redeclare Data.Batteries.LiIon                technology,
     SoC_start=0.6,
     Pnet=Pnet,
     EBat=10,
@@ -20,8 +20,7 @@ Modelica.SIunits.Power Pnet;
     duration=1500,
     startTime=600)
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  IDEAS.Electric.BaseClasses.AC.WattsLaw
-                       wattsLaw(numPha=1)
+  IDEAS.Experimental.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=1)
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Modelica.Blocks.Sources.Constant const(k=0)
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
@@ -33,8 +32,8 @@ Modelica.SIunits.Power Pnet;
     height=00)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Distribution.AC.Grid_3P grid_3P(
-    redeclare IDEAS.Electric.Data.Grids.TestGrid2Nodes grid,
-    redeclare IDEAS.Electric.Data.TransformerImp.Transfo_100kVA transformer,
+    redeclare Data.Grids.TestGrid2Nodes                grid,
+    redeclare Data.TransformerImp.Transfo_100kVA                transformer,
     traTCal=false)
     annotation (Placement(transformation(extent={{-76,-38},{-56,-18}})));
   inner BoundaryConditions.SimInfoManager sim

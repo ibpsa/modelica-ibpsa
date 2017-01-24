@@ -1,4 +1,4 @@
-within IDEAS.Electric.Data.Interfaces;
+within IDEAS.Experimental.Electric.Data.Interfaces;
 record GridImp "Describe a grid by matrices of layout and impedances"
   extends Modelica.Icons.MaterialProperty;
   //extends IDEAS.Electric.Data.Interfaces.GridLayout;

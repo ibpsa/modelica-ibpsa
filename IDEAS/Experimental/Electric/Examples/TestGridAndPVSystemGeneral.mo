@@ -1,15 +1,15 @@
-within IDEAS.Electric.Examples;
+within IDEAS.Experimental.Electric.Examples;
 model TestGridAndPVSystemGeneral
   "Test to see if Grid and PV(from file) work as it should"
 
   Distribution.GridGeneral gridGeneral(
     Phases=3,
-    redeclare IDEAS.Electric.Data.Grids.TestGrid2Nodes grid,
+    redeclare Data.Grids.TestGrid2Nodes                grid,
     VSource=(230*1.02) + 0*MCM.j,
     traPre=true)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Photovoltaics.PVSystemGeneral pVSystemGeneral(numPha=3, redeclare
-      IDEAS.Electric.Data.PvPanels.SanyoHIP230HDE1 pvPanel)
+      Data.PvPanels.SanyoHIP230HDE1                pvPanel)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   inner IDEAS.BoundaryConditions.SimInfoManager sim(redeclare
       IDEAS.Climate.Meteo.Files.min10 detail, redeclare

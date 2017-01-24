@@ -1,4 +1,4 @@
-within IDEAS.Electric;
+within IDEAS.Experimental.Electric;
 package Distribution "This gives an electrical distribution grid model for a district"
 
 

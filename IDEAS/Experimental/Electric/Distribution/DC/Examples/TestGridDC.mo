@@ -1,8 +1,10 @@
-within IDEAS.Electric.Distribution.DC.Examples;
+within IDEAS.Experimental.Electric.Distribution.DC.Examples;
 model TestGridDC
+  import IDEAS;
 extends Modelica.Icons.Example;
-  Electric.Distribution.Components.GridGeneralDC gridGeneralDC(redeclare
-      Electric.Data.Grids.DirectCurrent.TestGrid2Nodes grid)
+  IDEAS.Experimental.Electric.Distribution.Components.GridGeneralDC gridGeneralDC(
+      redeclare
+      IDEAS.Experimental.Electric.Data.Grids.DirectCurrent.TestGrid2Nodes grid)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   Modelica.Electrical.Analog.Sources.ConstantVoltage constantVoltage(V=230)
     annotation (Placement(transformation(

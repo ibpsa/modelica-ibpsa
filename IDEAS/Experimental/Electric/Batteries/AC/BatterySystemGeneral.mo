@@ -1,4 +1,4 @@
-within IDEAS.Electric.Batteries.AC;
+within IDEAS.Experimental.Electric.Batteries.AC;
 model BatterySystemGeneral
   extends Partials.BatterySystem;
 
@@ -10,7 +10,7 @@ model BatterySystemGeneral
     numPha] annotation (Placement(transformation(extent={{-106,-10},{-86,10}},
           rotation=0)));
 
-  IDEAS.Electric.Batteries.Control.BatteryCtrlGeneral batteryCtrlGeneral(
+  IDEAS.Experimental.Electric.Batteries.Control.BatteryCtrlGeneral batteryCtrlGeneral(
     numPha=numPha,
     DOD_max=DOD_max,
     EBat=3600000*EBat,

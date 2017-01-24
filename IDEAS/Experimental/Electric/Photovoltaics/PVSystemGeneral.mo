@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics;
+within IDEAS.Experimental.Electric.Photovoltaics;
 model PVSystemGeneral "PV system with separate shut-down controller"
 
   parameter Real amount=1;
@@ -15,9 +15,8 @@ model PVSystemGeneral "PV system with separate shut-down controller"
   output Real PInit;
   output Real PFinal;
 
-  replaceable parameter IDEAS.Electric.Data.Interfaces.PvPanel pvPanel=
-      IDEAS.Electric.Data.PvPanels.SanyoHIP230HDE1()
-    "Choose a Photovoltaic panel to be used"
+  replaceable parameter IDEAS.Experimental.Electric.Data.Interfaces.PvPanel pvPanel=
+      Data.PvPanels.SanyoHIP230HDE1() "Choose a Photovoltaic panel to be used"
     annotation (choicesAllMatching=true);
 
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin pin[
@@ -26,7 +25,7 @@ model PVSystemGeneral "PV system with separate shut-down controller"
 
   outer IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  IDEAS.Electric.Photovoltaics.Components.PvArray pvArray(
+  IDEAS.Experimental.Electric.Photovoltaics.Components.PvArray pvArray(
     amount=amount,
     azi=azi,
     inc=inc,
@@ -34,16 +33,16 @@ model PVSystemGeneral "PV system with separate shut-down controller"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-70,32})));
-  IDEAS.Electric.Photovoltaics.Components.SimpleInverter invertor
+  IDEAS.Experimental.Electric.Photovoltaics.Components.SimpleInverter invertor
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Electrical.Analog.Basic.Ground ground1
     annotation (Placement(transformation(extent={{-26,-14},{-6,6}})));
-  IDEAS.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=numPha)
+  IDEAS.Experimental.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  IDEAS.Electric.Photovoltaics.Components.PvVoltageToPower vi2PQ
+  IDEAS.Experimental.Electric.Photovoltaics.Components.PvVoltageToPower vi2PQ
     annotation (Placement(transformation(extent={{-6,20},{14,40}})));
 
-  IDEAS.Electric.Photovoltaics.Components.PvVoltageCtrlGeneral pvVoltageCtrl(
+  IDEAS.Experimental.Electric.Photovoltaics.Components.PvVoltageCtrlGeneral pvVoltageCtrl(
     VMax=VMax,
     timeOff=timeOff,
     numPha=numPha)

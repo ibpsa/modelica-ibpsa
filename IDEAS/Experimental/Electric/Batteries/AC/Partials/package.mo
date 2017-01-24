@@ -1,3 +1,3 @@
-within IDEAS.Electric.Batteries.AC;
+within IDEAS.Experimental.Electric.Batteries.AC;
 package Partials 
 end Partials;

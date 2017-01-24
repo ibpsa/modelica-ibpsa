@@ -1,4 +1,4 @@
-within IDEAS.Electric.Photovoltaics;
+within IDEAS.Experimental.Electric.Photovoltaics;
 model PvSystemGeneralFromFile "PV system with separate shut-down controller"
 
   parameter Real PNom "Nominal power, in Wp";
@@ -15,18 +15,20 @@ model PvSystemGeneralFromFile "PV system with separate shut-down controller"
     numPha] annotation (Placement(transformation(extent={{92,30},{112,50}},
           rotation=0)));
 
-  IDEAS.Electric.Photovoltaics.Components.ForInputFiles.SimpleDCAC_effP inverter(PNom=PNom)
+  IDEAS.Experimental.Electric.Photovoltaics.Components.ForInputFiles.SimpleDCAC_effP
+    inverter(PNom=PNom)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  IDEAS.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=numPha)
+  IDEAS.Experimental.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  IDEAS.Electric.Photovoltaics.Components.PvVoltageCtrlGeneral pvVoltageCtrl(
+  IDEAS.Experimental.Electric.Photovoltaics.Components.PvVoltageCtrlGeneral pvVoltageCtrl(
     VMax=VMax,
     timeOff=timeOff,
     numPha=numPha)
     annotation (Placement(transformation(extent={{26,20},{46,40}})));
-  outer IDEAS.Electric.Photovoltaics.Components.ForInputFiles.PVProfileReader PV1
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  outer
+    IDEAS.Experimental.Electric.Photovoltaics.Components.ForInputFiles.PVProfileReader
+    PV1 annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   inverter.P_dc = PV1.P_ratio*PNom;
   connect(wattsLaw.vi, pin) annotation (Line(

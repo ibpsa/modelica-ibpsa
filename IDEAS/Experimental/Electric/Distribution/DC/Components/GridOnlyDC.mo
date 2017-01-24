@@ -1,16 +1,16 @@
-within IDEAS.Electric.Distribution.DC.Components;
+within IDEAS.Experimental.Electric.Distribution.DC.Components;
 model GridOnlyDC
 //extends Modelica.Icons.UnderConstruction;
-replaceable parameter Electric.Data.Interfaces.DirectCurrent.GridType grid
-    "Choose a grid Layout"                                                                              annotation(choicesAllMatching = true);
+replaceable parameter Data.Interfaces.DirectCurrent.GridType grid
+    "Choose a grid Layout" annotation (choicesAllMatching=true);
 
 Modelica.Electrical.Analog.Interfaces.PositivePin[2,Nodes] node
      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 Modelica.Electrical.Analog.Interfaces.PositivePin GridConnection[2]
      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
-  Electric.Distribution.DC.BaseClasses.Branch branch[Nodes](R=R);
-  Electric.Distribution.DC.BaseClasses.Branch neutral[Nodes](R=R);
+  BaseClasses.Branch branch[Nodes](R=R);
+  BaseClasses.Branch neutral[Nodes](R=R);
 
   output Modelica.SIunits.ActivePower PGriTot;
   output Modelica.SIunits.ActivePower PLosBra[Nodes]=branch.Plos;

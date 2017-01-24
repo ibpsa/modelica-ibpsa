@@ -1,13 +1,13 @@
-within IDEAS.Electric.Distribution.Components;
+within IDEAS.Experimental.Electric.Distribution.Components;
 model GridGeneralDC "THE General inhome grid to use."
 
-replaceable parameter Electric.Data.Interfaces.DirectCurrent.GridType grid
-    "Choose a grid Layout"                                                             annotation(choicesAllMatching = true);
+replaceable parameter Data.Interfaces.DirectCurrent.GridType grid
+    "Choose a grid Layout" annotation (choicesAllMatching=true);
 
 parameter Integer Nodes = grid.nNodes;
 
-Electric.Distribution.DC.GridDCGeneral gridDCGeneral(grid=grid)
-     annotation (Placement(transformation(extent={{-40,-20},{0,20}})));
+DC.GridDCGeneral gridDCGeneral(grid=grid)
+    annotation (Placement(transformation(extent={{-40,-20},{0,20}})));
 Modelica.Electrical.Analog.Interfaces.PositivePin loadNodesDC[1,grid.nNodes]
      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 Modelica.Electrical.Analog.Interfaces.PositivePin[2] gridConnection

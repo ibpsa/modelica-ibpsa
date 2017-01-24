@@ -1,4 +1,4 @@
-within IDEAS.Electric.BaseClasses.Converters.ConvertersPin;
+within IDEAS.Experimental.Electric.BaseClasses.Converters.ConvertersPin;
 model Rectifier "Rectifier (AC to DC)"
 extends Modelica.Blocks.Interfaces.BlockIcon;
 extends Partials.Converter;

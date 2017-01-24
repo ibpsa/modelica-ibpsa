@@ -1,4 +1,4 @@
-within IDEAS.Electric.Batteries.DC;
+within IDEAS.Experimental.Electric.Batteries.DC;
 model BatterySystemGeneral
   extends DC.Partials.BatterySystem;
 
@@ -9,7 +9,7 @@ model BatterySystemGeneral
   Modelica.Electrical.Analog.Interfaces.NegativePin pin annotation (Placement(transformation(extent={{-106,-10},{-86,10}},
           rotation=0)));
 
-  IDEAS.Electric.Batteries.Control.BatteryCtrlGeneral batteryCtrlGeneral(
+  IDEAS.Experimental.Electric.Batteries.Control.BatteryCtrlGeneral batteryCtrlGeneral(
     DOD_max=DOD_max,
     EBat=3600000*EBat,
     eta_out=technology.eta_out,

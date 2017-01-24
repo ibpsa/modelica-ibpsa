@@ -1,4 +1,4 @@
-within IDEAS.Electric.BaseClasses.AC;
+within IDEAS.Experimental.Electric.BaseClasses.AC;
 model WattsLawPlug "For use  with loads."
   parameter Integer numPha=1 "Choose the number of phases" annotation (choices(
         choice=1 "single phase", choice=3 "symmetrical 3 phase"));

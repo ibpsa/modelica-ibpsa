@@ -1,4 +1,4 @@
-within IDEAS.Electric.BaseClasses.DC;
+within IDEAS.Experimental.Electric.BaseClasses.DC;
 model WattsLaw "For use  with loads"
 
 Modelica.Electrical.Analog.Interfaces.NegativePin[1] vi

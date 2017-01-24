@@ -1,4 +1,4 @@
-within IDEAS.Electric.Distribution.DC.BaseClasses;
+within IDEAS.Experimental.Electric.Distribution.DC.BaseClasses;
 model Branch
   extends Modelica.Electrical.Analog.Interfaces.OnePort;
 

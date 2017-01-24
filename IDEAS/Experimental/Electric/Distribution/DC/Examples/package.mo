@@ -1,4 +1,4 @@
-within IDEAS.Electric.Distribution.DC;
+within IDEAS.Experimental.Electric.Distribution.DC;
 package Examples 
 extends Modelica.Icons.Package;
 
