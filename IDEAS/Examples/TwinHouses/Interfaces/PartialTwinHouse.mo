@@ -16,10 +16,10 @@ partial model PartialTwinHouse
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
    replaceable IDEAS.Examples.TwinHouses.BaseClasses.Structures.TwinhouseN2 struct(T_start={303.15,
-        303.15,303.15,303.15,303.15,303.15,303.15},
+        303.15,303.15,303.15,303.15,303.15,303.15})
+   constrainedby IDEAS.Examples.TwinHouses.Interfaces.PartialTTHStructure(
     final exp=exp,
-    final bui=bui)                                  constrainedby
-    IDEAS.Examples.TwinHouses.Interfaces.PartialTTHStructure
+    final bui=bui)
     "Building envelope model"
     annotation (Placement(transformation(extent={{-42,-10},{-12,10}})));
    replaceable IDEAS.Examples.TwinHouses.BaseClasses.HeatingSystems.ElectricHeating_Twinhouse_alt
