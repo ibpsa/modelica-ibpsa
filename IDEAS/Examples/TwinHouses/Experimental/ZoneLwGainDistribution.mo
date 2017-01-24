@@ -1,8 +1,10 @@
-within IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer;
+within IDEAS.Examples.TwinHouses.Experimental;
 model ZoneLwGainDistribution
-  "Distribution of radiative internal gains"
+  "Distribution of radiative internal gains with assignment of solar irradiation to a single floor fraction"
 
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
+  parameter Real[nSurf] weightFactorDir(each final fixed=true)
+    "weightfactor for received direct shortwave solar radiation";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir
     "Direct solar radiation gains received through windows"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
@@ -42,8 +44,6 @@ model ZoneLwGainDistribution
         origin={-80,100})));
 
 protected
-  final parameter Real[nSurf] weightFactorDir(each final fixed=false)
-    "weightfactor for received direct shortwave solar radiation";
   final parameter Real[nSurf] weightFactorDif(each final fixed=false)
     "weightfactor for received direct shortwave solar radiation";
   final parameter Real[nSurf] weightFactorGain(each final fixed=false)
@@ -68,9 +68,9 @@ Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
         rotation=270,
         origin={80,100})));
 initial equation
-  weightFactorDir = {if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor)
-                     then area[i]*epsSw[i]/AfloorTot
-                     else (1-fraTotAbsFloor)*area[i]*epsSw[i]/ASWotherSurface for i in 1:nSurf};
+//   weightFactorDir = {if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor)
+//                      then area[i]*epsSw[i]/AfloorTot
+//                      else (1-fraTotAbsFloor)*area[i]*epsSw[i]/ASWotherSurface for i in 1:nSurf};
   weightFactorDif = area .* epsSw / sum(area .* epsSw);
   weightFactorGain = area .* epsLw / sum(area .* epsLw);
   // minimum of Modelica.Constants.small to guard against division by zero
@@ -133,52 +133,14 @@ equation
           smooth=Smooth.None)}),
     Documentation(info="<html>
 <p>
-This model computes how radiative gains are redistributed among all surfaces.
-We consider 1) diffuse solar gains, 
-2) beam solar gains and 
-3) other, long wave, internal gains, e.g. from occupants.
-</p>
-<p>
-Diffuse solar gains are redistributed by computing a weighting factor equal to the surface area multiplied with the
-shortwave emissivity of the surface.
-This factor is used to redistribute the diffuse solar gains among all surfaces.
-</p>
-<p>
-Internal gains from occupants are redistributed in the same way, but using
-the long wave emissivity instead of the short wave emissivity.
-</p>
-<p>
-Direct/bream solar gains are redistributed by assuming that a fixed fraction of the beam solar
-gains are absorbed by the floor. 
-This fraction equals the short wave emissivity of the floor. 
-If there are multiple floors (based on the inclination angle) 
-then their area and emissivity are used to compute a weight factor for the floors.
-The remaining radiation is redistributed over all other surfaces, again using the shortwave emissivity
-and surface area to determine the relative fractions.
-If there is no floor then the beam radiation is spread over all surfaces and a warning is generated.
+Radiant gains distribution model that allows to explicitely 
+assign direct solar gains weight factors for each surface.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-December 22, 2016 by Filip Jorissen:<br/>
-Fixed bug in absorption model where
-<code>TRad</code> was computed using coefficients for
-<code>iSolDir</code> instead of <code>iSolDif</code>.
-Added asserts for checking the sum of all 
-weight factors.
-This closes #605.
-</li>
-<li>
-September 8, 2016 by Filip Jorissen:<br/>
-Added warning for when there are no floors and guarded against division by zero.
-</li>
-<li>
-July 15, 2016 by Filip Jorissen:<br/>
-New absorption model for beam radiation.
-</li>
-<li>
-July 12, 2016 by Filip Jorissen:<br/>
-Simplified implementation by removing intermediate variables.
+January 24, 2017 by Filip Jorissen:<br/>
+First implementation
 </li>
 </ul>
 </html>"));
