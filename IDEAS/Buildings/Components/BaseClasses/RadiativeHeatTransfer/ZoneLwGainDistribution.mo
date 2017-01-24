@@ -1,5 +1,6 @@
 within IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer;
-model ZoneLwGainDistribution "distribution of radiative internal gains"
+model ZoneLwGainDistribution
+  "Distribution of radiative internal gains"
 
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir
