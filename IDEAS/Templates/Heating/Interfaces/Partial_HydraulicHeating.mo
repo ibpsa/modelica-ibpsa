@@ -1,6 +1,5 @@
 within IDEAS.Templates.Heating.Interfaces;
 partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
-  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
   extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
     isHea = true,
     isCoo = false,
@@ -39,10 +38,10 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
     annotation (Placement(transformation(extent={{-134,12},{-114,32}})));
   // --- distribution components of hydraulic circuit
   IDEAS.Fluid.Movers.FlowControlled_m_flow[nZones] pumpRad(
-    m_flow_nominal=m_flow_nominal,
     redeclare each replaceable package Medium = Medium,
-    tau=30,
-    filteredSpeed=false)
+    each tau=30,
+    each filteredSpeed=false,
+    m_flow_nominal=m_flow_nominal)
               annotation (Placement(transformation(extent={{88,64},{112,40}})));
   Fluid.Actuators.Valves.Simplified.Thermostatic3WayValve idealCtrlMixer(
     m_flow_nominal=sum(m_flow_nominal),
@@ -140,7 +139,7 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
         extent={{8,-8},{-8,8}},
         rotation=0,
         origin={90,-92})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
+  Fluid.FixedResistances.Junction                   spl(
     redeclare replaceable package Medium = Medium,
     m_flow_nominal={sum(m_flow_nominal),sum(m_flow_nominal),-sum(m_flow_nominal)},
     dp_nominal={0,0,0})
