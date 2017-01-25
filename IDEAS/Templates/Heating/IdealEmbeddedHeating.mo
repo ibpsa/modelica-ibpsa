@@ -37,23 +37,19 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Documentation(revisions="<html>
-
-
+<ul>
+<li>
+January 23, 2017 by Filip Jorissen and Glenn Reynders:<br/>
+Revised implementation and documentation.
+</li>
+<li>2013 June, Roel De Coninck: reworking interface and documentation</li>
+<li>2011, Roel De Coninck: first version</li>
+</ul>
+</html>", info="<html>
 <p>
 This example model illustrates how heating systems may be used.
 Its implementation may not reflect best modelling practices.
 </p>
-</html>", revisions="<html>
-<p><ul>
-<li>
-January 23, 2017 by Filip Jorissen:<br/>
-Revised implementation and documentation.
-</li>
-<li>2017 January, Glenn Reynders: minor revision</li>
-<li>2013 June, Roel De Coninck: minor edits and documentation</li>
-<li>2012-2013, Roel De Coninck: many minor and major revisions</li>
-<li>2011, Roel De Coninck: first version</li>
-</ul></p>
 </html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},
             {200,100}}),       graphics),
     Icon(coordinateSystem(extent={{-200,-100},{200,100}})));

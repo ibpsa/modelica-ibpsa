@@ -26,7 +26,6 @@ model Heating_Embedded_DHW_STS
       m_flowMin=m_flow_nominal/3,
       RadSlaCha=RadSlaCha,
       A_floor=AEmb,
-      nParCir=1),
       each nParCir=1),
     redeclare Controls.ControlHeating.Ctrl_Heating_DHW ctrl_Heating(
       TDHWSet=TDHWSet,
@@ -240,10 +239,9 @@ Its implementation may not reflect best modelling practices.
 </html>", revisions="<html>
 <ul>
 <li>
-January 23, 2017 by Filip Jorissen:<br/>
+January 23, 2017 by Filip Jorissen and Glenn Reynders:<br/>
 Revised implementation and documentation.
 </li>
-<li>2017 January, Glenn Reynders: revision</li>
 <li>2013 June, Roel De Coninck: minor edits and documentation</li>
 <li>2012-2013, Roel De Coninck: many minor and major revisions</li>
 <li>2011, Roel De Coninck: first version</li>
