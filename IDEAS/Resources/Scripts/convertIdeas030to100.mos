@@ -14,6 +14,16 @@ convertElement("IDEAS.Templates.Interfaces.BaseClasses.Structure", "flowPort_Out
 convertElement("IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem", "flowPort_supply", "port_a");
 convertElement("IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem", "flowPort_return", "port_b");
 
+convertModifiers({"IDEAS.Buildings.Data.Interfaces.Construction"},
+                  {"nLay"},
+                  fill("", 0),
+                  true);
+convertModifiers({"IDEAS.Buildings.Data.Interfaces.Construction"},
+                {"nGain"},
+                fill("", 0),
+                true);
+				  
+				  
 
 convertModifiers({"IDEAS.Fluid.FixedResistances.FixedResistanceDpM"},
                   {"dh"},
