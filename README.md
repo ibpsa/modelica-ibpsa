@@ -1,6 +1,6 @@
 
 
-IDEAS v0.3.0
+IDEAS v1.0.0
 ============
 
 Modelica model environment for Integrated District Energy Assessment Simulations (IDEAS), allowing simultaneous transient simulation of thermal and electrical systems at both building and feeder level.
