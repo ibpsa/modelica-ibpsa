@@ -113,7 +113,7 @@ public
   Modelica.SIunits.Power QTra_design=sum(propsBusInt.QTra_design)
     "Total design transmission heat losses for the zone";
   Modelica.Blocks.Interfaces.RealOutput TAir(unit="K") = airModel.TAir;
-  Modelica.Blocks.Interfaces.RealOutput TStar(unit="K") = radDistr.TRad;
+  Modelica.Blocks.Interfaces.RealOutput TRad(unit="K") = radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
 
 protected
