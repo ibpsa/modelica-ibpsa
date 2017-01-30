@@ -116,13 +116,15 @@ public
   Modelica.Blocks.Interfaces.RealOutput TStar(unit="K") = radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
 
-protected
+public
+  replaceable
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwGainDistribution
     radDistr(nSurf=nSurf) "distribution of radiative internal gains"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-50,-50})));
+protected
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
     radDistrLw(nSurf=nSurf, final linearise=linIntRad or sim.linearise,
     Tzone_nom=Tzone_nom,
@@ -333,6 +335,11 @@ It can be enabled using parameter <code>calculateViewFactor</code>.
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 24, 2017 by Filip Jorissen:<br/>
+Made <code>radDistr</code> replaceable
+such that it can be redeclared in experimental models.
+</li>
 <li>
 January 19, 2017 by Filip Jorissen:<br/>
 Propagated linearisation parameters for interior radiative heat exchange.
