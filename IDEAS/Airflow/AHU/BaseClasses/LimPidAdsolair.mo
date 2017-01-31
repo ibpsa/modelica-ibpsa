@@ -63,17 +63,17 @@ model LimPidAdsolair
   parameter Boolean reverseAction = false
     "Set to true for throttling the water flow rate through a cooling coil controller";
 
-  parameter Annex60.Types.Reset reset = Annex60.Types.Reset.Disabled
+  parameter IDEAS.Types.Reset reset = IDEAS.Types.Reset.Disabled
     "Type of controller output reset"
     annotation(Evaluate=true, Dialog(group="Integrator reset"));
 
   parameter Real y_reset=xi_start
-    "Value to which the controller output is reset if the boolean trigger has a rising edge, used if reset == Annex60.Types.Reset.Parameter"
-    annotation(Dialog(enable=reset == Annex60.Types.Reset.Parameter,
+    "Value to which the controller output is reset if the boolean trigger has a rising edge, used if reset == IDEAS.Types.Reset.Parameter"
+    annotation(Dialog(enable=reset == IDEAS.Types.Reset.Parameter,
                       group="Integrator reset"));
 
 
-  Annex60.Controls.Continuous.LimPID conPID(reset=Annex60.Types.Reset.Parameter,
+  IDEAS.Controls.Continuous.LimPID conPID(reset=IDEAS.Types.Reset.Parameter,
       y_reset=y_off,
     controllerType=controllerType,
     k=1,

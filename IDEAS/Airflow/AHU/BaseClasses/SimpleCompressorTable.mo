@@ -16,7 +16,7 @@ model SimpleCompressorTable
     "Nominal temperature difference between evaporator air inlet and refrigerant";
   parameter Modelica.SIunits.HeatCapacity C "Heat capacity of at condensor heat port";
   Real tempMod = if smoothTmpPro then
-                  Solarwind.Utilities.Math.Functions.spliceFunction(x=min(limit1.y,limit2.y)/modulatingRange-1, pos=1, neg=0, deltax=1)
+                  IDEAS.Utilities.Math.Functions.spliceFunction(x=min(limit1.y,limit2.y)/modulatingRange-1, pos=1, neg=0, deltax=1)
                  else 1
     "Modulation due to temperature bounds without causing events";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
