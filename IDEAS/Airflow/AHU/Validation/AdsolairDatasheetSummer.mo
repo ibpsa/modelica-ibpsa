@@ -15,7 +15,7 @@ model AdsolairDatasheetSummer
     annotation (Placement(transformation(extent={{-114,0},{-100,14}})));
   Modelica.Blocks.Sources.Constant V_flow_room(k=14200/3600)
     annotation (Placement(transformation(extent={{-114,42},{-100,56}})));
-  Solarwind.Utilities.Psychrometrics.X_pTphi
+  IDEAS.Utilities.Psychrometrics.X_pTphi
                                    XiEnv1(
                                          use_p_in=false)
     annotation (Placement(transformation(extent={{68,-2},{56,10}})));
