@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Data.Constructions;
 record TABS "Classic TABS floor"
   extends IDEAS.Buildings.Data.Interfaces.Construction(
-    locGain={4},
+    locGain={1},
     incLastLay = IDEAS.Types.Tilt.Floor,
     mats={IDEAS.Buildings.Data.Materials.Concrete(d=0.125),
     IDEAS.Buildings.Data.Materials.Concrete(d=0.125),
