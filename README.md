@@ -6,14 +6,22 @@ IDEAS v1.0.0
 Modelica model environment for Integrated District Energy Assessment Simulations (IDEAS), allowing simultaneous transient simulation of thermal and electrical systems at both building and feeder level.
 
 ### IDEAS v1.0.0
-IDEAS v1.0.0 has been released. Changes compared to v0.3 include but are not limited to:
+IDEAS v1.0.0 has been released.
 
-0. IDEAS 1.0 is based on Annex 60 version 1.0.
+## Backward compatibility
+Quite some backward incompatible changes have been performed. However, a conversion script is provided that fixes most of these. The conversion script prompt should occur automatically if your model or package 'uses' IDEAS version 3.0 before updating. Make sure you have a backup (e.g. using git) before running the conversion script.
+
+The insulationType and insulationThickness parameters were removed from the wall/surface models. The insulation types and thicknesses will therefore need to be integrated manually into the construction types that you use. If the insulationthickness is zero or you did not use 'insulationType' in your construction records, then both parameters can just be removed.
+
+## Release notes
+Changes compared to v0.3 include but are not limited to:
+
+0. IDEAS 1.0.0 is based on Annex 60 version 1.0.0
 1. The IDEAS packages have been restructured to be more in line with the Annex 60 package structure.
 ..* IDEAS.Constants has been replaced by IDEAS.Types
 ..* The SimInfoManager has been moved to IDEAS.BoundaryConditions
 ..* Interfaces such as HeatingSystem and BaseCircuits have been moved to IDEAS.Templates 
-2. Setting up new Construction records has been simplified. Parameter values of nLay and nGain are now inferred from the other parameters.
+2. Setting up new Construction records has been simplified. Parameter values of nLay and nGain are now inferred from the other parameters and may therefore no longer be assigned.
 3. Optional parameter incLastLay has been added to Construction records. Users may use this to double-check if InternalWalls are connected as intended.
 4. The way how internal gains may be connected to surfaces has been changed.
 5. Convection and thermal radiation equations have been tuned to be more accurate and faster.
@@ -38,6 +46,11 @@ IDEAS v1.0.0 has been released. Changes compared to v0.3 include but are not lim
 21. Cleaned up implementation of BESTEST models.
 22. Added new, specialised window types.
 23. Added options for model linearisation.
+24. Improved accuracy of model that computes internal longwave radiation. 
+25. Improved accuracy of model that computes exterior sky temperature.
+26. Moved Electrical package into Experimental package since this package contains broken models.
+27. Added unit tests for templates.
+28. Added Menerga Adsolair model.
 
 
 
