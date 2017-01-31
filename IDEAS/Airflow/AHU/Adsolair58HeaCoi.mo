@@ -57,5 +57,12 @@ and a new controller.
 The <code>yHea</code> output should be connected to an external valve 
 that controls the secondary mass flow rate of the heating coil.
 </p>
-</html>"));
+</html>"), Icon(graphics={
+        Rectangle(
+          extent={{-80,-40},{-70,-80}},
+          lineColor={0,0,255},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-80,-80},{-80,-100}}, color={255,0,0}),
+        Line(points={{-70,-80},{-20,-80},{-20,-98}}, color={255,128,0})}));
 end Adsolair58HeaCoi;

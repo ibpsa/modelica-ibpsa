@@ -623,9 +623,60 @@ equation
     annotation (Line(points={{94,44},{100,44},{100,60}}, color={0,127,255}));
   connect(valBypassTop.port_b, port_b1)
     annotation (Line(points={{94,66},{100,66},{100,60}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-140,-100},{100,100}})),
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
+        ={
+        Rectangle(
+          extent={{-102,65},{99,55}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-102,-55},{99,-65}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),Rectangle(
+          extent={{0,80},{80,-80}},
+          lineColor={0,0,0},
+          fillColor={255,170,85},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-56,78},{-22,44}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199}),
+        Polygon(
+          points={{-46,76},{-46,46},{-22,60},{-46,76}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255}),
+        Ellipse(
+          extent={{-56,-42},{-22,-76}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199}),
+        Polygon(
+          points={{-32,-44},{-32,-74},{-56,-60},{-32,-44}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255}),
+        Rectangle(
+          extent={{-12,-40},{-2,-80}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{82,80},{92,40}},
+          lineColor={0,0,255},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(points={{0,80},{80,-80}}, color={0,0,0}),
+        Line(points={{80,80},{0,-80}}, color={0,0,0})}),
     experiment(
       StopTime=3000,
       Tolerance=0.001,
