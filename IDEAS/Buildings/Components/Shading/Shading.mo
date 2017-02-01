@@ -71,6 +71,20 @@ protected
     shaPro.shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.None
     "No shading model"
     annotation (Placement(transformation(extent={{-16,-40},{-6,-20}})));
+
+  IDEAS.Buildings.Components.Shading.BoxAndScreen boxAndScreen(
+    azi=azi,
+    hWin=shaPro.hWin,
+    wWin=shaPro.wWin,
+    wLeft=shaPro.wLeft,
+    wRight=shaPro.wRight,
+    ovDep=shaPro.ovDep,
+    ovGap=shaPro.ovGap,
+    hFin=shaPro.hFin,
+    finDep=shaPro.finDep,
+    finGap=shaPro.finGap,
+    shaCorr=shaPro.shaCorr) if shaPro.shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.BoxAndScreen "Box and screen model"
+        annotation (Placement(transformation(extent={{-16,-62},{-6,-42}})));
 equation
   connect(screen.Ctrl, Ctrl) annotation (Line(
       points={{-11,0},{-10,0},{-10,-110}},
@@ -192,4 +206,22 @@ equation
     annotation (Line(points={{-6,-28},{40,-28},{40,10}}, color={0,0,127}));
   connect(none.iSolDir, iSolDir)
     annotation (Line(points={{-6,-24},{40,-24},{40,50}}, color={0,0,127}));
+  connect(boxAndScreen.solDir, solDir) annotation (Line(points={{-16,-46},{-36,-46},
+          {-36,50},{-60,50}}, color={0,0,127}));
+  connect(boxAndScreen.solDif, solDif) annotation (Line(points={{-16,-50},{-36,-50},
+          {-36,10},{-60,10}}, color={0,0,127}));
+  connect(boxAndScreen.angInc, angInc) annotation (Line(points={{-16,-56},{-36,-56},
+          {-36,-50},{-60,-50}}, color={0,0,127}));
+  connect(boxAndScreen.angZen, angZen) annotation (Line(points={{-16,-58},{-32,-58},
+          {-32,-70},{-60,-70}}, color={0,0,127}));
+  connect(boxAndScreen.angAzi, angAzi) annotation (Line(points={{-16,-60},{-34,-60},
+          {-34,-90},{-60,-90}}, color={0,0,127}));
+  connect(boxAndScreen.iSolDir, iSolDir) annotation (Line(points={{-6,-46},{10,-46},
+          {10,50},{40,50}}, color={0,0,127}));
+  connect(boxAndScreen.iSolDif, iSolDif) annotation (Line(points={{-6,-50},{10,-50},
+          {10,10},{40,10}}, color={0,0,127}));
+  connect(boxAndScreen.iAngInc, iAngInc) annotation (Line(points={{-6,-56},{12,-56},
+          {12,-50},{40,-50}}, color={0,0,127}));
+  connect(Ctrl, boxAndScreen.Ctrl) annotation (Line(points={{-10,-110},{-10,-62},
+          {-11,-62}}, color={0,0,127}));
 end Shading;

@@ -10,7 +10,7 @@ model Building
   parameter Boolean standAlone=true;
   parameter Boolean isDH=false "True if the building is connected to a DH grid";
 
-  final parameter Modelica.SIunits.Temperature[building.nZones] T_start = ones(building.nZones)*293.15
+  final parameter Modelica.SIunits.Temperature T_start = 293.15
     "Operative zonal start temperatures";
   final parameter Modelica.SIunits.Power[building.nZones] Q_design = building.Q_design+ventilationSystem.Q_design
     "Total design heat load for heating system based on heat losses";
@@ -74,6 +74,7 @@ model Building
   final parameter Boolean InInterface = true;
 initial equation
    voltageSource.pin_n.reference.gamma=0;
+
 
 
 equation

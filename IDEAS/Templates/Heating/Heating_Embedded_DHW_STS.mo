@@ -26,13 +26,13 @@ model Heating_Embedded_DHW_STS
       m_flowMin=m_flow_nominal/3,
       RadSlaCha=RadSlaCha,
       A_floor=AEmb,
-      nParCir=1),
+      each nParCir=1),
     redeclare Controls.ControlHeating.Ctrl_Heating_DHW ctrl_Heating(
       TDHWSet=TDHWSet,
       TColdWaterNom=TColdWaterNom,
       dTHPTankSet=dTHPTankSet),
     heater(m_flow_nominal=sum(m_flow_nominal) + m_flow_nominal_stoHX),
-    pumpRad(riseTime=100, dpFix=0));
+    pumpRad(each riseTime=100));
   // --- Domestic Hot Water (DHW) Parameters
   parameter Integer nOcc = 1 "Number of occupants";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal_DHW = nOcc*dHW.VDayAvg*983/(3600*24)*10
@@ -79,7 +79,7 @@ model Heating_Embedded_DHW_STS
         extent={{-14,-20},{14,20}},
         rotation=0,
         origin={-12,0})));
-  // --- Domestic Hot Water and it hydraulic circuit
+  // --- Domestic Hot Water and its hydraulic circuit
   replaceable IDEAS.Fluid.Taps.BalancedTap dHW(
     TDHWSet=TDHWSet,
     profileType=3,
@@ -91,14 +91,13 @@ model Heating_Embedded_DHW_STS
         extent={{-9,5},{9,-5}},
         rotation=-90,
         origin={-47,1})));
-  IDEAS.Fluid.FixedResistances.InsulatedPipe pipeDHW(redeclare package Medium
-      =                                                                          Medium, m=1,
+  IDEAS.Fluid.FixedResistances.InsulatedPipe pipeDHW(redeclare package Medium =  Medium, m=1,
     UA=10,
     m_flow_nominal=m_flow_nominal_DHW)
     annotation (Placement(transformation(extent={{-28,-32},{-44,-26}})));
   Fluid.Sources.FixedBoundary       absolutePressure1(
-                                                     redeclare package Medium
-      = Medium, use_T=false,
+                                                     redeclare package Medium =
+        Medium, use_T=false,
     nPorts=1)
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=90,
@@ -125,10 +124,10 @@ model Heating_Embedded_DHW_STS
     "Temperature at the outlet of the storage tank heat exchanger (port_bHX)"
     annotation (Placement(transformation(extent={{-66,-54},{-78,-42}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow1[
-    nRadPorts](Q_flow=0)
+    nRadPorts](each Q_flow=0)
     annotation (Placement(transformation(extent={{-140,-32},{-160,-12}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow[
-    nConvPorts](Q_flow=0)
+    nConvPorts](each Q_flow=0)
     annotation (Placement(transformation(extent={{-142,8},{-162,28}})));
   Modelica.Blocks.Math.Gain gain(k=m_flow_nominal_stoHX) annotation (Placement(
         transformation(
@@ -137,7 +136,7 @@ model Heating_Embedded_DHW_STS
         origin={-80,-8})));
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow) + QDHW;
-  P[1] = heater.PEl + pumpSto.P + sum(pumpRad.PEl);
+  P[1] = heater.PEl + pumpSto.P + sum(pumpRad.P);
   Q[1] = 0;
   // Result variables
   TTankTopSet = ctrl_Heating.TTopSet;
@@ -165,7 +164,7 @@ equation
           {-127,-12},{-127,-14}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
+  connect(emission[:].heatPortEmb[1], heatPortEmb[:]) annotation (Line(
       points={{135,44},{134,44},{134,98},{-180,98},{-180,60},{-190,60},{-190,60},
           {-200,60}},
       color={191,0,0},
@@ -233,39 +232,21 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
             100}})),
     Documentation(info="<html>
-<p><b>Description</b> </p>
-<p>Multi-zone Hydraulic heating system with <a href=\"modelica://IDEAS.Thermal.Components.Emission.EmbeddedPipe\">embedded pipe</a> emission system (TABS). There is no thermal energy storage tank for the heating, but the domestic hot water (DHW) system has a storage tank with internal heat exchanger. An optional solar thermal system is foreseen to (pre)heat the DHW storage tank.. A schematic hydraulic scheme is given below:</p>
-<p><img src=\"modelica://IDEAS/../Specifications/Thermal/images/HydraulicScheme_Heating_Embedded_DHW_STS.png\"/></p>
-<p>For multizone systems, the components <i>pumpRad</i>, <i>emission</i> and <i>pipeReturn</i> are arrays of size <i>nZones</i>. In this model, the <i>emission</i> is a an embedded pipe, the <i>heater</i> is a replaceable component and can be a boiler or heat pump or anything that extends from <a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\">PartialDynamicHeaterWithLosses</a>.</p>
-<p>There are two controllers in the model (not represented in the hydraulic scheme): one for the heater set temperature and control signal of the pump for charging the DHW storage tank (<a href=\"modelica://IDEAS.Thermal.Control.Ctrl_Heating_DHW\">Ctrl_Heating_DHW</a>), and another one for the on/off signal of <i>pumpRad</i> (= thermostat). The system is controlled based on a temperature measurement in each zone, a set temperature for each zone, temperature measurements in the storage tank and a general heating curve (not per zone). The heater will produce hot water at a temperature slightly above the required temperature, depending on the heat demand (space heating or DHW). The <i>idealMixer</i> will mix the supply flow rate with return water to reach the heating curve set point. Right after the <i>idealMixer</i>, the flow is splitted in <i>nZones</i> flows and each <i>pumpRad</i> will set the flowrate in the zonal distribution circuit based on the zone temperature and set point. </p>
-<p>A solar thermal system is connected to the DHW storage tank (if <i>solSys</i>=true), but this connection should be improved: a second internal heat exchanger should be foreseen for this heat source. </p>
-<p>The heat losses of the heater and all the pipes are connected to a central fix temperature. </p>
-<p><h4>Assumptions and limitations </h4></p>
-<p><ol>
-<li>Controllers try to limit or avoid events for faster simulation</li>
-<li>Single heating curve for all zones</li>
-<li>Heat emitted through <i>heatPortEmb</i> (to the core of a building construction layer or a <a href=\"modelica://IDEAS.Thermal.Components.Emission.NakedTabs\">nakedTabs</a>)</li>
-<li>All pumps are on/off</li>
-<li>No priority: both pumps can run simultaneously (could be improved).</li>
-</ol></p>
-<p><h4>Model use</h4></p>
-<p><ol>
-<li>Connect the heating system to the corresponding heatPorts of a <a href=\"modelica://IDEAS.Templates.Interfaces.BaseClasses.Structure\">structure</a>. </li>
-<li>Connect <i>TSet</i> and <i>TSensor</i> </li>
-<li>Connect <i>plugLoad </i>to an inhome grid. A<a href=\"modelica://IDEAS.Templates.Interfaces.BaseClasses.CausalInhomeFeeder\"> dummy inhome grid like this</a> has to be used if no inhome grid is to be modelled. </li>
-<li>Set all parameters that are required. </li>
-<li>Not all parameters of the sublevel components are ported to the uppermost level. Therefore, it might be required to modify these components deeper down the hierarchy. </li>
-</ol></p>
-<p><h4>Validation </h4></p>
-<p>This is a system level model, no validation performed. If the solar thermal system is used, the controller of the heat pump might be unsufficient, and the internal heat exchanger in the storage tank should be reconfigured (only in top of tank). To be correct, a second internal heat exchanger should be foreseen to connect the primary circuit of the solar thermal system to the tank. </p>
-<p>This system (without solar thermal system, so <i>solSys</i>=false) is used in De Coninck et al. (2013) and more information can be found in that paper.</p>
-<p><h4>Example </h4></p>
-<p>An example of the use of this model can be found in<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples.Heating_Embedded\"> IDEAS.Thermal.HeatingSystems.Examples.Heating_Embedded</a>.</p>
+<p>
+This example model illustrates how heating systems may be used.
+Its implementation may not reflect best modelling practices.
+</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
+<li>
+January 23, 2017 by Filip Jorissen and Glenn Reynders:<br/>
+Revised implementation and documentation.
+</li>
 <li>2013 June, Roel De Coninck: minor edits and documentation</li>
 <li>2012-2013, Roel De Coninck: many minor and major revisions</li>
 <li>2011, Roel De Coninck: first version</li>
-</ul></p>
-</html>"));
+</ul>
+</html>"),
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Templates/Heating/Examples/Heating_Embedded_DHW_STS.mos"
+        "Simulate and plot"));
 end Heating_Embedded_DHW_STS;

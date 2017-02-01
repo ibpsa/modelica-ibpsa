@@ -11,12 +11,20 @@ model ZoneLwDistributionViewFactor
   final parameter Integer numAzi = 4;
 
   parameter Modelica.SIunits.Length hZone "Distance between floor and ceiling";
+  parameter Boolean linearise = true "Linearise radiative heat exchange"
+    annotation(Evaluate=true);
+  parameter Modelica.SIunits.Temperature Tzone_nom = 295.15
+    "Nominal temperature of environment, used for linearisation"
+    annotation(Dialog(group="Linearisation", enable=linearise));
+  parameter Modelica.SIunits.TemperatureDifference dT_nom = -2
+    "Nominal temperature difference between solid and air, used for linearisation"
+    annotation(Dialog(group="Linearisation", enable=linearise));
 
   parameter Real[nSurf,nSurf] vieFac(each fixed=false)
     "Emissivity weighted viewfactor from surface to surface"
     annotation(Dialog(tab="Advanced"));
-
-Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
+  final parameter Real[nSurf,nSurf] Umat(each fixed=false);
+  Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -47,21 +55,21 @@ Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
         rotation=270,
         origin={-60,-104})));
 
+
+protected
+  parameter Modelica.SIunits.ThermalConductance coeffLin = 1*(2*Tzone_nom+dT_nom)*(Tzone_nom^2+(Tzone_nom+dT_nom)^2)
+    "Coefficient allowing less overhead for evaluation functions. This implementation is an approximation of the real linearization f(u)_lin = df/du|(u=u_bar) * (u-u_bar) + f|u_bar. The accuracy of it has been checked.";
   parameter Real[2+numAzi] Atot(each fixed=false)
     "Total surface area per orientation";
 
   parameter Real[2+numAzi,2+numAzi] vieFacTot(each fixed=false)
     "Emissivity weighted viewfactor from total of surfaces to each other"
     annotation(Dialog(tab="Advanced"));
-//   Real[nSurf] F=A ./ (ones(nSurf)*sum(A) - A) "view factor per surface";
-//   Real[nSurf] R=(ones(nSurf) - epsLw) ./ (A .* epsLw) + (ones(nSurf) - F) ./ A
-//     "heat resistance for logwave radiative heat exchange";
   parameter Real lWall(fixed = false);
-  parameter Real[nSurf,nSurf] Umat(each fixed=false);
+
   parameter Integer index1(fixed=false);
   parameter Integer index2(fixed=false);
   parameter Modelica.SIunits.Area[nSurf] Afloor(each fixed = false);
-
 initial algorithm
   //initialise surface area to zero
   Atot :=zeros(2 + numAzi);
@@ -197,8 +205,8 @@ initial algorithm
             end for;
           end if;
 
-          Umat[i,j] := if vieFacTot[index1, index2]  < Modelica.Constants.small then 0 else 5.68/(1/A[i]/(vieFacTot[index1, index2]*A[j]/Atot[index2])+(1-epsLw[i])/A[i]/epsLw[i]+(1-epsLw[j])/A[j]/epsLw[j]);
-          Umat[j,i] := if vieFacTot[index2, index1]  < Modelica.Constants.small then 0 else 5.68/(1/A[j]/(vieFacTot[index2, index1]*A[i]/Atot[index1])+(1-epsLw[i])/A[i]/epsLw[i]+(1-epsLw[j])/A[j]/epsLw[j]);
+          Umat[i,j] := if vieFacTot[index1, index2]  < Modelica.Constants.small then 0 else (if linearise then coeffLin else 1) * Modelica.Constants.sigma/(1/A[i]/(vieFacTot[index1, index2]*A[j]/Atot[index2])+(1-epsLw[i])/A[i]/epsLw[i]+(1-epsLw[j])/A[j]/epsLw[j]);
+          Umat[j,i] := if vieFacTot[index2, index1]  < Modelica.Constants.small then 0 else (if linearise then coeffLin else 1) * Modelica.Constants.sigma/(1/A[j]/(vieFacTot[index2, index1]*A[i]/Atot[index1])+(1-epsLw[i])/A[i]/epsLw[i]+(1-epsLw[j])/A[j]/epsLw[j]);
           end if;
 
         end for;
@@ -206,7 +214,11 @@ end for;
       Umat := Umat-identity(nSurf).*(Umat*ones(nSurf,nSurf));
 
 equation
-  port_a.Q_flow=-Umat*port_a.T;
+  if linearise then
+    port_a.Q_flow=-Umat*port_a.T;
+  else
+    port_a.Q_flow=-Umat*port_a.T.^4;
+  end if;
   floorArea=Afloor;
 
   annotation (
@@ -227,18 +239,14 @@ equation
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0},
           lineThickness=0.5),
-        Line(points={{-40,10},{40,10}}, color={191,0,0}),
-        Line(points={{-40,10},{-30,16}}, color={191,0,0}),
-        Line(points={{-40,10},{-30,4}}, color={191,0,0}),
-        Line(points={{-40,-10},{40,-10}}, color={191,0,0}),
-        Line(points={{30,-16},{40,-10}}, color={191,0,0}),
-        Line(points={{30,-4},{40,-10}}, color={191,0,0}),
-        Line(points={{-40,-30},{40,-30}}, color={191,0,0}),
-        Line(points={{-40,-30},{-30,-24}}, color={191,0,0}),
-        Line(points={{-40,-30},{-30,-36}}, color={191,0,0}),
-        Line(points={{-40,30},{40,30}}, color={191,0,0}),
-        Line(points={{30,24},{40,30}}, color={191,0,0}),
-        Line(points={{30,36},{40,30}}, color={191,0,0}),
+        Line(points={{-42,0},{40,0}},     color={191,0,0}),
+        Line(points={{30,-6},{40,0}},    color={191,0,0}),
+        Line(points={{30,6},{40,0}},    color={191,0,0}),
+        Line(points={{-58,6},{-14,50}}, color={191,0,0}),
+        Line(points={{-14,38},{-14,50}},
+                                       color={191,0,0}),
+        Line(points={{-26,50},{-14,50}},
+                                       color={191,0,0}),
         Line(
           points={{-68,60},{68,60}},
           color={0,0,0},
@@ -248,7 +256,51 @@ equation
           points={{68,60},{68,-60},{-68,-60},{-68,60}},
           color={0,0,0},
           thickness=0.5,
-          smooth=Smooth.None)}),
+          smooth=Smooth.None),
+        Line(points={{-32,6},{-42,0}},  color={191,0,0}),
+        Line(points={{-32,-6},{-42,0}},  color={191,0,0}),
+        Line(points={{-58,18},{-58,6}},color={191,0,0}),
+        Line(points={{-46,6},{-58,6}}, color={191,0,0}),
+        Line(points={{14,-52},{58,-8}}, color={191,0,0}),
+        Line(points={{26,-52},{14,-52}},
+                                       color={191,0,0}),
+        Line(points={{14,-40},{14,-52}},
+                                       color={191,0,0}),
+        Line(points={{46,-8},{58,-8}}, color={191,0,0}),
+        Line(points={{58,-20},{58,-8}},color={191,0,0}),
+        Line(points={{-22,-22},{22,22}},color={191,0,0},
+          origin={36,28},
+          rotation=90),
+        Line(points={{14,50},{26,50}}, color={191,0,0}),
+        Line(points={{14,38},{14,50}}, color={191,0,0}),
+        Line(points={{46,6},{58,6}},   color={191,0,0}),
+        Line(points={{58,6},{58,18}},  color={191,0,0}),
+        Line(points={{-14,-52},{-14,-40}},
+                                       color={191,0,0}),
+        Line(points={{-22,-22},{22,22}},color={191,0,0},
+          origin={-36,-30},
+          rotation=90),
+        Line(points={{-58,-20},{-58,-8}},
+                                       color={191,0,0}),
+        Line(points={{-58,-8},{-46,-8}},
+                                       color={191,0,0}),
+        Line(points={{-26,-52},{-14,-52}},
+                                       color={191,0,0}),
+        Line(points={{-41,0},{41,0}},     color={191,0,0},
+          origin={-1,0},
+          rotation=90),
+        Line(points={{-5,3},{5,-3}},    color={191,0,0},
+          origin={-5,35},
+          rotation=90),
+        Line(points={{-5,-3},{5,3}},     color={191,0,0},
+          origin={3,35},
+          rotation=90),
+        Line(points={{-5,-3},{5,3}},     color={191,0,0},
+          origin={-5,-35},
+          rotation=90),
+        Line(points={{-5,3},{5,-3}},    color={191,0,0},
+          origin={3,-35},
+          rotation=90)}),
     Documentation(info="<html>
 <p>
 Computation of longwave radiative heat exchange based on view factors. 
@@ -263,6 +315,16 @@ Verification test in IDEAS.Buildings.Validation.Tests.ViewFactorVerification.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 19, 2017 by Filip Jorissen:<br/>
+Updated icon for issue
+<a href=https://github.com/open-ideas/IDEAS/issues/641>#641
+</a>.
+</li>
+<li>
+January 19, 2017 by Filip Jorissen:<br/>
+Added options for properly linearising heat exchange.
+</li>
 <li>
 December 8, 2016 by Filip Jorissen:<br/>
 Fixed indexing bug in algorithm.

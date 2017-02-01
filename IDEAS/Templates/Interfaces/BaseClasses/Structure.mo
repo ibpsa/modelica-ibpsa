@@ -12,6 +12,9 @@ partial model Structure "Partial model for building structure models"
 
   // Building characteristics  //////////////////////////////////////////////////////////////////////////
 
+  parameter Modelica.SIunits.Temperature T_start = Medium.T_default
+    "Operative zonal start temperatures";
+
   parameter Integer nZones(min=1)
     "Number of conditioned thermal zones in the building";
   parameter Integer nEmb(min=0) "Number of embedded systems in the building";
@@ -24,8 +27,6 @@ partial model Structure "Partial model for building structure models"
   final parameter Modelica.SIunits.Length C=sum(VZones)/ATrans
     "Building compactness";
 
-  parameter Modelica.SIunits.Temperature[nZones] T_start = fill(Medium.T_default,nZones)
-    "Operative zonal start temperatures";
 
   parameter Modelica.SIunits.Power[ nZones] Q_design=zeros(nZones)
     "Design heat loss of zones";//must be filled in in the Building interface, e.g.: QDesign={building.zone1.Q_design,building.zone2.Q_design}

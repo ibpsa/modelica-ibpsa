@@ -503,8 +503,6 @@ protected
 
   IDEAS.Buildings.Components.BoundaryWall bouA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypA.nLay,
-      nGain=conTypA.nGain,
       locGain=conTypA.locGain,
       incLastLay=conTypA.incLastLay,
       mats=conTypA.mats),
@@ -518,8 +516,6 @@ protected
   IDEAS.Buildings.Components.BoundaryWall bouB(
            inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypB.nLay,
-      nGain=conTypB.nGain,
       locGain=conTypB.locGain,
       incLastLay=conTypB.incLastLay,
       mats=conTypB.mats),
@@ -533,8 +529,6 @@ protected
     annotation (Placement(transformation(extent={{-120,-20},{-110,0}})));
   IDEAS.Buildings.Components.BoundaryWall bouC(inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypC.nLay,
-      nGain=conTypC.nGain,
       locGain=conTypC.locGain,
       incLastLay=conTypC.incLastLay,
       mats=conTypC.mats),
@@ -549,8 +543,6 @@ protected
   IDEAS.Buildings.Components.BoundaryWall bouD(inc=IDEAS.Types.Tilt.Wall, azi=aziA
          + Modelica.Constants.pi/2*3,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypD.nLay,
-      nGain=conTypD.nGain,
       locGain=conTypD.locGain,
       incLastLay=conTypD.incLastLay,
       mats=conTypD.mats),
@@ -564,8 +556,6 @@ protected
   IDEAS.Buildings.Components.BoundaryWall bouFlo(inc=IDEAS.Types.Tilt.Floor, azi=aziA,
     A=A,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypFlo.nLay,
-      nGain=conTypFlo.nGain,
       locGain=conTypFlo.locGain,
       incLastLay=conTypFlo.incLastLay,
       mats=conTypFlo.mats),
@@ -577,8 +567,6 @@ protected
     annotation (Placement(transformation(extent={{-120,-80},{-110,-60}})));
   IDEAS.Buildings.Components.BoundaryWall bouCei(inc=IDEAS.Types.Tilt.Ceiling, azi=aziA,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypCei.nLay,
-      nGain=conTypCei.nGain,
       locGain=conTypCei.locGain,
       incLastLay=conTypCei.incLastLay,
       mats=conTypCei.mats),
@@ -591,8 +579,6 @@ protected
     annotation (Placement(transformation(extent={{-120,-100},{-110,-80}})));
   IDEAS.Buildings.Components.OuterWall outA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypA.nLay,
-      nGain=conTypA.nGain,
       locGain=conTypA.locGain,
       incLastLay=conTypA.incLastLay,
       mats=conTypA.mats),
@@ -608,8 +594,6 @@ protected
   IDEAS.Buildings.Components.OuterWall outB(
       inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypB.nLay,
-      nGain=conTypB.nGain,
       locGain=conTypB.locGain,
       incLastLay=conTypB.incLastLay,
       mats=conTypB.mats),
@@ -625,8 +609,6 @@ protected
     annotation (Placement(transformation(extent={{-140,-20},{-130,0}})));
   IDEAS.Buildings.Components.OuterWall outC(inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypC.nLay,
-      nGain=conTypC.nGain,
       locGain=conTypC.locGain,
       incLastLay=conTypC.incLastLay,
       mats=conTypC.mats),
@@ -643,8 +625,6 @@ protected
   IDEAS.Buildings.Components.OuterWall outD(inc=IDEAS.Types.Tilt.Wall, azi=aziA +
         Modelica.Constants.pi/2*3,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypD.nLay,
-      nGain=conTypD.nGain,
       locGain=conTypD.locGain,
       incLastLay=conTypD.incLastLay,
       mats=conTypD.mats),
@@ -661,8 +641,6 @@ protected
     inc=IDEAS.Types.Tilt.Ceiling,
     azi=aziA,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypCei.nLay,
-      nGain=conTypCei.nGain,
       locGain=conTypCei.locGain,
       incLastLay=conTypCei.incLastLay,
       mats=conTypCei.mats),
@@ -680,8 +658,6 @@ protected
     azi=aziA,
     A=A,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypFlo.nLay,
-      nGain=conTypFlo.nGain,
       locGain=conTypFlo.locGain,
       incLastLay=conTypFlo.incLastLay,
       mats=conTypFlo.mats),
@@ -698,8 +674,6 @@ protected
     annotation (Placement(transformation(extent={{-160,-80},{-150,-60}})));
   IDEAS.Buildings.Components.InternalWall intA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypA.nLay,
-      nGain=conTypA.nGain,
       locGain=conTypA.locGain,
       mats=conTypA.mats,
       incLastLay=conTypA.incLastLay),
@@ -715,8 +689,6 @@ protected
   IDEAS.Buildings.Components.InternalWall intB(
            inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypB.nLay,
-      nGain=conTypB.nGain,
       locGain=conTypB.locGain,
       incLastLay=conTypB.incLastLay,
       mats=conTypB.mats),
@@ -732,8 +704,6 @@ protected
     annotation (Placement(transformation(extent={{-176,-20},{-164,0}})));
   IDEAS.Buildings.Components.InternalWall intC(inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypC.nLay,
-      nGain=conTypC.nGain,
       locGain=conTypC.locGain,
       incLastLay=conTypC.incLastLay,
       mats=conTypC.mats),
@@ -750,8 +720,6 @@ protected
   IDEAS.Buildings.Components.InternalWall intD(inc=IDEAS.Types.Tilt.Wall, azi=aziA
          + Modelica.Constants.pi/2*3,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypD.nLay,
-      nGain=conTypD.nGain,
       locGain=conTypD.locGain,
       incLastLay=conTypD.incLastLay,
       mats=conTypD.mats),
@@ -769,8 +737,6 @@ protected
     azi=aziA,
     A=A,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      nLay=conTypFlo.nLay,
-      nGain=conTypFlo.nGain,
       locGain=conTypFlo.locGain,
       incLastLay=conTypFlo.incLastLay,
       mats=conTypFlo.mats),
@@ -931,6 +897,7 @@ initial equation
               or use this option to connect and internal wall externally.");
 
 
+
 equation
   connect(intA.propsBus_a, propsBusInt[1]) annotation (Line(
       points={{-165,12},{-152,12},{-152,40},{-80,40}},
@@ -953,71 +920,71 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(slaOnGro.propsBus_a, propsBusInt[5]) annotation (Line(
-      points={{-150,-68},{-150,40},{-80,40}},
+      points={{-150.833,-68},{-150.833,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(outA.propsBus_a, propsBusInt[1]) annotation (Line(
-      points={{-130,12},{-130,12},{-124,12},{-124,40},{-80,40}},
+      points={{-130.833,12},{-130.833,12},{-124,12},{-124,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(outB.propsBus_a, propsBusInt[2]) annotation (Line(
-      points={{-130,-8},{-124,-8},{-124,40},{-80,40}},
+      points={{-130.833,-8},{-124,-8},{-124,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(outC.propsBus_a, propsBusInt[3]) annotation (Line(
-      points={{-130,-28},{-124,-28},{-124,40},{-80,40}},
+      points={{-130.833,-28},{-124,-28},{-124,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(outD.propsBus_a, propsBusInt[4]) annotation (Line(
-      points={{-130,-48},{-124,-48},{-124,40},{-80,40}},
+      points={{-130.833,-48},{-124,-48},{-124,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(outCei.propsBus_a, propsBusInt[6]) annotation (Line(
-      points={{-130,-88},{-124,-88},{-124,40},{-80,40}},
+      points={{-130.833,-88},{-124,-88},{-124,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(bouA.propsBus_a, propsBusInt[1]) annotation (Line(
-      points={{-110,12},{-108,12},{-106,12},{-106,40},{-80,40}},
+      points={{-110.833,12},{-110.833,12},{-106,12},{-106,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(bouB.propsBus_a, propsBusInt[2]) annotation (Line(
-      points={{-110,-8},{-106,-8},{-106,40},{-80,40}},
+      points={{-110.833,-8},{-106,-8},{-106,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(bouC.propsBus_a, propsBusInt[3]) annotation (Line(
-      points={{-110,-28},{-106,-28},{-106,40},{-80,40}},
+      points={{-110.833,-28},{-106,-28},{-106,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(bouD.propsBus_a, propsBusInt[4]) annotation (Line(
-      points={{-110,-48},{-106,-48},{-106,40},{-80,40}},
+      points={{-110.833,-48},{-106,-48},{-106,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(bouFlo.propsBus_a, propsBusInt[5]) annotation (Line(
-      points={{-110,-68},{-106,-68},{-106,40},{-80,40}},
+      points={{-110.833,-68},{-106,-68},{-106,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(bouCei.propsBus_a, propsBusInt[6]) annotation (Line(
-      points={{-110,-88},{-106,-88},{-106,-76},{-106,40},{-80,40}},
+      points={{-110.833,-88},{-106,-88},{-106,-76},{-106,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(winA.propsBus_a, propsBusInt[indWinA]) annotation (Line(
-      points={{-90,12},{-88,12},{-88,40},{-80,40}},
+      points={{-90.8333,12},{-88,12},{-88,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(winB.propsBus_a, propsBusInt[indWinB]) annotation (Line(
-      points={{-90,-8},{-88,-8},{-88,40},{-80,40}},
+      points={{-90.8333,-8},{-88,-8},{-88,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(winC.propsBus_a, propsBusInt[indWinC]) annotation (Line(
-      points={{-90,-28},{-88,-28},{-88,40},{-80,40}},
+      points={{-90.8333,-28},{-88,-28},{-88,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(winD.propsBus_a, propsBusInt[indWinD]) annotation (Line(
-      points={{-90,-48},{-88,-48},{-88,40},{-80,40}},
+      points={{-90.8333,-48},{-88,-48},{-88,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(winCei.propsBus_a, propsBusInt[indWinCei]) annotation (Line(
-      points={{-90,-88},{-88,-88},{-88,40},{-80,40}},
+      points={{-90.8333,-88},{-88,-88},{-88,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(intA.propsBus_b, proBusA) annotation (Line(
@@ -1229,6 +1196,11 @@ components cannot be propagated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 20, 2017 by Filip Jorissen:<br/>
+Removed propagation of <code>nLay</code> and <code>nGain</code>
+since this lead to warnings.
+</li>
 <li>
 January 11, 2017 by Filip Jorissen:<br/>
 Added documentation

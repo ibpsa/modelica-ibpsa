@@ -3,7 +3,20 @@ model Heating "Ppd 12 example model"
   extends IDEAS.Examples.PPD12.Structure;
 
 
-   IDEAS.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 radGnd(
+  //HVAC
+  parameter Real dp_26mm = 992*(m_flow_nominal/0.4)^2 "Pressure drop per m of duct with diameter of 26/20 mm for flow rate of 0.4kg/s";
+  parameter Real dp_20mm = 2871*(m_flow_nominal/0.4)^2 "Pressure drop per m of duct with diameter of 20/16 mm for flow rate of 0.4kg/s";
+  parameter Real dp_16mm = 11320*(m_flow_nominal/0.4)^2 "Pressure drop per m of duct with diameter of 16/12 mm for flow rate of 0.4kg/s";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.4
+    "Nominal water mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_air=300*1.2/3600
+    "Nominal air mass flow rate";
+
+  //CONTROL
+  parameter Modelica.SIunits.Temperature TSet=294.15 "Temperature set point";
+  parameter Modelica.SIunits.Temperature TSet2=296.15 "Temperature set point";
+
+  IDEAS.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 radGnd(
     redeclare package Medium = MediumWater,
     Q_flow_nominal=4373,
     T_a_nominal=273.15 + 75,
@@ -104,12 +117,11 @@ model Heating "Ppd 12 example model"
   Modelica.Blocks.Sources.Constant Thea(k=273.15 + 70)
     "Supply water temperature set point"
     annotation (Placement(transformation(extent={{402,-114},{382,-94}})));
-  Modelica.Blocks.Logical.Hysteresis hysteresis(
-    uLow=273.15 + 20.5,
-    uHigh=273.15 + 21.5)
-    annotation (Placement(transformation(extent={{250,-92},{270,-72}})));
-  Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=0, realFalse=50000)
-    annotation (Placement(transformation(extent={{290,-92},{310,-72}})));
+  Thermostat the "Custom thermostat"
+    annotation (Placement(transformation(extent={{240,-90},{260,-70}})));
+  Modelica.Blocks.Math.BooleanToReal booToRea(realTrue=50000, realFalse=0)
+    "Conversion block of control signal to pump pressure set point"
+    annotation (Placement(transformation(extent={{280,-90},{300,-70}})));
   IDEAS.Fluid.FixedResistances.Junction spl(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -254,15 +266,14 @@ model Heating "Ppd 12 example model"
         origin={259,-155})));
   IDEAS.Fluid.Actuators.Valves.TwoWayTRV valGnd(
     redeclare package Medium = MediumWater,
-    TSet=TSet,
     CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     Kv=0.5,
     allowFlowReversal=false,
     filteredOpening=true,
     from_dp=true,
     m_flow_nominal=m_flow_nominal,
-    dpFixed_nominal=0)
-                  "Thermostatic radiator valve for radiator on ground floor"
+    dpFixed_nominal=0,
+    TSet=TSet2)   "Thermostatic radiator valve for radiator on ground floor"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -272,6 +283,11 @@ model Heating "Ppd 12 example model"
         extent={{-7,-7},{7,7}},
         rotation=90,
         origin={-51,-155})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=
+        500) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={20,10})));
 equation
   connect(hallway.proBusD, living.proBusB) annotation (Line(
       points={{-73,50},{-45,50},{-45,40}},
@@ -434,12 +450,12 @@ equation
   connect(radBed3.heatPortRad, bedRoom3.gainRad) annotation (Line(points={{262.8,
           -172},{238,-172},{238,36},{260,36}}, color={191,0,0},
       visible=false));
-  connect(hysteresis.y,booleanToReal. u) annotation (Line(points={{271,-82},{271,
-          -82},{288,-82}},     color={255,0,255}));
-  connect(booleanToReal.y,pump. dp_in) annotation (Line(points={{311,-82},{320.2,
-          -82},{320.2,-98}},        color={0,0,127}));
-  connect(hysteresis.u, living.TSensor) annotation (Line(points={{248,-82},{-46.6,
-          -82},{-46.6,46}}, color={0,0,127}));
+  connect(the.y, booToRea.u) annotation (Line(points={{260.6,-80},{260.6,-80},{278,
+          -80}}, color={255,0,255}));
+  connect(booToRea.y, pump.dp_in) annotation (Line(points={{301,-80},{320.2,-80},
+          {320.2,-98}}, color={0,0,127}));
+  connect(the.u, living.TSensor) annotation (Line(points={{239.4,-80},{-46.6,-80},
+          {-46.6,46}}, color={0,0,127}));
   connect(hea.TSet, Thea.y) annotation (Line(points={{372,-104},{378,-104},{381,
           -104}},            color={0,0,127}));
   connect(spl1.port_1, pump.port_b)
@@ -513,6 +529,10 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(thermalConductor.port_a, Diner.gainCon)
+    annotation (Line(points={{20,0},{20,-25},{-26,-25}}, color={191,0,0}));
+  connect(thermalConductor.port_b, living.gainCon)
+    annotation (Line(points={{20,20},{20,49},{-46,49}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -200},{400,240}},
         initialScale=0.1), graphics={

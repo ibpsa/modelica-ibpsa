@@ -49,6 +49,12 @@ model PartialZone "Building zone model"
     annotation(Dialog(tab = "Initialization"));
   parameter Real fRH=11
     "Reheat factor for calculation of design heat load, (EN 12831, table D.10 Annex D)" annotation(Dialog(tab="Advanced",group="Design heat load"));
+  parameter Modelica.SIunits.Temperature Tzone_nom = 295.15
+    "Nominal zone temperature, used for linearising radiative heat exchange"
+    annotation(Dialog(tab="Advanced", group="Radiative heat exchange", enable=linIntRad));
+  parameter Modelica.SIunits.TemperatureDifference dT_nom = -2
+    "Nominal temperature difference between zone walls, used for linearising radiative heat exchange"
+    annotation(Dialog(tab="Advanced", group="Radiative heat exchange", enable=linIntRad));
 
 protected
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurf] propsBusInt(
@@ -110,16 +116,19 @@ public
   Modelica.Blocks.Interfaces.RealOutput TStar(unit="K") = radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
 
-protected
+public
+  replaceable
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwGainDistribution
     radDistr(nSurf=nSurf) "distribution of radiative internal gains"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-50,-50})));
+protected
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
-    radDistrLw(nSurf=nSurf, final linearise=linIntRad or sim.linearise) if
-                                                 not calculateViewFactor
+    radDistrLw(nSurf=nSurf, final linearise=linIntRad or sim.linearise,
+    Tzone_nom=Tzone_nom,
+    dT_nom=dT_nom) if                            not calculateViewFactor
     "internal longwave radiative heat exchange" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -133,7 +142,10 @@ public
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistributionViewFactor
     zoneLwDistributionViewFactor(
       nSurf=nSurf,
-      final hZone=hZone) if calculateViewFactor annotation (Placement(
+      final hZone=hZone,
+    linearise=linIntRad or sim.linearise,
+    Tzone_nom=Tzone_nom,
+    dT_nom=dT_nom) if       calculateViewFactor annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -165,7 +177,7 @@ end for;
       color={0,0,127},
       smooth=Smooth.None));
   connect(propsBusInt[1:nSurf].area, radDistr.area[1:nSurf]) annotation (Line(
-      points={{-80.1,39.9},{-80,39.9},{-80,-50},{-60,-50}},
+      points={{-80.1,39.9},{-80,39.9},{-80,-58},{-60,-58}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -323,6 +335,15 @@ It can be enabled using parameter <code>calculateViewFactor</code>.
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 24, 2017 by Filip Jorissen:<br/>
+Made <code>radDistr</code> replaceable
+such that it can be redeclared in experimental models.
+</li>
+<li>
+January 19, 2017 by Filip Jorissen:<br/>
+Propagated linearisation parameters for interior radiative heat exchange.
+</li>
 <li>
 August 26, 2016 by Filip Jorissen:<br/>
 Added support for conservation of energy of air model.

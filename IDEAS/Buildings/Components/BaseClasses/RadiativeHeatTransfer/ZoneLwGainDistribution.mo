@@ -1,5 +1,6 @@
 within IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer;
-model ZoneLwGainDistribution "distribution of radiative internal gains"
+model ZoneLwGainDistribution
+  "Distribution of radiative internal gains"
 
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir
@@ -38,7 +39,7 @@ model ZoneLwGainDistribution "distribution of radiative internal gains"
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={0,100})));
+        origin={-80,100})));
 
 protected
   final parameter Real[nSurf] weightFactorDir(each final fixed=false)
