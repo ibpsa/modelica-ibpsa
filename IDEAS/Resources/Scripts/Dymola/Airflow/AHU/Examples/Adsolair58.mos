@@ -1,0 +1,6 @@
+simulateModel("IDEAS.Airflow.AHU.Examples.Adsolair58", stopTime=1e+06, method="dassl", resultFile="Adsolair58");
+
+createPlot(id=1, position={0, 0, 1309, 724}, y={"bui600.TSensor[1]", "bui900.TSensor[1]", "bui610.TSensor[1]", "bui930.TSensor[1]"}, range={0.0, 1000000.0, 280.0, 310.0}, grid=true, filename="Adsolair58.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1, position={0, 0, 1309, 178}, y={"conPID1.y", "conPID2.y", "conPID3.y", "conPID4.y", "heaOn.y"}, range={0.0, 1000000.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=1, position={0, 0, 1309, 178}, y={"hea.Q_flow"}, range={0.0, 1000000.0, 0.0, 30000.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1309, 178}, y={"vavSup.m_flow", "vavSup1.m_flow", "vavSup2.m_flow", "vavSup3.m_flow"}, range={0.0, 1000000.0, -0.05, 0.15000000000000002}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
