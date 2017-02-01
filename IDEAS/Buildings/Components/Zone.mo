@@ -13,7 +13,6 @@ model Zone "Building zone model"
         extent={{-20,20},{20,-20}},
         rotation=-90,
         origin={-100,40})));
-
 equation
   connect(propsBus, propsBusInt) annotation (Line(
       points={{-100,40},{-90,40},{-80,40}},
@@ -69,6 +68,12 @@ a fixed sensible and latent heat load and CO2 production per person.
 <p>
 Parameter <code>comfort</code> determines
 how occupant comfort may be computed.
+</p>
+<p>
+Parameter <code>simVieFac</code> may be set to false to simplify the 
+view factor calculation. This leads to a less accurate computation
+of view factors, but this approach is more robust.
+It may be used when the initial equation that computes the view factors does not converge.
 </p>
 </html>", revisions="<html>
 <ul>

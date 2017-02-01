@@ -2,7 +2,7 @@ within IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer;
 model ZoneLwDistribution "internal longwave radiative heat exchange"
 
   parameter Integer nSurf(min=1) "Number of surfaces connected to the zone";
-
+  parameter Boolean simVieFac = false "Simplify view factor computation";
   parameter Boolean linearise=true "Linearise radiative heat exchange";
   parameter Modelica.SIunits.Temperature Tzone_nom = 295.15
     "Nominal temperature of environment, used for linearisation"
@@ -10,6 +10,7 @@ model ZoneLwDistribution "internal longwave radiative heat exchange"
   parameter Modelica.SIunits.TemperatureDifference dT_nom = -2
     "Nominal temperature difference between solid and air, used for linearisation"
     annotation(Dialog(group="Linearisation", enable=linearise));
+
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSurf] port_a
     "Port for radiative heat exchange"
@@ -63,7 +64,7 @@ initial equation
   // If max(A)<sum(A)/2 is not satisfied, then the non-linear
   // algebraic loop will not converge and therefore we do not compute
   // view factors according to Carroll.
-  computeCarroll = max(A)<sum(A)/2;
+  computeCarroll = not simVieFac and max(A)<sum(A)/2;
   F1= if computeCarroll then {max(0,min(FMax,1/(1 - A[i] .* F1[i]/(A*F1)))) for i in 1:nSurf} else zeros(nSurf);
   F2= A ./ (ones(nSurf)*sum(A) - A);
 
@@ -80,7 +81,7 @@ initial equation
         ((ones(nSurf) - epsLw) ./ (A .* epsLw) + (ones(nSurf) - F2) ./ A)/Modelica.Constants.sigma;
 
   // Throw a warning when the simplified approach is used.
-  assert(max(F1)<FMax*0.9 and computeCarroll,
+  assert(max(F1)<FMax*0.9 and computeCarroll or simVieFac,
           "WARNING: The view factor computed in ZoneLwDistribution could not properly converge. 
           A simplified method is used. 
           This may be caused by trying to model a non-physical geometry.\n",
@@ -174,6 +175,13 @@ This is a computationally efficient approach that does not require exact view fa
 Each surface exchanges heat with a fictive radiant surface,
 leading to a star resistance network.
 </p>
+<h4>Parameters</h4>
+<p>
+Parameter <code>simVieFac</code> may be set to false to simplify the 
+view factor calculation. This leads to a less accurate computation
+of view factors, but this approach is more robust.
+It may be used when the initial equation that computes the view factors does not converge.
+</p>
 <h4>References</h4>
 <p>
 Liesen, R. J., & Pedersen, C. O. (1997). An Evaluation of Inside Surface Heat Balance Models for Cooling Load Calculations. ASHRAE Transactions, 3(103), 485-502.<br/>
@@ -181,6 +189,12 @@ Carroll, J.A. 1980. An \"MRT method\" of computing radiant energy exchange in ro
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 1, 2017 by Filip Jorissen:<br/>
+Added option for disabling new view factor computation.
+See issue 
+<a href=https://github.com/open-ideas/IDEAS/issues/663>#663</a>.
+</li>
 <li>
 January 20, 2017 by Filip Jorissen:<br/>
 Changed view factor implementation.
