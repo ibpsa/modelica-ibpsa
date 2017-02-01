@@ -334,6 +334,8 @@ February 1, 2017, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
-
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Airflow/AHU/Examples/Adsolair58.mos"
+        "Siimulate and plot"));
 end Adsolair58;
