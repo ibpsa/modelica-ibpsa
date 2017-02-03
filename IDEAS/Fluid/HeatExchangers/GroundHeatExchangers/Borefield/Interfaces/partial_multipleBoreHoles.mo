@@ -86,13 +86,12 @@ public
 initial equation
   t0=time;
 
-initial algorithm
   // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same length as the number of aggregated pulse and cover lenSim
-  U := 0;
-  UOld := 0;
+  U =  0;
+  UOld =  0;
 
   // Initialization of the aggregation matrix and check that the short-term response for the given bfData record has already been calculated
-  (kappaMat,rArr,nuMat,TSteSta) :=
+  (kappaMat,rArr,nuMat,TSteSta) =
     IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.saveAggregationMatrix(
     p_max=p_max,
     q_max=q_max,
@@ -101,7 +100,7 @@ initial algorithm
     soi=bfData.soi,
     fil=bfData.fil);
 
-  R_ss := TSteSta/(bfData.gen.q_ste*bfData.gen.hBor*bfData.gen.nbBh)
+  R_ss =  TSteSta/(bfData.gen.q_ste*bfData.gen.hBor*bfData.gen.nbBh)
     "Steady state resistance";
 
 equation
@@ -114,18 +113,17 @@ equation
 
   assert(port_a.m_flow>-Modelica.Constants.eps or allowFlowReversal, "Flow reversal may not occurs in borefield except
   if allowFlowReversal is set to true in the model");
-algorithm
   // Set the start time for the sampling
   when initial() then
-    startTime := time;
+    startTime =  time;
   end when;
 
   when initial() or sample(startTime + bfData.gen.tStep, bfData.gen.tStep) then
-    QAve_flow := (U - UOld)/bfData.gen.tStep;
-    UOld := U;
+    QAve_flow =  (U - UOld)/bfData.gen.tStep;
+    UOld =  U;
 
     // Update of aggregated load matrix.
-    QMat := BaseClasses.Aggregation.aggregateLoad(
+    QMat =  BaseClasses.Aggregation.aggregateLoad(
         q_max=q_max,
         p_max=p_max,
         rArr=rArr,
@@ -134,15 +132,13 @@ algorithm
         QAggOld=QMat);
 
     // Wall temperature of the borefield
-    TWall :=BaseClasses.deltaTWall(
+    TWall = BaseClasses.deltaTWall(
       q_max=q_max,
       p_max=p_max,
       QMat=QMat,
       kappaMat=kappaMat,
       R_ss=R_ss) + T_start;
   end when;
-
-equation
 
   connect(massFlowRateMultiplier1.port_b, port_b)
     annotation (Line(points={{80,0},{86,0},{100,0}}, color={0,127,255}));
@@ -257,6 +253,12 @@ A verification of this model can be found in
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2017, by Filip Jorissen:<br>
+Changed initial algorithm to initial equation section since otherwise
+buffer overflows may occur.
+See <a href=https://github.com/open-ideas/IDEAS/issues/666># 666</a>.
+</li>
 <li>
 July 2014, by Damien Picard:<br>
 First implementation.
