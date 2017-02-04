@@ -1,16 +1,11 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Interfaces;
 partial model partial_multipleBoreHoles
   "Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component" annotation (choicesAllMatching=true);
-  // Medium in borefield
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
     m_flow_nominal=bfData.m_flow_nominal,
-    redeclare package Medium = Medium,
     allowFlowReversal=true);
 
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = bfData.gen.T_start,
-    redeclare package Medium = Medium);
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = bfData.gen.T_start);
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(final
       computeFlowResistance=true, dp_nominal=0);
 
@@ -30,10 +25,10 @@ partial model partial_multipleBoreHoles
     annotation (Dialog(tab="Dynamics"));
 
   // Load of borefield
-  Modelica.SIunits.HeatFlowRate QAve_flow
+  discrete Modelica.SIunits.HeatFlowRate QAve_flow
     "Average heat flux over a time period";
 
-  Modelica.SIunits.Temperature TWall "Average borehole wall temperature";
+  discrete Modelica.SIunits.Temperature TWall "Average borehole wall temperature";
 
   Modelica.Blocks.Sources.RealExpression TWall_val(y=TWall)
     "Average borehole wall temperature"
@@ -66,10 +61,9 @@ protected
     "Aggregation of load vector. Updated every discrete time step.";
 
   //Utilities
-  Modelica.SIunits.Energy UOld "Internal energy at the previous period";
+  discrete Modelica.SIunits.Energy UOld "Internal energy at the previous period";
   Modelica.SIunits.Energy U
     "Current internal energy, defined as U=0 for t=tStart";
-  Modelica.SIunits.Time startTime "Start time of the simulation";
 
 public
   Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
@@ -114,12 +108,9 @@ equation
   assert(port_a.m_flow>-Modelica.Constants.eps or allowFlowReversal, "Flow reversal may not occurs in borefield except
   if allowFlowReversal is set to true in the model");
   // Set the start time for the sampling
-  when initial() then
-    startTime =  time;
-  end when;
 
-  when initial() or sample(startTime + bfData.gen.tStep, bfData.gen.tStep) then
-    QAve_flow =  (U - UOld)/bfData.gen.tStep;
+  when {initial(), sample(t0 + bfData.gen.tStep, bfData.gen.tStep)} then
+    QAve_flow =  (U - pre(UOld))/bfData.gen.tStep;
     UOld =  U;
 
     // Update of aggregated load matrix.
@@ -129,7 +120,7 @@ equation
         rArr=rArr,
         nuMat=nuMat,
         QNew=QAve_flow,
-        QAggOld=QMat);
+        QAggOld=pre(QMat));
 
     // Wall temperature of the borefield
     TWall = BaseClasses.deltaTWall(
