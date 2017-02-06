@@ -24,9 +24,9 @@ protected
           T=Medium.T_default,
           X=Medium.X_default)) "Specific heat capacity at default medium state";
 
-  parameter Boolean restrictHeat = Q_flow_maxHeat <> Modelica.Constants.inf
+  parameter Boolean restrictHeat = Q_flow_maxHeat < Modelica.Constants.inf/10.0
     "Flag, true if maximum heating power is restricted";
-  parameter Boolean restrictCool = Q_flow_maxCool <> -Modelica.Constants.inf
+  parameter Boolean restrictCool = Q_flow_maxCool > -Modelica.Constants.inf/10.0
     "Flag, true if maximum cooling power is restricted";
 
   parameter Modelica.SIunits.SpecificEnthalpy deltah=
@@ -83,9 +83,9 @@ equation
   // Set point for outlet enthalpy without any capacity limitation
   hSet = Medium.specificEnthalpy(
     Medium.setState_pTX(
-      p=  port_a.p,
-      T=  T,
-      X=  inStream(port_a.Xi_outflow)));
+      p = port_a.p,
+      T = T,
+      X = inStream(port_a.Xi_outflow)));
 
   m_flow_pos = IDEAS.Utilities.Math.Functions.smoothMax(
     x1=m_flow,
@@ -101,8 +101,8 @@ equation
   else
 
     m_flow_limited = IDEAS.Utilities.Math.Functions.smoothMax(
-      x1=  port_a.m_flow,
-      x2=  m_flow_small,
+      x1 = port_a.m_flow,
+      x2 = m_flow_small,
       deltaX=m_flow_small/2);
 
     if restrictHeat and restrictCool then
@@ -204,6 +204,11 @@ for a model that instantiates this model and that has a pressure drop.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Removed inequality comparison of real numbers in <code>restrictCool</code>
+and in <code>restrictHeat</code> as this is not allowed in Modelica.
+</li>
 <li>
 November 10, 2014, by Michael Wetter:<br/>
 First implementation.

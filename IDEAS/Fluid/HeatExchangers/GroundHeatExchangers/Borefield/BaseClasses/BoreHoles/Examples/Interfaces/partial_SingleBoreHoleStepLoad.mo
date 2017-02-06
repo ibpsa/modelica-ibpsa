@@ -43,11 +43,11 @@ partial model partial_SingleBoreHoleStepLoad
   Movers.FlowControlled_m_flow          pum(
     redeclare package Medium = Medium,
     m_flow_nominal=gen.m_flow_nominal_bh,
-    dynamicBalance=false,
     T_start=gen.T_start,
-    motorCooledByFluid=false,
     addPowerToMedium=false,
-    filteredSpeed=false)
+    filteredSpeed=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-14,10},{-34,-10}})));
   Sensors.TemperatureTwoPort             TSen_bor_in(
     redeclare package Medium = Medium,
@@ -62,10 +62,7 @@ partial model partial_SingleBoreHoleStepLoad
     T_start=gen.T_start) "Temperature at the outlet of the borefield"
     annotation (Placement(transformation(extent={{34,-54},{50,-38}})));
 
-    Real Rb_sim;
-    Real Q;
 equation
-    Q = max(TSen_bor_in.port_a.m_flow*4180*(TSen_bor_in.T-TSen_bor_out.T),1);
   connect(pum.port_a, hea.port_b) annotation (Line(
       points={{-14,0},{6,0}},
       color={0,127,255},

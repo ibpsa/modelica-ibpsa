@@ -1,11 +1,11 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model Deadband "BESTEST deadband heating system"
-  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
+  extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
     final nLoads=1, final nTemSen = nZones);
 
   parameter Modelica.SIunits.Volume[nZones] VZones;
-  parameter Real corrCV = 5 "Correction factor for thermal mass in zone";
-  parameter Real[nZones] C = VZones * corrCV * 1012 * 1.204;
+  parameter Real mSenFac = 5 "Correction factor for thermal mass in zone";
+  parameter Real[nZones] C = VZones * mSenFac * 1012 * 1.204;
   parameter Modelica.SIunits.Power Pmax = 40*230
     "Maximum power that can be provided by feeder: 40A fuse";
 
@@ -16,9 +16,9 @@ protected
 equation
   for i in 1:nZones loop
     if Theat > TSensor[i] then
-      heatPortCon[i].Q_flow = min(-1*C[i]*(Theat - TSensor[i]),Pmax);
+      heatPortCon[i].Q_flow = min(-0.1*C[i]*(Theat - TSensor[i]),Pmax);
     elseif Tcool < TSensor[i] then
-      heatPortCon[i].Q_flow = min(-1*C[i]*(Tcool - TSensor[i]),Pmax);
+      heatPortCon[i].Q_flow = min(-0.1*C[i]*(Tcool - TSensor[i]),Pmax);
     else
       heatPortCon[i].Q_flow = 0;
     end if;

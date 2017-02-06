@@ -4,9 +4,8 @@ model PipeTwoPort "Two port containing a volume and pressure drop"
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     dp_nominal = 0);
 
-  IDEAS.Fluid.FixedResistances.FixedResistanceDpM res(
+  IDEAS.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
-    use_dh=false,
     final m_flow_nominal=m_flow_nominal,
     final deltaM=deltaM,
     final allowFlowReversal=allowFlowReversal,

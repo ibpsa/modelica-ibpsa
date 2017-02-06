@@ -6,13 +6,14 @@ model Boiler_validation "Validation model for the boiler"
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
 
-  Fluid.Movers.Pump pump(
-    m=1,
-    m_flow_nominal=1300/3600,
-    useInput=true,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
+    m_flow_nominal=1300/3600,
+    tau=30,
+    filteredSpeed=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{8,-56},{-12,-36}})));
+
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe(
     m=5,
     redeclare package Medium = Medium,
@@ -25,14 +26,14 @@ model Boiler_validation "Validation model for the boiler"
     mWater=10,
     cDry=10000,
     redeclare package Medium = Medium,
-    m_flow_nominal=1300/3600,
     QNom=20000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=1300/3600)
     annotation (Placement(transformation(extent={{-70,-16},{-50,4}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
     annotation (Placement(transformation(extent={{-84,-48},{-70,-34}})));
-  inner IDEAS.SimInfoManager sim
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
   Modelica.Blocks.Sources.TimeTable pulse(offset=0, table=[0, 0; 5000, 100;
         10000, 400; 15000, 700; 20000, 1000; 25000, 1300; 50000, 1300])
@@ -58,7 +59,7 @@ model Boiler_validation "Validation model for the boiler"
     p=200000)
     annotation (Placement(transformation(extent={{-12,-32},{-32,-12}})));
 
-  Modelica.Blocks.Math.Gain gain(k=1/1300)
+  Modelica.Blocks.Math.Gain gain(k=1/3600)
     annotation (Placement(transformation(extent={{-14,72},{6,92}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=273.15 + 60)
     annotation (Placement(transformation(extent={{-92,-4},{-72,16}})));
@@ -79,7 +80,7 @@ equation
   //   SPFNoLosses = if noEvent(PElNoLossesInt > 0) then QUsefulNoLossesInt/PElNoLossesInt else 0;
 
   connect(heater.heatPort, fixedTemperature.port) annotation (Line(
-      points={{-63,-16},{-62,-16},{-62,-41},{-70,-41}},
+      points={{-60,-16},{-62,-16},{-62,-41},{-70,-41}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TReturn.port, pipe.heatPort) annotation (Line(
@@ -103,12 +104,8 @@ equation
       points={{-29,82},{-16,82}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gain.y, pump.m_flowSet) annotation (Line(
-      points={{7,82},{18,82},{18,-35.6},{-2,-35.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(realExpression.y, heater.TSet) annotation (Line(
-      points={{-71,6},{-64,6}},
+      points={{-71,6},{-66,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heater.port_b, senTemBoiler_out.port_a) annotation (Line(
@@ -127,14 +124,18 @@ equation
       points={{-44,-46},{-50,-46},{-50,-12}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(gain.y, pump.m_flow_in) annotation (Line(points={{7,82},{20,82},{20,
+          -34},{-1.8,-34}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
     experiment(StopTime=40000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
-    Commands(file="Scripts/Tester_Boiler.mos" "TestModel"),
+    Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Production/Examples/Boiler_validation.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>Model used to validate the <a href=\"modelica://IDEAS.Thermal.Components.Production.Boiler\">IDEAS.Thermal.Components.Production.Boiler</a>. With a fixed set point, the boiler receives different mass flow rates. </p>
 </html>", revisions="<html>

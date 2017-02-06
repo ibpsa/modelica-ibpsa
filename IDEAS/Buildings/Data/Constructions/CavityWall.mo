@@ -1,11 +1,21 @@
 within IDEAS.Buildings.Data.Constructions;
 record CavityWall
-  "Example - Classic cavity wall construction with fully-filled cavity"
-
+  "Cavity wall with fully-filled cavity"
   extends IDEAS.Buildings.Data.Interfaces.Construction(
-    nLay=4,
-    locGain=2,
-    final mats={Materials.BrickMe(d=0.08),insulationType,Materials.BrickMi(d=
-        0.14),Materials.Gypsum(d=0.015)});
+    mats={IDEAS.Buildings.Data.Materials.BrickMe(d=0.08),
+          IDEAS.Buildings.Data.Insulation.Rockwool(d=0.1),
+          IDEAS.Buildings.Data.Materials.BrickMi(d=0.14),
+          IDEAS.Buildings.Data.Materials.Gypsum(d=0.015)});
 
+  annotation (Documentation(info="<html>
+<p>
+Example implementation of a cavity wall.
+</p>
+<ul>
+<li>
+November 14, 2016, by Filip Jorissen:<br/>
+Revised implementation: removed insulationType.
+</li>
+</ul>
+</html>"));
 end CavityWall;

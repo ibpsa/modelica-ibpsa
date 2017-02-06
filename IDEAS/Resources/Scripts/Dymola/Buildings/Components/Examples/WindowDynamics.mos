@@ -1,0 +1,11 @@
+simulateModel("IDEAS.Buildings.Components.Examples.WindowDynamics", stopTime=1e+06, numberOfIntervals=0, outputInterval=600, method="Lsodar", resultFile="WindowDynamics");
+
+createPlot(id=1, 
+position={0, 0, 1206, 1019}, 
+y={"zone1.propsBus[1].surfRad.T", "zone1.propsBus[2].surfRad.T", "zone1.propsBus[3].surfRad.T", "zone1.propsBus[4].surfRad.T"}, 
+range={0.0, 1050000.0, 271.0, 294.0}, 
+grid=true, 
+colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+
+
+

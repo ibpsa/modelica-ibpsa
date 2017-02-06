@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation.BaseClasses.InhomeFeeder;
 model None "None"
 
-  extends IDEAS.Interfaces.BaseClasses.InhomeFeeder;
+  extends IDEAS.Templates.Interfaces.BaseClasses.InhomeFeeder;
 
   Modelica.Electrical.QuasiStationary.MultiPhase.Basic.PlugToPin_p plugToPin(m=
         3) annotation (Placement(transformation(extent={{32,-10},{52,10}})));

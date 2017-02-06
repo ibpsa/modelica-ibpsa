@@ -31,6 +31,9 @@ partial model PartialHeatPump "Heat pump partial"
   parameter Boolean use_scaling=false
     "scale the performance data based on the nominal power"
     annotation (Dialog(tab="Advanced"));
+  parameter Boolean perfFromTout = false
+    "= true, then recompute performance based on evaporator outlet temperature instead of directly using the inlet temperature"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean use_modulationSignal=false
     "enables an input for modulating the heat pump ideally (no change of COP, just scaling of the electrical and thermal power)"
     annotation (Dialog(tab="Advanced"));
@@ -94,8 +97,7 @@ public
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Flow resistance"));
 
-  outer Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{88,-100},{100,-88}})));
+
 protected
   parameter Medium1.ThermodynamicState state_default1=
       Medium1.setState_pTX(
@@ -128,7 +130,9 @@ public
         origin={88,110})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor T_out_cond
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
-  Modelica.Blocks.Sources.RealExpression TEvapInExp(y=TEvapIn)
+  Modelica.Blocks.Sources.RealExpression TEvapInExp(y=(if perfFromTout then
+        vol1.T + P_evap/heatPumpData.m1_flow_nominal/
+        Medium1.specificHeatCapacityCp(state_default1) else TEvapIn))
     annotation (Placement(transformation(extent={{-110,4},{-90,24}})));
 
 equation
@@ -136,8 +140,8 @@ equation
     TEvapIn = IDEAS.Utilities.Math.Functions.spliceFunction(
               x=port_a1.m_flow,
               pos=Medium1.temperature(Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow))),
-              neg=  Medium1.temperature(Medium1.setState_phX(port_b1.p, inStream(port_b1.h_outflow), inStream(port_b1.Xi_outflow))),
-              deltax=  m1_flow_nominal/10);
+              neg = Medium1.temperature(Medium1.setState_phX(port_b1.p, inStream(port_b1.h_outflow), inStream(port_b1.Xi_outflow))),
+              deltax = m1_flow_nominal/10);
   else
     TEvapIn = Medium1.temperature(Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow)));
   end if;
@@ -169,7 +173,7 @@ equation
       smooth=Smooth.None));
 
   connect(powerTable.u1, copTable.u1) annotation (Line(
-      points={{-76,26},{-82,26},{-82,26},{-86,26},{-86,0},{-76,0}},
+      points={{-76,26},{-86,26},{-86,0},{-76,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(prescribedHeatEvap.port, vol1.heatPort) annotation (Line(

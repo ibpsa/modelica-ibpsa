@@ -7,7 +7,7 @@ function efficiency "Flow vs. efficiency characteristics for fan or pump"
   input Real d[:] "Derivatives at support points for spline interpolation";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
   input Real delta "Small value for switching implementation around zero rpm";
-  output Real eta(min=0, unit="1") "Efficiency";
+  output Real eta(unit="1", final quantity="Efficiency") "Efficiency";
 
 protected
   Integer n = size(per.V_flow, 1) "Number of data points";
@@ -67,6 +67,13 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 revisions="<html>
 <ul>
 <li>
+December 2, 2016, by Michael Wetter:<br/>
+Removed <code>min</code> attribute as otherwise numerical noise can cause
+the assertion on the limit to fail.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+</li>
+<li>
 November 22, 2014, by Michael Wetter:<br/>
 Corrected documentation as curve uses <i>V&#775;</i>
 as an independent variable.
@@ -89,5 +96,5 @@ September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),   smoothOrder=1);
+</html>"));
 end efficiency;

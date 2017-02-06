@@ -21,7 +21,7 @@ protected
 public
   Modelica.Blocks.Sources.RealExpression TAmb(y=sim.Te)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  outer SimInfoManager       sim
+  outer BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   der(intTAmb) =  TAmb.y;

@@ -1,18 +1,27 @@
 within IDEAS.Buildings.Components.Shading;
 model OverhangAndScreen "Roof overhangs and screen shading"
 
-  parameter SI.Length hWin "Window height";
-  parameter SI.Length wWin "Window width";
-  parameter SI.Length wLeft
-    "Left overhang width measured from the window corner";
-  parameter SI.Length wRight
-    "Right overhang width measured from the window corner";
-  parameter SI.Length dep "Overhang depth perpendicular to the wall plane";
-  parameter SI.Length gap
-    "Distance between window upper edge and overhang lower edge";
+  parameter Modelica.SIunits.Length hWin(min=0) "Window height"
+    annotation(Dialog(group="Window properties"));
+  parameter Modelica.SIunits.Length wWin(min=0) "Window width"
+    annotation(Dialog(group="Window properties"));
+
+  parameter Modelica.SIunits.Length wLeft(min=0)
+    "Left overhang width measured from the window corner"
+    annotation(Dialog(group="Overhang properties"));
+  parameter Modelica.SIunits.Length wRight(min=0)
+    "Right overhang width measured from the window corner"
+    annotation(Dialog(group="Overhang properties"));
+  parameter Modelica.SIunits.Length dep(min=0)
+    "Overhang depth perpendicular to the wall plane"
+    annotation(Dialog(group="Overhang properties"));
+  parameter Modelica.SIunits.Length gap(min=0)
+    "Distance between window upper edge and overhang lower edge"
+    annotation(Dialog(group="Overhang properties"));
+
   parameter Real shaCorr=0.24 "Shortwave transmittance of shortwave radiation";
 
-  extends IDEAS.Buildings.Components.Interfaces.DoubleShading(
+  extends IDEAS.Buildings.Components.Shading.Interfaces.DoubleShading(
       redeclare IDEAS.Buildings.Components.Shading.Screen stateShading1(
         azi=azi,
         shaCorr=shaCorr),
@@ -24,6 +33,10 @@ model OverhangAndScreen "Roof overhangs and screen shading"
         wRight=wRight,
         dep=dep,
         gap=gap));
+
+initial equation
+
+    assert(dep > 0, "The depth of the overhang must be larger than zero, if this is not the case: just use Shading.Screen.");
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),  Documentation(info="<html>

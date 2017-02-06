@@ -2,7 +2,8 @@ within IDEAS.Buildings.GreyboxModels;
 model TiTeThTsAe
   "Selected linear low-order building model by P.Bacher, H.Madsen (2011) Procedure for identifying models for the heat dynamics of buildings "
 
-  extends IDEAS.Interfaces.BaseClasses.Structure(nZones=1);
+  extends IDEAS.Templates.Interfaces.BaseClasses.Structure(
+                                                 nZones=1);
 
   //Window data
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing

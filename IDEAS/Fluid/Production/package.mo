@@ -25,7 +25,7 @@ extends Modelica.Icons.VariantsPackage;
       TEnvironment=heatPort.T,
       UALoss=UALoss)
       annotation (Placement(transformation(extent={{-48,-46},{-28,-26}})));
-    outer IDEAS.SimInfoManager         sim
+    outer IDEAS.BoundaryConditions.SimInfoManager         sim
       annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
     Thermal.Components.Interfaces.FlowPort_a flowPortEvap_a(medium=mediumEvap)
       annotation (Placement(transformation(extent={{-110,-30},{-90,-10}}),

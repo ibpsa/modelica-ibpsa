@@ -323,8 +323,8 @@ parameters in various model to help the user understand how they are used.
       to define a point on the flow rate versus pressure drop curve. For other
       mass flow rates, the pressure drop is typically adjusted using similarity laws.
       See
-      <a href=\"modelica://IDEAS.Fluid.FixedResistances.FixedResistanceDpM\">
-      IDEAS.Fluid.FixedResistances.FixedResistanceDpM</a>.
+      <a href=\"modelica://IDEAS.Fluid.FixedResistances.PressureDrop\">
+      IDEAS.Fluid.FixedResistances.PressureDrop</a>.
   </td>
 </tr>
 <tr>
@@ -377,9 +377,6 @@ parameters in various model to help the user understand how they are used.
       For most components, engineering experience can be used to estimate a reasonable
       value for <code>tau</code>, and where generally applicable values can be used,
       components already set a default value for <code>tau</code>.
-      See for example
-      <a href=\"modelica://IDEAS.Fluid.HeatExchangers.WetCoilDiscretized\">
-      IDEAS.Fluid.HeatExchangers.WetCoilDiscretized</a>.
   </td>
 </tr>
 </table>
@@ -397,10 +394,6 @@ This allows models to be fully compatible with
 Modelica.Fluid</a>, and it allows the implementation of
 component models that reuse base classes for heat transfer, mass transfer and
 flow resistance.
-The class inheritance is as follows:
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/UsersGuide/a60.png\"/>
 </p>
 
 </html>"));
@@ -417,7 +410,7 @@ pumps, valves and sensors. For other fluid flow models, see
 Icon(graphics={
         Polygon(points={{-70,26},{68,-44},{68,26},{2,-10},{-70,-42},{-70,26}},
             lineColor={0,0,0}),
-        Line(points={{2,42},{2,-10}}, color={0,0,0}),
+        Line(points={{2,42},{2,-10}}),
         Rectangle(
           extent={{-18,50},{22,42}},
           lineColor={0,0,0},

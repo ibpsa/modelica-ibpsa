@@ -52,7 +52,7 @@ equation
     kSoi=kSoi,
     kTub=kTub,
     use_Rb=use_Rb,
-    Rb=  Rb,
+    Rb = Rb,
     kMed=kMed,
     mueMed=mueMed,
     cpMed=cpMed,

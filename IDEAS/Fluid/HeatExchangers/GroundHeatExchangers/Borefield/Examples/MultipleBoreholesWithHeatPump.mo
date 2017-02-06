@@ -21,12 +21,12 @@ model MultipleBoreholesWithHeatPump
     dp_nominal=1000) "borefield"
     annotation (Placement(transformation(extent={{12,-78},{-28,-38}})));
 
-  Movers.Pump                           pum(
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
-    useInput=true,
     T_start=bfData.gen.T_start,
-    m_flow(start=bfData.m_flow_nominal),
-    m_flow_nominal=bfData.m_flow_nominal)
+    m_flow_nominal=bfData.m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-52,24},{-32,4}})));
   Modelica.Blocks.Sources.Constant mFlo(k=1)
     annotation (Placement(transformation(extent={{-14,-18},{-26,-6}})));
@@ -56,11 +56,14 @@ model MultipleBoreholesWithHeatPump
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={-22,52})));
-  Movers.Pump       pump(
-    m=1,
-    useInput=false,
+
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
-    m_flow_nominal=bfData.m_flow_nominal)
+    T_start=bfData.gen.T_start,
+    m_flow_nominal=bfData.m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{30,72},{50,92}})));
   Sources.Boundary_pT bou(          redeclare package Medium = Medium,
     nPorts=2,
@@ -82,10 +85,6 @@ model MultipleBoreholesWithHeatPump
         rotation=270,
         origin={-62,-26})));
 equation
-  connect(mFlo.y,pum. m_flowSet) annotation (Line(
-      points={{-26.6,-12},{-42,-12},{-42,3.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(boundary.ports[1], multipleBoreholes.port_b) annotation (Line(
       points={{-74,-58},{-28,-58}},
       color={0,127,255},
@@ -130,11 +129,13 @@ equation
       points={{50,82},{60,82},{60,35.2},{16,35.2}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(mFlo.y, pum.m_flow_in) annotation (Line(points={{-26.6,-12},{-42.2,
+          -12},{-42.2,2}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+            100,100}})),
     experiment(StopTime=1.7e+006, __Dymola_NumberOfIntervals=100),
     __Dymola_experimentSetupOutput,
-    __Dymola_Commands(file="../../IDEAS/IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Examples/MultipleBoreholesWithHeatPump.mos"
+    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Examples/MultipleBoreholesWithHeatPump.mos"
         "Simulate and plot"));
 end MultipleBoreholesWithHeatPump;

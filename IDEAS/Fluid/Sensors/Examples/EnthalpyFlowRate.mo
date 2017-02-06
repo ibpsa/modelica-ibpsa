@@ -25,7 +25,7 @@ model EnthalpyFlowRate "Test model for the enthalpy flow rate sensors"
   Modelica.Blocks.Sources.Ramp ramp(
     height=-2,
     offset=1,
-    duration=60)
+    duration=60) "Input signal for mass flow rate"
     annotation (Placement(transformation(extent={{-100,-12},{-80,8}})));
 
   IDEAS.Fluid.Sensors.SpecificEnthalpyTwoPort senH(
@@ -35,48 +35,39 @@ model EnthalpyFlowRate "Test model for the enthalpy flow rate sensors"
   IDEAS.Fluid.Sensors.MassFlowRate senM_flow(
     redeclare package Medium = Medium) "Mass flow rate sensor"
                 annotation (Placement(transformation(extent={{28,-20},{48,0}})));
-  IDEAS.Utilities.Diagnostics.AssertEquality assEqu
-    "Asserts the equality of the enthalpy flow rate computations"
+  Modelica.Blocks.Math.Add cheEqu(k2=-1)
+    "Check for equality of the enthalpy flow rate computations"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Modelica.Blocks.Math.Product pro "Computes the enthalphy flow rate"
     annotation (Placement(transformation(extent={{0,54},{20,74}})));
 equation
   connect(ramp.y, sou.m_flow_in) annotation (Line(
       points={{-79,-2},{-60,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sou.ports[1], senH_flow.port_a) annotation (Line(
       points={{-40,-10},{-30,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senH_flow.port_b, senH.port_a) annotation (Line(
       points={{-10,-10},{-5.55112e-16,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senH.port_b, senM_flow.port_a) annotation (Line(
       points={{20,-10},{28,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senM_flow.port_b, sin.ports[1]) annotation (Line(
       points={{48,-10},{60,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senH_flow.H_flow, assEqu.u1) annotation (Line(
+      color={0,127,255}));
+  connect(senH_flow.H_flow,cheEqu. u1) annotation (Line(
       points={{-20,1},{-20,82},{28,82},{28,76},{38,76}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senH.h_out, pro.u1) annotation (Line(
       points={{10,1},{10,28},{-14,28},{-14,70},{-2,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senM_flow.m_flow, pro.u2) annotation (Line(
       points={{38,1},{38,36},{-10,36},{-10,58},{-2,58}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(pro.y, assEqu.u2) annotation (Line(
+      color={0,0,127}));
+  connect(pro.y,cheEqu. u2) annotation (Line(
       points={{21,64},{38,64}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     annotation (
 experiment(StopTime=60.0),
 __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos"
@@ -89,6 +80,13 @@ the product of the output of the enthalpy and the mass flow rate sensor.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 2, 2016, by Michael Wetter:<br/>
+Changed assertions to blocks that compute the difference,
+and added the difference to the regression results.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Change <code>tau=0</code> to <code>tau=1</code> for sensors.

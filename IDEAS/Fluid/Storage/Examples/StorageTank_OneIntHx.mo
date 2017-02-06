@@ -1,12 +1,9 @@
 within IDEAS.Fluid.Storage.Examples;
 model StorageTank_OneIntHx
-  import IDEAS;
-  import Buildings;
-
   extends Modelica.Icons.Example;
 
-  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
-    annotation (__Dymola_choicesAllMatching=true);
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater annotation
+    (__Dymola_choicesAllMatching=true);
 
   parameter Integer nbrNodes=10 "Number of nodes in the storage tank";
 
@@ -26,17 +23,19 @@ model StorageTank_OneIntHx
       IDEAS.Fluid.Production.Data.PerformanceMaps.VitoCal300GBWS301dotA08
       heatPumpData,
     redeclare package Medium1 = Medium,
-    redeclare package Medium2 = Medium)
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    redeclare package Medium2 = Medium) annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-72,8})));
-  Fluid.Movers.Pump pump(
-    m=1,
+
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
-    useInput=false,
-    m_flow_nominal=hp.heatPumpData.m2_flow_nominal*hp.sca)
+    m_flow_nominal=hp.heatPumpData.m2_flow_nominal*hp.sca,
+    tau=30,
+    filteredSpeed=false,
+    inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{-38,-62},{-58,-42}})));
-  inner IDEAS.SimInfoManager sim
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
@@ -49,8 +48,7 @@ model StorageTank_OneIntHx
     annotation (Placement(transformation(extent={{-46,4},{-34,16}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort senStoHx_out(redeclare package Medium
       = Medium, m_flow_nominal=hp.heatPumpData.m2_flow_nominal*hp.sca)
-                                               annotation (Placement(
-        transformation(
+    annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-58,-22})));
@@ -60,21 +58,32 @@ model StorageTank_OneIntHx
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={92,-30})));
-  IDEAS.Fluid.Movers.Pump pump1(redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal)
+
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump1(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    tau=30,
+    filteredSpeed=false,
+    inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{88,-6},{68,14}})));
   IDEAS.Fluid.Sources.Boundary_pT bou1(
     redeclare package Medium = Medium,
     nPorts=2,
     p=300000,
-    T=285.15) annotation (Placement(transformation(extent={{-82,-28},{-102,-8}})));
-  IDEAS.Fluid.Movers.Pump pump2(redeclare package Medium = Medium,
-      m_flow_nominal=hp.heatPumpData.m1_flow_nominal*hp.sca)
+    T=285.15)
+    annotation (Placement(transformation(extent={{-82,-28},{-102,-8}})));
+
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump2(
+    redeclare package Medium = Medium,
+    m_flow_nominal=hp.heatPumpData.m1_flow_nominal*hp.sca,
+    tau=30,
+    filteredSpeed=false,
+    inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{-114,14},{-94,34}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=
-        293.15) annotation (Placement(transformation(extent={{68,30},{88,50}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(
+      T=293.15) annotation (Placement(transformation(extent={{68,30},{88,50}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort senSto_in(redeclare package Medium =
         Medium, m_flow_nominal=m_flow_nominal) annotation (Placement(
         transformation(
@@ -94,7 +103,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pump.port_a, storageTank.portHXLower) annotation (Line(
-      points={{-38,-52},{-34,-52},{-34,-52.6154},{-30,-52.6154}},
+      points={{-38,-52},{-34,-52},{-34,-58.3077},{-30,-58.3077}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(storageTank.port_b, bou.ports[2]) annotation (Line(

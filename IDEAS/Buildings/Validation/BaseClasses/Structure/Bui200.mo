@@ -1,16 +1,15 @@
 within IDEAS.Buildings.Validation.BaseClasses.Structure;
 model Bui200 "BESTEST Building model case 195"
 
-  extends IDEAS.Interfaces.BaseClasses.Structure(
+  extends IDEAS.Templates.Interfaces.BaseClasses.Structure(
     final nZones=1, final nEmb=0,
     ATrans=1,
     VZones={gF.V});
 
-protected
   IDEAS.Buildings.Components.Zone gF(
     V=129.6,
     n50=0,
-    corrCV=0.822,
+    mSenFac=0.822,
     nSurf=8,
     T_start=293.15,
     redeclare package Medium = Medium)
@@ -19,47 +18,40 @@ protected
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
     redeclare final parameter Data.Constructions.LightWall_195 constructionType,
-    redeclare final parameter Data.Insulation.fiberglass insulationType,
-    final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,
-        IDEAS.Constants.West},
-    final insulationThickness={0.066,0.066,0.066,0.066},
-    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,
-        IDEAS.Constants.Wall},
-    final AWall={21.6,16.2,21.6,16.2})
-                               annotation (Placement(transformation(
+    final azi={IDEAS.Types.Azimuth.N,IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,
+        IDEAS.Types.Azimuth.W},
+    final inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,
+        IDEAS.Types.Tilt.Wall},
+    final A={21.6,16.2,21.6,16.2}) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-49,-14})));
 
   IDEAS.Buildings.Components.BoundaryWall floor(
     redeclare final parameter Data.Constructions.LightFloor constructionType,
-    redeclare final parameter Data.Insulation.insulation insulationType,
-    final insulationThickness=1.003,
-    final AWall=48,
-    final inc=IDEAS.Constants.Floor,
-    final azi=IDEAS.Constants.South) annotation (Placement(transformation(
+    final A=48,
+    final inc=IDEAS.Types.Tilt.Floor,
+    final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-19,-14})));
   IDEAS.Buildings.Components.OuterWall roof(
     redeclare final parameter Data.Constructions.LightRoof_195 constructionType,
-    redeclare final parameter Data.Insulation.fiberglass insulationType,
-    final insulationThickness=0.1118,
-    final AWall=48,
-    final inc=IDEAS.Constants.Ceiling,
-    final azi=IDEAS.Constants.South) annotation (Placement(transformation(
+    final A=48,
+    final inc=IDEAS.Types.Tilt.Ceiling,
+    final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-79,-14})));
 
+  //fixme: is the implementation of win correct?
   Components.OuterWall[2] win(
-    final AWall={6,6},
-    redeclare final parameter Data.Constructions.HighConductance constructionType,
-    redeclare final parameter Data.Insulation.insulation insulationType,
-    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
-    final azi={IDEAS.Constants.South,IDEAS.Constants.South},
-    each final insulationThickness=1.003)
-    annotation (Placement(transformation(
+    final A={6,6},
+    redeclare final parameter Data.Constructions.HighConductance
+      constructionType,
+    final inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall},
+    final azi={IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.S}) annotation (
+      Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));
@@ -78,17 +70,17 @@ equation
       smooth=Smooth.None));
 
   connect(roof.propsBus_a, gF.propsBus[1]) annotation (Line(
-      points={{-83,-9},{-83,31.5},{40,31.5}},
+      points={{-81,-9},{-81,31.5},{40,31.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(wall.propsBus_a, gF.propsBus[2:5]) annotation (Line(
-      points={{-53,-9},{-53,27.5},{40,27.5}},
+      points={{-51,-9},{-51,27.5},{40,27.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(floor.propsBus_a, gF.propsBus[6]) annotation (Line(
-      points={{-23,-9},{-23,26.5},{40,26.5}},
+      points={{-21,-9},{-21,26.5},{40,26.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -97,16 +89,16 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(win.propsBus_a, gF.propsBus[7:8]) annotation (Line(
-      points={{7,-9},{7,24.5},{40,24.5}},
+      points={{9,-9},{9,24.5},{40,24.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
 
-  connect(flowPort_Out[1], gF.flowPort_Out) annotation (Line(
+  connect(port_b[1], gF.port_b) annotation (Line(
       points={{-20,100},{-20,60},{56,60},{56,40}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(flowPort_In[1], gF.flowPort_In) annotation (Line(
+  connect(port_a[1], gF.port_a) annotation (Line(
       points={{20,100},{20,62},{64,62},{64,40}},
       color={0,0,0},
       smooth=Smooth.None));

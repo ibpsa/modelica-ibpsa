@@ -88,13 +88,15 @@ The table below summarizes the recommendations for the use of sensors.
                        relative humidity<br/>
                        mass fraction<br/>
                        trace substances<br/>
-                       specific enthalpy</td>
+                       specific enthalpy<br/>
+                       specific entropy</td>
     <td valign=\"top\">use only if connected to a volume</td>
     <td valign=\"top\">avoid</td>
     <td valign=\"top\">recommended</td>
 </tr>
 <tr><td valign=\"top\">volume flow rate<br/>
-                       enthalpy flow rate</td>
+                       enthalpy flow rate<br/>
+                       entropy flow rate</td>
     <td valign=\"top\">-</td>
     <td valign=\"top\">recommended</td>
     <td valign=\"top\">recommended</td>
@@ -130,7 +132,7 @@ be <i>V=&tau; &nbsp; m&#775;<sub>0</sub> &frasl; &rho;</i>, where
 </p>
 <h5>Dynamic response to ambient temperature</h5>
 <p>
-For the sensor 
+For the sensor
 <a href=\"modelica://IDEAS.Fluid.Sensors.TemperatureTwoPort\">
 IDEAS.Fluid.Sensors.TemperatureTwoPort</a>,
 by setting <code>transferHeat = true</code>, heat transfer to a
@@ -147,7 +149,7 @@ is used to switch the mass flow rate on again. If <code>transferHeat = false</co
 then the sensor output <i>T</i> remains constant if the mass flow rate is zero
 and hence a fan or pump controller that uses this signal may never switch the device
 on again.
-If the sensor ouput <i>T</i> is not used to switch on the mass flow rate, then
+If the sensor output <i>T</i> is not used to switch on the mass flow rate, then
 in general one can use <code>transferHeat=false</code>.
 </p>
 <p>
@@ -160,14 +162,14 @@ of the heat transfer does not add or remove heat from the fluid.
 </p>
 <h5>Combined dynamic response</h5>
 <p>
-For the sensor 
+For the sensor
 <a href=\"modelica://IDEAS.Fluid.Sensors.TemperatureTwoPort\">
 IDEAS.Fluid.Sensors.TemperatureTwoPort</a>,
-if both dynamic effects are enabled, then 
+if both dynamic effects are enabled, then
 the output <i>T</i> is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-dT &frasl; dt = |m&#775;| &frasl; m&#775;<sub>0</sub> &nbsp; (&theta;-T) &frasl; &tau; + 
+dT &frasl; dt = |m&#775;| &frasl; m&#775;<sub>0</sub> &nbsp; (&theta;-T) &frasl; &tau; +
 (T<sub>Amb</sub>-T) &frasl;  &tau;<sub>HeaTra</sub>.
 </p>
 <h4>Implementation</h4>
@@ -180,7 +182,7 @@ Note that the implementation of the dynamic sensors does not use the model
 IDEAS.Fluid.MixingVolumes</a>.
 The reason is that depending on the selected medium model, the
 mixing volume may introduce states for the pressure, species concentration,
-trace substance and enthalpy. Not all states are typically needed to
+trace substance, specific enthalpy and specific entropy. Not all states are typically needed to
 model the dynamics of a sensor. Moreover, in many building system applications,
 the sensor dynamics is not of concern, but is rather used here to avoid numerical
 problems that steady-state models of sensors cause when flow rates are

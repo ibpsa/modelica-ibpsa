@@ -2,8 +2,7 @@ within IDEAS.Fluid.HeatExchangers;
 model HeaterCooler_u "Heater or cooler with prescribed heat flow rate"
   extends IDEAS.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final IDEAS.Fluid.MixingVolumes.MixingVolume vol(
-    final prescribedHeatFlowRate=true),
-    final showDesignFlowDirection=false);
+    final prescribedHeatFlowRate=true));
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
     "Heat flow rate at u=1, positive for heating";
@@ -14,7 +13,8 @@ model HeaterCooler_u "Heater or cooler with prescribed heat flow rate"
     "Heat added to the fluid"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 protected
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea(
+    final alpha=0)
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Modelica.Blocks.Math.Gain gai(k=Q_flow_nominal) "Gain"
@@ -22,20 +22,16 @@ protected
 equation
   connect(u, gai.u) annotation (Line(
       points={{-120,60},{-82,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gai.y, preHea.Q_flow) annotation (Line(
       points={{-59,60},{-40,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(preHea.port, vol.heatPort) annotation (Line(
       points={{-20,60},{-9,60},{-9,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(gai.y, Q_flow) annotation (Line(
       points={{-59,60},{-50,60},{-50,80},{80,80},{80,60},{110,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -104,6 +100,20 @@ IDEAS.Fluid.HeatExchangers.Validation.HeaterCooler_u</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Set <code>preHea(final alpha=0)</code> as this allows to simplify the
+system of equations.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/570\">#570</a>.
+</li>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Removed assignment of parameter
+<code>showDesignFlowDirection</code> in <code>extends</code> statement.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Set <code>prescribedHeatFlowRate=true</code>.

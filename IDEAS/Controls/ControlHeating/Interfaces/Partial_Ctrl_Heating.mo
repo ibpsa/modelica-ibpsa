@@ -37,7 +37,7 @@ partial model Partial_Ctrl_Heating
     use_TRoo_in=true,
     dTOutHeaBal=dTOutHeaBal)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  outer IDEAS.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Interfaces.RealOutput THeaterSet(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0,start=283.15)
     "Heat pump set temperature" annotation (Placement(transformation(extent={{80,0},{

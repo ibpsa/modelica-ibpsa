@@ -1,8 +1,7 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model LocalCivilTime "Test model for calculate local civil time"
   extends Modelica.Icons.Example;
-  IDEAS.Utilities.Time.ModelTime modTim
-    "Block that outputs the model time"
+  IDEAS.Utilities.Time.ModelTime modTim "Block that outputs the model time"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(
       timZon=-21600, lon=-1.5293932423067)
@@ -10,8 +9,7 @@ model LocalCivilTime "Test model for calculate local civil time"
 equation
   connect(modTim.y, locTim.cloTim) annotation (Line(
       points={{-19,10},{-2,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>

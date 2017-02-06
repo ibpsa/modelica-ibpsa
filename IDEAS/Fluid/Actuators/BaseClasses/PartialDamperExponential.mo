@@ -120,7 +120,7 @@ models.
 <p>
 For a description of the opening characteristics and typical parameter values, see the damper model
 <a href=\"modelica://IDEAS.Fluid.Actuators.Dampers.Exponential\">
-Exponential</a>.
+IDEAS.Fluid.Actuators.Dampers.Exponential</a>.
 </p>
 </html>",
 revisions="<html>
@@ -146,7 +146,7 @@ To simplify object inheritance tree, revised base classes
 <code>IDEAS.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
 <code>IDEAS.Fluid.Actuators.BaseClasses.PartialActuator</code>
 and model
-<code>IDEAS.Fluid.FixedResistances.FixedResistanceDpM</code>.
+<code>IDEAS.Fluid.FixedResistances.PressureDrop</code>.
 </li>
 <li>
 August 5, 2011, by Michael Wetter:<br/>
@@ -168,9 +168,7 @@ First implementation.
 </ul>
 </html>"),
    Icon(graphics={Line(
-         points={{0,100},{0,-24}},
-         color={0,0,0},
-         smooth=Smooth.None),
+         points={{0,100},{0,-24}}),
         Rectangle(
           extent={{-100,40},{100,-42}},
           lineColor={0,0,0},

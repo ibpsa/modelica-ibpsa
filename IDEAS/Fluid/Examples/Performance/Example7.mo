@@ -24,10 +24,13 @@ equation
           textString="See code")}),
     experiment(
       StopTime=100),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
 <li>
 July 14, 2015, by Michael Wetter:<br/>
 Revised documentation.
@@ -39,9 +42,9 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-See 
-<a href=\"modelica://IDEAS.Fluid.Examples.PerformanceExamples.Example6\"> 
-IDEAS.Fluid.Examples.PerformanceExamples.Example6</a>.
+See
+<a href=\"modelica://IDEAS.Fluid.Examples.Performance.Example6\">
+IDEAS.Fluid.Examples.Performance.Example6</a> for the documentation.
 </p>
 </html>"),
     __Dymola_Commands(file=

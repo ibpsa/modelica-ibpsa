@@ -6,14 +6,15 @@ model Example3
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal=1
+  parameter Modelica.SIunits.PressureDifference dp_nominal=1
     "Pressure drop at nominal mass flow rate";
   Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
     allowFlowReversal=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Pump model with unidirectional flow"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=1)
@@ -26,7 +27,7 @@ model Example3
   Modelica.Blocks.Sources.Pulse pulse(period=1) "Pulse input"
     annotation (Placement(transformation(extent={{-100,14},{-80,34}})));
 
-  Fluid.FixedResistances.FixedResistanceDpM[nRes.k] res(
+  FixedResistances.PressureDrop[nRes.k] res(
     redeclare each package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
     each from_dp=from_dp.k,
@@ -40,7 +41,7 @@ model Example3
   Modelica.Blocks.Sources.BooleanConstant from_dp(k=true)
     "Block for easily changing parameter from_dp.k"
     annotation (Placement(transformation(extent={{-20,-42},{0,-22}})));
-  Fluid.FixedResistances.FixedResistanceDpM[nRes.k] res1(
+  FixedResistances.PressureDrop[nRes.k] res1(
     redeclare package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
     each from_dp=from_dp.k,
@@ -54,33 +55,32 @@ model Example3
 equation
   connect(pump.port_a, bou.ports[1]) annotation (Line(
       points={{-60,0},{-80,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pulse.y, pump.m_flow_in) annotation (Line(
       points={{-79,24},{-50.2,24},{-50.2,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(res.port_b, res1.port_a) annotation (Line(
       points={{0,0},{20,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   for i in 1:nRes.k loop
     connect(res[i].port_a, pump.port_b) annotation (Line(
       points={{-20,0},{-40,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     connect(res1[i].port_b, pump.port_a) annotation (Line(
       points={{40,0},{50,0},{50,20},{-60,20},{-60,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   end for;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -60},{60,40}}),    graphics),
     experiment(StopTime=1000),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 July 14, 2015, by Michael Wetter:<br/>
 Revised documentation.
@@ -92,15 +92,15 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This example demonstrates the importance of merging 
-pressure drop components that are connected in series, 
-into one pressure drop component. 
-Parameter <code>mergeDp.k</code> can be used to merge two components 
-that are connected in series. 
-Parameter <code>from_dp</code> also has an influence of the computational speed. 
+This example demonstrates the importance of merging
+pressure drop components that are connected in series,
+into one pressure drop component.
+Parameter <code>mergeDp.k</code> can be used to merge two components
+that are connected in series.
+Parameter <code>from_dp</code> also has an influence of the computational speed.
 </p>
 <p>
-Following script can be used in Dymola to compare the CPU times. 
+Following script can be used in Dymola to compare the CPU times.
 For this script to work, make sure that Dymola stores at least 4 results.
 </p>
 <p>

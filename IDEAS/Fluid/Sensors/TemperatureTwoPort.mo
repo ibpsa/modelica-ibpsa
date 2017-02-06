@@ -29,8 +29,6 @@ protected
   parameter Real tauHeaTraInv(final unit = "1/s")=
     if tauHeaTra<1E-10 then 0 else 1/tauHeaTra
     "Dummy parameter to avoid division by tauLoss";
-  parameter Real tauInv(final unit = "1/s") = if tau<1E-10 then 0 else 1/tau
-    "Dummy parameter to avoid division by tau";
   Medium.Temperature TMed(start=T_start)
     "Medium temperature to which the sensor is exposed";
   Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
@@ -82,9 +80,9 @@ annotation (defaultComponentName="senTem",
           lineThickness=0.5,
           fillColor={191,0,0},
           fillPattern=FillPattern.Solid),
-        Line(points={{-40,60},{-12,60}}, color={0,0,0}),
-        Line(points={{-40,30},{-12,30}}, color={0,0,0}),
-        Line(points={{-40,0},{-12,0}}, color={0,0,0}),
+        Line(points={{-40,60},{-12,60}}),
+        Line(points={{-40,30},{-12,30}}),
+        Line(points={{-40,0},{-12,0}}),
         Rectangle(
           extent={{-12,60},{12,-24}},
           lineColor={191,0,0},
@@ -101,11 +99,9 @@ annotation (defaultComponentName="senTem",
           textString="T"),
         Line(
           points={{-12,60},{-12,-25}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{12,60},{12,-24}},
-          color={0,0,0},
           thickness=0.5),
         Line(points={{0,100},{0,50}}, color={0,0,127}),
     Line(
@@ -135,7 +131,7 @@ Setting <code>tau=0</code> is <i>not</i> recommend. See
 IDEAS.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 <p>
-If <code>transferHeat = true</code>, then heat transfer with the ambient is 
+If <code>transferHeat = true</code>, then heat transfer with the ambient is
 approximated and <i>T</i> converges towards the fixed ambient
 temperature <i>T<sub>Amb</sub></i> using a first order approximation
 with a time constant of <code>tauHeaTra</code>.
@@ -156,6 +152,12 @@ the mass flow rate on should set <code>transferHeat=false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2016 by Filip Jorissen:<br/>
+Removed parameter <code>tauInv</code> 
+since this now exists in
+<a href=\"modelica://IDEAS.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">IDEAS.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
+</li>
 <li>
 June 19, 2015 by Michael Wetter:<br/>
 Revised model and documentation.

@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Data.Interfaces;
-record Material "Properties of building materials"
+record Material "Template record for properties of building materials"
 
   extends Modelica.Icons.MaterialProperty;
 
@@ -10,6 +10,8 @@ record Material "Properties of building materials"
   parameter Modelica.SIunits.Emissivity epsLw = 0.85 "Longwave emisivity";
   parameter Modelica.SIunits.Emissivity epsSw = 0.85 "Shortwave emissivity";
   parameter Boolean gas=false "Boolean whether the material is a gas"
+    annotation(Evaluate=true);
+  parameter Boolean glass=false "Boolean whether the material is made of glass"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.KinematicViscosity mhu = 0
     "Viscosity, i.e. if the material is a fluid";
@@ -34,18 +36,19 @@ record Material "Properties of building materials"
     "d/sqrt(mat.alpha) of a reference case, ie. 20 cm dense concrete";
   final parameter Real piLay=d/sqrt(alpha)
     "d/sqrt(mat.alpha) of the depicted layer";
-  final parameter Integer nSta(min=1) = max(1, integer(ceil(nStaRef*piLay/piRef)))
+  final parameter Integer nSta(min=2) = max(2, integer(ceil(nStaRef*piLay/piRef)))
     "Actual number of state variables in material";
 
   annotation (Documentation(info="<html>
-<p><h4><font color=\"#008000\">General description</font></h4></p>
-<p><h5>Goal</h5></p>
-<p>The <code>Material.mo</code> partial describes the material data required for building construction modelling.</p>
-<p><h5>Assumptions and limitations</h5></p>
-<p><ol>
-<li>Current number of states in the material layer is determined by a reference number of states in a 20cm concrete slab.</li>
-</ol></p>
-<p><h4><font color=\"#008000\">Validation </font></h4></p>
-<p>No validation required.</p>
+<p>
+This record may be used to define material properties.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 15, 2016, by Filip Jorissen:<br/>
+Revised documentation for IDEAS 1.0.
+</li>
+</ul>
 </html>"));
 end Material;

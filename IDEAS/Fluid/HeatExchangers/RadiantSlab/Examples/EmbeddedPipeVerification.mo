@@ -69,6 +69,6 @@ equation
     experiment,
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
-          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlab/Examples/EmbeddedPipeExample.mos"
+          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlab/Examples/EmbeddedPipeVerification.mos"
         "Simulate and plot"));
 end EmbeddedPipeVerification;

@@ -9,14 +9,13 @@ model SolarBusValidation
       wall(radSolData(each solDataInBus=false)),
       win(radSolData(each solDataInBus=false))))
     annotation (Placement(transformation(extent={{-56,-16},{-44,-4}})));
-  inner SimInfoManager       sim(
+  inner BoundaryConditions.SimInfoManager sim(
     filNam="BESTEST.TMY",
     lat=0.69464104229374,
     lon=-1.8308503853421,
     timZonSta=-28800)
-              annotation (Placement(transformation(extent={{-76,82},{-66,92}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-94,84},{-86,92}})));
+    annotation (Placement(transformation(extent={{-76,82},{-66,92}})));
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(info="<html>
 <p>This model is a verification for the solar bus implementation. Two identical models (BesTest Case 900) are simulated where one of the instances uses the solar bus implementation and the other explicitly calculates the inputs based on the azimuth and inclination angles. Both results should be identical within solver precision.</p>

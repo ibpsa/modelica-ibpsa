@@ -8,20 +8,18 @@ model Boiler
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
 
-  IDEAS.Fluid.Movers.Pump pump(
-    m=1,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    useInput=true,
-    filteredMassFlowRate=true,
-    riseTime=10)
+    tau=30,
+    filteredSpeed=false)
     annotation (Placement(transformation(extent={{-14,-24},{-34,-4}})));
-  IDEAS.Fluid.FixedResistances.Pipe_Insulated pipe(
+  IDEAS.Fluid.FixedResistances.InsulatedPipe pipe(
     m=5,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     UA=100)
-    annotation (Placement(transformation(extent={{32,-24},{12,-4}})));
+    annotation (Placement(transformation(extent={{32,-4},{12,-24}})));
   IDEAS.Fluid.Production.Boiler heater(
     tauHeatLoss=3600,
     cDry=10000,
@@ -33,7 +31,7 @@ model Boiler
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
     annotation (Placement(transformation(extent={{-94,-20},{-80,-6}})));
-  inner IDEAS.SimInfoManager sim
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
   //  Real PElLossesInt( start = 0, fixed = true);
   //  Real PElNoLossesInt( start = 0, fixed = true);
@@ -64,9 +62,9 @@ model Boiler
     annotation (Placement(transformation(extent={{-38,-22},{-54,-6}})));
   Modelica.Blocks.Sources.Pulse sine1(
     startTime=2000,
-    amplitude=-1,
     period=500,
-    offset=1)
+    amplitude=-m_flow_nominal,
+    offset=m_flow_nominal)
     annotation (Placement(transformation(extent={{20,-80},{0,-60}})));
 equation
   //   der(PElLossesInt) = HP.PEl;
@@ -77,11 +75,11 @@ equation
   //   SPFNoLosses = if noEvent(PElNoLossesInt > 0) then QUsefulNoLossesInt/PElNoLossesInt else 0;
 
   connect(heater.heatPort, fixedTemperature.port) annotation (Line(
-      points={{-67.7,14},{-70,14},{-70,-12},{-76,-12},{-76,-13},{-80,-13}},
+      points={{-65,14},{-70,14},{-70,-12},{-76,-12},{-76,-13},{-80,-13}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TReturn.port, pipe.heatPort) annotation (Line(
-      points={{-20,-52},{22,-52},{22,-24}},
+      points={{-20,-52},{22,-52},{22,-18}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sine.y, TReturn.T) annotation (Line(
@@ -97,7 +95,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(realExpression.y, heater.TSet) annotation (Line(
-      points={{-73,38},{-68.6,38},{-68.6,36}},
+      points={{-73,38},{-70.4,38},{-70.4,36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heater.port_b, senTemBoiler_out.port_a) annotation (Line(
@@ -116,13 +114,11 @@ equation
       points={{-54,-14},{-56,-14},{-56,18}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sine1.y, pump.m_flowSet) annotation (Line(
-      points={{-1,-70},{-10,-70},{-10,0},{-24,0},{-24,-3.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(sine1.y, pump.m_flow_in) annotation (Line(points={{-1,-70},{-8,-70},{
+          -8,4},{-23.8,4},{-23.8,-2}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+            100,100}})),
     experiment(StopTime=15000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

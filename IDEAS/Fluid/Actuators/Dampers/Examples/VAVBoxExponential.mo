@@ -19,13 +19,13 @@ model VAVBoxExponential
     offset=101330,
     startTime=0,
     duration=60) annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  IDEAS.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
-      =        Medium, T=273.15 + 20,
+  IDEAS.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
+               Medium, T=273.15 + 20,
     nPorts=2,
     use_p_in=true)                      annotation (Placement(transformation(
           extent={{-70,-20},{-50,0}})));
-  IDEAS.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
-      =        Medium, T=273.15 + 20,
+  IDEAS.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
+               Medium, T=273.15 + 20,
     nPorts=2,
     use_p_in=true)                      annotation (Placement(transformation(
           extent={{72,-20},{52,0}})));
@@ -37,12 +37,12 @@ model VAVBoxExponential
     A=1.8,
     m_flow_nominal=2)
          annotation (Placement(transformation(extent={{-2,-50},{18,-30}})));
-    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res(
+  IDEAS.Fluid.FixedResistances.PressureDrop res(
     from_dp=true,
     m_flow_nominal=2,
     redeclare package Medium = Medium,
     dp_nominal=5 - 0.45*2^2/1.2/1.8^2/2)
-             annotation (Placement(transformation(extent={{-36,10},{-16,30}})));
+    annotation (Placement(transformation(extent={{-36,10},{-16,30}})));
 
 equation
   connect(yDam.y,dam. y) annotation (Line(
@@ -59,20 +59,16 @@ equation
     annotation (Line(points={{-16,20},{20,20}}, color={0,127,255}));
   connect(sou.ports[1], res.port_a) annotation (Line(
       points={{-50,-8},{-42,-8},{-42,20},{-36,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[2], vav.port_a) annotation (Line(
       points={{-50,-12},{-42,-12},{-42,-40},{-2,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dam.port_b, sin.ports[1]) annotation (Line(
       points={{40,20},{46,20},{46,-8},{52,-8}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin.ports[2], vav.port_b) annotation (Line(
       points={{52,-12},{46,-12},{46,-40},{18,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
  annotation (             __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/VAVBoxExponential.mos"
         "Simulate and plot"),
     experiment(StopTime=240),

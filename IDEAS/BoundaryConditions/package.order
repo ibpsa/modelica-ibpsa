@@ -1,8 +1,11 @@
 UsersGuide
-UsersGuide
+SimInfoManager
 SkyTemperature
 SolarGeometry
 SolarIrradiation
 WeatherData
 Types
-Types
+Climate
+Occupants
+Interfaces
+Examples

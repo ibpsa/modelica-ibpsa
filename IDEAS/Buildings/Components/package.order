@@ -4,7 +4,13 @@ OuterWall
 SlabOnGround
 Window
 Zone
+RectangularZoneTemplate
 Shading
-Examples
+ThermalBridges
+ZoneAirModels
+Comfort
+InternalGains
+OccupancyType
 Interfaces
 BaseClasses
+Examples

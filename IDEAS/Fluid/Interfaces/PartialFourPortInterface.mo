@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Interfaces;
 partial model PartialFourPortInterface
   "Partial model transporting fluid between two ports without storing mass or energy"
-  extends IDEAS.Fluid.Interfaces.FourPort;
+  extends IDEAS.Fluid.Interfaces.PartialFourPort;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -18,14 +18,17 @@ partial model PartialFourPortInterface
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
-  Medium1.MassFlowRate m1_flow(start=0) = port_a1.m_flow
+
+  Medium1.MassFlowRate m1_flow = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp1(start=0, displayUnit="Pa")
+  Modelica.SIunits.PressureDifference dp1(displayUnit="Pa") = port_a1.p - port_b1.p
     "Pressure difference between port_a1 and port_b1";
-  Medium2.MassFlowRate m2_flow(start=0) = port_a2.m_flow
+
+  Medium2.MassFlowRate m2_flow = port_a2.m_flow
     "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp2(start=0, displayUnit="Pa")
+  Modelica.SIunits.PressureDifference dp2(displayUnit="Pa") = port_a2.p - port_b2.p
     "Pressure difference between port_a2 and port_b2";
+
   Medium1.ThermodynamicState sta_a1=
       Medium1.setState_phX(port_a1.p,
                            noEvent(actualStream(port_a1.h_outflow)),
@@ -59,9 +62,7 @@ protected
   Medium2.ThermodynamicState state_b2_inflow=
     Medium2.setState_phX(port_b2.p, inStream(port_b2.h_outflow), inStream(port_b2.Xi_outflow))
     "state for medium inflowing through port_b2";
-equation
-  dp1 = port_a1.p - port_b1.p;
-  dp2 = port_a2.p - port_b2.p;
+
   annotation (
   preferredView="info",
     Documentation(info="<html>
@@ -79,6 +80,25 @@ mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Moved computation of pressure drop to variable assignment so that
+the model won't mix graphical with textual modeling if used as a base
+class for a graphically implemented model.
+</li>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Removed start values for mass flow rate and pressure difference
+to simplify the parameter window.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/552\">#552</a>.
+</li>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 November 13, 2013 by Michael Wetter:<br/>
 Removed assignment of <code>min</code> and <code>max</code>

@@ -1,6 +1,8 @@
 ConstantEffectiveness
 HeaterCooler_T
 HeaterCooler_u
+IndirectEvaporativeHex
+ActiveBeams
 GroundHeatExchangers
 RadiantSlab
 Radiators

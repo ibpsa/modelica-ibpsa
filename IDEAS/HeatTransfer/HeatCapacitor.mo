@@ -1,18 +1,19 @@
 within IDEAS.HeatTransfer;
 model HeatCapacitor "Lumped thermal element storing heat"
   parameter Modelica.SIunits.HeatCapacity C "Heat capacity of element (= cp*m)";
-  Modelica.SIunits.Temperature T(start=293.15, displayUnit="degC")
-    "Temperature of element";
-  Modelica.SIunits.TemperatureSlope der_T(start=0)
-    "Time derivative of temperature (= der(T))";
+  parameter Boolean outputE = false;
+  Modelica.SIunits.Temperature T "Temperature of element";
+  Modelica.Blocks.Interfaces.RealOutput E = C*T if outputE;
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port annotation (
       Placement(transformation(
         origin={0,-100},
         extent={{-10,-10},{10,10}},
         rotation=90)));
+  //final parameter Real Cinv=1/C "Inverse of C";
+
 equation
   T = port.T;
-  der_T = der(T);
   C*der(T) = port.Q_flow;
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{

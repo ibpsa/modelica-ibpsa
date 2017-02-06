@@ -8,12 +8,13 @@ model HydraulicCircuit
     annotation (__Dymola_choicesAllMatching=true);
    parameter SI.MassFlowRate m_flow_nominal = 0.5 "Nominal mass flow rate";
 
-  Fluid.Movers.Pump pump1(
-    useInput=true,
-    m_flow_nominal=0.5,
-    m=0,
+   IDEAS.Fluid.Movers.FlowControlled_m_flow pump1(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    tau=30,
+    m_flow_nominal=0.5,
+    dp_nominal = 0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
          annotation (Placement(transformation(extent={{-36,28},{-16,48}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe1(
     m=5,
@@ -23,14 +24,16 @@ model HydraulicCircuit
   Modelica.Blocks.Sources.Sine pulse(
     startTime=200,
     freqHz=1/3600,
-    amplitude=1)
+    amplitude=0.5)
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Fluid.Movers.Pump volumeFlow1(
-    m_flow_nominal=0.5,
-    useInput=true,
-    m=0,
+
+  IDEAS.Fluid.Movers.FlowControlled_m_flow volumeFlow1(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    tau=30,
+    m_flow_nominal=0.5,
+    dp_nominal = 0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
          annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe2(
     m = 5,
@@ -42,7 +45,7 @@ model HydraulicCircuit
     startTime=3600,
     amplitude=1)
     annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
-  IDEAS.Fluid.FixedResistances.Pipe pipe3(
+  IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe3(
     m=5,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
@@ -62,9 +65,6 @@ model HydraulicCircuit
     p=200000) "Absolute pressure"
     annotation (Placement(transformation(extent={{88,28},{68,48}})));
 
-  inner Modelica.Fluid.System system(p_ambient=101325)
-                                   annotation (Placement(transformation(extent={{80,-100},
-            {100,-80}},        rotation=0)));
 equation
   connect(pump1.port_b, pipe1.port_a) annotation (Line(
       points={{-16,38},{10,38}},
@@ -106,22 +106,17 @@ equation
       points={{12,86},{20,86},{20,48}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(pulse.y, pump1.m_flowSet) annotation (Line(
-      points={{-39,60},{-26,60},{-26,48}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(pulse1.y, volumeFlow1.m_flowSet) annotation (Line(
-      points={{-39,16},{-26,16},{-26,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(bou.ports[1], pipe1.port_b) annotation (Line(
       points={{68,38},{30,38}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(pulse1.y, volumeFlow1.m_flow_in)
+    annotation (Line(points={{-39,16},{-26.2,16},{-26.2,6}}, color={0,0,127}));
+  connect(pulse.y, pump1.m_flow_in) annotation (Line(points={{-39,60},{-34,60},
+          {-26.2,60},{-26.2,50}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-            graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
     experiment(StopTime=10000),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>

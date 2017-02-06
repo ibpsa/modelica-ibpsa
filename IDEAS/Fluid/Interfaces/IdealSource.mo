@@ -1,52 +1,7 @@
 within IDEAS.Fluid.Interfaces;
 model IdealSource
   "Base class for pressure and mass flow source with optional power input"
-  extends Modelica.Fluid.Interfaces.PartialTwoPortTransport(show_T=false);
-
-  // what to control
-  parameter Boolean control_m_flow "= false to control dp instead of m_flow"
-    annotation(Evaluate = true);
-  Modelica.Blocks.Interfaces.RealInput m_flow_in if control_m_flow
-    "Prescribed mass flow rate"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={-50,82}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={-60,80})));
-  Modelica.Blocks.Interfaces.RealInput dp_in if not control_m_flow
-    "Prescribed outlet pressure"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={50,82}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={60,80})));
-
-protected
-  Modelica.Blocks.Interfaces.RealInput m_flow_internal
-    "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput dp_internal
-    "Needed to connect to conditional connector";
-equation
-
-  // Ideal control
-  if control_m_flow then
-    m_flow = m_flow_internal;
-    dp_internal = 0;
-  else
-    dp = dp_internal;
-    m_flow_internal = 0;
-  end if;
-
-  connect(dp_internal, dp_in);
-  connect(m_flow_internal, m_flow_in);
-
-  // Energy balance (no storage)
-  port_a.h_outflow = inStream(port_b.h_outflow);
-  port_b.h_outflow = inStream(port_a.h_outflow);
+  extends IDEAS.Fluid.Movers.BaseClasses.IdealSource(m_flow_small=Modelica.Constants.small);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={

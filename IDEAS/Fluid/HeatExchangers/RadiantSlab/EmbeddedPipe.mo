@@ -8,6 +8,8 @@ model EmbeddedPipe
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
     "Properties of the floor heating or TABS, if present"
     annotation (choicesAllMatching=true);
+  final parameter Modelica.SIunits.Length pipeDiaInt = RadSlaCha.d_a - 2*RadSlaCha.s_r
+    "Pipe internal diameter";
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     computeFlowResistance=false,
@@ -56,8 +58,7 @@ annotation(Dialog(tab="Flow resistance"));
   final parameter Real corr = if RadSlaCha.tabs then 0 else
     sum( -(RadSlaCha.alp2/RadSlaCha.lambda_b * RadSlaCha.T - 2*3.14*s)/(RadSlaCha.alp2/RadSlaCha.lambda_b * RadSlaCha.T + 2*3.14*s)*exp(-4*3.14*s/RadSlaCha.T*RadSlaCha.S_2)/s for s in 1:10) "correction factor for the floor heating according to Multizone Building modeling with Type56 and TRNBuild (see documentation). 
     If tabs is used, corr=0 - fixme: deprecated?";
-  final parameter Modelica.SIunits.Length pipeDiaInt = RadSlaCha.d_a - 2*RadSlaCha.s_r
-    "Pipe internal diameter";
+
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
@@ -108,11 +109,10 @@ annotation(Dialog(tab="Flow resistance"));
     each massDynamics=massDynamics)
     annotation (Placement(transformation(extent={{-50,0},{-70,20}})));
 
-  IDEAS.Fluid.FixedResistances.ParallelFixedResistanceDpM res(
+  FixedResistances.ParallelPressureDrop          res(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
-    final use_dh=true,
     allowFlowReversal=allowFlowReversal,
     from_dp=from_dp,
     homotopyInitialization=homotopyInitialization,
@@ -176,7 +176,7 @@ protected
 
 initial equation
    assert(m_flowMin/A_floor*Medium.specificHeatCapacityCp(sta_default)*(R_w_val_min + R_r_val + R_x_val)*nDiscr >= 0.5,
-     "Model is not valid for the set nominal and minimal mass flow rate, discretisation in multiple parts is required");
+     "Model is not valid for the set nominal and minimal mass flow rate, discretisation in multiple parts is required", level = AssertionLevel.warning);
   if RadSlaCha.tabs then
     assert(RadSlaCha.S_1 > 0.3*RadSlaCha.T, "Thickness of the concrete or screed layer above the tubes is smaller than 0.3 * the tube interdistance. 
     The model is not valid for this case");
@@ -197,7 +197,8 @@ equation
     // Koschenz eq 4-59
     R_t = (IDEAS.Utilities.Math.Functions.inverseXRegularized(m_flowSpLimit*cp_default*nDiscr*(1-exp(-1/((R_w_val+R_r_val+R_x_val+R_c)*m_flowSpLimit*cp_default*nDiscr))), deltaXR)-R_c);
   end if;
-  Q = IDEAS.Utilities.Math.Functions.spliceFunction(x=m_flow - m_flow_nominal/100, pos=1, neg=0, deltax=m_flow_nominal/100)*(Tin - heatPortEmb.T)/R_t*A_floor/nDiscr;
+  // no smoothmin since this undershoots for near-zero values
+  Q = (Tin - heatPortEmb.T)*min(1/R_t*A_floor/nDiscr, abs(m_flow)*cp_default);
 
   connect(res.port_b, port_b) annotation (Line(
          points={{40,0},{100,0}},
@@ -342,6 +343,10 @@ A limited verification has been performed in IDEAS.Fluid.HeatExchangers.RadiantS
 <p>[TRNSYS, 2007] - Multizone Building modeling with Type 56 and TRNBuild.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>2015 November, Filip Jorissen: Revised implementation for small flow rates: v3: replaced SmoothMin by min function</li>
+<li>2015 November, Filip Jorissen: Revised implementation for small flow rates: v2</li>
+<li>2015 November, Filip Jorissen: Revised implementation for small flow rates</li>
+<li>2015, Filip Jorissen: Revised implementation</li>
 <li>2014 March, Filip Jorissen: IDEAS baseclasses</li>
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2012 April, Roel De Coninck: rebasing on common Partial_Emission</li>

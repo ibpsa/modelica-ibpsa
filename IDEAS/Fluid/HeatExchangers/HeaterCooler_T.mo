@@ -19,9 +19,8 @@ model HeaterCooler_T
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
 protected
-  IDEAS.Fluid.FixedResistances.FixedResistanceDpM preDro(
+  IDEAS.Fluid.FixedResistances.PressureDrop preDro(
     redeclare final package Medium = Medium,
-    final use_dh=false,
     final m_flow_nominal=m_flow_nominal,
     final deltaM=deltaM,
     final allowFlowReversal=allowFlowReversal,
@@ -29,7 +28,7 @@ protected
     final from_dp=from_dp,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp_nominal) "Pressure drop model"
+    final dp_nominal=dp_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
   IDEAS.Fluid.Interfaces.PrescribedOutletState heaCoo(
@@ -48,24 +47,19 @@ protected
 equation
   connect(port_a, preDro.port_a) annotation (Line(
       points={{-100,0},{-50,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro.port_b, heaCoo.port_a) annotation (Line(
       points={{-30,0},{20,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(heaCoo.port_b, port_b) annotation (Line(
       points={{40,0},{100,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(heaCoo.TSet, TSet) annotation (Line(
       points={{18,8},{0,8},{0,60},{-120,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(heaCoo.Q_flow, Q_flow) annotation (Line(
       points={{41,8},{72,8},{72,60},{110,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -172,6 +166,12 @@ IDEAS.Fluid.HeatExchangers.Validation.HeaterCooler_T_dynamic</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 1, 2016, by Michael Wetter:<br/>
+Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/480\">#480</a>.
+</li>
 <li>
 November 11, 2014, by Michael Wetter:<br/>
 Revised implementation.

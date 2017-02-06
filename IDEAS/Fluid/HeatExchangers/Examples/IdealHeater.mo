@@ -3,12 +3,15 @@ model IdealHeater "Very basic hydraulic circuit with an IdealHeater"
 
   extends Modelica.Icons.Example;
   constant SI.MassFlowRate m_flow_nominal=1300/3600 "Nominal mass flow rate";
-  Fluid.Movers.Pump pump(
-    m=1,
-    useInput=true,
+
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
+    tau=30,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    dp_nominal = 0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    filteredSpeed=false)
     annotation (Placement(transformation(extent={{-14,-24},{-34,-4}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe(
     m=5,
@@ -25,7 +28,7 @@ model IdealHeater "Very basic hydraulic circuit with an IdealHeater"
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
     annotation (Placement(transformation(extent={{-94,-20},{-80,-6}})));
-  inner IDEAS.SimInfoManager sim
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
   Modelica.Blocks.Sources.TimeTable pulse(
   offset=0,
@@ -48,7 +51,7 @@ model IdealHeater "Very basic hydraulic circuit with an IdealHeater"
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
 
-  Modelica.Blocks.Math.Gain gain(k=1/1300)
+  Modelica.Blocks.Math.Gain gain(k=1/1300*m_flow_nominal)
     annotation (Placement(transformation(extent={{-18,72},{2,92}})));
   Modelica.Blocks.Sources.Constant const(k=273.15 + 82)
     annotation (Placement(transformation(extent={{-100,48},{-88,60}})));
@@ -61,7 +64,7 @@ model IdealHeater "Very basic hydraulic circuit with an IdealHeater"
         origin={16,62})));
 equation
   connect(heater.heatPort, fixedTemperature.port) annotation (Line(
-      points={{-69,14},{-70,14},{-70,-12},{-76,-12},{-76,-13},{-80,-13}},
+      points={{-66,14},{-70,14},{-70,-12},{-76,-12},{-76,-13},{-80,-13}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TReturn.port, pipe.heatPort) annotation (Line(
@@ -93,25 +96,25 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, heater.TSet) annotation (Line(
-      points={{-87.4,54},{-78,54},{-78,36},{-70,36}},
+      points={{-87.4,54},{-78,54},{-78,36},{-72,36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, firstOrder.u) annotation (Line(
       points={{3,82},{16,82},{16,74}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(firstOrder.y, pump.m_flowSet) annotation (Line(
-      points={{16,51},{16,4},{-24,4},{-24,-3.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(firstOrder.y, pump.m_flow_in) annotation (Line(points={{16,51},{18,51},
+          {18,10},{18,4},{-23.8,4},{-23.8,-2}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
     experiment(StopTime=40000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
-    Commands(file="Scripts/Tester_Boiler.mos" "TestModel"),
+    Commands(file=
+          "Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/IdealHeater.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>This model, with abruptly changin water return temperatures to an IdealHeater, shows that the heater is able to reach the setpoint in almost all time instants. </p>
 </html>", revisions="<html>

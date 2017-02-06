@@ -1,11 +1,11 @@
 within IDEAS.Buildings.Validation.BaseClasses.VentilationSystem;
 model NightVentilation "BESTEST nightventilation system"
-  extends IDEAS.Interfaces.BaseClasses.VentilationSystem(final nLoads=1);
+  extends IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem(final nLoads=1);
 
 protected
-  IDEAS.Occupants.Components.Schedule occ(occupancy=3600*{7,18},
+  IDEAS.BoundaryConditions.Occupants.Components.Schedule occ(occupancy=3600*{7,18},
       firstEntryOccupied=true) "Occupancy shedule";
-  final parameter Real corrCV=0.822
+  final parameter Real mSenFac=0.822
     "Air density correction for BESTEST at high altitude";
 
 public
@@ -17,21 +17,27 @@ public
   Fluid.Sources.FixedBoundary bou(redeclare package Medium =
         IDEAS.Media.Air, final nPorts=nZones)
     annotation (Placement(transformation(extent={{-68,-30},{-88,-10}})));
-  Modelica.Blocks.Sources.RealExpression m_flow_in(y=1703.16*corrCV*1.024/3600*Occupancy)
+  Modelica.Blocks.Sources.RealExpression m_flow_in(y=if ventilate then m_flow else 0)
     annotation (Placement(transformation(extent={{-12,38},{-32,58}})));
   Modelica.Blocks.Sources.RealExpression T_in(y=sim.Te)
     annotation (Placement(transformation(extent={{-10,-8},{-30,12}})));
 
 protected
-  Real Occupancy = if occ.occupied then 1 else 0;
+  parameter Modelica.SIunits.Pressure pAmb= 83200 "Ambient pressure is 83kPa";
+  parameter Modelica.SIunits.SpecificHeatCapacity r= 287 "Gas constant";
+  parameter Modelica.SIunits.VolumeFlowRate dotV = 1703.16/3600 "Volumetric flow rate";
+  Modelica.SIunits.Density rho = pAmb/sim.Te/r "Density";
+  Modelica.SIunits.MassFlowRate m_flow = dotV*rho "Mass flow rate that enters the building";
+
+  Boolean ventilate = not occ.occupied;
 
 equation
   wattsLawPlug.P[1] = 0;
   wattsLawPlug.Q[1] = 0;
 
   for i in 1:nZones loop
-    connect(flowPort_Out[i],boundary.ports[i]);
-    connect(flowPort_In[i],bou.ports[i]);
+    connect(port_b[i], boundary.ports[i]);
+    connect(port_a[i], bou.ports[i]);
   end for;
 
   connect(boundary.T_in, T_in.y) annotation (Line(
@@ -44,5 +50,12 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
-                      graphics));
+                      graphics), Documentation(revisions="<html>
+<ul>
+<li>
+January 14, 2017 by Filip Jorissen:<br/>
+Corrected error in computation of air density.
+</li>
+</ul>
+</html>"));
 end NightVentilation;

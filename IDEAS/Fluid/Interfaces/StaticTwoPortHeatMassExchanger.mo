@@ -1,8 +1,7 @@
 within IDEAS.Fluid.Interfaces;
 model StaticTwoPortHeatMassExchanger
   "Partial model transporting fluid between two ports without storing mass or energy"
-  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
-  showDesignFlowDirection = false);
+  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
@@ -21,16 +20,16 @@ model StaticTwoPortHeatMassExchanger
   // Models for conservation equations and pressure drop
   IDEAS.Fluid.Interfaces.StaticTwoPortConservationEquation vol(
     redeclare final package Medium = Medium,
-    final sensibleOnly = sensibleOnly,
+    final use_mWat_flow = not sensibleOnly,
     final prescribedHeatFlowRate = prescribedHeatFlowRate,
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small)
     "Control volume for steady-state energy and mass balance"
     annotation (Placement(transformation(extent={{15,-10}, {35,10}})));
-  IDEAS.Fluid.FixedResistances.FixedResistanceDpM preDro(
+
+  IDEAS.Fluid.FixedResistances.PressureDrop preDro(
     redeclare final package Medium = Medium,
-    final use_dh=false,
     final m_flow_nominal=m_flow_nominal,
     final deltaM=deltaM,
     final allowFlowReversal=allowFlowReversal,
@@ -38,7 +37,7 @@ model StaticTwoPortHeatMassExchanger
     final from_dp=from_dp,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp_nominal) "Pressure drop model"
+    final dp_nominal=dp_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
   // Outputs that are needed in models that extend this model
@@ -65,26 +64,21 @@ equation
   connect(vol.COut, COut);
   connect(port_a,preDro. port_a) annotation (Line(
       points={{-100,0},{-50,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro.port_b, vol.port_a) annotation (Line(
       points={{-30,0},{15,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
 
   connect(vol.port_b, port_b) annotation (Line(
       points={{35,0},{67,0},{100,5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
 
   connect(heaInp.y, vol.Q_flow) annotation (Line(
       points={{1,50},{6,50},{6,8},{13,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(masExc.y, vol.mWat_flow) annotation (Line(
       points={{1,30},{4,30},{4,4},{13,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     preferredView="info",
     Documentation(info="<html>
@@ -153,6 +147,26 @@ are the results of an iterative solver.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 1, 2016, by Michael Wetter:<br/>
+Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/480\">#480</a>.
+</li>
+<li>
+January 22, 2016 by Michael Wetter:<br/>
+Removed assignment of <code>sensibleOnly</code> in <code>bal1</code> and <code>bal2</code>
+as this constant has been removed in
+<a href=\"modelica://IDEAS.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
+IDEAS.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
+</li>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Removed assignment of parameter
+<code>showDesignFlowDirection</code> in <code>extends</code> statement.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+</li>
 <li>
 July 2, 2015 by Michael Wetter:<br/>
 Revised implementation of conservation equations,

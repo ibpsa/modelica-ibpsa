@@ -1,9 +1,9 @@
 within IDEAS.Buildings.Data.Glazing;
 record Ins2ArGray = IDEAS.Buildings.Data.Interfaces.Glazing (
     final nLay=3,
-    final mats={Materials.Glass(d=0.006,epsLw_b=0.10),
+    final mats={Materials.Glass(d=0.006, epsLw_a=0.10),
                 Materials.Argon(d=0.016),
-                Materials.Glass(d=0.006, epsLw_a=0.10)},
+                Materials.Glass(d=0.006, epsLw_b=0.10)},
     final SwTrans=[0, 0.316;
                    10, 0.318;
                    20, 0.313;
@@ -36,4 +36,8 @@ Moved epsLw definition to solid layer to be consistent
 with changed implementation of MultiLayerLucent.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Double insulated glazing system with Argon filling and low g value.
+</p>
 </html>"));

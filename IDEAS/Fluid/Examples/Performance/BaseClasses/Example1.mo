@@ -9,14 +9,14 @@ partial model Example1 "Example 1 partial model"
     redeclare package Medium = Medium,
     nPorts=1) "Boundary for pressure boundary condition"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-50,20})));
   Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
     allowFlowReversal=allowFlowReversal.k,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Pump model with unidirectional flow"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   IDEAS.Fluid.HeatExchangers.HeaterCooler_T hea(
@@ -38,8 +38,6 @@ partial model Example1 "Example 1 partial model"
     dpValve_nominal=1000,
     l={0.002,0.002},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
     filteredOpening=false,
     portFlowDirection_1=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional else Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional else Modelica.Fluid.Types.PortFlowDirection.Leaving,
@@ -51,7 +49,7 @@ partial model Example1 "Example 1 partial model"
   Modelica.Blocks.Sources.BooleanConstant allowFlowReversal(k=true)
     "Block for setting allowFlowReversal in components"
     annotation (Placement(transformation(extent={{-88,70},{-68,90}})));
-  IDEAS.Fluid.FixedResistances.FixedResistanceDpM[nRes.k] res(
+  IDEAS.Fluid.FixedResistances.PressureDrop[nRes.k] res(
     redeclare package Medium = Medium,
     each allowFlowReversal=allowFlowReversal.k,
     each m_flow_nominal=m_flow_nominal,
@@ -67,41 +65,32 @@ partial model Example1 "Example 1 partial model"
 equation
   connect(bou.ports[1],hea. port_a) annotation (Line(
       points={{-40,20},{-30,20},{-30,30},{-20,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pulse.y,hea. TSet) annotation (Line(
       points={{-39,80},{-22,80},{-22,36}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(pump.m_flow_in, gain.y) annotation (Line(
       points={{49.8,42},{49.8,80},{21,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.u,pulse. y) annotation (Line(
       points={{-2,80},{-39,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(hea.port_b,val. port_1) annotation (Line(
       points={{0,30},{10,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(val.port_2, pump.port_a) annotation (Line(
       points={{30,30},{40,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(const.y,val. y) annotation (Line(
       points={{-39,50},{20,50},{20,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(val.port_3,hea. port_a) annotation (Line(
       points={{20,20},{20,-10},{-30,-10},{-30,30},{-20,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   for i in 1:nRes.k loop
     connect(pump.port_b, res[i].port_a) annotation (Line(
         points={{60,30},{70,30}},
-        color={0,127,255},
-        smooth=Smooth.None));
+        color={0,127,255}));
   end for;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-20},{100,
             100}}), graphics),
@@ -118,6 +107,11 @@ and is created to avoid errors in the implementation of the two depending exampl
 </html>", revisions="<html>
 <ul>
 <li>
+February 22, 2016, by Michael Wetter:<br/>
+Removed parameter <code>dynamicBalance</code> for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">issue 411</a>.
+</li>
+<li>
 July 14, 2015, by Michael Wetter:<br/>
 Revised documentation.
 </li>
@@ -126,7 +120,5 @@ April 17, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)));
+</html>"));
 end Example1;

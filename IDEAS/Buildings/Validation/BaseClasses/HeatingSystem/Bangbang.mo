@@ -1,11 +1,11 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model Bangbang "BESTEST bang-bang heating system"
-  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
+  extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
     final nLoads=1, final nTemSen = nZones);
 
   parameter Modelica.SIunits.Volume[nZones] VZones;
-  parameter Real corrCV = 5 "Correction factor for thermal mass in zone";
-  parameter Real[nZones] C = VZones * corrCV * 1012 * 1.204;
+  parameter Real mSenFac = 5 "Correction factor for thermal mass in zone";
+  parameter Real[nZones] C = VZones * mSenFac * 1012 * 1.204;
 
 protected
   parameter Modelica.SIunits.Temperature Theat=293.15 "Heating on below 20degC";

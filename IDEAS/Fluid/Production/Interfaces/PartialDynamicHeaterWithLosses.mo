@@ -31,21 +31,21 @@ protected
         UALoss) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-30,-70})));
+        origin={0,-70})));
 
 public
   Modelica.Blocks.Interfaces.RealInput TSet "Temperature setpoint"
                            annotation (Placement(
         transformation(extent={{-126,-20},{-86,20}}), iconTransformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-40,120})));
+        origin={-60,120})));
   Modelica.Blocks.Interfaces.RealOutput PEl "Electrical consumption"
     annotation (Placement(transformation(extent={{-94,46},{-114,66}}),
         iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-74,-100})));
+        origin={-60,-100})));
   parameter SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
   parameter SI.Pressure dp_nominal=0 "Pressure";
 
@@ -72,7 +72,7 @@ protected
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={40,-6})));
+        origin={40,-10})));
 public
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium) "Fluid inlet"
@@ -92,7 +92,8 @@ public
     annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort for thermal losses to environment"
-    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
+        iconTransformation(extent={{-10,-110},{10,-90}})));
 equation
 
   connect(port_a, Tin.port_a) annotation (Line(
@@ -100,7 +101,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pipe_HeatPort.heatPort, thermalLosses.port_a) annotation (Line(
-      points={{30,-6},{20,-6},{20,-40},{-30,-40},{-30,-60}},
+      points={{30,-10},{1.77636e-015,-10},{1.77636e-015,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(Tin.port_b, senMasFlo.port_a) annotation (Line(
@@ -108,22 +109,21 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(senMasFlo.port_b, pipe_HeatPort.port_a) annotation (Line(
-      points={{50,-60},{40,-60},{40,-16}},
+      points={{50,-60},{40,-60},{40,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(thermalLosses.port_b, heatPort) annotation (Line(
-      points={{-30,-80},{-30,-100},{-30,-100}},
+      points={{-1.77636e-015,-80},{-1.77636e-015,-100},{0,-100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pipe_HeatPort.port_b, port_b) annotation (Line(
-      points={{40,4},{40,60},{100,60}},
+      points={{40,0},{40,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
                              annotation (
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
           preserveAspectRatio=false), graphics),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=false),
-                    graphics),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=false)),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>This is a partial model from which most heaters (boilers, heat pumps) will extend. This model is <u>dynamic</u> (there is a water content in the heater and a dry mass lumped to it) and it has <u>thermal losses to the environment</u>. To complete this model and turn it into a heater, a <u>heatSource</u> has to be added, specifying how much heat is injected in the heatedFluid pipe, at which efficiency, if there is a maximum power, etc. HeatSource models are grouped in <a href=\"modelica://IDEAS.Thermal.Components.Production.BaseClasses\">IDEAS.Thermal.Components.Production.BaseClasses.</a></p>

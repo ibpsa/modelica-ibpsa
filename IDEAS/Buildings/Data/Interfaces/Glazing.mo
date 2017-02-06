@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Data.Interfaces;
 record Glazing
-
+  "Template record for glazing, based on  Window software by LBNL"
   extends Modelica.Icons.MaterialProperty;
 
   parameter Integer nLay(min=1)
@@ -16,8 +16,9 @@ record Glazing
   parameter Real SwTransDif
     "Transmitted solar radiation as function of angle of incidence";
 
-  parameter Real U_value "U-value";
-  parameter Real g_value "g-value";
+  parameter Real U_value "Design U-value. (Only used for calculation Qdesign)";
+  parameter Real g_value
+    "Design g-value. (Not used in calculation, only informative)";
 
   annotation (Documentation(info="<html>
   <p>

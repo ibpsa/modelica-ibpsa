@@ -10,6 +10,7 @@ polynomial
 powerLinearized
 quadraticLinear
 regNonZeroPower
+regStep
 searchIndex1D
 smoothExponential
 smoothHeaviside
@@ -21,3 +22,4 @@ splineDerivatives
 trapezoidalIntegration
 Examples
 BaseClasses
+isAngle

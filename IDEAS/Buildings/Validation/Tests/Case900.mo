@@ -9,12 +9,12 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
 
 */
 
-  inner IDEAS.SimInfoManager sim(
+  inner IDEAS.BoundaryConditions.SimInfoManager sim(
     filNam="BESTEST.TMY",
     lat=0.69464104229374,
     lon=-1.8308503853421,
-    timZonSta=-28800)
-              annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
+    timZonSta=-7*3600)
+    annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
 
   // BESTEST 600 Series
 
@@ -22,8 +22,7 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
 
   replaceable Cases.Case900 Case900 constrainedby Interfaces.BesTestCase
     annotation (Placement(transformation(extent={{-76,4},{-64,16}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
+
   annotation (
     experiment(
       StopTime=3.1536e+007,
@@ -36,5 +35,8 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
           lineColor={85,0,0},
           fontName="Calibri",
           textStyle={TextStyle.Bold},
-          textString="BESTEST 900 Series")}));
+          textString="BESTEST 900 Series")}),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Buildings/Validation/Tests/Case900.mos"
+        "Simulate and plot"));
 end Case900;

@@ -1,9 +1,11 @@
-DoubleShading
-PropsBus
+ZoneInterface
+PartialZone
 SolBus
-StateShading
-StateWall
-StateWallNoSol
-StateZone
 WeaBus
 ZoneBus
+WindowBus
+PartialSurface
+PartialOpaqueSurface
+WindowDynamicsType
+BoundaryType
+DummyConnection

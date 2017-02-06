@@ -1,8 +1,7 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model ConvertTime "Test model for converting time"
   extends Modelica.Icons.Example;
-  IDEAS.Utilities.Time.ModelTime modTim
-    "Block that outputs simulation time"
+  IDEAS.Utilities.Time.ModelTime modTim "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
     "Block that converts time"
@@ -10,8 +9,7 @@ model ConvertTime "Test model for converting time"
 equation
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-19,10},{-2,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>
