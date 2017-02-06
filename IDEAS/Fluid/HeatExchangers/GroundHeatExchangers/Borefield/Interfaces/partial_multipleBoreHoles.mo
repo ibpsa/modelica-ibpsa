@@ -1,16 +1,11 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Interfaces;
 partial model partial_multipleBoreHoles
   "Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component" annotation (choicesAllMatching=true);
-  // Medium in borefield
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
     m_flow_nominal=bfData.m_flow_nominal,
-    redeclare package Medium = Medium,
     allowFlowReversal=true);
 
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = bfData.gen.T_start,
-    redeclare package Medium = Medium);
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = bfData.gen.T_start);
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(final
       computeFlowResistance=true, dp_nominal=0);
 
@@ -30,10 +25,10 @@ partial model partial_multipleBoreHoles
     annotation (Dialog(tab="Dynamics"));
 
   // Load of borefield
-  Modelica.SIunits.HeatFlowRate QAve_flow
+  discrete Modelica.SIunits.HeatFlowRate QAve_flow
     "Average heat flux over a time period";
 
-  Modelica.SIunits.Temperature TWall "Average borehole wall temperature";
+  discrete Modelica.SIunits.Temperature TWall "Average borehole wall temperature";
 
   Modelica.Blocks.Sources.RealExpression TWall_val(y=TWall)
     "Average borehole wall temperature"
@@ -66,10 +61,9 @@ protected
     "Aggregation of load vector. Updated every discrete time step.";
 
   //Utilities
-  Modelica.SIunits.Energy UOld "Internal energy at the previous period";
+  discrete Modelica.SIunits.Energy UOld "Internal energy at the previous period";
   Modelica.SIunits.Energy U
     "Current internal energy, defined as U=0 for t=tStart";
-  Modelica.SIunits.Time startTime "Start time of the simulation";
 
 public
   Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
@@ -86,13 +80,12 @@ public
 initial equation
   t0=time;
 
-initial algorithm
   // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same length as the number of aggregated pulse and cover lenSim
-  U := 0;
-  UOld := 0;
+  U =  0;
+  UOld =  0;
 
   // Initialization of the aggregation matrix and check that the short-term response for the given bfData record has already been calculated
-  (kappaMat,rArr,nuMat,TSteSta) :=
+  (kappaMat,rArr,nuMat,TSteSta) =
     IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.saveAggregationMatrix(
     p_max=p_max,
     q_max=q_max,
@@ -101,7 +94,7 @@ initial algorithm
     soi=bfData.soi,
     fil=bfData.fil);
 
-  R_ss := TSteSta/(bfData.gen.q_ste*bfData.gen.hBor*bfData.gen.nbBh)
+  R_ss =  TSteSta/(bfData.gen.q_ste*bfData.gen.hBor*bfData.gen.nbBh)
     "Steady state resistance";
 
 equation
@@ -114,35 +107,29 @@ equation
 
   assert(port_a.m_flow>-Modelica.Constants.eps or allowFlowReversal, "Flow reversal may not occurs in borefield except
   if allowFlowReversal is set to true in the model");
-algorithm
   // Set the start time for the sampling
-  when initial() then
-    startTime := time;
-  end when;
 
-  when initial() or sample(startTime + bfData.gen.tStep, bfData.gen.tStep) then
-    QAve_flow := (U - UOld)/bfData.gen.tStep;
-    UOld := U;
+  when {initial(), sample(t0 + bfData.gen.tStep, bfData.gen.tStep)} then
+    QAve_flow =  (U - pre(UOld))/bfData.gen.tStep;
+    UOld =  U;
 
     // Update of aggregated load matrix.
-    QMat := BaseClasses.Aggregation.aggregateLoad(
+    QMat =  BaseClasses.Aggregation.aggregateLoad(
         q_max=q_max,
         p_max=p_max,
         rArr=rArr,
         nuMat=nuMat,
         QNew=QAve_flow,
-        QAggOld=QMat);
+        QAggOld=pre(QMat));
 
     // Wall temperature of the borefield
-    TWall :=BaseClasses.deltaTWall(
+    TWall = BaseClasses.deltaTWall(
       q_max=q_max,
       p_max=p_max,
       QMat=QMat,
       kappaMat=kappaMat,
       R_ss=R_ss) + T_start;
   end when;
-
-equation
 
   connect(massFlowRateMultiplier1.port_b, port_b)
     annotation (Line(points={{80,0},{86,0},{100,0}}, color={0,127,255}));
@@ -257,6 +244,12 @@ A verification of this model can be found in
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2017, by Filip Jorissen:<br>
+Changed initial algorithm to initial equation section since otherwise
+buffer overflows may occur.
+See <a href=https://github.com/open-ideas/IDEAS/issues/666># 666</a>.
+</li>
 <li>
 July 2014, by Damien Picard:<br>
 First implementation.
