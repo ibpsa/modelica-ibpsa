@@ -37,7 +37,7 @@ This model transfers heat in the amount of
 </p>
 <p>
 where <i>&epsilon;</i> is a constant effectiveness and
-<i>Q<sub>max</sub></i> is the maximum heat that can be transferred.
+<i>Q<sub>max</sub></i> is the maximum heat that can be transferred. A counterflow configuration is here assumed.
 </p>
 <p>
 For a heat and moisture exchanger, use
