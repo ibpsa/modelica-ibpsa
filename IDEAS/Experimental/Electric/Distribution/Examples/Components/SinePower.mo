@@ -11,7 +11,7 @@ model SinePower
   Real P=wattsLaw.P;
 
 protected
-  IDEAS.Experimental.Electric.BaseClasses.WattsLaw wattsLaw(numPha=1)
+  IDEAS.Experimental.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -32,7 +32,7 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(sine.y, wattsLaw.P) annotation (Line(
-      points={{-51,86},{-26,86},{-26,60}},
+      points={{-51,86},{-25,86},{-25,56}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
