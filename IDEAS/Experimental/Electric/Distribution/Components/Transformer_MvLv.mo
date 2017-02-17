@@ -47,9 +47,9 @@ model Transformer_MvLv "Medium to low voltage transfomer for three-phase grids"
   Modelica.SIunits.Temperature TTo = capOil.T "Top oil temperature";
 
 protected
-  IDEAS.Experimental.Electric.BaseClasses.Con3PlusNTo3 con3PlusNTo3_HV
+  IDEAS.Experimental.Electric.BaseClasses.AC.Con3PlusNTo3 con3PlusNTo3_HV
     annotation (Placement(transformation(extent={{-60,50},{-40,30}})));
-  IDEAS.Experimental.Electric.BaseClasses.Con3PlusNTo3 con3PlusNTo3_LV
+  IDEAS.Experimental.Electric.BaseClasses.AC.Con3PlusNTo3 con3PlusNTo3_LV
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,

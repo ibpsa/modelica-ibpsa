@@ -35,8 +35,9 @@ model PvSystemPlug
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug vi(m=
         numPha) annotation (Placement(transformation(extent={{90,30},{110,50}},
           rotation=0)));
-  outer Occupants.Extern.StrobeInfoManager strobe(PPv=true)
+  outer IDEAS.BoundaryConditions.Occupants.Extern.StrobeInfoManager strobe(PPv=true)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+ // A top-level "inner" strobe is required to work, otherwise tabPPv cannot be found
 equation
 
   connect(invertor.P, pvVoltageCtrl.PInit) annotation (Line(

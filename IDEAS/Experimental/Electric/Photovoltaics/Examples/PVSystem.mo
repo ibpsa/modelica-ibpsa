@@ -18,9 +18,7 @@ model PVSystem
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={40,0})));
-  inner IDEAS.BoundaryConditions.SimInfoManager sim(redeclare
-      IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
-      IDEAS.Climate.Meteo.Files.min15 detail)
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-98,78},{-78,98}})));
 equation
   connect(pVSystemGeneral.pin[1], voltageSource.pin_p) annotation (Line(

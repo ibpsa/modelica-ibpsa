@@ -34,8 +34,9 @@ model PvSystem
     annotation (Placement(transformation(extent={{96,50},{116,70}})));
   Modelica.Blocks.Interfaces.RealOutput Q
     annotation (Placement(transformation(extent={{96,10},{116,30}})));
-  outer IDEAS.Occupants.Extern.StrobeInfoManager strobe(final PPv=true)
+  outer IDEAS.BoundaryConditions.Occupants.Extern.StrobeInfoManager strobe(final PPv=true)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  // A top-level "inner" strobe is required to work, otherwise tabPPv cannot be found
 equation
 
   connect(invertor.P, pvVoltageCtrl.PInit) annotation (Line(

@@ -90,7 +90,7 @@ public
 protected
   parameter Integer Nodes=grid.nNodes;
 
-  IDEAS.Experimental.Electric.BaseClasses.Con3PlusNTo3 con3PlusNTo3_1[
+  IDEAS.Experimental.Electric.BaseClasses.AC.Con3PlusNTo3 con3PlusNTo3_1[
     gridOnly3P.grid.nNodes]
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 public
@@ -100,37 +100,35 @@ public
   Transformer_MvLv transformer_MvLv
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 equation
-  for i in 1:3 loop
-  end for;
+ // for i in 1:3 loop
+//  end for;
 
-  if traPre then
-  else
-  end if;
+ // if traPre then
+      connect(transformer_MvLv.pin_lv_p, gridOnly3P.TraPin) annotation (Line(
+      points={{0,6},{20,6}},
+      color={85,170,255},
+      smooth=Smooth.None));
+      connect(transformer_MvLv.pin_lv_n, gridOnly3P.TraGnd) annotation (Line(
+      points={{0,-6},{20,-6}},
+      color={85,170,255},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+ // else
+ // end if;
 
   for n in 1:gridOnly3P.grid.nNodes loop
     connect(con3PlusNTo3_1[n].threeWire, nodes3Phase[:, n]) annotation (Line(
         points={{80,0},{100,0}},
         color={85,170,255},
         smooth=Smooth.None));
-  end for;
-
-  connect(transformer_MvLv.pin_lv_p, gridOnly3P.TraPin) annotation (Line(
-      points={{0,6},{20,6}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(transformer_MvLv.pin_lv_n, gridOnly3P.TraGnd) annotation (Line(
-      points={{0,-6},{20,-6}},
-      color={85,170,255},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(gridOnly3P.node, con3PlusNTo3_1.fourWire) annotation (Line(
+   connect(gridOnly3P.node[:, n], con3PlusNTo3_1[n].fourWire) annotation (Line(
       points={{40,0},{60,0}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(con3PlusNTo3_1.threeWire, nodes3Phase) annotation (Line(
-      points={{80,0},{100,0}},
-      color={85,170,255},
-      smooth=Smooth.None));
+  end for;
+
+
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics), Icon(graphics={

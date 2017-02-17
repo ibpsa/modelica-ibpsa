@@ -6,13 +6,13 @@ protected
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter Real gridFreq=50
     "Grid frequency: should normally not be changed when simulating belgian grids!";
-  //   IDEAS.Electric.DistributionGrid.Components.CVoltageSource cVoltageSource[3](
+  //   IDEAS.Experimental.Electric.DistributionGrid.Components.CVoltageSource cVoltageSource[3](
   //       Vsource={VSource*(cos(Modelica.Constants.pi*2*i/3) + Modelica.ComplexMath.j
   //         *sin(Modelica.Constants.pi*2*i/3)) for i in 1:3})                                                          annotation (Placement(transformation(
   //         extent={{-10,-10},{10,10}},
   //         rotation=270,
   //         origin={-80,-30})));
-  //   IDEAS.Electric.DistributionGrid.Components.CGround cGround
+  //   IDEAS.Experimental.Electric.DistributionGrid.Components.CGround cGround
   //     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
 
 public
@@ -76,7 +76,7 @@ public
 protected
   parameter Integer Nodes=grid.nNodes;
 
-  IDEAS.Experimental.Electric.BaseClasses.Con3PlusNTo3 con3PlusNTo3_1[
+  IDEAS.Experimental.Electric.BaseClasses.AC.Con3PlusNTo3 con3PlusNTo3_1[
     gridOnly1P.grid.nNodes]
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 public
