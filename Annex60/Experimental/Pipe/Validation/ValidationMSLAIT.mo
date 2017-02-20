@@ -77,7 +77,7 @@ model ValidationMSLAIT
         origin={80,-8})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  parameter Types.ThermalResistanceLength R=4.92141;
+  parameter Types.ThermalResistanceLength R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.18);
   parameter Types.ThermalResistanceLength R_old=1/(lambdaI*2*Modelica.Constants.pi/
       Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res0(R=R/pip0.length)

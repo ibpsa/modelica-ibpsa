@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe.Data;
-record PipeDataULg160104_2 "Experimental data from ULg's pipe test bench from"
+record PipeDataULg160104_2 "Experimental data from ULg's pipe test bench from 4 January 2016. Low mass flow"
   extends Annex60.Experimental.Pipe.Data.BaseClasses.PipeDataULg( final n=5,
   T_ini_out = 15.0,
   T_ini_in = 17.9,

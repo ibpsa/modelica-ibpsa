@@ -38,11 +38,13 @@ extends Modelica.Icons.Example;
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=115,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip1.length)
+    dp_nominal=10*pip1.length,
+    thickness=0.0032,
+    R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.18))
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PipeHeatLossMod pip4(
     redeclare package Medium = Medium,
@@ -50,10 +52,12 @@ extends Modelica.Icons.Example;
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip4.length)           annotation (Placement(transformation(
+    dp_nominal=10*pip4.length,
+    thickness=0.0032,
+    R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.18))                    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={8,38})));
@@ -63,10 +67,12 @@ extends Modelica.Icons.Example;
     diameter=0.0825,
     lambdaI=0.024,
     thicknessIns=0.045,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip5.length)
+    dp_nominal=10*pip5.length,
+    thickness=0.0032,
+    R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.18))
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
   PipeHeatLossMod pip2(
     redeclare package Medium = Medium,
@@ -74,10 +80,12 @@ extends Modelica.Icons.Example;
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip2.length)           annotation (Placement(transformation(
+    dp_nominal=10*pip2.length,
+    thickness=0.0032,
+    R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.18))                    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-88,30})));
@@ -87,10 +95,12 @@ extends Modelica.Icons.Example;
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip3.length)           annotation (Placement(transformation(
+    dp_nominal=10*pip3.length,
+    thickness=0.0032,
+    R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.18))                    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-10})));
@@ -143,12 +153,13 @@ extends Modelica.Icons.Example;
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=20,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
-    dp_nominal(displayUnit="Pa") = 10*pip0.length)
-                                         annotation (Placement(transformation(
+    dp_nominal(displayUnit="Pa") = 10*pip0.length,
+    thickness=0.0032,
+    R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.18))                    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-2})));
