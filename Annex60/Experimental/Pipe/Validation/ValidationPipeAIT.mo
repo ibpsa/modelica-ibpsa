@@ -43,7 +43,7 @@ extends Modelica.Icons.Example;
     m_flow_nominal=0.3,
     dp_nominal=10*pip1.length,
     thickness=0.0032,
-    R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18))
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PipeHeatLossMod pip4(
@@ -56,7 +56,7 @@ extends Modelica.Icons.Example;
     m_flow_nominal=0.3,
     dp_nominal=10*pip4.length,
     thickness=0.0032,
-    R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18))                    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -71,7 +71,7 @@ extends Modelica.Icons.Example;
     m_flow_nominal=0.3,
     dp_nominal=10*pip5.length,
     thickness=0.0032,
-    R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18))
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
   PipeHeatLossMod pip2(
@@ -84,7 +84,7 @@ extends Modelica.Icons.Example;
     m_flow_nominal=0.3,
     dp_nominal=10*pip2.length,
     thickness=0.0032,
-    R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18))                    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
@@ -99,7 +99,7 @@ extends Modelica.Icons.Example;
     m_flow_nominal=0.3,
     dp_nominal=10*pip3.length,
     thickness=0.0032,
-    R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18))                    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -158,7 +158,7 @@ extends Modelica.Icons.Example;
     m_flow_nominal=0.3,
     dp_nominal(displayUnit="Pa") = 10*pip0.length,
     thickness=0.0032,
-    R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18))                    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -280,7 +280,7 @@ equation
     annotation (Line(points={{78.6,93},{78.6,120},{86,120}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-    experiment(StopTime=603900),
+    experiment(StopTime=603900, Interval=900),
     __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
 <p>The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model.</p>
@@ -370,7 +370,7 @@ equation
     "Export csv file"),
     __Dymola_experimentFlags(
       Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
-      Evaluate=true,
+      Evaluate=false,
       OutputCPUtime=true,
       OutputFlatModelica=false));
 end ValidationPipeAIT;
