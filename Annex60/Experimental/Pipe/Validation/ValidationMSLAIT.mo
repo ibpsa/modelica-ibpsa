@@ -161,7 +161,6 @@ model ValidationMSLAIT
         origin={-10,-30})));
   Modelica.Fluid.Pipes.DynamicPipe pip4(
     nParallel=1,
-    diameter=0.0825,
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
@@ -170,7 +169,8 @@ model ValidationMSLAIT
     nNodes=29,
     redeclare model FlowModel =
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
-          dp_nominal=10*pip4.length, m_flow_nominal=0.3))
+          dp_nominal=10*pip4.length, m_flow_nominal=0.3),
+    diameter=0.0337 - 2*0.0032)
                        annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
@@ -180,7 +180,9 @@ model ValidationMSLAIT
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-4,78})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res4(R=R/pip4.length)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res4(R=(1/(2*0.024*
+        Modelica.Constants.pi)*log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.07))/pip4.length)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -258,6 +260,15 @@ model ValidationMSLAIT
     annotation (Placement(transformation(extent={{138,70},{98,90}})));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=-0.001)
     annotation (Placement(transformation(extent={{114,104},{108,110}})));
+  Fluid.Sources.MassFlowSource_T Point5(
+    redeclare package Medium = Medium,
+    use_m_flow_in=true,
+    nPorts=1)           annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={64,70})));
+  Modelica.Blocks.Logical.Switch switch1
+    annotation (Placement(transformation(extent={{108,52},{88,72}})));
 equation
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
       points={{-58,-90},{-54,-90},{-54,-80}},
@@ -357,6 +368,16 @@ equation
           104},{107.7,107}}, color={255,0,255}));
   connect(lessThreshold.u, m_flow_p4.y) annotation (Line(points={{114.6,107},{
           130,107},{130,130},{132,130}}, color={0,0,127}));
+  connect(Point5.m_flow_in,switch1. y)
+    annotation (Line(points={{74,62},{80,62},{87,62}}, color={0,0,127}));
+  connect(lessThreshold.y, switch1.u2) annotation (Line(points={{107.7,107},{
+          110,107},{110,62}}, color={255,0,255}));
+  connect(m_flow_p4.y, switch1.u3) annotation (Line(points={{132,130},{122,130},
+          {122,54},{110,54}}, color={0,0,127}));
+  connect(m_flow_zero.y, switch1.u1) annotation (Line(points={{96,80},{104,80},
+          {104,70},{110,70}}, color={0,0,127}));
+  connect(Point5.ports[1], senTem_p4.port_a) annotation (Line(points={{54,70},{
+          40,70},{40,54},{12,54},{12,64},{18,64}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
