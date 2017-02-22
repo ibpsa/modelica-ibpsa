@@ -130,14 +130,16 @@ Non-SI units are to be kept at an absolute minimum, and they must be declared as
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_0_1_build0 "Version 0.1 build 0"
+  class Version_1_0_0 "Version 1.0.0"
     extends Modelica.Icons.ReleaseNotes;
       annotation (preferredView="info", Documentation(info="<html>
 <p>
-First development version of the library.
+First official release of the Annex 60 library.
+Future development will continue on
+<a href=\"https://github.com/ibpsa/modelica\">https://github.com/ibpsa/modelica</a>.
 </p>
 </html>"));
-  end Version_0_1_build0;
+  end Version_1_0_0;
 
     annotation (preferredView="info",
     Documentation(info="<html>
@@ -147,7 +149,7 @@ on the <code>Annex60</code> library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Annex60.UsersGuide.ReleaseNotes.Version_0_1_build0\">Version 0.1</a>(September xxx , 2013)
+<a href=\"modelica://Annex60.UsersGuide.ReleaseNotes.Version_1_0_0\">Version 1.0.0</a>(January 17, 2017)
 </li>
 </ul>
 
@@ -185,28 +187,95 @@ Library point of contact<br/>
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=\"5\">Acknowledgements</font></h4>
 <p>
- The development of this library was supported
+The following grants supported the development of the <code>Annex60</code> library:
 </p>
- <ul>
- <li>by the Assistant Secretary for
-  Energy Efficiency and Renewable Energy, Office of Building
-  Technologies of the U.S. Department of Energy, under
-  contract No. DE-AC02-05CH11231.
- </li>
- <li>
- fixme: add other funding agencies as appropriate.
- </li>
- </ul>
+<ul>
+<li>
+LBNL
+was supported for the development of this library
+by the Assistant Secretary for
+Energy Efficiency and Renewable Energy, Office of Building
+Technologies of the U.S. Department of Energy, under
+contract No. DE-AC02-05CH11231.
+</li>
+<li>
+The authors acknowledge the financial support by the Agency for
+Innovation by Science and Technology in Flanders (IWT) and WTCB
+in the frame of the IWT-VIS Traject SMART GEOTHERM focusing
+on integration of thermal energy storage and thermal inertia
+in geothermal concepts for smart heating and cooling of (medium) large buildings.
+The authors also acknowledge the financial support by IWT for the PhD work of
+F. Jorissen (contract number 131012).
+The work of Bram van der Heijde is funded through the
+project \"Towards a Sustainable Energy Supply in Cities\" by the European Union,
+the European Regional Development Fund ERDF, Flanders Innovation &amp; Entrepreneurship
+and the Province of Limburg.
+</li>
+<li>
+ RWTH Aachen University
+ was supported for the development of this library
+ by the German Federal Ministry for Economic Affairs and Energy (BMWi),
+ promotional reference no. 03ET1177A, 03ET1211B.
+</li>
+<li>
+ UdK Berlin
+ was supported for the development of this library
+ by the German Federal Ministry for Economic Affairs and Energy (BMWi),
+ promotional reference no. 03ET1177D, 03ESP409C.
+</li>
+<li>
+ Aalborg University
+ was supported for the development of this library
+ by the Danish Energy Agency, under the Energy Technology Development and
+ Demonstration Program (EUDP), journal no. 64013-0566.
+</li>
+</ul>
+
+
 <p>
-The following people have directly contributed to the implementation of the <code>Annex60</code> library
+The following people have directly contributed to the implementation of
+the <code>Annex60</code> library
 (many others have contributed by other means than model implementation):
 </p>
 <ul>
 <li>
-Michael Wetter, Lawrence Berkeley National Laboratory, USA
+Marcus Fuchs, RWTH Aachen University, Germany
 </li>
 <li>
-xxx add contributors for the first version in alphabetical order.
+Filip Jorissen, KU Leuven, Belgium
+</li>
+<li>
+Moritz Lauster, RWTH Aachen University, Germany
+</li>
+<li>
+Alessandro Maccarini, Aalborg University, Denmark
+</li>
+<li>
+Philipp Mehrfeld, RWTH Aachen University, Germany
+</li>
+<li>
+Jens Moeckel, UdK Berlin, Germany
+</li>
+<li>
+Thierry S. Nouidui, Lawrence Berkeley National Laboratory, Berkeley, CA, USA
+</li>
+<li>
+Christoph Nytsch-Geusen, UdK Berlin, Germany
+</li>
+<li>
+Damien Picard, KU Leuven, Belgium
+</li>
+<li>
+Matthis Thorade, UdK Berlin, Germany
+</li>
+<li>
+Carles Ribas Tugores, UdK Berlin, Germany
+</li>
+<li>
+Bram van der Heijde, KU Leuven, Belgium
+</li>
+<li>
+Michael Wetter, Lawrence Berkeley National Laboratory, Berkeley, CA, USA
 </li>
 </ul>
 </html>"));
@@ -364,7 +433,7 @@ You are under no obligation whatsoever to provide any bug fixes, patches, or upg
 At the top level of your Modelica package and at every important subpackage, add the following notices in the info layer of the package:
 </p>
 <ul><li style=\"list-style-type:none\">
-Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 Copyright (c) 2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory.
+Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 Copyright (c) 2009-2017, The Regents of the University of California, through Lawrence Berkeley National Laboratory.
 </li>
 <li style=\"list-style-type:none\"><i>
 This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>.
@@ -407,7 +476,7 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=\"5\">Copyright</font></h4>
 <p>
-Copyright (c) 2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
+Copyright (c) 2009-2017, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
 </p>
 <p>
 If you have questions about your rights to use or distribute this software, please contact Berkeley Lab's Technology Transfer Department at
@@ -422,8 +491,8 @@ NOTICE. This software was developed under partial funding from the U.S. Departme
   Documentation(info="<html>
 <p>
 The Modelica <code>Annex60</code> library is a free open-source library
-with basic models that
-codify best practices for the implementation of models for
+with classes (models, functions, etc.) that
+codify and demonstrate best practices for the implementation of models for
 building and community energy and control systems.
 The library is developed within the Annex 60 project
 <a href=\"http://www.iea-annex60.org\">http://www.iea-annex60.org</a>
@@ -440,9 +509,11 @@ as applications in buildings often have multiple fluids with largely varying
 flow rates, and therefore a global declaration is impractical.
 </p>
 <p>
-The development page for this library is
+The development page for this library has been
 <a href=\"https://github.com/iea-annex60/modelica-annex60\">
 https://github.com/iea-annex60/modelica-annex60</a>.
+Future development will continue on
+<a href=\"https://github.com/ibpsa/modelica\">https://github.com/ibpsa/modelica</a>.
 We welcome contributions from different users to further advance this library,
 whether it is through collaborative model development, through model use and testing
 or through requirements definition or by providing feedback regarding the model applicability
@@ -478,10 +549,9 @@ end UsersGuide;
 
 
 annotation (
-version="0.1",
-versionBuild=0,
-versionDate="2013-09-20",
-dateModified = "2013-09-20",
+version="1.0.0",
+versionDate="2017-01-17",
+dateModified = "2017-01-17",
 uses(Modelica(version="3.2.2")),
 preferredView="info",
 Documentation(info="<html>
@@ -492,7 +562,7 @@ alt=\"Logo of IEA EBC\"
 width=\"100\"
 src=\"modelica://Annex60/Resources/Images/iea-ebc-logo.png\" border=\"1\"/>
 The <code>Annex60</code> library is a free library
-that provides basic classes for the development of
+that provides more than 300 classes (models, functions, etc.) for the development of
 Modelica libraries for building and community energy and control systems.
 The library is compatible with models from the Modelica Standard Library,
 in particular with models from
@@ -502,13 +572,15 @@ and
 </p>
 <p>
 The library is developed through the international collaborative project
-<i>New Generation Computational Tools for Building and Community Energy Systems</i>
+<a href=\"http://iea-annex60.org/\">IEA EBC Annex 60</a>,
+<i>New Generation Computational Tools for Building and Community Energy Systems</i>,
 that is carried out within the implementation agreement
-<i>Energy in Buildings and Communities (EBC)</i>
-from the <i>International Energy Agency</i>.
+<a href=\"http://www.iea-ebc.org/\">Energy in Buildings and Communities (EBC)</a>,
+of the
+<a href=\"http://www.iea.org/\">International Energy Agency</a>.
 </p>
 <p>
-The intent of the library is that classes of this library will be extended by
+The intent of the library is that it will be extended by
 implementations of Modelica libraries that are targeted to end-users.
 Major goals are
 </p>
@@ -550,13 +622,21 @@ The <code>IDEAS</code> library from KU Leuven, Belgium, available at
 </li>
 </ul>
 <p>
+The library also contains more than 300 example and validation models. For Dymola,
+each of these example and validation models contains a script that simulates it and
+plots certain variables of interest.
+</p>
+<p>
 The web page for this library is
 <a href=\"https://github.com/iea-annex60/modelica-annex60\">https://github.com/iea-annex60/modelica-annex60</a>.
 Contributions to further advance the library are welcomed.
 Contributions may not only be in the form of model development, but also
-through model use, model testing,
+through model use, model testing and validation,
 requirements definition or providing feedback regarding the model applicability
 to solve specific problems.
+In 2017, the development of the Annex 60 library will be continued under the
+<a href=\"https://ibpsa.github.io/project1/\">IBPSA Project 1</a> at
+<a href=\"https://github.com/ibpsa/modelica\">https://github.com/ibpsa/modelica</a>.
 </p>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

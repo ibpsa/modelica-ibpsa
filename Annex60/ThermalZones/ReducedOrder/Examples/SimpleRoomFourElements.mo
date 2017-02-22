@@ -157,7 +157,7 @@ model SimpleRoomFourElements
   Modelica.Blocks.Sources.Constant alphaRoof(k=25*11.5)
     "Outdoor coefficient of heat transfer for roof"
     annotation (Placement(transformation(extent={{4,-4},{-4,4}},origin={86,47})));
-  Modelica.Blocks.Sources.Constant const1(each k=0)
+  Modelica.Blocks.Sources.Constant const1(k=0)
     "Sets sunblind signal to zero (open)"
     annotation (Placement(transformation(extent={{68,90},{62,96}})));
 
@@ -301,7 +301,7 @@ equation
   Solar radiation on tilted surface is calculated using models of
   Annex60. The thermal zone is a simple room defined in Guideline
   VDI 6007 Part 1 (VDI, 2012). All models, parameters and inputs
-  except sunblinds, seperate handling of heat transfer through
+  except sunblinds, separate handling of heat transfer through
   windows, an extra wall element for ground floor (with additional
   area), an extra wall element for roof (with additional area) and
   solar radiation are similar to the ones defined for the

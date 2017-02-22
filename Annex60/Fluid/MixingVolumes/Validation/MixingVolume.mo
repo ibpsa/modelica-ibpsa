@@ -23,7 +23,7 @@ model MixingVolume "Test model for mixing volumes"
     p=101325,
     T=283.15)
     annotation (Placement(transformation(extent={{130,48},{110,68}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res1(
+  Annex60.Fluid.FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
@@ -37,24 +37,24 @@ model MixingVolume "Test model for mixing volumes"
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=2)
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res2(
+  Annex60.Fluid.FixedResistances.PressureDrop res2(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res11(
+  Annex60.Fluid.FixedResistances.PressureDrop res11(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res12(
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  Annex60.Fluid.FixedResistances.PressureDrop res12(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{80,0},{100,20}})));
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Modelica.Fluid.Vessels.ClosedVolume vol(
     redeclare package Medium = Medium,
     V=0.1,
@@ -64,8 +64,9 @@ model MixingVolume "Test model for mixing volumes"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
          annotation (Placement(transformation(extent={{0,60},{22,80}})));
-  Modelica.Blocks.Math.Add cheEqu1(k2=-1) "Check for equality of results"
-    annotation (Placement(transformation(extent={{156,72},{176,92}})));
+  Annex60.Utilities.Diagnostics.CheckEquality cheEqu1
+    "Check for equality of results"
+    annotation (Placement(transformation(extent={{156,70},{176,90}})));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat(
     redeclare package Medium = Medium,
     m_flow_nominal=2) "Enthalpy flow rate"
@@ -84,19 +85,20 @@ model MixingVolume "Test model for mixing volumes"
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=2)
           annotation (Placement(transformation(extent={{0,-82},{20,-62}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res21(
+  Annex60.Fluid.FixedResistances.PressureDrop res21(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-      annotation (Placement(transformation(extent={{-40,-92},{-20,-72}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res22(
+    annotation (Placement(transformation(extent={{-40,-92},{-20,-72}})));
+  Annex60.Fluid.FixedResistances.PressureDrop res22(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-      annotation (Placement(transformation(extent={{80,-92},{100,-72}})));
-  Modelica.Blocks.Math.Add cheEqu2(k2=-1) "Check for equality of results"
+    annotation (Placement(transformation(extent={{80,-92},{100,-72}})));
+  Annex60.Utilities.Diagnostics.CheckEquality cheEqu2
+    "Check for equality of results"
     annotation (Placement(transformation(extent={{156,10},{176,30}})));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat2(
     redeclare package Medium = Medium,
@@ -164,11 +166,12 @@ equation
       points={{60,10},{80,10}},
       color={0,127,255}));
   connect(entFloRat.H_flow, cheEqu1.u1)
-    annotation (Line(points={{50,71},{50,88},{154,88}}, color={0,0,127}));
-  connect(entFloRat.H_flow, cheEqu2.u1) annotation (Line(points={{50,71},{50,88},
-          {140,88},{140,26},{154,26}}, color={0,0,127}));
-  connect(entFloRat1.H_flow, cheEqu1.u2) annotation (Line(points={{50,21},{50,40},
-          {146,40},{146,76},{154,76}}, color={0,0,127}));
+    annotation (Line(points={{50,71},{50,86},{154,86}}, color={0,0,127}));
+  connect(entFloRat.H_flow, cheEqu2.u1) annotation (Line(points={{50,71},{50,86},
+          {140,86},{140,26},{154,26}}, color={0,0,127}));
+  connect(entFloRat1.H_flow, cheEqu1.u2) annotation (Line(points={{50,21},{50,
+          40},{146,40},{146,74},{154,74}},
+                                       color={0,0,127}));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
 experiment(StopTime=2),
@@ -183,6 +186,11 @@ library.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2017, by Thierry S. Nouidui:<br/>
+Refactored difference blocks for checking integration errors.
+This is needed for the JModelica verification tests.
+</li>
 <li>
 November 4, 2016, by Michael Wetter:<br/>
 Removed wrong use of <code>each</code> keyword.<br/>
