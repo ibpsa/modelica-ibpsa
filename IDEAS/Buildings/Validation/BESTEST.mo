@@ -12,7 +12,7 @@ model BESTEST
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   //conversion factors for convertion Joule/Watt into MWh/kW
-  constant Real MWh = 1/3600000000;
+  constant Real MWh = 1/3600000000.0;
   constant Real kW = 1/1000;
 
   //variables for annual heating/cooling load (energy)
