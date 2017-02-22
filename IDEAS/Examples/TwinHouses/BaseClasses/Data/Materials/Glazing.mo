@@ -34,7 +34,7 @@ record Glazing =IDEAS.Buildings.Data.Interfaces.Glazing (
     final SwAbsDif={0.118,0.0,0.104},
     final U_value=1.1,
     final g_value=0.525)
-  "Glass properties as specified by EN410 spectrum (U = 1.1 W/m²K, g = 0.525)"
+  "Glass properties as specified by EN410 spectrum (U = 1.1 W/m2K, g = 0.525)"
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

@@ -11,6 +11,6 @@ door_ext
 door_int
 door_open
 column
-window
+Window
 Door
 PvcInsulated
