@@ -41,6 +41,8 @@ class PvArray
     annotation (Placement(transformation(extent={{-68,24},{-60,32}})));
   Modelica.Blocks.Math.Cos cos2
     annotation (Placement(transformation(extent={{-68,12},{-60,20}})));
+  Modelica.Blocks.Sources.RealExpression angHou(y=sim.angHou)
+    annotation (Placement(transformation(extent={{-88,4},{-74,16}})));
 equation
   connect(incidenceAngles.angIncDir, refDir.angInc) annotation (Line(
       points={{-18,36},{-8,36}},
@@ -106,10 +108,6 @@ equation
       points={{-79.4,48},{-74,48},{-74,28},{-68.8,28}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(radSol.angHou, cos2.u) annotation (Line(
-      points={{-79.4,44},{-76,44},{-76,16},{-68.8,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(cos2.y, incidenceAngles.angHou) annotation (Line(
       points={{-59.6,16},{-46,16},{-46,28},{-38,28}},
       color={0,0,127},
@@ -120,6 +118,8 @@ equation
       points={{-80,62},{-76,62},{-76,92.8},{-84,92.8}},
       color={255,204,51},
       thickness=0.5));
+  connect(cos2.u, angHou.y) annotation (Line(points={{-68.8,16},{-70,16},{-70,
+          10},{-73.3,10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}),
                          graphics={
