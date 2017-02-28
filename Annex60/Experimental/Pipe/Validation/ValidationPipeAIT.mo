@@ -77,30 +77,30 @@ extends Modelica.Icons.Example;
   PipeHeatLossMod pip2(
     redeclare package Medium = Medium,
     length=76,
-    diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
     dp_nominal=10*pip2.length,
-    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
-        *log(2/0.18),
-    thickness=thickness)                 annotation (Placement(transformation(
+    thickness=thickness,
+    diameter=0.0337 - 2*0.0032,
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.065/0.0337) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.065))                   annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-88,30})));
   PipeHeatLossMod pip3(
     redeclare package Medium = Medium,
     length=38,
-    diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
     dp_nominal=10*pip3.length,
-    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
-        *log(2/0.18),
-    thickness=thickness)                 annotation (Placement(transformation(
+    thickness=thickness,
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.07),
+    diameter=0.0337 - 2*0.0032)          annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-10})));

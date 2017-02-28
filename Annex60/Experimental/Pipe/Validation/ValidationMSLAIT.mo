@@ -118,10 +118,10 @@ model ValidationMSLAIT
         Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer,
     length=76,
     nNodes=76,
-    diameter=0.0825,
     redeclare model FlowModel =
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
-          dp_nominal=10*pip2.length, m_flow_nominal=0.3))
+          dp_nominal=10*pip2.length, m_flow_nominal=0.3),
+    diameter=0.0337 - 2*0.0032)
                        annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -131,11 +131,12 @@ model ValidationMSLAIT
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,34})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res2(R=R/pip2.length)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res2(R=(1/(2*0.024*
+        Modelica.Constants.pi)*log(0.065/0.0337) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.065))/pip2.length)
     annotation (Placement(transformation(extent={{-40,24},{-20,44}})));
   Modelica.Fluid.Pipes.DynamicPipe pip3(
     nParallel=1,
-    diameter=0.0825,
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
@@ -144,7 +145,8 @@ model ValidationMSLAIT
     nNodes=38,
     redeclare model FlowModel =
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
-          dp_nominal=10*pip3.length, m_flow_nominal=0.3))
+          dp_nominal=10*pip3.length, m_flow_nominal=0.3),
+    diameter=0.0337 - 2*0.0032)
                        annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
