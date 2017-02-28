@@ -38,24 +38,28 @@ extends Modelica.Icons.Example;
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=115,
     allowFlowReversal=allowFlowReversal,
     nPorts=2,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip1.length)
+    dp_nominal=10*pip1.length,
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.18),
+    thickness=thickness)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PipeHeatLossMod pip4(
     redeclare package Medium = Medium,
     length=29,
-    diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
-    nPorts=1,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip4.length)           annotation (Placement(transformation(
+    dp_nominal=10*pip4.length,
+    diameter(displayUnit="mm") = 0.0337 - 2*0.0032,
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.07),
+    thickness=thickness,
+    nPorts=2)                            annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={8,38})));
@@ -65,37 +69,43 @@ extends Modelica.Icons.Example;
     diameter=0.0825,
     lambdaI=0.024,
     thicknessIns=0.045,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
     nPorts=2,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip5.length)
+    dp_nominal=10*pip5.length,
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.18),
+    thickness=thickness)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
   PipeHeatLossMod pip2(
     redeclare package Medium = Medium,
     length=76,
-    diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
     nPorts=1,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip2.length)           annotation (Placement(transformation(
+    dp_nominal=10*pip2.length,
+    thickness=thickness,
+    diameter=0.0337 - 2*0.0032,
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.065/0.0337) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.065))                   annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-88,30})));
   PipeHeatLossMod pip3(
     redeclare package Medium = Medium,
     length=38,
-    diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal,
-    nPorts=1,   
+    nPorts=1,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip3.length)           annotation (Placement(transformation(
+    dp_nominal=10*pip3.length,
+    thickness=thickness,
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.07),
+    diameter=0.0337 - 2*0.0032)          annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-4})));
@@ -148,13 +158,14 @@ extends Modelica.Icons.Example;
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=20,
     allowFlowReversal=allowFlowReversal,
     nPorts=2,
     m_flow_nominal=0.3,
-    dp_nominal(displayUnit="Pa") = 10*pip0.length)
-                                         annotation (Placement(transformation(
+    dp_nominal(displayUnit="Pa") = 10*pip0.length,
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.18),
+    thickness=thickness)                 annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-2})));
@@ -189,6 +200,16 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{134,88},{94,108}})));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=-0.001)
     annotation (Placement(transformation(extent={{78,90},{72,96}})));
+  Modelica.Blocks.Logical.Switch switch1
+    annotation (Placement(transformation(extent={{90,38},{70,58}})));
+  Fluid.Sources.MassFlowSource_T Point5(
+    redeclare package Medium = Medium,
+    use_m_flow_in=true,
+    nPorts=1)           annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={46,56})));
+  parameter Modelica.SIunits.Length thickness=0.0032 "Pipe wall thickness";
 equation
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
       points={{-58,-70},{-54,-70},{-54,-68}},
@@ -244,16 +265,12 @@ equation
                                                            color={255,0,255}));
   connect(lessThreshold.u, m_flow_p4.y)
     annotation (Line(points={{78.6,93},{78.6,120},{86,120}}, color={0,0,127}));
-  connect(senTem_p4.port_a, pip4.port_a)
-    annotation (Line(points={{8,52},{8,50},{8,48}}, color={0,127,255}));
   connect(ExcludedBranch.ports[1], pip0.ports_b[1])
     annotation (Line(points={{80,60},{80,8},{78,8}}, color={0,127,255}));
   connect(pip1.port_a, pip0.ports_b[2]) annotation (Line(points={{50,10},{62,10},
           {62,12},{82,12},{82,8}}, color={0,127,255}));
   connect(pip5.port_a, pip1.ports_b[1])
     annotation (Line(points={{0,10},{30,10},{30,8}}, color={0,127,255}));
-  connect(pip4.ports_b[1], pip1.ports_b[2]) annotation (Line(points={{8,28},{10,
-          28},{10,14},{10,12},{30,12}}, color={0,127,255}));
   connect(pip5.ports_b[1], pip3.port_a)
     annotation (Line(points={{-20,8},{-46,8},{-46,6}}, color={0,127,255}));
   connect(pip3.ports_b[1], senTem_p3.port_a) annotation (Line(points={{-46,-14},
@@ -264,9 +281,23 @@ equation
     annotation (Line(points={{-88,20},{-88,10},{-80,10}}, color={0,127,255}));
   connect(pip2.ports_b[1], senTem_p2.port_a)
     annotation (Line(points={{-88,40},{-88,46}},          color={0,127,255}));
+  connect(Point5.m_flow_in, switch1.y)
+    annotation (Line(points={{56,48},{62,48},{69,48}}, color={0,0,127}));
+  connect(lessThreshold.y, switch1.u2) annotation (Line(points={{71.7,93},{66,93},
+          {66,84},{116,84},{116,48},{92,48}}, color={255,0,255}));
+  connect(m_flow_zero.y, switch1.u1) annotation (Line(points={{92,98},{88,98},{88,
+          86},{118,86},{118,56},{92,56}}, color={0,0,127}));
+  connect(m_flow_p4.y, switch1.u3) annotation (Line(points={{86,120},{86,120},{86,
+          82},{114,82},{114,40},{92,40}}, color={0,0,127}));
+  connect(pip1.ports_b[2], pip4.port_a) annotation (Line(points={{30,12},{20,12},
+          {20,12},{8,12},{8,28}}, color={0,127,255}));
+  connect(senTem_p4.port_a, pip4.ports_b[1])
+    annotation (Line(points={{8,52},{8,48},{6,48}}, color={0,127,255}));
+  connect(Point5.ports[1], pip4.ports_b[2]) annotation (Line(points={{36,56},{
+          26,56},{10,56},{10,48}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-    experiment(StopTime=603900),
+    experiment(StopTime=603900, Interval=900),
     __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
 <p>The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model.</p>
@@ -356,7 +387,7 @@ equation
     "Export csv file"),
     __Dymola_experimentFlags(
       Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
-      Evaluate=true,
+      Evaluate=false,
       OutputCPUtime=true,
       OutputFlatModelica=false));
 end ValidationPipeAIT;

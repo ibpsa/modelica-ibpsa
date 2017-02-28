@@ -1,5 +1,7 @@
+removePlots();
+
 translateModel("Annex60.Experimental.Pipe.Validation.ValidationPipeAIT");
-simulateModel("Annex60.Experimental.Pipe.Validation.ValidationPipeAIT", stopTime=603900, method="dassl", resultFile="ValidationPipeAIT");
+simulateModel("Annex60.Experimental.Pipe.Validation.ValidationPipeAIT", stopTime=603900, numberOfIntervals=0, outputInterval=900, method="dassl", resultFile="ValidationPipeAIT");
 createPlot(id = 5,
  position = {50, 50, 500, 500},
  x = "time",
