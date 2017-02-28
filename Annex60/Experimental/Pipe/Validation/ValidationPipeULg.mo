@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe.Validation;
-model ValidationPipeULg "Validation against data from Université de Liège"
+model ValidationPipeULg "Validation against data from Universit de Lige"
   extends Modelica.Icons.Example;
   // R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi
   package Medium = Annex60.Media.Water;
@@ -11,23 +11,7 @@ model ValidationPipeULg "Validation against data from Université de Liège"
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={70,0})));
-  PipeHeatLossMod pipe(
-    redeclare package Medium = Medium,
-    diameter=0.05248,
-    length=39,
-    thicknessIns(displayUnit="mm") = 0.013,
-    lambdaI=0.04,
-    m_flow_nominal=m_flow_nominal,
-    thickness=3.9e-3,
-    T_ini_out=T_ini_out,
-    T_ini_in=T_ini_in,
-    nPorts=1,
-    R=((1/(2*pipe.lambdaI)*log((0.0603/2 + pipe.thicknessIns)/(0.0603/2))) + 1/
-        (5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi)
-        )            annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-30,0})));
+
   Fluid.HeatExchangers.HeaterCooler_T Boiler(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -79,6 +63,20 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Math.Gain gain(k=1)
     annotation (Placement(transformation(extent={{52,-30},{72,-10}})));
+  PipeHeatLossMod pipe(
+    redeclare package Medium = Medium,
+    diameter=0.05248,
+    length=39,
+    thicknessIns(displayUnit="mm") = 0.013,
+    lambdaI=0.04,
+    m_flow_nominal=m_flow_nominal,
+    thickness=3.9e-3,
+    T_ini_out=T_ini_out,
+    T_ini_in=T_ini_in,
+    nPorts=1,
+    R=((1/(2*pipe.lambdaI)*log((0.0603/2 + pipe.thicknessIns)/(0.0603/2))) + 1/
+        (5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi)
+    annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
 equation
   connect(DataReader.y[3], Tout.u) annotation (Line(
       points={{21,-50},{32,-50},{32,-78},{38,-78}},
@@ -88,12 +86,6 @@ equation
     annotation (Line(points={{21,-50},{29.5,-50},{38,-50}}, color={0,0,127}));
   connect(DataReader.y[1], gain.u) annotation (Line(points={{21,-50},{32,-50},{32,
           -20},{50,-20}}, color={0,0,127}));
-  connect(pipe.ports_b[1], senTem_out.port_a)
-    annotation (Line(points={{-40,0},{-50,0},{-60,0}}, color={0,127,255}));
-  connect(fixedTemperature.port, pipe.heatPort)
-    annotation (Line(points={{-30,60},{-30,60},{-30,10}}, color={191,0,0}));
-  connect(pipe.port_a, senTem_in.port_b)
-    annotation (Line(points={{-20,0},{-15,0},{-10,0}}, color={0,127,255}));
   connect(senTem_in.port_a, Boiler.port_b)
     annotation (Line(points={{10,0},{17,0},{24,0}}, color={0,127,255}));
   connect(Boiler.port_a, WaterCityNetwork.ports[1])
@@ -104,7 +96,16 @@ equation
           {92,18},{50,18},{50,6},{46,6}}, color={0,0,127}));
   connect(Sewer1.ports[1], senTem_out.port_b)
     annotation (Line(points={{-100,0},{-90,0},{-80,0}}, color={0,127,255}));
-  annotation (
+  connect(pipe.port_a, senTem_in.port_b)
+    annotation (Line(points={{-20,0},{-16,0},{-10,0}}, color={0,127,255}));
+  connect(pipe.ports_b[1], senTem_out.port_a)
+    annotation (Line(points={{-40,0},{-50,0},{-60,0}}, color={0,127,255}));
+  connect(pipe.heatPort, fixedTemperature.port)
+    annotation (Line(points={{-30,10},{-30,35},{-30,60}}, color={191,0,0}));
+                     annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-30,0})),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
