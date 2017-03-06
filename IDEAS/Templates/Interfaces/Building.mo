@@ -55,6 +55,7 @@ model Building
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
     voltageSource(
+    pin_n(reference(gamma(fixed=true,start=0))),
     f=50,
     V=230,
     phi=0) if standAlone annotation (Placement(transformation(
@@ -72,10 +73,6 @@ model Building
     if                                           isDH
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
   final parameter Boolean InInterface = true;
-initial equation
-   voltageSource.pin_n.reference.gamma=0;
-
-
 
 equation
   connect(heatingSystem.TSet, occupant.TSet) annotation (Line(
