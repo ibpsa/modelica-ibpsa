@@ -1,7 +1,6 @@
 within IDEAS.Buildings.Validation.Tests;
 model ZoneTemplateVerification
   "Model for checking result difference between template and non-template version of case 900"
-  import IDEAS;
   extends Modelica.Icons.Example;
 
 

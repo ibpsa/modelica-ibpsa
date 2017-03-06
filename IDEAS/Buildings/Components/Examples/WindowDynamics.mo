@@ -35,36 +35,37 @@ model WindowDynamics "Comparison of three window dynamics options"
     A=1,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.None,
     inc=IDEAS.Types.Tilt.Wall,
-    azi=IDEAS.Types.Azimuth.S) "Window model with no dynamics"
+    azi=IDEAS.Types.Azimuth.S,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                               "Window model with no dynamics"
     annotation (Placement(transformation(extent={{-54,-20},{-44,0}})));
 
-  Window windowCombined(
+  Window windowNormal(
     A=1,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Combined,
     inc=IDEAS.Types.Tilt.Wall,
-    azi=IDEAS.Types.Azimuth.S)
-    "Window model with combined state for frame and for glass"
+    azi=IDEAS.Types.Azimuth.S,
+    windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Normal)
+    "Window model with states for each glass sheet"
     annotation (Placement(transformation(extent={{-54,-60},{-44,-40}})));
 
 equation
   connect(zone1.propsBus[1], outerWall.propsBus_a) annotation (Line(
-      points={{20,-54.5},{20,-54.5},{20,-6},{20,32},{-44,32}},
+      points={{20,-54.5},{20,-54.5},{20,-6},{20,32},{-44.8333,32}},
       color={255,204,51},
       thickness=0.5));
   connect(windowNone.propsBus_a, zone1.propsBus[2]) annotation (Line(
-      points={{-44,-8},{-28,-8},{20,-8},{20,-55.5}},
+      points={{-44.8333,-8},{-44.8333,-8},{20,-8},{20,-55.5}},
       color={255,204,51},
       thickness=0.5));
-  connect(windowCombined.propsBus_a, zone1.propsBus[3]) annotation (Line(
-      points={{-44,-48},{-32,-48},{20,-48},{20,-56.5}},
+  connect(windowNormal.propsBus_a, zone1.propsBus[3]) annotation (Line(
+      points={{-44.8333,-48},{-44.8333,-48},{20,-48},{20,-56.5}},
       color={255,204,51},
       thickness=0.5));
   connect(windowTwo.propsBus_a, zone1.propsBus[4]) annotation (Line(
-      points={{-44,-88},{20,-88},{20,-57.5}},
+      points={{-44.8333,-88},{20,-88},{20,-57.5}},
       color={255,204,51},
       thickness=0.5));
   connect(zone1.port_a, bou.ports[1])
@@ -75,6 +76,10 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 6, 2017, by Filip Jorissen:<br/>
+Updated model according to changed options for selecting states.
+</li>
 <li>
 July 18, 2016, by Filip Jorissen:<br/>
 Cleaned up implementation.
@@ -87,8 +92,7 @@ First implementation.
 </html>", info="<html>
 <p>
 This model allows comparing the three options for the window dynamics.
-Using two states is the most computationally intensive but
-is the safest option to use.
+Using two states should give the overall best performance (speed) vs accuracy.
 </p>
 </html>"));
 end WindowDynamics;
