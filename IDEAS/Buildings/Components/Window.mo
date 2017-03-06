@@ -371,7 +371,6 @@ December 19, 2016, by Filip Jorissen:<br/>
 Removed briType, which had default value LineLoss.
 briType is now part of the Frame model and has default
 value None.
->>>>>>> develop
 </li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
