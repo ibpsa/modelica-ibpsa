@@ -16,20 +16,13 @@ model WindowDynamics "Comparison of three window dynamics options"
     inc=IDEAS.Types.Tilt.Wall,
     azi=IDEAS.Types.Azimuth.S)
     "Window model with one state for frame and one for glass"
-    annotation (Placement(transformation(extent={{-54,-100},{-44,-80}})));
-
-  OuterWall outerWall(
-    azi=0,
-    redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
-      constructionType,
-    A=10,
-    inc=IDEAS.Types.Tilt.Floor) "Outer wall model"
     annotation (Placement(transformation(extent={{-54,20},{-44,40}})));
+
   Zone zone1(
     redeclare package Medium = Medium,
     allowFlowReversal=true,
-    nSurf=4,
-    V=20)
+    V=20,
+    nSurf=3)
          annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Window windowNone(
     A=1,
@@ -52,24 +45,20 @@ model WindowDynamics "Comparison of three window dynamics options"
     annotation (Placement(transformation(extent={{-54,-60},{-44,-40}})));
 
 equation
-  connect(zone1.propsBus[1], outerWall.propsBus_a) annotation (Line(
-      points={{20,-54.5},{20,-54.5},{20,-6},{20,32},{-44.8333,32}},
-      color={255,204,51},
-      thickness=0.5));
   connect(windowNone.propsBus_a, zone1.propsBus[2]) annotation (Line(
-      points={{-44.8333,-8},{-44.8333,-8},{20,-8},{20,-55.5}},
+      points={{-44.8333,-8},{-44.8333,-8},{20,-8},{20,-56}},
       color={255,204,51},
       thickness=0.5));
   connect(windowNormal.propsBus_a, zone1.propsBus[3]) annotation (Line(
-      points={{-44.8333,-48},{-44.8333,-48},{20,-48},{20,-56.5}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(windowTwo.propsBus_a, zone1.propsBus[4]) annotation (Line(
-      points={{-44.8333,-88},{20,-88},{20,-57.5}},
+      points={{-44.8333,-48},{-44.8333,-48},{20,-48},{20,-57.3333}},
       color={255,204,51},
       thickness=0.5));
   connect(zone1.port_a, bou.ports[1])
     annotation (Line(points={{32,-50},{32,90},{-40,90}}, color={0,0,0}));
+  connect(windowTwo.propsBus_a, zone1.propsBus[1]) annotation (Line(
+      points={{-44.8333,32},{20,32},{20,-54.6667}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Components/Examples/WindowDynamics.mos"
@@ -79,6 +68,7 @@ equation
 <li>
 March 6, 2017, by Filip Jorissen:<br/>
 Updated model according to changed options for selecting states.
+Removed wall model that should not have been in this example.
 </li>
 <li>
 July 18, 2016, by Filip Jorissen:<br/>
