@@ -9,5 +9,5 @@ record FH_ValidationEmpa4_6 "According to Koschenz, 2000, par 4.6"
     n1=10,
     n2=10,
     lambda_r=0.45);
-  // A_Floor should be 120m * 0.2m = 24 m²
+  // A_Floor should be 120m * 0.2m = 24 m^2
 end FH_ValidationEmpa4_6;
