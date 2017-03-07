@@ -257,7 +257,7 @@ Proc. of the 10th International ModelicaConference, p. 857-866. Lund, Sweden. Ma
 S. Javed. <i> Thermal modelling and evaluation of
 borehole heat transfer. </i> PhD thesis, Dep. Energy
 and Environment, Chalmers University of Technology,
-Göteborg, Sweden, 2012.
+G&ouml;teborg, Sweden, 2012.
 </p>
 <p>
 P. Eskilson. <i>Thermal analysis of heat extraction
