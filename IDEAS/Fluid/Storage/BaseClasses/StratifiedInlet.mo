@@ -65,7 +65,7 @@ algorithm
 
 equation
   port_a.p = port_b[inlet].p;
-  //using ´inlet´ for the following three equations would be more correct,
+  //using inlet for the following three equations would be more correct,
   //however this results in errors. This shortcut only results in errors for reversed
   //flows, for which a stratified inlet is not accurate anyway.
   port_a.h_outflow  = inStream(port_b[1].h_outflow);

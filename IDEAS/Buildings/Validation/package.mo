@@ -17,7 +17,7 @@ IEA BESTEST
 
 In the BESTEST project, a method was developed for systematically testing whole-building energy
 simulation programs and diagnosing the sources of predictive disagreement. Field trials of the method
-were conducted with a number of "reference" programs selected by the participants to represent the best·
+were conducted with a number of "reference" programs selected by the participants to represent the best
 state-of-the-art detailed simulation capability available in the United States and Europe. These included
 BLAST, DOE2, ESP; SERIRES, S3PAS, TASE, and TRNSYS. 
 
