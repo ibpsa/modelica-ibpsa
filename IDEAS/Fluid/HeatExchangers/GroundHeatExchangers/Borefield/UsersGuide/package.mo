@@ -1,4 +1,4 @@
-﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
+within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
