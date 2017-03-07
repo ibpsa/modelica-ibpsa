@@ -16,5 +16,12 @@ November 14, 2016, by Filip Jorissen:<br/>
 Revised implementation: removed insulationType.
 </li>
 </ul>
+</html>", revisions="<html>
+<ul>
+<li>
+March 7, 2017 by Filip Jorissen:<br/>
+First implementation
+</li>
+</ul>
 </html>"));
 end ConcreteSlab;
