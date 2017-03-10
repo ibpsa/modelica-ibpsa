@@ -5,6 +5,7 @@ model Bui "Base model"
     final nZones=1, final nEmb=0,
     ATrans=1,
     VZones={gF.V});
+  constant Modelica.SIunits.Angle aO = 0 "Angle offset for detailed experiments";
 
   IDEAS.Buildings.Components.Zone gF(
     airModel(mSenFac=0.822),
@@ -19,8 +20,8 @@ model Bui "Base model"
   IDEAS.Buildings.Components.OuterWall[4] wall(
     redeclare parameter Data.Constructions.LightWall constructionType,
     A={21.6,16.2,9.6,16.2},
-    final azi={IDEAS.Types.Azimuth.N,IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,
-        IDEAS.Types.Azimuth.W},
+    final azi={aO+IDEAS.Types.Azimuth.N,aO+IDEAS.Types.Azimuth.E,aO+IDEAS.Types.Azimuth.S,
+        aO+IDEAS.Types.Azimuth.W},
     final inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,
         IDEAS.Types.Tilt.Wall}) annotation (Placement(transformation(
         extent={{-5.5,-9.49999},{5.5,9.49999}},
@@ -31,7 +32,7 @@ model Bui "Base model"
     redeclare parameter Data.Constructions.LightFloor constructionType,
     final A=48,
     inc=IDEAS.Types.Tilt.Floor,
-    final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
+    final azi=aO+IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5.5,-9.5},{5.5,9.5}},
         rotation=90,
         origin={-19.5,-14.5})));
@@ -39,7 +40,7 @@ model Bui "Base model"
     redeclare final parameter Data.Constructions.LightRoof constructionType,
     final A=48,
     final inc=IDEAS.Types.Tilt.Ceiling,
-    final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
+    final azi=aO+IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5.5,-9.5},{5.5,9.5}},
         rotation=90,
         origin={-79.5,-14.5})));
@@ -93,6 +94,12 @@ To be extended in other models.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 8, 2017 by Filip Jorissen:<br/>
+Added angle for offsetting building rotation.
+This is for 
+<a href=https://github.com/open-ideas/IDEAS/issues/689>#689</a>.
+</li>
 <li>
 July 19, 2016 by Filip Jorissen:<br/>
 First implementation
