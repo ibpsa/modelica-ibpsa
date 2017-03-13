@@ -69,7 +69,7 @@ protected
     "Add lumped thermal capacitor for window glazing";
   final parameter Boolean addCapFra =  fraType.present and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
     "Added lumped thermal capacitor for window frame";
-  final parameter Modelica.SIunits.HeatCapacity Cgla = layMul.C
+  final parameter Modelica.SIunits.HeatCapacity Cgla = layMul.C*(1-fraC)
     "Heat capacity of glazing state";
   final parameter Modelica.SIunits.HeatCapacity Cfra = layMul.C*fraC
     "Heat capacity of frame state";
@@ -152,6 +152,7 @@ protected
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
 initial equation
   QTra_design = (U_value*A + (if fraType.briTyp.present then fraType.briTyp.G else 0)) *(273.15 + 21 - Tdes.y);
+
 
 
 
