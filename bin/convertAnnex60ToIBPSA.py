@@ -24,7 +24,7 @@ for path, subdirs, files in os.walk(annex60Path):
             text = f.read()
             filePath=os.path.join(path,fileName)
 
-            
+
             matchString=r'(^.*(https?://)?(www\.)?' + annex60Website + '.*)$'        # annex60Github url with optionally prepended http[s] and/or www.
             it = re.finditer(matchString, text, flags=re.MULTILINE)
             for match in it:
@@ -39,10 +39,10 @@ for path, subdirs, files in os.walk(annex60Path):
             with open(filePath,'r') as f:
                 text = f.read()
                 resultText=text
-                
+
                 print "============================================"
-                print "Starting conversion for file " + filePath 
-                
+                print "Starting conversion for file " + filePath
+
                 # replace instances of modelica://Annex60/path
                 matchString=r'modelica://(' + annex60Name + r')\..*$'   # matches of modelica://Annex60/something
                 it = re.finditer(matchString, resultText, flags=re.MULTILINE)
@@ -63,45 +63,40 @@ for path, subdirs, files in os.walk(annex60Path):
                     if not dryRun:
                         resultText=resultText.replace(matchText,newGithub, 1)       # only replace first instance since others are treated by iterator later
                     print "replacing " + matchText + " \nby " + replaceText + "\n"
-                    
+
                 # replace references to buildings github that were wrongly replaced by link to annex60
                 if not dryRun:
                     resultText=resultText.replace("github.com/lbl-srg/modelica-Annex60","github.com/lbl-srg/modelica-buildings")
-    
-                            
-                # replace all remaining references to 'Annex60'                  
+
+
+                # replace all remaining references to 'Annex60'
                 matchString=r'^.*' + annex60Name + '.*$'                            # fetch whole line such that it can be printed
                 it = re.finditer(matchString, resultText, flags=re.MULTILINE)
                 for match in it:
-                    matchText = match.group(0) 
+                    matchText = match.group(0)
                     matchTextNew = matchText
-                    print "replacing " + annex60Name + " in line:\n" + matchText+ "\n" 
+                    print "replacing " + annex60Name + " in line:\n" + matchText+ "\n"
                     matchTextNew = matchTextNew.replace(annex60Name, newName)       #replaces all instances
                     if not dryRun:
                         resultText=resultText.replace(matchText,matchTextNew, 1)    # only replace first instance since others are treated by iterator later
-                        
-                # replace all remaining lower case references to 'Annex60'                  
+
+                # replace all remaining lower case references to 'Annex60'
                 matchString=r'^.*' + annex60Name.lower() + '.*$'                            # fetch whole line such that it can be printed
                 it = re.finditer(matchString, resultText, flags=re.MULTILINE)
                 for match in it:
-                    matchText = match.group(0) 
-                    print "replacing " + annex60Name.lower() + " in line:\n" + matchText.lower()+ "\n" 
+                    matchText = match.group(0)
+                    print "replacing " + annex60Name.lower() + " in line:\n" + matchText.lower()+ "\n"
                     matchTextNew = matchText.replace(annex60Name.lower(), newName.lower())       #replaces all instances
                     if not dryRun:
-                        resultText=resultText.replace(matchText,matchTextNew, 1)    # only replace first instance since others are treated by iterator later                        
-                    
+                        resultText=resultText.replace(matchText,matchTextNew, 1)    # only replace first instance since others are treated by iterator later
+
                 # write back the result
                 with open(filePath,'w') as f:
                     f.write(resultText)
 
-        # rename files containing 'Annex60' in the name            
+        # rename files containing 'Annex60' in the name
         if annex60Name in fileName:
             newFilePath = os.path.join(path, fileName.replace(annex60Name,newName))
             print "renaming file " + filePath + " into " + newFilePath
             if not dryRun:
                 os.rename(filePath, newFilePath)
-
-                        
-            
-            
-            
