@@ -1,7 +1,7 @@
 import os
 import re
 
-dryRun=False;
+dryRun=True;
 
 annex60Name = "Annex60"
 newName = "IBPSA"
@@ -14,7 +14,7 @@ annex60Website = "iea-annex60.org"                 # do not add 'https://' or 'w
 
 
 path = os.path.dirname(os.path.realpath(__file__))
-annex60Path = os.path.join(path,annex60Name)
+annex60Path = os.path.join(path[:-4],annex60Name)
 
 # flag all references to the Annex 60 website
 for path, subdirs, files in os.walk(annex60Path):
