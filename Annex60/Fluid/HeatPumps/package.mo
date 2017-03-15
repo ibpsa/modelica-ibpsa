@@ -1,5 +1,5 @@
 within Annex60.Fluid;
-package HeatPumps 
+package HeatPumps
   extends Modelica.Icons.VariantsPackage;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
