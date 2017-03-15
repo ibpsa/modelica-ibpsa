@@ -1,7 +1,7 @@
 import os
 import re
 
-dryRun=True;
+dryRun=False;
 
 annex60Name = "Annex60"
 newName = "IBPSA"
