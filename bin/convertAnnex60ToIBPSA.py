@@ -7,7 +7,7 @@ annex60Name = "Annex60"
 newName = "IBPSA"
 
 annex60Github = "github.com/iea-annex60/modelica-annex60"           # do not add 'https://' or 'www'  , this is treated by regex
-newGithub = "github.com/ibpsa/modelica"     # do add https here
+newGithub = "https://github.com/ibpsa/modelica"     # do add https here
 
 annex60Website = "iea-annex60.org"                 # do not add 'https://' or 'www' , this is treated by regex
 # newWebsite = "https://ibpsa.github.io/project1"    # do add https here
