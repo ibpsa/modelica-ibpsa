@@ -162,11 +162,13 @@ on the <code>IBPSA</code> library.
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=\"5\">Contact</font></h4>
 <p>
-The development of the <code>IBPSA</code> library is done through the
-<a href=\"http://www.iea-ibpsa.org\">Annex 60</a> project of the
+The development of the <code>IBPSA</code> library started through the
+<a href=\"http://www.iea-annex60.org\">Annex 60</a> project of the
 Energy in Buildings and Communities Programme
-of the
-International Energy Agency.
+of the International Energy Agency (IEA EBC),
+and is continued in the
+<a href=\"https://ibpsa.github.io/project1\">IBPSA Project 1</a>
+of the International Building Performance Simulation Association (IBPSA).
 </p>
 <p>
 Library point of contact<br/>
@@ -494,9 +496,13 @@ The Modelica <code>IBPSA</code> library is a free open-source library
 with classes (models, functions, etc.) that
 codify and demonstrate best practices for the implementation of models for
 building and community energy and control systems.
-The library is developed within the Annex 60 project
-<a href=\"http://www.iea-ibpsa.org\">http://www.iea-ibpsa.org</a>
-of the International Energy Agency's Energy in Buildings and Communities Programme.
+The development of the <code>IBPSA</code> library started through the
+<a href=\"http://www.iea-annex60.org\">Annex 60</a> project of the
+Energy in Buildings and Communities Programme
+of the International Energy Agency (IEA EBC),
+and is continued in the
+<a href=\"https://ibpsa.github.io/project1\">IBPSA Project 1</a>
+of the International Building Performance Simulation Association (IBPSA).
 </p>
 <p>
 Many models are based on models from the package
@@ -558,9 +564,8 @@ Documentation(info="<html>
 <p>
 <img
 align=\"right\"
-alt=\"Logo of IEA EBC\"
-width=\"100\"
-src=\"modelica://IBPSA/Resources/Images/iea-ebc-logo.png\" border=\"1\"/>
+alt=\"Logo of IBPSA\"
+src=\"modelica://IBPSA/Resources/Images/IBPSA-logo-text.png\" border=\"1\"/>
 The <code>IBPSA</code> library is a free library
 that provides more than 300 classes (models, functions, etc.) for the development of
 Modelica libraries for building and community energy and control systems.
@@ -571,13 +576,13 @@ and
 <a href=\"modelica://Modelica.Media\">Modelica.Media</a>.
 </p>
 <p>
-The library is developed through the international collaborative project
-<a href=\"http://iea-ibpsa.org/\">IEA EBC Annex 60</a>,
-<i>New Generation Computational Tools for Building and Community Energy Systems</i>,
-that is carried out within the implementation agreement
-<a href=\"http://www.iea-ebc.org/\">Energy in Buildings and Communities (EBC)</a>,
-of the
-<a href=\"http://www.iea.org/\">International Energy Agency</a>.
+The development of the <code>IBPSA</code> library started through the
+<a href=\"http://www.iea-annex60.org\">Annex 60</a> project of the
+Energy in Buildings and Communities Programme
+of the International Energy Agency (IEA EBC),
+and is continued in the
+<a href=\"https://ibpsa.github.io/project1\">IBPSA Project 1</a>
+of the International Building Performance Simulation Association (IBPSA).
 </p>
 <p>
 The intent of the library is that it will be extended by
@@ -628,7 +633,7 @@ plots certain variables of interest.
 </p>
 <p>
 The web page for this library is
-<a href=\"https://github.com/ibpsa/modelica\">https://github.com/iea-ibpsa/modelica-ibpsa</a>.
+<a href=\"https://github.com/ibpsa/modelica\">https://github.com/ibpsa/modelica</a>.
 Contributions to further advance the library are welcomed.
 Contributions may not only be in the form of model development, but also
 through model use, model testing and validation,
@@ -641,5 +646,5 @@ In 2017, the development of the Annex 60 library will be continued under the
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={Bitmap(extent={{-90,-90},{90,90}},
-        fileName="modelica://IBPSA/Resources/Images/iea-ebc-logo.png")}));
+        fileName="modelica://IBPSA/Resources/Images/IBPSA-logo.png")}));
 end IBPSA;
