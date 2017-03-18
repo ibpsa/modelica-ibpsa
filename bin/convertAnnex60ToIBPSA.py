@@ -16,6 +16,18 @@ annex60Website = "iea-annex60.org"                 # do not add 'https://' or 'w
 path = os.path.dirname(os.path.realpath(__file__))
 annex60Path = os.path.join(path[:-4],annex60Name)
 
+def shell_command(cmd, path):
+    ''' Run the command ```cmd``` command in the directory ```path```
+    '''
+    import subprocess
+    import sys
+    p = subprocess.Popen(cmd, cwd=path)
+    p.communicate()
+    if p.returncode != 0:
+        print("Error: %s." % p.returncode)
+        sys.exit(p.returncode)
+
+
 # flag all references to the Annex 60 website
 for path, subdirs, files in os.walk(annex60Path):
     for fileName in files:
@@ -99,4 +111,4 @@ for path, subdirs, files in os.walk(annex60Path):
             newFilePath = os.path.join(path, fileName.replace(annex60Name,newName))
             print "renaming file " + filePath + " into " + newFilePath
             if not dryRun:
-                os.rename(filePath, newFilePath)
+                shell_command(cmd = ["git", "mv", filePath, newFilePath], path = os.curdir)
