@@ -1,4 +1,0 @@
-simulateModel("Annex60.Utilities.Math.Examples.SmoothHeaviside", method="euler", resultFile="SmoothHeaviside");
-createPlot(id = 1,
- y = {"smoothHeaviside.y"},
- grid = true);
