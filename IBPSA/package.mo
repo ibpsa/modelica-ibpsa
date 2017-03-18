@@ -298,7 +298,7 @@ The Modelica License applies to any Original Work that contains the following li
 <strong>Note.</strong> This is the standard Modelica License 2, except for the following changes: the parenthetical in paragraph 7., paragraph 5., and the addition of paragraph 15.d).
 </p>
 <p>
-<strong>Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 </strong>
+<strong>Licensed by the International Building Performance Simulation Association (IBPSA) under the Modelica License 2 </strong>
 </p>
 
 <h4>1. Definitions</h4>
@@ -374,7 +374,7 @@ Licensor agrees to provide You with a copy of the Source Code of the Original Wo
 
 <h4>7. Exclusions from License Grant</h4>
 <p>
-Neither the names of Licensor (including, but not limited to, University of California, Lawrence Berkeley National Laboratory, U.S. Dept. of Energy, UC, LBNL, LBL, and DOE), nor the names of any contributors to the Original Work, nor any of their trademarks or service marks, may be used to endorse or promote products derived from this Original Work without express prior permission of the Licensor. Except as otherwise expressly stated in this License and in particular in Sections 2 and 5, nothing in this License grants any license to Licensor's trademarks, copyrights, patents, trade secrets or any other intellectual property, and no patent license is granted to make, use, sell, offer for sale, have made, or import embodiments of any patent claims.
+Neither the names of Licensor including, but not limited to, the International Building Performance Simulation Association (IBPSA), nor the names of any contributors to the Original Work, nor any of their trademarks or service marks, may be used to endorse or promote products derived from this Original Work without express prior permission of the Licensor. Except as otherwise expressly stated in this License and in particular in Sections 2 and 5, nothing in this License grants any license to Licensor's trademarks, copyrights, patents, trade secrets or any other intellectual property, and no patent license is granted to make, use, sell, offer for sale, have made, or import embodiments of any patent claims.
 No license is granted to the trademarks of Licensor even if such trademarks are included in the Original Work, except as expressly stated in this License. Nothing in this License shall be interpreted to prohibit Licensor from licensing under terms different from this License any Original Work that Licensor otherwise would have a right to license.
 </p>
 
@@ -435,7 +435,7 @@ You are under no obligation whatsoever to provide any bug fixes, patches, or upg
 At the top level of your Modelica package and at every important subpackage, add the following notices in the info layer of the package:
 </p>
 <ul><li style=\"list-style-type:none\">
-Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 Copyright (c) 2009-2017, The Regents of the University of California, through Lawrence Berkeley National Laboratory.
+Licensed by the International Building Performance Simulation Association (IBPSA) under the Modelica License 2 Copyright (c) 2017.
 </li>
 <li style=\"list-style-type:none\"><i>
 This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>.
@@ -478,14 +478,7 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
     Documentation(info="<html>
 <h4><font color=\"#008000\" size=\"5\">Copyright</font></h4>
 <p>
-Copyright (c) 2009-2017, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
-</p>
-<p>
-If you have questions about your rights to use or distribute this software, please contact Berkeley Lab's Technology Transfer Department at
-<a href=\"mailto:TTD@lbl.gov\">TTD@lbl.gov</a>
-</p>
-<p>
-NOTICE. This software was developed under partial funding from the U.S. Department of Energy. As such, the U.S. Government has been granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, and perform publicly and display publicly. Beginning five (5) years after the date permission to assert copyright is obtained from the U.S. Department of Energy, and subject to any subsequent five (5) year renewals, the U.S. Government is granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, distribute copies to the public, perform publicly and display publicly, and to permit others to do so.
+Copyright (c) 2017, International Building Performance Simulation Association (IBPSA). All rights reserved.
 </p>
 </html>"));
   end Copyright;
