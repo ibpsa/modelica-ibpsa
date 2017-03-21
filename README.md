@@ -9,7 +9,7 @@ Instructions for developers are available on the [wiki](https://github.com/ibpsa
 The Modelica _IBPSA_ library is a free open-source library with basic models that codify
 best practices for the implementation of models for building and community energy and control systems. 
 
-The development of the IBPSA library is part of the IBPSA Project 1 (https://ibpsa.github.io/project1)
+The development of the IBPSA library is organized through the IBPSA Project 1 (https://ibpsa.github.io/project1)
 of the International Building Performance Simulation Association (IBPSA).
 The development was organized from 2012 to 2017 through the
 Annex 60 project (http://www.iea-annex60.org) of the
