@@ -21,7 +21,6 @@ env:
   - TEST_ARG="make test-dymola PACKAGE=IBPSA.{Airflow,BoundaryConditions,Controls}"
   - TEST_ARG="make test-dymola PACKAGE=IBPSA.{Media,Utilities}"
 
-
 before_install:
   - sudo mv IBPSA/Resources/Scripts/travis/usr/local/bin/dymola /usr/local/bin/
   - sudo chmod +x /usr/local/bin/dymola
