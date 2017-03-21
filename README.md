@@ -1,6 +1,6 @@
 # Modelica IBPSA library
 
-This is the development site for the Modelica _IBPSA_ library and its user guide.
+This is the development site for the _Modelica IBPSA Library_ and its user guide.
 
 Instructions for developers are available on the [wiki](https://github.com/ibpsa/modelica/wiki).
 
