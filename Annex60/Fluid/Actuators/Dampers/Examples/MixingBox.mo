@@ -1,13 +1,15 @@
 within Annex60.Fluid.Actuators.Dampers.Examples;
 model MixingBox
   "Mixing box with constant pressure difference and varying control signal"
+  import Annex60;
   extends Modelica.Icons.Example;
 
  package Medium = Annex60.Media.Air
     "Medium in the component"
          annotation (choicesAllMatching = true);
 
-  Dampers.MixingBox mixBox(
+  Annex60.Fluid.Actuators.Dampers.MixingBox
+                    mixBox(
     AOut=0.7,
     AExh=1,
     ARec=1,
