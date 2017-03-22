@@ -32,9 +32,9 @@ protected
     azi=azi,
     lat=sim.lat,
     final outputAngles=sim.outputAngles,
-    useLinearisation=sim.linearise,
     incAndAziInBus=sim.incAndAziInBus,
-    numIncAndAziInBus=sim.numIncAndAziInBus)
+    numIncAndAziInBus=sim.numIncAndAziInBus,
+    useLinearisation=sim.lineariseDymola)
     annotation (Placement(transformation(extent={{-94,-4},{-74,16}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough";
 initial equation
