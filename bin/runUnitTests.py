@@ -26,6 +26,13 @@
 # MWetter@lbl.gov                            2011-02-23
 #######################################################
 
+
+def _match_mos_w_mo():
+    import buildingspy.development.matchParameters as f
+
+    val = f.main()
+
+
 def _validate_html():
     import buildingspy.development.validator as v
 
@@ -56,7 +63,7 @@ def _setEnvironmentVariables(var, value):
     else:
         os.environ[var] = value
 
-def _runUnitTests(batch, single_package, n_pro):
+def _runUnitTests(batch, single_package, n_pro, show_gui):
     import buildingspy.development.regressiontest as u
 
     ut = u.Tester()
@@ -65,13 +72,16 @@ def _runUnitTests(batch, single_package, n_pro):
         ut.setSinglePackage(single_package)
     ut.setNumberOfThreads(n_pro)
     ut.pedanticModelica(True)
+    ut.showGUI(show_gui)
     # Below are some option that may occassionally be used.
     # These are currently not exposed as command line arguments.
 #    ut.setNumberOfThreads(1)
 #    ut.deleteTemporaryDirectories(False)
 #    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
 
+    ut.writeOpenModelicaResultDictionary()
     # Run the regression tests
+
     retVal = ut.run()
     return retVal
 
@@ -103,11 +113,17 @@ if __name__ == '__main__':
                         type=int,
                         default = multiprocessing.cpu_count(),
                         help='Maximum number of processors to be used')
+    unit_test_group.add_argument("--show-gui",
+                        help='Show the GUI of the simulator',
+                        action="store_true")
 
     html_group = parser.add_argument_group("arguments to check html syntax only")
     html_group.add_argument("--validate-html-only",
                            action="store_true")
 
+    mos_group = parser.add_argument_group("arguments to match mos parameters with mo files parameters only")
+    mos_group.add_argument("--match-mos-only",
+                           action="store_true")
 
     # Set environment variables
     if platform.system() == "Windows":
@@ -115,9 +131,13 @@ if __name__ == '__main__':
                                  os.path.join(os.path.abspath('.'),
                                               "Resources", "Library", "win32"))
     else:
+        # For https://github.com/lbl-srg/modelica-buildings/issues/559, we add
+        # 32 and 64 bit resources to run the Utilities.IO.Python27 regression tests.
         _setEnvironmentVariables("LD_LIBRARY_PATH",
                                  os.path.join(os.path.abspath('.'),
-                                              "Resources", "Library", "linux32"))
+                                              "Resources", "Library", "linux32") + ":" +
+                                 os.path.join(os.path.abspath('.'),
+                                              "Resources", "Library", "linux64"))
 
     # The path to buildingspy must be added to sys.path to work on Linux.
     # If only added to os.environ, the Python interpreter won't find buildingspy
@@ -132,6 +152,11 @@ if __name__ == '__main__':
         ret_val = _validate_html()
         exit(ret_val)
 
+    if args.match_mos_only:
+        # Match the mos file parameters with the mo files only, and then exit
+        ret_val = _match_mos_w_mo()
+        exit(ret_val)
+
     if args.single_package:
         single_package = args.single_package
     else:
@@ -139,7 +164,8 @@ if __name__ == '__main__':
 
     retVal = _runUnitTests(batch = args.batch,
                            single_package = single_package,
-                           n_pro = args.number_of_processors)
+                           n_pro = args.number_of_processors,
+                           show_gui = args.show_gui)
     exit(retVal)
 
 #   _runOpenModelicaUnitTests()
