@@ -29,12 +29,16 @@ partial model PartialSimInfoManager
     "Compute conservation of energy for open system" annotation (Evaluate=true,
       Dialog(tab="Conservation of energy", enable=computeConservationOfEnergy));
 
-  parameter Boolean linearise=false "Linearises building model equations"
+  final parameter Boolean linearise=lineariseDymola or lineariseJModelica "Linearises building model equations"
+    annotation (Dialog(tab="Linearisation"));
+  parameter Boolean lineariseDymola=false "Linearises building model equations for Dymola linearisation approach"
+    annotation (Dialog(tab="Linearisation"));
+  parameter Boolean lineariseJModelica=false "Linearises building model equations for optimisations in JModelica"
     annotation (Dialog(tab="Linearisation"));
   parameter Boolean createOutputs = false
     "Creates output connections when linearising windows"
     annotation(Dialog(tab="Linearisation"));
-  parameter Boolean outputAngles=not linearise
+  parameter Boolean outputAngles=not lineariseDymola
     "Output angles in weaBus. Set to false when linearising" annotation(Dialog(tab="Linearisation"));
   parameter Boolean linIntCon=false
     "= true, if interior convective heat transfer should be linearised"
@@ -233,7 +237,7 @@ equation
     assert(abs(Etot) < Emax, "Conservation of energy violation > Emax J!");
   end if;
 
-  if not linearise then
+  if not linearise and computeConservationOfEnergy then
     der(Qint) = Qgai.Q_flow;
   else
     Qint = 0;
@@ -264,14 +268,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(TskyPow4Expr.y, weaBus.TskyPow4) annotation (Line(
-      points={{-103,102},{60,102},{60,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TePow4Expr.y, weaBus.TePow4) annotation (Line(
-      points={{-103,116},{60,116},{60,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
   for i in 1:numIncAndAziInBus loop
     connect(radSol[i].F2, skyBrightnessCoefficients.F2) annotation (Line(points={{19.6,40},
             {2,40},{2,66},{-5,66}},           color={0,0,127}));
@@ -294,7 +290,7 @@ equation
     connect(TePow4Expr.y, radSol[i].TePow4) annotation (Line(points={{-103,116},
             {-90,116},{34,116},{34,60.6}}, color={0,0,127}));
   end for;
-  if not linearise then
+  if not lineariseDymola then
     connect(CEnv.y, weaBus.CEnv) annotation (Line(points={{1,-40},{14,-40},{
             60.05,-40},{60.05,28.05}},
                          color={0,0,127}));
@@ -304,8 +300,8 @@ equation
       points={{1,-10},{60.05,-10},{60.05,28.05}},
       color={0,0,127},
       smooth=Smooth.None));
-    connect(u_dummy.y, weaBus.dummy) annotation (Line(points={{88.7,-40},{88.7,
-            -40},{60.05,-40},{60.05,28.05}},
+    connect(u_dummy.y, weaBus.dummy) annotation (Line(points={{88.7,-40},{88.7,-40},
+            {60.05,-40},{60.05,28.05}},
                                       color={0,0,127}));
     connect(TGround.y, weaBus.TGroundDes) annotation (Line(points={{88.7,-20},{
             60.05,-20},{60.05,28.05}},
@@ -320,45 +316,54 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     for i in 1:numIncAndAziInBus loop
-    connect(radSol[i].solBus, weaBus.solBus[i]) annotation (Line(
+      connect(radSol[i].solBus, weaBus.solBus[i]) annotation (Line(
       points={{40,50},{60.05,50},{60.05,28.05}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
     end for;
+      connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
+      points={{-5,74},{4,74},{4,34},{60.05,34},{60.05,28.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(skyBrightnessCoefficients.F2, weaBus.F2) annotation (Line(
+      points={{-5,66},{2,66},{2,32},{60.05,32},{60.05,28.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(zenithAngle.y, weaBus.angZen) annotation (Line(
+      points={{-103,56},{-84,56},{-84,30},{60.05,30},{60.05,28.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(hour.y, weaBus.angHou) annotation (Line(
+      points={{-103,44},{-90,44},{-90,24},{60.05,24},{60.05,28.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(dec.y, weaBus.angDec) annotation (Line(
+      points={{-103,32},{-92,32},{-92,22},{60.05,22},{60.05,28.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(solGloHorIn.y, weaBus.solGloHor) annotation (Line(
+      points={{-103,88},{-88,88},{-88,26},{60.05,26},{60.05,28.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(solDifHorIn.y, weaBus.solDifHor) annotation (Line(
+      points={{-103,72},{-86,72},{-86,28.05},{60.05,28.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(solDirPerExp.y, weaBus.solDirPer) annotation (Line(
+      points={{-103,20},{60.05,20},{60.05,28.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(TskyPow4Expr.y, weaBus.TskyPow4) annotation (Line(
+      points={{-103,102},{60.05,102},{60.05,28.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(TePow4Expr.y, weaBus.TePow4) annotation (Line(
+      points={{-103,116},{60.05,116},{60.05,28.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
   end if;
-  connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
-      points={{-5,74},{4,74},{4,34},{60,34},{60,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(skyBrightnessCoefficients.F2, weaBus.F2) annotation (Line(
-      points={{-5,66},{2,66},{2,32},{60,32},{60,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solGloHorIn.y, weaBus.solGloHor) annotation (Line(
-      points={{-103,88},{-88,88},{-88,26},{60,26},{60,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solDifHorIn.y, weaBus.solDifHor) annotation (Line(
-      points={{-103,72},{-86,72},{-86,28},{60,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(zenithAngle.y, weaBus.angZen) annotation (Line(
-      points={{-103,56},{-84,56},{-84,30},{60,30},{60,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(hour.y, weaBus.angHou) annotation (Line(
-      points={{-103,44},{-90,44},{-90,24},{60,24},{60,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dec.y, weaBus.angDec) annotation (Line(
-      points={{-103,32},{-92,32},{-92,22},{60,22},{60,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solDirPerExp.y, weaBus.solDirPer) annotation (Line(
-      points={{-103,20},{60,20},{60,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(fixedTemperature.port, Qgai)
     annotation (Line(points={{20,-70},{0,-70},{0,-100}}, color={191,0,0}));
   connect(skyBrightnessCoefficients.zen, zenithAngle.y) annotation (Line(points=
@@ -455,6 +460,11 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2017, by Filip Jorissen:<br/>
+Changed linearisation implementation for JModelica compatibility.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/559>#559</a>.
+</li>
 <li>
 January 10, 2017 by Filip Jorissen:<br/>
 Set <code>linExtRad = false</code>

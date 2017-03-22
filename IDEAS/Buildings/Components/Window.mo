@@ -13,8 +13,9 @@ model Window "Multipane window"
            linearise=linIntCon_a or sim.linearise,
            dT_nominal=dT_nominal_a),
     QTra_design(fixed=false),
-    Qgai(y=-(propsBus_a.surfCon.Q_flow +
-        propsBus_a.surfRad.Q_flow + propsBus_a.iSolDif.Q_flow + propsBus_a.iSolDir.Q_flow)),
+    Qgai(y=if sim.computeConservationOfEnergy then
+                                                  -(propsBus_a.surfCon.Q_flow +
+        propsBus_a.surfRad.Q_flow + propsBus_a.iSolDif.Q_flow + propsBus_a.iSolDir.Q_flow) else 0),
     E(y=0),
     layMul(
       A=A*(1 - frac),
@@ -153,6 +154,7 @@ protected
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
 initial equation
   QTra_design = (U_value*A + (if fraType.briTyp.present then fraType.briTyp.G else 0)) *(273.15 + 21 - Tdes.y);
+
 
 
 equation

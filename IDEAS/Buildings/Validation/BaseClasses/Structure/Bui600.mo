@@ -17,7 +17,9 @@ model Bui600 "BESTEST Building model case 600"
         extent={{-5.5,-9.49999},{5.5,9.49997}},
         rotation=90,
         origin={10.5,-14.5})));
+
 equation
+
   connect(win.propsBus_a, gF.propsBus[7:8]) annotation (Line(
       points={{8.60001,-9.91667},{8.60001,28},{40,28}},
       color={255,204,51},
