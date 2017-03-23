@@ -5,10 +5,9 @@ model VAVBoxExponential
 
  package Medium = IBPSA.Media.Air;
 
-  IBPSA.Fluid.Actuators.Dampers.Exponential dam(
-         redeclare package Medium = Medium, A=1.8,
-    m_flow_nominal=2)
-         annotation (Placement(transformation(extent={{20,10},{40,30}})));
+  IBPSA.Fluid.Actuators.Dampers.Exponential dam(redeclare package Medium =
+        Medium, m_flow_nominal=2)
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
     Modelica.Blocks.Sources.Step yDam(
     height=-1,
     offset=1,
@@ -34,9 +33,8 @@ model VAVBoxExponential
   IBPSA.Fluid.Actuators.Dampers.VAVBoxExponential vav(
     redeclare package Medium = Medium,
     dp_nominal=5,
-    A=1.8,
     m_flow_nominal=2)
-         annotation (Placement(transformation(extent={{-2,-50},{18,-30}})));
+    annotation (Placement(transformation(extent={{-2,-50},{18,-30}})));
   IBPSA.Fluid.FixedResistances.PressureDrop res(
     from_dp=true,
     m_flow_nominal=2,

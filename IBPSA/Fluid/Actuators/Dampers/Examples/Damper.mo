@@ -6,11 +6,10 @@ model Damper
 
   IBPSA.Fluid.Actuators.Dampers.Exponential res(
     redeclare package Medium = Medium,
-    A=1,
     m_flow_nominal=1,
     filteredOpening=false)
     "A damper with quadratic relationship between m_flow and dp"
-         annotation (Placement(transformation(extent={{0,12},{20,32}})));
+    annotation (Placement(transformation(extent={{0,12},{20,32}})));
     Modelica.Blocks.Sources.Ramp yRam(
     duration=0.3,
     offset=0,
