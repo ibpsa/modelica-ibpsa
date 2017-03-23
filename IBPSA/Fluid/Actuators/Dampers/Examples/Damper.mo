@@ -61,6 +61,8 @@ Documentation(info="<html>
 Test model for the air damper with and without linearization of the pressure-flow relationship.
 The air dampers are connected to models for constant inlet and outlet
 pressures. The control signal of the damper is a ramp.
+The pressure versus mass flow rate relation of the two models
+intersect when <code>m_flow = m_flow_nominal = 1</code> kg/s.
 </p>
 </html>", revisions="<html>
 <ul>

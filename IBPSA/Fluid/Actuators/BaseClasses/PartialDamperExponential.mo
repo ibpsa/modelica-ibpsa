@@ -12,7 +12,7 @@ partial model PartialDamperExponential
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
    annotation(Dialog(enable=use_deltaM));
  parameter Modelica.SIunits.Velocity v_nominal = 1 "Nominal face velocity";
- parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
+ final parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
     "Face area";
 
  parameter Boolean roundDuct = false
@@ -124,13 +124,22 @@ IBPSA.Fluid.Actuators.Dampers.Exponential</a>.
 revisions="<html>
 <ul>
 <li>
+March 22, 2017, by Michael Wetter:<br/>
+Added back <code>v_nominal</code>, but set the assignment of <code>A</code>
+to be final. This allows scaling the model with <code>m_flow_nominal</code>,
+which is generally known in the flow leg,
+and <code>v_nominal</code>, for which a default value can be specified.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/544\">#544</a>.
+</li>
+<li>
 October 12, 2016 by David Blum:<br/>
 Removed parameter <code>v_nominal</code> and variable <code>area</code>,
 to simplify parameterization of the model.
 Also added assertion statements upon initialization
 for parameters <code>k0</code> and <code>k1</code> so that they fall within
 suggested ranges found in ASHRAE 825-RP. This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/544\">#544</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/544\">#544</a>.
 </li>
 <li>
 January 27, 2015 by Michael Wetter:<br/>
