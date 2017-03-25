@@ -102,6 +102,12 @@ each valve opening characteristics has different parameters.
 revisions="<html>
 <ul>
 <li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredInput</code> to <code>use_input_filter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+</li>
+<li>
 November 16, 2017, by Michael Wetter:<br/>
 Relaxed assertion on <code>phi</code>.<br/>
 This is for

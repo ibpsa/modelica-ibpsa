@@ -93,6 +93,12 @@ IBPSA.Fluid.Actuators.UsersGuide</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredInput</code> to <code>use_input_filter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+</li>
+<li>
 September 8, 2008 by Michael Wetter:<br/>
 Added to instance <code>int</code> the attribute
 <code>y(stateSelect=StateSelect.always)</code>. Without this attribute,
