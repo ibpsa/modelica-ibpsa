@@ -33,7 +33,7 @@ model Damper
   Exponential resLinear(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    filteredOpening=false,
+    use_inputFilter=false,
     linearized=true)
     "A damper with linear relationship between m_flow and dp (linearized = true)"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
