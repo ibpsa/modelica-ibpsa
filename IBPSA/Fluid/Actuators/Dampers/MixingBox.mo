@@ -33,7 +33,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mOut_flow_nominal,
-    final use_input_filter=false)
+    final use_inputFilter=false)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
@@ -77,7 +77,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    final use_input_filter=false) "Exhaust air damper"
+    final use_inputFilter=false) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
   parameter Modelica.SIunits.Area AExh=mExh_flow_nominal/rho_default/v_nominal
     "Face area exhaust air damper"
@@ -104,7 +104,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    final use_input_filter=false) "Recirculation air damper" annotation (
+    final use_inputFilter=false) "Recirculation air damper" annotation (
       Placement(transformation(
         origin={30,0},
         extent={{-10,-10},{10,10}},
@@ -309,7 +309,7 @@ Documentation(revisions="<html>
 <ul>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredInput</code> to <code>use_input_filter</code>.<br/>
+Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
 </li>

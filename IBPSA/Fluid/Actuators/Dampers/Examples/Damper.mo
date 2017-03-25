@@ -8,7 +8,7 @@ model Damper
     A=1,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    use_input_filter=false)
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
     Modelica.Blocks.Sources.Ramp yRam(
     duration=0.3,
