@@ -63,7 +63,7 @@ equation
         Line(
           points={{0,40},{0,-4}}),
         Line(
-          visible=not filteredOpening,
+          visible=not use_input_filter,
           points={{0,100},{0,40}})}),
 Documentation(info="<html>
 <p>

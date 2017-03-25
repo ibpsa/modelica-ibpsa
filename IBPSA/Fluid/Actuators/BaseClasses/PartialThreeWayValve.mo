@@ -15,7 +15,7 @@ partial model PartialThreeWayValve "Partial three way valve"
           final m_flow_nominal=m_flow_nominal,
           final dpValve_nominal=dpValve_nominal,
           final dpFixed_nominal=dpFixed_nominal[1],
-          final filteredOpening=false),
+          final use_input_filter=false),
       redeclare FixedResistances.LosslessPipe res2(
         m_flow_nominal=m_flow_nominal),
       redeclare replaceable
@@ -31,7 +31,7 @@ partial model PartialThreeWayValve "Partial three way valve"
           final m_flow_nominal=m_flow_nominal,
           final dpValve_nominal=dpValve_nominal/fraK^2,
           final dpFixed_nominal=dpFixed_nominal[2],
-          final filteredOpening=false));
+          final use_input_filter=false));
     extends IBPSA.Fluid.Actuators.BaseClasses.ActuatorSignal;
     extends IBPSA.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
@@ -122,19 +122,19 @@ equation
         Line(
           points={{0,100},{0,-2}}),
         Rectangle(
-          visible=filteredOpening,
+          visible=use_input_filter,
           extent={{-36,36},{36,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=filteredOpening,
+          visible=use_input_filter,
           extent={{-36,100},{36,36}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=filteredOpening,
+          visible=use_input_filter,
           extent={{-22,92},{20,46}},
           lineColor={0,0,0},
           fillColor={135,135,135},

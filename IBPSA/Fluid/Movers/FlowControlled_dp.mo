@@ -31,7 +31,7 @@ model FlowControlled_dp
   parameter Modelica.SIunits.PressureDifference dp_nominal(
     min=0,
     displayUnit="Pa")=
-      if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if filteredSpeed=true,
+      if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if use_input_filter=true,
         to set default values of constantHead and heads, and
         and for default pressure curve if not specified in record per"
     annotation(Dialog(group="Nominal condition"));
@@ -109,7 +109,7 @@ in record <code>per</code>, which is of type
 IBPSA.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </p>
 <p>
-If <code>filteredSpeed=true</code>, then the parameter <code>dp_nominal</code> is
+If <code>use_input_filter=true</code>, then the parameter <code>dp_nominal</code> is
 used to normalize the filter. This is used to improve the numerics of the transient response.
 The actual pressure raise of the mover at steady-state is independent
 of the value of <code>dp_nominal</code>. It is recommended to set
