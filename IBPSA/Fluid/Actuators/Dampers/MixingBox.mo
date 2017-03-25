@@ -11,7 +11,8 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  VAVBoxExponential damOA(A=AOut,
+  VAVBoxExponential damOA(
+    A=AOut,
     redeclare package Medium = Medium,
     dp_nominal=dpOut_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
@@ -32,7 +33,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mOut_flow_nominal,
-    final filteredOpening=false)
+    final use_input_filter=false)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
@@ -54,7 +55,8 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Modelica.SIunits.Area AOut=mOut_flow_nominal/rho_default/v_nominal
     "Face area outside air damper"
     annotation(Dialog(enable=not use_v_nominal));
-  VAVBoxExponential damExh(A=AExh,
+  VAVBoxExponential damExh(
+    A=AExh,
     redeclare package Medium = Medium,
     m_flow_nominal=mExh_flow_nominal,
     dp_nominal=dpExh_nominal,
@@ -75,12 +77,13 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    final filteredOpening=false) "Exhaust air damper"
+    final use_input_filter=false) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
   parameter Modelica.SIunits.Area AExh=mExh_flow_nominal/rho_default/v_nominal
     "Face area exhaust air damper"
     annotation(Dialog(enable=not use_v_nominal));
-  VAVBoxExponential damRec(A=ARec,
+  VAVBoxExponential damRec(
+    A=ARec,
     redeclare package Medium = Medium,
     m_flow_nominal=mRec_flow_nominal,
     dp_nominal=dpRec_nominal,
@@ -101,8 +104,8 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    final filteredOpening=false) "Recirculation air damper"
-                               annotation (Placement(transformation(
+    final use_input_filter=false) "Recirculation air damper" annotation (
+      Placement(transformation(
         origin={30,0},
         extent={{-10,-10},{10,10}},
         rotation=90)));
@@ -296,8 +299,7 @@ equation
           fillPattern=FillPattern.Solid),
         Line(
           points={{0,40},{0,10},{0,12}},
-          color={0,0,255}),
-                             Text(
+          color={0,0,255}),  Text(
           extent={{-50,-84},{48,-132}},
           lineColor={0,0,255},
           textString=
