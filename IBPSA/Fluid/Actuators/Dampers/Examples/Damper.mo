@@ -14,23 +14,17 @@ model Damper
     duration=0.3,
     offset=0,
     startTime=0.2,
-    height=1)    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Annex60.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
-        Medium,
-    nPorts=2,
-    p(displayUnit="Pa") = 101335,
-    T=293.15)                                       annotation (Placement(
-        transformation(extent={{-68,26},{-48,46}})));
-  Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
+    height=1) annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  IBPSA.Fluid.Sources.Boundary_pT sou(redeclare package Medium =
         Medium,
     nPorts=4,
-        transformation(extent={{-68,10},{-48,30}})));
-  Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
+    p(displayUnit="Pa") = 101335,
+    T=293.15) annotation (Placement(
+        transformation(extent={{-62,10},{-42,30}})));
+  IBPSA.Fluid.Sources.Boundary_pT sin(redeclare package Medium =
         Medium,
-    nPorts=2,
-    p(displayUnit="Pa") = 101325,
-    T=293.15)                                       annotation (Placement(
-        transformation(extent={{74,26},{54,46}})));
+    nPorts=4) annotation (Placement(
+        transformation(extent={{92,10},{72,30}})));
 
   Linear lin(
     filteredOpening=false,
@@ -56,32 +50,32 @@ model Damper
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 equation
   connect(yRam.y, res.y) annotation (Line(
-      points={{1,70},{10,70},{10,52}},
+      points={{1,50},{10,50},{10,34}},
       color={0,0,127}));
   connect(sou.ports[1], res.port_a) annotation (Line(
-      points={{-48,39},{-24,40},{0,40}},
+      points={{-42,23},{-42,22},{0,22}},
       color={0,127,255}));
   connect(sin.ports[1], res.port_b) annotation (Line(
-      points={{54,39},{38,40},{20,40}},
+      points={{72,23},{20,23},{20,22}},
       color={0,127,255}));
-  connect(yRam.y, lin.y) annotation (Line(points={{1,70},{30,70},{30,12},{10,12}},
+  connect(yRam.y, lin.y) annotation (Line(points={{1,50},{30,50},{30,12},{10,12}},
         color={0,0,127}));
-  connect(sou.ports[2], lin.port_a) annotation (Line(points={{-48,37},{-20,37},
-          {-20,0},{0,0}}, color={0,127,255}));
   connect(lin.port_b, sin.ports[2]) annotation (Line(points={{20,0},{40,0},{40,
-          37},{54,37}}, color={0,127,255}));
-  connect(yRam.y, lin_fixed.y) annotation (Line(points={{1,70},{16,70},{30,70},
-          {30,-28},{10,-28}}, color={0,0,127}));
-  connect(yRam.y, lin_m_flow.y) annotation (Line(points={{1,70},{30,70},{30,-68},
+          21},{72,21}}, color={0,127,255}));
+  connect(yRam.y, lin_m_flow.y) annotation (Line(points={{1,50},{30,50},{30,-68},
           {10,-68}}, color={0,0,127}));
-  connect(lin_fixed.port_a, sou.ports[3]) annotation (Line(points={{0,-40},{-22,
-          -40},{-22,35},{-48,35}}, color={0,127,255}));
-  connect(lin_m_flow.port_a, sou.ports[4]) annotation (Line(points={{0,-80},{
-          -24,-80},{-24,33},{-48,33}}, color={0,127,255}));
   connect(lin_fixed.port_b, sin.ports[3]) annotation (Line(points={{20,-40},{42,
-          -40},{42,35},{54,35}}, color={0,127,255}));
+          -40},{42,19},{72,19}}, color={0,127,255}));
   connect(lin_m_flow.port_b, sin.ports[4]) annotation (Line(points={{20,-80},{
-          44,-80},{44,33},{54,33}}, color={0,127,255}));
+          44,-80},{44,17},{72,17}}, color={0,127,255}));
+  connect(lin_fixed.y, lin_m_flow.y) annotation (Line(points={{10,-28},{10,-20},
+          {30,-20},{30,-68},{10,-68}}, color={0,0,127}));
+  connect(lin.port_a, sou.ports[2]) annotation (Line(points={{0,0},{-16,0},{-16,
+          21},{-42,21}}, color={0,127,255}));
+  connect(lin_fixed.port_a, sou.ports[3]) annotation (Line(points={{0,-40},{-18,
+          -40},{-18,19},{-42,19}}, color={0,127,255}));
+  connect(lin_m_flow.port_a, sou.ports[4]) annotation (Line(points={{0,-80},{0,
+          -78},{-20,-78},{-20,18},{-42,18},{-42,17}}, color={0,127,255}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),
