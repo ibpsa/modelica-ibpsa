@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Actuators.Dampers;
 model Linear
-  "Model for air dampers with linear opening characteristics"
+  "Model for an air damper whose mass flow is proportional to the input signal"
   extends IBPSA.Fluid.BaseClasses.PartialResistance(
     m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
     eta_default*ReC*sqrt(A)*facRouDuc,
@@ -13,7 +13,7 @@ model Linear
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
    annotation(Dialog(enable=use_deltaM));
   parameter Modelica.SIunits.Velocity v_nominal = 1 "Nominal face velocity";
-  parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
+  final parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
     "Face area"
    annotation(Dialog(enable=not use_v_nominal));
   parameter Boolean roundDuct = false
@@ -25,13 +25,13 @@ model Linear
     "Set to true to use constant density for flow friction"
    annotation (Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa", min=0) = 0
-    "Pressure drop of pipe and other resistances that are in series"
+    "Pressure drop of duct and other resistances that are in series"
      annotation(Dialog(group = "Nominal condition"));
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Damper leakage, l=kDam(y=0)/kDam(y=1)"
     annotation(Dialog(tab="Advanced"));
   input Real phi = l + y_actual*(1 - l)
-    "Ratio actual to nominal mass flow rate of valve, phi=kDam(y)/kDam(y=1)";
+    "Ratio actual to nominal mass flow rate of damper, phi=kDam(y)/kDam(y=1)";
   parameter Real l2(min=1e-10) = 0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
     annotation(Dialog(tab="Advanced"));
@@ -110,13 +110,15 @@ equation
   end if; // homotopyInitialization
 annotation(Documentation(info="<html>
 <p>
-Model for air dampers with linear opening characteristics.  The airflow through
-the damper is a linear function of the input signal.
+Model for an air damper whose airflow is proportional to the input signal, assuming
+that at y = 1, m_flow = m_flow_nominal.  This is unless the pressure dp is too low, 
+in which case a kDam characteristic is used, which is calculated as m_flow_nominal/sqrt(dp_nominal). 
 </p>
 <p>
-The model is the same as that which is used in 
+The model is very similar to that which is used in 
 <a href=\"modelica://IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent\">
 IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent</a>, except for adaptations for damper parameters.
+Please see that documentation for more information.
 </p>
 </html>",
 revisions="<html>
