@@ -7,14 +7,15 @@ model Damper
   IBPSA.Fluid.Actuators.Dampers.Exponential res(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    filteredOpening=false)
-    "A damper with quadratic relationship between m_flow and dp"
-    annotation (Placement(transformation(extent={{0,12},{20,32}})));
+    use_inputFilter=false)
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+
     Modelica.Blocks.Sources.Ramp yRam(
     duration=0.3,
     offset=0,
     startTime=0.2,
     height=1)    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+
 
   IBPSA.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -32,7 +33,7 @@ model Damper
   Exponential resLinear(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    filteredOpening=false,
+    use_inputFilter=false,
     linearized=true)
     "A damper with linear relationship between m_flow and dp (linearized = true)"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
