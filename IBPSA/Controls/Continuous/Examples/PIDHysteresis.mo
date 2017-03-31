@@ -62,7 +62,7 @@ equation
       color={0,0,127}));
  annotation (                      __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresis.mos"
         "Simulate and plot"),
-    experiment(StartTime=0, StopTime=86400, Tolerance=1e-6),
+    experiment(StartTime=0.0, StopTime=86400, Tolerance=1e-6),
     Documentation(info="<html>
 <p>
 Example that demonstrates the use of the PID controller

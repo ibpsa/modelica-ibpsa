@@ -1,12 +1,12 @@
-last-generated=2016-04-20
+last-generated=2017-03-31
 statistics-simulation=
 {
   "numerical Jacobians": "0", 
   "nonlinear": " ", 
   "linear": " "
 }
-conAirWithC.outlet.forward.X_w=[0.00999999977648258209, 0.00999999977648258209]
-conAirNoC.outlet.forward.X_w=[0.00999999977648258209, 0.00999999977648258209]
-time=[0., 1.]
-conDryAirWithC.outlet.forward.C[1]=[0.00000999999974737875, 0.00000999999974737875]
-conAirWithC.outlet.forward.C[1]=[0.00000999999974737875, 0.00000999999974737875]
+conAirWithC.outlet.forward.X_w=[9.999999776482582e-03, 9.999999776482582e-03]
+conAirNoC.outlet.forward.X_w=[9.999999776482582e-03, 9.999999776482582e-03]
+time=[0e+00, 1e+00]
+conDryAirWithC.outlet.forward.C[1]=[9.999999747378752e-06, 9.999999747378752e-06]
+conAirWithC.outlet.forward.C[1]=[9.999999747378752e-06, 9.999999747378752e-06]
