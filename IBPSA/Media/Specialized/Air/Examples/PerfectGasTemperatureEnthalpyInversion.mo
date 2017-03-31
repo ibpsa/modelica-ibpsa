@@ -5,7 +5,7 @@ model PerfectGasTemperatureEnthalpyInversion
   extends IBPSA.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion(
     redeclare package Medium = IBPSA.Media.Specialized.Air.PerfectGas);
   annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Specialized/Air/Examples/PerfectGasTemperatureEnthalpyInversion.mos"
         "Simulate and plot"),
     Documentation(info="<html>
