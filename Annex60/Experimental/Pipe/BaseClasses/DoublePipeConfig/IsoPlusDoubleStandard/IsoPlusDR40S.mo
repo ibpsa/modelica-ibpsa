@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard;
+within IBPSA.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard;
 record IsoPlusDR40S "Standard DN 40 IsoPlus double pipe"
 
   extends IsoPlusDouble(

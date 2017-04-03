@@ -1,10 +1,10 @@
-within Annex60.Experimental.Pipe.Examples.DoublePipe;
+within IBPSA.Experimental.Pipe.Examples.DoublePipe;
 model ParallelPipesTempStep
   "In order to test a parallel flow double pipe for a temperature step (no mass flow change)"
-  import Annex60;
+  import IBPSA;
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5
     "Nominal mass flow rate";
@@ -53,19 +53,19 @@ model ParallelPipesTempStep
         rotation=0,
         origin={-110,-22})));
 
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSupplyIn(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemSupplyIn(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemReturnIn(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemReturnIn(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-38,-30})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSupplyOut(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemSupplyOut(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{30,20},{50,40}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemReturnOut(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemReturnOut(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -74,12 +74,12 @@ model ParallelPipesTempStep
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments, table=[0,
         1; 200000,1])
     annotation (Placement(transformation(extent={{-188,16},{-168,36}})));
-  Annex60.Experimental.Pipe.DoublePipeParallel doublePipeParallel(
+  IBPSA.Experimental.Pipe.DoublePipeParallel doublePipeParallel(
     length=length,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     redeclare
-      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleReinforced.IsoPlusDR200R
+      IBPSA.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleReinforced.IsoPlusDR200R
       pipeData)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   parameter Modelica.SIunits.Length length=100 "Pipe length";

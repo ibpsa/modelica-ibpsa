@@ -1,7 +1,7 @@
-within Annex60.Experimental.Pipe.Archive;
+within IBPSA.Experimental.Pipe.Archive;
 model PipeHeatLossA60Ref
   "Pipe model using spatialDistribution for temperature delay with heat losses"
-  extends Annex60.Fluid.Interfaces.PartialTwoPort;
+  extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 
@@ -156,7 +156,7 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>First implementation of a pipe with heat loss using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </p>
+<p>First implementation of a pipe with heat loss using the fixed resistance from IBPSA and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </p>
 <p>This setup is meant as a benchmark for more sophisticated implementations. It seems to generally work ok except for the cooling effects on the standing fluid in case of zero mass flow.</p>
 <p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used before and after the time delay.</p>
 <p>This component calculates the time delay twice (in the HeatLoss component) and uses a fixed ambient temperature. </p>

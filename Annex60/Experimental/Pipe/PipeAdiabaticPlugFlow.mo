@@ -1,7 +1,7 @@
-within Annex60.Experimental.Pipe;
+within IBPSA.Experimental.Pipe;
 model PipeAdiabaticPlugFlow
   "Pipe model using spatialDistribution for temperature delay without heat losses"
-  extends Annex60.Fluid.Interfaces.PartialTwoPort;
+  extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
   parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
   parameter Modelica.SIunits.Length dh=0.05 "Hydraulic diameter"
@@ -47,7 +47,7 @@ model PipeAdiabaticPlugFlow
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
-  Annex60.Fluid.FixedResistances.FixedResistance_dh res(
+  IBPSA.Fluid.FixedResistances.FixedResistance_dh res(
     redeclare final package Medium = Medium,
     final dh=dh,
     final m_flow_nominal=m_flow_nominal,
@@ -94,7 +94,7 @@ protected
       T=Medium.T_default,
       X=Medium.X_default)) "Default specific heat of water";
 
-  Annex60.Experimental.Pipe.PipeLosslessPlugFlow temperatureDelay(
+  IBPSA.Experimental.Pipe.PipeLosslessPlugFlow temperatureDelay(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final D=dh,
@@ -165,7 +165,7 @@ equation
 <li>June 23, 2015 by Marcus Fuchs:<br>First implementation. </li>
 </ul>
 </html>", info="<html>
-<p>First implementation of an adiabatic pipe using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. The temperature propagation is handled by the PipeLosslessPlugFlow component.</p>
+<p>First implementation of an adiabatic pipe using the fixed resistance from IBPSA and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. The temperature propagation is handled by the PipeLosslessPlugFlow component.</p>
 <p>This component includes water volumes at the in- and outlet to account for the thermal capacity of the pipe walls. Logically, each volume should contain half of the pipe&apos;s real water volume. However, this leads to an overestimation, probably because only part of the pipe is affected by temperature changes (see Benonysson, 1991). The ratio of the pipe to be included in the thermal capacity is to be investigated further. </p>
 </html>"));
 end PipeAdiabaticPlugFlow;

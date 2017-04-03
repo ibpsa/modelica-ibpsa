@@ -1,7 +1,7 @@
-within Annex60.Experimental.Pipe;
+within IBPSA.Experimental.Pipe;
 model DoublePipe_PipeDelay
   "Pipe model for double pipe case with single delay calculation"
-  extends Annex60.Fluid.Interfaces.PartialFourPort(
+  extends IBPSA.Fluid.Interfaces.PartialFourPort(
       redeclare final package Medium1 = Medium,
       redeclare final package Medium2 = Medium,
       final allowFlowReversal1 = allowFlowReversal,

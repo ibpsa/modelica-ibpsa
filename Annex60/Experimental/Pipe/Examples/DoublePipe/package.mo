@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Examples;
+within IBPSA.Experimental.Pipe.Examples;
 package DoublePipe "Examples containing double (or twin) pipes"
 extends Modelica.Icons.ExamplesPackage;
 

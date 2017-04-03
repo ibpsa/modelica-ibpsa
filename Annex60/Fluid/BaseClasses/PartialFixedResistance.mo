@@ -1,6 +1,6 @@
-within Annex60.Fluid.BaseClasses;
+within IBPSA.Fluid.BaseClasses;
 partial model PartialFixedResistance "Partial fixed flow resistance"
-  extends Annex60.Fluid.BaseClasses.PartialResistance;
+  extends IBPSA.Fluid.BaseClasses.PartialResistance;
 
   final parameter Real k(unit="") = if computeFlowResistance then
     m_flow_nominal_pos/sqrt(dp_nominal_pos) else 0
@@ -25,14 +25,14 @@ equation
       if homotopyInitialization then
         if from_dp then
           m_flow = homotopy(actual=
-            Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+            IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
             dp=dp,
             k=k,
             m_flow_turbulent=m_flow_turbulent), simplified=m_flow_nominal_pos*
             dp/dp_nominal_pos);
         else
           dp = homotopy(actual=
-            Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+            IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
             m_flow=m_flow,
             k=k,
             m_flow_turbulent=m_flow_turbulent), simplified=dp_nominal_pos*
@@ -42,12 +42,12 @@ equation
       else
         // do not use homotopy
         if from_dp then
-          m_flow = Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+          m_flow = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
             dp=dp,
             k=k,
             m_flow_turbulent=m_flow_turbulent);
         else
-          dp = Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+          dp = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
             m_flow=m_flow,
             k=k,
             m_flow_turbulent=m_flow_turbulent);
@@ -90,9 +90,9 @@ The value of
 <code>
 m_flow_turbulent</code> is computed in <code>
 
-Annex60.Fluid.FixedResistances.FixedResistance_dp</code> 
+IBPSA.Fluid.FixedResistances.FixedResistance_dp</code> 
 or in <code>
-Annex60.Fluid.FixedResistances.FixedResistance_dh</code>.
+IBPSA.Fluid.FixedResistances.FixedResistance_dh</code>.
 </p>
 
 <p>
@@ -129,13 +129,13 @@ models from the package
 <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>
 can be used and combined with models from the
-<code>Annex60</code> library.
+<code>IBPSA</code> library.
 </p>
 <h4>Implementation</h4>
 <p>
 The pressure drop is computed by calling a function in the package
-<a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels\">
-Annex60.Fluid.BaseClasses.FlowModels</a>,
+<a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels\">
+IBPSA.Fluid.BaseClasses.FlowModels</a>,
 This package contains regularized implementations of the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -154,8 +154,8 @@ This leads to simpler equations.
 <ul>
 <li>
 July 7, 2016 by Bram van der Heijde:<br/>
-Moved from <code>Annex60.Fluid.FixedResistances.FixedResistanceDpM</code> 
-to <code>Annex60.Fluid.BaseClasses.PartialFixedResistance</code>. 
+Moved from <code>IBPSA.Fluid.FixedResistances.FixedResistanceDpM</code> 
+to <code>IBPSA.Fluid.BaseClasses.PartialFixedResistance</code>. 
 Moved parameters <code>ReC</code>, <code>dh</code> and <code>use_dh</code> 
 to <code>FixedResistance_dp</code>. Moved parameter <code>Delta_M</code> and 
 <code>assert(dh)</code>to <code>FixedResistance_dh</code>.
@@ -164,8 +164,8 @@ to <code>FixedResistance_dp</code>. Moved parameter <code>Delta_M</code> and
 November 26, 2014, by Michael Wetter:<br/>
 Added the required <code>annotation(Evaluate=true)</code> so
 that the system of nonlinear equations in
-<a href=\"modelica://Annex60.Fluid.FixedResistances.Examples.FixedResistancesExplicit\">
-Annex60.Fluid.FixedResistances.Examples.FixedResistancesExplicit</a>
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.Examples.FixedResistancesExplicit\">
+IBPSA.Fluid.FixedResistances.Examples.FixedResistancesExplicit</a>
 remains the same.
 </li>
 <li>
@@ -193,12 +193,12 @@ Renamed protected parameters for consistency with the naming conventions.
 <li>
 January 16, 2012 by Michael Wetter:<br/>
 To simplify object inheritance tree, revised base classes
-<code>Annex60.Fluid.BaseClasses.PartialResistance</code>,
-<code>Annex60.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
-<code>Annex60.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
-<code>Annex60.Fluid.Actuators.BaseClasses.PartialActuator</code>
+<code>IBPSA.Fluid.BaseClasses.PartialResistance</code>,
+<code>IBPSA.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
+<code>IBPSA.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
+<code>IBPSA.Fluid.Actuators.BaseClasses.PartialActuator</code>
 and model
-<code>Annex60.Fluid.FixedResistances.FixedResistanceDpM</code>.
+<code>IBPSA.Fluid.FixedResistances.FixedResistanceDpM</code>.
 </li>
 <li>
 May 30, 2008 by Michael Wetter:<br/>

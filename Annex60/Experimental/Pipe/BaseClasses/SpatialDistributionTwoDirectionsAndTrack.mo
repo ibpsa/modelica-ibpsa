@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.BaseClasses;
+within IBPSA.Experimental.Pipe.BaseClasses;
 model SpatialDistributionTwoDirectionsAndTrack
 
   parameter Modelica.SIunits.Length length "Pipe length";

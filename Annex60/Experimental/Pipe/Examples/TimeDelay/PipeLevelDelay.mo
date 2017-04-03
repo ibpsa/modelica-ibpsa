@@ -1,9 +1,9 @@
-within Annex60.Experimental.Pipe.Examples.TimeDelay;
+within IBPSA.Experimental.Pipe.Examples.TimeDelay;
 model PipeLevelDelay "Comparison of different ways to calculate time delays"
-  import Annex60;
+  import IBPSA;
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
 
   parameter Modelica.SIunits.Diameter diameter=0.1 "Pipe diameter";
   parameter Modelica.SIunits.Length length=100 "Pipe length";
@@ -14,7 +14,7 @@ model PipeLevelDelay "Comparison of different ways to calculate time delays"
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{126,76},{146,96}})));
 
-  Annex60.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
+  IBPSA.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
         Medium,
     use_p_in=true,
     use_T_in=true,
@@ -23,7 +23,7 @@ model PipeLevelDelay "Comparison of different ways to calculate time delays"
     "Source with high pressure at beginning and lower pressure at end of experiment"
                           annotation (Placement(transformation(extent={{-88,28},
             {-68,48}})));
-  Annex60.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
+  IBPSA.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
         Medium,
     nPorts=2,
     use_p_in=true,
@@ -31,7 +31,7 @@ model PipeLevelDelay "Comparison of different ways to calculate time delays"
     "Sink at with constant pressure, turns into source at the end of experiment"
                           annotation (Placement(transformation(extent={{140,28},
             {120,48}})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloA60(redeclare package Medium =
+  IBPSA.Fluid.Sensors.MassFlowRate masFloA60(redeclare package Medium =
         Medium) "Mass flow rate sensor for the A60 temperature delay"
     annotation (Placement(transformation(extent={{88,30},{108,50}})));
 
@@ -41,11 +41,11 @@ model PipeLevelDelay "Comparison of different ways to calculate time delays"
     startTime=10000)
     "Step temperature increase to test propagation of temperature wave"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60Out(redeclare package
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow of the A60 temperature delay"
     annotation (Placement(transformation(extent={{56,30},{76,50}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60In(redeclare package
       Medium =
         Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
@@ -63,7 +63,7 @@ model PipeLevelDelay "Comparison of different ways to calculate time delays"
   Modelica.Blocks.Sources.Constant PAtm1(
                                         k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{-158,88},{-138,108}})));
-  Annex60.Experimental.Pipe.Archive.PipeHeatLoss A60PipeHeatLossMod_noabs(
+  IBPSA.Experimental.Pipe.Archive.PipeHeatLoss A60PipeHeatLossMod_noabs(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
@@ -72,7 +72,7 @@ model PipeLevelDelay "Comparison of different ways to calculate time delays"
     thicknessIns=0.02,
     lambdaI=0.01) "Annex 60 modified pipe with heat losses"
     annotation (Placement(transformation(extent={{8,28},{28,48}})));
-  Annex60.Experimental.Pipe.PipeHeatLossMod A60PipeHeatLossMod2(
+  IBPSA.Experimental.Pipe.PipeHeatLossMod A60PipeHeatLossMod2(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
@@ -81,21 +81,21 @@ model PipeLevelDelay "Comparison of different ways to calculate time delays"
     thicknessIns=0.02,
     lambdaI=0.01) "Annex 60 modified pipe with heat losses"
     annotation (Placement(transformation(extent={{16,-22},{36,-2}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In1(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60In1(
                                                        redeclare package
       Medium =
         Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-56,-22},{-36,-2}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out1(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60Out1(
                                                         redeclare package
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow of the A60 temperature delay"
     annotation (Placement(transformation(extent={{50,-22},{70,-2}})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloA1( redeclare package Medium =
+  IBPSA.Fluid.Sensors.MassFlowRate masFloA1( redeclare package Medium =
         Medium) "Mass flow rate sensor for the A60 temperature delay"
     annotation (Placement(transformation(extent={{78,-26},{98,-6}})));
-  Annex60.Experimental.Pipe.BaseClasses.PDETime_massFlow pDETime_massFlow(len=
+  IBPSA.Experimental.Pipe.BaseClasses.PDETime_massFlow pDETime_massFlow(len=
        length, diameter=diameter)
     annotation (Placement(transformation(extent={{114,-78},{134,-58}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
@@ -175,7 +175,7 @@ equation
   connect(heatFlowSensor.port_a, A60PipeHeatLossMod2.heatPort) annotation (
       Line(points={{-6,50},{-6,8},{26,8},{26,-2}}, color={191,0,0}));
     annotation (experiment(StopTime=200000, __Dymola_NumberOfIntervals=5000),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{
             160,140}})),

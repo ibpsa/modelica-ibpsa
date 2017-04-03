@@ -1,10 +1,10 @@
-within Annex60.Experimental.Pipe.Examples.UseCases.TypeS_Development;
+within IBPSA.Experimental.Pipe.Examples.UseCases.TypeS_Development;
 model UCPipeS01AD_MSL_Friction
   "Verifying the pressure - mass flow relation for two short pipes in series compared to one long pipe"
 
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
 
   parameter Modelica.SIunits.Pressure dp_test = 200
     "Differential pressure for the test used in ramps";

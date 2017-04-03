@@ -1,4 +1,4 @@
-within Annex60.Fluid.Interfaces;
+within IBPSA.Fluid.Interfaces;
 partial model PartialFourPortParallel
   "Partial model with four ports for components with parallel flow"
 

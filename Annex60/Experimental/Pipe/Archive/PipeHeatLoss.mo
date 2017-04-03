@@ -1,6 +1,6 @@
-within Annex60.Experimental.Pipe.Archive;
+within IBPSA.Experimental.Pipe.Archive;
 model PipeHeatLoss "Pipe model using spatialDistribution for temperature delay"
-  extends Annex60.Fluid.Interfaces.PartialTwoPort;
+  extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 

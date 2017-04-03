@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Archive;
+within IBPSA.Experimental.Pipe.Archive;
 model HeatLoss "Heat loss model for pipe"
   extends Fluid.Interfaces.PartialTwoPortTransport;
 
@@ -41,10 +41,10 @@ protected
 equation
   dp = 0;
 
-  a = Annex60.Utilities.Math.Functions.inverseXRegularized(
+  a = IBPSA.Utilities.Math.Functions.inverseXRegularized(
                                           (m_flow * cp_default)/
                                           (thermTransmissionCoeff * A_surf), 1e-5);
-  theta = Annex60.Utilities.Math.Functions.smoothExponential(a, 1e-5);
+  theta = IBPSA.Utilities.Math.Functions.smoothExponential(a, 1e-5);
 
   Tin_a * cp_default = inStream(port_a.h_outflow);
 

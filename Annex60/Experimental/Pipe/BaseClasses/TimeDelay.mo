@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.BaseClasses;
+within IBPSA.Experimental.Pipe.BaseClasses;
 model TimeDelay "Delay time for given normalized velocity"
 
   Real x(start=0) "Normalized transport distance";
@@ -65,7 +65,7 @@ equation
     {0.0,1.0},
     {tInStart,tOutStart});
 
-  /*Annex60.Utilities.Math.Functions.smoothMax(
+  /*IBPSA.Utilities.Math.Functions.smoothMax(
     time - TimeOut_a,
     track2 - track1,
     1);*/

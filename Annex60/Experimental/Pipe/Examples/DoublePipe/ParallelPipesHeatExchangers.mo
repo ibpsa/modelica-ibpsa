@@ -1,51 +1,51 @@
-within Annex60.Experimental.Pipe.Examples.DoublePipe;
+within IBPSA.Experimental.Pipe.Examples.DoublePipe;
 model ParallelPipesHeatExchangers
   extends Modelica.Icons.Example;
 
-  Annex60.Experimental.Pipe.DoublePipeParallel doublePipeParallel(
+  IBPSA.Experimental.Pipe.DoublePipeParallel doublePipeParallel(
     length=100,
     H=2,
     redeclare
-      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR100S
+      IBPSA.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR100S
       pipeData,
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
     T_start=363.15)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort supIn(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort supIn(
     m_flow_nominal=0.5,
     tau=tau,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   parameter Modelica.SIunits.Time tau=1 "Time constant at nominal flow rate";
-  package Medium = Annex60.Media.Water;
-  Annex60.Fluid.Sensors.TemperatureTwoPort retIn(
+  package Medium = IBPSA.Media.Water;
+  IBPSA.Fluid.Sensors.TemperatureTwoPort retIn(
     m_flow_nominal=0.5,
     tau=tau,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort supOut(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort supOut(
     m_flow_nominal=0.5,
     tau=tau,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort retOut(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort retOut(
     m_flow_nominal=0.5,
     tau=tau,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Annex60.Fluid.Movers.FlowControlled_m_flow fan(
+  IBPSA.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
-    inputType=Annex60.Fluid.Types.InputType.Constant,
+    inputType=IBPSA.Fluid.Types.InputType.Constant,
     constantMassFlowRate=0.5)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Annex60.Fluid.HeatExchangers.HeaterCooler_T hea(
+  IBPSA.Fluid.HeatExchangers.HeaterCooler_T hea(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
     dp_nominal=10)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Annex60.Fluid.HeatExchangers.HeaterCooler_T hea1(
+  IBPSA.Fluid.HeatExchangers.HeaterCooler_T hea1(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
     dp_nominal=10) annotation (Placement(transformation(
@@ -56,7 +56,7 @@ model ParallelPipesHeatExchangers
     annotation (Placement(transformation(extent={{42,-104},{62,-84}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y=273.15 + 90)
     annotation (Placement(transformation(extent={{-52,80},{-32,100}})));
-  Annex60.Fluid.Sources.Boundary_pT bou(
+  IBPSA.Fluid.Sources.Boundary_pT bou(
     nPorts=1,
     redeclare package Medium = Medium,
     p=100000,

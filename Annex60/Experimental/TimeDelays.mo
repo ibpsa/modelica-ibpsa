@@ -1,4 +1,4 @@
-within Annex60.Experimental;
+within IBPSA.Experimental;
 package TimeDelays
   // Originally at https://github.com/arnoutaertgeerts/DistrictHeating
   // First implementation by Arnout Aertgeerts
@@ -249,10 +249,10 @@ package TimeDelays
 
     model Difference
       import DistrictHeating;
-      import Annex60;
-      Annex60.Experimental.TimeDelays.PDETime pDETime
+      import IBPSA;
+      IBPSA.Experimental.TimeDelays.PDETime pDETime
         annotation (Placement(transformation(extent={{0,40},{20,60}})));
-      Annex60.Experimental.Pipe.BaseClasses.DiffTime_modified diffTime
+      IBPSA.Experimental.Pipe.BaseClasses.DiffTime_modified diffTime
         annotation (Placement(transformation(extent={{0,0},{20,20}})));
       Modelica.Blocks.Sources.Pulse pulse(
         amplitude=-1,

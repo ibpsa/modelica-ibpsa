@@ -1,12 +1,12 @@
-within Annex60.Experimental.Pipe.Archive;
+within IBPSA.Experimental.Pipe.Archive;
 model PipeHeatLossKUL
   "Pipe model with a temperature plug flow, pressure losses and heat exchange to the environment"
 
   //Extensions
-  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
-  extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations(
+  extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
+  extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState);
-  extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters(dp_nominal = 2*dpStraightPipe_nominal);
+  extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(dp_nominal = 2*dpStraightPipe_nominal);
 
   //Parameters
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
@@ -76,11 +76,11 @@ model PipeHeatLossKUL
     annotation (Placement(transformation(extent={{-58,24},{-38,44}})));
   ExponentialDecay tempDecay(C=C, R=R)
     annotation (Placement(transformation(extent={{12,20},{32,40}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium,
     tau=0)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Annex60.Fluid.MixingVolumes.MixingVolume idealHeater(
+  IBPSA.Fluid.MixingVolumes.MixingVolume idealHeater(
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium,
     nPorts=2,

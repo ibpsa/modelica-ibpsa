@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Archive;
+within IBPSA.Experimental.Pipe.Archive;
 model ExponentialDecay "Calculates decay in temperature for given inlet, delay and boundary conditions 
   for a single pipe"
   /* Tb is a generic boundary temperature. For one single pipe, this will be the ambient temperature.

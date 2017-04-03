@@ -1,9 +1,9 @@
-within Annex60.Experimental.Pipe.Archive;
+within IBPSA.Experimental.Pipe.Archive;
 model ValidationPipeAIT_Subset1
   "Validation pipe against data from Austrian Institute of Technology"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
   Fluid.Sources.MassFlowSource_T Point2(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -71,10 +71,10 @@ equation
     experiment(StopTime=603900),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
-<p>The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model.</p>
+<p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model.</p>
 <p>Pipes&apos; temperatures are not initialized, thus results of outflow temperature before apprixmately the first 10000 seconds should no be considered. </p>
 <p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
-<p><img src=\"modelica://Annex60/Resources/Images/Experimental/AITTestBench.png\"/> </p>
+<p><img src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\"/> </p>
 <p><b><span style=\"color: #008000;\">Calibration</span></b> </p>
 <p>To calculate the length specific thermal resistance <code><span style=\"font-family: Courier New,courier;\">R</span></code> of the pipe, the thermal resistance of the surrounding ground is added. </p>
 <p><code><span style=\"font-family: Courier New,courier;\">R=1/(0.208)+1/(2*lambda_g*Modelica.Constants.pi)*log(1/0.18)</span></code> </p>
@@ -155,6 +155,6 @@ equation
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeAIT.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeAIT.mos"
         "Simulate and plot"));
 end ValidationPipeAIT_Subset1;

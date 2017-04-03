@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Examples;
+within IBPSA.Experimental.Pipe.Examples;
 package UseCases "A collection of use cases to systematically test the pipe model - see info section"
 extends Modelica.Icons.ExamplesPackage;
 
@@ -35,7 +35,7 @@ errors.</p>
 <h2 id=\"range-of-applications\">Range of applications</h2>
 <p>With the pipe model designed for applications in district heating and cooling
 network modeling, it is intended for a temperature range between 0 and 200 degC.
-Yet, as the current <em>Annex60</em> media implementation for water does not allow
+Yet, as the current <em>IBPSA</em> media implementation for water does not allow
 temperatures above 130 degC, this is used as the upper limit for the use case
 models. It is assumed, that the pressure level is always sufficient to ensure
 that the medium is always liquid, i.e. no phase changes are accounted for in the
@@ -67,7 +67,7 @@ its ends, with larger pressure differences leading to higher mass flow rates.</p
 <p>This use case aims at demonstrating the functionality of the pipe with varying
 temperatures. The pressure difference between <code>source</code> and <code>sink</code> is kept
 constant. The supply temperature is varied as a ramp function between 0 and 130
-degC, as the current <em>Annex60</em> media implementation does not allow temperatures
+degC, as the current <em>IBPSA</em> media implementation does not allow temperatures
 higher than 129 degC.</p>
 <p>The pipe model should simulate successfully over the whole temperature range. In
 the case with heat losses taken into account, higher temperatures should lead to

@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard;
+within IBPSA.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard;
 record IsoPlusDR200S "Standard DN 200 IsoPlus double pipe"
 
   extends IsoPlusDouble(

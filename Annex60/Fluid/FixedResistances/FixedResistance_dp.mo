@@ -1,7 +1,7 @@
-within Annex60.Fluid.FixedResistances;
+within IBPSA.Fluid.FixedResistances;
 model FixedResistance_dp
   "Fixed flow resistance with dp and m_flow as parameter"
-  extends Annex60.Fluid.BaseClasses.PartialFixedResistance(
+  extends IBPSA.Fluid.BaseClasses.PartialFixedResistance(
     final m_flow_turbulent=
         if computeFlowResistance then
           deltaM*m_flow_nominal_pos
@@ -38,7 +38,7 @@ The figure below shows the pressure drop for the parameters
 <code>deltaM=0.3</code>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
 </p>
 <p>
 If the parameter
@@ -74,13 +74,13 @@ models from the package
 <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>
 can be used and combined with models from the
-<code>Annex60</code> library.
+<code>IBPSA</code> library.
 </p>
 <h4>Implementation</h4>
 <p>
 The pressure drop is computed by calling a function in the package
-<a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels\">
-Annex60.Fluid.BaseClasses.FlowModels</a>,
+<a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels\">
+IBPSA.Fluid.BaseClasses.FlowModels</a>,
 This package contains regularized implementations of the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -99,14 +99,14 @@ This leads to simpler equations.
 <ul>
 <li>
 July 8, 2016 by Bram van der Heijde:<br/>
-Split off from <code>use_dh=false</code> part of <code>Annex60.Fluid.FixedResistances.FixedResistanceDpM</code>. 
+Split off from <code>use_dh=false</code> part of <code>IBPSA.Fluid.FixedResistances.FixedResistanceDpM</code>. 
 </li>
 <li>
 November 26, 2014, by Michael Wetter:<br/>
 Added the required <code>annotation(Evaluate=true)</code> so
 that the system of nonlinear equations in
-<a href=\"modelica://Annex60.Fluid.FixedResistances.Examples.FixedResistancesExplicit\">
-Annex60.Fluid.FixedResistances.Examples.FixedResistancesExplicit</a>
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.Examples.FixedResistancesExplicit\">
+IBPSA.Fluid.FixedResistances.Examples.FixedResistancesExplicit</a>
 remains the same.
 </li>
 <li>
@@ -134,12 +134,12 @@ Renamed protected parameters for consistency with the naming conventions.
 <li>
 January 16, 2012 by Michael Wetter:<br/>
 To simplify object inheritance tree, revised base classes
-<code>Annex60.Fluid.BaseClasses.PartialResistance</code>,
-<code>Annex60.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
-<code>Annex60.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
-<code>Annex60.Fluid.Actuators.BaseClasses.PartialActuator</code>
+<code>IBPSA.Fluid.BaseClasses.PartialResistance</code>,
+<code>IBPSA.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
+<code>IBPSA.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
+<code>IBPSA.Fluid.Actuators.BaseClasses.PartialActuator</code>
 and model
-<code>Annex60.Fluid.FixedResistances.FixedResistanceDpM</code>.
+<code>IBPSA.Fluid.FixedResistances.FixedResistanceDpM</code>.
 </li>
 <li>
 May 30, 2008 by Michael Wetter:<br/>

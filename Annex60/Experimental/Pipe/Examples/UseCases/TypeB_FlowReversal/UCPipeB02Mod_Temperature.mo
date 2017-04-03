@@ -1,10 +1,10 @@
-within Annex60.Experimental.Pipe.Examples.UseCases.TypeB_FlowReversal;
+within IBPSA.Experimental.Pipe.Examples.UseCases.TypeB_FlowReversal;
 model UCPipeB02Mod_Temperature
   "Demonstrating pipe model with varying flow directions and temperatures"
 
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.9
     "Nominal mass flow rate";
 

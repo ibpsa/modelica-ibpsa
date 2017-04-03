@@ -1,10 +1,10 @@
-within Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal;
+within IBPSA.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal;
 model UCPipeA05AD_MSL_TStep
   "Demonstrating pipe model for a temperature step and wave propagation"
 
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.9
     "Nominal mass flow rate";
 

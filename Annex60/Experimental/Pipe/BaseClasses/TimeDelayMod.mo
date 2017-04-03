@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.BaseClasses;
+within IBPSA.Experimental.Pipe.BaseClasses;
 model TimeDelayMod "Delay time for given normalized velocity"
 
   Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow of fluid" annotation (

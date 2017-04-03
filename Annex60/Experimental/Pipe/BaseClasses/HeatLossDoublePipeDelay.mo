@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.BaseClasses;
+within IBPSA.Experimental.Pipe.BaseClasses;
 model HeatLossDoublePipeDelay
   "Heat loss model for pipe when second pipe is present with delay calculation at pipe level"
   extends Fluid.Interfaces.PartialTwoPortTransport;
@@ -87,7 +87,7 @@ equation
 
   T_2out = Tin_a;
 
-  Qloss = Annex60.Utilities.Math.Functions.spliceFunction(
+  Qloss = IBPSA.Utilities.Math.Functions.spliceFunction(
     pos=(Tin_a - Tout_b)*cp_default,
     neg=0,
     x=port_a.m_flow,

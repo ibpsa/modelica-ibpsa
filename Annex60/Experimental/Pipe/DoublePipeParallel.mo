@@ -1,7 +1,7 @@
-within Annex60.Experimental.Pipe;
+within IBPSA.Experimental.Pipe;
 model DoublePipeParallel
   "Pipe model for double pipe case with single delay calculation with parallel flow"
-  extends Annex60.Fluid.Interfaces.PartialFourPortParallel(
+  extends IBPSA.Fluid.Interfaces.PartialFourPortParallel(
       redeclare final package Medium1 = Medium,
       redeclare final package Medium2 = Medium,
       final allowFlowReversal1 = allowFlowReversal,

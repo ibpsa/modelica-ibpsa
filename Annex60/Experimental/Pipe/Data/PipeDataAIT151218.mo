@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Data;
+within IBPSA.Experimental.Pipe.Data;
 record PipeDataAIT151218
   "Experimental data from AIT monitoring data December 18, 2015"
     extends Data.BaseClasses.PipeDataBaseDefinition(final n=9,data = [0,372.3,362.9,360.2,356.2,26.667,
@@ -569,7 +569,7 @@ First implementation.
 Information at several points of the district heating network is recorded during a week.
  
 <p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
-<p><img src=\"modelica://Annex60/Resources/Images/Experimental/AITTestBench.png\", border=\"1\"/>
+<p><img src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\", border=\"1\"/>
 </p>
 
 <p>

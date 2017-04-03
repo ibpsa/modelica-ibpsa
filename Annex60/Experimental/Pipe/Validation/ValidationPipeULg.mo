@@ -1,8 +1,8 @@
-within Annex60.Experimental.Pipe.Validation;
+within IBPSA.Experimental.Pipe.Validation;
 model ValidationPipeULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
   // R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
   Fluid.Sources.MassFlowSource_T WaterCityNetwork(
     redeclare package Medium = Medium,
     nPorts=1,
@@ -109,13 +109,13 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
-<p>The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataULg150801\">experimental data</a> from a real district heating network. This data is used to validate pipe models.</p>
+<p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">experimental data</a> from a real district heating network. This data is used to validate pipe models.</p>
 <p>Pipe&apos;s temperature is not initialized, thus the first 70 seconds should be disregarded. </p>
 <p>The insulation used is Tubolit 60/13. For this material, a thermal conductivity of about 0.04 W/m<sup>2</sup>K can be found (<a href=\"http://www.armacell.com/WWW/armacell/ACwwwAttach.nsf/ansFiles/PDS_Range_Tubolit_CHf.pdf/$File/PDS_Range_Tubolit_CHf.pdf\">source</a>).</p>
 <p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
-<p><img src=\"modelica://Annex60/Resources/Images/Experimental/ULgTestBench.png\"/> </p>
+<p><img src=\"modelica://IBPSA/Resources/Images/Experimental/ULgTestBench.png\"/> </p>
 <p><b><span style=\"color: #008000;\">Calibration</span></b> </p>
-<p>There are some incertainties about the heat loss coefficient between pipe and surrounding air as well as regarding the heat conductivity of the insulation material. With the <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataULg150801\">given data</a>, the length specific thermal resistance <code>R = 2.164 </code>(mK/W). <code>R</code> calculated as follows: </p>
+<p>There are some incertainties about the heat loss coefficient between pipe and surrounding air as well as regarding the heat conductivity of the insulation material. With the <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">given data</a>, the length specific thermal resistance <code>R = 2.164 </code>(mK/W). <code>R</code> calculated as follows: </p>
 <p><code>R=((1/(2*pipe.lambdaI)*log((0.0603+2*pipe.thicknessIns)/(0.0603)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi</code> </p>
 <p><code>U = 1/R = 0.462 W/mK </code> </p>
 <p><b><span style=\"color: #008000;\">Validation</span></b> </p>
@@ -127,7 +127,7 @@ equation
 <li>Negligence of another phenomenon, e.g. turbulent mixing at a temperature front.</li>
 </ul>
 <p><br>Given the accuracy of the temperature measurements of +/- 0.3K, the validation results are satisfying even though the dynamics are not completely represented by the model.</p>
-<p><img src=\"modelica://Annex60/Resources/Images/Experimental/ValidationPipeULg.png\"/></p>
+<p><img src=\"modelica://IBPSA/Resources/Images/Experimental/ValidationPipeULg.png\"/></p>
 </html>", revisions="<html>
 <ul>
 <li>November 24, 2016 by Bram van der Heijde:<br>Add pipe thickness for wall capacity calculation and expand documentation section.</li>
@@ -136,7 +136,7 @@ equation
 </ul>
 </html>"),
     experiment(StopTime=875),
-    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeULg.mos"
+    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeULg.mos"
         "Simulate and plot"),
     __Dymola_experimentSetupOutput(events=false),
     __Dymola_experimentFlags(

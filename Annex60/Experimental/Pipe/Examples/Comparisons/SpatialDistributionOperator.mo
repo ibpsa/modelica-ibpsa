@@ -1,10 +1,10 @@
-within Annex60.Experimental.Pipe.Examples.Comparisons;
+within IBPSA.Experimental.Pipe.Examples.Comparisons;
 model SpatialDistributionOperator
   "Comparison of KUL A60 pipes with heat loss without reverse flow"
-  import Annex60;
+  import IBPSA;
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
 
   parameter Modelica.SIunits.Diameter diameter=0.1 "Pipe diameter";
   parameter Modelica.SIunits.Length length=100 "Pipe length";
@@ -14,7 +14,7 @@ model SpatialDistributionOperator
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{126,42},{146,62}})));
 
-  Annex60.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
+  IBPSA.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
         Medium,
     use_p_in=true,
     use_T_in=true,
@@ -23,7 +23,7 @@ model SpatialDistributionOperator
     "Source with high pressure at beginning and lower pressure at end of experiment"
                           annotation (Placement(transformation(extent={{-86,-8},
             {-66,12}})));
-  Annex60.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
+  IBPSA.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
         Medium,
     nPorts=1,
     use_p_in=true,
@@ -52,38 +52,38 @@ model SpatialDistributionOperator
       annotation (Placement(transformation(extent={{-158,54},{-138,74}})));
   Modelica.Blocks.Sources.Constant const3(k=273.15 + 5);
 
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In1(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60In1(
                                                        redeclare package Medium =
         Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-56,-56},{-36,-36}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out1(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60Out1(
                                                         redeclare package
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow of the A60 temperature delay"
     annotation (Placement(transformation(extent={{50,-56},{70,-36}})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloA1( redeclare package Medium =
+  IBPSA.Fluid.Sensors.MassFlowRate masFloA1( redeclare package Medium =
         Medium) "Mass flow rate sensor for the A60 temperature delay"
     annotation (Placement(transformation(extent={{78,-60},{98,-40}})));
-  Annex60.Experimental.Pipe.BaseClasses.SpatialDistributionOneDirection
+  IBPSA.Experimental.Pipe.BaseClasses.SpatialDistributionOneDirection
     spatialDist_test_Reverse(length=length)
     annotation (Placement(transformation(extent={{-78,-94},{-38,-74}})));
   Modelica.Blocks.Sources.RealExpression v_reverse(y=-PipeDelayMod.tau_used.v)
     "Atmospheric pressure"
     annotation (Placement(transformation(extent={{-200,-94},{-120,-74}})));
-  Annex60.Experimental.Pipe.BaseClasses.SpatialDistributionOneDirection
+  IBPSA.Experimental.Pipe.BaseClasses.SpatialDistributionOneDirection
     spatialDist_test(length=length)
     annotation (Placement(transformation(extent={{-80,-114},{-40,-94}})));
   Modelica.Blocks.Sources.RealExpression v(y=PipeDelayMod.tau_used.v)
     "Atmospheric pressure"
     annotation (Placement(transformation(extent={{-200,-114},{-120,-94}})));
-  Annex60.Experimental.Pipe.BaseClasses.SpatialDistributionTwoDirections
+  IBPSA.Experimental.Pipe.BaseClasses.SpatialDistributionTwoDirections
     spatialDist_testBothDirections(length=length)
     annotation (Placement(transformation(extent={{-82,-144},{-22,-124}})));
-  Annex60.Experimental.Pipe.BaseClasses.SpatialDistributionTwoDirectionsAndTrack
+  IBPSA.Experimental.Pipe.BaseClasses.SpatialDistributionTwoDirectionsAndTrack
     spatialDist_testBothDirections_andTrack(length=length)
     annotation (Placement(transformation(extent={{-80,-174},{-20,-154}})));
-  Annex60.Fluid.Sources.Boundary_pT sou2(          redeclare package Medium =
+  IBPSA.Fluid.Sources.Boundary_pT sou2(          redeclare package Medium =
         Medium,
     use_p_in=true,
     use_T_in=true,
@@ -92,7 +92,7 @@ model SpatialDistributionOperator
     "Source with high pressure at beginning and lower pressure at end of experiment"
                           annotation (Placement(transformation(extent={{-98,110},
             {-78,130}})));
-  Annex60.Fluid.Sources.Boundary_pT sin2(          redeclare package Medium =
+  IBPSA.Fluid.Sources.Boundary_pT sin2(          redeclare package Medium =
         Medium,
     nPorts=1,
     use_p_in=true,
@@ -100,7 +100,7 @@ model SpatialDistributionOperator
     "Sink at with constant pressure, turns into source at the end of experiment"
                           annotation (Placement(transformation(extent={{128,112},
             {108,132}})));
-  Annex60.Experimental.Pipe.Archive.PipeHeatLoss PipeDelay(
+  IBPSA.Experimental.Pipe.Archive.PipeHeatLoss PipeDelay(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
@@ -109,17 +109,17 @@ model SpatialDistributionOperator
     thicknessIns=0.02,
     lambdaI=0.01)
     annotation (Placement(transformation(extent={{2,62},{22,82}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In2(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60In2(
                                                        redeclare package Medium =
         Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-68,62},{-48,82}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out2(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60Out2(
                                                         redeclare package
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow of the A60 temperature delay"
     annotation (Placement(transformation(extent={{38,62},{58,82}})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloA2( redeclare package Medium =
+  IBPSA.Fluid.Sensors.MassFlowRate masFloA2( redeclare package Medium =
         Medium) "Mass flow rate sensor for the A60 temperature delay"
     annotation (Placement(transformation(extent={{68,62},{88,82}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
@@ -127,7 +127,7 @@ model SpatialDistributionOperator
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature1(T=
         278.15)
     annotation (Placement(transformation(extent={{-22,110},{-2,130}})));
-  Annex60.Experimental.Pipe.PipeHeatLossMod PipeDelayMod(
+  IBPSA.Experimental.Pipe.PipeHeatLossMod PipeDelayMod(
     diameter=diameter,
     length=length,
     thicknessIns=0.02,

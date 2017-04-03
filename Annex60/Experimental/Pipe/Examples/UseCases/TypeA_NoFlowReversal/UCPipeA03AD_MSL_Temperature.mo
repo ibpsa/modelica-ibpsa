@@ -1,10 +1,10 @@
-within Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal;
+within IBPSA.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal;
 model UCPipeA03AD_MSL_Temperature
   "Demonstrating pipe model for varying temperatures"
 
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.9
     "Nominal mass flow rate";
 
@@ -98,7 +98,7 @@ equation
 <p>This use case aims at demonstrating the functionality of the pipe with varying
 temperatures. The pressure difference between <code>source</code> and <code>sink</code> is kept
 constant.The supply temperature is varied as a ramp function between 0 and 129
-degC, as the current <em>Annex60</em> media implementation does not allow temperatures
+degC, as the current <em>IBPSA</em> media implementation does not allow temperatures
 higher than 130 degC.</p>
 <p>The pipe model should simulate successfully over the whole temperature range. In
 the case with heat losses taken into account, higher temperatures should lead to

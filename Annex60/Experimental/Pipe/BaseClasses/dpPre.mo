@@ -1,8 +1,8 @@
-within Annex60.Experimental.Pipe.BaseClasses;
+within IBPSA.Experimental.Pipe.BaseClasses;
 function dPpre
   "Calculate dp assuming turbulent flow based on a specific temperature, nominal mass flow rate and diameter"
 package Medium =
-      Annex60.Media.Specialized.Water.TemperatureDependentDensity;
+      IBPSA.Media.Specialized.Water.TemperatureDependentDensity;
 
   input Modelica.SIunits.Length length "Length";
   input Modelica.SIunits.Diameter d "Diameter";

@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Examples.UseCases;
+within IBPSA.Experimental.Pipe.Examples.UseCases;
 package TypeS_Development "Special use cases for development"
 extends Modelica.Icons.ExamplesPackage;
 

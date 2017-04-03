@@ -1,7 +1,7 @@
-within Annex60.Experimental.Pipe;
+within IBPSA.Experimental.Pipe;
 model PipeHeatLossMod
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
-  extends Annex60.Fluid.Interfaces.PartialTwoPort;
+  extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";

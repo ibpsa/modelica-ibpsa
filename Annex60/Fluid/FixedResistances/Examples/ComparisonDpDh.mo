@@ -1,29 +1,29 @@
-within Annex60.Fluid.FixedResistances.Examples;
+within IBPSA.Fluid.FixedResistances.Examples;
 model ComparisonDpDh
   "Compare series connection of different FixedResistances. "
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.Air;
-  Annex60.Fluid.Sources.Boundary_ph sou(
+ package Medium = IBPSA.Media.Air;
+  IBPSA.Fluid.Sources.Boundary_ph sou(
    redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101335,
     use_p_in=true,
     nPorts=3)                         annotation (Placement(transformation(
           extent={{-60,90},{-40,110}})));
-  Annex60.Fluid.Sources.Boundary_ph sin(
+  IBPSA.Fluid.Sources.Boundary_ph sin(
     redeclare package Medium = Medium,
     nPorts=2,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
           extent={{120,90},{100,110}})));
 
-  Annex60.Fluid.Sources.Boundary_ph sin2(            redeclare package Medium
+  IBPSA.Fluid.Sources.Boundary_ph sin2(            redeclare package Medium
       =        Medium,
     nPorts=2,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
           extent={{120,50},{100,70}})));
-  Annex60.Fluid.Sources.Boundary_ph sou1(            redeclare package Medium
+  IBPSA.Fluid.Sources.Boundary_ph sou1(            redeclare package Medium
       =        Medium,
     p(displayUnit="Pa") = 101335,
     use_p_in=true,
@@ -35,21 +35,21 @@ model ComparisonDpDh
     offset=101325 - p_diff/2)
                  annotation (Placement(transformation(extent={{-100,90},{-80,
             110}})));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo_dpSer(redeclare package Medium
+  IBPSA.Fluid.Sensors.MassFlowRate senMasFlo_dpSer(redeclare package Medium
       = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo_dhSer(redeclare package Medium
+  IBPSA.Fluid.Sensors.MassFlowRate senMasFlo_dhSer(redeclare package Medium
       = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo_dpSin(redeclare package Medium
+  IBPSA.Fluid.Sensors.MassFlowRate senMasFlo_dpSin(redeclare package Medium
       = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{34,-20},{54,0}})));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo_dhSin(redeclare package Medium
+  IBPSA.Fluid.Sensors.MassFlowRate senMasFlo_dhSin(redeclare package Medium
       = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{34,-60},{54,-40}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality_dp(threShold=1E-1)
+  IBPSA.Utilities.Diagnostics.AssertEquality assertEquality_dp(threShold=1E-1)
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality_dh(threShold=1E-1)
+  IBPSA.Utilities.Diagnostics.AssertEquality assertEquality_dh(threShold=1E-1)
     annotation (Placement(transformation(extent={{120,-34},{140,-14}})));
   FixedResistance_dp res_dpSer1(
     redeclare package Medium = Medium,

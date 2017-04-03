@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig;
+within IBPSA.Experimental.Pipe.BaseClasses.DoublePipeConfig;
 partial record PipeData "Contains pipe properties from catalogs"
 
   parameter Modelica.SIunits.Length Di=0.1 "Equivalent inner diameter";

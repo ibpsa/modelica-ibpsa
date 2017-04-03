@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Validation;
+within IBPSA.Experimental.Pipe.Validation;
 model ValidationMSLAIT
   "Validation pipe against data from Austrian Institute of Technology with standard library components"
   extends Modelica.Icons.Example;
@@ -14,7 +14,7 @@ model ValidationMSLAIT
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={82,-42})));
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
   Fluid.Sources.MassFlowSource_T Point4(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
@@ -386,10 +386,10 @@ equation
     experiment(StopTime=603900, Tolerance=1e-005),
     __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
-<p>The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model in <a href=\"modelica://Annex60.Experimental.Pipe.Validation.ValidationPipeAIT\">ValidationPipeAIT</a>. This model compares its performance with the original Modelica Standard Library pipes.</p>
+<p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model in <a href=\"modelica://IBPSA.Experimental.Pipe.Validation.ValidationPipeAIT\">ValidationPipeAIT</a>. This model compares its performance with the original Modelica Standard Library pipes.</p>
 <p>Pipes&apos; temperatures are not initialized, thus results of outflow temperature before apprixmately the first 10000 seconds should no be considered. </p>
 <p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
-<p><img src=\"modelica://Annex60/Resources/Images/Experimental/AITTestBench.png\"/> </p>
+<p><img src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\"/> </p>
 <p><b><span style=\"color: #008000;\">Calibration</span></b> </p>
 <p>To calculate the length specific thermal resistance <code><span style=\"font-family: Courier New,courier;\">R</span></code> of the pipe, the thermal resistance of the surrounding ground is added. </p>
 <p><code><span style=\"font-family: Courier New,courier;\">R=1/(0.208)+1/(2*lambda_g*Modelica.Constants.pi)*log(1/0.18)</span></code> </p>
@@ -403,9 +403,9 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
 <li>January 26, 2016 by Carles Ribas:<br>First implementation. </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationMSLAIT.mos"
+    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationMSLAIT.mos"
     "Simulate and plot",
-    file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ExportValidationMSLAIT.mos"
+    file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ExportValidationMSLAIT.mos"
     "Export csv file"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     __Dymola_experimentFlags(

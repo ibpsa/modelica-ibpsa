@@ -1,4 +1,4 @@
-within Annex60.Experimental;
+within IBPSA.Experimental;
 package Interfaces "Interfaces for district heating network"
   // Originally at https://github.com/arnoutaertgeerts/DistrictHeating
   // First implementation by Arnout Aertgeerts

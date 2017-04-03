@@ -1,9 +1,9 @@
-within Annex60.Experimental.Pipe.Archive.Examples.PipeHeatTransfer;
+within IBPSA.Experimental.Pipe.Archive.Examples.PipeHeatTransfer;
 model PipeHeatLoss_TStep
   "Test of pipe model with heat loss with temperature step, zero-mass-flow and flow reversal"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
 
   parameter Modelica.SIunits.Pressure dp_test = 200
     "Differential pressure for the test used in ramps";
@@ -19,7 +19,7 @@ model PipeHeatLoss_TStep
     thicknessIns=0.03,
     thermTransmissionCoeff=0.05) "Pipe 1 in series of two 50 m pipes"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  Annex60.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
+  IBPSA.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
         Medium,
     use_p_in=true,
     use_T_in=true,
@@ -28,7 +28,7 @@ model PipeHeatLoss_TStep
     "Source with high pressure at beginning and lower pressure at end of experiment"
                           annotation (Placement(transformation(extent={{-88,28},
             {-68,48}})));
-  Annex60.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
+  IBPSA.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
         Medium,
     nPorts=2,
     use_p_in=true,
@@ -36,7 +36,7 @@ model PipeHeatLoss_TStep
     "Sink at with constant pressure, turns into source at the end of experiment"
                           annotation (Placement(transformation(extent={{140,28},
             {120,48}})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloSer(redeclare package Medium =
+  IBPSA.Fluid.Sensors.MassFlowRate masFloSer(redeclare package Medium =
         Medium) "Mass flow rate sensor for the two pipes in series"
     annotation (Placement(transformation(extent={{88,30},{108,50}})));
 
@@ -68,11 +68,11 @@ model PipeHeatLoss_TStep
     thicknessIns=0.03,
     thermTransmissionCoeff=0.05) "Pipe 2 of two 50 m pipes in series"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSerOut(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemSerOut(redeclare package
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow of the two pipes in series"
     annotation (Placement(transformation(extent={{56,30},{76,50}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSerIn(redeclare package Medium
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemSerIn(redeclare package Medium
       = Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the two pipes in series"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
@@ -88,15 +88,15 @@ model PipeHeatLoss_TStep
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-20})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloSin(
+  IBPSA.Fluid.Sensors.MassFlowRate masFloSin(
                                               redeclare package Medium = Medium)
     "Mass flow rate sensor for the single pipe"
     annotation (Placement(transformation(extent={{88,-30},{108,-10}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSinOut(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemSinOut(redeclare package
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow from the single pipe"
     annotation (Placement(transformation(extent={{56,-30},{76,-10}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSinIn(redeclare package Medium
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemSinIn(redeclare package Medium
       = Medium, m_flow_nominal=0.5)
     "Temperature sensor of the inflow to the single pipe"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
@@ -166,7 +166,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
     annotation (experiment(StopTime=20000, __Dymola_NumberOfIntervals=5000),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{160,
             100}})),

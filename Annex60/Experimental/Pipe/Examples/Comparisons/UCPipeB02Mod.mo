@@ -1,9 +1,9 @@
-within Annex60.Experimental.Pipe.Examples.Comparisons;
+within IBPSA.Experimental.Pipe.Examples.Comparisons;
 model UCPipeB02Mod "Comparing behaviour of PipeHeatLoss and ~Mod"
 
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.9
     "Nominal mass flow rate";
 
@@ -162,7 +162,7 @@ equation
   connect(constTemp.y, sourceMod.T_in) annotation (Line(points={{-145,10},{-94,
           10},{-94,-16},{-140,-16},{-140,-82},{-90,-82}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>This is a test bench for comparing the behaviour of the <code>Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay</code> and <code>Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelayMod</code> pipe models. </p>
+<p>This is a test bench for comparing the behaviour of the <code>IBPSA.Experimental.Pipe.PipeHeatLoss_PipeDelay</code> and <code>IBPSA.Experimental.Pipe.PipeHeatLoss_PipeDelayMod</code> pipe models. </p>
 <p><b><a name=\"typical-use-and-important-parameters\">T</a>ypical use and important parameters</b></p>
 <p>The maximum pressure difference between <code><span style=\"font-family: Courier New,courier;\">source</span></code> and <code><span style=\"font-family: Courier New,courier;\">sink</span></code> can be adjusted via the <code><span style=\"font-family: Courier New,courier;\">dp_test</span></code> variable.</p>
 </html>", revisions="<html>

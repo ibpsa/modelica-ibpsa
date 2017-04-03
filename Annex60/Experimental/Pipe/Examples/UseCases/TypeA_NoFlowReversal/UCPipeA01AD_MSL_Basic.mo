@@ -1,9 +1,9 @@
-within Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal;
+within IBPSA.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal;
 model UCPipeA01AD_MSL_Basic "Demonstrating basic functionality of pipe model"
 
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.9
     "Nominal mass flow rate";
 

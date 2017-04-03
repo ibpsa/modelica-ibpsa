@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Examples.UseCases;
+within IBPSA.Experimental.Pipe.Examples.UseCases;
 package TypeB_FlowReversal "Use cases with flow reversal"
 extends Modelica.Icons.ExamplesPackage;
 

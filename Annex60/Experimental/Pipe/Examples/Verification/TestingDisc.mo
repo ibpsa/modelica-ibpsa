@@ -1,7 +1,7 @@
-within Annex60.Experimental.Pipe.Examples.Verification;
+within IBPSA.Experimental.Pipe.Examples.Verification;
 model TestingDisc
 
-package Medium = Annex60.Media.Water;
+package Medium = IBPSA.Media.Water;
 
   Modelica.Fluid.Pipes.DynamicPipe pipeMSL(
     nNodes=10,

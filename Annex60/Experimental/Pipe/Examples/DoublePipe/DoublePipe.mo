@@ -1,9 +1,9 @@
-within Annex60.Experimental.Pipe.Examples.DoublePipe;
+within IBPSA.Experimental.Pipe.Examples.DoublePipe;
 model DoublePipe "Simple test of double pipe component"
-  import Annex60;
+  import IBPSA;
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
   parameter Modelica.SIunits.Pressure dp_test=200
     "Differential pressure for the test used in ramps";
   Fluid.Sources.Boundary_pT sou1(
@@ -36,21 +36,21 @@ model DoublePipe "Simple test of double pipe component"
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-50,-10})));
-  Annex60.Experimental.Pipe.DoublePipe_PipeDelay
+  IBPSA.Experimental.Pipe.DoublePipe_PipeDelay
                                        doublePipe(
     diameter=diameter,
     length=length,
     m_flow_nominal=m_flow_nominal,
     H=2,
     redeclare
-      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR150S
+      IBPSA.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR150S
       pipeData,
-    redeclare package Medium = Annex60.Media.Water)
+    redeclare package Medium = IBPSA.Media.Water)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSupplyIn(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemSupplyIn(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-32,20},{-12,40}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemReturnOut(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemReturnOut(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -59,10 +59,10 @@ model DoublePipe "Simple test of double pipe component"
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5
     "Nominal mass flow rate, used for regularization near zero flow";
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSupplyOut(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemSupplyOut(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{30,20},{50,40}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemReturnIn(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemReturnIn(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -70,7 +70,7 @@ model DoublePipe "Simple test of double pipe component"
         origin={40,-18})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=293.15)
     annotation (Placement(transformation(extent={{28,60},{48,80}})));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
+  IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -80,7 +80,7 @@ model DoublePipe "Simple test of double pipe component"
   parameter Modelica.SIunits.Length thicknessIns=0.01
     "Thickness of pipe insulation";
   // Real lossRatio = -doublePipe.heatPort.Q_flow/(hea.Q_flow-doublePipe.heatPort.Q_flow) "Ratio of the transport heat losses and the delivered energy from the supply side";
-  Annex60.Fluid.HeatExchangers.HeaterCooler_T hea(
+  IBPSA.Fluid.HeatExchangers.HeaterCooler_T hea(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=10)

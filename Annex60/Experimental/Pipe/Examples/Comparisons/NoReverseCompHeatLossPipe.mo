@@ -1,10 +1,10 @@
-within Annex60.Experimental.Pipe.Examples.Comparisons;
+within IBPSA.Experimental.Pipe.Examples.Comparisons;
 model NoReverseCompHeatLossPipe
   "Comparison of KUL A60 pipes with heat loss without reverse flow"
-  import Annex60;
+  import IBPSA;
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
 
   parameter Modelica.SIunits.Diameter diameter=0.1 "Pipe diameter";
   parameter Modelica.SIunits.Length length=100 "Pipe length";
@@ -15,7 +15,7 @@ model NoReverseCompHeatLossPipe
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{128,-44},{148,-24}})));
 
-  Annex60.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
+  IBPSA.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
         Medium,
     use_p_in=true,
     use_T_in=true,
@@ -24,7 +24,7 @@ model NoReverseCompHeatLossPipe
     "Source with high pressure at beginning and lower pressure at end of experiment"
                           annotation (Placement(transformation(extent={{-86,-92},
             {-66,-72}})));
-  Annex60.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
+  IBPSA.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
         Medium,
     nPorts=3,
     use_p_in=true,
@@ -32,7 +32,7 @@ model NoReverseCompHeatLossPipe
     "Sink at with constant pressure, turns into source at the end of experiment"
                           annotation (Placement(transformation(extent={{142,-92},
             {122,-72}})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloA60(redeclare package Medium =
+  IBPSA.Fluid.Sensors.MassFlowRate masFloA60(redeclare package Medium =
         Medium) "Mass flow rate sensor for the A60 temperature delay"
     annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
 
@@ -42,7 +42,7 @@ model NoReverseCompHeatLossPipe
     startTime=10000)
     "Step temperature increase to test propagation of temperature wave"
     annotation (Placement(transformation(extent={{-118,-100},{-98,-80}})));
-  Annex60.Experimental.Pipe.Archive.PipeHeatLossA60Ref A60PipeHeatLoss(
+  IBPSA.Experimental.Pipe.Archive.PipeHeatLossA60Ref A60PipeHeatLoss(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
@@ -51,15 +51,15 @@ model NoReverseCompHeatLossPipe
     thicknessIns=0.02,
     thermTransmissionCoeff=0.03) "Annex 60 pipe with heat losses"
     annotation (Placement(transformation(extent={{22,-90},{42,-70}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60Out(redeclare package
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow of the A60 temperature delay"
     annotation (Placement(transformation(extent={{58,-90},{78,-70}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In(redeclare package Medium =
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60In(redeclare package Medium =
         Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-58,-90},{-38,-70}})));
-  Annex60.Experimental.Pipe.Archive.PipeHeatLossKUL KULHeatLoss(
+  IBPSA.Experimental.Pipe.Archive.PipeHeatLossKUL KULHeatLoss(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
     diameter=diameter,
@@ -70,15 +70,15 @@ model NoReverseCompHeatLossPipe
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={32,-140})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloKUL(
+  IBPSA.Fluid.Sensors.MassFlowRate masFloKUL(
                                               redeclare package Medium = Medium)
     "Mass flow rate sensor for the KUL lossless pipe"
     annotation (Placement(transformation(extent={{90,-150},{110,-130}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULOut(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemKULOut(redeclare package
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow from the KUL lossless pipe"
     annotation (Placement(transformation(extent={{58,-150},{78,-130}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULIn(redeclare package Medium =
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemKULIn(redeclare package Medium =
         Medium, m_flow_nominal=0.5)
     "Temperature sensor of the inflow to the KUL lossless pipe"
     annotation (Placement(transformation(extent={{-58,-150},{-38,-130}})));
@@ -96,7 +96,7 @@ model NoReverseCompHeatLossPipe
   Modelica.Blocks.Sources.Constant PAtm1(
                                         k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{-156,-32},{-136,-12}})));
-  Annex60.Experimental.Pipe.Archive.PipeHeatLoss A60PipeHeatLossMod2(
+  IBPSA.Experimental.Pipe.Archive.PipeHeatLoss A60PipeHeatLossMod2(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
@@ -105,17 +105,17 @@ model NoReverseCompHeatLossPipe
     thicknessIns=0.02,
     lambdaI=0.01) "Annex 60 modified pipe with heat losses"
     annotation (Placement(transformation(extent={{22,0},{42,20}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60ModIn1(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60ModIn1(
                                                           redeclare package
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 modified temperature delay"
     annotation (Placement(transformation(extent={{-56,0},{-36,20}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60ModOut1(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60ModOut1(
                                                            redeclare package
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow of the A60 modified temperature delay"
     annotation (Placement(transformation(extent={{52,0},{72,20}})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloA60Mod1(
+  IBPSA.Fluid.Sensors.MassFlowRate masFloA60Mod1(
                                                   redeclare package Medium =
         Medium) "Mass flow rate sensor for the A60 modified temperature delay"
     annotation (Placement(transformation(extent={{86,0},{106,20}})));
@@ -205,7 +205,7 @@ equation
   connect(fixedTemperature.port, A60PipeHeatLossMod2.heatPort) annotation (Line(
         points={{-16,104},{4,104},{32,104},{32,20}}, color={191,0,0}));
     annotation (experiment(StopTime=200000, __Dymola_NumberOfIntervals=5000),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{
             160,140}})),

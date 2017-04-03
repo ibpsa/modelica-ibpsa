@@ -1,10 +1,10 @@
-within Annex60.Experimental.Pipe.Examples.Verification;
+within IBPSA.Experimental.Pipe.Examples.Verification;
 model FirstTestULg
   "First test of a comparison between pipe models and experimental data from ULg"
-  import Annex60;
+  import IBPSA;
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
 
   output Modelica.SIunits.Temperature TOutExperimental
     "Outlet water temperature from experimental data";
@@ -18,7 +18,7 @@ model FirstTestULg
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{126,76},{146,96}})));
 
-  Annex60.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
+  IBPSA.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
         Medium,
     nPorts=2,
     use_p_in=true,
@@ -26,11 +26,11 @@ model FirstTestULg
     "Sink at with constant pressure, turns into source at the end of experiment"
                           annotation (Placement(transformation(extent={{140,28},
             {120,48}})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloA60(redeclare package Medium =
+  IBPSA.Fluid.Sensors.MassFlowRate masFloA60(redeclare package Medium =
         Medium) "Mass flow rate sensor for the A60 temperature delay"
     annotation (Placement(transformation(extent={{88,30},{108,50}})));
 
-  Annex60.Experimental.Pipe.Archive.PipeHeatLossA60Ref A60PipeHeatLoss(
+  IBPSA.Experimental.Pipe.Archive.PipeHeatLossA60Ref A60PipeHeatLoss(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
@@ -39,15 +39,15 @@ model FirstTestULg
     thicknessIns=0.02,
     thermTransmissionCoeff=0.03) "Annex 60 pipe with heat losses"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60Out(redeclare package
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow of the A60 temperature delay"
     annotation (Placement(transformation(extent={{56,30},{76,50}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In(redeclare package Medium =
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemA60In(redeclare package Medium =
         Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Annex60.Experimental.Pipe.Archive.PipeHeatLossKUL KULHeatLoss(
+  IBPSA.Experimental.Pipe.Archive.PipeHeatLossKUL KULHeatLoss(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
     diameter=diameter,
@@ -58,21 +58,21 @@ model FirstTestULg
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,-20})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloKUL(
+  IBPSA.Fluid.Sensors.MassFlowRate masFloKUL(
                                               redeclare package Medium = Medium)
     "Mass flow rate sensor for the KUL lossless pipe"
     annotation (Placement(transformation(extent={{88,-30},{108,-10}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULOut(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemKULOut(redeclare package
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow from the KUL lossless pipe"
     annotation (Placement(transformation(extent={{56,-30},{76,-10}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULIn(redeclare package Medium =
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemKULIn(redeclare package Medium =
         Medium, m_flow_nominal=0.5)
     "Temperature sensor of the inflow to the KUL lossless pipe"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Blocks.Sources.Constant const(k=273.15 + 18)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Annex60.Fluid.Sources.MassFlowSource_T boundary(
+  IBPSA.Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
     nPorts=2,
     use_m_flow_in=true,
@@ -81,7 +81,7 @@ model FirstTestULg
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(table=
         pipeDataULg150801_1.data)
     annotation (Placement(transformation(extent={{-200,40},{-180,60}})));
-  Annex60.Experimental.Pipe.Data.PipeDataULg150801 pipeDataULg150801_1
+  IBPSA.Experimental.Pipe.Data.PipeDataULg150801 pipeDataULg150801_1
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
   Modelica.Blocks.Math.Gain gain(k=2)
     annotation (Placement(transformation(extent={{-120,12},{-108,24}})));
@@ -140,7 +140,7 @@ equation
   connect(add.y, boundary.T_in)
     annotation (Line(points={{-145,14},{-102,14}}, color={0,0,127}));
     annotation (experiment(StopTime=875, __Dymola_NumberOfIntervals=5000),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{160,
             100}})),

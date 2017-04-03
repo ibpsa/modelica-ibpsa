@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Data.BaseClasses;
+within IBPSA.Experimental.Pipe.Data.BaseClasses;
 partial record PipeDataULg "Base class for ULg experimental data"
   extends PipeDataBaseDefinition;
   parameter Modelica.SIunits.Temp_C T_ini_in = 20 "Initial temperature at inlet";
@@ -24,7 +24,7 @@ Then, the valve V1 is closed and the valve V2 and V3 are opened. The boiler is s
 <p>During the test, the ambient temperature is equal to 18 °C and the mass flow rate is set to 1.245 kg/s.</p>
 
 <p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
-<p><img src=\"modelica://Annex60/Resources/Images/Experimental/ULgTestBench.png\" border=\"1\"/></p>
+<p><img src=\"modelica://IBPSA/Resources/Images/Experimental/ULgTestBench.png\" border=\"1\"/></p>
 <p>Notice: length are approximate</p>
 
 <p><b><span style=\"color: #008000;\">Pipe characteristics</span></b> </p>

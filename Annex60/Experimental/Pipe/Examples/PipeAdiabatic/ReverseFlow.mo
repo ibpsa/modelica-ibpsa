@@ -1,10 +1,10 @@
-within Annex60.Experimental.Pipe.Examples.PipeAdiabatic;
+within IBPSA.Experimental.Pipe.Examples.PipeAdiabatic;
 model ReverseFlow
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Pressure dp_test=200
     "Differential pressure for the test used in ramps";
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
 
   PipeAdiabaticPlugFlow pipeAdiabaticPlugFlow(
     m_flow_nominal=m_flow_nominal,

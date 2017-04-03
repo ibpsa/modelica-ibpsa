@@ -1,10 +1,10 @@
-within Annex60.Experimental.Pipe.Examples.UseCases.TypeS_Development;
+within IBPSA.Experimental.Pipe.Examples.UseCases.TypeS_Development;
 model UCPipeS01AD_Friction
   "Verifying the pressure - mass flow relation for two short pipes in series compared to one long pipe"
 
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.9
     "Nominal mass flow rate";
 
@@ -49,7 +49,7 @@ model UCPipeS01AD_Friction
     dh=0.1,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
-    from_dp=true) "Dynamic pipe from Annex60 for reference test"
+    from_dp=true) "Dynamic pipe from IBPSA for reference test"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.Ramp reverseDP(
     duration=1800,

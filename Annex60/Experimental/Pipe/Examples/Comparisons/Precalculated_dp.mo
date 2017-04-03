@@ -1,9 +1,9 @@
-within Annex60.Experimental.Pipe.Examples.Comparisons;
+within IBPSA.Experimental.Pipe.Examples.Comparisons;
 model Precalculated_dp "Example to show use of the function dpPre"
   extends Modelica.Icons.Example;
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
   package MediumMSLpipe =
-      Annex60.Media.Specialized.Water.TemperatureDependentDensity;
+      IBPSA.Media.Specialized.Water.TemperatureDependentDensity;
 
   //Parameter pipe
   parameter Modelica.SIunits.Length length = 100 "Pipe length";
@@ -31,7 +31,7 @@ model Precalculated_dp "Example to show use of the function dpPre"
   Fluid.FixedResistances.FixedResistanceDpM pipeAdiabaticPlugFlow(redeclare
       package Medium = Medium,
     m_flow_nominal=m_flow,
-    dp_nominal=Annex60.Experimental.Pipe.BaseClasses.dPpre(
+    dp_nominal=IBPSA.Experimental.Pipe.BaseClasses.dPpre(
         length,
         d,
         m_flow,
@@ -40,7 +40,7 @@ model Precalculated_dp "Example to show use of the function dpPre"
   Fluid.FixedResistances.FixedResistanceDpM pipeAdiabaticPlugFlow1(redeclare
       package Medium = Medium,
     m_flow_nominal=m_flow,
-    dp_nominal=Annex60.Experimental.Pipe.BaseClasses.dPpre(
+    dp_nominal=IBPSA.Experimental.Pipe.BaseClasses.dPpre(
         length,
         d,
         m_flow,
@@ -49,7 +49,7 @@ model Precalculated_dp "Example to show use of the function dpPre"
   Fluid.FixedResistances.FixedResistanceDpM pipeAdiabaticPlugFlow2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow,
-    dp_nominal=Annex60.Experimental.Pipe.BaseClasses.dPpre(
+    dp_nominal=IBPSA.Experimental.Pipe.BaseClasses.dPpre(
         length,
         d,
         m_flow,

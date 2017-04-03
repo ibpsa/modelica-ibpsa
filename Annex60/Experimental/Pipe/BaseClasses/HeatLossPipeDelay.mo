@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.BaseClasses;
+within IBPSA.Experimental.Pipe.BaseClasses;
 model HeatLossPipeDelay
   "Heat loss model for pipe with delay as an input variable"
   extends Fluid.Interfaces.PartialTwoPortTransport;
@@ -68,7 +68,7 @@ equation
 
   // Heat losses
   Tout_b = T_amb + (Tin_a - T_amb)*Modelica.Math.exp(-tau/tau_char);
-  Qloss = Annex60.Utilities.Math.Functions.spliceFunction(
+  Qloss = IBPSA.Utilities.Math.Functions.spliceFunction(
     pos= (Tin_a-Tout_b)*cp_default,
     neg= 0,
     x= port_a.m_flow,

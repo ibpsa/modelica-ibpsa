@@ -1,7 +1,7 @@
-within Annex60.Experimental.Pipe.Data;
+within IBPSA.Experimental.Pipe.Data;
 record PipeDataULg151202
   "Experimental data from ULg's pipe test bench from December 2, 2015"
-  extends Annex60.Experimental.Pipe.Data.BaseClasses.PipeDataULg( final n=5,
+  extends IBPSA.Experimental.Pipe.Data.BaseClasses.PipeDataULg( final n=5,
   T_ini_out = 18.2,
   T_ini_in = 18.8,
   m_flowIni = 0.589,
@@ -220,7 +220,7 @@ Then, the valve V1 is closed and the valve V2 and V3 are opened. The boiler is s
 <p>During the test, the ambient temperature is equal to 18 °C and the mass flow rate is set to 1.245 kg/s.</p>
 
 <p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
-<p><img src=\"modelica://Annex60/Resources/Images/Experimental/ULgTestBench.png\" border=\"1\"/></p>
+<p><img src=\"modelica://IBPSA/Resources/Images/Experimental/ULgTestBench.png\" border=\"1\"/></p>
 <p>Notice: length are approximate</p>
 
 <p><b><span style=\"color: #008000;\">Pipe characteristics</span></b> </p>

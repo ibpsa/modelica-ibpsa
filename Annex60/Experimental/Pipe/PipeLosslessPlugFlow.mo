@@ -1,7 +1,7 @@
-within Annex60.Experimental.Pipe;
+within IBPSA.Experimental.Pipe;
 model PipeLosslessPlugFlow
   "Lossless pipe model with spatialDistribution plug flow implementation"
-  extends Annex60.Fluid.Interfaces.PartialTwoPort;
+  extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
   parameter Real initialPoints[:](each min=0, each max=1) = {0.0, 1.0}
     "Initial points for spatialDistribution";
@@ -105,7 +105,7 @@ equation
 
   // fixme: this also need to be applied on Xi_outflow and C_outflow.
   // Otherwise, for air, it can give wrong temperatures at the outlet.
-  // To assign Xi_outflow and C_outflow, you will need to use Annex60.Fluid.Interfaces.PartialTwoPort
+  // To assign Xi_outflow and C_outflow, you will need to use IBPSA.Fluid.Interfaces.PartialTwoPort
   (port_a.h_outflow,
    port_b.h_outflow) = spatialDistribution(inStream(port_a.h_outflow),
                                            inStream(port_b.h_outflow),

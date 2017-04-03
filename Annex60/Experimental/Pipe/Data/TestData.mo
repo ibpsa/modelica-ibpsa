@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Data;
+within IBPSA.Experimental.Pipe.Data;
 model TestData "Example to check pipe data records"
 extends Modelica.Icons.Example;
 replaceable PipeDataAIT151218 pipeDataToBeRead constrainedby
@@ -24,7 +24,7 @@ December 18, 2015 by Daniele Basciotti:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Pipe/Data/TestData.mos"
+</html>"),__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Pipe/Data/TestData.mos"
         "Simulate and plot"),
     __Dymola_experimentSetupOutput(events=false));
 end TestData;

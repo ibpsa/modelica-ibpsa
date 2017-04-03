@@ -1,4 +1,4 @@
-within Annex60.Experimental;
+within IBPSA.Experimental;
 package PipesKUL
   "Pipes for the modelling of district heating, according to the KU Leuven model"
   // Originally at https://github.com/arnoutaertgeerts/DistrictHeating
@@ -7,7 +7,7 @@ package PipesKUL
   model PlugFlowLosslessPipe
     "Pipe with a temperature plug flow without pressure losses"
      //Extensions
-    extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
+    extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
 
     //Parameters
     parameter Modelica.SIunits.Length L "Pipe length";
@@ -69,22 +69,22 @@ package PipesKUL
   model PlugFlowPipe
     "Adiabatic pipe model with a temperature plug flow and pressure losses"
     //Extensions
-    extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
-    extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters;
+    extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
+    extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters;
 
     //Parameters
     parameter Modelica.SIunits.Length pipeLength;
     parameter Modelica.SIunits.Length pipeDiameter;
 
     //Components
-    Annex60.Experimental.PipesKUL.PlugFlowLosslessPipe plug(
+    IBPSA.Experimental.PipesKUL.PlugFlowLosslessPipe plug(
       L=pipeLength,
       D=pipeDiameter,
       m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium,
       allowFlowReversal=allowFlowReversal)
       annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM
+    IBPSA.Fluid.FixedResistances.FixedResistanceDpM
                                                     res(
       m_flow_nominal=m_flow_nominal,
       dp_nominal=dp_nominal,
@@ -148,10 +148,10 @@ package PipesKUL
     "Pipe model with a temperature plug flow, pressure losses and heat exchange to the environment"
 
     //Extensions
-    extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
-    extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations(
+    extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
+    extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations(
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState);
-    extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters;
+    extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters;
 
     //Parameters
     parameter Modelica.SIunits.Length L;
@@ -180,7 +180,7 @@ package PipesKUL
     Modelica.SIunits.Power Q_Losses;
 
     //Components
-    Annex60.Experimental.PipesKUL.PlugFlowPipe plugFlowPipe(
+    IBPSA.Experimental.PipesKUL.PlugFlowPipe plugFlowPipe(
       pipeLength=L,
       pipeDiameter=D,
       m_flow_nominal=m_flow_nominal,
@@ -200,17 +200,17 @@ package PipesKUL
           extent={{-10,-10},{10,10}},
           rotation=270,
           origin={2,50})));
-    Annex60.Experimental.TimeDelays.PDETime pDETime
+    IBPSA.Experimental.TimeDelays.PDETime pDETime
       annotation (Placement(transformation(extent={{-28,24},{-8,44}})));
     Modelica.Blocks.Sources.RealExpression realExpression(y=u)
       annotation (Placement(transformation(extent={{-58,24},{-38,44}})));
     BaseClasses.ExponentialDecay tempDecay(C=C, R=R)
       annotation (Placement(transformation(extent={{12,20},{32,40}})));
-    Annex60.Fluid.Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal,
+    IBPSA.Fluid.Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal,
         redeclare package Medium = Medium,
       tau=0)
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-    Annex60.Fluid.MixingVolumes.MixingVolume idealHeater(
+    IBPSA.Fluid.MixingVolumes.MixingVolume idealHeater(
       m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium,
       nPorts=2,
@@ -326,12 +326,12 @@ package PipesKUL
   temperature at the outer surface of the pipe system. */
 
     //Extensions
-    extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations(
+    extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations(
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState);
 
-    extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters;
+    extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters;
 
-    extends Annex60.Fluid.Interfaces.PartialFourPortInterface(
+    extends IBPSA.Fluid.Interfaces.PartialFourPortInterface(
       redeclare final package Medium1=Medium,
       redeclare final package Medium2=Medium,
       final m1_flow_nominal=m_flow_nominal,
@@ -372,7 +372,7 @@ package PipesKUL
     Modelica.SIunits.Power Q_2;
 
     //Components
-    Annex60.Experimental.PipesKUL.PlugFlowPipe pipe1(
+    IBPSA.Experimental.PipesKUL.PlugFlowPipe pipe1(
       pipeLength=L,
       pipeDiameter=D,
       m_flow_nominal=m_flow_nominal,
@@ -392,17 +392,17 @@ package PipesKUL
           extent={{-10,-10},{10,10}},
           rotation=270,
           origin={0,100})));
-    Annex60.Experimental.TimeDelays.PDETime pDETime
+    IBPSA.Experimental.TimeDelays.PDETime pDETime
       annotation (Placement(transformation(extent={{-50,8},{-30,28}})));
     Modelica.Blocks.Sources.RealExpression realExpression(y=u)
       annotation (Placement(transformation(extent={{-80,8},{-60,28}})));
-    Annex60.Fluid.Sensors.TemperatureTwoPort senTem1(
+    IBPSA.Fluid.Sensors.TemperatureTwoPort senTem1(
       m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium,
       tau=0,
       allowFlowReversal=allowFlowReversal)
              annotation (Placement(transformation(extent={{-24,70},{-4,50}})));
-    Annex60.Fluid.MixingVolumes.MixingVolume    idealHeater1(
+    IBPSA.Fluid.MixingVolumes.MixingVolume    idealHeater1(
       m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium,
       nPorts=2,
@@ -411,7 +411,7 @@ package PipesKUL
       massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       allowFlowReversal=allowFlowReversal)
       annotation (Placement(transformation(extent={{60,60},{80,40}})));
-    Annex60.Experimental.PipesKUL.PlugFlowPipe pipe2(
+    IBPSA.Experimental.PipesKUL.PlugFlowPipe pipe2(
       pipeLength=L,
       pipeDiameter=D,
       m_flow_nominal=m_flow_nominal,
@@ -422,13 +422,13 @@ package PipesKUL
       linearizeFlowResistance=linearizeFlowResistance,
       deltaM=deltaM)
       annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
-    Annex60.Fluid.Sensors.TemperatureTwoPort senTem2(
+    IBPSA.Fluid.Sensors.TemperatureTwoPort senTem2(
                                                   m_flow_nominal=m_flow_nominal,
         redeclare package Medium = Medium,
       tau=0,
       allowFlowReversal=allowFlowReversal)
       annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
-    Annex60.Fluid.MixingVolumes.MixingVolume       idealHeater2(
+    IBPSA.Fluid.MixingVolumes.MixingVolume       idealHeater2(
       m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium,
       nPorts=2,
@@ -1289,7 +1289,7 @@ package PipesKUL
 
       DistrictHeating.Pipes.PlugFlowHeatLosses plug(
         D=0.05,
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=1,
         dp_nominal=0,
         k=0.026,
@@ -1333,7 +1333,7 @@ package PipesKUL
         length=plug.L,
         diameter=plug.D,
         use_HeatTransfer=true,
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         T_start=273.15 + 20,
         redeclare model HeatTransfer =
             Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.ConstantFlowHeatTransfer
@@ -1376,8 +1376,8 @@ package PipesKUL
             extent={{-10,-10},{10,10}},
             rotation=0,
             origin={58,-80})));
-      Annex60.Fluid.MixingVolumes.MixingVolume vol(
-        redeclare package Medium = Annex60.Media.Water,
+      IBPSA.Fluid.MixingVolumes.MixingVolume vol(
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=1,
         nPorts=2,
         V=plug.V)
@@ -1387,14 +1387,14 @@ package PipesKUL
             extent={{10,-10},{-10,10}},
             rotation=90,
             origin={40,50})));
-      Annex60.Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium
-          = Annex60.Media.Water, m_flow_nominal=0.5)
+      IBPSA.Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium
+          = IBPSA.Media.Water, m_flow_nominal=0.5)
         annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
-      Annex60.Fluid.Movers.FlowControlled_m_flow fan1(redeclare package Medium
-          = Annex60.Media.Water, m_flow_nominal=0.5)
+      IBPSA.Fluid.Movers.FlowControlled_m_flow fan1(redeclare package Medium
+          = IBPSA.Media.Water, m_flow_nominal=0.5)
         annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
-      Annex60.Fluid.Movers.FlowControlled_m_flow fan2(redeclare package Medium
-          = Annex60.Media.Water, m_flow_nominal=0.5)
+      IBPSA.Fluid.Movers.FlowControlled_m_flow fan2(redeclare package Medium
+          = IBPSA.Media.Water, m_flow_nominal=0.5)
         annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
       Modelica.Blocks.Sources.Pulse pulse(
         width=10,
@@ -1549,7 +1549,7 @@ package PipesKUL
             origin={58,0})));
 
       DistrictHeating.Pipes.PlugFlowHeatLosses plug(
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=1,
         dp_nominal=0,
         k=0.026,
@@ -1594,7 +1594,7 @@ package PipesKUL
         length=plug.L,
         diameter=plug.D,
         use_HeatTransfer=true,
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         T_start=273.15 + 20,
         redeclare model HeatTransfer =
             Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.ConstantFlowHeatTransfer
@@ -1637,14 +1637,14 @@ package PipesKUL
             extent={{-10,-10},{10,10}},
             rotation=0,
             origin={58,-80})));
-      Annex60.Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium
-          = Annex60.Media.Water, m_flow_nominal=0.5)
+      IBPSA.Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium
+          = IBPSA.Media.Water, m_flow_nominal=0.5)
         annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
-      Annex60.Fluid.Movers.FlowControlled_m_flow fan1(redeclare package Medium
-          = Annex60.Media.Water, m_flow_nominal=0.5)
+      IBPSA.Fluid.Movers.FlowControlled_m_flow fan1(redeclare package Medium
+          = IBPSA.Media.Water, m_flow_nominal=0.5)
         annotation (Placement(transformation(extent={{-58,-50},{-38,-30}})));
-      Annex60.Fluid.Movers.FlowControlled_m_flow fan2(redeclare package Medium
-          = Annex60.Media.Water, m_flow_nominal=0.5)
+      IBPSA.Fluid.Movers.FlowControlled_m_flow fan2(redeclare package Medium
+          = IBPSA.Media.Water, m_flow_nominal=0.5)
         annotation (Placement(transformation(extent={{-58,-90},{-38,-70}})));
       Modelica.Blocks.Sources.Pulse pulse(
         width=5,
@@ -1652,19 +1652,19 @@ package PipesKUL
         offset=273.15 + 50,
         amplitude=35)
         annotation (Placement(transformation(extent={{-70,-26},{-78,-18}})));
-      Annex60.Fluid.HeatExchangers.HeaterCooler_T    idealHeater(
+      IBPSA.Fluid.HeatExchangers.HeaterCooler_T    idealHeater(
         dp_nominal=0,
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=0.1)
         annotation (Placement(transformation(extent={{-84,-10},{-64,10}})));
-      Annex60.Fluid.HeatExchangers.HeaterCooler_T    idealHeater1(
+      IBPSA.Fluid.HeatExchangers.HeaterCooler_T    idealHeater1(
         dp_nominal=0,
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=0.1)
         annotation (Placement(transformation(extent={{-84,-50},{-64,-30}})));
-      Annex60.Fluid.HeatExchangers.HeaterCooler_T    idealHeater2(
+      IBPSA.Fluid.HeatExchangers.HeaterCooler_T    idealHeater2(
         dp_nominal=0,
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=0.1)
         annotation (Placement(transformation(extent={{-84,-90},{-64,-70}})));
       Modelica.Blocks.Sources.Pulse pulse1(
@@ -1674,7 +1674,7 @@ package PipesKUL
         offset=0.2)
         annotation (Placement(transformation(extent={{-66,-26},{-58,-18}})));
       DistrictHeating.Pipes.PlugFlowHeatLosses plug1(
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=1,
         dp_nominal=0,
         L=plug.L,
@@ -1685,7 +1685,7 @@ package PipesKUL
         length=plug.L,
         diameter=plug.D,
         use_HeatTransfer=true,
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         T_start=273.15 + 20,
         redeclare model HeatTransfer =
             Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.ConstantFlowHeatTransfer
@@ -1699,7 +1699,7 @@ package PipesKUL
             rotation=180,
             origin={34,-26})));
       Buildings.Fluid.FixedResistances.Pipe pip(
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         lambdaIns=plug.k,
         diameter=plug.D,
         length=plug.L,
@@ -1709,7 +1709,7 @@ package PipesKUL
         thicknessIns=plug.h)
                   annotation (Placement(transformation(extent={{-6,-90},{14,-70}})));
       Buildings.Fluid.FixedResistances.Pipe pip1(
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         lambdaIns=plug.k,
         diameter=plug.D,
         length=plug.L,
@@ -1914,7 +1914,7 @@ package PipesKUL
             origin={60,-30})));
       Modelica.Fluid.Pipes.DynamicPipe MSL(
         use_HeatTransfer=true,
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         T_start=273.15 + 20,
         length=50,
         diameter=0.05,
@@ -1930,8 +1930,8 @@ package PipesKUL
             extent={{-6,-6},{6,6}},
             rotation=180,
             origin={10,-16})));
-      Annex60.Fluid.Movers.FlowControlled_m_flow fan1(redeclare package Medium
-          = Annex60.Media.Water, m_flow_nominal=0.5)
+      IBPSA.Fluid.Movers.FlowControlled_m_flow fan1(redeclare package Medium
+          = IBPSA.Media.Water, m_flow_nominal=0.5)
         annotation (Placement(transformation(extent={{-56,-40},{-36,-20}})));
       Modelica.Blocks.Sources.Pulse pulse(
         width=5,
@@ -1939,9 +1939,9 @@ package PipesKUL
         offset=273.15 + 50,
         amplitude=20)
         annotation (Placement(transformation(extent={{-68,-16},{-76,-8}})));
-      Annex60.Fluid.HeatExchangers.HeaterCooler_T    idealHeater1(
+      IBPSA.Fluid.HeatExchangers.HeaterCooler_T    idealHeater1(
         dp_nominal=0,
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=0.1)
         annotation (Placement(transformation(extent={{-82,-40},{-62,-20}})));
       Modelica.Blocks.Sources.Pulse pulse1(
@@ -1952,7 +1952,7 @@ package PipesKUL
         annotation (Placement(transformation(extent={{-64,-16},{-56,-8}})));
       Modelica.Fluid.Pipes.DynamicPipe MSL1(
         use_HeatTransfer=true,
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         T_start=273.15 + 20,
         length=50,
         diameter=0.05,
@@ -2059,7 +2059,7 @@ package PipesKUL
             origin={60,10})));
       DistrictHeating.Pipes.PlugFlowHeatLosses plug(
         D=0.05,
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=1,
         dp_nominal=0,
         k=0.026,
@@ -2069,8 +2069,8 @@ package PipesKUL
         annotation (Placement(transformation(extent={{-94,70},{-74,90}})));
       Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
         annotation (Placement(transformation(extent={{-34,76},{-26,84}})));
-      Annex60.Fluid.Movers.FlowControlled_m_flow fan(
-        redeclare package Medium = Annex60.Media.Water,
+      IBPSA.Fluid.Movers.FlowControlled_m_flow fan(
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=0.5,
         massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
         energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
@@ -2081,9 +2081,9 @@ package PipesKUL
         offset=273.15 + 50,
         amplitude=20)
         annotation (Placement(transformation(extent={{-68,30},{-76,38}})));
-      Annex60.Fluid.HeatExchangers.HeaterCooler_T    idealHeater(
+      IBPSA.Fluid.HeatExchangers.HeaterCooler_T    idealHeater(
         dp_nominal=0,
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=0.1)
         annotation (Placement(transformation(extent={{-82,0},{-62,20}})));
       Modelica.Blocks.Sources.Pulse pulse1(
@@ -2093,7 +2093,7 @@ package PipesKUL
         offset=0.1)
         annotation (Placement(transformation(extent={{-60,30},{-52,38}})));
       DistrictHeating.Pipes.PlugFlowHeatLosses plug1(
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=1,
         dp_nominal=0,
         L=plug.L,
@@ -2197,8 +2197,8 @@ package PipesKUL
             extent={{-10,-10},{10,10}},
             rotation=0,
             origin={60,-30})));
-      Annex60.Fluid.Movers.FlowControlled_m_flow fan1(redeclare package Medium
-          = Annex60.Media.Water, m_flow_nominal=0.5)
+      IBPSA.Fluid.Movers.FlowControlled_m_flow fan1(redeclare package Medium
+          = IBPSA.Media.Water, m_flow_nominal=0.5)
         annotation (Placement(transformation(extent={{-56,-40},{-36,-20}})));
       Modelica.Blocks.Sources.Pulse pulse(
         width=5,
@@ -2206,9 +2206,9 @@ package PipesKUL
         offset=273.15 + 50,
         amplitude=20)
         annotation (Placement(transformation(extent={{-68,-16},{-76,-8}})));
-      Annex60.Fluid.HeatExchangers.HeaterCooler_T    idealHeater1(
+      IBPSA.Fluid.HeatExchangers.HeaterCooler_T    idealHeater1(
         dp_nominal=0,
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=0.1)
         annotation (Placement(transformation(extent={{-82,-40},{-62,-20}})));
       Modelica.Blocks.Sources.Pulse pulse1(
@@ -2218,7 +2218,7 @@ package PipesKUL
         offset=0.1)
         annotation (Placement(transformation(extent={{-64,-16},{-56,-8}})));
       Buildings.Fluid.FixedResistances.Pipe pip(
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=0.1,
         dp_nominal=0,
         thicknessIns=0.02,
@@ -2227,7 +2227,7 @@ package PipesKUL
         length=100,
         nSeg=2) annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
       Buildings.Fluid.FixedResistances.Pipe pip1(
-        redeclare package Medium = Annex60.Media.Water,
+        redeclare package Medium = IBPSA.Media.Water,
         m_flow_nominal=0.1,
         dp_nominal=0,
         nSeg=pip.nSeg,
@@ -2295,28 +2295,28 @@ package PipesKUL
         T=273.15 + 70,
         use_T=false,
         nPorts=1,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
                   annotation (Placement(transformation(
             extent={{-4,-4},{4,4}},
             rotation=270,
             origin={-80,48})));
       IDEAS.Fluid.Sensors.TemperatureTwoPort T1PlugIn(m_flow_nominal=0.1,
-          redeclare package Medium = Annex60.Media.Water)      annotation (
+          redeclare package Medium = IBPSA.Media.Water)      annotation (
           Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=0,
             origin={-30,70})));
       IDEAS.Fluid.Sensors.TemperatureTwoPort T2PlugIn(m_flow_nominal=0.1,
-          redeclare package Medium = Annex60.Media.Water)      annotation (
+          redeclare package Medium = IBPSA.Media.Water)      annotation (
           Placement(transformation(
             extent={{10,-10},{-10,10}},
             rotation=0,
             origin={32,38})));
-      Annex60.Fluid.Movers.FlowControlled_m_flow fan(
+      IBPSA.Fluid.Movers.FlowControlled_m_flow fan(
                                  m_flow_nominal=0.5,
         energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
         massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
         annotation (Placement(transformation(extent={{-64,60},{-44,80}})));
       Modelica.Blocks.Sources.Pulse pulse(
         period=86400,
@@ -2324,15 +2324,15 @@ package PipesKUL
         offset=273.15 + 50,
         amplitude=20)
         annotation (Placement(transformation(extent={{-86,86},{-94,94}})));
-      Annex60.Fluid.HeatExchangers.HeaterCooler_T    idealHeater(
+      IBPSA.Fluid.HeatExchangers.HeaterCooler_T    idealHeater(
         dp_nominal=0,
         m_flow_nominal=0.1,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
         annotation (Placement(transformation(extent={{-88,60},{-68,80}})));
-      Annex60.Fluid.HeatExchangers.HeaterCooler_T    idealHeater1(
+      IBPSA.Fluid.HeatExchangers.HeaterCooler_T    idealHeater1(
         dp_nominal=0,
         m_flow_nominal=0.1,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
         annotation (Placement(transformation(extent={{84,28},{64,48}})));
       Modelica.Blocks.Sources.Pulse pulse1(
         period=86400,
@@ -2344,13 +2344,13 @@ package PipesKUL
       IDEAS.Fluid.Sensors.TemperatureTwoPort T1PlugOut(
         m_flow_nominal=0.1,
         tau=0,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
                annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=0,
             origin={32,70})));
       IDEAS.Fluid.Sensors.TemperatureTwoPort T2PlugOut(m_flow_nominal=0.1,
-          redeclare package Medium = Annex60.Media.Water)      annotation (
+          redeclare package Medium = IBPSA.Media.Water)      annotation (
           Placement(transformation(
             extent={{10,-10},{-10,10}},
             rotation=0,
@@ -2366,49 +2366,49 @@ package PipesKUL
         T=273.15 + 70,
         use_T=false,
         nPorts=1,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
                   annotation (Placement(transformation(
             extent={{-4,-4},{4,4}},
             rotation=270,
             origin={-80,-20})));
       IDEAS.Fluid.Sensors.TemperatureTwoPort T1PipeIn(m_flow_nominal=0.1,
-          redeclare package Medium = Annex60.Media.Water)      annotation (
+          redeclare package Medium = IBPSA.Media.Water)      annotation (
           Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=0,
             origin={-30,6})));
       IDEAS.Fluid.Sensors.TemperatureTwoPort T2PipeIn(m_flow_nominal=0.1,
-          redeclare package Medium = Annex60.Media.Water)      annotation (
+          redeclare package Medium = IBPSA.Media.Water)      annotation (
           Placement(transformation(
             extent={{10,-10},{-10,10}},
             rotation=0,
             origin={30,-24})));
-      Annex60.Fluid.Movers.FlowControlled_m_flow fan1(
+      IBPSA.Fluid.Movers.FlowControlled_m_flow fan1(
                                  m_flow_nominal=0.5,
         energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
         massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
         annotation (Placement(transformation(extent={{-64,-4},{-44,16}})));
-      Annex60.Fluid.HeatExchangers.HeaterCooler_T    idealHeater2(
+      IBPSA.Fluid.HeatExchangers.HeaterCooler_T    idealHeater2(
         dp_nominal=0,
         m_flow_nominal=0.1,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
         annotation (Placement(transformation(extent={{-88,-4},{-68,16}})));
-      Annex60.Fluid.HeatExchangers.HeaterCooler_T    idealHeater3(
+      IBPSA.Fluid.HeatExchangers.HeaterCooler_T    idealHeater3(
         dp_nominal=0,
         m_flow_nominal=0.1,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
         annotation (Placement(transformation(extent={{64,-4},{84,16}})));
       IDEAS.Fluid.Sensors.TemperatureTwoPort T1PipeOut(
         m_flow_nominal=0.1,
         tau=0,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
                annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=0,
             origin={30,6})));
       IDEAS.Fluid.Sensors.TemperatureTwoPort T2PipeOut(m_flow_nominal=0.1,
-          redeclare package Medium = Annex60.Media.Water)      annotation (
+          redeclare package Medium = IBPSA.Media.Water)      annotation (
           Placement(transformation(
             extent={{10,-10},{-10,10}},
             rotation=0,
@@ -2417,39 +2417,39 @@ package PipesKUL
         T=273.15 + 70,
         use_T=false,
         nPorts=1,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
                   annotation (Placement(transformation(
             extent={{-4,-4},{4,4}},
             rotation=270,
             origin={-80,-78})));
       IDEAS.Fluid.Sensors.TemperatureTwoPort T2TRIn(m_flow_nominal=0.1, redeclare
-          package Medium = Annex60.Media.Water)      annotation (Placement(
+          package Medium = IBPSA.Media.Water)      annotation (Placement(
             transformation(
             extent={{10,-10},{-10,10}},
             rotation=0,
             origin={30,-86})));
-      Annex60.Fluid.Movers.FlowControlled_m_flow fan2(
+      IBPSA.Fluid.Movers.FlowControlled_m_flow fan2(
                                  m_flow_nominal=0.5,
         massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
         energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
         addPowerToMedium=false,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
         annotation (Placement(transformation(extent={{-64,-66},{-44,-46}})));
-      Annex60.Fluid.HeatExchangers.HeaterCooler_T    idealHeater5(
+      IBPSA.Fluid.HeatExchangers.HeaterCooler_T    idealHeater5(
         dp_nominal=0,
         m_flow_nominal=0.1,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
         annotation (Placement(transformation(extent={{62,-66},{82,-46}})));
       IDEAS.Fluid.Sensors.TemperatureTwoPort T1TROut(
         m_flow_nominal=0.1,
         tau=0,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
                annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=0,
             origin={30,-56})));
       IDEAS.Fluid.Sensors.TemperatureTwoPort T2TROut(m_flow_nominal=0.1, redeclare
-          package Medium = Annex60.Media.Water)      annotation (Placement(
+          package Medium = IBPSA.Media.Water)      annotation (Placement(
             transformation(
             extent={{10,-10},{-10,10}},
             rotation=0,
@@ -2457,22 +2457,22 @@ package PipesKUL
       IDEAS.Fluid.Sensors.TemperatureTwoPort T1TRIn(
         m_flow_nominal=0.1,
         tau=0,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
                annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=0,
             origin={-30,-56})));
-      Annex60.Fluid.HeatExchangers.HeaterCooler_T    idealHeater4(
+      IBPSA.Fluid.HeatExchangers.HeaterCooler_T    idealHeater4(
         dp_nominal=0,
         m_flow_nominal=0.1,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
         annotation (Placement(transformation(extent={{-88,-66},{-68,-46}})));
       DoublePipes.DHPlugWallenten dHPlugWallenten(
         redeclare DoublePipes.Configurations.TwinPipeGround
           baseConfiguration,
         L=100,
         Di=0.05,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
         annotation (Placement(transformation(extent={{-10,42},{10,70}})));
       DoublePipes.DHPlugDelta dHPipePlugDelta(
         L=dHPlugWallenten.L,
@@ -2490,7 +2490,7 @@ package PipesKUL
         tau=dHPlugWallenten.tau,
         redeclare DoublePipes.Configurations.TwinPipeGround
           baseConfiguration,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
         annotation (Placement(transformation(extent={{-10,-22},{10,6}})));
       DoublePipes.DHDeltaCircuit dHDeltaCircuit(
         L=dHPlugWallenten.L,
@@ -2509,7 +2509,7 @@ package PipesKUL
         redeclare DoublePipes.Configurations.TwinPipeGround
           baseConfiguration,
         nSeg=100,
-        redeclare package Medium = Annex60.Media.Water)
+        redeclare package Medium = IBPSA.Media.Water)
         annotation (Placement(transformation(extent={{-10,-86},{10,-58}})));
     equation
 

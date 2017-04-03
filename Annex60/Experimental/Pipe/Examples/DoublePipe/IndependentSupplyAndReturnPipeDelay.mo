@@ -1,10 +1,10 @@
-within Annex60.Experimental.Pipe.Examples.DoublePipe;
+within IBPSA.Experimental.Pipe.Examples.DoublePipe;
 model IndependentSupplyAndReturnPipeDelay
   "Example in which supply and return circuit are hydraulically separated and delay time is calculated once at pipe level"
-  import Annex60;
+  import IBPSA;
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5
     "Nominal mass flow rate";
@@ -32,13 +32,13 @@ model IndependentSupplyAndReturnPipeDelay
     use_p_in=true,
     use_T_in=true,
     nPorts=1) annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
-  Annex60.Experimental.Pipe.DoublePipe_PipeDelay
+  IBPSA.Experimental.Pipe.DoublePipe_PipeDelay
                                        doublePipe(
     redeclare package Medium = Medium,
     length=100,
     H=2,
     redeclare
-      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR150S
+      IBPSA.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR150S
       pipeData,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -68,19 +68,19 @@ model IndependentSupplyAndReturnPipeDelay
         rotation=0,
         origin={-110,-22})));
 
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSupplyIn(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemSupplyIn(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemReturnOut(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemReturnOut(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-40,-30})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSupplyOut(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemSupplyOut(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{30,20},{50,40}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemReturnIn(redeclare package
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemReturnIn(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -102,7 +102,7 @@ model IndependentSupplyAndReturnPipeDelay
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,-50})));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
+  IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-30,46},{-10,66}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=

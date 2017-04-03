@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe;
+within IBPSA.Experimental.Pipe;
 package Validation 
 extends Modelica.Icons.ExamplesPackage;
 

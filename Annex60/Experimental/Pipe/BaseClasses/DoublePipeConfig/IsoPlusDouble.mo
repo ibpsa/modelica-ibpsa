@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig;
+within IBPSA.Experimental.Pipe.BaseClasses.DoublePipeConfig;
 partial record IsoPlusDouble "IsoPlus double pipes"
   // Pipes in shared insulation buried underground
   extends PipeData(lambdaI=0.028);

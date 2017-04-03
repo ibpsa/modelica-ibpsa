@@ -1,10 +1,10 @@
-within Annex60.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal;
+within IBPSA.Experimental.Pipe.Examples.UseCases.TypeA_NoFlowReversal;
 model UCPipeA02AD_MSL_Flow
   "Demonstrating pipe model with varying flow velocities"
 
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = IBPSA.Media.Water;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.9
     "Nominal mass flow rate";
 

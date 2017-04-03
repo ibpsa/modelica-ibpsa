@@ -1,11 +1,11 @@
-within Annex60.Experimental.Pipe.Examples.TimeDelay;
+within IBPSA.Experimental.Pipe.Examples.TimeDelay;
 model testInitDelay "Test of delay initialization"
   extends Modelica.Icons.Example;
   Fluid.Sources.MassFlowSource_T boundary(redeclare package Medium = Medium,
       m_flow=1,
     nPorts=1)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  replaceable package Medium = Annex60.Media.Water;
+  replaceable package Medium = IBPSA.Media.Water;
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-20,40},{0,20}})));
   BaseClasses.TimeDelay timeDelay(m_flowInit=1, initDelay=true)
