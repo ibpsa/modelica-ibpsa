@@ -2,12 +2,8 @@ within IBPSA.Fluid.Sensors.Examples;
 model Density "Test model for the density sensor"
   extends Modelica.Icons.Example;
 
-<<<<<<< HEAD:Annex60/Fluid/Sensors/Examples/Density.mo
-  package Medium = Annex60.Media.Air "Medium model";
-=======
   package Medium = IBPSA.Media.Air
     "Medium model";
->>>>>>> ibpsa/master:IBPSA/Fluid/Sensors/Examples/Density.mo
 
   IBPSA.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,

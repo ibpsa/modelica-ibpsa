@@ -20,7 +20,7 @@ model HeaterCooler_u "Model that demonstrates the ideal heater model"
     dp_nominal=6000,
     Q_flow_nominal=3000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Steady-state model of the heater"
+    "Steady-state model of the heaöter"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium = Medium,
@@ -102,12 +102,8 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{200,
             200}}), graphics),
-<<<<<<< HEAD:Annex60/Fluid/HeatExchangers/Validation/HeaterCooler_u.mo
-    __Dymola_Commands(file= "modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/HeaterCooler_u.mos"
-        "Simulate and plot"),
-=======
+
     __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/HeaterCooler_u.mos" "Simulate and plot"),
->>>>>>> ibpsa/master:IBPSA/Fluid/HeatExchangers/Validation/HeaterCooler_u.mo
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of an ideal heater.

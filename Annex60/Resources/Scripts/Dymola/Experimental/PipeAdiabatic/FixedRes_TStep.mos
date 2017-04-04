@@ -1,8 +1,0 @@
-simulateModel("Annex60.Experimental.Pipe.Examples.PipeAdiabatic.FixedRes_TStep", stopTime=20000, numberOfIntervals=5000, method="dassl", resultFile="FixedRes_TStep");
-createPlot(id=1, position={55, 50, 592, 599},
- y={"senTemSerIn.T", "senTemSerOut.T", "senTemSinOut.T", "senTemSinIn.T"}, 
-range={0.0, 20000.0, 5.0, 35.0}, grid=true, filename="FixedRes_TStep.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
-createPlot(id=1, position={55, 50, 592, 296}, 
-y={"masFloSer.m_flow", "masFloSin.m_flow"}, 
-range={0.0, 20000.0, -0.8, 0.8}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
-
