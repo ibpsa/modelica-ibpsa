@@ -67,9 +67,9 @@ equation
     experiment(Tolerance=1e-08, StopTime=1),
     Documentation(info="<html>
 <p>
-This test checks if the trace substance flow rate is 
+This test checks if the trace substance flow rate is
 conserved when adding moisture to a mixing volume that is configured to steady state.<br />
-The trace substance flow rate at the inlet and outlet should be equal 
+The trace substance flow rate at the inlet and outlet should be equal
 since the trace substance concentration should not
 be affected by the independent mass fraction concentration.
 </p>

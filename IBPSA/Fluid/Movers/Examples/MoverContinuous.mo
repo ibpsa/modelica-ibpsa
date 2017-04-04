@@ -35,7 +35,7 @@ equation
             100,100}})),
     Documentation(info="<html>
 <p>
-This example demonstrates the use of a <code>RealInput</code> 
+This example demonstrates the use of a <code>RealInput</code>
 connector for a mover model.
 </p>
 </html>", revisions="<html>

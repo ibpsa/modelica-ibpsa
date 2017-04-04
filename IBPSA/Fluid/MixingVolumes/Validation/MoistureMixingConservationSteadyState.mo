@@ -25,12 +25,12 @@ equation
     experiment(Tolerance=1e-6, StopTime=1),
     Documentation(info="<html>
 <p>
-This test checks if water vapour mass is conserved. 
-Two air streams with different mass flow rate are humidified 
-by a mixing volume with two different vapor mass flow rates. 
-These flows are then mixed. 
-Afterwards the added water is removed again. 
-The final water concentration, mass flow rate and enthalpy 
+This test checks if water vapour mass is conserved.
+Two air streams with different mass flow rate are humidified
+by a mixing volume with two different vapor mass flow rates.
+These flows are then mixed.
+Afterwards the added water is removed again.
+The final water concentration, mass flow rate and enthalpy
 flow rate should then be equal to the initial values.
 </p>
 <p>
