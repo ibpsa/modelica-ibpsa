@@ -8,7 +8,7 @@ model PipeLosslessPlugFlow
     // fixme: use T_start[:] and propagate to top level, then use it to assign h_start (or initialValuesH)
   parameter Modelica.SIunits.SpecificEnthalpy initialValuesH[:]=
      {Medium.h_default, Medium.h_default}
-    "Inital enthalpy values for spatialDistribution";
+    "Initial enthalpy values for spatialDistribution";
 
   parameter Modelica.SIunits.Diameter D "Pipe diameter"; // fixme call it diameter
   parameter Modelica.SIunits.Length L "Pipe length";   // fixme: call it lenghth
@@ -50,14 +50,14 @@ model PipeLosslessPlugFlow
       m_flow/Modelica.Fluid.Utilities.regStep(m_flow,
                   Medium.density(
                     Medium.setState_phX(
-                      p=  port_a.p,
-                      h=  inStream(port_a.h_outflow),
-                      X=  inStream(port_a.Xi_outflow))),
+                      p = port_a.p,
+                      h = inStream(port_a.h_outflow),
+                      X = inStream(port_a.Xi_outflow))),
                   Medium.density(
                        Medium.setState_phX(
-                         p=  port_b.p,
-                         h=  inStream(port_b.h_outflow),
-                         X=  inStream(port_b.Xi_outflow))),
+                         p = port_b.p,
+                         h = inStream(port_b.h_outflow),
+                         X = inStream(port_b.Xi_outflow))),
                   m_flow_small)
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
 
@@ -65,9 +65,9 @@ model PipeLosslessPlugFlow
       Modelica.Fluid.Utilities.regStep(port_a.m_flow,
                   Medium.temperature(
                     Medium.setState_phX(
-                      p=  port_a.p,
-                      h=  inStream(port_a.h_outflow),
-                      X=  inStream(port_a.Xi_outflow))),
+                      p = port_a.p,
+                      h = inStream(port_a.h_outflow),
+                      X = inStream(port_a.Xi_outflow))),
                   Medium.temperature(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow)),
                   m_flow_small) if show_T
     "Temperature close to port_a, if show_T = true";
@@ -75,9 +75,9 @@ model PipeLosslessPlugFlow
       Modelica.Fluid.Utilities.regStep(port_b.m_flow,
                   Medium.temperature(
                     Medium.setState_phX(
-                      p=  port_b.p,
-                      h=  inStream(port_b.h_outflow),
-                      X=  inStream(port_b.Xi_outflow))),
+                      p = port_b.p,
+                      h = inStream(port_b.h_outflow),
+                      X = inStream(port_b.Xi_outflow))),
                   Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow)),
                   m_flow_small) if show_T
     "Temperature close to port_b, if show_T = true";
