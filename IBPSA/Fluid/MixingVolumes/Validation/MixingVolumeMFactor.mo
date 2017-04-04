@@ -91,7 +91,7 @@ First implementation.
 </li>
 </ul>
 </html>"), 
-experiment(Tolerance=1E-6, StartTime=0.0, StopTime=100),
+experiment(Tolerance=1E-6, StopTime=100),
 __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeMFactor.mos"
         "Simulate and plot"));

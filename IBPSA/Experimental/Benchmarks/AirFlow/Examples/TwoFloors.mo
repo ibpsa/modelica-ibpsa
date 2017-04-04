@@ -386,7 +386,7 @@ equation
       thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,120}}), graphics),
-    experiment(Tolerance=1e-6, StartTime=0.0, StopTime=3600),
+    experiment(Tolerance=1e-6, StopTime=3600),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Benchmarks/AirFlow/Examples/TwoFloors.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,120}})),

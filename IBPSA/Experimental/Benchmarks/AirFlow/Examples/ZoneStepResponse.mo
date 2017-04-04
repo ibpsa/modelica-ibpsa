@@ -66,7 +66,7 @@ equation
   connect(step.y, weaDat.TDryBul_in) annotation (Line(
       points={{-79.1,-33},{-63,-33}},
       color={0,0,127}));
-  annotation (    experiment(Tolerance=1e-6, StartTime=0.0, StopTime=6e+006, Interval=200),
+  annotation (    experiment(Tolerance=1e-6, StopTime=6e+006, Interval=200),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Benchmarks/AirFlow/Examples/ZoneStepResponse.mos"
         "Simulate and plot"),
     Documentation(info="<html>

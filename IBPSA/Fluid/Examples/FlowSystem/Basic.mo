@@ -480,7 +480,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="Cold")}),
     experiment(
-      Tolerance=1e-6, StartTime=0.0, StopTime=1000),
+      Tolerance=1e-6, StopTime=1000),
     Documentation(info="<html>
 <p>
 Example model demonstrating the use of the <code>IBPSA</code> components in a larger system. 

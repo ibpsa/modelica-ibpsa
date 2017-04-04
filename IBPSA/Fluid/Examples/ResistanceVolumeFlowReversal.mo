@@ -98,7 +98,7 @@ equation
       color={0,127,255}));
   end for;
   annotation (experiment(
-      Tolerance=1e-6, StartTime=0.0, StopTime=10000),
+      Tolerance=1e-6, StopTime=10000),
        __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Examples/ResistanceVolumeFlowReversal.mos"
         "Simulate and plot"),
     Documentation(info="<html>
