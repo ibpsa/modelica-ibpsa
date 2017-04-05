@@ -59,5 +59,6 @@ April 2, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    experiment(Tolerance=1e-06, StopTime=1));
 end MoverStages;

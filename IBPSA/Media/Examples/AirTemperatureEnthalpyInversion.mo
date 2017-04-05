@@ -5,7 +5,7 @@ model AirTemperatureEnthalpyInversion
   extends IBPSA.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion(
     redeclare package Medium = IBPSA.Media.Air);
   annotation (
-experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/AirTemperatureEnthalpyInversion.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -52,7 +52,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   end for;
-  annotation (    experiment(Tolerance=1e-6, StartTime=0.0, StopTime=3600),
+  annotation (    experiment(Tolerance=1e-6, StopTime=3600),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Benchmarks/AirFlow/Examples/MultipleFloorsVectors.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

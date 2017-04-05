@@ -160,5 +160,5 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFan.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0));
+    experiment(Tolerance=1e-6, StopTime=1.0));
 end HeaterFan;
