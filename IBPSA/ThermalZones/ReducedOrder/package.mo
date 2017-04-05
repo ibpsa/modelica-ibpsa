@@ -30,7 +30,7 @@ package ReducedOrder
     <p>This package contains models for reduced building physics of thermal
     zones and accompanying models for consideration of solar radiation and
     radiation transmission through windows.</p>
-    <p>The python package TEASER <a
+    <p>The Python package TEASER <a
     href=\"https://github.com/RWTH-EBC/TEASER\">
     https://github.com/RWTH-EBC/TEASER</a> can be used to calculate reduced
     order parameters and generate ready-to-run models.
