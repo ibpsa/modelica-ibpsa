@@ -21,7 +21,7 @@ protected
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 equation
   connect(datRea.y[20], cheCeiHei.ceiHeiIn) annotation (Line(
-      points={{21,-10},{30,-10},{30,-10},{38,-10}},
+      points={{21,-9.65517},{30,-9.65517},{30,-10},{38,-10}},
       color={0,0,127}));
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-59,-10},{-42,-10}},

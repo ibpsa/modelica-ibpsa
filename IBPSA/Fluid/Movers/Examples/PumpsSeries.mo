@@ -93,6 +93,6 @@ First implementation.
 </ul>
 </html>"),
     experiment(
-      StartTime=0.0, StopTime=300,
+      StopTime=300,
       Tolerance=1e-06));
 end PumpsSeries;

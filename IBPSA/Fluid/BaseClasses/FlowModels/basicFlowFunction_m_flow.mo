@@ -15,8 +15,6 @@ algorithm
       elseif (m_flow<-m_flow_turbulent) then -(m_flow/k)^2
       else (m_flow_turbulent*m_flow+m_flow^3/m_flow_turbulent)/2/k^2;
 
-             //inverse(m_flow=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-             //  dp=dp, k=k, m_flow_turbulent=m_flow_turbulent)),
  annotation (LateInline=true,
              smoothOrder=2,
              derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
@@ -53,10 +51,6 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </html>",
 revisions="<html>
 <ul>
-<li>
-January 5, 2017, by Thierry S. Nouidui:<br/>
-Removed <code>inverse annotation</code> for JModelica verification.
-</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

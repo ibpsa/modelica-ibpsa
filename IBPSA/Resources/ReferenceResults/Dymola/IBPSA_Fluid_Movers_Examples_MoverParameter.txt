@@ -1,4 +1,4 @@
-last-generated=2017-03-31
+last-generated=2016-03-11
 statistics-initialization=
 {
   "numerical Jacobians": "0", 
@@ -10,8 +10,8 @@ statistics-simulation=
   "nonlinear": " ", 
   "linear": " "
 }
-pump_y.m_flow=[1.600971937179565e+00, 1.600971937179565e+00]
-pump_Nrpm.m_flow=[1.778882503509521e+00, 1.778882503509521e+00]
-pump_dp.m_flow=[2e+00, 2e+00]
-pump_m_flow.m_flow=[2e+00, 2e+00]
-time=[0e+00, 1e+00]
+pump_y.m_flow=[1.60097193717956542969, 1.60097193717956542969]
+pump_Nrpm.m_flow=[1.77888250350952148438, 1.77888250350952148438]
+pump_dp.m_flow=[2., 2.]
+pump_m_flow.m_flow=[2., 2.]
+time=[0., 1.]

@@ -18,8 +18,6 @@ algorithm
              elseif noEvent(dp<-dp_turbulent) then -k*sqrt(abs(-dp))
              else (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3;
 
-           //inverse(dp=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-           //  m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
   annotation(LateInline=true,
            smoothOrder=2,
            derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
@@ -55,10 +53,6 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-January 5, 2017, by Thierry S. Nouidui:<br/>
-Removed <code>inverse annotation</code> for JModelica verification.
-</li>
 <li>
 March 19, 2016, by Michael Wetter:<br/>
 Added <code>abs</code> function for

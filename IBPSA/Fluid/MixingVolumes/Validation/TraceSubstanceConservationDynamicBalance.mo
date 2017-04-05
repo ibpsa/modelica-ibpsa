@@ -107,8 +107,7 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-experiment(Tolerance=1e-08, StartTime=0.0, StopTime=1),
-__Dymola_Commands(file=
+    __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/TraceSubstanceConservationDynamicBalance.mos"
         "Simulate and plot"));
 end TraceSubstanceConservationDynamicBalance;
