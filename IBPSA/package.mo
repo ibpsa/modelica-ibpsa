@@ -1,4 +1,4 @@
-within;
+within ;
 package IBPSA "Library with models for building energy and control systems"
   extends Modelica.Icons.Package;
 
