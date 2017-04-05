@@ -30,7 +30,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mOut_flow_nominal,
-    final filteredOpening=false)
+    final use_inputFilter=false)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
@@ -65,7 +65,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    final filteredOpening=false) "Exhaust air damper"
+    final use_inputFilter=false) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
 
   VAVBoxExponential damRec(
@@ -87,8 +87,8 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    final filteredOpening=false) "Recirculation air damper"
-                               annotation (Placement(transformation(
+    final use_inputFilter=false) "Recirculation air damper" annotation (
+      Placement(transformation(
         origin={30,0},
         extent={{-10,-10},{10,10}},
         rotation=90)));
@@ -287,6 +287,12 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+</li>
 <li>
 March 22, 2017, by Michael Wetter:<br/>
 Removed the assignments of <code>AOut</code>, <code>AExh</code> and <code>ARec</code> as these are done in the damper instance using

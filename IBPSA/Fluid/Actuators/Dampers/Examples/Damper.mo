@@ -7,27 +7,30 @@ model Damper
   IBPSA.Fluid.Actuators.Dampers.Exponential res(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    filteredOpening=false)
+    use_inputFilter=false)
     "A damper with quadratic relationship between m_flow and dp"
     annotation (Placement(transformation(extent={{0,52},{20,72}})));
+
     Modelica.Blocks.Sources.Ramp yRam(
     duration=0.3,
     offset=0,
     startTime=0.2,
     height=1) annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+
   IBPSA.Fluid.Sources.Boundary_pT sou(redeclare package Medium =
         Medium,
     nPorts=4,
     p(displayUnit="Pa") = 101335,
     T=293.15) annotation (Placement(
         transformation(extent={{-62,10},{-42,30}})));
+
   IBPSA.Fluid.Sources.Boundary_pT sin(redeclare package Medium =
         Medium,
     nPorts=4) annotation (Placement(
         transformation(extent={{92,10},{72,30}})));
 
   Linear linDpFix(
-    filteredOpening=false,
+    use_inputFilter=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dpFixed_nominal=5,
@@ -35,7 +38,7 @@ model Damper
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
     annotation (Placement(transformation(extent={{0,-24},{20,-4}})));
   Linear linFromMflow(
-    filteredOpening=false,
+    use_inputFilter=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dpFixed_nominal=0,
@@ -47,9 +50,10 @@ model Damper
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=10,
-    filteredOpening=false)
+    use_inputFilter=false)
                    "A damper with a mass flow proportional to the input signal"
     annotation (Placement(transformation(extent={{0,16},{20,36}})));
+
 equation
   connect(yRam.y, res.y) annotation (Line(
       points={{1,90},{10,90},{10,74}},
