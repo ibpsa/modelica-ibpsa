@@ -33,7 +33,7 @@ package ReducedOrder
     <p>The python package TEASER <a
     href=\"https://github.com/RWTH-EBC/TEASER\">
     https://github.com/RWTH-EBC/TEASER</a> can be used to calculate reduced
-    order parameters and generate ready-to-tun models.
+    order parameters and generate ready-to-run models.
     </p>
   </html>"));
 end ReducedOrder;
