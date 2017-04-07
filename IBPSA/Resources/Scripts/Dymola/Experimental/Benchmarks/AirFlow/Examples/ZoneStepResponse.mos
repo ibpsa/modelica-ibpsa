@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse", stopTime=6e+006, numberOfIntervals=5000, method="dassl", resultFile="ZoneStepResponse");
+simulateModel("IBPSA.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse", tolerance=1e-6, stopTime=6e+006, numberOfIntervals=5000, method="dassl", resultFile="ZoneStepResponse");
 createPlot(id = 1,
  position = {55, 50, 697, 502},
  x = "time",
