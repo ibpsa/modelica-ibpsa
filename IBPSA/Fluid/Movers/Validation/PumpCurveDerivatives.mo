@@ -177,7 +177,7 @@ revisions="<html>
 <li>
 April 6, 2017, by Thierry S. Nouidui:<br/>
 Added <code>experiment</code> annotation 
-for JModelica verfication.
+for JModelica verification.
 </li>
 <li>
 June 6, 2015, by Michael Wetter:<br/>
