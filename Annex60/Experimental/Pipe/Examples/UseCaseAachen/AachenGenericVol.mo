@@ -1,6 +1,7 @@
 within Annex60.Experimental.Pipe.Examples.UseCaseAachen;
 model AachenGenericVol
   "Model automatically generated with uesmodels at 2017-02-05 15:56:43.325662"
+  extends Modelica.Icons.Example;
 
   parameter Modelica.SIunits.Temperature T_amb = 283.15
     "Ambient temperature around pipes";
@@ -1080,39 +1081,39 @@ equation
   connect(supplysupply.port_b, pipe10641010.port_a)
     annotation(Line(points={{487.824,535.368},{495.475,532.93}},                                            color={0,127,255}));
   connect(junction6453.ports[1], pipe64536424.port_b)
-    annotation(Line(points={{561.178,805.581},{563.241,747.362}},                                         color={0,127,255}));
+    annotation(Line(points={{561.178,805.581},{563.242,747.362}},                                         color={0,127,255}));
   connect(junction6453.ports[2], pipe64536457.port_a)
-    annotation(Line(points={{560.813,802.939},{579.992,868.794}},                                        color={0,127,255}));
+    annotation(Line(points={{560.813,802.939},{579.992,868.793}},                                        color={0,127,255}));
   connect(junction6453.ports[3], pipe10251007.port_b)
     annotation(Line(points={{560.448,800.298},{616.469,795.26}},                                          color={0,127,255}));
   connect(junction6457.ports[1], pipe64536457.port_b)
-    annotation(Line(points={{582.502,960.168},{582.724,888.606}},                                       color={0,127,255}));
+    annotation(Line(points={{582.502,960.168},{582.725,888.606}},                                       color={0,127,255}));
   connect(junction6457.ports[2], pipe64576482.port_a)
     annotation(Line(points={{582.228,958.187},{598.25,954.888}},                                        color={0,127,255}));
   connect(junction6457.ports[3], pipe10271029.port_a)
     annotation(Line(points={{581.954,956.206},{679.342,939.562}},                                        color={0,127,255}));
   connect(junction6457.ports[4], pipe10271043.port_a)
-    annotation(Line(points={{581.681,954.224},{442.233,1074.34}},                                        color={0,127,255}));
+    annotation(Line(points={{581.681,954.224},{442.232,1074.35}},                                        color={0,127,255}));
   connect(junction6459.ports[1], pipe64596463.port_a)
-    annotation(Line(points={{776.808,923.643},{814.911,914.31}},                                          color={0,127,255}));
+    annotation(Line(points={{776.808,923.643},{814.911,914.309}},                                         color={0,127,255}));
   connect(junction6459.ports[2], pipe10831029.port_b)
     annotation(Line(points={{776.443,921.002},{774.979,858.636}},                                         color={0,127,255}));
   connect(junction6459.ports[3], pipe10271029.port_b)
     annotation(Line(points={{776.079,918.36},{699.004,935.9}},                                            color={0,127,255}));
   connect(junction6463.ports[1], pipe64596463.port_b)
-    annotation(Line(points={{853.593,909.33},{834.573,910.644}},                                          color={0,127,255}));
+    annotation(Line(points={{853.593,909.33},{834.572,910.644}},                                          color={0,127,255}));
   connect(junction6463.ports[2], pipe10311054.port_a)
     annotation(Line(points={{853.228,906.688},{910.223,828.943}},                                         color={0,127,255}));
   connect(junction6463.ports[3], pipe10821031.port_b)
     annotation(Line(points={{852.863,904.047},{852.313,847.27}},                                          color={0,127,255}));
   connect(junction6468.ports[1], pipe64686474.port_a)
-    annotation(Line(points={{238.031,169.651},{244.95,165.042}},                                             color={0,127,255}));
+    annotation(Line(points={{238.031,169.651},{244.951,165.042}},                                            color={0,127,255}));
   connect(junction6468.ports[2], pipe64686478.port_a)
-    annotation(Line(points={{237.666,167.01},{253.087,166.903}},                                            color={0,127,255}));
+    annotation(Line(points={{237.666,167.01},{253.086,166.903}},                                            color={0,127,255}));
   connect(junction6468.ports[3], pipe10341078.port_b)
     annotation(Line(points={{237.301,164.368},{233.943,225.239}},                                          color={0,127,255}));
   connect(junction6474.ports[1], pipe64746472.port_b)
-    annotation(Line(points={{213.292,163.994},{222.569,159.924}},                                           color={0,127,255}));
+    annotation(Line(points={{213.292,163.994},{222.57,159.924}},                                            color={0,127,255}));
   connect(junction6474.ports[2], pipe64686474.port_b)
     annotation(Line(points={{212.927,161.352},{225.454,160.584}},                                           color={0,127,255}));
   connect(junction6474.ports[3], pipe10031036.port_b)
@@ -1120,7 +1121,7 @@ equation
   connect(junction6478.ports[1], pipe10371071.port_b)
     annotation(Line(points={{268.556,176.632},{300.635,175.087}},                                            color={0,127,255}));
   connect(junction6478.ports[2], pipe10811037.port_b)
-    annotation(Line(points={{268.192,173.99},{288.821,125.732}},                                            color={0,127,255}));
+    annotation(Line(points={{268.192,173.99},{288.82,125.732}},                                             color={0,127,255}));
   connect(junction6478.ports[3], pipe64686478.port_b)
     annotation(Line(points={{267.827,171.349},{272.583,171.361}},                                           color={0,127,255}));
   connect(junction6482.ports[1], pipe64822888.port_b)
@@ -1128,7 +1129,7 @@ equation
   connect(junction6482.ports[2], pipe10581039.port_a)
     annotation(Line(points={{574.819,958.289},{517.69,968.133}},                                           color={0,127,255}));
   connect(junction6482.ports[3], pipe64576482.port_b)
-    annotation(Line(points={{574.454,955.648},{578.472,957.862}},                                        color={0,127,255}));
+    annotation(Line(points={{574.454,955.648},{578.472,957.861}},                                        color={0,127,255}));
   connect(junction6490.ports[1], pipe10741043.port_b)
     annotation(Line(points={{267.243,1209.29},{256.434,1100.23}},                                            color={0,127,255}));
   connect(junction6490.ports[2], pipe10431063.port_a)
@@ -1142,9 +1143,9 @@ equation
   connect(junction6497.ports[3], pipe64976499.port_a)
     annotation(Line(points={{92.7308,130.081},{100.201,137.024}},                                           color={0,127,255}));
   connect(junction6499.ports[1], pipe65056499.port_b)
-    annotation(Line(points={{96.7172,128.771},{105.967,124.618}},                                            color={0,127,255}));
+    annotation(Line(points={{96.7172,128.771},{105.967,124.617}},                                            color={0,127,255}));
   connect(junction6499.ports[2], pipe64976499.port_b)
-    annotation(Line(points={{96.3524,126.129},{109.059,119.092}},                                            color={0,127,255}));
+    annotation(Line(points={{96.3524,126.129},{109.058,119.092}},                                            color={0,127,255}));
   connect(junction6499.ports[3], pipe10791047.port_b)
     annotation(Line(points={{95.9875,123.488},{145.003,137.058}},                                             color={0,127,255}));
   connect(junction6414.ports[1], pipe64146415.port_a)
@@ -1164,13 +1165,13 @@ equation
   connect(junction6424.ports[2], pipe10111068.port_a)
     annotation(Line(points={{543.125,674.709},{545.074,615.68}},                                          color={0,127,255}));
   connect(junction6424.ports[3], pipe10561068.port_a)
-    annotation(Line(points={{542.76,672.068},{578.224,669.866}},                                          color={0,127,255}));
+    annotation(Line(points={{542.76,672.068},{578.223,669.866}},                                          color={0,127,255}));
   connect(junction6433.ports[1], pipe64406433.port_a)
-    annotation(Line(points={{475.382,183.948},{528.514,171.047}},                                            color={0,127,255}));
+    annotation(Line(points={{475.382,183.948},{528.514,171.046}},                                            color={0,127,255}));
   connect(junction6433.ports[2], pipe64346433.port_a)
     annotation(Line(points={{475.017,181.306},{423.989,179.847}},                                           color={0,127,255}));
   connect(junction6433.ports[3], pipe64296433.port_a)
-    annotation(Line(points={{474.652,178.664},{492.094,231.925}},                                           color={0,127,255}));
+    annotation(Line(points={{474.652,178.664},{492.095,231.925}},                                           color={0,127,255}));
   connect(junction6434.ports[1], pipe10731071.port_a)
     annotation(Line(points={{333.513,183.736},{342.968,237.401}},                                          color={0,127,255}));
   connect(junction6434.ports[2], pipe10371071.port_a)
@@ -1182,15 +1183,15 @@ equation
   connect(junction6472.ports[2], pipe64746472.port_a)
     annotation(Line(points={{192.904,156.774},{203.073,155.466}},                                             color={0,127,255}));
   connect(junction6472.ports[3], pipe10791047.port_a)
-    annotation(Line(points={{192.539,154.132},{164.065,143.108}},                                             color={0,127,255}));
+    annotation(Line(points={{192.539,154.132},{164.066,143.108}},                                             color={0,127,255}));
   connect(junction6505.ports[1], pipe10591004.port_a)
-    annotation(Line(points={{78.2025,119.626},{86.6677,67.8056}},                                           color={0,127,255}));
+    annotation(Line(points={{78.2025,119.626},{86.6677,67.8055}},                                           color={0,127,255}));
   connect(junction6505.ports[2], pipe65056499.port_a)
-    annotation(Line(points={{77.8377,116.984},{88.035,115.76}},                                             color={0,127,255}));
+    annotation(Line(points={{77.8377,116.984},{88.0351,115.76}},                                            color={0,127,255}));
   connect(junction6505.ports[3], pipe10761004.port_b)
-    annotation(Line(points={{77.4729,114.343},{106.044,78.5644}},                                           color={0,127,255}));
+    annotation(Line(points={{77.4729,114.343},{106.044,78.5643}},                                           color={0,127,255}));
   connect(junction6419.ports[1], pipe10111068.port_b)
-    annotation(Line(points={{524.841,542.216},{542.34,595.868}},                                          color={0,127,255}));
+    annotation(Line(points={{524.841,542.216},{542.339,595.867}},                                         color={0,127,255}));
   connect(junction6419.ports[2], pipe64186419.port_a)
     annotation(Line(points={{524.476,539.574},{528.118,539.071}},                                         color={0,127,255}));
   connect(junction6419.ports[3], pipe64196414.port_a)
@@ -1206,19 +1207,19 @@ equation
   connect(junction6429.ports[2], pipe10771015.port_b)
     annotation(Line(points={{492.094,305.093},{457.97,309.799}},                                            color={0,127,255}));
   connect(junction6429.ports[3], pipe64296433.port_b)
-    annotation(Line(points={{491.729,302.451},{494.828,251.737}},                                         color={0,127,255}));
+    annotation(Line(points={{491.729,302.451},{494.828,251.738}},                                         color={0,127,255}));
   connect(junction6440.ports[1], pipe10181061.port_a)
-    annotation(Line(points={{582.161,162.167},{600.456,201.076}},                                           color={0,127,255}));
+    annotation(Line(points={{582.161,162.167},{600.456,201.075}},                                           color={0,127,255}));
   connect(junction6440.ports[2], pipe64406444.port_a)
-    annotation(Line(points={{581.796,159.525},{621.142,152.152}},                                          color={0,127,255}));
+    annotation(Line(points={{581.796,159.525},{621.141,152.152}},                                          color={0,127,255}));
   connect(junction6440.ports[3], pipe64406433.port_b)
-    annotation(Line(points={{581.431,156.884},{548.11,167.049}},                                            color={0,127,255}));
+    annotation(Line(points={{581.431,156.884},{548.111,167.049}},                                           color={0,127,255}));
   connect(junction6444.ports[1], pipe64406444.port_b)
-    annotation(Line(points={{660.636,146.159},{640.738,148.154}},                                          color={0,127,255}));
+    annotation(Line(points={{660.636,146.159},{640.738,148.155}},                                          color={0,127,255}));
   connect(junction6444.ports[2], pipe10841020.port_b)
     annotation(Line(points={{660.272,143.518},{679.794,189.293}},                                          color={0,127,255}));
   connect(junction6444.ports[3], pipe10851020.port_b)
-    annotation(Line(points={{659.907,140.876},{714.925,188.155}},                                           color={0,127,255}));
+    annotation(Line(points={{659.907,140.876},{714.925,188.156}},                                           color={0,127,255}));
   connect(pipe10561068.port_b, stationT1462.port_a)
     annotation(Line(points={{598.036,667.133},{613.228,663.658}},                                        color={0,127,255}));
   connect(pipe10731071.port_b, stationT1451.port_a)

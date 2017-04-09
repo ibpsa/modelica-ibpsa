@@ -17,10 +17,6 @@ model PipeA60Core "Wrapper around A60 pipe model"
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=
-    dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-
   final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
       Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
       m_flow=m_flow_nominal,
@@ -82,7 +78,6 @@ public
   roughness=roughness,
   lambdaI=lambdaIns,
   from_dp=true,
-  dp_nominal=dpStraightPipe_nominal,
     T_ini_in=333.15,
     T_ini_out=333.15,
     initDelay=true,

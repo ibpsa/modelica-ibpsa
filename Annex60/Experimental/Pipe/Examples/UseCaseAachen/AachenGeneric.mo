@@ -1,6 +1,7 @@
 within Annex60.Experimental.Pipe.Examples.UseCaseAachen;
 model AachenGeneric
   "Model automatically generated with uesmodels at 2016-12-12 12:20:05.947837"
+  extends Modelica.Icons.Example;
 
   parameter Modelica.SIunits.Temperature T_amb = 283.15
     "Ambient temperature around pipes";
