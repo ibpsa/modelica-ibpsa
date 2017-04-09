@@ -200,23 +200,89 @@ equation
       points={{-97,42},{-97,108},{-118,108},{-118,132},{-100,132},{-100,128}},
       color={0,0,127},
       smooth=Smooth.None));
+
   connect(PAtm.y, sin2.p_in) annotation (Line(
       points={{147,52},{150,52},{150,56},{152,56},{152,130},{130,130}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senTemA60In1.port_b, PipeDelayMod.port_a) annotation (Line(points={{-36,-46},
-          {-12,-46},{14,-46}},          color={0,127,255}));
-  connect(PipeDelayMod.port_b, senTemA60Out1.port_a)
-    annotation (Line(points={{34,-46},{42,-46},{50,-46}}, color={0,127,255}));
-  connect(senTemA60In2.port_b, PipeDelay.port_a)
-    annotation (Line(points={{-48,72},{2,72}},           color={0,127,255}));
-  connect(PipeDelay.port_b, senTemA60Out2.port_a)
-    annotation (Line(points={{22,72},{38,72}},            color={0,127,255}));
-  connect(fixedTemperature.port, PipeDelayMod.heatPort)
-    annotation (Line(points={{12,-6},{24,-6},{24,-36}},color={191,0,0}));
-  connect(fixedTemperature1.port, PipeDelay.heatPort)
-    annotation (Line(points={{-2,120},{12,120},{12,82}},  color={191,0,0}));
-    annotation (Placement(transformation(extent={{14,-22},{34,-2}})),
-                experiment(StopTime=200000, __Dymola_NumberOfIntervals=5000),Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -180},{160,140}})));
+    annotation (experiment(StopTime=180000, __Dymola_NumberOfIntervals=5000),Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
+            -180},{160,140}})),
+    Documentation(info="<html>
+<p>The main purpose of this example is to show the behaviour of the <code>spatialDistribution</code> operator with different implementations and conditions, trying to understand it towards a correct and efficient implementation.</p>
+
+<h4>Introducction to the main models</h4>
+<ul>
+<li> Four blocks with the prefix <code>spatialDist_</code> which three different implementations of the <code>spatialDistribution</code> operator</li>
+</ul>
+<p>
+The first and simplest valid for one direction flows, <code> (,time_out_b) = spatialDistribution(time,time,x/length,v>=0,{0.0,1.0},{0.0,0.0})</code> where, <code>tau = max(0,time-time_out_b)</code>. </p>
+<p>The second valid for bidirectional flow, <code> (time_out_a,time_out_b) = spatialDistribution(time,time,x/length,v>=0,{0.0,1.0},{0.0,0.0})</code> where, <code>tau = if v>= 0 then max(0,time-time_out_b) else max(0,time-time_out_a)</code>
+</p>
+<p>
+And the third implementation valid for biderectional flows and that intends to avoid peaks on the time delay <code>tau</code> when flow direction is changing. Based on the second implementation, several variables were added: </p>
+<p>booleans to define periods with zero mass flow rate</p>
+<p> <code>if abs(v) >= epsilon then zeroPeriod = false; ... track = 0; else zeroPeriod = true; ... track = time_trackBegin</code>,
+<p>
+discrete variables to store the time at which a zero mass flow period starts and ends,</p>
+<p>
+<code>when edge(zeroPeriod) then trackBegin = pre(time)</code> and <code>when edge(NonZeroPeriod) then reinit(trackBegin,0); trackEnd = pre(track)</code>
+</p>
+<p>
+and use the above obtained info to limit the values of <code>tau</code>.
+</p>
+
+</p>
+<ul>
+<li> Source blocks with time varying pressure and step in temperature at time = 10000 seconds</li>
+</ul>
+<ul>
+<li>Two pipe models (<code>PipeDelay</code> and <code>PipeDelayMod</code>) differenced by the use of different blocks to calculate the fluid time delay</li>
+</ul>
+<p>
+Each pipe has two block that calculate the delay <code>tau</code>. The blocks uses the same input and parameters, but one block (<code>tau_used</code>) connects its output to the heatLosses block and the other block (<code>tau_unused</code>) has its output unconnected.  
+</p>
+<p>
+The model <code>PipeDelayMod</code> uses the third implementation (above explained) to calculate the delay. while the model <code>PipeDelay</code> uses a fourth implementation which also uses booleans to define periods with zero mass flow rate but uses this information to define different inputs for the <code>spatialDistribution</code> operator: 
+</p>
+<p><code>(timeOut_a,timeOut_b) = spatialDistribution(inp_a,inp_b,x,u >= 0, {0.0,1.0}, {0.0,0.0});</code>
+</p>
+<p>
+If a period of zero mass flow rate is ocurring (<code>abs(velocity) < epsilon </code>), then <code> inp_a = track_a; inp_b = track_b; tau_a = time-track_a; tau_b = time-track_b; </code>. Otherwise, <code> inp_a = time; inp_b = time; tau_a = time-timeOut_a; tau_b = time-timeOut_b; </code> </p>
+
+
+<h4>Results</h4>
+<p>
+The standard settings for the simulations are a number of intervals = 5000 and StopTime = 180000 s. The results shows:
+</p>
+<ul>
+<li> Results depends on the choosen solver</li>
+</ul>
+<p>
+Different solvers with default settings (Tolerance and/or FixedIntegrationStep) were used to solve the example.
+</p>
+<p><img src=\"modelica://Annex60/Resources/Images/Experimental/DifferentSolvers.png\" border=\"1\"/></p>
+
+<ul>
+<li> The values of the delay obtained by the two blocks inside the pipes models differ sometimes from each other besides the use of the same input and parameters</li>
+</ul>
+<p>
+The standard settings and the Dassl solver are used. Notice that the delay times <code>tau</code> calculated by the blocks <code>tau_unused</code> seems to be correct.
+</p>
+<p><img src=\"modelica://Annex60/Resources/Images/Experimental/BlocksDif.png\" border=\"1\"/></p>
+
+<p>However, having a closer look to the highlighted zone and testing different tolerances shows how the above results for <code>tau_unused</code> are not 100 % correct. high tolerances can yield wrong results as shown in the next plot where different tolerances using the solver Dassl were tested.</p>
+<p><img src=\"modelica://Annex60/Resources/Images/Experimental/Tolerance.png\" border=\"1\"/></p>
+
+<p>Furthermore, setting a tolerance = 1e-5 and using different solvers. We take a look to the values for <code>time_out_a/timeOut_a</code> calculated by the <code>spatialDistribution</code> operator. In this case, different values are obtained at the block <code>tau_unused</code> depending on the solver. However its values during negative mass flow rates, it means when <code>time_out_a/timeOut_a</code> is really used, are equal and aparently correct. On the other hand, the <code>time_out_a/timeOut_a</code> values obtained in the <code>tau_used</code> block shows in some cases wrong results and strange behaviours such as instant peaks</p>
+<p><img src=\"modelica://Annex60/Resources/Images/Experimental/Timeout_a.png\" border=\"1\"/></p>
+
+<h4>Final comments</h4>
+<p>The different implementations used to calculate the delay time seems to work properly when its output is not used. Once the output is used wrong results and/or strange behaviour are observed. There might be some weak points, even wrong points in the implementation. On the other hand, the fact that even using a simple definition for the <code>spatialDistribution</code> operatior, peaks of <code>time_out_a</code> which values are higher than the <code>time</code> itself are obtained could point out that there is a problem in the operator itself.</p>
+</html>", revisions="<html>
+<ul>
+<li>January 2016, by Carles Ribas Tugores:<br>Further testing with different <code><span style=\"font-family: Courier New,courier;\">spatialDistribution </span></code>operator implementations.</li>
+<li>October 1, 2015 by Marcus Fuchs:<br>First implementation. </li>
+</ul>
+</html>"),
+    __Dymola_experimentSetupOutput);
 end SpatialDistributionOperator;

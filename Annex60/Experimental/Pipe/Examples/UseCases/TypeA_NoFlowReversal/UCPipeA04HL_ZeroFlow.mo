@@ -93,10 +93,10 @@ equation
     annotation (Line(points={{-139,54},{-120,54}}, color={0,0,127}));
   connect(TempSource.port_b, pipeAd.port_a)
     annotation (Line(points={{-40,30},{0,30}}, color={0,127,255}));
-  connect(pipeAd.port_b, TempSink.port_a)
-    annotation (Line(points={{20,30},{56,30}}, color={0,127,255}));
   connect(fixedTemperature.port, pipeAd.heatPort)
     annotation (Line(points={{0,70},{10,70},{10,40}}, color={191,0,0}));
+  connect(pipeAd.ports_b[1], TempSink.port_a)
+    annotation (Line(points={{20,30},{38,30},{56,30}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>This use case aims at showing the model behavior with longer intervals of zero
 mass flow. Therefore, the pressure difference between <code>source</code> and <code>sink</code> varies
