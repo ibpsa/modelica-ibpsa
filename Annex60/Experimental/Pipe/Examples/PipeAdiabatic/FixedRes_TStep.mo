@@ -11,61 +11,37 @@ model FixedRes_TStep
     "Nominal mass flow rate"
   annotation(Dialog(group = "Nominal condition"));
 
-  final parameter Modelica.SIunits.Pressure dpStraightPipe1_nominal=
-      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal,
-      rho_a=rho_nominal,
-      rho_b=rho_nominal,
-      mu_a=mu_nominal,
-      mu_b=mu_nominal,
-      length=100,
-      diameter=diameter,
-      roughness=2.5e-5,
-      m_flow_small=1e-04) "Pressure loss of a straight pipe at m_flow_nominal";
-
-  final parameter Modelica.SIunits.Pressure dpStraightPipe2_nominal=
-      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal,
-      rho_a=rho_nominal,
-      rho_b=rho_nominal,
-      mu_a=mu_nominal,
-      mu_b=mu_nominal,
-      length=50,
-      diameter=diameter,
-      roughness=2.5e-5,
-      m_flow_small=1e-04) "Pressure loss of a straight pipe at m_flow_nominal";
-
   parameter Modelica.SIunits.Pressure dp_test = 20
     "Differential pressure for the test used in ramps";
 
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{126,76},{146,96}})));
 
-  Fluid.FixedResistances.FixedResistanceDpM pipe50_1(
+  Fluid.FixedResistances.HydraulicDiameter  pipe50_1(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
-    dp_nominal=2*dpStraightPipe2_nominal,
     dp(nominal=10*50),
-    use_dh=true,
-    dh=0.1) "Pipe 1 in series of two 50 m pipes"
+    dh=0.1,
+    length=50)
+            "Pipe 1 in series of two 50 m pipes"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
-  Fluid.FixedResistances.FixedResistanceDpM pipe50_2(
+  Fluid.FixedResistances.HydraulicDiameter  pipe50_2(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
-    dp_nominal=2*dpStraightPipe2_nominal,
     dp(nominal=10*50),
-    use_dh=true,
-    dh=0.1) "Pipe 2 of two 50 m pipes in series"
+    dh=0.1,
+    length=50)
+            "Pipe 2 of two 50 m pipes in series"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
-  Fluid.FixedResistances.FixedResistanceDpM pipe100(
+  Fluid.FixedResistances.HydraulicDiameter  pipe100(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
-    dp_nominal=2*dpStraightPipe1_nominal,
     dp(nominal=10*100),
-    use_dh=true,
-    dh=0.1) "Pipe with 100 m length in parallel to 2 x 50 m pipes"
+    dh=0.1,
+    length=100)
+            "Pipe with 100 m length in parallel to 2 x 50 m pipes"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

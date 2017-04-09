@@ -17,14 +17,14 @@ model ComparisonDpDh
     p=101325)                         annotation (Placement(transformation(
           extent={{120,90},{100,110}})));
 
-  Annex60.Fluid.Sources.Boundary_ph sin2(            redeclare package Medium
-      =        Medium,
+  Annex60.Fluid.Sources.Boundary_ph sin2(            redeclare package Medium =
+               Medium,
     nPorts=2,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
           extent={{120,50},{100,70}})));
-  Annex60.Fluid.Sources.Boundary_ph sou1(            redeclare package Medium
-      =        Medium,
+  Annex60.Fluid.Sources.Boundary_ph sou1(            redeclare package Medium =
+               Medium,
     p(displayUnit="Pa") = 101335,
     use_p_in=true,
     nPorts=2)                         annotation (Placement(transformation(
@@ -35,17 +35,17 @@ model ComparisonDpDh
     offset=101325 - p_diff/2)
                  annotation (Placement(transformation(extent={{-100,90},{-80,
             110}})));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo_dpSer(redeclare package Medium
-      = Medium) "Mass flow rate sensor"
+  Annex60.Fluid.Sensors.MassFlowRate senMasFlo_dpSer(redeclare package Medium =
+        Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo_dhSer(redeclare package Medium
-      = Medium) "Mass flow rate sensor"
+  Annex60.Fluid.Sensors.MassFlowRate senMasFlo_dhSer(redeclare package Medium =
+        Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo_dpSin(redeclare package Medium
-      = Medium) "Mass flow rate sensor"
+  Annex60.Fluid.Sensors.MassFlowRate senMasFlo_dpSin(redeclare package Medium =
+        Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{34,-20},{54,0}})));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo_dhSin(redeclare package Medium
-      = Medium) "Mass flow rate sensor"
+  Annex60.Fluid.Sensors.MassFlowRate senMasFlo_dhSin(redeclare package Medium =
+        Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{34,-60},{54,-40}})));
   Annex60.Utilities.Diagnostics.AssertEquality assertEquality_dp(threShold=1E-1)
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
@@ -63,30 +63,12 @@ model ComparisonDpDh
     dp_nominal=500,
     deltaM=0.0057/8)
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
-  FixedResistance_dh res_dhSer1(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dh=0.1,
-    dp_nominal=500)
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  FixedResistance_dh res_dhSer2(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dh=0.1,
-    dp_nominal=500)
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
   FixedResistance_dp res_dpSin(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000,
     deltaM=0.0057/8)
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  FixedResistance_dh res_dhSin(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dh=0.1,
-    dp_nominal=1000)
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=8
     "Nominal mass flow rate";
   parameter Real p_diff=10 "Pressure difference in ramp";

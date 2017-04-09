@@ -12,8 +12,6 @@ model PipeHeatLossMod
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp_nominal=BaseClasses.dPpre(length, diameter, m_flow_nominal, Medium.T_default)
-    "Pressure drop at nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
@@ -44,8 +42,7 @@ model PipeHeatLossMod
     from_dp=from_dp,
     thickness=thickness,
     T_ini_in=T_ini_in,
-    T_ini_out=T_ini_out,
-    dp_nominal=dp_nominal)
+    T_ini_out=T_ini_out)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 

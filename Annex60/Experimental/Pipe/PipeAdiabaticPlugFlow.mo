@@ -23,9 +23,9 @@ model PipeAdiabaticPlugFlow
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=
-    dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
+  //parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=
+  // dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
+  // annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
@@ -47,12 +47,15 @@ model PipeAdiabaticPlugFlow
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
-  Annex60.Fluid.FixedResistances.FixedResistance_dh res(
+  // TODO: Calculate dpStraightPipe_nominal inside HydraulicDiameter res
+
+  Fluid.FixedResistances.HydraulicDiameter          res(
     redeclare final package Medium = Medium,
     final dh=dh,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal,
-    from_dp=from_dp) "Pressure drop calculation for this pipe"
+    from_dp=from_dp,
+    length=length,
+    fac=1)           "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 protected
