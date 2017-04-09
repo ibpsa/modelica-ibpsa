@@ -3,7 +3,7 @@ model PDETime_massFlowMod "Unit test of PDETime_massFlowMod"
   import Annex60;
   extends Modelica.Icons.Example;
 
-  Annex60.Experimental.Pipe.BaseClasses.PDETime_massFlowMod pDETime_massFlowMod(diameter=
+  Annex60.Experimental.Pipe.BaseClasses.TimeDelayMod        pDETime_massFlowMod(diameter=
         0.01, length=20)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(table=[-50,1; 20,1; 23,
