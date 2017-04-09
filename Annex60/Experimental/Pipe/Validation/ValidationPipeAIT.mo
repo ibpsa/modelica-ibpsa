@@ -193,7 +193,7 @@ extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.RealExpression m_flow_zero(y=0)
     annotation (Placement(transformation(extent={{134,88},{94,108}})));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=-0.001)
-    annotation (Placement(transformation(extent={{78,90},{72,96}})));
+    annotation (Placement(transformation(extent={{78,104},{72,110}})));
   Modelica.Blocks.Logical.Switch switch1
     annotation (Placement(transformation(extent={{130,40},{110,60}})));
   Fluid.Sources.MassFlowSource_T Point5(
@@ -255,10 +255,10 @@ equation
     annotation (Line(points={{33,106},{16,106},{16,98}},
                                                        color={0,0,127}));
   connect(switch.u2, lessThreshold.y)
-    annotation (Line(points={{56,106},{71.7,106},{71.7,93}},
+    annotation (Line(points={{56,106},{71.7,106},{71.7,107}},
                                                            color={255,0,255}));
   connect(lessThreshold.u, m_flow_p4.y)
-    annotation (Line(points={{78.6,93},{78.6,120},{86,120}}, color={0,0,127}));
+    annotation (Line(points={{78.6,107},{78.6,120},{86,120}},color={0,0,127}));
   connect(pip1.port_a, pip0.ports_b[1])
     annotation (Line(points={{50,10},{78,10},{78,8}}, color={0,127,255}));
   connect(pip1.ports_b[1], pip4.port_a)
@@ -287,4 +287,11 @@ equation
           86,112},{86,88},{106,88},{144,88},{144,42},{132,42}}, color={0,0,127}));
   connect(m_flow_zero.y, switch1.u1) annotation (Line(points={{92,98},{94,98},{
           94,84},{94,80},{136,80},{136,58},{132,58}}, color={0,0,127}));
+  connect(lessThreshold.y, switch1.u2) annotation (Line(points={{71.7,107},{66,
+          107},{66,84},{140,84},{140,50},{132,50}}, color={255,0,255}));
+  annotation (__Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeAIT.mos"
+        "Simulate and Plot", file=
+          "Resources/Scripts/Dymola/Experimental/Pipe/Validation/ExportValidationPipeAIT.mos"
+        "Export CSV"));
 end ValidationPipeAIT;
