@@ -72,8 +72,8 @@ model PipeHeatLoss_TStep
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow of the two pipes in series"
     annotation (Placement(transformation(extent={{56,30},{76,50}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSerIn(redeclare package Medium
-      = Medium, m_flow_nominal=0.5)
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSerIn(redeclare package Medium =
+        Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the two pipes in series"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Archive.PipeHeatLossA60Ref pipe100(
@@ -96,8 +96,8 @@ model PipeHeatLoss_TStep
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow from the single pipe"
     annotation (Placement(transformation(extent={{56,-30},{76,-10}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSinIn(redeclare package Medium
-      = Medium, m_flow_nominal=0.5)
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemSinIn(redeclare package Medium =
+        Medium, m_flow_nominal=0.5)
     "Temperature sensor of the inflow to the single pipe"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation

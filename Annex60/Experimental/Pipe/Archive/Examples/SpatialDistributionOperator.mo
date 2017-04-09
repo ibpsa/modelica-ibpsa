@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Examples.Comparisons;
+within Annex60.Experimental.Pipe.Archive.Examples;
 model SpatialDistributionOperator
   "Comparison of KUL A60 pipes with heat loss without reverse flow"
   import Annex60;
@@ -53,8 +53,8 @@ model SpatialDistributionOperator
   Modelica.Blocks.Sources.Constant const3(k=273.15 + 5);
 
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In1(
-                                                       redeclare package Medium =
-        Medium, m_flow_nominal=0.5)
+                                                       redeclare package Medium
+      = Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-56,-56},{-36,-36}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out1(
@@ -110,8 +110,8 @@ model SpatialDistributionOperator
     lambdaI=0.01)
     annotation (Placement(transformation(extent={{2,62},{22,82}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In2(
-                                                       redeclare package Medium =
-        Medium, m_flow_nominal=0.5)
+                                                       redeclare package Medium
+      = Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-68,62},{-48,82}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out2(

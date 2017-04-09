@@ -48,8 +48,7 @@ package Medium = Annex60.Media.Water;
     m_flow_small=0.001,
     roughness=0.000001,
     lambdaI=0.1,
-    length=100,
-    dp_nominal=2000000)
+    length=100)
   "Pipe model for district heating connection"
   annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Modelica.Blocks.Sources.Ramp step_m_flow(

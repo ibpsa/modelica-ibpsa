@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Examples.UseCases;
+﻿within Annex60.Experimental.Pipe.Examples.UseCases;
 package TypeA_NoFlowReversal "Verifying the temperature wave propagation for single pipes without flow reversal"
 extends Modelica.Icons.ExamplesPackage;
 

@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Examples.Comparisons;
+within Annex60.Experimental.Pipe.Archive.Examples;
 model NoReverseCompHeatLossPipe
   "Comparison of KUL A60 pipes with heat loss without reverse flow"
   import Annex60;
@@ -55,8 +55,8 @@ model NoReverseCompHeatLossPipe
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow of the A60 temperature delay"
     annotation (Placement(transformation(extent={{58,-90},{78,-70}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In(redeclare package Medium =
-        Medium, m_flow_nominal=0.5)
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In(redeclare package Medium
+      = Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-58,-90},{-38,-70}})));
   Annex60.Experimental.Pipe.Archive.PipeHeatLossKUL KULHeatLoss(
@@ -78,8 +78,8 @@ model NoReverseCompHeatLossPipe
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow from the KUL lossless pipe"
     annotation (Placement(transformation(extent={{58,-150},{78,-130}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULIn(redeclare package Medium =
-        Medium, m_flow_nominal=0.5)
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULIn(redeclare package Medium
+      = Medium, m_flow_nominal=0.5)
     "Temperature sensor of the inflow to the KUL lossless pipe"
     annotation (Placement(transformation(extent={{-58,-150},{-38,-130}})));
   Modelica.Blocks.Sources.Constant const(k=273.15 + 5)

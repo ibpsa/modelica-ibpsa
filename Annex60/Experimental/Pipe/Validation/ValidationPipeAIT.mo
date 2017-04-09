@@ -41,7 +41,6 @@ extends Modelica.Icons.Example;
     length=115,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip1.length,
     R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18),
     thickness=thickness)
@@ -53,7 +52,6 @@ extends Modelica.Icons.Example;
     lambdaI=0.024,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip4.length,
     diameter(displayUnit="mm") = 0.0337 - 2*0.0032,
     R=1/(2*0.024*Modelica.Constants.pi)*log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.07),
@@ -69,7 +67,6 @@ extends Modelica.Icons.Example;
     thicknessIns=0.045,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip5.length,
     R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18),
     thickness=thickness)
@@ -81,7 +78,6 @@ extends Modelica.Icons.Example;
     lambdaI=0.024,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip2.length,
     thickness=thickness,
     diameter=0.0337 - 2*0.0032,
     R=1/(2*0.024*Modelica.Constants.pi)*log(0.065/0.0337) + 1/(2*2.4*Modelica.Constants.pi)
@@ -96,7 +92,6 @@ extends Modelica.Icons.Example;
     lambdaI=0.024,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
-    dp_nominal=10*pip3.length,
     thickness=thickness,
     R=1/(2*0.024*Modelica.Constants.pi)*log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.07),
@@ -156,7 +151,6 @@ extends Modelica.Icons.Example;
     length=20,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
-    dp_nominal(displayUnit="Pa") = 10*pip0.length,
     R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18),
     thickness=thickness)                 annotation (Placement(transformation(
