@@ -2,32 +2,34 @@ within IBPSA.Fluid.Actuators.Dampers.Examples;
 model Damper
   "Dampers with constant pressure difference and varying control signal."
   extends Modelica.Icons.Example;
-  package Medium = IBPSA.Media.Air;
+  package Medium = IBPSA.Media.Air "Medium model for air";
 
   IBPSA.Fluid.Actuators.Dampers.Exponential res(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     use_inputFilter=false)
     "A damper with quadratic relationship between m_flow and dp"
-    annotation (Placement(transformation(extent={{0,52},{20,72}})));
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
     Modelica.Blocks.Sources.Ramp yRam(
     duration=0.3,
     offset=0,
     startTime=0.2,
-    height=1) annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+    height=1) annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
-  IBPSA.Fluid.Sources.Boundary_pT sou(redeclare package Medium =
-        Medium,
-    nPorts=4,
+  IBPSA.Fluid.Sources.Boundary_pT sou(
+    redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101335,
-    T=293.15) annotation (Placement(
-        transformation(extent={{-62,10},{-42,30}})));
+    T=293.15,
+    nPorts=4) "Pressure boundary condition"
+     annotation (Placement(
+        transformation(extent={{-60,-10},{-40,10}})));
 
-  IBPSA.Fluid.Sources.Boundary_pT sin(redeclare package Medium =
-        Medium,
-    nPorts=4) annotation (Placement(
-        transformation(extent={{92,10},{72,30}})));
+  IBPSA.Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium = Medium,
+    nPorts=4) "Pressure boundary condition"
+      annotation (Placement(
+        transformation(extent={{94,-10},{74,10}})));
 
   Linear linDpFix(
     use_inputFilter=false,
@@ -36,7 +38,8 @@ model Damper
     dpFixed_nominal=5,
     dp_nominal=10)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
-    annotation (Placement(transformation(extent={{0,-24},{20,-4}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+
   Linear linFromMflow(
     use_inputFilter=false,
     redeclare package Medium = Medium,
@@ -45,43 +48,43 @@ model Damper
     dp_nominal=10,
     from_dp=false)
     "A damper with a mass flow proportional to the input signal and using from_dp = false"
-    annotation (Placement(transformation(extent={{0,-64},{20,-44}})));
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+
   Linear lin(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=10,
     use_inputFilter=false)
-                   "A damper with a mass flow proportional to the input signal"
-    annotation (Placement(transformation(extent={{0,16},{20,36}})));
+    "A damper with a mass flow proportional to the input signal"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 equation
   connect(yRam.y, res.y) annotation (Line(
-      points={{1,90},{10,90},{10,74}},
+      points={{1,70},{10,70},{10,52}},
       color={0,0,127}));
-  connect(sou.ports[1], res.port_a) annotation (Line(
-      points={{-42,23},{-42,24},{-38,24},{-38,24},{-20,24},{-20,62},{0,62}},
-      color={0,127,255}));
-  connect(sin.ports[1], res.port_b) annotation (Line(
-      points={{72,23},{56,23},{56,24},{40,24},{40,62},{20,62}},
-      color={0,127,255}));
-  connect(linDpFix.port_b, sin.ports[2]) annotation (Line(points={{20,-14},{40,-14},
-          {40,21},{72,21}}, color={0,127,255}));
-  connect(linFromMflow.port_b, sin.ports[3]) annotation (Line(points={{20,-54},{
-          42,-54},{42,19},{72,19}}, color={0,127,255}));
-  connect(linDpFix.port_a, sou.ports[2]) annotation (Line(points={{0,-14},{-20,-14},
-          {-20,21},{-42,21}}, color={0,127,255}));
-  connect(linFromMflow.port_a, sou.ports[3]) annotation (Line(points={{0,-54},{0,
-          -54},{-22,-54},{-22,20},{-42,20},{-42,19}}, color={0,127,255}));
-  connect(lin.port_a, sou.ports[4]) annotation (Line(points={{0,26},{-18,26},{-18,
-          17},{-42,17}}, color={0,127,255}));
-  connect(lin.port_b, sin.ports[4]) annotation (Line(points={{20,26},{38,26},{38,
-          17},{72,17}}, color={0,127,255}));
-  connect(yRam.y, lin.y) annotation (Line(points={{1,90},{30,90},{30,42},{10,42},
-          {10,38}}, color={0,0,127}));
-  connect(linDpFix.y, lin.y) annotation (Line(points={{10,-2},{10,6},{30,6},{30,
-          42},{10,42},{10,38}}, color={0,0,127}));
-  connect(linFromMflow.y, lin.y) annotation (Line(points={{10,-42},{10,-34},{30,
-          -34},{30,42},{10,42},{10,38}}, color={0,0,127}));
+  connect(yRam.y, lin.y) annotation (Line(points={{1,70},{30,70},{30,22},{10,22},
+          {10,12}}, color={0,0,127}));
+  connect(linDpFix.y, lin.y) annotation (Line(points={{10,-28},{10,-14},{30,-14},
+          {30,22},{10,22},{10,12}},
+                                color={0,0,127}));
+  connect(linFromMflow.y, lin.y) annotation (Line(points={{10,-68},{10,-60},{30,
+          -60},{30,22},{10,22},{10,12}}, color={0,0,127}));
+  connect(res.port_a, sou.ports[1]) annotation (Line(points={{0,40},{-20,40},{-20,
+          4},{-20,3},{-40,3}}, color={0,127,255}));
+  connect(lin.port_a, sou.ports[2])
+    annotation (Line(points={{0,0},{-40,0},{-40,1}}, color={0,127,255}));
+  connect(linDpFix.port_a, sou.ports[3]) annotation (Line(points={{0,-40},{-8,-40},
+          {-8,-40},{-20,-40},{-20,-1},{-40,-1}}, color={0,127,255}));
+  connect(linFromMflow.port_a, sou.ports[4]) annotation (Line(points={{0,-80},{-24,
+          -80},{-24,-3},{-40,-3}}, color={0,127,255}));
+  connect(res.port_b, sin.ports[1]) annotation (Line(points={{20,40},{60,40},{60,
+          3},{74,3}}, color={0,127,255}));
+  connect(lin.port_b, sin.ports[2])
+    annotation (Line(points={{20,0},{74,0},{74,1}}, color={0,127,255}));
+  connect(linDpFix.port_b, sin.ports[3]) annotation (Line(points={{20,-40},{40,-40},
+          {60,-40},{60,-1},{74,-1}}, color={0,127,255}));
+  connect(linFromMflow.port_b, sin.ports[4]) annotation (Line(points={{20,-80},{
+          36,-80},{62,-80},{62,-3},{74,-3}}, color={0,127,255}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),
