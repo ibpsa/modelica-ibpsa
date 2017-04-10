@@ -31,7 +31,7 @@ model Damper
       annotation (Placement(
         transformation(extent={{94,-10},{74,10}})));
 
-  Linear linDpFix(
+  Linear preIndFrom_dp(
     use_inputFilter=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -40,7 +40,7 @@ model Damper
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
-  Linear linFromMflow(
+  Linear preInd(
     use_inputFilter=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -64,26 +64,26 @@ equation
       color={0,0,127}));
   connect(yRam.y, lin.y) annotation (Line(points={{1,70},{30,70},{30,20},{10,20},
           {10,12}}, color={0,0,127}));
-  connect(linDpFix.y, lin.y) annotation (Line(points={{10,-28},{10,-20},{30,-20},
+  connect(preIndFrom_dp.y, lin.y) annotation (Line(points={{10,-28},{10,-20},{30,-20},
           {30,20},{10,20},{10,12}},
                                 color={0,0,127}));
-  connect(linFromMflow.y, lin.y) annotation (Line(points={{10,-68},{10,-60},{30,
+  connect(preInd.y, lin.y) annotation (Line(points={{10,-68},{10,-60},{30,
           -60},{30,20},{10,20},{10,12}}, color={0,0,127}));
   connect(res.port_a, sou.ports[1]) annotation (Line(points={{0,40},{-20,40},{-20,
           4},{-20,3},{-40,3}}, color={0,127,255}));
   connect(lin.port_a, sou.ports[2])
     annotation (Line(points={{0,0},{-40,0},{-40,1}}, color={0,127,255}));
-  connect(linDpFix.port_a, sou.ports[3]) annotation (Line(points={{0,-40},{-8,-40},
+  connect(preIndFrom_dp.port_a, sou.ports[3]) annotation (Line(points={{0,-40},{-8,-40},
           {-8,-40},{-20,-40},{-20,-1},{-40,-1}}, color={0,127,255}));
-  connect(linFromMflow.port_a, sou.ports[4]) annotation (Line(points={{0,-80},{-24,
+  connect(preInd.port_a, sou.ports[4]) annotation (Line(points={{0,-80},{-24,
           -80},{-24,-3},{-40,-3}}, color={0,127,255}));
   connect(res.port_b, sin.ports[1]) annotation (Line(points={{20,40},{60,40},{60,
           3},{74,3}}, color={0,127,255}));
   connect(lin.port_b, sin.ports[2])
     annotation (Line(points={{20,0},{74,0},{74,1}}, color={0,127,255}));
-  connect(linDpFix.port_b, sin.ports[3]) annotation (Line(points={{20,-40},{40,-40},
+  connect(preIndFrom_dp.port_b, sin.ports[3]) annotation (Line(points={{20,-40},{40,-40},
           {60,-40},{60,-1},{74,-1}}, color={0,127,255}));
-  connect(linFromMflow.port_b, sin.ports[4]) annotation (Line(points={{20,-80},{
+  connect(preInd.port_b, sin.ports[4]) annotation (Line(points={{20,-80},{
           36,-80},{62,-80},{62,-3},{74,-3}}, color={0,127,255}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
@@ -98,7 +98,7 @@ pressures. The control signal of the dampers is a ramp.
 <ul>
 <li>
 March 21, 2017 by David Blum:<br/>
-Added Linear damper models <code>lin</code>, <code>linDpFix</code>, and <code>linFromMflow</code>.
+Added Linear damper models <code>lin</code>, <code>preIndFrom_dp</code>, and <code>preInd</code>.
 </li>
 <li>
 July 20, 2007 by Michael Wetter:<br/>
