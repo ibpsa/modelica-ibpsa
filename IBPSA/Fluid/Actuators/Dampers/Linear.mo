@@ -77,7 +77,6 @@ equation
                           x_small=dp_nominal_pos*deltax),
                        simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
    else
-
        dp=homotopy(actual=IBPSA.Utilities.Math.Functions.regStep(
                           x=m_flow-m_flow_set,
                           y1= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
@@ -112,11 +111,12 @@ equation
 annotation(Documentation(info="<html>
 <p>
 Model for an air damper whose airflow is proportional to the input signal, assuming
-that at y = 1, m_flow = m_flow_nominal.  This is unless the pressure dp is too low, 
-in which case a kDam characteristic is used, which is calculated as m_flow_nominal/sqrt(dp_nominal). 
+that at <code>y = 1</code>, <code>m_flow = m_flow_nominal</code>. This is unless the pressure difference
+<code>dp</code> is too low,
+in which case a <code>kDam = m_flow_nominal/sqrt(dp_nominal)</code> characteristic is used.
 </p>
 <p>
-The model is very similar to that which is used in 
+The model is similar to
 <a href=\"modelica://IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent\">
 IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent</a>, except for adaptations for damper parameters.
 Please see that documentation for more information.
