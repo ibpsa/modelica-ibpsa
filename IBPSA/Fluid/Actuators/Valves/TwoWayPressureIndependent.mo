@@ -12,6 +12,11 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
     annotation(Dialog(tab="Advanced"));
 
 protected
+  parameter Real kLin = l2*m_flow_nominal/dp_nominal
+    "Linear k value times l2, used to avoid duplicate computations";
+  parameter Real kLinInv = 1/kLin
+    "Inverse of linear k value times l2, used to avoid duplicate computations";
+
   Modelica.SIunits.MassFlowRate m_flow_set "Requested mass flow rate";
   Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
     "Minimum pressure difference required for delivering requested mass flow rate";
@@ -31,50 +36,50 @@ equation
    k = kVal;
  end if;
 
-   if homotopyInitialization then
-     if from_dp then
-         m_flow=homotopy(actual=IBPSA.Utilities.Math.Functions.regStep(
-                            x=dp-dp_min,
-                            y1= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
-                            y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                  dp=dp,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            x_small=dp_nominal_pos*deltax),
-                         simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-     else
+  if homotopyInitialization then
+   if from_dp then
+       m_flow=homotopy(actual=IBPSA.Utilities.Math.Functions.regStep(
+                          x=dp-dp_min,
+                          y1= m_flow_set + (dp-dp_min)*kLin,
+                          y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                dp=dp,
+                                k=k,
+                                m_flow_turbulent=m_flow_turbulent),
+                          x_small=dp_nominal_pos*deltax),
+                       simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+   else
+       dp=homotopy(actual=IBPSA.Utilities.Math.Functions.regStep(
+                          x=m_flow-m_flow_set,
+                          y1= dp_min + (m_flow-m_flow_set)*kLinInv,
+                          y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                m_flow=m_flow,
+                                k=k,
+                                m_flow_turbulent=m_flow_turbulent),
+                          x_small=m_flow_nominal_pos*deltax*l2),
+                   simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+   end if;
+  else // do not use homotopy
+   if from_dp then
+     m_flow=IBPSA.Utilities.Math.Functions.regStep(
+                          x=dp-dp_min,
+                          y1= m_flow_set + (dp-dp_min)*kLin,
+                          y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                dp=dp,
+                                k=k,
+                                m_flow_turbulent=m_flow_turbulent),
+                          x_small=dp_nominal_pos*deltax);
+    else
+      dp=IBPSA.Utilities.Math.Functions.regStep(
+                          x=m_flow-m_flow_set,
+                          y1= dp_min + (m_flow-m_flow_set)*kLinInv,
+                          y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                m_flow=m_flow,
+                                k=k,
+                                m_flow_turbulent=m_flow_turbulent),
+                          x_small=m_flow_nominal_pos*deltax*l2);
+    end if;
+  end if; // homotopyInitialization
 
-         dp=homotopy(actual=IBPSA.Utilities.Math.Functions.regStep(
-                            x=m_flow-m_flow_set,
-                            y1= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
-                            y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                  m_flow=m_flow,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            x_small=m_flow_nominal_pos*deltax*l2),
-                     simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-     end if;
-   else // do not use homotopy
-     if from_dp then
-       m_flow=IBPSA.Utilities.Math.Functions.regStep(
-                            x=dp-dp_min,
-                            y1= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
-                            y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                  dp=dp,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            x_small=dp_nominal_pos*deltax);
-      else
-        dp=IBPSA.Utilities.Math.Functions.regStep(
-                            x=m_flow-m_flow_set,
-                            y1= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
-                            y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                  m_flow=m_flow,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            x_small=m_flow_nominal_pos*deltax*l2);
-      end if;
-    end if; // homotopyInitialization
   annotation (defaultComponentName="val",
   Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={
@@ -163,6 +168,13 @@ the result when using <code>from_dp = false</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 10, 2017, my Michael Wetter:<br/>
+Added protected parameters <code>kLin</code> and <code>kLinInv</code> to have
+the same implementation as
+<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.Linear\">
+IBPSA.Fluid.Actuators.Dampers.Linear</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
