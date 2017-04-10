@@ -32,7 +32,7 @@ model Linear
     annotation(Dialog(tab="Advanced"));
   input Real phi = l + y_actual*(1 - l)
     "Ratio actual to nominal mass flow rate of damper, phi=kDam(y)/kDam(y=1)";
-  parameter Real l2(min=1e-10) = 0.01
+  parameter Real l2(unit="1", min=1e-10) = 0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
     annotation(Dialog(tab="Advanced"));
   parameter Real deltax = 0.1 "Transition interval for flow rate"
