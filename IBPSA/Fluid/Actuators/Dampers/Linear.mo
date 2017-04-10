@@ -50,11 +50,9 @@ protected
   parameter Real k = if (dpFixed_nominal > Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam
     "Flow coefficient of damper plus fixed resistance";
   parameter Real kLin = l2*m_flow_nominal/dp_nominal
-    "Linear k value times l2, used to avoid duplicate computations"
-    annotation(Evaluate=true);
+    "Linear k value times l2, used to avoid duplicate computations";
   parameter Real kLinInv = 1/kLin
-    "Inverse of linear k value times l2, used to avoid duplicate computations"
-    annotation(Evaluate=true);
+    "Inverse of linear k value times l2, used to avoid duplicate computations";
   Modelica.SIunits.MassFlowRate m_flow_set "Requested mass flow rate";
   Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
     "Minimum pressure difference required for delivering requested mass flow rate";
