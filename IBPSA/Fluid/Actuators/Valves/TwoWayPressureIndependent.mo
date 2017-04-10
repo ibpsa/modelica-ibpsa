@@ -172,8 +172,8 @@ revisions="<html>
 April 10, 2017, my Michael Wetter:<br/>
 Added protected parameters <code>kLin</code> and <code>kLinInv</code> to have
 the same implementation as
-<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.Linear\">
-IBPSA.Fluid.Actuators.Dampers.Linear</a>.
+<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.PressureIndependent\">
+IBPSA.Fluid.Actuators.Dampers.PressureIndependent</a>.
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>

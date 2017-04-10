@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Actuators.Dampers;
-model Linear
+model PressureIndependent
   "Model for an air damper whose mass flow is proportional to the input signal"
   extends IBPSA.Fluid.BaseClasses.PartialResistance(
     m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
@@ -146,4 +146,4 @@ First implementation.
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255})}));
-end Linear;
+end PressureIndependent;
