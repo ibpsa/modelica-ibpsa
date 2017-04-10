@@ -49,6 +49,12 @@ protected
     "Flow coefficient of fixed resistance in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   parameter Real k = if (dpFixed_nominal > Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam
     "Flow coefficient of damper plus fixed resistance";
+  parameter Real kLin = l2*m_flow_nominal/dp_nominal
+    "Linear k value times l2, used to avoid duplicate computations"
+    annotation(Evaluate=true);
+  parameter Real kLinInv = 1/kLin
+    "Inverse of linear k value times l2, used to avoid duplicate computations"
+    annotation(Evaluate=true);
   Modelica.SIunits.MassFlowRate m_flow_set "Requested mass flow rate";
   Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
     "Minimum pressure difference required for delivering requested mass flow rate";
@@ -69,7 +75,7 @@ equation
    if from_dp then
        m_flow=homotopy(actual=IBPSA.Utilities.Math.Functions.regStep(
                           x=dp-dp_min,
-                          y1= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
+                          y1= m_flow_set + (dp-dp_min)*kLin,
                           y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
                                 dp=dp,
                                 k=k,
@@ -79,7 +85,7 @@ equation
    else
        dp=homotopy(actual=IBPSA.Utilities.Math.Functions.regStep(
                           x=m_flow-m_flow_set,
-                          y1= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
+                          y1= dp_min + (m_flow-m_flow_set)*kLinInv,
                           y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
                                 m_flow=m_flow,
                                 k=k,
@@ -91,7 +97,7 @@ equation
    if from_dp then
      m_flow=IBPSA.Utilities.Math.Functions.regStep(
                           x=dp-dp_min,
-                          y1= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
+                          y1= m_flow_set + (dp-dp_min)*kLin,
                           y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
                                 dp=dp,
                                 k=k,
@@ -100,7 +106,7 @@ equation
     else
       dp=IBPSA.Utilities.Math.Functions.regStep(
                           x=m_flow-m_flow_set,
-                          y1= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
+                          y1= dp_min + (m_flow-m_flow_set)*kLinInv,
                           y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
                                 m_flow=m_flow,
                                 k=k,
