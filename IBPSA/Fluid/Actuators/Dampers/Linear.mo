@@ -14,8 +14,8 @@ model Linear
    annotation(Dialog(enable=use_deltaM));
   parameter Modelica.SIunits.Velocity v_nominal = 1 "Nominal face velocity";
   final parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
-    "Face area"
-   annotation(Dialog(enable=not use_v_nominal));
+    "Face area";
+
   parameter Boolean roundDuct = false
     "Set to true for round duct, false for square cross section"
    annotation(Dialog(enable=not use_deltaM));
