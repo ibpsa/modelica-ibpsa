@@ -62,13 +62,13 @@ equation
   connect(yRam.y, res.y) annotation (Line(
       points={{1,70},{10,70},{10,52}},
       color={0,0,127}));
-  connect(yRam.y, lin.y) annotation (Line(points={{1,70},{30,70},{30,22},{10,22},
+  connect(yRam.y, lin.y) annotation (Line(points={{1,70},{30,70},{30,20},{10,20},
           {10,12}}, color={0,0,127}));
-  connect(linDpFix.y, lin.y) annotation (Line(points={{10,-28},{10,-14},{30,-14},
-          {30,22},{10,22},{10,12}},
+  connect(linDpFix.y, lin.y) annotation (Line(points={{10,-28},{10,-20},{30,-20},
+          {30,20},{10,20},{10,12}},
                                 color={0,0,127}));
   connect(linFromMflow.y, lin.y) annotation (Line(points={{10,-68},{10,-60},{30,
-          -60},{30,22},{10,22},{10,12}}, color={0,0,127}));
+          -60},{30,20},{10,20},{10,12}}, color={0,0,127}));
   connect(res.port_a, sou.ports[1]) annotation (Line(points={{0,40},{-20,40},{-20,
           4},{-20,3},{-40,3}}, color={0,127,255}));
   connect(lin.port_a, sou.ports[2])
