@@ -1,8 +1,7 @@
 within IBPSA.Experimental.Pipe;
 model PipeHeatLossMod
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
-  extends IBPSA.Fluid.Interfaces.PartialTwoPort;
-
+  extends IBPSA.Fluid.Interfaces.PartialTwoPort_vector;
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
@@ -65,7 +64,7 @@ protected
     "Heat capacity of medium";
 
 public
-  PipeCore                      pipeCore(
+  PipeCore pipeCore(
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
