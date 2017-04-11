@@ -1,3 +1,0 @@
-﻿simulateModel("Annex60.Experimental.Pipe.Examples.DoublePipe.IndependentSupplyAndReturnPipeDelay", stopTime=200000, method="dassl", resultFile="IndependentSupplyAndReturnPipeDelay");
-createPlot(id=1, position={15, 10, 1225, 623}, y={"senTemSupplyIn.T", "senTemSupplyOut.T", "senTemReturnIn.T", "senTemReturnOut.T"}, range={0.0, 200000.0, 15.0, 50.0}, grid=true, filename="IndependentSupplyAndReturnPipeDelay.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
-createPlot(id=1, position={15, 10, 1225, 308}, y={"senMasFlo.m_flow"}, range={0.0, 200000.0, -2.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}});
