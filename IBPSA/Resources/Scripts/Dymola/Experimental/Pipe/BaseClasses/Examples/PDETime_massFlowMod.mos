@@ -1,0 +1,5 @@
+removePlots();
+simulateModel("IBPSA.Experimental.Pipe.BaseClasses.Examples.PDETime_massFlowMod", stopTime=50, numberOfIntervals=0, outputInterval=1, method="dassl", resultFile="PDETime_massFlowMod");
+
+createPlot(id=1, position={15, 10, 1055, 416}, y={"pDETime_massFlowMod.tau", "pDETime_massFlowMod.tauRev"}, range={0.0, 52.0, -10.0, 40.0}, erase=false, grid=true, filename="PDETime_massFlowMod.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 1055, 205}, y={"sum1.y"}, range={0.0, 52.0, -1.5, 1.5}, erase=false, grid=true, subPlot=2, colors={{28,108,200}});
