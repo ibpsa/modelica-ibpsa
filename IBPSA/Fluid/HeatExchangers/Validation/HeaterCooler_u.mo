@@ -132,5 +132,5 @@ First implementation.
 </html>"),
     experiment(
       StopTime=1200,
-      Tolerance=1e-05));
+      Tolerance=1e-6));
 end HeaterCooler_u;
