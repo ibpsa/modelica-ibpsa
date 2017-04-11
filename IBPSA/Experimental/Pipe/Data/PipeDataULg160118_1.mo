@@ -1,4 +1,4 @@
-within IBPSA.Experimental.Pipe.Data;
+﻿within IBPSA.Experimental.Pipe.Data;
 record PipeDataULg160118_1
   "Experimental data from ULg's pipe test bench from January 18, 2016"
   extends IBPSA.Experimental.Pipe.Data.BaseClasses.PipeDataULg( final n=5,

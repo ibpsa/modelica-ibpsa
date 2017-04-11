@@ -1,4 +1,4 @@
-within IBPSA.Experimental.Pipe.Validation;
+ï»¿within IBPSA.Experimental.Pipe.Validation;
 model ValidationPipeULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
   // R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi

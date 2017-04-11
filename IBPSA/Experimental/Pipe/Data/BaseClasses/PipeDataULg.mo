@@ -1,4 +1,4 @@
-within IBPSA.Experimental.Pipe.Data.BaseClasses;
+﻿within IBPSA.Experimental.Pipe.Data.BaseClasses;
 partial record PipeDataULg "Base class for ULg experimental data"
   extends PipeDataBaseDefinition;
   parameter Modelica.SIunits.Temp_C T_ini_in = 20
