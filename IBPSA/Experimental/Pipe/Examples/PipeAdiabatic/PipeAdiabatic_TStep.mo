@@ -81,8 +81,7 @@ model PipeAdiabatic_TStep
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-20})));
-  IBPSA.Fluid.Sensors.MassFlowRate masFloSin(
-                                              redeclare package Medium = Medium)
+  IBPSA.Fluid.Sensors.MassFlowRate masFloSin( redeclare package Medium = Medium)
     "Mass flow rate sensor for the single pipe"
     annotation (Placement(transformation(extent={{88,-30},{108,-10}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTemSinOut(redeclare package

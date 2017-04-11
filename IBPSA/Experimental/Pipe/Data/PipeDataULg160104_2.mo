@@ -1,4 +1,4 @@
-within IBPSA.Experimental.Pipe.Data;
+﻿within IBPSA.Experimental.Pipe.Data;
 record PipeDataULg160104_2 "Experimental data from ULg's pipe test bench from 4 January 2016. Low mass flow"
   extends IBPSA.Experimental.Pipe.Data.BaseClasses.PipeDataULg( final n=5,
   T_ini_out = 15.0,

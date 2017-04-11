@@ -1,5 +1,6 @@
 PipeLosslessPlugFlow
 PipeAdiabaticPlugFlow
+PipeCore
 PipeHeatLossMod
 DoublePipe_PipeDelay
 DoublePipeParallel
@@ -8,4 +9,3 @@ Examples
 Data
 Types
 Validation
-Archive

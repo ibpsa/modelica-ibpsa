@@ -63,30 +63,12 @@ model ComparisonDpDh
     dp_nominal=500,
     deltaM=0.0057/8)
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
-  FixedResistance_dh res_dhSer1(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dh=0.1,
-    dp_nominal=500)
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  FixedResistance_dh res_dhSer2(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dh=0.1,
-    dp_nominal=500)
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
   FixedResistance_dp res_dpSin(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000,
     deltaM=0.0057/8)
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  FixedResistance_dh res_dhSin(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dh=0.1,
-    dp_nominal=1000)
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=8
     "Nominal mass flow rate";
   parameter Real p_diff=10 "Pressure difference in ramp";

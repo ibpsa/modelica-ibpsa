@@ -1,7 +1,7 @@
 within IBPSA.Experimental.Pipe;
 model DoublePipeParallel
   "Pipe model for double pipe case with single delay calculation with parallel flow"
-  extends IBPSA.Fluid.Interfaces.PartialFourPortParallel(
+  extends IBPSA.Fluid.Interfaces.PartialFourPort(
       redeclare final package Medium1 = Medium,
       redeclare final package Medium2 = Medium,
       final allowFlowReversal1 = allowFlowReversal,
@@ -169,14 +169,10 @@ equation
                                                         color={0,0,127}));
   connect(heatLossSupplyReverse.Tau_in, heatLossSupply.Tau_in) annotation (Line(
         points={{-54,70},{-54,78},{54,78},{54,70}}, color={0,0,127}));
-  connect(port_b2, heatLossReturn.port_b)
-    annotation (Line(points={{100,-60},{96,-60},{74,-60}}, color={0,127,255}));
   connect(heatLossReturnReverse.port_a, pipeReturnAdiabaticPlugFlow.port_a)
     annotation (Line(points={{-50,-60},{-30,-60},{-10,-60}}, color={0,127,255}));
   connect(pipeReturnAdiabaticPlugFlow.port_b, heatLossReturn.port_a)
     annotation (Line(points={{10,-60},{32,-60},{54,-60}}, color={0,127,255}));
-  connect(heatLossReturnReverse.port_b, port_a2) annotation (Line(points={{-70,
-          -60},{-86,-60},{-100,-60}}, color={0,127,255}));
   connect(heatLossSupplyReverse.port_b, port_a1)
     annotation (Line(points={{-70,60},{-85,60},{-100,60}}, color={0,127,255}));
   connect(heatLossSupplyReverse.port_a, senMasFlo.port_a)
@@ -209,6 +205,10 @@ equation
           -70}}, color={191,0,0}));
   connect(heatLossSupplyReverse.heatPort, heatPort) annotation (Line(points={{
           -60,70},{-60,90},{0,90},{0,100}}, color={191,0,0}));
+  connect(port_b2, heatLossReturnReverse.port_b) annotation (Line(points={{-100,
+          -60},{-70,-60},{-70,-60}}, color={0,127,255}));
+  connect(port_a2, heatLossReturn.port_b)
+    annotation (Line(points={{100,-60},{87,-60},{74,-60}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),

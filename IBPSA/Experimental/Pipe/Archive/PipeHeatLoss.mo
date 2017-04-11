@@ -68,7 +68,7 @@ protected
     thickness=thickness,
     T_ini=T_ini)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
 
 public
   BaseClasses.HeatLossPipeDelay reverseHeatLoss(
@@ -119,7 +119,8 @@ equation
   connect(port_b, heatLoss.port_b)
     annotation (Line(points={{100,0},{60,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
-    annotation (Line(points={{-10,0},{-18,0},{-24,0}}, color={0,127,255}));
+    annotation (Line(points={{-10,2},{-18,0},{-24,0}},
+                                               color={0,127,255}));
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
     annotation (Line(points={{-44,0},{-52,0},{-60,0}}, color={0,127,255}));
   connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(
