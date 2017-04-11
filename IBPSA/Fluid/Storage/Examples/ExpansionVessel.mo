@@ -5,6 +5,7 @@ model ExpansionVessel "Test model for expansion vessel"
 // package Medium = Modelica.Media.Water.WaterIF97OnePhase_ph "Medium model";
  package Medium = IBPSA.Media.Water "Medium model";
 
+
   IBPSA.Fluid.Storage.ExpansionVessel expVes(
     redeclare package Medium = Medium, V_start=1) "Expansion vessel"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
