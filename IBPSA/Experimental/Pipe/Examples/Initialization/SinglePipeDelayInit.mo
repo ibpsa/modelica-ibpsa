@@ -1,6 +1,6 @@
 within IBPSA.Experimental.Pipe.Examples.Initialization;
 model SinglePipeDelayInit
-  "Demonstrating pipe model with varying flow directions and temperatures"
+  "Demonstrate correct initialization of delay component when startTime is not 0"
 
   extends Modelica.Icons.Example;
 
@@ -55,12 +55,12 @@ model SinglePipeDelayInit
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
   PipeHeatLossMod pipeAd(
     redeclare package Medium = Medium,
-    length=100,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
     diameter=0.1,
     thicknessIns=0.03,
-    nPorts=1)          "Dynamic pipe adiabatic"
+    nPorts=1,
+    length=500)        "Dynamic pipe adiabatic"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Thermal.HeatTransfer.Celsius.FixedTemperature fixedTemperature(T=10)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
@@ -98,15 +98,11 @@ equation
   connect(fixedTemperature.port, pipeAd.heatPort)
     annotation (Line(points={{0,70},{10,70},{10,40}}, color={191,0,0}));
   connect(pipeAd.ports_b[1], TempSink.port_a)
-    annotation (Line(points={{20,30},{56,30},{56,30}}, color={0,127,255}));
+    annotation (Line(points={{20,30},{56,30}},         color={0,127,255}));
   annotation (Documentation(info="<html>
-<p>This use case aims at demonstrating the behavior of the pipe with flow reversals
-and varying temperatures. It is similar to <em>UCPipeB01</em>, with the addition of
-temperature waves caused by varying temperatures at <code>source</code> and <code>sink</code>.</p>
-<p>Temperature waves should be propagated correctly through the pipe.</p>
-<h4 id=\"typical-use-and-important-parameters\">Typical use and important parameters</h4>
-<p>The maximum pressure difference between <code>source</code> and <code>sink</code> can be adjusted via
-the <code>dp_test</code> variable.</p>
+<p>This example shows the correct initialization of the <code>TimeDelay</code> component for a simulation start time other than 0. For correct representation of the delay, Lsodar or Euler should be used as solver.</p>
+<p><b><a name=\"typical-use-and-important-parameters\">T</a>ypical use and important parameters</b></p>
+<p>Start time of the example should be set to some value other than 0.</p>
 </html>", revisions="<html>
 <ul>
 <li>May 23, 2016 by Marcus Fuchs: <br>
@@ -117,12 +113,14 @@ First implementation</li>
           preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-180,-120},{180,120}})),
     experiment(
-      StartTime=1000,
-      StopTime=11000,
-      Interval=1),
+      StartTime=3000,
+      StopTime=20000,
+      __Dymola_NumberOfIntervals=1000,
+      Tolerance=1e-006,
+      __Dymola_Algorithm="LsodarS"),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Experimental/Pipe/Examples/UseCases/TypeB_FlowReversal/UCPipeB02Mod_Temperature.mos"
+          "Resources/Scripts/Dymola/Experimental/Pipe/Examples/Initialization/SinglePipeDelayInit.mos"
         "Simulate and Plot"),
     __Dymola_experimentFlags(
       Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
