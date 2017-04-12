@@ -10,7 +10,7 @@ model PipeCore
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
@@ -127,9 +127,6 @@ public
   parameter Modelica.SIunits.MassFlowRate m_flowInit=0
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
-  Fluid.Sensors.TemperatureTwoPort senTemDelay(redeclare package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{16,-10},{36,10}})));
 equation
 
   connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(
@@ -154,10 +151,8 @@ equation
     annotation (Line(points={{-24,0},{-17,0},{-10,0}}, color={0,127,255}));
   connect(heatLoss.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
-  connect(pipeAdiabaticPlugFlow.port_b, senTemDelay.port_a)
-    annotation (Line(points={{10,0},{13,0},{16,0}}, color={0,127,255}));
-  connect(senTemDelay.port_b, heatLoss.port_a)
-    annotation (Line(points={{36,0},{38,0},{40,0}}, color={0,127,255}));
+  connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
+    annotation (Line(points={{10,0},{40,0},{40,0}}, color={0,127,255}));
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

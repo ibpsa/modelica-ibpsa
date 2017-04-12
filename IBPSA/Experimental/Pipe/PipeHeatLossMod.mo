@@ -9,7 +9,7 @@ model PipeHeatLossMod
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
@@ -108,7 +108,10 @@ equation
 
   connect(pipeCore.port_b, vol.ports[1])
     annotation (Line(points={{10,0},{70,0},{70,20}}, color={0,127,255}));
-  connect(vol.ports[2:nPorts+1], ports_b[1:nPorts]) annotation (Line(points={{70,20},{72,20},{72,6},{72,
+    for i in 1:nPorts loop
+      connect(vol.ports[i+1], ports_b[i]);
+    end for
+    annotation (Line(points={{70,20},{72,20},{72,6},{72,
           0},{100,0}}, color={0,127,255}));
   connect(pipeCore.port_a, port_a)
     annotation (Line(points={{-10,0},{-56,0},{-100,0}},

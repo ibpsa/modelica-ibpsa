@@ -58,7 +58,8 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     "Initial temperature at pipe inlet";
   parameter Modelica.SIunits.Temperature T_ini_out=pipeDataULg.T_ini_out + 273.15
     "Initial temperature at pipe outlet";
-  replaceable Data.PipeDataULg151202 pipeDataULg constrainedby
+  replaceable Data.PipeDataULg151204_2
+                                     pipeDataULg constrainedby
     Data.BaseClasses.PipeDataULg
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Math.Gain gain(k=1)
@@ -73,9 +74,9 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     thickness=3.9e-3,
     T_ini_out=T_ini_out,
     T_ini_in=T_ini_in,
-    nPorts=1,
     R=((1/(2*pipe.lambdaI)*log((0.0603/2 + pipe.thicknessIns)/(0.0603/2))) + 1/
-        (5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi)
+        (5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi,
+    nPorts=1)
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
 equation
   connect(DataReader.y[3], Tout.u) annotation (Line(
@@ -98,10 +99,10 @@ equation
     annotation (Line(points={{-100,0},{-90,0},{-80,0}}, color={0,127,255}));
   connect(pipe.port_a, senTem_in.port_b)
     annotation (Line(points={{-20,0},{-16,0},{-10,0}}, color={0,127,255}));
-  connect(pipe.ports_b[1], senTem_out.port_a)
-    annotation (Line(points={{-40,0},{-50,0},{-60,0}}, color={0,127,255}));
   connect(pipe.heatPort, fixedTemperature.port)
     annotation (Line(points={{-30,10},{-30,35},{-30,60}}, color={191,0,0}));
+  connect(senTem_out.port_a, pipe.ports_b[1])
+    annotation (Line(points={{-60,0},{-40,0},{-40,0}}, color={0,127,255}));
                      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
