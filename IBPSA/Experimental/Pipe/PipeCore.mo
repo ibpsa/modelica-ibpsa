@@ -105,7 +105,9 @@ public
   IBPSA.Experimental.Pipe.BaseClasses.TimeDelay tau_used(
     length=length,
     diameter=diameter,
-    rho=rho_default)
+    rho=rho_default,
+    initDelay=initDelay,
+    m_flowInit=m_flowInit)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));

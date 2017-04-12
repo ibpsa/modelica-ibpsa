@@ -7,10 +7,15 @@ model TimeDelay "Delay time for given normalized velocity"
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.Length diameter=0.05 "diameter of pipe";
   parameter Modelica.SIunits.Density rho=1000 "Standard density of fluid";
+  parameter Boolean initDelay=false
+    "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
+    annotation (Dialog(group="Initialization"));
+  parameter Modelica.SIunits.MassFlowRate m_flowInit=0
+    annotation (Dialog(group="Initialization", enable=initDelay));
+
   Modelica.SIunits.Time time_out_rev "Reverse flow direction output time";
   Modelica.SIunits.Time time_out_des "Design flow direction output time";
-  Real x(start=0)
-    "Spatial coordiante for spatialDistribution operator";
+  Real x(start=0) "Spatial coordiante for spatialDistribution operator";
   Modelica.SIunits.Frequency u "Normalized fluid velocity (1/s)";
   Modelica.Blocks.Interfaces.RealOutput tau
     "Time delay for design flow direction"
@@ -20,6 +25,12 @@ model TimeDelay "Delay time for given normalized velocity"
 
   parameter Real epsilon=1e-10;
 
+initial equation
+  if initDelay then
+    tau = abs(length/m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi));
+  else
+    tau = 0;
+  end if;
 equation
   u = m_flow/(rho*(diameter^2)/4*Modelica.Constants.pi)/length;
 
@@ -36,28 +47,28 @@ equation
   tauRev = time - time_out_rev;
 
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-92,0},{-80.7,34.2},{-73.5,53.1},{-67.1,66.4},{-61.4,74.6},{
-              -55.8,79.1},{-50.2,79.8},{-44.6,76.6},{-38.9,69.7},{-33.3,59.4},{
-              -26.9,44.1},{-18.83,21.2},{-1.9,-30.8},{5.3,-50.2},{11.7,-64.2},{
-              17.3,-73.1},{23,-78.4},{28.6,-80},{34.2,-77.6},{39.9,-71.5},{45.5,
-              -61.9},{51.9,-47.2},{60,-24.8},{68,0}},
+          points={{-92,0},{-80.7,34.2},{-73.5,53.1},{-67.1,66.4},{-61.4,74.6},{-55.8,
+              79.1},{-50.2,79.8},{-44.6,76.6},{-38.9,69.7},{-33.3,59.4},{-26.9,44.1},
+              {-18.83,21.2},{-1.9,-30.8},{5.3,-50.2},{11.7,-64.2},{17.3,-73.1},{
+              23,-78.4},{28.6,-80},{34.2,-77.6},{39.9,-71.5},{45.5,-61.9},{51.9,
+              -47.2},{60,-24.8},{68,0}},
           color={0,0,127},
           smooth=Smooth.Bezier),
         Line(points={{-64,0},{-52.7,34.2},{-45.5,53.1},{-39.1,66.4},{-33.4,74.6},
-              {-27.8,79.1},{-22.2,79.8},{-16.6,76.6},{-10.9,69.7},{-5.3,59.4},{
-              1.1,44.1},{9.17,21.2},{26.1,-30.8},{33.3,-50.2},{39.7,-64.2},{
-              45.3,-73.1},{51,-78.4},{56.6,-80},{62.2,-77.6},{67.9,-71.5},{73.5,
-              -61.9},{79.9,-47.2},{88,-24.8},{96,0}}, smooth=Smooth.Bezier),
+              {-27.8,79.1},{-22.2,79.8},{-16.6,76.6},{-10.9,69.7},{-5.3,59.4},{1.1,
+              44.1},{9.17,21.2},{26.1,-30.8},{33.3,-50.2},{39.7,-64.2},{45.3,-73.1},
+              {51,-78.4},{56.6,-80},{62.2,-77.6},{67.9,-71.5},{73.5,-61.9},{79.9,
+              -47.2},{88,-24.8},{96,0}}, smooth=Smooth.Bezier),
         Text(
           extent={{20,100},{82,30}},
           lineColor={0,0,255},

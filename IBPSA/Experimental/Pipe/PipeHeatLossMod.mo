@@ -72,7 +72,11 @@ public
     C=C,
     R=R,
     m_flow_small=m_flow_small,
-    m_flow_nominal=m_flow_nominal) "Describing the pipe behavior"
+    m_flow_nominal=m_flow_nominal,
+    T_ini_in=T_ini_in,
+    T_ini_out=T_ini_out,
+    m_flowInit=m_flowInit,
+    initDelay=initDelay)           "Describing the pipe behavior"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
