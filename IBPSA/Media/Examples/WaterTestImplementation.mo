@@ -4,7 +4,7 @@ model WaterTestImplementation "Model that tests the medium implementation"
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
      redeclare package Medium = IBPSA.Media.Water);
 
-      annotation (experiment(Tolerance=1e-6, StopTime=1.0),
+      annotation (experiment(Tolerance=1e-6),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/WaterTestImplementation.mos"
         "Simulate and plot"),
     Documentation(info="<html>

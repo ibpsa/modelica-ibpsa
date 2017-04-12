@@ -19,7 +19,7 @@ equation
   err = y_comp-y;
   assert(abs(err) < 1E-2, "Model has an error");
   ex=exp(-abs(x));
- annotation(experiment(StartTime=-1, StopTime=1, Tolerance=1E-8),
+ annotation(experiment(StartTime=-1, Tolerance=1E-8),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothExponentialDerivativeCheck.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -52,7 +52,7 @@ assert(IBPSA.Utilities.Math.Functions.isMonotonic(x_decStrict, strict=true),
 assert(false == IBPSA.Utilities.Math.Functions.isMonotonic(x_decWeak, strict=true),
    "Error. Function should have returned true.");
 
-  annotation (experiment(Tolerance=1e-6, StopTime=1.0),
+  annotation (experiment(Tolerance=1e-6),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/IsMonotonic.mos"
         "Simulate and plot"),
 Documentation(

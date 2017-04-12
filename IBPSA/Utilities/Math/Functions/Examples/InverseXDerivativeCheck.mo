@@ -25,7 +25,6 @@ equation
 annotation (
 experiment(
       StartTime=-1,
-      StopTime=1.0,
       Tolerance=1e-08),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXDerivativeCheck.mos"
         "Simulate and plot"),

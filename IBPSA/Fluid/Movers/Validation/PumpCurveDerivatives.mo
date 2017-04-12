@@ -161,7 +161,7 @@ equation
   connect(assIne.u2, zero.y) annotation (Line(points={{38,-16},{28.5,-16},{28.5,
           -89}},  color={0,0,127}));
   annotation (
-experiment(Tolerance=1e-6, StopTime=1.0),
+experiment(Tolerance=1e-6),
 __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveDerivatives.mos"
         "Simulate and plot"),

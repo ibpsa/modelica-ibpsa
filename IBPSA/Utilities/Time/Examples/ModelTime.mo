@@ -21,7 +21,7 @@ First implementation.
 </html>"),
   experiment(
   StartTime=-1,
-  Tolerance=1e-6, StopTime=1),
+  Tolerance=1e-6),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Time/Examples/ModelTime.mos"
         "Simulate and plot"));
 end ModelTime;

@@ -36,5 +36,5 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/InletToAirMoistAirCO2.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-6, StopTime=1.0));
+    experiment(Tolerance=1e-6));
 end InletToAirMoistAirCO2;

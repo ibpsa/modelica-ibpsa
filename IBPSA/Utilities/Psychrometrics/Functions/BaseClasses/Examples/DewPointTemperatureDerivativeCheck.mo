@@ -20,7 +20,6 @@ annotation (
         "Simulate and plot"),
       experiment(
         StartTime=-1,
-        StopTime=1,
         Tolerance=1E-9),
       Documentation(info="<html>
 <p>

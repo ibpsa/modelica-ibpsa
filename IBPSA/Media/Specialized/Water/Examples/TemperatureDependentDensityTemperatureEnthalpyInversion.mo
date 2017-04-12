@@ -6,7 +6,7 @@ model TemperatureDependentDensityTemperatureEnthalpyInversion
     redeclare package Medium =
         IBPSA.Media.Specialized.Water.TemperatureDependentDensity);
   annotation (
-experiment(Tolerance=1e-6, StopTime=1.0),
+experiment(Tolerance=1e-6),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/TemperatureDependentDensityTemperatureEnthalpyInversion.mos"
         "Simulate and plot"),
     Documentation(info="<html>
