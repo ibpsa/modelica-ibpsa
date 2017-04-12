@@ -2,6 +2,7 @@ UsersGuide
 ConservationEquation
 FourPortHeatMassExchanger
 PartialFourPort
+PartialFourPortParallel
 PartialFourPortInterface
 PartialTwoPort
 PartialTwoPortInterface
