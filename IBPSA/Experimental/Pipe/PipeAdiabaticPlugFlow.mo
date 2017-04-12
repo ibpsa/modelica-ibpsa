@@ -4,8 +4,7 @@ model PipeAdiabaticPlugFlow
   extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
   parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
-  parameter Modelica.SIunits.Length dh=0.05 "Hydraulic diameter"
-    annotation (Dialog(enable=use_dh));
+  parameter Modelica.SIunits.Length dh=0.05 "Hydraulic diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
 
 

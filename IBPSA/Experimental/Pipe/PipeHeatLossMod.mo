@@ -49,15 +49,15 @@ protected
       T=Medium.T_default,
       X=Medium.X_default)
     "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
-    annotation (Dialog(group="Advanced", enable=use_rho_nominal));
+    annotation (Dialog(group="Advanced"));
 
-  parameter Modelica.SIunits.DynamicViscosity mu_default=
-      Medium.dynamicViscosity(Medium.setState_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default))
-    "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
-    annotation (Dialog(group="Advanced", enable=use_mu_default));
+//   parameter Modelica.SIunits.DynamicViscosity mu_default=
+//       Medium.dynamicViscosity(Medium.setState_pTX(
+//       p=Medium.p_default,
+//       T=Medium.T_default,
+//       X=Medium.X_default))
+//     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
+//     annotation (Dialog(group="Advanced", enable=use_mu_default));
 
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(state=sta_default)
