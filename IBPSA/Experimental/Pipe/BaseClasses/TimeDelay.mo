@@ -27,9 +27,9 @@ model TimeDelay "Delay time for given normalized velocity"
 
 initial equation
   if initDelay then
-    tau = abs(length/m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi));
+    tau = time + abs(length/m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi));
   else
-    tau = 0;
+    tau = time;
   end if;
 equation
   u = m_flow/(rho*(diameter^2)/4*Modelica.Constants.pi)/length;
