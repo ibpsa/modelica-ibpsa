@@ -59,7 +59,8 @@ model UCPipeB02Mod_Temperature
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
     diameter=0.1,
-    thicknessIns=0.03) "Dynamic pipe adiabatic"
+    thicknessIns=0.03,
+    nPorts=1)          "Dynamic pipe adiabatic"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Thermal.HeatTransfer.Celsius.FixedTemperature fixedTemperature(T=10)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
@@ -94,10 +95,10 @@ equation
           {-94,10},{-99,10}}, color={0,0,127}));
   connect(TempSource.port_b, pipeAd.port_a)
     annotation (Line(points={{-40,30},{0,30}}, color={0,127,255}));
-  connect(pipeAd.port_b, TempSink.port_a)
-    annotation (Line(points={{20,30},{56,30}}, color={0,127,255}));
   connect(fixedTemperature.port, pipeAd.heatPort)
     annotation (Line(points={{0,70},{10,70},{10,40}}, color={191,0,0}));
+  connect(pipeAd.ports_b[1], TempSink.port_a)
+    annotation (Line(points={{20,30},{56,30},{56,30}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>This use case aims at demonstrating the behavior of the pipe with flow reversals
 and varying temperatures. It is similar to <em>UCPipeB01</em>, with the addition of

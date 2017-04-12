@@ -103,8 +103,6 @@ protected
         origin={0,-60})));
 
 public
-  BaseClasses.TimeDelay        pDETime_massFlow(len=length, diameter=diameter)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -159,16 +157,11 @@ public
     "Ambient temperature of pipe's surroundings (undisturbed ground/surface)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
+  BaseClasses.TimeDelay timeDelay(length=length, diameter=diameter)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(senMasFlo.port_b, pipeSupplyAdiabaticPlugFlow.port_a)
     annotation (Line(points={{-16,60},{-13,60},{-10,60}}, color={0,127,255}));
-  connect(senMasFlo.m_flow, pDETime_massFlow.m_flow) annotation (Line(points={{
-          -26,49},{-26,49},{-26,0},{-12,0}}, color={0,0,127}));
-  connect(pDETime_massFlow.tau, heatLossSupplyReverse.Tau_in) annotation (Line(
-        points={{11,0},{26,0},{26,78},{-54,78},{-54,70}},
-                                                        color={0,0,127}));
-  connect(heatLossSupplyReverse.Tau_in, heatLossSupply.Tau_in) annotation (Line(
-        points={{-54,70},{-54,78},{54,78},{54,70}}, color={0,0,127}));
   connect(heatLossReturnReverse.port_a, pipeReturnAdiabaticPlugFlow.port_a)
     annotation (Line(points={{-50,-60},{-30,-60},{-10,-60}}, color={0,127,255}));
   connect(pipeReturnAdiabaticPlugFlow.port_b, heatLossReturn.port_a)
@@ -177,10 +170,6 @@ equation
     annotation (Line(points={{-70,60},{-85,60},{-100,60}}, color={0,127,255}));
   connect(heatLossSupplyReverse.port_a, senMasFlo.port_a)
     annotation (Line(points={{-50,60},{-36,60}},          color={0,127,255}));
-  connect(pDETime_massFlow.tau, heatLossReturnReverse.Tau_in) annotation (Line(
-        points={{11,0},{26,0},{26,-86},{-54,-86},{-54,-70}}, color={0,0,127}));
-  connect(pDETime_massFlow.tau, heatLossReturn.Tau_in) annotation (Line(points=
-          {{11,0},{26,0},{26,-86},{58,-86},{58,-70}}, color={0,0,127}));
   connect(pipeSupplyAdiabaticPlugFlow.port_b, heatLossSupply.port_a)
     annotation (Line(points={{10,60},{50,60}},         color={0,127,255}));
   connect(heatLossSupply.port_b, port_b1)
@@ -209,6 +198,16 @@ equation
           -60},{-70,-60},{-70,-60}}, color={0,127,255}));
   connect(heatLossReturn.port_b, port_b2)
     annotation (Line(points={{74,-60},{88,-60},{100,-60}}, color={0,127,255}));
+  connect(senMasFlo.m_flow, timeDelay.m_flow) annotation (Line(points={{-26,49},
+          {-26,49},{-26,0},{-12,0}}, color={0,0,127}));
+  connect(timeDelay.tauRev, heatLossSupplyReverse.Tau_in) annotation (Line(
+        points={{11,4},{22,4},{22,86},{-54,86},{-54,70}}, color={0,0,127}));
+  connect(timeDelay.tauRev, heatLossReturnReverse.Tau_in) annotation (Line(
+        points={{11,4},{22,4},{22,-86},{-54,-86},{-54,-70}}, color={0,0,127}));
+  connect(timeDelay.tau, heatLossReturn.Tau_in) annotation (Line(points={{11,-4},
+          {26,-4},{26,-86},{58,-86},{58,-70}}, color={0,0,127}));
+  connect(timeDelay.tau, heatLossSupply.Tau_in) annotation (Line(points={{11,-4},
+          {26,-4},{26,86},{54,86},{54,70}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),

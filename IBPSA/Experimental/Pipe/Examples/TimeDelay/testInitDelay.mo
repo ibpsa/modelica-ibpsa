@@ -8,8 +8,6 @@ model testInitDelay "Test of delay initialization"
   replaceable package Medium = IBPSA.Media.Water;
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-20,40},{0,20}})));
-  BaseClasses.TimeDelay timeDelay(m_flowInit=1, initDelay=true)
-    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = Medium)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

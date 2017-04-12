@@ -102,7 +102,7 @@ public
   IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  IBPSA.Experimental.Pipe.BaseClasses.TimeDelayMod tau_used(
+  IBPSA.Experimental.Pipe.BaseClasses.TimeDelay tau_used(
     length=length,
     diameter=diameter,
     rho=rho_default)
