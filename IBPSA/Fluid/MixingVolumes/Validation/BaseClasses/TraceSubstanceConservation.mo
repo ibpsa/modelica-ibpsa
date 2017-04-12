@@ -112,17 +112,14 @@ equation
       smooth=Smooth.None));
   annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics),
+    experiment(Tolerance=1e-08),
     Documentation(info="<html>
 <p>
-This model is reconfigured to a steady state or
+This model is reconfigured to a steady state or 
 dynamic check for conservation of trace substances.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-Apr 06 2017 by Thierry Nouidui:<br/>
-Removed <code>experiment</code> annotation.
-</li>
 <li>
 May 22 2015 by Filip Jorissen:<br/>
 First implementation.
