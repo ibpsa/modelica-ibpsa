@@ -102,7 +102,7 @@ public
   IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  IBPSA.Experimental.Pipe.BaseClasses.TimeDelay tau_used(
+  IBPSA.Experimental.Pipe.BaseClasses.TimeDelay timeDelay(
     length=length,
     diameter=diameter,
     rho=rho_default,
@@ -131,7 +131,7 @@ public
 
 equation
 
-  connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(
+  connect(senMasFlo.m_flow, timeDelay.m_flow) annotation (Line(
       points={{-34,-11},{-34,-40},{-12,-40}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -140,9 +140,9 @@ equation
   connect(heatLoss.heatPort, heatPort) annotation (Line(points={{50,10},{50,40},
           {0,40},{0,100}}, color={191,0,0}));
 
-  connect(tau_used.tauRev, reverseHeatLoss.tau) annotation (Line(points={{11,-36},
+  connect(timeDelay.tauRev, reverseHeatLoss.tau) annotation (Line(points={{11,-36},
           {26,-36},{26,28},{-64,28},{-64,10}}, color={0,0,127}));
-  connect(tau_used.tau, heatLoss.tau) annotation (Line(points={{11,-44},{32,-44},
+  connect(timeDelay.tau, heatLoss.tau) annotation (Line(points={{11,-44},{32,-44},
           {32,28},{44,28},{44,10}}, color={0,0,127}));
 
   connect(port_a, reverseHeatLoss.port_b)
@@ -154,7 +154,7 @@ equation
   connect(heatLoss.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
-    annotation (Line(points={{10,0},{40,0},{40,0}}, color={0,127,255}));
+    annotation (Line(points={{10,0},{40,0}},        color={0,127,255}));
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

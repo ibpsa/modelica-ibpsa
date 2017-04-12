@@ -10,12 +10,14 @@ model TimeDelay "Delay time for given normalized velocity"
   parameter Boolean initDelay=false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(group="Initialization"));
+    parameter Modelica.SIunits.Time time0 = 0 "Start time of simulation";
   parameter Modelica.SIunits.MassFlowRate m_flowInit=0
     annotation (Dialog(group="Initialization", enable=initDelay));
-
   Modelica.SIunits.Time time_out_rev "Reverse flow direction output time";
   Modelica.SIunits.Time time_out_des "Design flow direction output time";
-  Real x(start=0) "Spatial coordiante for spatialDistribution operator";
+  Modelica.SIunits.Time time_out_rev0(start=0) "Initial reverse flow direction output time";
+  Modelica.SIunits.Time time_out_des0(start=0) "Initial design flow direction output time";
+  Real x(start=0) "Spatial coordinate for spatialDistribution operator";
   Modelica.SIunits.Frequency u "Normalized fluid velocity (1/s)";
   Modelica.Blocks.Interfaces.RealOutput tau
     "Time delay for design flow direction"
@@ -27,9 +29,20 @@ model TimeDelay "Delay time for given normalized velocity"
 
 initial equation
   if initDelay then
-    tau = time + abs(length/m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi));
+    if m_flowInit >= 0 then
+      tau = abs(length/m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi));
+      time_out_des0 = time0 - tau;
+      time_out_rev0 = time0;
+    else
+      tauRev = abs(length/m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi));
+      time_out_des0 = time0;
+      time_out_rev0 = time0 - tauRev;
+    end if;
   else
-    tau = time;
+    tau=0;
+    tauRev=0;
+    time_out_des0 = time0;
+    time_out_rev0 = time0;
   end if;
 equation
   u = m_flow/(rho*(diameter^2)/4*Modelica.Constants.pi)/length;
@@ -39,9 +52,9 @@ equation
     time,
     time,
     x,
-    noEvent(u >= 0),
+    u >= 0,
     {0.0,1.0},
-    {0.0,0.0});
+    {time_out_rev0, time_out_des0});
 
   tau = time - time_out_des;
   tauRev = time - time_out_rev;

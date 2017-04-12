@@ -167,8 +167,15 @@ public
     "Ambient temperature of pipe's surroundings (undisturbed ground/surface)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
-  BaseClasses.TimeDelay timeDelay(length=length, diameter=diameter)
+  BaseClasses.TimeDelay timeDelay(length=length, diameter=diameter,
+    initDelay=initDelay,
+    m_flowInit=m_flowInit)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  parameter Boolean initDelay=false
+    "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
+    annotation (Dialog(group="Initialization"));
+  parameter Modelica.SIunits.MassFlowRate m_flowInit=0
+    annotation (Dialog(group="Initialization", enable=InitDelay));
 equation
 
   connect(pipeSupplyAdiabaticPlugFlow.port_b, heatLossSupply.port_a)
