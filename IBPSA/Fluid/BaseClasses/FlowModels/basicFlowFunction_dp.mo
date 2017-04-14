@@ -11,12 +11,14 @@ function basicFlowFunction_dp
   output Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
 protected
-  Modelica.SIunits.PressureDifference dp_turbulent = m_flow_turbulent^2/k/k
+  Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
     "Pressure where flow changes to turbulent";
+  Modelica.SIunits.PressureDifference dp_div = dp/dp_turbulent
+    "Help variable for computational efficiency";
 algorithm
-   m_flow := if noEvent(dp>dp_turbulent) then k*sqrt(abs(dp))
-             elseif noEvent(dp<-dp_turbulent) then -k*sqrt(abs(-dp))
-             else (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3;
+  m_flow := if noEvent(abs(dp)>dp_turbulent)
+            then sign(dp)*k*sqrt(abs(dp))
+            else 0.25*dp_div*m_flow_turbulent*(5-dp_div^2);
 
   annotation(LateInline=true,
            smoothOrder=2,
@@ -53,6 +55,11 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2017, by Filip Jorissen:<br/>
+Changed implementation to be more computationally efficient.
+See <a href=\"https://github.com/ibpsa/modelica/issues/725\">#725</a>.
+</li>
 <li>
 March 19, 2016, by Michael Wetter:<br/>
 Added <code>abs</code> function for
