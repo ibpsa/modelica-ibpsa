@@ -30,7 +30,7 @@ equation
   else
     k = kVal;
   end if;
-  dp_min = SolarwindBES.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+  dp_min = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
               m_flow=m_flow_set,
               k=k,
               m_flow_turbulent=m_flow_turbulent);
@@ -40,13 +40,13 @@ equation
     x1 = -deltax*dp_min;
     x2 = deltax*dp_min;
     // min function ensures that y1 does not increase further for x > x1
-    y1 = SolarwindBES.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+    y1 = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
                                   dp=min(dp, dp_min+x1),
                                   k=k,
                                   m_flow_turbulent=m_flow_turbulent);
     // max function ensures that y2 does not decrease further for x < x2
     y2 = m_flow_set + coeff1*max(dp-dp_min,x2);
-    dy1 = SolarwindBES.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+    dy1 = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
                                      dp=dp_min + x1,
                                      k=k,
                                      m_flow_turbulent=m_flow_turbulent,
@@ -56,13 +56,13 @@ equation
     x1 = -deltax*m_flow_set;
     x2 = deltax*m_flow_set;
     // min function ensures that y1 does not increase further for x > x1
-    y1 = SolarwindBES.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+    y1 = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
                                      m_flow=min(m_flow, m_flow_set + x1),
                                      k=k,
                                      m_flow_turbulent=m_flow_turbulent);
     // max function ensures that y2 does not decrease further for x < x2
     y2 = dp_min + coeff2*max(x, x2);
-    dy1 = SolarwindBES.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der(
+    dy1 = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der(
                                      m_flow=m_flow_set + x1,
                                      k=k,
                                      m_flow_turbulent=m_flow_turbulent,
@@ -71,7 +71,7 @@ equation
 
   // smooth transition between y1 and y2
   yi = noEvent(if x > x1 and x < x2 then
-               Solarwind.Utilities.Math.Functions.cubicHermite(
+               Modelica.Fluid.Utilities.cubicHermite(
                  x=x,
                  x1=x1,
                  x2=x2,
