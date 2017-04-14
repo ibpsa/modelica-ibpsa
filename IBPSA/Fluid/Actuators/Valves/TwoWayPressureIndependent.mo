@@ -12,69 +12,92 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
     annotation(Dialog(tab="Advanced"));
 
 protected
+  parameter Real coeff1 = l2/dp_nominal*m_flow_nominal "Parameter for avoiding unnecessary computations";
+  parameter Real coeff2 = 1/coeff1 "Parameter for avoiding unnecessary computations";
+  parameter Real dy2 = if from_dp then coeff1 else coeff2 "Derivative at second support point";
   Modelica.SIunits.MassFlowRate m_flow_set "Requested mass flow rate";
   Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
     "Minimum pressure difference required for delivering requested mass flow rate";
 
+  Real x, x1, x2, y2, y1, dy1 "Support points";
+  Real yi  "Result";
+
 equation
   m_flow_set = m_flow_nominal*phi;
-
-  dp_min = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+  kVal = Kv_SI;
+  if (dpFixed_nominal > Modelica.Constants.eps) then
+    k = sqrt(1/(1/kFixed^2 + 1/kVal^2));
+  else
+    k = kVal;
+  end if;
+  dp_min = SolarwindBES.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
               m_flow=m_flow_set,
               k=k,
               m_flow_turbulent=m_flow_turbulent);
 
- kVal = Kv_SI;
- if (dpFixed_nominal > Modelica.Constants.eps) then
-   k = sqrt(1/(1/kFixed^2 + 1/kVal^2));
- else
-   k = kVal;
- end if;
+  if from_dp then
+    x = dp-dp_min;
+    x1 = -deltax*dp_min;
+    x2 = deltax*dp_min;
+    // min function ensures that y1 does not increase further for x > x1
+    y1 = SolarwindBES.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                  dp=min(dp, dp_min+x1),
+                                  k=k,
+                                  m_flow_turbulent=m_flow_turbulent);
+    // max function ensures that y2 does not decrease further for x < x2
+    y2 = m_flow_set + coeff1*max(dp-dp_min,x2);
+    dy1 = SolarwindBES.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+                                     dp=dp_min + x1,
+                                     k=k,
+                                     m_flow_turbulent=m_flow_turbulent,
+                                     dp_der=1);
+  else
+    x = m_flow-m_flow_set;
+    x1 = -deltax*m_flow_set;
+    x2 = deltax*m_flow_set;
+    // min function ensures that y1 does not increase further for x > x1
+    y1 = SolarwindBES.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                     m_flow=min(m_flow, m_flow_set + x1),
+                                     k=k,
+                                     m_flow_turbulent=m_flow_turbulent);
+    // max function ensures that y2 does not decrease further for x < x2
+    y2 = dp_min + coeff2*max(x, x2);
+    dy1 = SolarwindBES.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der(
+                                     m_flow=m_flow_set + x1,
+                                     k=k,
+                                     m_flow_turbulent=m_flow_turbulent,
+                                     m_flow_der=1);
+  end if;
 
-   if homotopyInitialization then
-     if from_dp then
-         m_flow=homotopy(actual=IBPSA.Utilities.Math.Functions.regStep(
-                            x=dp-dp_min,
-                            y1= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
-                            y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                  dp=dp,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            x_small=dp_nominal_pos*deltax),
-                         simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-     else
+  // smooth transition between y1 and y2
+  yi = noEvent(if x > x1 and x < x2 then
+               Solarwind.Utilities.Math.Functions.cubicHermite(
+                 x=x,
+                 x1=x1,
+                 x2=x2,
+                 y1=y1,
+                 y2=y2,
+                 y1d=dy1,
+                 y2d=dy2)
+               elseif x <= x1 then y1
+               else y2);
 
-         dp=homotopy(actual=IBPSA.Utilities.Math.Functions.regStep(
-                            x=m_flow-m_flow_set,
-                            y1= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
-                            y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                  m_flow=m_flow,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            x_small=m_flow_nominal_pos*deltax*l2),
-                     simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-     end if;
-   else // do not use homotopy
-     if from_dp then
-       m_flow=IBPSA.Utilities.Math.Functions.regStep(
-                            x=dp-dp_min,
-                            y1= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
-                            y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                  dp=dp,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            x_small=dp_nominal_pos*deltax);
-      else
-        dp=IBPSA.Utilities.Math.Functions.regStep(
-                            x=m_flow-m_flow_set,
-                            y1= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
-                            y2= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                  m_flow=m_flow,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            x_small=m_flow_nominal_pos*deltax*l2);
-      end if;
-    end if; // homotopyInitialization
+  if homotopyInitialization then
+    if from_dp then
+      m_flow=homotopy(actual=yi,
+                      simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+    else
+        dp=homotopy(
+           actual=yi,
+           simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+    end if;
+  else
+    if from_dp then
+      m_flow=yi;
+    else
+      dp=yi;
+    end if;
+  end if;
   annotation (defaultComponentName="val",
   Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={
@@ -160,9 +183,25 @@ Note that the result in the transition region when
 using <code>from_dp = true</code> is not identical to
 the result when using <code>from_dp = false</code>.
 </p>
+<p>
+Variables <code>y1</code> and <code>y2</code>
+serve a dual use. 
+They are used to 
+1) compute the support points at <code>x1</code> and <code>x2</code>,
+which should not depend on <code>m_flow</code> or <code>dp</code> and
+2) to compute the flow functions when outside of this regime, 
+which does depend on <code>m_flow</code> or <code>dp</code>.
+Min and max functions are therefore used such that one equation
+can serve both puroposes.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 14, 2017, by Filip Jorissen:<br/>
+Revised implementation that does not have a local maximum
+using <code>cubicHermite</code>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
