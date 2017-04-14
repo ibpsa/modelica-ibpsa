@@ -39,6 +39,9 @@ model TwoPortHeatMassExchanger
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
+  Modelica.SIunits.HeatFlowRate Q_flow = vol.heatPort.Q_flow
+    "Heat flow rate into medium";
+
   replaceable IBPSA.Fluid.MixingVolumes.MixingVolume vol
   constrainedby IBPSA.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
     redeclare final package Medium = Medium,
@@ -88,8 +91,6 @@ initial algorithm
 "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
-
-
 
 equation
   connect(vol.ports[2], port_b) annotation (Line(
@@ -142,6 +143,12 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2017, by Michael Wetter:<br/>
+Added variable <code>Q_flow</code> to have the same variables as
+<a href=\"modelica://IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger\">
+IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger</a>.
+</li>
 <li>
 December 1, 2016, by Michael Wetter:<br/>
 Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
