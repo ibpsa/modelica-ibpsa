@@ -13,7 +13,7 @@ function basicFlowFunction_dp
 protected
   Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
     "Pressure where flow changes to turbulent";
-  Modelica.SIunits.PressureDifference dp_div = dp/dp_turbulent
+  Real dp_div = dp/dp_turbulent
     "Help variable for computational efficiency";
 algorithm
   m_flow := if noEvent(abs(dp)>dp_turbulent)
