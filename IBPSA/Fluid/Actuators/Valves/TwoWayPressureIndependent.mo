@@ -70,7 +70,7 @@ equation
   end if;
 
   // smooth transition between y1 and y2
-  yi = noEvent(if x > x1 and x < x2 then
+  yi = noEvent(smooth(1,if x > x1 and x < x2 then
                Modelica.Fluid.Utilities.cubicHermite(
                  x=x,
                  x1=x1,
@@ -80,7 +80,7 @@ equation
                  y1d=dy1,
                  y2d=dy2)
                elseif x <= x1 then y1
-               else y2);
+               else y2));
 
   if homotopyInitialization then
     if from_dp then
