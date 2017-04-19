@@ -13,3 +13,4 @@ SmoothExponentialDerivativeCheck
 SpliceFunction
 SpliceFunctionDerivativeCheck
 TrapezoidalIntegration
+QuinticHermite
