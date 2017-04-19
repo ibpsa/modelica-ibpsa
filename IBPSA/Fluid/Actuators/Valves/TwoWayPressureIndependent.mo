@@ -14,12 +14,13 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
 protected
   parameter Real coeff1 = l2/dp_nominal*m_flow_nominal "Parameter for avoiding unnecessary computations";
   parameter Real coeff2 = 1/coeff1 "Parameter for avoiding unnecessary computations";
-  parameter Real dy2 = if from_dp then coeff1 else coeff2 "Derivative at second support point";
+  parameter Real y2d = if from_dp then coeff1 else coeff2 "Second derivative at second support point";
+  parameter Real y2dd = 0 "Derivative at second support point";
   Modelica.SIunits.MassFlowRate m_flow_set "Requested mass flow rate";
   Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
     "Minimum pressure difference required for delivering requested mass flow rate";
 
-  Real x, x1, x2, y2, y1, dy1 "Support points";
+  Real x, x1, x2, y2, y1, y1d, y1dd "Support points";
   Real yi  "Result";
 
 equation
@@ -46,11 +47,17 @@ equation
                                   m_flow_turbulent=m_flow_turbulent);
     // max function ensures that y2 does not decrease further for x < x2
     y2 = m_flow_set + coeff1*max(dp-dp_min,x2);
-    dy1 = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+    y1d = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
                                      dp=dp_min + x1,
                                      k=k,
                                      m_flow_turbulent=m_flow_turbulent,
                                      dp_der=1);
+    y1dd = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
+                                     dp=dp_min + x1,
+                                     k=k,
+                                     m_flow_turbulent=m_flow_turbulent,
+                                     dp_der=1,
+                                     dp_der2=0);
   else
     x = m_flow-m_flow_set;
     x1 = -deltax*m_flow_set;
@@ -62,23 +69,31 @@ equation
                                      m_flow_turbulent=m_flow_turbulent);
     // max function ensures that y2 does not decrease further for x < x2
     y2 = dp_min + coeff2*max(x, x2);
-    dy1 = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der(
+    y1d = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der(
                                      m_flow=m_flow_set + x1,
                                      k=k,
                                      m_flow_turbulent=m_flow_turbulent,
                                      m_flow_der=1);
+    y1dd = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2(
+                                     m_flow=m_flow_set + x1,
+                                     k=k,
+                                     m_flow_turbulent=m_flow_turbulent,
+                                     m_flow_der=1,
+                                     m_flow_der2=0);
   end if;
 
-  // smooth transition between y1 and y2
-  yi = noEvent(smooth(1,if x > x1 and x < x2 then
-               Modelica.Fluid.Utilities.cubicHermite(
+  // C2 smooth transition between y1 and y2
+  yi = noEvent(smooth(2,if x > x1 and x < x2 then
+               IBPSA.Utilities.Math.Functions.quinticHermite(
                  x=x,
                  x1=x1,
                  x2=x2,
                  y1=y1,
                  y2=y2,
-                 y1d=dy1,
-                 y2d=dy2)
+                 y1d=y1d,
+                 y2d=y2d,
+                 y1dd=y1dd,
+                 y2dd=y2dd)
                elseif x <= x1 then y1
                else y2));
 
