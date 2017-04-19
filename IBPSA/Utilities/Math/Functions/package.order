@@ -21,3 +21,4 @@ splineDerivatives
 trapezoidalIntegration
 Examples
 BaseClasses
+quinticHermite
