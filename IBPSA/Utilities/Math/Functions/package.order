@@ -19,6 +19,6 @@ smoothMin
 spliceFunction
 splineDerivatives
 trapezoidalIntegration
+quinticHermite
 Examples
 BaseClasses
-quinticHermite
