@@ -20,13 +20,10 @@ protected
   Modelica.SIunits.PressureDifference dp_turbulent = (m_k)^2
     "Pressure where flow changes to turbulent";
 algorithm
- dp_der2 :=if (m_flow>m_flow_turbulent) then
-             2/k^2 * (m_flow_der^2 + m_flow * m_flow_der2)
-            elseif (m_flow<-m_flow_turbulent) then
-             -2/k^2 * (m_flow_der^2 + m_flow * m_flow_der2)
-            else
-            0.5/k^2 * ((m_flow_turbulent+3*m_flow^2/m_flow_turbulent) * m_flow_der2
-                       + 6*m_flow/m_flow_turbulent * m_flow_der^2);
+ dp_der2 :=if (abs(m_flow)>m_flow_turbulent)
+           then sign(m_flow)*2/k^2 * (m_flow_der^2 + m_flow * m_flow_der2)
+           else 0.5/k^2/m_flow_turbulent * ((m_flow_turbulent^2+3*m_flow^2) * m_flow_der2
+                       + 6*m_flow * m_flow_der^2);
 
  annotation (LateInline=true,
 Documentation(info="<html>
