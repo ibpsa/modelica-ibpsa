@@ -9,6 +9,7 @@ isMonotonic
 polynomial
 powerLinearized
 quadraticLinear
+quinticHermite
 regNonZeroPower
 regStep
 smoothExponential
@@ -19,6 +20,5 @@ smoothMin
 spliceFunction
 splineDerivatives
 trapezoidalIntegration
-quinticHermite
 Examples
 BaseClasses
