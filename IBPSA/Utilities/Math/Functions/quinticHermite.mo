@@ -28,7 +28,8 @@ protected
 algorithm
   y :=H0*y1 + H1*y1d*h  + H2*y1dd*hpow2 + H3*y2dd*hpow2 + H4*y2d*h + H5*y2;
 
-  annotation (smoothOrder=99, Documentation(revisions="<html>
+annotation (smoothOrder=99,
+Documentation(revisions="<html>
 <ul>
 <li>
 April 19, 2017, by Filip Jorissen:<br/>
@@ -38,12 +39,12 @@ First implementation.
 </html>", info="<html>
 <p>
 Returns the result y of a quintic Hermite spline, 
-which is a C2 continuous interpolation between two functions. 
-The abscissa value x has to be between x1 and x2. 
-Variables y1, y1d, y1dd are respectively the ordinate, 
-ordinate derivative and ordinate second derivative of the first function at x1. 
-Variables y2, y2d, y2dd are respectively the ordinate, 
-ordinate derivative and ordinate second derivative of the second function at x2.
+which is a C<sup>2</sup> continuous interpolation between two functions. 
+The abscissa value <code>x</code> has to be between <code>x1</code> and <code>x2</code>. 
+Variables <code>y1</code>, <code>y1d</code>, <code>y1dd</code> are the ordinate, 
+ordinate derivative and ordinate second derivative of the function at <code>x1</code>. 
+Variables <code>y2</code>, <code>y2d</code>, <code>y2dd</code> are respectively the ordinate, 
+ordinate derivative and ordinate second derivative of the function at <code>x2</code>.
 </p>
 </html>"));
 end quinticHermite;
