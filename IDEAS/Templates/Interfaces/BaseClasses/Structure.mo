@@ -31,6 +31,8 @@ partial model Structure "Partial model for building structure models"
   parameter Modelica.SIunits.Power[ nZones] Q_design=zeros(nZones)
     "Design heat loss of zones";//must be filled in in the Building interface, e.g.: QDesign={building.zone1.Q_design,building.zone2.Q_design}
 
+  parameter Boolean useFluPor = true "Set to false to remove fluid ports";
+
   // Interfaces  ///////////////////////////////////////////////////////////////////////////////////////
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
@@ -49,8 +51,10 @@ partial model Structure "Partial model for building structure models"
     "Sensor temperature of the zones"
     annotation (Placement(transformation(extent={{146,-70},{166,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b[nZones] port_b(redeclare package Medium = Medium)
+    if                                                                                       useFluPor
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_a[nZones] port_a(redeclare package Medium = Medium)
+    if                                                                                       useFluPor
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-150,-100},
@@ -71,6 +75,14 @@ partial model Structure "Partial model for building structure models"
           smooth=Smooth.None,
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-150,-100},{150,100}}), graphics));
+          preserveAspectRatio=false, extent={{-150,-100},{150,100}}), graphics),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 8, 2017, by Filip Jorissen:<br/>
+Added option for removing fluid ports.
+</li>
+</ul>
+</html>"));
 
 end Structure;
