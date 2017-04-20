@@ -419,7 +419,7 @@ IBPSA.Fluid.MixingVolumes.MixingVolume</a>.
 <li>
 January 27, 2017, by Michael Wetter:<br/>
 Added <code>stateSelect</code> for mass <code>m</code>.<br/>
-This is or <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/642\">
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/642\">
 Buildings, #642</a>.
 </li>
 <li>
