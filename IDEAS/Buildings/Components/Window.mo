@@ -7,7 +7,6 @@ model Window "Multipane window"
 
   extends IDEAS.Buildings.Components.Interfaces.PartialSurface(
     dT_nominal_a=-3,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     intCon_a(final A=
            A*(1 - frac),
            linearise=linIntCon_a or sim.linearise,
@@ -20,7 +19,7 @@ model Window "Multipane window"
       A=A*(1 - frac),
       nLay=glazing.nLay,
       mats=glazing.mats,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      energyDynamics=if windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Normal then energyDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
       dT_nom_air=5,
       linIntCon=true));
   parameter Boolean linExtCon=sim.linExtCon
@@ -29,16 +28,18 @@ model Window "Multipane window"
   parameter Boolean linExtRad=sim.linExtRadWin
     "= true, if exterior radiative heat transfer should be linearised"
     annotation(Dialog(tab="Radiation"));
+
+
   parameter Real frac(
     min=0,
     max=1) = 0.15 "Area fraction of the window frame";
   parameter IDEAS.Buildings.Components.Interfaces.WindowDynamicsType
     windowDynamicsType=IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two
     "Type of dynamics for glazing and frame: using zero, one combined or two states"
-    annotation (Dialog(tab="Dynamics"));
-  parameter Real fraC = if windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two and fraType.present then frac else 0
-    "Fraction of thermal mass C that is attributed to frame"
-    annotation(Dialog(tab="Dynamics", enable=windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two));
+    annotation (Dialog(tab="Dynamics", group="Equations", enable = not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Real fraC = frac
+    "Ratio of frame and glazing thermal masses"
+    annotation(Dialog(tab="Dynamics", group="Equations", enable= not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState and windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two));
 
   replaceable parameter IDEAS.Buildings.Data.Frames.None fraType
     constrainedby IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
@@ -63,7 +64,15 @@ model Window "Multipane window"
 
 protected
   final parameter Real U_value=glazing.U_value*(1-frac)+fraType.U_value*frac
-    "Window U-value";
+    "Average window U-value";
+  final parameter Boolean addCapGla =  windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
+    "Add lumped thermal capacitor for window glazing";
+  final parameter Boolean addCapFra =  fraType.present and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
+    "Added lumped thermal capacitor for window frame";
+  final parameter Modelica.SIunits.HeatCapacity Cgla = layMul.C
+    "Heat capacity of glazing state";
+  final parameter Modelica.SIunits.HeatCapacity Cfra = layMul.C*fraC
+    "Heat capacity of frame state";
 
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.ExteriorConvection
     eCon(final A=A*(1 - frac), linearise=linExtCon or sim.linearise)
@@ -124,23 +133,13 @@ protected
   Modelica.Blocks.Routing.RealPassThrough Tdes
     "Design temperature passthrough since propsBus variables cannot be addressed directly";
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapGla(
-     C=Cgla, T(fixed=true, start=T_start)) if addCapGla
+     C=Cgla, T(fixed= energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial, start=T_start)) if addCapGla
     "Heat capacitor for glazing"
     annotation (Placement(transformation(extent={{6,-12},{26,-32}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapFra(
-     C=Cfra, T(fixed=true, start=T_start)) if addCapFra
+     C=Cfra, T(fixed= energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial, start=T_start)) if addCapFra
     "Heat capacitor for frame"
     annotation (Placement(transformation(extent={{6,88},{26,108}})));
-
-protected
-  final parameter Boolean addCapGla =  not windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.None;
-  final parameter Boolean addCapFra =  fraType.present and windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two;
-
-  final parameter Modelica.SIunits.HeatCapacity Cgla = layMul.C*(1- fraC)
-    "Heat capacity of glazing state";
-  final parameter Modelica.SIunits.HeatCapacity Cfra = layMul.C*fraC
-    "Heat capacity of frame state";
-
   Modelica.Blocks.Sources.Constant constEpsSwFra(final k=fraType.mat.epsSw)
     "Shortwave emissivity of frame"
     annotation (Placement(transformation(extent={{4,46},{-6,56}})));
@@ -153,6 +152,10 @@ protected
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
 initial equation
   QTra_design = (U_value*A + (if fraType.briTyp.present then fraType.briTyp.G else 0)) *(273.15 + 21 - Tdes.y);
+
+
+
+
 
 
 equation
@@ -248,11 +251,6 @@ equation
     annotation (Line(points={{16,-12},{16,0},{10,0}},     color={191,0,0}));
   connect(heaCapFra.port, layFra.port_a)
     annotation (Line(points={{16,88},{16,70},{10,70}}, color={191,0,0}));
-  if windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Combined then
-    connect(heaCapGla.port, layFra.port_a) annotation (Line(points={{16,-12},{
-            16,-12},{16,70},{10,70}},
-                                    color={191,0,0}));
-  end if;
   connect(skyRadFra.epsLw, constEpsLwFra.y) annotation (Line(points={{-20,93.4},
           {-14,93.4},{-14,91},{-6.5,91}}, color={0,0,127}));
   connect(solAbs.port_a, layFra.port_b) annotation (Line(points={{-20,50},{-16,
@@ -345,6 +343,14 @@ Optional parameter <code>shaType</code> may be used to define the window shading
 </html>", revisions="<html>
 <ul>
 <li>
+March 6, 2017, by Filip Jorissen:<br/>
+Added option for using 'normal' dynamics for the window glazing.
+Removed the option for having a combined state for 
+window and frame this this is non-physical.
+This is for 
+<a href=https://github.com/open-ideas/IDEAS/issues/678>#678</a>.
+</li>
+<li>
 January 10, 2017, by Filip Jorissen:<br/>
 Removed declaration of 
 <code>A</code> since this is now declared in 
@@ -367,7 +373,6 @@ December 19, 2016, by Filip Jorissen:<br/>
 Removed briType, which had default value LineLoss.
 briType is now part of the Frame model and has default
 value None.
->>>>>>> develop
 </li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
