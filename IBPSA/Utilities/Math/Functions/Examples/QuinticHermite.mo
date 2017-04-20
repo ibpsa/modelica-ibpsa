@@ -25,7 +25,7 @@ equation
      else IBPSA.Utilities.Math.Functions.quinticHermite(x=x,x1=x1,x2=x2,y1=y1,y2=y2,y1d=y1d,y2d=y2d,y1dd=y1dd,y2dd=y2dd)));
   dy=der(y);
   ddy=der(dy);
-  annotation (experiment(StopTime=3),
+  annotation (experiment(Tolerance=1E-6, StopTime=3),
     Documentation(info="<html>
 <p>
 Demonstration of the use of a quintic Hermite spline interpolation function.
