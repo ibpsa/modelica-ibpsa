@@ -83,7 +83,7 @@ equation
            fra_a2 * Medium2.specificHeatCapacityCp(state_a2_inflow) +
            fra_b2 * Medium2.specificHeatCapacityCp(state_b2_inflow) else
         Medium2.specificHeatCapacityCp(state_a2_inflow));
-  CMin_flow = min(C1_flow, C2_flow);
+  CMin_flow = IBPSA.Utilities.Math.Functions.smoothMin(x1=C1_flow, x2=C2_flow, deltaX=CMin_flow_small);
 
   // QMax_flow is maximum heat transfer into medium 1
   QMax_flow = CMin_flow*(T_in2 - T_in1);
@@ -119,6 +119,11 @@ and <code>QMax_flow &gt; 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 20, 2017, by Filip Jorissen:<br/>
+Using <code>smoothMin</code> for computation of <code>CMin_flow</code>.
+See <a href=https://github.com/ibpsa/modelica/issues/737>#737</a>.
+</li>
 <li>
 June 9, 2015 by Michael Wetter:<br/>
 Changed type of <code>T_in1</code> and <code>T_in2</code>
