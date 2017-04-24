@@ -144,7 +144,7 @@ equation
   end if;
 
   if prescribedHeatFlowRate then
-    assert(noEvent(if abs(m_flow) < 1E-10
+    assert(noEvent(if abs(m_flow) < Modelica.Constants.small
       then
         abs(Q_flow) < 1E-10
       else
@@ -335,6 +335,11 @@ IBPSA.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 24, 2017, by Michael Wetter:<br/>
+Reverted change from April 21, 2017.<br/>
+See <a href=https://github.com/ibpsa/modelica-ibpsa/issues/741>#741</a>.
+</li>
 <li>
 April 21, 2017, by Filip Jorissen:<br/>
 Revised test for energy conservation at small mass flow rates.
