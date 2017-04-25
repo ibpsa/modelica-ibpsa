@@ -288,8 +288,7 @@ model RectangularZoneTemplate
                 Dialog(tab="Ceiling", group="Window details", enable=hasWinCei));
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurfExt] proBusExt(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
-    each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
-    each weaBus(final outputAngles=sim.outputAngles)) if nSurfExt>0
+    each final outputAngles=sim.outputAngles) if nSurfExt>0
     "Propsbus for connecting additional external surfaces" annotation (
       Placement(transformation(
         extent={{-20,20},{20,-20}},
@@ -750,9 +749,8 @@ protected
     annotation (Placement(transformation(extent={{-176,-80},{-164,-60}})));
 public
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusA(
-    each final numIncAndAziInBus=sim.numIncAndAziInBus,
-    each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
-    each weaBus(final outputAngles=sim.outputAngles)) if
+    final numIncAndAziInBus=sim.numIncAndAziInBus,
+    final outputAngles=sim.outputAngles) if
     bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of face A"
@@ -764,9 +762,8 @@ public
         rotation=180,
         origin={-60,90})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusB(
-    each final numIncAndAziInBus=sim.numIncAndAziInBus,
-    each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
-    each weaBus(final outputAngles=sim.outputAngles)) if
+    final numIncAndAziInBus=sim.numIncAndAziInBus,
+    final outputAngles=sim.outputAngles) if
     bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of face B"
@@ -778,9 +775,8 @@ public
         rotation=90,
         origin={90,60})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusC(
-    each final numIncAndAziInBus=sim.numIncAndAziInBus,
-    each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
-    each weaBus(final outputAngles=sim.outputAngles)) if
+    final numIncAndAziInBus=sim.numIncAndAziInBus,
+    final outputAngles=sim.outputAngles) if
     bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of face C"
@@ -792,9 +788,8 @@ public
         rotation=0,
         origin={0,-90})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusD(
-    each final numIncAndAziInBus=sim.numIncAndAziInBus,
-    each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
-    each weaBus(final outputAngles=sim.outputAngles)) if
+    final numIncAndAziInBus=sim.numIncAndAziInBus,
+    final outputAngles=sim.outputAngles) if
     bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of face D"
@@ -806,9 +801,8 @@ public
         rotation=-90,
         origin={-90,0})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusFlo(
-    each final numIncAndAziInBus=sim.numIncAndAziInBus,
-    each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
-    each weaBus(final outputAngles=sim.outputAngles)) if
+    final numIncAndAziInBus=sim.numIncAndAziInBus,
+    final outputAngles=sim.outputAngles) if
     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of floor"
@@ -820,9 +814,8 @@ public
         rotation=180,
         origin={0,-60})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusCei(
-    each final numIncAndAziInBus=sim.numIncAndAziInBus,
-    each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
-    each weaBus(final outputAngles=sim.outputAngles)) if
+    final numIncAndAziInBus=sim.numIncAndAziInBus,
+    final outputAngles=sim.outputAngles) if
     bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface of ceiling: internal walls should be modelled as the floor of the zone above"
@@ -895,6 +888,7 @@ initial equation
               "Using internal walls for the ceiling is not allowed because it is considered bad practice. 
               Use instead the 'External'  connection to connect the the floor of the surface above, 
               or use this option to connect and internal wall externally.");
+
 
 
 
@@ -1196,6 +1190,12 @@ components cannot be propagated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2017, by Filip Jorissen:<br/>
+Changed bus parameters for JModelica compatibility.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/559>#559</a>.
+Also removed obsolete each.
+</li>
 <li>
 January 20, 2017 by Filip Jorissen:<br/>
 Removed propagation of <code>nLay</code> and <code>nGain</code>

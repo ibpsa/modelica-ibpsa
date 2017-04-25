@@ -1,10 +1,10 @@
 within IDEAS.Buildings.Components.Interfaces;
 model PartialZone "Building zone model"
   extends IDEAS.Buildings.Components.Interfaces.ZoneInterface(
-    Qgai(y=(if sim.openSystemConservationOfEnergy
+    Qgai(y=(if not sim.computeConservationOfEnergy then 0 elseif sim.openSystemConservationOfEnergy
             then airModel.QGai
             else gainCon.Q_flow + gainRad.Q_flow + airModel.QGai)),
-    Eexpr(y=E),
+    Eexpr(y=if sim.computeConservationOfEnergy then E else 0),
     useFluPor = airModel.useFluPor);
     replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
@@ -60,8 +60,7 @@ model PartialZone "Building zone model"
 protected
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurf] propsBusInt(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
-    each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
-    each weaBus(final outputAngles=sim.outputAngles))
+    each final outputAngles=sim.outputAngles)
     "Dummy propsbus for partial" annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=-90,
@@ -167,7 +166,6 @@ equation
         color={255,204,51},
         thickness=0.5,
         smooth=Smooth.None));
-
     connect(dummy1, propsBusInt[i].Qgai);
     connect(dummy2, propsBusInt[i].E);
 end for;
@@ -322,6 +320,11 @@ end for;
 <p>See extending models.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2017, by Filip Jorissen:<br/>
+Changed linearisation and conservation of energy implementations for JModelica compatibility.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/559>#559</a>.
+</li>
 <li>
 February 1, 2017 by Filip Jorissen:<br/>
 Added option for disabling new view factor computation.

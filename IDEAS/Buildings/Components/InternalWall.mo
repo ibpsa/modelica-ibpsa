@@ -2,8 +2,8 @@ within IDEAS.Buildings.Components;
 model InternalWall "interior opaque wall between two zones"
   extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
   dT_nominal_a=1,
-  E(y=layMul.E),
-  Qgai(y=(if sim.openSystemConservationOfEnergy
+  E(y= if sim.computeConservationOfEnergy then layMul.E else 0),
+  Qgai(y=(if sim.openSystemConservationOfEnergy or not sim.computeConservationOfEnergy
          then 0 else sum(port_emb.Q_flow))),
   final QTra_design=U_value*A    *(TRef_a - TRef_b),
     intCon_a);
@@ -22,8 +22,7 @@ model InternalWall "interior opaque wall between two zones"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus propsBus_b(
     numIncAndAziInBus=sim.numIncAndAziInBus,
-    computeConservationOfEnergy=sim.computeConservationOfEnergy,
-    each final weaBus(outputAngles=sim.outputAngles)) "If inc = Floor, then propsbus_b should be connected to the zone below this floor.
+    outputAngles=sim.outputAngles) "If inc = Floor, then propsbus_b should be connected to the zone below this floor.
     If inc = Ceiling, then propsbus_b should be connected to the zone above this ceiling."
         annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
@@ -51,12 +50,11 @@ protected
     "Inclination angle";
   Modelica.Blocks.Sources.RealExpression aziExp1(y=azi + Modelica.Constants.pi)
     "Azimuth angle expression";
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif1(Q_flow=0);
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDir1(Q_flow=0);
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow Qgai_b(final Q_flow=0) if
-       sim.computeConservationOfEnergy;
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif1(final Q_flow=0);
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDir1(final Q_flow=0);
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow Qgai_b(final Q_flow=0);
   IDEAS.Buildings.Components.BaseClasses.ConservationOfEnergy.PrescribedEnergy
-    E_b if sim.computeConservationOfEnergy;
+    E_b;
   Modelica.Blocks.Sources.Constant E0(final k=0)
     "All internal energy is assigned to right side";
 
