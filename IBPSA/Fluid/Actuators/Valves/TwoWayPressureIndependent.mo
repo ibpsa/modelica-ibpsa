@@ -19,9 +19,8 @@ protected
   Modelica.SIunits.MassFlowRate m_flow_set "Requested mass flow rate";
   Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
     "Minimum pressure difference required for delivering requested mass flow rate";
-
-  Real x, x1, x2, y2, y1, y1d, y1dd "Support points";
-  Real yi  "Result";
+  Real x, x1, x2, y2, y1 "Support points for interpolation flow functions";
+  Real y_smooth  "Smooth interpolation result between two flow regimes";
 
 equation
   m_flow_set = m_flow_nominal*phi;
@@ -38,7 +37,7 @@ equation
 
   if from_dp then
     x = dp-dp_min;
-    x1 = -deltax*dp_min;
+    x1 = -x2;
     x2 = deltax*dp_min;
     // min function ensures that y1 does not increase further for x > x1
     y1 = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
@@ -47,20 +46,9 @@ equation
                                   m_flow_turbulent=m_flow_turbulent);
     // max function ensures that y2 does not decrease further for x < x2
     y2 = m_flow_set + coeff1*max(dp-dp_min,x2);
-    y1d = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
-                                     dp=dp_min + x1,
-                                     k=k,
-                                     m_flow_turbulent=m_flow_turbulent,
-                                     dp_der=1);
-    y1dd = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
-                                     dp=dp_min + x1,
-                                     k=k,
-                                     m_flow_turbulent=m_flow_turbulent,
-                                     dp_der=1,
-                                     dp_der2=0);
   else
     x = m_flow-m_flow_set;
-    x1 = -deltax*m_flow_set;
+    x1 = -x2;
     x2 = deltax*m_flow_set;
     // min function ensures that y1 does not increase further for x > x1
     y1 = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
@@ -69,48 +57,61 @@ equation
                                      m_flow_turbulent=m_flow_turbulent);
     // max function ensures that y2 does not decrease further for x < x2
     y2 = dp_min + coeff2*max(x, x2);
-    y1d = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der(
-                                     m_flow=m_flow_set + x1,
-                                     k=k,
-                                     m_flow_turbulent=m_flow_turbulent,
-                                     m_flow_der=1);
-    y1dd = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2(
-                                     m_flow=m_flow_set + x1,
-                                     k=k,
-                                     m_flow_turbulent=m_flow_turbulent,
-                                     m_flow_der=1,
-                                     m_flow_der2=0);
   end if;
 
   // C2 smooth transition between y1 and y2
-  yi = noEvent(smooth(2,if x > x1 and x < x2 then
-               IBPSA.Utilities.Math.Functions.quinticHermite(
+  y_smooth = noEvent(smooth(2,
+        if x <= x1
+        then y1
+        elseif x >=x2
+        then y2
+        else IBPSA.Utilities.Math.Functions.quinticHermite(
                  x=x,
                  x1=x1,
                  x2=x2,
                  y1=y1,
                  y2=y2,
-                 y1d=y1d,
+                 y1d= if from_dp
+                      then IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+                                     dp=dp_min + x1,
+                                     k=k,
+                                     m_flow_turbulent=m_flow_turbulent,
+                                     dp_der=1)
+                      else IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der(
+                                     m_flow=m_flow_set + x1,
+                                     k=k,
+                                     m_flow_turbulent=m_flow_turbulent,
+                                     m_flow_der=1),
                  y2d=y2d,
-                 y1dd=y1dd,
-                 y2dd=y2dd)
-               elseif x <= x1 then y1
-               else y2));
+                 y1dd=if from_dp
+                      then IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
+                                     dp=dp_min + x1,
+                                     k=k,
+                                     m_flow_turbulent=m_flow_turbulent,
+                                     dp_der=1,
+                                     dp_der2=0)
+                      else IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2(
+                                     m_flow=m_flow_set + x1,
+                                     k=k,
+                                     m_flow_turbulent=m_flow_turbulent,
+                                     m_flow_der=1,
+                                     m_flow_der2=0),
+                 y2dd=y2dd)));
 
   if homotopyInitialization then
     if from_dp then
-      m_flow=homotopy(actual=yi,
+      m_flow=homotopy(actual=y_smooth,
                       simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
     else
         dp=homotopy(
-           actual=yi,
+           actual=y_smooth,
            simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
     end if;
   else
     if from_dp then
-      m_flow=yi;
+      m_flow=y_smooth;
     else
-      dp=yi;
+      dp=y_smooth;
     end if;
   end if;
   annotation (defaultComponentName="val",
@@ -214,8 +215,10 @@ revisions="<html>
 <ul>
 <li>
 April 14, 2017, by Filip Jorissen:<br/>
-Revised implementation that does not have a local maximum
-using <code>cubicHermite</code>.
+Revised implementation using <code>cubicHermite</code> 
+such that it does not have a local maximum
+and such that it is C2-continuous.
+See <a href=https://github.com/ibpsa/modelica-ibpsa/issues/156>#156</a>.
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
