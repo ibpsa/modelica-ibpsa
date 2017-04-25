@@ -75,7 +75,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
       if use_TWall then
-        connect(TWall, borHol[1].TWall)
+        connect(TWall, borHol[i].TWall)
         annotation (Line(points={{0,110},{0,17.6}},          color={0,0,127}));
       end if;
     end for;
