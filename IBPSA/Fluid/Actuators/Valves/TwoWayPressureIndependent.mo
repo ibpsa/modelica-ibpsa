@@ -12,15 +12,22 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
     annotation(Dialog(tab="Advanced"));
 
 protected
-  parameter Real coeff1 = l2/dp_nominal*m_flow_nominal "Parameter for avoiding unnecessary computations";
-  parameter Real coeff2 = 1/coeff1 "Parameter for avoiding unnecessary computations";
-  parameter Real y2d = if from_dp then coeff1 else coeff2 "Second derivative at second support point";
-  parameter Real y2dd = 0 "Derivative at second support point";
-  Modelica.SIunits.MassFlowRate m_flow_set "Requested mass flow rate";
+  parameter Real coeff1 = l2/dp_nominal*m_flow_nominal
+    "Parameter for avoiding unnecessary computations";
+  parameter Real coeff2 = 1/coeff1
+    "Parameter for avoiding unnecessary computations";
+  parameter Real y2d = if from_dp then coeff1 else coeff2
+    "Derivative at second support point";
+  constant Real y2dd = 0
+    "Second derivative at second support point";
+  Modelica.SIunits.MassFlowRate m_flow_set
+    "Requested mass flow rate";
   Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
     "Minimum pressure difference required for delivering requested mass flow rate";
-  Real x, x1, x2, y2, y1 "Support points for interpolation flow functions";
-  Real y_smooth  "Smooth interpolation result between two flow regimes";
+  Real x, x1, x2, y2, y1
+    "Support points for interpolation flow functions";
+  Real y_smooth
+    "Smooth interpolation result between two flow regimes";
 
 equation
   m_flow_set = m_flow_nominal*phi;
