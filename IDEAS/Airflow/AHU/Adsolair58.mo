@@ -92,8 +92,9 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     annotation (Placement(transformation(extent={{96,80},{116,100}})));
 
   //COMPONENTS
-  replaceable BaseClasses.AdsolairController adsCon(tau=tau) constrainedby
-    BaseClasses.AdsolairController "Adsolair controller model"
+  replaceable IDEAS.Airflow.AHU.BaseClasses.AdsolairController adsCon(tau=tau)
+    constrainedby IDEAS.Airflow.AHU.BaseClasses.AdsolairControllerInterface
+    "Adsolair controller model"
     annotation (Dialog(group="Advanced"),Placement(transformation(extent={{-44,56},{-24,76}})));
   replaceable IDEAS.Fluid.Interfaces.FourPortHeatMassExchanger hexSupOut(
     m1_flow_nominal=m2_flow_nominal,
@@ -556,26 +557,26 @@ equation
     annotation (Line(points={{22,42},{18,42},{18,-52}}, color={191,0,0}));
   connect(IEH.TOutBot, com.TinEva) annotation (Line(points={{66.16,-32.76},{34,-32.76},
           {34,50.8}}, color={0,0,127}));
-  connect(onExp.y, adsCon.on) annotation (Line(points={{-63,74},{-63,74},{-44.6,
-          74}}, color={255,0,255}));
+  connect(onExp.y, adsCon.on) annotation (Line(points={{-63,74},{-63,75},{-44.4,
+          75}}, color={255,0,255}));
   connect(Tset, adsCon.TSet) annotation (Line(
-      points={{8,-102},{-44.6,-102},{-44.6,68}},
+      points={{8,-102},{-44.4,-102},{-44.4,69}},
       color={0,0,127},
       visible=false));
   connect(IEH.TOutBot, adsCon.TIehOutSup) annotation (Line(
-      points={{66.16,-32.76},{-19.76,-32.76},{-19.76,62},{-44.6,62}},
+      points={{66.16,-32.76},{-19.76,-32.76},{-19.76,63},{-44.4,63}},
       color={0,0,127},
       visible=false));
   connect(adsCon.TFanOutSup, senTemFanSupOut.T) annotation (Line(
-      points={{-44.6,65},{-60,65},{-60,-13.4}},
+      points={{-44.4,66},{-60,66},{-60,-13.4}},
       color={0,0,127},
       visible=false));
   connect(adsCon.TIehInSup, TSupIn.T) annotation (Line(
-      points={{-44.6,59},{-110,59},{-110,-61.4},{28,-61.4}},
+      points={{-44.4,60},{-110,60},{-110,-61.4},{28,-61.4}},
       color={0,0,127},
       visible=false));
   connect(adsCon.TEvaOut, TEvaExp.y)
-    annotation (Line(points={{-44.6,56},{-56,56},{-58,56},{-58.7,56}},
+    annotation (Line(points={{-44.4,57},{-56,57},{-58.7,57},{-58.7,56}},
                                                        color={0,0,127}));
   connect(adsCon.onChi, com.on) annotation (Line(
       points={{-22,59},{-24,59},{-24,51},{28.8,51}},
@@ -625,8 +626,7 @@ equation
     annotation (Line(points={{94,66},{100,66},{100,60}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
-        ={
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-102,65},{99,55}},
           lineColor={0,0,255},

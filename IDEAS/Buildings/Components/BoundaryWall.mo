@@ -3,8 +3,8 @@ model BoundaryWall "Opaque wall with optional prescribed heat flow rate or tempe
   extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
      QTra_design=U_value*A    *(273.15 + 21 - TRef_a),
      dT_nominal_a=-1,
-     layMul(monLay(energyDynamics=cat(1, {(if not sim.linearise and use_T_in and energyDynamics ==  Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics)}, fill(energyDynamics, layMul.nLay-1)),
-          monLayDyn(each addRes_b=(sim.linearise and use_T_in)))));
+     layMul(monLay(energyDynamics=cat(1, {(if not sim.lineariseDymola and use_T_in and energyDynamics ==  Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics)}, fill(energyDynamics, layMul.nLay-1)),
+          monLayDyn(each addRes_b=(sim.lineariseDymola and use_T_in)))));
 
   parameter Boolean use_T_in = false
     "Get the boundary temperature from the input connector"
@@ -132,6 +132,10 @@ If both are disabled then an adiabatic boundary (<code>Q_flow=0</code>) is assum
 </html>", revisions="<html>
 <ul>
 <li>
+March 22, 2017, by Filip Jorissen:<br/>
+Changes for JModelica compatibility.
+</li>
+<li>
 January 2, 2017, by Filip Jorissen:<br/>
 Updated icon layer.
 </li>
@@ -141,7 +145,7 @@ Revised documentation for IDEAS 1.0.
 </li>
 <li>
 December 7, 2016, by Damien Picard:<br/>
-Set placeCapacityAtSurf_b to false for last layer of layMul when T_in is used and the sim.linearise is true.
+Set placeCapacityAtSurf_b to false for last layer of layMul when T_in is used and the sim.lineariseDymola is true.
 Having a capacity connected directly to the prescribed temperature would require to have the derivative of T_in
 when linearized.
 The dynamics of the last layer is further set to dynamicFreeInitial when T_in is used to avoid an initialization problem.
