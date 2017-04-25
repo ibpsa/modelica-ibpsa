@@ -5,6 +5,7 @@ InverseXRegularized
 IsMonotonic
 Polynomial
 PowerLinearized
+QuinticHermite
 RegNonZeroPower
 RegNonZeroPowerDerivativeCheck
 RegNonZeroPowerDerivative_2_Check
@@ -13,4 +14,3 @@ SmoothExponentialDerivativeCheck
 SpliceFunction
 SpliceFunctionDerivativeCheck
 TrapezoidalIntegration
-QuinticHermite
