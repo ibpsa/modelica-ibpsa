@@ -1,8 +1,7 @@
 within IDEAS.Buildings.Components.Interfaces;
 type WindowDynamicsType = enumeration(
-    None "No dynamics: window glazing and frame are steady state",
-    Combined "One state connected to glazing AND frame: non-physical!",
-    Two) "Type of dynamics that are used for window models" annotation (
+    Two "One state for the glazing and one for the frame",
+    Normal "States in each glass sheet and one state for the frame") "Type of dynamics that are used for window models" annotation (
     Documentation(revisions="<html>
 <ul>
 <li>
