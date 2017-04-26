@@ -11,5 +11,10 @@ model TrtValidationMultipleBorehole2UTube
       dp_nominal=10000),
     realExpression(y=3.307*log(time + 1) - 6.2715 + 273.15));
   annotation (experiment(StopTime=309000), __Dymola_experimentSetupOutput(
-        events=false));
+        events=false),
+    Documentation(info="<html>
+<p>
+Validation based on TRT measurement.
+</p>
+</html>"));
 end TrtValidationMultipleBorehole2UTube;
