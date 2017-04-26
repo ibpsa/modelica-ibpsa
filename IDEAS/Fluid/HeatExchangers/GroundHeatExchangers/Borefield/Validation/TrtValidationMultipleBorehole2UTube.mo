@@ -16,5 +16,8 @@ model TrtValidationMultipleBorehole2UTube
 <p>
 Validation based on TRT measurement.
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Validation/TrtValidationMultipleBorehole2UTube.mos"
+        "Simulate and plot"));
 end TrtValidationMultipleBorehole2UTube;
