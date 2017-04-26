@@ -15,7 +15,7 @@ extends Records.General(
     rTub=0.025,
     kTub=0.38,
     eTub=0.0023,
-    xC=rBor/3.7,
+    xC=0.03,
     T_start=273.15+11.28,
     tStep=600,
     nVer=10);

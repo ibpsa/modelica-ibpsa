@@ -9,7 +9,7 @@ record c1x1_h110_b5_d3600_T283
     singleUTube = true,
     m_flow_nominal_bh=0.3,
     T_start=283.15,
-    rBor=0.055,
+    rBor=0.15/2,
     hBor=110,
     nbBh=1,
     cooBh={{0,0}},
