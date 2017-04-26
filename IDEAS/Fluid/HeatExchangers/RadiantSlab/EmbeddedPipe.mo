@@ -67,9 +67,6 @@ annotation(Dialog(tab="Flow resistance"));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-  parameter Boolean useSimplifiedRt = m_flowMin/A_floor > 5/3600
-    "Use a simplified calculation for Rt? default: if specific mass flow rate is higher than 5 kg/hm2 (see Koschenz p.25)"
-    annotation(Evaluate=true, Dialog(tab="Assumptions"));
   parameter Modelica.SIunits.ThermalInsulance R_c = 1/(RadSlaCha.lambda_b/RadSlaCha.S_1 + RadSlaCha.lambda_b/RadSlaCha.S_2)
     "Specific thermal resistivity of (parallel) slabs connected to top and bottom of tabs"
     annotation(Dialog(group="Thermal"));
@@ -189,14 +186,8 @@ initial equation
   end if;
 
 equation
-  // simplify expression for sufficiently large mass flow rates
-  if useSimplifiedRt then
-    // Koschenz eq 4-60
-    R_t = (IDEAS.Utilities.Math.Functions.inverseXRegularized(2*m_flowSpLimit*cp_default*nDiscr, deltaXR) + R_w_val + R_r_val + R_x_val);
-  else
-    // Koschenz eq 4-59
-    R_t = (IDEAS.Utilities.Math.Functions.inverseXRegularized(m_flowSpLimit*cp_default*nDiscr*(1-exp(-1/((R_w_val+R_r_val+R_x_val+R_c)*m_flowSpLimit*cp_default*nDiscr))), deltaXR)-R_c);
-  end if;
+  // Koschenz eq 4-59
+  R_t = (IDEAS.Utilities.Math.Functions.inverseXRegularized(m_flowSpLimit*cp_default*nDiscr*(1-exp(-1/((R_w_val+R_r_val+R_x_val+R_c)*m_flowSpLimit*cp_default*nDiscr))), deltaXR)-R_c);
   // no smoothmin since this undershoots for near-zero values
   Q = (Tin - heatPortEmb.T)*min(1/R_t*A_floor/nDiscr, abs(m_flow)*cp_default);
 
@@ -343,6 +334,13 @@ A limited verification has been performed in IDEAS.Fluid.HeatExchangers.RadiantS
 <p>[TRNSYS, 2007] - Multizone Building modeling with Type 56 and TRNBuild.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>
+April 26, 2017 by Filip Jorissen:<br/>
+Removed <code>useSimplifiedRt</code> parameter
+since this leads to a violation of the second 
+law for small flow rates.
+See <a href=https://github.com/open-ideas/IDEAS/issues/717>#717</a>.
+</li>
 <li>2015 November, Filip Jorissen: Revised implementation for small flow rates: v3: replaced SmoothMin by min function</li>
 <li>2015 November, Filip Jorissen: Revised implementation for small flow rates: v2</li>
 <li>2015 November, Filip Jorissen: Revised implementation for small flow rates</li>
