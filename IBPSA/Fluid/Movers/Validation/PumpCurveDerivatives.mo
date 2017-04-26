@@ -176,14 +176,14 @@ revisions="<html>
 <ul>
 <li>
 April 6, 2017, by Thierry S. Nouidui:<br/>
-Added <code>experiment</code> annotation 
+Added <code>experiment</code> annotation
 for JModelica verification.
 </li>
 <li>
 June 6, 2015, by Michael Wetter:<br/>
 Removed duplicate <code>experiment</code> annotation.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">#266</a>.
 </li>
 <li>
 November 26, 2014, by Filip Jorissen:<br/>
