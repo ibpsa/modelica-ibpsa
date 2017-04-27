@@ -15,7 +15,7 @@ extends
     rTub=0.025,
     kTub=0.38,
     eTub=0.0023,
-    xC=rBor/3,
+    xC=0.03,
     T_start=273.15+12);  // data sheet
                  // building plans
                                //building plans                                                                                                    //undeep boreholes
