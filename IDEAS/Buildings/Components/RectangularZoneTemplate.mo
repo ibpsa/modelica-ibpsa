@@ -879,15 +879,30 @@ protected
   final parameter Integer indWinCei = indWinD + (if hasWinCei then 1 else 0);
 
 initial equation
-  assert(not bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround, "The value for bouTypA is not supported");
-  assert(not bouTypB==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround, "The value for bouTypB is not supported");
-  assert(not bouTypC==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround, "The value for bouTypC is not supported");
-  assert(not bouTypD==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround, "The value for bouTypD is not supported");
-  assert(not bouTypCei==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround, "The value for bouTypCei is not supported");
+  assert(not bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
+    "The value for bouTypA is not supported");
+  assert(not bouTypB==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
+    "The value for bouTypB is not supported");
+  assert(not bouTypC==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
+    "The value for bouTypC is not supported");
+  assert(not bouTypD==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
+    "The value for bouTypD is not supported");
+  assert(not bouTypCei==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
+    "The value for bouTypCei is not supported");
   assert(not (bouTypCei==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall),
               "Using internal walls for the ceiling is not allowed because it is considered bad practice. 
               Use instead the 'External'  connection to connect the the floor of the surface above, 
               or use this option to connect and internal wall externally.");
+  assert(not (hasWinA and bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall),
+    "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
+  assert(not (hasWinB and bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall),
+    "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
+  assert(not (hasWinC and bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall),
+    "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
+  assert(not (hasWinD and bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall),
+    "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
+  assert(not (hasWinCei and bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall),
+    "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
 
 
 
@@ -1190,6 +1205,11 @@ components cannot be propagated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 26, 2017, by Filip Jorissen:<br/>
+Added asserts that check for illegal combinations of internal wall with exterior window.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/714>#714</a>.
+</li>
 <li>
 March 21, 2017, by Filip Jorissen:<br/>
 Changed bus parameters for JModelica compatibility.
