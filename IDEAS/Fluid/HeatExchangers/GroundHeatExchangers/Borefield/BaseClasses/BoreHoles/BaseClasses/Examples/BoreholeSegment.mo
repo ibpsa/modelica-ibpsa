@@ -8,7 +8,9 @@ model BoreholeSegment "Test for the boreholeSegment model"
     dp_nominal=5,
     soi=Data.SoilData.SandStone(),
     fil=Data.FillingData.Bentonite(),
-    gen=Data.GeneralData.c8x1_h110_b5_d3600_T283()) annotation (Placement(transformation(
+    gen=Data.GeneralData.c8x1_h110_b5_d3600_T283(),
+    m1_flow_nominal=sou_1.m_flow,
+    m2_flow_nominal=sou_1.m_flow)                   annotation (Placement(transformation(
         extent={{-13,-13},{13,13}},
         rotation=270,
         origin={11,-1})));

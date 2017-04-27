@@ -4,15 +4,16 @@ model borefield8x1
 
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Temperature T_start = bfData.gen.T_start;
-  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+  package Medium = IDEAS.Media.Water
+    "Water medium";
+  parameter Modelica.SIunits.Temperature T_start = bfData.gen.T_start
+    "Medium and bore field start temperature";
+  parameter Integer lenSim=3600*24*366 "length of the simulation";
 
   replaceable parameter
     Data.BorefieldData.SandStone_Bentonite_c8x1_h110_b5_d3600_T283
     bfData
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  parameter Integer lenSim=3600*24*366 "length of the simulation";
-
   replaceable MultipleBoreHolesUTube borFie(
     lenSim=lenSim,
     redeclare package Medium = Medium,
