@@ -109,6 +109,17 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     constrainedby IDEAS.Fluid.Interfaces.PartialFourPortInterface
     "Replaceable model for adding heat exchanger at supply outlet"
     annotation (Dialog(group="Advanced"),Placement(transformation(extent={{-72,-36},{-92,-16}})));
+  replaceable IDEAS.Airflow.AHU.BaseClasses.SimpleCompressorTable com(
+    fraPmin=per.fraPmin,
+    C=tau/4*per.G_condensor)
+  constrainedby BaseClasses.SimpleCompressorInterface
+    "Simple compressor model for active chiller"
+    annotation (Dialog(group="Advanced"),Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={32,42})));
+
   Modelica.Blocks.Sources.BooleanExpression onExp(y=on_internal)
     "AHU control signal"
     annotation (Placement(transformation(extent={{-84,66},{-64,82}})));
@@ -231,15 +242,6 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m2_flow_nominal) "Bottom fan"
     annotation (Placement(transformation(extent={{-30,-30},{-50,-10}})));
-  replaceable
-  IDEAS.Airflow.AHU.BaseClasses.SimpleCompressorTable com(fraPmin=per.fraPmin,
-      C=tau/4*per.G_condensor) constrainedby
-    BaseClasses.SimpleCompressorInterface
-    "Simple compressor model for active chiller" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={32,42})));
   Modelica.Blocks.Math.Sum sum(nin=5) "Total electrical power consumption"
     annotation (Placement(transformation(extent={{78,82},{94,98}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort TSupIn(
