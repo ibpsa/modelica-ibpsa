@@ -55,8 +55,6 @@ equation
     assert(embeddedPipe.vol[i].T< sou.T+1e-5, "Violation of second law");
   end for;
 
-  //assert( abs(embeddedPipe.heatPortEmb[1].Q_flow+dT/theRes1.R)<1E-10, "Solution for large mass flow rates is unexpected!");
-  //assert( abs(embeddedPipe.heatPortEmb[2].Q_flow+dT/theRes1.R)<1E-10, "Solution for large mass flow rates is unexpected!");
   connect(sou.ports[1], embeddedPipe.port_a) annotation (Line(
       points={{-40,0},{-10,0}},
       color={0,127,255},
