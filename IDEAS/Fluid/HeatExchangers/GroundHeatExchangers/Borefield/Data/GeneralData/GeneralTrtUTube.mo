@@ -1,7 +1,7 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeneralData;
 record GeneralTrtUTube
   "General record for validation bore field using thermal response test"
-extends Records.General(
+  extends Records.General(
     pathMod="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeneralData.GeneralTrtUTube",
     pathCom=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/GeneralData/GeneralTrtUTube.mo"),
     singleUTube = true,
