@@ -67,9 +67,6 @@ annotation(Dialog(tab="Flow resistance"));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-  parameter Boolean useSimplifiedRt = m_flowMin/A_floor > 5/3600
-    "Use a simplified calculation for Rt? default: if specific mass flow rate is higher than 5 kg/hm2 (see Koschenz p.25)"
-    annotation(Evaluate=true, Dialog(tab="Assumptions"));
   parameter Modelica.SIunits.ThermalInsulance R_c = 1/(RadSlaCha.lambda_b/RadSlaCha.S_1 + RadSlaCha.lambda_b/RadSlaCha.S_2)
     "Specific thermal resistivity of (parallel) slabs connected to top and bottom of tabs"
     annotation(Dialog(group="Thermal"));
@@ -86,6 +83,10 @@ annotation(Dialog(tab="Flow resistance"));
     "Flow dependent resistance value of convective heat transfer inside pipe for both turbulent and laminar heat transfer.";
   Modelica.SIunits.ThermalInsulance R_t
     "Total equivalent specific resistivity as defined by Koschenz in eqn 4-59";
+  Modelica.SIunits.ThermalConductance G_t
+    "Equivalent thermal conductance";
+  Modelica.SIunits.ThermalConductance G_max
+    "Maximum thermal conductance based on mass flow rate";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nDiscr] heatPortEmb
     "Port to the core of a floor heating/concrete activation"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
@@ -162,20 +163,19 @@ protected
   final parameter Real deltaXR = m_flow_nominal/A_floor*cp_default/1000
     "Transition threshold for regularization function";
   final parameter Modelica.SIunits.ThermalInsulance R_w_val_min=
-  IDEAS.Utilities.Math.Functions.spliceFunction(x=m_flowMin/nParCir/A_pipe*pipeDiaInt/mu_default-(reyHi+reyLo)/2,
-    pos=RadSlaCha.T^0.13/8/Modelica.Constants.pi*abs((pipeDiaInt/(m_flow_nominal/A_floor*L_r)))^0.87,
-    neg=RadSlaCha.T/(4*Medium.thermalConductivity(sta_default)*Modelica.Constants.pi),
-    deltax=(reyHi-reyLo)/2)
+    IDEAS.Utilities.Math.Functions.spliceFunction(x=m_flowMin/nParCir/A_pipe*pipeDiaInt/mu_default-(reyHi+reyLo)/2,
+      pos=RadSlaCha.T^0.13/8/Modelica.Constants.pi*abs((pipeDiaInt/(m_flow_nominal/A_floor*L_r)))^0.87,
+      neg=RadSlaCha.T/(4*Medium.thermalConductivity(sta_default)*Modelica.Constants.pi),
+      deltax=(reyHi-reyLo)/2)
     "Lowest value for R_w that is expected for the set mass flow rate";
   final parameter Modelica.SIunits.Mass m(start=1) = A_pipe*L_r*rho_default
     "Mass of medium";
-  Real m_flowSp(unit="kg/(m2.s)")=port_a.m_flow/A_floor
+  Real m_flowSp(unit="kg/(m2.s)")=port_a.m_flow/(A_floor/nDiscr)
     "mass flow rate per unit floor area";
-  Real m_flowSpLimit = IDEAS.Utilities.Math.Functions.smoothMax(m_flowSp, m_flow_nominal/A_floor/100, m_flow_nominal/A_floor/100)
+  Real m_flowSpLimit
     "Specific mass flow rate regularized for no flow conditions";
-
 initial equation
-   assert(m_flowMin/A_floor*Medium.specificHeatCapacityCp(sta_default)*(R_w_val_min + R_r_val + R_x_val)*nDiscr >= 0.5,
+   assert(m_flowMin/(A_floor/nDiscr)*Medium.specificHeatCapacityCp(sta_default)*(R_w_val_min + R_r_val + R_x_val) >= 0.5,
      "Model is not valid for the set nominal and minimal mass flow rate, discretisation in multiple parts is required", level = AssertionLevel.warning);
   if RadSlaCha.tabs then
     assert(RadSlaCha.S_1 > 0.3*RadSlaCha.T, "Thickness of the concrete or screed layer above the tubes is smaller than 0.3 * the tube interdistance. 
@@ -189,16 +189,15 @@ initial equation
   end if;
 
 equation
-  // simplify expression for sufficiently large mass flow rates
-  if useSimplifiedRt then
-    // Koschenz eq 4-60
-    R_t = (IDEAS.Utilities.Math.Functions.inverseXRegularized(2*m_flowSpLimit*cp_default*nDiscr, deltaXR) + R_w_val + R_r_val + R_x_val);
-  else
-    // Koschenz eq 4-59
-    R_t = (IDEAS.Utilities.Math.Functions.inverseXRegularized(m_flowSpLimit*cp_default*nDiscr*(1-exp(-1/((R_w_val+R_r_val+R_x_val+R_c)*m_flowSpLimit*cp_default*nDiscr))), deltaXR)-R_c);
-  end if;
+  // this need not be smooth since when active, G_max is already active
+  m_flowSpLimit = max(m_flowSp, 1e-8);
+  // Koschenz eq 4-59
+  R_t = 1/(m_flowSpLimit*cp_default*(1-exp(-1/((R_w_val+R_r_val+R_x_val+R_c)*m_flowSpLimit*cp_default))))-R_c;
+  G_t = abs(A_floor/nDiscr/R_t);
+  // maximum thermal conductance based on second law
+  G_max = abs(m_flow)*cp_default;
   // no smoothmin since this undershoots for near-zero values
-  Q = (Tin - heatPortEmb.T)*min(1/R_t*A_floor/nDiscr, abs(m_flow)*cp_default);
+  Q = (Tin - heatPortEmb.T)*min(G_t, G_max);
 
   connect(res.port_b, port_b) annotation (Line(
          points={{40,0},{100,0}},
@@ -343,6 +342,13 @@ A limited verification has been performed in IDEAS.Fluid.HeatExchangers.RadiantS
 <p>[TRNSYS, 2007] - Multizone Building modeling with Type 56 and TRNBuild.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>
+April 26, 2017 by Filip Jorissen:<br/>
+Removed <code>useSimplifiedRt</code> parameter
+since this leads to a violation of the second 
+law for small flow rates.
+See <a href=https://github.com/open-ideas/IDEAS/issues/717>#717</a>.
+</li>
 <li>2015 November, Filip Jorissen: Revised implementation for small flow rates: v3: replaced SmoothMin by min function</li>
 <li>2015 November, Filip Jorissen: Revised implementation for small flow rates: v2</li>
 <li>2015 November, Filip Jorissen: Revised implementation for small flow rates</li>
