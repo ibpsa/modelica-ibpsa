@@ -231,8 +231,10 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m2_flow_nominal) "Bottom fan"
     annotation (Placement(transformation(extent={{-30,-30},{-50,-10}})));
+  replaceable
   IDEAS.Airflow.AHU.BaseClasses.SimpleCompressorTable com(fraPmin=per.fraPmin,
-      C=tau/4*per.G_condensor)
+      C=tau/4*per.G_condensor) constrainedby
+    BaseClasses.SimpleCompressorInterface
     "Simple compressor model for active chiller" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -263,21 +265,9 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
         dpSet + {-port_b1.p + fanTop.port_b.p,-fanBot.port_a.p + port_a2.p}
          else {0.1,0.1}) "Fan flow set points"
     annotation (Placement(transformation(extent={{-140,48},{-72,34}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductionFanTop(G=1)
-    "Thermal losses in top fan: needed for avoiding singularity when mass flow rate is zero"
-    annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=0,
-        origin={-86,6})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         273.15 + 20)
     annotation (Placement(transformation(extent={{-112,0},{-100,12}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductionfanBot(G=1)
-    "Thermal losses in top fan: needed for avoiding singularity when mass flow rate is zero"
-    annotation (Placement(transformation(
-        extent={{-6,6},{6,-6}},
-        rotation=0,
-        origin={-86,-6})));
   Modelica.Blocks.Interfaces.RealOutput TFanSupOut
     "Temperature measured behind supply fan"
     annotation (Placement(transformation(extent={{96,-102},{116,-82}})));
@@ -468,19 +458,6 @@ equation
       points={{40,51.8},{26,51.8},{26,90.64},{76.4,90.64}},
       color={0,0,127},
       visible=false));
-  connect(fixedTemperature.port, thermalConductionFanTop.port_a) annotation (
-      Line(
-      points={{-100,6},{-92,6}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalConductionFanTop.port_b, fanTop.heatPort) annotation (Line(
-      points={{-80,6},{-40,6},{-40,13.2}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalConductionfanBot.port_b, fanBot.heatPort) annotation (Line(
-      points={{-80,-6},{-40,-6},{-40,-26.8}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(fanTop.port_b, resTop.port_a) annotation (Line(
       points={{-30,20},{-20,20}},
       color={0,127,255},
@@ -506,8 +483,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       visible=false));
-  connect(thermalConductionfanBot.port_a, thermalConductionFanTop.port_a)
-    annotation (Line(points={{-92,-6},{-92,0},{-92,6}}, color={191,0,0}));
   connect(eva.TWat, IEH.TOutBot) annotation (Line(
       points={{19.6,-55.84},{19.6,-32.76},{66.16,-32.76}},
       color={0,0,127},
@@ -684,6 +659,17 @@ equation
     __Dymola_experimentSetupOutput(events=false),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 27, 2017, by Filip Jorissen:<br/>
+Removed thermal resistors at pumps. 
+These are no longer required since movers are regularised 
+such that they dissipate no power at zero flow.
+</li>
+<li>
+April 27, 2017, by Filip Jorissen:<br/>
+Made compressor model replaceable.
+See <a href=https://github.com/open-ideas/IDEAS/issues/719>#719</a>.
+</li>
 <li>
 October 11, 2016, by Filip Jorissen:<br/>
 First implementation.
