@@ -1,4 +1,4 @@
-last-generated=2016-10-05
+last-generated=2017-04-26
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -12,14 +12,11 @@ statistics-fmu-dependencies=
     ], 
     "weaBus.TDryBul": [], 
     "weaBus.solZen": [], 
-    "weaBus.HHorIR": [
-      "fluPor[1, 1].m_flow"
-    ], 
+    "weaBus.HHorIR": [], 
     "fluPor[1, 1].backward.X_w": [
       "vol1.dynBal.m", 
       "vol1.dynBal.mXi[1]"
     ], 
-    "CPUtime": [], 
     "weaBus.nOpa": [], 
     "fluPor[1, 2].backward.T": [
       "vol1.dynBal.U", 
@@ -38,9 +35,7 @@ statistics-fmu-dependencies=
     "weaBus.nTot": [], 
     "weaBus.solDec": [], 
     "weaBus.solHouAng": [], 
-    "weaBus.TBlaSky": [
-      "fluPor[1, 1].m_flow"
-    ], 
+    "weaBus.TBlaSky": [], 
     "weaBus.TDewPoi": [], 
     "weaBus.lon": [], 
     "TOut": [], 
@@ -52,10 +47,7 @@ statistics-fmu-dependencies=
       "vol1.dynBal.m", 
       "vol1.dynBal.mXi[1]"
     ], 
-    "EventCounter": [], 
-    "weaBus.celHei": [
-      "fluPor[1, 1].m_flow"
-    ], 
+    "weaBus.celHei": [], 
     "fluPor[1, 2].backward.X_w": [
       "vol1.dynBal.m", 
       "vol1.dynBal.mXi[1]"
@@ -71,9 +63,7 @@ statistics-fmu-dependencies=
       "vol1.dynBal.mXi[1]"
     ], 
     "weaBus.pAtm": [], 
-    "weaBus.HGloHor": [
-      "fluPor[1, 1].m_flow"
-    ], 
+    "weaBus.HGloHor": [], 
     "fluPor[2, 3].backward.T": [
       "vol2.dynBal.U", 
       "vol2.dynBal.m", 
@@ -86,20 +76,14 @@ statistics-fmu-dependencies=
       "vol2.dynBal.mXi[1]"
     ], 
     "weaBus.lat": [], 
-    "weaBus.winSpe": [
-      "fluPor[1, 1].m_flow"
-    ], 
+    "weaBus.winSpe": [], 
     "fluPor[1, 3].backward.X_w": [
       "vol1.dynBal.m", 
       "vol1.dynBal.mXi[1]"
     ], 
     "weaBus.cloTim": [], 
-    "weaBus.HDirNor": [
-      "fluPor[1, 1].m_flow"
-    ], 
-    "weaBus.HDifHor": [
-      "fluPor[1, 1].m_flow"
-    ], 
+    "weaBus.HDirNor": [], 
+    "weaBus.HDifHor": [], 
     "fluPor[1, 3].backward.T": [
       "vol1.dynBal.U", 
       "vol1.dynBal.m", 
@@ -116,16 +100,19 @@ statistics-fmu-dependencies=
     "fluPor[2, 3].backward.X_w": [
       "vol2.X_start[1]"
     ], 
-    "weaBus.TDryBul": [], 
+    "weaBus.TDryBul": [
+      "weaDat.datRea.verboseRead"
+    ], 
     "weaBus.solZen": [], 
     "weaBus.HHorIR": [
-      "fluPor[1, 1].m_flow"
+      "weaDat.datRea1.verboseRead"
     ], 
     "fluPor[1, 1].backward.X_w": [
       "vol1.X_start[1]"
     ], 
-    "CPUtime": [], 
-    "weaBus.nOpa": [], 
+    "weaBus.nOpa": [
+      "weaDat.datRea.verboseRead"
+    ], 
     "fluPor[1, 2].backward.T": [
       "vol1.p_start", 
       "vol1.T_start", 
@@ -135,7 +122,6 @@ statistics-fmu-dependencies=
       "vol2.X_start[1]"
     ], 
     "der(vol2.dynBal.mXi[1])": [
-      "fluPor[1, 1].m_flow", 
       "fluPor[2, 1].m_flow", 
       "fluPor[2, 1].forward.X_w", 
       "fluPor[2, 2].m_flow", 
@@ -149,25 +135,31 @@ statistics-fmu-dependencies=
       "vol2.T_start", 
       "vol2.X_start[1]"
     ], 
-    "weaBus.nTot": [], 
+    "weaBus.nTot": [
+      "weaDat.datRea.verboseRead"
+    ], 
     "weaBus.solDec": [], 
     "weaBus.solHouAng": [], 
     "weaBus.TBlaSky": [
-      "fluPor[1, 1].m_flow"
+      "weaDat.datRea.verboseRead"
     ], 
     "vol1.dynBal.U": [
       "vol1.p_start", 
       "vol1.T_start", 
       "vol1.X_start[1]"
     ], 
-    "weaBus.TDewPoi": [], 
+    "weaBus.TDewPoi": [
+      "weaDat.datRea.verboseRead"
+    ], 
     "vol2.dynBal.U": [
       "vol2.p_start", 
       "vol2.T_start", 
       "vol2.X_start[1]"
     ], 
     "weaBus.lon": [], 
-    "TOut": [], 
+    "TOut": [
+      "weaDat.datRea.verboseRead"
+    ], 
     "vol2.dynBal.mXi[1]": [
       "vol2.p_start", 
       "vol2.X_start[1]"
@@ -178,16 +170,19 @@ statistics-fmu-dependencies=
       "fluPor[1, 2].m_flow", 
       "fluPor[1, 3].m_flow"
     ], 
-    "weaBus.winDir": [], 
-    "weaBus.relHum": [], 
+    "weaBus.winDir": [
+      "weaDat.datRea.verboseRead"
+    ], 
+    "weaBus.relHum": [
+      "weaDat.datRea.verboseRead"
+    ], 
     "fluPor[1, 1].backward.T": [
       "vol1.p_start", 
       "vol1.T_start", 
       "vol1.X_start[1]"
     ], 
-    "EventCounter": [], 
     "weaBus.celHei": [
-      "fluPor[1, 1].m_flow"
+      "weaDat.datRea.verboseRead"
     ], 
     "fluPor[1, 2].backward.X_w": [
       "vol1.X_start[1]"
@@ -203,7 +198,6 @@ statistics-fmu-dependencies=
       "vol1.X_start[1]"
     ], 
     "der(vol2.dynBal.U)": [
-      "fluPor[1, 1].m_flow", 
       "fluPor[2, 1].m_flow", 
       "fluPor[2, 1].forward.T", 
       "fluPor[2, 1].forward.X_w", 
@@ -214,6 +208,7 @@ statistics-fmu-dependencies=
       "fluPor[2, 3].forward.T", 
       "fluPor[2, 3].forward.X_w", 
       "QRooInt_flow", 
+      "weaDat.datRea.verboseRead", 
       "theCon2.G", 
       "preHea2.T_ref", 
       "preHea2.alpha", 
@@ -225,7 +220,7 @@ statistics-fmu-dependencies=
       "weaDat.pAtm"
     ], 
     "weaBus.HGloHor": [
-      "fluPor[1, 1].m_flow"
+      "weaDat.datRea1.verboseRead"
     ], 
     "der(vol1.dynBal.U)": [
       "fluPor[1, 1].m_flow", 
@@ -238,6 +233,7 @@ statistics-fmu-dependencies=
       "fluPor[1, 3].forward.T", 
       "fluPor[1, 3].forward.X_w", 
       "QRooInt_flow", 
+      "weaDat.datRea.verboseRead", 
       "theCon1.G", 
       "preHea1.T_ref", 
       "preHea1.alpha", 
@@ -274,17 +270,17 @@ statistics-fmu-dependencies=
       "vol2.p_start"
     ], 
     "weaBus.winSpe": [
-      "fluPor[1, 1].m_flow"
+      "weaDat.datRea.verboseRead"
     ], 
     "fluPor[1, 3].backward.X_w": [
       "vol1.X_start[1]"
     ], 
     "weaBus.cloTim": [], 
     "weaBus.HDirNor": [
-      "fluPor[1, 1].m_flow"
+      "weaDat.datRea1.verboseRead"
     ], 
     "weaBus.HDifHor": [
-      "fluPor[1, 1].m_flow"
+      "weaDat.datRea1.verboseRead"
     ], 
     "der(vol2.dynBal.m)": [
       "fluPor[2, 1].m_flow", 
@@ -313,7 +309,6 @@ statistics-fmu-dependencies=
       "vol1.dynBal.mXi[1]"
     ], 
     "der(vol2.dynBal.mXi[1])": [
-      "fluPor[1, 1].m_flow", 
       "fluPor[2, 1].m_flow", 
       "fluPor[2, 1].forward.X_w", 
       "fluPor[2, 2].m_flow", 
@@ -339,7 +334,6 @@ statistics-fmu-dependencies=
       "vol1.dynBal.mXi[1]"
     ], 
     "der(vol2.dynBal.U)": [
-      "fluPor[1, 1].m_flow", 
       "fluPor[2, 1].m_flow", 
       "fluPor[2, 1].forward.T", 
       "fluPor[2, 1].forward.X_w", 
