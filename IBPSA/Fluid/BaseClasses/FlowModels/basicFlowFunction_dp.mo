@@ -1,7 +1,6 @@
 within IBPSA.Fluid.BaseClasses.FlowModels;
 function basicFlowFunction_dp
   "Function that computes mass flow rate for given pressure drop"
-
   input Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Real k(min=0, unit="")
