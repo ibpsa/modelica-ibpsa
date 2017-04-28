@@ -11,7 +11,7 @@ function basicFlowFunction_dp
   output Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
 protected
-  Modelica.SIunits.PressureDifference dp_turbulent = m_flow_turbulent^2/k/k
+  Modelica.SIunits.PressureDifference dp_turbulent = m_flow_turbulent^2/k/k 
     "Pressure where flow changes to turbulent";
 algorithm
    m_flow := if noEvent(dp>dp_turbulent) then k*sqrt(abs(dp))
