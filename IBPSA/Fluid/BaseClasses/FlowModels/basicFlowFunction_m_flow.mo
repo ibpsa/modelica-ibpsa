@@ -10,11 +10,12 @@ function basicFlowFunction_m_flow
     "Mass flow rate where transition to turbulent flow occurs";
   output Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-algorithm
- dp :=if (m_flow>m_flow_turbulent) then (m_flow/k)^2
-      elseif (m_flow<-m_flow_turbulent) then -(m_flow/k)^2
-      else (m_flow_turbulent*m_flow+m_flow^3/m_flow_turbulent)/2/k^2;
 
+
+algorithm
+  dp :=if (abs(m_flow)>m_flow_turbulent)
+       then sign(m_flow)*(m_flow/k)^2
+       else 0.5*m_flow_turbulent*m_flow/k^2*(1+(m_flow/m_flow_turbulent)^2);
  annotation (LateInline=true,
              smoothOrder=2,
              derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
@@ -51,6 +52,11 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 14, 2017, by Filip Jorissen:<br/>
+Changed implementation to be more computationally efficient.
+See <a href=\"https://github.com/ibpsa/modelica/issues/725\">#725</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
