@@ -4,7 +4,7 @@ block TWetBul_TDryBulXi
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
-    IBPSA.Media.Air "Medium model"                          annotation (
+    Modelica.Media.Interfaces.PartialCondensingGases "Medium model"                          annotation (
       choicesAllMatching = true);
 
   parameter Boolean approximateWetBulb=false
