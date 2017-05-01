@@ -1,6 +1,7 @@
 within IBPSA.Fluid.BaseClasses.FlowModels;
 function basicFlowFunction_dp
   "Function that computes mass flow rate for given pressure drop"
+
   input Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Real k(min=0, unit="")
@@ -12,13 +13,14 @@ function basicFlowFunction_dp
 protected
   Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
     "Pressure where flow changes to turbulent";
-  Real dp_div = dp/dp_turbulent
-    "Help variable for computational efficiency";
+  Real dpNorm=dp/dp_turbulent
+    "Normalised pressure difference";
+  Real dpNormSq=dpNorm^2
+    "Square of normalised pressure difference";
 algorithm
-  m_flow := if noEvent(abs(dp)>dp_turbulent)
-            then sign(dp)*k*sqrt(abs(dp))
-            else 0.25*dp_div*m_flow_turbulent*(5-dp_div^2);
-
+   m_flow :=  if noEvent(abs(dp)>dp_turbulent)
+              then sign(dp)*k*sqrt(abs(dp))
+              else (1.40625  + (0.15625*dpNormSq - 0.5625)*dpNormSq)*m_flow_turbulent*dpNorm;
   annotation(LateInline=true,
            smoothOrder=2,
            derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
@@ -55,9 +57,11 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </html>", revisions="<html>
 <ul>
 <li>
-April 14, 2017, by Filip Jorissen:<br/>
-Changed implementation to be more computationally efficient.
-See <a href=\"https://github.com/ibpsa/modelica/issues/725\">#725</a>.
+May 1, 2017, by Filip Jorissen:<br/>
+Revised implementation such that 
+<a href=modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp>basicFlowFunction_dp</a> 
+is C2 continuous.
+See <a href=https://github.com/ibpsa/modelica-ibpsa/issues/725>#725</a>.
 </li>
 <li>
 March 19, 2016, by Michael Wetter:<br/>

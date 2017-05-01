@@ -10,12 +10,19 @@ function basicFlowFunction_m_flow
     "Mass flow rate where transition to turbulent flow occurs";
   output Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-
+protected
+  Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
+    "Pressure where flow changes to turbulent";
+  Real m_flowNorm = m_flow/m_flow_turbulent
+    "Normalised mass flow rate";
+  Real m_flowNormSq = m_flowNorm^2
+    "Square of normalised mass flow rate";
 
 algorithm
-  dp :=if (abs(m_flow)>m_flow_turbulent)
-       then sign(m_flow)*(m_flow/k)^2
-       else 0.5*m_flow_turbulent*m_flow/k^2*(1+(m_flow/m_flow_turbulent)^2);
+ dp :=if noEvent(abs(m_flow)>m_flow_turbulent)
+      then sign(m_flow)*(m_flow/k)^2
+      else (0.375 + (0.75-0.125*m_flowNormSq)*m_flowNormSq)*dp_turbulent*m_flowNorm;
+
  annotation (LateInline=true,
              smoothOrder=2,
              derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
@@ -53,9 +60,11 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 revisions="<html>
 <ul>
 <li>
-April 14, 2017, by Filip Jorissen:<br/>
-Changed implementation to be more computationally efficient.
-See <a href=\"https://github.com/ibpsa/modelica/issues/725\">#725</a>.
+May 1, 2017, by Filip Jorissen:<br/>
+Revised implementation such that 
+<a href=modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow>basicFlowFunction_m_flow</a> 
+is C2 continuous.
+See <a href=https://github.com/ibpsa/modelica-ibpsa/issues/725>#725</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
