@@ -1,10 +1,7 @@
 within IBPSA.Fluid.Interfaces;
 model PrescribedOutletState
   "Component that assigns the outlet fluid property at port_a based on an input signal"
-  extends IBPSA.Fluid.Interfaces.PartialTwoPortTransport(
-    final dp_start=0,
-    show_T=false,
-    show_V_flow=false);
+  extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
   extends IBPSA.Fluid.Interfaces.PrescribedOutletStateParameters(
     T_start=Medium.T_default);
 
@@ -83,9 +80,9 @@ equation
   // Set point for outlet enthalpy without any capacity limitation
   hSet = Medium.specificEnthalpy(
     Medium.setState_pTX(
-      p=  port_a.p,
-      T=  T,
-      X=  inStream(port_a.Xi_outflow)));
+      p = port_a.p,
+      T = T,
+      X = inStream(port_a.Xi_outflow)));
 
   m_flow_pos = IBPSA.Utilities.Math.Functions.smoothMax(
     x1=m_flow,
@@ -101,8 +98,8 @@ equation
   else
 
     m_flow_limited = IBPSA.Utilities.Math.Functions.smoothMax(
-      x1=  port_a.m_flow,
-      x2=  m_flow_small,
+      x1 = port_a.m_flow,
+      x2 = m_flow_small,
       deltaX=m_flow_small/2);
 
     if restrictHeat and restrictCool then
@@ -136,6 +133,19 @@ equation
 
   // No pressure drop
   dp = 0;
+
+  assert(m_flow > -m_flow_small or allowFlowReversal,
+      "Reverting flow occurs even though allowFlowReversal is false");
+
+  // Mass balance (no storage)
+  port_a.m_flow + port_b.m_flow = 0;
+
+  // Transport of substances
+  port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) else Medium.X_default[1:Medium.nXi];
+  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
+
+  port_a.C_outflow = if allowFlowReversal then inStream(port_b.C_outflow) else zeros(Medium.nC);
+  port_b.C_outflow = inStream(port_a.C_outflow);
 
     annotation (
   defaultComponentName="heaCoo",
