@@ -1,17 +1,54 @@
-within IBPSA.Fluid.Actuators.Valves;
-model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
-  extends IBPSA.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
-            final linearized = false,
-            from_dp=true,
-            phi=l + y_actual*(1 - l));
+within IBPSA.Fluid.Actuators.Dampers;
+model PressureIndependent
+  "Model for an air damper whose mass flow is proportional to the input signal"
+  extends IBPSA.Fluid.BaseClasses.PartialResistance(
+    m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
+    eta_default*ReC*sqrt(A)*facRouDuc,
+    final linearized = false,
+    from_dp=true);
+  extends IBPSA.Fluid.Actuators.BaseClasses.ActuatorSignal;
+  parameter Boolean use_deltaM = true
+    "Set to true to use deltaM for turbulent transition, else ReC is used";
+  parameter Real deltaM = 0.3
+    "Fraction of nominal mass flow rate where transition to turbulent occurs"
+   annotation(Dialog(enable=use_deltaM));
+  parameter Modelica.SIunits.Velocity v_nominal = 1 "Nominal face velocity";
+  final parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
+    "Face area";
 
-  parameter Real l2(min=1e-10) = 0.01
+  parameter Boolean roundDuct = false
+    "Set to true for round duct, false for square cross section"
+   annotation(Dialog(enable=not use_deltaM));
+  parameter Real ReC=4000 "Reynolds number where transition to turbulent starts"
+   annotation(Dialog(enable=not use_deltaM));
+  parameter Boolean use_constant_density=true
+    "Set to true to use constant density for flow friction"
+   annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa", min=0) = 0
+    "Pressure drop of duct and other resistances that are in series"
+     annotation(Dialog(group = "Nominal condition"));
+  parameter Real l(min=1e-10, max=1) = 0.0001
+    "Damper leakage, l=kDam(y=0)/kDam(y=1)"
+    annotation(Dialog(tab="Advanced"));
+  input Real phi = l + y_actual*(1 - l)
+    "Ratio actual to nominal mass flow rate of damper, phi=kDam(y)/kDam(y=1)";
+  parameter Real l2(unit="1", min=1e-10) = 0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
     annotation(Dialog(tab="Advanced"));
   parameter Real deltax = 0.02 "Transition interval for flow rate"
     annotation(Dialog(tab="Advanced"));
-
+  Medium.Density rho "Medium density";
 protected
+  parameter Medium.Density rho_default=Medium.density(sta_default)
+    "Density, used to compute fluid volume";
+  parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
+  parameter Real kDam(unit="") = m_flow_nominal/sqrt(dp_nominal_pos)
+    "Flow coefficient of damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+  parameter Real kFixed(unit="") = if dpFixed_nominal > Modelica.Constants.eps
+    then m_flow_nominal / sqrt(dpFixed_nominal) else 0
+    "Flow coefficient of fixed resistance in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+  parameter Real k = if (dpFixed_nominal > Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam
+    "Flow coefficient of damper plus fixed resistance";
   parameter Real coeff1 = l2/dp_nominal*m_flow_nominal
     "Parameter for avoiding unnecessary computations";
   parameter Real coeff2 = 1/coeff1
@@ -30,15 +67,15 @@ protected
     "Smooth interpolation result between two flow regimes";
   Modelica.SIunits.PressureDifference dp_smooth
     "Smooth interpolation result between two flow regimes";
-
+initial equation
+  assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
 equation
+  rho = if use_constant_density then
+          rho_default
+        else
+          Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
+  // From TwoWayPressureIndependent valve model
   m_flow_set = m_flow_nominal*phi;
-  kVal = Kv_SI;
-  if (dpFixed_nominal > Modelica.Constants.eps) then
-    k = sqrt(1/(1/kFixed^2 + 1/kVal^2));
-  else
-    k = kVal;
-  end if;
   dp_min = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
               m_flow=m_flow_set,
               k=k,
@@ -149,134 +186,38 @@ equation
       dp=dp_smooth;
     end if;
   end if;
-  annotation (defaultComponentName="val",
-  Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
-            {100,100}}),       graphics={
-        Polygon(
-          points={{2,-2},{-76,60},{-76,-60},{2,-2}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-50,40},{0,-2},{54,40},{54,40},{-50,40}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-52,-42},{0,-4},{60,40},{60,-42},{-52,-42}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{0,-2},{82,60},{82,-60},{0,-2}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{0,40},{0,-4}}),
-        Line(
-          visible=not use_inputFilter,
-          points={{0,100},{0,40}})}),
-Documentation(info="<html>
+annotation(Documentation(info="<html>
 <p>
-Two way valve with a pressure-independent valve opening characteristic.
-The mass flow rate is controlled such that it is nearly equal to its
-set point <code>y*m_flow_nominal</code>, unless the pressure
-<code>dp</code> is too low, in which case a regular <code>Kv</code>
-characteristic is used.
-</p>
-<h4>Main equations</h4>
-<p>
-First the minimum pressure head <code>dp_min</code>
-required for delivering the requested mass flow rate
-<code>y*m_flow_nominal</code> is computed. If
-<code>dp &gt; dp_min</code> then the requested mass flow
-rate is supplied. If <code>dp &lt; dp_min</code> then
-<code>m_flow = Kv/sqrt(dp)</code>. Transition between
-these two flow regimes happens in a smooth way.
-</p>
-<h4>Typical use and important parameters</h4>
-<p>
-This model is configured by setting <code>m_flow_nominal</code>
-to the mass flow rate that the valve should supply when it is
-completely open, i.e., <code>y = 1</code>. The pressure drop corresponding
-to this working point can be set using <code>dpValve_nominal</code>,
-or using a <code>Kv</code>, <code>Cv</code> or <code>Av</code>
-value. The parameter <code>dpValve_fixed</code> can be used to add
-additional pressure drops, although in this valve it is equivalent to
-add these to <code>dpValve_nominal</code>.
+Model for an air damper whose airflow is proportional to the input signal, assuming
+that at <code>y = 1</code>, <code>m_flow = m_flow_nominal</code>. This is unless the pressure difference
+<code>dp</code> is too low,
+in which case a <code>kDam = m_flow_nominal/sqrt(dp_nominal)</code> characteristic is used.
 </p>
 <p>
-The parameter <code>l2</code> represents the non-ideal
-leakage behaviour of this valve for high pressures.
-It is assumed that the mass flow rate will rise beyond
-the requested mass flow rate <code>y*m_flow_nominal</code>
-if <code>dp &gt; dpValve_nominal+dpFixed_nominal</code>.
-The parameter <code>l2</code> represents the slope
-of this rise:
-<code>d(m_flow)/d(dp) = l2* m_flow_nominal/dp_nominal</code>.
-In the ideal case <code>l2=0</code>, but
-this may introduce singularities, for instance when
-connecting this component with a fixed mass flow source.
-</p>
-<h4>Options</h4>
-<p>
-Parameter <code>deltax</code> sets the duration of
-the transition region between the two flow regimes
-as a fraction of <code>dp_nominal</code> or <code>m_flow_nominal</code>,
-depending on the value of <code>from_dp</code>.
-</p>
-<h4>Implementation</h4>
-<p>
-Note that the result in the transition region when
-using <code>from_dp = true</code> is not identical to
-the result when using <code>from_dp = false</code>.
-</p>
-<p>
-Variables <code>*_y1</code> and <code>*_y2</code>
-serve a dual use. 
-They are used to 
-1) compute the support points at <code>*_x1</code> and <code>*_x2</code>,
-which should not depend on <code>m_flow</code> or <code>dp</code> and
-2) to compute the flow functions when outside of this regime, 
-which does depend on <code>m_flow</code> or <code>dp</code>.
-Min and max functions are therefore used such that one equation
-can serve both puroposes.
+The model is similar to
+<a href=\"modelica://IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent\">
+IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent</a>, except for adaptations for damper parameters.
+Please see that documentation for more information.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-April 14, 2017, by Filip Jorissen:<br/>
-Revised implementation using <code>cubicHermite</code> 
-such that it does not have a local maximum
-and such that it is C2-continuous.
-See <a href=https://github.com/ibpsa/modelica-ibpsa/issues/156>#156</a>.
-</li>
-<li>
-March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
-</li>
-<li>
-March 15, 2016, by Michael Wetter:<br/>
-Replaced <code>spliceFunction</code> with <code>regStep</code>.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/300\">issue 300</a>.
-</li>
-<li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference.
-This is
-for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
-</li>
-<li>
-January 29, 2015, by Filip Jorissen:<br/>
+March 21, 2017 by David Blum:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
-end TwoWayPressureIndependent;
+</html>"),
+   Icon(graphics={Line(
+         points={{0,100},{0,-24}}),
+        Rectangle(
+          extent={{-100,40},{100,-42}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={192,192,192}),
+        Rectangle(
+          extent={{-100,22},{100,-24}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255})}));
+end PressureIndependent;
