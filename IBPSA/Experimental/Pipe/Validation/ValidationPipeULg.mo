@@ -86,8 +86,7 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Math.MultiSum heatLossSim(nu=2)
     annotation (Placement(transformation(extent={{60,54},{72,66}})));
-  Modelica.Blocks.Continuous.Integrator eneBalSim(y_start=0*(pipe.C + pipe.walCap)
-        *((pipe.T_ini_in + pipe.T_ini_out)/2 - 273.15))
+  Modelica.Blocks.Continuous.Integrator eneLosInt
     annotation (Placement(transformation(extent={{160,50},{180,70}})));
   Fluid.Sensors.EnthalpyFlowRate senEntIn(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal)
@@ -98,13 +97,12 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     annotation (Placement(transformation(extent={{112,-76},{124,-64}})));
   Modelica.Blocks.Math.MultiProduct heatLossMeas(nu=2)
     annotation (Placement(transformation(extent={{140,-66},{152,-54}})));
-  Modelica.Blocks.Continuous.Integrator eneBalMeas(y_start=0*(pipe.C + pipe.walCap)
-        *((pipe.T_ini_in + pipe.T_ini_out)/2 - 273.15))
-    annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
   Modelica.Blocks.Math.Gain gain3(k=pipe.cp_default)
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-  Modelica.Blocks.Math.Feedback diff
-    annotation (Placement(transformation(extent={{192,50},{212,70}})));
+  Modelica.Blocks.Math.Feedback heaLosDiff
+    annotation (Placement(transformation(extent={{86,50},{106,70}})));
+  Modelica.Blocks.Math.Division relHeaLosErr
+    annotation (Placement(transformation(extent={{122,76},{142,96}})));
 equation
   connect(DataReader.y[3], Tout.u) annotation (Line(
       points={{21,-50},{32,-50},{32,-78},{38,-78}},
@@ -129,8 +127,6 @@ equation
           {6,26},{6,50},{18,50}}, color={0,0,127}));
   connect(gain2.y, heatLossSim.u[1]) annotation (Line(points={{41,50},{50,50},{
           50,62.1},{60,62.1}}, color={0,0,127}));
-  connect(heatLossSim.y, eneBalSim.u)
-    annotation (Line(points={{73.02,60},{102,60},{158,60}}, color={0,0,127}));
   connect(senTem_out.port_a, senEntOut.port_b)
     annotation (Line(points={{-74,0},{-70,0},{-66,0}}, color={0,127,255}));
   connect(senEntOut.port_a, pipe.ports_b[1])
@@ -151,16 +147,20 @@ equation
           104,-72.1},{112,-72.1}}, color={0,0,127}));
   connect(deltaT.y, heatLossMeas.u[1]) annotation (Line(points={{125.02,-70},{
           130,-70},{130,-68},{130,-57.9},{140,-57.9}}, color={0,0,127}));
-  connect(heatLossMeas.y, eneBalMeas.u)
-    annotation (Line(points={{153.02,-60},{158,-60}}, color={0,0,127}));
   connect(gain.y, gain3.u)
     annotation (Line(points={{73,-20},{98,-20}}, color={0,0,127}));
   connect(gain3.y, heatLossMeas.u[2]) annotation (Line(points={{121,-20},{130,
           -20},{130,-62.1},{140,-62.1}}, color={0,0,127}));
-  connect(eneBalSim.y, diff.u1)
-    annotation (Line(points={{181,60},{194,60}}, color={0,0,127}));
-  connect(eneBalMeas.y, diff.u2)
-    annotation (Line(points={{181,-60},{202,-60},{202,52}}, color={0,0,127}));
+  connect(heatLossMeas.y, heaLosDiff.u2) annotation (Line(points={{153.02,-60},
+          {162,-60},{162,4},{96,4},{96,52}}, color={0,0,127}));
+  connect(heatLossSim.y, heaLosDiff.u1)
+    annotation (Line(points={{73.02,60},{88,60}}, color={0,0,127}));
+  connect(heaLosDiff.y, eneLosInt.u)
+    annotation (Line(points={{105,60},{105,60},{158,60}}, color={0,0,127}));
+  connect(heaLosDiff.y, relHeaLosErr.u1) annotation (Line(points={{105,60},{112,
+          60},{112,92},{120,92}}, color={0,0,127}));
+  connect(heatLossSim.y, relHeaLosErr.u2) annotation (Line(points={{73.02,60},{
+          82,60},{82,80},{120,80}}, color={0,0,127}));
                      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
