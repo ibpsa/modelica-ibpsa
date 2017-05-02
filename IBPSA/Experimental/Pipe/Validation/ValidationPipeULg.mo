@@ -101,8 +101,6 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Math.Feedback heaLosDiff
     annotation (Placement(transformation(extent={{86,50},{106,70}})));
-  Modelica.Blocks.Math.Division relHeaLosErr
-    annotation (Placement(transformation(extent={{122,76},{142,96}})));
 equation
   connect(DataReader.y[3], Tout.u) annotation (Line(
       points={{21,-50},{32,-50},{32,-78},{38,-78}},
@@ -140,7 +138,7 @@ equation
   connect(fixedTemperature.port, pipe.heatPort)
     annotation (Line(points={{-30,60},{-30,10}}, color={191,0,0}));
   connect(Tout.y, gain1.u)
-    annotation (Line(points={{61,-78},{72,-78},{72,-78}}, color={0,0,127}));
+    annotation (Line(points={{61,-78},{72,-78}},          color={0,0,127}));
   connect(Tin.y, deltaT.u[1]) annotation (Line(points={{61,-50},{82,-50},{104,
           -50},{104,-67.9},{112,-67.9}}, color={0,0,127}));
   connect(gain1.y, deltaT.u[2]) annotation (Line(points={{95,-78},{104,-78},{
@@ -157,10 +155,6 @@ equation
     annotation (Line(points={{73.02,60},{88,60}}, color={0,0,127}));
   connect(heaLosDiff.y, eneLosInt.u)
     annotation (Line(points={{105,60},{105,60},{158,60}}, color={0,0,127}));
-  connect(heaLosDiff.y, relHeaLosErr.u1) annotation (Line(points={{105,60},{112,
-          60},{112,92},{120,92}}, color={0,0,127}));
-  connect(heatLossSim.y, relHeaLosErr.u2) annotation (Line(points={{73.02,60},{
-          82,60},{82,80},{120,80}}, color={0,0,127}));
                      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
