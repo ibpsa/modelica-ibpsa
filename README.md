@@ -2,7 +2,7 @@
 
 This is the development site for the _Modelica IBPSA Library_ and its user guide.
 
-Instructions for developers are available on the [wiki](https://github.com/ibpsa/modelica/wiki).
+Instructions for developers are available on the [wiki](https://github.com/ibpsa/modelica-ibpsa/wiki).
 
 ## Library description
 
@@ -30,11 +30,11 @@ Currently, the _IBPSA_ library is used as the core of these libraries:
 ## License
 
 The Modelica _IBPSA_ library is available under the terms of the license at
-[IBPSA/legal.html](https://htmlpreview.github.io/?https://github.com/ibpsa/modelica/blob/master/IBPSA/legal.html).
+[IBPSA/legal.html](https://htmlpreview.github.io/?https://github.com/ibpsa/modelica-ibpsa/blob/master/IBPSA/legal.html).
 
 ## Development and contribution
-You may report any issues by using the [Issues](https://github.com/ibpsa/modelica/issues) button.
+You may report any issues by using the [Issues](https://github.com/ibpsa/modelica-ibpsa/issues) button.
 
-Contributions in the form of [Pull Requests](https://github.com/ibpsa/modelica/pulls) are always welcome.
+Contributions in the form of [Pull Requests](https://github.com/ibpsa/modelica-ibpsa/pulls) are always welcome.
 Prior to issuing a pull request, make sure your code follows
-the [style guide and coding conventions](https://github.com/ibpsa/modelica/wiki/Style-Guide).
+the [style guide and coding conventions](https://github.com/ibpsa/modelica-ibpsa/wiki/Style-Guide).

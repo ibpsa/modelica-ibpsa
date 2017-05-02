@@ -1,7 +1,6 @@
 within IBPSA.Fluid.BaseClasses.FlowModels;
 function basicFlowFunction_dp
   "Function that computes mass flow rate for given pressure drop"
-
   input Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Real k(min=0, unit="")
@@ -11,12 +10,14 @@ function basicFlowFunction_dp
   output Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
 protected
-  Modelica.SIunits.PressureDifference dp_turbulent = m_flow_turbulent^2/k/k
+  Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
     "Pressure where flow changes to turbulent";
+  Real dp_div = dp/dp_turbulent
+    "Help variable for computational efficiency";
 algorithm
-   m_flow := if noEvent(dp>dp_turbulent) then k*sqrt(abs(dp))
-             elseif noEvent(dp<-dp_turbulent) then -k*sqrt(abs(-dp))
-             else (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3;
+  m_flow := if noEvent(abs(dp)>dp_turbulent)
+            then sign(dp)*k*sqrt(abs(dp))
+            else 0.25*dp_div*m_flow_turbulent*(5-dp_div^2);
 
   annotation(LateInline=true,
            smoothOrder=2,
@@ -54,6 +55,11 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </html>", revisions="<html>
 <ul>
 <li>
+April 14, 2017, by Filip Jorissen:<br/>
+Changed implementation to be more computationally efficient.
+See <a href=\"https://github.com/ibpsa/modelica/issues/725\">#725</a>.
+</li>
+<li>
 March 19, 2016, by Michael Wetter:<br/>
 Added <code>abs</code> function for
 <code>IBPSA.Fluid.FixedResistances.Validation.PressureDropsExplicit</code>
@@ -65,14 +71,14 @@ OpenModelica ticket 3778</a>.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 July 28, 2015, by Michael Wetter:<br/>
 Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
 and changed <code>Inline=true</code> to <code>LateInline=true</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/301\">issue 301</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/301\">issue 301</a>.
 </li>
 <li>
 July 15, 2015, by Filip Jorissen:<br/>
@@ -80,7 +86,7 @@ New, more efficient implementation based on regularisation using simple polynomi
 Expanded common subexpressions for function inlining to be possible.
 Set <code>Inline=true</code> for inlining to occur.
 This is for
-<a href=\"https://github.com/ibpsa/modelica/issues/279\">#279</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/279\">#279</a>.
 </li>
 <li>
 January 9, 2014, by Michael Wetter:<br/>

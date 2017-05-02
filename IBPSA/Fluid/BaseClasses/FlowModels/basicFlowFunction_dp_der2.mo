@@ -20,15 +20,12 @@ protected
   Modelica.SIunits.PressureDifference dp_turbulent = (m_k)^2
     "Pressure where flow changes to turbulent";
 algorithm
- m_flow_der2 := if noEvent(dp>dp_turbulent) then
-                  -0.25*k*dp^(-3/2) * dp_der^2 + 0.5*k*dp^(-1/2)*dp_der2
-                 elseif noEvent(dp<-dp_turbulent) then
-                   0.25*k*(-dp)^(-3/2) * dp_der^2 + 0.5*k*(-dp)^(-1/2)*dp_der2
-                 else
-                   (1.25*k/m_k-0.75*k/m_k^5*dp^2)*dp_der2
-                   -1.5/m_k^5*k*dp*dp_der^2;
+ m_flow_der2 := noEvent(smooth(1,
+                 if abs(dp)>dp_turbulent
+                 then 0.5*k/sqrt(abs(dp))*(-0.5/dp * dp_der^2 + dp_der2)
+                 else k/m_k*((1.25-0.75*(dp/dp_turbulent)^2)*dp_der2 - 1.5*dp*(dp_der/dp_turbulent)^2)));
 
- annotation (LateInline=true,
+ annotation (Inline=true,
 Documentation(info="<html>
 <p>
 Function that implements the second order derivative of
@@ -43,7 +40,7 @@ revisions="<html>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 July 29, 2015, by Michael Wetter:<br/>
