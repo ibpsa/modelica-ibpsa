@@ -41,9 +41,12 @@ protected
   Modelica.SIunits.MassFraction XiSatRefIn
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 
- parameter Integer iWat = sum( { (if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],string2="Water", caseSensitive=false) then i else 0) for i in 1:Medium.nX})
-    "Index of water in medium composition vector";
-initial algorithm
+ parameter Integer iWat = sum({(
+   if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], string2="Water", caseSensitive=false)
+   then i else 0) for i in 1:Medium.nX})
+     "Index of water in medium composition vector";
+
+initial equation
   assert(iWat > 0, "Did not find medium species 'water' in the medium model. Change medium model.");
 
 equation
