@@ -35,7 +35,7 @@ model PressureIndependent
   parameter Real l2(unit="1", min=1e-10) = 0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
     annotation(Dialog(tab="Advanced"));
-  parameter Real deltax = 0.1 "Transition interval for flow rate"
+  parameter Real deltax = 0.02 "Transition interval for flow rate"
     annotation(Dialog(tab="Advanced"));
   Medium.Density rho "Medium density";
 protected
