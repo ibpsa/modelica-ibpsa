@@ -239,7 +239,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-experiment(Tolerance=1e-6, StopTime=1),
+experiment(Tolerance=1e-6),
 __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MoistureMixingConservationDynamicBalance.mos"
         "Simulate and plot"),

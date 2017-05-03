@@ -27,7 +27,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
-experiment(Tolerance=1e-08, StopTime=1.0),
+experiment(Tolerance=1e-08),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Movers/Validation/SpeedControlled_y.mos"
         "Simulate and plot"),
     Documentation(info="<html>

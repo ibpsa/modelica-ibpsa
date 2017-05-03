@@ -35,7 +35,7 @@ equation
   assert(abs(err) < 1E-3, "Error in implementation.");
   assert(abs(der_err) < 1E-3, "Error in implementation.");
 
- annotation(experiment(StartTime=-1, StopTime=1.0, Tolerance=1E-8),
+ annotation(experiment(StartTime=-1, Tolerance=1E-8),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mos"
         "Simulate and plot"),
 Documentation(info="<html>

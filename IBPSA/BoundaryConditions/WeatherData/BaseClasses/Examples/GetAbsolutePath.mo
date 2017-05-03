@@ -12,7 +12,7 @@ initial algorithm
   Modelica.Utilities.Streams.print("Absolute path = " + fAbs);
 
   annotation (
-experiment(Tolerance=1e-6, StopTime=1.0),
+experiment(Tolerance=1e-6),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAbsolutePath.mos"
         "Simulate and plot"),
     Documentation(info="<html>

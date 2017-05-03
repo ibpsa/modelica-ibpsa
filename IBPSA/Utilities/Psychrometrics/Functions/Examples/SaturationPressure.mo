@@ -10,7 +10,7 @@ equation
   T = TMin + conv*time * (TMax-TMin);
   pSat = IBPSA.Utilities.Psychrometrics.Functions.saturationPressure(T);
   annotation (
-experiment(Tolerance=1e-6, StopTime=1.0),
+experiment(Tolerance=1e-6),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/SaturationPressure.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

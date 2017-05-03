@@ -18,7 +18,7 @@ equation
   end if;
   d = IBPSA.Utilities.Psychrometrics.Functions.density_pTX(p=p, T=T, X_w=X_w);
   annotation (
-experiment(Tolerance=1e-6, StopTime=1.0),
+experiment(Tolerance=1e-6),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/Density_pTX.mos"
         "Simulate and plot"),
     Documentation(

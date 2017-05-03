@@ -32,9 +32,7 @@ equation
     der(hAirCod)=der(hAirSym);
     assert(abs(hAirCod-hAirSym) < 1E-2, "Model has an error");
 
-   annotation(experiment(
-                 StartTime=0, StopTime=1,
-                 Tolerance=1e-8),
+   annotation(experiment(Tolerance=1e-8),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Specialized/Air/Examples/PerfectGasDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>
