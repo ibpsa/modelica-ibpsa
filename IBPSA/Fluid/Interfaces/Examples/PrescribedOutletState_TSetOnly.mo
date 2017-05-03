@@ -25,7 +25,7 @@ __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Interfa
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Model that demonstrates 
+Model that demonstrates
 <a href=\"modelica://IBPSA.Fluid.Interfaces.PrescribedOutletState\">
 IBPSA.Fluid.Interfaces.PrescribedOutletState</a>
 with temperature setpoint.
