@@ -36,13 +36,13 @@ protected
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small,
     final show_T=false,
-    final show_V_flow=false,
     final Q_flow_maxHeat=Q_flow_maxHeat,
     final Q_flow_maxCool=Q_flow_maxCool,
     final m_flow_nominal=m_flow_nominal,
     final tau=tau,
     final T_start=T_start,
-    final energyDynamics=energyDynamics) "Heater or cooler"
+    final energyDynamics=energyDynamics,
+    final use_XiSet=false) "Heater or cooler"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(port_a, preDro.port_a) annotation (Line(
@@ -166,6 +166,11 @@ IBPSA.Fluid.HeatExchangers.Validation.HeaterCooler_T_dynamic</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 3, 2017, by Michael Wetter:<br/>
+Updated protected model for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">#763</a>.
+</li>
 <li>
 December 1, 2016, by Michael Wetter:<br/>
 Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
