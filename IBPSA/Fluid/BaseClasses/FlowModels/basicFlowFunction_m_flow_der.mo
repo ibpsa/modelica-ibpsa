@@ -39,10 +39,11 @@ revisions="<html>
 <ul>
 <li>
 May 1, 2017, by Filip Jorissen:<br/>
-Revised implementation such that 
-<a href=modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow>basicFlowFunction_m_flow</a> 
+Revised implementation such that
+<a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
+IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>
 is C2 continuous.
-See <a href=https://github.com/ibpsa/modelica-ibpsa/issues/725>#725</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/725\">#725</a>.
 </li>
 <li>
 July 29, 2015, by Michael Wetter:<br/>
