@@ -175,7 +175,7 @@ revisions="<html>
 May 1, 2017, by Filip Jorissen:<br/>
 Revised computation of <code>iWat</code>
 such that it does not require an initial algorithm.
-See <a href=https://github.com/ibpsa/modelica-ibpsa/issues/759>#759</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/759\">#759</a>.
 </li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
