@@ -10,7 +10,7 @@ model PrescribedOutletState
     annotation (Placement(transformation(origin={-120,80},
               extent={{20,-20},{-20,20}},rotation=180)));
 
-  Modelica.Blocks.Interfaces.RealInput XiSet(unit="1") if use_XiSet
+  Modelica.Blocks.Interfaces.RealInput X_wSet(unit="1") if use_X_wSet
     "Set point for water vapor mass fraction of the fluid that leaves port_b"
     annotation (Placement(transformation(origin={-120,40},
               extent={{20,-20},{-20,20}},rotation=180)));
@@ -90,7 +90,7 @@ protected
   Modelica.Blocks.Interfaces.RealInput TSet_internal(unit="K", displayUnit="degC")
     "Internal connector for set point temperature of the fluid that leaves port_b";
 
-  Modelica.Blocks.Interfaces.RealInput XiSet_internal(unit="1")
+  Modelica.Blocks.Interfaces.RealInput X_wSet_internal(unit="1")
     "Internal connector for set point for water vapor mass fraction of the fluid that leaves port_b";
 
   function getCapacity "Function to compute outlet state, applied power and difference in potential variable"
@@ -149,7 +149,7 @@ initial equation
     end if;
   end if;
 
-  if use_XiSet then
+  if use_X_wSet then
     if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
       der(Xi) = 0;
     elseif massDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
@@ -168,8 +168,8 @@ initial equation
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
 
- if use_XiSet then
-  assert(Medium.nX > 1, "If use_XiSet = true, require a medium with water vapor, such as IBPSA.Media.Air");
+ if use_X_wSet then
+  assert(Medium.nX > 1, "If use_X_wSet = true, require a medium with water vapor, such as IBPSA.Media.Air");
  end if;
 
 equation
@@ -178,13 +178,13 @@ equation
     TSet_internal = 293.15;
   end if;
   connect(TSet, TSet_internal);
-  if not use_XiSet then
-    XiSet_internal = 0.01;
+  if not use_X_wSet then
+    X_wSet_internal = 0.01;
   end if;
-  connect(XiSet, XiSet_internal);
+  connect(X_wSet, X_wSet_internal);
 
   if (use_TSet and energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-     (use_XiSet and massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) then
+     (use_X_wSet and massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) then
     mNor_flow = port_a.m_flow/m_flow_nominal;
     k = Modelica.Fluid.Utilities.regStep(x=port_a.m_flow,
                                          y1= mNor_flow,
@@ -201,10 +201,10 @@ equation
     T = TSet_internal;
   end if;
 
-  if use_XiSet and massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState then
-    der(Xi) = (XiSet_internal-Xi)*k/tau;
+  if use_X_wSet and massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState then
+    der(Xi) = (X_wSet_internal-Xi)*k/tau;
   else
-    Xi = XiSet_internal;
+    Xi = X_wSet_internal;
   end if;
 
   Xi_instream = inStream(port_a.Xi_outflow);
@@ -236,7 +236,7 @@ equation
   // Below, we use sum(Xi_instream) as Xi anyway has only one element.
   // However, scalar(Xi_instream) would not work as dim(Xi_instream) = 0
   // if the medium is not a mixture.
-  if use_XiSet then
+  if use_X_wSet then
     (Xi_outflow, mWat_flow, dXiAct) = getCapacity(
       XSet = Xi,
       XIn =  sum(Xi_instream),
@@ -303,7 +303,7 @@ equation
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
                       graphics={
         Rectangle(
-          extent={{-68,70},{74,-70}},
+          extent={{-50,60},{46,-60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
@@ -330,19 +330,24 @@ equation
           lineColor={0,0,127},
           textString="Q_flow"),
         Text(
-          extent={{-92,54},{-74,32}},
+          extent={{-94,56},{-56,28}},
           lineColor={0,0,127},
-          textString="Xi",
-          visible=use_XiSet),
+          textString="X_w"),
         Text(
           extent={{50,56},{94,28}},
           lineColor={0,0,127},
-          textString="mWat_flow")}),
+          textString="mWat_flow"),
+        Rectangle(
+          extent={{-50,60},{-20,80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-50,60},{-38,70},{-50,80}}, color={0,0,0})}),
   Documentation(info="<html>
 <p>
 This model sets the temperature or the water vapor mass fraction
 of the medium that leaves <code>port_a</code>
-to the value given by the input <code>TSet</code> or <code>XiSet</code>,
+to the value given by the input <code>TSet</code> or <code>X_wSet</code>,
 subject to optional limitations on the capacity
 for heating and cooling, or limitations on the humidification or dehumidification
 moisture mass flow rate.
@@ -383,7 +388,7 @@ properties as the fluid that enters <code>port_b</code>.
 <ul>
 <li>
 May 3, 2017, by Michael Wetter:<br/>
-Refactored model to allow <code>XiSet</code> as an input.<br/>
+Refactored model to allow <code>X_wSet</code> as an input.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">#763</a>.
 </li>

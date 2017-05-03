@@ -2,10 +2,10 @@ within IBPSA.Fluid.Interfaces.Examples;
 model PrescribedOutletState_TSetOnly "Test model for prescribed outlet state"
   extends Modelica.Icons.Example;
   extends IBPSA.Fluid.Interfaces.Examples.BaseClasses.PrescribedOutletState(
-    steSta(use_XiSet=false),
-    heaHigPow(use_XiSet=false),
-    cooLimPow(use_XiSet=false),
-    heaCooUnl(use_XiSet=false));
+    steSta(use_X_wSet=false),
+    heaHigPow(use_X_wSet=false),
+    cooLimPow(use_X_wSet=false),
+    heaCooUnl(use_X_wSet=false));
 
 equation
   connect(setHeaHigPow.y[1], heaHigPow.TSet) annotation (Line(points={{-39,120},
@@ -34,7 +34,7 @@ with temperature setpoint.
 <ul>
 <li>
 May 3, 2017, by Michael Wetter:<br/>
-Refactored model to allow <code>XiSet</code> as an input.<br/>
+Refactored model to allow <code>X_wSet</code> as an input.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">#763</a>.
 </li>

@@ -5,7 +5,7 @@ Humidifier_u
 PrescribedOutletState
 PrescribedOutletState_TSetOnly
 PrescribedOutletState_Water
-PrescribedOutletState_XiSetOnly
+PrescribedOutletState_X_wSetOnly
 ReverseFlowHumidifier
 ReverseFlowMassExchanger
 StaticTwoPortConservationEquation
