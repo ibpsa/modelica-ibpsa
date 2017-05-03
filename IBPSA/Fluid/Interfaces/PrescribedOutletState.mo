@@ -139,15 +139,22 @@ protected
   end if;
   end getCapacity;
 initial equation
-  if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+  // Set initial conditions, unless use_{T,Xi}Set = false in which case
+  // it is not a state.
+  if use_TSet then
+    if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
       der(T) = 0;
-  elseif energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
+    elseif energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
       T = T_start;
+    end if;
   end if;
-  if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+
+  if use_XiSet then
+    if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
       der(Xi) = 0;
-  elseif massDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
+    elseif massDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
       Xi = X_start[1];
+    end if;
   end if;
 
   assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
@@ -316,7 +323,8 @@ equation
         Text(
           extent={{-94,94},{-76,72}},
           lineColor={0,0,127},
-          textString="T"),
+          textString="T",
+          visible=use_TSet),
         Text(
           extent={{48,102},{92,74}},
           lineColor={0,0,127},
@@ -324,7 +332,8 @@ equation
         Text(
           extent={{-92,54},{-74,32}},
           lineColor={0,0,127},
-          textString="Xi"),
+          textString="Xi",
+          visible=use_XiSet),
         Text(
           extent={{50,56},{94,28}},
           lineColor={0,0,127},

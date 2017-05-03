@@ -1,7 +1,9 @@
 within IBPSA.Fluid.Interfaces.Examples;
-model PrescribedOutletState_TSetOnly "Test model for prescribed outlet state"
+model PrescribedOutletState_Water
+  "Test model for prescribed outlet state"
   extends Modelica.Icons.Example;
   extends IBPSA.Fluid.Interfaces.Examples.BaseClasses.PrescribedOutletState(
+    redeclare package Medium = Buildings.Media.Water,
     steSta(use_XiSet=false),
     heaHigPow(use_XiSet=false),
     cooLimPow(use_XiSet=false),
@@ -21,14 +23,14 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -120},{120,160}})),
     experiment(Tolerance=1e-6, StopTime=1200),
-__Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/PrescribedOutletState_TSetOnly.mos"
+__Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/PrescribedOutletState_Water.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Model that demonstrates 
 <a href=\"modelica://IBPSA.Fluid.Interfaces.PrescribedOutletState\">
 IBPSA.Fluid.Interfaces.PrescribedOutletState</a>
-with temperature setpoint.
+with temperature setpoint and water as the medium.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -44,4 +46,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PrescribedOutletState_TSetOnly;
+end PrescribedOutletState_Water;
