@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Interfaces.Examples;
-model PrescribedOutletState "Test model for prescribed outlet state"
+model PrescribedOutletState_TSetOnly "Test model for prescribed outlet state"
   extends Modelica.Icons.Example;
 
   package Medium = IBPSA.Media.Water;
@@ -117,7 +117,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -120},{120,160}})),
     experiment(Tolerance=1e-6, StopTime=1200),
-__Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/PrescribedOutletState.mos"
+__Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/PrescribedOutletState_TSetOnly.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -155,4 +155,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PrescribedOutletState;
+end PrescribedOutletState_TSetOnly;

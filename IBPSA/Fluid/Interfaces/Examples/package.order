@@ -2,7 +2,7 @@ ConservationEquation
 FourPortHeatMassExchanger
 HeaterCooler_u
 Humidifier_u
-PrescribedOutletState
+PrescribedOutletState_TSetOnly
 ReverseFlowHumidifier
 ReverseFlowMassExchanger
 StaticTwoPortConservationEquation
