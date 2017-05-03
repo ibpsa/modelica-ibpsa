@@ -35,6 +35,7 @@ protected
   output Modelica.SIunits.Time tNonOcc "Time when next non-occupancy starts";
 
 encapsulated function switchInteger
+  extends Modelica.Icons.Function;
   input Integer x1;
   input Integer x2;
   output Integer y1;
@@ -45,6 +46,7 @@ algorithm
 end switchInteger;
 
 encapsulated function switchReal
+  extends Modelica.Icons.Function;
   input Real x1;
   input Real x2;
   output Real y1;
