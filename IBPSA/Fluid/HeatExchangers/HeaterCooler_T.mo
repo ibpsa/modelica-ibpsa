@@ -42,7 +42,7 @@ protected
     final tau=tau,
     final T_start=T_start,
     final energyDynamics=energyDynamics,
-    final use_XiSet=false) "Heater or cooler"
+    final use_X_wSet=false) "Heater or cooler"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(port_a, preDro.port_a) annotation (Line(
@@ -102,15 +102,16 @@ Model for an ideal heater or cooler with a prescribed outlet temperature.
 <p>
 This model forces the outlet temperature at <code>port_b</code> to be equal to the temperature
 of the input signal <code>TSet</code>, subject to optional limits on the
-heating or cooling capacity <code>Q_flow_max</code> and <code>Q_flow_min</code>.
-For unlimited capacity, set <code>Q_flow_maxHeat = Modelica.Constant.inf</code>
-and <code>Q_flow_maxCool=-Modelica.Constant.inf</code>.
+heating or cooling capacity <code>Q_flow_maxHeat</code> and <code>Q_flow_maxCool</code>.
+By default, the model has unlimited capacity.
 </p>
 <p>
 The output signal <code>Q_flow</code> is the heat added (for heating) or subtracted (for cooling)
 to the medium if the flow rate is from <code>port_a</code> to <code>port_b</code>.
 If the flow is reversed, then <code>Q_flow=0</code>.
-The outlet temperature at <code>port_a</code> is not affected by this model.
+</p>
+<p>
+The outlet conditions at <code>port_a</code> are not affected by this model.
 </p>
 <p>
 If the parameter <code>energyDynamics</code> is not equal to
