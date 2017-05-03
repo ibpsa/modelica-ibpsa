@@ -19,7 +19,8 @@ model PrescribedOutletState "Test model for prescribed outlet state"
     Q_flow_maxHeat=1.0e10,
     m_flow_small=1E-4*abs(m_flow_nominal),
     show_T=true,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    use_XiSet=false)
     "Steady-state model of the heater with high capacity"
     annotation (Placement(transformation(extent={{-10,76},{10,96}})));
   Modelica.Blocks.Sources.TimeTable TSetHeat(table=[0,273.15 + 20.0; 120,273.15
@@ -31,7 +32,8 @@ model PrescribedOutletState "Test model for prescribed outlet state"
     Q_flow_maxCool=-1000,
     m_flow_small=1E-4*abs(m_flow_nominal),
     show_T=true,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    use_XiSet=false)
     "Steady-state model of the cooler with limited capacity"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.TimeTable TSetCool(table=[0,273.15 + 20.0; 120,273.15
@@ -42,7 +44,8 @@ model PrescribedOutletState "Test model for prescribed outlet state"
     redeclare package Medium = Medium,
     m_flow_small=1E-4*abs(m_flow_nominal),
     show_T=true,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    use_XiSet=false)
     "Steady-state model of the heater or cooler with unlimited capacity"
     annotation (Placement(transformation(extent={{-10,-94},{10,-74}})));
   Modelica.Blocks.Sources.TimeTable TSetCoolHeat(table=[0,273.15 + 20.0; 120,273.15
