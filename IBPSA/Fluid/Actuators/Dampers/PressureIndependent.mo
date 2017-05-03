@@ -35,7 +35,7 @@ model PressureIndependent
   parameter Real l2(unit="1", min=1e-10) = 0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
     annotation(Dialog(tab="Advanced"));
-  parameter Real deltax = 0.02 "Transition interval for flow rate"
+  parameter Real deltax(unit="1", min=1E-5) = 0.02 "Transition interval for flow rate"
     annotation(Dialog(tab="Advanced"));
   Medium.Density rho "Medium density";
 protected
@@ -175,9 +175,8 @@ equation
       m_flow=homotopy(actual=m_flow_smooth,
                       simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
     else
-        dp=homotopy(
-           actual=dp_smooth,
-           simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+      dp=homotopy(actual=dp_smooth,
+                  simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
     end if;
   else
     if from_dp then
