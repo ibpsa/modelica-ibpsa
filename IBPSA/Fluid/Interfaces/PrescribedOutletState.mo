@@ -201,9 +201,8 @@ equation
   end if;
 
   Xi_instream = inStream(port_a.Xi_outflow);
+
   // Set point without any capacity limitation
-  // fixme: this should be using XiAct....
-  // **********
   hSet = if use_TSet then Medium.specificEnthalpy(
     Medium.setState_pTX(
       p = port_a.p,
@@ -280,14 +279,17 @@ equation
   // No pressure drop
   dp = 0;
 
-  assert(m_flow > -m_flow_small or allowFlowReversal,
-      "Reverting flow occurs even though allowFlowReversal is false");
-
   // Mass balance (no storage)
   port_a.m_flow + port_b.m_flow = 0;
 
   // Transport of substances
   port_b.C_outflow = inStream(port_a.C_outflow);
+
+  if not allowFlowReversal then
+    assert(m_flow > -m_flow_small,
+      "Reverting flow occurs even though allowFlowReversal is false");
+  end if;
+
 
     annotation (
   defaultComponentName="heaCoo",
@@ -329,16 +331,17 @@ equation
           textString="mWat_flow")}),
   Documentation(info="<html>
 <p>
-This model sets the temperature of the medium that leaves <code>port_a</code>
-to the value given by the input <code>TSet</code>, subject to optional
-limitations on the heating and cooling capacity.
+This model sets the temperature or the water vapor mass fraction
+of the medium that leaves <code>port_a</code>
+to the value given by the input <code>TSet</code> or <code>XiSet</code>,
+subject to optional limitations on the capacity
+for heating and cooling, or limitations on the humidification or dehumidification
+moisture mass flow rate.
+Also, optionally the model allows to take into account first order dynamics.
 </p>
 <p>
-In case of reverse flow, the set point temperature is still applied to
-the fluid that leaves <code>port_b</code>.
-</p>
-<p>
-If the parameter <code>energyDynamics</code> is not equal to
+If the parameters <code>energyDynamics</code> or
+<code>massDynamics</code> are not equal to
 <code>Modelica.Fluid.Types.Dynamics.SteadyState</code>,
 the component models the dynamic response using a first order differential equation.
 The time constant of the component is equal to the parameter <code>tau</code>.
@@ -362,8 +365,19 @@ See <a href=\"modelica://IBPSA.Fluid.HeatExchangers.HeaterCooler_T\">
 IBPSA.Fluid.HeatExchangers.HeaterCooler_T</a>
 for a model that instantiates this model and that has a pressure drop.
 </p>
+<p>
+In case of reverse flow,
+the fluid that leaves <code>port_a</code> has the same
+properties as the fluid that enters <code>port_b</code>.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 3, 2017, by Michael Wetter:<br/>
+Refactored model to allow <code>XiSet</code> as an input.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">#763</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Removed inequality comparison of real numbers in <code>restrictCool</code>
