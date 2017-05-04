@@ -33,7 +33,7 @@ model PrescribedOutlet
     annotation(Dialog(tab = "Initialization", enable=use_TSet));
   parameter Modelica.SIunits.MassFraction X_start[Medium.nX] = Medium.X_default
     "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=use_X_wSet and _Medium.nXi > 0));
+    annotation (Dialog(tab="Initialization", enable=use_X_wSet and Medium.nXi > 0));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState

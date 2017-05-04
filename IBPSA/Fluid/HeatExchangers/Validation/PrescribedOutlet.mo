@@ -16,7 +16,9 @@ model PrescribedOutlet
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
-    QMax_flow=1e4) "Steady-state model of the heater with high capacity"
+    QMax_flow=1e4,
+    use_X_wSet=false)
+                   "Steady-state model of the heater with high capacity"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort heaHigPowOut(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
@@ -32,7 +34,8 @@ model PrescribedOutlet
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
-    QMin_flow=-1000)
+    QMin_flow=-1000,
+    use_X_wSet=false)
     "Steady-state model of the cooler with limited capacity"
     annotation (Placement(transformation(extent={{40,24},{60,44}})));
   Modelica.Blocks.Sources.TimeTable TSetCool(table=[0,273.15 + 20.0; 120,273.15
@@ -42,7 +45,8 @@ model PrescribedOutlet
   IBPSA.Fluid.HeatExchangers.PrescribedOutlet heaCooUnl(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=6000)
+    dp_nominal=6000,
+    use_X_wSet=false)
     "Steady-state model of the heater or cooler with unlimited capacity"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Modelica.Blocks.Sources.TimeTable TSetCoolHeat(table=[0,273.15 + 20.0; 120,273.15
@@ -90,19 +94,19 @@ equation
       points={{60,120},{78,120}},
       color={0,127,255}));
   connect(TSetHeat.y, heaHigPow.TSet) annotation (Line(
-      points={{11,170},{20,170},{20,126},{38,126}},
+      points={{11,170},{20,170},{20,128},{38,128}},
       color={0,0,127}));
   connect(cooLimPow.port_b, cooLimPowOut.port_a) annotation (Line(
       points={{60,34},{80,34}},
       color={0,127,255}));
   connect(TSetCool.y, cooLimPow.TSet) annotation (Line(
-      points={{13,80},{28,80},{28,40},{38,40}},
+      points={{13,80},{28,80},{28,42},{38,42}},
       color={0,0,127}));
   connect(heaCooUnl.port_b, heaCooUnlOut.port_a) annotation (Line(
       points={{60,-50},{78,-50}},
       color={0,127,255}));
   connect(TSetCoolHeat.y, heaCooUnl.TSet) annotation (Line(
-      points={{13,-10},{26,-10},{26,-44},{38,-44}},
+      points={{13,-10},{26,-10},{26,-42},{38,-42}},
       color={0,0,127}));
   connect(heaHigPowIn.port_b, heaHigPow.port_a) annotation (Line(
       points={{12,120},{40,120}},

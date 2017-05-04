@@ -12,7 +12,7 @@ model SensibleCooler_T
       final massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
       final X_start = Medium.X_default));
 
-  parameter Modelica.SIunits.HeatFlowRate QMin_flow(min=0) = -Modelica.Constants.inf
+  parameter Modelica.SIunits.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)"
     annotation (Evaluate=true);
 
