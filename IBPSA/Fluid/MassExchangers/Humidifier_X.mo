@@ -12,6 +12,7 @@ model Humidifier_X
     final use_X_wSet = true,
     final Q_flow_maxHeat = 0,
     final Q_flow_maxCool = 0,
+    final mWat_flow_maxDehumidification = 0,
     final energyDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState);
 
@@ -40,34 +41,32 @@ protected
     final dp_nominal=dp_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
-  IBPSA.Fluid.Interfaces.PrescribedOutletState humDeh(
+  IBPSA.Fluid.Interfaces.PrescribedOutletState hum(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small,
     final show_T=false,
     final mWat_flow_maxHumidification=mWat_flow_maxHumidification,
-    final mWat_flow_maxDehumidification=mWat_flow_maxDehumidification,
     final m_flow_nominal=m_flow_nominal,
     final tau=tau,
     final X_start=X_start,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
-    final use_TSet=false) "Humidifier or dehumidifier"
+    final use_TSet=false,
+    final mWat_flow_maxDehumidification=0) "Humidifier"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(port_a, preDro.port_a) annotation (Line(
       points={{-100,0},{-50,0}},
       color={0,127,255}));
-  connect(preDro.port_b, humDeh.port_a) annotation (Line(
-      points={{-30,0},{20,0}},
-      color={0,127,255}));
-  connect(humDeh.port_b, port_b) annotation (Line(
-      points={{40,0},{100,0}},
-      color={0,127,255}));
-  connect(humDeh.mWat_flow, mWat_flow) annotation (Line(points={{41,4},{80,4},{80,
-          60},{110,60}}, color={0,0,127}));
-  connect(X_w, humDeh.X_wSet) annotation (Line(points={{-120,60},{-72,60},{0,60},
-          {0,4},{18,4}}, color={0,0,127}));
+  connect(preDro.port_b, hum.port_a)
+    annotation (Line(points={{-30,0},{20,0}}, color={0,127,255}));
+  connect(hum.port_b, port_b)
+    annotation (Line(points={{40,0},{100,0}}, color={0,127,255}));
+  connect(hum.mWat_flow, mWat_flow) annotation (Line(points={{41,4},{80,4},{80,60},
+          {110,60}}, color={0,0,127}));
+  connect(X_w, hum.X_wSet) annotation (Line(points={{-120,60},{-72,60},{0,60},{0,
+          4},{18,4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -105,20 +104,20 @@ equation
 defaultComponentName="hea",
 Documentation(info="<html>
 <p>
-Model for an adiabatic humidifier (or dehumidifier) with a prescribed outlet water vapor mass fraction
+Model for an adiabatic humidifier with a prescribed outlet water vapor mass fraction
 in kg/kg total air.
 </p>
 <p>
-This model forces the outlet water mass fraction at <code>port_b</code> to be equal to the
+This model forces the outlet water mass fraction at <code>port_b</code> to be
+not lower than the
 input signal <code>X_wSet</code>, subject to optional limits on the
-maximum water vapor mass flow rate that is added or removed, as
+maximum water vapor mass flow rate that is added, as
 described by the parameters
-<code>mWat_flow_maxHumidification</code> and <code>mWat_flow_maxDehumidification</code>.
+<code>mWat_flow_maxHumidification</code>.
 By default, the model has unlimited capacity.
 </p>
 <p>
-The output signal <code>mWat_flow</code> is the moisture added (for humidification)
-or subtracted (for dehumidification)
+The output signal <code>mWat_flow</code> is the moisture added
 to the medium if the flow rate is from <code>port_a</code> to <code>port_b</code>.
 If the flow is reversed, then <code>mWat_flow=0</code>.
 </p>
@@ -157,7 +156,7 @@ IBPSA.Fluid.MassExchangers.Humidifier_u</a>
 </p>
 <h4>Limitations</h4>
 <p>
-This model only adds or removes water vapor for the flow from
+This model only adds water vapor for the flow from
 <code>port_a</code> to <code>port_b</code>.
 The water vapor of the reverse flow is not affected by this model.
 </p>

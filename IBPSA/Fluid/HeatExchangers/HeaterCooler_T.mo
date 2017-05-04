@@ -11,7 +11,7 @@ model HeaterCooler_T
     final use_X_wSet = false,
     final mWat_flow_maxHumidification = 0,
     final mWat_flow_maxDehumidification = 0,
-    final massDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+    final massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=Medium.T_default);
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"

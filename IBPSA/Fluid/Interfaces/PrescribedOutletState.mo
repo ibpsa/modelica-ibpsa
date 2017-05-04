@@ -46,10 +46,10 @@ protected
     annotation(Evaluate = true);
 
   parameter Modelica.SIunits.SpecificEnthalpy deltaH=
-    cp_default*0.001
+    cp_default*1E-6
     "Small value for deltaH used for regularization";
 
-  parameter Modelica.SIunits.MassFraction deltaXi = 0.00001
+  parameter Modelica.SIunits.MassFraction deltaXi = 1E-6
     "Small mass fraction used for regularization";
 
   final parameter Boolean dynamic = tau > 1E-10 or tau < -1E-10
@@ -137,6 +137,7 @@ protected
     XOut :=XIn + dXAct;
     P :=m_flow_pos*dXAct;
   end if;
+  annotation(smoothOrder = 1);
   end getCapacity;
 initial equation
   // Set initial conditions, unless use_{T,Xi}Set = false in which case
