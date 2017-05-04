@@ -136,7 +136,7 @@ model Basic "Example implementation of flow system"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={60,-50})));
-  IBPSA.Fluid.HeatExchangers.PrescribedOutlet heater(
+  IBPSA.Fluid.HeatExchangers.Heater_T heater(
     m_flow_nominal=10,
     dp_nominal=100,
     redeclare package Medium = Medium) "Heating device"
@@ -345,7 +345,8 @@ equation
                                                      color={0,127,255}));
   connect(pumpHea.port_b, heater.port_a) annotation (Line(points={{-70,-130},{-74,
           -130},{-74,-104},{-74,-100},{-70,-100}}, color={0,127,255}));
-  connect(Thot.y, heater.TSet) annotation (Line(points={{-83.4,-94},{-72,-94}},
+  connect(Thot.y, heater.TSet) annotation (Line(points={{-83.4,-94},{-78,-94},{-78,
+          -92},{-72,-92}},
                  color={0,0,127}));
   connect(spl1.port_1, valSouth.port_3) annotation (Line(points={{-20,-130},{-20,
           -130},{0,-130},{0,-52},{-50,-52},{-50,-50}}, color={0,127,255}));
