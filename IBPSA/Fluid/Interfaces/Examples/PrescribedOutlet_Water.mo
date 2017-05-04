@@ -3,7 +3,7 @@ model PrescribedOutlet_Water
   "Test model for prescribed outlet state"
   extends Modelica.Icons.Example;
   extends IBPSA.Fluid.Interfaces.Examples.BaseClasses.PrescribedOutletState(
-    redeclare package Medium = Buildings.Media.Water,
+    redeclare package Medium = IBPSA.Media.Water,
     steSta(use_X_wSet=false),
     heaHigPow(use_X_wSet=false),
     cooLimPow(use_X_wSet=false),
@@ -11,13 +11,13 @@ model PrescribedOutlet_Water
 
 equation
   connect(setHeaHigPow.y[1], heaHigPow.TSet) annotation (Line(points={{-39,120},
-          {-20,120},{-20,94},{-12,94}}, color={0,0,127}));
+          {-20,120},{-20,94},{-11,94}}, color={0,0,127}));
   connect(setCooLimPow.y[1], cooLimPow.TSet) annotation (Line(points={{-39,40},{
-          -26,40},{-26,8},{-12,8}}, color={0,0,127}));
+          -26,40},{-26,8},{-11,8}}, color={0,0,127}));
   connect(setHeaCooUnl.y[1], heaCooUnl.TSet) annotation (Line(points={{-39,-30},
-          {-26,-30},{-26,-52},{-12,-52}}, color={0,0,127}));
+          {-26,-30},{-26,-52},{-11,-52}}, color={0,0,127}));
   connect(setHeaCooUnl.y[1], steSta.TSet) annotation (Line(points={{-39,-30},{-26,
-          -30},{-26,-82},{-12,-82}}, color={0,0,127}));
+          -30},{-26,-82},{-11,-82}}, color={0,0,127}));
 
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
