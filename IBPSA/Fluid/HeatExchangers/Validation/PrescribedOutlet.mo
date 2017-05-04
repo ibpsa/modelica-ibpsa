@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.Validation;
-model HeaterCooler_T
+model PrescribedOutlet
   "Model that demonstrates the ideal heater/cooler model for a prescribed outlet temperature, configured as steady-state"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Water;
@@ -12,7 +12,7 @@ model HeaterCooler_T
     T=293.15,
     nPorts=3) "Sink"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,origin={150,34})));
-  IBPSA.Fluid.HeatExchangers.HeaterCooler_T heaHigPow(
+  IBPSA.Fluid.HeatExchangers.PrescribedOutlet heaHigPow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
@@ -28,7 +28,7 @@ model HeaterCooler_T
   IBPSA.Fluid.Sensors.TemperatureTwoPort cooLimPowOut(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{80,24},{100,44}})));
-  IBPSA.Fluid.HeatExchangers.HeaterCooler_T cooLimPow(
+  IBPSA.Fluid.HeatExchangers.PrescribedOutlet cooLimPow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
@@ -39,7 +39,7 @@ model HeaterCooler_T
     + 20.0; 120,273.15 + 15.0; 500,273.15 + 15.0; 500,273.15 + 10.0; 1200,273.15 + 10.0])
     "Setpoint cooling"
     annotation (Placement(transformation(extent={{-8,70},{12,90}})));
-  IBPSA.Fluid.HeatExchangers.HeaterCooler_T heaCooUnl(
+  IBPSA.Fluid.HeatExchangers.PrescribedOutlet heaCooUnl(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000)
@@ -58,14 +58,14 @@ model HeaterCooler_T
     offset=m_flow_nominal,
     startTime=1000) "Mass flow rate"
     annotation (Placement(transformation(extent={{-80,32},{-60,52}})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort heaHigPowIn(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  IBPSA.Fluid.Sensors.TemperatureTwoPort heaHigPowIn(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-8,110},{12,130}})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort cooLimPowIn(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  IBPSA.Fluid.Sensors.TemperatureTwoPort cooLimPowIn(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-6,24},{14,44}})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort heaCooUnlIn(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  IBPSA.Fluid.Sensors.TemperatureTwoPort heaCooUnlIn(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-8,-60},{12,-40}})));
   Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium,
@@ -142,7 +142,7 @@ equation
       color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{200,200}}),                                                                    graphics),
-    __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/HeaterCooler_T.mos"
+    __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/PrescribedOutlet.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -177,4 +177,4 @@ First implementation.
     experiment(
       StopTime=1200,
       Tolerance=1e-6));
-end HeaterCooler_T;
+end PrescribedOutlet;

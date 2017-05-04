@@ -19,7 +19,7 @@ partial model Example1 "Example 1 partial model"
     nominalValuesDefineDefaultPressureCurve=true)
     "Pump model with unidirectional flow"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  IBPSA.Fluid.HeatExchangers.HeaterCooler_T hea(
+  IBPSA.Fluid.HeatExchangers.PrescribedOutlet hea(
     redeclare package Medium = Medium,
     dp_nominal=1000,
     Q_flow_maxHeat=1000,

@@ -151,7 +151,7 @@ model SimpleHouse
   Modelica.Blocks.Sources.Constant TSetRoo(k=273.15 + 24)
     "Room temperature set point for air system"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  HeatExchangers.HeaterCooler_T cooAir(
+  HeatExchangers.PrescribedOutlet cooAir(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mAir_flow_nominal,

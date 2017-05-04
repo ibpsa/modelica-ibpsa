@@ -15,7 +15,7 @@ model Carnot_TEva
     final energyDynamics=energyDynamics,
     final homotopyInitialization=homotopyInitialization,
     final Q_flow_nominal=QCon_flow_nominal),
-   redeclare HeatExchangers.HeaterCooler_T eva(
+   redeclare HeatExchangers.PrescribedOutlet eva(
     final from_dp=from_dp2,
     final dp_nominal=dp2_nominal,
     final linearizeFlowResistance=linearizeFlowResistance2,

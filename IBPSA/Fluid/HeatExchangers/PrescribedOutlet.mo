@@ -1,10 +1,10 @@
 within IBPSA.Fluid.HeatExchangers;
-model HeaterCooler_T
+model PrescribedOutlet
   "Ideal heater or cooler with a prescribed outlet temperature"
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
   extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
-  extends IBPSA.Fluid.Interfaces.PrescribedOutletStateParameters(
+  extends IBPSA.Fluid.Interfaces.PrescribedOutletParameters(
     redeclare final package _Medium = Medium,
     final X_start=Medium.X_default,
     final use_TSet = true,
@@ -38,7 +38,7 @@ protected
     final dp_nominal=dp_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
-  IBPSA.Fluid.Interfaces.PrescribedOutletState heaCoo(
+  IBPSA.Fluid.Interfaces.PrescribedOutlet heaCoo(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small,
@@ -165,11 +165,11 @@ will not change.
 <p>
 The model has been validated against the analytical solution in
 the examples
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Validation.HeaterCooler_T\">
-IBPSA.Fluid.HeatExchangers.Validation.HeaterCooler_T</a>
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Validation.PrescribedOutlet\">
+IBPSA.Fluid.HeatExchangers.Validation.PrescribedOutlet</a>
 and
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Validation.HeaterCooler_T_dynamic\">
-IBPSA.Fluid.HeatExchangers.Validation.HeaterCooler_T_dynamic</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Validation.PrescribedOutlet_dynamic\">
+IBPSA.Fluid.HeatExchangers.Validation.PrescribedOutlet_dynamic</a>.
 </p>
 </html>",
 revisions="<html>
@@ -195,4 +195,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeaterCooler_T;
+end PrescribedOutlet;

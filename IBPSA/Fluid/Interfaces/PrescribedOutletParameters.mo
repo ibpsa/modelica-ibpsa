@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Interfaces;
-record PrescribedOutletStateParameters
+record PrescribedOutletParameters
   "Parameters for models with prescribed outlet state"
 
   replaceable package _Medium =
@@ -65,4 +65,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PrescribedOutletStateParameters;
+end PrescribedOutletParameters;

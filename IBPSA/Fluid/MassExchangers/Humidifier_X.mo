@@ -4,7 +4,7 @@ model Humidifier_X
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
   extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
-  extends IBPSA.Fluid.Interfaces.PrescribedOutletStateParameters(
+  extends IBPSA.Fluid.Interfaces.PrescribedOutletParameters(
     redeclare final package _Medium = Medium,
     final T_start=293.15,
     X_start=Medium.X_default,
@@ -41,7 +41,7 @@ protected
     final dp_nominal=dp_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
-  IBPSA.Fluid.Interfaces.PrescribedOutletState hum(
+  IBPSA.Fluid.Interfaces.PrescribedOutlet hum(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small,

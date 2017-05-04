@@ -5,7 +5,7 @@ model Carnot_TCon
    final COP_is_for_cooling = false,
    final QEva_flow_nominal = -QCon_flow_nominal*(COP_nominal-1)/COP_nominal,
    PEle(y=QCon_flow/COP),
-   redeclare HeatExchangers.HeaterCooler_T con(
+   redeclare HeatExchangers.PrescribedOutlet con(
     final from_dp=from_dp1,
     final dp_nominal=dp1_nominal,
     final linearizeFlowResistance=linearizeFlowResistance1,

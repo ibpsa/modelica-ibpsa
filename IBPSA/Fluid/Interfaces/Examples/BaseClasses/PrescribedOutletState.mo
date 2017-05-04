@@ -14,7 +14,7 @@ partial model PrescribedOutletState "Test model for prescribed outlet state"
     T=293.15,
     nPorts=4) "Sink"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,origin={100,0})));
-  IBPSA.Fluid.Interfaces.PrescribedOutletState heaHigPow(
+  IBPSA.Fluid.Interfaces.PrescribedOutlet heaHigPow(
     redeclare package Medium = Medium,
     Q_flow_maxHeat=1.0e10,
     mWat_flow_maxHumidification = 0.001,
@@ -34,7 +34,7 @@ partial model PrescribedOutletState "Test model for prescribed outlet state"
     smoothness = Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Setpoint heating and humidification"
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
-  IBPSA.Fluid.Interfaces.PrescribedOutletState cooLimPow(
+  IBPSA.Fluid.Interfaces.PrescribedOutlet cooLimPow(
     redeclare package Medium = Medium,
     Q_flow_maxCool=-1000,
     mWat_flow_maxDehumidification = -0.001,
@@ -54,7 +54,7 @@ partial model PrescribedOutletState "Test model for prescribed outlet state"
     smoothness = Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Setpoint cooling and dehumidification"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  IBPSA.Fluid.Interfaces.PrescribedOutletState heaCooUnl(
+  IBPSA.Fluid.Interfaces.PrescribedOutlet heaCooUnl(
     redeclare package Medium = Medium,
     m_flow_small=1E-4*abs(m_flow_nominal),
     show_T=true,
@@ -62,7 +62,7 @@ partial model PrescribedOutletState "Test model for prescribed outlet state"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Steady-state model of the heater or cooler with unlimited capacity"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-  IBPSA.Fluid.Interfaces.PrescribedOutletState steSta(
+  IBPSA.Fluid.Interfaces.PrescribedOutlet steSta(
     redeclare package Medium = Medium,
     m_flow_small=1E-4*abs(m_flow_nominal),
     show_T=true,

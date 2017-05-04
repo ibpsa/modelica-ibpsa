@@ -1,8 +1,8 @@
 within IBPSA.Fluid.Interfaces;
-model PrescribedOutletState
+model PrescribedOutlet
   "Component that assigns the outlet fluid property at port_a based on an input signal"
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
-  extends IBPSA.Fluid.Interfaces.PrescribedOutletStateParameters(
+  extends IBPSA.Fluid.Interfaces.PrescribedOutletParameters(
     redeclare final package _Medium = Medium);
 
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_TSet
@@ -376,8 +376,8 @@ control volume would have.
 </p>
 <p>
 This model has no pressure drop.
-See <a href=\"modelica://IBPSA.Fluid.HeatExchangers.HeaterCooler_T\">
-IBPSA.Fluid.HeatExchangers.HeaterCooler_T</a>
+See <a href=\"modelica://IBPSA.Fluid.HeatExchangers.PrescribedOutlet\">
+IBPSA.Fluid.HeatExchangers.PrescribedOutlet</a>
 for a model that instantiates this model and that has a pressure drop.
 </p>
 <p>
@@ -404,4 +404,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PrescribedOutletState;
+end PrescribedOutlet;

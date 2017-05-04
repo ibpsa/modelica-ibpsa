@@ -136,7 +136,7 @@ model Basic "Example implementation of flow system"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={60,-50})));
-  IBPSA.Fluid.HeatExchangers.HeaterCooler_T heater(
+  IBPSA.Fluid.HeatExchangers.PrescribedOutlet heater(
     m_flow_nominal=10,
     dp_nominal=100,
     redeclare package Medium = Medium) "Heating device"
