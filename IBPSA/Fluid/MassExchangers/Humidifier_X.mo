@@ -1,6 +1,6 @@
 within IBPSA.Fluid.MassExchangers;
 model Humidifier_X
-  "Adiabatic humidifier or dehumidifier with leaving water mass fraction as input"
+  "Adiabatic humidifier (or dehumidifier) with leaving water mass fraction as input"
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
   extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
@@ -105,7 +105,7 @@ equation
 defaultComponentName="hea",
 Documentation(info="<html>
 <p>
-Model for an adiabatic humidifier or dehumidifier with a prescribed outlet water vapor mass fraction
+Model for an adiabatic humidifier (or dehumidifier) with a prescribed outlet water vapor mass fraction
 in kg/kg total air.
 </p>
 <p>
