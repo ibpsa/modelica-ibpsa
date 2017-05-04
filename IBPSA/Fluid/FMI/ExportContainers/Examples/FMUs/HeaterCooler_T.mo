@@ -6,13 +6,13 @@ block HeaterCooler_T
      redeclare final IBPSA.Fluid.HeatExchangers.PrescribedOutlet com(
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=if use_p_in then dp_nominal else 0,
-      final Q_flow_maxHeat=Q_flow_maxHeat,
-      final Q_flow_maxCool=Q_flow_maxCool,
+      final QMax_flow=QMax_flow,
+      final QMin_flow=QMin_flow,
       final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat=Modelica.Constants.inf
+  parameter Modelica.SIunits.HeatFlowRate QMax_flow=Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool=-Modelica.Constants.inf
+  parameter Modelica.SIunits.HeatFlowRate QMin_flow=-Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";

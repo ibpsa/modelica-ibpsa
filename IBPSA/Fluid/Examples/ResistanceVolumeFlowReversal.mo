@@ -21,8 +21,8 @@ model ResistanceVolumeFlowReversal
   IBPSA.Fluid.HeatExchangers.PrescribedOutlet hea(
     redeclare package Medium = Medium,
     dp_nominal=1000,
-    Q_flow_maxHeat=1000,
-    Q_flow_maxCool=0,
+    QMax_flow=1000,
+    QMin_flow=0,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=allowFlowReversal.k) "Heater"

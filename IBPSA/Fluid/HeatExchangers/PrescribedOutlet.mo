@@ -9,8 +9,8 @@ model PrescribedOutlet
     final X_start=Medium.X_default,
     final use_TSet = true,
     final use_X_wSet = false,
-    final mWat_flow_maxHumidification = 0,
-    final mWat_flow_maxDehumidification = 0,
+    final mWatMax_flow = 0,
+    final mWatMin_flow = 0,
     final massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=Medium.T_default);
 
@@ -43,8 +43,8 @@ protected
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small,
     final show_T=false,
-    final Q_flow_maxHeat=Q_flow_maxHeat,
-    final Q_flow_maxCool=Q_flow_maxCool,
+    final QMax_flow=QMax_flow,
+    final QMin_flow=QMin_flow,
     final m_flow_nominal=m_flow_nominal,
     final tau=tau,
     final T_start=T_start,
@@ -109,7 +109,7 @@ Model for an ideal heater or cooler with a prescribed outlet temperature.
 <p>
 This model forces the outlet temperature at <code>port_b</code> to be equal to the temperature
 of the input signal <code>TSet</code>, subject to optional limits on the
-heating or cooling capacity <code>Q_flow_maxHeat</code> and <code>Q_flow_maxCool</code>.
+heating or cooling capacity <code>QMax_flow</code> and <code>QMin_flow</code>.
 By default, the model has unlimited capacity.
 </p>
 <p>

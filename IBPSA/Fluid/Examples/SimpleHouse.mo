@@ -156,7 +156,7 @@ model SimpleHouse
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mAir_flow_nominal,
     dp_nominal=0,
-    Q_flow_maxHeat=0,
+    QMax_flow=0,
     redeclare package Medium = MediumAir) "Cooling for supply air"
     annotation (Placement(transformation(extent={{30,110},{50,130}})));
   Modelica.Blocks.Sources.Constant TSupAirCoo(k=273.15 + 20)

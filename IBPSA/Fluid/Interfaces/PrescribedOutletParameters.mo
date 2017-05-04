@@ -6,17 +6,17 @@ record PrescribedOutletParameters
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat(min=0) = Modelica.Constants.inf
+  parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)"
     annotation (Evaluate=true, Dialog(enable=use_TSet));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool(max=0) = -Modelica.Constants.inf
+  parameter Modelica.SIunits.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)"
     annotation (Evaluate=true, Dialog(enable=use_TSet));
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_maxHumidification(min=0) = Modelica.Constants.inf
+  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
     "Maximum water mass flow rate addition (positive)"
     annotation (Evaluate=true, Dialog(enable=use_X_wSet));
 
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_maxDehumidification(max=0) = -Modelica.Constants.inf
+  parameter Modelica.SIunits.MassFlowRate mWatMin_flow(max=0) = -Modelica.Constants.inf
     "Maximum water mass flow rate removal (negative)"
     annotation (Evaluate=true, Dialog(enable=use_X_wSet));
 

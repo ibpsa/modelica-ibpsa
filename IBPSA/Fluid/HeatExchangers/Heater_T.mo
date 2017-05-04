@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatExchangers;
 model Heater_T "Heater with prescribed outlet temperature"
   extends IBPSA.Fluid.HeatExchangers.PrescribedOutlet(
-    final Q_flow_maxCool = 0);
+    final QMin_flow = 0);
     annotation (
     defaultComponentName="hea",
 Documentation(info="<html>

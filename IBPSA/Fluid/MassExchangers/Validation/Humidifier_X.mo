@@ -19,7 +19,7 @@ model Humidifier_X
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
-    mWat_flow_maxHumidification=mWat_flow_nominal,
+    mWatMax_flow=mWat_flow_nominal,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     show_T=true)
     "Steady-state model with capacity limitation"

@@ -10,9 +10,9 @@ model Humidifier_X
     X_start=Medium.X_default,
     final use_TSet = false,
     final use_X_wSet = true,
-    final Q_flow_maxHeat = 0,
-    final Q_flow_maxCool = 0,
-    final mWat_flow_maxDehumidification = 0,
+    final QMax_flow = 0,
+    final QMin_flow = 0,
+    final mWatMin_flow = 0,
     final energyDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState);
 
@@ -46,14 +46,14 @@ protected
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small,
     final show_T=false,
-    final mWat_flow_maxHumidification=mWat_flow_maxHumidification,
+    final mWatMax_flow=mWatMax_flow,
     final m_flow_nominal=m_flow_nominal,
     final tau=tau,
     final X_start=X_start,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final use_TSet=false,
-    final mWat_flow_maxDehumidification=0) "Humidifier"
+    final mWatMin_flow=0) "Humidifier"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(port_a, preDro.port_a) annotation (Line(
@@ -113,7 +113,7 @@ not lower than the
 input signal <code>X_wSet</code>, subject to optional limits on the
 maximum water vapor mass flow rate that is added, as
 described by the parameters
-<code>mWat_flow_maxHumidification</code>.
+<code>mWatMax_flow</code>.
 By default, the model has unlimited capacity.
 </p>
 <p>

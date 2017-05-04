@@ -13,5 +13,5 @@ createPlot(id=1, position={23, 17, 932, 133},
  y={"heaCooUnlIn.T", "heaCooUnlOut.T", "heaCooUnl.TSet"},
 range={0.0, 1200.0, 10.0, 40.0}, grid=true, subPlot=4, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});
 createPlot(id=2, position={105, 309, 784, 374},
- y={"heaHigPow.Q_flow_maxHeat", "heaHigPow.Q_flow", "cooLimPow.Q_flow_maxCool", "cooLimPow.Q_flow", "heaCooUnl.Q_flow"},
+ y={"heaHigPow.QMax_flow", "heaHigPow.Q_flow", "cooLimPow.QMin_flow", "cooLimPow.Q_flow", "heaCooUnl.Q_flow"},
 range={0.0, 1200.0, -6000.0, 12000.0}, grid=true, filename="PrescribedOutlet_dynamic.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}});

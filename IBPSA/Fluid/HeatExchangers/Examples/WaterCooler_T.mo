@@ -15,7 +15,7 @@ model WaterCooler_T
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    Q_flow_maxCool=-Q_flow_nominal) "Cooler"
+    QMin_flow=-Q_flow_nominal) "Cooler"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Controls.SetPoints.Table tab(table=[0,273.15 + 10; 1,273.15 + 30])
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));

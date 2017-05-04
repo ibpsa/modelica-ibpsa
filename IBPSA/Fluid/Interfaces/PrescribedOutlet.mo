@@ -31,17 +31,17 @@ protected
           T=Medium.T_default,
           X=Medium.X_default)) "Specific heat capacity at default medium state";
 
-  parameter Boolean restrictHeat = Q_flow_maxHeat < Modelica.Constants.inf/10.0
+  parameter Boolean restrictHeat = QMax_flow < Modelica.Constants.inf/10.0
     "Flag, true if maximum heating power is restricted"
     annotation(Evaluate = true);
-  parameter Boolean restrictCool = Q_flow_maxCool > -Modelica.Constants.inf/10.0
+  parameter Boolean restrictCool = QMin_flow > -Modelica.Constants.inf/10.0
     "Flag, true if maximum cooling power is restricted"
     annotation(Evaluate = true);
 
-  parameter Boolean restrictHumi = mWat_flow_maxHumidification < Modelica.Constants.inf/10.0
+  parameter Boolean restrictHumi = mWatMax_flow < Modelica.Constants.inf/10.0
     "Flag, true if maximum humidification is restricted"
     annotation(Evaluate = true);
-  parameter Boolean restrictDehu = mWat_flow_maxDehumidification > -Modelica.Constants.inf/10.0
+  parameter Boolean restrictDehu = mWatMin_flow > -Modelica.Constants.inf/10.0
     "Flag, true if maximum dehumidification is restricted"
     annotation(Evaluate = true);
 
@@ -205,20 +205,20 @@ equation
         // Capacity limits for heating and cooling
         dXiAct =IBPSA.Utilities.Math.Functions.smoothLimit(
               x=Xi - sum(Xi_instream),
-              l=mWat_flow_maxDehumidification/m_flow_non_zero,
-              u=mWat_flow_maxHumidification/m_flow_non_zero,
+              l=mWatMin_flow/m_flow_non_zero,
+              u=mWatMax_flow/m_flow_non_zero,
               deltaX=deltaXi);
       elseif restrictHumi then
         // Capacity limit for heating only
         dXiAct =IBPSA.Utilities.Math.Functions.smoothMin(
               x1=Xi - sum(Xi_instream),
-              x2=mWat_flow_maxHumidification/m_flow_non_zero,
+              x2=mWatMax_flow/m_flow_non_zero,
               deltaX=deltaXi);
       else
         // Capacity limit for cooling only
         dXiAct =IBPSA.Utilities.Math.Functions.smoothMax(
               x1=Xi - sum(Xi_instream),
-              x2=mWat_flow_maxDehumidification/m_flow_non_zero,
+              x2=mWatMin_flow/m_flow_non_zero,
               deltaX=deltaXi);
       end if;
       Xi_outflow = sum(Xi_instream) + dXiAct;
@@ -244,20 +244,20 @@ equation
         // Capacity limits for heating and cooling
         dhAct =IBPSA.Utilities.Math.Functions.smoothLimit(
               x=hSet - inStream(port_a.h_outflow),
-              l=Q_flow_maxCool/m_flow_non_zero,
-              u=Q_flow_maxHeat/m_flow_non_zero,
+              l=QMin_flow/m_flow_non_zero,
+              u=QMax_flow/m_flow_non_zero,
               deltaX=deltaH);
       elseif restrictHeat then
         // Capacity limit for heating only
         dhAct =IBPSA.Utilities.Math.Functions.smoothMin(
               x1=hSet - inStream(port_a.h_outflow),
-              x2=Q_flow_maxHeat/m_flow_non_zero,
+              x2=QMax_flow/m_flow_non_zero,
               deltaX=deltaH);
       else
         // Capacity limit for cooling only
         dhAct =IBPSA.Utilities.Math.Functions.smoothMax(
               x1=hSet - inStream(port_a.h_outflow),
-              x2=Q_flow_maxCool/m_flow_non_zero,
+              x2=QMin_flow/m_flow_non_zero,
               deltaX=deltaH);
       end if;
       port_b.h_outflow = inStream(port_a.h_outflow) + dhAct;

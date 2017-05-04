@@ -16,7 +16,7 @@ model PrescribedOutlet
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
-    Q_flow_maxHeat=1e4) "Steady-state model of the heater with high capacity"
+    QMax_flow=1e4) "Steady-state model of the heater with high capacity"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort heaHigPowOut(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
@@ -32,7 +32,7 @@ model PrescribedOutlet
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
-    Q_flow_maxCool=-1000)
+    QMin_flow=-1000)
     "Steady-state model of the cooler with limited capacity"
     annotation (Placement(transformation(extent={{40,24},{60,44}})));
   Modelica.Blocks.Sources.TimeTable TSetCool(table=[0,273.15 + 20.0; 120,273.15

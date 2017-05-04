@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatExchangers;
 model SensibleCooler_T
   "Sensible cooling device with prescribed outlet temperature"
   extends IBPSA.Fluid.HeatExchangers.PrescribedOutlet(
-    final Q_flow_maxHeat = 0);
+    final QMax_flow = 0);
     annotation (
     defaultComponentName="coo",
 Documentation(info="<html>

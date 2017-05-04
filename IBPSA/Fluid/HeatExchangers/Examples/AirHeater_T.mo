@@ -13,7 +13,7 @@ model AirHeater_T
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    Q_flow_maxHeat=Q_flow_nominal) "Heater"
+    QMax_flow=Q_flow_nominal) "Heater"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
   Controls.SetPoints.Table tab(table=[0,273.15 + 15; 1,273.15 + 30])
