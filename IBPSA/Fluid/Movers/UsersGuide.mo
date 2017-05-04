@@ -166,7 +166,9 @@ This will model the following pump curve for the pump input signal <code>y=1</co
 <h5>Models that directly control the head or the mass flow rate</h5>
 <p>
 The models <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dp\">
-IBPSA.Fluid.Movers.FlowControlled_dp</a> and
+IBPSA.Fluid.Movers.FlowControlled_dp</a>,
+<a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dpSystem\">
+IBPSA.Fluid.Movers.FlowControlled_dpSystem</a> and
 <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_m_flow\">
 IBPSA.Fluid.Movers.FlowControlled_m_flow</a>
 take as an input the pressure difference or the mass flow rate.
@@ -180,7 +182,9 @@ as an input the speed.
 These models can be configured for three different control inputs.
 For
 <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dp\">
-IBPSA.Fluid.Movers.FlowControlled_dp</a>,
+IBPSA.Fluid.Movers.FlowControlled_dp</a>
+and <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dpSystem\">
+IBPSA.Fluid.Movers.FlowControlled_dpSystem</a>,
 the head is as follows:
 </p>
 <ul>
@@ -302,16 +306,18 @@ mover models without requiring flow and efficiency/power characteristics.
 </p>
 <p>
 The models <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dp\">
-IBPSA.Fluid.Movers.FlowControlled_dp</a> and
+IBPSA.Fluid.Movers.FlowControlled_dp</a>,
+<a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dpSystem\">
+IBPSA.Fluid.Movers.FlowControlled_dpSystem</a> and
 <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_m_flow\">
 IBPSA.Fluid.Movers.FlowControlled_m_flow</a>
-both have a parameter <code>m_flow_nominal</code>. For
+each have a parameter <code>m_flow_nominal</code>. For
 <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_m_flow\">
 IBPSA.Fluid.Movers.FlowControlled_m_flow</a>, this parameter
 is used for convenience to set a default value for the parameters
 <code>constantMassFlowRate</code> and
 <code>massFlowRates</code>.
-For both models, the value is also used for the following:
+For each model, the value is also used for the following:
 </p>
 
 <ul>
@@ -335,6 +341,21 @@ robust model.
 <p>
 However, otherwise <code>m_flow_nominal</code> does not affect the mass flow rate of the mover as
 the mass flow rate is determined by the input signal or the above explained parameters.
+</p>
+<p>
+Model <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dpSystem\">
+IBPSA.Fluid.Movers.FlowControlled_dpSystem</a> 
+is a specialised version of
+<a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dp\">
+IBPSA.Fluid.Movers.FlowControlled_dp</a>.
+The former model controls the pressure difference
+with respect to a remote point in the system,
+whereas the latter model controls the pressure
+difference between the two ports of the model.
+<code>FlowControlled_dpSystem</code> can lead
+to smaller algebraic loops when a fan 
+with a static pressure reset controller 
+needs to be modelled.
 </p>
 <h5>Start-up and shut-down transients</h5>
 <p>
