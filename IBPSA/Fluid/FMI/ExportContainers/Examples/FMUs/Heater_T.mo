@@ -1,5 +1,5 @@
 within IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs;
-block HeaterCooler_T
+block Heater_T
   "Declaration of an FMU that exports an ideal heater or cooler with prescribed outlet temperature"
    extends IBPSA.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
      redeclare replaceable package Medium = IBPSA.Media.Air,
@@ -57,7 +57,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/HeaterCooler_T.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/Heater_T.mos"
         "Export FMU"),
     Icon(graphics={
         Rectangle(
@@ -119,4 +119,4 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/FMI/Expo
           extent={{26,-28},{70,-74}},
           lineColor={255,255,255},
           textString="+")}));
-end HeaterCooler_T;
+end Heater_T;
