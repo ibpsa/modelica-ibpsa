@@ -101,9 +101,6 @@ protected
   parameter Modelica.SIunits.MassFraction deltaXi = 1E-6
     "Small mass fraction used for regularization";
 
-  final parameter Boolean dynamic = tau > 1E-10 or tau < -1E-10
-    "Flag, true if the sensor is a dynamic sensor";
-
   Modelica.SIunits.MassFlowRate m_flow_pos
     "Mass flow rate, or zero if reverse flow";
 
