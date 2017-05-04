@@ -93,52 +93,6 @@ protected
   Modelica.Blocks.Interfaces.RealInput X_wSet_internal(unit="1")
     "Internal connector for set point for water vapor mass fraction of the fluid that leaves port_b";
 
-  function getCapacity "Function to compute outlet state, applied power and difference in potential variable"
-    input Real XSet "Set point signal";
-    input Real XIn "Inlet potential variable";
-    input Real PMax "Maximum power";
-    input Real PMin "Minimum power";
-    input Boolean restrictMax "true, if maximum power is restricted";
-    input Boolean restrictMin "true, if minimum power is restricted";
-    input Modelica.SIunits.MassFlowRate m_flow_pos "Non-negative mass flow rate";
-    input Modelica.SIunits.MassFlowRate m_flow_non_zero(min=Modelica.Constants.eps)
-      "Non-zero, positive mass flow rate";
-    input Real deltaX "Small value for smoothing";
-    output Real XOut "Actual outlet potential variable";
-    output Real P "Power applied";
-    output Real dXAct "Actual difference in potential variable, taking power limitation into account";
-  algorithm
-  if not restrictMax and not restrictMin then
-    // No capacity limit
-    dXAct :=0;
-    XOut :=XSet;
-    P :=m_flow_pos*(XSet - XIn);
-  else
-    if restrictMax and restrictMin then
-      // Capacity limits for heating and cooling
-      dXAct :=IBPSA.Utilities.Math.Functions.smoothLimit(
-            x=XSet - XIn,
-            l=PMin/m_flow_non_zero,
-            u=PMax/m_flow_non_zero,
-            deltaX=deltaX);
-    elseif restrictMax then
-      // Capacity limit for heating only
-      dXAct :=IBPSA.Utilities.Math.Functions.smoothMin(
-            x1=XSet - XIn,
-            x2=PMax/m_flow_non_zero,
-            deltaX=deltaX);
-    else
-      // Capacity limit for cooling only
-      dXAct :=IBPSA.Utilities.Math.Functions.smoothMax(
-            x1=XSet - XIn,
-            x2=PMin/m_flow_non_zero,
-            deltaX=deltaX);
-    end if;
-    XOut :=XIn + dXAct;
-    P :=m_flow_pos*dXAct;
-  end if;
-  annotation(smoothOrder = 1);
-  end getCapacity;
 initial equation
   // Set initial conditions, unless use_{T,Xi}Set = false in which case
   // it is not a state.
@@ -237,17 +191,39 @@ equation
   // Below, we use sum(Xi_instream) as Xi anyway has only one element.
   // However, scalar(Xi_instream) would not work as dim(Xi_instream) = 0
   // if the medium is not a mixture.
+  // Note that the computations for the mass fraction and for the
+  // enthalpy change are identical. In a development version, they were
+  // put in a function, but this led to large nonlinear systems of equations.
   if use_X_wSet then
-    (Xi_outflow, mWat_flow, dXiAct) = getCapacity(
-      XSet = Xi,
-      XIn =  sum(Xi_instream),
-      PMax = mWat_flow_maxHumidification,
-      PMin = mWat_flow_maxDehumidification,
-      restrictMax = restrictHumi,
-      restrictMin = restrictDehu,
-      m_flow_pos =      m_flow_pos,
-      m_flow_non_zero = m_flow_non_zero,
-      deltaX = deltaXi);
+    if not restrictHumi and not restrictDehu then
+      // No capacity limit
+      dXiAct = 0;
+      Xi_outflow  = Xi;
+      mWat_flow   = m_flow_pos*(Xi - sum(Xi_instream));
+    else
+      if restrictHumi and restrictDehu then
+        // Capacity limits for heating and cooling
+        dXiAct =IBPSA.Utilities.Math.Functions.smoothLimit(
+              x=Xi - sum(Xi_instream),
+              l=mWat_flow_maxDehumidification/m_flow_non_zero,
+              u=mWat_flow_maxHumidification/m_flow_non_zero,
+              deltaX=deltaXi);
+      elseif restrictHumi then
+        // Capacity limit for heating only
+        dXiAct =IBPSA.Utilities.Math.Functions.smoothMin(
+              x1=Xi - sum(Xi_instream),
+              x2=mWat_flow_maxHumidification/m_flow_non_zero,
+              deltaX=deltaXi);
+      else
+        // Capacity limit for cooling only
+        dXiAct =IBPSA.Utilities.Math.Functions.smoothMax(
+              x1=Xi - sum(Xi_instream),
+              x2=mWat_flow_maxDehumidification/m_flow_non_zero,
+              deltaX=deltaXi);
+      end if;
+      Xi_outflow = sum(Xi_instream) + dXiAct;
+      mWat_flow  = m_flow_pos*dXiAct;
+    end if;
     port_b.Xi_outflow = fill(Xi_outflow, Medium.nXi);
   else
     Xi_outflow = sum(Xi_instream);
@@ -258,17 +234,36 @@ equation
 
   // Compute enthalpy leaving the component.
   if use_TSet then
-    (port_b.h_outflow, Q_flow, dhAct) = getCapacity(
-      XSet = hSet,
-      XIn =  inStream(port_a.h_outflow),
-      PMax = Q_flow_maxHeat,
-      PMin = Q_flow_maxCool,
-      restrictMax = restrictHeat,
-      restrictMin = restrictCool,
-      m_flow_pos =      m_flow_pos,
-      m_flow_non_zero = m_flow_non_zero,
-      deltaX = deltaH);
-   else
+    if not restrictHeat and not restrictCool then
+      // No capacity limit
+      dhAct = 0;
+      port_b.h_outflow  = hSet;
+      Q_flow  =    m_flow_pos*(hSet - inStream(port_a.h_outflow));
+    else
+      if restrictHeat and restrictCool then
+        // Capacity limits for heating and cooling
+        dhAct =IBPSA.Utilities.Math.Functions.smoothLimit(
+              x=hSet - inStream(port_a.h_outflow),
+              l=Q_flow_maxCool/m_flow_non_zero,
+              u=Q_flow_maxHeat/m_flow_non_zero,
+              deltaX=deltaH);
+      elseif restrictHeat then
+        // Capacity limit for heating only
+        dhAct =IBPSA.Utilities.Math.Functions.smoothMin(
+              x1=hSet - inStream(port_a.h_outflow),
+              x2=Q_flow_maxHeat/m_flow_non_zero,
+              deltaX=deltaH);
+      else
+        // Capacity limit for cooling only
+        dhAct =IBPSA.Utilities.Math.Functions.smoothMax(
+              x1=hSet - inStream(port_a.h_outflow),
+              x2=Q_flow_maxCool/m_flow_non_zero,
+              deltaX=deltaH);
+      end if;
+      port_b.h_outflow = inStream(port_a.h_outflow) + dhAct;
+      Q_flow = m_flow_pos*dhAct;
+    end if;
+  else
     port_b.h_outflow = inStream(port_a.h_outflow);
     Q_flow = 0;
     dhAct = 0;
@@ -297,7 +292,6 @@ equation
     assert(m_flow > -m_flow_small,
       "Reverting flow occurs even though allowFlowReversal is false");
   end if;
-
 
     annotation (
   defaultComponentName="heaCoo",
