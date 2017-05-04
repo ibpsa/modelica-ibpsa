@@ -8,7 +8,7 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
   parameter Real l2(min=1e-10) = 0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
     annotation(Dialog(tab="Advanced"));
-  parameter Real deltax = 0.1 "Transition interval for flow rate"
+  parameter Real deltax = 0.02 "Transition interval for flow rate"
     annotation(Dialog(tab="Advanced"));
 
 protected
@@ -236,11 +236,11 @@ the result when using <code>from_dp = false</code>.
 </p>
 <p>
 Variables <code>*_y1</code> and <code>*_y2</code>
-serve a dual use. 
-They are used to 
+serve a dual use.
+They are used to
 1) compute the support points at <code>*_x1</code> and <code>*_x2</code>,
 which should not depend on <code>m_flow</code> or <code>dp</code> and
-2) to compute the flow functions when outside of this regime, 
+2) to compute the flow functions when outside of this regime,
 which does depend on <code>m_flow</code> or <code>dp</code>.
 Min and max functions are therefore used such that one equation
 can serve both puroposes.
@@ -250,10 +250,10 @@ revisions="<html>
 <ul>
 <li>
 April 14, 2017, by Filip Jorissen:<br/>
-Revised implementation using <code>cubicHermite</code> 
+Revised implementation using <code>cubicHermite</code>
 such that it does not have a local maximum
 and such that it is C2-continuous.
-See <a href=https://github.com/ibpsa/modelica-ibpsa/issues/156>#156</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/156\">#156</a>.
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
