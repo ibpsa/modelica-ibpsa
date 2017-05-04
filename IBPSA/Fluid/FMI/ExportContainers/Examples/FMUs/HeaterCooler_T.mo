@@ -3,11 +3,10 @@ block HeaterCooler_T
   "Declaration of an FMU that exports an ideal heater or cooler with prescribed outlet temperature"
    extends IBPSA.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
      redeclare replaceable package Medium = IBPSA.Media.Air,
-     redeclare final IBPSA.Fluid.HeatExchangers.PrescribedOutlet com(
+     redeclare final IBPSA.Fluid.HeatExchangers.Heater_T com(
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=if use_p_in then dp_nominal else 0,
       final QMax_flow=QMax_flow,
-      final QMin_flow=QMin_flow,
       final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
   parameter Modelica.SIunits.HeatFlowRate QMax_flow=Modelica.Constants.inf
@@ -29,11 +28,11 @@ block HeaterCooler_T
 
 equation
   connect(com.TSet, TSet) annotation (Line(
-      points={{-12,6},{-40,6},{-40,60},{-120,60}},
+      points={{-12,8},{-40,8},{-40,60},{-120,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(com.Q_flow, Q_flow) annotation (Line(
-      points={{11,6},{40,6},{40,60},{110,60}},
+      points={{11,8},{40,8},{40,60},{110,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (  Documentation(info="<html>
@@ -61,6 +60,12 @@ First implementation.
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/HeaterCooler_T.mos"
         "Export FMU"),
     Icon(graphics={
+        Rectangle(
+          extent={{70,63},{102,60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{22,-75},{52,-85},{22,-95},{22,-75}},
           lineColor={255,255,255},
@@ -93,7 +98,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/FMI/Expo
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-54,-12},{56,-72}},
+          extent={{-56,74},{54,14}},
           lineColor={255,255,255},
           textString="TSet"),
         Rectangle(
@@ -109,5 +114,9 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/FMI/Expo
         Text(
           extent={{64,92},{108,64}},
           lineColor={0,0,127},
-          textString="Q")}));
+          textString="Q"),
+                   Text(
+          extent={{26,-28},{70,-74}},
+          lineColor={255,255,255},
+          textString="+")}));
 end HeaterCooler_T;
