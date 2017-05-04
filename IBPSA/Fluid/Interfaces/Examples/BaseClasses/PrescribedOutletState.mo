@@ -17,7 +17,7 @@ partial model PrescribedOutletState "Test model for prescribed outlet state"
   IBPSA.Fluid.Interfaces.PrescribedOutletState heaHigPow(
     redeclare package Medium = Medium,
     Q_flow_maxHeat=1.0e10,
-    m_flow_maxHumidification = 0.001,
+    mWat_flow_maxHumidification = 0.001,
     m_flow_small=1E-4*abs(m_flow_nominal),
     show_T=true,
     m_flow_nominal=m_flow_nominal,
@@ -37,7 +37,7 @@ partial model PrescribedOutletState "Test model for prescribed outlet state"
   IBPSA.Fluid.Interfaces.PrescribedOutletState cooLimPow(
     redeclare package Medium = Medium,
     Q_flow_maxCool=-1000,
-    m_flow_maxDehumidification = -0.001,
+    mWat_flow_maxDehumidification = -0.001,
     m_flow_small=1E-4*abs(m_flow_nominal),
     show_T=true,
     m_flow_nominal=m_flow_nominal,

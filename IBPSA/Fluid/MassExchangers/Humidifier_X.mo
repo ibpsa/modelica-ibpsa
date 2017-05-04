@@ -1,28 +1,30 @@
-within IBPSA.Fluid.HeatExchangers;
-model HeaterCooler_T
-  "Ideal heater or cooler with a prescribed outlet temperature"
+within IBPSA.Fluid.MassExchangers;
+model Humidifier_X
+  "Adiabatic humidifier or dehumidifier with leaving water mass fraction as input"
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
   extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
   extends IBPSA.Fluid.Interfaces.PrescribedOutletStateParameters(
     redeclare final package _Medium = Medium,
-    final X_start=Medium.X_default,
-    final use_TSet = true,
-    final use_X_wSet = false,
-    final mWat_flow_maxHumidification = 0,
-    final mWat_flow_maxDehumidification = 0,
-    final massDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    T_start=Medium.T_default);
+    final T_start=293.15,
+    X_start=Medium.X_default,
+    final use_TSet = false,
+    final use_X_wSet = true,
+    final Q_flow_maxHeat = 0,
+    final Q_flow_maxCool = 0,
+    final energyDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+    massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState);
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
-    "Set point temperature of the fluid that leaves port_b"
+  // Set maximum to a high value to avoid users mistakenly entering relative humidity.
+  Modelica.Blocks.Interfaces.RealInput X_w(unit="1", min=0, max=0.03)
+    "Set point for water vapor mass fraction in kg/kg total air of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
-    "Heat added to the fluid (if flow is from port_a to port_b)"
+  Modelica.Blocks.Interfaces.RealOutput mWat_flow(unit="kg/s")
+    "Water added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
 protected
@@ -38,43 +40,36 @@ protected
     final dp_nominal=dp_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
-  IBPSA.Fluid.Interfaces.PrescribedOutletState heaCoo(
+  IBPSA.Fluid.Interfaces.PrescribedOutletState humDeh(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small,
     final show_T=false,
-    final Q_flow_maxHeat=Q_flow_maxHeat,
-    final Q_flow_maxCool=Q_flow_maxCool,
+    final mWat_flow_maxHumidification=mWat_flow_maxHumidification,
+    final mWat_flow_maxDehumidification=mWat_flow_maxDehumidification,
     final m_flow_nominal=m_flow_nominal,
     final tau=tau,
-    final T_start=T_start,
+    final X_start=X_start,
     final energyDynamics=energyDynamics,
-    final use_X_wSet=false) "Heater or cooler"
+    final massDynamics=massDynamics,
+    final use_TSet=false) "Humidifier or dehumidifier"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(port_a, preDro.port_a) annotation (Line(
       points={{-100,0},{-50,0}},
       color={0,127,255}));
-  connect(preDro.port_b, heaCoo.port_a) annotation (Line(
+  connect(preDro.port_b, humDeh.port_a) annotation (Line(
       points={{-30,0},{20,0}},
       color={0,127,255}));
-  connect(heaCoo.port_b, port_b) annotation (Line(
+  connect(humDeh.port_b, port_b) annotation (Line(
       points={{40,0},{100,0}},
       color={0,127,255}));
-  connect(heaCoo.TSet, TSet) annotation (Line(
-      points={{18,8},{0,8},{0,60},{-120,60}},
-      color={0,0,127}));
-  connect(heaCoo.Q_flow, Q_flow) annotation (Line(
-      points={{41,8},{72,8},{72,60},{110,60}},
-      color={0,0,127}));
+  connect(humDeh.mWat_flow, mWat_flow) annotation (Line(points={{41,4},{80,4},{80,
+          60},{110,60}}, color={0,0,127}));
+  connect(X_w, humDeh.X_wSet) annotation (Line(points={{-120,60},{-72,60},{0,60},
+          {0,4},{18,4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-70,60},{60,-60}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-102,5},{99,-5}},
           lineColor={0,0,255},
@@ -88,9 +83,9 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-106,98},{-62,70}},
+          extent={{-106,104},{-62,76}},
           lineColor={0,0,127},
-          textString="T"),
+          textString="X_w"),
         Rectangle(
           extent={{60,60},{100,58}},
           lineColor={0,0,255},
@@ -98,24 +93,34 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{72,96},{116,68}},
+          extent={{34,118},{100,64}},
           lineColor={0,0,127},
-          textString="Q_flow")}),
+          textString="mWat_flow"),
+        Rectangle(
+          extent={{-70,80},{70,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={85,170,255},
+          fillPattern=FillPattern.Solid)}),
 defaultComponentName="hea",
 Documentation(info="<html>
 <p>
-Model for an ideal heater or cooler with a prescribed outlet temperature.
+Model for an adiabatic humidifier or dehumidifier with a prescribed outlet water vapor mass fraction
+in kg/kg total air.
 </p>
 <p>
-This model forces the outlet temperature at <code>port_b</code> to be equal to the temperature
-of the input signal <code>TSet</code>, subject to optional limits on the
-heating or cooling capacity <code>Q_flow_maxHeat</code> and <code>Q_flow_maxCool</code>.
+This model forces the outlet water mass fraction at <code>port_b</code> to be equal to the
+input signal <code>X_wSet</code>, subject to optional limits on the
+maximum water vapor mass flow rate that is added or removed, as
+described by the parameters
+<code>mWat_flow_maxHumidification</code> and <code>mWat_flow_maxDehumidification</code>.
 By default, the model has unlimited capacity.
 </p>
 <p>
-The output signal <code>Q_flow</code> is the heat added (for heating) or subtracted (for cooling)
+The output signal <code>mWat_flow</code> is the moisture added (for humidification)
+or subtracted (for dehumidification)
 to the medium if the flow rate is from <code>port_a</code> to <code>port_b</code>.
-If the flow is reversed, then <code>Q_flow=0</code>.
+If the flow is reversed, then <code>mWat_flow=0</code>.
 </p>
 <p>
 The outlet conditions at <code>port_a</code> are not affected by this model.
@@ -145,54 +150,29 @@ If no flow resistance is requested, set <code>dp_nominal=0</code>.
 </p>
 <p>
 For a model that uses a control signal <i>u &isin; [0, 1]</i> and multiplies
-this with the nominal heating or cooling power, use
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.HeaterCooler_u\">
-IBPSA.Fluid.HeatExchangers.HeaterCooler_u</a>
+this with the nominal water mass flow rate, use
+<a href=\"modelica://IBPSA.Fluid.MassExchangers.Humidifier_u\">
+IBPSA.Fluid.MassExchangers.Humidifier_u</a>
 
 </p>
 <h4>Limitations</h4>
 <p>
-This model only adds or removes heat for the flow from
+This model only adds or removes water vapor for the flow from
 <code>port_a</code> to <code>port_b</code>.
-The enthalpy of the reverse flow is not affected by this model.
+The water vapor of the reverse flow is not affected by this model.
 </p>
 <p>
-This model does not affect the humidity of the air. Therefore,
-if used to cool air below the dew point temperature, the water mass fraction
-will not change.
-</p>
-<h4>Validation</h4>
-<p>
-The model has been validated against the analytical solution in
-the examples
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Validation.HeaterCooler_T\">
-IBPSA.Fluid.HeatExchangers.Validation.HeaterCooler_T</a>
-and
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Validation.HeaterCooler_T_dynamic\">
-IBPSA.Fluid.HeatExchangers.Validation.HeaterCooler_T_dynamic</a>.
+This model does not affect the enthalpy of the air. Therefore,
+if water is added, the temperature will decrease, e.g., the humidification
+is adiabatic.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 May 3, 2017, by Michael Wetter:<br/>
-Updated protected model for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">#763</a>.
-</li>
-<li>
-December 1, 2016, by Michael Wetter:<br/>
-Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/480\">#480</a>.
-</li>
-<li>
-November 11, 2014, by Michael Wetter:<br/>
-Revised implementation.
-</li>
-<li>
-March 19, 2014, by Christoph Nytsch-Geusen:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end HeaterCooler_T;
+end Humidifier_X;

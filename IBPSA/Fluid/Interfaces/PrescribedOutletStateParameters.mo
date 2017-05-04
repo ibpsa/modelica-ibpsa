@@ -12,12 +12,12 @@ record PrescribedOutletStateParameters
   parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool(max=0) = -Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)"
     annotation (Evaluate=true, Dialog(enable=use_TSet));
-  parameter Modelica.SIunits.HeatFlowRate m_flow_maxHumidification(min=0) = Modelica.Constants.inf
-    "Maximum heat flow rate for heating (positive)"
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_maxHumidification(min=0) = Modelica.Constants.inf
+    "Maximum water mass flow rate addition (positive)"
     annotation (Evaluate=true, Dialog(enable=use_X_wSet));
 
-  parameter Modelica.SIunits.HeatFlowRate m_flow_maxDehumidification(max=0) = -Modelica.Constants.inf
-    "Maximum heat flow rate for cooling (negative)"
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_maxDehumidification(max=0) = -Modelica.Constants.inf
+    "Maximum water mass flow rate removal (negative)"
     annotation (Evaluate=true, Dialog(enable=use_X_wSet));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
@@ -36,7 +36,7 @@ record PrescribedOutletStateParameters
     annotation (Dialog(tab="Initialization", enable=use_X_wSet and _Medium.nXi > 0));
 
   // Dynamics
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_TSet));
 

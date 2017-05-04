@@ -38,18 +38,18 @@ protected
     "Flag, true if maximum cooling power is restricted"
     annotation(Evaluate = true);
 
-  parameter Boolean restrictHumi = m_flow_maxHumidification < Modelica.Constants.inf/10.0
+  parameter Boolean restrictHumi = mWat_flow_maxHumidification < Modelica.Constants.inf/10.0
     "Flag, true if maximum humidification is restricted"
     annotation(Evaluate = true);
-  parameter Boolean restrictDehu = m_flow_maxDehumidification > -Modelica.Constants.inf/10.0
+  parameter Boolean restrictDehu = mWat_flow_maxDehumidification > -Modelica.Constants.inf/10.0
     "Flag, true if maximum dehumidification is restricted"
     annotation(Evaluate = true);
 
   parameter Modelica.SIunits.SpecificEnthalpy deltaH=
-    cp_default*m_flow_small*0.01
+    cp_default*0.001
     "Small value for deltaH used for regularization";
 
-  parameter Modelica.SIunits.MassFraction deltaXi = 0.001
+  parameter Modelica.SIunits.MassFraction deltaXi = 0.00001
     "Small mass fraction used for regularization";
 
   final parameter Boolean dynamic = tau > 1E-10 or tau < -1E-10
@@ -240,8 +240,8 @@ equation
     (Xi_outflow, mWat_flow, dXiAct) = getCapacity(
       XSet = Xi,
       XIn =  sum(Xi_instream),
-      PMax = m_flow_maxHumidification,
-      PMin = m_flow_maxDehumidification,
+      PMax = mWat_flow_maxHumidification,
+      PMin = mWat_flow_maxDehumidification,
       restrictMax = restrictHumi,
       restrictMin = restrictDehu,
       m_flow_pos =      m_flow_pos,
