@@ -6,12 +6,14 @@ model FlowControlled_dpSystem
     "= false, to set head dp relative to a point upstream of the fan or pump"
     annotation(Evaluate=true);
 
-  Modelica.Blocks.Interfaces.RealInput p=
+  Modelica.Blocks.Interfaces.RealInput p(final quantity="Pressure", final unit="Pa")=
     if setDownStreamPressure
     then port_a.p + gain.u
     else port_b.p - gain.u
     "Pressure measurement at the point in the system relative to which the head dp should be controlled"
-    annotation (Placement(transformation(extent={{-52,96},{-92,136}}),
+    annotation (Placement(transformation(extent={{20,-20},{-20,20}},
+        rotation=90,
+        origin={-80,120}),
         iconTransformation(
         extent={{20,-20},{-20,20}},
         rotation=90,
