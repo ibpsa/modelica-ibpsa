@@ -2,18 +2,67 @@ within IBPSA.Fluid.Interfaces;
 model PrescribedOutlet
   "Component that assigns the outlet fluid property at port_a based on an input signal"
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
-  extends IBPSA.Fluid.Interfaces.PrescribedOutletParameters(
-    redeclare final package _Medium = Medium);
+
+  parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
+    "Maximum heat flow rate for heating (positive)"
+    annotation (Evaluate=true, Dialog(enable=use_TSet));
+  parameter Modelica.SIunits.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
+    "Maximum heat flow rate for cooling (negative)"
+    annotation (Evaluate=true, Dialog(enable=use_TSet));
+  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
+    "Maximum water mass flow rate addition (positive)"
+    annotation (Evaluate=true, Dialog(enable=use_X_wSet));
+
+  parameter Modelica.SIunits.MassFlowRate mWatMin_flow(max=0) = -Modelica.Constants.inf
+    "Maximum water mass flow rate removal (negative)"
+    annotation (Evaluate=true, Dialog(enable=use_X_wSet));
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate, used for regularization near zero flow"
+    annotation(Dialog(group = "Nominal condition"));
+
+  parameter Modelica.SIunits.Time tau(min=0) = 10
+    "Time constant at nominal flow rate (used if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
+    annotation(Dialog(tab = "Dynamics"));
+  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
+    "Start value of temperature"
+    annotation(Dialog(tab = "Initialization", enable=use_TSet));
+  parameter Modelica.SIunits.MassFraction X_start[Medium.nX] = Medium.X_default
+    "Start value of mass fractions m_i/m"
+    annotation (Dialog(tab="Initialization", enable=use_X_wSet and Medium.nXi > 0));
+
+  // Dynamics
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_TSet));
+
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_X_wSet));
+
+  parameter Boolean use_TSet = true
+    "Set to false to disable temperature set point"
+    annotation(Evaluate=true);
+
+  parameter Boolean use_X_wSet = true
+    "Set to false to disable water vapor set point"
+    annotation(Evaluate=true);
 
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_TSet
     "Set point temperature of the fluid that leaves port_b"
-    annotation (Placement(transformation(origin={-120,80},
-              extent={{20,-20},{-20,20}},rotation=180)));
+    annotation (Placement(transformation(origin={-120,90},
+              extent={{20,-20},{-20,20}},rotation=180), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={-110,80})));
 
   Modelica.Blocks.Interfaces.RealInput X_wSet(unit="1") if use_X_wSet
     "Set point for water vapor mass fraction of the fluid that leaves port_b"
-    annotation (Placement(transformation(origin={-120,40},
-              extent={{20,-20},{-20,20}},rotation=180)));
+    annotation (Placement(transformation(origin={-120,50},
+              extent={{20,-20},{-20,20}},rotation=180), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={-110,40})));
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
     "Heat flow rate added to the fluid (if flow is from port_a to port_b)"
@@ -321,7 +370,7 @@ equation
           textString="T",
           visible=use_TSet),
         Text(
-          extent={{48,102},{92,74}},
+          extent={{48,96},{92,68}},
           lineColor={0,0,127},
           textString="Q_flow"),
         Text(

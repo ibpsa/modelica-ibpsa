@@ -13,6 +13,5 @@ StaticTwoPortHeatMassExchanger
 TwoPortHeatMassExchanger
 FourPortFlowResistanceParameters
 LumpedVolumeDeclarations
-PrescribedOutletParameters
 TwoPortFlowResistanceParameters
 Examples

@@ -1,23 +1,32 @@
 within IBPSA.Fluid.MassExchangers;
 model Humidifier_X
   "Adiabatic humidifier (or dehumidifier) with leaving water mass fraction as input"
-  extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
-  extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-    final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
-  extends IBPSA.Fluid.Interfaces.PrescribedOutletParameters(
-    redeclare final package _Medium = Medium,
-    final T_start=293.15,
-    X_start=Medium.X_default,
-    final use_TSet = false,
-    final use_X_wSet = true,
-    final QMax_flow = 0,
-    final QMin_flow = 0,
-    final mWatMin_flow = 0,
-    final energyDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState);
+  extends IBPSA.Fluid.HeatExchangers.BaseClasses.PartialPrescribedOutlet(
+    outCon(
+      final T_start=293.15,
+      final X_start=X_start,
+      final use_TSet = false,
+      final use_X_wSet = true,
+      final QMax_flow = 0,
+      final QMin_flow = 0,
+      final mWatMax_flow = mWatMax_flow,
+      final mWatMin_flow = 0,
+      final energyDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      final massDynamics = massDynamics));
 
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
+    "Maximum water mass flow rate addition (positive)"
+    annotation (Evaluate=true);
+
+  parameter Modelica.SIunits.MassFraction X_start[Medium.nX] = Medium.X_default
+    "Start value of mass fractions m_i/m"
+    annotation (Dialog(tab="Initialization"));
+
+  // Dynamics
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+
 
   // Set maximum to a high value to avoid users mistakenly entering relative humidity.
   Modelica.Blocks.Interfaces.RealInput X_w(unit="1", min=0, max=0.03)
@@ -28,45 +37,13 @@ model Humidifier_X
     "Water added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
-protected
-  IBPSA.Fluid.FixedResistances.PressureDrop preDro(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final deltaM=deltaM,
-    final allowFlowReversal=allowFlowReversal,
-    final show_T=false,
-    final from_dp=from_dp,
-    final linearized=linearizeFlowResistance,
-    final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp_nominal) "Flow resistance"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
-  IBPSA.Fluid.Interfaces.PrescribedOutlet hum(
-    redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
-    final m_flow_small=m_flow_small,
-    final show_T=false,
-    final mWatMax_flow=mWatMax_flow,
-    final m_flow_nominal=m_flow_nominal,
-    final tau=tau,
-    final X_start=X_start,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final use_TSet=false,
-    final mWatMin_flow=0) "Humidifier"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+
 equation
-  connect(port_a, preDro.port_a) annotation (Line(
-      points={{-100,0},{-50,0}},
-      color={0,127,255}));
-  connect(preDro.port_b, hum.port_a)
-    annotation (Line(points={{-30,0},{20,0}}, color={0,127,255}));
-  connect(hum.port_b, port_b)
-    annotation (Line(points={{40,0},{100,0}}, color={0,127,255}));
-  connect(hum.mWat_flow, mWat_flow) annotation (Line(points={{41,4},{80,4},{80,60},
-          {110,60}}, color={0,0,127}));
-  connect(X_w, hum.X_wSet) annotation (Line(points={{-120,60},{-72,60},{0,60},{0,
-          4},{18,4}}, color={0,0,127}));
+  connect(X_w, outCon.X_wSet)
+    annotation (Line(points={{-120,60},{0,60},{0,4},{19,4}}, color={0,0,127}));
+  connect(outCon.mWat_flow, mWat_flow) annotation (Line(points={{41,4},{80,4},{80,
+          60},{110,60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -82,7 +59,7 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-106,104},{-62,76}},
+          extent={{-102,104},{-58,76}},
           lineColor={0,0,127},
           textString="X_w"),
         Rectangle(

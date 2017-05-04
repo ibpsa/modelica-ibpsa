@@ -1,106 +1,88 @@
 within IBPSA.Fluid.HeatExchangers;
 model PrescribedOutlet
-  "Ideal heater or cooler with a prescribed outlet temperature"
-  extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
-  extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-    final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
-  extends IBPSA.Fluid.Interfaces.PrescribedOutletParameters(
-    redeclare final package _Medium = Medium,
-    final X_start=Medium.X_default,
-    final use_TSet = true,
-    final use_X_wSet = false,
-    final mWatMax_flow = 0,
-    final mWatMin_flow = 0,
-    final massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
-    T_start=Medium.T_default);
+  "Ideal heater, cooler, humidifier or dehumidifier with prescribed outlet conditions"
+  extends IBPSA.Fluid.HeatExchangers.BaseClasses.PartialPrescribedOutlet(
+    outCon(
+      final T_start=T_start,
+      final X_start=X_start,
+      final use_TSet = use_TSet,
+      final use_X_wSet = use_X_wSet,
+      final QMax_flow = QMax_flow,
+      final QMin_flow = QMin_flow,
+      final mWatMax_flow = mWatMax_flow,
+      final mWatMin_flow = mWatMin_flow,
+      final energyDynamics = energyDynamics,
+      final massDynamics = massDynamics));
 
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf
+    "Maximum heat flow rate for heating (positive)"
+    annotation (Evaluate=true, Dialog(enable=use_TSet));
+  parameter Modelica.SIunits.HeatFlowRate QMin_flow(max=0) = -Modelica.Constants.inf
+    "Maximum heat flow rate for cooling (negative)"
+    annotation (Evaluate=true, Dialog(enable=use_TSet));
+  parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
+    "Maximum water mass flow rate addition (positive)"
+    annotation (Evaluate=true, Dialog(enable=use_X_wSet));
 
-  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
+  parameter Modelica.SIunits.MassFlowRate mWatMin_flow(max=0) = -Modelica.Constants.inf
+    "Maximum water mass flow rate removal (negative)"
+    annotation (Evaluate=true, Dialog(enable=use_X_wSet));
+
+  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
+    "Start value of temperature"
+    annotation(Dialog(tab = "Initialization", enable=use_TSet));
+  parameter Modelica.SIunits.MassFraction X_start[Medium.nX] = Medium.X_default
+    "Start value of mass fractions m_i/m"
+    annotation (Dialog(tab="Initialization", enable=use_X_wSet and _Medium.nXi > 0));
+
+  // Dynamics
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_TSet));
+
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations", enable=use_X_wSet));
+
+  parameter Boolean use_TSet = true
+    "Set to false to disable temperature set point"
+    annotation(Evaluate=true);
+
+  parameter Boolean use_X_wSet = true
+    "Set to false to disable water vapor set point"
+    annotation(Evaluate=true);
+
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC") if use_TSet
     "Set point temperature of the fluid that leaves port_b"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(origin={-120,80},
+              extent={{20,-20},{-20,20}},rotation=180)));
+
+  Modelica.Blocks.Interfaces.RealInput X_wSet(unit="1") if use_X_wSet
+    "Set point for water vapor mass fraction of the fluid that leaves port_b"
+    annotation (Placement(transformation(origin={-120,40},
+              extent={{20,-20},{-20,20}},rotation=180)));
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
-    "Heat added to the fluid (if flow is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+    "Heat flow rate added to the fluid (if flow is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
-protected
-  IBPSA.Fluid.FixedResistances.PressureDrop preDro(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final deltaM=deltaM,
-    final allowFlowReversal=allowFlowReversal,
-    final show_T=false,
-    final from_dp=from_dp,
-    final linearized=linearizeFlowResistance,
-    final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp_nominal) "Flow resistance"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+  Modelica.Blocks.Interfaces.RealOutput mWat_flow(unit="kg/s")
+    "Water vapor mass flow rate added to the fluid (if flow is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
-  IBPSA.Fluid.Interfaces.PrescribedOutlet heaCoo(
-    redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
-    final m_flow_small=m_flow_small,
-    final show_T=false,
-    final QMax_flow=QMax_flow,
-    final QMin_flow=QMin_flow,
-    final m_flow_nominal=m_flow_nominal,
-    final tau=tau,
-    final T_start=T_start,
-    final energyDynamics=energyDynamics,
-    final use_X_wSet=false) "Heater or cooler"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
-  connect(port_a, preDro.port_a) annotation (Line(
-      points={{-100,0},{-50,0}},
-      color={0,127,255}));
-  connect(preDro.port_b, heaCoo.port_a) annotation (Line(
-      points={{-30,0},{20,0}},
-      color={0,127,255}));
-  connect(heaCoo.port_b, port_b) annotation (Line(
-      points={{40,0},{100,0}},
-      color={0,127,255}));
-  connect(heaCoo.TSet, TSet) annotation (Line(
-      points={{18,8},{0,8},{0,60},{-120,60}},
-      color={0,0,127}));
-  connect(heaCoo.Q_flow, Q_flow) annotation (Line(
-      points={{41,8},{72,8},{72,60},{110,60}},
-      color={0,0,127}));
+  connect(outCon.X_wSet, X_wSet) annotation (Line(points={{19,4},{-20,4},{-20,
+          40},{-120,40}},
+                      color={0,0,127}));
+  connect(outCon.mWat_flow, mWat_flow) annotation (Line(points={{41,4},{80,4},{80,
+          40},{110,40}}, color={0,0,127}));
+  connect(outCon.TSet, TSet) annotation (Line(points={{19,8},{-16,8},{-16,80},{
+          -120,80}},
+                color={0,0,127}));
+  connect(outCon.Q_flow, Q_flow) annotation (Line(points={{41,8},{76,8},{76,80},
+          {110,80}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-70,60},{60,-60}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-102,5},{99,-5}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,60},{-70,58}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-106,98},{-62,70}},
-          lineColor={0,0,127},
-          textString="T"),
-        Rectangle(
-          extent={{60,60},{100,58}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{72,96},{116,68}},
-          lineColor={0,0,127},
-          textString="Q_flow")}),
+            -100},{100,100}})),
 defaultComponentName="hea",
 Documentation(info="<html>
 <p>
