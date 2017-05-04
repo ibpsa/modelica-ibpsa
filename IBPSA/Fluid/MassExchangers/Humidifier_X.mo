@@ -11,7 +11,7 @@ model Humidifier_X
       final QMin_flow = 0,
       final mWatMax_flow = mWatMax_flow,
       final mWatMin_flow = 0,
-      final energyDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      final energyDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
       final massDynamics = massDynamics));
 
   parameter Modelica.SIunits.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
@@ -36,8 +36,6 @@ model Humidifier_X
   Modelica.Blocks.Interfaces.RealOutput mWat_flow(unit="kg/s")
     "Water added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-
-
 
 equation
   connect(X_w, outCon.X_wSet)
