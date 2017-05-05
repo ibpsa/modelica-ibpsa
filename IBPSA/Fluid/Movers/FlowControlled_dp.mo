@@ -87,9 +87,10 @@ protected
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={36,30})));
-equation
+initial equation
   assert(not (setDownStreamPressure and setUpStreamPressure),
     "The parameter values of setDownStreamPressure and setUpStreamPressure cannot both be true");
+equation
   assert(inputSwitch.u >= -1E-3,
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
