@@ -239,8 +239,7 @@ equation
           -14},{32,-50},{10,-50}}, color={191,0,0}));
   connect(theRes.port_b, volTop.heatPort)
     annotation (Line(points={{32,6},{32,6},{32,50},{10,50}}, color={191,0,0}));
-  connect(port_a2, port_a2) annotation (Line(points={{100,-60},{100,-60},{100,
-          -60}}, color={0,127,255}));
+
   connect(port_a2, volBot.ports[1])
     annotation (Line(points={{100,-60},{2,-60}},         color={0,127,255}));
   connect(volBot.ports[2], port_b2) annotation (Line(points={{-2,-60},{-2,-60},
