@@ -89,9 +89,9 @@ model FlowControlled_dpSystem
     "Pressure sensor for remote set point"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 equation
-  assert(abs(senRelPreUps.p_rel - floCon_dpSys.dp_in) < 1e-6,
+  assert(abs(senRelPreUps.p_rel - floCon_dpSys.dp_actual) < 1e-6,
     "Remote pressure set point is not tracked correctly");
-  assert(abs(senRelPreDow.p_rel - floCon_dpSysUps.dp_in) < 1e-6,
+  assert(abs(senRelPreDow.p_rel - floCon_dpSysUps.dp_actual) < 1e-6,
     "Remote pressure set point is not tracked correctly");
   connect(floCon_dp.port_b, dpDow1.port_a)
     annotation (Line(points={{60,120},{78,120}}, color={0,127,255}));
