@@ -79,6 +79,7 @@ model FlowControlled_dp
         origin={-2,120})));
 
   Modelica.Blocks.Interfaces.RealOutput dp_actual(final unit="Pa")
+    "Pressure difference between the mover inlet and outlet"
     annotation (Placement(transformation(extent={{100,10},{120,30}}),
         iconTransformation(extent={{100,10},{120,30}})));
 
@@ -114,8 +115,8 @@ equation
       points={{56,8},{56,14},{36,14},{36,19}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gain.u, dp_actual) annotation (Line(points={{36,42},{60,42},{60,20},{
-          110,20}}, color={0,0,127}));
+  connect(senRelPre.p_rel, dp_actual) annotation (Line(points={{50.5,-26.35},{50.5,
+          -38},{74,-38},{74,20},{110,20}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(info="<html>
 <p>
