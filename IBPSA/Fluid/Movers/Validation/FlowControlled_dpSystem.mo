@@ -29,7 +29,7 @@ model FlowControlled_dpSystem
     m_flow_nominal=1,
     use_inputFilter=false) "Regular dp controlled pump"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
-  IBPSA.Fluid.Movers.FlowControlled_dp       floCon_dpSys(
+  IBPSA.Fluid.Movers.FlowControlled_dp       floCon_dpDow(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=false,
@@ -62,7 +62,7 @@ model FlowControlled_dpSystem
 
   Sources.Boundary_pT sin(redeclare package Medium = Medium, nPorts=3) "Sink"
     annotation (Placement(transformation(extent={{160,30},{140,50}})));
-  IBPSA.Fluid.Movers.FlowControlled_dp       floCon_dpSysUps(
+  IBPSA.Fluid.Movers.FlowControlled_dp floCon_dpUps(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=false,
@@ -89,17 +89,17 @@ model FlowControlled_dpSystem
     "Pressure sensor for remote set point"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 equation
-  assert(abs(senRelPreUps.p_rel - floCon_dpSys.dp_actual) < 1e-6,
+  assert(abs(senRelPreUps.p_rel - y.y) < 1e-6,
     "Remote pressure set point is not tracked correctly");
-  assert(abs(senRelPreDow.p_rel - floCon_dpSysUps.dp_actual) < 1e-6,
+  assert(abs(senRelPreDow.p_rel - y.y) < 1e-6,
     "Remote pressure set point is not tracked correctly");
   connect(floCon_dp.port_b, dpDow1.port_a)
     annotation (Line(points={{60,120},{78,120}}, color={0,127,255}));
-  connect(floCon_dpSys.port_b, dpDow2.port_a)
+  connect(floCon_dpDow.port_b, dpDow2.port_a)
     annotation (Line(points={{60,40},{70,40},{80,40}}, color={0,127,255}));
   connect(dpUps1.port_b, floCon_dp.port_a)
     annotation (Line(points={{20,120},{40,120}}, color={0,127,255}));
-  connect(dpUps2.port_b, floCon_dpSys.port_a)
+  connect(dpUps2.port_b,floCon_dpDow. port_a)
     annotation (Line(points={{20,40},{30,40},{40,40}}, color={0,127,255}));
   connect(dpUps1.port_a, sou.ports[1]) annotation (Line(points={{0,120},{-60,
           120},{-60,42.6667}}, color={0,127,255}));
@@ -107,15 +107,15 @@ equation
     annotation (Line(points={{0,40},{-32,40},{-60,40}}, color={0,127,255}));
   connect(senPre.port, dpDow2.port_b)
     annotation (Line(points={{114,64},{114,40},{100,40}}, color={0,127,255}));
-  connect(senPre.p, floCon_dpSys.p)
+  connect(senPre.p,floCon_dpDow. p)
     annotation (Line(points={{103,74},{42,74},{42,52}}, color={0,0,127}));
-  connect(senRelPreUps.port_b, floCon_dpSys.port_a)
+  connect(senRelPreUps.port_b,floCon_dpDow. port_a)
     annotation (Line(points={{60,10},{40,10},{40,40}}, color={0,127,255}));
   connect(senRelPreUps.port_a, dpDow2.port_b)
     annotation (Line(points={{80,10},{100,10},{100,40}}, color={0,127,255}));
-  connect(floCon_dpSysUps.port_b, dpDow3.port_a)
+  connect(floCon_dpUps.port_b, dpDow3.port_a)
     annotation (Line(points={{60,-40},{80,-40}}, color={0,127,255}));
-  connect(dpUps3.port_b, floCon_dpSysUps.port_a)
+  connect(dpUps3.port_b, floCon_dpUps.port_a)
     annotation (Line(points={{20,-40},{40,-40}}, color={0,127,255}));
   connect(dpDow3.port_b, sin.ports[1]) annotation (Line(points={{100,-40},{140,
           -40},{140,42.6667}}, color={0,127,255}));
@@ -127,18 +127,18 @@ equation
           -40},{-60,-40},{-60,37.3333}}, color={0,127,255}));
   connect(dpUps3.port_a, senPre1.port)
     annotation (Line(points={{0,-40},{0,-30}}, color={0,127,255}));
-  connect(senPre1.p, floCon_dpSysUps.p)
+  connect(senPre1.p, floCon_dpUps.p)
     annotation (Line(points={{11,-20},{42,-20},{42,-28}}, color={0,0,127}));
-  connect(senRelPreDow.port_a, floCon_dpSysUps.port_b)
+  connect(senRelPreDow.port_a, floCon_dpUps.port_b)
     annotation (Line(points={{40,-70},{60,-70},{60,-40}}, color={0,127,255}));
   connect(senRelPreDow.port_b, dpUps3.port_a)
     annotation (Line(points={{20,-70},{0,-70},{0,-40}}, color={0,127,255}));
   connect(y.y, floCon_dp.dp_in) annotation (Line(points={{-49,140},{49.8,140},{
           49.8,132}}, color={0,0,127}));
-  connect(y.y, floCon_dpSys.dp_in) annotation (Line(points={{-49,140},{-10,140},
+  connect(y.y,floCon_dpDow. dp_in) annotation (Line(points={{-49,140},{-10,140},
           {28,140},{28,70},{49.8,70},{49.8,52}}, color={0,0,127}));
-  connect(y.y, floCon_dpSysUps.dp_in) annotation (Line(points={{-49,140},{28,
-          140},{28,-10},{49.8,-10},{49.8,-28}}, color={0,0,127}));
+  connect(y.y, floCon_dpUps.dp_in) annotation (Line(points={{-49,140},{28,140},
+          {28,-10},{49.8,-10},{49.8,-28}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),

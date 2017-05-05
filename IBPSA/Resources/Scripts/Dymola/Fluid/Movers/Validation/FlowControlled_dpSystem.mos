@@ -1,4 +1,4 @@
 simulateModel("IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem", stopTime=1, method="dassl", tolerance=1e-06, resultFile="FlowControlled_dpSystem");
 
-createPlot(id=1, position={0, 0, 1309, 724}, y={"floCon_dp.dp", "floCon_dpSys.dp", "floCon_dpSysUps.dp"}, range={0.0, 1.0, -1.6, 0.19999999999999996}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=1, position={0, 0, 1309, 360}, y={"floCon_dpSysUps.dp_in", "floCon_dpSys.dp_in", "floCon_dp.dp_in"}, range={0.0, 1.0, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={0, 0, 1309, 239}, y={"floCon_dpUps.dp_actual", "floCon_dpDow.dp_actual", "floCon_dp.dp_actual"}, range={0.0, 1.0, -0.5, 2.0}, erase=false, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={0, 0, 1309, 360}, y={"floCon_dpUps.dp_in", "floCon_dpDow.dp_in", "floCon_dp.dp_in"}, range={0.0, 1.0, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
