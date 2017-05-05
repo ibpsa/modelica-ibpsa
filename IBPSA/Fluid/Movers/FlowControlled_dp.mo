@@ -4,7 +4,8 @@ model FlowControlled_dp
   extends IBPSA.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedVariable.PressureDifference,
     final computePowerUsingSimilarityLaws=per.havePressureCurve,
-    preSou(dp_start=dp_start),
+    preSou(dp_start=dp_start, control_dp=not (setDownStreamPressure or
+          setUpStreamPressure)),
     final stageInputs(each final unit="Pa") = heads,
     final constInput(final unit="Pa") = constantHead,
     filter(
@@ -49,6 +50,22 @@ model FlowControlled_dp
     dp_nominal*{(per.speeds[i]/per.speeds[end])^2 for i in 1:size(per.speeds, 1)}
     "Vector of head set points, used when inputType=Stages"
     annotation(Dialog(enable=inputType == IBPSA.Fluid.Types.InputType.Stages));
+  parameter Boolean setDownStreamPressure = false
+    "= true, to set head dp relative to a point downstream of the fan or pump"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Static pressure reset"));
+  parameter Boolean setUpStreamPressure = false
+    "= true, to set head dp relative to a point upstream of the fan or pump"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Static pressure reset"));
+
+  Modelica.Blocks.Interfaces.RealInput p(final quantity="Pressure", final unit="Pa")=
+    if setDownStreamPressure
+    then port_a.p + gain.u
+    else port_b.p - gain.u if
+       setDownStreamPressure or setUpStreamPressure
+    "Pressure measurement at the point in the system relative to which the head dp should be controlled"
+    annotation (Placement(transformation(extent={{20,-20},{-20,20}},
+        rotation=90,
+        origin={-80,120})));
 
   Modelica.Blocks.Interfaces.RealInput dp_in(final unit="Pa") if
     inputType == IBPSA.Fluid.Types.InputType.Continuous
@@ -71,6 +88,8 @@ protected
         rotation=90,
         origin={36,30})));
 equation
+  assert(not (setDownStreamPressure and setUpStreamPressure),
+    "The parameter values of setDownStreamPressure and setUpStreamPressure cannot both be true");
   assert(inputSwitch.u >= -1E-3,
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
@@ -108,6 +127,13 @@ in record <code>per</code>, which is of type
 <a href=\"modelica://IBPSA.Fluid.Movers.SpeedControlled_Nrpm\">
 IBPSA.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </p>
+<h4>Main equations</h4>
+<p>
+See the
+<a href=\"modelica://IBPSA.Fluid.Movers.UsersGuide\">
+User's Guide</a>.
+</p>
+<h4>Typical use and important parameters</h4>
 <p>
 If <code>use_inputFilter=true</code>, then the parameter <code>dp_nominal</code> is
 used to normalize the filter. This is used to improve the numerics of the transient response.
@@ -116,14 +142,36 @@ of the value of <code>dp_nominal</code>. It is recommended to set
 <code>dp_nominal</code> to approximately the pressure raise that the fan has during
 full speed.
 </p>
+<h4>Options</h4>
 <p>
-See the
-<a href=\"modelica://IBPSA.Fluid.Movers.UsersGuide\">
-User's Guide</a> for more information.
+Parameter <code>setDownStreamPressure</code>
+can be used to set the pressure difference between
+the pressure at inlet of the mover and the pressure in 
+a point downstream from the pump in the system. 
+This allows an efficient implementation of 
+static pressure reset controllers.
+Similarly <code>setUpStreamPressure</code>
+can be used to set the pressure difference
+between a point upstream of the mover
+and the pressure at the mover outlet port.
+A measurement of the pressure in the
+remote point of the system then needs to be added
+to <code>RealInput p</code>.
+This functionality is demonstrated in
+<a href=\"modelica://IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem\">
+IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 5, 2017, by Filip Jorissen:<br/>
+Added parameters, documentation and functionality for 
+<code>setDownStreamPressure</code> and 
+<code>setUpStreamPressure</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/770\">#770</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
