@@ -1,6 +1,6 @@
 within IDEAS.Experimental.Electric.Distribution.Examples;
 model TestGridGeneral
-
+  extends Modelica.Icons.Example;
   IDEAS.Experimental.Electric.Distribution.Examples.Components.SinePower risingflankSingle
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   IDEAS.Experimental.Electric.Distribution.AC.Grid_1PEq gridGeneral(

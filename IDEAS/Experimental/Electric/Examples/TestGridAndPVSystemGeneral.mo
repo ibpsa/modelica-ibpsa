@@ -1,7 +1,7 @@
 within IDEAS.Experimental.Electric.Examples;
 model TestGridAndPVSystemGeneral
   "Test to see if Grid and PV(from file) work as it should"
-
+extends Modelica.Icons.Example;
   Photovoltaics.PVSystemGeneral pVSystemGeneral(numPha=3, redeclare
       Data.PvPanels.SanyoHIP230HDE1                pvPanel)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));

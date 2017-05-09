@@ -1,7 +1,7 @@
 within IDEAS.Experimental.Electric.Examples;
 model TestGridAndPVFromFile
   "Test to see if Grid and PV(from file) work as it should"
-
+extends Modelica.Icons.Example;
   inner BoundaryConditions.SimInfoManager       sim
     annotation (Placement(transformation(extent={{-72,80},{-52,100}})));
   inner

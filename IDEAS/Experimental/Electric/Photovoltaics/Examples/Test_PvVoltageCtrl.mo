@@ -1,6 +1,6 @@
 within IDEAS.Experimental.Electric.Photovoltaics.Examples;
 model Test_PvVoltageCtrl "Tester for the PV voltage control model"
-
+extends Modelica.Icons.Example;
   Components.PvVoltageCtrlGeneral_InputVGrid
     pvVoltageCtrlGeneral_InputVGrid_2_1
     annotation (Placement(transformation(extent={{-16,8},{4,28}})));
