@@ -520,7 +520,7 @@ May 8, 2017, by Michael Wetter:<br/>
 Updated heater model.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
-IBPSA, issue 763</a>.
+IBPSA, #763</a>.
 </li>
 <li>
 October 7, 2016, by Filip Jorissen:<br/>
