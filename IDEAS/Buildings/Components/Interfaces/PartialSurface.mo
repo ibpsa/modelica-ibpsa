@@ -32,9 +32,8 @@ partial model PartialSurface "Partial model for building envelope component"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   IDEAS.Buildings.Components.Interfaces.ZoneBus propsBus_a(
-    numIncAndAziInBus=sim.numIncAndAziInBus,
-    computeConservationOfEnergy=sim.computeConservationOfEnergy,
-    weaBus(final outputAngles=sim.outputAngles)) "If inc = Floor, then propsbus_a should be connected to the zone above this floor.
+    numIncAndAziInBus=sim.numIncAndAziInBus, outputAngles=sim.outputAngles)
+                                             "If inc = Floor, then propsbus_a should be connected to the zone above this floor.
     If inc = ceiling, then propsbus_a should be connected to the zone below this ceiling.
     If component is an outerWall, porpsBus_a should be connect to the zone."
     annotation (Placement(transformation(
@@ -67,16 +66,13 @@ protected
     "Azimuth angle expression";
   Modelica.Blocks.Sources.RealExpression incExp(y=inc)
     "Inclination angle expression";
-  Modelica.Blocks.Sources.RealExpression E if
-       sim.computeConservationOfEnergy
+  Modelica.Blocks.Sources.RealExpression E
     "Model internal energy";
-  IDEAS.Buildings.Components.BaseClasses.ConservationOfEnergy.PrescribedEnergy prescribedHeatFlowE if
-       sim.computeConservationOfEnergy
+  IDEAS.Buildings.Components.BaseClasses.ConservationOfEnergy.PrescribedEnergy prescribedHeatFlowE
     "Component for computing conservation of energy";
-  Modelica.Blocks.Sources.RealExpression Qgai if sim.computeConservationOfEnergy
+  Modelica.Blocks.Sources.RealExpression Qgai
     "Heat gains across model boundary";
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
-     sim.computeConservationOfEnergy
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai
     "Component for computing conservation of energy";
 
 equation
@@ -127,6 +123,11 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-50,-100},{50,100}})),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 21, 2017, by Filip Jorissen:<br/>
+Changed bus declarations for JModelica compatibility.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/559>#559</a>.
+</li>
 <li>
 January 10, 2017, by Filip Jorissen:<br/>
 Declared parameter <code>A</code> instead of using

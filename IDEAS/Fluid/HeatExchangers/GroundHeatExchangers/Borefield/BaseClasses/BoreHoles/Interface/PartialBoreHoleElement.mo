@@ -14,4 +14,9 @@ partial model PartialBoreHoleElement
     "Set to false to remove the dynamics of the filling material."
     annotation (Dialog(tab="Dynamics"));
 
+equation
+    assert(gen.rBor > gen.xC + gen.rTub + gen.eTub and
+         0 < gen.xC - gen.rTub - gen.eTub,
+         "The borehole geometry is not physical. Check rBor, rTub and xC to make sure that the tube is placed inside the halve of the borehole.");
+
 end PartialBoreHoleElement;

@@ -3,9 +3,9 @@ model Zone "Building zone model"
   extends IDEAS.Buildings.Components.Interfaces.PartialZone;
 
   //this propsbus exposes all ports to the outside of the model
-  IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurf] propsBus(each final numIncAndAziInBus=sim.numIncAndAziInBus,
-      each final computeConservationOfEnergy=sim.computeConservationOfEnergy,
-      each weaBus(final outputAngles=sim.outputAngles))
+  IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurf] propsBus(
+    each final numIncAndAziInBus=sim.numIncAndAziInBus,
+    each final outputAngles=sim.outputAngles)
                           annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=-90,

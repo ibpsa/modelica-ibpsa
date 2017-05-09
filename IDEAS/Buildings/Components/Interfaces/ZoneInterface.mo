@@ -36,24 +36,18 @@ partial model ZoneInterface "Partial model for thermal building zones"
     if useFluPor
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
 protected
-  Modelica.Blocks.Sources.RealExpression Eexpr if
-       sim.computeConservationOfEnergy "Internal energy model";
-  BaseClasses.ConservationOfEnergy.PrescribedEnergy prescribedHeatFlowE if
-        sim.computeConservationOfEnergy
+  Modelica.Blocks.Sources.RealExpression Eexpr "Internal energy model";
+  BaseClasses.ConservationOfEnergy.PrescribedEnergy prescribedHeatFlowE
     "Dummy that allows computing total internal energy";
   Modelica.Blocks.Sources.RealExpression Qgai(
-    y=(if sim.openSystemConservationOfEnergy
+    y=(if sim.openSystemConservationOfEnergy or not sim.computeConservationOfEnergy
        then 0
-    else gainCon.Q_flow + gainRad.Q_flow)) if
-       sim.computeConservationOfEnergy "Heat gains in model";
-        /*(if useFluPor then flowPort_In.m_flow*actualStream(flowPort_In.h_outflow) + flowPort_Out.m_flow*actualStream(flowPort_Out.h_outflow) else 0)*/
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
-       sim.computeConservationOfEnergy
+    else gainCon.Q_flow + gainRad.Q_flow)) "Heat gains in model";
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai
     "Component for computing conservation of energy";
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a dummy1 if  sim.computeConservationOfEnergy
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a dummy1
     "Dummy heat port for avoiding error by dymola translator";
-  IDEAS.Buildings.Components.BaseClasses.ConservationOfEnergy.EnergyPort dummy2 if
-                                                                sim.computeConservationOfEnergy
+  IDEAS.Buildings.Components.BaseClasses.ConservationOfEnergy.EnergyPort dummy2
     "Dummy emergy port for avoiding error by dymola translator";
 initial equation
   assert(nSurf>1, "A minimum of 2 surfaces should be connected to each zone!");

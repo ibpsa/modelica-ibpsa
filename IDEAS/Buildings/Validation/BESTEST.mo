@@ -212,24 +212,27 @@ equation
           textString="BESTEST 900 Series")}),
     Documentation(info="<html>
 <p>
-BesTest implementation of IDEAS. 
+BESTEST implementation of IDEAS. 
 This model generates the results in the figures below. 
-Reference results are from http://simulationresearch.lbl.gov/dirpubs/epl_bestest_ash.pdf.
+Reference results are from the 
+<a href=https://energyplus.net/sites/all/modules/custom/nrel_custom/eplus_files/current_testing_reports/ASHRAE140-Envelope-8.3.0-b45b06b780.pdf>
+EnergyPlus website</a>.
 </p>
 <p>
-Case 600 series results:<br>
-<img src=\"modelica://IDEAS/Resources/Images/BESTEST/case600.png\"/>
+Series 600, series 900 and free float normalised results:<br>
+<img src=\"modelica://IDEAS/Resources/Images/BESTEST/bestest.png\"/>
 </p>
 <p>
-Case 900 series results:<br>
-<img src=\"modelica://IDEAS/Resources/Images/BESTEST/case900.png\"/>
-</p>
-<p>
-Free floating temperature results:<br>
-<img src=\"modelica://IDEAS/Resources/Images/BESTEST/T_FF.png\"/>
+E<sub>H</sub> and E<sub>C</sub> indicate normalised total yearly energy use for heating and cooling. 
+P<sub>H</sub> and P<sub>C</sub> indicate normalised peak average hourly energy use for heating and cooling.
+For free float cases, normalised minimum, average and maximum temperatures are reported.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 30, 2017 by Filip Jorissen:<br/>
+Revised figure and documentation.
+</li>
 <li>
 July 25, 2016 by Filip Jorissen:<br/>
 Revised implementation.

@@ -9,8 +9,8 @@ partial model PartialOpaqueSurface
     Placement(transformation(extent={{-34,78},{-30,82}})),
     Dialog(group="Construction details"));
   extends IDEAS.Buildings.Components.Interfaces.PartialSurface(
-    E(y=layMul.E),
-    Qgai(y=layMul.port_b.Q_flow + (if sim.openSystemConservationOfEnergy
+    E(y=if sim.computeConservationOfEnergy then layMul.E else 0),
+    Qgai(y=layMul.port_b.Q_flow + (if sim.openSystemConservationOfEnergy or not sim.computeConservationOfEnergy
          then 0 else sum(port_emb.Q_flow))),
     layMul(
       final nLay=constructionType.nLay,
@@ -47,6 +47,11 @@ equation
         graphics),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 21, 2017, by Filip Jorissen:<br/>
+Changed conservation of energy implementation for JModelica compatibility.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/559>#559</a>.
+</li>
 <li>
 January 10, 2017, by Filip Jorissen:<br/>
 Removed

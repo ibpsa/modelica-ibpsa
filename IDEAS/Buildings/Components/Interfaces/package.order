@@ -9,3 +9,4 @@ PartialOpaqueSurface
 WindowDynamicsType
 BoundaryType
 DummyConnection
+RealConnector

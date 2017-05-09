@@ -1,0 +1,4 @@
+IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.initializeModel(soi=IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.SoilData.SoilTrt(), fil=IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.FillingData.FillingTrt(),gen=IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeneralData.GeneralTrt2UTube());
+
+simulateModel("IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Validation.TrtValidationMultipleBorehole2UTube", stopTime=309000, resultFile="TrtValidationMultipleBorehole2UTube");
+createPlot(id=1, position={0, 0, 1427, 716}, y={"realExpression.y", "senTem_in.T"}, range={0.0, 310000.0, 266.0, 312.0}, grid=true, filename="TrtValidationMultipleBorehole2UTube.mat", colors={{28,108,200}, {238,46,47}});
