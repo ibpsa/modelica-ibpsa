@@ -1,22 +1,41 @@
 within IDEAS.Buildings.Components.Interfaces;
-expandable connector WeaBus "Data bus that stores weather data"
+connector WeaBus "Data bus that stores weather data"
   extends Modelica.Icons.SignalBus;
   parameter Integer numSolBus;
-  parameter Boolean outputAngles = true "Set to false when linearising only";
+  parameter Boolean outputAngles = true "Set to false when linearising in Dymola only";
+
   IDEAS.Buildings.Components.Interfaces.SolBus[numSolBus] solBus(each outputAngles=outputAngles) annotation ();
-  Modelica.SIunits.Temperature Te(start = 293.15) "Ambient sensible temperature" annotation ();
-  Modelica.SIunits.Temperature Tdes(start=-8 + 273.15) "Design temperature?" annotation ();
-  Modelica.SIunits.Temperature TGroundDes(start=283.15)
+  IDEAS.Buildings.Components.Interfaces.RealConnector Te(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    min = 0.0,
+    start = 293.15,
+    nominal = 300,
+    displayUnit="degC") "Ambient sensible temperature" annotation ();
+  IDEAS.Buildings.Components.Interfaces.RealConnector Tdes(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    min = 0.0,
+    start = -8 + 273.15,
+    nominal = 300,
+    displayUnit="degC") "Design temperature?" annotation ();
+  IDEAS.Buildings.Components.Interfaces.RealConnector TGroundDes(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    min = 0.0,
+    start = 283.15,
+    nominal = 300,
+    displayUnit="degC")
     "Design ground temperature" annotation ();
-  Real hConExt(unit="W/(m2.K)", start = 18.3) "Exterior convective heat transfer coefficient" annotation ();
-  Real X_wEnv(start=0.01) "Environment air water mass fraction"
+  IDEAS.Buildings.Components.Interfaces.RealConnector hConExt(unit="W/(m2.K)", start = 18.3) "Exterior convective heat transfer coefficient" annotation ();
+  IDEAS.Buildings.Components.Interfaces.RealConnector X_wEnv(start=0.01) "Environment air water mass fraction"
                                 annotation ();
-  Real CEnv(start=1e-6) "Environment air trace substance mass fraction"
+  IDEAS.Buildings.Components.Interfaces.RealConnector CEnv(start=1e-6) "Environment air trace substance mass fraction"
                                 annotation ();
-  Real dummy(start=1)
+  IDEAS.Buildings.Components.Interfaces.RealConnector dummy(start=1)
     "Dummy variable of value 1 to include constant term in linearization (see SlabOnGround)"
     annotation ();
-
+  IDEAS.Buildings.Components.Interfaces.RealConnector TskyPow4,TePow4, solGloHor, solDifHor, F1, F2, angZen, angHou, angDec, solDirPer;
   annotation (
     defaultComponentName="weaBus",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
@@ -33,6 +52,12 @@ Connector that contains all environment information for many inclinations and ti
 </html>",
    revisions="<html>
 <ul>
+<li>
+March 21, 2017, by Filip Jorissen:<br/>
+Changed Reals into connectors for JModelica compatibility.
+Other compatibility changes. 
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/559>#559</a>.
+</li>
 <li>
 October 22, 2016, by Filip Jorissen:<br/>
 Revised documentation for IDEAS 1.0.

@@ -17,9 +17,8 @@ model DummyConnection "Source generator/sink for propsbus"
   outer IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus zoneBus(
-    weaBus(outputAngles=not sim.linearise),
-    numIncAndAziInBus=sim.numIncAndAziInBus,
-    computeConservationOfEnergy=sim.computeConservationOfEnergy)
+    outputAngles=sim.outputAngles,
+    numIncAndAziInBus=sim.numIncAndAziInBus)
     annotation (Placement(transformation(extent={{80,-22},{120,18}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow[3](
       Q_flow={surfCon,iSolDif,iSolDir}) if
@@ -40,10 +39,10 @@ model DummyConnection "Source generator/sink for propsbus"
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=T)
     annotation (Placement(transformation(extent={{-70,-16},{-50,4}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow QGai(Q_flow=0) if
-                         not isZone and sim.computeConservationOfEnergy
+                         not isZone
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   IDEAS.Buildings.Components.BaseClasses.ConservationOfEnergy.PrescribedEnergy
-    prescribedEnergy if not isZone and sim.computeConservationOfEnergy
+    prescribedEnergy if not isZone
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Modelica.Blocks.Sources.Constant zero(k=0) if not isZone
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
@@ -109,7 +108,7 @@ equation
           100.1,-40},{100.1,-1.9}}, color={0,0,0}));
   connect(zero.y, prescribedEnergy.E) annotation (Line(points={{-59,-40},{-49.5,
           -40},{-40,-40}}, color={0,0,127}));
-  if isZone and sim.computeConservationOfEnergy then
+  if isZone then
     connect(sim.E, zoneBus.E) annotation (Line(points={{-90,20},{-90,20},{-90,-2},
             {100.1,-2},{100.1,-1.9}},          color={0,0,0}));
     connect(sim.Qgai, zoneBus.Qgai) annotation (Line(points={{-90,20},{-90,20},{

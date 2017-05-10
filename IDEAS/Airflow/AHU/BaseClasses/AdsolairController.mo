@@ -1,25 +1,9 @@
 within IDEAS.Airflow.AHU.BaseClasses;
 model AdsolairController
-  extends Modelica.Blocks.Icons.Block;
+  extends IDEAS.Airflow.AHU.BaseClasses.AdsolairControllerInterface;
   parameter Modelica.SIunits.Time tau=60
     "Thermal time constant at nominal flow rate";
 
-  Modelica.Blocks.Interfaces.BooleanInput on "AHU status"       annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-106,80})));
-  Modelica.Blocks.Interfaces.RealInput TSet
-    "Set point temperature at AHU outlet"
-    annotation (Placement(transformation(
-        extent={{20,20},{-20,-20}},
-        rotation=180,
-        origin={-106,20})));
-  Modelica.Blocks.Interfaces.RealInput TFanOutSup
-    "Outlet temperature of supply fan" annotation (Placement(transformation(
-        extent={{20,20},{-20,-20}},
-        rotation=180,
-        origin={-106,-10})));
   Modelica.Blocks.Sources.BooleanExpression onAdiaExp(y=on and TSet < TIehInSup
          and (pre(onAdiaExp.y) or TSet < TIehOutSup))
     "Indirect evaporative cooling status"
@@ -28,16 +12,6 @@ model AdsolairController
         TIehOutSup and (pre(onChiExp.y) or TSet + 0.1 < TIehOutSup))
     "Active chiller status"
     annotation (Placement(transformation(extent={{-100,28},{14,46}})));
-  Modelica.Blocks.Interfaces.RealInput TIehOutSup
-    "Temperature of IEH supply outlet" annotation (Placement(transformation(
-        extent={{20,20},{-20,-20}},
-        rotation=180,
-        origin={-106,-40})));
-  Modelica.Blocks.Interfaces.RealInput TIehInSup
-    "Temperature of IEH supply inlet" annotation (Placement(transformation(
-        extent={{20,20},{-20,-20}},
-        rotation=180,
-        origin={-106,-70})));
   Modelica.Blocks.MathBoolean.OnDelay onDelAdi(delayTime=5*tau)
     "On delay before compressor may be activated"
     annotation (Placement(transformation(extent={{28,56},{36,64}})));
@@ -60,11 +34,6 @@ model AdsolairController
     annotation (Placement(transformation(extent={{-2,0},{8,10}})));
   Modelica.Blocks.Math.Add add(k1=-1, k2=+1)
     annotation (Placement(transformation(extent={{-16,0},{-6,10}})));
-  Modelica.Blocks.Interfaces.RealInput TEvaOut "Evaporator outlet temperature"
-    annotation (Placement(transformation(
-        extent={{20,20},{-20,-20}},
-        rotation=180,
-        origin={-106,-100})));
   Modelica.Blocks.Sources.RealExpression yBypTopExp(y=if not onAdiaExp.y and on
          and not onChiExp.y then 1 - damPid.y else 0)
     "Real expression for connecting to output"
@@ -120,10 +89,10 @@ model AdsolairController
 equation
   connect(onDelAdi.u, onAdiaExp.y) annotation (Line(points={{26.4,60},{19.7,60}},
                 color={255,0,255}));
-  connect(add.u2, TEvaOut) annotation (Line(points={{-17,2},{-22,2},{-22,-100},{
-          -106,-100}},
+  connect(add.u2, TEvaOut) annotation (Line(points={{-17,2},{-22,2},{-22,-90},{
+          -104,-90}},
                   color={0,0,127}));
-  connect(TIehInSup, add.u1) annotation (Line(points={{-106,-70},{-24,-70},{-24,
+  connect(TIehInSup, add.u1) annotation (Line(points={{-104,-60},{-24,-60},{-24,
           8},{-17,8}},color={0,0,127}));
   connect(damPid.on, onChiExp.y)
     annotation (Line(points={{33,10},{33,37},{19.7,37}},   color={255,0,255}));
@@ -138,9 +107,9 @@ equation
   connect(bypassBoty.y, yBypBot)
     annotation (Line(points={{94.6,40},{100.3,40},{110,40}}, color={0,0,127}));
   connect(damPid.u_s, TSet)
-    annotation (Line(points={{29,5},{29,20},{-106,20}}, color={0,0,127}));
+    annotation (Line(points={{29,5},{29,30},{-104,30}}, color={0,0,127}));
   connect(damPid.u_m, TFanOutSup)
-    annotation (Line(points={{35,-1},{35,-10},{-106,-10}}, color={0,0,127}));
+    annotation (Line(points={{35,-1},{35,0},{-104,0}},     color={0,0,127}));
   connect(onAdiaExp.y, onAdia) annotation (Line(points={{19.7,60},{18,60},{18,26},
           {18,24},{120,24},{120,-30}}, color={255,0,255}));
   connect(onChi, onChiExp.y) annotation (Line(points={{120,-70},{19.7,-70},{19.7,
@@ -149,10 +118,10 @@ equation
         color={0,0,127}));
   connect(chiPid.on, onChiExp.y) annotation (Line(points={{33,-14},{28,-14},{19.7,
           -14},{19.7,37}},                color={255,0,255}));
-  connect(chiPid.u_m, TFanOutSup) annotation (Line(points={{35,-25},{-40,-25},{-40,
-          -10},{-106,-10}}, color={0,0,127}));
-  connect(chiPid.u_s, TSet) annotation (Line(points={{29,-19},{-38,-19},{-38,20},
-          {-106,20}}, color={0,0,127}));
+  connect(chiPid.u_m, TFanOutSup) annotation (Line(points={{35,-25},{-40,-25},{
+          -40,0},{-104,0}}, color={0,0,127}));
+  connect(chiPid.u_s, TSet) annotation (Line(points={{29,-19},{-38,-19},{-38,30},
+          {-104,30}}, color={0,0,127}));
   connect(chiPid.y, mod) annotation (Line(points={{40.5,-19},{60,-19},{60,10},{120,
           10}}, color={0,0,127}));
   connect(absdT.y, inverseXRegularized.u) annotation (Line(points={{8.5,5},{11.25,
@@ -160,5 +129,13 @@ equation
   connect(inverseXRegularized.y, damPid.kIn) annotation (Line(points={{24.5,5},{
           27.25,5},{27.25,8},{29,8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+April 24, 2017, by Filip Jorissen:<br/>
+Now extending from interface.
+</li>
+</ul>
+</html>"));
 end AdsolairController;

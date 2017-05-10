@@ -17,7 +17,7 @@ model MonoLayerDynamic "Dynamic layer for uniform solid."
     "Total heat capacity";
   // This option is for solving problems when connecting a
   // fixed temperature boundary to a state when linearising a model.
-  constant Boolean addRes_b=false
+  parameter Boolean addRes_b=false
     "Set to true to add a resistor at port b.";
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") = sum(T .* C);
 

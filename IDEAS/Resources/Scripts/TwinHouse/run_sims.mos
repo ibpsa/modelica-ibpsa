@@ -1,4 +1,4 @@
-// Modelica experiment script written by modelicares 2017-01-23
+// Modelica experiment script written by modelicares 2017-05-03
 import Modelica.Utilities.Files.copy;
 import Modelica.Utilities.Files.createDirectory;
 Advanced.TranslationInCommandLog = true "Also include translation log in command log";
@@ -6,10 +6,6 @@ cd("/tmp/scripts");
 openModel("package.mo");
 cd("/tmp/scripts");
 destination = "/media/psf/Home/Documents/Software/IDEAS-git/IDEAS/Resources/Scripts/TwinHouse/";
-
-Advanced.StoreProtectedVariables:=true;
-Evaluate=true;
-Advanced.EfficientMinorEvents=true;
 
 // Experiment 1
 ok = simulateModel(problem="IDEAS.Examples.TwinHouses.BuildingN2_Exp2", stopTime=12300000.0, method="LSodar", startTime=8000000.0, numberOfIntervals=5000);

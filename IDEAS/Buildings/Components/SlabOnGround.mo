@@ -18,7 +18,7 @@ model SlabOnGround "opaque floor on ground slab"
     "Amplitude of variation of monthly average outdoor temperature";
   parameter Modelica.SIunits.TemperatureDifference dTiAvg = 2
     "Amplitude of variation of monthly average indoor temperature";
-  parameter Boolean linearise=sim.linearise
+  parameter Boolean linearise=sim.lineariseDymola
     "= true, if heat flow to ground should be linearized"
     annotation(Dialog(tab="Convection"));
   Modelica.SIunits.HeatFlowRate Qm = if not linearise then UEqui*A*(TiAvg - TeAvg) - Lpi*dTiAvg*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*dTeAvg*cos(2*3.1415/12*(m - 1 - beta)) else

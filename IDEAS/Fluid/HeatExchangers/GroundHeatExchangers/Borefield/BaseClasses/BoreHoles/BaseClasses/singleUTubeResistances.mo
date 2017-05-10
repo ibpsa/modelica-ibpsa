@@ -35,6 +35,8 @@ algorithm
   // ********** Rb and Ra from multipole **********
   // Help variables
   sigma :=(kFil - kSoi)/(kFil + kSoi);
+  beta :=2*Modelica.Constants.pi*kFil*(RCondPipe+RConv);
+
   R_1delta_LS :=1/(2*pi*kFil)*(log(rBor/rTub) + log(rBor/(2*sha)) +
     sigma*log(rBor^4/(rBor^4 - sha^4))) + RCondPipe + RConv;
 
@@ -49,7 +51,6 @@ algorithm
     rBor^2 + sha^2)/(rBor^2 - sha^2)))  + 2*(RCondPipe + RConv);
 
   //Rb and Ra
-  beta :=2*Modelica.Constants.pi*kFil*(RCondPipe+RConv);
   Rb_internal :=if use_Rb then Rb else R_1delta_MP/2;
   Ra :=Ra_LS - 1/(Modelica.Constants.pi*kFil)*(rTub^2/(4*sha^2)*(1 + sigma*
     4*rBor^4*sha^2/(rBor^4 - sha^4))/((1 + beta)/(1 - beta) - rTub^2/(4*sha^2) +
