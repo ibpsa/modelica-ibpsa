@@ -301,6 +301,19 @@ This loss of accuracy has the advantage that it allows to use the
 mover models without requiring flow and efficiency/power characteristics.
 </p>
 <p>
+The model <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dp\">
+IBPSA.Fluid.Movers.FlowControlled_dp</a>
+has the option to control the mover head relative to a point
+upstream or downstream from the mover
+using parameter <code>PrescribedPressure</code>. 
+A pressure sensor must then be connected between
+the pump input <code>pMea</code> and
+the point relative to which the pressure should be controlled.
+This functionality is demonstrated in 
+<a href=\"IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem\">
+IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
+</p>
+<p>
 The models <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dp\">
 IBPSA.Fluid.Movers.FlowControlled_dp</a> and
 <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_m_flow\">

@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Movers.Validation;
 model FlowControlled_dpSystem
-  "Demonstration of the use of setUpStreamPressure and setDownStreamPressure"
+  "Demonstration of the use of prescribedPressure"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1
@@ -8,10 +8,11 @@ model FlowControlled_dpSystem
   parameter Modelica.SIunits.PressureDifference dp_nominal = 500
     "Nominal pressure difference";
   Modelica.Blocks.Sources.Ramp y(
-    offset=1,
     duration=0.5,
     startTime=0.25,
-    height=-1) "Input signal"
+    height=-dp_nominal,
+    offset=dp_nominal)
+               "Input signal"
     annotation (Placement(transformation(extent={{-70,130},{-50,150}})));
   Sources.Boundary_pT             sou(
     redeclare package Medium = Medium,
@@ -21,22 +22,22 @@ model FlowControlled_dpSystem
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal/2) "Downstream pressure drop"
-    annotation (Placement(transformation(extent={{78,110},{98,130}})));
+    annotation (Placement(transformation(extent={{80,110},{100,130}})));
   IBPSA.Fluid.Movers.FlowControlled_dp floCon_dp(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=false,
     m_flow_nominal=1,
-    use_inputFilter=false) "Regular dp controlled pump"
+    use_inputFilter=false) "Regular dp controlled fan"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
-  IBPSA.Fluid.Movers.FlowControlled_dp       floCon_dpDow(
+  IBPSA.Fluid.Movers.FlowControlled_dp floCon_dpDow(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=false,
     m_flow_nominal=1,
     use_inputFilter=false,
-    setDownStreamPressure=true)
-    "Dp controlled pump that sets downstream pressure point"
+    prescribedPressure=IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure.Downstream)
+    "Dp controlled fan that sets downstream pressure point"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   IBPSA.Fluid.FixedResistances.PressureDrop dpDow2(
     redeclare package Medium = Medium,
@@ -46,18 +47,18 @@ model FlowControlled_dpSystem
   IBPSA.Fluid.FixedResistances.PressureDrop dpUps1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/2) "Upstream pressuredrop"
+    dp_nominal=dp_nominal/2) "Upstream pressure drop"
     annotation (Placement(transformation(extent={{0,110},{20,130}})));
   IBPSA.Fluid.FixedResistances.PressureDrop dpUps2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/2) "Upstream pressuredrop"
+    dp_nominal=dp_nominal/2) "Upstream pressure drop"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Sensors.Pressure senPre(redeclare package Medium = Medium)
-    "Pressure sensor for remote set point"
+  Sensors.Pressure pMeaDow(redeclare package Medium = Medium)
+    "Pressure measurement for downstream set point control"
     annotation (Placement(transformation(extent={{124,64},{104,84}})));
   Sensors.RelativePressure senRelPreUps(redeclare package Medium = Medium)
-    "Relative pressure sensor"
+    "Relative pressure sensor of upstream pump"
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
 
   Sources.Boundary_pT sin(redeclare package Medium = Medium, nPorts=3) "Sink"
@@ -68,8 +69,8 @@ model FlowControlled_dpSystem
     allowFlowReversal=false,
     m_flow_nominal=1,
     use_inputFilter=false,
-    setUpStreamPressure=true)
-    "Dp controlled pump that sets upstream pressure point"
+    prescribedPressure=IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure.Upstream)
+    "Dp controlled fan that sets upstream pressure point"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   IBPSA.Fluid.FixedResistances.PressureDrop dpDow3(
     redeclare package Medium = Medium,
@@ -79,22 +80,17 @@ model FlowControlled_dpSystem
   IBPSA.Fluid.FixedResistances.PressureDrop dpUps3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal/2) "Upstream pressuredrop"
+    dp_nominal=dp_nominal/2) "Upstream pressure drop"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Sensors.RelativePressure senRelPreDow(redeclare package Medium = Medium)
     "Downstream relative pressure sensor"
     annotation (Placement(transformation(extent={{40,-80},{20,-60}})));
-  Sensors.Pressure senPre1(
-                          redeclare package Medium = Medium)
-    "Pressure sensor for remote set point"
+  Sensors.Pressure pMeaUps(redeclare package Medium = Medium)
+    "Pressure measurement for upstream set point control"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 equation
-  assert(abs(senRelPreUps.p_rel - y.y) < 1e-6,
-    "Remote pressure set point is not tracked correctly");
-  assert(abs(senRelPreDow.p_rel - y.y) < 1e-6,
-    "Remote pressure set point is not tracked correctly");
   connect(floCon_dp.port_b, dpDow1.port_a)
-    annotation (Line(points={{60,120},{78,120}}, color={0,127,255}));
+    annotation (Line(points={{60,120},{80,120}}, color={0,127,255}));
   connect(floCon_dpDow.port_b, dpDow2.port_a)
     annotation (Line(points={{60,40},{70,40},{80,40}}, color={0,127,255}));
   connect(dpUps1.port_b, floCon_dp.port_a)
@@ -105,9 +101,9 @@ equation
           120},{-60,42.6667}}, color={0,127,255}));
   connect(dpUps2.port_a, sou.ports[2])
     annotation (Line(points={{0,40},{-32,40},{-60,40}}, color={0,127,255}));
-  connect(senPre.port, dpDow2.port_b)
+  connect(pMeaDow.port, dpDow2.port_b)
     annotation (Line(points={{114,64},{114,40},{100,40}}, color={0,127,255}));
-  connect(senPre.p,floCon_dpDow. p)
+  connect(pMeaDow.p, floCon_dpDow.pMea)
     annotation (Line(points={{103,74},{42,74},{42,52}}, color={0,0,127}));
   connect(senRelPreUps.port_b,floCon_dpDow. port_a)
     annotation (Line(points={{60,10},{40,10},{40,40}}, color={0,127,255}));
@@ -121,13 +117,13 @@ equation
           -40},{140,42.6667}}, color={0,127,255}));
   connect(dpDow2.port_b, sin.ports[2])
     annotation (Line(points={{100,40},{140,40}}, color={0,127,255}));
-  connect(dpDow1.port_b, sin.ports[3]) annotation (Line(points={{98,120},{140,
+  connect(dpDow1.port_b, sin.ports[3]) annotation (Line(points={{100,120},{140,
           120},{140,37.3333}}, color={0,127,255}));
   connect(dpUps3.port_a, sou.ports[3]) annotation (Line(points={{0,-40},{-20,
           -40},{-60,-40},{-60,37.3333}}, color={0,127,255}));
-  connect(dpUps3.port_a, senPre1.port)
+  connect(dpUps3.port_a, pMeaUps.port)
     annotation (Line(points={{0,-40},{0,-30}}, color={0,127,255}));
-  connect(senPre1.p, floCon_dpUps.p)
+  connect(pMeaUps.p, floCon_dpUps.pMea)
     annotation (Line(points={{11,-20},{42,-20},{42,-28}}, color={0,0,127}));
   connect(senRelPreDow.port_a, floCon_dpUps.port_b)
     annotation (Line(points={{40,-70},{60,-70},{60,-40}}, color={0,127,255}));
@@ -148,12 +144,15 @@ __Dymola_Commands(file=
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example demonstrates and tests the use of <code>FlowControlled_dp</code>
-movers that use the parameters <code>setUpStreamPressure</code> 
-and <code>setDownStreamPressure</code>.
+This example demonstrates and tests the use of 
+<a href=\"modelica://IBPSA.Fluid.Movers.Validation.FlowControlled_dp\">
+IBPSA.Fluid.Movers.Validation.FlowControlled_dp</a>
+movers that use the enumeration parameter 
+<a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure\">
+IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure</a>.
 </p>
 <p>
-The pressure head of the pump is compared to the control signal of the pump.
+The pressure head of the pump is compared with the control signal of the pump.
 </p>
 </html>", revisions="<html>
 <ul>

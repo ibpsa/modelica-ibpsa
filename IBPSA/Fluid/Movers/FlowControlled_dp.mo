@@ -4,8 +4,7 @@ model FlowControlled_dp
   extends IBPSA.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedVariable.PressureDifference,
     final computePowerUsingSimilarityLaws=per.havePressureCurve,
-    preSou(dp_start=dp_start, control_dp=not (setDownStreamPressure or
-          setUpStreamPressure)),
+    preSou(dp_start=dp_start, control_dp= prescribedPressure == IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure.Mover),
     final stageInputs(each final unit="Pa") = heads,
     final constInput(final unit="Pa") = constantHead,
     filter(
@@ -50,20 +49,21 @@ model FlowControlled_dp
     dp_nominal*{(per.speeds[i]/per.speeds[end])^2 for i in 1:size(per.speeds, 1)}
     "Vector of head set points, used when inputType=Stages"
     annotation(Dialog(enable=inputType == IBPSA.Fluid.Types.InputType.Stages));
-  parameter Boolean setDownStreamPressure = false
-    "= true, to set head dp relative to a point downstream of the fan or pump"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Static pressure reset"));
-  parameter Boolean setUpStreamPressure = false
-    "= true, to set head dp relative to a point upstream of the fan or pump"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Static pressure reset"));
 
-  Modelica.Blocks.Interfaces.RealInput p(final quantity="Pressure", final unit="Pa")=
-    if setDownStreamPressure
-    then port_a.p + gain.u
-    else port_b.p - gain.u if
-       setDownStreamPressure or setUpStreamPressure
+  parameter IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure prescribedPressure=
+    IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure.Mover
+    "Option for defining which pressure difference is prescribed"
+     annotation(Evaluate=true, Dialog(tab="Advanced", group="Static pressure reset"));
+
+  Modelica.Blocks.Interfaces.RealInput pMea(
+    final quantity="Pressure",
+    final displayUnit="Pa",
+    final unit="Pa")=if prescribedPressure == IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure.Downstream
+     then port_a.p + gain.u else port_b.p - gain.u if
+                              not prescribedPressure == IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure.Mover
     "Pressure measurement at the point in the system relative to which the head dp should be controlled"
-    annotation (Placement(transformation(extent={{20,-20},{-20,20}},
+    annotation (Placement(transformation(
+        extent={{20,-20},{-20,20}},
         rotation=90,
         origin={-80,120})));
 
@@ -88,9 +88,6 @@ protected
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={36,30})));
-initial equation
-  assert(not (setDownStreamPressure and setUpStreamPressure),
-    "The parameter values of setDownStreamPressure and setUpStreamPressure cannot both be true");
 equation
   assert(inputSwitch.u >= -1E-3,
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
@@ -146,19 +143,24 @@ full speed.
 </p>
 <h4>Options</h4>
 <p>
-Parameter <code>setDownStreamPressure</code>
-can be used to set the pressure difference between
+Parameter 
+<a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure\">
+IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure</a>
+can be used to configure the mover to 
+set the pressure difference between
 the pressure at inlet of the mover and the pressure in 
-a point downstream from the pump in the system. 
+a point downstream from the mover in the system. 
 This allows an efficient implementation of 
 static pressure reset controllers.
-Similarly <code>setUpStreamPressure</code>
+Similarly 
+<a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure\">
+IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure</a>
 can be used to set the pressure difference
 between a point upstream of the mover
 and the pressure at the mover outlet port.
 A measurement of the pressure in the
-remote point of the system then needs to be added
-to <code>RealInput p</code>.
+remote point of the system then needs to be connected
+to <code>RealInput pMea</code>.
 This functionality is demonstrated in
 <a href=\"modelica://IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem\">
 IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
@@ -169,8 +171,7 @@ IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 <li>
 May 5, 2017, by Filip Jorissen:<br/>
 Added parameters, documentation and functionality for 
-<code>setDownStreamPressure</code> and 
-<code>setUpStreamPressure</code>.<br/>
+<code>prescribedPressure</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/770\">#770</a>.
 </li>
