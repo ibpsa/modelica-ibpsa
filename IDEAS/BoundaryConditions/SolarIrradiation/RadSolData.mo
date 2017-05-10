@@ -25,7 +25,7 @@ model RadSolData "Selects or generates correct solar data for this surface"
     annotation (Placement(transformation(extent={{96,-70},{116,-50}})));
   Modelica.Blocks.Interfaces.RealOutput angAzi
     annotation (Placement(transformation(extent={{96,-90},{116,-70}})));
-  Modelica.Blocks.Interfaces.RealOutput angHou
+  Modelica.Blocks.Interfaces.RealOutput angHou "Hour angle"
     annotation (Placement(transformation(extent={{96,-110},{116,-90}})));
   Modelica.Blocks.Interfaces.RealOutput Tenv "Environment temperature"
     annotation (Placement(transformation(extent={{96,-30},{116,-10}})));
@@ -74,7 +74,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(solDif, solBusDummy.iSolDif) annotation (Line(
-      points={{106,0},{-40,0},{-40,2},{-39.9,2},{-39.9,30.1}},
+      points={{106,0},{-39.9,0},{-39.9,30.1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tenv, solBusDummy.Tenv) annotation (Line(
@@ -96,45 +96,56 @@ equation
       smooth=Smooth.None));
   end if;
   connect(radSol.TePow4, weaBus.TePow4) annotation (Line(points={{-66,40.6},{-66,
-          56},{100,56},{100,80}}, color={0,0,127}));
+          56},{100.05,56},{100.05,80.05}},
+                                  color={0,0,127}));
   connect(radSol.TskyPow4, weaBus.TskyPow4) annotation (Line(points={{-72,40.6},
-          {-72,58},{100,58},{100,80}}, color={0,0,127}));
+          {-72,58},{100.05,58},{100.05,80.05}},
+                                       color={0,0,127}));
   connect(radSol.solDirPer, weaBus.solDirPer) annotation (Line(points={{-80.4,40},
-          {-80.4,60},{100,60},{100,80}}, color={0,0,127}));
-  connect(radSol.solGloHor, weaBus.solGloHor) annotation (Line(points={{-80.4,
-          38},{-82,38},{-82,62},{100,62},{100,80}},      color={0,0,127}));
+          {-80.4,60},{100.05,60},{100.05,80.05}},
+                                         color={0,0,127}));
+  connect(radSol.solGloHor, weaBus.solGloHor) annotation (Line(points={{-80.4,38},
+          {-82,38},{-82,62},{100.05,62},{100.05,80.05}}, color={0,0,127}));
   connect(radSol.solDifHor, weaBus.solDifHor) annotation (Line(points={{-80.4,36},
-          {-84,36},{-84,64},{100,64},{100,80}}, color={0,0,127}));
+          {-84,36},{-84,64},{100.05,64},{100.05,80.05}},
+                                                color={0,0,127}));
   connect(radSol.angDec, weaBus.angDec) annotation (Line(points={{-80.4,30},{-86,
-          30},{-86,66},{100,66},{100,80}}, color={0,0,127}));
+          30},{-86,66},{100.05,66},{100.05,80.05}},
+                                           color={0,0,127}));
   connect(radSol.angHou, weaBus.angHou) annotation (Line(points={{-80.4,28},{-88,
-          28},{-88,68},{100,68},{100,80}}, color={0,0,127}));
+          28},{-88,68},{100.05,68},{100.05,80.05}},
+                                           color={0,0,127}));
   connect(radSol.angZen, weaBus.angZen) annotation (Line(points={{-80.4,26},{-90,
-          26},{-90,70},{100,70},{100,80}}, color={0,0,127}));
+          26},{-90,70},{100.05,70},{100.05,80.05}},
+                                           color={0,0,127}));
   connect(radSol.F1, weaBus.F1) annotation (Line(points={{-80.4,22},{-92,22},{-92,
-          72},{100,72},{100,80}}, color={0,0,127}));
+          72},{100.05,72},{100.05,80.05}},
+                                  color={0,0,127}));
   connect(radSol.F2, weaBus.F2) annotation (Line(points={{-80.4,20},{-94,20},{-94,
-          74},{100,74},{100,80}}, color={0,0,127}));
+          74},{100.05,74},{100.05,80.05}},
+                                  color={0,0,127}));
 
-    connect(constAngLin.y, angInc) annotation (Line(points={{-79,-60},{-78,-60},{-78,
-          -40},{106,-40}}, color={0,0,127}));
+    connect(constAngLin.y, angInc) annotation (Line(points={{-79,-60},{-78,-60},
+          {-78,-40},{106,-40}},
+                           color={0,0,127}));
   connect(constAngLin.y, angZen)
-    annotation (Line(points={{-79,-60},{-78,-60},{106,-60}}, color={0,0,127}));
+    annotation (Line(points={{-79,-60},{106,-60}},           color={0,0,127}));
   connect(constAngLin.y, angAzi)
-                                annotation (Line(points={{-79,-60},{-78,-60},{-78,
-          -80},{106,-80}}, color={0,0,127}));
-  connect(weaBus.angHou, angHou) annotation (Line(
-      points={{100,80},{80,80},{80,-100},{106,-100}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
+                                annotation (Line(points={{-79,-60},{-78,-60},{
+          -78,-80},{106,-80}},
+                           color={0,0,127}));
+  connect(angHou, solBusDummy.angHou) annotation (Line(points={{106,-100},{88,
+          -100},{-40,-100},{-40,30}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Documentation(info="<html>
 <p>This model usually takes the appropriate solar data from the bus. If the correct data is not contained by the bus, custom solar data is calculated.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 10, 2017 by Filip Jorissen and Christina Protopapadaki:<br/>
+Added output of <code>angHou</code>, which is required for PV systems.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/673\">#673</a>.
+</li>
 <li>
 March 25, 2016 by Filip Jorissen:<br/>
 Reworked radSol implementation to use RealInputs instead of weaBus.
