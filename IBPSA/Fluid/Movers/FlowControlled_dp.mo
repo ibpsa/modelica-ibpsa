@@ -56,7 +56,7 @@ model FlowControlled_dp
      annotation(Evaluate=true, Dialog(tab="Advanced", group="Static pressure reset"));
 
   Modelica.Blocks.Interfaces.RealInput pMea(
-    final quantity="Pressure",
+    final quantity="AbsolutePressure",
     final displayUnit="Pa",
     final unit="Pa")=if prescribedPressure == IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure.Downstream
      then port_a.p + gain.u else port_b.p - gain.u if
