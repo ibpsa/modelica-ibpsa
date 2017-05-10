@@ -19,7 +19,7 @@ model Humidifier_X
     nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=180,origin={110,0})));
 
-  IBPSA.Fluid.MassExchangers.Humidifier_X hum(
+  IBPSA.Fluid.MassExchangers.AdiabaticHumidifier_X hum(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,

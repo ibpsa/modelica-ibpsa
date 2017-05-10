@@ -1,5 +1,5 @@
 within IBPSA.Fluid.MassExchangers;
-model Humidifier_X
+model AdiabaticHumidifier_X
   "Adiabatic humidifier (or dehumidifier) with leaving water mass fraction as input"
   extends IBPSA.Fluid.HeatExchangers.BaseClasses.PartialPrescribedOutlet(
     outCon(
@@ -176,4 +176,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Humidifier_X;
+end AdiabaticHumidifier_X;
