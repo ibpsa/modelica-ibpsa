@@ -138,7 +138,7 @@ If <code>use_inputFilter=true</code>, then the parameter <code>dp_nominal</code>
 used to normalize the filter. This is used to improve the numerics of the transient response.
 The actual pressure raise of the mover at steady-state is independent
 of the value of <code>dp_nominal</code>. It is recommended to set
-<code>dp_nominal</code> to approximately the pressure raise that the fan has during
+<code>dp_nominal</code> to approximately the pressure raise that the mover has during
 full speed.
 </p>
 <h4>Options</h4>
