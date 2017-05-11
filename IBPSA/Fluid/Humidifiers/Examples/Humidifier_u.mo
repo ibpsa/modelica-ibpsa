@@ -1,4 +1,4 @@
-within IBPSA.Fluid.MassExchangers.Examples;
+within IBPSA.Fluid.Humidifiers.Examples;
 model Humidifier_u "Model that demonstrates the ideal humidifier model"
   extends Modelica.Icons.Example;
 
@@ -15,7 +15,7 @@ model Humidifier_u "Model that demonstrates the ideal humidifier model"
     m_flow=2*m_flow_nominal,
     T=303.15) "Source"
     annotation (Placement(transformation(extent={{-82,40},{-62,60}})));
-  IBPSA.Fluid.MassExchangers.Humidifier_u humSte(
+  IBPSA.Fluid.Humidifiers.Humidifier_u humSte(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
@@ -37,7 +37,7 @@ model Humidifier_u "Model that demonstrates the ideal humidifier model"
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     reverseAction=true) "Controller"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
-  IBPSA.Fluid.MassExchangers.Humidifier_u humDyn(
+  IBPSA.Fluid.Humidifiers.Humidifier_u humDyn(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
@@ -105,7 +105,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{200,
             200}}), graphics),
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/Humidifier_u.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Humidifiers/Examples/Humidifier_u.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

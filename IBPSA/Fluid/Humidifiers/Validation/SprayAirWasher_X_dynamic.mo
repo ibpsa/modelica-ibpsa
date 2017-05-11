@@ -1,11 +1,11 @@
-within IBPSA.Fluid.MassExchangers.Validation;
+within IBPSA.Fluid.Humidifiers.Validation;
 model SprayAirWasher_X_dynamic
   "Model that demonstrates the spray air washer model, configured as dynamic model"
-  extends IBPSA.Fluid.MassExchangers.Validation.SprayAirWasher_X(
+  extends IBPSA.Fluid.Humidifiers.Validation.SprayAirWasher_X(
     hum(massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
 annotation (
-    __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/MassExchangers/Validation/SprayAirWasher_X_dynamic.mos"
+    __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Humidifiers/Validation/SprayAirWasher_X_dynamic.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

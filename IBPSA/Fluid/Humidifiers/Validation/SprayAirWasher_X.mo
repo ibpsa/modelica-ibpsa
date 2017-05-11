@@ -1,4 +1,4 @@
-within IBPSA.Fluid.MassExchangers.Validation;
+within IBPSA.Fluid.Humidifiers.Validation;
 model SprayAirWasher_X
   "Model that demonstrates the spray air washer model, configured as steady-state"
   extends Modelica.Icons.Example;
@@ -19,7 +19,7 @@ model SprayAirWasher_X
     nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=180,origin={110,0})));
 
-  replaceable IBPSA.Fluid.MassExchangers.SprayAirWasher_X hum
+  replaceable IBPSA.Fluid.Humidifiers.SprayAirWasher_X hum
     constrainedby
     IBPSA.Fluid.HeatExchangers.BaseClasses.PartialPrescribedOutlet(
     redeclare package Medium = Medium,
@@ -69,7 +69,7 @@ equation
           100,0},{100,1.11022e-15}},              color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{200,200}})),
-    __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/MassExchangers/Validation/SprayAirWasher_X.mos"
+    __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Humidifiers/Validation/SprayAirWasher_X.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

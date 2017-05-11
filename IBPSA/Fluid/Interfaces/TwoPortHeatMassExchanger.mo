@@ -127,8 +127,8 @@ IBPSA.Fluid.HeatExchangers.HeaterCooler_u</a>, and
 </li>
 <li>
 the ideal humidifier
-<a href=\"modelica://IBPSA.Fluid.MassExchangers.Humidifier_u\">
-IBPSA.Fluid.MassExchangers.Humidifier_u</a>.
+<a href=\"modelica://IBPSA.Fluid.Humidifiers.Humidifier_u\">
+IBPSA.Fluid.Humidifiers.Humidifier_u</a>.
 </li>
 </ul>
 

@@ -1,4 +1,4 @@
-within IBPSA.Fluid.MassExchangers;
+within IBPSA.Fluid.Humidifiers;
 model Humidifier_u
   "Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction"
   extends IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger(

@@ -1,4 +1,4 @@
-within IBPSA.Fluid.MassExchangers;
+within IBPSA.Fluid.Humidifiers;
 model SteamHumidifier_X
   "Steam humidifier with leaving water mass fraction as input"
   extends IBPSA.Fluid.HeatExchangers.BaseClasses.PartialPrescribedOutlet(
@@ -249,8 +249,8 @@ Set <code>dp_nominal = 0</code> to disable the flow friction calculation.
 <p>
 For a model that uses a control signal <i>u &isin; [0, 1]</i> and multiplies
 this with the nominal water mass flow rate, use
-<a href=\"modelica://IBPSA.Fluid.MassExchangers.Humidifier_u\">
-IBPSA.Fluid.MassExchangers.Humidifier_u</a>
+<a href=\"modelica://IBPSA.Fluid.Humidifiers.Humidifier_u\">
+IBPSA.Fluid.Humidifiers.Humidifier_u</a>
 
 </p>
 <h4>Limitations</h4>
