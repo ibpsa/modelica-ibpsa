@@ -49,7 +49,8 @@ model FlowControlled_dpSystem
     redeclare package Medium = Medium,
     V=50,
     m_flow_nominal=m_flow_nominal,
-    nPorts=2)
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   IBPSA.Fluid.FixedResistances.PressureDrop heaCoi1(
     redeclare package Medium = Medium,
@@ -67,7 +68,8 @@ model FlowControlled_dpSystem
     redeclare package Medium = Medium,
     V=50,
     m_flow_nominal=m_flow_nominal,
-    nPorts=2)
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
           annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Actuators.Dampers.Exponential dam1(
     redeclare package Medium = Medium,
@@ -94,12 +96,15 @@ model FlowControlled_dpSystem
     redeclare package Medium = Medium,
     V=50,
     m_flow_nominal=m_flow_nominal,
-    nPorts=3) annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+    nPorts=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+              annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   MixingVolumes.MixingVolume zone4(
     redeclare package Medium = Medium,
     V=50,
     m_flow_nominal=m_flow_nominal,
-    nPorts=2)
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Modelica.Blocks.Sources.Ramp y1(
     duration=0.5,
