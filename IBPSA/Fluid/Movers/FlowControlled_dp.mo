@@ -139,7 +139,7 @@ full speed.
 </p>
 <h4>Options</h4>
 <p>
-Parameter <code>prescribeSystemPressure</a>
+Parameter <code>prescribeSystemPressure</code>
 can be used to control the mover such that the pressure
 difference set point is obtained across two points
 in the system, instead of across the fan. 
