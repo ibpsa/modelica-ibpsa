@@ -4,7 +4,7 @@ model FlowControlled_dp
   extends IBPSA.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedVariable.PressureDifference,
     final computePowerUsingSimilarityLaws=per.havePressureCurve,
-    preSou(dp_start=dp_start, control_dp= prescribedPressure == IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure.Mover),
+    preSou(dp_start=dp_start, control_dp= not prescribeSystemPressure),
     final stageInputs(each final unit="Pa") = heads,
     final constInput(final unit="Pa") = constantHead,
     filter(
@@ -49,19 +49,15 @@ model FlowControlled_dp
     dp_nominal*{(per.speeds[i]/per.speeds[end])^2 for i in 1:size(per.speeds, 1)}
     "Vector of head set points, used when inputType=Stages"
     annotation(Dialog(enable=inputType == IBPSA.Fluid.Types.InputType.Stages));
+  parameter Boolean prescribeSystemPressure = false
+    "=true, to control mover such that pressure difference is obtained across two remote points in system"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure prescribedPressure=
-    IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure.Mover
-    "Option for defining which pressure difference is prescribed"
-     annotation(Evaluate=true, Dialog(tab="Advanced", group="Static pressure reset"));
-
-  Modelica.Blocks.Interfaces.RealInput pMea(
-    final quantity="AbsolutePressure",
+  Modelica.Blocks.Interfaces.RealInput dpMea(
+    final quantity="PressureDifference",
     final displayUnit="Pa",
-    final unit="Pa")=if prescribedPressure == IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure.Downstream
-     then port_a.p + gain.u else port_b.p - gain.u if
-                              not prescribedPressure == IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure.Mover
-    "Pressure measurement at the point in the system relative to which the head dp should be controlled"
+    final unit="Pa")=gain.u if prescribeSystemPressure
+    "Measurement of pressure difference between two points where the set point should be obtained"
     annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=90,
@@ -143,24 +139,15 @@ full speed.
 </p>
 <h4>Options</h4>
 <p>
-Parameter 
-<a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure\">
-IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure</a>
-can be used to configure the mover to 
-set the pressure difference between
-the pressure at inlet of the mover and the pressure in 
-a point downstream from the mover in the system. 
+Parameter <code>prescribeSystemPressure</a>
+can be used to control the mover such that the pressure
+difference set point is obtained across two points
+in the system, instead of across the fan. 
 This allows an efficient implementation of 
 static pressure reset controllers.
-Similarly 
-<a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure\">
-IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedPressure</a>
-can be used to set the pressure difference
-between a point upstream of the mover
-and the pressure at the mover outlet port.
-A measurement of the pressure in the
-remote point of the system then needs to be connected
-to <code>RealInput pMea</code>.
+A measurement of the pressure difference between the 
+two points in system then needs to be connected
+to <code>RealInput dpMea</code>.
 This functionality is demonstrated in
 <a href=\"modelica://IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem\">
 IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
@@ -171,7 +158,7 @@ IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 <li>
 May 5, 2017, by Filip Jorissen:<br/>
 Added parameters, documentation and functionality for 
-<code>prescribedPressure</code>.<br/>
+<code>prescribeSystemPressure</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/770\">#770</a>.
 </li>
