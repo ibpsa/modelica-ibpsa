@@ -35,6 +35,12 @@ class PvArray
     annotation (Placement(transformation(extent={{48,20},{68,40}})));
   IDEAS.Experimental.Electric.Photovoltaics.Components.Elements.PvSerie pvSerie(amount=
         amount) annotation (Placement(transformation(extent={{72,20},{92,40}})));
+  Modelica.Blocks.Math.Cos cos
+    annotation (Placement(transformation(extent={{-56,40},{-48,48}})));
+  Modelica.Blocks.Math.Cos cos1
+    annotation (Placement(transformation(extent={{-60,28},{-52,36}})));
+  Modelica.Blocks.Math.Cos cos2
+    annotation (Placement(transformation(extent={{-64,16},{-56,24}})));
 equation
   connect(incidenceAngles.angIncDir, refDir.angInc) annotation (Line(
       points={{-18,36},{-8,36}},
@@ -90,12 +96,18 @@ equation
       points={{-80,62},{-76,62},{-76,92.8},{-84,92.8}},
       color={255,204,51},
       thickness=0.5));
-  connect(radSol.angHou, incidenceAngles.angHou) annotation (Line(points={{
-          -79.4,44},{-79.4,44},{-68,44},{-68,28},{-38,28}}, color={0,0,127}));
-  connect(radSol.angZen, incidenceAngles.angZen) annotation (Line(points={{
-          -79.4,48},{-68,48},{-66,48},{-66,32},{-38,32}}, color={0,0,127}));
-  connect(radSol.angInc, incidenceAngles.angInc) annotation (Line(points={{
-          -79.4,50},{-64,50},{-64,36},{-38,36}}, color={0,0,127}));
+  connect(radSol.angInc, cos.u) annotation (Line(points={{-79.4,50},{-64,50},{
+          -64,44},{-56.8,44}}, color={0,0,127}));
+  connect(cos.y, incidenceAngles.angInc) annotation (Line(points={{-47.6,44},{
+          -42,44},{-42,36},{-38,36}}, color={0,0,127}));
+  connect(radSol.angZen, cos1.u) annotation (Line(points={{-79.4,48},{-66,48},{
+          -66,32},{-60.8,32}}, color={0,0,127}));
+  connect(cos1.y, incidenceAngles.angZen)
+    annotation (Line(points={{-51.6,32},{-38,32}}, color={0,0,127}));
+  connect(radSol.angHou, cos2.u) annotation (Line(points={{-79.4,44},{-68,44},{
+          -68,20},{-64.8,20}}, color={0,0,127}));
+  connect(cos2.y, incidenceAngles.angHou) annotation (Line(points={{-55.6,20},{
+          -46,20},{-46,28},{-38,28}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}),
                          graphics={
