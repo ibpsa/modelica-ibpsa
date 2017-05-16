@@ -20,7 +20,7 @@ protected
   Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
     "Pressure where flow changes to turbulent";
   final parameter Real kInvSq(unit="") = if computeFlowResistance then
-        1/k^2 else 0
+        (m_flow_turbulent/k)^2 else 0
     "Flow coefficient, kInvSq=dp/m_flow^2";
 initial equation
  if computeFlowResistance then
@@ -37,30 +37,22 @@ equation
       if homotopyInitialization then
         if from_dp then
           m_flow=homotopy(
-            actual=k*IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-              dp=dp,
-              m_flow_turbulent=m_flow_turbulent,
-              dp_turbulent=dp_turbulent),
+            actual=k*sqrt(dp_turbulent)*IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+              dpNorm=dp/dp_turbulent),
             simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
         else
           dp=homotopy(
             actual=kInvSq*IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-              m_flow=m_flow,
-              dp_turbulent=dp_turbulent,
-              m_flow_turbulent=m_flow_turbulent),
+              m_flowNorm=m_flow/m_flow_turbulent),
             simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
          end if;  // from_dp
       else // do not use homotopy
         if from_dp then
-          m_flow=k*IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-            dp=dp,
-            m_flow_turbulent=m_flow_turbulent,
-            dp_turbulent=dp_turbulent);
+          m_flow=k*sqrt(dp_turbulent)*IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+            dpNorm=dp/dp_turbulent);
         else
           dp=kInvSq*IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-            m_flow=m_flow,
-            dp_turbulent=dp_turbulent,
-            m_flow_turbulent=m_flow_turbulent);
+            m_flowNorm=m_flow/m_flow_turbulent);
         end if;  // from_dp
       end if; // homotopyInitialization
     end if; // linearized
