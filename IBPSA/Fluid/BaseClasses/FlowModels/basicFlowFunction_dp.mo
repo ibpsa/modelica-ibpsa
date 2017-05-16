@@ -4,29 +4,27 @@ function basicFlowFunction_dp
 
   input Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-  input Real k(min=0, unit="")
-    "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+  input Modelica.SIunits.PressureDifference dp_turbulent(min=0)
+    "Pressure drop where transition to turbulent flow occurs";
   input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
   output Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
 protected
-  Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
-    "Pressure where flow changes to turbulent";
   Real dpNorm=dp/dp_turbulent
     "Normalised pressure difference";
   Real dpNormSq=dpNorm^2
     "Square of normalised pressure difference";
 algorithm
    m_flow :=  if noEvent(abs(dp)>dp_turbulent)
-              then sign(dp)*k*sqrt(abs(dp))
-              else (1.40625  + (0.15625*dpNormSq - 0.5625)*dpNormSq)*m_flow_turbulent*dpNorm;
+              then sign(dp)*sqrt(abs(dp))
+              else (1.40625  + (0.15625*dpNormSq - 0.5625)*dpNormSq)*sqrt(dp_turbulent)*dpNorm;
   annotation(LateInline=true,
            smoothOrder=2,
-           derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
+           derivative(order=1, zeroDerivative=m_flow_turbulent)=
              IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der,
            inverse(dp=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-             m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
+             m_flow=m_flow, dp_turbulent=dp_turbulent, m_flow_turbulent=m_flow_turbulent)),
            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},

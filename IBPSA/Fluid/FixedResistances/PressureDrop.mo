@@ -17,6 +17,11 @@ protected
   final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
     "Flag to enable/disable computation of flow resistance"
    annotation(Evaluate=true);
+  Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
+    "Pressure where flow changes to turbulent";
+  final parameter Real kInvSq(unit="") = if computeFlowResistance then
+        1/k^2 else 0
+    "Flow coefficient, kInvSq=dp/m_flow^2";
 initial equation
  if computeFlowResistance then
    assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
@@ -32,29 +37,29 @@ equation
       if homotopyInitialization then
         if from_dp then
           m_flow=homotopy(
-            actual=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+            actual=k*IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
               dp=dp,
-              k=k,
-              m_flow_turbulent=m_flow_turbulent),
+              m_flow_turbulent=m_flow_turbulent,
+              dp_turbulent=dp_turbulent),
             simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
         else
           dp=homotopy(
-            actual=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+            actual=kInvSq*IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
               m_flow=m_flow,
-              k=k,
+              dp_turbulent=dp_turbulent,
               m_flow_turbulent=m_flow_turbulent),
             simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
          end if;  // from_dp
       else // do not use homotopy
         if from_dp then
-          m_flow=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+          m_flow=k*IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
             dp=dp,
-            k=k,
-            m_flow_turbulent=m_flow_turbulent);
+            m_flow_turbulent=m_flow_turbulent,
+            dp_turbulent=dp_turbulent);
         else
-          dp=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+          dp=kInvSq*IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
             m_flow=m_flow,
-            k=k,
+            dp_turbulent=dp_turbulent,
             m_flow_turbulent=m_flow_turbulent);
         end if;  // from_dp
       end if; // homotopyInitialization

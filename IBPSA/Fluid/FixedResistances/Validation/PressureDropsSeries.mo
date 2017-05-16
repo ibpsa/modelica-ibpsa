@@ -32,9 +32,10 @@ model PressureDropsSeries "Test of multiple resistances in series"
 
   IBPSA.Fluid.FixedResistances.PressureDrop[nRes] res(
     redeclare each package Medium = Medium,
-    each dp_nominal=dp_nominal,
     each from_dp=false,
-    each m_flow_nominal=2) "Flow resistance"
+    each m_flow_nominal=2,
+    each dp_nominal={i for i in 1:nRes})
+                           "Flow resistance"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
 equation
