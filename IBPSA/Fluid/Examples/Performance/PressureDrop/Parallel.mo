@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Examples.Performance.PressureDrop;
 model Parallel "Parallel configurations"
   extends IBPSA.Fluid.Examples.Performance.PressureDrop.BaseClasses.Template;
-  Solarwind.Fluid.Sources.Boundary_pT sin(
+  IBPSA.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=4) "Pressure boundary condition"
       annotation (Placement(transformation(

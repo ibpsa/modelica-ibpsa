@@ -7,13 +7,13 @@ partial model Template "Template model"
     "Pressure drop at nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  Solarwind.Fluid.Sources.Boundary_pT sou(
+  IBPSA.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     nPorts=2,
     use_p_in=true)
               "Pressure boundary condition"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Solarwind.Fluid.Sources.MassFlowSource_T sou2(
+  IBPSA.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1) "Prescribed mass flow source"
@@ -28,7 +28,7 @@ partial model Template "Template model"
     offset=0,
     amplitude=m_flow_nominal) "Pulse input for mass flow rate"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Solarwind.Fluid.Sources.MassFlowSource_T sou1(
+  IBPSA.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium,
     nPorts=1,
     use_m_flow_in=true) "Prescribed mass flow source"
