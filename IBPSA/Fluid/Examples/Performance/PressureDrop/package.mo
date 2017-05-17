@@ -16,7 +16,7 @@ size of algebraic loops (statistics).
 </p>
 <p>
 Either a pressure difference or a mass flow rate is prescribed. 
-Parameter from_dp is set to either true or false. 
+Parameter <code>from_dp</code> is set to either true or false. 
 These combinations are applied to a flow network 
 consisting of parallel, series or parallel-series components. 
 For the same flow network different statistics 
