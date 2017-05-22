@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "senTem.T",
+    "senRelHum.phi",
+    "senMasFra.X",
+    "sin_with_T.medium.T",
+    "sin_with_h.medium.h"
+  };
