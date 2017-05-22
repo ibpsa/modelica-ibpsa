@@ -56,5 +56,8 @@ model BuildingN2_Exp2 "Model for simulation of experiment2 for the N2 building"
           autoscale=false,
           grid=true,
           subPlot=4,
-          colors={{28,108,200},{238,46,47},{0,140,72}})} "Validation living"));
+          colors={{28,108,200},{238,46,47},{0,140,72}})} "Validation living",
+      file="Resources/Scripts/TwinHouse/Living.mos" "Living",
+      file="Resources/Scripts/TwinHouse/MeanAbsoluteTemperatureErrors.mos"
+        "Mean absolute temperature errors"));
 end BuildingN2_Exp2;

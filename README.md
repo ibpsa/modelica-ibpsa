@@ -3,8 +3,8 @@ IDEAS v1.0.0
 
 Modelica model environment for Integrated District Energy Assessment Simulations (IDEAS), allowing simultaneous transient simulation of thermal and electrical systems at both building and feeder level.
 
-### IDEAS v1.0.0 beta
-IDEAS v1.0.0 beta has been released.
+### IDEAS v1.0.0
+May 5th 2017: IDEAS v1.0.0 has been released.
 
 ## Backward compatibility
 Quite some backward incompatible changes have been performed. However, a conversion script is provided that fixes most of these. The conversion script prompt should occur automatically if your model or package 'uses' IDEAS version 3.0 before updating. Make sure you have a backup (e.g. using git) before running the conversion script.
@@ -50,7 +50,8 @@ Changes compared to v0.3 include but are not limited to:
 27. Added unit tests for templates.
 28. Added Menerga Adsolair model.
 
-
+## Tool compatibility
+The library is developed using Dymola. Furthermore, changes have been made such that the library can be read using OpenModelica. The building models can be simulated using JModelica too, although not everything is supported yet.
 
 ### IDEAS v0.3.0
 
