@@ -19,7 +19,7 @@ model MassFlowSourceFromOutside_h
     annotation (Dialog(enable = not use_m_flow_in));
   parameter Medium.SpecificEnthalpy h = Medium.h_default
     "Fixed value of specific enthalpy"
-    annotation (Dialog(enable = not use_T_in));
+    annotation (Dialog(enable = not use_h_in));
   parameter Medium.MassFraction X[Medium.nX](
     final quantity=Medium.substanceNames) = Medium.X_default
     "Fixed value of composition"
