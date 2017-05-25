@@ -8,13 +8,11 @@ model Outside_WeatherBus
   IBPSA.Fluid.Sources.MassFlowSourceFromOutside_T sin_with_T(
     redeclare package Medium = Medium,
     m_flow=-1,
-    nPorts=1,
-    use_T_in=true,
-    use_X_in=true)
+    nPorts=1)
     "Mass flow source model receiving T and X from weather data through weather bus"
     annotation (Placement(transformation(extent={{96,-50},{76,-30}})));
 
-  Sensors.TemperatureTwoPort             senTem(
+  Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     m_flow_nominal=1) "Temperature sensor"
     annotation (Placement(transformation(extent={{44,-50},{64,-30}})));
@@ -28,9 +26,7 @@ model Outside_WeatherBus
   IBPSA.Fluid.Sources.MassFlowSourceFromOutside_h sin_with_h(
     redeclare package Medium = Medium,
     m_flow=-1,
-    nPorts=1,
-    use_X_in=true,
-    use_h_in=true)
+    nPorts=1)
     "Mass flow source model receiving h and X from weather data through weather bus"
     annotation (Placement(transformation(extent={{96,30},{76,50}})));
   IBPSA.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(

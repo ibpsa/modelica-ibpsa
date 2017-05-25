@@ -11,7 +11,6 @@ model MassFlowSourceFromOutside_T
   parameter Modelica.SIunits.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"
     annotation (Dialog(enable = not use_m_flow_in));
-
   parameter Medium.ExtraProperty C[Medium.nC](
     final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Fixed values of trace substances"
@@ -32,15 +31,16 @@ protected
     "True if single substance medium";
   IBPSA.Utilities.Psychrometrics.X_pTphi x_pTphi if (not singleSubstance)
      "Block to compute water vapor concentration";
-  Modelica.Blocks.Interfaces.RealInput m_flow_in_internal(final unit="kg/s")
+  Modelica.Blocks.Interfaces.RealOutput m_flow_in_internal(final unit="kg/s")
     "Needed to connect to conditional connector";
-
+  Modelica.Blocks.Interfaces.RealOutput T_in_internal(final unit="K",
+                                                     displayUnit="degC")
+    "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealOutput X_in_internal[Medium.nX](
     each final unit = "kg/kg",
     final quantity=Medium.substanceNames)
     "Needed to connect to conditional connector";
-
-  Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC](
+  Modelica.Blocks.Interfaces.RealOutput C_in_internal[Medium.nC](
     final quantity=Medium.extraPropertiesNames)
     "Needed to connect to conditional connector";
 
@@ -50,7 +50,7 @@ equation
     Medium.substanceNames,
     Medium.singleState,
     true,
-    medium.Xi,
+    medium.X,
     "MassFlowSourceFromOutside_T");
 
   // Connections to compute species concentration
@@ -59,22 +59,23 @@ equation
   connect(weaBus.relHum, x_pTphi.phi);
 
   connect(m_flow_in, m_flow_in_internal);
+  connect(weaBus.TDryBul, T_in_internal);
   connect(X_in_internal, x_pTphi.X);
   connect(C_in, C_in_internal);
-  if not use_m_flow_in then
-    m_flow_in_internal = m_flow;
-  end if;
+
   if singleSubstance then
     X_in_internal = ones(Medium.nX);
   end if;
-
+  if not use_m_flow_in then
+    m_flow_in_internal = m_flow;
+  end if;
   if not use_C_in then
     C_in_internal = C;
   end if;
-  sum(ports.m_flow) = -m_flow_in_internal;
-  medium.T = weaBus.TDryBul;
-  medium.Xi = X_in_internal[1:Medium.nXi];
 
+  sum(ports.m_flow) = -m_flow_in_internal;
+  medium.T = T_in_internal;
+  medium.Xi = X_in_internal[1:Medium.nXi];
   ports.C_outflow = fill(C_in_internal, nPorts);
   annotation (defaultComponentName="boundary",
     Icon(coordinateSystem(
@@ -138,7 +139,8 @@ Models an ideal flow source, with prescribed values of flow rate and trace subst
 <p>If <code>use_m_flow_in</code> is false (default option), the <code>m_flow</code> parameter
 is used as boundary flow rate, and the <code>m_flow_in</code> input connector is disabled; 
 if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter is ignored, and the value provided by the input connector is used instead.</p>
-The data including <code>pAtm</code>, <code>TDryBul</code>, <code>relHum</code> from weather bus <code>weaBus</code> are used to calculate <code>X</code>.
+<p>The <a href=\"modelica://IBPSA.Utilities.Psychrometrics.X_pTphi\">IBPSA.Utilities.Psychrometrics.X_pTphi</a> block is used with the input data 
+including <code>pAtm</code>, <code>TDryBul</code>, <code>relHum</code> from weather bus <code>weaBus</code>, to calculate <code>X</code>.</p>
 
 <p>
 Note, that boundary temperature,
