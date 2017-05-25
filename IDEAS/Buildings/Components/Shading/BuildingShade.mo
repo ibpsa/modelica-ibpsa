@@ -10,26 +10,31 @@ model BuildingShade
 
 
 protected
-  Real tanZen = tan(min(angZen, Modelica.Constants.pi/2.01));
-  Real cosAzi = cos(angAzi-azi)
-      "Cosinus of angle between projection on horizontal plane of sun's rays and normal to vertical surface";
-  Modelica.SIunits.Length L2 "Distance to object, taking into account sun position";
-
   final parameter Modelica.SIunits.Angle rot = 0
     "Rotation angle of opposite building. Zero when parallel, positive when rotated clockwise"
     annotation(Evaluate=true);
+  Real tanZen = tan(min(angZen, Modelica.Constants.pi/2.01));
+  Modelica.SIunits.Length L1 "Horizontal distance to object when following vertical plane through sun ray";
+  Modelica.SIunits.Length L2 "Distance to object, taking into account sun position";
+  Modelica.SIunits.Angle alt = (Modelica.Constants.pi/2) - angZen;
+  Modelica.SIunits.Angle verAzi
+    "Angle between projection of sun's rays and normal to vertical surface";
 
 equation
-  if abs(rot)<1e-4 then
-    L2=L/cosAzi;
-  else
-    //implementation for rot not equal to zero has not been completed nor validated!
-    if angAzi-azi>rot then
-      L2=L/cosAzi*(1+sin(abs(angAzi-azi))*sin(abs(rot))/sin(Modelica.Constants.pi-abs(angAzi-azi)-Modelica.Constants.pi/2-abs(rot)));
-    else
-      L2=L*(cosAzi+sin(abs(angAzi-azi))*tan(abs(angAzi-azi)-abs(rot)));
-    end if;
-  end if;
+  verAzi = Modelica.Math.acos(cos(angInc)/cos(alt));
+
+  L1 = L/cos(verAzi);
+//   if abs(rot)<1e-4 then
+    //L2=L/cosAzi;
+  L2 = L1/cos(alt);
+//   else
+//     //implementation for rot not equal to zero has not been completed nor validated!
+//     if angAzi-azi>rot then
+//       L2=L/cosAzi*(1+sin(abs(angAzi-azi))*sin(abs(rot))/sin(Modelica.Constants.pi-abs(angAzi-azi)-Modelica.Constants.pi/2-abs(rot)));
+//     else
+//       L2=L*(cosAzi+sin(abs(angAzi-azi))*tan(abs(angAzi-azi)-abs(rot)));
+//     end if;
+//   end if;
   if noEvent(tanZen > L2/dh) then
     iSolDir=0;
   elseif noEvent(tanZen > L2/(dh+hWin)) then
@@ -61,6 +66,10 @@ This model is inaccurate when this is not the case.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 25, 2017, by Filip Jorissen:<br/>
+Fixed implementation for non-south oriented windows.
+</li>
 <li>
 December 9, 2016, by Filip Jorissen:<br/>
 Fixed implementation for non-circular type building.
