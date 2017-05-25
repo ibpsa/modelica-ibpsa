@@ -77,7 +77,7 @@ equation
   medium.T = T_in_internal;
   medium.Xi = X_in_internal[1:Medium.nXi];
   ports.C_outflow = fill(C_in_internal, nPorts);
-  annotation (defaultComponentName="boundary",
+  annotation (defaultComponentName="bou",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
@@ -128,7 +128,8 @@ equation
           textString="C")}),
     Documentation(info="<html>
 <p>
-Models an ideal flow source, with prescribed values of flow rate and trace substances, with temperature and composition from outside:
+Models an ideal flow source, with prescribed values of flow rate and trace substances, 
+with temperature and composition from outside:
 </p>
 <ul>
 <li> Prescribed mass flow rate.</li>
@@ -138,9 +139,12 @@ Models an ideal flow source, with prescribed values of flow rate and trace subst
 </ul>
 <p>If <code>use_m_flow_in</code> is false (default option), the <code>m_flow</code> parameter
 is used as boundary flow rate, and the <code>m_flow_in</code> input connector is disabled; 
-if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter is ignored, and the value provided by the input connector is used instead.</p>
-<p>The <a href=\"modelica://IBPSA.Utilities.Psychrometrics.X_pTphi\">IBPSA.Utilities.Psychrometrics.X_pTphi</a> block is used with the input data 
-including <code>pAtm</code>, <code>TDryBul</code>, <code>relHum</code> from weather bus <code>weaBus</code>, to calculate <code>X</code>.</p>
+if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter is ignored, 
+and the value provided by the input connector is used instead.</p>
+<p>The <a href=\"modelica://IBPSA.Utilities.Psychrometrics.X_pTphi\">IBPSA.Utilities.Psychrometrics.X_pTphi</a> 
+block is used with the input data 
+including <code>pAtm</code>, <code>TDryBul</code>, <code>relHum</code> from weather bus <code>weaBus</code>, 
+to calculate <code>X</code>.</p>
 
 <p>
 Note, that boundary temperature,
@@ -154,7 +158,8 @@ revisions="<html>
 <ul>
 <li>
 May 21, 2017, by Jianjun Hu:<br/>
-Changed the speficication of temperature and composition inputs with outside condition. Weather bus is used.
+Changed the specification of temperature and composition inputs with outside condition. 
+Weather bus is used. See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/777\">#777</a>.
 </li>
 <li>
 April 18, 2017, by Filip Jorissen:<br/>

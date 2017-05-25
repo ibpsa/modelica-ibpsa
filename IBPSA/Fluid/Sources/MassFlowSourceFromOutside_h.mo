@@ -27,18 +27,9 @@ model MassFlowSourceFromOutside_h
         iconTransformation(extent={{-120,-18},{-80,22}})));
 
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
-    "Dry bulb temperature in degree Celsius";
-  Modelica.SIunits.Pressure p_w(displayUnit="Pa")  "Water vapor pressure";
-  Modelica.SIunits.MassFraction XiDryBul(nominal=0.01)
-    "Water vapor mass fraction at dry bulb state";
   Modelica.Blocks.Interfaces.RealOutput TDryBul(final unit="K", displayUnit="degC")
     "Needed to calculate specific enthalpy";
-  Modelica.Blocks.Interfaces.RealOutput relHum(final unit="1")
-    "Needed to calculate specific enthalpy";
   Modelica.Blocks.Interfaces.RealOutput pAtm(final unit="Pa")
-    "Needed to calculate specific enthalpy";
-  Modelica.Blocks.Interfaces.RealOutput h_in_calculation(final unit="J/kg")
     "Needed to calculate specific enthalpy";
   Modelica.Blocks.Interfaces.RealOutput h_out_internal(final unit="J/kg")
     "Needed to connect to conditional connector";
@@ -71,12 +62,7 @@ equation
   // Connections and calculation to find specific enthalpy
   connect(weaBus.pAtm, pAtm);
   connect(weaBus.TDryBul, TDryBul);
-  connect(weaBus.relHum, relHum);
-  TDryBul_degC = TDryBul - 273.15;
-  p_w = relHum * IBPSA.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul);
-  XiDryBul = 0.6219647130774989*p_w/(pAtm-p_w);
-  h_in_calculation = 1006*TDryBul_degC + XiDryBul*(2501014.5+1860*TDryBul_degC);
-  connect(h_in_calculation, h_out_internal);
+  h_out_internal = Medium.specificEnthalpy(Medium.setState_pTX(pAtm, TDryBul, X_in_internal));
 
   // Connections to compute species concentration
   connect(weaBus.pAtm, x_pTphi.p_in);
@@ -102,7 +88,7 @@ equation
   medium.h = h_in_internal;
   medium.Xi = X_in_internal[1:Medium.nXi];
   ports.C_outflow = fill(C_in_internal, nPorts);
-  annotation (defaultComponentName="boundary",
+  annotation (defaultComponentName="bou",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
@@ -153,7 +139,8 @@ equation
           textString="C")}),
     Documentation(info="<html>
 <p>
-Models an ideal flow source, with prescribed values of flow rate and trace substances, with temperature and specific enthalpy from outside:
+Models an ideal flow source, with prescribed values of flow rate and trace substances, 
+with temperature and specific enthalpy from outside:
 </p>
 <ul>
 <li> Prescribed mass flow rate.</li>
@@ -163,10 +150,13 @@ Models an ideal flow source, with prescribed values of flow rate and trace subst
 </ul>
 <p>If <code>use_m_flow_in</code> is false (default option), the <code>m_flow</code> parameter
 is used as boundary flow rate, and the <code>m_flow_in</code> input connector is disabled; 
-if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter is ignored, and the value provided by the input connector is used instead.</p>
+if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter is ignored, 
+and the value provided by the input connector is used instead.</p>
 <p>The same applies to the trace substances.</p>
-<p>The <a href=\"modelica://IBPSA.Utilities.Psychrometrics.X_pTphi\">IBPSA.Utilities.Psychrometrics.X_pTphi</a> block is used with the input data 
-including <code>pAtm</code>, <code>TDryBul</code>, <code>relHum</code> from weather bus <code>weaBus</code>, to calculate <code>X</code>.</p>
+<p>The <a href=\"modelica://IBPSA.Utilities.Psychrometrics.X_pTphi\">IBPSA.Utilities.Psychrometrics.X_pTphi</a> 
+block is used with the input data 
+including <code>pAtm</code>, <code>TDryBul</code>, <code>relHum</code> from weather bus <code>weaBus</code>, 
+to calculate <code>X</code>.</p>
 <p>The same applies to the specific enthalpy.</p>
 <p>
 Note, that boundary temperature,
@@ -180,7 +170,8 @@ revisions="<html>
 <ul>
 <li>
 May 21, 2017, by Jianjun Hu:<br/>
-Changed the speficication of specific enthalpy and composition inputs with outside condition. Weather bus is used.
+Changed the specification of specific enthalpy and composition inputs with outside condition. 
+Weather bus is used. See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/777\">#777</a>.
 </li>
 <li>
 April 18, 2017, by Filip Jorissen:<br/>
