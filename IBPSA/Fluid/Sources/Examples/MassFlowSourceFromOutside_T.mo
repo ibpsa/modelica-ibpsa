@@ -8,7 +8,8 @@ model MassFlowSourceFromOutside_T
     redeclare package Medium = Medium,
     m_flow=-1,
     nPorts=1)
-    "Mass flow source model receiving T and X from weather data through weather bus"
+    "Mass flow source model receiving T and X from weather data 
+     through weather bus"
     annotation (Placement(transformation(extent={{96,-10},{76,10}})));
 
   Sensors.TemperatureTwoPort senTem(

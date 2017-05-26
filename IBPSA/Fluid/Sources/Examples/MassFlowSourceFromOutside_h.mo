@@ -11,7 +11,8 @@ model MassFlowSourceFromOutside_h
     redeclare package Medium = Medium,
     m_flow=-1,
     nPorts=1)
-    "Mass flow source model receiving h and X from weather data through weather bus"
+    "Mass flow source model receiving h and X from weather data through 
+     weather bus"
     annotation (Placement(transformation(extent={{96,-10},{76,10}})));
   IBPSA.Fluid.Sources.Outside bou(redeclare package Medium = Medium, nPorts=1)
     "Model with outside conditions"

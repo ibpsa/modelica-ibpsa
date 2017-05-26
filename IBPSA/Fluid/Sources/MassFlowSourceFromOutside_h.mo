@@ -1,6 +1,7 @@
 within IBPSA.Fluid.Sources;
 model MassFlowSourceFromOutside_h
-  "Ideal flow source that produces a prescribed mass flow with prescribed trace substances, outside specific enthalpy and mass fraction "
+  "Ideal flow source that produces a prescribed mass flow with prescribed 
+  trace substances, outside specific enthalpy and mass fraction "
   extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"
@@ -15,9 +16,10 @@ model MassFlowSourceFromOutside_h
     final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Fixed values of trace substances"
     annotation (Dialog(enable = (not use_C_in) and Medium.nC > 0));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s") if use_m_flow_in
-    "Prescribed mass flow rate"
-    annotation (Placement(transformation(extent={{-120,60},{-80,100}}), iconTransformation(extent={{-120,60},{-80,100}})));
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s") if
+       use_m_flow_in "Prescribed mass flow rate"
+    annotation (Placement(transformation(extent={{-120,60},{-80,100}}),
+      iconTransformation(extent={{-120,60},{-80,100}})));
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC](
     final quantity=Medium.extraPropertiesNames) if use_C_in
     "Prescribed boundary trace substances"
@@ -27,20 +29,26 @@ model MassFlowSourceFromOutside_h
         iconTransformation(extent={{-120,-18},{-80,22}})));
 
 protected
-  Modelica.Blocks.Interfaces.RealOutput TDryBul(final unit="K", displayUnit="degC")
+  Modelica.Blocks.Interfaces.RealOutput TDryBul(
+    final unit="K",
+    displayUnit="degC")
     "Needed to calculate specific enthalpy";
-  Modelica.Blocks.Interfaces.RealOutput pAtm(final unit="Pa")
+  Modelica.Blocks.Interfaces.RealOutput pAtm(
+    final unit="Pa")
     "Needed to calculate specific enthalpy";
-  Modelica.Blocks.Interfaces.RealOutput h_out_internal(final unit="J/kg")
+  Modelica.Blocks.Interfaces.RealOutput h_out_internal(
+    final unit="J/kg")
     "Needed to connect to conditional connector";
 
   final parameter Boolean singleSubstance = (Medium.nX == 1)
      "True if single substance medium";
   IBPSA.Utilities.Psychrometrics.X_pTphi x_pTphi if (not singleSubstance)
       "Block to compute water vapor concentration";
-  Modelica.Blocks.Interfaces.RealOutput m_flow_in_internal(final unit="kg/s")
+  Modelica.Blocks.Interfaces.RealOutput m_flow_in_internal(
+    final unit="kg/s")
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput h_in_internal(final unit="J/kg")
+  Modelica.Blocks.Interfaces.RealInput h_in_internal(
+    final unit="J/kg")
     "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealOutput X_in_internal[Medium.nX](
     each final unit = "kg/kg",
@@ -62,7 +70,8 @@ equation
   // Connections and calculation to find specific enthalpy
   connect(weaBus.pAtm, pAtm);
   connect(weaBus.TDryBul, TDryBul);
-  h_out_internal = Medium.specificEnthalpy(Medium.setState_pTX(pAtm, TDryBul, X_in_internal));
+  h_out_internal = Medium.specificEnthalpy(Medium.setState_pTX(
+    pAtm, TDryBul, X_in_internal));
 
   // Connections to compute species concentration
   connect(weaBus.pAtm, x_pTphi.p_in);
@@ -139,8 +148,8 @@ equation
           textString="C")}),
     Documentation(info="<html>
 <p>
-Models an ideal flow source, with prescribed values of flow rate and trace substances, 
-with temperature and specific enthalpy from outside:
+Models an ideal flow source, with prescribed values of flow rate and trace 
+substances, with temperature and specific enthalpy from outside:
 </p>
 <ul>
 <li> Prescribed mass flow rate.</li>
@@ -148,15 +157,16 @@ with temperature and specific enthalpy from outside:
 <li> Outside spefici enthalpy.</li>
 <li> Multi-substance composition (e.g. water vapor) from outside.</li>
 </ul>
-<p>If <code>use_m_flow_in</code> is false (default option), the <code>m_flow</code> parameter
-is used as boundary flow rate, and the <code>m_flow_in</code> input connector is disabled; 
-if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter is ignored, 
-and the value provided by the input connector is used instead.</p>
+<p>If <code>use_m_flow_in</code> is false (default option), the <code>m_flow
+</code> parameter is used as boundary flow rate, and the <code>m_flow_in</code> 
+input connector is disabled; 
+if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter 
+is ignored, and the value provided by the input connector is used instead.</p>
 <p>The same applies to the trace substances.</p>
-<p>The <a href=\"modelica://IBPSA.Utilities.Psychrometrics.X_pTphi\">IBPSA.Utilities.Psychrometrics.X_pTphi</a> 
-block is used with the input data 
-including <code>pAtm</code>, <code>TDryBul</code>, <code>relHum</code> from weather bus <code>weaBus</code>, 
-to calculate <code>X</code>.</p>
+<p>The <a href=\"modelica://IBPSA.Utilities.Psychrometrics.X_pTphi\">
+IBPSA.Utilities.Psychrometrics.X_pTphi</a> block is used with the input data 
+including <code>pAtm</code>, <code>TDryBul</code>, <code>relHum</code> from 
+weather bus <code>weaBus</code>, to calculate <code>X</code>.</p>
 <p>The same applies to the specific enthalpy.</p>
 <p>
 Note, that boundary temperature,
@@ -170,8 +180,9 @@ revisions="<html>
 <ul>
 <li>
 May 21, 2017, by Jianjun Hu:<br/>
-Changed the specification of specific enthalpy and composition inputs with outside condition. 
-Weather bus is used. See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/777\">#777</a>.
+Changed the specification of specific enthalpy and composition inputs with 
+outside condition. Weather bus is used. 
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/777\">#777</a>.
 </li>
 <li>
 April 18, 2017, by Filip Jorissen:<br/>
