@@ -23,7 +23,7 @@ public
     wRight=0.5,
     dep=1,
     gap=0.3) annotation (Placement(transformation(extent={{-24,-20},{-14,0}})));
-  Modelica.Blocks.Sources.Constant azi(k=IDEAS.Types.Azimuth.S)
+  Modelica.Blocks.Sources.Constant azi(k=IDEAS.Types.Azimuth.W)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Sources.Constant hWin(k=1) "Window height"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
@@ -49,15 +49,15 @@ equation
       points={{-84,0.8},{-84,34},{-54,34}},
       color={255,204,51},
       thickness=0.5));
-  connect(buildingShade.solDir, weaBus.solBus[2].iSolDir) annotation (Line(points={{-24,36},
+  connect(buildingShade.solDir, weaBus.solBus[3].iSolDir) annotation (Line(points={{-24,36},
           {-53.95,36},{-53.95,34.05}},          color={0,0,127}));
-  connect(buildingShade.solDif, weaBus.solBus[2].iSolDif) annotation (Line(points={{-24,32},
+  connect(buildingShade.solDif, weaBus.solBus[3].iSolDif) annotation (Line(points={{-24,32},
           {-53.95,32},{-53.95,34.05}},          color={0,0,127}));
-  connect(buildingShade.angInc, weaBus.solBus[2].angInc) annotation (Line(points={{-24,26},
+  connect(buildingShade.angInc, weaBus.solBus[3].angInc) annotation (Line(points={{-24,26},
           {-53.95,26},{-53.95,34.05}},           color={0,0,127}));
-  connect(buildingShade.angAzi, weaBus.solBus[2].angAzi) annotation (Line(points={{-24,22},
+  connect(buildingShade.angAzi, weaBus.solBus[3].angAzi) annotation (Line(points={{-24,22},
           {-53.95,22},{-53.95,34.05}},           color={0,0,127}));
-  connect(buildingShade.angZen, weaBus.solBus[2].angZen) annotation (Line(points={{-24,24},
+  connect(buildingShade.angZen, weaBus.solBus[3].angZen) annotation (Line(points={{-24,24},
           {-24,24},{-53.95,24},{-53.95,34.05}},            color={0,0,127}));
   connect(none.solDir, buildingShade.solDir) annotation (Line(points={{-24,76},
           {-38,76},{-38,36},{-24,36}},color={0,0,127}));
@@ -114,6 +114,11 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+July 18, 2016, by Filip Jorissen:<br/>
+Using west oriented data since this orientation
+is more likeley to catch a bug.
+</li>
 <li>
 July 18, 2016, by Filip Jorissen:<br/>
 Extended implementation.
