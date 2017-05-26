@@ -35,8 +35,11 @@ protected
     incAndAziInBus=sim.incAndAziInBus,
     numIncAndAziInBus=sim.numIncAndAziInBus,
     useLinearisation=sim.lineariseDymola)
-    annotation (Placement(transformation(extent={{-94,-4},{-74,16}})));
+    annotation (Placement(transformation(extent={{-100,-6},{-80,14}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough";
+  Modelica.Blocks.Math.Add solDif(final k1=1, final k2=1)
+    "Sum of ground and sky diffuse solar irradiation"
+    annotation (Placement(transformation(extent={{-60,0},{-54,6}})));
 initial equation
   QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
 
@@ -63,12 +66,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
-      points={{-74,14},{-74,19.9},{100.1,19.9}},
+      points={{-80,12},{-80,19.9},{100.1,19.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(radSolData.Tenv,extRad. Tenv) annotation (Line(
-      points={{-73.4,4},{-70,4},{-70,38},{-22,38},{-22,28}},
+      points={{-79.4,2},{-70,2},{-70,38},{-22,38},{-22,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(extCon.Te, propsBus_a.weaBus.Te) annotation (Line(
@@ -80,10 +83,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tdes.u, propsBus_a.weaBus.Tdes);
-  connect(radSolData.solDif, solAbs.solDif) annotation (Line(points={{-73.4,6},{
-          -58,6},{-58,4},{-42,4}}, color={0,0,127}));
-  connect(radSolData.solDir, solAbs.solDir)
-    annotation (Line(points={{-73.4,8},{-42,8}},         color={0,0,127}));
+  connect(radSolData.HSkyDifTil, solDif.u1) annotation (Line(points={{-79.4,6},{
+          -64,6},{-64,4.8},{-60.6,4.8}}, color={0,0,127}));
+  connect(solDif.u2, radSolData.HGroDifTil) annotation (Line(points={{-60.6,1.2},
+          {-66,1.2},{-66,4},{-79.4,4}}, color={0,0,127}));
+  connect(solDif.y, solAbs.solDif) annotation (Line(points={{-53.7,3},{-47.85,3},
+          {-47.85,4},{-42,4}}, color={0,0,127}));
+  connect(solAbs.solDir, radSolData.HDirTil)
+    annotation (Line(points={{-42,8},{-58,8},{-79.4,8}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-60,-100},{60,100}}),
         graphics={
@@ -157,6 +164,13 @@ for equations, options, parameters, validation and dynamics that are common for 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2017 by Filip Jorissen:<br/>
+Revised implementation for renamed
+ports <code>HDirTil</code> etc.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/735\">
+#735</a>.
+</li>
 <li>
 January 2, 2017, by Filip Jorissen:<br/>
 Updated icon layer.

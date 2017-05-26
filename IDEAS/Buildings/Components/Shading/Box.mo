@@ -31,11 +31,16 @@ model Box "Both side fins and overhang"
     "Vertical distance between side fin and window"
     annotation(Dialog(group="Side fin properties"));
 
-  Real fraSun(
+  Real fraSunDir(
     final min=0,
     final max=1,
     final unit="1")
     "Fraction of window area exposed to the sun";
+  Real fraSunDifSky(
+    final min=0,
+    final max=1,
+    final unit="1")
+    "Fraction of window area exposed to diffuse sun light";
 
   IDEAS.Buildings.Components.Shading.Overhang overhang(
     final azi=azi,
@@ -62,31 +67,13 @@ initial equation
     assert(finDep > 0, "The depth of the side fins must be larger than zero. If this is not the case, just use Shading.Overhang");
 
 equation
-  fraSun = max(0,1-(1-overhang.fraSun)-(1-sideFins.fraSun));
-  iSolDir = solDir * fraSun;
+  fraSunDir = max(0,1-(1-overhang.fraSunDir)-(1-sideFins.fraSunDir));
+  fraSunDifSky = max(0,1-(1-overhang.fraSunDifSky)-(1-sideFins.fraSunDifSky));
+  HShaDirTil = HDirTil * fraSunDir;
+  HShaSkyDifTil = HSkyDifTil * fraSunDifSky;
 
-  connect(solDif, iSolDif) annotation (Line(
-      points={{-60,10},{40,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(angInc, iAngInc) annotation (Line(
       points={{-60,-50},{-16,-50},{-16,-50},{40,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solDir, overhang.solDir) annotation (Line(
-      points={{-60,50},{-39,50},{-39,76},{-2,76}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solDir, sideFins.solDir) annotation (Line(
-      points={{-60,50},{-40,50},{-40,36},{-4,36}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solDif, overhang.solDif) annotation (Line(
-      points={{-60,10},{-60,10},{-36,10},{-36,72},{-2,72}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solDif, sideFins.solDif) annotation (Line(
-      points={{-60,10},{-36,10},{-36,32},{-4,32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(overhang.angZen, angZen) annotation (Line(
@@ -113,9 +100,22 @@ equation
       points={{-2,66},{-32,66},{-32,-50},{-60,-50}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(HDirTil, overhang.HDirTil) annotation (Line(points={{-60,50},{-40,50},
+          {-40,76},{-2,76}}, color={0,0,127}));
+  connect(HDirTil, sideFins.HDirTil) annotation (Line(points={{-60,50},{-40,50},
+          {-40,36},{-4,36}}, color={0,0,127}));
+  connect(HSkyDifTil, overhang.HSkyDifTil) annotation (Line(points={{-60,30},{-38,
+          30},{-38,74},{-2,74}}, color={0,0,127}));
+  connect(HSkyDifTil, sideFins.HSkyDifTil) annotation (Line(points={{-60,30},{-38,
+          30},{-38,34},{-4,34}}, color={0,0,127}));
+  connect(HGroDifTil, overhang.HGroDifTil) annotation (Line(points={{-60,10},{-36,
+          10},{-36,72},{-2,72}}, color={0,0,127}));
+  connect(HGroDifTil, sideFins.HGroDifTil) annotation (Line(points={{-60,10},{-36,
+          10},{-36,32},{-4,32}}, color={0,0,127}));
+  connect(HGroDifTil, HShaGroDifTil)
+    annotation (Line(points={{-60,10},{40,10},{40,10}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics), Documentation(info="<html>
+            -100},{100,100}})),  Documentation(info="<html>
 <p>
 Shading model that simulates a combination of both side fins and a overhang. 
 The implementation is a combination of both IDEAS.Buildings.Components.Shading.Overhang 
@@ -123,6 +123,13 @@ and IDEAS.Buildings.Components.Shading.SideFins.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2017 by Filip Jorissen:<br/>
+Revised implementation for renamed
+ports <code>HDirTil</code> etc.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/735\">
+#735</a>.
+</li>
 <li>
 July 18, 2016 by Filip Jorissen:<br/>
 Cleaned up implementation and documentation.
