@@ -67,8 +67,8 @@ initial equation
     assert(finDep > 0, "The depth of the side fins must be larger than zero. If this is not the case, just use Shading.Overhang");
 
 equation
-  fraSunDir = max(0,1-(1-overhang.fraSunDir)-(1-sideFins.fraSunDir));
-  fraSunDifSky = max(0,1-(1-overhang.fraSunDifSky)-(1-sideFins.fraSunDifSky));
+  fraSunDir = overhang.fraSunDir*sideFins.fraSunDir;
+  fraSunDifSky = overhang.fraSunDifSky*sideFins.fraSunDifSky;
   HShaDirTil = HDirTil * fraSunDir;
   HShaSkyDifTil = HSkyDifTil * fraSunDifSky;
 
