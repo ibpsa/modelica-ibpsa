@@ -1,3 +1,0 @@
-simulateModel("IBPSA.Fluid.Examples.Performance.PressureDrop.ParallelSeriesFromDpFalse", startTime=-1, stopTime=1, method="dassl", tolerance=1e-06, resultFile="ParallelSeriesFromDpFalse");
-
-createPlot(id=1, position={0, 0, 1053, 762}, y={"sin.ports[1].m_flow", "sin.ports[2].m_flow", "sin.ports[3].m_flow", "sin.ports[4].m_flow"}, range={-1.0, 2.0, -0.05, 1.05}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
