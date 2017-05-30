@@ -6,6 +6,7 @@ FMI
 FixedResistances
 HeatExchangers
 HeatPumps
+Humidifiers
 MassExchangers
 MixingVolumes
 Movers

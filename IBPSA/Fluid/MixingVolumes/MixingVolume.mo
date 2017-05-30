@@ -98,8 +98,8 @@ IBPSA.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume</a>.
 For simple models that uses this model, see
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.HeaterCooler_u\">
 IBPSA.Fluid.HeatExchangers.HeaterCooler_u</a> and
-<a href=\"modelica://IBPSA.Fluid.MassExchangers.Humidifier_u\">
-IBPSA.Fluid.MassExchangers.Humidifier_u</a>.
+<a href=\"modelica://IBPSA.Fluid.Humidifiers.Humidifier_u\">
+IBPSA.Fluid.Humidifiers.Humidifier_u</a>.
 </p>
 
 </html>", revisions="<html>
