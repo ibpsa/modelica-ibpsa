@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Sources;
-model MassFlowSourceFromOutside_h
+model MassFlowSource_WeatherData
   "Ideal flow source that produces a prescribed mass flow with prescribed 
   trace substances, outside specific enthalpy and mass fraction "
   extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
@@ -186,4 +186,4 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/777\">#777</a>.
 </li>
 </ul>
 </html>"));
-end MassFlowSourceFromOutside_h;
+end MassFlowSource_WeatherData;
