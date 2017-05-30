@@ -321,7 +321,7 @@ model Humidifier_u
 protected
   model Humidifier
     "Model for humidifier that adds a variable for the thermodynamic states at its ports"
-    extends IBPSA.Fluid.MassExchangers.Humidifier_u;
+    extends IBPSA.Fluid.Humidifiers.Humidifier_u;
    Medium.ThermodynamicState staA=
       Medium.setState_phX(port_a.p,
                           actualStream(port_a.h_outflow),
