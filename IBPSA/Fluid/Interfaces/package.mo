@@ -116,8 +116,8 @@ see the <i>info</i> section of the class.
 <!-- ============================================== -->
 <tr>
   <td>
-    <a href=\"modelica://IBPSA.Fluid.Interfaces.PrescribedOutletState\">
-                         IBPSA.Fluid.Interfaces.PrescribedOutletState</a>
+    <a href=\"modelica://IBPSA.Fluid.Interfaces.PrescribedOutlet\">
+                         IBPSA.Fluid.Interfaces.PrescribedOutlet</a>
   </td>
   <td>
     This model calculates a prescribed heat flow (e.g. for an ideal heater or cooler),

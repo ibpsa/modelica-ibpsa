@@ -3,7 +3,7 @@ block Humidifier_u
   "Declaration of an FMU that exports an ideal humidifier"
    extends IBPSA.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
      redeclare replaceable package Medium = IBPSA.Media.Air,
-     redeclare final IBPSA.Fluid.MassExchangers.Humidifier_u com(
+     redeclare final IBPSA.Fluid.Humidifiers.Humidifier_u com(
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=if use_p_in then dp_nominal else 0,
       final mWat_flow_nominal=mWat_flow_nominal,
@@ -34,8 +34,8 @@ This example demonstrates how to export an FMU with a humidifier
 that takes as an input signal the normalized mass flow rate of water that
 will be added to the medium.
 The FMU has an instance of
-<a href=\"modelica://IBPSA.Fluid.MassExchangers.Humidifier_u\">
-IBPSA.Fluid.MassExchangers.Humidifier_u</a>.
+<a href=\"modelica://IBPSA.Fluid.Humidifiers.Humidifier_u\">
+IBPSA.Fluid.Humidifiers.Humidifier_u</a>.
 </p>
 <p>
 The mass dynamics has been set to
