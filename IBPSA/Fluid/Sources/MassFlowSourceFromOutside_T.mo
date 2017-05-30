@@ -163,24 +163,9 @@ revisions="<html>
 <ul>
 <li>
 May 21, 2017, by Jianjun Hu:<br/>
-Changed the specification of temperature and composition inputs with outside 
-condition. Weather bus is used. 
+First implementation. Created flow source with prescribed mass flow and trace
+substances, outside temperature and composition. Weather bus is used. 
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/777\">#777</a>.
-</li>
-<li>
-April 18, 2017, by Filip Jorissen:<br/>
-Changed <code>checkBoundary</code> implementation
-such that it is run as an initial equation
-when it depends on parameters only.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/728\">#728</a>.
-</li>
-<li>
-January 26, 2016, by Michael Wetter:<br/>
-Added <code>unit</code> and <code>quantity</code> attributes.
-</li>
-<li>
-September 29, 2009, by Michael Wetter:<br/>
-First implementation.
 </li>
 </ul>
 </html>"));
