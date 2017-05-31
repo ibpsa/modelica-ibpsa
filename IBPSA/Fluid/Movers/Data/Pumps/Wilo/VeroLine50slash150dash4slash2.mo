@@ -1,4 +1,4 @@
-within IDEAS.Fluid.Movers.Data.Pumps.Wilo;
+within IBPSA.Fluid.Movers.Data.Pumps.Wilo;
 record VeroLine50slash150dash4slash2
   "Pump data for a Wilo Veroline IP-E 50/150-4/2 pump"
   extends Generic(
