@@ -11,23 +11,14 @@ record VeroLine50slash150dash4slash2
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
-<p>Data from:<a href=\"http://productfinder.wilo.com/nl/BE/product/0000001d000149e80001003a/fc_product_datasheet\"> http://productfinder.wilo.com/nl/BE/product/0000001d000149e80001003a/fc_product_datasheet</a></p>
-<p>See <a href=\"modelica://IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 </a>for more information about how the data is derived. </p>
+<p>Data from:<a href=\"http://productfinder.wilo.com/com/en/c0000002200012eb000020023/_0000004f0003f94e0001003a/product.html\"> http://productfinder.wilo.com/com/en/c0000002200012eb000020023/_0000004f0003f94e0001003a/product.html</a></p>
+<p>See <a href=\"modelica://IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6</a>for more information about how the data is derived.</p>
 </html>",   revisions="<html>
 <ul>
 <li>
-February 17, 2016, by Michael Wetter:<br/>
-Updated parameter names for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
-</li>
-<li>
-December 12, 2014, by Michael Wetter:<br/>
-Added <code>defaultComponentPrefixes</code> and
-<code>defaultComponentName</code> annotations.
-</li>
-<li>April 22, 2014
-    by Filip Jorissen:<br/>
-       Initial version
+May 28, 2017, by Iago Cupeiro:
+<br/>
+Initial version
 </li>
 </ul>
 </html>"));
