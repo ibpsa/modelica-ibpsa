@@ -84,11 +84,11 @@ partial model HeatingSystem "Partial heating/cooling system"
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = Medium)
     if                                           isDH
     "Supply water connection to the DH grid"
-    annotation (Placement(transformation(extent={{150,-110},{170,-90}})));
+    annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = Medium)
     if                                           isDH
     "Return water connection to the DH grid"
-    annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
+    annotation (Placement(transformation(extent={{150,-110},{170,-90}})));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
             100}}), graphics={
@@ -183,7 +183,7 @@ partial model HeatingSystem "Partial heating/cooling system"
           smooth=Smooth.None,
           pattern=LinePattern.Dash)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
-            200,100}}), graphics),
+            200,100}})),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Interface model for a complete multi-zone heating system (with our without domestic hot water and solar system).</p>
