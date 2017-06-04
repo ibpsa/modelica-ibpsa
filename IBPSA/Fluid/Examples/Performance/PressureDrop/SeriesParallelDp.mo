@@ -10,7 +10,7 @@ model SeriesParallelDp
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
 
-  Sources.Boundary_pT             sou(
+  Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     nPorts=1,
     use_p_in=true) "Pressure boundary condition"
@@ -20,7 +20,7 @@ model SeriesParallelDp
     offset=Medium.p_default,
     amplitude=dp_nominal)
               "Pulse input for flow rate"
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+    annotation (Placement(transformation(extent={{-100,-2},{-80,18}})));
   FixedResistances.PressureDrop[nRes] resParallel(
     redeclare each package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
@@ -28,9 +28,9 @@ model SeriesParallelDp
     dp_nominal={dp_nominal*(1 + mod(i, 3)) for i in 1:nRes},
     each from_dp=false) "Parallel pressure drop components"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Sources.Boundary_pT             sin(
+  Sources.Boundary_pT sin(
     redeclare package Medium = Medium, nPorts=1)
-              "Pressure boundary condition"
+      "Pressure boundary condition"
       annotation (Placement(transformation(
           extent={{100,-10},{80,10}})));
   FixedResistances.PressureDrop res2(
@@ -55,7 +55,7 @@ equation
   connect(res2.port_b, sin.ports[1])
     annotation (Line(points={{50,0},{65,0},{80,0}}, color={0,127,255}));
   connect(pulse_m_flow.y, sou.p_in)
-    annotation (Line(points={{-79,10},{-62,10},{-62,8}}, color={0,0,127}));
+    annotation (Line(points={{-79,8},{-62,8}},           color={0,0,127}));
    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
@@ -69,7 +69,7 @@ First implementation.
 <p>
 Example model that demonstrates how translation statistics 
 depend on the type of boundary conditions, 
-the parallel/series configuration of the components 
+the parallel or series configuration of the components 
 and the value of parameter <code>from_dp</code>.
 </p>
 </html>"),
