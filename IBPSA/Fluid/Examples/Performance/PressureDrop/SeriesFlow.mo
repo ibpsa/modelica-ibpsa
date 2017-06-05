@@ -24,7 +24,7 @@ model SeriesFlow
     each m_flow_nominal=m_flow_nominal,
     each allowFlowReversal=false,
     dp_nominal={dp_nominal*(1 + mod(i, 3)) for i in 1:nRes},
-    each from_dp=false) "Series pressure drop components"
+    each from_dp=true) "Series pressure drop components"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Sources.Boundary_pT sin(
     redeclare package Medium = Medium,

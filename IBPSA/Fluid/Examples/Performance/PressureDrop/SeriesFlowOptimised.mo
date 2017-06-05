@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Examples.Performance.PressureDrop;
 model SeriesFlowOptimised
   "Series connection with prescribed flow and optimised parameters"
-  extends SeriesFlow(resSeries(each from_dp=true));
+  extends SeriesFlow(resSeries(each from_dp=false));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
