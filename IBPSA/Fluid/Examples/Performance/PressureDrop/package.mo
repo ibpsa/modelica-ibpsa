@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Examples.Performance;
-package PressureDrop "Various configurations using PressureDrop models and demonstration of from_dp. See translation statistics."
+package PressureDrop "Package with various configurations of pressure drop models to analyze symbolic processing"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
@@ -14,7 +14,8 @@ The parameter <code>from_dp</code> is set to either <code>true</code> or <code>f
 These combinations are applied to a flow network
 consisting of parallel, series or parallel-series components.
 By looking at the size of the nonlinear equations between the example
-and its counter-part that ends in "Optimised", one can see whether the
+and its counter-part that ends in <code>Optimised</code>,
+one can see whether the
 symbolic processing optimally converts the system of equations.
 </p>
 </html>"));

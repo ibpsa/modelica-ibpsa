@@ -1,7 +1,6 @@
 within IBPSA.Fluid.Examples.Performance.PressureDrop;
 model SeriesParallelDp
-  "Combined series and parallel connection with prescribed pressure 
-  difference and non-optimised parameters"
+  "Combined series and parallel connection with prescribed pressure difference and non-optimised parameters"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air;
   parameter Integer nRes(min=2) = 10 "Number of resistances";
@@ -67,9 +66,9 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Example model that demonstrates how translation statistics 
-depend on the type of boundary conditions, 
-the parallel or series configuration of the components 
+Example model that demonstrates how translation statistics
+depend on the type of boundary conditions,
+the parallel or series configuration of the components
 and the value of parameter <code>from_dp</code>.
 </p>
 </html>"),

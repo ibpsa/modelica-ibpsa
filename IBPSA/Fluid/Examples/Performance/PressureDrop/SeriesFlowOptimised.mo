@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Examples.Performance.PressureDrop;
 model SeriesFlowOptimised
   "Series connection with prescribed flow and optimised parameters"
-  extends SeriesFlow(resSeries(  each from_dp=true));
+  extends SeriesFlow(resSeries(each from_dp=true));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -11,9 +11,9 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Example model that demonstrates how translation statistics 
-depend on the type of boundary conditions, 
-the parallel or series configuration of the components 
+Example model that demonstrates how translation statistics
+depend on the type of boundary conditions,
+the parallel or series configuration of the components
 and the value of parameter <code>from_dp</code>.
 </p>
 </html>"), __Dymola_Commands(file=
