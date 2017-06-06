@@ -154,7 +154,7 @@ substances, with temperature and specific enthalpy from outside:
 <ul>
 <li> Prescribed mass flow rate.</li>
 <li> Boundary composition (trace-substance flow).</li>
-<li> Outside spefici enthalpy.</li>
+<li> Outside specific enthalpy.</li>
 <li> Multi-substance composition (e.g. water vapor) from outside.</li>
 </ul>
 <p>If <code>use_m_flow_in</code> is false (default option), the <code>m_flow
