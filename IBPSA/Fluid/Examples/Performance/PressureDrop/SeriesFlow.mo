@@ -60,6 +60,7 @@ the parallel or series configuration of the components
 and the value of parameter <code>from_dp</code>.
 </p>
 </html>"),
+    experiment(Tolerance=1e-06, StopTime=1),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/SeriesFlow.mos"
         "Simulate and plot"));
