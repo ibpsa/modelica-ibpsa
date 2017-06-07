@@ -4,9 +4,11 @@ model IdealSource
   extends IBPSA.Fluid.Interfaces.PartialTwoPortTransport(show_T=false);
 
   // Quantity to control
-  parameter Boolean control_m_flow "= false to m_flow"
+  parameter Boolean control_m_flow
+    "if true, then the mass flow rate is equal to the value of m_flow_in"
     annotation(Evaluate = true);
-  parameter Boolean control_dp = not control_m_flow "= false to control dp"
+  parameter Boolean control_dp = not control_m_flow
+    "if true, then the head is equal to the value of dp_in"
     annotation(Evaluate = true);
 
   Modelica.Blocks.Interfaces.RealInput m_flow_in(unit="kg/s") if control_m_flow
@@ -89,8 +91,14 @@ adding heat to the volume, and flow work to this model.
 </p>
 <p>
 Typically either <code>control_m_flow</code> or
-<code>control_dp</code> should be true to avoid
-singular systems.
+<code>control_dp</code> should be <code>true</code> to avoid a
+singular system.
+If <code>control_m_flow = true</code>, then the mass flow rate
+is set to the value of the input connector <code>m_flow_in</code>.
+Otherwise, this model does not specify the mass flow rate.
+Similarly, if <code>control_dp = true</code>, the head is equal to the
+value of the input connector <code>dp_in</code>.
+Otherwise, this model does not specify the head.
 </p>
 </html>",
 revisions="<html>
