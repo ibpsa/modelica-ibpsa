@@ -3,14 +3,9 @@ model PipeCore
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
-  replaceable parameter
-    BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE50S
-    pipeData constrainedby BaseClasses.SinglePipeConfig.SinglePipeData(H=H)
-    "Select pipe dimensions" annotation (choicesAllMatching=true, Placement(
-        transformation(extent={{-96,-96},{-76,-76}})));
-
+  parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
+  parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
@@ -18,15 +13,17 @@ model PipeCore
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
-
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
+    m_flow_nominal) "Small mass flow rate for regularization of zero flow"
+    annotation (Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
-  parameter IBPSA.Experimental.Pipe.Types.ThermalResistanceLength R=1/(
-      lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 +
-      thicknessIns)/(diameter/2)));
+  parameter IBPSA.Experimental.Pipe.Types.ThermalResistanceLength R=1/(lambdaI*
+      2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(
+      diameter/2)));
   parameter IBPSA.Experimental.Pipe.Types.ThermalCapacityPerLength C=
       rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
@@ -49,26 +46,13 @@ model PipeCore
     length=length,
     m_flow_nominal=m_flow_nominal,
     from_dp=from_dp,
-    thickness=pipeData.s,
+    thickness=thickness,
     T_ini_in=T_ini_in,
     T_ini_out=T_ini_out)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 protected
-  parameter Modelica.SIunits.Length thickness=pipeData.s "Pipe wall thickness";
-  parameter Modelica.SIunits.Diameter diameter=pipeData.Di "Pipe diameter";
-  parameter Types.ThermalResistanceLength R=pipeData.hInvers/(lambdaI*2*
-      Modelica.Constants.pi);
-  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
-      diameter/2)^2*cp_default;
-  parameter Modelica.SIunits.ThermalConductivity lambdaI=pipeData.lambdaI
-    "Thermal conductivity";
-
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
-    m_flow_nominal) "Small mass flow rate for regularization of zero flow"
-    annotation (Dialog(tab="Advanced"));
-
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
@@ -98,6 +82,7 @@ public
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
+    thicknessIns=thicknessIns,
     C=C,
     R=R,
     m_flow_small=m_flow_small,
@@ -108,13 +93,13 @@ public
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
+    thicknessIns=thicknessIns,
     C=C,
     R=R,
     m_flow_small=m_flow_small,
     T_ini=T_ini_out)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
-        Medium)
+  IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
   IBPSA.Experimental.Pipe.BaseClasses.TimeDelay timeDelay(
     length=length,
@@ -129,6 +114,7 @@ public
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
 
   parameter Modelica.SIunits.Temperature T_ini_in=Medium.T_default
     "Initialization temperature at pipe inlet"
@@ -141,19 +127,9 @@ public
     annotation (Dialog(tab="Initialization"));
   parameter Modelica.SIunits.MassFlowRate m_flowInit=0
     annotation (Dialog(tab="Initialization", enable=initDelay));
-<<<<<<< HEAD:Annex60/Experimental/Pipe/PipeHeatLossMod.mo
 
 equation
-  connect(port_a, reverseHeatLoss.port_b)
-    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
-  connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
-    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(port_b, heatLoss.port_b)
-    annotation (Line(points={{100,0},{60,0}}, color={0,127,255}));
-  connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
-    annotation (Line(points={{-10,0},{-18,0},{-24,0}}, color={0,127,255}));
-  connect(senMasFlo.port_a, reverseHeatLoss.port_a)
-    annotation (Line(points={{-44,0},{-52,0},{-60,0}}, color={0,127,255}));
+
   connect(senMasFlo.m_flow, timeDelay.m_flow) annotation (Line(
       points={{-34,-11},{-34,-40},{-12,-40}},
       color={0,0,127},
@@ -177,13 +153,13 @@ equation
   connect(heatLoss.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
-    annotation (Line(points={{10,0},{40,0}},        color={0,127,255}));
+    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={
         Rectangle(
           extent={{-100,40},{100,-40}},
           lineColor={0,0,0},
@@ -221,13 +197,13 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{24,22},{-24,-22}},
+          extent={{20,20},{-20,-20}},
           lineColor={28,108,200},
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
-          origin={-52,94},
+          origin={-70,74},
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>
