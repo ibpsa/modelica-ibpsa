@@ -1,20 +1,35 @@
 within IBPSA.Experimental.Pipe;
 model PipeTemplate "Pipe model with geometric data from catalog"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort_vector;
-  PipeHeatLossMod pipeHeatLossMod(nPorts=nPorts)
+  PipeHeatLossMod pipe(
+    nPorts=nPorts,
+    diameter=pipeData.Di,
+    length=length,
+    thicknessIns=(pipeData.Do - pipeData.Di)/2,
+    R=pipeData.hInvers/(pipeData.lambdaI*2*Modelica.Constants.pi),
+    final lambdaI=pipeData.lambdaI,
+    final walCap=pipeData.CW,
+    final cpipe=pipeData.cW,
+    final rho_wall=pipeData.rhoW,
+    final thickness=pipeData.s,
+    redeclare package Medium = Medium,
+    C=pipe.rho_default*Modelica.Constants.pi*(pipeData.Di/2)^2*pipe.cp_default)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   replaceable parameter
     BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE50S
-    pipeData constrainedby BaseClasses.SinglePipeConfig.SinglePipeData
+    pipeData(H=H)
+             constrainedby BaseClasses.SinglePipeConfig.SinglePipeData
     annotation (choicesAllMatching=True, Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  parameter Modelica.SIunits.Length length "Pipe length";
+  parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
 equation
-  connect(port_a, pipeHeatLossMod.port_a)
+  connect(port_a, pipe.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(pipeHeatLossMod.ports_b[:], ports_b[:])
+  connect(pipe.ports_b[:], ports_b[:])
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  connect(pipeHeatLossMod.heatPort, heatPort)
+  connect(pipe.heatPort, heatPort)
     annotation (Line(points={{0,10},{0,100}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
