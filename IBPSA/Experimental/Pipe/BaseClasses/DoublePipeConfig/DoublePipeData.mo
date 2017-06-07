@@ -1,7 +1,7 @@
 within IBPSA.Experimental.Pipe.BaseClasses.DoublePipeConfig;
 partial record DoublePipeData
   "Contains pipe properties for double pipes from catalogs"
-  extends SinglePipeConfig.SinglePipeData;
+  extends PipeData;
   parameter Modelica.SIunits.Length h=Di
     "Horizontal distance between pipe walls";
   parameter Modelica.SIunits.Length Dc=2.5*Di "Diameter of circumscribing pipe";
