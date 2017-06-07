@@ -14,24 +14,6 @@ model ValveParameterization
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
     Modelica.Blocks.Sources.Constant y(k=1) "Control signal"
                  annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  IBPSA.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
-        Medium,
-    use_p_in=true,
-    nPorts=3,
-    T=293.15) "Boundary condition for flow source"  annotation (Placement(
-        transformation(extent={{-70,-10},{-50,10}})));
-  IBPSA.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
-        Medium,
-    nPorts=3,
-    use_p_in=false,
-    p=300000,
-    T=293.15) "Boundary condition for flow sink"    annotation (Placement(
-        transformation(extent={{90,-10},{70,10}})));
-    Modelica.Blocks.Sources.Ramp PSou(
-    duration=1,
-    offset=3E5,
-    height=1E5)
-      annotation (Placement(transformation(extent={{-100,16},{-80,36}})));
   Valves.TwoWayLinear valKv(
     redeclare package Medium = Medium,
     CvData=IBPSA.Fluid.Types.CvTypes.Kv,
@@ -47,12 +29,34 @@ model ValveParameterization
     Cv=0.84,
     use_inputFilter=false) "Valve model, linear opening characteristics"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  IBPSA.Fluid.Sensors.MassFlowRate senM_flowOpPoi(redeclare package Medium =
-        Medium) annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  IBPSA.Fluid.Sensors.MassFlowRate senM_flowKv(redeclare package Medium =
-        Medium) annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  IBPSA.Fluid.Sensors.MassFlowRate senM_flowCv(redeclare package Medium =
-        Medium)
+
+  IBPSA.Fluid.Sources.Boundary_pT sou(
+    redeclare package Medium = Medium,
+    use_p_in=true,
+    nPorts=3,
+    T=293.15) "Boundary condition for flow source"  annotation (Placement(
+        transformation(extent={{-70,-10},{-50,10}})));
+  IBPSA.Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium = Medium,
+    nPorts=3,
+    use_p_in=false,
+    p=300000,
+    T=293.15) "Boundary condition for flow sink"    annotation (Placement(
+        transformation(extent={{90,-10},{70,10}})));
+    Modelica.Blocks.Sources.Ramp PSou(
+    duration=1,
+    offset=3E5,
+    height=1E5)
+      annotation (Placement(transformation(extent={{-100,16},{-80,36}})));
+
+  IBPSA.Fluid.Sensors.MassFlowRate senM_flowOpPoi(
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+  IBPSA.Fluid.Sensors.MassFlowRate senM_flowKv(
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+  IBPSA.Fluid.Sensors.MassFlowRate senM_flowCv(
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   IBPSA.Utilities.Diagnostics.AssertEquality equ1(threShold=0.01)
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
