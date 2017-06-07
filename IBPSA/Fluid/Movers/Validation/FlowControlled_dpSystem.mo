@@ -41,7 +41,7 @@ model FlowControlled_dpSystem
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
     "Pressure difference across air system"
-    annotation (Placement(transformation(extent={{20,-30},{40,-50}})));
+    annotation (Placement(transformation(extent={{0,-30},{20,-50}})));
 
   Sources.Boundary_pT sin(redeclare package Medium = Medium, nPorts=4) "Sink"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
@@ -112,7 +112,7 @@ model FlowControlled_dpSystem
     offset=0,
     startTime=0)
                "Input signal"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   IBPSA.Fluid.FixedResistances.PressureDrop duct3(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal/2,
@@ -136,12 +136,13 @@ model FlowControlled_dpSystem
 equation
   connect(y.y, floConDp.dp_in) annotation (Line(points={{-99,90},{-70.2,90},{-70.2,
           72}}, color={0,0,127}));
-  connect(y.y, floConDpSystem.dp_in) annotation (Line(points={{-99,90},{-99,90},
-          {-90,90},{-90,-68},{-70.2,-68}}, color={0,0,127}));
+  connect(y.y, floConDpSystem.dp_in) annotation (Line(points={{-99,90},{-90,90},
+          {-90,20},{-70,20},{-70,-68},{-70.2,-68}},
+                                           color={0,0,127}));
   connect(zone2.ports[1], sin.ports[1])
     annotation (Line(points={{88,40},{100,40},{100,3}},    color={0,127,255}));
-  connect(senRelPre.p_rel, floConDpSystem.dpMea) annotation (Line(points={{30,-31},
-          {30,-12},{-78,-12},{-78,-68}}, color={0,0,127}));
+  connect(senRelPre.p_rel, floConDpSystem.dpMea) annotation (Line(points={{10,-31},
+          {10,-12},{-78,-12},{-78,-68}}, color={0,0,127}));
   connect(floConDp.port_a, sou.ports[1])
     annotation (Line(points={{-80,60},{-100,60},{-100,2}}, color={0,127,255}));
   connect(floConDpSystem.port_a, sou.ports[2]) annotation (Line(points={{-80,-80},
@@ -164,27 +165,19 @@ equation
   connect(dam3.port_b, zone3.ports[2])
     annotation (Line(points={{60,-60},{90,-60}}, color={0,127,255}));
   connect(zone4.ports[2], dam4.port_b)
-    annotation (Line(points={{92,-100},{92,-100},{60,-100}},
-                                                          color={0,127,255}));
-  connect(y1.y, dam2.y) annotation (Line(points={{-39,90},{-20,90},{-20,100},{50,
-          100},{50,92}},
+    annotation (Line(points={{92,-100},{60,-100}},        color={0,127,255}));
+  connect(y1.y, dam2.y) annotation (Line(points={{-39,100},{50,100},{50,92}},
                      color={0,0,127}));
-  connect(dam2.y, dam1.y)
-    annotation (Line(points={{50,92},{50,52}},   color={0,0,127}));
-  connect(dam1.y, dam3.y)
-    annotation (Line(points={{50,52},{50,-48}},          color={0,0,127}));
-  connect(dam4.y, dam3.y)
-    annotation (Line(points={{50,-88},{50,-88},{50,-48}},color={0,0,127}));
-  connect(senRelPre.port_b, zone3.ports[3]) annotation (Line(points={{40,-40},{
+  connect(senRelPre.port_b, zone3.ports[3]) annotation (Line(points={{20,-40},{
           74,-40},{74,-60},{92.6667,-60}},
                                        color={0,127,255}));
   connect(senRelPre.port_a, heaCoi2.port_b)
-    annotation (Line(points={{20,-40},{-20,-40},{-20,-80}},
+    annotation (Line(points={{0,-40},{-20,-40},{-20,-80}},
                                                         color={0,127,255}));
   connect(duct3.port_b, dam3.port_a)
     annotation (Line(points={{20,-60},{40,-60}}, color={0,127,255}));
-  connect(duct4.port_b, dam4.port_a) annotation (Line(points={{20,-100},{20,-100},
-          {40,-100}}, color={0,127,255}));
+  connect(duct4.port_b, dam4.port_a) annotation (Line(points={{20,-100},{40,
+          -100}},     color={0,127,255}));
   connect(duct2.port_a, heaCoi1.port_b)
     annotation (Line(points={{0,40},{-20,40},{-20,60}}, color={0,127,255}));
   connect(heaCoi1.port_b, duct1.port_a) annotation (Line(points={{-20,60},{-20,60},
@@ -197,6 +190,12 @@ equation
     annotation (Line(points={{0,-60},{-20,-60},{-20,-80}}, color={0,127,255}));
   connect(duct4.port_a, heaCoi2.port_b) annotation (Line(points={{0,-100},{-20,-100},
           {-20,-80}}, color={0,127,255}));
+  connect(y1.y, dam1.y) annotation (Line(points={{-39,100},{30,100},{30,60},{50,
+          60},{50,52}}, color={0,0,127}));
+  connect(y1.y, dam3.y) annotation (Line(points={{-39,100},{30,100},{30,-30},{
+          50,-30},{50,-48}}, color={0,0,127}));
+  connect(y1.y, dam4.y) annotation (Line(points={{-39,100},{30,100},{30,-80},{
+          50,-80},{50,-88}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true,
         initialScale=0.1,
