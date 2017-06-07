@@ -16,14 +16,12 @@ model ValidationPipeAIT_Subset1
     length=76,
     m_flow_nominal=1,
     diameter=0.0825,
-    thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,34})));
-
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
   Fluid.Sources.FixedBoundary ExcludedBranch(redeclare package Medium = Medium,
@@ -36,13 +34,13 @@ model ValidationPipeAIT_Subset1
     length=76,
     m_flow_nominal=1,
     diameter=0.0825,
-    thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     allowFlowReversal=allowFlowReversal) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,-26})));
+    //thicknessIns=0.045,
   Modelica.Blocks.Sources.Constant const1(k=-0.1)
     annotation (Placement(transformation(extent={{-20,80},{-40,100}})));
   Modelica.Thermal.HeatTransfer.Celsius.FixedTemperature fixedTemperature(T=0)

@@ -59,7 +59,9 @@ model ValidationPipeAIT
     R=R80) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={8,38})));
+        origin={10,40})));
+    //R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
+    //thicknessIns=0.045,
   PipeHeatLossMod pip5(
     redeclare package Medium = Medium,
     length=20,
@@ -73,6 +75,7 @@ model ValidationPipeAIT
         *log(2/0.18),
     thickness=thickness)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
+    //R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
   PipeHeatLossMod pip2(
     redeclare package Medium = Medium,
     length=76,
@@ -87,6 +90,7 @@ model ValidationPipeAIT
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-88,30})));
+    //R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
   PipeHeatLossMod pip3(
     redeclare package Medium = Medium,
     length=38,
@@ -183,6 +187,12 @@ model ValidationPipeAIT
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
+  BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
+    pipeData(
+    Di=825e-3,
+    lambdaI=0.024,
+    Do=825e-3 + 2*pipeData.s + 2*45e-3)
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
   parameter Modelica.SIunits.Time tauHeaTra=6500
@@ -222,8 +232,8 @@ equation
       smooth=Smooth.None));
   connect(DataReader.y[9], prescribedTemperature.T)
     annotation (Line(points={{21,-90},{30,-90},{38,-90}}, color={0,0,127}));
-  connect(pip4.heatPort, pip1.heatPort) annotation (Line(points={{18,38},{18,38},
-          {40,38},{40,20}}, color={191,0,0}));
+  connect(pip4.heatPort, pip1.heatPort) annotation (Line(points={{20,40},{20,40},
+          {40,40},{40,20}}, color={191,0,0}));
   connect(pip1.heatPort, pip0.heatPort) annotation (Line(points={{40,20},{40,26},
           {100,26},{100,-2},{90,-2}}, color={191,0,0}));
   connect(pip1.heatPort, pip2.heatPort) annotation (Line(points={{40,20},{40,26},

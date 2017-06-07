@@ -163,13 +163,13 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{24,22},{-24,-22}},
+          extent={{22,22},{-22,-22}},
           lineColor={28,108,200},
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
-          origin={-52,94},
+          origin={-72,72},
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>

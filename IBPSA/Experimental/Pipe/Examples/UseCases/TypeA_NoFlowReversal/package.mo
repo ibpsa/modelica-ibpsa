@@ -28,7 +28,7 @@ its ends, with larger pressure differences leading to higher mass flow rates.</p
 <p>This use case aims at demonstrating the functionality of the pipe with varying
 temperatures. The pressure difference between <code>source</code> and <code>sink</code> is kept
 constant.The supply temperature is varied as a ramp function between 1 and 200
-°C.</p>
+Â°C.</p>
 <p>The pipe model should simulate successfully over the whole temperature range. In
 the case with heat losses taken into account, higher temperatures should lead to
 higher heat losses.</p>

@@ -11,7 +11,6 @@ model ValidationPipeULg "Validation against data from Université de Liège"
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={70,0})));
-
   Fluid.HeatExchangers.HeaterCooler_T Boiler(
     redeclare package Medium = Medium,
     m_flow_nominal=1,

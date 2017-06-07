@@ -21,9 +21,9 @@ model PipeCore
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
-  parameter IBPSA.Experimental.Pipe.Types.ThermalResistanceLength R=1/(
-      lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 +
-      thicknessIns)/(diameter/2)));
+  parameter IBPSA.Experimental.Pipe.Types.ThermalResistanceLength R=1/(lambdaI*
+      2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(
+      diameter/2)));
   parameter IBPSA.Experimental.Pipe.Types.ThermalCapacityPerLength C=
       rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
@@ -99,8 +99,7 @@ public
     m_flow_small=m_flow_small,
     T_ini=T_ini_out)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
-        Medium)
+  IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
   IBPSA.Experimental.Pipe.BaseClasses.TimeDelay timeDelay(
     length=length,
@@ -154,13 +153,13 @@ equation
   connect(heatLoss.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
-    annotation (Line(points={{10,0},{40,0}},        color={0,127,255}));
+    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={
         Rectangle(
           extent={{-100,40},{100,-40}},
           lineColor={0,0,0},
@@ -198,13 +197,13 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{24,22},{-24,-22}},
+          extent={{20,20},{-20,-20}},
           lineColor={28,108,200},
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
-          origin={-52,94},
+          origin={-70,74},
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>

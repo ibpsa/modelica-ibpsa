@@ -250,8 +250,8 @@ equation
           72,102},{54,102},{54,4},{58,4}}, color={0,127,255}));
   connect(doublePipe4.port_a1, doublePipe2.port_a1) annotation (Line(points={{
           72,114},{56,114},{56,16},{58,16}}, color={0,127,255}));
-  connect(doublePipe4.port_b1, senTemSupplyOut1.port_a) annotation (Line(points
-        ={{92,114},{116,114},{116,144},{138,144}}, color={0,127,255}));
+  connect(doublePipe4.port_b1, senTemSupplyOut1.port_a) annotation (Line(points=
+         {{92,114},{116,114},{116,144},{138,144}}, color={0,127,255}));
   connect(doublePipe4.port_a2, senTemReturnIn1.port_b) annotation (Line(points=
           {{92,102},{116,102},{116,96},{138,96}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
