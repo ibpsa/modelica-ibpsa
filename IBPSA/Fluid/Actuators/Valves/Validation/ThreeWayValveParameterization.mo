@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Actuators.Valves.Examples;
+within IBPSA.Fluid.Actuators.Valves.Validation;
 model ThreeWayValveParameterization
   "Test model for parameterization of three-way valves"
   extends Modelica.Icons.Example;
@@ -149,7 +149,7 @@ equation
                          color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1.0),
-    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ThreeWayValveParameterization.mos"
+    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Validation/ThreeWayValveParameterization.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-100,-140},{140,140}})),
     Documentation(info="<html>

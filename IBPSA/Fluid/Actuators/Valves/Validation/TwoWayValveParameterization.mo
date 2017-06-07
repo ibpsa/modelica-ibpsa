@@ -1,5 +1,5 @@
-within IBPSA.Fluid.Actuators.Valves.Examples;
-model ValveParameterization
+within IBPSA.Fluid.Actuators.Valves.Validation;
+model TwoWayValveParameterization
   "Model to test and illustrate different parameterization for valves"
   extends Modelica.Icons.Example;
 
@@ -117,7 +117,7 @@ equation
       points={{30,-29},{30,-20},{50,-20},{50,24},{78,24}},
       color={0,0,127}));
     annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ValveParameterization.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Validation/TwoWayValveParameterization.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -148,4 +148,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ValveParameterization;
+end TwoWayValveParameterization;
