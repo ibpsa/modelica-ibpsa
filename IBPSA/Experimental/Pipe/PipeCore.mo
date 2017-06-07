@@ -21,8 +21,8 @@ model PipeCore
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
-  parameter IBPSA.Experimental.Pipe.Types.ThermalResistanceLength R=1/(lambdaI*
-      2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(
+  parameter IBPSA.Experimental.Pipe.Types.ThermalResistanceLength R=1/(lambdaI*2
+      *Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(
       diameter/2)));
   parameter IBPSA.Experimental.Pipe.Types.ThermalCapacityPerLength C=
       rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
@@ -82,7 +82,6 @@ public
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
-    thicknessIns=thicknessIns,
     C=C,
     R=R,
     m_flow_small=m_flow_small,
@@ -93,7 +92,6 @@ public
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
-    thicknessIns=thicknessIns,
     C=C,
     R=R,
     m_flow_small=m_flow_small,
@@ -156,10 +154,10 @@ equation
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
         Rectangle(
           extent={{-100,40},{100,-40}},
           lineColor={0,0,0},
