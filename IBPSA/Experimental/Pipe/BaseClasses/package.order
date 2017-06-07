@@ -2,6 +2,7 @@ TimeDelay
 HeatLossPipeDelay
 HeatLossDoublePipeDelay
 HeatLossDoubleParallel
+PipeData
 DoublePipeConfig
 SinglePipeConfig
 SpatialDistributionOneDirection
