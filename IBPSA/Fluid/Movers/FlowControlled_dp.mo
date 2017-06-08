@@ -72,12 +72,12 @@ model FlowControlled_dp
         origin={0,120}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-2,120})));
+        origin={0,120})));
 
   Modelica.Blocks.Interfaces.RealOutput dp_actual(final unit="Pa")
     "Pressure difference between the mover inlet and outlet"
-    annotation (Placement(transformation(extent={{100,10},{120,30}}),
-        iconTransformation(extent={{100,10},{120,30}})));
+    annotation (Placement(transformation(extent={{100,40},{120,60}}),
+        iconTransformation(extent={{100,40},{120,60}})));
 
 protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
@@ -108,8 +108,9 @@ equation
       points={{56,8},{56,14},{36,14},{36,19}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senRelPre.p_rel, dp_actual) annotation (Line(points={{50.5,-26.35},{50.5,
-          -38},{74,-38},{74,20},{110,20}}, color={0,0,127}));
+  connect(senRelPre.p_rel, dp_actual) annotation (Line(points={{50.5,-26.35},{
+          50.5,-38},{74,-38},{74,50},{110,50}},
+                                           color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(info="<html>
 <p>
@@ -253,22 +254,37 @@ Revised implementation to allow zero flow rate.
 </ul>
 </html>"),
     Icon(graphics={
+        Line(
+          points={{2,50},{100,50}},
+          color={0,0,0},
+          smooth=Smooth.None),
         Text(
           visible = inputType == IBPSA.Fluid.Types.InputType.Continuous,
           extent={{20,142},{104,108}},
           textString="dp_in"),
-        Line(
-          points={{32,50},{100,50}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Text(
-          visible=inputType == IBPSA.Fluid.Types.InputType.Constant,
-          extent={{-80,136},{78,102}},
-          lineColor={0,0,255},
-          textString="%dp_nominal"),
-        Text(extent={{64,68},{114,54}},
+        Text(extent={{60,66},{110,52}},
           lineColor={0,0,127},
-          textString="dp")}),
+          textString="dp"),
+        Rectangle(
+          visible=use_inputFilter,
+          extent={{-34,40},{32,100}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          visible=use_inputFilter,
+          extent={{-34,100},{32,40}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Text(
+          visible=use_inputFilter,
+          extent={{-22,92},{20,46}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="M",
+          textStyle={TextStyle.Bold})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
 end FlowControlled_dp;
