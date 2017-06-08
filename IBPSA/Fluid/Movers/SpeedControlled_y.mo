@@ -65,9 +65,6 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),
             graphics={
-        Text(extent={{64,86},{114,72}},
-          lineColor={0,0,127},
-          textString="y"),
             Text(
               extent={{6,136},{104,114}},
           lineColor={0,0,127},
