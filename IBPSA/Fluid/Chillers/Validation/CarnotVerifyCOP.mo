@@ -14,17 +14,22 @@ model CarnotVerifyCOP
 
   parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal=-10E3
     "Nominal evaporator heat flow rate (QEva_flow_nominal < 0)";
+
   parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal=-QEva_flow_nominal * (1+1/COP_nominal)
     "Nominal condenser heat flow rate (QCon_flow_nominal > 0)";
+
   parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-10
     "Temperature difference evaporator outlet-inlet";
+
   parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=QCon_flow_nominal
-      /cp_default/dTCon_nominal
+
+  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=
+    QCon_flow_nominal/cp_default/dTCon_nominal
     "Nominal mass flow rate at condenser";
-  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=QEva_flow_nominal
-      /cp_default/dTEva_nominal
+
+  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=
+    QEva_flow_nominal/cp_default/dTEva_nominal
     "Nominal mass flow rate of evaporator";
 
   final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
@@ -58,14 +63,14 @@ model CarnotVerifyCOP
     redeclare package Medium = Medium,
     m_flow=mCon_flow_nominal,
     T=TCon_nominal - QCon_flow_nominal/cp_default/mCon_flow_nominal)
-              "Boundary condition for condener"
+    "Boundary condition for condener"
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
   Sources.MassFlowSource_T bouEva(
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=mEva_flow_nominal,
     T=TEva_nominal - QEva_flow_nominal/cp_default/mEva_flow_nominal)
-              "Boundary condition for evaporator"
+    "Boundary condition for evaporator"
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
 
   Modelica.Blocks.Sources.Constant TEvaLvg(k=273.15 + 5)
@@ -74,10 +79,12 @@ model CarnotVerifyCOP
   Sources.Boundary_pT bou(
     nPorts=1,
     redeclare package Medium = Medium)
+    "Pressure boundary condition"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Sources.Boundary_pT bou1(
     nPorts=1,
     redeclare package Medium = Medium)
+    "Pressure boundary condition"
     annotation (Placement(transformation(extent={{80,60},{60,80}})));
 
   Carnot_y chi_y(
@@ -96,31 +103,33 @@ model CarnotVerifyCOP
     TEva_nominal=TEva_nominal,
     P_nominal=QEva_flow_nominal + QCon_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-                               "Chiller with control signal as set point"
+    "Chiller with control signal as set point"
     annotation (Placement(transformation(extent={{-8,-50},{12,-30}})));
   Sources.MassFlowSource_T bouCon1(
     nPorts=1,
     redeclare package Medium = Medium,
     m_flow=mCon_flow_nominal,
     T=TCon_nominal - QCon_flow_nominal/cp_default/mCon_flow_nominal)
-              "Boundary condition for condener"
+    "Boundary condition for condenser"
     annotation (Placement(transformation(extent={{-80,-44},{-60,-24}})));
   Sources.MassFlowSource_T bouEva1(
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=mEva_flow_nominal,
     T=TEva_nominal - QEva_flow_nominal/cp_default/mEva_flow_nominal)
-              "Boundary condition for evaporator"
+    "Boundary condition for evaporator"
     annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
   Modelica.Blocks.Sources.Constant y(k=1) "Control signal"
     annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
   Sources.Boundary_pT bou2(
     nPorts=1,
     redeclare package Medium = Medium)
+    "Pressure boundary condition"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Sources.Boundary_pT bou3(
     nPorts=1,
     redeclare package Medium = Medium)
+    "Pressure boundary condition"
     annotation (Placement(transformation(extent={{80,-30},{60,-10}})));
 equation
   connect(bouCon.ports[1], chi_TEva.port_a1)
