@@ -66,12 +66,12 @@ model Building
     standAlone
     annotation (Placement(transformation(extent={{62,-40},{78,-24}})));
 
-  Fluid.Interfaces.FlowPort_a flowPort_supply(redeclare package Medium = Medium)
-    if                                           isDH
-    annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
-  Fluid.Interfaces.FlowPort_b flowPort_return(redeclare package Medium = Medium)
-    if                                           isDH
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
+        Medium) if                               isDH
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
+        Medium) if                               isDH
+    annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
   final parameter Boolean InInterface = true;
 
 equation
@@ -153,14 +153,16 @@ equation
       points={{-53,10},{-52,10},{-52,32},{-20,32}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(heatingSystem.port_b, flowPort_return) annotation (Line(
-      points={{12,-10},{12,-24},{32,-24},{32,-60},{-20,-60},{-20,-100}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(heatingSystem.port_a, flowPort_supply) annotation (Line(
-      points={{16,-10},{16,-20},{40,-20},{40,-70},{20,-70},{20,-100}},
-      color={0,0,0},
-      smooth=Smooth.None));
+  connect(heatingSystem.port_a, port_a) annotation (Line(
+      points={{12,-10},{12,-26},{30,-26},{30,-76},{-20,-76},{-20,-100}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(heatingSystem.port_b, port_b) annotation (Line(
+      points={{16,-10},{16,-10},{16,-22},{34,-22},{34,-80},{20,-80},{20,-100}},
+
+      color={0,127,255},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   annotation (Icon(graphics={
         Line(
           points={{60,22},{0,74},{-60,24},{-60,-46},{60,-46}},
@@ -213,5 +215,5 @@ equation
           extent={{-100,-60},{100,-100}},
           lineColor={127,0,0},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-                   extent={{-100,-100},{100,100}}), graphics));
+                   extent={{-100,-100},{100,100}})));
 end Building;
