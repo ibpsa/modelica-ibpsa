@@ -81,7 +81,7 @@ model DoublePipeNetwork
   parameter Modelica.SIunits.Length thicknessIns=0.01
     "Thickness of pipe insulation";
   // Real lossRatio = -doublePipe.heatPort.Q_flow/(hea.Q_flow-doublePipe.heatPort.Q_flow) "Ratio of the transport heat losses and the delivered energy from the supply side";
-  IBPSA.Fluid.HeatExchangers.HeaterCooler_T hea(
+  IBPSA.Fluid.HeatExchangers.Heater_T hea(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=10)
@@ -165,7 +165,7 @@ model DoublePipeNetwork
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={178,96})));
-  IBPSA.Fluid.HeatExchangers.HeaterCooler_T hea1(
+  IBPSA.Fluid.HeatExchangers.Heater_T hea1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=10)
@@ -206,7 +206,7 @@ equation
           32},{204,32},{204,-16},{188,-16}},
                                       color={0,127,255}));
   connect(realExpression.y, hea.TSet) annotation (Line(points={{157,72},{160,72},
-          {160,70},{166,70},{166,38}},
+          {160,70},{166,70},{166,40}},
                                     color={0,0,127}));
   connect(TSink.y, sin1.T_in) annotation (Line(points={{-79,-18},{-74,-18},{-74,
           -14},{-62,-14}}, color={0,0,127}));
@@ -245,7 +245,7 @@ equation
   connect(hea1.port_b, senMasFlo1.port_a) annotation (Line(points={{188,144},{
           194,144},{204,144},{204,96},{188,96}}, color={0,127,255}));
   connect(realExpression1.y, hea1.TSet) annotation (Line(points={{157,184},{160,
-          184},{160,182},{166,182},{166,150}}, color={0,0,127}));
+          184},{160,182},{166,182},{166,152}}, color={0,0,127}));
   connect(doublePipe4.port_b2, doublePipe2.port_b2) annotation (Line(points={{
           72,102},{54,102},{54,4},{58,4}}, color={0,127,255}));
   connect(doublePipe4.port_a1, doublePipe2.port_a1) annotation (Line(points={{

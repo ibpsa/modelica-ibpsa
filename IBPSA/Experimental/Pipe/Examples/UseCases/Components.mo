@@ -85,23 +85,6 @@ package Components
       "Average height of surface asperities (default: smooth steel pipe)"
       annotation (Dialog(group="Geometry"));
 
-    parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=
-      dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
-      annotation (Dialog(group="Nominal condition"));
-
-    final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
-        Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-        m_flow=m_flow_nominal,
-        rho_a=rho_default,
-        rho_b=rho_default,
-        mu_a=mu_default,
-        mu_b=mu_default,
-        length=length,
-        diameter=diameter,
-        roughness=roughness,
-        m_flow_small=m_flow_small)
-      "Pressure loss of a straight pipe at m_flow_nominal";
-
     parameter Modelica.SIunits.Length length "Length of the pipe";
 
     parameter Modelica.SIunits.Diameter diameter "Diameter of the pipe";
@@ -155,7 +138,7 @@ package Components
       roughness=roughness,
       lambdaI=lambdaIns,
       from_dp=true,
-      dp_nominal=dpStraightPipe_nominal)
+      nPorts=1)
       "Pipe model for district heating connection"
       annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
     Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=283.15)
@@ -168,10 +151,10 @@ package Components
       annotation (Line(points={{100,0},{94,0},{88,0}}, color={0,127,255}));
   connect(senTem_a.port_b, pipe.port_a)
     annotation (Line(points={{-66,0},{-40,0},{-12,0}}, color={0,127,255}));
-  connect(senTem_b.port_a, pipe.port_b)
-    annotation (Line(points={{68,0},{38,0},{8,0}}, color={0,127,255}));
   connect(fixedTemperature.port, pipe.heatPort)
     annotation (Line(points={{-20,50},{-2,50},{-2,10}}, color={191,0,0}));
+    connect(pipe.ports_b[1], senTem_b.port_a)
+      annotation (Line(points={{8,0},{38,0},{68,0}}, color={0,127,255}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics={Rectangle(
             extent={{-90,24},{90,-26}},

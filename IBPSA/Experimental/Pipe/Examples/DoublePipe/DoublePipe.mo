@@ -80,7 +80,7 @@ model DoublePipe "Simple test of double pipe component"
   parameter Modelica.SIunits.Length thicknessIns=0.01
     "Thickness of pipe insulation";
   // Real lossRatio = -doublePipe.heatPort.Q_flow/(hea.Q_flow-doublePipe.heatPort.Q_flow) "Ratio of the transport heat losses and the delivered energy from the supply side";
-  IBPSA.Fluid.HeatExchangers.HeaterCooler_T hea(
+  IBPSA.Fluid.HeatExchangers.Heater_T       hea(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=10)
@@ -137,7 +137,7 @@ equation
   connect(hea.port_b, senMasFlo.port_a) annotation (Line(points={{80,30},{86,30},
           {96,30},{96,-18},{80,-18}}, color={0,127,255}));
   connect(realExpression.y, hea.TSet) annotation (Line(points={{49,70},{52,70},
-          {52,68},{58,68},{58,36}}, color={0,0,127}));
+          {52,68},{58,68},{58,38}}, color={0,0,127}));
   connect(TSink.y, sin1.T_in) annotation (Line(points={{-79,-18},{-74,-18},{-74,
           -14},{-62,-14}}, color={0,0,127}));
   connect(decreaseP.y,add. u1) annotation (Line(

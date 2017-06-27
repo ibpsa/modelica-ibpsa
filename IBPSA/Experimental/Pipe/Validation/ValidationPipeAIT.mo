@@ -267,13 +267,15 @@ equation
   connect(pip1.port_a, pip0.ports_b[1])
     annotation (Line(points={{50,10},{78,10},{78,8}}, color={0,127,255}));
   connect(pip1.ports_b[1], pip4.port_a)
-    annotation (Line(points={{30,8},{8,8},{8,28}}, color={0,127,255}));
+    annotation (Line(points={{30,8},{10,8},{10,30}},
+                                                   color={0,127,255}));
   connect(pip5.port_a, pip1.ports_b[2])
     annotation (Line(points={{0,10},{30,10},{30,12}}, color={0,127,255}));
   connect(pip4.ports_b[1], senTem_p4.port_a)
-    annotation (Line(points={{6,48},{6,52},{8,52}}, color={0,127,255}));
-  connect(Point5.ports[1], pip4.ports_b[2]) annotation (Line(points={{36,56},{36,
-          56},{10,56},{10,48}}, color={0,127,255}));
+    annotation (Line(points={{8,50},{8,52},{8,52}}, color={0,127,255}));
+  connect(Point5.ports[1], pip4.ports_b[2]) annotation (Line(points={{36,56},{
+          36,56},{12,56},{12,50}},
+                                color={0,127,255}));
   connect(pip5.ports_b[1], senTemIn_p2.port_b)
     annotation (Line(points={{-20,8},{-60,8},{-60,10}}, color={0,127,255}));
   connect(pip3.port_a, pip5.ports_b[2])

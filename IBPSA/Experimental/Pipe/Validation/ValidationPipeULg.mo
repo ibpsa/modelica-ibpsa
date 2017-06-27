@@ -11,7 +11,7 @@ model ValidationPipeULg "Validation against data from Université de Liège"
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={70,0})));
-  Fluid.HeatExchangers.HeaterCooler_T Boiler(
+  Fluid.HeatExchangers.Heater_T       Boiler(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=0) annotation (Placement(transformation(
@@ -116,7 +116,7 @@ equation
   connect(gain.y, WaterCityNetwork.m_flow_in) annotation (Line(points={{73,-20},
           {90,-20},{90,8},{80,8}}, color={0,0,127}));
   connect(Tin.y, Boiler.TSet) annotation (Line(points={{61,-50},{61,-50},{104,
-          -50},{104,18},{62,18},{62,6},{56,6}},
+          -50},{104,18},{62,18},{62,8},{56,8}},
                                           color={0,0,127}));
   connect(Sewer1.ports[1], senTem_out.port_b)
     annotation (Line(points={{-100,0},{-94,0}},         color={0,127,255}));

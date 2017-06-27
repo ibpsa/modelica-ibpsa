@@ -40,12 +40,12 @@ model ParallelPipesHeatExchangers
     inputType=IBPSA.Fluid.Types.InputType.Constant,
     constantMassFlowRate=0.5)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  IBPSA.Fluid.HeatExchangers.HeaterCooler_T hea(
+  Fluid.HeatExchangers.Heater_T             hea(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
     dp_nominal=10)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  IBPSA.Fluid.HeatExchangers.HeaterCooler_T hea1(
+  Fluid.HeatExchangers.Heater_T             hea1(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
     dp_nominal=10) annotation (Placement(transformation(
@@ -84,10 +84,12 @@ equation
           80,-80},{20,-80}}, color={0,127,255}));
   connect(hea1.port_b, retIn.port_a) annotation (Line(points={{0,-80},{-80,-80},
           {-80,-20},{-40,-20}}, color={0,127,255}));
-  connect(realExpression.y, hea1.TSet) annotation (Line(points={{63,-94},{68,-94},
-          {68,-86},{22,-86}}, color={0,0,127}));
-  connect(hea.TSet, realExpression1.y) annotation (Line(points={{-22,76},{-26,76},
-          {-26,90},{-31,90}}, color={0,0,127}));
+  connect(realExpression.y, hea1.TSet) annotation (Line(points={{63,-94},{68,
+          -94},{68,-88},{22,-88}},
+                              color={0,0,127}));
+  connect(hea.TSet, realExpression1.y) annotation (Line(points={{-22,78},{-26,
+          78},{-26,90},{-31,90}},
+                              color={0,0,127}));
   connect(retOut.port_b, fan.port_a) annotation (Line(points={{40,-20},{56,-20},
           {56,-50},{-72,-50},{-72,70},{-60,70}}, color={0,127,255}));
   connect(bou.ports[1], fan.port_a) annotation (Line(points={{-80,38},{-80,38},{
