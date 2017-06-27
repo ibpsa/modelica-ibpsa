@@ -169,7 +169,7 @@ equation
           endAngle=90,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
-          origin={-72,72},
+          origin={-52,94},
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>

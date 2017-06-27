@@ -104,7 +104,7 @@ equation
           endAngle=90,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
-          origin={-59,58},
+          origin={-41,80},
           rotation=180)}),
     Documentation(info="<html>
 <p>Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code><span style=\"font-family: Courier New,courier;\">PipeAdiabaticPlugFlow</span></code> model.</p>

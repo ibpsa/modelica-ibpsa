@@ -97,6 +97,8 @@ equation
     annotation (Line(points={{0,100},{0,56}}, color={191,0,0}));
   connect(prescribedHeatFlow.Q_flow, realExpression.y) annotation (Line(points=
           {{-4.44089e-016,36},{0,36},{0,0},{-17,0}}, color={0,0,127}));
+  connect(heatPort, heatPort) annotation (Line(points={{0,100},{-7,100},{-7,100},
+          {0,100}}, color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
@@ -121,13 +123,13 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{22,22},{-22,-22}},
+          extent={{24,22},{-24,-22}},
           lineColor={28,108,200},
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
-          origin={-60,58},
+          origin={-40,80},
           rotation=180)}),
     Documentation(info="<html>
 <p><span style=\"font-family: MS Shell Dlg 2;\">Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code></span><span style=\"font-family: Courier New,courier;\">PipeAdiabaticPlugFlow</code></span><span style=\"font-family: MS Shell Dlg 2;\"> model.</span></p>

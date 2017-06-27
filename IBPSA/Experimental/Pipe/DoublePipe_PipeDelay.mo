@@ -215,8 +215,9 @@ equation
   connect(heatPort, heatPort)
     annotation (Line(points={{0,100},{0,100}}, color={191,0,0}));
   connect(heatLossReturnReverse.heatPort, heatPort) annotation (Line(points={{
-  connect(timeDelay.tauRev, heatLossSupplyReverse.Tau_in) annotation (Line(
-        points={{11,4},{18,4},{18,78},{-44,78},{-44,70}}, color={0,0,127}));
+  connect(timeDelay.tauRev, heatLossSupplyReverse.Tau_in)}}
+                                                          annotation (Line(
+        points={{11,4},{18,4},{18,78},{-44,78},{-44,70}}, color={0,0,127}))));
   connect(timeDelay.tauRev, heatLossReturnReverse.Tau_in) annotation (Line(
         points={{11,4},{18,4},{18,-80},{44,-80},{44,-70}}, color={0,0,127}));
   connect(timeDelay.tau, heatLossReturn.Tau_in) annotation (Line(points={{11,-4},
@@ -225,6 +226,8 @@ equation
           {22,-4},{22,78},{56,78},{56,70}}, color={0,0,127}));
   connect(senMasFlo.m_flow, timeDelay.m_flow)
     annotation (Line(points={{-26,49},{-26,0},{-12,0}}, color={0,0,127}));
+  connect(timeDelay.tauRev, heatLossSupplyReverse.Tau_in) annotation (Line(
+        points={{11,4},{18,4},{18,78},{-44,78},{-44,70}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
@@ -335,7 +338,7 @@ equation
           endAngle=90,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
-          origin={-66,74},
+          origin={-46,96},
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>

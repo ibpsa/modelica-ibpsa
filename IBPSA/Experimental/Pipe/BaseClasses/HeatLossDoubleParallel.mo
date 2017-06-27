@@ -118,13 +118,13 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{21,22},{-21,-22}},
+          extent={{23,22},{-23,-22}},
           lineColor={28,108,200},
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
-          origin={-59,58},
+          origin={-41,80},
           rotation=180)}),
     Documentation(info="<html>
 <p><span style=\"font-family: MS Shell Dlg 2;\">Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code></span><span style=\"font-family: Courier New,courier;\">PipeAdiabaticPlugFlow</code></span><span style=\"font-family: MS Shell Dlg 2;\"> model.</span></p>
