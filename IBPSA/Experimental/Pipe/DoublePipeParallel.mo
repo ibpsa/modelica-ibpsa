@@ -15,7 +15,7 @@ model DoublePipeParallel
 
   replaceable parameter
     BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR20S pipeData
-    constrainedby BaseClasses.DoublePipeConfig.PipeData(H=H)
+    constrainedby BaseClasses.DoublePipeConfig.DoublePipeData(H=H)
     "Select pipe dimensions" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-96,-96},{-76,-76}})));
 
@@ -103,10 +103,6 @@ protected
         origin={0,-60})));
 
 public
-  BaseClasses.TimeDelayMod     pDETime_massFlow(            diameter=diameter,
-    initDelay=initDelay,
-    m_flowInit=m_flowInit)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -161,14 +157,12 @@ public
     "Ambient temperature of pipe's surroundings (undisturbed ground/surface)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
-  parameter Boolean initDelay=false
-    "Initialize delay for a constant mass flow rate if true, otherwise start from 0";
-  parameter Modelica.SIunits.MassFlowRate m_flowInit=0;
+
+  BaseClasses.TimeDelay timeDelay(length=length, diameter=diameter)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(senMasFlo.port_b, pipeSupplyAdiabaticPlugFlow.port_a)
     annotation (Line(points={{-16,60},{-13,60},{-10,60}}, color={0,127,255}));
-  connect(senMasFlo.m_flow, pDETime_massFlow.m_flow) annotation (Line(points={{
-          -26,49},{-26,49},{-26,0},{-12,0}}, color={0,0,127}));
   connect(heatLossReturnReverse.port_a, pipeReturnAdiabaticPlugFlow.port_a)
     annotation (Line(points={{-50,-60},{-30,-60},{-10,-60}}, color={0,127,255}));
   connect(pipeReturnAdiabaticPlugFlow.port_b, heatLossReturn.port_a)
@@ -205,14 +199,16 @@ equation
           -60},{-70,-60},{-70,-60}}, color={0,127,255}));
   connect(heatLossReturn.port_b, port_b2)
     annotation (Line(points={{74,-60},{88,-60},{100,-60}}, color={0,127,255}));
-  connect(pDETime_massFlow.tau, heatLossReturnReverse.Tau_in) annotation (Line(
-        points={{11,-4},{32,-4},{32,-86},{-54,-86},{-54,-70}}, color={0,0,127}));
-  connect(pDETime_massFlow.tau, heatLossSupply.Tau_in) annotation (Line(points=
-          {{11,-4},{32,-4},{32,86},{54,86},{54,70}}, color={0,0,127}));
-  connect(pDETime_massFlow.tauRev, heatLossSupplyReverse.Tau_in) annotation (
-      Line(points={{11,4},{28,4},{28,86},{-54,86},{-54,70}}, color={0,0,127}));
-  connect(pDETime_massFlow.tauRev, heatLossReturn.Tau_in) annotation (Line(
-        points={{11,4},{36,4},{36,-86},{58,-86},{58,-70}}, color={0,0,127}));
+  connect(senMasFlo.m_flow, timeDelay.m_flow) annotation (Line(points={{-26,49},
+          {-26,49},{-26,0},{-12,0}}, color={0,0,127}));
+  connect(timeDelay.tauRev, heatLossSupplyReverse.Tau_in) annotation (Line(
+        points={{11,4},{22,4},{22,86},{-54,86},{-54,70}}, color={0,0,127}));
+  connect(timeDelay.tauRev, heatLossReturnReverse.Tau_in) annotation (Line(
+        points={{11,4},{22,4},{22,-86},{-54,-86},{-54,-70}}, color={0,0,127}));
+  connect(timeDelay.tau, heatLossReturn.Tau_in) annotation (Line(points={{11,-4},
+          {26,-4},{26,-86},{58,-86},{58,-70}}, color={0,0,127}));
+  connect(timeDelay.tau, heatLossSupply.Tau_in) annotation (Line(points={{11,-4},
+          {26,-4},{26,86},{54,86},{54,70}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
@@ -317,13 +313,13 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{24,22},{-24,-22}},
+          extent={{22,22},{-22,-22}},
           lineColor={28,108,200},
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
-          origin={-48,94},
+          origin={-68,72},
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>

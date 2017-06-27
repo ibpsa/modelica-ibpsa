@@ -1,7 +1,7 @@
 within IBPSA.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleReinforced;
 record IsoPlusDR65R "Reinforced DN 65 IsoPlus double pipe"
-  import DistrictHeating;
-  extends DistrictHeating.Pipes.BaseClasses.PipeConfig.IsoPlusDouble(
+
+  extends IsoPlusDouble(
     h=20e-3,
     Di=65e-3,
     Do=76.1e-3,

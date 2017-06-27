@@ -5,10 +5,6 @@ model HeatLossPipeDelay
 
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
-
-  parameter Modelica.SIunits.Area A_surf=2*Modelica.Constants.pi*(diameter/2 +
-      thicknessIns)*length "Outer surface area of the pipe";
 
   parameter Modelica.SIunits.Area A_cross=Modelica.Constants.pi*diameter*
       diameter/4 "Cross sectional area";
@@ -102,13 +98,13 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{24,22},{-24,-22}},
+          extent={{23,22},{-23,-22}},
           lineColor={28,108,200},
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
-          origin={-40,80},
+          origin={-59,58},
           rotation=180)}),
     Documentation(info="<html>
 <p>Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code><span style=\"font-family: Courier New,courier;\">PipeAdiabaticPlugFlow</span></code> model.</p>

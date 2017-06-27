@@ -9,7 +9,7 @@ model PipeHeatLossMod
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
@@ -72,7 +72,11 @@ public
     C=C,
     R=R,
     m_flow_small=m_flow_small,
-    m_flow_nominal=m_flow_nominal) "Describing the pipe behavior"
+    m_flow_nominal=m_flow_nominal,
+    T_ini_in=T_ini_in,
+    T_ini_out=T_ini_out,
+    m_flowInit=m_flowInit,
+    initDelay=initDelay)           "Describing the pipe behavior"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
@@ -108,7 +112,10 @@ equation
 
   connect(pipeCore.port_b, vol.ports[1])
     annotation (Line(points={{10,0},{70,0},{70,20}}, color={0,127,255}));
-  connect(vol.ports[2:nPorts+1], ports_b[1:nPorts]) annotation (Line(points={{70,20},{72,20},{72,6},{72,
+    for i in 1:nPorts loop
+      connect(vol.ports[i+1], ports_b[i]);
+    end for
+    annotation (Line(points={{70,20},{72,20},{72,6},{72,
           0},{100,0}}, color={0,127,255}));
   connect(pipeCore.port_a, port_a)
     annotation (Line(points={{-10,0},{-56,0},{-100,0}},
@@ -156,13 +163,13 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{24,22},{-24,-22}},
+          extent={{22,22},{-22,-22}},
           lineColor={28,108,200},
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
-          origin={-52,94},
+          origin={-72,72},
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>

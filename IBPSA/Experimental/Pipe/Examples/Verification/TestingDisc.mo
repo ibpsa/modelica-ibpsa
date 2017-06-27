@@ -48,7 +48,8 @@ package Medium = IBPSA.Media.Water;
     m_flow_small=0.001,
     roughness=0.000001,
     lambdaI=0.1,
-    length=100)
+    length=100,
+    nPorts=1)
   "Pipe model for district heating connection"
   annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Modelica.Blocks.Sources.Ramp step_m_flow(
@@ -133,8 +134,6 @@ equation
     annotation (Line(points={{10,-10},{20,-10}}, color={0,127,255}));
   connect(senTemMSL_n10.port_b, source1.ports[1])
     annotation (Line(points={{40,-10},{40,-10},{62,-10}}, color={0,127,255}));
-  connect(pipe.port_b, senTemA60.port_a)
-    annotation (Line(points={{10,-50},{20,-50}}, color={0,127,255}));
   connect(senTemA60.port_b, source3.ports[1])
     annotation (Line(points={{40,-50},{40,-50},{60,-50}}, color={0,127,255}));
   connect(source4.ports[1], pipeMSL1.port_a)
@@ -153,6 +152,8 @@ equation
     annotation (Line(points={{40,70},{40,70},{62,70}}, color={0,127,255}));
   connect(step_m_flow.y, source6.T_in) annotation (Line(points={{-79,10},{-68,
           10},{-68,72},{-50,72},{-50,74}}, color={0,0,127}));
+  connect(pipe.ports_b[1], senTemA60.port_a)
+    annotation (Line(points={{10,-50},{16,-50},{20,-50}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end TestingDisc;

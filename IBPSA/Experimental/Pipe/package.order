@@ -2,6 +2,7 @@ PipeLosslessPlugFlow
 PipeAdiabaticPlugFlow
 PipeCore
 PipeHeatLossMod
+PipeTemplate
 DoublePipe_PipeDelay
 DoublePipeParallel
 BaseClasses

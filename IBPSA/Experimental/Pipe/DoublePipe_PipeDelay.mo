@@ -16,7 +16,7 @@ model DoublePipe_PipeDelay
 
   replaceable parameter
     BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR20S pipeData
-    constrainedby BaseClasses.DoublePipeConfig.PipeData(H=H)
+    constrainedby BaseClasses.DoublePipeConfig.DoublePipeData(H=H)
     "Select pipe dimensions" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-96,-96},{-76,-76}})));
 
@@ -154,11 +154,6 @@ public
         rotation=180,
         origin={50,-60})));
 
-  BaseClasses.TimeDelayMod     pDETime_massFlow(            diameter=diameter,
-    length=length,
-    initDelay=initDelay,
-    m_flowInit=m_flowInit)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -172,9 +167,15 @@ public
     "Ambient temperature of pipe's surroundings (undisturbed ground/surface)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
+  BaseClasses.TimeDelay timeDelay(length=length, diameter=diameter,
+    initDelay=initDelay,
+    m_flowInit=m_flowInit)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   parameter Boolean initDelay=false
-    "Initialize delay for a constant mass flow rate if true, otherwise start from 0";
-  parameter Modelica.SIunits.MassFlowRate m_flowInit=0;
+    "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
+    annotation (Dialog(group="Initialization"));
+  parameter Modelica.SIunits.MassFlowRate m_flowInit=0
+    annotation (Dialog(group="Initialization", enable=InitDelay));
 equation
 
   connect(pipeSupplyAdiabaticPlugFlow.port_b, heatLossSupply.port_a)
@@ -195,8 +196,6 @@ equation
     annotation (Line(points={{-40,60},{-36,60}}, color={0,127,255}));
   connect(senMasFlo.port_b, pipeSupplyAdiabaticPlugFlow.port_a)
     annotation (Line(points={{-16,60},{-13,60},{-10,60}}, color={0,127,255}));
-  connect(senMasFlo.m_flow, pDETime_massFlow.m_flow) annotation (Line(points={{
-          -26,49},{-26,49},{-26,0},{-12,0}}, color={0,0,127}));
   connect(heatLossSupplyReverse.T_2out, heatLossReturnReverse.T_2in)
     annotation (Line(points={{-56,50},{-56,-26},{44,-26},{44,-50}}, color={0,0,
           127}));
@@ -216,16 +215,16 @@ equation
   connect(heatPort, heatPort)
     annotation (Line(points={{0,100},{0,100}}, color={191,0,0}));
   connect(heatLossReturnReverse.heatPort, heatPort) annotation (Line(points={{
-          50,-70},{50,-84},{28,-84},{28,86},{0,86},{0,100}}, color={191,0,0}));
-  connect(pDETime_massFlow.tauRev, heatLossSupplyReverse.Tau_in) annotation (
-      Line(points={{11,4},{16,4},{16,82},{-44,82},{-44,70}}, color={0,0,127}));
-  connect(pDETime_massFlow.tauRev, heatLossReturnReverse.Tau_in) annotation (
-      Line(points={{11,4},{16,4},{16,-80},{44,-80},{44,-70}}, color={0,0,127}));
-  connect(pDETime_massFlow.tau, heatLossSupply.Tau_in) annotation (Line(points=
-          {{11,-4},{22,-4},{22,82},{56,82},{56,70}}, color={0,0,127}));
-  connect(pDETime_massFlow.tau, heatLossReturn.Tau_in) annotation (Line(points=
-          {{11,-4},{16,-4},{22,-4},{22,-76},{-56,-76},{-56,-68}}, color={0,0,
-          127}));
+  connect(timeDelay.tauRev, heatLossSupplyReverse.Tau_in) annotation (Line(
+        points={{11,4},{18,4},{18,78},{-44,78},{-44,70}}, color={0,0,127}));
+  connect(timeDelay.tauRev, heatLossReturnReverse.Tau_in) annotation (Line(
+        points={{11,4},{18,4},{18,-80},{44,-80},{44,-70}}, color={0,0,127}));
+  connect(timeDelay.tau, heatLossReturn.Tau_in) annotation (Line(points={{11,-4},
+          {22,-4},{22,-78},{-56,-78},{-56,-68}}, color={0,0,127}));
+  connect(timeDelay.tau, heatLossSupply.Tau_in) annotation (Line(points={{11,-4},
+          {22,-4},{22,78},{56,78},{56,70}}, color={0,0,127}));
+  connect(senMasFlo.m_flow, timeDelay.m_flow)
+    annotation (Line(points={{-26,49},{-26,0},{-12,0}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
@@ -330,13 +329,13 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{24,22},{-24,-22}},
+          extent={{22,22},{-22,-22}},
           lineColor={28,108,200},
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
-          origin={-46,96},
+          origin={-66,74},
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>

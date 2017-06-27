@@ -70,7 +70,7 @@ model PipeHeatLossKUL
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={2,50})));
-  BaseClasses.PDETime_massFlow            pDETime
+  TimeDelays.PDETime                      pDETime
     annotation (Placement(transformation(extent={{-28,24},{-8,44}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=u)
     annotation (Placement(transformation(extent={{-58,24},{-38,44}})));
@@ -109,9 +109,9 @@ protected
 
   parameter Modelica.SIunits.DynamicViscosity mu_default=
     Medium.dynamicViscosity(Medium.setState_pTX(
-      p=  Medium.p_default,
-      T=  Medium.T_default,
-      X=  Medium.X_default))
+      p = Medium.p_default,
+      T = Medium.T_default,
+      X = Medium.X_default))
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation(Dialog(group="Advanced", enable=use_mu_default));
 
@@ -148,7 +148,7 @@ equation
     annotation (Line(points={{74,0},{74,0},{100,0}}, color={0,127,255}));
   connect(tempDecay.TOut, prescribedTemperature1.T) annotation (Line(points={{33,
           30},{40,30},{40,10},{44.8,10}}, color={0,0,127}));
-  connect(realExpression.y, pDETime.m_flow)
+  connect(realExpression.y, pDETime.u)
     annotation (Line(points={{-37,34},{-30,34}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),

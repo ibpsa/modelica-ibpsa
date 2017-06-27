@@ -1,5 +1,5 @@
 ï»¿within IBPSA.Experimental.Pipe.Validation;
-model ValidationPipeULg "Validation against data from Université de Liège"
+model ValidationPipeULg "Validation against data from UniversitÃ© de LiÃ¨ge"
   extends Modelica.Icons.Example;
   // R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi
   package Medium = IBPSA.Media.Water;
@@ -11,14 +11,13 @@ model ValidationPipeULg "Validation against data from Université de Liège"
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={70,0})));
-
   Fluid.HeatExchangers.HeaterCooler_T Boiler(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=0) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
-        origin={34,0})));
+        origin={44,0})));
   Fluid.Sources.Boundary_pT Sewer1(redeclare package Medium = Medium, nPorts=1)
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -29,13 +28,13 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     m_flow_nominal=m_flow_nominal,
     tau=0,
     T_start=T_ini_out)
-    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
+    annotation (Placement(transformation(extent={{-74,-10},{-94,10}})));
   Fluid.Sensors.TemperatureTwoPort senTem_in(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0,
     T_start=T_ini_in)
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
+    annotation (Placement(transformation(extent={{30,-10},{10,10}})));
   Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataULg.data,
       extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
@@ -73,10 +72,34 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     thickness=3.9e-3,
     T_ini_out=T_ini_out,
     T_ini_in=T_ini_in,
-    nPorts=1,
     R=((1/(2*pipe.lambdaI)*log((0.0603/2 + pipe.thicknessIns)/(0.0603/2))) + 1/
-        (5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi)
+        (5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi,
+    nPorts=1,
+    initDelay=true,
+    m_flowInit=pipeDataULg.m_flowIni)
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
+  Fluid.Sensors.EnthalpyFlowRate senEntOut(redeclare package Medium = Medium,
+      m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{-46,-10},{-66,10}})));
+  Modelica.Blocks.Math.Gain gain2(k=-1)
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  Modelica.Blocks.Math.MultiSum heatLossSim(nu=2)
+    annotation (Placement(transformation(extent={{60,54},{72,66}})));
+  Modelica.Blocks.Continuous.Integrator eneLosInt
+    annotation (Placement(transformation(extent={{160,50},{180,70}})));
+  Fluid.Sensors.EnthalpyFlowRate senEntIn(redeclare package Medium = Medium,
+      m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{4,-10},{-16,10}})));
+  Modelica.Blocks.Math.Gain gain1(k=-1)
+    annotation (Placement(transformation(extent={{74,-88},{94,-68}})));
+  Modelica.Blocks.Math.MultiSum deltaT(nu=2)
+    annotation (Placement(transformation(extent={{112,-76},{124,-64}})));
+  Modelica.Blocks.Math.MultiProduct heatLossMeas(nu=2)
+    annotation (Placement(transformation(extent={{140,-66},{152,-54}})));
+  Modelica.Blocks.Math.Gain gain3(k=pipe.cp_default)
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+  Modelica.Blocks.Math.Feedback heaLosDiff
+    annotation (Placement(transformation(extent={{86,50},{106,70}})));
 equation
   connect(DataReader.y[3], Tout.u) annotation (Line(
       points={{21,-50},{32,-50},{32,-78},{38,-78}},
@@ -87,21 +110,50 @@ equation
   connect(DataReader.y[1], gain.u) annotation (Line(points={{21,-50},{32,-50},{32,
           -20},{50,-20}}, color={0,0,127}));
   connect(senTem_in.port_a, Boiler.port_b)
-    annotation (Line(points={{10,0},{17,0},{24,0}}, color={0,127,255}));
+    annotation (Line(points={{30,0},{30,0},{34,0}}, color={0,127,255}));
   connect(Boiler.port_a, WaterCityNetwork.ports[1])
-    annotation (Line(points={{44,0},{52,0},{60,0}}, color={0,127,255}));
+    annotation (Line(points={{54,0},{54,0},{60,0}}, color={0,127,255}));
   connect(gain.y, WaterCityNetwork.m_flow_in) annotation (Line(points={{73,-20},
           {90,-20},{90,8},{80,8}}, color={0,0,127}));
-  connect(Tin.y, Boiler.TSet) annotation (Line(points={{61,-50},{76,-50},{92,-50},
-          {92,18},{50,18},{50,6},{46,6}}, color={0,0,127}));
+  connect(Tin.y, Boiler.TSet) annotation (Line(points={{61,-50},{61,-50},{104,
+          -50},{104,18},{62,18},{62,6},{56,6}},
+                                          color={0,0,127}));
   connect(Sewer1.ports[1], senTem_out.port_b)
-    annotation (Line(points={{-100,0},{-90,0},{-80,0}}, color={0,127,255}));
-  connect(pipe.port_a, senTem_in.port_b)
-    annotation (Line(points={{-20,0},{-16,0},{-10,0}}, color={0,127,255}));
-  connect(pipe.ports_b[1], senTem_out.port_a)
-    annotation (Line(points={{-40,0},{-50,0},{-60,0}}, color={0,127,255}));
-  connect(pipe.heatPort, fixedTemperature.port)
-    annotation (Line(points={{-30,10},{-30,35},{-30,60}}, color={191,0,0}));
+    annotation (Line(points={{-100,0},{-94,0}},         color={0,127,255}));
+  connect(senEntOut.H_flow, gain2.u) annotation (Line(points={{-56,11},{-56,26},
+          {6,26},{6,50},{18,50}}, color={0,0,127}));
+  connect(gain2.y, heatLossSim.u[1]) annotation (Line(points={{41,50},{50,50},{
+          50,62.1},{60,62.1}}, color={0,0,127}));
+  connect(senTem_out.port_a, senEntOut.port_b)
+    annotation (Line(points={{-74,0},{-70,0},{-66,0}}, color={0,127,255}));
+  connect(senEntOut.port_a, pipe.ports_b[1])
+    annotation (Line(points={{-46,0},{-43,0},{-40,0}}, color={0,127,255}));
+  connect(pipe.port_a, senEntIn.port_b)
+    annotation (Line(points={{-20,0},{-16,0}}, color={0,127,255}));
+  connect(senTem_in.port_b, senEntIn.port_a)
+    annotation (Line(points={{10,0},{4,0}}, color={0,127,255}));
+  connect(senEntIn.H_flow, heatLossSim.u[2]) annotation (Line(points={{-6,11},{
+          -6,20},{52,20},{52,57.9},{60,57.9}}, color={0,0,127}));
+  connect(fixedTemperature.port, pipe.heatPort)
+    annotation (Line(points={{-30,60},{-30,10}}, color={191,0,0}));
+  connect(Tout.y, gain1.u)
+    annotation (Line(points={{61,-78},{72,-78}},          color={0,0,127}));
+  connect(Tin.y, deltaT.u[1]) annotation (Line(points={{61,-50},{82,-50},{104,
+          -50},{104,-67.9},{112,-67.9}}, color={0,0,127}));
+  connect(gain1.y, deltaT.u[2]) annotation (Line(points={{95,-78},{104,-78},{
+          104,-72.1},{112,-72.1}}, color={0,0,127}));
+  connect(deltaT.y, heatLossMeas.u[1]) annotation (Line(points={{125.02,-70},{
+          130,-70},{130,-68},{130,-57.9},{140,-57.9}}, color={0,0,127}));
+  connect(gain.y, gain3.u)
+    annotation (Line(points={{73,-20},{98,-20}}, color={0,0,127}));
+  connect(gain3.y, heatLossMeas.u[2]) annotation (Line(points={{121,-20},{130,
+          -20},{130,-62.1},{140,-62.1}}, color={0,0,127}));
+  connect(heatLossMeas.y, heaLosDiff.u2) annotation (Line(points={{153.02,-60},
+          {162,-60},{162,4},{96,4},{96,52}}, color={0,0,127}));
+  connect(heatLossSim.y, heaLosDiff.u1)
+    annotation (Line(points={{73.02,60},{88,60}}, color={0,0,127}));
+  connect(heaLosDiff.y, eneLosInt.u)
+    annotation (Line(points={{105,60},{105,60},{158,60}}, color={0,0,127}));
                      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
