@@ -7,11 +7,11 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     redeclare package Medium = Medium,
     m_flow=1.245,
     use_m_flow_in=true,
-    nPorts=1)           annotation (Placement(transformation(
+    nPorts=1) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={70,0})));
-  Fluid.HeatExchangers.Heater_T       Boiler(
+  Fluid.HeatExchangers.Heater_T Boiler(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=0) annotation (Placement(transformation(
@@ -43,8 +43,8 @@ model ValidationPipeULg "Validation against data from Université de Liège"
   Modelica.Blocks.Math.UnitConversions.From_degC Tout
     "Ambient temperature in degrees"
     annotation (Placement(transformation(extent={{40,-88},{60,-68}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=295.15)
-    annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+        295.15) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-30,70})));
@@ -53,10 +53,17 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
-    parameter Modelica.SIunits.Temperature T_ini_in=pipeDataULg.T_ini_in + 273.15
+  parameter Modelica.SIunits.Temperature T_ini_in=pipeDataULg.T_ini_in + 273.15
     "Initial temperature at pipe inlet";
-  parameter Modelica.SIunits.Temperature T_ini_out=pipeDataULg.T_ini_out + 273.15
-    "Initial temperature at pipe outlet";
+  parameter Modelica.SIunits.Temperature T_ini_out=pipeDataULg.T_ini_out +
+      273.15 "Initial temperature at pipe outlet";
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(state=sta_default)
+    "Heat capacity of medium";
+  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default) "Default medium state";
   replaceable Data.PipeDataULg151202 pipeDataULg constrainedby
     Data.BaseClasses.PipeDataULg
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
@@ -96,7 +103,7 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     annotation (Placement(transformation(extent={{112,-76},{124,-64}})));
   Modelica.Blocks.Math.MultiProduct heatLossMeas(nu=2)
     annotation (Placement(transformation(extent={{140,-66},{152,-54}})));
-  Modelica.Blocks.Math.Gain gain3(k=pipe.cp_default)
+  Modelica.Blocks.Math.Gain gain3(k=cp_default)
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Math.Feedback heaLosDiff
     annotation (Placement(transformation(extent={{86,50},{106,70}})));
@@ -107,19 +114,18 @@ equation
       smooth=Smooth.None));
   connect(DataReader.y[5], Tin.u)
     annotation (Line(points={{21,-50},{29.5,-50},{38,-50}}, color={0,0,127}));
-  connect(DataReader.y[1], gain.u) annotation (Line(points={{21,-50},{32,-50},{32,
-          -20},{50,-20}}, color={0,0,127}));
+  connect(DataReader.y[1], gain.u) annotation (Line(points={{21,-50},{32,-50},{
+          32,-20},{50,-20}}, color={0,0,127}));
   connect(senTem_in.port_a, Boiler.port_b)
     annotation (Line(points={{30,0},{30,0},{34,0}}, color={0,127,255}));
   connect(Boiler.port_a, WaterCityNetwork.ports[1])
     annotation (Line(points={{54,0},{54,0},{60,0}}, color={0,127,255}));
   connect(gain.y, WaterCityNetwork.m_flow_in) annotation (Line(points={{73,-20},
           {90,-20},{90,8},{80,8}}, color={0,0,127}));
-  connect(Tin.y, Boiler.TSet) annotation (Line(points={{61,-50},{61,-50},{104,
-          -50},{104,18},{62,18},{62,8},{56,8}},
-                                          color={0,0,127}));
+  connect(Tin.y, Boiler.TSet) annotation (Line(points={{61,-50},{61,-50},{104,-50},
+          {104,18},{62,18},{62,8},{56,8}}, color={0,0,127}));
   connect(Sewer1.ports[1], senTem_out.port_b)
-    annotation (Line(points={{-100,0},{-94,0}},         color={0,127,255}));
+    annotation (Line(points={{-100,0},{-94,0}}, color={0,127,255}));
   connect(senEntOut.H_flow, gain2.u) annotation (Line(points={{-56,11},{-56,26},
           {6,26},{6,50},{18,50}}, color={0,0,127}));
   connect(gain2.y, heatLossSim.u[1]) annotation (Line(points={{41,50},{50,50},{
@@ -137,29 +143,30 @@ equation
   connect(fixedTemperature.port, pipe.heatPort)
     annotation (Line(points={{-30,60},{-30,10}}, color={191,0,0}));
   connect(Tout.y, gain1.u)
-    annotation (Line(points={{61,-78},{72,-78}},          color={0,0,127}));
-  connect(Tin.y, deltaT.u[1]) annotation (Line(points={{61,-50},{82,-50},{104,
-          -50},{104,-67.9},{112,-67.9}}, color={0,0,127}));
+    annotation (Line(points={{61,-78},{72,-78}}, color={0,0,127}));
+  connect(Tin.y, deltaT.u[1]) annotation (Line(points={{61,-50},{82,-50},{104,-50},
+          {104,-67.9},{112,-67.9}}, color={0,0,127}));
   connect(gain1.y, deltaT.u[2]) annotation (Line(points={{95,-78},{104,-78},{
           104,-72.1},{112,-72.1}}, color={0,0,127}));
   connect(deltaT.y, heatLossMeas.u[1]) annotation (Line(points={{125.02,-70},{
           130,-70},{130,-68},{130,-57.9},{140,-57.9}}, color={0,0,127}));
   connect(gain.y, gain3.u)
     annotation (Line(points={{73,-20},{98,-20}}, color={0,0,127}));
-  connect(gain3.y, heatLossMeas.u[2]) annotation (Line(points={{121,-20},{130,
-          -20},{130,-62.1},{140,-62.1}}, color={0,0,127}));
+  connect(gain3.y, heatLossMeas.u[2]) annotation (Line(points={{121,-20},{130,-20},
+          {130,-62.1},{140,-62.1}}, color={0,0,127}));
   connect(heatLossMeas.y, heaLosDiff.u2) annotation (Line(points={{153.02,-60},
           {162,-60},{162,4},{96,4},{96,52}}, color={0,0,127}));
   connect(heatLossSim.y, heaLosDiff.u1)
     annotation (Line(points={{73.02,60},{88,60}}, color={0,0,127}));
   connect(heaLosDiff.y, eneLosInt.u)
     annotation (Line(points={{105,60},{105,60},{158,60}}, color={0,0,127}));
-                     annotation (Placement(transformation(
+  annotation (
+    Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,0})),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
     Documentation(info="<html>
 <p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">experimental data</a> from a real district heating network. This data is used to validate pipe models.</p>
 <p>Pipe&apos;s temperature is not initialized, thus the first 70 seconds should be disregarded. </p>
@@ -188,7 +195,8 @@ equation
 </ul>
 </html>"),
     experiment(StopTime=875),
-    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeULg.mos"
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeULg.mos"
         "Simulate and plot"),
     __Dymola_experimentSetupOutput(events=false),
     __Dymola_experimentFlags(

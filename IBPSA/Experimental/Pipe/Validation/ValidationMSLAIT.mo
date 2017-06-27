@@ -80,7 +80,7 @@ model ValidationMSLAIT
   parameter Modelica.SIunits.ThermalResistance R=1/(2*lambdaI*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.18);
   parameter Modelica.SIunits.ThermalResistance R80 = 1/(2*0.024*Modelica.Constants.pi)*log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.07);
 
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res0[pip0.nNodes](R=
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res0[pip0.nNodes](each R=
         R) annotation (Placement(transformation(extent={{98,-18},{118,2}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector col0(m=pip0.nNodes)
     annotation (Placement(transformation(
@@ -108,7 +108,7 @@ model ValidationMSLAIT
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={58,46})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res1[pip1.nNodes](R=
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res1[pip1.nNodes](each R=
         R) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -134,7 +134,7 @@ model ValidationMSLAIT
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-42,96})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res2[pip2.nNodes](R=
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res2[pip2.nNodes](each R=
         R80) annotation (Placement(transformation(extent={{-68,30},{-48,50}})));
   Modelica.Fluid.Pipes.DynamicPipe pip3(
     nParallel=1,
@@ -157,7 +157,7 @@ model ValidationMSLAIT
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={16,-52})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res3[pip3.nNodes](R=
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res3[pip3.nNodes](each R=
         R80) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -183,7 +183,7 @@ model ValidationMSLAIT
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-4,96})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res4[pip4.nNodes](R=
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res4[pip4.nNodes](each R=
         R80) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -209,7 +209,7 @@ model ValidationMSLAIT
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-28,96})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res5[pip5.nNodes](R=
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor res5[pip5.nNodes](each R=
         R) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
