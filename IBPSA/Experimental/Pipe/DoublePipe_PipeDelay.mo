@@ -154,7 +154,8 @@ public
         rotation=180,
         origin={50,-60})));
 
-  BaseClasses.TimeDelay        pDETime_massFlow(len=length, diameter=diameter)
+  BaseClasses.TimeDelayMod     pDETime_massFlow(            diameter=diameter, length=
+        length)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)
     annotation (Placement(transformation(
@@ -201,14 +202,6 @@ equation
           {{-68,-48},{-68,30},{56,30},{56,50}}, color={0,0,127}));
   connect(heatLossSupply.T_2out, heatLossReturn.T_2in) annotation (Line(points=
           {{68,50},{68,-30},{-56,-30},{-56,-48}}, color={0,0,127}));
-  connect(pDETime_massFlow.tau, heatLossSupplyReverse.Tau_in) annotation (Line(
-        points={{11,0},{24,0},{24,76},{-44,76},{-44,70}}, color={0,0,127}));
-  connect(heatLossSupply.Tau_in, heatLossSupplyReverse.Tau_in) annotation (Line(
-        points={{56,70},{56,76},{-44,76},{-44,70}}, color={0,0,127}));
-  connect(pDETime_massFlow.tau, heatLossReturn.Tau_in) annotation (Line(points=
-          {{11,0},{24,0},{24,-80},{-56,-80},{-56,-68}}, color={0,0,127}));
-  connect(heatLossReturnReverse.Tau_in, heatLossReturn.Tau_in) annotation (Line(
-        points={{44,-70},{44,-80},{-56,-80},{-56,-68}}, color={0,0,127}));
   connect(heatLossReturnReverse.heatPort, heatLossReturn.heatPort) annotation (
       Line(points={{50,-70},{50,-84},{-62,-84},{-62,-68}}, color={191,0,0}));
   connect(heatLossSupplyReverse.heatPort, heatPort) annotation (Line(points={{
@@ -219,6 +212,15 @@ equation
     annotation (Line(points={{0,100},{0,100}}, color={191,0,0}));
   connect(heatLossReturnReverse.heatPort, heatPort) annotation (Line(points={{
           50,-70},{50,-84},{28,-84},{28,86},{0,86},{0,100}}, color={191,0,0}));
+  connect(pDETime_massFlow.tauRev, heatLossSupplyReverse.Tau_in) annotation (
+      Line(points={{11,4},{16,4},{16,82},{-44,82},{-44,70}}, color={0,0,127}));
+  connect(pDETime_massFlow.tauRev, heatLossReturnReverse.Tau_in) annotation (
+      Line(points={{11,4},{16,4},{16,-80},{44,-80},{44,-70}}, color={0,0,127}));
+  connect(pDETime_massFlow.tau, heatLossSupply.Tau_in) annotation (Line(points=
+          {{11,-4},{22,-4},{22,82},{56,82},{56,70}}, color={0,0,127}));
+  connect(pDETime_massFlow.tau, heatLossReturn.Tau_in) annotation (Line(points=
+          {{11,-4},{16,-4},{22,-4},{22,-76},{-56,-76},{-56,-68}}, color={0,0,
+          127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
