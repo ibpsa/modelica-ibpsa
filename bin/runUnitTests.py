@@ -68,7 +68,7 @@ def _setEnvironmentVariables(var, value):
 def _runUnitTests(batch, package, path, n_pro, show_gui):
     import buildingspy.development.regressiontest as u
 
-    ut = u.Tester()
+    ut = u.Tester(check_html=False)
     ut.batchMode(batch)
     ut.setLibraryRoot(path)
     if package is not None:
@@ -101,6 +101,7 @@ if __name__ == '__main__':
     import argparse
     import os
     import sys
+
 
     # Configure the argument parser
     parser = argparse.ArgumentParser(description='Run the unit tests or the html validation only.')
@@ -167,7 +168,7 @@ if __name__ == '__main__':
     if args.single_package:
         single_package = args.single_package
     else:
-        single_package = None
+        single_package = 'Experimental'
 
     retVal = _runUnitTests(batch = args.batch,
                            package = single_package,
