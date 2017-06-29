@@ -400,9 +400,7 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationMSLAIT2elements.mos"
-        "Simulate and plot", file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ExportValidationMSLAIT2elements.mos"
-        "Export csv file"),
+        "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     __Dymola_experimentFlags(
       Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),

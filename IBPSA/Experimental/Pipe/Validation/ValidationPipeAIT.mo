@@ -382,9 +382,9 @@ equation
 <li>January 26, 2016 by Carles Ribas:<br>First implementation. </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeAIT.mos"
-        "Simulate and plot", file="modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ExportValidationPipeAIT.mos"
-        "Export csv file"),
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Experimental/Pipe/Validation/ValidationPipeAIT.mos"
+        "Simulate and plot"),
     __Dymola_experimentFlags(
       Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
       Evaluate=false,
