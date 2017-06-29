@@ -20,10 +20,10 @@ model PipeLosslessPlugFlow
   // based on local dp_nominal
   parameter Medium.AbsolutePressure dp_start = 0
     "Guess value of dp = port_a.p - port_b.p"
-    annotation(Dialog(tab = "Advanced", enable=from_dp));
+    annotation(Dialog(tab = "Advanced"));
   parameter Medium.MassFlowRate m_flow_start = 0
     "Guess value of m_flow = port_a.m_flow"
-    annotation(Dialog(tab = "Advanced", enable=not from_dp));
+    annotation(Dialog(tab = "Advanced"));
   // Note: value of m_flow_small shall be refined by derived model,
   // based on local m_flow_nominal
   parameter Medium.MassFlowRate m_flow_small
