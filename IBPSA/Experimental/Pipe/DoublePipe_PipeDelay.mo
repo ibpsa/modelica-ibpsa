@@ -325,20 +325,6 @@ equation
           color={255,255,255},
           thickness=0.5,
           origin={-5,-60},
-          rotation=180),
-        Ellipse(
-          extent={{-86,96},{-44,54}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{22,22},{-22,-22}},
-          lineColor={28,108,200},
-          startAngle=30,
-          endAngle=90,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid,
-          origin={-46,96},
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>

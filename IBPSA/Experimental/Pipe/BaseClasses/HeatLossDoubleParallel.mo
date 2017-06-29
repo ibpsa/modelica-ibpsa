@@ -111,21 +111,7 @@ equation
           points={{0,60},{38,2},{20,2},{20,-46},{-18,-46},{-18,2},{-36,2},{0,60}},
           lineColor={0,0,0},
           fillColor={238,46,47},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-80,80},{-38,38}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{23,22},{-23,-22}},
-          lineColor={28,108,200},
-          startAngle=30,
-          endAngle=90,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid,
-          origin={-41,80},
-          rotation=180)}),
+          fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p><span style=\"font-family: MS Shell Dlg 2;\">Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code></span><span style=\"font-family: Courier New,courier;\">PipeAdiabaticPlugFlow</code></span><span style=\"font-family: MS Shell Dlg 2;\"> model.</span></p>
 <p><span style=\"font-family: MS Shell Dlg 2;\">This component requires the delay time and the instantaneous ambient temperature as an input. This component is to be used in double pipes and models influence from other pipes for flow in both directions. </span></p>

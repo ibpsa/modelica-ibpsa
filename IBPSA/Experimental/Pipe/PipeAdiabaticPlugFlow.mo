@@ -46,7 +46,8 @@ model PipeAdiabaticPlugFlow
     final m_flow_nominal=m_flow_nominal,
     from_dp=from_dp,
     length=length,
-    fac=1)           "Pressure drop calculation for this pipe"
+    fac=1,
+    dp(nominal=2))           "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     //final dp_nominal=dp_nominal,
 

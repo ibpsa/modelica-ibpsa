@@ -161,12 +161,6 @@ equation
   connect(heaLosDiff.y, eneLosInt.u)
     annotation (Line(points={{105,60},{105,60},{158,60}}, color={0,0,127}));
   annotation (
-    Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-30,0})),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
     Documentation(info="<html>
 <p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">experimental data</a> from a real district heating network. This data is used to validate pipe models.</p>
 <p>Pipe&apos;s temperature is not initialized, thus the first 70 seconds should be disregarded. </p>
