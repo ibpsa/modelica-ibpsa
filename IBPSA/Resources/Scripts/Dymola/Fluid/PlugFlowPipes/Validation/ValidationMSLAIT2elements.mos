@@ -1,5 +1,5 @@
-translateModel("IBPSA.Experimental.Pipe.Validation.ValidationMSLAIT");
-simulateModel("IBPSA.Experimental.Pipe.Validation.ValidationMSLAIT", stopTime=603900, method="dassl", resultFile="ValidationMSLAIT");
+translateModel("IBPSA.Fluid.PlugFlowPipes.Validation.ValidationMSLAIT2elements");
+simulateModel("IBPSA.Fluid.PlugFlowPipes.Validation.ValidationMSLAIT2elements", stopTime=603900, method="dassl", resultFile="ValidationMSLAIT2elements");
 createPlot(id = 5,
  position = {50, 50, 500, 500},
  x = "time",
@@ -13,7 +13,7 @@ createPlot(id = 5,
  subPlot=1,
  leftTitleType = 1,
  bottomTitleType = 1);
-plotExpression(apply(ValidationMSLAIT[end].DataReader.y[1]-273.15), false, "Measured data: Temperature at point 1 in degrees", 5);
+plotExpression(apply(ValidationMSLAIT2elements[end].DataReader.y[1]-273.15), false, "Measured data: Temperature at point 1 in degrees", 5);
 createPlot(id = 5,
  position = {50, 50, 500, 500},
  x = "time",
@@ -41,7 +41,7 @@ createPlot(id = 5,
  subPlot=1,
  leftTitleType = 1,
  bottomTitleType = 1);
-plotExpression(apply(ValidationMSLAIT[end].DataReader.y[2]-273.15), false, "Measured data: Temperature at point 2 in degrees", 6); 
+plotExpression(apply(ValidationMSLAIT2elements[end].DataReader.y[2]-273.15), false, "Measured data: Temperature at point 2 in degrees", 6); 
 createPlot(id = 6,
  position = {600, 50, 500, 500},
  x = "time",
@@ -72,7 +72,7 @@ createPlot(id = 7,
  subPlot=1,
  leftTitleType = 1,
  bottomTitleType = 1);
-plotExpression(apply(ValidationMSLAIT[end].DataReader.y[3]-273.15), false, "Measured data: Temperature at point 3 in degrees", 7); 
+plotExpression(apply(ValidationMSLAIT2elements[end].DataReader.y[3]-273.15), false, "Measured data: Temperature at point 3 in degrees", 7); 
 createPlot(id = 7,
  position = {55, 600, 500, 500},
  x = "time",
@@ -101,7 +101,7 @@ createPlot(id = 8,
  subPlot=1,
  leftTitleType = 1,
  bottomTitleType = 1);
-plotExpression(apply(ValidationMSLAIT[end].DataReader.y[4]-273.15), false, "Measured data: Temperature at point 4 in degrees", 8); 
+plotExpression(apply(ValidationMSLAIT2elements[end].DataReader.y[4]-273.15), false, "Measured data: Temperature at point 4 in degrees", 8); 
 createPlot(id = 8,
  position = {600, 600, 500, 500},
  x = "time",

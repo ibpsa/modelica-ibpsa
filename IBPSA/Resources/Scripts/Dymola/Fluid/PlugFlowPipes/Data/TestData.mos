@@ -1,4 +1,4 @@
-translateModel("IBPSA.Experimental.Pipe.Data.TestData");
+translateModel("IBPSA.Fluid.PlugFlowPipes.Data.TestData");
 stopTimeData = max(pipeDataToBeRead.data[:,1])
 simulateModel("IBPSA.Experimental.Pipe.Data.TestData", stopTime=stopTimeData, method="dassl", resultFile="TestData");
 createPlot(id = 1,
