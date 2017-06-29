@@ -46,7 +46,7 @@ model DemandSink "Simple demand model"
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Data.FlowRateGeneric flowRateGeneric
+  Fluid.PlugFlowPipes.Data.FlowRateGeneric flowRateGeneric
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 equation
 

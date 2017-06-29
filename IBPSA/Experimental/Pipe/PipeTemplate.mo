@@ -1,7 +1,7 @@
 within IBPSA.Experimental.Pipe;
 model PipeTemplate "Pipe model with geometric data from catalog"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort_vector;
-  PipeHeatLossMod pipe(
+  Fluid.PlugFlowPipes.PlugFlowPipe pipe(
     nPorts=nPorts,
     diameter=pipeData.Di,
     length=length,

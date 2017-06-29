@@ -105,8 +105,9 @@ public
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={0,0})));
-  parameter Types.ThermalResistanceLength R=1/(lambdaIns*2*Modelica.Constants.pi
-      /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
+  parameter Fluid.PlugFlowPipes.Types.ThermalResistanceLength R=1/(lambdaIns*2*
+      Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(
+      diameter/2)));
   parameter Integer nNodes(min=2)=4 "Number of discrete flow volumes";
 equation
 

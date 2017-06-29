@@ -31,54 +31,49 @@ model AachenGeneric_small_vec
       rotation=0,
       origin={633.6055705813698,272.3579181095751})));
 
-   IBPSA.Experimental.Pipe.PipeHeatLossMod
-                      pipe65136519(
+  IBPSA.Fluid.PlugFlowPipes.PlugFlowPipe pipe65136519(
     redeclare package Medium = Medium,
     length=6.808999925417844,
     diameter=0.125,
     m_flow_nominal=1,
     thicknessIns=0.05,
-    nPorts=1)
-      annotation(Placement(transformation(
-      extent={{-10,-10},{10,10}},
-      rotation=352.1363874766592,
-      origin={522.1920924580121,549.2436157829097})));
+    nPorts=1) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=352.1363874766592,
+        origin={522.1920924580121,549.2436157829097})));
 
-     IBPSA.Experimental.Pipe.PipeHeatLossMod pipe65136541(
+  IBPSA.Fluid.PlugFlowPipes.PlugFlowPipe pipe65136541(
     redeclare package Medium = Medium,
     length=12.049656021478087,
     diameter=0.1,
     m_flow_nominal=1,
     thicknessIns=0.05,
-    nPorts=1)
-      annotation(Placement(transformation(
-      extent={{9.19107,-9.93318},{-9.19107,9.93318}},
-      rotation=82.13826471784333,
-      origin={523.097,367.746})));
+    nPorts=1) annotation (Placement(transformation(
+        extent={{9.19107,-9.93318},{-9.19107,9.93318}},
+        rotation=82.13826471784333,
+        origin={523.097,367.746})));
 
-     IBPSA.Experimental.Pipe.PipeHeatLossMod pipe65136520(
+  IBPSA.Fluid.PlugFlowPipes.PlugFlowPipe pipe65136520(
     redeclare package Medium = Medium,
     length=9.387039205049568,
     diameter=0.04,
     m_flow_nominal=1,
     thicknessIns=0.05,
-    nPorts=1)
-      annotation(Placement(transformation(
-      extent={{-10,-10},{10,10}},
-      rotation=172.13638747665874,
-      origin={571.8693021110371,409.1860056658961})));
+    nPorts=1) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=172.13638747665874,
+        origin={571.8693021110371,409.1860056658961})));
 
-     IBPSA.Experimental.Pipe.PipeHeatLossMod pipe64146415(
+  IBPSA.Fluid.PlugFlowPipes.PlugFlowPipe pipe64146415(
     redeclare package Medium = Medium,
     length=15.627494060500709,
     diameter=0.1,
     m_flow_nominal=1,
     thicknessIns=0.05,
-    nPorts=2)
-      annotation(Placement(transformation(
-      extent={{-10,-10},{10,10}},
-      rotation=262.1363874766586,
-      origin={541.64,477.959})));
+    nPorts=2) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=262.1363874766586,
+        origin={541.64,477.959})));
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=283.15)
     annotation (Placement(transformation(extent={{356,514},{376,534}})));

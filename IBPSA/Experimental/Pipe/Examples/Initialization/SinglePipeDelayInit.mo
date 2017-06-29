@@ -53,14 +53,14 @@ model SinglePipeDelayInit
     offset=273.15 + 55,
     freqHz=0.0005) "Constant supply temperature signal"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  PipeHeatLossMod pipeAd(
+  Fluid.PlugFlowPipes.PlugFlowPipe pipeAd(
     redeclare package Medium = Medium,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
     diameter=0.1,
     thicknessIns=0.03,
     nPorts=1,
-    length=500)        "Dynamic pipe adiabatic"
+    length=500) "Dynamic pipe adiabatic"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Thermal.HeatTransfer.Celsius.FixedTemperature fixedTemperature(T=10)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));

@@ -68,22 +68,21 @@ public
         Medium, m_flow_nominal=m_flow_nominal,
     T_start=333.15)                            "Temperature at pipe's port a"
     annotation (Placement(transformation(extent={{-86,-10},{-66,10}})));
-  PipeCore        pipe(
-  redeclare package Medium = Medium,
-  diameter=diameter,
-  length=length,
-  thicknessIns=thicknessIns,
-  m_flow_nominal=m_flow_nominal,
-  m_flow_small=m_flow_small,
-  roughness=roughness,
-  lambdaI=lambdaIns,
-  from_dp=true,
+  Fluid.PlugFlowPipes.BaseClasses.PipeCore pipe(
+    redeclare package Medium = Medium,
+    diameter=diameter,
+    length=length,
+    thicknessIns=thicknessIns,
+    m_flow_nominal=m_flow_nominal,
+    m_flow_small=m_flow_small,
+    roughness=roughness,
+    lambdaI=lambdaIns,
+    from_dp=true,
     T_ini_in=333.15,
     T_ini_out=333.15,
     initDelay=true,
-    m_flowInit=0.45)
-  "Pipe model for district heating connection"
-  annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    m_flowInit=0.45) "Pipe model for district heating connection"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=283.15)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation

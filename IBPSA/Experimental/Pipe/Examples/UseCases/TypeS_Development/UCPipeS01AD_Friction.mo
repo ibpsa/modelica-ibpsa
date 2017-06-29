@@ -43,7 +43,7 @@ model UCPipeS01AD_Friction
         Medium, m_flow_nominal=m_flow_nominal)
     "Temperature at the pipe's source side for single pipe"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  PipeAdiabaticPlugFlow pipeA60_100(
+  Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow pipeA60_100(
     redeclare package Medium = Medium,
     length=100,
     dh=0.1,
@@ -74,7 +74,7 @@ model UCPipeS01AD_Friction
         Medium, m_flow_nominal=m_flow_nominal)
     "Temperature at the pipe's source side for pipes in series"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  PipeAdiabaticPlugFlow pipeA60_50_1(
+  Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow pipeA60_50_1(
     redeclare package Medium = Medium,
     dh=0.1,
     length=50,
@@ -82,7 +82,7 @@ model UCPipeS01AD_Friction
     m_flow_nominal=m_flow_nominal,
     from_dp=true) "Dynamic pipe from MSL for reference test"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  PipeAdiabaticPlugFlow pipeA60_50_2(
+  Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow pipeA60_50_2(
     redeclare package Medium = Medium,
     dh=0.1,
     length=50,

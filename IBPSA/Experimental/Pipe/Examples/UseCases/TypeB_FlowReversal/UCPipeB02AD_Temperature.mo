@@ -53,7 +53,7 @@ model UCPipeB02AD_Temperature
     offset=273.15 + 55,
     freqHz=0.0005) "Constant supply temperature signal"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  PipeAdiabaticPlugFlow pipeAd(
+  Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow pipeAd(
     redeclare package Medium = Medium,
     length=100,
     dh=0.1,

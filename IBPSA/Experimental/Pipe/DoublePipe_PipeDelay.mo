@@ -42,11 +42,11 @@ model DoublePipe_PipeDelay
     "Start temperature to initialize the problem";
 
   // Heat transfer coefficients
-  final parameter Types.ThermalResistanceLength Ra=pipeData.haInvers/(pipeData.lambdaI
+  final parameter Fluid.PlugFlowPipes.Types.ThermalResistanceLength Ra=pipeData.haInvers/(pipeData.lambdaI
       *2*Modelica.Constants.pi) "Resistance for asymmetric problem, in Km/W";
-  final parameter Types.ThermalResistanceLength Rs=pipeData.hsInvers/(pipeData.lambdaI
+  final parameter Fluid.PlugFlowPipes.Types.ThermalResistanceLength Rs=pipeData.hsInvers/(pipeData.lambdaI
       *2*Modelica.Constants.pi) "Resistance for symmetric problem, in Km/W";
-  final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi
+  final parameter Fluid.PlugFlowPipes.Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi
       *(diameter/2)^2*cp_default;
 
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
@@ -77,7 +77,8 @@ protected
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation (Dialog(group="Advanced", enable=use_mu_default));
 
-  PipeAdiabaticPlugFlow pipeSupplyAdiabaticPlugFlow(
+  Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow
+                        pipeSupplyAdiabaticPlugFlow(
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
     dh=diameter,
@@ -112,7 +113,8 @@ public
     annotation (Placement(transformation(extent={{52,50},{72,70}})));
 
 protected
-  PipeAdiabaticPlugFlow pipeReturnAdiabaticPlugFlow(
+  Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow
+                        pipeReturnAdiabaticPlugFlow(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
@@ -167,7 +169,8 @@ public
     "Ambient temperature of pipe's surroundings (undisturbed ground/surface)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
-  BaseClasses.TimeDelay timeDelay(length=length, diameter=diameter,
+  Fluid.PlugFlowPipes.BaseClasses.TimeDelay
+                        timeDelay(length=length, diameter=diameter,
     initDelay=initDelay,
     m_flowInit=m_flowInit)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

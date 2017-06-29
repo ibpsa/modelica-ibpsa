@@ -49,14 +49,14 @@ model UCPipeA04HL_ZeroFlow
         origin={-170,90})));
   Modelica.Blocks.Math.Gain gain(k=dp_test)
     annotation (Placement(transformation(extent={{-160,44},{-140,64}})));
-  PipeHeatLossMod pipeAd(
+  Fluid.PlugFlowPipes.PlugFlowPipe pipeAd(
     redeclare package Medium = Medium,
     length=100,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,
     diameter=0.1,
     thicknessIns=0.02,
-    nPorts=1)          "Dynamic pipe adiabatic"
+    nPorts=1) "Dynamic pipe adiabatic"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
                 //,
     //thicknessIns=0.02

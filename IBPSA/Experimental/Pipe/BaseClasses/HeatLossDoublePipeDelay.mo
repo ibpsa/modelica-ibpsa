@@ -6,11 +6,11 @@ model HeatLossDoublePipeDelay
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
 
-  parameter Types.ThermalCapacityPerLength C
+  parameter Fluid.PlugFlowPipes.Types.ThermalCapacityPerLength C
     "Capacitance of the water volume in J/(K.m)";
-  parameter Types.ThermalResistanceLength Ra
+  parameter Fluid.PlugFlowPipes.Types.ThermalResistanceLength Ra
     "Resistance for asymmetric problem, in Km/W";
-  parameter Types.ThermalResistanceLength Rs
+  parameter Fluid.PlugFlowPipes.Types.ThermalResistanceLength Rs
     "Resistance for symmetric problem, in Km/W";
   final parameter Modelica.SIunits.Time tau_char=sqrt(Ra*Rs)*C;
 

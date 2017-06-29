@@ -128,7 +128,7 @@ package Components
           Medium, m_flow_nominal=m_flow_nominal,
       T_start=333.15) "Temperature at pipe's port b"
       annotation (Placement(transformation(extent={{68,-10},{88,10}})));
-    IBPSA.Experimental.Pipe.PipeHeatLossMod pipe(
+    IBPSA.Fluid.PlugFlowPipes.PlugFlowPipe pipe(
       redeclare package Medium = Medium,
       diameter=diameter,
       length=length,
@@ -138,8 +138,7 @@ package Components
       roughness=roughness,
       lambdaI=lambdaIns,
       from_dp=true,
-      nPorts=1)
-      "Pipe model for district heating connection"
+      nPorts=1) "Pipe model for district heating connection"
       annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
     Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=283.15)
       annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
@@ -214,7 +213,7 @@ package Components
     Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
           Medium)
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-    IBPSA.Experimental.Pipe.Data.FlowRateGeneric flowRateGeneric
+    IBPSA.Fluid.PlugFlowPipes.Data.FlowRateGeneric flowRateGeneric
       annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   equation
 
