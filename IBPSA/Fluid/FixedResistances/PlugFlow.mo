@@ -1,5 +1,5 @@
 within IBPSA.Fluid.FixedResistances;
-model PlugFlowPipe
+model PlugFlow
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort_vector;
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
@@ -169,4 +169,4 @@ equation
 <p><span style=\"font-family: MS Shell Dlg 2;\">The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used in front of and behind the time delay. The delay time is calculated once on the pipe level and supplied to both heat loss operators. </span></p>
 <p><span style=\"font-family: MS Shell Dlg 2;\">This component uses a modified delay operator.</span></p>
 </html>"));
-end PlugFlowPipe;
+end PlugFlow;

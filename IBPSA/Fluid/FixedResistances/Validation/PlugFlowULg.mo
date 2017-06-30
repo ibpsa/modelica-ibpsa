@@ -1,5 +1,5 @@
 ﻿within IBPSA.Fluid.FixedResistances.Validation;
-model ValidationPipeULg "Validation against data from Université de Liège"
+model PlugFlowULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
   // R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi
   package Medium = IBPSA.Media.Water;
@@ -69,7 +69,7 @@ model ValidationPipeULg "Validation against data from Université de Liège"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Math.Gain gain(k=1)
     annotation (Placement(transformation(extent={{52,-30},{72,-10}})));
-  FixedResistances.PlugFlowPipe pipe(
+  PlugFlow pipe(
     redeclare package Medium = Medium,
     diameter=0.05248,
     length=39,
@@ -190,7 +190,7 @@ equation
 </html>"),
     experiment(StopTime=875),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/ValidationPipeULg.mos"
+          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/ValidationPipeULg.mos"
         "Simulate and plot"),
     __Dymola_experimentSetupOutput(events=false),
     __Dymola_experimentFlags(
@@ -198,4 +198,4 @@ equation
       Evaluate=true,
       OutputCPUtime=true,
       OutputFlatModelica=false));
-end ValidationPipeULg;
+end PlugFlowULg;

@@ -1,5 +1,5 @@
 within IBPSA.Fluid.FixedResistances.Validation;
-model ValidationPipeAIT
+model PlugFlowAIT
   "Validation pipe against data from Austrian Institute of Technology"
   extends Modelica.Icons.Example;
 
@@ -33,7 +33,7 @@ model ValidationPipeAIT
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-88,82})));
-  FixedResistances.PlugFlowPipe pip1(
+  PlugFlow pip1(
     redeclare package Medium = Medium,
     diameter=0.0825,
     thicknessIns=0.045,
@@ -46,7 +46,7 @@ model ValidationPipeAIT
         *log(2/0.18),
     thickness=thickness)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
-  FixedResistances.PlugFlowPipe pip4(
+  PlugFlow pip4(
     redeclare package Medium = Medium,
     length=29,
     thicknessIns=0.045,
@@ -62,7 +62,7 @@ model ValidationPipeAIT
         origin={10,40})));
     //R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     //thicknessIns=0.045,
-  FixedResistances.PlugFlowPipe pip5(
+  PlugFlow pip5(
     redeclare package Medium = Medium,
     length=20,
     diameter=0.0825,
@@ -76,7 +76,7 @@ model ValidationPipeAIT
     thickness=thickness)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
     //R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-  FixedResistances.PlugFlowPipe pip2(
+  PlugFlow pip2(
     redeclare package Medium = Medium,
     length=76,
     thicknessIns=0.045,
@@ -91,7 +91,7 @@ model ValidationPipeAIT
         rotation=-90,
         origin={-88,30})));
     //R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-  FixedResistances.PlugFlowPipe pip3(
+  PlugFlow pip3(
     redeclare package Medium = Medium,
     length=38,
     thicknessIns=0.045,
@@ -149,7 +149,7 @@ model ValidationPipeAIT
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={34,-22})));
-  FixedResistances.PlugFlowPipe pip0(
+  PlugFlow pip0(
     redeclare package Medium = Medium,
     diameter=0.0825,
     thicknessIns=0.045,
@@ -384,11 +384,11 @@ equation
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/ValidationPipeAIT.mos"
+          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/ValidationPipeAIT.mos"
         "Simulate and plot"),
     __Dymola_experimentFlags(
       Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
       Evaluate=false,
       OutputCPUtime=true,
       OutputFlatModelica=false));
-end ValidationPipeAIT;
+end PlugFlowAIT;

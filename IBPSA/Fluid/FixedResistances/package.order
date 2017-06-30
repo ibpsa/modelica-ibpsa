@@ -2,7 +2,7 @@ HydraulicDiameter
 Junction
 LosslessPipe
 PressureDrop
-PlugFlowPipe
+PlugFlow
 BaseClasses
 Examples
 Validation

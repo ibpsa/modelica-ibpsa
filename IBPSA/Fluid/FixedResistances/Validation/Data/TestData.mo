@@ -25,7 +25,7 @@ First implementation.
 </li>
 </ul>
 </html>"),__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Data/TestData.mos"
+          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/Data/TestData.mos"
         "Simulate and plot"),
     __Dymola_experimentSetupOutput(events=false));
 end TestData;

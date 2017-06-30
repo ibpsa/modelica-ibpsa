@@ -1,5 +1,5 @@
 within IBPSA.Fluid.FixedResistances.Validation;
-model ValidationMSLAIT
+model MSLAIT
   "Validation pipe against data from Austrian Institute of Technology with standard library components"
   extends Modelica.Icons.Example;
 
@@ -404,7 +404,7 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/ValidationMSLAIT.mos"
+          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/ValidationMSLAIT.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     __Dymola_experimentFlags(
@@ -412,4 +412,4 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
       Evaluate=true,
       OutputCPUtime=true,
       OutputFlatModelica=false));
-end ValidationMSLAIT;
+end MSLAIT;
