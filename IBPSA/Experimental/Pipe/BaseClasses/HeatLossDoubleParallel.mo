@@ -6,11 +6,11 @@ model HeatLossDoubleParallel
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
 
-  parameter Fluid.PlugFlowPipes.Types.ThermalCapacityPerLength C
+  parameter Fluid.FixedResistances.Types.ThermalCapacityPerLength C
     "Capacitance of the water volume in J/(K.m)";
-  parameter Fluid.PlugFlowPipes.Types.ThermalResistanceLength Ra
+  parameter Fluid.FixedResistances.Types.ThermalResistanceLength Ra
     "Resistance for asymmetric problem, in Km/W";
-  parameter Fluid.PlugFlowPipes.Types.ThermalResistanceLength Rs
+  parameter Fluid.FixedResistances.Types.ThermalResistanceLength Rs
     "Resistance for symmetric problem, in Km/W";
   final parameter Modelica.SIunits.Time tau_charSymm=Rs*C
     "Time constant for symmetric problem";

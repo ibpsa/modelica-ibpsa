@@ -23,8 +23,8 @@ partial record PipeData
   parameter Modelica.SIunits.Density rhoW=7850 "Density of wall material";
   final parameter Modelica.SIunits.Area areaW=Modelica.Constants.pi*(ri^2 - (ri
        - s)^2) "Cross-section of inner pipe wall";
-  final parameter IBPSA.Fluid.PlugFlowPipes.Types.ThermalCapacityPerLength CW=
-      areaW*rhoW*cW "Thermal capacity per length of inner wall";
+  final parameter IBPSA.Fluid.FixedResistances.Types.ThermalCapacityPerLength
+    CW=areaW*rhoW*cW "Thermal capacity per length of inner wall";
 
   parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
   final parameter Modelica.SIunits.Length Heff=H + lambdaI/lambdaGS
