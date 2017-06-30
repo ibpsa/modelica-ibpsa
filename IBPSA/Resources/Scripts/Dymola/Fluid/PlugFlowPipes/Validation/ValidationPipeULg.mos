@@ -1,5 +1,5 @@
-translateModel("IBPSA.Experimental.Pipe.Validation.ValidationPipeULg");
-simulateModel("IBPSA.Experimental.Pipe.Validation.ValidationPipeULg", stopTime=875, method="dassl", resultFile="ValidationPipeULg");
+translateModel("IBPSA.Fluid.PlugFlowPipes.Validation.ValidationPipeULg");
+simulateModel("IBPSA.Fluid.PlugFlowPipes.Validation.ValidationPipeULg", stopTime=875, method="dassl", resultFile="ValidationPipeULg");
 createPlot(id = 1,
  position = {55, 50, 697, 502},
  x = "time",
