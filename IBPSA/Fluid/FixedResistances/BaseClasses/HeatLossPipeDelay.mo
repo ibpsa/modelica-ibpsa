@@ -1,8 +1,6 @@
 within IBPSA.Fluid.FixedResistances.BaseClasses;
 model HeatLossPipeDelay
   "Heat loss model for pipe with delay as an input variable"
-  import IBPSA;
-  import IBPSA;
   extends Fluid.Interfaces.PartialTwoPortTransport;
 
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
