@@ -31,7 +31,7 @@ model AachenGeneric_small_vec
       rotation=0,
       origin={633.6055705813698,272.3579181095751})));
 
-  IBPSA.Fluid.PlugFlowPipes.PlugFlowPipe pipe65136519(
+  Fluid.FixedResistances.PlugFlow        pipe65136519(
     redeclare package Medium = Medium,
     length=6.808999925417844,
     diameter=0.125,
@@ -42,7 +42,7 @@ model AachenGeneric_small_vec
         rotation=352.1363874766592,
         origin={522.1920924580121,549.2436157829097})));
 
-  IBPSA.Fluid.PlugFlowPipes.PlugFlowPipe pipe65136541(
+  Fluid.FixedResistances.PlugFlow        pipe65136541(
     redeclare package Medium = Medium,
     length=12.049656021478087,
     diameter=0.1,
@@ -53,7 +53,7 @@ model AachenGeneric_small_vec
         rotation=82.13826471784333,
         origin={523.097,367.746})));
 
-  IBPSA.Fluid.PlugFlowPipes.PlugFlowPipe pipe65136520(
+  Fluid.FixedResistances.PlugFlow        pipe65136520(
     redeclare package Medium = Medium,
     length=9.387039205049568,
     diameter=0.04,
@@ -64,7 +64,7 @@ model AachenGeneric_small_vec
         rotation=172.13638747665874,
         origin={571.8693021110371,409.1860056658961})));
 
-  IBPSA.Fluid.PlugFlowPipes.PlugFlowPipe pipe64146415(
+  Fluid.FixedResistances.PlugFlow        pipe64146415(
     redeclare package Medium = Medium,
     length=15.627494060500709,
     diameter=0.1,

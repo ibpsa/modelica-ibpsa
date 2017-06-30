@@ -190,7 +190,7 @@ equation
 </html>"),
     experiment(StopTime=875),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/ValidationPipeULg.mos"
+          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowULg.mos"
         "Simulate and plot"),
     __Dymola_experimentSetupOutput(events=false),
     __Dymola_experimentFlags(

@@ -69,7 +69,7 @@ public
         Medium, m_flow_nominal=m_flow_nominal,
     T_start=333.15)                            "Temperature at pipe's port a"
     annotation (Placement(transformation(extent={{-86,-10},{-66,10}})));
-  Fluid.PlugFlowPipes.PlugFlowPipe pipe(
+  Fluid.FixedResistances.PlugFlow  pipe(
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,

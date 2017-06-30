@@ -53,7 +53,7 @@ model SinglePipeDelayInit
     offset=273.15 + 55,
     freqHz=0.0005) "Constant supply temperature signal"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  Fluid.PlugFlowPipes.PlugFlowPipe pipeAd(
+  Fluid.FixedResistances.PlugFlow  pipeAd(
     redeclare package Medium = Medium,
     m_flow_small=1e-4,
     m_flow_nominal=m_flow_nominal,

@@ -47,7 +47,7 @@ model UCPipeA03AD_Temperature
   Fluid.Sensors.TemperatureTwoPort TempSource(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Temperature at the pipe's source side"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow pipeAd(
+  Fluid.FixedResistances.BaseClasses.PipeAdiabaticPlugFlow pipeAd(
     redeclare package Medium = Medium,
     length=100,
     dh=0.1,

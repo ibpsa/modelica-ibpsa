@@ -47,7 +47,7 @@ model UCPipeA05AD_TStep
     startTime=3000)
     "Step temperature increase to test propagation of temperature wave"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow pipeAd(
+  Fluid.FixedResistances.BaseClasses.PipeAdiabaticPlugFlow pipeAd(
     redeclare package Medium = Medium,
     length=100,
     dh=0.1,

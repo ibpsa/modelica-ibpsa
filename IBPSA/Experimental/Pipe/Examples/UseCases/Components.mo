@@ -128,7 +128,7 @@ package Components
           Medium, m_flow_nominal=m_flow_nominal,
       T_start=333.15) "Temperature at pipe's port b"
       annotation (Placement(transformation(extent={{68,-10},{88,10}})));
-    IBPSA.Fluid.PlugFlowPipes.PlugFlowPipe pipe(
+    Fluid.FixedResistances.PlugFlow        pipe(
       redeclare package Medium = Medium,
       diameter=diameter,
       length=length,

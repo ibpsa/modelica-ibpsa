@@ -384,7 +384,7 @@ equation
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/ValidationPipeAIT.mos"
+          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowAIT.mos"
         "Simulate and plot"),
     __Dymola_experimentFlags(
       Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),

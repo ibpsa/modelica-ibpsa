@@ -1,5 +1,5 @@
-translateModel("IBPSA.Fluid.FixedResistances.Validation.ValidationPipeULg");
-simulateModel("IBPSA.Fluid.FixedResistances.Validation.ValidationPipeULg", stopTime=875, method="dassl", resultFile="ValidationPipeULg");
+translateModel("IBPSA.Fluid.FixedResistances.Validation.PlugFlowULg");
+simulateModel("IBPSA.Fluid.FixedResistances.Validation.PlugFlowULg", stopTime=875, method="dassl", resultFile="PlugFlowULg");
 createPlot(id = 1,
  position = {55, 50, 697, 502},
  x = "time",

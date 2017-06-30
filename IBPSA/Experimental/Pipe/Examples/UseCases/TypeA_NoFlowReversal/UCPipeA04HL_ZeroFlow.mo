@@ -49,7 +49,7 @@ model UCPipeA04HL_ZeroFlow
         origin={-170,90})));
   Modelica.Blocks.Math.Gain gain(k=dp_test)
     annotation (Placement(transformation(extent={{-160,44},{-140,64}})));
-  Fluid.PlugFlowPipes.PlugFlowPipe pipeAd(
+  Fluid.FixedResistances.PlugFlow  pipeAd(
     redeclare package Medium = Medium,
     length=100,
     m_flow_small=1e-4,

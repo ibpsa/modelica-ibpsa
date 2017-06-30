@@ -404,7 +404,7 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/ValidationMSLAIT2elements.mos"
+          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/MSLAIT2elements.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     __Dymola_experimentFlags(
