@@ -1,7 +1,7 @@
 import os
 import re
 
-dryRun=True;
+dryRun=False;
 
 annex60Name = "Annex60"
 newName = "IBPSA"
@@ -21,7 +21,7 @@ def shell_command(cmd, path):
     '''
     import subprocess
     import sys
-    p = subprocess.Popen(cmd, cwd=path, shell=True)
+    p = subprocess.Popen(cmd, cwd=path)
     p.communicate()
     if p.returncode != 0:
         print("Error: %s." % p.returncode)

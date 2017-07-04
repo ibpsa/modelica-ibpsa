@@ -27,4 +27,3 @@ success
 *.py[cod]
 simulator.log
 unitTests.log
-*.orig
