@@ -25,6 +25,8 @@ model RadSolData "Selects or generates correct solar data for this surface"
     annotation (Placement(transformation(extent={{96,-70},{116,-50}})));
   Modelica.Blocks.Interfaces.RealOutput angAzi
     annotation (Placement(transformation(extent={{96,-90},{116,-70}})));
+  Modelica.Blocks.Interfaces.RealOutput angHou "Hour angle"
+    annotation (Placement(transformation(extent={{96,-110},{116,-90}})));
   Modelica.Blocks.Interfaces.RealOutput Tenv "Environment temperature"
     annotation (Placement(transformation(extent={{96,-30},{116,-10}})));
 protected
@@ -121,6 +123,8 @@ equation
   connect(constAngLin.y, angAzi)
                                 annotation (Line(points={{-79,-60},{-78,-60},{-78,
           -80},{106,-80}}, color={0,0,127}));
+  connect(angHou, weaBus.angHou) annotation (Line(points={{106,-100},{80,-100},
+          {80,80.05},{100.05,80.05}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Documentation(info="<html>
 <p>This model usually takes the appropriate solar data from the bus. If the correct data is not contained by the bus, custom solar data is calculated.</p>

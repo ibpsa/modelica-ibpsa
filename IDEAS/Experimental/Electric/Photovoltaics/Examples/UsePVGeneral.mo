@@ -1,6 +1,6 @@
 within IDEAS.Experimental.Electric.Photovoltaics.Examples;
 model UsePVGeneral
-
+extends Modelica.Icons.Example;
   PVSystemGeneral pVSystemGeneral(inc=20/180*3.1415, amount=20)
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
   PvSystemGeneralFromFile pvSystemGeneralFromFile(PNom=20*230.153)
