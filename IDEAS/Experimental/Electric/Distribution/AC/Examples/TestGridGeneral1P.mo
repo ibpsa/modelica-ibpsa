@@ -1,6 +1,6 @@
 within IDEAS.Experimental.Electric.Distribution.AC.Examples;
 model TestGridGeneral1P
-
+  extends Modelica.Icons.Example;
   inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
   inner IDEAS.BoundaryConditions.SimInfoManager sim1

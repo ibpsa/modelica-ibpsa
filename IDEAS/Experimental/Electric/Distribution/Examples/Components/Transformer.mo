@@ -5,7 +5,7 @@ model Transformer
   parameter Modelica.SIunits.Temperature THsRef = 326.6;
   parameter Modelica.SIunits.Temperature TToRef = 314.44;
 
-  IDEAS.Experimental.Electric.Distribution.Components.Transformer_MvLv
+  IDEAS.Experimental.Electric.Distribution.AC.Components.MvLvTransformer_3P
     transformer_MvLv(redeclare
       IDEAS.Experimental.Electric.Data.TransformerImp.Transfo_100kVA
       transformer)

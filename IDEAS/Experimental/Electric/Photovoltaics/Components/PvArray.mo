@@ -36,9 +36,9 @@ class PvArray
   IDEAS.Experimental.Electric.Photovoltaics.Components.Elements.PvSerie pvSerie(amount=
         amount) annotation (Placement(transformation(extent={{72,20},{92,40}})));
   Modelica.Blocks.Math.Cos cos
-    annotation (Placement(transformation(extent={{-68,36},{-60,44}})));
+    annotation (Placement(transformation(extent={{-56,40},{-48,48}})));
   Modelica.Blocks.Math.Cos cos1
-    annotation (Placement(transformation(extent={{-68,24},{-60,32}})));
+    annotation (Placement(transformation(extent={{-60,28},{-52,36}})));
   Modelica.Blocks.Math.Cos cos2
     annotation (Placement(transformation(extent={{-68,12},{-60,20}})));
 protected
@@ -90,30 +90,6 @@ equation
       points={{92,36},{94,36},{94,-38},{-48,-38},{-48,0},{-100,0}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(cos.y, incidenceAngles.angInc) annotation (Line(
-      points={{-59.6,40},{-50,40},{-50,36},{-38,36}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radSol.angInc, cos.u) annotation (Line(
-      points={{-79.4,50},{-72,50},{-72,40},{-68.8,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(cos1.y, incidenceAngles.angZen) annotation (Line(
-      points={{-59.6,28},{-50,28},{-50,32},{-38,32}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radSol.angZen, cos1.u) annotation (Line(
-      points={{-79.4,48},{-74,48},{-74,28},{-68.8,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radSol.angHou, cos2.u) annotation (Line(
-      points={{-79.4,44},{-76,44},{-76,16},{-68.8,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(cos2.y, incidenceAngles.angHou) annotation (Line(
-      points={{-59.6,16},{-46,16},{-46,28},{-38,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
   //Ground reflectantance is not used for now (see Absorption model => SolAbs equation!
   connect(radSol.weaBus, sim.weaBus) annotation (Line(
@@ -126,6 +102,18 @@ equation
           -66,51.2},{-66,54},{-79.4,54}}, color={0,0,127}));
   connect(solDif.y, absorption.solDif)
     annotation (Line(points={{-45.7,53},{38,53},{38,40}}, color={0,0,127}));
+  connect(radSol.angInc, cos.u) annotation (Line(points={{-79.4,50},{-64,50},{
+          -64,44},{-56.8,44}}, color={0,0,127}));
+  connect(cos.y, incidenceAngles.angInc) annotation (Line(points={{-47.6,44},{
+          -42,44},{-42,36},{-38,36}}, color={0,0,127}));
+  connect(radSol.angZen, cos1.u) annotation (Line(points={{-79.4,48},{-66,48},{
+          -66,32},{-60.8,32}}, color={0,0,127}));
+  connect(cos1.y, incidenceAngles.angZen)
+    annotation (Line(points={{-51.6,32},{-38,32}}, color={0,0,127}));
+  connect(radSol.angHou, cos2.u) annotation (Line(points={{-79.4,44},{-68,44},{
+          -68,20},{-64.8,20}}, color={0,0,127}));
+  connect(cos2.y, incidenceAngles.angHou) annotation (Line(points={{-55.6,20},{
+          -46,20},{-46,28},{-38,28}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}),
                          graphics={
