@@ -2,8 +2,9 @@ within IBPSA.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleReinfor
 record IsoPlusDR200R "Reinforced DN 200 IsoPlus double pipe"
 
   extends IsoPlusDouble(
-    Di=200e-3,
+    Di=210.1e-3,
     Do=219.1e-3,
     h=45e-3,
-    Dc=630e-3);
+    Dc=630e-3,
+    s=4.5e-3);
 end IsoPlusDR200R;
