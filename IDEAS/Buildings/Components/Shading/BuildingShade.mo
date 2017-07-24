@@ -24,15 +24,15 @@ protected
   Modelica.SIunits.Length L2 "Distance to object, taking into account sun position";
   Modelica.SIunits.Angle alt = (Modelica.Constants.pi/2) - angZen;
   Modelica.SIunits.Angle verAzi
-    "Angle between projection of sun's rays and normal to vertical surface";
+    "Angle between downward projection of sun's rays and normal to vertical surface";
 
 equation
   verAzi = Modelica.Math.acos(cos(angInc)/cos(alt));
 
-  L1 = L/cos(verAzi);
+  L1 = max(0,L/cos(verAzi));
 //   if abs(rot)<1e-4 then
     //L2=L/cosAzi;
-  L2 = L1/cos(alt);
+  L2 = L1*tan(alt);
 //   else
 //     //implementation for rot not equal to zero has not been completed nor validated!
 //     if angAzi-azi>rot then
@@ -41,10 +41,10 @@ equation
 //       L2=L*(cosAzi+sin(abs(angAzi-azi))*tan(abs(angAzi-azi)-abs(rot)));
 //     end if;
 //   end if;
-  if noEvent(tanZen > L2/dh) then
+  if noEvent(L2<dh) then
     fraSunDir=0;
-  elseif noEvent(tanZen > L2/(dh+hWin)) then
-    fraSunDir=(L2/tanZen-dh)/hWin;
+  elseif noEvent(L2<dh+hWin) then
+    fraSunDir=(L2-dh)/hWin;
   else
     fraSunDir=1;
   end if;
