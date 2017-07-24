@@ -22,13 +22,13 @@ model SideFins "Vertical side fins next to windows"
   parameter Modelica.SIunits.Length gap
     "Vertical distance between side fin and window"
     annotation(Dialog(group="Side fin properties"));
-  final parameter Real fraSunDifSky(final min=0,final max=1, final unit="1") = 1-2*vieAngFin/Modelica.Constants.pi
+  final parameter Real fraSunDif(final min=0,final max=1, final unit="1") = 1-2*vieAngFin/Modelica.Constants.pi
     "Fraction of window area exposed to diffuse sun light";
   Real fraSunDir(final min=0,final max=1, final unit="1")
     "Fraction of window area exposed to the sun";
 
 protected
-  final parameter Modelica.SIunits.Angle vieAngFin = atan(dep/(wWin/2)) "Viewing angle of overhang";
+  final parameter Modelica.SIunits.Angle vieAngFin = atan(dep/(gap+wWin/2)) "Viewing angle of overhang";
   final parameter Modelica.SIunits.Area AWin= hWin*wWin "Window area";
   final parameter Modelica.SIunits.Length tmpH[4] = {hFin+hWin,hFin,hFin+hWin,hFin}
     "Height rectangular sections used for superposition";
@@ -93,14 +93,13 @@ equation
   fraSunDir = IDEAS.Utilities.Math.Functions.smoothMin( x1=IDEAS.Utilities.Math.Functions.smoothMax(x1=1-crShdArea/AWin,x2=0,deltaX=0.01),x2=1.0,deltaX=0.01);
 
   HShaDirTil = HDirTil * fraSunDir;
-  HShaSkyDifTil = fraSunDifSky * HSkyDifTil;
+  HShaSkyDifTil = fraSunDif * HSkyDifTil;
+  HShaGroDifTil = fraSunDif * HGroDifTil;
 
   connect(angInc, iAngInc) annotation (Line(
       points={{-60,-50},{-14,-50},{-14,-50},{40,-50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HGroDifTil, HShaGroDifTil)
-    annotation (Line(points={{-60,10},{40,10},{40,10}}, color={0,0,127}));
   annotation (                   Documentation(info="<html>
 <p>
 Shading model of side fins (or similar objects) 

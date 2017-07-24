@@ -20,7 +20,7 @@ model Overhang "Roof overhangs"
   parameter Modelica.SIunits.Length gap(min=0)
     "Distance between window upper edge and overhang lower edge"
     annotation(Dialog(group="Overhang properties"));
-  final parameter Real fraSunDifSky(final min=0,final max=1, final unit="1") = 1-vieAngOverhang/Modelica.Constants.pi
+  final parameter Real fraSunDifSky(final min=0,final max=1, final unit="1") = 1-vieAngOverhang/(0.5*Modelica.Constants.pi)
     "Fraction of window area exposed to diffuse sun light";
 
   Real fraSunDir(final min=0,final max=1, final unit="1")
@@ -29,7 +29,7 @@ protected
   final parameter Modelica.SIunits.Area AWin= hWin*wWin "Window area";
   parameter Modelica.SIunits.Length tmpH[4](fixed=false)
     "Height rectangular sections used for superposition";
-  final parameter Modelica.SIunits.Angle vieAngOverhang = atan(dep/(hWin/2)) "Viewing angle of overhang";
+  final parameter Modelica.SIunits.Angle vieAngOverhang = atan(dep/(gap+hWin/2)) "Viewing angle of overhang";
 
   Modelica.SIunits.Length w
     "Either wL or wR, depending on the sun relative to the wall azimuth";
