@@ -15,22 +15,29 @@ protected
         origin={-10,-60})));
 
 equation
-  iSolDir = solDir*(1 - limiter.y);
-  iSolDif = solDif*(1 - limiter.y) + solDif*limiter.y*shaCorr + solDir*limiter.y
-    *shaCorr;
-  angInc = iAngInc;
+  HShaDirTil = HDirTil*(1 - limiter.y);
+  HShaSkyDifTil = HSkyDifTil*(1 - limiter.y) + HSkyDifTil*limiter.y*shaCorr + HDirTil*limiter.y*shaCorr;
+  HShaGroDifTil = HGroDifTil*(1 - limiter.y) + HGroDifTil*limiter.y*shaCorr;
 
   connect(limiter.u, Ctrl) annotation (Line(
       points={{-10,-72},{-10,-110}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(angInc, iAngInc) annotation (Line(points={{-60,-50},{-14,-50},{-14,
+          -50},{40,-50}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}})),
-    Diagram(graphics),
     Documentation(info="<html>
 <p>Shading model of a controllable screen. The transmitted direct solar irradiance varies linearly between [0, 1] with the control input. A fraction shaCorr is converted into diffuse light that enters the building.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2017 by Filip Jorissen:<br/>
+Revised implementation for renamed
+ports <code>HDirTil</code> etc.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/735\">
+#735</a>.
+</li>
 <li>
 July 18, 2016 by Filip Jorissen:<br/>
 Cleaned up implementation and documentation.

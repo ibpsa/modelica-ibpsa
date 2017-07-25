@@ -22,11 +22,13 @@ model SideFins "Vertical side fins next to windows"
   parameter Modelica.SIunits.Length gap
     "Vertical distance between side fin and window"
     annotation(Dialog(group="Side fin properties"));
-
-  Real fraSun(final min=0,final max=1, final unit="1")
+  final parameter Real fraSunDif(final min=0,final max=1, final unit="1") = 1-2*vieAngFin/Modelica.Constants.pi
+    "Fraction of window area exposed to diffuse sun light";
+  Real fraSunDir(final min=0,final max=1, final unit="1")
     "Fraction of window area exposed to the sun";
 
 protected
+  final parameter Modelica.SIunits.Angle vieAngFin = atan(dep/(gap+wWin/2)) "Viewing angle of overhang";
   final parameter Modelica.SIunits.Area AWin= hWin*wWin "Window area";
   final parameter Modelica.SIunits.Length tmpH[4] = {hFin+hWin,hFin,hFin+hWin,hFin}
     "Height rectangular sections used for superposition";
@@ -88,25 +90,41 @@ equation
   // correction case: Sun not above horizon
   crShdArea2 = Modelica.Media.Air.MoistAir.Utilities.spliceFunction(pos=shdArea,neg=AWin,x=alt,deltax=0.01);
   crShdArea=IDEAS.Utilities.Math.Functions.smoothMax(x1=crShdArea1,x2=crShdArea2,deltaX=0.01);
-  fraSun = IDEAS.Utilities.Math.Functions.smoothMin( x1=IDEAS.Utilities.Math.Functions.smoothMax(x1=1-crShdArea/AWin,x2=0,deltaX=0.01),x2=1.0,deltaX=0.01);
+  fraSunDir = IDEAS.Utilities.Math.Functions.smoothMin( x1=IDEAS.Utilities.Math.Functions.smoothMax(x1=1-crShdArea/AWin,x2=0,deltaX=0.01),x2=1.0,deltaX=0.01);
 
-  iSolDir = solDir * fraSun;
-
-  connect(solDif, iSolDif) annotation (Line(
-      points={{-60,10},{40,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  HShaDirTil = HDirTil * fraSunDir;
+  HShaSkyDifTil = fraSunDif * HSkyDifTil;
+  HShaGroDifTil = fraSunDif * HGroDifTil;
 
   connect(angInc, iAngInc) annotation (Line(
       points={{-60,-50},{-14,-50},{-14,-50},{40,-50}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Documentation(info="<html>
-<p><h4><font color=\"#008000\">General description</font></h4></p>
-<p><h5>Goal</h5></p>
-<p>The <code>Overhang.mo</code> model describes the transient behaviour of solar irradiance on a window below a non-fixed horizontal or vertical overhang.</p>
+  annotation (                   Documentation(info="<html>
+<p>
+Shading model of side fins (or similar objects) 
+next to a window where
+hWin is the window height,
+wWin is the window width,
+gap equals the horizontal distances between the window edges and the side fins,
+dep fin length in the direction normal to the window.
+</p>
+<h4>Assumption and limitations</h4>
+<p>
+This model computes a simplified view factor of the side fins.
+The view factor determines how much diffuse light 
+is blocked by the fins.
+We assume that the fins do not reflect light
+towards the window.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2017 by Filip Jorissen:<br/>
+Added computation of diffuse solar shading.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/735\">
+#735</a>.
+</li>
 <li>
 July 18, 2016 by Filip Jorissen:<br/>
 Cleaned up implementation and documentation.

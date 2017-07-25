@@ -20,14 +20,17 @@ model Overhang "Roof overhangs"
   parameter Modelica.SIunits.Length gap(min=0)
     "Distance between window upper edge and overhang lower edge"
     annotation(Dialog(group="Overhang properties"));
+  final parameter Real fraSunDifSky(final min=0,final max=1, final unit="1") = 1-vieAngOverhang/(0.5*Modelica.Constants.pi)
+    "Fraction of window area exposed to diffuse sun light";
 
-  Real fraSun(final min=0,final max=1, final unit="1")
-    "Fraction of window area exposed to the sun";
-
+  Real fraSunDir(final min=0,final max=1, final unit="1")
+    "Fraction of window area exposed to direct sun light";
 protected
   final parameter Modelica.SIunits.Area AWin= hWin*wWin "Window area";
   parameter Modelica.SIunits.Length tmpH[4](fixed=false)
     "Height rectangular sections used for superposition";
+  final parameter Modelica.SIunits.Angle vieAngOverhang = atan(dep/(gap+hWin/2)) "Viewing angle of overhang";
+
   Modelica.SIunits.Length w
     "Either wL or wR, depending on the sun relative to the wall azimuth";
   Modelica.SIunits.Length tmpW[4]
@@ -88,20 +91,18 @@ equation
   // correction case: Sun not above horizon
   crShdArea2 = Modelica.Media.Air.MoistAir.Utilities.spliceFunction(pos=shdArea,neg=AWin,x=alt,deltax=0.01);
   crShdArea=IDEAS.Utilities.Math.Functions.smoothMax(x1=crShdArea1,x2=crShdArea2,deltaX=0.01);
-  fraSun = IDEAS.Utilities.Math.Functions.smoothMin( x1=IDEAS.Utilities.Math.Functions.smoothMax(x1=1-crShdArea/AWin,x2=0,deltaX=0.01),x2=1.0,deltaX=0.01);
+  fraSunDir = IDEAS.Utilities.Math.Functions.smoothMin( x1=IDEAS.Utilities.Math.Functions.smoothMax(x1=1-crShdArea/AWin,x2=0,deltaX=0.01),x2=1.0,deltaX=0.01);
 
-  iSolDir = solDir * fraSun;
-
-  connect(solDif, iSolDif) annotation (Line(
-      points={{-60,10},{40,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  HShaDirTil = fraSunDir*HDirTil;
+  HShaSkyDifTil=fraSunDifSky*HSkyDifTil;
 
   connect(angInc, iAngInc) annotation (Line(
       points={{-60,-50},{-14,-50},{-14,-50},{40,-50}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Documentation(info="<html>
+  connect(HGroDifTil, HShaGroDifTil) annotation (Line(points={{-60,10},{-14,10},
+          {-14,10},{40,10}}, color={0,0,127}));
+  annotation (                   Documentation(info="<html>
 <p>
 Shading model of an overhang above a window where
 hWin is the window height,
@@ -113,6 +114,12 @@ and wLeft and wRight are respectively the horizontal overhang widths.
 <p><img src=\"modelica://IDEAS/Resources/Images/Buildings/Components/Shading/Overhang.png\"/></p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2017 by Filip Jorissen:<br/>
+Added computation of diffuse solar shading.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/735\">
+#735</a>.
+</li>
 <li>
 July 18, 2016 by Filip Jorissen:<br/>
 Cleaned up implementation and documentation.

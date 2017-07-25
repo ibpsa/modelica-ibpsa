@@ -94,30 +94,30 @@ equation
       points={{-10,-110},{-10,20},{-11,20}},
       color={0,0,127},
       visible=false));
-  connect(box.solDir, solDir)
+  connect(box.HDirTil, HDirTil)
     annotation (Line(points={{-16,96},{-60,96},{-60,50}}, color={0,0,127}));
-  connect(buildingShade.solDir, solDir)
+  connect(buildingShade.HDirTil, HDirTil)
     annotation (Line(points={{-16,76},{-60,76},{-60,50}}, color={0,0,127}));
-  connect(overhang.solDir, solDir)
+  connect(overhang.HDirTil, HDirTil)
     annotation (Line(points={{-16,56},{-60,56},{-60,50}}, color={0,0,127}));
-  connect(overhangAndScreen.solDir, solDir)
+  connect(overhangAndScreen.HDirTil, HDirTil)
     annotation (Line(points={{-16,36},{-60,36},{-60,50}}, color={0,0,127}));
-  connect(screen.solDir, solDir)
+  connect(screen.HDirTil, HDirTil)
     annotation (Line(points={{-16,16},{-60,16},{-60,50}}, color={0,0,127}));
-  connect(sideFins.solDir, solDir)
+  connect(sideFins.HDirTil, HDirTil)
     annotation (Line(points={{-16,-4},{-60,-4},{-60,50}}, color={0,0,127}));
-  connect(box.solDif, solDif)
-    annotation (Line(points={{-16,92},{-60,92},{-60,10}}, color={0,0,127}));
-  connect(buildingShade.solDif, solDif)
-    annotation (Line(points={{-16,72},{-60,72},{-60,10}}, color={0,0,127}));
-  connect(overhang.solDif, solDif)
-    annotation (Line(points={{-16,52},{-60,52},{-60,10}}, color={0,0,127}));
-  connect(overhangAndScreen.solDif, solDif)
-    annotation (Line(points={{-16,32},{-60,32},{-60,10}}, color={0,0,127}));
-  connect(screen.solDif, solDif)
-    annotation (Line(points={{-16,12},{-60,12},{-60,10}}, color={0,0,127}));
-  connect(sideFins.solDif, solDif)
-    annotation (Line(points={{-16,-8},{-60,-8},{-60,10}}, color={0,0,127}));
+  connect(box.HSkyDifTil, HSkyDifTil)
+    annotation (Line(points={{-16,94},{-60,94},{-60,30}}, color={0,0,127}));
+  connect(buildingShade.HSkyDifTil, HSkyDifTil)
+    annotation (Line(points={{-16,74},{-60,74},{-60,30}}, color={0,0,127}));
+  connect(overhang.HSkyDifTil, HSkyDifTil)
+    annotation (Line(points={{-16,54},{-60,54},{-60,30}}, color={0,0,127}));
+  connect(overhangAndScreen.HSkyDifTil, HSkyDifTil)
+    annotation (Line(points={{-16,34},{-60,34},{-60,30}}, color={0,0,127}));
+  connect(screen.HSkyDifTil, HSkyDifTil)
+    annotation (Line(points={{-16,14},{-60,14},{-60,30}}, color={0,0,127}));
+  connect(sideFins.HSkyDifTil, HSkyDifTil)
+    annotation (Line(points={{-16,-6},{-60,-6},{-60,30}}, color={0,0,127}));
   connect(box.angInc, angInc)
     annotation (Line(points={{-16,86},{-60,86},{-60,-50}}, color={0,0,127}));
   connect(buildingShade.angInc, angInc)
@@ -154,30 +154,30 @@ equation
     annotation (Line(points={{-16,2},{-60,2},{-60,-90}}, color={0,0,127}));
   connect(sideFins.angAzi, angAzi)
     annotation (Line(points={{-16,-18},{-60,-18},{-60,-90}}, color={0,0,127}));
-  connect(box.iSolDir, iSolDir)
+  connect(box.HShaDirTil, HShaDirTil)
     annotation (Line(points={{-6,96},{40,96},{40,50}}, color={0,0,127}));
-  connect(buildingShade.iSolDir, iSolDir)
+  connect(buildingShade.HShaDirTil, HShaDirTil)
     annotation (Line(points={{-6,76},{40,76},{40,50}}, color={0,0,127}));
-  connect(overhang.iSolDir, iSolDir)
+  connect(overhang.HShaDirTil, HShaDirTil)
     annotation (Line(points={{-6,56},{40,56},{40,50}}, color={0,0,127}));
-  connect(overhangAndScreen.iSolDir, iSolDir)
+  connect(overhangAndScreen.HShaDirTil, HShaDirTil)
     annotation (Line(points={{-6,36},{40,36},{40,50}}, color={0,0,127}));
-  connect(screen.iSolDir, iSolDir)
+  connect(screen.HShaDirTil, HShaDirTil)
     annotation (Line(points={{-6,16},{40,16},{40,50}}, color={0,0,127}));
-  connect(sideFins.iSolDir, iSolDir)
+  connect(sideFins.HShaDirTil, HShaDirTil)
     annotation (Line(points={{-6,-4},{40,-4},{40,50}}, color={0,0,127}));
-  connect(box.iSolDif, iSolDif)
-    annotation (Line(points={{-6,92},{40,92},{40,10}}, color={0,0,127}));
-  connect(buildingShade.iSolDif, iSolDif)
-    annotation (Line(points={{-6,72},{40,72},{40,10}}, color={0,0,127}));
-  connect(overhang.iSolDif, iSolDif)
-    annotation (Line(points={{-6,52},{40,52},{40,10}}, color={0,0,127}));
-  connect(overhangAndScreen.iSolDif, iSolDif)
-    annotation (Line(points={{-6,32},{40,32},{40,10}}, color={0,0,127}));
-  connect(screen.iSolDif, iSolDif)
-    annotation (Line(points={{-6,12},{40,12},{40,10}}, color={0,0,127}));
-  connect(sideFins.iSolDif, iSolDif)
-    annotation (Line(points={{-6,-8},{40,-8},{40,10}}, color={0,0,127}));
+  connect(box.HShaSkyDifTil, HShaSkyDifTil)
+    annotation (Line(points={{-6,94},{40,94},{40,30}}, color={0,0,127}));
+  connect(buildingShade.HShaSkyDifTil, HShaSkyDifTil)
+    annotation (Line(points={{-6,74},{40,74},{40,30}}, color={0,0,127}));
+  connect(overhang.HShaSkyDifTil, HShaSkyDifTil)
+    annotation (Line(points={{-6,54},{40,54},{40,30}}, color={0,0,127}));
+  connect(overhangAndScreen.HShaSkyDifTil, HShaSkyDifTil)
+    annotation (Line(points={{-6,34},{40,34},{40,30}}, color={0,0,127}));
+  connect(screen.HShaSkyDifTil, HShaSkyDifTil)
+    annotation (Line(points={{-6,14},{40,14},{40,30}}, color={0,0,127}));
+  connect(sideFins.HShaSkyDifTil, HShaSkyDifTil)
+    annotation (Line(points={{-6,-6},{40,-6},{40,30}}, color={0,0,127}));
   connect(sideFins.iAngInc, iAngInc)
     annotation (Line(points={{-6,-14},{40,-14},{40,-50}}, color={0,0,127}));
   connect(screen.iAngInc, iAngInc)
@@ -190,10 +190,10 @@ equation
     annotation (Line(points={{-6,66},{40,66},{40,-50}}, color={0,0,127}));
   connect(box.iAngInc, iAngInc)
     annotation (Line(points={{-6,86},{40,86},{40,-50}}, color={0,0,127}));
-  connect(none.solDir, solDir)
+  connect(none.HDirTil, HDirTil)
     annotation (Line(points={{-16,-24},{-60,-24},{-60,50}}, color={0,0,127}));
-  connect(none.solDif, solDif)
-    annotation (Line(points={{-16,-28},{-60,-28},{-60,10}}, color={0,0,127}));
+  connect(none.HSkyDifTil, HSkyDifTil)
+    annotation (Line(points={{-16,-26},{-60,-26},{-60,30}}, color={0,0,127}));
   connect(none.angInc, angInc)
     annotation (Line(points={{-16,-34},{-60,-34},{-60,-50}}, color={0,0,127}));
   connect(none.angAzi, angAzi) annotation (Line(points={{-16,-38},{-24,-38},{-60,
@@ -202,26 +202,69 @@ equation
           -36},{-60,-70}}, color={0,0,127}));
   connect(none.iAngInc, iAngInc)
     annotation (Line(points={{-6,-34},{40,-34},{40,-50}}, color={0,0,127}));
-  connect(none.iSolDif, iSolDif)
-    annotation (Line(points={{-6,-28},{40,-28},{40,10}}, color={0,0,127}));
-  connect(none.iSolDir, iSolDir)
+  connect(none.HShaSkyDifTil, HShaSkyDifTil)
+    annotation (Line(points={{-6,-26},{40,-26},{40,30}}, color={0,0,127}));
+  connect(none.HShaDirTil, HShaDirTil)
     annotation (Line(points={{-6,-24},{40,-24},{40,50}}, color={0,0,127}));
-  connect(boxAndScreen.solDir, solDir) annotation (Line(points={{-16,-46},{-36,-46},
+  connect(boxAndScreen.HDirTil, HDirTil) annotation (Line(points={{-16,-46},{-36,-46},
           {-36,50},{-60,50}}, color={0,0,127}));
-  connect(boxAndScreen.solDif, solDif) annotation (Line(points={{-16,-50},{-36,-50},
-          {-36,10},{-60,10}}, color={0,0,127}));
+  connect(boxAndScreen.HSkyDifTil, HSkyDifTil) annotation (Line(points={{-16,-48},
+          {-36,-48},{-36,30},{-60,30}},
+                              color={0,0,127}));
   connect(boxAndScreen.angInc, angInc) annotation (Line(points={{-16,-56},{-36,-56},
           {-36,-50},{-60,-50}}, color={0,0,127}));
   connect(boxAndScreen.angZen, angZen) annotation (Line(points={{-16,-58},{-32,-58},
           {-32,-70},{-60,-70}}, color={0,0,127}));
   connect(boxAndScreen.angAzi, angAzi) annotation (Line(points={{-16,-60},{-34,-60},
           {-34,-90},{-60,-90}}, color={0,0,127}));
-  connect(boxAndScreen.iSolDir, iSolDir) annotation (Line(points={{-6,-46},{10,-46},
+  connect(boxAndScreen.HShaDirTil, HShaDirTil) annotation (Line(points={{-6,-46},{10,-46},
           {10,50},{40,50}}, color={0,0,127}));
-  connect(boxAndScreen.iSolDif, iSolDif) annotation (Line(points={{-6,-50},{10,-50},
-          {10,10},{40,10}}, color={0,0,127}));
+  connect(boxAndScreen.HShaSkyDifTil, HShaSkyDifTil) annotation (Line(points={{-6,-48},
+          {10,-48},{10,30},{40,30}},
+                            color={0,0,127}));
   connect(boxAndScreen.iAngInc, iAngInc) annotation (Line(points={{-6,-56},{12,-56},
           {12,-50},{40,-50}}, color={0,0,127}));
   connect(Ctrl, boxAndScreen.Ctrl) annotation (Line(points={{-10,-110},{-10,-62},
           {-11,-62}}, color={0,0,127}));
+  connect(box.HGroDifTil, HGroDifTil)
+    annotation (Line(points={{-16,92},{-60,92},{-60,10}}, color={0,0,127}));
+  connect(buildingShade.HGroDifTil, HGroDifTil)
+    annotation (Line(points={{-16,72},{-60,72},{-60,10}}, color={0,0,127}));
+  connect(overhang.HGroDifTil, HGroDifTil) annotation (Line(points={{-16,52},{
+          -22,52},{-60,52},{-60,10}}, color={0,0,127}));
+  connect(overhangAndScreen.HGroDifTil, HGroDifTil)
+    annotation (Line(points={{-16,32},{-60,32},{-60,10}}, color={0,0,127}));
+  connect(screen.HGroDifTil, HGroDifTil)
+    annotation (Line(points={{-16,12},{-60,12},{-60,10}}, color={0,0,127}));
+  connect(sideFins.HGroDifTil, HGroDifTil) annotation (Line(points={{-16,-8},{
+          -30,-8},{-60,-8},{-60,10}}, color={0,0,127}));
+  connect(none.HGroDifTil, HGroDifTil) annotation (Line(points={{-16,-28},{-32,
+          -28},{-60,-28},{-60,10}}, color={0,0,127}));
+  connect(boxAndScreen.HGroDifTil, HGroDifTil)
+    annotation (Line(points={{-16,-50},{-60,-50},{-60,10}}, color={0,0,127}));
+  connect(box.HShaGroDifTil, HShaGroDifTil)
+    annotation (Line(points={{-6,92},{40,92},{40,10}}, color={0,0,127}));
+  connect(buildingShade.HShaGroDifTil, HShaGroDifTil)
+    annotation (Line(points={{-6,72},{40,72},{40,10}}, color={0,0,127}));
+  connect(overhang.HShaGroDifTil, HShaGroDifTil)
+    annotation (Line(points={{-6,52},{40,52},{40,10}}, color={0,0,127}));
+  connect(overhangAndScreen.HShaGroDifTil, HShaGroDifTil)
+    annotation (Line(points={{-6,32},{40,32},{40,10}}, color={0,0,127}));
+  connect(screen.HShaGroDifTil, HShaGroDifTil)
+    annotation (Line(points={{-6,12},{40,12},{40,10}}, color={0,0,127}));
+  connect(sideFins.HShaGroDifTil, HShaGroDifTil)
+    annotation (Line(points={{-6,-8},{40,-8},{40,10}}, color={0,0,127}));
+  connect(none.HShaGroDifTil, HShaGroDifTil)
+    annotation (Line(points={{-6,-28},{40,-28},{40,10}}, color={0,0,127}));
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+May 26, 2017 by Filip Jorissen:<br/>
+Revised implementation for renamed
+ports <code>HDirTil</code> etc.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/735\">
+#735</a>.
+</li>
+</ul>
+</html>"));
 end Shading;

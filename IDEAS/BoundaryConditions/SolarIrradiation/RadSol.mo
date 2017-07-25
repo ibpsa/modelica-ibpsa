@@ -34,6 +34,14 @@ model RadSol "Block that computes surface-dependent environment data"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-104,0})));
+  SolarGeometry.BaseClasses.IncidenceAngle incAng(
+    lat=lat,
+    azi=azi,
+    til=inc) "Inclination angle"
+    annotation (Placement(transformation(extent={{-40,60},{-20,40}})));
+  SolarIrradiation.BaseClasses.DiffusePerez HDifTil(rho=rho, til=inc)
+    "Computation of diffuse solar irradiation on tilted surface"
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
 protected
   SolarIrradiation.BaseClasses.DirectTiltedSurface
@@ -48,17 +56,6 @@ protected
     "Tenv dummy value when not needed"
     annotation (Placement(transformation(extent={{-20,-76},{-8,-64}})));
 
-public
-  SolarGeometry.BaseClasses.IncidenceAngle incAng(
-    lat=lat,
-    azi=azi,
-    til=inc) annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  SolarIrradiation.BaseClasses.DiffusePerez HDifTil(rho=rho, til=inc)
-    "Computation of diffuse solar irradiation on tilted surface"
-    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Modelica.Blocks.Math.Add HDifTilTot
-    "Diffuse solar irradiation including ground reflectance"
-    annotation (Placement(transformation(extent={{40,-16},{52,-4}})));
 equation
   connect(angZen, solBus.angZen) annotation (Line(points={{-104,-40},{100.1,-40},
           {100.1,0.1}}, color={0,0,127}));
@@ -70,25 +67,14 @@ equation
       points={{-7.4,-70},{100.1,-70},{100.1,0.1}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(solDirTil.HDirTil, solBus.iSolDir) annotation (Line(points={{21,30},{
-          100.1,30},{100.1,0.1}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(solDirTil.HDirNor, solDirPer) annotation (Line(points={{-2,36},{-8,36},
           {-8,100},{-104,100}}, color={0,0,127}));
   connect(incAng.incAng, solBus.angInc) annotation (Line(points={{-19,50},{
           100.1,50},{100.1,0.1}}, color={0,0,127}));
-  connect(incAng.decAng, angDec) annotation (Line(points={{-42.2,55.4},{-62,
-          55.4},{-62,0},{-104,0}}, color={0,0,127}));
-  connect(incAng.solHouAng, angHou) annotation (Line(points={{-42,45.2},{-60,
-          45.2},{-60,46},{-60,-20},{-104,-20}}, color={0,0,127}));
-  connect(HDifTil.HSkyDifTil, HDifTilTot.u1)
-    annotation (Line(points={{21,-6},{38.8,-6},{38.8,-6.4}}, color={0,0,127}));
-  connect(HDifTil.HGroDifTil, HDifTilTot.u2) annotation (Line(points={{21,-14},
-          {28.5,-14},{28.5,-13.6},{38.8,-13.6}}, color={0,0,127}));
-  connect(HDifTilTot.y, solBus.iSolDif) annotation (Line(points={{52.6,-10},{
-          100.1,-10},{100.1,0.1}}, color={0,0,127}));
+  connect(incAng.decAng, angDec) annotation (Line(points={{-42.2,44.6},{-62,44.6},
+          {-62,0},{-104,0}},       color={0,0,127}));
+  connect(incAng.solHouAng, angHou) annotation (Line(points={{-42,54.8},{-60,54.8},
+          {-60,46},{-60,-20},{-104,-20}},       color={0,0,127}));
   connect(HDifTil.HGloHor, solGloHor) annotation (Line(points={{-2,-2},{-46,-2},
           {-46,80},{-104,80}}, color={0,0,127}));
   connect(HDifTil.HDifHor, solDifHor) annotation (Line(points={{-2,-5},{-48,-5},
@@ -101,6 +87,12 @@ equation
           -17},{-14,50},{-19,50}}, color={0,0,127}));
   connect(HDifTil.zen, angZen) annotation (Line(points={{-2,-14},{-2,-16},{-52,
           -16},{-52,-40},{-104,-40}}, color={0,0,127}));
+  connect(HDifTil.HSkyDifTil, solBus.HSkyDifTil) annotation (Line(points={{21,
+          -6},{100.1,-6},{100.1,0.1}}, color={0,0,127}));
+  connect(HDifTil.HGroDifTil, solBus.HGroDifTil) annotation (Line(points={{21,
+          -14},{36,-14},{100.1,-14},{100.1,0.1}}, color={0,0,127}));
+  connect(solDirTil.HDirTil, solBus.HDirTil) annotation (Line(points={{21,30},{
+          100.1,30},{100.1,0.1}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),  Icon(graphics={
         Polygon(
@@ -120,6 +112,13 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 26, 2017 by Filip Jorissen:<br/>
+Revised implementation for renamed
+ports <code>HDirTil</code> etc.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/735\">
+#735</a>.
+</li>
 <li>
 September 22, 2016 by Filip Jorissen:<br/>
 Reworked implementation such that we use Annex 60 baseclasses.

@@ -40,7 +40,11 @@ class PvArray
   Modelica.Blocks.Math.Cos cos1
     annotation (Placement(transformation(extent={{-60,28},{-52,36}})));
   Modelica.Blocks.Math.Cos cos2
-    annotation (Placement(transformation(extent={{-64,16},{-56,24}})));
+    annotation (Placement(transformation(extent={{-68,12},{-60,20}})));
+protected
+  Modelica.Blocks.Math.Add solDif(final k1=1, final k2=1)
+    "Sum of ground and sky diffuse solar irradiation"
+    annotation (Placement(transformation(extent={{-52,50},{-46,56}})));
 equation
   connect(incidenceAngles.angIncDir, refDir.angInc) annotation (Line(
       points={{-18,36},{-8,36}},
@@ -66,12 +70,8 @@ equation
       points={{12,-10},{18,-10},{18,28},{22,28}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(radSol.solDir,absorption.solDir) annotation (Line(
-      points={{-79.4,56},{34,56},{34,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radSol.solDif, absorption.solDif) annotation (Line(
-      points={{-79.4,54},{38,54},{38,40}},
+  connect(radSol.HDirTil, absorption.solDir) annotation (Line(
+      points={{-79.4,58},{34,58},{34,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(absorption.solAbs, PV5.solAbs) annotation (Line(
@@ -96,6 +96,12 @@ equation
       points={{-80,62},{-76,62},{-76,92.8},{-84,92.8}},
       color={255,204,51},
       thickness=0.5));
+  connect(solDif.u1, radSol.HSkyDifTil) annotation (Line(points={{-52.6,54.8},{
+          -65.3,54.8},{-65.3,56},{-79.4,56}}, color={0,0,127}));
+  connect(solDif.u2, radSol.HGroDifTil) annotation (Line(points={{-52.6,51.2},{
+          -66,51.2},{-66,54},{-79.4,54}}, color={0,0,127}));
+  connect(solDif.y, absorption.solDif)
+    annotation (Line(points={{-45.7,53},{38,53},{38,40}}, color={0,0,127}));
   connect(radSol.angInc, cos.u) annotation (Line(points={{-79.4,50},{-64,50},{
           -64,44},{-56.8,44}}, color={0,0,127}));
   connect(cos.y, incidenceAngles.angInc) annotation (Line(points={{-47.6,44},{

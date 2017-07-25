@@ -2,10 +2,10 @@ within IDEAS.Buildings.Components.Examples;
 model BuildingShadeExample
   extends Modelica.Icons.Example;
   Shading.BuildingShade buildingShade(
-    L=30,
-    dh=10,
     azi=azi.k,
-    hWin=hWin.k)
+    hWin=hWin.k,
+    L=16,
+    dh=9)
     annotation (Placement(transformation(extent={{-24,20},{-14,40}})));
   inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,-12},{-80,8}})));
@@ -49,20 +49,20 @@ equation
       points={{-84,0.8},{-84,34},{-54,34}},
       color={255,204,51},
       thickness=0.5));
-  connect(buildingShade.solDir, weaBus.solBus[3].iSolDir) annotation (Line(points={{-24,36},
+  connect(buildingShade.HDirTil, weaBus.solBus[3].HDirTil) annotation (Line(points={{-24,36},
           {-53.95,36},{-53.95,34.05}},          color={0,0,127}));
-  connect(buildingShade.solDif, weaBus.solBus[3].iSolDif) annotation (Line(points={{-24,32},
-          {-53.95,32},{-53.95,34.05}},          color={0,0,127}));
+  connect(buildingShade.HSkyDifTil, weaBus.solBus[3].HSkyDifTil) annotation (Line(points={{-24,34},
+          {-53.95,34},{-53.95,34.05}},          color={0,0,127}));
   connect(buildingShade.angInc, weaBus.solBus[3].angInc) annotation (Line(points={{-24,26},
           {-53.95,26},{-53.95,34.05}},           color={0,0,127}));
   connect(buildingShade.angAzi, weaBus.solBus[3].angAzi) annotation (Line(points={{-24,22},
           {-53.95,22},{-53.95,34.05}},           color={0,0,127}));
   connect(buildingShade.angZen, weaBus.solBus[3].angZen) annotation (Line(points={{-24,24},
           {-24,24},{-53.95,24},{-53.95,34.05}},            color={0,0,127}));
-  connect(none.solDir, buildingShade.solDir) annotation (Line(points={{-24,76},
-          {-38,76},{-38,36},{-24,36}},color={0,0,127}));
-  connect(none.solDif, buildingShade.solDif) annotation (Line(points={{-24,72},
-          {-36,72},{-36,32},{-24,32}},color={0,0,127}));
+  connect(none.HDirTil, buildingShade.HDirTil) annotation (Line(points={{-24,76},
+          {-40,76},{-40,36},{-24,36}},color={0,0,127}));
+  connect(none.HSkyDifTil, buildingShade.HSkyDifTil) annotation (Line(points={{-24,74},
+          {-38,74},{-38,34},{-24,34}},color={0,0,127}));
   connect(none.angInc, buildingShade.angInc) annotation (Line(points={{-24,66},
           {-24,66},{-34,66},{-34,26},{-24,26}},  color={0,0,127}));
   connect(none.angAzi, buildingShade.angAzi) annotation (Line(points={{-24,62},
@@ -76,14 +76,15 @@ equation
           -16},{-32,64},{-24,64}}, color={0,0,127}));
   connect(overhang.angInc, none.angInc) annotation (Line(points={{-24,-14},{-34,
           -14},{-34,66},{-24,66}}, color={0,0,127}));
-  connect(overhang.solDif, none.solDif) annotation (Line(points={{-24,-8},{-36,
-          -8},{-36,72},{-24,72}}, color={0,0,127}));
-  connect(overhang.solDir, none.solDir) annotation (Line(points={{-24,-4},{-38,
-          -4},{-38,76},{-24,76}}, color={0,0,127}));
-  connect(screen.solDir, overhang.solDir) annotation (Line(points={{-24,-44},{
-          -38,-44},{-38,-4},{-24,-4}}, color={0,0,127}));
-  connect(screen.solDif, overhang.solDif) annotation (Line(points={{-24,-48},{
-          -36,-48},{-36,-8},{-24,-8}}, color={0,0,127}));
+  connect(overhang.HSkyDifTil, none.HSkyDifTil) annotation (Line(points={{-24,-6},
+          {-38,-6},{-38,74},{-24,74}},
+                                  color={0,0,127}));
+  connect(overhang.HDirTil, none.HDirTil) annotation (Line(points={{-24,-4},{-40,
+          -4},{-40,76},{-24,76}}, color={0,0,127}));
+  connect(screen.HDirTil, overhang.HDirTil) annotation (Line(points={{-24,-44},{
+          -40,-44},{-40,-4},{-24,-4}}, color={0,0,127}));
+  connect(screen.HSkyDifTil, overhang.HSkyDifTil) annotation (Line(points={{-24,-46},
+          {-38,-46},{-38,-6},{-24,-6}},color={0,0,127}));
   connect(screen.angInc, overhang.angInc) annotation (Line(points={{-24,-54},{
           -34,-54},{-34,-14},{-24,-14}}, color={0,0,127}));
   connect(screen.angAzi, overhang.angAzi) annotation (Line(points={{-24,-58},{
@@ -98,10 +99,20 @@ equation
           -30,-96},{-32,-96},{-32,-56},{-24,-56}}, color={0,0,127}));
   connect(sideFins.angInc, screen.angInc) annotation (Line(points={{-24,-94},{
           -34,-94},{-34,-92},{-34,-66},{-34,-54},{-24,-54}}, color={0,0,127}));
-  connect(sideFins.solDif, screen.solDif) annotation (Line(points={{-24,-88},{
-          -34,-88},{-36,-88},{-36,-48},{-24,-48}}, color={0,0,127}));
-  connect(sideFins.solDir, screen.solDir) annotation (Line(points={{-24,-84},{
-          -34,-84},{-38,-84},{-38,-44},{-24,-44}}, color={0,0,127}));
+  connect(sideFins.HSkyDifTil, screen.HSkyDifTil) annotation (Line(points={{-24,-86},
+          {-24,-86},{-38,-86},{-38,-46},{-24,-46}},color={0,0,127}));
+  connect(sideFins.HDirTil, screen.HDirTil) annotation (Line(points={{-24,-84},{
+          -24,-84},{-40,-84},{-40,-44},{-24,-44}}, color={0,0,127}));
+  connect(buildingShade.HGroDifTil, weaBus.solBus[2].HGroDifTil) annotation (Line(
+        points={{-24,32},{-53.95,32},{-53.95,34.05}}, color={0,0,127}));
+  connect(none.HGroDifTil, buildingShade.HGroDifTil) annotation (Line(points={{-24,
+          72},{-30,72},{-36,72},{-36,32},{-24,32}}, color={0,0,127}));
+  connect(overhang.HGroDifTil, buildingShade.HGroDifTil) annotation (Line(
+        points={{-24,-8},{-36,-8},{-36,32},{-24,32}}, color={0,0,127}));
+  connect(screen.HGroDifTil, overhang.HGroDifTil) annotation (Line(points={{-24,
+          -48},{-30,-48},{-36,-48},{-36,-8},{-24,-8}}, color={0,0,127}));
+  connect(sideFins.HGroDifTil, screen.HGroDifTil) annotation (Line(points={{-24,
+          -88},{-36,-88},{-36,-48},{-24,-48}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(
@@ -114,6 +125,13 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 26, 2017 by Filip Jorissen:<br/>
+Revised implementation for renamed
+ports <code>HDirTil</code> etc.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/735\">
+#735</a>.
+</li>
 <li>
 July 18, 2016, by Filip Jorissen:<br/>
 Using west oriented data since this orientation

@@ -7,26 +7,34 @@ partial model PartialShading "Window shading partial"
     "Window azimuth angle"
     annotation(Dialog(group="Window properties"));
 
-  Modelica.Blocks.Interfaces.RealInput solDir
+  Modelica.Blocks.Interfaces.RealInput HDirTil
     "Direct solar illuminance on surface" annotation (Placement(
         transformation(extent={{-80,30},{-40,70}}), iconTransformation(extent={
             {-60,50},{-40,70}})));
-  Modelica.Blocks.Interfaces.RealInput solDif
-    "Diffuse solar illuminance on surface" annotation (Placement(
-        transformation(extent={{-80,-10},{-40,30}}), iconTransformation(extent=
-            {{-60,10},{-40,30}})));
+  Modelica.Blocks.Interfaces.RealInput HSkyDifTil
+    "Diffuse sky solar illuminance on tilted surface" annotation (Placement(
+        transformation(extent={{-80,10},{-40,50}}),  iconTransformation(extent={{-60,30},
+            {-40,50}})));
+  Modelica.Blocks.Interfaces.RealInput HGroDifTil
+    "Diffuse ground solar illuminance on tilted surface" annotation (Placement(
+        transformation(extent={{-80,-10},{-40,30}}), iconTransformation(extent={{-60,10},
+            {-40,30}})));
   Modelica.Blocks.Interfaces.RealInput angZen
     "Angle of incidence" annotation (
       Placement(transformation(extent={{-80,-90},{-40,-50}}),
         iconTransformation(extent={{-60,-70},{-40,-50}})));
-  Modelica.Blocks.Interfaces.RealOutput iSolDir
-    "Direct solar illuminance on surface" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput HShaDirTil
+    "Shaded direct solar illuminance on surface" annotation (Placement(
         transformation(extent={{20,30},{60,70}}), iconTransformation(extent={{
             40,50},{60,70}})));
-  Modelica.Blocks.Interfaces.RealOutput iSolDif
-    "Diffuse solar illuminance on surface" annotation (Placement(
-        transformation(extent={{20,-10},{60,30}}), iconTransformation(extent={{
-            40,10},{60,30}})));
+  Modelica.Blocks.Interfaces.RealOutput HShaSkyDifTil
+    "Shaded diffuse sky solar illuminance on tilted surface" annotation (Placement(
+        transformation(extent={{20,10},{60,50}}),  iconTransformation(extent={{40,30},
+            {60,50}})));
+  Modelica.Blocks.Interfaces.RealOutput HShaGroDifTil
+    "Shaded diffuse ground solar illuminance on tilted surface" annotation (Placement(
+        transformation(extent={{20,-10},{60,30}}), iconTransformation(extent={{40,10},
+            {60,30}})));
   Modelica.Blocks.Interfaces.RealOutput iAngInc
     "Angle of incidence after transmittance through (possible) shading"
     annotation (Placement(transformation(extent={{20,-70},{60,-30}}),
