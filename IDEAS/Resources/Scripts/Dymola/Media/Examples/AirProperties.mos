@@ -1,4 +1,4 @@
-simulateModel("IDEAS.Media.Examples.AirProperties", method="dassl", resultFile="AirProperties");
+simulateModel("IDEAS.Media.Examples.AirProperties", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="AirProperties");
 createPlot(
   id   = 1,
   x    = "T_degC",
