@@ -193,7 +193,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     init=Modelica.Blocks.Types.Init.NoInit,
     m_flow_small=m1_flow_nominal/50,
     riseTime=600,
-    filteredSpeed=false,
+    use_inputFilter=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m1_flow_nominal) "Top fan"
@@ -237,7 +237,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     init=Modelica.Blocks.Types.Init.NoInit,
     m_flow_small=m2_flow_nominal/50,
     riseTime=600,
-    filteredSpeed=false,
+    use_inputFilter=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m2_flow_nominal) "Bottom fan"
@@ -296,7 +296,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     redeclare package Medium = MediumAir,
     m_flow_nominal=m2_flow_nominal,
     allowFlowReversal=allowFlowReversal,
-    filteredOpening=false,
+    use_inputFilter=false,
     from_dp=true,
     l=0.001,
     dpAdd=1,
@@ -310,7 +310,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     m_flow_nominal=m2_flow_nominal,
     dpFixed_nominal=per.dp_nominal_bottom_recup,
     allowFlowReversal=allowFlowReversal,
-    filteredOpening=false,
+    use_inputFilter=false,
     from_dp=true,
     l=0.001,
     dpAdd=1,
@@ -320,7 +320,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
   TwoWayEqualPercentageAdd                  valBypassTop(
     redeclare package Medium = MediumAir,
     allowFlowReversal=allowFlowReversal,
-    filteredOpening=false,
+    use_inputFilter=false,
     from_dp=true,
     l=0.001,
     m_flow_nominal=m1_flow_nominal,
@@ -335,7 +335,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     m_flow_nominal=m2_flow_nominal,
     dpFixed_nominal=per.dp_nominal_top_recup,
     allowFlowReversal=allowFlowReversal,
-    filteredOpening=false,
+    use_inputFilter=false,
     from_dp=true,
     l=0.001,
     dpAdd=per.dp_adiabatic,
@@ -447,12 +447,12 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(fanTop.P, sum.u[2]) annotation (Line(
-      points={{-29,28},{-58,28},{-58,76},{76.4,76},{76.4,89.36}},
+      points={{-29,29},{-58,29},{-58,76},{76.4,76},{76.4,89.36}},
       color={0,0,127},
       smooth=Smooth.None,
       visible=false));
   connect(fanBot.P, sum.u[3]) annotation (Line(
-      points={{-51,-12},{-72,-12},{-72,-8},{-78,-8},{-78,90},{76.4,90}},
+      points={{-51,-11},{-72,-11},{-72,-8},{-78,-8},{-78,90},{76.4,90}},
       color={0,0,127},
       smooth=Smooth.None,
       visible=false));
@@ -469,11 +469,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan_flow_set[1].y, fanTop.dp_in) annotation (Line(
-      points={{-68.6,41},{-60,41},{-60,32},{-40.2,32}},
+      points={{-68.6,41},{-60,41},{-60,32},{-40,32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fan_flow_set[2].y, fanBot.dp_in) annotation (Line(
-      points={{-68.6,41},{-60,41},{-60,-2},{-39.8,-2},{-39.8,-8}},
+      points={{-68.6,41},{-60,41},{-60,-2},{-40,-2},{-40,-8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senTemFanSupOut.port_a, fanBot.port_b) annotation (Line(
@@ -484,10 +484,6 @@ equation
       points={{-60,-13.4},{-60,-92},{106,-92}},
       color={0,0,127},
       smooth=Smooth.None,
-      visible=false));
-  connect(eva.TWat, IEH.TOutBot) annotation (Line(
-      points={{19.6,-55.84},{19.6,-32.76},{66.16,-32.76}},
-      color={0,0,127},
       visible=false));
   connect(IEH.port_b1, con.ports[1]) annotation (Line(points={{64,7.2},{62,7.2},
           {62,8},{72,8},{72,36.4}}, color={0,127,255}));
