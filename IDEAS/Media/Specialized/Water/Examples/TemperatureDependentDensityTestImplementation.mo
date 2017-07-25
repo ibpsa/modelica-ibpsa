@@ -6,7 +6,7 @@ model TemperatureDependentDensityTestImplementation
      redeclare package Medium =
         IDEAS.Media.Specialized.Water.TemperatureDependentDensity);
 
-      annotation (experiment(StopTime=1.0),
+      annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/TemperatureDependentDensityTestImplementation.mos"
         "Simulate and plot"),
     Documentation(info="<html>

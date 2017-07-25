@@ -44,6 +44,13 @@ initial equation
 </html>", revisions="<html>
 <ul>
 <li>
+May 26, 2017 by Filip Jorissen:<br/>
+Revised implementation for renamed
+ports <code>HDirTil</code> etc.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/735\">
+#735</a>.
+</li>
+<li>
 July 2015, by Filip Jorissenr:<br/>
 Now extending from IDEAS.Buildings.Components.Interfaces.DoubleShading.
 </li>

@@ -201,13 +201,17 @@ package RC
   loads directly to a specific surface or to connect components that distribute
   radiation and have a specific surface temperature, e.g. a floor heating.
   </p>
+  <h4>Parameter calculation</h4>
+  <p>To calculate parameters of all four models, the Python package TEASER <a
+  href=\"https://github.com/RWTH-EBC/TEASER\">
+  https://github.com/RWTH-EBC/TEASER</a> can be used.
   <h4>References</h4>
   <p>VDI. German Association of Engineers Guideline VDI 6007-1 March 2012.
   Calculation of transient thermal response of rooms and buildings - modelling of
   rooms.</p>
   <p>M. Lauster, A. Bruentjen, H. Leppmann, M. Fuchs, R. Streblow, D. Mueller.
   <a href=\"modelica://IDEAS/Resources/Images/ThermalZones/ReducedOrder/RC/UsersGuide/BauSIM2014_208-2_p1192.pdf\">Improving a Low Order Building Model for Urban Scale Applications</a>.
-  <i>Proceedings of BauSim 2014: 5th German-Austrian IBPSA Conference</i>,
+  <i>Proceedings of BauSim 2014: 5th German-Austrian IDEAS Conference</i>,
   p. 511-518, Aachen, Germany. Sep. 22-24, 2014.</p>
   <p>M. Lauster, J. Teichmann, M. Fuchs, R. Streblow, D. Mueller. Low Order
   Thermal Network Models for Dynamic Simulations of Buildings on City District

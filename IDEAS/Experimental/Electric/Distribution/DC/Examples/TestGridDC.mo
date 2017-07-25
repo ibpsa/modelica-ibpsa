@@ -2,7 +2,7 @@ within IDEAS.Experimental.Electric.Distribution.DC.Examples;
 model TestGridDC
   import IDEAS;
 extends Modelica.Icons.Example;
-  IDEAS.Experimental.Electric.Distribution.Components.GridGeneralDC gridGeneralDC(
+  IDEAS.Experimental.Electric.Distribution.DC.GridDCGeneral gridGeneralDC(
       redeclare
       IDEAS.Experimental.Electric.Data.Grids.DirectCurrent.TestGrid2Nodes grid)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
@@ -28,11 +28,10 @@ equation
       points={{-80,-10},{-20,-10},{-20,1}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(gridGeneralDC.loadNodesDC[1, 2], sinePower.nodes) annotation (Line(
+  connect(gridGeneralDC.nodes1Phase[1, 2], sinePower.nodes) annotation (Line(
       points={{20,0},{40,0}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics));
+            -100},{100,100}})));
 end TestGridDC;

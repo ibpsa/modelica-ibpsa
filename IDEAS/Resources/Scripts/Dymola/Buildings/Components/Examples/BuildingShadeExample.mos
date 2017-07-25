@@ -7,14 +7,14 @@ resultFile="BuildingShadeExample");
 
 createPlot(id=1, 
 position={0, 0, 1742, 774}, 
-y={"buildingShade.iSolDir", "none.iSolDir", "overhang.iSolDir", "screen.iSolDir", "sideFins.iSolDir"}, 
+y={"buildingShade.HShaDirTil", "none.HShaDirTil", "overhang.HShaDirTil", "screen.HShaDirTil", "sideFins.HShaDirTil"}, 
 range={2480000.0, 3020000.0, 0.0, 800.0}, 
 autoscale=false, 
 grid=true, 
 colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
 createPlot(id=1, 
 position={0, 0, 1742, 256}, 
-y={"buildingShade.iSolDif", "none.iSolDif", "overhang.iSolDif", "screen.iSolDif", "sideFins.iSolDif"}, 
+y={"buildingShade.HShaSkyDifTil", "none.HShaSkyDifTil", "overhang.HShaSkyDifTil", "screen.HShaSkyDifTil", "sideFins.HShaSkyDifTil"}, 
 range={2000000.0, 3000000.0, -50.0, 300.0}, 
 autoscale=false, 
 grid=true, 

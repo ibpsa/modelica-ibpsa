@@ -48,8 +48,8 @@ model Window "Multipane window"
           "Construction details"));
   replaceable IDEAS.Buildings.Components.Shading.None shaType constrainedby
     Shading.Interfaces.PartialShading(
-                            final azi=azi) "First shading type"  annotation (Placement(transformation(extent={{-60,-60},
-            {-50,-40}})),
+                            final azi=azi) "First shading type"  annotation (Placement(transformation(extent={{-70,-60},
+            {-60,-40}})),
       __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
 
   Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controlled
@@ -151,8 +151,12 @@ protected
     solAbs(A=A*frac) if fraType.present
     "Solar absorption model for shortwave radiation"
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
+  Modelica.Blocks.Math.Add solDif(final k1=1, final k2=1)
+    "Sum of ground and sky diffuse solar irradiation"
+    annotation (Placement(transformation(extent={{-56,-50},{-50,-44}})));
 initial equation
   QTra_design = (U_value*A + (if fraType.briTyp.present then fraType.briTyp.G else 0)) *(273.15 + 21 - Tdes.y);
+
 
 
 equation
@@ -181,7 +185,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaType.Ctrl, Ctrl) annotation (Line(
-      points={{-55,-60},{-50,-60},{-50,-110}},
+      points={{-65,-60},{-50,-60},{-50,-110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(iConFra.port_b, propsBus_a.surfCon) annotation (Line(
@@ -201,15 +205,15 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(radSolData.angInc, shaType.angInc) annotation (Line(
-      points={{-79.4,-54},{-60,-54}},
+      points={{-79.4,-54},{-70,-54}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.angAzi, shaType.angAzi) annotation (Line(
-      points={{-79.4,-58},{-60,-58}},
+      points={{-79.4,-58},{-70,-58}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.angZen, shaType.angZen) annotation (Line(
-      points={{-79.4,-56},{-60,-56}},
+      points={{-79.4,-56},{-70,-56}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
@@ -218,7 +222,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(radSolData.Tenv, skyRad.Tenv) annotation (Line(
-      points={{-79.4,-52},{-64,-52},{-64,10},{-20,10},{-20,6}},
+      points={{-79.4,-52},{-72,-52},{-72,10},{-20,10},{-20,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(skyRadFra.Tenv, skyRad.Tenv) annotation (Line(
@@ -242,8 +246,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tdes.u, propsBus_a.weaBus.Tdes);
-  connect(shaType.iAngInc, solWin.angInc) annotation (Line(points={{-50,-54},{
-          -22,-54},{-22,-54},{-10,-54}}, color={0,0,127}));
+  connect(shaType.iAngInc, solWin.angInc) annotation (Line(points={{-60,-54},{
+          -60,-54},{-10,-54}},           color={0,0,127}));
   connect(heaCapGla.port, layMul.port_a)
     annotation (Line(points={{16,-12},{16,0},{10,0}},     color={191,0,0}));
   connect(heaCapFra.port, layFra.port_a)
@@ -259,18 +263,24 @@ equation
     annotation (Line(points={{-37.8,-44},{-10,-44}}, color={0,0,127}));
   connect(gainDif.y, solWin.solDif) annotation (Line(points={{-31.8,-48},{-22,
           -48},{-10,-48}}, color={0,0,127}));
-  connect(gainDif.u, shaType.iSolDif) annotation (Line(points={{-36.4,-48},{-48,
-          -48},{-50,-48}}, color={0,0,127}));
-  connect(gainDir.u, shaType.iSolDir)
-    annotation (Line(points={{-42.4,-44},{-50,-44}}, color={0,0,127}));
-  connect(shaType.solDir, radSolData.solDir) annotation (Line(points={{-60,-44},
-          {-76,-44},{-76,-48},{-79.4,-48}}, color={0,0,127}));
-  connect(shaType.solDif, radSolData.solDif) annotation (Line(points={{-60,-48},
-          {-74,-48},{-74,-50},{-79.4,-50}}, color={0,0,127}));
-  connect(shaType.iSolDir, solAbs.solDir)
-    annotation (Line(points={{-50,-44},{-50,56},{-40,56}}, color={0,0,127}));
-  connect(shaType.iSolDif, solAbs.solDif) annotation (Line(points={{-50,-48},{
-          -48,-48},{-48,52},{-40,52}}, color={0,0,127}));
+  connect(radSolData.HDirTil, shaType.HDirTil) annotation (Line(points={{-79.4,
+          -46},{-78,-46},{-78,-44},{-70,-44}}, color={0,0,127}));
+  connect(radSolData.HSkyDifTil, shaType.HSkyDifTil) annotation (Line(points={{
+          -79.4,-48},{-76,-48},{-76,-46},{-70,-46}}, color={0,0,127}));
+  connect(radSolData.HGroDifTil, shaType.HGroDifTil) annotation (Line(points={{
+          -79.4,-50},{-74,-50},{-74,-48},{-70,-48}}, color={0,0,127}));
+  connect(shaType.HShaGroDifTil, solDif.u2) annotation (Line(points={{-60,-48},
+          {-56.6,-48},{-56.6,-48.8}}, color={0,0,127}));
+  connect(solDif.u1, shaType.HShaSkyDifTil) annotation (Line(points={{-56.6,
+          -45.2},{-56.3,-45.2},{-56.3,-46},{-60,-46}}, color={0,0,127}));
+  connect(gainDif.u, solDif.y) annotation (Line(points={{-36.4,-48},{-49.7,-48},
+          {-49.7,-47}}, color={0,0,127}));
+  connect(solDif.y, solAbs.solDif) annotation (Line(points={{-49.7,-47},{-48,
+          -47},{-48,52},{-40,52}}, color={0,0,127}));
+  connect(shaType.HShaDirTil, solAbs.solDir) annotation (Line(points={{-60,-44},
+          {-60,-44},{-60,56},{-40,56}}, color={0,0,127}));
+  connect(gainDir.u, shaType.HShaDirTil) annotation (Line(points={{-42.4,-44},{
+          -51.2,-44},{-60,-44}}, color={0,0,127}));
     annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-60,-100},{60,100}}),
         graphics={
@@ -339,6 +349,13 @@ Optional parameter <code>shaType</code> may be used to define the window shading
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2017 by Filip Jorissen:<br/>
+Revised implementation for renamed
+ports <code>HDirTil</code> etc.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/735\">
+#735</a>.
+</li>
 <li>
 March 6, 2017, by Filip Jorissen:<br/>
 Added option for using 'normal' dynamics for the window glazing.

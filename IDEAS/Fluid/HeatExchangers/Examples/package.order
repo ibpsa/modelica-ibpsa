@@ -3,6 +3,11 @@ AirHeater_u
 EmbeddedPipe
 EmbeddedPipeDp
 IdealHeater
+RadiatorWithMixingValve
+Radiator_CoolingDown
+Radiator_EnergyBalance
+Radiator_NominalPower
+WaterCooler_T
 WaterHeater_T
 WaterHeater_u
 BaseClasses

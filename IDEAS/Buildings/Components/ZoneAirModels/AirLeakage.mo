@@ -15,8 +15,8 @@ extends IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirLeakage;
     use_T_in=true,
     nPorts=2,
     use_p_in=false,
-    use_X_in=Medium.nXi == 2,
-    use_C_in=Medium.nC == 1)
+    use_C_in=Medium.nC == 1,
+    use_X_in=Medium.nX == 2)
                     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -70,12 +70,18 @@ equation
   connect(reaPasThr.y, bou.X_in[1]) annotation (Line(points={{30,59},{14,59},{14,
           52},{14,42}}, color={0,0,127}));
   connect(Te.y, bou.T_in)
-    annotation (Line(points={{6,59},{6,56},{6,56},{6,42}}, color={0,0,127}));
+    annotation (Line(points={{6,59},{6,56},{6,42}},        color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 10, 2017 by Filip Jorissen:<br/>
+Fixed bug due to which the outdoor absolute humidity
+was not used for the air infiltration model.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/726\">#726</a>.
+</li>
 <li>
 November 15, 2016 by Filip Jorissen:<br/>
 Revised documentation.

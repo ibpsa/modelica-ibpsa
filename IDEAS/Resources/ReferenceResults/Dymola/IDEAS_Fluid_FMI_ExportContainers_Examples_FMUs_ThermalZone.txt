@@ -1,4 +1,4 @@
-last-generated=2017-04-26
+last-generated=2017-04-14
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -53,12 +53,8 @@ statistics-fmu-dependencies=
     "vol.dynBal.m": [
       "vol.p_start"
     ], 
-    "weaBus.TDryBul": [
-      "weaDat.datRea.verboseRead"
-    ], 
-    "weaBus.HHorIR": [
-      "weaDat.datRea1.verboseRead"
-    ], 
+    "weaBus.TDryBul": [], 
+    "weaBus.HHorIR": [], 
     "der(vol.dynBal.U)": [
       "fluPor[1].m_flow", 
       "fluPor[1].forward.T", 
@@ -67,15 +63,12 @@ statistics-fmu-dependencies=
       "fluPor[2].forward.T", 
       "fluPor[2].forward.X_w", 
       "QRooInt_flow", 
-      "weaDat.datRea.verboseRead", 
       "theCon.G", 
       "preHea.T_ref", 
       "preHea.alpha", 
       "vol.p_start", 
       "vol.T_start", 
-      "vol.X_start[1]", 
-      "mWat_flow.k", 
-      "TWat.k"
+      "vol.X_start[1]"
     ], 
     "fluPor[2].backward.X_w": [
       "vol.X_start[1]"
@@ -84,28 +77,18 @@ statistics-fmu-dependencies=
       "fluPor[1].m_flow", 
       "fluPor[2].m_flow"
     ], 
-    "weaBus.nOpa": [
-      "weaDat.datRea.verboseRead"
-    ], 
+    "weaBus.nOpa": [], 
     "weaBus.solDec": [], 
     "fluPor[2].backward.T": [
       "vol.p_start", 
       "vol.T_start", 
       "vol.X_start[1]"
     ], 
-    "weaBus.nTot": [
-      "weaDat.datRea.verboseRead"
-    ], 
+    "weaBus.nTot": [], 
     "weaBus.solHouAng": [], 
-    "weaBus.TBlaSky": [
-      "weaDat.datRea.verboseRead"
-    ], 
-    "weaBus.TDewPoi": [
-      "weaDat.datRea.verboseRead"
-    ], 
-    "TOut": [
-      "weaDat.datRea.verboseRead"
-    ], 
+    "weaBus.TBlaSky": [], 
+    "weaBus.TDewPoi": [], 
+    "TOut": [], 
     "der(vol.dynBal.mXi[1])": [
       "fluPor[1].m_flow", 
       "fluPor[1].forward.X_w", 
@@ -129,15 +112,9 @@ statistics-fmu-dependencies=
       "vol.T_start", 
       "vol.X_start[1]"
     ], 
-    "weaBus.winDir": [
-      "weaDat.datRea.verboseRead"
-    ], 
-    "weaBus.relHum": [
-      "weaDat.datRea.verboseRead"
-    ], 
-    "weaBus.celHei": [
-      "weaDat.datRea.verboseRead"
-    ], 
+    "weaBus.winDir": [], 
+    "weaBus.relHum": [], 
+    "weaBus.celHei": [], 
     "fluPor[1].backward.X_w": [
       "vol.X_start[1]"
     ], 
@@ -147,22 +124,14 @@ statistics-fmu-dependencies=
       "vol.T_start", 
       "vol.X_start[1]"
     ], 
-    "weaBus.HGloHor": [
-      "weaDat.datRea1.verboseRead"
-    ], 
+    "weaBus.HGloHor": [], 
     "weaBus.solAlt": [], 
     "weaBus.solZen": [], 
     "weaBus.lat": [], 
-    "weaBus.winSpe": [
-      "weaDat.datRea.verboseRead"
-    ], 
+    "weaBus.winSpe": [], 
     "weaBus.cloTim": [], 
-    "weaBus.HDirNor": [
-      "weaDat.datRea1.verboseRead"
-    ], 
-    "weaBus.HDifHor": [
-      "weaDat.datRea1.verboseRead"
-    ], 
+    "weaBus.HDirNor": [], 
+    "weaBus.HDifHor": [], 
     "weaBus.pAtm": [
       "weaDat.pAtm"
     ]

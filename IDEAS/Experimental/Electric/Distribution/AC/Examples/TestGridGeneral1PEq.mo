@@ -1,7 +1,7 @@
 within IDEAS.Experimental.Electric.Distribution.AC.Examples;
 model TestGridGeneral1PEq
   import IDEAS;
-
+    extends Modelica.Icons.Example;
   IDEAS.Experimental.Electric.Distribution.AC.Examples.Components.SinePower
     risingflankSingle1(amplitude=12000)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));

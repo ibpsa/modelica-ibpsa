@@ -15,7 +15,7 @@ PartialEightPortInterface
 PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
-PrescribedOutletState
+PrescribedOutlet
 StaticFourPortHeatMassExchanger
 StaticTwoPortConservationEquation
 StaticTwoPortHeatMassExchanger
@@ -23,7 +23,6 @@ TwoPortHeatMassExchanger
 FourPortFlowResistanceParameters
 EightPortFlowResistanceParameters
 LumpedVolumeDeclarations
-PrescribedOutletStateParameters
 TwoPortFlowResistanceParameters
 Partials
 Examples
