@@ -10,7 +10,7 @@ model PumpWithPulseControl "Example of how a pump can be used"
     tau=60,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    filteredSpeed=false)
+    use_inputFilter=false)
           annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
         Medium)
@@ -38,8 +38,8 @@ equation
       points={{40,0},{48,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pulse.y, pump.m_flow_in) annotation (Line(points={{-21,50},{-10,50},{
-          -0.2,50},{-0.2,12}}, color={0,0,127}));
+  connect(pulse.y, pump.m_flow_in) annotation (Line(points={{-21,50},{-10,50},{0,
+          50},{0,12}},         color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(StopTime=10000),

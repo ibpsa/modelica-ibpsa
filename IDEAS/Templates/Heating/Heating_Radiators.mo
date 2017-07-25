@@ -21,7 +21,7 @@ model Heating_Radiators
       each allowFlowReversal=false,
       each massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
       each from_dp=true),
-    pumpRad(each filteredSpeed=true),
+    pumpRad(each use_inputFilter=true),
     ctrl_Heating(dTHeaterSet=2));
 equation
   QHeaSys = -sum(emission.heatPortCon.Q_flow) - sum(emission.heatPortRad.Q_flow);

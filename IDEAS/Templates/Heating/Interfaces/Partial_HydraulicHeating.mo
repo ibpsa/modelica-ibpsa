@@ -40,7 +40,7 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
   IDEAS.Fluid.Movers.FlowControlled_m_flow[nZones] pumpRad(
     redeclare each replaceable package Medium = Medium,
     each tau=30,
-    each filteredSpeed=false,
+    each use_inputFilter=false,
     m_flow_nominal=m_flow_nominal)
               annotation (Placement(transformation(extent={{88,64},{112,40}})));
   Fluid.Actuators.Valves.Simplified.Thermostatic3WayValve idealCtrlMixer(
@@ -260,7 +260,7 @@ equation
   connect(heatingControl.y, booleanToReal.u) annotation (Line(points={{-119,-70},
           {-112.5,-70},{-106,-70}}, color={255,0,255}));
   connect(booleanToReal.y, pumpRad.m_flow_in) annotation (Line(points={{-83,-70},
-          {6,-70},{99.76,-70},{99.76,37.6}}, color={0,0,127}));
+          {6,-70},{100,-70},{100,37.6}},     color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{200,100}}), graphics={Rectangle(
           extent={{-98,30},{88,-64}},

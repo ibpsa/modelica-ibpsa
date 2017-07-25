@@ -63,7 +63,7 @@ model Heating_Embedded_DHW_STS
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal_stoHX,
     tau=30,
-    filteredSpeed=true,
+    use_inputFilter=true,
     riseTime=100) "Pump for loading the storage tank"
     annotation (Placement(transformation(extent={{-30,-56},{-44,-44}})));
   IDEAS.Fluid.Storage.StorageTank_OneIntHX tesTank(
@@ -224,8 +224,8 @@ equation
       smooth=Smooth.None));
   connect(ctrl_Heating.onOff, gain.u)
     annotation (Line(points={{-142,62},{-80,62},{-80,1.6}}, color={0,0,127}));
-  connect(gain.y, pumpSto.m_flow_in) annotation (Line(points={{-80,-16.8},{-80,
-          -38},{-36.86,-38},{-36.86,-42.8}}, color={0,0,127}));
+  connect(gain.y, pumpSto.m_flow_in) annotation (Line(points={{-80,-16.8},{-80,-38},
+          {-37,-38},{-37,-42.8}},            color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
             100}})),

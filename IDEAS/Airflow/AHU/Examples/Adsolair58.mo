@@ -336,5 +336,6 @@ First implementation.
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Airflow/AHU/Examples/Adsolair58.mos"
-        "Siimulate and plot"));
+        "Siimulate and plot"),
+    experiment(StopTime=10000));
 end Adsolair58;

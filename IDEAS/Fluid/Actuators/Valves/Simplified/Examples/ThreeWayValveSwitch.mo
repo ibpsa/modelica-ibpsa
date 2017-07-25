@@ -8,7 +8,7 @@ model ThreeWayValveSwitch "Test the new component ThreeWayValveSwitch"
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     tau=30,
-    filteredSpeed=false,
+    use_inputFilter=false,
     dp_nominal = 0,
     inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{58,0},{78,20}})));

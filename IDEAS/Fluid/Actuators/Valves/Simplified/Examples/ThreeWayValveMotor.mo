@@ -10,7 +10,7 @@ protected
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     tau=30,
-    filteredSpeed=false,
+    use_inputFilter=false,
     dp_nominal = 0)     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -70,8 +70,8 @@ equation
       points={{-24,0},{-10,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(flow_pump.y, pumpFlow1.m_flow_in) annotation (Line(points={{-77,70},{
-          -71.8,70},{-71.8,12}}, color={0,0,127}));
+  connect(flow_pump.y, pumpFlow1.m_flow_in) annotation (Line(points={{-77,70},{-72,
+          70},{-72,12}},         color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(StopTime=100),

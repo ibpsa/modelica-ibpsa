@@ -14,7 +14,7 @@ model Ventilation "Ppd 12 example model"
     m_flow_nominal=m_flow_nominal_air,
     inputType=IDEAS.Fluid.Types.InputType.Constant,
     tau=0,
-    filteredSpeed=false,
+    use_inputFilter=false,
     dp_nominal=300,
     redeclare package Medium = MediumAir,
     constantMassFlowRate=200*1.2/3600)    "Supply fan"
@@ -24,7 +24,7 @@ model Ventilation "Ppd 12 example model"
     m_flow_nominal=m_flow_nominal_air,
     inputType=IDEAS.Fluid.Types.InputType.Constant,
     tau=0,
-    filteredSpeed=false,
+    use_inputFilter=false,
     dp_nominal=300,
     redeclare package Medium = MediumAir,
     constantMassFlowRate=200*1.2/3600)    "Return fan"

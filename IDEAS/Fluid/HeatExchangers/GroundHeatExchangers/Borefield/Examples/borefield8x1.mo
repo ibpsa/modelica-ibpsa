@@ -48,7 +48,7 @@ model borefield8x1
     m_flow_nominal=bfData.m_flow_nominal,
     T_start=T_start,
     addPowerToMedium=false,
-    filteredSpeed=false,
+    use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-16,22},{-36,2}})));
@@ -73,7 +73,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(mFlo.y, pum.m_flow_in) annotation (Line(
-      points={{-47.4,-12},{-25.8,-12},{-25.8,0}},
+      points={{-47.4,-12},{-26,-12},{-26,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pum.port_a, hea.port_b) annotation (Line(

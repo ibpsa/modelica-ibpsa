@@ -10,15 +10,12 @@ model PumpWithPipeHeatPorts "Example of Pipe_heatPort usage"
     tau=30,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    filteredSpeed=false)
+    use_inputFilter=false)
           annotation (Placement(transformation(extent={{-52,-12},{-32,8}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-100,-12},{-80,8}})));
-//   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
-//     annotation (__Dymola_choicesAllMatching=true);
-   package Medium =
-      Modelica.Media.Water.ConstantPropertyLiquidWater
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
 
   Modelica.Blocks.Sources.Sine sine(freqHz=0.001)
@@ -103,8 +100,8 @@ equation
       points={{17,44},{12,44},{12,76},{16,76}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sine.y, pump.m_flow_in) annotation (Line(points={{-59,36},{-42.2,36},
-          {-42.2,10}}, color={0,0,127}));
+  connect(sine.y, pump.m_flow_in) annotation (Line(points={{-59,36},{-42,36},{-42,
+          10}},        color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(StopTime=10000),

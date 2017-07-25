@@ -48,7 +48,7 @@ model ConstantAirFlowRecup
     redeclare each package Medium = Medium,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     each massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    each filteredSpeed=false)
+    each use_inputFilter=false)
     annotation (Placement(transformation(extent={{-160,-10},{-180,-30}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)
     annotation (Placement(transformation(extent={{-40,-26},{-60,-6}})));
@@ -91,7 +91,7 @@ equation
       smooth=Smooth.None));
 
   connect(realExpressionPump.y, pump.m_flow_in) annotation (Line(
-      points={{-61,-50},{-169.8,-50},{-169.8,-32}},
+      points={{-61,-50},{-170,-50},{-170,-32}},
       color={0,0,127},
       smooth=Smooth.None));
 

@@ -25,7 +25,7 @@ model StorageTank_StratifiedInlet
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=30,
-    filteredSpeed=false)
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{-14,-2},{-34,-22}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort heatedPipe(
     m=2,
@@ -69,7 +69,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pulse.y, pump.m_flow_in) annotation (Line(points={{-35,-58},{-30,-58},
-          {-23.8,-58},{-23.8,-24}}, color={0,0,127}));
+          {-24,-58},{-24,-24}},     color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),

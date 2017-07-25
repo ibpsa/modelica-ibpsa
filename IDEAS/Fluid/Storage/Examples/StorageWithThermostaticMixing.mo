@@ -31,7 +31,7 @@ model StorageWithThermostaticMixing
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=30,
-    filteredSpeed=false,
+    use_inputFilter=false,
     T_start=283.15)
     annotation (Placement(transformation(extent={{38,16},{58,36}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(
@@ -75,7 +75,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(pulse.y, pump1.m_flow_in)
-    annotation (Line(points={{37,76},{47.8,76},{47.8,38}}, color={0,0,127}));
+    annotation (Line(points={{37,76},{48,76},{48,38}},     color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
