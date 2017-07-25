@@ -196,7 +196,8 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     use_inputFilter=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    m_flow_nominal=m1_flow_nominal) "Top fan"
+    m_flow_nominal=m1_flow_nominal,
+    prescribeSystemPressure=true)   "Top fan"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
   IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir eva(
     redeclare package Medium = MediumAir,
@@ -240,7 +241,8 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     use_inputFilter=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    m_flow_nominal=m2_flow_nominal) "Bottom fan"
+    m_flow_nominal=m2_flow_nominal,
+    prescribeSystemPressure=true)   "Bottom fan"
     annotation (Placement(transformation(extent={{-30,-30},{-50,-10}})));
   Modelica.Blocks.Math.Sum sum(nin=5) "Total electrical power consumption"
     annotation (Placement(transformation(extent={{78,82},{94,98}})));
@@ -264,8 +266,8 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
         rotation=0,
         origin={50,42})));
   Modelica.Blocks.Sources.RealExpression fan_flow_set[2](y=if on_internal then
-        dpSet + {-port_b1.p + fanTop.port_b.p,-fanBot.port_a.p + port_a2.p}
-         else {0.1,0.1}) "Fan flow set points"
+        dpSet else {0.1,0.1})
+                         "Fan flow set points"
     annotation (Placement(transformation(extent={{-140,48},{-72,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         273.15 + 20)
@@ -425,6 +427,12 @@ initial equation
           fillPattern=FillPattern.Solid,
           textString="%%")}));
 end TwoWayEqualPercentageAdd;
+  Fluid.Sensors.RelativePressure senRelPreBot(redeclare package Medium =
+        MediumAir)
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-90}})));
+  Fluid.Sensors.RelativePressure senRelPreTop(redeclare package Medium =
+        MediumAir)
+    annotation (Placement(transformation(extent={{-38,36},{-58,56}})));
 equation
   connect(on,on_internal);
   if not use_onOffSignal then
@@ -597,6 +605,18 @@ equation
     annotation (Line(points={{94,44},{100,44},{100,60}}, color={0,127,255}));
   connect(valBypassTop.port_b, port_b1)
     annotation (Line(points={{94,66},{100,66},{100,60}}, color={0,127,255}));
+  connect(senRelPreBot.p_rel, fanBot.dpMea) annotation (Line(points={{-30,-71},
+          {-30,-40},{-30,-8},{-32,-8}}, color={0,0,127}));
+  connect(senRelPreTop.p_rel, fanTop.dpMea)
+    annotation (Line(points={{-48,37},{-48,32}}, color={0,0,127}));
+  connect(senRelPreBot.port_a, port_b2) annotation (Line(points={{-40,-80},{
+          -100,-80},{-100,-60}}, color={0,127,255}));
+  connect(senRelPreBot.port_b, port_a2) annotation (Line(points={{-20,-80},{100,
+          -80},{100,-60}}, color={0,127,255}));
+  connect(senRelPreTop.port_b, port_a1) annotation (Line(points={{-58,46},{-100,
+          46},{-100,60}}, color={0,127,255}));
+  connect(senRelPreTop.port_a, port_b1) annotation (Line(points={{-38,46},{4,46},
+          {4,60},{100,60}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
