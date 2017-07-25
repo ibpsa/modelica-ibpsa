@@ -86,8 +86,6 @@ equation
           80},{108,80}}, color={0,0,127}));
   connect(vol.C_flow[1:Medium.nC], C_flow[1:Medium.nC]) annotation (Line(points={{12,6},{32,6},{32,40},{108,
           40}}, color={0,0,127}));
-  connect(senTem.T, vol.TWat)
-    annotation (Line(points={{80,-60},{80,-4.8},{12,-4.8}}, color={0,0,127}));
   connect(gaiLat.y, preHeaFloLat.Q_flow)
     annotation (Line(points={{64,47},{64,32}}, color={0,0,127}));
   connect(gaiLat.u, mWat_flow)
