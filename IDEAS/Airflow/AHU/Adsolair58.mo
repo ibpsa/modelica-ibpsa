@@ -109,6 +109,17 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     constrainedby IDEAS.Fluid.Interfaces.PartialFourPortInterface
     "Replaceable model for adding heat exchanger at supply outlet"
     annotation (Dialog(group="Advanced"),Placement(transformation(extent={{-72,-36},{-92,-16}})));
+  replaceable IDEAS.Airflow.AHU.BaseClasses.SimpleCompressorTable com(
+    fraPmin=per.fraPmin,
+    C=tau/4*per.G_condensor)
+  constrainedby BaseClasses.SimpleCompressorInterface
+    "Simple compressor model for active chiller"
+    annotation (Dialog(group="Advanced"),Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={32,42})));
+
   Modelica.Blocks.Sources.BooleanExpression onExp(y=on_internal)
     "AHU control signal"
     annotation (Placement(transformation(extent={{-84,66},{-64,82}})));
@@ -182,7 +193,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     init=Modelica.Blocks.Types.Init.NoInit,
     m_flow_small=m1_flow_nominal/50,
     riseTime=600,
-    filteredSpeed=false,
+    use_inputFilter=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m1_flow_nominal) "Top fan"
@@ -226,18 +237,11 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     init=Modelica.Blocks.Types.Init.NoInit,
     m_flow_small=m2_flow_nominal/50,
     riseTime=600,
-    filteredSpeed=false,
+    use_inputFilter=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m2_flow_nominal) "Bottom fan"
     annotation (Placement(transformation(extent={{-30,-30},{-50,-10}})));
-  IDEAS.Airflow.AHU.BaseClasses.SimpleCompressorTable com(fraPmin=per.fraPmin,
-      C=tau/4*per.G_condensor)
-    "Simple compressor model for active chiller" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={32,42})));
   Modelica.Blocks.Math.Sum sum(nin=5) "Total electrical power consumption"
     annotation (Placement(transformation(extent={{78,82},{94,98}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort TSupIn(
@@ -263,21 +267,9 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
         dpSet + {-port_b1.p + fanTop.port_b.p,-fanBot.port_a.p + port_a2.p}
          else {0.1,0.1}) "Fan flow set points"
     annotation (Placement(transformation(extent={{-140,48},{-72,34}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductionFanTop(G=1)
-    "Thermal losses in top fan: needed for avoiding singularity when mass flow rate is zero"
-    annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=0,
-        origin={-86,6})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         273.15 + 20)
     annotation (Placement(transformation(extent={{-112,0},{-100,12}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductionfanBot(G=1)
-    "Thermal losses in top fan: needed for avoiding singularity when mass flow rate is zero"
-    annotation (Placement(transformation(
-        extent={{-6,6},{6,-6}},
-        rotation=0,
-        origin={-86,-6})));
   Modelica.Blocks.Interfaces.RealOutput TFanSupOut
     "Temperature measured behind supply fan"
     annotation (Placement(transformation(extent={{96,-102},{116,-82}})));
@@ -304,7 +296,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     redeclare package Medium = MediumAir,
     m_flow_nominal=m2_flow_nominal,
     allowFlowReversal=allowFlowReversal,
-    filteredOpening=false,
+    use_inputFilter=false,
     from_dp=true,
     l=0.001,
     dpAdd=1,
@@ -318,7 +310,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     m_flow_nominal=m2_flow_nominal,
     dpFixed_nominal=per.dp_nominal_bottom_recup,
     allowFlowReversal=allowFlowReversal,
-    filteredOpening=false,
+    use_inputFilter=false,
     from_dp=true,
     l=0.001,
     dpAdd=1,
@@ -328,7 +320,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
   TwoWayEqualPercentageAdd                  valBypassTop(
     redeclare package Medium = MediumAir,
     allowFlowReversal=allowFlowReversal,
-    filteredOpening=false,
+    use_inputFilter=false,
     from_dp=true,
     l=0.001,
     m_flow_nominal=m1_flow_nominal,
@@ -343,7 +335,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     m_flow_nominal=m2_flow_nominal,
     dpFixed_nominal=per.dp_nominal_top_recup,
     allowFlowReversal=allowFlowReversal,
-    filteredOpening=false,
+    use_inputFilter=false,
     from_dp=true,
     l=0.001,
     dpAdd=per.dp_adiabatic,
@@ -455,12 +447,12 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(fanTop.P, sum.u[2]) annotation (Line(
-      points={{-29,28},{-58,28},{-58,76},{76.4,76},{76.4,89.36}},
+      points={{-29,29},{-58,29},{-58,76},{76.4,76},{76.4,89.36}},
       color={0,0,127},
       smooth=Smooth.None,
       visible=false));
   connect(fanBot.P, sum.u[3]) annotation (Line(
-      points={{-51,-12},{-72,-12},{-72,-8},{-78,-8},{-78,90},{76.4,90}},
+      points={{-51,-11},{-72,-11},{-72,-8},{-78,-8},{-78,90},{76.4,90}},
       color={0,0,127},
       smooth=Smooth.None,
       visible=false));
@@ -468,19 +460,6 @@ equation
       points={{40,51.8},{26,51.8},{26,90.64},{76.4,90.64}},
       color={0,0,127},
       visible=false));
-  connect(fixedTemperature.port, thermalConductionFanTop.port_a) annotation (
-      Line(
-      points={{-100,6},{-92,6}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalConductionFanTop.port_b, fanTop.heatPort) annotation (Line(
-      points={{-80,6},{-40,6},{-40,13.2}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalConductionfanBot.port_b, fanBot.heatPort) annotation (Line(
-      points={{-80,-6},{-40,-6},{-40,-26.8}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(fanTop.port_b, resTop.port_a) annotation (Line(
       points={{-30,20},{-20,20}},
       color={0,127,255},
@@ -490,11 +469,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan_flow_set[1].y, fanTop.dp_in) annotation (Line(
-      points={{-68.6,41},{-60,41},{-60,32},{-40.2,32}},
+      points={{-68.6,41},{-60,41},{-60,32},{-40,32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fan_flow_set[2].y, fanBot.dp_in) annotation (Line(
-      points={{-68.6,41},{-60,41},{-60,-2},{-39.8,-2},{-39.8,-8}},
+      points={{-68.6,41},{-60,41},{-60,-2},{-40,-2},{-40,-8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senTemFanSupOut.port_a, fanBot.port_b) annotation (Line(
@@ -505,12 +484,6 @@ equation
       points={{-60,-13.4},{-60,-92},{106,-92}},
       color={0,0,127},
       smooth=Smooth.None,
-      visible=false));
-  connect(thermalConductionfanBot.port_a, thermalConductionFanTop.port_a)
-    annotation (Line(points={{-92,-6},{-92,0},{-92,6}}, color={191,0,0}));
-  connect(eva.TWat, IEH.TOutBot) annotation (Line(
-      points={{19.6,-55.84},{19.6,-32.76},{66.16,-32.76}},
-      color={0,0,127},
       visible=false));
   connect(IEH.port_b1, con.ports[1]) annotation (Line(points={{64,7.2},{62,7.2},
           {62,8},{72,8},{72,36.4}}, color={0,127,255}));
@@ -684,6 +657,17 @@ equation
     __Dymola_experimentSetupOutput(events=false),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 27, 2017, by Filip Jorissen:<br/>
+Removed thermal resistors at pumps. 
+These are no longer required since movers are regularised 
+such that they dissipate no power at zero flow.
+</li>
+<li>
+April 27, 2017, by Filip Jorissen:<br/>
+Made compressor model replaceable.
+See <a href=https://github.com/open-ideas/IDEAS/issues/719>#719</a>.
+</li>
 <li>
 October 11, 2016, by Filip Jorissen:<br/>
 First implementation.

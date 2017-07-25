@@ -188,9 +188,6 @@ protected
         origin={32,-4})));
   Modelica.Blocks.Math.Gain negate(k=-1) "For minus sign"
     annotation (Placement(transformation(extent={{-46,-26},{-34,-14}})));
-  Modelica.Blocks.Sources.Constant T_wat_in(k=273.15 + 17)
-    "Water inlet temperature"
-    annotation (Placement(transformation(extent={{48,50},{40,58}})));
   IDEAS.Utilities.Psychrometrics.TWetBul_TDryBulXi  wetBulIn(
     approximateWetBulb=false,
     TDryBul=T_top_in,
@@ -239,8 +236,7 @@ equation
           -14},{32,-50},{10,-50}}, color={191,0,0}));
   connect(theRes.port_b, volTop.heatPort)
     annotation (Line(points={{32,6},{32,6},{32,50},{10,50}}, color={191,0,0}));
-  connect(port_a2, port_a2) annotation (Line(points={{100,-60},{100,-60},{100,
-          -60}}, color={0,127,255}));
+
   connect(port_a2, volBot.ports[1])
     annotation (Line(points={{100,-60},{2,-60}},         color={0,127,255}));
   connect(volBot.ports[2], port_b2) annotation (Line(points={{-2,-60},{-2,-60},
@@ -255,10 +251,6 @@ equation
     annotation (Line(points={{-2,60},{-2,60},{100,60}}, color={0,127,255}));
   connect(mFloAdiTop.y, volTop.mWat_flow)
     annotation (Line(points={{38.6,42},{12,42}}, color={0,0,127}));
-  connect(T_wat_in.y, volTop.TWat) annotation (Line(points={{39.6,54},{24,54},{
-          24,45.2},{12,45.2}}, color={0,0,127}));
-  connect(volBot.TWat, T_wat_in.y) annotation (Line(points={{12,-45.2},{26,-45.2},
-          {26,-46},{39.6,-46},{39.6,54}}, color={0,0,127}));
   connect(mFloAdiBot.y, volBot.mWat_flow)
     annotation (Line(points={{46.6,-42},{12,-42}}, color={0,0,127}));
  annotation (
