@@ -23,9 +23,11 @@ model Adsolair58HeaCoi
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = MediumHeating)
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
-  Modelica.Blocks.Sources.RealExpression TEvaExp1(y=Medium1.temperature(
-        hexSupOut.sta_b1))
-    "Evaporator outlet temperature"
+  Modelica.Blocks.Sources.RealExpression THeaExp(y=Medium1.temperature(
+        Medium1.setState_phX(
+        hexSupOut.port_b1.p,
+        hexSupOut.port_b1.h_outflow,
+        hexSupOut.port_b1.Xi_outflow))) "Heater outlet temperature"
     annotation (Placement(transformation(extent={{-86,56},{-60,40}})));
   Modelica.Blocks.Interfaces.RealOutput yHea "Control signal for heating coil"
     annotation (Placement(transformation(extent={{96,-10},{116,10}})));
@@ -34,7 +36,7 @@ equation
           {-80,-46},{-80,-100}}, color={0,127,255}));
   connect(hexSupOut.port_b2, port_b) annotation (Line(points={{-72,-32},{-72,-32},
           {-72,-46},{-72,-46},{-20,-46},{-20,-100}}, color={0,127,255}));
-  connect(TEvaExp1.y, adsCon.THeaOut) annotation (Line(points={{-58.7,48},{-52,
+  connect(THeaExp.y, adsCon.THeaOut) annotation (Line(points={{-58.7,48},{-52,
           48},{-52,53.2},{-44.6,53.2}}, color={0,0,127}));
   connect(yHea, adsCon.yHea) annotation (Line(
       points={{106,0},{-23,0},{-23,55.6}},

@@ -145,13 +145,13 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     m2_flow_nominal=m2_flow_nominal,
     eps_adia_on=per.eps_adia_on,
     eps_adia_off=per.eps_adia_off,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     tau=tau,
     UA_adia_on=per.UA_adia_on,
     UA_adia_off=per.UA_adia_off,
     use_eNTU=true,
-    mSenFac=mSenFac)
+    mSenFac=mSenFac,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                    "Indirect evaporative heat exchanger"
     annotation (Placement(transformation(extent={{10,-36},{64,18}})));
   IDEAS.Fluid.MixingVolumes.MixingVolume con(
@@ -167,8 +167,8 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     X_start=X_start,
     C_start=C_start,
     C_nominal=C_nominal,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    V=m1_flow_nominal/rho_default*tau)
+    V=m1_flow_nominal/rho_default*tau,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Simple condensor model for active chiller" annotation (Placement(
         transformation(
         extent={{7,-7},{-7,7}},
@@ -212,8 +212,8 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     C_nominal=C_nominal,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     nPorts=2,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    V=m2_flow_nominal/rho_default*tau)
+    V=m2_flow_nominal/rho_default*tau,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Simple evaporator model for active chiller"
     annotation (Placement(transformation(
         extent={{-8,-8},{8,8}},
