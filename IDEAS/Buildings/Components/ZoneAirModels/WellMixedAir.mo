@@ -4,7 +4,7 @@ model WellMixedAir "Zone air model assuming perfectly mixed air"
   parameter Boolean useAirLeakage = not sim.linearise "Set to false to disable airleakage computations";
 
 protected
-  constant Modelica.SIunits.SpecificEnthalpy lambdaWater = 2260000
+  constant Modelica.SIunits.SpecificEnthalpy lambdaWater = Medium.enthalpyOfCondensingGas(T=273.15+35)
     "Latent heat of evaporation water";
 
   IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir       vol(
