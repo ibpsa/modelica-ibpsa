@@ -93,9 +93,9 @@ partial model PartialFlowMachine
   Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
       -preSou.dp "Pressure difference";
 
-  Real eta(unit="1", final quantity="Efficiency") =    eff.eta "Global efficiency";
-  Real etaHyd(unit="1", final quantity="Efficiency") = eff.etaHyd "Hydraulic efficiency";
-  Real etaMot(unit="1", final quantity="Efficiency") = eff.etaMot "Motor efficiency";
+  Modelica.SIunits.Efficiency eta =    eff.eta "Global efficiency";
+  Modelica.SIunits.Efficiency etaHyd = eff.etaHyd "Hydraulic efficiency";
+  Modelica.SIunits.Efficiency etaMot = eff.etaMot "Motor efficiency";
 
   // Quantity to control
 protected
