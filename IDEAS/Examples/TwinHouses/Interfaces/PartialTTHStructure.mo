@@ -38,15 +38,18 @@ public
     annotation (Placement(transformation(extent={{38,-96},{58,-76}})));
   BaseClasses.controlBlind controlBlind1(exp=exp,bui=bui)
     annotation (Placement(transformation(extent={{-52,-96},{-32,-76}})));
+  Buildings.Components.Interfaces.WeaBus weaBus(outputAngles=sim.outputAngles,
+      numSolBus=sim.numIncAndAziInBus);
 equation
 
   connect(thermalBridges.heatPortRad, heatPortRad);
   connect(thermalBridges.Tzone,TSensor);
-  connect(thermalBridges.Te, sim.TEnv.y);
   connect(thermalBridges.Tatt, from_degC[1].y);
   connect(thermalBridges.Tbas, from_degC[2].y);
 
   connect(inputAtticAndBasement.y, from_degC.u) annotation (Line(points={{-119,-86},
           {-112.5,-86},{-106,-86}}, color={0,0,127}));
 
+  connect(sim.weaBus, weaBus);
+  connect(thermalBridges.Te, weaBus.Te);
 end PartialTTHStructure;
