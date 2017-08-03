@@ -1,4 +1,4 @@
-last-generated=2017-04-14
+last-generated=2017-07-31
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -53,8 +53,12 @@ statistics-fmu-dependencies=
     "vol.dynBal.m": [
       "vol.p_start"
     ], 
-    "weaBus.TDryBul": [], 
-    "weaBus.HHorIR": [], 
+    "weaBus.TDryBul": [
+      "weaDat.datRea.verboseRead"
+    ], 
+    "weaBus.HHorIR": [
+      "weaDat.datRea.verboseRead"
+    ], 
     "der(vol.dynBal.U)": [
       "fluPor[1].m_flow", 
       "fluPor[1].forward.T", 
@@ -63,6 +67,7 @@ statistics-fmu-dependencies=
       "fluPor[2].forward.T", 
       "fluPor[2].forward.X_w", 
       "QRooInt_flow", 
+      "weaDat.datRea.verboseRead", 
       "theCon.G", 
       "preHea.T_ref", 
       "preHea.alpha", 
@@ -77,18 +82,28 @@ statistics-fmu-dependencies=
       "fluPor[1].m_flow", 
       "fluPor[2].m_flow"
     ], 
-    "weaBus.nOpa": [], 
+    "weaBus.nOpa": [
+      "weaDat.datRea.verboseRead"
+    ], 
     "weaBus.solDec": [], 
     "fluPor[2].backward.T": [
       "vol.p_start", 
       "vol.T_start", 
       "vol.X_start[1]"
     ], 
-    "weaBus.nTot": [], 
+    "weaBus.nTot": [
+      "weaDat.datRea.verboseRead"
+    ], 
     "weaBus.solHouAng": [], 
-    "weaBus.TBlaSky": [], 
-    "weaBus.TDewPoi": [], 
-    "TOut": [], 
+    "weaBus.TBlaSky": [
+      "weaDat.datRea.verboseRead"
+    ], 
+    "weaBus.TDewPoi": [
+      "weaDat.datRea.verboseRead"
+    ], 
+    "TOut": [
+      "weaDat.datRea.verboseRead"
+    ], 
     "der(vol.dynBal.mXi[1])": [
       "fluPor[1].m_flow", 
       "fluPor[1].forward.X_w", 
@@ -112,9 +127,15 @@ statistics-fmu-dependencies=
       "vol.T_start", 
       "vol.X_start[1]"
     ], 
-    "weaBus.winDir": [], 
-    "weaBus.relHum": [], 
-    "weaBus.celHei": [], 
+    "weaBus.winDir": [
+      "weaDat.datRea.verboseRead"
+    ], 
+    "weaBus.relHum": [
+      "weaDat.datRea.verboseRead"
+    ], 
+    "weaBus.celHei": [
+      "weaDat.datRea.verboseRead"
+    ], 
     "fluPor[1].backward.X_w": [
       "vol.X_start[1]"
     ], 
@@ -124,14 +145,22 @@ statistics-fmu-dependencies=
       "vol.T_start", 
       "vol.X_start[1]"
     ], 
-    "weaBus.HGloHor": [], 
+    "weaBus.HGloHor": [
+      "weaDat.datRea1.verboseRead"
+    ], 
     "weaBus.solAlt": [], 
     "weaBus.solZen": [], 
     "weaBus.lat": [], 
-    "weaBus.winSpe": [], 
+    "weaBus.winSpe": [
+      "weaDat.datRea.verboseRead"
+    ], 
     "weaBus.cloTim": [], 
-    "weaBus.HDirNor": [], 
-    "weaBus.HDifHor": [], 
+    "weaBus.HDirNor": [
+      "weaDat.datRea1.verboseRead"
+    ], 
+    "weaBus.HDifHor": [
+      "weaDat.datRea1.verboseRead"
+    ], 
     "weaBus.pAtm": [
       "weaDat.pAtm"
     ]
