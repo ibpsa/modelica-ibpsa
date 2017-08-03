@@ -589,43 +589,43 @@ equation
   connect(Bedroom1.propsBus[10], W54.propsBus_a);
   connect(Bedroom1.propsBus[11], W54.propsBus_b);
 
-  connect(Living.gainCon.T, TSensor[1]);
+  Living.gainCon.T= TSensor[1];
   connect(Living.port_a, port_a[1]);
   connect(Living.port_b, port_b[1]);
   connect(Living.gainCon, heatPortCon[1]);
   connect(Living.gainRad, heatPortRad[1]);
 
-  connect(Corridor.gainCon.T, TSensor[2]);
+  Corridor.gainCon.T= TSensor[2];
   connect(Corridor.port_a, port_a[2]);
   connect(Corridor.port_b, port_b[2]);
   connect(Corridor.gainCon, heatPortCon[2]);
   connect(Corridor.gainRad, heatPortRad[2]);
 
-  connect(Bathroom.gainCon.T, TSensor[3]);
+  Bathroom.gainCon.T= TSensor[3];
   connect(Bathroom.port_a, port_a[3]);
   connect(Bathroom.port_b, port_b[3]);
   connect(Bathroom.gainCon, heatPortCon[3]);
   connect(Bathroom.gainRad, heatPortRad[3]);
 
-  connect(Bedroom1.gainCon.T, TSensor[4]);
+  Bedroom1.gainCon.T=TSensor[4];
   connect(Bedroom1.port_a, port_a[4]);
   connect(Bedroom1.port_b, port_b[4]);
   connect(Bedroom1.gainCon, heatPortCon[4]);
   connect(Bedroom1.gainRad, heatPortRad[4]);
 
-  connect(Kitchen.gainCon.T, TSensor[5]);
+  Kitchen.gainCon.T= TSensor[5];
   connect(Kitchen.port_a, port_a[5]);
   connect(Kitchen.port_b, port_b[5]);
   connect(Kitchen.gainCon, heatPortCon[5]);
   connect(Kitchen.gainRad, heatPortRad[5]);
 
-  connect(Entrance.gainCon.T, TSensor[6]);
+  Entrance.gainCon.T= TSensor[6];
   connect(Entrance.port_a, port_a[6]);
   connect(Entrance.port_b, port_b[6]);
   connect(Entrance.gainCon, heatPortCon[6]);
   connect(Entrance.gainRad, heatPortRad[6]);
 
-  connect(Bedroom2.gainCon.T, TSensor[7]);
+  Bedroom2.gainCon.T= TSensor[7];
   connect(Bedroom2.port_a, port_a[7]);
   connect(Bedroom2.port_b, port_b[7]);
   connect(Bedroom2.gainCon, heatPortCon[7]);
