@@ -45,7 +45,7 @@ partial model partial_SingleBoreHoleStepLoad
     m_flow_nominal=gen.m_flow_nominal_bh,
     T_start=gen.T_start,
     addPowerToMedium=false,
-    filteredSpeed=false,
+    use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-14,10},{-34,-10}})));
@@ -72,7 +72,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(mFlo.y, pum.m_flow_in) annotation (Line(
-      points={{-37.4,-22},{-23.8,-22},{-23.8,-12}},
+      points={{-37.4,-22},{-24,-22},{-24,-12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(step.y, hea.u) annotation (Line(

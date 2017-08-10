@@ -1,4 +1,4 @@
-last-generated=2017-04-26
+last-generated=2017-07-31
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -57,7 +57,7 @@ statistics-fmu-dependencies=
       "weaDat.datRea.verboseRead"
     ], 
     "weaBus.HHorIR": [
-      "weaDat.datRea1.verboseRead"
+      "weaDat.datRea.verboseRead"
     ], 
     "der(vol.dynBal.U)": [
       "fluPor[1].m_flow", 
@@ -73,9 +73,7 @@ statistics-fmu-dependencies=
       "preHea.alpha", 
       "vol.p_start", 
       "vol.T_start", 
-      "vol.X_start[1]", 
-      "mWat_flow.k", 
-      "TWat.k"
+      "vol.X_start[1]"
     ], 
     "fluPor[2].backward.X_w": [
       "vol.X_start[1]"

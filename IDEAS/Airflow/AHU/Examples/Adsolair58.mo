@@ -59,7 +59,7 @@ model Adsolair58 "Adsolair58 example model"
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=dp_nominal,
     allowFlowReversal=false,
-    filteredOpening=false) "Supply VAV" annotation (Placement(transformation(
+    use_inputFilter=false) "Supply VAV" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,-50})));
@@ -69,7 +69,7 @@ model Adsolair58 "Adsolair58 example model"
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=dp_nominal,
     allowFlowReversal=false,
-    filteredOpening=false) "Return VAV" annotation (Placement(transformation(
+    use_inputFilter=false) "Return VAV" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={70,-50})));
@@ -78,7 +78,7 @@ model Adsolair58 "Adsolair58 example model"
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=dp_nominal,
     allowFlowReversal=false,
-    filteredOpening=false) "Return VAV" annotation (Placement(transformation(
+    use_inputFilter=false) "Return VAV" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={18,-70})));
@@ -87,7 +87,7 @@ model Adsolair58 "Adsolair58 example model"
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=dp_nominal,
     allowFlowReversal=false,
-    filteredOpening=false) "Supply VAV" annotation (Placement(transformation(
+    use_inputFilter=false) "Supply VAV" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={38,-70})));
@@ -96,7 +96,7 @@ model Adsolair58 "Adsolair58 example model"
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=dp_nominal,
     allowFlowReversal=false,
-    filteredOpening=false) "Return VAV" annotation (Placement(transformation(
+    use_inputFilter=false) "Return VAV" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-40,-50})));
@@ -105,7 +105,7 @@ model Adsolair58 "Adsolair58 example model"
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=dp_nominal,
     allowFlowReversal=false,
-    filteredOpening=false) "Supply VAV" annotation (Placement(transformation(
+    use_inputFilter=false) "Supply VAV" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-20,-50})));
@@ -114,7 +114,7 @@ model Adsolair58 "Adsolair58 example model"
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=dp_nominal,
     allowFlowReversal=false,
-    filteredOpening=false) "Return VAV" annotation (Placement(transformation(
+    use_inputFilter=false) "Return VAV" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-90,-70})));
@@ -123,7 +123,7 @@ model Adsolair58 "Adsolair58 example model"
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=dp_nominal,
     allowFlowReversal=false,
-    filteredOpening=false) "Supply VAV" annotation (Placement(transformation(
+    use_inputFilter=false) "Supply VAV" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-70,-70})));
@@ -147,17 +147,16 @@ model Adsolair58 "Adsolair58 example model"
     k=0.1,
     Ti=120) "PID controller - example of a simple controller model"
     annotation (Placement(transformation(extent={{-68,-100},{-58,-90}})));
-  Fluid.HeatExchangers.HeaterCooler_T hea(
+  Fluid.HeatExchangers.Heater_T       hea(
     redeclare package Medium = MediumWater,
     dp_nominal=0,
-    Q_flow_maxCool=0,
     m_flow_nominal=2,
-    Q_flow_maxHeat=3e4)
+    QMax_flow=3e4)
     annotation (Placement(transformation(extent={{-100,-4},{-80,16}})));
   Fluid.Movers.FlowControlled_dp pum(
     redeclare package Medium = MediumWater,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
+    use_inputFilter=false,
     constantHead=1e4,
     inputType=IDEAS.Fluid.Types.InputType.Stages,
     m_flow_nominal=2,
@@ -168,7 +167,7 @@ model Adsolair58 "Adsolair58 example model"
     dpValve_nominal=1e4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=30,
-    filteredOpening=false,
+    use_inputFilter=false,
     m_flow_nominal=2)      "Valve for controlling flow rate"
     annotation (Placement(transformation(extent={{-52,-2},{-36,14}})));
   Modelica.Blocks.Logical.Hysteresis heaOn(uLow=0.025, uHigh=0.05)
@@ -307,8 +306,8 @@ equation
           {-66,15.6}}, color={255,127,0}));
   connect(val.y, adsolair58.yHea) annotation (Line(points={{-44,15.6},{-44,40},{
           -40.6,40}}, color={0,0,127}));
-  connect(TSup.y, hea.TSet) annotation (Line(points={{-117.2,12},{-110,12},{-102,
-          12}}, color={0,0,127}));
+  connect(TSup.y, hea.TSet) annotation (Line(points={{-117.2,12},{-102,12},{-102,
+          14}}, color={0,0,127}));
   connect(bouWat.ports[1], hea.port_a) annotation (Line(points={{-104,1},{-102,1},
           {-102,6},{-100,6}}, color={0,127,255}));
   connect(conPID1.u_s, TSet.y) annotation (Line(points={{101,-95},{101,-73},{115.3,
@@ -337,5 +336,6 @@ First implementation.
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Airflow/AHU/Examples/Adsolair58.mos"
-        "Siimulate and plot"));
+        "Siimulate and plot"),
+    experiment(StopTime=10000));
 end Adsolair58;

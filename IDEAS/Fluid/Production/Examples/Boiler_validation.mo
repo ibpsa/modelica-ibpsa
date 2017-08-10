@@ -10,7 +10,7 @@ model Boiler_validation "Validation model for the boiler"
     redeclare package Medium = Medium,
     m_flow_nominal=1300/3600,
     tau=30,
-    filteredSpeed=false,
+    use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{8,-56},{-12,-36}})));
 
@@ -124,8 +124,8 @@ equation
       points={{-44,-46},{-50,-46},{-50,-12}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(gain.y, pump.m_flow_in) annotation (Line(points={{7,82},{20,82},{20,
-          -34},{-1.8,-34}}, color={0,0,127}));
+  connect(gain.y, pump.m_flow_in) annotation (Line(points={{7,82},{20,82},{20,-34},
+          {-2,-34}},        color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),

@@ -11,7 +11,7 @@ model IdealHeater "Very basic hydraulic circuit with an IdealHeater"
     dp_nominal = 0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    filteredSpeed=false)
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{-14,-24},{-34,-4}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe(
     m=5,
@@ -104,7 +104,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(firstOrder.y, pump.m_flow_in) annotation (Line(points={{16,51},{18,51},
-          {18,10},{18,4},{-23.8,4},{-23.8,-2}}, color={0,0,127}));
+          {18,10},{18,4},{-24,4},{-24,-2}},     color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),

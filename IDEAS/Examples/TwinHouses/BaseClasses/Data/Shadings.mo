@@ -1,7 +1,7 @@
 within IDEAS.Examples.TwinHouses.BaseClasses.Data;
 package Shadings "Package containing the records for the shading devices"
 
-  model ShaWin1 "Shading device for window type 1"
+  record ShaWin1 "Shading device for window type 1"
     extends IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties(
       shaType=IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.BoxAndScreen,
       hWin=1.30,
@@ -17,7 +17,7 @@ package Shadings "Package containing the records for the shading devices"
       controlled=true);
   end ShaWin1;
 
-  model ShaWin2 "Shading device for window type 2"
+  record ShaWin2 "Shading device for window type 2"
     extends IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties(
       shaType=IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.BoxAndScreen,
       hWin=2.40,
@@ -33,7 +33,7 @@ package Shadings "Package containing the records for the shading devices"
       controlled=true);
   end ShaWin2;
 
-  model ShaWin3 "Shading device for window type 3"
+  record ShaWin3 "Shading device for window type 3"
     extends IDEAS.Buildings.Components.Shading.Interfaces.ShadingProperties(
       shaType=IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.BoxAndScreen,
       hWin=1.40,
@@ -48,5 +48,4 @@ package Shadings "Package containing the records for the shading devices"
       shaCorr=0.0,
       controlled=true);
   end ShaWin3;
-
 end Shadings;

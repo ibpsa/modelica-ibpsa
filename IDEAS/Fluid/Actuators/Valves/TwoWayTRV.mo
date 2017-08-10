@@ -15,17 +15,17 @@ model TwoWayTRV "Two way thermostatic radiator valve"
   parameter Modelica.SIunits.Temperature TSet = 294.15 "Temperature set point";
   parameter Modelica.SIunits.Temperature P = 2 "Proportional band of valve";
 
-  parameter Boolean filteredOpening=true
+  parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
   parameter Modelica.SIunits.Time riseTime=1200
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   parameter Real y_start=1 "Initial value of control signal"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa", min=0) = 0
     "Pressure drop of pipe and other resistances that are in series"
      annotation(Dialog(group = "Nominal condition"));
@@ -60,7 +60,7 @@ model TwoWayTRV "Two way thermostatic radiator valve"
     linearized=linearized,
     deltaM=deltaM,
     rhoStd=rhoStd,
-    filteredOpening=filteredOpening,
+    use_inputFilter=use_inputFilter,
     riseTime=riseTime,
     init=init,
     y_start=y_start,
@@ -184,19 +184,19 @@ First implementation.
         Line(
           points={{0,70},{40,70}}),
         Rectangle(
-          visible=filteredOpening,
+          visible=use_inputFilter,
           extent={{-32,40},{32,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=filteredOpening,
+          visible=use_inputFilter,
           extent={{-32,100},{32,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=filteredOpening,
+          visible=use_inputFilter,
           extent={{-20,92},{20,48}},
           lineColor={0,0,0},
           fillColor={135,135,135},

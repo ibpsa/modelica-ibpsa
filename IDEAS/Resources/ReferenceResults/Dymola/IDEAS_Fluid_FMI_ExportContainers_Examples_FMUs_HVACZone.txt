@@ -1,4 +1,4 @@
-last-generated=2017-04-26
+last-generated=2017-07-31
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -74,7 +74,7 @@ statistics-fmu-dependencies=
       "fluPor[1].backward.X_w"
     ], 
     "weaBus.HHorIR": [
-      "weaDat.datRea1.verboseRead"
+      "weaDat.datRea.verboseRead"
     ], 
     "fluPor[1].m_flow": [
       "fan.m_flow_start"

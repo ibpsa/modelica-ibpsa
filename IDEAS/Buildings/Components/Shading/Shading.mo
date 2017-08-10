@@ -217,13 +217,13 @@ equation
           {-32,-70},{-60,-70}}, color={0,0,127}));
   connect(boxAndScreen.angAzi, angAzi) annotation (Line(points={{-16,-60},{-34,-60},
           {-34,-90},{-60,-90}}, color={0,0,127}));
-  connect(boxAndScreen.HShaDirTil, HShaDirTil) annotation (Line(points={{-6,-46},{10,-46},
-          {10,50},{40,50}}, color={0,0,127}));
+  connect(boxAndScreen.HShaDirTil, HShaDirTil) annotation (Line(points={{-6,-46},
+          {40,-46},{40,50}},color={0,0,127}));
   connect(boxAndScreen.HShaSkyDifTil, HShaSkyDifTil) annotation (Line(points={{-6,-48},
-          {10,-48},{10,30},{40,30}},
-                            color={0,0,127}));
-  connect(boxAndScreen.iAngInc, iAngInc) annotation (Line(points={{-6,-56},{12,-56},
-          {12,-50},{40,-50}}, color={0,0,127}));
+          {40,-48},{40,30}},color={0,0,127}));
+  connect(boxAndScreen.iAngInc, iAngInc) annotation (Line(points={{-6,-56},{40,
+          -56},{40,-50},{40,-50}},
+                              color={0,0,127}));
   connect(Ctrl, boxAndScreen.Ctrl) annotation (Line(points={{-10,-110},{-10,-62},
           {-11,-62}}, color={0,0,127}));
   connect(box.HGroDifTil, HGroDifTil)
@@ -256,6 +256,8 @@ equation
     annotation (Line(points={{-6,-8},{40,-8},{40,10}}, color={0,0,127}));
   connect(none.HShaGroDifTil, HShaGroDifTil)
     annotation (Line(points={{-6,-28},{40,-28},{40,10}}, color={0,0,127}));
+  connect(boxAndScreen.HShaGroDifTil, HShaGroDifTil)
+    annotation (Line(points={{-6,-50},{40,-50},{40,10}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

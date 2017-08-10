@@ -121,14 +121,14 @@ equation
   <ul>
   <li>
   September 26, 2016, by Moritz Lauster:<br/>
-  Removed deprecated parameters and values 
+  Removed deprecated parameters and values
   0.93 and <code>eExt</code>.<br/>
-  Renamed <code>alphaRadWall</code> to 
-  <code>alphaRad</code>. Deleted 
+  Renamed <code>alphaRadWall</code> to
+  <code>alphaRad</code>. Deleted
   <code>alphaRadWin</code>.<br/>
-  Moved calculations from 
+  Moved calculations from
   <a href=\"modelica://IDEAS.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007\">
-  IDEAS.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007</a> and 
+  IDEAS.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007</a> and
   <a href=\"modelica://IDEAS.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
   IDEAS.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a> to here.
   </li>

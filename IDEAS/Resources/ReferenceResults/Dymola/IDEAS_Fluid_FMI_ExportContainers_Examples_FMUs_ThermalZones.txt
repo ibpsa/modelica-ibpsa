@@ -1,4 +1,4 @@
-last-generated=2017-04-26
+last-generated=2017-07-31
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -105,7 +105,7 @@ statistics-fmu-dependencies=
     ], 
     "weaBus.solZen": [], 
     "weaBus.HHorIR": [
-      "weaDat.datRea1.verboseRead"
+      "weaDat.datRea.verboseRead"
     ], 
     "fluPor[1, 1].backward.X_w": [
       "vol1.X_start[1]"

@@ -1,6 +1,10 @@
 within IDEAS.Airflow.AHU.BaseClasses;
 model SimpleCompressorTable
   "Model of a simple compressor using tables"
+  extends IDEAS.Airflow.AHU.BaseClasses.SimpleCompressorInterface(
+    Qh_exp(y=tempMod*(P_refrig.y)*mod*onInt.y + P_exp.y),
+    Qc_exp(y=-tempMod*P_refrig.y*mod*onInt.y),
+    P_exp(y=tempMod*P_comp.y*(fraPmin + mod*(1 - fraPmin))*onInt.y));
   parameter Modelica.SIunits.Temperature T_max = 273.15+50
     "Maximum temperature at condensor";
   parameter Modelica.SIunits.Temperature T_min = 273.15-20
@@ -19,24 +23,8 @@ model SimpleCompressorTable
                   IDEAS.Utilities.Math.Functions.spliceFunction(x=min(limit1.y,limit2.y)/modulatingRange-1, pos=1, neg=0, deltax=1)
                  else 1
     "Modulation due to temperature bounds without causing events";
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b "Latent heat"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowEvap
-    "Prescribed heat flow rate at evaporator side"
-    annotation (Placement(transformation(extent={{-62,-10},{-82,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowCond
-    "Prescribed heat flow at condensor side"
-    annotation (Placement(transformation(extent={{62,-10},{82,10}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor T_cond
     annotation (Placement(transformation(extent={{80,-44},{60,-24}})));
-  Modelica.Blocks.Sources.RealExpression Qh_exp(y=tempMod*(P_refrig.y)*mod*
-        onInt.y + P_exp.y) "Real expression for heating power"
-    annotation (Placement(transformation(extent={{0,-10},{40,10}})));
-  Modelica.Blocks.Sources.RealExpression Qc_exp(y=-tempMod*P_refrig.y*mod*onInt.y)
-    "Realexpression for cooling power"
-    annotation (Placement(transformation(extent={{0,-10},{-40,10}})));
   Modelica.Blocks.Interfaces.RealOutput P "Electricity consumption" annotation (
      Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -45,9 +33,6 @@ model SimpleCompressorTable
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,98})));
-  Modelica.Blocks.Sources.RealExpression P_exp(y=tempMod*P_comp.y*(fraPmin +
-        mod*(1 - fraPmin))*onInt.y) "Real expression for power consumption"
-    annotation (Placement(transformation(extent={{-60,14},{-2,34}})));
   Modelica.Blocks.Interfaces.BooleanInput on "True if compressor is on"
     annotation (Placement(transformation(extent={{-126,30},{-86,70}}),
         iconTransformation(
@@ -95,34 +80,12 @@ public
     annotation (Placement(transformation(extent={{-20,-82},{0,-62}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCapacitor(C=C)
     annotation (Placement(transformation(extent={{80,18},{100,38}})));
-  Modelica.Blocks.Interfaces.RealInput TinEva
-    "Evaporator air inlet temperature" annotation (Placement(transformation(
-          extent={{-126,-110},{-86,-70}}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={20,88})));
   Modelica.Blocks.Math.Add T_evap(k1=-1) "Refrigerant temperature"
     annotation (Placement(transformation(extent={{-68,-80},{-48,-58}})));
   Modelica.Blocks.Sources.Constant const(k=dT_nom_eva)
     annotation (Placement(transformation(extent={{-104,-36},{-84,-16}})));
-  Modelica.Blocks.Interfaces.RealOutput Teva
-    "Evaporator refrigerant temperature" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={20,102}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={80,98})));
 
 equation
-  connect(port_a, prescribedHeatFlowEvap.port) annotation (Line(
-      points={{-100,0},{-82,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(port_b, prescribedHeatFlowCond.port) annotation (Line(
-      points={{100,0},{82,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(T_cond.port, port_b) annotation (Line(
       points={{80,-34},{90,-34},{90,0},{100,0}},
       color={191,0,0},
@@ -148,7 +111,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(and1.u2, on) annotation (Line(
-      points={{-69.2,47.2},{-66,47.2},{-66,50},{-106,50}},
+      points={{-69.2,47.2},{-70,47.2},{-70,48},{-72,48},{-72,50},{-106,50}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and1.y, onInt.u) annotation (Line(
@@ -167,13 +130,7 @@ equation
       points={{-22,-44},{-34,-44},{-34,-34},{60,-34}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(P_exp.y, P)
-    annotation (Line(points={{0.9,24},{0,24},{0,102}},  color={0,0,127}));
-  connect(Qh_exp.y, prescribedHeatFlowCond.Q_flow)
-    annotation (Line(points={{42,0},{48,0},{62,0}}, color={0,0,127}));
-  connect(Qc_exp.y, prescribedHeatFlowEvap.Q_flow)
-    annotation (Line(points={{-42,0},{-42,0},{-62,0}}, color={0,0,127}));
-  connect(heatCapacitor.port, prescribedHeatFlowCond.port)
+  connect(heatCapacitor.port, preHeaFloCon.port)
     annotation (Line(points={{90,18},{90,0},{82,0}}, color={191,0,0}));
   connect(T_evap.u2, TinEva) annotation (Line(points={{-70,-75.6},{-74,-75.6},{
           -74,-76},{-80,-76},{-80,-90},{-106,-90}}, color={0,0,127}));
@@ -199,9 +156,19 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+April 27, 2017, by Filip Jorissen:<br/>
+Now extending from interface.
+See <a href=https://github.com/open-ideas/IDEAS/issues/719>#719</a>.
+</li>
+<li>
 October 11, 2016, by Filip Jorissen:<br/>
 Added first implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Compressor that uses table interpolation using 
+temperature of condensor and evaporator to compute heat flow rates.
+</p>
 </html>"));
 end SimpleCompressorTable;

@@ -13,7 +13,7 @@ model Thermostatic3WayValve "Example of a thermostatic three way valve"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=1,
-    filteredSpeed=false,
+    use_inputFilter=false,
     dp_nominal = 0)
     annotation (Placement(transformation(extent={{38,8},{58,28}})));
   Sources.Boundary_pT sou1(
@@ -82,7 +82,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(mFlowPump.y, pump.m_flow_in)
-    annotation (Line(points={{59,46},{47.8,46},{47.8,30}}, color={0,0,127}));
+    annotation (Line(points={{59,46},{48,46},{48,30}},     color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),     Documentation(revisions="<html>
 <ul>

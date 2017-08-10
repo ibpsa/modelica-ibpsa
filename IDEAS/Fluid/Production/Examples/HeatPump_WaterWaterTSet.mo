@@ -36,7 +36,7 @@ model HeatPump_WaterWaterTSet
     m_flow_nominal=4200/3600,
     inputType=IDEAS.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false)
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{-52,8},{-32,28}})));
   Sensors.TemperatureTwoPort TBrine_out(redeclare package Medium = Medium,
       m_flow_nominal=4200/3600)
@@ -49,7 +49,7 @@ model HeatPump_WaterWaterTSet
     inputType=IDEAS.Fluid.Types.InputType.Constant,
     dp_nominal=50000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false)
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{48,-28},{28,-8}})));
   Sensors.TemperatureTwoPort TWater_out(redeclare package Medium = Medium,
       m_flow_nominal=2550/3600)

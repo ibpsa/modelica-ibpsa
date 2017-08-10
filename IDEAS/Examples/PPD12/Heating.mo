@@ -95,19 +95,17 @@ model Heating "Ppd 12 example model"
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
+    use_inputFilter=false,
     redeclare package Medium = MediumWater,
     dp_nominal=50000,
     allowFlowReversal=false)
     annotation (Placement(transformation(extent={{330,-120},{310,-100}})));
-  IDEAS.Fluid.HeatExchangers.HeaterCooler_T hea(
+  Fluid.HeatExchangers.Heater_T             hea(
     m_flow_nominal=m_flow_nominal,
-    Q_flow_maxHeat=30000,
-    Q_flow_maxCool=0,
     dp_nominal=5000,
     redeclare package Medium = MediumWater,
-    allowFlowReversal=false)
-                     "Bulex thermo master T30/35"
+    allowFlowReversal=false,
+    QMax_flow=30000) "Bulex thermo master T30/35"
     annotation (Placement(transformation(extent={{370,-120},{350,-100}})));
   IDEAS.Fluid.Sources.Boundary_pT       bou1(
     nPorts=1,
@@ -181,7 +179,7 @@ model Heating "Ppd 12 example model"
     CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     Kv=0.5,
     allowFlowReversal=false,
-    filteredOpening=true,
+    use_inputFilter=true,
     from_dp=true) "Thermostatic radiator valve for bedroom 1" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -199,7 +197,7 @@ model Heating "Ppd 12 example model"
     CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     Kv=0.5,
     allowFlowReversal=false,
-    filteredOpening=true,
+    use_inputFilter=true,
     from_dp=true) "Thermostatic radiator valve for towel dryer in bathroom"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -217,7 +215,7 @@ model Heating "Ppd 12 example model"
     CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     Kv=0.5,
     allowFlowReversal=false,
-    filteredOpening=true,
+    use_inputFilter=true,
     from_dp=true) "Thermostatic radiator valve for radiator in bathroom"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -235,7 +233,7 @@ model Heating "Ppd 12 example model"
     CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     Kv=0.5,
     allowFlowReversal=false,
-    filteredOpening=true,
+    use_inputFilter=true,
     from_dp=true) "Thermostatic radiator valve for radiator in bedroom 2"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -253,7 +251,7 @@ model Heating "Ppd 12 example model"
     CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     Kv=0.5,
     allowFlowReversal=false,
-    filteredOpening=true,
+    use_inputFilter=true,
     from_dp=true) "Thermostatic radiator valve for bedroom 3" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -269,7 +267,7 @@ model Heating "Ppd 12 example model"
     CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     Kv=0.5,
     allowFlowReversal=false,
-    filteredOpening=true,
+    use_inputFilter=true,
     from_dp=true,
     m_flow_nominal=m_flow_nominal,
     dpFixed_nominal=0,
@@ -452,11 +450,11 @@ equation
       visible=false));
   connect(the.y, booToRea.u) annotation (Line(points={{260.6,-80},{260.6,-80},{278,
           -80}}, color={255,0,255}));
-  connect(booToRea.y, pump.dp_in) annotation (Line(points={{301,-80},{320.2,-80},
-          {320.2,-98}}, color={0,0,127}));
+  connect(booToRea.y, pump.dp_in) annotation (Line(points={{301,-80},{320,-80},{
+          320,-98}},    color={0,0,127}));
   connect(the.u, living.TSensor) annotation (Line(points={{239.4,-80},{-46.6,-80},
           {-46.6,46}}, color={0,0,127}));
-  connect(hea.TSet, Thea.y) annotation (Line(points={{372,-104},{378,-104},{381,
+  connect(hea.TSet, Thea.y) annotation (Line(points={{372,-102},{378,-104},{381,
           -104}},            color={0,0,127}));
   connect(spl1.port_1, pump.port_b)
     annotation (Line(points={{280,-110},{296,-110},{310,-110}},
@@ -471,7 +469,7 @@ equation
   connect(spl3.port_2, spl4.port_1)
     annotation (Line(points={{80,-110},{70,-110}}, color={0,127,255}));
   connect(integrator.u, hea.Q_flow) annotation (Line(points={{350,-66},{349,-66},
-          {349,-104}}, color={0,0,127}));
+          {349,-102}}, color={0,0,127}));
   connect(senTemRadBed1.T, valBed1.T) annotation (Line(points={{49,-148},{49.4,-148},
           {49.4,-140}}, color={0,0,127}));
   connect(senTemRadBed1.port, radBed1.heatPortCon) annotation (Line(points={{49,
