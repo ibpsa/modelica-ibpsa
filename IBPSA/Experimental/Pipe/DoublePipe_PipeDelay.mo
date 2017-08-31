@@ -220,10 +220,8 @@ equation
           62,86},{0,86},{0,100}}, color={191,0,0}));
   connect(heatPort, heatPort)
     annotation (Line(points={{0,100},{0,100}}, color={191,0,0}));
-  connect(heatLossReturnReverse.heatPort, heatPort) annotation (Line(points={{
-  connect(timeDelay.tauRev, heatLossSupplyReverse.Tau_in)}}
-                                                          annotation (Line(
-        points={{11,4},{18,4},{18,78},{-44,78},{-44,70}}, color={0,0,127}))));
+  connect(heatLossReturnReverse.heatPort, heatPort) annotation (Line(
+        points={{11,4},{18,4},{18,78},{-44,78},{-44,70}}, color={0,0,127}));
   connect(timeDelay.tauRev, heatLossReturnReverse.Tau_in) annotation (Line(
         points={{11,4},{18,4},{18,-80},{44,-80},{44,-70}}, color={0,0,127}));
   connect(timeDelay.tau, heatLossReturn.Tau_in) annotation (Line(points={{11,-4},
