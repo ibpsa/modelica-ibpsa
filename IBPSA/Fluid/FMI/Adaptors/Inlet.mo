@@ -151,15 +151,15 @@ equation
 <p>
 Model that is used to connect an input signal to a fluid port.
 The model needs to be used in conjunction with an instance of
-<a href=\"modelica://IBPSA.Fluid.FMI.OutletAdaptor\">
-IBPSA.Fluid.FMI.OutletAdaptor</a> in order for
+<a href=\"modelica://IBPSA.Fluid.FMI.Adaptors.Outlet\">
+IBPSA.Fluid.FMI.Adaptors.Outlet</a> in order for
 fluid mass flow rate and pressure to be properly assigned to
 the acausal fluid models.
 </p>
 <p>
 See
-<a href=\"modelica://IBPSA.Fluid.FMI.ExportContainers.PartialTwoPortComponent\">
-IBPSA.Fluid.FMI.ExportContainers.PartialTwoPortComponent</a>
+<a href=\"modelica://IBPSA.Fluid.FMI.ExportContainers.PartialTwoPort\">
+IBPSA.Fluid.FMI.ExportContainers.PartialTwoPort</a>
 or
 <a href=\"modelica://IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume\">
 IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume</a>
