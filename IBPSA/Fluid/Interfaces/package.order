@@ -2,11 +2,12 @@ UsersGuide
 ConservationEquation
 FourPortHeatMassExchanger
 PartialFourPort
-PartialFourPortParallel
 PartialFourPortInterface
+PartialFourPortParallel
 PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
+PartialTwoPort_vector
 PrescribedOutlet
 StaticFourPortHeatMassExchanger
 StaticTwoPortConservationEquation
@@ -16,4 +17,3 @@ FourPortFlowResistanceParameters
 LumpedVolumeDeclarations
 TwoPortFlowResistanceParameters
 Examples
-PartialTwoPort_vector
