@@ -1,6 +1,15 @@
 within IBPSA.Experimental.Pipe;
 model PipeTemplate "Pipe model with geometric data from catalog"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort_vector;
+
+  replaceable parameter
+    BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE50S
+    pipeData(H=H) constrainedby BaseClasses.SinglePipeConfig.SinglePipeData
+    annotation (choicesAllMatching=True, Placement(transformation(extent={{-40,
+            -80},{-20,-60}})));
+  parameter Modelica.SIunits.Length length "Pipe length";
+  parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
+
   Fluid.FixedResistances.PlugFlow pipe(
     nPorts=nPorts,
     diameter=pipeData.Di,
@@ -17,13 +26,7 @@ model PipeTemplate "Pipe model with geometric data from catalog"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  replaceable parameter
-    BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE50S
-    pipeData(H=H)
-             constrainedby BaseClasses.SinglePipeConfig.SinglePipeData
-    annotation (choicesAllMatching=True, Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
+
 equation
   connect(port_a, pipe.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
@@ -62,6 +65,6 @@ equation
               100}},
           lineColor={0,0,0},
           fillColor={238,46,47},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+          fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
+          preserveAspectRatio=false)));
 end PipeTemplate;
