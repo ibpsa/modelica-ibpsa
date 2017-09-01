@@ -383,7 +383,7 @@ equation
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/ValidationPipeAIT.mos"
+          "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/PlugFlowAIT.mos"
         "Simulate and plot"),
     __Dymola_experimentFlags(
       Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
