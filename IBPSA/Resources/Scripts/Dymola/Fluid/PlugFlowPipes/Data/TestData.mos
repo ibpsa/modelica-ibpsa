@@ -1,0 +1,18 @@
+translateModel("IBPSA.Fluid.PlugFlowPipes.Data.TestData");
+stopTimeData = max(pipeDataToBeRead.data[:,1])
+simulateModel("IBPSA.Fluid.PlugFlowPipes.Data.TestData", stopTime=stopTimeData, method="dassl", resultFile="TestData");
+createPlot(id = 1,
+ position = {55, 50, 697, 502},
+ x = "time",
+ y = {"combiTimeTable.y[1]"},
+ range = {0, 600, 1, 0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot=1,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+
+
