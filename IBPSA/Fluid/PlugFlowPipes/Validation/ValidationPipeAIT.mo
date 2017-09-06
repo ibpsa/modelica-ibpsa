@@ -187,12 +187,6 @@ model ValidationPipeAIT
     "Flag to decide whether volumes are included at the end points of the pipe";
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
-  Experimental.Pipe.BaseClasses.SinglePipeConfig.IsoPlusSingleRigidStandard.IsoPlusKRE80S
-    pipeData(
-    Di=825e-3,
-    lambdaI=0.024,
-    Do=825e-3 + 2*pipeData.s + 2*45e-3)
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
   parameter Modelica.SIunits.Time tauHeaTra=6500
