@@ -1,12 +1,7 @@
 FlowJunctionSteadyState
 FlowJunctionSteadyStateNoPressureDrop
 LosslessPipe
-MSLAIT
-MSLAIT2elements
-PlugFlowAIT
-PlugFlowULg
 PressureDropsExplicit
 PressureDropsExplicitLinearized
 PressureDropsParallel
 PressureDropsSeries
-Data
