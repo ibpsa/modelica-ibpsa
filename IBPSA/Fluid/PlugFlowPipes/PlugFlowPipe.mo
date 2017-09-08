@@ -11,7 +11,7 @@ model PlugFlowPipe
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0, start=0.2)
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
@@ -22,16 +22,11 @@ model PlugFlowPipe
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
-  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/
-      Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*
-      (diameter/2)^2*cp_default;
-  parameter Modelica.SIunits.ThermalConductivity lambdaI(min=0.0001, start=
-        0.026) "Heat conductivity";
 
-  parameter Modelica.SIunits.HeatCapacity walCap=length*((diameter + 2*
-      thickness)^2 - diameter^2)*Modelica.Constants.pi/4*cpipe*rho_wall
-    "Heat capacity of pipe wall";
+  parameter Modelica.SIunits.ThermalConductivity lambdaI(min=0.0001, start=0.026)
+    "Heat conductivity";
+
+
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe(start=500) "For steel";
   parameter Modelica.SIunits.Density rho_wall(start=8000) "For steel";
   final parameter Modelica.SIunits.Volume V=walCap/(rho_default*cp_default)
@@ -60,6 +55,14 @@ model PlugFlowPipe
   // fixme: propagate use_dh and set default to false
 
 protected
+  final parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi
+      /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
+  final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi
+      *(diameter/2)^2*cp_default;
+
+  parameter Modelica.SIunits.HeatCapacity walCap=length*((diameter + 2*
+      thickness)^2 - diameter^2)*Modelica.Constants.pi/4*cpipe*rho_wall
+    "Heat capacity of pipe wall";
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
@@ -125,10 +128,10 @@ equation
     annotation (Line(points={{-10,0},{-56,0},{-100,0}}, color={0,127,255}));
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
         Rectangle(
           extent={{-100,40},{100,-40}},
           lineColor={0,0,0},
