@@ -33,7 +33,8 @@ model TimeDelay "Delay time for given normalized velocity"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
   parameter Real epsilon=1e-10;
-
+initial equation
+  x = 0;
 equation
   u = m_flow/(rho*(diameter^2)/4*Modelica.Constants.pi)/length;
 

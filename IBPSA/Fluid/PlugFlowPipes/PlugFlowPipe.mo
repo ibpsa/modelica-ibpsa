@@ -111,7 +111,8 @@ public
     m_flow_nominal=m_flow_nominal,
     V=V,
     nPorts=nPorts + 1,
-    T_start=T_ini_out)
+    T_start=T_ini_out,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 equation
   for i in 1:nPorts loop

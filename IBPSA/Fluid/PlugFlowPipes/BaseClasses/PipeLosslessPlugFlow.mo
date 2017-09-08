@@ -3,27 +3,28 @@ model PipeLosslessPlugFlow
   "Lossless pipe model with spatialDistribution plug flow implementation"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Real initialPoints[:](each min=0, each max=1) = {0.0, 1.0}
-    "Initial points for spatialDistribution";
-    // fixme: use T_start[:] and propagate to top level, then use it to assign h_start (or initialValuesH)
-  parameter Modelica.SIunits.SpecificEnthalpy initialValuesH[:]=
-     {Medium.h_default, Medium.h_default}
-    "Inital enthalpy values for spatialDistribution";
+  parameter Real initialPoints[:](
+    each min=0,
+    each max=1) = {0.0,1.0} "Initial points for spatialDistribution";
+  // fixme: use T_start[:] and propagate to top level, then use it to assign h_start (or initialValuesH)
+  parameter Modelica.SIunits.SpecificEnthalpy initialValuesH[:]={Medium.h_default,
+      Medium.h_default} "Inital enthalpy values for spatialDistribution";
 
-  parameter Modelica.SIunits.Diameter D "Pipe diameter"; // fixme call it diameter
-  parameter Modelica.SIunits.Length L "Pipe length";   // fixme: call it lenghth
-  final parameter Modelica.SIunits.Area A = Modelica.Constants.pi * (D/2)^2
+  parameter Modelica.SIunits.Diameter D "Pipe diameter";
+  // fixme call it diameter
+  parameter Modelica.SIunits.Length L "Pipe length";
+  // fixme: call it lenghth
+  final parameter Modelica.SIunits.Area A=Modelica.Constants.pi*(D/2)^2
     "Cross-sectional area of pipe";
 
   // Advanced
   // Note: value of dp_start shall be refined by derived model,
   // based on local dp_nominal
-  parameter Medium.AbsolutePressure dp_start = 0
+  parameter Medium.AbsolutePressure dp_start=0
     "Guess value of dp = port_a.p - port_b.p"
-    annotation(Dialog(tab = "Advanced"));
-  parameter Medium.MassFlowRate m_flow_start = 0
-    "Guess value of m_flow = port_a.m_flow"
-    annotation(Dialog(tab = "Advanced"));
+    annotation (Dialog(tab="Advanced"));
+  parameter Medium.MassFlowRate m_flow_start=0
+    "Guess value of m_flow = port_a.m_flow" annotation (Dialog(tab="Advanced"));
   // Note: value of m_flow_small shall be refined by derived model,
   // based on local m_flow_nominal
   parameter Medium.MassFlowRate m_flow_small
@@ -36,13 +37,12 @@ model PipeLosslessPlugFlow
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
   Modelica.SIunits.Length x(start=0)
-    "Spatial coordiante for spatialDistribution operator";
+    "Spatial coordinate for spatialDistribution operator";
   Modelica.SIunits.Velocity v "Flow velocity of medium in pipe";
 
   // Variables
-  Medium.MassFlowRate m_flow(
-     min=if allowFlowReversal then -Modelica.Constants.inf else 0,
-     start = m_flow_start) "Mass flow rate in design flow direction";
+  Medium.MassFlowRate m_flow(min=if allowFlowReversal then -Modelica.Constants.inf
+         else 0, start=m_flow_start) "Mass flow rate in design flow direction";
   Modelica.SIunits.Pressure dp(start=dp_start)
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
 
@@ -83,10 +83,21 @@ model PipeLosslessPlugFlow
     "Temperature close to port_b, if show_T = true";
 
 protected
-  parameter Modelica.SIunits.SpecificEnthalpy h_default=Medium.specificEnthalpy(sta_default)
-    "Specific enthalpy";
-  parameter Medium.ThermodynamicState sta_default=
-     Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
+  parameter Modelica.SIunits.SpecificEnthalpy h_default=Medium.specificEnthalpy(
+      sta_default) "Specific enthalpy";
+  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default);
+  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default)
+    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)";
+
+initial equation
+  x = 0;
+
 equation
   // Pressure drop in design flow direction
   dp = port_a.p - port_b.p;
@@ -95,35 +106,40 @@ equation
   // Design direction of mass flow rate
   m_flow = port_a.m_flow;
   assert(m_flow > -m_flow_small or allowFlowReversal,
-      "Reverting flow occurs even though allowFlowReversal is false");
+    "Reverting flow occurs even though allowFlowReversal is false");
+
 
   // Mass balance (no storage)
   port_a.m_flow + port_b.m_flow = 0;
 
   der(x) = v;
-  v = V_flow / A;
+  v = V_flow/A;
 
   // fixme: this also need to be applied on Xi_outflow and C_outflow.
   // Otherwise, for air, it can give wrong temperatures at the outlet.
   // To assign Xi_outflow and C_outflow, you will need to use IBPSA.Fluid.Interfaces.PartialTwoPort
-  (port_a.h_outflow,
-   port_b.h_outflow) = spatialDistribution(inStream(port_a.h_outflow),
-                                           inStream(port_b.h_outflow),
-                                           x/L,
-                                           v>=0,
-                                           initialPoints,
-                                           initialValuesH);
+  (port_a.h_outflow,port_b.h_outflow) = spatialDistribution(
+    inStream(port_a.h_outflow),
+    inStream(port_b.h_outflow),
+    x/L,
+    v >= 0,
+    initialPoints,
+    initialValuesH);
 
   // Transport of substances
-  port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) else Medium.X_default[1:Medium.nXi];
+  port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow)
+     else Medium.X_default[1:Medium.nXi];
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
 
-  port_a.C_outflow = if allowFlowReversal then inStream(port_b.C_outflow) else zeros(Medium.nC);
+  port_a.C_outflow = if allowFlowReversal then inStream(port_b.C_outflow) else
+    zeros(Medium.nC);
   port_b.C_outflow = inStream(port_a.C_outflow);
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={
         Line(
           points={{-72,-28}},
           color={0,0,0},

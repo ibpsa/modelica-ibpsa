@@ -38,17 +38,34 @@ model PipeAdiabaticPlugFlow
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
+  parameter Boolean from_dp=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Temperature T_ini_in=Medium.T_default
+    "Initial temperature in pipe at inlet"
+    annotation (Dialog(group="Initialization"));
+  parameter Modelica.SIunits.Temperature T_ini_out=Medium.T_default
+    "Initial temperature in pipe at outlet"
+    annotation (Dialog(group="Initialization"));
+
+  parameter Modelica.SIunits.MassFlowRate m_flowInit=0
+    annotation (Dialog(group="Initialization", enable=initDelay));
+
+  parameter Boolean initDelay=false
+    "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
+    annotation (Dialog(group="Initialization"));
+
   // TODO: Calculate dpStraightPipe_nominal inside HydraulicDiameter res
-  Fluid.FixedResistances.HydraulicDiameter          res(
+  Fluid.FixedResistances.HydraulicDiameter res(
     redeclare final package Medium = Medium,
     final dh=dh,
     final m_flow_nominal=m_flow_nominal,
     from_dp=from_dp,
     length=length,
     fac=1,
-    dp(nominal=2))           "Pressure drop calculation for this pipe"
+    dp(nominal=2)) "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-    //final dp_nominal=dp_nominal,
+  //final dp_nominal=dp_nominal,
 
 protected
   parameter Modelica.SIunits.SpecificEnthalpy h_ini_in=Medium.specificEnthalpy(
@@ -57,8 +74,8 @@ protected
       p=Medium.p_default,
       X=Medium.X_default)) "For initialization of spatialDistribution inlet";
 
-      parameter Modelica.SIunits.SpecificEnthalpy h_ini_out=Medium.specificEnthalpy(
-      Medium.setState_pTX(
+  parameter Modelica.SIunits.SpecificEnthalpy h_ini_out=Medium.specificEnthalpy(
+       Medium.setState_pTX(
       T=T_ini_out,
       p=Medium.p_default,
       X=Medium.X_default)) "For initialization of spatialDistribution outlet";
@@ -95,17 +112,11 @@ protected
     final D=dh,
     final L=length,
     final allowFlowReversal=allowFlowReversal,
-    initialValuesH={h_ini_in,h_ini_out})
+    initialValuesH={h_ini_in,h_ini_out},
+    m_flow_start=m_flowInit)
     "Model for temperature wave propagation with spatialDistribution operator"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-public
-  parameter Boolean from_dp=false
-    "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Temperature T_ini_in=Medium.T_default
-    "Initial temperature in pipe at inlet" annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.Temperature T_ini_out=Medium.T_default
-    "Initial temperature in pipe at outlet" annotation (Dialog(group="Initialization"));
+
 
   Fluid.Sensors.TemperatureTwoPort senTem_delay(
     m_flow_nominal=m_flow_nominal,
@@ -122,10 +133,10 @@ equation
   connect(senTem_delay.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
         Rectangle(
           extent={{-100,40},{100,-42}},
           lineColor={0,0,0},
