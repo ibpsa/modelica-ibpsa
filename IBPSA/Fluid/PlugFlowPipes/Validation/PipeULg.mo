@@ -1,5 +1,5 @@
 ﻿within IBPSA.Fluid.PlugFlowPipes.Validation;
-model ValidationPipeULg "Validation against data from Université de Liège"
+model PipeULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
   // R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi
   package Medium = IBPSA.Media.Water;
@@ -198,4 +198,4 @@ equation
       Evaluate=true,
       OutputCPUtime=true,
       OutputFlatModelica=false));
-end ValidationPipeULg;
+end PipeULg;

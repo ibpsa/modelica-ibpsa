@@ -7,7 +7,7 @@ extends Modelica.Icons.ExamplesPackage;
 
   annotation (Documentation(info="<html>
 <p>
-This package contains models that validate the pipe models against measured data from real disitrct heating networks.
+This package contains models that validate the pipe models against measured data from real district heating networks.
 
 </p>
 </html>"));

@@ -1,5 +1,5 @@
 within IBPSA.Fluid.PlugFlowPipes.Validation;
-model ValidationPipeAIT
+model PipeAIT
   "Validation pipe against data from Austrian Institute of Technology"
   extends Modelica.Icons.Example;
 
@@ -384,4 +384,4 @@ equation
       Evaluate=false,
       OutputCPUtime=true,
       OutputFlatModelica=false));
-end ValidationPipeAIT;
+end PipeAIT;
