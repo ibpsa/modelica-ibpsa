@@ -1,5 +1,5 @@
 within IBPSA.Fluid;
-package Humidifiers "fixme: add brief description"
+package Humidifiers "Package with humidifier models"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
