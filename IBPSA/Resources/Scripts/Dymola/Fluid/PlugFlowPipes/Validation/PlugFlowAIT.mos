@@ -1,7 +1,7 @@
 removePlots();
 
-translateModel("IBPSA.Fluid.FixedResistances.Validation.PlugFlowAIT");
-simulateModel("IBPSA.Fluid.FixedResistances.Validation.PlugFlowAIT", stopTime=603900, numberOfIntervals=0, outputInterval=900, method="dassl", resultFile="PlugFlowAIT");
+translateModel("IBPSA.Fluid.PlugFlowPipes.Validation.PlugFlowAIT");
+simulateModel("IBPSA.Fluid.PlugFlowPipes.Validation.PlugFlowAIT", stopTime=603900, numberOfIntervals=0, outputInterval=900, method="dassl", resultFile="PlugFlowAIT");
 createPlot(id = 5,
  position = {50, 50, 500, 500},
  x = "time",

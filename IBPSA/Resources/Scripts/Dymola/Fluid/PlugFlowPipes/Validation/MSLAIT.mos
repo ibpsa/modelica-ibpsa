@@ -1,5 +1,5 @@
-translateModel("IBPSA.Fluid.FixedResistances.Validation.MSLAIT");
-simulateModel("IBPSA.Fluid.FixedResistances.Validation.MSLAIT", stopTime=603900, method="dassl", resultFile="MSLAIT");
+translateModel("IBPSA.Fluid.PlugFlowPipes.Validation.MSLAIT");
+simulateModel("IBPSA.Fluid.PlugFlowPipes.Validation.MSLAIT", stopTime=603900, method="dassl", resultFile="MSLAIT");
 createPlot(id = 5,
  position = {50, 50, 500, 500},
  x = "time",

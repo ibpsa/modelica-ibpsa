@@ -55,9 +55,9 @@ model PlugFlowPipe
   // fixme: propagate use_dh and set default to false
 
 protected
-  final parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi
+  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi
       /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi
+  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi
       *(diameter/2)^2*cp_default;
 
   parameter Modelica.SIunits.HeatCapacity walCap=length*((diameter + 2*

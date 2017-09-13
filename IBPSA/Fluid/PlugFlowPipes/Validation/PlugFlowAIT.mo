@@ -1,5 +1,5 @@
 within IBPSA.Fluid.PlugFlowPipes.Validation;
-model PipeAIT
+model PlugFlowAIT
   "Validation pipe against data from Austrian Institute of Technology"
   extends Modelica.Icons.Example;
 
@@ -291,7 +291,10 @@ equation
   connect(lessThreshold.y, switch1.u2) annotation (Line(points={{71.7,107},{66,107},
           {66,84},{140,84},{140,50},{132,50}}, color={255,0,255}));
   annotation (
-    experiment(StopTime=603900, Interval=900),
+    experiment(
+      StopTime=603900,
+      Interval=900,
+      Tolerance=1e-006),
     __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
 <p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model.</p>
@@ -380,8 +383,11 @@ equation
           "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/PlugFlowAIT.mos"
         "Simulate and plot"),
     __Dymola_experimentFlags(
-      Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
-      Evaluate=false,
+      Advanced(
+        EvaluateAlsoTop=false,
+        GenerateVariableDependencies=false,
+        OutputModelicaCode=false),
+      Evaluate=true,
       OutputCPUtime=true,
       OutputFlatModelica=false));
-end PipeAIT;
+end PlugFlowAIT;

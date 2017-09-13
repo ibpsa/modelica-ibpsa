@@ -70,7 +70,9 @@ model MSLAIT2elements
     redeclare model FlowModel =
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           dp_nominal(displayUnit="Pa") = 10*pip0.length, m_flow_nominal=0.3),
-    nNodes=2)          annotation (Placement(transformation(
+    nNodes=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=293.15)    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-8})));
@@ -101,7 +103,9 @@ model MSLAIT2elements
     redeclare model FlowModel =
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           m_flow_nominal=0.3, dp_nominal=10*pip1.length),
-    nNodes=2)          annotation (Placement(transformation(
+    nNodes=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=293.15)    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={38,10})));
@@ -124,7 +128,9 @@ model MSLAIT2elements
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           dp_nominal=10*pip2.length, m_flow_nominal=0.3),
     diameter=0.0337 - 2*0.0032,
-    nNodes=2)          annotation (Placement(transformation(
+    nNodes=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=293.15)    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-80,40})));
@@ -147,7 +153,9 @@ model MSLAIT2elements
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           dp_nominal=10*pip3.length, m_flow_nominal=0.3),
     diameter=0.0337 - 2*0.0032,
-    nNodes=2)          annotation (Placement(transformation(
+    nNodes=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=293.15)    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-12})));
@@ -172,7 +180,9 @@ model MSLAIT2elements
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           dp_nominal=10*pip4.length, m_flow_nominal=0.3),
     diameter=0.0337 - 2*0.0032,
-    nNodes=2)          annotation (Placement(transformation(
+    nNodes=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=293.15)    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={10,40})));
@@ -197,7 +207,9 @@ model MSLAIT2elements
     redeclare model FlowModel =
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           dp_nominal=10*pip5.length, m_flow_nominal=0.3),
-    nNodes=2)          annotation (Placement(transformation(
+    nNodes=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=293.15)    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-10,10})));
@@ -380,7 +392,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
-    experiment(StopTime=603900, Tolerance=1e-005),
+    experiment(StopTime=603900, Tolerance=1e-006),
     __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
 <p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model in <a href=\"modelica://IBPSA.Experimental.Pipe.Validation.ValidationPipeAIT\">ValidationPipeAIT</a>. This model compares its performance with the original Modelica Standard Library pipes.</p>
@@ -405,7 +417,10 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     __Dymola_experimentFlags(
-      Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
+      Advanced(
+        EvaluateAlsoTop=false,
+        GenerateVariableDependencies=false,
+        OutputModelicaCode=false),
       Evaluate=true,
       OutputCPUtime=true,
       OutputFlatModelica=false));

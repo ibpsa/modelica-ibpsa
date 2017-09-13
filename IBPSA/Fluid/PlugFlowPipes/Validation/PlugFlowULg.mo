@@ -1,5 +1,5 @@
 ﻿within IBPSA.Fluid.PlugFlowPipes.Validation;
-model PipeULg "Validation against data from Université de Liège"
+model PlugFlowULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
   // R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi
   package Medium = IBPSA.Media.Water;
@@ -83,7 +83,10 @@ model PipeULg "Validation against data from Université de Liège"
          + 1/(5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi,
     nPorts=1,
     initDelay=true,
-    m_flowInit=pipeDataULg.m_flowIni)
+    m_flowInit=pipeDataULg.m_flowIni,
+    roughness=2.5e-5,
+    cpipe=500,
+    rho_wall=8000)
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
   Fluid.Sensors.EnthalpyFlowRate senEntOut(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal)
@@ -188,14 +191,17 @@ equation
 <li>Januar 26, 2016 by Carles Ribas:<br>First implementation. </li>
 </ul>
 </html>"),
-    experiment(StopTime=875),
+    experiment(StopTime=875, Tolerance=1e-006),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/PlugFlowULg.mos"
         "Simulate and plot"),
     __Dymola_experimentSetupOutput(events=false),
     __Dymola_experimentFlags(
-      Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
+      Advanced(
+        EvaluateAlsoTop=false,
+        GenerateVariableDependencies=false,
+        OutputModelicaCode=false),
       Evaluate=true,
       OutputCPUtime=true,
       OutputFlatModelica=false));
-end PipeULg;
+end PlugFlowULg;
