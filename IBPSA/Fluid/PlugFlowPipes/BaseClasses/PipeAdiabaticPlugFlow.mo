@@ -65,6 +65,11 @@ model PipeAdiabaticPlugFlow
     fac=1,
     dp(nominal=2)) "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  Fluid.Sensors.TemperatureTwoPort senTem_delay(
+    m_flow_nominal=m_flow_nominal,
+    tau=0,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   //final dp_nominal=dp_nominal,
 
 protected
@@ -75,7 +80,7 @@ protected
       X=Medium.X_default)) "For initialization of spatialDistribution inlet";
 
   parameter Modelica.SIunits.SpecificEnthalpy h_ini_out=Medium.specificEnthalpy(
-       Medium.setState_pTX(
+      Medium.setState_pTX(
       T=T_ini_out,
       p=Medium.p_default,
       X=Medium.X_default)) "For initialization of spatialDistribution outlet";
@@ -118,11 +123,7 @@ protected
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 
-  Fluid.Sensors.TemperatureTwoPort senTem_delay(
-    m_flow_nominal=m_flow_nominal,
-    tau=0,
-    redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
 equation
   connect(port_a, res.port_a)
     annotation (Line(points={{-100,0},{-70,0},{-40,0}}, color={0,127,255}));
@@ -133,10 +134,10 @@ equation
   connect(senTem_delay.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={
         Rectangle(
           extent={{-100,40},{100,-42}},
           lineColor={0,0,0},

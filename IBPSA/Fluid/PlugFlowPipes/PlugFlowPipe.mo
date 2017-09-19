@@ -2,64 +2,65 @@ within IBPSA.Fluid.PlugFlowPipes;
 model PlugFlowPipe
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort_vector;
-  parameter Modelica.SIunits.Diameter diameter(start=100, min=0)
+  parameter Modelica.SIunits.Diameter diameter(start=100, min=0) = 100
     "Pipe diameter";
-  parameter Modelica.SIunits.Length length(min=0) "Pipe length";
-  parameter Modelica.SIunits.Length thicknessIns(min=0, start=0.0032)
+  parameter Modelica.SIunits.Length length(min=0)=0 "Pipe length";
+  parameter Modelica.SIunits.Length thicknessIns(min=0, start=0.0032)=0.0032
     "Thickness of pipe insulation";
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0, start=0.2)
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0, start=0.2)=0
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Height roughness(start=2.5e-5)
+  parameter Modelica.SIunits.Height roughness(start=2.5e-5)=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
 
 
-  parameter Modelica.SIunits.ThermalConductivity lambdaI(min=0.0001, start=0.026)
+  parameter Modelica.SIunits.ThermalConductivity lambdaI(min=0.0001, start=0.026)=0.026
     "Heat conductivity";
 
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cpipe(start=500) "For steel";
-  parameter Modelica.SIunits.Density rho_wall(start=8000) "For steel";
+  parameter Modelica.SIunits.SpecificHeatCapacity cpipe(start=500)=500 "For steel";
+  parameter Modelica.SIunits.Density rho_wall(start=8000)=8000 "For steel";
   final parameter Modelica.SIunits.Volume V=walCap/(rho_default*cp_default)
     "Equivalent water volume to represent pipe wall thermal inertia";
 
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Length thickness(start=0.002, min=0)
+  parameter Modelica.SIunits.Length thickness(start=0.002, min=0)=0.002
     "Pipe wall thickness";
 
-  parameter Modelica.SIunits.Temperature T_ini_in(start=Medium.T_default)
+  parameter Modelica.SIunits.Temperature T_ini_in(start=Medium.T_default)=Medium.T_default
     "Initialization temperature at pipe inlet"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.Temperature T_ini_out(start=Medium.T_default)
+  parameter Modelica.SIunits.Temperature T_ini_out(start=Medium.T_default)=Medium.T_default
     "Initialization temperature at pipe outlet"
     annotation (Dialog(tab="Initialization"));
-  parameter Boolean initDelay(start=false)
+  parameter Boolean initDelay(start=false)=false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.MassFlowRate m_flowInit(start=0)
+  parameter Modelica.SIunits.MassFlowRate m_flowInit(start=0)=0
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
 
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
   // fixme: propagate use_dh and set default to false
 
-protected
+
   parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi
       /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
   parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi
       *(diameter/2)^2*cp_default;
 
+protected
   parameter Modelica.SIunits.HeatCapacity walCap=length*((diameter + 2*
       thickness)^2 - diameter^2)*Modelica.Constants.pi/4*cpipe*rho_wall
     "Heat capacity of pipe wall";
