@@ -2,6 +2,22 @@ within IBPSA.Fluid.PlugFlowPipes.Validation;
 model PlugFlowAIT
   "Validation pipe against data from Austrian Institute of Technology"
   extends Modelica.Icons.Example;
+  package Medium = IBPSA.Media.Water;
+  parameter Modelica.SIunits.Length Lcap=1
+    "Length over which transient effects typically take place";
+  parameter Types.ThermalResistanceLength R80=1/(2*0.024*Modelica.Constants.pi)
+      *log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.07);
+
+  parameter Boolean pipVol=true
+    "Flag to decide whether volumes are included at the end points of the pipe";
+  parameter Boolean allowFlowReversal=true
+    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+    "Nominal mass flow rate, used for regularization near zero flow";
+  parameter Modelica.SIunits.Time tauHeaTra=6500
+    "Time constant for heat transfer, default 20 minutes";
+
+  parameter Modelica.SIunits.Length thickness=0.0032 "Pipe wall thickness";
 
   Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,
@@ -11,7 +27,7 @@ model PlugFlowAIT
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={82,-42})));
-  package Medium = IBPSA.Media.Water;
+
   Fluid.Sources.MassFlowSource_T Point4(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
@@ -42,13 +58,12 @@ model PlugFlowAIT
     allowFlowReversal=allowFlowReversal,
     nPorts=2,
     m_flow_nominal=0.3,
-    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*
-        Modelica.Constants.pi)*log(2/0.18),
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.18),
     thickness=thickness,
     roughness=2.5e-5,
     cpipe=500,
-    rho_wall=8000,
-    C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default)
+    rho_wall=8000)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PlugFlowPipe pip4(
     redeclare package Medium = Medium,
@@ -63,14 +78,11 @@ model PlugFlowAIT
     R=R80,
     roughness=2.5e-5,
     cpipe=500,
-    rho_wall=8000,
-    C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default)
-           annotation (Placement(transformation(
+    rho_wall=8000) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={10,40})));
-    //R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    //thicknessIns=0.045,
+
   PlugFlowPipe pip5(
     redeclare package Medium = Medium,
     length=20,
@@ -80,15 +92,14 @@ model PlugFlowAIT
     allowFlowReversal=allowFlowReversal,
     nPorts=2,
     m_flow_nominal=0.3,
-    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*
-        Modelica.Constants.pi)*log(2/0.18),
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.18),
     thickness=thickness,
     roughness=2.5e-5,
     cpipe=500,
-    rho_wall=8000,
-    C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default)
+    rho_wall=8000)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
-    //R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
+
   PlugFlowPipe pip2(
     redeclare package Medium = Medium,
     length=76,
@@ -102,13 +113,11 @@ model PlugFlowAIT
     R=R80,
     roughness=2.5e-5,
     cpipe=500,
-    rho_wall=8000,
-    C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default)
-           annotation (Placement(transformation(
+    rho_wall=8000) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-88,30})));
-    //R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
+
   PlugFlowPipe pip3(
     redeclare package Medium = Medium,
     length=38,
@@ -122,9 +131,7 @@ model PlugFlowAIT
     R=R80,
     roughness=2.5e-5,
     cpipe=500,
-    rho_wall=8000,
-    C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default)
-           annotation (Placement(transformation(
+    rho_wall=8000) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-4})));
@@ -181,14 +188,12 @@ model PlugFlowAIT
     allowFlowReversal=allowFlowReversal,
     nPorts=2,
     m_flow_nominal=0.3,
-    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*
-        Modelica.Constants.pi)*log(2/0.18),
+    R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
+        *log(2/0.18),
     thickness=thickness,
     roughness=2.5e-5,
     cpipe=500,
-    rho_wall=8000,
-    C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default)
-                         annotation (Placement(transformation(
+    rho_wall=8000) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-2})));
@@ -206,19 +211,7 @@ model PlugFlowAIT
     transferHeat=true,
     tauHeaTra=tauHeaTra)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  parameter Modelica.SIunits.Length Lcap=1
-    "Length over which transient effects typically take place";
-  parameter Types.ThermalResistanceLength R80=1/(2*0.024*Modelica.Constants.pi)
-      *log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.07);
 
-  parameter Boolean pipVol=true
-    "Flag to decide whether volumes are included at the end points of the pipe";
-  parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
-    "Nominal mass flow rate, used for regularization near zero flow";
-  parameter Modelica.SIunits.Time tauHeaTra=6500
-    "Time constant for heat transfer, default 20 minutes";
   Modelica.Blocks.Logical.Switch switch
     annotation (Placement(transformation(extent={{54,96},{34,116}})));
   Modelica.Blocks.Sources.RealExpression m_flow_zero(y=0)
@@ -234,7 +227,7 @@ model PlugFlowAIT
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={46,56})));
-  parameter Modelica.SIunits.Length thickness=0.0032 "Pipe wall thickness";
+
 equation
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
       points={{-58,-70},{-54,-70},{-54,-68}},
@@ -260,14 +253,14 @@ equation
           {100,26},{100,-2},{90,-2}}, color={191,0,0}));
   connect(pip1.heatPort, pip2.heatPort) annotation (Line(points={{40,20},{40,26},
           {-54,26},{-54,30},{-78,30}}, color={191,0,0}));
-  connect(pip5.heatPort, pip2.heatPort) annotation (Line(points={{-10,20},{-10,26},
-          {-54,26},{-54,30},{-78,30}}, color={191,0,0}));
-  connect(pip3.heatPort, pip2.heatPort) annotation (Line(points={{-36,-4},{-28,-4},
-          {-28,26},{-54,26},{-54,30},{-78,30}}, color={191,0,0}));
-  connect(prescribedTemperature.port, pip0.heatPort) annotation (Line(points={{60,
-          -90},{100,-90},{100,-2},{90,-2}}, color={191,0,0}));
-  connect(senTem_p2.port_b, Point2.ports[1]) annotation (Line(points={{-88,66},{
-          -88,66},{-88,70},{-88,72}}, color={0,127,255}));
+  connect(pip5.heatPort, pip2.heatPort) annotation (Line(points={{-10,20},{-10,
+          26},{-54,26},{-54,30},{-78,30}}, color={191,0,0}));
+  connect(pip3.heatPort, pip2.heatPort) annotation (Line(points={{-36,-4},{-28,
+          -4},{-28,26},{-54,26},{-54,30},{-78,30}}, color={191,0,0}));
+  connect(prescribedTemperature.port, pip0.heatPort) annotation (Line(points={{
+          60,-90},{100,-90},{100,-2},{90,-2}}, color={191,0,0}));
+  connect(senTem_p2.port_b, Point2.ports[1]) annotation (Line(points={{-88,66},
+          {-88,66},{-88,70},{-88,72}}, color={0,127,255}));
   connect(Point3.ports[1], senTem_p3.port_b)
     annotation (Line(points={{-46,-48},{-46,-44}}, color={0,127,255}));
   connect(senTem_p4.port_b, Point4.ports[1])
@@ -276,28 +269,26 @@ equation
     annotation (Line(points={{82,-32},{82,-32},{34,-32}}, color={0,127,255}));
   connect(senTem_p1.port_a, pip0.port_a)
     annotation (Line(points={{34,-12},{70,-12},{80,-12}}, color={0,127,255}));
-  connect(switch.u1, m_flow_p4.y) annotation (Line(points={{56,114},{72,114},{72,
-          120},{86,120}}, color={0,0,127}));
+  connect(switch.u1, m_flow_p4.y) annotation (Line(points={{56,114},{72,114},{
+          72,120},{86,120}}, color={0,0,127}));
   connect(m_flow_zero.y, switch.u3)
     annotation (Line(points={{92,98},{92,98},{56,98}}, color={0,0,127}));
   connect(switch.y, Point4.m_flow_in)
     annotation (Line(points={{33,106},{16,106},{16,98}}, color={0,0,127}));
-  connect(switch.u2, lessThreshold.y) annotation (Line(points={{56,106},{71.7,106},
-          {71.7,107}}, color={255,0,255}));
-  connect(lessThreshold.u, m_flow_p4.y) annotation (Line(points={{78.6,107},{78.6,
-          120},{86,120}}, color={0,0,127}));
+  connect(switch.u2, lessThreshold.y) annotation (Line(points={{56,106},{71.7,
+          106},{71.7,107}}, color={255,0,255}));
+  connect(lessThreshold.u, m_flow_p4.y) annotation (Line(points={{78.6,107},{
+          78.6,120},{86,120}}, color={0,0,127}));
   connect(pip1.port_a, pip0.ports_b[1])
     annotation (Line(points={{50,10},{78,10},{78,8}}, color={0,127,255}));
   connect(pip1.ports_b[1], pip4.port_a)
-    annotation (Line(points={{30,8},{10,8},{10,30}},
-                                                   color={0,127,255}));
+    annotation (Line(points={{30,8},{10,8},{10,30}}, color={0,127,255}));
   connect(pip5.port_a, pip1.ports_b[2])
     annotation (Line(points={{0,10},{30,10},{30,12}}, color={0,127,255}));
   connect(pip4.ports_b[1], senTem_p4.port_a)
     annotation (Line(points={{8,50},{8,52},{8,52}}, color={0,127,255}));
   connect(Point5.ports[1], pip4.ports_b[2]) annotation (Line(points={{36,56},{
-          36,56},{12,56},{12,50}},
-                                color={0,127,255}));
+          36,56},{12,56},{12,50}}, color={0,127,255}));
   connect(pip5.ports_b[1], senTemIn_p2.port_b)
     annotation (Line(points={{-20,8},{-60,8},{-60,10}}, color={0,127,255}));
   connect(pip3.port_a, pip5.ports_b[2])
@@ -308,16 +299,16 @@ equation
     annotation (Line(points={{-88,40},{-88,43},{-88,46}}, color={0,127,255}));
   connect(pip3.ports_b[1], senTem_p3.port_a) annotation (Line(points={{-46,-14},
           {-46,-14},{-46,-24}}, color={0,127,255}));
-  connect(ExcludedBranch.ports[1], pip0.ports_b[2]) annotation (Line(points={{80,
-          60},{82,60},{82,8},{82,8}}, color={0,127,255}));
+  connect(ExcludedBranch.ports[1], pip0.ports_b[2]) annotation (Line(points={{
+          80,60},{82,60},{82,8},{82,8}}, color={0,127,255}));
   connect(switch1.y, Point5.m_flow_in) annotation (Line(points={{109,50},{84,50},
           {84,64},{56,64}}, color={0,0,127}));
-  connect(m_flow_p4.y, switch1.u3) annotation (Line(points={{86,120},{86,120},{86,
-          112},{86,88},{106,88},{144,88},{144,42},{132,42}}, color={0,0,127}));
-  connect(m_flow_zero.y, switch1.u1) annotation (Line(points={{92,98},{94,98},{94,
-          84},{94,80},{136,80},{136,58},{132,58}}, color={0,0,127}));
-  connect(lessThreshold.y, switch1.u2) annotation (Line(points={{71.7,107},{66,107},
-          {66,84},{140,84},{140,50},{132,50}}, color={255,0,255}));
+  connect(m_flow_p4.y, switch1.u3) annotation (Line(points={{86,120},{86,120},{
+          86,112},{86,88},{106,88},{144,88},{144,42},{132,42}}, color={0,0,127}));
+  connect(m_flow_zero.y, switch1.u1) annotation (Line(points={{92,98},{94,98},{
+          94,84},{94,80},{136,80},{136,58},{132,58}}, color={0,0,127}));
+  connect(lessThreshold.y, switch1.u2) annotation (Line(points={{71.7,107},{66,
+          107},{66,84},{140,84},{140,50},{132,50}}, color={255,0,255}));
   annotation (
     experiment(
       StopTime=603900,

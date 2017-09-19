@@ -10,9 +10,9 @@ model PipeLosslessPlugFlow
   parameter Modelica.SIunits.SpecificEnthalpy initialValuesH[:]={Medium.h_default,
       Medium.h_default} "Inital enthalpy values for spatialDistribution";
 
-  parameter Modelica.SIunits.Diameter D "Pipe diameter";
+  parameter Modelica.SIunits.Diameter D(min=0, start=0.1) "Pipe diameter";
   // fixme call it diameter
-  parameter Modelica.SIunits.Length L "Pipe length";
+  parameter Modelica.SIunits.Length L(min=0, start=0) "Pipe length";
   // fixme: call it lenghth
   final parameter Modelica.SIunits.Area A=Modelica.Constants.pi*(D/2)^2
     "Cross-sectional area of pipe";

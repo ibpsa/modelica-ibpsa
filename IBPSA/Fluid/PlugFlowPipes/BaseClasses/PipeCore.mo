@@ -3,14 +3,11 @@ model PipeCore
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
-  parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
+  parameter Modelica.SIunits.Diameter diameter(min=0, start=0.100) "Pipe diameter";
+  parameter Modelica.SIunits.Length length(min=0, start=0) "Pipe length";
+  parameter Modelica.SIunits.Length thicknessIns(min=0, start=0.01) "Thickness of pipe insulation";
 
-  /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
-    "Heat conductivity of pipe's surroundings";*/
-
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0, start=0.1)
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
@@ -35,10 +32,25 @@ model PipeCore
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe=500 "For steel";
   parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
 
-  // fixme: shouldn't dp(nominal) be around 100 Pa/m?
-  // fixme: propagate use_dh and set default to false
+  parameter Boolean from_dp=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
 
-  IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow pipeAdiabaticPlugFlow(
+  parameter Modelica.SIunits.Temperature T_ini_in=Medium.T_default
+    "Initialization temperature at pipe inlet"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.SIunits.Temperature T_ini_out=Medium.T_default
+    "Initialization temperature at pipe outlet"
+    annotation (Dialog(tab="Initialization"));
+  parameter Boolean initDelay=false
+    "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.SIunits.MassFlowRate m_flowInit=0
+    annotation (Dialog(tab="Initialization", enable=initDelay));
+
+  IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow
+    pipeAdiabaticPlugFlow(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
@@ -51,33 +63,6 @@ model PipeCore
     T_ini_out=T_ini_out)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-protected
-  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default) "Default medium state";
-
-  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default)
-    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
-    annotation (Dialog(group="Advanced"));
-
-  parameter Modelica.SIunits.DynamicViscosity mu_default=
-      Medium.dynamicViscosity(Medium.setState_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default))
-    "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
-    annotation (Dialog(group="Advanced"));
-
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-      Medium.specificHeatCapacityCp(state=sta_default)
-    "Heat capacity of medium";
-
-public
   IBPSA.Fluid.PlugFlowPipes.BaseClasses.HeatLossPipeDelay reverseHeatLoss(
     redeclare package Medium = Medium,
     diameter=diameter,
@@ -109,22 +94,30 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
-  parameter Boolean from_dp=false
-    "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
+protected
+  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default) "Default medium state";
 
-  parameter Modelica.SIunits.Temperature T_ini_in=Medium.T_default
-    "Initialization temperature at pipe inlet"
-    annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.Temperature T_ini_out=Medium.T_default
-    "Initialization temperature at pipe outlet"
-    annotation (Dialog(tab="Initialization"));
-  parameter Boolean initDelay=false
-    "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
-    annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.MassFlowRate m_flowInit=0
-    annotation (Dialog(tab="Initialization", enable=initDelay));
+  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default)
+    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
+    annotation (Dialog(group="Advanced"));
+
+  parameter Modelica.SIunits.DynamicViscosity mu_default=
+      Medium.dynamicViscosity(Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default))
+    "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
+    annotation (Dialog(group="Advanced"));
+
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(state=sta_default)
+    "Heat capacity of medium";
 
 equation
 

@@ -6,20 +6,12 @@ model PipeAdiabaticPlugFlow
   parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
   parameter Modelica.SIunits.Length dh=0.05 "Hydraulic diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
-
-  /*parameter Modelica.SIunits.ThermalConductivity k = 0.005
-    "Heat conductivity of pipe's surroundings";*/
-
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
-
-  //parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=
-  // dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
-  // annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
@@ -55,7 +47,6 @@ model PipeAdiabaticPlugFlow
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(group="Initialization"));
 
-  // TODO: Calculate dpStraightPipe_nominal inside HydraulicDiameter res
   Fluid.FixedResistances.HydraulicDiameter res(
     redeclare final package Medium = Medium,
     final dh=dh,
@@ -70,7 +61,18 @@ model PipeAdiabaticPlugFlow
     tau=0,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  //final dp_nominal=dp_nominal,
+
+  IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeLosslessPlugFlow temperatureDelay(
+    redeclare final package Medium = Medium,
+    final m_flow_small=m_flow_small,
+    final D=dh,
+    final L=length,
+    final allowFlowReversal=allowFlowReversal,
+    initialValuesH={h_ini_in,h_ini_out},
+    m_flow_start=m_flowInit)
+    "Model for temperature wave propagation with spatialDistribution operator"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+
 
 protected
   parameter Modelica.SIunits.SpecificEnthalpy h_ini_in=Medium.specificEnthalpy(
@@ -80,7 +82,7 @@ protected
       X=Medium.X_default)) "For initialization of spatialDistribution inlet";
 
   parameter Modelica.SIunits.SpecificEnthalpy h_ini_out=Medium.specificEnthalpy(
-      Medium.setState_pTX(
+       Medium.setState_pTX(
       T=T_ini_out,
       p=Medium.p_default,
       X=Medium.X_default)) "For initialization of spatialDistribution outlet";
@@ -111,18 +113,6 @@ protected
       T=Medium.T_default,
       X=Medium.X_default)) "Default specific heat of water";
 
-  IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeLosslessPlugFlow temperatureDelay(
-    redeclare final package Medium = Medium,
-    final m_flow_small=m_flow_small,
-    final D=dh,
-    final L=length,
-    final allowFlowReversal=allowFlowReversal,
-    initialValuesH={h_ini_in,h_ini_out},
-    m_flow_start=m_flowInit)
-    "Model for temperature wave propagation with spatialDistribution operator"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-
-
 
 equation
   connect(port_a, res.port_a)
@@ -134,10 +124,10 @@ equation
   connect(senTem_delay.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
         Rectangle(
           extent={{-100,40},{100,-42}},
           lineColor={0,0,0},

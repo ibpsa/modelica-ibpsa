@@ -1,9 +1,6 @@
 within IBPSA.Fluid.PlugFlowPipes.BaseClasses;
 model TimeDelay "Delay time for given normalized velocity"
 
-  Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow of fluid" annotation (
-      Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.Length diameter=0.05 "diameter of pipe";
   parameter Modelica.SIunits.Density rho=1000 "Standard density of fluid";
@@ -14,11 +11,11 @@ model TimeDelay "Delay time for given normalized velocity"
   parameter Modelica.SIunits.MassFlowRate m_flowInit=0
     annotation (Dialog(group="Initialization", enable=initDelay));
 
-  final parameter Modelica.SIunits.Time tInStart= if initDelay then min(length/
-      m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi),0) else 0
+  final parameter Modelica.SIunits.Time tInStart=if initDelay then min(length/
+      m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi), 0) else 0
     "Initial value of input time at inlet";
   final parameter Modelica.SIunits.Time tOutStart=if initDelay then min(-length/
-      m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi),0) else 0
+      m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi), 0) else 0
     "Initial value of input time at outlet";
 
   Modelica.SIunits.Time time_out_rev "Reverse flow direction output time";
@@ -26,13 +23,17 @@ model TimeDelay "Delay time for given normalized velocity"
 
   Real x(start=0) "Spatial coordinate for spatialDistribution operator";
   Modelica.SIunits.Frequency u "Normalized fluid velocity (1/s)";
+
+  Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow of fluid" annotation (
+      Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+
   Modelica.Blocks.Interfaces.RealOutput tau
     "Time delay for design flow direction"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.RealOutput tauRev "Time delay for reverse flow"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
-  parameter Real epsilon=1e-10;
 initial equation
   x = 0;
 equation

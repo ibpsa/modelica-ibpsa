@@ -11,14 +11,36 @@ model HeatLossPipeDelay
 
   parameter Types.ThermalCapacityPerLength C;
   parameter Types.ThermalResistanceLength R;
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5;
+  parameter Modelica.Media.Interfaces.Types.Temperature T_ini=Medium.T_default
+    "Initial output temperature";
   final parameter Modelica.SIunits.Time tau_char=R*C;
 
-  Modelica.SIunits.Temp_K Tin_a(start=T_ini) "Temperature at port_a for in-flowing fluid";
-  Modelica.SIunits.Temp_K Tout_b(start=T_ini) "Temperature at port_b for out-flowing fluid";
+  Modelica.SIunits.Temp_K Tin_a(start=T_ini)
+    "Temperature at port_a for in-flowing fluid";
+  Modelica.SIunits.Temp_K Tout_b(start=T_ini)
+    "Temperature at port_b for out-flowing fluid";
   Modelica.SIunits.Temperature T_amb=heatPort.T "Environment temperature";
   Modelica.SIunits.HeatFlowRate Qloss "Heat losses from pipe to environment";
   Modelica.SIunits.EnthalpyFlowRate portA=inStream(port_a.h_outflow);
   Modelica.SIunits.EnthalpyFlowRate portB=inStream(port_b.h_outflow);
+
+  Modelica.Blocks.Interfaces.RealInput tau(unit="s") "Time delay at pipe level"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={-60,100})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Heat port to connect environment"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heatLoss annotation
+    (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,38})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=Qloss)
+    annotation (Placement(transformation(extent={{-34,-10},{-14,10}})));
 
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -29,25 +51,6 @@ protected
       Medium.specificHeatCapacityCp(state=sta_default)
     "Heat capacity of medium";
 
-public
-  Modelica.Blocks.Interfaces.RealInput tau(unit="s") "Time delay at pipe level"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={-60,100})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port to connect environment"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heatLoss annotation (
-     Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,38})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=Qloss)
-    annotation (Placement(transformation(extent={{-34,-10},{-14,10}})));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5;
-  parameter Modelica.Media.Interfaces.Types.Temperature T_ini=Medium.T_default
-    "Initial output temperature";
 equation
   dp = 0;
 
@@ -65,18 +68,18 @@ equation
   // Heat losses
   Tout_b = T_amb + (Tin_a - T_amb)*Modelica.Math.exp(-tau/tau_char);
   Qloss = IBPSA.Utilities.Math.Functions.spliceFunction(
-    pos= (Tin_a-Tout_b)*cp_default,
-    neg= 0,
-    x= port_a.m_flow,
-    deltax= m_flow_nominal/1000)  *port_a.m_flow;
+    pos=(Tin_a - Tout_b)*cp_default,
+    neg=0,
+    x=port_a.m_flow,
+    deltax=m_flow_nominal/1000)*port_a.m_flow;
 
   connect(heatLoss.port, heatPort)
     annotation (Line(points={{0,48},{0,100}}, color={191,0,0}));
   connect(realExpression.y, heatLoss.Q_flow)
     annotation (Line(points={{-13,0},{-6,0},{0,0},{0,28}}, color={0,0,127}));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={
         Rectangle(
           extent={{-80,80},{80,-68}},
           lineColor={255,255,255},
@@ -84,11 +87,13 @@ equation
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-52,2},{42,2},{42,8},{66,0},{42,-8},{42,-2},{-52,-2},{-52,2}},
+
           lineColor={0,128,255},
           fillPattern=FillPattern.Solid,
           fillColor={170,213,255}),
         Polygon(
           points={{0,60},{38,2},{20,2},{20,-46},{-18,-46},{-18,2},{-36,2},{0,60}},
+
           lineColor={0,0,0},
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid)}),
@@ -101,6 +106,6 @@ equation
 <li>September, 2015 by Marcus Fuchs:<br>First implementation. </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end HeatLossPipeDelay;
