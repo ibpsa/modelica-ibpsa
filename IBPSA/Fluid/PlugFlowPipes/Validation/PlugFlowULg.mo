@@ -86,7 +86,8 @@ model PlugFlowULg "Validation against data from Université de Liège"
     m_flowInit=pipeDataULg.m_flowIni,
     roughness=2.5e-5,
     cpipe=500,
-    rho_wall=8000)
+    rho_wall=8000,
+    C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default)
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
   Fluid.Sensors.EnthalpyFlowRate senEntOut(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal)
