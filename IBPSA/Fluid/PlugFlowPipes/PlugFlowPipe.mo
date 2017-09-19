@@ -2,7 +2,7 @@ within IBPSA.Fluid.PlugFlowPipes;
 model PlugFlowPipe
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort_vector;
-  parameter Modelica.SIunits.Diameter diameter(start=100, min=0) = 100
+  parameter Modelica.SIunits.Diameter diameter(start=0.100, min=0) = 0.100
     "Pipe diameter";
   parameter Modelica.SIunits.Length length(min=0)=0 "Pipe length";
   parameter Modelica.SIunits.Length thicknessIns(min=0, start=0.0032)=0.0032
@@ -164,7 +164,12 @@ equation
           extent={{-30,30},{28,-30}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={215,202,187})}),
+          fillColor={215,202,187}),
+        Text(
+          extent={{-100,-72},{100,-88}},
+          lineColor={0,0,0},
+          textString="L = %length
+d = %diameter")}),
     Documentation(revisions="<html>
 <ul>
 <li><span style=\"font-family: MS Shell Dlg 2;\">July 4, 2016 by Bram van der Heijde:<br>Introduce <code></span><span style=\"font-family: Courier New,courier;\">pipVol</code></span><span style=\"font-family: MS Shell Dlg 2;\">.</span></li>

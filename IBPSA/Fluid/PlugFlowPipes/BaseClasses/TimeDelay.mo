@@ -82,7 +82,7 @@ equation
           lineColor={0,0,255},
           textString="tau"),
         Text(
-          extent={{-60,140},{60,100}},
+          extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
