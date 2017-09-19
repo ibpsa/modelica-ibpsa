@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers;
-package ActiveBeams
+package ActiveBeams "Package with active beams"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (Documentation(info="<html>
