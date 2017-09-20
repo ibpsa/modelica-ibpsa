@@ -3,6 +3,21 @@ model PlugFlowULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
   // R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi
   package Medium = IBPSA.Media.Water;
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+    "Nominal mass flow rate, used for regularization near zero flow";
+  parameter Modelica.SIunits.Temperature T_ini_in=pipeDataULg.T_ini_in + 273.15
+    "Initial temperature at pipe inlet";
+  parameter Modelica.SIunits.Temperature T_ini_out=pipeDataULg.T_ini_out + 273.15
+    "Initial temperature at pipe outlet";
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(state=sta_default)
+    "Heat capacity of medium";
+  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default) "Default medium state";
+
   Fluid.Sources.MassFlowSource_T WaterCityNetwork(
     redeclare package Medium = Medium,
     m_flow=1.245,
@@ -38,32 +53,19 @@ model PlugFlowULg "Validation against data from Université de Liège"
   Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataULg.data,
       extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Modelica.Blocks.Sources.Constant Tamb(k=273 + 18)
-    "Ambient temperature in Kelvin";
+
   Modelica.Blocks.Math.UnitConversions.From_degC Tout
     "Ambient temperature in degrees"
     annotation (Placement(transformation(extent={{40,-88},{60,-68}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
-        295.15) annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=295.15)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-30,70})));
   Modelica.Blocks.Math.UnitConversions.From_degC Tin
     "Input temperature into pipe"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
-    "Nominal mass flow rate, used for regularization near zero flow";
-  parameter Modelica.SIunits.Temperature T_ini_in=pipeDataULg.T_ini_in + 273.15
-    "Initial temperature at pipe inlet";
-  parameter Modelica.SIunits.Temperature T_ini_out=pipeDataULg.T_ini_out +
-      273.15 "Initial temperature at pipe outlet";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-      Medium.specificHeatCapacityCp(state=sta_default)
-    "Heat capacity of medium";
-  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default) "Default medium state";
+
   replaceable Data.PipeDataULg151202 pipeDataULg constrainedby
     Data.BaseClasses.PipeDataULg
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
@@ -79,12 +81,11 @@ model PlugFlowULg "Validation against data from Université de Liège"
     thickness=3.9e-3,
     T_ini_out=T_ini_out,
     T_ini_in=T_ini_in,
-    R=((1/(2*pipe.lambdaI)*log((0.0603/2 + pipe.thicknessIns)/(0.0603/2)))
-         + 1/(5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi,
+    R=((1/(2*pipe.lambdaI)*log((0.0603/2 + pipe.thicknessIns)/(0.0603/2))) + 1/(
+        5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi,
     nPorts=1,
     initDelay=true,
     m_flowInit=pipeDataULg.m_flowIni,
-    roughness=2.5e-5,
     cpipe=500,
     rho_wall=8000)
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
@@ -110,6 +111,8 @@ model PlugFlowULg "Validation against data from Université de Liège"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Math.Feedback heaLosDiff
     annotation (Placement(transformation(extent={{86,50},{106,70}})));
+  Modelica.Blocks.Sources.Constant Tamb(k=273 + 18)
+    "Ambient temperature in Kelvin";
 equation
   connect(DataReader.y[3], Tout.u) annotation (Line(
       points={{21,-50},{32,-50},{32,-78},{38,-78}},
@@ -117,8 +120,8 @@ equation
       smooth=Smooth.None));
   connect(DataReader.y[5], Tin.u)
     annotation (Line(points={{21,-50},{29.5,-50},{38,-50}}, color={0,0,127}));
-  connect(DataReader.y[1], gain.u) annotation (Line(points={{21,-50},{32,-50},{
-          32,-20},{50,-20}}, color={0,0,127}));
+  connect(DataReader.y[1], gain.u) annotation (Line(points={{21,-50},{32,-50},{32,
+          -20},{50,-20}}, color={0,0,127}));
   connect(senTem_in.port_a, Boiler.port_b)
     annotation (Line(points={{30,0},{30,0},{34,0}}, color={0,127,255}));
   connect(Boiler.port_a, WaterCityNetwork.ports[1])
@@ -131,8 +134,8 @@ equation
     annotation (Line(points={{-100,0},{-94,0}}, color={0,127,255}));
   connect(senEntOut.H_flow, gain2.u) annotation (Line(points={{-56,11},{-56,26},
           {6,26},{6,50},{18,50}}, color={0,0,127}));
-  connect(gain2.y, heatLossSim.u[1]) annotation (Line(points={{41,50},{50,50},{
-          50,62.1},{60,62.1}}, color={0,0,127}));
+  connect(gain2.y, heatLossSim.u[1]) annotation (Line(points={{41,50},{50,50},{50,
+          62.1},{60,62.1}}, color={0,0,127}));
   connect(senTem_out.port_a, senEntOut.port_b)
     annotation (Line(points={{-74,0},{-70,0},{-66,0}}, color={0,127,255}));
   connect(senEntOut.port_a, pipe.ports_b[1])
@@ -141,24 +144,24 @@ equation
     annotation (Line(points={{-20,0},{-16,0}}, color={0,127,255}));
   connect(senTem_in.port_b, senEntIn.port_a)
     annotation (Line(points={{10,0},{4,0}}, color={0,127,255}));
-  connect(senEntIn.H_flow, heatLossSim.u[2]) annotation (Line(points={{-6,11},{
-          -6,20},{52,20},{52,57.9},{60,57.9}}, color={0,0,127}));
+  connect(senEntIn.H_flow, heatLossSim.u[2]) annotation (Line(points={{-6,11},{-6,
+          20},{52,20},{52,57.9},{60,57.9}}, color={0,0,127}));
   connect(fixedTemperature.port, pipe.heatPort)
     annotation (Line(points={{-30,60},{-30,10}}, color={191,0,0}));
   connect(Tout.y, gain1.u)
     annotation (Line(points={{61,-78},{72,-78}}, color={0,0,127}));
   connect(Tin.y, deltaT.u[1]) annotation (Line(points={{61,-50},{82,-50},{104,-50},
           {104,-67.9},{112,-67.9}}, color={0,0,127}));
-  connect(gain1.y, deltaT.u[2]) annotation (Line(points={{95,-78},{104,-78},{
-          104,-72.1},{112,-72.1}}, color={0,0,127}));
-  connect(deltaT.y, heatLossMeas.u[1]) annotation (Line(points={{125.02,-70},{
-          130,-70},{130,-68},{130,-57.9},{140,-57.9}}, color={0,0,127}));
+  connect(gain1.y, deltaT.u[2]) annotation (Line(points={{95,-78},{104,-78},{104,
+          -72.1},{112,-72.1}}, color={0,0,127}));
+  connect(deltaT.y, heatLossMeas.u[1]) annotation (Line(points={{125.02,-70},{130,
+          -70},{130,-68},{130,-57.9},{140,-57.9}}, color={0,0,127}));
   connect(gain.y, gain3.u)
     annotation (Line(points={{73,-20},{98,-20}}, color={0,0,127}));
   connect(gain3.y, heatLossMeas.u[2]) annotation (Line(points={{121,-20},{130,-20},
           {130,-62.1},{140,-62.1}}, color={0,0,127}));
-  connect(heatLossMeas.y, heaLosDiff.u2) annotation (Line(points={{153.02,-60},
-          {162,-60},{162,4},{96,4},{96,52}}, color={0,0,127}));
+  connect(heatLossMeas.y, heaLosDiff.u2) annotation (Line(points={{153.02,-60},{
+          162,-60},{162,4},{96,4},{96,52}}, color={0,0,127}));
   connect(heatLossSim.y, heaLosDiff.u1)
     annotation (Line(points={{73.02,60},{88,60}}, color={0,0,127}));
   connect(heaLosDiff.y, eneLosInt.u)
@@ -192,8 +195,7 @@ equation
 </ul>
 </html>"),
     experiment(StopTime=875, Tolerance=1e-006),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/PlugFlowULg.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/PlugFlowULg.mos"
         "Simulate and plot"),
     __Dymola_experimentSetupOutput(events=false),
     __Dymola_experimentFlags(

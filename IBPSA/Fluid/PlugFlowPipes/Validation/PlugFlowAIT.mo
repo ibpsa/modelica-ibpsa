@@ -61,7 +61,6 @@ model PlugFlowAIT
     R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18),
     thickness=thickness,
-    roughness=2.5e-5,
     cpipe=500,
     rho_wall=8000)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
@@ -76,7 +75,6 @@ model PlugFlowAIT
     thickness=thickness,
     nPorts=2,
     R=R80,
-    roughness=2.5e-5,
     cpipe=500,
     rho_wall=8000) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -95,7 +93,6 @@ model PlugFlowAIT
     R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18),
     thickness=thickness,
-    roughness=2.5e-5,
     cpipe=500,
     rho_wall=8000)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
@@ -111,7 +108,6 @@ model PlugFlowAIT
     thickness=thickness,
     diameter=0.0337 - 2*0.0032,
     R=R80,
-    roughness=2.5e-5,
     cpipe=500,
     rho_wall=8000) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -129,7 +125,6 @@ model PlugFlowAIT
     thickness=thickness,
     diameter=0.0337 - 2*0.0032,
     R=R80,
-    roughness=2.5e-5,
     cpipe=500,
     rho_wall=8000) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -191,7 +186,6 @@ model PlugFlowAIT
     R=1/(2*0.024*Modelica.Constants.pi)*log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)
         *log(2/0.18),
     thickness=thickness,
-    roughness=2.5e-5,
     cpipe=500,
     rho_wall=8000) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
