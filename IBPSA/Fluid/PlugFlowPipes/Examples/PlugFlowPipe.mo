@@ -19,14 +19,12 @@ model PlugFlowPipe
     annotation (Placement(transformation(extent={{82,-10},{62,10}})));
   IBPSA.Fluid.PlugFlowPipes.PlugFlowPipe pip(
     redeclare package Medium = Medium,
-    from_dp=true,
     nPorts=1,
     diameter=0.1,
     length=100,
     thicknessIns=0.05,
     lambdaI=0.028,
     m_flow_nominal=1,
-    roughness=2.5e-5,
     cpipe=500,
     rho_wall=8000,
     thickness=0.0032,

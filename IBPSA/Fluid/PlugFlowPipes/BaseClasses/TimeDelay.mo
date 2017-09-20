@@ -7,7 +7,6 @@ model TimeDelay "Delay time for given normalized velocity"
   parameter Boolean initDelay=false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.Time time0=0 "Start time of simulation";
   parameter Modelica.SIunits.MassFlowRate m_flowInit=0
     annotation (Dialog(group="Initialization", enable=initDelay));
 

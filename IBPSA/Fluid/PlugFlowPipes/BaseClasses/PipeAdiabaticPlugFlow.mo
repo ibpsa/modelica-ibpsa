@@ -3,7 +3,6 @@ model PipeAdiabaticPlugFlow
   "Pipe model using spatialDistribution for temperature delay without heat losses"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
   parameter Modelica.SIunits.Length dh=0.05 "Hydraulic diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
@@ -12,23 +11,6 @@ model PipeAdiabaticPlugFlow
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
-
-  parameter Modelica.SIunits.Height roughness=2.5e-5
-    "Average height of surface asperities (default: smooth steel pipe)"
-    annotation (Dialog(group="Geometry"));
-
-  final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
-      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal,
-      rho_a=rho_default,
-      rho_b=rho_default,
-      mu_a=mu_default,
-      mu_b=mu_default,
-      length=length,
-      diameter=dh,
-      roughness=roughness,
-      m_flow_small=m_flow_small)
-    "Pressure loss of a straight pipe at m_flow_nominal";
 
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -65,8 +47,8 @@ model PipeAdiabaticPlugFlow
   IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeLosslessPlugFlow temperatureDelay(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
-    final D=dh,
-    final L=length,
+    final diameter=dh,
+    final length=length,
     final allowFlowReversal=allowFlowReversal,
     initialValuesH={h_ini_in,h_ini_out},
     m_flow_start=m_flowInit)

@@ -2,6 +2,11 @@ within IBPSA.Fluid.PlugFlowPipes;
 model PlugFlowPipe
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort_vector;
+
+  parameter Boolean from_dp=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Dialog(tab="Advanced"));
+
   parameter Modelica.SIunits.Diameter diameter(start=0.100, min=0)
     "Pipe diameter";
   parameter Modelica.SIunits.Length length(min=0) "Pipe length";
@@ -17,8 +22,8 @@ model PlugFlowPipe
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.ThermalConductivity lambdaI(min=0.0001, start=0.026)
-    "Heat conductivity";
+  parameter Modelica.SIunits.ThermalConductivity lambdaI(min=0.0001, start=
+        0.026) "Heat conductivity";
 
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe(start=500) "For steel";
   parameter Modelica.SIunits.Density rho_wall(start=8000) "For steel";
@@ -28,10 +33,10 @@ model PlugFlowPipe
   parameter Modelica.SIunits.Length thickness(start=0.002, min=0)
     "Pipe wall thickness";
 
-  parameter Modelica.SIunits.Temperature T_ini_in(start=Medium.T_default)=
+  parameter Modelica.SIunits.Temperature T_ini_in(start=Medium.T_default) =
     Medium.T_default "Initialization temperature at pipe inlet"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.Temperature T_ini_out(start=Medium.T_default)=
+  parameter Modelica.SIunits.Temperature T_ini_out(start=Medium.T_default) =
     Medium.T_default "Initialization temperature at pipe outlet"
     annotation (Dialog(tab="Initialization"));
   parameter Boolean initDelay(start=false) = false
@@ -42,8 +47,8 @@ model PlugFlowPipe
 
   parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/
       Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
-      diameter/2)^2*cp_default;
+  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*
+      (diameter/2)^2*cp_default;
 
 public
   BaseClasses.PipeCore pipeCore(
@@ -58,7 +63,8 @@ public
     T_ini_in=T_ini_in,
     T_ini_out=T_ini_out,
     m_flowInit=m_flowInit,
-    initDelay=initDelay) "Describing the pipe behavior"
+    initDelay=initDelay,
+    from_dp=from_dp) "Describing the pipe behavior"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
@@ -93,6 +99,7 @@ protected
       Medium.specificHeatCapacityCp(state=sta_default)
     "Heat capacity of medium";
 
+
 equation
   for i in 1:nPorts loop
     connect(vol.ports[i + 1], ports_b[i]);
@@ -108,10 +115,10 @@ equation
     annotation (Line(points={{-10,0},{-56,0},{-100,0}}, color={0,127,255}));
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={
         Rectangle(
           extent={{-100,40},{100,-40}},
           lineColor={0,0,0},

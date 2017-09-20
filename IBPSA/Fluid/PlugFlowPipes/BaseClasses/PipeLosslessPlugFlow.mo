@@ -6,15 +6,12 @@ model PipeLosslessPlugFlow
   parameter Real initialPoints[:](
     each min=0,
     each max=1) = {0.0,1.0} "Initial points for spatialDistribution";
-  // fixme: use T_start[:] and propagate to top level, then use it to assign h_start (or initialValuesH)
   parameter Modelica.SIunits.SpecificEnthalpy initialValuesH[:]={Medium.h_default,
-      Medium.h_default} "Inital enthalpy values for spatialDistribution";
+      Medium.h_default} "Initial enthalpy values for spatialDistribution";
 
-  parameter Modelica.SIunits.Diameter D(min=0, start=0.1) "Pipe diameter";
-  // fixme call it diameter
-  parameter Modelica.SIunits.Length L(min=0, start=0) "Pipe length";
-  // fixme: call it lenghth
-  final parameter Modelica.SIunits.Area A=Modelica.Constants.pi*(D/2)^2
+  parameter Modelica.SIunits.Diameter diameter(min=0, start=0.1) "Pipe diameter";
+  parameter Modelica.SIunits.Length length(min=0, start=0) "Pipe length";
+  final parameter Modelica.SIunits.Area A=Modelica.Constants.pi*(diameter/2)^2
     "Cross-sectional area of pipe";
 
   // Advanced
@@ -121,7 +118,7 @@ equation
   (port_a.h_outflow,port_b.h_outflow) = spatialDistribution(
     inStream(port_a.h_outflow),
     inStream(port_b.h_outflow),
-    x/L,
+    x/length,
     v >= 0,
     initialPoints,
     initialValuesH);

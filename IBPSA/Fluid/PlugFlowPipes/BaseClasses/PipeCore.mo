@@ -58,15 +58,12 @@ model PipeCore
     length=length,
     m_flow_nominal=m_flow_nominal,
     from_dp=from_dp,
-    thickness=thickness,
     T_ini_in=T_ini_in,
     T_ini_out=T_ini_out)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IBPSA.Fluid.PlugFlowPipes.BaseClasses.HeatLossPipeDelay reverseHeatLoss(
     redeclare package Medium = Medium,
-    diameter=diameter,
-    length=length,
     C=C,
     R=R,
     m_flow_small=m_flow_small,
@@ -75,8 +72,6 @@ model PipeCore
 
   IBPSA.Fluid.PlugFlowPipes.BaseClasses.HeatLossPipeDelay heatLoss(
     redeclare package Medium = Medium,
-    diameter=diameter,
-    length=length,
     C=C,
     R=R,
     m_flow_small=m_flow_small,
