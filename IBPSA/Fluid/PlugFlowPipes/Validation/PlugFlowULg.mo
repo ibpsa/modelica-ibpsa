@@ -169,29 +169,21 @@ equation
   annotation (
     Documentation(info="<html>
 <p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">experimental data</a> from a real district heating network. This data is used to validate pipe models.</p>
-<p>Pipe&apos;s temperature is not initialized, thus the first 70 seconds should be disregarded. </p>
-<p>The insulation used is Tubolit 60/13. For this material, a thermal conductivity of about 0.04 W/m<sup>2</sup>K can be found (<a href=\"http://www.armacell.com/WWW/armacell/ACwwwAttach.nsf/ansFiles/PDS_Range_Tubolit_CHf.pdf/$File/PDS_Range_Tubolit_CHf.pdf\">source</a>).</p>
-<p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
-<p><img src=\"modelica://IBPSA/Resources/Images/Experimental/ULgTestBench.png\"/> </p>
-<p><b><span style=\"color: #008000;\">Calibration</span></b> </p>
-<p>There are some incertainties about the heat loss coefficient between pipe and surrounding air as well as regarding the heat conductivity of the insulation material. With the <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">given data</a>, the length specific thermal resistance <code>R = 2.164 </code>(mK/W). <code>R</code> calculated as follows: </p>
-<p><code>R=((1/(2*pipe.lambdaI)*log((0.0603+2*pipe.thicknessIns)/(0.0603)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi</code> </p>
-<p><code>U = 1/R = 0.462 W/mK </code> </p>
-<p><b><span style=\"color: #008000;\">Validation</span></b> </p>
-<p>The figure below shows the validation results of the pipe model versus the ULg measurements. </p>
-<p>The dynamic discrepancy (during the rise and drop in temperature) could be caused by the following:</p>
-<ul>
-<li>Inaccuracy of the pipe wall thickness and hence of the pipe wall capacity,</li>
-<li>Inaccuracy of the mass flow measurement (applying 95&percnt; of the mass flow of 1.245 kg/s shows an even better fit) or </li>
-<li>Negligence of another phenomenon, e.g. turbulent mixing at a temperature front.</li>
-</ul>
-<p><br>Given the accuracy of the temperature measurements of +/- 0.3K, the validation results are satisfying even though the dynamics are not completely represented by the model.</p>
-<p><img src=\"modelica://IBPSA/Resources/Images/Experimental/ValidationPipeULg.png\"/></p>
+<p>The pipe's temperature is not initialized, thus the first 70 seconds should be disregarded. </p>
+<p>The insulation used is Tubolit 60/13. 
+For this material, a thermal conductivity of about 0.04 W/m<sup>2</sup>K can be found (<a href=\"http://www.armacell.com/WWW/armacell/ACwwwAttach.nsf/ansFiles/PDS_Range_Tubolit_CHf.pdf/$File/PDS_Range_Tubolit_CHf.pdf\">source</a>).</p>
+<h4>Test bench schematic</h4>
+<p><img alt=\"Schematic of test rig at ULg\" src=\"modelica://IBPSA/Resources/Images/Experimental/ULgTestBench.png\"/> </p>
+<h4>Calibration</h4>
+<p>There are some incertainties about the heat loss coefficient between pipe and surrounding air as well as regarding the heat conductivity of the insulation material. 
+With the <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">given data</a>, the length specific thermal resistance <code>R = 2.164 </code>(mK/W). <code>R</code> calculated as follows: </p>
+<p align=\"center\"style=\"font-style:italic;\">R=((1/(2*pipe.lambdaI)*log((0.0603+2*pipe.thicknessIns)/(0.0603)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi</p>
+<p align=\"center\"style=\"font-style:italic;\">U = 1/R = 0.462 W/mK</p>
 </html>", revisions="<html>
 <ul>
-<li>November 24, 2016 by Bram van der Heijde:<br>Add pipe thickness for wall capacity calculation and expand documentation section.</li>
-<li>April 2, 2016 by Bram van der Heijde:<br>Change thermal conductivity and put boundary condition in K.</li>
-<li>Januar 26, 2016 by Carles Ribas:<br>First implementation. </li>
+<li>November 24, 2016 by Bram van der Heijde:<br/>Add pipe thickness for wall capacity calculation and expand documentation section.</li>
+<li>April 2, 2016 by Bram van der Heijde:<br/>Change thermal conductivity and put boundary condition in K.</li>
+<li>Januar 26, 2016 by Carles Ribas:<br/>First implementation. </li>
 </ul>
 </html>"),
     experiment(StopTime=875, Tolerance=1e-006),

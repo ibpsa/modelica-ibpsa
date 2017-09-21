@@ -16,7 +16,7 @@ equation
 </html>",   revisions="<html>
 <ul>
 <li>
-Januar 19, 2016 by Carles Ribas:<br/>
+January 19, 2016 by Carles Ribas:<br/>
 Use replaceable data and addition of .mos file.
 </li>
 <li>

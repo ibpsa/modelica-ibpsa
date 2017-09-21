@@ -45,15 +45,15 @@ partial model PartialFourPortParallel
   annotation (
     preferredView="info",
     Documentation(info="<html>
-<p>This model defines an interface for components with four ports, in which flows occur in parallel. The parameters <code><span style=\"font-family: Courier New,courier;\">allowFlowReversal1</span></code> and <code><span style=\"font-family: Courier New,courier;\">allowFlowReversal2</span></code> may be used by models that extend this model to treat flow reversal. </p>
+<p>This model defines an interface for components with four ports, in which flows occur in parallel. The parameters <code>allowFlowReversal1</code> and <code>allowFlowReversal2</code> may be used by models that extend this model to treat flow reversal. </p>
 <p>This model is identical to <a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">Modelica.Fluid.Interfaces.PartialTwoPort</a>, except for the fowllowing: </p>
 <ol>
 <li>it has four ports, and </li>
-<li>the parameters <code><span style=\"font-family: Courier New,courier;\">port_a_exposesState</span></code>, <code><span style=\"font-family: Courier New,courier;\">port_b_exposesState</span></code> and <code><span style=\"font-family: Courier New,courier;\">showDesignFlowDirection</span></code> are not implemented. </li>
+<li>the parameters <code>showDesignFlowDirection</code> are not implemented. </li>
 </ol>
 </html>", revisions="<html>
 <ul>
-<li>February 18, 2016 by Bram van der Heijde:<br>First implementation, adapted from <code><span style=\"font-family: Courier New,courier;\">PartialFourPort</span></code></li>
+<li>February 18, 2016 by Bram van der Heijde:<br/>First implementation, adapted from <code><span style=\"font-family: Courier New,courier;\">PartialFourPort</span></code></li>
 </ul>
 </html>"),
     Icon(coordinateSystem(

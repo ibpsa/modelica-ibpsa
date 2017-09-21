@@ -88,12 +88,12 @@ equation
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
-<p>Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code><span style=\"font-family: Courier New,courier;\">PipeAdiabaticPlugFlow</span></code> model.</p>
+<p>Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code>PipeAdiabaticPlugFlow</code> model.</p>
 <p>This component requires the delay time and the instantaneous ambient temperature as an input. This component is to be used in single pipes or in more advanced configurations where no influence from other pipes is considered. </p>
 </html>", revisions="<html>
 <ul>
-<li>November 6, 2015 by Bram van der Heijde:<br>Make time delay input instead of calculation inside this model. </li>
-<li>September, 2015 by Marcus Fuchs:<br>First implementation. </li>
+<li>November 6, 2015 by Bram van der Heijde:<br/>Make time delay input instead of calculation inside this model. </li>
+<li>September, 2015 by Marcus Fuchs:<br/>First implementation. </li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

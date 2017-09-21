@@ -310,86 +310,19 @@ equation
       Tolerance=1e-006),
     __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
-<p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model.</p>
-<p>Pipes&apos; temperatures are not initialized, thus results of outflow temperature before apprixmately the first 10000 seconds should no be considered. </p>
-<p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
-<p><img src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\"/> </p>
-<p><b><span style=\"color: #008000;\">Calibration</span></b> </p>
-<p>To calculate the length specific thermal resistance <code><span style=\"font-family: Courier New,courier;\">R</span></code> of the pipe, the thermal resistance of the surrounding ground is added. </p>
-<p><code><span style=\"font-family: Courier New,courier;\">R=1/(0.208)+1/(2*lambda_g*Modelica.Constants.pi)*log(1/0.18)</span></code> </p>
-<p>Where the thermal conductivity of the ground <code><span style=\"font-family: Courier New,courier;\">lambda_g = 2.4 </span></code>W/mK. </p>
-<p><br><h4><span style=\"color: #008000\">Testing spatialDistribution influence on non-linear systems</span></h4></p>
-<p>The model contains two parameters on the top level:</p>
-<p><code><span style=\"font-family: Courier New,courier; color: #0000ff;\">parameter&nbsp;</span><span style=\"color: #ff0000;\">Boolean</span>&nbsp;pipVol=false&nbsp;</p><p><span style=\"font-family: Courier New,courier; color: #006400;\">&nbsp;&nbsp;&nbsp;&nbsp;&QUOT;Flag&nbsp;to&nbsp;decide&nbsp;whether&nbsp;volumes&nbsp;are&nbsp;included&nbsp;at&nbsp;the&nbsp;end&nbsp;points&nbsp;of&nbsp;the&nbsp;pipe&QUOT;</span>;</code></p>
-<p><code><span style=\"font-family: Courier New,courier; color: #0000ff;\">parameter&nbsp;</span><span style=\"color: #ff0000;\">Boolean</span>&nbsp;allowFlowReversal=true&nbsp;</code></p>
-<p><code><span style=\"font-family: Courier New,courier; color: #006400;\">&nbsp;&nbsp;&nbsp;&nbsp;&QUOT;=&nbsp;true&nbsp;to&nbsp;allow&nbsp;flow&nbsp;reversal,&nbsp;false&nbsp;restricts&nbsp;to&nbsp;design&nbsp;direction&nbsp;(port_a&nbsp;-&GT;&nbsp;port_b)&QUOT;</span>;</code></p>
-<p><br><code><span style=\"font-family: Courier New,courier;\">pipVol </span></code>controls the presence of two additional mixing volumes at the in/outlets of <code><span style=\"font-family: Courier New,courier;\">PipeAdiabaticPlugFlow.</span></code> <code><span style=\"font-family: Courier New,courier;\">allowFlowReversal</span></code> controls whether flow reversal is allowed in the same component.</p>
-<p><br>Below, the model translation statistics for different combinations of these parameters are presented:</p>
-<p style=\"margin-left: 30px;\"><br><h4>pipVol=true, allowFlowReversal=true</h4></p>
-<p style=\"margin-left: 30px;\">Translated Model</p>
-<p style=\"margin-left: 30px;\">Constants: 1090 scalars</p>
-<p style=\"margin-left: 30px;\">Free parameters: 6981 scalars</p>
-<p style=\"margin-left: 30px;\">Parameter depending: 6928 scalars</p>
-<p style=\"margin-left: 30px;\">Continuous time states: 30 scalars</p>
-<p style=\"margin-left: 30px;\">Time-varying variables: 524 scalars</p>
-<p style=\"margin-left: 30px;\">Alias variables: 616 scalars</p>
-<p style=\"margin-left: 30px;\">Assumed default initial conditions: 66</p>
-<p style=\"margin-left: 30px;\">Number of mixed real/discrete systems of equations: 0</p>
-<p style=\"margin-left: 30px;\">Sizes of linear systems of equations: { }</p>
-<p style=\"margin-left: 30px;\">Sizes after manipulation of the linear systems: { }</p>
-<p style=\"margin-left: 30px;\"><h4><span style=\"color: #008000\">Sizes of nonlinear systems of equations: { }</span></h4></p>
-<p style=\"margin-left: 30px;\"><h4><span style=\"color: #008000\">Sizes after manipulation of the nonlinear systems: { }</span></h4></p>
-<p style=\"margin-left: 30px;\"><h4><span style=\"color: #008000\">Number of numerical Jacobians: 0</span></h4></p>
-<p style=\"margin-left: 30px;\"><br><h4>pipVol=false, allowFlowReversal=true</h4></p>
-<p style=\"margin-left: 30px;\">Translated Model</p>
-<p style=\"margin-left: 30px;\">Constants: 500 scalars</p>
-<p style=\"margin-left: 30px;\">Free parameters: 6946 scalars</p>
-<p style=\"margin-left: 30px;\">Parameter depending: 6863 scalars</p>
-<p style=\"margin-left: 30px;\">Continuous time states: 18 scalars</p>
-<p style=\"margin-left: 30px;\">Time-varying variables: 409 scalars</p>
-<p style=\"margin-left: 30px;\">Alias variables: 364 scalars</p>
-<p style=\"margin-left: 30px;\">Assumed default initial conditions: 54</p>
-<p style=\"margin-left: 30px;\">Number of mixed real/discrete systems of equations: 0</p>
-<p style=\"margin-left: 30px;\">Sizes of linear systems of equations: { }</p>
-<p style=\"margin-left: 30px;\">Sizes after manipulation of the linear systems: { }</p>
-<p style=\"margin-left: 30px;\"><h4><span style=\"color: #008000\">Sizes of nonlinear systems of equations: {44}</span></h4></p>
-<p style=\"margin-left: 30px;\"><h4><span style=\"color: #008000\">Sizes after manipulation of the nonlinear systems: {5}</span></h4></p>
-<p style=\"margin-left: 30px;\"><h4><span style=\"color: #008000\">Number of numerical Jacobians: 1</span></h4></p>
-<p style=\"margin-left: 30px;\"><br><h4>pipVol=false, allowFlowReversal=false</h4></p>
-<p style=\"margin-left: 30px;\">Translated Model</p>
-<p style=\"margin-left: 30px;\">Constants: 500 scalars</p>
-<p style=\"margin-left: 30px;\">Free parameters: 6946 scalars</p>
-<p style=\"margin-left: 30px;\">Parameter depending: 6866 scalars</p>
-<p style=\"margin-left: 30px;\">Continuous time states: 18 scalars</p>
-<p style=\"margin-left: 30px;\">Time-varying variables: 399 scalars</p>
-<p style=\"margin-left: 30px;\">Alias variables: 371 scalars</p>
-<p style=\"margin-left: 30px;\">Assumed default initial conditions: 54</p>
-<p style=\"margin-left: 30px;\">Number of mixed real/discrete systems of equations: 0</p>
-<p style=\"margin-left: 30px;\">Sizes of linear systems of equations: { }</p>
-<p style=\"margin-left: 30px;\">Sizes after manipulation of the linear systems: { }</p>
-<p style=\"margin-left: 30px;\"><h4><span style=\"color: #008000\">Sizes of nonlinear systems of equations: {5, 5}</span></h4></p>
-<p style=\"margin-left: 30px;\"><h4><span style=\"color: #008000\">Sizes after manipulation of the nonlinear systems: {1, 1}</span></h4></p>
-<p style=\"margin-left: 30px;\"><h4><span style=\"color: #008000\">Number of numerical Jacobians: 2</span></h4></p>
-<p style=\"margin-left: 30px;\"><br><h4>pipVol=true, allowFlowReversal=false</h4></p>
-<p style=\"margin-left: 30px;\">Translated Model</p>
-<p style=\"margin-left: 30px;\">Constants: 1090 scalars</p>
-<p style=\"margin-left: 30px;\">Free parameters: 6981 scalars</p>
-<p style=\"margin-left: 30px;\">Parameter depending: 6932 scalars</p>
-<p style=\"margin-left: 30px;\">Continuous time states: 30 scalars</p>
-<p style=\"margin-left: 30px;\">Time-varying variables: 513 scalars</p>
-<p style=\"margin-left: 30px;\">Alias variables: 623 scalars</p>
-<p style=\"margin-left: 30px;\">Assumed default initial conditions: 66</p>
-<p style=\"margin-left: 30px;\">Number of mixed real/discrete systems of equations: 0</p>
-<p style=\"margin-left: 30px;\">Sizes of linear systems of equations: { }</p>
-<p style=\"margin-left: 30px;\">Sizes after manipulation of the linear systems: { }</p>
-<p style=\"margin-left: 30px;\"><h4><span style=\"color: #008000\">Sizes of nonlinear systems of equations: { }</span></h4></p>
-<p style=\"margin-left: 30px;\"><h4><span style=\"color: #008000\">Sizes after manipulation of the nonlinear systems: { }</span></h4></p>
-<p style=\"margin-left: 30px;\"><h4><span style=\"color: #008000\">Number of numerical Jacobians: 0</span></h4></p>
-<p><br>It seems that when the solver has to account for the possibility of flow reversal (aFV=true) and the model includes no additional state for the water in the pipe (pipVol = false), very large nonlinear systems appear when translating. However, the advection equation, implemented by the <code><span style=\"font-family: Courier New,courier;\">spatialDistribution</span></code> function should inherently introduce a state. This state is clearly not recognized by the model translator. We see that if additional volumes are introduced, or if flow reversal is disabled the non-linear system is smaller or entirely eliminated. </p>
+<p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. 
+This data is used to validate a pipe model.</p>
+<p>The pipes' temperatures are not initialized, thus results of outflow temperature before apprixmately the first 10000 seconds should no be considered. </p>
+<h4>Test bench schematic</h4>
+<p><img alt=\"Schematic of test district heating network\" src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\"/> </p>
+<h4>Calibration</h4>
+<p>To calculate the length specific thermal resistance <code>R</code> of the pipe, the thermal resistance of the surrounding ground is added. </p>
+<p align=\"center\"style=\"font-style:italic;\">R=1/(0.208)+1/(2*lambda_g*Modelica.Constants.pi)*log(1/0.18)</p>
+<p>Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/mK. </p>
 </html>", revisions="<html>
 <ul>
-<li>July 4, 2016 by Bram van der Heijde:<br>Added parameters to test the influence of allowFlowReversal and the presence of explicit volumes in the pipe.</li>
-<li>January 26, 2016 by Carles Ribas:<br>First implementation. </li>
+<li>July 4, 2016 by Bram van der Heijde:<br/>Added parameters to test the influence of allowFlowReversal and the presence of explicit volumes in the pipe.</li>
+<li>January 26, 2016 by Carles Ribas:<br/>First implementation. </li>
 </ul>
 </html>"),
     __Dymola_Commands(file=

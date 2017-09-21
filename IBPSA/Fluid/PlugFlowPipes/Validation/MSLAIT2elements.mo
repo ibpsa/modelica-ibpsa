@@ -395,21 +395,22 @@ equation
     experiment(StopTime=603900, Tolerance=1e-006),
     __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
-<p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. This data is used to validate a pipe model in <a href=\"modelica://IBPSA.Experimental.Pipe.Validation.ValidationPipeAIT\">ValidationPipeAIT</a>. This model compares its performance with the original Modelica Standard Library pipes.</p>
-<p>Pipes&apos; temperatures are not initialized, thus results of outflow temperature before apprixmately the first 10000 seconds should no be considered. </p>
-<p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
-<p><img src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\"/> </p>
-<p><b><span style=\"color: #008000;\">Calibration</span></b> </p>
-<p>To calculate the length specific thermal resistance <code><span style=\"font-family: Courier New,courier;\">R</span></code> of the pipe, the thermal resistance of the surrounding ground is added. </p>
-<p><code><span style=\"font-family: Courier New,courier;\">R=1/(0.208)+1/(2*lambda_g*Modelica.Constants.pi)*log(1/0.18)</span></code> </p>
-<p>Where the thermal conductivity of the ground <code><span style=\"font-family: Courier New,courier;\">lambda_g = 2.4 </span></code>W/mK. </p>
+<p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. 
+This data is used to validate a pipe model in <a href=\"modelica://IBPSA.Experimental.Pipe.Validation.ValidationPipeAIT\">ValidationPipeAIT</a>. This model compares its performance with the original Modelica Standard Library pipes.</p>
+<p>The pipes' temperatures are not initialized, thus results of outflow temperature before approximately the first 10000 seconds should not be considered. </p>
+<h4>Test bench schematic</h4>
+<p><img alt=\"Schematic of test district heating network\" src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\"/> </p>
+<h4>Calibration</h4>
+<p>To calculate the length specific thermal resistance <code>R</code> of the pipe, the thermal resistance of the surrounding ground is added. </p>
+<p align=\"center\"style=\"font-style:italic;\">R=1/(0.208)+1/(2*lambda<sub>g</sub>*Modelica.Constants.pi)*log(1/0.18)</p>
+<p>Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/mK. </p>
 </html>", revisions="<html>
 <ul>
-<li>November 28, 2016 by Bram van der Heijde:<br>Remove <code>pipVol.</code></li>
-<li>August 24, 2016 by Bram van der Heijde:<br>
+<li>November 28, 2016 by Bram van der Heijde:<br/>Remove <code>pipVol.</code></li>
+<li>August 24, 2016 by Bram van der Heijde:<br/>
 Implement validation with MSL pipes for comparison, based on AIT validation.</li>
-<li>July 4, 2016 by Bram van der Heijde:<br>Added parameters to test the influence of allowFlowReversal and the presence of explicit volumes in the pipe.</li>
-<li>January 26, 2016 by Carles Ribas:<br>First implementation. </li>
+<li>July 4, 2016 by Bram van der Heijde:<br/>Added parameters to test the influence of allowFlowReversal and the presence of explicit volumes in the pipe.</li>
+<li>January 26, 2016 by Carles Ribas:<br/>First implementation. </li>
 </ul>
 </html>"),
     __Dymola_Commands(file=

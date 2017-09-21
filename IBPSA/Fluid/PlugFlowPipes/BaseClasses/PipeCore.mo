@@ -179,13 +179,15 @@ equation
           fillColor={215,202,187})}),
     Documentation(revisions="<html>
 <ul>
-<li><span style=\"font-family: MS Shell Dlg 2;\">July 4, 2016 by Bram van der Heijde:<br>Introduce <code></span><span style=\"font-family: Courier New,courier;\">pipVol</code></span><span style=\"font-family: MS Shell Dlg 2;\">.</span></li>
-<li>October 10, 2015 by Marcus Fuchs:<br>Copy Icon from KUL implementation and rename model; Replace resistance and temperature delay by an adiabatic pipe; </li>
-<li>September, 2015 by Marcus Fuchs:<br>First implementation. </li>
+<li>July 4, 2016 by Bram van der Heijde:<br/>Introduce <code>pipVol</code>.</li>
+<li>October 10, 2015 by Marcus Fuchs:<br/>Copy Icon from KUL implementation and rename model; Replace resistance and temperature delay by an adiabatic pipe; </li>
+<li>September, 2015 by Marcus Fuchs:<br/>First implementation. </li>
 </ul>
 </html>", info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Implementation of a pipe with heat loss using the time delay based heat losses and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used in front of and behind the time delay. The delay time is calculated once on the pipe level and supplied to both heat loss operators. </span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">This component uses a modified delay operator.</span></p>
+<p>Implementation of a pipe with heat loss using the time delay based heat losses and the spatialDistribution operator for the temperature wave propagation through the length of the pipe.</p>
+<p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. 
+Therefore it is used in front of and behind the time delay. 
+The delay time is calculated once on the pipe level and supplied to both heat loss operators.</p>
+<p>This component uses a modified delay operator.</p>
 </html>"));
 end PipeCore;
