@@ -1,5 +1,5 @@
 translateModel("IBPSA.Fluid.PlugFlowPipes.Validation.PlugFlowULg");
-simulateModel("IBPSA.Fluid.PlugFlowPipes.Validation.PlugFlowULg", stopTime=875, method="dassl", resultFile="PlugFlowULg");
+simulateModel("IBPSA.Fluid.PlugFlowPipes.Validation.PlugFlowULg", stopTime=875, tolerance=1e-006, method="dassl", resultFile="PlugFlowULg");
 createPlot(id = 1,
  position = {55, 50, 697, 502},
  x = "time",
