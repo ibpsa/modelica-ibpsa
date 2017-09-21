@@ -9,7 +9,7 @@ replaceable PipeDataAIT151218 pipeDataToBeRead constrainedby
       annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 equation
 
-      annotation (experiment(StopTime=603900, Interval=900, tolerance=1e-6),
+      annotation (experiment(StopTime=603900, Interval=900, Tolerance=1e-6),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-40,-40},{60,40}})),
       Documentation(info="<html>
     <p>Model used to visualize and check data of district heating networks</p>
