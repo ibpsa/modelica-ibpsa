@@ -1,5 +1,5 @@
 translateModel("IBPSA.Fluid.PlugFlowPipes.Validation.MSLAIT");
-simulateModel("IBPSA.Fluid.PlugFlowPipes.Validation.MSLAIT", stopTime=603900, tolerance=1e-006, method="dassl", resultFile="MSLAIT");
+simulateModel("IBPSA.Fluid.PlugFlowPipes.Validation.MSLAIT", stopTime=603900, tolerance=1e-6, method="dassl", resultFile="MSLAIT");
 createPlot(id = 5,
  position = {50, 50, 500, 500},
  x = "time",
