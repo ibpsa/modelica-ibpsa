@@ -181,7 +181,7 @@ After the outlet pipe temperature is stabilized, the boiler is shut off.</p>
 <p>During the test, the ambient temperature is equal to 18 °C and the mass flow rate is set to 1.245 kg/s.</p>
 
 <h4>Test bench schematic</h4>
-<p><img src=\"modelica://IBPSA/Resources/Images/Experimental/ULgTestBench.png\" border=\"1\"/></p>
+<p><img alt=\"Schematic of test rig at ULg\" src=\"modelica://IBPSA/Resources/Images/Experimental/ULgTestBench.png\" border=\"1\"/></p>
 <p>Notice: length are approximate</p>
 
 <h4>Pipe characteristics</h4>

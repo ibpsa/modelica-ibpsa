@@ -648,7 +648,7 @@ First implementation.
 Information at several points of the district heating network is recorded during a week.
  
 <p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
-<p><img src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\", border=\"1\"/>
+<p><img alt=\"Schematic of test district heating network in Pongau\" src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\" border=\"1\"/>
 </p>
 
 <p>

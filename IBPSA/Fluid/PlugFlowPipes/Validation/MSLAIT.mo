@@ -407,11 +407,11 @@ This model compares its performance with the original Modelica Standard Library 
 <p>Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/mK. </p>
 </html>", revisions="<html>
 <ul>
-<li>November 28, 2016 by Bram van der Heijde:<br>Remove <code>pipVol.</code></li>
-<li>August 24, 2016 by Bram van der Heijde:<br>
+<li>November 28, 2016 by Bram van der Heijde:<br/>Remove <code>pipVol.</code></li>
+<li>August 24, 2016 by Bram van der Heijde:<br/>
 Implement validation with MSL pipes for comparison, based on AIT validation.</li>
-<li>July 4, 2016 by Bram van der Heijde:<br>Added parameters to test the influence of allowFlowReversal and the presence of explicit volumes in the pipe.</li>
-<li>January 26, 2016 by Carles Ribas:<br>First implementation. </li>
+<li>July 4, 2016 by Bram van der Heijde:<br/>Added parameters to test the influence of allowFlowReversal and the presence of explicit volumes in the pipe.</li>
+<li>January 26, 2016 by Carles Ribas:<br/>First implementation. </li>
 </ul>
 </html>"),
     __Dymola_Commands(file=
