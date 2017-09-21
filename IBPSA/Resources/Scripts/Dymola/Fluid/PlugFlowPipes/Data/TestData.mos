@@ -1,6 +1,5 @@
 translateModel("IBPSA.Fluid.PlugFlowPipes.Data.TestData");
-stopTimeData = max(pipeDataToBeRead.data[:,1])
-simulateModel("IBPSA.Fluid.PlugFlowPipes.Data.TestData", stopTime=stopTimeData, tolerance=1e-6, method="dassl", resultFile="TestData");
+simulateModel("IBPSA.Fluid.PlugFlowPipes.Data.TestData", stopTime=603900, tolerance=1e-6, method="dassl", resultFile="TestData");
 createPlot(id = 1,
  position = {55, 50, 697, 502},
  x = "time",
