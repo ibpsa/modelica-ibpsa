@@ -206,10 +206,10 @@ __Dymola_Commands(file=
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example demonstrates and tests the use of 
+This example demonstrates and tests the use of
 <a href=\"modelica://IBPSA.Fluid.Movers.Validation.FlowControlled_dp\">
 IBPSA.Fluid.Movers.Validation.FlowControlled_dp</a>
-movers that use parameter 
+movers that use parameter
 <code>prescribeSystemPressure</code>.
 </p>
 <p>

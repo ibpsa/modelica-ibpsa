@@ -57,9 +57,9 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Example model that demonstrates how translation statistics 
-depend on the type of boundary conditions, 
-the parallel or series configuration of the components 
+Example model that demonstrates how translation statistics
+depend on the type of boundary conditions,
+the parallel or series configuration of the components
 and the value of parameter <code>from_dp</code>.
 </p>
 </html>"),
