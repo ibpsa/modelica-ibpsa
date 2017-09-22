@@ -45,9 +45,7 @@ equation
 
   connect(pulse_m_flow.y, sou.m_flow_in)
     annotation (Line(points={{-79,8},{-60,8}},           color={0,0,127}));
-   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
+   annotation (    Documentation(revisions="<html>
 <ul>
 <li>
 May 26, 2017, by Filip Jorissen:<br/>
