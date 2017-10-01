@@ -1,9 +1,20 @@
 within IBPSA.Fluid.Actuators.Valves;
 model TwoWayPolynomial "Two way valve with polynomial characteristic"
   extends IBPSA.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv(
-    phi=l + sum(c.*{y_actual^i for i in 0:size(c,1)-1})*(1 - l));
+    phi=l + pol_y*(1 - l));
 
   parameter Real[:] c "Polynomial coefficients, starting with fixed offset";
+
+protected
+  Real pol_y = sum(c.*{y_actual^i for i in 0:size(c,1)-1}) "Polynomial of valve control signal";
+
+equation
+  // We provide some slack on these bounds to avoid the assert failing when
+  // small integration errors are made, e.g. in the filter.
+  assert((pol_y>=-0.2 and pol_y <=1.2),
+    "The provided polynomial coefficients lead 
+    to a valve opening larger than 1 or smaller than 0");
+
 annotation (
 defaultComponentName="val",
 Documentation(info="<html>
