@@ -1,5 +1,5 @@
-﻿translateModel("IBPSA.Fluid.PlugFlowPipes.Examples.PipeCore");
-simulateModel("IBPSA.Fluid.PlugFlowPipes.Examples.PipeCore", stopTime=1000, method="dassl", tolerance=1e-006, resultFile="PipeCore");
+translateModel("IBPSA.Fluid.PlugFlowPipes.BaseClasses.Validation.PipeCore");
+simulateModel("IBPSA.Fluid.PlugFlowPipes.BaseClasses.Validation.PipeCore", stopTime=1000, method="dassl", tolerance=1e-006, resultFile="PipeCore");
 createPlot(id=1, position={15, 10, 584, 397},
 	y={"senTemIn.T", "senTemOut.T"}, range={0.0, 1000.0, 48.0, 72.0},
 	grid=true, filename="PipeCore.mat",

@@ -1,4 +1,4 @@
-within IBPSA.Fluid.PlugFlowPipes.Examples;
+within IBPSA.Fluid.PlugFlowPipes.BaseClasses.Validation;
 model PipeCore
   import IBPSA;
   extends Modelica.Icons.Example;
@@ -68,7 +68,7 @@ equation
     annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Examples/PipeCore.mos"
+          "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/BaseClasses/Validation/PipeCore.mos"
         "Simulate and Plot"),
     experiment(StopTime=1000, Tolerance=1e-006),
     __Dymola_experimentSetupOutput,
