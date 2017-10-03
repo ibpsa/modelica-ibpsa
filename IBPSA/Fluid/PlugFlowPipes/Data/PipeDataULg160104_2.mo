@@ -2,8 +2,8 @@
 record PipeDataULg160104_2 "Experimental data from ULg's pipe test bench from 4 January 2016. Low mass flow"
   extends IBPSA.Fluid.PlugFlowPipes.Data.BaseClasses.PipeDataULg(
     final n=5,
-    T_ini_out=15.0,
-    T_ini_in=17.9,
+    T_start_out=15.0,
+    T_start_in=17.9,
     m_flowIni=0.2494,
     data=[0,0.2494,15.3,15,17.8,17.9; 3,0.2494,15.3,15,17.8,18; 8.1,0.2494,15.3,
         15,17.8,18; 11.2,0.2494,15.3,15,17.9,18; 16.3,0.2494,15.3,15,17.9,18.1;

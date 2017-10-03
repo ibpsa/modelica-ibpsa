@@ -51,9 +51,9 @@ model PlugFlowAIT
         origin={-88,82})));
   PlugFlowPipe pip1(
     redeclare package Medium = Medium,
-    diameter=0.0825,
-    thicknessIns=0.045,
-    lambdaI=0.024,
+    dh=0.0825,
+    dIns=0.045,
+    kIns=0.024,
     length=115,
     allowFlowReversal=allowFlowReversal,
     nPorts=2,
@@ -65,13 +65,13 @@ model PlugFlowAIT
     rho_wall=8000)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PlugFlowPipe pip4(
+    dh(displayUnit="mm") = 0.0337 - 2*0.0032,
     redeclare package Medium = Medium,
     length=29,
-    thicknessIns=0.045,
-    lambdaI=0.024,
+    dIns=0.045,
+    kIns=0.024,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=0.3,
-    diameter(displayUnit="mm") = 0.0337 - 2*0.0032,
     thickness=thickness,
     nPorts=2,
     R=R80,
@@ -84,9 +84,9 @@ model PlugFlowAIT
   PlugFlowPipe pip5(
     redeclare package Medium = Medium,
     length=20,
-    diameter=0.0825,
-    lambdaI=0.024,
-    thicknessIns=0.045,
+    dh=0.0825,
+    kIns=0.024,
+    dIns=0.045,
     allowFlowReversal=allowFlowReversal,
     nPorts=2,
     m_flow_nominal=0.3,
@@ -100,13 +100,13 @@ model PlugFlowAIT
   PlugFlowPipe pip2(
     redeclare package Medium = Medium,
     length=76,
-    thicknessIns=0.045,
-    lambdaI=0.024,
+    dIns=0.045,
+    kIns=0.024,
     allowFlowReversal=allowFlowReversal,
     nPorts=1,
     m_flow_nominal=0.3,
     thickness=thickness,
-    diameter=0.0337 - 2*0.0032,
+    dh=0.0337 - 2*0.0032,
     R=R80,
     cpipe=500,
     rho_wall=8000) annotation (Placement(transformation(
@@ -117,13 +117,13 @@ model PlugFlowAIT
   PlugFlowPipe pip3(
     redeclare package Medium = Medium,
     length=38,
-    thicknessIns=0.045,
-    lambdaI=0.024,
+    dIns=0.045,
+    kIns=0.024,
     allowFlowReversal=allowFlowReversal,
     nPorts=1,
     m_flow_nominal=0.3,
     thickness=thickness,
-    diameter=0.0337 - 2*0.0032,
+    dh=0.0337 - 2*0.0032,
     R=R80,
     cpipe=500,
     rho_wall=8000) annotation (Placement(transformation(
@@ -176,9 +176,9 @@ model PlugFlowAIT
         origin={34,-22})));
   PlugFlowPipe pip0(
     redeclare package Medium = Medium,
-    diameter=0.0825,
-    thicknessIns=0.045,
-    lambdaI=0.024,
+    dh=0.0825,
+    dIns=0.045,
+    kIns=0.024,
     length=20,
     allowFlowReversal=allowFlowReversal,
     nPorts=2,

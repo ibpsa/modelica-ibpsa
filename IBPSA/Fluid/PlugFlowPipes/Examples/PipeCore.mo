@@ -20,19 +20,19 @@ model PipeCore
   IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeCore pip(
     redeclare package Medium = Medium,
     from_dp=true,
-    diameter=0.1,
+    dh=0.1,
     length=100,
-    thicknessIns=0.05,
-    lambdaI=0.028,
+    dIns=0.05,
+    kIns=0.028,
     m_flow_nominal=1,
     roughness=2.5e-5,
     cpipe=500,
     rho_wall=8000,
     thickness=0.0032,
     initDelay=true,
-    m_flowInit=1,
-    T_ini_in=323.15,
-    T_ini_out=323.15) "Fixed resistance"
+    m_flow_start=1,
+    T_start_in=323.15,
+    T_start_out=323.15) "Fixed resistance"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bou(T=283.15)
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));

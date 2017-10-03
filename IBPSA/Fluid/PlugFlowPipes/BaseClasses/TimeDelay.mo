@@ -2,19 +2,20 @@ within IBPSA.Fluid.PlugFlowPipes.BaseClasses;
 model TimeDelay "Delay time for given normalized velocity"
 
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length diameter=0.05 "diameter of pipe";
+  parameter Modelica.SIunits.Length dh
+    "Hydraulic diameter (assuming a round cross section area)";
   parameter Modelica.SIunits.Density rho=1000 "Standard density of fluid";
   parameter Boolean initDelay=false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.MassFlowRate m_flowInit=0
+  parameter Modelica.SIunits.MassFlowRate m_flow_start=0
     annotation (Dialog(group="Initialization", enable=initDelay));
 
-  final parameter Modelica.SIunits.Time tInStart=if initDelay then min(length/
-      m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi), 0) else 0
+  final parameter Modelica.SIunits.Time t_in_start=if initDelay then min(length/
+      m_flow_start*(rho*dh^2/4*Modelica.Constants.pi), 0) else 0
     "Initial value of input time at inlet";
-  final parameter Modelica.SIunits.Time tOutStart=if initDelay then min(-length/
-      m_flowInit*(rho*diameter^2/4*Modelica.Constants.pi), 0) else 0
+  final parameter Modelica.SIunits.Time t_out_start=if initDelay then min(-length/
+      m_flow_start*(rho*dh^2/4*Modelica.Constants.pi), 0) else 0
     "Initial value of input time at outlet";
 
   Modelica.SIunits.Time time_out_rev "Reverse flow direction output time";
@@ -36,7 +37,7 @@ model TimeDelay "Delay time for given normalized velocity"
 initial equation
   x = 0;
 equation
-  u = m_flow/(rho*(diameter^2)/4*Modelica.Constants.pi)/length;
+  u =m_flow/(rho*(dh^2)/4*Modelica.Constants.pi)/length;
 
   der(x) = u;
   (time_out_rev,time_out_des) = spatialDistribution(
@@ -45,7 +46,7 @@ equation
     x,
     u >= 0,
     {0.0,1.0},
-    {time + tInStart,time + tOutStart});
+    {time + t_in_start,time + t_out_start});
 
   tau = time - time_out_des;
   tauRev = time - time_out_rev;

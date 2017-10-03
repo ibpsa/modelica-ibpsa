@@ -1,14 +1,14 @@
 ﻿within IBPSA.Fluid.PlugFlowPipes.Validation;
 model PlugFlowULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
-  // R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi
+  // R=((1/(2*pipe.kIns)*log((0.0603/2+pipe.dIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.dIns)))/Modelica.Constants.pi
   package Medium = IBPSA.Media.Water;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
-  parameter Modelica.SIunits.Temperature T_ini_in=pipeDataULg.T_ini_in + 273.15
+  parameter Modelica.SIunits.Temperature T_start_in=pipeDataULg.T_start_in + 273.15
     "Initial temperature at pipe inlet";
-  parameter Modelica.SIunits.Temperature T_ini_out=pipeDataULg.T_ini_out + 273.15
+  parameter Modelica.SIunits.Temperature T_start_out=pipeDataULg.T_start_out + 273.15
     "Initial temperature at pipe outlet";
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(state=sta_default)
@@ -42,13 +42,13 @@ model PlugFlowULg "Validation against data from Université de Liège"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0,
-    T_start=T_ini_out)
+    T_start=T_start_out)
     annotation (Placement(transformation(extent={{-74,-10},{-94,10}})));
   Fluid.Sensors.TemperatureTwoPort senTem_in(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0,
-    T_start=T_ini_in)
+    T_start=T_start_in)
     annotation (Placement(transformation(extent={{30,-10},{10,10}})));
   Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataULg.data,
       extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
@@ -73,19 +73,19 @@ model PlugFlowULg "Validation against data from Université de Liège"
     annotation (Placement(transformation(extent={{52,-30},{72,-10}})));
   PlugFlowPipe pipe(
     redeclare package Medium = Medium,
-    diameter=0.05248,
+    dh=0.05248,
     length=39,
-    thicknessIns(displayUnit="mm") = 0.013,
-    lambdaI=0.04,
+    dIns(displayUnit="mm") = 0.013,
+    kIns=0.04,
     m_flow_nominal=m_flow_nominal,
     thickness=3.9e-3,
-    T_ini_out=T_ini_out,
-    T_ini_in=T_ini_in,
-    R=((1/(2*pipe.lambdaI)*log((0.0603/2 + pipe.thicknessIns)/(0.0603/2))) + 1/(
-        5*(0.0603 + 2*pipe.thicknessIns)))/Modelica.Constants.pi,
+    T_start_out=T_start_out,
+    T_start_in=T_start_in,
+    R=((1/(2*pipe.kIns)*log((0.0603/2 + pipe.dIns)/(0.0603/2))) + 1/
+        (5*(0.0603 + 2*pipe.dIns)))/Modelica.Constants.pi,
     nPorts=1,
     initDelay=true,
-    m_flowInit=pipeDataULg.m_flowIni,
+    m_flow_start=pipeDataULg.m_flowIni,
     cpipe=500,
     rho_wall=8000)
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
@@ -177,7 +177,7 @@ For this material, a thermal conductivity of about 0.04 W/m<sup>2</sup>K can be 
 <h4>Calibration</h4>
 <p>There are some incertainties about the heat loss coefficient between pipe and surrounding air as well as regarding the heat conductivity of the insulation material. 
 With the <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">given data</a>, the length specific thermal resistance <code>R = 2.164 </code>(mK/W). <code>R</code> calculated as follows: </p>
-<p align=\"center\"style=\"font-style:italic;\">R=((1/(2*pipe.lambdaI)*log((0.0603+2*pipe.thicknessIns)/(0.0603)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi</p>
+<p align=\"center\"style=\"font-style:italic;\">R=((1/(2*pipe.kIns)*log((0.0603+2*pipe.dIns)/(0.0603)))+1/(5*(0.0603+2*pipe.dIns)))/Modelica.Constants.pi</p>
 <p align=\"center\"style=\"font-style:italic;\">U = 1/R = 0.462 W/mK</p>
 </html>", revisions="<html>
 <ul>

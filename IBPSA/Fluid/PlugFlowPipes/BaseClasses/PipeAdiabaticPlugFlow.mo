@@ -3,9 +3,11 @@ model PipeAdiabaticPlugFlow
   "Pipe model using spatialDistribution for temperature delay without heat losses"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Modelica.SIunits.Length dh=0.05 "Hydraulic diameter";
+  parameter Modelica.SIunits.Length dh
+    "Hydraulic diameter (assuming a round cross section area)";
+
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
@@ -15,14 +17,14 @@ model PipeAdiabaticPlugFlow
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Temperature T_ini_in=Medium.T_default
+  parameter Modelica.SIunits.Temperature T_start_in=Medium.T_default
     "Initial temperature in pipe at inlet"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.Temperature T_ini_out=Medium.T_default
+  parameter Modelica.SIunits.Temperature T_start_out=Medium.T_default
     "Initial temperature in pipe at outlet"
     annotation (Dialog(group="Initialization"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flowInit=0
+  parameter Modelica.SIunits.MassFlowRate m_flow_start=0
     annotation (Dialog(group="Initialization", enable=initDelay));
 
   parameter Boolean initDelay=false
@@ -47,11 +49,11 @@ model PipeAdiabaticPlugFlow
   IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeLosslessPlugFlow temperatureDelay(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
-    final diameter=dh,
+    final dh=dh,
     final length=length,
     final allowFlowReversal=allowFlowReversal,
     initialValuesH={h_ini_in,h_ini_out},
-    m_flow_start=m_flowInit)
+    m_flow_start=m_flow_start)
     "Model for temperature wave propagation with spatialDistribution operator"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
@@ -59,13 +61,13 @@ model PipeAdiabaticPlugFlow
 protected
   parameter Modelica.SIunits.SpecificEnthalpy h_ini_in=Medium.specificEnthalpy(
       Medium.setState_pTX(
-      T=T_ini_in,
+      T=T_start_in,
       p=Medium.p_default,
       X=Medium.X_default)) "For initialization of spatialDistribution inlet";
 
   parameter Modelica.SIunits.SpecificEnthalpy h_ini_out=Medium.specificEnthalpy(
        Medium.setState_pTX(
-      T=T_ini_out,
+      T=T_start_out,
       p=Medium.p_default,
       X=Medium.X_default)) "For initialization of spatialDistribution outlet";
 

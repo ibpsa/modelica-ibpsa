@@ -9,8 +9,8 @@ record PipeDataULg150801
   //   Column 6: Inlet water temperature in °C
   extends IBPSA.Fluid.PlugFlowPipes.Data.BaseClasses.PipeDataULg(
     final n=5,
-    T_ini_in=16.6,
-    T_ini_out=16.8,
+    T_start_in=16.6,
+    T_start_out=16.8,
     m_flowIni=1.245,
     data=[0,1.245,16.9,16.8,16.6,16.6; 2.87,1.245,16.9,16.8,16.6,19.7; 5.66,
         1.245,16.9,16.8,19.1,29.1; 8.78,1.245,16.9,16.8,24.1,34.9; 11.62,1.245,

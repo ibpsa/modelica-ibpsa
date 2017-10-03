@@ -4,8 +4,8 @@ record PipeDataULg151204_1
   increase followed by a decrease in temperature"
   extends IBPSA.Fluid.PlugFlowPipes.Data.BaseClasses.PipeDataULg(
     final n=5,
-    T_ini_out=14.0,
-    T_ini_in=14.0,
+    T_start_out=14.0,
+    T_start_in=14.0,
     m_flowIni=1.618,
     data=[0,1.618,14.4,14,14.2,14; 2.9,1.618,14.4,14,14.3,16.8; 5.8,1.618,14.4,
         14,15.5,20.5; 8.7,1.618,14.4,14.1,17.3,22.9; 11.6,1.618,14.4,14.1,19,

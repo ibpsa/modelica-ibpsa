@@ -1,9 +1,9 @@
 ﻿within IBPSA.Fluid.PlugFlowPipes.Data.BaseClasses;
 partial record PipeDataULg "Base class for ULg experimental data"
   extends PipeDataBaseDefinition;
-  parameter Modelica.SIunits.Temp_C T_ini_in = 20
+  parameter Modelica.SIunits.Temp_C T_start_in = 20
     "Initial temperature at inlet";
-  parameter Modelica.SIunits.Temp_C T_ini_out = 20
+  parameter Modelica.SIunits.Temp_C T_start_out = 20
     "Initial temperature at outlet";
   parameter Modelica.SIunits.MassFlowRate m_flowIni = 0
     "Mass flow initialization";

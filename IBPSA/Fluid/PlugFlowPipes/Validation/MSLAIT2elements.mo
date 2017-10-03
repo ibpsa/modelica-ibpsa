@@ -78,12 +78,12 @@ model MSLAIT2elements
         origin={80,-8})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  parameter Types.ThermalResistanceLength R=1/(2*lambdaI*Modelica.Constants.pi)
+  parameter Types.ThermalResistanceLength R=1/(2*kIns*Modelica.Constants.pi)
       *log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.18);
   parameter Types.ThermalResistanceLength R80=1/(2*0.024*Modelica.Constants.pi)
       *log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.07);
-  parameter Types.ThermalResistanceLength R_old=1/(lambdaI*2*Modelica.Constants.pi
-      /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
+  parameter Types.ThermalResistanceLength R_old=1/(kIns*2*Modelica.Constants.pi
+      /Modelica.Math.log((diameter/2 + dIns)/(diameter/2)));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res0[pip0.nNodes](each R=
         2*R/pip0.length)
     annotation (Placement(transformation(extent={{94,-18},{114,2}})));
@@ -223,9 +223,9 @@ model MSLAIT2elements
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-28,72})));
-  parameter Modelica.SIunits.ThermalConductivity lambdaI=0.024
+  parameter Modelica.SIunits.ThermalConductivity kIns=0.024
     "Heat conductivity";
-  parameter Modelica.SIunits.Length thicknessIns=0.045
+  parameter Modelica.SIunits.Length dIns=0.045
     "Thickness of pipe insulation";
   parameter Modelica.SIunits.Diameter diameter=0.089
     "Outer diameter of pipe";

@@ -3,11 +3,12 @@ model PipeCore
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Modelica.SIunits.Diameter diameter(min=0, start=0.100) "Pipe diameter";
-  parameter Modelica.SIunits.Length length(min=0, start=0) "Pipe length";
-  parameter Modelica.SIunits.Length thicknessIns(min=0, start=0.01) "Thickness of pipe insulation";
+  parameter Modelica.SIunits.Length dh
+    "Hydraulic diameter (assuming a round cross section area)";
+  parameter Modelica.SIunits.Length length(min=0) "Pipe length";
+  parameter Modelica.SIunits.Length dIns(min=0) "Thickness of pipe insulation";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0, start=0.1)
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
@@ -19,16 +20,15 @@ model PipeCore
     annotation (Dialog(group="Geometry"));
 
   parameter IBPSA.Fluid.PlugFlowPipes.Types.ThermalResistanceLength R=1/(
-      lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 +
-      thicknessIns)/(diameter/2)));
+      kIns*2*Modelica.Constants.pi/Modelica.Math.log((dh/2 + dIns)/(
+      dh/2)));
   parameter IBPSA.Fluid.PlugFlowPipes.Types.ThermalCapacityPerLength C=
-      rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
-  parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
+      rho_default*Modelica.Constants.pi*(dh/2)^2*cp_default;
+  parameter Modelica.SIunits.ThermalConductivity kIns
     "Heat conductivity";
 
-  parameter Modelica.SIunits.HeatCapacity walCap=length*((diameter + 2*
-      thickness)^2 - diameter^2)*Modelica.Constants.pi/4*cpipe*rho_wall
-    "Heat capacity of pipe wall";
+  parameter Modelica.SIunits.HeatCapacity walCap=length*((dh + 2*thickness)^2 -
+      dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe=500 "For steel";
   parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
 
@@ -37,16 +37,16 @@ model PipeCore
     annotation (Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
 
-  parameter Modelica.SIunits.Temperature T_ini_in=Medium.T_default
+  parameter Modelica.SIunits.Temperature T_start_in=Medium.T_default
     "Initialization temperature at pipe inlet"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.Temperature T_ini_out=Medium.T_default
+  parameter Modelica.SIunits.Temperature T_start_out=Medium.T_default
     "Initialization temperature at pipe outlet"
     annotation (Dialog(tab="Initialization"));
   parameter Boolean initDelay=false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.MassFlowRate m_flowInit=0
+  parameter Modelica.SIunits.MassFlowRate m_flow_start=0
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
   IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow
@@ -54,12 +54,12 @@ model PipeCore
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
-    dh=diameter,
+    dh=dh,
     length=length,
     m_flow_nominal=m_flow_nominal,
     from_dp=from_dp,
-    T_ini_in=T_ini_in,
-    T_ini_out=T_ini_out)
+    T_start_in=T_start_in,
+    T_start_out=T_start_out)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IBPSA.Fluid.PlugFlowPipes.BaseClasses.HeatLossPipeDelay reverseHeatLoss(
@@ -67,7 +67,7 @@ model PipeCore
     C=C,
     R=R,
     m_flow_small=m_flow_small,
-    T_ini=T_ini_in)
+    T_start=T_start_in)
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
 
   IBPSA.Fluid.PlugFlowPipes.BaseClasses.HeatLossPipeDelay heatLoss(
@@ -75,16 +75,16 @@ model PipeCore
     C=C,
     R=R,
     m_flow_small=m_flow_small,
-    T_ini=T_ini_out)
+    T_start=T_start_out)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
   IBPSA.Fluid.PlugFlowPipes.BaseClasses.TimeDelay timeDelay(
     length=length,
-    diameter=diameter,
+    dh=dh,
     rho=rho_default,
     initDelay=initDelay,
-    m_flowInit=m_flowInit)
+    m_flow_start=m_flow_start)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));

@@ -7,13 +7,13 @@ model HeatLossPipeDelay
   parameter Types.ThermalResistanceLength R;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5;
-  parameter Modelica.Media.Interfaces.Types.Temperature T_ini=Medium.T_default
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start=Medium.T_default
     "Initial output temperature";
   final parameter Modelica.SIunits.Time tau_char=R*C;
 
-  Modelica.SIunits.Temp_K Tin_a(start=T_ini)
+  Modelica.SIunits.Temp_K Tin_a(start=T_start)
     "Temperature at port_a for in-flowing fluid";
-  Modelica.SIunits.Temp_K Tout_b(start=T_ini)
+  Modelica.SIunits.Temp_K Tout_b(start=T_start)
     "Temperature at port_b for out-flowing fluid";
   Modelica.SIunits.Temperature T_amb=heatPort.T "Environment temperature";
   Modelica.SIunits.HeatFlowRate Qloss "Heat losses from pipe to environment";

@@ -3,8 +3,8 @@ record PipeDataULg151202
   "Experimental data from ULg's pipe test bench from December 2, 2015"
   extends IBPSA.Fluid.PlugFlowPipes.Data.BaseClasses.PipeDataULg(
     final n=5,
-    T_ini_out=18.2,
-    T_ini_in=18.8,
+    T_start_out=18.2,
+    T_start_in=18.8,
     m_flowIni=0.589,
     data=[0,0.589,0,18.2,18.7,18.8; 3.1,0.589,0,18.2,19.2,28; 6.4,0.589,0,18.2,
         21.6,34.7; 11.5,0.589,0,18.2,26.7,41.4; 14.6,0.589,0,18.2,29.6,43.9;
