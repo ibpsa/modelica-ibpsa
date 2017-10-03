@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.PlugFlowPipes.Validation;
+within IBPSA.Fluid.PlugFlowPipes.Validation;
 model PlugFlowULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
   // R=((1/(2*pipe.kIns)*log((0.0603/2+pipe.dIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.dIns)))/Modelica.Constants.pi
