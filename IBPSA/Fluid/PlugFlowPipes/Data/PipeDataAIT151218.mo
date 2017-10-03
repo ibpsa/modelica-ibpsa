@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.PlugFlowPipes.Data;
+within IBPSA.Fluid.PlugFlowPipes.Data;
 record PipeDataAIT151218
   "Experimental data from AIT monitoring data December 18, 2015"
     extends Data.BaseClasses.PipeDataBaseDefinition(final n=9, data=[0,
