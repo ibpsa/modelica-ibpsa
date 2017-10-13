@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.PlugFlowPipes;
+within IBPSA.Fluid.PlugFlowPipes;
 model PlugFlowPipe
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort_vector;
