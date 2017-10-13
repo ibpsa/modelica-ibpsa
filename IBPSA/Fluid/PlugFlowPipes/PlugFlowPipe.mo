@@ -1,4 +1,4 @@
-within IBPSA.Fluid.PlugFlowPipes;
+﻿within IBPSA.Fluid.PlugFlowPipes;
 model PlugFlowPipe
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort_vector;
@@ -165,5 +165,7 @@ d = %dh")}),
 <p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used in front of and behind the time delay. The delay time is calculated once on the pipe level and supplied to both heat loss operators.</p>
 <p>This component uses a modified delay operator.</p>
 <p>Full details on the model implementation and experimental validation can be found in this <a href=\"http://www.sciencedirect.com/science/article/pii/S0196890417307975\">publication</a>.</p>
+<h4>References</h4>
+<p>van der Heijde, B., Fuchs, M., Ribas Tugores, C., Schweiger, G., Sartor, K., Basciotti, D., Müller, D., Nytsch-Geusen, C., Wetter, M. and Helsen, L. (2017). Dynamic equation-based thermo-hydraulic pipe model for district heating and cooling systems. <i>Energy Conversion and Management</i>, <i>151</i> (November), 158-169. https://doi.org/10.1016/j.enconman.2017.08.072</p>
 </html>"));
 end PlugFlowPipe;
