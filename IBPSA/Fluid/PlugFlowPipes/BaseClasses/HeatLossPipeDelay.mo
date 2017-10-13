@@ -88,7 +88,7 @@ equation
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
-<p>Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code>PipeAdiabaticPlugFlow</code> model.</p>
+<p>Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <a href=\"modelica://IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow\">PipeAdiabaticPlugFlow</a> model.</p>
 <p>This component requires the delay time and the instantaneous ambient temperature as an input. This component is to be used in single pipes or in more advanced configurations where no influence from other pipes is considered. </p>
 </html>", revisions="<html>
 <ul>
