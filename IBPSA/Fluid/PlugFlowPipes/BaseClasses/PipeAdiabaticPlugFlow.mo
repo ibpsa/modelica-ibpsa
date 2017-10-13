@@ -143,5 +143,8 @@ The temperature propagation is handled by the PipeLosslessPlugFlow component.</p
 Logically, each volume should contain half of the pipe&apos;s real water volume. 
 However, this leads to an overestimation, probably because only part of the pipe is affected by temperature changes (see Benonysson, 1991). 
 The ratio of the pipe to be included in the thermal capacity is to be investigated further. </p>
+<h4>References</h4>
+<p>Bennonysson, A. (1991). <i>Dynamic Modelling and Operation Optimization of District Heating Systems</i>. 
+PhD Thesis, Technical University of Denmark (DTU).</p>
 </html>"));
 end PipeAdiabaticPlugFlow;
