@@ -72,15 +72,6 @@ equation
           "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/BaseClasses/Validation/PipeCore.mos"
         "Simulate and Plot"),
     experiment(StopTime=1000, Tolerance=1e-006),
-    __Dymola_experimentSetupOutput,
-    __Dymola_experimentFlags(
-      Advanced(
-        EvaluateAlsoTop=false,
-        GenerateVariableDependencies=false,
-        OutputModelicaCode=false),
-      Evaluate=true,
-      OutputCPUtime=true,
-      OutputFlatModelica=false),
     Documentation(info="<html>
 <p>Basic test of model <a href=\"modelica://IBPSA/Fluid/PlugFlowPipes/BaseClasses/PipeCore\">BaseClasses.PipeCore</a>. This test includes an inlet temperature step under a constant mass flow rate. </p>
 </html>", revisions="<html>

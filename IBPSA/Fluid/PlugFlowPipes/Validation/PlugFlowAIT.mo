@@ -308,7 +308,6 @@ equation
       StopTime=603900,
       Interval=900,
       Tolerance=1e-006),
-    __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
 <p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network. 
 This data is used to validate a pipe model.</p>
@@ -327,13 +326,5 @@ This data is used to validate a pipe model.</p>
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/PlugFlowAIT.mos"
-        "Simulate and plot"),
-    __Dymola_experimentFlags(
-      Advanced(
-        EvaluateAlsoTop=false,
-        GenerateVariableDependencies=false,
-        OutputModelicaCode=false),
-      Evaluate=true,
-      OutputCPUtime=true,
-      OutputFlatModelica=false));
+        "Simulate and plot"));
 end PlugFlowAIT;

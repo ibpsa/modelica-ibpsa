@@ -417,13 +417,5 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/MSLAIT.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-    __Dymola_experimentFlags(
-      Advanced(
-        EvaluateAlsoTop=false,
-        GenerateVariableDependencies=false,
-        OutputModelicaCode=false),
-      Evaluate=true,
-      OutputCPUtime=true,
-      OutputFlatModelica=false));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end MSLAIT;

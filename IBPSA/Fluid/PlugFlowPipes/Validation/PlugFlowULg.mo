@@ -188,14 +188,5 @@ With the <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">g
 </html>"),
     experiment(StopTime=875, Tolerance=1e-006),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/PlugFlowULg.mos"
-        "Simulate and plot"),
-    __Dymola_experimentSetupOutput(events=false),
-    __Dymola_experimentFlags(
-      Advanced(
-        EvaluateAlsoTop=false,
-        GenerateVariableDependencies=false,
-        OutputModelicaCode=false),
-      Evaluate=true,
-      OutputCPUtime=true,
-      OutputFlatModelica=false));
+        "Simulate and plot"));
 end PlugFlowULg;
