@@ -13,13 +13,14 @@ partial model PartialTwoPort_vector "Partial component with two ports"
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default))
-    "Fluid connector a (positive design flow direction is from port_a to port_b)"
+    "Fluid connector a (positive design flow direction is from port_a to ports_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts](
     redeclare each package Medium = Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default))
+    "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
     annotation (Placement(transformation(extent={{90,-40},{110,40}})));
   annotation (
     Documentation(info="<html>

@@ -1,9 +1,10 @@
 within IBPSA.Fluid.PlugFlowPipes.BaseClasses.Validation;
-model PipeCore
+model PipeCore "Simple example of plug flow pipe core"
   import IBPSA;
   extends Modelica.Icons.Example;
-  replaceable package Medium = IBPSA.Media.Water constrainedby
-    Modelica.Media.Interfaces.PartialMedium annotation (
+  replaceable package Medium = IBPSA.Media.Water                   constrainedby
+    Modelica.Media.Interfaces.PartialMedium      "Medium in pipes"
+                                            annotation (
       __Dymola_choicesAllMatching=true);
   Modelica.Blocks.Sources.Ramp Tin(
     height=20,

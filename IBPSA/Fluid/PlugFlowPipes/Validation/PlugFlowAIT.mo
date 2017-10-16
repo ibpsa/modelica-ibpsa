@@ -6,7 +6,7 @@ model PlugFlowAIT
   parameter Modelica.SIunits.Length Lcap=1
     "Length over which transient effects typically take place";
   parameter Types.ThermalResistanceLength R80=1/(2*0.024*Modelica.Constants.pi)
-      *log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.07);
+      *log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.07) "Thermal resistance per unit length of service pipes";
 
   parameter Boolean pipVol=true
     "Flag to decide whether volumes are included at the end points of the pipe";

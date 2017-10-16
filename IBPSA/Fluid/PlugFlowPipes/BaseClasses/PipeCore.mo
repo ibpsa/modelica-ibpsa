@@ -21,9 +21,9 @@ model PipeCore
 
   parameter IBPSA.Fluid.PlugFlowPipes.Types.ThermalResistanceLength R=1/(
       kIns*2*Modelica.Constants.pi/Modelica.Math.log((dh/2 + dIns)/(
-      dh/2)));
+      dh/2))) "Thermal resistance per unit length from water to boundary";
   parameter IBPSA.Fluid.PlugFlowPipes.Types.ThermalCapacityPerLength C=
-      rho_default*Modelica.Constants.pi*(dh/2)^2*cp_default;
+      rho_default*Modelica.Constants.pi*(dh/2)^2*cp_default "Thermal capacity per unit length of pipe";
   parameter Modelica.SIunits.ThermalConductivity kIns
     "Heat conductivity";
 
@@ -87,6 +87,7 @@ model PipeCore
     m_flow_start=m_flow_start)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Heat port to connect environment (positive heat flow for heat loss to surroundings)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
 protected

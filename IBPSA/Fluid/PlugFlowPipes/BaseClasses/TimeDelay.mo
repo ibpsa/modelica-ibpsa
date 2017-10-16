@@ -6,9 +6,9 @@ model TimeDelay "Delay time for given normalized velocity"
     "Hydraulic diameter (assuming a round cross section area)";
   parameter Modelica.SIunits.Density rho=1000 "Standard density of fluid";
   parameter Boolean initDelay=false
-    "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
+    "Initialize delay for a constant m_flow_start if true, otherwise start from 0"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_start=0
+  parameter Modelica.SIunits.MassFlowRate m_flow_start=0 "Initialization of mass flow rate to calculate initial time delay"
     annotation (Dialog(group="Initialization", enable=initDelay));
 
   final parameter Modelica.SIunits.Time t_in_start=if initDelay then min(length/

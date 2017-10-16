@@ -24,11 +24,11 @@ model PipeAdiabaticPlugFlow
     "Initial temperature in pipe at outlet"
     annotation (Dialog(group="Initialization"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_start=0
+  parameter Modelica.SIunits.MassFlowRate m_flow_start=0 "Initialization mass flow rate for calculation of initial delay"
     annotation (Dialog(group="Initialization", enable=initDelay));
 
   parameter Boolean initDelay=false
-    "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
+    "Initialize delay for a constant m_flow_start if true, otherwise start from 0"
     annotation (Dialog(group="Initialization"));
 
   Fluid.FixedResistances.HydraulicDiameter res(

@@ -1,5 +1,5 @@
 within IBPSA.Fluid.PlugFlowPipes.Examples;
-model PlugFlowPipe
+model PlugFlowPipe "Simple example of plug flow pipe"
   import IBPSA;
   extends Modelica.Icons.Example;
   replaceable package Medium = IBPSA.Media.Water constrainedby

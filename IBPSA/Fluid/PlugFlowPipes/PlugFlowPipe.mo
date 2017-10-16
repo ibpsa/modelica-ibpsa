@@ -42,13 +42,13 @@ model PlugFlowPipe
   parameter Boolean initDelay(start=false) = false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_start(start=0)
+  parameter Modelica.SIunits.MassFlowRate m_flow_start(start=0) "Initial value of mass flow rate through pipe"
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
   parameter Types.ThermalResistanceLength R=1/(kIns*2*Modelica.Constants.pi/
-      Modelica.Math.log((dh/2 + dIns)/(dh/2)));
+      Modelica.Math.log((dh/2 + dIns)/(dh/2))) "Thermal resistance per unit length from water to boundary temperature";
   parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
-      dh/2)^2*cp_default;
+      dh/2)^2*cp_default "Thermal capacity per unit length of water in pipe";
 
   BaseClasses.PipeCore pipeCore(
     redeclare final package Medium = Medium,
@@ -67,6 +67,7 @@ model PlugFlowPipe
     final from_dp=from_dp) "Describing the pipe behavior"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Heat transfer to or from surroundings (heat loss from pipe results in a positive heat flow)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
   Fluid.MixingVolumes.MixingVolume vol(
@@ -79,8 +80,9 @@ model PlugFlowPipe
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
 protected
-  parameter Modelica.SIunits.HeatCapacity walCap=length*((dh + 2*thickness)^2 -
-      dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
+  parameter Modelica.SIunits.HeatCapacity walCap=length*((dh + 2*thickness)^2
+       - dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall
+    "Heat capacity of pipe wall";
 
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,

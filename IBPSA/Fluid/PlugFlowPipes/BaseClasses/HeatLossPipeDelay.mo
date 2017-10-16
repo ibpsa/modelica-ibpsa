@@ -3,13 +3,13 @@ model HeatLossPipeDelay
   "Heat loss model for pipe with delay as an input variable"
   extends Fluid.Interfaces.PartialTwoPortTransport;
 
-  parameter Types.ThermalCapacityPerLength C;
-  parameter Types.ThermalResistanceLength R;
+  parameter Types.ThermalCapacityPerLength C "Thermal capacity per unit length of pipe";
+  parameter Types.ThermalResistanceLength R "Thermal resistance per unit length from water to boundary";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5;
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5 "Nominal mass flow rate";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start=Medium.T_default
     "Initial output temperature";
-  final parameter Modelica.SIunits.Time tau_char=R*C;
+  final parameter Modelica.SIunits.Time tau_char=R*C "Characteristic delay time";
 
   Modelica.SIunits.Temp_K Tin_a(start=T_start)
     "Temperature at port_a for in-flowing fluid";
@@ -24,7 +24,7 @@ model HeatLossPipeDelay
         rotation=270,
         origin={-60,100})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port to connect environment"
+    "Heat port to connect environment (positive heat flow for heat loss to surroundings)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heatLoss annotation (
      Placement(transformation(
