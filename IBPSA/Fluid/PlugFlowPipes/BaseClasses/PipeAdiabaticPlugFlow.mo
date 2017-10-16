@@ -17,12 +17,6 @@ model PipeAdiabaticPlugFlow
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Temperature T_start_in=Medium.T_default
-    "Initial temperature in pipe at inlet"
-    annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.Temperature T_start_out=Medium.T_default
-    "Initial temperature in pipe at outlet"
-    annotation (Dialog(group="Initialization"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_start=0 "Initialization mass flow rate for calculation of initial delay"
     annotation (Dialog(group="Initialization", enable=initDelay));
@@ -30,7 +24,10 @@ model PipeAdiabaticPlugFlow
   parameter Boolean initDelay=false
     "Initialize delay for a constant m_flow_start if true, otherwise start from 0"
     annotation (Dialog(group="Initialization"));
-
+  parameter Modelica.SIunits.Temperature T_start_in=Medium.T_default
+    "Initial temperature in pipe at inlet";
+  parameter Modelica.SIunits.Temperature T_start_out=Medium.T_default
+    "Initial temperature in pipe at outlet";
   Fluid.FixedResistances.HydraulicDiameter res(
     redeclare final package Medium = Medium,
     final dh=dh,
@@ -52,25 +49,14 @@ model PipeAdiabaticPlugFlow
     final dh=dh,
     final length=length,
     final allowFlowReversal=allowFlowReversal,
-    initialValuesH={h_ini_in,h_ini_out},
-    m_flow_start=m_flow_start)
+    m_flow_start=m_flow_start,
+    T_start_in=T_start_in,
+    T_start_out=T_start_out)
     "Model for temperature wave propagation with spatialDistribution operator"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 
 protected
-  parameter Modelica.SIunits.SpecificEnthalpy h_ini_in=Medium.specificEnthalpy(
-      Medium.setState_pTX(
-      T=T_start_in,
-      p=Medium.p_default,
-      X=Medium.X_default)) "For initialization of spatialDistribution inlet";
-
-  parameter Modelica.SIunits.SpecificEnthalpy h_ini_out=Medium.specificEnthalpy(
-       Medium.setState_pTX(
-      T=T_start_out,
-      p=Medium.p_default,
-      X=Medium.X_default)) "For initialization of spatialDistribution outlet";
-
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
@@ -96,7 +82,6 @@ protected
       p=Medium.p_default,
       T=Medium.T_default,
       X=Medium.X_default)) "Default specific heat of water";
-
 
 equation
   connect(port_a, res.port_a)

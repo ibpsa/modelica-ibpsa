@@ -3,12 +3,6 @@ model PipeLosslessPlugFlow
   "Lossless pipe model with spatialDistribution plug flow implementation"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Real initialPoints[:](
-    each min=0,
-    each max=1) = {0.0,1.0} "Initial points for spatialDistribution";
-  parameter Modelica.SIunits.SpecificEnthalpy initialValuesH[:]={Medium.h_default,
-      Medium.h_default} "Initial enthalpy values for spatialDistribution";
-
   parameter Modelica.SIunits.Length dh
     "Hydraulic diameter (assuming a round cross section area)";
   parameter Modelica.SIunits.Length length(min=0) "Pipe length";
@@ -28,6 +22,13 @@ model PipeLosslessPlugFlow
   parameter Medium.MassFlowRate m_flow_small
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
+  parameter Modelica.SIunits.Temperature T_start_in=Medium.T_default
+    "Initial temperature in pipe at inlet"
+    annotation (Dialog(group="Initialization"));
+  parameter Modelica.SIunits.Temperature T_start_out=Medium.T_default
+    "Initial temperature in pipe at outlet"
+    annotation (Dialog(group="Initialization"));
+
 
   // Diagnostics
   parameter Boolean show_T = true
@@ -92,6 +93,17 @@ protected
       T=Medium.T_default,
       X=Medium.X_default)
     "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)";
+  parameter Modelica.SIunits.SpecificEnthalpy h_ini_in=Medium.specificEnthalpy(
+      Medium.setState_pTX(
+      T=T_start_in,
+      p=Medium.p_default,
+      X=Medium.X_default)) "For initialization of spatialDistribution inlet";
+
+  parameter Modelica.SIunits.SpecificEnthalpy h_ini_out=Medium.specificEnthalpy(
+       Medium.setState_pTX(
+      T=T_start_out,
+      p=Medium.p_default,
+      X=Medium.X_default)) "For initialization of spatialDistribution outlet";
 
 initial equation
   x = 0;
@@ -121,8 +133,8 @@ equation
     inStream(port_b.h_outflow),
     x/length,
     v >= 0,
-    initialPoints,
-    initialValuesH);
+    {0.0, 1.0},
+    {h_ini_in, h_ini_out});
 
   // Transport of substances
   port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow)
