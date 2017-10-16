@@ -29,7 +29,7 @@ model PipeCore
 
   parameter Modelica.SIunits.HeatCapacity walCap=length*((dh + 2*thickness)^2 -
       dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpipe=500 "For steel";
+  parameter Modelica.SIunits.SpecificHeatCapacity cpipe=2300 "Specific heat of pipe wall material. 2300 J/(kg.K) for PE, 500 J/(kg.K) For steel";
   parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
 
   parameter Boolean from_dp=false

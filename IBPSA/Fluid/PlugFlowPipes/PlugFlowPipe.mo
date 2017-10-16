@@ -25,8 +25,8 @@ model PlugFlowPipe
     annotation (Dialog(tab="Advanced"));
   parameter Modelica.SIunits.ThermalConductivity kIns "Heat conductivity";
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cpipe(start=500) "For steel";
-  parameter Modelica.SIunits.Density rho_wall(start=8000) "For steel";
+  parameter Modelica.SIunits.SpecificHeatCapacity cpipe=2300 "Specific heat of pipe wall material. 2300 for PE, 500 for steel";
+  parameter Modelica.SIunits.Density rho_wall=930 "Density of pipe wall material. 930 for PE, 8000 for steel";
   final parameter Modelica.SIunits.Volume V=walCap/(rho_default*cp_default)
     "Equivalent water volume to represent pipe wall thermal inertia";
 
@@ -64,7 +64,10 @@ model PlugFlowPipe
     final T_start_out=T_start_out,
     final m_flow_start=m_flow_start,
     final initDelay=initDelay,
-    final from_dp=from_dp) "Describing the pipe behavior"
+    final from_dp=from_dp,
+    cpipe=cpipe,
+    rho_wall=rho_wall,
+    thickness=thickness)   "Describing the pipe behavior"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat transfer to or from surroundings (heat loss from pipe results in a positive heat flow)"
