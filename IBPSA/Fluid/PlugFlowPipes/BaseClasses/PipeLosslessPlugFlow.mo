@@ -187,9 +187,10 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>A simple model to account for the effect of the temperature propagation of a fluid flow through a pipe. This propagation is guided by the simple one-dimensional wave equation without source or sink terms. It uses the <code>spatialDistribution</code> operator to delay changes in input enthalpy depending on the flow velocity.</p>
+<p>A simple model to account for the effect of the temperature propagation of a fluid flow through a pipe. This propagation is guided by the simple one-dimensional wave equation (see below) without source or sink terms. It uses the <code>spatialDistribution</code> operator to delay changes in input enthalpy depending on the flow velocity.</p>
 <h4>Main equation</h4>
-<p align=\"center\"><i>&part;tejrhej</i> </p>
+<p align=\"center\"><i>&part;z(x,t)/&part;t + v(t) &part;z(x,t)/&part;x = 0,</i></p>
+<p>where <i>z(x,t)</i> is the spatial distribution as a function of time of any property <i>z</i> of the fluid. For the temperature propagation, <i>z </i>will be replaced by <i>T</i>. </p>
 <h4>Assumptions</h4>
 <ul>
 <li>The effect of axial diffusion in water is assumed to be negligibe</li>
