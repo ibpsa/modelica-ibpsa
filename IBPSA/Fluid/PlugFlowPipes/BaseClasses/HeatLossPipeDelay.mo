@@ -88,7 +88,19 @@ equation
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
-<p>Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <a href=\"modelica://IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow\">PipeAdiabaticPlugFlow</a> model.</p>
+<p>Component that calculates the heat losses at the end of a plug flow pipe when the flow goes in the design direction.</p>
+<h4>Main equations</h4>
+<p align=\"center\"><i>T<sub>out</sub> = T<sub>b</sub> + (T<sub>in</sub> - T<sub>b</sub>) exp((t<sub>out</sub> - t<sub>in</sub>)/tau<sub>char</sub>)</i></p>
+<p align=\"center\"><i>tau<sub>char</sub> = RC</i></p>
+<h4>Assumptions and limitations</h4>
+<ul>
+<li>Uniform water temperature in cross section</li>
+<li>No axial heat transfer in water or surrounding</li>
+<li>Uniform boundary temperature along pipe</li>
+<li>Steady-state heat loss</li>
+</ul>
+<h4>Implementation</h4>
+<p>Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <a href=\"modelica://IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow\">PipeAdiabaticPlugFlow</a> model. The outlet temperature is calculated as in the equation above using the inlet temperature at port_a and the instantaneous time delay and boundary temperature. The boundary temperature can be either the air temperature or the undisturbed ground temperature, depending on the definition of the thermal resistance <i>R</i>.</p>
 <p>This component requires the delay time and the instantaneous ambient temperature as an input. This component is to be used in single pipes or in more advanced configurations where no influence from other pipes is considered. </p>
 </html>", revisions="<html>
 <ul>

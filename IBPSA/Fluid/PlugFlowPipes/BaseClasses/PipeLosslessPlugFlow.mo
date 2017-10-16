@@ -187,6 +187,13 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>A simple model to account for the effect of the temperature delay for a fluid flow through a pipe. It uses the spatialDistribution operator to delay changes in input enthalpy depending on the flow velocity.</p>
+<p>A simple model to account for the effect of the temperature propagation of a fluid flow through a pipe. This propagation is guided by the simple one-dimensional wave equation without source or sink terms. It uses the <code>spatialDistribution</code> operator to delay changes in input enthalpy depending on the flow velocity.</p>
+<h4>Main equation</h4>
+<p align=\"center\"><i>&part;tejrhej</i> </p>
+<h4>Assumptions</h4>
+<ul>
+<li>The effect of axial diffusion in water is assumed to be negligibe</li>
+<li>The water temperature is assumed uniform in a cross section</li>
+</ul>
 </html>"));
 end PipeLosslessPlugFlow;

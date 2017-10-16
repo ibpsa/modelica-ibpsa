@@ -166,11 +166,21 @@ d = %dh")}),
 <li>September, 2015 by Marcus Fuchs:<br/>First implementation. </li>
 </ul>
 </html>", info="<html>
-<p>Implementation of a pipe with heat loss using the time delay based heat losses and the spatialDistribution operator for the temperature wave propagation through the length of the pipe.</p>
-<p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used in front of and behind the time delay. The delay time is calculated once on the pipe level and supplied to both heat loss operators.</p>
-<p>This component uses a modified delay operator.</p>
-<p>Full details on the model implementation and experimental validation can be found in this <a href=\"http://www.sciencedirect.com/science/article/pii/S0196890417307975\">publication</a>.</p>
+<p>Implementation of a pipe with heat loss using the time delay based heat losses and the spatialDistribution operator for the temperature wave propagation through the length of the pipe, including thermal inertia of the pipe wall.</p>
+<h4>Implementation</h4>
+<p><b>Heat losses</b> are implemented by <a href=\"modelica://IBPSA/Fluid/PlugFlowPipes/BaseClasses/HeatLossPipeDelay\">HeatLossPipeDelay</a> at each end of the pipe (see <a href=\"modelica://IBPSA/Fluid/PlugFlowPipes/BaseClasses/PipeCore\">PipeCore</a>). Depending on the flow direction, the temperature difference because of the heat losses is subtracted at the right fluid port. </p>
+<p>The <b>pressure drop</b> is implemented using a <a href=\"modelica://IBPSA/Fluid/FixedResistances/HydraulicDiameter\">HydraulicDiameter</a>.</p>
+<p>The <b>thermal capacity</b> of the pipe wall is implemented as a mixing volume of the fluid in the pipe, of which the thermal capacity is equal to that of the pipe wall material. In addition, this mixing volume allows the hydraulic separation of subsequent pipes. Thanks to the vectorized implementation of the (design) outlet port, splits and junctions of pipes can be handled in a numerically efficient way. </p>
+<h4>Assumptions</h4>
+<ul>
+<li>Steady state heat loss calculations</li>
+<li>Negligible axial heat diffusion in the fluid</li>
+<li>No axial heat transfer in insulation or ground, only heat losses in radial direction</li>
+<li>Uniform boundary temperature</li>
+<li>Thermal inertia only because of pipe wall material and lumped on one side of the pipe</li>
+</ul>
 <h4>References</h4>
-<p>van der Heijde, B., Fuchs, M., Ribas Tugores, C., Schweiger, G., Sartor, K., Basciotti, D., Müller, D., Nytsch-Geusen, C., Wetter, M. and Helsen, L. (2017). Dynamic equation-based thermo-hydraulic pipe model for district heating and cooling systems. <i>Energy Conversion and Management</i>, <i>151</i> (November), 158-169. https://doi.org/10.1016/j.enconman.2017.08.072</p>
+<p>Full details on the model implementation and experimental validation can be found in this <a href=\"http://www.sciencedirect.com/science/article/pii/S0196890417307975\">publication</a>:</p>
+<p>van der Heijde, B., Fuchs, M., Ribas Tugores, C., Schweiger, G., Sartor, K., Basciotti, D., M&uuml;ller, D., Nytsch-Geusen, C., Wetter, M. and Helsen, L. (2017). Dynamic equation-based thermo-hydraulic pipe model for district heating and cooling systems. <i>Energy Conversion and Management</i>, <i>151</i> (November), 158-169. https://doi.org/10.1016/j.enconman.2017.08.072</p>
 </html>"));
 end PlugFlowPipe;

@@ -187,10 +187,8 @@ equation
 <li>September, 2015 by Marcus Fuchs:<br/>First implementation. </li>
 </ul>
 </html>", info="<html>
-<p>Implementation of a pipe with heat loss using the time delay based heat losses and the spatialDistribution operator for the temperature wave propagation through the length of the pipe.</p>
-<p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. 
-Therefore it is used in front of and behind the time delay. 
-The delay time is calculated once on the pipe level and supplied to both heat loss operators.</p>
-<p>This component uses a modified delay operator.</p>
+<p>Implementation of a pipe with heat loss using the time delay based heat losses and the <code>spatialDistribution</code> operator for the temperature wave propagation through the length of the pipe. This model does not include thermal inertia of the pipe wall; this is implemented in <a href=\"modelica://IBPSA/Fluid/PlugFlowPipes/PlugFlowPipe\">PlugFlowPipe</a>.</p>
+<h4>Implementation</h4>
+<p><a href=\"modelica://IBPSA/Fluid/PlugFlowPipes/BaseClasses/HeatLossPipeDelay\">HeatLossPipeDelay</a> implements a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used in front of and behind the time delay.</p>
 </html>"));
 end PipeCore;

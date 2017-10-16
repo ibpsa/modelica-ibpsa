@@ -122,14 +122,6 @@ equation
 <li>June 23, 2015 by Marcus Fuchs:<br/>First implementation. </li>
 </ul>
 </html>", info="<html>
-<p>First implementation of an adiabatic pipe using the fixed resistance from IBPSA and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. 
-The temperature propagation is handled by the PipeLosslessPlugFlow component.</p>
-<p>This component includes water volumes at the in- and outlet to account for the thermal capacity of the pipe walls. 
-Logically, each volume should contain half of the pipe&apos;s real water volume. 
-However, this leads to an overestimation, probably because only part of the pipe is affected by temperature changes (see Benonysson, 1991). 
-The ratio of the pipe to be included in the thermal capacity is to be investigated further. </p>
-<h4>References</h4>
-<p>Bennonysson, A. (1991). <i>Dynamic Modelling and Operation Optimization of District Heating Systems</i>. 
-PhD Thesis, Technical University of Denmark (DTU).</p>
+<p>Adiabatic pipe using the fixed resistance from IBPSA and the <code>spatialDistribution</code> operator for the temperature wave propagation through the length of the pipe. The temperature propagation is handled by the <a href=\"modelica://IBPSA/Fluid/PlugFlowPipes/BaseClasses/PipeLosslessPlugFlow\">PipeLosslessPlugFlow</a> component.</p>
 </html>"));
 end PipeAdiabaticPlugFlow;
