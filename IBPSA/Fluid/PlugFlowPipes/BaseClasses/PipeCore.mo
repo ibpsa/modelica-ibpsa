@@ -25,17 +25,15 @@ model PipeCore
   parameter IBPSA.Fluid.PlugFlowPipes.Types.ThermalCapacityPerLength C=
       rho_default*Modelica.Constants.pi*(dh/2)^2*cp_default "Thermal capacity per unit length of pipe";
   parameter Modelica.SIunits.ThermalConductivity kIns
-    "Heat conductivity";
+    "Heat conductivity of insulation material";
 
-  parameter Modelica.SIunits.HeatCapacity walCap=length*((dh + 2*thickness)^2 -
-      dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
   parameter Modelica.SIunits.SpecificHeatCapacity cpipe=2300 "Specific heat of pipe wall material. 2300 J/(kg.K) for PE, 500 J/(kg.K) For steel";
   parameter Modelica.SIunits.Density rho_wall=8000 "For steel";
 
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Length thickness=0.002 "Pipe wall thickness";
+  parameter Modelica.SIunits.Length thickness(min=0) "Pipe wall thickness";
 
   parameter Modelica.SIunits.Temperature T_start_in=Medium.T_default
     "Initialization temperature at pipe inlet"
@@ -67,7 +65,8 @@ model PipeCore
     C=C,
     R=R,
     m_flow_small=m_flow_small,
-    T_start=T_start_in)
+    T_start=T_start_in,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
 
   IBPSA.Fluid.PlugFlowPipes.BaseClasses.HeatLossPipeDelay heatLoss(
@@ -75,7 +74,8 @@ model PipeCore
     C=C,
     R=R,
     m_flow_small=m_flow_small,
-    T_start=T_start_out)
+    T_start=T_start_out,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
@@ -91,6 +91,8 @@ model PipeCore
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
 protected
+  final parameter Modelica.SIunits.HeatCapacity walCap=length*((dh + 2*thickness)^2 -
+      dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall "Heat capacity of pipe wall";
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,

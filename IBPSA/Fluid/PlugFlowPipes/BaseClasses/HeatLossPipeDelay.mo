@@ -6,7 +6,7 @@ model HeatLossPipeDelay
   parameter Types.ThermalCapacityPerLength C "Thermal capacity per unit length of pipe";
   parameter Types.ThermalResistanceLength R "Thermal resistance per unit length from water to boundary";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5 "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
   parameter Modelica.Media.Interfaces.Types.Temperature T_start=Medium.T_default
     "Initial output temperature";
   final parameter Modelica.SIunits.Time tau_char=R*C "Characteristic delay time";

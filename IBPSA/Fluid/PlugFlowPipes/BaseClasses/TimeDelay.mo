@@ -4,7 +4,7 @@ model TimeDelay "Delay time for given normalized velocity"
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.Length dh
     "Hydraulic diameter (assuming a round cross section area)";
-  parameter Modelica.SIunits.Density rho=1000 "Standard density of fluid";
+  parameter Modelica.SIunits.Density rho "Standard density of fluid";
   parameter Boolean initDelay=false
     "Initialize delay for a constant m_flow_start if true, otherwise start from 0"
     annotation (Dialog(group="Initialization"));
