@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Interfaces;
-partial model PartialTwoPort_vector "Partial component with two ports"
+partial model PartialTwoPort_vector "Partial component with two ports, one of which being vectorized"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
@@ -25,9 +25,13 @@ partial model PartialTwoPort_vector "Partial component with two ports"
   annotation (
     Documentation(info="<html>
 <p>
-This partial model defines an interface for components with two ports.
-The treatment of the design flow direction and of flow reversal are predefined based on the parameter <code>allowFlowReversal</code>.
-The component may transport fluid and may have internal storage for a given fluid <code>Medium</code>.
+This partial model defines an interface for components with two ports,
+of which one is vectorized.
+</p>
+<p>
+The treatment of the design flow direction and of flow reversal are
+determined based on the parameter <code>allowFlowReversal</code>.
+The component may transport fluid and may have internal storage.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -36,7 +40,7 @@ This model is similar to
 Modelica.Fluid.Interfaces.PartialTwoPort</a>
 but it does not use the <code>outer system</code> declaration.
 This declaration is omitted as in building energy simulation,
-many models use multiple media, an in practice,
+many models use multiple media, and in practice,
 users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
