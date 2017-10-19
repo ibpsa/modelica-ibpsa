@@ -7,7 +7,7 @@ PartialFourPortParallel
 PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
-PartialTwoPort_vector
+PartialTwoPortVector
 PrescribedOutlet
 StaticFourPortHeatMassExchanger
 StaticTwoPortConservationEquation

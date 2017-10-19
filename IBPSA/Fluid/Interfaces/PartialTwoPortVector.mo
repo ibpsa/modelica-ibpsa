@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Interfaces;
-partial model PartialTwoPort_vector "Partial component with two ports, one of which being vectorized"
+partial model PartialTwoPortVector "Partial component with two ports, one of which being vectorized"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
@@ -96,4 +96,4 @@ First implementation.
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
-end PartialTwoPort_vector;
+end PartialTwoPortVector;
