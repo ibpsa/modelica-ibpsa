@@ -5,7 +5,9 @@ model PipeCore "Simple example of plug flow pipe core"
   replaceable package Medium = IBPSA.Media.Water                   constrainedby
     Modelica.Media.Interfaces.PartialMedium      "Medium in pipes"
                                             annotation (
-      __Dymola_choicesAllMatching=true);
+      __Dymola_choicesAllMatching=true, __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/BaseClasses/Validation/PipeCore.mos"
+        "Simulate and Plot"));
   Modelica.Blocks.Sources.Ramp Tin(
     height=20,
     duration=0,
