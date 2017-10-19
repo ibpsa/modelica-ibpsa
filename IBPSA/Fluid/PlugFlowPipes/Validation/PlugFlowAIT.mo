@@ -62,7 +62,9 @@ model PlugFlowAIT
         *log(2/0.18),
     thickness=thickness,
     cpipe=500,
-    rho_wall=8000)
+    rho_wall=8000,
+    initDelay=false,
+    m_flow_start=0)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PlugFlowPipe pip4(
     dh(displayUnit="mm") = 0.0337 - 2*0.0032,
@@ -76,7 +78,10 @@ model PlugFlowAIT
     nPorts=2,
     R=R80,
     cpipe=500,
-    rho_wall=8000) annotation (Placement(transformation(
+    rho_wall=8000,
+    initDelay=false,
+    m_flow_start=0)
+                   annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={10,40})));
@@ -94,7 +99,9 @@ model PlugFlowAIT
         *log(2/0.18),
     thickness=thickness,
     cpipe=500,
-    rho_wall=8000)
+    rho_wall=8000,
+    initDelay=false,
+    m_flow_start=0)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
 
   PlugFlowPipe pip2(
@@ -109,7 +116,10 @@ model PlugFlowAIT
     dh=0.0337 - 2*0.0032,
     R=R80,
     cpipe=500,
-    rho_wall=8000) annotation (Placement(transformation(
+    rho_wall=8000,
+    initDelay=false,
+    m_flow_start=0)
+                   annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-88,30})));
@@ -126,7 +136,10 @@ model PlugFlowAIT
     dh=0.0337 - 2*0.0032,
     R=R80,
     cpipe=500,
-    rho_wall=8000) annotation (Placement(transformation(
+    rho_wall=8000,
+    initDelay=false,
+    m_flow_start=0)
+                   annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-4})));
@@ -187,7 +200,10 @@ model PlugFlowAIT
         *log(2/0.18),
     thickness=thickness,
     cpipe=500,
-    rho_wall=8000) annotation (Placement(transformation(
+    rho_wall=8000,
+    initDelay=false,
+    m_flow_start=0)
+                   annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-2})));
