@@ -13,8 +13,6 @@ protected
     "Variable for testing validity of polynomial";
   parameter Real phi_test_prev(fixed=false)
     "Variable for testing validity of polynomial";
-  parameter Real y_test(fixed=false)
-    "Variable for testing validity of polynomial";
   Real pol_y = sum(c.*{y_actual^i for i in 0:size(c,1)-1})
     "Polynomial of valve control signal";
 
