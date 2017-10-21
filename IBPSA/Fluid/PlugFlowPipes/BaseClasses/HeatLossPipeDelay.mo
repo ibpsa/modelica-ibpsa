@@ -3,20 +3,16 @@ model HeatLossPipeDelay
   "Heat loss model for pipe with delay as an input variable"
   extends Fluid.Interfaces.PartialTwoPortTransport;
 
-  parameter Types.ThermalCapacityPerLength C "Thermal capacity per unit length of pipe";
-  parameter Types.ThermalResistanceLength R "Thermal resistance per unit length from water to boundary";
+  parameter IBPSA.Fluid.PlugFlowPipes.Types.ThermalCapacityPerLength C
+    "Thermal capacity per unit length of pipe";
+  parameter IBPSA.Fluid.PlugFlowPipes.Types.ThermalResistanceLength R
+    "Thermal resistance per unit length from water to boundary";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
-  parameter Modelica.Media.Interfaces.Types.Temperature T_start=Medium.T_default
+  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
     "Initial output temperature";
-  final parameter Modelica.SIunits.Time tau_char=R*C "Characteristic delay time";
 
-  Modelica.SIunits.Temp_K Tin_a(start=T_start)
-    "Temperature at port_a for in-flowing fluid";
-  Modelica.SIunits.Temp_K Tout_b(start=T_start)
-    "Temperature at port_b for out-flowing fluid";
-  Modelica.SIunits.Temperature T_amb=heatPort.T "Environment temperature";
-  Modelica.SIunits.HeatFlowRate Qloss "Heat losses from pipe to environment";
+  final parameter Modelica.SIunits.Time tau_char=R*C "Characteristic delay time";
 
   Modelica.Blocks.Interfaces.RealInput tau(unit="s") "Time delay at pipe level"
     annotation (Placement(transformation(
@@ -24,15 +20,14 @@ model HeatLossPipeDelay
         rotation=270,
         origin={-60,100})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port to connect environment (positive heat flow for heat loss to surroundings)"
+    "Heat port to connect environment (negative if heat is lost to ambient)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heatLoss annotation (
-     Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,38})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=Qloss)
-    annotation (Placement(transformation(extent={{-34,-10},{-14,10}})));
+
+  Modelica.SIunits.Temperature T_a_inflow(start=T_start)
+    "Temperature at port_a for in-flowing fluid";
+  Modelica.SIunits.Temperature T_b_outflow(start=T_start)
+    "Temperature at port_b for out-flowing fluid";
+  Modelica.SIunits.Temperature TAmb=heatPort.T "Environment temperature";
 
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -47,28 +42,26 @@ equation
   dp = 0;
 
   port_a.h_outflow = inStream(port_b.h_outflow);
-  port_b.h_outflow = Medium.specificEnthalpy_pTX(
+
+  port_b.h_outflow =Medium.specificEnthalpy_pTX(
     port_a.p,
-    Tout_b,
+    T_b_outflow,
     inStream(port_a.Xi_outflow)) "Calculate enthalpy of output state";
 
-  Tin_a = Medium.temperature_phX(
+  T_a_inflow = Medium.temperature_phX(
     port_a.p,
     inStream(port_a.h_outflow),
     inStream(port_a.Xi_outflow));
 
   // Heat losses
-  Tout_b = T_amb + (Tin_a - T_amb)*Modelica.Math.exp(-tau/tau_char);
-  Qloss = IBPSA.Utilities.Math.Functions.spliceFunction(
-    pos=(Tin_a - Tout_b)*cp_default,
+  T_b_outflow = TAmb + (T_a_inflow - TAmb)*Modelica.Math.exp(-tau/tau_char);
+
+  heatPort.Q_flow = -IBPSA.Utilities.Math.Functions.spliceFunction(
+    pos=(T_a_inflow - T_b_outflow)*cp_default,
     neg=0,
     x=port_a.m_flow,
     deltax=m_flow_nominal/1000)*port_a.m_flow;
 
-  connect(heatLoss.port, heatPort)
-    annotation (Line(points={{0,48},{0,100}}, color={191,0,0}));
-  connect(realExpression.y, heatLoss.Q_flow)
-    annotation (Line(points={{-13,0},{-6,0},{0,0},{0,28}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -88,24 +81,62 @@ equation
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
-<p>Component that calculates the heat losses at the end of a plug flow pipe when the flow goes in the design direction.</p>
+<p>
+Component that calculates the heat losses at the end of a plug flow pipe
+when the flow goes in the design direction.
+</p>
 <h4>Main equations</h4>
-<p align=\"center\"><i>T<sub>out</sub> = T<sub>b</sub> + (T<sub>in</sub> - T<sub>b</sub>) exp((t<sub>out</sub> - t<sub>in</sub>)/tau<sub>char</sub>)</i></p>
-<p align=\"center\"><i>tau<sub>char</sub> = RC</i></p>
+<p>
+The governing equations are as follows:
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+T<sub>out</sub> = T<sub>b</sub> + (T<sub>in</sub> - T<sub>b</sub>)
+exp((t<sub>out</sub> - t<sub>in</sub>)/tau<sub>char</sub>)
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+tau<sub>char</sub> = R C
+</p>
 <h4>Assumptions and limitations</h4>
+<p>
+This model has the following assumptions and limitations:
+</p>
 <ul>
-<li>Uniform water temperature in cross section</li>
-<li>No axial heat transfer in water or surrounding</li>
-<li>Uniform boundary temperature along pipe</li>
-<li>Steady-state heat loss</li>
+<li>The water temperature is uniform in the cross section.</li>
+<li>There is no axial heat transfer in the water or surrounding.</li>
+<li>The boundary temperature along the pipe is uniform.</li>
+<li>Heat losses are steady-state.</li>
 </ul>
 <h4>Implementation</h4>
-<p>Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <a href=\"modelica://IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow\">PipeAdiabaticPlugFlow</a> model. The outlet temperature is calculated as in the equation above using the inlet temperature at port_a and the instantaneous time delay and boundary temperature. The boundary temperature can be either the air temperature or the undisturbed ground temperature, depending on the definition of the thermal resistance <i>R</i>.</p>
-<p>This component requires the delay time and the instantaneous ambient temperature as an input. This component is to be used in single pipes or in more advanced configurations where no influence from other pipes is considered. </p>
+<p>
+Heat losses are only considered in design flow direction.
+For heat loss consideration in both directions, use one of these models at
+both ends of a
+<a href=\"modelica://IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow\">
+IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow</a> model.
+The outlet temperature is calculated as in the equation above
+using the inlet temperature at <code>port_a</code> and the instantaneous
+time delay and boundary temperature.
+The boundary temperature can be either the air temperature
+or the undisturbed ground temperature, depending on the definition of the
+thermal resistance <i>R</i>.
+</p>
+<p>
+This component requires the delay time and the instantaneous ambient temperature
+as an input.
+This component is to be used in single pipes or in more advanced configurations
+where no influence from other pipes is considered.</p>
 </html>", revisions="<html>
 <ul>
-<li>November 6, 2015 by Bram van der Heijde:<br/>Make time delay input instead of calculation inside this model. </li>
-<li>September, 2015 by Marcus Fuchs:<br/>First implementation. </li>
+<li>
+October 20, 2017, by Michael Wetter:<br/>
+Revised implementation to avoid graphical and textual modeling.
+Revised variable names and documentation to follow guidelines.
+</li>
+<li>November 6, 2015 by Bram van der Heijde:<br/>
+Make time delay input instead of calculation inside this model.
+</li>
+<li>September, 2015 by Marcus Fuchs:<br/>
+First implementation.</li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
