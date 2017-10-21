@@ -3,14 +3,20 @@ model TwoWayPolynomial "Two way valve with polynomial characteristic"
   extends IBPSA.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv(
     phi=l + pol_y*(1 - l));
 
-  parameter Real[:] c "Polynomial coefficients, starting with fixed offset";
+  parameter Real[:] c
+    "Polynomial coefficients, starting with fixed offset";
 
 protected
-  constant Integer points = 100 "Number of points for initial algorithm test";
-  parameter Real phi_test(fixed=false) "Variable for testing validity of polynomial";
-  parameter Real phi_test_prev(fixed=false) "Variable for testing validity of polynomial";
-  parameter Real y_test(fixed=false) "Variable for testing validity of polynomial";
-  Real pol_y = sum(c.*{y_actual^i for i in 0:size(c,1)-1}) "Polynomial of valve control signal";
+  constant Integer points = 100
+    "Number of points for initial algorithm test";
+  parameter Real phi_test(fixed=false)
+    "Variable for testing validity of polynomial";
+  parameter Real phi_test_prev(fixed=false)
+    "Variable for testing validity of polynomial";
+  parameter Real y_test(fixed=false)
+    "Variable for testing validity of polynomial";
+  Real pol_y = sum(c.*{y_actual^i for i in 0:size(c,1)-1})
+    "Polynomial of valve control signal";
 
   // initial algorithm that tests the validity of the provided valve coefficients
 initial algorithm
