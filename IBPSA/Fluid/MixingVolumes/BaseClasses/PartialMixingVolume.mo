@@ -113,7 +113,7 @@ protected
   Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
 
-  IBPSA.HeatTransfer.Sources.PrescribedTemperature preTem
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
     "Port temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
   Modelica.Blocks.Sources.RealExpression portT(y=T) "Port temperature"
