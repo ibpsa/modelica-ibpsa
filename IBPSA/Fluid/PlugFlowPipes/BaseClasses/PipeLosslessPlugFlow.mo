@@ -55,7 +55,7 @@ protected
 initial equation
   x = 0;
   assert(Medium.nXi == 0, "Model does not allow mixtures.");
-  assert(Mediu.nC == 0, "Model does not allow media with trace substances.");
+  assert(Medium.nC == 0, "Model does not allow media with trace substances.");
 equation
   // No pressure drop
   port_a.p = port_b.p;
