@@ -25,10 +25,10 @@ model PlugFlowPipe
     annotation (Dialog(tab="Advanced"));
   parameter Modelica.SIunits.ThermalConductivity kIns "Heat conductivity";
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cpipe=2300 "Specific heat of pipe wall material. 2300 for PE, 500 for steel";
-  parameter Modelica.SIunits.Density rho_wall=930 "Density of pipe wall material. 930 for PE, 8000 for steel";
-  final parameter Modelica.SIunits.Volume V=walCap/(rho_default*cp_default)
-    "Equivalent water volume to represent pipe wall thermal inertia";
+  parameter Modelica.SIunits.SpecificHeatCapacity cPip=2300
+    "Specific heat of pipe wall material. 2300 for PE, 500 for steel";
+  parameter Modelica.SIunits.Density rhoPip=930
+    "Density of pipe wall material. 930 for PE, 8000 for steel";
 
   parameter Modelica.SIunits.Length thickness
     "Pipe wall thickness";
@@ -37,7 +37,7 @@ model PlugFlowPipe
     Medium.T_default "Initialization temperature at pipe inlet"
     annotation (Dialog(tab="Initialization"));
   parameter Modelica.SIunits.Temperature T_start_out(start=Medium.T_default)=
-    Medium.T_default "Initialization temperature at pipe outlet"
+    T_start_in "Initialization temperature at pipe outlet"
     annotation (Dialog(tab="Initialization"));
   parameter Boolean initDelay(start=false) = false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
@@ -46,16 +46,20 @@ model PlugFlowPipe
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
   parameter Types.ThermalResistanceLength R=1/(kIns*2*Modelica.Constants.pi/
-      Modelica.Math.log((dh/2 + dIns)/(dh/2))) "Thermal resistance per unit length from water to boundary temperature";
-  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
-      dh/2)^2*cp_default "Thermal capacity per unit length of water in pipe";
+    Modelica.Math.log((dh/2 + dIns)/(dh/2)))
+    "Thermal resistance per unit length from water to boundary temperature";
 
-  BaseClasses.PipeCore pipeCore(
+  parameter Real fac=1
+    "Factor to take into account flow resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Heat transfer to or from surroundings (heat loss from pipe results in a positive heat flow)"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+
+  IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeCore cor(
     redeclare final package Medium = Medium,
     final dh=dh,
     final length=length,
-    final dIns=dIns,
-    final kIns=kIns,
     final C=C,
     final R=R,
     final m_flow_small=m_flow_small,
@@ -65,32 +69,34 @@ model PlugFlowPipe
     final m_flow_start=m_flow_start,
     final initDelay=initDelay,
     final from_dp=from_dp,
-    cpipe=cpipe,
-    rho_wall=rho_wall,
-    thickness=thickness)   "Describing the pipe behavior"
+    final fac=fac,
+    final thickness=thickness) "Describing the pipe behavior"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat transfer to or from surroundings (heat loss from pipe results in a positive heat flow)"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final V=V,
+    final V=VEqu,
     final nPorts=nPorts + 1,
     final T_start=T_start_out,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Control volume connected to ports_b"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
 protected
-  parameter Modelica.SIunits.HeatCapacity walCap=length*((dh + 2*thickness)^2
-       - dh^2)*Modelica.Constants.pi/4*cpipe*rho_wall
-    "Heat capacity of pipe wall";
+  parameter Modelica.SIunits.HeatCapacity CPip=
+    length*((dh + 2*thickness)^2 - dh^2)*Modelica.Constants.pi/4*cPip*rhoPip "Heat capacity of pipe wall";
+
+  final parameter Modelica.SIunits.Volume VEqu=CPip/(rho_default*cp_default)
+    "Equivalent water volume to represent pipe wall thermal inertia";
 
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default) "Default medium state";
+
+  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
+      dh/2)^2*cp_default "Thermal capacity per unit length of water in pipe";
 
   parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
       p=Medium.p_default,
@@ -106,16 +112,17 @@ protected
 
 equation
   for i in 1:nPorts loop
-    connect(vol.ports[i + 1], ports_b[i]);
-  end for annotation (Line(points={{70,20},{72,20},{72,6},{72,0},{100,0}},
+    connect(vol.ports[i + 1], ports_b[i])
+    annotation (Line(points={{70,20},{72,20},{72,6},{72,0},{100,0}},
         color={0,127,255}));
-  connect(pipeCore.heatPort, heatPort)
+  end for;
+  connect(cor.heatPort, heatPort)
     annotation (Line(points={{0,10},{0,10},{0,100}}, color={191,0,0}));
 
-  connect(pipeCore.port_b, vol.ports[1])
+  connect(cor.port_b, vol.ports[1])
     annotation (Line(points={{10,0},{70,0},{70,20}}, color={0,127,255}));
 
-  connect(pipeCore.port_a, port_a)
+  connect(cor.port_a, port_a)
     annotation (Line(points={{-10,0},{-56,0},{-100,0}}, color={0,127,255}));
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
@@ -161,26 +168,81 @@ equation
 d = %dh")}),
     Documentation(revisions="<html>
 <ul>
-<li>July 4, 2016 by Bram van der Heijde:<br/>Introduce <code>pipVol</code>.</li>
-<li>October 10, 2015 by Marcus Fuchs:<br/>Copy Icon from KUL implementation and rename model; Replace resistance and temperature delay by an adiabatic pipe; </li>
-<li>September, 2015 by Marcus Fuchs:<br/>First implementation. </li>
+<li>
+October 23, 2017, by Michael Wetter:<br/>
+Revised variable names and documentation to follow guidelines.
+Corrected malformed hyperlinks.
+</li>
+<li>
+July 4, 2016 by Bram van der Heijde:<br/>
+Introduce <code>pipVol</code>.
+</li>
+<li>
+October 10, 2015 by Marcus Fuchs:<br/>
+Copy Icon from KUL implementation and rename model.
+Replace resistance and temperature delay by an adiabatic pipe.
+</li>
+<li>September, 2015 by Marcus Fuchs:<br/>
+First implementation.
+</li>
 </ul>
 </html>", info="<html>
-<p>Implementation of a pipe with heat loss using the time delay based heat losses and the spatialDistribution operator for the temperature wave propagation through the length of the pipe, including thermal inertia of the pipe wall.</p>
+<p>
+Pipe with heat loss using the time delay based heat losses and transport
+of the fluid using a plug flow model.</p>
+<p>
+This model takes into account transport delay along the pipe length idealized
+as a plug flow.
+The model also includes thermal inertia of the pipe wall.
+</p>
 <h4>Implementation</h4>
-<p><b>Heat losses</b> are implemented by <a href=\"modelica://IBPSA/Fluid/PlugFlowPipes/BaseClasses/HeatLossPipeDelay\">HeatLossPipeDelay</a> at each end of the pipe (see <a href=\"modelica://IBPSA/Fluid/PlugFlowPipes/BaseClasses/PipeCore\">PipeCore</a>). Depending on the flow direction, the temperature difference because of the heat losses is subtracted at the right fluid port. </p>
-<p>The <b>pressure drop</b> is implemented using a <a href=\"modelica://IBPSA/Fluid/FixedResistances/HydraulicDiameter\">HydraulicDiameter</a>.</p>
-<p>The <b>thermal capacity</b> of the pipe wall is implemented as a mixing volume of the fluid in the pipe, of which the thermal capacity is equal to that of the pipe wall material. In addition, this mixing volume allows the hydraulic separation of subsequent pipes. Thanks to the vectorized implementation of the (design) outlet port, splits and junctions of pipes can be handled in a numerically efficient way. </p>
+<p>Heat losses are implemented by
+<a href=\"modelica://IBPSA.Fluid.PlugFlowPipes.BaseClasses.HeatLossPipeDelay\">
+IBPSA.Fluid.PlugFlowPipes.BaseClasses.HeatLossPipeDelay</a>
+at each end of the pipe (see
+<a href=\"modelica://IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeCore\">
+IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeCore</a>).
+Depending on the flow direction, the temperature difference due to heat losses
+is subtracted at the right fluid port.
+</p>
+<p>
+The pressure drop is implemented using
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.HydraulicDiameter\">
+IBPSA.Fluid.FixedResistances.HydraulicDiameter</a>.
+</p>
+<p>
+The thermal capacity of the pipe wall is implemented as a mixing volume
+of the fluid in the pipe, of which the thermal capacity
+is equal to that of the pipe wall material.
+In addition, this mixing volume allows the hydraulic separation of subsequent pipes.
+Thanks to the vectorized implementation of the (design) outlet port,
+splits and junctions of pipes can be handled in a numerically efficient way.
+</p>
 <h4>Assumptions</h4>
 <ul>
-<li>Steady state heat loss calculations</li>
-<li>Negligible axial heat diffusion in the fluid</li>
-<li>No axial heat transfer in insulation or ground, only heat losses in radial direction</li>
-<li>Uniform boundary temperature</li>
-<li>Thermal inertia only because of pipe wall material and lumped on one side of the pipe</li>
+<li>
+Heat losses are for steady-state operation.
+</li>
+<li>
+The axial heat diffusion in the fluid, the pipe wall and the ground are neglected.
+</li>
+<li>
+The boundary temperature is uniform.
+</li>
+<li>
+The thermal inertia of the pipe wall material is lumped on the side of the pipe
+that is connected to <code>ports_b</code>.
+</li>
 </ul>
 <h4>References</h4>
-<p>Full details on the model implementation and experimental validation can be found in this <a href=\"http://www.sciencedirect.com/science/article/pii/S0196890417307975\">publication</a>:</p>
-<p>van der Heijde, B., Fuchs, M., Ribas Tugores, C., Schweiger, G., Sartor, K., Basciotti, D., M&uuml;ller, D., Nytsch-Geusen, C., Wetter, M. and Helsen, L. (2017). Dynamic equation-based thermo-hydraulic pipe model for district heating and cooling systems. <i>Energy Conversion and Management</i>, <i>151</i> (November), 158-169. https://doi.org/10.1016/j.enconman.2017.08.072</p>
+<p>
+Full details on the model implementation and experimental validation can be found
+in:
+</p>
+<p>
+van der Heijde, B., Fuchs, M., Ribas Tugores, C., Schweiger, G., Sartor, K., Basciotti, D., M&uuml;ller, D., Nytsch-Geusen, C., Wetter, M. and Helsen, L. (2017).<br/>
+Dynamic equation-based thermo-hydraulic pipe model for district heating and cooling systems.<br/>
+<i>Energy Conversion and Management</i>, vol. 151, p. 158-169. 
+<a href=\"https://doi.org/10.1016/j.enconman.2017.08.072\">doi: 10.1016/j.enconman.2017.08.072</a>.</p>
 </html>"));
 end PlugFlowPipe;

@@ -9,7 +9,7 @@ model HeatLossPipeDelay
     "Thermal resistance per unit length from water to boundary";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
+  parameter Modelica.SIunits.Temperature T_start
     "Initial output temperature";
 
   final parameter Modelica.SIunits.Time tau_char=R*C "Characteristic delay time";
@@ -24,9 +24,9 @@ model HeatLossPipeDelay
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
   Modelica.SIunits.Temperature T_a_inflow(start=T_start)
-    "Temperature at port_a for in-flowing fluid";
+    "Temperature at port_a for inflowing fluid";
   Modelica.SIunits.Temperature T_b_outflow(start=T_start)
-    "Temperature at port_b for out-flowing fluid";
+    "Temperature at port_b for outflowing fluid";
   Modelica.SIunits.Temperature TAmb=heatPort.T "Environment temperature";
 
 protected
@@ -87,18 +87,21 @@ when the flow goes in the design direction.
 </p>
 <h4>Main equations</h4>
 <p>
-The governing equations are as follows:
+The governing equations are
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 T<sub>out</sub> = T<sub>b</sub> + (T<sub>in</sub> - T<sub>b</sub>)
 exp((t<sub>out</sub> - t<sub>in</sub>)/tau<sub>char</sub>)
+</p>
+<p>
+with
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 tau<sub>char</sub> = R C
 </p>
 <h4>Assumptions and limitations</h4>
 <p>
-This model has the following assumptions and limitations:
+This model is based on the following assumptions:
 </p>
 <ul>
 <li>The water temperature is uniform in the cross section.</li>
@@ -111,9 +114,9 @@ This model has the following assumptions and limitations:
 Heat losses are only considered in design flow direction.
 For heat loss consideration in both directions, use one of these models at
 both ends of a
-<a href=\"modelica://IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow\">
-IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeAdiabaticPlugFlow</a> model.
-The outlet temperature is calculated as in the equation above
+<a href=\"modelica://IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeLosslessPlugFlow\">
+IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeLosslessPlugFlow</a> model.
+The outlet temperature is calculated as in the equation above,
 using the inlet temperature at <code>port_a</code> and the instantaneous
 time delay and boundary temperature.
 The boundary temperature can be either the air temperature
@@ -125,17 +128,20 @@ This component requires the delay time and the instantaneous ambient temperature
 as an input.
 This component is to be used in single pipes or in more advanced configurations
 where no influence from other pipes is considered.</p>
-</html>", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 October 20, 2017, by Michael Wetter:<br/>
 Revised implementation to avoid graphical and textual modeling.
 Revised variable names and documentation to follow guidelines.
 </li>
-<li>November 6, 2015 by Bram van der Heijde:<br/>
+<li>
+November 6, 2015 by Bram van der Heijde:<br/>
 Make time delay input instead of calculation inside this model.
 </li>
-<li>September, 2015 by Marcus Fuchs:<br/>
+<li>
+September, 2015 by Marcus Fuchs:<br/>
 First implementation.</li>
 </ul>
 </html>"),

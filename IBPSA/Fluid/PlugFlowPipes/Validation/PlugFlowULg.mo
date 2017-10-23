@@ -1,4 +1,4 @@
-within IBPSA.Fluid.PlugFlowPipes.Validation;
+﻿within IBPSA.Fluid.PlugFlowPipes.Validation;
 model PlugFlowULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
   // R=((1/(2*pipe.kIns)*log((0.0603/2+pipe.dIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.dIns)))/Modelica.Constants.pi
@@ -81,13 +81,13 @@ model PlugFlowULg "Validation against data from Université de Liège"
     thickness=3.9e-3,
     T_start_out=T_start_out,
     T_start_in=T_start_in,
-    R=((1/(2*pipe.kIns)*log((0.0603/2 + pipe.dIns)/(0.0603/2))) + 1/
-        (5*(0.0603 + 2*pipe.dIns)))/Modelica.Constants.pi,
+    R=((1/(2*pipe.kIns)*log((0.0603/2 + pipe.dIns)/(0.0603/2))) + 1/(5*(0.0603
+         + 2*pipe.dIns)))/Modelica.Constants.pi,
     nPorts=1,
     initDelay=true,
     m_flow_start=pipeDataULg.m_flowIni,
-    cpipe=500,
-    rho_wall=8000)
+    cPip=500,
+    rhoPip=8000)
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
   Fluid.Sensors.EnthalpyFlowRate senEntOut(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal)

@@ -9,16 +9,6 @@ model PipeLosslessPlugFlow
   final parameter Modelica.SIunits.Area A=Modelica.Constants.pi*(dh/2)^2
     "Cross-sectional area of pipe";
 
-  // Advanced
-  // Note: value of dp_start shall be refined by derived model,
-  // based on local dp_nominal
-  parameter Medium.AbsolutePressure dp_start=0
-    "Guess value of dp = port_a.p - port_b.p"
-    annotation (Dialog(tab="Advanced"));
-  parameter Medium.MassFlowRate m_flow_start=0
-    "Guess value of m_flow = port_a.m_flow" annotation (Dialog(tab="Advanced"));
-  // Note: value of m_flow_small shall be refined by derived model,
-  // based on local m_flow_nominal
   parameter Medium.MassFlowRate m_flow_small
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
@@ -29,24 +19,12 @@ model PipeLosslessPlugFlow
     "Initial temperature in pipe at outlet"
     annotation (Dialog(group="Initialization"));
 
-
-  // Diagnostics
-  parameter Boolean show_T = true
-    "= true, if temperatures at port_a and port_b are computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
-
-  Modelica.SIunits.Length x(start=0)
+  Modelica.SIunits.Length x
     "Spatial coordinate for spatialDistribution operator";
   Modelica.SIunits.Velocity v "Flow velocity of medium in pipe";
 
-  // Variables
-  Medium.MassFlowRate m_flow(min=if allowFlowReversal then -Modelica.Constants.inf
-         else 0, start=m_flow_start) "Mass flow rate in design flow direction";
-  Modelica.SIunits.Pressure dp(start=dp_start)
-    "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-
   Modelica.SIunits.VolumeFlowRate V_flow=
-      m_flow/Modelica.Fluid.Utilities.regStep(m_flow,
+      port_a.m_flow/Modelica.Fluid.Utilities.regStep(port_a.m_flow,
                   Medium.density(
                     Medium.setState_phX(
                       p = port_a.p,
@@ -60,39 +38,8 @@ model PipeLosslessPlugFlow
                   m_flow_small)
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
 
-  Medium.Temperature port_a_T=
-      Modelica.Fluid.Utilities.regStep(port_a.m_flow,
-                  Medium.temperature(
-                    Medium.setState_phX(
-                      p = port_a.p,
-                      h = inStream(port_a.h_outflow),
-                      X = inStream(port_a.Xi_outflow))),
-                  Medium.temperature(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow)),
-                  m_flow_small) if show_T
-    "Temperature close to port_a, if show_T = true";
-  Medium.Temperature port_b_T=
-      Modelica.Fluid.Utilities.regStep(port_b.m_flow,
-                  Medium.temperature(
-                    Medium.setState_phX(
-                      p = port_b.p,
-                      h = inStream(port_b.h_outflow),
-                      X = inStream(port_b.Xi_outflow))),
-                  Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow)),
-                  m_flow_small) if show_T
-    "Temperature close to port_b, if show_T = true";
 
 protected
-  parameter Modelica.SIunits.SpecificEnthalpy h_default=Medium.specificEnthalpy(
-      sta_default) "Specific enthalpy";
-  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default);
-  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default)
-    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)";
   parameter Modelica.SIunits.SpecificEnthalpy h_ini_in=Medium.specificEnthalpy(
       Medium.setState_pTX(
       T=T_start_in,
@@ -107,17 +54,11 @@ protected
 
 initial equation
   x = 0;
-
+  assert(Medium.nXi == 0, "Model does not allow mixtures.");
+  assert(Mediu.nC == 0, "Model does not allow media with trace substances.");
 equation
-  // Pressure drop in design flow direction
-  dp = port_a.p - port_b.p;
-  dp = 0;
-
-  // Design direction of mass flow rate
-  m_flow = port_a.m_flow;
-  assert(m_flow > -m_flow_small or allowFlowReversal,
-    "Reverting flow occurs even though allowFlowReversal is false");
-
+  // No pressure drop
+  port_a.p = port_b.p;
 
   // Mass balance (no storage)
   port_a.m_flow + port_b.m_flow = 0;
@@ -128,7 +69,7 @@ equation
   // fixme: this also need to be applied on Xi_outflow and C_outflow.
   // Otherwise, for air, it can give wrong temperatures at the outlet.
   // To assign Xi_outflow and C_outflow, you will need to use IBPSA.Fluid.Interfaces.PartialTwoPort
-  (port_a.h_outflow,port_b.h_outflow) = spatialDistribution(
+  (port_a.h_outflow, port_b.h_outflow) = spatialDistribution(
     inStream(port_a.h_outflow),
     inStream(port_b.h_outflow),
     x/length,
@@ -146,10 +87,7 @@ equation
   port_b.C_outflow = inStream(port_a.C_outflow);
 
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Icon(graphics={
         Line(
           points={{-72,-28}},
           color={0,0,0},
@@ -174,6 +112,12 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+October 20, 2017, by Michael Wetter:<br/>
+Deleted various parameters and variables that were not used.
+<br/>
+Revised documentation to follow the guidelines.
+</li>
+<li>
 May 19, 2016 by Marcus Fuchs:<br/>
 Remove condition on <code>show_V_flow</code> for calculation of <code>V_flow</code> to conform with pedantic checking.
 </li>
@@ -187,14 +131,31 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>A simple model to account for the effect of the temperature propagation of a fluid flow through a pipe. This propagation is guided by the simple one-dimensional wave equation (see below) without source or sink terms. It uses the <code>spatialDistribution</code> operator to delay changes in input enthalpy depending on the flow velocity.</p>
+<p>
+Model that computes the temperature propagation of
+a fluid flow through a pipe, idealized as a plug flow.
+</p>
 <h4>Main equation</h4>
-<p align=\"center\"><i>&part;z(x,t)/&part;t + v(t) &part;z(x,t)/&part;x = 0,</i></p>
-<p>where <i>z(x,t)</i> is the spatial distribution as a function of time of any property <i>z</i> of the fluid. For the temperature propagation, <i>z </i>will be replaced by <i>T</i>. </p>
+<p>
+The transport delay is computed using the one-dimensional wave equation
+without source or sink terms,
+<p align=\"center\" style=\"font-style:italic;\">
+&part;z(x,t)/&part;t + v(t) &part;z(x,t)/&part;x = 0,
+</p>
+<p>where <i>z(x,t)</i> is the spatial distribution as a function of time of any property <i>z</i> of the fluid.
+For the temperature propagation, <i>z </i>will be replaced by <i>T</i>.
+</p>
 <h4>Assumptions</h4>
+<p>
+This model is based on the following assumptions:
+</p>
 <ul>
-<li>The effect of axial diffusion in water is assumed to be negligibe</li>
-<li>The water temperature is assumed uniform in a cross section</li>
+<li>
+Axial diffusion in water is assumed to be negligibe.
+</li>
+<li>
+The water temperature is assumed uniform in a cross section.
+</li>
 </ul>
 </html>"));
 end PipeLosslessPlugFlow;
