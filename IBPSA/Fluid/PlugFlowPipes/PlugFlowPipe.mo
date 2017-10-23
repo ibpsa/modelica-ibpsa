@@ -14,8 +14,6 @@ model PlugFlowPipe
     annotation(Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length dIns
-    "Thickness of pipe insulation";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
@@ -23,6 +21,9 @@ model PlugFlowPipe
   parameter Modelica.SIunits.MassFlowRate m_flow_small = 1E-4*abs(
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
+
+  parameter Modelica.SIunits.Length dIns
+    "Thickness of pipe insulation";
   parameter Modelica.SIunits.ThermalConductivity kIns "Heat conductivity";
 
   parameter Modelica.SIunits.SpecificHeatCapacity cPip=2300
@@ -95,6 +96,10 @@ protected
       p=Medium.p_default,
       X=Medium.X_default) "Default medium state";
 
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(state=sta_default)
+    "Heat capacity of medium";
+
   parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
       dh/2)^2*cp_default "Thermal capacity per unit length of water in pipe";
 
@@ -104,11 +109,6 @@ protected
       X=Medium.X_default)
     "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
     annotation (Dialog(group="Advanced"));
-
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-      Medium.specificHeatCapacityCp(state=sta_default)
-    "Heat capacity of medium";
-
 
 equation
   for i in 1:nPorts loop
