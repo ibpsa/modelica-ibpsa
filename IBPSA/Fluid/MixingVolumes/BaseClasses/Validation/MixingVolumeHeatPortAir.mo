@@ -9,8 +9,6 @@ model MixingVolumeHeatPortAir
 Model that validates that the initial conditions are uniquely set
 and not overdetermined.
 </p>
-<p>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
