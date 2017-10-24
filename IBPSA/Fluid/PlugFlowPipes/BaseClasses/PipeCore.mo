@@ -106,7 +106,6 @@ protected
     annotation (Dialog(group="Advanced"));
 
 equation
-
   connect(senMasFlo.m_flow, timDel.m_flow) annotation (Line(
       points={{-40,-11},{-40,-40},{-12,-40}},
       color={0,0,127},
