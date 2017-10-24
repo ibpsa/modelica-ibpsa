@@ -108,10 +108,23 @@ equation
         "Simulate and Plot"),
     experiment(StopTime=1000, Tolerance=1e-006),
     Documentation(info="<html>
-<p>Basic test of model <a href=\"modelica://IBPSA/Fluid/PlugFlowPipes/BaseClasses/PipeCore\">BaseClasses.PipeCore</a>. This test includes an inlet temperature step under a constant mass flow rate. </p>
+<p>
+Basic test of model
+<a href=\"modelica://IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeCore\">
+IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeCore</a>.
+This test includes an inlet temperature step under a constant mass flow rate.
+</p>
 </html>", revisions="<html>
 <ul>
-<li>September 8, 2017 by Bram van der Heijde<br/>First implementation</li>
+<li>
+October 23, 2017, by Michael Wetter:<br/>
+Corrected wrong hyperlink, updated example for new set of parameters that
+are exposed by the pipe model.
+</li>
+<li>
+September 8, 2017 by Bram van der Heijde:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end PipeCore;
