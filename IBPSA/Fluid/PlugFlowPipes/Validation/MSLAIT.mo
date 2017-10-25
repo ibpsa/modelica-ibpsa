@@ -1,5 +1,5 @@
 within IBPSA.Fluid.PlugFlowPipes.Validation;
-model MSLAIT20Nodes
+model MSLAIT
   "Validation of pipe against data from Austrian Institute of Technology with standard library components"
   extends IBPSA.Fluid.PlugFlowPipes.Validation.MSLAIT2Nodes(
     nNodes=20);
@@ -38,6 +38,6 @@ of allowFlowReversal and the presence of explicit volumes in the pipe.</li>
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/MSLAIT20Nodes.mos"
+          "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/MSLAIT.mos"
         "Simulate and plot"));
-end MSLAIT20Nodes;
+end MSLAIT;
