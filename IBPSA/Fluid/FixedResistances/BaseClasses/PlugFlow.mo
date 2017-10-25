@@ -54,8 +54,6 @@ protected
 
 initial equation
   x = 0;
-  assert(Medium.nXi == 0, "Model does not allow mixtures.");
-  assert(Medium.nC == 0, "Model does not allow media with trace substances.");
 equation
   // No pressure drop
   port_a.p = port_b.p;
@@ -78,13 +76,26 @@ equation
     {h_ini_in, h_ini_out});
 
   // Transport of substances
-  port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow)
-     else Medium.X_default[1:Medium.nXi];
-  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
+  for i in 1:Medium.nXi loop
+  (port_a.Xi_outflow[i], port_b.Xi_outflow[i]) = spatialDistribution(
+    inStream(port_a.Xi_outflow[i]),
+    inStream(port_b.Xi_outflow[i]),
+    x/length,
+    v >= 0,
+    {0.0, 1.0},
+    {0.01, 0.01});
+  end for;
 
-  port_a.C_outflow = if allowFlowReversal then inStream(port_b.C_outflow) else
-    zeros(Medium.nC);
-  port_b.C_outflow = inStream(port_a.C_outflow);
+  for i in 1:Medium.nC loop
+  (port_a.C_outflow[i], port_b.C_outflow[i]) = spatialDistribution(
+    inStream(port_a.C_outflow[i]),
+    inStream(port_b.C_outflow[i]),
+    x/length,
+    v >= 0,
+    {0.0, 1.0},
+    {0, 0});
+  end for;
+
 
   annotation (
     Icon(graphics={

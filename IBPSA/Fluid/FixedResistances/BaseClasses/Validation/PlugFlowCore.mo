@@ -18,11 +18,11 @@ model PlugFlowCore "Simple example of plug flow pipe core"
   parameter Modelica.SIunits.Density rhoPip=8000
     "Density of pipe wall material. 930 for PE, 8000 for steel";
 
-  parameter Types.ThermalResistanceLength R=1/(kIns*2*Modelica.Constants.pi/
+  parameter Real R=1/(kIns*2*Modelica.Constants.pi/
     Modelica.Math.log((dh/2 + dIns)/(dh/2)))
     "Thermal resistance per unit length from fluid to boundary temperature";
 
-  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
+  parameter Real C=rho_default*Modelica.Constants.pi*(
       dh/2)^2*cp_default "Thermal capacity per unit length of water in pipe";
 
   parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(

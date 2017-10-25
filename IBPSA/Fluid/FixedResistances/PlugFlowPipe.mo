@@ -104,13 +104,17 @@ model PlugFlowPipe
     "Describing the pipe behavior"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
+  // In the volume, below, we scale down V and use
+  // mSenFac. Otherwise, for air, we would get very large volumes
+  // which affect the delay of water vapor and contaminants.
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final V=VEqu,
+    final V=if rho_default > 500 then VEqu else VEqu/1000,
     final nPorts=nPorts + 1,
     final T_start=T_start_out,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final mSenFac = if rho_default > 500 then 1 else 1000)
     "Control volume connected to ports_b"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
