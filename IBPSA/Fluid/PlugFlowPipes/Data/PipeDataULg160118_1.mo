@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.PlugFlowPipes.Data;
+within IBPSA.Fluid.PlugFlowPipes.Data;
 record PipeDataULg160118_1
   "Experimental data from ULg's pipe test bench from January 18, 2016"
   extends IBPSA.Fluid.PlugFlowPipes.Data.BaseClasses.PipeDataULg(

@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.PlugFlowPipes.Data;
+within IBPSA.Fluid.PlugFlowPipes.Data;
 record PipeDataULg150801
   "Experimental data from ULg's pipe test bench from August 1"
   //   Column 1: Time in s

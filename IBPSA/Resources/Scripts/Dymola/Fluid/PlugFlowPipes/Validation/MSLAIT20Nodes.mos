@@ -1,5 +1,4 @@
-translateModel("IBPSA.Fluid.PlugFlowPipes.Validation.MSLAIT2elements");
-simulateModel("IBPSA.Fluid.PlugFlowPipes.Validation.MSLAIT2elements", stopTime=603900, tolerance=1e-6, method="dassl", resultFile="MSLAIT2elements");
+simulateModel("IBPSA.Fluid.PlugFlowPipes.Validation.MSLAIT20Nodes", stopTime=603900, tolerance=1e-6, method="dassl", resultFile="MSLAIT20Nodes");
 createPlot(id = 5,
  position = {50, 50, 500, 500},
  x = "time",
@@ -13,7 +12,6 @@ createPlot(id = 5,
  subPlot=1,
  leftTitleType = 1,
  bottomTitleType = 1);
-plotExpression(apply(MSLAIT2elements[end].DataReader.y[1]-273.15), false, "Measured data: Temperature at point 1 in degrees", 5);
 createPlot(id = 5,
  position = {50, 50, 500, 500},
  x = "time",
@@ -27,7 +25,6 @@ createPlot(id = 5,
  subPlot=2,
  leftTitleType = 1,
  bottomTitleType = 1);
-
  createPlot(id = 6,
  position = {600, 50, 500, 500},
  x = "time",
@@ -41,7 +38,6 @@ createPlot(id = 5,
  subPlot=1,
  leftTitleType = 1,
  bottomTitleType = 1);
-plotExpression(apply(MSLAIT2elements[end].DataReader.y[2]-273.15), false, "Measured data: Temperature at point 2 in degrees", 6); 
 createPlot(id = 6,
  position = {600, 50, 500, 500},
  x = "time",
@@ -58,7 +54,7 @@ createPlot(id = 6,
 
 
 
- 
+
 createPlot(id = 7,
  position = {55, 600, 500, 500},
  x = "time",
@@ -72,7 +68,7 @@ createPlot(id = 7,
  subPlot=1,
  leftTitleType = 1,
  bottomTitleType = 1);
-plotExpression(apply(MSLAIT2elements[end].DataReader.y[3]-273.15), false, "Measured data: Temperature at point 3 in degrees", 7); 
+plotExpression(apply(MSLAIT20Nodes[end].DataReader.y[3]-273.15), false, "Measured data: Temperature at point 3 in degrees", 7);
 createPlot(id = 7,
  position = {55, 600, 500, 500},
  x = "time",
@@ -101,7 +97,7 @@ createPlot(id = 8,
  subPlot=1,
  leftTitleType = 1,
  bottomTitleType = 1);
-plotExpression(apply(MSLAIT2elements[end].DataReader.y[4]-273.15), false, "Measured data: Temperature at point 4 in degrees", 8); 
+plotExpression(apply(MSLAIT20Nodes[end].DataReader.y[4]-273.15), false, "Measured data: Temperature at point 4 in degrees", 8);
 createPlot(id = 8,
  position = {600, 600, 500, 500},
  x = "time",
@@ -115,4 +111,3 @@ createPlot(id = 8,
  subPlot=2,
  leftTitleType = 1,
  bottomTitleType = 1);
-
