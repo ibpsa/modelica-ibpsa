@@ -168,17 +168,30 @@ equation
     annotation (Line(points={{105,60},{105,60},{158,60}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
-<p>The example contains <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">experimental data</a> from a real district heating network. This data is used to validate pipe models.</p>
-<p>The pipe's temperature is not initialized, thus the first 70 seconds should be disregarded. </p>
-<p>The insulation used is Tubolit 60/13. 
-For this material, a thermal conductivity of about 0.04 W/m<sup>2</sup>K can be found (<a href=\"http://www.armacell.com/WWW/armacell/ACwwwAttach.nsf/ansFiles/PDS_Range_Tubolit_CHf.pdf/$File/PDS_Range_Tubolit_CHf.pdf\">source</a>).</p>
+<p>
+The example contains
+experimental data from a real district heating network. 
+</p>
+<p>
+This model compares the results with the original Modelica Standard Library pipes.
+</p>
+<p>The pipes' temperatures are not initialized. Therfore, results of
+outflow temperature before approximately the first 10000 seconds should not be considered.
+</p>
 <h4>Test bench schematic</h4>
-<p><img alt=\"Schematic of test rig at ULg\" src=\"modelica://IBPSA/Resources/Images/Experimental/ULgTestBench.png\"/> </p>
+<p><img alt=\"Schematic of test rig at ULg\"
+src=\"modelica://IBPSA/Resources/Images/Experimental/ULgTestBench.png\"/> </p>
 <h4>Calibration</h4>
-<p>There are some incertainties about the heat loss coefficient between pipe and surrounding air as well as regarding the heat conductivity of the insulation material. 
-With the <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">given data</a>, the length specific thermal resistance <code>R = 2.164 </code>(mK/W). <code>R</code> calculated as follows: </p>
-<p align=\"center\"style=\"font-style:italic;\">R=((1/(2*pipe.kIns)*log((0.0603+2*pipe.dIns)/(0.0603)))+1/(5*(0.0603+2*pipe.dIns)))/Modelica.Constants.pi</p>
-<p align=\"center\"style=\"font-style:italic;\">U = 1/R = 0.462 W/mK</p>
+<p>
+There are some uncertainties about the heat loss coefficient between pipe and surrounding air
+as well as regarding the heat conductivity of the insulation material. 
+With the <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">given data</a>,
+the length specific thermal resistance is <code>R = 2.164 </code>(mK/W), calculated as follows:
+</p>
+<p align=\"center\"style=\"font-style:italic;\">
+R=((1/(2*pipe.kIns)*log((0.0603+2*pipe.dIns)/(0.0603)))+1/(5*(0.0603+2*pipe.dIns)))/Modelica.Constants.pi</p>
+<p align=\"center\"style=\"font-style:italic;\">
+U = 1/R = 0.462 W/(m K)</p>
 </html>", revisions="<html>
 <ul>
 <li>November 24, 2016 by Bram van der Heijde:<br/>Add pipe thickness for wall capacity calculation and expand documentation section.</li>

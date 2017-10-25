@@ -17,7 +17,7 @@ equation
 <ul>
 <li>
 January 19, 2016 by Carles Ribas:<br/>
-Use replaceable data and addition of .mos file.
+Use replaceable data and addition of <code>.mos</code> file.
 </li>
 <li>
 December 18, 2015 by Daniele Basciotti:<br/>

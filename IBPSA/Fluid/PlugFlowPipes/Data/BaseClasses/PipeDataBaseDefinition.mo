@@ -7,10 +7,11 @@ partial record PipeDataBaseDefinition
     "Time in s | measure 1 | measure 2 | ... | measure n |";
       annotation(Documentation(info="<html>
 <p>
-Defines basic record of experimental data with <code>n</code> measured points. The first column corresponds to \"time\", further columns to measured data. </p>
-
-
-</html>",      revisions="<html>
+Defines basic record of experimental data with <code>n</code> measured points.
+The first column corresponds to <code>time</code>, further columns to measured data.
+</p>
+</html>",
+revisions="<html>
 <ul>
 <li>
 Januar 19, 2016 by Carles Ribas:<br/>
