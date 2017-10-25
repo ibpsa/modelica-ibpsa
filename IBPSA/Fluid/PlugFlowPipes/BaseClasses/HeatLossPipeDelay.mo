@@ -1,12 +1,15 @@
 within IBPSA.Fluid.PlugFlowPipes.BaseClasses;
 model HeatLossPipeDelay
   "Heat loss model for pipe with delay as an input variable"
-  extends Fluid.Interfaces.PartialTwoPortTransport;
+  extends Fluid.Interfaces.PartialTwoPortTransport(
+    final allowFlowReversal=true,
+    final dp_start=0);
+    // allowFlowReversal set to true because this model is used for inlet and outlets
 
   parameter IBPSA.Fluid.PlugFlowPipes.Types.ThermalCapacityPerLength C
     "Thermal capacity per unit length of pipe";
   parameter IBPSA.Fluid.PlugFlowPipes.Types.ThermalResistanceLength R
-    "Thermal resistance per unit length from water to boundary";
+    "Thermal resistance per unit length from fluid to boundary temperature";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
   parameter Modelica.SIunits.Temperature T_start

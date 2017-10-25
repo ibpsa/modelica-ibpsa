@@ -5,6 +5,11 @@ model PipeCore
 
   parameter Modelica.SIunits.Length dh
     "Hydraulic diameter (assuming a round cross section area)";
+
+  parameter Modelica.SIunits.Velocity v_nominal
+    "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"
+    annotation(Dialog(group="Nominal condition"));
+
   parameter Modelica.SIunits.Length length(min=0) "Pipe length";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
@@ -19,7 +24,7 @@ model PipeCore
     annotation (Dialog(group="Geometry"));
 
   parameter IBPSA.Fluid.PlugFlowPipes.Types.ThermalResistanceLength R
-    "Thermal resistance per unit length from water to boundary";
+    "Thermal resistance per unit length from fluid to boundary temperature";
 
   parameter IBPSA.Fluid.PlugFlowPipes.Types.ThermalCapacityPerLength C
     "Thermal capacity per unit length of pipe";
@@ -45,13 +50,30 @@ model PipeCore
   parameter Modelica.SIunits.MassFlowRate m_flow_start=0
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
-  Fluid.FixedResistances.HydraulicDiameter res(
+  parameter Real ReC=4000
+    "Reynolds number where transition to turbulent starts";
+
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  IBPSA.Fluid.FixedResistances.HydraulicDiameter res(
     redeclare final package Medium = Medium,
     final dh=dh,
     final m_flow_nominal=m_flow_nominal,
     final from_dp=from_dp,
     final length=length,
-    final fac=fac)
+    final roughness=roughness,
+    final fac=fac,
+    final ReC=ReC,
+    final v_nominal=v_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=false,
+    final homotopyInitialization=homotopyInitialization,
+    final linearized=linearized,
+    dp(nominal=fac*200*length))
                  "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
@@ -72,7 +94,10 @@ model PipeCore
     final R=R,
     final m_flow_small=m_flow_small,
     final T_start=T_start_in,
-    final m_flow_nominal=m_flow_nominal) "Heat loss for flow from port_b to port_a"
+    final m_flow_nominal=m_flow_nominal,
+    final m_flow_start=m_flow_start,
+    final show_T=false,
+    final show_V_flow=false) "Heat loss for flow from port_b to port_a"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
 
   IBPSA.Fluid.PlugFlowPipes.BaseClasses.HeatLossPipeDelay heaLos_b(
@@ -81,7 +106,10 @@ model PipeCore
     final R=R,
     final m_flow_small=m_flow_small,
     final T_start=T_start_out,
-    final m_flow_nominal=m_flow_nominal) "Heat loss for flow from port_a to port_b"
+    final m_flow_nominal=m_flow_nominal,
+    final m_flow_start=m_flow_start,
+    final show_T=false,
+    final show_V_flow=false) "Heat loss for flow from port_a to port_b"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = Medium)

@@ -8,12 +8,22 @@ model PlugFlowPipe
     annotation (Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.Length dh=sqrt(4*m_flow_nominal/rho_default/v_nominal/Modelica.Constants.pi)
-    "Hydraulic diameter (assuming a round cross section area)";
+    "Hydraulic diameter (assuming a round cross section area)"
+    annotation (Dialog(group="Material"));
+
   parameter Modelica.SIunits.Velocity v_nominal = 1.5
     "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"
     annotation(Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Length length "Pipe length";
+  parameter Real ReC=4000
+    "Reynolds number where transition to turbulent starts";
+
+  parameter Modelica.SIunits.Height roughness=2.5e-5
+    "Average height of surface asperities (default: smooth steel pipe)"
+    annotation (Dialog(group="Material"));
+
+  parameter Modelica.SIunits.Length length "Pipe length"
+    annotation (Dialog(group="Material"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
@@ -23,16 +33,23 @@ model PlugFlowPipe
     annotation (Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.Length dIns
-    "Thickness of pipe insulation";
-  parameter Modelica.SIunits.ThermalConductivity kIns "Heat conductivity";
+    "Thickness of pipe insulation"
+    annotation (Dialog(group="Material"));
+
+  parameter Modelica.SIunits.ThermalConductivity kIns "Heat conductivity"
+    annotation (Dialog(group="Material"));
 
   parameter Modelica.SIunits.SpecificHeatCapacity cPip=2300
-    "Specific heat of pipe wall material. 2300 for PE, 500 for steel";
+    "Specific heat of pipe wall material. 2300 for PE, 500 for steel"
+    annotation (Dialog(group="Material"));
+
   parameter Modelica.SIunits.Density rhoPip=930
-    "Density of pipe wall material. 930 for PE, 8000 for steel";
+    "Density of pipe wall material. 930 for PE, 8000 for steel"
+    annotation (Dialog(group="Material"));
 
   parameter Modelica.SIunits.Length thickness
-    "Pipe wall thickness";
+    "Pipe wall thickness"
+    annotation (Dialog(group="Material"));
 
   parameter Modelica.SIunits.Temperature T_start_in(start=Medium.T_default)=
     Medium.T_default "Initialization temperature at pipe inlet"
@@ -48,10 +65,18 @@ model PlugFlowPipe
 
   parameter Types.ThermalResistanceLength R=1/(kIns*2*Modelica.Constants.pi/
     Modelica.Math.log((dh/2 + dIns)/(dh/2)))
-    "Thermal resistance per unit length from water to boundary temperature";
+    "Thermal resistance per unit length from fluid to boundary temperature"
+    annotation (Dialog(group="Material"));
 
   parameter Real fac=1
     "Factor to take into account flow resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
+
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat transfer to or from surroundings (heat loss from pipe results in a positive heat flow)"
@@ -60,6 +85,7 @@ model PlugFlowPipe
   IBPSA.Fluid.PlugFlowPipes.BaseClasses.PipeCore cor(
     redeclare final package Medium = Medium,
     final dh=dh,
+    final v_nominal=v_nominal,
     final length=length,
     final C=C,
     final R=R,
@@ -71,7 +97,11 @@ model PlugFlowPipe
     final initDelay=initDelay,
     final from_dp=from_dp,
     final fac=fac,
-    final thickness=thickness) "Describing the pipe behavior"
+    final ReC=ReC,
+    final thickness=thickness,
+    final roughness=roughness,
+    final allowFlowReversal=allowFlowReversal)
+    "Describing the pipe behavior"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Fluid.MixingVolumes.MixingVolume vol(

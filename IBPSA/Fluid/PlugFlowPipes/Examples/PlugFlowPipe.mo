@@ -1,9 +1,7 @@
 within IBPSA.Fluid.PlugFlowPipes.Examples;
 model PlugFlowPipe "Simple example of plug flow pipe"
-  import IBPSA;
   extends Modelica.Icons.Example;
-  replaceable package Medium = IBPSA.Media.Water constrainedby
-    Modelica.Media.Interfaces.PartialMedium annotation (
+  replaceable package Medium = IBPSA.Media.Water "Medium in the pipe" annotation (
       __Dymola_choicesAllMatching=true);
   Modelica.Blocks.Sources.Ramp Tin(
     height=20,
@@ -26,12 +24,12 @@ model PlugFlowPipe "Simple example of plug flow pipe"
     kIns=0.028,
     m_flow_nominal=1,
     cPip=500,
-    rhoPip=8000,
     thickness=0.0032,
     initDelay=true,
     m_flow_start=1,
+    rhoPip=8000,
     T_start_in=323.15,
-    T_start_out=323.15) "Fixed resistance"
+    T_start_out=323.15) "Pipe"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bou(T=283.15)
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));

@@ -1,9 +1,7 @@
 within IBPSA.Fluid.PlugFlowPipes.BaseClasses.Validation;
 model PipeCore "Simple example of plug flow pipe core"
-  import IBPSA;
   extends Modelica.Icons.Example;
-  replaceable package Medium = IBPSA.Media.Water constrainedby
-    Modelica.Media.Interfaces.PartialMedium      "Medium in pipes"
+  replaceable package Medium = IBPSA.Media.Water "Medium in pipes"
                                             annotation (
       __Dymola_choicesAllMatching=true, __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/BaseClasses/Validation/PipeCore.mos"
@@ -22,7 +20,7 @@ model PipeCore "Simple example of plug flow pipe core"
 
   parameter Types.ThermalResistanceLength R=1/(kIns*2*Modelica.Constants.pi/
     Modelica.Math.log((dh/2 + dIns)/(dh/2)))
-    "Thermal resistance per unit length from water to boundary temperature";
+    "Thermal resistance per unit length from fluid to boundary temperature";
 
   parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(
       dh/2)^2*cp_default "Thermal capacity per unit length of water in pipe";
@@ -67,6 +65,7 @@ model PipeCore "Simple example of plug flow pipe core"
     m_flow_start=1,
     R=R,
     C=C,
+    v_nominal=1.5,
     T_start_in=323.15,
     T_start_out=323.15) "Fixed resistance"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
