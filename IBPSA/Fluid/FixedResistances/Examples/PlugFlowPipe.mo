@@ -37,18 +37,18 @@ model PlugFlowPipe "Simple example of plug flow pipe"
     nPorts=1,
     redeclare package Medium = Medium,
     use_T_in=true,
-    m_flow=3)
+    m_flow=3) "Flow source"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTemOut(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    T_start=323.15)
+    T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTemIn(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    T_start=323.15)
+    T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 equation
   connect(bou.port, pip.heatPort)
