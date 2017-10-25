@@ -43,7 +43,7 @@ model PlugFlowPipe
     "Specific heat of pipe wall material. 2300 for PE, 500 for steel"
     annotation (Dialog(group="Material"));
 
-  parameter Modelica.SIunits.Density rhoPip=930
+  parameter Modelica.SIunits.Density rhoPip(displayUnit="kg/m3")=930
     "Density of pipe wall material. 930 for PE, 8000 for steel"
     annotation (Dialog(group="Material"));
 
@@ -107,6 +107,9 @@ model PlugFlowPipe
   // In the volume, below, we scale down V and use
   // mSenFac. Otherwise, for air, we would get very large volumes
   // which affect the delay of water vapor and contaminants.
+  // See also IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.TransportWaterAir
+  // for why mSenFac is 10 and not 1000, as this gives more reasonable
+  // temperature step response
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -114,7 +117,7 @@ model PlugFlowPipe
     final nPorts=nPorts + 1,
     final T_start=T_start_out,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final mSenFac = if rho_default > 500 then 1 else 1000)
+    final mSenFac = if rho_default > 500 then 1 else 10)
     "Control volume connected to ports_b"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
