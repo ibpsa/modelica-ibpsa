@@ -97,18 +97,18 @@ model PlugFlowULg "Validation against data from Université de Liège"
   Modelica.Blocks.Math.MultiSum heatLossSim(nu=2)
     annotation (Placement(transformation(extent={{60,54},{72,66}})));
   Modelica.Blocks.Continuous.Integrator eneLosInt
-    annotation (Placement(transformation(extent={{160,50},{180,70}})));
+    annotation (Placement(transformation(extent={{140,50},{160,70}})));
   Fluid.Sensors.EnthalpyFlowRate senEntIn(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{4,-10},{-16,10}})));
   Modelica.Blocks.Math.Gain gain1(k=-1)
     annotation (Placement(transformation(extent={{74,-88},{94,-68}})));
   Modelica.Blocks.Math.MultiSum deltaT(nu=2)
-    annotation (Placement(transformation(extent={{112,-76},{124,-64}})));
+    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Modelica.Blocks.Math.MultiProduct heatLossMeas(nu=2)
-    annotation (Placement(transformation(extent={{140,-66},{152,-54}})));
+    annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
   Modelica.Blocks.Math.Gain gain3(k=cp_default)
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
   Modelica.Blocks.Math.Feedback heaLosDiff
     annotation (Placement(transformation(extent={{86,50},{106,70}})));
   Modelica.Blocks.Sources.Constant Tamb(k=273 + 18)
@@ -128,8 +128,8 @@ equation
     annotation (Line(points={{54,0},{54,0},{60,0}}, color={0,127,255}));
   connect(gain.y, WaterCityNetwork.m_flow_in) annotation (Line(points={{73,-20},
           {90,-20},{90,8},{80,8}}, color={0,0,127}));
-  connect(Tin.y, Boiler.TSet) annotation (Line(points={{61,-50},{61,-50},{104,-50},
-          {104,18},{62,18},{62,8},{56,8}}, color={0,0,127}));
+  connect(Tin.y, Boiler.TSet) annotation (Line(points={{61,-50},{104,-50},{104,28},
+          {62,28},{62,8},{56,8}},          color={0,0,127}));
   connect(Sewer1.ports[1], senTem_out.port_b)
     annotation (Line(points={{-100,0},{-94,0}}, color={0,127,255}));
   connect(senEntOut.H_flow, gain2.u) annotation (Line(points={{-56,11},{-56,26},
@@ -150,22 +150,23 @@ equation
     annotation (Line(points={{-30,60},{-30,10}}, color={191,0,0}));
   connect(Tout.y, gain1.u)
     annotation (Line(points={{61,-78},{72,-78}}, color={0,0,127}));
-  connect(Tin.y, deltaT.u[1]) annotation (Line(points={{61,-50},{82,-50},{104,-50},
-          {104,-67.9},{112,-67.9}}, color={0,0,127}));
+  connect(Tin.y, deltaT.u[1]) annotation (Line(points={{61,-50},{104,-50},{104,-66.5},
+          {120,-66.5}},             color={0,0,127}));
   connect(gain1.y, deltaT.u[2]) annotation (Line(points={{95,-78},{104,-78},{104,
-          -72.1},{112,-72.1}}, color={0,0,127}));
-  connect(deltaT.y, heatLossMeas.u[1]) annotation (Line(points={{125.02,-70},{130,
-          -70},{130,-68},{130,-57.9},{140,-57.9}}, color={0,0,127}));
+          -73.5},{120,-73.5}}, color={0,0,127}));
+  connect(deltaT.y, heatLossMeas.u[1]) annotation (Line(points={{141.7,-70},{150,
+          -70},{150,-46},{156,-46},{156,-46.5},{160,-46.5}},
+                                                   color={0,0,127}));
   connect(gain.y, gain3.u)
-    annotation (Line(points={{73,-20},{98,-20}}, color={0,0,127}));
-  connect(gain3.y, heatLossMeas.u[2]) annotation (Line(points={{121,-20},{130,-20},
-          {130,-62.1},{140,-62.1}}, color={0,0,127}));
-  connect(heatLossMeas.y, heaLosDiff.u2) annotation (Line(points={{153.02,-60},{
-          162,-60},{162,4},{96,4},{96,52}}, color={0,0,127}));
+    annotation (Line(points={{73,-20},{118,-20}},color={0,0,127}));
+  connect(gain3.y, heatLossMeas.u[2]) annotation (Line(points={{141,-20},{148,-20},
+          {148,-53.5},{160,-53.5}}, color={0,0,127}));
+  connect(heatLossMeas.y, heaLosDiff.u2) annotation (Line(points={{181.7,-50},{200,
+          -50},{200,40},{96,40},{96,52}},   color={0,0,127}));
   connect(heatLossSim.y, heaLosDiff.u1)
     annotation (Line(points={{73.02,60},{88,60}}, color={0,0,127}));
   connect(heaLosDiff.y, eneLosInt.u)
-    annotation (Line(points={{105,60},{105,60},{158,60}}, color={0,0,127}));
+    annotation (Line(points={{105,60},{138,60}},          color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -201,5 +202,6 @@ U = 1/R = 0.462 W/(m K)</p>
 </html>"),
     experiment(StopTime=875, Tolerance=1e-006),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/PlugFlowULg.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Diagram(coordinateSystem(extent={{-140,-100},{220,100}})));
 end PlugFlowULg;

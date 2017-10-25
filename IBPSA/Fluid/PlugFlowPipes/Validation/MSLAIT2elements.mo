@@ -3,9 +3,8 @@ model MSLAIT2elements
   "Smaller discretisation. Validation pipe against data from Austrian Institute of Technology with standard library components"
   extends Modelica.Icons.Example;
 
-  /*TODO: change nNodes for pipes. For fair comparison, n should be adapted to 
-  make the Courant number close to 1, but this is only possible for a narrow 
-  range of mass flow rates, which is a sstrength of the new pipe model.*/
+  parameter Integer nNodes=2 "Number of discrete flow volumes";
+
   Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,
     use_T_in=true,
@@ -43,7 +42,7 @@ model MSLAIT2elements
   Modelica.Blocks.Sources.RealExpression m_flow_p3(y=-DataReader.y[7])
     annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p4(y=-DataReader.y[8])
-    annotation (Placement(transformation(extent={{174,120},{134,140}})));
+    annotation (Placement(transformation(extent={{200,130},{160,150}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p2(y=-DataReader.y[6])
     annotation (Placement(transformation(extent={{-100,120},{-60,140}})));
   Modelica.Blocks.Sources.RealExpression T_p1(y=DataReader.y[1])
@@ -70,9 +69,9 @@ model MSLAIT2elements
     redeclare model FlowModel =
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           dp_nominal(displayUnit="Pa") = 10*pip0.length, m_flow_nominal=0.3),
-    nNodes=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15)    annotation (Placement(transformation(
+    T_start=293.15,
+    nNodes=nNodes)     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-8})));
@@ -102,9 +101,9 @@ model MSLAIT2elements
     redeclare model FlowModel =
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           m_flow_nominal=0.3, dp_nominal=10*pip1.length),
-    nNodes=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15)    annotation (Placement(transformation(
+    T_start=293.15,
+    nNodes=nNodes)     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={38,10})));
@@ -127,9 +126,9 @@ model MSLAIT2elements
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           dp_nominal=10*pip2.length, m_flow_nominal=0.3),
     diameter=0.0337 - 2*0.0032,
-    nNodes=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15)    annotation (Placement(transformation(
+    T_start=293.15,
+    nNodes=nNodes)     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-80,40})));
@@ -152,9 +151,9 @@ model MSLAIT2elements
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           dp_nominal=10*pip3.length, m_flow_nominal=0.3),
     diameter=0.0337 - 2*0.0032,
-    nNodes=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15)    annotation (Placement(transformation(
+    T_start=293.15,
+    nNodes=nNodes)     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-12})));
@@ -179,9 +178,9 @@ model MSLAIT2elements
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           dp_nominal=10*pip4.length, m_flow_nominal=0.3),
     diameter=0.0337 - 2*0.0032,
-    nNodes=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15)    annotation (Placement(transformation(
+    T_start=293.15,
+    nNodes=nNodes)     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={10,40})));
@@ -206,9 +205,9 @@ model MSLAIT2elements
     redeclare model FlowModel =
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           dp_nominal=10*pip5.length, m_flow_nominal=0.3),
-    nNodes=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15)    annotation (Placement(transformation(
+    T_start=293.15,
+    nNodes=nNodes)     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-10,10})));
@@ -269,9 +268,9 @@ model MSLAIT2elements
   Modelica.Blocks.Logical.Switch switch
     annotation (Placement(transformation(extent={{88,94},{68,114}})));
   Modelica.Blocks.Sources.RealExpression m_flow_zero(y=0)
-    annotation (Placement(transformation(extent={{138,70},{98,90}})));
+    annotation (Placement(transformation(extent={{200,70},{160,90}})));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=-0.001)
-    annotation (Placement(transformation(extent={{114,104},{108,110}})));
+    annotation (Placement(transformation(extent={{140,100},{120,120}})));
   Fluid.Sources.MassFlowSource_T Point5(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
@@ -280,7 +279,7 @@ model MSLAIT2elements
         rotation=180,
         origin={64,70})));
   Modelica.Blocks.Logical.Switch switch1
-    annotation (Placement(transformation(extent={{108,52},{88,72}})));
+    annotation (Placement(transformation(extent={{120,60},{100,80}})));
 equation
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
       points={{-58,-90},{-54,-90},{-54,-80}},
@@ -333,23 +332,26 @@ equation
   connect(senTem_p1.port_b, pip0.port_a) annotation (Line(points={{32,-32},{32,-32},
           {32,-18},{80,-18}}, color={0,127,255}));
   connect(m_flow_zero.y,switch. u3)
-    annotation (Line(points={{96,80},{96,96},{90,96}}, color={0,0,127}));
-  connect(switch.u1, m_flow_p4.y) annotation (Line(points={{90,112},{114,112},{
-          114,130},{132,130}}, color={0,0,127}));
+    annotation (Line(points={{158,80},{140,80},{140,90},{110,90},{110,96},{90,96}},
+                                                       color={0,0,127}));
+  connect(switch.u1, m_flow_p4.y) annotation (Line(points={{90,112},{114,112},{114,
+          140},{158,140}},     color={0,0,127}));
   connect(Point4.m_flow_in, switch.y) annotation (Line(points={{48,98},{48,98},
           {48,104},{67,104}}, color={0,0,127}));
-  connect(switch.u2, lessThreshold.y) annotation (Line(points={{90,104},{107.7,
-          104},{107.7,107}}, color={255,0,255}));
-  connect(lessThreshold.u, m_flow_p4.y) annotation (Line(points={{114.6,107},{
-          130,107},{130,130},{132,130}}, color={0,0,127}));
+  connect(switch.u2, lessThreshold.y) annotation (Line(points={{90,104},{100,104},
+          {100,110},{119,110}},
+                             color={255,0,255}));
+  connect(lessThreshold.u, m_flow_p4.y) annotation (Line(points={{142,110},{150,
+          110},{150,140},{158,140}},     color={0,0,127}));
   connect(Point5.m_flow_in,switch1. y)
-    annotation (Line(points={{74,62},{80,62},{87,62}}, color={0,0,127}));
-  connect(lessThreshold.y, switch1.u2) annotation (Line(points={{107.7,107},{
-          110,107},{110,62}}, color={255,0,255}));
-  connect(m_flow_p4.y, switch1.u3) annotation (Line(points={{132,130},{122,130},
-          {122,54},{110,54}}, color={0,0,127}));
-  connect(m_flow_zero.y, switch1.u1) annotation (Line(points={{96,80},{104,80},
-          {104,70},{110,70}}, color={0,0,127}));
+    annotation (Line(points={{74,62},{99,62},{99,70}}, color={0,0,127}));
+  connect(lessThreshold.y, switch1.u2) annotation (Line(points={{119,110},{114,110},
+          {114,94},{136,94},{136,70},{122,70}},
+                              color={255,0,255}));
+  connect(m_flow_p4.y, switch1.u3) annotation (Line(points={{158,140},{150,140},
+          {150,62},{122,62}}, color={0,0,127}));
+  connect(m_flow_zero.y, switch1.u1) annotation (Line(points={{158,80},{140,80},
+          {140,78},{122,78}}, color={0,0,127}));
   connect(Point5.ports[1], senTem_p4.port_a) annotation (Line(points={{54,70},{
           40,70},{40,54},{12,54},{12,64},{18,64}}, color={0,127,255}));
   connect(pip2.heatPorts, res2.port_a) annotation (Line(points={{-75.6,40.1},{
@@ -372,8 +374,8 @@ equation
     annotation (Line(points={{37.9,14.4},{37.9,42},{52,42}}, color={127,0,0}));
   connect(res1.port_b, col1.port_a)
     annotation (Line(points={{72,42},{84,42},{94,42}}, color={191,0,0}));
-  connect(col4.port_b, col1.port_b) annotation (Line(points={{-4,118},{-4,136},
-          {128,136},{128,42},{114,42}}, color={191,0,0}));
+  connect(col4.port_b, col1.port_b) annotation (Line(points={{-4,118},{-4,136},{
+          156,136},{156,42},{114,42}},  color={191,0,0}));
   connect(pip0.heatPorts, res0.port_a) annotation (Line(points={{84.4,-7.9},{
           89.2,-7.9},{89.2,-8},{94,-8}}, color={127,0,0}));
   connect(res0.port_b, col0.port_a)
@@ -389,10 +391,9 @@ equation
   connect(col3.port_b, prescribedTemperature.port) annotation (Line(points={{22,
           -12},{68,-12},{68,-90},{60,-90}}, color={191,0,0}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{220,
+            160}})),
     experiment(StopTime=603900, Tolerance=1e-006),
-    __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
 <p>
 The example contains
@@ -424,6 +425,5 @@ Implement validation with MSL pipes for comparison, based on AIT validation.</li
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/PlugFlowPipes/Validation/MSLAIT2elements.mos"
-        "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+        "Simulate and plot"));
 end MSLAIT2elements;
