@@ -52,6 +52,14 @@ protected
       p=Medium.p_default,
       X=Medium.X_default)) "For initialization of spatialDistribution outlet";
 
+  Medium.MassFraction Xi_inflow_a[Medium.nXi] = inStream(port_a.Xi_outflow)
+    "Independent mixture mass fractions m_i/m close to the connection point flow into the component";
+  Medium.MassFraction Xi_inflow_b[Medium.nXi] = inStream(port_b.Xi_outflow)
+    "Independent mixture mass fractions m_i/m close to the connection point flow into the component";
+  Medium.ExtraProperty C_inflow_a[Medium.nC] = inStream(port_a.C_outflow)
+    "Properties c_i/m close to the connection point if flow into the component";
+  Medium.ExtraProperty C_inflow_b[Medium.nC] = inStream(port_b.C_outflow)
+    "Properties c_i/m close to the connection point if flow into the component";
 initial equation
   x = 0;
 equation
@@ -78,8 +86,8 @@ equation
   // Transport of substances
   for i in 1:Medium.nXi loop
   (port_a.Xi_outflow[i], port_b.Xi_outflow[i]) = spatialDistribution(
-    inStream(port_a.Xi_outflow[i]),
-    inStream(port_b.Xi_outflow[i]),
+    Xi_inflow_a[i],
+    Xi_inflow_b[i],
     x/length,
     v >= 0,
     {0.0, 1.0},
@@ -88,8 +96,8 @@ equation
 
   for i in 1:Medium.nC loop
   (port_a.C_outflow[i], port_b.C_outflow[i]) = spatialDistribution(
-    inStream(port_a.C_outflow[i]),
-    inStream(port_b.C_outflow[i]),
+    C_inflow_a[i],
+    C_inflow_b[i],
     x/length,
     v >= 0,
     {0.0, 1.0},
