@@ -35,8 +35,6 @@ model TransportWaterAir
     T_start_in=293.15,
     T_start_out=293.15) "Pipe"
     annotation (Placement(transformation(extent={{0,16},{20,36}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bou(T=283.15)
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sou(
     nPorts=1,
     redeclare package Medium = MediumW,
@@ -76,10 +74,8 @@ model TransportWaterAir
     redeclare package Medium = MediumA,
     length=length,
     T_start_in=293.15,
-    T_start_out=293.15)                 "Duct"
+    T_start_out=293.15) "Duct"
     annotation (Placement(transformation(extent={{-2,-80},{18,-60}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bou1(T=283.15)
-    annotation (Placement(transformation(extent={{-42,-36},{-22,-16}})));
   Sources.MassFlowSource_T sou1(
     nPorts=1,
     use_T_in=true,
@@ -113,8 +109,6 @@ model TransportWaterAir
     each offset=1E-3) "Step input"
     annotation (Placement(transformation(extent={{-96,-116},{-76,-96}})));
 equation
-  connect(bou.port, pip.heatPort)
-    annotation (Line(points={{-20,70},{10,70},{10,36}}, color={191,0,0}));
   connect(Tin.y, sou.T_in)
     annotation (Line(points={{-71,30},{-62,30}},
                                                color={0,0,127}));
@@ -128,8 +122,6 @@ equation
   connect(senTemIn.port_b, pip.port_a)
     annotation (Line(points={{-10,26},{0,26}},
                                              color={0,127,255}));
-  connect(bou1.port, duc.heatPort)
-    annotation (Line(points={{-22,-26},{8,-26},{8,-60}},   color={191,0,0}));
   connect(duc.ports_b[1],senTemOutA. port_a)
     annotation (Line(points={{18,-70},{28,-70}}, color={0,127,255}));
   connect(senTemOutA.port_b, sin1.ports[1])
@@ -158,11 +150,11 @@ the transport of air and water with a species concentration.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>October 25, 2017 by Michael Wetter:<br/>
+<li>
+October 25, 2017 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-140},{100,100}})),
-    Icon(coordinateSystem(extent={{-100,-140},{100,100}})));
+    Diagram(coordinateSystem(extent={{-100,-140},{100,100}})));
 end TransportWaterAir;
