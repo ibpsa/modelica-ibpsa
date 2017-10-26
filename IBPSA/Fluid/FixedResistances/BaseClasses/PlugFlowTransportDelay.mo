@@ -11,11 +11,16 @@ model PlugFlowTransportDelay "Delay time for given normalized velocity"
   parameter Modelica.SIunits.MassFlowRate m_flow_start=0 "Initialization of mass flow rate to calculate initial time delay"
     annotation (Dialog(group="Initialization", enable=initDelay));
 
-  final parameter Modelica.SIunits.Time t_in_start=if initDelay then min(length/
-      m_flow_start*(rho*dh^2/4*Modelica.Constants.pi), 0) else 0
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+
+  final parameter Modelica.SIunits.Time t_in_start=
+    if initDelay and (abs(m_flow_start) > 1E-10*m_flow_nominal)
+      then min(length/m_flow_start*(rho*dh^2/4*Modelica.Constants.pi), 0) else 0
     "Initial value of input time at inlet";
-  final parameter Modelica.SIunits.Time t_out_start=if initDelay then min(-length/
-      m_flow_start*(rho*dh^2/4*Modelica.Constants.pi), 0) else 0
+  final parameter Modelica.SIunits.Time t_out_start=
+    if initDelay and (abs(m_flow_start) > 1E-10*m_flow_nominal)
+     then min(-length/m_flow_start*(rho*dh^2/4*Modelica.Constants.pi), 0) else 0
     "Initial value of input time at outlet";
 
   Modelica.SIunits.Time time_out_rev "Reverse flow direction output time";

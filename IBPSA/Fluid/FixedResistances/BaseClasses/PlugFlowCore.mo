@@ -119,6 +119,7 @@ model PlugFlowCore
     final dh=dh,
     final rho=rho_default,
     final initDelay=initDelay,
+    final m_flow_nominal=m_flow_nominal,
     final m_flow_start=m_flow_start) "Time delay"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
