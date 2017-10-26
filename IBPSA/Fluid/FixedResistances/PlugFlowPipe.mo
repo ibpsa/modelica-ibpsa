@@ -33,11 +33,11 @@ model PlugFlowPipe
     annotation (Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.Length dIns
-    "Thickness of pipe insulation"
-    annotation (Dialog(group="Material"));
+    "Thickness of pipe insulation, used to compute R"
+    annotation (Dialog(group="Thermal resistance"));
 
-  parameter Modelica.SIunits.ThermalConductivity kIns "Heat conductivity"
-    annotation (Dialog(group="Material"));
+  parameter Modelica.SIunits.ThermalConductivity kIns "Heat conductivity, used to compute R"
+    annotation (Dialog(group="Thermal resistance"));
 
   parameter Modelica.SIunits.SpecificHeatCapacity cPip=2300
     "Specific heat of pipe wall material. 2300 for PE, 500 for steel"
@@ -47,7 +47,7 @@ model PlugFlowPipe
     "Density of pipe wall material. 930 for PE, 8000 for steel"
     annotation (Dialog(group="Material"));
 
-  parameter Modelica.SIunits.Length thickness
+  parameter Modelica.SIunits.Length thickness = 0.0035
     "Pipe wall thickness"
     annotation (Dialog(group="Material"));
 
@@ -60,13 +60,13 @@ model PlugFlowPipe
   parameter Boolean initDelay(start=false) = false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_start(start=0) "Initial value of mass flow rate through pipe"
+  parameter Modelica.SIunits.MassFlowRate m_flow_start=0 "Initial value of mass flow rate through pipe"
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
   parameter Real R(unit="(m.K)/W")=1/(kIns*2*Modelica.Constants.pi/
     Modelica.Math.log((dh/2 + dIns)/(dh/2)))
     "Thermal resistance per unit length from fluid to boundary temperature"
-    annotation (Dialog(group="Material"));
+    annotation (Dialog(group="Thermal resistance"));
 
   parameter Real fac=1
     "Factor to take into account flow resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
@@ -100,7 +100,9 @@ model PlugFlowPipe
     final ReC=ReC,
     final thickness=thickness,
     final roughness=roughness,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    final homotopyInitialization=homotopyInitialization,
+    final linearized=linearized)
     "Describing the pipe behavior"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -227,7 +229,8 @@ First implementation.
 </html>", info="<html>
 <p>
 Pipe with heat loss using the time delay based heat losses and transport
-of the fluid using a plug flow model.</p>
+of the fluid using a plug flow model, applicable for simulation of long
+pipes such as in district heating and cooling systems.</p>
 <p>
 This model takes into account transport delay along the pipe length idealized
 as a plug flow.
