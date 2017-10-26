@@ -32,6 +32,7 @@ model PlugFlowPipe "Simple example of plug flow pipe"
     T_start_out=323.15) "Pipe"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bou(T=283.15)
+    "Boundary temperature"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sou(
     nPorts=1,
