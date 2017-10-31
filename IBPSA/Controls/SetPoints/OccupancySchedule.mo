@@ -62,11 +62,11 @@ initial algorithm
   // Check parameters for correctness
  assert(mod(nRow, 2) < 0.1,
    "The parameter \"occupancy\" must have an even number of elements.\n");
- assert(0 < occupancy[1],
-   "The first element of \"occupancy\" must be bigger than zero."
+ assert(0 <= occupancy[1],
+   "The first element of \"occupancy\" must be bigger than or equal to zero."
    + "\n   Received occupancy[1] = " + String(occupancy[1]));
- assert(period > occupancy[nRow],
-   "The parameter \"period\" must be greater than the last element of \"occupancy\"."
+ assert(period >= occupancy[nRow],
+   "The parameter \"period\" must be greater than or equal to the last element of \"occupancy\"."
    + "\n   Received period      = " + String(period)
    + "\n            occupancy[" + String(nRow) +
      "] = " + String(occupancy[nRow]));
