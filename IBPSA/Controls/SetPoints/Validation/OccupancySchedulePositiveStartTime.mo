@@ -3,7 +3,7 @@ model OccupancySchedulePositiveStartTime
   "Validation model for occupancy schedule with positive start time"
   extends OccupancyScheduleNegativeStartTime;
   annotation (experiment(
-      StartTime=-86400,
+      StartTime=86400,
       StopTime=207360,
       Tolerance=1e-06),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Controls/SetPoints/Validation/OccupancySchedulePositiveStartTime.mos"
