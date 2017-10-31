@@ -197,6 +197,13 @@ The period always starts at <i>t=0</i> seconds.
 </html>", revisions="<html>
 <ul>
 <li>
+October 30, 2017, by Michael Wetter:<br/>
+Rewrote using <code>equation</code> rather than <code>algorithm</code>
+and removed assertion.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/844\">issue 844</a>.
+</li>
+<li>
 September 11, 2012, by Michael Wetter:<br/>
 Added <code>pre</code> operator in <code>when</code> clause and relaxed
 tolerance in <code>assert</code> statement.
