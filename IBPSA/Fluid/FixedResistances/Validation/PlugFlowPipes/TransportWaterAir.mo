@@ -102,7 +102,7 @@ model TransportWaterAir
     each startTime=100,
     height={0.01, -0.01},
     offset={0.01,0.99}) "Step input"
-    annotation (Placement(transformation(extent={{-96,-82},{-76,-62}})));
+    annotation (Placement(transformation(extent={{-96,-84},{-76,-64}})));
   Modelica.Blocks.Sources.Step CIn[1](
     each startTime=100,
     each height=0.01,
@@ -130,8 +130,7 @@ equation
     annotation (Line(points={{-42,-70},{-32,-70}}, color={0,127,255}));
   connect(senTemIn1.port_b, duc.port_a)
     annotation (Line(points={{-12,-70},{-2,-70}},color={0,127,255}));
-  connect(sou1.X_in, XiIn.y) annotation (Line(points={{-64,-74},{-69,-74},{-69,
-          -72},{-75,-72}},
+  connect(sou1.X_in, XiIn.y) annotation (Line(points={{-64,-74},{-75,-74}},
                       color={0,0,127}));
   connect(sou1.C_in, CIn.y) annotation (Line(points={{-62,-78},{-70,-78},{-70,
           -106},{-75,-106}},
