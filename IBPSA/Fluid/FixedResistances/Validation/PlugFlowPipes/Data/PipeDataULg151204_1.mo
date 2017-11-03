@@ -1,6 +1,6 @@
 within IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
 record PipeDataULg151204_1
-  "Experimental data from ULg's pipe test bench from December 4, 2015 (1); 
+  "Experimental data from ULg's pipe test bench from December 4, 2015 (1);
   increase followed by a decrease in temperature"
   extends IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses.PipeDataULg(
     final n=5,
@@ -75,8 +75,8 @@ First implementation.
 <p>
 This data record contains the experimental data from the
 long test bench carried out at the University of Liège.
-See <a href\"IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses.PipeDataULg\">
-BPSA.Fluid.PlugFlowPipes.Data.BaseClasses.PipeDataULg</a>
+See <a href=\"IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses.PipeDataULg\">
+IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses.PipeDataULg</a>
 for more information.
 </p>
 </html>"));
