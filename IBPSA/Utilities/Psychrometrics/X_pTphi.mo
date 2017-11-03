@@ -17,9 +17,14 @@ block X_pTphi
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   Modelica.SIunits.AbsolutePressure pSat "Saturation pressure";
-  parameter Integer i_w = sum({(
-   if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], string2="Water", caseSensitive=false)
-   then i else 0) for i in 1:Medium.nX});
+  parameter Integer i_w =
+   sum({(
+     if Modelica.Utilities.Strings.isEqual(
+       string1=Medium.substanceNames[i],
+       string2="Water",
+       caseSensitive=false)
+     then i else 0)
+     for i in 1:Medium.nX});
   parameter Integer i_nw = if i_w == 1 then 2 else 1 "Index for non-water substance";
   parameter Boolean found = i_w > 0 "Flag, used for error checking";
 
@@ -30,7 +35,9 @@ initial equation
 equation
   pSat =  IBPSA.Media.Air.saturationPressure(T);
   X[i_w] =  IBPSA.Utilities.Psychrometrics.Functions.X_pSatpphi(
-     pSat=pSat, p=p_in_internal, phi=phi);
+     pSat=pSat,
+     p=p_in_internal,
+     phi=phi);
   //sum(X[:]) = 1; // The formulation with a sum in an equation section leads to a nonlinear equation system
   X[i_nw] =  1 - X[i_w];
   annotation (Documentation(info="<html>
@@ -38,7 +45,8 @@ equation
 Block to compute the water vapor concentration based on
 pressure, temperature and relative humidity.
 </p>
-<p>If <code>use_p_in</code> is false (default option), the <code>p</code> parameter
+<p>
+If <code>use_p_in</code> is false (default option), the <code>p</code> parameter
 is used as atmospheric pressure,
 and the <code>p_in</code> input connector is disabled;
 if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored,
