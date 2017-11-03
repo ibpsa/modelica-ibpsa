@@ -17,23 +17,16 @@ block X_pTphi
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   Modelica.SIunits.AbsolutePressure pSat "Saturation pressure";
- parameter Integer i_w(min=1, fixed=false) "Index for water substance";
- parameter Integer i_nw(min=1, fixed=false) "Index for non-water substance";
- parameter Boolean found(fixed=false) "Flag, used for error checking";
-initial algorithm
+  parameter Integer i_w = sum({(
+   if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], string2="Water", caseSensitive=false)
+   then i else 0) for i in 1:Medium.nX});
+  parameter Integer i_nw = if i_w == 1 then 2 else 1 "Index for non-water substance";
+  parameter Boolean found = i_w > 0 "Flag, used for error checking";
+
+initial equation
   assert(Medium.nX==2, "The implementation is only valid if Medium.nX=2.");
-  found:=false;
-  i_w :=1;
-    for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
-                                            string2="water",
-                                            caseSensitive=false) then
-        i_w :=i;
-        found:=true;
-      end if;
-    end for;
-  i_nw := if i_w == 1 then 2 else 1;
   assert(found, "Did not find medium species 'water' in the medium model. Change medium model.");
+
 equation
   pSat =  IBPSA.Media.Air.saturationPressure(T);
   X[i_w] =  IBPSA.Utilities.Psychrometrics.Functions.X_pSatpphi(
@@ -54,7 +47,7 @@ and the value provided by the input connector is used instead.
 </html>", revisions="<html>
 <ul>
 <li>November 3, 2017 by Filip Jorissen:<br/>
-Converted algorithm section into equation section.
+Converted (initial) algorithm section into (initial) equation section.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/847\">#847</a>.
 </li>
 <li>July 24, 2014 by Michael Wetter:<br/>
