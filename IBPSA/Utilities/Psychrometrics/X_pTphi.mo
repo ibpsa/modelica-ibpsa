@@ -34,12 +34,12 @@ initial algorithm
     end for;
   i_nw := if i_w == 1 then 2 else 1;
   assert(found, "Did not find medium species 'water' in the medium model. Change medium model.");
-algorithm
-  pSat := IBPSA.Media.Air.saturationPressure(T);
-  X[i_w] := IBPSA.Utilities.Psychrometrics.Functions.X_pSatpphi(
+equation
+  pSat =  IBPSA.Media.Air.saturationPressure(T);
+  X[i_w] =  IBPSA.Utilities.Psychrometrics.Functions.X_pSatpphi(
      pSat=pSat, p=p_in_internal, phi=phi);
   //sum(X[:]) = 1; // The formulation with a sum in an equation section leads to a nonlinear equation system
-  X[i_nw] := 1 - X[i_w];
+  X[i_nw] =  1 - X[i_w];
   annotation (Documentation(info="<html>
 <p>
 Block to compute the water vapor concentration based on
@@ -53,6 +53,10 @@ and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>November 3, 2017 by Filip Jorissen:<br/>
+Converted algorithm section into equation section.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/847\">#847</a>.
+</li>
 <li>July 24, 2014 by Michael Wetter:<br/>
 Added <code>assert</code> to verify that <code>Medium.nX==2</code>
 as the implementation is only valid for such media.
