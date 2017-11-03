@@ -66,7 +66,7 @@ equation
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/FlowReversal.mos"
         "Simulate and Plot"),
-    experiment(StopTime=1000, Tolerance=1e-006),
+    experiment(StopTime=150, Tolerance=1e-006),
     Documentation(info="<html>
 <p>
 Validation model in which air flows into the pipe and then the flow is reversed.
