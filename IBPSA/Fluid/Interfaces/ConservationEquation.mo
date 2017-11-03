@@ -4,9 +4,9 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations;
 
   // Constants
-  constant Boolean initialize_p = not Medium.singleState
+  parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure"
-    annotation(HideResult=true);
+    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
@@ -55,22 +55,18 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Modelica.Blocks.Interfaces.RealOutput UOut(unit="J")
     "Internal energy of the component" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={110,20})));
   Modelica.Blocks.Interfaces.RealOutput mXiOut[Medium.nXi](each min=0, each unit=
        "kg") "Species mass of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={110,-20})));
   Modelica.Blocks.Interfaces.RealOutput mOut(min=0, unit="kg")
     "Mass of the component" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={110,60})));
   Modelica.Blocks.Interfaces.RealOutput mCOut[Medium.nC](each min=0, each unit="kg")
     "Trace substance mass of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={110,-60})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
@@ -417,6 +413,12 @@ IBPSA.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+October 19, 2017, by Michael Wetter:<br/>
+Changed initialization of pressure from a <code>constant</code> to a <code>parameter</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1013\">Buildings, issue 1013</a>.
+</li>
+<li>
 January 27, 2017, by Michael Wetter:<br/>
 Added <code>stateSelect</code> for mass <code>m</code>.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/642\">
@@ -690,7 +692,5 @@ Implemented first version in <code>Buildings</code> library, based on model from
         Text(
           extent={{-155,-120},{145,-160}},
           lineColor={0,0,255},
-          textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+          textString="%name")}));
 end ConservationEquation;
