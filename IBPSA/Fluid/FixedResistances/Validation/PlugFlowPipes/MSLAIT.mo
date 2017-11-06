@@ -418,6 +418,7 @@ equation
 This data is used to validate a pipe model in <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT\">ValidationPipeAIT</a>.
 This model compares its performance with the original Modelica Standard Library pipes, using one discretization element per unit length (m) of pipe.
 For a coarser discretization, please refer to <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes\">MSLAIT2Nodes</a>.</p>
+<p>The comparison between different discretization levels is made to check the influence of the discretization on computation time and simulation accuracy.</p>
 <p>The pipes' temperatures are not initialized, thus results of outflow temperature before approximately the first 10000 seconds should not be considered. </p>
 <h4>Test bench schematic</h4>
 <p><img alt=\"Schematic of test district heating network\" src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\"/> </p>
