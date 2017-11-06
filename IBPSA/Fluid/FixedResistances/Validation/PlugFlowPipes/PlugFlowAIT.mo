@@ -332,7 +332,7 @@ The example contains
 experimental data from a real district heating network. 
 </p>
 <p>
-This model compares the results with the original Modelica Standard Library pipes.
+This model compares the results with the original Modelica Standard Library pipes, see <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT\">MSLAIT</a> and <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes\">MSLAIT2Nodes</a>.
 </p>
 <p>The pipes' temperatures are not initialized. Therfore, results of
 outflow temperature before approximately the first 10000 seconds should not be considered.
