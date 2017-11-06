@@ -374,8 +374,6 @@ equation
           {-22,132},{-22,106}}, color={191,0,0}));
   connect(col5.port_b, col4.port_b) annotation (Line(points={{-22,106},{-22,132},
           {16,132},{16,106}}, color={191,0,0}));
-  connect(col1.port_b, prescribedTemperature.port) annotation (Line(points={{112,46},
-          {214,46},{214,-142},{94,-142}},   color={191,0,0}));
   connect(col0.port_b, prescribedTemperature.port) annotation (Line(points={{192,-8},
           {214,-8},{214,-142},{94,-142}},   color={191,0,0}));
   connect(col3.port_b, prescribedTemperature.port) annotation (Line(points={{38,-48},
@@ -401,10 +399,10 @@ equation
   connect(m_flow_zero.y,switch1. u1) annotation (Line(points={{178,158},{160,
           158},{160,100},{102,100}},
                               color={0,0,127}));
-  connect(col4.port_b, col1.port_b) annotation (Line(points={{16,106},{16,190},
-          {214,190},{214,46},{112,46}}, color={191,0,0}));
   connect(switch1.y, Point5.m_flow_in) annotation (Line(points={{79,92},{78,92},
           {78,62},{74,62}}, color={0,0,127}));
+  connect(col1.port_b, prescribedTemperature.port) annotation (Line(points={{
+          112,46},{214,46},{214,-142},{94,-142}}, color={191,0,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{
             220,200}})),
