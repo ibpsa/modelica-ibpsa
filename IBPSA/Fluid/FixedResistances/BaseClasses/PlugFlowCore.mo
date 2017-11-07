@@ -234,14 +234,16 @@ through the length of the pipe.
 </p>
 <p>
 This model does not include thermal inertia of the pipe wall.
-The wall ineratia is implemented in
-<a href=\"modelica://IBPSA.Fluid.FixedResistances.PlugFlowPipe\">IBPSA.Fluid.FixedResistances.PlugFlowPipe</a>.
-
+The wall inertia is implemented in
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.PlugFlowPipe\">PlugFlowPipe</a>, which uses this model.
+<br/>
+The removal of the thermal inertia with a mixing volume can be desirable in the 
+case where mixing volumes are added manually at the pipe junctions. 
 </p>
 <p>
 The model
 <a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowHeatLoss\">
-IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowHeatLoss</a>
+PlugFlowHeatLoss</a>
 implements a heat loss in design direction, but leaves the enthalpy unchanged
 in opposite flow direction. Therefore it is used in front of and behind the time delay.
 </p>

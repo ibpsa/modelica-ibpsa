@@ -258,6 +258,9 @@ is equal to that of the pipe wall material.
 In addition, this mixing volume allows the hydraulic separation of subsequent pipes.
 Thanks to the vectorized implementation of the (design) outlet port,
 splits and junctions of pipes can be handled in a numerically efficient way.
+<br/>
+This mixing volume is not present in the <a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">PlugFlowCore</a> model, 
+which can be used in cases where mixing volumes at pipe junctions need to be added manually. 
 </p>
 <h4>Assumptions</h4>
 <ul>
