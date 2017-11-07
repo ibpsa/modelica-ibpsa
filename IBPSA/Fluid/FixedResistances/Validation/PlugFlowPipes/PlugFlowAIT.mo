@@ -331,11 +331,38 @@ equation
 The example contains
 experimental data from a real district heating network. 
 </p>
-<p>
-This model compares the results with the original Modelica Standard Library pipes, see <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT\">MSLAIT</a> and <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes\">MSLAIT2Nodes</a>.
-</p>
 <p>The pipes' temperatures are not initialized. Therfore, results of
 outflow temperature before approximately the first 10000 seconds should not be considered.
+</p>
+<p>
+Note that these three models are identical, except for the pipe model that is used:
+</p>
+<ul>
+<li>
+The model
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT\">
+IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT</a>
+uses the pipe model from the Modelica Standard Library, with a fine discretization.
+See the parameter <code>nNodes</code>.
+</li>
+<li>
+The model
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes\">
+IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes</a>
+uses the same model as above, but sets <code>nNodes=2</code>.
+</li>
+<li>
+The model
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT\">
+IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a>
+uses the plug flow model
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.PlugFlowPipe\">
+IBPSA.Fluid.FixedResistances.PlugFlowPipe</a>.
+</li>
+</ul>
+<p>
+This comparison between different discretization levels and pipe models is made to check the
+influence of the discretization and pipe model on computation time and simulation accuracy.
 </p>
 <h4>Test bench schematic</h4>
 <p><img alt=\"Schematic of test district heating network\"
