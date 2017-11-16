@@ -78,7 +78,10 @@ algorithm
 <p>This function returns the first and last time stamp, as well as the average increment of the TMY3 weather data file. </p>
 </html>", revisions="<html>
 <ul>
-<li>November 15, 2017, by Ana Constantin:<br>First implementation, as part of solution to <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">#842</a></li>
+<li>
+November 15, 2017, by Ana Constantin:<br/>
+First implementation, as part of solution to <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">#842</a>
+</li>
 </ul>
 </html>"));
 end getTimeSpanWeatherData;

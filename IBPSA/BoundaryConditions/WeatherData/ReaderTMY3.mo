@@ -231,7 +231,7 @@ protected
   final parameter String absFilNam = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam)
     "Absolute path of the file";
   // For evalating time span of weather data
-  parameter Modelica.SIunits.Time[2] timeSpan = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanWeatherData(filNam, tableName)  "start and end time of weather data";
+  parameter Modelica.SIunits.Time[2] timeSpan(start = {0.0, 3600.0}) = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanWeatherData(absFilNam, tableName)  "start and end time of weather data";
 
 
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
