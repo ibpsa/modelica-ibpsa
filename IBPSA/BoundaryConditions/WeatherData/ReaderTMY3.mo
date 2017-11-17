@@ -231,7 +231,9 @@ protected
   final parameter String absFilNam = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam)
     "Absolute path of the file";
   // For evalating time span of weather data
-  parameter Modelica.SIunits.Time[2] timeSpan(start = {0.0, 3600.0}) = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanWeatherData(absFilNam, tableName)  "start and end time of weather data";
+  final parameter Modelica.SIunits.Time[2] timeSpan(start={0.0,3600.0})=
+  IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(absFilNam, tableName)
+  "Start and end time of weather data";
 
 
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
@@ -513,7 +515,7 @@ First implementation.
 equation
   //---------------------------------------------------------------------------
   // Evaluate time span of weather data
-  if ((timeSpan[1] >= 0.0) and (timeSpan[2] <= 31536000.0)) then // data spans one year or less and ends no later than 31.12 24:00
+  if ((timeSpan[1] >= 0.0) and (timeSpan[2] <= 31536000.0)) then // Data spans one year or less and ends no later than 31.12 24:00
     connect(conTim1.calTim, datRea1.u) annotation (Line(
         points={{-89,190},{-58,190}},
         color={0,0,127},
