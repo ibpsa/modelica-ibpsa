@@ -169,23 +169,26 @@ equation
     Documentation(info="<html>
 <p>
 The example contains
-experimental data from a real district heating network. 
+experimental data from a real district heating network.
 </p>
 <p>
 This model compares the results with the original Modelica Standard Library pipes.
 </p>
 <p>The pipes' temperatures are not initialized. Therfore, results of
-outflow temperature before approximately the first 10000 seconds should not be considered.
+outflow temperature before approximately the first 10000 seconds should not be
+considered.
 </p>
 <h4>Test bench schematic</h4>
 <p><img alt=\"Schematic of test rig at ULg\"
 src=\"modelica://IBPSA/Resources/Images/Experimental/ULgTestBench.png\"/> </p>
 <h4>Calibration</h4>
 <p>
-There are some uncertainties about the heat loss coefficient between pipe and surrounding air
-as well as regarding the heat conductivity of the insulation material. 
-With the <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">given data</a>,
-the length specific thermal resistance is <code>R = 2.164 </code>(mK/W), calculated as follows:
+There are some uncertainties about the heat loss coefficient between pipe and
+surrounding air as well as regarding the heat conductivity of the insulation
+material.
+With the <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">
+given data</a>, the length specific thermal resistance is <code>R = 2.164
+</code>(mK/W), calculated as follows:
 </p>
 <p align=\"center\"style=\"font-style:italic;\">
 R=((1/(2*pipe.kIns)*log((0.0603+2*pipe.dIns)/(0.0603)))+1/(5*(0.0603+2*pipe.dIns)))/Modelica.Constants.pi</p>
@@ -193,9 +196,14 @@ R=((1/(2*pipe.kIns)*log((0.0603+2*pipe.dIns)/(0.0603)))+1/(5*(0.0603+2*pipe.dIns
 U = 1/R = 0.462 W/(m K)</p>
 </html>", revisions="<html>
 <ul>
-<li>November 24, 2016 by Bram van der Heijde:<br/>Add pipe thickness for wall capacity calculation and expand documentation section.</li>
-<li>April 2, 2016 by Bram van der Heijde:<br/>Change thermal conductivity and put boundary condition in K.</li>
-<li>Januar 26, 2016 by Carles Ribas:<br/>First implementation. </li>
+<li>
+November 24, 2016 by Bram van der Heijde:<br/>Add pipe thickness for wall
+capacity calculation and expand documentation section.</li>
+<li>April 2, 2016 by Bram van der Heijde:<br/>Change thermal conductivity and
+put boundary condition in K.
+</li>
+<li>Januar 26, 2016 by Carles Ribas:<br/>First implementation.
+</li>
 </ul>
 </html>"),
     experiment(StopTime=875, Tolerance=1e-006),

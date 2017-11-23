@@ -229,23 +229,25 @@ for the transport delay of the fluid.
 <h4>Implementation</h4>
 <p>
 The
-<code>spatialDistribution</code> operator is used for the temperature wave propagation
-through the length of the pipe.
+<code>spatialDistribution</code> operator is used for the temperature wave
+propagation through the length of the pipe.
 </p>
 <p>
 This model does not include thermal inertia of the pipe wall.
 The wall inertia is implemented in
-<a href=\"modelica://IBPSA.Fluid.FixedResistances.PlugFlowPipe\">PlugFlowPipe</a>, which uses this model.
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.PlugFlowPipe\">PlugFlowPipe</a>,
+which uses this model.
 <br/>
-The removal of the thermal inertia with a mixing volume can be desirable in the 
-case where mixing volumes are added manually at the pipe junctions. 
+The removal of the thermal inertia with a mixing volume can be desirable in the
+case where mixing volumes are added manually at the pipe junctions.
 </p>
 <p>
 The model
 <a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowHeatLoss\">
 PlugFlowHeatLoss</a>
 implements a heat loss in design direction, but leaves the enthalpy unchanged
-in opposite flow direction. Therefore it is used in front of and behind the time delay.
+in opposite flow direction. Therefore it is used in front of and behind the
+time delay.
 </p>
 </html>"));
 end PlugFlowCore;

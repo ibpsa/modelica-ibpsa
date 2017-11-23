@@ -329,10 +329,11 @@ equation
     Documentation(info="<html>
 <p>
 The example contains
-experimental data from a real district heating network. 
+experimental data from a real district heating network.
 </p>
 <p>The pipes' temperatures are not initialized. Therfore, results of
-outflow temperature before approximately the first 10000 seconds should not be considered.
+outflow temperature before approximately the first 10000 seconds should not be
+considered.
 </p>
 <p>
 Note that these three models are identical, except for the pipe model that is used:
@@ -361,8 +362,9 @@ IBPSA.Fluid.FixedResistances.PlugFlowPipe</a>.
 </li>
 </ul>
 <p>
-This comparison between different discretization levels and pipe models is made to check the
-influence of the discretization and pipe model on computation time and simulation accuracy.
+This comparison between different discretization levels and pipe models is made
+to check the influence of the discretization and pipe model on computation time
+and simulation accuracy.
 </p>
 <h4>Test bench schematic</h4>
 <p><img alt=\"Schematic of test district heating network\"
@@ -371,12 +373,15 @@ src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\"/>
 <h4>Calibration</h4>
 <p>To calculate the length specific thermal resistance <code>R</code> of the pipe,
 the thermal resistance of the surrounding ground is added, which yields</p>
-<p align=\"center\"style=\"font-style:italic;\">R=1/(0.208)+1/(2*lambda_g*Modelica.Constants.pi)*log(1/0.18),</p>
+<p align=\"center\"style=\"font-style:italic;\">
+R=1/(0.208)+1/(2*lambda_g*Modelica.Constants.pi)*log(1/0.18),</p>
 <p>where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/(m K).
 </p>
 </html>", revisions="<html>
 <ul>
-<li>July 4, 2016 by Bram van der Heijde:<br/>Added parameters to test the influence of allowFlowReversal and the presence of explicit volumes in the pipe.</li>
+<li>July 4, 2016 by Bram van der Heijde:<br/>Added parameters to test the
+influence of allowFlowReversal and the presence of explicit volumes in the pipe.
+</li>
 <li>January 26, 2016 by Carles Ribas:<br/>First implementation. </li>
 </ul>
 </html>"),

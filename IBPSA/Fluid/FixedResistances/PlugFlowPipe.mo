@@ -259,8 +259,10 @@ In addition, this mixing volume allows the hydraulic separation of subsequent pi
 Thanks to the vectorized implementation of the (design) outlet port,
 splits and junctions of pipes can be handled in a numerically efficient way.
 <br/>
-This mixing volume is not present in the <a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">PlugFlowCore</a> model, 
-which can be used in cases where mixing volumes at pipe junctions need to be added manually. 
+This mixing volume is not present in the
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">PlugFlowCore</a> model,
+which can be used in cases where mixing volumes at pipe junctions need to
+be added manually. 
 </p>
 <h4>Assumptions</h4>
 <ul>
@@ -284,9 +286,13 @@ Full details on the model implementation and experimental validation can be foun
 in:
 </p>
 <p>
-van der Heijde, B., Fuchs, M., Ribas Tugores, C., Schweiger, G., Sartor, K., Basciotti, D., M&uuml;ller, D., Nytsch-Geusen, C., Wetter, M. and Helsen, L. (2017).<br/>
-Dynamic equation-based thermo-hydraulic pipe model for district heating and cooling systems.<br/>
-<i>Energy Conversion and Management</i>, vol. 151, p. 158-169. 
-<a href=\"https://doi.org/10.1016/j.enconman.2017.08.072\">doi: 10.1016/j.enconman.2017.08.072</a>.</p>
+van der Heijde, B., Fuchs, M., Ribas Tugores, C., Schweiger, G., Sartor, K.,
+Basciotti, D., M&uuml;ller, D., Nytsch-Geusen, C., Wetter, M. and Helsen, L.
+(2017).<br/>
+Dynamic equation-based thermo-hydraulic pipe model for district heating and
+cooling systems.<br/>
+<i>Energy Conversion and Management</i>, vol. 151, p. 158-169.
+<a href=\"https://doi.org/10.1016/j.enconman.2017.08.072\">doi:
+10.1016/j.enconman.2017.08.072</a>.</p>
 </html>"));
 end PlugFlowPipe;

@@ -138,7 +138,8 @@ Revised documentation to follow the guidelines.
 </li>
 <li>
 May 19, 2016 by Marcus Fuchs:<br/>
-Remove condition on <code>show_V_flow</code> for calculation of <code>V_flow</code> to conform with pedantic checking.
+Remove condition on <code>show_V_flow</code> for calculation of
+<code>V_flow</code> to conform with pedantic checking.
 </li>
 <li>
 October 10, 2015 by Marcus Fuchs:<br/>
@@ -161,7 +162,8 @@ without source or sink terms,
 <p align=\"center\" style=\"font-style:italic;\">
 &part;z(x,t)/&part;t + v(t) &part;z(x,t)/&part;x = 0,
 </p>
-<p>where <i>z(x,t)</i> is the spatial distribution as a function of time of any property <i>z</i> of the fluid.
+<p>where <i>z(x,t)</i> is the spatial distribution as a function of time of any
+property <i>z</i> of the fluid.
 For the temperature propagation, <i>z </i>will be replaced by <i>T</i>.
 </p>
 <h4>Assumptions</h4>
