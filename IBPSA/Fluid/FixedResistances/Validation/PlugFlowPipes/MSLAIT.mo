@@ -412,12 +412,16 @@ equation
       __Dymola_Algorithm="Dassl"),
     __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
-<p>The example contains <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.PipeDataAIT151218\">experimental data</a> from a real district heating network.
+<p>The example contains 
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.PipeDataAIT151218\">experimental data</a> 
+from a real district heating network.
 This data is used to validate this library's 
 <a href=\"modelica://IBPSA.Fluid.FixedResistances.PlugFlowPipe\">IBPSA.Fluid.FixedResistances.PlugFlowPipe</a>
 in <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT\">PlugFlowPipeAIT</a>.
-This model compares its performance with the original Modelica Standard Library pipes, using one discretization element per unit length (m) of pipe.
-For a coarser discretization, please refer to <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes\">MSLAIT2Nodes</a>.</p>
+This model compares its performance with the original Modelica Standard Library pipes, using one discretization 
+element per unit length (m) of pipe.
+For a coarser discretization, please refer to 
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes\">MSLAIT2Nodes</a>.</p>
 <p>
 Note that these three models are identical, except for the pipe model that is used:
 </p>
@@ -448,11 +452,13 @@ IBPSA.Fluid.FixedResistances.PlugFlowPipe</a>.
 This comparison between different discretization levels and pipe models is made to check the
 influence of the discretization and pipe model on computation time and simulation accuracy.
 </p>
-<p>The pipes' temperatures are not initialized, thus results of outflow temperature before approximately the first 10000 seconds should not be considered. </p>
+<p>The pipes' temperatures are not initialized, thus results of outflow temperature before 
+approximately the first 10000 seconds should not be considered. </p>
 <h4>Test bench schematic</h4>
 <p><img alt=\"Schematic of test district heating network\" src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\"/> </p>
 <h4>Calibration</h4>
-<p>To calculate the length specific thermal resistance <code>R</code> of the pipe, the thermal resistance of the surrounding ground is added. </p>
+<p>To calculate the length specific thermal resistance <code>R</code> of the pipe, the thermal 
+resistance of the surrounding ground is added. </p>
 <p align=\"center\"style=\"font-style:italic;\">R=1/(0.208)+1/(2*lambda_g*Modelica.Constants.pi)*log(1/0.18)</p>
 <p>Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/mK. </p>
 </html>", revisions="<html>
