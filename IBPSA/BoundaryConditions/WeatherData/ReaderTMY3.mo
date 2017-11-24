@@ -200,7 +200,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
         iconTransformation(extent={{-240,-240},{-200,-200}})));
 
   //--------------------------------------------------------------
-  parameter String filNam="" "Name of weather data file" annotation (Dialog(
+  parameter String filNam="modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos" "Name of weather data file" annotation (Dialog(
         loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
   parameter String tableName="tab1"
@@ -231,7 +231,7 @@ protected
   final parameter String absFilNam = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam)
     "Absolute path of the file";
   // For evalating time span of weather data
-  final parameter Modelica.SIunits.Time[2] timeSpan(start={0.0,3600.0})=
+  final parameter Modelica.SIunits.Time[2] timeSpan=
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(absFilNam, tableName)
   "Start and end time of weather data";
 
