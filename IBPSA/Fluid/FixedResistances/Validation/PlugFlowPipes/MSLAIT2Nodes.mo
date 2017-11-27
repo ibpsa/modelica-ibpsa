@@ -413,7 +413,8 @@ equation
 experimental data</a> from a real district heating network.
 This data is used to validate this library's
 <a href=\"modelica://IBPSA.Fluid.FixedResistances.PlugFlowPipe\">plug flow pipe model</a>
-in <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT\">PlugFlowAIT</a>.
+in <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT\">
+IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a>.
 </p>
 <p>
 Note that these three models are identical, except for the pipe model that is used:
@@ -457,10 +458,10 @@ To calculate the length specific thermal resistance <code>R</code> of the pipe,
 the thermal resistance of the surrounding ground is added.
 </p>
 <p align=\"center\"style=\"font-style:italic;\">
-R=1/(0.208)+1/(2*lambda<sub>g</sub>*Modelica.Constants.pi)*log(1/0.18)
+R=1/(0.208)+1/(2 &nbpsp; lambda<sub>g</sub> Modelica.Constants.pi) &nbpsp; log(1/0.18)
 </p>
 <p>
-Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/mK.
+Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/(m K).
 </p>
 </html>", revisions="<html>
 <ul>

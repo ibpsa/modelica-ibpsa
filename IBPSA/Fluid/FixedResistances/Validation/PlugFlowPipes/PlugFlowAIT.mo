@@ -374,7 +374,7 @@ src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\"/>
 <p>To calculate the length specific thermal resistance <code>R</code> of the pipe,
 the thermal resistance of the surrounding ground is added, which yields</p>
 <p align=\"center\"style=\"font-style:italic;\">
-R=1/(0.208)+1/(2*lambda_g*Modelica.Constants.pi)*log(1/0.18),</p>
+R=1/(0.208)+1/(2 &nbsp; lambda_g &nbsp; Modelica.Constants.pi) &nbsp; log(1/0.18),</p>
 <p>where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/(m K).
 </p>
 </html>", revisions="<html>

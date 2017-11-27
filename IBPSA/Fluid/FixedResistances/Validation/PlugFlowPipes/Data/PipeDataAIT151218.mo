@@ -661,8 +661,8 @@ Notice that length are approximated
 <li>Outer diameter: 0.0889 m (stell wall thickness 3.2 mm)</li>
 <li>Casing diameter: 0.18 m </li>
 <li>Insulation material: Polyurethane </li>
-<li>Heat conductivity of insulation material: 0.024 W/mK (average value at 50 °C) </li>
-<li>Length specific pipe's heat loss coefficient: 0.208 W/mK </li>
+<li>Heat conductivity of insulation material: 0.024 W/(m K) (average value at 50 °C) </li>
+<li>Length specific pipe's heat loss coefficient: 0.208 W/(m K) </li>
 <li>Wall roughness coefficient: 0.1 mm </li>
 </ul>
 

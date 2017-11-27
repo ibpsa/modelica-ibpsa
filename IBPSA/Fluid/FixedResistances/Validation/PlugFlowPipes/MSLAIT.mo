@@ -419,9 +419,10 @@ experimental data</a> from a real district heating network.
 This data is used to validate this library's
 <a href=\"modelica://IBPSA.Fluid.FixedResistances.PlugFlowPipe\">
 IBPSA.Fluid.FixedResistances.PlugFlowPipe</a> in
-<a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT\">PlugFlowPipeAIT</a>.
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT\">
+IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a>.
 This model compares its performance with the original Modelica Standard Library
-pipes, using one discretization element per unit length (m) of pipe.
+pipes, using one discretization element per unit length of pipe.
 For a coarser discretization, please refer to
 <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT2Nodes\">
 MSLAIT2Nodes</a>.
@@ -466,9 +467,9 @@ temperature before approximately the first 10000 seconds should not be considere
 <p>To calculate the length specific thermal resistance <code>R</code> of the
 pipe, the thermal resistance of the surrounding ground is added. </p>
 <p align=\"center\"style=\"font-style:italic;\">
-R=1/(0.208)+1/(2*lambda_g*Modelica.Constants.pi)*log(1/0.18)</p>
+R=1/(0.208)+1/(2 &nbsp; lambda_g &nbsp; Modelica.Constants.pi) &nbsp; log(1/0.18)</p>
 <p>
-Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/mK.
+Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/(m K).
 </p>
 </html>", revisions="<html>
 <ul>

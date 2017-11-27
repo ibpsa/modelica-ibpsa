@@ -188,7 +188,7 @@ surrounding air as well as regarding the heat conductivity of the insulation
 material.
 With the <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">
 given data</a>, the length specific thermal resistance is <code>R = 2.164
-</code>(mK/W), calculated as follows:
+</code>((m K)/W), calculated as follows:
 </p>
 <p align=\"center\"style=\"font-style:italic;\">
 R=((1/(2*pipe.kIns)*log((0.0603+2*pipe.dIns)/(0.0603)))+1/(5*(0.0603+2*pipe.dIns)))/Modelica.Constants.pi</p>
