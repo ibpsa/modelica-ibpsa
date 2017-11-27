@@ -2,7 +2,7 @@ within IBPSA.Fluid.FixedResistances.Examples;
 model PlugFlowPipe "Simple example of plug flow pipe"
   extends Modelica.Icons.Example;
   replaceable package Medium = IBPSA.Media.Water "Medium in the pipe" annotation (
-      __Dymola_choicesAllMatching=true);
+      choicesAllMatching=true);
   Modelica.Blocks.Sources.Ramp Tin(
     height=20,
     duration=0,

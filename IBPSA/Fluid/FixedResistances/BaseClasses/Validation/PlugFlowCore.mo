@@ -3,7 +3,7 @@ model PlugFlowCore "Simple example of plug flow pipe core"
   extends Modelica.Icons.Example;
   replaceable package Medium = IBPSA.Media.Water "Medium in pipes"
                                             annotation (
-      __Dymola_choicesAllMatching=true);
+      choicesAllMatching=true);
   parameter Modelica.SIunits.Length dh=0.1
     "Hydraulic diameter (assuming a round cross section area)";
   parameter Modelica.SIunits.Length dIns = 0.05
