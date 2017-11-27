@@ -191,8 +191,8 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Backward),
         Polygon(
-          points={{0,100},{40,62},{20,62},{20,38},{-20,38},{-20,62},{-40,62},{0,
-              100}},
+          points={{0,90},{40,62},{20,62},{20,38},{-20,38},{-20,62},{-40,62},{0,
+              90}},
           lineColor={0,0,0},
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid),
