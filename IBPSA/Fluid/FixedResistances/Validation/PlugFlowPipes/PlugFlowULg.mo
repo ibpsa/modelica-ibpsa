@@ -179,7 +179,7 @@ considered.
 </p>
 <h4>Test bench schematic</h4>
 <p><img alt=\"Schematic of test rig at ULg\"
-src=\"modelica://IBPSA/Resources/Images/Experimental/ULgTestBench.png\"/> </p>
+src=\"modelica://IBPSA/Resources/Images/Fluid/FixedResistances/Validation/PlugFlowPipes/ULgTestBench.png\"/> </p>
 <h4>Calibration</h4>
 <p>
 There are some uncertainties about the heat loss coefficient between pipe and

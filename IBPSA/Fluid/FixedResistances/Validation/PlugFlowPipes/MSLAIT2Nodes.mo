@@ -3,9 +3,6 @@ model MSLAIT2Nodes
   "Smaller discretisation. Validation pipe against data from Austrian Institute of Technology with standard library components"
   extends Modelica.Icons.Example;
 
-  /*TODO: change nNodes for pipes. For fair comparison, n should be adapted to
-  make the Courant number close to 1, but this is only possible for a narrow
-  range of mass flow rates, which is a sstrength of the new pipe model.*/
   Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,
     use_T_in=true,
@@ -452,7 +449,7 @@ and simulation accuracy.
 before approximately the first 10000 seconds should not be considered.
 </p>
 <h4>Test bench schematic</h4>
-<p><img alt=\"Schematic of test district heating network\" src=\"modelica://IBPSA/Resources/Images/Experimental/AITTestBench.png\"/> </p>
+<p><img alt=\"Schematic of test district heating network\" src=\"modelica://IBPSA/Resources/Images/Fluid/FixedResistances/Validation/PlugFlowPipes/AITTestBench.png\"/> </p>
 <h4>Calibration</h4>
 <p>
 To calculate the length specific thermal resistance <code>R</code> of the pipe,
