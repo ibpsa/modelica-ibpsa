@@ -72,9 +72,6 @@ equation
   der(x) = v;
   v = V_flow/A;
 
-  // fixme: this also need to be applied on Xi_outflow and C_outflow.
-  // Otherwise, for air, it can give wrong temperatures at the outlet.
-  // To assign Xi_outflow and C_outflow, you will need to use IBPSA.Fluid.Interfaces.PartialTwoPort
   (port_a.h_outflow, port_b.h_outflow) = spatialDistribution(
     inStream(port_a.h_outflow),
     inStream(port_b.h_outflow),
