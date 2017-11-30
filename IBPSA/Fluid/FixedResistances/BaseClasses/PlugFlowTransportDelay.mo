@@ -43,10 +43,10 @@ model PlugFlowTransportDelay "Delay time for given normalized velocity"
 initial equation
   x = 0;
 equation
-  u =m_flow/(rho*(dh^2)/4*Modelica.Constants.pi)/length;
+  u = m_flow/(rho*(dh^2)/4*Modelica.Constants.pi)/length;
 
   der(x) = u;
-  (time_out_rev,time_out_des) = spatialDistribution(
+  (time_out_rev, time_out_des) = spatialDistribution(
     time,
     time,
     x,
