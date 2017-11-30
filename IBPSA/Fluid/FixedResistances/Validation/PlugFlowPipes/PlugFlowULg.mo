@@ -186,7 +186,7 @@ src=\"modelica://IBPSA/Resources/Images/Experimental/ULgTestBench.png\"/> </p>
 There are some uncertainties about the heat loss coefficient between pipe and
 surrounding air as well as regarding the heat conductivity of the insulation
 material.
-With the <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDataULg150801\">
+With the <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.PipeDataULg150801\">
 given data</a>, the length specific thermal resistance is <code>R = 2.164
 </code>((m K)/W), calculated as follows:
 </p>
