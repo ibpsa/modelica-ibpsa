@@ -69,7 +69,7 @@ equation
     experiment(StopTime=150, Tolerance=1e-006),
     Documentation(info="<html>
 <p>
-Validation model in which air flows into the pipe and then the flow is reversed.
+Validation model in which water flows into the pipe and then the flow is reversed.
 </p>
 </html>", revisions="<html>
 <ul>
