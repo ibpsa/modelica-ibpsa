@@ -325,7 +325,8 @@ equation
     experiment(
       StopTime=603900,
       Interval=900,
-      Tolerance=1e-006),
+      Tolerance=1e-006,
+      __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
 <p>
 The example contains

@@ -405,7 +405,8 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{
             220,200}})),
-    experiment(StopTime=603900, Tolerance=1e-006),
+    experiment(StopTime=603900, Tolerance=1e-006,
+    __Dymola_Algorithm="Dassl"),
     __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html>
 <p>The example contains
