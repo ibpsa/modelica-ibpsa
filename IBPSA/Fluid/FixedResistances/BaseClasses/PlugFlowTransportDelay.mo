@@ -103,7 +103,7 @@ current simulation time and the inlet time of the fluid at both ends of the pipe
 </p>
 <p>
 where <i>z(x,t)</i> is the spatial distribution as a function of time of any
-property <i>z</i> of the fluid. For the temperature propagation, <i>z</i> will
+property <i>z</i> of the fluid. For the inlet time propagation, <i>z</i> will
 be replaced by the inlet time of the fluid <i>t<sub>in</sub></i>.
 </p>
 <h4>Implementation</h4>
