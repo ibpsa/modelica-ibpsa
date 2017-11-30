@@ -21,20 +21,22 @@ model PlugFlowULg "Validation against data from Université de Liège"
     redeclare package Medium = Medium,
     m_flow=1.245,
     use_m_flow_in=true,
-    nPorts=1) annotation (Placement(transformation(
+    nPorts=1) "Mass flow source"
+              annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={70,0})));
   Fluid.HeatExchangers.Heater_T Boiler(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dp_nominal=0) annotation (Placement(transformation(
+    dp_nominal=0) "Boiler with adjustable outlet temperature"
+                  annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={30,0})));
   Fluid.Sources.Boundary_pT Sewer1(
     redeclare package Medium = Medium,
-    nPorts=1)
+    nPorts=1) "Mass flow sink"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -43,13 +45,13 @@ model PlugFlowULg "Validation against data from Université de Liège"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0,
-    T_start=T_start_out)
+    T_start=T_start_out) "Temperature sensor"
     annotation (Placement(transformation(extent={{-160,-10},{-180,10}})));
   Fluid.Sensors.TemperatureTwoPort senTem_in(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0,
-    T_start=T_start_in)
+    T_start=T_start_in) "Temperature sensor"
     annotation (Placement(transformation(extent={{0,-10},{-20,10}})));
   Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataULg.data,
       extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
@@ -59,7 +61,8 @@ model PlugFlowULg "Validation against data from Université de Liège"
     "Ambient temperature in degrees"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBou(T=295.15)
-    "Boundary condition" annotation (Placement(transformation(
+    "Fixed boundary condition"
+                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-90,32})));
@@ -68,9 +71,11 @@ model PlugFlowULg "Validation against data from Université de Liège"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
   replaceable Data.PipeDataULg151202 pipeDataULg constrainedby
-    Data.BaseClasses.PipeDataULg "Measurement dataset from ULg"
+    Data.BaseClasses.PipeDataULg
+    "Measurement dataset from ULg (use Change Class... to choose from different experiments)"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Modelica.Blocks.Math.Gain gain(k=1)
+    "Gain to test variations of mass flow rate within measurement uncertainty "
     annotation (Placement(transformation(extent={{52,-50},{72,-30}})));
   PlugFlowPipe pipe(
     redeclare package Medium = Medium,
@@ -88,25 +93,29 @@ model PlugFlowULg "Validation against data from Université de Liège"
     initDelay=true,
     m_flow_start=pipeDataULg.m_flowIni,
     cPip=500,
-    rhoPip=8000)
+    rhoPip=8000) "Pipe"
     annotation (Placement(transformation(extent={{-80,-10},{-100,10}})));
   Fluid.Sensors.EnthalpyFlowRate senEntOut(redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal)
+      m_flow_nominal=m_flow_nominal) "Outlet enthalpy sensor"
     annotation (Placement(transformation(extent={{-120,-10},{-140,10}})));
   Modelica.Blocks.Math.Add heatLossSim(k1=-1)
+    "Difference between inflowing and outflowing enthalpy streams"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Modelica.Blocks.Continuous.Integrator eneLosInt
+  Modelica.Blocks.Continuous.Integrator eneLosInt "Integrate model error"
     annotation (Placement(transformation(extent={{230,50},{250,70}})));
   Fluid.Sensors.EnthalpyFlowRate senEntIn(redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal)
+      m_flow_nominal=m_flow_nominal) "Inlet enthalpy sensor"
     annotation (Placement(transformation(extent={{-42,-10},{-62,10}})));
-  Modelica.Blocks.Math.Add delT(k2=-1) "Temperature difference"
+  Modelica.Blocks.Math.Add delT(k2=-1)
+    "Temperature difference between in- and outlet"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
-  Modelica.Blocks.Math.Product heaLosMea "Heat loss from measurement"
+  Modelica.Blocks.Math.Product heaLosMea
+    "Heat loss from measurement (mflow*cp*DeltaT)"
     annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
-  Modelica.Blocks.Math.Gain gain3(k=cp_default)
+  Modelica.Blocks.Math.Gain gain3(k=cp_default) "Specific heat of water"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Modelica.Blocks.Math.Feedback heaLosDiff
+    "Difference between simulated and measurement enthalpy flow difference"
     annotation (Placement(transformation(extent={{190,50},{210,70}})));
   Modelica.Blocks.Sources.Constant Tamb(k=273 + 18)
     "Ambient temperature in Kelvin";

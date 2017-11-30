@@ -23,7 +23,8 @@ model PlugFlowAIT
     redeclare package Medium = Medium,
     use_T_in=true,
     use_m_flow_in=true,
-    nPorts=1) annotation (Placement(transformation(
+    nPorts=1) "Mass flow source"
+              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,-82})));
@@ -31,21 +32,24 @@ model PlugFlowAIT
   Fluid.Sources.MassFlowSource_T Point4(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1) annotation (Placement(transformation(
+    nPorts=1) "Substation 4"
+              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={8,108})));
   Fluid.Sources.MassFlowSource_T Point3(
     nPorts=1,
     redeclare package Medium = Medium,
-    use_m_flow_in=true) annotation (Placement(transformation(
+    use_m_flow_in=true) "Subsation 3"
+                        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-82})));
   Fluid.Sources.MassFlowSource_T Point2(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1) annotation (Placement(transformation(
+    nPorts=1) "Subtation 2"
+              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-88,82})));
@@ -64,7 +68,7 @@ model PlugFlowAIT
     cPip=500,
     rhoPip=8000,
     initDelay=false,
-    m_flow_start=0)
+    m_flow_start=0) "Pipe 1"
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PlugFlowPipe pip4(
     dh = 0.0337 - 2*0.0032,
@@ -80,7 +84,8 @@ model PlugFlowAIT
     cPip=500,
     rhoPip=8000,
     initDelay=false,
-    m_flow_start=0) annotation (Placement(transformation(
+    m_flow_start=0) "Pipe 4"
+                    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={10,40})));
@@ -100,7 +105,7 @@ model PlugFlowAIT
     cPip=500,
     rhoPip=8000,
     initDelay=false,
-    m_flow_start=0)
+    m_flow_start=0) "Pipe 5"
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
 
   PlugFlowPipe pip2(
@@ -117,7 +122,8 @@ model PlugFlowAIT
     cPip=500,
     rhoPip=8000,
     initDelay=false,
-    m_flow_start=0) annotation (Placement(transformation(
+    m_flow_start=0) "Pipe 2"
+                    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-88,26})));
@@ -136,27 +142,33 @@ model PlugFlowAIT
     cPip=500,
     rhoPip=8000,
     initDelay=false,
-    m_flow_start=0) annotation (Placement(transformation(
+    m_flow_start=0) "Pipe 3"
+                    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-50,-20})));
   Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataAIT151218.data)
+    "Read measurement data"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
-  Data.PipeDataAIT151218 pipeDataAIT151218
+  Data.PipeDataAIT151218 pipeDataAIT151218 "Measurement data from AIT network"
     annotation (Placement(transformation(extent={{-30,-140},{-10,-120}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p3(y=-DataReader.y[7])
+    "Mass flow rate for substation 3"
     annotation (Placement(transformation(extent={{-104,-120},{-64,-100}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p4(y=-DataReader.y[8])
+    "Mass flow rate of substation 4"
     annotation (Placement(transformation(extent={{156,130},{116,150}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p2(y=-DataReader.y[6])
     annotation (Placement(transformation(extent={{-14,90},{-54,110}})));
   Modelica.Blocks.Sources.RealExpression T_p1(y=DataReader.y[1])
+    "Inlet temperature"
     annotation (Placement(transformation(extent={{18,-114},{58,-94}})));
   Fluid.Sensors.TemperatureTwoPort senTem_p3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     transferHeat=true,
-    tauHeaTra=tauHeaTra) annotation (Placement(transformation(
+    tauHeaTra=tauHeaTra) "Temperature sensor"
+                         annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-50,-50})));
@@ -164,7 +176,8 @@ model PlugFlowAIT
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     transferHeat=true,
-    tauHeaTra=tauHeaTra) annotation (Placement(transformation(
+    tauHeaTra=tauHeaTra) "Temperature sensor"
+                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-88,56})));
@@ -172,7 +185,8 @@ model PlugFlowAIT
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     transferHeat=true,
-    tauHeaTra=tauHeaTra) annotation (Placement(transformation(
+    tauHeaTra=tauHeaTra) "Temperature sensor"
+                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={8,80})));
@@ -180,7 +194,8 @@ model PlugFlowAIT
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     transferHeat=true,
-    tauHeaTra=tauHeaTra) annotation (Placement(transformation(
+    tauHeaTra=tauHeaTra) "Temperature sensor"
+                         annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-50})));
@@ -199,37 +214,45 @@ model PlugFlowAIT
     cPip=500,
     rhoPip=8000,
     initDelay=false,
-    m_flow_start=0) annotation (Placement(transformation(
+    m_flow_start=0) "Pipe 0"
+                    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
   Fluid.Sources.FixedBoundary ExcludedBranch(redeclare package Medium = Medium,
-      nPorts=1) annotation (Placement(transformation(
+      nPorts=1) "Mass flow sink for excluded branch"
+                annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={82,40})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature
+    prescribedTemperature "Variable environment temperature"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   Fluid.Sensors.TemperatureTwoPort senTemIn_p2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     transferHeat=true,
-    tauHeaTra=tauHeaTra)
+    tauHeaTra=tauHeaTra) "Temperature sensor"
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
 
   Modelica.Blocks.Logical.Switch switch
+    "Decide if mass flow rate is below measurement noise threshold or not"
     annotation (Placement(transformation(extent={{54,116},{34,136}})));
   Modelica.Blocks.Sources.RealExpression m_flow_zero(y=0)
+    "Default value if mass flow rate is below measurement noise threshold"
     annotation (Placement(transformation(extent={{156,108},{116,128}})));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=-0.001)
+    "Measurement noise threshold"
     annotation (Placement(transformation(extent={{92,120},{76,136}})));
   Modelica.Blocks.Logical.Switch switch1
+    "Decide if mass flow rate is below measurement noise threshold or not"
     annotation (Placement(transformation(extent={{130,54},{110,74}})));
   Fluid.Sources.MassFlowSource_T Point5(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1) annotation (Placement(transformation(
+    nPorts=1)
+    "Bypass temperature sensor when flow rate is below measurement threshold"
+              annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={46,56})));
