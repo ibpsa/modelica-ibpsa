@@ -7,7 +7,8 @@ model MSLAIT
     redeclare package Medium = Medium,
     use_T_in=true,
     use_m_flow_in=true,
-    nPorts=1) annotation (Placement(transformation(
+    nPorts=1) "Mass flow source"
+              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={124,-84})));
@@ -15,41 +16,49 @@ model MSLAIT
   Fluid.Sources.MassFlowSource_T Point4(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1) annotation (Placement(transformation(
+    nPorts=1) "Substation 4"
+              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={42,120})));
   Fluid.Sources.MassFlowSource_T Point3(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1) annotation (Placement(transformation(
+    nPorts=1) "Substation 3"
+              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-48,-106})));
   Fluid.Sources.MassFlowSource_T Point2(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1) annotation (Placement(transformation(
+    nPorts=1) "Substation 2"
+              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-104,110})));
   Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataAIT151218.data)
+    "Read measurement data"
     annotation (Placement(transformation(extent={{34,-152},{54,-132}})));
-  Data.PipeDataAIT151218 pipeDataAIT151218
+  Data.PipeDataAIT151218 pipeDataAIT151218 "Record with measurement data"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p3(y=-DataReader.y[7])
+    "Mass flow rate for substation 3"
     annotation (Placement(transformation(extent={{-102,-136},{-62,-116}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p2(y=-DataReader.y[6])
+    "Mass flow rate for substation 2"
     annotation (Placement(transformation(extent={{-154,120},{-114,140}})));
   Modelica.Blocks.Sources.RealExpression T_p1(y=DataReader.y[1])
+    "Inlet temperature"
     annotation (Placement(transformation(extent={{62,-110},{102,-90}})));
   Fluid.Sources.FixedBoundary ExcludedBranch(redeclare package Medium = Medium,
-      nPorts=1) annotation (Placement(transformation(
+      nPorts=1) "Mass flow sink for excluded branch"
+                annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={124,26})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature
+    prescribedTemperature "Variable environment temperature"
     annotation (Placement(transformation(extent={{74,-152},{94,-132}})));
 
   parameter Boolean allowFlowReversal=false
@@ -67,7 +76,8 @@ model MSLAIT
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           dp_nominal(displayUnit="Pa") = 10*pip0.length, m_flow_nominal=0.3),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15)    annotation (Placement(transformation(
+    T_start=293.15) "Pipe 0"
+                       annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={124,-8})));
@@ -81,8 +91,10 @@ model MSLAIT
     "Thermal resistance of service pipes";
 
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res0[pip0.nNodes](each R=
-        R) annotation (Placement(transformation(extent={{142,-18},{162,2}})));
+        R) "Thermal resistances for pipe 0"
+           annotation (Placement(transformation(extent={{142,-18},{162,2}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector col0(m=pip0.nNodes)
+    "Combine heat flows to one"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -100,17 +112,20 @@ model MSLAIT
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           m_flow_nominal=0.3, dp_nominal=10*pip1.length),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15)    annotation (Placement(transformation(
+    T_start=293.15) "Pipe 1"
+                       annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={78,4})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector col1(m=pip1.nNodes)
+    "Combine heat flows to one"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={102,46})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res1[pip1.nNodes](each R=
-        R) annotation (Placement(transformation(
+        R) "Thermal resistances for pipe 1"
+           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={78,30})));
@@ -127,17 +142,20 @@ model MSLAIT
           dp_nominal=10*pip2.length, m_flow_nominal=0.3),
     diameter=0.0337 - 2*0.0032,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15)    annotation (Placement(transformation(
+    T_start=293.15) "Pipe 2"
+                       annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-104,40})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector col2(m=pip2.nNodes)
+    "Combine heat flows to one"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-66,64})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res2[pip2.nNodes](each R=
-        R80) annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
+        R80) "Thermal resistances for pipe 2"
+             annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
   Modelica.Fluid.Pipes.DynamicPipe pip3(
     nParallel=1,
     redeclare package Medium = Medium,
@@ -151,17 +169,20 @@ model MSLAIT
           dp_nominal=10*pip3.length, m_flow_nominal=0.3),
     diameter=0.0337 - 2*0.0032,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15)    annotation (Placement(transformation(
+    T_start=293.15) "Pipe 3"
+                       annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-48,-48})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector col3(m=pip3.nNodes)
+    "Combine heat flows to one"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={28,-48})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res3[pip3.nNodes](each R=
-        R80) annotation (Placement(transformation(
+        R80) "Thermal resistances for pipe 3"
+             annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-4,-48})));
@@ -178,17 +199,20 @@ model MSLAIT
           dp_nominal=10*pip4.length, m_flow_nominal=0.3),
     diameter=0.0337 - 2*0.0032,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15)    annotation (Placement(transformation(
+    T_start=293.15) "Pipe 4"
+                       annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={42,38})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector col4(m=pip4.nNodes)
+    "Combine heat flows to one"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={16,96})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res4[pip4.nNodes](each R=
-        R80) annotation (Placement(transformation(
+        R80) "Thermal resistances for pipe 4"
+             annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={16,62})));
@@ -205,17 +229,20 @@ model MSLAIT
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow (
           dp_nominal=10*pip5.length, m_flow_nominal=0.3),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15)    annotation (Placement(transformation(
+    T_start=293.15) "Pipe 5"
+                       annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-22,4})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector col5(m=pip5.nNodes)
+    "Combine heat flows to one"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-22,96})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res5[pip5.nNodes](each R=
-        R) annotation (Placement(transformation(
+        R) "Thermal resistances for pipe 5"
+           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-22,62})));
@@ -229,7 +256,7 @@ model MSLAIT
                             senTem_p2(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     transferHeat=true,
-    tauHeaTra=tauHeaTra)
+    tauHeaTra=tauHeaTra) "Temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-104,74})));
@@ -237,7 +264,7 @@ model MSLAIT
                             senTem_p3(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     transferHeat=true,
-    tauHeaTra=tauHeaTra)
+    tauHeaTra=tauHeaTra) "Temperature sensor"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-48,-74})));
@@ -245,13 +272,13 @@ model MSLAIT
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     transferHeat=true,
-    tauHeaTra=tauHeaTra)
+    tauHeaTra=tauHeaTra) "Temperature sensor"
     annotation (Placement(transformation(extent={{-54,-6},{-74,14}})));
   Fluid.Sensors.TemperatureTwoPort
                             senTem_p1(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     transferHeat=true,
-    tauHeaTra=tauHeaTra)
+    tauHeaTra=tauHeaTra) "Temperature sensor"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=270,
         origin={124,-42})));
@@ -259,7 +286,7 @@ model MSLAIT
                             senTem_p4(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     transferHeat=true,
-    tauHeaTra=tauHeaTra)
+    tauHeaTra=tauHeaTra) "Temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={42,80})));
@@ -272,19 +299,25 @@ model MSLAIT
   Fluid.Sources.MassFlowSource_T Point5(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1)           annotation (Placement(transformation(
+    nPorts=1) "Mass flow sink for substation 4 in case of low flow rates"
+                        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={64,70})));
   Modelica.Blocks.Sources.RealExpression m_flow_p4(y=-DataReader.y[8])
+    "Measured mass flow rate for substation 4"
     annotation (Placement(transformation(extent={{220,164},{180,184}})));
   Modelica.Blocks.Logical.Switch switch
+    "Switch to avoid mass flow rate measurement noise on substation with flow standstill."
     annotation (Placement(transformation(extent={{100,156},{80,176}})));
   Modelica.Blocks.Sources.RealExpression m_flow_zero(y=0)
+    "Default value when mass flow rate is below noise threshold"
     annotation (Placement(transformation(extent={{220,148},{180,168}})));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=-0.001)
+    "Check if mass flow rate is lower than 0.001"
     annotation (Placement(transformation(extent={{144,122},{124,142}})));
   Modelica.Blocks.Logical.Switch switch1
+    "If flow is lower than measurement noise threshold, bypass temperature sensor"
     annotation (Placement(transformation(extent={{100,82},{80,102}})));
 equation
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
