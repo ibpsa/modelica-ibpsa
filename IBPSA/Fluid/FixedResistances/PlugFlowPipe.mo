@@ -1,6 +1,6 @@
 within IBPSA.Fluid.FixedResistances;
 model PlugFlowPipe
-  "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
+  "Pipe model using spatialDistribution for temperature delay"
   extends IBPSA.Fluid.Interfaces.PartialTwoPortVector;
 
   parameter Boolean from_dp=false
