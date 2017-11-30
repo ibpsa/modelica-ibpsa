@@ -85,7 +85,7 @@ model PlugFlowCore
     final allowFlowReversal=allowFlowReversal,
     final T_start_in=T_start_in,
     final T_start_out=T_start_out)
-    "Model for temperature wave propagation (fixme: could this be part of the del instance?)"
+    "Model for temperature wave propagation"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowHeatLoss heaLos_a(
