@@ -48,13 +48,13 @@ partial model PartialFourPortParallel
 <p>
 This model defines an interface for components with four ports
 in which flows occur in parallel.
-The parametera <code>allowFlowReversal1</code> and <code>allowFlowReversal2</code>
+The parameters <code>allowFlowReversal1</code> and <code>allowFlowReversal2</code>
 may be used by models that extend this model to treat flow reversal.
 </p>
 <p>
 This model is identical to
 <a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">Modelica.Fluid.Interfaces.PartialTwoPort</a>,
-except for the fowllowing: </p>
+except for the following: </p>
 <ol>
 <li>it has four ports, and </li>
 <li>the parameter <code>showDesignFlowDirection</code> is not implemented.
