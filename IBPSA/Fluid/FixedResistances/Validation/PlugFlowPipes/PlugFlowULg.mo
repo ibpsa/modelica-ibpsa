@@ -1,7 +1,6 @@
 ﻿within IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes;
 model PlugFlowULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
-  // R=((1/(2*pipe.kIns)*log((0.0603/2+pipe.dIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.dIns)))/Modelica.Constants.pi
   package Medium = IBPSA.Media.Water;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1

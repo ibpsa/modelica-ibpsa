@@ -67,7 +67,7 @@ model PlugFlowAIT
     m_flow_start=0)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PlugFlowPipe pip4(
-    dh(displayUnit="mm") = 0.0337 - 2*0.0032,
+    dh = 0.0337 - 2*0.0032,
     redeclare package Medium = Medium,
     length=29,
     dIns=0.045,
