@@ -174,7 +174,7 @@ experimental data from a real district heating network.
 <p>
 This model compares the results with the original Modelica Standard Library pipes.
 </p>
-<p>The pipes' temperatures are not initialized. Therfore, results of
+<p>The pipes' temperatures are not initialized. Therefore, results of
 outflow temperature before approximately the first 10000 seconds should not be
 considered.
 </p>

@@ -5,7 +5,7 @@ model MSLAIT
 
   /*TODO: change nNodes for pipes. For fair comparison, n should be adapted to
   make the Courant number close to 1, but this is only possible for a narrow
-  range of mass flow rates, which is a sstrength of the new pipe model.*/
+  range of mass flow rates, which is a strength of the new pipe model.*/
   Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,
     use_T_in=true,
