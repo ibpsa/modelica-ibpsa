@@ -43,7 +43,7 @@ model PlugFlowCore "Simple example of plug flow pipe core"
     height=20,
     duration=0,
     offset=273.15 + 50,
-    startTime=100) "Ramp pressure signal"
+    startTime=100) "Ramp temperature signal"
     annotation (Placement(transformation(extent={{-92,-6},{-72,14}})));
   Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -65,26 +65,27 @@ model PlugFlowCore "Simple example of plug flow pipe core"
     C=C,
     v_nominal=1.5,
     T_start_in=323.15,
-    T_start_out=323.15) "Fixed resistance"
+    T_start_out=323.15) "Pipe"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bou(T=283.15)
+    "Fixed temperature boundary condition"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sou(
     nPorts=1,
     redeclare package Medium = Medium,
     use_T_in=true,
-    m_flow=3)
+    m_flow=3) "Flow source"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTemOut(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    T_start=323.15)
+    T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTemIn(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    T_start=323.15)
+    T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 equation
   connect(bou.port, pip.heatPort)

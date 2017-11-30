@@ -121,7 +121,7 @@ model PlugFlowPipe
     final T_start=T_start_out,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final mSenFac = if rho_default > 500 then 1 else 10)
-    "Control volume connected to ports_b"
+    "Control volume connected to ports_b. Represents equivalent pipe wall thermal capacity."
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
 protected

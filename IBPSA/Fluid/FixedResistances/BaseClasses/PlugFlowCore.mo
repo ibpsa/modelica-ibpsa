@@ -112,7 +112,7 @@ model PlugFlowCore
     final show_V_flow=false) "Heat loss for flow from port_a to port_b"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(
-    redeclare final package Medium = Medium)
+    redeclare final package Medium = Medium) "Mass flow sensor"
     annotation (Placement(transformation(extent={{-50,10},{-30,-10}})));
   IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowTransportDelay timDel(
     final length=length,
