@@ -36,7 +36,8 @@ model PlugFlowPipe
     "Thickness of pipe insulation, used to compute R"
     annotation (Dialog(group="Thermal resistance"));
 
-  parameter Modelica.SIunits.ThermalConductivity kIns "Heat conductivity, used to compute R"
+  parameter Modelica.SIunits.ThermalConductivity kIns
+    "Heat conductivity of pipe insulation, used to compute R"
     annotation (Dialog(group="Thermal resistance"));
 
   parameter Modelica.SIunits.SpecificHeatCapacity cPip=2300
@@ -262,7 +263,7 @@ splits and junctions of pipes can be handled in a numerically efficient way.
 This mixing volume is not present in the
 <a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">PlugFlowCore</a> model,
 which can be used in cases where mixing volumes at pipe junctions need to
-be added manually. 
+be added manually.
 </p>
 <h4>Assumptions</h4>
 <ul>

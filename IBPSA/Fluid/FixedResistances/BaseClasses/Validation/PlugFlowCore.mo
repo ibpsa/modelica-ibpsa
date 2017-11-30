@@ -9,7 +9,7 @@ model PlugFlowCore "Simple example of plug flow pipe core"
   parameter Modelica.SIunits.Length dIns = 0.05
     "Thickness of pipe insulation";
   parameter Modelica.SIunits.ThermalConductivity kIns= 0.028
-   "Heat conductivity";
+   "Heat conductivity of pipe insulation";
 
   parameter Modelica.SIunits.SpecificHeatCapacity cPip=500
     "Specific heat of pipe wall material. 2300 for PE, 500 for steel";
