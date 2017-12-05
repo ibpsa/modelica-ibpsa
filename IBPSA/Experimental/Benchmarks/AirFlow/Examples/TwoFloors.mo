@@ -113,7 +113,7 @@ model TwoFloors "Test case for air flow between two floors"
         rotation=90,
         origin={-52,70})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather file reader for input to air flow models"
     annotation (Placement(transformation(extent={{-24,100},{-4,120}})));
 equation
