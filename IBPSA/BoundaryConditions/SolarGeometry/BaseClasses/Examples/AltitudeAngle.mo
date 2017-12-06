@@ -10,7 +10,7 @@ model AltitudeAngle "Test model for altitude angle"
   IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle
     solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   IBPSA.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"

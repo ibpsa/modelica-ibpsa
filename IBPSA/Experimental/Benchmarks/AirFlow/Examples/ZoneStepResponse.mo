@@ -24,7 +24,7 @@ model ZoneStepResponse
         origin={50,0})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       TDryBulSou=IBPSA.BoundaryConditions.Types.DataSource.Input, filNam=
-        "modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data reader for input data"
     annotation (Placement(transformation(extent={{-62,-52},{-42,-32}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather bus for temperature input"
