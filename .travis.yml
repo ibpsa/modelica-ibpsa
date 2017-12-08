@@ -29,6 +29,7 @@ before_install:
   - sudo chmod +x /usr/local/bin/dymola
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   - docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2018fd01-x86_64
+  - docker pull "$DOCKER_USERNAME"/ubuntu-1604_jmodelica_trunk
 
 # Install dependencies
 # For sphinx, we need to install specific package versions, otherwise
