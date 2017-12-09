@@ -2,7 +2,6 @@
 # Makefile for the regression tests that are run on travis
 ############################################################
 ROOT = ../../../..
-TOOL = $(shell $TOOL)
 
 test-documentation:
 	(cd $(ROOT)/IBPSA; ../bin/runUnitTests.py --validate-html-only)
