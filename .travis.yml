@@ -45,12 +45,15 @@ env:
 # Execute tests
 jobs:
   include:
-    -stage: dymola
-     script: (echo "dymola PACKAGE=$PACKAGE")
-    -stage: jmodelica
-     script: (echo "jmodelica PACKAGE=$PACKAGE")
-    -stage: docs
-     script: (echo "checking doc")
+    -stage: Dymola tests
+     script:
+     - echo "dymola PACKAGE=$PACKAGE"
+    -stage: JModelica tests
+     script: 
+     - echo "jmodelica PACKAGE=$PACKAGE"
+    -stage: Documentation tests
+     script:
+     - echo "checking doc"
     
 ##script:
 ##    - (echo "TOOL=$TOOL PACKAGE=$PACKAGE")
