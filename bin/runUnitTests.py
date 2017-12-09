@@ -111,6 +111,7 @@ if __name__ == '__main__':
                         help="Run in batch mode without user interaction")
     unit_test_group.add_argument('-t', "--tool",
                         metavar="dymola",
+                        default="dymola",
                         help="Tool for the regression tests. Set to dymola or jmodelica")
     unit_test_group.add_argument('-s', "--single-package",
                         metavar="Modelica.Package",
