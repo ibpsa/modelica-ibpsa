@@ -26,7 +26,9 @@ env:
 
 before_install:
   - sudo cp IBPSA/Resources/Scripts/travis/usr/local/bin/dymola /usr/local/bin/
+  - sudo cp IBPSA/Resources/Scripts/travis/usr/local/bin/jm_ipython.sh /usr/local/bin/
   - sudo chmod +x /usr/local/bin/dymola
+  - sudo chmod +x /usr/local/bin/jm_ipython.sh
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   - docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2018fd01-x86_64
   - docker pull "$DOCKER_USERNAME"/ubuntu-1604_jmodelica_trunk
