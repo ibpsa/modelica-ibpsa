@@ -43,7 +43,8 @@ env:
 ##  - pip install git+https://github.com/lbl-srg/BuildingsPy@master
 
 # Execute tests
-script: echo "dymola PACKAGE=$package, modelica_tool=$modelica_tool"
+script: 
+  - echo "dymola PACKAGE=$package, modelica_tool=$modelica_tool"
 
 jobs:
   include:
