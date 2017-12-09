@@ -43,20 +43,21 @@ env:
 ##  - pip install git+https://github.com/lbl-srg/BuildingsPy@master
 
 # Execute tests
+
 script: 
   - echo "dymola PACKAGE=$package, modelica_tool=$modelica_tool"
 
-jobs:
-  include:
-    - stage: Dymola tests
-      script:
-      - echo "dymola PACKAGE=$package, modelica_tool=$modelica_tool"
-    - stage: JModelica tests
-      script: 
-      - echo "dymola PACKAGE=$package, modelica_tool=$modelica_tool"
-    - stage: Documentation tests
-      script:
-      - echo "checking doc"
+##jobs:
+##  include:
+##    - stage: Dymola tests
+##      script:
+##      - echo "dymola PACKAGE=$package, modelica_tool=$modelica_tool"
+##    - stage: JModelica tests
+##      script: 
+##      - echo "dymola PACKAGE=$package, modelica_tool=$modelica_tool"
+##    - stage: Documentation tests
+##      script:
+##      - echo "checking doc"
     
 ##script:
 ##    - (echo "TOOL=$TOOL PACKAGE=$PACKAGE")
