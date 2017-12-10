@@ -17,10 +17,10 @@ initial equation
   // We compute the analytic derivative of the polynomial for y=(1/points),
   // where the derivative of y^j = j*y^(j-1).
   if size(c, 1)>=2 then
-    for i in 0:nP loop
-      assert(sum({c[j]*j*(i/nP)^(j-1) for j in 1:size(c, 1) - 1})>0,
+    for i in 0:nP/2 loop
+      assert(sum({c[j+1]*j*(i/nP)^(j-1) for j in 1:size(c, 1) - 1})>=0,
       "The provided valve polynomial coefficients 
-      do not lead to a strictly increasing characteristic. This is not allowed.");
+      do not lead to a strictly increasing characteristic for y=" + String(i/nP)+ ". This is not allowed.");
     end for;
   end if;
   assert(c[1]>=0, "The provided valve polynomial coefficients do not lead to 
