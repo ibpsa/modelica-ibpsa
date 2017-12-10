@@ -9,22 +9,20 @@ model TwoWayPolynomial "Two way valve with polynomial characteristic"
 protected
   constant Integer points = 100
     "Number of points for initial algorithm test";
-  parameter Real phi_test(fixed=false)
-    "Variable for testing validity of polynomial";
-  parameter Real phi_test_prev(fixed=false)
-    "Variable for testing validity of polynomial";
   Real pol_y = sum(c.*{y_actual^i for i in 0:size(c,1)-1})
     "Polynomial of valve control signal";
 
-  // initial algorithm that tests the validity of the provided valve coefficients
-initial algorithm
-  phi_test:=0;
-  phi_test_prev:=0;
-  for i in 0:points loop
-    phi_test:=sum(c .* {(i/points)^i for i in 0:size(c, 1) - 1});
-    assert(phi_test-phi_test_prev>0, "The provided valve polynomial coefficients 
-    do not lead to a strictly increasing characteristic. This is not allowed.");
-  end for;
+  // initial equation that tests the validity of the provided valve coefficients
+initial equation
+  // We compute the analytic derivative of the polynomial for y=(1/points),
+  // where the derivative of y^j = j*y^(j-1).
+  if size(c, 1)>=2 then
+    for i in 0:points loop
+      assert(sum({c[j]*j*(i/points)^(j-1) for j in 1:size(c, 1) - 1})>0,
+      "The provided valve polynomial coefficients 
+      do not lead to a strictly increasing characteristic. This is not allowed.");
+    end for;
+  end if;
   assert(c[1]>=0, "The provided valve polynomial coefficients do not lead to 
   a valve opening that is larger than or equal to zero for a control signal of zero. ");
   assert(sum(c)<=1.1, "The provided valve polynomial coefficients do not lead to 
