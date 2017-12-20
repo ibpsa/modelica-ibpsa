@@ -51,7 +51,8 @@ public
     fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
         filDir + FilNam_QCon),
     columns=2:nOcc + 1,
-    startTime=startTime) if
+    startTime=startTime,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) if
                            StROBe
     annotation (Placement(transformation(extent={{-40,-34},{-26,-20}})));
   Modelica.Blocks.Sources.CombiTimeTable tabQRad(
@@ -61,7 +62,8 @@ public
     fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
         filDir + FilNam_QRad),
     columns=2:nOcc + 1,
-    startTime=startTime) if
+    startTime=startTime,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) if
                            StROBe
     annotation (Placement(transformation(extent={{-36,-38},{-22,-24}})));
   Modelica.Blocks.Sources.CombiTimeTable tabTSet(
@@ -71,7 +73,8 @@ public
     fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
         filDir + FilNam_TSet),
     columns=2:nOcc + 1,
-    startTime=startTime) if
+    startTime=startTime,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) if
                            StROBe
     annotation (Placement(transformation(extent={{-40,18},{-26,32}})));
   Modelica.Blocks.Sources.CombiTimeTable tabP(
@@ -81,7 +84,8 @@ public
     fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
         filDir + FilNam_P),
     columns=2:nOcc + 1,
-    startTime=startTime) if
+    startTime=startTime,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) if
                            StROBe_P
     annotation (Placement(transformation(extent={{-40,-58},{-26,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable tabQ(
@@ -91,7 +95,8 @@ public
     fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
         filDir + FilNam_Q),
     columns=2:nOcc + 1,
-    startTime=startTime) if
+    startTime=startTime,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) if
                            StROBe
     annotation (Placement(transformation(extent={{-36,-62},{-22,-48}})));
   Modelica.Blocks.Sources.CombiTimeTable tabDHW(
@@ -101,7 +106,8 @@ public
     fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
         filDir + FilNam_mDHW),
     columns=2:nOcc + 1,
-    startTime=startTime) if
+    startTime=startTime,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) if
                            StROBe
     annotation (Placement(transformation(extent={{-40,40},{-26,54}})));
   Modelica.Blocks.Sources.CombiTimeTable tabPPv(
@@ -111,7 +117,8 @@ public
     fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
         filDir + FilNam_PPv),
     columns=2:nPv + 1,
-    startTime=startTime) if
+    startTime=startTime,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) if
                           PPv
     annotation (Placement(transformation(extent={{-40,-8},{-26,6}})));
   Modelica.Blocks.Sources.CombiTimeTable tabTSet2(
@@ -121,7 +128,8 @@ public
     fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
         filDir + FilNam_TSet2),
     columns=2:nOcc + 1,
-    startTime=startTime) if
+    startTime=startTime,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) if
                            StROBe
     annotation (Placement(transformation(extent={{-36,14},{-22,28}})));
   Modelica.Blocks.Sources.CombiTimeTable tabPHp(
@@ -131,7 +139,8 @@ public
     fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
         filDir + FilNam_PHp),
     columns=2:nOcc + 1,
-    startTime=startTime) if
+    startTime=startTime,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) if
                            PHp
     annotation (Placement(transformation(extent={{-36,-12},{-22,2}})));
   annotation (

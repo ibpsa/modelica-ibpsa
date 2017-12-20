@@ -31,3 +31,5 @@
 /*.mm
 /IDEAS/*.pyc
 systemScript.py
+IDEAS/stop
+IDEAS/request
