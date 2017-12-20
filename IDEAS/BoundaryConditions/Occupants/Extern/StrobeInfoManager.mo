@@ -227,5 +227,11 @@ public
             100}}),
             graphics),
     Documentation(info="<html>
+<ul>
+<li>
+December 20, 2017 by Bram van der Heijde: <br/>
+Propagate start time of <code>CombiTimeTable</code>s in <code>StrobeInfoManager</code> and make data reader repeat input data to avoid errors.
+</li>
+</ul>
 </html>"));
 end StrobeInfoManager;
