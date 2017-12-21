@@ -39,7 +39,7 @@ model MultipleFloorsVectors
     "Vector of floor elements"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data reader for input into floor models"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
