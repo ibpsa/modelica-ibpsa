@@ -227,12 +227,11 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   constant Real epsCos = 1e-6 "Small value to avoid division by 0";
   constant Modelica.SIunits.HeatFlux solCon = 1367.7 "Solar constant";
 
-protected
-  final parameter String absFilNam = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam)
-    "Absolute path of the file";
   // For evalating time span of weather data
+protected
   final parameter Modelica.SIunits.Time[2] timeSpan=
-  IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(absFilNam, tableName)
+  if Modelica.Utilities.Strings.isEmpty(filNam) then {0.0, 3600.0}
+  else IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, tableName)
   "Start and end time of weather data";
 
 
