@@ -200,9 +200,10 @@ block ReaderTMY3 "Reader for TMY3 weather data"
         iconTransformation(extent={{-240,-240},{-200,-200}})));
 
   //--------------------------------------------------------------
-  parameter String filNam="modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos" "Name of weather data file" annotation (Dialog(
-        loadSelector(filter="Weather files (*.mos)", caption=
-            "Select weather file")));
+  parameter String filNam="" "Name of weather data file" annotation (
+    Dialog(loadSelector(filter="Weather files (*.mos)",
+                        caption="Select weather file")));
+
   parameter String tableName="tab1"
     "Table name on file ";
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
@@ -227,18 +228,17 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   constant Real epsCos = 1e-6 "Small value to avoid division by 0";
   constant Modelica.SIunits.HeatFlux solCon = 1367.7 "Solar constant";
 
-protected
-  final parameter String absFilNam = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam)
-    "Absolute path of the file";
   // For evalating time span of weather data
+protected
   final parameter Modelica.SIunits.Time[2] timeSpan=
-  IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(absFilNam, tableName)
+  IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, tableName)
+
   "Start and end time of weather data";
 
 
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
-    final fileName=absFilNam,
+    final fileName=filNam,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
         28,29,30,8},
@@ -296,7 +296,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   Modelica.Blocks.Tables.CombiTable1Ds datRea1(
     final tableOnFile=true,
-    final fileName=absFilNam,
+    final fileName=filNam,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns=9:11,
     final tableName=tableName)
