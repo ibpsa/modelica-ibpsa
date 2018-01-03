@@ -203,16 +203,17 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter String filNam="" "Name of weather data file" annotation (
     Dialog(loadSelector(filter="Weather files (*.mos)",
                         caption="Select weather file")));
+
   parameter String tableName="tab1"
     "Table name on file ";
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
-    filNam) "Longitude";
+    absFilNam) "Longitude";
   final parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
-    filNam) "Latitude";
+    absFilNam) "Latitude";
   final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
-    IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
+    IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(absFilNam)
     "Time zone";
   Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{
             290,-10},{310,10}}), iconTransformation(extent={{190,-10},{210,10}})));
@@ -230,8 +231,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   // For evalating time span of weather data
 protected
   final parameter Modelica.SIunits.Time[2] timeSpan=
-  if Modelica.Utilities.Strings.isEmpty(filNam) then {0.0, 3600.0}
-  else IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, tableName)
+  IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, tableName)
+
   "Start and end time of weather data";
 
 
@@ -1581,19 +1582,6 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>", revisions="<html>
 <ul>
 <li>
-December 4, 2017, by Michael Wetter:<br/>
-Removed function call to <code>getAbsolutePath</code>, as this causes in Dymola 2018FD01
-the error
-\"A call of loadResource with a non-literal string remains in the generated code; it will not work for an URI.\"
-when exporting <a href=\"modelica://IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
-IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>
-as an FMU. Instead, if the weather file is specified as a Modelica, URI, syntax such as
-<code>Modelica.Utilities.Files.loadResource(\"modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos\")</code>
-should be used.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/867\">#867</a>.
-</li>
-<li>
 February 18, 2017, by Filip Jorissen:<br/>
 Infrared radiation on horizontal surface is now delayed by 30 minutes
 such that the results in
@@ -1640,7 +1628,7 @@ This is for
 </li>
 <li>
 September 24, 2015, by Marcus Fuchs:<br/>
-Replace Dymola specific annotation by <code>loadSelector</code>
+Replace annotation <code>__Dymola_loadSelector</code> by <code>loadSelector</code>
 for MSL compliancy as reported by @tbeu at
 <a href=\"https://github.com/RWTH-EBC/AixLib/pull/107\">RWTH-EBC/AixLib#107</a>
 </li>
