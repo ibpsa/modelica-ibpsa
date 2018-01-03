@@ -208,12 +208,12 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Table name on file ";
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
-    absFilNam) "Longitude";
+    filNam) "Longitude";
   final parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
-    absFilNam) "Latitude";
+    filNam) "Latitude";
   final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
-    IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(absFilNam)
+    IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
   Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{
             290,-10},{310,10}}), iconTransformation(extent={{190,-10},{210,10}})));
@@ -232,7 +232,6 @@ block ReaderTMY3 "Reader for TMY3 weather data"
 protected
   final parameter Modelica.SIunits.Time[2] timeSpan=
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, tableName)
-
   "Start and end time of weather data";
 
 
