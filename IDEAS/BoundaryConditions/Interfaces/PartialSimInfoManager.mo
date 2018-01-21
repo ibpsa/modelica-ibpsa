@@ -269,6 +269,8 @@ equation
       smooth=Smooth.None));
 
   for i in 1:numIncAndAziInBus loop
+    connect(timMan.timSol, radSol[i].solTim) annotation (Line(points={{-60,-50},{-8,
+          -50},{-8,53},{19.6,53}}, color={0,0,127}));
     connect(radSol[i].F2, skyBrightnessCoefficients.F2) annotation (Line(points={{19.6,40},
             {2,40},{2,66},{-5,66}},           color={0,0,127}));
     connect(radSol[i].F1, skyBrightnessCoefficients.F1) annotation (Line(points={{19.6,42},
@@ -460,6 +462,12 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+January 21, 2018 by Filip Jorissen:<br/>
+Added <code>solTim</code> connection for revised azimuth computations.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/753\">
+#753</a>.
+</li>
 <li>
 March 21, 2017, by Filip Jorissen:<br/>
 Changed linearisation implementation for JModelica compatibility.
