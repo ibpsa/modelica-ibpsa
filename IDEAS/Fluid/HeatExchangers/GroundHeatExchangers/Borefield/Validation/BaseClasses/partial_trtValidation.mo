@@ -2,7 +2,7 @@ within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Validation.Base
 partial model partial_trtValidation
   extends Examples.borefield8x1(
     pum(
-      addPowerToMedium=false),
+      addPowerToMedium=false, nominalValuesDefineDefaultPressureCurve=true),
     hea(
       Q_flow_nominal=bfData.gen.q_ste*bfData.gen.hBor,
       dp_nominal=0),
@@ -43,5 +43,12 @@ equation
   connect(realExpression1.y, TMea_out.Kelvin)
     annotation (Line(points={{42.3,38},{45.15,38},{48,38}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})));
+            -100},{100,100}})), Documentation(revisions="<html>
+<ul>
+<li>
+January 22, 2018 by Filip Jorissen:<br/>
+Set parameter to remove warning from pump to avoid wrong unit tests results.
+</li>
+</ul>
+</html>"));
 end partial_trtValidation;
