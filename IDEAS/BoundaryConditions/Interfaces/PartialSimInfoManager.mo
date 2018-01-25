@@ -381,6 +381,8 @@ equation
           {-86,80},{-86,72},{-103,72}}, color={0,0,127}));
   connect(skyClearness.HGloHor, solGloHorIn.y) annotation (Line(points={{-82,86},
           {-88,86},{-88,88},{-103,88}}, color={0,0,127}));
+  connect(timMan.timSol, weaBus.solTim) annotation (Line(points={{-60,-50},{-8,
+          -50},{-8,18},{60.05,18},{60.05,28.05}}, color={0,0,127}));
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
@@ -464,7 +466,7 @@ equation
 <ul>
 <li>
 January 21, 2018 by Filip Jorissen:<br/>
-Added <code>solTim</code> connection for revised azimuth computations.
+Added <code>solTim</code> connections for revised azimuth computations.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/753\">
 #753</a>.
 </li>
