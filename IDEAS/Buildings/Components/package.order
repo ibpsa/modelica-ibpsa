@@ -10,8 +10,8 @@ ThermalBridges
 ZoneAirModels
 Comfort
 InternalGains
-OccupancyType
 Occupants
+OccupancyType
 Interfaces
 BaseClasses
 Examples

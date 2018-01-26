@@ -1,7 +1,6 @@
 within IDEAS.Buildings.Components.InternalGains;
-model None "No occupancy: no heat, moisture, or CO2 gains"
-  extends BaseClasses.PartialOccupancyGains(
-                           final requireInput=false);
+model None "No occupancy model: no heat, moisture, or CO2 gains are added when occupants are present"
+  extends BaseClasses.PartialOccupancyGains;
   Modelica.Blocks.Sources.Constant constWatFlow(final k=0)
     "Zero moisture being added"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
@@ -28,6 +27,11 @@ equation
 </html>",
         revisions="<html>
 <ul>
+<li>
+July 26, 2018 by Filip Jorissen:<br/>
+Revised implementation to add support for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
+</li>
 <li>
 July 18, 2016 by Filip Jorissen:<br/>
 First implementation

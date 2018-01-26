@@ -10,7 +10,6 @@ partial model PartialOccupancyGains "Partial model for occupant internal gains"
     IDEAS.Buildings.Components.OccupancyType.PartialOccupancyType occupancyType
     constrainedby IDEAS.Buildings.Components.OccupancyType.PartialOccupancyType
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  parameter Boolean requireInput = false "Set to true to enable the input n";
 
   Modelica.Blocks.Interfaces.RealOutput mWat_flow
     "Water vapor mass flow rate due to occupants"
@@ -21,7 +20,7 @@ partial model PartialOccupancyGains "Partial model for occupant internal gains"
   Modelica.Blocks.Interfaces.RealOutput C_flow[max(Medium.nC,1)]
     "Trace substance mass flow rate due to occupants"
     annotation (Placement(transformation(extent={{96,10},{116,30}})));
-  Modelica.Blocks.Interfaces.RealInput nOcc if requireInput "Number of occupants"
+  Modelica.Blocks.Interfaces.RealInput nOcc "Number of occupants"
     annotation (Placement(transformation(extent={{-130,-20},{-90,20}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo(final
@@ -38,6 +37,11 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+July 26, 2018 by Filip Jorissen:<br/>
+Revised implementation to add support for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
+</li>
 <li>
 July 18, 2016 by Filip Jorissen:<br/>
 First implementation
