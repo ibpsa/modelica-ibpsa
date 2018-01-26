@@ -6,7 +6,7 @@ partial block PartialOccupants "Partial for defining the number of occupants"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Modelica.Blocks.Interfaces.RealInput nOccIn if useInput
     "Input for number of occupants"
-    annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
