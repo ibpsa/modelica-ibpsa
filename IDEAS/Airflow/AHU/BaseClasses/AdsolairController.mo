@@ -5,12 +5,16 @@ model AdsolairController
     "Thermal time constant at nominal flow rate";
 
   Modelica.Blocks.Sources.BooleanExpression onAdiaExp(y=on and TSet < TIehInSup
-         and (pre(onAdiaExp.y) or TSet < TIehOutSup))
-    "Indirect evaporative cooling status"
+         and (pre(onAdiaExp.y) or TSet < TIehOutSup and pre(damMax.y)))
+    "Indirect evaporative cooling hysteresis status: 
+    on when TSet not obtained and damper is at maximum position, 
+    off when inlet temperature already satisfies set point"
     annotation (Placement(transformation(extent={{-100,50},{14,70}})));
-  Modelica.Blocks.Sources.BooleanExpression onChiExp(y=on and onDelAdi.y and TSet <
-        TIehOutSup and (pre(onChiExp.y) or TSet + 0.1 < TIehOutSup))
-    "Active chiller status"
+  Modelica.Blocks.Sources.BooleanExpression onChiExp(y=on and onDelAdi.y and
+        TSet < TIehOutSup and (pre(onChiExp.y) or TSet + 0.1 < TIehOutSup))
+    "Active chiller hystersis status: 
+    on when adia has been on for a while and temperature is still too low, 
+    off when IEH outlet temp satisfies requirements"
     annotation (Placement(transformation(extent={{-100,28},{14,46}})));
   Modelica.Blocks.MathBoolean.OnDelay onDelAdi(delayTime=5*tau)
     "On delay before compressor may be activated"
@@ -27,7 +31,7 @@ model AdsolairController
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     y_off=0,
     useKIn=true)
-               "PI controller for dampers"
+    "PI controller for dampers"
     annotation (Placement(transformation(extent={{30,0},{40,10}})));
   Modelica.Blocks.Math.Abs absdT
     "Absolute temperature difference between inlet streams"
@@ -73,19 +77,22 @@ model AdsolairController
         origin={120,-70})));
   IDEAS.Airflow.AHU.BaseClasses.LimPidAdsolair chiPid(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=180,
     yMax=1,
     yMin=0,
     revActPar=true,
     y_off=0.6,
     useKIn=false,
-    k=0.1)    "Pi controller for chiller compressor"
+    k=0.1,
+    Ti=240)   "Pi controller for chiller compressor"
     annotation (Placement(transformation(extent={{30,-24},{40,-14}})));
   Modelica.Blocks.Interfaces.RealOutput mod
     "Modulation signal of chiller compressor"
     annotation (Placement(transformation(extent={{100,-10},{140,30}})));
   Utilities.Math.InverseXRegularized inverseXRegularized(delta=0.1)
     annotation (Placement(transformation(extent={{14,0},{24,10}})));
+  Modelica.Blocks.Sources.BooleanExpression damMax(y=damPid.y > 0.97 or damPid.y
+         < 0.03) "Damper is at its limits -> next stage can be enabled"
+    annotation (Placement(transformation(extent={{-100,66},{14,82}})));
 equation
   connect(onDelAdi.u, onAdiaExp.y) annotation (Line(points={{26.4,60},{19.7,60}},
                 color={255,0,255}));
@@ -94,8 +101,6 @@ equation
                   color={0,0,127}));
   connect(TIehInSup, add.u1) annotation (Line(points={{-104,-60},{-24,-60},{-24,
           8},{-17,8}},color={0,0,127}));
-  connect(damPid.on, onChiExp.y)
-    annotation (Line(points={{33,10},{33,37},{19.7,37}},   color={255,0,255}));
   connect(revAct.y, damPid.revActIn)
     annotation (Line(points={{19.7,48},{35,48},{35,10}}, color={255,0,255}));
   connect(yBypTopExp.y, yBypTop)
@@ -128,10 +133,17 @@ equation
           5},{11.25,5},{13,5}}, color={0,0,127}));
   connect(inverseXRegularized.y, damPid.kIn) annotation (Line(points={{24.5,5},{
           27.25,5},{27.25,8},{29,8}}, color={0,0,127}));
+  connect(damPid.on, on) annotation (Line(points={{33,10},{34,10},{34,90},{-104,
+          90}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 26, 2018, by Filip Jorissen:<br/>
+Improved adsolair controller performance.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/751\">#751</a>.
+</li>
 <li>
 April 24, 2017, by Filip Jorissen:<br/>
 Now extending from interface.

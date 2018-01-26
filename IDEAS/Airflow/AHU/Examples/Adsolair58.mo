@@ -39,9 +39,6 @@ model Adsolair58 "Adsolair58 example model"
   Modelica.Blocks.Sources.Constant dpNom[2](each k=dp_nominal)
     annotation (Placement(transformation(extent={{14,60},{0,74}})));
 
-  Modelica.Blocks.Sources.Constant TSupAir(each k=273.15 + 26)
-    "Supply temperature set point for air handling unit"
-    annotation (Placement(transformation(extent={{14,80},{0,94}})));
   IDEAS.Buildings.Validation.BaseClasses.Structure.Bui900 bui900(redeclare
       package
       Medium = Medium) "Case 900 building envelope"
@@ -130,22 +127,30 @@ model Adsolair58 "Adsolair58 example model"
   Controls.Continuous.LimPID conPID1(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
-    Ti=120) "PID controller - example of a simple controller model"
+    Ti=120,
+    yMin=0.1)
+            "PID controller - example of a simple controller model"
     annotation (Placement(transformation(extent={{102,-100},{112,-90}})));
   Controls.Continuous.LimPID conPID2(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
-    Ti=120) "PID controller - example of a simple controller model"
+    Ti=120,
+    yMin=0.1)
+            "PID controller - example of a simple controller model"
     annotation (Placement(transformation(extent={{42,-100},{52,-90}})));
   Controls.Continuous.LimPID conPID3(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
-    Ti=120) "PID controller - example of a simple controller model"
+    Ti=120,
+    yMin=0.1)
+            "PID controller - example of a simple controller model"
     annotation (Placement(transformation(extent={{-18,-100},{-8,-90}})));
   Controls.Continuous.LimPID conPID4(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
-    Ti=120) "PID controller - example of a simple controller model"
+    Ti=120,
+    yMin=0.1)
+            "PID controller - example of a simple controller model"
     annotation (Placement(transformation(extent={{-68,-100},{-58,-90}})));
   Fluid.HeatExchangers.Heater_T       hea(
     redeclare package Medium = MediumWater,
@@ -158,24 +163,21 @@ model Adsolair58 "Adsolair58 example model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_inputFilter=false,
     constantHead=1e4,
-    inputType=IDEAS.Fluid.Types.InputType.Stages,
     m_flow_nominal=2,
-    heads={0,1e4}) "Supply pump"
-    annotation (Placement(transformation(extent={{-74,-2},{-58,14}})));
+    heads={0,1e4},
+    inputType=IDEAS.Fluid.Types.InputType.Constant)
+                   "Supply pump"
+    annotation (Placement(transformation(extent={{-8,8},{8,-8}},
+        rotation=90,
+        origin={-22,14})));
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
     redeclare package Medium = MediumWater,
     dpValve_nominal=1e4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=30,
     use_inputFilter=false,
-    m_flow_nominal=2)      "Valve for controlling flow rate"
+    m_flow_nominal=0.6)    "Valve for controlling flow rate"
     annotation (Placement(transformation(extent={{-52,-2},{-36,14}})));
-  Modelica.Blocks.Logical.Hysteresis heaOn(uLow=0.025, uHigh=0.05)
-    "Heating system on if heating water is demanded"
-    annotation (Placement(transformation(extent={{-44,-20},{-58,-6}})));
-  Modelica.Blocks.Math.BooleanToInteger booToInt(integerTrue=2, integerFalse=1)
-    "Convert boolean to pump control signal"
-    annotation (Placement(transformation(extent={{-64,-20},{-78,-6}})));
   Modelica.Blocks.Sources.Constant TSup(k=273.15 + 50) "Supply temperature"
     annotation (Placement(transformation(extent={{-134,4},{-118,20}})));
   Fluid.Sources.Boundary_pT bouWat(
@@ -186,6 +188,11 @@ model Adsolair58 "Adsolair58 example model"
   Modelica.Blocks.Sources.Constant TSet(each k=273.15 + 22)
     "Temperature set point of the zone"
     annotation (Placement(transformation(extent={{130,-80},{116,-66}})));
+  Modelica.Blocks.Sources.Pulse TSetPulse(
+    amplitude=8,
+    period=3600*7,
+    offset=273.15 + 16) "Temperature set point"
+    annotation (Placement(transformation(extent={{14,80},{0,94}})));
 equation
   connect(sim.weaBus, weaBus1) annotation (Line(
       points={{-84,92.8},{-74,92.8},{-74,96},{-64,96},{-64,92}},
@@ -209,8 +216,6 @@ equation
   connect(dpNom.y, adsolair58.dpSet)
     annotation (Line(points={{-0.7,67},{-32,67},{-32,50.2}},
                                                            color={0,0,127}));
-  connect(TSupAir.y, adsolair58.Tset)
-    annotation (Line(points={{-0.7,87},{-36,87},{-36,50.2}}, color={0,0,127}));
   connect(vavSup.port_b, bui930.port_a[1])
     annotation (Line(points={{90,-60},{87,-60},{87,-100}},color={0,127,255}));
   connect(vavRet.port_a, bui930.port_b[1]) annotation (Line(points={{70,-60},{78,
@@ -244,7 +249,7 @@ equation
           70,-40},{70,-26},{16,-26},{16,46},{-20,46}},
                                 color={0,127,255}));
   connect(vavSup.port_a, adsolair58.port_b2)
-    annotation (Line(points={{90,-40},{90,-28},{38,-28},{38,24},{-20,24},{-20,34}},
+    annotation (Line(points={{90,-40},{90,-28},{38,-28},{38,34},{-20,34}},
                                                        color={0,127,255}));
   connect(vavSup1.port_a, adsolair58.port_b2)
     annotation (Line(points={{38,-60},{38,34},{-20,34}}, color={0,127,255}));
@@ -288,22 +293,10 @@ equation
                                color={0,0,127}));
   connect(conPID3.u_s, conPID1.u_s) annotation (Line(points={{-19,-95},{-19,-138},
           {101,-138},{101,-95}},color={0,0,127}));
-  connect(pum.port_a, hea.port_b)
-    annotation (Line(points={{-74,6},{-77,6},{-80,6}}, color={0,127,255}));
-  connect(pum.port_b, val.port_1)
-    annotation (Line(points={{-58,6},{-56,6},{-52,6}}, color={0,127,255}));
-  connect(val.port_2, adsolair58.port_a)
-    annotation (Line(points={{-36,6},{-22,6},{-22,30}}, color={0,127,255}));
   connect(adsolair58.port_b, val.port_3)
     annotation (Line(points={{-28,30},{-28,-2},{-44,-2}}, color={0,127,255}));
   connect(val.port_3, hea.port_a) annotation (Line(points={{-44,-2},{-100,-2},{-100,
           0},{-100,6}}, color={0,127,255}));
-  connect(heaOn.u, adsolair58.yHea) annotation (Line(points={{-42.6,-13},{-40.6,
-          -13},{-40.6,40}}, color={0,0,127}));
-  connect(booToInt.u, heaOn.y)
-    annotation (Line(points={{-62.6,-13},{-58.7,-13}}, color={255,0,255}));
-  connect(booToInt.y, pum.stage) annotation (Line(points={{-78.7,-13},{-78.7,15.6},
-          {-66,15.6}}, color={255,127,0}));
   connect(val.y, adsolair58.yHea) annotation (Line(points={{-44,15.6},{-44,40},{
           -40.6,40}}, color={0,0,127}));
   connect(TSup.y, hea.TSet) annotation (Line(points={{-117.2,12},{-102,12},{-102,
@@ -312,6 +305,14 @@ equation
           {-102,6},{-100,6}}, color={0,127,255}));
   connect(conPID1.u_s, TSet.y) annotation (Line(points={{101,-95},{101,-73},{115.3,
           -73}}, color={0,0,127}));
+  connect(TSetPulse.y, adsolair58.Tset)
+    annotation (Line(points={{-0.7,87},{-36,87},{-36,50.2}}, color={0,0,127}));
+  connect(val.port_2, pum.port_a)
+    annotation (Line(points={{-36,6},{-22,6}}, color={0,127,255}));
+  connect(pum.port_b, adsolair58.port_a)
+    annotation (Line(points={{-22,22},{-22,30}}, color={0,127,255}));
+  connect(val.port_1, hea.port_b)
+    annotation (Line(points={{-52,6},{-80,6}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,100}})),
@@ -329,6 +330,12 @@ A PI controller is used to track the set point temperature.
 </html>", revisions="<html>
 <ul>
 <li>
+January 26, 2018, by Filip Jorissen:<br/>
+Revised implementation such that both cooling and heating are required
+and thus tested.
+Avoiding chattering.
+</li>
+<li>
 February 1, 2017, by Filip Jorissen:<br/>
 First implementation.
 </li>
@@ -337,5 +344,8 @@ First implementation.
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Airflow/AHU/Examples/Adsolair58.mos"
         "Siimulate and plot"),
-    experiment(StopTime=10000));
+    experiment(
+      StartTime=10000000,
+      StopTime=11000000,
+      __Dymola_NumberOfIntervals=5000));
 end Adsolair58;

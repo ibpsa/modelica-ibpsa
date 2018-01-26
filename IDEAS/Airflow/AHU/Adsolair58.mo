@@ -347,11 +347,11 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
   IDEAS.Fluid.Sensors.TemperatureTwoPort senTemFanSupOut(
     redeclare package Medium = MediumAir,
     m_flow_nominal=m2_flow_nominal,
-    tau=tau,
-    transferHeat=true,
     TAmb=fixedTemperature.T,
     tauHeaTra=3600,
-    allowFlowReversal=allowFlowReversal) "Inlet temperature of the heater"
+    allowFlowReversal=allowFlowReversal,
+    transferHeat=false,
+    tau=tau)                             "Inlet temperature of the heater"
     annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=180,
