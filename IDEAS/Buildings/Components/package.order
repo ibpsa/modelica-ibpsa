@@ -11,6 +11,7 @@ ZoneAirModels
 Comfort
 InternalGains
 OccupancyType
+Occupants
 Interfaces
 BaseClasses
 Examples
