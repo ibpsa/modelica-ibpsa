@@ -57,6 +57,9 @@ model PartialZone "Building zone model"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange", enable=linIntRad));
   parameter Boolean simVieFac=false "Simplify view factor computation"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange"));
+  parameter Boolean useOccNumInput = occNum.useInput
+    "=false, to remove icon of nOcc"
+    annotation(Dialog(tab="Advanced",group="Occupants"));
 protected
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurf] propsBusInt(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
@@ -92,8 +95,8 @@ public
     choicesAllMatching=true,
     Dialog(group="Building physics"));
 
-  replaceable IDEAS.Buildings.Components.Occupants.Fixed occNum constrainedby
-    Occupants.BaseClasses.PartialOccupants
+  replaceable IDEAS.Buildings.Components.Occupants.Fixed occNum
+    constrainedby Occupants.BaseClasses.PartialOccupants
     "Number of occupants that are present" annotation (
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
@@ -106,31 +109,33 @@ public
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{80,82},{100,102}})));
-  replaceable InternalGains.None intGai(occupancyType=occTyp) constrainedby
-    InternalGains.BaseClasses.PartialOccupancyGains(redeclare final package
-      Medium = Medium) "Internal gains model" annotation (
-    choicesAllMatching=true,
-    Dialog(group="Occupants (optional)"),
-    Placement(transformation(extent={{40,22},{20,42}})));
-  replaceable Comfort.None comfort(occupancyType=occTyp) constrainedby
-    Comfort.BaseClasses.PartialComfort "Comfort model" annotation (
+  replaceable Comfort.None comfort
+    constrainedby Comfort.BaseClasses.PartialComfort(occupancyType=occTyp) "Comfort model" annotation (
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{20,-20},{40,0}})));
-  replaceable
-  IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwGainDistribution
+  replaceable IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwGainDistribution
     radDistr(nSurf=nSurf) "Distribution of radiative internal gains"
     annotation (choicesAllMatching=true,Dialog(tab="Advanced",group="Building physics"),Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-50,-50})));
+  replaceable IDEAS.Buildings.Components.InternalGains.Simple intGai
+    constrainedby
+    IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialOccupancyGains(
+    occupancyType=occTyp,
+    redeclare final package Medium = Medium) "Internal gains model" annotation (
+    choicesAllMatching=true,
+    Dialog(group="Occupants (optional)"),
+    Placement(transformation(extent={{40,22},{20,42}})));
+
   Modelica.SIunits.Power QTra_design=sum(propsBusInt.QTra_design)
     "Total design transmission heat losses for the zone";
   Modelica.Blocks.Interfaces.RealOutput TAir(unit="K") = airModel.TAir;
   Modelica.Blocks.Interfaces.RealOutput TRad(unit="K") = radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
-  Modelica.Blocks.Interfaces.RealInput nOcc if occNum.useInput
-    "Number of occupants"
+  Modelica.Blocks.Interfaces.RealInput nOcc if useOccNumInput
+    "Number of occupants (optional, see occNum)"
     annotation (Placement(transformation(extent={{128,12},{88,52}})));
 
 protected

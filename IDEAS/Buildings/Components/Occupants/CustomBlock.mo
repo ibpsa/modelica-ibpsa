@@ -6,7 +6,7 @@ block CustomBlock
   replaceable Modelica.Blocks.Sources.Constant singleOutput(k=0)
   constrainedby Modelica.Blocks.Interfaces.SO
   "Custom block profile"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
   connect(singleOutput.y, nOcc)
