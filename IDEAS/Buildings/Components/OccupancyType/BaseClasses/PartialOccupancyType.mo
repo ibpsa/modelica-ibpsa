@@ -1,18 +1,24 @@
-within IDEAS.Buildings.Components.OccupancyType;
-record PartialOccupancyType
+within IDEAS.Buildings.Components.OccupancyType.BaseClasses;
+partial record PartialOccupancyType
   "Record for defining the type (i.e. properties) of the occupants, used in InternalGains and Comfort models"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.Power QlatPp = 45
-    "Sensible heat production per person, default from Ashrae Fundamentals: 'Seated, very light work'";
-  parameter Modelica.SIunits.Power QsenPp = 73
-    "Latent heat production per person, default from Ashrae Fundamentals: 'Seated, very light work'";
+  parameter Modelica.SIunits.Power QlatPp(min=0)
+    "Sensible heat production per person";
+  parameter Modelica.SIunits.Power QsenPp(min=0)
+    "Latent heat production per person";
   parameter Real radFra(min=0,max=1) = 0.6
     "Radiant fraction of sensible heat exchange, default based on Ashrae fundamentals chap 18.4 for low air velocity, used for computing radiative and convective sensible heat flow rate fractions";
   parameter Real ICl(min=0) = 0.7
     "Fixed value for clothing insulation in units of clo (summer=0.5; winter=0.9), used to compute thermal comfort";
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+January 26, 2018 by Filip Jorissen:<br/>
+Revised default values. 
+Record is now partial.
+This is for <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
+</li>
 <li>
 July 18, 2016 by Filip Jorissen:<br/>
 First implementation

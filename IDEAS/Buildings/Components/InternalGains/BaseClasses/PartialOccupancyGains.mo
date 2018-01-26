@@ -5,10 +5,18 @@ partial model PartialOccupancyGains "Partial model for occupant internal gains"
   outer IDEAS.BoundaryConditions.SimInfoManager sim "Simulation information manager";
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
-  replaceable parameter
-    IDEAS.Buildings.Components.OccupancyType.PartialOccupancyType occupancyType
-    constrainedby IDEAS.Buildings.Components.OccupancyType.PartialOccupancyType
+      annotation (choicesAllMatching = true, Documentation(revisions="<html>
+<ul>
+<li>
+January 26, 2018 by Filip Jorissen:<br/>
+Changed replaceable record into parameter such that 
+<code>IDEAS.Buildings.Components.OccupancyType.BaseClasses.PartialOccupancyType</code> 
+can be a partial record.
+This is for <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
+</li>
+</ul>
+</html>"));
+  parameter IDEAS.Buildings.Components.OccupancyType.OfficeWork occupancyType
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
   Modelica.Blocks.Interfaces.RealOutput mWat_flow

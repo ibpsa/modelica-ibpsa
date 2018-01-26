@@ -17,14 +17,20 @@ partial model PartialComfort "Partial for comfort models"
     "Air temperature"
     annotation (Placement(
         transformation(extent={{-120,90},{-100,110}})));
-  replaceable parameter
-    IDEAS.Buildings.Components.OccupancyType.PartialOccupancyType occupancyType
-    constrainedby IDEAS.Buildings.Components.OccupancyType.PartialOccupancyType
+  parameter IDEAS.Buildings.Components.OccupancyType.OfficeWork
+    occupancyType
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 26, 2018 by Filip Jorissen:<br/>
+Changed replaceable record into parameter such that 
+<code>IDEAS.Buildings.Components.OccupancyType.BaseClasses.PartialOccupancyType</code> 
+can be a partial record.
+This is for <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
+</li>
 <li>
 July 18, 2016 by Filip Jorissen:<br/>
 First implementation

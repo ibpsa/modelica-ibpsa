@@ -102,8 +102,9 @@ public
     Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{80,22},{60,42}})));
 
-  replaceable parameter OccupancyType.PartialOccupancyType occTyp
-    constrainedby OccupancyType.PartialOccupancyType
+  replaceable parameter IDEAS.Buildings.Components.OccupancyType.OfficeWork occTyp
+    constrainedby
+    IDEAS.Buildings.Components.OccupancyType.BaseClasses.PartialOccupancyType
     "Occupancy type, only used for evaluating occupancy model and comfort model"
     annotation (
     choicesAllMatching=true,
@@ -126,7 +127,7 @@ public
     occupancyType=occTyp,
     redeclare final package Medium = Medium) "Internal gains model" annotation (
     choicesAllMatching=true,
-    Dialog(group="Occupants (optional)"),
+    Dialog(tab="Advanced",group="Occupants"),
     Placement(transformation(extent={{40,22},{20,42}})));
 
   Modelica.SIunits.Power QTra_design=sum(propsBusInt.QTra_design)
