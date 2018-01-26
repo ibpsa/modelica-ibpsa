@@ -15,7 +15,7 @@ partial model PartialSimInfoManager
 
 
   parameter SI.Angle incAndAziInBus[:,:] = {{IDEAS.Types.Tilt.Ceiling,0},{IDEAS.Types.Tilt.Wall,IDEAS.Types.Azimuth.S},
-                         {IDEAS.Types.Tilt.Wall,IDEAS.Types.Azimuth.W},{IDEAS.Types.Tilt.Wall,IDEAS.Types.Azimuth.N},{IDEAS.Types.Tilt.Wall,IDEAS.Types.Azimuth.E}}
+                         {IDEAS.Types.Tilt.Wall,IDEAS.Types.Azimuth.W},{IDEAS.Types.Tilt.Wall,IDEAS.Types.Azimuth.N},{IDEAS.Types.Tilt.Wall,IDEAS.Types.Azimuth.E}, {IDEAS.Types.Tilt.Floor,0}}
                         "Combination of inclination and azimuth which are pre-computed and added to solBus." annotation(Dialog(tab="Incidence angles"));
 
   parameter Boolean computeConservationOfEnergy=false
@@ -460,6 +460,11 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+January 26, 2018, by Filip Jorissen:<br/>
+Added floor orientation to set of precomputed boundary conditions.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/764>#764</a>.
+</li>
 <li>
 March 21, 2017, by Filip Jorissen:<br/>
 Changed linearisation implementation for JModelica compatibility.
