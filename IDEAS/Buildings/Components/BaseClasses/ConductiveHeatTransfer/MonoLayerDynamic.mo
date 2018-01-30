@@ -34,7 +34,7 @@ protected
       {0.5})/(nSta - 1));
   final parameter Real[nSta] Cinv(unit="K/J") = ones(nSta) ./ C
     "Dummy parameter for efficiently handling check for division by zero";
-  Modelica.SIunits.Temperature[nSta] T "Temperature at the states";
+  Modelica.SIunits.Temperature[nSta] T(each start=T_start) "Temperature at the states";
   Modelica.SIunits.HeatFlowRate[nRes] Q_flow
     "Heat flow rate from state i to i-1";
 
@@ -110,6 +110,11 @@ equation
 <p>where <img src=\"modelica://IDEAS/Images/equations/equation-I7KXJhSH.png\"/> is the added energy to the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-B0HPmGTu.png\"/> is the temperature of the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-t7aqbnLB.png\"/> is the thermal capacity of the lumped capacity equal to<img src=\"modelica://IDEAS/Images/equations/equation-JieDs0oi.png\"/> for which rho denotes the density and <img src=\"modelica://IDEAS/Images/equations/equation-ml5CM4zK.png\"/> is the specific heat capacity of the material and <img src=\"modelica://IDEAS/Images/equations/equation-hOGNA6h5.png\"/> the equivalent thickness of the lumped element, where <img src=\"modelica://IDEAS/Images/equations/equation-1pDREAb7.png\"/> the heat flux through the lumped resistance and <img src=\"modelica://IDEAS/Images/equations/equation-XYf3O3hw.png\"/> is the total thermal resistance of the lumped resistance and where <img src=\"modelica://IDEAS/Images/equations/equation-dgS5sGAN.png\"/> are internal thermal source.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 25, 2018, by Filip Jorissen:<br/>
+Propagated <code>T_start</code> in the declaration of <code>T</code>.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/692>#692</a>.
+</li>
 <li>
 December 8, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation of placeCapacityAtSurf_b, which has been renamed to addRes_b.
