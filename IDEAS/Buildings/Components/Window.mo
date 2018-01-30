@@ -30,7 +30,6 @@ model Window "Multipane window"
     "= true, if exterior radiative heat transfer should be linearised"
     annotation(Dialog(tab="Radiation"));
 
-
   parameter Real frac(
     min=0,
     max=1) = 0.15 "Area fraction of the window frame";
@@ -41,6 +40,9 @@ model Window "Multipane window"
   parameter Real fraC = frac
     "Ratio of frame and glazing thermal masses"
     annotation(Dialog(tab="Dynamics", group="Equations", enable= not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState and windowDynamicsType == IDEAS.Buildings.Components.Interfaces.WindowDynamicsType.Two));
+  parameter Boolean controlled = shaType.controlled
+    " = true if shaType has a control input (see e.g. screen). Can be set to false manually to force removal of input icon."
+    annotation(Dialog(tab="Advanced",group="Icon"));
 
   replaceable parameter IDEAS.Buildings.Data.Frames.None fraType
     constrainedby IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
@@ -52,7 +54,7 @@ model Window "Multipane window"
             {-60,-40}})),
       __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
 
-  Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controlled
+  Modelica.Blocks.Interfaces.RealInput Ctrl if controlled
     "Control signal between 0 and 1, i.e. 1 is fully closed" annotation (
       Placement(transformation(
         extent={{20,-20},{-20,20}},
@@ -349,6 +351,12 @@ Optional parameter <code>shaType</code> may be used to define the window shading
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 21, 2018 by Filip Jorissen:<br/>
+Changed implementation such that control input is visible.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/761\">
+#761</a>.
+</li>
 <li>
 May 26, 2017 by Filip Jorissen:<br/>
 Revised implementation for renamed
