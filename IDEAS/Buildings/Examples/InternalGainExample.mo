@@ -11,10 +11,10 @@ model InternalGainExample
       MediumAir =                                                                        MediumAir)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   IDEAS.Buildings.Validation.Cases.Case900 case900_gains(
-    redeclare package MediumAir = MediumAir,
-    building(gF(
+    redeclare package MediumAir = MediumAir, building(gF(
         redeclare Components.OccupancyType.OfficeWork occTyp,
-        redeclare Components.InternalGains.Simple intGai)))
+        redeclare Components.InternalGains.Simple intGai,
+        redeclare IDEAS.Buildings.Components.Occupants.Input occNum)))
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Pulse occ(
     amplitude=1,
@@ -34,6 +34,10 @@ equation
 <p>Model demonstrating the use of the comfort evaluation model and CO2 modelling.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 26, 2018 by Filip Jorissen:<br/>
+Updated example for <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
+</li>
 <li>
 August 24, 2016 by Filip Jorissen:<br/>
 Added demonstration of how to model CO2.
