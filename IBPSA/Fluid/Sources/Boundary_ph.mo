@@ -1,94 +1,29 @@
 within IBPSA.Fluid.Sources;
 model Boundary_ph
   "Boundary with prescribed pressure, specific enthalpy, composition and trace substances"
-  extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
-  parameter Boolean use_p_in = false
-    "Get the pressure from the input connector"
-    annotation(Evaluate=true, HideResult=true);
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_p;
   parameter Boolean use_h_in= false
     "Get the specific enthalpy from the input connector"
     annotation(Evaluate=true, HideResult=true);
-  parameter Boolean use_X_in = false
-    "Get the composition from the input connector"
-    annotation(Evaluate=true, HideResult=true);
-  parameter Boolean use_C_in = false
-    "Get the trace substances from the input connector"
-    annotation(Evaluate=true, HideResult=true);
-
-  parameter Medium.AbsolutePressure p = Medium.p_default
-    "Fixed value of pressure"
-    annotation (Dialog(enable = not use_p_in));
   parameter Medium.SpecificEnthalpy h = Medium.h_default
     "Fixed value of specific enthalpy"
     annotation (Dialog(enable = not use_h_in));
-  parameter Medium.MassFraction X[Medium.nX](
-    final quantity=Medium.substanceNames) = Medium.X_default
-    "Fixed value of composition"
-    annotation (Dialog(enable = (not use_X_in) and Medium.nXi > 0));
-  parameter Medium.ExtraProperty C[Medium.nC](
-    final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
-    "Fixed values of trace substances"
-    annotation (Dialog(enable = (not use_C_in) and Medium.nC > 0));
-
-  Modelica.Blocks.Interfaces.RealInput p_in(final unit="Pa") if use_p_in
-    "Prescribed boundary pressure"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput h_in(final unit="J/kg") if use_h_in
     "Prescribed boundary specific enthalpy"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX](
-     each final unit = "kg/kg",
-     final quantity=Medium.substanceNames) if use_X_in
-    "Prescribed boundary composition"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC](
-    final quantity=Medium.extraPropertiesNames) if use_C_in
-    "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 protected
-  Modelica.Blocks.Interfaces.RealInput p_in_internal(final unit="Pa")
-    "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput h_in_internal(final unit="J/kg")
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX](
-    each final unit = "kg/kg",
-    final quantity=Medium.substanceNames)
-    "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC](
-    final quantity=Medium.extraPropertiesNames)
-    "Needed to connect to conditional connector";
-
-initial equation
-  if not use_X_in then
-    Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
-      Medium.singleState, true, X_in_internal, "Boundary_ph");
-  end if;
 
 equation
-  if use_X_in then
-    Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
-      Medium.singleState, true, X_in_internal, "Boundary_ph");
-  end if;
-  connect(p_in, p_in_internal);
   connect(h_in, h_in_internal);
-  connect(X_in, X_in_internal);
-  connect(C_in, C_in_internal);
-  if not use_p_in then
-    p_in_internal = p;
-  end if;
   if not use_h_in then
     h_in_internal = h;
   end if;
-  if not use_X_in then
-    X_in_internal = X;
-  end if;
-  if not use_C_in then
-    C_in_internal = C;
-  end if;
-  medium.p = p_in_internal;
-  medium.h = h_in_internal;
-  medium.Xi = X_in_internal[1:Medium.nXi];
-  ports.C_outflow = fill(C_in_internal, nPorts);
+  for i in 1:nPorts loop
+     ports[i].h_outflow  = h_in_internal;
+  end for;
+  connect(medium.h, h_in_internal);
   annotation (defaultComponentName="bou",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -169,6 +104,11 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 2nd, 2018 by Filip Jorissen<br/>
+Made <code>medium</code> conditional and refactored inputs.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">#882</a>.
+</li>
 <li>
 April 18, 2017, by Filip Jorissen:<br/>
 Changed <code>checkBoundary</code> implementation
