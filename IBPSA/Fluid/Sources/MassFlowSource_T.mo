@@ -16,11 +16,16 @@ protected
   Modelica.Blocks.Interfaces.RealInput T_in_internal(final unit="K",
                                                      displayUnit="degC")
     "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput h_internal = Medium.specificEnthalpy(Medium.setState_pTX(p_internal, T_in_internal, X_in_internal));
+
 equation
   connect(T_in, T_in_internal);
   if not use_T_in then
     T_in_internal = T;
   end if;
+  for i in 1:nPorts loop
+     ports[i].h_outflow  = h_internal;
+  end for;
   medium.T = T_in_internal;
   annotation (defaultComponentName="boundary",
     Icon(coordinateSystem(

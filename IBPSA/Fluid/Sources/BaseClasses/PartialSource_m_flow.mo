@@ -14,15 +14,18 @@ model PartialSource_m_flow "Partial source with prescribed flow rate"
 protected
   Modelica.Blocks.Interfaces.RealInput m_flow_in_internal(final unit="kg/s")
     "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput p_internal(final unit="Pa")
+    "Needed to connect to conditional connector";
 equation
   connect(m_flow_in, m_flow_in_internal);
   if not use_m_flow_in then
     m_flow_in_internal = m_flow;
   end if;
   sum(ports.m_flow) = -m_flow_in_internal;
-  for i in 1:min(1,nPorts) loop
-    connect(medium.p, ports[i].p);
+  for i in 1:nPorts loop
+    ports[i].p = p_internal;
   end for;
+  connect(medium.p, p_internal);
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
