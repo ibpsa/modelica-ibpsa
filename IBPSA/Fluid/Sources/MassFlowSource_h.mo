@@ -87,7 +87,6 @@ and the value provided by the input connector is used instead.
 <p>
 The same applies to the specific enthalpy (h), composition (Xi or X) and trace substances (C).
 </p>
-</p>
 <h4>Options</h4>
 <p>
 Instead of using <code>Xi_in</code> (the <b>independent</b> composition fractions),

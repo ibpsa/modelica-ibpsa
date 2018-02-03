@@ -74,7 +74,6 @@ Defines prescribed values for boundary conditions:
 </ul>
 <h4>Typical use and important parameters</h4>
 <p>
-<p>
 If <code>use_p_in</code> is false (default option), 
 the <code>p</code> parameter is used as boundary pressure, 
 and the <code>p_in</code> input connector is disabled; 
