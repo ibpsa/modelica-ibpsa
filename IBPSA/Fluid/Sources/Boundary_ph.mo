@@ -69,14 +69,42 @@ Defines prescribed values for boundary conditions:
 </p>
 <ul>
 <li> Prescribed boundary pressure.</li>
-<li> Prescribed boundary temperature.</li>
+<li> Prescribed boundary specific enthalpy.</li>
 <li> Boundary composition (only for multi-substance or trace-substance flow).</li>
 </ul>
-<p>If <code>use_p_in</code> is false (default option), the <code>p</code> parameter
-is used as boundary pressure, and the <code>p_in</code> input connector is disabled; if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored, and the value provided by the input connector is used instead.</p>
-<p>The same applies to the temperature, composition and trace substances.</p>
+<h4>Typical use and important parameters</h4>
 <p>
-Note, that boundary temperature,
+<p>
+If <code>use_p_in</code> is false (default option), 
+the <code>p</code> parameter is used as boundary pressure, 
+and the <code>p_in</code> input connector is disabled; 
+if <code>use_p_in</code> is true, then the <code>p</code> 
+parameter is ignored, and the value provided by the 
+input connector is used instead.
+</p>
+<p>
+The same applies to the specific enthalpy (h), composition (Xi or X) and trace substances (C).
+</p>
+</p>
+<h4>Options</h4>
+<p>
+Instead of using <code>Xi_in</code> (the <b>independent</b> composition fractions),
+the advanced tab provides an option for setting all 
+composition fractions using <code>X_in</code>.
+<code>use_X_in</code> and <code>use_Xi_in</code> cannot be used
+at the same time.
+</p>
+<p>
+Parameter <code>verifyInputs</code> can be set to <code>false</code>
+to remove a check that verifies the validity of the used specific enthalpy
+and pressures.
+This removes the corresponding overhead from the model, which is
+a substantial part of the overhead of this model.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">#882</a>
+for more information.
+</p>
+<p>
+Note, that boundary specific enthalpy,
 mass fractions and trace substances have only an effect if the mass flow
 is from the boundary into the port. If mass is flowing from
 the port into the boundary, the boundary definitions,

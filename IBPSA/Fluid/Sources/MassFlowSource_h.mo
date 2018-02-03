@@ -69,18 +69,44 @@ model MassFlowSource_h
           lineColor={0,0,255})}),
     Documentation(info="<html>
 <p>
-Models an ideal flow source, with prescribed values of flow rate, temperature and composition:
+Models an ideal flow source, with prescribed values of flow rate, specific enthalpy, composition and trace substances:
 </p>
 <ul>
 <li> Prescribed mass flow rate.</li>
 <li> Prescribed specific enthalpy.</li>
 <li> Boundary composition (only for multi-substance or trace-substance flow).</li>
 </ul>
-<p>If <code>use_m_flow_in</code> is false (default option), the <code>m_flow</code> parameter
-is used as boundary pressure, and the <code>m_flow_in</code> input connector is disabled; if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter is ignored, and the value provided by the input connector is used instead.</p>
-<p>The same applies to the temperature, composition and trace substances.</p>
 <p>
-Note, that boundary temperature,
+If <code>use_m_flow_in</code> is false (default option), 
+the <code>m_flow</code> parameter
+is used as boundary pressure, and the <code>m_flow_in</code> 
+input connector is disabled; if <code>use_m_flow_in</code> 
+is true, then the <code>m_flow</code> parameter is ignored, 
+and the value provided by the input connector is used instead.
+</p>
+<p>
+The same applies to the specific enthalpy (h), composition (Xi or X) and trace substances (C).
+</p>
+</p>
+<h4>Options</h4>
+<p>
+Instead of using <code>Xi_in</code> (the <b>independent</b> composition fractions),
+the advanced tab provides an option for setting all 
+composition fractions using <code>X_in</code>.
+<code>use_X_in</code> and <code>use_Xi_in</code> cannot be used
+at the same time.
+</p>
+<p>
+Parameter <code>verifyInputs</code> can be set to <code>false</code>
+to remove a check that verifies the validity of the used specific enthalpy
+and pressures.
+This removes the corresponding overhead from the model, which is
+a substantial part of the overhead of this model.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">#882</a>
+for more information.
+</p>
+<p>
+Note, that boundary specific enthalpy,
 mass fractions and trace substances have only an effect if the mass flow
 is from the boundary into the port. If mass is flowing from
 the port into the boundary, the boundary definitions,
