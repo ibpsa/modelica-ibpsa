@@ -2,25 +2,8 @@ within IBPSA.Fluid.Sources;
 model MassFlowSource_h
   "Ideal flow source that produces a prescribed mass flow with prescribed specific enthalpy, mass fraction and trace substances"
   extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_m_flow;
-  parameter Boolean use_h_in= false
-    "Get the specific enthalpy from the input connector"
-    annotation(Evaluate=true, HideResult=true);
-  parameter Medium.SpecificEnthalpy h = Medium.h_default
-    "Fixed value of specific enthalpy"
-    annotation (Dialog(enable = not use_h_in));
-  Modelica.Blocks.Interfaces.RealInput h_in(final unit="J/kg") if use_h_in
-    "Prescribed fluid specific enthalpy"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,60}})));
-
-protected
-  Modelica.Blocks.Interfaces.RealInput h_in_internal(final unit="J/kg")
-    "Needed to connect to conditional connector";
-equation
-  connect(h_in, h_in_internal);
-  if not use_h_in then
-    h_in_internal = h;
-  end if;
-  medium.h = h_in_internal;
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_h;
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_Xi_C;
   annotation (defaultComponentName="boundary",
     Icon(coordinateSystem(
         preserveAspectRatio=false,

@@ -2,28 +2,9 @@ within IBPSA.Fluid.Sources;
 model Boundary_ph
   "Boundary with prescribed pressure, specific enthalpy, composition and trace substances"
   extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_p;
-  parameter Boolean use_h_in= false
-    "Get the specific enthalpy from the input connector"
-    annotation(Evaluate=true, HideResult=true);
-  parameter Medium.SpecificEnthalpy h = Medium.h_default
-    "Fixed value of specific enthalpy"
-    annotation (Dialog(enable = not use_h_in));
-  Modelica.Blocks.Interfaces.RealInput h_in(final unit="J/kg") if use_h_in
-    "Prescribed boundary specific enthalpy"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-protected
-  Modelica.Blocks.Interfaces.RealInput h_in_internal(final unit="J/kg")
-    "Needed to connect to conditional connector";
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_h;
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_Xi_C;
 
-equation
-  connect(h_in, h_in_internal);
-  if not use_h_in then
-    h_in_internal = h;
-  end if;
-  for i in 1:nPorts loop
-     ports[i].h_outflow  = h_in_internal;
-  end for;
-  connect(medium.h, h_in_internal);
   annotation (defaultComponentName="bou",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
