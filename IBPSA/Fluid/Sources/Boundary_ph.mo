@@ -82,12 +82,12 @@ parameter is ignored, and the value provided by the
 input connector is used instead.
 </p>
 <p>
-The same applies to the specific enthalpy (h), composition (Xi or X) and trace substances (C).
+The same applies to the specific enthalpy <i>h</i>, composition <i>X<sub>i</sub></i> or <i>X</i> and trace substances <i>C</i>.
 </p>
 </p>
 <h4>Options</h4>
 <p>
-Instead of using <code>Xi_in</code> (the <b>independent</b> composition fractions),
+Instead of using <code>Xi_in</code> (the <i>independent</i> composition fractions),
 the advanced tab provides an option for setting all 
 composition fractions using <code>X_in</code>.
 <code>use_X_in</code> and <code>use_Xi_in</code> cannot be used
