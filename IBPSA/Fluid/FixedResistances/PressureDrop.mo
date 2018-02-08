@@ -10,14 +10,14 @@ model PressureDrop
                   Dialog(group = "Transition to laminar",
                          enable = not linearized));
 
-  final parameter Real k(unit="") = if computeFlowResistance then
+  final parameter Real k = if computeFlowResistance then
         m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
   final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
     "Flag to enable/disable computation of flow resistance"
    annotation(Evaluate=true);
-  final parameter Real coeff(unit="")=
+  final parameter Real coeff=
     if linearized and computeFlowResistance
     then if from_dp then k^2/m_flow_nominal_pos else m_flow_nominal_pos/k^2
     else 0
