@@ -26,7 +26,6 @@ input connector is used instead.
 <p>
 The same applies to the temperature <i>T</i>, composition <i>X<sub>i</sub></i> or <i>X</i> and trace substances <i>C</i>.
 </p>
-</p>
 <h4>Options</h4>
 <p>
 Instead of using <code>Xi_in</code> (the <i>independent</i> composition fractions),
