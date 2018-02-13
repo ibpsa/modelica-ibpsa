@@ -36,8 +36,8 @@ composition fractions using <code>X_in</code>.
 at the same time.
 </p>
 <p>
-Parameter <code>verifyInputs</code> can be set to <code>false</code>
-to remove a check that verifies the validity of the used temperatures
+Parameter <code>verifyInputs</code> can be set to <code>true</code>
+to enable a check that verifies the validity of the used temperatures
 and pressures.
 This removes the corresponding overhead from the model, which is
 a substantial part of the overhead of this model.

@@ -3,8 +3,8 @@ partial model PartialSource
   "Partial component source with one fluid connector"
 
   parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
-  parameter Boolean verifyInputs = true
-    " = false, to remove verification check of inputs"
+  parameter Boolean verifyInputs = false
+    " = true, to enable verification check of inputs"
     annotation(Dialog(tab="Advanced"));
 
   replaceable package Medium =
