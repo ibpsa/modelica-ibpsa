@@ -145,9 +145,7 @@ model TraceSubstancesFlowSource
   IBPSA.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium,
     nPorts=2,
-    use_Xi_in=true,
     p=101320,
-    use_T_in=true,
     T=293.15) "Sink boundary conditions"
               annotation (Placement(transformation(extent={{220,90},{200,110}})));
 equation
