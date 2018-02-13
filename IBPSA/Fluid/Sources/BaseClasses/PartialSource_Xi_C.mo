@@ -38,7 +38,7 @@ partial model PartialSource_Xi_C
 
 initial equation
   assert(not use_X_in or not use_Xi_in,
-    "Cannot use both X and Xi inputs, choose either of the two.");
+    "Cannot use both X and Xi inputs, choose either use_X_in or use_Xi_in.");
 
   if not use_X_in and not use_Xi_in then
     Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,

@@ -35,8 +35,7 @@ protected
     "Needed to connect to conditional connector";
 
 
-equation
-
+initial equation
   // Only one connection allowed to a port to avoid unwanted ideal mixing
   for i in 1:nPorts loop
     assert(cardinality(ports[i]) <= 1,"
@@ -46,6 +45,8 @@ place with these connections, which is usually not the intention
 of the modeller. Increase nPorts to add an additional port.
 ");
   end for;
+
+equation
   connect(medium.p, p_in_internal);
   annotation (defaultComponentName="boundary",
   Documentation(info="<html>
