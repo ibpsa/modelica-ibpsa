@@ -1,72 +1,10 @@
 within IBPSA.Fluid.Sources;
 model MassFlowSource_T
-  "Ideal flow source that produces a prescribed mass flow with prescribed temperature, mass fraction and trace substances"
+  "Ideal flow source that produces a prescribed mass flow with prescribed temperature, composition and trace substances"
   extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_m_flow;
   extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_T;
   extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_Xi_C;
   annotation (defaultComponentName="boundary",
-    Icon(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics={
-        Rectangle(
-          extent={{35,45},{100,-45}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
-        Ellipse(
-          extent={{-100,80},{60,-80}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-60,70},{60,0},{-60,-68},{-60,70}},
-          lineColor={0,0,255},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-54,32},{16,-30}},
-          lineColor={255,0,0},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="m"),
-        Text(
-          extent={{-150,130},{150,170}},
-          textString="%name",
-          lineColor={0,0,255}),
-        Ellipse(
-          extent={{-26,30},{-18,22}},
-          lineColor={255,0,0},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
-        Text(
-          visible=use_m_flow_in,
-          extent={{-185,132},{-45,100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="m_flow"),
-        Text(
-          visible=use_T_in,
-          extent={{-111,71},{-71,37}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="T"),
-        Text(
-          visible=use_X_in,
-          extent={{-153,-44},{-33,-72}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="X"),
-        Text(
-          visible=use_C_in,
-          extent={{-155,-98},{-35,-126}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="C")}),
     Documentation(info="<html>
 <p>
 Models an ideal flow source, with prescribed values of flow rate, temperature, composition and trace substances:

@@ -47,18 +47,16 @@ of the modeller. Increase nPorts to add an additional port.
 ");
   end for;
   connect(medium.p, p_in_internal);
-  annotation (defaultComponentName="boundary", Documentation(info="<html>
+  annotation (defaultComponentName="boundary",
+  Documentation(info="<html>
 <p>
-Partial component to model the <b>volume interface</b> of a <b>source</b>
-component, such as a mass flow source. The essential
-features are:
+Partial model for a fluid source that either prescribes
+pressure or mass flow rate.
+Extending partials prescribe the outflowing
+specific enthalpy, composition and trace substances.
+This partial only declares the <code>ports</code>
+and ensures that the pressures at all ports are equal.
 </p>
-<ul>
-<li> The pressure in the connection port (= ports.p) is identical to the
-     pressure in the volume.</li>
-<li> The outflow enthalpy rate (= port.h_outflow) and the composition of the
-     substances (= port.Xi_outflow) are identical to the respective values in the volume.</li>
-</ul>
 </html>", revisions="<html>
 <ul>
 <li>

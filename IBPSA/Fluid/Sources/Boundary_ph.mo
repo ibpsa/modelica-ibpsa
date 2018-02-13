@@ -4,65 +4,7 @@ model Boundary_ph
   extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_p;
   extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_h;
   extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_Xi_C;
-
   annotation (defaultComponentName="bou",
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics={
-        Ellipse(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor={0,127,255}),
-        Text(
-          extent={{-150,110},{150,150}},
-          textString="%name",
-          lineColor={0,0,255}),
-        Line(
-          visible=use_p_in,
-          points={{-100,80},{-60,80}},
-          color={0,0,255}),
-        Line(
-          visible=use_h_in,
-          points={{-100,40},{-92,40}},
-          color={0,0,255}),
-        Line(
-          visible=use_X_in,
-          points={{-100,-40},{-92,-40}},
-          color={0,0,255}),
-        Line(
-          visible=use_C_in,
-          points={{-100,-80},{-60,-80}},
-          color={0,0,255}),
-        Text(
-          visible=use_p_in,
-          extent={{-150,134},{-72,94}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="p"),
-        Text(
-          visible=use_h_in,
-          extent={{-166,34},{-64,-6}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="h"),
-        Text(
-          visible=use_X_in,
-          extent={{-164,4},{-62,-36}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="X"),
-        Text(
-          visible=use_C_in,
-          extent={{-164,-90},{-62,-130}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="C")}),
     Documentation(info="<html>
 <p>
 Defines prescribed values for boundary conditions:

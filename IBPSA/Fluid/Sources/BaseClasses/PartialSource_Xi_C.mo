@@ -46,7 +46,7 @@ initial equation
   end if;
 
 equation
-  if use_X_in then
+  if use_X_in or use_Xi_in then
     Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
       Medium.singleState, true, X_in_internal, "Boundary_pT");
   end if;
@@ -73,18 +73,39 @@ equation
   end for;
 
 
-  annotation (defaultComponentName="boundary", Documentation(info="<html>
+  annotation (defaultComponentName="boundary",
+    Icon(coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}},
+        grid={1,1}), graphics={
+        Text(
+          visible=use_X_in,
+          extent={{-164,4},{-62,-36}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="X"),
+        Text(
+          visible=use_Xi_in,
+          extent={{-164,4},{-62,-36}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="Xi"),
+        Text(
+          visible=use_C_in,
+          extent={{-164,-90},{-62,-130}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="C")}),
+          Documentation(info="<html>
 <p>
-Partial component to model the <b>volume interface</b> of a <b>source</b>
-component, such as a mass flow source. The essential
-features are:
+Partial model that defines outflowing properties 
+<code>ports.Xi_outflow</code> and <code>ports.C_outflow</code> 
+using an optional input for both.
+Otherwise the parameter input is used.
 </p>
-<ul>
-<li> The pressure in the connection port (= ports.p) is identical to the
-     pressure in the volume.</li>
-<li> The outflow enthalpy rate (= port.h_outflow) and the composition of the
-     substances (= port.Xi_outflow) are identical to the respective values in the volume.</li>
-</ul>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -28,5 +28,31 @@ Initial version for refactoring inputs of sources.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">#882</a>.
 </li>
 </ul>
-</html>"));
+</html>", info="<html>
+<p>
+Partial model that defines 
+<code>ports.p</code> using an optional input for 
+the pressure.
+Otherwise the parameter input is used.
+</p>
+</html>"), Icon(coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}},
+        grid={1,1}), graphics={
+        Text(
+          visible=use_p_in,
+          extent={{-152,134},{-68,94}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="p"),
+        Ellipse(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,127,255}),
+        Text(
+          extent={{-150,110},{150,150}},
+          textString="%name",
+          lineColor={0,0,255})}));
 end PartialSource_p;
