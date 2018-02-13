@@ -282,7 +282,7 @@ Michael Wetter, Lawrence Berkeley National Laboratory, Berkeley, CA, USA
 </html>"));
   end Acknowledgements;
 
-  class License "Modelica License 2"
+  class License "License"
     extends Modelica.Icons.Information;
     annotation (preferredView="info",
     Documentation(info="<html>
