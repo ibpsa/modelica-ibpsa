@@ -28,7 +28,7 @@ partial model PartialSource_Xi_C
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput Xi_in[Medium.nXi](
     each final unit = "kg/kg",
-    final quantity=Medium.substanceNames) if use_Xi_in
+    final quantity=Medium.substanceNames[1:Medium.nXi]) if use_Xi_in
     "Prescribed boundary composition"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC](
@@ -108,6 +108,12 @@ Otherwise the parameter input is used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 13, 2018, by Michael Wetter:<br/>
+Corrected error in quantity assignment for <code>Xi_in</code>.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">#882</a>.
+</li>
 <li>
 February 2nd, 2018 by Filip Jorissen<br/>
 Initial version for refactoring inputs of sources.
