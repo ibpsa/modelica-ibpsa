@@ -4,7 +4,7 @@ IDEAS v1.0.0
 Modelica model environment for Integrated District Energy Assessment Simulations (IDEAS), allowing simultaneous transient simulation of thermal and electrical systems at both building and feeder level.
 
 ### IDEAS v1.0.0
-May 5th 2017: IDEAS v1.0.0 has been released.
+May 5th 2017: IDEAS v1.0.0 has been released.  
 February 16th 2018: A [paper describing IDEAS v1.0.0](http://www.tandfonline.com/doi/full/10.1080/19401493.2018.1428361) has been published on line.
 
 ## Backward compatibility
@@ -85,14 +85,14 @@ The **IDEAS** package is licensed by [KU Leuven](http://www.kuleuven.be) and [3E
     4. the model physics are described in the [Specifications](https://github.com/open-ideas/IDEAS/tree/master/Specifications).
 
 ### References
-## Development of IDEAS
+#### Development of IDEAS
 1. F. Jorissen, G. Reynders, R. Baetens, D. Picard, D. Saelens, and L. Helsen. (2018) [Implementation and Verification of the IDEAS Building Energy Simulation Library.](http://www.tandfonline.com/doi/full/10.1080/19401493.2018.1428361) *Journal of Building Performance Simulation*, doi: 10.1080/19401493.2018.1428361. Published on line
 2. R. Baetens, R. De Coninck, F. Jorissen, D. Picard, L. Helsen, D. Saelens (2015). OpenIDEAS - An Open Framework for Integrated District Energy Simulations. Proceedings of Building Simulation 2015 - Int. Conference of the Int. Buildings Performance Simulation Association. Hyderabad (India), 7-9 December 2015.
 3. R. Baetens. (2015) On externalities of heat pump-based low-energy dwellings at the low-voltage distribution grid. PhD thesis, Arenberg Doctoral School, KU Leuven.
 4. F. Jorissen, W. Boydens, and L. Helsen. (2017) Validated air handling unit model using indirect evaporative cooling. *Journal of Building Performance Simulation*, **11** (1), 48–64, doi: 10.1080/19401493.2016.1273391
 5. R. Baetens, D. Saelens. (2016) Modelling uncertainty in district energy simulations by stochastic residential occupant behaviour. *Journal of Building Performance Simulation* **9** (4), 431–447, doi:10.1080/19401493.2015.1070203.
 
-## Applications of IDEAS
+#### Applications of IDEAS
 1. D. Picard. (2017) Modeling, optimal control and HVAC design of large buildings using ground source heat pump systems. PhD thesis, Arenberg Doctoral School, KU Leuven.
 2. G. Reynders. (2015) Quantifying the impact of building design on the potential of structural storage for active demand response in residential buildings. PhD thesis, Arenberg Doctoral School, KU Leuven.
 3. R. De Coninck. (2015) Grey-box based optimal control for thermal systems in buildings - Unlocking energy efficiency and flexibility. PhD thesis, Arenberg Doctoral School, KU Leuven.
@@ -101,7 +101,7 @@ The **IDEAS** package is licensed by [KU Leuven](http://www.kuleuven.be) and [3E
 6. R. Baetens, R. De Coninck, J. Van Roy, B. Verbruggen, J. Driesen, L. Helsen, D. Saelens (2012). Assessing electrical bottlenecks at feeder level for residential net zero-energy buildings by integrated system simulation. *Applied Energy*, **96**, 74-83.
 7. F. Reynders, J. Diriken, D. Saelens. (2014) Quality of grey-box models and identified parameters as function of the accuracy of input and observation signals. *Energy & Buildings* **82**, 263–274, doi:10.1016/j.enbuild.2014.07.025.
 
-## Bibtex entry for citing IDEAS
+#### Bibtex entry for citing IDEAS
 @article{Jorissen2017ideas,  
 author = {Jorissen, Filip and Reynders, Glenn and Baetens, Ruben and Picard, Damien and Saelens, Dirk and Helsen, Lieve},  
 journal = {Journal of Building Performance Simulation},  
