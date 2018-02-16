@@ -102,20 +102,12 @@ The **IDEAS** package is licensed by [KU Leuven](http://www.kuleuven.be) and [3E
 7. F. Reynders, J. Diriken, D. Saelens. (2014) Quality of grey-box models and identified parameters as function of the accuracy of input and observation signals. *Energy & Buildings* **82**, 263–274, doi:10.1016/j.enbuild.2014.07.025.
 
 ## Bibtex entry for citing IDEAS
-@article{Jorissen2017ideas,
-
-author = {Jorissen, Filip and Reynders, Glenn and Baetens, Ruben and Picard, Damien and Saelens, Dirk and Helsen, Lieve},
-
-journal = {Journal of Building Performance Simulation},
-
-note = {Published on line},
-
-title = {{Implementation and Verification of the IDEAS Building Energy Simulation Library}},
-
-volume = {},
-
-doi={10.1080/19401493.2018.1428361},
-
-year = {2018}
-
+@article{Jorissen2017ideas,  
+author = {Jorissen, Filip and Reynders, Glenn and Baetens, Ruben and Picard, Damien and Saelens, Dirk and Helsen, Lieve},  
+journal = {Journal of Building Performance Simulation},  
+note = {Published on line},  
+title = {{Implementation and Verification of the IDEAS Building Energy Simulation Library}},  
+volume = {},  
+doi={10.1080/19401493.2018.1428361},  
+year = {2018}  
 }
