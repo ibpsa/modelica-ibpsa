@@ -2,19 +2,21 @@ within IBPSA.Fluid.Sources.BaseClasses;
 partial model PartialSource
   "Partial component source with one fluid connector"
 
-  parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
-  parameter Boolean verifyInputs = false
-    " = true, to enable verification check of inputs"
-    annotation(Dialog(tab="Advanced"));
-
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium
       "Medium model within the source"
      annotation (choicesAllMatching=true);
 
-  Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](redeclare each package
-      Medium = Medium, m_flow(each max=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Leaving
-           then 0 else +Modelica.Constants.inf, each min=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Entering
+  parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
+  parameter Boolean verifyInputs = false
+    " = true, to enable verification check of inputs"
+    annotation(Dialog(tab="Advanced"));
+
+  Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
+    redeclare each package Medium = Medium,
+    m_flow(each max=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Leaving
+             then 0 else +Modelica.Constants.inf,
+           each min=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Entering
            then 0 else -Modelica.Constants.inf))
     annotation (Placement(transformation(extent={{90,40},{110,-40}})));
 
@@ -39,9 +41,9 @@ initial equation
   // Only one connection allowed to a port to avoid unwanted ideal mixing
   for i in 1:nPorts loop
     assert(cardinality(ports[i]) <= 1,"
-each ports[i] of boundary shall at most be connected to one component.
+Each ports[i] of boundary shall at most be connected to one component.
 If two or more connections are present, ideal mixing takes
-place with these connections, which is usually not the intention
+place in these connections, which is usually not the intention
 of the modeller. Increase nPorts to add an additional port.
 ");
   end for;

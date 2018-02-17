@@ -15,11 +15,11 @@ Models an ideal flow source, with prescribed values of flow rate, specific entha
 <li> Boundary composition (only for multi-substance or trace-substance flow).</li>
 </ul>
 <p>
-If <code>use_m_flow_in</code> is false (default option), 
+If <code>use_m_flow_in</code> is false (default option),
 the <code>m_flow</code> parameter
-is used as boundary pressure, and the <code>m_flow_in</code> 
-input connector is disabled; if <code>use_m_flow_in</code> 
-is true, then the <code>m_flow</code> parameter is ignored, 
+is used as boundary pressure, and the <code>m_flow_in</code>
+input connector is disabled; if <code>use_m_flow_in</code>
+is true, then the <code>m_flow</code> parameter is ignored,
 and the value provided by the input connector is used instead.
 </p>
 <p>
@@ -28,7 +28,7 @@ The same applies to the specific enthalpy <i>h</i>, composition <i>X<sub>i</sub>
 <h4>Options</h4>
 <p>
 Instead of using <code>Xi_in</code> (the <i>independent</i> composition fractions),
-the advanced tab provides an option for setting all 
+the advanced tab provides an option for setting all
 composition fractions using <code>X_in</code>.
 <code>use_X_in</code> and <code>use_Xi_in</code> cannot be used
 at the same time.

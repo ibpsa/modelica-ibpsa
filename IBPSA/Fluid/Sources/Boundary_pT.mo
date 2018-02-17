@@ -16,11 +16,11 @@ Defines prescribed values for boundary conditions:
 </ul>
 <h4>Typical use and important parameters</h4>
 <p>
-If <code>use_p_in</code> is false (default option), 
-the <code>p</code> parameter is used as boundary pressure, 
-and the <code>p_in</code> input connector is disabled; 
-if <code>use_p_in</code> is true, then the <code>p</code> 
-parameter is ignored, and the value provided by the 
+If <code>use_p_in</code> is false (default option),
+the <code>p</code> parameter is used as boundary pressure,
+and the <code>p_in</code> input connector is disabled;
+if <code>use_p_in</code> is true, then the <code>p</code>
+parameter is ignored, and the value provided by the
 input connector is used instead.
 </p>
 <p>
@@ -29,7 +29,7 @@ The same applies to the temperature <i>T</i>, composition <i>X<sub>i</sub></i> o
 <h4>Options</h4>
 <p>
 Instead of using <code>Xi_in</code> (the <i>independent</i> composition fractions),
-the advanced tab provides an option for setting all 
+the advanced tab provides an option for setting all
 composition fractions using <code>X_in</code>.
 <code>use_X_in</code> and <code>use_Xi_in</code> cannot be used
 at the same time.

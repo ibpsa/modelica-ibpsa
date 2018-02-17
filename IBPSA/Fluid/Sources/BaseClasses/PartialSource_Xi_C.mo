@@ -1,7 +1,6 @@
 within IBPSA.Fluid.Sources.BaseClasses;
 partial model PartialSource_Xi_C
   "Partial component source with parameter definitions for Xi and C"
-
   extends IBPSA.Fluid.Sources.BaseClasses.PartialSource;
 
   parameter Boolean use_X_in = false
@@ -101,8 +100,8 @@ equation
           textString="C")}),
           Documentation(info="<html>
 <p>
-Partial model that defines outflowing properties 
-<code>ports.Xi_outflow</code> and <code>ports.C_outflow</code> 
+Partial model that defines outflowing properties
+<code>ports.Xi_outflow</code> and <code>ports.C_outflow</code>
 using an optional input for both.
 Otherwise the parameter value is used.
 </p>
