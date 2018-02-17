@@ -99,8 +99,8 @@ Models that extend this model use the signal
 current position of the actuator.
 </p>
 <p>
-The filter order can be changed, e.g. to modify the filter
-time constants.
+The filter order can be changed to modify the transient response
+of the actuator.
 </p>
 <p>
 See
