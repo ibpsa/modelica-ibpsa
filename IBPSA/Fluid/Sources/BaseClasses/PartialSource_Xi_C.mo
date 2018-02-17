@@ -104,7 +104,7 @@ equation
 Partial model that defines outflowing properties 
 <code>ports.Xi_outflow</code> and <code>ports.C_outflow</code> 
 using an optional input for both.
-Otherwise the parameter input is used.
+Otherwise the parameter value is used.
 </p>
 </html>", revisions="<html>
 <ul>

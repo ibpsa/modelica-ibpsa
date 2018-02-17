@@ -17,7 +17,7 @@ equation
     p_in_internal = p;
   end if;
   for i in 1:nPorts loop
-    ports[i].p          = p_in_internal;
+    ports[i].p = p_in_internal;
   end for;
 
   annotation (Documentation(revisions="<html>
@@ -30,10 +30,10 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">#882</a>.
 </ul>
 </html>", info="<html>
 <p>
-Partial model that defines 
-<code>ports.p</code> using an optional input for 
+Partial model that defines
+<code>ports.p</code> using an optional input for
 the pressure.
-Otherwise the parameter input is used.
+Otherwise the parameter value is used.
 </p>
 </html>"), Icon(coordinateSystem(
         preserveAspectRatio=true,

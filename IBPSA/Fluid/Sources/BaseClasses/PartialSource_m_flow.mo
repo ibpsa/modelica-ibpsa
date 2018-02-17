@@ -20,7 +20,7 @@ equation
     m_flow_in_internal = m_flow;
   end if;
   for i in 1:nPorts loop
-    ports[i].p          = p_in_internal;
+    ports[i].p = p_in_internal;
   end for;
   sum(ports.m_flow) = -m_flow_in_internal;
 
@@ -76,10 +76,10 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">#882</a>.
 </html>", info="<html>
 <p>
 Partial model that defines the <i>sum</i> of
-<code>ports.m_flow</code> using an optional input for 
+<code>ports.m_flow</code> using an optional input for
 the total mass flow rate.
 All port pressures are assumed equal.
-Otherwise the parameter input is used.
+Otherwise the parameter value is used.
 </p>
 </html>"));
 end PartialSource_m_flow;

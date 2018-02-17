@@ -29,12 +29,13 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-Partial model that defines 
-<code>ports.h_outflow</code> using an optional input for 
+Partial model that defines
+<code>ports.h_outflow</code> using an optional input for
 the temperature.
-Otherwise the parameter input is used.
+Otherwise the parameter value is used.
 </p>
-</html>",                               revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 February 2nd, 2018 by Filip Jorissen<br/>
