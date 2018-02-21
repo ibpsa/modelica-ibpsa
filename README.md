@@ -1,4 +1,4 @@
-IDEAS v1.0.0
+﻿IDEAS v1.0.0
 ============
 
 Modelica model environment for Integrated District Energy Assessment Simulations (IDEAS), allowing simultaneous transient simulation of thermal and electrical systems at both building and feeder level.
@@ -105,7 +105,12 @@ The **IDEAS** package is licensed by [KU Leuven](http://www.kuleuven.be) and [3E
 6. R. Baetens, R. De Coninck, J. Van Roy, B. Verbruggen, J. Driesen, L. Helsen, D. Saelens (2012). Assessing electrical bottlenecks at feeder level for residential net zero-energy buildings by integrated system simulation. *Applied Energy*, **96**, 74-83.
 7. G. Reynders, J. Diriken, D. Saelens. (2014) Quality of grey-box models and identified parameters as function of the accuracy of input and observation signals. *Energy & Buildings* **82**, 263–274, doi:10.1016/j.enbuild.2014.07.025.
 8. F. Jorissen, L. Helsen,  M. Wetter (2015). Simulation Speed Analysis and Improvements of Modelica Models for Building Energy Simulation. In Proceedings of the 11th International Modelica Conference. Paris, 59-69.
-
+9. C. Protopapadaki, G. Reynders, D. Saelens (2014). Bottom-up modeling of the Belgian residential building stock: impact of building stock descriptions. In Proceedings of the 9th International Conference on System Simulation in Buildings. Liège.
+10. G. Reynders, J. Diriken, D. Saelens (2014). Bottom-up modeling of the Belgian residential building stock: impact of model complexity. In Proceedings of the 9th International Conference on System Simulation in Buildings. Liège.
+11. G. Reynders, J. Diriken, D. Saelens (2015). Impact of the heat emission system on the indentification of grey-box models for residential buildings. *Energy Procedia* **78**, 3300-3305, doi: 10.1016/j.egypro.2015.11.740.
+12. I. De Jaeger, G. Reynders, D. Saelens (2017). Impact of spacial accuracy on district energy simulations. *Energy Procedia* **132**, 561-566, doi: 10.1016/j.egypro.2017.09.741
+13. G. Reynders, R. Andriamamonjy, R. Klein, D. Saelens (2017). Towards an IFC-Modelica Tool Facilitating Model Complexity Selection for Building Energy Simulation. In Proceedings of the 15th Conference of the International Building Performance Simulation Association. California.
+14. G. Reynders, J. Diriken, D. Saelens (2017). Generic characterization method for energy flexibility: Applied to structural thermal storage in residential buildings. *Applied Energy* **198**, 192-202, doi: 10.1016/j.apenergy.2017.04.061
 
 #### Bibtex entry for citing IDEAS
 @article{Jorissen2018ideas,  
