@@ -56,6 +56,13 @@ protected
     "Dynamic viscosity at nominal condition";
 
 annotation (defaultComponentName="res",
+    __ibpsa(children = {
+         child(name="IBPSA.Air.FixedResistances.HydraulicDiameter",
+               defaultComponentName = "duc",
+               assign="v_nominal = 1.5"),
+         child(name="IBPSA.Water.FixedResistances.HydraulicDiameter",
+               defaultComponentName = "pip",
+               assign="v_nominal = 0.5")}),
 Documentation(info="<html>
 <p>
 This is a model of a flow resistance with a fixed flow coefficient.
