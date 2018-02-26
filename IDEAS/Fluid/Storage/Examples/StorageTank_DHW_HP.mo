@@ -34,7 +34,7 @@ model StorageTank_DHW_HP
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=30,
-    filteredSpeed=false)
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{-38,-62},{-58,-42}})));
   inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
@@ -147,8 +147,8 @@ equation
     annotation (Line(points={{46.5,53},{74,53},{74,20}}, color={0,0,127}));
   connect(HPControl.onOff, gain.u) annotation (Line(points={{-84,52},{-84,36},{
           -47.8,36},{-48,-3.2}}, color={0,0,127}));
-  connect(gain.y, pump.m_flow_in) annotation (Line(points={{-48,-12.4},{-48,
-          -26.2},{-47.8,-26.2},{-47.8,-40}}, color={0,0,127}));
+  connect(gain.y, pump.m_flow_in) annotation (Line(points={{-48,-12.4},{-48,-26.2},
+          {-48,-26.2},{-48,-40}},            color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
