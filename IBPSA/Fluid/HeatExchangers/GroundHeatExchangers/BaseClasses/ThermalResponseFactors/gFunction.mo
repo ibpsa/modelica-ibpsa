@@ -1,0 +1,201 @@
+within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors;
+function gFunction "Evaluate the g-function of a bore field"
+
+  input Integer nbBor "Number of boreholes";
+  input Real cooBor[nbBor, 2] = {{0, 0}} "Coordinates of boreholes";
+  input Real hBor "Borehole length";
+  input Real dBor "Borehole buried depth";
+  input Real rBor "Borehole radius";
+  input Real alpha = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
+  input Integer nbSeg = 12 "Number of line source segments per borehole";
+  input Integer nbTimSho = 26 "Number of time steps in short time region";
+  input Integer nbTimLon = 25 "Number of time steps in long time region";
+  input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
+
+  output Real lntts[nbTimSho+nbTimLon-1] "Logarithmic dimensionless time";
+  output Real g[nbTimSho+nbTimLon-1] "g-Function";
+
+protected
+  Real tSho_min = 1 "Minimum time for short time calculations";
+  Real tSho_max = 3600 "Maximum time for short time calculations";
+  Real tLon_min = tSho_max "Minimum time for long time calculations";
+  Real tLon_max = 1000*8760*3600 "Maximum time for long time calculations";
+  Real tSho[nbTimSho] "Time vector for short time calculations";
+  Real tLon[nbTimLon] "Time vector for long time calculations";
+  Real ts = hBor^2/(9*alpha) "Characteristic time";
+  Real dis "Separation distance between boreholes";
+  Real dis_mn "Separation distance for comparison";
+  Real deltaDis "Difference between separation distances";
+  Real hSegRea[nbSeg] "Real part of the FLS solution";
+  Real hSegMir[2*nbSeg-1] "Mirror part of the FLS solution";
+  Real dSeg "Buried depth of borehole segment";
+  Integer Done[nbBor, nbBor] "Matrix for tracking of FLS evaluations";
+  Real A[nbSeg*nbBor+1, nbSeg*nbBor+1] "Coefficient matrix for system of equations";
+  Real B[nbSeg*nbBor+1] "Coefficient vector for system of equations";
+  Real X[nbSeg*nbBor+1] "Solution vector for system of equations";
+  Real FLS "Finite line source solution";
+  Real ILS "Infinite line source solution";
+  Real CHS "Cylindrical heat source solution";
+
+algorithm
+
+  // Generate geometrically expanding time vectors
+  tSho :=
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.timeGeometric(
+    tSho_min,
+    tSho_max,
+    nbTimSho) "Time vector for short time calculations";
+  tLon :=
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.timeGeometric(
+    tLon_min,
+    tLon_max,
+    nbTimLon) "Time vector for long time calculations";
+  // Concatenate the short- and long-term parts
+  lntts :=log(cat(1, tSho[1:nbTimSho - 1]/ts, tLon/ts));
+
+  // -----------------------
+  // Short time calculations
+  // -----------------------
+  Modelica.Utilities.Streams.print(("Evaluation of short time g-function."));
+  for k in 1:nbTimSho loop
+    // Finite line source solution
+    FLS :=
+      IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.finiteLineSource(
+      tSho[k],
+      alpha,
+      rBor,
+      hBor,
+      dBor,
+      hBor,
+      dBor);
+    // Infinite line source solution
+    ILS := 0.5*
+      IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.infiniteLineSource(
+      tSho[k],
+      alpha,
+      rBor);
+    // Cylindrical heat source solution
+    CHS := 2*Modelica.Constants.pi*
+      IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.cylindricalHeatSource(
+      tSho[k],
+      alpha,
+      rBor,
+      rBor);
+    // Correct finite line source solution for cylindrical geometry
+    g[k] := FLS + (CHS - ILS);
+  end for;
+
+  // ----------------------
+  // Long time calculations
+  // ----------------------
+  Modelica.Utilities.Streams.print(("Evaluation of long time g-function."));
+  // Initialize coefficient matrix A
+  for m in 1:nbBor loop
+    for u in 1:nbSeg loop
+      // Tb coefficient in spatial superposition equations
+      A[(m-1)*nbSeg+u,nbBor*nbSeg+1] := -1;
+      // Q coefficient in heat balance equation
+      A[nbBor*nbSeg+1,(m-1)*nbSeg+u] := 1;
+    end for;
+  end for;
+  // Initialize coefficient vector B
+  // The total heat extraction rate is constant
+  B[nbBor*nbSeg+1] := nbBor*nbSeg;
+
+  // Evaluate thermal response matrix at all times
+  for k in 1:nbTimLon-1 loop
+    for i in 1:nbBor loop
+      for j in i:nbBor loop
+        // Distance between boreholes
+        if i == j then
+          // If same borehole, distance is the radius
+          dis := rBor;
+        else
+          dis := sqrt((cooBor[i,1] - cooBor[j,1])^2 + (cooBor[i,2] - cooBor[j,2])^2);
+        end if;
+        // Only evaluate the thermal response factors if not already evaluated
+        if Done[i,j] < k then
+          // Evaluate Real and Mirror parts of FLS solution
+          // Real part
+          for m in 1:nbSeg loop
+            if sqrt(dis^2 + ((m-1)*hBor/nbSeg)^2) < 3*sqrt(alpha*tLon[k+1]) then
+              hSegRea[m] :=
+                IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.finiteLineSource(
+                tLon[k + 1],
+                alpha,
+                dis,
+                hBor/nbSeg,
+                dBor,
+                hBor/nbSeg,
+                dBor + (m - 1)*hBor/nbSeg,
+                includeMirrorSource=false);
+            else
+              hSegRea[m] := 0.;
+            end if;
+          end for;
+        // Mirror part
+          for m in 1:(2*nbSeg-1) loop
+            if sqrt(dis^2 + (2*dBor+2*(m-1)*hBor/nbSeg)^2) < 3*sqrt(alpha*tLon[k+1]) then
+              hSegMir[m] :=
+                IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.finiteLineSource(
+                tLon[k + 1],
+                alpha,
+                dis,
+                hBor/nbSeg,
+                dBor,
+                hBor/nbSeg,
+                dBor + (m - 1)*hBor/nbSeg,
+                includeRealSource=false);
+            else
+              hSegMir[m] := 0.;
+            end if;
+          end for;
+        // Apply to all pairs that have the same separation distance
+          for m in 1:nbBor loop
+            for n in m:nbBor loop
+              if m == n then
+                dis_mn := rBor;
+              else
+                dis_mn := sqrt((cooBor[m,1] - cooBor[n,1])^2 + (cooBor[m,2] - cooBor[n,2])^2);
+              end if;
+              if abs(dis_mn - dis) < relTol*dis then
+                // Add thermal response factor to coefficient matrix A
+                for u in 1:nbSeg loop
+                  for v in 1:nbSeg loop
+                    A[(m-1)*nbSeg+u,(n-1)*nbSeg+v] := hSegRea[abs(u-v)+1] + hSegMir[u+v-1];
+                    A[(n-1)*nbSeg+v,(m-1)*nbSeg+u] := hSegRea[abs(u-v)+1] + hSegMir[u+v-1];
+                  end for;
+                end for;
+                // Mark current pair as evaluated
+                Done[m,n] := k;
+                Done[n,m] := k;
+              end if;
+            end for;
+          end for;
+        end if;
+      end for;
+    end for;
+    // Solve the system of equations
+    X := Modelica.Math.Matrices.solve(A,B);
+    // The g-function is equal to the borehole wall temperature
+    g[nbTimSho+k] := X[nbBor*nbSeg+1];
+  end for;
+  // Correct finite line source solution for cylindrical geometry
+  for k in 2:nbTimLon loop
+    // Infinite line source
+    ILS := 0.5*
+      IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.infiniteLineSource(
+      tLon[k],
+      alpha,
+      rBor);
+    // Cylindrical heat source
+    CHS := 2*Modelica.Constants.pi*
+      IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.cylindricalHeatSource(
+      tLon[k],
+      alpha,
+      rBor,
+      rBor);
+    g[nbTimSho+k-1] := g[nbTimSho+k-1] + (CHS - ILS);
+  end for;
+
+end gFunction;

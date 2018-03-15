@@ -22,3 +22,8 @@ splineDerivatives
 trapezoidalIntegration
 Examples
 BaseClasses
+exponentialIntegralE1
+besselJ0
+besselJ1
+besselY0
+besselY1
