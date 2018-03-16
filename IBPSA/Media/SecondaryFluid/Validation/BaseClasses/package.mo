@@ -27,7 +27,9 @@ extends Modelica.Icons.BasesPackage;
     Modelica.SIunits.Temperature T_degC "Temperature (in Celsius)";
 
 protected
-    parameter Real convT(unit="K/s") = (T_max-T_min)
+    parameter Modelica.SIunits.Time dt = 1
+      "Simulation length";
+    parameter Real convT(unit="K/s") = (T_max-T_min)/dt
       "Rate of temperature change";
 
   equation
