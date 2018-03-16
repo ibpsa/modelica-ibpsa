@@ -153,6 +153,15 @@ There are no phase changes. The medium is limited to temperatures below
 As is the case for IBPSA.Media.Water, this medium package should not be used if
 the simulation relies on the dynamic viscosity.
 </p>
+<h4>Typical use and important parameters</h4>
+<p>
+The temperature and mass fraction must be specified for the evaluation of the
+constant thermophysical properties. A typical use of the package is (e.g. for
+a temperature of <i>20</i> &deg;C and a mass fraction of <i>0.40</i>):
+</p>
+<p>
+<code>Medium = IBPSA.Media.SecondaryFluid.PropyleneGlycolWater(property_T=293.15, massFraction=0.40)</code>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
