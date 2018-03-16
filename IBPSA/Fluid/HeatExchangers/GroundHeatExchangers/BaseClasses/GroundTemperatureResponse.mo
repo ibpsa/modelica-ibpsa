@@ -10,10 +10,17 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
   parameter Integer p_max(min=1) "Number of cells per aggregation level";
   parameter Modelica.SIunits.Length H "Borehole vertical length";
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a Tg
-    "Heat port for ground conditions"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b Tb
+  replaceable parameter
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records.BorefieldData
+    bfData constrainedby Data.Records.BorefieldData
+    "Record containing all the parameters of the borefield model" annotation (
+     choicesAllMatching=true, Placement(transformation(extent={{-90,-88},{-70,
+            -68}})));
+
+  Modelica.Blocks.Interfaces.RealInput Tg
+    "Temperature input for undisturbed ground conditions"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a Tb
     "Heat port for resulting borehole wall conditions"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
@@ -83,10 +90,8 @@ equation
     dhdt = kappa[1]/lenAggSte;
   end when;
 
-  Tb.Q_flow = -Tg.Q_flow;
-
   der(deltaTb) = dhdt*Tb.Q_flow + derDelTbs;
-  deltaTb = Tb.T-Tg.T;
+  deltaTb = Tb.T-Tg;
 
   when (sample(t0, lenAggSte)) then
     (curCel,Q_shift) = LoadAggregation.nextTimeStep(
@@ -107,7 +112,7 @@ equation
       kappa=kappa,
       curCel=curCel);
 
-    delTbOld = Tb.T-Tg.T;
+    delTbOld = Tb.T-Tg;
 
     derDelTbs = (delTbs-delTbOld)/lenAggSte;
   end when;
