@@ -26,5 +26,27 @@ algorithm
     nw,
     nT,
     coeff);
-
+annotation (
+Documentation(info="<html>
+<p>
+Thermal conductivity of propylene glycol - water at specified mass fraction and
+temperature, based on Melinder (2010).
+</p>
+<h4>References</h4>
+<p>
+Melinder, Åke. 2010. Properties of Secondary Working Fluids (Secondary
+Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
+IIR/IIF.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 16, 2018 by Massimo Cimmino:<br/>
+First implementation.
+This function is used by
+<a href=\"modelica://IBPSA.Media.SecondaryFluid.PropyleneGlycolWater\">
+IBPSA.Media.SecondaryFluid.PropyleneGlycolWater</a>.
+</li>
+</ul>
+</html>"));
 end thermalConductivity;

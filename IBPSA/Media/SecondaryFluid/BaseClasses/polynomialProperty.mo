@@ -31,5 +31,27 @@ algorithm
       f := f + coeff[n]*dx^i*dy^j;
     end for;
   end for;
-
+annotation (
+Documentation(info="<html>
+<p>
+Evaluates a thermophysical property of a mixture, based on correlations proposed
+by Melinder (2010).
+</p>
+<h4>References</h4>
+<p>
+Melinder, Åke. 2010. Properties of Secondary Working Fluids (Secondary
+Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
+IIR/IIF.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 16, 2018 by Massimo Cimmino:<br/>
+First implementation.
+This function is used models in
+<a href=\"modelica://IBPSA.Media.SecondaryFluid\">
+IBPSA.Media.SecondaryFluid</a>.
+</li>
+</ul>
+</html>"));
 end polynomialProperty;

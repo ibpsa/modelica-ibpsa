@@ -85,7 +85,8 @@ package PropyleneGlycolWater "Package with model for propylene glycol - water wi
 Temperature T (= " + String(T) + " K) is not
 in the allowed range (" + String(T_min) + " K <= T <= " + String(T_max) + " K)
 required from medium model \"" + mediumName + "\".
-"); assert(massFraction >= massFraction_min and massFraction <= massFraction_max, "
+");
+    assert(massFraction >= massFraction_min and massFraction <= massFraction_max, "
     Mass fraction massFraction (= " + String(massFraction) + " ) is not
 in the allowed range (" + String(massFraction_min) + " <= massFraction <= " + String(massFraction_max) + " )
 required from medium model \"" + mediumName + "\".
@@ -95,9 +96,18 @@ required from medium model \"" + mediumName + "\".
     u = h;
     state.T = T;
     state.p = p;
+
     annotation(Documentation(info="<html>
     <p>
-    fixme.
+    This base properties model is identical to
+    <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
+    Modelica.Media.Water.ConstantPropertyLiquidWater</a>,
+    except that the equation
+    <code>u = cv_const*(T - reference_T)</code>
+    has been replaced by <code>u=h</code> because
+    <code>cp_const=cv_const</code>.
+    Also, the model checks if the mass fraction of the mixture is within the
+    allowed limits.
     </p>
 </html>"));
   end BaseProperties;
