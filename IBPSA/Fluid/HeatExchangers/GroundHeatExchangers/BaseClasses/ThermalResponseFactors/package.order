@@ -5,5 +5,6 @@ finiteLineSource_erfint
 finiteLineSource_Integrand
 gFunction
 infiniteLineSource
+shaGFunction
 timeGeometric
 Validation

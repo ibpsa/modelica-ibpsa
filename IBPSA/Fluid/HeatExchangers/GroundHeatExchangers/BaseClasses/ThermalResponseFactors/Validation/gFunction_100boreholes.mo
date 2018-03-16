@@ -130,7 +130,7 @@ initial equation
     hBor,
     dBor,
     rBor);
-  t_gFun = ts*exp(lntts);
+    t_gFun = ts*exp(lntts);
 
 equation
 
