@@ -1,12 +1,12 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records;
 record Filling "Thermal properties of the borehole filling material"
-  extends IDEAS.HeatTransfer.Data.BoreholeFillings.Generic;
+  extends IBPSA.HeatTransfer.Data.BoreholeFillings.Generic;
 
   parameter String pathMod=
-      "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.Filling"
+      "IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records.Filling"
     "Modelica path of the record";
   parameter String pathCom=Modelica.Utilities.Files.loadResource(
-      "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/Records/Filling.mo")
+      "modelica://IBPSA/Fluid/HeatExchangers/GroundHeatExchangers/Data/Records/Filling.mo")
     "Computer path of the record";
   final parameter Modelica.SIunits.DiffusionCoefficient alp=k/d/c
     "Heat diffusion coefficient of the filling material";

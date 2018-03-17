@@ -4,10 +4,10 @@ record General "General parameters of the borefield"
   import SI = Modelica.SIunits;
 
   parameter String pathMod=
-      "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.General"
+      "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records.General"
     "Modelica record path";
   parameter String pathCom=Modelica.Utilities.Files.loadResource(
-      "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/Records/General.mo")
+      "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Data/Records/General.mo")
     "Computer record path";
 
   parameter Boolean singleUTube = true

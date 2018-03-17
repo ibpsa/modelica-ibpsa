@@ -2,8 +2,8 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.GeneralData;
 record GeneralTrtUTube
   "General record for validation bore field using thermal response test"
   extends Records.General(
-    pathMod="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeneralData.GeneralTrtUTube",
-    pathCom=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/GeneralData/GeneralTrtUTube.mo"),
+    pathMod="IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.GeneralData.GeneralTrtUTube",
+    pathCom=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Fluid/HeatExchangers/GroundHeatExchangers/Data/GeneralData/GeneralTrtUTube.mo"),
     singleUTube = true,
     parallel2UTube = false,
     m_flow_nominal_bh=1225/3600,

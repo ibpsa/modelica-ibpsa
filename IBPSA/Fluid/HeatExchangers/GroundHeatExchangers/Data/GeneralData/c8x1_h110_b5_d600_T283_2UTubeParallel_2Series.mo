@@ -3,9 +3,9 @@ record c8x1_h110_b5_d600_T283_2UTubeParallel_2Series "Line configuration of 8 bo
   The borehole configuration uses double U-tubes (in parallel) and the boreholes are in series 2 by 2."
   extends c8x1_h110_b5_d600_T283(
     pathMod=
-        "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeneralData.c8x1_h110_b5_d600_T283_2UTubeParallel_2Series",
+        "IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.GeneralData.c8x1_h110_b5_d600_T283_2UTubeParallel_2Series",
     pathCom=Modelica.Utilities.Files.loadResource(
-        "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/GeneralData/c8x1_h110_b5_d600_T283_2UTubeParallel_2Series.mo"),
+        "modelica://IBPSA/Fluid/HeatExchangers/GroundHeatExchangers/Data/GeneralData/c8x1_h110_b5_d600_T283_2UTubeParallel_2Series.mo"),
     nbSer = 2,
     singleUTube = false,
     parallel2UTube = true);

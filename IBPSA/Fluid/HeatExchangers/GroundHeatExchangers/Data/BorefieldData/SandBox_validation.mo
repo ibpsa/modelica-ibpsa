@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData;
 record SandBox_validation=Records.BorefieldData (
-    pathMod = "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.BorefieldData.SandBox_validation",
-    pathCom = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/BorefieldData/SandBox_validation.mo"),
+    pathMod = "IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation",
+    pathCom = Modelica.Utilities.Files.loadResource("modelica://IBPSA/Fluid/HeatExchangers/GroundHeatExchangers/Data/BorefieldData/SandBox_validation.mo"),
     redeclare replaceable record Soi =
        SoilData.WetSand_validation,
     redeclare replaceable record Fil =

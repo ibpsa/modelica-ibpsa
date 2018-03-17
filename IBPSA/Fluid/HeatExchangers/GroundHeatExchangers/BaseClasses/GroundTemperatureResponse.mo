@@ -1,18 +1,12 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses;
 model GroundTemperatureResponse "Model calculating discrete load aggregation"
-  parameter Modelica.SIunits.ThermalConductivity ks
-    "Thermal conductivity of soil";
-  parameter Modelica.SIunits.ThermalDiffusivity as
-    "Thermal diffusivity of soil";
-  parameter Modelica.SIunits.Time lenAggSte
-    "Load aggregation step (e.g. 3600 if every hour)";
   parameter String filNam "Filename for g-function data";
   parameter Integer p_max(min=1) "Number of cells per aggregation level";
-  parameter Modelica.SIunits.Length H "Borehole vertical length";
 
   replaceable parameter
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records.BorefieldData
-    bfData constrainedby Data.Records.BorefieldData
+    bfData constrainedby
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records.BorefieldData
     "Record containing all the parameters of the borefield model" annotation (
      choicesAllMatching=true, Placement(transformation(extent={{-90,-88},{-70,
             -68}})));
@@ -31,19 +25,19 @@ protected
   parameter Modelica.SIunits.Time timFin = LoadAggregation.timSerFin(
     nrow=nrow,
     filNam=filNam,
-    as=as,
-    H=H) "Final time in g-function input file";
+    as=bfData.soi.alp,
+    H=bfData.gen.hBor) "Final time in g-function input file";
   parameter Integer i = LoadAggregation.countAggPts(
     lvlBas=lvlBas,
     p_max=p_max,
     timFin=timFin,
-    lenAggSte=lenAggSte) "Number of aggregation points";
+    lenAggSte=bfData.gen.tStep) "Number of aggregation points";
   parameter Real timSer[nrow+1, 2]=
     LoadAggregation.timSerTxt(
       filNam=filNam,
-      as=as,
-      ks=ks,
-      H=H,
+      as=bfData.soi.alp,
+      ks=bfData.soi.k,
+      H=bfData.gen.hBor,
       nrow=nrow)
       "g-function input from file, with the second column being Tstep";
 
@@ -78,7 +72,7 @@ equation
       i=i,
       lvlBas=lvlBas,
       p_max=p_max,
-      lenAggSte=lenAggSte,
+      lenAggSte=bfData.gen.tStep,
       timFin=timFin);
 
     kappa = LoadAggregation.kapAgg(
@@ -87,13 +81,13 @@ equation
       TStep=timSer,
       nu=nu);
 
-    dhdt = kappa[1]/lenAggSte;
+    dhdt = kappa[1]/bfData.gen.tStep;
   end when;
 
   der(deltaTb) = dhdt*Tb.Q_flow + derDelTbs;
   deltaTb = Tb.T-Tg;
 
-  when (sample(t0, lenAggSte)) then
+  when (sample(t0, bfData.gen.tStep)) then
     (curCel,Q_shift) = LoadAggregation.nextTimeStep(
       i=i,
       Q_i=pre(Q_i),
@@ -114,7 +108,7 @@ equation
 
     delTbOld = Tb.T-Tg;
 
-    derDelTbs = (delTbs-delTbOld)/lenAggSte;
+    derDelTbs = (delTbs-delTbOld)/bfData.gen.tStep;
   end when;
 
   assert((time - t0) <= timFin,
