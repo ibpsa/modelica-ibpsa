@@ -27,3 +27,6 @@ besselJ0
 besselJ1
 besselY0
 besselY1
+binomial
+factorial
+fallingFactorial
