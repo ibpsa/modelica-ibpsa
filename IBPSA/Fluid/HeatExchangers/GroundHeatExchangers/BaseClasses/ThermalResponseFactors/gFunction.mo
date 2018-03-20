@@ -2,11 +2,11 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalRespon
 function gFunction "Evaluate the g-function of a bore field"
 
   input Integer nbBor "Number of boreholes";
-  input Real cooBor[nbBor, 2] = {{0, 0}} "Coordinates of boreholes";
-  input Real hBor "Borehole length";
-  input Real dBor "Borehole buried depth";
-  input Real rBor "Borehole radius";
-  input Real alpha = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
+  input Modelica.SIunits.Position cooBor[nbBor, 2] = {{0, 0}} "Coordinates of boreholes";
+  input Modelica.SIunits.Height hBor "Borehole length";
+  input Modelica.SIunits.Height dBor "Borehole buried depth";
+  input Modelica.SIunits.Radius rBor "Borehole radius";
+  input Modelica.SIunits.ThermalDiffusivity alpha = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
   input Integer nbSeg = 12 "Number of line source segments per borehole";
   input Integer nbTimSho = 26 "Number of time steps in short time region";
   input Integer nbTimLon = 50 "Number of time steps in long time region";
@@ -16,19 +16,18 @@ function gFunction "Evaluate the g-function of a bore field"
   output Real g[nbTimSho+nbTimLon-1] "g-Function";
 
 protected
-  Real tSho_min = 1 "Minimum time for short time calculations";
-  Real tSho_max = 3600 "Maximum time for short time calculations";
-  Real tLon_min = tSho_max "Minimum time for long time calculations";
-  Real tLon_max = 1000*8760*3600 "Maximum time for long time calculations";
-  Real tSho[nbTimSho] "Time vector for short time calculations";
-  Real tLon[nbTimLon] "Time vector for long time calculations";
-  Real ts = hBor^2/(9*alpha) "Characteristic time";
-  Real dis "Separation distance between boreholes";
-  Real dis_mn "Separation distance for comparison";
-  Real deltaDis "Difference between separation distances";
+  Modelica.SIunits.Time ts = hBor^2/(9*alpha) "Characteristic time";
+  Modelica.SIunits.Time tSho_min = 1 "Minimum time for short time calculations";
+  Modelica.SIunits.Time tSho_max = 3600 "Maximum time for short time calculations";
+  Modelica.SIunits.Time tLon_min = tSho_max "Minimum time for long time calculations";
+  Modelica.SIunits.Time tLon_max = ts*exp(5) "Maximum time for long time calculations";
+  Modelica.SIunits.Time tSho[nbTimSho] "Time vector for short time calculations";
+  Modelica.SIunits.Time tLon[nbTimLon] "Time vector for long time calculations";
+  Modelica.SIunits.Distance dis "Separation distance between boreholes";
+  Modelica.SIunits.Distance dis_mn "Separation distance for comparison";
   Real hSegRea[nbSeg] "Real part of the FLS solution";
   Real hSegMir[2*nbSeg-1] "Mirror part of the FLS solution";
-  Real dSeg "Buried depth of borehole segment";
+  Modelica.SIunits.Height dSeg "Buried depth of borehole segment";
   Integer Done[nbBor, nbBor] "Matrix for tracking of FLS evaluations";
   Real A[nbSeg*nbBor+1, nbSeg*nbBor+1] "Coefficient matrix for system of equations";
   Real B[nbSeg*nbBor+1] "Coefficient vector for system of equations";
@@ -118,7 +117,7 @@ algorithm
           // Evaluate Real and Mirror parts of FLS solution
           // Real part
           for m in 1:nbSeg loop
-            if sqrt(dis^2 + ((m-1)*hBor/nbSeg)^2) < 3*sqrt(alpha*tLon[k+1]) then
+            if sqrt(dis^2 + ((m-1)*hBor/nbSeg)^2) < 5*sqrt(alpha*tLon[k+1]) then
               hSegRea[m] :=
                 IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.finiteLineSource(
                 tLon[k + 1],
@@ -135,7 +134,7 @@ algorithm
           end for;
         // Mirror part
           for m in 1:(2*nbSeg-1) loop
-            if sqrt(dis^2 + (2*dBor+2*(m-1)*hBor/nbSeg)^2) < 3*sqrt(alpha*tLon[k+1]) then
+            if sqrt(dis^2 + (2*dBor+2*(m-1)*hBor/nbSeg)^2) < 5*sqrt(alpha*tLon[k+1]) then
               hSegMir[m] :=
                 IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.finiteLineSource(
                 tLon[k + 1],
