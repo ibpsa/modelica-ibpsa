@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors;
 function cylindricalHeatSource_Integrand
   "Integrand function for cylindrical heat source evaluation"
+  extends Modelica.Icons.Function;
 
   input Real u "Normalized integration variable";
   input Real Fo "Fourier number";

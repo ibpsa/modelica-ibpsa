@@ -1,5 +1,6 @@
 within IBPSA.Utilities.Math.Functions;
 function besselJ1 "Bessel function of the first kind of order 1, J1"
+  extends Modelica.Icons.Function;
 
   input Real x "Independent variable";
   output Real J1 "Bessel function J1(x)";

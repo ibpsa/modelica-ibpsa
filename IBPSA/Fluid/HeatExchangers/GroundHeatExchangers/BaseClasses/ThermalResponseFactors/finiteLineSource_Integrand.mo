@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors;
 function finiteLineSource_Integrand
   "Integrand function for finite line source evaluation"
+  extends Modelica.Icons.Function;
 
   input Real u "Normalized integration variable";
   input Real lowBou "Lower boundary of integral before normalization";

@@ -1,5 +1,6 @@
 within IBPSA.Utilities.Math.Functions;
 function exponentialIntegralE1 "Exponential integral, E1"
+  extends Modelica.Icons.Function;
 
   input Real x "Independent variable";
   output Real E1 "Exponential integral E1(x)";

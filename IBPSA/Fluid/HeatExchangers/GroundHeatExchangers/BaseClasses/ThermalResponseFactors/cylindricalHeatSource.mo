@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors;
 function cylindricalHeatSource
   "Cylindrical heat source solution from Carslaw and Jaeger"
+  extends Modelica.Icons.Function;
 
   input Real t "Time";
   input Real alpha "Ground thermal diffusivity";

@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors;
 function gFunction "Evaluate the g-function of a bore field"
+  extends Modelica.Icons.Function;
 
   input Integer nbBor "Number of boreholes";
   input Modelica.SIunits.Position cooBor[nbBor, 2] = {{0, 0}} "Coordinates of boreholes";

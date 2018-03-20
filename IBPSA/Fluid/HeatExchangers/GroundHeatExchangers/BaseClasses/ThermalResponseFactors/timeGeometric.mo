@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors;
 function timeGeometric "Geometric expansion of time steps"
+  extends Modelica.Icons.Function;
 
   input Real dt "Minimum time step";
   input Real t_max "Maximum value of time";

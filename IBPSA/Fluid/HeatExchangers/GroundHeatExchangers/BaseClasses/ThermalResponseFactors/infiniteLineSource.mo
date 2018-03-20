@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors;
 function infiniteLineSource
   "Infinite line source model for borehole heat exchangers"
+  extends Modelica.Icons.Function;
 
   input Real t "Time";
   input Real alpha "Ground thermal diffusivity";

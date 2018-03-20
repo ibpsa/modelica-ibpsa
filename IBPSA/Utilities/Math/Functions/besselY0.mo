@@ -1,5 +1,6 @@
 within IBPSA.Utilities.Math.Functions;
 function besselY0 "Bessel function of the second kind of order 0, Y0"
+  extends Modelica.Icons.Function;
 
   input Real x "Independent variable";
   output Real Y0 "Bessel function Y0(x)";

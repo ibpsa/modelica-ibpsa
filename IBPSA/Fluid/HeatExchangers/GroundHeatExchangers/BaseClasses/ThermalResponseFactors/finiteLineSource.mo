@@ -1,5 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors;
 function finiteLineSource
+  "Finite line source solution of Claesson and Javed"
+  extends Modelica.Icons.Function;
 
   input Real t "Time";
   input Real alpha "Ground thermal diffusivity";
