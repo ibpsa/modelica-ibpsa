@@ -9,7 +9,7 @@ function gFunction "Evaluate the g-function of a bore field"
   input Real alpha = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
   input Integer nbSeg = 12 "Number of line source segments per borehole";
   input Integer nbTimSho = 26 "Number of time steps in short time region";
-  input Integer nbTimLon = 25 "Number of time steps in long time region";
+  input Integer nbTimLon = 50 "Number of time steps in long time region";
   input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
 
   output Real lntts[nbTimSho+nbTimLon-1] "Logarithmic dimensionless time";
