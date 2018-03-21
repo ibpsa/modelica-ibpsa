@@ -59,4 +59,25 @@ algorithm
     Y1 := sqrt(0.636619772/ax)*(sin(xx)*coeff1 + z*cos(xx)*coeff2)*sign(x);
   end if;
 
+annotation (
+Documentation(info="<html>
+<p>
+Evaluates the bessel function of the second kind of order 1 (Y<sub>1</sub>), based
+on the implementations of Press et al. (1986).
+</p>
+<h4>References</h4>
+<p>
+Press, William H., Brian P. Flannery, Saul A. Teukolsky, and William T.
+Vetterling. Numerical Recipes - The Art of Scientific Computing. Cambridge
+University Press (1986): 988 p.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 21, 2018 by Massimo Cimmino:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+
 end besselY1;

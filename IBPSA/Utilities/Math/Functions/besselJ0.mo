@@ -58,4 +58,25 @@ algorithm
     J0 := sqrt(0.636619772/ax)*(cos(xx)*coeff1 - z*sin(xx)*coeff2);
   end if;
 
+annotation (
+Documentation(info="<html>
+<p>
+Evaluates the bessel function of the first kind of order 0 (J<sub>0</sub>), based
+on the implementations of Press et al. (1986).
+</p>
+<h4>References</h4>
+<p>
+Press, William H., Brian P. Flannery, Saul A. Teukolsky, and William T.
+Vetterling. Numerical Recipes - The Art of Scientific Computing. Cambridge
+University Press (1986): 988 p.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 21, 2018 by Massimo Cimmino:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+
 end besselJ0;
