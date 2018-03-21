@@ -18,4 +18,25 @@ algorithm
     E1 := IBPSA.Utilities.Math.Functions.polynomial(x, a2)/(IBPSA.Utilities.Math.Functions.polynomial(x, b2)*x*exp(x));
   end if;
 
+annotation (
+Documentation(info="<html>
+<p>
+Evaluates the exponential integral (E<sub>1</sub>), based
+on the polynomial and rational approximations of Abramowitz and Stegun (1964).
+</p>
+<h4>References</h4>
+<p>
+Abramowitz, Milton, and Irene A. Stegun. Handbook of Mathematical Functions
+with Formulas, Graphs, and Mathematical Tables. National Bureau of Standards.
+(1964): 1046 p.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 21, 2018 by Massimo Cimmino:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+
 end exponentialIntegralE1;
