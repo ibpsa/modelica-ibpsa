@@ -53,4 +53,19 @@ algorithm
 
   y := 0.5/(len2*s^2)*f*exp(-dis^2*s^2);
 
+annotation (
+Documentation(info="<html>
+<p>
+Integrand of the cylindrical heat source solution for use in
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.finiteLineSource\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.finiteLineSource</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 22, 2018 by Massimo Cimmino:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+
 end finiteLineSource_Integrand;

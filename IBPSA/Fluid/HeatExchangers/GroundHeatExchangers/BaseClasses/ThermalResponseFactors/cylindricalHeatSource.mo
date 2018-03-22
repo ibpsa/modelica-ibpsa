@@ -40,8 +40,8 @@ where <i>&Delta;T(t,r)</i> is the temperature raise after a time <i>t</i> of
 constant heat injection and at a distance <i>r</i> from the cylindrical source,
 <i>Q'</i> is the heat injection rate per unit length, <i>k<sub>s</sub></i> is
 the soil thermal conductivity, <i>Fo</i> is the Fourier number,
-<i>&alpha;<sub>s</sub></i> is the ground thermal difussivity,
-<i>r<sub>b</sub></i> is the radius of the cylindrical source and <i>G</sub></i>
+<i>&alpha;<sub>s</sub></i> is the ground thermal diffusivity,
+<i>r<sub>b</sub></i> is the radius of the cylindrical source and <i>G</i>
 is the cylindrical heat source solution.
 </p>
 <p>

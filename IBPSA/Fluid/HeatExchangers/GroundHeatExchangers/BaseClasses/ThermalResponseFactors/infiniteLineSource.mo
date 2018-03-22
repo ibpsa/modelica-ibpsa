@@ -42,7 +42,7 @@ The infinite line source solution is given by the exponential integral:
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/InfiniteLineSource_02.png\" />
 </p>
 <p>
-where <i>&alpha;<sub>s</sub></i> is the ground thermal difussivity. The
+where <i>&alpha;<sub>s</sub></i> is the ground thermal diffusivity. The
 exponential integral is implemented in
 <a href=\"modelica://IBPSA.Utilities.Math.Functions.exponentialIntegralE1\">IBPSA.Utilities.Math.Functions.exponentialIntegralE1</a>.
 </p>
