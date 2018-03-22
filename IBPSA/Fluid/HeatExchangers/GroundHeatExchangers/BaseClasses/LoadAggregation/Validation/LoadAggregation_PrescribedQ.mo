@@ -4,12 +4,21 @@ model LoadAggregation_PrescribedQ
   extends Modelica.Icons.Example;
 
   GroundTemperatureResponse loaAgg(
-    ks=1,
-    as=1e-6,
-    lenAggSte=3600,
     p_max=5,
-    H=100,
-    filNam="C:/repos/mod-bee/BEE/Resources/gfunct_data/Single_borehole_depth_100.txt")
+    bfData(
+      redeclare record Soi =
+          IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData.SandStone
+          (
+          k=1,
+          c=1,
+          d=1e6),
+      redeclare record Fil =
+          IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData.Bentonite,
+
+      redeclare record Gen =
+          IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records.General
+          (hBor=100, rBor=0.05)),
+    forceGFunCalc=true)
     "Load Aggregation in borehole"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
@@ -19,10 +28,10 @@ model LoadAggregation_PrescribedQ
   Modelica.Blocks.Sources.CombiTimeTable timTabQ(
     tableOnFile=true,
     tableName="tab1",
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     columns={2},
     fileName=
-        "C:/repos/mod-bee/BEE/Resources/Fluid/Geothermal/BoreholeHeatExchangers/BaseClasses/Aggregation/Validation/LoadAggregation_20y_validation.txt")
+        "C:/repos/mod-bee/BEE/Resources/Fluid/Geothermal/BoreholeHeatExchangers/BaseClasses/Aggregation/Validation/LoadAggregation_20y_validation.txt",
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
                  "Table for heat injected, using constant segments"
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
 

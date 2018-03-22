@@ -23,10 +23,10 @@ record BorefieldData
     "Nominal thermal power of the borefield";
 
   parameter String pathMod=
-      "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.BorefieldData"
+      "IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records.BorefieldData"
     "Modelica path of the record";
   parameter String pathCom=Modelica.Utilities.Files.loadResource(
-      "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/Records")
+      "modelica://IBPSA/Fluid/HeatExchangers/GroundHeatExchangers/Data/Records")
     "Computer path of the record";
 
   annotation (Documentation(info="<html>

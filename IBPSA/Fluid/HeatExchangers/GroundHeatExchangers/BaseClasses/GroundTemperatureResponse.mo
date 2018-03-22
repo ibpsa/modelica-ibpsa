@@ -1,8 +1,8 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses;
 model GroundTemperatureResponse "Model calculating discrete load aggregation"
-  parameter String filNam "Filename for g-function data";
   parameter Integer p_max(min=1) "Number of cells per aggregation level";
-
+  parameter Boolean forceGFunCalc = false
+    "Set to true to force the thermal response to be calculated at the start";
   replaceable parameter
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records.BorefieldData
     bfData constrainedby
@@ -18,36 +18,50 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
     "Heat port for resulting borehole wall conditions"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-protected
-  parameter Integer nrow = Modelica.Utilities.Streams.countLines(filNam)
-    "Number of lines in g-function input file";
+//protected
+  parameter Integer nbSeg = 12 "Number of line source segments per borehole";
+  parameter Integer nbTimSho = 26 "Number of time steps in short time region";
+  parameter Integer nbTimLon = 50 "Number of time steps in long time region";
+  parameter Real relTol = 0.02 "Relative tolerance on distance between boreholes";
+  parameter String SHAgfun = ThermalResponseFactors.shaGFunction(
+    nbBor=bfData.gen.nbBh,
+    cooBor=bfData.gen.cooBh,
+    hBor=bfData.gen.hBor,
+    dBor=bfData.gen.dBor,
+    rBor=bfData.gen.rBor,
+    alpha=bfData.soi.alp) "String with encrypted g-function arguments";
+  parameter Integer nrow = nbTimSho+nbTimLon-1
+    "Length of g-function matrix";
   parameter Real lvlBas = 2 "Base for exponential cell growth between levels";
-  parameter Modelica.SIunits.Time timFin = LoadAggregation.timSerFin(
-    nrow=nrow,
-    filNam=filNam,
-    as=bfData.soi.alp,
-    H=bfData.gen.hBor) "Final time in g-function input file";
+  parameter Modelica.SIunits.Time timFin=
+    (bfData.gen.hBor^2/(9*bfData.soi.alp))*exp(5);
   parameter Integer i = LoadAggregation.countAggPts(
     lvlBas=lvlBas,
     p_max=p_max,
-    timFin=timFin,
+    timFin=(bfData.gen.hBor^2/(9*bfData.soi.alp))*exp(5),
     lenAggSte=bfData.gen.tStep) "Number of aggregation points";
   parameter Real timSer[nrow+1, 2]=
-    LoadAggregation.timSerTxt(
-      filNam=filNam,
-      as=bfData.soi.alp,
-      ks=bfData.soi.k,
-      H=bfData.gen.hBor,
-      nrow=nrow)
-      "g-function input from file, with the second column being Tstep";
+    LoadAggregation.timSerMat(
+    nbBor=bfData.gen.nbBh,
+    cooBor=bfData.gen.cooBh,
+    hBor=bfData.gen.hBor,
+    dBor=bfData.gen.dBor,
+    rBor=bfData.gen.rBor,
+    as=bfData.soi.alp,
+    ks=bfData.soi.k,
+    nrow=nrow,
+    sha=SHAgfun,
+    forceGFunCalc=forceGFunCalc)
+    "g-function input from mat, with the second column as temperature Tstep";
 
-  Modelica.SIunits.Time t0 "Simulation start time";
-  Modelica.SIunits.Time nu[i] "Time vector for load aggregation";
-  Real kappa[i]
+  final parameter Modelica.SIunits.Time t0(fixed=false) "Simulation start time";
+  final parameter Modelica.SIunits.Time[i] nu(fixed=false)
+    "Time vector for load aggregation";
+  final parameter Real[i] kappa(fixed=false)
     "Weight factor for each aggregation cell";
-  Real rCel[i] "Cell widths";
-  Modelica.SIunits.HeatFlowRate Q_i[i] "Q_bar vector of size i";
-  Modelica.SIunits.HeatFlowRate Q_shift[i]
+  final parameter Real[i] rCel(fixed=false) "Cell widths";
+  Modelica.SIunits.HeatFlowRate[i] Q_i "Q_bar vector of size i";
+  Modelica.SIunits.HeatFlowRate[i] Q_shift
     "Shifted Q_bar vector of size i";
   Integer curCel "Current occupied cell";
   Modelica.SIunits.TemperatureDifference deltaTb "Tb-Tg";
@@ -55,7 +69,8 @@ protected
   Real derDelTbs
     "Derivative of wall temperature change from previous time steps";
   Real delTbOld "Tb-Tg at previous time step";
-  Real dhdt "Time derivative of g/(2*pi*H*ks) within most recent cell";
+  final parameter Real dhdt(fixed=false)
+    "Time derivative of g/(2*pi*H*ks) within most recent cell";
 
 initial equation
   Q_i = zeros(i);
@@ -64,26 +79,24 @@ initial equation
   Q_shift = Q_i;
   delTbs = 0;
 
+  (nu,rCel) = LoadAggregation.timAgg(
+    i=i,
+    lvlBas=lvlBas,
+    p_max=p_max,
+    lenAggSte=bfData.gen.tStep,
+    timFin=timFin);
+
+  t0 = time;
+
+  kappa = LoadAggregation.kapAgg(
+    i=i,
+    nrow=nrow,
+    TStep=timSer,
+    nu=nu);
+
+  dhdt = kappa[1]/bfData.gen.tStep;
+
 equation
-  when (initial()) then
-    t0 = time;
-
-    (nu,rCel) = LoadAggregation.timAgg(
-      i=i,
-      lvlBas=lvlBas,
-      p_max=p_max,
-      lenAggSte=bfData.gen.tStep,
-      timFin=timFin);
-
-    kappa = LoadAggregation.kapAgg(
-      i=i,
-      nrow=nrow,
-      TStep=timSer,
-      nu=nu);
-
-    dhdt = kappa[1]/bfData.gen.tStep;
-  end when;
-
   der(deltaTb) = dhdt*Tb.Q_flow + derDelTbs;
   deltaTb = Tb.T-Tg;
 
