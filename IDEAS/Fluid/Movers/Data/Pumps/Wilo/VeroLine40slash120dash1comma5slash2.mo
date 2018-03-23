@@ -13,8 +13,16 @@ record VeroLine40slash120dash1comma5slash2
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
-<p>Data from:<a href=\"http://productfinder.wilo.com/com/en/Wilo/c0000002a0003a36300010023/c0000002a0003a36d00010023/c0000002200012eb000020023/_000000650002b9810001003a/product.html\"> http://productfinder.wilo.com/com/en/Wilo/c0000002a0003a36300010023/c0000002a0003a36d00010023/c0000002200012eb000020023/_000000650002b9810001003a/product.html</a></p>
-<p>See <a href=\"modelica://IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 </a>for more information about how the data is derived. </p>
+<p>Data from:
+<a href=\"http://productfinder.wilo.com/com/en/Wilo/c0000002a0003a36300010023/c0000002a0003a36d00010023/c0000002200012eb000020023/_000000650002b9810001003a/product.html\"> 
+http://productfinder.wilo.com/com/en/Wilo/c0000002a0003a36300010023/c0000002a0003a36d00010023/c0000002200012eb000020023/_000000650002b9810001003a/product.html
+</a>
+</p>
+<p>See 
+<a href=\"modelica://IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">
+IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 
+</a>for more information about how the data is derived. 
+</p>
 </html>",   revisions="<html>
 <ul>
 <li>March 23, 2018

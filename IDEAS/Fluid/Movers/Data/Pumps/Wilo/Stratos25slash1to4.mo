@@ -17,8 +17,17 @@ record Stratos25slash1to4 "Pump data for a Wilo Stratos 25/1-4 pump"
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
-<p>Data from: <a href=\"http://productfinder.wilo.com/com/en/c0000001b0000accb00010023/_0000000e000379df0002003a/product.html\">http://productfinder.wilo.com/com/en/c0000001b0000accb00010023/_0000000e000379df0002003a/product.html</a></p>
-<p>See <a href=\"modelica://IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 </a>for more information about how the data is derived. </p>
+<p>Data from: 
+<a href=\"http://productfinder.wilo.com/com/en/c0000001b0000accb00010023/_0000000e000379df0002003a/product.html\">
+http://productfinder.wilo.com/com/en/c0000001b0000accb00010023/_0000000e000379df0002003a/product.html
+</a>
+</p>
+<p>See 
+<a href=\"modelica://IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">
+IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 
+</a>
+for more information about how the data is derived. 
+</p>
 </html>",
   revisions="<html>
 <ul>

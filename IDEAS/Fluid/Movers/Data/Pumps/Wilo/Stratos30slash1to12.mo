@@ -17,8 +17,17 @@ record Stratos30slash1to12
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
-<p>Data from: <a href=\"http://productfinder.wilo.com/be/en/c0000001b0000accb00010023/_00000018000029430002003a/product.html\">http://productfinder.wilo.com/be/en/c0000001b0000accb00010023/_00000018000029430002003a/product.html</a></p>
-<p>See <a href=\"modelica://IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 </a>for more information about how the data is derived. </p>
+<p>Data from: 
+<a href=\"http://productfinder.wilo.com/be/en/c0000001b0000accb00010023/_00000018000029430002003a/product.html\">
+http://productfinder.wilo.com/be/en/c0000001b0000accb00010023/_00000018000029430002003a/product.html
+</a>
+</p>
+<p>See 
+<a href=\"modelica://IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">
+IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 
+</a>
+for more information about how the data is derived. 
+</p>
 </html>",   revisions="<html>
 <ul>
 <li>March 23, 2018
