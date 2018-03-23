@@ -12,8 +12,8 @@ defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
   <p>Data from:
-  <a href=\"http://productfinder.wilo.com/en/COM/product/00000018000029520002003a/fc_product_datasheet\">
-  http://productfinder.wilo.com/en/COM/product/0000000e000379df0002003a/fc_product_datasheet
+  <a href=\"http://productfinder.wilo.com/ie/en/c0000001b0000accb00010023/_000000610001fe090001003a/product.html\">
+  http://productfinder.wilo.com/ie/en/c0000001b0000accb00010023/_000000610001fe090001003a/product.html
   </a>
   </p>
   <p>See
@@ -24,18 +24,8 @@ Documentation(info="<html>
   </p>
   </html>", revisions="<html>
 <ul>
-<li>
-February 17, 2016, by Michael Wetter:<br/>
-Updated parameter names for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
-</li>
-<li>
-December 12, 2014, by Michael Wetter:<br/>
-Added <code>defaultComponentPrefixes</code> and
-<code>defaultComponentName</code> annotations.
-</li>
-<li>April 22, 2014
-    by Filip Jorissen:<br/>
+<li>March 23, 2018
+    by Iago Cupeiro:<br/>
        Initial version
 </li>
 </ul>
