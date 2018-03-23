@@ -5,12 +5,19 @@ partial model PartialOccupancyGains "Partial model for occupant internal gains"
   outer IDEAS.BoundaryConditions.SimInfoManager sim "Simulation information manager";
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
-  replaceable parameter
-    IDEAS.Buildings.Components.OccupancyType.PartialOccupancyType occupancyType
-    constrainedby IDEAS.Buildings.Components.OccupancyType.PartialOccupancyType
+      annotation (choicesAllMatching = true, Documentation(revisions="<html>
+<ul>
+<li>
+January 26, 2018 by Filip Jorissen:<br/>
+Changed replaceable record into parameter such that 
+<code>IDEAS.Buildings.Components.OccupancyType.BaseClasses.PartialOccupancyType</code> 
+can be a partial record.
+This is for <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
+</li>
+</ul>
+</html>"));
+  parameter IDEAS.Buildings.Components.OccupancyType.OfficeWork occupancyType
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  parameter Boolean requireInput = false "Set to true to enable the input n";
 
   Modelica.Blocks.Interfaces.RealOutput mWat_flow
     "Water vapor mass flow rate due to occupants"
@@ -21,7 +28,7 @@ partial model PartialOccupancyGains "Partial model for occupant internal gains"
   Modelica.Blocks.Interfaces.RealOutput C_flow[max(Medium.nC,1)]
     "Trace substance mass flow rate due to occupants"
     annotation (Placement(transformation(extent={{96,10},{116,30}})));
-  Modelica.Blocks.Interfaces.RealInput nOcc if requireInput "Number of occupants"
+  Modelica.Blocks.Interfaces.RealInput nOcc "Number of occupants"
     annotation (Placement(transformation(extent={{-130,-20},{-90,20}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo(final
@@ -38,6 +45,11 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+July 26, 2018 by Filip Jorissen:<br/>
+Revised implementation to add support for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
+</li>
 <li>
 July 18, 2016 by Filip Jorissen:<br/>
 First implementation
