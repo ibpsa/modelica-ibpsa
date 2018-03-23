@@ -351,7 +351,7 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
     tauHeaTra=3600,
     allowFlowReversal=allowFlowReversal,
     transferHeat=false,
-    tau=tau)                             "Inlet temperature of the heater"
+    tau=0)                               "Inlet temperature of the heater"
     annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=180,
@@ -618,7 +618,12 @@ equation
   connect(senRelPreTop.port_a, port_b1) annotation (Line(points={{-38,46},{4,46},
           {4,60},{100,60}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),           Icon(coordinateSystem(
+            -100},{100,100}}), graphics={Text(
+          extent={{-130,-70},{-32,-44}},
+          lineColor={28,108,200},
+          textString=
+              "inertie systeem is te groot zodat compressor overshoot doet")}),
+                                          Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-102,65},{99,55}},

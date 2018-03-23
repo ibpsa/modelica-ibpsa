@@ -93,6 +93,9 @@ model AdsolairController
   Modelica.Blocks.Sources.BooleanExpression damMax(y=damPid.y > 0.97 or damPid.y
          < 0.03) "Damper is at its limits -> next stage can be enabled"
     annotation (Placement(transformation(extent={{-100,66},{14,82}})));
+  Modelica.Blocks.Continuous.Filter TFanFil(f_cut=1/60, order=1)
+    "Filter not integrated into temperature sensor since this leads to large time constants for low flow rates"
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 equation
   connect(onDelAdi.u, onAdiaExp.y) annotation (Line(points={{26.4,60},{19.7,60}},
                 color={255,0,255}));
@@ -113,8 +116,6 @@ equation
     annotation (Line(points={{94.6,40},{100.3,40},{110,40}}, color={0,0,127}));
   connect(damPid.u_s, TSet)
     annotation (Line(points={{29,5},{29,30},{-104,30}}, color={0,0,127}));
-  connect(damPid.u_m, TFanOutSup)
-    annotation (Line(points={{35,-1},{35,0},{-104,0}},     color={0,0,127}));
   connect(onAdiaExp.y, onAdia) annotation (Line(points={{19.7,60},{18,60},{18,26},
           {18,24},{120,24},{120,-30}}, color={255,0,255}));
   connect(onChi, onChiExp.y) annotation (Line(points={{120,-70},{19.7,-70},{19.7,
@@ -123,8 +124,6 @@ equation
         color={0,0,127}));
   connect(chiPid.on, onChiExp.y) annotation (Line(points={{33,-14},{28,-14},{19.7,
           -14},{19.7,37}},                color={255,0,255}));
-  connect(chiPid.u_m, TFanOutSup) annotation (Line(points={{35,-25},{-40,-25},{
-          -40,0},{-104,0}}, color={0,0,127}));
   connect(chiPid.u_s, TSet) annotation (Line(points={{29,-19},{-38,-19},{-38,30},
           {-104,30}}, color={0,0,127}));
   connect(chiPid.y, mod) annotation (Line(points={{40.5,-19},{60,-19},{60,10},{120,
@@ -135,6 +134,12 @@ equation
           27.25,5},{27.25,8},{29,8}}, color={0,0,127}));
   connect(damPid.on, on) annotation (Line(points={{33,10},{34,10},{34,90},{-104,
           90}}, color={255,0,255}));
+  connect(TFanFil.u, TFanOutSup)
+    annotation (Line(points={{-72,0},{-104,0}}, color={0,0,127}));
+  connect(TFanFil.y, damPid.u_m) annotation (Line(points={{-49,0},{-6,0},{-6,-1},
+          {35,-1}}, color={0,0,127}));
+  connect(TFanFil.y, chiPid.u_m) annotation (Line(points={{-49,0},{-42,0},{-42,
+          -25},{35,-25}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
