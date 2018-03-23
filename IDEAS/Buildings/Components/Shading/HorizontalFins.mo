@@ -22,7 +22,7 @@ protected
   Modelica.SIunits.Length dy1 = s-cos(beta_internal)*w-sin(beta_internal)*t;
   Modelica.SIunits.Length dx = cos(beta_internal)*w-sin(beta_internal)*t;
   Modelica.SIunits.Length dz = dx/cos(angInc);
-  Modelica.SIunits.Length dy2 = dz*tan(angAlt);
+  Modelica.SIunits.Length dy2 = max(0,min(dz*tan(angAlt),s));
 
 
   Modelica.SIunits.Angle beta_internal "Internal variable for inclination angle";
@@ -44,7 +44,7 @@ equation
   if dy2 > dy1 then
     shaFrac = 1;
   else
-    shaFrac = 1-(dy1-dy2)/s;
+    shaFrac = 1-(dy1-min(dy1,dy2))/s;
   end if;
 
   HShaDirTil = (1-shaFrac)*HDirTil;
