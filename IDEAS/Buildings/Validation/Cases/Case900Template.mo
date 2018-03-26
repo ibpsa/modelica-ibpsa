@@ -37,5 +37,13 @@ model Case900Template "Case 900 implementation using template"
 
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 26, 2018 by Filip Jorissen:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end Case900Template;
