@@ -3,17 +3,17 @@ model ThreeWayValveMotor
   "Ideal three way valve with a krane controlled with a Real input with value between 0 and 1"
   extends BaseClasses.Partial3WayValve(idealSource(dp_start=0));
 
-public
   Modelica.Blocks.Interfaces.RealInput ctrl(min=0, max=1)
     "procentage of flow through flowPort_a1" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=90,
-        origin={0,106}), iconTransformation(
+        origin={10,118}),iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-10,96})));
+        origin={0,108})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression(y=-(1 - ctrl)*port_b.m_flow)
+  Modelica.Blocks.Sources.RealExpression realExpression(y=-(l + (1 - ctrl)*(1 -
+        2*l))*port_b.m_flow)
     annotation (Placement(transformation(extent={{92,-60},{28,-40}})));
 equation
 
@@ -54,6 +54,11 @@ equation
           textString="%name")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 26, 2018 by Filip Jorissen:<br/> 
+Implemented valve leakage,
+see <a href=\"https://github.com/open-ideas/IDEAS/issues/782\">#782</a>.
+</li>
 <li>March 2014 by Filip Jorissen:<br/> 
 Annex60 compatibility
 </li>
