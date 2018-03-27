@@ -35,7 +35,7 @@ connector WeaBus "Data bus that stores weather data"
   IDEAS.Buildings.Components.Interfaces.RealConnector dummy(start=1)
     "Dummy variable of value 1 to include constant term in linearization (see SlabOnGround)"
     annotation ();
-  IDEAS.Buildings.Components.Interfaces.RealConnector TskyPow4,TePow4, solGloHor, solDifHor, F1, F2, angZen, angHou, angDec, solDirPer;
+  IDEAS.Buildings.Components.Interfaces.RealConnector TskyPow4,TePow4, solGloHor, solDifHor, F1, F2, angZen, angHou, angDec, solDirPer, phi;
   annotation (
     defaultComponentName="weaBus",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
@@ -52,6 +52,11 @@ Connector that contains all environment information for many inclinations and ti
 </html>",
    revisions="<html>
 <ul>
+<li>
+March 27, 2018, by Filip Jorissen:<br/>
+Added relative humidity to weather bus.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/780>#780</a>.
+</li>
 <li>
 March 21, 2017, by Filip Jorissen:<br/>
 Changed Reals into connectors for JModelica compatibility.
