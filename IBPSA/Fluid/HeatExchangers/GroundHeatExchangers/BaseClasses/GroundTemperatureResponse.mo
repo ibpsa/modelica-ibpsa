@@ -19,10 +19,9 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 //protected
-  parameter Integer nbSeg = 12 "Number of line source segments per borehole";
   parameter Integer nbTimSho = 26 "Number of time steps in short time region";
   parameter Integer nbTimLon = 50 "Number of time steps in long time region";
-  parameter Real relTol = 0.02 "Relative tolerance on distance between boreholes";
+  parameter Real ttsMax = exp(5) "Maximum adimensional time for gfunc calculation";
   parameter String SHAgfun = ThermalResponseFactors.shaGFunction(
     nbBor=bfData.gen.nbBh,
     cooBor=bfData.gen.cooBh,
@@ -34,11 +33,11 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
     "Length of g-function matrix";
   parameter Real lvlBas = 2 "Base for exponential cell growth between levels";
   parameter Modelica.SIunits.Time timFin=
-    (bfData.gen.hBor^2/(9*bfData.soi.alp))*exp(5);
+    (bfData.gen.hBor^2/(9*bfData.soi.alp))*ttsMax;
   parameter Integer i = LoadAggregation.countAggPts(
     lvlBas=lvlBas,
     p_max=p_max,
-    timFin=(bfData.gen.hBor^2/(9*bfData.soi.alp))*exp(5),
+    timFin=timFin,
     lenAggSte=bfData.gen.tStep) "Number of aggregation points";
   parameter Real timSer[nrow+1, 2]=
     LoadAggregation.timSerMat(
@@ -51,7 +50,10 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
     ks=bfData.soi.k,
     nrow=nrow,
     sha=SHAgfun,
-    forceGFunCalc=forceGFunCalc)
+    forceGFunCalc=forceGFunCalc,
+    nbTimSho=nbTimSho,
+    nbTimLon=nbTimLon,
+    ttsMax=ttsMax)
     "g-function input from mat, with the second column as temperature Tstep";
 
   final parameter Modelica.SIunits.Time t0(fixed=false) "Simulation start time";

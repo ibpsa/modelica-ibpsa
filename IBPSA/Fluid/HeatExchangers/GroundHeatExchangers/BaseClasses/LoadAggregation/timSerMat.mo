@@ -15,6 +15,9 @@ function timSerMat "Reads and possibly writes a matrix with a time series
   input String sha "Pseudo-SHA of the g-function arguments";
   input Boolean forceGFunCalc
     "Set to true to force the thermal response to be calculated at the start";
+  input Integer nbTimSho = 26 "Number of time steps in short time region";
+  input Integer nbTimLon = 50 "Number of time steps in long time region";
+  input Real ttsMax = exp(5) "Maximum adimensional time for gfunc calculation";
 
   output Real matrix[nrow+1, 2] "2D Real array with 2 columns";
 
@@ -39,7 +42,11 @@ algorithm
       cooBor=cooBor,
       hBor=hBor,
       dBor=dBor,
-      rBor=rBor);
+      rBor=rBor,
+      alpha=as,
+      nbTimSho=nbTimSho,
+      nbTimLon=nbTimLon,
+      ttsMax=ttsMax);
 
     matrix[1,1] := 0;
     matrix[1,2] := 0;

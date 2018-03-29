@@ -12,6 +12,7 @@ function gFunction "Evaluate the g-function of a bore field"
   input Integer nbTimSho = 26 "Number of time steps in short time region";
   input Integer nbTimLon = 50 "Number of time steps in long time region";
   input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
+  input Real ttsMax = exp(5) "Maximum adimensional time for gfunc calculation";
 
   output Real lntts[nbTimSho+nbTimLon-1] "Logarithmic dimensionless time";
   output Real g[nbTimSho+nbTimLon-1] "g-Function";
@@ -21,7 +22,7 @@ protected
   Modelica.SIunits.Time tSho_min = 1 "Minimum time for short time calculations";
   Modelica.SIunits.Time tSho_max = 3600 "Maximum time for short time calculations";
   Modelica.SIunits.Time tLon_min = tSho_max "Minimum time for long time calculations";
-  Modelica.SIunits.Time tLon_max = ts*exp(5) "Maximum time for long time calculations";
+  Modelica.SIunits.Time tLon_max = ts*ttsMax "Maximum time for long time calculations";
   Modelica.SIunits.Time tSho[nbTimSho] "Time vector for short time calculations";
   Modelica.SIunits.Time tLon[nbTimLon] "Time vector for long time calculations";
   Modelica.SIunits.Distance dis "Separation distance between boreholes";
