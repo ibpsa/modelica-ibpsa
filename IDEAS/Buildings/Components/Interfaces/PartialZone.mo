@@ -116,7 +116,8 @@ public
     Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{20,-20},{40,0}})));
   replaceable IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwGainDistribution
-    radDistr(nSurf=nSurf) "Distribution of radiative internal gains"
+    radDistr(nSurf=nSurf, lineariseJModelica=sim.lineariseJModelica)
+                          "Distribution of radiative internal gains"
     annotation (choicesAllMatching=true,Dialog(tab="Advanced",group="Building physics"),Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
@@ -324,7 +325,7 @@ end for;
   connect(occNum.nOcc, intGai.nOcc)
     annotation (Line(points={{58,32},{41,32}}, color={0,0,127}));
   connect(nOcc, occNum.nOccIn)
-    annotation (Line(points={{108,32},{80,32}}, color={0,0,127}));
+    annotation (Line(points={{108,32},{82,32}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
@@ -332,6 +333,11 @@ end for;
 <p>See extending models.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 28, 2018 by Filip Jorissen:<br/>
+Added option for introducing state for
+radiative temperature.
+</li>
 <li>
 July 26, 2018 by Filip Jorissen:<br/>
 Added replaceable block that allows to define

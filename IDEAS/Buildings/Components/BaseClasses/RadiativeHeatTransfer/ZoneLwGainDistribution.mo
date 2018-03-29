@@ -3,6 +3,13 @@ model ZoneLwGainDistribution
   "Distribution of radiative internal gains"
 
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
+  parameter Boolean lineariseJModelica = false
+    "For introducing radiative temperature state"
+    annotation(Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Time tau = 120
+    "Time constant for radiative node"
+     annotation(Dialog(enable=lineariseJModelica, tab="Advanced"));
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir
     "Direct solar radiation gains received through windows"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
@@ -94,7 +101,11 @@ equation
       -weightFactorGain[k]*radGain.Q_flow;
   end for;
 
-  TRad = radSurfTot.T * weightFactorTRad;
+  if lineariseJModelica then // this introduces a state for the radiative temperature, which is useful when linearising
+    der(TRad) = (radSurfTot.T * weightFactorTRad - TRad)/tau;
+  else
+    TRad = radSurfTot.T * weightFactorTRad;
+  end if;
 
   iSolDir.T = TRad;
   iSolDif.T = TRad;
@@ -159,6 +170,11 @@ If there is no floor then the beam radiation is spread over all surfaces and a w
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 28, 2018 by Filip Jorissen:<br/>
+Added option for introducing state for
+radiative temperature.
+</li>
 <li>
 December 22, 2016 by Filip Jorissen:<br/>
 Fixed bug in absorption model where
