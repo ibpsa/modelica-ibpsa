@@ -2,8 +2,8 @@ within IDEAS.Fluid.Storage.Examples;
 model StorageTank_OneIntHx
   extends Modelica.Icons.Example;
 
-  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater annotation
-    (__Dymola_choicesAllMatching=true);
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater annotation (
+     __Dymola_choicesAllMatching=true);
 
   parameter Integer nbrNodes=10 "Number of nodes in the storage tank";
 
@@ -32,7 +32,7 @@ model StorageTank_OneIntHx
     redeclare package Medium = Medium,
     m_flow_nominal=hp.heatPumpData.m2_flow_nominal*hp.sca,
     tau=30,
-    filteredSpeed=false,
+    use_inputFilter=false,
     inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{-38,-62},{-58,-42}})));
   inner IDEAS.BoundaryConditions.SimInfoManager sim
@@ -63,7 +63,7 @@ model StorageTank_OneIntHx
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=30,
-    filteredSpeed=false,
+    use_inputFilter=false,
     inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{88,-6},{68,14}})));
   IDEAS.Fluid.Sources.Boundary_pT bou1(
@@ -77,7 +77,7 @@ model StorageTank_OneIntHx
     redeclare package Medium = Medium,
     m_flow_nominal=hp.heatPumpData.m1_flow_nominal*hp.sca,
     tau=30,
-    filteredSpeed=false,
+    use_inputFilter=false,
     inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{-114,14},{-94,34}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant

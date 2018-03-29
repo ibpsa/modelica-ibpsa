@@ -1,8 +1,7 @@
 within IDEAS.Buildings.Components.InternalGains;
 model Simple
   "Constant sensible, latent and CO2 heat production per person"
-  extends BaseClasses.PartialOccupancyGains(
-                           final requireInput=true);
+  extends BaseClasses.PartialOccupancyGains;
   parameter Modelica.SIunits.Power QlatPp = occupancyType.QlatPp
     "Latent heat production per person, default from Ashrae Fundamentals: 'Seated, very light work'";
   parameter Modelica.SIunits.Power QsenPp = occupancyType.QsenPp
@@ -86,6 +85,11 @@ Sensible heat is emitted both as convective and radiant heat using a fixed weigh
 </html>",
         revisions="<html>
 <ul>
+<li>
+July 26, 2018 by Filip Jorissen:<br/>
+Revised implementation to add support for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
+</li>
 <li>
 January 18, 2017 by Filip Jorissen:<br/>
 Changed latent heat of evaporation of water.

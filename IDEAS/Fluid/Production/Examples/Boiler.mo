@@ -12,7 +12,7 @@ model Boiler
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=30,
-    filteredSpeed=false)
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{-14,-24},{-34,-4}})));
   IDEAS.Fluid.FixedResistances.InsulatedPipe pipe(
     m=5,
@@ -114,8 +114,8 @@ equation
       points={{-54,-14},{-56,-14},{-56,18}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sine1.y, pump.m_flow_in) annotation (Line(points={{-1,-70},{-8,-70},{
-          -8,4},{-23.8,4},{-23.8,-2}}, color={0,0,127}));
+  connect(sine1.y, pump.m_flow_in) annotation (Line(points={{-1,-70},{-8,-70},{-8,
+          4},{-24,4},{-24,-2}},        color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
