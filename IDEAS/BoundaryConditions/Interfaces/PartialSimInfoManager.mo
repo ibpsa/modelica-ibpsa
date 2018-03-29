@@ -269,6 +269,8 @@ equation
       smooth=Smooth.None));
 
   for i in 1:numIncAndAziInBus loop
+    connect(timMan.timSol, radSol[i].solTim) annotation (Line(points={{-60,-50},{-8,
+          -50},{-8,53},{19.6,53}}, color={0,0,127}));
     connect(radSol[i].F2, skyBrightnessCoefficients.F2) annotation (Line(points={{19.6,40},
             {2,40},{2,66},{-5,66}},           color={0,0,127}));
     connect(radSol[i].F1, skyBrightnessCoefficients.F1) annotation (Line(points={{19.6,42},
@@ -379,6 +381,8 @@ equation
           {-86,80},{-86,72},{-103,72}}, color={0,0,127}));
   connect(skyClearness.HGloHor, solGloHorIn.y) annotation (Line(points={{-82,86},
           {-88,86},{-88,88},{-103,88}}, color={0,0,127}));
+  connect(timMan.timSol, weaBus.solTim) annotation (Line(points={{-60,-50},{-8,
+          -50},{-8,18},{60.05,18},{60.05,28.05}}, color={0,0,127}));
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
@@ -464,6 +468,12 @@ equation
 January 26, 2018, by Filip Jorissen:<br/>
 Added floor orientation to set of precomputed boundary conditions.
 See issue <a href=https://github.com/open-ideas/IDEAS/issues/764>#764</a>.
+</li>
+<li>
+January 21, 2018 by Filip Jorissen:<br/>
+Added <code>solTim</code> connections for revised azimuth computations.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/753\">
+#753</a>.
 </li>
 <li>
 March 21, 2017, by Filip Jorissen:<br/>
