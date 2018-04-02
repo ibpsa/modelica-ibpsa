@@ -89,7 +89,6 @@ protected
        massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
     "Boolean flag used to remove conditional components";
 
-
   Modelica.Fluid.Interfaces.FluidPort_a port_internal(
     redeclare package Medium = Medium) if not have_controlVolume
     "Internal dummy port for easier connection of conditional connections"
@@ -98,13 +97,13 @@ initial equation
   assert(portFlowDirection_1<>Modelica.Fluid.Types.PortFlowDirection.Leaving or
          portFlowDirection_2<>Modelica.Fluid.Types.PortFlowDirection.Leaving or
          portFlowDirection_3<>Modelica.Fluid.Types.PortFlowDirection.Leaving,
-         "In " + getInstanceName() + ": all ports are configured to 
-         Modelica.Fluid.Types.PortFlowDirection.Leaving, which is non-physical");
+         "In " + getInstanceName() + ": All ports are configured to
+         Modelica.Fluid.Types.PortFlowDirection.Leaving, which is non-physical.");
   assert(portFlowDirection_1<>Modelica.Fluid.Types.PortFlowDirection.Entering or
          portFlowDirection_2<>Modelica.Fluid.Types.PortFlowDirection.Entering or
          portFlowDirection_3<>Modelica.Fluid.Types.PortFlowDirection.Entering,
-         "In " + getInstanceName() + ": all ports are configured to 
-         Modelica.Fluid.Types.PortFlowDirection.Entering, which is non-physical");
+         "In " + getInstanceName() + ": All ports are configured to
+         Modelica.Fluid.Types.PortFlowDirection.Entering, which is non-physical.");
 
 equation
   if portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Leaving then
@@ -197,7 +196,7 @@ The time constant of the mixing volume is determined by the parameter <code>tau<
 <li>
 March 30, 2018, by Filip Jorissen:<br/>
 Added graphical illustrations for the values of <code>portFlowDirection</code>.
-Added asserts that verify the consistency of 
+Added asserts that verify the consistency of
 the values of <code>portFlowDirection</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/902\">#902</a>.
 </li>
