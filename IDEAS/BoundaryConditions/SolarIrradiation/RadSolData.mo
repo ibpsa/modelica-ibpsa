@@ -34,9 +34,11 @@ model RadSolData "Selects or generates correct solar data for this surface"
   Modelica.Blocks.Interfaces.RealOutput Tenv "Environment temperature"
     annotation (Placement(transformation(extent={{96,-30},{116,-10}})));
 protected
-  final parameter Boolean solDataInBus=if sum( { if sum(abs(incAndAziInBus[i,:] - {inc,azi}))<0.05 then 1 else 0 for i in 1:numIncAndAziInBus})   ==1 then true else false
+  final parameter Boolean solDataInBus=if sum( { if sum(abs({mod(incAndAziInBus[i,1],Modelica.Constants.pi*2),mod(incAndAziInBus[i,2],Modelica.Constants.pi*2)} -
+  {mod(inc,Modelica.Constants.pi*2),mod(azi,Modelica.Constants.pi*2)}))<0.01 then 1 else 0 for i in 1:numIncAndAziInBus})   ==1 then true else false
     "True if the {inc,azi} combination is found in incAndAziInBus" annotation(Evaluate=true);
-  final parameter Integer solDataIndex=sum( { if sum(abs(incAndAziInBus[i,:] - {inc,azi}))<0.05 then i else 0 for i in 1:numIncAndAziInBus})
+  final parameter Integer solDataIndex=sum( { if sum(abs({mod(incAndAziInBus[i,1],Modelica.Constants.pi*2),mod(incAndAziInBus[i,2],Modelica.Constants.pi*2)} -
+  {mod(inc,Modelica.Constants.pi*2),mod(azi,Modelica.Constants.pi*2)}))<0.01 then i else 0 for i in 1:numIncAndAziInBus})
     "Index of the {inc,azi} combination in incAndAziInBus" annotation(Evaluate=true);
   IDEAS.BoundaryConditions.SolarIrradiation.ShadedRadSol radSol(
     final inc=inc,
