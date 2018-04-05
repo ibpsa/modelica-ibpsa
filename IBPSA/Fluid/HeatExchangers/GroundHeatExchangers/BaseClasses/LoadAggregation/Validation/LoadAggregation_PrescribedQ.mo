@@ -14,7 +14,6 @@ model LoadAggregation_PrescribedQ
           d=1e6),
       redeclare record Fil =
           IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData.Bentonite,
-
       redeclare record Gen =
           IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records.General
           (hBor=100, rBor=0.05)),
@@ -29,9 +28,9 @@ model LoadAggregation_PrescribedQ
     tableOnFile=true,
     tableName="tab1",
     columns={2},
-    fileName=
-        "C:/repos/mod-bee/BEE/Resources/Fluid/Geothermal/BoreholeHeatExchangers/BaseClasses/Aggregation/Validation/LoadAggregation_20y_validation.txt",
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/BaseClasses/LoadAggregation/Validation/LoadAggregation_20y_validation.txt"))
                  "Table for heat injected, using constant segments"
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
 
@@ -49,8 +48,8 @@ model LoadAggregation_PrescribedQ
     tableName="tab1",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=
-        "C:/repos/mod-bee/BEE/Resources/Fluid/Geothermal/BoreholeHeatExchangers/BaseClasses/Aggregation/Validation/LoadAggregation_20y_validation.txt")
+    fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/BaseClasses/LoadAggregation/Validation/LoadAggregation_20y_validation.txt"))
     "Table for resulting wall temperature using FFT and linearly interpolated"
     annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
 
