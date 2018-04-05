@@ -57,4 +57,17 @@ algorithm
     kappa[j] := curT-prevT;
   end for;
 
+  annotation (Documentation(info="<html>
+<p>This function uses spline interpolations to construct the weighting factors
+vector <code>kappa</code> using the aggregation times <code>nu</code>  and the
+temperature step reponse (a time-series in the form of a matrix) of the borefield as an input.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 5, 2018, by Alex Laferriere:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end kapAgg;

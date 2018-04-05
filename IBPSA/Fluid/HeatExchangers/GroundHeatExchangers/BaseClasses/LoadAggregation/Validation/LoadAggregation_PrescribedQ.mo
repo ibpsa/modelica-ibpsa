@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.LoadAggregation.Validation;
+﻿within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.LoadAggregation.Validation;
 model LoadAggregation_PrescribedQ
   "Load aggregation model with a constant prescribed load"
   extends Modelica.Icons.Example;
@@ -73,4 +73,30 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/BaseClasses/LoadAggregation/Validation/LoadAggregation_PrescribedQ.mos"
         "Simulate and plot"));
+  annotation (Documentation(info="<html>
+<p>
+This validation case applies the assymetrical synthetic load profile developed
+by Pinel (2003) over a 20 year period by directly injecting the heat at the
+borehole wall in the ground temperature response model. The difference between
+the resulting borehole wall temperature and the same temperature precalculated
+by using a fast Fourier transform is calculated with the <code>add</code>
+component. The fast Fourier transform calculation was done using the same
+g-function as was calculated by the <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.gFunction\">
+function used in the ground temperature response model</a>.
+</p>
+<h4>References</h4>
+<p>
+Pinel, P. 2003. <i>Amélioration, validation et implantation d’un algorithme de calcul
+pour évaluer le transfert thermique dans les puits verticaux de systèmes de pompes à chaleur géothermiques</i>,
+M.A.Sc. Thesis, École Polytechnique de Montréal.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 5, 2018, by Alex Laferriere:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+
 end LoadAggregation_PrescribedQ;

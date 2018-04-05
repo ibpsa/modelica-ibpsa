@@ -24,4 +24,17 @@ algorithm
     nu_i := nu_i + width_i;
   end while;
 
+annotation (Documentation(info="<html>
+<p>Counts the length of the aggregation time vector <code>nu</code> and of the
+weighting factor vectors <code>kappa</code> based on the maximum time for
+ground temperature response-related calculations.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 5, 2018, by Alex Laferriere:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end countAggPts;

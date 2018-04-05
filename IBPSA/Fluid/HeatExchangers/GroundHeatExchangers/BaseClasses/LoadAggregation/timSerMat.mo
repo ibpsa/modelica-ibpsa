@@ -67,4 +67,26 @@ algorithm
     matrixName="TStep",
     rows=nrow+1,
     columns=2);
+
+  annotation (Documentation(info="<html>
+<p>
+This function uses the parameters required to calculate the borefield's thermal
+response to build a pseudo-SHA unique to the borefield in question. Then, if the
+<code>forceGFunCalc</code> parameter has been set to <code>True</code> or if
+there is no .mat file with the pseudo-SHA as its filename in the .BfData folder,
+the g-function will be calculated and written as a .mat file. Otherwise, the
+g-function will simply be read from the .mat file. In the .mat file, the data
+is saved in a matrix entitled TStep, where the first column is the time (in
+seconds) and the second column is the temperature step response, which is the
+g-function divided by <code>2*&pi;*H*ks</code>, with H being the borehole length
+and ks being the thermal conductivity of the soil.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 5, 2018, by Alex Laferriere:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end timSerMat;

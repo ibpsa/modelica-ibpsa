@@ -30,4 +30,18 @@ algorithm
     rCel[i] := (nu[i]-nu[i-1])/lenAggSte;
   end if;
 
+  annotation (Documentation(info="<html>
+<p>Simultaneously constructs both the <code>nu</code> vector, which is the
+aggregation time of each cell, and the <code>rcel</code> vector, which
+is the temporal size of each cell normalized with the aggregation step
+length (the <code>lenAggSte</code> parameter).
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 5, 2018, by Alex Laferriere:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end timAgg;

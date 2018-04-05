@@ -14,4 +14,16 @@ algorithm
   Q_shift_cur := Q_shift;
   Q_shift_cur[1] := Qb;
 
+  annotation (Documentation(info="<html>
+<p>After the cell shifting operation, this function sets the first aggregation
+with the present thermal load value.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 5, 2018, by Alex Laferriere:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end setCurLoa;

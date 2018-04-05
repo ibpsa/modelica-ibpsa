@@ -18,7 +18,7 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
     "Heat port for resulting borehole wall conditions"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-//protected
+protected
   parameter Integer nbTimSho = 26 "Number of time steps in short time region";
   parameter Integer nbTimLon = 50 "Number of time steps in long time region";
   parameter Real ttsMax = exp(5) "Maximum adimensional time for gfunc calculation";

@@ -25,4 +25,17 @@ algorithm
 
   Q_i_shift[1] := 0;
 
+  annotation (Documentation(info="<html>
+<p>Performs the shifting operation which propagates the thermal load history
+towards the more distant aggregation cells, and then sets the current cell's
+value at 0.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 5, 2018, by Alex Laferriere:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end nextTimeStep;
