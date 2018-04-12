@@ -11,6 +11,14 @@ model ShadedRadSol "Block that computes surface-dependent environment data"
     annotation (Placement(transformation(extent={{-18,-18},{18,18}},
         rotation=270,
         origin={40,106})));
+  IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth solAzi(lat=lat) "Solar azimuth angle"
+    annotation (Placement(transformation(extent={{36,-18},{56,-38}})));
+  Modelica.Blocks.Math.Add relAzi(k2=-1)
+    "Azimuth angle relative to surface azimuth"
+    annotation (Placement(transformation(extent={{68,-52},{88,-32}})));
+  Modelica.Blocks.Sources.Constant surfAzi(k=azi) "Surface azimuth angle"
+    annotation (Placement(transformation(extent={{-20,-54},{-8,-42}})));
+
 
 protected
   final parameter Real Fssky=(1 + cos(inc))/2
@@ -22,32 +30,31 @@ protected
   final parameter Real coeffEnv = 1-Fssky*beta
     "Dummy parameter for speeding up computations";
 
-  IDEAS.BoundaryConditions.SolarGeometry.AngleAzimuth angleAzimuth(
-    final lat=lat,
-    final azi=azi)
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Modelica.Blocks.Sources.RealExpression TenvExpr(
     y=(coeffSky*TskyPow4 + coeffEnv*TePow4)^0.25)
     "Environment temperature"
     annotation (Placement(transformation(extent={{0,70},{60,90}})));
+
 
 equation
   connect(TenvExpr.y, solBus.Tenv) annotation (Line(
       points={{63,80},{100.1,80},{100.1,0.1}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(angleAzimuth.angAzi, solBus.angAzi) annotation (Line(
-      points={{20,-44},{100.1,-44},{100.1,0.1}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(angleAzimuth.angZen, angZen) annotation (Line(points={{0,-52},{-12,
-          -52},{-52,-52},{-52,-40},{-104,-40}}, color={0,0,127}));
-  connect(angleAzimuth.angHou, angHou) annotation (Line(points={{0,-48},{-60,
-          -48},{-60,-20},{-104,-20}}, color={0,0,127}));
-  connect(angleAzimuth.angDec, angDec) annotation (Line(points={{0,-44},{-62,
-          -44},{-62,0},{-104,0}}, color={0,0,127}));
   connect(solDirTil.incAng, incAng.incAng) annotation (Line(points={{-2,24},{
           -14,24},{-14,50},{-19,50}}, color={0,0,127}));
+  connect(solAzi.zen, angZen) annotation (Line(points={{34,-34},{34,-40},{-104,-40}},
+                       color={0,0,127}));
+  connect(surfAzi.y, relAzi.u2)
+    annotation (Line(points={{-7.4,-48},{66,-48}}, color={0,0,127}));
+  connect(relAzi.u1, solAzi.solAzi) annotation (Line(points={{66,-36},{60,-36},{
+          60,-28},{57,-28}}, color={0,0,127}));
+  connect(solAzi.solTim, solTim) annotation (Line(points={{34,-22},{-64,-22},{-64,
+          30},{-104,30}}, color={0,0,127}));
+  connect(relAzi.y, solBus.angAzi) annotation (Line(points={{89,-42},{100.1,-42},
+          {100.1,0.1}}, color={0,0,127}));
+  connect(solAzi.decAng, angDec) annotation (Line(points={{34,-28},{-62,-28},{-62,
+          0},{-104,0}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),  Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
@@ -69,6 +76,12 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 21, 2018 by Filip Jorissen:<br/>
+Revised azimuth angle computation.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/753\">
+#753</a>.
+</li>
 <li>
 January 20, 2017 by Filip Jorissen:<br/>
 Changed computation of Tenv.
