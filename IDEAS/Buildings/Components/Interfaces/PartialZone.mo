@@ -79,6 +79,7 @@ public
     Vtot=V,
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal,
+    energyDynamics=energyDynamicsAir,
     n50=n50,
     n50toAch=n50toAch)
   constrainedby
@@ -89,6 +90,7 @@ public
     final T_start=T_start,
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal,
+    energyDynamics=energyDynamicsAir,
     n50=n50,
     n50toAch=n50toAch) "Zone air model" annotation (
     Placement(transformation(extent={{-40,20},{-20,40}})),
@@ -333,6 +335,11 @@ end for;
 <p>See extending models.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 12, 2018 by Filip Jorissen:<br/>
+Propagated <code>energyDynamicsAir</code>.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/800>#800</a>.
+</li>
 <li>
 March 28, 2018 by Filip Jorissen:<br/>
 Added option for introducing state for
