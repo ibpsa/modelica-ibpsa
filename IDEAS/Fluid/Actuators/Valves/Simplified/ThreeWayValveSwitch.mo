@@ -21,7 +21,7 @@ model ThreeWayValveSwitch "Switches between two circuits"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={22,32})));
-  Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=1, realFalse=0)
+  Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=1 - l, realFalse=l)
                                                    annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
@@ -95,6 +95,10 @@ equation
           textString="1")}),
     Documentation(revisions="<html>
 <ul>
+<li>March 26, 2018 by Filip Jorissen:<br/> 
+Implemented valve leakage,
+see <a href=\"https://github.com/open-ideas/IDEAS/issues/782\">#782</a>.
+</li>
 <li>March 2014 by Filip Jorissen:<br/> 
 Annex60 compatibility
 </li>

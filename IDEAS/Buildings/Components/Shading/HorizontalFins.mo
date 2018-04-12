@@ -25,7 +25,7 @@ protected
   Modelica.SIunits.Length dy3 = max(0,min(dz*tan(angAlt),s));
 
 
-  Modelica.SIunits.Angle beta_internal "Internal variable for inclination angle";
+  Modelica.Blocks.Interfaces.RealInput beta_internal "Internal variable for inclination angle";
   Modelica.SIunits.Angle angAlt = Modelica.Constants.pi/2 - angZen "Altitude angle";
 
 initial equation
