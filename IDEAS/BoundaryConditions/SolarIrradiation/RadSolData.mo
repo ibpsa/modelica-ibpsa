@@ -147,6 +147,10 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+March 26, 2018 by Iago Cupeiro & Damien Picard:<br/>
+Solved bug in linearisation
+</li>
+<li>
 May 26, 2017 by Filip Jorissen:<br/>
 Revised implementation for renamed
 ports <code>HDirTil</code> etc.
