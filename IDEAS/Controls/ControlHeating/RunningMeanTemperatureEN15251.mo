@@ -2,7 +2,7 @@ within IDEAS.Controls.ControlHeating;
 model RunningMeanTemperatureEN15251
   "Calculate the running mean temperature of 7 days, acccording to norm EN15251"
 
-  parameter Real[7] TAveDayIni(unit="K", displayUnit="degC") = ones(7).* 283.15
+  parameter Real[7] TAveDayIni(unit="K", displayUnit="degC", fixed=false)
     "Initial running mean temperature";
 
   // Interface
@@ -17,12 +17,16 @@ protected
     "weighTAmb.yg coefficient for the running average";
 
   Real intTAmb "integral of TAmb.y";
+  parameter Modelica.SIunits.Time t_start(fixed=false) "starting time of the model";
 
 public
   Modelica.Blocks.Sources.RealExpression TAmb(y=sim.Te)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   outer BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+initial equation
+      t_start = time;
+      TAveDayIni = ones(7).*sim.Te;
 equation
   der(intTAmb) =  TAmb.y;
 algorithm
@@ -30,7 +34,7 @@ algorithm
     // initialization of the discrete variables
     TAveDay:=TAveDayIni;
     TRm:=TAveDayIni[1];
-  elsewhen sample(24*3600,24*3600) then
+  elsewhen sample(t_start+24*3600,24*3600) then
     // Update of TAveDay
     for i in 2:7 loop
       TAveDay[i] := pre(TAveDay[i-1]);
@@ -41,7 +45,7 @@ algorithm
 
 equation
     // reinitialisation of the intTAmb
-  when sample(24*3600,24*3600) then
+  when sample(t_start+24*3600,24*3600) then
     reinit(intTAmb,0);
   end when;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -69,6 +73,11 @@ equation
           textString="EN15251")}),
 Documentation(revisions="<html>
 <ul>
+<li>
+April 17, 2018, by Damien Picard:<br/>
+Add t_start in sample to compute correctly for non zero initial time.<br/>
+Use sim.Te as initialization instead of an arbitrary value of 283.15K.
+</li>
 <li>
 January 19, 2015, by Damien Picard:<br/>
 First implementation.
