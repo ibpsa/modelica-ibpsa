@@ -1,5 +1,8 @@
 CoupledVolumesAir
 CoupledVolumesGlycol47
+CoupledVolumesSpecializedAirPerfectGas
+CoupledVolumesSpecializedWaterConstantProperties_pT
+CoupledVolumesSpecializedWaterTemperatureDependentDensity
 CoupledVolumesWater
 MixingVolume
 MixingVolumeAdiabaticCooling
