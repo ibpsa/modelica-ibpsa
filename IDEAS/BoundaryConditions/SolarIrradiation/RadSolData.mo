@@ -148,6 +148,10 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+March 26, 2018 by Iago Cupeiro & Damien Picard:<br/>
+Solved bug in linearisation
+</li>
+<li>
 January 21, 2018 by Filip Jorissen:<br/>
 Added <code>solTim</code> connection for revised azimuth computations.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/753\">
