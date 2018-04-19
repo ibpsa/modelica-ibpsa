@@ -366,6 +366,8 @@ equation
       smooth=Smooth.None));
     connect(timMan.timSol, weaBus.solTim) annotation (Line(points={{-60,-50},{-8,
           -50},{-8,18},{60.05,18},{60.05,28.05}}, color={0,0,127}));
+    connect(phiEnv.y, weaBus.phi) annotation (Line(points={{-103,-12},{-86,-12},{
+          -86,18},{60.05,18},{60.05,28.05}}, color={0,0,127}));
   end if;
   connect(fixedTemperature.port, Qgai)
     annotation (Line(points={{20,-70},{0,-70},{0,-100}}, color={191,0,0}));
@@ -382,6 +384,7 @@ equation
           {-86,80},{-86,72},{-103,72}}, color={0,0,127}));
   connect(skyClearness.HGloHor, solGloHorIn.y) annotation (Line(points={{-82,86},
           {-88,86},{-88,88},{-103,88}}, color={0,0,127}));
+
 
   annotation (
     defaultComponentName="sim",
@@ -464,6 +467,11 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2018, by Filip Jorissen:<br/>
+Added relative humidity to weather bus.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/780>#780</a>.
+</li>
 <li>
 January 26, 2018, by Filip Jorissen:<br/>
 Added floor orientation to set of precomputed boundary conditions.
