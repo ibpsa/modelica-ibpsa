@@ -17,7 +17,7 @@ protected
     "weighTAmb.yg coefficient for the running average";
 
   Real intTAmb "integral of TAmb.y";
-  parameter Modelica.SIunits.Time t_start(fixed=false) "starting time of the model";
+  parameter Modelica.SIunits.Time t_start(fixed=false) "Start time of the model";
 
 public
   Modelica.Blocks.Sources.RealExpression TAmb(y=sim.Te)
