@@ -80,7 +80,8 @@ public
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal,
     n50=n50,
-    n50toAch=n50toAch)
+    n50toAch=n50toAch,
+    nPorts=interzonalAirFlow.nPorts)
   constrainedby
     IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(
     redeclare package Medium = Medium,
@@ -167,6 +168,10 @@ protected
         rotation=270,
         origin={-30,-10})));
 
+public
+  replaceable InterzonalAirFlow.PartialInterzonalAirFlow interzonalAirFlow(
+      redeclare package Medium = Medium) "Interzonal air flow model"
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 
@@ -287,10 +292,6 @@ end for;
   connect(airModel.A[1:nSurf], propsBusInt[1:nSurf].area) annotation (Line(
         points={{-40.6,24},{-80,24},{-80,40},{-80.1,40},{-80.1,39.9}}, color={0,
           0,127}));
-  connect(airModel.port_b, port_b) annotation (Line(points={{-34,40},{-34,
-          100},{-20,100}}, color={0,127,255}));
-  connect(airModel.port_a, port_a) annotation (Line(points={{-26,40},{-26,40},
-          {-26,74},{-26,88},{20,88},{20,100}}, color={0,127,255}));
   connect(airModel.ports_air[1], gainCon) annotation (Line(points={{-20,30},{2,30},
           {2,-30},{100,-30}}, color={191,0,0}));
   connect(airModel.TAir, add.u[2]) annotation (Line(points={{-19.2,24},{-10,24},
@@ -326,6 +327,16 @@ end for;
     annotation (Line(points={{58,32},{41,32}}, color={0,0,127}));
   connect(nOcc, occNum.nOccIn)
     annotation (Line(points={{108,32},{82,32}}, color={0,0,127}));
+  connect(airModel.port_b, interzonalAirFlow.port_a_interior)
+    annotation (Line(points={{-36,40},{-36,60}}, color={0,127,255}));
+  connect(airModel.port_a, interzonalAirFlow.port_b_interior)
+    annotation (Line(points={{-24,40},{-24,60}}, color={0,127,255}));
+  connect(interzonalAirFlow.ports, airModel.ports) annotation (Line(points={{
+          -29.8,60},{-30,60},{-30,40}}, color={0,127,255}));
+  connect(interzonalAirFlow.port_b_exterior, port_b) annotation (Line(points={{
+          -32,80},{-32,92},{-20,92},{-20,100}}, color={0,127,255}));
+  connect(interzonalAirFlow.port_a_exterior, port_a) annotation (Line(points={{
+          -28,80},{-28,84},{20,84},{20,100}}, color={0,127,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
