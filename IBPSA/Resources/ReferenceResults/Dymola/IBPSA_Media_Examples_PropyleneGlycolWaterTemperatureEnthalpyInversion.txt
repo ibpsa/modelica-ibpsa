@@ -1,0 +1,10 @@
+last-generated=2018-04-27
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+T=[2.931499938964844e+02, 2.931499938964844e+02]
+time=[0e+00, 1e+00]
+h=[6.68066484375e+04, 6.68066484375e+04]
