@@ -35,7 +35,7 @@ temperature, based on Melinder (2010).
 </p>
 <h4>References</h4>
 <p>
-Melinder, Åke. 2010. Properties of Secondary Working Fluids (Secondary
+Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
 Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
 IIR/IIF.
 </p>
