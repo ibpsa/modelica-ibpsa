@@ -1,7 +1,6 @@
 within IDEAS.Buildings.Components.ZoneAirModels;
 model WellMixedAir "Zone air model assuming perfectly mixed air"
   extends IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(final nSeg=1, mSenFac=5);
-  parameter Boolean useAirLeakage = not sim.linearise "Set to false to disable airleakage computations";
 
 protected
   constant Modelica.SIunits.SpecificEnthalpy lambdaWater = Medium.enthalpyOfCondensingGas(T=273.15+35)
@@ -100,6 +99,12 @@ equation
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
+<li>
+April 27, 2018 by Filip Jorissen:<br/>
+Modified model for supporting new interzonal air flow models.
+Air leakage model and its parameters have been removed.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
+</li>
 <li>
 August 5, 2017 by Filip Jorissen:<br/>
 Added support for dry air.

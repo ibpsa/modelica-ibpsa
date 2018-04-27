@@ -19,4 +19,21 @@ equation
   connect(airExfiltration.port_a, ports[2]) annotation (Line(points={{10,-60},{10,
           -100},{22,-100},{22,-100}},
                                     color={0,127,255}));
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+April 27, 2018 by Filip Jorissen:<br/>
+First version.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents an air tight zone.  
+A fixed mass flow rate, 
+corresponding to air infiltration, is injected into and extracted from the zone.
+The mass flow rate is computed from the zone <code>n50</code> value.
+No other air leakage is modelled.
+</p>
+</html>"));
 end n50Tight;

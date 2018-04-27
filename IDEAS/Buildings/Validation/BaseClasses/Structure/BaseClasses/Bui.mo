@@ -14,8 +14,7 @@ model Bui "Base model"
     redeclare package Medium = Medium,
     nSurf=6,
     hZone=2.7,
-    T_start=293.15,
-    redeclare Components.InterzonalAirFlow.n50Tight interzonalAirFlow)
+    T_start=293.15)
                 annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));

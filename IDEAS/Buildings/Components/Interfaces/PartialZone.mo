@@ -89,7 +89,7 @@ public
     Placement(transformation(extent={{-40,20},{-20,40}})),
     choicesAllMatching=true,
     Dialog(group="Building physics"));
-  replaceable IDEAS.Buildings.Components.InterzonalAirFlow.AirTight interzonalAirFlow
+  replaceable IDEAS.Buildings.Components.InterzonalAirFlow.n50Tight interzonalAirFlow
   constrainedby
     IDEAS.Buildings.Components.InterzonalAirFlow.BaseClasses.PartialInterzonalAirFlow(
       redeclare package Medium = Medium,
@@ -345,6 +345,11 @@ end for;
 <p>See extending models.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 27, 2018 by Filip Jorissen:<br/>
+Modified interfaces for supporting new interzonal air flow models.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
+</li>
 <li>
 March 28, 2018 by Filip Jorissen:<br/>
 Added option for introducing state for

@@ -68,6 +68,12 @@ public
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
 <li>
+April 27, 2018 by Filip Jorissen:<br/>
+Modified model for supporting new interzonal air flow models.
+Air leakage model and its parameters have been removed.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
+</li>
+<li>
 November 15, 2016 by Filip Jorissen:<br/>
 Revised documentation.
 </li>

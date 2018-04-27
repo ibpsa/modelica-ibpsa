@@ -32,7 +32,16 @@ package BaseClasses "Base classes"
           rotation=90,
           origin={2,-100})));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-          coordinateSystem(preserveAspectRatio=false)));
+          coordinateSystem(preserveAspectRatio=false)),
+      Documentation(revisions="<html>
+<ul>
+<li>
+April 27, 2018 by Filip Jorissen:<br/>
+First version.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
+</li>
+</ul>
+</html>"));
   end PartialInterzonalAirFlow;
 
   partial model PartialInterzonalAirFlowBoundary
@@ -102,6 +111,15 @@ package BaseClasses "Base classes"
                          color={0,0,127}));
     connect(Te.y, bou.T_in)
       annotation (Line(points={{6,59},{6,22},{-4,22}}, color={0,0,127}));
+    annotation (Documentation(revisions="<html>
+<ul>
+<li>
+April 27, 2018 by Filip Jorissen:<br/>
+First version.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
+</li>
+</ul>
+</html>"));
   end PartialInterzonalAirFlowBoundary;
 
   partial model PartialInterzonalAirFlown50
@@ -141,5 +159,14 @@ package BaseClasses "Base classes"
             255}));
     connect(airInfiltration.port_b, ports[1]) annotation (Line(points={{-10,-60},{
             -10,-100},{-18,-100}},          color={0,127,255}));
+    annotation (Documentation(revisions="<html>
+<ul>
+<li>
+April 27, 2018 by Filip Jorissen:<br/>
+First version.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
+</li>
+</ul>
+</html>"));
   end PartialInterzonalAirFlown50;
 end BaseClasses;

@@ -7,4 +7,19 @@ equation
           {-60,0},{-20,0},{-20,100}}, color={0,127,255}));
   connect(port_a_exterior, port_b_interior) annotation (Line(points={{20,100},{20,
           0},{60,0},{60,-100}}, color={0,127,255}));
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+April 27, 2018 by Filip Jorissen:<br/>
+First version.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents an air tight zone. 
+I.e. the zone only exchanges mass through its 
+fluid ports and not through air infiltration. 
+</p>
+</html>"));
 end AirTight;
