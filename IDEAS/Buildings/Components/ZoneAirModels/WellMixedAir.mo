@@ -22,7 +22,8 @@ protected
     allowFlowReversal=allowFlowReversal,
     V=Vtot,
     mSenFac=mSenFac,
-    use_C_flow=true)                           annotation (Placement(
+    use_C_flow=true,
+    dynBal(U(nominal=mSenFac*10*Vtot*1.2*1000)))                           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -106,6 +107,11 @@ equation
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
+<li>
+April 27, 2018 by Filip Jorissen:<br/>
+Added nominal value for internal energy of mixing volume.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/797\">#797</a>.
+</li>
 <li>
 August 5, 2017 by Filip Jorissen:<br/>
 Added support for dry air.
