@@ -11,10 +11,12 @@ model Bui "Base model"
     airModel(mSenFac=0.822),
     V=129.6,
     n50=0.822*0.5*20,
-    T_start=293.15,
     redeclare package Medium = Medium,
     nSurf=6,
-    hZone=2.7)  annotation (Placement(transformation(extent={{40,0},{80,40}})));
+    hZone=2.7,
+    T_start=293.15,
+    redeclare Components.InterzonalAirFlow.n50Tight interzonalAirFlow)
+                annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(

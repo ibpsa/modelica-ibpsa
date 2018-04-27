@@ -8,22 +8,13 @@ partial model PartialAirModel "Partial for air models"
   parameter Integer nSeg(min=1)=1 "Number of air segments";
   parameter Integer nPorts "Number of fluid port connections to zone air volume";
   parameter Modelica.SIunits.Volume Vtot "Total zone air volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=m_flow_nominal_airLea
-    "Nominal mass flow rate"
- annotation(Dialog(tab="Advanced"));
   parameter Boolean allowFlowReversal=true
      "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Advanced"));
-  parameter Real n50=0.4 "n50-value of airtightness";
-  parameter Real n50toAch = 20
-    "Conversion fractor from n50 to Air Change Rate"
     annotation(Dialog(tab="Advanced"));
   parameter Boolean useFluPor = true "Set to false to remove fluid ports"
     annotation(Dialog(tab="Advanced"));
   constant Boolean computeTSensorAsFunctionOfZoneAir = true
     "Set to false if TSensor in zone model should not take into account the value of the zone air temperature";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_airLea=Vtot*rho_default/3600*n50/n50toAch
-   "Nominal mass flow rate of air leakage";
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput QGai(unit="J/s") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput TAir "Zone air temperature"

@@ -17,13 +17,13 @@ model PartialZone "Building zone model"
     annotation(Dialog(group="Building physics"));
   parameter Modelica.SIunits.Area A = V/hZone "Total conditioned floor area"
     annotation(Dialog(group="Building physics"));
-  parameter Real n50(min=0.01)=0.4
+  parameter Real n50(min=0.01)=sim.n50
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa"
     annotation(Dialog(group="Building physics"));
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Advanced", group="Air model"));
-  parameter Real n50toAch=20 "Conversion fractor from n50 to Air Change Rate"
+  parameter Real n50toAch=sim.n50toAch "Conversion fractor from n50 to Air Change Rate"
    annotation(Dialog(tab="Advanced", group="Air model"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsAir=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance for air model: dynamic (3 initialization options) or steady state";
@@ -77,25 +77,29 @@ public
     redeclare package Medium = Medium,
     nSurf=nSurf,
     Vtot=V,
-    m_flow_nominal=m_flow_nominal,
-    allowFlowReversal=allowFlowReversal,
-    n50=n50,
-    n50toAch=n50toAch,
-    nPorts=interzonalAirFlow.nPorts)
+    allowFlowReversal=allowFlowReversal)
   constrainedby
     IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(
     redeclare package Medium = Medium,
     nSurf=nSurf,
     Vtot=V,
     final T_start=T_start,
-    m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal,
-    n50=n50,
-    n50toAch=n50toAch) "Zone air model" annotation (
+    nPorts=interzonalAirFlow.nPorts) "Zone air model" annotation (
     Placement(transformation(extent={{-40,20},{-20,40}})),
     choicesAllMatching=true,
     Dialog(group="Building physics"));
-
+  replaceable IDEAS.Buildings.Components.InterzonalAirFlow.AirTight interzonalAirFlow
+  constrainedby
+    IDEAS.Buildings.Components.InterzonalAirFlow.BaseClasses.PartialInterzonalAirFlow(
+      redeclare package Medium = Medium,
+      V=V,
+      n50=n50,
+      n50toAch=n50toAch)
+      "Interzonal air flow model"
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})),
+    choicesAllMatching=true,
+    Dialog(group="Building physics"));
   replaceable IDEAS.Buildings.Components.Occupants.Fixed occNum
     constrainedby Occupants.BaseClasses.PartialOccupants
     "Number of occupants that are present" annotation (
@@ -168,10 +172,7 @@ protected
         rotation=270,
         origin={-30,-10})));
 
-public
-  replaceable InterzonalAirFlow.PartialInterzonalAirFlow interzonalAirFlow(
-      redeclare package Medium = Medium) "Interzonal air flow model"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 
