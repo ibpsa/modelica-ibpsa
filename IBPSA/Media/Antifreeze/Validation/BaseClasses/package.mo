@@ -16,9 +16,9 @@ extends Modelica.Icons.BasesPackage;
       "Minimum temperature of mixture";
     parameter Modelica.SIunits.Temperature T_max
       "Maximum temperature of mixture";
-    parameter Modelica.SIunits.Temperature referenceT = 293.15
+    parameter Modelica.SIunits.Temperature reference_T = 293.15
       "Reference temperature";
-    Modelica.SIunits.Temperature Tf[n] "Rate of temperature change";
+    Modelica.SIunits.Temperature Tf[n] "Fluid temperature";
     Modelica.SIunits.Density d[n] "Density of fluid mixture";
     Modelica.SIunits.SpecificHeatCapacity cp[n] "Density of fluid mixture";
     Modelica.SIunits.ThermalConductivity lambda[n] "Density of fluid mixture";
@@ -36,7 +36,7 @@ protected
     T = T_min + convT*time;
     T_degC = Modelica.SIunits.Conversions.to_degC(T);
     for i in 1:n loop
-      Tf[i] = Medium.BaseClasses.fusionTemperature(w[i],referenceT);
+      Tf[i] = Medium.BaseClasses.fusionTemperature(w[i],reference_T);
       d[i] = if T >= Tf[i] then Medium.BaseClasses.density(w[i],T) else 0.;
       cp[i] = if T >= Tf[i] then Medium.BaseClasses.specificHeatCapacityCp(w[i],T) else 0.;
       lambda[i] = if T >= Tf[i] then Medium.BaseClasses.thermalConductivity(w[i],T) else 0.;
