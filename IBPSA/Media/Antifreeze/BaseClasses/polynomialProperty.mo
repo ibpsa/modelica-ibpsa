@@ -37,6 +37,20 @@ Documentation(info="<html>
 Evaluates a thermophysical property of a mixture, based on correlations proposed
 by Melinder (2010).
 </p>
+<p>
+The polynomial has the form
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+f = a<sub>1</sub> (x-xm)<sup>0</sup>(y-ym)<sup>0</sup>
++ a<sub>2</sub> (x-xm)<sup>0</sup>(y-ym)<sup>1</sup>
++ ... +
+a<sub>ny[1]</sub> (x-xm)<sup>0</sup>(y-ym)<sup>ny[1]-1</sup>
++ ... +
+a<sub>ny[1])+1</sub> (x-xm)<sup>1</sup>(y-ym)<sup>0</sup>
++ ... +
+a<sub>ny[1]+ny[2]</sub> (x-xm)<sup>1</sup>(y-ym)<sup>ny[2]-1</sup>
++ ...
+</p>
 <h4>References</h4>
 <p>
 Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
