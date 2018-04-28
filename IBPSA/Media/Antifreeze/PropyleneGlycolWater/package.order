@@ -1,7 +1,4 @@
-property_T
-massFraction
-massFraction_min
-massFraction_max
-simplePropyleneGlycolWaterConstants
 BaseProperties
+massFraction_max
+massFraction_min
 BaseClasses
