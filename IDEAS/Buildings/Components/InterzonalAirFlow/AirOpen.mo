@@ -23,5 +23,27 @@ is consequently injected in the environment (as if all windows are opened).
 If a net mass flow rate leaves the zone, then air is extracted
 from the environment with the ambient temperature and humidity.
 </p>
-</html>"));
+</html>"), Icon(graphics={
+        Polygon(
+          points={{-11,10},{20,0},{-11,-10},{-11,10}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=not allowFlowReversal,
+          origin={-118,19},
+          rotation=180),
+        Polygon(
+          points={{-11,10},{20,0},{-11,-10},{-11,10}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=not allowFlowReversal,
+          origin={-54,19},
+          rotation=360),
+        Line(
+          points={{57.5,0},{-11,-0.5}},
+          color={0,128,255},
+          visible=not allowFlowReversal,
+          origin={-60.5,19},
+          rotation=180)}));
 end AirOpen;

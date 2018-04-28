@@ -21,5 +21,10 @@ This model represents an air tight zone.
 I.e. the zone only exchanges mass through its 
 fluid ports and not through air infiltration. 
 </p>
-</html>"));
+</html>"), Icon(graphics={
+        Rectangle(
+          extent={{-70,40},{-100,0}},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Backward,
+          pattern=LinePattern.None)}));
 end AirTight;

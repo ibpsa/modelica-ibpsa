@@ -46,5 +46,8 @@ First version.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={Text(
+          extent={{18,-38},{66,-60}},
+          lineColor={28,108,200},
+          textString="n50")}));
 end PartialInterzonalAirFlown50;

@@ -1,7 +1,8 @@
 within IDEAS.Buildings.Components.InterzonalAirFlow;
 model n50Open
   "n50Open: fixed pressure boundary, n50 air leakage into zone"
-  extends IDEAS.Buildings.Components.InterzonalAirFlow.BaseClasses.PartialInterzonalAirFlown50;
+  extends
+    IDEAS.Buildings.Components.InterzonalAirFlow.BaseClasses.PartialInterzonalAirFlown50;
 equation
   connect(bou.ports[2], ports[2]) annotation (Line(points={{2,0},{2,-50},{2,-100},
           {22,-100}},color={0,127,255}));
@@ -27,5 +28,27 @@ In addition to these mass flow rates, a fixed mass flow rate,
 corresponding to air infiltration, is injected into the zone.
 The mass flow rate is computed from the zone <code>n50</code> value.
 </p>
-</html>"));
+</html>"), Icon(graphics={
+        Polygon(
+          points={{-11,10},{20,0},{-11,-10},{-11,10}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=not allowFlowReversal,
+          origin={-54,19},
+          rotation=360),
+        Line(
+          points={{57.5,0},{-11,-0.5}},
+          color={0,128,255},
+          visible=not allowFlowReversal,
+          origin={-60.5,19},
+          rotation=180),
+        Polygon(
+          points={{-11,10},{20,0},{-11,-10},{-11,10}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=not allowFlowReversal,
+          origin={-118,19},
+          rotation=180)}));
 end n50Open;

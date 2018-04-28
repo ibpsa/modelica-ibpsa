@@ -35,5 +35,10 @@ corresponding to air infiltration, is injected into and extracted from the zone.
 The mass flow rate is computed from the zone <code>n50</code> value.
 No other air leakage is modelled.
 </p>
-</html>"));
+</html>"), Icon(graphics={
+        Rectangle(
+          extent={{-70,40},{-100,0}},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Backward,
+          pattern=LinePattern.None)}));
 end n50Tight;
