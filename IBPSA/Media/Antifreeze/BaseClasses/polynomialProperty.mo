@@ -9,7 +9,7 @@ function polynomialProperty
   input Real ym "Reference value of y";
   input Integer nx "Order of polynomial in x";
   input Integer ny[nx] "Order of polynomial in y";
-  input Real coeff[sum(ny)] "Polynomial coefficients";
+  input Real a[sum(ny)] "Polynomial coefficients";
 
   output Real f "Value of thermophysical property";
 
@@ -28,7 +28,7 @@ algorithm
   for i in 0:nx-1 loop
     for j in 0:ny[i+1]-1 loop
       n := n + 1;
-      f := f + coeff[n]*dx^i*dy^j;
+      f := f + a[n]*dx^i*dy^j;
     end for;
   end for;
 annotation (
