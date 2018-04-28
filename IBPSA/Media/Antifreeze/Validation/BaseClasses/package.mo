@@ -16,7 +16,7 @@ extends Modelica.Icons.BasesPackage;
       "Minimum temperature of mixture";
     parameter Modelica.SIunits.Temperature T_max
       "Maximum temperature of mixture";
-    constant Modelica.SIunits.Temperature referenceT = 293.15
+    parameter Modelica.SIunits.Temperature referenceT = 293.15
       "Reference temperature";
     Modelica.SIunits.Temperature Tf[n] "Rate of temperature change";
     Modelica.SIunits.Density d[n] "Density of fluid mixture";
