@@ -90,5 +90,33 @@ First implementation.
 <p>
 Zone air model partial containing main parameters and connectors.
 </p>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-90,80},{90,-80}},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Backward,
+          lineColor={0,0,0}),
+        Line(
+          points={{-68,60},{68,60}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{68,60},{68,-60},{-68,-60},{-68,60}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Rectangle(
+          extent={{68,60},{-68,-60}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0},
+          lineThickness=0.5),
+        Line(points={{-30,42},{38,42},{38,-12},{28,-2},{38,-12},{46,-2}}, color
+            ={28,108,200}),
+        Line(points={{40,-32},{-30,-32},{-30,22},{-20,12},{-30,22},{-38,12}},
+            color={238,46,47})}));
 end PartialAirModel;
