@@ -85,5 +85,6 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/881\">#881</a>.
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Sources/Examples/PropertySource.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    experiment(Tolerance=1e-06));
 end PropertySource;
