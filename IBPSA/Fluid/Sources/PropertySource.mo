@@ -37,27 +37,27 @@ protected
   Modelica.Blocks.Interfaces.RealOutput h_internal_b
     "Internal outlet value of port_b.h_outflow";
   Modelica.Blocks.Interfaces.RealOutput h_in_a = inStream(port_a.h_outflow)
-    "Variable due to limitations of Modelica specification";
+    "Connector for inStream value of port_a.h_outflow";
   Modelica.Blocks.Interfaces.RealOutput h_in_b = inStream(port_b.h_outflow)
-    "Variable due to limitations of Modelica specification";
+    "Connector for inStream value of port_b.h_outflow";
 
   Modelica.Blocks.Interfaces.RealOutput[Medium.nXi] Xi_internal_a
     "Internal outlet value of port_a.Xi_outflow";
   Modelica.Blocks.Interfaces.RealOutput[Medium.nXi] Xi_internal_b
     "Internal outlet value of port_b.Xi_outflow";
   Modelica.Blocks.Interfaces.RealOutput[Medium.nXi] Xi_in_a = inStream(port_a.Xi_outflow)
-    "Variable due to limitations of Modelica specification";
+    "Connector for inStream value of port_a.Xi_outflow";
   Modelica.Blocks.Interfaces.RealOutput[Medium.nXi] Xi_in_b = inStream(port_b.Xi_outflow)
-    "Variable due to limitations of Modelica specification";
+    "Connector for inStream value of port_b.Xi_outflow";
 
   Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_internal_a
     "Internal outlet value of port_a.C_outflow";
   Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_internal_b
     "Internal outlet value of port_b.C_outflow";
   Modelica.Blocks.Interfaces.RealOutput[Medium.nC] C_in_a = inStream(port_a.C_outflow)
-    "Variable due to limitations of Modelica specification";
+    "Connector for inStream value of port_a.C_outflow";
   Modelica.Blocks.Interfaces.RealOutput[Medium.nC] C_in_b = inStream(port_b.C_outflow)
-    "Variable due to limitations of Modelica specification";
+    "Connector for inStream value of port_b.C_outflow";
 equation
   connect(h_internal_a, h);
   connect(h_internal_b, h);
@@ -92,6 +92,27 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
+        Text(
+          visible=use_Xi_in,
+          extent={{-48,184},{54,144}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="Xi"),
+        Text(
+          visible=use_h_in,
+          extent={{-92,184},{10,144}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="h"),
+        Text(
+          visible=use_C_in,
+          extent={{-12,186},{90,146}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="C"),
         Rectangle(
           extent={{-100,60},{100,-60}},
           lineColor={0,0,0},
