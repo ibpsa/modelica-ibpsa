@@ -1273,7 +1273,13 @@ components cannot be propagated.
 </html>", revisions="<html>
 <ul>
 <li>
-July 26, 2018 by Filip Jorissen:<br/>
+April 30, 2018 by Iago Cupeiro:<br/>
+Propagated boolean input connections for controlled shading.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/809\">#809</a>.
+</li>
+<li>
+<li>
+July 26, 2017 by Filip Jorissen:<br/>
 Added replaceable block that allows to define
 the number of occupants.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
