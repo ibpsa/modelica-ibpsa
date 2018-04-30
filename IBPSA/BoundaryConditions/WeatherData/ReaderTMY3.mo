@@ -203,15 +203,18 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter String filNam="" "Name of weather data file" annotation (
     Dialog(loadSelector(filter="Weather files (*.mos)",
                         caption="Select weather file")));
-  final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
-    filNam) "Longitude";
-  final parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
+    filNam) "Longitude"
+    annotation(Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
-    filNam) "Latitude";
-  final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
+    filNam) "Latitude"
+    annotation(Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Time timZon(displayUnit="h")=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
-    "Time zone";
+    "Time zone"
+    annotation(Dialog(tab="Advanced"));
   Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{
             290,-10},{310,10}}), iconTransformation(extent={{190,-10},{210,10}})));
 
@@ -1554,6 +1557,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+April 30, 2018, by Filip Jorissen:<br/>
+Removed <code>final</code> modifiers for IDEAS compatibility reasons.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/918\">#918</a>.
+</li>
 <li>
 December 4, 2017, by Michael Wetter:<br/>
 Removed function call to <code>getAbsolutePath</code>, as this causes in Dymola 2018FD01
