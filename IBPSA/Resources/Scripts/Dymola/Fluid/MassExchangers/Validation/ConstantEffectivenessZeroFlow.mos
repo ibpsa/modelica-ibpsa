@@ -1,0 +1,2 @@
+simulateModel("IBPSA.Fluid.MassExchangers.Validation.ConstantEffectivenessZeroFlow", stopTime=1, method="dassl", tolerance=1e-6, resultFile="ConstantEffectivenessZeroFlow");
+createPlot(id=7, position={0, 0, 1250, 724}, y={"hex.epsS", "hex.epsL"}, range={0.0, 1.0, 0.71, 0.8899999999999999}, erase=false, grid=true, colors={{28,108,200}, {238,46,47}});

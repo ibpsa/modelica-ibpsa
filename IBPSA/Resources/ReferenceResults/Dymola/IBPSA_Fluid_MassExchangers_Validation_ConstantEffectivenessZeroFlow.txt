@@ -1,0 +1,15 @@
+last-generated=2018-04-30
+statistics-initialization=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": "1, 1"
+}
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": "0, 0", 
+  "linear": " "
+}
+hex.epsL=[8.00000011920929e-01, 8.00000011920929e-01]
+hex.epsS=[8.00000011920929e-01, 8.00000011920929e-01]
+time=[0e+00, 1e+00]
