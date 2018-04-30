@@ -13,13 +13,15 @@ model PropertySource
     "Get the trace substances from the input connector"
     annotation(Evaluate=true);
 
-  Modelica.Blocks.Interfaces.RealInput h if use_h_in
+  Modelica.Blocks.Interfaces.RealInput h_in if
+                                            use_h_in
     "Prescribed value for specific enthalpy" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={-40,120})));
-  Modelica.Blocks.Interfaces.RealInput Xi[Medium.nXi] if use_Xi_in
+  Modelica.Blocks.Interfaces.RealInput Xi_in[Medium.nXi] if
+                                                         use_Xi_in
     "Prescribed values for composition" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
@@ -59,15 +61,15 @@ protected
   Modelica.Blocks.Interfaces.RealOutput[Medium.nC] C_in_b = inStream(port_b.C_outflow)
     "Connector for inStream value of port_b.C_outflow";
 equation
-  connect(h_internal_a, h);
-  connect(h_internal_b, h);
+  connect(h_internal_a, h_in);
+  connect(h_internal_b, h_in);
   if not (use_h_in) then
     connect(h_internal_a,h_in_b);
     connect(h_internal_b,h_in_a);
   end if;
 
-  connect(Xi_internal_a, Xi);
-  connect(Xi_internal_b, Xi);
+  connect(Xi_internal_a, Xi_in);
+  connect(Xi_internal_b, Xi_in);
   if not (use_Xi_in) then
     connect(Xi_internal_a,Xi_in_b);
     connect(Xi_internal_b,Xi_in_a);
@@ -80,11 +82,11 @@ equation
     connect(C_internal_b,C_in_a);
   end if;
 
-  port_a.h_outflow=h_internal_a;
+  port_a.h_outflow=if allowFlowReversal then h_internal_a else Medium.h_default;
   port_b.h_outflow=h_internal_b;
-  port_a.Xi_outflow=Xi_internal_a;
+  port_a.Xi_outflow=if allowFlowReversal then Xi_internal_a else Medium.X_default[1:Medium.nXi];
   port_b.Xi_outflow=Xi_internal_b;
-  port_a.C_outflow=C_internal_a;
+  port_a.C_outflow=if allowFlowReversal then C_internal_a else zeros(Medium.nC);
   port_b.C_outflow=C_internal_b;
 
   port_a.p=port_b.p;
@@ -95,21 +97,21 @@ equation
             -100},{100,100}}), graphics={
         Text(
           visible=use_Xi_in,
-          extent={{-48,184},{54,144}},
+          extent={{-48,98},{54,58}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="Xi"),
         Text(
           visible=use_h_in,
-          extent={{-92,184},{10,144}},
+          extent={{-92,100},{10,60}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="h"),
         Text(
           visible=use_C_in,
-          extent={{-12,186},{90,146}},
+          extent={{-10,98},{92,58}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

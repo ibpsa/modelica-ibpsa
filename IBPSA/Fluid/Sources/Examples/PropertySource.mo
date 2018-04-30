@@ -61,9 +61,9 @@ equation
           {36,0},{36,-2.22045e-16},{60,-2.22045e-16}}, color={0,127,255}));
   connect(propertySourceC.port_b,sin. ports[3]) annotation (Line(points={{10,-40},
           {60,-40},{60,-2.66667}}, color={0,127,255}));
-  connect(h.y, propertySourceH.h)
+  connect(h.y, propertySourceH.h_in)
     annotation (Line(points={{-39,60},{-4,60},{-4,52}}, color={0,0,127}));
-  connect(Xi.y, propertySourceXi.Xi[1])
+  connect(Xi.y, propertySourceXi.Xi_in[1])
     annotation (Line(points={{-39,20},{0,20},{0,12}}, color={0,0,127}));
   connect(C.y, propertySourceC.C_in[1])
     annotation (Line(points={{-39,-20},{4,-20},{4,-28}}, color={0,0,127}));
