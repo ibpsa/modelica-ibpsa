@@ -90,7 +90,8 @@ equation
   port_a.p=port_b.p;
   port_a.m_flow+port_b.m_flow=0;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+  annotation (defaultComponentName="proSou",
+        Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Text(
           visible=use_Xi_in,
