@@ -878,6 +878,54 @@ protected
   final parameter Integer indWinD = indWinC + (if hasWinD then 1 else 0);
   final parameter Integer indWinCei = indWinD + (if hasWinCei then 1 else 0);
 
+public
+  Modelica.Blocks.Interfaces.RealInput ctrlA if
+                                               shaTypA.controlled
+    "Control input for windows in face A, if controlled"
+    annotation (Placement(transformation(extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-171,-111}), iconTransformation(
+        extent={{-11,-11},{11,11}},
+        rotation=-90,
+        origin={84,112})));
+  Modelica.Blocks.Interfaces.RealInput ctrlB if
+                                               shaTypB.controlled
+    "Control input for windows in face B, if controlled" annotation (Placement(
+        transformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-155,-111}), iconTransformation(extent={{123,-99},{101,-77}},
+          rotation=0)));
+  Modelica.Blocks.Interfaces.RealInput ctrlC if
+                                               shaTypC.controlled
+    "Control input for windows in face C, if controlled" annotation (Placement(
+        transformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-139,-111}), iconTransformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-88,-112})));
+  Modelica.Blocks.Interfaces.RealInput ctrlD if
+                                               shaTypD.controlled
+    "Control input for windows in face D, if controlled" annotation (Placement(
+        transformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-123,-111}), iconTransformation(
+        extent={{11,-11},{-11,11}},
+        rotation=180,
+        origin={-112,72})));
+  Modelica.Blocks.Interfaces.RealInput ctrlCei if
+                                               shaTypCei.controlled
+    "Control input for windows in ceiling, if controlled" annotation (Placement(
+        transformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-107,-111}), iconTransformation(
+        extent={{-11,-11},{11,11}},
+        rotation=-90,
+        origin={50,82})));
 initial equation
   assert(not bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
     "The value for bouTypA is not supported");
@@ -903,6 +951,8 @@ initial equation
     "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
   assert(not (hasWinCei and bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall),
     "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
+
+
 
 
 
@@ -1057,6 +1107,21 @@ equation
       points={{-80,40},{-82,40},{-82,54},{-82,50},{-210,50}},
       color={255,204,51},
       thickness=0.5));
+  connect(ctrlCei, winCei.Ctrl) annotation (Line(points={{-107,-111},{-106.5,
+          -111},{-106.5,-100},{-98.3333,-100}},
+                                          color={0,0,127}));
+  connect(ctrlD, winD.Ctrl) annotation (Line(points={{-123,-111},{-123,-106},{
+          -124,-106},{-124,-100},{-98.3333,-100},{-98.3333,-60}},
+                                                             color={0,0,127}));
+  connect(ctrlC, winC.Ctrl) annotation (Line(points={{-139,-111},{-139,-104},{
+          -140,-104},{-140,-100},{-98,-100},{-98,-40},{-98.3333,-40}},
+                                                                  color={0,0,127}));
+  connect(ctrlB, winB.Ctrl) annotation (Line(points={{-155,-111},{-155,-100},{
+          -156,-100},{-156,-100},{-98,-100},{-98,-20},{-98.3333,-20}},
+                                                                  color={0,0,127}));
+  connect(ctrlA, winA.Ctrl) annotation (Line(points={{-171,-111},{-171,-106},{
+          -172,-106},{-172,-100},{-98.3333,-100},{-98.3333,0}},
+                                                           color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
         graphics={
         Text(
