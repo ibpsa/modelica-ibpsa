@@ -826,6 +826,53 @@ public
         extent={{-20,20},{20,-20}},
         rotation=180,
         origin={-2,60})));
+  Modelica.Blocks.Interfaces.RealInput ctrlA if
+                                               shaTypA.controlled
+    "Control input for windows in face A, if controlled"
+    annotation (Placement(transformation(extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-171,-111}), iconTransformation(
+        extent={{-11,-11},{11,11}},
+        rotation=-90,
+        origin={84,112})));
+  Modelica.Blocks.Interfaces.RealInput ctrlB if
+                                               shaTypB.controlled
+    "Control input for windows in face B, if controlled" annotation (Placement(
+        transformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-155,-111}), iconTransformation(extent={{123,-99},{101,-77}},
+          rotation=0)));
+  Modelica.Blocks.Interfaces.RealInput ctrlC if
+                                               shaTypC.controlled
+    "Control input for windows in face C, if controlled" annotation (Placement(
+        transformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-139,-111}), iconTransformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-88,-112})));
+  Modelica.Blocks.Interfaces.RealInput ctrlD if
+                                               shaTypD.controlled
+    "Control input for windows in face D, if controlled" annotation (Placement(
+        transformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-123,-111}), iconTransformation(
+        extent={{11,-11},{-11,11}},
+        rotation=180,
+        origin={-112,72})));
+  Modelica.Blocks.Interfaces.RealInput ctrlCei if
+                                               shaTypCei.controlled
+    "Control input for windows in ceiling, if controlled" annotation (Placement(
+        transformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-107,-111}), iconTransformation(
+        extent={{-11,-11},{11,11}},
+        rotation=-90,
+        origin={50,82})));
 protected
   final parameter Boolean hasBouA=
     bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall;
@@ -878,54 +925,7 @@ protected
   final parameter Integer indWinD = indWinC + (if hasWinD then 1 else 0);
   final parameter Integer indWinCei = indWinD + (if hasWinCei then 1 else 0);
 
-public
-  Modelica.Blocks.Interfaces.RealInput ctrlA if
-                                               shaTypA.controlled
-    "Control input for windows in face A, if controlled"
-    annotation (Placement(transformation(extent={{11,-11},{-11,11}},
-        rotation=-90,
-        origin={-171,-111}), iconTransformation(
-        extent={{-11,-11},{11,11}},
-        rotation=-90,
-        origin={84,112})));
-  Modelica.Blocks.Interfaces.RealInput ctrlB if
-                                               shaTypB.controlled
-    "Control input for windows in face B, if controlled" annotation (Placement(
-        transformation(
-        extent={{11,-11},{-11,11}},
-        rotation=-90,
-        origin={-155,-111}), iconTransformation(extent={{123,-99},{101,-77}},
-          rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput ctrlC if
-                                               shaTypC.controlled
-    "Control input for windows in face C, if controlled" annotation (Placement(
-        transformation(
-        extent={{11,-11},{-11,11}},
-        rotation=-90,
-        origin={-139,-111}), iconTransformation(
-        extent={{11,-11},{-11,11}},
-        rotation=-90,
-        origin={-88,-112})));
-  Modelica.Blocks.Interfaces.RealInput ctrlD if
-                                               shaTypD.controlled
-    "Control input for windows in face D, if controlled" annotation (Placement(
-        transformation(
-        extent={{11,-11},{-11,11}},
-        rotation=-90,
-        origin={-123,-111}), iconTransformation(
-        extent={{11,-11},{-11,11}},
-        rotation=180,
-        origin={-112,72})));
-  Modelica.Blocks.Interfaces.RealInput ctrlCei if
-                                               shaTypCei.controlled
-    "Control input for windows in ceiling, if controlled" annotation (Placement(
-        transformation(
-        extent={{11,-11},{-11,11}},
-        rotation=-90,
-        origin={-107,-111}), iconTransformation(
-        extent={{-11,-11},{11,11}},
-        rotation=-90,
-        origin={50,82})));
+
 initial equation
   assert(not bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
     "The value for bouTypA is not supported");
@@ -951,6 +951,8 @@ initial equation
     "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
   assert(not (hasWinCei and bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall),
     "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
+
+
 
 
 
@@ -1277,7 +1279,6 @@ April 30, 2018 by Iago Cupeiro:<br/>
 Propagated boolean input connections for controlled shading.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/809\">#809</a>.
 </li>
-<li>
 <li>
 July 26, 2017 by Filip Jorissen:<br/>
 Added replaceable block that allows to define
