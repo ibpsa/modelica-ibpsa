@@ -1,25 +1,16 @@
-within IBPSA.Fluid.Sources;
-model PropertySource
-  "Model for overriding fluid properties that flow through the component"
+within IBPSA.Fluid.Sources.BaseClasses;
+partial model PartialPropertySource
+  "Partial model for overriding fluid properties that flow through the component"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Boolean use_h_in= false
-    "Get the specific enthalpy from the input connector"
-    annotation(Evaluate=true);
   parameter Boolean use_Xi_in= false
     "Get the composition from the input connector"
-    annotation(Evaluate=true);
+    annotation(Evaluate=true, Dialog(group="Inputs"));
   parameter Boolean use_C_in= false
     "Get the trace substances from the input connector"
-    annotation(Evaluate=true);
+    annotation(Evaluate=true, Dialog(group="Inputs"));
 
-  Modelica.Blocks.Interfaces.RealInput h_in if
-                                            use_h_in
-    "Prescribed value for specific enthalpy" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={-40,120})));
+
   Modelica.Blocks.Interfaces.RealInput Xi_in[Medium.nXi] if
                                                          use_Xi_in
     "Prescribed values for composition" annotation (Placement(transformation(
@@ -61,13 +52,6 @@ protected
   Modelica.Blocks.Interfaces.RealOutput[Medium.nC] C_in_b = inStream(port_b.C_outflow)
     "Connector for inStream value of port_b.C_outflow";
 equation
-  connect(h_internal_a, h_in);
-  connect(h_internal_b, h_in);
-  if not (use_h_in) then
-    connect(h_internal_a,h_in_b);
-    connect(h_internal_b,h_in_a);
-  end if;
-
   connect(Xi_internal_a, Xi_in);
   connect(Xi_internal_b, Xi_in);
   if not (use_Xi_in) then
@@ -103,13 +87,6 @@ equation
           fillPattern=FillPattern.Solid,
           textString="Xi"),
         Text(
-          visible=use_h_in,
-          extent={{-92,100},{10,60}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="h"),
-        Text(
           visible=use_C_in,
           extent={{-10,98},{92,58}},
           lineColor={0,0,0},
@@ -132,17 +109,6 @@ Model that changes the properties,
 but not the mass flow rate,
 of the fluid that passes through it.
 </p>
-<h4>Typical use and important parameters</h4>
-<p>
-The fluid properties <code>h</code>, <code>Xi</code> and <code>C</code>
-are only modified when the corresponding boolean parameter
-<code>use_h_in</code>, <code>use_Xi_in</code> or <code>use_C_in</code>
-is enabled.
-</p>
-<h4>Dynamics</h4>
-<p>
-This model has no dynamics.
-</p>
 </html>",
 revisions="<html>
 <ul>
@@ -155,4 +121,4 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/881\">#881</a>.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}})));
-end PropertySource;
+end PartialPropertySource;
