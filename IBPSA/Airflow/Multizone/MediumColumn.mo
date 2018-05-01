@@ -163,6 +163,7 @@ This model describes the pressure difference of a vertical medium
 column. It can be used to model the pressure difference caused by
 stack effect.
 </p>
+<h4>Typical use and important parameters</h4>
 <p>
 The model can be used with the following three configurations, which are
 controlled by the setting of the parameter <code>densitySelection</code>:
@@ -196,10 +197,19 @@ a column of air will change its density based on the flow direction.
 In this model, the parameter <code>h</code> must always be positive, and the port <code>port_a</code> must be
 at the top of the column.
 </p>
+<h4>Dynamics</h4>
 <p>
-For a steady-state model, use
+For a dynamic model, use
 <a href=\"modelica://IBPSA.Airflow.Multizone.MediumColumnDynamic\">
 IBPSA.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
+</p>
+<h4>Options</h4>
+<p>
+Parameter <code>use_constantPressureForDensity</code> can be
+set to <code>false</code> to use the actual pressure at the model
+ports to compute the air density instead of using
+the default pressure <code>p_default</code>.
+This can lead to (larger) algebraic loops, which affects computation time.
 </p>
 </html>",
 revisions="<html>

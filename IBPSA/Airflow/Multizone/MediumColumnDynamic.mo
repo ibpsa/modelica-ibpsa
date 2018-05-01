@@ -168,7 +168,9 @@ This model contains a completely mixed fluid volume and
 models that take into account the pressure difference of
 a medium column that is at the same temperature as the
 fluid volume. It can be used to model the pressure difference
-caused by a stack effect.</p>
+caused by a stack effect.
+</p>
+<h4>Typical use and important parameters</h4>
 <p>
 Set the parameter <code>use_HeatTransfer=true</code> to expose
 a <code>heatPort</code>. This <code>heatPort</code> can be used
@@ -176,6 +178,7 @@ to add or subtract heat from the volume. This allows, for example,
 to use this model in conjunction with a model for heat transfer through
 walls to model a solar chimney that stores heat.
 </p>
+<h4>Dynamics</h4>
 <p>
 For a steady-state model, use
 <a href=\"modelica://IBPSA.Airflow.Multizone.MediumColumn\">
@@ -183,6 +186,14 @@ IBPSA.Airflow.Multizone.MediumColumn</a> instead of this model.
 </p>
 <p>In this model, the parameter <code>h</code> must always be positive, and the port <code>port_a</code> must be
 at the top of the column.
+</p>
+<h4>Options</h4>
+<p>
+Parameter <code>use_constantPressureForDensity</code> can be
+set to <code>false</code> to use the actual pressure at the model
+ports to compute the air density instead of using
+the default pressure <code>p_default</code>.
+This can lead to (larger) algebraic loops, which affects computation time.
 </p>
 </html>",
 revisions="<html>
