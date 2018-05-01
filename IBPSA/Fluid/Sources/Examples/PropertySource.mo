@@ -75,12 +75,12 @@ equation
     annotation (Line(points={{-19,20},{0,20},{0,12}}, color={0,0,127}));
   connect(C.y, propertySourceC.C_in[1])
     annotation (Line(points={{-19,-20},{4,-20},{4,-28}}, color={0,0,127}));
-  connect(bouH.m_flow_in, ramp.y) annotation (Line(points={{-62,48},{-72,48},{
-          -72,70},{-79,70}}, color={0,0,127}));
-  connect(ramp.y, bouXi.m_flow_in) annotation (Line(points={{-79,70},{-72,70},{
-          -72,8},{-62,8}}, color={0,0,127}));
-  connect(ramp.y, bouC.m_flow_in) annotation (Line(points={{-79,70},{-72,70},{
-          -72,-32},{-62,-32}}, color={0,0,127}));
+  connect(bouH.m_flow_in, ramp.y) annotation (Line(points={{-62,48},{-72,48},{-72,
+          70},{-79,70}}, color={0,0,127}));
+  connect(ramp.y, bouXi.m_flow_in) annotation (Line(points={{-79,70},{-72,70},{-72,
+          8},{-62,8}}, color={0,0,127}));
+  connect(ramp.y, bouC.m_flow_in) annotation (Line(points={{-79,70},{-72,70},{-72,
+          -32},{-62,-32}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
@@ -100,5 +100,8 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/881\">#881</a>.
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Sources/Examples/PropertySource.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-06));
+    experiment(
+      StopTime=1,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"));
 end PropertySource;
