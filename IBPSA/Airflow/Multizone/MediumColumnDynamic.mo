@@ -2,29 +2,30 @@ within IBPSA.Airflow.Multizone;
 model MediumColumnDynamic
   "Vertical shaft with no friction and storage of heat and mass"
   extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations;
-  import Modelica.Constants;
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
 
   parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
-  parameter Boolean allowFlowReversal=true
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation (Dialog(tab="Assumptions"),Evaluate=true);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition, used only for steady-state model"));
+  parameter Boolean use_constantPressureForDensity =  true
+    "Assume a constant pressure for density computations"
+    annotation(Dialog(tab="Advanced"), Evaluate=true);
+  parameter Modelica.SIunits.Pressure p_default = Medium.p_default
+    "Constant pressure value for density computations"
+    annotation(Dialog(tab="Advanced"),enable=use_constantPressureForDensity);
+
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
-    m_flow(min=if allowFlowReversal then -Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
@@ -51,7 +52,8 @@ model MediumColumnDynamic
     redeclare final package Medium = Medium,
     final densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromBottom,
     h=h/2,
-    final allowFlowReversal=allowFlowReversal)
+    final use_constantPressureForDensity=use_constantPressureForDensity,
+    final p_default=p_default)
     "Medium column that connects to top port"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
@@ -59,7 +61,8 @@ model MediumColumnDynamic
     redeclare final package Medium = Medium,
     final densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromTop,
     h=h/2,
-    final allowFlowReversal=allowFlowReversal)
+    final use_constantPressureForDensity=use_constantPressureForDensity,
+    final p_default=p_default)
     "Medium colum that connects to bottom port"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 
@@ -184,6 +187,13 @@ at the top of the column.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 1, 2018, by Filip Jorissen:<br/>
+Removed declaration of <code>allowFlowReversal</code>
+and changed default density computation such
+that it assumes a constant pressure.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">#877</a>.
+</li>
 <li><i>October 6, 2014</i> by Michael Wetter:<br/>
 Removed assignment of <code>port_?.p.nominal</code> to avoid a warning
 in OpenModelica because
