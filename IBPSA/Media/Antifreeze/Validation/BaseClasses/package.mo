@@ -36,11 +36,11 @@ protected
     T = T_min + convT*time;
     T_degC = Modelica.SIunits.Conversions.to_degC(T);
     for i in 1:n loop
-      Tf[i] = Medium.BaseClasses.fusionTemperature(w[i],reference_T);
-      d[i] = if T >= Tf[i] then Medium.BaseClasses.density(w[i],T) else 0.;
-      cp[i] = if T >= Tf[i] then Medium.BaseClasses.specificHeatCapacityCp(w[i],T) else 0.;
-      lambda[i] = if T >= Tf[i] then Medium.BaseClasses.thermalConductivity(w[i],T) else 0.;
-      eta[i] = if T >= Tf[i] then Medium.BaseClasses.dynamicViscosity(w[i],T) else 0.;
+      Tf[i] = Modelica.SIunits.Conversions.from_degC(IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(w[i]*100,reference_T,Medium.propertyCoefficients.wm*100,Medium.propertyCoefficients.Tm,Medium.propertyCoefficients.nw,Medium.propertyCoefficients.nT,Medium.propertyCoefficients.a_Tf));
+      d[i] = if T >= Tf[i] then IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(w[i]*100,T,Medium.propertyCoefficients.wm*100,Medium.propertyCoefficients.Tm,Medium.propertyCoefficients.nw,Medium.propertyCoefficients.nT,Medium.propertyCoefficients.a_d) else 0.;
+      cp[i] = if T >= Tf[i] then IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(w[i]*100,T,Medium.propertyCoefficients.wm*100,Medium.propertyCoefficients.Tm,Medium.propertyCoefficients.nw,Medium.propertyCoefficients.nT,Medium.propertyCoefficients.a_cp) else 0.;
+      lambda[i] = if T >= Tf[i] then IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(w[i]*100,T,Medium.propertyCoefficients.wm*100,Medium.propertyCoefficients.Tm,Medium.propertyCoefficients.nw,Medium.propertyCoefficients.nT,Medium.propertyCoefficients.a_lambda) else 0.;
+      eta[i] = if T >= Tf[i] then 1e-3*exp(IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(w[i]*100,T,Medium.propertyCoefficients.wm*100,Medium.propertyCoefficients.Tm,Medium.propertyCoefficients.nw,Medium.propertyCoefficients.nT,Medium.propertyCoefficients.a_eta)) else 0.;
     end for;
 
      annotation (

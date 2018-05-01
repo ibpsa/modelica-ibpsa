@@ -12,6 +12,20 @@ package PropyleneGlycolWater
   constant Modelica.SIunits.MassFraction massFraction_max=0.6
     "Maximum allowed mass fraction of propylene glycol in water";
 
+  // Coefficients for evaluation of physical properties
+  constant IBPSA.Media.Antifreeze.BaseClasses.PropertyCoefficients[1]
+    propertyCoefficients(
+    each wm=0.307031,
+    each Tm=Modelica.SIunits.Conversions.from_degC(32.7083),
+    each nw=6,
+    each nT={4,4,4,3,2,1},
+    each nTot=18,
+    each a_d={1.018e3, -5.406e-1, -2.666e-3, 1.347e-5, 7.604e-1, -9.450e-3, 5.541e-5, -1.343e-7, -2.498e-3, 2.700e-5, -4.018e-7, 3.376e-9, -1.550e-4, 2.829e-6, -7.175e-9, -1.131e-6, -2.221e-8, 2.342e-8},
+    each a_eta={6.837e-1, -3.045e-2, 2.525e-4, -1.399e-6, 3.328e-2, -3.984e-4, 4.332e-6, -1.860e-8, 5.453e-5, -8.600e-8, -1.593e-8, -4.465e-11, -3.900e-6, 1.054e-7, -1.589e-9, -1.587e-8, 4.475e-10, 3.564e-9},
+    each a_Tf={-1.325e1, -3.820e-5, 7.865e-7, -1.733e-9, -6.631e-1, 6.774e-6, -6.242e-8, -7.819e-10, -1.094e-2, 5.332e-8, -4.169e-9, 3.288e-11, -2.283e-4, -1.131e-8, 1.918e-10, -3.409e-6, 8.035e-11, 1.465e-8},
+    each a_cp={3.882e3, 2.699e0, -1.659e-3, -1.032e-5, -1.304e1, 5.070e-2, -4.752e-5, 1.522e-6, -1.598e-1, 9.534e-5, 1.167e-5, -4.870e-8, 3.539e-4, 3.102e-5, -2.950e-7, 5.000e-5, -7.135e-7, -4.959e-7},
+    each a_lambda={4.513e-1, 7.955e-4, 3.482e-8, -5.966e-9, -4.795e-3, -1.678e-5, 8.941e-8, 1.493e-10, 2.076e-5, 1.563e-7, -4.615e-9, 9.897e-12, -9.083e-8, -2.518e-9, 6.543e-11, -5.952e-10, -3.605e-11, 2.104e-11});
+
   // Fluid constants based on pure Propylene Glycol
   constant Modelica.Media.Interfaces.Types.Basic.FluidConstants[1]
     simplePropyleneGlycolWaterConstants(
@@ -21,18 +35,19 @@ package PropyleneGlycolWater
     each iupacName="1,2-Propylene glycol",
     each molarMass=0.07609);
 
+
   extends Modelica.Media.Interfaces.PartialSimpleMedium(
     mediumName="SimplePropyleneGlycolWater",
-    final cp_const=IBPSA.Media.Antifreeze.PropyleneGlycolWater.BaseClasses.specificHeatCapacityCp(massFraction,property_T),
+    final cp_const=IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(massFraction*100,property_T,propertyCoefficients.wm*100,propertyCoefficients.Tm,propertyCoefficients.nw,propertyCoefficients.nT,propertyCoefficients.a_cp),
     final cv_const=cp_const,
-    final d_const=IBPSA.Media.Antifreeze.PropyleneGlycolWater.BaseClasses.density(massFraction,property_T),
-    final eta_const=IBPSA.Media.Antifreeze.PropyleneGlycolWater.BaseClasses.dynamicViscosity(massFraction,property_T),
-    final lambda_const=IBPSA.Media.Antifreeze.PropyleneGlycolWater.BaseClasses.thermalConductivity(massFraction,property_T),
+    final d_const=IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(massFraction*100,property_T,propertyCoefficients.wm*100,propertyCoefficients.Tm,propertyCoefficients.nw,propertyCoefficients.nT,propertyCoefficients.a_d),
+    final eta_const=1e-3*exp(IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(massFraction*100,property_T,propertyCoefficients.wm*100,propertyCoefficients.Tm,propertyCoefficients.nw,propertyCoefficients.nT,propertyCoefficients.a_eta)),
+    final lambda_const=IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(massFraction*100,property_T,propertyCoefficients.wm*100,propertyCoefficients.Tm,propertyCoefficients.nw,propertyCoefficients.nT,propertyCoefficients.a_lambda),
     a_const=1484,
-    final T_min=IBPSA.Media.Antifreeze.PropyleneGlycolWater.BaseClasses.fusionTemperature(massFraction,property_T),
+    final T_min=Modelica.SIunits.Conversions.from_degC(IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(massFraction*100,property_T,propertyCoefficients.wm*100,propertyCoefficients.Tm,propertyCoefficients.nw,propertyCoefficients.nT,propertyCoefficients.a_Tf)),
     final T_max=Modelica.SIunits.Conversions.from_degC(100),
     T0=273.15,
-    MM_const=(massFraction/0.07609+(1-massFraction)/0.018015268)^(-1),
+    MM_const=(massFraction/simplePropyleneGlycolWaterConstants.molarMass+(1-massFraction)/0.018015268)^(-1),
     fluidConstants=simplePropyleneGlycolWaterConstants,
     p_default=300000,
     reference_p=300000,
@@ -46,6 +61,7 @@ package PropyleneGlycolWater
     Temperature T(stateSelect=
       if preferredMediumStates then StateSelect.prefer else StateSelect.default)
       "Temperature of medium";
+
     InputAbsolutePressure p "Absolute pressure of medium";
     InputMassFraction[nXi] Xi=fill(0, 0)
       "Structurally independent mass fractions";
@@ -181,275 +197,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  package BaseClasses "Property evaluation functions for propylene glycol - water"
-  extends Modelica.Icons.BasesPackage;
-
-    function density "Evaluate density of propylene glycol - water"
-      extends Modelica.Icons.Function;
-
-      input Modelica.SIunits.MassFraction w "Mass fraction of propylene glycol";
-      input Modelica.SIunits.Temperature T "Temperature of propylene glycol - water";
-
-      output Modelica.SIunits.Density d "Density of propylene glycol - water";
-
-    protected
-      Modelica.SIunits.MassFraction wm=30.7031 "Reference mass fraction";
-      Modelica.SIunits.Temperature Tm=32.7089 "Reference temperature";
-      Integer nw=6 "Order of polynomial in x";
-      Integer nT[nw]={4,4,4,3,2,1} "Order of polynomial in y";
-      Real coeff[18]={1.018e3, -5.406e-1, -2.666e-3, 1.347e-5, 7.604e-1, -9.450e-3, 5.541e-5, -1.343e-7, -2.498e-3, 2.700e-5, -4.018e-7, 3.376e-9, -1.550e-4, 2.829e-6, -7.175e-9, -1.131e-6, -2.221e-8, 2.342e-8}
-        "Polynomial coefficients";
-
-    algorithm
-
-      d := IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(
-        w*100,
-        Modelica.SIunits.Conversions.to_degC(T),
-        wm,
-        Tm,
-        nw,
-        nT,
-        coeff);
-    annotation (
-    Documentation(info="<html>
-    <p>
-    Density of propylene glycol - water at specified mass fraction and temperature,
-    based on Melinder (2010).
-    </p>
-    <h4>References</h4>
-    <p>
-    Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
-    Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
-    IIR/IIF.
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    March 16, 2018 by Massimo Cimmino:<br/>
-    First implementation.
-    This function is used by
-    <a href=\"modelica://IBPSA.Media.Antifreeze.PropyleneGlycolWater\">
-    IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
-    </li>
-    </ul>
-    </html>"));
-    end density;
-
-    function dynamicViscosity
-      "Evaluate dynamic viscosity of propylene glycol - water"
-      extends Modelica.Icons.Function;
-
-      input Modelica.SIunits.MassFraction w "Mass fraction of propylene glycol";
-      input Modelica.SIunits.Temperature T "Temperature of propylene glycol - water";
-
-      output Modelica.SIunits.DynamicViscosity eta "Dynamic Viscosity of propylene glycol - water";
-
-    protected
-      Modelica.SIunits.MassFraction wm=30.7031 "Reference mass fraction";
-      Modelica.SIunits.Temperature Tm=32.7089 "Reference temperature";
-      Integer nw=6 "Order of polynomial in x";
-      Integer nT[nw]={4,4,4,3,2,1} "Order of polynomial in y";
-      Real coeff[18]={6.837e-1, -3.045e-2, 2.525e-4, -1.399e-6, 3.328e-2, -3.984e-4, 4.332e-6, -1.860e-8, 5.453e-5, -8.600e-8, -1.593e-8, -4.465e-11, -3.900e-6, 1.054e-7, -1.589e-9, -1.587e-8, 4.475e-10, 3.564e-9}
-        "Polynomial coefficients";
-
-    algorithm
-
-      eta := 1e-3*exp(IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(
-        w*100,
-        Modelica.SIunits.Conversions.to_degC(T),
-        wm,
-        Tm,
-        nw,
-        nT,
-        coeff));
-    annotation (
-    Documentation(info="<html>
-    <p>
-    Dynamic viscosity of propylene glycol - water at specified mass fraction and
-    temperature, based on Melinder (2010).
-    </p>
-    <h4>References</h4>
-    <p>
-    Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
-    Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
-    IIR/IIF.
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    March 16, 2018 by Massimo Cimmino:<br/>
-    First implementation.
-    This function is used by
-    <a href=\"modelica://IBPSA.Media.Antifreeze.PropyleneGlycolWater\">
-    IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
-    </li>
-    </ul>
-    </html>"));
-    end dynamicViscosity;
-
-    function fusionTemperature
-      "Evaluate temperature of fusion of propylene glycol - water"
-      extends Modelica.Icons.Function;
-
-      input Modelica.SIunits.MassFraction w "Mass fraction of propylene glycol";
-      input Modelica.SIunits.Temperature T "Temperature of propylene glycol - water";
-
-      output Modelica.SIunits.Temperature Tf "Temperature of fusion of propylene glycol - water";
-
-    protected
-      Modelica.SIunits.MassFraction wm=30.7031 "Reference mass fraction";
-      Modelica.SIunits.Temperature Tm=32.7089 "Reference temperature";
-      Integer nw=6 "Order of polynomial in x";
-      Integer nT[nw]={4,4,4,3,2,1} "Order of polynomial in y";
-      Real coeff[18]={-1.325e1, -3.820e-5, 7.865e-7, -1.733e-9, -6.631e-1, 6.774e-6, -6.242e-8, -7.819e-10, -1.094e-2, 5.332e-8, -4.169e-9, 3.288e-11, -2.283e-4, -1.131e-8, 1.918e-10, -3.409e-6, 8.035e-11, 1.465e-8}
-        "Polynomial coefficients";
-
-    algorithm
-
-      Tf := Modelica.SIunits.Conversions.from_degC(
-        IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(
-        w*100,
-        Modelica.SIunits.Conversions.to_degC(T),
-        wm,
-        Tm,
-        nw,
-        nT,
-        coeff));
-    annotation (
-    Documentation(info="<html>
-    <p>
-    fusion temperature of propylene glycol - water at specified mass fraction and
-    temperature, based on Melinder (2010).
-    </p>
-    <h4>References</h4>
-    <p>
-    Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
-    Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
-    IIR/IIF.
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    March 16, 2018 by Massimo Cimmino:<br/>
-    First implementation.
-    This function is used by
-    <a href=\"modelica://IBPSA.Media.Antifreeze.PropyleneGlycolWater\">
-    IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
-    </li>
-    </ul>
-    </html>"));
-    end fusionTemperature;
-
-    function specificHeatCapacityCp
-      "Evaluate specific heat capacity of propylene glycol - water"
-      extends Modelica.Icons.Function;
-
-      input Modelica.SIunits.MassFraction w "Mass fraction of propylene glycol";
-      input Modelica.SIunits.Temperature T "Temperature of propylene glycol - water";
-
-      output Modelica.SIunits.SpecificHeatCapacity cp "Specific heat capacity of propylene glycol - water";
-
-    protected
-      Modelica.SIunits.MassFraction wm=30.7031 "Reference mass fraction";
-      Modelica.SIunits.Temperature Tm=32.7089 "Reference temperature";
-      Integer nw=6 "Order of polynomial in x";
-      Integer nT[nw]={4,4,4,3,2,1} "Order of polynomial in y";
-      Real coeff[18]={3.882e3, 2.699e0, -1.659e-3, -1.032e-5, -1.304e1, 5.070e-2, -4.752e-5, 1.522e-6, -1.598e-1, 9.534e-5, 1.167e-5, -4.870e-8, 3.539e-4, 3.102e-5, -2.950e-7, 5.000e-5, -7.135e-7, -4.959e-7}
-        "Polynomial coefficients";
-
-    algorithm
-
-      cp := IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(
-        w*100,
-        Modelica.SIunits.Conversions.to_degC(T),
-        wm,
-        Tm,
-        nw,
-        nT,
-        coeff);
-    annotation (
-    Documentation(info="<html>
-    <p>
-    Specific heat capacity of propylene glycol - water at specified mass fraction
-    and temperature, based on Melinder (2010).
-    </p>
-    <h4>References</h4>
-    <p>
-    Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
-    Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
-    IIR/IIF.
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    March 16, 2018 by Massimo Cimmino:<br/>
-    First implementation.
-    This function is used by
-    <a href=\"modelica://IBPSA.Media.Antifreeze.PropyleneGlycolWater\">
-    IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
-    </li>
-    </ul>
-    </html>"));
-    end specificHeatCapacityCp;
-
-    function thermalConductivity
-      "Evaluate thermal conductivity of propylene glycol - water"
-      extends Modelica.Icons.Function;
-
-      input Modelica.SIunits.MassFraction w "Mass fraction of propylene glycol";
-      input Modelica.SIunits.Temperature T "Temperature of propylene glycol - water";
-
-      output Modelica.SIunits.ThermalConductivity lambda "Thermal conductivity of propylene glycol - water";
-
-    protected
-      Modelica.SIunits.MassFraction wm=30.7031 "Reference mass fraction";
-      Modelica.SIunits.Temperature Tm=32.7089 "Reference temperature";
-      Integer nw=6 "Order of polynomial in x";
-      Integer nT[nw]={4,4,4,3,2,1} "Order of polynomial in y";
-      Real coeff[18]={4.513e-1, 7.955e-4, 3.482e-8, -5.966e-9, -4.795e-3, -1.678e-5, 8.941e-8, 1.493e-10, 2.076e-5, 1.563e-7, -4.615e-9, 9.897e-12, -9.083e-8, -2.518e-9, 6.543e-11, -5.952e-10, -3.605e-11, 2.104e-11}
-        "Polynomial coefficients";
-
-    algorithm
-
-      lambda := IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(
-        w*100,
-        Modelica.SIunits.Conversions.to_degC(T),
-        wm,
-        Tm,
-        nw,
-        nT,
-        coeff);
-    annotation (
-    Documentation(info="<html>
-    <p>
-    Thermal conductivity of propylene glycol - water at specified mass fraction and
-    temperature, based on Melinder (2010).
-    </p>
-    <h4>References</h4>
-    <p>
-    Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
-    Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
-    IIR/IIF.
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    March 16, 2018 by Massimo Cimmino:<br/>
-    First implementation.
-    This function is used by
-    <a href=\"modelica://IBPSA.Media.Antifreeze.PropyleneGlycolWater\">
-    IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
-    </li>
-    </ul>
-    </html>"));
-    end thermalConductivity;
-
-    annotation (preferredView="info", Documentation(info="<html>
-  <p>
-  This package contains functions to evaluate the temperature- and
-  concentration-dependent themophysical properties of propylene glycol-water
-  mixtures.
-  </p>
-  </html>"));
-  end BaseClasses;
 end PropyleneGlycolWater;

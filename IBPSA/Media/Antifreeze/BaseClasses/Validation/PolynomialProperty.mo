@@ -26,11 +26,12 @@ protected
 equation
 
   T = T_min + convT*time;
-  d = IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(
+  d =
+    IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(
     w*100,
-    Modelica.SIunits.Conversions.to_degC(T),
+    T,
     wm*100,
-    Tm,
+    Modelica.SIunits.Conversions.from_degC(Tm),
     nw,
     nT,
     coeff);
@@ -51,5 +52,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end PolynomialProperty;
