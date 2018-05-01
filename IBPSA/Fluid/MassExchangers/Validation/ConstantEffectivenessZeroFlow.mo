@@ -17,7 +17,7 @@ This model tests whether
 <a href=\"modelica://IBPSA.Fluid.MassExchangers.ConstantEffectiveness\">ConstantEffectiveness</a>
 works correctly at zero flow.
 </p>
-</html>"), experiment(Tolerance=1e-06),
+</html>"), experiment(Tolerance=1e-06,StopTime=1),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MassExchangers/Validation/ConstantEffectivenessZeroFlow.mos"
         "Simulate and plot"));
