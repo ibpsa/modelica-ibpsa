@@ -81,10 +81,6 @@ partial model PartialSimInfoManager
     annotation(Dialog(tab="Linearisation"));
   parameter Real ppmCO2 = 400 "Default CO2 concentration in [ppm] when using air medium containing CO2"
     annotation(Dialog(tab="Advanced", group="CO2"));
-  parameter Real n50 = 0.4 "Default n50 value when using n50 zone infiltration computations"
-    annotation(Dialog(tab="Advanced", group="Air infiltration"));
-  parameter Real n50toAch=20 "Conversion fractor from n50 to Air Change Rate"
-   annotation(Dialog(tab="Advanced", group="Air infiltration"));
 
   Modelica.SIunits.Irradiance solDirPer
     "direct irradiation on normal to solar zenith";

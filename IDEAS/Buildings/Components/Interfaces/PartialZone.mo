@@ -17,13 +17,13 @@ model PartialZone "Building zone model"
     annotation(Dialog(group="Building physics"));
   parameter Modelica.SIunits.Area A = V/hZone "Total conditioned floor area"
     annotation(Dialog(group="Building physics"));
-  parameter Real n50(min=0.01)=sim.n50
+  parameter Real n50(min=0.01)= 0.4
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa"
     annotation(Dialog(group="Building physics"));
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Advanced", group="Air model"));
-  parameter Real n50toAch=sim.n50toAch "Conversion fractor from n50 to Air Change Rate"
+  parameter Real n50toAch=20 "Conversion fractor from n50 to Air Change Rate"
    annotation(Dialog(tab="Advanced", group="Air model"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsAir=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance for air model: dynamic (3 initialization options) or steady state";
