@@ -81,5 +81,12 @@ equation
 This is a single zone hydronic system model 
 for WP 1.2 of IBPSA project 1.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 2, 2018 by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end SingleZoneResidentialHydronic;
