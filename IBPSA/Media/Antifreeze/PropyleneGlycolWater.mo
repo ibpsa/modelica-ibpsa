@@ -44,7 +44,7 @@ package PropyleneGlycolWater
     final eta_const=polynomialDynamicViscosity(massFraction,property_T),
     final lambda_const=polynomialThermalConductivity(massFraction,property_T),
     a_const=1484,
-    final T_min=Modelica.SIunits.Conversions.from_degC(polynomialFusionTemperature(massFraction,property_T)),
+    final T_min=polynomialFusionTemperature(massFraction,property_T),
     final T_max=Modelica.SIunits.Conversions.from_degC(100),
     T0=273.15,
     MM_const=(massFraction/simplePropyleneGlycolWaterConstants.molarMass+(1-massFraction)/0.018015268)^(-1),
