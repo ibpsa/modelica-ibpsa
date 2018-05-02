@@ -97,7 +97,8 @@ public
       n50=n50,
       n50toAch=n50toAch)
       "Interzonal air flow model"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})),
+    annotation (Dialog(tab="Advanced", group="Air model"),
+      Placement(transformation(extent={{-40,60},{-20,80}})),
     choicesAllMatching=true,
     Dialog(group="Building physics"));
   replaceable IDEAS.Buildings.Components.Occupants.Fixed occNum
