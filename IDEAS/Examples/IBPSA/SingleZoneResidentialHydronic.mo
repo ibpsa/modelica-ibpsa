@@ -4,6 +4,7 @@ model SingleZoneResidentialHydronic
   extends Modelica.Icons.Example;
   package Medium = IDEAS.Media.Water;
   Buildings.Validation.Cases.Case900Template case900Template
+    "Case 900 BESTEST model"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   inner BoundaryConditions.SimInfoManager       sim
     "Simulation information manager for climate data"
@@ -13,13 +14,14 @@ model SingleZoneResidentialHydronic
     T_a_nominal=273.15 + 70,
     T_b_nominal=273.15 + 50,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    Q_flow_nominal=2000)     annotation (Placement(transformation(
+    Q_flow_nominal=2000) "Radiator"
+                             annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-30,10})));
   Fluid.HeatExchangers.Heater_T hea(redeclare package Medium = Medium,
       m_flow_nominal=pump.m_flow_nominal,
-    dp_nominal=0)
+    dp_nominal=0) "Ideal heater"
     annotation (Placement(transformation(extent={{20,20},{0,40}})));
   Fluid.Movers.FlowControlled_m_flow pump(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -31,6 +33,7 @@ model SingleZoneResidentialHydronic
     m_flow_nominal=rad.m_flow_nominal) "Hydronic pump"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Modelica.Blocks.Math.BooleanToInteger booToInt(integerTrue=1, integerFalse=2)
+    "Boolean to integer conversion"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Modelica.Blocks.Logical.Hysteresis hys(uLow=21, uHigh=23)
     "Hysteresis controller"
@@ -42,6 +45,7 @@ model SingleZoneResidentialHydronic
     annotation (Placement(transformation(extent={{68,20},{48,40}})));
 
   Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = Medium)
+    "Absolute pressure boundary"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
   connect(rad.heatPortCon, case900Template.gainCon) annotation (Line(points={{-37.2,
