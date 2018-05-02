@@ -7,3 +7,5 @@ WallUnitTest
 BeamRadiationOnFloor
 ZoneStatic
 ZoneDynamic
+NumberOccupants
+BaseClasses

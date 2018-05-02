@@ -57,6 +57,9 @@ model PartialZone "Building zone model"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange", enable=linIntRad));
   parameter Boolean simVieFac=false "Simplify view factor computation"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange"));
+  parameter Boolean useOccNumInput = occNum.useInput
+    "=false, to remove icon of nOcc"
+    annotation(Dialog(tab="Advanced",group="Occupants"));
 protected
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurf] propsBusInt(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
@@ -92,38 +95,51 @@ public
     choicesAllMatching=true,
     Dialog(group="Building physics"));
 
-  replaceable parameter OccupancyType.PartialOccupancyType occTyp
-    constrainedby OccupancyType.PartialOccupancyType
+  replaceable IDEAS.Buildings.Components.Occupants.Fixed occNum
+    constrainedby Occupants.BaseClasses.PartialOccupants
+    "Number of occupants that are present" annotation (
+    choicesAllMatching=true,
+    Dialog(group="Occupants (optional)"),
+    Placement(transformation(extent={{80,22},{60,42}})));
+
+  replaceable parameter IDEAS.Buildings.Components.OccupancyType.OfficeWork occTyp
+    constrainedby
+    IDEAS.Buildings.Components.OccupancyType.BaseClasses.PartialOccupancyType
     "Occupancy type, only used for evaluating occupancy model and comfort model"
     annotation (
     choicesAllMatching=true,
-    Dialog(group="Occupants"),
+    Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{80,82},{100,102}})));
-  replaceable InternalGains.None intGai(occupancyType=occTyp) constrainedby
-    InternalGains.BaseClasses.PartialOccupancyGains(redeclare final package
-      Medium = Medium) "Internal gains model" annotation (
+  replaceable Comfort.None comfort
+    constrainedby Comfort.BaseClasses.PartialComfort(occupancyType=occTyp) "Comfort model" annotation (
     choicesAllMatching=true,
-    Dialog(group="Occupants"),
-    Placement(transformation(extent={{60,22},{40,42}})));
-  replaceable Comfort.None comfort(occupancyType=occTyp) constrainedby
-    Comfort.BaseClasses.PartialComfort "Comfort model" annotation (
+    Dialog(group="Occupants (optional)"),
+    Placement(transformation(extent={{20,-20},{40,0}})));
+  replaceable IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwGainDistribution
+    radDistr(nSurf=nSurf, lineariseJModelica=sim.lineariseJModelica)
+                          "Distribution of radiative internal gains"
+    annotation (choicesAllMatching=true,Dialog(tab="Advanced",group="Building physics"),Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=-90,
+        origin={-50,-50})));
+  replaceable IDEAS.Buildings.Components.InternalGains.Simple intGai
+    constrainedby
+    IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialOccupancyGains(
+    occupancyType=occTyp,
+    redeclare final package Medium = Medium) "Internal gains model" annotation (
     choicesAllMatching=true,
-    Dialog(group="Occupants"),
-    Placement(transformation(extent={{40,-20},{60,0}})));
+    Dialog(tab="Advanced",group="Occupants"),
+    Placement(transformation(extent={{40,22},{20,42}})));
+
   Modelica.SIunits.Power QTra_design=sum(propsBusInt.QTra_design)
     "Total design transmission heat losses for the zone";
   Modelica.Blocks.Interfaces.RealOutput TAir(unit="K") = airModel.TAir;
   Modelica.Blocks.Interfaces.RealOutput TRad(unit="K") = radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
+  Modelica.Blocks.Interfaces.RealInput nOcc if useOccNumInput
+    "Number of occupants (optional, see occNum)"
+    annotation (Placement(transformation(extent={{128,12},{88,52}})));
 
-public
-  replaceable
-  IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwGainDistribution
-    radDistr(nSurf=nSurf) "distribution of radiative internal gains"
-    annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=-90,
-        origin={-50,-50})));
 protected
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
     radDistrLw(nSurf=nSurf, final linearise=linIntRad or sim.linearise,
@@ -139,7 +155,6 @@ protected
          then {0.5,0.5} else {1,0})                "Operative temperature"
     annotation (Placement(transformation(extent={{24,4},{36,16}})));
 
-public
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistributionViewFactor
     zoneLwDistributionViewFactor(
       nSurf=nSurf,
@@ -151,10 +166,6 @@ public
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-30,-10})));
-  Modelica.Blocks.Interfaces.RealInput nOcc if intGai.requireInput
-    "Number of occupants"
-    annotation (Placement(transformation(extent={{128,12},{88,52}})));
-
 
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
@@ -282,8 +293,8 @@ end for;
           {-26,74},{-26,88},{20,88},{20,100}}, color={0,127,255}));
   connect(airModel.ports_air[1], gainCon) annotation (Line(points={{-20,30},{2,30},
           {2,-30},{100,-30}}, color={191,0,0}));
-  connect(airModel.TAir, add.u[2]) annotation (Line(points={{-19.2,24},{-6,24},{
-          -6,10.6},{22.8,10.6}},
+  connect(airModel.TAir, add.u[2]) annotation (Line(points={{-19.2,24},{-10,24},
+          {-10,10.6},{22.8,10.6}},
                                color={0,0,127}));
   connect(radDistr.azi[1:nSurf], propsBusInt[1:nSurf].azi) annotation (Line(
         points={{-60,-42},{-70,-42},{-80,-42},{-80,39.9},{-80.1,39.9}}, color={
@@ -297,22 +308,24 @@ end for;
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(intGai.portCon, airModel.ports_air[1]) annotation (Line(points={{40,30},
-          {40,30},{30,30},{-20,30}}, color={191,0,0}));
-  connect(intGai.portRad, radDistr.radGain) annotation (Line(points={{40,26},{4,
+  connect(intGai.portCon, airModel.ports_air[1]) annotation (Line(points={{20,30},
+          {-20,30}},                 color={191,0,0}));
+  connect(intGai.portRad, radDistr.radGain) annotation (Line(points={{20,26},{4,
           26},{4,-60},{-46.2,-60}}, color={191,0,0}));
-  connect(intGai.nOcc, nOcc)
-    annotation (Line(points={{61,32},{61,32},{108,32}}, color={0,0,127}));
-  connect(intGai.mWat_flow, airModel.mWat_flow) annotation (Line(points={{39.4,38},
-          {39.4,38},{-19.2,38}}, color={0,0,127}));
+  connect(intGai.mWat_flow, airModel.mWat_flow) annotation (Line(points={{19.4,38},
+          {-19.2,38}},           color={0,0,127}));
   connect(intGai.C_flow, airModel.C_flow)
-    annotation (Line(points={{39.4,34},{-19.2,34}}, color={0,0,127}));
-  connect(comfort.TAir, airModel.TAir) annotation (Line(points={{39,0},{-10,0},{
+    annotation (Line(points={{19.4,34},{-19.2,34}}, color={0,0,127}));
+  connect(comfort.TAir, airModel.TAir) annotation (Line(points={{19,0},{-10,0},{
           -10,24},{-19.2,24}}, color={0,0,127}));
-  connect(comfort.TRad, radDistr.TRad) annotation (Line(points={{39,-4},{-6,-4},
+  connect(comfort.TRad, radDistr.TRad) annotation (Line(points={{19,-4},{-6,-4},
           {-6,-50},{-40,-50}}, color={0,0,127}));
-  connect(comfort.phi, airModel.phi) annotation (Line(points={{39,-8},{-12,-8},{
+  connect(comfort.phi, airModel.phi) annotation (Line(points={{19,-8},{-12,-8},{
           -12,26},{-19.2,26}}, color={0,0,127}));
+  connect(occNum.nOcc, intGai.nOcc)
+    annotation (Line(points={{58,32},{41,32}}, color={0,0,127}));
+  connect(nOcc, occNum.nOccIn)
+    annotation (Line(points={{108,32},{82,32}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
@@ -320,6 +333,17 @@ end for;
 <p>See extending models.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 28, 2018 by Filip Jorissen:<br/>
+Added option for introducing state for
+radiative temperature.
+</li>
+<li>
+July 26, 2018 by Filip Jorissen:<br/>
+Added replaceable block that allows to define
+the number of occupants.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
+</li>
 <li>
 March 21, 2017, by Filip Jorissen:<br/>
 Changed linearisation and conservation of energy implementations for JModelica compatibility.
