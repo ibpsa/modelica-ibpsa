@@ -38,13 +38,13 @@ package PropyleneGlycolWater
 
   extends Modelica.Media.Interfaces.PartialSimpleMedium(
     mediumName="SimplePropyleneGlycolWater",
-    final cp_const=IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(massFraction*100,property_T,propertyCoefficients.wm*100,propertyCoefficients.Tm,propertyCoefficients.nw,propertyCoefficients.nT,propertyCoefficients.a_cp),
+    final cp_const=polynomialSpecificHeatCapacityCp(massFraction,property_T),
     final cv_const=cp_const,
-    final d_const=IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(massFraction*100,property_T,propertyCoefficients.wm*100,propertyCoefficients.Tm,propertyCoefficients.nw,propertyCoefficients.nT,propertyCoefficients.a_d),
-    final eta_const=1e-3*exp(IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(massFraction*100,property_T,propertyCoefficients.wm*100,propertyCoefficients.Tm,propertyCoefficients.nw,propertyCoefficients.nT,propertyCoefficients.a_eta)),
-    final lambda_const=IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(massFraction*100,property_T,propertyCoefficients.wm*100,propertyCoefficients.Tm,propertyCoefficients.nw,propertyCoefficients.nT,propertyCoefficients.a_lambda),
+    final d_const=polynomialDensity(massFraction,property_T),
+    final eta_const=polynomialDynamicViscosity(massFraction,property_T),
+    final lambda_const=polynomialThermalConductivity(massFraction,property_T),
     a_const=1484,
-    final T_min=Modelica.SIunits.Conversions.from_degC(IBPSA.Media.Antifreeze.BaseClasses.polynomialProperty(massFraction*100,property_T,propertyCoefficients.wm*100,propertyCoefficients.Tm,propertyCoefficients.nw,propertyCoefficients.nT,propertyCoefficients.a_Tf)),
+    final T_min=Modelica.SIunits.Conversions.from_degC(polynomialFusionTemperature(massFraction,property_T)),
     final T_max=Modelica.SIunits.Conversions.from_degC(100),
     T0=273.15,
     MM_const=(massFraction/simplePropyleneGlycolWaterConstants.molarMass+(1-massFraction)/0.018015268)^(-1),
@@ -129,6 +129,299 @@ required from medium model \"" + mediumName + "\".
 </html>"));
   end BaseProperties;
 
+  function polynomialDensity "Evaluate density of antifreeze-water mixture"
+        extends Modelica.Icons.Function;
+
+        input Modelica.SIunits.MassFraction w "Mass fraction of antifreeze";
+        input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
+
+        output Modelica.SIunits.Density d "Density of antifreeze-water mixture";
+
+  algorithm
+
+        d := polynomialProperty(w*100,
+                                T,
+                                propertyCoefficients.wm*100,
+                                propertyCoefficients.Tm,
+                                propertyCoefficients.nw,
+                                propertyCoefficients.nT,
+                                propertyCoefficients.a_d)
+      annotation (
+      Documentation(info="<html>
+    <p>
+    Density of propylene antifreeze-water mixture at specified mass fraction
+    and temperature, based on Melinder (2010).
+    </p>
+    <h4>References</h4>
+    <p>
+    Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
+    Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
+    IIR/IIF.
+    </p>
+    </html>",   revisions="<html>
+    <ul>
+    <li>
+    May 2, 2018 by Massimo Cimmino:<br/>
+    First implementation.
+    This function is used by
+    <a href=\"modelica://IBPSA.Media.Antifreeze.PropyleneGlycolWater\">
+    IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
+    </li>
+    </ul>
+    </html>"));
+
+  end polynomialDensity;
+
+  function polynomialDynamicViscosity
+        "Evaluate dynamic viscosity of antifreeze-water mixture"
+        extends Modelica.Icons.Function;
+
+        input Modelica.SIunits.MassFraction w "Mass fraction of antifreeze";
+        input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
+
+        output Modelica.SIunits.DynamicViscosity eta "Dynamic Viscosity of antifreeze-water mixture";
+
+  algorithm
+
+        eta := 1e-3*exp(polynomialProperty(
+          w*100,
+          T,
+          propertyCoefficients.wm*100,
+          propertyCoefficients.Tm,
+          propertyCoefficients.nw,
+          propertyCoefficients.nT,
+          propertyCoefficients.a_eta));
+
+      annotation (
+      Documentation(info="<html>
+    <p>
+    Dynamic viscosity of antifreeze-water mixture at specified mass fraction and
+    temperature, based on Melinder (2010).
+    </p>
+    <h4>References</h4>
+    <p>
+    Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
+    Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
+    IIR/IIF.
+    </p>
+    </html>",   revisions="<html>
+    <ul>
+    <li>
+    May 2, 2018 by Massimo Cimmino:<br/>
+    First implementation.
+    This function is used by
+    <a href=\"modelica://IBPSA.Media.Antifreeze.PropyleneGlycolWater\">
+    IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
+    </li>
+    </ul>
+    </html>"));
+  end polynomialDynamicViscosity;
+
+  function polynomialFusionTemperature
+        "Evaluate temperature of fusion of antifreeze-water mixture"
+        extends Modelica.Icons.Function;
+
+        input Modelica.SIunits.MassFraction w "Mass fraction of antifreeze";
+        input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
+
+        output Modelica.SIunits.Temperature Tf "Temperature of fusion of antifreeze-water mixture";
+
+  algorithm
+
+        Tf := Modelica.SIunits.Conversions.from_degC(polynomialProperty(
+          w*100,
+          T,
+          propertyCoefficients.wm*100,
+          propertyCoefficients.Tm,
+          propertyCoefficients.nw,
+          propertyCoefficients.nT,
+          propertyCoefficients.a_Tf));
+
+      annotation (
+      Documentation(info="<html>
+    <p>
+    Fusion temperature of antifreeze-water mixture at specified mass fraction and
+    temperature, based on Melinder (2010).
+    </p>
+    <h4>References</h4>
+    <p>
+    Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
+    Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
+    IIR/IIF.
+    </p>
+    </html>",   revisions="<html>
+    <ul>
+    <li>
+    May 2, 2018 by Massimo Cimmino:<br/>
+    First implementation.
+    This function is used by
+    <a href=\"modelica://IBPSA.Media.Antifreeze.PropyleneGlycolWater\">
+    IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
+    </li>
+    </ul>
+    </html>"));
+  end polynomialFusionTemperature;
+
+  function polynomialProperty
+    "Evaluates thermophysical property from 2-variable polynomial"
+    extends Modelica.Icons.Function;
+
+    input Real x "First independent variable";
+    input Real y "Second independent variable";
+    input Real xm "Reference value of x";
+    input Real ym "Reference value of y";
+    input Integer nx "Order of polynomial in x";
+    input Integer ny[nx] "Order of polynomial in y";
+    input Real a[sum(ny)] "Polynomial coefficients";
+
+    output Real f "Value of thermophysical property";
+
+  protected
+    Real dx;
+    Real dy;
+    Integer n;
+
+  algorithm
+
+    dx := x - xm;
+    dy := y - ym;
+
+    f := 0;
+    n := 0;
+    for i in 0:nx-1 loop
+      for j in 0:ny[i+1]-1 loop
+        n := n + 1;
+        f := f + a[n]*dx^i*dy^j;
+      end for;
+    end for;
+  annotation (
+  Documentation(info="<html>
+<p>
+Evaluates a thermophysical property of a mixture, based on correlations proposed
+by Melinder (2010).
+</p>
+<p>
+The polynomial has the form
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+f = a<sub>1</sub> (x-xm)<sup>0</sup>(y-ym)<sup>0</sup>
++ a<sub>2</sub> (x-xm)<sup>0</sup>(y-ym)<sup>1</sup>
++ ... +
+a<sub>ny[1]</sub> (x-xm)<sup>0</sup>(y-ym)<sup>ny[1]-1</sup>
++ ... +
+a<sub>ny[1])+1</sub> (x-xm)<sup>1</sup>(y-ym)<sup>0</sup>
++ ... +
+a<sub>ny[1]+ny[2]</sub> (x-xm)<sup>1</sup>(y-ym)<sup>ny[2]-1</sup>
++ ...
+</p>
+<h4>References</h4>
+<p>
+Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
+Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
+IIR/IIF.
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+March 16, 2018 by Massimo Cimmino:<br/>
+First implementation.
+This function is used models in
+<a href=\"modelica://IBPSA.Media.Antifreeze\">
+IBPSA.Media.Antifreeze</a>.
+</li>
+</ul>
+</html>"));
+  end polynomialProperty;
+
+  function polynomialSpecificHeatCapacityCp
+        "Evaluate specific heat capacity of antifreeze-water mixture"
+        extends Modelica.Icons.Function;
+
+        input Modelica.SIunits.MassFraction w "Mass fraction of antifreeze";
+        input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
+
+        output Modelica.SIunits.SpecificHeatCapacity cp "Specific heat capacity of antifreeze-water mixture";
+
+  algorithm
+
+        cp := polynomialProperty(
+          w*100,
+          T,
+          propertyCoefficients.wm*100,
+          propertyCoefficients.Tm,
+          propertyCoefficients.nw,
+          propertyCoefficients.nT,
+          propertyCoefficients.a_cp);
+
+      annotation (
+      Documentation(info="<html>
+    <p>
+    Specific heat capacity of antifreeze-water mixture at specified mass fraction
+    and temperature, based on Melinder (2010).
+    </p>
+    <h4>References</h4>
+    <p>
+    Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
+    Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
+    IIR/IIF.
+    </p>
+    </html>",   revisions="<html>
+    <ul>
+    <li>
+    March 16, 2018 by Massimo Cimmino:<br/>
+    First implementation.
+    This function is used by
+    <a href=\"modelica://IBPSA.Media.Antifreeze.PropyleneGlycolWater\">
+    IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
+    </li>
+    </ul>
+    </html>"));
+  end polynomialSpecificHeatCapacityCp;
+
+  function polynomialThermalConductivity
+        "Evaluate thermal conductivity of antifreeze-water mixture"
+        extends Modelica.Icons.Function;
+
+        input Modelica.SIunits.MassFraction w "Mass fraction of antifreeze";
+        input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
+
+        output Modelica.SIunits.ThermalConductivity lambda "Thermal conductivity of antifreeze-water mixture";
+
+  algorithm
+
+        lambda := polynomialProperty(
+          w*100,
+          T,
+          propertyCoefficients.wm*100,
+          propertyCoefficients.Tm,
+          propertyCoefficients.nw,
+          propertyCoefficients.nT,
+          propertyCoefficients.a_lambda);
+
+      annotation (
+      Documentation(info="<html>
+    <p>
+    Thermal conductivity of antifreeze-water mixture at specified mass fraction and
+    temperature, based on Melinder (2010).
+    </p>
+    <h4>References</h4>
+    <p>
+    Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
+    Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
+    IIR/IIF.
+    </p>
+    </html>",   revisions="<html>
+    <ul>
+    <li>
+    March 16, 2018 by Massimo Cimmino:<br/>
+    First implementation.
+    This function is used by
+    <a href=\"modelica://IBPSA.Media.Antifreeze.PropyleneGlycolWater\">
+    IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
+    </li>
+    </ul>
+    </html>"));
+  end polynomialThermalConductivity;
 annotation(preferredView="info", Documentation(info="<html>
 <p>
 This medium package models propylene glycol - water mixtures.
