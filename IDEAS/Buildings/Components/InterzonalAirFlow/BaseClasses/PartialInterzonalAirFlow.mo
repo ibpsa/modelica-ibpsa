@@ -7,6 +7,10 @@ partial model PartialInterzonalAirFlow "Partial for interzonal air flow"
   parameter Real n50toAch = 20
     "Conversion fractor from n50 to Air Change Rate"
     annotation(Dialog(tab="Advanced"));
+  // = true to enable check in zone that verifies whether both FluidPorts
+  //  or none of the are connected, to avoid incorrect use.
+  parameter Boolean verifyBothPortsConnected = false
+    "=true, to verify fluid port connections";
   Modelica.Fluid.Interfaces.FluidPort_b port_b_interior(
     redeclare package Medium = Medium)
     "Port a connection to zone air model ports"

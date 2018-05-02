@@ -177,6 +177,14 @@ initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 
 equation
+  if interzonalAirFlow.verifyBothPortsConnected then
+    assert(cardinality(port_a)>1 and cardinality(port_b)>1 or cardinality(port_a) == 1 and cardinality(port_b) == 1,
+      "WARNING: Only one of the FluidPorts of " + getInstanceName() + " is 
+      connected and an 'open' interzonalAirFlow model is used, 
+      which means that all injected/extracted air will flow
+      through the zone to/from the surroundings, at ambient temperature. 
+      This may be unintended.", AssertionLevel.warning);
+  end if;
   for i in 1:nSurf loop
     connect(sim.weaBus, propsBusInt[i].weaBus) annotation (Line(
         points={{-84,92.8},{-84,92},{-80,92},{-80,66},{-80.1,66},{-80.1,39.9}},
