@@ -20,7 +20,5 @@ type ShadingType = enumeration(
           "Horizontal fins",
     OverhangAndHorizontalFins
           "Overhang and horizontal fins",
-    ShadingControl
-          "Shading control",
     Shading
           "Shading");
