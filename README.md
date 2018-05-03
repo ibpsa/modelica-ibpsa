@@ -8,7 +8,7 @@ May 5th 2017: IDEAS v1.0.0 has been released.
 February 16th 2018: A [paper describing IDEAS v1.0.0](http://www.tandfonline.com/doi/full/10.1080/19401493.2018.1428361) has been published on line.
 
 ## Backward compatibility
-Quite some backward incompatible changes have been performed. However, a conversion script is provided that fixes most of these. The conversion script prompt should occur automatically if your model or package 'uses' IDEAS version 3.0 before updating. Make sure you have a backup (e.g. using git) before running the conversion script.
+Quite some backward incompatible changes have been performed. However, a conversion script is provided that fixes most of these. The conversion script prompt should occur automatically if your model or package 'uses' IDEAS version 0.3 before updating. Make sure you have a backup (e.g. using git) before running the conversion script.
 
 The insulationType and insulationThickness parameters were removed from the wall/surface models. The insulation types and thicknesses will therefore need to be integrated manually into the construction types that you use. If the insulationthickness is zero or you did not use 'insulationType' in your construction records, then both parameters can just be removed.
 
@@ -108,10 +108,11 @@ The **IDEAS** package is licensed by [KU Leuven](http://www.kuleuven.be) and [3E
 9. C. Protopapadaki, G. Reynders, D. Saelens (2014). Bottom-up modeling of the Belgian residential building stock: impact of building stock descriptions. In Proceedings of the 9th International Conference on System Simulation in Buildings. Liège.
 10. G. Reynders, J. Diriken, D. Saelens (2014). Bottom-up modeling of the Belgian residential building stock: impact of model complexity. In Proceedings of the 9th International Conference on System Simulation in Buildings. Liège.
 11. G. Reynders, J. Diriken, D. Saelens (2015). Impact of the heat emission system on the indentification of grey-box models for residential buildings. *Energy Procedia* **78**, 3300-3305, doi: 10.1016/j.egypro.2015.11.740.
-12. I. De Jaeger, G. Reynders, D. Saelens (2017). Impact of spacial accuracy on district energy simulations. *Energy Procedia* **132**, 561-566, doi: 10.1016/j.egypro.2017.09.741
+12. I. De Jaeger, G. Reynders, D. Saelens (2017). Impact of spacial accuracy on district energy simulations. *Energy Procedia* **132**, 561-566, doi: 10.1016/j.egypro.2017.09.741
 13. G. Reynders, R. Andriamamonjy, R. Klein, D. Saelens (2017). Towards an IFC-Modelica Tool Facilitating Model Complexity Selection for Building Energy Simulation. In Proceedings of the 15th Conference of the International Building Performance Simulation Association. California.
 14. G. Reynders, J. Diriken, D. Saelens (2017). Generic characterization method for energy flexibility: Applied to structural thermal storage in residential buildings. *Applied Energy* **198**, 192-202, doi: 10.1016/j.apenergy.2017.04.061
 15. F. Jorissen. (2018) Toolchain for optimal control and design of energy systems in buildings. PhD thesis, Arenberg Doctoral School, KU Leuven.
+16. 
 
 #### Bibtex entry for citing IDEAS
 @article{Jorissen2018ideas,  
