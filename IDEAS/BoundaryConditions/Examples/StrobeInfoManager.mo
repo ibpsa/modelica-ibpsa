@@ -1,8 +1,8 @@
 within IDEAS.BoundaryConditions.Examples;
-model SimInfoManager "Unit test for SimInfoManager"
+model StrobeInfoManager "Unit test for SimInfoManager"
   import IDEAS;
   extends Modelica.Icons.Example;
-  inner IDEAS.BoundaryConditions.SimInfoManager sim
+  inner IDEAS.BoundaryConditions.Occupants.Extern.StrobeInfoManager strobe
     annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
   annotation (
     experiment(StopTime=1e+06),
@@ -19,4 +19,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SimInfoManager;
+end StrobeInfoManager;
