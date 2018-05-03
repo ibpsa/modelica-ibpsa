@@ -19,7 +19,7 @@ model StrobeInfoManager_offset
   annotation (
     experiment(StopTime=1e+06),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/BoundaryConditions/Examples/StrobeInfoManager1.mos"
+          "Resources/Scripts/Dymola/BoundaryConditions/Examples/StrobeInfoManager_offset.mos"
         "Unit test 1"),
     Documentation(revisions="<html>
 <ul>
