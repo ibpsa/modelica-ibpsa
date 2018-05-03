@@ -85,6 +85,29 @@ protected
     finGap=shaPro.finGap,
     shaCorr=shaPro.shaCorr) if shaPro.shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.BoxAndScreen "Box and screen model"
         annotation (Placement(transformation(extent={{-16,-62},{-6,-42}})));
+
+  IDEAS.Buildings.Components.Shading.HorizontalFins horizontalFins(
+    s=shaPro.s,
+    w=shaPro.w,
+    t=shaPro.t,
+    use_betaInput=shaPro.use_betaInput) if shaPro.shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.HorizontalFins "Horizontal fins model"
+    annotation (Placement(transformation(extent={{-16,100},{-6,120}})));
+  IDEAS.Buildings.Components.Shading.OverhangAndHorizontalFins overhangAndHorizontalFins(
+    s=shaPro.s,
+    w=shaPro.w,
+    t=shaPro.t,
+    use_betaInput=shaPro.use_betaInput,
+    hWin=shaPro.hWin,
+    wWin=shaPro.wWin,
+    wLeft=shaPro.wLeft,
+    wRight=shaPro.wRight,
+    dep=shaPro.ovDep,
+    gap=shaPro.ovGap,
+    shaCorr=shaPro.shaCorr,
+    azi=azi) if
+    shaPro.shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndHorizontalFins
+    "Overhang and horizontal fins model"
+    annotation (Placement(transformation(extent={{-16,120},{-6,140}})));
 equation
   connect(screen.Ctrl, Ctrl) annotation (Line(
       points={{-11,0},{-10,0},{-10,-110}},
@@ -258,6 +281,50 @@ equation
     annotation (Line(points={{-6,-28},{40,-28},{40,10}}, color={0,0,127}));
   connect(boxAndScreen.HShaGroDifTil, HShaGroDifTil)
     annotation (Line(points={{-6,-50},{40,-50},{40,10}}, color={0,0,127}));
+  connect(horizontalFins.Ctrl, Ctrl) annotation (Line(points={{-11,100},{-10,100},
+          {-10,-110}}, color={0,0,127}, visible=false));
+  connect(horizontalFins.iAngInc, iAngInc)
+    annotation (Line(points={{-6,106},{40,106},{40,-50}}, color={0,0,127}));
+  connect(horizontalFins.HShaGroDifTil, HShaGroDifTil) annotation (Line(points={
+          {-6,112},{14,112},{40,112},{40,10}}, color={0,0,127}));
+  connect(horizontalFins.HShaSkyDifTil, HShaGroDifTil)
+    annotation (Line(points={{-6,114},{40,114},{40,10}}, color={0,0,127}));
+  connect(horizontalFins.HShaDirTil, HShaSkyDifTil) annotation (Line(points={{-6,
+          116},{16,116},{40,116},{40,30}}, color={0,0,127}));
+  connect(HDirTil, horizontalFins.HDirTil) annotation (Line(points={{-60,50},{-60,
+          50},{-60,116},{-16,116},{-16,116}}, color={0,0,127}));
+  connect(HSkyDifTil, horizontalFins.HSkyDifTil) annotation (Line(points={{-60,30},
+          {-60,30},{-60,114},{-16,114}}, color={0,0,127}));
+  connect(HGroDifTil, horizontalFins.HGroDifTil) annotation (Line(points={{-60,10},
+          {-60,10},{-60,112},{-16,112}}, color={0,0,127}));
+  connect(angInc, horizontalFins.angInc) annotation (Line(points={{-60,-50},{-60,
+          -50},{-60,106},{-16,106}}, color={0,0,127}));
+  connect(horizontalFins.angAzi, angAzi)
+    annotation (Line(points={{-16,102},{-60,102},{-60,-90}}, color={0,0,127}));
+  connect(horizontalFins.angZen, angZen)
+    annotation (Line(points={{-16,104},{-60,104},{-60,-70}}, color={0,0,127}));
+  connect(overhangAndHorizontalFins.Ctrl, Ctrl) annotation (Line(points={{-11,120},
+          {-10,120},{-10,-110},{-10,-110}}, color={0,0,127}, visible=false));
+  connect(overhangAndHorizontalFins.iAngInc, iAngInc)
+    annotation (Line(points={{-6,126},{40,126},{40,-50}}, color={0,0,127}));
+  connect(overhangAndHorizontalFins.HShaGroDifTil, HShaGroDifTil) annotation (
+      Line(points={{-6,132},{16,132},{40,132},{40,10}}, color={0,0,127}));
+  connect(overhangAndHorizontalFins.HShaSkyDifTil, HShaGroDifTil) annotation (
+      Line(points={{-6,134},{18,134},{40,134},{40,10}}, color={0,0,127}));
+  connect(overhangAndHorizontalFins.HShaDirTil, HShaSkyDifTil) annotation (Line(
+        points={{-6,136},{38,136},{38,136},{40,136},{40,30}}, color={0,0,127}));
+  connect(overhangAndHorizontalFins.angAzi, angAzi)
+    annotation (Line(points={{-16,122},{-60,122},{-60,-90}}, color={0,0,127}));
+  connect(overhangAndHorizontalFins.angInc, angInc) annotation (Line(points={{-16,
+          126},{-34,126},{-60,126},{-60,-50}}, color={0,0,127}));
+  connect(overhangAndHorizontalFins.HGroDifTil, HGroDifTil) annotation (Line(
+        points={{-16,132},{-40,132},{-60,132},{-60,10}}, color={0,0,127}));
+  connect(overhangAndHorizontalFins.HSkyDifTil, HSkyDifTil) annotation (Line(
+        points={{-16,134},{-36,134},{-60,134},{-60,30}}, color={0,0,127}));
+  connect(overhangAndHorizontalFins.HDirTil, HDirTil) annotation (Line(points={{
+          -16,136},{-38,136},{-60,136},{-60,50}}, color={0,0,127}));
+  connect(overhangAndHorizontalFins.angZen, angZen)
+    annotation (Line(points={{-16,124},{-60,124},{-60,-70}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -268,5 +335,7 @@ See <a href=\"https://github.com/open-ideas/IDEAS/issues/735\">
 #735</a>.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-100,-100},{100,140}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,140}})));
 end Shading;
