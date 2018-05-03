@@ -80,7 +80,8 @@ public
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal,
     n50=n50,
-    n50toAch=n50toAch)
+    n50toAch=n50toAch,
+    mSenFac=mSenFac)
   constrainedby
     IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(
     redeclare package Medium = Medium,
@@ -333,6 +334,11 @@ end for;
 <p>See extending models.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 29, 2018 by Filip Jorissen:<br/>
+Propagated <code>mSenFac</code> to <code>airModel</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/792\">#792</a>.
+</li>
 <li>
 March 28, 2018 by Filip Jorissen:<br/>
 Added option for introducing state for
