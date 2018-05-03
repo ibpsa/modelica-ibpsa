@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components.OccupancyType;
 record OfficeWork
   "Properties for typical office work."
-  extends PartialOccupancyType(
+  extends IDEAS.Buildings.Components.OccupancyType.BaseClasses.PartialOccupancyType(
     QlatPp=45,
     QsenPp=73,
     radFra=0.6,

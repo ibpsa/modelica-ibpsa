@@ -1,8 +1,10 @@
 Box
-BuildingShade
-Overhang
-OverhangAndScreen
 BoxAndScreen
+BuildingShade
+HorizontalFins
+Overhang
+OverhangAndHorizontalFins
+OverhangAndScreen
 Screen
 ShadingControl
 SideFins
