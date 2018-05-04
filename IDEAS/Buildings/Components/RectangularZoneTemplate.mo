@@ -1252,6 +1252,14 @@ assignment in the <code>airModel</code> submodel.
 This removes small time constants
 when the zone model is connected to an air flow circuit. 
 </p>
+<h4>Shading</h4>
+<p>
+In order to choose the shading of the glazing,
+instead of selecting one shading type from the
+dropdown menu, click on the <code>Edit</code> 
+button. A menu will appear where the type of 
+shading and its properties can be selected.
+</p>
 <h4>Validation</h4>
 <p>
 This implementation is compared with a manual implementation
@@ -1278,6 +1286,7 @@ components cannot be propagated.
 April 30, 2018 by Iago Cupeiro:<br/>
 Propagated boolean input connections for controlled shading.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/809\">#809</a>.
+Shading documentation added.
 </li>
 <li>
 July 26, 2017 by Filip Jorissen:<br/>

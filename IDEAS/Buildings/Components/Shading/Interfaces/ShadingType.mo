@@ -21,4 +21,11 @@ type ShadingType = enumeration(
     OverhangAndHorizontalFins
           "Overhang and horizontal fins",
     Shading
-          "Shading");
+          "Shading") annotation (Documentation(revisions="<html>
+<ul>
+<li>
+May 4 2018, by Iago Cupeiro:<br/>
+Extended with HorizontalFins and OverhangAndHorizontalFins models.
+</li>
+</ul>
+</html>"));
