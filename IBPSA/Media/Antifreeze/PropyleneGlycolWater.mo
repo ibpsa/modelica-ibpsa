@@ -129,7 +129,7 @@ required from medium model \"" + mediumName + "\".
 </html>"));
   end BaseProperties;
 
-  function polynomialDensity "Evaluate density of antifreeze-water mixture"
+  replaceable function polynomialDensity "Evaluate density of antifreeze-water mixture"
         extends Modelica.Icons.Function;
 
         input Modelica.SIunits.MassFraction w "Mass fraction of antifreeze";
@@ -172,7 +172,7 @@ required from medium model \"" + mediumName + "\".
 
   end polynomialDensity;
 
-  function polynomialDynamicViscosity
+  replaceable function polynomialDynamicViscosity
         "Evaluate dynamic viscosity of antifreeze-water mixture"
         extends Modelica.Icons.Function;
 
@@ -217,7 +217,7 @@ required from medium model \"" + mediumName + "\".
     </html>"));
   end polynomialDynamicViscosity;
 
-  function polynomialFusionTemperature
+  replaceable function polynomialFusionTemperature
         "Evaluate temperature of fusion of antifreeze-water mixture"
         extends Modelica.Icons.Function;
 
@@ -262,7 +262,7 @@ required from medium model \"" + mediumName + "\".
     </html>"));
   end polynomialFusionTemperature;
 
-  function polynomialProperty
+  replaceable function polynomialProperty
     "Evaluates thermophysical property from 2-variable polynomial"
     extends Modelica.Icons.Function;
 
@@ -333,7 +333,7 @@ IBPSA.Media.Antifreeze</a>.
 </html>"));
   end polynomialProperty;
 
-  function polynomialSpecificHeatCapacityCp
+  replaceable function polynomialSpecificHeatCapacityCp
         "Evaluate specific heat capacity of antifreeze-water mixture"
         extends Modelica.Icons.Function;
 
@@ -378,7 +378,7 @@ IBPSA.Media.Antifreeze</a>.
     </html>"));
   end polynomialSpecificHeatCapacityCp;
 
-  function polynomialThermalConductivity
+  replaceable function polynomialThermalConductivity
         "Evaluate thermal conductivity of antifreeze-water mixture"
         extends Modelica.Icons.Function;
 
