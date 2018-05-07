@@ -13,7 +13,7 @@ package PropyleneGlycolWater
     "Maximum allowed mass fraction of propylene glycol in water";
 
   // Coefficients for evaluation of physical properties
-  constant IBPSA.Media.Antifreeze.BaseClasses.PropertyCoefficients[1]
+  constant IBPSA.Media.Antifreeze.BaseClasses.PropertyCoefficients
     propertyCoefficients(
     each wm=0.307031,
     each Tm=Modelica.SIunits.Conversions.from_degC(32.7083),
