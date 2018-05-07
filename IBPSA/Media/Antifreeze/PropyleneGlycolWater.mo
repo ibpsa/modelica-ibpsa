@@ -3,9 +3,9 @@ package PropyleneGlycolWater
   "Package with model for propylene glycol - water with constant properties"
   extends Modelica.Icons.VariantsPackage;
 
-  constant Modelica.SIunits.Temperature property_T = 293.15
+  constant Modelica.SIunits.Temperature property_T
     "Temperature for evaluation of constant fluid properties";
-  constant Modelica.SIunits.MassFraction massFraction = 0.20
+  constant Modelica.SIunits.MassFraction massFraction
     "Mass fraction of propylene glycol in water";
   constant Modelica.SIunits.MassFraction massFraction_min=0.
     "Minimum allowed mass fraction of propylene glycol in water";
