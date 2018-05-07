@@ -47,7 +47,7 @@ package PropyleneGlycolWater
     final T_min=polynomialFusionTemperature(massFraction,property_T),
     final T_max=Modelica.SIunits.Conversions.from_degC(100),
     T0=273.15,
-    MM_const=(massFraction/simplePropyleneGlycolWaterConstants.molarMass+(1-massFraction)/0.018015268)^(-1),
+    MM_const=(massFraction/simplePropyleneGlycolWaterConstants[1].molarMass+(1-massFraction)/0.018015268)^(-1),
     fluidConstants=simplePropyleneGlycolWaterConstants,
     p_default=300000,
     reference_p=300000,
