@@ -1,8 +1,0 @@
-simulateModel("IBPSA.Media.Antifreeze.BaseClasses.Validation.PolynomialProperty", startTime=0, stopTime=1, tolerance=1E-6, method="dassl", resultFile="MediaAntifreezeBaseClassesValidationPolynomialProperty");
-
-createPlot(
-  id   = 1,
-  x    = "T",
-  y    = {"d"},
-  grid = true
-)

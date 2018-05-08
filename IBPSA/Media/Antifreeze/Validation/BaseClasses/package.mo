@@ -36,11 +36,11 @@ protected
     T = T_min + convT*time;
     T_degC = Modelica.SIunits.Conversions.to_degC(T);
     for i in 1:n loop
-      Tf[i] = Medium.BaseClasses.fusionTemperature(w[i],reference_T);
-      d[i] = if T >= Tf[i] then Medium.BaseClasses.density(w[i],T) else 0.;
-      cp[i] = if T >= Tf[i] then Medium.BaseClasses.specificHeatCapacityCp(w[i],T) else 0.;
-      lambda[i] = if T >= Tf[i] then Medium.BaseClasses.thermalConductivity(w[i],T) else 0.;
-      eta[i] = if T >= Tf[i] then Medium.BaseClasses.dynamicViscosity(w[i],T) else 0.;
+      Tf[i] = Medium.polynomialFusionTemperature(w[i],T);
+      d[i] = if T >= Tf[i] then Medium.polynomialDensity(w[i],T) else 0.;
+      cp[i] = if T >= Tf[i] then Medium.polynomialSpecificHeatCapacityCp(w[i],T) else 0.;
+      lambda[i] = if T >= Tf[i] then Medium.polynomialThermalConductivity(w[i],T) else 0.;
+      eta[i] = if T >= Tf[i] then Medium.polynomialDynamicViscosity(w[i],T) else 0.;
     end for;
 
      annotation (
