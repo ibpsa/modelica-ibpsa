@@ -65,7 +65,7 @@ The following people have contributed to the <code>IDEAS</code> code.
 <a href=https://be.linkedin.com/in/filip-jorissen-19a26437>Filip Jorissen</a>
 </li>
 <li>
-Damien Picard
+<a href=https://be.linkedin.com/in/damien-picard-5ab507139>Damien Picard</a>
 </li>
 <li>
 <a href=https://be.linkedin.com/in/glennreynders>Glenn Reynders</a>

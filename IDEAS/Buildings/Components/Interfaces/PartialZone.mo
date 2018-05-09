@@ -81,6 +81,7 @@ public
   constrainedby
     IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(
     redeclare package Medium = Medium,
+    mSenFac=mSenFac,
     nSurf=nSurf,
     Vtot=V,
     final T_start=T_start,
@@ -358,6 +359,11 @@ end for;
 April 27, 2018 by Filip Jorissen:<br/>
 Modified interfaces for supporting new interzonal air flow models.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
+</li>
+<li>
+March 29, 2018 by Filip Jorissen:<br/>
+Propagated <code>mSenFac</code> to <code>airModel</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/792\">#792</a>.
 </li>
 <li>
 March 28, 2018 by Filip Jorissen:<br/>
