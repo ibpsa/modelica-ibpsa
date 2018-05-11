@@ -1,20 +1,19 @@
-within IBPSA.Utilities.IO;
-model CsvWriter "Model for writing results to a .csv file"
+within IBPSA.Utilities.IO.Reports;
+model CSVWriter "Model for writing results to a .csv file"
   extends Modelica.Blocks.Icons.Block;
-  parameter Integer nIn "Number of inputs";
-  parameter String fileName = "result.csv" "File name, including extension";
+  parameter Integer nin "Number of inputs";
+  parameter String fileName = getInstanceName() + ".csv" "File name, including extension";
   parameter String delimiter = "\t" "Delimiter for csv file"
     annotation(Dialog(group="Options"));
-  parameter Real sampleTime "Sample interval";
+  parameter Modelica.SIunits.Time samplePeriod "Sample interval";
   parameter Boolean writeHeader = true
     "=true, to specify header names, otherwise no header"
     annotation(Dialog(group="Options"));
-  parameter String[nIn] headerNames = {"col"+String(i) for i in 1:nIn}
+  parameter String[nin] headerNames = {"col"+String(i) for i in 1:nin}
     "Header names, indices by default"
     annotation(Dialog(enable=writeHeader, group="Options"));
-
-   Modelica.Blocks.Interfaces.RealInput[nIn] u "Variables that will be saved"
-     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+   Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that will be saved"
+     annotation (Placement(transformation(extent={{-130,-20},{-90,20}})));
 
     function createFile
     "Create empty file"
@@ -24,39 +23,37 @@ model CsvWriter "Model for writing results to a .csv file"
         annotation (Include="#include <FileWriter.c>", IncludeDirectory="modelica://IBPSA/Resources/C-sources");
     end createFile;
 
-    function appendString
-    "Append string to existing file"
-      extends Modelica.Icons.Function;
-      input String fileName "Name of the file, including extension";
-      input String string "String that is appended";
-      input Real tim "Time";
-      output Real y "Dummy return value for ensuring that function is evaluated";
-      external"C" y = appendString(fileName, string, tim)
-        annotation (Include="#include <FileWriter.h>", IncludeDirectory="modelica://IBPSA/Resources/C-sources");
-    end appendString;
-
 protected
+  parameter Modelica.SIunits.Time t0(fixed=false)
+    "First sample time instant";
   discrete String str "Intermediate variable for constructing a single line";
+  output Boolean sampleTrigger "True, if sample time instant";
+
+initial equation
+  t0 = time;
+
 initial algorithm
   createFile(fileName);
   if writeHeader then
     str :="time" + delimiter;
-    for i in 1:nIn-1 loop
+    for i in 1:nin-1 loop
       str :=str + headerNames[i] + delimiter;
     end for;
-    str :=str + headerNames[nIn] + "\n";
-    appendString(fileName, str, time);
+    str :=str + headerNames[nin];
+    Modelica.Utilities.Streams.print(str, fileName);
   end if;
 
+equation
+  sampleTrigger = sample(t0, samplePeriod);
 
 algorithm
-  when sample(sampleTime,sampleTime) or initial() then
+  when sampleTrigger then
     str :=String(time) + delimiter;
-    for i in 1:nIn-1 loop
+    for i in 1:nin-1 loop
       str :=str + String(u[i]) + delimiter;
     end for;
-    str :=str + String(u[nIn]) + "\n";
-    appendString(fileName, str, time);
+    str :=str + String(u[nin]);
+    Modelica.Utilities.Streams.print(str, fileName);
   end when;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
@@ -79,15 +76,15 @@ which can directly be read using e.g. excel or python.</p>
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-The parameter <code>nIn</code> defines the number of variables that are stored.
-
+The parameter <code>nin</code> defines the number of variables that are stored.
 </p>
 <h4>Options</h4>
 <p>
 The parameter <code>delimiter</code> can be used to choose a custom separator.
-The parameter <code>sampleTime</code> defines every how may seconds
+The parameter <code>samplePeriod</code> defines every how may seconds
 the inputs are saved to the file. 
-Inputs are also saved at the start time and end time of the simulation.
+The parameter <code>startTime</code> defines when the first sample
+should be saved.
 </p>
 <h4>Dynamics</h4>
 <p>
@@ -102,4 +99,4 @@ Otherwise the c functions are defined multiple time when the
 .c file is included twice, or the function bodies are undefined
 when the .h file is included twice.
 </p>"));
-end CsvWriter;
+end CSVWriter;
