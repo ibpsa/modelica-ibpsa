@@ -1,3 +1,4 @@
+within IBPSA.Media.Antifreeze.Validation.BaseClasses;
 partial model FluidProperties
   "Partial model that tests the implementation of temperature- and concentration-dependent fluid properties"
 
@@ -20,7 +21,6 @@ partial model FluidProperties
   Modelica.SIunits.ThermalConductivity lambda[n] "Density of fluid mixture";
   Modelica.SIunits.DynamicViscosity eta[n] "Density of fluid mixture";
   Modelica.SIunits.Temperature T "Temperature";
-  Modelica.SIunits.Temperature T_degC "Temperature (in Celsius)";
 
 protected
   parameter Modelica.SIunits.Time dt = 1
@@ -30,7 +30,6 @@ protected
 
 equation
   T = T_min + convT*time;
-  T_degC = Modelica.SIunits.Conversions.to_degC(T);
   for i in 1:n loop
     Tf[i] = Medium.polynomialFusionTemperature(w[i],T);
     d[i] = if T >= Tf[i] then Medium.polynomialDensity(w[i],T) else 0.;
