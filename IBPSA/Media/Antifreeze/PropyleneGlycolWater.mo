@@ -135,7 +135,7 @@ required from medium model \"" + mediumName + "\".
     input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
     output Modelica.SIunits.Density d "Density of antifreeze-water mixture";
   algorithm
-    d := polynomialProperty(w*100 "fixme: why multiplying by 100?",
+    d := polynomialProperty(w*100,
                             T,
                             propertyCoefficients.wm*100,
                             propertyCoefficients.Tm,
@@ -178,7 +178,7 @@ required from medium model \"" + mediumName + "\".
     output Modelica.SIunits.DynamicViscosity eta "Dynamic Viscosity of antifreeze-water mixture";
   algorithm
     eta := 1e-3*exp(polynomialProperty(
-      w*100 "fixme: why multiplying by 100?",
+      w*100,
       T,
       propertyCoefficients.wm*100,
       propertyCoefficients.Tm,
@@ -219,7 +219,7 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
     output Modelica.SIunits.Temperature Tf "Temperature of fusion of antifreeze-water mixture";
   algorithm
     Tf := Modelica.SIunits.Conversions.from_degC(polynomialProperty(
-      w*100 "fixme: why multiplying by 100?",
+      w*100,
       T,
       propertyCoefficients.wm*100,
       propertyCoefficients.Tm,
@@ -331,7 +331,7 @@ IBPSA.Media.Antifreeze</a>.
     output Modelica.SIunits.SpecificHeatCapacity cp "Specific heat capacity of antifreeze-water mixture";
   algorithm
     cp := polynomialProperty(
-      w*100 "fixme: why mulitplying by 100?",
+      w*100,
       T,
       propertyCoefficients.wm*100,
       propertyCoefficients.Tm,
@@ -373,7 +373,7 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
     output Modelica.SIunits.ThermalConductivity lambda "Thermal conductivity of antifreeze-water mixture";
   algorithm
     lambda := polynomialProperty(
-      w*100 "fixme: why multiplying by 100?",
+      w*100,
       T,
       propertyCoefficients.wm*100,
       propertyCoefficients.Tm,
