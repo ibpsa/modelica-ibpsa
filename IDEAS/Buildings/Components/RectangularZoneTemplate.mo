@@ -1256,9 +1256,12 @@ when the zone model is connected to an air flow circuit.
 <p>
 In order to choose the shading of the glazing,
 instead of selecting one shading type from the
-dropdown menu, click on the <code>Edit</code> 
-button. A menu will appear where the type of 
-shading and its properties can be selected.
+dropdown menu, click on the
+button right of the dropdown menu (edit). 
+A menu will appear where the type of 
+shading and corresponding parameters
+have to be defined.
+Alternatively, the shading template can be extended.
 </p>
 <h4>Validation</h4>
 <p>
