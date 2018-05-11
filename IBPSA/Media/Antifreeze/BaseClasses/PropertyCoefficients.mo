@@ -16,4 +16,5 @@ record PropertyCoefficients
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
+        // fixme: add info section
 end PropertyCoefficients;
