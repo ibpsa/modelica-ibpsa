@@ -5,8 +5,8 @@ package Validation "Collection of validation models"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://IBPSA.Media.Antifreeze\">
-IBPSA.Media.Antifreeze</a>.
+<a href=\"modelica://IBPSA.Media.Antifreeze.BaseClasses\">
+IBPSA.Media.Antifreeze.BaseClasses</a>.
 </p>
 <p>
 Note that most validation models contain simple input data
