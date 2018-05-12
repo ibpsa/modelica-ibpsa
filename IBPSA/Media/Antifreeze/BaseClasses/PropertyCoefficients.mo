@@ -15,6 +15,27 @@ record PropertyCoefficients
   Real a_lambda[nTot] "Polynomial coefficients for thermal conductivity";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+Record that is used by
+to implement the thermophysical properties
+based on Melinder (2010).
+</p>
+<h4>References</h4>
+<p>
+Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
+Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
+IIR/IIF.
+</p>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 11, 2018, by Michael Wetter:
+Added documentation.
+</li>
+</ul>
+</html>"));
         // fixme: add info section
 end PropertyCoefficients;
