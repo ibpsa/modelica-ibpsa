@@ -21,6 +21,7 @@ partial model FluidProperties
   Modelica.SIunits.ThermalConductivity lambda[n] "Density of fluid mixture";
   Modelica.SIunits.DynamicViscosity eta[n] "Density of fluid mixture";
   Modelica.SIunits.Temperature T "Temperature";
+  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC "Celsius temperature";
 
 protected
   parameter Modelica.SIunits.Time dt = 1
@@ -30,6 +31,7 @@ protected
 
 equation
   T = T_min + convT*time;
+  T_degC = Modelica.SIunits.Conversions.to_degC(T);
   for i in 1:n loop
     Tf[i] = Medium.polynomialFusionTemperature(w[i],T);
     d[i] = if T >= Tf[i] then Medium.polynomialDensity(w[i],T) else 0.;
