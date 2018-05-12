@@ -5,7 +5,7 @@ model PropyleneGlycolWaterTemperatureEnthalpyInversion
   extends IBPSA.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion(
     redeclare package Medium = IBPSA.Media.Antifreeze.PropyleneGlycolWater
         (
-      massFraction=0.60,
+      X_a=0.60,
       property_T=293.15));
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),

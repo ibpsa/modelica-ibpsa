@@ -4,7 +4,7 @@ model PropyleneGlycolWaterDerivativeCheck
   extends Modelica.Icons.Example;
 
    package Medium = IBPSA.Media.Antifreeze.PropyleneGlycolWater (
-      massFraction=0.60,
+      X_a=0.60,
       property_T=293.15);
 
     Modelica.SIunits.Temperature T "Temperature";

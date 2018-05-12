@@ -5,7 +5,7 @@ model PropyleneGlycolWater
   extends IBPSA.Media.Antifreeze.Validation.BaseClasses.FluidProperties(
     redeclare package Medium = IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=300,
-          massFraction=0.05),
+          X_a=0.05),
     nX_a=7,
     X_a={0.05,0.10,0.20,0.30,0.40,0.50,0.60},
     T_min=223.15,

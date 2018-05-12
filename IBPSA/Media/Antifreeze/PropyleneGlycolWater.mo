@@ -3,19 +3,19 @@ package PropyleneGlycolWater
   "Package with model for propylene glycol - water with constant properties"
   extends Modelica.Media.Interfaces.PartialSimpleMedium(
     mediumName="PropyleneGlycolWater(X_a = "
-      + String(massFraction) + ", property_T = "
+      + String(X_a) + ", property_T = "
       + String(property_T) + ")",
-    final cp_const=specificHeatCapacityCp_TX_a(T = property_T, X_a = massFraction),
+    final cp_const=specificHeatCapacityCp_TX_a(T = property_T, X_a = X_a),
     final cv_const=cp_const,
-    final d_const=density_TX_a(T = property_T, X_a = massFraction),
-    final eta_const=dynamicViscosity_TX_a(T = property_T, X_a = massFraction),
-    final lambda_const=thermalConductivity_TX_a(T = property_T, X_a = massFraction),
+    final d_const=density_TX_a(T = property_T, X_a = X_a),
+    final eta_const=dynamicViscosity_TX_a(T = property_T, X_a = X_a),
+    final lambda_const=thermalConductivity_TX_a(T = property_T, X_a = X_a),
     a_const=1484,
-    final T_min=fusionTemperature_TX_a(T = property_T, X_a = massFraction),
+    final T_min=fusionTemperature_TX_a(T = property_T, X_a = X_a),
     final T_max=Modelica.SIunits.Conversions.from_degC(100),
     T0=273.15,
-    MM_const=(massFraction/simplePropyleneGlycolWaterConstants[1].molarMass + (1
-         - massFraction)/0.018015268)^(-1),
+    MM_const=(X_a/simplePropyleneGlycolWaterConstants[1].molarMass + (1
+         - X_a)/0.018015268)^(-1),
     fluidConstants=simplePropyleneGlycolWaterConstants,
     p_default=300000,
     reference_p=300000,
@@ -27,11 +27,11 @@ package PropyleneGlycolWater
 
   constant Modelica.SIunits.Temperature property_T
     "Temperature for evaluation of constant fluid properties";
-  constant Modelica.SIunits.MassFraction massFraction
+  constant Modelica.SIunits.MassFraction X_a
     "Mass fraction of propylene glycol in water";
-  constant Modelica.SIunits.MassFraction massFraction_min=0.
+  constant Modelica.SIunits.MassFraction X_a_min=0.
     "Minimum allowed mass fraction of propylene glycol in water";
-  constant Modelica.SIunits.MassFraction massFraction_max=0.6
+  constant Modelica.SIunits.MassFraction X_a_max=0.6
     "Maximum allowed mass fraction of propylene glycol in water";
 
   // Coefficients for evaluation of physical properties
@@ -114,9 +114,9 @@ Temperature T (= " + String(T) + " K) is not
 in the allowed range (" + String(T_min) + " K <= T <= " + String(T_max) + " K)
 required from medium model \"" + mediumName + "\".
 ");
-    assert(massFraction >= massFraction_min and massFraction <= massFraction_max, "
-    Mass fraction massFraction (= " + String(massFraction) + " ) is not
-in the allowed range (" + String(massFraction_min) + " <= massFraction <= " + String(massFraction_max) + " )
+    assert(X_a >= X_a_min and X_a <= X_a_max, "
+    Mass fraction X_a (= " + String(X_a) + " ) is not
+in the allowed range (" + String(X_a_min) + " <= X_a <= " + String(X_a_max) + " )
 required from medium model \"" + mediumName + "\".
 ");
 
@@ -448,7 +448,7 @@ constant thermophysical properties. A typical use of the package is (e.g. for
 a temperature of <i>20</i> &deg;C and a mass fraction of <i>0.40</i>):
 </p>
 <p>
-<code>Medium = IBPSA.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, massFraction=0.40)</code>
+<code>Medium = IBPSA.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.40)</code>
 </p>
 </html>", revisions="<html>
 <ul>
