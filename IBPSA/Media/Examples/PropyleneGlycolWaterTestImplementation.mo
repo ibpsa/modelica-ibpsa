@@ -3,8 +3,7 @@ model PropyleneGlycolWaterTestImplementation
   "Model that tests the medium implementation"
   extends Modelica.Icons.Example;
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
-     redeclare package Medium = IBPSA.Media.Antifreeze.PropyleneGlycolWater
-        (
+     redeclare package Medium = IBPSA.Media.Antifreeze.PropyleneGlycolWater (
       massFraction=0.60,
       property_T=293.15));
 
@@ -12,9 +11,11 @@ model PropyleneGlycolWaterTestImplementation
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/PropyleneGlycolWaterTestImplementation.mos"
         "Simulate and plot"),
     Documentation(info="<html>
+<p>
 This is a simple test for the medium model. It uses the test model described in
 <a href=\"modelica://Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium\">
 Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
