@@ -37,5 +37,4 @@ Added documentation.
 </li>
 </ul>
 </html>"));
-        // fixme: add info section
 end PropertyCoefficients;
