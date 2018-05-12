@@ -1,7 +1,8 @@
 within IBPSA.Utilities.IO.Reports;
 model CSVWriter "Model for writing results to a .csv file"
   extends Modelica.Blocks.Icons.Block;
-  parameter Integer nin "Number of inputs";
+  parameter Integer nin "Number of inputs"
+    annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter String fileName = getInstanceName() + ".csv" "File name, including extension";
   parameter String delimiter = "\t" "Delimiter for csv file"
     annotation(Dialog(group="Options"));
