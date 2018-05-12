@@ -28,7 +28,6 @@ Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
 Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
 IIR/IIF.
 </p>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
