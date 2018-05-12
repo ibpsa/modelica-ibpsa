@@ -21,7 +21,7 @@ model CSVWriter "Model for writing results to a .csv file"
       extends Modelica.Icons.Function;
       input String fileName "Name of the file, including extension";
       external"C" createFile(fileName)
-        annotation (Include="#include <FileWriter.c>", IncludeDirectory="modelica://IBPSA/Resources/C-sources");
+        annotation (Include="#include <FileWriter.c>", IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
     end createFile;
 
 protected
