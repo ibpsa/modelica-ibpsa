@@ -1,7 +1,29 @@
 within IBPSA.Media.Antifreeze;
 package PropyleneGlycolWater
   "Package with model for propylene glycol - water with constant properties"
-  extends Modelica.Icons.VariantsPackage;
+  extends Modelica.Media.Interfaces.PartialSimpleMedium(
+    mediumName="PropyleneGlycolWater(X_a = "
+      + String(massFraction) + ", property_T = "
+      + String(property_T) + ")",
+    final cp_const=specificHeatCapacityCp_TX_a(T = property_T, X_a = massFraction),
+    final cv_const=cp_const,
+    final d_const=density_TX_a(T = property_T, X_a = massFraction),
+    final eta_const=dynamicViscosity_TX_a(T = property_T, X_a = massFraction),
+    final lambda_const=thermalConductivity_TX_a(T = property_T, X_a = massFraction),
+    a_const=1484,
+    final T_min=fusionTemperature_TX_a(T = property_T, X_a = massFraction),
+    final T_max=Modelica.SIunits.Conversions.from_degC(100),
+    T0=273.15,
+    MM_const=(massFraction/simplePropyleneGlycolWaterConstants[1].molarMass + (1
+         - massFraction)/0.018015268)^(-1),
+    fluidConstants=simplePropyleneGlycolWaterConstants,
+    p_default=300000,
+    reference_p=300000,
+    reference_T=273.15,
+    reference_X={1},
+    AbsolutePressure(start=p_default),
+    Temperature(start=T_default),
+    Density(start=d_const));
 
   constant Modelica.SIunits.Temperature property_T
     "Temperature for evaluation of constant fluid properties";
@@ -45,29 +67,6 @@ package PropyleneGlycolWater
     each casRegistryNumber="57-55-6",
     each iupacName="1,2-Propylene glycol",
     each molarMass=0.07609);
-
-
-  extends Modelica.Media.Interfaces.PartialSimpleMedium(
-    mediumName="SimplePropyleneGlycolWater",
-    final cp_const=specificHeatCapacityCp_TX_a(T = property_T, X_a = massFraction),
-    final cv_const=cp_const,
-    final d_const=density_TX_a(T = property_T, X_a = massFraction),
-    final eta_const=dynamicViscosity_TX_a(T = property_T, X_a = massFraction),
-    final lambda_const=thermalConductivity_TX_a(T = property_T, X_a = massFraction),
-    a_const=1484,
-    final T_min=fusionTemperature_TX_a(T = property_T, X_a = massFraction),
-    final T_max=Modelica.SIunits.Conversions.from_degC(100),
-    T0=273.15,
-    MM_const=(massFraction/simplePropyleneGlycolWaterConstants[1].molarMass + (1
-         - massFraction)/0.018015268)^(-1),
-    fluidConstants=simplePropyleneGlycolWaterConstants,
-    p_default=300000,
-    reference_p=300000,
-    reference_T=273.15,
-    reference_X={1},
-    AbsolutePressure(start=p_default),
-    Temperature(start=T_default),
-    Density(start=d_const));
 
   redeclare model BaseProperties "Base properties"
     Temperature T(stateSelect=
