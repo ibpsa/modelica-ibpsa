@@ -14,7 +14,7 @@ package PropyleneGlycolWater
 
   // Coefficients for evaluation of physical properties
   constant IBPSA.Media.Antifreeze.BaseClasses.PropertyCoefficients
-    propertyCoefficients(
+    proCoe(
     X_a_ref=0.307031,
     T_ref=Modelica.SIunits.Conversions.from_degC(32.7083),
     nX_a=6,
@@ -149,7 +149,7 @@ required from medium model \"" + mediumName + "\".
     d :=polynomialProperty(
         X_a,
         T,
-        propertyCoefficients.a_d)
+        proCoe.a_d)
     annotation (
     Documentation(info="<html>
   <p>
@@ -188,7 +188,7 @@ required from medium model \"" + mediumName + "\".
     eta :=1e-3*exp(polynomialProperty(
         X_a,
         T,
-        propertyCoefficients.a_eta));
+        proCoe.a_eta));
 
   annotation (
   Documentation(info="<html>
@@ -225,7 +225,7 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
     Tf :=Modelica.SIunits.Conversions.from_degC(polynomialProperty(
         X_a,
         T,
-        propertyCoefficients.a_Tf));
+        proCoe.a_Tf));
 
   annotation (
   Documentation(info="<html>
@@ -258,7 +258,7 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
 
     input Real x "First independent variable";
     input Real y "Second independent variable";
-    input Real a[sum(propertyCoefficients.nT)] "Polynomial coefficients";
+    input Real a[sum(proCoe.nT)] "Polynomial coefficients";
 
     output Real f "Value of thermophysical property";
 
@@ -268,13 +268,13 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
     Integer n;
   algorithm
 
-    dx := 100*(x - propertyCoefficients.X_a_ref);
-    dy := y - propertyCoefficients.T_ref;
+    dx := 100*(x - proCoe.X_a_ref);
+    dy := y - proCoe.T_ref;
 
     f := 0;
     n := 0;
-    for i in 0:propertyCoefficients.nX_a - 1 loop
-      for j in 0:propertyCoefficients.nT[i+1] - 1 loop
+    for i in 0:proCoe.nX_a - 1 loop
+      for j in 0:proCoe.nT[i+1] - 1 loop
         n := n + 1;
         f := f + a[n]*dx^i*dy^j;
       end for;
@@ -329,7 +329,7 @@ IBPSA.Media.Antifreeze</a>.
     cp :=polynomialProperty(
         X_a,
         T,
-        propertyCoefficients.a_cp);
+        proCoe.a_cp);
 
   annotation (
   Documentation(info="<html>
@@ -367,7 +367,7 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
     lambda :=polynomialProperty(
         X_a,
         T,
-        propertyCoefficients.a_lambda);
+        proCoe.a_lambda);
 
   annotation (
   Documentation(info="<html>

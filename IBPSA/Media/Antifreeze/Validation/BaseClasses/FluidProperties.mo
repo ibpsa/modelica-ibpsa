@@ -5,21 +5,20 @@ partial model FluidProperties
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium package";
 
-  parameter Integer n
+  parameter Integer nX_a
     "Number of mass fractions to evaluate fluid properties";
-  parameter Modelica.SIunits.MassFraction w[n]
-    "Mass fraction of additive";
+  parameter Modelica.SIunits.MassFraction X_a[nX_a] "Mass fraction of additive";
   parameter Modelica.SIunits.Temperature T_min
     "Minimum temperature of mixture";
   parameter Modelica.SIunits.Temperature T_max
     "Maximum temperature of mixture";
   parameter Modelica.SIunits.Temperature reference_T = 293.15
     "Reference temperature";
-  Modelica.SIunits.Temperature Tf[n] "Fluid temperature";
-  Modelica.SIunits.Density d[n] "Density of fluid mixture";
-  Modelica.SIunits.SpecificHeatCapacity cp[n] "Density of fluid mixture";
-  Modelica.SIunits.ThermalConductivity lambda[n] "Density of fluid mixture";
-  Modelica.SIunits.DynamicViscosity eta[n] "Density of fluid mixture";
+  Modelica.SIunits.Temperature Tf[nX_a] "Fluid temperature";
+  Modelica.SIunits.Density d[nX_a] "Density of fluid mixture";
+  Modelica.SIunits.SpecificHeatCapacity cp[nX_a] "Density of fluid mixture";
+  Modelica.SIunits.ThermalConductivity lambda[nX_a] "Density of fluid mixture";
+  Modelica.SIunits.DynamicViscosity eta[nX_a] "Density of fluid mixture";
   Modelica.SIunits.Temperature T "Temperature";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC "Celsius temperature";
 
@@ -32,12 +31,15 @@ protected
 equation
   T = T_min + convT*time;
   T_degC = Modelica.SIunits.Conversions.to_degC(T);
-  for i in 1:n loop
-    Tf[i] = Medium.polynomialFusionTemperature(w[i],T);
-    d[i] = if T >= Tf[i] then Medium.polynomialDensity(w[i],T) else 0.;
-    cp[i] = if T >= Tf[i] then Medium.polynomialSpecificHeatCapacityCp(w[i],T) else 0.;
-    lambda[i] = if T >= Tf[i] then Medium.polynomialThermalConductivity(w[i],T) else 0.;
-    eta[i] = if T >= Tf[i] then Medium.polynomialDynamicViscosity(w[i],T) else 0.;
+  for i in 1:nX_a loop
+    Tf[i] =Medium.polynomialFusionTemperature(X_a[i], T);
+    d[i] =if T >= Tf[i] then Medium.polynomialDensity(X_a[i], T) else 0.;
+    cp[i] =if T >= Tf[i] then Medium.polynomialSpecificHeatCapacityCp(X_a[i], T)
+       else 0.;
+    lambda[i] =if T >= Tf[i] then Medium.polynomialThermalConductivity(X_a[i],
+      T) else 0.;
+    eta[i] =if T >= Tf[i] then Medium.polynomialDynamicViscosity(X_a[i], T)
+       else 0.;
   end for;
 
    annotation (
