@@ -49,16 +49,17 @@ package PropyleneGlycolWater
 
   extends Modelica.Media.Interfaces.PartialSimpleMedium(
     mediumName="SimplePropyleneGlycolWater",
-    final cp_const=polynomialSpecificHeatCapacityCp(massFraction,property_T),
+    final cp_const=specificHeatCapacityCp_TX_a(T = property_T, X_a = massFraction),
     final cv_const=cp_const,
-    final d_const=polynomialDensity(massFraction,property_T),
-    final eta_const=polynomialDynamicViscosity(massFraction,property_T),
-    final lambda_const=polynomialThermalConductivity(massFraction,property_T),
+    final d_const=density_TX_a(T = property_T, X_a = massFraction),
+    final eta_const=dynamicViscosity_TX_a(T = property_T, X_a = massFraction),
+    final lambda_const=thermalConductivity_TX_a(T = property_T, X_a = massFraction),
     a_const=1484,
-    final T_min=polynomialFusionTemperature(massFraction,property_T),
+    final T_min=fusionTemperature_TX_a(T = property_T, X_a = massFraction),
     final T_max=Modelica.SIunits.Conversions.from_degC(100),
     T0=273.15,
-    MM_const=(massFraction/simplePropyleneGlycolWaterConstants[1].molarMass+(1-massFraction)/0.018015268)^(-1),
+    MM_const=(massFraction/simplePropyleneGlycolWaterConstants[1].molarMass + (1
+         - massFraction)/0.018015268)^(-1),
     fluidConstants=simplePropyleneGlycolWaterConstants,
     p_default=300000,
     reference_p=300000,
@@ -140,10 +141,11 @@ required from medium model \"" + mediumName + "\".
 </html>"));
   end BaseProperties;
 
-  replaceable function polynomialDensity "Evaluate density of antifreeze-water mixture"
+  replaceable function density_TX_a
+    "Evaluate density of antifreeze-water mixture"
     extends Modelica.Icons.Function;
-    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
     input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
+    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
     output Modelica.SIunits.Density d "Density of antifreeze-water mixture";
   algorithm
     d :=polynomialProperty(
@@ -175,14 +177,13 @@ required from medium model \"" + mediumName + "\".
   </ul>
   </html>"));
 
-  end polynomialDensity;
+  end density_TX_a;
 
-  replaceable function polynomialDynamicViscosity
+  replaceable function dynamicViscosity_TX_a
     "Evaluate dynamic viscosity of antifreeze-water mixture"
       extends Modelica.Icons.Function;
-
-    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
     input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
+    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
     output Modelica.SIunits.DynamicViscosity eta "Dynamic Viscosity of antifreeze-water mixture";
   algorithm
     eta :=1e-3*exp(polynomialProperty(
@@ -213,13 +214,13 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
 </li>
 </ul>
 </html>"));
-  end polynomialDynamicViscosity;
+  end dynamicViscosity_TX_a;
 
-  replaceable function polynomialFusionTemperature
+  replaceable function fusionTemperature_TX_a
     "Evaluate temperature of fusion of antifreeze-water mixture"
       extends Modelica.Icons.Function;
-    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
     input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
+    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
     output Modelica.SIunits.Temperature Tf "Temperature of fusion of antifreeze-water mixture";
   algorithm
     Tf :=Modelica.SIunits.Conversions.from_degC(polynomialProperty(
@@ -250,7 +251,7 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
 </li>
 </ul>
 </html>"));
-  end polynomialFusionTemperature;
+  end fusionTemperature_TX_a;
 
   replaceable function polynomialProperty
     "Evaluates thermophysical property from 2-variable polynomial"
@@ -267,7 +268,6 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
     Real dy;
     Integer n;
   algorithm
-
     dx := 100*(x - proCoe.X_a_ref);
     dy := y - proCoe.T_ref;
 
@@ -318,12 +318,11 @@ IBPSA.Media.Antifreeze</a>.
 </html>"));
   end polynomialProperty;
 
-  replaceable function polynomialSpecificHeatCapacityCp
+  replaceable function specificHeatCapacityCp_TX_a
     "Evaluate specific heat capacity of antifreeze-water mixture"
       extends Modelica.Icons.Function;
-
-    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
     input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
+    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
     output Modelica.SIunits.SpecificHeatCapacity cp "Specific heat capacity of antifreeze-water mixture";
   algorithm
     cp :=polynomialProperty(
@@ -354,14 +353,13 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
 </li>
 </ul>
 </html>"));
-  end polynomialSpecificHeatCapacityCp;
+  end specificHeatCapacityCp_TX_a;
 
-  replaceable function polynomialThermalConductivity
+  replaceable function thermalConductivity_TX_a
     "Evaluate thermal conductivity of antifreeze-water mixture"
       extends Modelica.Icons.Function;
-
-    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
     input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
+    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
     output Modelica.SIunits.ThermalConductivity lambda "Thermal conductivity of antifreeze-water mixture";
   algorithm
     lambda :=polynomialProperty(
@@ -392,7 +390,7 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
 </li>
 </ul>
 </html>"));
-  end polynomialThermalConductivity;
+  end thermalConductivity_TX_a;
 annotation(preferredView="info", Documentation(info="<html>
 <p>
 This medium package models propylene glycol - water mixtures.

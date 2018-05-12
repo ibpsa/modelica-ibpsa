@@ -32,13 +32,12 @@ equation
   T = T_min + convT*time;
   T_degC = Modelica.SIunits.Conversions.to_degC(T);
   for i in 1:nX_a loop
-    Tf[i] =Medium.polynomialFusionTemperature(X_a[i], T);
-    d[i] =if T >= Tf[i] then Medium.polynomialDensity(X_a[i], T) else 0.;
-    cp[i] =if T >= Tf[i] then Medium.polynomialSpecificHeatCapacityCp(X_a[i], T)
+    Tf[i] =Medium.fusionTemperature_TX_a(T=T, X_a=X_a[i]);
+    d[i] =if T >= Tf[i] then Medium.density_TX_a(T=T, X_a=X_a[i]) else 0.;
+    cp[i] =if T >= Tf[i] then Medium.specificHeatCapacityCp_TX_a(T=T, X_a=X_a[i])
        else 0.;
-    lambda[i] =if T >= Tf[i] then Medium.polynomialThermalConductivity(X_a[i],
-      T) else 0.;
-    eta[i] =if T >= Tf[i] then Medium.polynomialDynamicViscosity(X_a[i], T)
+    lambda[i] =if T >= Tf[i] then Medium.thermalConductivity_TX_a(T=T, X_a=X_a[i]) else 0.;
+    eta[i] =if T >= Tf[i] then Medium.dynamicViscosity_TX_a(T=T, X_a=X_a[i])
        else 0.;
   end for;
 
