@@ -147,12 +147,8 @@ required from medium model \"" + mediumName + "\".
     output Modelica.SIunits.Density d "Density of antifreeze-water mixture";
   algorithm
     d :=polynomialProperty(
-        X_a*100,
+        X_a,
         T,
-        propertyCoefficients.X_a_ref*100,
-        propertyCoefficients.T_ref,
-        propertyCoefficients.nX_a,
-        propertyCoefficients.nT,
         propertyCoefficients.a_d)
     annotation (
     Documentation(info="<html>
@@ -190,12 +186,8 @@ required from medium model \"" + mediumName + "\".
     output Modelica.SIunits.DynamicViscosity eta "Dynamic Viscosity of antifreeze-water mixture";
   algorithm
     eta :=1e-3*exp(polynomialProperty(
-        X_a*100,
+        X_a,
         T,
-        propertyCoefficients.X_a_ref*100,
-        propertyCoefficients.T_ref,
-        propertyCoefficients.nX_a,
-        propertyCoefficients.nT,
         propertyCoefficients.a_eta));
 
   annotation (
@@ -231,12 +223,8 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
     output Modelica.SIunits.Temperature Tf "Temperature of fusion of antifreeze-water mixture";
   algorithm
     Tf :=Modelica.SIunits.Conversions.from_degC(polynomialProperty(
-        X_a*100,
+        X_a,
         T,
-        propertyCoefficients.X_a_ref*100,
-        propertyCoefficients.T_ref,
-        propertyCoefficients.nX_a,
-        propertyCoefficients.nT,
         propertyCoefficients.a_Tf));
 
   annotation (
@@ -270,11 +258,7 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
 
     input Real x "First independent variable";
     input Real y "Second independent variable";
-    input Real xm "Reference value of x";
-    input Real ym "Reference value of y";
-    input Integer nx "Order of polynomial in x";
-    input Integer ny[nx] "Order of polynomial in y";
-    input Real a[sum(ny)] "Polynomial coefficients";
+    input Real a[sum(propertyCoefficients.nT)] "Polynomial coefficients";
 
     output Real f "Value of thermophysical property";
 
@@ -284,13 +268,13 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
     Integer n;
   algorithm
 
-    dx := x - xm;
-    dy := y - ym;
+    dx := 100*(x - propertyCoefficients.X_a_ref);
+    dy := y - propertyCoefficients.T_ref;
 
     f := 0;
     n := 0;
-    for i in 0:nx-1 loop
-      for j in 0:ny[i+1]-1 loop
+    for i in 0:propertyCoefficients.nX_a - 1 loop
+      for j in 0:propertyCoefficients.nT[i+1] - 1 loop
         n := n + 1;
         f := f + a[n]*dx^i*dy^j;
       end for;
@@ -343,12 +327,8 @@ IBPSA.Media.Antifreeze</a>.
     output Modelica.SIunits.SpecificHeatCapacity cp "Specific heat capacity of antifreeze-water mixture";
   algorithm
     cp :=polynomialProperty(
-        X_a*100,
+        X_a,
         T,
-        propertyCoefficients.X_a_ref*100,
-        propertyCoefficients.T_ref,
-        propertyCoefficients.nX_a,
-        propertyCoefficients.nT,
         propertyCoefficients.a_cp);
 
   annotation (
@@ -385,12 +365,8 @@ IBPSA.Media.Antifreeze.PropyleneGlycolWater</a>.
     output Modelica.SIunits.ThermalConductivity lambda "Thermal conductivity of antifreeze-water mixture";
   algorithm
     lambda :=polynomialProperty(
-        X_a*100,
+        X_a,
         T,
-        propertyCoefficients.X_a_ref*100,
-        propertyCoefficients.T_ref,
-        propertyCoefficients.nX_a,
-        propertyCoefficients.nT,
         propertyCoefficients.a_lambda);
 
   annotation (
