@@ -14,8 +14,7 @@ model CSVWriter "Example of csv writer use"
     nin=2,
     samplePeriod=1,
     delimiter="    ",
-    writeHeader=false,
-    fileName="test.csv")
+    writeHeader=false)
     "Duplicate to test for conflicts when instantiating multiple csv writers"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 equation

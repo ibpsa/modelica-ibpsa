@@ -1,6 +1,7 @@
 within IBPSA.Utilities.IO.Reports;
 model CSVWriter "Model for writing results to a .csv file"
   extends Modelica.Blocks.Icons.DiscreteBlock;
+
   parameter Integer nin "Number of inputs"
     annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter String fileName = getInstanceName() + ".csv" "File name, including extension";
@@ -13,15 +14,15 @@ model CSVWriter "Model for writing results to a .csv file"
   parameter String[nin] headerNames = {"col"+String(i) for i in 1:nin}
     "Header names, indices by default"
     annotation(Dialog(enable=writeHeader, group="Options"));
-   Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that will be saved"
+  Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that will be saved"
      annotation (Placement(transformation(extent={{-130,-20},{-90,20}})));
 
 protected
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
   parameter String insNam = getInstanceName() "Instance name";
-  IBPSA.Utilities.IO.Reports.FileWriter filWri=
-    IBPSA.Utilities.IO.Reports.FileWriter(insNam, fileName)
+  IBPSA.Utilities.IO.Reports.BaseClasses.FileWriter filWri=
+    IBPSA.Utilities.IO.Reports.BaseClasses.FileWriter(insNam, fileName)
     "Data structure that ensure that each instance writes to a unique file";
 
   discrete String str "Intermediate variable for constructing a single line";

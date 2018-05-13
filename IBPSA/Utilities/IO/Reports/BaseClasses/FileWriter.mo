@@ -1,4 +1,4 @@
-within IBPSA.Utilities.IO.Reports;
+within IBPSA.Utilities.IO.Reports.BaseClasses;
 class FileWriter
   "Class used to ensure that each CSV writer writes to a unique file"
 extends ExternalObject;
