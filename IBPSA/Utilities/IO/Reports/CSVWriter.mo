@@ -1,12 +1,12 @@
 within IBPSA.Utilities.IO.Reports;
 model CSVWriter "Model for writing results to a .csv file"
-  extends Modelica.Blocks.Icons.Block;
+  extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Integer nin "Number of inputs"
     annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter String fileName = getInstanceName() + ".csv" "File name, including extension";
   parameter String delimiter = "\t" "Delimiter for csv file"
     annotation(Dialog(group="Options"));
-  parameter Modelica.SIunits.Time samplePeriod "Sample interval";
+  parameter Modelica.SIunits.Time samplePeriod "Sample period";
   parameter Boolean writeHeader = true
     "=true, to specify header names, otherwise no header"
     annotation(Dialog(group="Options"));
@@ -16,17 +16,14 @@ model CSVWriter "Model for writing results to a .csv file"
    Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that will be saved"
      annotation (Placement(transformation(extent={{-130,-20},{-90,20}})));
 
-    function createFile
-    "Create empty file"
-      extends Modelica.Icons.Function;
-      input String fileName "Name of the file, including extension";
-      external"C" createFile(fileName)
-        annotation (Include="#include <FileWriter.c>", IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
-    end createFile;
-
 protected
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
+  parameter String insNam = getInstanceName() "Instance name";
+  IBPSA.Utilities.IO.Reports.FileWriter filWri=
+    IBPSA.Utilities.IO.Reports.FileWriter(insNam, fileName)
+    "Data structure that ensure that each instance writes to a unique file";
+
   discrete String str "Intermediate variable for constructing a single line";
   output Boolean sampleTrigger "True, if sample time instant";
 
@@ -34,7 +31,6 @@ initial equation
   t0 = time;
 
 initial algorithm
-  createFile(fileName);
   if writeHeader then
     str :="time" + delimiter;
     for i in 1:nin-1 loop
@@ -58,9 +54,18 @@ algorithm
   end when;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
-          extent={{2,-54},{92,-92}},
-          lineColor={28,108,200},
-          textString=".csv")}),                                  Diagram(
+          extent={{-86,-54},{90,-96}},
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Right,
+          textString="%fileName"),                                        Text(
+          extent={{-86,-54},{90,-96}},
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Right,
+          textString="%fileName"),                                        Text(
+          extent={{-86,-16},{90,-58}},
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Right,
+          textString="%samplePeriod")}),                         Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
