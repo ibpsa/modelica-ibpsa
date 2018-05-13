@@ -15,7 +15,7 @@ model CSVWriter "Model for writing results to a .csv file"
     "Header names, indices by default"
     annotation(Dialog(enable=writeHeader, group="Options"));
   Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that will be saved"
-     annotation (Placement(transformation(extent={{-130,-20},{-90,20}})));
+     annotation (Placement(transformation(extent={{-130,20},{-90,-20}})));
 
 protected
   parameter Modelica.SIunits.Time t0(fixed=false)
