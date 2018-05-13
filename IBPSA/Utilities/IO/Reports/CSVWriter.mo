@@ -54,7 +54,9 @@ algorithm
     Modelica.Utilities.Streams.print(str, fileName);
   end when;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
+  annotation (
+  defaultComponentName="csvWri",
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-86,-54},{90,-96}},
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
