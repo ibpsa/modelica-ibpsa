@@ -8,12 +8,16 @@ model CSVWriter "Model for writing results to a .csv file"
   parameter Modelica.SIunits.Time samplePeriod "Sample period";
   parameter String delimiter = "\t" "Delimiter for csv file"
     annotation(Dialog(tab="Advanced"));
+
   parameter Boolean writeHeader = true
     "=true, to specify header names, otherwise no header"
     annotation(Dialog(tab="Advanced"));
+  parameter Boolean writeCombiTimeTableHeader=true
+    "Format the file header such that it can be read by a combiTimeTable";
   parameter String[nin] headerNames = {"col"+String(i) for i in 1:nin}
     "Header names, indices by default"
     annotation(Dialog(enable=writeHeader, tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that are saved"
      annotation (Placement(transformation(extent={{-130,20},{-90,-20}})));
 
@@ -21,21 +25,39 @@ protected
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
   parameter String insNam = getInstanceName() "Instance name";
+  parameter String _delimiter=
+    if writeCombiTimeTableHeader then "\t" else delimiter
+    "combiTimeTable-specific delimiter";
   IBPSA.Utilities.IO.Reports.BaseClasses.FileWriter filWri=
     IBPSA.Utilities.IO.Reports.BaseClasses.FileWriter(insNam, fileName)
     "Data structure that ensure that each instance writes to a unique file";
 
   discrete String str "Intermediate variable for constructing a single line";
+  discrete Integer dataLinesWritten "Total number of data lines that was written";
   output Boolean sampleTrigger "True, if sample time instant";
 
+function prependString
+  "Prepend a string to an existing text file"
+  extends Modelica.Icons.Function;
+  input String fileName "Name of the file, including extension";
+  input String string "Prepended string";
+  external"C" prependString(fileName, string)
+    annotation (
+      Include="#include <fileWriterStructure.h>",
+      IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
+end prependString;
 initial equation
   t0 = time;
+  dataLinesWritten=0;
 
 initial algorithm
   if writeHeader then
-    str :="time" + delimiter;
+    if writeCombiTimeTableHeader then
+      str:="# ";
+    end if;
+    str :=str+"time" + _delimiter;
     for i in 1:nin-1 loop
-      str :=str + headerNames[i] + delimiter;
+      str :=str + headerNames[i] + _delimiter;
     end for;
     str :=str + headerNames[nin];
     Modelica.Utilities.Streams.print(str, fileName);
@@ -46,14 +68,22 @@ equation
 
 algorithm
   when sampleTrigger then
-    str :=String(time) + delimiter;
+    str :=String(time) + _delimiter;
     for i in 1:nin-1 loop
-      str :=str + String(u[i]) + delimiter;
+      str :=str + String(u[i]) + _delimiter;
     end for;
     str :=str + String(u[nin]);
     Modelica.Utilities.Streams.print(str, fileName);
+    dataLinesWritten :=dataLinesWritten + 1;
   end when;
 
+  // now that the file has been written completely, prepend the header
+  // that is required for reading the csv file using combiTimeTables
+  when terminal() then
+    if writeCombiTimeTableHeader then
+      prependString(fileName,"#1\ndouble csv("+String(dataLinesWritten)+","+String(nin+1)+")\n");
+    end if;
+  end when;
   annotation (
   defaultComponentName="csvWri",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
@@ -95,6 +125,15 @@ unless an absolute path is provided.
 <p>
 The parameter <code>samplePeriod</code> defines every how may seconds
 the inputs are saved to the file. 
+</p>
+<p>
+If the parameter <code>writeCombiTimeTableHeader=true</code> then
+additional header information is added to the csv file such that
+the resulting file can be read by a 
+<a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">CombiTimeTable</a>.
+The <a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">CombiTimeTable</a>
+must then have <code>tableName=\"csv\"</code>, as illustrated in example
+<a href=\"modelica://IBPSA.Utilities.IO.Reports.Examples.CSVReader\">CSVReader</a>.
 </p>
 <h4>Options</h4>
 <p>
