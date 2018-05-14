@@ -2,7 +2,7 @@
  *
  * Michael Wetter, LBNL                     2018-05-12
  */
-#include "FileWriterStructure.h"
+#include "fileWriterStructure.h"
 #include <stdlib.h>
 
 void fileWriterFree(void* ptrFileWriter){
