@@ -14,7 +14,8 @@ model HydraulicCircuit
     m_flow_nominal=0.5,
     dp_nominal = 0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_inputFilter=false)
          annotation (Placement(transformation(extent={{-36,28},{-16,48}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe1(
     m=5,
@@ -33,7 +34,8 @@ model HydraulicCircuit
     m_flow_nominal=0.5,
     dp_nominal = 0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_inputFilter=false)
          annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe2(
     m = 5,
@@ -111,9 +113,9 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pulse1.y, volumeFlow1.m_flow_in)
-    annotation (Line(points={{-39,16},{-26.2,16},{-26.2,6}}, color={0,0,127}));
+    annotation (Line(points={{-39,16},{-26,16},{-26,6}},     color={0,0,127}));
   connect(pulse.y, pump1.m_flow_in) annotation (Line(points={{-39,60},{-34,60},
-          {-26.2,60},{-26.2,50}}, color={0,0,127}));
+          {-26,60},{-26,50}},     color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),

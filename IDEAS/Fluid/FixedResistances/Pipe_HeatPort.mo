@@ -7,7 +7,6 @@ model Pipe_HeatPort "Pipe with HeatPort"
   parameter Boolean prescribedHeatFlowRate=false
     "Set to true if the model has a prescribed heat flow at its heatPort"
    annotation(Evaluate=true, Dialog(tab="Assumptions",
-      enable=use_HeatTransfer,
       group="Heat transfer"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort

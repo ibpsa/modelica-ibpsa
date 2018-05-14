@@ -7,7 +7,6 @@ model InsulatedPipe "Insulated pipe characterized by a UA value"
   parameter Boolean prescribedHeatFlowRate=false
     "Set to true if the model has a prescribed heat flow at its heatPort"
    annotation(Evaluate=true, Dialog(tab="Assumptions",
-      enable=use_HeatTransfer,
       group="Heat transfer"));
   parameter SI.ThermalConductance UA "Thermal conductance of the insulation";
 

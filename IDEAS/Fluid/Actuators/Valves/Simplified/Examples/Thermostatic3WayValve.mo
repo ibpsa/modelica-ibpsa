@@ -14,7 +14,8 @@ model Thermostatic3WayValve "Example of a thermostatic three way valve"
     m_flow_nominal=m_flow_nominal,
     tau=1,
     use_inputFilter=false,
-    dp_nominal = 0)
+    dp_nominal = 0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{38,8},{58,28}})));
   Sources.Boundary_pT sou1(
     redeclare package Medium = Medium,

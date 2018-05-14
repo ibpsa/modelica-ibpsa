@@ -10,11 +10,13 @@ model ThreeWayValveSwitch "Test the new component ThreeWayValveSwitch"
     tau=30,
     use_inputFilter=false,
     dp_nominal = 0,
-    inputType=IDEAS.Fluid.Types.InputType.Constant)
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{58,0},{78,20}})));
   Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(m=5, redeclare package
       Medium =                                                                       Medium,
-    m_flow_nominal=1)                                                                        annotation (Placement(transformation(
+    m_flow_nominal=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)                         annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-48,-12})));

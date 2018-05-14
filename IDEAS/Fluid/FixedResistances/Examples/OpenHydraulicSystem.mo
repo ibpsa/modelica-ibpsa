@@ -18,7 +18,8 @@ model OpenHydraulicSystem "Illustrate the use of the ambient model"
     m_flow_nominal=0.1,
     inputType=IDEAS.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=298.15)
     annotation (Placement(transformation(extent={{-52,-46},{-32,-26}})));
