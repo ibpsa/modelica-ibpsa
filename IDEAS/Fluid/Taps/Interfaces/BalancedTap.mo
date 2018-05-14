@@ -8,11 +8,11 @@ partial model BalancedTap "partial DHW model"
     "Nominal cold water temperature";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-
+  parameter Modelica.SIunits.Time tau=30
+    "Tin time constant of temperature sensor at nominal flow rate";
 protected
   Modelica.SIunits.MassFlowRate mFlo60C "DHW flow rate at 60 degC";
-  parameter SI.Time tau=30
-    "Tin time constant of temperature sensor at nominal flow rate";
+
 
 public
   Modelica.Fluid.Interfaces.FluidPort_a port_hot(redeclare package Medium = Medium)
