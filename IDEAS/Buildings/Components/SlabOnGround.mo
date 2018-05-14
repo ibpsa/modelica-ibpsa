@@ -27,9 +27,6 @@ model SlabOnGround "opaque floor on ground slab"
 
 //Calculation of heat loss based on ISO 13370
 protected
-  final parameter Modelica.Fluid.Types.Dynamics energyDynamicsLayGro[3]=
-    cat(1, fill(energyDynamics, 2), {if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics})
- "Energy dynamics for construction layer";
   final parameter IDEAS.Buildings.Data.Materials.Ground ground1(final d=0.50);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground2(final d=0.33);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground3(final d=0.17);
@@ -54,7 +51,7 @@ protected
     final nLay=3,
     final mats={ground1,ground2,ground3},
     final T_start={TeAvg,TeAvg,TeAvg},
-    monLay(energyDynamics=energyDynamicsLayGro),
+    monLay(each energyDynamics=energyDynamics),
     final A=A)
     "Declaration of array of resistances and capacitances for ground simulation"
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
@@ -143,6 +140,12 @@ zone that is surrounded by air at the ambient temperature.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 14, 2018, by Filip Jorissen:<br/>
+Revised value of <code>energyDynamics</code>
+for ground layers such that unique initial conditions
+can be defined.
+</li>
 <li>
 January 2, 2017, by Filip Jorissen:<br/>
 Added default values for parameters <code>inc</code> and 
