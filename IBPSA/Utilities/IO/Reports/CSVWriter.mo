@@ -5,16 +5,16 @@ model CSVWriter "Model for writing results to a .csv file"
   parameter Integer nin "Number of inputs"
     annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter String fileName = getInstanceName() + ".csv" "File name, including extension";
-  parameter String delimiter = "\t" "Delimiter for csv file"
-    annotation(Dialog(group="Options"));
   parameter Modelica.SIunits.Time samplePeriod "Sample period";
+  parameter String delimiter = "\t" "Delimiter for csv file"
+    annotation(Dialog(tab="Advanced"));
   parameter Boolean writeHeader = true
     "=true, to specify header names, otherwise no header"
-    annotation(Dialog(group="Options"));
+    annotation(Dialog(tab="Advanced"));
   parameter String[nin] headerNames = {"col"+String(i) for i in 1:nin}
     "Header names, indices by default"
-    annotation(Dialog(enable=writeHeader, group="Options"));
-  Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that will be saved"
+    annotation(Dialog(enable=writeHeader, tab="Advanced"));
+  Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that are saved"
      annotation (Placement(transformation(extent={{-130,20},{-90,-20}})));
 
 protected
@@ -87,25 +87,28 @@ which can directly be read using e.g. excel or python.</p>
 <p>
 The parameter <code>nin</code> defines the number of variables that are stored.
 </p>
+<p>
+The parameter <code>fileName</code> defines to what file name the results
+are stored. Results are saved in the current working directory
+unless an absolute path is provided.
+</p>
+<p>
+The parameter <code>samplePeriod</code> defines every how may seconds
+the inputs are saved to the file. 
+</p>
 <h4>Options</h4>
 <p>
 The parameter <code>delimiter</code> can be used to choose a custom separator.
-The parameter <code>samplePeriod</code> defines every how may seconds
-the inputs are saved to the file. 
-The parameter <code>startTime</code> defines when the first sample
-should be saved.
+</p>
+<p>
+By default the first line of the csv file consists of the file header.
+The column names can be defined using parameter <code>headerNames</code>
+or the header can be removed by setting <code>writeHeader=false</code>
 </p>
 <h4>Dynamics</h4>
 <p>
 This model samples the outputs at an equidistant interval and
 hence disregards the simulation tool output interval settings.
 </p>
-<h4>Implementation</h4>
-<p>
-Function <code>createFile</code> includes the .c file while
-function <code>appendFile</code> includes the .h file.
-Otherwise the c functions are defined multiple time when the 
-.c file is included twice, or the function bodies are undefined
-when the .h file is included twice.
-</p>"));
+</html>"));
 end CSVWriter;
