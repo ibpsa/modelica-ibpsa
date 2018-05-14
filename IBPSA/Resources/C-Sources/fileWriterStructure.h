@@ -11,24 +11,34 @@ static unsigned int FileWriterNames_n = 0;     /* Number of files */
 void* prependString(const char* fileName, const char* string){
   // read original file contents
   FILE *fr = fopen(fileName, "r");
-  fseek(fr, 0, SEEK_END);
+  if(fseek(fr, 0, SEEK_END)!=0)
+  	ModelicaFormatError("The file %s could not be read.", fileName);
   long fsize = ftell(fr);
-  fseek(fr, 0, SEEK_SET);
+  if (fsize==-1)
+  	ModelicaFormatError("The file %s could not be read.", fileName);
+  if(fseek(fr, 0, SEEK_SET)!=0)
+  	ModelicaFormatError("The file %s could not be read.", fileName);
+
   char *origString = malloc(fsize + 1);
   if ( origString == NULL ){
     // not enough memory is available: file too large
     ModelicaError("Not enough memory in fileWriterInit.c for prepending string.");
   } 
-  fread(origString, fsize, 1, fr);
+  if (fread(origString, fsize, 1, fr)==0)
+  	ModelicaFormatError("The file %s could not be read.", fileName);
+  	
   fclose(fr);
   origString[fsize] = '\0';
 
   // write new contents
   FILE *fw = fopen(fileName, "w");
   // prepended string
-  fputs(string, fw);
+  if (fputs(string, fw)==EOF)
+    ModelicaFormatError("The file %s could not be written.", fileName);
   // original data
-  fputs(origString, fw);
+  if (fputs(origString, fw)==EOF)
+    ModelicaFormatError("The file %s could not be written.", fileName);  
+
   fclose(fw);
 
   free(origString);
