@@ -23,8 +23,10 @@ equation
           -32,30},{-59,30}}, color={0,0,127}));
   connect(csvWri2.u[2], step.y) annotation (Line(points={{-21,-31},{-54,-31},{
           -54,-30},{-59,-30}}, color={0,0,127}));
-  annotation (experiment(StartTime=-1.21, StopTime=10),
-                                       Documentation(revisions="<html>
+  annotation (experiment(
+      StartTime=-1.21,
+      StopTime=10,
+      Tolerance=1e-06),                Documentation(revisions="<html>
 <ul>
 <li>
 May 10, 2018 by Filip Jorissen:<br/>
