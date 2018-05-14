@@ -111,7 +111,7 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/924\">#924</a>.
 </html>",
         info="<html>
 <p>This model samples the model inputs <code>u</code> and saves them to a .csv file,
-which can directly be read using e.g. excel or python.</p>
+which can directly be read using e.g. excel or python.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
