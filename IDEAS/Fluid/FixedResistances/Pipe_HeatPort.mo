@@ -2,6 +2,7 @@ within IDEAS.Fluid.FixedResistances;
 model Pipe_HeatPort "Pipe with HeatPort"
 
   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(vol(
+        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         prescribedHeatFlowRate=prescribedHeatFlowRate));
 
   parameter Boolean prescribedHeatFlowRate=false
