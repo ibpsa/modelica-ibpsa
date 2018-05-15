@@ -43,5 +43,10 @@ equation
           16,70},{20,70},{20,90},{106,90}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),           __Dymola_Commands(file=
-          "Scripts/linearize_Case900Linearise.mos" "Linearise"));
+          "Scripts/linearize_Case900Linearise.mos" "Linearise"),
+    Documentation(revisions="<html>
+<ul>
+<li>May 15, 2018 by Damien Picard: <br>First implementation</li>
+</ul>
+</html>"));
 end Case900Linearise;

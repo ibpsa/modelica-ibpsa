@@ -138,5 +138,14 @@ equation
   connect(TLinRecZon.y, err_linRecZon_recZon.u1) annotation (Line(points={{51,70},
           {60,70},{60,-34},{78,-34}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    experiment(StopTime=100000),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/LIDEAS/Validation/Case900ValidationNonLinear.mos"
+        "Linearise, simulate and plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>May 15, 2018 by Damien Picard: <br>First implementation</li>
+</ul>
+</html>"));
 end Case900ValidationNonLinear;
