@@ -2,8 +2,7 @@ last-generated=2018-05-15
 statistics-initialization=
 {
   "numerical Jacobians": "0", 
-  "nonlinear": "4, 8, 7, 10, 8, 9, 7, 7, 7, 10, 5, 5, 5, 5, 5, 5, 4, 5, 0, 0, 0, 0", 
-  "linear": "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0"
+  "nonlinear": "4, 8, 7, 10, 8, 9, 7, 7, 7, 10, 5, 5, 5, 5, 5, 5, 4, 5, 0, 0, 0, 0"
 }
 statistics-simulation=
 {
