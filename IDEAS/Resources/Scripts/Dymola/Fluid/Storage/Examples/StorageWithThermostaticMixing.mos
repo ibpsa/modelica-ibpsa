@@ -1,6 +1,0 @@
-simulateModel("IDEAS.Fluid.Storage.Examples.StorageWithThermostaticMixing", stopTime=86400, method="dassl", resultFile="StorageWithThermostaticMixing");
-
-// experiment StopTime=86400
-
-plot( y={"pump1.heatPort.T"}, colors={{0,0,255}});
-
