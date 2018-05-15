@@ -18,7 +18,9 @@ model MultipleBoreholesWithHeatPump
     lenSim=lenSim,
     bfData=bfData,
     redeclare package Medium = Medium,
-    dp_nominal=1000) "borefield"
+    dp_nominal=1000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                     "borefield"
     annotation (Placement(transformation(extent={{12,-78},{-28,-38}})));
 
   IDEAS.Fluid.Movers.FlowControlled_m_flow pum(
