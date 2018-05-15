@@ -57,7 +57,7 @@ protected
   final parameter Real R_ss(fixed=false) "Steady state resistance";
 
   //Load
-  Modelica.SIunits.Power[q_max,p_max] QMat
+  discrete Modelica.SIunits.Power[q_max,p_max] QMat
     "Aggregation of load vector. Updated every discrete time step.";
 
   //Utilities
@@ -96,6 +96,10 @@ initial equation
 
   R_ss =  TSteSta/(bfData.gen.q_ste*bfData.gen.hBor*bfData.gen.nbBh)
     "Steady state resistance";
+
+initial equation
+  pre(QMat)=zeros(q_max,p_max);
+  pre(UOld)=0;
 
 equation
   Q_flow = port_a.m_flow*(actualStream(port_a.h_outflow) - actualStream(port_b.h_outflow));
