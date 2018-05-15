@@ -17,10 +17,10 @@ partial model FluidProperties
     "Reference temperature";
   Modelica.SIunits.Temperature Tf[nX_a] "Fluid temperature";
   Modelica.SIunits.Density d[nX_a] "Density of fluid mixture";
-  Modelica.SIunits.SpecificHeatCapacity cp[nX_a] "Density of fluid mixture";
+  Modelica.SIunits.SpecificHeatCapacity cp[nX_a] "Specific heat capacity of fluid mixture";
   Modelica.SIunits.ThermalConductivity lambda[nX_a] "Density of fluid mixture";
-  Modelica.SIunits.DynamicViscosity eta[nX_a] "Density of fluid mixture";
-  Modelica.SIunits.Temperature T "Temperature";
+  Modelica.SIunits.DynamicViscosity eta[nX_a] "Dynamic viscosity of fluid mixture";
+  Modelica.SIunits.Temperature T "Temperature of fluid mixture";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC "Celsius temperature";
 
 protected

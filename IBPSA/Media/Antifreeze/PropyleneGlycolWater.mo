@@ -410,7 +410,7 @@ The accuracy of the thermophysical properties is dependent on the temperature
 variations encountered during simulations.
 The figure below shows the relative error of the the four properties over a
 <i>10</i> &deg;C range around the temperature used to evaluate the constant
-proepties. The maximum errors are <i>0.8</i> % for mass density, <i>1.5</i> %
+properties. The maximum errors are <i>0.8</i> % for mass density, <i>1.5</i> %
 for specific heat capacity, <i>3.2</i> % for thermal conductivity and <i>250</i>
 % for dynamic viscosity.
 </p>

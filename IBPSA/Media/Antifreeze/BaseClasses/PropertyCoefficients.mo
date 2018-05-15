@@ -7,7 +7,7 @@ record PropertyCoefficients
   Modelica.SIunits.Temperature T_ref "Reference temperature";
   Integer nX_a "Order of polynomial in x";
   Integer nT[nX_a] "Order of polynomial in y";
-  Integer nTot "Total numnber of coefficients";
+  Integer nTot "Total number of coefficients";
   Real a_d[nTot] "Polynomial coefficients for density";
   Real a_eta[nTot] "Polynomial coefficients for dynamic viscosity";
   Real a_Tf[nTot] "Polynomial coefficients for fusion temperature";
