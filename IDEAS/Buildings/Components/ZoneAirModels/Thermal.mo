@@ -18,6 +18,11 @@ model Thermal
   AirLeakageThermal airLeakageThermal(cp_default=cp_default,
     m_flow_nominal_airLea=m_flow_nominal_airLea)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+initial equation
+  if energyDynamics==Modelica.Fluid.Types.Dynamics.FixedInitial then
+    heaCap.T=T_start;
+  end if;
+
 equation
   QGai=0;
   E=heaCap.T*heaCap.C;
