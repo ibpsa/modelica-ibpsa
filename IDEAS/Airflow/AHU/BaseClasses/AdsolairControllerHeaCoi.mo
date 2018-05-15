@@ -21,14 +21,14 @@ model AdsolairControllerHeaCoi
         origin={-106,-128})));
   Modelica.Blocks.Interfaces.RealOutput yHea "Control signal for heating coil"
     annotation (Placement(transformation(extent={{100,-114},{120,-94}})));
-  Modelica.Blocks.Continuous.Filter fil(f_cut=1/60)
+  Modelica.Blocks.Continuous.Filter fil(f_cut=1/60, init=Modelica.Blocks.Types.Init.InitialState)
     "Filter for avoiding algebraic loops between controller and valve"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
 equation
   connect(piHeaOn.y, PIDHeater.on)
     annotation (Line(points={{3,-70},{9.6,-70},{9.6,-74}}, color={255,0,255}));
   connect(PIDHeater.u_s, TSet) annotation (Line(points={{4.8,-80},{-44,-80},{
-          -44,20},{-106,20}}, color={0,0,127}));
+          -44,30},{-104,30}}, color={0,0,127}));
   connect(PIDHeater.y, yHea) annotation (Line(points={{18.6,-80},{70,-80},{70,
           -104},{110,-104}}, color={0,0,127}));
   connect(fil.y, PIDHeater.u_m)
