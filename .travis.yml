@@ -23,7 +23,7 @@ env:
   - TEST_ARG="make test-dymola    PACKAGE=IDEAS.{Airflow,BoundaryConditions,Controls}"
   - TEST_ARG="make test-dymola    PACKAGE=IDEAS.{Media,Utilities}"
   - TEST_ARG="make test-dymola    PACKAGE=IDEAS.Buildings"  
-  - TEST_ARG="make test-dymola    PACKAGE=IDEAS.Examples"   
+  - TEST_ARG="make test-dymola    PACKAGE=IDEAS.{Examples,Templates}"   
 
 before_install:
   - sudo cp IDEAS/Resources/Scripts/travis/usr/local/bin/dymola /usr/local/bin/
