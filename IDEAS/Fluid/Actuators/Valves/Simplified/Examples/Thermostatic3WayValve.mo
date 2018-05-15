@@ -4,7 +4,9 @@ model Thermostatic3WayValve "Example of a thermostatic three way valve"
   IDEAS.Fluid.Actuators.Valves.Simplified.Thermostatic3WayValve thermostatic3WayValve(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dynamicValve=false) annotation (Placement(transformation(extent={{8,8},{28,28}})));
+    dynamicValve=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                        annotation (Placement(transformation(extent={{8,8},{28,28}})));
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
   parameter SI.MassFlowRate m_flow_nominal=2 "Nominal mass flow rate";
@@ -87,6 +89,10 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),     Documentation(revisions="<html>
 <ul>
+<li>
+May 15, 2018, by Filip Jorissen:<br/>
+Changes for setting unique initial conditions.
+</li>
 <li>
 March 2014 by Filip Jorissen:<br/>
 First implementation.

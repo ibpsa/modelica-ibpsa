@@ -35,4 +35,12 @@ equation
     annotation (Line(points={{1,-130},{12,-130},{12,-87.2}}, color={0,0,127}));
   connect(fil.u, THeaOut) annotation (Line(points={{-22,-130},{-106,-130},{-106,
           -128}}, color={0,0,127}));
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+May 15, 2018, by Filip Jorissen:<br/>
+Changes for setting unique initial conditions.
+</li>
+</ul>
+</html>"));
 end AdsolairControllerHeaCoi;
