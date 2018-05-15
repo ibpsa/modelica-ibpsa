@@ -210,3 +210,4 @@ def polynomialProperty(x, y, xm, ym, nx, ny, coeff):
 
 if __name__ == '__main__':
     main()
+    
