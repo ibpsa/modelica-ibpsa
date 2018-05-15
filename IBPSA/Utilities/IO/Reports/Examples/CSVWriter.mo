@@ -38,5 +38,8 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/924\">#924</a>.
 <p>
 This model demonstrates the use of the csv file writer.
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Utilities/IO/Reports/Examples/CSVWriter.mos"
+        "Simulate and plot"));
 end CSVWriter;

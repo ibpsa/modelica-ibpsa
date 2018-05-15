@@ -43,7 +43,7 @@ function prependString
   input String string "Prepended string";
   external"C" prependString(fileName, string)
     annotation (
-      Include="#include <fileWriterStructure.h>",
+      Include="#include \"prependString.c\"",
       IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
 end prependString;
 initial equation
