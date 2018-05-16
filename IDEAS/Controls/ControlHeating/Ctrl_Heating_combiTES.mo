@@ -47,10 +47,10 @@ equation
 <p><h4>Example </h4></p>
 <p>This controller is used in <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS\">IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS</a>.</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2011, Roel De Coninck: first version and validation</li>
-</ul></p>
+</ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},{100,80}}),
         graphics));
