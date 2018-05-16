@@ -19,7 +19,7 @@ for i in 1:size(re.xNames,1) loop Modelica.Utilities.Streams.print(re.xNames[i],
 // Re-add CPU
 OutputCPUtime:=true;
 // --------------- Simulate and plot model --------------------------------
-simulateModel("IDEAS.LIDEAS.Validation.Case900ValidationNonLinear", startTime=0, method="dassl", tolerance=1e-6, stopTime=100000, resultFile="Case900ValidationNonLinear");
+simulateModel("IDEAS.LIDEAS.Validation.Case900ValidationNonLinear", startTime=0, method="dassl", tolerance=1e-6, stopTime=1000000, resultFile="Case900ValidationNonLinear");
 
 createPlot(id=1, position={0, 0, 1381, 733}, y={"TRecZon.y", "TLinRecZon.y", "TSsm.y"}, range={0.0, 100000.0, 14.0, 21.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=1, position={0, 0, 1381, 241}, y={"err_linRecZon_ssm.y"}, range={0.0, 100000.0, -0.05, 0.15000000000000002}, grid=true, subPlot=2, colors={{28,108,200}});
