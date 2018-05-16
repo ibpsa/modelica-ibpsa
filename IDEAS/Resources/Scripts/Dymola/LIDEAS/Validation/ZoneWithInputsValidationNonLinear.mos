@@ -3,7 +3,7 @@ removePlots();
 // Remove CPU to avoid additional output
 OutputCPUtime:=false;
 // linearise model and save results in 're'
-re=Modelica_LinearSystems2.ModelAnalysis.Linearize("LIDEAS.Examples.ZoneWithInputsLinearise");
+re=Modelica_LinearSystems2.ModelAnalysis.Linearize("IDEAS.LIDEAS.Examples.ZoneWithInputsLinearise");
 // extract state space matrices from 're' and save them to a mat file in the current working directory
 writeMatrix(fileName="ssm_ZoneWithInputsLinearise.mat",matrixName="A",matrix=re.A);
 writeMatrix(fileName="ssm_ZoneWithInputsLinearise.mat",matrixName="B",matrix=re.B, append=true);
@@ -19,7 +19,7 @@ for i in 1:size(re.xNames,1) loop Modelica.Utilities.Streams.print(re.xNames[i],
 // Re-add CPU
 OutputCPUtime:=true;
 // --------------- Simulate and plot model --------------------------------
-simulateModel("LIDEAS.Validation.ZoneWithInputsValidationNonLinear", startTime=0, method="dassl", tolerance=1e-6, stopTime=100000, resultFile="LIDEAS.Validation.ZoneWithInputsValidationNonLinear");
+simulateModel("IDEAS.LIDEAS.Validation.ZoneWithInputsValidationNonLinear", startTime=0, method="dassl", tolerance=1e-6, stopTime=100000, resultFile="ZoneWithInputsValidationNonLinear");
 createPlot(id=1, position={0, 0, 1283, 740}, y={"TZon_ssm[1].y", "TZon[1].y"}, range={0.0, 100000.0, 19.5, 22.0}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={0, 0, 1283, 244}, y={"TZon_ssm[2].y", "TZon[2].y"}, range={0.0, 100000.0, 15.0, 40.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={0, 0, 1283, 243}, y={"err[1].y", "err[2].y"}, range={0.0, 100000.0, -0.0002, 4.9999999999999996E-005}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
