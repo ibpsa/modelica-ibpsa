@@ -87,6 +87,7 @@ equation
       color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=3600),
+    __Dymola_experimentSetupOutput(events=true),
 __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ConservationEquation.mos"
         "Simulate and plot"),
 Documentation(info="<html>
