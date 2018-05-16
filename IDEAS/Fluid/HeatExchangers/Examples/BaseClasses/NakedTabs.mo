@@ -57,34 +57,35 @@ equation
   annotation (
     Diagram(graphics),
     Documentation(info="<html>
-<p><b>Description</b> </p>
+<p><b>Description</b></p>
 <p>Discretized heat transfer model of a thermally activated building layer. The model has 3 heatPorts:</p>
-<p><ol>
-<li>portCore: port to the <a href=\"modelica://IDEAS.Thermal.Components.Emission.EmbeddedPipe\">embeddedPipe</a> model that computes the heat trransfer to the core of the thermally activated layer</li>
+<ol>
+<li>portCore: port to the <a href=\"modelica://IDEAS.Thermal.Components.Emission.EmbeddedPipe\">embeddedPipe</a> 
+model that computes the heat trransfer to the core of the thermally activated layer</li>
 <li>port_a: heatPort for heat emission at the upper side of the TABS</li>
 <li>port_b: heatPort for heat emission at the lower side of the TABS</li>
-</ol></p>
-<p><h4>Assumptions and limitations </h4></p>
-<p><ol>
+</ol>
+<h4>Assumptions and limitations </h4>
+<ol>
 <li>Discretized model in n1 elements between the core and port_a, and n2 layers between core and port_b</li>
 <li>No capacity lumped to the core of the thermally activated layer.</li>
-</ol></p>
-<p><h4>Model use</h4></p>
-<p><ol>
+</ol>
+<h4>Model use</h4>
+<ol>
 <li>The geometry, material properties and floor surface is obtained from a record, radSlaCha</li>
 <li>To control the discretization in more detail, regardless of material properties, n1 and n2 can be specified specifically.</li>
-</ol></p>
-<p><h4>Validation </h4></p>
+</ol>
+<h4>Validation </h4>
 <p>This component is validated together with the EmbeddedPipe.  The effect of discretization is shown in<a href=\"modelica://IDEAS.Thermal.Components.Examples.NakedTabsTester\"> IDEAS.Thermal.Components.Examples.NakedTabsTester</a>.</p>
 <p>A specific report of this validation can be found in IDEAS/Specifications/Thermal/ValidationEmbeddedPipeModels_20111006.pdf</p>
-<p><h4>Example (optional) </h4></p>
+<h4>Example (optional) </h4>
 <p>The <a href=\"modelica://IDEAS.Thermal.Components.Emission.Tabs\">Tabs</a> model shows the integration of an EmbeddedPipe and a NakedTabs.</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2012 April, Roel De Coninck: rebasing on common Partial_Emission</li>
 <li>2011, Roel De Coninck: first version and validation</li>
-</ul></p>
+</ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
