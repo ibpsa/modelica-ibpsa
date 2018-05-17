@@ -5,9 +5,7 @@ model PropertySource_h "Model that illustrates the use of PropertySource_h"
 
   IBPSA.Fluid.Sources.PropertySource_h proSouXi(
     redeclare package Medium = Medium,
-    use_Xi_in=true,
-    use_h_in=false,
-    use_C_in=false)
+    use_Xi_in=true)
     "Property source that prescribes Xi"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IBPSA.Fluid.Sources.MassFlowSource_h bouXi(
@@ -24,16 +22,12 @@ model PropertySource_h "Model that illustrates the use of PropertySource_h"
           annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   IBPSA.Fluid.Sources.PropertySource_h proSouH(
     redeclare package Medium = Medium,
-    use_h_in=true,
-    use_Xi_in=false,
-    use_C_in=false)
+    use_h_in=true)
     "Property source that prescribes the specific enthalpy"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   IBPSA.Fluid.Sources.PropertySource_h proSouC(
     redeclare package Medium = Medium,
-    use_C_in=true,
-    use_h_in=false,
-    use_Xi_in=false) "Property source that prescribes C"
+    use_C_in=true)   "Property source that prescribes C"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   IBPSA.Fluid.Sources.MassFlowSource_h bouH(
     redeclare package Medium = Medium,

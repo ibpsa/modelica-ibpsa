@@ -5,9 +5,7 @@ model PropertySource_T "Model that illustrates the use of PropertySource_T"
 
   IBPSA.Fluid.Sources.PropertySource_T proSouXi(
     redeclare package Medium = Medium,
-    use_Xi_in=true,
-    use_C_in=false,
-    use_T_in=false)
+    use_Xi_in=true)
     "Property source that prescribes Xi"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IBPSA.Fluid.Sources.MassFlowSource_T bouXi(
@@ -24,16 +22,12 @@ model PropertySource_T "Model that illustrates the use of PropertySource_T"
           annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   IBPSA.Fluid.Sources.PropertySource_T proSouT(
     redeclare package Medium = Medium,
-    use_Xi_in=false,
-    use_C_in=false,
     use_T_in=true)
     "Property source that prescribes the temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   IBPSA.Fluid.Sources.PropertySource_T proSouC(
     redeclare package Medium = Medium,
-    use_C_in=true,
-    use_Xi_in=false,
-    use_T_in=false)
+    use_C_in=true)
     "Property source that prescribes C"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   IBPSA.Fluid.Sources.MassFlowSource_T bouT(
