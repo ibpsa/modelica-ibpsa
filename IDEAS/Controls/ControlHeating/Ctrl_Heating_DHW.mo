@@ -32,13 +32,13 @@ equation
 <p><b>Description</b> </p>
 <p>Heating curve based control of a heater + TES charging control for DHW. The set point temperature for the heater is higher than the heating curve output in order to make sure that the heating curve temperature is met also when thermal losses are present in the circuit. The heater set temperature is the maximum of the requirements for space heating and DHW: if tank charging is occurring, the DHW temperature requirements will normally be higher than for space heating. </p>
 <p>This controller tries to limit and even avoid the creating of events.</p>
-<p><h4>Model use</h4></p>
-<p><ol>
+<h4>Model use</h4>
+<ol>
 <li>Use this controller in a heating system with a separate DHW storage tank where you want to follow a heating curve for space heating.</li>
-</ol></p>
-<p><h4>Validation </h4></p>
+</ol>
+<h4>Validation </h4>
 <p>No validation performed.</p>
-<p><h4>Example </h4></p>
+<h4>Example </h4>
 <p>This controller is used in <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS\">IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS</a>.</p>
 </html>"));
 end Ctrl_Heating_DHW;
