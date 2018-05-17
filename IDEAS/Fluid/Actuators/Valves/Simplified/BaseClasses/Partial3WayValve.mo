@@ -2,7 +2,7 @@ within IDEAS.Fluid.Actuators.Valves.Simplified.BaseClasses;
 model Partial3WayValve "Partial for 3-way valves"
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
   parameter Real tau = 1 "Thermal time constant"
-    annotation(Dialog(enable=dynamicValve,tab="Dynamics", group="Filter"));
+    annotation(Dialog(tab="Dynamics", group="Filter"));
   parameter Real l = 0.001 "Valve leakage, minimum fraction of flow rate passing through ports a";
   final parameter Modelica.SIunits.Mass m = m_flow_nominal*tau
     "Fluid content of the mixing valve";

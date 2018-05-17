@@ -43,11 +43,11 @@ model StorageTank_OneIntHx
     nPorts=2) annotation (Placement(transformation(extent={{86,-96},{66,-76}})));
 
   parameter SI.MassFlowRate m_flow_nominal=3 "Nominal mass flow rate";
-  IDEAS.Fluid.Sensors.TemperatureTwoPort senStoHx_in(redeclare package Medium
-      = Medium, m_flow_nominal=hp.heatPumpData.m2_flow_nominal*hp.sca)
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senStoHx_in(redeclare package Medium =
+        Medium, m_flow_nominal=hp.heatPumpData.m2_flow_nominal*hp.sca)
     annotation (Placement(transformation(extent={{-46,4},{-34,16}})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort senStoHx_out(redeclare package Medium
-      = Medium, m_flow_nominal=hp.heatPumpData.m2_flow_nominal*hp.sca)
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senStoHx_out(redeclare package Medium =
+        Medium, m_flow_nominal=hp.heatPumpData.m2_flow_nominal*hp.sca)
     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,

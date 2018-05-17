@@ -31,10 +31,10 @@ partial model partial_SingleBoreHoleStepLoad
     m_flow_nominal=gen.m_flow_nominal_bh,
     dp_nominal=10000,
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     m_flow(start=gen.m_flow_nominal_bh),
     T_start=gen.T_start,
     Q_flow_nominal=gen.q_ste*gen.hBor*gen.nbSer,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     p_start=100000)
     annotation (Placement(transformation(extent={{26,10},{6,-10}})));
   Modelica.Blocks.Sources.Constant mFlo(k=gen.m_flow_nominal_bh)
@@ -51,15 +51,15 @@ partial model partial_SingleBoreHoleStepLoad
     annotation (Placement(transformation(extent={{-14,10},{-34,-10}})));
   Sensors.TemperatureTwoPort             TSen_bor_in(
     redeclare package Medium = Medium,
-    tau=60,
     m_flow_nominal=gen.m_flow_nominal_bh,
-    T_start=gen.T_start) "Temperature at the inlet of the borefield"
+    T_start=gen.T_start,
+    tau=0)               "Temperature at the inlet of the borefield"
     annotation (Placement(transformation(extent={{-54,-54},{-38,-38}})));
   Sensors.TemperatureTwoPort             TSen_bor_out(
     redeclare package Medium = Medium,
-    tau=60,
     m_flow_nominal=gen.m_flow_nominal_bh,
-    T_start=gen.T_start) "Temperature at the outlet of the borefield"
+    T_start=gen.T_start,
+    tau=0)               "Temperature at the outlet of the borefield"
     annotation (Placement(transformation(extent={{34,-54},{50,-38}})));
 
 equation
@@ -90,9 +90,7 @@ equation
       smooth=Smooth.None));
 
   annotation (
-    __Dymola_Commands(file=
-          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/Examples/UTube.mos"
-        "Simulate and plot"),
+    __Dymola_Commands,
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
                    graphics),

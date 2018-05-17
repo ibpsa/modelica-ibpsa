@@ -18,7 +18,9 @@ model MultipleBoreholesWithHeatPump
     lenSim=lenSim,
     bfData=bfData,
     redeclare package Medium = Medium,
-    dp_nominal=1000) "borefield"
+    dp_nominal=1000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                     "borefield"
     annotation (Placement(transformation(extent={{12,-78},{-28,-38}})));
 
   IDEAS.Fluid.Movers.FlowControlled_m_flow pum(
@@ -26,7 +28,8 @@ model MultipleBoreholesWithHeatPump
     T_start=bfData.gen.T_start,
     m_flow_nominal=bfData.m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{-52,24},{-32,4}})));
   Modelica.Blocks.Sources.Constant mFlo(k=1)
     annotation (Placement(transformation(extent={{-14,-18},{-26,-6}})));
@@ -42,7 +45,9 @@ model MultipleBoreholesWithHeatPump
     P_the_nominal=bfData.PThe_nominal/2,
     redeclare
       IDEAS.Fluid.Production.Data.PerformanceMaps.VitoCal300GBWS301dotA45
-      heatPumpData)  annotation (Placement(transformation(
+      heatPumpData,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                     annotation (Placement(transformation(
         extent={{15,-17},{-15,17}},
         rotation=180,
         origin={1,25})));
@@ -63,7 +68,8 @@ model MultipleBoreholesWithHeatPump
     m_flow_nominal=bfData.m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    inputType=IDEAS.Fluid.Types.InputType.Constant)
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{30,72},{50,92}})));
   Sources.Boundary_pT bou(          redeclare package Medium = Medium,
     nPorts=2,
@@ -129,8 +135,8 @@ equation
       points={{50,82},{60,82},{60,35.2},{16,35.2}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(mFlo.y, pum.m_flow_in) annotation (Line(points={{-26.6,-12},{-42.2,
-          -12},{-42.2,2}}, color={0,0,127}));
+  connect(mFlo.y, pum.m_flow_in) annotation (Line(points={{-26.6,-12},{-42,-12},
+          {-42,2}},        color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),

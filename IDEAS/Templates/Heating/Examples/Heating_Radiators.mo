@@ -1,7 +1,7 @@
 within IDEAS.Templates.Heating.Examples;
 model Heating_Radiators
   "Example and test for basic heating system with radiators"
-  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+  package Medium = IDEAS.Media.Water;
   extends Modelica.Icons.Example;
   final parameter Integer nZones=1 "Number of zones";
   IDEAS.Templates.Heating.Heating_Radiators heating(
