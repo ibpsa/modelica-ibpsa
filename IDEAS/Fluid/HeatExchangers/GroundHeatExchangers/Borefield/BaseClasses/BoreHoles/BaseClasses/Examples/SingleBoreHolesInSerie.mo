@@ -49,13 +49,15 @@ equation
     experimentSetupOutput,
     Diagram,
     Documentation(info="<html>
+<p>
 This example illustrates modeling a segment of a borehole heat exchanger.
 It simulates the behavior of the borehole on a single horizontal section including the ground and the
 boundary condition.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-August 30, 2011, by Pierre Vigouroux:<br>
+August 30, 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

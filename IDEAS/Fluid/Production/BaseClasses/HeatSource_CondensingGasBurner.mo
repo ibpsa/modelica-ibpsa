@@ -165,32 +165,32 @@ equation
                       graphics), Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;data&nbsp;from&nbsp;a Remeha boiler. It is used in the <a href=\"modelica://IDEAS.Thermal.Components.Production.Boiler\">Boiler</a> model. </p>
-<p>The&nbsp;nominal&nbsp;power&nbsp;of&nbsp;the&nbsp;original&nbsp;boiler&nbsp;is&nbsp;10.1&nbsp;kW&nbsp;at &nbsp;50/30 degC&nbsp;water&nbsp;temperatures.&nbsp;&nbsp;&nbsp;The&nbsp;efficiency&nbsp;in&nbsp;this&nbsp;point&nbsp;is&nbsp;92.2&percnt;&nbsp;on&nbsp;higher&nbsp;heating&nbsp;value.&nbsp;</p>
+<p>The&nbsp;nominal&nbsp;power&nbsp;of&nbsp;the&nbsp;original&nbsp;boiler&nbsp;is&nbsp;10.1&nbsp;kW&nbsp;at &nbsp;50/30 degC&nbsp;water&nbsp;temperatures.&nbsp;&nbsp;&nbsp;The&nbsp;efficiency&nbsp;in&nbsp;this&nbsp;point&nbsp;is&nbsp;92.2%&nbsp;on&nbsp;higher&nbsp;heating&nbsp;value.&nbsp;</p>
 <p>First,&nbsp;the&nbsp;efficiency&nbsp;is&nbsp;interpolated&nbsp;for&nbsp;the&nbsp;&nbsp;return&nbsp;water&nbsp;temperature&nbsp;and&nbsp;flowrate&nbsp;at&nbsp;5&nbsp;different&nbsp;modulation&nbsp;levels.&nbsp;These&nbsp;modulation&nbsp;levels&nbsp;are&nbsp;the&nbsp;FUEL&nbsp;input&nbsp;power&nbsp;to&nbsp;the&nbsp;boiler.&nbsp;&nbsp;The&nbsp;results&nbsp;&nbsp;are&nbsp;rescaled&nbsp;to&nbsp;the&nbsp;nominal&nbsp;power&nbsp;of&nbsp;the&nbsp;modelled&nbsp;heatpump&nbsp;(with&nbsp;QNom/QNom_data)&nbsp;and&nbsp;&nbsp;stored&nbsp;in&nbsp;a&nbsp;vector,&nbsp;eta_vector.</p>
 <p>Finally,&nbsp;the&nbsp;initial&nbsp;modulation&nbsp;is&nbsp;calculated&nbsp;based&nbsp;on&nbsp;the&nbsp;asked&nbsp;power&nbsp;and&nbsp;the&nbsp;max&nbsp;power&nbsp;at&nbsp;&nbsp;operating&nbsp;conditions:&nbsp;</p>
-<p><ul>
-<li>&nbsp;&nbsp;if&nbsp;modulation_init&nbsp;&LT;&nbsp;modulation_min,&nbsp;the&nbsp;boiler&nbsp;is&nbsp;OFF,&nbsp;modulation&nbsp;=&nbsp;0.&nbsp;&nbsp;</li>
-<li>&nbsp;&nbsp;if&nbsp;modulation_init&nbsp;&GT;&nbsp;100&percnt;,&nbsp;the&nbsp;modulation&nbsp;is&nbsp;100&percnt;</li>
+<ul>
+<li>&nbsp;&nbsp;if&nbsp;modulation_init&nbsp;&lt;&nbsp;modulation_min,&nbsp;the&nbsp;boiler&nbsp;is&nbsp;OFF,&nbsp;modulation&nbsp;=&nbsp;0.&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;if&nbsp;modulation_init&nbsp;&gt;&nbsp;100%,&nbsp;the&nbsp;modulation&nbsp;is&nbsp;100%</li>
 <li>&nbsp;&nbsp;if&nbsp;modulation_init&nbsp;between&nbsp;modulation_min&nbsp;and&nbsp;modulation_start:&nbsp;hysteresis&nbsp;for&nbsp;on/off&nbsp;cycling.</li>
-</ul></p>
+</ul>
 <p>If&nbsp;the&nbsp;boiler&nbsp;is&nbsp;on&nbsp;another&nbsp;modulation,&nbsp;interpolation&nbsp;is&nbsp;made&nbsp;to&nbsp;get&nbsp;eta&nbsp;at&nbsp;the&nbsp;real&nbsp;modulation.</p>
-<p><h4>ATTENTION</h4></p>
+<h4>ATTENTION</h4>
 <p>This&nbsp;model&nbsp;takes&nbsp;into&nbsp;account&nbsp;environmental&nbsp;heat&nbsp;losses&nbsp;of&nbsp;the&nbsp;boiler.&nbsp;&nbsp;In&nbsp;order&nbsp;to&nbsp;keep&nbsp;the&nbsp;same&nbsp;nominal&nbsp;eta&apos;s&nbsp;during&nbsp;operation,&nbsp;these&nbsp;heat&nbsp;losses&nbsp;are&nbsp;added&nbsp;to&nbsp;the&nbsp;computed&nbsp;power.&nbsp;&nbsp;Therefore,&nbsp;the&nbsp;heat&nbsp;losses&nbsp;are&nbsp;only&nbsp;really&nbsp;&apos;losses&apos;&nbsp;when&nbsp;the&nbsp;boiler&nbsp;is&nbsp;NOT&nbsp;operating.&nbsp;</p>
 <p>The&nbsp;eta&nbsp;is&nbsp;calculated&nbsp;as&nbsp;the&nbsp;heat&nbsp;delivered&nbsp;to&nbsp;the&nbsp;heatedFluid&nbsp;divided&nbsp;by&nbsp;the&nbsp;fuel&nbsp;consumption&nbsp;PFuel.&nbsp;</p>
-<p><h4>Assumptions and limitations </h4></p>
-<p><ol>
+<h4>Assumptions and limitations </h4>
+<ol>
 <li>Based on interpolation in manufacturer data for Remeha condensing gas boiler</li>
-</ol></p>
-<p><h4>Model use</h4></p>
+</ol>
+<h4>Model use</h4>
 <p>This model is used in the <a href=\"modelica://IDEAS.Thermal.Components.Production.Boiler\">Boiler</a> model. If a different gas boiler is to be simulated, copy this Burner model and adapt the interpolation tables.</p>
-<p><h4>Validation </h4></p>
+<h4>Validation </h4>
 <p>See the <a href=\"modelica://IDEAS.Thermal.Components.Production.Boiler\">Boiler</a> model. </p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2014 May, Damien Picard: change Modelica.Math.Interpolate to IDEAS.Utilities.Math.Functions.cubicHermiteLinearExtrapolation in order to remove non-differentiable equations </li>
 <li>2014 May, Damien Picard: correct bug introduced during conversion to Annex on the QAsked </li>
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2011 August, Roel De Coninck: first version</li>
-</ul></p>
+</ul>
 </html>"));
 end HeatSource_CondensingGasBurner;

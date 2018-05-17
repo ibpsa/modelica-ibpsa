@@ -66,8 +66,10 @@ equation
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
-<p><h4><font color=\"#008000\">General description</font></h4></p>
-<p><h4>Goal</h4></p>
-<p>The <code>ShadingControl.mo</code> model describes the shadeing controller lwoering the shadeing at a default irradiance level of 250 W/m2 and raising again at 150 W/m2 (values are input parameters).</p>
+<h4>General description</h4>
+<h4>Goal</h4>
+<p>The <code>ShadingControl.mo</code> model describes the shadeing controller 
+lowering the shadeing at a default irradiance level of 250 W/m2 and raising again at 150 W/m2 (values are input parameters).
+</p>
 </html>"));
 end ShadingControl;

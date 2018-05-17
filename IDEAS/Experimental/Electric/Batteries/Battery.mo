@@ -92,12 +92,20 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
           defaultComponentName="battery",
           defaultComponentPrefixes="inner"),
           Documentation(info="<html>
-<p><h4><font color=\"#008000\">General description</font></h4></p>
-<p><h5>Goal</h5></p>
-<p>The <code>Battery.mo</code> model describes the calculations of the State of Charge (SoC) of a battery. The implementation is based on [Tant12].</p>
-<p><h5>Description</h5></p>
-<p>The dynamic SoC calculation equation is: SoC_t = SoC_{t-1} - sd_t + (eta_c x Pc_t x T_s - 1/eta_d x Pd_t x T_s) / E_nom,
-with sd_t the self-discharge on time t, eta_c and eta_d the charge and discharge efficiency, Pc_t and Pd_t the charge and discharge power, T_s the time step resolution and E_nom the nominal battery capacity.</p>
-<p>It is impossible to charge/discharge a battery at the same time: Pc_t x Pd_t = 0.</p>
+<h4>General description</h4>
+<h5>Goal</h5>
+<p>The <code>Battery.mo</code> model describes the calculations of the 
+State of Charge (SoC) of a battery. The implementation is based on [Tant12].
+</p>
+<h5>Description</h5>
+<p>
+The dynamic SoC calculation equation is: SoC_t = SoC_{t-1} - sd_t + (eta_c x Pc_t x T_s - 1/eta_d x Pd_t x T_s) / E_nom,
+with sd_t the self-discharge on time t, eta_c and eta_d the charge and discharge efficiency, 
+Pc_t and Pd_t the charge and discharge power, T_s 
+the time step resolution and E_nom the nominal battery capacity.
+</p>
+<p>
+It is impossible to charge/discharge a battery at the same time: Pc_t x Pd_t = 0.
+</p>
 </html>"));
 end Battery;

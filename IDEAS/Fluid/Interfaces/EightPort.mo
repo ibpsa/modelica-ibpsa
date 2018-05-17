@@ -122,7 +122,7 @@ may be used by models that extend this model to treat flow reversal. </p>
 <p>This model is identical to <a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has eight ports. </p>
 </html>", revisions="<html>
 <ul>
-<li>July 2014, by Damien Picard:<br>First implementation. </li>
+<li>July 2014, by Damien Picard:<br/>First implementation. </li>
 </ul>
 </html>"),
     Icon(coordinateSystem(

@@ -97,12 +97,7 @@ equation
     experimentSetupOutput,
     Diagram,
     Documentation(info="<html>
-<p>
-
-</p>
 </html>", revisions="<html>
-<ul>
-</ul>
 </html>"),
     experiment(
       StopTime=360000,

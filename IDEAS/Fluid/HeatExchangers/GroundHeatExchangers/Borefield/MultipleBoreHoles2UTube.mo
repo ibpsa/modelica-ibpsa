@@ -1,4 +1,4 @@
-within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
+﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
 model MultipleBoreHoles2UTube
   "Borefield model using double U-tube borehole heat exchanger configuration."
 
@@ -116,7 +116,7 @@ equation
           fillPattern=FillPattern.Forward)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
-  <p>The proposed model is a so-called hybrid step-response
+<p>The proposed model is a so-called hybrid step-response
 model (HSRM). This type of model uses the
 borefield’s temperature response to a step load input.
 An arbitrary load can always be approximated by a superposition
@@ -154,7 +154,7 @@ A verification of this model can be found in
 </html>", revisions="<html>
 <ul>
 <li>
-July 2014, by Damien Picard:<br>
+July 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
