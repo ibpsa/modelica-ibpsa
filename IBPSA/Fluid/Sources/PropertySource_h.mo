@@ -2,7 +2,7 @@ within IBPSA.Fluid.Sources;
 model PropertySource_h
   "Model for overriding fluid properties that flow through the component, using specific enthalpy input"
   parameter Boolean use_h_in= false
-    "Get the specific enthalpy from the input connector"
+    "Set to true to get the specific enthalpy from the input connector"
     annotation(Evaluate=true, Dialog(group="Inputs"));
 
   extends IBPSA.Fluid.Sources.BaseClasses.PartialPropertySource;

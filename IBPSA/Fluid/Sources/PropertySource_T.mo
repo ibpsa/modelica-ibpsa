@@ -2,7 +2,7 @@ within IBPSA.Fluid.Sources;
 model PropertySource_T
   "Model for overriding fluid properties that flow through the component, using temperature input"
   parameter Boolean use_T_in= false
-    "Get the leaving fluid temperature from the input connector"
+    "Set to true to get the leaving fluid temperature from the input connector"
     annotation(Evaluate=true, Dialog(group="Inputs"));
 
   extends IBPSA.Fluid.Sources.BaseClasses.PartialPropertySource;
@@ -17,9 +17,13 @@ protected
   Modelica.Blocks.Interfaces.RealOutput T_in_internal(unit="K")
     "Internal connector for leaving fluid temperature";
   Modelica.Blocks.Interfaces.RealOutput h_T_a=
-    Medium.specificEnthalpy(Medium.setState_pTX(port_a.p, T_in_internal, port_a.Xi_outflow)) if use_T_in;
+    Medium.specificEnthalpy(
+      Medium.setState_pTX(port_a.p, T_in_internal, port_a.Xi_outflow)) if use_T_in
+      "Conditional connector for enthalpy leaving port a";
   Modelica.Blocks.Interfaces.RealOutput h_T_b=
-    Medium.specificEnthalpy(Medium.setState_pTX(port_b.p, T_in_internal, port_b.Xi_outflow)) if use_T_in;
+    Medium.specificEnthalpy(
+      Medium.setState_pTX(port_b.p, T_in_internal, port_b.Xi_outflow)) if use_T_in
+      "Conditional connector for enthalpy leaving port b";
 
 equation
   connect(h_internal_a, h_T_a);

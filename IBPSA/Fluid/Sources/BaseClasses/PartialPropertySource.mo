@@ -4,15 +4,14 @@ partial model PartialPropertySource
   extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
   parameter Boolean use_Xi_in= false
-    "Get the composition from the input connector"
+    "Set to true to get the composition from the input connector"
     annotation(Evaluate=true, Dialog(group="Inputs"));
   parameter Boolean use_C_in= false
-    "Get the trace substances from the input connector"
+    "Set to true to get the trace substances from the input connector"
     annotation(Evaluate=true, Dialog(group="Inputs"));
 
 
-  Modelica.Blocks.Interfaces.RealInput Xi_in[Medium.nXi] if
-                                                         use_Xi_in
+  Modelica.Blocks.Interfaces.RealInput Xi_in[Medium.nXi] if use_Xi_in
     "Prescribed values for composition" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
@@ -66,15 +65,15 @@ equation
     connect(C_internal_b,C_in_a);
   end if;
 
-  port_a.h_outflow=if allowFlowReversal then h_internal_a else Medium.h_default;
-  port_b.h_outflow=h_internal_b;
-  port_a.Xi_outflow=if allowFlowReversal then Xi_internal_a else Medium.X_default[1:Medium.nXi];
-  port_b.Xi_outflow=Xi_internal_b;
-  port_a.C_outflow=if allowFlowReversal then C_internal_a else zeros(Medium.nC);
-  port_b.C_outflow=C_internal_b;
+  port_a.h_outflow = if allowFlowReversal then h_internal_a else Medium.h_default;
+  port_b.h_outflow = h_internal_b;
+  port_a.Xi_outflow = if allowFlowReversal then Xi_internal_a else Medium.X_default[1:Medium.nXi];
+  port_b.Xi_outflow = Xi_internal_b;
+  port_a.C_outflow = if allowFlowReversal then C_internal_a else zeros(Medium.nC);
+  port_b.C_outflow = C_internal_b;
 
-  port_a.p=port_b.p;
-  port_a.m_flow+port_b.m_flow=0;
+  port_a.p = port_b.p;
+  port_a.m_flow + port_b.m_flow = 0;
 
   annotation (defaultComponentName="proSou",
         Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
