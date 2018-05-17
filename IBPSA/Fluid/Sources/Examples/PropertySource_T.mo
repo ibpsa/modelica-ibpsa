@@ -1,6 +1,5 @@
 within IBPSA.Fluid.Sources.Examples;
 model PropertySource_T "Model that illustrates the use of PropertySource_T"
-  import IBPSA;
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air(extraPropertiesNames={"CO2"});
 
@@ -8,68 +7,79 @@ model PropertySource_T "Model that illustrates the use of PropertySource_T"
     redeclare package Medium = Medium,
     use_Xi_in=true,
     use_C_in=false,
-    use_T_in=false) "Property source that prescribes Xi"
+    use_T_in=false)
+    "Property source that prescribes Xi"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IBPSA.Fluid.Sources.MassFlowSource_T bouXi(
     redeclare package Medium = Medium,
     nPorts=1,
     use_m_flow_in=true)
-              "Boundary for Xi test"
+    "Boundary for Xi test"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  IBPSA.Fluid.Sources.Boundary_ph sin(redeclare package Medium = Medium, nPorts
-      =3) "Sink model"
+  IBPSA.Fluid.Sources.Boundary_ph sin(
+    redeclare package Medium = Medium,
+    nPorts=3)
+   "Sink model"
           annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   IBPSA.Fluid.Sources.PropertySource_T proSouT(
     redeclare package Medium = Medium,
     use_Xi_in=false,
     use_C_in=false,
-    use_T_in=true) "Property source that prescribes the temperature"
+    use_T_in=true)
+    "Property source that prescribes the temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   IBPSA.Fluid.Sources.PropertySource_T proSouC(
     redeclare package Medium = Medium,
     use_C_in=true,
     use_Xi_in=false,
-    use_T_in=false) "Property source that prescribes C"
+    use_T_in=false)
+    "Property source that prescribes C"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   IBPSA.Fluid.Sources.MassFlowSource_T bouT(
     redeclare package Medium = Medium,
     nPorts=1,
-    use_m_flow_in=true) "Boundary for temperature test"
+    use_m_flow_in=true)
+    "Boundary for temperature test"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   IBPSA.Fluid.Sources.MassFlowSource_T bouC(
     redeclare package Medium = Medium,
     nPorts=1,
     use_m_flow_in=true)
-              "Boundary for C test"
+    "Boundary for C test"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Modelica.Blocks.Sources.Constant T(k=Medium.T_default + 1)
     "Fixed temperature value"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Modelica.Blocks.Sources.Constant Xi(k=0.0123)
-                                               "Fixed Xi value"
+    "Fixed Xi value"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Modelica.Blocks.Sources.Constant C(k=0.1) "Fixed C value"
+  Modelica.Blocks.Sources.Constant C(k=0.1)
+    "Fixed C value"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Modelica.Blocks.Sources.Ramp ramp(
     height=-2,
     duration=1,
-    offset=1) "Ramp for mass flow rate"
+    offset=1)
+    "Ramp for mass flow rate"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTemT(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    tau=0) "Temperature sensor for when using temperature input"
+    tau=0)
+    "Temperature sensor for when using temperature input"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTemXi(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    tau=0) "Temperature sensor for when using Xi input"
+    tau=0)
+    "Temperature sensor for when using Xi input"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTemC(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    tau=0) "Temperature sensor for when using C input"
+    tau=0)
+    "Temperature sensor for when using C input"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 equation
   connect(bouXi.ports[1], proSouXi.port_a)
@@ -107,7 +117,7 @@ equation
     Documentation(info="<html>
 <p>
 Example model that illustrates the use of
-the <code>PropertySource</code> model.
+the <a href=\"modelica://IBPSA.Fluid.Sources.PropertySource_T\">PropertySource_T</a> model.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -123,6 +133,5 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/881\">#881</a>.
         "Simulate and plot"),
     experiment(
       StopTime=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+      Tolerance=1e-06));
 end PropertySource_T;

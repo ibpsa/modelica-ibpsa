@@ -1,6 +1,5 @@
 within IBPSA.Fluid.Sources.Examples;
 model PropertySource_h "Model that illustrates the use of PropertySource_h"
-  import IBPSA;
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air(extraPropertiesNames={"CO2"});
 
@@ -8,23 +7,27 @@ model PropertySource_h "Model that illustrates the use of PropertySource_h"
     redeclare package Medium = Medium,
     use_Xi_in=true,
     use_h_in=false,
-    use_C_in=false) "Property source that prescribes Xi"
+    use_C_in=false)
+    "Property source that prescribes Xi"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IBPSA.Fluid.Sources.MassFlowSource_h bouXi(
     redeclare package Medium = Medium,
     nPorts=1,
     use_m_flow_in=true)
-              "Boundary for Xi test"
+    "Boundary for Xi test"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  IBPSA.Fluid.Sources.Boundary_ph sin(redeclare package Medium = Medium, nPorts=
-       3) "Sink model"
+  IBPSA.Fluid.Sources.Boundary_ph sin(
+    redeclare package Medium = Medium,
+    nPorts=3)
+    "Sink model"
           annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   IBPSA.Fluid.Sources.PropertySource_h proSouH(
     redeclare package Medium = Medium,
     use_h_in=true,
     use_Xi_in=false,
-    use_C_in=false) "Property source that prescribes the specific enthalpy"
+    use_C_in=false)
+    "Property source that prescribes the specific enthalpy"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   IBPSA.Fluid.Sources.PropertySource_h proSouC(
     redeclare package Medium = Medium,
@@ -36,26 +39,29 @@ model PropertySource_h "Model that illustrates the use of PropertySource_h"
     redeclare package Medium = Medium,
     nPorts=1,
     use_m_flow_in=true)
-              "Boundary for specific enthalpy test"
+    "Boundary for specific enthalpy test"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   IBPSA.Fluid.Sources.MassFlowSource_h bouC(
     redeclare package Medium = Medium,
     nPorts=1,
     use_m_flow_in=true)
-              "Boundary for C test"
+    "Boundary for C test"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Modelica.Blocks.Sources.Constant h(k=Medium.h_default + 1e3)
+  Modelica.Blocks.Sources.Constant h(
+    k=Medium.h_default + 1e3)
     "Fixed specific enthalpy value"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Modelica.Blocks.Sources.Constant Xi(k=0.0123)
-                                               "Fixed Xi value"
+    "Fixed Xi value"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Modelica.Blocks.Sources.Constant C(k=0.1) "Fixed C value"
+  Modelica.Blocks.Sources.Constant C(k=0.1)
+    "Fixed C value"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Modelica.Blocks.Sources.Ramp ramp(
     height=-2,
     duration=1,
-    offset=1) "Ramp for mass flow rate"
+    offset=1)
+    "Ramp for mass flow rate"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 equation
   connect(bouXi.ports[1], proSouXi.port_a)
@@ -87,7 +93,7 @@ equation
     Documentation(info="<html>
 <p>
 Example model that illustrates the use of
-the <code>PropertySource</code> model.
+the <a href=\"modelica://IBPSA.Fluid.Sources.PropertySource_h\">PropertySource_h</a> model.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -103,6 +109,5 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/881\">#881</a>.
         "Simulate and plot"),
     experiment(
       StopTime=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+      Tolerance=1e-06));
 end PropertySource_h;

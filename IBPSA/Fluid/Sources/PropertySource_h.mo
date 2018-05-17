@@ -1,6 +1,8 @@
 within IBPSA.Fluid.Sources;
 model PropertySource_h
   "Model for overriding fluid properties that flow through the component, using specific enthalpy input"
+  // The parameter declaration is before 'extends',
+  // since this affects the parameter order in the parameters window.
   parameter Boolean use_h_in= false
     "Set to true to get the specific enthalpy from the input connector"
     annotation(Evaluate=true, Dialog(group="Inputs"));
@@ -41,7 +43,7 @@ of the fluid that passes through it.
 The fluid properties <code>h</code>, <code>Xi</code> and <code>C</code>
 are only modified when the corresponding boolean parameter
 <code>use_h_in</code>, <code>use_Xi_in</code> or <code>use_C_in</code>
-is enabled.
+is set to <code>true</code>.
 </p>
 <h4>Dynamics</h4>
 <p>

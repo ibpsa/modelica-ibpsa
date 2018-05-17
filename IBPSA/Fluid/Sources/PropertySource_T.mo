@@ -1,12 +1,12 @@
 within IBPSA.Fluid.Sources;
 model PropertySource_T
   "Model for overriding fluid properties that flow through the component, using temperature input"
+  // The parameter declaration is before 'extends',
+  // since this affects the parameter order in the parameters window.
   parameter Boolean use_T_in= false
     "Set to true to get the leaving fluid temperature from the input connector"
     annotation(Evaluate=true, Dialog(group="Inputs"));
-
   extends IBPSA.Fluid.Sources.BaseClasses.PartialPropertySource;
-
   Modelica.Blocks.Interfaces.RealInput T_in if use_T_in
     "Prescribed value for leaving fluid temperature" annotation (Placement(
         transformation(
