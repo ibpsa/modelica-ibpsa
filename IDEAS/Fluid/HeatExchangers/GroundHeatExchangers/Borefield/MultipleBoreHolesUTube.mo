@@ -1,4 +1,4 @@
-within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
+﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
 model MultipleBoreHolesUTube
   "Borefield model using single U-tube borehole heat exchanger configuration."
 
@@ -152,7 +152,7 @@ A verification of this model can be found in
 </html>", revisions="<html>
 <ul>
 <li>
-July 2014, by Damien Picard:<br>
+July 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

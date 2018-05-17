@@ -19,6 +19,7 @@ Major changes compared to v0.1 are:
 <h4>Version 0.3.0, September, 2016</h4>
 <p>
 Major changes compared to v0.2 are: 
+</p>
 <ul>
 <li>Added code for checking conservation of energy</li>
 <li>Added options for linear / non-linear radiative heat exchange and convection for exterior and interior faces of walls and floors/ceilings. Respective correlations have been changed.</li>
@@ -31,15 +32,15 @@ Major changes compared to v0.2 are:
 <li>Removed inefficient code that would lead to numerical Jacobians in grid.</li>
 <li>Added new AC and DC electrical models.</li>
 </ul>
-</p>
 <h4>Version 1.0.0, January 12, 2017</h4>
 <p>
 Major changes compared to v0.3 are: 
+</p>
 <ul>
 <li>IDEAS 1.0 is based on Annex 60 version 1.0.</li>
-<li>The IDEAS packages have been restructured to be more in line with the Annex 60 package structure.<br\\>
-IDEAS.Constants has been replaced by IDEAS.Types<br\\>
-The SimInfoManager has been moved to IDEAS.BoundaryConditions<br\\>
+<li>The IDEAS packages have been restructured to be more in line with the Annex 60 package structure.<br/>
+IDEAS.Constants has been replaced by IDEAS.Types<br/>
+The SimInfoManager has been moved to IDEAS.BoundaryConditions<br/>
 Interfaces such as HeatingSystem and BaseCircuits have been moved to IDEAS.Templates 
 </li>
 <li>Setting up new Construction records has been simplifiedParameter values of nLay and nGain are now inferred from the other parameters.</li>
@@ -69,6 +70,5 @@ Some Annex 60 models were renamed.
 <li>Added new, specialised window types.</li>
 <li>Added options for model linearisation.</li>
 </ul>
-</p>
 </html>", revisions=""));
 end RevisionHistory;

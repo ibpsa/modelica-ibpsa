@@ -41,25 +41,25 @@ equation
           lineColor={0,0,0},
           textString="dT = port_a.T - port_b.T")}),
     Documentation(info="<html>
-<p><h4>Description</h4></p>
+<h4>Description</h4>
 <p>This is a model for transport of heat without storing it. It may be used for complicated geometries where the thermal conductance G (= inverse of thermal resistance) is not a parameter but a variable. </p>
-<p><h4>Assumptions and limitations</h4></p>
-<p><ol>
+<h4>Assumptions and limitations</h4>
+<ol>
 <li>Lumped (no discretization inside this element)</li>
 <li>Variable G as realInput</li>
-</ol></p>
-<p><h4>Model use</h4></p>
+</ol>
+<h4>Model use</h4>
 <p>If the component consists mainly of one type of material and a regular geometry, it may be calculated, e.g., with one of the following equations: </p>
-<p><ul>
+<ul>
 <li>Conductance for a <b>box</b> geometry under the assumption that heat flows along the box length: </li>
-<pre>    G = k*A/L
+<li><pre>    G = k*A/L
     k: Thermal conductivity (material constant)
     A: Area of box
     L: Length of box
 
-     </pre>
+     </pre></li>
 <li>Conductance for a <b>cylindrical</b> geometry under the assumption that heat flows from the inside to the outside radius of the cylinder: </li>
-</ul></p>
+</ul>
 <pre>    G = 2*pi*k*L/log(r_out/r_in)
     pi   : Modelica.Constants.pi
     k    : Thermal conductivity (material constant)
@@ -79,7 +79,7 @@ equation
       steel        45 .. 15 (V2A)
 
       wood         0.1 ... 0.2 </pre>
-<p><h4>Validation</h4></p>
+<h4>Validation</h4>
 <p>None </p>
 </html>"));
 end VariableThermalConductor;

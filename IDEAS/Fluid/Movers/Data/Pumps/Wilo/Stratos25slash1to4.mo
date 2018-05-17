@@ -31,7 +31,8 @@ for more information about how the data is derived.
 </html>",
   revisions="<html>
 <ul>
-<li>March 23, 2018 by Iago Cupeiro:<br>Initial version </li>
+<li>March 23, 2018 by Iago Cupeiro:<br/>
+Initial version </li>
 </ul>
 </html>"));
 end Stratos25slash1to4;

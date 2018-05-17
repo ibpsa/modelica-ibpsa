@@ -63,7 +63,6 @@ We selected <i>n=0.35</i>, as the reference uses <i>n=0.4</i> for heating and
 Dittus-Boelter&apos;s correlation is valid for turbulent flow in cylindrical smooth pipe.
 </p>
 </html>", revisions="<html>
-<p>
 <ul>
 <li>
 February 14, 2014, by Michael Wetter:<br/>
@@ -82,6 +81,5 @@ January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</p>
 </html>"));
 end convectionResistance;

@@ -2,9 +2,14 @@ within IDEAS.Buildings.Components.Shading.Interfaces;
 record ShadingProperties
   "Default: no shading"
   extends Modelica.Icons.Record;
-  parameter Boolean controlled=false
+  parameter Boolean controlled = false
     "if true, shading has a control input"
-    annotation(Evaluate=true);
+    annotation(Evaluate=true,
+               Dialog(enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Screen or
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.BoxAndScreen or
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndScreen or
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.HorizontalFins or
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndHorizontalFins)));
   parameter IDEAS.Buildings.Components.Shading.Interfaces.ShadingType shaType=
       IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.None
     "Window shading type";
@@ -19,40 +24,44 @@ record ShadingProperties
     annotation(Dialog(group="Overhang properties",
                       enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Overhang or
                                shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Box or
-                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndScreen)));
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndScreen or
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndHorizontalFins)));
   parameter Modelica.SIunits.Length wRight(min=0, start=0)=0.01
     "Right overhang width measured from the window corner"
     annotation(Dialog(group="Overhang properties",
                       enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Overhang or
                                shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Box or
-                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndScreen)));
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndScreen or
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndHorizontalFins)));
   parameter Modelica.SIunits.Length ovDep(min=0, start=0)=0.01
     "Overhang depth perpendicular to the wall plane"
     annotation(Dialog(group="Overhang properties",
                       enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Overhang or
                                shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Box or
-                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndScreen)));
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndScreen or
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndHorizontalFins)));
   parameter Modelica.SIunits.Length ovGap(min=0, start=0)=0.01
     "Distance between window upper edge and overhang lower edge"
     annotation(Dialog(group="Overhang properties",
                       enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Overhang or
                                shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Box or
-                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndScreen)));
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndScreen or
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndHorizontalFins)));
 
   parameter Modelica.SIunits.Length hFin(min=0, start=0)=0.01
     "Height of side fin above window"
     annotation(Dialog(group="Side fin properties",
-                      enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.SideFin or
+                      enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.SideFins or
                                shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Box)));
   parameter Modelica.SIunits.Length finDep(min=0, start=0)=0.01
     "Side fin depth perpendicular to the wall plane"
     annotation(Dialog(group="Side fin properties",
-                      enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.SideFin or
+                      enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.SideFins or
                                shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Box)));
   parameter Modelica.SIunits.Length finGap(min=0, start=0)=0.01
     "Vertical distance between side fin and window"
     annotation(Dialog(group="Side fin properties",
-                      enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.SideFin or
+                      enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.SideFins or
                                shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Box)));
 
   parameter Modelica.SIunits.Length L(min=0, start=0)=0.01
@@ -70,6 +79,40 @@ record ShadingProperties
                       enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Screen or
                                shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndScreen)));
 
+  parameter Modelica.SIunits.Length s(min=0)=0.01
+    "Vertical spacing between fins"
+    annotation(Dialog(group="Horizontal fins",
+                      enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.HorizontalFins or
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndHorizontalFins)));
+  parameter Modelica.SIunits.Length w(min=0)=0.01
+    "Fin width"
+        annotation(Dialog(group="Horizontal fins",
+                      enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.HorizontalFins or
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndHorizontalFins)));
+  parameter Modelica.SIunits.Length t(min=0)=0.01
+    "Fin thickness"
+        annotation(Dialog(group="Horizontal fins",
+                      enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.HorizontalFins or
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndHorizontalFins)));
+  parameter Boolean use_betaInput = controlled
+    "=true, to use input for fin inclination angle"
+        annotation(Dialog(group="Horizontal fins",
+                      Evaluate = true,
+                      enable= false));
+  parameter Modelica.SIunits.Angle beta(min=0)=0
+    "Fin inclination angle: 0 for horizontal inclination, see documentation"
+    annotation(Dialog(group="Horizontal fins",
+                      enable= not controlled and (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.HorizontalFins or
+                               shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndHorizontalFins)));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+May 4 2018, by Iago Cupeiro:<br/>
+Extended with HorizontalFins and OverhangAndHorizontalFins models.
+</li>
+</ul>
+</html>"));
 end ShadingProperties;

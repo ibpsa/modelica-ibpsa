@@ -259,7 +259,7 @@ Initial version
 <p>Q_evaporator = P_el*(COP-1)</p>
 <p>If the parameter use_scaling is true, the powers of the heat pump will be scaled with QNom / QNomRef. The nominal mass flow rate of the heat pump is also scaled to correctly scale the pressure losses.</p>
 <p>The models also allows partial load if use_modulationSignal is set to true. The modulation is assumed to be ideal and it works then as a scaling input of the power.</p>
-<p><br>The heat pump compressor will be switched off when:</p>
+<p>The heat pump compressor will be switched off when:</p>
 <ol>
 <li>The external control signal is false</li>
 <li>The over/under-temperature protection is activated</li>
@@ -275,7 +275,7 @@ Initial version
 </ul>
 <h4>Typical use and important parameters</h4>
 <p>A record with the required parameters needs to be provided.</p>
-<p><br>The parameter &apos;avoidEvents&apos; can be used to avoid an event when activating the over/under-temperature protection. When avoidEvents is true the thermal mass of the condensor and evaporator are increased to avoid undercooling/overheating the heat pump while it is switching off and the mass flow rate is zero. This factor can be quite significant and depends on the &apos;riseTime&apos;.</p>
+<p>The parameter &apos;avoidEvents&apos; can be used to avoid an event when activating the over/under-temperature protection. When avoidEvents is true the thermal mass of the condensor and evaporator are increased to avoid undercooling/overheating the heat pump while it is switching off and the mass flow rate is zero. This factor can be quite significant and depends on the &apos;riseTime&apos;.</p>
 <h4>Options</h4>
 <ol>
 <li>Typical options inherited through lumpedVolumeDeclarations can be used.</li>

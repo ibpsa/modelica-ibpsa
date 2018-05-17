@@ -10,7 +10,8 @@ model SingleBoreHoleUTubeSerStepLoadScript
     fil=fil,
     gen=gen,
     dp_nominal=gen.dp_nominal,
-    m_flow_nominal=gen.m_flow_nominal_bh)
+    m_flow_nominal=gen.m_flow_nominal_bh,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
              constrainedby
     Borefield.BaseClasses.BoreHoles.Interface.PartialSingleBoreholeSerie(
     redeclare package Medium = Medium,
@@ -37,12 +38,7 @@ equation
     experimentSetupOutput,
     Diagram,
     Documentation(info="<html>
-<p>
-
-</p>
 </html>", revisions="<html>
-<ul>
-</ul>
 </html>"),
     experiment(
       StopTime=360000,
