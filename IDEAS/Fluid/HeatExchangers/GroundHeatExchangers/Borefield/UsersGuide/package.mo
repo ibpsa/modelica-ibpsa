@@ -1,4 +1,4 @@
-within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
+﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
@@ -11,6 +11,7 @@ long-term accuracy and an aggregation method is used to speed up the calculation
 </p>
 <p>
 The major degrees of freedom currently supported are:
+</p>
 <ul>
 <li> single U-tube, double U-tube in parallel, double U-tube in serie borehole heat exchangers for which the geometry
 is defined by the user (borehole radius, pipe radius, shank spacing, ...). </li>
@@ -23,8 +24,6 @@ depth, as the analytical solution only computes the average borehole wall temper
 <li> the resolution of the aggregation technic can be adapted.</li>
 <li> pressure losses can be calculated if the <i>dp_nominal</i> is provided. </li>
 </ul>
-</p>
-
 <h4>How to use the model</h4>
 <p>
 The following paragrahs briefly describe how to use the model 
@@ -44,7 +43,6 @@ can be found in
 <a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeneralData\">IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeneralData</a>
 , respectively.
 </p>
-
 <p>
 In order to use the model with the desired parameters, create and save in your own library a new <i>BfData</i> record as an extension 
 of <a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.BorefieldData\">
@@ -55,7 +53,6 @@ Create and save also these subrecords if they do not exist yet with the right pa
 SHA-code of a previous simulation. This enable the user to avoid the re-computation of the short-term-response 
 and the aggregation matrix if this has already be done by a previous simulation.
 </p>
-
 <p>
 Now that you have created your own <i>BfData</i> record, you can run your model containing a borefield using this <i>BfData</i> record. 
 At the initialization of the first simulation, you will receive an error message, asking you to paste a command in the command window 
@@ -65,7 +62,6 @@ For any future simulations using the same record <i>BfData</i>, you will not nee
 <b>Do not forget to adapt the parameter <i>lenSim</i></b>. <i>lenSim</i> should be equal or bigger than the simulation length. This parameter
 is used to define the number and size and the aggregation cells.
 </p>
-
 <h4>Model description</h4>
 <p>A detailed description of the model can be
 found in
@@ -99,7 +95,6 @@ abrut temperature changes, the aggregation method is used to calculate the avera
 temperature instead of the average fluid temperature. The calculated borehole wall temperature is then
 connected to the dynamic model of the borehole heat exchanger.
 </p>
-
 <h5>Long-term response model</h5>
 <p>
 The long-term temperature response of the borefield
@@ -116,28 +111,19 @@ that zero temperature gradient at the boundary between the air and the ground. A
 to simplify the calculation, Javed and Claesson
 obtain the following compact expression for the mean
 borehole wall temperature:
-<p align=\"center\">
 <img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/analyticalSolution.png\" />
-</p>
-
 where q<sub>0</sub> is the heat flux per meter length, lambda is the
 ground heat conductivity, alpha is the ground heat diffusivity, N is the number of boreholes and H
 is the depth of the borefield. I<sub>ls</sub> and r<sub>i</sub> are defined by the following equations:
-<p align=\"center\">
 <img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/analyticalSolution2.png\" />
-</p>
 with erf the error function.
-<p align=\"center\">
 <img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/analyticalSolution3.png\" />
-</p>
 where r<sub>b</sub> is the borehole radius and (x<sub>i</sub>,y<sub>i</sub>) are the spatial
 coordinates of the center of each borehole from an arbitrary
 reference point.
-
 The analytical solution is valid only for time > 5*r<sub>b</sub>/alpha, i.e after the transient part
 of the heat transfer through the BHX is completed.
 </p>
-
 <h5>Short-term response model</h5>
 <p>
 The short-term response model should be able
@@ -150,10 +136,7 @@ borehole model is used.
 </p>
 <p>
 The model is composed of a resistance-capacitive network as shown by the following figure (single U-tube case):
-<p align=\"center\">
 <img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/RC-model.png\" />
-</p>
-
 The different thermal resistances present in the single-U-tube and in the double-U-tube borehole are calculated using the method of Bauer et al. (2010). 
 The fluid-to-ground thermal resistance R<sub>b</sub> and the grout-to-grout thermal resistance R<sub>a</sub> 
 as defined by Hellstroem (1991) are calculated
@@ -185,9 +168,7 @@ The aggregation technic is based on the discrete approximation of the heat load 
 Assume that the discrete load input to the borefield
 is <i>Q</i> and the HCF temperature is <i>T<sub>f</sub></i> . <i>Q</i> and <i>T<sub>f</sub></i> can be
 written as:
-<p align=\"center\">
 <img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/discreteLoad.png\" />
-</p>
 with <i>v<sub>max</sub></i> >= <i>n</i>, <i>h</i> the discrete time-step, <i>Q</i> the discrete
 load and <i>T<sub>f,step</sub></i> the response function from HSRM with
 step load <i>Q<sub>step</sub></i>. Notice that the model assumes an uniform
@@ -221,30 +202,20 @@ increasing size. The cells are themselves grouped into
 <i>q</i> levels. Each level has a given number of cells <i>p<sub>max</sub></i>
 and each cell of a same level contains the same amount
 of load pulses <i>R<sub>q</sub></i>. The following figure illustrates the concept grafically.
-</p>
-<p align=\"center\">
 <img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/aggregationCells.png\" />
-</p>
 After several manipulations, the wall temperature can be written as followed:
-</p>
-<p align=\"center\">
 <img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/wallTemperature.png\" />
-</p>
 with
 <span style=\"text-decoration: overline\">Q</span><sub>v(p,q)</sub> the average load in the aggregation cell <i>(p,q)</i>, 
 <span style=\"text-decoration: overline\">k</span><sub>v(p,q)</sub> * <i>R<sub>ss</sub></i> the average thermal resistance of the cell <i>(p,q)</i>.
 <span style=\"text-decoration: overline\">Q</span><sub>v(p,q)</sub><span style=\"text-decoration: overline\">k</span><sub>v(p,q)</sub>*<i>R<sub>ss</sub></i>
 gives then the temperature rise (or decrease) that a load which has happened at the time of cell <i>(p,q)</i> cause at the boreholes wall. Summing all the 
 temperature differences gives the temperature at time <i>nh</i>.
-
 Finally, the aggregated load has to be updated at each time step <i>n</i>. This is done as described by the following equation:
-<p align=\"center\">
 <img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/loadAggregation.png\" />
-</p>
 with <span style=\"text-decoration: overline\">Q</span><sub>v(p,q)</sub><sup>(n)</sup> the average load in the aggregation cell <i>(p,q)</i> 
 at time <i>nh</i> and <i>r<sub>q</sub></i> the cell width at the <i>q</i> aggregation level.
-
-
+</p>
 <h4>References</h4>
 <p>
 D. Picard, L. Helsen.

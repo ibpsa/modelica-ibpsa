@@ -1,4 +1,4 @@
-within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Interfaces;
+﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Interfaces;
 partial model partial_multipleBoreHoles
   "Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
@@ -57,7 +57,7 @@ protected
   final parameter Real R_ss(fixed=false) "Steady state resistance";
 
   //Load
-  Modelica.SIunits.Power[q_max,p_max] QMat
+  discrete Modelica.SIunits.Power[q_max,p_max] QMat
     "Aggregation of load vector. Updated every discrete time step.";
 
   //Utilities
@@ -96,6 +96,10 @@ initial equation
 
   R_ss =  TSteSta/(bfData.gen.q_ste*bfData.gen.hBor*bfData.gen.nbBh)
     "Steady state resistance";
+
+initial equation
+  pre(QMat)=zeros(q_max,p_max);
+  pre(UOld)=0;
 
 equation
   Q_flow = port_a.m_flow*(actualStream(port_a.h_outflow) - actualStream(port_b.h_outflow));
@@ -245,13 +249,13 @@ A verification of this model can be found in
 </html>", revisions="<html>
 <ul>
 <li>
-February 2, 2017, by Filip Jorissen:<br>
+February 2, 2017, by Filip Jorissen:<br/>
 Changed initial algorithm to initial equation section since otherwise
 buffer overflows may occur.
 See <a href=https://github.com/open-ideas/IDEAS/issues/666># 666</a>.
 </li>
 <li>
-July 2014, by Damien Picard:<br>
+July 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

@@ -210,10 +210,7 @@ However, there is large variability in the depth where the undisturbed soil temp
 starts.
 For a depth of <i>z<sub>0</sub> &le; z &le; h<sub>bor</sub></i>,
 the temperature is computed as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  T<sup>i</sup><sub>ext,start</sub> = T<sub>ext,0,start</sub> + (z<sup>i</sup> - z<sub>0</sub>)  dT &frasl; dz
-</p>
+T<sup>i</sup><sub>ext,start</sub> = T<sub>ext,0,start</sub> + (z<sup>i</sup> - z<sub>0</sub>)  dT &frasl; dz
 with <i>i &isin; {1, ..., n<sub>ver</sub>}</i>,
 where the temperature gradient <i>dT &frasl; dz &ge; 0</i> is a parameter.
 As with <i>z<sub>0</sub></i>, there is large variability in 
@@ -246,7 +243,7 @@ the far-field temperature boundary condition.
 </html>", revisions="<html>
 <ul>
 <li>
-August 2011, by Pierre Vigouroux:<br>
+August 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

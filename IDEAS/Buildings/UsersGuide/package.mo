@@ -15,6 +15,7 @@ In this user guide we outline the main principles of the library.
 <h4>Model physics</h4>
 <p>
 The main physical principles that are modelled in IDEAS are 
+</p>
 <ul>
 <li>
 interior and exterior convection, 
@@ -35,9 +36,9 @@ window shading,
 infiltration of air.
 </li>
 </ul>
-</p>
 <p>
 Furthermore models for specifying additional boundary conditions are
+</p>
 <ul>
 <li>
 occupancy model for computing internal gains,
@@ -46,7 +47,6 @@ occupancy model for computing internal gains,
 comfort model for computing thermal comfort.
 </li>
 </ul>
-</p>
 <p>
 A qualitative description of these models can be found below. 
 If you need to know the implementation then look
@@ -137,6 +137,7 @@ but may be added manually.
 <h4>Model overview</h4>
 <p>
 The main models in the Buildings package are:
+</p>
 <ul>
 <li>
 <a href=modelica://IDEAS.Buildings.Components.OuterWall>IDEAS.Buildings.Components.OuterWall</a><br/>
@@ -200,7 +201,6 @@ the occupancy characteristics. I.e. how they perceive comfort and how/which inte
 they cause.
 </li>
 </ul>
-</p>
 <h4>Typical use</h4>
 <p>
 We refer to the examples for some demonstrations of how to use the Building models.

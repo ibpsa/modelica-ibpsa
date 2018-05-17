@@ -136,7 +136,7 @@ The borefield model with this BfData record has not yet been initialized. Please
 </html>", revisions="<html>
 <ul>
 <li>
-July 2014, by Damien Picard:<br>
+July 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

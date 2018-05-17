@@ -3,9 +3,8 @@ class RevisionHistory "Revision History"
   extends Modelica.Icons.ReleaseNotes;
 
   annotation (Documentation(info="<html>
-
 </html>", revisions="<html>
-<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\" summary=\"revision history\">
     <tr>
       <th>Version</th>
       <th>Revision</th>

@@ -50,18 +50,18 @@ algorithm
 <p><b>Description</b> </p>
 <p>Heating curve based control of a heater + TES charging control with time based temperauture increase of decrease of the TES tank and (experimental) minimum off-time for the heater. The set point temperature for the heater is higher than the heating curve output in order to make sure that the heating curve temperature is met also when thermal losses are present in the circuit. The heater set temperature is the maximum of the requirements for space heating and DHW: if tank charging is occurring, the DHW temperature requirements will normally be higher than for space heating. </p>
 <p>This controller tries to limit and even avoid the creating of events.</p>
-<p><h4>Model use</h4></p>
-<p><ol>
+<h4>Model use</h4>
+<ol>
 <li>Use this controller in a heating system with a TES tank where you want to follow a heating curve for space heating and where you have a time based temperauture increase of decrease of the TES tank.</li>
-</ol></p>
-<p><h4>Validation </h4></p>
+</ol>
+<h4>Validation </h4>
 <p>No validation performed.  The minimum off-time featuer is not validated.</p>
-<p><h4>Example </h4></p>
+<h4>Example </h4>
 <p>This controller is not used in any of the preconfigured heating systems. </p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2011, Roel De Coninck: first version and validation</li>
-</ul></p>
+</ul>
 </html>"));
 end Ctrl_Heating_TES_SetBack_MinOffTime;

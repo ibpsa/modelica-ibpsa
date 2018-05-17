@@ -30,24 +30,24 @@ equation
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>This partial model computes a heat flow rate that can be added to fluid volumes in order to model buoyancy during a temperature inversion in a storage tank. For simplicity, this model does not compute a buoyancy induced mass flow rate, but rather a heat flow that has the same magnitude as the enthalpy flow associated with the buoyancy induced mass flow rate. </p>
-<p><h4>Assumptions and limitations </h4></p>
-<p><ol>
+<h4>Assumptions and limitations </h4>
+<ol>
 <li>Heat flux computation instead of mass flow rates</li>
 <li>Connected to a storage tank through an array of heatPorts of size=nbrNodes</li>
-</ol></p>
-<p><h4>Model use</h4></p>
-<p><ol>
+</ol>
+<h4>Model use</h4>
+<ol>
 <li>This model has been instantiated as replaceable in a storage tank model, and the appropriate subclass can be chosen directly in the parameter interface of the storage tank. </li>
 <li>Together with the modification of the buoyancy model, one or more parameters of the chosen buoyancy model will have to be set</li>
-</ol></p>
-<p><h4>Validation </h4></p>
+</ol>
+<h4>Validation </h4>
 <p>See extensions of this model</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2013 June, Roel De Coninck: documentation.</li>
 <li>2012 October, Roel De Coninck, modifications</li>
 <li>2008, Michael Wetter, first implementation.</li>
-</ul></p>
+</ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(

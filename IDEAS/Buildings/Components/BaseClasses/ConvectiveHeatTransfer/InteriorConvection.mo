@@ -98,10 +98,27 @@ equation
           points={{-60,80},{-60,-80}},
           color={0,0,0},
           thickness=0.5)}), Documentation(info="<html>
-<p>The interior natural convective heat transfer coefficient <img src=\"modelica://IDEAS/Images/equations/equation-eZGZlJrg.png\"/> is computed for each interior surface as </p>
-<p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-KNBSKUDK.png\"/></p>
-<p>where <img src=\"modelica://IDEAS/Images/equations/equation-W5kvS3SS.png\"/> is the characteristic length of the surface, <img src=\"modelica://IDEAS/Images/equations/equation-jhC1rqax.png\"/> is the indoor air temperature and <img src=\"modelica://IDEAS/Images/equations/equation-sbXAgHuQ.png\"/> are correlation coefficients. These parameters {<img src=\"modelica://IDEAS/Images/equations/equation-nHmmePq5.png\"/>,<img src=\"modelica://IDEAS/Images/equations/equation-zJZmNUzp.png\"/>,<img src=\"modelica://IDEAS/Images/equations/equation-7nwXbcLp.png\"/>} are identical to {1.823,-0.121,0.293} for vertical surfaces [Awbi 1999], {2.175,-0.076,0.308} for horizontal surfaces wherefore the heat flux is in the same direction as the buoyancy force <a href=\"IDEAS.Buildings.UsersGuide.References\">[Khalifa 2001]</a>, and {2.72,-,0.13} for horizontal surfaces wherefore the heat flux is in the opposite direction as the buoyancy force <a href=\"IDEAS.Buildings.UsersGuide.References\">[Awbi 1999]</a>. The interior natural convective heat transfer coefficient is only described as function of the temperature difference. Similar to the thermal model for heat transfer through a wall, a thermal circuit formulation for the direct radiant exchange between surfaces can be derived <a href=\"IDEAS.Buildings.UsersGuide.References\">[ Buchberg 1955, Oppenheim 1956]</a>.</p>
-<p><br>[Awbi 1999]: H.B. Awbi, A. Hatton, Natural convection from heated room surfaces, Energy and Buildings 30 (1999) 233&ndash;244.</p>
+<p>
+The interior natural convective heat transfer coefficient 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-eZGZlJrg.png\"/> 
+is computed for each interior surface as 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-KNBSKUDK.png\"/>where 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-W5kvS3SS.png\"/> is the characteristic length of the surface, 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-jhC1rqax.png\"/> is the indoor air temperature and 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-sbXAgHuQ.png\"/> are correlation coefficients. These parameters {
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-nHmmePq5.png\"/>,
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-zJZmNUzp.png\"/>,
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-7nwXbcLp.png\"/>} are identical to {1.823,-0.121,0.293} for vertical surfaces [Awbi 1999], 
+{2.175,-0.076,0.308} for horizontal surfaces wherefore the heat flux is in the same direction as the buoyancy force <a href=\"IDEAS.Buildings.UsersGuide.References\">[Khalifa 2001]</a>, 
+and {2.72,-,0.13} for horizontal surfaces wherefore the heat flux is in the opposite direction as the buoyancy force <a href=\"IDEAS.Buildings.UsersGuide.References\">[Awbi 1999]</a>. 
+The interior natural convective heat transfer coefficient is only described as function 
+of the temperature difference. Similar to the thermal model for heat transfer through a wall, 
+a thermal circuit formulation for the direct radiant exchange between surfaces can be derived 
+<a href=\"IDEAS.Buildings.UsersGuide.References\">[ Buchberg 1955, Oppenheim 1956]</a>.
+</p>
+<p>
+[Awbi 1999]: H.B. Awbi, A. Hatton, Natural convection from heated room surfaces, Energy and Buildings 30 (1999) 233&ndash;244.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

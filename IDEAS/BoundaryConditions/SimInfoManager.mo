@@ -67,16 +67,13 @@ It loads TMY3 weather data files and applies transformations
 for computing the solar irradiance on the zone surfaces. 
 </p>
 <h4>Typical use and important parameters</h4>
-<p>
 <ul>
 <li>Parameters <code>filNam</code> and <code>filDir</code> can be used to set the path to the TMY3 weather file.</li>
 <li>Parameters <code>lat</code> and <code>lon</code> can be used to set the location of the building
 using latitude and longitude coordiantes.
 These coordinates are used for calculating the solar position, not for choosing the correct weather data!</li>
 </ul>
-</p>
 <h4>Options</h4>
-<p>
 <ul>
 <li>
 IDEAS contains an efficient implementation for computing the solar 
@@ -115,7 +112,6 @@ all heat flow rates entering the system are added to <code>sim.Qgai.Q_flow</code
 that all internal energy of the system is added to <code>sim.E.E</code>.
 </li>
 </ul>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

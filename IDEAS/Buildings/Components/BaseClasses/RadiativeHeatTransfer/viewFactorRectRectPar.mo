@@ -21,6 +21,6 @@ vieFac := 1/Modelica.Constants.pi/x/y*(log(x1^2*y1^2/(x1^2+y1^2-1)) +
                                        2*y*(x1*atan(y/x1)-atan(y)));
 
   annotation (Documentation(info="<html>
-<p>source: http://webserver.dmt.upm.es/~isidoro/tc3/Radiation&percnt;20View&percnt;20factors.pdf</p>
+<p>source: http://webserver.dmt.upm.es/~isidoro/tc3/Radiation%20View%20factors.pdf</p>
 </html>"));
 end viewFactorRectRectPar;

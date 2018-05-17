@@ -80,7 +80,7 @@ This model has no dynamics.
 <h4>Implementation</h4>
 <p>
 The implementation is illustrated using this figure: 
-<br><img src=\"modelica://IDEAS/Resources/Images/Buildings/Components/Shading/HorizontalFins.PNG\"/>
+<br/><img alt=\"illustration\" src=\"modelica://IDEAS/Resources/Images/Buildings/Components/Shading/HorizontalFins.PNG\"/>
 </p>
 </html>", revisions="<html>
 <ul>

@@ -19,23 +19,26 @@ equation
   annotation (Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Controller for solar thermal primary circuit. The controller is based on the temperature difference between solar collector and an input (usually bottom of storage tank).  When a safety temperature is exceeded (separate input), the system will go off. </p>
-<p><h4>Assumptions and limitations </h4></p>
-<p><ol>
+<h4>Assumptions and limitations </h4>
+<ol>
 <li>Simple temperature based control.</li>
-</ol></p>
-<p><h4>Model use</h4></p>
-<p><ol>
+</ol>
+<h4>Model use</h4>
+<ol>
 <li>Connect the controller to collector and storage tank and the output to the pump</li>
 <li>Configure the temperature set points.</li>
-</ol></p>
-<p><h4>Validation</h4></p>
+</ol>
+<h4>Validation</h4>
 <p>No validation performed.</p>
-<p><h4>Example </h4></p>
-<p>An example of the use of this model is given in <a href=\"modelica://IDEAS.Thermal.Components.Production.SolarThermalSystem_Simple\">IDEAS.Thermal.Components.Production.SolarThermalSystem_Simple</a>.</p>
+<h4>Example </h4>
+<p>
+An example of the use of this model is given in 
+<a href=\"modelica://IDEAS.Thermal.Components.Production.SolarThermalSystem_Simple\">IDEAS.Thermal.Components.Production.SolarThermalSystem_Simple</a>.
+</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2011, Roel De Coninck: first version and validation</li>
-</ul></p>
+</ul>
 </html>"));
 end Ctrl_SolarThermal_Simple;

@@ -124,11 +124,17 @@ equation
   annotation (
   preferredView="info",
     Documentation(info="<html>
-<p>This component defines the interface for models that transport four fluid streams between eight ports. It is similar to <a href=\"modelica://IDEAS.Fluid.Interfaces.PartialTwoPortInterface\">IDEAS.Fluid.Interfaces.PartialTwoPortInterface</a>, but it has eight ports instead of two. </p>
-<p>The model is used by other models in this package that add heat transfer, mass transfer and pressure drop equations. </p>
+<p>
+This component defines the interface for models that transport four fluid streams between eight ports. 
+It is similar to <a href=\"modelica://IDEAS.Fluid.Interfaces.PartialTwoPortInterface\">IDEAS.Fluid.Interfaces.PartialTwoPortInterface</a>, 
+but it has eight ports instead of two. </p>
+<p>
+The model is used by other models in this package that add heat transfer, 
+mass transfer and pressure drop equations. 
+</p>
 </html>", revisions="<html>
 <ul>
-<li>July 2014, by Damien Picard:<br>First implementation. </li>
+<li>July 2014, by Damien Picard:<br/>First implementation. </li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

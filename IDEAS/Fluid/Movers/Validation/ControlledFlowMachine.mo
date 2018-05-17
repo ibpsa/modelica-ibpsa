@@ -13,6 +13,7 @@ model ControlledFlowMachine "Fans with different control signals as input"
 
   annotation (
 experiment(Tolerance=1e-6, StopTime=600),
+    __Dymola_experimentSetupOutput(events=true),
 __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Movers/Validation/ControlledFlowMachine.mos"
         "Simulate and plot"),
     Documentation(info="<html>
