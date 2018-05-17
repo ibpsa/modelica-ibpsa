@@ -117,7 +117,8 @@ equation
     Documentation(info="<html>
 <p>
 Example model that illustrates the use of
-the <a href=\"modelica://IBPSA.Fluid.Sources.PropertySource_T\">PropertySource_T</a> model.
+the <a href=\"modelica://IBPSA.Fluid.Sources.PropertySource_T\">
+IBPSA.Fluid.Sources.PropertySource_T</a> model.
 </p>
 </html>", revisions="<html>
 <ul>
