@@ -69,7 +69,7 @@ by computing a simplified view factor of the building,
 which blocks the sky view.
 Diffuse ground solar radiation is unaffected by this model. 
 </p>
-<p><img src=\"modelica://IDEAS/Resources/Images/Buildings/Components/Shading/BuildingShade.png\"/></p>
+<p><img alt=\"illustration\" src=\"modelica://IDEAS/Resources/Images/Buildings/Components/Shading/BuildingShade.png\"/></p>
 <h4>Assumption and limitations</h4>
 <p>
 This model assumes that the obstructing object is very wide 

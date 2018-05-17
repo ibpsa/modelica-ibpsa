@@ -62,7 +62,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(mFlo.y, pum.m_flow_in) annotation (Line(
-      points={{-47.4,-12},{-25.8,-12},{-25.8,18}},
+      points={{-47.4,-12},{-26,-12},{-26,18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pum.port_a, hea.port_b) annotation (Line(
@@ -98,7 +98,7 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
-July 2014, by Damien Picard:<br>
+July 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

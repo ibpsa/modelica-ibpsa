@@ -8,11 +8,11 @@ partial model BalancedTap "partial DHW model"
     "Nominal cold water temperature";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Time tau=30
-    "Tin time constant of temperature sensor at nominal flow rate";
+
 protected
   Modelica.SIunits.MassFlowRate mFlo60C "DHW flow rate at 60 degC";
-
+  parameter SI.Time tau=30
+    "Tin time constant of temperature sensor at nominal flow rate";
 
 public
   Modelica.Fluid.Interfaces.FluidPort_a port_hot(redeclare package Medium = Medium)
@@ -138,16 +138,28 @@ equation
           color={0,0,127},
           smooth=Smooth.None)}),
     Documentation(info="<html>
-<p><b>Description</b> </p>
-<p>Partial model of a domestic hot water (DHW) system composed mainly of a thermostatic mixing valve. The model foresees a cold water flowPort which has to be connected to the system (eg. storage tank).</p>
-<p>The model has two flowPorts and a realInput:</p>
+<h4>Description</h4>
+<p>
+Partial model of a domestic hot water (DHW) system composed mainly of a thermostatic mixing valve. 
+The model foresees a cold water flowPort which has to be connected to the system (eg. storage tank).
+</p>
+<p>
+The model has two flowPorts and a realInput:
+</p>
 <ul>
 <li><i>port_hot</i>: connection to the hot water source (designation: <i>hot</i>)</li>
 <li><i>port_cold</i>: connection to the inlet of cold water in the hot water source (designation: <i>cold</i>)</li>
 <li><i>mDHW60C</i>: desired flowrate of DHW water, equivalent at 60&deg;C</li>
 </ul>
-<p>In a first step, the desired DHW flow rate at 60&deg;C is corrected for the set temperature <i>TDHWSet</i>. The model tries to reach the given DHW flow rate at a the desired mixing temperature <i>TDHWSet </i>by mixing the hot water with cold water. The resulting hot flowrate will be extracted automatically from the hot source, and through the connection of port_cold to the hot source, this same flow rate will be injected (at TCold) in the production system. </p>
-<p>There are currently two implementations of this partial model:</p>
+<p>
+In a first step, the desired DHW flow rate at 60&deg;C is corrected for the set temperature <i>TDHWSet</i>. 
+The model tries to reach the given DHW flow rate at a the desired mixing temperature <i>TDHWSet </i>by mixing the hot water with cold water. 
+The resulting hot flowrate will be extracted automatically from the hot source, 
+and through the connection of port_cold to the hot source, this same flow rate will be injected (at TCold) in the production system. 
+</p>
+<p>
+There are currently two implementations of this partial model:
+</p>
 <ol>
 <li><a href=\"modelica://IDEAS.Thermal.Components.Domestic_Hot_Water.DHW_ProfileReader\">Reading in mDHW60c from a table</a></li>
 <li><a href=\"modelica://IDEAS.Thermal.Components.Domestic_Hot_Water.DHW_RealInput\">Getting mDHW60c from a realInput</a></li>
@@ -156,7 +168,7 @@ equation
 <ol>
 <li>No heat losses</li>
 <li>Inertia is foreseen through the inclusion of a water volume on the hot water side (default=1 liter). This parameter is not propagated to the interface, but it can be changed by modifying pumpHot.m. Putting this water content to zero may lead to numerical problems (not tested)</li>
-<li>If THot &LT; TDHWSEt, there is no mixing and TMixed = THot</li>
+<li>If THot is smaller than TDHWSEt, there is no mixing and TMixed = THot</li>
 <li>Fixed TDHWSet and TCold as parameters</li>
 <li>The mixed DHW is not available as an outlet or flowPort, it is assumed to be &apos;consumed&apos;. </li>
 </ol>
@@ -171,12 +183,16 @@ equation
 <h4>Validation </h4>
 <p>The model is verified to work properly by simulation of the different operating conditions.</p>
 <h4>Examples</h4>
-<p>An example of this model is given in <a href=\"IDEAS.Fluid.Domestic_Hot_Water.Examples.DHW_example\">IDEAS.Fluid.Domestic_Hot_Water.Examples.DHW_example</a> and <a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP\">IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP</a>.</p>
+<p>
+An example of this model is given in 
+<a href=\"IDEAS.Fluid.Domestic_Hot_Water.Examples.DHW_example\">IDEAS.Fluid.Domestic_Hot_Water.Examples.DHW_example</a> and 
+<a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP\">IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP</a>.
+</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2013 June, Roel De Coninck: documentation.</li>
 <li>2012 September, Roel De Coninck, simplification of equations.</li>
 <li>2012 August, Roel De Coninck, first implementation.</li>
-</ul></p>
+</ul>
 </html>"));
 end BalancedTap;

@@ -3,7 +3,7 @@ class References "References"
   extends Modelica.Icons.References;
 
   annotation (Documentation(info="<html>
-<table border=\"0\" cellspacing=\"0\" cellpadding=\"2\">
+<table border=\"0\" cellspacing=\"0\" cellpadding=\"2\" summary=\"references\">
     <tr>
       <td valign=\"top\">[Ahl10]</td>
       <td valign=\"top\">K.-H. Ahlert,

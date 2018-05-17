@@ -87,7 +87,11 @@ equation
         "Simulate and plot"),
     experiment(StopTime=86400),
     Documentation(info="<html>
-<p>Example that demonstrates the use of the hysteresis with release and variable uLow and uHigh for a typical HEATING control. The control objective is to keep the temperature of the capacity between uLow and uHigh. This example can be simulated with the &QUOT;simulate and plot&QUOT; command in the Commands menu. </p>
+<p>
+Example that demonstrates the use of the hysteresis with release and variable 
+uLow and uHigh for a typical HEATING control. The control objective is to keep the 
+temperature of the capacity between uLow and uHigh. This example can be simulated with the \"simulate and plot\" command in the Commands menu. 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>November 2014, Roel De Coninck and Damien Picard</li>

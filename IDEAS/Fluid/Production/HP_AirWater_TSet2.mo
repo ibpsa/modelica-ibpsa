@@ -62,7 +62,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(heatFlowSensor.port_b, pipe_HeatPort.heatPort) annotation (Line(
-      points={{0,-6},{30,-6}},
+      points={{0,-6},{16,-6},{16,-10},{30,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(booleanExpression.y, heatSource.on) annotation (Line(
@@ -192,38 +192,38 @@ equation
           color={0,0,0},
           smooth=Smooth.None)}),
     Documentation(info="<html>
-<p><h4><font color=\"#008000\">Description </font></h4></p>
+<h4>Description </h4>
 <p>Dynamic heat pump model, based on interpolation in performance tables for a Daikin Altherma heat pump. These tables are encoded in the <a href=\"modelica://IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_AW\">heatSource</a> model. If a different heat pump is to be simulated, create a different heatSource model with adapted interpolation tables.</p>
 <p>The nominal power of the heat pump can be adapted, this will NOT influence the efficiency as a function of ambient air temperature, condenser temperature and modulation level. </p>
 <p>The heat pump has thermal losses to the environment which are often not mentioned in the performance tables. Therefore, the additional environmental heat losses are added to the heat production in order to ensure the same performance as in the manufacturers data, while still obtaining a dynamic model with heat losses (also when heat pump is off). The heatSource will compute the required power and the environmental heat losses, and try to reach the set point. </p>
 <p>See<a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\"> IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses</a> for more details about the heat losses and dynamics. </p>
-<p><h4>Assumptions and limitations </h4></p>
-<p><ol>
+<h4>Assumptions and limitations </h4>
+<ol>
 <li>Dynamic model based on water content and lumped dry capacity</li>
 <li>Inverter controlled heat pump with limited power (based on QNom and interpolation tables in heatSource) </li>
 <li>Heat losses to environment which are compensated &apos;artifically&apos; to meet the manufacturers data in steady state conditions</li>
 <li>No defrosting taken into account</li>
 <li>No enforced min on or min off time; Hysteresis on start/stop thanks to different parameters for minimum modulation to start and stop the heat pump</li>
-</ol></p>
-<p><h4>Model use</h4></p>
+</ol>
+<h4>Model use</h4>
 <p>This model is based on performance tables of a specific heat pump, as specified by the <a href=\"modelica://IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_AW\">heatSource</a> model. If a different heat pump is to be simulated, create a different heatSource model with adapted interpolation tables.</p>
-<p><ol>
+<ol>
 <li>Specify medium and initial temperature (of the water + dry mass)</li>
-<li>Specify the nominal power QNom. There are two options: (1) specify QNom and put QDesign = 0 or (2) specify QDesign &GT; 0 and QNom wil be calculated from QDesign as follows:</li>
-<p>QNom = QDesign * betaFactor / fraLosDesNom</p>
+<li>Specify the nominal power QNom. There are two options: (1) specify QNom and put QDesign = 0 or (2) specify QDesign greater than 0 and QNom wil be calculated from QDesign as follows:</li>
+<li>QNom = QDesign * betaFactor / fraLosDesNom</li>
 <li>Connect TSet, the flowPorts and the heatPort to environment. </li>
 <li>Specify the minimum required modulation level for the boiler to start (modulation_start) and the minimum modulation level when the boiler is operating (modulation_min). The difference between both will ensure some off-time in case of low heat demands</li>
-</ol></p>
+</ol>
 <p>See also<a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\"> IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses</a> for more details about the heat losses and dynamics. </p>
-<p><h4>Validation </h4></p>
+<h4>Validation </h4>
 <p>The model has been verified in order to check if the &apos;artificial&apos; heat loss compensation still leads to correct steady state efficiencies according to the manufacturer data. This verification is integrated in the example model <a href=\"modelica://IDEAS.Thermal.Components.Examples.Boiler_validation\">IDEAS.Thermal.Components.Examples.Boiler_validation</a>.</p>
-<p><h4>Example</h4></p>
+<h4>Example</h4>
 <p>A specific heat pump example is given in <a href=\"modelica://IDEAS.Thermal.Components.Examples.HeatPump_AirWater\">IDEAS.Thermal.Components.Examples.HeatPump_AirWater</a>.</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2014 March, Filip Jorissen, Annex60 compatibility</li>
 <li>2013 May, Roel De Coninck: propagation of heatSource parameters and better definition of QNom used.  Documentation and example added</li>
 <li>2011 Roel De Coninck: first version</li>
-</ul></p>
+</ul>
 </html>"));
 end HP_AirWater_TSet2;

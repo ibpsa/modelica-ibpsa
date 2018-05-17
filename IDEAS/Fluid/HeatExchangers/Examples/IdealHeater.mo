@@ -116,7 +116,10 @@ equation
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/IdealHeater.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>This model, with abruptly changin water return temperatures to an IdealHeater, shows that the heater is able to reach the setpoint in almost all time instants. </p>
+<p>
+This model, with abruptly changin water return temperatures to an IdealHeater, 
+shows that the heater is able to reach the setpoint in almost all time instants. 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>March 2014 by Filip Jorissen:<br/> 

@@ -122,12 +122,12 @@ The computation is done using the model <a href=\"modelica://IDEAS.Fluid.HeatExc
 IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.CylindricalGroundLayer</a>.
 </p>
 <p>
-The model <code>TBouCon</code> is a constant temperature equal to the initial ground temperature.</a>.
+The model <code>TBouCon</code> is a constant temperature equal to the initial ground temperature.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-July 2014, by Damien Picard:<br>
+July 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

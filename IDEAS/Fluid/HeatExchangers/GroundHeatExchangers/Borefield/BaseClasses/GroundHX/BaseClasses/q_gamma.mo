@@ -56,7 +56,7 @@ Haruhiko Okumura: <i>C-gengo niyoru saishin algorithm jiten </i>
 </html>", revisions="<html>
 <ul>
 <li>
-September 2014, by Damien Picard:<br>
+September 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

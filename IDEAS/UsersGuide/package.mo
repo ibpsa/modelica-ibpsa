@@ -20,28 +20,23 @@ at both the building and aggregated level within a single model and solver.
 <h4>Content</h4>
 <p>
 Main packages are listed below.
+</p>
 <ul>
 <li>
 <a href=modelica://IDEAS.Buildings>Buildings</a> contains component models for modelling building envelopes. 
 </li>
 <li>
-<a href=modelica://IDEAS.Fluid>Fluid</a> contains component models for modelling hydronic systems. 
+<a href=modelica://IDEAS.Fluid>Fluid</a> contains component models for modelling fluid systems. 
 </li>
 <li>
-<a href=modelica://IDEAS.AirFlow>AirFlow</a> 
-(and <a href=modelica://IDEAS.Fluid>Fluid</a>)contain component models 
-for modelling ventilation systems. 
-</li>
-<li>
-<a href=modelica://IDEAS.Electric>Electric</a> contains component models for modelling electric distribution grids. 
-These models are not yet unit tested. If you experience any problems with these models, please let us know. 
+<a href=modelica://IDEAS.Experimental.Electric>Experimental.Electric</a> contains component models for modelling electric distribution grids. 
+These models are not unit tested and are not actively maintained.
 </li>
 <li>
 <a href=modelica://IDEAS.Examples>Examples</a> contains example models that demonstrate 
 the use of <a href=modelica://IDEAS.Buildings>Buildings</a> and <a href=modelica://IDEAS.Fluid>Fluid</a>. 
 </li>
 </ul>
-</p>
 <h4>Feedback</h4>
 <p>
 <code>IDEAS</code> is developed at <a href=https://github.com/open-ideas/IDEAS>github</a>.
@@ -77,6 +72,7 @@ The following people have contributed to the <code>IDEAS</code> code.
 Bart Verbruggen
 </li>
 </ul>
+<p>
 Furthermore, a large part of the code was originally developed within
 the <a href=http://www.iea-annex60.org>IEA EBC Annex 60 project</a>,
 which is continued as <a href=https://ibpsa.github.io/project1/>IBPSA project 1</a>.

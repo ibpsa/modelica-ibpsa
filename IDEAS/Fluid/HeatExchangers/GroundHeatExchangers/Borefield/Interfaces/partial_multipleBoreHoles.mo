@@ -1,4 +1,4 @@
-within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Interfaces;
+﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Interfaces;
 partial model partial_multipleBoreHoles
   "Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
@@ -249,13 +249,13 @@ A verification of this model can be found in
 </html>", revisions="<html>
 <ul>
 <li>
-February 2, 2017, by Filip Jorissen:<br>
+February 2, 2017, by Filip Jorissen:<br/>
 Changed initial algorithm to initial equation section since otherwise
 buffer overflows may occur.
 See <a href=https://github.com/open-ideas/IDEAS/issues/666># 666</a>.
 </li>
 <li>
-July 2014, by Damien Picard:<br>
+July 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
