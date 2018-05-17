@@ -18,32 +18,32 @@ equation
 <p><b>Description</b> </p>
 <p>Buoyancy model that computes the buoyancy heat flux as an<u> equivalent additional thermal conductivity</u>.</p>
 <p>This model computes a heat flow rate that can be added to fluid volumes in order to model buoyancy during a temperature inversion in a storage tank. For simplicity, this model does not compute a buoyancy induced mass flow rate, but rather a heat flow that has the same magnitude as the enthalpy flow associated with the buoyancy induced mass flow rate. </p>
-<p><h4>Assumptions and limitations </h4></p>
-<p><ol>
+<h4>Assumptions and limitations </h4>
+<ol>
 <li>Heat flux computation instead of mass flow rates</li>
 <li>The buoyancy heat flux Q_flow[i] between node i+1 and node i equals </li>
-<p><br/><i>Q_flow[i]&nbsp;=&nbsp;lamBuo&nbsp;*&nbsp;surCroSec&nbsp;*&nbsp;dT[i]&nbsp;/&nbsp;(h/nbrNodes)</i></p>
+<li><p><br/><i>Q_flow[i]&nbsp;=&nbsp;lamBuo&nbsp;*&nbsp;surCroSec&nbsp;*&nbsp;dT[i]&nbsp;/&nbsp;(h/nbrNodes)</i></p>
 <p><br/>where:</p>
 <p>        <i>lamBuo</i> = equivalent thermal conductivity for buoyancy</p>
 <p>        <i>surCroSec</i> = surface of the cross-section of the tank</p>
 <p>        <i>dT[i]</i> = <i>max(T[i+1]-T[i],&nbsp;0)</i>, so this is the temperature&nbsp;difference&nbsp;between&nbsp;layer&nbsp;i+1&nbsp;and&nbsp;i in case of temperature inversion</p>
-<p>        <i>h/nbrNodes</i> = node height</p>
+<p>        <i>h/nbrNodes</i> = node height</p></li>
 <li>Connected to a storage tank through an array of heatPorts of size=nbrNodes</li>
-</ol></p>
-<p><h4>Model use</h4></p>
-<p><ol>
+</ol>
+<h4>Model use</h4>
+<ol>
 <li>This model has been instantiated as replaceable in a storage tank model, and the appropriate subclass can be chosen directly in the parameter interface of the storage tank. </li>
 <li>lamBuo, the only parameter of this model has to be specified together with the modification of the buoyancy model</li>
-</ol></p>
-<p><h4>Validation </h4></p>
+</ol>
+<h4>Validation </h4>
 <p>This model is not validated, and is merely as an example of how a buoyancy model can be created starting from the <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.Partial_Buoyancy\">Partial_Buoyancy</a> model.</p>
 <p>The only validated buoyancy model is <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.Buoyancy_powexp\">Buoyancy_powexp</a>.</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2013 June, Roel De Coninck: documentation.</li>
 <li>2012 October, Roel De Coninck, modifications</li>
 <li>2008, Michael Wetter, first implementation.</li>
-</ul></p>
+</ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(

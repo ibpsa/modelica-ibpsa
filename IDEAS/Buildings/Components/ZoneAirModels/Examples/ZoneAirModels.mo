@@ -12,6 +12,9 @@ model ZoneAirModels
       useFluPor=false)
     "Bestest case 900 with no air model"
     annotation (Placement(transformation(extent={{-14,-80},{16,-60}})));
+  inner BoundaryConditions.SimInfoManager       sim
+    "Simulation information manager for climate data"
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   annotation (experiment(StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>

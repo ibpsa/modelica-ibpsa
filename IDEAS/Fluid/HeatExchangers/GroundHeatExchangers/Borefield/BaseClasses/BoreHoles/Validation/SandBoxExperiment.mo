@@ -22,10 +22,12 @@ model SandBoxExperiment
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
-The model is compared with the sandbox experiment done by Beier et al (2011). As described by Picard and Helsen (2014), the computed temperatures differs from the measurements due to the aluminium casting that Beier et al used in the experiment. This cast around the grout works as a fine and therefore decreases the borehole resistance.
+The model is compared with the sandbox experiment done by Beier et al (2011). As described by Picard and Helsen (2014), 
+the computed temperatures differs from the measurements due to the aluminium casting that Beier et al used in the experiment.
+ This cast around the grout works as a fine and therefore decreases the borehole resistance.
 </p>
 <p>
-Beier, R., Smith, M, Spitler, J, Reference data sets for vertical borehole ground heat exchanger models and thermal response test analysis, Geothermics 40 (2011).</a>.
+Beier, R., Smith, M, Spitler, J, Reference data sets for vertical borehole ground heat exchanger models and thermal response test analysis, Geothermics 40 (2011).
 </p>
 </html>", revisions="<html>
 <ul>

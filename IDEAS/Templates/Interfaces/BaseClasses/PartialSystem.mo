@@ -51,26 +51,26 @@ equation
 <p>Interface model for a complete multi-zone heating system (with our without domestic hot water and solar system).</p>
 <p>This model defines the ports used to link a heating system with a building, and the basic parameters that most heating systems will need to have. The model is modular as a function of the number of zones <i>nZones. </i></p>
 <p>Two sets of heatPorts are defined:</p>
-<p><ol>
+<ol>
 <li><i>heatPortCon[nZones]</i> and <i>heatPortRad[nZones]</i> for convective respectively radiative heat transfer to the building. </li>
 <li><i>heatPortEmb[nZones]</i> for heat transfer to TABS elements in the building. </li>
-</ol></p>
+</ol>
 <p>The model also defines <i>TSensor[nZones]</i> and <i>TSet[nZones]</i> for the control, and a nominal power <i>QNom[nZones].</i></p>
 <p>There is also an input for the DHW flow rate, <i>mDHW60C</i>, but this can be unconnected if the system only includes heating and no DHW.</p>
-<p><h4>Assumptions and limitations </h4></p>
-<p><ol>
+<h4>Assumptions and limitations </h4>
+<ol>
 <li>See the different extensions of this model in <a href=\"modelica://IDEAS.Thermal.HeatingSystems\">IDEAS.Thermal.HeatingSystems</a></li>
-</ol></p>
-<p><h4>Model use</h4></p>
-<p><ol>
+</ol>
+<h4>Model use</h4>
+<ol>
 <li>Connect the heating system to the corresponding heatPorts of a <a href=\"modelica://IDEAS.Templates.Interfaces.BaseClasses.Structure\">structure</a>. </li>
 <li>Connect <i>TSet</i> and <i>TSensor</i> and <i>plugLoad. </i></li>
 <li>Connect <i>plugLoad </i> to an inhome grid.  A<a href=\"modelica://IDEAS.Templates.Interfaces.BaseClasses.CausalInhomeFeeder\"> dummy inhome grid like this</a> has to be used if no inhome grid is to be modelled. </li>
 <li>Set all parameters that are required, depending on which implementation of this interface is used. </li>
-</ol></p>
-<p><h4>Validation </h4></p>
+</ol>
+<h4>Validation </h4>
 <p>No validation performed.</p>
-<p><h4>Example </h4></p>
+<h4>Example </h4>
 <p>See the <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples\">heating system examples</a>. </p>
 </html>"));
 end PartialSystem;

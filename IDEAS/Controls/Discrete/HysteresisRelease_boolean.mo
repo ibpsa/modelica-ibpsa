@@ -145,7 +145,7 @@ equation
 <li>When the output was true and the input becomes less than parameter uLow, the output switches to false.</li>
 <li>As long as the input stays between uLow and uHigh, the output remains the same.</li>
 </ul>
-<p><br>This hysteresic block has several additional features:</p>
+<p>This hysteresic block has several additional features:</p>
 <ul>
 <li>When the parameter revert is true, the switching logic changes.  This is typically used for heating-like situations, when the output has to be true when the input is below uLow. </li>
 <li>uLow and uHigh can be realinputs instead of fixed parameters</li>
@@ -155,8 +155,8 @@ equation
 </html>",
   revisions="<html>
 <ul>
-<li>November 2014, Roel De Coninck<br>Switching to real inputs and output</li>
-<li>May 13, 2014, by Damien Picard:<br>Add possibility to use parameters as boundary values instead of inputs. </li>
+<li>November 2014, Roel De Coninck<br/>Switching to real inputs and output</li>
+<li>May 13, 2014, by Damien Picard:<br/>Add possibility to use parameters as boundary values instead of inputs. </li>
 </ul>
 </html>"));
 end HysteresisRelease_boolean;

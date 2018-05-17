@@ -53,7 +53,7 @@ algorithm
   schTim := startTime + mod(sim.timLoc - startTime, period);
 
   // Changed the index that computes the time until the next occupancy
-  when time >= pre(occupancy[nexStaInd]) + iPerSta*period then
+  when time >= occupancy[nexStaInd] + iPerSta*period then
     nexStaInd := nexStaInd + 2;
     occupied := not occupied;
     // Wrap index around
@@ -65,7 +65,7 @@ algorithm
   end when;
 
   // Changed the index that computes the time until the next non-occupancy
-  when time >= pre(occupancy[nexStoInd]) + iPerSto*period then
+  when time >= occupancy[nexStoInd] + iPerSto*period then
     nexStoInd := nexStoInd + 2;
     occupied := not occupied;
     // Wrap index around

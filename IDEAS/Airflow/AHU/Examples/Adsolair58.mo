@@ -150,8 +150,7 @@ model Adsolair58 "Adsolair58 example model"
   Fluid.HeatExchangers.Heater_T       hea(
     redeclare package Medium = MediumWater,
     dp_nominal=0,
-    m_flow_nominal=2,
-    QMax_flow=3e4)
+    m_flow_nominal=2)
     annotation (Placement(transformation(extent={{-100,-4},{-80,16}})));
   Fluid.Movers.FlowControlled_dp pum(
     redeclare package Medium = MediumWater,
@@ -161,14 +160,20 @@ model Adsolair58 "Adsolair58 example model"
     inputType=IDEAS.Fluid.Types.InputType.Stages,
     m_flow_nominal=2,
     heads={0,1e4}) "Supply pump"
-    annotation (Placement(transformation(extent={{-74,-2},{-58,14}})));
+    annotation (Placement(transformation(extent={{-8,-8},{8,8}},
+        rotation=90,
+        origin={-22,18})));
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
     redeclare package Medium = MediumWater,
     dpValve_nominal=1e4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=30,
     use_inputFilter=false,
-    m_flow_nominal=2)      "Valve for controlling flow rate"
+    m_flow_nominal=2,
+    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering)
+                           "Valve for controlling flow rate"
     annotation (Placement(transformation(extent={{-52,-2},{-36,14}})));
   Modelica.Blocks.Logical.Hysteresis heaOn(uLow=0.025, uHigh=0.05)
     "Heating system on if heating water is demanded"
@@ -288,12 +293,6 @@ equation
                                color={0,0,127}));
   connect(conPID3.u_s, conPID1.u_s) annotation (Line(points={{-19,-95},{-19,-138},
           {101,-138},{101,-95}},color={0,0,127}));
-  connect(pum.port_a, hea.port_b)
-    annotation (Line(points={{-74,6},{-77,6},{-80,6}}, color={0,127,255}));
-  connect(pum.port_b, val.port_1)
-    annotation (Line(points={{-58,6},{-56,6},{-52,6}}, color={0,127,255}));
-  connect(val.port_2, adsolair58.port_a)
-    annotation (Line(points={{-36,6},{-22,6},{-22,30}}, color={0,127,255}));
   connect(adsolair58.port_b, val.port_3)
     annotation (Line(points={{-28,30},{-28,-2},{-44,-2}}, color={0,127,255}));
   connect(val.port_3, hea.port_a) annotation (Line(points={{-44,-2},{-100,-2},{-100,
@@ -302,8 +301,8 @@ equation
           -13},{-40.6,40}}, color={0,0,127}));
   connect(booToInt.u, heaOn.y)
     annotation (Line(points={{-62.6,-13},{-58.7,-13}}, color={255,0,255}));
-  connect(booToInt.y, pum.stage) annotation (Line(points={{-78.7,-13},{-78.7,15.6},
-          {-66,15.6}}, color={255,127,0}));
+  connect(booToInt.y, pum.stage) annotation (Line(points={{-78.7,-13},{-78.7,18},
+          {-31.6,18}}, color={255,127,0}));
   connect(val.y, adsolair58.yHea) annotation (Line(points={{-44,15.6},{-44,40},{
           -40.6,40}}, color={0,0,127}));
   connect(TSup.y, hea.TSet) annotation (Line(points={{-117.2,12},{-102,12},{-102,
@@ -312,6 +311,12 @@ equation
           {-102,6},{-100,6}}, color={0,127,255}));
   connect(conPID1.u_s, TSet.y) annotation (Line(points={{101,-95},{101,-73},{115.3,
           -73}}, color={0,0,127}));
+  connect(val.port_1, hea.port_b)
+    annotation (Line(points={{-52,6},{-80,6}}, color={0,127,255}));
+  connect(val.port_2, pum.port_a)
+    annotation (Line(points={{-36,6},{-22,6},{-22,10}}, color={0,127,255}));
+  connect(pum.port_b, adsolair58.port_a)
+    annotation (Line(points={{-22,26},{-22,30}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,100}})),

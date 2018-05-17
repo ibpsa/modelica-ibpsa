@@ -64,11 +64,11 @@ model StorageTank_DHW_HP
     annotation (Placement(transformation(extent={{36,48},{46,58}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=294.15)
     annotation (Placement(transformation(extent={{-44,70},{-64,90}})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort senStoHx_in(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal)
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senStoHx_in(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-46,4},{-34,16}})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort senStoHx_out(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) annotation (Placement(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senStoHx_out(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,

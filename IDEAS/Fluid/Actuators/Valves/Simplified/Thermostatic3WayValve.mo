@@ -41,6 +41,8 @@ protected
 
   parameter Real delta_h_reg=dT_nominal/25*Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default,Medium.T_default,Medium.X_default))
     "Enthalpy difference where regularization starts";
+initial equation
+  k_state=y_start;
 
 equation
   der(k_state) = if dynamicValve then (k-k_state)/tau else 0;
@@ -130,7 +132,11 @@ equation
 <p>Only verification was performed.</p>
 <p>Examples of this model can be found in<a href=\"modelica://IDEAS.Thermal.Components.Examples.TempMixingTester\"> IDEAS.Thermal.Components.Examples.TempMixingTester</a> and<a href=\"modelica://IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve\"> IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve</a></p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
+<li>
+May 15, 2018, by Filip Jorissen:<br/>
+Changes for setting unique initial conditions.
+</li>
 <li>2014 October, Filip Jorissen, Added parameter for regularization range</li>
 <li>2014 October, Filip Jorissen, Regularized implementation and documentation </li>
 <li>2014 May, Filip Jorissen, Both legs can be hot or cold</li>
@@ -138,6 +144,6 @@ equation
 <li>2013 May, Roel De Coninck, documentation</li>
 <li>2013 March, Ruben Baetens, graphics</li>
 <li>2010, Roel De Coninck, first version</li>
-</ul></p>
+</ul>
 </html>"));
 end Thermostatic3WayValve;

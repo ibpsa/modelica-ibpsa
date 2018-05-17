@@ -1,21 +1,20 @@
 within IDEAS.Fluid.Actuators.Valves.Simplified.Examples;
 model ThreeWayValveMotor
-  import IDEAS;
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
 
-protected
-    IDEAS.Fluid.Movers.FlowControlled_m_flow pumpFlow1(
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pumpFlow1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     tau=30,
     use_inputFilter=false,
-    dp_nominal = 0)     annotation (Placement(transformation(
+    dp_nominal = 0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                        annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-72,0})));
-public
   Modelica.Blocks.Sources.Constant flow_pump(k=1)
         annotation (Placement(transformation(extent={{-98,60},{-78,80}})));
   Modelica.Blocks.Sources.Sine     ctrl(freqHz=0.1,
@@ -35,7 +34,8 @@ public
   IDEAS.Fluid.Actuators.Valves.Simplified.ThreeWayValveMotor threeWayValveMotor(
     m_flow_nominal=1,
     redeclare package Medium = Medium,
-    m=0.1) annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                                       annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
   Sources.Boundary_pT cold(
     redeclare package Medium = Medium,
     nPorts=1,
@@ -59,7 +59,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(ctrl.y, threeWayValveMotor.ctrl) annotation (Line(
-      points={{-11,68},{1,68},{1,9.6}},
+      points={{-11,68},{0,68},{0,10.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pumpFlow1.port_a, temperature.port_b) annotation (Line(

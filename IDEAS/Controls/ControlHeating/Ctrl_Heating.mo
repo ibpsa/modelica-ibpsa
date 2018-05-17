@@ -20,7 +20,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression2.y, add2.u2) annotation (Line(
-      points={{16.2,-3},{33.1,-3},{33.1,-4.8},{62.4,-4.8}},
+      points={{2.2,10},{33.1,10},{33.1,-4.8},{62.4,-4.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add2.y, THeaterSet) annotation (Line(
@@ -28,30 +28,33 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(corHeaCur.y, add1.u2) annotation (Line(
-      points={{1,20},{40,20},{40,35.2},{60.4,35.2}},
+      points={{1,30},{40,30},{40,35.2},{60.4,35.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(corHeaCur.y, add2.u1) annotation (Line(
-      points={{1,20},{40,20},{40,4.8},{62.4,4.8}},
+      points={{1,30},{40,30},{40,4.8},{62.4,4.8}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},
             {100,80}}),      graphics), Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Heating curve based control of a heater. This component is nothing more than a wrapper around the <a href=\"modelica://IDEAS.Thermal.Control.HeatingCurve\">IDEAS.Thermal.Control.HeatingCurve</a>. The set point temperature for the heater is <i>dTHeaterSet</i> Kelvin higher than the heating curve output in order to make sure that the heating curve temperature is met also when thermal losses are present in the circuit. </p>
-<p><h4>Model use</h4></p>
-<p><ol>
+<h4>Model use</h4>
+<ol>
 <li>Use this controller in a heating system without DHW where you want to follow a heating curve.</li>
-</ol></p>
-<p><h4>Validation </h4></p>
+</ol>
+<h4>Validation </h4>
 <p>No validation performed.</p>
-<p><h4>Example </h4></p>
-<p>This controller is used in<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Heating_Radiators\"> IDEAS.Thermal.HeatingSystems.Heating_Radiators</a> and<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Heating_Embedded\"> IDEAS.Thermal.HeatingSystems.Heating_Embedded</a>.</p>
+<h4>Example </h4>
+<p>
+This controller is used in<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Heating_Radiators\">
+IDEAS.Thermal.HeatingSystems.Heating_Radiators</a> and <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Heating_Embedded\">IDEAS.Thermal.HeatingSystems.Heating_Embedded</a>.
+</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2011, Roel De Coninck: first version and validation</li>
-</ul></p>
+</ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));

@@ -102,6 +102,7 @@ equation
           {-40,30},{-40,-56},{-10.8,-56}}, color={0,0,127}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=3600),
+    __Dymola_experimentSetupOutput(events=true),
 __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/StaticTwoPortConservationEquation.mos"
         "Simulate and plot"),
 Documentation(info="<html>

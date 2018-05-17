@@ -47,15 +47,15 @@ record RadiantSlabChar
   annotation (Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Record containing the properties of a floor heating or TABS.  The&nbsp;terminology&nbsp;from&nbsp;prEN&nbsp;15377&nbsp;is&nbsp;followed,&nbsp;even&nbsp;if&nbsp;I&nbsp;find&nbsp;the&nbsp;development&nbsp;of&nbsp;the&nbsp;theory by&nbsp;Koschenz&nbsp;and&nbsp;Lehmann&nbsp;better&nbsp;(see&nbsp;Thermoaktive&nbsp;Bauteilsysteme&nbsp;tabs,&nbsp;from&nbsp;Empa)</p>
-<p><h4>Model use</h4></p>
-<p><ol>
+<h4>Model use</h4>
+<ol>
 <li>It&apos;s important to set at least the floor surface to something different from 1</li>
 <li>The embeddedPipe model has a few assertions to check the validity of some parameters and their combinations.</li>
-</ol></p>
+</ol>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2013 May, Roel De Coninck, documentation</li>
 <li>2011 June, Roel De Coninck, first version</li>
-</ul></p>
+</ul>
 </html>"));
 end RadiantSlabChar;
