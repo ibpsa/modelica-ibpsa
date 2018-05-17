@@ -2,7 +2,9 @@ within IDEAS.Fluid.FixedResistances.Examples;
 model Pipe_HeatPortExample "Example of a Pipe_HeatPort"
   extends Modelica.Icons.Example;
   Pipe_HeatPort pipe_HeatPort(redeclare package Medium = Medium, m_flow_nominal=
-       1) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+       1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+          annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
     annotation (Placement(transformation(extent={{-28,56},{-8,76}})));
   Modelica.Blocks.Sources.Constant const(k=10000)

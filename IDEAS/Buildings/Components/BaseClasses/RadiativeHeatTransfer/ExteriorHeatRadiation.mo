@@ -70,11 +70,22 @@ equation
           points={{60,80},{60,-80}},
           color={0,0,0},
           thickness=0.5)}), Documentation(info="<html>
-<p>Longwave radiation between the surface and environment <img src=\"modelica://IDEAS/Images/equations/equation-AMjoTx5S.png\"/> is determined as</p>
-<p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-nt0agyic.png\"/></p>
-<p>as derived from the Stefan-Boltzmann law wherefore <img src=\"modelica://IDEAS/Images/equations/equation-C6ZFvd5P.png\"/> the Stefan-Boltzmann constant <a href=\"IDEAS.Buildings.UsersGuide.References\">[Mohr 2008]</a>, <img src=\"modelica://IDEAS/Images/equations/equation-sLNH0zgx.png\"/> the longwave emissivity of the exterior surface, <img src=\"modelica://IDEAS/Images/equations/equation-Q5X4Yht9.png\"/> the radiant-interchange configuration factor between the surface and sky <a href=\"IDEAS.Buildings.UsersGuide.References\">[Hamilton 1952]</a>, and the surface and the environment respectively and <img src=\"modelica://IDEAS/Images/equations/equation-k2V39u5g.png\"/> and <img src=\"modelica://IDEAS/Images/equations/equation-GuSnzLxW.png\"/> are the exterior surface and sky temperature respectively. Shortwave solar irradiation absorbed by the exterior surface is determined as </p>
-<p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-cISf3Itz.png\"/></p>
-<p>where <img src=\"modelica://IDEAS/Images/equations/equation-IKuIUMef.png\"/> is the shortwave absorption of the surface and <img src=\"modelica://IDEAS/Images/equations/equation-Vuo4fgcb.png\"/> the total irradiation on the depicted surface. </p>
+<p>
+Longwave radiation between the surface and environment 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-AMjoTx5S.png\"/> is determined as
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-nt0agyic.png\"/>as derived from the Stefan-Boltzmann law wherefore 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-C6ZFvd5P.png\"/> the Stefan-Boltzmann constant 
+<a href=\"IDEAS.Buildings.UsersGuide.References\">[Mohr 2008]</a>, 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-sLNH0zgx.png\"/> the longwave emissivity of the exterior surface, 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-Q5X4Yht9.png\"/> the radiant-interchange configuration factor between the surface and sky 
+<a href=\"IDEAS.Buildings.UsersGuide.References\">[Hamilton 1952]</a>, and the surface and the environment respectively and 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-k2V39u5g.png\"/> and 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-GuSnzLxW.png\"/> are the exterior surface and sky temperature respectively. 
+Shortwave solar irradiation absorbed by the exterior surface is determined as 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-cISf3Itz.png\"/>where 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-IKuIUMef.png\"/> is the shortwave absorption of the surface and 
+<img alt=\"equation\" src=\"modelica://IDEAS/Images/equations/equation-Vuo4fgcb.png\"/> the total irradiation on the depicted surface.
+</p>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})));

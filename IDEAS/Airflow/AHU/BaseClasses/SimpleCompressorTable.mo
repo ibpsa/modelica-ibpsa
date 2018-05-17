@@ -78,7 +78,8 @@ public
       smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Combitable for compressor powers"
     annotation (Placement(transformation(extent={{-20,-82},{0,-62}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCapacitor(C=C)
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCapacitor(C=C, T(fixed=
+          true))
     annotation (Placement(transformation(extent={{80,18},{100,38}})));
   Modelica.Blocks.Math.Add T_evap(k1=-1) "Refrigerant temperature"
     annotation (Placement(transformation(extent={{-68,-80},{-48,-58}})));

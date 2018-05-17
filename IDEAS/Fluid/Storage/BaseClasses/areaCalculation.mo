@@ -35,19 +35,19 @@ algorithm
   end if;
   annotation (Documentation(info="<html>
 <p>Function to calculate the heat loss area of each node based on the following inputs:</p>
-<p><ul>
+<ul>
 <li>volume of the tank</li>
 <li>height of the tank</li>
 <li>number of nodes</li>
-<li>&QUOT;pnd&QUOT; = boolean (Prevent&nbsp;Natural&nbsp;Destratification:&nbsp;if&nbsp;true,&nbsp;automatically&nbsp;increase&nbsp;insulation&nbsp;of&nbsp;top&nbsp;layer  See below for more details.</li>
-</ul></p>
+<li>\"pnd\" = boolean (Prevent&nbsp;Natural&nbsp;Destratification:&nbsp;if&nbsp;true,&nbsp;automatically&nbsp;increase&nbsp;insulation&nbsp;of&nbsp;top&nbsp;layer  See below for more details.</li>
+</ul>
 <p><br/>The output of the function is an array of size=number of nodes with the (fictive) heat loss area for each node.  Together with the UAIns of the tank, the heat loss per node can then be calculated.</p>
 <p><br/><u>Prevent natural destratification</u></p>
 <p><br/>if pnd=true, we&nbsp;DECREASE&nbsp;the&nbsp;area&nbsp;of&nbsp;the&nbsp;top&nbsp;node&nbsp;in&nbsp;order&nbsp;NOT&nbsp;to&nbsp;let&nbsp;it&nbsp;cool&nbsp;down&nbsp;faster&nbsp;than&nbsp;the&nbsp;node&nbsp;just&nbsp;below.&nbsp;&nbsp;This is&nbsp;equivalent&nbsp;to&nbsp;increasing&nbsp;the&nbsp;insulation&nbsp;of&nbsp;the&nbsp;top&nbsp;node&nbsp;so&nbsp;the&nbsp;total&nbsp;losses&nbsp;in&nbsp;W/K&nbsp;are&nbsp;equal&nbsp;to&nbsp;the&nbsp;2nd&nbsp;node.</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2013, Roel De Coninck: documentation</li>
 <li>2011, Roel De Coninck: first version</li>
-</ul></p>
+</ul>
 </html>"));
 end areaCalculation;

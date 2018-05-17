@@ -91,5 +91,8 @@ Annex60 compatibility
 </ul>
 </html>"),
     experiment(StopTime=86400),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Storage/Examples/StorageWithThermostaticMixing.mos"
+        "Simulate and plot"));
 end StorageWithThermostaticMixing;

@@ -219,8 +219,8 @@ Reference results are from the
 EnergyPlus website</a>.
 </p>
 <p>
-Series 600, series 900 and free float normalised results:<br>
-<img src=\"modelica://IDEAS/Resources/Images/BESTEST/bestest.png\"/>
+Series 600, series 900 and free float normalised results:<br/>
+<img alt=\"results\" src=\"modelica://IDEAS/Resources/Images/BESTEST/bestest.png\"/>
 </p>
 <p>
 E<sub>H</sub> and E<sub>C</sub> indicate normalised total yearly energy use for heating and cooling. 

@@ -40,7 +40,19 @@ model MultiLayer "Unit test for multi layer model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
                           "Test model containing only solid layers"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
+initial equation
+  // manually adding initial conditions to avoid conflict
+  // with prescribedTemperature blocks
+  cavityWall.monLay[1].monLayDyn.T[1]=cavityWall.T_start[1];
+  cavityWall.monLay[3].monLayDyn.T[1]=cavityWall.T_start[3];
+  cavityWall.monLay[3].monLayDyn.T[2]=cavityWall.T_start[3];
+  cavityWall.monLay[3].monLayDyn.T[3]=cavityWall.T_start[3];
+  cavityWall.monLay[4].monLayDyn.T[1]=cavityWall.T_start[4];
+  cavityWall.monLay[4].monLayDyn.T[2]=cavityWall.T_start[4];
+  TABS.monLay[1].monLayDyn.T[1]=TABS.T_start[1];
+  TABS.monLay[2].monLayDyn.T[1]=TABS.T_start[2];
+  TABS.monLay[3].monLayDyn.T[1]=TABS.T_start[3];
+  TABS.monLay[4].monLayDyn.T[1]=TABS.T_start[4];
 equation
   connect(ramp.y, prescribedTemperature.T)
     annotation (Line(points={{-79,0},{-70.5,0},{-62,0}}, color={0,0,127}));
@@ -60,6 +72,10 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 15, 2018 by Filip Jorissen:<br/>
+Fixed initial conditions.
+</li>
 <li>
 January 18, 2017 by Filip Jorissen:<br/>
 First implementation

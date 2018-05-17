@@ -1,4 +1,4 @@
-within IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer;
+﻿within IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer;
 model ZoneLwDistribution "internal longwave radiative heat exchange"
 
   parameter Integer nSurf(min=1) "Number of surfaces connected to the zone";
@@ -184,7 +184,7 @@ It may be used when the initial equation that computes the view factors does not
 </p>
 <h4>References</h4>
 <p>
-Liesen, R. J., & Pedersen, C. O. (1997). An Evaluation of Inside Surface Heat Balance Models for Cooling Load Calculations. ASHRAE Transactions, 3(103), 485-502.<br/>
+Liesen, R. J., &amp; Pedersen, C. O. (1997). An Evaluation of Inside Surface Heat Balance Models for Cooling Load Calculations. ASHRAE Transactions, 3(103), 485-502.<br/>
 Carroll, J.A. 1980. An \"MRT method\" of computing radiant energy exchange in rooms. Proceedings of the 2nd Sys- tems Simulation and Economics Analysis Conference, January 23-25
 </p>
 </html>", revisions="<html>

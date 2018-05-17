@@ -79,7 +79,7 @@ This component defines all required types of time in the simulation.
 ", revisions="<html>
 <ul>
 <li>
-April 6, 2011, by Ruben Baetens:<br>
+April 6, 2011, by Ruben Baetens:<br/>
 First implementation.
 </li>
 </ul>

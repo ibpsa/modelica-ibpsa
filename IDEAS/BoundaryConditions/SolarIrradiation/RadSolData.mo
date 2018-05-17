@@ -148,7 +148,7 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
-March 26, 2018 by Iago Cupeiro & Damien Picard:<br/>
+March 26, 2018 by Iago Cupeiro &amp; Damien Picard:<br/>
 Solved bug in linearisation
 </li>
 <li>
