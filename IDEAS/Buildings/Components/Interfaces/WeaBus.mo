@@ -4,6 +4,9 @@ connector WeaBus "Data bus that stores weather data"
   parameter Integer numSolBus;
   parameter Boolean outputAngles = true "Set to false when linearising in Dymola only";
 
+  IDEAS.Buildings.Components.Interfaces.RealConnector solTim(
+    final unit="s",
+    final quantity="Time") "Solar time";
   IDEAS.Buildings.Components.Interfaces.SolBus[numSolBus] solBus(each outputAngles=outputAngles) annotation ();
   IDEAS.Buildings.Components.Interfaces.RealConnector Te(
     final quantity="ThermodynamicTemperature",
@@ -35,7 +38,7 @@ connector WeaBus "Data bus that stores weather data"
   IDEAS.Buildings.Components.Interfaces.RealConnector dummy(start=1)
     "Dummy variable of value 1 to include constant term in linearization (see SlabOnGround)"
     annotation ();
-  IDEAS.Buildings.Components.Interfaces.RealConnector TskyPow4,TePow4, solGloHor, solDifHor, F1, F2, angZen, angHou, angDec, solDirPer;
+  IDEAS.Buildings.Components.Interfaces.RealConnector TskyPow4,TePow4, solGloHor, solDifHor, F1, F2, angZen, angHou, angDec, solDirPer, phi;
   annotation (
     defaultComponentName="weaBus",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
@@ -52,6 +55,17 @@ Connector that contains all environment information for many inclinations and ti
 </html>",
    revisions="<html>
 <ul>
+<li>
+March 27, 2018, by Filip Jorissen:<br/>
+Added relative humidity to weather bus.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/780>#780</a>
+</li>
+<li>
+January 25, 2018 by Filip Jorissen:<br/>
+Added <code>solTim</code> connections for revised azimuth computations.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/753\">
+#753</a>.
+</li>
 <li>
 March 21, 2017, by Filip Jorissen:<br/>
 Changed Reals into connectors for JModelica compatibility.

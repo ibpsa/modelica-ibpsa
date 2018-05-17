@@ -13,7 +13,7 @@ model WallUnitTest "Unit test for verifying results for all wall components"
     azi=IDEAS.Types.Azimuth.S,
     A=2,
     redeclare Data.Constructions.EpcSolidWall2 constructionType,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Internal wall example"
     annotation (Placement(transformation(extent={{-36,20},{-24,40}})));
   OuterWall outerWall(

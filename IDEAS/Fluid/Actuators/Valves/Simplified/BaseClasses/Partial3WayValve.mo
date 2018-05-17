@@ -1,10 +1,15 @@
 within IDEAS.Fluid.Actuators.Valves.Simplified.BaseClasses;
 model Partial3WayValve "Partial for 3-way valves"
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
-  parameter Real tau = 1 "Valve opening time constant"
-    annotation(Dialog(enable=dynamicValve,tab="Dynamics", group="Filter"));
+  parameter Real tau = 1 "Thermal time constant"
+    annotation(Dialog(tab="Dynamics", group="Filter"));
+  parameter Real l = 0.001 "Valve leakage, minimum fraction of flow rate passing through ports a";
   final parameter Modelica.SIunits.Mass m = m_flow_nominal*tau
     "Fluid content of the mixing valve";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate";
+  parameter Boolean allowFlowReversal=true
+    "= true to allow flow reversal";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare package Medium =
         Medium) "Hot fluid inlet"
@@ -16,7 +21,7 @@ model Partial3WayValve "Partial for 3-way valves"
         Medium) "Fluid outlet"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  MixingVolumes.MixingVolume vol(nPorts=2,
+  IDEAS.Fluid.MixingVolumes.MixingVolume vol(nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=energyDynamics,
@@ -32,18 +37,15 @@ model Partial3WayValve "Partial for 3-way valves"
         Medium.X_default)),
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate";
 
-  Interfaces.IdealSource idealSource(redeclare package Medium = Medium,
-      control_m_flow=true,
+  IDEAS.Fluid.Interfaces.IdealSource idealSource(
+    redeclare package Medium = Medium,
+    control_m_flow=true,
     allowFlowReversal=allowFlowReversal)
                            annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,-44})));
-  parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports.";
 equation
   connect(port_a1, vol.ports[1]) annotation (Line(
       points={{-100,0},{-2,0}},
@@ -135,7 +137,13 @@ equation
 <p>Examples of this model can be found in<a href=\"modelica://IDEAS.Thermal.Components.Examples.TempMixingTester\"> IDEAS.Thermal.Components.Examples.TempMixingTester</a> and<a href=\"modelica://IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve\"> IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve</a></p>
 </html>", revisions="<html>
 <ul>
-<li>March 2014 by Filip Jorissen:<br/> 
+<li>
+March 26, 2018 by Filip Jorissen:<br/> 
+Implemented valve leakage,
+see <a href=\"https://github.com/open-ideas/IDEAS/issues/782\">#782</a>.
+</li>
+<li>
+March 2014 by Filip Jorissen:<br/> 
 Initial implementation
 </li>
 </ul>

@@ -12,7 +12,8 @@ model SingleBoreHole2UTubeSerStepLoad "SingleBoreHoleSer with step input load "
     fil=fil,
     gen=gen,
     m_flow_nominal=gen.m_flow_nominal_bh,
-    dp_nominal=gen.dp_nominal)
+    dp_nominal=gen.dp_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
              constrainedby
     Borefield.BaseClasses.BoreHoles.Interface.PartialSingleBoreholeSerie(
     redeclare package Medium = Medium,

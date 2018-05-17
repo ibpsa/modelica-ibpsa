@@ -269,6 +269,8 @@ equation
       smooth=Smooth.None));
 
   for i in 1:numIncAndAziInBus loop
+    connect(timMan.timSol, radSol[i].solTim) annotation (Line(points={{-60,-50},{-8,
+          -50},{-8,53},{19.6,53}}, color={0,0,127}));
     connect(radSol[i].F2, skyBrightnessCoefficients.F2) annotation (Line(points={{19.6,40},
             {2,40},{2,66},{-5,66}},           color={0,0,127}));
     connect(radSol[i].F1, skyBrightnessCoefficients.F1) annotation (Line(points={{19.6,42},
@@ -322,7 +324,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
     end for;
-      connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
+    connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
       points={{-5,74},{4,74},{4,34},{60.05,34},{60.05,28.05}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -362,7 +364,10 @@ equation
       points={{-103,116},{60.05,116},{60.05,28.05}},
       color={0,0,127},
       smooth=Smooth.None));
-
+    connect(timMan.timSol, weaBus.solTim) annotation (Line(points={{-60,-50},{-8,
+          -50},{-8,18},{60.05,18},{60.05,28.05}}, color={0,0,127}));
+    connect(phiEnv.y, weaBus.phi) annotation (Line(points={{-103,-12},{-86,-12},{
+          -86,18},{60.05,18},{60.05,28.05}}, color={0,0,127}));
   end if;
   connect(fixedTemperature.port, Qgai)
     annotation (Line(points={{20,-70},{0,-70},{0,-100}}, color={191,0,0}));
@@ -379,6 +384,8 @@ equation
           {-86,80},{-86,72},{-103,72}}, color={0,0,127}));
   connect(skyClearness.HGloHor, solGloHorIn.y) annotation (Line(points={{-82,86},
           {-88,86},{-88,88},{-103,88}}, color={0,0,127}));
+
+
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
@@ -461,9 +468,20 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+March 27, 2018, by Filip Jorissen:<br/>
+Added relative humidity to weather bus.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/780>#780</a>.
+</li>
+<li>
 January 26, 2018, by Filip Jorissen:<br/>
 Added floor orientation to set of precomputed boundary conditions.
 See issue <a href=https://github.com/open-ideas/IDEAS/issues/764>#764</a>.
+</li>
+<li>
+January 21, 2018 by Filip Jorissen:<br/>
+Added <code>solTim</code> connections for revised azimuth computations.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/753\">
+#753</a>.
 </li>
 <li>
 March 21, 2017, by Filip Jorissen:<br/>

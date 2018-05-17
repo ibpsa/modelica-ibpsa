@@ -135,7 +135,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(
-      StopTime=1200,
-      Tolerance=1e-6));
+    experiment(StopTime=1200, Tolerance=1e-06),
+    __Dymola_experimentSetupOutput(events=true));
 end HeaterCooler_u;

@@ -68,6 +68,8 @@ model IndirectEvaporativeHex "Indirect evaporative heat exchanger"
 
   parameter Boolean simplifiedMassBalance=true
     "Use simplified evaporation model to determine outlet humidity of dumped air stream when evaporative cooling is on";
+  constant Boolean prescribeTBot = false
+    "=True, for validation. Need this option to avoid warnings.";
 
   Modelica.SIunits.Power Q;
   Modelica.SIunits.Energy E=volTop.U+volBot.U;
@@ -79,7 +81,6 @@ model IndirectEvaporativeHex "Indirect evaporative heat exchanger"
     redeclare package Medium = Medium2,
     m_flow_nominal=m2_flow_nominal,
     prescribedHeatFlowRate=true,
-    energyDynamics=energyDynamics,
     massDynamics=massDynamics,
     m_flow_small=m_flow_small,
     nPorts=2,
@@ -90,7 +91,9 @@ model IndirectEvaporativeHex "Indirect evaporative heat exchanger"
     C_nominal=C2_nominal,
     allowFlowReversal=allowFlowReversal2,
     mSenFac=mSenFac,
-    V=m2_flow_nominal/rho_default*tau)
+    V=m2_flow_nominal/rho_default*tau,
+    energyDynamics=if prescribeTBot then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+         else energyDynamics)
     annotation (Placement(transformation(extent={{10,-60},{-10,-40}})));
   IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir volTop(
     nPorts=2,
@@ -203,6 +206,13 @@ protected
     redeclare package Medium = Medium1)
     "Wet bulb temperature based on wet channel outlet conditions";
 
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature Tbot(T=273.15 + 21.4) if prescribeTBot
+    "This override the temperature of the IEH outlet for validation purposes";
+initial equation
+  if prescribeTBot then
+    der(volBot.dynBal.mXi)=zeros(Medium2.nXi);
+  end if;
+
 equation
   assert(port_a1.m_flow>-m_flow_small or allowFlowReversal1, "Flow reversal occured, for indirect evaporative heat exchanger model is not valid.");
   assert(port_a2.m_flow>-m_flow_small or allowFlowReversal2, "Flow reversal occured, for indirect evaporative heat exchanger model is not valid.");
@@ -253,6 +263,7 @@ equation
     annotation (Line(points={{38.6,42},{12,42}}, color={0,0,127}));
   connect(mFloAdiBot.y, volBot.mWat_flow)
     annotation (Line(points={{46.6,-42},{12,-42}}, color={0,0,127}));
+  connect(Tbot.port, volBot.heatPort);
  annotation (
       __Dymola_choicesAllMatching=true,
               Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -442,6 +453,10 @@ equation
           pattern=LinePattern.Dash)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 15, 2018, by Filip Jorissen:<br/>
+Changes for setting unique initial conditions.
+</li>
 <li>
 October 11, 2016, by Filip Jorissen:<br/>
 Added first implementation.

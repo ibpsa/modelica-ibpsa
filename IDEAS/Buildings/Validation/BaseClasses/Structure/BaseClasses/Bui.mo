@@ -8,7 +8,7 @@ model Bui "Base model"
   constant Modelica.SIunits.Angle aO = 0 "Angle offset for detailed experiments";
 
   IDEAS.Buildings.Components.Zone gF(
-    airModel(mSenFac=0.822),
+    mSenFac=0.822,
     V=129.6,
     n50=0.822*0.5*20,
     T_start=293.15,

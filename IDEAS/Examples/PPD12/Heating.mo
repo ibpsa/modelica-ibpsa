@@ -180,7 +180,8 @@ model Heating "Ppd 12 example model"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=true) "Thermostatic radiator valve for bedroom 1" annotation (
+    from_dp=false)
+                  "Thermostatic radiator valve for bedroom 1" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -198,7 +199,8 @@ model Heating "Ppd 12 example model"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=true) "Thermostatic radiator valve for towel dryer in bathroom"
+    from_dp=false)
+                  "Thermostatic radiator valve for towel dryer in bathroom"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -216,7 +218,8 @@ model Heating "Ppd 12 example model"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=true) "Thermostatic radiator valve for radiator in bathroom"
+    from_dp=false)
+                  "Thermostatic radiator valve for radiator in bathroom"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -234,7 +237,8 @@ model Heating "Ppd 12 example model"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=true) "Thermostatic radiator valve for radiator in bedroom 2"
+    from_dp=false)
+                  "Thermostatic radiator valve for radiator in bedroom 2"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -252,7 +256,8 @@ model Heating "Ppd 12 example model"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=true) "Thermostatic radiator valve for bedroom 3" annotation (
+    from_dp=false)
+                  "Thermostatic radiator valve for bedroom 3" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -268,10 +273,11 @@ model Heating "Ppd 12 example model"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=true,
     m_flow_nominal=m_flow_nominal,
     dpFixed_nominal=0,
-    TSet=TSet2)   "Thermostatic radiator valve for radiator on ground floor"
+    TSet=TSet2,
+    from_dp=false)
+                  "Thermostatic radiator valve for radiator on ground floor"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,

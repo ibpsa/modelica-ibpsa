@@ -4,11 +4,13 @@ model TrtValidationMultipleBorehole2UTube
     redeclare replaceable Data.BorefieldData.BorefieldDataTrt2UTube bfData,
     hea(
       Q_flow_nominal=3618,
-      dp_nominal=0),
+      dp_nominal=0,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     redeclare replaceable MultipleBoreHoles2UTube borFie(
                       lenSim=350000,
       show_T=true,
-      dp_nominal=10000),
+      dp_nominal=10000,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     realExpression(y=3.307*log(time + 1) - 6.2715 + 273.15));
   annotation (experiment(StopTime=309000), __Dymola_experimentSetupOutput(
         events=false),
