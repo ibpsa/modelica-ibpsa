@@ -381,7 +381,7 @@ equation
 <p>The variable names follow the conventions used in <a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">Modelica.Fluid.HeatExchangers.BasicHX</a>. </p>
 </html>", revisions="<html>
 <ul>
-<li>July 2014, by Damien Picard:<br>First implementation. </li>
+<li>July 2014, by Damien Picard:<br/>First implementation. </li>
 </ul>
 </html>"),
     Icon(coordinateSystem(

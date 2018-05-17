@@ -250,32 +250,32 @@ equation
 <p><b>Description</b> </p>
 <p>1-dimensional thermal energy storage (TES) tank model with internal heat exchanger (HX) for stratified water tanks. For a model without internal heat exchanger, see <a href=\"modelica://IDEAS.Thermal.Components.Storage.StorageTank\">here</a>.</p>
 <p>This model is composed of <i>nbrNodes</i><a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort\"> Pipe_HeatPort</a> elements as an array nodes[nbrNodes]. The following heat transfer phenomena are modelled:</p>
-<p><ul>
+<ul>
 <li>thermal conduction between the nodes through the water </li>
 <li>heat losses by conduction to the environment through the tank envelope (based on UIns and UACon)</li>
 <li>forced convection due to inlet and outlet mass flows (can be at any node thanks to array <i>ports[nrbNodes+1]</i>. </li>
 <li>natural convection due to buoyancy effects at moments of temperature inversion</li>
 <li>heat transfer from a fluid in the internal heat exchanger to the fluid in the tank (internal convection, conduction, external convection)</li>
-</ul></p>
+</ul>
 <p>The tank can be modelled with <i>preventNaturalDestratification</i> = true. This will make sure that the top node is insulated more than the other nodes in order to avoid a faster cooling down of the top node than the second node and consequent temperature inversion. This stablizes the tank simulation. Additional insulation of the top node is often present but the current tank model does not foresee a variable insulation thickness as a function of node number. </p>
 <p>In combination with a <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.StratifiedInlet\">StratifiedInlet</a> , a fully stratified inlet can be obtained. This means that the inlet flow rate will be entering between the nodes that have corresponding temperatures. </p>
 <p>The buoyancy model is a replaceable model, but the only <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.Buoyancy_powexp\">validated buoyancy model</a> is configured by default.</p>
 <p><br/>An overview of the nodal energy balance is given below:</p>
-<p><br/><img src=\"modelica://IDEAS/../Specifications/Thermal/images/TESNodeEnergyBalance_low.png\"/></p>
+<p><br/><img alt=\"img\" src=\"modelica://IDEAS/../Specifications/Thermal/images/TESNodeEnergyBalance_low.png\"/></p>
 <p><br/>The <u>internal heat exchanger</u> is supposed to be a coiled tube. It is discretized in <i>nbrNodesHX </i>elements, one for each tank node through which it passes. The heat transfer between the coil and the tank fluid is composed of three elements:</p>
-<p><ol>
+<ol>
 <li>convection between the fluid in the coil and the coil wall</li>
 <li>conduction through the coil wall</li>
 <li>convection between the coil wall and the fluid in the tank</li>
-</ol></p>
+</ol>
 <p>The corresponding convection coefficients are set as parameters and are fix throughout the simulation, independent of mass flow rates in the coil or the tank. (note: this is probably an oversimplification, specifically for the internal convection. Should be adapted).</p>
 <p>The model and it&apos;s validation is explained in more detail in De Coninck et al. (2013).</p>
 <p><u>Suggestions for improvement</u></p>
 <p>- variable internal convection coefficient depending on flowrate</p>
 <p>- conditional heat exchanger </p>
 <p>- two conditional heat exchangers (top and bottom) and then probably removing the tank model withouth heat exchangers as this model will be identical if not HX are configured.</p>
-<p><h4>Assumptions and limitations </h4></p>
-<p><ol>
+<h4>Assumptions and limitations </h4>
+<ol>
 <li>This is a 1-D TES tank model, it is subject to the typical modelling errors in 1-D representations of complex 3-D phenomena.</li>
 <li>This model is for vertical cylindrical tanks only.</li>
 <li>All nodes have the same volume and geometry</li>
@@ -286,9 +286,9 @@ equation
 <li>Besides <i>port_a</i> and <i>port_b</i>, there is an array <i>ports</i> for connections between every node. </li>
 <li>The internal coil has 1 node for each tank node through which it passes</li>
 <li>Fix heat transfer coefficients for the internal coil.</li>
-</ol></p>
-<p><h4>Model use</h4></p>
-<p><ol>
+</ol>
+<h4>Model use</h4>
+<ol>
 <li>Set the obvious tank parameters (geometry and insulation properties). </li>
 <li>The diameter of the tank is computed from volume and height</li>
 <li>Set the number of nodes. It is not advised to go below 10 nodes, whereas more than 40 nodes will not be useful either for most cases. </li>
@@ -298,31 +298,31 @@ equation
 <li>Model the internal coil: specify inlet and outlet node, it&apos;s length and water content</li>
 <li>Set the three heat transfer coefficients for internal convection, conduction and external convection of the coil.</li>
 <li>A realOutput <i>T[nbrNodes]</i> is available</li>
-</ol></p>
-<p><h4>Validation </h4></p>
+</ol>
+<h4>Validation </h4>
 <p>This model has been validated to some extent by fitting powBuo and expNodes on catalogue data of a Viesmann Vitocell100V 390 liter storage tank with internal heat exchanger (Viessmann, 2011). See De Coninck et al. (2013) for more information.</p>
 <p>Based on this validation exercise, it was concluded that the thermal behaviour of the storage tank was following the manufacturer data for different number of nodes for the following parameters:</p>
-<p><ul>
+<ul>
 <li>powBuo ~ 24 (for 10 nodes). For different number of nodes,the optimal value of powBuo varies slightly, as shown in the picture below (powBuo = kBuo in the picture).</li>
 <li>expNodes = 1.5 </li>
-</ul></p>
+</ul>
 <p>For different manufacturer data, different parameter values can be found, so use these values with care. </p>
-<p><img src=\"modelica://IDEAS/../Specifications/Thermal/images/Validation_Vitocell100V390l_powBuo_nbrNodespower1.5.png\"/></p>
-<p><h4>Examples</h4></p>
+<p><img alt=\"img\" src=\"modelica://IDEAS/../Specifications/Thermal/images/Validation_Vitocell100V390l_powBuo_nbrNodespower1.5.png\"/></p>
+<h4>Examples</h4>
 <p>Different example models use a storage tank. A basic setup with a thermostatic valve and only discharging can be found in<a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageWithThermostaticMixing\"> IDEAS.Thermal.Components.Examples.StorageWithThermostaticMixing</a>. </p>
 <p>Other examples include a model to illustrate the<a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_Losses\"> thermal losses</a>, the use of a <a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_StratifiedInlet\">stratified inlet</a> and a <a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP\">full DHW system including heat pump</a>. </p>
 <p>The validation models for the calibration of the buoyancy and other parameters are found <a href=\"modelica://IDEAS.Thermal.Components.Storage.Examples\">here</a>.</p>
-<p><h4>References</h4></p>
-<p>De Coninck et al. (2013) - De Coninck, R., Baetens, R., Saelens, D., Woyte, A., &AMP; Helsen, L. (2013). Rule-based demand side management of domestic hot water production with heat pumps in zero energy neighbourhoods. Journal of Building Performance Simulation (accepted). </p>
+<h4>References</h4>
+<p>De Coninck et al. (2013) - De Coninck, R., Baetens, R., Saelens, D., Woyte, A., &amp; Helsen, L. (2013). Rule-based demand side management of domestic hot water production with heat pumps in zero energy neighbourhoods. Journal of Building Performance Simulation (accepted). </p>
 <p>Viessmann. 2011. Vitocell- 100-V, 390 liter, Datenblatt. Accessed April 21, 2013. <a href=\"http://tinyurl.com/cdpv8rr\">http://tinyurl.com/cdpv8rr</a>.</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>March 2014, Filip Jorissen: Annex60 compatibility.</li>
 <li>2013 June, Roel De Coninck: documentation.</li>
 <li>2012 October, Roel De Coninck: better buoyancy models and validation</li>
 <li>2012 September, Roel De Coninck: added conduction between nodes</li>
 <li>2012 September, Roel De Coninck: added internal heat exchanger</li>
 <li>2011, Roel De Coninck: first implementation (no internal hx).</li>
-</ul></p>
+</ul>
 </html>"));
 end StorageTank_OneIntHX;

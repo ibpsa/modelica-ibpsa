@@ -74,14 +74,8 @@ as defined by Hellstroem [2] using the multipole method.
 <p>
 The figure below shows the thermal network set up by Bauer et al.
 </p>
-<p align=\"center\">
-<img alt=\"image\" src=\"E:/work\\modelica/DaPModels/Images/Documentation/Bauer_singleUTube_small.png\"/>
-</p>
 <p>
 The different resistances are calculated with following equations:</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"E:/work\\modelica/DaPModels/Images/Documentation/Bauer_resistanceValues.PNG\"/>
-</p>
 <p>
 Notice that each resistance each resistance still needs to be divided by 
 the height of the borehole segment <i>h<sub>Seg</sub></i>.
@@ -89,14 +83,6 @@ the height of the borehole segment <i>h<sub>Seg</sub></i>.
 <p>
 The fluid-to-ground thermal resistance <i>R<sub>b</sub></i> and the grout-to-grout resistance <i>R<sub>a</sub></i> 
 are calculated with the multipole method (Hellstroem (1991)) shown below.
-</p>
-<p>
-<!-- If this is an equation, it needs to be typed, not an image -->
-<img alt=\"image\" src=\"E:/work\\modelica/DaPModels/Images/Documentation/Rb_multipole.png\"/>
-</p>
-<p>
-<!-- If this is an equation, it needs to be typed, not an image -->
-<img alt=\"image\" src=\"E:/work\\modelica/DaPModels/Images/Documentation/Ra_multipole.png\"/>
 </p>
 <p>
 where 
@@ -119,7 +105,6 @@ Dept. of Mathematical Physics, University of Lund, Sweden, 1991.
 <i>Thermal resistance and capacity models for borehole heat exchangers</i>. 
 International Journal Of Energy Research, 35:312&ndash;320, 2010.</p>
 </html>", revisions="<html>
-<p>
 <ul>
 <li>
 February 14, 2014 by Michael Wetter:<br/>
@@ -137,6 +122,6 @@ Revised implementation.
 January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
-</ul></p>
+</ul>
 </html>"));
 end partialBoreholeResistances;

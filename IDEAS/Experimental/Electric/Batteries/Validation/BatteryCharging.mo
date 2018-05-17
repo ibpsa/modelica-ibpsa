@@ -31,9 +31,9 @@ equation
             -100},{100,100}}),
                       graphics),
    Documentation(info="<html>
-<p><h4><font color=\"#008000\">General description</font></h4></p>
+<h4>General description</h4>
 <p>Mathematical validation of battery charging</p>
-<p><h4><font color=\"#008000\">Expected result</font></h4></p>
+<h4>Expected result</h4>
 <p>1h simulation: delta_soc = +8.736% (total discharging efficiency = 98% + self-discharge)</p>
 </html>"));
 end BatteryCharging;

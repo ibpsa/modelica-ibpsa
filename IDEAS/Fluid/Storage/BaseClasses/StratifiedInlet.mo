@@ -108,25 +108,30 @@ equation
           smooth=Smooth.None)}),
     Documentation(info="<html>
 <p><b>Description</b> </p>
-<p>Perfectly stratified inlet for a thermal energy storage tank. This model has an &apos;inlet&apos; flowPort, and an array of &apos;outlet&apos; port_b of the same size as the number of nodes in a storage tank. This array of port_b is connected to the array of port_b of the tank, and the complete mass flow rate will enter in the tank exactly in between the nodes of corresponding temperature. In&nbsp;other&nbsp;words:&nbsp;the&nbsp;fluid&nbsp;seeks&nbsp;it&apos;s&nbsp;way&nbsp;to&nbsp;the&nbsp;nodes&nbsp;with&nbsp;most&nbsp;close&nbsp;temperature&nbsp;&nbsp;in&nbsp;order&nbsp;to&nbsp;prevent&nbsp;destratification.</p>
-<p><h4>Assumptions and limitations </h4></p>
-<p><ol>
+<p>Perfectly stratified inlet for a thermal energy storage tank. This model has an &apos;inlet&apos; flowPort, and an array of &apos;outlet&apos; 
+port_b of the same size as the number of nodes in a storage tank. This array of port_b is connected to the array of 
+port_b of the tank, and the complete mass flow rate will enter in the tank exactly in between the nodes of corresponding temperature. 
+In&nbsp;other&nbsp;words:&nbsp;the&nbsp;fluid&nbsp;seeks&nbsp;it&apos;s&nbsp;way&nbsp;to&nbsp;the&nbsp;nodes&nbsp;with&nbsp;
+most&nbsp;close&nbsp;temperature&nbsp;&nbsp;in&nbsp;order&nbsp;to&nbsp;prevent&nbsp;destratification.
+</p>
+<h4>Assumptions and limitations </h4>
+<ol>
 <li>Complete flowrate exits through the same flowPort</li>
 <li>No storage nor inertia</li>
-</ol></p>
-<p><h4>Model use</h4></p>
-<p><ol>
+</ol>
+<h4>Model use</h4>
+<ol>
 <li>Set the number of nodes equal to the number of nodes in the tank</li>
 <li>Connect the temperatures of the tank (array) to the inlet array <i>TNodes</i></li>
-</ol></p>
-<p><h4>Validation </h4></p>
+</ol>
+<h4>Validation </h4>
 <p>The model is verified to work properly by simulation of the different operating conditions.</p>
-<p><h4>Examples</h4></p>
+<h4>Examples</h4>
 <p>An example of this model is given in <a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_StratifiedInlet\">IDEAS.Thermal.Components.Examples.StorageTank_StratifiedInlet</a>.</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2013 June, Roel De Coninck: documentation.</li>
 <li>2011 June, Roel De Coninck, first implementation.</li>
-</ul></p>
+</ul>
 </html>"));
 end StratifiedInlet;

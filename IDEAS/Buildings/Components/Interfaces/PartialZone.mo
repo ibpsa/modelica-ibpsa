@@ -81,7 +81,8 @@ public
     allowFlowReversal=allowFlowReversal,
     energyDynamics=energyDynamicsAir,
     n50=n50,
-    n50toAch=n50toAch)
+    n50toAch=n50toAch,
+    mSenFac=mSenFac)
   constrainedby
     IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(
     redeclare package Medium = Medium,
@@ -341,6 +342,11 @@ Propagated <code>energyDynamicsAir</code>.
 See issue <a href=https://github.com/open-ideas/IDEAS/issues/800>#800</a>.
 </li>
 <li>
+March 29, 2018 by Filip Jorissen:<br/>
+Propagated <code>mSenFac</code> to <code>airModel</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/792\">#792</a>.
+</li>
+<li>
 March 28, 2018 by Filip Jorissen:<br/>
 Added option for introducing state for
 radiative temperature.
@@ -359,7 +365,7 @@ See issue <a href=https://github.com/open-ideas/IDEAS/issues/559>#559</a>.
 <li>
 February 1, 2017 by Filip Jorissen:<br/>
 Added option for disabling new view factor computation.
-See issue 
+See issue
 <a href=https://github.com/open-ideas/IDEAS/issues/663>#663</a>.
 </li>
 <li>

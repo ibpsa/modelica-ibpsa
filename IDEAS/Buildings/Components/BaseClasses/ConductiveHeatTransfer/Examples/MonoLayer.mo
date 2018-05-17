@@ -52,6 +52,12 @@ model MonoLayer "Unit test for mono layer model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mono layer of solid material"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+initial equation
+  // manually adding initial conditions to avoid conflict
+  // with prescribedTemperature blocks
+  monoLayerSolid.monLayDyn.T[2] =   monoLayerSolid.T_start;
+  monoLayerSolid.monLayDyn.T[3] =   monoLayerSolid.T_start;
+  monoLayerSolid.monLayDyn.T[4] =   monoLayerSolid.T_start;
 equation
   connect(ramp.y, preTem.T)
     annotation (Line(points={{-79,0},{-70.5,0},{-62,0}}, color={0,0,127}));
@@ -78,6 +84,10 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 15, 2018 by Filip Jorissen:<br/>
+Fixed initial conditions.
+</li>
 <li>
 January 18, 2017 by Filip Jorissen:<br/>
 First implementation

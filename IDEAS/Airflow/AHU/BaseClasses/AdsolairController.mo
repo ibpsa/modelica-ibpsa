@@ -86,6 +86,10 @@ model AdsolairController
     annotation (Placement(transformation(extent={{100,-10},{140,30}})));
   Utilities.Math.InverseXRegularized inverseXRegularized(delta=0.1)
     annotation (Placement(transformation(extent={{14,0},{24,10}})));
+initial equation
+  pre(onAdiaExp.y)=false;
+  pre(onChiExp.y)=false;
+
 equation
   connect(onDelAdi.u, onAdiaExp.y) annotation (Line(points={{26.4,60},{19.7,60}},
                 color={255,0,255}));
@@ -132,6 +136,10 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 15, 2018, by Filip Jorissen:<br/>
+Changes for setting unique initial conditions.
+</li>
 <li>
 April 24, 2017, by Filip Jorissen:<br/>
 Now extending from interface.
