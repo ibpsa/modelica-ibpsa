@@ -89,7 +89,7 @@ public
     nPorts=interzonalAirFlow.nPorts) "Zone air model" annotation (
     Placement(transformation(extent={{-40,20},{-20,40}})),
     choicesAllMatching=true,
-    Dialog(group="Building physics"));
+    Dialog(tab="Advanced",group="Air model"));
   replaceable IDEAS.Buildings.Components.InterzonalAirFlow.n50Tight interzonalAirFlow
   constrainedby
     IDEAS.Buildings.Components.InterzonalAirFlow.BaseClasses.PartialInterzonalAirFlow(

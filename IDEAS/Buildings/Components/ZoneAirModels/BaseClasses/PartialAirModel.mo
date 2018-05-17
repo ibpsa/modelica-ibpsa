@@ -115,8 +115,8 @@ Zone air model partial containing main parameters and connectors.
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0},
           lineThickness=0.5),
-        Line(points={{-30,42},{38,42},{38,-12},{28,-2},{38,-12},{46,-2}}, color
-            ={28,108,200}),
+        Line(points={{-30,42},{38,42},{38,-12},{28,-2},{38,-12},{46,-2}}, color=
+             {28,108,200}),
         Line(points={{40,-32},{-30,-32},{-30,22},{-20,12},{-30,22},{-38,12}},
             color={238,46,47})}));
 end PartialAirModel;
