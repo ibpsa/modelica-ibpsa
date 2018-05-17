@@ -1,5 +1,5 @@
 within IDEAS.LIDEAS.Validation;
-model Case900ValidationNonLinearInputs
+model Case900ValidationNonLinearInputs "Model to validate the linearization method by simulating both the original model and the obtained state space model."
   extends Case900ValidationNonLinear(preInp(y={winBusOut[1].AbsQFlow[1],
           winBusOut[1].AbsQFlow[2],winBusOut[1].AbsQFlow[3],winBusOut[1].iSolDir,
           winBusOut[1].iSolDif,weaBusOut.solTim,weaBusOut.solBus[1].HDirTil,
@@ -19,9 +19,9 @@ model Case900ValidationNonLinearInputs
           weaBusOut.angHou,weaBusOut.angDec,weaBusOut.solDirPer,weaBusOut.phi,
           gainCon.y,gainRad.y}),
                            fileName="ssm_Case900LineariseInputs.mat");
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQCon
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQCon "Prescribed convective heat flow for linRect zone"
     annotation (Placement(transformation(extent={{-68,10},{-48,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQRad "Prescribed radiative heat flow for linRect zone"
     annotation (Placement(transformation(extent={{-68,-10},{-48,10}})));
 public
   Modelica.Blocks.Sources.Sine QCon(
@@ -35,13 +35,13 @@ public
     amplitude=1,
     offset=1)        "Fake radiative gains"
     annotation (Placement(transformation(extent={{-100,-6},{-88,6}})));
-  Modelica.Blocks.Math.Gain gainCon(k=500)
+  Modelica.Blocks.Math.Gain gainCon(k=500) "Gain to scale convective gain"
     annotation (Placement(transformation(extent={{-82,16},{-74,24}})));
-  Modelica.Blocks.Math.Gain gainRad(k=500)
+  Modelica.Blocks.Math.Gain gainRad(k=500) "Gain to scale radiative gain"
     annotation (Placement(transformation(extent={{-82,-4},{-74,4}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQCon1
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQCon1 "Prescribed convective heat flow for rect zone"
     annotation (Placement(transformation(extent={{-68,-30},{-48,-10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQRad1
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQRad1 "Prescribed radiative heat flow for rect zone"
     annotation (Placement(transformation(extent={{-68,-50},{-48,-30}})));
 equation
   connect(prescribedQCon.port, linRecZon.gainCon) annotation (Line(points={{-48,
@@ -73,7 +73,9 @@ equation
         "Linearise, simulate and plot"),
     Documentation(revisions="<html>
 <ul>
-<li>May 15, 2018 by Damien Picard: <br>First implementation</li>
+<li>May 15, 2018 by Damien Picard: <br>First implementation</br></li>
 </ul>
+</html>", info="<html>
+<p>Notice that this model has the commando Linearise, simulate and plot. The model being linearised is IDEAS.LIDEAS.Examples.ZoneLinearise. The linearisation creates 3 text files and 1 mat file in the simulation folder: uNames_ZoneLinearise.txt (inputs name), xNames_ZoneLinearise.txt (state names), yNames_ZoneLinearise.txt (output names) and ssm_ZoneLinearise.mat (state space model). The name of the states were manually copied into the model to retrieve the initial state values (x_start). Also the input names were manually copied to feed their value to the SSM model included in this example. However, the input names winBusIn, weaBus, QCon and QRad were renamed to winBusOut, weaBusOut, gainCon and gainRad to coincide with the variables created in the model.</p>
 </html>"));
 end Case900ValidationNonLinearInputs;

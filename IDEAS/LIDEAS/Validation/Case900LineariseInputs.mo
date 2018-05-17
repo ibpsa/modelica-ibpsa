@@ -1,13 +1,13 @@
 within IDEAS.LIDEAS.Validation;
-model Case900LineariseInputs
+model Case900LineariseInputs "Rectangular zone model parameterised to represent Case900 (from BESTEST) and extending the linearisation interface such that it can be linearised. Convective and radiative inputs were added"
   extends Case900Linearise;
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQCon
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQCon "Prescribed convective heat flow"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Modelica.Blocks.Interfaces.RealInput QCon(start=100)
+  Modelica.Blocks.Interfaces.RealInput QCon(start=100) "Convective heat flow input to zone"
     annotation (Placement(transformation(extent={{-130,0},{-90,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQRad "Prescribed convective heat flow"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Modelica.Blocks.Interfaces.RealInput QRad(start=100)
+  Modelica.Blocks.Interfaces.RealInput QRad(start=100) "Radiative heat flow input to zone"
     annotation (Placement(transformation(extent={{-130,-20},{-90,20}})));
 equation
   connect(prescribedQCon.Q_flow, QCon)
@@ -25,7 +25,7 @@ equation
           "Scripts/linearize_Case900LineariseInputs.mos" "Linearise"),
     Documentation(revisions="<html>
 <ul>
-<li>May 15, 2018 by Damien Picard: <br>First implementation</li>
+<li>May 15, 2018 by Damien Picard: <br>First implementation</br></li>
 </ul>
 </html>"));
 end Case900LineariseInputs;

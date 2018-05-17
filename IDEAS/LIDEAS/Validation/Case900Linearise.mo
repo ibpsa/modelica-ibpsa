@@ -1,5 +1,5 @@
 within IDEAS.LIDEAS.Validation;
-model Case900Linearise
+model Case900Linearise "Rectangular zone model parameterised to represent Case900 (from BESTEST) and extending the linearisation interface such that it can be linearised."
   extends LIDEAS.Components.LinearisationInterface(sim(nWindow=1));
   extends Modelica.Icons.Example;
   Components.LinRectangularZoneTemplate linRecZon(
@@ -46,7 +46,7 @@ equation
           "Scripts/linearize_Case900Linearise.mos" "Linearise"),
     Documentation(revisions="<html>
 <ul>
-<li>May 15, 2018 by Damien Picard: <br>First implementation</li>
+<li>May 15, 2018 by Damien Picard: <br>First implementation</br></li>
 </ul>
 </html>"));
 end Case900Linearise;

@@ -9,9 +9,7 @@ model SimInfoManagerInputs
       HSou=IDEAS.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor));
 
   parameter String fileNameLocalWeather=Modelica.Utilities.Files.loadResource(
-      "modelica://LIDEAS/Resources/CustomWeatherFiles/example.txt");
-  Modelica.Blocks.Routing.RealPassThrough trustWeatherData
-    annotation (Placement(transformation(extent={{-20,-14},{-12,-6}})));
+      "modelica://IDEAS/Resources/weatherdata/CustomWeatherFiles/example.txt") "Path to the local weather file";
   Modelica.Blocks.Tables.CombiTable1Ds localWeather(
     final tableOnFile=true,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
@@ -19,7 +17,7 @@ model SimInfoManagerInputs
     final fileName=fileNameLocalWeather,
     final columns={2,3,4,5,6,7,8,9,10}) "Data reader"
     annotation (Placement(transformation(extent={{-52,-20},{-32,0}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=time)
+  Modelica.Blocks.Sources.RealExpression realExpression(y=time) "Time"
     annotation (Placement(transformation(extent={{-84,-20},{-64,0}})));
 equation
   connect(localWeather.y[1], weaDat.TDryBul_in) annotation (Line(points={{-31,-10},
@@ -36,9 +34,6 @@ equation
           {-31,35.1},{-81,35.1},{-81,-101}},  color={0,0,127}));
   connect(localWeather.y[8], weaDat.HDifHor_in) annotation (Line(points={{-31,-10},
           {-26,-10},{-26,-97.6},{-81,-97.6}},   color={0,0,127}));
-  connect(localWeather.y[9], trustWeatherData.u)
-    annotation (Line(points={{-31,-10},{-26,-10},{-26,-10},{-20.8,-10}},
-                                                     color={0,0,127}));
 
   connect(realExpression.y, localWeather.u) annotation (Line(points={{-63,-10},
           {-58,-10},{-54,-10}},                     color={0,0,127}));

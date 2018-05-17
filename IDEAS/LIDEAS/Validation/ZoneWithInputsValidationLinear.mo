@@ -12,7 +12,9 @@ model ZoneWithInputsValidationLinear "Model to validate the linearization method
         "Linearize, simulate and plot"),
     Documentation(revisions="<html>
 <ul>
-<li>May 15, 2018 by Damien Picard: <br>First implementation</li>
+<li>May 15, 2018 by Damien Picard: <br>First implementation</br></li>
 </ul>
+</html>", info="<html>
+<p>This example verified that the obtained state-space model gives the same results as the original modelica model with <i>all linearise flags</i> set to true. The remaining error is probably due to numerical error.</p>
 </html>"));
 end ZoneWithInputsValidationLinear;

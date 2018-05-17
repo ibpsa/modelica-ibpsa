@@ -1,5 +1,5 @@
 within IDEAS.LIDEAS.Validation;
-model Case900ValidationNonLinear
+model Case900ValidationNonLinear "Model to validate the linearization method by simulating both the original model and the obtained state space model."
   extends IDEAS.LIDEAS.Validation.Case900Linearise(sim(lineariseDymola=false,
         createOutputs=true));
   Buildings.Components.RectangularZoneTemplate recZon(
@@ -33,7 +33,7 @@ model Case900ValidationNonLinear
     l=8,
     w=6,
     A_winA=12,
-    T_start=293.15)
+    T_start=293.15) "Zone model representing Case900"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 
      Modelica.Blocks.Sources.RealExpression preInp[nInp](y={winBusOut[1].AbsQFlow[
@@ -120,6 +120,9 @@ linRecZon.outCei.layMul.monLay[1].monLayDyn.T[2],
 linRecZon.outCei.layMul.monLay[2].monLayDyn.T[1],
 linRecZon.outCei.layMul.monLay[3].monLayDyn.T[1]};
 
+
+
+
 equation
   connect(preInp.y, stateSpace.u)
     annotation (Line(points={{-19,0},{-12,0}}, color={0,0,127}));
@@ -145,7 +148,9 @@ equation
         "Linearise, simulate and plot"),
     Documentation(revisions="<html>
 <ul>
-<li>May 15, 2018 by Damien Picard: <br>First implementation</li>
+<li>May 15, 2018 by Damien Picard: <br>First implementation</br></li>
 </ul>
+</html>", info="<html>
+<p>Notice that this model has the commando Linearise, simulate and plot. The model being linearised is IDEAS.LIDEAS.Examples.ZoneLinearise. The linearisation creates 3 text files and 1 mat file in the simulation folder: uNames_ZoneLinearise.txt (inputs name), xNames_ZoneLinearise.txt (state names), yNames_ZoneLinearise.txt (output names) and ssm_ZoneLinearise.mat (state space model). The name of the states were manually copied into the model to retrieve the initial state values (x_start). Also the input names were manually copied to feed their value to the SSM model included in this example. However, the input names winBusIn and weaBus were renamed to winBusOut and weaBusOut to coincide with the variables created in the model.</p>
 </html>"));
 end Case900ValidationNonLinear;

@@ -1,5 +1,5 @@
 within IDEAS.LIDEAS.Validation;
-model ZoneWithInputsValidationNonLinear "Model to validate the linearization method by simulating both the original model and the obtained state space model."
+model ZoneWithInputsValidationNonLinear "Model to validate the linearization method by simulating both the original model and the obtained state space model. This model contains all buildings components of IDEAS"
   extends Examples.ZoneWithInputsLinearise(
     sim(
       lineariseDymola=false,
@@ -110,6 +110,7 @@ initial algorithm
     2]};
 
 
+
 equation
   connect(occQCon.y, prescribedOut.QCon) annotation (Line(points={{61,-104},{61,
           -104},{100.1,-104},{100.1,-120.1}}, color={0,0,127}), Text(
@@ -154,7 +155,10 @@ equation
         "Linearize, simulate and plot"),
     Documentation(revisions="<html>
 <ul>
-<li>May 15, 2018 by Damien Picard: <br>First implementation</li>
+<li>May 15, 2018 by Damien Picard: <br>First implementation<\\br></li>
 </ul>
+</html>", info="<html>
+<p>Notice that this model has the commando <i>Linearise, simulate and plot</i>. The model being linearised is <i>IDEAS.LIDEAS.Examples.ZoneLinearise</i>. The linearisation creates 3 text files and 1 mat file in the simulation folder: <i>uNames_ZoneLinearise.txt</i> (inputs name), <i>xNames_ZoneLinearise.txt </i>(state names), <i>yNames_ZoneLinearise.txt</i> (output names) and <i>ssm_ZoneLinearise.mat</i> (state space model). The name of the states were manually copied into the model to retrieve the initial state values (<i>x_start</i>). Also the input names were manually copied to feed their value to the SSM model included in this example. However, the input names <i>winBusIn,</i> <i>weaBus, ctrlInput, and prescribed</i> were renamed to <i>winBusOut,</i> <i>weaBusOut, ctrlInputTest, and prescribedOut</i> to coincide with the variables created in the model.</p>
+<p>Notice that the error between the state space model output and the zone output is rather large. This is unusual and it is probably accentuated by the fact that the model is not very physical is (no roof, random dimensions, ...). <i>IDEAS.LIDEAS.Validation.Case900ValidationNonLinearInputs</i> shows that the error remains limited for more realistic models.</p>
 </html>"));
 end ZoneWithInputsValidationNonLinear;

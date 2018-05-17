@@ -1,8 +1,8 @@
 within IDEAS.LIDEAS.Examples;
 model ZoneLinearise "Test for linearisation"
   extends LIDEAS.Components.LinearisationInterface(sim(nWindow=1));
-  parameter Integer nZones=2;
-  parameter Integer nEmb=1;
+  parameter Integer nZones=2 "Number of zone";
+  parameter Integer nEmb=1 "Number of embbed systems";
   package Medium = IDEAS.Media.Air;
   extends Modelica.Icons.Example;
   LIDEAS.Components.LinZone zone(
@@ -72,9 +72,9 @@ model ZoneLinearise "Test for linearisation"
     use_Q_in=true) "Common wall model"
     annotation (Placement(transformation(extent={{-54,-26},{-44,-6}})));
 
-  Modelica.Blocks.Sources.Constant const(k=273.15 + 20)
+  Modelica.Blocks.Sources.Constant const(k=273.15 + 20) "Temperature at one side of the common wall"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Modelica.Blocks.Sources.Constant const1(k=10)
+  Modelica.Blocks.Sources.Constant const1(k=10) "Constant heat flow at one side of the common wall 1"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 equation
   connect(commonWall.propsBus_a, zone.propsBus[1]) annotation (Line(
@@ -131,23 +131,35 @@ equation
 <li>By Filip Jorissen:<br>First implementation. </li>
 </ul>
 </html>", info="<html>
-<p>This model represents a very simple two-zone building. The model can be linearised by executing the command &lsquo;Linearise&rsquo; in the &lsquo;Commands&rsquo; menu of Dymola. This executes the script at LIDEAS/LIDEAS/Resources/Scripts/linearize.mos, which contains the following code:</p>
-<p>OutputCPUtime:=false;</p>
-<p>// linearise model and save results in &apos;re&apos;</p>
-<p>re=Modelica_LinearSystems2.ModelAnalysis.Linearize(&QUOT;LIDEAS.Examples.ZoneExampleLinearise&QUOT;);</p>
-<p>// extract state space matrices from &apos;re&apos; and save them to a mat file in the current working directory</p>
-<p>writeMatrix(fileName=&QUOT;ssm.mat&QUOT;,matrixName=&QUOT;A&QUOT;,matrix=re.A);</p>
-<p>writeMatrix(fileName=&QUOT;ssm.mat&QUOT;,matrixName=&QUOT;B&QUOT;,matrix=re.B, append=true);</p>
-<p>writeMatrix(fileName=&QUOT;ssm.mat&QUOT;,matrixName=&QUOT;C&QUOT;,matrix=re.C, append=true);</p>
-<p>writeMatrix(fileName=&QUOT;ssm.mat&QUOT;,matrixName=&QUOT;D&QUOT;,matrix=re.D, append=true);</p>
-<p>// save the variable names of the inputs, outputs and states in the current working directory</p>
-<p>Modelica.Utilities.Files.remove(&QUOT;uNames.txt&QUOT;);</p>
-<p>for i in 1:size(re.uNames,1) loop Modelica.Utilities.Streams.print(re.uNames[i], &QUOT;uNames.txt&QUOT;); end for;</p>
-<p>Modelica.Utilities.Files.remove(&QUOT;yNames.txt&QUOT;);</p>
-<p>for i in 1:size(re.yNames,1) loop Modelica.Utilities.Streams.print(re.yNames[i], &QUOT;yNames.txt&QUOT;); end for;</p>
-<p>Modelica.Utilities.Files.remove(&QUOT;xNames.txt&QUOT;);</p>
-<p>for i in 1:size(re.xNames,1) loop Modelica.Utilities.Streams.print(re.xNames[i], &QUOT;xNames.txt&QUOT;); end for;</p>
-<p>OutputCPUtime:=true;</p>
-<p>The first and last line of the code avoid that the CPU time is also linearised. The second line performs the actual linearisation and stores the resulting state space model in variable &lsquo;re&rsquo;. The next four lines are used to save the four state space matrices contained by &lsquo;re&rsquo; to a file &lsquo;ssm.mat&rsquo;. The remaining four lines of code also export the variable names of the state space inputs (u), states (x) and outputs (y) to three .txt files, which can then be used externally.</p>
-</html>"));
+<p>This model represents a very simple two-zone building. The model can be linearised by executing the command <i>Linearise</i> 
+in the <i>Commands</i> menu of Dymola. This executes the script at LIDEAS/LIDEAS/Resources/Scripts/linearize.mos, 
+which contains the following code:</p>
+<p>
+<br>OutputCPUtime:=false;    </br>
+<br>  </br>
+<br>// linearise model and save results in \"re\" </br>
+<br>re=Modelica_LinearSystems2.ModelAnalysis.Linearize(\"IDEAS.LIDEAS.Examples.ZoneLinearise\"); </br>
+<br>  </br>
+<br>// extract state space matrices from 're' and save them to a mat file in the current working directory</br>
+<br>writeMatrix(fileName=\"ssm_ZoneLinearise.mat\",matrixName=\"A\",matrix=re.A);        </br>
+<br>writeMatrix(fileName=\"ssm_ZoneLinearise.mat\",matrixName=\"B\",matrix=re.B, append=true);     </br>
+<br>writeMatrix(fileName=\"ssm_ZoneLinearise.mat\",matrixName=\"C\",matrix=re.C, append=true);     </br>
+<br>writeMatrix(fileName=\"ssm_ZoneLinearise.mat\",matrixName=\"D\",matrix=re.D, append=true);     </br>
+<br>  </br>
+<br>// save the variable names of the inputs, outputs and states in the current working directory      </br>
+<br>Modelica.Utilities.Files.remove(\"uNames_ZoneLinearise.txt\");</br>
+<br>for i in 1:size(re.uNames,1) loop Modelica.Utilities.Streams.print(re.uNames[i], \"uNames_ZoneLinearise.txt\"); end for;     </br>
+<br>Modelica.Utilities.Files.remove(\"yNames_ZoneLinearise.txt\");</br>
+<br>for i in 1:size(re.yNames,1) loop Modelica.Utilities.Streams.print(re.yNames[i], \"yNames_ZoneLinearise.txt\"); end for;     </br>
+<br>Modelica.Utilities.Files.remove(\"xNames_ZoneLinearise.txt\");</br>
+<br>for i in 1:size(re.xNames,1) loop Modelica.Utilities.Streams.print(re.xNames[i], \"xNames_ZoneLinearise.txt\"); end for;      </br>
+<br>  </br>
+<br>OutputCPUtime:=true;     </br>
+</p> 
+<p>The first and last line of the code avoid that the CPU time is also linearised. 
+The second line performs the actual linearisation and stores the resulting state space model in variable 
+<i>re</i>. The next four lines are used to save the four state space matrices contained by <i>re</i> 
+to a file <i>ssm.mat</i>. The remaining four lines of code also export the variable names of the 
+state space inputs (u), states (x) and outputs (y) to three .txt files, which can then be used externally.</p>
+</html> "));
 end ZoneLinearise;
