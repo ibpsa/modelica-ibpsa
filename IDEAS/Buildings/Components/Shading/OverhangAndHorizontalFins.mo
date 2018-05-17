@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.Shading;
-model OverhangAndHorizontalFins "Window overhang and horizontal fins"
+model OverhangAndHorizontalFins "Roof overhang and horizontal fins"
 
   parameter Modelica.SIunits.Length hWin(min=0) "Window height"
     annotation(Dialog(group="Window properties"));
