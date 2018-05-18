@@ -23,7 +23,7 @@ model StrobeInfoManager "Unit test for SimInfoManager"
     Documentation(revisions="<html>
 <ul>
 <li>
-September 22, 2016 by Filip Jorissen:<br/>
+December 20, 2017 by Bram van der Heijde:<br/>
 First implementation.
 </li>
 </ul>
