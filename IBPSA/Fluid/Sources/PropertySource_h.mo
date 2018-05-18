@@ -10,7 +10,7 @@ model PropertySource_h
   extends IBPSA.Fluid.Sources.BaseClasses.PartialPropertySource;
 
   Modelica.Blocks.Interfaces.RealInput h_in if use_h_in
-    "Prescribed value for specific enthalpy" annotation (Placement(
+    "Prescribed value for leaving specific enthalpy" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
@@ -34,9 +34,14 @@ annotation (defaultComponentName="proSou",
           textString="h")}),
     Documentation(info="<html>
 <p>
-Model that changes the properties, 
+Model that changes the properties,
 but not the mass flow rate,
 of the fluid that passes through it.
+</p>
+<p>
+If <code>allowFlowReversal=true</code>, then the properties are changed for both flow directions,
+i.e., from <code>port_a</code> to <code>port_b</code> and
+from <code>port_b</code> to <code>port_a</code>.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>

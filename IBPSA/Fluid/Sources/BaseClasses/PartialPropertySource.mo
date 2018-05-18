@@ -10,7 +10,6 @@ partial model PartialPropertySource
     "Set to true to get the trace substances from the input connector"
     annotation(Evaluate=true, Dialog(group="Inputs"));
 
-
   Modelica.Blocks.Interfaces.RealInput Xi_in[Medium.nXi] if use_Xi_in
     "Prescribed values for composition" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -107,6 +106,16 @@ equation
 Model that changes the properties, 
 but not the mass flow rate,
 of the fluid that passes through it.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+If <code>allowFlowReversal=true</code>, then the properties are changed for both flow directions,
+i.e., from <code>port_a</code> to <code>port_b</code> and
+from <code>port_b</code> to <code>port_a</code>.
+</p>
+<h4>Dynamics</h4>
+<p>
+This model has no dynamics.
 </p>
 </html>",
 revisions="<html>

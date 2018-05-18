@@ -51,12 +51,17 @@ Model that changes the properties,
 but not the mass flow rate,
 of the fluid that passes through it.
 </p>
+<p>
+If <code>allowFlowReversal=true</code>, then the properties are changed for both flow directions,
+i.e., from <code>port_a</code> to <code>port_b</code> and
+from <code>port_b</code> to <code>port_a</code>.
+</p>
 <h4>Typical use and important parameters</h4>
 <p>
 The fluid properties <code>h</code>, <code>Xi</code> and <code>C</code>
 are only modified when the corresponding boolean parameter
 <code>use_T_in</code>, <code>use_Xi_in</code> or <code>use_C_in</code>
-is enabled.
+is set to <code>true</code>.
 </p>
 <h4>Dynamics</h4>
 <p>
