@@ -79,6 +79,7 @@ public
     Vtot=V,
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal,
+    energyDynamics=energyDynamicsAir,
     n50=n50,
     n50toAch=n50toAch,
     mSenFac=mSenFac)
@@ -90,6 +91,7 @@ public
     final T_start=T_start,
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal,
+    energyDynamics=energyDynamicsAir,
     n50=n50,
     n50toAch=n50toAch) "Zone air model" annotation (
     Placement(transformation(extent={{-40,20},{-20,40}})),
@@ -335,6 +337,11 @@ end for;
 </html>", revisions="<html>
 <ul>
 <li>
+April 12, 2018 by Filip Jorissen:<br/>
+Propagated <code>energyDynamicsAir</code>.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/800>#800</a>.
+</li>
+<li>
 March 29, 2018 by Filip Jorissen:<br/>
 Propagated <code>mSenFac</code> to <code>airModel</code>.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/792\">#792</a>.
@@ -358,7 +365,7 @@ See issue <a href=https://github.com/open-ideas/IDEAS/issues/559>#559</a>.
 <li>
 February 1, 2017 by Filip Jorissen:<br/>
 Added option for disabling new view factor computation.
-See issue 
+See issue
 <a href=https://github.com/open-ideas/IDEAS/issues/663>#663</a>.
 </li>
 <li>
