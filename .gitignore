@@ -26,6 +26,7 @@
 /IDEAS backup
 !/Inputs/*.txt
 !/IDEAS/Inputs/*.txt
+!/IDEAS/Resources/strobe/*.txt
 !/IDEAS/Resources/ReferenceResults/Dymola/*txt
 /IDEAS/Resources/drawings.pptx
 /*.mm
