@@ -1,6 +1,5 @@
 within IDEAS.BoundaryConditions.Examples;
 model SimInfoManager "Unit test for SimInfoManager"
-  import IDEAS;
   extends Modelica.Icons.Example;
   inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
