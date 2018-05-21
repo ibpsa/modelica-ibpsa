@@ -1,9 +1,6 @@
 within IDEAS.Examples.PPD12;
 model Heating "Ppd 12 example model"
-  extends IDEAS.Examples.PPD12.Structure(living(
-      hasCavityA=true,
-      hA=2.8,
-      wA=2.5));
+  extends IDEAS.Examples.PPD12.Structure;
 
 
   //HVAC

@@ -219,6 +219,7 @@ This model deals with stratification in a very simplified way.
 Very large openings can lead to small time constants, which can cause problems
 for the time integrator.
 Only thermal effects are modelled: there is no mass transport of air or moisture.
+The influence of the cavity on the radiative heat exchange is not modelled.
 </p>
 </html>", revisions="<html>
 <ul>
