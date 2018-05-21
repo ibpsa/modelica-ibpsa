@@ -293,55 +293,55 @@ model RectangularZoneTemplate
     annotation(Dialog(tab="Face A", group="Cavity or open door", enable=bouTypeA==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
   parameter Modelica.SIunits.Length hA = 2
     "Height of (rectangular) cavity in internal wall"
-     annotation(enable=hasCavityA,Dialog(tab="Face A", group="Cavity or door"));
+     annotation(enable=hasCavityA,Dialog(tab="Face A", group="Cavity or open door"));
   parameter Modelica.SIunits.Length wA = 1
     "Width of (rectangular) cavity in internal wall"
-     annotation(enable=hasCavityA,Dialog(tab="Face A", group="Cavity or door"));
+     annotation(enable=hasCavityA,Dialog(tab="Face A", group="Cavity or open door"));
   parameter Boolean hasCavityB = false
     "=true, to model open door or cavity in internal wall"
     annotation(Dialog(tab="Face B", group="Cavity or open door", enable=bouTypeB==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
   parameter Modelica.SIunits.Length hB = 2
     "Height of (rectangular) cavity in internal wall"
-     annotation(enable=hasCavityB,Dialog(tab="Face B", group="Cavity or door"));
+     annotation(enable=hasCavityB,Dialog(tab="Face B", group="Cavity or open door"));
   parameter Modelica.SIunits.Length wB = 1
     "Width of (rectangular) cavity in internal wall"
-     annotation(enable=hasCavityB,Dialog(tab="Face B", group="Cavity or door"));
+     annotation(enable=hasCavityB,Dialog(tab="Face B", group="Cavity or open door"));
   parameter Boolean hasCavityC = false
     "=true, to model open door or cavity in internal wall"
     annotation(Dialog(tab="Face C", group="Cavity or open door", enable=bouTypeC==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
   parameter Modelica.SIunits.Length hC = 2
     "Height of (rectangular) cavity in internal wall"
-     annotation(enable=hasCavityC,Dialog(tab="Face C", group="Cavity or door"));
+     annotation(enable=hasCavityC,Dialog(tab="Face C", group="Cavity or open door"));
   parameter Modelica.SIunits.Length wC = 1
     "Width of (rectangular) cavity in internal wall"
-     annotation(enable=hasCavityC,Dialog(tab="Face C", group="Cavity or door"));
+     annotation(enable=hasCavityC,Dialog(tab="Face C", group="Cavity or open door"));
   parameter Boolean hasCavityD = false
     "=true, to model open door or cavity in internal wall"
     annotation(Dialog(tab="Face D", group="Cavity or open door", enable=bouTypeD==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
   parameter Modelica.SIunits.Length hD = 2
     "Height of (rectangular) cavity in internal wall"
-     annotation(enable=hasCavityD,Dialog(tab="Face D", group="Cavity or door"));
+     annotation(enable=hasCavityD,Dialog(tab="Face D", group="Cavity or open door"));
   parameter Modelica.SIunits.Length wD = 1
     "Width of (rectangular) cavity in internal wall"
-     annotation(enable=hasCavityD,Dialog(tab="Face D", group="Cavity or door"));
+     annotation(enable=hasCavityD,Dialog(tab="Face D", group="Cavity or open door"));
   parameter Modelica.SIunits.Acceleration g = Modelica.Constants.g_n
     "Gravity, for computation of buoyancy"
-    annotation(Dialog(enable=hasCavity,group="Cavity or door",tab="Advanced"));
+    annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
   parameter Modelica.SIunits.Pressure p = 101300
     "Absolute pressure for computation of buoyancy"
-    annotation(Dialog(enable=hasCavity,group="Cavity or door",tab="Advanced"));
+    annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
   parameter Modelica.SIunits.Density rho = p/r/T
     "Nominal density for computation of buoyancy mass flow rate"
-    annotation(Dialog(enable=hasCavity,group="Cavity or door",tab="Advanced"));
+    annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
   parameter Modelica.SIunits.SpecificHeatCapacity c_p = 1013
    "Nominal heat capacity for computation of buoyancy heat flow rate"
-   annotation(Dialog(enable=hasCavity,group="Cavity or door",tab="Advanced"));
+   annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
   parameter Modelica.SIunits.Temperature T = 293
    "Nominal temperature for linearising heat flow rate"
-   annotation(Dialog(enable=hasCavity,group="Cavity or door",tab="Advanced"));
+   annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
   parameter Modelica.SIunits.TemperatureDifference dT = 1
    "Nominal temperature difference when linearising heat flow rate"
-   annotation(Dialog(enable=hasCavity,group="Cavity or door",tab="Advanced"));
+   annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
 
 
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurfExt] proBusExt(
@@ -740,7 +740,6 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    A=l*h - (if hasWinA then A_winA else 0),
     hasCavity=hasCavityA,
     h=hA,
     w=wA,
@@ -749,7 +748,8 @@ protected
     rho=rho,
     c_p=c_p,
     T=T,
-    dT=dT) if
+    dT=dT,
+    A=l*h - (if hasWinA then A_winA else 0) - (if hasCavityA then hA*wA else 0)) if
     hasIntA
     "Internal wall for face A of this zone"
     annotation (Placement(transformation(extent={{-176,0},{-164,20}})));
@@ -765,7 +765,6 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    A=w*h - (if hasWinB then A_winB else 0),
     g=g,
     p=p,
     rho=rho,
@@ -774,7 +773,8 @@ protected
     dT=dT,
     hasCavity=hasCavityB,
     h=hB,
-    w=wB) if
+    w=wB,
+    A=w*h - (if hasWinB then A_winB else 0) - (if hasCavityB then hB*wB else 0)) if
     hasIntB
     "Internal wall for face B of this zone"
     annotation (Placement(transformation(extent={{-176,-20},{-164,0}})));
@@ -789,7 +789,6 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    A=l*h - (if hasWinC then A_winC else 0),
     g=g,
     p=p,
     rho=rho,
@@ -798,7 +797,8 @@ protected
     dT=dT,
     hasCavity=hasCavityC,
     h=hC,
-    w=wC) if
+    w=wC,
+    A=l*h - (if hasWinC then A_winC else 0) - (if hasCavityC then hC*wC else 0)) if
     hasIntC
     "Internal wall for face C of this zone"
     annotation (Placement(transformation(extent={{-176,-40},{-164,-20}})));
@@ -813,7 +813,6 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    A=w*h - (if hasWinD then A_winD else 0),
     g=g,
     p=p,
     rho=rho,
@@ -822,7 +821,8 @@ protected
     dT=dT,
     hasCavity=hasCavityD,
     h=hD,
-    w=wD) if
+    w=wD,
+    A=w*h - (if hasWinD then A_winD else 0) - (if hasCavityD then hD*wD else 0)) if
     hasIntD
     "Internal wall for face D of this zone"
     annotation (Placement(transformation(extent={{-176,-60},{-164,-40}})));

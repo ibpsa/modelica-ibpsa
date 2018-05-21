@@ -24,28 +24,28 @@ model InternalWall "interior opaque wall between two zones"
     annotation(Dialog(group="Cavity or open door"));
   parameter Modelica.SIunits.Length h = 2
     "Height of (rectangular) cavity in wall"
-     annotation(Dialog(enable=hasCavity,group="Cavity or door"));
+     annotation(Dialog(enable=hasCavity,group="Cavity or open door"));
   parameter Modelica.SIunits.Length w = 1
     "Width of (rectangular) cavity in wall"
-     annotation(Dialog(enable=hasCavity,group="Cavity or door"));
+     annotation(Dialog(enable=hasCavity,group="Cavity or open door"));
   parameter Modelica.SIunits.Acceleration g = Modelica.Constants.g_n
     "Gravity, for computation of buoyancy"
-    annotation(Dialog(enable=hasCavity,group="Cavity or door",tab="Advanced"));
+    annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
   parameter Modelica.SIunits.Pressure p = 101300
     "Absolute pressure for computation of buoyancy"
-    annotation(Dialog(enable=hasCavity,group="Cavity or door",tab="Advanced"));
+    annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
   parameter Modelica.SIunits.Density rho = p/r/T
     "Nominal density for computation of buoyancy mass flow rate"
-    annotation(Dialog(enable=hasCavity,group="Cavity or door",tab="Advanced"));
+    annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
   parameter Modelica.SIunits.SpecificHeatCapacity c_p = 1013
    "Nominal heat capacity for computation of buoyancy heat flow rate"
-   annotation(Dialog(enable=hasCavity,group="Cavity or door",tab="Advanced"));
+   annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
   parameter Modelica.SIunits.Temperature T = 293
    "Nominal temperature for linearising heat flow rate"
-   annotation(Dialog(enable=hasCavity,group="Cavity or door",tab="Advanced"));
+   annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
   parameter Modelica.SIunits.TemperatureDifference dT = 1
    "Nominal temperature difference when linearising heat flow rate"
-   annotation(Dialog(enable=hasCavity,group="Cavity or door",tab="Advanced"));
+   annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb[constructionType.nGain]
     "port for gains by embedded active layers"
