@@ -291,37 +291,37 @@ model RectangularZoneTemplate
   parameter Boolean hasCavityA = false
     "=true, to model open door or cavity in internal wall"
     annotation(Dialog(tab="Face A", group="Cavity or open door", enable=bouTypeA==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
-  parameter Modelica.SIunits.Length hA = 2
+  parameter Modelica.SIunits.Length hA(min=0) = 2
     "Height of (rectangular) cavity in internal wall"
      annotation(enable=hasCavityA,Dialog(tab="Face A", group="Cavity or open door"));
-  parameter Modelica.SIunits.Length wA = 1
+  parameter Modelica.SIunits.Length wA(min=0) = 1
     "Width of (rectangular) cavity in internal wall"
      annotation(enable=hasCavityA,Dialog(tab="Face A", group="Cavity or open door"));
   parameter Boolean hasCavityB = false
     "=true, to model open door or cavity in internal wall"
     annotation(Dialog(tab="Face B", group="Cavity or open door", enable=bouTypeB==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
-  parameter Modelica.SIunits.Length hB = 2
+  parameter Modelica.SIunits.Length hB(min=0) = 2
     "Height of (rectangular) cavity in internal wall"
      annotation(enable=hasCavityB,Dialog(tab="Face B", group="Cavity or open door"));
-  parameter Modelica.SIunits.Length wB = 1
+  parameter Modelica.SIunits.Length wB(min=0) = 1
     "Width of (rectangular) cavity in internal wall"
      annotation(enable=hasCavityB,Dialog(tab="Face B", group="Cavity or open door"));
   parameter Boolean hasCavityC = false
     "=true, to model open door or cavity in internal wall"
     annotation(Dialog(tab="Face C", group="Cavity or open door", enable=bouTypeC==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
-  parameter Modelica.SIunits.Length hC = 2
+  parameter Modelica.SIunits.Length hC(min=0) = 2
     "Height of (rectangular) cavity in internal wall"
      annotation(enable=hasCavityC,Dialog(tab="Face C", group="Cavity or open door"));
-  parameter Modelica.SIunits.Length wC = 1
+  parameter Modelica.SIunits.Length wC(min=0) = 1
     "Width of (rectangular) cavity in internal wall"
      annotation(enable=hasCavityC,Dialog(tab="Face C", group="Cavity or open door"));
   parameter Boolean hasCavityD = false
     "=true, to model open door or cavity in internal wall"
     annotation(Dialog(tab="Face D", group="Cavity or open door", enable=bouTypeD==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
-  parameter Modelica.SIunits.Length hD = 2
+  parameter Modelica.SIunits.Length hD(min=0) = 2
     "Height of (rectangular) cavity in internal wall"
      annotation(enable=hasCavityD,Dialog(tab="Face D", group="Cavity or open door"));
-  parameter Modelica.SIunits.Length wD = 1
+  parameter Modelica.SIunits.Length wD(min=0) = 1
     "Width of (rectangular) cavity in internal wall"
      annotation(enable=hasCavityD,Dialog(tab="Face D", group="Cavity or open door"));
   parameter Modelica.SIunits.Acceleration g = Modelica.Constants.g_n
@@ -336,7 +336,7 @@ model RectangularZoneTemplate
   parameter Modelica.SIunits.SpecificHeatCapacity c_p = 1013
    "Nominal heat capacity for computation of buoyancy heat flow rate"
    annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
-  parameter Modelica.SIunits.Temperature T = 293
+  parameter Modelica.SIunits.Temperature T = 293.15
    "Nominal temperature for linearising heat flow rate"
    annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
   parameter Modelica.SIunits.TemperatureDifference dT = 1
@@ -1048,7 +1048,15 @@ initial equation
     "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
 
 
-
+  //assert that the cavity is not larger than the wall
+  assert(not hasCavityA or (hA <= h and wA <=l),
+    "In " + getInstanceName() + ": The cavity dimensions of surface A exceed the zone dimensions. This is non-physical");
+  assert(not hasCavityB or (hB <= h and wB <=w),
+    "In " + getInstanceName() + ": The cavity dimensions of surface B exceed the zone dimensions. This is non-physical");
+  assert(not hasCavityC or (hC <= h and wC <=l),
+    "In " + getInstanceName() + ": The cavity dimensions of surface C exceed the zone dimensions. This is non-physical");
+  assert(not hasCavityD or (hD <= h and wD <=w),
+    "In " + getInstanceName() + ": The cavity dimensions of surface D exceed the zone dimensions. This is non-physical");
 
 
 
