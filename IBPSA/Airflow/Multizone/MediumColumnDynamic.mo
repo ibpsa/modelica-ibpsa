@@ -11,12 +11,6 @@ model MediumColumnDynamic
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition, used only for steady-state model"));
-  parameter Boolean use_constantPressureForDensity =  true
-    "Assume a constant pressure for density computations"
-    annotation(Dialog(tab="Advanced"), Evaluate=true);
-  parameter Modelica.SIunits.Pressure p_default = Medium.p_default
-    "Constant pressure value for density computations"
-    annotation(Dialog(tab="Advanced"),enable=use_constantPressureForDensity);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
@@ -51,18 +45,14 @@ model MediumColumnDynamic
   MediumColumn colTop(
     redeclare final package Medium = Medium,
     final densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromBottom,
-    h=h/2,
-    final use_constantPressureForDensity=use_constantPressureForDensity,
-    final p_default=p_default)
+    h=h/2)
     "Medium column that connects to top port"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
   MediumColumn colBot(
     redeclare final package Medium = Medium,
     final densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromTop,
-    h=h/2,
-    final use_constantPressureForDensity=use_constantPressureForDensity,
-    final p_default=p_default)
+    h=h/2)
     "Medium colum that connects to bottom port"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 
@@ -186,14 +176,6 @@ IBPSA.Airflow.Multizone.MediumColumn</a> instead of this model.
 </p>
 <p>In this model, the parameter <code>h</code> must always be positive, and the port <code>port_a</code> must be
 at the top of the column.
-</p>
-<h4>Options</h4>
-<p>
-Parameter <code>use_constantPressureForDensity</code> can be
-set to <code>false</code> to use the actual pressure at the model
-ports to compute the air density instead of using
-the default pressure <code>p_default</code>.
-This can lead to (larger) algebraic loops, which affects computation time.
 </p>
 </html>",
 revisions="<html>

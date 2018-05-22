@@ -8,12 +8,7 @@ model MediumColumn
   parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
   parameter IBPSA.Airflow.Multizone.Types.densitySelection densitySelection
     "Select how to pick density" annotation (Evaluate=true);
-  parameter Boolean use_constantPressureForDensity =  true
-    "Assume a constant pressure for density computations"
-    annotation(Dialog(tab="Advanced"), Evaluate=true);
-  parameter Modelica.SIunits.Pressure p_default = Medium.p_default
-    "Constant pressure value for density computations"
-    annotation(Dialog(tab="Advanced"),enable=use_constantPressureForDensity);
+
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = Medium,
@@ -63,19 +58,19 @@ equation
   if (densitySelection == IBPSA.Airflow.Multizone.Types.densitySelection.fromTop) then
       Xi = inStream(port_a.Xi_outflow);
       rho = IBPSA.Utilities.Psychrometrics.Functions.density_pTX(
-        p=if use_constantPressureForDensity then p_default else port_a.p,
+        p=Medium.p_default,
         T=Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), Xi)),
         X_w=if Medium.nXi == 0 then 0 else Xi[1]);
   elseif (densitySelection == IBPSA.Airflow.Multizone.Types.densitySelection.fromBottom) then
       Xi = inStream(port_b.Xi_outflow);
       rho = IBPSA.Utilities.Psychrometrics.Functions.density_pTX(
-        p=if use_constantPressureForDensity then p_default else port_b.p,
+        p=Medium.p_default,
         T=Medium.temperature(Medium.setState_phX(port_b.p, inStream(port_b.h_outflow), Xi)),
         X_w=if Medium.nXi == 0 then 0 else Xi[1]);
    else
       Xi = actualStream(port_a.Xi_outflow);
       rho = IBPSA.Utilities.Psychrometrics.Functions.density_pTX(
-        p=if use_constantPressureForDensity then p_default else port_a.p,
+        p=Medium.p_default,
         T=Medium.temperature(Medium.setState_phX(port_a.p, actualStream(port_a.h_outflow), Xi)),
         X_w=if Medium.nXi == 0 then 0 else Xi[1]);
   end if;
@@ -202,14 +197,6 @@ at the top of the column.
 For a dynamic model, use
 <a href=\"modelica://IBPSA.Airflow.Multizone.MediumColumnDynamic\">
 IBPSA.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
-</p>
-<h4>Options</h4>
-<p>
-Parameter <code>use_constantPressureForDensity</code> can be
-set to <code>false</code> to use the actual pressure at the model
-ports to compute the air density instead of using
-the default pressure <code>p_default</code>.
-This can lead to (larger) algebraic loops, which affects computation time.
 </p>
 </html>",
 revisions="<html>
