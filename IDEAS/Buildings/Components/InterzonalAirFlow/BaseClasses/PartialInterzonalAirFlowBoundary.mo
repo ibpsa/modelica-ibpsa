@@ -9,7 +9,7 @@ partial model PartialInterzonalAirFlowBoundary
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow_sim if
                                                                                   sim.computeConservationOfEnergy
     annotation (Placement(transformation(extent={{-60,60},{-80,80}})));
-  Modelica.Blocks.Sources.RealExpression Qgai(y=actualStream(bou.ports.h_outflow)
+  Modelica.Blocks.Sources.RealExpression Qgai(y=-actualStream(bou.ports.h_outflow)
         *bou.ports.m_flow)
     annotation (Placement(transformation(extent={{-100,42},{-40,62}})));
   Modelica.Blocks.Routing.RealPassThrough Te annotation (Placement(
