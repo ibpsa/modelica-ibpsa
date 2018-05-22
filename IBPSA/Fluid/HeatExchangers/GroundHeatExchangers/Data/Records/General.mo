@@ -4,10 +4,10 @@ record General "General parameters of the borefield"
   import SI = Modelica.SIunits;
 
   parameter String pathMod=
-      "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records.General"
+      "IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.General"
     "Modelica record path";
   parameter String pathCom=Modelica.Utilities.Files.loadResource(
-      "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Data/Records/General.mo")
+      "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/Records/General.mo")
     "Computer record path";
 
   parameter Boolean singleUTube = true
@@ -32,8 +32,6 @@ record General "General parameters of the borefield"
   parameter SI.Height hBor=100 "Total height of the borehole"
     annotation (Dialog(group="Borehole"));
   parameter SI.Radius rBor=0.075 "Radius of the borehole"
-    annotation (Dialog(group="Borehole"));
-  parameter SI.Height dBor=4 "Buried depth of borehole"
     annotation (Dialog(group="Borehole"));
   parameter Integer nbBh=1 "Total number of boreholes"
     annotation (Dialog(group="Borehole"));

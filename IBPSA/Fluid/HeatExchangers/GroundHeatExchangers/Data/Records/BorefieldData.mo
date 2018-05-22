@@ -7,7 +7,9 @@ record BorefieldData
       __Dymola_choicesAllMatching=true);
   Soi soi;
 
-  replaceable record Fil = Filling constrainedby Filling annotation (
+  replaceable record Fil = FillingData.Template
+                                   constrainedby FillingData.Template
+                                                         annotation (
       __Dymola_choicesAllMatching=true);
   Fil fil;
 
@@ -23,10 +25,10 @@ record BorefieldData
     "Nominal thermal power of the borefield";
 
   parameter String pathMod=
-      "IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records.BorefieldData"
+      "IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.BorefieldData"
     "Modelica path of the record";
   parameter String pathCom=Modelica.Utilities.Files.loadResource(
-      "modelica://IBPSA/Fluid/HeatExchangers/GroundHeatExchangers/Data/Records")
+      "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/Records")
     "Computer path of the record";
 
   annotation (Documentation(info="<html>

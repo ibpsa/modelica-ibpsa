@@ -1,17 +1,12 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data;
-package BorefieldData "Library of borefield data containers"
-extends Modelica.Icons.Package;
+package BorefieldData
+  record SandBox_validation
+    extends Template(
+      filDat=FillingData.SandBox_validation(),
+      soiDat=SoilData.SandBox_validation(),
+      conDat=ConfigurationData.SandBox_validation());
 
-
-
-annotation (Documentation(info="<html>
-          <p>Library of borefield data containers.</p>
-</html>", revisions="<html>
-<ul>
-<li>
-July 2014, by Damien Picard:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+          coordinateSystem(preserveAspectRatio=false)));
+  end SandBox_validation;
 end BorefieldData;

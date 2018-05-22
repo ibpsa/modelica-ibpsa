@@ -1,9 +1,12 @@
 UsersGuide
 ConservationEquation
+EightPort
+EightPortHeatMassExchanger
 FourPortHeatMassExchanger
 PartialFourPort
 PartialFourPortInterface
 PartialFourPortParallel
+PartialEightPortInterface
 PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
@@ -13,6 +16,7 @@ StaticFourPortHeatMassExchanger
 StaticTwoPortConservationEquation
 StaticTwoPortHeatMassExchanger
 TwoPortHeatMassExchanger
+EightPortFlowResistanceParameters
 FourPortFlowResistanceParameters
 LumpedVolumeDeclarations
 TwoPortFlowResistanceParameters

@@ -5,6 +5,14 @@ extends Modelica.Icons.Package;
 
 
 
+  record SandBox_validation
+    extends Template(
+      k=0.73,
+      d=2000,
+      c=2000);
+
+  end SandBox_validation;
+
 annotation (Documentation(info="<html>
  <p>Library of Filling Data.</p>
 </html>", revisions="<html>

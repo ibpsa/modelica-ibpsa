@@ -2,3 +2,6 @@ BoreholeThermalResistances
 LoadAggregation
 ThermalResponseFactors
 GroundTemperatureResponse
+BoreHoles
+ScriptsFIXME
+MassFlowRateMultiplier

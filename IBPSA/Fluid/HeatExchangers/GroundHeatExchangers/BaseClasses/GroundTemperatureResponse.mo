@@ -4,9 +4,9 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start";
   replaceable parameter
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records.BorefieldData
-    bfData constrainedby
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.Records.BorefieldData
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
+    borFieDat constrainedby
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
     "Record containing all the parameters of the borefield model" annotation (
      choicesAllMatching=true, Placement(transformation(extent={{-90,-88},{-70,
             -68}})));
@@ -23,31 +23,31 @@ protected
   parameter Integer nbTimLon = 50 "Number of time steps in long time region";
   parameter Real ttsMax = exp(5) "Maximum adimensional time for gfunc calculation";
   parameter String SHAgfun = ThermalResponseFactors.shaGFunction(
-    nbBor=bfData.gen.nbBh,
-    cooBor=bfData.gen.cooBh,
-    hBor=bfData.gen.hBor,
-    dBor=bfData.gen.dBor,
-    rBor=bfData.gen.rBor,
-    alpha=bfData.soi.alp) "String with encrypted g-function arguments";
+    nbBor=borFieDat.conDat.nbBh,
+    cooBor=borFieDat.conDat.cooBh,
+    hBor=borFieDat.conDat.hBor,
+    dBor=borFieDat.conDat.dBor,
+    rBor=borFieDat.conDat.rBor,
+    alpha=borFieDat.soiDat.alp) "String with encrypted g-function arguments";
   parameter Integer nrow = nbTimSho+nbTimLon-1
     "Length of g-function matrix";
   parameter Real lvlBas = 2 "Base for exponential cell growth between levels";
   parameter Modelica.SIunits.Time timFin=
-    (bfData.gen.hBor^2/(9*bfData.soi.alp))*ttsMax;
+    (borFieDat.conDat.hBor^2/(9*borFieDat.soiDat.alp))*ttsMax;
   parameter Integer i = LoadAggregation.countAggPts(
     lvlBas=lvlBas,
     p_max=p_max,
     timFin=timFin,
-    lenAggSte=bfData.gen.tStep) "Number of aggregation points";
+    lenAggSte=borFieDat.conDat.tStep) "Number of aggregation points";
   parameter Real timSer[nrow+1, 2]=
     LoadAggregation.timSerMat(
-    nbBor=bfData.gen.nbBh,
-    cooBor=bfData.gen.cooBh,
-    hBor=bfData.gen.hBor,
-    dBor=bfData.gen.dBor,
-    rBor=bfData.gen.rBor,
-    as=bfData.soi.alp,
-    ks=bfData.soi.k,
+    nbBor=borFieDat.conDat.nbBh,
+    cooBor=borFieDat.conDat.cooBh,
+    hBor=borFieDat.conDat.hBor,
+    dBor=borFieDat.conDat.dBor,
+    rBor=borFieDat.conDat.rBor,
+    as=borFieDat.soiDat.alp,
+    ks=borFieDat.soiDat.k,
     nrow=nrow,
     sha=SHAgfun,
     forceGFunCalc=forceGFunCalc,
@@ -85,7 +85,7 @@ initial equation
     i=i,
     lvlBas=lvlBas,
     p_max=p_max,
-    lenAggSte=bfData.gen.tStep,
+    lenAggSte=borFieDat.conDat.tStep,
     timFin=timFin);
 
   t0 = time;
@@ -96,13 +96,13 @@ initial equation
     TStep=timSer,
     nu=nu);
 
-  dhdt = kappa[1]/bfData.gen.tStep;
+  dhdt = kappa[1]/borFieDat.conDat.tStep;
 
 equation
   der(deltaTb) = dhdt*Tb.Q_flow + derDelTbs;
   deltaTb = Tb.T-Tg;
 
-  when (sample(t0, bfData.gen.tStep)) then
+  when (sample(t0, borFieDat.conDat.tStep)) then
     (curCel,Q_shift) = LoadAggregation.nextTimeStep(
       i=i,
       Q_i=pre(Q_i),
@@ -123,7 +123,7 @@ equation
 
     delTbOld = Tb.T-Tg;
 
-    derDelTbs = (delTbs-delTbOld)/bfData.gen.tStep;
+    derDelTbs = (delTbs-delTbOld)/borFieDat.conDat.tStep;
   end when;
 
   assert((time - t0) <= timFin,
