@@ -3,7 +3,7 @@ startTime=2e+06,
 stopTime=3e+06,
 numberOfIntervals=5000, 
 method="Lsodar", 
-tolerance=1e-06
+tolerance=1e-06,
 resultFile="BuildingShadeExample");
 
 createPlot(id=1,
