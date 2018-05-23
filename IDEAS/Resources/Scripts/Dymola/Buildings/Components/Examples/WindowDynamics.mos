@@ -1,4 +1,4 @@
-simulateModel("IDEAS.Buildings.Components.Examples.WindowDynamics", stopTime=1e+06, numberOfIntervals=0, outputInterval=600, method="Lsodar", resultFile="WindowDynamics");
+simulateModel("IDEAS.Buildings.Components.Examples.WindowDynamics", stopTime=1e+06, numberOfIntervals=0, outputInterval=600, method="Lsodar", tolerance=1e-06, resultFile="WindowDynamics");
 
 createPlot(id=1, 
 position={0, 0, 1309, 724}, 

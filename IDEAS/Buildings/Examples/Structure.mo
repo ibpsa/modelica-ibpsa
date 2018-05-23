@@ -38,7 +38,10 @@ equation
           {14,-40},{14,-4},{-6,-4}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-    experiment(StopTime=8.64e+006),
+    experiment(
+      StopTime=8640000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Examples/Structure.mos"

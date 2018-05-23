@@ -44,7 +44,10 @@ model ZoneTemplateVerification
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=1e+06),
+    experiment(
+      StopTime=1000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     Documentation(info="<html>
 <p>
 This model compares Bestest case 900 with an implementation of the same model using the ZoneTemplate model.

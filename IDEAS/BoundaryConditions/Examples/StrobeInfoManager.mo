@@ -16,7 +16,10 @@ model StrobeInfoManager "Unit test for SimInfoManager"
     startTime(displayUnit="d") = 0)
     annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
   annotation (
-    experiment(StopTime=1e+06),
+    experiment(
+      StopTime=1000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/BoundaryConditions/Examples/StrobeInfoManager1.mos"
         "Unit test 1"),

@@ -1,4 +1,4 @@
-simulateModel("IDEAS.Buildings.Validation.Tests.ZoneTemplateVerification", stopTime=1000000, outputInterval=600, method = "dassl", resultFile="ZoneTemplateVerification");
+simulateModel("IDEAS.Buildings.Validation.Tests.ZoneTemplateVerification", stopTime=1000000, outputInterval=600, method="Lsodar", tolerance=1e-06, resultFile="ZoneTemplateVerification");
 
 createPlot(id=1, 
 position={0, 0, 1677, 826}, 
