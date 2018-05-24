@@ -9,10 +9,8 @@ model SimInfoManager "Unit test for SimInfoManager"
       Tolerance=1e-06,
       __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/BoundaryConditions/Examples/SimInfoManager1.mos"
-        "Unit test 1", file(inherit=true)=
-        "Resources/Scripts/Dymola/BoundaryConditions/Examples/SimInfoManager2.mos"
-        "Unit test 2"),
+          "Resources/Scripts/Dymola/BoundaryConditions/Examples/SimInfoManager.mos"
+        "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
 <li>

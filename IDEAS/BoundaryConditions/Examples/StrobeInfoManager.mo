@@ -21,8 +21,8 @@ model StrobeInfoManager "Unit test for SimInfoManager"
       Tolerance=1e-06,
       __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/BoundaryConditions/Examples/StrobeInfoManager1.mos"
-        "Unit test 1"),
+          "Resources/Scripts/Dymola/BoundaryConditions/Examples/StrobeInfoManager.mos"
+        "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
 <li>
