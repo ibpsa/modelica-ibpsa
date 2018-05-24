@@ -43,7 +43,7 @@ model borefieldUTube
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-30,50})));
-  replaceable BaseClasses.BoreHoles.SingleBoreHoleUTube borehole(
+  replaceable BaseClasses.BoreHoles.SingleBoreHoleUTube borHol(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
@@ -75,15 +75,15 @@ equation
     annotation (Line(points={{80,0},{86,0},{100,0}}, color={0,127,255}));
   connect(groTemRes.Tb, theCol.port_b)
     annotation (Line(points={{-60,50},{-50,50},{-40,50}}, color={191,0,0}));
-  connect(borehole.port_b, masFloMul.port_a)
+  connect(borHol.port_b, masFloMul.port_a)
     annotation (Line(points={{24,0},{42,0},{60,0}}, color={0,127,255}));
-  connect(theCol.port_a, borehole.port_wall)
+  connect(theCol.port_a, borHol.port_wall)
     annotation (Line(points={{-20,50},{0,50},{0,24}}, color={191,0,0}));
   connect(const.y, groTemRes.Tg) annotation (Line(points={{-81,80},{-88,80},{-94,
           80},{-94,50},{-82,50}}, color={0,0,127}));
   connect(masFloDiv.port_b, port_a)
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
-  connect(masFloDiv.port_a, borehole.port_a)
+  connect(masFloDiv.port_a, borHol.port_a)
     annotation (Line(points={{-60,0},{-24,0}}, color={0,127,255}));
   annotation (
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),

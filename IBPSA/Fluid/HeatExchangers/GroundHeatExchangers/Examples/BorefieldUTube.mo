@@ -3,29 +3,31 @@ model BorefieldUTube
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  replaceable borefieldUTube borFie(redeclare package Medium = Medium,
+  replaceable BorefieldUTube borFie(redeclare package Medium = Medium,
       borFieDat=borFieDat)
     annotation (Placement(transformation(extent={{-22,-18},{20,18}})));
   Sources.MassFlowSource_T             sou(
     redeclare package Medium = Medium,
     nPorts=1,
     use_T_in=false,
-    m_flow=borFieDat.conDat.m_flow_nominal_bh,
+    m_flow=borFieDat.conDat.m_flow_nominal,
     T=303.15) "Source" annotation (Placement(transformation(extent={{-100,-10},{
             -80,10}}, rotation=0)));
-  Sensors.TemperatureTwoPort TBorFieIn(m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
-      redeclare package Medium = Medium) "Inlet borefield temperature"
+  Sensors.TemperatureTwoPort TBorFieIn(
+      redeclare package Medium = Medium, m_flow_nominal=borFieDat.conDat.m_flow_nominal)
+                                         "Inlet borefield temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Sources.Boundary_pT             sin(
     redeclare package Medium = Medium,
     use_p_in=false,
     use_T_in=false,
+    nPorts=1,
     p=101330,
-    T=283.15,
-    nPorts=1) "Sink" annotation (Placement(transformation(extent={{100,-10},{80,
+    T=283.15) "Sink" annotation (Placement(transformation(extent={{100,-10},{80,
             10}}, rotation=0)));
-  Sensors.TemperatureTwoPort TBorFieOut(m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
-      redeclare package Medium = Medium) "Outlet borefield temperature"
+  Sensors.TemperatureTwoPort TBorFieOut(
+      redeclare package Medium = Medium, m_flow_nominal=borFieDat.conDat.m_flow_nominal)
+                                         "Outlet borefield temperature"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Data.BorefieldData.ExampleBorefieldData borFieDat
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
