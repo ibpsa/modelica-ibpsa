@@ -10,14 +10,14 @@ model InternalHEXUTube "Internal part of a borehole for a U-Tube configuration"
         m1_flow_nominal,
     final tau2=Modelica.Constants.pi*borFieDat.conDat.rTub^2*borFieDat.conDat.hSeg*rho2_nominal/
         m2_flow_nominal,
-    vol1(
+    final vol1(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m1_flow_small,
       final V=borFieDat.conDat.volOneLegSeg,
       final mSenFac=mSenFac),
-    redeclare IBPSA.Fluid.MixingVolumes.MixingVolume vol2(
+    redeclare final IBPSA.Fluid.MixingVolumes.MixingVolume vol2(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,

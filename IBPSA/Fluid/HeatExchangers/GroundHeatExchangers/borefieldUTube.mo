@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers;
-model borefieldUTubeFIXME
+model borefieldUTube
   "Borefield model using single U-tube borehole heat exchanger configuration.Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
 
   //FIXME: add assert to check configurations:
@@ -8,77 +8,38 @@ model borefieldUTubeFIXME
    //       "The borehole geometry is not physical. Check rBor, rTub and xC to make sure that the tube is placed inside the halve of the borehole.");
 
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
-    m_flow_nominal=bfData.m_flow_nominal,
-    allowFlowReversal=true);
+    m_flow_nominal=borFieDat.conDat.m_flow_nominal);
 
-  extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = bfData.gen.T_start);
-  extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(final
-      computeFlowResistance=true, dp_nominal=0);
+  extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = borFieDat.conDat.T_start);
+  extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+    dp_nominal=borFieDat.conDat.dp_nominal);
 
   // General parameters of borefield
   parameter Data.BorefieldData.Template borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
-  //General parameters of aggregation
-  parameter Integer lenSim=3600*24*100
-    "Simulation length ([s]). By default = 100 days";
-
   parameter Boolean dynFil=true
     "Set to false to remove the dynamics of the filling material."
     annotation (Dialog(tab="Dynamics"));
 
-  // Load of borefield
-  discrete Modelica.SIunits.HeatFlowRate QAve_flow
-    "Average heat flux over a time period";
-
-  discrete Modelica.SIunits.Temperature TWall "Average borehole wall temperature";
-
-  // Parameters for the aggregation technic
-protected
-  parameter Modelica.SIunits.Time t0(fixed=false);
-  parameter Integer nbHEX = bfData.gen.nVer * bfData.gen.nbSer;
-  parameter Integer indexFirstLayerHEX[:] = {1 + (i-1)*bfData.gen.nVer for i in 1:bfData.gen.nbSer};
-  final parameter Integer p_max=5
-    "Number of aggregation cells within one aggregation level";
-  final parameter Integer q_max=
-      BaseClasses.Aggregation.BaseClasses.nbOfLevelAgg(          n_max=integer(
-      lenSim/bfData.gen.tStep), p_max=p_max) "Number of aggregation levels";
-  final parameter Real[q_max,p_max] kappaMat(fixed=false)
-    "Transient thermal resistance of each aggregation cells";
-  final parameter Integer[q_max] rArr(fixed=false)
-    "Width of aggregation cell for each level";
-  final parameter Integer[q_max,p_max] nuMat(fixed=false)
-    "Number of aggregated pulses at end of each aggregation cell";
-
-  // Parameters for the calculation of the steady state resistance of the borefield
-  final parameter Modelica.SIunits.Temperature TSteSta(fixed=false)
-    "Quasi steady state temperature of the borefield for a constant heat flux";
-  final parameter Real R_ss(fixed=false) "Steady state resistance";
-
-  //Load
-  Modelica.SIunits.Power[q_max,p_max] QMat
-    "Aggregation of load vector. Updated every discrete time step.";
-
-  //Utilities
-  discrete Modelica.SIunits.Energy UOld "Internal energy at the previous period";
-  Modelica.SIunits.Energy U
-    "Current internal energy, defined as U=0 for t=tStart";
-
-public
-  BaseClasses.MassFlowRateMultiplier massFlowRateMultiplier(
+  BaseClasses.MassFlowRateMultiplier masFloDiv(
     redeclare package Medium = Medium,
-    k=1/bfData.gen.nbBh,
-    allowFlowReversal=allowFlowReversal)
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  BaseClasses.MassFlowRateMultiplier massFlowRateMultiplier1(
+    allowFlowReversal=allowFlowReversal,
+    k=borFieDat.conDat.nbBh) "Division of flow rate"
+    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
+  BaseClasses.MassFlowRateMultiplier masFloMul(
     redeclare package Medium = Medium,
-    k=bfData.gen.nbBh,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    k=borFieDat.conDat.nbBh) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  BaseClasses.GroundTemperatureResponse groundTemperatureResponse
+  BaseClasses.GroundTemperatureResponse groTemRes(
+    p_max=borFieDat.conDat.p_max,
+    forceGFunCalc=forceGFunCalc,
+    borFieDat=borFieDat) "Ground temperature response"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector(m=
-        borFieDat.conDat.nVer) annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=borFieDat.conDat.nVer)
+    "Thermal collector to connect the unique ground temperature to each borehole wall temperature of each segment"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-30,50})));
@@ -102,78 +63,28 @@ public
     C_start=C_start,
     C_nominal=C_nominal,
     mSenFac=mSenFac,
-    dynFil=dynFil)
+    dynFil=dynFil) "Borehole"
     annotation (Placement(transformation(extent={{-24,-24},{24,24}})));
-  Modelica.Blocks.Sources.Constant const(k=borFieDat.conDat.T_start)
+  Modelica.Blocks.Sources.Constant const(k=borFieDat.conDat.T_start) "Undisturbed ground temperature"
     annotation (Placement(transformation(extent={{-60,70},{-80,90}})));
-initial equation
-  t0=time;
-
-  // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same length as the number of aggregated pulse and cover lenSim
-  U =  0;
-  UOld =  0;
-
-  // Initialization of the aggregation matrix and check that the short-term response for the given bfData record has already been calculated
-  (kappaMat,rArr,nuMat,TSteSta) =
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ScriptsFIXME.saveAggregationMatrix(
-    p_max=p_max,
-    q_max=q_max,
-    lenSim=lenSim,
-    gen=bfData.gen,
-    soi=bfData.soi,
-    fil=bfData.fil);
-
-  R_ss =  TSteSta/(bfData.gen.q_ste*bfData.gen.hBor*bfData.gen.nbBh)
-    "Steady state resistance";
+  parameter Boolean forceGFunCalc=false
+    "Set to true to force the thermal response to be calculated at the start";
 
 equation
-  Q_flow = port_a.m_flow*(actualStream(port_a.h_outflow) - actualStream(port_b.h_outflow));
-
-  assert(time - t0 < lenSim, "The chosen value for lenSim is too small. It cannot cover the whole simulation time!");
-
-  der(U) = Q_flow
-    "Integration of load to calculate below the average load/(discrete time step)";
-
-  assert(port_a.m_flow>-Modelica.Constants.eps or allowFlowReversal, "Flow reversal may not occurs in borefield except
-  if allowFlowReversal is set to true in the model");
-  // Set the start time for the sampling
-
-  when {initial(), sample(t0 + bfData.gen.tStep, bfData.gen.tStep)} then
-    QAve_flow =  (U - pre(UOld))/bfData.gen.tStep;
-    UOld =  U;
-
-    // Update of aggregated load matrix.
-    QMat = Borefield2.BaseClasses.Aggregation.aggregateLoad(
-      q_max=q_max,
-      p_max=p_max,
-      rArr=rArr,
-      nuMat=nuMat,
-      QNew=QAve_flow,
-      QAggOld=pre(QMat));
-
-    // Wall temperature of the borefield
-    TWall = Borefield2.BaseClasses.deltaTWall(
-      q_max=q_max,
-      p_max=p_max,
-      QMat=QMat,
-      kappaMat=kappaMat,
-      R_ss=R_ss) + T_start;
-  end when;
-
-  connect(massFlowRateMultiplier1.port_b, port_b)
+  connect(masFloMul.port_b, port_b)
     annotation (Line(points={{80,0},{86,0},{100,0}}, color={0,127,255}));
-  connect(port_a, massFlowRateMultiplier.port_a)
-    annotation (Line(points={{-100,0},{-96,0},{-80,0}}, color={0,127,255}));
-  connect(groundTemperatureResponse.Tb, thermalCollector.port_b)
+  connect(groTemRes.Tb, theCol.port_b)
     annotation (Line(points={{-60,50},{-50,50},{-40,50}}, color={191,0,0}));
-  connect(massFlowRateMultiplier.port_b, borehole.port_a)
-    annotation (Line(points={{-60,0},{-42,0},{-24,0}}, color={0,127,255}));
-  connect(borehole.port_b, massFlowRateMultiplier1.port_a)
+  connect(borehole.port_b, masFloMul.port_a)
     annotation (Line(points={{24,0},{42,0},{60,0}}, color={0,127,255}));
-  connect(thermalCollector.port_a, borehole.port_wall)
+  connect(theCol.port_a, borehole.port_wall)
     annotation (Line(points={{-20,50},{0,50},{0,24}}, color={191,0,0}));
-  connect(const.y, groundTemperatureResponse.Tg) annotation (Line(points={{-81,
-          80},{-88,80},{-94,80},{-94,50},{-82,50}}, color={0,0,127}));
+  connect(const.y, groTemRes.Tg) annotation (Line(points={{-81,80},{-88,80},{-94,
+          80},{-94,50},{-82,50}}, color={0,0,127}));
+  connect(masFloDiv.port_b, port_a)
+    annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
+  connect(masFloDiv.port_a, borehole.port_a)
+    annotation (Line(points={{-60,0},{-24,0}}, color={0,127,255}));
   annotation (
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
     __Dymola_experimentSetupOutput,
@@ -289,4 +200,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end borefieldUTubeFIXME;
+end borefieldUTube;

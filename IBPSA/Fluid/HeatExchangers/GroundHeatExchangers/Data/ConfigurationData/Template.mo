@@ -3,11 +3,6 @@ record Template "General parameters of the borefield"
   extends Modelica.Icons.Record;
   import SI = Modelica.SIunits;
 
-  // FIXME
-  //  parameter Boolean dynFil=true
-  //  "Set to false to remove the dynamics of the filling material."
-  //  annotation (Dialog(tab="Dynamics"));
-
   parameter Boolean singleUTube = true
     "True if use single U-tube, false if use double U-tube";
   parameter Boolean parallel2UTube = true
@@ -22,6 +17,7 @@ record Template "General parameters of the borefield"
     "Initial temperature of the borefield (grout and soil)";
   parameter SI.MassFlowRate m_flow_nominal_bh=0.3
     "Nominal mass flow rate per borehole";
+  parameter SI.MassFlowRate m_flow_nominal = m_flow_nominal_bh*nbBh "Nominal mass flow of borefield";
   parameter SI.Pressure dp_nominal=50000
     "Pressure losses for the entire borefield";
 
@@ -33,9 +29,6 @@ record Template "General parameters of the borefield"
     annotation (Dialog(group="Borehole"));
   final parameter SI.Diameter dBor = rBor*2 "Diameter of the borehole" annotation (Dialog(group="Borehole"));
   parameter Integer nbBh=1 "Total number of boreholes"
-    annotation (Dialog(group="Borehole"));
-
-  parameter Integer nbSer=1
     annotation (Dialog(group="Borehole"));
 
   parameter Real[nbBh,2] cooBh={{0,0}}
@@ -57,10 +50,6 @@ record Template "General parameters of the borefield"
 
   //------------------------- Step reponse parameters -----------------------------------------------------------------------------------------------------------------------------
   parameter SI.Time tStep=3600 "Time resolution of the step-response [s]";
-  final parameter Integer tSteSta_d=integer(3600*24*365*30/tStep)
-    "Discrete time to reach steady state [-] (default = 30 years)";
-  final parameter Integer tBre_d=max(1, integer(150*3600/tStep))
-    "Discrete time upper boundary for saving results [-] (tBre_d * tStep) should be >= 150 hours";
   parameter Real q_ste(unit="W/m") = 30
     "Power per length borehole of step load input";
 
@@ -79,6 +68,8 @@ record Template "General parameters of the borefield"
   parameter SI.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal_bh)
     "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Nominal condition"));
+  /*--------aggregation: */
+  parameter Integer p_max = 5 "Maximum number of cell per aggregation level";
 
   /*--------Boundary condition: */
   /*----------------T_start: */
@@ -98,9 +89,6 @@ record Template "General parameters of the borefield"
     annotation (Dialog(tab="Boundary conditions", group="T_start: ground"));
 
   /*--------Assumptions: */
-  parameter Boolean allowFlowReversal=true
-    "True to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation (Dialog(tab="Assumption"), Evaluate=true);
 
   parameter SI.Pressure p_constant=101300;
 

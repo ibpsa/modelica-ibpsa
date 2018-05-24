@@ -68,12 +68,13 @@ equation
     annotation (Line(points={{59,-30},{56,-30},{56,-58}}, color={0,0,127}));
   connect(loaAgg.Tg, const.y)
     annotation (Line(points={{-22,10},{-39,10}}, color={0,0,127}));
+
   annotation (experiment(StopTime=630720000),
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/BaseClasses/LoadAggregation/Validation/LoadAggregation_PrescribedQ.mos"
-        "Simulate and plot"));
-  annotation (Documentation(info="<html>
+        "Simulate and plot"),
+              Documentation(info="<html>
 <p>
 This validation case applies the assymetrical synthetic load profile developed
 by Pinel (2003) over a 20 year period by directly injecting the heat at the
@@ -98,5 +99,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end LoadAggregation_PrescribedQ;
