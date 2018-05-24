@@ -1,6 +1,6 @@
-AirOpen
+FixedPressure
 AirTight
-n50Open
+n50FixedPressure
 n50Tight
 BaseClasses
 Examples
