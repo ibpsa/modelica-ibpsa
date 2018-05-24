@@ -302,7 +302,8 @@ This function computes the specific internal energy of the fluid, but neglects t
   annotation (Documentation(info="<html>
 <p>
 Partial medium that contains an explicit expression 
-for the computation of T as a function of u.
+for the computation T=T0+u/cv instead of using implicit function of u=cv*(T-T0).
+This Medium generates fewer algebraic loops in JModelica.
 </p>
 </html>", revisions="<html>
 <ul>
