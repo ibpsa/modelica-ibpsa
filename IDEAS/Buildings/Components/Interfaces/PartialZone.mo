@@ -88,9 +88,10 @@ public
     final T_start=T_start,
     allowFlowReversal=allowFlowReversal,
     energyDynamics=energyDynamicsAir,
-    nPorts=interzonalAirFlow.nPorts) "Zone air model" annotation (
+    nPorts=interzonalAirFlow.nPorts)
+    "Zone air model"
+    annotation (choicesAllMatching=true,
     Placement(transformation(extent={{-40,20},{-20,40}})),
-    choicesAllMatching=true,
     Dialog(tab="Advanced",group="Air model"));
   replaceable IDEAS.Buildings.Components.InterzonalAirFlow.n50Tight interzonalAirFlow
   constrainedby
@@ -100,7 +101,7 @@ public
       n50=n50,
       n50toAch=n50toAch)
       "Interzonal air flow model"
-    annotation (Dialog(tab="Advanced", group="Air model"),
+    annotation (choicesAllMatching = true,Dialog(tab="Advanced", group="Air model"),
       Placement(transformation(extent={{-40,60},{-20,80}})),
     choicesAllMatching=true,
     Dialog(group="Building physics"));
