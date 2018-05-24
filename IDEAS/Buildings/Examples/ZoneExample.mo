@@ -50,7 +50,8 @@ model ZoneExample
     redeclare package Medium = Medium,
     allowFlowReversal=true,
     nSurf=4,
-    V=l*w*h)
+    V=l*w*h,
+    redeclare Components.InterzonalAirFlow.n50Tight interzonalAirFlow)
           "Second zone"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   IDEAS.Buildings.Components.OuterWall outerWall1(

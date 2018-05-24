@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Examples;
-model Structure "Example detailed building structure model"
+model Structure "Example building structure model"
   extends Modelica.Icons.Example;
   BaseClasses.structure structure(redeclare package Medium = IDEAS.Media.Air)
     annotation (Placement(transformation(extent={{-36,-20},{-6,0}})));

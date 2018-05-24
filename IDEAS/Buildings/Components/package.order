@@ -10,6 +10,7 @@ ThermalBridges
 ZoneAirModels
 Comfort
 InternalGains
+InterzonalAirFlow
 Occupants
 OccupancyType
 Interfaces
