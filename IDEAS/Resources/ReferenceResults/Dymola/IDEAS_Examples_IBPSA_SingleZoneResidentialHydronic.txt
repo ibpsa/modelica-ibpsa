@@ -1,0 +1,15 @@
+last-generated=2018-05-02
+statistics-initialization=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": "7, 5"
+}
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": "1", 
+  "number of continuous time states": "36", 
+  "linear": "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0"
+}
+case900Template.A=[4.8e+01, 4.8e+01]
+time=[0e+00, 1e+05]
