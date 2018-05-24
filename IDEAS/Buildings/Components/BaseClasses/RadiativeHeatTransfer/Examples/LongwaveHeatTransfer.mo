@@ -77,7 +77,7 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Buildings/Components/BaseClasses/RadiativeHeatTransfer/LongwaveHeatTransfer.mos"
+          "Resources/Scripts/Dymola/Buildings/Components/BaseClasses/RadiativeHeatTransfer/Examples/LongwaveHeatTransfer.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>

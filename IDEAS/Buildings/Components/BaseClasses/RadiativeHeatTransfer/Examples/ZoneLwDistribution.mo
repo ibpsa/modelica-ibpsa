@@ -80,7 +80,7 @@ equation
       StopTime=1000000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Lsodar"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Buildings/Components/BaseClasses/RadiativeHeatTransfer/ZoneLwDistribution.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Buildings/Components/BaseClasses/RadiativeHeatTransfer/Examples/ZoneLwDistribution.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>

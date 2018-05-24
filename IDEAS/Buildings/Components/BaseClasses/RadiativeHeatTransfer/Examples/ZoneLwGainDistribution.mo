@@ -85,7 +85,7 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Buildings/Components/BaseClasses/RadiativeHeatTransfer/ZoneLwGainDistribution.mos"
+          "Resources/Scripts/Dymola/Buildings/Components/BaseClasses/RadiativeHeatTransfer/Examples/ZoneLwGainDistribution.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
