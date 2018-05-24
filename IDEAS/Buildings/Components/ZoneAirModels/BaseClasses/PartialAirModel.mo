@@ -6,23 +6,15 @@ partial model PartialAirModel "Partial for air models"
 
   parameter Integer nSurf "Number of connected surfaces";
   parameter Integer nSeg(min=1)=1 "Number of air segments";
+  parameter Integer nPorts "Number of fluid port connections to zone air volume";
   parameter Modelica.SIunits.Volume Vtot "Total zone air volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=m_flow_nominal_airLea
-    "Nominal mass flow rate"
-	annotation(Dialog(tab="Advanced"));
   parameter Boolean allowFlowReversal=true
      "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Advanced"));
-  parameter Real n50=0.4 "n50-value of airtightness";
-  parameter Real n50toAch = 20
-    "Conversion fractor from n50 to Air Change Rate"
     annotation(Dialog(tab="Advanced"));
   parameter Boolean useFluPor = true "Set to false to remove fluid ports"
     annotation(Dialog(tab="Advanced"));
   constant Boolean computeTSensorAsFunctionOfZoneAir = true
     "Set to false if TSensor in zone model should not take into account the value of the zone air temperature";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_airLea=Vtot*rho_default/3600*n50/n50toAch 
-  	"Nominal mass flow rate of air leakage";
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput QGai(unit="J/s") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput TAir "Zone air temperature"
@@ -39,10 +31,10 @@ partial model PartialAirModel "Partial for air models"
     annotation (Placement(transformation(extent={{-128,20},{-88,60}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium) if useFluPor
-    annotation (Placement(transformation(extent={{30,90},{50,110}})));
+    annotation (Placement(transformation(extent={{50,90},{70,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) if useFluPor
-    annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
+    annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
   outer BoundaryConditions.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
@@ -65,9 +57,22 @@ protected
   final parameter Modelica.SIunits.Density rho_default = Medium.density(
     state=state_default) "Medium default density";
   final parameter Modelica.SIunits.SpecificHeatCapacity cp_default = Medium.specificHeatCapacityCp(state=state_default);
+public
+  Modelica.Fluid.Interfaces.FluidPorts_a[nPorts] ports(
+    redeclare each package Medium = Medium) "Ports connector for multiple ports" annotation (Placement(
+        transformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={0,100})));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
+<li>
+April 27, 2018 by Filip Jorissen:<br/>
+Modified model for supporting new interzonal air flow models.
+Air leakage model and its parameters have been removed.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
+</li>
 <li>
 November 15, 2016 by Filip Jorissen:<br/>
 Revised documentation.
@@ -85,5 +90,33 @@ First implementation.
 <p>
 Zone air model partial containing main parameters and connectors.
 </p>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-90,80},{90,-80}},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Backward,
+          lineColor={0,0,0}),
+        Line(
+          points={{-68,60},{68,60}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{68,60},{68,-60},{-68,-60},{-68,60}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Rectangle(
+          extent={{68,60},{-68,-60}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0},
+          lineThickness=0.5),
+        Line(points={{-30,42},{38,42},{38,-12},{28,-2},{38,-12},{46,-2}}, color=
+             {28,108,200}),
+        Line(points={{40,-32},{-30,-32},{-30,22},{-20,12},{-30,22},{-38,12}},
+            color={238,46,47})}));
 end PartialAirModel;
