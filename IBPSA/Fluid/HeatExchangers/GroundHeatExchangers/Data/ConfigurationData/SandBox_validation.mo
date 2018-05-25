@@ -7,7 +7,6 @@ record SandBox_validation
     rBor=0.063,
     hBor=18.3,
     nbBh=1,
-    nbSer=1,
     cooBh={{0,0}},
     rTub=0.02733/2,
     kTub=0.39,
