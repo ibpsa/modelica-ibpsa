@@ -130,10 +130,10 @@ the inputs are saved to the file.
 If the parameter <code>writeCombiTimeTableHeader=true</code> then
 additional header information is added to the csv file such that
 the resulting file can be read by a 
-<a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">CombiTimeTable</a>.
-The <a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">CombiTimeTable</a>
+<a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">Modelica.Blocks.Sources.CombiTimeTable</a>.
+The <a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">Modelica.Blocks.Sources.CombiTimeTable</a>
 must then have <code>tableName=\"csv\"</code>, as illustrated in example
-<a href=\"modelica://IBPSA.Utilities.IO.Reports.Examples.CSVReader\">CSVReader</a>.
+<a href=\"modelica://IBPSA.Utilities.IO.Reports.Examples.CSVReader\">IBPSA.Utilities.IO.Reports.Examples.CSVReader</a>.
 </p>
 <h4>Options</h4>
 <p>
