@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation.Tests;
 model ZoneTemplateVerification2
   "More accurate model that splits up window in two parts, which should make it identical to case900"
-  extends ZoneTemplateVerification(rectangularZoneTemplate(
+  extends ZoneTemplateVerification(case900Template(
       A_winA=6,
       nSurfExt=1,
       outA(A=9.6)));
@@ -19,12 +19,15 @@ model ZoneTemplateVerification2
         rotation=90,
         origin={11,-14})));
 equation
-  connect(win.propsBus_a, rectangularZoneTemplate.proBusExt[1]) annotation (
+  connect(win.propsBus_a, case900Template.proBusExt[1]) annotation (
       Line(
-      points={{9,-9},{9,0},{2,0}},
+      points={{9,-9.83333},{9,0},{2,0}},
       color={255,204,51},
       thickness=0.5));
   annotation (__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Validation/Tests/ZoneTemplateVerification2.mos"
-        "Simulate and plot"));
+        "Simulate and plot"), experiment(
+      StopTime=1000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"));
 end ZoneTemplateVerification2;

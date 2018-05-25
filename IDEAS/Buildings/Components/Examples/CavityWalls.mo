@@ -22,7 +22,6 @@ model CavityWalls
     azi=IDEAS.Types.Azimuth.S,
     redeclare parameter
       IDEAS.Buildings.Data.Constructions.CavityWallPartialFill constructionType,
-
     A=10) "Vertical wall with partially filled cavity"
     annotation (Placement(transformation(extent={{-56,-20},{-46,0}})));
 
@@ -35,11 +34,11 @@ model CavityWalls
     annotation (Placement(transformation(extent={{-56,-60},{-46,-40}})));
 equation
   connect(outerWall.propsBus_a, zone1.propsBus[2]) annotation (Line(
-      points={{-46,-8},{20,-8},{20,-16},{20,-57}},
+      points={{-46.8333,-8},{20,-8},{20,-16},{20,-57}},
       color={255,204,51},
       thickness=0.5));
   connect(win.propsBus_a, zone1.propsBus[1]) annotation (Line(
-      points={{-46,-48},{-46,-48},{20,-48},{20,-55}},
+      points={{-46.8333,-48},{-46.8333,-48},{20,-48},{20,-55}},
       color={255,204,51},
       thickness=0.5));
   connect(zone1.port_a, bou.ports[1])
@@ -64,6 +63,9 @@ First implementation.
 Model for unit testing the cavity wall correlation implementation.
 </p>
 </html>"),
-    experiment(StopTime=1e+06, __Dymola_Algorithm="Lsodar"),
+    experiment(
+      StopTime=1000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput);
 end CavityWalls;

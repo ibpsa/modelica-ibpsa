@@ -83,6 +83,6 @@ Revised implementation
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Templates/Ventilation/Examples/constantAirFlowRecup.mos"
+    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Templates/Ventilation/Examples/ConstantAirFlowRecup.mos"
         "Simulate and Plot"));
 end ConstantAirFlowRecup;
