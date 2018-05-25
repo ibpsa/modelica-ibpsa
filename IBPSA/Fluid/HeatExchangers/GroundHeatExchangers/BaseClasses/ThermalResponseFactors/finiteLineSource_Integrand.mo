@@ -67,5 +67,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end finiteLineSource_Integrand;

@@ -54,5 +54,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end infiniteLineSource;

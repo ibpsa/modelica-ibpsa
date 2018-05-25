@@ -2,14 +2,13 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses;
 model GroundTemperatureResponse "Model calculating discrete load aggregation"
   parameter Integer p_max(min=1) "Number of cells per aggregation level";
   parameter Boolean forceGFunCalc = false
-    "Set to true to force the thermal response to be calculated at the start";
-  replaceable parameter
+    "Set to true to force the thermal response to be calculated at the start instead of checking whether this has been pre-computed";
+  parameter
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
-    borFieDat constrainedby
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
+    borFieDat
     "Record containing all the parameters of the borefield model" annotation (
-     choicesAllMatching=true, Placement(transformation(extent={{-90,-88},{-70,
-            -68}})));
+     choicesAllMatching=true, Placement(transformation(extent={{-100,-100},{-80,
+            -80}})));
 
   Modelica.Blocks.Interfaces.RealInput Tg
     "Temperature input for undisturbed ground conditions"
@@ -73,7 +72,8 @@ protected
   Real delTbOld "Tb-Tg at previous time step";
   final parameter Real dhdt(fixed=false)
     "Time derivative of g/(2*pi*H*ks) within most recent cell";
-
+protected
+  Modelica.SIunits.HeatFlowRate QTot = Tb.Q_flow*borFieDat.conDat.nbBh "Totat heat flow from all boreholes";
 initial equation
   Q_i = zeros(i);
   curCel = 1;
@@ -99,7 +99,7 @@ initial equation
   dhdt = kappa[1]/borFieDat.conDat.tStep;
 
 equation
-  der(deltaTb) = dhdt*Tb.Q_flow + derDelTbs;
+  der(deltaTb) = dhdt*QTot + derDelTbs;
   deltaTb = Tb.T-Tg;
 
   when (sample(t0, borFieDat.conDat.tStep)) then
@@ -112,7 +112,7 @@ equation
 
     Q_i = LoadAggregation.setCurLoa(
       i=i,
-      Qb=Tb.Q_flow,
+      Qb=QTot,
       Q_shift=Q_shift);
 
     delTbs = LoadAggregation.tempSuperposition(

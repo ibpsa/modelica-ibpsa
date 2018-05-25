@@ -27,7 +27,7 @@ record Template "General parameters of the borefield"
     annotation (Dialog(group="Borehole"));
   parameter SI.Radius rBor=0.075 "Radius of the borehole"
     annotation (Dialog(group="Borehole"));
-  final parameter SI.Diameter dBor = rBor*2 "Diameter of the borehole" annotation (Dialog(group="Borehole"));
+  parameter SI.Height dBor = 1 "Borehole buried depth" annotation (Dialog(group="Borehole"));
   parameter Integer nbBh=1 "Total number of boreholes"
     annotation (Dialog(group="Borehole"));
 

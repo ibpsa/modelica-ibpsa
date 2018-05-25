@@ -128,9 +128,7 @@ equation
   connect(TBorAnaOut.T, deltaT.u2) annotation (Line(points={{40,-33},{40,-33},{
           40,-28},{52,-28},{52,34},{58,34}}, color={0,0,127}));
   annotation (
-    __Dymola_Commands(file=
-          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/BaseClasses/Examples/BoreholeSegment.mos"
-        "Simulate and plot", file=
+    __Dymola_Commands( file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/BaseClasses/Boreholes/Examples/SingleBoreHoleUTube.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,

@@ -174,5 +174,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end gFunction_100boreholes;
