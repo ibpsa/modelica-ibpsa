@@ -155,7 +155,7 @@ equation
         "Linearize, simulate and plot"),
     Documentation(revisions="<html>
 <ul>
-<li>May 15, 2018 by Damien Picard: <br>First implementation<\\br></li>
+<li>May 15, 2018 by Damien Picard: <br/>First implementation<\\br></li>
 </ul>
 </html>", info="<html>
 <p>Notice that this model has the commando <i>Linearise, simulate and plot</i>. The model being linearised is <i>IDEAS.LIDEAS.Examples.ZoneLinearise</i>. The linearisation creates 3 text files and 1 mat file in the simulation folder: <i>uNames_ZoneLinearise.txt</i> (inputs name), <i>xNames_ZoneLinearise.txt </i>(state names), <i>yNames_ZoneLinearise.txt</i> (output names) and <i>ssm_ZoneLinearise.mat</i> (state space model). The name of the states were manually copied into the model to retrieve the initial state values (<i>x_start</i>). Also the input names were manually copied to feed their value to the SSM model included in this example. However, the input names <i>winBusIn,</i> <i>weaBus, ctrlInput, and prescribed</i> were renamed to <i>winBusOut,</i> <i>weaBusOut, ctrlInputTest, and prescribedOut</i> to coincide with the variables created in the model.</p>

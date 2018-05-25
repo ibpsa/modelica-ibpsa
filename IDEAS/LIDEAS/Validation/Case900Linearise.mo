@@ -46,7 +46,7 @@ equation
           "Scripts/linearize_Case900Linearise.mos" "Linearise"),
     Documentation(revisions="<html>
 <ul>
-<li>May 15, 2018 by Damien Picard: <br>First implementation</br></li>
+<li>May 15, 2018 by Damien Picard: <br/>First implementation</li>
 </ul>
 </html>"));
 end Case900Linearise;

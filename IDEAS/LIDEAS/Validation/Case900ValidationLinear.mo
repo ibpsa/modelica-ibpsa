@@ -11,7 +11,7 @@ model Case900ValidationLinear "Model to validate the linearization method by sim
         "Linearise, simulate and plot"),
     Documentation(revisions="<html>
 <ul>
-<li>May 15, 2018 by Damien Picard: <br>First implementation</br></li>
+<li>May 15, 2018 by Damien Picard: <br/>First implementation</li>
 </ul>
 </html>", info="<html>
 <p>Notice that contrary to IDEAS.LIDEAS.Validation.ZoneWithInputsValidationLinear, not all flags were set to linear. This examples the rather large error between the zone model and the state space model.</p>
