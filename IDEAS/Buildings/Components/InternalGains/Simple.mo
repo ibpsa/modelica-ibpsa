@@ -5,7 +5,7 @@ model Simple
   parameter Modelica.SIunits.Power QlatPp = occupancyType.QlatPp
     "Latent heat production per person, default from Ashrae Fundamentals: 'Seated, very light work'";
   parameter Modelica.SIunits.Power QsenPp = occupancyType.QsenPp
-    "Latent heat production per person, default from Ashrae Fundamentals: 'Seated, very light work'";
+    "Sensible heat production per person, default from Ashrae Fundamentals: 'Seated, very light work'";
   parameter Real radFra(min=0,max=1) = occupancyType.radFra
     "Radiant fraction of sensible heat exchange, default based on Ashrae fundamentals chap 18.4 for low air velocity";
 protected
