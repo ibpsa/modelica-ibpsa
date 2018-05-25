@@ -1,4 +1,4 @@
-within ;
+within IBPSA.Utilities.IO.RESTClient;
 model SocCli "The socket client "
   extends Modelica.Blocks.Interfaces.DiscreteBlock(
     startTime=0,
