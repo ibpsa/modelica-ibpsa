@@ -79,7 +79,10 @@ equation
           {20,-50},{20,0},{40,0}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=86400),
+    experiment(
+      StopTime=86400,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Buildings/Components/BaseClasses/ConductiveHeatTransfer/Examples/MonoLayer.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

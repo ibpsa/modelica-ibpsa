@@ -43,15 +43,15 @@ model WindowThermalBridge "Comparison of three window thermal bridge options"
     annotation (Placement(transformation(extent={{-54,-60},{-44,-40}})));
 equation
   connect(zone.propsBus[1], floor.propsBus_a) annotation (Line(
-      points={{20,-54.6667},{20,-54.6667},{20,-6},{20,32},{-44,32}},
+      points={{20,-54.6667},{20,-54.6667},{20,-6},{20,32},{-44.8333,32}},
       color={255,204,51},
       thickness=0.5));
   connect(win.propsBus_a, zone.propsBus[2]) annotation (Line(
-      points={{-44,-8},{20,-8},{20,-56}},
+      points={{-44.8333,-8},{20,-8},{20,-56}},
       color={255,204,51},
       thickness=0.5));
   connect(winLinLos.propsBus_a, zone.propsBus[3]) annotation (Line(
-      points={{-44,-48},{-32,-48},{20,-48},{20,-57.3333}},
+      points={{-44.8333,-48},{-44.8333,-48},{20,-48},{20,-57.3333}},
       color={255,204,51},
       thickness=0.5));
   connect(zone.port_a, bou.ports[1])
@@ -74,7 +74,7 @@ for a window with or without line losses.
 </p>
 </html>"),
     experiment(
-      StopTime=1e+06,
+      StopTime=1000000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Lsodar"));
 end WindowThermalBridge;

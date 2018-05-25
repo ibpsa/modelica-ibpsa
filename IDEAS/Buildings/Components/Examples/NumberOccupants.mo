@@ -41,7 +41,10 @@ See <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=2000, __Dymola_Algorithm="Lsodar"),
+    experiment(
+      StopTime=2000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Components/Examples/NumberOccupants.mos"
         "Simulate and plot"));
