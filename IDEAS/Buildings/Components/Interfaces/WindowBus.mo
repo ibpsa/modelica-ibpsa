@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.Interfaces;
-expandable connector WindowBus
+connector WindowBus
   "Bus containing inputs/outputs for linear window model"
   extends Modelica.Icons.SignalBus;
   parameter Integer nLay = 3 "Number of window layers";

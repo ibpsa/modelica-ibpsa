@@ -7,7 +7,7 @@ model LinWindow
     annotation(Dialog(group="Linearisation"),Evaluate=true);
 protected
   outer input IDEAS.Buildings.Components.Interfaces.WindowBus[sim.nWindow]
-    winBusIn(each nLay = sim.nLayWin) if sim.linearise annotation (Placement(
+    winBusIn if sim.linearise annotation (Placement(
         transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,

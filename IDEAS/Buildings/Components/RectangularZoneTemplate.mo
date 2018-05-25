@@ -298,6 +298,7 @@ model RectangularZoneTemplate
         rotation=180,
         origin={-120,100})));
 protected
+  replaceable
   IDEAS.Buildings.Components.Window winA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
     glazing(
       nLay=glazingA.nLay,
@@ -333,8 +334,9 @@ protected
     fraType(present=fraTypA.present,
             U_value=fraTypA.U_value),
     linExtRad=linExtRadWin) if
-       hasWinA
+       hasWinA constrainedby Window
     "Window for face A of this zone" annotation (Placement(transformation(extent={{-100,0},{-90,20}})));
+  replaceable
   IDEAS.Buildings.Components.Window winB(
       inc=IDEAS.Types.Tilt.Wall,
     glazing(
@@ -371,12 +373,13 @@ protected
   shaCorr=shaTypB.shaCorr)),
     fraType(present=fraTypB.present, U_value=fraTypB.U_value),
     linExtRad=linExtRadWin) if
-       hasWinB
+       hasWinB constrainedby Window
     "Window for face B of this zone" annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=0,
         origin={-95,-10})));
+  replaceable
   IDEAS.Buildings.Components.Window winC(inc=IDEAS.Types.Tilt.Wall,
     glazing(
       nLay=glazingC.nLay,
@@ -412,12 +415,13 @@ protected
   shaCorr=shaTypC.shaCorr)),
     fraType(present=fraTypC.present, U_value=fraTypC.U_value),
     linExtRad=linExtRadWin) if
-       hasWinC
+       hasWinC constrainedby Window
     "Window for face C of this zone" annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=0,
         origin={-95,-30})));
+  replaceable
   IDEAS.Buildings.Components.Window winD(inc=IDEAS.Types.Tilt.Wall, azi=aziA +
         Modelica.Constants.pi/2*3,
     glazing(
@@ -453,12 +457,13 @@ protected
   shaCorr=shaTypD.shaCorr)),
     fraType(present=fraTypD.present, U_value=fraTypD.U_value),
     linExtRad=linExtRadWin) if
-       hasWinD
+       hasWinD constrainedby Window
     "Window for face D of this zone" annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=0,
         origin={-95,-50})));
+  replaceable
   IDEAS.Buildings.Components.Window winCei(inc=IDEAS.Types.Tilt.Ceiling, azi=aziA,
     glazing(
       nLay=glazingCei.nLay,
@@ -493,7 +498,7 @@ protected
   shaCorr=shaTypCei.shaCorr)),
     fraType(present=fraTypCei.present, U_value=fraTypCei.U_value),
     linExtRad=linExtRadWin) if
-       hasWinCei
+       hasWinCei constrainedby Window
     "Window for ceiling of this zone" annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
@@ -1119,8 +1124,7 @@ equation
           -140,-104},{-140,-100},{-98,-100},{-98,-40},{-98.3333,-40}},
                                                                   color={0,0,127}));
   connect(ctrlB, winB.Ctrl) annotation (Line(points={{-155,-111},{-155,-100},{
-          -156,-100},{-156,-100},{-98,-100},{-98,-20},{-98.3333,-20}},
-                                                                  color={0,0,127}));
+          -156,-100},{-98,-100},{-98,-20},{-98.3333,-20}},        color={0,0,127}));
   connect(ctrlA, winA.Ctrl) annotation (Line(points={{-171,-111},{-171,-106},{
           -172,-106},{-172,-100},{-98.3333,-100},{-98.3333,0}},
                                                            color={0,0,127}));
