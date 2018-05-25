@@ -3,7 +3,7 @@ model BorefieldUTube
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  replaceable BorefieldUTube borFie(redeclare package Medium = Medium,
+  replaceable GroundHeatExchangers.borefieldUTube borFie(redeclare package Medium = Medium,
       borFieDat=borFieDat)
     annotation (Placement(transformation(extent={{-22,-18},{20,18}})));
   Sources.MassFlowSource_T             sou(
