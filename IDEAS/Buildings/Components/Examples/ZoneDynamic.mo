@@ -6,5 +6,8 @@ model ZoneDynamic
       T=Medium.T_default + 10));
   annotation (__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Components/Examples/ZoneDynamic.mos"
-        "Simulate and plot"));
+        "Simulate and plot"), experiment(
+      StopTime=10000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"));
 end ZoneDynamic;

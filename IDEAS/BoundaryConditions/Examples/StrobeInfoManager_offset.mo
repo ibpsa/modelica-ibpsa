@@ -17,7 +17,10 @@ model StrobeInfoManager_offset
     startTime(displayUnit="d") = -864000)
     annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
   annotation (
-    experiment(StopTime=1e+06),
+    experiment(
+      StopTime=1000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/BoundaryConditions/Examples/StrobeInfoManager_offset.mos"
         "Unit test 1"),

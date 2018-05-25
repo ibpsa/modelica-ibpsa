@@ -1,5 +1,5 @@
 Advanced.StoreProtectedVariables:=true;
-simulateModel("IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.Examples.MonoLayer", stopTime=86400, method="dassl", resultFile="MonoLayer");
+simulateModel("IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.Examples.MonoLayer", stopTime=86400, method="Lsodar", tolerance=1e-06, resultFile="MonoLayer");
 Advanced.StoreProtectedVariables:=false;
 
 createPlot(id=1, position={0, 0, 744, 488}, y={"monoLayerSolid.port_a.Q_flow", "monoLayerAir.port_a.Q_flow", "monoLayerAirLin.port_a.Q_flow", "monoLayerSolidStatic.port_a.Q_flow"}, range={0.0, 90000.0, -1500.0, 2000.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
