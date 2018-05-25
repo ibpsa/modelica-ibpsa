@@ -8,5 +8,4 @@
 static const char** FileWriterNames; /* Array with pointers to all file names */
 static unsigned int FileWriterNames_n = 0;     /* Number of files */
 
-
 #endif

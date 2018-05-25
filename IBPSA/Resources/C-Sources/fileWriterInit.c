@@ -27,31 +27,29 @@ void* fileWriterInit(
   fclose(f);
 
   if ( FileWriterNames_n == 0 ){
-    // Allocate memory for array of file names
+    /* Allocate memory for array of file names */
     FileWriterNames = malloc(sizeof(char*));
     if ( FileWriterNames == NULL )
       ModelicaError("Not enough memory in fileWriterInit.c for allocating FileWriterNames.");
   }
   else{
-    // Check if the file name is unique
+    /* Check if the file name is unique */
     if (! fileWriterIsUnique(fileName)){
       ModelicaFormatError("CSV writer %s writes to file %s which is already used by another CSV writer.\nEach CSV writer must use a unique file name.",
       instanceName, fileName);
     }
-    // Reallocate memory for array of file names
+    /* Reallocate memory for array of file names */
     FileWriterNames = realloc(FileWriterNames, (FileWriterNames_n+1) * sizeof(char*));
     if ( FileWriterNames == NULL )
       ModelicaError("Not enough memory in fileWriterInit.c for reallocating FileWriterNames.");
   }
-  // Allocate memory for this file name
+  /* Allocate memory for this file name */
   FileWriterNames[FileWriterNames_n] = malloc((strlen(fileName)+1) * sizeof(char));
   if ( FileWriterNames[FileWriterNames_n] == NULL )
     ModelicaError("Not enough memory in fileWriterInit.c for allocating FileWriterNames[].");
-  // Copy the file name
+  /* Copy the file name */
   strcpy(FileWriterNames[FileWriterNames_n], fileName);
   FileWriterNames_n++;
 
   return (void*) fileName;
 }
-
-
