@@ -1,5 +1,5 @@
 within IBPSA.Utilities.IO.RESTClient;
-block Real_Real "Socket client to overwrite a real value"
+block Overwrite_Real "Socket client to overwrite a real value"
  extends Modelica.Blocks.Interfaces.DiscreteBlock(
     startTime=0,
     firstTrigger(fixed=true, start=false),final samplePeriod= samPer);
@@ -63,4 +63,4 @@ equation
        end if;
 
   annotation (uses(Modelica(version="3.2.2")));
-end Real_Real;
+end Overwrite_Real;
