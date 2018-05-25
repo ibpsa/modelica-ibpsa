@@ -73,7 +73,10 @@ equation
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=1e+06),
+    experiment(
+      StopTime=1000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Buildings/Components/Examples/WallUnitTest.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -57,7 +57,11 @@ equation
     annotation (Line(points={{10,0},{25,0},{40,0}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=500000, __Dymola_NumberOfIntervals=5000),
+    experiment(
+      StopTime=500000,
+      __Dymola_NumberOfIntervals=5000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Buildings/Components/BaseClasses/ConductiveHeatTransfer/Examples/MultiLayerRamp.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

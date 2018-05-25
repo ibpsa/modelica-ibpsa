@@ -27,6 +27,10 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=1e+06, __Dymola_NumberOfIntervals=1000),
+    experiment(
+      StopTime=1000000,
+      __Dymola_NumberOfIntervals=1000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput);
 end SolarBusValidation;
