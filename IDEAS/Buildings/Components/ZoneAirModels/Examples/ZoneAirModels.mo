@@ -4,10 +4,6 @@ model ZoneAirModels
   Validation.BaseClasses.Structure.Bui900 wellMixedAir
     "Bestest case 900 with default well mixed air model"
     annotation (Placement(transformation(extent={{-14,60},{16,80}})));
-  Validation.BaseClasses.Structure.Bui900 thermal(gF(redeclare Thermal airModel(mSenFac=0.822)),
-      useFluPor=false)
-    "Bestest case 900 with thermal-only air model"
-    annotation (Placement(transformation(extent={{-14,-10},{16,10}})));
   Validation.BaseClasses.Structure.Bui900 none(gF(redeclare None airModel),
       useFluPor=false)
     "Bestest case 900 with no air model"

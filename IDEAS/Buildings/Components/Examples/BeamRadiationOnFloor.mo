@@ -9,8 +9,7 @@ model BeamRadiationOnFloor
   Validation.Cases.Case900 case900WithoutFloor(building(floor(inc=IDEAS.Types.Tilt.Ceiling,
           constructionType(incLastLay=IDEAS.Types.Tilt.Ceiling))))
     annotation (Placement(transformation(extent={{-20,-38},{0,-18}})));
-  inner BoundaryConditions.SimInfoManager       sim(computeConservationOfEnergy=
-       true, strictConservationOfEnergy=true)
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
@@ -22,6 +21,10 @@ This model is to check what happens if the model contains no floors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 22, 2018 by Filip Jorissen:<br/>
+Removed conservation of energy check.
+</li>
 <li>
 September 8, 2016 by Filip Jorissen:<br/>
 First implementation

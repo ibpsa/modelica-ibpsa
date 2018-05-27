@@ -5,7 +5,7 @@ model Case900Template "Case 900 implementation using template"
     h=2.7,
     redeclare package Medium = IDEAS.Media.Air,
     n50=0.822*0.5*20,
-    redeclare Components.ZoneAirModels.WellMixedAir airModel,
+    redeclare replaceable Components.ZoneAirModels.WellMixedAir airModel,
     T_start=293.15,
     bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
