@@ -114,5 +114,9 @@ By Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    experiment(
+      StopTime=1000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"));
 end ZoneExample;

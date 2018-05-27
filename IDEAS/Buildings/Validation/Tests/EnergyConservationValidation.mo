@@ -17,9 +17,10 @@ equation
 
   annotation (
     experiment(
-      StopTime=5e+06,
+      StopTime=5000000,
       __Dymola_NumberOfIntervals=5000,
-      Tolerance=1e-06),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput,
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),

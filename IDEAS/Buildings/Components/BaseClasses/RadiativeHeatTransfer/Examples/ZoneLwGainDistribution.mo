@@ -80,9 +80,12 @@ equation
   connect(ramDir.y, preHeaDir.Q_flow) annotation (Line(points={{-79,10},{-70,10},
           {-70,0},{-60,0}}, color={0,0,127}));
     annotation (
-    experiment(StopTime=3),
+    experiment(
+      StopTime=3,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Buildings/Components/BaseClasses/RadiativeHeatTransfer/ZoneLwGainDistribution.mos"
+          "Resources/Scripts/Dymola/Buildings/Components/BaseClasses/RadiativeHeatTransfer/Examples/ZoneLwGainDistribution.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>

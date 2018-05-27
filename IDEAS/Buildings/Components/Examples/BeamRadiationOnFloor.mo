@@ -13,7 +13,10 @@ model BeamRadiationOnFloor
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=3e+06),
+    experiment(
+      StopTime=3000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     Documentation(info="<html>
 <p>
 Beam radiation first hits the floor after which the light is redistributed over the other surfaces.

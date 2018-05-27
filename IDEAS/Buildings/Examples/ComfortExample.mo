@@ -24,5 +24,9 @@ First implementation
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Examples/ComfortExample.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    experiment(
+      StopTime=8640000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"));
 end ComfortExample;
