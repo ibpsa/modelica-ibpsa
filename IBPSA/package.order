@@ -3,9 +3,9 @@ Airflow
 BoundaryConditions
 Controls
 Fluid
+HeatTransfer
 Media
 ThermalZones
 Utilities
 Types
 Experimental
-HeatTransfer
