@@ -43,7 +43,7 @@ model borefieldUTube
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-30,50})));
-  replaceable BaseClasses.BoreHoles.SingleBoreHoleUTube borHol(
+  replaceable Boreholes.SingleBoreHoleUTube borHol(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
