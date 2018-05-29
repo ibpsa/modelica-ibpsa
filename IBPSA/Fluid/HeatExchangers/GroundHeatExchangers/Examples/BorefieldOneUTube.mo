@@ -1,10 +1,11 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Examples;
-model BorefieldUTube
+model BorefieldOneUTube
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  replaceable GroundHeatExchangers.borefieldUTube borFie(redeclare package Medium = Medium,
-      borFieDat=borFieDat)
+  replaceable
+    .IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BorefieldOneUTube borFie(
+      redeclare package Medium = Medium, borFieDat=borFieDat)
     annotation (Placement(transformation(extent={{-22,-18},{20,18}})));
   Sources.MassFlowSource_T             sou(
     redeclare package Medium = Medium,
@@ -40,4 +41,4 @@ equation
     annotation (Line(points={{40,0},{20,0}}, color={0,127,255}));
   connect(TBorFieOut.port_b, sin.ports[1])
     annotation (Line(points={{60,0},{70,0},{80,0}}, color={0,127,255}));
-end BorefieldUTube;
+end BorefieldOneUTube;

@@ -1,12 +1,16 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Examples;
-model Borefield2UTubePar "Borefield with a 2-UTube configuration in parallel"
-  extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Examples.BorefieldUTube(redeclare IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.borefield2UTube borFie(borFieDat),
-                                                                                                                                                                    borFieDat(conDat=
+model BorefieldTwoUTubePar
+  "Borefield with a double U-Tube configuration in parallel"
+  extends
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Examples.BorefieldOneUTube(
+      redeclare
+      IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BorefieldTwoUTube borFie(
+        borFieDat),                                                                                                                                                 borFieDat(conDat=
           IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.ExampleConfigurationData(
            singleUTube=false)));
-  replaceable borefieldUTube                      borFie1(
-                                                         redeclare package
-      Medium =                                                                      Medium,borFieDat=borFieDat1)
+  replaceable
+    .IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BorefieldOneUTube borFie1(
+      redeclare package Medium = Medium, borFieDat=borFieDat1)
     annotation (Placement(transformation(extent={{-20,42},{22,78}})));
   Sources.MassFlowSource_T             sou1(
     redeclare package Medium = Medium,
@@ -44,4 +48,4 @@ equation
     annotation (Line(points={{42,60},{22,60}}, color={0,127,255}));
   connect(TBorFieOut1.port_b, sin1.ports[1])
     annotation (Line(points={{62,60},{72,60},{82,60}}, color={0,127,255}));
-end Borefield2UTubePar;
+end BorefieldTwoUTubePar;

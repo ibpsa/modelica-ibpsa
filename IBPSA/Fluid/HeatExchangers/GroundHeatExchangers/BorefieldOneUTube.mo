@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers;
-model borefieldUTube
+model BorefieldOneUTube
   "Borefield model using single U-tube borehole heat exchanger configuration.Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
 
   //FIXME: add assert to check configurations:
@@ -32,7 +32,7 @@ model borefieldUTube
     allowFlowReversal=allowFlowReversal,
     k=borFieDat.conDat.nbBh) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  BaseClasses.GroundTemperatureResponse groTemRes(
+  GroundHeatTransfer.GroundTemperatureResponse groTemRes(
     p_max=borFieDat.conDat.p_max,
     forceGFunCalc=forceGFunCalc,
     borFieDat=borFieDat) "Ground temperature response"
@@ -43,7 +43,7 @@ model borefieldUTube
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-30,50})));
-  replaceable Boreholes.SingleBoreHoleUTube borHol(
+  replaceable Boreholes.BoreholeOneUTube borHol(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
@@ -200,4 +200,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end borefieldUTube;
+end BorefieldOneUTube;
