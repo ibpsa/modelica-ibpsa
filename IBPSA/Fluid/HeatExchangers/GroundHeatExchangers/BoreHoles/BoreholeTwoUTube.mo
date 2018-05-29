@@ -6,7 +6,7 @@ model BoreholeTwoUTube "Double U-tube borehole heat exchanger"
       computeFlowResistance=false, linearizeFlowResistance=false);
   extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations;
 
-  BaseClasses.InternalHEX2UTube intHex[borFieDat.conDat.nVer](
+  BaseClasses.InternalHEXTwoUTube intHex[borFieDat.conDat.nVer](
     redeclare each final package Medium = Medium,
     each final borFieDat=borFieDat,
     final dp1_nominal={if i == 1 and borFieDat.conDat.parallel2UTube then

@@ -1,5 +1,5 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
-partial function partialBoreholeResistances
+within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions;
+partial function partialInternalResistances
   "Partial model for borehole resistance calculation"
 
   // Geometry of the borehole
@@ -42,7 +42,7 @@ protected
 
   parameter Real rTub_in = rTub-eTub "Inner radius of tube";
 
-  Real RConv(unit="(m.K)/W") = convectionResistance(
+  Real RConv(unit="(m.K)/W") = convectionResistanceCircularPipe(
     hSeg=hSeg,
     rBor=rBor,
     rTub=rTub,
@@ -139,4 +139,4 @@ First implementation.
 </li>
 </ul></p>
 </html>"));
-end partialBoreholeResistances;
+end partialInternalResistances;

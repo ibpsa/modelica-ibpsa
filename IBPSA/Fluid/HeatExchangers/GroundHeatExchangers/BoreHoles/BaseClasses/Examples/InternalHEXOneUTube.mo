@@ -1,9 +1,10 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Examples;
-model internalHEXUTube
+model InternalHEXOneUTube
   "Comparison of the effective borehole thermal resistance  from the thermal network of Bauer et al. with the resistance calculated by singleUTubeResistances (ref)"
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
-  BaseClasses.InternalHEXUTube intHex(
+  .IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalHEXOneUTube
+    intHex(
     redeclare package Medium = Medium,
     dp1_nominal=10,
     dp2_nominal=10,
@@ -68,4 +69,4 @@ equation
             -100},{100,100}})),
     experiment(StopTime=100000),
     __Dymola_experimentSetupOutput(events=false));
-end internalHEXUTube;
+end InternalHEXOneUTube;

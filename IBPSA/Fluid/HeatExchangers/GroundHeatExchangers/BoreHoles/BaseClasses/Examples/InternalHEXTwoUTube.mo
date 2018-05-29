@@ -1,9 +1,10 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Examples;
-model internalHEX2UTube
+model InternalHEXTwoUTube
   "Comparison of the effective borehole thermal resistance from the thermal network of Bauer et al. with the resistance calculated by doubleUTubeResistances (ref)"
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
-  InternalHEX2UTube intHex(
+  .IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalHEXTwoUTube
+    intHex(
     redeclare package Medium = Medium,
     m1_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
     m2_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
@@ -92,4 +93,4 @@ equation
           {32,-21},{-40,-21}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})));
-end internalHEX2UTube;
+end InternalHEXTwoUTube;

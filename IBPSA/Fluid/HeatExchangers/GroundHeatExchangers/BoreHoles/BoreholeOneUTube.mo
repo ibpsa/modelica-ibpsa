@@ -5,7 +5,7 @@ model BoreholeOneUTube "Single U-tube borehole heat exchanger"
   extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters;
   extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations;
 
-  BaseClasses.InternalHEXUTube intHex[borFieDat.conDat.nVer](
+  BaseClasses.InternalHEXOneUTube intHex[borFieDat.conDat.nVer](
     redeclare each final package Medium = Medium,
     each final from_dp1=from_dp,
     each final from_dp2=from_dp,
@@ -19,6 +19,7 @@ model BoreholeOneUTube "Single U-tube borehole heat exchanger"
     each final dynFil=dynFil,
     each final mSenFac=mSenFac,
     final dp1_nominal={if i == 1 then dp_nominal else 0 for i in 1:borFieDat.conDat.nVer},
+
     each final dp2_nominal=0,
     each final m1_flow_nominal=m_flow_nominal,
     each final m2_flow_nominal=m_flow_nominal,

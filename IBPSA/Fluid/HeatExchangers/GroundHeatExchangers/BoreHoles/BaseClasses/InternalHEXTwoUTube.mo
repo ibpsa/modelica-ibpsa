@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
-model InternalHEX2UTube
+model InternalHEXTwoUTube
   "Internal part of a borehole for a double U-Tube configuration. In loop 1, fluid 1 streams from a1 to b1 and comes back from a3 to b3. In loop 2: fluid 2 streams from a2 to b2 and comes back from a4 to b4."
   extends IBPSA.Fluid.Interfaces.EightPortHeatMassExchanger(
     redeclare final package Medium1 = Medium,
@@ -52,7 +52,8 @@ model InternalHEX2UTube
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium"
       annotation (choicesAllMatching = true);
-  Modelica.Blocks.Sources.RealExpression RVol1(y=convectionResistance(
+  Modelica.Blocks.Sources.RealExpression RVol1(y=
+        Functions.convectionResistanceCircularPipe(
         hSeg=borFieDat.conDat.hSeg,
         rBor=borFieDat.conDat.rBor,
         rTub=borFieDat.conDat.rTub,
@@ -64,7 +65,8 @@ model InternalHEX2UTube
         m_flow_nominal=m1_flow_nominal))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-16,56},{-30,72}})));
-  Modelica.Blocks.Sources.RealExpression RVol2(y=convectionResistance(
+  Modelica.Blocks.Sources.RealExpression RVol2(y=
+        Functions.convectionResistanceCircularPipe(
         hSeg=borFieDat.conDat.hSeg,
         rBor=borFieDat.conDat.rBor,
         rTub=borFieDat.conDat.rTub,
@@ -76,7 +78,8 @@ model InternalHEX2UTube
         m_flow_nominal=m2_flow_nominal))
     "Convective and thermal resistance at fluid 2"
     annotation (Placement(transformation(extent={{88,-8},{72,-26}})));
-  Modelica.Blocks.Sources.RealExpression RVol3(y=convectionResistance(
+  Modelica.Blocks.Sources.RealExpression RVol3(y=
+        Functions.convectionResistanceCircularPipe(
         hSeg=borFieDat.conDat.hSeg,
         rBor=borFieDat.conDat.rBor,
         rTub=borFieDat.conDat.rTub,
@@ -89,7 +92,8 @@ model InternalHEX2UTube
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-12,-60},{-26,-76}})));
 
-  Modelica.Blocks.Sources.RealExpression RVol4(y=convectionResistance(
+  Modelica.Blocks.Sources.RealExpression RVol4(y=
+        Functions.convectionResistanceCircularPipe(
         hSeg=borFieDat.conDat.hSeg,
         rBor=borFieDat.conDat.rBor,
         rTub=borFieDat.conDat.rTub,
@@ -110,7 +114,7 @@ model InternalHEX2UTube
    parameter Boolean dynFil=true
       "Set to false to remove the dynamics of the filling material"
       annotation (Dialog(tab="Dynamics"));
-  InternalResistances2UTube intRes2UTub(
+  InternalResistancesTwoUTube intRes2UTub(
     T_start=T_start,
     borFieDat=borFieDat,
     Rgb_val=Rgb_val,
@@ -169,7 +173,8 @@ protected
   parameter Real RCondGro_val(fixed=false);
 
 initial equation
-  (x,Rgb_val,Rgg1_val,Rgg2_val,RCondGro_val) = doubleUTubeResistances(
+  (x,Rgb_val,Rgg1_val,Rgg2_val,RCondGro_val) =
+    Functions.internalResistancesTwoUtube(
     hSeg=borFieDat.conDat.hSeg,
     rBor=borFieDat.conDat.rBor,
     rTub=borFieDat.conDat.rTub,
@@ -327,4 +332,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
-end InternalHEX2UTube;
+end InternalHEXTwoUTube;

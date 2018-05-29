@@ -1,9 +1,9 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
-function singleUTubeResistances
+within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions;
+function internalResistancesOneUTube
   "Thermal resistances for single U-tube, according to Bauer et al. (2011)"
   // FIXME: if python is used, the results are slightly different. I guess the Dymola resultion is quite low.
   extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.partialBoreholeResistances;
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.partialInternalResistances;
 
   // Outputs
   output Modelica.SIunits.ThermalResistance Rgb
@@ -195,4 +195,4 @@ First implementation.
 </li>
 </ul></p>
 </html>"));
-end singleUTubeResistances;
+end internalResistancesOneUTube;

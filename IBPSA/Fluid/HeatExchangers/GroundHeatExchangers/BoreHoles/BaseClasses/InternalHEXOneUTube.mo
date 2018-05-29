@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
-model InternalHEXUTube "Internal part of a borehole for a U-Tube configuration"
+model InternalHEXOneUTube
+  "Internal part of a borehole for a U-Tube configuration"
 
   extends IBPSA.Fluid.Interfaces.FourPortHeatMassExchanger(
     redeclare final package Medium1 = Medium,
@@ -68,32 +69,33 @@ protected
 
 public
   Modelica.Blocks.Sources.RealExpression RVol1(y=
-    convectionResistance(
-    hSeg=borFieDat.conDat.hSeg,
-    rBor=borFieDat.conDat.rBor,
-    rTub=borFieDat.conDat.rTub,
-    eTub=borFieDat.conDat.eTub,
-    kMed=kMed,
-    mueMed=mueMed,
-    cpMed=cpMed,
-    m_flow=m1_flow,
-    m_flow_nominal=m1_flow_nominal))
+        Functions.convectionResistanceCircularPipe(
+        hSeg=borFieDat.conDat.hSeg,
+        rBor=borFieDat.conDat.rBor,
+        rTub=borFieDat.conDat.rTub,
+        eTub=borFieDat.conDat.eTub,
+        kMed=kMed,
+        mueMed=mueMed,
+        cpMed=cpMed,
+        m_flow=m1_flow,
+        m_flow_nominal=m1_flow_nominal))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-100,-2},{-80,18}})));
   Modelica.Blocks.Sources.RealExpression RVol2(y=
-    convectionResistance(hSeg=borFieDat.conDat.hSeg,
-    rBor=borFieDat.conDat.rBor,
-    rTub=borFieDat.conDat.rTub,
-    eTub=borFieDat.conDat.eTub,
-    kMed=kMed,
-    mueMed=mueMed,
-    cpMed=cpMed,
-    m_flow=m2_flow,
-    m_flow_nominal=m2_flow_nominal))
+        Functions.convectionResistanceCircularPipe(
+        hSeg=borFieDat.conDat.hSeg,
+        rBor=borFieDat.conDat.rBor,
+        rTub=borFieDat.conDat.rTub,
+        eTub=borFieDat.conDat.eTub,
+        kMed=kMed,
+        mueMed=mueMed,
+        cpMed=cpMed,
+        m_flow=m2_flow,
+        m_flow_nominal=m2_flow_nominal))
     "Convective and thermal resistance at fluid 2"
-     annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
+    annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
 
-  InternalResistancesUTube intResUTub(
+  InternalResistancesOneUTube intResUTub(
     dynFil=dynFil,
     T_start=T_start,
     energyDynamics=energyDynamics,
@@ -118,8 +120,8 @@ public
     "Thermal connection for borehole wall"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 initial equation
-  (x, Rgb_val, Rgg_val, RCondGro_val) =
-    singleUTubeResistances(hSeg=borFieDat.conDat.hSeg,
+  (x, Rgb_val, Rgg_val, RCondGro_val) =Functions.internalResistancesOneUTube(
+    hSeg=borFieDat.conDat.hSeg,
     rBor=borFieDat.conDat.rBor,
     rTub=borFieDat.conDat.rTub,
     eTub=borFieDat.conDat.eTub,
@@ -128,7 +130,7 @@ initial equation
     kSoi=borFieDat.soiDat.k,
     kTub=borFieDat.conDat.kTub,
     use_Rb=borFieDat.conDat.use_Rb,
-    Rb = borFieDat.conDat.Rb,
+    Rb=borFieDat.conDat.Rb,
     kMed=kMed,
     mueMed=mueMed,
     cpMed=cpMed,
@@ -244,4 +246,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics));
-end InternalHEXUTube;
+end InternalHEXOneUTube;

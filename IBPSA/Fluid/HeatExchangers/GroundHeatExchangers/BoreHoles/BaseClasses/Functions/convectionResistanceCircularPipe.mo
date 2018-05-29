@@ -1,5 +1,5 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
-function convectionResistance
+within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions;
+function convectionResistanceCircularPipe
   "Thermal resistance from the fluid in pipes and the grout zones (Bauer et al. 2011)"
 
   // Geometry of the borehole
@@ -84,4 +84,4 @@ First implementation.
 </ul>
 </p>
 </html>"));
-end convectionResistance;
+end convectionResistanceCircularPipe;

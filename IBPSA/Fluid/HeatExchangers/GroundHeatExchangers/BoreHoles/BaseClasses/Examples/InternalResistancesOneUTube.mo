@@ -1,11 +1,11 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Examples;
-model doubleUTubeResistances "Validation of singleUTubeResistance by comparing the obtained Rb and Ra values to the values obtained by EED. The values should be close to parameters _ref. 
+model InternalResistancesOneUTube "Validation of singleUTubeResistance by comparing the obtained Rb and Ra values to the values obtained by EED. The values should be close to parameters _ref. 
   The differences are due to numerical noise, as the same formula's give better results in Python."
   extends Modelica.Icons.Example;
 
   parameter Boolean use_Rb = false
     "True if the value Rb should be used instead of calculated";
-  parameter Real Rb(unit="(m.K)/W") = 0.082 "Borehole thermal resistance";
+  parameter Real Rb(unit="(m.K)/W") = 0.145 "Borehole thermal resistance";
   parameter Modelica.SIunits.Height hSeg = 110 "Height of the element";
   parameter Modelica.SIunits.Radius rBor = 0.11/2 "Radius of the borehole";
   // Geometry of the pipe
@@ -37,13 +37,13 @@ model doubleUTubeResistances "Validation of singleUTubeResistance by comparing t
   Real RCondGro_val(fixed=false);
   Real x(fixed=false);
 
-  parameter Real Rb_ref =  0.08328;
-  parameter Real Ra_ref =  0.3;
-  parameter Real RConv_ref =  0.00531;
+  parameter Real Rb_ref =  0.1465;
+  parameter Real Ra_ref =  0.62;
+  parameter Real RConv_ref =  0.003;
   parameter Real RCondPipe_ref =  0.07868;
 equation
   (x,Rgb_val,Rgg_val,RCondGro_val) =
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.doubleUTubeResistances(
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesOneUTube(
     hSeg=hSeg,
     rBor=rBor,
     rTub=rTub,
@@ -61,4 +61,4 @@ equation
     printDebug=true);
 
   annotation (experiment, __Dymola_experimentSetupOutput);
-end doubleUTubeResistances;
+end InternalResistancesOneUTube;

@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
-model InternalResistances2UTube
+model InternalResistancesTwoUTube
   parameter Modelica.SIunits.Temperature T_start
     "Initial temperature of the filling material";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -197,4 +197,4 @@ equation
           {-66,-92},{-66,7.10543e-015},{-60.2,7.10543e-015}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end InternalResistances2UTube;
+end InternalResistancesTwoUTube;
