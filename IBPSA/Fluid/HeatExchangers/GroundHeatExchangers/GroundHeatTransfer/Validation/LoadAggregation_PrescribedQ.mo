@@ -10,7 +10,16 @@ model LoadAggregation_PrescribedQ
       dBor=4,
       nbBh=1,
       cooBh={{0,0}},
-      tStep=3600))
+      tStep=3600),
+    soiDat(
+      k=1,
+      c=1,
+      d=1e6),
+    filDat(
+      k=0,
+      c=Modelica.Constants.small,
+      d=Modelica.Constants.small,
+      steadyState=true))
               "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
@@ -29,7 +38,7 @@ model LoadAggregation_PrescribedQ
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/BaseClasses/LoadAggregation/Validation/LoadAggregation_20y_validation.txt"))
+        "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/LoadAggregation_20y_validation.txt"))
                  "Table for heat injected, using constant segments"
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
 
