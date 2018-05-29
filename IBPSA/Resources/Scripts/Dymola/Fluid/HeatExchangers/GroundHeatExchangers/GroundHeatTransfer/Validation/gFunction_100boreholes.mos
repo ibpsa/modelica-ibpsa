@@ -1,0 +1,8 @@
+simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation.gFunction_100boreholes", startTime=0, stopTime=3.7e+11	, tolerance=1E-8, method="dassl", resultFile="gFunction_100boreholes");
+
+createPlot(
+  id   = 1,
+  x    = "lntts_int",
+  y    = {"gFun_int"},
+  grid = true
+)
