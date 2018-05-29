@@ -10,7 +10,7 @@ model OuterWall "Opaque building envelope construction"
   parameter Boolean linExtRad=sim.linExtRad
     "= true, if exterior radiative heat transfer should be linearised"
     annotation(Dialog(tab="Radiation"));
-  parameter Boolean use_buildingShade
+  parameter Boolean use_buildingShade = false
     "=true, to enable computation of shade cast by opposite building or object"
     annotation(Dialog(group="Building shade"));
   parameter Modelica.SIunits.Length L(min=0)=0
@@ -23,6 +23,18 @@ model OuterWall "Opaque building envelope construction"
     annotation(Dialog(group="Building shade",enable=use_buildingShade));
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
+
+  replaceable IDEAS.Buildings.Components.Shading.BuildingShade shaType(
+    final L=L,
+    final dh=dh,
+    final hWin=hWal) if use_buildingShade
+  constrainedby IDEAS.Buildings.Components.Shading.Interfaces.PartialShading(
+    final azi=azi)
+    "Building shade model"
+    annotation (Placement(transformation(extent={{-72,-8},{-62,12}})),
+      __Dymola_choicesAllMatching=true,
+      Dialog(tab="Advanced",group="Shading"));
+
 
 protected
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.ExteriorConvection
@@ -50,14 +62,6 @@ protected
   Modelica.Blocks.Math.Add solDif(final k1=1, final k2=1)
     "Sum of ground and sky diffuse solar irradiation"
     annotation (Placement(transformation(extent={{-54,0},{-46,8}})));
-  IDEAS.Buildings.Components.Shading.BuildingShade shaType(
-    final azi=azi,
-    final L=L,
-    final dh=dh,
-    final hWin=hWal) if use_buildingShade
-    "Building shade model"
-    annotation (Placement(transformation(extent={{-72,-8},{-62,12}})));
-
 initial equation
   QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
 
@@ -215,8 +219,27 @@ equation
 <p>
 This is the main wall model that should be used to
 simulate a wall or roof between a zone and the outside environment.
-See <a href=modelica://IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface>IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface</a> 
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+See <a href=modelica://IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface>
+IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface</a> 
 for equations, options, parameters, validation and dynamics that are common for all surfaces.
+</p>
+<p>
+In addition to these parameters, this model computes the shade cast by an outside
+object such as a building using 
+<a href=\"IDEAS.Buildings.Components.Shading.BuildingShade\">IDEAS.Buildings.Components.Shading.BuildingShade</a>
+if parameter <code>use_buildingShade=true</code>.
+Values for parameters <code>L</code>, <code>dh</code> and <code>hWal</code> then have to be specified.
+</p>
+<h4>Options</h4>
+<p>
+The model <a href=\"IDEAS.Buildings.Components.Shading.BuildingShade\">IDEAS.Buildings.Components.Shading.BuildingShade</a> 
+is implemented by default but it can be redeclared in the advanced tab. 
+In this case the user still has to provide values for <code>L</code>, <code>dh</code> and <code>hWal</code>
+to avoid failing an assert that verifies the parameter consistency. The values are however not used in this case.
+The correct shading parameter values should then be passed through the redeclaration.
 </p>
 </html>", revisions="<html>
 <ul>
