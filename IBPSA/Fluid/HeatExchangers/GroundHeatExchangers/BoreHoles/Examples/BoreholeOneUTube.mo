@@ -1,12 +1,12 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples;
-model SingleBoreHoleUTube "Test for the SingleBoreHole model"
+model BoreholeOneUTube "Test for the Single U-tube borehole model"
   import IBPSA;
 
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
   replaceable
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.SingleBoreHoleUTube
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeOneUTube
     borHolDis(
     redeclare package Medium = Medium,
     borFieDat=borFieDat,
@@ -60,7 +60,7 @@ model SingleBoreHoleUTube "Test for the SingleBoreHole model"
         rotation=180,
         origin={-50,70})));
   replaceable
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.SingleBoreHoleUTube
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeOneUTube
     borHolAna(
     redeclare package Medium = Medium,
     borFieDat=borFieDat,
@@ -73,7 +73,7 @@ model SingleBoreHoleUTube "Test for the SingleBoreHole model"
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBorAnaOut(m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
       redeclare package Medium = Medium) "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{30,-54},{50,-34}})));
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.GroundTemperatureResponse
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse
     groTemRes(p_max=2, borFieDat=borFieDat) "Ground temperature response"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol1(m=
@@ -130,7 +130,7 @@ equation
           40,-28},{52,-28},{52,34},{58,34}}, color={0,0,127}));
   annotation (
     __Dymola_Commands( file=
-          "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/BaseClasses/Boreholes/Examples/SingleBoreHoleUTube.mos"
+          "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/Examples/BoreholeOneUTube.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),
@@ -149,4 +149,4 @@ First implementation.
 </ul>
 </html>"),
     experiment(StopTime=360000));
-end SingleBoreHoleUTube;
+end BoreholeOneUTube;
