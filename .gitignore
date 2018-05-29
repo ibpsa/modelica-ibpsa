@@ -8,6 +8,7 @@ diagnostics_summary.txt
 dsfinal.txt
 dsin.txt
 dslog.txt
+dsmodel_fmuconf.h
 dsmodel.c
 dsmodelext*.c
 dsmodelext*.obj
@@ -19,6 +20,7 @@ dymosim.lib
 empty.txt
 eventlog.txt
 failure
+fmiModelIdentifier.h
 help/
 modelDescription.xml
 request

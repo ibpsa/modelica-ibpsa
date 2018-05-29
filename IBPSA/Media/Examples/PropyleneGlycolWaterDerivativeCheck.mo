@@ -3,8 +3,8 @@ model PropyleneGlycolWaterDerivativeCheck
   "Model that tests the derivative implementation"
   extends Modelica.Icons.Example;
 
-   package Medium = IBPSA.Media.SecondaryFluid.PropyleneGlycolWater (
-      massFraction=0.60,
+   package Medium = IBPSA.Media.Antifreeze.PropyleneGlycolWater (
+      X_a=0.60,
       property_T=293.15);
 
     Modelica.SIunits.Temperature T "Temperature";
@@ -55,6 +55,7 @@ is not correct, the model will stop with an assert statement.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
 March 13, 2018, by Massimo Cimmino:<br/>
 First implementation.
 </li>
