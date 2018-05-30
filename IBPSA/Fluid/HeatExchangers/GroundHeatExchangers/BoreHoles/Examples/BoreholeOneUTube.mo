@@ -46,10 +46,10 @@ model BoreholeOneUTube "Test for the Single U-tube borehole model"
     each soiDat=borFieDat.soiDat,
     each h=borFieDat.conDat.hSeg,
     each r_a=borFieDat.conDat.rBor,
-    each r_b=borFieDat.conDat.rExt,
     each nSta=borFieDat.conDat.nHor,
     each TInt_start=borFieDat.conDat.T_start,
-    each TExt_start=borFieDat.conDat.T_start) annotation (Placement(
+    each TExt_start=borFieDat.conDat.T_start,
+    each r_b=3)                               annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

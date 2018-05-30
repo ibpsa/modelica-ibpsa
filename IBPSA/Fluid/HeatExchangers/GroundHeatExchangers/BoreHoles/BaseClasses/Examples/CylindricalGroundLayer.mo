@@ -10,7 +10,7 @@ model CylindricalGroundLayer
     final soiDat=borFieDat.soiDat,
     final h=1,
     final r_a=borFieDat.conDat.rBor,
-    final r_b=borFieDat.conDat.rExt,
+    final r_b=3,
     final nSta=borFieDat.conDat.nHor,
     final TInt_start=borFieDat.conDat.T_start,
     final TExt_start=borFieDat.conDat.T_start) "Heat conduction in the soil"

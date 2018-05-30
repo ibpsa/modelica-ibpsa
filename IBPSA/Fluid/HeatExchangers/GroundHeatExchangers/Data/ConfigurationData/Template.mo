@@ -64,23 +64,6 @@ record Template "General parameters of the borefield"
     "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Nominal condition"));
 
-  /*--------Boundary condition: */
-  /*----------------T_start: */
-  /*------------------------Ground: */
-  parameter SI.Height z0=0
-    "NOT YET SUPPORTED. Depth below which the temperature gradient starts"
-    annotation (Dialog(tab="Boundary conditions", group="T_start: ground"));
-  parameter SI.Height z[nVer]={hBor/nVer*(i - 0.5) for i in 1:nVer}
-    "NOT YET SUPPORTED. Distance from the surface to the considered segment"
-    annotation (Dialog(tab="Boundary conditions", group="T_start: ground"));
-  parameter Real dT_dz(unit="K/m") = 0.0
-    "NOT YET SUPPORTED. Vertical temperature gradient of the undisturbed soil for h below z0"
-    annotation (Dialog(tab="Boundary conditions", group="T_start: ground"));
-
-  parameter SI.Radius rExt=3
-    "Radius of the soil used for the external boundary condition"
-    annotation (Dialog(tab="Boundary conditions", group="T_start: ground"));
-
   /*--------Assumptions: */
 
   parameter SI.Pressure p_constant=101300;
