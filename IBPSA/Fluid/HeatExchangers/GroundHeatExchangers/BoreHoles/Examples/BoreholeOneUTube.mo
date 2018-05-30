@@ -74,7 +74,8 @@ model BoreholeOneUTube "Test for the Single U-tube borehole model"
       redeclare package Medium = Medium) "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{30,-54},{50,-34}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse
-    groTemRes(p_max=2, borFieDat=borFieDat) "Ground temperature response"
+    groTemRes(         borFieDat=borFieDat, tLoaAgg=60)
+                                            "Ground temperature response"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol1(m=
         borFieDat.conDat.nVer) "Thermal collector" annotation (Placement(

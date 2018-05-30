@@ -10,7 +10,8 @@ model BorefieldTwoUTubePar
            singleUTube=false)));
   replaceable
     .IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BorefieldOneUTube borFie1(
-      redeclare package Medium = Medium, borFieDat=borFieDat1)
+      redeclare package Medium = Medium, borFieDat=borFieDat1,
+    tLoaAgg=60)
     annotation (Placement(transformation(extent={{-20,42},{22,78}})));
   Sources.MassFlowSource_T             sou1(
     redeclare package Medium = Medium,

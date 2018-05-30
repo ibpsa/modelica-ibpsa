@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer;
 model GroundTemperatureResponse "Model calculating discrete load aggregation"
-  parameter Integer p_max(min=1) "Number of cells per aggregation level";
+  parameter Modelica.SIunits.Time tLoaAgg=3600 "Time resolution of load aggregation";
+  parameter Integer p_max(min=1)=5 "Number of cells per aggregation level";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether this has been pre-computed";
   parameter
@@ -37,7 +38,7 @@ protected
       lvlBas=lvlBas,
       p_max=p_max,
       timFin=timFin,
-      lenAggSte=borFieDat.conDat.tStep) "Number of aggregation points";
+      lenAggSte=tLoaAgg) "Number of aggregation points";
   parameter Real timSer[nrow + 1,2]=LoadAggregation.timSerMat(
       nbBor=borFieDat.conDat.nbBh,
       cooBor=borFieDat.conDat.cooBh,
@@ -84,7 +85,7 @@ initial equation
     i=i,
     lvlBas=lvlBas,
     p_max=p_max,
-    lenAggSte=borFieDat.conDat.tStep,
+    lenAggSte=tLoaAgg,
     timFin=timFin);
 
   t0 = time;
@@ -95,13 +96,13 @@ initial equation
     TStep=timSer,
     nu=nu);
 
-  dhdt = kappa[1]/borFieDat.conDat.tStep;
+  dhdt = kappa[1]/tLoaAgg;
 
 equation
   der(deltaTb) = dhdt*QTot + derDelTbs;
   deltaTb = Tb.T-Tg;
 
-  when (sample(t0, borFieDat.conDat.tStep)) then
+  when (sample(t0, tLoaAgg)) then
     (curCel,Q_shift) = LoadAggregation.nextTimeStep(
       i=i,
       Q_i=pre(Q_i),
@@ -122,7 +123,7 @@ equation
 
     delTbOld = Tb.T-Tg;
 
-    derDelTbs = (delTbs-delTbOld)/borFieDat.conDat.tStep;
+    derDelTbs = (delTbs-delTbOld)/tLoaAgg;
   end when;
 
   assert((time - t0) <= timFin,

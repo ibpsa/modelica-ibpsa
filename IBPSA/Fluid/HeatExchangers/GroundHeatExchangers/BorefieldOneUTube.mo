@@ -14,6 +14,10 @@ model BorefieldOneUTube
   extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     dp_nominal=borFieDat.conDat.dp_nominal);
 
+  // Simulation parameters
+  parameter Modelica.SIunits.Time tLoaAgg=3600 "Time resolution of load aggregation";
+  parameter Integer p_max(min=1)=5 "Number of cells per aggregation level";
+
   // General parameters of borefield
   parameter Data.BorefieldData.Template borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -33,8 +37,8 @@ model BorefieldOneUTube
     k=borFieDat.conDat.nbBh) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   GroundHeatTransfer.GroundTemperatureResponse groTemRes(
-    p_max=borFieDat.conDat.p_max,
-    forceGFunCalc=forceGFunCalc,
+    tLoaAgg=tLoaAgg,
+    p_max=p_max,
     borFieDat=borFieDat) "Ground temperature response"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=borFieDat.conDat.nVer)
@@ -67,8 +71,6 @@ model BorefieldOneUTube
     annotation (Placement(transformation(extent={{-24,-24},{24,24}})));
   Modelica.Blocks.Sources.Constant const(k=borFieDat.conDat.T_start) "Undisturbed ground temperature"
     annotation (Placement(transformation(extent={{-60,70},{-80,90}})));
-  parameter Boolean forceGFunCalc=false
-    "Set to true to force the thermal response to be calculated at the start";
 
 equation
   connect(masFloMul.port_b, port_b)

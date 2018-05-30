@@ -9,8 +9,7 @@ model LoadAggregation_PrescribedQ
       rBor=0.05,
       dBor=4,
       nbBh=1,
-      cooBh={{0,0}},
-      tStep=3600),
+      cooBh={{0,0}}),
     soiDat(
       k=1,
       c=1,
@@ -24,6 +23,7 @@ model LoadAggregation_PrescribedQ
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
   GroundHeatTransfer.GroundTemperatureResponse loaAgg(
+    tLoaAgg=3600,
     p_max=5,
     borFieDat=borFieDat,
     forceGFunCalc=true) "Load Aggregation in borehole"
