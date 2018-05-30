@@ -66,8 +66,8 @@ and ensures that the pressures at all ports are equal.
 If the parameter <code>verifyInputs</code> is set to <code>true</code>,
 then a protected instance of medium base properties is enabled.
 This instance verifies that the
-medium temperature is within the bounds <cod>T_min</code> and <code>T_max</code>,
-where <cod>T_min</code> and <code>T_max</code> are constants of the <code>Medium</code>.
+medium temperature is within the bounds <code>T_min</code> and <code>T_max</code>,
+where <code>T_min</code> and <code>T_max</code> are constants of the <code>Medium</code>.
 If the temperature is outside these bounds, the simulation will stop with an error.
 </p>
 </html>", revisions="<html>
