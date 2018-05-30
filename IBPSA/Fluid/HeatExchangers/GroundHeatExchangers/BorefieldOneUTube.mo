@@ -40,13 +40,13 @@ model BorefieldOneUTube
     tLoaAgg=tLoaAgg,
     p_max=p_max,
     borFieDat=borFieDat) "Ground temperature response"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=borFieDat.conDat.nVer)
     "Thermal collector to connect the unique ground temperature to each borehole wall temperature of each segment"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-30,50})));
+        origin={-30,60})));
   replaceable Boreholes.BoreholeOneUTube borHol(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -69,24 +69,25 @@ model BorefieldOneUTube
     mSenFac=mSenFac,
     dynFil=dynFil) "Borehole"
     annotation (Placement(transformation(extent={{-24,-24},{24,24}})));
-  Modelica.Blocks.Sources.Constant const(k=borFieDat.conDat.T_start) "Undisturbed ground temperature"
-    annotation (Placement(transformation(extent={{-60,70},{-80,90}})));
 
+  Modelica.Blocks.Interfaces.RealInput TGro
+    "Temperature input for undisturbed ground conditions"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 equation
   connect(masFloMul.port_b, port_b)
     annotation (Line(points={{80,0},{86,0},{100,0}}, color={0,127,255}));
   connect(groTemRes.Tb, theCol.port_b)
-    annotation (Line(points={{-60,50},{-50,50},{-40,50}}, color={191,0,0}));
+    annotation (Line(points={{-60,60},{-50,60},{-40,60}}, color={191,0,0}));
   connect(borHol.port_b, masFloMul.port_a)
     annotation (Line(points={{24,0},{42,0},{60,0}}, color={0,127,255}));
   connect(theCol.port_a, borHol.port_wall)
-    annotation (Line(points={{-20,50},{0,50},{0,24}}, color={191,0,0}));
-  connect(const.y, groTemRes.Tg) annotation (Line(points={{-81,80},{-88,80},{-94,
-          80},{-94,50},{-82,50}}, color={0,0,127}));
+    annotation (Line(points={{-20,60},{0,60},{0,24}}, color={191,0,0}));
   connect(masFloDiv.port_b, port_a)
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
   connect(masFloDiv.port_a, borHol.port_a)
     annotation (Line(points={{-60,0},{-24,0}}, color={0,127,255}));
+  connect(TGro, groTemRes.Tg)
+    annotation (Line(points={{-120,60},{-82,60},{-82,60}}, color={0,0,127}));
   annotation (
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
     __Dymola_experimentSetupOutput,

@@ -49,4 +49,6 @@ equation
     annotation (Line(points={{42,60},{22,60}}, color={0,127,255}));
   connect(TBorFieOut1.port_b, sin1.ports[1])
     annotation (Line(points={{62,60},{72,60},{82,60}}, color={0,127,255}));
+  connect(TGro.y, borFie1.TGro) annotation (Line(points={{-59,40},{-40,40},{-40,
+          70.8},{-24.2,70.8}}, color={0,0,127}));
 end BorefieldTwoUTubePar;

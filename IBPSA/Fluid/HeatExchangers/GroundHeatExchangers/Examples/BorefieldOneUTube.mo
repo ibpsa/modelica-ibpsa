@@ -33,6 +33,8 @@ model BorefieldOneUTube
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Data.BorefieldData.ExampleBorefieldData borFieDat
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+  Modelica.Blocks.Sources.Constant TGro(k=283.15) "Ground temperature"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
   connect(sou.ports[1], TBorFieIn.port_a)
     annotation (Line(points={{-80,0},{-60,0}}, color={0,127,255}));
@@ -42,4 +44,6 @@ equation
     annotation (Line(points={{40,0},{20,0}}, color={0,127,255}));
   connect(TBorFieOut.port_b, sin.ports[1])
     annotation (Line(points={{60,0},{70,0},{80,0}}, color={0,127,255}));
+  connect(TGro.y, borFie.TGro) annotation (Line(points={{-59,40},{-40,40},{-40,
+          10.8},{-26.2,10.8}}, color={0,0,127}));
 end BorefieldOneUTube;
