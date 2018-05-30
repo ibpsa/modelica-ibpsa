@@ -1,6 +1,6 @@
 ﻿within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation;
-model LoadAggregation_PrescribedQ
-  "Load aggregation model with a constant prescribed load"
+model LoadAggregation_20Years
+  "Long term validation of load aggregation model"
   extends Modelica.Icons.Example;
 
   parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
@@ -38,7 +38,7 @@ model LoadAggregation_PrescribedQ
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/LoadAggregation_20y_validation.txt"))
+        "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/LoadAggregation_20Years.txt"))
                  "Table for heat injected, using constant segments"
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
 
@@ -57,7 +57,7 @@ model LoadAggregation_PrescribedQ
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/LoadAggregation_20y_validation.txt"))
+        "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/LoadAggregation_20Years.txt"))
     "Table for resulting wall temperature using FFT and linearly interpolated"
     annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
 
@@ -80,7 +80,7 @@ equation
   annotation (experiment(StopTime=630720000),
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/LoadAggregation_PrescribedQ.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/LoadAggregation_20Years.mos"
         "Simulate and plot"),
               Documentation(info="<html>
 <p>
@@ -107,4 +107,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end LoadAggregation_PrescribedQ;
+end LoadAggregation_20Years;
