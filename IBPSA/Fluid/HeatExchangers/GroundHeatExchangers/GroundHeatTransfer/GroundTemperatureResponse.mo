@@ -28,7 +28,12 @@ protected
       hBor=borFieDat.conDat.hBor,
       dBor=borFieDat.conDat.dBor,
       rBor=borFieDat.conDat.rBor,
-      alpha=borFieDat.soiDat.alp) "String with encrypted g-function arguments";
+      alpha=borFieDat.soiDat.alp,
+      nbSeg=12,
+      nbTimSho=26,
+      nbTimLon=50,
+      relTol=0.02,
+      ttsMax=exp(5)) "String with encrypted g-function arguments";
   parameter Integer nrow = nbTimSho+nbTimLon-1
     "Length of g-function matrix";
   parameter Real lvlBas = 2 "Base for exponential cell growth between levels";
