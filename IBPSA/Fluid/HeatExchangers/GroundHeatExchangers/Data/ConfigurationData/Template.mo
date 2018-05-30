@@ -63,8 +63,6 @@ record Template "General parameters of the borefield"
   parameter SI.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal_bh)
     "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Nominal condition"));
-  /*--------aggregation: */
-  parameter Integer p_max = 5 "Maximum number of cell per aggregation level";
 
   /*--------Boundary condition: */
   /*----------------T_start: */
