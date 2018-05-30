@@ -48,7 +48,7 @@ where
 The flow coefficient is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-k = C<sub>D</sub> A (2/&rho;<sub>0</sub>)<sup>0.5</sub>,
+k = C<sub>D</sub> A (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
 </p>
 <p>
 where

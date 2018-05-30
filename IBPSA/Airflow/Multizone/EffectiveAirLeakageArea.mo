@@ -86,7 +86,7 @@ where
 The flow coefficient is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-k = L C<sub>D,Rat</sub> &Delta;p<sub>Rat</sub><sup>(0.5-m)</sup> (2/&rho;<sub>0</sub>)<sup>0.5</sub>,
+k = L C<sub>D,Rat</sub> &Delta;p<sub>Rat</sub><sup>(0.5-m)</sup> (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
 </p>
 <p>
 where
