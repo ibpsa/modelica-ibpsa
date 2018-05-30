@@ -1,10 +1,10 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Examples;
+within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation;
 model CylindricalGroundLayer
   "Comparison of the CylindricalGroundLayer with the Modelica Buildings Library"
   import IBPSA;
   extends Modelica.Icons.Example;
 
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.CylindricalGroundLayer
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer
     soi(
     final steadyStateInitial=false,
     final soiDat=borFieDat.soiDat,

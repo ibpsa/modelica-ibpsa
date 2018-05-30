@@ -41,7 +41,7 @@ model BoreholeOneUTube "Test for the Single U-tube borehole model"
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBorDisOut(m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
       redeclare package Medium = Medium) "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.CylindricalGroundLayer
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer
     lay[borFieDat.conDat.nVer](
     each soiDat=borFieDat.soiDat,
     each h=borFieDat.conDat.hSeg,
@@ -49,8 +49,7 @@ model BoreholeOneUTube "Test for the Single U-tube borehole model"
     each nSta=borFieDat.conDat.nHor,
     each TInt_start=borFieDat.conDat.T_start,
     each TExt_start=borFieDat.conDat.T_start,
-    each r_b=3)                               annotation (Placement(
-        transformation(
+    each r_b=3) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,40})));

@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
+within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer;
 model CylindricalGroundLayer
   "Heat conduction in a cylinder using the radial discretization as advised by Eskilson"
   parameter Data.SoilData.Template soiDat
