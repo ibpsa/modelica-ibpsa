@@ -50,8 +50,6 @@ record Template "General parameters of the borefield"
 
   //------------------------- Step reponse parameters -----------------------------------------------------------------------------------------------------------------------------
   parameter SI.Time tStep=3600 "Time resolution of the step-response [s]";
-  parameter Real q_ste(unit="W/m") = 30
-    "Power per length borehole of step load input";
 
   //------------------------- Advanced parameters -----------------------------------------------------------------------------------------------------------------------------
 

@@ -21,7 +21,7 @@ model CylindricalGroundLayer
   Modelica.Blocks.Sources.Step     heaFlo(
     offset=0,
     startTime=1000,
-    height=borFieDat.conDat.q_ste*1) "Heat flow to soil"
+    height=1056/18.3) "Heat flow to soil"
     annotation (Placement(transformation(extent={{-96,-10},{-76,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow to soil"
