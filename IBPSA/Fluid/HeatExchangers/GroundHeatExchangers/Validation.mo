@@ -31,7 +31,7 @@ package Validation
       annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
     Data.BorefieldData.SandBox_validation borFieDat "Borefield data"
       annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-    IDEAS.Fluid.Sources.Boundary_ph sin(redeclare package Medium =
+    IBPSA.Fluid.Sources.Boundary_ph sin(redeclare package Medium =
           Medium, nPorts=1) "Sink"
       annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
     Modelica.Blocks.Sources.Constant mFlo(k=borFieDat.conDat.m_flow_nominal_bh)
@@ -47,7 +47,7 @@ package Validation
       annotation (Placement(transformation(extent={{-10,70},{10,90}})));
     Modelica.Blocks.Sources.Constant T_start(k=borFieDat.conDat.T_start)
       annotation (Placement(transformation(extent={{10,-40},{-10,-20}})));
-    IDEAS.Fluid.HeatExchangers.HeaterCooler_u hea(
+    IBPSA.Fluid.HeatExchangers.HeaterCooler_u hea(
       redeclare package Medium = Medium,
       dp_nominal=10000,
       show_T=true,
