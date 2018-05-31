@@ -78,5 +78,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end besselY0;

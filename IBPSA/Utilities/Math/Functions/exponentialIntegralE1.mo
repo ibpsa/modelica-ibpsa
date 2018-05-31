@@ -38,5 +38,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end exponentialIntegralE1;
