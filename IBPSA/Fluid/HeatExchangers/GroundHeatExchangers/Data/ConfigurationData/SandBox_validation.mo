@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData;
 record SandBox_validation
   "General record for validation bore field using sand box experiment"
   extends Template(
-    singleUTube=true,
+    borHolCon = Types.BoreHoleConfiguration.SingleUTube,
     m_flow_nominal_bh=0.197/998*1000,
     rBor=0.063,
     hBor=18.3,

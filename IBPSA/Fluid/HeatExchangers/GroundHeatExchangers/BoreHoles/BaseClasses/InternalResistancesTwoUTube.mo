@@ -104,7 +104,7 @@ model InternalResistancesTwoUTube
         transformation(
         extent={{-72,28.8},{-56,12.8}},
         rotation=90,
-        origin={28.8,124})));
+        origin={42.8,124})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(T(start=
           T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
       der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)),
@@ -145,18 +145,6 @@ equation
           2.77556e-015},{-100,-2},{-100,0}}, color={191,0,0}));
   connect(Rpg1.port_a, port_1) annotation (Line(points={{4.44089e-016,88},{0,88},
           {0,100}}, color={191,0,0}));
-  connect(capFil1.port, Rpg1.port_b) annotation (Line(points={{-1.33227e-014,60},
-          {0,60},{0,72},{-4.44089e-016,72}}, color={191,0,0}));
-  connect(Rpg4.port_b, capFil4.port)
-    annotation (Line(points={{-72,0},{-60.2,0},{-60.2,0}}, color={191,0,0}));
-  connect(capFil4.port, Rgb4.port_a) annotation (Line(points={{-60.2,0},{-38,0},
-          {-38,8.88178e-016}}, color={191,0,0}));
-  connect(Rgb2.port_a, capFil2.port) annotation (Line(points={{38,0},{61,0},{61,
-          9.76996e-015}}, color={191,0,0}));
-  connect(Rpg2.port_b, capFil2.port) annotation (Line(points={{72,0},{61,0},{61,
-          9.76996e-015}}, color={191,0,0}));
-  connect(capFil1.port, Rgb1.port_a)
-    annotation (Line(points={{0,60},{0,38}}, color={191,0,0}));
   connect(Rgb1.port_b, port_wall)
     annotation (Line(points={{0,22},{0,22},{0,0}}, color={191,0,0}));
   connect(Rgb4.port_b, port_wall) annotation (Line(points={{-22,-8.88178e-016},{
@@ -165,36 +153,49 @@ equation
     annotation (Line(points={{22,0},{22,0},{0,0}}, color={191,0,0}));
   connect(Rgb3.port_b, port_wall) annotation (Line(points={{4.44089e-016,-22},{0,
           -22},{0,0}}, color={191,0,0}));
-  connect(Rgg14.port_a, capFil1.port) annotation (Line(points={{-50,38},{-50,38},
-          {-50,50},{0,50},{0,60},{-1.33227e-014,60}}, color={191,0,0}));
-  connect(Rgg14.port_b, capFil4.port)
-    annotation (Line(points={{-50,22},{-50,0},{-60.2,0}}, color={191,0,0}));
-  connect(Rgg21.port_a, capFil2.port) annotation (Line(points={{50,22},{50,22},{
-          50,2},{50,0},{61,0}}, color={191,0,0}));
-  connect(Rgg21.port_b, capFil1.port) annotation (Line(points={{50,38},{50,38},{
-          50,50},{0,50},{0,60}}, color={191,0,0}));
   connect(Rpg3.port_a, port_3)
     annotation (Line(points={{0,-88},{0,-100},{0,-100}}, color={191,0,0}));
-  connect(capFil3.port, Rpg3.port_b)
-    annotation (Line(points={{0,-59},{0,-65.5},{0,-72}}, color={191,0,0}));
-  connect(Rgb3.port_a, capFil3.port)
-    annotation (Line(points={{0,-38},{0,-59},{0,-59}}, color={191,0,0}));
-  connect(Rgg12.port_a, capFil2.port)
-    annotation (Line(points={{50,-22},{50,0},{61,0}}, color={191,0,0}));
-  connect(Rgg12.port_b, capFil3.port) annotation (Line(points={{50,-38},{50,-38},
-          {50,-46},{50,-50},{0,-50},{0,-59}}, color={191,0,0}));
-  connect(Rgg13.port_a, capFil4.port) annotation (Line(points={{-50,-22},{-50,-22},
-          {-50,-6},{-50,0},{-60.2,0}}, color={191,0,0}));
-  connect(Rgg13.port_b, capFil3.port) annotation (Line(points={{-50,-38},{-50,-50},
-          {0,-50},{0,-59}}, color={191,0,0}));
-  connect(Rgg11.port_a, capFil1.port)
-    annotation (Line(points={{90,38},{90,68},{0,68},{0,60}}, color={191,0,0}));
-  connect(Rgg11.port_b, capFil3.port) annotation (Line(points={{90,22},{90,-50},
-          {0,-50},{0,-59},{-8.88178e-015,-59}}, color={191,0,0}));
-  connect(Rgg22.port_b, capFil2.port) annotation (Line(points={{40,-92},{68,-92},
-          {68,0},{61,0}}, color={191,0,0}));
-  connect(Rgg22.port_a, capFil4.port) annotation (Line(points={{24,-92},{24,-92},
-          {-66,-92},{-66,7.10543e-015},{-60.2,7.10543e-015}}, color={191,0,0}));
+  connect(Rgg11.port_a, Rpg1.port_b) annotation (Line(points={{90,38},{90,38},{
+          90,70},{0,70},{0,72},{0,72}}, color={191,0,0}));
+  connect(Rgg21.port_b, Rgb1.port_a) annotation (Line(points={{50,38},{50,38},{
+          50,50},{0,50},{0,38},{4.44089e-016,38}}, color={191,0,0}));
+  connect(Rgb1.port_a, Rpg1.port_b) annotation (Line(points={{4.44089e-016,38},
+          {0,38},{0,72}}, color={191,0,0}));
+  connect(Rgg14.port_a, Rgb1.port_a) annotation (Line(points={{-50,38},{-50,38},
+          {-50,50},{0,50},{0,38}}, color={191,0,0}));
+  connect(capFil1.port, Rpg1.port_b)
+    annotation (Line(points={{14,60},{0,60},{0,72}}, color={191,0,0}));
+  connect(Rgg12.port_a, Rpg2.port_b)
+    annotation (Line(points={{50,-22},{50,0},{72,0}}, color={191,0,0}));
+  connect(Rgg21.port_a, Rpg2.port_b) annotation (Line(points={{50,22},{50,22},{
+          50,8},{50,0},{72,0}}, color={191,0,0}));
+  connect(Rgg22.port_b, Rpg2.port_b) annotation (Line(points={{40,-92},{56,-92},
+          {68,-92},{68,0},{72,0}}, color={191,0,0}));
+  connect(Rgb2.port_a, Rpg2.port_b)
+    annotation (Line(points={{38,0},{56,0},{72,0}}, color={191,0,0}));
+  connect(capFil2.port, Rpg2.port_b) annotation (Line(points={{61,9.76996e-015},
+          {62,9.76996e-015},{62,0},{72,0},{72,2.77556e-015}}, color={191,0,0}));
+  connect(Rgg13.port_b, Rpg3.port_b) annotation (Line(points={{-50,-38},{-50,
+          -38},{-50,-50},{0,-50},{0,-72}}, color={191,0,0}));
+  connect(Rgg12.port_b, Rpg3.port_b) annotation (Line(points={{50,-38},{50,-50},
+          {4.44089e-016,-50},{4.44089e-016,-72}}, color={191,0,0}));
+  connect(Rgg11.port_b, Rpg3.port_b) annotation (Line(points={{90,22},{90,22},{
+          90,-50},{0,-50},{0,-72}}, color={191,0,0}));
+  connect(Rgb3.port_a, Rpg3.port_b)
+    annotation (Line(points={{0,-38},{0,-38},{0,-72}}, color={191,0,0}));
+  connect(capFil3.port, Rpg3.port_b) annotation (Line(points={{-8.88178e-015,
+          -59},{0,-59},{0,-60},{4.44089e-016,-60},{4.44089e-016,-72}}, color={
+          191,0,0}));
+  connect(Rgg22.port_a, Rpg4.port_b) annotation (Line(points={{24,-92},{-18,-92},
+          {-60,-92},{-60,0},{-72,0}}, color={191,0,0}));
+  connect(Rpg4.port_b, capFil4.port) annotation (Line(points={{-72,0},{-60.2,0},
+          {-60.2,7.10543e-015}}, color={191,0,0}));
+  connect(Rgg13.port_a, Rpg4.port_b) annotation (Line(points={{-50,-22},{-50,
+          -22},{-50,0},{-50,8.88178e-016},{-72,8.88178e-016}}, color={191,0,0}));
+  connect(Rgg14.port_b, Rpg4.port_b) annotation (Line(points={{-50,22},{-50,22},
+          {-50,0},{-50,0},{-72,0}}, color={191,0,0}));
+  connect(Rgb4.port_a, Rpg4.port_b)
+    annotation (Line(points={{-38,0},{-56,0},{-72,0}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end InternalResistancesTwoUTube;

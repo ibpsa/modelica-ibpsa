@@ -138,12 +138,9 @@ initial equation
     printDebug=false);
 
 equation
-    assert(borFieDat.conDat.singleUTube,
+    assert(borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.SingleUTube,
   "This model should be used for single U-type borefield, not double U-type. 
   Check that the record General has been correctly parametrized");
-  if dynFil then
-  end if;
-
   connect(RVol2.y, RConv2.Rc) annotation (Line(points={{-79,-8},{-60,-8},{-40,
           -8},{-40,-28},{-12,-28}},
                                 color={0,0,127}));

@@ -35,13 +35,10 @@ model BoreholeOneUTube "Single U-tube borehole heat exchanger"
       annotation (Dialog(tab="Dynamics"));
   parameter Data.BorefieldData.Template borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Modelica.SIunits.Temperature TWallAve "Average borehole wall temperature";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall[borFieDat.conDat.nVer]
     "Thermal connection for borehole wall"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 equation
-  TWallAve =sum(intHex[:].port_wall.T)/borFieDat.conDat.nVer;
-
   connect(port_a, intHex[1].port_a1) annotation (Line(
       points={{-100,5.55112e-016},{-52,5.55112e-016},{-52,6.36364},{-10,6.36364}},
       color={0,127,255},
