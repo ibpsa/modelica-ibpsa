@@ -54,18 +54,23 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(reaExpX_air.y, bou.X_in[2])
-    annotation (Line(points={{37,52},{4,52},{4,22}}, color={0,0,127}));
-  connect(bou.C_in[1], weaBus.CEnv) annotation (Line(points={{8,22},{8,92.05},
-          {-39.95,92.05}},                            color={0,0,127}));
   connect(reaPasThr.u,weaBus. X_wEnv)
     annotation (Line(points={{30,82},{30,92.05},{-39.95,92.05}},
                                                         color={0,0,127}));
-  connect(reaPasThr.y, bou.X_in[1]) annotation (Line(points={{30,59},{14,59},
-          {14,22},{4,22}},
-                       color={0,0,127}));
+
   connect(Te.y, bou.T_in)
     annotation (Line(points={{6,59},{6,22},{-4,22}}, color={0,0,127}));
+  if Medium.nX == 2 then
+    connect(reaPasThr.y, bou.X_in[1])
+      annotation (Line(points={{30,59},{14,59},{14,22},{4,22}},color={0,0,127}));
+    connect(reaExpX_air.y, bou.X_in[2])
+      annotation (Line(points={{37,52},{4,52},{4,22}}, color={0,0,127}));
+  end if;
+  if Medium.nC == 1 then
+    connect(bou.C_in[1], weaBus.CEnv) annotation (Line(points={{8,22},{8,92.05},
+          {-39.95,92.05}},                            color={0,0,127}));
+  end if;
+
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

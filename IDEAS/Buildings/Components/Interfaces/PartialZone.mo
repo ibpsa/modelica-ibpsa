@@ -4,8 +4,7 @@ model PartialZone "Building zone model"
     Qgai(y=(if not sim.computeConservationOfEnergy then 0 elseif sim.openSystemConservationOfEnergy
             then airModel.QGai
             else gainCon.Q_flow + gainRad.Q_flow + airModel.QGai)),
-    Eexpr(y=if sim.computeConservationOfEnergy then E else 0),
-    useFluPor = airModel.useFluPor);
+    Eexpr(y=if sim.computeConservationOfEnergy then E else 0));
     replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
@@ -358,6 +357,11 @@ end for;
 <p>See extending models.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2018, Filip Jorissen:<br/>
+Removed conditional fluid ports for JModelica compatibility.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/834\">#834</a>.
+</li>
 <li>
 April 27, 2018 by Filip Jorissen:<br/>
 Modified interfaces for supporting new interzonal air flow models.
