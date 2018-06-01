@@ -3,11 +3,12 @@ partial model ZoneInterface "Partial model for thermal building zones"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
+    "Simulation information manager for climate data"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
   parameter Integer nSurf(min=2)
     "Number of surfaces adjacent to and heat exchangeing with the zone";
-  parameter Boolean useFluPor = true
-    "Set to false to disable the use of fluid ports"
-    annotation(Dialog(tab="Advanced", group="Air model"));
   parameter Modelica.SIunits.Volume V "Total zone air volume"
     annotation(Dialog(group="Building physics"));
   parameter Modelica.SIunits.Length hZone = 2.8
@@ -16,9 +17,6 @@ partial model ZoneInterface "Partial model for thermal building zones"
   parameter Modelica.SIunits.Area A = V/hZone "Total conditioned floor area"
     annotation(Dialog(group="Building physics"));
 
-  outer IDEAS.BoundaryConditions.SimInfoManager sim
-    "Simulation information manager for climate data"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b gainRad
     "Internal zone node for radiative heat gains"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
@@ -30,10 +28,8 @@ partial model ZoneInterface "Partial model for thermal building zones"
       Placement(transformation(extent={{96,-10},{116,10}}), iconTransformation(
           extent={{96,-10},{116,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = Medium)
-    if useFluPor
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = Medium)
-    if useFluPor
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
 protected
   Modelica.Blocks.Sources.RealExpression Eexpr "Internal energy model";
@@ -50,7 +46,8 @@ protected
   IDEAS.Buildings.Components.BaseClasses.ConservationOfEnergy.EnergyPort dummy2
     "Dummy emergy port for avoiding error by dymola translator";
 initial equation
-  assert(nSurf>1, "A minimum of 2 surfaces should be connected to each zone!");
+  assert(nSurf>1, "In " + getInstanceName() +
+    ": A minimum of 2 surfaces must be connected to the zone.");
 
 equation
   connect(sim.Qgai, dummy1);
@@ -110,6 +107,11 @@ equation
           textString="%name")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 29, 2018, Filip Jorissen:<br/>
+Removed conditional fluid ports for JModelica compatibility.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/834\">#834</a>.
+</li>
 <li>
 April 28, 2016, Filip Jorissen:<br/>
 Added assert for checking nSurf larger than 1.
