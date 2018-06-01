@@ -5,10 +5,10 @@ model SHA1 "Model that verifies the SHA1 encryption C function"
   //Test strings
   parameter String strIn1 = "abc";
   parameter String strIn2 = "";
-  parameter String strIn3=
-    "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq";
+  parameter String strIn3 = "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq";
   parameter String strIn4 = "1.23e+4";
-  parameter String strIn5 = Modelica.Utilities.Strings.repeat(499, string="1");
+  parameter String strIn5 = Modelica.Utilities.Strings.repeat(1000,
+    string="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
   //Expected outputs
   parameter String strEx1=
@@ -20,17 +20,17 @@ model SHA1 "Model that verifies the SHA1 encryption C function"
   parameter String strEx4=
     "bdd220adb45b392f17915af70ed8a006c382b983";
   parameter String strEx5=
-    "aba627a9ad336d5c7c16143ddf44ce4af3a3ae9a";
+    "34aa973cd4c4daa4f61eeb2bdbad27316534016f";
 
   //Comparison results
   Boolean cmp1,cmp2,cmp3,cmp4,cmp5,cmpAll;
 
 equation
-  cmp1 = Modelica.Utilities.Strings.isEqual(IBPSA.Utilities.Cryptographics.BaseClasses.sha(strIn1),strEx1,false);
-  cmp2 = Modelica.Utilities.Strings.isEqual(IBPSA.Utilities.Cryptographics.BaseClasses.sha(strIn2),strEx2,false);
-  cmp3 = Modelica.Utilities.Strings.isEqual(IBPSA.Utilities.Cryptographics.BaseClasses.sha(strIn3),strEx3,false);
-  cmp4 = Modelica.Utilities.Strings.isEqual(IBPSA.Utilities.Cryptographics.BaseClasses.sha(strIn4),strEx4,false);
-  cmp5 = Modelica.Utilities.Strings.isEqual(IBPSA.Utilities.Cryptographics.BaseClasses.sha(strIn5),strEx5,false);
+  cmp1 = Modelica.Utilities.Strings.isEqual(IBPSA.Utilities.Cryptographics.sha(strIn1),strEx1,false);
+  cmp2 = Modelica.Utilities.Strings.isEqual(IBPSA.Utilities.Cryptographics.sha(strIn2),strEx2,false);
+  cmp3 = Modelica.Utilities.Strings.isEqual(IBPSA.Utilities.Cryptographics.sha(strIn3),strEx3,false);
+  cmp4 = Modelica.Utilities.Strings.isEqual(IBPSA.Utilities.Cryptographics.sha(strIn4),strEx4,false);
+  cmp5 = Modelica.Utilities.Strings.isEqual(IBPSA.Utilities.Cryptographics.sha(strIn5),strEx5,false);
   cmpAll = cmp1 and cmp2 and cmp3 and cmp4 and cmp5;
 
   annotation(experiment(Tolerance=1e-4,StopTime=1.0),
@@ -54,12 +54,12 @@ the following strings:
 <code>&#34;1.23e+4&#34;</code>
 </li>
 <li>
-<code>&#34;1&#34;</code> repeated 499 consecutive times
+<code>&#34;a&#34;</code> repeated a million consecutive times
 </li>
 </p>
 <p>
 If the encrypted strings are identical to the expected (known) encryption
-result, the <code>cmpAll</code> boolean variable will return <code>True<code>.
+results, the <code>cmpAll</code> boolean variable will return <code>True</code>.
 </p>
 </html>",
 revisions="<html>

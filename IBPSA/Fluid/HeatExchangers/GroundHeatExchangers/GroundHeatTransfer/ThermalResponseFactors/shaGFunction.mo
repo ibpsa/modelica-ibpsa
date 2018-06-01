@@ -22,14 +22,6 @@ protected
   String formatStr =  "1.3e";
 
 algorithm
-  assert(nbBor<=18,"The large number of
-    boreholes means that there may be conflicts when storing the g-function in
-    the .BfData directory. In order to avoid potential errors, it is recommended
-    to either set the forceGFunCalc parameter to True for all future problems
-    with a similar borefield or to clear the contents of the .BfData directory
-    before trying to simulate a model with a different borefield.",
-    AssertionLevel.warning);
-
   shaStr := shaStr + String(nbBor, format=formatStr);
   for i in 1:nbBor loop
    shaStr := shaStr + String(cooBor[i, 1], format=formatStr) + String(cooBor[i,
@@ -45,5 +37,5 @@ algorithm
   shaStr := shaStr + String(relTol, format=formatStr);
   shaStr := shaStr + String(ttsMax, format=formatStr);
 
-  sha := IBPSA.Utilities.Cryptographics.BaseClasses.sha(shaStr);
+  sha := IBPSA.Utilities.Cryptographics.sha(shaStr);
 end shaGFunction;
