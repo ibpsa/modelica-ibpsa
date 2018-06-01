@@ -20,6 +20,7 @@ protected
     V=Vtot,
     mSenFac=mSenFac,
     use_C_flow=true,
+    dynBal(U(nominal=mSenFac*10*Vtot*1.2*1000)),
     nPorts=3+nPorts,
     m_flow_nominal=0.1)                        annotation (Placement(
         transformation(
@@ -101,6 +102,10 @@ equation
 <ul>
 <li>
 April 27, 2018 by Filip Jorissen:<br/>
+Added nominal value for internal energy of mixing volume.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/797\">#797</a>.
+</li>
+<li>
 Modified model for supporting new interzonal air flow models.
 Air leakage model and its parameters have been removed.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
