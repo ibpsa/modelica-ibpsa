@@ -18,6 +18,7 @@ protected
   Real pikg=1/(2*Modelica.Constants.pi*kGrout);
   Real sigma=(kGrout - kSoil)/(kGrout + kSoil);
   Complex f;
+  Integer j_pend;
 
 algorithm
 
@@ -35,15 +36,15 @@ algorithm
         for j in 1:J loop
           // Third term
           if m <> n then
-            f := f + P[n, j]*BEE.Utilities.Math.Functions.binomial(j + k - 1, j -
+            f := f + P[n, j]*IBPSA.Utilities.Math.Functions.binomial(j + k - 1, j -
               1)*rPip[n]^j*(-rPip[m])^k/(zPip[m] - zPip[n])^(j + k);
           end if;
           //Fourth term
           j_pend := min(k, j);
           for jp in 0:j_pend loop
             f := f + sigma*Modelica.ComplexMath.conj(P[n, j])*
-              BEE.Utilities.Math.Functions.binomial(j, jp)*
-              BEE.Utilities.Math.Functions.binomial(j + k - jp - 1, j - 1)*
+              IBPSA.Utilities.Math.Functions.binomial(j, jp)*
+              IBPSA.Utilities.Math.Functions.binomial(j + k - jp - 1, j - 1)*
               rPip[n]^j*rPip[m]^k*zPip[m]^(j - jp)*Modelica.ComplexMath.conj(
               zPip[n])^(k - jp)/(rBor^2 - zPip[m]*Modelica.ComplexMath.conj(
               zPip[n]))^(k + j - jp);

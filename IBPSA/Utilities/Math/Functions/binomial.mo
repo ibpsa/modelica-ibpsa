@@ -10,9 +10,9 @@ algorithm
   assert(n >= k, "n must be k or greater.");
   assert(k >= 0, "k must be k or greater.");
   if k <= 0.5*n then
-    binom := integer(BEE.Utilities.Math.Functions.fallingFactorial(n,k)/BEE.Utilities.Math.Functions.factorial(k));
+    binom := integer(IBPSA.Utilities.Math.Functions.fallingFactorial(n,k)/IBPSA.Utilities.Math.Functions.factorial(k));
   else
-    binom := integer(BEE.Utilities.Math.Functions.fallingFactorial(n,n-k)/BEE.Utilities.Math.Functions.factorial(n-k));
+    binom := integer(IBPSA.Utilities.Math.Functions.fallingFactorial(n,n-k)/IBPSA.Utilities.Math.Functions.factorial(n-k));
   end if;
 
 annotation (Documentation(info="<html>
