@@ -1,11 +1,14 @@
-/* Function that ensure that each file CSV writer to a unique file.
+/* Functions that ensures that each FileWriter writes to a unique file
+ * and that stores variables in a struct for later use.
  *
  * Michael Wetter, LBNL                     2018-05-12
+ * Filip Jorissen, KU Leuven
  */
 #include "fileWriterStructure.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
 
 
 int fileWriterIsUnique(const char* fileName){
@@ -22,9 +25,12 @@ int fileWriterIsUnique(const char* fileName){
 
 void* fileWriterInit(
   const char* instanceName,
-  const char* fileName){
+  const char* fileName,
+  const int numColumns,
+  const int isCombiTimeTable){
   FILE *f = fopen(fileName, "w");
   fclose(f);
+  ModelicaFormatMessage("Instantiation for %s in %s\n", instanceName, fileName);
 
   if ( FileWriterNames_n == 0 ){
     /* Allocate memory for array of file names */
@@ -35,8 +41,8 @@ void* fileWriterInit(
   else{
     /* Check if the file name is unique */
     if (! fileWriterIsUnique(fileName)){
-      ModelicaFormatError("CSV writer %s writes to file %s which is already used by another CSV writer.\nEach CSV writer must use a unique file name.",
-      instanceName, fileName);
+      ModelicaFormatError("FileWriter %s writes to file %s which is already used by another FileWriter.\nEach FileWriter must use a unique file name.",
+      FileWriterNames[0], fileName);
     }
     /* Reallocate memory for array of file names */
     FileWriterNames = realloc(FileWriterNames, (FileWriterNames_n+1) * sizeof(char*));
@@ -51,5 +57,30 @@ void* fileWriterInit(
   strcpy(FileWriterNames[FileWriterNames_n], fileName);
   FileWriterNames_n++;
 
-  return (void*) fileName;
+  FileWriter* ID;
+  ID = (FileWriter*)malloc(sizeof(*ID));
+  if ( ID == NULL )
+    ModelicaFormatError("Not enough memory in fileWriterInit.c for allocating ID of FileWriter %s.", instanceName);
+  
+  ID->fileWriterName = malloc((strlen(fileName)+1) * sizeof(char));
+  if ( ID->fileWriterName == NULL )
+    ModelicaFormatError("Not enough memory in fileWriterInit.c for allocating ID->fileWriterName in FileWriter %s.", instanceName);
+  strcpy(ID->fileWriterName, fileName);
+
+  ID->instanceName = malloc((strlen(instanceName)+1) * sizeof(char));
+  if ( ID->instanceName == NULL )
+    ModelicaFormatError("Not enough memory in fileWriterInit.c for allocating ID->instanceName in FileWriter %s.", instanceName);
+  strcpy(ID->instanceName, instanceName);  
+
+  if (numColumns<0)
+    ModelicaFormatError("In fileWriterInit.c: The number of columns that are written by the FileWriter %s cannot be negative", instanceName);
+  ID->numColumns=numColumns;
+
+  if (isCombiTimeTable<0 || isCombiTimeTable >1)
+    ModelicaFormatError("In fileWriterInit.c: the initialisation flag 'isCombiTimeTable' of FileWriter %s must equal 0 or 1 but it equals %i.", instanceName, isCombiTimeTable);
+  ID->isCombiTimeTable=isCombiTimeTable;
+
+
+
+  return (void*) ID;
 }
