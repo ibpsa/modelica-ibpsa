@@ -30,7 +30,7 @@ void* fileWriterInit(
   const int isCombiTimeTable){
   FILE *f = fopen(fileName, "w");
   fclose(f);
-  ModelicaFormatMessage("Instantiation for %s in %s\n", instanceName, fileName);
+  ModelicaFormatMessage("Instantiation for %s in %s\n", fileName, instanceName);
 
   if ( FileWriterNames_n == 0 ){
     /* Allocate memory for array of file names */
