@@ -22,10 +22,17 @@ protected
   Real pikg=1/(2*Modelica.Constants.pi*kGrout);
   Real sigma=(kGrout - kSoil)/(kGrout + kSoil);
   Real betaPip[nPip]=2*Modelica.Constants.pi*kGrout*Rfp;
-  Complex zPip[nPip]={Complex(xPip[m], yPip[m]) for m in 1:nPip};
-  Complex P[nPip,J];
-  Complex P_new[nPip,J];
-  Complex F[nPip,J];
+  Complex zPip_i;
+  Complex zPip_j;
+  Complex P_nj;
+  Real PRea[nPip,J];
+  Real PIma[nPip,J];
+  Complex P_nj_new;
+  Real PRea_new[nPip,J];
+  Real PIma_new[nPip,J];
+  Complex F_mk;
+  Real FRea[nPip,J];
+  Real FIma[nPip,J];
   Real R0[nPip,nPip];
   Complex deltaTFlu;
   Complex deltaT;
@@ -33,6 +40,8 @@ protected
   Real dz;
   Real coeff[nPip,J];
   Real diff;
+  Real diff_max;
+  Real diff_min;
   Real diff0;
   Integer it;
   Real eps_max;
@@ -40,13 +49,15 @@ protected
 algorithm
   // Thermal resistance matrix from 0th order multipole
   for i in 1:nPip loop
-    rbm := rBor^2/(rBor^2 - Modelica.ComplexMath.'abs'(zPip[i])^2);
+    zPip_i := Complex(xPip[i], yPip[i]);
+    rbm := rBor^2/(rBor^2 - Modelica.ComplexMath.'abs'(zPip_i)^2);
     R0[i, i] := pikg*(log(rBor/rPip[i]) + betaPip[i] + sigma*log(rbm));
     for j in 1:nPip loop
+      zPip_j := Complex(xPip[j], yPip[j]);
       if i <> j then
-        dz := Modelica.ComplexMath.'abs'(zPip[i] - zPip[j]);
-        rbm := rBor^2/Modelica.ComplexMath.'abs'(rBor^2 - zPip[j]*
-          Modelica.ComplexMath.conj(zPip[i]));
+        dz := Modelica.ComplexMath.'abs'(zPip_i - zPip_j);
+        rbm := rBor^2/Modelica.ComplexMath.'abs'(rBor^2 - zPip_j*
+          Modelica.ComplexMath.conj(zPip_i));
         R0[i, j] := pikg*(log(rBor/dz) + sigma*log(rbm));
       end if;
     end for;
@@ -60,35 +71,52 @@ algorithm
     for m in 1:nPip loop
       for k in 1:J loop
         coeff[m, k] := -(1 - k*betaPip[m])/(1 + k*betaPip[m]);
-        P[m, k] := Complex(0, 0);
+        PRea[m, k] := 0;
+        PIma[m, k] := 0;
       end for;
     end for;
     while eps_max > eps and it < it_max loop
       it := it + 1;
-      F :=
+      (FRea, FIma) :=
         IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.multipoleFmk(
         nPip,
         J,
         QPip_flow,
-        P,
+        PRea,
+        PIma,
         rBor,
         rPip,
-        zPip,
+        xPip,
+        yPip,
         kGrout,
         kSoil);
       for m in 1:nPip loop
         for k in 1:J loop
-          P_new[m, k] := coeff[m, k]*Modelica.ComplexMath.conj(F[m, k]);
+          F_mk := Complex(FRea[m, k], FIma[m, k]);
+          P_nj_new := coeff[m, k]*Modelica.ComplexMath.conj(F_mk);
+          PRea_new[m, k] := Modelica.ComplexMath.real(P_nj_new);
+          PIma_new[m, k] := Modelica.ComplexMath.imag(P_nj_new);
         end for;
       end for;
+      diff_max := 0;
+      diff_min := 1e99;
+      for m in 1:nPip loop
+        for k in 1:J loop
+          P_nj := Complex(PRea[m, k], PIma[m, k]);
+          P_nj_new := Complex(PRea_new[m, k], PIma_new[m, k]);
+          diff_max := max(diff_max,
+                           Modelica.ComplexMath.'abs'(P_nj_new - P_nj));
+          diff_min := min(diff_min,
+                           Modelica.ComplexMath.'abs'(P_nj_new - P_nj));
+        end for;
+      end for;
+      diff := diff_max - diff_min;
       if it == 1 then
-        diff0 := max(Modelica.ComplexMath.'abs'(P_new[:, :] - P[:, :])) - min(
-          Modelica.ComplexMath.'abs'(P_new[:, :] - P[:, :]));
+        diff0 :=diff;
       end if;
-      diff := max(Modelica.ComplexMath.'abs'(P_new[:, :] - P[:, :])) - min(
-        Modelica.ComplexMath.'abs'(P_new[:, :] - P[:, :]));
       eps_max := diff/diff0;
-      P := P_new;
+      PRea := PRea_new;
+      PIma := PIma_new;
     end while;
   end if;
 
@@ -96,17 +124,20 @@ algorithm
   TFlu := TBor .+ R0*QPip_flow;
   if J > 0 then
     for m in 1:nPip loop
+      zPip_i :=Complex(xPip[m], yPip[m]);
       deltaTFlu := Complex(0, 0);
       for n in 1:nPip loop
+        zPip_j :=Complex(xPip[n], yPip[n]);
         for j in 1:J loop
+          P_nj := Complex(PRea[m, j], PIma[m, j]);
           if n <> m then
             // Second term
-            deltaTFlu := deltaTFlu + P[n, j]*(rPip[n]/(zPip[m] - zPip[n]))^j;
+            deltaTFlu := deltaTFlu + P_nj*(rPip[n]/(zPip_i - zPip_j))^j;
           end if;
           // Third term
-          deltaTFlu := deltaTFlu + sigma*P[n, j]*(rPip[n]*
-            Modelica.ComplexMath.conj(zPip[m])/(rBor^2 - zPip[n]*
-            Modelica.ComplexMath.conj(zPip[m])))^j;
+          deltaTFlu := deltaTFlu + sigma*P_nj*(rPip[n]*
+            Modelica.ComplexMath.conj(zPip_i)/(rBor^2 - zPip_j*
+            Modelica.ComplexMath.conj(zPip_i)))^j;
         end for;
       end for;
       TFlu[m] := TFlu[m] + Modelica.ComplexMath.real(deltaTFlu);

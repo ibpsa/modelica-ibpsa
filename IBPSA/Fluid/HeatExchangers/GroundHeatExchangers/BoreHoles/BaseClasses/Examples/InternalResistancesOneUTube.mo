@@ -36,12 +36,19 @@ model InternalResistancesOneUTube "Validation of singleUTubeResistance by compar
   Real Rgg_val(fixed=false);
   Real RCondGro_val(fixed=false);
   Real x(fixed=false);
+  parameter Real[2] xPip = {-sha, sha} "x-Coordinates of pipes";
+  parameter Real[2] yPip = {0., 0.} "y-Coordinates of pipes";
+  parameter Real[2] rPip = {rTub, rTub} "Outer radius of pipes";
+  parameter Real[2] Rfp = {0, 0} "Fluid to pipe wall thermal resistances";
 
   parameter Real Rb_ref =  0.1465;
   parameter Real Ra_ref =  0.62;
   parameter Real RConv_ref =  0.003;
   parameter Real RCondPipe_ref =  0.07868;
+  parameter Real[2,2] RDelta = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.multipoleThermalResistances(
+     2, 3, xPip, yPip, rBor, rPip, kFil, kSoi, Rfp);
 equation
+
   (x,Rgb_val,Rgg_val,RCondGro_val) =
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesOneUTube(
     hSeg=hSeg,
@@ -58,7 +65,8 @@ equation
     mueMed=mueMed,
     cpMed=cpMed,
     m_flow_nominal=m_flow_nominal,
-    printDebug=true);
+    printDebug=true,
+    RDelta=RDelta);
 
   annotation (experiment, __Dymola_experimentSetupOutput);
 end InternalResistancesOneUTube;

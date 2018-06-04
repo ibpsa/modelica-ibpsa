@@ -12,6 +12,7 @@ function multipoleThermalResistances
   input Real kGrout "Thermal conductivity of grouting material";
   input Real kSoil "Thermal conductivity of soil material";
   input Real Rfp[nPip] "Fluid to pipe wall thermal resistances";
+  input Real TBor=0 "Average borehole wall temperature";
 
   output Real RDelta[nPip,nPip] "Delta-circuit thermal resistances";
 

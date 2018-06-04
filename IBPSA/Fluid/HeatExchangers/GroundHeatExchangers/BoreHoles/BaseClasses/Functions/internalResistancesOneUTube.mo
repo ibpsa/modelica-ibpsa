@@ -5,6 +5,7 @@ function internalResistancesOneUTube
   extends
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.partialInternalResistances;
 
+  input Real[2,2] RDelta "Delta-circuit thermal resistances";
   // Outputs
   output Modelica.SIunits.ThermalResistance Rgb
     "Thermal resistance between grout zone and borehole wall";
@@ -13,6 +14,10 @@ function internalResistancesOneUTube
   output Modelica.SIunits.ThermalResistance RCondGro
     "Thermal resistance between: pipe wall to capacity in grout";
 protected
+  Real[2] xPip = {-sha, sha} "x-Coordinates of pipes";
+  Real[2] yPip = {0., 0.} "y-Coordinates of pipes";
+  Real[2] rPip = {rTub, rTub} "Outer radius of pipes";
+  Real[2]  Rfp(unit="(m.K)/W") = {RCondPipe+RConv, RCondPipe+RConv} "Fluid to pipe wall thermal resistances";
   Modelica.SIunits.ThermalResistance Rg
     "Thermal resistance between outer borehole wall and one tube";
   Modelica.SIunits.ThermalResistance Rar
@@ -21,40 +26,11 @@ protected
   Real Ra(unit="(m.K)/W")
     "Grout-to-grout resistance (2D) as defined by Hellstroem. Interaction between the different grout part";
 
-  // Help variables
-  Real sigma "Help variable as defined by Hellstroem";
-  Real beta "Help variable as defined by Hellstroem";
-  Real R_1delta_LS(unit="(m.K)/W")
-    "One leg of the triangle resistance network, corresponding to the line source solution";
-  Real R_1delta_MP(unit="(m.K)/W")
-    "One leg of the triangle resistance network, corresponding to the multipole solution";
-  Real Ra_LS(unit="(m.K)/W")
-    "Grout-to-grout resistance calculated with the line-source approximation";
-
 algorithm
-  // ********** Rb and Ra from multipole **********
-  // Help variables
-  sigma :=(kFil - kSoi)/(kFil + kSoi);
-  beta :=2*Modelica.Constants.pi*kFil*(RCondPipe+RConv);
-
-  R_1delta_LS :=1/(2*pi*kFil)*(log(rBor/rTub) + log(rBor/(2*sha)) +
-    sigma*log(rBor^4/(rBor^4 - sha^4))) + RCondPipe + RConv;
-
-  R_1delta_LS :=1/(2*Modelica.Constants.pi*kFil)*(log(rBor/rTub) + log(rBor/(2*
-    sha)) + sigma*log(rBor^4/(rBor^4 - sha^4))) + RCondPipe + RConv;
-
-  R_1delta_MP :=R_1delta_LS - 1/(2*pi*kFil)*(rTub^2/
-    (4*sha^2)*(1 - sigma*4*sha^4/(rBor^4 - sha^4))^2)/((1 + beta)/(1 - beta) +
-    rTub^2/(4*sha^2)*(1 + sigma*16*sha^4*rBor^4/(rBor^4 - sha^4)^2));
-
-  Ra_LS      :=1/(pi*kFil)*(log(2*sha/rTub) + sigma*log((
-    rBor^2 + sha^2)/(rBor^2 - sha^2)))  + 2*(RCondPipe + RConv);
 
   //Rb and Ra
-  Rb_internal :=if use_Rb then Rb else R_1delta_MP/2;
-  Ra :=Ra_LS - 1/(Modelica.Constants.pi*kFil)*(rTub^2/(4*sha^2)*(1 + sigma*
-    4*rBor^4*sha^2/(rBor^4 - sha^4))/((1 + beta)/(1 - beta) - rTub^2/(4*sha^2) +
-    sigma*2*rTub^2*rBor^2*(rBor^4 + sha^4)/(rBor^4 - sha^4)^2));
+  Rb_internal :=if use_Rb then Rb else (1./(1./RDelta[1,1] + 1./RDelta[2,2]));
+  Ra := RDelta[1,2].*(RDelta[1,1]+RDelta[2,2])./(RDelta[1,2]+RDelta[1,1]+RDelta[2,2]);
 
   //Conversion of Rb (resp. Ra) to Rg (resp. Rar) of Bauer:
   Rg  :=(2*Rb_internal-RCondPipe-RConv)/hSeg;
