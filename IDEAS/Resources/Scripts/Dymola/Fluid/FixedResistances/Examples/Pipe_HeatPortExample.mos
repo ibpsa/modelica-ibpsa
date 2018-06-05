@@ -1,7 +1,0 @@
-
-//translateModel("IDEAS.Fluid.FixedResistances.Examples.Pipe_HeatPortExample");
-
-simulateModel("IDEAS.Fluid.FixedResistances.Examples.Pipe_HeatPortExample", stopTime=1, method="dassl", resultFile="Pipe_HeatPortExample");
-
-plot(y={"pipe_HeatPort.port_b.h_outflow"},colors={{0,0,255}});
-
