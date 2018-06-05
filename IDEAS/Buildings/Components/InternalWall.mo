@@ -65,20 +65,6 @@ protected
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/8)
     "Wall U-value";
   constant Real r = 287 "Gas constant";
-  // Assuming the same entering and leaving flow rate
-  // between .bottom and top half of the cavity
-  // Assuming uniform flow through both parts.
-  // dp= h/4 * (1-T1/T2) - buoyancy: horizontal pressure differences
-  // of points at 1/4 h and 3/4 h between two zones
-  // v = sqrt(2g * dp) - Bernoulli
-  // dotm = v*h/2*w*rho*cp  - Mass flow rate
-  // G = dotm * c_p
-  final parameter Real coeff1 = c_p*rho*w*h/2*sqrt(g*h/2) "Bernoulli-based thermal conductance";
-  final parameter Real coeff2 = sqrt(abs(1-T/(T)));
-  Modelica.SIunits.ThermalConductance G=
-    coeff1*(if sim.linearise or linIntCon_a or linIntCon_b
-           then coeff2
-           else sqrt(abs(1-intCon_a.port_b.T/intCon_b.port_b.T)));
 
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.InteriorConvection
     intCon_b(
@@ -103,12 +89,19 @@ protected
   Modelica.Blocks.Sources.Constant E0(final k=0)
     "All internal energy is assigned to right side";
 
-  HeatTransfer.VariableThermalConductor theConDoor if hasCavity
-    "Thermal conductor for modelling air flow through open door or cavity"
+  BaseClasses.ConvectiveHeatTransfer.CavityAirFlow
+                                        theConDoor(
+    linearise=sim.linearise or linIntCon_a or linIntCon_b,
+    h=h,
+    w=w,
+    g=g,
+    p=p,
+    rho=rho,
+    c_p=c_p,
+    T=T,
+    dT=dT) if                                         hasCavity
+    "Model for air flow through open door or cavity"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  Modelica.Blocks.Sources.RealExpression GExp(y=G) if hasCavity
-    "Real expression for effective thermal conductance"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 equation
   assert(hasCavity == false or IDEAS.Utilities.Math.Functions.isAngle(inc, IDEAS.Types.Tilt.Wall),
     "In " + getInstanceName() + ": Cavities are only supported for vertical walls, but inc=" + String(inc));
@@ -149,8 +142,6 @@ equation
           {-48,50},{-48,20.1},{-100.1,20.1}}, color={191,0,0}));
   connect(theConDoor.port_b, propsBus_a.surfCon) annotation (Line(points={{10,50},
           {46,50},{46,19.9},{100.1,19.9}}, color={191,0,0}));
-  connect(GExp.y, theConDoor.G) annotation (Line(points={{-19,60},{-10.8,60},{-10.8,
-          56}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-60,-100},{60,100}}),
         graphics={
@@ -207,19 +198,6 @@ Parameter <code>hasCavity</code> can be set to <code>true</code> to simulate hea
 through a cavity such as an open door in a simplified way.
 The cavity height <code>h</code> and width <code>w</code> then have to be specified.
 We assume that the value of <code>A</code> excludes the surface area of the cavity.
-</p>
-<h4>Assumptions and limitations</h4>
-<p>
-The cavity model assumes that the temperature difference between both zones is constant
-along the zone heights and that this causes a pressure difference between the zones
-due to buoyancy. 
-Based on this pressure difference, the mass flow rate is computed using Bernoulli,
-from which a heat flow rate is computed.
-This model deals with stratification in a very simplified way. 
-Very large openings can lead to small time constants, which can cause problems
-for the time integrator.
-Only thermal effects are modelled: there is no mass transport of air or moisture.
-The influence of the cavity on the radiative heat exchange is not modelled.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -33,13 +33,11 @@ equation
           extent={{-60,100},{60,74}},
           lineColor={28,108,200},
           textString="Two adjacent zones without cavity in wall B of zone1_a"),
-
         Text(
           extent={{-60,0},{60,-28}},
           lineColor={28,108,200},
           textString="Two adjacent zones with cavity in wall B of zone1_b
-"),
-        Rectangle(extent={{-60,-80},{60,-20}}, lineColor={28,108,200})}),
+"),     Rectangle(extent={{-60,-80},{60,-20}}, lineColor={28,108,200})}),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -57,5 +55,8 @@ In this example two two-zones models are compared where
 only one of the two models has the open door option enabled.
 </p>
 </html>"),
-    experiment(StopTime=1000000));
+    experiment(StopTime=1000000),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Buildings/Examples/OpenDoorComparison.mos"
+        "Simulate and plot"));
 end OpenDoorComparison;
