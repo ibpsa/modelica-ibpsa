@@ -13,7 +13,8 @@ model HeatPump_WaterWater
     m_flow_nominal=2550/3600,
     inputType=IDEAS.Fluid.Types.InputType.Constant,
     dp_nominal = 50000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{40,42},{20,62}})));
   inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -35,7 +36,8 @@ model HeatPump_WaterWater
     m_flow_nominal=4200/3600,
     inputType=IDEAS.Fluid.Types.InputType.Constant,
     dp_nominal = 50000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
   Sources.Boundary_pT bou1(         redeclare package Medium = Medium,
     use_T_in=true,
@@ -69,7 +71,8 @@ model HeatPump_WaterWater
     m_flow_nominal=scaling*2550/3600,
     inputType=IDEAS.Fluid.Types.InputType.Constant,
     dp_nominal = 50000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{40,-78},{20,-58}})));
   IDEAS.Fluid.Movers.FlowControlled_m_flow pump3(
     redeclare package Medium = Medium,
@@ -77,7 +80,8 @@ model HeatPump_WaterWater
     m_flow_nominal=scaling*4200/3600,
     inputType=IDEAS.Fluid.Types.InputType.Constant,
     dp_nominal = 50000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{-58,-52},{-38,-32}})));
   replaceable HP_WaterWater_OnOff HP_scaling(
     redeclare package Medium1 = Medium,
@@ -115,7 +119,8 @@ model HeatPump_WaterWater
     m_flow_nominal=2550/3600,
     inputType=IDEAS.Fluid.Types.InputType.Constant,
     dp_nominal = 50000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{38,-22},{18,-2}})));
   IDEAS.Fluid.Movers.FlowControlled_m_flow pump5(
     redeclare package Medium = Medium,
@@ -123,7 +128,8 @@ model HeatPump_WaterWater
     m_flow_nominal=4200/3600,
     inputType=IDEAS.Fluid.Types.InputType.Constant,
     dp_nominal = 50000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{-62,14},{-42,34}})));
   replaceable HP_WaterWater_OnOff HP_onOff_mod(
     redeclare package Medium1 = Medium,
@@ -162,7 +168,8 @@ model HeatPump_WaterWater
     m_flow_nominal=scaling*2550/3600,
     inputType=IDEAS.Fluid.Types.InputType.Constant,
     dp_nominal = 50000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{44,-134},{24,-114}})));
   IDEAS.Fluid.Movers.FlowControlled_m_flow pump7(
     redeclare package Medium = Medium,
@@ -170,7 +177,8 @@ model HeatPump_WaterWater
     m_flow_nominal=scaling*4200/3600,
     inputType=IDEAS.Fluid.Types.InputType.Constant,
     dp_nominal = 50000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{-54,-108},{-34,-88}})));
   replaceable HP_WaterWater_OnOff HP_modSec(
     redeclare package Medium1 = Medium,
@@ -354,6 +362,11 @@ equation
 <p>This example demonstrates the use of a heat pump.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
 <li>March 2014 by Filip Jorissen:<br/> 
 Initial version
 </li>

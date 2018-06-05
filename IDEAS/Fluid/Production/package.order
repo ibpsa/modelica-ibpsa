@@ -1,10 +1,8 @@
-Boiler
-HP_AirWater_TSet2
 HP_AirWater_TSet
-HP_GroundWater_TSet2
+HP_AirWater_TSet2
 HP_WaterWater_OnOff
 HP_WaterWater_TSet
-IdealHeater
+Deprecated
 Data
 Examples
 Interfaces

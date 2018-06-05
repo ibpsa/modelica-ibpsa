@@ -2,8 +2,7 @@ within IDEAS.Fluid.Production.Interfaces;
 partial model ModulationSecurity "Non physical down modulation of the power of a heat production when the fluid temperature approach its boundaries temperature 
   in order to reduce the number of events"
   parameter Boolean use_modulation_security=false
-    "Set to true if power modulation should be used to avoid exceeding temperature."
-                                                                                     annotation (Dialog(tab="Advanced", group="Events"));
+    "Set to true if power modulation should be used to avoid exceeding temperature." annotation (Dialog(tab="Advanced", group="Events"));
   parameter Modelica.SIunits.TemperatureDifference deltaT_security= if use_modulation_security then 1 else 5
     "Temperature difference from the boundary at which the security hysteresis will be released";
   parameter Modelica.SIunits.Temperature T_max=373.15

@@ -1,10 +1,11 @@
 within IDEAS.Fluid.Production;
 model HP_AirWater_TSet "Air-to-water heat pump with temperature set point"
 
+
   extends IDEAS.Fluid.Production.Interfaces.PartialDynamicHeaterWithLosses(
-      final heaterType=BaseClasses.HeaterType.HP_AW,
-    Tin(tau=120, allowFlowReversal=false),
-    senMasFlo(allowFlowReversal=false));
+    final allowFlowReversal=false);
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
+    annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
 
   parameter Modelica.SIunits.Power QDesign=0
     "Overrules QNom if different from 0. Design heat load, typically at -8 or -10 degC in Belgium.  ";
@@ -13,13 +14,16 @@ model HP_AirWater_TSet "Air-to-water heat pump with temperature set point"
   parameter Real betaFactor=0.8 "Relative sizing compared to design heat load";
   final parameter SI.Power QNomFinal=if QDesign == 0 then QNom else QDesign/
       fraLosDesNom*betaFactor "Used nominal power in the heatSource model";
-
+  parameter Real modulation_min=20 "Minimal modulation percentage";
+  parameter Real modulation_start=35
+    "Min estimated modulation level required for start of HP";
   Real COP "Instanteanous COP";
 
   Real modulation(max=100) = IDEAS.Utilities.Math.Functions.smoothMax(0, heatSource.modulation, 1)
     "Current modulation percentage";
 
-  IDEAS.Fluid.Production.BaseClasses.HeatSource_HP_AW heatSource(
+  replaceable IDEAS.Fluid.Production.BaseClasses.HeatSource_HP_AW heatSource
+  constrainedby IDEAS.Fluid.Production.BaseClasses.HeatSource_HP_AW2(
     final QNom=QNomFinal,
     final TEvaporator=sim.Te,
     final TEnvironment=heatPort.T,
@@ -29,44 +33,37 @@ model HP_AirWater_TSet "Air-to-water heat pump with temperature set point"
     final hIn=inStream(port_a.h_outflow),
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-60,-16},{-40,4}})));
-  outer IDEAS.BoundaryConditions.SimInfoManager sim
-    annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
 
-public
-  parameter Real modulation_min=20 "Minimal modulation percentage";
-  parameter Real modulation_start=35
-    "Min estimated modulation level required for start of HP";
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
     annotation (Placement(transformation(extent={{-20,-16},{0,4}})));
   Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=true)
-    annotation (Placement(transformation(extent={{-42,48},{-22,68}})));
+    annotation (Placement(transformation(extent={{-40,20},{-60,40}})));
 equation
-  PFuel = 0;
   PEl = heatSource.PEl;
-  COP = if noEvent(PEl > 0) then pipe_HeatPort.heatPort.Q_flow/PEl else 0;
+  COP =if noEvent(PEl > 0) then vol.heatPort.Q_flow/PEl else 0;
 
   connect(TSet, heatSource.TCondensor_set) annotation (Line(
       points={{-106,0},{-84,0},{-84,-6},{-60,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senMasFlo.m_flow, heatSource.m_flowCondensor) annotation (Line(
-      points={{60,-49},{60,-38},{-52,-38},{-52,-16}},
+      points={{40,-49},{40,-38},{-52,-38},{-52,-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tin.T, heatSource.TCondensor_in) annotation (Line(
-      points={{80,-49},{80,-42},{-55,-42},{-55,-16}},
+      points={{70,-49},{70,-42},{-55,-42},{-55,-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatSource.heatPort, heatFlowSensor.port_a) annotation (Line(
       points={{-40,-6},{-20,-6}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(heatFlowSensor.port_b, pipe_HeatPort.heatPort) annotation (Line(
-      points={{0,-6},{16,-6},{16,-10},{30,-10}},
+  connect(heatFlowSensor.port_b, vol.heatPort) annotation (Line(
+      points={{0,-6},{16,-6},{16,-20},{10,-20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(booleanExpression.y, heatSource.on) annotation (Line(
-      points={{-21,58},{-76,58},{-76,-3},{-60,-3}},
+      points={{-61,30},{-76,30},{-76,-3},{-60,-3}},
       color={255,0,255},
       smooth=Smooth.None));
   annotation (
@@ -221,6 +218,11 @@ equation
 <p>A specific heat pump example is given in <a href=\"modelica://IDEAS.Thermal.Components.Examples.HeatPump_AirWater\">IDEAS.Thermal.Components.Examples.HeatPump_AirWater</a>.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
 <li>2014 March, Filip Jorissen, Annex60 compatibility</li>
 <li>2013 May, Roel De Coninck: propagation of heatSource parameters and better definition of QNom used.  Documentation and example added</li>
 <li>2011 Roel De Coninck: first version</li>

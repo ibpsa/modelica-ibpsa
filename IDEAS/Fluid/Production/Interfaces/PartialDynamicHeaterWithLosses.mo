@@ -1,39 +1,30 @@
 within IDEAS.Fluid.Production.Interfaces;
-model PartialDynamicHeaterWithLosses
+partial model PartialDynamicHeaterWithLosses
   "Partial heater model incl dynamics and environmental losses"
-  import IDEAS;
-
-  import IDEAS.Fluid.Production.BaseClasses.HeaterType;
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true, dp_nominal = 0);
 
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=293.15, redeclare
-      replaceable package Medium =
-        IDEAS.Media.Water);
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
+    T_start=293.15,
+    redeclare replaceable package Medium = IDEAS.Media.Water);
 
-public
-  parameter HeaterType heaterType
-    "Type of the heater, is used mainly for post processing";
   parameter Modelica.SIunits.Power QNom "Nominal power";
-
-  Modelica.SIunits.Power PFuel "Fuel consumption in watt";
   parameter Modelica.SIunits.Time tauHeatLoss=7200
     "Time constant of environmental heat losses";
   parameter Modelica.SIunits.Mass mWater=5 "Mass of water in the condensor";
   parameter Modelica.SIunits.HeatCapacity cDry=4800
     "Capacity of dry material lumped to condensor";
+  parameter SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
+  parameter SI.Pressure dp_nominal=0 "Pressure";
+  parameter Boolean dynamicBalance=true
+    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
+    annotation (Dialog(tab="Flow resistance"));
+  parameter Boolean homotopyInitialization=true "= true, use homotopy method"
+    annotation (Dialog(tab="Flow resistance"));
+  parameter Boolean allowFlowReversal=true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports."
+    annotation (Dialog(tab="Flow resistance"));
 
-  final parameter Modelica.SIunits.ThermalConductance UALoss=(cDry + mWater*
-      Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default,Medium.X_default)))/tauHeatLoss;
-
-protected
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalLosses(G=
-        UALoss) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,-70})));
-
-public
   Modelica.Blocks.Interfaces.RealInput TSet "Temperature setpoint"
                            annotation (Placement(
         transformation(extent={{-126,-20},{-86,20}}), iconTransformation(
@@ -46,15 +37,36 @@ public
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,-100})));
-  parameter SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
-  parameter SI.Pressure dp_nominal=0 "Pressure";
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "heatPort for thermal losses to environment"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
+        iconTransformation(extent={{-10,-110},{10,-90}})));
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare package Medium = Medium) "Fluid inlet"
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(
+    redeclare package Medium = Medium) "Fluid outlet"
+    annotation (Placement(transformation(extent={{90,50},{110,70}})));
+
+  final parameter Modelica.SIunits.ThermalConductance UALoss=mWater*vol.mSenFac/tauHeatLoss
+      "Thermal conductance, computed based on time constant and thermal mass";
 
 protected
-  IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(
+  final parameter Modelica.SIunits.Density rho_default=
+    Medium.density_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default) "Default medium density";
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalLosses(G=
+        UALoss) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,-70})));
+
+  IDEAS.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal,
-    m=mWater,
     energyDynamics=energyDynamics,
     massDynamics=massDynamics,
     p_start=p_start,
@@ -62,67 +74,57 @@ protected
     X_start=X_start,
     C_start=C_start,
     C_nominal=C_nominal,
-    dynamicBalance=dynamicBalance,
-    from_dp=from_dp,
-    linearizeFlowResistance=linearizeFlowResistance,
-    deltaM=deltaM,
-    homotopyInitialization=homotopyInitialization,
-    mSenFac= if mWater > Modelica.Constants.eps then 1 + cDry/Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))/mWater else 0)
-         annotation (Placement(
+    nPorts=2,
+    mSenFac=mSenFac*(1 + cDry/Medium.specificHeatCapacityCp(Medium.setState_pTX(
+        Medium.p_default,
+        Medium.T_default,
+        Medium.X_default))/mWater),
+    V=mWater/rho_default,
+    allowFlowReversal=allowFlowReversal)
+              "Mixing volume for heat injection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={40,-10})));
-public
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-        Medium) "Fluid inlet"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
-        Medium) "Fluid outlet"
-    annotation (Placement(transformation(extent={{90,50},{110,70}})));
+        origin={10,-10})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort Tin(redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal) "Inlet temperature"
-    annotation (Placement(transformation(extent={{90,-70},{70,-50}})));
-  parameter Boolean dynamicBalance=true
-    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
-    annotation (Dialog(tab="Flow resistance"));
-  parameter Boolean homotopyInitialization=true "= true, use homotopy method"
-    annotation (Dialog(tab="Flow resistance"));
-  IDEAS.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "heatPort for thermal losses to environment"
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
-        iconTransformation(extent={{-10,-110},{10,-90}})));
+      m_flow_nominal=m_flow_nominal,
+    tau=0,
+    allowFlowReversal=allowFlowReversal)
+                                     "Inlet temperature"
+    annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
+
+  IDEAS.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium,
+      allowFlowReversal=allowFlowReversal)
+    "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{50,-70},{30,-50}})));
+
 equation
+  assert(port_a.m_flow>-m_flow_nominal/1000, "Flow reversal in " + getInstanceName() + ". This is not supported.");
 
   connect(port_a, Tin.port_a) annotation (Line(
-      points={{100,-60},{90,-60}},
+      points={{100,-60},{80,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe_HeatPort.heatPort, thermalLosses.port_a) annotation (Line(
-      points={{30,-10},{1.77636e-015,-10},{1.77636e-015,-60}},
+  connect(vol.heatPort, thermalLosses.port_a) annotation (Line(
+      points={{10,-20},{1.77636e-15,-20},{1.77636e-15,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(Tin.port_b, senMasFlo.port_a) annotation (Line(
-      points={{70,-60},{70,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senMasFlo.port_b, pipe_HeatPort.port_a) annotation (Line(
-      points={{50,-60},{40,-60},{40,-20}},
+      points={{60,-60},{50,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(thermalLosses.port_b, heatPort) annotation (Line(
       points={{-1.77636e-015,-80},{-1.77636e-015,-100},{0,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(pipe_HeatPort.port_b, port_b) annotation (Line(
-      points={{40,0},{40,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+  connect(vol.ports[1], senMasFlo.port_b)
+    annotation (Line(points={{20,-12},{20,-60},{30,-60}},
+                                                 color={0,127,255}));
+  connect(vol.ports[2], port_b)
+    annotation (Line(points={{20,-8},{20,60},{100,60}}, color={0,127,255}));
                              annotation (
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
-          preserveAspectRatio=false), graphics),
+          preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=false)),
     Documentation(info="<html>
 <p><b>Description</b> </p>
@@ -149,6 +151,11 @@ equation
 <p>See the extensions, like the <a href=\"modelica://IDEAS.Thermal.Components.Production.IdealHeater\">IdealHeater</a>, the <a href=\"modelica://IDEAS.Thermal.Components.Production.Boiler\">Boiler</a> or <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_AWMod_Losses\">air-water heat pump</a></p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
 <li>2014 March, Filip Jorissen, Annex60 compatibility</li>
 </ul>
 </html>"));
