@@ -6,18 +6,6 @@ model MultipleBoreholesWithHeatPump
   MultipleBoreHoles multipleBoreholes(lenSim=lenSim, bfData=bfData,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-24,-48},{24,0}})));
-  Production.HeatPumpTset  heatPumpOnOff(
-    redeclare package MediumBrine = Medium,
-    redeclare package MediumFluid = Medium,
-    allowFlowReversal=false,
-    use_scaling=true,
-    redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA45
-      heatPumpData,
-    P_the_nominal=bfData.P_the_nominal/2)
-                     annotation (Placement(transformation(
-        extent={{-15,-17},{15,17}},
-        rotation=90,
-        origin={1,31})));
   Movers.Pump pump_pri(
     m=1,
     useInput=false,

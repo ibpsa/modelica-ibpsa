@@ -36,7 +36,7 @@ model MultipleBoreholesWithHeatPump
   Modelica.Fluid.Sources.Boundary_pT boundary(          redeclare package
       Medium = Medium, nPorts=1)
     annotation (Placement(transformation(extent={{-94,-68},{-74,-48}})));
-  IDEAS.Fluid.Production.HP_WaterWater_OnOff heatPumpOnOff(
+  IDEAS.Fluid.HeatPumps.HP_WaterWater_OnOff heatPumpOnOff(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     onOff=true,
@@ -44,7 +44,7 @@ model MultipleBoreholesWithHeatPump
     use_onOffSignal=true,
     P_the_nominal=bfData.PThe_nominal/2,
     redeclare
-      IDEAS.Fluid.Production.Data.PerformanceMaps.VitoCal300GBWS301dotA45
+      IDEAS.Fluid.HeatPumps.Data.PerformanceMaps.VitoCal300GBWS301dotA45
       heatPumpData,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                      annotation (Placement(transformation(
