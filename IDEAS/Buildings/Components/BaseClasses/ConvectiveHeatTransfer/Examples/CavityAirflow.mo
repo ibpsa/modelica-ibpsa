@@ -17,7 +17,7 @@ model CavityAirflow
     "Prescribed temperature for zone 1"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
-  IBPSA.Fluid.Sources.Boundary_pT bou1(
+  IDEAS.Fluid.Sources.Boundary_pT bou1(
     redeclare package Medium = Medium,
     nPorts=2,
     use_T_in=true) "Boundary representing zone 1"
@@ -27,7 +27,7 @@ model CavityAirflow
     height=4,
     offset=TZon2.k - 2) "Ramp temperature input"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  IBPSA.Fluid.Sources.Boundary_pT bou2(         redeclare package Medium =
+  IDEAS.Fluid.Sources.Boundary_pT bou2(         redeclare package Medium =
         Medium,
     use_T_in=true,
     nPorts=2) "Boundary representing zone 2"
@@ -37,14 +37,16 @@ model CavityAirflow
     annotation (Placement(transformation(extent={{72,-10},{52,10}})));
   Modelica.Blocks.Sources.Constant TZon2(k=273.15 + 22) "Temperature of zone 2"
     annotation (Placement(transformation(extent={{100,-10},{80,10}})));
-  IBPSA.Fluid.Sensors.EnthalpyFlowRate        senSpeEnt(
+  IDEAS.Fluid.Sensors.EnthalpyFlowRate senEnt2(
     redeclare package Medium = Medium,
     m_flow_nominal=0.1,
-    tau=0) annotation (Placement(transformation(extent={{26,-30},{14,-42}})));
-  IBPSA.Fluid.Sensors.EnthalpyFlowRate        senSpeEnt1(
+    tau=0) "Enthalpy flow rate sensor"
+    annotation (Placement(transformation(extent={{26,-30},{14,-42}})));
+  IDEAS.Fluid.Sensors.EnthalpyFlowRate senEnt1(
     redeclare package Medium = Medium,
     m_flow_nominal=0.1,
-    tau=0) annotation (Placement(transformation(extent={{18,-18},{30,-30}})));
+    tau=0) "Enthalpy flow rate sensor"
+    annotation (Placement(transformation(extent={{18,-18},{30,-30}})));
   Modelica.Blocks.Math.Add Q_flow(k2=-1)
     "Heat flow rate through detailed door model"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
@@ -66,21 +68,21 @@ equation
     annotation (Line(points={{-62,-26},{-72,-26},{-72,0}}, color={0,0,127}));
   connect(preTem2.port, cavityAirFlow.port_b)
     annotation (Line(points={{52,0},{30,0},{30,30},{10,30}}, color={191,0,0}));
-  connect(senSpeEnt1.port_a, doo.port_b1)
+  connect(senEnt1.port_a, doo.port_b1)
     annotation (Line(points={{18,-24},{10,-24}}, color={0,127,255}));
-  connect(senSpeEnt.port_b, doo.port_a2)
+  connect(senEnt2.port_b, doo.port_a2)
     annotation (Line(points={{14,-36},{10,-36}}, color={0,127,255}));
-  connect(senSpeEnt1.port_b, bou2.ports[1]) annotation (Line(points={{30,-24},{32,
+  connect(senEnt1.port_b, bou2.ports[1]) annotation (Line(points={{30,-24},{32,
           -24},{32,-28},{40,-28}}, color={0,127,255}));
-  connect(senSpeEnt.port_a, bou2.ports[2]) annotation (Line(points={{26,-36},{32,
+  connect(senEnt2.port_a, bou2.ports[2]) annotation (Line(points={{26,-36},{32,
           -36},{32,-32},{40,-32}}, color={0,127,255}));
   connect(bou2.T_in, preTem2.T)
     annotation (Line(points={{62,-26},{74,-26},{74,0}}, color={0,0,127}));
   connect(TZon2.y, preTem2.T)
     annotation (Line(points={{79,0},{74,0}}, color={0,0,127}));
-  connect(senSpeEnt.H_flow, Q_flow.u2)
+  connect(senEnt2.H_flow, Q_flow.u2)
     annotation (Line(points={{20,-42.6},{20,-76},{38,-76}}, color={0,0,127}));
-  connect(Q_flow.u1, senSpeEnt1.H_flow)
+  connect(Q_flow.u1, senEnt1.H_flow)
     annotation (Line(points={{38,-64},{24,-64},{24,-30.6}}, color={0,0,127}));
   connect(cavityAirFlowLin.port_a, preTem1.port)
     annotation (Line(points={{-10,0},{-50,0}}, color={191,0,0}));
@@ -97,7 +99,7 @@ equation
 This model compares the implementation of 
 <a href=\"IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.CavityAirflow\">
 IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.CavityAirflow</a>
-to the more detailed version of IBPSA.
+to the more detailed version of IDEAS.
 </p>
 <p>
 Result differences may be larger when the simplified assumptions of
