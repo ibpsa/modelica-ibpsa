@@ -79,12 +79,16 @@ protected
     "Time derivative of g/(2*pi*H*ks) within most recent cell";
 protected
   Modelica.SIunits.HeatFlowRate QTot = Tb.Q_flow*borFieDat.conDat.nbBh "Totat heat flow from all boreholes";
+  Modelica.SIunits.Heat U "Accumulated heat flow from all boreholes";
+  discrete Modelica.SIunits.Heat UOld "Accumulated heat flow from all boreholes at last aggregation step";
 initial equation
   Q_i = zeros(i);
   curCel = 1;
   deltaTb = 0;
   Q_shift = Q_i;
   delTbs = 0;
+  U = 0;
+  UOld = 0;
 
   (nu,rCel) = LoadAggregation.timAgg(
     i=i,
@@ -106,6 +110,7 @@ initial equation
 equation
   der(deltaTb) = dhdt*QTot + derDelTbs;
   deltaTb = Tb.T-Tg;
+  der(U) = QTot;
 
   when (sample(t0, tLoaAgg)) then
     (curCel,Q_shift) = LoadAggregation.nextTimeStep(
@@ -115,9 +120,10 @@ equation
       nu=nu,
       curTim=(time - t0));
 
+    UOld = U;
     Q_i = LoadAggregation.setCurLoa(
       i=i,
-      Qb=QTot,
+      Qb=(U-pre(UOld))/tLoaAgg,
       Q_shift=Q_shift);
 
     delTbs = LoadAggregation.tempSuperposition(
