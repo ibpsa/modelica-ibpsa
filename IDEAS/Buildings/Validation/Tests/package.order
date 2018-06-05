@@ -14,9 +14,9 @@ Case930
 Case940
 Case950
 Case950FF
-ViewFactorVerification
+ConvectionVerification
 EnergyConservationValidation
 SolarBusValidation
-ConvectionVerification
+ViewFactorVerification
 ZoneTemplateVerification
 ZoneTemplateVerification2
