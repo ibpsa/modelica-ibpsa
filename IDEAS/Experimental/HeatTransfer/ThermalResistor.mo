@@ -1,4 +1,4 @@
-within IDEAS.HeatTransfer;
+within IDEAS.Experimental.HeatTransfer;
 model ThermalResistor
   "Lumped thermal element transporting heat without storing it"
   extends Modelica.Thermal.HeatTransfer.Interfaces.Element1D;

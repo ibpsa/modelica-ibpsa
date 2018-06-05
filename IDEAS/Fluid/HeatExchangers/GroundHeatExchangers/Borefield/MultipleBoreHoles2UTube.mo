@@ -1,4 +1,4 @@
-﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
+within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
 model MultipleBoreHoles2UTube
   "Borefield model using double U-tube borehole heat exchanger configuration."
 

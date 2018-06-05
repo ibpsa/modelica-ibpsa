@@ -1,4 +1,4 @@
-within IDEAS.HeatTransfer;
+within IDEAS.Experimental.HeatTransfer;
 model HeatCapacitor "Lumped thermal element storing heat"
   parameter Modelica.SIunits.HeatCapacity C "Heat capacity of element (= cp*m)";
   parameter Boolean outputE = false;

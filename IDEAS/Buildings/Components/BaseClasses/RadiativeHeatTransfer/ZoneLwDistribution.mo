@@ -1,4 +1,4 @@
-﻿within IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer;
+within IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer;
 model ZoneLwDistribution "internal longwave radiative heat exchange"
 
   parameter Integer nSurf(min=1) "Number of surfaces connected to the zone";

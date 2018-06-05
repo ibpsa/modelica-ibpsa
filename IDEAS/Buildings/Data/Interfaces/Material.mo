@@ -1,12 +1,9 @@
 within IDEAS.Buildings.Data.Interfaces;
 record Material "Template record for properties of building materials"
 
-  extends Modelica.Icons.MaterialProperty;
+  extends IDEAS.Buildings.Data.Interfaces.BasicMaterial;
 
   parameter Modelica.SIunits.Length d=0 "Layer thickness";
-  parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
-  parameter Modelica.SIunits.SpecificHeatCapacity c "Specific thermal capacity";
-  parameter Modelica.SIunits.Density rho "Density";
   parameter Modelica.SIunits.Emissivity epsLw = 0.85 "Longwave emisivity";
   parameter Modelica.SIunits.Emissivity epsSw = 0.85 "Shortwave emissivity";
   parameter Boolean gas=false "Boolean whether the material is a gas"
