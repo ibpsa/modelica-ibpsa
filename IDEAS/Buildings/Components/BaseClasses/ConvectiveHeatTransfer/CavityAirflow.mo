@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer;
-model CavityAirFlow "Model for air flow through a cavity"
+model CavityAirflow "Model for air flow through a cavity"
   parameter Boolean linearise = false
     "=true, to linearise the relation between heat flow rate and temperature difference";
 
@@ -102,4 +102,4 @@ Only thermal effects are modelled: there is no mass transport of air or moisture
 The influence of the cavity on the radiative heat exchange is not modelled.
 </p>
 </html>"));
-end CavityAirFlow;
+end CavityAirflow;

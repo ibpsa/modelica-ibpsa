@@ -89,7 +89,7 @@ protected
   Modelica.Blocks.Sources.Constant E0(final k=0)
     "All internal energy is assigned to right side";
 
-  BaseClasses.ConvectiveHeatTransfer.CavityAirFlow
+  BaseClasses.ConvectiveHeatTransfer.CavityAirflow
                                         theConDoor(
     linearise=sim.linearise or linIntCon_a or linIntCon_b,
     h=h,

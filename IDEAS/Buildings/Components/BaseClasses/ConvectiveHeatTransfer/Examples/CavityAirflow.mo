@@ -5,7 +5,7 @@ model CavityAirflow
 
   Real m_flow_door = cavityAirFlow.G/cavityAirFlow.c_p
     "Derived mass flow rate for easier comparison to detailed model";
-  CavityAirFlow cavityAirFlow(h=doo.hOpe, w=doo.wOpe)
+  IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.CavityAirflow cavityAirFlow(h=doo.hOpe, w=doo.wOpe)
     "Model for flow through a cavity or open door"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Airflow.Multizone.DoorDiscretizedOpen doo(redeclare package Medium = Medium,
@@ -48,7 +48,7 @@ model CavityAirflow
   Modelica.Blocks.Math.Add Q_flow(k2=-1)
     "Heat flow rate through detailed door model"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  CavityAirFlow cavityAirFlowLin(
+  IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.CavityAirflow cavityAirFlowLin(
     h=doo.hOpe,
     w=doo.wOpe,
     linearise=true) "Linear version of open door model"
@@ -95,14 +95,14 @@ equation
     Documentation(info="<html>
 <p>
 This model compares the implementation of 
-<a href=\"IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.CavityAirFlow\">
-IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.CavityAirFlow</a>
+<a href=\"IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.CavityAirflow\">
+IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.CavityAirflow</a>
 to the more detailed version of IBPSA.
 </p>
 <p>
 Result differences may be larger when the simplified assumptions of
-<a href=\"IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.CavityAirFlow\">
-IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.CavityAirFlow</a>
+<a href=\"IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.CavityAirflow\">
+IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.CavityAirflow</a>
 are not obtained.
 </p>
 </html>", revisions="<html>
