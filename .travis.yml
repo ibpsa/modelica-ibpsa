@@ -40,8 +40,10 @@ before_install:
   - sudo cp IBPSA/Resources/Scripts/travis/usr/local/bin/jm_ipython.sh /usr/local/bin/
   - sudo chmod +x /usr/local/bin/dymola
   - sudo chmod +x /usr/local/bin/jm_ipython.sh
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  - if [[ "$TEST_ARG" == *test-dymola* ]];    then docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2018fd01-x86_64; fi;
+  - if [[ "$TEST_ARG" == *test-dymola* ]]; then \
+       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && \
+       docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2018fd01-x86_64; \
+    fi;
   - if [[ "$TEST_ARG" == *test-jmodelica* ]]; then docker pull "$DOCKER_USERNAME"/ubuntu-1604_jmodelica_trunk;               fi;
 
 # Install dependencies
