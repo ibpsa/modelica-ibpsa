@@ -7,19 +7,12 @@ partial model VentilationSystem
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
       annotation (choicesAllMatching = true);
-
-  // Building characteristics  //////////////////////////////////////////////////////////////////////////
-
   parameter Integer nZones(min=1)
     "Number of conditioned thermal building zones";
-  parameter Integer nLoads(min=0) = 1 "Number of electric loads";
   parameter Real[nZones] VZones "Conditioned volumes of the zones";
 
   parameter Modelica.SIunits.Power[ nZones] Q_design=zeros(nZones)
     "Design heat loss due to ventilation";//must be calculated depending on the case
-
-  // Interfaces  ///////////////////////////////////////////////////////////////////////////////////////
-
   Modelica.Blocks.Interfaces.RealInput[nZones] TSensor(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
     "Sensor temperature of the zones" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},

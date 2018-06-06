@@ -22,8 +22,6 @@ model Ideal
   Modelica.Blocks.Sources.Constant TSet_val[nZones](k=TSet)
     annotation (Placement(transformation(extent={{-122,2},{-142,22}})));
 equation
-  P[1:nLoads_min] = zeros(nLoads_min);
-  Q[1:nLoads_min] = zeros(nLoads_min);
 
   connect(port_b[:], sou[:].ports[1]);
   connect(port_a[:], sink[:].ports[1]);
