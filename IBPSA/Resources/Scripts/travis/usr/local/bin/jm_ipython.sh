@@ -37,6 +37,7 @@ sha_dir=`dirname ${cur_dir}`
 arg_lis=`echo $@ | sed -e "s|${cur_dir}|.|g"`
 
 docker run \
+    -u 2000 \
 	--detach=false \
     ${MOD_MOUNT} \
     -v ${sha_dir}:/mnt/shared \
