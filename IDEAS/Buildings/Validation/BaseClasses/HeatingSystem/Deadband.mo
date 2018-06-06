@@ -30,5 +30,13 @@ equation
 
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
-            -100},{200,100}}), graphics));
+            -100},{200,100}}), graphics), Documentation(revisions="<html>
+<ul>
+<li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
+</ul>
+</html>"));
 end Deadband;

@@ -3,7 +3,8 @@ model ConstantAirFlowRecup
   "Ventilation System with constant airflow rate and recuperation efficiency"
 
   extends IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem(
-                                                         nLoads=1);
+    P = sum(n .* VZones/3600)*sysPres/fanEff/motEff / nLoads_min .*ones(nLoads_min),
+    nLoads=1);
 
   parameter Real[nZones] n(unit="m3/h")
     "Air change rate (Air changes per hour ACH)";
@@ -56,8 +57,6 @@ model ConstantAirFlowRecup
   Modelica.Blocks.Sources.RealExpression[nZones] realExpressionPump(y=pump.m_flow_nominal)
     annotation (Placement(transformation(extent={{-40,-60},{-60,-40}})));
 equation
-  P[1:nLoads_min] = sum(n .* VZones/3600)*sysPres/fanEff/motEff / nLoads_min .*ones(nLoads_min);
-  Q[1:nLoads_min] = zeros(nLoads_min);
 
   for i in 1:nZones loop
     connect(pump[i].port_a, hex.port_b2) annotation (Line(
@@ -97,5 +96,14 @@ equation
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{200,100}}), graphics), Icon(coordinateSystem(extent={{-200,
-            -100},{200,100}})));
+            -100},{200,100}})),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
+</ul>
+</html>"));
 end ConstantAirFlowRecup;

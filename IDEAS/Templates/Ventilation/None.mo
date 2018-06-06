@@ -29,5 +29,14 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{200,100}}), graphics), Icon(coordinateSystem(extent={{-200,
-            -100},{200,100}})));
+            -100},{200,100}})),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
+</ul>
+</html>"));
 end None;

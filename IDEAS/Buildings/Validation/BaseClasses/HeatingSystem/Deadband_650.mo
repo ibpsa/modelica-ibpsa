@@ -29,6 +29,11 @@ equation
             -100},{200,100}}), graphics), Documentation(revisions="<html>
 <ul>
 <li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
+<li>
 January 14, 2017 by Filip Jorissen:<br/>
 Added upper bound for cooling power to avoid 
 non-linear algebraic loop without solution in electric grid.
