@@ -1,6 +1,9 @@
 dist: trusty
 sudo: required
 
+env:
+  - PATH=${PATH}:${TRAVIS_BUILD_DIR}/ibpsa/modelica-ibpsa/IBPSA/Resources/Scripts/travis/bin
+
 language: python
 python:
   - "2.7"
@@ -36,12 +39,10 @@ before_install:
   - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   - sudo apt-get update
   - sudo apt-get -y install docker-ce
-  - sudo cp IBPSA/Resources/Scripts/travis/usr/local/bin/dymola /usr/local/bin/
-  - sudo cp IBPSA/Resources/Scripts/travis/usr/local/bin/jm_ipython.sh /usr/local/bin/
-  - sudo chmod +x /usr/local/bin/dymola
-  - sudo chmod +x /usr/local/bin/jm_ipython.sh
+  - chmod +x IBPSA/Resources/Scripts/travis/bin/dymola
+  - chmod +x IBPSA/Resources/Scripts/travis/bin/jm_ipython.sh
   - if [[ "$TEST_ARG" == *test-dymola* ]]; then
-       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2018fd01-x86_64; 
+       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2018fd01-x86_64;
     fi;
   - if [[ "$TEST_ARG" == *test-jmodelica* ]]; then
        docker pull "$DOCKER_USERNAME"/ubuntu-1604_jmodelica_trunk;
