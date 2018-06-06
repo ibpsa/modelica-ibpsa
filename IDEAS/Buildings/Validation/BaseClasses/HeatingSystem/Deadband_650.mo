@@ -24,12 +24,7 @@ equation
     heatPortRad[i].Q_flow = 0;
   end for;
 
-  QHeaSys = sum(heatPortRad.Q_flow) + sum(heatPortCon.Q_flow) + sum(
-    heatPortEmb.Q_flow);
-
-  P = {QHeaSys};
-  Q = {0};
-
+  heatPortEmb.Q_flow = zeros(nEmbPorts);
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
             -100},{200,100}}), graphics), Documentation(revisions="<html>
 <ul>

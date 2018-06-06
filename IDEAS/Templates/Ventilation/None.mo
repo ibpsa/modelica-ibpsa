@@ -17,8 +17,6 @@ model None "No ventilation"
   Modelica.Blocks.Sources.Constant TSet_val[nZones](each k=273.15+20)
     annotation (Placement(transformation(extent={{-114,0},{-134,20}})));
 equation
-  P[1:nLoads_min] = zeros(nLoads_min);
-  Q[1:nLoads_min] = zeros(nLoads_min);
   connect(port_b[:], sou[:].ports[1]);
   connect(port_a[:], sink[:].ports[1]);
   connect(sou.m_flow_in,m_flow_val. y) annotation (Line(
