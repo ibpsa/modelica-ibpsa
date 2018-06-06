@@ -1,9 +1,6 @@
 dist: trusty
 sudo: required
 
-env:
-  - PATH=${PATH}:${TRAVIS_BUILD_DIR}/ibpsa/modelica-ibpsa/IBPSA/Resources/Scripts/travis/bin
-
 language: python
 python:
   - "2.7"
@@ -40,7 +37,9 @@ before_install:
   - sudo apt-get update
   - sudo apt-get -y install docker-ce
   - chmod +x IBPSA/Resources/Scripts/travis/bin/dymola
+  - cp IBPSA/Resources/Scripts/travis/bin/dymola $HOME/bin/
   - chmod +x IBPSA/Resources/Scripts/travis/bin/jm_ipython.sh
+  - cp IBPSA/Resources/Scripts/travis/bin/jm_ipython.sh $HOME/bin/
   - if [[ "$TEST_ARG" == *test-dymola* ]]; then
        docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2018fd01-x86_64;
     fi;
