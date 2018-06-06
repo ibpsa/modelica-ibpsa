@@ -8,11 +8,10 @@ sha_dir=`dirname ${cur_dir}`
 # replace it with . as the docker may have a different file structure
 arg_lis=`echo $@ | sed -e "s|${cur_dir}|.|g"`
 docker run \
-	  -u ${UID} \
+	  --user=${UID} \
 	  --mac-address=${MAC_ADDRESS} \
 	  --detach=false \
 	  --rm \
-	  --user=developer \
 	  -v ${sha_dir}:/mnt/shared \
 	  ${DOCKER_USERNAME}/travis_ubuntu-1604_dymola-2018fd01-x86_64 /bin/bash -c \
 	  "Xvfb :77  -extension RANDR -extension GLX & \
