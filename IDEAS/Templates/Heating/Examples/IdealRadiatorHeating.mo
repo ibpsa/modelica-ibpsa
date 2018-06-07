@@ -1,8 +1,8 @@
 within IDEAS.Templates.Heating.Examples;
 model IdealRadiatorHeating "Example and test for ideal heating with radiators"
-  import IDEAS;
   extends Modelica.Icons.Example;
   final parameter Integer nZones = 1 "Number of zones";
+  replaceable
   IDEAS.Templates.Heating.IdealRadiatorHeating heating(
     final nZones=nZones,
     QNom={20000 for i in 1:nZones},
