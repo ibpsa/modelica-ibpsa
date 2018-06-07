@@ -23,7 +23,7 @@ env:
   - TEST_ARG="make test-dymola    PACKAGE=\"IDEAS.Fluid.{HeatExchangers,HeatPumps,Interfaces,MassExchangers,MixingVolumes,Movers,Sensors,Sources,Storage}\""
   - TEST_ARG="make test-dymola    PACKAGE=\"IDEAS.ThermalZones\""
   - TEST_ARG="make test-dymola    PACKAGE=\"IDEAS.{Airflow,BoundaryConditions,Controls}\""
-  - TEST_ARG="make test-dymola    PACKAGE=\"IDEAS.{Media,Utilities}\""
+  - TEST_ARG="make test-dymola    PACKAGE=\"IDEAS.{Media,Utilities,Templates}\""
   - TEST_ARG="make test-dymola    PACKAGE=\"IDEAS.Buildings\""  
   - TEST_ARG="make test-dymola    PACKAGE=\"IDEAS.Examples\""   
 
