@@ -28,13 +28,13 @@ This is a model of a stratified storage tank.
 </p>
 <p>
 See the
-<a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">
+<a href=\"modelica://IBPSA.Fluid.Storage.UsersGuide\">
 Buildings.Fluid.Storage.UsersGuide</a>
 for more information.
 </p>
 <p>
 For a model with enhanced stratification, use
-<a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
+<a href=\"modelica://IBPSA.Fluid.Storage.StratifiedEnhanced\">
 Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>

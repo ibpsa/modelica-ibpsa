@@ -184,7 +184,7 @@ equation
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-300,-140},{260,140}})),
        __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedUnloadAtMinimumTemperature.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedUnloadAtMinimumTemperature.mos"
         "Simulate and plot"),
     experiment(
       StopTime=21600,

@@ -144,7 +144,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation(experiment(Tolerance=1e-08, StopTime=10800),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/Stratified.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Storage/Examples/Stratified.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This test model compares two tank models. The only difference between

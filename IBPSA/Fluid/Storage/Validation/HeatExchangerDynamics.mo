@@ -118,7 +118,7 @@ equation
   connect(mWatTanSte_flow.ports[1], tanSte.port_b)
     annotation (Line(points={{68,-10},{52,-10}}, color={0,127,255}));
   annotation (
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerDynamics.mos"
+  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerDynamics.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This validation model compares two tank models. The only difference between

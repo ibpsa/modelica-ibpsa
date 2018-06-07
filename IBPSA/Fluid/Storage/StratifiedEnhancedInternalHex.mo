@@ -241,7 +241,7 @@ This is a model of a stratified storage tank for thermal energy storage with bui
 </p>
 <p>
 See the
-<a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">
+<a href=\"modelica://IBPSA.Fluid.Storage.UsersGuide\">
 Buildings.Fluid.Storage.UsersGuide</a>
 for more information.
 </p>

@@ -144,7 +144,7 @@ equation
       points={{41,90},{90,90},{90,-22},{78,-22}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (                     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedLoadingUnloading.mos"
+  annotation (                     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedLoadingUnloading.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This test model compares two tank models. The only difference between

@@ -4,7 +4,7 @@ package Examples "Examples for BaseClasses models"
 
 annotation(Documentation(info="<html>
 <p>
-This package contains examples for models found in <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses\">
+This package contains examples for models found in <a href=\"modelica://IBPSA.Fluid.Storage.BaseClasses\">
 Buildings.Fluid.Storage.BaseClasses</a>.
 </p>
 </html>"));

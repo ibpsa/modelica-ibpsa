@@ -98,7 +98,7 @@ equation
   connect(tan_bTop.port_b, mWatTanSte_flow.ports[1])
     annotation (Line(points={{60,-48},{72,-48}}, color={0,127,255}));
   annotation (
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerLocation.mos"
+  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerLocation.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

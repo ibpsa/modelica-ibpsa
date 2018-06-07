@@ -109,9 +109,9 @@ created when connecting fluid volumes in series.
 </p>
 <p>
 The model is used in conjunction with
-<a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
+<a href=\"modelica://IBPSA.Fluid.Storage.Stratified\">
 Buildings.Fluid.Storage.Stratified</a>.
-It computes a heat flux that needs to be added to each volume of <a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
+It computes a heat flux that needs to be added to each volume of <a href=\"modelica://IBPSA.Fluid.Storage.Stratified\">
 Buildings.Fluid.Storage.Stratified</a> in order to give the results that a third-order upwind discretization scheme (QUICK) would give.
 </p>
 <p>
@@ -130,7 +130,7 @@ Both approaches are implemented in the model.
 </p>
 <p>
 The model is used by
-<a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
+<a href=\"modelica://IBPSA.Fluid.Storage.StratifiedEnhanced\">
 Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 <h4>Limitations</h4>

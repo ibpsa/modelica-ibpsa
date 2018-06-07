@@ -12,7 +12,7 @@ There are three storage tank models in the this package.
 <tr><th>Model name</th>       <th>Description</th>     </tr>
 <tr>
 <td>
-<a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
+<a href=\"modelica://IBPSA.Fluid.Storage.Stratified\">
 Buildings.Fluid.Storage.Stratified</a>
 </td>
 <td>
@@ -21,7 +21,7 @@ This is a model of a stratified storage tank as shown in the figure below.
 </p>
 <p align=\"center\">
 <img alt=\"Image of a storage tank\"
-src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Stratified.png\"
+src=\"modelica://IBPSA/Resources/Images/Fluid/Storage/Stratified.png\"
 width=\"387\" height=\"453\"/>
 </p>
 <p>
@@ -63,13 +63,13 @@ to another one.
 </tr>
 <tr>
 <td>
-<a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
+<a href=\"modelica://IBPSA.Fluid.Storage.StratifiedEnhanced\">
 Buildings.Fluid.Storage.StratifiedEnhanced</a>
 </td>
 <td>
 <p>
 The model is identical to
-<a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
+<a href=\"modelica://IBPSA.Fluid.Storage.Stratified\">
 Buildings.Fluid.Storage.Stratified</a>,
 except for the following:
 </p>
@@ -86,20 +86,20 @@ connect from the outside to the individual volumes.
 The correction uses a third order upwind scheme to compute the
 outlet temperatures of the segments in the tank. This model
 is implemented in
-<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
+<a href=\"modelica://IBPSA.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
 Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </p>
 </td>
 </tr>
 <tr>
 <td>
-<a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
+<a href=\"modelica://IBPSA.Fluid.Storage.StratifiedEnhancedInternalHex\">
 Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a>
 </td>
 <td>
 <p>
 This model is identical to
-<a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
+<a href=\"modelica://IBPSA.Fluid.Storage.StratifiedEnhanced\">
 Buildings.Fluid.Storage.StratifiedEnhanced</a>
 except that it adds a heat exchanger to the tank.
 </p>
@@ -133,7 +133,7 @@ are connected.
 </p>
 <p align=\"center\">
 <img alt=\"Image of a storage tank\"
-src=\"modelica://Buildings/Resources/Images/Fluid/Storage/StratifiedHex.png\"
+src=\"modelica://IBPSA/Resources/Images/Fluid/Storage/StratifiedHex.png\"
 width=\"458\" height=\"456\"/>
 </p>
 <p>

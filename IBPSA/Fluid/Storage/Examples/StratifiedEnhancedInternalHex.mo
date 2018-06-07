@@ -151,13 +151,13 @@ equation
   connect(step.y, solColSup.p_in)
     annotation (Line(points={{-59,48},{-52,48},{-42,48}}, color={0,0,127}));
   annotation ( __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedEnhancedInternalHex.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedEnhancedInternalHex.mos"
         "Simulate and plot"),
 experiment(Tolerance=1e-6, StopTime=1200),
 Documentation(info="<html>
 <p>
 This model provides an example for the
-<a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
+<a href=\"modelica://IBPSA.Fluid.Storage.StratifiedEnhancedInternalHex\">
 Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> model.
 There are three tanks.
 In the tank on top, the fluid in the heat exchanger and the metal of the
@@ -186,7 +186,7 @@ September 28, 2015 by Michael Wetter:<br/>
 Changed medium in heat exchanger from
 <a href=\"modelica://Modelica.Media.Incompressible.Examples.Glycol47\">
 Modelica.Media.Incompressible.Examples.Glycol47</a> to
-<a href=\"modelica://Buildings.Media.Water\">
+<a href=\"modelica://IBPSA.Media.Water\">
 Buildings.Media.Water</a>
 to avoid numerical derivative in regression tests.
 </li>

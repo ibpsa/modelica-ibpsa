@@ -55,13 +55,13 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (__Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/BaseClasses/Examples/IndirectTankHeatExchanger.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Storage/BaseClasses/Examples/IndirectTankHeatExchanger.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-6, StopTime=15),
 Documentation(info="<html>
 <p>
 This model provides an example of how the
-<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\">
+<a href=\"modelica://IBPSA.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\">
 Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a>
 model is used. In the model water flows from a flow source through
 the heat exchanger to a low pressure environment. The stagnant fluid on the outside

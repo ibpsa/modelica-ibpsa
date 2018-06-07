@@ -190,7 +190,7 @@ This is a partial model of a stratified storage tank.
 </p>
 <p>
 See the
-<a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">
+<a href=\"modelica://IBPSA.Fluid.Storage.UsersGuide\">
 Buildings.Fluid.Storage.UsersGuide</a>
 for more information.
 </p>
@@ -199,7 +199,7 @@ for more information.
 This model does not include the ports that connect to the fluid from
 the outside, because these ports cannot be used for the models that
 contain the
-<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
+<a href=\"modelica://IBPSA.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
 Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </p>
 </html>", revisions="<html>
