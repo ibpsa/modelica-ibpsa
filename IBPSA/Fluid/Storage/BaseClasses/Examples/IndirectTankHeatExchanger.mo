@@ -32,7 +32,7 @@ model IndirectTankHeatExchanger
     redeclare package Medium = Medium,
     T=323.15) annotation (Placement(transformation(extent={{-72,34},{-52,54}})));
 
-  Buildings.HeatTransfer.Sources.FixedTemperature watTem[3](each T=293.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature watTem[3](each T=293.15)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
