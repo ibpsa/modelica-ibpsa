@@ -111,6 +111,12 @@ extends from element <i>9</i> to element <i>11</i>.
 </html>", revisions="<html>
 <ul>
 <li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+<li>
 July 5, 2017, by Michael Wetter:<br/>
 Added zero mass flow rate boundary conditions to avoid a translation error in Dymola 2018.<br/>
 This is for

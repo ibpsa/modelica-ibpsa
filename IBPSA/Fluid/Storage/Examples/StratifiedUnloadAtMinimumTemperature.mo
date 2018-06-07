@@ -192,6 +192,13 @@ tank if the top tank segment is below the set point temperature.
 </html>", revisions="<html>
 <ul>
 <li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly
+by removing CDL blocks.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+<li>
 June 1, 2018, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1182\">

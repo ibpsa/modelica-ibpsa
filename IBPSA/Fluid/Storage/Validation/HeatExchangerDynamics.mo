@@ -90,10 +90,10 @@ model HeatExchangerDynamics
     annotation (Placement(transformation(extent={{88,-20},{68,0}})));
 equation
   connect(mHex_flow_in.y, mHex_flow1.m_flow_in) annotation (Line(
-      points={{-79,20},{-70,20},{-70,28},{-60,28}},
+      points={{-79,20},{-70,20},{-70,28},{-62,28}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(mHex_flow2.m_flow_in, mHex_flow_in.y) annotation (Line(points={{-60,-2},
+  connect(mHex_flow2.m_flow_in, mHex_flow_in.y) annotation (Line(points={{-62,-2},
           {-70,-2},{-70,20},{-79,20}}, color={0,0,127}));
   connect(mHex_flow2.ports[1], tanSte.portHex_a) annotation (Line(points={{-40,-10},
           {-32,-10},{-30,-10},{-30,-13.8},{32,-13.8}},  color={0,127,255}));
@@ -129,6 +129,12 @@ the design flow rate and back to zero to test the model under conditions in
 which no water flows through the heat exchanger.
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
 <li>
 July 5, 2017, by Michael Wetter:<br/>
 Added zero mass flow rate boundary conditions to avoid a translation error in Dymola 2018.<br/>

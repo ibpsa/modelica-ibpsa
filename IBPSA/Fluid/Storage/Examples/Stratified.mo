@@ -151,5 +151,14 @@ This test model compares two tank models. The only difference between
 the two tank models is that one uses the third order upwind discretization
 scheme that reduces numerical diffusion that is induced when connecting
 volumes in series.
+</html>", revisions="<html>
+<ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+</ul>
 </html>"));
 end Stratified;

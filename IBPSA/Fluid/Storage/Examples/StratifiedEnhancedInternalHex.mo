@@ -176,6 +176,12 @@ mass flow rate, and is set to its design flow rate at <i>t=300</i> seconds.
 revisions="<html>
 <ul>
 <li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is

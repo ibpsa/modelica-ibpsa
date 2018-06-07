@@ -55,12 +55,12 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
         Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{-60,-38},{-44,-22}})));
-  IBPSA.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
+  IBPSA.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{22,-38},{38,-22}})));
-  IBPSA.Fluid.Sensors.EnthalpyFlowRate HInEnh_flow(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
+  IBPSA.Fluid.Sensors.EnthalpyFlowRate HInEnh_flow(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{-60,0},{-44,16}})));
   IBPSA.Fluid.Sensors.EnthalpyFlowRate HOutEnh_flow(redeclare package
@@ -137,11 +137,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(pulse.y, sin_1.m_flow_in) annotation (Line(
-      points={{41,90},{92,90},{92,16},{78,16}},
+      points={{41,90},{92,90},{92,16},{80,16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pulse.y, sin_2.m_flow_in) annotation (Line(
-      points={{41,90},{90,90},{90,-22},{78,-22}},
+      points={{41,90},{90,90},{90,-22},{80,-22}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (                     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedLoadingUnloading.mos"
@@ -151,6 +151,15 @@ This test model compares two tank models. The only difference between
 the two tank models is that one uses the third order upwind discretization
 scheme that reduces numerical diffusion that is induced when connecting
 volumes in series.
+</html>", revisions="<html>
+<ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+</ul>
 </html>"),
     experiment(Tolerance=1e-6, StopTime=14400));
 end StratifiedLoadingUnloading;

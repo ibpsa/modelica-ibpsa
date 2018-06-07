@@ -48,6 +48,12 @@ associated with the buoyancy induced mass flow rate.
 </html>", revisions="<html>
 <ul>
 <li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+<li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with naming convention.
 </li>

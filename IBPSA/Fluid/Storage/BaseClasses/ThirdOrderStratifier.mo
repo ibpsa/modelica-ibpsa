@@ -139,6 +139,12 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </html>", revisions="<html>
 <ul>
 <li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+<li>
 December 14, 2012 by Michael Wetter:<br/>
 Removed unused protected parameters <code>sta0</code> and <code>cp0</code>.
 </li>

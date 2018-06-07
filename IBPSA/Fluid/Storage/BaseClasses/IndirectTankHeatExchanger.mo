@@ -294,6 +294,12 @@ equation
           revisions="<html>
 <ul>
 <li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+<li>
 January 7, 2016, by Filip Jorissen:<br/>
 Propagated <code>flowDependent</code> and <code>temperatureDependent</code>
 in <code>hAPipIns</code>.
