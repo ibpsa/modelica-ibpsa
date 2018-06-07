@@ -1,7 +1,6 @@
 within IBPSA.Fluid.Storage.BaseClasses;
 model Buoyancy
   "Model to add buoyancy if there is a temperature inversion in the tank"
-  extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium model"  annotation (
       choicesAllMatching = true);

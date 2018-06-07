@@ -1,7 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.BaseClasses;
 model HACoilInside "Calculates the hA value for water inside a coil"
-  extends Buildings.BaseClasses.BaseIcon;
-
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Water mass flow rate"
     annotation(Dialog(tab="General", group="Nominal condition"));
 
@@ -45,9 +43,9 @@ equation
   fm = if flowDependent then m_flow / m_flow_nominal else 1;
   x = if temperatureDependent then 1 + s * (T-T_nominal) else 1;
   if flowDependent and temperatureDependent then
-    hA = x * hA_nominal * Buildings.Utilities.Math.Functions.regNonZeroPower(fm, n, 0.1);
+    hA = x * hA_nominal * IBPSA.Utilities.Math.Functions.regNonZeroPower(fm, n, 0.1);
   elseif flowDependent then
-    hA = hA_nominal * Buildings.Utilities.Math.Functions.regNonZeroPower(fm, n, 0.1);
+    hA = hA_nominal * IBPSA.Utilities.Math.Functions.regNonZeroPower(fm, n, 0.1);
   elseif temperatureDependent then
     hA = x * hA_nominal;
   else

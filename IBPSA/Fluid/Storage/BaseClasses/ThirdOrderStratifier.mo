@@ -1,7 +1,6 @@
 within IBPSA.Fluid.Storage.BaseClasses;
 model ThirdOrderStratifier
   "Model to reduce the numerical dissipation in a tank"
-  extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
