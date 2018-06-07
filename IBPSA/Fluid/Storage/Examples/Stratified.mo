@@ -49,12 +49,12 @@ model Stratified "Test model for stratified tank"
     dp_nominal=5000,
     m_flow_nominal=0.1)
     annotation (Placement(transformation(extent={{38,-38},{58,-18}})));
-  IBPSA.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium
-      = Medium, m_flow_nominal=0.1) "Enthalpy flow rate"
+  IBPSA.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium =
+        Medium, m_flow_nominal=0.1) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{6,2},{22,18}})));
-  IBPSA.Fluid.Sensors.EnthalpyFlowRate HOut_flow1(redeclare package Medium
-      = Medium, m_flow_nominal=0.1) "Enthalpy flow rate"
+  IBPSA.Fluid.Sensors.EnthalpyFlowRate HOut_flow1(redeclare package Medium =
+        Medium, m_flow_nominal=0.1) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{18,-36},{34,-20}})));
   Modelica.Blocks.Continuous.Integrator dH
@@ -71,16 +71,16 @@ model Stratified "Test model for stratified tank"
     amplitude=10,
     offset=273.15 + 20) annotation (Placement(transformation(extent={{-90,62},{
             -70,82}})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature TBCSid2
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBCSid2
     "Boundary condition for tank" annotation (Placement(transformation(extent={
             {-40,50},{-28,62}})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature TBCSid1
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBCSid1
     "Boundary condition for tank" annotation (Placement(transformation(extent={
             {-40,84},{-28,96}})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature TBCTop1
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBCTop1
     "Boundary condition for tank" annotation (Placement(transformation(extent={
             {-40,66},{-28,78}})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature TBCTop2
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBCTop2
     "Boundary condition for tank" annotation (Placement(transformation(extent={
             {-40,32},{-28,44}})));
 equation
