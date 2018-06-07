@@ -91,12 +91,12 @@ partial model PartialSimInfoManager
   Modelica.SIunits.Irradiance solGloHor "global irradiation on horizontal";
   Modelica.SIunits.Temperature Te
     "ambient outdoor temperature for determination of sky radiation exchange";
-  Modelica.SIunits.Temperature Tsky "effective overall sky temperature";
+  input Modelica.SIunits.Temperature Tsky "effective overall sky temperature";
   Modelica.SIunits.Temperature TeAv
     "running average of ambient outdoor temperature of the last 5 days, not yet implemented";
   Modelica.SIunits.Temperature Tground "ground temperature";
-  Modelica.SIunits.Velocity Va "air velocity";
-  Real Fc "cloud factor";
+  input Modelica.SIunits.Velocity Va "air velocity";
+  input Real Fc "cloud factor";
   Modelica.SIunits.Irradiance irr "Irradiance";
   Boolean summer;
 
@@ -124,7 +124,6 @@ partial model PartialSimInfoManager
       *2*Modelica.Constants.pi/365.25));
   Real angHou=(timSol/3600 - 12)*2*Modelica.Constants.pi/24;
   Real angZen=acos(cos(lat)*cos(angDec)*cos(angHou) + sin(lat)*sin(angDec));
-
 protected
   Modelica.Blocks.Sources.RealExpression hour(y=angHou) "Hour angle"
     annotation (Placement(transformation(extent={{-124,34},{-104,54}})));
@@ -135,8 +134,7 @@ protected
     annotation (Placement(transformation(extent={{-124,10},{-104,30}})));
 
   final parameter Integer yr=2014 "depcited year for DST only";
-  final parameter Boolean BesTest=Modelica.Utilities.Strings.isEqual(filNam, "BesTest.txt")
-    "boolean to determine if this simulation is a BESTEST simulation";
+
 
 public
   IDEAS.BoundaryConditions.Climate.Time.SimTimes timMan(
@@ -466,6 +464,13 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Created 'input' for TSky, Va and Fc such that
+they can be overwriten from the extends clause.
+This is for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/838\">#838</a>.
+</li>
 <li>
 March 27, 2018, by Filip Jorissen:<br/>
 Added relative humidity to weather bus.
