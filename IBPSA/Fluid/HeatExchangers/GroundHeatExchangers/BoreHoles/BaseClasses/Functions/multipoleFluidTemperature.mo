@@ -129,7 +129,7 @@ algorithm
       for n in 1:nPip loop
         zPip_j :=Complex(xPip[n], yPip[n]);
         for j in 1:J loop
-          P_nj := Complex(PRea[m, j], PIma[m, j]);
+          P_nj := Complex(PRea[n, j], PIma[n, j]);
           if n <> m then
             // Second term
             deltaTFlu := deltaTFlu + P_nj*(rPip[n]/(zPip_i - zPip_j))^j;
