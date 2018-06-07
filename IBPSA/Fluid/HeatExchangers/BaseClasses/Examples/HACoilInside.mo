@@ -12,7 +12,7 @@ model HACoilInside "Test model for HACoilInside"
     freqHz=0.1,
     offset=273.15 + 50) "Temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside hASin(
+  IBPSA.Fluid.HeatExchangers.BaseClasses.HACoilInside hASin(
     hA_nominal=13*(0.5+1)/0.5,
     m_flow_nominal=0.063) "Model for convection coefficient"
                                        annotation (Placement(transformation(extent={{-12,-6},
@@ -27,13 +27,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation ( __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HACoilInside.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HACoilInside.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-6, StopTime=15),
         Documentation(info="<html>
         <p>
-        Test model for <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside\">
-        Buildings.Fluid.HeatExchanger.BaseClassess.HACoilInside</a>.
+        Test model for <a href=\"modelica://IBPSA.Fluid.HeatExchangers.BaseClasses.HACoilInside\">
+        IBPSA.Fluid.HeatExchanger.BaseClassess.HACoilInside</a>.
         </p>
         </html>", revisions="<html>
 <ul>

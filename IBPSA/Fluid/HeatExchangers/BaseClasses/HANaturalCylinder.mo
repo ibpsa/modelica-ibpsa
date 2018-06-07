@@ -74,7 +74,7 @@ function nusselt
   Real num "Numerator";
   Real den "Denominator";
 algorithm
-  num := (0.387*Buildings.Utilities.Math.Functions.smoothMax(Ra,1,0.1)^(1/6));
+  num := (0.387*IBPSA.Utilities.Math.Functions.smoothMax(Ra,1,0.1)^(1/6));
   den := ((1+(0.559/Pr)^(9/16))^(8/27));
   Nu := (0.6+num/den)^2;
   annotation(smoothOrder=1);
@@ -83,17 +83,17 @@ end nusselt;
 initial equation
 
   // Fluid properties
-  mu_nominal = Buildings.Fluid.HeatExchangers.BaseClasses.dynamicViscosityWater(
+  mu_nominal = IBPSA.Fluid.HeatExchangers.BaseClasses.dynamicViscosityWater(
         T = 0.5 * (TSur_nominal+TFlu_nominal));
   rho_nominal = Medium.density(
         Medium.setState_pTX(
           p = Medium.p_default,
           T = 0.5*(TSur_nominal+TFlu_nominal),
           X = Medium.X_default));
-  Pr_nominal = Buildings.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
+  Pr_nominal = IBPSA.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
           T = 0.5*(TSur_nominal+TFlu_nominal));
 
-  B_nominal = Buildings.Fluid.HeatExchangers.BaseClasses.isobaricExpansionCoefficientWater(
+  B_nominal = IBPSA.Fluid.HeatExchangers.BaseClasses.isobaricExpansionCoefficientWater(
           T = 0.5*(TSur_nominal+TFlu_nominal));
   nu_nominal = mu_nominal/rho_nominal;
 
@@ -115,13 +115,13 @@ equation
              p = Medium.p_default,
              T = 0.5*(TSur+TFlu),
              X = Medium.X_default);
-  mu = Buildings.Fluid.HeatExchangers.BaseClasses.dynamicViscosityWater(
+  mu = IBPSA.Fluid.HeatExchangers.BaseClasses.dynamicViscosityWater(
         T = 0.5 * (TSur+TFlu));
   rho = Medium.density(state);
-  Pr = Buildings.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
+  Pr = IBPSA.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
           T = 0.5*(TSur+TFlu));
 
-  B = Buildings.Fluid.HeatExchangers.BaseClasses.isobaricExpansionCoefficientWater(
+  B = IBPSA.Fluid.HeatExchangers.BaseClasses.isobaricExpansionCoefficientWater(
           T = 0.5*(TSur+TFlu));
   nu = mu/rho;
 

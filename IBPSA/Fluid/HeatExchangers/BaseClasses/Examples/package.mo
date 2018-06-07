@@ -6,8 +6,8 @@ package Examples "Collection of models that illustrate model use and test models
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains examples for the use of models that can be found in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses\">
-Buildings.Fluid.HeatExchangers.BaseClasses</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.BaseClasses\">
+IBPSA.Fluid.HeatExchangers.BaseClasses</a>.
 </p>
 </html>"));
 end Examples;

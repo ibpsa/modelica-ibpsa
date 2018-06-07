@@ -1,9 +1,9 @@
 within IBPSA.Fluid.HeatExchangers.BaseClasses.Examples;
 model HANaturalCylinder "Test model for natural convection outside of a coil"
   extends Modelica.Icons.Example;
-  Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder hANatCyl(redeclare
-      package Medium =
-               Buildings.Media.Water,                       ChaLen=0.1,
+  IBPSA.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder hANatCyl(redeclare
+      package Medium = IBPSA.Media.Water,
+      ChaLen=0.1,
     hA_nominal=10,
     TFlu_nominal=293.15,
     TSur_nominal=313.15)
@@ -30,13 +30,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation ( __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HANaturalCylinder.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HANaturalCylinder.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-6, StopTime=250),
         Documentation(info="<html>
         <p>
-        Test model for <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder\">
-        Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder</a>.
+        Test model for <a href=\"modelica://IBPSA.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder\">
+        IBPSA.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder</a>.
         </p>
         </html>"));
 end HANaturalCylinder;
