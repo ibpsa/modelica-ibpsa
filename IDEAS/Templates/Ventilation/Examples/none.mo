@@ -2,7 +2,8 @@ within IDEAS.Templates.Ventilation.Examples;
 model none
   "Model that illustrates redeclarations using the ventilation system"
   extends IDEAS.Templates.Ventilation.Examples.ConstantAirFlowRecup(
-    redeclare IDEAS.Templates.Ventilation.None constantAirFlowRecup);
+    redeclare IDEAS.Templates.Ventilation.None constantAirFlowRecup,
+      voltageSource(gamma(fixed=true)));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),
