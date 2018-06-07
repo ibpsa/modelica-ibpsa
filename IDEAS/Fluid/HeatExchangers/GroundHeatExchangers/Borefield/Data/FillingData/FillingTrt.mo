@@ -7,6 +7,6 @@ record FillingTrt
     pathCom=Modelica.Utilities.Files.loadResource(
         "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/FillingData/FillingTrt.mo"),
     k=2.32,
-    d = 1490,
+    rho = 1490,
     c = 840);
 end FillingTrt;

@@ -6,7 +6,7 @@ record Bentonite
     pathCom=Modelica.Utilities.Files.loadResource(
         "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/FillingData/Bentonite.mo"),
     k=1.15,
-    d=1600,
+    rho=1600,
     c=800);
 
 end Bentonite;

@@ -191,7 +191,7 @@ model InternalHEX2UTube
         origin={15.6,-30})));
 
 protected
-  parameter Modelica.SIunits.HeatCapacity Co_fil=fil.d*fil.c*gen.hSeg*Modelica.Constants.pi
+  parameter Modelica.SIunits.HeatCapacity Co_fil=fil.rho*fil.c*gen.hSeg*Modelica.Constants.pi
       *(gen.rBor^2 - 4*(gen.rTub + gen.eTub)^2)
     "Heat capacity of the whole filling material";
 

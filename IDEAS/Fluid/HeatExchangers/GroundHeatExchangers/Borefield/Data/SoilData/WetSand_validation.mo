@@ -6,5 +6,5 @@ record WetSand_validation
     pathCom=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/SoilData/SoilTrt.mo"),
     k=2.8,
     c=1600,
-    d=2000);
+    rho=2000);
 end WetSand_validation;

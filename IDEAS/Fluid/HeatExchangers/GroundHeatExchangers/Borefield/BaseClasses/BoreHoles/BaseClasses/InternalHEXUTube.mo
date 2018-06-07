@@ -75,7 +75,7 @@ model InternalHEXUTube "Internal part of a borehole for a U-Tube configuration"
         origin={80,12})));
 
 protected
-  parameter Modelica.SIunits.HeatCapacity Co_fil=fil.d*fil.c*gen.hSeg*Modelica.Constants.pi
+  parameter Modelica.SIunits.HeatCapacity Co_fil=fil.rho*fil.c*gen.hSeg*Modelica.Constants.pi
       *(gen.rBor^2 - 2*(gen.rTub + gen.eTub)^2)
     "Heat capacity of the whole filling material";
 
