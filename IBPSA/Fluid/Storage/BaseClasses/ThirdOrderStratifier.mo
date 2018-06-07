@@ -1,6 +1,8 @@
 within IBPSA.Fluid.Storage.BaseClasses;
 model ThirdOrderStratifier
   "Model to reduce the numerical dissipation in a tank"
+  extends Modelica.Blocks.Icons.Block;
+
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
@@ -164,11 +166,6 @@ First implementation.
 </ul>
 </html>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-48,66},{48,34}},
           fillColor={255,0,0},

@@ -1,8 +1,9 @@
 within IBPSA.Fluid.Storage.BaseClasses;
 model Buoyancy
   "Model to add buoyancy if there is a temperature inversion in the tank"
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium model"  annotation (
+  extends Modelica.Blocks.Icons.Block;
+
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium model"  annotation (
       choicesAllMatching = true);
   parameter Modelica.SIunits.Volume V "Volume";
   parameter Integer nSeg(min=2) = 2 "Number of volume segments";
@@ -80,11 +81,6 @@ First implementation.
 </html>"),
 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-44,68},{36,28}},
           lineColor={0,0,255},

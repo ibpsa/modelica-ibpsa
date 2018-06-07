@@ -3,11 +3,11 @@ model HeatExchangerLocation
   "Test model for heat exchanger with hHex_a and hHex_b interchanged"
   extends Modelica.Icons.Example;
 
- package Medium = IBPSA.Media.Water "Medium model";
+  package Medium = IBPSA.Media.Water "Medium model";
 
- parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal = 6000
+  parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal = 6000
     "Design heat flow rate of heat exchanger";
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal= QHex_flow_nominal/4200/4;
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= QHex_flow_nominal/4200/4;
 
   IBPSA.Fluid.Sources.Boundary_pT watInTan(
     redeclare package Medium = Medium,
@@ -70,11 +70,13 @@ model HeatExchangerLocation
     m_flow_nominal=m_flow_nominal,
     tau=0) "Temperature sensor at tank outlet"
     annotation (Placement(transformation(extent={{10,-80},{-10,-60}})));
-  IBPSA.Fluid.Sources.MassFlowSource_T mWatTanSte_flow(redeclare package
-      Medium = Medium, nPorts=1) "Mass flow rate through the tank"
+  IBPSA.Fluid.Sources.MassFlowSource_T mWatTanSte_flow(
+    redeclare package Medium = Medium,
+    nPorts=1) "Mass flow rate through the tank"
     annotation (Placement(transformation(extent={{92,-58},{72,-38}})));
-  IBPSA.Fluid.Sources.MassFlowSource_T mWatTanDyn_flow(redeclare package
-      Medium = Medium, nPorts=1) "Mass flow rate through the tank"
+  IBPSA.Fluid.Sources.MassFlowSource_T mWatTanDyn_flow(
+    redeclare package Medium = Medium,
+    nPorts=1) "Mass flow rate through the tank"
     annotation (Placement(transformation(extent={{94,14},{74,34}})));
 equation
   connect(mHex_flow1.ports[1], tan_aTop.portHex_a) annotation (Line(points={{-20,22},

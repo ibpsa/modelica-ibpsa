@@ -77,9 +77,9 @@ model IndirectTankHeatExchanger
     annotation (Placement(transformation(extent={{46,-60},{66,-40}})));
 
   IBPSA.Fluid.MixingVolumes.MixingVolume vol[nSeg](
+    redeclare each package Medium = MediumHex,
     each nPorts=2,
     each m_flow_nominal=m_flow_nominal,
-    redeclare each package Medium = MediumHex,
     each V=volHexFlu/nSeg,
     each energyDynamics=energyDynamics,
     each massDynamics=massDynamics,
@@ -101,8 +101,9 @@ model IndirectTankHeatExchanger
     "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
 protected
-  IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
-        MediumHex, allowFlowReversal=allowFlowReversal)
+  IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(
+    redeclare package Medium = MediumHex,
+    allowFlowReversal=allowFlowReversal)
     "Mass flow rate of the heat transfer fluid"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-60}})));
   Modelica.Thermal.HeatTransfer.Components.Convection htfToHex[nSeg]
