@@ -6,14 +6,14 @@ model StratifiedEnhanced "Stratified tank model with enhanced discretization"
         each nPorts=3));
 
 protected
-  Buildings.Fluid.Sensors.EnthalpyFlowRate H_a_flow(
+  IBPSA.Fluid.Sensors.EnthalpyFlowRate H_a_flow(
     redeclare package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final tau=0,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small) "Enthalpy flow rate at port a"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Fluid.Sensors.EnthalpyFlowRate[nSeg - 1] H_vol_flow(
+  IBPSA.Fluid.Sensors.EnthalpyFlowRate[nSeg - 1] H_vol_flow(
     redeclare package Medium = Medium,
     each final m_flow_nominal=m_flow_nominal,
     each final tau=0,
@@ -21,7 +21,7 @@ protected
     each final m_flow_small=m_flow_small)
     "Enthalpy flow rate between the volumes"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Fluid.Sensors.EnthalpyFlowRate H_b_flow(
+  IBPSA.Fluid.Sensors.EnthalpyFlowRate H_b_flow(
     redeclare package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final tau=0,
@@ -85,7 +85,7 @@ This is a model of a stratified storage tank for thermal energy storage.
 <p>
 See the
 <a href=\"modelica://IBPSA.Fluid.Storage.UsersGuide\">
-Buildings.Fluid.Storage.UsersGuide</a>
+IBPSA.Fluid.Storage.UsersGuide</a>
 for more information.
 </p>
 <h4>Limitations</h4>
@@ -119,7 +119,7 @@ second law.
 In this revision, the model that computes the volume outlet temperatures has been changed to a third order upwind scheme,
 which is implemented in
 <a href=\"modelica://IBPSA.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
-Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
+IBPSA.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </li>
 <li>
 October 23, 2008 by Michael Wetter:<br/>

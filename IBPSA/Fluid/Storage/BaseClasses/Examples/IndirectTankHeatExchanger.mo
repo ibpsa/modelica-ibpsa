@@ -3,7 +3,7 @@ model IndirectTankHeatExchanger
   "Example showing the use of IndirectTankHeatExchanger"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Water "Buildings library model for water";
+  package Medium = IBPSA.Media.Water "Buildings library model for water";
 
   IBPSA.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger indTanHex(
     nSeg=3,
@@ -22,11 +22,11 @@ model IndirectTankHeatExchanger
         rotation=90,
         origin={-19,8})));
 
-  Buildings.Fluid.Sources.Boundary_pT bou1(
+  IBPSA.Fluid.Sources.Boundary_pT bou1(
     nPorts=1,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-72,-42},{-52,-22}})));
-  Buildings.Fluid.Sources.MassFlowSource_T bou(
+  IBPSA.Fluid.Sources.MassFlowSource_T bou(
     m_flow=0.1,
     nPorts=1,
     redeclare package Medium = Medium,
@@ -62,7 +62,7 @@ Documentation(info="<html>
 <p>
 This model provides an example of how the
 <a href=\"modelica://IBPSA.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\">
-Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a>
+IBPSA.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a>
 model is used. In the model water flows from a flow source through
 the heat exchanger to a low pressure environment. The stagnant fluid on the outside
 of the heat exchanger is modeled as a constant temperature.<br/>

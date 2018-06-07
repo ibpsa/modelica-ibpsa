@@ -7,10 +7,10 @@ model IndirectTankHeatExchanger
   replaceable package MediumTan = Modelica.Media.Interfaces.PartialMedium
     "Heat transfer fluid inside the tank";
 
-  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters;
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+  extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters;
+  extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations(
       redeclare final package Medium = MediumHex);
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+  extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium = MediumHex,
     final show_T=false);
 
@@ -64,7 +64,7 @@ model IndirectTankHeatExchanger
     annotation (Placement(transformation(extent={{-10,-160},{10,-140}}),
         iconTransformation(extent={{-10,-108},{10,-88}})));
 
-  Buildings.Fluid.FixedResistances.PressureDrop res(
+  IBPSA.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumHex,
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m_flow_nominal,
@@ -76,7 +76,7 @@ model IndirectTankHeatExchanger
     "Calculates the flow resistance and pressure drop through the heat exchanger"
     annotation (Placement(transformation(extent={{46,-60},{66,-40}})));
 
-  Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
+  IBPSA.Fluid.MixingVolumes.MixingVolume vol[nSeg](
     each nPorts=2,
     each m_flow_nominal=m_flow_nominal,
     redeclare each package Medium = MediumHex,
@@ -101,7 +101,7 @@ model IndirectTankHeatExchanger
     "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
 protected
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
+  IBPSA.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         MediumHex, allowFlowReversal=allowFlowReversal)
     "Mass flow rate of the heat transfer fluid"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-60}})));
@@ -126,7 +126,7 @@ protected
   Modelica.Blocks.Routing.Replicator rep(nout=nSeg)
     "Replicates senMasFlo signal from 1 seg to nSeg"
     annotation (Placement(transformation(extent={{-44,-108},{-24,-88}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside hAPipIns[nSeg](
+  IBPSA.Fluid.HeatExchangers.BaseClasses.HACoilInside hAPipIns[nSeg](
     each m_flow_nominal=m_flow_nominal,
     each hA_nominal=UA_nominal/nSeg*(r_nominal + 1)/r_nominal,
     each T_nominal=THex_nominal,
@@ -134,7 +134,7 @@ protected
     each final temperatureDependent=hA_temperatureDependent)
     "Computation of convection coefficients inside the coil" annotation (
       Placement(transformation(extent={{-10,-10},{10,10}}, origin={20,-80})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder hANatCyl[nSeg](
+  IBPSA.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder hANatCyl[nSeg](
     redeclare each final package Medium = Medium,
     each final ChaLen=dExtHex,
     each final hA_nominal=UA_nominal/nSeg*(1 + r_nominal),
@@ -281,10 +281,10 @@ equation
           the heat exchanger, and convection from the heat exchanger to the surrounding fluid.
           </p>
           <p>
-          The model is based on <a href=\"Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside\">
-          Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside</a> and
-          <a href=\"Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder\">
-          Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder</a>.
+          The model is based on <a href=\"IBPSA.Fluid.HeatExchangers.BaseClasses.HACoilInside\">
+          IBPSA.Fluid.HeatExchangers.BaseClasses.HACoilInside</a> and
+          <a href=\"IBPSA.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder\">
+          IBPSA.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder</a>.
           </p>
           <p>
           The fluid ports are intended to be connected to a circulated heat transfer fluid

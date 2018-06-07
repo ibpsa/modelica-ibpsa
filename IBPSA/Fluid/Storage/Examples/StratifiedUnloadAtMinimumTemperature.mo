@@ -2,7 +2,7 @@ within IBPSA.Fluid.Storage.Examples;
 model StratifiedUnloadAtMinimumTemperature
   "Example that demonstrates how to draw from a hot water tank at the minimum temperature"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Water "Medium model";
+  package Medium = IBPSA.Media.Water "Medium model";
 
   parameter Modelica.SIunits.Volume VTan=3 "Tank volume";
 
@@ -21,31 +21,31 @@ model StratifiedUnloadAtMinimumTemperature
     nSeg=nSeg,
     T_start=353.15) "Hot water storage tank"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Buildings.Fluid.Sources.Boundary_pT loa(redeclare package Medium = Medium,
+  IBPSA.Fluid.Sources.Boundary_pT loa(redeclare package Medium = Medium,
       nPorts=1)
     "Load (imposed by a constant pressure boundary condition and the flow of masSou)"
     annotation (Placement(transformation(extent={{242,-70},{222,-50}})));
-  Buildings.Fluid.Sources.MassFlowSource_T masSou(
+  IBPSA.Fluid.Sources.MassFlowSource_T masSou(
     nPorts=1,
     redeclare package Medium = Medium,
     m_flow=m_flow_nominal) "Mass flow rate into the tank"
     annotation (Placement(transformation(extent={{242,-130},{222,-110}})));
 
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear valTop(
+  IBPSA.Fluid.Actuators.Valves.TwoWayLinear valTop(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=3000,
     use_inputFilter=false) "Control valve at top"
     annotation (Placement(transformation(extent={{112,-30},{132,-10}})));
 
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear valMed(
+  IBPSA.Fluid.Actuators.Valves.TwoWayLinear valMed(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=3000,
     use_inputFilter=false) "Control valve at top"
     annotation (Placement(transformation(extent={{132,-70},{152,-50}})));
 
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear valBot(
+  IBPSA.Fluid.Actuators.Valves.TwoWayLinear valBot(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=3000,
@@ -71,7 +71,7 @@ model StratifiedUnloadAtMinimumTemperature
   Buildings.Controls.OBC.CDL.Logical.OnOffController onOffBot(bandwidth=0.1)
     "Controller for valve at bottom"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0) "Outflowing temperature"

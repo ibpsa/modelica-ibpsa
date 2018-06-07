@@ -3,8 +3,8 @@ model StratifiedEnhancedInternalHex
   "Example showing the use of StratifiedEnhancedInternalHex"
   extends Modelica.Icons.Example;
 
-  package MediumTan = Buildings.Media.Water "Medium in the tank";
-  package MediumHex = Buildings.Media.Water "Medium in the heat exchanger";
+  package MediumTan = IBPSA.Media.Water "Medium in the tank";
+  package MediumHex = IBPSA.Media.Water "Medium in the heat exchanger";
 
  parameter Modelica.SIunits.PressureDifference dpHex_nominal=2500
     "Pressure drop across the heat exchanger at nominal conditions";
@@ -12,20 +12,20 @@ model StratifiedEnhancedInternalHex
   parameter Modelica.SIunits.MassFlowRate mHex_flow_nominal = 0.278
     "Mass flow rate of heat exchanger";
 
-  Buildings.Fluid.Sources.Boundary_pT bouWat(redeclare package Medium =
+  IBPSA.Fluid.Sources.Boundary_pT bouWat(redeclare package Medium =
         MediumTan, nPorts=3)
     "Boundary condition for water (used to set pressure)" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={70,-12})));
-  Buildings.Fluid.Sources.Boundary_pT solColSup(
+  IBPSA.Fluid.Sources.Boundary_pT solColSup(
     redeclare package Medium = MediumHex,
     nPorts=3,
     use_p_in=true,
     T=353.15) "Water from solar collector" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}}, origin={-30,40})));
-  Buildings.Fluid.Sources.Boundary_pT toSolCol(
+  IBPSA.Fluid.Sources.Boundary_pT toSolCol(
     redeclare package Medium = MediumHex,
     nPorts=3,
     p(displayUnit="Pa") = 3E5,
@@ -53,7 +53,7 @@ model StratifiedEnhancedInternalHex
     dpHex_nominal=dpHex_nominal)
     "Tank with heat exchanger configured as steady state"
     annotation (Placement(transformation(extent={{6,56},{40,88}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSte(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemSte(
     redeclare package Medium = MediumHex,
     allowFlowReversal=false,
     m_flow_nominal=mHex_flow_nominal,
@@ -64,7 +64,7 @@ model StratifiedEnhancedInternalHex
     offset=3E5,
     startTime=300) "Step input for mass flow rate"
     annotation (Placement(transformation(extent={{-80,38},{-60,58}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemDyn(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemDyn(
     redeclare package Medium = MediumHex,
     allowFlowReversal=false,
     m_flow_nominal=mHex_flow_nominal,
@@ -110,7 +110,7 @@ model StratifiedEnhancedInternalHex
     THex_nominal=323.15)
     "Tank with heat exchanger configured as steady-state except for metal which is dynamic"
     annotation (Placement(transformation(extent={{6,-76},{40,-44}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemDynSol(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTemDynSol(
     redeclare package Medium = MediumHex,
     allowFlowReversal=false,
     m_flow_nominal=mHex_flow_nominal,
@@ -158,7 +158,7 @@ Documentation(info="<html>
 <p>
 This model provides an example for the
 <a href=\"modelica://IBPSA.Fluid.Storage.StratifiedEnhancedInternalHex\">
-Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> model.
+IBPSA.Fluid.Storage.StratifiedEnhancedInternalHex</a> model.
 There are three tanks.
 In the tank on top, the fluid in the heat exchanger and the metal of the
 heat exchanger use a steady-state energy balance.
@@ -187,7 +187,7 @@ Changed medium in heat exchanger from
 <a href=\"modelica://Modelica.Media.Incompressible.Examples.Glycol47\">
 Modelica.Media.Incompressible.Examples.Glycol47</a> to
 <a href=\"modelica://IBPSA.Media.Water\">
-Buildings.Media.Water</a>
+IBPSA.Media.Water</a>
 to avoid numerical derivative in regression tests.
 </li>
 <li>

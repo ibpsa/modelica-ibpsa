@@ -2,7 +2,7 @@ within IBPSA.Fluid.Storage.Examples;
 model Stratified "Test model for stratified tank"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.Water "Medium model";
+ package Medium = IBPSA.Media.Water "Medium model";
 
   IBPSA.Fluid.Storage.Stratified tanSim(
     redeclare package Medium = Medium,
@@ -15,21 +15,21 @@ model Stratified "Test model for stratified tank"
     Modelica.Blocks.Sources.TimeTable TWat(table=[0,273.15 + 40; 3600,273.15 +
         40; 3600,273.15 + 20; 7200,273.15 + 20]) "Water temperature"
                  annotation (Placement(transformation(extent={{-100,2},{-80,22}})));
-  Buildings.Fluid.Sources.Boundary_pT sou_1(
+  IBPSA.Fluid.Sources.Boundary_pT sou_1(
     p=300000 + 5000,
     T=273.15 + 50,
     redeclare package Medium = Medium,
     use_T_in=true,
     nPorts=2)             annotation (Placement(transformation(extent={{-60,-2},
             {-40,18}})));
-  Buildings.Fluid.Sources.Boundary_pT sin_1(
+  IBPSA.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium,
     T=273.15 + 20,
     use_p_in=true,
     p=300000,
     nPorts=2)             annotation (Placement(transformation(extent={{90,-2},
             {70,18}})));
-  Buildings.Fluid.FixedResistances.PressureDrop res_1(
+  IBPSA.Fluid.FixedResistances.PressureDrop res_1(
     from_dp=true,
     redeclare package Medium = Medium,
     dp_nominal=5000,
@@ -43,17 +43,17 @@ model Stratified "Test model for stratified tank"
     m_flow_nominal=0.1,
     VTan=3) "Tank"
     annotation (Placement(transformation(extent={{-18,-38},{2,-18}})));
-  Buildings.Fluid.FixedResistances.PressureDrop res_2(
+  IBPSA.Fluid.FixedResistances.PressureDrop res_2(
     from_dp=true,
     redeclare package Medium = Medium,
     dp_nominal=5000,
     m_flow_nominal=0.1)
     annotation (Placement(transformation(extent={{38,-38},{58,-18}})));
-  Buildings.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium
+  IBPSA.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium
       = Medium, m_flow_nominal=0.1) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{6,2},{22,18}})));
-  Buildings.Fluid.Sensors.EnthalpyFlowRate HOut_flow1(redeclare package Medium
+  IBPSA.Fluid.Sensors.EnthalpyFlowRate HOut_flow1(redeclare package Medium
       = Medium, m_flow_nominal=0.1) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{18,-36},{34,-20}})));

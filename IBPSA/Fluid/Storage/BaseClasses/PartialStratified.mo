@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Storage.BaseClasses;
 model PartialStratified
   "Partial model of a stratified tank for thermal energy storage"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
+  extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
 
   import Modelica.Fluid.Types;
   import Modelica.Fluid.Types.Dynamics;
@@ -62,7 +62,7 @@ model PartialStratified
     annotation (Placement(transformation(extent={{14,-80},{26,-68}})));
 
   // Models
-  Buildings.Fluid.MixingVolumes.MixingVolume[nSeg] vol(
+  IBPSA.Fluid.MixingVolumes.MixingVolume[nSeg] vol(
     redeclare each package Medium = Medium,
     each energyDynamics=energyDynamics,
     each massDynamics=massDynamics,
@@ -191,7 +191,7 @@ This is a partial model of a stratified storage tank.
 <p>
 See the
 <a href=\"modelica://IBPSA.Fluid.Storage.UsersGuide\">
-Buildings.Fluid.Storage.UsersGuide</a>
+IBPSA.Fluid.Storage.UsersGuide</a>
 for more information.
 </p>
 <h4>Implementation</h4>
@@ -200,7 +200,7 @@ This model does not include the ports that connect to the fluid from
 the outside, because these ports cannot be used for the models that
 contain the
 <a href=\"modelica://IBPSA.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
-Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
+IBPSA.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </p>
 </html>", revisions="<html>
 <ul>

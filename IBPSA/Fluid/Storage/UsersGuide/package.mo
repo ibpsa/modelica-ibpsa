@@ -13,7 +13,7 @@ There are three storage tank models in the this package.
 <tr>
 <td>
 <a href=\"modelica://IBPSA.Fluid.Storage.Stratified\">
-Buildings.Fluid.Storage.Stratified</a>
+IBPSA.Fluid.Storage.Stratified</a>
 </td>
 <td>
 <p>
@@ -64,13 +64,13 @@ to another one.
 <tr>
 <td>
 <a href=\"modelica://IBPSA.Fluid.Storage.StratifiedEnhanced\">
-Buildings.Fluid.Storage.StratifiedEnhanced</a>
+IBPSA.Fluid.Storage.StratifiedEnhanced</a>
 </td>
 <td>
 <p>
 The model is identical to
 <a href=\"modelica://IBPSA.Fluid.Storage.Stratified\">
-Buildings.Fluid.Storage.Stratified</a>,
+IBPSA.Fluid.Storage.Stratified</a>,
 except for the following:
 </p>
 <ul>
@@ -87,20 +87,20 @@ The correction uses a third order upwind scheme to compute the
 outlet temperatures of the segments in the tank. This model
 is implemented in
 <a href=\"modelica://IBPSA.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
-Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
+IBPSA.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </p>
 </td>
 </tr>
 <tr>
 <td>
 <a href=\"modelica://IBPSA.Fluid.Storage.StratifiedEnhancedInternalHex\">
-Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a>
+IBPSA.Fluid.Storage.StratifiedEnhancedInternalHex</a>
 </td>
 <td>
 <p>
 This model is identical to
 <a href=\"modelica://IBPSA.Fluid.Storage.StratifiedEnhanced\">
-Buildings.Fluid.Storage.StratifiedEnhanced</a>
+IBPSA.Fluid.Storage.StratifiedEnhanced</a>
 except that it adds a heat exchanger to the tank.
 </p>
 <p>
@@ -172,8 +172,8 @@ as this seems to be the typical configuration.
 </p>
 <p>
 The heat exchanger is implemented in
-<a href=\"Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\">
-Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a>.
+<a href=\"IBPSA.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\">
+IBPSA.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a>.
 </p>
 </td>
 </tr>

@@ -3,21 +3,21 @@ model HeatExchangerDynamics
   "Test model for stratified tank with steady-state and dynamic heat exchanger balance"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.Water "Medium model";
+ package Medium = IBPSA.Media.Water "Medium model";
  constant Integer nSeg = 7 "Number of segments in tank";
 
  parameter Modelica.SIunits.HeatFlowRate QHex_flow_nominal = 2000
     "Design heat flow rate of heat exchanger";
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= QHex_flow_nominal/4200/4;
 
-  Buildings.Fluid.Sources.Boundary_pT watInTan(
+  IBPSA.Fluid.Sources.Boundary_pT watInTan(
     redeclare package Medium = Medium,
     use_T_in=false,
     nPorts=2,
     T=273.15 + 30,
     p(displayUnit="Pa")) "Boundary condition for water in the tank"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Fluid.Sources.MassFlowSource_T mHex_flow1(
+  IBPSA.Fluid.Sources.MassFlowSource_T mHex_flow1(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=273.15 + 60,
@@ -57,35 +57,35 @@ model HeatExchangerDynamics
     falling=1800,
     startTime=900) "Control signal for mass flow rate in heat exchanger"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  Buildings.Fluid.Sources.Boundary_pT sin(
+  IBPSA.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     T=273.15 + 30,
     p(displayUnit="Pa"),
     nPorts=2) "Sink boundary condition"
     annotation (Placement(transformation(extent={{-62,-48},{-42,-28}})));
 
-  Buildings.Fluid.Sources.MassFlowSource_T mHex_flow2(
+  IBPSA.Fluid.Sources.MassFlowSource_T mHex_flow2(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=273.15 + 60,
     nPorts=1) "Mass flow rate through the heat exchanger"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTanDyn(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTanDyn(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=m_flow_nominal,
     tau=0) "Temperature sensor at tank outlet"
     annotation (Placement(transformation(extent={{10,0},{-10,20}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTanSte(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTanSte(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=m_flow_nominal,
     tau=0) "Temperature sensor at tank outlet"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
-  Buildings.Fluid.Sources.MassFlowSource_T mWatTanDyn_flow(redeclare package
+  IBPSA.Fluid.Sources.MassFlowSource_T mWatTanDyn_flow(redeclare package
       Medium = Medium, nPorts=1) "Mass flow rate through the tank"
     annotation (Placement(transformation(extent={{88,20},{68,40}})));
-  Buildings.Fluid.Sources.MassFlowSource_T mWatTanSte_flow(redeclare package
+  IBPSA.Fluid.Sources.MassFlowSource_T mWatTanSte_flow(redeclare package
       Medium = Medium, nPorts=1) "Mass flow rate through the tank"
     annotation (Placement(transformation(extent={{88,-20},{68,0}})));
 equation
