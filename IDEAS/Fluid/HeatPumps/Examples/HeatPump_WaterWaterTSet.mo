@@ -125,7 +125,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -100},{120,100}}), graphics),
     __Dymola_Commands(file=
-          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/HeatPump_WaterWaterTset.mos"
+          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/HeatPump_WaterWaterTSet.mos"
         "Simulate and plot"),  Documentation(revisions="<html>
 <ul>
 <li>March 2014 by Filip Jorissen:<br/> 
