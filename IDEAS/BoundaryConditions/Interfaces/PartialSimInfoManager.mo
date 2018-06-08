@@ -2,8 +2,8 @@ within IDEAS.BoundaryConditions.Interfaces;
 partial model PartialSimInfoManager
   "Partial providing structure for SimInfoManager"
   parameter String filDir=Modelica.Utilities.Files.loadResource("modelica://IDEAS")
-       + "/Inputs/"
-    "Directory containing the weather data file, default under IDEAS/Inputs/";
+       + "/Resources/weatherdata/"
+    "Directory containing the weather data file, default under IDEAS/Resources/weatherdata/";
   parameter String filNam="Uccle.TMY" "Name of weather data file"
     annotation (Dialog(enable=useTmy3Reader));
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") = 0.88749992463912
@@ -466,6 +466,11 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+June 8, 2018, by Filip Jorissen:<br/>
+Moved input TMY3 file.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/821>#821</a>.
+</li>
 <li>
 March 27, 2018, by Filip Jorissen:<br/>
 Added relative humidity to weather bus.
