@@ -100,12 +100,12 @@ model ScrollWaterToWater_OneRoomRadiator
 
 //------------------------------------------------------------------------------------//
 
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource(
         "modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
+  IBPSA.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
@@ -278,16 +278,16 @@ equation
     annotation (Line(points={{-25.5,-77},{5,-77}}, color={255,0,255}));
   connect(tesEvaPum.y, and1.u2) annotation (Line(points={{1.11022e-15,-95.4},{0,
           -95.4},{0,-81},{5,-81}}, color={255,0,255}));
-  connect(pumHeaPum.m_flow_actual, tesConHea.u) annotation (Line(points={{-52,-89},
+  connect(pumHeaPum.m_flow_actual, tesConHea.u) annotation (Line(points={{-55,-89},
           {-52,-89},{-52,-78},{-52,-77},{-44,-77},{-37,-77}}, color={0,0,127}));
-  connect(pumHeaPumSou.m_flow_actual, tesEvaPum.u) annotation (Line(points={{6.66134e-16,
-          -167},{0,-167},{0,-109.2},{-1.33227e-15,-109.2}}, color={0,0,127}));
+  connect(pumHeaPumSou.m_flow_actual, tesEvaPum.u) annotation (Line(points={{-3,-167},
+          {0,-167},{0,-109.2},{-1.33227e-15,-109.2}},       color={0,0,127}));
   connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{14,-130},{
           -10,-130},{-50,-130},{-50,-110}}, color={0,127,255}));
   connect(booToReaPum.y, pumHeaPum.m_flow_in) annotation (Line(points={{-99,-100},
-          {-62,-100},{-62,-100.2}}, color={0,0,127}));
+          {-62,-100},{-62,-100}},   color={0,0,127}));
   connect(booToReaPum.y, pumHeaPumSou.m_flow_in) annotation (Line(points={{-99,-100},
-          {-80,-100},{-80,-178.2},{-10,-178.2}}, color={0,0,127}));
+          {-80,-100},{-80,-178},{-10,-178}},     color={0,0,127}));
   connect(not2.y, and2.u1) annotation (Line(points={{-139,-50},{24.8,-50},{24.8,
           -50}}, color={255,0,255}));
   connect(not2.y, booToReaPum.u) annotation (Line(points={{-139,-50},{-130,-50},
