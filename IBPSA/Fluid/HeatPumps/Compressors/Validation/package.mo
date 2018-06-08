@@ -6,8 +6,8 @@ package Validation "Collection of models that validate the compressor models"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Fluid.HeatPumps.Compressors\">
-Buildings.Fluid.HeatPumps.Compressors</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.Compressors\">
+IBPSA.Fluid.HeatPumps.Compressors</a>.
 </p>
 <p>
 Note that most validation models contain simple input data

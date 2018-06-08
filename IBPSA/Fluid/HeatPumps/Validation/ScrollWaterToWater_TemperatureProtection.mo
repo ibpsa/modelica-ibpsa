@@ -2,8 +2,8 @@ within IBPSA.Fluid.HeatPumps.Validation;
 model ScrollWaterToWater_TemperatureProtection
   "Test model for temperature protection of scroll water to water heat pump"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.Water "Medium model";
-  package Medium2 = Buildings.Media.Water "Medium model";
+  package Medium1 = IBPSA.Media.Water "Medium model";
+  package Medium2 = IBPSA.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 0.47
     "Nominal mass flow rate on the condenser side";
@@ -15,13 +15,13 @@ model ScrollWaterToWater_TemperatureProtection
   parameter Modelica.SIunits.MassFlowRate flowLoad = 0.47
     "Mass flow rate on the evaporator side";
 
-  Buildings.Fluid.Sources.FixedBoundary sin2(
+  IBPSA.Fluid.Sources.FixedBoundary sin2(
     redeclare package Medium = Medium2, nPorts=1) "Source side sink"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-70,-40})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  IBPSA.Fluid.Sources.FixedBoundary sin1(
     redeclare package Medium = Medium1, nPorts=1) "Load side sink"
     annotation (Placement(
         transformation(
@@ -57,7 +57,7 @@ model ScrollWaterToWater_TemperatureProtection
     m2_flow_nominal=m2_flow_nominal,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    redeclare package ref = Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = IBPSA.Media.Refrigerants.R410A,
     show_T=true,
     enable_variable_speed=true,
     datHeaPum(
@@ -107,15 +107,15 @@ equation
   connect(loa.ports[1], heaPum.port_a1) annotation (Line(points={{-46,20},{-20,
           20},{-20,6},{-10,6}}, color={0,127,255}));
   annotation (    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_Static.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_Static.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=1000),
     Documentation(info="<html>
 <p>
 Model that demonstrates the temperature protection implementation of the
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ScrollWaterToWater\">
-Buildings.Fluid.HeatPumps.ScrollWaterToWater</a> heat pump model.
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.ScrollWaterToWater\">
+IBPSA.Fluid.HeatPumps.ScrollWaterToWater</a> heat pump model.
 </p>
 <p>
 The heat pump is disabled when the evaporator and condenser temperature

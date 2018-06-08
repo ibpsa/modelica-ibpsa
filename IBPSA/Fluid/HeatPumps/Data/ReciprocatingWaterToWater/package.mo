@@ -5,8 +5,8 @@ package ReciprocatingWaterToWater "Package with model parameters for reciprocati
 annotation (Documentation(info="<html>
 <p>
 Package with data for water to water heat pump models
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater\">
-Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater</a>
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.ReciprocatingWaterToWater\">
+IBPSA.Fluid.HeatPumps.ReciprocatingWaterToWater</a>
 with reciprocating compressor.
 </p>
 </html>"));

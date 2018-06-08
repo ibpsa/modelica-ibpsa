@@ -2,8 +2,8 @@ within IBPSA.Fluid.HeatPumps.Validation;
 model ReciprocatingWaterToWater_Static
   "Test model for static, reciprocating water to water heat pump"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.Water "Medium model";
-  package Medium2 = Buildings.Media.Water "Medium model";
+  package Medium1 = IBPSA.Media.Water "Medium model";
+  package Medium2 = IBPSA.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 0.47
     "Nominal mass flow rate on the condenser side";
@@ -27,7 +27,7 @@ model ReciprocatingWaterToWater_Static
         pDro=99290),
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
-    redeclare package ref = Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = IBPSA.Media.Refrigerants.R410A,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     dp1_nominal=100,
@@ -38,13 +38,13 @@ model ReciprocatingWaterToWater_Static
     "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Fluid.Sources.FixedBoundary sin2(
+  IBPSA.Fluid.Sources.FixedBoundary sin2(
     redeclare package Medium = Medium2, nPorts=1) "Source side sink"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-70,-40})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  IBPSA.Fluid.Sources.FixedBoundary sin1(
     redeclare package Medium = Medium1, nPorts=1) "Load side sink"
     annotation (Placement(
         transformation(
@@ -106,15 +106,15 @@ equation
   connect(sin2.ports[1], heaPum.port_b2) annotation (Line(points={{-60,-40},{
           -20,-40},{-20,-6},{-10,-6}}, color={0,127,255}));
   annotation (    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_Static.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_Static.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=1000),
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of the
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater\">
-Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater</a> heat pump model.
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.ReciprocatingWaterToWater\">
+IBPSA.Fluid.HeatPumps.ReciprocatingWaterToWater</a> heat pump model.
 </p>
 <p>
 The heat pump power, condenser heat transfer rate and evaporator heat transfer

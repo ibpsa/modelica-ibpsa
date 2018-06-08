@@ -14,7 +14,7 @@ model ScrollCompressor_ZeroInput
     "Condenser heat flow rate sensor"
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
   IBPSA.Fluid.HeatPumps.Compressors.ScrollCompressor com(
-    redeclare package ref = Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = IBPSA.Media.Refrigerants.R410A,
     V_flow_nominal=0.003,
     leaCoe=0.005,
     etaEle=0.85,
@@ -35,7 +35,7 @@ equation
     annotation (Line(points={{-26,0},{-10,0}}, color={191,0,0}));
   connect(on.y, com.y)
     annotation (Line(points={{5,38},{6,38},{6,11}}, color={0,0,127}));
-  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ScrollCompressor_ZeroInput.mos"
+  annotation (    __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ScrollCompressor_ZeroInput.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=100),

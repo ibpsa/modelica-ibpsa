@@ -5,8 +5,8 @@ package ScrollWaterToWater "Package with model parameters for scroll water to wa
 annotation (Documentation(info="<html>
 <p>
 Package with data for water to water heat pump models
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ScrollWaterToWater\">
-Buildings.Fluid.HeatPumps.ScrollWaterToWater</a>
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.ScrollWaterToWater\">
+IBPSA.Fluid.HeatPumps.ScrollWaterToWater</a>
 with scroll compressor.
 </p>
 </html>"));

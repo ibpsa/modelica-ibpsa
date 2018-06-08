@@ -26,7 +26,7 @@ Model for a water to water heat pump with a scroll compressor, as described
 in Jin (2002). The thermodynamic heat pump cycle is represented below.
 </p>
 <p align=\"center\">
-<img  alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatPumps/WaterToWater_Cycle.png\" border=\"1\"/>
+<img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/WaterToWater_Cycle.png\" border=\"1\"/>
 </p>
 <p>
 The rate of heat transferred to the evaporator is given by:
@@ -55,11 +55,11 @@ condensing pressure.
 The model parameters are obtained by calibration of the heat pump model to
 manufacturer performance data. Calibrated model parameters for various heat
 pumps from different manufacturers are found in
-<a href=\"modelica://Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater\">
-Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater</a>. The calibrated model is
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.Data.ScrollWaterToWater\">
+IBPSA.Fluid.HeatPumps.Data.ScrollWaterToWater</a>. The calibrated model is
 located in
-<a href=\"modelica://Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater\">
-Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.Calibration.ScrollWaterToWater\">
+IBPSA.Fluid.HeatPumps.Calibration.ScrollWaterToWater</a>.
 </p>
 <h4>Options</h4>
 <p>

@@ -3,9 +3,9 @@ model ScrollWaterToWater_OneRoomRadiator
   "Heat pump with scroll compressor connected to a simple room model with radiator"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.Air "Medium model for air";
+      IBPSA.Media.Air "Medium model for air";
   replaceable package MediumW =
-      Buildings.Media.Water "Medium model for water";
+      IBPSA.Media.Water "Medium model for water";
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20000
     "Nominal heat flow rate of radiator";
@@ -19,7 +19,7 @@ model ScrollWaterToWater_OneRoomRadiator
     "Heat pump nominal mass flow rate";
 //------------------------------------------------------------------------------//
 
-  Buildings.Fluid.MixingVolumes.MixingVolume vol(
+  IBPSA.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mA_flow_nominal,
@@ -46,7 +46,7 @@ model ScrollWaterToWater_OneRoomRadiator
               8*3600, QRooInt_flow;
              18*3600, 0]) "Time table for internal heat gain"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
+  IBPSA.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Q_flow_nominal,
@@ -55,7 +55,7 @@ model ScrollWaterToWater_OneRoomRadiator
     m_flow_nominal=mHeaPum_flow_nominal,
     T_start=TRadSup_nominal)     "Radiator"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temSup(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort temSup(
     redeclare package Medium = MediumW,
     m_flow_nominal=mHeaPum_flow_nominal,
     T_start=TRadSup_nominal)            "Supply water temperature"
@@ -70,7 +70,7 @@ model ScrollWaterToWater_OneRoomRadiator
 
 //----------------------------------------------------------------------------//
 
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumHeaPum(
+  IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPum(
     redeclare package Medium = MediumW,
     m_flow_nominal=mHeaPum_flow_nominal,
     y_start=1,
@@ -85,12 +85,12 @@ model ScrollWaterToWater_OneRoomRadiator
         origin={-50,-100})));
 //----------------------------------------------------------------------------//
 
-  Buildings.Fluid.Sources.FixedBoundary preSou(redeclare package Medium = MediumW,
+  IBPSA.Fluid.Sources.FixedBoundary preSou(redeclare package Medium = MediumW,
       nPorts=1,
     T=TRadSup_nominal)
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{90,-140},{70,-120}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temRet(redeclare package Medium =
+  IBPSA.Fluid.Sensors.TemperatureTwoPort temRet(redeclare package Medium =
         MediumW, m_flow_nominal=mHeaPum_flow_nominal,
     T_start=TRadSup_nominal)                          "Return water temperature"
                                           annotation (Placement(transformation(
@@ -102,7 +102,7 @@ model ScrollWaterToWater_OneRoomRadiator
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+        "modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
@@ -116,7 +116,7 @@ model ScrollWaterToWater_OneRoomRadiator
   ScrollWaterToWater heaPum(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
-    redeclare package ref = Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = IBPSA.Media.Refrigerants.R410A,
     dp1_nominal=2000,
     dp2_nominal=2000,
     tau1=15,
@@ -130,19 +130,19 @@ model ScrollWaterToWater_OneRoomRadiator
     "Heat pump"
     annotation (Placement(transformation(extent={{34,-146},{14,-126}})));
 
-  Buildings.Fluid.Sources.FixedBoundary sou(
+  IBPSA.Fluid.Sources.FixedBoundary sou(
     redeclare package Medium = MediumW,
     use_T=true,
     nPorts=1,
     T=281.15) "Fluid source on source side"
     annotation (Placement(transformation(extent={{-38,-208},{-18,-188}})));
-  Buildings.Fluid.Sources.FixedBoundary sin(
+  IBPSA.Fluid.Sources.FixedBoundary sin(
     redeclare package Medium = MediumW,
     use_T=true,
     nPorts=1,
     T=283.15) "Fluid sink on source side"
     annotation (Placement(transformation(extent={{88,-210},{68,-190}})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumHeaPumSou(
+  IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPumSou(
     redeclare package Medium = MediumW,
     y_start=1,
     m_flow_start=0.85,
@@ -319,7 +319,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-220},{100,
             100}})),
     __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/ScrollWaterToWater_OneRoomRadiator.mos"
+     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/ScrollWaterToWater_OneRoomRadiator.mos"
         "Simulate and plot"),
     experiment(
       StopTime=172800,

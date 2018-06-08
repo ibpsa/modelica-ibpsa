@@ -3,8 +3,8 @@ model ScrollWaterToWater
   "Calibration model for scroll water to water heat pump"
   extends Modelica.Icons.Example;
   extends IBPSA.Fluid.HeatPumps.Calibration.BaseClasses.PartialWaterToWater(
-    redeclare package Medium1 = Buildings.Media.Water,
-    redeclare package Medium2 = Buildings.Media.Water,
+    redeclare package Medium1 = IBPSA.Media.Water,
+    redeclare package Medium2 = IBPSA.Media.Water,
     redeclare IBPSA.Fluid.HeatPumps.ScrollWaterToWater heaPum(
       datHeaPum(
         etaEle=etaEle,
@@ -19,7 +19,7 @@ model ScrollWaterToWater
       enable_temperature_protection=false),
     calDat(tableName="ManufacturerData", fileName=
           Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Resources/src/fluid/heatpumps/calibration/manufacturerData.txt")),
+          "modelica://IBPSA/Resources/src/fluid/heatpumps/calibration/manufacturerData.txt")),
 
     UACon=12000.0,
     UAEva=12000.0,
@@ -50,7 +50,7 @@ model ScrollWaterToWater
       graphics={Text(extent={{-88,92},{-64,90}},
         lineColor={28,108,200})}),
     preferredView="info",
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Calibration/ScrollWaterToWater.mos"
+    __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Calibration/ScrollWaterToWater.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=142),
 Documentation(info="<HTML>

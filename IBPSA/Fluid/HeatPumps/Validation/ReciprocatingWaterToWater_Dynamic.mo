@@ -2,8 +2,8 @@ within IBPSA.Fluid.HeatPumps.Validation;
 model ReciprocatingWaterToWater_Dynamic
   "Test model for variable speed reciprocating water to water heat pump"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.Water "Medium model";
-  package Medium2 = Buildings.Media.Water "Medium model";
+  package Medium1 = IBPSA.Media.Water "Medium model";
+  package Medium2 = IBPSA.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 0.47
     "Nominal mass flow rate on the condenser side";
@@ -15,14 +15,14 @@ model ReciprocatingWaterToWater_Dynamic
   parameter Modelica.SIunits.MassFlowRate flowLoad = 0.47
     "Mass flow rate on the evaporator side";
 
-  Buildings.Fluid.Sources.FixedBoundary sin2(
+  IBPSA.Fluid.Sources.FixedBoundary sin2(
     redeclare package Medium = Medium2,
     nPorts=2) "Source side sink"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-32,20})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  IBPSA.Fluid.Sources.FixedBoundary sin1(
     redeclare package Medium = Medium1,
     nPorts=2) "Load side sink"
     annotation (Placement(
@@ -56,7 +56,7 @@ model ReciprocatingWaterToWater_Dynamic
     m2_flow_nominal=m2_flow_nominal,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    redeclare package ref = Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = IBPSA.Media.Refrigerants.R410A,
     show_T=true,
     enable_variable_speed=false,
     per=IBPSA.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
@@ -80,7 +80,7 @@ model ReciprocatingWaterToWater_Dynamic
     m2_flow_nominal=m2_flow_nominal,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    redeclare package ref = Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = IBPSA.Media.Refrigerants.R410A,
     tau1=15,
     tau2=15,
     enable_variable_speed=false,
@@ -167,15 +167,15 @@ equation
           80},{-16,55},{-12,55}}, color={255,127,0}));
   connect(realToInteger.y, heaPum1.stage) annotation (Line(points={{-19,80},{-16,
           80},{-16,-51},{-12,-51}}, color={255,127,0}));
-  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_Dynamic.mos"
+  annotation (    __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_Dynamic.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=1000),
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of the
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater\">
-Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater</a> heat pump model. This
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.ReciprocatingWaterToWater\">
+IBPSA.Fluid.HeatPumps.ReciprocatingWaterToWater</a> heat pump model. This
 validation case also tests the stage input to the heat pump models.
 </p>
 <p>

@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.Compressors.BaseClasses;
 partial model PartialCompressor "Partial compressor model"
 
-  replaceable package ref = Buildings.Media.Refrigerants.R410A
+  replaceable package ref = IBPSA.Media.Refrigerants.R410A
     "Refrigerant in the component"
     annotation (choicesAllMatching = true);
 
@@ -143,8 +143,8 @@ refrigerant mass flow is not accounted for and heat ports are used instead of fl
 May 30, 2017, by Filip Jorissen:<br/>
 Removed <code>pressure_error</code> as
 this is replaced by
-<a href=\"modelica://Buildings.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection\">
-Buildings.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection\">
+IBPSA.Fluid.HeatPumps.Compressors.BaseClasses.TemperatureProtection</a>.
 See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/769\">#769</a>.
 </li>
 <li>

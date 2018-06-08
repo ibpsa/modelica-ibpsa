@@ -38,7 +38,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/BaseClasses/Validation/TemperatureProtection.mos"
+__Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/BaseClasses/Validation/TemperatureProtection.mos"
         "Simulate and plot"),
     experiment(StopTime=5, Tolerance=1e-06));
 end TemperatureProtection;

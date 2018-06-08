@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatPumps.Compressors.Validation;
 model ReciprocatingCompressor_ZeroInput
   extends Modelica.Icons.Example;
   IBPSA.Fluid.HeatPumps.Compressors.ReciprocatingCompressor com(
-    redeclare package ref = Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = IBPSA.Media.Refrigerants.R410A,
     pisDis=0.00162,
     cleFac=0.069,
     etaEle=0.696,
@@ -35,7 +35,7 @@ equation
     annotation (Line(points={{48,0},{56,0},{64,0}}, color={191,0,0}));
   connect(on.y,com.y)
     annotation (Line(points={{-5,28},{6,28},{6,11}}, color={0,0,127}));
-  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ReciprocatingCompressor_ZeroInput.mos"
+  annotation (    __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ReciprocatingCompressor_ZeroInput.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=100),

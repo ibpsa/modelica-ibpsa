@@ -2,8 +2,8 @@ within IBPSA.Fluid.HeatPumps.Validation;
 model ScrollWaterToWater_ScalingFactor
   "Test model for scroll water to water heat pump"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.Water "Medium model";
-  package Medium2 = Buildings.Media.Water "Medium model";
+  package Medium1 = IBPSA.Media.Water "Medium model";
+  package Medium2 = IBPSA.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 0.47
     "Nominal mass flow rate on the condenser side";
@@ -18,13 +18,13 @@ model ScrollWaterToWater_ScalingFactor
   parameter Real scaling_factor = 2.41
     "Scaling factor for heat pump capacity";
 
-  Buildings.Fluid.Sources.FixedBoundary sin2(
+  IBPSA.Fluid.Sources.FixedBoundary sin2(
     redeclare package Medium = Medium2, nPorts=2) "Source side sink"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-32,20})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  IBPSA.Fluid.Sources.FixedBoundary sin1(
     redeclare package Medium = Medium1, nPorts=2) "Load side sink"
     annotation (Placement(
         transformation(
@@ -51,7 +51,7 @@ model ScrollWaterToWater_ScalingFactor
     m2_flow_nominal=m2_flow_nominal,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    redeclare package ref = Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = IBPSA.Media.Refrigerants.R410A,
     enable_variable_speed=false,
     datHeaPum(
       etaEle=0.696,
@@ -70,7 +70,7 @@ model ScrollWaterToWater_ScalingFactor
     redeclare package Medium2 = Medium2,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    redeclare package ref = Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = IBPSA.Media.Refrigerants.R410A,
     enable_variable_speed=false,
     m1_flow_nominal=m1_flow_nominal*scaling_factor,
     m2_flow_nominal=m2_flow_nominal*scaling_factor,
@@ -170,15 +170,15 @@ equation
     annotation (Line(points={{79,54},{69.5,54},{60,54}}, color={0,0,127}));
   connect(mLoa1.y, loa.m_flow_in) annotation (Line(points={{-79,40},{-74,40},{-74,
           66},{-60,66}}, color={0,0,127}));
-  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_ScalingFactor.mos"
+  annotation (    __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_ScalingFactor.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=1000),
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of the
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ScrollWaterToWater\">
-Buildings.Fluid.HeatPumps.ScrollWaterToWater</a> heat pump model. This
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.ScrollWaterToWater\">
+IBPSA.Fluid.HeatPumps.ScrollWaterToWater</a> heat pump model. This
 validation case also tests the stage input to the heat pump models.
 </p>
 <p>

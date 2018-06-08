@@ -1,12 +1,12 @@
 within IBPSA.Fluid.HeatPumps.BaseClasses;
 partial model PartialWaterToWater
   "Partial model for water to water heat pumps and chillers"
-  extends Buildings.Fluid.Interfaces.PartialFourPortInterface;
-  extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
+  extends IBPSA.Fluid.Interfaces.PartialFourPortInterface;
+  extends IBPSA.Fluid.Interfaces.FourPortFlowResistanceParameters(
     final computeFlowResistance1 = dp1_nominal > 0,
     final computeFlowResistance2 = dp2_nominal > 0);
 
-  replaceable package ref = Buildings.Media.Refrigerants.R410A
+  replaceable package ref = IBPSA.Media.Refrigerants.R410A
     "Refrigerant in the component"
     annotation (choicesAllMatching = true);
 
@@ -94,7 +94,7 @@ partial model PartialWaterToWater
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
 
-  Buildings.Fluid.HeatExchangers.EvaporatorCondenser con(
+  IBPSA.Fluid.HeatExchangers.EvaporatorCondenser con(
     redeclare final package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1,
     final m_flow_nominal=m1_flow_nominal,
@@ -111,7 +111,7 @@ partial model PartialWaterToWater
     final UA=UACon) "Condenser"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
 
-  Buildings.Fluid.HeatExchangers.EvaporatorCondenser eva(
+  IBPSA.Fluid.HeatExchangers.EvaporatorCondenser eva(
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     final m_flow_nominal=m2_flow_nominal,
@@ -300,8 +300,8 @@ equation
 Partial model for a water to water heat pump, as detailed in Jin (2002). The
 model for the compressor is a partial model and needs to be replaced by one of the
 compressor models in
-<a href = \"modelica://Buildings.Fluid.HeatPumps.Compressors\">
-Buildings.Fluid.HeatPumps.Compressors</a>.
+<a href = \"modelica://IBPSA.Fluid.HeatPumps.Compressors\">
+IBPSA.Fluid.HeatPumps.Compressors</a>.
 </p>
 <h4>References</h4>
 <p>

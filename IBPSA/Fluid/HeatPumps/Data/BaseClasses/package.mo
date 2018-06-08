@@ -6,8 +6,8 @@ package BaseClasses "Base classes for package Data"
   Documentation(info="<html>
 This package contains the common parameters that are used
 to specify the heat pump models in
-<a href=\"Buildings.Fluid.HeatPumps\">
-Buildings.Fluid.HeatPumps</a>.
+<a href=\"IBPSA.Fluid.HeatPumps\">
+IBPSA.Fluid.HeatPumps</a>.
 </html>", revisions="<html>
 <ul>
 <li>

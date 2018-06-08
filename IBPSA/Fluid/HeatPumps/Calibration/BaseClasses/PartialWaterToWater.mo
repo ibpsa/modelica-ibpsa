@@ -8,7 +8,7 @@ model PartialWaterToWater
   replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium
     "Medium model at the evaporator side";
 
-  replaceable package ref = Buildings.Media.Refrigerants.R410A
+  replaceable package ref = IBPSA.Media.Refrigerants.R410A
     "Refrigerant model";
 
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
@@ -36,7 +36,7 @@ model PartialWaterToWater
     "De-multiplex"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
-  Buildings.Fluid.Sources.FixedBoundary sin2(redeclare final package Medium =
+  IBPSA.Fluid.Sources.FixedBoundary sin2(redeclare final package Medium =
         Medium2, nPorts=1) "Boundary condition" annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, origin={-50,-40})));
   Modelica.Fluid.Sources.MassFlowSource_T Sou(
@@ -46,7 +46,7 @@ model PartialWaterToWater
     use_T_in=true)
     "Mass flow source"
     annotation (Placement(transformation(extent={{60,-16},{40,4}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(redeclare final package Medium =
+  IBPSA.Fluid.Sources.FixedBoundary sin1(redeclare final package Medium =
         Medium1, nPorts=1) "Pressure boundary condition" annotation (Placement(
         transformation(extent={{10,-10},{-10,10}}, origin={50,30})));
 
