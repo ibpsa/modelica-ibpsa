@@ -59,7 +59,6 @@ protected
       nbTimLon=nbTimLon,
       ttsMax=ttsMax)
     "g-function input from mat, with the second column as temperature Tstep";
-
   final parameter Modelica.SIunits.Time t0(fixed=false) "Simulation start time";
   final parameter Modelica.SIunits.Time[i] nu(fixed=false)
     "Time vector for load aggregation";
@@ -77,10 +76,10 @@ protected
   Real delTbOld "Tb-Tg at previous time step";
   final parameter Real dhdt(fixed=false)
     "Time derivative of g/(2*pi*H*ks) within most recent cell";
-protected
   Modelica.SIunits.HeatFlowRate QTot = Tb.Q_flow*borFieDat.conDat.nbBh "Totat heat flow from all boreholes";
   Modelica.SIunits.Heat U "Accumulated heat flow from all boreholes";
   discrete Modelica.SIunits.Heat UOld "Accumulated heat flow from all boreholes at last aggregation step";
+
 initial equation
   Q_i = zeros(i);
   curCel = 1;
@@ -89,6 +88,8 @@ initial equation
   delTbs = 0;
   U = 0;
   UOld = 0;
+  delTbOld = 0;
+  derDelTbs = 0;
 
   (nu,rCel) = LoadAggregation.timAgg(
     i=i,
@@ -138,7 +139,8 @@ equation
   end when;
 
   assert((time - t0) <= timFin,
-    "The g-function input file does not cover the entire simulation length.");
+    "The borefield's calculated thermal response does
+    not cover the entire simulation length.");
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
