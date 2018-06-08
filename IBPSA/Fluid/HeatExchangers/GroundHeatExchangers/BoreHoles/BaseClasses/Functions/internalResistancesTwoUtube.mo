@@ -30,6 +30,11 @@ function internalResistancesTwoUtube
   output Modelica.SIunits.ThermalResistance RCondGro
     "Thermal resistance between a pipe wall and the grout capacity, as defined by Bauer et al (2010)";
 protected
+  Real[4,4] RDelta "Delta-circuit thermal resistances";
+  Real[4] xPip = {-sha, sha, 0., 0.} "x-Coordinates of pipes";
+  Real[4] yPip = {0., 0., -sha, sha} "y-Coordinates of pipes";
+  Real[4] rPip = {rTub, rTub, rTub, rTub} "Outer radius of pipes";
+  Real[4] Rfp(unit="(m.K)/W") = {RCondPipe+RConv, RCondPipe+RConv, RCondPipe+RConv, RCondPipe+RConv} "Fluid to pipe wall thermal resistances";
   Real R11(unit="(m.K)/W")
     "Thermal resistance between pipe wall and borehole wall, as defined by Zeng et al. (2003)";
   Real R12(unit="(m.K)/W")
@@ -44,6 +49,17 @@ protected
   Modelica.SIunits.ThermalResistance Rar2;
 
 algorithm
+  RDelta :=
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.multipoleThermalResistances(
+    4,
+    3,
+    xPip,
+    yPip,
+    rBor,
+    rPip,
+    kFil,
+    kSoi,
+    Rfp);
 R11 :=RCondPipe + RConv + 1/2/pi/kFil*(log(rBor/rTub) - (
     kFil - kSoi)/(kFil + kSoi)*log((rBor^2 - sha^2)/rBor^2));
 R12 :=1/2/pi/kFil*(log(rBor/(sqrt(2)*sha)) - (kFil - kSoi)
