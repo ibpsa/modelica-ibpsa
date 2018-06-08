@@ -1,6 +1,6 @@
 within IBPSA.Utilities.Cryptographics;
 function sha
-  "SHA1 encryption in C of the String array"
+  "SHA1 encryption in C of a String input"
   extends Modelica.Icons.Function;
   input String argv "String to be encrypted";
   output String sha1 "SHA1-encrypted string";
