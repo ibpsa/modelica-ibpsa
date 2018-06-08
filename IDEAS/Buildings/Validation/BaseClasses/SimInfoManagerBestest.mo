@@ -6,10 +6,7 @@ model SimInfoManagerBestest "Siminfomanager for BESTEST cases"
     final timZonSta=-7*3600,
     filNam="BESTEST.TMY",
     linIntRad=false,
-    linExtRad=false,
-    Tsky = Te - (23.8 - 0.2025*(Te - 273.15)*(1 - 0.87*Fc)),
-    Fc = 0.2,
-    Va = 2.5);
+    linExtRad=false);
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
