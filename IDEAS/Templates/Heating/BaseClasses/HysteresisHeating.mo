@@ -1,14 +1,11 @@
 within IDEAS.Templates.Heating.BaseClasses;
-partial model RadiatorHeating
-  "Partial model for a radiator heating system"
+partial model HysteresisHeating
+  "Partial model for a heating system using a hysteresis controller"
   extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
     P=fill(QHeaSys,nLoads_min),
     Q=zeros(nLoads_min),
-    final nConvPorts = nZones,
-    final nRadPorts = nZones,
     final isDH=false,
     final nTemSen = nZones,
-    final nEmbPorts=0,
     final nLoads=0);
   parameter Real dTHys=2 "Temperature difference for hysteresis controller";
   parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = fill(5000,nZones)
@@ -70,4 +67,4 @@ Revised implementation and documentation.
             -100},{200,100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,100}}),
         graphics));
-end RadiatorHeating;
+end HysteresisHeating;

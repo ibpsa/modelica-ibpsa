@@ -1,6 +1,6 @@
 within IDEAS.Templates.Ventilation;
 model ConstantAirFlowRecup
-  "Ventilation System with constant airflow rate and recuperation efficiency"
+  "Idealised ventilation System with constant airflow rate and heat recovery unit with constant efficiency"
 
   extends IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem(
     P = sum(n .* VZones/3600)*sysPres/fanEff/motEff / nLoads_min .*ones(nLoads_min),
@@ -43,23 +43,22 @@ model ConstantAirFlowRecup
     redeclare package Medium = Medium,
     use_T_in=true) "Ambient air"
     annotation (Placement(transformation(extent={{-80,-30},{-100,-10}})));
-  Fluid.Movers.FlowControlled_m_flow
-                    pump[nZones](
+  Fluid.Movers.FlowControlled_m_flow fan[nZones](
     m_flow_nominal=n ./ 3600.*1.204,
     redeclare each package Medium = Medium,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     each massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    each use_inputFilter=false)
+    each use_inputFilter=false,
+    each inputType=IDEAS.Fluid.Types.InputType.Constant)
+    "Fan with constant flow rate"
     annotation (Placement(transformation(extent={{-160,-10},{-180,-30}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)
     annotation (Placement(transformation(extent={{-40,-26},{-60,-6}})));
 
-  Modelica.Blocks.Sources.RealExpression[nZones] realExpressionPump(y=pump.m_flow_nominal)
-    annotation (Placement(transformation(extent={{-40,-60},{-60,-40}})));
 equation
 
   for i in 1:nZones loop
-    connect(pump[i].port_a, hex.port_b2) annotation (Line(
+    connect(fan[i].port_a, hex.port_b2) annotation (Line(
         points={{-160,-20},{-150,-20},{-150,8},{-140,8}},
         color={0,0,127},
         smooth=Smooth.None));
@@ -75,7 +74,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(pump.port_b, port_b) annotation (Line(
+  connect(fan.port_b, port_b) annotation (Line(
       points={{-180,-20},{-200,-20}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -86,11 +85,6 @@ equation
       smooth=Smooth.None));
   connect(realExpression.y, sou.T_in) annotation (Line(
       points={{-61,-16},{-78,-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
-  connect(realExpressionPump.y, pump.m_flow_in) annotation (Line(
-      points={{-61,-50},{-170,-50},{-170,-32}},
       color={0,0,127},
       smooth=Smooth.None));
 

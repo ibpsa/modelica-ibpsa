@@ -2,7 +2,8 @@ within IDEAS.Buildings.Validation.BaseClasses.Structure.BaseClasses;
 model Bui "Base model"
 
   extends IDEAS.Templates.Interfaces.BaseClasses.Structure(
-    final nZones=1, final nEmb=0,
+    final nZones=1,
+    nEmb=0,
     ATrans=1,
     VZones={gF.V});
   constant Modelica.SIunits.Angle aO = 0 "Angle offset for detailed experiments";

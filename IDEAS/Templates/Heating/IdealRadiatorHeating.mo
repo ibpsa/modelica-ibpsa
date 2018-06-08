@@ -1,6 +1,10 @@
 within IDEAS.Templates.Heating;
-model IdealRadiatorHeating "Hystersis heating system that instantly responds to a heat demand by injecting a nominal heating power"
-  extends IDEAS.Templates.Heating.BaseClasses.RadiatorHeating;
+model IdealRadiatorHeating
+  "Radiator heating system using hysteresis controller, using idealised heat emission"
+  extends IDEAS.Templates.Heating.BaseClasses.HysteresisHeating(
+    final nEmbPorts=0,
+    final nConvPorts = nZones,
+    final nRadPorts = nZones);
   parameter Real fraRad(min=0,max=1) = 0.3
     "Fraction of heat that is dissipated using radiative heat transfer";
 

@@ -1,6 +1,10 @@
 within IDEAS.Templates.Heating;
-model RadiatorHeating "Hysteresis heating system using radiators"
-  extends IDEAS.Templates.Heating.BaseClasses.RadiatorHeating;
+model RadiatorHeating
+  "Radiator heating system using hysteresis controller, using hydronic network and simplified pressure drops"
+  extends IDEAS.Templates.Heating.BaseClasses.HysteresisHeating(
+    final nEmbPorts=0,
+    final nConvPorts = nZones,
+    final nRadPorts = nZones);
 
 protected
   Fluid.HeatExchangers.Radiators.RadiatorEN442_2[nZones] rad(
@@ -9,7 +13,8 @@ protected
     each T_b_nominal=273.15 + 65,
     each dp_nominal=1000,
     Q_flow_nominal=QNom,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                           annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=90,
