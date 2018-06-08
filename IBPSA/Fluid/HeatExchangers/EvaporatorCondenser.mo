@@ -1,8 +1,8 @@
 within IBPSA.Fluid.HeatExchangers;
 model EvaporatorCondenser
   "Evaporator or condenser with refrigerant experiencing constant temperature phase change"
-  extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(redeclare final
-      Buildings.Fluid.MixingVolumes.MixingVolume vol(final
+  extends IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger(redeclare final
+      IBPSA.Fluid.MixingVolumes.MixingVolume vol(final
         prescribedHeatFlowRate=false));
 
   parameter Modelica.SIunits.ThermalConductance UA
@@ -28,10 +28,10 @@ model EvaporatorCondenser
 
   Modelica.SIunits.Efficiency eps=
     Buildings.Utilities.Math.Functions.smoothMin(
-      Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
+      IBPSA.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
       NTU,
       0,
-      Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)),
+      Integer(IBPSA.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)),
       0.999,
       1.0e-4)
     "Effectiveness of heat exchanger";

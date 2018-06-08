@@ -8,8 +8,8 @@ annotation (preferredView="info",Documentation(info="<HTML>
 <p>
 This library contains function definitions for refrigerant properties used in
 compressor models contained in package
-<a href=\"modelica://Buildings.Fluid.HeatPumps.Compressors\">
-Buildings.Fluid.HeatPumps.Compressors</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.Compressors\">
+IBPSA.Fluid.HeatPumps.Compressors</a>.
 </p>
 </html>", revisions="<html>
 <ul>

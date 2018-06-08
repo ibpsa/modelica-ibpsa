@@ -82,7 +82,7 @@ equation
   dvdp_num = dv_p / dp;
 
   dvdT_num = dv_T / dT;
-  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Media/Refrigerants/Validation/R410A_dSpecificVolumeVap_pT.mos"
+  annotation (    __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Media/Refrigerants/Validation/R410A_dSpecificVolumeVap_pT.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=100),

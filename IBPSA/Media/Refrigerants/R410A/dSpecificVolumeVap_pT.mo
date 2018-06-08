@@ -38,8 +38,8 @@ algorithm
 annotation (preferredView="info",Documentation(info="<HTML>
 <p>
 Function that calculates the derivatives of
-<a href=\"modelica://Buildings.Media.Refrigerants.R410A.specificVolumeVap_pT\">
-Buildings.Media.Refrigerants.R410A.specificVolumeVap_pT</a>
+<a href=\"modelica://IBPSA.Media.Refrigerants.R410A.specificVolumeVap_pT\">
+IBPSA.Media.Refrigerants.R410A.specificVolumeVap_pT</a>
 </p>
 </html>", revisions="<html>
 <ul>

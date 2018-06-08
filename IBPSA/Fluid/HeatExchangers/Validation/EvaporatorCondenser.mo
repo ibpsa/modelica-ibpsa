@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatExchangers.Validation;
 model EvaporatorCondenser "Test model for the evaporator or condenser model"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Water "Medium model";
+  package Medium = IBPSA.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.01
     "Nominal mass flow rate";
@@ -28,7 +28,7 @@ model EvaporatorCondenser "Test model for the evaporator or condenser model"
     nPorts=1) "Sink"
          annotation (Placement(transformation(extent={{78,-10},{58,10}})));
 
-  Buildings.Fluid.HeatExchangers.EvaporatorCondenser eva(
+  IBPSA.Fluid.HeatExchangers.EvaporatorCondenser eva(
     redeclare package Medium = Medium,
     m_flow(start=0.1),
     dp(start=10),
@@ -45,7 +45,7 @@ model EvaporatorCondenser "Test model for the evaporator or condenser model"
     height=9*m_flow_nominal,
     offset=m_flow_nominal) "Mass flow rate"
     annotation (Placement(transformation(extent={{-88,-2},{-68,18}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTem(
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium,
     tau=0.01,
@@ -64,15 +64,15 @@ equation
     annotation (Line(points={{10,0},{18,0},{24,0}}, color={0,127,255}));
   connect(senTem.port_b, sin.ports[1])
     annotation (Line(points={{44,0},{52,0},{58,0}}, color={0,127,255}));
-  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/EvaporatorCondenser.mos"
+  annotation (    __Dymola_Commands(file= "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/EvaporatorCondenser.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=100),
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of the
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.EvaporatorCondenser\">
-Buildings.Fluid.HeatExchangers.EvaporatorCondenser</a> model.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.EvaporatorCondenser\">
+IBPSA.Fluid.HeatExchangers.EvaporatorCondenser</a> model.
 </p>
 <p>
 The fluid flow rate is increased from <i>m&#775; = 0.01 kg/s</i> to
