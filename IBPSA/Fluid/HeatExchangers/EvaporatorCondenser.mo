@@ -23,11 +23,11 @@ model EvaporatorCondenser
         iconTransformation(extent={{-5,-55},{5,-65}})));
 
   Modelica.SIunits.Efficiency NTU = UA /
-    (Buildings.Utilities.Math.Functions.smoothMax(abs(port_a.m_flow),m_flow_small,m_flow_small)*cp_default)
+    (IBPSA.Utilities.Math.Functions.smoothMax(abs(port_a.m_flow),m_flow_small,m_flow_small)*cp_default)
    "Number of transfer units of heat exchanger";
 
   Modelica.SIunits.Efficiency eps=
-    Buildings.Utilities.Math.Functions.smoothMin(
+    IBPSA.Utilities.Math.Functions.smoothMin(
       IBPSA.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
       NTU,
       0,
@@ -37,7 +37,7 @@ model EvaporatorCondenser
     "Effectiveness of heat exchanger";
 
   Modelica.Blocks.Sources.RealExpression UAeff(
-    final y=Buildings.Utilities.Math.Functions.smoothMax(
+    final y=IBPSA.Utilities.Math.Functions.smoothMax(
       x1=UA,
       x2=eps*cp_default*abs(port_a.m_flow)/(1 - eps),
       deltaX=UA_small))

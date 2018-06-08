@@ -47,7 +47,7 @@ protected
 
 algorithm
   // Ideal gas isobaric heat capacity from polynomial equation
-  cpo := 1.0e3*Buildings.Utilities.Math.Functions.polynomial(a = a, x = T);
+  cpo := 1.0e3*IBPSA.Utilities.Math.Functions.polynomial(a = a, x = T);
   cvo := cpo - R;
 
   // Integral of second derivative of pressure w.r.t. temperature

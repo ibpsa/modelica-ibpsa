@@ -20,7 +20,6 @@ model ScrollWaterToWater
     calDat(tableName="ManufacturerData", fileName=
           Modelica.Utilities.Files.loadResource(
           "modelica://IBPSA/Resources/src/fluid/heatpumps/calibration/manufacturerData.txt")),
-
     UACon=12000.0,
     UAEva=12000.0,
     m1_flow_nominal=1.42,
@@ -71,13 +70,13 @@ manufacturers) capacity and power input of the heat pump.
 </p>
 <p>
 The optimization is done using a Python implementation of the heat pump model,
-found in Buildings/Resources/src/fluid/heatpumps/calibration/.
+found in IBPSA/Resources/src/fluid/heatpumps/calibration/.
 Heat pump model parameters are verified using this modelica model after their
 evaluation by the Python code.
 </p>
 <p>
 Documentation for the Python code is in the directory
-<code>Buildings/Resources/src/fluid/heatpumps/calibration/doc/build/html</code>.
+<code>IBPSA/Resources/src/fluid/heatpumps/calibration/doc/build/html</code>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -50,7 +50,7 @@ equation
   PRInt = volRat^k;
 
   // Limit compressor speed to the full load speed
-  v_norm = Buildings.Utilities.Math.Functions.smoothLimit(y, 0.0, 1.0, 0.001);
+  v_norm = IBPSA.Utilities.Math.Functions.smoothLimit(y, 0.0, 1.0, 0.001);
 
   if isOn then
     // Suction pressure
@@ -60,7 +60,7 @@ equation
     // Refrigerant mass flow rate
     mLea_flow = leaCoe*PR;
     m_flow = v_norm*
-      Buildings.Utilities.Math.Functions.smoothMax(
+      IBPSA.Utilities.Math.Functions.smoothMax(
       V_flow_nominal/vSuc - mLea_flow,
       1e-5*V_flow_nominal/vSuc,
       1e-6*V_flow_nominal/vSuc);

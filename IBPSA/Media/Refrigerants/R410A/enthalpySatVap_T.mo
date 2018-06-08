@@ -21,9 +21,9 @@ protected
 
 algorithm
   // Independent variable
-  x := Buildings.Utilities.Math.Functions.smoothMax(1-T/TCri, 1e-4, 5e-3)^(1/3) - x0;
+  x := IBPSA.Utilities.Math.Functions.smoothMax(1-T/TCri, 1e-4, 5e-3)^(1/3) - x0;
   // Pressure of saturated liquid refrigerant
-  h := 1000*Buildings.Utilities.Math.Functions.polynomial(a = a, x = x);
+  h := 1000*IBPSA.Utilities.Math.Functions.polynomial(a = a, x = x);
 
 annotation (smoothOrder=1,
 preferredView="info",Documentation(info="<HTML>

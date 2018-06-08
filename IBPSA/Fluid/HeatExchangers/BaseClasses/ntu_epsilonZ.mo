@@ -78,8 +78,8 @@ Documentation(info="<html>
 This function computes the number of transfer units for a given heat exchanger effectiveness,
 capacity flow ratio and heat exchanger flow regime.
 The different options for the flow regime are declared in
-<a href=\"modelica://Buildings.Fluid.Types.HeatExchangerFlowRegime\">
-Buildings.Fluid.Types.HeatExchangerFlowRegime</a>.
+<a href=\"modelica://IBPSA.Fluid.Types.HeatExchangerFlowRegime\">
+IBPSA.Fluid.Types.HeatExchangerFlowRegime</a>.
 </p>
 <p>
 Note that for the flow regime <code>CrossFlowUnmixed</code>, computing the
@@ -97,11 +97,11 @@ the heat exchanger.
 <li>
 July 7, 2014, by Michael Wetter:<br/>
 Changed the type of the input <code>flowRegime</code> from
-<code>Buildings.Fluid.Types.HeatExchangerFlowRegime</code>
+<code>IBPSA.Fluid.Types.HeatExchangerFlowRegime</code>
 to <code>Integer</code>.
 This was done to have the same argument list as
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ\">
-Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ</a>,
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ\">
+IBPSA.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ</a>,
 in which the type had to be changed.
 </li>
 <li>

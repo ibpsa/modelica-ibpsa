@@ -39,7 +39,7 @@ protected
 
 algorithm
 
-  v_abs := Buildings.Utilities.Math.Functions.smoothMax(v, 1.01*b, 0.01*b);
+  v_abs := IBPSA.Utilities.Math.Functions.smoothMax(v, 1.01*b, 0.01*b);
 
   dpdv := -R*T/(v_abs-b)^2;
   for i in 1:n loop

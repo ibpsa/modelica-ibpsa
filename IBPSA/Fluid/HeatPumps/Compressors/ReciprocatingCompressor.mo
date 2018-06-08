@@ -41,11 +41,11 @@ protected
 
 equation
   // Limit compressor speed to the full load speed
-  pisDis_norm = Buildings.Utilities.Math.Functions.smoothLimit(y, 0.0, 1.0, 0.001);
+  pisDis_norm = IBPSA.Utilities.Math.Functions.smoothLimit(y, 0.0, 1.0, 0.001);
 
   if isOn then
     // Suction pressure
-    pSuc = Buildings.Utilities.Math.Functions.smoothMin(pEva - pDro, pCon - pDro, 0.01*ref.pCri);
+    pSuc = IBPSA.Utilities.Math.Functions.smoothMin(pEva - pDro, pCon - pDro, 0.01*ref.pCri);
     // Discharge pressure
     pDis = pCon + pDro;
     // Refrigerant mass flow rate

@@ -25,7 +25,7 @@ revisions="<html>
 <li>
 July 7, 2014, by Michael Wetter:<br/>
 Changed the type of the input <code>flowRegime</code> from
-<code>Buildings.Fluid.Types.HeatExchangerFlowRegime</code>
+<code>IBPSA.Fluid.Types.HeatExchangerFlowRegime</code>
 to <code>Integer</code>.
 </li>
 <li>
