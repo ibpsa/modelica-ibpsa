@@ -356,9 +356,9 @@ class SingleStageHeatPump(object):
 
     def modelicaCalibrationModelPath(self):
         """ Returns the full path to the heat pump model for calibration in the
-            Buildings library.
+            IBPSA library.
 
-        :return: Full path to the compressor model in the Buildings library.
+        :return: Full path to the compressor model in the IBPSA library.
 
         Usage: Type
            >>> import compressors
@@ -382,9 +382,9 @@ class SingleStageHeatPump(object):
 
     def modelicaModelName(self):
         """ Returns the name of the heat pump model for calibration in the
-            Buildings library.
+            IBPSA library.
 
-        :return: Full path to the compressor model in the Buildings library.
+        :return: Full path to the compressor model in the IBPSA library.
 
         Usage: Type
            >>> import compressors
@@ -410,7 +410,7 @@ class SingleStageHeatPump(object):
         """ Returns the full path to the heat pump model in the Buildings
         library.
 
-        :return: Full path to the compressor model in the Buildings library.
+        :return: Full path to the compressor model in the IBPSA library.
 
         Usage: Type
            >>> import compressors

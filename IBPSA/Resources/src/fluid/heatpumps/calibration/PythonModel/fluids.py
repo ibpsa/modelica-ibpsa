@@ -55,9 +55,9 @@ class ConstantPropertyWater(object):
         return self._v
 
     def modelicaModelPath(self):
-        """ Returns the full path to the water model in the Buildings library.
+        """ Returns the full path to the water model in the IBPSA library.
 
-        :return: Full path to the water model in the Buildings library.
+        :return: Full path to the water model in the IBPSA library.
 
         .. Note:: The minimum temperature is set to -50 C to avoid the Modelica
                   model from failing.

@@ -11,7 +11,7 @@ Once heat pump parameters are identified, the results are verified
 by running the model in Dymola.
 
 The following script can be found in
-`Buildings/Resources/src/fluid/heatpumps/calibration/Examples/example_calibration.py`:
+`IBPSA/Resources/src/fluid/heatpumps/calibration/Examples/example_calibration.py`:
 
 .. literalinclude:: ../../Examples/example_calibration.py
    :language: python

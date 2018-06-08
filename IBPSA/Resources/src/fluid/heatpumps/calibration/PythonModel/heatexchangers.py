@@ -75,9 +75,9 @@ class EvaporatorCondenser(object):
 
     def modelicaModelPath(self):
         """ Returns the full path to the EvaporatorCondenser model in the
-            Buildings library.
+            IBPSA library.
 
-        :return: Full path to the compressor model in the Buildings library.
+        :return: Full path to the compressor model in the IBPSA library.
 
         Usage: Type
            >>> eva = EvaporatorCondenser([21523])

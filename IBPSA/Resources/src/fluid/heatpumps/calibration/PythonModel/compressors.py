@@ -198,7 +198,7 @@ class ReciprocatingCompressor(object):
         """ Returns the full path to the compressor model in the Buildings
             library.
 
-        :return: Full path to the compressor model in the Buildings library.
+        :return: Full path to the compressor model in the IBPSA library.
 
         Usage: Type
            >>> com = ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
@@ -444,7 +444,7 @@ class ScrollCompressor(object):
         """ Returns the full path to the compressor model in the Buildings
             library.
 
-        :return: Full path to the compressor model in the Buildings library.
+        :return: Full path to the compressor model in the IBPSA library.
 
         Usage: Type
            >>> com = ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])

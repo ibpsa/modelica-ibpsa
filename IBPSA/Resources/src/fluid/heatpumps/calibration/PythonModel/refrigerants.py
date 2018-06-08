@@ -232,7 +232,7 @@ class R410A(object):
         """ Returns the full path to the refrigerant package in the Buildings
             library.
 
-        :return: Full path to the refrigerant package in the Buildings library.
+        :return: Full path to the refrigerant package in the IBPSA library.
 
         Usage: Type
            >>> ref = R410A()
