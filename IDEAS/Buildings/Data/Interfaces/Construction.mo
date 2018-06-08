@@ -9,6 +9,7 @@ partial record Construction "Template record for surface structure: define/order
    "Number of gain heat ports";
   parameter Integer locGain[:](each min=1) = {1}
     "Location of possible embedded system: between layer locGain and layer locGain + 1";
+  // where locGain=1 is the first layer
   parameter IDEAS.Buildings.Data.Interfaces.Material[:] mats
     "Array of materials. The last layer is connected to propsBus_a.";
   parameter Modelica.SIunits.Angle incLastLay = IDEAS.Types.Tilt.Other
