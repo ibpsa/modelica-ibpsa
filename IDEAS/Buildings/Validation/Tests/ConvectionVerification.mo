@@ -3,11 +3,7 @@ model ConvectionVerification
   "Comparison between linear and non-linear convection"
   extends Modelica.Icons.Example;
 
-  inner BoundaryConditions.SimInfoManager sim(
-    filNam="BESTEST.TMY",
-    lat=0.69464104229374,
-    lon=-1.8308503853421,
-    timZonSta=-28800)
+  inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
   IDEAS.Buildings.Validation.Cases.Case900 CaseLin(building(
       roof(linearise_a=true),
