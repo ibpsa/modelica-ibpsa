@@ -115,7 +115,7 @@ equation
   when (sample(t0, tLoaAgg)) then
     (curCel,Q_shift) = LoadAggregation.nextTimeStep(
       i=i,
-      Q_i=pre(Q_i),
+      Q_i=Q_i,
       rCel=rCel,
       nu=nu,
       curTim=(time - t0));
@@ -124,7 +124,7 @@ equation
     Q_i = LoadAggregation.setCurLoa(
       i=i,
       Qb=(U-pre(UOld))/tLoaAgg,
-      Q_shift=Q_shift);
+      Q_shift=pre(Q_shift));
 
     delTbs = LoadAggregation.tempSuperposition(
       i=i,
