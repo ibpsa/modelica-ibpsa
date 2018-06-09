@@ -5,11 +5,11 @@ model ZoneLinearise "Test for linearisation"
   parameter Integer nEmb=1 "Number of embbed systems";
   package Medium = IDEAS.Media.Air;
   extends Modelica.Icons.Example;
-  LIDEAS.Components.LinZone zone(
+  LIDEAS.Components.LinZone groFlo(
     redeclare package Medium = Medium,
     allowFlowReversal=true,
     V=20,
-    nSurf=5) "First zone"
+    nSurf=5) "Ground floor"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   IDEAS.Buildings.Components.BoundaryWall commonWall(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
@@ -25,7 +25,7 @@ model ZoneLinearise "Test for linearisation"
     inc=IDEAS.Types.Tilt.Floor,
     redeclare IDEAS.Buildings.Data.Constructions.TABS constructionType)
     "TABS Floor between the two zones." annotation (Placement(transformation(
-        extent={{-5,-10},{5,10}},
+        extent={{5,-10},{-5,10}},
         rotation=90,
         origin={9,-38})));
 
@@ -43,7 +43,7 @@ model ZoneLinearise "Test for linearisation"
       constructionType,
     A=20,
     PWall=3,
-    inc=0,
+    inc=IDEAS.Types.Tilt.Floor,
     azi=0) "Floor model"
     annotation (Placement(transformation(extent={{-54,20},{-44,40}})));
   IDEAS.Buildings.Components.OuterWall outerWall(
@@ -53,11 +53,11 @@ model ZoneLinearise "Test for linearisation"
     A=10,
     inc=1.5707963267949) "Outer wall model"
     annotation (Placement(transformation(extent={{-54,-58},{-44,-38}})));
-  LIDEAS.Components.LinZone zone1(
-    nSurf=2,
+  LIDEAS.Components.LinZone firFlo(
     redeclare package Medium = Medium,
     allowFlowReversal=true,
-    V=20) "Second zone"
+    V=20,
+    nSurf=4) "first floor"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   IDEAS.Buildings.Components.Shading.ShadingControl shadingControl
     "Shading control model"
@@ -76,34 +76,38 @@ model ZoneLinearise "Test for linearisation"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Modelica.Blocks.Sources.Constant const1(k=10) "Constant heat flow at one side of the common wall 1"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+  IDEAS.Buildings.Components.OuterWall outerWall1(
+    azi=0,
+    redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
+      constructionType,
+    A=10,
+    inc=1.5707963267949) "Outer wall model"
+    annotation (Placement(transformation(extent={{-30,-100},{-20,-80}})));
+  IDEAS.Buildings.Components.OuterWall Roof(
+    azi=0,
+    A=10,
+    redeclare Buildings.Validation.Data.Constructions.LightRoof
+      constructionType,
+    inc=IDEAS.Types.Tilt.Ceiling) "Outer wall model"
+    annotation (Placement(transformation(extent={{-2,-100},{8,-80}})));
 equation
-  connect(commonWall.propsBus_a, zone.propsBus[1]) annotation (Line(
+  connect(commonWall.propsBus_a, groFlo.propsBus[1]) annotation (Line(
       points={{-44.8333,10},{-12,10},{-12,-4.4},{20,-4.4}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(floor.propsBus_a, zone.propsBus[2]) annotation (Line(
-      points={{7,-33.8333},{6,-33.8333},{6,-5.2},{20,-5.2}},
+  connect(window.propsBus_a, firFlo.propsBus[2]) annotation (Line(
+      points={{-44.8333,-70},{6,-70},{6,-55.5},{20,-55.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(window.propsBus_a, zone1.propsBus[2]) annotation (Line(
-      points={{-44.8333,-70},{6,-70},{6,-57},{20,-57}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
-  connect(outerWall.propsBus_a, zone.propsBus[4]) annotation (Line(
+  connect(outerWall.propsBus_a, groFlo.propsBus[4]) annotation (Line(
       points={{-44.8333,-46},{-12,-46},{-12,-6.8},{20,-6.8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(slabOnGround.propsBus_a, zone.propsBus[3]) annotation (Line(
+  connect(slabOnGround.propsBus_a, groFlo.propsBus[3]) annotation (Line(
       points={{-44.8333,32},{-12,32},{-12,-6},{20,-6}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
-  connect(floor.propsBus_b, zone1.propsBus[1]) annotation (Line(
-      points={{7,-42.1667},{6.5,-42.1667},{6.5,-55},{20,-55}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -111,7 +115,7 @@ equation
       points={{-60,-84},{-58,-84},{-58,-86},{-52.3333,-86},{-52.3333,-82}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(commonWall1.propsBus_a, zone.propsBus[5]) annotation (Line(
+  connect(commonWall1.propsBus_a, groFlo.propsBus[5]) annotation (Line(
       points={{-44.8333,-14},{-12,-14},{-12,-7.6},{20,-7.6}},
       color={255,204,51},
       thickness=0.5));
@@ -121,6 +125,23 @@ equation
   connect(const1.y, commonWall1.Q_flow) annotation (Line(points={{-79,-20},{
           -57.8333,-20},{-57.8333,-18}},
                                    color={0,0,127}));
+  connect(outerWall1.propsBus_a, firFlo.propsBus[3]) annotation (Line(
+      points={{-20.8333,-88},{-14,-88},{-14,-72},{8,-72},{8,-56.5},{20,-56.5}},
+      color={255,204,51},
+      thickness=0.5));
+
+  connect(Roof.propsBus_a, firFlo.propsBus[4]) annotation (Line(
+      points={{7.16667,-88},{20,-88},{20,-57.5}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(floor.propsBus_b, groFlo.propsBus[2]) annotation (Line(
+      points={{7,-33.8333},{7,-5.2},{20,-5.2}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(floor.propsBus_a, firFlo.propsBus[1]) annotation (Line(
+      points={{7,-42.1667},{7,-54.5},{20,-54.5}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           __Dymola_Commands(file=
           "Scripts/linearize_ZoneLinearise.mos" "Linearise"),

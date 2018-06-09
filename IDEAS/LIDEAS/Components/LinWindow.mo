@@ -6,6 +6,7 @@ model LinWindow
   parameter Integer indexWindow = 1 "Index of this window"
     annotation(Dialog(group="Linearisation"),Evaluate=true);
 protected
+  IDEAS.Buildings.Components.Interfaces.WindowBus winBusOut if sim.createOutputs "Window bus to connecto to sim.winBusOut";
   outer input IDEAS.Buildings.Components.Interfaces.WindowBus[sim.nWindow]
     winBusIn if sim.linearise annotation (Placement(
         transformation(
@@ -26,8 +27,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   if sim.createOutputs then
-    connect(solWin.AbsQFlowOutput, sim.winBusOut[indexWindow].AbsQFlow);
-    connect(solWin.iSolDirOutput, sim.winBusOut[indexWindow].iSolDir);
-    connect(solWin.iSolDifOutput, sim.winBusOut[indexWindow].iSolDif);
+    connect(sim.winBusOut[indexWindow], winBusOut);
+    connect(solWin.AbsQFlowOutput, winBusOut.AbsQFlow);
+    connect(solWin.iSolDirOutput, winBusOut.iSolDir);
+    connect(solWin.iSolDifOutput, winBusOut.iSolDif);
   end if;
 end LinWindow;

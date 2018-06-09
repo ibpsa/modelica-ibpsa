@@ -35,16 +35,14 @@ model ZoneWithInputsLinearise
         rotation=270,
         origin={100,-60})));
 equation
-  connect(preQFloCon[1].port, zone1.gainCon) annotation (Line(points={{58,60},{48,
-          60},{48,-63},{40,-63}},color={191,0,0}));
-  connect(preQFloCon[2].port, zone.gainCon) annotation (Line(points={{58,60},{58,
-          60},{48,60},{48,-13},{40,-13}},
-                                        color={191,0,0}));
-  connect(preQFloRad[2].port, zone.gainRad)
-    annotation (Line(points={{58,40},{50,40},{50,-16},{42,-16},{40,-16}},
-                                                          color={191,0,0}));
-  connect(preQFloRad[1].port, zone1.gainRad) annotation (Line(points={{58,40},{58,
-          40},{50,40},{50,-18},{50,40},{50,-66},{40,-66}},       color={191,0,0}));
+  connect(preQFloCon[1].port, firFlo.gainCon) annotation (Line(points={{58,60},
+          {48,60},{48,-63},{40,-63}}, color={191,0,0}));
+  connect(preQFloCon[2].port, groFlo.gainCon) annotation (Line(points={{58,60},
+          {58,60},{48,60},{48,-13},{40,-13}}, color={191,0,0}));
+  connect(preQFloRad[2].port, groFlo.gainRad) annotation (Line(points={{58,40},
+          {50,40},{50,-16},{42,-16},{40,-16}}, color={191,0,0}));
+  connect(preQFloRad[1].port, firFlo.gainRad) annotation (Line(points={{58,40},
+          {58,40},{50,40},{50,-18},{50,40},{50,-66},{40,-66}}, color={191,0,0}));
   connect(preQFloCon.Q_flow, ctrlInputs.QCon) annotation (Line(points={{78,60},{
           100.1,60},{100.1,61.9}}, color={0,0,127}), Text(
       string="%second",
@@ -62,18 +60,18 @@ equation
       extent={{6,3},{6,3}}));
   connect(preQFloTabs[1].port, floor.port_emb[1]) annotation (Line(points={{60,
           20},{52,20},{52,-38},{19,-38}}, color={191,0,0}));
-  connect(zone.TSensor, outputs.TSensor[1]) annotation (Line(points={{40.6,-10},
+  connect(groFlo.TSensor, outputs.TSensor[1]) annotation (Line(points={{40.6,-10},
           {100.1,-10},{100.1,-10.1}}, color={0,0,127}));
-  connect(zone1.TSensor, outputs.TSensor[2]) annotation (Line(points={{40.6,-60},
+  connect(firFlo.TSensor, outputs.TSensor[2]) annotation (Line(points={{40.6,-60},
           {50,-60},{54,-60},{54,-10.1},{100.1,-10.1}}, color={0,0,127}));
-  connect(occQFloCon[1].port, zone.gainCon) annotation (Line(points={{64,-60},{60,
-          -60},{60,-13},{40,-13}}, color={191,0,0}));
-  connect(occQFloCon[2].port, zone1.gainCon) annotation (Line(points={{64,-60},{
-          60,-60},{60,-63},{40,-63}}, color={191,0,0}));
-  connect(occQFloRad[1].port, zone.gainRad) annotation (Line(points={{64,-80},{58,
-          -80},{58,-16},{40,-16}}, color={191,0,0}));
-  connect(occQFloRad[2].port, zone1.gainRad) annotation (Line(points={{64,-80},{
-          58,-80},{58,-66},{40,-66}}, color={191,0,0}));
+  connect(occQFloCon[1].port, groFlo.gainCon) annotation (Line(points={{64,-60},
+          {60,-60},{60,-13},{40,-13}}, color={191,0,0}));
+  connect(occQFloCon[2].port, firFlo.gainCon) annotation (Line(points={{64,-60},
+          {60,-60},{60,-63},{40,-63}}, color={191,0,0}));
+  connect(occQFloRad[1].port, groFlo.gainRad) annotation (Line(points={{64,-80},
+          {58,-80},{58,-16},{40,-16}}, color={191,0,0}));
+  connect(occQFloRad[2].port, firFlo.gainRad) annotation (Line(points={{64,-80},
+          {58,-80},{58,-66},{40,-66}}, color={191,0,0}));
   connect(occQFloRad.Q_flow, prescribedIn.QRad) annotation (Line(points={{84,-80},
           {100,-80},{100,-60.1},{100.1,-60.1}}, color={0,0,127}), Text(
       string="%second",

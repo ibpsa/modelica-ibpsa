@@ -334,7 +334,41 @@ protected
     fraType(present=fraTypA.present,
             U_value=fraTypA.U_value),
     linExtRad=linExtRadWin) if
-       hasWinA constrainedby Window
+       hasWinA constrainedby Window(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
+    glazing(
+      nLay=glazingA.nLay,
+      mats=glazingA.mats,
+      SwAbs=glazingA.SwAbs,
+      SwTrans=glazingA.SwTrans,
+      SwAbsDif=glazingA.SwAbsDif,
+      SwTransDif=glazingA.SwTransDif,
+      U_value=glazingA.U_value,
+      g_value=glazingA.g_value),
+    A=A_winA,
+    frac=fracA,
+    T_start=T_start,
+    linIntCon_a=linIntCon,
+    dT_nominal_a=dT_nominal_win,
+    linExtCon=linExtCon,
+    windowDynamicsType=windowDynamicsType,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+  controlled=shaTypA.controlled,
+  shaType=shaTypA.shaType,
+  hWin=shaTypA.hWin,
+  wWin=shaTypA.wWin,
+  wLeft=shaTypA.wLeft,
+  wRight=shaTypA.wRight,
+  ovDep=shaTypA.ovDep,
+  ovGap=shaTypA.ovGap,
+  hFin=shaTypA.hFin,
+  finDep=shaTypA.finDep,
+  finGap=shaTypA.finGap,
+  L=shaTypA.L,
+  dh=shaTypA.dh,
+  shaCorr=shaTypA.shaCorr)),
+    fraType(present=fraTypA.present,
+            U_value=fraTypA.U_value),
+    linExtRad=linExtRadWin)
     "Window for face A of this zone" annotation (Placement(transformation(extent={{-100,0},{-90,20}})));
   replaceable
   IDEAS.Buildings.Components.Window winB(
@@ -373,7 +407,42 @@ protected
   shaCorr=shaTypB.shaCorr)),
     fraType(present=fraTypB.present, U_value=fraTypB.U_value),
     linExtRad=linExtRadWin) if
-       hasWinB constrainedby Window
+       hasWinB constrainedby Window(
+      inc=IDEAS.Types.Tilt.Wall,
+    glazing(
+      nLay=glazingB.nLay,
+      mats=glazingB.mats,
+      SwAbs=glazingB.SwAbs,
+      SwTrans=glazingB.SwTrans,
+      SwAbsDif=glazingB.SwAbsDif,
+      SwTransDif=glazingB.SwTransDif,
+      U_value=glazingB.U_value,
+      g_value=glazingB.g_value),
+    A=A_winB,
+    frac=fraB,
+    azi=aziA + Modelica.Constants.pi/2,
+    T_start=T_start,
+    linIntCon_a=linIntCon,
+    dT_nominal_a=dT_nominal_win,
+    linExtCon=linExtCon,
+    windowDynamicsType=windowDynamicsType,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+  controlled=shaTypB.controlled,
+  shaType=shaTypB.shaType,
+  hWin=shaTypB.hWin,
+  wWin=shaTypB.wWin,
+  wLeft=shaTypB.wLeft,
+  wRight=shaTypB.wRight,
+  ovDep=shaTypB.ovDep,
+  ovGap=shaTypB.ovGap,
+  hFin=shaTypB.hFin,
+  finDep=shaTypB.finDep,
+  finGap=shaTypB.finGap,
+  L=shaTypB.L,
+  dh=shaTypB.dh,
+  shaCorr=shaTypB.shaCorr)),
+    fraType(present=fraTypB.present, U_value=fraTypB.U_value),
+    linExtRad=linExtRadWin)
     "Window for face B of this zone" annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
@@ -415,7 +484,41 @@ protected
   shaCorr=shaTypC.shaCorr)),
     fraType(present=fraTypC.present, U_value=fraTypC.U_value),
     linExtRad=linExtRadWin) if
-       hasWinC constrainedby Window
+       hasWinC constrainedby Window(inc=IDEAS.Types.Tilt.Wall,
+    glazing(
+      nLay=glazingC.nLay,
+      mats=glazingC.mats,
+      SwAbs=glazingC.SwAbs,
+      SwTrans=glazingC.SwTrans,
+      SwAbsDif=glazingC.SwAbsDif,
+      SwTransDif=glazingC.SwTransDif,
+      U_value=glazingC.U_value,
+      g_value=glazingC.g_value),
+    A=A_winC,
+    frac=fracC,
+    azi=aziA + Modelica.Constants.pi,
+    T_start=T_start,
+    linIntCon_a=linIntCon,
+    dT_nominal_a=dT_nominal_win,
+    linExtCon=linExtCon,
+    windowDynamicsType=windowDynamicsType,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+  controlled=shaTypC.controlled,
+  shaType=shaTypC.shaType,
+  hWin=shaTypC.hWin,
+  wWin=shaTypC.wWin,
+  wLeft=shaTypC.wLeft,
+  wRight=shaTypC.wRight,
+  ovDep=shaTypC.ovDep,
+  ovGap=shaTypC.ovGap,
+  hFin=shaTypC.hFin,
+  finDep=shaTypC.finDep,
+  finGap=shaTypC.finGap,
+  L=shaTypC.L,
+  dh=shaTypC.dh,
+  shaCorr=shaTypC.shaCorr)),
+    fraType(present=fraTypC.present, U_value=fraTypC.U_value),
+    linExtRad=linExtRadWin)
     "Window for face C of this zone" annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
@@ -457,7 +560,41 @@ protected
   shaCorr=shaTypD.shaCorr)),
     fraType(present=fraTypD.present, U_value=fraTypD.U_value),
     linExtRad=linExtRadWin) if
-       hasWinD constrainedby Window
+       hasWinD constrainedby Window(inc=IDEAS.Types.Tilt.Wall, azi=aziA +
+        Modelica.Constants.pi/2*3,
+    glazing(
+      nLay=glazingD.nLay,
+      mats=glazingD.mats,
+      SwAbs=glazingD.SwAbs,
+      SwTrans=glazingD.SwTrans,
+      SwAbsDif=glazingD.SwAbsDif,
+      SwTransDif=glazingD.SwTransDif,
+      U_value=glazingD.U_value,
+      g_value=glazingD.g_value),
+    A=A_winD,
+    frac=fracD,
+    T_start=T_start,
+    linIntCon_a=linIntCon,
+    dT_nominal_a=dT_nominal_win,
+    linExtCon=linExtCon,
+    windowDynamicsType=windowDynamicsType,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+      controlled=shaTypD.controlled,
+  shaType=shaTypD.shaType,
+  hWin=shaTypD.hWin,
+  wWin=shaTypD.wWin,
+  wLeft=shaTypD.wLeft,
+  wRight=shaTypD.wRight,
+  ovDep=shaTypD.ovDep,
+  ovGap=shaTypD.ovGap,
+  hFin=shaTypD.hFin,
+  finDep=shaTypD.finDep,
+  finGap=shaTypD.finGap,
+  L=shaTypD.L,
+  dh=shaTypD.dh,
+  shaCorr=shaTypD.shaCorr)),
+    fraType(present=fraTypD.present, U_value=fraTypD.U_value),
+    linExtRad=linExtRadWin)
     "Window for face D of this zone" annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
@@ -498,7 +635,40 @@ protected
   shaCorr=shaTypCei.shaCorr)),
     fraType(present=fraTypCei.present, U_value=fraTypCei.U_value),
     linExtRad=linExtRadWin) if
-       hasWinCei constrainedby Window
+       hasWinCei constrainedby Window(inc=IDEAS.Types.Tilt.Ceiling, azi=aziA,
+    glazing(
+      nLay=glazingCei.nLay,
+      mats=glazingCei.mats,
+      SwAbs=glazingCei.SwAbs,
+      SwTrans=glazingCei.SwTrans,
+      SwAbsDif=glazingCei.SwAbsDif,
+      SwTransDif=glazingCei.SwTransDif,
+      U_value=glazingCei.U_value,
+      g_value=glazingCei.g_value),
+    A=A_winCei,
+    frac=fracCei,
+    T_start=T_start,
+    linIntCon_a=linIntCon,
+    dT_nominal_a=dT_nominal_win,
+    linExtCon=linExtCon,
+    windowDynamicsType=windowDynamicsType,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+      controlled=shaTypCei.controlled,
+  shaType=shaTypCei.shaType,
+  hWin=shaTypCei.hWin,
+  wWin=shaTypCei.wWin,
+  wLeft=shaTypCei.wLeft,
+  wRight=shaTypCei.wRight,
+  ovDep=shaTypCei.ovDep,
+  ovGap=shaTypCei.ovGap,
+  hFin=shaTypCei.hFin,
+  finDep=shaTypCei.finDep,
+  finGap=shaTypCei.finGap,
+  L=shaTypCei.L,
+  dh=shaTypCei.dh,
+  shaCorr=shaTypCei.shaCorr)),
+    fraType(present=fraTypCei.present, U_value=fraTypCei.U_value),
+    linExtRad=linExtRadWin)
     "Window for ceiling of this zone" annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
@@ -956,6 +1126,8 @@ initial equation
     "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
   assert(not (hasWinCei and bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall),
     "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
+
+
 
 
 

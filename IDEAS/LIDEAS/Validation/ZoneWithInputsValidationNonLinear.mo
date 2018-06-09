@@ -1,19 +1,17 @@
 within IDEAS.LIDEAS.Validation;
 model ZoneWithInputsValidationNonLinear "Model to validate the linearization method by simulating both the original model and the obtained state space model. This model contains all buildings components of IDEAS"
-  extends Examples.ZoneWithInputsLinearise(
-    sim(
-      lineariseDymola=false,
-      createOutputs=true), validation = true);
+  extends Examples.ZoneWithInputsLinearise(sim(lineariseDymola=false,
+        createOutputs=true), validation=true);
   Modelica.Blocks.Sources.Sine occQRad[2](
-    freqHz=1/12/3600,
-    startTime=7200,
-    amplitude=20,
-    offset=20) "Fake occupancy gains"
+    each freqHz=1/12/3600,
+    each startTime=7200,
+    each amplitude=20,
+    each offset=20) "Fake occupancy gains"
     annotation (Placement(transformation(extent={{40,-144},{60,-124}})));
   Modelica.Blocks.Sources.Sine occQCon[2](
-    freqHz=1/6/3600,
-    amplitude=80,
-    offset=80) "Fake occupancy gains"
+    each freqHz=1/6/3600,
+    each amplitude=80,
+    each offset=80) "Fake occupancy gains"
     annotation (Placement(transformation(extent={{40,-114},{60,-94}})));
   output Components.BaseClasses.Prescribed prescribedOut
     "Prescribed inputs which do not depend on the model states value (e.g. heat flow from occupancy)"
@@ -40,40 +38,59 @@ model ZoneWithInputsValidationNonLinear "Model to validate the linearization met
         weaBusOut.phi,ctrlInputTestCon[1].y,ctrlInputTestCon[2].y,
         ctrlInputTestRad[1].y,ctrlInputTestRad[2].y,ctrlInputTestEmb[1].y,
         prescribedOut.QCon[1],prescribedOut.QCon[2],prescribedOut.QRad[1],
-        prescribedOut.QRad[2]})    "Precomputed input values"
+        prescribedOut.QRad[2]}) "Precomputed input values"
     annotation (Placement(transformation(extent={{-70,100},{-50,120}})));
-  parameter String fileName = "ssm_ZoneWithInputsLinearise.mat";
-  final parameter Integer nSta = Bsize[1] "Number of states";
-  final parameter Integer nInp = Bsize[2] "Number of inputs";
-  final parameter Integer nPreInp = size(preInp,1) "Number of precomputed inputs";
-  final parameter Integer nOut = Csize[1] "Number of precomputed outputs";
-   Modelica.Blocks.Continuous.StateSpace stateSpace(
-     A=readMatrix(fileName=fileName, matrixName="A", rows=nSta, columns = nSta),
-     B=readMatrix(fileName=fileName, matrixName="B", rows=nSta, columns = nInp),
-     C=readMatrix(fileName=fileName, matrixName="C", rows=nOut, columns=nSta),
-     D=readMatrix(fileName=fileName, matrixName="D", rows=nOut, columns=nInp),
-     x_start=x_start,
-    initType=Modelica.Blocks.Types.Init.NoInit)       "State space model"
-     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
+  parameter String fileName="ssm_ZoneWithInputsLinearise.mat";
+  final parameter Integer nSta=Bsize[1] "Number of states";
+  final parameter Integer nInp=Bsize[2] "Number of inputs";
+  final parameter Integer nPreInp=size(preInp, 1)
+    "Number of precomputed inputs";
+  final parameter Integer nOut=Csize[1] "Number of precomputed outputs";
+  Modelica.Blocks.Continuous.StateSpace stateSpace(
+    A=readMatrix(
+        fileName=fileName,
+        matrixName="A",
+        rows=nSta,
+        columns=nSta),
+    B=readMatrix(
+        fileName=fileName,
+        matrixName="B",
+        rows=nSta,
+        columns=nInp),
+    C=readMatrix(
+        fileName=fileName,
+        matrixName="C",
+        rows=nOut,
+        columns=nSta),
+    D=readMatrix(
+        fileName=fileName,
+        matrixName="D",
+        rows=nOut,
+        columns=nInp),
+    x_start=x_start,
+    initType=Modelica.Blocks.Types.Init.NoInit) "State space model"
+    annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
 protected
   parameter Real x_start[nSta](each fixed=false) "Initial state values";
-  final parameter Integer[2] Bsize = readMatrixSize(fileName=fileName, matrixName="B") "Size of B matrix of state space model";
-  final parameter Integer[2] Csize = readMatrixSize(fileName=fileName, matrixName="C") "Size of C matrix of state space model";
+  final parameter Integer[2] Bsize=readMatrixSize(fileName=fileName, matrixName
+      ="B") "Size of B matrix of state space model";
+  final parameter Integer[2] Csize=readMatrixSize(fileName=fileName, matrixName
+      ="C") "Size of C matrix of state space model";
 public
   Modelica.Blocks.Sources.Sine ctrlInputTestCon[nZones](
-    freqHz=1/1/3600,
-    amplitude=30,
-    offset=30)  "Fake occupancy gains"
+    each freqHz=1/1/3600,
+    each amplitude=30,
+    each offset=30) "Fake occupancy gains"
     annotation (Placement(transformation(extent={{26,54},{38,66}})));
   Modelica.Blocks.Sources.Sine ctrlInputTestRad[nZones](
-    freqHz=1/2/3600,
-    amplitude=40,
-    offset=40)       "Fake occupancy gains"
+    each freqHz=1/2/3600,
+    each amplitude=40,
+    each offset=40) "Fake occupancy gains"
     annotation (Placement(transformation(extent={{26,34},{38,46}})));
   Modelica.Blocks.Sources.Sine ctrlInputTestEmb[nEmb](
-    freqHz=1/16/3600,
-    amplitude=60,
-    offset=60)  "Fake occupancy gains"
+    each freqHz=1/16/3600,
+    each amplitude=60,
+    each offset=60) "Fake occupancy gains"
     annotation (Placement(transformation(extent={{26,14},{38,26}})));
   Modelica.Blocks.Math.UnitConversions.To_degC TZon_ssm[nZones]
     "Zones temperature from the SSM"
@@ -81,11 +98,11 @@ public
   Modelica.Blocks.Math.UnitConversions.To_degC TZon[nZones]
     "Zones temperature from the zone models"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Modelica.Blocks.Math.Add err[nZones](k2=-1)
+  Modelica.Blocks.Math.Add err[nZones](each k2=-1)
     "Difference between the temperature of the zone models and the state space model outputs"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
 initial algorithm
-  x_start :={zone.airModel.TAir,window.heaCapGla.T,window.heaCapFra.T,zone1.airModel.TAir,
+  x_start := {groFlo.airModel.TAir,window.heaCapGla.T,window.heaCapFra.T,firFlo.airModel.TAir,
     commonWall.layMul.monLay[1].monLayDyn.T[1],commonWall.layMul.monLay[1].monLayDyn.T[
     2],commonWall.layMul.monLay[2].monLayDyn.T[1],commonWall.layMul.monLay[2].monLayDyn.T[
     2],commonWall.layMul.monLay[3].monLayDyn.T[1],commonWall.layMul.monLay[3].monLayDyn.T[
@@ -93,21 +110,28 @@ initial algorithm
     1],floor.layMul.monLay[1].monLayDyn.T[2],floor.layMul.monLay[2].monLayDyn.T[
     1],floor.layMul.monLay[3].monLayDyn.T[1],floor.layMul.monLay[4].monLayDyn.T[
     1],floor.layMul.monLay[5].monLayDyn.T[1],slabOnGround.layMul.monLay[1].monLayDyn.T[
-    1],slabOnGround.layMul.monLay[1].monLayDyn.T[2],slabOnGround.layMul.monLay[2].monLayDyn.T[
-    1],slabOnGround.layMul.monLay[2].monLayDyn.T[2],slabOnGround.layMul.monLay[3].monLayDyn.T[
-    1],slabOnGround.layMul.monLay[3].monLayDyn.T[2],slabOnGround.layGro.monLay[1].monLayDyn.T[
-    1],slabOnGround.layGro.monLay[1].monLayDyn.T[2],slabOnGround.layGro.monLay[1].monLayDyn.T[
-    3],slabOnGround.layGro.monLay[1].monLayDyn.T[4],slabOnGround.layGro.monLay[1].monLayDyn.T[
-    5],slabOnGround.layGro.monLay[1].monLayDyn.T[6],slabOnGround.layGro.monLay[1].monLayDyn.T[
-    7],slabOnGround.layGro.monLay[2].monLayDyn.T[1],slabOnGround.layGro.monLay[2].monLayDyn.T[
-    2],slabOnGround.layGro.monLay[2].monLayDyn.T[3],slabOnGround.layGro.monLay[2].monLayDyn.T[
-    4],slabOnGround.layGro.monLay[3].monLayDyn.T[1],slabOnGround.layGro.monLay[3].monLayDyn.T[
-    2],outerWall.layMul.monLay[1].monLayDyn.T[1],outerWall.layMul.monLay[1].monLayDyn.T[
-    2],outerWall.layMul.monLay[2].monLayDyn.T[1],outerWall.layMul.monLay[3].monLayDyn.T[
-    1],outerWall.layMul.monLay[3].monLayDyn.T[2],commonWall1.layMul.monLay[1].monLayDyn.T[
-    1],commonWall1.layMul.monLay[1].monLayDyn.T[2],commonWall1.layMul.monLay[2].monLayDyn.T[
-    1],commonWall1.layMul.monLay[3].monLayDyn.T[1],commonWall1.layMul.monLay[3].monLayDyn.T[
-    2]};
+    1],slabOnGround.layMul.monLay[1].monLayDyn.T[2],slabOnGround.layMul.monLay[
+    2].monLayDyn.T[1],slabOnGround.layMul.monLay[2].monLayDyn.T[2],slabOnGround.layMul.monLay[
+    3].monLayDyn.T[1],slabOnGround.layMul.monLay[3].monLayDyn.T[2],slabOnGround.layGro.monLay[
+    1].monLayDyn.T[1],slabOnGround.layGro.monLay[1].monLayDyn.T[2],slabOnGround.layGro.monLay[
+    1].monLayDyn.T[3],slabOnGround.layGro.monLay[1].monLayDyn.T[4],slabOnGround.layGro.monLay[
+    1].monLayDyn.T[5],slabOnGround.layGro.monLay[1].monLayDyn.T[6],slabOnGround.layGro.monLay[
+    1].monLayDyn.T[7],slabOnGround.layGro.monLay[2].monLayDyn.T[1],slabOnGround.layGro.monLay[
+    2].monLayDyn.T[2],slabOnGround.layGro.monLay[2].monLayDyn.T[3],slabOnGround.layGro.monLay[
+    2].monLayDyn.T[4],slabOnGround.layGro.monLay[3].monLayDyn.T[1],slabOnGround.layGro.monLay[
+    3].monLayDyn.T[2],outerWall.layMul.monLay[1].monLayDyn.T[1],outerWall.layMul.monLay[
+    1].monLayDyn.T[2],outerWall.layMul.monLay[2].monLayDyn.T[1],outerWall.layMul.monLay[
+    3].monLayDyn.T[1],outerWall.layMul.monLay[3].monLayDyn.T[2],commonWall1.layMul.monLay[
+    1].monLayDyn.T[1],commonWall1.layMul.monLay[1].monLayDyn.T[2],commonWall1.layMul.monLay[
+    2].monLayDyn.T[1],commonWall1.layMul.monLay[3].monLayDyn.T[1],commonWall1.layMul.monLay[
+    3].monLayDyn.T[2],outerWall1.layMul.monLay[1].monLayDyn.T[1],outerWall1.layMul.monLay[
+    1].monLayDyn.T[2],outerWall1.layMul.monLay[2].monLayDyn.T[1],outerWall1.layMul.monLay[
+    3].monLayDyn.T[1],outerWall1.layMul.monLay[3].monLayDyn.T[2],Roof.layMul.monLay[
+    1].monLayDyn.T[1],Roof.layMul.monLay[1].monLayDyn.T[2],Roof.layMul.monLay[2].monLayDyn.T[
+    1],Roof.layMul.monLay[3].monLayDyn.T[1]};
+
+
+
 
 
 
@@ -122,36 +146,38 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(preInp.y, stateSpace.u)
-    annotation (Line(points={{-49,110},{-45.5,110},{-42,110}},
-                                                            color={0,0,127}));
+  connect(preInp.y, stateSpace.u) annotation (Line(points={{-49,110},{-45.5,110},
+          {-42,110}}, color={0,0,127}));
   connect(ctrlInputTestCon.y, preQFloCon.Q_flow)
     annotation (Line(points={{38.6,60},{58,60},{78,60}}, color={0,0,127}));
   connect(ctrlInputTestRad.y, preQFloRad.Q_flow)
     annotation (Line(points={{38.6,40},{58.3,40},{78,40}}, color={0,0,127}));
   connect(ctrlInputTestEmb.y, preQFloTabs.Q_flow)
     annotation (Line(points={{38.6,20},{80,20},{80,20}}, color={0,0,127}));
-  connect(occQCon.y, occQFloCon.Q_flow) annotation (Line(points={{61,-104},{74,-104},
-          {88,-104},{88,-60},{84,-60}}, color={0,0,127}));
+  connect(occQCon.y, occQFloCon.Q_flow) annotation (Line(points={{61,-104},{74,
+          -104},{88,-104},{88,-60},{84,-60}}, color={0,0,127}));
   connect(occQRad.y, occQFloRad.Q_flow)
     annotation (Line(points={{61,-134},{84,-134},{84,-80}}, color={0,0,127}));
   connect(stateSpace.y, TZon_ssm.u)
     annotation (Line(points={{-19,110},{-16,110},{-12,110}}, color={0,0,127}));
-  connect(TZon[1].u, zone.TSensor) annotation (Line(
+  connect(TZon[1].u, groFlo.TSensor) annotation (Line(
       points={{-12,80},{-36,80},{-36,6},{62,6},{62,-10},{40.6,-10}},
       color={0,0,127},
       visible=false));
-  connect(TZon[2].u, zone1.TSensor) annotation (Line(
+  connect(TZon[2].u, firFlo.TSensor) annotation (Line(
       points={{-12,80},{-36,80},{-36,6},{150,6},{150,-60},{40.6,-60}},
       color={0,0,127},
       visible=false));
-  connect(TZon_ssm.y, err.u1) annotation (Line(points={{11,110},{20,110},{20,116},
-          {38,116}}, color={0,0,127}));
+  connect(TZon_ssm.y, err.u1) annotation (Line(points={{11,110},{20,110},{20,
+          116},{38,116}}, color={0,0,127}));
   connect(TZon.y, err.u2) annotation (Line(points={{11,80},{20,80},{20,104},{38,
           104}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(extent={{-120,-160},{100,120}})), Icon(
-        coordinateSystem(extent={{-120,-160},{100,120}})),
-    experiment(StopTime=1e+006, __Dymola_NumberOfIntervals=1000), __Dymola_Commands(file="Resources/Scripts/Dymola/LIDEAS/Validation/ZoneWithInputsValidationNonLinear.mos"
+  annotation (
+    Diagram(coordinateSystem(extent={{-120,-160},{100,120}})),
+    Icon(coordinateSystem(extent={{-120,-160},{100,120}})),
+    experiment(StopTime=1e+006, __Dymola_NumberOfIntervals=1000),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/LIDEAS/Validation/ZoneWithInputsValidationNonLinear.mos"
         "Linearize, simulate and plot"),
     Documentation(revisions="<html>
 <ul>
