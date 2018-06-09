@@ -82,7 +82,6 @@ partial model PartialSimInfoManager
   parameter Real ppmCO2 = 400 "Default CO2 concentration in [ppm] when using air medium containing CO2"
     annotation(Dialog(tab="Advanced", group="CO2"));
 
-
   Modelica.SIunits.Irradiance solDirPer
     "direct irradiation on normal to solar zenith";
   Modelica.SIunits.Irradiance solDirHor

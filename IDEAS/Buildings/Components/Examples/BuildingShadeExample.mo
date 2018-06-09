@@ -136,9 +136,11 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(
-      StartTime=2e+06,
-      StopTime=3e+06,
-      __Dymola_NumberOfIntervals=5000),
+      StartTime=2000000,
+      StopTime=3000000,
+      __Dymola_NumberOfIntervals=5000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Components/Examples/BuildingShadeExample.mos"

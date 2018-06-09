@@ -72,9 +72,12 @@ equation
   connect(zonLwDist.epsLw, zonLwDistLin.epsLw)
     annotation (Line(points={{0,-60},{0,-60},{0,-80}}, color={0,0,127}));
   annotation (
-    experiment(StopTime=1e+06),
+    experiment(
+      StopTime=1000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Buildings/Components/BaseClasses/RadiativeHeatTransfer/LongwaveHeatTransfer.mos"
+          "Resources/Scripts/Dymola/Buildings/Components/BaseClasses/RadiativeHeatTransfer/Examples/LongwaveHeatTransfer.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>

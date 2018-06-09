@@ -24,18 +24,22 @@ equation
          graphics),
     Documentation(info="<html>
 <p>
-This model is the zone model to which surfaces and HVAC may be connected.
-It contains equations for radiative heat exchange and
+This model is the main zone model. 
+Surfaces such as windows and walls can be connectured using 
+the <code>propsBus</code> connectors and HVAC can be connected
+using <code>FluidPorts</code>.
+The model contains models or options for radiative heat exchange,
+internal heat gains, interzonal air exchange and
 a zone air model.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-Any number of surfaces may be connected to the 
+Any number of surfaces can be connected to the 
 <code>propsbus</code> of a zone.
 The number of connected surfaces must be specified
 using the parameter <code>nSurf</code> and 
 each of the nSurf <code>propsbus</code> components 
-needs to be connected to exactly one surface.
+has to be connected to exactly one surface.
 </p>
 <p>
 Parameter <code>V</code> must be used to define the total
@@ -47,7 +51,7 @@ which may be used to define the zone geometry.
 </p>
 <p>
 Parameter <code>A</code> is the total
-surface area of the zone.
+floor surface area of the zone.
 </p>
 <p>
 Replaceable parameter <code>airModel</code> determines
@@ -66,20 +70,29 @@ These properties may be used to evaluate internal comfort,
 or to determine internal gains.
 </p>
 <p>
+Parameter <code>comfort</code> determines
+how occupant comfort may be computed.
+</p>
+<h4>Options</h4>
+<p>
 Parameter <code>intGai</code> determines
 internal gains model type. 
 By default the internal gains model considers
 a fixed sensible and latent heat load and CO2 production per person.
 </p>
 <p>
-Parameter <code>comfort</code> determines
-how occupant comfort may be computed.
-</p>
-<p>
 Parameter <code>simVieFac</code> may be set to false to simplify the 
 view factor calculation. This leads to a less accurate computation
 of view factors, but this approach is more robust.
 It may be used when the initial equation that computes the view factors does not converge.
+</p>
+<p>
+Replaceable model <code>interzonalAirFlow</code> allows to 
+choose between multiple options for modelling air leakage and interzonal 
+airflow. 
+This model can have a strong influence on numerics and on model results
+if used inappropliately, therefore only change the default value 
+if you know what you are doing. 
 </p>
 </html>", revisions="<html>
 <ul>

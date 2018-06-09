@@ -25,9 +25,10 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
 
   annotation (
     experiment(
-      StopTime=3.1536e+007,
+      StopTime=31536000,
       Interval=3600,
-      Tolerance=1e-007),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput,
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics={         Text(

@@ -28,9 +28,9 @@ model ConvectionVerification
           textStyle={TextStyle.Bold},
           textString="BESTEST 900 Series")}),
     experiment(
-      StopTime=1e+06,
+      StopTime=1000000,
       Interval=3600,
-      Tolerance=1e-07,
+      Tolerance=1e-06,
       __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(executeCall(ensureSimulated=true) = {createPlot(

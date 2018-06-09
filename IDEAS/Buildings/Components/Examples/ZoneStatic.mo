@@ -46,7 +46,10 @@ equation
     annotation (Line(points={{20,50},{28,50},{28,20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=10000),
+    experiment(
+      StopTime=10000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Buildings/Components/Examples/ZoneStatic.mos"
         "Simulate and plot"));
 end ZoneStatic;

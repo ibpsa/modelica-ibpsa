@@ -84,5 +84,10 @@ First implementation.
 This model allows comparing the three options for the window dynamics.
 Using two states should give the overall best performance (speed) vs accuracy.
 </p>
-</html>"));
+</html>"),
+    experiment(
+      StartTime=2000000,
+      StopTime=3000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"));
 end WindowDynamics;
