@@ -122,7 +122,10 @@ model Structure "Ppd 12 example model"
     redeclare IDEAS.Examples.PPD12.Data.FloorOnGround conTypFlo,
     nSurfExt=1,
     redeclare Data.Ppd12WestShadingGnd shaTypC,
-    n50=n50)
+    n50=n50,
+    hasCavityA=true,
+    hA=2.7,
+    wA=2)
     annotation (Placement(transformation(extent={{-26,56},{-46,36}})));
 
   IDEAS.Buildings.Components.RectangularZoneTemplate hallway(
@@ -499,6 +502,11 @@ This model only contains the building structure.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 21, 2018, by Filip Jorissen:<br/>
+Using model for air flow through vertical cavity.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/822\">#822</a>.
+</li>
 <li>
 December 20, 2016 by Filip Jorissen:<br/>
 First implementation.
