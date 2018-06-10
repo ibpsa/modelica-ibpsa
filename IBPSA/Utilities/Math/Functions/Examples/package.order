@@ -5,6 +5,7 @@ BesselY1
 Binomial
 CubicHermite
 Factorial
+FallingFactorial
 InverseXDerivativeCheck
 InverseXDerivative_2_Check
 InverseXRegularized
