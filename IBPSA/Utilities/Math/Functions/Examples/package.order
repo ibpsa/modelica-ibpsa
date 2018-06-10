@@ -4,6 +4,7 @@ BesselY0
 BesselY1
 Binomial
 CubicHermite
+Factorial
 InverseXDerivativeCheck
 InverseXDerivative_2_Check
 InverseXRegularized
