@@ -7,6 +7,7 @@ function factorial "Returns the value n! as an integer"
 
 algorithm
   assert(n >= 0, "n must be 0 or greater.");
+  assert(n <= 12, "n must be 12 or less.");
   f := 1;
   for k in 1:n loop
     f := k*f;
