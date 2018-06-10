@@ -4,6 +4,7 @@ BesselY0
 BesselY1
 Binomial
 CubicHermite
+ExponentialIntegralE1
 Factorial
 FallingFactorial
 InverseXDerivativeCheck
