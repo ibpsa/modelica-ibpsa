@@ -2,7 +2,10 @@ within IDEAS.BoundaryConditions;
 model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
   extends BoundaryConditions.Interfaces.PartialSimInfoManager(
-                                final useTmy3Reader = true);
+    Tsky = TBlaSkyData.y,
+    Fc = nOpaData.y*0.87,
+    Va = winSpeData.y,
+    final useTmy3Reader = true);
 
 protected
   BoundaryConditions.WeatherData.Bus weaBus1 "Weather data bus";
@@ -31,15 +34,6 @@ equation
   timSol = timMan.timSol;
   timCal = timMan.timCal;
 
-  if BesTest then
-    Tsky = Te - (23.8 - 0.2025*(Te - 273.15)*(1 - 0.87*Fc));
-    Fc = 0.2;
-    Va = 2.5;
-  else
-    Tsky = TBlaSkyData.y;
-    Fc = nOpaData.y*0.87;
-    Va = winSpeData.y;
-  end if;
 
   connect(weaDat.weaBus, weaBus1);
   connect(HDirNorData.u, weaBus1.HDirNor);
@@ -114,6 +108,13 @@ that all internal energy of the system is added to <code>sim.E.E</code>.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Overwriting TSky, Va and Fc from the extends clause
+such that they can be overwriten again in BESTEST SimInfoManager.
+This is for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/838\">#838</a>.
+</li>
 <li>
 June 14, 2015, Filip Jorissen:<br/>
 Added documentation

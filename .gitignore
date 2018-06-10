@@ -19,7 +19,7 @@
 *.rar
 *.bak-mo
 *.DS_Store
-
+*.mos~
 /Specifications/Specs.synctex
 /Specifications/Specs.tcp
 /Specifications/Specs.tps

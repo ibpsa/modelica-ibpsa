@@ -1,5 +1,6 @@
-﻿IDEAS v1.0.0
+IDEAS v1.0.0
 ============
+[![Build Status](https://travis-ci.org/open-ideas/IDEAS.svg?branch=master)](https://travis-ci.org/open-ideas/IDEAS)
 
 Modelica model environment for Integrated District Energy Assessment Simulations (IDEAS), allowing simultaneous transient simulation of thermal and electrical systems at both building and feeder level.
 

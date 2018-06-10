@@ -4,12 +4,7 @@ model ViewFactorVerification
 
   extends Modelica.Icons.Example;
 
-  inner IDEAS.BoundaryConditions.SimInfoManager sim(
-    filNam="BESTEST.TMY",
-    lat=0.69464104229374,
-    lon=-1.8308503853421,
-    timZonSta=-28800)
-    annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
+  inner IDEAS.BoundaryConditions.SimInfoManager sim    annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
 
   IDEAS.Buildings.Validation.Cases.Case900 CaseVf(building(gF(calculateViewFactor=true)))
     annotation (Placement(transformation(extent={{-76,4},{-64,16}})));

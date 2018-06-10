@@ -1,7 +1,8 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model Deadband "BESTEST deadband heating system"
   extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
-    final nLoads=1, final nTemSen = nZones);
+    final nLoads=0,
+    final nTemSen = nZones);
 
   parameter Modelica.SIunits.Volume[nZones] VZones;
   parameter Real mSenFac = 5 "Correction factor for thermal mass in zone";
