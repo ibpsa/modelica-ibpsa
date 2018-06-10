@@ -6,12 +6,16 @@ function fallingFactorial "Returns the k-th falling factorial of n"
   input Integer k "Falling factorial power";
   output Integer f "k-th falling factorial of n";
 
+protected
+  Integer maxInt = 2147483647 "Max 32-bit integer";
+
 algorithm
   if k > n then
     f := 0;
   else
     f := 1;
     for i in 0:(k-1) loop
+      assert(f <= maxInt/(n-i), "Integer overflow");
       f := f*(n-i);
     end for;
   end if;
