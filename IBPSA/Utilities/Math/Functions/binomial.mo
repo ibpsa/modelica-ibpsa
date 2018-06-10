@@ -8,7 +8,7 @@ function binomial "Returns the binomial coefficient"
 
 algorithm
   assert(n >= k, "n must be k or greater.");
-  assert(k >= 0, "k must be k or greater.");
+  assert(k >= 0, "k must be 0 or greater.");
   if k <= 0.5*n then
     binom := integer(IBPSA.Utilities.Math.Functions.fallingFactorial(n,k)/IBPSA.Utilities.Math.Functions.factorial(k));
   else
