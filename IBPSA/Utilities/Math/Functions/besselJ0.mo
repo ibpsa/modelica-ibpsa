@@ -31,7 +31,7 @@ protected
   Real ax = abs(x);
   Real xx;
   Real y;
-  Real z = 8/ax;
+  Real z;
   Real coeff1;
   Real coeff2;
 
@@ -47,6 +47,7 @@ algorithm
     end for;
     J0 := coeff1/coeff2;
   else
+    z := 8/ax;
     y := z^2;
     xx := ax - 0.785398164;
     coeff1 := P[5];
