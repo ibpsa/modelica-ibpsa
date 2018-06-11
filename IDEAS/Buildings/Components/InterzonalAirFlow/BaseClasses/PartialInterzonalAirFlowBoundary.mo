@@ -22,12 +22,11 @@ partial model PartialInterzonalAirFlowBoundary
     use_T_in=true,
     use_p_in=false,
     use_C_in=Medium.nC == 1,
-    use_X_in=Medium.nX == 2) annotation (Placement(transformation(
+    use_Xi_in=Medium.nX == 2)
+                             annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,10})));
-  Modelica.Blocks.Sources.RealExpression reaExpX_air(y=1 - reaPasThr.y)
-    annotation (Placement(transformation(extent={{58,42},{38,62}})));
   Modelica.Blocks.Routing.RealPassThrough reaPasThr annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -61,10 +60,8 @@ equation
   connect(Te.y, bou.T_in)
     annotation (Line(points={{6,59},{6,22},{-4,22}}, color={0,0,127}));
   if Medium.nX == 2 then
-    connect(reaPasThr.y, bou.X_in[1])
+    connect(reaPasThr.y, bou.Xi_in[1])
       annotation (Line(points={{30,59},{14,59},{14,22},{4,22}},color={0,0,127}));
-    connect(reaExpX_air.y, bou.X_in[2])
-      annotation (Line(points={{37,52},{4,52},{4,22}}, color={0,0,127}));
   end if;
   if Medium.nC == 1 then
     connect(bou.C_in[1], weaBus.CEnv) annotation (Line(points={{8,22},{8,92.05},
@@ -73,6 +70,11 @@ equation
 
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+June 11, 2018 by Filip Jorissen:<br/>
+Using <code>Xi_in</code> instead of <code>X_in</code> since this
+requires fewer inputs and it avoids an input variable consistency check.
+</li>
 <li>
 April 27, 2018 by Filip Jorissen:<br/>
 First version.
