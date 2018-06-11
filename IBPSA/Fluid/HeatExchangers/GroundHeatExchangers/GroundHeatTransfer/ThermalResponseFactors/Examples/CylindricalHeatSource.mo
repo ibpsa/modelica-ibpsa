@@ -2,11 +2,11 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Therma
 model CylindricalHeatSource "Test case for cylindricalHeatSource"
   extends Modelica.Icons.Example;
 
-  parameter Real alpha = 1.0e-6 "Ground thermal diffusivity";
-  parameter Real rSource = 0.075 "Radius of cylinder source";
-  parameter Real[5] r = {rSource, 2*rSource, 5*rSource, 10*rSource, 20*rSource}
+  parameter Modelica.SIunits.ThermalDiffusivity alpha = 1.0e-6 "Ground thermal diffusivity";
+  parameter Modelica.SIunits.Radius rSource = 0.075 "Radius of cylinder source";
+  parameter Modelica.SIunits.Radius[5] r = {rSource, 2*rSource, 5*rSource, 10*rSource, 20*rSource}
     "Radial position of evaluation of the solution";
-  Real t "Time";
+  Modelica.SIunits.Time t "Time";
   Real[5] G "Cylindrical heat source solution";
 
 equation

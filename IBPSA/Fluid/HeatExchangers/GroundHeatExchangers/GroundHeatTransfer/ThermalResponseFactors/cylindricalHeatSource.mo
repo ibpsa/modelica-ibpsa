@@ -3,10 +3,10 @@ function cylindricalHeatSource
   "Cylindrical heat source solution from Carslaw and Jaeger"
   extends Modelica.Icons.Function;
 
-  input Real t "Time";
-  input Real alpha "Ground thermal diffusivity";
-  input Real dis "Radial distance between borehole axes";
-  input Real rBor "Radius of emitting borehole";
+  input Modelica.SIunits.Time t "Time";
+  input Modelica.SIunits.ThermalDiffusivity alpha "Ground thermal diffusivity";
+  input Modelica.SIunits.Distance dis "Radial distance between borehole axes";
+  input Modelica.SIunits.Radius rBor "Radius of emitting borehole";
 
   output Real G "Thermal response factor of borehole 1 on borehole 2";
 
