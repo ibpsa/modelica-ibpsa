@@ -11,7 +11,7 @@ are used for fans or pumps.
 <h4>Model description</h4>
 <p>A detailed description of the fan and pump models can be
 found in
-<a href=\"modelica://IDEAS/Resources/Images/Fluid/Movers/UsersGuide/2013-IDEAS-Wetter.pdf\">Wetter (2013)</a>.
+<a href=\"modelica://IDEAS/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf\">Wetter (2013)</a>.
 The models are implemented as described in this paper, except
 that equation (20) is no longer used. The reason is that
 the transition (24) caused the derivative
@@ -306,12 +306,12 @@ IDEAS.Fluid.Movers.FlowControlled_dp</a>
 has an option to control the mover such
 that the pressure difference set point is obtained
 across two remote points in the system.
-To use this functionality 
+To use this functionality
 parameter <code>prescribeSystemPressure</code> has
-to be enabled and a differential pressure measurement 
+to be enabled and a differential pressure measurement
 must be connected to
 the pump input <code>dpMea</code>.
-This functionality is demonstrated in 
+This functionality is demonstrated in
 <a href=\"IDEAS.Fluid.Movers.Validation.FlowControlled_dpSystem\">
 IDEAS.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </p>
@@ -554,7 +554,7 @@ IDEAS.Fluid.Movers.BaseClasses.Characteristics</a>.
 <h4>References</h4>
 <p>
 Michael Wetter.
-<a href=\"modelica://IDEAS/Resources/Images/Fluid/Movers/UsersGuide/2013-IDEAS-Wetter.pdf\">
+<a href=\"modelica://IDEAS/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf\">
 Fan and pump model that has a unique solution for any pressure
 boundary condition and control signal.</a>
 <i>Proc. of the 13th Conference of the International Building Performance

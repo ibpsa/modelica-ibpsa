@@ -5,7 +5,8 @@ model ConvertRelativeHumidity
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity conRelHum
     "Block that converts relative humidity"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  IDEAS.Utilities.Time.ModelTime modTim "Block that outputs simulation time"
+  IDEAS.Utilities.Time.ModelTime modTim
+    "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
     "Block that converts time"
@@ -15,7 +16,7 @@ protected
     tableOnFile=true,
     tableName="tab1",
     fileName=Modelica.Utilities.Files.loadResource(
-       "modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+       Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")),
     columns=2:30,
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Data reader"
