@@ -1,15 +1,15 @@
 within IDEAS.BoundaryConditions.Interfaces;
 partial model PartialSimInfoManager
   "Partial providing structure for SimInfoManager"
-  parameter String filDir=Modelica.Utilities.Files.loadResource("modelica://IDEAS")
-       + "/Resources/weatherdata/"
-    "Directory containing the weather data file, default under IDEAS/Resources/weatherdata/";
-  parameter String filNam="Uccle.TMY" "Name of weather data file"
-    annotation (Dialog(enable=useTmy3Reader));
-  parameter Modelica.SIunits.Angle lat(displayUnit="deg") = 0.88749992463912
-    "Latitude of the location";
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg") = 0.075921822461753
-    "Longitude of the location";
+  parameter String filNam=
+    Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/weatherdata/Uccle.TMY")
+    "File name of TMY3 weather file";
+  parameter Modelica.SIunits.Angle lat(displayUnit="deg") = weaDat.lat
+    "Latitude of the location"
+    annotation(Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg") = weaDat.lon
+    "Longitude of the location"
+    annotation(Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Time timZonSta(displayUnit="h") = 3600
     "standard time zone";
 
@@ -60,8 +60,6 @@ partial model PartialSimInfoManager
   parameter Modelica.SIunits.Energy Emax=1
     "Error bound for violation of conservation of energy" annotation (Evaluate=true,
       Dialog(tab="Conservation of energy", enable=strictConservationOfEnergy));
-  final parameter String filNamClim=filDir + filNam;
-
   parameter Boolean useTmy3Reader=true
     "Set to false if you do not want to use the TMY3 reader for providing data";
   final parameter Modelica.SIunits.Temperature Tdes=-8 + 273.15
@@ -145,10 +143,7 @@ public
 
   final parameter Integer numIncAndAziInBus = size(incAndAziInBus,1) "Number of pre-computed azimuth";
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=filNamClim,
-    lat=lat,
-    lon=lon,
-    timZon=timZonSta) if       useTmy3Reader
+    filNam=filNam) if       useTmy3Reader
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 public
   Utilities.Psychrometrics.X_pTphi XiEnv(use_p_in=false)
@@ -379,8 +374,7 @@ equation
   connect(skyClearness.HGloHor, solGloHorIn.y) annotation (Line(points={{-82,86},
           {-88,86},{-88,88},{-103,88}}, color={0,0,127}));
 
-
-  annotation (
+    annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
     missingInnerMessage=
@@ -461,6 +455,12 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+June 11, 2018, by Filip Jorissen:<br/>
+Revised implementation such that longitude and latitude are read from
+the TMY3 weather file.
+Removed split between file path and file name to avoid confusion.
+</li>
 <li>
 June 11, 2018, by Filip Jorissen:<br/>
 Changed table name of TMY3 file from 'data' to IBPSA final default 'tab1'

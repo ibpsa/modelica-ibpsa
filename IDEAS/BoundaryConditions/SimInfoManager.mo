@@ -62,10 +62,11 @@ for computing the solar irradiance on the zone surfaces.
 </p>
 <h4>Typical use and important parameters</h4>
 <ul>
-<li>Parameters <code>filNam</code> and <code>filDir</code> can be used to set the path to the TMY3 weather file.</li>
-<li>Parameters <code>lat</code> and <code>lon</code> can be used to set the location of the building
-using latitude and longitude coordiantes.
-These coordinates are used for calculating the solar position, not for choosing the correct weather data!</li>
+<li>
+Parameters <code>filNam</code> and <code>filDir</code> can be used to set the path to the TMY3 weather file.
+This file should include the latitude, longitude and time zone corresponding to the weather file.
+See the included weather files for the correct format.
+</li>
 </ul>
 <h4>Options</h4>
 <ul>
@@ -104,6 +105,11 @@ to flow between components that are both within the bounds of the system.
 The user then needs to choose how large the system is and he should make sure that
 all heat flow rates entering the system are added to <code>sim.Qgai.Q_flow</code> and 
 that all internal energy of the system is added to <code>sim.E.E</code>.
+</li>
+<li>
+The default latitude and longitude, which are read by the TMY3 reader, can be overwritten. 
+This should only be done if a custom weather data reader instead 
+of the TMY3 weather data reader is used.
 </li>
 </ul>
 </html>", revisions="<html>
