@@ -148,10 +148,7 @@ public
     filNam=filNamClim,
     lat=lat,
     lon=lon,
-    timZon=timZonSta,
-    datRea1(tableName="data"),
-    datRea(tableName="data")) if
-                               useTmy3Reader
+    timZon=timZonSta) if       useTmy3Reader
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 public
   Utilities.Psychrometrics.X_pTphi XiEnv(use_p_in=false)
@@ -464,6 +461,11 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+June 11, 2018, by Filip Jorissen:<br/>
+Changed table name of TMY3 file from 'data' to IBPSA final default 'tab1'
+for issue <a href=https://github.com/open-ideas/IDEAS/issues/808>#808</a>.
+</li>
 <li>
 June 8, 2018, by Filip Jorissen:<br/>
 Moved input TMY3 file.
