@@ -60,8 +60,6 @@ partial model PartialSimInfoManager
   parameter Modelica.SIunits.Energy Emax=1
     "Error bound for violation of conservation of energy" annotation (Evaluate=true,
       Dialog(tab="Conservation of energy", enable=strictConservationOfEnergy));
-  parameter Boolean useTmy3Reader=true
-    "Set to false if you do not want to use the TMY3 reader for providing data";
   final parameter Modelica.SIunits.Temperature Tdes=-8 + 273.15
     "design outdoor temperature";
 
@@ -143,7 +141,7 @@ public
 
   final parameter Integer numIncAndAziInBus = size(incAndAziInBus,1) "Number of pre-computed azimuth";
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=filNam) if       useTmy3Reader
+    filNam=filNam)
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 public
   Utilities.Psychrometrics.X_pTphi XiEnv(use_p_in=false)
@@ -217,7 +215,7 @@ public
 
 
   input IDEAS.Buildings.Components.Interfaces.WindowBus[nWindow] winBusOut(
-      each nLay=nLayWin) if           createOutputs
+      each nLay=nLayWin) if createOutputs
     "Bus for windows in case of linearisation";
 initial equation
   Etot = 0;

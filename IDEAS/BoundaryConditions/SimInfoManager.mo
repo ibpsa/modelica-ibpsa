@@ -4,8 +4,7 @@ model SimInfoManager
   extends BoundaryConditions.Interfaces.PartialSimInfoManager(
     Tsky = TBlaSkyData.y,
     Fc = nOpaData.y*0.87,
-    Va = winSpeData.y,
-    final useTmy3Reader = true);
+    Va = winSpeData.y);
 
 protected
   BoundaryConditions.WeatherData.Bus weaBus1 "Weather data bus";
