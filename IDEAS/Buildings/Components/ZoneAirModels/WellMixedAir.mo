@@ -7,7 +7,7 @@ protected
     "Latent heat of evaporation water";
   constant Boolean hasVap = Medium.nXi>0
     "Medium has water vapour";
-  IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir       vol(
+  MixingVolumeNominalU       vol(
     redeclare package Medium = Medium,
     energyDynamics=energyDynamics,
     massDynamics=massDynamics,
@@ -19,8 +19,8 @@ protected
     allowFlowReversal=allowFlowReversal,
     V=Vtot,
     mSenFac=mSenFac,
+    U_nominal=mSenFac*10*Vtot*1.2*1000,
     use_C_flow=true,
-    dynBal(U(nominal=mSenFac*10*Vtot*1.2*1000)),
     nPorts=3+nPorts,
     m_flow_nominal=0.1)                        annotation (Placement(
         transformation(
@@ -46,7 +46,12 @@ protected
     redeclare package Medium = Medium) if hasVap
     "Relative humidity of the zone air"
     annotation (Placement(transformation(extent={{20,-30},{40,-50}})));
-
+protected
+    model MixingVolumeNominalU
+      "To avoid warning when modifying protected model"
+      parameter Modelica.SIunits.Energy U_nominal "Nominal value of internal energy";
+      extends IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir(dynBal(U(nominal=U_nominal)));
+    end MixingVolumeNominalU;
 equation
   if hasVap then
     assert(vol.ports[1].Xi_outflow[1] <= 0.1,
@@ -100,6 +105,11 @@ equation
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
+<li>
+April 27, 2018 by Filip Jorissen:<br/>
+Created <code>MixingVolumeNominalU</code> such that 
+<code>MixingVolume</code> can be used without generating a warning.
+</li>
 <li>
 April 27, 2018 by Filip Jorissen:<br/>
 Added nominal value for internal energy of mixing volume.
