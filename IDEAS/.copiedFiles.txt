@@ -1712,11 +1712,6 @@ IDEAS/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsPlus.
 IDEAS/Resources/Scripts/JModelica/README.md
 IDEAS/Resources/Scripts/JModelica/buildingspy_to_csv.py
 IDEAS/Resources/Scripts/JModelica/getReferenceResults.py
-IDEAS/Resources/Scripts/travis/.DS_Store
-IDEAS/Resources/Scripts/travis/Makefile
-IDEAS/Resources/Scripts/travis/usr/.DS_Store
-IDEAS/Resources/Scripts/travis/usr/local/.DS_Store
-IDEAS/Resources/Scripts/travis/usr/local/bin/dymola
 IDEAS/Resources/bin/ConvertWeatherData.jar
 IDEAS/Resources/src/convertEPW/Makefile
 IDEAS/Resources/src/convertEPW/doc/ConvertWeatherData.html
@@ -1999,14 +1994,4 @@ IDEAS/Utilities/Time/package.mo
 IDEAS/Utilities/Time/package.order
 IDEAS/Utilities/package.mo
 IDEAS/Utilities/package.order
-IDEAS/dsfinal.txt
-IDEAS/dsin.txt
-IDEAS/dslog.txt
-IDEAS/dsmodel.c
-IDEAS/dymosim
 IDEAS/package.order
-IDEAS/request.
-IDEAS/simulator.log
-IDEAS/status.
-IDEAS/success.
-IDEAS/unitTests.log
