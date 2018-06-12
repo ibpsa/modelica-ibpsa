@@ -101,11 +101,9 @@ partial model PartialSimInfoManager
       deltax=0.5);
   Utilities.Psychrometrics.X_pTphi XiEnv(use_p_in=false)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-
+  final parameter Integer numIncAndAziInBus = size(incAndAziInBus,1) "Number of pre-computed azimuth";
 protected
   final parameter Integer yr=2014 "depcited year for DST only";
-
-  final parameter Integer numIncAndAziInBus = size(incAndAziInBus,1) "Number of pre-computed azimuth";
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=filNam)
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
@@ -168,6 +166,8 @@ public
   input IDEAS.Buildings.Components.Interfaces.WindowBus[nWindow] winBusOut(
       each nLay=nLayWin) if createOutputs
     "Bus for windows in case of linearisation";
+  Modelica.Blocks.Routing.RealPassThrough solTim "Solar time"
+    annotation (Placement(transformation(extent={{-86,-2},{-78,6}})));
 protected
   Modelica.Blocks.Routing.RealPassThrough solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{-86,66},{-78,74}})));
@@ -187,8 +187,7 @@ protected
   Modelica.Blocks.Routing.RealPassThrough HDifHor
     "Diffuse solar irradiation on a horizontal plane"
     annotation (Placement(transformation(extent={{-86,94},{-78,102}})));
-  Modelica.Blocks.Routing.RealPassThrough solTim "Solar time"
-    annotation (Placement(transformation(extent={{-86,-2},{-78,6}})));
+
   WeatherData.Bus weaBus1
              "Weather data bus"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
@@ -286,8 +285,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   for i in 1:numIncAndAziInBus loop
-    connect(solTim.y, radSol[i].solTim) annotation (Line(points={{-77.6,2},{18,
-            2},{18,74},{38,74},{38,73},{39.6,73}},color={0,0,127}));
+    connect(solTim.y, radSol[i].solTim) annotation (Line(points={{-77.6,2},{18,2},
+            {18,74},{38,74},{38,73},{39.6,73}},   color={0,0,127}));
     connect(solHouAng.y, radSol[i].angHou) annotation (Line(points={{-77.6,70},{
             -74,70},{-74,48},{30,48},{30,68},{39.6,68}}, color={0,0,127}));
     connect(angZen.y, radSol[i].angZen) annotation (Line(points={{-77.6,84},{-68,
@@ -334,16 +333,16 @@ equation
           66},{-70,98},{-77.6,98}}, color={0,0,127}));
   connect(relativeAirMass.zen, angZen.y) annotation (Line(points={{-62,70},{-68,
           70},{-68,84},{-77.6,84}}, color={0,0,127}));
-  connect(skyClearness.zen, angZen.y) annotation (Line(points={{-62,104},{-68,
-          104},{-68,84},{-77.6,84}}, color={0,0,127}));
+  connect(skyClearness.zen, angZen.y) annotation (Line(points={{-62,104},{-68,104},
+          {-68,84},{-77.6,84}}, color={0,0,127}));
   connect(skyClearness.HDifHor,HDifHor. y) annotation (Line(points={{-62,110},{-70,
           110},{-70,98},{-77.6,98}},color={0,0,127}));
   connect(skyClearness.HGloHor,HGloHor. y) annotation (Line(points={{-62,116},{-72,
           116},{-72,112},{-77.6,112}},color={0,0,127}));
   connect(solTim.u,weaBus1. solTim) annotation (Line(points={{-86.8,2},{-100,2},
           {-100,60}},color={0,0,127}));
-  connect(angZen.u, weaBus1.solZen) annotation (Line(points={{-86.8,84},{-100,
-          84},{-100,60}}, color={0,0,127}));
+  connect(angZen.u, weaBus1.solZen) annotation (Line(points={{-86.8,84},{-100,84},
+          {-100,60}}, color={0,0,127}));
   connect(HDifHor.u,weaBus1. HDifHor)
     annotation (Line(points={{-86.8,98},{-100,98},{-100,60}},
                                                             color={0,0,127}));
@@ -368,6 +367,10 @@ equation
       points={{-80,-50},{-80,-40},{-100,-40},{-100,60}},
       color={255,204,51},
       thickness=0.5));
+  connect(TDryBul.y, weaBus.Te) annotation (Line(points={{-77.6,30},{100.05,30},
+          {100.05,40.05}}, color={0,0,127}));
+  connect(solTim.y, weaBus.solTim) annotation (Line(points={{-77.6,2},{18,2},{
+          18,36},{100.05,36},{100.05,40.05}}, color={0,0,127}));
     annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
