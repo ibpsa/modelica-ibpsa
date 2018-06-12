@@ -1,10 +1,7 @@
 within IDEAS.BoundaryConditions;
 model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
-  extends BoundaryConditions.Interfaces.PartialSimInfoManager(
-    Tsky = TBlaSkyData.y,
-    Fc = nOpaData.y*0.87,
-    Va = winSpeData.y);
+  extends BoundaryConditions.Interfaces.PartialSimInfoManager;
 
 protected
   BoundaryConditions.WeatherData.Bus weaBus1 "Weather data bus";
@@ -18,20 +15,13 @@ protected
   Modelica.Blocks.Routing.RealPassThrough winSpeData;
   Modelica.Blocks.Routing.RealPassThrough TBlaSkyData;
 equation
-  solDirPer=HDirNorData.y;
-  solDirHor = HGloHorData.y - solDifHor;
-  solDifHor = HDiffHorData.y;
-  solGloHor = solDirHor + solDifHor;
   Te = TDryBulData.y;
   TeAv = Te;
   Tground=TdesGround;
-  irr = HGloHorData.y;
-  summer = timMan.summer;
   relHum = relHumData.y;
   TDewPoi = TDewPoiData.y;
-  timLoc = timMan.timLoc;
-  timSol = timMan.timSol;
-  timCal = timMan.timCal;
+  Tsky = TBlaSkyData.y;
+  Va = winSpeData.y;
 
 
   connect(weaDat.weaBus, weaBus1);
