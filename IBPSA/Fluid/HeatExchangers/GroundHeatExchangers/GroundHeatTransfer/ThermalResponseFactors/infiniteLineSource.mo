@@ -10,12 +10,16 @@ function infiniteLineSource
   output Real h_ils "Thermal response factor of borehole 1 on borehole 2";
 
 protected
-  Real lowBou = dis^2/(4*alpha*t) "Lower bound of integration";
+  Real lowBou "Lower bound of integration";
   // Upper bound is infinite
 
 algorithm
-
-  h_ils := IBPSA.Utilities.Math.Functions.exponentialIntegralE1(lowBou);
+  if t > 0.0 then
+    lowBou := dis^2/(4*alpha*t);
+    h_ils := IBPSA.Utilities.Math.Functions.exponentialIntegralE1(lowBou);
+  else
+    h_ils := 0.0;
+  end if;
 
 annotation (
 Documentation(info="<html>
