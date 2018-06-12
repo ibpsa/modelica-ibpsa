@@ -45,7 +45,7 @@ initial equation
   end if;
 
 equation
-  if use_X_in or use_Xi_in then
+  if use_X_in then
     Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
       Medium.singleState, true, X_in_internal, "Boundary_pT");
   end if;
