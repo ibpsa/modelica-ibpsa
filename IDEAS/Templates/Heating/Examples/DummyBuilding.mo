@@ -6,7 +6,7 @@ model DummyBuilding "Dummy building for testing heating systems"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature[nZones] TAmb
     annotation (Placement(transformation(extent={{-116,44},{-96,64}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nZones] heatCapacitor(
-      C={VZones[i]*1.2*1012*10 for i in 1:nZones}, each T(start=292))
+      C={VZones[i]*1.2*1012*10 for i in 1:nZones}, each T(start=292, fixed=true))
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Thermal.HeatTransfer.Components.Convection[nZones] convection
     annotation (Placement(transformation(extent={{-62,44},{-82,64}})));

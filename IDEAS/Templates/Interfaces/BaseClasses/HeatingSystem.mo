@@ -1,30 +1,26 @@
 within IDEAS.Templates.Interfaces.BaseClasses;
 partial model HeatingSystem "Partial heating/cooling system"
-
   extends IDEAS.Templates.Interfaces.BaseClasses.PartialSystem;
-
   replaceable package Medium=IDEAS.Media.Water;
 
   // *********** Building characteristics and  interface ***********
-  // --- General
-  parameter Integer nZones(min=1)
-    "Number of conditioned thermal zones in the building";
-  // --- Boolean declarations
-  parameter Boolean isHea=true "true if system is able to heat";
-  parameter Boolean isCoo=false "true if system is able to cool";
-  parameter Boolean isDH=false "true if the system is connected to a DH grid";
-  parameter Boolean InInterface = false;
-
+  //parameter Boolean isHea=true "=true, if system is able to heat";
+  //parameter Boolean isCoo=false "=true, if system is able to cool";
+  parameter Boolean isDH=false "=true, if the system is connected to a DH grid";
+  //parameter Boolean InInterface = false;
   parameter Modelica.SIunits.Power[nZones] Q_design
     "Total design heat load for heating system based on heat losses" annotation(Dialog(enable=InInterface));
 
   // --- Ports
   parameter Integer nConvPorts(min=0) = nZones
-    "Number of ports in building for convective heating/cooling";
+    "Number of ports in building for convective heating/cooling"
+    annotation(Dialog(tab="Advanced"));
   parameter Integer nRadPorts(min=0) = nZones
-    "Number of ports in building for radiative heating/cooling";
+    "Number of ports in building for radiative heating/cooling"
+    annotation(Dialog(tab="Advanced"));
   parameter Integer nEmbPorts(min=0) = nZones
-    "Number of ports in building for embedded systems";
+    "Number of ports in building for embedded systems"
+    annotation(Dialog(tab="Advanced"));
 
   // --- Sensor
   parameter Integer nTemSen(min=0) = nZones
@@ -32,9 +28,16 @@ partial model HeatingSystem "Partial heating/cooling system"
 
   // *********** Outputs ***********
   // --- Thermal
-  Modelica.SIunits.Power QHeaSys if isHea
-    "Total energy use forspace heating + DHW, if present)";
-  Modelica.SIunits.Power QCooTotal if isCoo "Total cooling energy use";
+  Modelica.SIunits.Power QHeaSys=
+    sum({max(0,-heatPortCon[i].Q_flow) for i in 1:nConvPorts})
+    +sum({max(0,-heatPortRad[i].Q_flow) for i in 1:nRadPorts})
+    +sum({max(0,-heatPortEmb[i].Q_flow) for i in 1:nEmbPorts})
+    "Total thermal power use for space heating";
+  Modelica.SIunits.Power QCooTotal=
+    sum({max(0,heatPortCon[i].Q_flow) for i in 1:nConvPorts})
+    +sum({max(0,heatPortRad[i].Q_flow) for i in 1:nRadPorts})
+    +sum({max(0,heatPortEmb[i].Q_flow) for i in 1:nEmbPorts})
+    "Total thermal power use for cooling";
 
   // *********** Interface ***********
   // --- thermal
@@ -57,15 +60,6 @@ partial model HeatingSystem "Partial heating/cooling system"
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-204,-60})));
-  Modelica.Blocks.Interfaces.RealInput mDHW60C
-    "mFlow for domestic hot water, at 60 degC" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={80,-104}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={60,-102})));
 
   Modelica.Blocks.Interfaces.RealInput[nZones] TSet(
     final quantity="ThermodynamicTemperature",
@@ -81,12 +75,14 @@ partial model HeatingSystem "Partial heating/cooling system"
         origin={0,-102})));
 
   // --- fluid
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = Medium)
-    if                                           isDH
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare package Medium = Medium) if
+       isDH
     "Supply water connection to the DH grid"
     annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = Medium)
-    if                                           isDH
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(
+    redeclare package Medium = Medium) if
+       isDH
     "Return water connection to the DH grid"
     annotation (Placement(transformation(extent={{150,-110},{170,-90}})));
   annotation (
@@ -210,5 +206,13 @@ partial model HeatingSystem "Partial heating/cooling system"
 <p>No validation performed.</p>
 <h4>Example </h4>
 <p>See the <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples\">heating system examples</a>. </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
+</ul>
 </html>"));
 end HeatingSystem;

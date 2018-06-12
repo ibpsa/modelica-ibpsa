@@ -7,9 +7,9 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(
       T=293.15) annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-
         rotation=270,
         origin={30,90})));
+
   Modelica.Thermal.HeatTransfer.Components.Convection convection annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

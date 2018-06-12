@@ -22,15 +22,18 @@ equation
     end if;
 
     heatPortRad[i].Q_flow = 0;
-//    heatPortEmb[i].Q_flow = 0;
   end for;
+  heatPortEmb.Q_flow=zeros(nEmbPorts);
 
-  P = {QHeaSys};
-  Q = {0};
-
-  QHeaSys = sum(heatPortRad.Q_flow) + sum(heatPortCon.Q_flow) + sum(
-    heatPortEmb.Q_flow);
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
-            -100},{200,100}}), graphics));
+            -100},{200,100}}), graphics), Documentation(revisions="<html>
+<ul>
+<li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
+</ul>
+</html>"));
 end Bangbang;
