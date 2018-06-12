@@ -15,10 +15,10 @@ protected
   Modelica.Blocks.Routing.RealPassThrough winSpeData;
   Modelica.Blocks.Routing.RealPassThrough TBlaSkyData;
 equation
-  Te = TDryBulData.y;
+  Te = TDryBul.y;
   TeAv = Te;
   Tground=TdesGround;
-  relHum = relHumData.y;
+  relHum = phiEnv.y;
   TDewPoi = TDewPoiData.y;
   Tsky = TBlaSkyData.y;
   Va = winSpeData.y;
