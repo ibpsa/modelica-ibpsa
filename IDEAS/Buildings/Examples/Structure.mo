@@ -1,14 +1,15 @@
 within IDEAS.Buildings.Examples;
 model Structure "Example building structure model"
   extends Modelica.Icons.Example;
-  BaseClasses.structure structure(redeclare package Medium = IDEAS.Media.Air)
+  Templates.Structure.ThreeZone structure(redeclare package Medium =
+        IDEAS.Media.Air)
     annotation (Placement(transformation(extent={{-36,-20},{-6,0}})));
   Templates.Ventilation.None none(
     nLoads=0,
     nZones=structure.nZones,
     VZones=structure.VZones,
     redeclare package Medium = IDEAS.Media.Air)
-    annotation (Placement(transformation(extent={{18,0},{38,20}})));
+    annotation (Placement(transformation(extent={{20,0},{60,20}})));
   inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo[3]
@@ -21,15 +22,15 @@ model Structure "Example building structure model"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 equation
   connect(structure.port_b, none.port_a) annotation (Line(
-      points={{-23,0},{-24,0},{-24,12},{18,12}},
+      points={{-23,0},{-24,0},{-24,12},{20,12}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(structure.port_a, none.port_b) annotation (Line(
-      points={{-19,0},{-20,0},{-20,8},{18,8}},
+      points={{-19,0},{-20,0},{-20,8},{20,8}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(structure.TSensor, none.TSensor) annotation (Line(
-      points={{-5.4,-16},{8,-16},{8,4},{17.8,4}},
+      points={{-5.4,-16},{8,-16},{8,4},{19.6,4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(cosine.y, preHeaFlo.Q_flow) annotation (Line(points={{-19,-40},{-13.5,

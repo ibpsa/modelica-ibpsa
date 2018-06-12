@@ -31,12 +31,18 @@ equation
       heatPortCon[i].Q_flow = 0;
     end if;
     heatPortRad[i].Q_flow = 0;
-//    heatPortEmb[i].Q_flow = 0;
   end for;
+  heatPortEmb.Q_flow=zeros(nEmbPorts);
 
-  P = {0};
-  Q = {0};
 
-  QHeaSys = -1*sum(heatPortCon.Q_flow);
 
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
+</ul>
+</html>"));
 end ThermostatSetback;

@@ -1,14 +1,10 @@
 within IDEAS.Fluid.Taps;
 model BalancedTap
   "DHW consumption with profile reader.  RealInput mDHW60C is not used."
-  import IDEAS;
-
   extends IDEAS.Fluid.Taps.Interfaces.BalancedTap;
 
   parameter Modelica.SIunits.Volume VDayAvg "Average daily water consumption";
   parameter Integer profileType=1 "Type of the DHW tap profile";
-  //Real onoff;
-  //Real m_minimum(start=0);
 
   Modelica.Blocks.Tables.CombiTable1Ds table(
     tableOnFile=true,
@@ -56,5 +52,13 @@ equation
 <p>This model is an extension of the <a href=\"modelica://IDEAS.Thermal.Components.Domestic_Hot_Water.partial_DHW\">Partial_DHW</a> model, see there for the documentation.</p>
 <h4>Examples</h4>
 <p>An example of this model is given in <a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP\">IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP</a>.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
+</ul>
 </html>"));
 end BalancedTap;

@@ -5,6 +5,7 @@ booleanReplicator
 cubicHermiteLinearExtrapolation
 integerReplicator
 inverseXRegularized
+isAngle
 isMonotonic
 polynomial
 powerLinearized
@@ -23,4 +24,3 @@ splineDerivatives
 trapezoidalIntegration
 Examples
 BaseClasses
-isAngle

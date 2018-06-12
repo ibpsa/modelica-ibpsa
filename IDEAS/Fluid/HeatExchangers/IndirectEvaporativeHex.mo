@@ -1,4 +1,4 @@
-﻿within IDEAS.Fluid.HeatExchangers;
+within IDEAS.Fluid.HeatExchangers;
 model IndirectEvaporativeHex "Indirect evaporative heat exchanger"
   extends IDEAS.Fluid.Interfaces.PartialFourPortInterface(
     final allowFlowReversal1=false,

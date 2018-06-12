@@ -93,22 +93,22 @@ protected
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-90,-20})));
-   IDEAS.HeatTransfer.HeatCapacitor capHotSpot(C=CHs) if   traTCal       annotation (
+   IDEAS.Experimental.HeatTransfer.HeatCapacitor capHotSpot(C=CHs) if   traTCal       annotation (
        Placement(transformation(
          extent={{-10,-10},{10,10}},
          rotation=-90,
          origin={22,4})));
-   IDEAS.HeatTransfer.HeatCapacitor capOil(C=CTo) if   traTCal       annotation (Placement(
+   IDEAS.Experimental.HeatTransfer.HeatCapacitor capOil(C=CTo) if   traTCal       annotation (Placement(
          transformation(
          extent={{-10,-10},{10,10}},
          rotation=-90,
          origin={22,-16})));
-   IDEAS.HeatTransfer.ThermalResistor resOil(R=RHs) if   traTCal       annotation (Placement(
+   IDEAS.Experimental.HeatTransfer.ThermalResistor resOil(R=RHs) if   traTCal       annotation (Placement(
          transformation(
          extent={{-10,-10},{10,10}},
          rotation=-90,
          origin={12,-6})));
-   IDEAS.HeatTransfer.ThermalResistor resOut(R=RTo) if   traTCal       annotation (Placement(
+   IDEAS.Experimental.HeatTransfer.ThermalResistor resOut(R=RTo) if   traTCal       annotation (Placement(
          transformation(
          extent={{-10,-10},{10,10}},
          rotation=-90,

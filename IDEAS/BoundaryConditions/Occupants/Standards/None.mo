@@ -13,8 +13,6 @@ model None "No occupants, constant set point temperature."
 equation
   TSet = TSet_val;
   mDHW60C = 0;
-  P[1:nLoads_min] = zeros(nLoads_min);
-  Q[1:nLoads_min] = zeros(nLoads_min);
   connect(prescribedHeatFlow1.port, heatPortCon) annotation (Line(
       points={{-74,20},{-200,20}},
       color={191,0,0},

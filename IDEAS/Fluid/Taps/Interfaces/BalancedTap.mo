@@ -20,7 +20,7 @@ public
         iconTransformation(extent={{-110,-10},{-90,10}})));
 
   Modelica.Blocks.Sources.RealExpression TCold_expr(y=TCold)
-    annotation (Placement(transformation(extent={{6,-40},{26,-20}})));
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_cold(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium annotation (
@@ -34,17 +34,20 @@ public
   IDEAS.Fluid.Interfaces.IdealSource idealSource(
     redeclare package Medium = Medium,
     control_m_flow=true,
-    allowFlowReversal=false)
+    allowFlowReversal=false,
+    control_dp=false)
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(
+  IDEAS.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
-    dynamicBalance=true,
-    m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{60,10},{80,-10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature
-    annotation (Placement(transformation(extent={{46,-36},{58,-24}})));
+    m_flow_nominal=m_flow_nominal,
+    nPorts=2,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    V=1) "Mixing volume for heat injection"
+    annotation (Placement(transformation(extent={{60,0},{80,-20}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
   Modelica.SIunits.Temperature TDHW_actual = min(THot.T,TDHWSet);
   Modelica.Blocks.Sources.RealExpression mFloCor(y=mFlo60C*(273.15 + 60 - TCold)
@@ -73,20 +76,12 @@ equation
       points={{30,0},{-68,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(idealSource.port_b, pipe_HeatPort.port_a) annotation (Line(
-      points={{50,0},{60,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pipe_HeatPort.port_b, port_cold) annotation (Line(
-      points={{80,0},{100,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(prescribedTemperature.port, pipe_HeatPort.heatPort) annotation (Line(
-      points={{58,-30},{70,-30},{70,-10}},
+  connect(preTem.port, vol.heatPort) annotation (Line(
+      points={{40,-30},{60,-30},{60,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TCold_expr.y, prescribedTemperature.T) annotation (Line(
-      points={{27,-30},{44.8,-30}},
+  connect(TCold_expr.y, preTem.T) annotation (Line(
+      points={{-19,-30},{18,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(deltaT.y,deltaT_with_smoothmax. u1) annotation (Line(
@@ -109,6 +104,10 @@ equation
       points={{18.9,43},{34,43},{34,8}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(idealSource.port_b, vol.ports[1])
+    annotation (Line(points={{50,0},{68,0}}, color={0,127,255}));
+  connect(vol.ports[2], port_cold)
+    annotation (Line(points={{72,0},{100,0}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=

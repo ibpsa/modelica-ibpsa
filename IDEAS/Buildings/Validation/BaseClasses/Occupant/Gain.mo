@@ -1,14 +1,13 @@
 within IDEAS.Buildings.Validation.BaseClasses.Occupant;
 model Gain "BESTEST fixed internal gains by occupants"
   extends IDEAS.Templates.Interfaces.BaseClasses.Occupant(
-                                                final nLoads=1);
+    P={QNom},
+    final nLoads=1);
 
 protected
   parameter Modelica.SIunits.HeatFlowRate QNom = 200 "Baseload internal gain";
 
 equation
-  P[1] = QNom;
-  Q[1] = 0;
   for i in 1:nZones loop
     heatPortCon[i].Q_flow = -QNom*0.40;
     heatPortRad[i].Q_flow = -QNom*0.60;

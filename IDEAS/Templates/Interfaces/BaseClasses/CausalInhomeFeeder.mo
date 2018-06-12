@@ -36,7 +36,9 @@ protected
     voltageSource(
     f=50,
     V=230,
-    phi=0) "Steady building-side 230 V voltage source" annotation (Placement(
+    phi=0,
+    gamma(fixed=true))
+           "Steady building-side 230 V voltage source" annotation (Placement(
         transformation(
         extent={{-8,-8},{8,8}},
         rotation=270,
@@ -50,18 +52,13 @@ protected
         rotation=-90,
         origin={-80,-22})));
 
-algorithm
-  wattsLaw.P := -Modelica.ComplexMath.real(plugToPin_p.plug_p.pin[1].v*
-    Modelica.ComplexMath.conj(plugToPin_p.plug_p.pin[1].i));
-  wattsLaw.Q := -Modelica.ComplexMath.imag(plugToPin_p.plug_p.pin[1].v*
-    Modelica.ComplexMath.conj(plugToPin_p.plug_p.pin[1].i));
-
-initial equation
-  // initial state for voltage
-  voltageSource.pin_p.reference.gamma=0;
-
 
 equation
+  wattsLaw.P = -Modelica.ComplexMath.real(plugToPin_p.plug_p.pin[1].v*
+    Modelica.ComplexMath.conj(plugToPin_p.plug_p.pin[1].i));
+  wattsLaw.Q = -Modelica.ComplexMath.imag(plugToPin_p.plug_p.pin[1].v*
+    Modelica.ComplexMath.conj(plugToPin_p.plug_p.pin[1].i));
+
   connect(nodeSingle, plugToPin_p.plug_p) annotation (Line(
       points={{-100,0},{-80,0},{-80,-20},{-80,-20}},
       color={85,170,255},
