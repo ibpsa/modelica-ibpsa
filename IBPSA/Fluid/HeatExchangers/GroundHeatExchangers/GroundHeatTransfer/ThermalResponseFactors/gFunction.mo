@@ -29,8 +29,6 @@ protected
   Modelica.SIunits.Distance dis_mn "Separation distance for comparison";
   Real hSegRea[nbSeg] "Real part of the FLS solution";
   Real hSegMir[2*nbSeg-1] "Mirror part of the FLS solution";
-  Modelica.SIunits.Time timTreRea "Minimum time for evaluation of finite line source";
-  Modelica.SIunits.Time timTreMir "Minimum time for evaluation of finite line source";
   Modelica.SIunits.Height dSeg "Buried depth of borehole segment";
   Integer Done[nbBor, nbBor] "Matrix for tracking of FLS evaluations";
   Real A[nbSeg*nbBor+1, nbSeg*nbBor+1] "Coefficient matrix for system of equations";
@@ -121,59 +119,29 @@ algorithm
           // Evaluate Real and Mirror parts of FLS solution
           // Real part
           for m in 1:nbSeg loop
-            timTreRea := (dis^2 + ((m-1)*hBor/nbSeg)^2)/(5^2*alpha);
-            if timTreRea < tLon[k+1] then
-              hSegRea[m] :=
-                IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
-                tLon[k + 1],
-                alpha,
-                dis,
-                hBor/nbSeg,
-                dBor,
-                hBor/nbSeg,
-                dBor + (m - 1)*hBor/nbSeg,
-                includeMirrorSource=false);
-            else
-              // Linear interpolation from minimum time value if time is too low
-              hSegRea[m] := tLon[k + 1]/timTreRea*
-                IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
-                timTreRea,
-                alpha,
-                dis,
-                hBor/nbSeg,
-                dBor,
-                hBor/nbSeg,
-                dBor + (m - 1)*hBor/nbSeg,
-                includeMirrorSource=false);
-            end if;
+            hSegRea[m] :=
+              IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
+              tLon[k + 1],
+              alpha,
+              dis,
+              hBor/nbSeg,
+              dBor,
+              hBor/nbSeg,
+              dBor + (m - 1)*hBor/nbSeg,
+              includeMirrorSource=false);
           end for;
         // Mirror part
           for m in 1:(2*nbSeg-1) loop
-            timTreMir := (dis^2 + (2*dBor+2*(m-1)*hBor/nbSeg)^2)/(5^2*alpha);
-            if timTreMir < tLon[k+1] then
-              hSegMir[m] :=
-                IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
-                tLon[k + 1],
-                alpha,
-                dis,
-                hBor/nbSeg,
-                dBor,
-                hBor/nbSeg,
-                dBor + (m - 1)*hBor/nbSeg,
-                includeRealSource=false);
-            else
-              // Linear interpolation from minimum time value if time is too low
-              hSegMir[m] := tLon[k + 1]/timTreMir*
-                IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
-                timTreMir,
-                alpha,
-                dis,
-                hBor/nbSeg,
-                dBor,
-                hBor/nbSeg,
-                dBor + (m - 1)*hBor/nbSeg,
-                includeRealSource=false);
-            end if;
+            hSegMir[m] :=
+              IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
+              tLon[k + 1],
+              alpha,
+              dis,
+              hBor/nbSeg,
+              dBor,
+              hBor/nbSeg,
+              dBor + (m - 1)*hBor/nbSeg,
+              includeRealSource=false);
           end for;
         // Apply to all pairs that have the same separation distance
           for m in 1:nbBor loop
