@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation.BaseClasses;
 model SimInfoManagerBestest "Siminfomanager for BESTEST cases"
   extends IDEAS.BoundaryConditions.SimInfoManager(
-    filNam="BESTEST.TMY",
+    filNam=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/weatherdata/BESTEST.TMY"),
     linIntRad=false,
     linExtRad=false);
   annotation (
