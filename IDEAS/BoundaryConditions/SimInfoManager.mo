@@ -4,7 +4,6 @@ model SimInfoManager
   extends BoundaryConditions.Interfaces.PartialSimInfoManager;
 
 protected
-  BoundaryConditions.WeatherData.Bus weaBus1 "Weather data bus";
   Modelica.Blocks.Routing.RealPassThrough HDirNorData;
   Modelica.Blocks.Routing.RealPassThrough HGloHorData;
   Modelica.Blocks.Routing.RealPassThrough HDiffHorData;
@@ -23,8 +22,6 @@ equation
   Tsky = TBlaSkyData.y;
   Va = winSpeData.y;
 
-
-  connect(weaDat.weaBus, weaBus1);
   connect(HDirNorData.u, weaBus1.HDirNor);
   connect(HGloHorData.u, weaBus1.HGloHor);
   connect(HDiffHorData.u, weaBus1.HDifHor);
