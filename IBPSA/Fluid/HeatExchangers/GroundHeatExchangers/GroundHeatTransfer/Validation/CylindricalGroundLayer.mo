@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation;
 model CylindricalGroundLayer
-  "Comparison of the CylindricalGroundLayer with the Modelica Buildings Library"
+  "Comparison of the CylindricalGroundLayer with the GroundTemperatureResponse"
   import IBPSA;
   extends Modelica.Icons.Example;
 
@@ -41,8 +41,29 @@ equation
       points={{-40,0},{-10,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-    experiment(StopTime=187200),
-    __Dymola_experimentSetupOutput);
+
+  annotation (
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/CylindricalGroundLayer.mos"
+        "Simulate and plot"),
+    experiment(Tolerance=1e-6, StopTime=360000.0),
+    Documentation(info="<html>
+<p>
+This example demonstrates the use of
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer</a>.
+</p>
+<p>
+After a short delay, a constant heat flow rate is applied to the inner surface
+of a cylindrical ground layer while the outer surface is kept at a constant
+temperature.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 13, 2018, by Damien Picard:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CylindricalGroundLayer;
