@@ -21,7 +21,7 @@ protected
     mSenFac=mSenFac,
     U_nominal=mSenFac*10*Vtot*1.2*1000,
     use_C_flow=true,
-    nPorts=3+nPorts,
+    nPorts=(if hasVap then 3 else 2)+nPorts,
     m_flow_nominal=0.1)                        annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -96,10 +96,10 @@ equation
                 color={0,127,255}));
   connect(port_a, vol.ports[2]) annotation (Line(points={{60,100},{60,10},{8.88178e-16,
           10}}, color={0,127,255}));
-  connect(senRelHum.port, vol.ports[3]) annotation (Line(points={{30,-30},{30,
+  connect(senRelHum.port, vol.ports[nPorts+3]) annotation (Line(points={{30,-30},{30,
           10},{1.33227e-15,10}},
                           color={0,127,255}));
-  connect(ports[1:nPorts], vol.ports[4:nPorts+3]) annotation (Line(points={{0,100},
+  connect(ports[1:nPorts], vol.ports[3:nPorts+2]) annotation (Line(points={{0,100},
           {0,10},{1.33227e-15,10}},
                           color={0,127,255}));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
