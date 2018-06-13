@@ -1,14 +1,14 @@
-simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation.LoadAggregation_20Years", tolerance=1e-6, stopTime=6.3072e+08, outputInterval=3600, method="dassl", resultFile="LoadAggregation_20Years");
+simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation.GroundTemperatureResponse_20Years", tolerance=1e-6, stopTime=6.3072e+08, outputInterval=3600, method="dassl", resultFile="GroundTemperatureResponse_20Years");
 createPlot(id = 1,
  position = {50, 50, 700, 500},
  x = "time",
- y = {"timTabT.y[1]","temperatureSensor.T"},
+ y = {"timTabT.y[1]","temSen.T"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
  grid = true,
  color = true,
- filename="LoadAggregation_20Years.mat",
+ filename="GroundTemperatureResponse_20Years.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 2,
@@ -20,5 +20,6 @@ createPlot(id = 2,
  autoreplot = true,
  grid = true,
  color = true,
+ filename="GroundTemperatureResponse_20Years.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
