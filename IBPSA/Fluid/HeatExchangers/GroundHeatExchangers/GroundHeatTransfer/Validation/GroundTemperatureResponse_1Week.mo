@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation;
-model LoadAggregation_1Week
-  "Short term validation of load aggregation model"
+model GroundTemperatureResponse_1Week
+  "Short term validation of ground temperature response model"
   import IBPSA;
   extends Modelica.Icons.Example;
 
@@ -43,7 +43,7 @@ model LoadAggregation_1Week
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/(24*3600),
     startTime=21600,
-    amplitude=1e8)
+    amplitude=1e8) "Heat flow signal"
     annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo1
     "Prescribed heat flow to soil"
@@ -56,6 +56,7 @@ model LoadAggregation_1Week
   Modelica.Blocks.Sources.Constant groTem(k=283.15) "Ground temperature"
     annotation (Placement(transformation(extent={{88,-10},{68,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
+    "Ground temperature"
     annotation (Placement(transformation(extent={{48,50},{28,70}})));
   Modelica.Blocks.Math.Add deltaT(k2=-1)
     "Temperature difference between borehole with discrete ground and borehole with analytical ground"
@@ -96,8 +97,34 @@ equation
           -20,20},{-10,20}}, color={191,0,0}));
   connect(temSen1.port, groTemRes.Tb) annotation (Line(points={{-10,-20},{-20,
           -20},{-20,-60},{-12,-60}}, color={191,0,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-    experiment(StopTime=187200),
-    __Dymola_experimentSetupOutput);
-end LoadAggregation_1Week;
+
+  annotation (
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/GroundTemperatureResponse_1Week.mos"
+        "Simulate and plot"),
+    experiment(Tolerance=1e-6, StopTime=360000.0),
+    Documentation(info="<html>
+<p>
+This example validates the implementation of
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>
+for the evaluation of the borehole wall temperature at a short time scale.
+</p>
+<p>
+After a short delay, a sinusoidal heat flow rate is applied to borehole heat
+exchanger. The temperature at the borehole wall evaluated with
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>
+is compared to the temperature obtained with
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse_1Week</a>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 13, 2018, by MassimoCimmino:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end GroundTemperatureResponse_1Week;
