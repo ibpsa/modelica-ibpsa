@@ -10,24 +10,24 @@ model OuterWall "Opaque building envelope construction"
   parameter Boolean linExtRad=sim.linExtRad
     "= true, if exterior radiative heat transfer should be linearised"
     annotation(Dialog(tab="Radiation"));
-  parameter Boolean use_buildingShade = false
+  parameter Boolean hasBuildingShade = false
     "=true, to enable computation of shade cast by opposite building or object"
     annotation(Dialog(group="Building shade"));
   parameter Modelica.SIunits.Length L(min=0)=0
     "Distance between object and wall, perpendicular to wall"
-    annotation(Dialog(group="Building shade",enable=use_buildingShade));
+    annotation(Dialog(group="Building shade",enable=hasBuildingShade));
   parameter Modelica.SIunits.Length dh(min=-hWal)=0
     "Height difference between top of object and top of wall"
-    annotation(Dialog(group="Building shade",enable=use_buildingShade));
+    annotation(Dialog(group="Building shade",enable=hasBuildingShade));
   parameter Modelica.SIunits.Length hWal(min=0)=0 "Wall height"
-    annotation(Dialog(group="Building shade",enable=use_buildingShade));
+    annotation(Dialog(group="Building shade",enable=hasBuildingShade));
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
 
   replaceable IDEAS.Buildings.Components.Shading.BuildingShade shaType(
     final L=L,
     final dh=dh,
-    final hWin=hWal) if use_buildingShade
+    final hWin=hWal) if hasBuildingShade
   constrainedby IDEAS.Buildings.Components.Shading.Interfaces.PartialShading(
     final azi=azi)
     "Building shade model"
@@ -66,13 +66,11 @@ initial equation
   QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
 
 equation
-  if use_buildingShade then
+  if hasBuildingShade then
     assert(L>0, "Shading is enabled in " + getInstanceName() +
     ": Provide a value for L, the distance to the shading object, that is larger than 0.");
-    assert(dh>-hWal, "Shading is enabled in " + getInstanceName() +
-    ": The shading object is positioned below the shaded wall such that it cannot
-    cast any shade. 
-    This is most likely a user error.");
+    assert(not sim.lineariseDymola, "Shading is enabled in " + getInstanceName() +
+    " but this is not supported when linearising a model.");
     assert(hWal>0, "Shading is enabled in " + getInstanceName() +
     ": Provide a value for hWal, the wall height, that is larger than 0.");
   end if;
@@ -135,7 +133,7 @@ equation
           {-72,6}},                                  color={0,0,127}));
   connect(radSolData.HGroDifTil, shaType.HGroDifTil) annotation (Line(points={{-79.4,4},
           {-72,4}},                                  color={0,0,127}));
-  if not use_buildingShade then
+  if not hasBuildingShade then
     connect(solDif.u1, radSolData.HSkyDifTil) annotation (Line(points={{-54.8,
             6.4},{-55.3,6.4},{-55.3,6},{-79.4,6}},
                                             color={0,0,127}));
@@ -230,7 +228,7 @@ for equations, options, parameters, validation and dynamics that are common for 
 In addition to these parameters, this model computes the shade cast by an outside
 object such as a building using 
 <a href=\"IDEAS.Buildings.Components.Shading.BuildingShade\">IDEAS.Buildings.Components.Shading.BuildingShade</a>
-if parameter <code>use_buildingShade=true</code>.
+if parameter <code>hasBuildingShade=true</code>.
 Values for parameters <code>L</code>, <code>dh</code> and <code>hWal</code> then have to be specified.
 </p>
 <h4>Options</h4>
