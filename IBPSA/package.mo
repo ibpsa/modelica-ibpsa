@@ -130,6 +130,15 @@ Non-SI units are to be kept at an absolute minimum, and they must be declared as
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+  class Version_2_0_0 "Version 2.0.0"
+    extends Modelica.Icons.ReleaseNotes;
+      annotation (preferredView="info", Documentation(info="<html>
+<p>
+Second release of the IBPSA library.
+</p>
+</html>"));
+  end Version_2_0_0;
+
   class Version_1_0_0 "Version 1.0.0"
     extends Modelica.Icons.ReleaseNotes;
       annotation (preferredView="info", Documentation(info="<html>
@@ -139,6 +148,7 @@ First official release of the IBPSA library.
 </html>"));
   end Version_1_0_0;
 
+
     annotation (preferredView="info",
     Documentation(info="<html>
 <p>
@@ -146,7 +156,10 @@ This section summarizes the releases of the <code>IBPSA</code> library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://IBPSA.UsersGuide.ReleaseNotes.Version_1_0_0\">Version 1.0.0</a>(June 14, 2018)
+<a href=\"modelica://IBPSA.UsersGuide.ReleaseNotes.Version_2_0_0\">Version 2.0.0</a>(June 14, 2018)
+</li>
+<li>
+<a href=\"modelica://IBPSA.UsersGuide.ReleaseNotes.Version_1_0_0\">Version 1.0.0</a>(January 17, 2017)
 </li>
 </ul>
 
@@ -415,9 +428,9 @@ end UsersGuide;
 
 
 annotation (
-version="1.0.0",
-versionDate="2018-06-18",
-dateModified = "2018-06-18",
+version="2.0.0",
+versionDate="2018-06-14",
+dateModified = "2018-06-14",
 uses(Modelica(version="3.2.2")),
 preferredView="info",
 Documentation(info="<html>
