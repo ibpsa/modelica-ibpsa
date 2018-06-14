@@ -1,0 +1,9 @@
+last-generated=2018-06-13
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+floSpl.outlet[1].m_flow=[1.000000014901161e-01, 1.000000014901161e-01]
+time=[0e+00, 1e+00]

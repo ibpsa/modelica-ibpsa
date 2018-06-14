@@ -1,0 +1,10 @@
+last-generated=2018-06-13
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+sou.T_in=[2.931499938964844e+02, 2.931499938964844e+02]
+hea.com.vol.T=[2.95121337890625e+02, 2.95121337890625e+02]
+time=[0e+00, 1e+00]
