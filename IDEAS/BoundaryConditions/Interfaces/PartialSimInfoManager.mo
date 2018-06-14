@@ -10,8 +10,8 @@ partial model PartialSimInfoManager
   parameter Modelica.SIunits.Angle lon(displayUnit="deg") = weaDat.lon
     "Longitude of the location"
     annotation(Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Time timZonSta(displayUnit="h") = 3600
-    "standard time zone";
+  parameter Modelica.SIunits.Time timZon(displayUnit="h") = weaDat.timZon
+    "Time zone for which the simulation time t=0 corresponds to midnight, january 1st";
 
 
   parameter SI.Angle incAndAziInBus[:,:] = {{IDEAS.Types.Tilt.Ceiling,0},{IDEAS.Types.Tilt.Wall,IDEAS.Types.Azimuth.S},
@@ -459,9 +459,10 @@ data reader instead of computing them ourself using equations.
 </li>
 <li>
 June 11, 2018, by Filip Jorissen:<br/>
-Revised implementation such that longitude and latitude are read from
+Revised implementation such that longitude, latitude and time zone are read from
 the TMY3 weather file.
-Removed split between file path and file name to avoid confusion.
+Removed split between file path and file name to avoid confusion
+and incorrectly formatted paths.
 </li>
 <li>
 June 11, 2018, by Filip Jorissen:<br/>
