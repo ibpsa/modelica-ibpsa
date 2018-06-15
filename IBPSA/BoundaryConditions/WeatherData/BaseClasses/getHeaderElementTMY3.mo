@@ -21,21 +21,31 @@ protected
  Boolean found "Flag, true if #LOCATION has been found";
  Boolean EOF "Flag, true if EOF has been reached";
  String fouDel "Found delimiter";
+ Integer startLen "Length of the variable 'start'";
 algorithm
   // Get line that starts with 'start'
+  startLen:=Modelica.Utilities.Strings.length(start);
   iLin :=0;
   EOF :=false;
   while (not EOF) and (index == 0) loop
     iLin:=iLin + 1;
     (lin, EOF) :=Modelica.Utilities.Streams.readLine(fileName=filNam,
       lineNumber=iLin);
-    index :=Modelica.Utilities.Strings.find(
-      string=lin,
-      searchString=start,
-      startIndex=1,
-      caseSensitive=false);
+    // This check assumes that the line immediately starts with the string 'start'.
+    if Modelica.Utilities.Strings.length(lin)>=startLen then
+      if Modelica.Utilities.Strings.isEqual(
+         Modelica.Utilities.Strings.substring(lin,1,startLen),
+         start,
+         caseSensitive=false) then
+           index:=1;
+      else
+        index:=0;
+      end if;
+    else
+      index:=0;
+    end if;
   end while;
-  assert(not EOF, "Error: Did not find '" + start + "' when scanning the weather file."
+  assert(not EOF, "Error: Did not find keyword '" + start + "' at the start of a line in the weather file."
                       + "\n   Check for correct weather file syntax.");
   // Loop over the tokens until the position is reached
   nexInd :=1;
