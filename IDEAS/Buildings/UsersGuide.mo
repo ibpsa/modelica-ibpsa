@@ -2,9 +2,6 @@ within IDEAS.Buildings;
 package UsersGuide "User's Guide"
 extends Modelica.Icons.Information;
 
-
-
-
 annotation (__Dymola_DocumentationClass=true, Documentation(info="<html>
 <p>
 The main goal of the IDEAS Buildings library is to set up models that allow simulating
