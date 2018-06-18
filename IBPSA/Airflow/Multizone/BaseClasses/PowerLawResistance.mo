@@ -4,8 +4,6 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
     final m_flow_nominal=rho_default*k*dp_turbulent);
   extends IBPSA.Airflow.Multizone.BaseClasses.ErrorControl;
 
-  parameter Modelica.SIunits.Area A "|Orifice characteristics|Area of orifice";
-
   parameter Real m(min=0.5, max=1)
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
   parameter Boolean useDefaultProperties=true
@@ -13,7 +11,7 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
     annotation (Evaluate=true);
   parameter Modelica.SIunits.PressureDifference dp_turbulent(min=0, displayUnit="Pa") = 0.1
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1";
-  parameter Modelica.SIunits.Length lWet=sqrt(A)
+  parameter Modelica.SIunits.Length lWet
     "Wetted perimeter used for Reynolds number calculation";
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -95,7 +93,6 @@ equation
     dp_turbulent=dp_turbulent);
 
   port_a.m_flow = rho*V_flow;
-  v = V_flow/A;
   Re = v*lWet*rho/dynVis;
 
   // Isenthalpic state transformation (no storage and no loss of energy)
@@ -132,6 +129,18 @@ The model is used as a base for the interzonal air flow models.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 18, 2018, by Michael Wetter:<br/>
+Removed parameter <code>A</code> because
+<a href=\"modelica://IBPSA.Airflow.Multizone.EffectiveAirLeakageArea\">
+IBPSA.Airflow.Multizone.EffectiveAirLeakageArea</a>
+uses the effective leakage area <code>L</code> rather than <code>A</code>.<br/>
+Removed calculation <code>v=V_flow/A</code> as parameter <code>A</code> has been removed.<br/>
+This change is non-backward compatible.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
+
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

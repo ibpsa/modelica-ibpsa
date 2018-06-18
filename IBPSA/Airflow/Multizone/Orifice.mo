@@ -2,10 +2,14 @@ within IBPSA.Airflow.Multizone;
 model Orifice "Orifice"
   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance(
     m=0.5,
-    k=CD*A*sqrt(2.0/rho_default));
+    k=CD*A*sqrt(2.0/rho_default),
+    lWet=sqrt(A));
 
+  parameter Modelica.SIunits.Area A "|Orifice characteristics|Area of orifice";
   parameter Real CD=0.65 "|Orifice characteristics|Discharge coefficient";
 
+equation
+  v = V_flow/A;
   annotation (Icon(graphics={
         Rectangle(
           extent={{-100,8},{100,-8}},

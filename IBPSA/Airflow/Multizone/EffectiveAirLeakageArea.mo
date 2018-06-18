@@ -2,7 +2,8 @@ within IBPSA.Airflow.Multizone;
 model EffectiveAirLeakageArea "Effective air leakage area"
   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance(
     m=0.65,
-    final k=L * CDRat * A * sqrt(2.0/rho_default) * dpRat^(0.5-m));
+    final k=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m),
+    lWet=sqrt(L));
 
   parameter Modelica.SIunits.PressureDifference dpRat(
     min=0,
@@ -15,6 +16,8 @@ model EffectiveAirLeakageArea "Effective air leakage area"
 
   parameter Modelica.SIunits.Area L(min=0) "Effective leakage area";
 
+equation
+   v = V_flow/L;
   annotation (Icon(graphics={
         Rectangle(
           extent={{-50,48},{50,-42}},
@@ -89,7 +92,7 @@ k = L C<sub>D,Rat</sub> &Delta;p<sub>Rat</sub><sup>(0.5-m)</sup> (2/&rho;<sub>0<
 </p>
 <p>
 where
-<i>L</i> is the effective leakage area,
+<i>L</i> is the effective air leakage area,
 <i>C<sub>D,Rat</sub></i> is the discharge coefficient at the reference condition,
 <i>&Delta;p<sub>Rat</sub></i> is the pressure drop at the rating condition, and
 <i>&rho;<sub>0</sub></i> is the mass density at the medium default pressure, temperature and humidity.
@@ -132,7 +135,7 @@ revisions="<html>
 <ul>
 <li>
 June 15, 2018, by Michael Wetter:<br/>
-Changed base class to remove the parameter <code>CD</code> which is not used by this model.
+Changed base class to remove the parameters <code>A</code> and <code>CD</code> which are not used by this model.
 This change is non-backward compatible.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
