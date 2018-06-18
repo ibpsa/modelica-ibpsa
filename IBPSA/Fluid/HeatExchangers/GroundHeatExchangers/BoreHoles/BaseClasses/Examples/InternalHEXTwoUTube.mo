@@ -55,7 +55,9 @@ model InternalHEXTwoUTube
         Medium, m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh)
     annotation (Placement(transformation(extent={{16,-22},{28,-10}})));
   parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation
-    borFieDat = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation(conDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.SandBox_validation(singleUTube=false))
+    borFieDat(conDat=
+        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.SandBox_validation(
+         borHolCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeSerie))
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
 

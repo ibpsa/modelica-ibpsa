@@ -15,11 +15,11 @@ function multipoleThermalResistances
   input Real TBor=0 "Average borehole wall temperature";
 
   output Real RDelta[nPip,nPip] "Delta-circuit thermal resistances";
+  output Real R[nPip,nPip] "Internal thermal resistances";
 
 protected
   Real QPip_flow[nPip];
   Real TFlu[nPip];
-  Real R[nPip,nPip];
   Real K[nPip,nPip];
 
 algorithm

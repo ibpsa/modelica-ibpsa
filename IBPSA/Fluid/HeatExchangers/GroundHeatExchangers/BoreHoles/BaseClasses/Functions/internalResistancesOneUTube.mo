@@ -14,6 +14,7 @@ function internalResistancesOneUTube
     "Thermal resistance between: pipe wall to capacity in grout";
 protected
   Real[2,2] RDelta "Delta-circuit thermal resistances";
+  Real[2,2] R "Internal thermal resistances";
   Real[2] xPip = {-sha, sha} "x-Coordinates of pipes";
   Real[2] yPip = {0., 0.} "y-Coordinates of pipes";
   Real[2] rPip = {rTub, rTub} "Outer radius of pipes";
@@ -24,38 +25,21 @@ protected
     "Thermal resistance between the two pipe outer walls";
 
   Real Ra(unit="(m.K)/W")
-    "Grout-to-grout resistance (2D) as defined by Hellstroem. Interaction between the different grout part";
+    "Grout-to-grout resistance (2D) as defined by Hellstrom. Interaction between the different grout parts";
 
 algorithm
-  RDelta :=
+  // Internal thermal resistances
+  (RDelta, R) :=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.multipoleThermalResistances(
-    2,
-    3,
-    xPip,
-    yPip,
-    rBor,
-    rPip,
-    kFil,
-    kSoi,
-    Rfp);
+      2, 3, xPip, yPip, rBor, rPip, kFil, kSoi, Rfp);
 
-  //Rb and Ra
-  Rb_internal :=if use_Rb then Rb else (1./(1./RDelta[1,1] + 1./RDelta[2,2]));
-  Ra := RDelta[1,2].*(RDelta[1,1]+RDelta[2,2])./(RDelta[1,2]+RDelta[1,1]+RDelta[2,2]);
+  // Rb and Ra
+  Rb_internal := if use_Rb then Rb else (1./(1./RDelta[1,1] + 1./RDelta[2,2]));
+  Ra := R[1,1] + R[2,2] - 2*R[1,2];
 
-  //Conversion of Rb (resp. Ra) to Rg (resp. Rar) of Bauer:
+  // Conversion of Rb (resp. Ra) to Rg (resp. Rar) of Bauer:
   Rg  :=(2*Rb_internal-RCondPipe-RConv)/hSeg;
   Rar :=(Ra-2*(RCondPipe + RConv))/hSeg;
-
-/* **************** Simplification of Bauer for single U-tube ************************
-  //Thermal resistance between: Outer wall and one tube
-     Rg := Modelica.Math.acosh((rBor^2 + (rTub + eTub)^2 - sha^2)/(2*rBor*(rTub +
-       eTub)))/(2*Modelica.Constants.pi*hSeg*kFil)*(1.601 - 0.888*sha/rBor);
-
-  //Thermal resistance between: The two pipe outer walls
-  Rar := Modelica.Math.acosh((2*sha^2 - (rTub + eTub)^2)/(rTub + eTub)^2)/(2*
-       Modelica.Constants.pi*hSeg*kFil);
-*************************************************************************************** */
 
   // ********** Resistances and capacity location according to Bauer **********
   while test == false and i <= 10 loop
@@ -70,7 +54,6 @@ algorithm
     Rgg := 2*Rgb*(Rar - 2*x*Rg)/(2*Rgb - Rar + 2*x*Rg);
 
     // Thermodynamic test to check if negative R values make sense. If not, decrease x-value.
-    // fixme: the implemented is only for single U-tube BHE's.
     test := ((1/Rgg + 1/2/Rgb)^(-1) > 0);
     i := i + 1;
   end while;
@@ -97,14 +80,14 @@ algorithm
 
   if printDebug then
     Modelica.Utilities.Streams.print("
-Rb = " + String(Rb_internal) + " m K / W
-RCondPipe = "+ String(RCondPipe) + " m K / W
-RConv = " +String(RConv) +"m K / W
-hSeg = " + String(hSeg) + " m
-Rg = "+String(Rg) + " K / W
-Ra = " + String(Ra)  + " m K / W
-x = " + String(x) + "
-i = "  + String(i));
+      Rb = " + String(Rb_internal) + " m K / W
+      RCondPipe = "+ String(RCondPipe) + " m K / W
+      RConv = " +String(RConv) +"m K / W
+      hSeg = " + String(hSeg) + " m
+      Rg = "+String(Rg) + " K / W
+      Ra = " + String(Ra)  + " m K / W
+      x = " + String(x) + "
+      i = "  + String(i));
   end if;
                                                         annotation (Diagram(graphics), Documentation(info="<html>
 <p>
