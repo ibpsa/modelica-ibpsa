@@ -1,27 +1,7 @@
 #include<stdio.h> //printf
 #include<string.h>    //strlen
-
 #include <stdlib.h>
 #include <assert.h>
-#include<io.h>
-#include <assert.h>
-
-#ifdef __linux__ 
-#include<sys/socket.h>    //socket
-#include<arpa/inet.h> //inet_addr
-#elif _WIN32
-#include<winsock2.h>
-#pragma comment (lib, "Ws2_32.lib")
-#pragma comment (lib, "Mswsock.lib")
-#pragma comment (lib, "AdvApi32.lib")
-#pragma warning(disable:4996) 
-#pragma comment (lib, "Ws2_32.lib")
-#pragma comment (lib, "Mswsock.lib")
-#pragma comment (lib, "AdvApi32.lib")
-#pragma warning(disable:4996)  
-#endif	
-
-
 
 char** str_split(char* a_str, char a_delim)
 {
@@ -72,7 +52,91 @@ char** str_split(char* a_str, char a_delim)
 }
 
 
+#ifdef __linux__ 
+#include<sys/socket.h>    //socket
+#include<arpa/inet.h> //inet_addr
+int lin(int as,double a[],  const char** host, const int port, double c[])
+{
+    int sock;
+    struct sockaddr_in server;
+    char message[1000], server_reply[2000];
+    char** tokens;
+   
+    //Create socket
+    sock = socket(AF_INET , SOCK_STREAM , 0);
+    if (sock == -1)
+    {
+        printf("Could not create socket");
+    }
+    puts("Socket created");
+     
+    server.sin_addr.s_addr = inet_addr(host);
+    server.sin_family = AF_INET;
+    server.sin_port = htons(port);
+ 
+    //Connect to remote server
+    if (connect(sock , (struct sockaddr *)&server , sizeof(server)) < 0)
+    {
+        perror("connect failed. Error");
+        return 1;
+    }
+     
+    puts("Connected\n");
+         
+    int i;
 
+   /* for loop execution */
+    strcpy(message, ""); 
+    for( i = 0; i < as; i = i + 1 ){
+      char buf[8];
+      strcpy(buf, "");
+      sprintf(buf,"%1f", a[i]);
+//      strcat(buf, ",");
+      strcat(message, buf);
+      strcat(message, ",");	  
+    }	
+
+    puts(message);
+         
+        //Send some data
+    if( send(sock , message , strlen(message) , 0) < 0)
+    {
+            puts("Send failed");
+            return 1;
+    }
+         
+        //Receive a reply from the server
+    if( recv(sock , server_reply , 2000 , 0) < 0)
+    {
+            puts("recv failed");
+            return 2;
+    }
+         
+    puts("Server reply :");
+    puts(server_reply);
+    
+    tokens = str_split(server_reply, ',');
+    puts(*tokens+as-2);
+    for( i = 0; i <as; i = i + 1 ){
+         *(c+i) = atof(*(tokens+i));
+    }	
+    
+    close(sock);
+    return 1;
+}
+
+
+#elif _WIN32
+#include<winsock2.h>
+#include<io.h>
+#pragma comment (lib, "Ws2_32.lib")
+#pragma comment (lib, "Mswsock.lib")
+#pragma comment (lib, "AdvApi32.lib")
+#pragma warning(disable:4996) 
+#pragma comment (lib, "Ws2_32.lib")
+#pragma comment (lib, "Mswsock.lib")
+#pragma comment (lib, "AdvApi32.lib")
+#pragma warning(disable:4996)  
 int win(int as, double a[],  char* host, int port, double c[])
 {
     WSADATA wsa;
@@ -164,76 +228,11 @@ int win(int as, double a[],  char* host, int port, double c[])
 
     return 1;
 }
+#endif	
 
-int lin(int as,double a[],  const char** host, const int port, double c[])
-{
-    int sock;
-    struct sockaddr_in server;
-    char message[1000], server_reply[2000];
-    char** tokens;
-   
-    //Create socket
-    sock = socket(AF_INET , SOCK_STREAM , 0);
-    if (sock == -1)
-    {
-        printf("Could not create socket");
-    }
-    puts("Socket created");
-     
-    server.sin_addr.s_addr = inet_addr(host);
-    server.sin_family = AF_INET;
-    server.sin_port = htons(port);
- 
-    //Connect to remote server
-    if (connect(sock , (struct sockaddr *)&server , sizeof(server)) < 0)
-    {
-        perror("connect failed. Error");
-        return 1;
-    }
-     
-    puts("Connected\n");
-         
-    int i;
 
-   /* for loop execution */
-    strcpy(message, ""); 
-    for( i = 0; i < as; i = i + 1 ){
-      char buf[8];
-      strcpy(buf, "");
-      sprintf(buf,"%1f", a[i]);
-//      strcat(buf, ",");
-      strcat(message, buf);
-      strcat(message, ",");	  
-    }	
 
-    puts(message);
-         
-        //Send some data
-    if( send(sock , message , strlen(message) , 0) < 0)
-    {
-            puts("Send failed");
-            return 1;
-    }
-         
-        //Receive a reply from the server
-    if( recv(sock , server_reply , 2000 , 0) < 0)
-    {
-            puts("recv failed");
-            return 2;
-    }
-         
-    puts("Server reply :");
-    puts(server_reply);
-    
-    tokens = str_split(server_reply, ',');
-    puts(*tokens+as-2);
-    for( i = 0; i <as; i = i + 1 ){
-         *(c+i) = atof(*(tokens+i));
-    }	
-    
-    close(sock);
-    return 1;
-}
+
 
 
 int swap(int as, double a[],  char* host, int port, double c[])

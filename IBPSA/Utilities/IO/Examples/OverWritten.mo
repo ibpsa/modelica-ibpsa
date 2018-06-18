@@ -7,8 +7,8 @@ model OverWritten
     annotation (Placement(transformation(extent={{60,58},{80,80}})));
   IBPSA.Utilities.IO.OverWritten overwritten(
     numVar=2,
-    activation=IBPSA.Utilities.IO.Types.LocalActivation.use_activation,
-    samplePeriod=1)
+    samplePeriod=1,
+    activation=IBPSA.Utilities.IO.Types.LocalActivation.always)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Modelica.Blocks.Sources.Sine sine(amplitude=2, freqHz=1/60)
