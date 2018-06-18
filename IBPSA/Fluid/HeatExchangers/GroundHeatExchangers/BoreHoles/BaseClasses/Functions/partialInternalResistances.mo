@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions;
 partial function partialInternalResistances
   "Partial model for borehole resistance calculation"
+  extends Modelica.Icons.Function;
 
   // Geometry of the borehole
   input Boolean use_Rb = false
