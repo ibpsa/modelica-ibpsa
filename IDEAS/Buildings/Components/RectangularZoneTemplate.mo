@@ -344,6 +344,44 @@ model RectangularZoneTemplate
    annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
 
 
+  parameter Boolean hasBuildingShadeA=false
+    "=true, to enable computation of shade cast by opposite building or object on OuterWall"
+    annotation(Dialog(tab="Face A", group="Building shade", enable=bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall));
+  parameter SI.Length LShaA=0
+    "Distance between shading object and wall, perpendicular to wall"
+    annotation(Dialog(enable=hasBuildingShadeA,tab="Face A", group="Building shade"));
+  parameter SI.Length dhShaA=0
+    "Height difference between top of shading object and top of wall A"
+    annotation(Dialog(enable=hasBuildingShadeA,tab="Face A", group="Building shade"));
+  parameter Boolean hasBuildingShadeB=false
+    "=true, to enable computation of shade cast by opposite building or object on OuterWall"
+    annotation(Dialog(tab="Face B", group="Building shade", enable=bouTypB==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall));
+  parameter SI.Length LShaB=0
+    "Distance between shading object and wall, perpendicular to wall"
+    annotation(Dialog(enable=hasBuildingShadeB,tab="Face B", group="Building shade"));
+  parameter SI.Length dhShaB=0
+    "Height difference between top of shading object and top of wall B"
+    annotation(Dialog(enable=hasBuildingShadeB,tab="Face B", group="Building shade"));
+  parameter Boolean hasBuildingShadeC=false
+    "=true, to enable computation of shade cast by opposite building or object on OuterWall"
+    annotation(Dialog(tab="Face C", group="Building shade", enable=bouTypC==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall));
+  parameter SI.Length LShaC=0
+    "Distance between shading object and wall, perpendicular to wall"
+    annotation(Dialog(enable=hasBuildingShadeC,tab="Face C", group="Building shade"));
+  parameter SI.Length dhShaC=0
+    "Height difference between top of shading object and top of wall C"
+    annotation(Dialog(enable=hasBuildingShadeC,tab="Face C", group="Building shade"));
+  parameter Boolean hasBuildingShadeD=false
+    "=true, to enable computation of shade cast by opposite building or object on OuterWall"
+    annotation(Dialog(tab="Face D", group="Building shade", enable=bouTypD==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall));
+  parameter SI.Length LShaD=0
+    "Distance between shading object and wall, perpendicular to wall"
+    annotation(Dialog(enable=hasBuildingShadeD,tab="Face D", group="Building shade"));
+  parameter SI.Length dhShaD=0
+    "Height difference between top of shading object and top of wall D"
+    annotation(Dialog(enable=hasBuildingShadeD,tab="Face D", group="Building shade"));
+
+
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurfExt] proBusExt(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final outputAngles=sim.outputAngles) if nSurfExt>0
@@ -645,7 +683,11 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=l*h - (if hasWinA then A_winA else 0)) if
+    A=l*h - (if hasWinA then A_winA else 0),
+    final hWal=h,
+    final hasBuildingShade=hasBuildingShadeA,
+    final L=LShaA,
+    final dh=dhShaA) if
        hasOutA
     "Outer wall for face A of this zone"
     annotation (Placement(transformation(extent={{-140,0},{-130,20}})));
@@ -661,7 +703,11 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=w*h - (if hasWinB then A_winB else 0)) if
+    A=w*h - (if hasWinB then A_winB else 0),
+    final hasBuildingShade=hasBuildingShadeB,
+    final L=LShaB,
+    final dh=dhShaB,
+    final hWal=h) if
        hasOutB
     "Outer wall for face B of this zone"
     annotation (Placement(transformation(extent={{-140,-20},{-130,0}})));
@@ -676,7 +722,11 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=l*h - (if hasWinC then A_winC else 0)) if
+    A=l*h - (if hasWinC then A_winC else 0),
+    final hasBuildingShade=hasBuildingShadeC,
+    final L=LShaC,
+    final dh=dhShaC,
+    final hWal=h) if
        hasOutC
     "Outer wall for face C of this zone"
     annotation (Placement(transformation(extent={{-140,-40},{-130,-20}})));
@@ -691,7 +741,11 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=w*h - (if hasWinD then A_winD else 0)) if
+    A=w*h - (if hasWinD then A_winD else 0),
+    final hasBuildingShade=hasBuildingShadeD,
+    final L=LShaD,
+    final dh=dhShaD,
+    final hWal=h) if
        hasOutD
     "Outer wall for face D of this zone"
     annotation (Placement(transformation(extent={{-140,-60},{-130,-40}})));
@@ -1019,7 +1073,6 @@ protected
   final parameter Integer indWinC = indWinB + (if hasWinC then 1 else 0);
   final parameter Integer indWinD = indWinC + (if hasWinD then 1 else 0);
   final parameter Integer indWinCei = indWinD + (if hasWinCei then 1 else 0);
-
 
 initial equation
   assert(not bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
@@ -1389,8 +1442,13 @@ components cannot be propagated.
 </html>", revisions="<html>
 <ul>
 <li>
+June 13, 2018, by Filip Jorissen:<br/>
+Added parameters for shade cast by external building.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/576\">#576</a>.
+</li>
+<li>
 May 21, 2018, by Filip Jorissen:<br/>
-Added model for air flow through cavity.
+Added parameters for air flow through cavity.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/822\">#822</a>.
 </li>
 <li>
