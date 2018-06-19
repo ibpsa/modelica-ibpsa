@@ -8,11 +8,4 @@ type LocalActivation = enumeration(
 <p>
 Enumeration that is used to configure the socket connection.
 </p>
-</html>",revisions="<html>
-<ul>
-<li>
-March 23, 2018, by Michael Wetter:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+</html>",revisions=""));

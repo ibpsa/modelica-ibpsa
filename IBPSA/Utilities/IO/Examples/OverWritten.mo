@@ -26,5 +26,10 @@ equation
           {30,80},{30,77.8},{58,77.8}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=240));
+   experiment(Tolerance=1e-6, StartTime=0, StopTime=120),
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/IO/Examples/OverWritten.mos"
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>This example demonstrates the use of a sampler that sends time series to a remoted server. Please start the socket server (see Server.py in IBPSA/Resources/src/SocketServer) before starting this example. </p>
+</html>"));
 end OverWritten;

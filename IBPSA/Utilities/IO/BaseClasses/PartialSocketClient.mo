@@ -54,5 +54,7 @@ equation
                host,
                port);
   end when;
-  annotation ();
+  annotation (Documentation(info="<html>
+<p>Partial block that implements the basic functionality used by Sampler and Overwritten.</p>
+</html>"));
 end PartialSocketClient;

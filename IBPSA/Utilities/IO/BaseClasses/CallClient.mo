@@ -11,5 +11,8 @@ function CallClient
   external "C" resSoc = swap(numOut,out,hos,por,Ove);
 
 annotation(Include="#include <sockclient.c>",
-IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
+IncludeDirectory="modelica://IBPSA/Resources/C-Sources",
+    Documentation(info="<html>
+<p>External function that sets up a socket client for receiving/sending data.</p>
+</html>"));
 end CallClient;

@@ -84,16 +84,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           rotation=395)}),                                                                         Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>
-This block can be used to globally configure the parameters
-for the blocks from the package
-<a href=\"Buildings.Utilities.Plotters\">Buildings.Utilities.Plotters</a>.
-Use this block for example to set the same
-plot file name and sampling time.
-</p>
-<p>
-To use this block, simply drag it at the top-most level, or higher,
-where your plotters are.
-</p>
+<p>This block can be used to globally configure the parameters for the blocks from the package <a href=\"IBPSA.Utilities.IO\">IBPSA.Utilities.IO</a>. Use this block for example to set the sampling time. </p>
+<p>To use this block, simply drag it at the top-most level, or higher, where your block is. </p>
 </html>"));
 end Configuration;

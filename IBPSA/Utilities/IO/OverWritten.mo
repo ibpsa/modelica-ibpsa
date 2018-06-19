@@ -1,6 +1,10 @@
 within IBPSA.Utilities.IO;
-block OverWritten "the block to receieve the model input to the external party"
+block OverWritten
+  "the block to receieve the model input from the external party"
   extends IBPSA.Utilities.IO.BaseClasses.PartialSocketClient;
+
+  parameter Real threshold = 0.5
+    "The threshold to determine if the inputs from external server is valid";
   Modelica.Blocks.Interfaces.RealOutput y[numVar]
     "Connector of Real output signal"    annotation (Placement(transformation(extent={{100,-20},
             {140,20}}),enable=OveEn,visible=WriEn));
@@ -8,7 +12,7 @@ block OverWritten "the block to receieve the model input to the external party"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})),enable=OveEn,visible=OveEn);
   Modelica.Blocks.Sources.RealExpression realExpression1[numVar](y=Ove)
     annotation (Placement(transformation(extent={{-94,10},{-74,30}})), enable=OveEn,visible=OveEn);
-  Modelica.Blocks.Math.RealToBoolean realToBoolean[numVar]
+  Modelica.Blocks.Math.RealToBoolean realToBoolean[numVar](threshold=threshold)
     annotation (Placement(transformation(extent={{-50,-8},{-34,8}}),enable=OveEn,visible=OveEn));
 equation
   t0 = 0;
@@ -40,5 +44,7 @@ equation
         Line(
           points={{-22,6},{-22,30},{92,30}},
           color={255,0,0},
-          thickness=0.5)}));
+          thickness=0.5)}), Documentation(info="<html>
+<p>Block that receives input signals from a remoted server. Please noted that users can set a threshold such that the remoted server can actively disable the overwritten. </p>
+</html>"));
 end OverWritten;

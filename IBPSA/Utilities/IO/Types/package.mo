@@ -9,14 +9,7 @@ package Types "Package with type definitions"
 <p>
 Enumeration that is used to configure the socket connection.
 </p>
-</html>",  revisions="<html>
-<ul>
-<li>
-March 23, 2018, by Michael Wetter:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+</html>",  revisions=""));
 
 annotation (preferredView="info", Documentation(info="<html>
 This package contains type definitions.

@@ -18,5 +18,7 @@ equation
         Text(
           extent={{-62,-22},{70,-60}},
           lineColor={28,108,200},
-          textString="Sampler")}));
+          textString="Sampler")}), Documentation(info="<html>
+<p>Block that samples time series, and sends them to the remoted server. Please noted that the information received by the remoted server will be a string with delimiiter as &QUOT;,&QUOT;. </p>
+</html>"));
 end Sampler;
