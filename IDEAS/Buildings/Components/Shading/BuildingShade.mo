@@ -63,7 +63,7 @@ equation
 <p>
 This model computes the shading cast by a building (or other object) at 
 distance <code>L</code> and relative height <code>dh</code> 
-on a window with height <code>hWin</code>.
+on a window (or wall) with height <code>hWin</code>.
 Diffuse sky solar radiation is reduced
 by computing a simplified view factor of the building,
 which blocks the sky view.
