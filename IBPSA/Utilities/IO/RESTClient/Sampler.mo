@@ -1,7 +1,7 @@
-within IBPSA.Utilities.IO;
+within IBPSA.Utilities.IO.RESTClient;
 block Sampler
   "the block to send the model output to the external party"
-  extends IBPSA.Utilities.IO.BaseClasses.PartialSocketClient;
+  extends IBPSA.Utilities.IO.RESTClient.BaseClasses.PartialSocketClient;
 
 equation
   t0 = 0;

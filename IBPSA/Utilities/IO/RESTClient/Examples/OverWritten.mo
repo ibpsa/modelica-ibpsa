@@ -1,14 +1,15 @@
-within IBPSA.Utilities.IO.Examples;
+within IBPSA.Utilities.IO.RESTClient.Examples;
 model OverWritten
   import IBPSA;
  extends Modelica.Icons.Example;
-   inner IBPSA.Utilities.IO.Configuration Config(samplePeriod=0.5, activation=
-        IBPSA.Utilities.IO.Types.GlobalActivation.use_input)
+   inner IBPSA.Utilities.IO.RESTClient.Configuration
+                                          Config(samplePeriod=0.5, activation=
+        IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation.use_input)
     annotation (Placement(transformation(extent={{60,58},{80,80}})));
-  IBPSA.Utilities.IO.OverWritten overwritten(
+  IBPSA.Utilities.IO.RESTClient.OverWritten
+                                 overwritten(
     numVar=2,
-    samplePeriod=1,
-    activation=IBPSA.Utilities.IO.Types.LocalActivation.always)
+    samplePeriod=1)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Modelica.Blocks.Sources.Sine sine(amplitude=2, freqHz=1/60)
@@ -27,7 +28,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
    experiment(Tolerance=1e-6, StartTime=0, StopTime=120),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/IO/Examples/OverWritten.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/IO/RESTClient/Examples/OverWritten.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>This example demonstrates the use of a sampler that sends time series to a remoted server. Please start the socket server (see Server.py in IBPSA/Resources/src/SocketServer) before starting this example. </p>

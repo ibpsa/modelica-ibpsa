@@ -1,4 +1,4 @@
-within IBPSA.Utilities.IO;
+within IBPSA.Utilities.IO.RESTClient;
 package BaseClasses "Package with base classes for IBPSA.Utilities.IO"
   extends Modelica.Icons.BasesPackage;
 

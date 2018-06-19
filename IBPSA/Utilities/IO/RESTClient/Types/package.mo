@@ -1,4 +1,4 @@
-within IBPSA.Utilities.IO;
+within IBPSA.Utilities.IO.RESTClient;
 package Types "Package with type definitions"
  extends Modelica.Icons.TypesPackage;
 

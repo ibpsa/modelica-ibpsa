@@ -1,7 +1,7 @@
-within IBPSA.Utilities.IO;
+within IBPSA.Utilities.IO.RESTClient;
 block OverWritten
   "the block to receieve the model input from the external party"
-  extends IBPSA.Utilities.IO.BaseClasses.PartialSocketClient;
+  extends IBPSA.Utilities.IO.RESTClient.BaseClasses.PartialSocketClient;
 
   parameter Real threshold = 0.5
     "The threshold to determine if the inputs from external server is valid";

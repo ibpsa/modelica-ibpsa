@@ -1,12 +1,12 @@
-within IBPSA.Utilities.IO;
+within IBPSA.Utilities.IO.RESTClient;
 model Configuration "Configuration"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3)=60
     "Sample period of component";
-  parameter Types.GlobalActivation activation = IBPSA.Utilities.IO.Types.GlobalActivation.always
+  parameter Types.GlobalActivation activation = IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation.always
     "Set to true to enable an input that allows activating and deactivating the socket connections" annotation (Dialog(group="Activation"));
 
-  Modelica.Blocks.Interfaces.BooleanInput activate if (activation == IBPSA.Utilities.IO.Types.GlobalActivation.use_input)
+  Modelica.Blocks.Interfaces.BooleanInput activate if (activation == IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation.use_input)
     "Set to true to enable pocket connections"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
@@ -16,7 +16,7 @@ protected
     "Internal connector to activate the block";
 
 equation
-  if (activation == IBPSA.Utilities.IO.Types.GlobalActivation.use_input) then
+  if (activation == IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation.use_input) then
     connect(activate, activate_internal);
   else
     activate_internal = true;
@@ -84,7 +84,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           rotation=395)}),                                                                         Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This block can be used to globally configure the parameters for the blocks from the package <a href=\"IBPSA.Utilities.IO\">IBPSA.Utilities.IO</a>. Use this block for example to set the sampling time. </p>
+<p>This block can be used to globally configure the parameters for the blocks from the package <a href=\"IBPSA.Utilities.IO.RESTClient\">IBPSA.Utilities.IO.RESTClient</a>.. Use this block for example to set the sampling time. </p>
 <p>To use this block, simply drag it at the top-most level, or higher, where your block is. </p>
 </html>"));
 end Configuration;

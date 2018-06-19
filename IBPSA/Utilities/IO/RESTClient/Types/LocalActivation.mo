@@ -1,4 +1,4 @@
-within IBPSA.Utilities.IO.Types;
+within IBPSA.Utilities.IO.RESTClient.Types;
 type LocalActivation = enumeration(
     use_activation "Use activation from global configuration",
     always "Always on",
