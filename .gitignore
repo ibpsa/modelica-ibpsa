@@ -19,13 +19,14 @@
 *.rar
 *.bak-mo
 *.DS_Store
-
+*.mos~
 /Specifications/Specs.synctex
 /Specifications/Specs.tcp
 /Specifications/Specs.tps
 /IDEAS backup
 !/Inputs/*.txt
 !/IDEAS/Inputs/*.txt
+!/IDEAS/Resources/strobe/*.txt
 !/IDEAS/Resources/ReferenceResults/Dymola/*txt
 /IDEAS/Resources/drawings.pptx
 /*.mm

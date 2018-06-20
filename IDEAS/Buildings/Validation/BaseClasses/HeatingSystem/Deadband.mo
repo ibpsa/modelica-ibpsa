@@ -1,7 +1,8 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model Deadband "BESTEST deadband heating system"
   extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
-    final nLoads=1, final nTemSen = nZones);
+    final nLoads=0,
+    final nTemSen = nZones);
 
   parameter Modelica.SIunits.Volume[nZones] VZones;
   parameter Real mSenFac = 5 "Correction factor for thermal mass in zone";
@@ -23,15 +24,19 @@ equation
       heatPortCon[i].Q_flow = 0;
     end if;
     heatPortRad[i].Q_flow = 0;
-//    heatPortEmb[i].Q_flow = 0;
   end for;
 
-  P = {QHeaSys};
-  Q = {0};
+  heatPortEmb.Q_flow = zeros(nEmbPorts);
 
-  QHeaSys = sum(heatPortRad.Q_flow) + sum(heatPortCon.Q_flow) + sum(
-    heatPortEmb.Q_flow);
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
-            -100},{200,100}}), graphics));
+            -100},{200,100}}), graphics), Documentation(revisions="<html>
+<ul>
+<li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
+</ul>
+</html>"));
 end Deadband;

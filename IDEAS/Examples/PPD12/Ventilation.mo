@@ -7,7 +7,13 @@ model Ventilation "Ppd 12 example model"
     bathRoom(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
     bedRoom1(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
     bedRoom2(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
-    bedRoom3(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)));
+    bedRoom3(airModel(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
+    radGnd(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    radBed1(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    radBat2(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    radBat1(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    radBed2(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    radBed3(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   IDEAS.Fluid.Movers.FlowControlled_m_flow fanSup(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,

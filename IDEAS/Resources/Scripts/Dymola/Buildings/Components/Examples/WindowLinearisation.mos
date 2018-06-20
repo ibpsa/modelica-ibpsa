@@ -1,4 +1,4 @@
-simulateModel("IDEAS.Buildings.Components.Examples.WindowLinearisation", stopTime=1e+06, numberOfIntervals=0, outputInterval=600, method="Lsodar", resultFile="WindowLinearisation");
+simulateModel("IDEAS.Buildings.Components.Examples.WindowLinearisation", stopTime=1e+06, numberOfIntervals=0, outputInterval=600, method="Lsodar", tolerance=1e-06, resultFile="WindowLinearisation");
 
 createPlot(id=1, 
 position={0, 0, 757, 518}, 

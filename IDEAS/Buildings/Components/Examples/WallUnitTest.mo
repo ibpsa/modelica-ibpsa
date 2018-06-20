@@ -13,7 +13,7 @@ model WallUnitTest "Unit test for verifying results for all wall components"
     azi=IDEAS.Types.Azimuth.S,
     A=2,
     redeclare Data.Constructions.EpcSolidWall2 constructionType,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Internal wall example"
     annotation (Placement(transformation(extent={{-36,20},{-24,40}})));
   OuterWall outerWall(
@@ -73,7 +73,10 @@ equation
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=1e+06),
+    experiment(
+      StopTime=1000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Buildings/Components/Examples/WallUnitTest.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -286,6 +286,102 @@ model RectangularZoneTemplate
     "Window frame type for surface Cei"
     annotation (choicesAllMatching=true,
                 Dialog(tab="Ceiling", group="Window details", enable=hasWinCei));
+
+  // open door modelling
+  parameter Boolean hasCavityA = false
+    "=true, to model open door or cavity in internal wall"
+    annotation(Dialog(tab="Face A", group="Cavity or open door", enable=bouTypeA==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
+  parameter Modelica.SIunits.Length hA(min=0) = 2
+    "Height of (rectangular) cavity in internal wall"
+     annotation(Dialog(enable=hasCavityA,tab="Face A", group="Cavity or open door"));
+  parameter Modelica.SIunits.Length wA(min=0) = 1
+    "Width of (rectangular) cavity in internal wall"
+     annotation(Dialog(enable=hasCavityA,tab="Face A", group="Cavity or open door"));
+  parameter Boolean hasCavityB = false
+    "=true, to model open door or cavity in internal wall"
+    annotation(Dialog(tab="Face B", group="Cavity or open door", enable=bouTypeB==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
+  parameter Modelica.SIunits.Length hB(min=0) = 2
+    "Height of (rectangular) cavity in internal wall"
+     annotation(Dialog(enable=hasCavityB,tab="Face B", group="Cavity or open door"));
+  parameter Modelica.SIunits.Length wB(min=0) = 1
+    "Width of (rectangular) cavity in internal wall"
+     annotation(Dialog(enable=hasCavityB,tab="Face B", group="Cavity or open door"));
+  parameter Boolean hasCavityC = false
+    "=true, to model open door or cavity in internal wall"
+    annotation(Dialog(tab="Face C", group="Cavity or open door", enable=bouTypeC==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
+  parameter Modelica.SIunits.Length hC(min=0) = 2
+    "Height of (rectangular) cavity in internal wall"
+     annotation(Dialog(enable=hasCavityC,tab="Face C", group="Cavity or open door"));
+  parameter Modelica.SIunits.Length wC(min=0) = 1
+    "Width of (rectangular) cavity in internal wall"
+     annotation(Dialog(enable=hasCavityC,tab="Face C", group="Cavity or open door"));
+  parameter Boolean hasCavityD = false
+    "=true, to model open door or cavity in internal wall"
+    annotation(Dialog(tab="Face D", group="Cavity or open door", enable=bouTypeD==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
+  parameter Modelica.SIunits.Length hD(min=0) = 2
+    "Height of (rectangular) cavity in internal wall"
+     annotation(Dialog(enable=hasCavityD,tab="Face D", group="Cavity or open door"));
+  parameter Modelica.SIunits.Length wD(min=0) = 1
+    "Width of (rectangular) cavity in internal wall"
+     annotation(Dialog(enable=hasCavityD,tab="Face D", group="Cavity or open door"));
+  parameter Modelica.SIunits.Acceleration g = Modelica.Constants.g_n
+    "Gravity, for computation of buoyancy"
+    annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
+  parameter Modelica.SIunits.Pressure p = 101300
+    "Absolute pressure for computation of buoyancy"
+    annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
+  parameter Modelica.SIunits.Density rho = p/r/T
+    "Nominal density for computation of buoyancy mass flow rate"
+    annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
+  parameter Modelica.SIunits.SpecificHeatCapacity c_p = 1013
+   "Nominal heat capacity for computation of buoyancy heat flow rate"
+   annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
+  parameter Modelica.SIunits.Temperature T = 293.15
+   "Nominal temperature for linearising heat flow rate"
+   annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
+  parameter Modelica.SIunits.TemperatureDifference dT = 1
+   "Nominal temperature difference when linearising heat flow rate"
+   annotation(Dialog(enable=hasCavity,group="Cavity or open door",tab="Advanced"));
+
+
+  parameter Boolean hasBuildingShadeA=false
+    "=true, to enable computation of shade cast by opposite building or object on OuterWall"
+    annotation(Dialog(tab="Face A", group="Building shade", enable=bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall));
+  parameter SI.Length LShaA=0
+    "Distance between shading object and wall, perpendicular to wall"
+    annotation(Dialog(enable=hasBuildingShadeA,tab="Face A", group="Building shade"));
+  parameter SI.Length dhShaA=0
+    "Height difference between top of shading object and top of wall A"
+    annotation(Dialog(enable=hasBuildingShadeA,tab="Face A", group="Building shade"));
+  parameter Boolean hasBuildingShadeB=false
+    "=true, to enable computation of shade cast by opposite building or object on OuterWall"
+    annotation(Dialog(tab="Face B", group="Building shade", enable=bouTypB==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall));
+  parameter SI.Length LShaB=0
+    "Distance between shading object and wall, perpendicular to wall"
+    annotation(Dialog(enable=hasBuildingShadeB,tab="Face B", group="Building shade"));
+  parameter SI.Length dhShaB=0
+    "Height difference between top of shading object and top of wall B"
+    annotation(Dialog(enable=hasBuildingShadeB,tab="Face B", group="Building shade"));
+  parameter Boolean hasBuildingShadeC=false
+    "=true, to enable computation of shade cast by opposite building or object on OuterWall"
+    annotation(Dialog(tab="Face C", group="Building shade", enable=bouTypC==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall));
+  parameter SI.Length LShaC=0
+    "Distance between shading object and wall, perpendicular to wall"
+    annotation(Dialog(enable=hasBuildingShadeC,tab="Face C", group="Building shade"));
+  parameter SI.Length dhShaC=0
+    "Height difference between top of shading object and top of wall C"
+    annotation(Dialog(enable=hasBuildingShadeC,tab="Face C", group="Building shade"));
+  parameter Boolean hasBuildingShadeD=false
+    "=true, to enable computation of shade cast by opposite building or object on OuterWall"
+    annotation(Dialog(tab="Face D", group="Building shade", enable=bouTypD==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall));
+  parameter SI.Length LShaD=0
+    "Distance between shading object and wall, perpendicular to wall"
+    annotation(Dialog(enable=hasBuildingShadeD,tab="Face D", group="Building shade"));
+  parameter SI.Length dhShaD=0
+    "Height difference between top of shading object and top of wall D"
+    annotation(Dialog(enable=hasBuildingShadeD,tab="Face D", group="Building shade"));
+
+
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurfExt] proBusExt(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final outputAngles=sim.outputAngles) if nSurfExt>0
@@ -298,6 +394,7 @@ model RectangularZoneTemplate
         rotation=180,
         origin={-120,100})));
 protected
+  constant Real r = 287 "Gas constant";
   IDEAS.Buildings.Components.Window winA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
     glazing(
       nLay=glazingA.nLay,
@@ -586,7 +683,11 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=l*h - (if hasWinA then A_winA else 0)) if
+    A=l*h - (if hasWinA then A_winA else 0),
+    final hWal=h,
+    final hasBuildingShade=hasBuildingShadeA,
+    final L=LShaA,
+    final dh=dhShaA) if
        hasOutA
     "Outer wall for face A of this zone"
     annotation (Placement(transformation(extent={{-140,0},{-130,20}})));
@@ -602,7 +703,11 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=w*h - (if hasWinB then A_winB else 0)) if
+    A=w*h - (if hasWinB then A_winB else 0),
+    final hasBuildingShade=hasBuildingShadeB,
+    final L=LShaB,
+    final dh=dhShaB,
+    final hWal=h) if
        hasOutB
     "Outer wall for face B of this zone"
     annotation (Placement(transformation(extent={{-140,-20},{-130,0}})));
@@ -617,7 +722,11 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=l*h - (if hasWinC then A_winC else 0)) if
+    A=l*h - (if hasWinC then A_winC else 0),
+    final hasBuildingShade=hasBuildingShadeC,
+    final L=LShaC,
+    final dh=dhShaC,
+    final hWal=h) if
        hasOutC
     "Outer wall for face C of this zone"
     annotation (Placement(transformation(extent={{-140,-40},{-130,-20}})));
@@ -632,7 +741,11 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=w*h - (if hasWinD then A_winD else 0)) if
+    A=w*h - (if hasWinD then A_winD else 0),
+    final hasBuildingShade=hasBuildingShadeD,
+    final L=LShaD,
+    final dh=dhShaD,
+    final hWal=h) if
        hasOutD
     "Outer wall for face D of this zone"
     annotation (Placement(transformation(extent={{-140,-60},{-130,-40}})));
@@ -681,7 +794,16 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    A=l*h - (if hasWinA then A_winA else 0)) if
+    hasCavity=hasCavityA,
+    h=hA,
+    w=wA,
+    g=g,
+    p=p,
+    rho=rho,
+    c_p=c_p,
+    T=T,
+    dT=dT,
+    A=l*h - (if hasWinA then A_winA else 0) - (if hasCavityA then hA*wA else 0)) if
     hasIntA
     "Internal wall for face A of this zone"
     annotation (Placement(transformation(extent={{-176,0},{-164,20}})));
@@ -697,7 +819,16 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    A=w*h - (if hasWinB then A_winB else 0)) if
+    g=g,
+    p=p,
+    rho=rho,
+    c_p=c_p,
+    T=T,
+    dT=dT,
+    hasCavity=hasCavityB,
+    h=hB,
+    w=wB,
+    A=w*h - (if hasWinB then A_winB else 0) - (if hasCavityB then hB*wB else 0)) if
     hasIntB
     "Internal wall for face B of this zone"
     annotation (Placement(transformation(extent={{-176,-20},{-164,0}})));
@@ -712,7 +843,16 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    A=l*h - (if hasWinC then A_winC else 0)) if
+    g=g,
+    p=p,
+    rho=rho,
+    c_p=c_p,
+    T=T,
+    dT=dT,
+    hasCavity=hasCavityC,
+    h=hC,
+    w=wC,
+    A=l*h - (if hasWinC then A_winC else 0) - (if hasCavityC then hC*wC else 0)) if
     hasIntC
     "Internal wall for face C of this zone"
     annotation (Placement(transformation(extent={{-176,-40},{-164,-20}})));
@@ -727,7 +867,16 @@ protected
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intB,
-    A=w*h - (if hasWinD then A_winD else 0)) if
+    g=g,
+    p=p,
+    rho=rho,
+    c_p=c_p,
+    T=T,
+    dT=dT,
+    hasCavity=hasCavityD,
+    h=hD,
+    w=wD,
+    A=w*h - (if hasWinD then A_winD else 0) - (if hasCavityD then hD*wD else 0)) if
     hasIntD
     "Internal wall for face D of this zone"
     annotation (Placement(transformation(extent={{-176,-60},{-164,-40}})));
@@ -826,6 +975,53 @@ public
         extent={{-20,20},{20,-20}},
         rotation=180,
         origin={-2,60})));
+  Modelica.Blocks.Interfaces.RealInput ctrlA if
+                                               shaTypA.controlled
+    "Control input for windows in face A, if controlled"
+    annotation (Placement(transformation(extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-171,-111}), iconTransformation(
+        extent={{-11,-11},{11,11}},
+        rotation=-90,
+        origin={84,112})));
+  Modelica.Blocks.Interfaces.RealInput ctrlB if
+                                               shaTypB.controlled
+    "Control input for windows in face B, if controlled" annotation (Placement(
+        transformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-155,-111}), iconTransformation(extent={{123,-99},{101,-77}},
+          rotation=0)));
+  Modelica.Blocks.Interfaces.RealInput ctrlC if
+                                               shaTypC.controlled
+    "Control input for windows in face C, if controlled" annotation (Placement(
+        transformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-139,-111}), iconTransformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-88,-112})));
+  Modelica.Blocks.Interfaces.RealInput ctrlD if
+                                               shaTypD.controlled
+    "Control input for windows in face D, if controlled" annotation (Placement(
+        transformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-123,-111}), iconTransformation(
+        extent={{11,-11},{-11,11}},
+        rotation=180,
+        origin={-112,72})));
+  Modelica.Blocks.Interfaces.RealInput ctrlCei if
+                                               shaTypCei.controlled
+    "Control input for windows in ceiling, if controlled" annotation (Placement(
+        transformation(
+        extent={{11,-11},{-11,11}},
+        rotation=-90,
+        origin={-107,-111}), iconTransformation(
+        extent={{-11,-11},{11,11}},
+        rotation=-90,
+        origin={50,82})));
 protected
   final parameter Boolean hasBouA=
     bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall;
@@ -903,6 +1099,18 @@ initial equation
     "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
   assert(not (hasWinCei and bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall),
     "Combining an internal wall with an (exterior) window is not allowed since this is non-physical.");
+
+
+  //assert that the cavity is not larger than the wall
+  assert(not hasCavityA or (hA <= h and wA <=l),
+    "In " + getInstanceName() + ": The cavity dimensions of surface A exceed the zone dimensions. This is non-physical");
+  assert(not hasCavityB or (hB <= h and wB <=w),
+    "In " + getInstanceName() + ": The cavity dimensions of surface B exceed the zone dimensions. This is non-physical");
+  assert(not hasCavityC or (hC <= h and wC <=l),
+    "In " + getInstanceName() + ": The cavity dimensions of surface C exceed the zone dimensions. This is non-physical");
+  assert(not hasCavityD or (hD <= h and wD <=w),
+    "In " + getInstanceName() + ": The cavity dimensions of surface D exceed the zone dimensions. This is non-physical");
+
 
 
 
@@ -1057,6 +1265,21 @@ equation
       points={{-80,40},{-82,40},{-82,54},{-82,50},{-210,50}},
       color={255,204,51},
       thickness=0.5));
+  connect(ctrlCei, winCei.Ctrl) annotation (Line(points={{-107,-111},{-106.5,
+          -111},{-106.5,-100},{-98.3333,-100}},
+                                          color={0,0,127}));
+  connect(ctrlD, winD.Ctrl) annotation (Line(points={{-123,-111},{-123,-106},{
+          -124,-106},{-124,-100},{-98.3333,-100},{-98.3333,-60}},
+                                                             color={0,0,127}));
+  connect(ctrlC, winC.Ctrl) annotation (Line(points={{-139,-111},{-139,-104},{
+          -140,-104},{-140,-100},{-98,-100},{-98,-40},{-98.3333,-40}},
+                                                                  color={0,0,127}));
+  connect(ctrlB, winB.Ctrl) annotation (Line(points={{-155,-111},{-155,-100},{
+          -156,-100},{-156,-100},{-98,-100},{-98,-20},{-98.3333,-20}},
+                                                                  color={0,0,127}));
+  connect(ctrlA, winA.Ctrl) annotation (Line(points={{-171,-111},{-171,-106},{
+          -172,-106},{-172,-100},{-98.3333,-100},{-98.3333,0}},
+                                                           color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
         graphics={
         Text(
@@ -1185,6 +1408,17 @@ assignment in the <code>airModel</code> submodel.
 This removes small time constants
 when the zone model is connected to an air flow circuit. 
 </p>
+<h4>Shading</h4>
+<p>
+In order to choose the shading of the glazing,
+instead of selecting one shading type from the
+dropdown menu, click on the
+button right of the dropdown menu (edit). 
+A menu will appear where the type of 
+shading and corresponding parameters
+have to be defined.
+Alternatively, the shading template can be extended.
+</p>
 <h4>Validation</h4>
 <p>
 This implementation is compared with a manual implementation
@@ -1208,7 +1442,23 @@ components cannot be propagated.
 </html>", revisions="<html>
 <ul>
 <li>
-July 26, 2018 by Filip Jorissen:<br/>
+June 13, 2018, by Filip Jorissen:<br/>
+Added parameters for shade cast by external building.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/576\">#576</a>.
+</li>
+<li>
+May 21, 2018, by Filip Jorissen:<br/>
+Added parameters for air flow through cavity.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/822\">#822</a>.
+</li>
+<li>
+April 30, 2018 by Iago Cupeiro:<br/>
+Propagated boolean input connections for controlled shading.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/809\">#809</a>.
+Shading documentation added.
+</li>
+<li>
+July 26, 2017 by Filip Jorissen:<br/>
 Added replaceable block that allows to define
 the number of occupants.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.

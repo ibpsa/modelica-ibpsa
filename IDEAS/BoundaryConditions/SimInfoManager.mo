@@ -2,7 +2,10 @@ within IDEAS.BoundaryConditions;
 model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
   extends BoundaryConditions.Interfaces.PartialSimInfoManager(
-                                final useTmy3Reader = true);
+    Tsky = TBlaSkyData.y,
+    Fc = nOpaData.y*0.87,
+    Va = winSpeData.y,
+    final useTmy3Reader = true);
 
 protected
   BoundaryConditions.WeatherData.Bus weaBus1 "Weather data bus";
@@ -31,15 +34,6 @@ equation
   timSol = timMan.timSol;
   timCal = timMan.timCal;
 
-  if BesTest then
-    Tsky = Te - (23.8 - 0.2025*(Te - 273.15)*(1 - 0.87*Fc));
-    Fc = 0.2;
-    Va = 2.5;
-  else
-    Tsky = TBlaSkyData.y;
-    Fc = nOpaData.y*0.87;
-    Va = winSpeData.y;
-  end if;
 
   connect(weaDat.weaBus, weaBus1);
   connect(HDirNorData.u, weaBus1.HDirNor);
@@ -67,16 +61,13 @@ It loads TMY3 weather data files and applies transformations
 for computing the solar irradiance on the zone surfaces. 
 </p>
 <h4>Typical use and important parameters</h4>
-<p>
 <ul>
 <li>Parameters <code>filNam</code> and <code>filDir</code> can be used to set the path to the TMY3 weather file.</li>
 <li>Parameters <code>lat</code> and <code>lon</code> can be used to set the location of the building
 using latitude and longitude coordiantes.
 These coordinates are used for calculating the solar position, not for choosing the correct weather data!</li>
 </ul>
-</p>
 <h4>Options</h4>
-<p>
 <ul>
 <li>
 IDEAS contains an efficient implementation for computing the solar 
@@ -115,9 +106,15 @@ all heat flow rates entering the system are added to <code>sim.Qgai.Q_flow</code
 that all internal energy of the system is added to <code>sim.E.E</code>.
 </li>
 </ul>
-</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Overwriting TSky, Va and Fc from the extends clause
+such that they can be overwriten again in BESTEST SimInfoManager.
+This is for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/838\">#838</a>.
+</li>
 <li>
 June 14, 2015, Filip Jorissen:<br/>
 Added documentation

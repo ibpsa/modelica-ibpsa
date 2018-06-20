@@ -26,7 +26,9 @@ model ConstantAirFlowRecup
     voltageSource(
     f=50,
     V=230,
-    phi=0) if standAlone annotation (Placement(transformation(
+    phi=0,
+    gamma(fixed=true)) if
+              standAlone annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={58,-30})));
@@ -83,6 +85,6 @@ Revised implementation
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Templates/Ventilation/Examples/constantAirFlowRecup.mos"
+    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Templates/Ventilation/Examples/ConstantAirFlowRecup.mos"
         "Simulate and Plot"));
 end ConstantAirFlowRecup;

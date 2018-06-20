@@ -4,8 +4,7 @@ model PartialZone "Building zone model"
     Qgai(y=(if not sim.computeConservationOfEnergy then 0 elseif sim.openSystemConservationOfEnergy
             then airModel.QGai
             else gainCon.Q_flow + gainRad.Q_flow + airModel.QGai)),
-    Eexpr(y=if sim.computeConservationOfEnergy then E else 0),
-    useFluPor = airModel.useFluPor);
+    Eexpr(y=if sim.computeConservationOfEnergy then E else 0));
     replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
@@ -17,7 +16,7 @@ model PartialZone "Building zone model"
     annotation(Dialog(group="Building physics"));
   parameter Modelica.SIunits.Area A = V/hZone "Total conditioned floor area"
     annotation(Dialog(group="Building physics"));
-  parameter Real n50(min=0.01)=0.4
+  parameter Real n50(min=0.01)= 0.4
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa"
     annotation(Dialog(group="Building physics"));
   parameter Boolean allowFlowReversal=true
@@ -77,24 +76,34 @@ public
     redeclare package Medium = Medium,
     nSurf=nSurf,
     Vtot=V,
-    m_flow_nominal=m_flow_nominal,
-    allowFlowReversal=allowFlowReversal,
-    n50=n50,
-    n50toAch=n50toAch)
+    energyDynamics=energyDynamicsAir,
+    allowFlowReversal=allowFlowReversal)
   constrainedby
     IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(
     redeclare package Medium = Medium,
+    mSenFac=mSenFac,
     nSurf=nSurf,
     Vtot=V,
     final T_start=T_start,
-    m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal,
-    n50=n50,
-    n50toAch=n50toAch) "Zone air model" annotation (
+    energyDynamics=energyDynamicsAir,
+    nPorts=interzonalAirFlow.nPorts)
+    "Zone air model"
+    annotation (choicesAllMatching=true,
     Placement(transformation(extent={{-40,20},{-20,40}})),
+    Dialog(tab="Advanced",group="Air model"));
+  replaceable IDEAS.Buildings.Components.InterzonalAirFlow.n50Tight interzonalAirFlow
+  constrainedby
+    IDEAS.Buildings.Components.InterzonalAirFlow.BaseClasses.PartialInterzonalAirFlow(
+      redeclare package Medium = Medium,
+      V=V,
+      n50=n50,
+      n50toAch=n50toAch)
+      "Interzonal air flow model"
+    annotation (choicesAllMatching = true,Dialog(tab="Advanced", group="Air model"),
+      Placement(transformation(extent={{-40,60},{-20,80}})),
     choicesAllMatching=true,
     Dialog(group="Building physics"));
-
   replaceable IDEAS.Buildings.Components.Occupants.Fixed occNum
     constrainedby Occupants.BaseClasses.PartialOccupants
     "Number of occupants that are present" annotation (
@@ -116,7 +125,8 @@ public
     Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{20,-20},{40,0}})));
   replaceable IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwGainDistribution
-    radDistr(nSurf=nSurf) "Distribution of radiative internal gains"
+    radDistr(nSurf=nSurf, lineariseJModelica=sim.lineariseJModelica)
+                          "Distribution of radiative internal gains"
     annotation (choicesAllMatching=true,Dialog(tab="Advanced",group="Building physics"),Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
@@ -166,10 +176,19 @@ protected
         rotation=270,
         origin={-30,-10})));
 
+
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 
 equation
+  if interzonalAirFlow.verifyBothPortsConnected then
+    assert(cardinality(port_a)>1 and cardinality(port_b)>1 or cardinality(port_a) == 1 and cardinality(port_b) == 1,
+      "WARNING: Only one of the FluidPorts of " + getInstanceName() + " is 
+      connected and an 'open' interzonalAirFlow model is used, 
+      which means that all injected/extracted air will flow
+      through the zone to/from the surroundings, at ambient temperature. 
+      This may be unintended.", AssertionLevel.warning);
+  end if;
   for i in 1:nSurf loop
     connect(sim.weaBus, propsBusInt[i].weaBus) annotation (Line(
         points={{-84,92.8},{-84,92},{-80,92},{-80,66},{-80.1,66},{-80.1,39.9}},
@@ -286,10 +305,6 @@ end for;
   connect(airModel.A[1:nSurf], propsBusInt[1:nSurf].area) annotation (Line(
         points={{-40.6,24},{-80,24},{-80,40},{-80.1,40},{-80.1,39.9}}, color={0,
           0,127}));
-  connect(airModel.port_b, port_b) annotation (Line(points={{-34,40},{-34,
-          100},{-20,100}}, color={0,127,255}));
-  connect(airModel.port_a, port_a) annotation (Line(points={{-26,40},{-26,40},
-          {-26,74},{-26,88},{20,88},{20,100}}, color={0,127,255}));
   connect(airModel.ports_air[1], gainCon) annotation (Line(points={{-20,30},{2,30},
           {2,-30},{100,-30}}, color={191,0,0}));
   connect(airModel.TAir, add.u[2]) annotation (Line(points={{-19.2,24},{-10,24},
@@ -324,7 +339,17 @@ end for;
   connect(occNum.nOcc, intGai.nOcc)
     annotation (Line(points={{58,32},{41,32}}, color={0,0,127}));
   connect(nOcc, occNum.nOccIn)
-    annotation (Line(points={{108,32},{80,32}}, color={0,0,127}));
+    annotation (Line(points={{108,32},{82,32}}, color={0,0,127}));
+  connect(airModel.port_b, interzonalAirFlow.port_a_interior)
+    annotation (Line(points={{-36,40},{-36,60}}, color={0,127,255}));
+  connect(airModel.port_a, interzonalAirFlow.port_b_interior)
+    annotation (Line(points={{-24,40},{-24,60}}, color={0,127,255}));
+  connect(interzonalAirFlow.ports, airModel.ports) annotation (Line(points={{
+          -29.8,60},{-30,60},{-30,40}}, color={0,127,255}));
+  connect(interzonalAirFlow.port_b_exterior, port_b) annotation (Line(points={{
+          -32,80},{-32,92},{-20,92},{-20,100}}, color={0,127,255}));
+  connect(interzonalAirFlow.port_a_exterior, port_a) annotation (Line(points={{
+          -28,80},{-28,84},{20,84},{20,100}}, color={0,127,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
@@ -332,6 +357,31 @@ end for;
 <p>See extending models.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2018, Filip Jorissen:<br/>
+Removed conditional fluid ports for JModelica compatibility.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/834\">#834</a>.
+</li>
+<li>
+April 27, 2018 by Filip Jorissen:<br/>
+Modified interfaces for supporting new interzonal air flow models.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
+</li>
+<li>
+April 12, 2018 by Filip Jorissen:<br/>
+Propagated <code>energyDynamicsAir</code>.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/800>#800</a>.
+</li>
+<li>
+March 29, 2018 by Filip Jorissen:<br/>
+Propagated <code>mSenFac</code> to <code>airModel</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/792\">#792</a>.
+</li>
+<li>
+March 28, 2018 by Filip Jorissen:<br/>
+Added option for introducing state for
+radiative temperature.
+</li>
 <li>
 July 26, 2018 by Filip Jorissen:<br/>
 Added replaceable block that allows to define
@@ -346,7 +396,7 @@ See issue <a href=https://github.com/open-ideas/IDEAS/issues/559>#559</a>.
 <li>
 February 1, 2017 by Filip Jorissen:<br/>
 Added option for disabling new view factor computation.
-See issue 
+See issue
 <a href=https://github.com/open-ideas/IDEAS/issues/663>#663</a>.
 </li>
 <li>

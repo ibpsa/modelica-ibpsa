@@ -20,7 +20,7 @@ public
         iconTransformation(extent={{-110,-10},{-90,10}})));
 
   Modelica.Blocks.Sources.RealExpression TCold_expr(y=TCold)
-    annotation (Placement(transformation(extent={{6,-40},{26,-20}})));
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_cold(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium annotation (
@@ -34,17 +34,20 @@ public
   IDEAS.Fluid.Interfaces.IdealSource idealSource(
     redeclare package Medium = Medium,
     control_m_flow=true,
-    allowFlowReversal=false)
+    allowFlowReversal=false,
+    control_dp=false)
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(
+  IDEAS.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
-    dynamicBalance=true,
-    m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{60,10},{80,-10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature
-    annotation (Placement(transformation(extent={{46,-36},{58,-24}})));
+    m_flow_nominal=m_flow_nominal,
+    nPorts=2,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    V=1) "Mixing volume for heat injection"
+    annotation (Placement(transformation(extent={{60,0},{80,-20}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
   Modelica.SIunits.Temperature TDHW_actual = min(THot.T,TDHWSet);
   Modelica.Blocks.Sources.RealExpression mFloCor(y=mFlo60C*(273.15 + 60 - TCold)
@@ -73,20 +76,12 @@ equation
       points={{30,0},{-68,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(idealSource.port_b, pipe_HeatPort.port_a) annotation (Line(
-      points={{50,0},{60,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pipe_HeatPort.port_b, port_cold) annotation (Line(
-      points={{80,0},{100,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(prescribedTemperature.port, pipe_HeatPort.heatPort) annotation (Line(
-      points={{58,-30},{70,-30},{70,-10}},
+  connect(preTem.port, vol.heatPort) annotation (Line(
+      points={{40,-30},{60,-30},{60,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TCold_expr.y, prescribedTemperature.T) annotation (Line(
-      points={{27,-30},{44.8,-30}},
+  connect(TCold_expr.y, preTem.T) annotation (Line(
+      points={{-19,-30},{18,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(deltaT.y,deltaT_with_smoothmax. u1) annotation (Line(
@@ -109,6 +104,10 @@ equation
       points={{18.9,43},{34,43},{34,8}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(idealSource.port_b, vol.ports[1])
+    annotation (Line(points={{50,0},{68,0}}, color={0,127,255}));
+  connect(vol.ports[2], port_cold)
+    annotation (Line(points={{72,0},{100,0}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=false)),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
@@ -138,16 +137,28 @@ equation
           color={0,0,127},
           smooth=Smooth.None)}),
     Documentation(info="<html>
-<p><b>Description</b> </p>
-<p>Partial model of a domestic hot water (DHW) system composed mainly of a thermostatic mixing valve. The model foresees a cold water flowPort which has to be connected to the system (eg. storage tank).</p>
-<p>The model has two flowPorts and a realInput:</p>
+<h4>Description</h4>
+<p>
+Partial model of a domestic hot water (DHW) system composed mainly of a thermostatic mixing valve. 
+The model foresees a cold water flowPort which has to be connected to the system (eg. storage tank).
+</p>
+<p>
+The model has two flowPorts and a realInput:
+</p>
 <ul>
 <li><i>port_hot</i>: connection to the hot water source (designation: <i>hot</i>)</li>
 <li><i>port_cold</i>: connection to the inlet of cold water in the hot water source (designation: <i>cold</i>)</li>
 <li><i>mDHW60C</i>: desired flowrate of DHW water, equivalent at 60&deg;C</li>
 </ul>
-<p>In a first step, the desired DHW flow rate at 60&deg;C is corrected for the set temperature <i>TDHWSet</i>. The model tries to reach the given DHW flow rate at a the desired mixing temperature <i>TDHWSet </i>by mixing the hot water with cold water. The resulting hot flowrate will be extracted automatically from the hot source, and through the connection of port_cold to the hot source, this same flow rate will be injected (at TCold) in the production system. </p>
-<p>There are currently two implementations of this partial model:</p>
+<p>
+In a first step, the desired DHW flow rate at 60&deg;C is corrected for the set temperature <i>TDHWSet</i>. 
+The model tries to reach the given DHW flow rate at a the desired mixing temperature <i>TDHWSet </i>by mixing the hot water with cold water. 
+The resulting hot flowrate will be extracted automatically from the hot source, 
+and through the connection of port_cold to the hot source, this same flow rate will be injected (at TCold) in the production system. 
+</p>
+<p>
+There are currently two implementations of this partial model:
+</p>
 <ol>
 <li><a href=\"modelica://IDEAS.Thermal.Components.Domestic_Hot_Water.DHW_ProfileReader\">Reading in mDHW60c from a table</a></li>
 <li><a href=\"modelica://IDEAS.Thermal.Components.Domestic_Hot_Water.DHW_RealInput\">Getting mDHW60c from a realInput</a></li>
@@ -156,7 +167,7 @@ equation
 <ol>
 <li>No heat losses</li>
 <li>Inertia is foreseen through the inclusion of a water volume on the hot water side (default=1 liter). This parameter is not propagated to the interface, but it can be changed by modifying pumpHot.m. Putting this water content to zero may lead to numerical problems (not tested)</li>
-<li>If THot &LT; TDHWSEt, there is no mixing and TMixed = THot</li>
+<li>If THot is smaller than TDHWSEt, there is no mixing and TMixed = THot</li>
 <li>Fixed TDHWSet and TCold as parameters</li>
 <li>The mixed DHW is not available as an outlet or flowPort, it is assumed to be &apos;consumed&apos;. </li>
 </ol>
@@ -171,12 +182,16 @@ equation
 <h4>Validation </h4>
 <p>The model is verified to work properly by simulation of the different operating conditions.</p>
 <h4>Examples</h4>
-<p>An example of this model is given in <a href=\"IDEAS.Fluid.Domestic_Hot_Water.Examples.DHW_example\">IDEAS.Fluid.Domestic_Hot_Water.Examples.DHW_example</a> and <a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP\">IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP</a>.</p>
+<p>
+An example of this model is given in 
+<a href=\"IDEAS.Fluid.Domestic_Hot_Water.Examples.DHW_example\">IDEAS.Fluid.Domestic_Hot_Water.Examples.DHW_example</a> and 
+<a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP\">IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP</a>.
+</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2013 June, Roel De Coninck: documentation.</li>
 <li>2012 September, Roel De Coninck, simplification of equations.</li>
 <li>2012 August, Roel De Coninck, first implementation.</li>
-</ul></p>
+</ul>
 </html>"));
 end BalancedTap;

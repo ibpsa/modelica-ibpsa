@@ -96,6 +96,10 @@ model AdsolairController
   Modelica.Blocks.Continuous.Filter TFanFil(f_cut=1/60, order=1)
     "Filter not integrated into temperature sensor since this leads to large time constants for low flow rates"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
+initial equation
+  pre(onAdiaExp.y)=false;
+  pre(onChiExp.y)=false;
+  pre(damMax.y)=false;
 equation
   connect(onDelAdi.u, onAdiaExp.y) annotation (Line(points={{26.4,60},{19.7,60}},
                 color={255,0,255}));
@@ -144,6 +148,10 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 15, 2018, by Filip Jorissen:<br/>
+Changes for setting unique initial conditions.
+</li>
 <li>
 January 26, 2018, by Filip Jorissen:<br/>
 Improved adsolair controller performance.

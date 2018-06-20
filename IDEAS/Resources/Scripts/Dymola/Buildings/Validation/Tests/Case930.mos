@@ -1,4 +1,4 @@
-simulateModel("IDEAS.Buildings.Validation.Tests.Case930", stopTime=1000000, outputInterval=600, method = "dassl", resultFile="Case930");
+simulateModel("IDEAS.Buildings.Validation.Tests.Case930", stopTime=1000000, outputInterval=600, method="Lsodar", tolerance=1e-06, resultFile="Case930");
 
 createPlot(id=1, y={"Case930.building.heatPortCon[1].T", "Case930.building.heatPortRad[1].T"});
 

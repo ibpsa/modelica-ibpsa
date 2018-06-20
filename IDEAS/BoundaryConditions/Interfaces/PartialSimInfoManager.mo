@@ -2,8 +2,8 @@ within IDEAS.BoundaryConditions.Interfaces;
 partial model PartialSimInfoManager
   "Partial providing structure for SimInfoManager"
   parameter String filDir=Modelica.Utilities.Files.loadResource("modelica://IDEAS")
-       + "/Inputs/"
-    "Directory containing the weather data file, default under IDEAS/Inputs/";
+       + "/Resources/weatherdata/"
+    "Directory containing the weather data file, default under IDEAS/Resources/weatherdata/";
   parameter String filNam="Uccle.TMY" "Name of weather data file"
     annotation (Dialog(enable=useTmy3Reader));
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") = 0.88749992463912
@@ -82,7 +82,6 @@ partial model PartialSimInfoManager
   parameter Real ppmCO2 = 400 "Default CO2 concentration in [ppm] when using air medium containing CO2"
     annotation(Dialog(tab="Advanced", group="CO2"));
 
-
   Modelica.SIunits.Irradiance solDirPer
     "direct irradiation on normal to solar zenith";
   Modelica.SIunits.Irradiance solDirHor
@@ -92,12 +91,12 @@ partial model PartialSimInfoManager
   Modelica.SIunits.Irradiance solGloHor "global irradiation on horizontal";
   Modelica.SIunits.Temperature Te
     "ambient outdoor temperature for determination of sky radiation exchange";
-  Modelica.SIunits.Temperature Tsky "effective overall sky temperature";
+  input Modelica.SIunits.Temperature Tsky "effective overall sky temperature";
   Modelica.SIunits.Temperature TeAv
     "running average of ambient outdoor temperature of the last 5 days, not yet implemented";
   Modelica.SIunits.Temperature Tground "ground temperature";
-  Modelica.SIunits.Velocity Va "air velocity";
-  Real Fc "cloud factor";
+  input Modelica.SIunits.Velocity Va "air velocity";
+  input Real Fc "cloud factor";
   Modelica.SIunits.Irradiance irr "Irradiance";
   Boolean summer;
 
@@ -125,7 +124,6 @@ partial model PartialSimInfoManager
       *2*Modelica.Constants.pi/365.25));
   Real angHou=(timSol/3600 - 12)*2*Modelica.Constants.pi/24;
   Real angZen=acos(cos(lat)*cos(angDec)*cos(angHou) + sin(lat)*sin(angDec));
-
 protected
   Modelica.Blocks.Sources.RealExpression hour(y=angHou) "Hour angle"
     annotation (Placement(transformation(extent={{-124,34},{-104,54}})));
@@ -136,8 +134,7 @@ protected
     annotation (Placement(transformation(extent={{-124,10},{-104,30}})));
 
   final parameter Integer yr=2014 "depcited year for DST only";
-  final parameter Boolean BesTest=Modelica.Utilities.Strings.isEqual(filNam, "BesTest.txt")
-    "boolean to determine if this simulation is a BESTEST simulation";
+
 
 public
   IDEAS.BoundaryConditions.Climate.Time.SimTimes timMan(
@@ -269,6 +266,8 @@ equation
       smooth=Smooth.None));
 
   for i in 1:numIncAndAziInBus loop
+    connect(timMan.timSol, radSol[i].solTim) annotation (Line(points={{-60,-50},{-8,
+          -50},{-8,53},{19.6,53}}, color={0,0,127}));
     connect(radSol[i].F2, skyBrightnessCoefficients.F2) annotation (Line(points={{19.6,40},
             {2,40},{2,66},{-5,66}},           color={0,0,127}));
     connect(radSol[i].F1, skyBrightnessCoefficients.F1) annotation (Line(points={{19.6,42},
@@ -322,7 +321,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
     end for;
-      connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
+    connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
       points={{-5,74},{4,74},{4,34},{60.05,34},{60.05,28.05}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -362,7 +361,10 @@ equation
       points={{-103,116},{60.05,116},{60.05,28.05}},
       color={0,0,127},
       smooth=Smooth.None));
-
+    connect(timMan.timSol, weaBus.solTim) annotation (Line(points={{-60,-50},{-8,
+          -50},{-8,18},{60.05,18},{60.05,28.05}}, color={0,0,127}));
+    connect(phiEnv.y, weaBus.phi) annotation (Line(points={{-103,-12},{-86,-12},{
+          -86,18},{60.05,18},{60.05,28.05}}, color={0,0,127}));
   end if;
   connect(fixedTemperature.port, Qgai)
     annotation (Line(points={{20,-70},{0,-70},{0,-100}}, color={191,0,0}));
@@ -379,6 +381,8 @@ equation
           {-86,80},{-86,72},{-103,72}}, color={0,0,127}));
   connect(skyClearness.HGloHor, solGloHorIn.y) annotation (Line(points={{-82,86},
           {-88,86},{-88,88},{-103,88}}, color={0,0,127}));
+
+
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
@@ -461,9 +465,32 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+June 8, 2018, by Filip Jorissen:<br/>
+Moved input TMY3 file.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/821>#821</a>.
+</li>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Created 'input' for TSky, Va and Fc such that
+they can be overwriten from the extends clause.
+This is for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/838\">#838</a>.
+</li>
+<li>
+March 27, 2018, by Filip Jorissen:<br/>
+Added relative humidity to weather bus.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/780>#780</a>.
+</li>
+<li>
 January 26, 2018, by Filip Jorissen:<br/>
 Added floor orientation to set of precomputed boundary conditions.
 See issue <a href=https://github.com/open-ideas/IDEAS/issues/764>#764</a>.
+</li>
+<li>
+January 21, 2018 by Filip Jorissen:<br/>
+Added <code>solTim</code> connections for revised azimuth computations.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/753\">
+#753</a>.
 </li>
 <li>
 March 21, 2017, by Filip Jorissen:<br/>

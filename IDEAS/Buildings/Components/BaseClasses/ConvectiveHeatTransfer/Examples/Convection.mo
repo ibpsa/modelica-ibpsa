@@ -102,7 +102,10 @@ equation
     annotation (Line(points={{-20,-70},{-20,-20}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=1e+06),
+    experiment(
+      StopTime=1000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Components/BaseClasses/ConvectiveHeatTransfer/Examples/Convection.mos"
         "Simulate and plot"),

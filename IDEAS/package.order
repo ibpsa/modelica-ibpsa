@@ -4,7 +4,6 @@ BoundaryConditions
 Buildings
 Controls
 Fluid
-HeatTransfer
 Media
 Templates
 ThermalZones

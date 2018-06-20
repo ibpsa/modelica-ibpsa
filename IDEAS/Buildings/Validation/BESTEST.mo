@@ -2,15 +2,6 @@ within IDEAS.Buildings.Validation;
 model BESTEST
   extends Modelica.Icons.Example;
 
-  inner IDEAS.BoundaryConditions.SimInfoManager sim(
-    lat=0.69464104229374,
-    lon=-1.8308503853421,
-    timZonSta=-7*3600,
-    filNam="BESTEST.TMY",
-    linIntRad=false,
-    linExtRad=false)
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-
   //conversion factors for convertion Joule/Watt into MWh/kW
   constant Real MWh = 1/3600000000.0;
   constant Real kW = 1/1000;
@@ -75,6 +66,8 @@ model BESTEST
     annotation (Placement(transformation(extent={{64,4},{76,16}})));
 
 
+  inner BaseClasses.SimInfoManagerBestest sim
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 initial equation
   EAnnHea600 =  zeros(6);
   EAnnCoo600 =  zeros(6);
@@ -219,8 +212,8 @@ Reference results are from the
 EnergyPlus website</a>.
 </p>
 <p>
-Series 600, series 900 and free float normalised results:<br>
-<img src=\"modelica://IDEAS/Resources/Images/BESTEST/bestest.png\"/>
+Series 600, series 900 and free float normalised results:<br/>
+<img alt=\"results\" src=\"modelica://IDEAS/Resources/Images/BESTEST/bestest.png\"/>
 </p>
 <p>
 E<sub>H</sub> and E<sub>C</sub> indicate normalised total yearly energy use for heating and cooling. 
@@ -229,6 +222,11 @@ For free float cases, normalised minimum, average and maximum temperatures are r
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Revised implementation using dedicated SimInfoManger for 
+<a href=\"https://github.com/open-ideas/IDEAS/issues/838\">#838</a>.
+</li>
 <li>
 March 30, 2017 by Filip Jorissen:<br/>
 Revised figure and documentation.

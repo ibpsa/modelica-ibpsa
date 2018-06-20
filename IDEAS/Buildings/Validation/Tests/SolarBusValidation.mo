@@ -9,11 +9,7 @@ model SolarBusValidation
       wall(radSolData(each solDataInBus=false)),
       win(radSolData(each solDataInBus=false))))
     annotation (Placement(transformation(extent={{-56,-16},{-44,-4}})));
-  inner BoundaryConditions.SimInfoManager sim(
-    filNam="BESTEST.TMY",
-    lat=0.69464104229374,
-    lon=-1.8308503853421,
-    timZonSta=-28800)
+  inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-76,82},{-66,92}})));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -27,6 +23,10 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=1e+06, __Dymola_NumberOfIntervals=1000),
+    experiment(
+      StopTime=1000000,
+      __Dymola_NumberOfIntervals=1000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput);
 end SolarBusValidation;

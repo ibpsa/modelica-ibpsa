@@ -76,8 +76,11 @@ equation
   connect(A.y, zonLwDist.A)
     annotation (Line(points={{79,90},{-4,90},{-4,80}}, color={0,0,127}));
     annotation (
-    experiment(StopTime=1e+06),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Buildings/Components/BaseClasses/RadiativeHeatTransfer/ZoneLwDistribution.mos"
+    experiment(
+      StopTime=1000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Buildings/Components/BaseClasses/RadiativeHeatTransfer/Examples/ZoneLwDistribution.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>

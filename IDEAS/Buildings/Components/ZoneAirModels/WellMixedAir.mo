@@ -1,7 +1,6 @@
 within IDEAS.Buildings.Components.ZoneAirModels;
 model WellMixedAir "Zone air model assuming perfectly mixed air"
   extends IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(final nSeg=1, mSenFac=5);
-  parameter Boolean useAirLeakage = not sim.linearise "Set to false to disable airleakage computations";
 
 protected
   constant Modelica.SIunits.SpecificEnthalpy lambdaWater = Medium.enthalpyOfCondensingGas(T=273.15+35)
@@ -9,8 +8,6 @@ protected
   constant Boolean hasVap = Medium.nXi>0
     "Medium has water vapour";
   IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir       vol(
-    m_flow_nominal=m_flow_nominal,
-    nPorts=5,
     redeclare package Medium = Medium,
     energyDynamics=energyDynamics,
     massDynamics=massDynamics,
@@ -22,17 +19,14 @@ protected
     allowFlowReversal=allowFlowReversal,
     V=Vtot,
     mSenFac=mSenFac,
-    use_C_flow=true)                           annotation (Placement(
+    use_C_flow=true,
+    dynBal(U(nominal=mSenFac*10*Vtot*1.2*1000)),
+    nPorts=3+nPorts,
+    m_flow_nominal=0.1)                        annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={0,0})));
-  IDEAS.Buildings.Components.ZoneAirModels.AirLeakage airLeakage(
-    redeclare package Medium = Medium,
-    show_T=false,
-    m_flow_nominal_airLea=m_flow_nominal_airLea) if
-                          useAirLeakage
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
@@ -66,20 +60,11 @@ equation
 
   E=vol.U;
   QGai=preHeaFloLat.Q_flow;
-  connect(vol.ports[1], port_a) annotation (Line(points={{3.2,10},{3.2,10},{40,10},
-          {40,100}},  color={0,127,255}));
-  connect(vol.ports[2], port_b)
-    annotation (Line(points={{1.6,10},{-40,10},{-40,100}},
-                                                       color={0,127,255}));
   for i in 1:nSurf loop
     connect(vol.heatPort, ports_surf[i]) annotation (Line(points={{10,-1.33227e-15},
             {10,-1.33227e-15},{10,-20},{-46,-20},{-46,0},{-100,0}},
                                                color={191,0,0}));
   end for;
-  connect(airLeakage.port_a, vol.ports[3]) annotation (Line(points={{-10,40},{
-          -22,40},{-22,38},{-22,10},{1.11022e-15,10}},color={0,127,255}));
-  connect(airLeakage.port_b, vol.ports[4]) annotation (Line(points={{10,40},{20,
-          40},{20,38},{20,10},{-1.6,10}},      color={0,127,255}));
   for i in 1:nSeg loop
     connect(ports_air[i], vol.heatPort) annotation (Line(points={{100,0},{64,0},
             {64,-20},{10,-20},{10,0}},
@@ -101,11 +86,30 @@ equation
           -20},{10,-20},{10,0}}, color={191,0,0}));
   connect(senRelHum.phi, phi)
     annotation (Line(points={{41,-40},{72,-40},{108,-40}}, color={0,0,127}));
-  connect(senRelHum.port, vol.ports[5]) annotation (Line(points={{30,-30},{30,-30},
-          {30,-14},{30,10},{-3.2,10}}, color={0,127,255}));
+  connect(port_b, vol.ports[1]) annotation (Line(points={{-60,100},{-60,10},{
+          1.33227e-15,10}},
+                color={0,127,255}));
+  connect(port_a, vol.ports[2]) annotation (Line(points={{60,100},{60,10},{8.88178e-16,
+          10}}, color={0,127,255}));
+  connect(senRelHum.port, vol.ports[3]) annotation (Line(points={{30,-30},{30,
+          10},{1.33227e-15,10}},
+                          color={0,127,255}));
+  connect(ports[1:nPorts], vol.ports[4:nPorts+3]) annotation (Line(points={{0,100},
+          {0,10},{1.33227e-15,10}},
+                          color={0,127,255}));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
+<li>
+April 27, 2018 by Filip Jorissen:<br/>
+Added nominal value for internal energy of mixing volume.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/797\">#797</a>.
+</li>
+<li>
+Modified model for supporting new interzonal air flow models.
+Air leakage model and its parameters have been removed.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/796\">#796</a>.
+</li>
 <li>
 August 5, 2017 by Filip Jorissen:<br/>
 Added support for dry air.

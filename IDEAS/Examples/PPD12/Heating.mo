@@ -180,7 +180,8 @@ model Heating "Ppd 12 example model"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=true) "Thermostatic radiator valve for bedroom 1" annotation (
+    from_dp=false)
+                  "Thermostatic radiator valve for bedroom 1" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -198,7 +199,8 @@ model Heating "Ppd 12 example model"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=true) "Thermostatic radiator valve for towel dryer in bathroom"
+    from_dp=false)
+                  "Thermostatic radiator valve for towel dryer in bathroom"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -216,7 +218,8 @@ model Heating "Ppd 12 example model"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=true) "Thermostatic radiator valve for radiator in bathroom"
+    from_dp=false)
+                  "Thermostatic radiator valve for radiator in bathroom"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -234,7 +237,8 @@ model Heating "Ppd 12 example model"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=true) "Thermostatic radiator valve for radiator in bedroom 2"
+    from_dp=false)
+                  "Thermostatic radiator valve for radiator in bedroom 2"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -252,7 +256,8 @@ model Heating "Ppd 12 example model"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=true) "Thermostatic radiator valve for bedroom 3" annotation (
+    from_dp=false)
+                  "Thermostatic radiator valve for bedroom 3" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -268,10 +273,11 @@ model Heating "Ppd 12 example model"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=true,
     m_flow_nominal=m_flow_nominal,
     dpFixed_nominal=0,
-    TSet=TSet2)   "Thermostatic radiator valve for radiator on ground floor"
+    TSet=TSet2,
+    from_dp=false)
+                  "Thermostatic radiator valve for radiator on ground floor"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -281,11 +287,6 @@ model Heating "Ppd 12 example model"
         extent={{-7,-7},{7,7}},
         rotation=90,
         origin={-51,-155})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=
-        500) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={20,10})));
 equation
   connect(hallway.proBusD, living.proBusB) annotation (Line(
       points={{-73,50},{-45,50},{-45,40}},
@@ -527,10 +528,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(thermalConductor.port_a, Diner.gainCon)
-    annotation (Line(points={{20,0},{20,-25},{-26,-25}}, color={191,0,0}));
-  connect(thermalConductor.port_b, living.gainCon)
-    annotation (Line(points={{20,20},{20,49},{-46,49}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -200},{400,240}},
         initialScale=0.1), graphics={
@@ -573,6 +570,11 @@ This model adds the building heating system.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 21, 2018, by Filip Jorissen:<br/>
+Using model for air flow through vertical cavity.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/822\">#822</a>.
+</li>
 <li>
 January 9, 2017 by Filip Jorissen:<br/>
 First implementation.

@@ -11,8 +11,17 @@ record VeroLine80slash115dash2comma2slash2
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
-<p>Data from:<a href=\"http://productfinder.wilo.com/nl/BE/product/0000001d000149e80001003a/fc_product_datasheet\"> http://productfinder.wilo.com/nl/BE/product/0000001d000149e80001003a/fc_product_datasheet</a></p>
-<p>See <a href=\"modelica://IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 </a>for more information about how the data is derived. </p>
+<p>Data from:
+<a href=\"http://productfinder.wilo.com/nl/BE/product/0000001d000149e80001003a/fc_product_datasheet\"> 
+http://productfinder.wilo.com/nl/BE/product/0000001d000149e80001003a/fc_product_datasheet
+</a>
+</p>
+<p>See 
+<a href=\"modelica://IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">
+IDEAS.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 
+</a>
+for more information about how the data is derived. 
+</p>
 </html>",   revisions="<html>
 <ul>
 <li>

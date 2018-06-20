@@ -2,12 +2,12 @@ within IDEAS.Airflow.AHU.Validation;
 model AdsolairDatasheetSummer
   "Validaiton using nominal data sheet performance data for summer"
   extends IDEAS.Airflow.AHU.Validation.BaseClasses.PartialAdsolairValidation(
-      adsolair58(                    use_onOffSignal=false, IEH(     volBot(
-            energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial),
+      adsolair58(                    use_onOffSignal=false, IEH(
           mFloAdiBot(y=(IDEAS.Utilities.Psychrometrics.Functions.X_pSatpphi(
-              pSat=IDEAS.Media.Air.saturationPressure(Tbot.T),
+              pSat=IDEAS.Media.Air.saturationPressure(adsolair58.IEH.volBot.heatPort.T),
               p=adsolair58.IEH.port_a2.p,
-              phi=0.75) -adsolair58.IEH.Xw_in_bot)      *adsolair58.IEH.port_a2.m_flow))),
+              phi=0.75) -adsolair58.IEH.Xw_in_bot)      *adsolair58.IEH.port_a2.m_flow),
+          prescribeTBot=true)),
       sinkAir);
   Modelica.Blocks.Sources.Constant T_room(k=273.15 + 26.4)
     annotation (Placement(transformation(extent={{-114,20},{-100,34}})));
@@ -48,14 +48,10 @@ model AdsolairDatasheetSummer
     annotation (Placement(transformation(extent={{-8,-78},{58,-62}})));
   Modelica.Blocks.Sources.RealExpression realExpression2(y=101300)
     annotation (Placement(transformation(extent={{-8,-86},{58,-70}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature Tbot(T=273.15 + 21.4)
-    "This override the temperature of the IEH outlet for validation purposes"
-    annotation (Placement(transformation(extent={{-70,48},{-50,68}})));
   IDEAS.Utilities.Psychrometrics.Phi_pTX phi_evap
     "Relative humidity of evaporator outlet, for checking with reference result"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
 equation
-  connect(Tbot.port, adsolair58.IEH.volBot.heatPort);
   connect(RH_room.y, XiEnv.phi) annotation (Line(points={{-99.3,7},{-94,7},{-94,
           8.4},{-87.2,8.4}}, color={0,0,127}));
   connect(T_room.y, XiEnv.T) annotation (Line(points={{-99.3,27},{-94,27},{-94,12},
@@ -75,11 +71,14 @@ equation
   connect(V_flow_env.y, From_m3PerhSup.V_flow)
     annotation (Line(points={{79.3,47},{66.2,47},{66.2,17}}, color={0,0,127}));
   connect(dp_set.y, adsolair58.dpSet[1])
-    annotation (Line(points={{-25.3,67},{-6,67},{-6,20.9}}, color={0,0,127}));
+    annotation (Line(points={{-25.3,67},{-7.6,67},{-7.6,20.9}},
+                                                            color={0,0,127}));
   connect(dp_set.y, adsolair58.dpSet[2])
-    annotation (Line(points={{-25.3,67},{-6,67},{-6,19.5}}, color={0,0,127}));
+    annotation (Line(points={{-25.3,67},{-7.6,67},{-7.6,19.5}},
+                                                            color={0,0,127}));
   connect(T_set.y, adsolair58.Tset)
-    annotation (Line(points={{-25.3,87},{-2,87},{-2,20.2}}, color={0,0,127}));
+    annotation (Line(points={{-25.3,87},{-2.8,87},{-2.8,20.2}},
+                                                            color={0,0,127}));
   connect(realExpression.y, phi_evap.T)
     annotation (Line(points={{61.3,-62},{79,-62}}, color={0,0,127}));
   connect(realExpression1.y, phi_evap.X_w)

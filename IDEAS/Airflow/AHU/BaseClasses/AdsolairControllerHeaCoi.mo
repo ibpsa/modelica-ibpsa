@@ -1,7 +1,7 @@
 within IDEAS.Airflow.AHU.BaseClasses;
 model AdsolairControllerHeaCoi
   "Adsolair controller with additional functionality for heating coil"
-  extends AdsolairController;
+  extends AdsolairController(TFanFil(init=Modelica.Blocks.Types.Init.InitialState));
   LimPidAdsolair                                                    PIDHeater(
     Td=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -21,7 +21,7 @@ model AdsolairControllerHeaCoi
         origin={-106,-128})));
   Modelica.Blocks.Interfaces.RealOutput yHea "Control signal for heating coil"
     annotation (Placement(transformation(extent={{100,-114},{120,-94}})));
-  Modelica.Blocks.Continuous.Filter fil(f_cut=1/60)
+  Modelica.Blocks.Continuous.Filter fil(f_cut=1/60, init=Modelica.Blocks.Types.Init.InitialState)
     "Filter for avoiding algebraic loops between controller and valve"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
 equation
@@ -35,4 +35,12 @@ equation
     annotation (Line(points={{1,-130},{12,-130},{12,-87.2}}, color={0,0,127}));
   connect(fil.u, THeaOut) annotation (Line(points={{-22,-130},{-106,-130},{-106,
           -128}}, color={0,0,127}));
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+May 15, 2018, by Filip Jorissen:<br/>
+Changes for setting unique initial conditions.
+</li>
+</ul>
+</html>"));
 end AdsolairControllerHeaCoi;

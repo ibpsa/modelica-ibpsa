@@ -2,19 +2,21 @@ within IDEAS.Buildings.Validation.BaseClasses.Structure.BaseClasses;
 model Bui "Base model"
 
   extends IDEAS.Templates.Interfaces.BaseClasses.Structure(
-    final nZones=1, final nEmb=0,
+    final nZones=1,
+    nEmb=0,
     ATrans=1,
     VZones={gF.V});
   constant Modelica.SIunits.Angle aO = 0 "Angle offset for detailed experiments";
 
   IDEAS.Buildings.Components.Zone gF(
-    airModel(mSenFac=0.822),
+    mSenFac=0.822,
     V=129.6,
     n50=0.822*0.5*20,
-    T_start=293.15,
     redeclare package Medium = Medium,
     nSurf=6,
-    hZone=2.7)  annotation (Placement(transformation(extent={{40,0},{80,40}})));
+    hZone=2.7,
+    T_start=293.15)
+                annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(

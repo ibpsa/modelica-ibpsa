@@ -3,11 +3,7 @@ model ConvectionVerification
   "Comparison between linear and non-linear convection"
   extends Modelica.Icons.Example;
 
-  inner BoundaryConditions.SimInfoManager sim(
-    filNam="BESTEST.TMY",
-    lat=0.69464104229374,
-    lon=-1.8308503853421,
-    timZonSta=-28800)
+  inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
   IDEAS.Buildings.Validation.Cases.Case900 CaseLin(building(
       roof(linearise_a=true),
@@ -28,9 +24,9 @@ model ConvectionVerification
           textStyle={TextStyle.Bold},
           textString="BESTEST 900 Series")}),
     experiment(
-      StopTime=1e+06,
+      StopTime=1000000,
       Interval=3600,
-      Tolerance=1e-07,
+      Tolerance=1e-06,
       __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(executeCall(ensureSimulated=true) = {createPlot(

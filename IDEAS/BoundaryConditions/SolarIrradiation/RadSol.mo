@@ -34,6 +34,11 @@ model RadSol "Block that computes surface-dependent environment data"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-104,0})));
+  Modelica.Blocks.Interfaces.RealInput solTim "Solar time" annotation (
+      Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-104,30})));
   SolarGeometry.BaseClasses.IncidenceAngle incAng(
     lat=lat,
     azi=azi,
@@ -55,6 +60,7 @@ protected
                                                      not remDefVals
     "Tenv dummy value when not needed"
     annotation (Placement(transformation(extent={{-20,-76},{-8,-64}})));
+
 
 equation
   connect(angZen, solBus.angZen) annotation (Line(points={{-104,-40},{100.1,-40},
@@ -112,6 +118,12 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 21, 2018 by Filip Jorissen:<br/>
+Added input <code>solTim</code> for azimuth computations.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/753\">
+#753</a>.
+</li>
 <li>
 May 26, 2017 by Filip Jorissen:<br/>
 Revised implementation for renamed

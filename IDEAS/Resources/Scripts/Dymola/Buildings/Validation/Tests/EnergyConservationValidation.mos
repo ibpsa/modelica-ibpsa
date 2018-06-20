@@ -1,5 +1,4 @@
-simulateModel("IDEAS.Buildings.Validation.Tests.EnergyConservationValidation", stopTime=5e6, method="dassl",
-tolerance=1e-4, resultFile="EnergyConservationValidation");
+simulateModel("IDEAS.Buildings.Validation.Tests.EnergyConservationValidation", stopTime=5e6, method="Lsodar", tolerance=1e-06, resultFile="EnergyConservationValidation");
 createPlot(id=1, 
 position={0, 0, 804, 518}, 
 y={"sim.Qgai.Q_flow"}, 

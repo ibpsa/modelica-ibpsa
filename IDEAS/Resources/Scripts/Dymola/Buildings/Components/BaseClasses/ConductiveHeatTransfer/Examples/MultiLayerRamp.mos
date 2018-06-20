@@ -1,5 +1,5 @@
 Advanced.StoreProtectedVariables:=true;
-simulateModel("IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.Examples.MultiLayerRamp", stopTime=500000, numberOfIntervals=500, method="dassl", resultFile="MultiLayerRamp");
+simulateModel("IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.Examples.MultiLayerRamp", stopTime=500000, numberOfIntervals=500, method="Lsodar", tolerance=1e-06, resultFile="MultiLayerRamp");
 Advanced.StoreProtectedVariables:=false;
 
 createPlot(id=1, position={0, 0, 1078, 587}, y={"dT_Avg"}, range={0.0, 500000.0, -10.0, 30.0}, erase=false, grid=true, colors={{28,108,200}});

@@ -101,28 +101,31 @@ equation
 <p>The parameter <code>dTOutHeaBal</code> can be used to shift the heating curve to account for the fact that solar heat gains and heat gains from equipment and people make up for some of the transmission losses. For example, in energy efficient houses, the heating may not be switched on above 12 degree Celsius, even if a room temperature of 20 degree is required. In such a situation, set <code>dTOutHeaBal=20-12=8</code> Kelvin to shift the heating curve. </p>
 <p>The outdoor temperature is filtered with a first order or moving average filter (replaceable component). The time constant of this filter can be set. </p>
 <p>If desired (minSup=true), a minimum supply temperature can be set for the heating curve output.</p>
-<p><h4>Assumptions and limitations </h4></p>
-<p><ol>
+<h4>Assumptions and limitations </h4>
+<ol>
 <li>Filtered ambient temperature</li>
 <li>Takes into account radiator exponent of emission system</li>
-</ol></p>
-<p><h4>Model use</h4></p>
-<p><ol>
+</ol>
+<h4>Model use</h4>
+<ol>
 <li>This model is normally used inside a controller for the heating, but it can be used directly if desired. </li>
-</ol></p>
-<p><h4>Validation </h4></p>
+</ol>
+<h4>Validation </h4>
 <p>No validation performed.</p>
-<p><h4>Example </h4></p>
-<p>No specific example foreseen for the heating curve, see the <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples\">heating system examples</a>. </p>
+<h4>Example </h4>
+<p>
+No specific example foreseen for the heating curve, see the 
+<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples\">heating system examples</a>. 
+</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>2016 April, Filip Jorissen: Redesigned HeatingCurves and fixed bug 
 (see <a href=\"https://github.com/open-ideas/IDEAS/issues/477\">#477</a>) </li>
 <li>2014 May, Damien Picard: fixed bug reported in Buildings Library (see <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">#74</a>) </li>
 <li>2013 June, Roel De Coninck: documentation</li>
 <li>2011, Roel De Coninck: minimum guaranteed supply temperature and filter or moving average of ambient temperature.</li>
 <li>February 5, 2009 by Michael Wetter:first implementation. </li>
-</ul></p>
+</ul>
 </html>"),
     Icon(graphics={Polygon(
           points={{90,-82},{68,-74},{68,-90},{90,-82}},

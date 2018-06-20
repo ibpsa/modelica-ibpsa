@@ -155,8 +155,7 @@ model Adsolair58 "Adsolair58 example model"
   Fluid.HeatExchangers.Heater_T       hea(
     redeclare package Medium = MediumWater,
     dp_nominal=0,
-    m_flow_nominal=2,
-    QMax_flow=3e4)
+    m_flow_nominal=2)
     annotation (Placement(transformation(extent={{-100,-4},{-80,16}})));
   Fluid.Movers.FlowControlled_dp pum(
     redeclare package Medium = MediumWater,
@@ -176,7 +175,11 @@ model Adsolair58 "Adsolair58 example model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=30,
     use_inputFilter=false,
-    m_flow_nominal=0.6)    "Valve for controlling flow rate"
+    m_flow_nominal=0.6,
+    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering)
+                           "Valve for controlling flow rate"
     annotation (Placement(transformation(extent={{-52,-2},{-36,14}})));
   Modelica.Blocks.Sources.Constant TSup(k=273.15 + 50) "Supply temperature"
     annotation (Placement(transformation(extent={{-134,4},{-118,20}})));
@@ -307,12 +310,12 @@ equation
           -73}}, color={0,0,127}));
   connect(TSetPulse.y, adsolair58.Tset)
     annotation (Line(points={{-0.7,87},{-36,87},{-36,50.2}}, color={0,0,127}));
-  connect(val.port_2, pum.port_a)
-    annotation (Line(points={{-36,6},{-22,6}}, color={0,127,255}));
-  connect(pum.port_b, adsolair58.port_a)
-    annotation (Line(points={{-22,22},{-22,30}}, color={0,127,255}));
   connect(val.port_1, hea.port_b)
     annotation (Line(points={{-52,6},{-80,6}}, color={0,127,255}));
+  connect(val.port_2, pum.port_a)
+    annotation (Line(points={{-36,6},{-22,6},{-22,6}},  color={0,127,255}));
+  connect(pum.port_b, adsolair58.port_a)
+    annotation (Line(points={{-22,22},{-22,30}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,100}})),

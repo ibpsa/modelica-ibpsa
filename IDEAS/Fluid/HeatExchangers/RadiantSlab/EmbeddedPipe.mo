@@ -341,7 +341,7 @@ A limited verification has been performed in IDEAS.Fluid.HeatExchangers.RadiantS
 <p>[Koshenz, 2000] - Koschenz, Markus, and Beat Lehmann. 2000. <i>Thermoaktive Bauteilsysteme - Tabs</i>. D&uuml;bendorf: EMPA D&uuml;bendorf. </p>
 <p>[TRNSYS, 2007] - Multizone Building modeling with Type 56 and TRNBuild.</p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>
 April 26, 2017 by Filip Jorissen:<br/>
 Removed <code>useSimplifiedRt</code> parameter
@@ -357,6 +357,6 @@ See <a href=https://github.com/open-ideas/IDEAS/issues/717>#717</a>.
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2012 April, Roel De Coninck: rebasing on common Partial_Emission</li>
 <li>2011, Roel De Coninck: first version and validation</li>
-</ul></p>
+</ul>
 </html>"));
 end EmbeddedPipe;

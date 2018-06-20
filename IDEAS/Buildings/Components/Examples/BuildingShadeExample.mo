@@ -44,6 +44,14 @@ public
     dep=0.5,
     gap=0.3)
     annotation (Placement(transformation(extent={{-24,-100},{-14,-80}})));
+  Shading.HorizontalFins horizontalFins(
+    s=0.2,
+    w=0.1,
+    use_betaInput=false,
+    beta=45*3.14/180,
+    azi=azi.k,
+    t=0.02) "Horizontal fin model"
+    annotation (Placement(transformation(extent={{14,20},{24,40}})));
 equation
   connect(sim.weaBus, weaBus) annotation (Line(
       points={{-84,0.8},{-84,34},{-54,34}},
@@ -113,18 +121,38 @@ equation
           -48},{-30,-48},{-36,-48},{-36,-8},{-24,-8}}, color={0,0,127}));
   connect(sideFins.HGroDifTil, screen.HGroDifTil) annotation (Line(points={{-24,
           -88},{-36,-88},{-36,-48},{-24,-48}}, color={0,0,127}));
+  connect(horizontalFins.HDirTil, buildingShade.HDirTil)
+    annotation (Line(points={{14,36},{-24,36}}, color={0,0,127}));
+  connect(horizontalFins.HGroDifTil, buildingShade.HGroDifTil)
+    annotation (Line(points={{14,32},{-24,32}}, color={0,0,127}));
+  connect(horizontalFins.HSkyDifTil, buildingShade.HSkyDifTil) annotation (Line(
+        points={{14,34},{-6,34},{-6,34},{-24,34}}, color={0,0,127}));
+  connect(horizontalFins.angInc, buildingShade.angInc)
+    annotation (Line(points={{14,26},{-24,26}}, color={0,0,127}));
+  connect(horizontalFins.angAzi, buildingShade.angAzi) annotation (Line(points=
+          {{14,22},{-6,22},{-6,22},{-24,22}}, color={0,0,127}));
+  connect(buildingShade.angZen, horizontalFins.angZen)
+    annotation (Line(points={{-24,24},{14,24}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(
-      StartTime=2e+06,
-      StopTime=3e+06,
-      __Dymola_NumberOfIntervals=5000),
+      StartTime=2000000,
+      StopTime=3000000,
+      __Dymola_NumberOfIntervals=5000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Components/Examples/BuildingShadeExample.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 23, 2018 by Filip Jorissen:<br/>
+Added test for horizontal fin model.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/697\">
+#697</a>.
+</li>
 <li>
 May 26, 2017 by Filip Jorissen:<br/>
 Revised implementation for renamed
