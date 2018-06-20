@@ -1,7 +1,7 @@
 within IDEAS.Airflow.AHU.BaseClasses;
 model AdsolairControllerHeaCoi
   "Adsolair controller with additional functionality for heating coil"
-  extends AdsolairController(TFanFil(init=Modelica.Blocks.Types.Init.InitialState));
+  extends AdsolairController;
   LimPidAdsolair                                                    PIDHeater(
     Td=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -37,6 +37,14 @@ equation
           -128}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+January 26, 2018, by Filip Jorissen:<br/>
+Improved adsolair controller performance.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/751\">#751</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/730\">#730</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/729\">#729</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/754\">#754</a>.
+</li>
 <li>
 May 15, 2018, by Filip Jorissen:<br/>
 Changes for setting unique initial conditions.

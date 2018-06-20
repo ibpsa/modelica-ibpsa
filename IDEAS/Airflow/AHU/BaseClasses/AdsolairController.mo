@@ -4,14 +4,20 @@ model AdsolairController
   parameter Modelica.SIunits.Time tau=60
     "Thermal time constant at nominal flow rate";
 
-  Modelica.Blocks.Sources.BooleanExpression onAdiaExp(y=on and TSet < TIehInSup
-         and (pre(onAdiaExp.y) or TSet < TIehOutSup and pre(damMax.y)))
+  Modelica.Blocks.Sources.BooleanExpression onAdiaExp(
+    y=on
+    and TSet < TIehInSup
+    and (pre(onAdiaExp.y)
+    or TSet < TIehOutSup and pre(damMax.y)))
     "Indirect evaporative cooling hysteresis status: 
     on when TSet not obtained and damper is at maximum position, 
     off when inlet temperature already satisfies set point"
     annotation (Placement(transformation(extent={{-100,50},{14,70}})));
-  Modelica.Blocks.Sources.BooleanExpression onChiExp(y=on and onDelAdi.y and
-        TSet < TIehOutSup and (pre(onChiExp.y) or TSet + 0.1 < TIehOutSup))
+  Modelica.Blocks.Sources.BooleanExpression onChiExp(
+    y=on
+    and onDelAdi.y
+    and TSet < TIehOutSup
+    and (pre(onChiExp.y) or TSet + 0.1 < TIehOutSup))
     "Active chiller hystersis status: 
     on when adia has been on for a while and temperature is still too low, 
     off when IEH outlet temp satisfies requirements"
@@ -93,7 +99,8 @@ model AdsolairController
   Modelica.Blocks.Sources.BooleanExpression damMax(y=damPid.y > 0.97 or damPid.y
          < 0.03) "Damper is at its limits -> next stage can be enabled"
     annotation (Placement(transformation(extent={{-100,66},{14,82}})));
-  Modelica.Blocks.Continuous.Filter TFanFil(f_cut=1/60, order=1)
+  Modelica.Blocks.Continuous.Filter TFanFil(f_cut=1/60, order=1,
+    init=Modelica.Blocks.Types.Init.InitialState)
     "Filter not integrated into temperature sensor since this leads to large time constants for low flow rates"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 initial equation
@@ -155,7 +162,10 @@ Changes for setting unique initial conditions.
 <li>
 January 26, 2018, by Filip Jorissen:<br/>
 Improved adsolair controller performance.
-See <a href=\"https://github.com/open-ideas/IDEAS/issues/751\">#751</a>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/751\">#751</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/730\">#730</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/729\">#729</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/754\">#754</a>.
 </li>
 <li>
 April 24, 2017, by Filip Jorissen:<br/>
