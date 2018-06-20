@@ -1,5 +1,5 @@
 #1
-double data(8760,30)
+double tab1(8760,30)
 #LOCATION,Denver-Stapleton,CO,USA,TMY--23062,724690,39.76,-104.86,-7.0,1611.0
 #DESIGN CONDITIONS,1,Climate Design Data 2009 ASHRAE Handbook,,Heating,12,-20,-16,-24.1,0.5,-17.1,-20.2,0.8,-11.3,12.4,2.7,10.7,4.8,2.3,180,Cooling,7,15.2,34.1,15.9,32.6,15.6,31.1,15.4,18.1,27.7,17.5,26.9,16.9,26.4,4,120,15.7,13.6,20,14.7,12.7,19.8,13.8,12,20,57.7,27.9,55.4,26.6,53.3,26.4,733,Extremes,10.9,8.8,7.7,21.9,-24.6,37.2,4.1,1.4,-27.5,38.2,-29.9,39,-32.2,39.7,-35.1,40.7
 #TYPICAL/EXTREME PERIODS,6,Summer - Week Nearest Max Temperature For Period,Extreme,7/20,7/26,Summer - Week Nearest Average Temperature For Period,Typical,8/ 3,8/ 9,Winter - Week Nearest Min Temperature For Period,Extreme,12/22,1/ 5,Winter - Week Nearest Average Temperature For Period,Typical,1/27,2/ 2,Autumn - Week Nearest Average Temperature For Period,Typical,10/20,10/26,Spring - Week Nearest Average Temperature For Period,Typical,4/ 5,4/11

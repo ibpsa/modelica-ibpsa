@@ -8,7 +8,7 @@ model GetHeaderElement "Test model to get header element"
   parameter Modelica.SIunits.Time timeZone(fixed=false, displayUnit="h")
     "Time zone";
 
-  parameter String filNam = "modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
+  parameter String filNam = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Name of weather data file";
 
   final parameter String absFilNam = IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam)

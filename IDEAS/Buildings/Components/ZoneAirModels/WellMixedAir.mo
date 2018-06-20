@@ -7,7 +7,7 @@ protected
     "Latent heat of evaporation water";
   constant Boolean hasVap = Medium.nXi>0
     "Medium has water vapour";
-  IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir       vol(
+  MixingVolumeNominalU       vol(
     redeclare package Medium = Medium,
     energyDynamics=energyDynamics,
     massDynamics=massDynamics,
@@ -19,9 +19,9 @@ protected
     allowFlowReversal=allowFlowReversal,
     V=Vtot,
     mSenFac=mSenFac,
+    U_nominal=mSenFac*10*Vtot*1.2*1000,
     use_C_flow=true,
-    dynBal(U(nominal=mSenFac*10*Vtot*1.2*1000)),
-    nPorts=3+nPorts,
+    nPorts=(if hasVap then 3 else 2)+nPorts,
     m_flow_nominal=0.1)                        annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -46,7 +46,12 @@ protected
     redeclare package Medium = Medium) if hasVap
     "Relative humidity of the zone air"
     annotation (Placement(transformation(extent={{20,-30},{40,-50}})));
-
+protected
+    model MixingVolumeNominalU
+      "To avoid warning when modifying protected model"
+      parameter Modelica.SIunits.Energy U_nominal "Nominal value of internal energy";
+      extends IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir(dynBal(U(nominal=U_nominal)));
+    end MixingVolumeNominalU;
 equation
   if hasVap then
     assert(vol.ports[1].Xi_outflow[1] <= 0.1,
@@ -91,15 +96,20 @@ equation
                 color={0,127,255}));
   connect(port_a, vol.ports[2]) annotation (Line(points={{60,100},{60,10},{8.88178e-16,
           10}}, color={0,127,255}));
-  connect(senRelHum.port, vol.ports[3]) annotation (Line(points={{30,-30},{30,
+  connect(senRelHum.port, vol.ports[nPorts+3]) annotation (Line(points={{30,-30},{30,
           10},{1.33227e-15,10}},
                           color={0,127,255}));
-  connect(ports[1:nPorts], vol.ports[4:nPorts+3]) annotation (Line(points={{0,100},
+  connect(ports[1:nPorts], vol.ports[3:nPorts+2]) annotation (Line(points={{0,100},
           {0,10},{1.33227e-15,10}},
                           color={0,127,255}));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
+<li>
+April 27, 2018 by Filip Jorissen:<br/>
+Created <code>MixingVolumeNominalU</code> such that 
+<code>MixingVolume</code> can be used without generating a warning.
+</li>
 <li>
 April 27, 2018 by Filip Jorissen:<br/>
 Added nominal value for internal energy of mixing volume.

@@ -2,7 +2,7 @@ within IDEAS.Fluid.FMI.Conversion.Validation;
 model InletToAirMoistAirCO2
   "Validation model for inlet to IDEAS.Media.Air conversion with C02 trace substances"
   extends IDEAS.Fluid.FMI.Conversion.Validation.InletToAirDryAir(
-    redeclare package Medium = IDEAS.Media.Air(extraPropertiesNames={"CO2"}));
+    redeclare replaceable package Medium = IDEAS.Media.Air(extraPropertiesNames={"CO2"}));
   Modelica.Blocks.Sources.Constant CRev[Medium.nC](each k=0.8)
               "Trace substance for reverse flow"
     annotation (Placement(transformation(extent={{92,-80},{72,-60}})));

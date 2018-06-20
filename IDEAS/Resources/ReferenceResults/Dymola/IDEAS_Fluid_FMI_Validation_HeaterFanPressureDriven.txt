@@ -1,14 +1,14 @@
-last-generated=2018-05-14
+last-generated=2018-06-13
 statistics-initialization=
 {
-  "numerical Jacobians": "0", 
-  "nonlinear": "0, 0"
+  "nonlinear": "0, 0",
+  "numerical Jacobians": "0"
 }
 statistics-simulation=
 {
-  "numerical Jacobians": "0", 
-  "nonlinear": " ", 
-  "linear": " "
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
 }
 sin.T_in=[3.031499938964844e+02, 3.031499938964844e+02]
 sou.T_in=[2.931499938964844e+02, 2.931499938964844e+02]
