@@ -83,14 +83,14 @@ sets a constant pressure. In such a situation, use
 <a href=\"modelica://IDEAS.Fluid.FMI.ExportContainers.PartialTwoPort\">
 IDEAS.Fluid.FMI.ExportContainers.PartialTwoPort</a>
 together with
-<a href=\"modelica://IDEAS.Fluid.FMI.InletAdaptor\">
-IDEAS.Fluid.FMI.InletAdaptor</a>
+<a href=\"modelica://IDEAS.Fluid.FMI.Adaptors.Inlet\">
+IDEAS.Fluid.FMI.Adaptors.Inlet</a>
 and
-<a href=\"modelica://IDEAS.Fluid.FMI.OutletAdaptor\">
-IDEAS.Fluid.FMI.OutletAdaptor</a>
+<a href=\"modelica://IDEAS.Fluid.FMI.Adaptors.Outlet\">
+IDEAS.Fluid.FMI.Adaptors.Outlet</a>
 and set the pressure to be equal to the port <code>p</code> of
-<a href=\"modelica://IDEAS.Fluid.FMI.OutletAdaptor\">
-IDEAS.Fluid.FMI.OutletAdaptor</a>.
+<a href=\"modelica://IDEAS.Fluid.FMI.Adaptors.Outlet\">
+IDEAS.Fluid.FMI.Adaptors.Outlet</a>.
 </p>
 </html>", revisions="<html>
 <ul>

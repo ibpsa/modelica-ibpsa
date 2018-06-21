@@ -9,9 +9,6 @@ block TWetBul_TDryBulXi
 
   parameter Boolean approximateWetBulb=false
     "Set to true to approximate wet bulb temperature" annotation (Evaluate=true);
-  Modelica.SIunits.MassFraction XiSat(start=0.01,
-                                      nominal=0.01)
-    "Water vapor mass fraction at saturation";
 
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     start=303,
@@ -38,6 +35,9 @@ protected
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
 
+  Modelica.SIunits.MassFraction XiSat(start=0.01,
+                                      nominal=0.01)
+    "Water vapor mass fraction at saturation";
   Modelica.SIunits.MassFraction XiSatRefIn
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 

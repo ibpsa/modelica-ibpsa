@@ -1,14 +1,14 @@
-last-generated=2018-05-14
+last-generated=2018-06-13
 statistics-initialization=
 {
-  "numerical Jacobians": "0", 
-  "nonlinear": "0, 0, 0, 0, 0, 0, 0, 0"
+  "nonlinear": "0, 0, 0, 0, 0, 0, 0, 0",
+  "numerical Jacobians": "0"
 }
 statistics-simulation=
 {
-  "numerical Jacobians": "0", 
-  "nonlinear": " ", 
-  "linear": " "
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
 }
 senEnt1.h_out=[5.3417265625e+04, 5.3417265625e+04]
 senEnt2.h_out=[5.3417265625e+04, 5.3417265625e+04]

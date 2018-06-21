@@ -8,7 +8,7 @@ model Outside
    nPorts=1) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   IDEAS.Fluid.Sources.MassFlowSource_T sin(
     redeclare package Medium = Medium,
