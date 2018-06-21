@@ -1,7 +1,8 @@
 within IDEAS.BoundaryConditions;
 model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
-  extends BoundaryConditions.Interfaces.PartialSimInfoManager;
+  extends BoundaryConditions.Interfaces.PartialSimInfoManager(weaBus(numSolBus=
+          numIncAndAziInBus));
 
 protected
   Modelica.Blocks.Routing.RealPassThrough HDirNorData;
@@ -22,15 +23,23 @@ equation
   Tsky = TBlaSkyData.y;
   Va = winSpeData.y;
 
-  connect(HDirNorData.u, weaBus1.HDirNor);
-  connect(HGloHorData.u, weaBus1.HGloHor);
-  connect(HDiffHorData.u, weaBus1.HDifHor);
-  connect(TDryBulData.u, weaBus1.TDryBul);
-  connect(relHumData.u, weaBus1.relHum);
-  connect(TDewPoiData.u, weaBus1.TDewPoi);
-  connect(nOpaData.u, weaBus1.nOpa);
-  connect(winSpeData.u, weaBus1.winSpe);
-  connect(TBlaSkyData.u, weaBus1.TBlaSky);
+  connect(HDirNorData.u, weaDatBus.HDirNor);
+  connect(HGloHorData.u, weaDatBus.HGloHor);
+  connect(HDiffHorData.u, weaDatBus.HDifHor);
+  connect(TDryBulData.u, weaDatBus.TDryBul);
+  connect(relHumData.u, weaDatBus.relHum);
+  connect(TDewPoiData.u, weaDatBus.TDewPoi);
+  connect(nOpaData.u, weaDatBus.nOpa);
+  connect(winSpeData.u, weaDatBus.winSpe);
+  connect(TBlaSkyData.u, weaDatBus.TBlaSky);
+  connect(weaDatBus, weaBus.weaBus) annotation (Line(
+      points={{-100,-10},{2,-10},{100.05,-10},{100.05,40.05}},
+      color={255,204,51},
+      thickness=0.5,
+      visible=false), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
