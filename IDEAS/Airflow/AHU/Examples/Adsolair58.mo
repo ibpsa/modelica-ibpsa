@@ -28,13 +28,10 @@ model Adsolair58 "Adsolair58 example model"
     use_X_in=true,
     nPorts=2) "Environment"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  IDEAS.Buildings.Components.Interfaces.WeaBus weaBus1(numSolBus=sim.numIncAndAziInBus,
-      outputAngles=sim.outputAngles)
-    annotation (Placement(transformation(extent={{-74,82},{-54,102}})));
 
   Modelica.Blocks.Routing.RealPassThrough X_w;
-  Modelica.Blocks.Sources.RealExpression reaExpXw[2](y={X_w.y,1 - X_w.y})
-    "For setting humidity of inlet air"
+  Modelica.Blocks.Sources.RealExpression reaExpXw[2](y={sim.XiEnv.X[1],1 - sim.XiEnv.X[
+        1]}) "For setting humidity of inlet air"
     annotation (Placement(transformation(extent={{-112,26},{-92,46}})));
   Modelica.Blocks.Sources.Constant dpNom[2](each k=dp_nominal)
     annotation (Placement(transformation(extent={{14,60},{0,74}})));
@@ -191,20 +188,9 @@ model Adsolair58 "Adsolair58 example model"
   Modelica.Blocks.Sources.Constant TSet(each k=273.15 + 22)
     "Temperature set point of the zone"
     annotation (Placement(transformation(extent={{130,-80},{116,-66}})));
+  Modelica.Blocks.Sources.RealExpression Te(y=sim.Te) "Ambient temperature"
+    annotation (Placement(transformation(extent={{-112,40},{-92,60}})));
 equation
-  connect(sim.weaBus, weaBus1) annotation (Line(
-      points={{-84,92.8},{-74,92.8},{-74,96},{-64,96},{-64,92}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(env.T_in, weaBus1.Te) annotation (Line(points={{-82,44},{-96,44},{-96,
-          72},{-63.95,72},{-63.95,92.05}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(X_w.u, weaBus1.X_wEnv);
   connect(reaExpXw.y, env.X_in)
     annotation (Line(points={{-91,36},{-86.5,36},{-82,36}}, color={0,0,127}));
   connect(env.ports[1], adsolair58.port_b1) annotation (Line(points={{-60,42},{-56,
