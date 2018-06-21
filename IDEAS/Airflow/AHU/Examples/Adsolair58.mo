@@ -25,12 +25,13 @@ model Adsolair58 "Adsolair58 example model"
   IDEAS.Fluid.Sources.Boundary_pT env(
     redeclare package Medium = Medium,
     use_T_in=true,
-    use_X_in=true,
-    nPorts=2) "Environment"
+    nPorts=2,
+    use_Xi_in=true)
+              "Environment"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  Modelica.Blocks.Sources.RealExpression reaExpXw[2](y={sim.XiEnv.X[1],1 - sim.XiEnv.X[
-        1]}) "For setting humidity of inlet air"
+  Modelica.Blocks.Sources.RealExpression reaExpXw(y=sim.XiEnv.X[1])
+    "For setting humidity of inlet air"
     annotation (Placement(transformation(extent={{-112,26},{-92,46}})));
   Modelica.Blocks.Sources.Constant dpNom[2](each k=dp_nominal)
     annotation (Placement(transformation(extent={{14,60},{0,74}})));
@@ -190,8 +191,6 @@ model Adsolair58 "Adsolair58 example model"
   Modelica.Blocks.Sources.RealExpression Te(y=sim.Te) "Ambient temperature"
     annotation (Placement(transformation(extent={{-112,40},{-92,60}})));
 equation
-  connect(reaExpXw.y, env.X_in)
-    annotation (Line(points={{-91,36},{-86.5,36},{-82,36}}, color={0,0,127}));
   connect(env.ports[1], adsolair58.port_b1) annotation (Line(points={{-60,42},{-56,
           42},{-52,42},{-52,46},{-40,46}}, color={0,127,255}));
   connect(env.ports[2], adsolair58.port_a2) annotation (Line(points={{-60,38},{-52,
@@ -304,6 +303,8 @@ equation
     annotation (Line(points={{-22,26},{-22,30}}, color={0,127,255}));
   connect(Te.y, env.T_in) annotation (Line(points={{-91,50},{-86,50},{-86,44},{-82,
           44}}, color={0,0,127}));
+  connect(reaExpXw.y, env.Xi_in[1])
+    annotation (Line(points={{-91,36},{-82,36}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,100}})),
