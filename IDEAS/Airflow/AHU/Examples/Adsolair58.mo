@@ -29,7 +29,6 @@ model Adsolair58 "Adsolair58 example model"
     nPorts=2) "Environment"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  Modelica.Blocks.Routing.RealPassThrough X_w;
   Modelica.Blocks.Sources.RealExpression reaExpXw[2](y={sim.XiEnv.X[1],1 - sim.XiEnv.X[
         1]}) "For setting humidity of inlet air"
     annotation (Placement(transformation(extent={{-112,26},{-92,46}})));
@@ -303,6 +302,8 @@ equation
     annotation (Line(points={{-36,6},{-22,6},{-22,10}}, color={0,127,255}));
   connect(pum.port_b, adsolair58.port_a)
     annotation (Line(points={{-22,26},{-22,30}}, color={0,127,255}));
+  connect(Te.y, env.T_in) annotation (Line(points={{-91,50},{-86,50},{-86,44},{-82,
+          44}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,100}})),

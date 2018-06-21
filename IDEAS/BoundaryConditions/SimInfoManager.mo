@@ -1,8 +1,7 @@
 within IDEAS.BoundaryConditions;
 model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
-  extends BoundaryConditions.Interfaces.PartialSimInfoManager(weaBus(numSolBus=
-          numIncAndAziInBus));
+  extends BoundaryConditions.Interfaces.PartialSimInfoManager;
 
 protected
   Modelica.Blocks.Routing.RealPassThrough HDirNorData;
@@ -32,14 +31,6 @@ equation
   connect(nOpaData.u, weaDatBus.nOpa);
   connect(winSpeData.u, weaDatBus.winSpe);
   connect(TBlaSkyData.u, weaDatBus.TBlaSky);
-  connect(weaDatBus, weaBus.weaBus) annotation (Line(
-      points={{-100,-10},{2,-10},{100.05,-10},{100.05,40.05}},
-      color={255,204,51},
-      thickness=0.5,
-      visible=false), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",

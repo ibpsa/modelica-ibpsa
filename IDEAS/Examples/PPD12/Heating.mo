@@ -521,13 +521,6 @@ equation
                                                color={191,0,0}));
   connect(radGnd.port_a, valGnd.port_b) annotation (Line(points={{-40,-160},{-40,
           -150}},            color={0,127,255}));
-  connect(sim.weaBus, weaBus1) annotation (Line(
-      points={{384,50.8},{380,50.8},{380,80}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -200},{400,240}},
         initialScale=0.1), graphics={
