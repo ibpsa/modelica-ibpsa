@@ -22,15 +22,15 @@ equation
   Tsky = TBlaSkyData.y;
   Va = winSpeData.y;
 
-  connect(HDirNorData.u, weaBus1.HDirNor);
-  connect(HGloHorData.u, weaBus1.HGloHor);
-  connect(HDiffHorData.u, weaBus1.HDifHor);
-  connect(TDryBulData.u, weaBus1.TDryBul);
-  connect(relHumData.u, weaBus1.relHum);
-  connect(TDewPoiData.u, weaBus1.TDewPoi);
-  connect(nOpaData.u, weaBus1.nOpa);
-  connect(winSpeData.u, weaBus1.winSpe);
-  connect(TBlaSkyData.u, weaBus1.TBlaSky);
+  connect(HDirNorData.u, weaDatBus.HDirNor);
+  connect(HGloHorData.u, weaDatBus.HGloHor);
+  connect(HDiffHorData.u, weaDatBus.HDifHor);
+  connect(TDryBulData.u, weaDatBus.TDryBul);
+  connect(relHumData.u, weaDatBus.relHum);
+  connect(TDewPoiData.u, weaDatBus.TDewPoi);
+  connect(nOpaData.u, weaDatBus.nOpa);
+  connect(winSpeData.u, weaDatBus.winSpe);
+  connect(TBlaSkyData.u, weaDatBus.TBlaSky);
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
