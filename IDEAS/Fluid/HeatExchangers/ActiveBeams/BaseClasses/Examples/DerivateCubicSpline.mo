@@ -15,8 +15,8 @@ equation
         Documentation(info="<html>
 <p>
 The example tests the implementation of
-<a href=\"modelica://IDEAS.Fluid.HeatExchangers.ActiveBeams.BaseClasses.DerivatesCubicSpline\">
-IDEAS.Fluid.HeatExchangers.ActiveBeams.BaseClasses.DerivatesCubicSpline</a>.
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.ActiveBeams.BaseClasses.DerivativesCubicSpline\">
+IDEAS.Fluid.HeatExchangers.ActiveBeams.BaseClasses.DerivativesCubicSpline</a>.
 Default vectors are: <i>x=[0,0.5,1]</i> and <i>y=[0,0.75,1]</i>.
 Input to the model is the simulation time.
 </p>

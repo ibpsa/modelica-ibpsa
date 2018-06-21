@@ -211,7 +211,7 @@ package RC
   rooms.</p>
   <p>M. Lauster, A. Bruentjen, H. Leppmann, M. Fuchs, R. Streblow, D. Mueller.
   <a href=\"modelica://IDEAS/Resources/Images/ThermalZones/ReducedOrder/RC/UsersGuide/BauSIM2014_208-2_p1192.pdf\">Improving a Low Order Building Model for Urban Scale Applications</a>.
-  <i>Proceedings of BauSim 2014: 5th German-Austrian IDEAS Conference</i>,
+  <i>Proceedings of BauSim 2014: 5th German-Austrian IBPSA Conference</i>,
   p. 511-518, Aachen, Germany. Sep. 22-24, 2014.</p>
   <p>M. Lauster, J. Teichmann, M. Fuchs, R. Streblow, D. Mueller. Low Order
   Thermal Network Models for Dynamic Simulations of Buildings on City District
