@@ -349,9 +349,6 @@ model Structure "Ppd 12 example model"
     inc=IDEAS.Types.Tilt.Floor)
     "Dummy for representing stairway connection between floors"
     annotation (Placement(transformation(extent={{182,-22},{192,-2}})));
-  Buildings.Components.Interfaces.WeaBus weaBus1(numSolBus=sim.numIncAndAziInBus,
-      outputAngles=sim.outputAngles)
-    annotation (Placement(transformation(extent={{370,70},{390,90}})));
 equation
   connect(hallway.proBusD, living.proBusB) annotation (Line(
       points={{-73,50},{-45,50},{-45,40}},
@@ -453,13 +450,6 @@ equation
       points={{182.833,-10},{76.2,-10},{76.2,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(sim.weaBus, weaBus1) annotation (Line(
-      points={{384,50.8},{380,50.8},{380,80}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -200},{400,240}},
         initialScale=0.1), graphics={
