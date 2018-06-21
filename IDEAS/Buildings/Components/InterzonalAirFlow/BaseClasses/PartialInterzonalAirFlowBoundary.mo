@@ -5,6 +5,7 @@ partial model PartialInterzonalAirFlowBoundary
     IDEAS.Buildings.Components.InterzonalAirFlow.BaseClasses.PartialInterzonalAirFlow;
   outer BoundaryConditions.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo(final
       alpha=0) if                                                                 sim.computeConservationOfEnergy
     "Prescribed heat flow rate for conservation of energy check" annotation (
@@ -24,10 +25,7 @@ partial model PartialInterzonalAirFlowBoundary
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,10})));
-protected
-  Interfaces.WeaBus weaBus(numSolBus=sim.numIncAndAziInBus, outputAngles=sim.outputAngles)
-    annotation (Placement(transformation(extent={{-50,82},{-30,102}})));
-public
+
   Modelica.Blocks.Sources.RealExpression Te(y=sim.Te) "Ambient temperature"
     annotation (Placement(transformation(extent={{-44,52},{-26,68}})));
   Modelica.Blocks.Sources.RealExpression Xi(y=sim.XiEnv.X[1])
