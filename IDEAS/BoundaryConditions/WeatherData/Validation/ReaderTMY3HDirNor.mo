@@ -3,7 +3,7 @@ model ReaderTMY3HDirNor
   "Test model for calculating the direct normal radiation"
   extends Modelica.Icons.Example;
   IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDatInpCon(filNam=
-        "modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+        Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
       HSou=IDEAS.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor)
     "Weather data reader with radiation data obtained from the inputs' connectors"
     annotation (Placement(transformation(extent={{68,-10},{88,10}})));

@@ -29,8 +29,6 @@ model Convection "Convection model tests"
     inc=IDEAS.Types.Tilt.Floor,
     d=0.1) "Mono layer air model for horizontal inclination"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Interfaces.WeaBus weaBus1(numSolBus=sim.numIncAndAziInBus)
-    annotation (Placement(transformation(extent={{-80,82},{-60,102}})));
   Modelica.Blocks.Sources.Ramp ramp(
     height=-20,
     duration=1e6,
@@ -57,6 +55,11 @@ model Convection "Convection model tests"
     linearise=true)
     "Mono layer air model for horizontal inclination: linearised"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+  Modelica.Blocks.Sources.RealExpression Te(y=sim.Te) "Ambient temperature"
+    annotation (Placement(transformation(extent={{-62,-84},{-42,-64}})));
+  Modelica.Blocks.Sources.RealExpression hConExt(y=sim.hCon)
+    "Exterior convection"
+    annotation (Placement(transformation(extent={{-62,-98},{-42,-78}})));
 equation
   connect(monLayAirWal.port_b, fixTem.port)
     annotation (Line(points={{0,22},{0,0},{40,0}}, color={191,0,0}));
@@ -66,14 +69,6 @@ equation
     annotation (Line(points={{-40,0},{-20,0}}, color={191,0,0}));
   connect(monLayAirHor.port_a, monLayAirWal.port_a)
     annotation (Line(points={{-20,0},{-20,22}}, color={191,0,0}));
-  connect(sim.weaBus, weaBus1) annotation (Line(
-      points={{-84,92.8},{-78,92.8},{-78,92},{-70,92}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(extCon.hConExt, weaBus1.hConExt) annotation (Line(points={{-20,-79},{
-          -70,-79},{-70,-76},{-70,8},{-69.95,8},{-69.95,92.05}}, color={0,0,127}));
-  connect(extCon.Te, weaBus1.Te) annotation (Line(points={{-20,-74.8},{-70,
-          -74.8},{-70,-74},{-69.95,-74},{-69.95,92.05}}, color={0,0,127}));
   connect(ramp.y, preTem.T)
     annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
   connect(intConVerLin.port_a, intConFlo.port_a)
@@ -86,10 +81,6 @@ equation
     annotation (Line(points={{0,92},{0,72},{0,72}}, color={191,0,0}));
   connect(intConFlo.port_b, monLayAirWal.port_b)
     annotation (Line(points={{0,52},{0,22}}, color={191,0,0}));
-  connect(extConLin.hConExt, extCon.hConExt) annotation (Line(points={{-20,-99},
-          {-70,-99},{-70,-100},{-70,-79},{-20,-79}}, color={0,0,127}));
-  connect(extConLin.Te, extCon.Te) annotation (Line(points={{-20,-94.8},{-70,
-          -94.8},{-70,-74.8},{-20,-74.8}}, color={0,0,127}));
   connect(extConLin.port_a, extCon.port_a)
     annotation (Line(points={{-20,-90},{-20,-90},{-20,-70}}, color={191,0,0}));
   connect(intConFlo.port_b, intConVerLin.port_b)
@@ -100,6 +91,14 @@ equation
     annotation (Line(points={{-20,-20},{-20,0}}, color={191,0,0}));
   connect(extCon.port_a, monLayAirHorLin.port_a)
     annotation (Line(points={{-20,-70},{-20,-20}}, color={191,0,0}));
+  connect(Te.y, extCon.Te) annotation (Line(points={{-41,-74},{-20,-74},{-20,
+          -74.8}}, color={0,0,127}));
+  connect(Te.y, extConLin.Te) annotation (Line(points={{-41,-74},{-34,-74},{-34,
+          -94.8},{-20,-94.8}}, color={0,0,127}));
+  connect(hConExt.y, extCon.hConExt) annotation (Line(points={{-41,-88},{-34,
+          -88},{-26,-88},{-26,-79},{-20,-79}}, color={0,0,127}));
+  connect(hConExt.y, extConLin.hConExt) annotation (Line(points={{-41,-88},{-26,
+          -88},{-26,-99},{-20,-99}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(

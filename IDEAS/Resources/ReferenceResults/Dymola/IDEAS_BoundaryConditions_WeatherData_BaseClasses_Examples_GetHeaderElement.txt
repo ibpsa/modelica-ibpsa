@@ -1,6 +1,11 @@
-last-generated=2015-05-08
-statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
-latitude=[0.73268920183181762695, 0.73268920183181762695]
-longitude=[-1.53449344635009765625, -1.53449344635009765625]
-time=[0., 1.]
-timeZone=[-21600., -21600.]
+last-generated=2018-06-13
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+latitude=[7.326892018318176e-01, 7.326892018318176e-01]
+longitude=[-1.534493446350098e+00, -1.534493446350098e+00]
+time=[0e+00, 1e+00]
+timeZone=[-2.16e+04, -2.16e+04]

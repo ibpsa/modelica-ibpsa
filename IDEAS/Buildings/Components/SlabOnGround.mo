@@ -44,7 +44,7 @@ protected
   final parameter Real delta=sqrt(3.15*10^7*ground1.k/3.14/ground1.rho/ground1.c);
   final parameter Real Lpi=A    *ground1.k/dt*sqrt(1/((1 + delta/dt)^2 + 1));
   final parameter Real Lpe=0.37*PWall*ground1.k*log(delta/dt + 1);
-  Real m = sim.timCal/3.1536e7*12 "time in months";
+  Real m = sim.solTim.y/3.1536e7*12 "time in months";
 
   BaseClasses.ConductiveHeatTransfer.MultiLayer layGro(
     final inc=inc,

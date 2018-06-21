@@ -140,8 +140,8 @@ equation
           {-39.9,0},{-39.9,30.1}}, color={0,0,127}));
   connect(angHou, weaBus.angHou) annotation (Line(points={{106,-100},{80,-100},
           {80,80.05},{100.05,80.05}}, color={0,0,127}));
-  connect(radSol.solTim, weaBus.solTim) annotation (Line(points={{-80.4,33},{-86,33},
-          {-86,64},{100.05,64},{100.05,80.05}}, color={0,0,127}));
+  connect(radSol.solTim, weaBus.solTim) annotation (Line(points={{-80.4,33},{
+          -86,33},{-86,64},{100,64},{100,80}},  color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Documentation(info="<html>
 <p>This model usually takes the appropriate solar data from the bus. If the correct data is not contained by the bus, custom solar data is calculated.</p>

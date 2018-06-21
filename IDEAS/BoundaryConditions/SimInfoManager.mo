@@ -1,14 +1,9 @@
 within IDEAS.BoundaryConditions;
 model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
-  extends BoundaryConditions.Interfaces.PartialSimInfoManager(
-    Tsky = TBlaSkyData.y,
-    Fc = nOpaData.y*0.87,
-    Va = winSpeData.y,
-    final useTmy3Reader = true);
+  extends BoundaryConditions.Interfaces.PartialSimInfoManager;
 
 protected
-  BoundaryConditions.WeatherData.Bus weaBus1 "Weather data bus";
   Modelica.Blocks.Routing.RealPassThrough HDirNorData;
   Modelica.Blocks.Routing.RealPassThrough HGloHorData;
   Modelica.Blocks.Routing.RealPassThrough HDiffHorData;
@@ -19,32 +14,23 @@ protected
   Modelica.Blocks.Routing.RealPassThrough winSpeData;
   Modelica.Blocks.Routing.RealPassThrough TBlaSkyData;
 equation
-  solDirPer=HDirNorData.y;
-  solDirHor = HGloHorData.y - solDifHor;
-  solDifHor = HDiffHorData.y;
-  solGloHor = solDirHor + solDifHor;
-  Te = TDryBulData.y;
+  Te = TDryBul.y;
   TeAv = Te;
   Tground=TdesGround;
-  irr = HGloHorData.y;
-  summer = timMan.summer;
-  relHum = relHumData.y;
+  relHum = phiEnv.y;
   TDewPoi = TDewPoiData.y;
-  timLoc = timMan.timLoc;
-  timSol = timMan.timSol;
-  timCal = timMan.timCal;
+  Tsky = TBlaSkyData.y;
+  Va = winSpeData.y;
 
-
-  connect(weaDat.weaBus, weaBus1);
-  connect(HDirNorData.u, weaBus1.HDirNor);
-  connect(HGloHorData.u, weaBus1.HGloHor);
-  connect(HDiffHorData.u, weaBus1.HDifHor);
-  connect(TDryBulData.u, weaBus1.TDryBul);
-  connect(relHumData.u, weaBus1.relHum);
-  connect(TDewPoiData.u, weaBus1.TDewPoi);
-  connect(nOpaData.u, weaBus1.nOpa);
-  connect(winSpeData.u, weaBus1.winSpe);
-  connect(TBlaSkyData.u, weaBus1.TBlaSky);
+  connect(HDirNorData.u, weaDatBus.HDirNor);
+  connect(HGloHorData.u, weaDatBus.HGloHor);
+  connect(HDiffHorData.u, weaDatBus.HDifHor);
+  connect(TDryBulData.u, weaDatBus.TDryBul);
+  connect(relHumData.u, weaDatBus.relHum);
+  connect(TDewPoiData.u, weaDatBus.TDewPoi);
+  connect(nOpaData.u, weaDatBus.nOpa);
+  connect(winSpeData.u, weaDatBus.winSpe);
+  connect(TBlaSkyData.u, weaDatBus.TBlaSky);
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
@@ -62,10 +48,11 @@ for computing the solar irradiance on the zone surfaces.
 </p>
 <h4>Typical use and important parameters</h4>
 <ul>
-<li>Parameters <code>filNam</code> and <code>filDir</code> can be used to set the path to the TMY3 weather file.</li>
-<li>Parameters <code>lat</code> and <code>lon</code> can be used to set the location of the building
-using latitude and longitude coordiantes.
-These coordinates are used for calculating the solar position, not for choosing the correct weather data!</li>
+<li>
+Parameters <code>filNam</code> and <code>filDir</code> can be used to set the path to the TMY3 weather file.
+This file should include the latitude, longitude and time zone corresponding to the weather file.
+See the included weather files for the correct format.
+</li>
 </ul>
 <h4>Options</h4>
 <ul>
@@ -104,6 +91,11 @@ to flow between components that are both within the bounds of the system.
 The user then needs to choose how large the system is and he should make sure that
 all heat flow rates entering the system are added to <code>sim.Qgai.Q_flow</code> and 
 that all internal energy of the system is added to <code>sim.E.E</code>.
+</li>
+<li>
+The default latitude and longitude, which are read by the TMY3 reader, can be overwritten. 
+This should only be done if a custom weather data reader instead 
+of the TMY3 weather data reader is used.
 </li>
 </ul>
 </html>", revisions="<html>

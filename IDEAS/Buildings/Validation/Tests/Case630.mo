@@ -40,5 +40,8 @@ Revised implementation using dedicated SimInfoManger for
 <a href=\"https://github.com/open-ideas/IDEAS/issues/838\">#838</a>.
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Buildings/Validation/Tests/Case630.mos"
+        "Simulate and plot"));
 end Case630;

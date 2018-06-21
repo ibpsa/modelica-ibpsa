@@ -101,6 +101,5 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StopTime=3600,
-      Tolerance=1e-06),
-    __Dymola_experimentSetupOutput(events=true));
+      Tolerance=1e-06));
 end ClosedLoop_y;
