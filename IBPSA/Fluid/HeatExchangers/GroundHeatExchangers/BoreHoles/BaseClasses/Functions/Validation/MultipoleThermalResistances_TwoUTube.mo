@@ -1,13 +1,13 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.Validation;
-model MultipoleThermalResistances_OneUTube
-  "Validation of the thermal resitances for a single U-tube borehole"
+model MultipoleThermalResistances_TwoUTube
+  "Validation of the thermal resitances for a double U-tube borehole"
   extends Modelica.Icons.Example;
 
-  parameter Integer nPip=2 "Number of pipes";
+  parameter Integer nPip=4 "Number of pipes";
   parameter Integer J=3 "Number of multipoles";
-  parameter Modelica.SIunits.Position[nPip] xPip={0.03, -0.03}
+  parameter Modelica.SIunits.Position[nPip] xPip={0.03, -0.03, -0.03, 0.03}
     "x-Coordinates of pipes";
-  parameter Modelica.SIunits.Position[nPip] yPip={0.00, 0.02}
+  parameter Modelica.SIunits.Position[nPip] yPip={0.03, 0.03, -0.03, -0.03}
     "y-Coordinates of pipes";
   parameter Modelica.SIunits.Radius rBor=0.07 "Borehole radius";
   parameter Modelica.SIunits.Radius[nPip] rPip=fill(0.02, nPip)
@@ -23,10 +23,16 @@ model MultipoleThermalResistances_OneUTube
     "Average borehole wall temperature";
 
   parameter Modelica.SIunits.ThermalInsulance[nPip,nPip] RDelta_Ref=
-    {{1/3.680, 1/0.242},{1/0.242, 1/3.724}}
+    {{1/3.61, 1/0.35, -1/0.25, 1/0.35},
+     {1/0.35, 1/3.61, 1/0.35, -1/0.25},
+     {-1/0.25, 1/0.35, 1/3.61, 1/0.35},
+     {1/0.35, -1/0.25, 1/0.35, 1/3.61}}
     "Reference delta-circuit thermal resistances";
   parameter Modelica.SIunits.ThermalInsulance[nPip,nPip] R_Ref=
-    {{0.25592, 0.01561},{0.01561, 0.25311}}
+    {{0.2509, 0.0192, -0.0122, 0.0192},
+     {0.0192, 0.2509, 0.0192, -0.0122},
+     {-0.0122, 0.0192, 0.2509, 0.0192},
+     {0.0192, -0.0122, 0.0192, 0.2509}}
     "Reference internal thermal resistances";
 
   Modelica.SIunits.ThermalInsulance[nPip,nPip] RDelta
@@ -40,7 +46,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Functions/Validation/MultipoleThermalResistances_OneUTube.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Functions/Validation/MultipoleThermalResistances_TwoUTube.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=1.0),
     Documentation(info="<html>
@@ -51,15 +57,15 @@ IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.
 for the evaluation of the borehole thermal resistances.
 </p>
 <p>
-The multipole method is used to evaluate thermal resistances for a single U-tube
-borehole with asymmetrically positionned pipes. Results are compared to
-reference values given in Claesson and Hellstr&ouml;m (2011).
+The multipole method is used to evaluate thermal resistances for a double U-tube
+borehole with symmetrically positionned pipes. Results are compared to
+reference values given in Claesson (2012).
 </p>
 <h4>References</h4>
 <p>
-Claesson, J., &amp; Hellstr&ouml;m, G. (2011). Multipole method to calculate
-borehole thermal resistances in a borehole heat exchanger. <i>HVAC&amp;R
-Research, 17</i>(6), 895-911.
+Claesson, J. (2012). Multipole method to calculate borehole thermal resistances.
+Mathematical report. Department of Building Physics, Lund University, Box 118,
+SE-221 00 Lund, Sweden. 128 pages.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -69,4 +75,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end MultipoleThermalResistances_OneUTube;
+end MultipoleThermalResistances_TwoUTube;
