@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
 function nextTimeStep
-  "Performs the shifting operation for load aggregation"
+  "Performs the shifting operation for load aggregation and determines the current cell"
   extends Modelica.Icons.Function;
 
   input Integer i "Number of aggregation cells";
@@ -28,12 +28,12 @@ algorithm
   annotation (Documentation(info="<html>
 <p>Performs the shifting operation which propagates the thermal load history
 towards the more distant aggregation cells, and then sets the current cell's
-value at 0.
+value at 0. Additionally, this function also outputs the current load aggregation cell.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 5, 2018, by Alex Laferriere:<br/>
+March 5, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.
 </li>
 </ul>

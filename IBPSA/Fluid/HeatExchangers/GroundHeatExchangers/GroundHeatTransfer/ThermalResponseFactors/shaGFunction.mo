@@ -3,15 +3,14 @@ function shaGFunction
   "Returns a SHA1 encryption of the formatted arguments for the g-function generation"
   extends Modelica.Icons.Function;
   input Integer nbBor "Number of boreholes";
-  input Real cooBor[nbBor, 2] "Coordinates of boreholes";
-  input Real hBor "Borehole length";
-  input Real dBor "Borehole buried depth";
-  input Real rBor "Borehole radius";
-  input Real alpha "Ground thermal diffusivity used in g-function evaluation";
+  input Modelica.SIunits.Position cooBor[nbBor, 2] "Coordinates of boreholes";
+  input Modelica.SIunits.Height hBor "Borehole length";
+  input Modelica.SIunits.Height dBor "Borehole buried depth";
+  input Modelica.SIunits.Radius rBor "Borehole radius";
+  input Modelica.SIunits.ThermalDiffusivity alpha "Ground thermal diffusivity used in g-function evaluation";
   input Integer nbSeg "Number of line source segments per borehole";
   input Integer nbTimSho "Number of time steps in short time region";
   input Integer nbTimLon "Number of time steps in long time region";
-  input Real relTol "Relative tolerance on distance between boreholes";
   input Real ttsMax "Maximum adimensional time for gfunc calculation";
 
   output String sha
@@ -34,8 +33,31 @@ algorithm
   shaStr := shaStr + String(nbSeg, format=formatStr);
   shaStr := shaStr + String(nbTimSho, format=formatStr);
   shaStr := shaStr + String(nbTimLon, format=formatStr);
-  shaStr := shaStr + String(relTol, format=formatStr);
   shaStr := shaStr + String(ttsMax, format=formatStr);
 
   sha := IBPSA.Utilities.Cryptographics.sha(shaStr);
+
+annotation (
+Documentation(info="<html>
+<p>
+This function concatenates the various arguments required to generate the borefield's
+thermal response into a single input string. Each argument is formatted in exponential notation
+with four significant digits, for example &quot;1.234e+001&quot;, with no spaces or
+other separating characters between each argument value. Because a borefield has a variable
+number of boreholes, and because the (x,y) coordinates of each borehole are taken into
+account, the total length of this input string is variable.
+</p>
+<p>
+Once the input string has been put together, the SHA1 encryption of this string
+is outputted using
+<a href=\"modelica://IBPSA.Utilities.Cryptographics.sha\">IBPSA.Utilities.Cryptographics.sha</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 22, 2018 by Alex Laferri&egrave;re:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end shaGFunction;

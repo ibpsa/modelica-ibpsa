@@ -39,7 +39,7 @@ length (the <code>lenAggSte</code> parameter).
 </html>", revisions="<html>
 <ul>
 <li>
-March 5, 2018, by Alex Laferriere:<br/>
+March 5, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.
 </li>
 </ul>

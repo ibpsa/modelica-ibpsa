@@ -81,7 +81,7 @@ equation
   connect(sine.y, preHeaFlo.Q_flow) annotation (Line(points={{-71,0},{-60,0},{
           -60,60},{-50,60}},
                          color={0,0,127}));
-  connect(preHeaFlo1.port, groTemRes.Tb)
+  connect(preHeaFlo1.port, groTemRes.borWall)
     annotation (Line(points={{-30,-60},{-12,-60}}, color={191,0,0}));
   connect(groTem.y, groTemRes.Tg) annotation (Line(points={{67,0},{60,0},{60,
           -60},{10,-60}},
@@ -96,8 +96,8 @@ equation
     annotation (Line(points={{10,20},{20,20},{20,6},{28,6}}, color={0,0,127}));
   connect(soi.port_a, temSen.port) annotation (Line(points={{-12,60},{-20,60},{
           -20,20},{-10,20}}, color={191,0,0}));
-  connect(temSen1.port, groTemRes.Tb) annotation (Line(points={{-10,-20},{-20,
-          -20},{-20,-60},{-12,-60}}, color={191,0,0}));
+  connect(temSen1.port, groTemRes.borWall) annotation (Line(points={{-10,-20},
+          {-20,-20},{-20,-60},{-12,-60}}, color={191,0,0}));
 
   annotation (
     __Dymola_Commands(file=
@@ -118,7 +118,7 @@ exchanger. The temperature at the borehole wall evaluated with
 IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>
 is compared to the temperature obtained with
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse_1Week</a>
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer</a>
 </p>
 </html>", revisions="<html>
 <ul>

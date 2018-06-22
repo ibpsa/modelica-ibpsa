@@ -17,7 +17,7 @@ annotation (
 Documentation(info="<html>
 <p>
 Integrand of the cylindrical heat source solution for use in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.cylindricalHeatSource\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.cylindricalHeatSource</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource</a>.
 </p>
 </html>", revisions="<html>
 <ul>

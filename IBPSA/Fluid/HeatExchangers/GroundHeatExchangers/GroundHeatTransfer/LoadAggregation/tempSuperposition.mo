@@ -1,12 +1,12 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
-function tempSuperposition "Performs temporal superposition"
+function tempSuperposition "Performs temporal superposition for the load aggregation procedure"
   extends Modelica.Icons.Function;
 
   input Integer i "Number of aggregation cells";
   input Modelica.SIunits.HeatFlowRate Q_i[i]
-    "Shifted Q_bar vector of size i";
+    "Shifted Q_bar vector";
   input Modelica.SIunits.Temperature kappa[i]
-    "Weight factor for each aggregation cell";
+    "Weighting factors for each aggregation cell";
   input Integer curCel "Current occupied aggregation cell";
 
   output Modelica.SIunits.TemperatureDifference deltaTb "Delta T at wall";
@@ -25,7 +25,7 @@ is used to trunkate the values from the vectors which are not required.
 </html>", revisions="<html>
 <ul>
 <li>
-March 5, 2018, by Alex Laferriere:<br/>
+March 5, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.
 </li>
 </ul>

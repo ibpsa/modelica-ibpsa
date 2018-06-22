@@ -65,10 +65,10 @@ model GroundTemperatureResponse_20Years
     "Cosntant ground temperature"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
-  connect(preHeaFlo.port, groTemRes.Tb)
+  connect(preHeaFlo.port, groTemRes.borWall)
     annotation (Line(points={{20,10},{0,10}}, color={191,0,0}));
-  connect(temSen.port, groTemRes.Tb) annotation (Line(points={{20,-30},{10,-30},
-          {10,10},{0,10}}, color={191,0,0}));
+  connect(temSen.port, groTemRes.borWall) annotation (Line(points={{20,-30},{10,
+          -30},{10,10},{0,10}}, color={191,0,0}));
   connect(temSen.T, add.u2)
     annotation (Line(points={{40,-30},{44,-30},{44,-58}}, color={0,0,127}));
   connect(timTabQ.y[1], preHeaFlo.Q_flow)
@@ -92,8 +92,8 @@ the resulting borehole wall temperature and the same temperature precalculated
 by using a fast Fourier transform is calculated with the <code>add</code>
 component. The fast Fourier transform calculation was done using the same
 g-function as was calculated by
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.gFunction\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.ThermalResponseFactors.gFunction</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction</a>.
 </p>
 <h4>References</h4>
 <p>

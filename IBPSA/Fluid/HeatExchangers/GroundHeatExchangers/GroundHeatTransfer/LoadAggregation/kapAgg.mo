@@ -7,7 +7,7 @@ function kapAgg "Calculates the kappa vector for load aggregation"
   input Real TStep[nrow+1,2] "Time matrix with TStep";
   input Modelica.SIunits.Time nu[i] "Aggregation time vector nu";
 
-  output Real kappa[i] "Vector kappa of size i";
+  output Real kappa[i] "Weighting factors vector";
 
 protected
   Real prevT, curT;
