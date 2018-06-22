@@ -17,7 +17,7 @@ model GroundTemperatureResponse_1Week
     final nSta=50)                             "Heat conduction in the soil"
     annotation (Placement(transformation(extent={{-12,50},{8,70}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
-    "Prescribed heat flow to soil"
+    "Prescribed heat flow to soil for the discretized model"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
   parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
@@ -46,28 +46,29 @@ model GroundTemperatureResponse_1Week
     amplitude=1e8) "Heat flow signal"
     annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo1
-    "Prescribed heat flow to soil"
+    "Prescribed heat flow to soil for the analytical model"
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
   GroundHeatTransfer.GroundTemperatureResponse groTemRes(
     borFieDat=borFieDat,
     p_max=5,
     tLoaAgg=30)          "Heat conduction in the soil"
     annotation (Placement(transformation(extent={{8,-70},{-12,-50}})));
-  Modelica.Blocks.Sources.Constant groTem(k=283.15) "Ground temperature"
+  Modelica.Blocks.Sources.Constant groTem(k=283.15) "Ground temperature signal"
     annotation (Placement(transformation(extent={{88,-10},{68,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
-    "Ground temperature"
+    "Ground temperature for discretized model"
     annotation (Placement(transformation(extent={{48,50},{28,70}})));
   Modelica.Blocks.Math.Add deltaT(k2=-1)
     "Temperature difference between borehole with discrete ground and borehole with analytical ground"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
-    "Borehole wall temperature sensor" annotation (Placement(transformation(
+    "Borehole wall temperature sensor for the discretized model"
+                                       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,20})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen1
-    "Borehole wall temperature sensor"
+    "Borehole wall temperature sensor for the analytical model"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 equation
   connect(preHeaFlo.port, soi.port_a) annotation (Line(
