@@ -28,8 +28,8 @@ void* fileWriterInit(
   const char* fileName,
   const int numColumns,
   const int isCombiTimeTable){
-  FILE *f = fopen(fileName, "w");
-  fclose(f);
+  /* FILE *f = fopen(fileName, "w"); */
+  /* fclose(f); */
   ModelicaFormatMessage("Instantiation for %s in %s\n", fileName, instanceName);
 
   if ( FileWriterNames_n == 0 ){
@@ -61,7 +61,7 @@ void* fileWriterInit(
   ID = (FileWriter*)malloc(sizeof(*ID));
   if ( ID == NULL )
     ModelicaFormatError("Not enough memory in fileWriterInit.c for allocating ID of FileWriter %s.", instanceName);
-  
+
   ID->fileWriterName = malloc((strlen(fileName)+1) * sizeof(char));
   if ( ID->fileWriterName == NULL )
     ModelicaFormatError("Not enough memory in fileWriterInit.c for allocating ID->fileWriterName in FileWriter %s.", instanceName);
@@ -70,7 +70,7 @@ void* fileWriterInit(
   ID->instanceName = malloc((strlen(instanceName)+1) * sizeof(char));
   if ( ID->instanceName == NULL )
     ModelicaFormatError("Not enough memory in fileWriterInit.c for allocating ID->instanceName in FileWriter %s.", instanceName);
-  strcpy(ID->instanceName, instanceName);  
+  strcpy(ID->instanceName, instanceName);
 
   if (numColumns<0)
     ModelicaFormatError("In fileWriterInit.c: The number of columns that are written by the FileWriter %s cannot be negative", instanceName);
@@ -79,8 +79,6 @@ void* fileWriterInit(
   if (isCombiTimeTable<0 || isCombiTimeTable >1)
     ModelicaFormatError("In fileWriterInit.c: the initialisation flag 'isCombiTimeTable' of FileWriter %s must equal 0 or 1 but it equals %i.", instanceName, isCombiTimeTable);
   ID->isCombiTimeTable=isCombiTimeTable;
-
-
 
   return (void*) ID;
 }
