@@ -20,12 +20,18 @@ model FileWriter "Partial model for writing results to a .csv file"
      annotation (Placement(transformation(extent={{-130,20},{-90,-20}})));
 
 protected
-  parameter Boolean isCombiTimeTable = false "=true, if CombiTimeTable header should be prepended upon destruction";
+  parameter Boolean isCombiTimeTable = false
+    "=true, if CombiTimeTable header should be prepended upon destruction"
+    annotation(Evaluate=true);
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
   parameter String insNam = getInstanceName() "Instance name";
   IBPSA.Utilities.IO.Reports.BaseClasses.FileWriterObject filWri=
-      IBPSA.Utilities.IO.Reports.BaseClasses.FileWriterObject(insNam, fileName,nin,if isCombiTimeTable then 1 else 0)
+      IBPSA.Utilities.IO.Reports.BaseClasses.FileWriterObject(
+        insNam,
+        fileName,
+        nin,
+        isCombiTimeTable)
     "File writer object";
 
   discrete String str "Intermediate variable for constructing a single line";

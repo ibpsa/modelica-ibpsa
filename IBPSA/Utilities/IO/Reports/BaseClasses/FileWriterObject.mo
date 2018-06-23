@@ -8,7 +8,7 @@ extends ExternalObject;
       input String instanceName "Instance name of the file write";
       input String fileName "Name of the file, including extension";
       input Integer numColumns "Number of columns that are written to file";
-      input Integer isCombiTimeTable "Flag to indicate whether combiTimeTable header should be prepended upon destruction";
+      input Boolean isCombiTimeTable "Flag to indicate whether combiTimeTable header should be prepended upon destruction";
       output FileWriterObject fileWriter "Pointer to the file writer";
       external"C" fileWriter = fileWriterInit(instanceName, fileName, numColumns, isCombiTimeTable)
         annotation (
