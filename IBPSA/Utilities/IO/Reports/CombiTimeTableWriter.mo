@@ -23,6 +23,7 @@ initial algorithm
   str :=str + headerNames[nin];
   Modelica.Utilities.Streams.print(str, fileName);
 
+equation
   // now that the file has been written completely, prepend the header
   // that is required for reading the csv file using combiTimeTables
   when terminal() then
