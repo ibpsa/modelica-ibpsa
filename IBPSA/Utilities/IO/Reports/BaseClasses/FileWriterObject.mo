@@ -32,7 +32,7 @@ c
     input FileWriterObject fileWriter "Pointer to file writer object";
     external "C" fileWriterFree(fileWriter)
     annotation(Include=" #include <fileWriterFree.c>",
-    IncludeDirectory="modelica://Buildings/Resources/C-Sources");
+    IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
   annotation(Documentation(info="<html>
 <p>
 Destructor that frees the memory of the object
