@@ -8,11 +8,10 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
   parameter Boolean useDefaultProperties=true
     "Set to false to use density and viscosity based on actual medium state, rather than using default values"
-    annotation (Evaluate=true);
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.SIunits.PressureDifference dp_turbulent(min=0, displayUnit="Pa") = 0.1
-    "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1";
-  parameter Modelica.SIunits.Length lWet
-    "Wetted perimeter used for Reynolds number calculation";
+    "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1"
+    annotation(Dialog(tab="Advanced"));
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -21,7 +20,6 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
     "Volume flow rate through the component";
   Modelica.SIunits.Velocity v(nominal=1) "Average velocity";
   Modelica.SIunits.Density rho "Fluid density at port_a";
-  Real Re "Reynolds number";
 
 protected
   constant Real gamma(min=1) = 1.5
@@ -93,7 +91,6 @@ equation
     dp_turbulent=dp_turbulent);
 
   port_a.m_flow = rho*V_flow;
-  Re = v*lWet*rho/dynVis;
 
   // Isenthalpic state transformation (no storage and no loss of energy)
   port_a.h_outflow = inStream(port_b.h_outflow);
@@ -130,16 +127,18 @@ The model is used as a base for the interzonal air flow models.
 revisions="<html>
 <ul>
 <li>
-June 18, 2018, by Michael Wetter:<br/>
+June 24, 2018, by Michael Wetter:<br/>
 Removed parameter <code>A</code> because
 <a href=\"modelica://IBPSA.Airflow.Multizone.EffectiveAirLeakageArea\">
 IBPSA.Airflow.Multizone.EffectiveAirLeakageArea</a>
 uses the effective leakage area <code>L</code> rather than <code>A</code>.<br/>
 Removed calculation <code>v=V_flow/A</code> as parameter <code>A</code> has been removed.<br/>
+Removed parameter <code>lWet</code> as this is only used to compute
+the Reynolds number, and the Reynolds number is not used by this model.
+Also removed the variable <code>Re</code> for the Reynolds number.<br/>
 This change is non-backward compatible.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
-
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>

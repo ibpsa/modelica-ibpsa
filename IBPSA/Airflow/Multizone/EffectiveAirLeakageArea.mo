@@ -2,8 +2,7 @@ within IBPSA.Airflow.Multizone;
 model EffectiveAirLeakageArea "Effective air leakage area"
   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance(
     m=0.65,
-    final k=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m),
-    lWet=sqrt(L));
+    final k=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m));
 
   parameter Modelica.SIunits.PressureDifference dpRat(
     min=0,
@@ -108,10 +107,6 @@ Dols and Walton (2002) recommend to use for the flow exponent
 <i>m=0.6</i> to <i>m=0.7</i> if the flow exponent is not
 reported with the test results.
 </p>
-<p>
-Note: The parameter <code>CD</code> does not affect this model, and it will
-be removed in future releases.
-</p>
 <h4>References</h4>
 <ul>
 <li>
@@ -134,8 +129,12 @@ November, 2002.
 revisions="<html>
 <ul>
 <li>
-June 15, 2018, by Michael Wetter:<br/>
-Changed base class to remove the parameters <code>A</code> and <code>CD</code> which are not used by this model.
+June 24, 2018, by Michael Wetter:<br/>
+Removed parameter <code>lWet</code> as it is only used to compute
+the Reynolds number, and the Reynolds number is not used by this model.
+Also removed the variable <code>Re</code> for the Reynolds number.<br/>
+Changed base class to remove the parameters <code>A</code> and <code>CD</code>
+which are not used by this model.<br/>
 This change is non-backward compatible.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
