@@ -1,11 +1,12 @@
-/* Function that frees the memory for the CSV writer.
+/* Function that frees the memory for the FileWriter.
  *
  * Michael Wetter, LBNL                     2018-05-12
  */
-#include "FileWriterStructure.h"
+#include "fileWriterStructure.h"
 #include <stdlib.h>
 
 void fileWriterFree(void* ptrFileWriter){
+  FileWriter *ID = (FileWriter*)ptrFileWriter;
   if ( FileWriterNames_n > 0 ){
     FileWriterNames_n--;
     free(FileWriterNames[FileWriterNames_n]);
@@ -13,5 +14,8 @@ void fileWriterFree(void* ptrFileWriter){
       free(FileWriterNames);
     }
   }
+  free(ID->fileWriterName);
+  free(ID->instanceName);
+  free(ID);
   return;
 }
