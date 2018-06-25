@@ -5,7 +5,6 @@ extends Modelica.Icons.Example;
   IBPSA.Fluid.Interfaces.ConservationEquation dyn(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    prescribedHeatFlowRate=true,
     nPorts=2,
     fluidVolume=0.01,
     use_mWat_flow=true) "Dynamic conservation equation"
