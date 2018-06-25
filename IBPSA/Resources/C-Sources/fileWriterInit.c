@@ -80,5 +80,9 @@ void* fileWriterInit(
     ModelicaFormatError("In fileWriterInit.c: the initialisation flag 'isCombiTimeTable' of FileWriter %s must equal 0 or 1 but it equals %i.", instanceName, isCombiTimeTable);
   ID->isCombiTimeTable=isCombiTimeTable;
 
+  FILE *fp = fopen(fileName, "w");
+  if (fp == NULL)
+    ModelicaFormatError("In fileWriterInit.c: failed to create empty .csv file %s during initialisation.", fileName);
+
   return (void*) ID;
 }
