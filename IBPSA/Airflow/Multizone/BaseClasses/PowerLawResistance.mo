@@ -1,6 +1,7 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
 partial model PowerLawResistance "Flow resistance that uses the power law"
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
+    final allowFlowReversal=true,
     final m_flow_nominal=rho_default*k*dp_turbulent);
   extends IBPSA.Airflow.Multizone.BaseClasses.ErrorControl;
 
@@ -139,6 +140,11 @@ Also removed the variable <code>Re</code> for the Reynolds number.<br/>
 This change is non-backward compatible.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
+</li>
+<li>
+May 1, 2018, by Filip Jorissen:<br/>
+Set <code>final allowFlowReversal=true</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">#877</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
