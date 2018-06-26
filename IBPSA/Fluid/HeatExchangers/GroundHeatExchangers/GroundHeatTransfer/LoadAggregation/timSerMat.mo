@@ -11,7 +11,7 @@ function timSerMat "Reads and possibly writes a matrix with a time series
     "Thermal diffusivity of soil";
   input Modelica.SIunits.ThermalConductivity ks
     "Thermal conductivity of soil";
-  input Integer nrow "Number of g-function points";
+  input Integer nbTimTot "Number of g-function points";
   input String sha "Pseudo-SHA of the g-function arguments";
   input Boolean forceGFunCalc
     "Set to true to force the thermal response to be calculated at the start";
@@ -19,13 +19,13 @@ function timSerMat "Reads and possibly writes a matrix with a time series
   input Integer nbTimLon "Number of time steps in long time region";
   input Real ttsMax "Maximum adimensional time for gfunc calculation";
 
-  output Real matrix[nrow+1, 2] "2D Real array with 2 columns";
+  output Real matrix[nbTimTot+1, 2] "2D Real array with 2 columns";
 
 protected
   Modelica.SIunits.Time ts;
   String pathSave "Path of the saving folder";
-  Real[nrow] gFun;
-  Real[nrow] lntts;
+  Real[nbTimTot] gFun;
+  Real[nbTimTot] lntts;
   Boolean writegFun = false;
 
 algorithm
@@ -50,7 +50,7 @@ algorithm
 
     matrix[1,1] := 0;
     matrix[1,2] := 0;
-    for i in 1:nrow loop
+    for i in 1:nbTimTot loop
       matrix[i+1,1] := Modelica.Math.exp(lntts[i])*ts;
       matrix[i+1,2] := gFun[i]/(2*Modelica.Constants.pi*hBor*ks);
     end for;
@@ -65,7 +65,7 @@ algorithm
   matrix := readMatrix(
     fileName=pathSave,
     matrixName="TStep",
-    rows=nrow+1,
+    rows=nbTimTot+1,
     columns=2);
 
   annotation (Documentation(info="<html>

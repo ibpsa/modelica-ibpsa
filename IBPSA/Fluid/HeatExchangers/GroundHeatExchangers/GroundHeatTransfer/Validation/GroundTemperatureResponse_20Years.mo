@@ -75,7 +75,7 @@ equation
     annotation (Line(points={{59,10},{40,10}}, color={0,0,127}));
   connect(timTabT.y[1], add.u1)
     annotation (Line(points={{59,-30},{56,-30},{56,-58}}, color={0,0,127}));
-  connect(groTemRes.Tg, const.y)
+  connect(groTemRes.TSoi, const.y)
     annotation (Line(points={{-22,10},{-39,10}}, color={0,0,127}));
 
   annotation (experiment(StopTime=630720000),

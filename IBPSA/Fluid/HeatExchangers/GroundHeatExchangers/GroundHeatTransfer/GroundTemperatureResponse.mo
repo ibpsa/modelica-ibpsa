@@ -11,7 +11,7 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
      choicesAllMatching=true, Placement(transformation(extent={{-100,-100},{-80,
             -80}})));
 
-  Modelica.Blocks.Interfaces.RealInput Tg
+  Modelica.Blocks.Interfaces.RealInput TSoi
     "Temperature input for undisturbed ground conditions"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a borWall
@@ -23,7 +23,7 @@ protected
   parameter Integer nbTimSho = 26 "Number of time steps in short time region";
   parameter Integer nbTimLon = 50 "Number of time steps in long time region";
   parameter Real ttsMax = exp(5) "Maximum adimensional time for gfunc calculation";
-  parameter String SHAgfun=ThermalResponseFactors.shaGFunction(
+  parameter String SHAgfun=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.shaGFunction(
       nbBor=borFieDat.conDat.nbBh,
       cooBor=borFieDat.conDat.cooBh,
       hBor=borFieDat.conDat.hBor,
@@ -34,17 +34,17 @@ protected
       nbTimSho=nbTimSho,
       nbTimLon=nbTimLon,
       ttsMax=ttsMax) "String with encrypted g-function arguments";
-  parameter Integer nrow = nbTimSho+nbTimLon-1
-    "Length of g-function matrix";
+  parameter Integer nbTimTot = nbTimSho+nbTimLon-1
+    "Total length of g-function vector";
   parameter Real lvlBas = 2 "Base for exponential cell growth between levels";
   parameter Modelica.SIunits.Time timFin=
     (borFieDat.conDat.hBor^2/(9*borFieDat.soiDat.alp))*ttsMax;
-  parameter Integer i=LoadAggregation.countAggPts(
+  parameter Integer i=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.countAggPts(
       lvlBas=lvlBas,
       p_max=p_max,
       timFin=timFin,
-      lenAggSte=tLoaAgg) "Number of aggregation points";
-  parameter Real timSer[nrow + 1,2]=LoadAggregation.timSerMat(
+      tLoaAgg=tLoaAgg) "Number of aggregation points";
+  parameter Real timSer[nbTimTot + 1,2]=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.timSerMat(
       nbBor=borFieDat.conDat.nbBh,
       cooBor=borFieDat.conDat.cooBh,
       hBor=borFieDat.conDat.hBor,
@@ -52,94 +52,100 @@ protected
       rBor=borFieDat.conDat.rBor,
       as=borFieDat.soiDat.alp,
       ks=borFieDat.soiDat.k,
-      nrow=nrow,
+      nbTimTot=nbTimTot,
       sha=SHAgfun,
       forceGFunCalc=forceGFunCalc,
       nbTimSho=nbTimSho,
       nbTimLon=nbTimLon,
       ttsMax=ttsMax)
     "g-function input from mat, with the second column as temperature Tstep";
-  final parameter Modelica.SIunits.Time t0(fixed=false) "Simulation start time";
+  final parameter Modelica.SIunits.Time t_start(fixed=false) "Simulation start time";
   final parameter Modelica.SIunits.Time[i] nu(fixed=false)
     "Time vector for load aggregation";
   final parameter Real[i] kappa(fixed=false)
     "Weight factor for each aggregation cell";
   final parameter Real[i] rCel(fixed=false) "Cell widths";
-  discrete Modelica.SIunits.HeatFlowRate[i] Q_i "Q_bar vector of size i";
-  discrete Modelica.SIunits.HeatFlowRate[i] Q_shift
-    "Shifted Q_bar vector of size i";
+  discrete Modelica.SIunits.HeatFlowRate[i] QAgg_flow
+    "Vector of aggregated loads";
+  discrete Modelica.SIunits.HeatFlowRate[i] QAggShi_flow
+    "Shifted vector of aggregated loads";
   discrete Integer curCel "Current occupied cell";
-  Modelica.SIunits.TemperatureDifference deltaTb "Tb-Tg";
-  discrete Real delTbs "Wall temperature change from previous time steps";
-  discrete Real derDelTbs
+  Modelica.SIunits.TemperatureDifference delTBor "Tb-TSoi";
+  discrete Real delTBor0 "Wall temperature change from previous time steps";
+  discrete Real derDelTBor0
     "Derivative of wall temperature change from previous time steps";
-  discrete Real delTbOld "Tb-Tg at previous time step";
+  discrete Real delTBor_old "Tb-TSoi at previous time step";
   final parameter Real dhdt(fixed=false)
     "Time derivative of g/(2*pi*H*ks) within most recent cell";
-  Modelica.SIunits.HeatFlowRate QTot=borWall.Q_flow*borFieDat.conDat.nbBh
+  Modelica.SIunits.HeatFlowRate QBor_flow=borWall.Q_flow*borFieDat.conDat.nbBh
     "Totat heat flow from all boreholes";
   Modelica.SIunits.Heat U "Accumulated heat flow from all boreholes";
-  discrete Modelica.SIunits.Heat UOld "Accumulated heat flow from all boreholes at last aggregation step";
+  discrete Modelica.SIunits.Heat U_old "Accumulated heat flow from all boreholes at last aggregation step";
 
 initial equation
-  Q_i = zeros(i);
+  QAgg_flow = zeros(i);
   curCel = 1;
-  deltaTb = 0;
-  Q_shift = Q_i;
-  delTbs = 0;
+  delTBor = 0;
+  QAggShi_flow = QAgg_flow;
+  delTBor0 = 0;
   U = 0;
-  UOld = 0;
-  delTbOld = 0;
-  derDelTbs = 0;
+  U_old = 0;
+  delTBor_old = 0;
+  derDelTBor0 = 0;
 
-  (nu,rCel) = LoadAggregation.timAgg(
+  (nu,rCel) = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.timAgg(
     i=i,
     lvlBas=lvlBas,
     p_max=p_max,
-    lenAggSte=tLoaAgg,
+    tLoaAgg=tLoaAgg,
     timFin=timFin);
 
-  t0 = time;
+  t_start = time;
 
-  kappa = LoadAggregation.kapAgg(
+  kappa = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.kapAgg(
     i=i,
-    nrow=nrow,
+    nbTimTot=nbTimTot,
     TStep=timSer,
     nu=nu);
 
   dhdt = kappa[1]/tLoaAgg;
 
 equation
-  der(deltaTb) = dhdt*QTot + derDelTbs;
-  deltaTb =borWall.T - Tg;
-  der(U) = QTot;
+  der(delTBor) = dhdt*QBor_flow + derDelTBor0;
+  delTBor = borWall.T - TSoi;
+  der(U) = QBor_flow;
 
-  when (sample(t0, tLoaAgg)) then
-    (curCel,Q_shift) = LoadAggregation.nextTimeStep(
+  when (sample(t_start, tLoaAgg)) then
+    // Shift loads in aggregation cells
+    (curCel,QAggShi_flow) = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.nextTimeStep(
       i=i,
-      Q_i=Q_i,
+      QAgg_flow=QAgg_flow,
       rCel=rCel,
       nu=nu,
-      curTim=(time - t0));
+      curTim=(time - t_start));
 
-    UOld = U;
-    Q_i = LoadAggregation.setCurLoa(
+    // Assign average load since last aggregation step to the first cell of the
+    // aggregation vector
+    U_old = U;
+    QAgg_flow = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.setCurLoa(
       i=i,
-      Qb=(U-pre(UOld))/tLoaAgg,
-      Q_shift=pre(Q_shift));
+      QBor_flow=(U-pre(U_old))/tLoaAgg,
+      QAggShi_flow=pre(QAggShi_flow));
 
-    delTbs = LoadAggregation.tempSuperposition(
+    // Determine the temperature change at the next aggregation step (assuming
+    // no loads until then)
+    delTBor0 = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.tempSuperposition(
       i=i,
-      Q_i=Q_shift,
+      QAgg_flow=QAggShi_flow,
       kappa=kappa,
       curCel=curCel);
 
-    delTbOld =borWall.T - Tg;
+    delTBor_old = borWall.T - TSoi;
 
-    derDelTbs = (delTbs-delTbOld)/tLoaAgg;
+    derDelTBor0 = (delTBor0-delTBor_old)/tLoaAgg;
   end when;
 
-  assert((time - t0) <= timFin,
+  assert((time - t_start) <= timFin,
     "The borefield's calculated thermal response does
     not cover the entire simulation length.");
 
@@ -203,7 +209,7 @@ which follows an exponential growth as shown in the equation below.
 where <i>p<sub>max</sub></i> is the number of consecutive cells which can have the same size.
 Decreasing its value will generally decrease calculation times, at the cost of some
 precision in the temporal superposition. <code>rcel</code> is thus expressed in multiples
-of whatever aggregation step time is used (via the parameter <code>lenAggSte</code>).
+of whatever aggregation step time is used (via the parameter <code>tLoaAgg</code>).
 Then, <code>nu</code> may be expressed as the sum of all <code>rcel</code> values
 (multiplied by the aggregation step time) up to and including that cell in question.
 </p>
@@ -237,8 +243,9 @@ energy is conserved. This operation is illustred in the figure below by Cimmino 
 <p>
 When performing the shifting operation, the first cell (which
 is always the most recent in the simulation) is set to zero. After the shifting, its
-value is set with the current load value. Finally, temporal superposition is applied by means
-of a scalar product between the aggregated thermal loads <code>Q_i</code> and the
+value is set with the average thermal load since the last aggregation step.
+Finally, temporal superposition is applied by means
+of a scalar product between the aggregated thermal loads <code>QAgg_flow</code> and the
 weighting factors <i>&kappa;</i>. 
 </p>
 <p>
@@ -253,7 +260,7 @@ This is shown in the following equation.
 </p>
 <p>
 where <i>T<sub>b</sub></i> is the borehole wall temperature, <i>T<sub>g</sub></i>
-is the undisturbed ground temperature equal to the <code>Tg</code> input in this model, 
+is the undisturbed ground temperature equal to the <code>TSoi</code> input in this model, 
 <i>Q</i> is the ground thermal load per borehole length and <i>h = g/(2*&pi;*k<sub>s</sub>)</i>
 is a temperature response factor based on the g-function. <i>t<sub>k</sub></i>
 is the last discrete aggregation time step, meaning that the current time <i>t</i> is

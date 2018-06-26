@@ -3,16 +3,16 @@ function setCurLoa "Sets the load for the current time step"
   extends Modelica.Icons.Function;
 
   input Integer i "Size of vector";
-  input Real Qb "Load at current time step";
-  input Modelica.SIunits.HeatFlowRate Q_shift[i]
-    "Shifted Q_bar vector without current load";
+  input Real QBor_flow "Averaged load over last aggregation step";
+  input Modelica.SIunits.HeatFlowRate QAggShi_flow[i]
+    "Shifted vector of aggregated loads from last aggregation step";
 
-  output Modelica.SIunits.HeatFlowRate Q_shift_cur[i]
-    "Shifted Q_bar vector with current load";
+  output Modelica.SIunits.HeatFlowRate QAgg_flow[i]
+    "Vector of aggregated loads";
 
 algorithm
-  Q_shift_cur := Q_shift;
-  Q_shift_cur[1] := Qb;
+  QAgg_flow := QAggShi_flow;
+  QAgg_flow[1] := QBor_flow;
 
   annotation (Documentation(info="<html>
 <p>After the cell shifting operation, this function sets the first aggregation

@@ -3,8 +3,8 @@ function tempSuperposition "Performs temporal superposition for the load aggrega
   extends Modelica.Icons.Function;
 
   input Integer i "Number of aggregation cells";
-  input Modelica.SIunits.HeatFlowRate Q_i[i]
-    "Shifted Q_bar vector";
+  input Modelica.SIunits.HeatFlowRate QAgg_flow[i]
+    "Vector of aggregated loads";
   input Modelica.SIunits.Temperature kappa[i]
     "Weighting factors for each aggregation cell";
   input Integer curCel "Current occupied aggregation cell";
@@ -12,7 +12,7 @@ function tempSuperposition "Performs temporal superposition for the load aggrega
   output Modelica.SIunits.TemperatureDifference deltaTb "Delta T at wall";
 
 algorithm
-  deltaTb := (Q_i[1:curCel]*kappa[1:curCel]);
+  deltaTb := (QAgg_flow[1:curCel]*kappa[1:curCel]);
 
   annotation (Documentation(info="<html>
 <p>

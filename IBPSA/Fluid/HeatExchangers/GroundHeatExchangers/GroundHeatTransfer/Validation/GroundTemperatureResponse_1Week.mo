@@ -83,7 +83,7 @@ equation
                          color={0,0,127}));
   connect(preHeaFlo1.port, groTemRes.borWall)
     annotation (Line(points={{-30,-60},{-12,-60}}, color={191,0,0}));
-  connect(groTem.y, groTemRes.Tg) annotation (Line(points={{67,0},{60,0},{60,
+  connect(groTem.y, groTemRes.TSoi) annotation (Line(points={{67,0},{60,0},{60,
           -60},{10,-60}},
                     color={0,0,127}));
   connect(preTem.port, soi.port_b)

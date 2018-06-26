@@ -112,12 +112,8 @@ equation
     annotation (Line(points={{14,-44},{22,-44},{30,-44}}, color={0,127,255}));
   connect(TBorAnaOut.port_b, sin.ports[2])
     annotation (Line(points={{50,-44},{70,-44},{70,-4}}, color={0,127,255}));
-  connect(groTemRes.Tb, therCol1.port_b)
-    annotation (Line(points={{-40,-80},{-35,-80},{-30,-80}}, color={191,0,0}));
   connect(therCol1.port_a, borHolAna.port_wall)
     annotation (Line(points={{-10,-80},{0,-80},{0,-58}}, color={191,0,0}));
-  connect(TGroUn.y, groTemRes.Tg) annotation (Line(points={{-80,79},{-80,79},{
-          -80,-80},{-72,-80},{-62,-80}}, color={0,0,127}));
   connect(preTem.T, TGroUn.y)
     annotation (Line(points={{-62,70},{-80,70},{-80,79}}, color={0,0,127}));
   connect(preTem.port, therCol.port_b)
@@ -128,6 +124,10 @@ equation
           44},{42,46},{58,46}}, color={0,0,127}));
   connect(TBorAnaOut.T, deltaT.u2) annotation (Line(points={{40,-33},{40,-33},{
           40,-28},{52,-28},{52,34},{58,34}}, color={0,0,127}));
+  connect(TGroUn.y, groTemRes.TSoi) annotation (Line(points={{-80,79},{-80,79},
+          {-80,-80},{-62,-80}}, color={0,0,127}));
+  connect(groTemRes.borWall, therCol1.port_b)
+    annotation (Line(points={{-40,-80},{-35,-80},{-30,-80}}, color={191,0,0}));
   annotation (
     __Dymola_Commands( file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/Examples/BoreholeOneUTube.mos"

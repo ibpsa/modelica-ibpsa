@@ -137,8 +137,8 @@ model BoreholeDynamics
         Medium, m_flow_nominal=borFie2UTubDat.conDat.m_flow_nominal_bh)
     "Inlet borehole temperature"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort TBor2UTubDyn(redeclare package Medium
-      = Medium, m_flow_nominal=borFie2UTubDat.conDat.m_flow_nominal_bh)
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBor2UTubDyn(redeclare package Medium =
+        Medium, m_flow_nominal=borFie2UTubDat.conDat.m_flow_nominal_bh)
     "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse
@@ -207,8 +207,6 @@ equation
     annotation (Line(points={{14,60},{14,60},{20,60}}, color={0,127,255}));
   connect(TBor1UTubDyn.port_b, sin.ports[1])
     annotation (Line(points={{40,60},{60,60}}, color={0,127,255}));
-  connect(TGroUn.y,groTemRes. Tg) annotation (Line(points={{-79,90},{-79,90},{-72,
-          90}},                          color={0,0,127}));
   connect(therCol1.port_a, borHolOneUTubDyn.port_wall)
     annotation (Line(points={{-26,90},{0,90},{0,74}}, color={191,0,0}));
   connect(sou1.ports[1], TBorIn1.port_a)
@@ -219,14 +217,8 @@ equation
     annotation (Line(points={{14,0},{14,0},{20,0}}, color={0,127,255}));
   connect(TBor1UTubSteSta.port_b, sin1.ports[1])
     annotation (Line(points={{40,0},{60,0}}, color={0,127,255}));
-  connect(groTemRes.Tb, therCol1.port_b)
-    annotation (Line(points={{-50,90},{-46,90},{-46,90}}, color={191,0,0}));
-  connect(groTemRes1.Tb, therCol2.port_b)
-    annotation (Line(points={{-50,30},{-46,30},{-46,30}}, color={191,0,0}));
   connect(therCol2.port_a, borHolOneUTubSteSta.port_wall)
     annotation (Line(points={{-26,30},{0,30},{0,14}}, color={191,0,0}));
-  connect(TGroUn.y, groTemRes1.Tg) annotation (Line(points={{-79,90},{-80,90},{-80,
-          30},{-72,30}}, color={0,0,127}));
   connect(sou2.ports[1], TBorIn2.port_a)
     annotation (Line(points={{-60,-60},{-40,-60}}, color={0,127,255}));
   connect(TBorIn2.port_b, borHol2UTubDyn.port_a)
@@ -235,8 +227,6 @@ equation
     annotation (Line(points={{14,-60},{14,-60},{20,-60}}, color={0,127,255}));
   connect(TBor2UTubDyn.port_b, sin2.ports[1])
     annotation (Line(points={{40,-60},{60,-60}}, color={0,127,255}));
-  connect(TGroUn.y, groTemRes2.Tg) annotation (Line(points={{-79,90},{-80,90},{-80,
-          88},{-80,60},{-80,30},{-80,-30},{-72,-30}}, color={0,0,127}));
   connect(therCol3.port_a, borHol2UTubDyn.port_wall)
     annotation (Line(points={{-26,-30},{0,-30},{0,-46}}, color={191,0,0}));
   connect(sou3.ports[1], TBorIn3.port_a)
@@ -247,14 +237,24 @@ equation
         points={{14,-120},{14,-120},{20,-120}}, color={0,127,255}));
   connect(TBor2UTubSteSta.port_b, sin3.ports[1])
     annotation (Line(points={{40,-120},{60,-120}}, color={0,127,255}));
-  connect(groTemRes2.Tb, therCol3.port_b)
-    annotation (Line(points={{-50,-30},{-46,-30}}, color={191,0,0}));
-  connect(groTemRes3.Tb, therCol4.port_b)
-    annotation (Line(points={{-50,-90},{-46,-90}}, color={191,0,0}));
   connect(therCol4.port_a, borHol2UTubSteSta.port_wall)
     annotation (Line(points={{-26,-90},{0,-90},{0,-106}}, color={191,0,0}));
-  connect(TGroUn.y, groTemRes3.Tg) annotation (Line(points={{-79,90},{-80,90},{-80,
-          -90},{-72,-90}}, color={0,0,127}));
+  connect(TGroUn.y, groTemRes.TSoi)
+    annotation (Line(points={{-79,90},{-75.5,90},{-72,90}}, color={0,0,127}));
+  connect(TGroUn.y, groTemRes1.TSoi) annotation (Line(points={{-79,90},{-80,90},
+          {-80,30},{-72,30}}, color={0,0,127}));
+  connect(TGroUn.y, groTemRes2.TSoi) annotation (Line(points={{-79,90},{-80,90},
+          {-80,-30},{-72,-30}}, color={0,0,127}));
+  connect(TGroUn.y, groTemRes3.TSoi) annotation (Line(points={{-79,90},{-80,90},
+          {-80,-90},{-72,-90}}, color={0,0,127}));
+  connect(groTemRes.borWall, therCol1.port_b)
+    annotation (Line(points={{-50,90},{-48,90},{-46,90}}, color={191,0,0}));
+  connect(groTemRes1.borWall, therCol2.port_b)
+    annotation (Line(points={{-50,30},{-48,30},{-46,30}}, color={191,0,0}));
+  connect(therCol3.port_b, groTemRes2.borWall)
+    annotation (Line(points={{-46,-30},{-48,-30},{-50,-30}}, color={191,0,0}));
+  connect(groTemRes3.borWall, therCol4.port_b)
+    annotation (Line(points={{-50,-90},{-48,-90},{-46,-90}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,100}})),
