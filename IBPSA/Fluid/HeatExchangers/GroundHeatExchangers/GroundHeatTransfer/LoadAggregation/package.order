@@ -1,7 +1,6 @@
 aggregationCellTimes
 aggregationWeightingFactors
 countAggregationCells
-maximumAggregationTime
 setFirstAggregationCell
 shiftAggregationCells
 temporalSuperposition
