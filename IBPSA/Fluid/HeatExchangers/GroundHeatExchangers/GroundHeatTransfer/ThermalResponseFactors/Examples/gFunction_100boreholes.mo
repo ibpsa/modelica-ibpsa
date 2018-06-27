@@ -9,6 +9,10 @@ model gFunction_100boreholes
   parameter Real dBor = 4 "Borehole buried depth";
   parameter Real rBor = 0.075 "Borehole radius";
   parameter Real alpha = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
+  parameter Integer nbSeg = 12 "Number of line source segments per borehole";
+  parameter Integer nbTimSho = 26 "Number of time steps in short time region";
+  parameter Integer nbTimLon = 50 "Number of time steps in long time region";
+  parameter Real ttsMax = exp(5) "Maximum adimensional time for gfunc calculation";
 
   Real gFun_int;
   Real lntts_int;
@@ -29,14 +33,11 @@ initial equation
   // Evaluate g-function for the specified bore field configuration
   (lntts,gFun) =
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction(
-    nbBor,
-    cooBor,
-    hBor,
-    dBor,
-    rBor);
-    t_gFun = ts*exp(lntts);
+      nbBor, cooBor, hBor, dBor, rBor, alpha, nbSeg, nbTimSho, nbTimLon, ttsMax);
+  t_gFun = ts*exp(lntts);
   // Initialize parameters for interpolation
-    dspline = IBPSA.Utilities.Math.Functions.splineDerivatives(cat(1, {0}, t_gFun), cat(1, {0}, gFun));
+  dspline = IBPSA.Utilities.Math.Functions.splineDerivatives(
+    cat(1, {0}, t_gFun), cat(1, {0}, gFun));
   k = 1;
   t1 = 0;
   t2 = t_gFun[1];
@@ -48,7 +49,8 @@ equation
   // Dimensionless logarithmic time
   lntts_int = log(IBPSA.Utilities.Math.Functions.smoothMax(time, 1e-6, 2e-6)/ts);
   // Interpolate g-function
-  gFun_int = IBPSA.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(time, t1, t2, gFun1, gFun2, dspline[pre(k)], dspline[pre(k)+1]);
+  gFun_int = IBPSA.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+    time, t1, t2, gFun1, gFun2, dspline[pre(k)], dspline[pre(k)+1]);
   // Update interpolation parameters, when needed
   when time >= pre(t2) then
     k = min(pre(k) + 1, nt);

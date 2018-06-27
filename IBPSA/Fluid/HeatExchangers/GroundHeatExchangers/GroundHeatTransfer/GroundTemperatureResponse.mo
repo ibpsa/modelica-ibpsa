@@ -52,12 +52,13 @@ protected
       rBor=borFieDat.conDat.rBor,
       as=borFieDat.soiDat.alp,
       ks=borFieDat.soiDat.k,
-      nbTimTot=nbTimTot,
-      sha=SHAgfun,
-      forceGFunCalc=forceGFunCalc,
+      nbSeg=nbSeg,
       nbTimSho=nbTimSho,
       nbTimLon=nbTimLon,
-      ttsMax=ttsMax)
+      nbTimTot=nbTimTot,
+      ttsMax=ttsMax,
+      sha=SHAgfun,
+      forceGFunCalc=forceGFunCalc)
     "g-function input from mat, with the second column as temperature Tstep";
   final parameter Modelica.SIunits.Time t_start(fixed=false) "Simulation start time";
   final parameter Modelica.SIunits.Time[i] nu(fixed=false)

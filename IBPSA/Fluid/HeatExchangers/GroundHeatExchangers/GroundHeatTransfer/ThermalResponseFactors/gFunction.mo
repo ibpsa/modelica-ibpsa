@@ -3,16 +3,16 @@ function gFunction "Evaluate the g-function of a bore field"
   extends Modelica.Icons.Function;
 
   input Integer nbBor "Number of boreholes";
-  input Modelica.SIunits.Position cooBor[nbBor, 2] = {{0, 0}} "Coordinates of boreholes";
+  input Modelica.SIunits.Position cooBor[nbBor, 2] "Coordinates of boreholes";
   input Modelica.SIunits.Height hBor "Borehole length";
   input Modelica.SIunits.Height dBor "Borehole buried depth";
   input Modelica.SIunits.Radius rBor "Borehole radius";
-  input Modelica.SIunits.ThermalDiffusivity alpha = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
-  input Integer nbSeg = 12 "Number of line source segments per borehole";
-  input Integer nbTimSho = 26 "Number of time steps in short time region";
-  input Integer nbTimLon = 50 "Number of time steps in long time region";
+  input Modelica.SIunits.ThermalDiffusivity alpha "Ground thermal diffusivity used in g-function evaluation";
+  input Integer nbSeg "Number of line source segments per borehole";
+  input Integer nbTimSho "Number of time steps in short time region";
+  input Integer nbTimLon "Number of time steps in long time region";
+  input Real ttsMax "Maximum adimensional time for gfunc calculation";
   input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
-  input Real ttsMax = exp(5) "Maximum adimensional time for gfunc calculation";
 
   output Real lntts[nbTimSho+nbTimLon-1] "Logarithmic dimensionless time";
   output Real g[nbTimSho+nbTimLon-1] "g-Function";

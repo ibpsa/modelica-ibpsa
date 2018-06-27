@@ -11,13 +11,14 @@ function timSerMat "Reads and possibly writes a matrix with a time series
     "Thermal diffusivity of soil";
   input Modelica.SIunits.ThermalConductivity ks
     "Thermal conductivity of soil";
+  input Integer nbSeg "Number of line source segments per borehole";
+  input Integer nbTimSho "Number of time steps in short time region";
+  input Integer nbTimLon "Number of time steps in long time region";
   input Integer nbTimTot "Number of g-function points";
+  input Real ttsMax "Maximum adimensional time for gfunc calculation";
   input String sha "Pseudo-SHA of the g-function arguments";
   input Boolean forceGFunCalc
     "Set to true to force the thermal response to be calculated at the start";
-  input Integer nbTimSho "Number of time steps in short time region";
-  input Integer nbTimLon "Number of time steps in long time region";
-  input Real ttsMax "Maximum adimensional time for gfunc calculation";
 
   output Real matrix[nbTimTot+1, 2] "2D Real array with 2 columns";
 
@@ -44,6 +45,7 @@ algorithm
       dBor=dBor,
       rBor=rBor,
       alpha=as,
+      nbSeg=nbSeg,
       nbTimSho=nbTimSho,
       nbTimLon=nbTimLon,
       ttsMax=ttsMax);
