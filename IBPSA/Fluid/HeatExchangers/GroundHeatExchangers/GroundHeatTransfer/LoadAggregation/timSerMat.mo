@@ -20,13 +20,12 @@ function timSerMat "Reads and possibly writes a matrix with a time series
   input Boolean forceGFunCalc
     "Set to true to force the thermal response to be calculated at the start";
 
-  output Real matrix[nbTimTot+1, 2] "2D Real array with 2 columns";
+  output Real matrix[nbTimTot, 2] "2D Real array with 2 columns";
 
 protected
-  Modelica.SIunits.Time ts;
   String pathSave "Path of the saving folder";
+  Modelica.SIunits.Time[nbTimTot] tGFun;
   Real[nbTimTot] gFun;
-  Real[nbTimTot] lntts;
   Boolean writegFun = false;
 
 algorithm
@@ -35,9 +34,8 @@ algorithm
   pathSave := ".BfData/" + sha + "Tstep.mat";
 
   if forceGFunCalc or not Modelica.Utilities.Files.exist(pathSave) then
-    ts := hBor^2/(9*as);
 
-    (lntts,gFun) :=
+    (tGFun,gFun) :=
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction(
       nbBor=nbBor,
       cooBor=cooBor,
@@ -50,11 +48,9 @@ algorithm
       nbTimLon=nbTimLon,
       ttsMax=ttsMax);
 
-    matrix[1,1] := 0;
-    matrix[1,2] := 0;
     for i in 1:nbTimTot loop
-      matrix[i+1,1] := Modelica.Math.exp(lntts[i])*ts;
-      matrix[i+1,2] := gFun[i]/(2*Modelica.Constants.pi*hBor*ks);
+      matrix[i,1] := tGFun[i];
+      matrix[i,2] := gFun[i]/(2*Modelica.Constants.pi*hBor*ks);
     end for;
 
     writegFun := writeMatrix(
@@ -67,7 +63,7 @@ algorithm
   matrix := readMatrix(
     fileName=pathSave,
     matrixName="TStep",
-    rows=nbTimTot+1,
+    rows=nbTimTot,
     columns=2);
 
   annotation (Documentation(info="<html>

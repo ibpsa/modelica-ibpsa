@@ -34,7 +34,7 @@ protected
       nbTimSho=nbTimSho,
       nbTimLon=nbTimLon,
       ttsMax=ttsMax) "String with encrypted g-function arguments";
-  parameter Integer nbTimTot = nbTimSho+nbTimLon-1
+  parameter Integer nbTimTot = nbTimSho+nbTimLon
     "Total length of g-function vector";
   parameter Real lvlBas = 2 "Base for exponential cell growth between levels";
   parameter Modelica.SIunits.Time timFin=
@@ -44,7 +44,7 @@ protected
       p_max=p_max,
       timFin=timFin,
       tLoaAgg=tLoaAgg) "Number of aggregation points";
-  parameter Real timSer[nbTimTot + 1,2]=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.timSerMat(
+  parameter Real timSer[nbTimTot,2]=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.timSerMat(
       nbBor=borFieDat.conDat.nbBh,
       cooBor=borFieDat.conDat.cooBh,
       hBor=borFieDat.conDat.hBor,

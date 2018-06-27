@@ -16,11 +16,11 @@ model gFunction_100boreholes
 
   Real gFun_int;
   Real lntts_int;
-  final parameter Integer nt=75;
-  final parameter Real[nt] gFun(fixed=false);
-  final parameter Real[nt] lntts(fixed=false);
-  final parameter Modelica.SIunits.Time[nt] t_gFun(fixed=false);
-  final parameter Real[nt+1] dspline(fixed=false);
+  final parameter Integer nbTimTot=nbTimSho+nbTimLon;
+  final parameter Real[nbTimTot] gFun(fixed=false);
+  final parameter Real[nbTimTot] lntts(fixed=false);
+  final parameter Modelica.SIunits.Time[nbTimTot] tGFun(fixed=false);
+  final parameter Real[nbTimTot] dspline(fixed=false);
   discrete Integer k;
   discrete Modelica.SIunits.Time t1;
   discrete Modelica.SIunits.Time t2;
@@ -31,18 +31,17 @@ model gFunction_100boreholes
 initial equation
 
   // Evaluate g-function for the specified bore field configuration
-  (lntts,gFun) =
+  (tGFun,gFun) =
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction(
       nbBor, cooBor, hBor, dBor, rBor, alpha, nbSeg, nbTimSho, nbTimLon, ttsMax);
-  t_gFun = ts*exp(lntts);
+  lntts = log(tGFun/ts .+ Modelica.Constants.small);
   // Initialize parameters for interpolation
-  dspline = IBPSA.Utilities.Math.Functions.splineDerivatives(
-    cat(1, {0}, t_gFun), cat(1, {0}, gFun));
+  dspline = IBPSA.Utilities.Math.Functions.splineDerivatives(tGFun, gFun);
   k = 1;
-  t1 = 0;
-  t2 = t_gFun[1];
-  gFun1 = 0;
-  gFun2 = gFun[1];
+  t1 = tGFun[1];
+  t2 = tGFun[2];
+  gFun1 = gFun[1];
+  gFun2 = gFun[2];
 
 equation
 
@@ -53,11 +52,11 @@ equation
     time, t1, t2, gFun1, gFun2, dspline[pre(k)], dspline[pre(k)+1]);
   // Update interpolation parameters, when needed
   when time >= pre(t2) then
-    k = min(pre(k) + 1, nt);
-    t1 = t_gFun[k-1];
-    t2 = t_gFun[k];
-    gFun1 = gFun[k-1];
-    gFun2 = gFun[k];
+    k = min(pre(k) + 1, nbTimTot);
+    t1 = tGFun[k];
+    t2 = tGFun[k+1];
+    gFun1 = gFun[k];
+    gFun2 = gFun[k+1];
   end when;
 
    annotation(experiment(Tolerance=1e-6, StopTime=1.0),

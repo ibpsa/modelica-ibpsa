@@ -14,8 +14,8 @@ function gFunction "Evaluate the g-function of a bore field"
   input Real ttsMax "Maximum adimensional time for gfunc calculation";
   input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
 
-  output Real lntts[nbTimSho+nbTimLon-1] "Logarithmic dimensionless time";
-  output Real g[nbTimSho+nbTimLon-1] "g-Function";
+  output Modelica.SIunits.Time tGFun[nbTimSho+nbTimLon] "Time of g-function evaluation";
+  output Real g[nbTimSho+nbTimLon] "g-Function";
 
 protected
   Modelica.SIunits.Time ts = hBor^2/(9*alpha) "Characteristic time";
@@ -43,21 +43,18 @@ algorithm
   // Generate geometrically expanding time vectors
   tSho :=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.timeGeometric(
-    tSho_min,
-    tSho_max,
-    nbTimSho) "Time vector for short time calculations";
+      tSho_min, tSho_max, nbTimSho);
   tLon :=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.timeGeometric(
-    tLon_min,
-    tLon_max,
-    nbTimLon) "Time vector for long time calculations";
+      tLon_min, tLon_max, nbTimLon);
   // Concatenate the short- and long-term parts
-  lntts :=log(cat(1, tSho[1:nbTimSho - 1]/ts, tLon/ts));
+  tGFun := cat(1, {0}, tSho[1:nbTimSho - 1], tLon);
 
   // -----------------------
   // Short time calculations
   // -----------------------
   Modelica.Utilities.Streams.print(("Evaluation of short time g-function."));
+  g[1] := 0.;
   for k in 1:nbTimSho loop
     // Finite line source solution
     FLS :=
@@ -83,7 +80,7 @@ algorithm
       rBor,
       rBor);
     // Correct finite line source solution for cylindrical geometry
-    g[k] := FLS + (CHS - ILS);
+    g[k+1] := FLS + (CHS - ILS);
   end for;
 
   // ----------------------
@@ -171,7 +168,7 @@ algorithm
     // Solve the system of equations
     X := Modelica.Math.Matrices.solve(A,B);
     // The g-function is equal to the borehole wall temperature
-    g[nbTimSho+k] := X[nbBor*nbSeg+1];
+    g[nbTimSho+k+1] := X[nbBor*nbSeg+1];
   end for;
   // Correct finite line source solution for cylindrical geometry
   for k in 2:nbTimLon loop
@@ -188,7 +185,7 @@ algorithm
       alpha,
       rBor,
       rBor);
-    g[nbTimSho+k-1] := g[nbTimSho+k-1] + (CHS - ILS);
+    g[nbTimSho+k] := g[nbTimSho+k] + (CHS - ILS);
   end for;
 
 end gFunction;
