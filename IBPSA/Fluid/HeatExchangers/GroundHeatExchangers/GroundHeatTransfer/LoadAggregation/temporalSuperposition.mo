@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
-function tempSuperposition "Performs temporal superposition for the load aggregation procedure"
+function temporalSuperposition
+  "Performs temporal superposition for the load aggregation procedure"
   extends Modelica.Icons.Function;
 
   input Integer i "Number of aggregation cells";
@@ -30,4 +31,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end tempSuperposition;
+end temporalSuperposition;

@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
-function timAgg
+function aggregationCellTimes
   "Function which builds the time and cell width vectors for aggregation"
   extends Modelica.Icons.Function;
 
@@ -34,7 +34,7 @@ algorithm
 <p>Simultaneously constructs both the <code>nu</code> vector, which is the
 aggregation time of each cell, and the <code>rcel</code> vector, which
 is the temporal size of each cell normalized with the aggregation step
-length (the <code>lenAggSte</code> parameter).
+length (the <code>tLoaAgg</code> parameter).
 </p>
 </html>", revisions="<html>
 <ul>
@@ -44,4 +44,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end timAgg;
+end aggregationCellTimes;

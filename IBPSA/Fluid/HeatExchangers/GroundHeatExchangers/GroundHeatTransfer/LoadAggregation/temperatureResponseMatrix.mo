@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
-function timSerMat "Reads and possibly writes a matrix with a time series
-  of the borefield's thermal response"
+function temperatureResponseMatrix
+  "Reads and possibly writes a matrix with a time series of the borefield's temperature response"
   extends Modelica.Icons.Function;
   input Integer nbBor "Number of boreholes";
   input Real cooBor[nbBor, 2] "Borehole coordonates";
@@ -87,4 +87,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end timSerMat;
+end temperatureResponseMatrix;

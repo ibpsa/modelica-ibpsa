@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
-function countAggPts
-  "Function which returns i, the size of the aggregation vectors"
+function countAggregationCells
+  "Function which returns i, the number of aggragtion cells in aggregation vector"
   extends Modelica.Icons.Function;
 
   input Real lvlBas "Base for growth between each level, e.g. 2";
@@ -37,4 +37,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end countAggPts;
+end countAggregationCells;

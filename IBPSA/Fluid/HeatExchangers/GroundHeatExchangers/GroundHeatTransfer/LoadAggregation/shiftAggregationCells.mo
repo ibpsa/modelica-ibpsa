@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
-function nextTimeStep
+function shiftAggregationCells
   "Performs the shifting operation for load aggregation and determines the current cell"
   extends Modelica.Icons.Function;
 
@@ -38,4 +38,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end nextTimeStep;
+end shiftAggregationCells;

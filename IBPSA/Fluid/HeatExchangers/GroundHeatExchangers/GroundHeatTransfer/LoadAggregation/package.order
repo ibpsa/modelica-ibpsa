@@ -1,8 +1,8 @@
-countAggPts
-kapAgg
-nextTimeStep
-setCurLoa
-tempSuperposition
-timAgg
-timSerFin
-timSerMat
+aggregationCellTimes
+aggregationWeightingFactors
+countAggregationCells
+maximumAggregationTime
+setFirstAggregationCell
+shiftAggregationCells
+temporalSuperposition
+temperatureResponseMatrix

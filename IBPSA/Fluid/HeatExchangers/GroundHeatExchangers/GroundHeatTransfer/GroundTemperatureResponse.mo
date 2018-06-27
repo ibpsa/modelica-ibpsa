@@ -39,26 +39,27 @@ protected
   parameter Real lvlBas = 2 "Base for exponential cell growth between levels";
   parameter Modelica.SIunits.Time timFin=
     (borFieDat.conDat.hBor^2/(9*borFieDat.soiDat.alp))*ttsMax;
-  parameter Integer i=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.countAggPts(
-      lvlBas=lvlBas,
-      p_max=p_max,
-      timFin=timFin,
-      tLoaAgg=tLoaAgg) "Number of aggregation points";
-  parameter Real timSer[nbTimTot,2]=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.timSerMat(
-      nbBor=borFieDat.conDat.nbBh,
-      cooBor=borFieDat.conDat.cooBh,
-      hBor=borFieDat.conDat.hBor,
-      dBor=borFieDat.conDat.dBor,
-      rBor=borFieDat.conDat.rBor,
-      as=borFieDat.soiDat.alp,
-      ks=borFieDat.soiDat.k,
-      nbSeg=nbSeg,
-      nbTimSho=nbTimSho,
-      nbTimLon=nbTimLon,
-      nbTimTot=nbTimTot,
-      ttsMax=ttsMax,
-      sha=SHAgfun,
-      forceGFunCalc=forceGFunCalc)
+  parameter Integer i=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.countAggregationCells(
+    lvlBas=lvlBas,
+    p_max=p_max,
+    timFin=timFin,
+    tLoaAgg=tLoaAgg)
+    "Number of aggregation cells";
+  parameter Real timSer[nbTimTot,2]=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.temperatureResponseMatrix(
+    nbBor=borFieDat.conDat.nbBh,
+    cooBor=borFieDat.conDat.cooBh,
+    hBor=borFieDat.conDat.hBor,
+    dBor=borFieDat.conDat.dBor,
+    rBor=borFieDat.conDat.rBor,
+    as=borFieDat.soiDat.alp,
+    ks=borFieDat.soiDat.k,
+    nbSeg=nbSeg,
+    nbTimSho=nbTimSho,
+    nbTimLon=nbTimLon,
+    nbTimTot=nbTimTot,
+    ttsMax=ttsMax,
+    sha=SHAgfun,
+    forceGFunCalc=forceGFunCalc)
     "g-function input from mat, with the second column as temperature Tstep";
   final parameter Modelica.SIunits.Time t_start(fixed=false) "Simulation start time";
   final parameter Modelica.SIunits.Time[i] nu(fixed=false)
@@ -94,7 +95,7 @@ initial equation
   delTBor_old = 0;
   derDelTBor0 = 0;
 
-  (nu,rCel) = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.timAgg(
+  (nu,rCel) = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.aggregationCellTimes(
     i=i,
     lvlBas=lvlBas,
     p_max=p_max,
@@ -103,7 +104,7 @@ initial equation
 
   t_start = time;
 
-  kappa = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.kapAgg(
+  kappa = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.aggregationWeightingFactors(
     i=i,
     nbTimTot=nbTimTot,
     TStep=timSer,
@@ -117,25 +118,25 @@ equation
   der(U) = QBor_flow;
 
   when (sample(t_start, tLoaAgg)) then
+    // Assign average load since last aggregation step to the first cell of the
+    // aggregation vector
+    U_old = U;
+    QAgg_flow = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.setFirstAggregationCell(
+      i=i,
+      QBor_flow=(U - pre(U_old))/tLoaAgg,
+      QAggShi_flow=pre(QAggShi_flow));
+
     // Shift loads in aggregation cells
-    (curCel,QAggShi_flow) = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.nextTimeStep(
+    (curCel,QAggShi_flow) = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.shiftAggregationCells(
       i=i,
       QAgg_flow=QAgg_flow,
       rCel=rCel,
       nu=nu,
       curTim=(time - t_start));
 
-    // Assign average load since last aggregation step to the first cell of the
-    // aggregation vector
-    U_old = U;
-    QAgg_flow = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.setCurLoa(
-      i=i,
-      QBor_flow=(U-pre(U_old))/tLoaAgg,
-      QAggShi_flow=pre(QAggShi_flow));
-
     // Determine the temperature change at the next aggregation step (assuming
     // no loads until then)
-    delTBor0 = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.tempSuperposition(
+    delTBor0 = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.temporalSuperposition(
       i=i,
       QAgg_flow=QAggShi_flow,
       kappa=kappa,

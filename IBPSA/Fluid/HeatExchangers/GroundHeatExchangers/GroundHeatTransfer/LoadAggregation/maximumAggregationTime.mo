@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
-function timSerFin "Finds the maximum aggregation time"
+function maximumAggregationTime "Finds the maximum aggregation time"
   extends Modelica.Icons.Function;
 
   input Integer nrow "Length of step response matrix";
@@ -22,4 +22,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end timSerFin;
+end maximumAggregationTime;

@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
-function setCurLoa "Sets the load for the current time step"
+function setFirstAggregationCell "Sets the load for the current time step"
   extends Modelica.Icons.Function;
 
   input Integer i "Size of vector";
@@ -26,4 +26,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end setCurLoa;
+end setFirstAggregationCell;
