@@ -27,6 +27,9 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif(final Q_flow=0);
 
 initial equation
+  assert(not energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState,
+    "In " + getInstanceName() + ": Using SteadyState energyDynamics for a wall
+    is not allowed since this causes large algebraic loops, which significantly affects computation time.");
   assert(IDEAS.Utilities.Math.Functions.isAngle(constructionType.incLastLay, IDEAS.Types.Tilt.Other) or
     constructionType.incLastLay >= inc - Modelica.Constants.pi/3 - Modelica.Constants.eps and
     constructionType.incLastLay <= inc + Modelica.Constants.pi/3 + Modelica.Constants.eps,
