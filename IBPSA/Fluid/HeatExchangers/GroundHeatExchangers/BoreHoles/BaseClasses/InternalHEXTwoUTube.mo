@@ -10,28 +10,24 @@ model InternalHEXTwoUTube
     T2_start=T_start,
     T3_start=T_start,
     T4_start=T_start,
-    final tau1=Modelica.Constants.pi*borFieDat.conDat.rTub^2*borFieDat.conDat.hSeg
-        *rho1_nominal/m1_flow_nominal,
-    final tau2=Modelica.Constants.pi*borFieDat.conDat.rTub^2*borFieDat.conDat.hSeg
-        *rho2_nominal/m2_flow_nominal,
-    final tau3=Modelica.Constants.pi*borFieDat.conDat.rTub^2*borFieDat.conDat.hSeg
-        *rho3_nominal/m3_flow_nominal,
-    final tau4=Modelica.Constants.pi*borFieDat.conDat.rTub^2*borFieDat.conDat.hSeg
-        *rho4_nominal/m4_flow_nominal,
+    final tau1=VTubSeg*rho1_nominal/m1_flow_nominal,
+    final tau2=VTubSeg*rho2_nominal/m2_flow_nominal,
+    final tau3=VTubSeg*rho3_nominal/m3_flow_nominal,
+    final tau4=VTubSeg*rho4_nominal/m4_flow_nominal,
     vol1(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal1,
       final m_flow_small=m1_flow_small,
-      final V=borFieDat.conDat.volOneLegSeg,
+      final V=VTubSeg,
       final mSenFac=mSenFac),
     vol2(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m2_flow_small,
-      final V=borFieDat.conDat.volOneLegSeg,
+      final V=VTubSeg,
       final mSenFac=mSenFac),
     vol3(
       final energyDynamics=energyDynamics,
@@ -39,21 +35,39 @@ model InternalHEXTwoUTube
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal3,
       final m_flow_small=m3_flow_small,
-      final V=borFieDat.conDat.volOneLegSeg,
+      final V=VTubSeg,
       final mSenFac=mSenFac),
     vol4(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m4_flow_small,
-      final V=borFieDat.conDat.volOneLegSeg,
+      final V=VTubSeg,
       final mSenFac=mSenFac));
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium"
     annotation (choicesAllMatching=true);
+
+  parameter Data.BorefieldData.Template borFieDat
+    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+
+  parameter Modelica.SIunits.Temperature T_start
+    "Initial temperature of the filling material and fluid"
+    annotation (Dialog(group="Filling material"));
+  parameter Real mSenFac=1
+    "Factor for scaling the sensible thermal mass of the volume"
+    annotation (Dialog(tab="Dynamics"));
+  parameter Boolean dynFil=true
+    "Set to false to remove the dynamics of the filling material"
+    annotation (Dialog(tab="Dynamics"));
+  parameter Modelica.SIunits.Length hSeg
+    "Length of the internal heat exchanger";
+  parameter Modelica.SIunits.Volume VTubSeg = hSeg*Modelica.Constants.pi*borFieDat.conDat.rTub^2
+    "Fluid volume in each tube";
+
   Modelica.Blocks.Sources.RealExpression RVol1(y=
         Functions.convectionResistanceCircularPipe(
-        hSeg=borFieDat.conDat.hSeg,
+        hSeg=hSeg,
         rBor=borFieDat.conDat.rBor,
         rTub=borFieDat.conDat.rTub,
         eTub=borFieDat.conDat.eTub,
@@ -66,7 +80,7 @@ model InternalHEXTwoUTube
     annotation (Placement(transformation(extent={{-16,56},{-30,72}})));
   Modelica.Blocks.Sources.RealExpression RVol2(y=
         Functions.convectionResistanceCircularPipe(
-        hSeg=borFieDat.conDat.hSeg,
+        hSeg=hSeg,
         rBor=borFieDat.conDat.rBor,
         rTub=borFieDat.conDat.rTub,
         eTub=borFieDat.conDat.eTub,
@@ -79,7 +93,7 @@ model InternalHEXTwoUTube
     annotation (Placement(transformation(extent={{88,-8},{72,-26}})));
   Modelica.Blocks.Sources.RealExpression RVol3(y=
         Functions.convectionResistanceCircularPipe(
-        hSeg=borFieDat.conDat.hSeg,
+        hSeg=hSeg,
         rBor=borFieDat.conDat.rBor,
         rTub=borFieDat.conDat.rTub,
         eTub=borFieDat.conDat.eTub,
@@ -93,7 +107,7 @@ model InternalHEXTwoUTube
 
   Modelica.Blocks.Sources.RealExpression RVol4(y=
         Functions.convectionResistanceCircularPipe(
-        hSeg=borFieDat.conDat.hSeg,
+        hSeg=hSeg,
         rBor=borFieDat.conDat.rBor,
         rTub=borFieDat.conDat.rTub,
         eTub=borFieDat.conDat.eTub,
@@ -104,17 +118,9 @@ model InternalHEXTwoUTube
         m_flow_nominal=m4_flow_nominal))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-68,12},{-54,28}})));
-  parameter Modelica.SIunits.Temperature T_start
-    "Initial temperature of the filling material and fluid"
-    annotation (Dialog(group="Filling material"));
-  parameter Real mSenFac=1
-    "Factor for scaling the sensible thermal mass of the volume"
-    annotation (Dialog(tab="Dynamics"));
-  parameter Boolean dynFil=true
-    "Set to false to remove the dynamics of the filling material"
-    annotation (Dialog(tab="Dynamics"));
   InternalResistancesTwoUTube intRes2UTub(
     T_start=T_start,
+    hSeg=hSeg,
     borFieDat=borFieDat,
     Rgb_val=Rgb_val,
     Rgg1_val=Rgg1_val,
@@ -124,8 +130,6 @@ model InternalHEXTwoUTube
     dynFil=dynFil)
          "Internal resistances for a double U-tube configuration"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  parameter Data.BorefieldData.Template borFieDat
-    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor RConv1
     "Pipe convective resistance" annotation (Placement(transformation(
         extent={{-8,-8},{8,8}},
@@ -176,7 +180,7 @@ protected
 initial equation
   (x,Rgb_val,Rgg1_val,Rgg2_val,RCondGro_val) =
     Functions.internalResistancesTwoUtube(
-    hSeg=borFieDat.conDat.hSeg,
+    hSeg=hSeg,
     rBor=borFieDat.conDat.rBor,
     rTub=borFieDat.conDat.rTub,
     eTub=borFieDat.conDat.eTub,
@@ -193,8 +197,8 @@ initial equation
     printDebug=false);
 
 equation
-  assert(borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeParallel
-     or borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeSerie,
+  assert(borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel
+     or borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeSeries,
     "This model should be used for double U-type borefield, not single U-type. 
   Check that the record General has been correctly parametrized");
   connect(RVol1.y, RConv1.Rc) annotation (Line(

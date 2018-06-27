@@ -1,9 +1,19 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData;
 record ExampleConfigurationData
   extends Template(
-    borHolCon = Types.BoreHoleConfiguration.SingleUTube,
-    nbBh=4,
-    cooBh={{0,0},{0,6},{6,0},{6,6}});
+    borCon = Types.BoreholeConfiguration.SingleUTube,
+    nbBor=4,
+    cooBor={{0,0},{0,6},{6,0},{6,6}},
+    mBor_flow_nominal=0.3,
+    dp_nominal=5e4,
+    hBor=100.0,
+    rBor=0.075,
+    dBor=1.0,
+    rTub=0.02,
+    kTub=0.5,
+    eTub=0.002,
+    xC=0.05,
+    p_constant=101.3e3);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end ExampleConfigurationData;

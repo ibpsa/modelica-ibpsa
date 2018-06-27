@@ -1,16 +1,17 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer;
 model CylindricalGroundLayer
   "Heat conduction in a cylinder using the radial discretization as advised by Eskilson"
+
   parameter Data.SoilData.Template soiDat
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   parameter Modelica.SIunits.Height h "Height of the cylinder";
   parameter Modelica.SIunits.Radius r_a "Internal radius";
   parameter Modelica.SIunits.Radius r_b "External radius";
   parameter Integer nSta(min=1) = 10 "Number of state variables";
-  parameter Modelica.SIunits.Temperature TInt_start=293.15
+  parameter Modelica.SIunits.Temperature TInt_start
     "Initial temperature at port_a, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-  parameter Modelica.SIunits.Temperature TExt_start=293.15
+  parameter Modelica.SIunits.Temperature TExt_start
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
   parameter Boolean steadyStateInitial=false

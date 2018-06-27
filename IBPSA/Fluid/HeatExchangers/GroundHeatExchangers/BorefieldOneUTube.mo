@@ -8,15 +8,19 @@ model BorefieldOneUTube
    //       "The borehole geometry is not physical. Check rBor, rTub and xC to make sure that the tube is placed inside the halve of the borehole.");
 
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
-    m_flow_nominal=borFieDat.conDat.m_flow_nominal);
+    m_flow_nominal=borFieDat.conDat.mBor_flow_nominal);
 
-  extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = borFieDat.conDat.T_start);
+  extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = TMedGro);
   extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     dp_nominal=borFieDat.conDat.dp_nominal);
 
   // Simulation parameters
   parameter Modelica.SIunits.Time tLoaAgg=3600 "Time resolution of load aggregation";
   parameter Integer p_max(min=1)=5 "Number of cells per aggregation level";
+  parameter Integer nSeg(min=1)=10
+    "Number of segments to use in vertical discretization of the boreholes";
+  parameter Modelica.SIunits.Temperature TMedGro
+    "Initial temperature of grout material and fluid medium";
 
   // General parameters of borefield
   parameter Data.BorefieldData.Template borFieDat "Borefield data"
@@ -29,19 +33,19 @@ model BorefieldOneUTube
   BaseClasses.MassFlowRateMultiplier masFloDiv(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
-    k=borFieDat.conDat.nbBh) "Division of flow rate"
+    k=borFieDat.conDat.nbBor) "Division of flow rate"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
   BaseClasses.MassFlowRateMultiplier masFloMul(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
-    k=borFieDat.conDat.nbBh) "Mass flow multiplier"
+    k=borFieDat.conDat.nbBor) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   GroundHeatTransfer.GroundTemperatureResponse groTemRes(
     tLoaAgg=tLoaAgg,
     p_max=p_max,
     borFieDat=borFieDat) "Ground temperature response"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=borFieDat.conDat.nVer)
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=nSeg)
     "Thermal collector to connect the unique ground temperature to each borehole wall temperature of each segment"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -70,13 +74,13 @@ model BorefieldOneUTube
     dynFil=dynFil) "Borehole"
     annotation (Placement(transformation(extent={{-24,-24},{24,24}})));
 
-  Modelica.Blocks.Interfaces.RealInput TGro
+  Modelica.Blocks.Interfaces.RealInput TSoi
     "Temperature input for undisturbed ground conditions"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 equation
   connect(masFloMul.port_b, port_b)
     annotation (Line(points={{80,0},{86,0},{100,0}}, color={0,127,255}));
-  connect(groTemRes.Tb, theCol.port_b)
+  connect(groTemRes.borWall, theCol.port_b)
     annotation (Line(points={{-60,60},{-50,60},{-40,60}}, color={191,0,0}));
   connect(borHol.port_b, masFloMul.port_a)
     annotation (Line(points={{24,0},{42,0},{60,0}}, color={0,127,255}));
@@ -86,7 +90,7 @@ equation
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
   connect(masFloDiv.port_a, borHol.port_a)
     annotation (Line(points={{-60,0},{-24,0}}, color={0,127,255}));
-  connect(TGro, groTemRes.Tg)
+  connect(TSoi, groTemRes.TSoi)
     annotation (Line(points={{-120,60},{-82,60},{-82,60}}, color={0,0,127}));
   annotation (
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),

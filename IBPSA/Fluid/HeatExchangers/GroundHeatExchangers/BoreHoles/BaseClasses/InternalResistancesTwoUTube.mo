@@ -1,5 +1,8 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 model InternalResistancesTwoUTube
+
+  parameter Modelica.SIunits.Length hSeg
+    "Length of the internal heat exchanger";
   parameter Modelica.SIunits.Temperature T_start
     "Initial temperature of the filling material";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -7,7 +10,7 @@ model InternalResistancesTwoUTube
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Data.BorefieldData.Template borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  parameter Modelica.SIunits.HeatCapacity Co_fil=borFieDat.filDat.d*borFieDat.filDat.c*borFieDat.conDat.hSeg*Modelica.Constants.pi
+  parameter Modelica.SIunits.HeatCapacity Co_fil=borFieDat.filDat.d*borFieDat.filDat.c*hSeg*Modelica.Constants.pi
       *(borFieDat.conDat.rBor^2 - 4*(borFieDat.conDat.rTub + borFieDat.conDat.eTub)^2)
     "Heat capacity of the whole filling material";
   parameter Modelica.SIunits.ThermalResistance Rgb_val
@@ -156,7 +159,7 @@ equation
   connect(Rpg3.port_a, port_3)
     annotation (Line(points={{0,-88},{0,-100},{0,-100}}, color={191,0,0}));
   connect(Rgg11.port_a, Rpg1.port_b) annotation (Line(points={{90,38},{90,38},{
-          90,70},{0,70},{0,72},{0,72}}, color={191,0,0}));
+          90,70},{0,70},{0,72}},        color={191,0,0}));
   connect(Rgg21.port_b, Rgb1.port_a) annotation (Line(points={{50,38},{50,38},{
           50,50},{0,50},{0,38},{4.44089e-016,38}}, color={191,0,0}));
   connect(Rgb1.port_a, Rpg1.port_b) annotation (Line(points={{4.44089e-016,38},

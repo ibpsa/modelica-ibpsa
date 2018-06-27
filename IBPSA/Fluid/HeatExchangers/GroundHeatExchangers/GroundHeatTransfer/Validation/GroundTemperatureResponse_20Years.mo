@@ -5,11 +5,19 @@ model GroundTemperatureResponse_20Years
 
   parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
     borFieDat(conDat(
+      borCon=Types.BoreholeConfiguration.SingleUTube,
+      nbBor=1,
+      cooBor={{0,0}},
+      mBor_flow_nominal=0.3,
+      dp_nominal=5e4,
       hBor=100,
       rBor=0.05,
       dBor=4,
-      nbBh=1,
-      cooBh={{0,0}}),
+      rTub=0.02,
+      kTub=0.5,
+      eTub=0.002,
+      xC=0.05,
+      p_constant=101.3e3),
     soiDat(
       k=1,
       c=1,

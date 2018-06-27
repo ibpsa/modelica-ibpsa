@@ -6,36 +6,45 @@ model BoreholeTwoUTube "Double U-tube borehole heat exchanger"
       computeFlowResistance=false, linearizeFlowResistance=false);
   extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations;
 
-  BaseClasses.InternalHEXTwoUTube intHex[borFieDat.conDat.nVer](
+  parameter Boolean dynFil=true
+      "Set to false to remove the dynamics of the filling material"
+      annotation (Dialog(tab="Dynamics"));
+  parameter Data.BorefieldData.Template borFieDat "Borefield parameters"
+    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+  parameter Integer nSeg(min=1) = 10
+    "Number of segments to use in vertical discretization of the boreholes";
+
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalHEXTwoUTube intHex[nSeg](
     redeclare each final package Medium = Medium,
     each final borFieDat=borFieDat,
-    final dp1_nominal={if i == 1 and borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeParallel then
-        dp_nominal elseif i == 1 and borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeSerie then
-        dp_nominal/2 else 0 for i in 1:borFieDat.conDat.nVer},
-    final dp3_nominal={if i == 1 and borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeParallel then
-        dp_nominal elseif i == 1 and borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeSerie then
-        dp_nominal/2 else 0 for i in 1:borFieDat.conDat.nVer},
+    each final hSeg=borFieDat.conDat.hBor/nSeg,
+    final dp1_nominal={if i == 1 and borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then
+        dp_nominal elseif i == 1 and borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeSeries then
+        dp_nominal/2 else 0 for i in 1:nSeg},
+    final dp3_nominal={if i == 1 and borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then
+        dp_nominal elseif i == 1 and borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeSeries then
+        dp_nominal/2 else 0 for i in 1:nSeg},
     each final dp2_nominal=0,
     each final dp4_nominal=0,
     each final show_T=show_T,
     each final energyDynamics=energyDynamics,
     each final massDynamics=massDynamics,
-    each final m1_flow_nominal=if borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeParallel then
+    each final m1_flow_nominal=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then
         m_flow_nominal/2 else m_flow_nominal,
-    each final m2_flow_nominal=if borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeParallel then
+    each final m2_flow_nominal=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then
         m_flow_nominal/2 else m_flow_nominal,
-    each final m3_flow_nominal=if borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeParallel then
+    each final m3_flow_nominal=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then
         m_flow_nominal/2 else m_flow_nominal,
-    each final m4_flow_nominal=if borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeParallel then
+    each final m4_flow_nominal=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then
         m_flow_nominal/2 else m_flow_nominal,
-    each final m1_flow_small=if borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeParallel then borFieDat.conDat.m_flow_small
-        /2 else borFieDat.conDat.m_flow_small,
-    each final m2_flow_small=if borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeParallel then borFieDat.conDat.m_flow_small
-        /2 else borFieDat.conDat.m_flow_small,
-    each final m3_flow_small=if borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeParallel then borFieDat.conDat.m_flow_small
-        /2 else borFieDat.conDat.m_flow_small,
-    each final m4_flow_small=if borFieDat.conDat.borHolCon == GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeParallel then borFieDat.conDat.m_flow_small
-        /2 else borFieDat.conDat.m_flow_small,
+    each final m1_flow_small=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
+        /2 else borFieDat.conDat.mBor_flow_small,
+    each final m2_flow_small=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
+        /2 else borFieDat.conDat.mBor_flow_small,
+    each final m3_flow_small=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
+        /2 else borFieDat.conDat.mBor_flow_small,
+    each final m4_flow_small=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
+        /2 else borFieDat.conDat.mBor_flow_small,
     each final dynFil=dynFil,
     each final mSenFac=mSenFac,
     each final allowFlowReversal1=allowFlowReversal,
@@ -61,13 +70,8 @@ model BoreholeTwoUTube "Double U-tube borehole heat exchanger"
     each final T_start=T_start) "Discretized borehole segments"
     annotation (Placement(transformation(extent={{-10,-30},{10,10}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall[borFieDat.conDat.nVer] "Borehole wall temperatures"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall[nSeg] "Borehole wall temperatures"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-    parameter Boolean dynFil=true
-      "Set to false to remove the dynamics of the filling material"
-      annotation (Dialog(tab="Dynamics"));
-  parameter Data.BorefieldData.Template borFieDat "Borefield parameters"
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   // Couple borehole port_a and port_b to first borehole segment.
   connect(port_a, intHex[1].port_a1) annotation (Line(
@@ -80,7 +84,7 @@ equation
           -23.6364},{-10,-23.6364}},
       color={0,127,255},
       smooth=Smooth.None));
-  if borFieDat.conDat.borHolCon == Types.BoreHoleConfiguration.DoubleUTubeParallel then
+  if borFieDat.conDat.borCon == Types.BoreholeConfiguration.DoubleUTubeParallel then
     // 2U-tube in parallel: couple both U-tube to each other.
     connect(port_a, intHex[1].port_a3) annotation (Line(
         points={{-100,5.55112e-016},{-52,5.55112e-016},{-52,-14},{-10,-14}},
@@ -91,7 +95,7 @@ equation
             -2.72727},{-10,-2.72727}},
         color={0,127,255},
         smooth=Smooth.None));
-  elseif borFieDat.conDat.borHolCon == Types.BoreHoleConfiguration.DoubleUTubeSerie then
+  elseif borFieDat.conDat.borCon == Types.BoreholeConfiguration.DoubleUTubeSeries then
     // 2U-tube in serie: couple both U-tube to each other.
     connect(intHex[1].port_b2, intHex[1].port_a3) annotation (Line(
         points={{-10,-2.72727},{-24,-2.72727},{-24,-16},{-18,-16},{-18,-14},{
@@ -101,7 +105,7 @@ equation
   end if;
 
   // Couple each layer to the next one
-  for i in 1:borFieDat.conDat.nVer - 1 loop
+  for i in 1:nSeg - 1 loop
     connect(intHex[i].port_b1, intHex[i + 1].port_a1) annotation (Line(
         points={{10,6.36364},{10,10},{-10,10},{-10,6.36364}},
         color={0,127,255},
@@ -121,14 +125,15 @@ equation
   end for;
 
   // Close U-tube at bottom layer
-  connect(intHex[borFieDat.conDat.nVer].port_b1, intHex[borFieDat.conDat.nVer].port_a2)
+  connect(intHex[nSeg].port_b1, intHex[nSeg].port_a2)
     annotation (Line(
-      points={{10,6},{16,6},{16,-4},{10,-4}},
+      points={{10,6.36364},{16,6.36364},{16,-2.72727},{10,-2.72727}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(intHex[borFieDat.conDat.nVer].port_b3, intHex[borFieDat.conDat.nVer].port_a4)
+  connect(intHex[nSeg].port_b3, intHex[nSeg].port_a4)
     annotation (Line(
-      points={{10,-16.2},{14,-16.2},{14,-16},{18,-16},{18,-26},{10,-26}},
+      points={{10,-13.8182},{14,-13.8182},{14,-16},{18,-16},{18,-22.7273},{10,
+          -22.7273}},
       color={0,127,255},
       smooth=Smooth.None));
 

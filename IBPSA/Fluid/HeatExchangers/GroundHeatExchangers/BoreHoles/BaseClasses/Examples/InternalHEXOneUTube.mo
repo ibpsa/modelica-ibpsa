@@ -2,15 +2,22 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Exa
 model InternalHEXOneUTube
   "Comparison of the effective borehole thermal resistance  from the thermal network of Bauer et al. with the resistance calculated by singleUTubeResistances (ref)"
   extends Modelica.Icons.Example;
+
+  parameter Integer nSeg(min=1) = 10
+    "Number of segments to use in vertical discretization of the boreholes";
+  parameter Modelica.SIunits.Length hSeg = borFieDat.conDat.hBor/nSeg
+    "Length of the internal heat exchanger";
+
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
   .IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalHEXOneUTube
     intHex(
     redeclare package Medium = Medium,
+    hSeg=hSeg,
     dp1_nominal=10,
     dp2_nominal=10,
     borFieDat=borFieDat,
-    m1_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
-    m2_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
+    m1_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
+    m2_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     T_start=285.15)
     annotation (Placement(transformation(extent={{-10,-12},{10,10}})));
 
@@ -19,22 +26,22 @@ model InternalHEXOneUTube
     annotation (Placement(transformation(extent={{-22,30},{-2,50}})));
   Sources.MassFlowSource_T boundary(nPorts=1,
     redeclare package Medium = Medium,
-    m_flow=borFieDat.conDat.m_flow_nominal_bh,
+    m_flow=borFieDat.conDat.mBor_flow_nominal,
     T=293.15)
     annotation (Placement(transformation(extent={{-48,-4},{-28,16}})));
   Sources.MassFlowSource_T boundary1(nPorts=1,
     redeclare package Medium = Medium,
-    m_flow=borFieDat.conDat.m_flow_nominal_bh,
+    m_flow=borFieDat.conDat.mBor_flow_nominal,
     T=293.15)
     annotation (Placement(transformation(extent={{54,4},{34,-16}})));
   Sources.FixedBoundary bou(nPorts=2, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-48,-34},{-28,-14}})));
-  Real Rb_sim = ((senTem.T + senTem1.T)/2 - intHex.port_wall.T)/max(-intHex.port_wall.Q_flow / borFieDat.conDat.hSeg,1);
+  Real Rb_sim = ((senTem.T + senTem1.T)/2 - intHex.port_wall.T)/max(-intHex.port_wall.Q_flow / hSeg,1);
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
-        Medium, m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh)
+        Medium, m_flow_nominal=borFieDat.conDat.mBor_flow_nominal)
     annotation (Placement(transformation(extent={{16,0},{28,12}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
-        Medium, m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh)
+        Medium, m_flow_nominal=borFieDat.conDat.mBor_flow_nominal)
     annotation (Placement(transformation(extent={{-28,-12},{-16,0}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=Rb_sim)
     annotation (Placement(transformation(extent={{-10,-58},{10,-38}})));

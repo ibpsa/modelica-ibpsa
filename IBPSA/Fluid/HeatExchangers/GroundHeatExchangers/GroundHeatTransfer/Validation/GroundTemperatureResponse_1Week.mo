@@ -4,6 +4,8 @@ model GroundTemperatureResponse_1Week
   import IBPSA;
   extends Modelica.Icons.Example;
 
+  parameter Modelica.SIunits.Temperature T_start = 283.15
+    "Initial soil temperature";
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer
     soi(
     final steadyStateInitial=false,
@@ -11,8 +13,8 @@ model GroundTemperatureResponse_1Week
     final h=borFieDat.conDat.hBor,
     final r_a=borFieDat.conDat.rBor,
     final r_b=3,
-    final TInt_start=borFieDat.conDat.T_start,
-    final TExt_start=borFieDat.conDat.T_start,
+    final TInt_start=T_start,
+    final TExt_start=T_start,
     gridFac=1.2,
     final nSta=50)                             "Heat conduction in the soil"
     annotation (Placement(transformation(extent={{-12,50},{8,70}})));
@@ -32,11 +34,19 @@ model GroundTemperatureResponse_1Week
       d=Modelica.Constants.small,
       steadyState=true),
     conDat(
+      borCon=Types.BoreholeConfiguration.SingleUTube,
+      nbBor=1,
+      cooBor={{0,0}},
+      mBor_flow_nominal=0.3,
+      dp_nominal=5e4,
       hBor=1e6,
       rBor=0.05,
       dBor=4,
-      nbBh=1,
-      cooBh={{0,0}}))
+      rTub=0.02,
+      kTub=0.5,
+      eTub=0.002,
+      xC=0.05,
+      p_constant=101.3e3))
               "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
@@ -53,7 +63,8 @@ model GroundTemperatureResponse_1Week
     p_max=5,
     tLoaAgg=30)          "Heat conduction in the soil"
     annotation (Placement(transformation(extent={{8,-70},{-12,-50}})));
-  Modelica.Blocks.Sources.Constant groTem(k=283.15) "Ground temperature signal"
+  Modelica.Blocks.Sources.Constant groTem(k=T_start)
+                                                    "Ground temperature signal"
     annotation (Placement(transformation(extent={{88,-10},{68,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
     "Ground temperature for discretized model"

@@ -3,6 +3,8 @@ model SmallScaleValidation
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Water;
 
+  parameter Modelica.SIunits.Temperature T_start = 273.15 + 23;
+
   parameter Modelica.SIunits.ThermalResistance R1 = 3.86
     "First resistance in resistance-capacitance model of measurement apparatus";
   parameter Modelica.SIunits.ThermalResistance R2 = 27.8
@@ -11,44 +13,45 @@ model SmallScaleValidation
     "Capacitance in resistance-capacitance model of measurement apparatus";
   BorefieldOneUTube borHol(redeclare package Medium = Medium, borFieDat=
         borFieDat,
-    tLoaAgg=5)             "Borehole"
+    tLoaAgg=5,
+    TMedGro=T_start)       "Borehole"
     annotation (Placement(transformation(extent={{-12,-76},{14,-44}})));
 
   IBPSA.Fluid.Movers.FlowControlled_m_flow
                                         pum(
     redeclare package Medium = Medium,
-    m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
-    T_start=borFieDat.conDat.T_start,
+    m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
+    T_start=T_start,
     addPowerToMedium=false,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-20,90},{-40,70}})));
   Sensors.TemperatureTwoPort TBorFieIn(redeclare package Medium = Medium,
-      m_flow_nominal=borFieDat.conDat.m_flow_nominal,
-    T_start=borFieDat.conDat.T_start)
+      m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
+    T_start=T_start)
     "Inlet temperature of the borefield"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Sensors.TemperatureTwoPort TBorFieOut(redeclare package Medium = Medium,
-      m_flow_nominal=borFieDat.conDat.m_flow_nominal,
-    T_start=borFieDat.conDat.T_start) "Outlet temperature of the borefield"
+      m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
+    T_start=T_start) "Outlet temperature of the borefield"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SmallScale_validation borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   IBPSA.Fluid.Sources.Boundary_ph sin(redeclare package Medium =
         Medium, nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{88,50},{68,70}})));
-  Modelica.Blocks.Sources.Constant mFlo(k=borFieDat.conDat.m_flow_nominal_bh)
+  Modelica.Blocks.Sources.Constant mFlo(k=borFieDat.conDat.mBor_flow_nominal)
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Modelica.Blocks.Sources.Constant T_start(k=borFieDat.conDat.T_start)
+  Modelica.Blocks.Sources.Constant TSoi(k=T_start)
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   IBPSA.Fluid.HeatExchangers.HeaterCooler_u hea(
     redeclare package Medium = Medium,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
-    m_flow(start=borFieDat.conDat.m_flow_nominal_bh),
-    T_start=borFieDat.conDat.T_start,
+    m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
+    m_flow(start=borFieDat.conDat.mBor_flow_nominal),
+    T_start=T_start,
     dp_nominal=10,
     Q_flow_nominal=1,
     p_start=100000)
@@ -57,8 +60,8 @@ model SmallScaleValidation
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Sensors.TemperatureTwoPort TMeaIn(
     redeclare package Medium = Medium,
-    m_flow_nominal=borFieDat.conDat.m_flow_nominal,
-    T_start=borFieDat.conDat.T_start)
+    m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
+    T_start=T_start)
     "Inlet temperature of the measurement apparatus" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -66,22 +69,22 @@ model SmallScaleValidation
         origin={-60,34})));
   Sensors.TemperatureTwoPort TMeaOut(
     redeclare package Medium = Medium,
-    m_flow_nominal=borFieDat.conDat.m_flow_nominal,
-    T_start=borFieDat.conDat.T_start)
+    m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
+    T_start=T_start)
     "Outlet temperature of the measurment apparatus" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,34})));
   MixingVolumes.MixingVolume vol(redeclare package Medium = Medium, nPorts=2,
-    m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
+    m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     V=8.2e-6)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-50,0})));
   MixingVolumes.MixingVolume vol1(redeclare package Medium = Medium, nPorts=2,
-    m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
+    m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     V=8.2e-6)
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -102,7 +105,7 @@ model SmallScaleValidation
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
     annotation (Placement(transformation(extent={{-88,-30},{-68,-10}})));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=273.15 + 23.5)
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=T_start)
     annotation (Placement(transformation(extent={{-124,-30},{-104,-10}})));
 equation
   connect(TBorFieIn.port_b, borHol.port_a)
@@ -111,7 +114,7 @@ equation
     annotation (Line(points={{14,-60},{40,-60}},          color={0,127,255}));
   connect(mFlo.y, pum.m_flow_in)
     annotation (Line(points={{-79,60},{-30,60},{-30,68}}, color={0,0,127}));
-  connect(T_start.y, borHol.TGro) annotation (Line(points={{-39,-90},{-32,-90},{
+  connect(TSoi.y, borHol.TSoi) annotation (Line(points={{-39,-90},{-32,-90},{
           -32,-50.4},{-14.6,-50.4}}, color={0,0,127}));
   connect(hea.port_b, pum.port_a)
     annotation (Line(points={{0,80},{-20,80}},         color={0,127,255}));

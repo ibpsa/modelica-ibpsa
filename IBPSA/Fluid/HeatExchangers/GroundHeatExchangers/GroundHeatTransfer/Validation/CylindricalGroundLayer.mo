@@ -4,6 +4,11 @@ model CylindricalGroundLayer
   import IBPSA;
   extends Modelica.Icons.Example;
 
+  parameter Modelica.SIunits.Temperature T_start = 295.15
+    "Initial soil temperature";
+  parameter Data.BorefieldData.Template borFieDat = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation()
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer
     soi(
     final steadyStateInitial=false,
@@ -11,11 +16,10 @@ model CylindricalGroundLayer
     final h=1,
     final r_a=borFieDat.conDat.rBor,
     final r_b=3,
-    final nSta=borFieDat.conDat.nHor,
-    final TInt_start=borFieDat.conDat.T_start,
-    final TExt_start=borFieDat.conDat.T_start) "Heat conduction in the soil"
+    final TInt_start=T_start,
+    final TExt_start=T_start)                  "Heat conduction in the soil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(T=borFieDat.conDat.T_start)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(T=T_start)
     "Prescribed temperature"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
   Modelica.Blocks.Sources.Step     heaFlo(
@@ -26,8 +30,6 @@ model CylindricalGroundLayer
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow to soil"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  parameter Data.BorefieldData.Template borFieDat = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation()
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(soi.port_b, preTem.port) annotation (Line(
       points={{10,0},{40,0}},

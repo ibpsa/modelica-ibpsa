@@ -1,16 +1,21 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples;
 model BoreholeDynamics
-  import IBPSA;
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Water;
+
+  parameter Integer nSeg(min=1) = 10
+    "Number of segments to use in vertical discretization of the boreholes";
+  parameter Modelica.SIunits.Temperature T_start = 273.15 + 22
+    "Initial soil temperature";
 
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeOneUTube
     borHolOneUTubDyn(
     redeclare package Medium = Medium,
     borFieDat=borFieUTubDat,
-    m_flow_nominal=borFieUTubDat.conDat.m_flow_nominal_bh,
-    dp_nominal=10,
-    dynFil=true) "Borehole with U-Tub configuration and grout dynamics"
+    m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
+    dp_nominal=borFieUTubDat.conDat.dp_nominal,
+    dynFil=true,
+    nSeg=nSeg)   "Borehole with U-Tub configuration and grout dynamics"
     annotation (Placement(transformation(
         extent={{-14,-14},{14,14}},
         rotation=0,
@@ -19,7 +24,7 @@ model BoreholeDynamics
     redeclare package Medium = Medium,
     nPorts=1,
     use_T_in=false,
-    m_flow=borFieUTubDat.conDat.m_flow_nominal_bh,
+    m_flow=borFieUTubDat.conDat.mBor_flow_nominal,
     T=303.15) "Source" annotation (Placement(transformation(extent={{-80,50},{-60,
             70}}, rotation=0)));
   IBPSA.Fluid.Sources.Boundary_pT sin(
@@ -34,24 +39,24 @@ model BoreholeDynamics
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation
     borFieUTubDat "Borefield parameters with UTube borehole configuration"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn(m_flow_nominal=borFieUTubDat.conDat.m_flow_nominal_bh,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn(m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
       redeclare package Medium = Medium) "Inlet borehole temperature"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBor1UTubDyn(m_flow_nominal=
-        borFieUTubDat.conDat.m_flow_nominal_bh, redeclare package Medium =
+        borFieUTubDat.conDat.mBor_flow_nominal, redeclare package Medium =
         Medium) "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse
     groTemRes(borFieDat=borFieUTubDat, tLoaAgg=60)
     "Ground temperature response"
     annotation (Placement(transformation(extent={{-70,80},{-50,100}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol1(m=
-        borFieUTubDat.conDat.nVer) "Thermal collector" annotation (Placement(
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol1(m=nSeg)
+                                   "Thermal collector" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-36,90})));
-  Modelica.Blocks.Sources.Constant TGroUn(k=borFieUTubDat.conDat.T_start)
+  Modelica.Blocks.Sources.Constant TGroUn(k=T_start)
     "Undisturbed ground temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -60,9 +65,10 @@ model BoreholeDynamics
     borHolOneUTubSteSta(
     redeclare package Medium = Medium,
     borFieDat=borFieUTubDat,
-    m_flow_nominal=borFieUTubDat.conDat.m_flow_nominal_bh,
-    dp_nominal=10,
-    dynFil=false) "Borehole with U-Tub configuration and steady states grout"
+    m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
+    dp_nominal=borFieUTubDat.conDat.dp_nominal,
+    dynFil=false,
+    nSeg=nSeg)    "Borehole with U-Tub configuration and steady states grout"
     annotation (Placement(transformation(
         extent={{-14,-14},{14,14}},
         rotation=0,
@@ -71,7 +77,7 @@ model BoreholeDynamics
     redeclare package Medium = Medium,
     nPorts=1,
     use_T_in=false,
-    m_flow=borFieUTubDat.conDat.m_flow_nominal_bh,
+    m_flow=borFieUTubDat.conDat.mBor_flow_nominal,
     T=303.15) "Source" annotation (Placement(transformation(extent={{-80,-10},{-60,
             10}}, rotation=0)));
   IBPSA.Fluid.Sources.Boundary_pT sin1(
@@ -82,19 +88,19 @@ model BoreholeDynamics
     p=101330,
     T=283.15) "Sink" annotation (Placement(transformation(extent={{80,-10},{60,10}},
                   rotation=0)));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn1(m_flow_nominal=borFieUTubDat.conDat.m_flow_nominal_bh,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn1(m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
       redeclare package Medium = Medium) "Inlet borehole temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBor1UTubSteSta(m_flow_nominal=
-        borFieUTubDat.conDat.m_flow_nominal_bh, redeclare package Medium =
+        borFieUTubDat.conDat.mBor_flow_nominal, redeclare package Medium =
         Medium) "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse
     groTemRes1(borFieDat=borFieUTubDat, tLoaAgg=60)
     "Ground temperature response"
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol2(m=
-        borFieUTubDat.conDat.nVer) "Thermal collector" annotation (Placement(
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol2(m=nSeg)
+                                   "Thermal collector" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -102,10 +108,11 @@ model BoreholeDynamics
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeTwoUTube
     borHol2UTubDyn(
     redeclare package Medium = Medium,
-    dp_nominal=10,
+    dp_nominal=borFie2UTubDat.conDat.dp_nominal,
     dynFil=true,
-    m_flow_nominal=borFie2UTubDat.conDat.m_flow_nominal_bh,
-    borFieDat=borFie2UTubDat)
+    m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal,
+    borFieDat=borFie2UTubDat,
+    nSeg=nSeg)
     "Borehole with 2U-Tub configuration and grout dynamics" annotation (
       Placement(transformation(
         extent={{-14,-14},{14,14}},
@@ -115,7 +122,7 @@ model BoreholeDynamics
     redeclare package Medium = Medium,
     nPorts=1,
     use_T_in=false,
-    m_flow=borFie2UTubDat.conDat.m_flow_nominal_bh,
+    m_flow=borFie2UTubDat.conDat.mBor_flow_nominal,
     T=303.15) "Source" annotation (Placement(transformation(extent={{-80,-70},{-60,
             -50}}, rotation=0)));
   IBPSA.Fluid.Sources.Boundary_pT sin2(
@@ -130,23 +137,23 @@ model BoreholeDynamics
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation
     borFie2UTubDat(conDat=
         IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.SandBox_validation(
-         borHolCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreHoleConfiguration.DoubleUTubeParallel))
+         borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel))
     "Borefield parameters with UTube borehole configuration"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn2(redeclare package Medium =
-        Medium, m_flow_nominal=borFie2UTubDat.conDat.m_flow_nominal_bh)
+        Medium, m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal)
     "Inlet borehole temperature"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBor2UTubDyn(redeclare package Medium =
-        Medium, m_flow_nominal=borFie2UTubDat.conDat.m_flow_nominal_bh)
+        Medium, m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal)
     "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse
     groTemRes2(tLoaAgg=60, borFieDat=borFie2UTubDat)
     "Ground temperature response"
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol3(m=
-        borFie2UTubDat.conDat.nVer) "Thermal collector" annotation (Placement(
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol3(m=nSeg)
+                                    "Thermal collector" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -154,10 +161,11 @@ model BoreholeDynamics
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeTwoUTube
     borHol2UTubSteSta(
     redeclare package Medium = Medium,
-    dp_nominal=10,
+    dp_nominal=borFie2UTubDat.conDat.dp_nominal,
     dynFil=false,
-    m_flow_nominal=borFie2UTubDat.conDat.m_flow_nominal_bh,
-    borFieDat=borFie2UTubDat)
+    m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal,
+    borFieDat=borFie2UTubDat,
+    nSeg=nSeg)
     "Borehole with 2U-Tub configuration and steady states grout" annotation (
       Placement(transformation(
         extent={{-14,-14},{14,14}},
@@ -167,7 +175,7 @@ model BoreholeDynamics
     redeclare package Medium = Medium,
     nPorts=1,
     use_T_in=false,
-    m_flow=borFie2UTubDat.conDat.m_flow_nominal_bh,
+    m_flow=borFie2UTubDat.conDat.mBor_flow_nominal,
     T=303.15) "Source" annotation (Placement(transformation(extent={{-80,-130},{
             -60,-110}}, rotation=0)));
   IBPSA.Fluid.Sources.Boundary_pT sin3(
@@ -180,19 +188,19 @@ model BoreholeDynamics
             -110}},
                   rotation=0)));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn3(redeclare package Medium =
-        Medium, m_flow_nominal=borFie2UTubDat.conDat.m_flow_nominal_bh)
+        Medium, m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal)
     "Inlet borehole temperature"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBor2UTubSteSta(redeclare package
-      Medium = Medium, m_flow_nominal=borFie2UTubDat.conDat.m_flow_nominal_bh)
+      Medium = Medium, m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal)
     "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse
     groTemRes3(tLoaAgg=60, borFieDat=borFie2UTubDat)
     "Ground temperature response"
     annotation (Placement(transformation(extent={{-70,-100},{-50,-80}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol4(m=
-        borFie2UTubDat.conDat.nVer) "Thermal collector" annotation (Placement(
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol4(m=nSeg)
+                                    "Thermal collector" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

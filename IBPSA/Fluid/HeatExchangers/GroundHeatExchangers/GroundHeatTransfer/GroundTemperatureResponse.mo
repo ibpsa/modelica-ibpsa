@@ -24,8 +24,8 @@ protected
   parameter Integer nbTimLon = 50 "Number of time steps in long time region";
   parameter Real ttsMax = exp(5) "Maximum adimensional time for gfunc calculation";
   parameter String SHAgfun=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.shaGFunction(
-      nbBor=borFieDat.conDat.nbBh,
-      cooBor=borFieDat.conDat.cooBh,
+      nbBor=borFieDat.conDat.nbBor,
+      cooBor=borFieDat.conDat.cooBor,
       hBor=borFieDat.conDat.hBor,
       dBor=borFieDat.conDat.dBor,
       rBor=borFieDat.conDat.rBor,
@@ -46,8 +46,8 @@ protected
     tLoaAgg=tLoaAgg)
     "Number of aggregation cells";
   parameter Real timSer[nbTimTot,2]=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.temperatureResponseMatrix(
-    nbBor=borFieDat.conDat.nbBh,
-    cooBor=borFieDat.conDat.cooBh,
+    nbBor=borFieDat.conDat.nbBor,
+    cooBor=borFieDat.conDat.cooBor,
     hBor=borFieDat.conDat.hBor,
     dBor=borFieDat.conDat.dBor,
     rBor=borFieDat.conDat.rBor,
@@ -79,7 +79,7 @@ protected
   discrete Real delTBor_old "Tb-TSoi at previous time step";
   final parameter Real dhdt(fixed=false)
     "Time derivative of g/(2*pi*H*ks) within most recent cell";
-  Modelica.SIunits.HeatFlowRate QBor_flow=borWall.Q_flow*borFieDat.conDat.nbBh
+  Modelica.SIunits.HeatFlowRate QBor_flow=borWall.Q_flow*borFieDat.conDat.nbBor
     "Totat heat flow from all boreholes";
   Modelica.SIunits.Heat U "Accumulated heat flow from all boreholes";
   discrete Modelica.SIunits.Heat U_old "Accumulated heat flow from all boreholes at last aggregation step";

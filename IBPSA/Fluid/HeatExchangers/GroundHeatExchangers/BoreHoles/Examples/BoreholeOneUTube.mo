@@ -5,13 +5,21 @@ model BoreholeOneUTube "Test for the Single U-tube borehole model"
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
+  parameter Integer nSeg(min=1) = 10
+    "Number of segments to use in vertical discretization of the boreholes";
+  parameter Integer nHor(min=1) = 10
+    "Number of cells to use in radial discretization of soil";
+  parameter Modelica.SIunits.Temperature T_start = 273.15 + 22
+    "Initial soil temperature";
+
   replaceable
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeOneUTube
     borHolDis(
     redeclare package Medium = Medium,
     borFieDat=borFieDat,
-    m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
-    dp_nominal=10) "Borehole connected to a discrete ground model" annotation (
+    m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
+    dp_nominal=borFieDat.conDat.dp_nominal,
+    nSeg=nSeg)     "Borehole connected to a discrete ground model" annotation (
       Placement(transformation(
         extent={{-14,-14},{14,14}},
         rotation=0,
@@ -21,7 +29,7 @@ model BoreholeOneUTube "Test for the Single U-tube borehole model"
     redeclare package Medium = Medium,
     nPorts=1,
     use_T_in=false,
-    m_flow=borFieDat.conDat.m_flow_nominal_bh,
+    m_flow=borFieDat.conDat.mBor_flow_nominal,
     T=303.15) "Source" annotation (Placement(transformation(extent={{-76,-10},{
             -56,10}}, rotation=0)));
   IBPSA.Fluid.Sources.Boundary_pT sin(
@@ -35,20 +43,20 @@ model BoreholeOneUTube "Test for the Single U-tube borehole model"
   parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation
                                         borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn(m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn(m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
       redeclare package Medium = Medium) "Inlet borehole temperature"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorDisOut(m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorDisOut(m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
       redeclare package Medium = Medium) "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer
-    lay[borFieDat.conDat.nVer](
+    lay[nSeg](
     each soiDat=borFieDat.soiDat,
-    each h=borFieDat.conDat.hSeg,
+    each h=borFieDat.conDat.hBor/nSeg,
     each r_a=borFieDat.conDat.rBor,
-    each nSta=borFieDat.conDat.nHor,
-    each TInt_start=borFieDat.conDat.T_start,
-    each TExt_start=borFieDat.conDat.T_start,
+    each nSta=nHor,
+    each TInt_start=T_start,
+    each TExt_start=T_start,
     each r_b=3) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -63,13 +71,15 @@ model BoreholeOneUTube "Test for the Single U-tube borehole model"
     borHolAna(
     redeclare package Medium = Medium,
     borFieDat=borFieDat,
-    m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
-    dp_nominal=10) "Borehole model connected to an analytical ground model"
+    m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
+    nSeg=nSeg,
+    dp_nominal=borFieDat.conDat.dp_nominal)
+                   "Borehole model connected to an analytical ground model"
     annotation (Placement(transformation(
         extent={{-14,14},{14,-14}},
         rotation=0,
         origin={0,-44})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorAnaOut(m_flow_nominal=borFieDat.conDat.m_flow_nominal_bh,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorAnaOut(m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
       redeclare package Medium = Medium) "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{30,-54},{50,-34}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse
@@ -77,17 +87,17 @@ model BoreholeOneUTube "Test for the Single U-tube borehole model"
                                             "Ground temperature response"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol1(m=
-        borFieDat.conDat.nVer) "Thermal collector" annotation (Placement(
+        nSeg) "Thermal collector" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-20,-80})));
-  Modelica.Blocks.Sources.Constant TGroUn(k=borFieDat.conDat.T_start)
+  Modelica.Blocks.Sources.Constant TGroUn(k=T_start)
     "Undisturbed ground temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-80,90})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol(m=borFieDat.conDat.nVer)
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol(m=nSeg)
     "Thermal collector" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
