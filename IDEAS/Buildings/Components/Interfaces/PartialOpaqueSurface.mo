@@ -51,6 +51,11 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+June 27, 2018, by Filip Jorissen:<br/>
+Added check to avoid <code>energyDynamics=SteadyState</code>. 
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/856>#856</a>.
+</li>
+<li>
 March 21, 2017, by Filip Jorissen:<br/>
 Changed conservation of energy implementation for JModelica compatibility.
 See issue <a href=https://github.com/open-ideas/IDEAS/issues/559>#559</a>.
