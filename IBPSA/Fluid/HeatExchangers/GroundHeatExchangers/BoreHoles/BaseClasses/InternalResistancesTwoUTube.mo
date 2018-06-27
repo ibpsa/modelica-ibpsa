@@ -66,12 +66,12 @@ model InternalResistancesTwoUTube
         extent={{8,-8},{-8,8}},
         rotation=180,
         origin={-30,0})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg11(R=Rgg1_val)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg11(R=Rgg2_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{8,-8},{-8,8}},
         rotation=90,
         origin={90,30})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg21(R=Rgg2_val)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg21(R=Rgg1_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{8,-8},{-8,8}},
         rotation=270,
