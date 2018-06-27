@@ -3,5 +3,5 @@ aggregationWeightingFactors
 countAggregationCells
 setFirstAggregationCell
 shiftAggregationCells
-temporalSuperposition
 temperatureResponseMatrix
+temporalSuperposition
