@@ -1,5 +1,5 @@
 within IBPSA.Utilities.Cryptographics;
-package Validation "This package contains models that validate cryptographic functions."
+package Validation "Validation models for cryptographic functions."
 extends Modelica.Icons.ExamplesPackage;
 
     annotation (Documentation(info="<html>

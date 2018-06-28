@@ -20,7 +20,7 @@ function temperatureResponseMatrix
   input Boolean forceGFunCalc
     "Set to true to force the thermal response to be calculated at the start";
 
-  output Real matrix[nbTimTot, 2] "2D Real array with 2 columns";
+  output Real matrix[nbTimTot, 2] "Temperature response time series";
 
 protected
   String pathSave "Path of the saving folder";

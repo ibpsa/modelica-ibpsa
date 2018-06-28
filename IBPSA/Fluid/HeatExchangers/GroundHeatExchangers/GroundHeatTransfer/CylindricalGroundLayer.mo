@@ -238,7 +238,7 @@ where
 <h4>Implementation</h4>
 <p>
 To spatially discretize the heat equation, the construction is 
-divided into compartments with <code>material.nSta &ge; 1</code> state variables. 
+divided into compartments with <code>nSta &ge; 1</code> state variables. 
 The state variables are connected to each other through thermal conductors. 
 There is also a thermal conductor
 between the surfaces and the outermost state variables. Thus, to obtain

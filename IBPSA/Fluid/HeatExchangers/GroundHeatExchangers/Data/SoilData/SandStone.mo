@@ -10,7 +10,7 @@ record SandStone
     Diagram( coordinateSystem(preserveAspectRatio=false)),
     Documentation(
 info="<html>
-<p>This soil data record contains the heat transfer proeprties of
+<p>This soil data record contains the heat transfer properties of
 sandstone.</p>
 </html>",
 revisions="<html>

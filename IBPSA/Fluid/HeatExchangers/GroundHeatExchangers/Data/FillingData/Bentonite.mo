@@ -11,7 +11,7 @@ record Bentonite
     Diagram( coordinateSystem(preserveAspectRatio=false)),
     Documentation(
 info="<html>
-<p>This filling data record contains the heat transfer proeprties of
+<p>This filling data record contains the heat transfer properties of
 bentonite.</p>
 </html>",
 revisions="<html>

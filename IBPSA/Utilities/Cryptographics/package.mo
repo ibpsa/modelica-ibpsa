@@ -1,5 +1,5 @@
 within IBPSA.Utilities;
-package Cryptographics
+package Cryptographics "Package with cryptographic functions"
   extends Modelica.Icons.VariantsPackage;
 
   annotation (
