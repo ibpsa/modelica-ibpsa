@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data;
-package ConfigurationData "Record for all configuration data of borefield"
+package ConfigurationData "Collection of records of configuration data of borefields"
 extends Modelica.Icons.Package;
 
 
@@ -11,14 +11,14 @@ extends Modelica.Icons.Package;
 
 
 
+
+
+
 annotation (Documentation(info="<html>
- <p>Library of General Borefield Data.</p>
-</html>", revisions="<html>
-<ul>
-<li>
-July 2014, by Damien Picard:<br>
-First implementation.
-</li>
-</ul>
+<p>This package contains data records for use with ground heat exchanger models
+in <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers</a>. The configuration data
+records contain the geometrical and operational characteristics of the borefield
+and the boreholes.
 </html>"));
 end ConfigurationData;

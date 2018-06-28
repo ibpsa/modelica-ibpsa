@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData;
-record Template "Thermal properties of the borehole filling material"
+record Template
+  "Template for FillingData records"
   extends Modelica.Icons.Record;
   parameter Modelica.SIunits.ThermalConductivity kFil
     "Thermal conductivity of the borehole filling material";
@@ -12,12 +13,19 @@ record Template "Thermal properties of the borehole filling material"
     annotation(Evaluate=true);
   final parameter Modelica.SIunits.ThermalDiffusivity aFil = kFil/(dFil*cFil)
     "Heat diffusion coefficient of the borehole filling material";
-  annotation (Documentation(info="<html>
- <p>Thermal properties of the borehole filling material and record path.</p>
-</html>", revisions="<html>
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=false)),
+    Diagram( coordinateSystem(preserveAspectRatio=false)),
+    Documentation(
+info="<html>
+<p>This record is a template for the records in
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData</a>.</p>
+</html>",
+revisions="<html>
 <ul>
 <li>
-July 2014, by Damien Picard:<br>
+July 28, 2018, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,27 +1,17 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data;
-package SoilData "Library of Soil Data"
+package SoilData "Collection of records of soil data"
 extends Modelica.Icons.Package;
 
 
 
 
-  record SandBox_validation
-    "Soil properties for bore field validation using thermal response test of the Sand box Experiment"
-    extends Template(
-      kSoi=2.8,
-      cSoi=1600,
-      dSoi=2000);
 
-  end SandBox_validation;
+
 
 annotation (Documentation(info="<html>
- <p>Library of Soil Data.</p>
-</html>", revisions="<html>
-<ul>
-<li>
-July 2014, by Damien Picard:<br>
-First implementation.
-</li>
-</ul>
+<p>This package contains data records for use with ground heat exchanger models
+in <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers</a>. The soil data
+records contain the heat transfer properties of soil materials.
 </html>"));
 end SoilData;

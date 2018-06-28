@@ -1,19 +1,17 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data;
-package FillingData "Library of Filling Data"
+package FillingData "Collection of records of filling data"
 extends Modelica.Icons.Package;
 
 
 
 
 
+
+
 annotation (Documentation(info="<html>
- <p>Library of Filling Data.</p>
-</html>", revisions="<html>
-<ul>
-<li>
-July 2014, by Damien Picard:<br>
-First implementation.
-</li>
-</ul>
+<p>This package contains data records for use with ground heat exchanger models
+in <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers</a>. The filling data
+records contain the heat transfer properties of the borehole filling material.
 </html>"));
 end FillingData;

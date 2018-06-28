@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData;
-record Template "General parameters of the borefield"
+record Template
+  "Template for ConfigurationData records"
   extends Modelica.Icons.Record;
 
   parameter Types.BoreholeConfiguration borCon
@@ -49,12 +50,19 @@ record Template "General parameters of the borefield"
     "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Nominal condition"));
 
-  annotation (Documentation(info="<html>
- <p>General parameters of the borefield and record path.</p>
-</html>", revisions="<html>
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=false)),
+    Diagram( coordinateSystem(preserveAspectRatio=false)),
+    Documentation(
+info="<html>
+<p>This record is a template for the records in
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData</a>.</p>
+</html>",
+revisions="<html>
 <ul>
 <li>
-July 2014, by Damien Picard:<br>
+July 28, 2018, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

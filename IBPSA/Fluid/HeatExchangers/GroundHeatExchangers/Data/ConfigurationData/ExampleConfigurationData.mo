@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData;
 record ExampleConfigurationData
-  extends Template(
+  "Example definition of a ConfigurationData record"
+  extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Template(
     borCon = Types.BoreholeConfiguration.SingleUTube,
     nbBor=4,
     cooBor={{0,0},{0,6},{6,0},{6,6}},
@@ -13,6 +14,22 @@ record ExampleConfigurationData
     kTub=0.5,
     eTub=0.002,
     xC=0.05);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=false)),
+    Diagram( coordinateSystem(preserveAspectRatio=false)),
+    Documentation(
+info="<html>
+<p>This record presents an example on how to define configuration data records
+using the template in
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Template\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Template</a>.</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 28, 2018, by Damien Picard:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ExampleConfigurationData;
