@@ -19,7 +19,7 @@ protected
   Real[4] xPip = {-sha, 0., sha, 0.} "x-Coordinates of pipes";
   Real[4] yPip = {0., -sha, 0., sha} "y-Coordinates of pipes";
   Real[4] rPip = {rTub, rTub, rTub, rTub} "Outer radius of pipes";
-  Real[4] Rfp(unit="(m.K)/W") = {RCondPipe+RConv, RCondPipe+RConv, RCondPipe+RConv, RCondPipe+RConv} "Fluid to pipe wall thermal resistances";
+  Real[4] RFluPip(unit="(m.K)/W") = {RCondPipe+RConv, RCondPipe+RConv, RCondPipe+RConv, RCondPipe+RConv} "Fluid to pipe wall thermal resistances";
 
   Real Ra( unit="(m.K)/W");
 
@@ -31,7 +31,7 @@ algorithm
   // Internal thermal resistances
   (RDelta, R) :=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.multipoleThermalResistances(
-      4, 3, xPip, yPip, rBor, rPip, kFil, kSoi, Rfp);
+      4, 3, xPip, yPip, rBor, rPip, kFil, kSoi, RFluPip);
 
   // Rb and Ra
   Rb_internal :=if use_Rb then Rb else 1./(1./RDelta[1,1] + 1./RDelta[2,2] + 1./RDelta[3,3] + 1./RDelta[4,4]);

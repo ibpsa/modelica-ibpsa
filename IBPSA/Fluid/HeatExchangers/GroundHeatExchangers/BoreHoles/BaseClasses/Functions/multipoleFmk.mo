@@ -11,8 +11,8 @@ function multipoleFmk "Complex matrix F_mk from Claesson and Hellstrom (2011)"
   input Real rPip[nPip] "Outter radius of pipes";
   input Real xPip[nPip] "x-Coordinates of pipes";
   input Real yPip[nPip] "y-Coordinates of pipes";
-  input Real kGrout "Thermal conductivity of grouting material";
-  input Real kSoil "Thermal conductivity of soil material";
+  input Real kFil "Thermal conductivity of grouting material";
+  input Real kSoi "Thermal conductivity of soil material";
 
   output Real FRea[nPip,J] "Multipole coefficients";
   output Real FIma[nPip,J] "Multipole coefficients";
@@ -21,8 +21,8 @@ protected
   Complex zPip_i;
   Complex zPip_j;
   Complex P_nj;
-  Real pikg=1/(2*Modelica.Constants.pi*kGrout);
-  Real sigma=(kGrout - kSoil)/(kGrout + kSoil);
+  Real pikFil=1/(2*Modelica.Constants.pi*kFil);
+  Real sigma=(kFil - kSoi)/(kFil + kSoi);
   Complex f;
   Integer j_pend;
 
@@ -36,10 +36,10 @@ algorithm
         zPip_j := Complex(xPip[n], yPip[n]);
         // First term
         if m <> n then
-          f := f + QPip_flow[n]*pikg/k*(rPip[m]/(zPip_j - zPip_i))^k;
+          f := f + QPip_flow[n]*pikFil/k*(rPip[m]/(zPip_j - zPip_i))^k;
         end if;
         // Second term
-        f := f + sigma*QPip_flow[n]*pikg/k*(rPip[m]*Modelica.ComplexMath.conj(
+        f := f + sigma*QPip_flow[n]*pikFil/k*(rPip[m]*Modelica.ComplexMath.conj(
           zPip_j)/(rBor^2 - zPip_i*Modelica.ComplexMath.conj(zPip_j)))^k;
         for j in 1:J loop
           P_nj := Complex(PRea[n, j], PIma[n, j]);

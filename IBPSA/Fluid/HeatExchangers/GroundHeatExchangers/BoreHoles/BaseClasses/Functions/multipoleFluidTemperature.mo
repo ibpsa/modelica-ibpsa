@@ -10,18 +10,18 @@ function multipoleFluidTemperature "Fluid temperatures from multipole solution"
   input Real TBor "Average borehole wall temperature";
   input Real rBor "Borehole radius";
   input Real rPip[nPip] "Outter radius of pipes";
-  input Real kGrout "Thermal conductivity of grouting material";
-  input Real kSoil "Thermal conductivity of soil material";
-  input Real Rfp[nPip] "Fluid to pipe wall thermal resistances";
+  input Real kFil "Thermal conductivity of grouting material";
+  input Real kSoi "Thermal conductivity of soil material";
+  input Real RFluPip[nPip] "Fluid to pipe wall thermal resistances";
   input Real eps=1.0e-5 "Iteration relative accuracy";
   input Real it_max=100 "Maximum number of iterations";
 
   output Real TFlu[nPip] "Fluid temperature in pipes";
 
 protected
-  Real pikg=1/(2*Modelica.Constants.pi*kGrout);
-  Real sigma=(kGrout - kSoil)/(kGrout + kSoil);
-  Real betaPip[nPip]=2*Modelica.Constants.pi*kGrout*Rfp;
+  Real pikFil=1/(2*Modelica.Constants.pi*kFil);
+  Real sigma=(kFil - kSoi)/(kFil + kSoi);
+  Real betaPip[nPip]=2*Modelica.Constants.pi*kFil*RFluPip;
   Complex zPip_i;
   Complex zPip_j;
   Complex P_nj;
@@ -51,14 +51,14 @@ algorithm
   for i in 1:nPip loop
     zPip_i := Complex(xPip[i], yPip[i]);
     rbm := rBor^2/(rBor^2 - Modelica.ComplexMath.'abs'(zPip_i)^2);
-    R0[i, i] := pikg*(log(rBor/rPip[i]) + betaPip[i] + sigma*log(rbm));
+    R0[i, i] := pikFil*(log(rBor/rPip[i]) + betaPip[i] + sigma*log(rbm));
     for j in 1:nPip loop
       zPip_j := Complex(xPip[j], yPip[j]);
       if i <> j then
         dz := Modelica.ComplexMath.'abs'(zPip_i - zPip_j);
         rbm := rBor^2/Modelica.ComplexMath.'abs'(rBor^2 - zPip_j*
           Modelica.ComplexMath.conj(zPip_i));
-        R0[i, j] := pikg*(log(rBor/dz) + sigma*log(rbm));
+        R0[i, j] := pikFil*(log(rBor/dz) + sigma*log(rbm));
       end if;
     end for;
   end for;
@@ -88,8 +88,8 @@ algorithm
         rPip,
         xPip,
         yPip,
-        kGrout,
-        kSoil);
+        kFil,
+        kSoi);
       for m in 1:nPip loop
         for k in 1:J loop
           F_mk := Complex(FRea[m, k], FIma[m, k]);

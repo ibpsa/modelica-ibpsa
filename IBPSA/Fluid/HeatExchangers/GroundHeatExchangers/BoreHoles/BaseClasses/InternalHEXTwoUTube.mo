@@ -72,7 +72,7 @@ model InternalHEXTwoUTube
         rTub=borFieDat.conDat.rTub,
         eTub=borFieDat.conDat.eTub,
         kMed=kMed,
-        mueMed=mueMed,
+        muMed=muMed,
         cpMed=cpMed,
         m_flow=m1_flow,
         m_flow_nominal=m1_flow_nominal))
@@ -85,7 +85,7 @@ model InternalHEXTwoUTube
         rTub=borFieDat.conDat.rTub,
         eTub=borFieDat.conDat.eTub,
         kMed=kMed,
-        mueMed=mueMed,
+        muMed=muMed,
         cpMed=cpMed,
         m_flow=m2_flow,
         m_flow_nominal=m2_flow_nominal))
@@ -98,7 +98,7 @@ model InternalHEXTwoUTube
         rTub=borFieDat.conDat.rTub,
         eTub=borFieDat.conDat.eTub,
         kMed=kMed,
-        mueMed=mueMed,
+        muMed=muMed,
         cpMed=cpMed,
         m_flow=m3_flow,
         m_flow_nominal=m3_flow_nominal))
@@ -112,7 +112,7 @@ model InternalHEXTwoUTube
         rTub=borFieDat.conDat.rTub,
         eTub=borFieDat.conDat.eTub,
         kMed=kMed,
-        mueMed=mueMed,
+        muMed=muMed,
         cpMed=cpMed,
         m_flow=m1_flow,
         m_flow_nominal=m4_flow_nominal))
@@ -165,7 +165,7 @@ protected
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Thermal conductivity of the fluid";
-  parameter Modelica.SIunits.DynamicViscosity mueMed=Medium.dynamicViscosity(
+  parameter Modelica.SIunits.DynamicViscosity muMed=Medium.dynamicViscosity(
       Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
@@ -185,13 +185,13 @@ initial equation
     rTub=borFieDat.conDat.rTub,
     eTub=borFieDat.conDat.eTub,
     sha=borFieDat.conDat.xC,
-    kFil=borFieDat.filDat.k,
+    kFil=borFieDat.filDat.kFil,
     kSoi=borFieDat.soiDat.k,
     kTub=borFieDat.conDat.kTub,
     use_Rb=borFieDat.conDat.use_Rb,
     Rb=borFieDat.conDat.Rb,
     kMed=kMed,
-    mueMed=mueMed,
+    muMed=muMed,
     cpMed=cpMed,
     m_flow_nominal=m1_flow_nominal,
     printDebug=false);

@@ -45,10 +45,6 @@ model InternalHEXOneUTube
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
 
 protected
-  parameter Modelica.SIunits.HeatCapacity Co_fil=borFieDat.filDat.d*borFieDat.filDat.c*hSeg*Modelica.Constants.pi
-      *(borFieDat.conDat.rBor^2 - 2*(borFieDat.conDat.rTub + borFieDat.conDat.eTub)^2)
-    "Heat capacity of the whole filling material";
-
   parameter Modelica.SIunits.SpecificHeatCapacity cpMed=
       Medium.specificHeatCapacityCp(Medium.setState_pTX(
       Medium.p_default,
@@ -59,7 +55,7 @@ protected
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Thermal conductivity of the fluid";
-  parameter Modelica.SIunits.DynamicViscosity mueMed=Medium.dynamicViscosity(
+  parameter Modelica.SIunits.DynamicViscosity muMed=Medium.dynamicViscosity(
       Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
@@ -80,7 +76,7 @@ public
         rTub=borFieDat.conDat.rTub,
         eTub=borFieDat.conDat.eTub,
         kMed=kMed,
-        mueMed=mueMed,
+        muMed=muMed,
         cpMed=cpMed,
         m_flow=m1_flow,
         m_flow_nominal=m1_flow_nominal))
@@ -93,7 +89,7 @@ public
         rTub=borFieDat.conDat.rTub,
         eTub=borFieDat.conDat.eTub,
         kMed=kMed,
-        mueMed=mueMed,
+        muMed=muMed,
         cpMed=cpMed,
         m_flow=m2_flow,
         m_flow_nominal=m2_flow_nominal))
@@ -132,13 +128,13 @@ initial equation
     rTub=borFieDat.conDat.rTub,
     eTub=borFieDat.conDat.eTub,
     sha=borFieDat.conDat.xC,
-    kFil=borFieDat.filDat.k,
+    kFil=borFieDat.filDat.kFil,
     kSoi=borFieDat.soiDat.k,
     kTub=borFieDat.conDat.kTub,
     use_Rb=borFieDat.conDat.use_Rb,
     Rb=borFieDat.conDat.Rb,
     kMed=kMed,
-    mueMed=mueMed,
+    muMed=muMed,
     cpMed=cpMed,
     m_flow_nominal=m1_flow_nominal,
     printDebug=false);

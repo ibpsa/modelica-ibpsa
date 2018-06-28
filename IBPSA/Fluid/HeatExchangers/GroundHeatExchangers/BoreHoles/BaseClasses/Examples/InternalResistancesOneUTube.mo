@@ -25,7 +25,7 @@ model InternalResistancesOneUTube "Validation of singleUTubeResistance by compar
   // thermal properties
   parameter Modelica.SIunits.ThermalConductivity kMed = 0.48
     "Thermal conductivity of the fluid";
-  parameter Modelica.SIunits.DynamicViscosity mueMed = 0.0052
+  parameter Modelica.SIunits.DynamicViscosity muMed = 0.0052
     "Dynamic viscosity of the fluid";
   parameter Modelica.SIunits.SpecificHeatCapacity cpMed = 3795
     "Specific heat capacity of the fluid";
@@ -56,7 +56,7 @@ equation
     use_Rb=use_Rb,
     Rb=Rb,
     kMed=kMed,
-    mueMed=mueMed,
+    muMed=muMed,
     cpMed=cpMed,
     m_flow_nominal=m_flow_nominal,
     printDebug=true);

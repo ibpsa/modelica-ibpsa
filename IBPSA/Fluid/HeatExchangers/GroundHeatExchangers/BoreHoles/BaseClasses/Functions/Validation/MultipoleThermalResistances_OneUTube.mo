@@ -12,12 +12,12 @@ model MultipoleThermalResistances_OneUTube
   parameter Modelica.SIunits.Radius rBor=0.07 "Borehole radius";
   parameter Modelica.SIunits.Radius[nPip] rPip=fill(0.02, nPip)
     "Outter radius of pipes";
-  parameter Modelica.SIunits.ThermalConductivity kGro=1.5
+  parameter Modelica.SIunits.ThermalConductivity kFil=1.5
     "Thermal conductivity of grouting material";
   parameter Modelica.SIunits.ThermalConductivity kSoi=2.5
     "Thermal conductivity of soil material";
   parameter Modelica.SIunits.ThermalInsulance[nPip] RFluPip=
-    fill(1.2/(2*Modelica.Constants.pi*kGro), nPip)
+    fill(1.2/(2*Modelica.Constants.pi*kFil), nPip)
     "Fluid to pipe wall thermal resistances";
   parameter Modelica.SIunits.Temperature TBor=0
     "Average borehole wall temperature";
@@ -36,7 +36,7 @@ model MultipoleThermalResistances_OneUTube
 
 equation
   (RDelta, R) = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.multipoleThermalResistances(
-    nPip, J, xPip, yPip, rBor, rPip, kGro, kSoi, RFluPip, TBor);
+    nPip, J, xPip, yPip, rBor, rPip, kFil, kSoi, RFluPip, TBor);
 
   annotation (
     __Dymola_Commands(file=

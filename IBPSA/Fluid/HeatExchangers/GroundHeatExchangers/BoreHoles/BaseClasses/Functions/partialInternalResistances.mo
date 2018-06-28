@@ -26,7 +26,7 @@ partial function partialInternalResistances
   // thermal properties
   input Modelica.SIunits.ThermalConductivity kMed
     "Thermal conductivity of the fluid";
-  input Modelica.SIunits.DynamicViscosity mueMed
+  input Modelica.SIunits.DynamicViscosity muMed
     "Dynamic viscosity of the fluid";
   input Modelica.SIunits.SpecificHeatCapacity cpMed
     "Specific heat capacity of the fluid";
@@ -49,7 +49,7 @@ protected
     rTub=rTub,
     eTub=eTub,
     kMed=kMed,
-    mueMed=mueMed,
+    muMed=muMed,
     cpMed=cpMed,
     m_flow=m_flow_nominal,
     m_flow_nominal=m_flow_nominal)*hSeg;

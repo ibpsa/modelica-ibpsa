@@ -9,9 +9,9 @@ function multipoleThermalResistances
   input Real yPip[nPip] "y-Coordinates of pipes";
   input Real rBor "Borehole radius";
   input Real rPip[nPip] "Outter radius of pipes";
-  input Real kGrout "Thermal conductivity of grouting material";
-  input Real kSoil "Thermal conductivity of soil material";
-  input Real Rfp[nPip] "Fluid to pipe wall thermal resistances";
+  input Real kFil "Thermal conductivity of grouting material";
+  input Real kSoi "Thermal conductivity of soil material";
+  input Real RFluPip[nPip] "Fluid to pipe wall thermal resistances";
   input Real TBor=0 "Average borehole wall temperature";
 
   output Real RDelta[nPip,nPip] "Delta-circuit thermal resistances";
@@ -41,9 +41,9 @@ algorithm
       TBor,
       rBor,
       rPip,
-      kGrout,
-      kSoil,
-      Rfp);
+      kFil,
+      kSoi,
+      RFluPip);
     for n in 1:nPip loop
       R[n, m] := TFlu[n];
     end for;

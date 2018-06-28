@@ -10,7 +10,7 @@ function convectionResistanceCircularPipe
   // thermal properties
   input Modelica.SIunits.ThermalConductivity kMed
     "Thermal conductivity of the fluid";
-  input Modelica.SIunits.DynamicViscosity mueMed
+  input Modelica.SIunits.DynamicViscosity muMed
     "Dynamic viscosity of the fluid";
   input Modelica.SIunits.SpecificHeatCapacity cpMed
     "Specific heat capacity of the fluid";
@@ -18,7 +18,7 @@ function convectionResistanceCircularPipe
   input Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
 
   // Outputs
-  output Modelica.SIunits.ThermalResistance RFlu2pipe
+  output Modelica.SIunits.ThermalResistance RFluPip
     "Convection resistance (or conduction in fluid if no mass flow)";
 
 protected
@@ -33,15 +33,15 @@ algorithm
   // ********** Convection resistance **********
   // Dittus-Boelter: h = 0.023*k_f*Re*Pr/(2*rTub)
   // Re = rho*v*DTub / mue_f = m_flow/(pi r^2) * DTub/mue_f = 2*m_flow / ( mue*pi*rTub)
-  k := 2/(mueMed*Modelica.Constants.pi*rTub_in);
+  k := 2/(muMed*Modelica.Constants.pi*rTub_in);
 
   // Convection
-  h := 0.023*kMed*(cpMed*mueMed/kMed)^(0.35)/(2*rTub_in)*
+  h := 0.023*kMed*(cpMed*muMed/kMed)^(0.35)/(2*rTub_in)*
     IBPSA.Utilities.Math.Functions.regNonZeroPower(
             x=m_flow_abs*k,
             n=0.8,
             delta=0.01*m_flow_nominal*k);
-  RFlu2pipe := 1/(2*Modelica.Constants.pi*rTub_in*hSeg*h);
+  RFluPip := 1/(2*Modelica.Constants.pi*rTub_in*hSeg*h);
 
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
