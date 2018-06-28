@@ -248,7 +248,7 @@ and not the variable <code>T[1]</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-Januari, 2014, by Damien Picard:<br/>
+January, 2014, by Damien Picard:<br/>
 Modify the discretization of the cilindrical layer so that the first three layers have an equal thickness the following an exponentionally growing thickness.
 This follows the guidelines of Eskilson (P. Eskilson. Thermal analysis of heat extraction
 boreholes. PhD thesis, Dep. of Mathematical
