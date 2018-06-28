@@ -13,6 +13,5 @@ record SmallScale_validation
     rTub=0.125*0.0254/2,
     kTub=401.0,
     eTub=0.06*0.0254,
-    xC=0.0050/2,
-    p_constant=101.3e3);
+    xC=0.0050/2);
 end SmallScale_validation;

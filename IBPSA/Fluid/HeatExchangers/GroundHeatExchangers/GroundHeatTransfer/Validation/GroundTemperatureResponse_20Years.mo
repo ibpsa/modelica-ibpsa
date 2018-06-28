@@ -16,8 +16,7 @@ model GroundTemperatureResponse_20Years
       rTub=0.02,
       kTub=0.5,
       eTub=0.002,
-      xC=0.05,
-      p_constant=101.3e3),
+      xC=0.05),
     soiDat(
       kSoi=1,
       cSoi=1,

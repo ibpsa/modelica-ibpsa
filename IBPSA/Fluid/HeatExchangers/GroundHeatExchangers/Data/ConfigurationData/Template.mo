@@ -16,8 +16,7 @@ record Template "General parameters of the borefield"
   parameter Modelica.SIunits.Pressure dp_nominal
     "Pressure losses for the entire borefield";
 
-  //------------------------- Geometrical parameters -----------------------------------------------------------------------------------------------------------------------------
-  // -- Borefield geometry
+  //------------------------- Geometrical parameters ---------------------------
   parameter Modelica.SIunits.Height hBor "Total height of the borehole"
     annotation (Dialog(group="Borehole"));
   parameter Modelica.SIunits.Radius rBor "Radius of the borehole"
@@ -43,28 +42,13 @@ record Template "General parameters of the borefield"
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole"
     annotation (Dialog(group="Tubes"));
 
-  //------------------------- Advanced parameters -----------------------------------------------------------------------------------------------------------------------------
-
-//   /*--------Discretization: */
-//   parameter Integer nVer
-//     annotation (Dialog(tab="Discretization"));
-//   parameter Integer nHor(min=1)
-//     "Number of state variables in each horizontal layer of the soil"
-//     annotation (Dialog(tab="Discretization"));
-//   final parameter Modelica.SIunits.Height hSeg=hBor/nVer "Height of horizontal element"
-//     annotation (Dialog(tab="Discretization"));
+  //------------------------- Advanced parameters ------------------------------
 
   /*--------Flow: */
   parameter Modelica.SIunits.MassFlowRate mBor_flow_small(min=0) = 1E-4*abs(mBor_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Nominal condition"));
 
-  /*--------Assumptions: */
-
-  parameter Modelica.SIunits.Pressure p_constant;
-
-//   final Modelica.SIunits.Volume volOneLegSeg=hSeg*Modelica.Constants.pi*rTub^2
-//     "Volume of brine in one leg of a segment";
   annotation (Documentation(info="<html>
  <p>General parameters of the borefield and record path.</p>
 </html>", revisions="<html>

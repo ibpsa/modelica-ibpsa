@@ -45,8 +45,7 @@ model GroundTemperatureResponse_1Week
       rTub=0.02,
       kTub=0.5,
       eTub=0.002,
-      xC=0.05,
-      p_constant=101.3e3))
+      xC=0.05))
               "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 

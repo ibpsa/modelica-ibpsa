@@ -13,6 +13,5 @@ record SandBox_validation
     rTub=0.02733/2,
     kTub=0.39,
     eTub=0.003,
-    xC=0.053/2,
-    p_constant=101.3e3);
+    xC=0.053/2);
 end SandBox_validation;
