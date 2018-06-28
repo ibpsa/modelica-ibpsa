@@ -7,7 +7,7 @@ function gFunction "Evaluate the g-function of a bore field"
   input Modelica.SIunits.Height hBor "Borehole length";
   input Modelica.SIunits.Height dBor "Borehole buried depth";
   input Modelica.SIunits.Radius rBor "Borehole radius";
-  input Modelica.SIunits.ThermalDiffusivity alpha "Ground thermal diffusivity used in g-function evaluation";
+  input Modelica.SIunits.ThermalDiffusivity aSoi "Ground thermal diffusivity used in g-function evaluation";
   input Integer nbSeg "Number of line source segments per borehole";
   input Integer nbTimSho "Number of time steps in short time region";
   input Integer nbTimLon "Number of time steps in long time region";
@@ -18,7 +18,7 @@ function gFunction "Evaluate the g-function of a bore field"
   output Real g[nbTimSho+nbTimLon] "g-Function";
 
 protected
-  Modelica.SIunits.Time ts = hBor^2/(9*alpha) "Characteristic time";
+  Modelica.SIunits.Time ts = hBor^2/(9*aSoi) "Characteristic time";
   Modelica.SIunits.Time tSho_min = 1 "Minimum time for short time calculations";
   Modelica.SIunits.Time tSho_max = 3600 "Maximum time for short time calculations";
   Modelica.SIunits.Time tLon_min = tSho_max "Minimum time for long time calculations";
@@ -60,7 +60,7 @@ algorithm
     FLS :=
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
       tSho[k],
-      alpha,
+      aSoi,
       rBor,
       hBor,
       dBor,
@@ -70,13 +70,13 @@ algorithm
     ILS := 0.5*
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.infiniteLineSource(
       tSho[k],
-      alpha,
+      aSoi,
       rBor);
     // Cylindrical heat source solution
     CHS := 2*Modelica.Constants.pi*
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource(
       tSho[k],
-      alpha,
+      aSoi,
       rBor,
       rBor);
     // Correct finite line source solution for cylindrical geometry
@@ -119,7 +119,7 @@ algorithm
             hSegRea[m] :=
               IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
               tLon[k + 1],
-              alpha,
+              aSoi,
               dis,
               hBor/nbSeg,
               dBor,
@@ -132,7 +132,7 @@ algorithm
             hSegMir[m] :=
               IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
               tLon[k + 1],
-              alpha,
+              aSoi,
               dis,
               hBor/nbSeg,
               dBor,
@@ -176,13 +176,13 @@ algorithm
     ILS := 0.5*
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.infiniteLineSource(
       tLon[k],
-      alpha,
+      aSoi,
       rBor);
     // Cylindrical heat source
     CHS := 2*Modelica.Constants.pi*
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource(
       tLon[k],
-      alpha,
+      aSoi,
       rBor,
       rBor);
     g[nbTimSho+k] := g[nbTimSho+k] + (CHS - ILS);

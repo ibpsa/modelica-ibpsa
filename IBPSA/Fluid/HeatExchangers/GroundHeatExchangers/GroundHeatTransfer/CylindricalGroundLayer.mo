@@ -43,11 +43,11 @@ protected
   parameter Modelica.SIunits.Radius rC[nSta](each fixed=false)
     "Radius to the center of the i-th domain";
 
-  final parameter Modelica.SIunits.SpecificHeatCapacity c=soiDat.c
+  final parameter Modelica.SIunits.SpecificHeatCapacity c=soiDat.cSoi
     "Specific heat capacity";
-  final parameter Modelica.SIunits.ThermalConductivity k=soiDat.k
+  final parameter Modelica.SIunits.ThermalConductivity k=soiDat.kSoi
     "Thermal conductivity of the material";
-  final parameter Modelica.SIunits.Density d=soiDat.d
+  final parameter Modelica.SIunits.Density d=soiDat.dSoi
     "Density of the material";
 
   parameter Modelica.SIunits.ThermalConductance G[nSta + 1](each fixed=false)

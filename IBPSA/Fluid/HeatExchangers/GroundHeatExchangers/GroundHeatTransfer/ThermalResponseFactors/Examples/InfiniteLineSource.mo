@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Therma
 model InfiniteLineSource "Test case for infiniteLinesource"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.ThermalDiffusivity alpha = 1.0e-6 "Ground thermal diffusivity";
+  parameter Modelica.SIunits.ThermalDiffusivity aSoi = 1.0e-6 "Ground thermal diffusivity";
   parameter Modelica.SIunits.Radius rSource = 0.075 "Minimum radius";
   parameter Modelica.SIunits.Radius[5] r = {rSource, 2*rSource, 5*rSource, 10*rSource, 20*rSource}
     "Radial position of evaluation of the solution";
@@ -14,7 +14,7 @@ equation
   t = exp(time) - 1.0;
 
   for k in 1:5 loop
-    E[k] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.infiniteLineSource(t, alpha, r[k]);
+    E[k] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.infiniteLineSource(t, aSoi, r[k]);
   end for;
 
   annotation (

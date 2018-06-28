@@ -8,7 +8,7 @@ model gFunction_100boreholes
   parameter Real hBor = 150 "Borehole length";
   parameter Real dBor = 4 "Borehole buried depth";
   parameter Real rBor = 0.075 "Borehole radius";
-  parameter Real alpha = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
+  parameter Real aSoi = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
   parameter Integer nbSeg = 12 "Number of line source segments per borehole";
   parameter Integer nbTimSho = 26 "Number of time steps in short time region";
   parameter Integer nbTimLon = 50 "Number of time steps in long time region";
@@ -26,14 +26,14 @@ model gFunction_100boreholes
   discrete Modelica.SIunits.Time t2;
   discrete Real gFun1;
   discrete Real gFun2;
-  parameter Modelica.SIunits.Time ts = hBor^2/(9*alpha);
+  parameter Modelica.SIunits.Time ts = hBor^2/(9*aSoi);
 
 initial equation
 
   // Evaluate g-function for the specified bore field configuration
   (tGFun,gFun) =
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction(
-      nbBor, cooBor, hBor, dBor, rBor, alpha, nbSeg, nbTimSho, nbTimLon, ttsMax);
+      nbBor, cooBor, hBor, dBor, rBor, aSoi, nbSeg, nbTimSho, nbTimLon, ttsMax);
   lntts = log(tGFun/ts .+ Modelica.Constants.small);
   // Initialize parameters for interpolation
   dspline = IBPSA.Utilities.Math.Functions.splineDerivatives(tGFun, gFun);

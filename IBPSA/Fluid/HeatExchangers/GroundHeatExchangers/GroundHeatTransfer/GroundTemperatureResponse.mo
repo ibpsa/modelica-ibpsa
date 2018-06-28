@@ -29,7 +29,7 @@ protected
       hBor=borFieDat.conDat.hBor,
       dBor=borFieDat.conDat.dBor,
       rBor=borFieDat.conDat.rBor,
-      alpha=borFieDat.soiDat.alp,
+      aSoi=borFieDat.soiDat.aSoi,
       nbSeg=nbSeg,
       nbTimSho=nbTimSho,
       nbTimLon=nbTimLon,
@@ -38,7 +38,7 @@ protected
     "Total length of g-function vector";
   parameter Real lvlBas = 2 "Base for exponential cell growth between levels";
   parameter Modelica.SIunits.Time timFin=
-    (borFieDat.conDat.hBor^2/(9*borFieDat.soiDat.alp))*ttsMax;
+    (borFieDat.conDat.hBor^2/(9*borFieDat.soiDat.aSoi))*ttsMax;
   parameter Integer i=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.countAggregationCells(
     lvlBas=lvlBas,
     p_max=p_max,
@@ -51,8 +51,8 @@ protected
     hBor=borFieDat.conDat.hBor,
     dBor=borFieDat.conDat.dBor,
     rBor=borFieDat.conDat.rBor,
-    as=borFieDat.soiDat.alp,
-    ks=borFieDat.soiDat.k,
+    aSoi=borFieDat.soiDat.aSoi,
+    kSoi=borFieDat.soiDat.kSoi,
     nbSeg=nbSeg,
     nbTimSho=nbTimSho,
     nbTimLon=nbTimLon,

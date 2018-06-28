@@ -4,7 +4,7 @@ function finiteLineSource
   extends Modelica.Icons.Function;
 
   input Modelica.SIunits.Time t "Time";
-  input Modelica.SIunits.ThermalDiffusivity alpha "Ground thermal diffusivity";
+  input Modelica.SIunits.ThermalDiffusivity aSoi "Ground thermal diffusivity";
   input Modelica.SIunits.Distance dis "Radial distance between borehole axes";
   input Modelica.SIunits.Height len1 "Length of emitting borehole";
   input Modelica.SIunits.Height burDep1 "Buried depth of emitting borehole";
@@ -41,13 +41,13 @@ algorithm
       disMin := sqrt(dis^2 + (burDep1 + burDep2)^2);
     end if;
     // The traveled distance of the temperature front is assumed to be:
-    // d = 5*sqrt(alpha*t).
+    // d = 5*sqrt(aSoi*t).
     // The solution is only evaluated at times when the traveled distance is
     // greater than the minimum distance.
-    timTre := disMin^2/(25*alpha);
+    timTre := disMin^2/(25*aSoi);
 
     if t >= timTre then
-      lowBou := 1.0/sqrt(4*alpha*t);
+      lowBou := 1.0/sqrt(4*aSoi*t);
       h_21 := Modelica.Math.Nonlinear.quadratureLobatto(
         function
           IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
@@ -64,7 +64,7 @@ algorithm
         1.0e-6);
     else
       // Linearize the solution at times below the time treshold.
-      lowBou := 1.0/sqrt(4*alpha*timTre);
+      lowBou := 1.0/sqrt(4*aSoi*timTre);
       h_21 := t/timTre*Modelica.Math.Nonlinear.quadratureLobatto(
         function
           IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
@@ -111,7 +111,7 @@ The finite line source solution is given by:
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/FiniteLineSource_02.png\" />
 </p>
 <p>
-where <i>&alpha;<sub>s</sub></i> is the ground thermal diffusivity and
+where <i>&aSoi;<sub>s</sub></i> is the ground thermal diffusivity and
 <i>erfint</i> is the integral of the error function, defined in
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_erfint\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_erfint</a>.
 The integral is solved numerically, with the integrand defined in

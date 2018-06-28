@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Therma
 model FiniteLineSource "Test case for finiteLineSource"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.ThermalDiffusivity alpha = 1.0e-6 "Ground thermal diffusivity";
+  parameter Modelica.SIunits.ThermalDiffusivity aSoi = 1.0e-6 "Ground thermal diffusivity";
   parameter Modelica.SIunits.Distance[2] r = {0.075, 7.0}
     "Radial position of evaluation of the solution";
   parameter Modelica.SIunits.Height len1 = 12.5 "Length of emitting source";
@@ -23,9 +23,9 @@ equation
 
   for i in 1:2 loop
     for j in 1:7 loop
-        hRea[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(t, alpha, r[i], len1, burDep1, len2[j], burDep2[j], includeMirrorSource=false);
-        hMir[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(t, alpha, r[i], len1, burDep1, len2[j], burDep2[j], includeRealSource=false);
-        h[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(t, alpha, r[i], len1, burDep1, len2[j], burDep2[j]);
+        hRea[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(t, aSoi, r[i], len1, burDep1, len2[j], burDep2[j], includeMirrorSource=false);
+        hMir[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(t, aSoi, r[i], len1, burDep1, len2[j], burDep2[j], includeRealSource=false);
+        h[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(t, aSoi, r[i], len1, burDep1, len2[j], burDep2[j]);
     end for;
   end for;
 

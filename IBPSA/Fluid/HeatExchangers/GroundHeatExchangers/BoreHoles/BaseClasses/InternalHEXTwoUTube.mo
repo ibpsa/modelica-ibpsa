@@ -186,7 +186,7 @@ initial equation
     eTub=borFieDat.conDat.eTub,
     sha=borFieDat.conDat.xC,
     kFil=borFieDat.filDat.kFil,
-    kSoi=borFieDat.soiDat.k,
+    kSoi=borFieDat.soiDat.kSoi,
     kTub=borFieDat.conDat.kTub,
     use_Rb=borFieDat.conDat.use_Rb,
     Rb=borFieDat.conDat.Rb,

@@ -7,9 +7,9 @@ function temperatureResponseMatrix
   input Modelica.SIunits.Height hBor "Borehole length";
   input Modelica.SIunits.Height dBor "Borehole buried depth";
   input Modelica.SIunits.Radius rBor "Borehole radius";
-  input Modelica.SIunits.ThermalDiffusivity as
+  input Modelica.SIunits.ThermalDiffusivity aSoi
     "Thermal diffusivity of soil";
-  input Modelica.SIunits.ThermalConductivity ks
+  input Modelica.SIunits.ThermalConductivity kSoi
     "Thermal conductivity of soil";
   input Integer nbSeg "Number of line source segments per borehole";
   input Integer nbTimSho "Number of time steps in short time region";
@@ -42,7 +42,7 @@ algorithm
       hBor=hBor,
       dBor=dBor,
       rBor=rBor,
-      alpha=as,
+      aSoi=aSoi,
       nbSeg=nbSeg,
       nbTimSho=nbTimSho,
       nbTimLon=nbTimLon,
@@ -50,7 +50,7 @@ algorithm
 
     for i in 1:nbTimTot loop
       matrix[i,1] := tGFun[i];
-      matrix[i,2] := gFun[i]/(2*Modelica.Constants.pi*hBor*ks);
+      matrix[i,2] := gFun[i]/(2*Modelica.Constants.pi*hBor*kSoi);
     end for;
 
     writegFun := writeMatrix(

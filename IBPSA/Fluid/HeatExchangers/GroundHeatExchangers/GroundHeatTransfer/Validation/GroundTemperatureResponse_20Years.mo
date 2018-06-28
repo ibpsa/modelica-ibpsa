@@ -19,13 +19,13 @@ model GroundTemperatureResponse_20Years
       xC=0.05,
       p_constant=101.3e3),
     soiDat(
-      k=1,
-      c=1,
-      d=1e6),
+      kSoi=1,
+      cSoi=1,
+      dSoi=1e6),
     filDat(
-      k=0,
-      c=Modelica.Constants.small,
-      d=Modelica.Constants.small,
+      kFil=0,
+      cFil=Modelica.Constants.small,
+      dFil=Modelica.Constants.small,
       steadyState=true))
               "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));

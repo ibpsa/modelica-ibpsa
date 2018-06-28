@@ -25,13 +25,13 @@ model GroundTemperatureResponse_1Week
   parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
     borFieDat(
     soiDat(
-      k=1,
-      c=1,
-      d=1e6),
+      kSoi=1,
+      cSoi=1,
+      dSoi=1e6),
     filDat(
-      k=0,
-      c=Modelica.Constants.small,
-      d=Modelica.Constants.small,
+      kFil=0,
+      cFil=Modelica.Constants.small,
+      dFil=Modelica.Constants.small,
       steadyState=true),
     conDat(
       borCon=Types.BoreholeConfiguration.SingleUTube,

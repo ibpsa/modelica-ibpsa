@@ -7,7 +7,7 @@ function shaGFunction
   input Modelica.SIunits.Height hBor "Borehole length";
   input Modelica.SIunits.Height dBor "Borehole buried depth";
   input Modelica.SIunits.Radius rBor "Borehole radius";
-  input Modelica.SIunits.ThermalDiffusivity alpha "Ground thermal diffusivity used in g-function evaluation";
+  input Modelica.SIunits.ThermalDiffusivity aSoi "Ground thermal diffusivity used in g-function evaluation";
   input Integer nbSeg "Number of line source segments per borehole";
   input Integer nbTimSho "Number of time steps in short time region";
   input Integer nbTimLon "Number of time steps in long time region";
@@ -29,7 +29,7 @@ algorithm
   shaStr := shaStr + String(hBor, format=formatStr);
   shaStr := shaStr + String(dBor, format=formatStr);
   shaStr := shaStr + String(rBor, format=formatStr);
-  shaStr := shaStr + String(alpha, format=formatStr);
+  shaStr := shaStr + String(aSoi, format=formatStr);
   shaStr := shaStr + String(nbSeg, format=formatStr);
   shaStr := shaStr + String(nbTimSho, format=formatStr);
   shaStr := shaStr + String(nbTimLon, format=formatStr);
