@@ -111,7 +111,7 @@ The finite line source solution is given by:
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/FiniteLineSource_02.png\" />
 </p>
 <p>
-where <i>&aSoi;<sub>s</sub></i> is the ground thermal diffusivity and
+where <i>&alpha;<sub>s</sub></i> is the ground thermal diffusivity and
 <i>erfint</i> is the integral of the error function, defined in
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_erfint\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_erfint</a>.
 The integral is solved numerically, with the integrand defined in
