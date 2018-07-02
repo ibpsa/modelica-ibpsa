@@ -1,21 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes;
 model BoreholeOneUTube "Single U-tube borehole heat exchanger"
-  extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
-
-  extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters;
-  extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations;
-
-  parameter Boolean dynFil=true
-      "Set to false to remove the dynamics of the filling material"
-      annotation (Dialog(tab="Dynamics"));
-  parameter Data.BorefieldData.Template borFieDat "Borefield parameters"
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  parameter Integer nSeg(min=1) = 10
-    "Number of segments to use in vertical discretization of the boreholes";
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall[nSeg]
-    "Thermal connection for borehole wall"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  extends partialBorehole;
 
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalHEXOneUTube intHex[nSeg](
     redeclare each final package Medium = Medium,
@@ -44,27 +29,27 @@ model BoreholeOneUTube "Single U-tube borehole heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(port_a, intHex[1].port_a1) annotation (Line(
-      points={{-100,5.55112e-016},{-52,5.55112e-016},{-52,6.36364},{-10,6.36364}},
+      points={{-100,5.55112e-016},{-52,5.55112e-016},{-52,6},{-10,6}},
       color={0,127,255},
       smooth=Smooth.None));
 
   connect(port_b, intHex[1].port_b2) annotation (Line(
-      points={{100,5.55112e-016},{28,5.55112e-016},{28,-40},{-32,-40},{-32,
-          -4.54545},{-10,-4.54545}},
+      points={{100,5.55112e-016},{28,5.55112e-016},{28,-40},{-32,-40},{-32,-6},{
+          -10,-6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(intHex[nSeg].port_b1, intHex[nSeg].port_a2)
     annotation (Line(
-      points={{10,6.36364},{20,6.36364},{20,-4.54545},{10,-4.54545}},
+      points={{10,6},{20,6},{20,-6},{10,-6}},
       color={0,127,255},
       smooth=Smooth.None));
   for i in 1:nSeg - 1 loop
     connect(intHex[i].port_b1, intHex[i + 1].port_a1) annotation (Line(
-        points={{10,6.36364},{10,20},{-10,20},{-10,6.36364}},
+        points={{10,6},{10,20},{-10,20},{-10,6}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(intHex[i].port_a2, intHex[i + 1].port_b2) annotation (Line(
-        points={{10,-4.54545},{10,-20},{-10,-20},{-10,-4.54545}},
+        points={{10,-6},{10,-20},{-10,-20},{-10,-6}},
         color={0,127,255},
         smooth=Smooth.None));
   end for;

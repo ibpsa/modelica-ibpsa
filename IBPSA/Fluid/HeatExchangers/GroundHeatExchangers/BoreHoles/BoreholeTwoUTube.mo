@@ -1,18 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes;
 model BoreholeTwoUTube "Double U-tube borehole heat exchanger"
-  extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
-
-  extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-      computeFlowResistance=false, linearizeFlowResistance=false);
-  extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations;
-
-  parameter Boolean dynFil=true
-      "Set to false to remove the dynamics of the filling material"
-      annotation (Dialog(tab="Dynamics"));
-  parameter Data.BorefieldData.Template borFieDat "Borefield parameters"
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  parameter Integer nSeg(min=1) = 10
-    "Number of segments to use in vertical discretization of the boreholes";
+  extends partialBorehole(computeFlowResistance=false, linearizeFlowResistance=false);
 
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalHEXTwoUTube intHex[nSeg](
     redeclare each final package Medium = Medium,
@@ -75,31 +63,30 @@ model BoreholeTwoUTube "Double U-tube borehole heat exchanger"
 equation
   // Couple borehole port_a and port_b to first borehole segment.
   connect(port_a, intHex[1].port_a1) annotation (Line(
-      points={{-100,5.55112e-016},{-52,5.55112e-016},{-52,6.36364},{-10,6.36364}},
+      points={{-100,5.55112e-016},{-52,5.55112e-016},{-52,6},{-10,6}},
       color={0,127,255},
       smooth=Smooth.None));
 
   connect(port_b, intHex[1].port_b4) annotation (Line(
-      points={{100,5.55112e-016},{28,5.55112e-016},{28,-40},{-32,-40},{-32,
-          -23.6364},{-10,-23.6364}},
+      points={{100,5.55112e-016},{28,5.55112e-016},{28,-40},{-32,-40},{-32,-27},
+          {-10,-27}},
       color={0,127,255},
       smooth=Smooth.None));
   if borFieDat.conDat.borCon == Types.BoreholeConfiguration.DoubleUTubeParallel then
     // 2U-tube in parallel: couple both U-tube to each other.
     connect(port_a, intHex[1].port_a3) annotation (Line(
-        points={{-100,5.55112e-016},{-52,5.55112e-016},{-52,-14},{-10,-14}},
+        points={{-100,5.55112e-016},{-52,5.55112e-016},{-52,-16.4},{-10,-16.4}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(port_b, intHex[1].port_b2) annotation (Line(
-        points={{100,5.55112e-016},{28,5.55112e-016},{28,-40},{-32,-40},{-32,
-            -2.72727},{-10,-2.72727}},
+        points={{100,5.55112e-016},{28,5.55112e-016},{28,-40},{-32,-40},{-32,-4},
+            {-10,-4}},
         color={0,127,255},
         smooth=Smooth.None));
   elseif borFieDat.conDat.borCon == Types.BoreholeConfiguration.DoubleUTubeSeries then
     // 2U-tube in serie: couple both U-tube to each other.
     connect(intHex[1].port_b2, intHex[1].port_a3) annotation (Line(
-        points={{-10,-2.72727},{-24,-2.72727},{-24,-16},{-18,-16},{-18,-14},{
-            -10,-14}},
+        points={{-10,-4},{-24,-4},{-24,-16},{-18,-16},{-18,-16.4},{-10,-16.4}},
         color={0,127,255},
         smooth=Smooth.None));
   end if;
@@ -107,19 +94,19 @@ equation
   // Couple each layer to the next one
   for i in 1:nSeg - 1 loop
     connect(intHex[i].port_b1, intHex[i + 1].port_a1) annotation (Line(
-        points={{10,6.36364},{10,10},{-10,10},{-10,6.36364}},
+        points={{10,6},{10,10},{-10,10},{-10,6}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(intHex[i].port_a2, intHex[i + 1].port_b2) annotation (Line(
-        points={{10,-2.72727},{10,0},{-10,0},{-10,-2.72727}},
+        points={{10,-4},{10,0},{-10,0},{-10,-4}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(intHex[i].port_b3, intHex[i + 1].port_a3) annotation (Line(
-        points={{10,-13.8182},{10,-12},{-10,-12},{-10,-14}},
+        points={{10,-16.2},{10,-12},{-10,-12},{-10,-16.4}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(intHex[i].port_a4, intHex[i + 1].port_b4) annotation (Line(
-        points={{10,-22.7273},{10,-22},{-10,-22},{-10,-23.6364}},
+        points={{10,-26},{10,-22},{-10,-22},{-10,-27}},
         color={0,127,255},
         smooth=Smooth.None));
   end for;
@@ -127,13 +114,12 @@ equation
   // Close U-tube at bottom layer
   connect(intHex[nSeg].port_b1, intHex[nSeg].port_a2)
     annotation (Line(
-      points={{10,6.36364},{16,6.36364},{16,-2.72727},{10,-2.72727}},
+      points={{10,6},{16,6},{16,-4},{10,-4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(intHex[nSeg].port_b3, intHex[nSeg].port_a4)
     annotation (Line(
-      points={{10,-13.8182},{14,-13.8182},{14,-16},{18,-16},{18,-22.7273},{10,
-          -22.7273}},
+      points={{10,-16.2},{14,-16.2},{14,-16},{18,-16},{18,-26},{10,-26}},
       color={0,127,255},
       smooth=Smooth.None));
 

@@ -6,6 +6,7 @@ package Validation "Validation models for GroundHeatTransfer"
 
 
 
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
@@ -13,5 +14,4 @@ This package contains validation models for the classes in
 IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer</a>.
 </p>
 </html>"));
-
 end Validation;

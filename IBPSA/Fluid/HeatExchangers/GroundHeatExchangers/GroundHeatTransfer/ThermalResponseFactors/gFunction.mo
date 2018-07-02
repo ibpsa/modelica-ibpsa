@@ -280,5 +280,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end gFunction;

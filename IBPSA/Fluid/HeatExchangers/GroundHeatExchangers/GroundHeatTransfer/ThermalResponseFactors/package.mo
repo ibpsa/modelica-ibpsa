@@ -11,6 +11,7 @@ extends Modelica.Icons.BasesPackage;
 
 
 
+
 annotation (
 Documentation(info="<html>
 <p>
@@ -19,5 +20,4 @@ This package contains functions to evaluate temperature response factors used by
 to evaluate borehole wall temperatures.
 </p>
 </html>"));
-
 end ThermalResponseFactors;

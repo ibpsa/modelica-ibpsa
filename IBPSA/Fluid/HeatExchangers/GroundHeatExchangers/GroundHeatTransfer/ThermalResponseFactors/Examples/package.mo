@@ -5,6 +5,7 @@ extends Modelica.Icons.ExamplesPackage;
 
 
 
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains examples for the use of functions that can be found in
@@ -12,5 +13,4 @@ This package contains examples for the use of functions that can be found in
 IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors</a>.
 </p>
 </html>"));
-
 end Examples;

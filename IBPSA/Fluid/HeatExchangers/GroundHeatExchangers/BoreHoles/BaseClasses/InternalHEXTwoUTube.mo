@@ -1,6 +1,8 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 model InternalHEXTwoUTube
   "Internal part of a borehole for a double U-Tube configuration. In loop 1, fluid 1 streams from a1 to b1 and comes back from a3 to b3. In loop 2: fluid 2 streams from a2 to b2 and comes back from a4 to b4."
+
+  extends partialInternalHEX;
   extends IBPSA.Fluid.Interfaces.EightPortHeatMassExchanger(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -44,26 +46,6 @@ model InternalHEXTwoUTube
       final m_flow_small=m4_flow_small,
       final V=VTubSeg,
       final mSenFac=mSenFac));
-
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium"
-    annotation (choicesAllMatching=true);
-
-  parameter Data.BorefieldData.Template borFieDat
-    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
-
-  parameter Modelica.SIunits.Temperature T_start
-    "Initial temperature of the filling material and fluid"
-    annotation (Dialog(group="Filling material"));
-  parameter Real mSenFac=1
-    "Factor for scaling the sensible thermal mass of the volume"
-    annotation (Dialog(tab="Dynamics"));
-  parameter Boolean dynFil=true
-    "Set to false to remove the dynamics of the filling material"
-    annotation (Dialog(tab="Dynamics"));
-  parameter Modelica.SIunits.Length hSeg
-    "Length of the internal heat exchanger";
-  parameter Modelica.SIunits.Volume VTubSeg = hSeg*Modelica.Constants.pi*borFieDat.conDat.rTub^2
-    "Fluid volume in each tube";
 
   Modelica.Blocks.Sources.RealExpression RVol1(y=
         Functions.convectionResistanceCircularPipe(
@@ -126,9 +108,7 @@ model InternalHEXTwoUTube
     Rgg1_val=Rgg1_val,
     Rgg2_val=Rgg2_val,
     RCondGro_val=RCondGro_val,
-    x=x,
-    dynFil=dynFil)
-         "Internal resistances for a double U-tube configuration"
+    dynFil=dynFil) "Internal resistances for a double U-tube configuration"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor RConv1
     "Pipe convective resistance" annotation (Placement(transformation(
@@ -155,27 +135,8 @@ model InternalHEXTwoUTube
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
 protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cpMed=
-      Medium.specificHeatCapacityCp(Medium.setState_pTX(
-      Medium.p_default,
-      Medium.T_default,
-      Medium.X_default)) "Specific heat capacity of the fluid";
-  parameter Modelica.SIunits.ThermalConductivity kMed=
-      Medium.thermalConductivity(Medium.setState_pTX(
-      Medium.p_default,
-      Medium.T_default,
-      Medium.X_default)) "Thermal conductivity of the fluid";
-  parameter Modelica.SIunits.DynamicViscosity muMed=Medium.dynamicViscosity(
-      Medium.setState_pTX(
-      Medium.p_default,
-      Medium.T_default,
-      Medium.X_default)) "Dynamic viscosity of the fluid";
-
-  parameter Real x(fixed=false);
-  parameter Real Rgb_val(fixed=false);
   parameter Real Rgg1_val(fixed=false);
   parameter Real Rgg2_val(fixed=false);
-  parameter Real RCondGro_val(fixed=false);
 
 initial equation
   (x,Rgb_val,Rgg1_val,Rgg2_val,RCondGro_val) =
@@ -235,9 +196,8 @@ equation
   connect(intRes2UTub.port_wall, port_wall) annotation (Line(points={{0,0},{6,0},
           {6,20},{20,20},{20,100},{0,100}}, color={191,0,0}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,
-            100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, initialScale=0.1)),
+    Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
         graphics={
         Rectangle(
           extent={{98,74},{-94,86}},
