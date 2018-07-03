@@ -9,7 +9,7 @@ model InternalHEXOneUTube
     "Length of the internal heat exchanger";
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
-  .IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalHEXOneUTube
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalHEXOneUTube
     intHex(
     redeclare package Medium = Medium,
     hSeg=hSeg,

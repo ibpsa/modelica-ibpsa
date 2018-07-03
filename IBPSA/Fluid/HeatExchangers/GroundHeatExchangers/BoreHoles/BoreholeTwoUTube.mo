@@ -127,7 +127,6 @@ equation
     annotation (Line(points={{0,10},{0,10},{0,100}}, color={191,0,0}));
   annotation (
     Dialog(group="Borehole"),
-    Dialog(group="Borehole"),
     defaultComponentName="borehole",
     Icon(coordinateSystem(
         preserveAspectRatio=true,

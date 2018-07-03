@@ -10,7 +10,7 @@ model InternalHEXOneUTube
     T2_start=T_start,
     final tau1=VTubSeg*rho1_nominal/m1_flow_nominal,
     final tau2=VTubSeg*rho2_nominal/m2_flow_nominal,
-    final vol1(
+    redeclare final IBPSA.Fluid.MixingVolumes.MixingVolume vol1(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
@@ -116,7 +116,6 @@ equation
   connect(intResUTub.port_wall, port_wall) annotation (Line(points={{0,0},{0,0},
           {0,6},{0,6},{0,6},{-28,6},{-28,86},{0,86},{0,100}}, color={191,0,0}));
     annotation (Dialog(tab="Dynamics"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, initialScale=0.1)),
     Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
                     graphics={Rectangle(
           extent={{88,54},{-88,64}},
@@ -199,6 +198,6 @@ First implementation.
 </ul>
 </p>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
+    graphics));
 end InternalHEXOneUTube;

@@ -144,8 +144,6 @@ equation
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),
-    experimentSetupOutput,
-    Diagram,
     Documentation(info="<html>
 This example illustrates modeling a segment of a borehole heat exchanger.
 It simulates the behavior of the borehole on a single horizontal section including the ground and the
