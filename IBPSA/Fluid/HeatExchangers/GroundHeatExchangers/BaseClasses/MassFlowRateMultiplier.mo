@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses;
 model MassFlowRateMultiplier "Model that multiplies the mass flow rate"
-  extends Modelica.Fluid.Interfaces.PartialTwoPort;
+  extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
   parameter Real k "Gain for mass flow rate";
 initial equation
