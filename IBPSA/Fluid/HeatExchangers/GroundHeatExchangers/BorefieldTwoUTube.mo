@@ -1,7 +1,27 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers;
 model BorefieldTwoUTube
   extends partialBorefield;
-  Boreholes.BoreholeTwoUTube borehole
+  Boreholes.BoreholeTwoUTube borehole(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    borFieDat=borFieDat,
+    allowFlowReversal=allowFlowReversal,
+    m_flow_small=m_flow_small,
+    show_T=show_T,
+    computeFlowResistance=computeFlowResistance,
+    from_dp=from_dp,
+    linearizeFlowResistance=linearizeFlowResistance,
+    deltaM=deltaM,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    p_start=p_start,
+    T_start=T_start,
+    X_start=X_start,
+    C_start=C_start,
+    C_nominal=C_nominal,
+    mSenFac=mSenFac,
+    dynFil=dynFil) "Borehole"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
 equation
   connect(masFloDiv.port_a, borehole.port_a)
