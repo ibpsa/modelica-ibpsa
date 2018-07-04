@@ -13,13 +13,12 @@ model BoreholeOneUTube "Test for the Single U-tube borehole model"
     "Initial soil temperature";
 
   replaceable
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeOneUTube
-    borHolDis(
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeOneUTube borHol(
     redeclare package Medium = Medium,
     borFieDat=borFieDat,
     m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     dp_nominal=borFieDat.conDat.dp_nominal,
-    nSeg=nSeg)     "Borehole connected to a discrete ground model" annotation (
+    nSeg=nSeg) "Borehole connected to a discrete ground model" annotation (
       Placement(transformation(
         extent={{-14,-14},{14,14}},
         rotation=0,
@@ -36,7 +35,7 @@ model BoreholeOneUTube "Test for the Single U-tube borehole model"
     redeclare package Medium = Medium,
     use_p_in=false,
     use_T_in=false,
-    nPorts=2,
+    nPorts=1,
     p=101330,
     T=283.15) "Sink" annotation (Placement(transformation(extent={{90,-12},{70,
             8}},  rotation=0)));
@@ -46,52 +45,14 @@ model BoreholeOneUTube "Test for the Single U-tube borehole model"
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn(m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
       redeclare package Medium = Medium) "Inlet borehole temperature"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorDisOut(m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorOut(m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
       redeclare package Medium = Medium) "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer
-    lay[nSeg](
-    each soiDat=borFieDat.soiDat,
-    each h=borFieDat.conDat.hBor/nSeg,
-    each r_a=borFieDat.conDat.rBor,
-    each nSta=nHor,
-    each TInt_start=T_start,
-    each TExt_start=T_start,
-    each r_b=3) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,40})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
     "Prescribed temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-50,70})));
-  replaceable
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeOneUTube
-    borHolAna(
-    redeclare package Medium = Medium,
-    borFieDat=borFieDat,
-    m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
-    nSeg=nSeg,
-    dp_nominal=borFieDat.conDat.dp_nominal)
-                   "Borehole model connected to an analytical ground model"
-    annotation (Placement(transformation(
-        extent={{-14,14},{14,-14}},
-        rotation=0,
-        origin={0,-44})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorAnaOut(m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
-      redeclare package Medium = Medium) "Outlet borehole temperature"
-    annotation (Placement(transformation(extent={{30,-54},{50,-34}})));
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse
-    groTemRes(         borFieDat=borFieDat, tLoaAgg=60)
-                                            "Ground temperature response"
-    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol1(m=
-        nSeg) "Thermal collector" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-20,-80})));
   Modelica.Blocks.Sources.Constant TGroUn(k=T_start)
     "Undisturbed ground temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -102,42 +63,21 @@ model BoreholeOneUTube "Test for the Single U-tube borehole model"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-20,70})));
-  Modelica.Blocks.Math.Add deltaT(k2=-1)
-    "Temperature difference between borehole with discrete ground and borehole with analytical ground"
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
 equation
   connect(sou.ports[1], TBorIn.port_a)
     annotation (Line(points={{-56,0},{-50,0}}, color={0,127,255}));
-  connect(TBorIn.port_b, borHolDis.port_a) annotation (Line(points={{-30,0},{-14,
-          0},{-14,1.77636e-015}}, color={0,127,255}));
-  connect(borHolDis.port_b, TBorDisOut.port_a) annotation (Line(points={{14,
+  connect(TBorIn.port_b, borHol.port_a) annotation (Line(points={{-30,0},{-14,0},
+          {-14,1.77636e-015}}, color={0,127,255}));
+  connect(borHol.port_b, TBorOut.port_a) annotation (Line(points={{14,
           1.77636e-015},{14,0},{30,0}}, color={0,127,255}));
-  connect(TBorDisOut.port_b, sin.ports[1])
-    annotation (Line(points={{50,0},{56,0},{70,0}}, color={0,127,255}));
-  connect(lay.port_a, borHolDis.port_wall)
-    annotation (Line(points={{0,30},{0,22},{0,14}}, color={191,0,0}));
-  connect(TBorIn.port_b, borHolAna.port_a) annotation (Line(points={{-30,0},{
-          -30,0},{-30,-44},{-14,-44}}, color={0,127,255}));
-  connect(borHolAna.port_b, TBorAnaOut.port_a)
-    annotation (Line(points={{14,-44},{22,-44},{30,-44}}, color={0,127,255}));
-  connect(TBorAnaOut.port_b, sin.ports[2])
-    annotation (Line(points={{50,-44},{70,-44},{70,-4}}, color={0,127,255}));
-  connect(therCol1.port_a, borHolAna.port_wall)
-    annotation (Line(points={{-10,-80},{0,-80},{0,-58}}, color={191,0,0}));
+  connect(TBorOut.port_b, sin.ports[1])
+    annotation (Line(points={{50,0},{70,0},{70,-2}}, color={0,127,255}));
   connect(preTem.T, TGroUn.y)
     annotation (Line(points={{-62,70},{-80,70},{-80,79}}, color={0,0,127}));
   connect(preTem.port, therCol.port_b)
     annotation (Line(points={{-40,70},{-35,70},{-30,70}}, color={191,0,0}));
-  connect(therCol.port_a, lay.port_b)
-    annotation (Line(points={{-10,70},{0,70},{0,50}}, color={191,0,0}));
-  connect(TBorDisOut.T, deltaT.u1) annotation (Line(points={{40,11},{42,11},{42,
-          44},{42,46},{58,46}}, color={0,0,127}));
-  connect(TBorAnaOut.T, deltaT.u2) annotation (Line(points={{40,-33},{40,-33},{
-          40,-28},{52,-28},{52,34},{58,34}}, color={0,0,127}));
-  connect(TGroUn.y, groTemRes.TSoi) annotation (Line(points={{-80,79},{-80,79},
-          {-80,-80},{-62,-80}}, color={0,0,127}));
-  connect(groTemRes.borWall, therCol1.port_b)
-    annotation (Line(points={{-40,-80},{-35,-80},{-30,-80}}, color={191,0,0}));
+  connect(therCol.port_a, borHol.port_wall)
+    annotation (Line(points={{-10,70},{0,70},{0,14}}, color={191,0,0}));
   annotation (
     __Dymola_Commands( file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/Examples/BoreholeOneUTube.mos"

@@ -2,15 +2,7 @@ simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Example
 removePlots();
 createPlot(id=1,
            position={0, 0, 870, 731},
-           y={"TBorDisOut.T", "TBorAnaOut.T", "TBorIn.T"},
+           y={"TBorOut.T", "TBorIn.T"},
            range={0.0, 360000.0, 19.0, 31.0},
            grid=true,
-           colors={{28,108,200}, {238,46,47}, {0,140,72}},
-           filename="BoreholeOneUTube.mat");
-createPlot(id=2,
-           position={0, 0, 870, 363},
-           y={"deltaT.y"},
-           range={0.0, 360000.0, -0.002, 0.016},
-           grid=true,
-           colors={{28,108,200}},
            filename="BoreholeOneUTube.mat");
