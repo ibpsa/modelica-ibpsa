@@ -108,7 +108,9 @@ model InternalHEXTwoUTube
     Rgg1_val=Rgg1_val,
     Rgg2_val=Rgg2_val,
     RCondGro_val=RCondGro_val,
-    dynFil=dynFil) "Internal resistances for a double U-tube configuration"
+    dynFil=dynFil,
+    energyDynamics=energyDynamics)
+                   "Internal resistances for a double U-tube configuration"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor RConv1
     "Pipe convective resistance" annotation (Placement(transformation(
