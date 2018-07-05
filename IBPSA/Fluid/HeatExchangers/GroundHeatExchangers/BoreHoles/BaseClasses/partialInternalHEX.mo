@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 partial model partialInternalHEX
+  "Partial model to implement the interior of a borehole segment"
 
   parameter Data.BorefieldData.Template borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -49,5 +50,35 @@ protected
     "Thermal resistance between: pipe wall to capacity in grout";
   parameter Real x(fixed=false) "Capacity location";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+  Documentation(info="<html>
+<p>
+Partial model to implement models simulating the thermal and fluid behaviour of a borehole segment.
+</p>
+<p>
+The thermodynamic properties of the fluid circulating in the borehole are calculated
+as protected parameters in this partial model: <i>c<sub>p</sub></i> (<code>cpMed</code>),
+<i>k</i> (<code>kMed</code>) and <i>&mu;</i> (<code>muMed</code>). Additionally, the
+following parameters are already declared as protected parameters and thus do not
+need to be declared in models which extend this partial model:
+</p>
+<ul>
+<li>
+<code>Rgb_val</code> (Thermal resistance between grout zone and borehole wall)
+</li>
+<li>
+<code>RCondGro_val</code> (Thermal resistance between pipe wall and capacity in grout)
+</li>
+<li>
+<code>x</code> (Grout capacity location)
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+July 5, 2018, by Alex Laferri&egrave;re:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end partialInternalHEX;

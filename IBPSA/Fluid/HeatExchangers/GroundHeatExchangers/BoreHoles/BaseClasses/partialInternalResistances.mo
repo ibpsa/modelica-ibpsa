@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 partial model partialInternalResistances
-
+  "Partial model to implement borehole segment resistance models"
   parameter Modelica.SIunits.Length hSeg
     "Length of the internal heat exchanger";
   parameter Modelica.SIunits.Temperature T_start
@@ -31,5 +31,22 @@ partial model partialInternalResistances
     "Thermal connection for borehole wall"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+        Documentation(info="<html>
+<p>
+Partial model to implement the inner resistance network of a borehole segment.
+</p>
+<p>
+The partial model supposes a thermal port representing a uniform borehole wall for
+that segment, and at least two thermal ports (one for each tube going through the borehole
+segment).
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 5, 2018, by Alex Laferri&egrave;re:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end partialInternalResistances;

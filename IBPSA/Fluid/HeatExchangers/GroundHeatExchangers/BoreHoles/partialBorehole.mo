@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes;
 partial model partialBorehole
+  "Partial model to implement multi-segment boreholes"
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
 
   extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters;
@@ -16,4 +17,18 @@ partial model partialBorehole
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall[nSeg]
     "Thermal connection for borehole wall"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+
+    annotation(Documentation(info="<html>
+<p>
+Partial model to implement models simulating geothermal U-tube boreholes modelized
+as several borehole segments, with a uniform borehole wall boundary condition.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 5, 2018, by Alex Laferri&egrave;re:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end partialBorehole;
