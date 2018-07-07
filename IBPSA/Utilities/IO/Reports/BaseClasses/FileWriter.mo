@@ -30,17 +30,27 @@ protected
       IBPSA.Utilities.IO.Reports.BaseClasses.FileWriterObject(
         insNam,
         fileName,
-        nin,
+        nin+1,
         isCombiTimeTable)
     "File writer object";
 
   discrete String str "Intermediate variable for constructing a single line";
-  discrete Integer dataLinesWritten "Total number of data lines that was written";
   output Boolean sampleTrigger "True, if sample time instant";
+
+  function writeLine
+    "Prepend a string to an existing text file"
+    extends Modelica.Icons.Function;
+    input IBPSA.Utilities.IO.Reports.BaseClasses.FileWriterObject ID "ID of the file writer";
+    input String string "Written string";
+    input Integer isMetaData "=1, if line should not be included for row count of combiTimeTable";
+    external"C" writeLine(ID, string, isMetaData)
+      annotation (
+        Include="#include \"fileWriterStructure.h\"",
+        IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
+  end writeLine;
 
 initial equation
   t0 = time;
-  dataLinesWritten=0;
 
 
 equation
@@ -52,9 +62,8 @@ algorithm
     for i in 1:nin-1 loop
       str :=str + String(u[i]) + delimiter;
     end for;
-    str :=str + String(u[nin]);
-    Modelica.Utilities.Streams.print(str, fileName);
-    dataLinesWritten :=dataLinesWritten + 1;
+    str :=str + String(u[nin]) + "\n";
+    writeLine(filWri, str, 0);
   end when;
 
   annotation (

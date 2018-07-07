@@ -75,6 +75,7 @@ void* fileWriterInit(
   if (numColumns<0)
     ModelicaFormatError("In fileWriterInit.c: The number of columns that are written by the FileWriter %s cannot be negative", instanceName);
   ID->numColumns=numColumns;
+  ID->numRows=0;
 
   if (isCombiTimeTable<0 || isCombiTimeTable >1)
     ModelicaFormatError("In fileWriterInit.c: the initialisation flag 'isCombiTimeTable' of FileWriter %s must equal 0 or 1 but it equals %i.", instanceName, isCombiTimeTable);
@@ -83,6 +84,20 @@ void* fileWriterInit(
   FILE *fp = fopen(fileName, "w");
   if (fp == NULL)
     ModelicaFormatError("In fileWriterInit.c: failed to create empty .csv file %s during initialisation.", fileName);
-
+  fclose(fp);
   return (void*) ID;
+}
+
+/* This function writes a line to the FileWriter object file 
+and counts the total number of lines that are written 
+by incrementing the counter numRows if isMetaData==0. */
+void writeLine(void *ptrFileWriter, const char* line, const int isMetaData){
+  FileWriter *ID = (FileWriter*)ptrFileWriter;
+  FILE *fOut = fopen(ID->fileWriterName, "a");
+  if (fputs(line, fOut)==EOF){
+    ModelicaFormatError("In fileWriterInit.c: returned an error when writing to %s.", ID->fileWriterName);
+  }
+  if (isMetaData==0)
+    ID->numRows=ID->numRows+1;
+  fclose(fOut);
 }
