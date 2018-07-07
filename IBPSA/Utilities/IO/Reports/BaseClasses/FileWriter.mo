@@ -92,44 +92,8 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/924\">#924</a>.
 </ul>
 </html>",
         info="<html>
-<p>This model samples the model inputs <code>u</code> and saves them to a .csv file,
-which can directly be read using e.g. excel or python.
-</p>
-<h4>Typical use and important parameters</h4>
 <p>
-The parameter <code>nin</code> defines the number of variables that are stored.
-</p>
-<p>
-The parameter <code>fileName</code> defines to what file name the results
-are stored. Results are saved in the current working directory
-unless an absolute path is provided.
-</p>
-<p>
-The parameter <code>samplePeriod</code> defines every how may seconds
-the inputs are saved to the file. 
-</p>
-<p>
-If the parameter <code>writeCombiTimeTableHeader=true</code> then
-additional header information is added to the csv file such that
-the resulting file can be read by a 
-<a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">Modelica.Blocks.Sources.CombiTimeTable</a>.
-The <a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">Modelica.Blocks.Sources.CombiTimeTable</a>
-must then have <code>tableName=\"csv\"</code>, as illustrated in example
-<a href=\"modelica://IBPSA.Utilities.IO.Reports.Examples.CSVReader\">IBPSA.Utilities.IO.Reports.Examples.CSVReader</a>.
-</p>
-<h4>Options</h4>
-<p>
-The parameter <code>delimiter</code> can be used to choose a custom separator.
-</p>
-<p>
-By default the first line of the csv file consists of the file header.
-The column names can be defined using parameter <code>headerNames</code>
-or the header can be removed by setting <code>writeHeader=false</code>
-</p>
-<h4>Dynamics</h4>
-<p>
-This model samples the outputs at an equidistant interval and
-hence disregards the simulation tool output interval settings.
+See extending classes.
 </p>
 </html>"));
 end FileWriter;
