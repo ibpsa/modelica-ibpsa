@@ -10,14 +10,14 @@ model FileWriter "Partial model for writing results to a .csv file"
     annotation(Dialog(tab="Advanced"));
 
   parameter Boolean writeHeader = true
-    "=true, to specify header names, otherwise no header"
+    "=true, to write header with variable names, otherwise no header will be written"
     annotation(Dialog(tab="Advanced"));
   parameter String[nin] headerNames = {"col"+String(i) for i in 1:nin}
     "Header names, indices by default"
     annotation(Dialog(tab="Advanced"));
 
   Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that are saved"
-     annotation (Placement(transformation(extent={{-130,20},{-90,-20}})));
+     annotation (Placement(transformation(extent={{-120,20},{-80,-20}})));
 
 protected
   parameter Boolean isCombiTimeTable = false
@@ -40,10 +40,10 @@ protected
   function writeLine
     "Prepend a string to an existing text file"
     extends Modelica.Icons.Function;
-    input IBPSA.Utilities.IO.Reports.BaseClasses.FileWriterObject ID "ID of the file writer";
+    input IBPSA.Utilities.IO.Reports.BaseClasses.FileWriterObject id "ID of the file writer";
     input String string "Written string";
     input Integer isMetaData "=1, if line should not be included for row count of combiTimeTable";
-    external"C" writeLine(ID, string, isMetaData)
+    external"C" writeLine(id, string, isMetaData)
       annotation (
         Include="#include \"fileWriterStructure.h\"",
         IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
@@ -93,6 +93,7 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/924\">#924</a>.
 </html>",
         info="<html>
 <p>
+Base class for a file writer.        
 See extending classes.
 </p>
 </html>"));

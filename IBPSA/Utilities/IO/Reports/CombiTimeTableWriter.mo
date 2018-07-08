@@ -5,7 +5,6 @@ model CombiTimeTableWriter
     final delimiter="\t",
     final isCombiTimeTable=true);
 
-
 initial algorithm
   if writeHeader then
     str :="# time" + delimiter;
@@ -19,15 +18,18 @@ initial algorithm
   annotation (Documentation(info="<html>
 <p>This model samples the model inputs <code>u</code> and saves them to a .csv file,
 which can be read by a 
-<a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">Modelica.Blocks.Sources.CombiTimeTable</a>.
-The <a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">Modelica.Blocks.Sources.CombiTimeTable</a>
-must then have <code>tableName=\"csv\"</code>, as illustrated in example
-<a href=\"modelica://IBPSA.Utilities.IO.Reports.Examples.CSVReader\">IBPSA.Utilities.IO.Reports.Examples.CSVReader</a>.
+<a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">
+Modelica.Blocks.Sources.CombiTimeTable</a>.
+The <a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">
+Modelica.Blocks.Sources.CombiTimeTable</a>
+must then have <code>tableName=\"csv\"</code>, as illustrated in the example
+<a href=\"modelica://IBPSA.Utilities.IO.Reports.Examples.CSVReader\">
+IBPSA.Utilities.IO.Reports.Examples.CSVReader</a>.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
 The parameter <code>nin</code> defines the number of variables that are stored.
-In dymola this variable is updated automatically when inputs are connected to the component.
+In Dymola this variable is updated automatically when inputs are connected to the component.
 </p>
 <p>
 The parameter <code>fileName</code> defines to what file name the results

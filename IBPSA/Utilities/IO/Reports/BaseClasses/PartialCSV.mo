@@ -1,5 +1,5 @@
 within IBPSA.Utilities.IO.Reports.BaseClasses;
-model PartialCSV "Partial for CSV reader and writer example"
+model PartialCSV "Base model for CSV reader and writer example"
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Cosine cos(freqHz=0.345) "Cosine"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));

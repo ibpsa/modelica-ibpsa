@@ -2,18 +2,19 @@ within IBPSA.Utilities.IO.Reports.BaseClasses;
 class FileWriterObject
   "Class used to ensure that each CSV writer writes to a unique file"
 extends ExternalObject;
-    function constructor
+  function constructor
     "Construct an extendable array that can be used to store double valuesCreate empty file"
-      extends Modelica.Icons.Function;
-      input String instanceName "Instance name of the file write";
-      input String fileName "Name of the file, including extension";
-      input Integer numColumns "Number of columns that are written to file";
-      input Boolean isCombiTimeTable "Flag to indicate whether combiTimeTable header should be prepended upon destruction";
-      output FileWriterObject fileWriter "Pointer to the file writer";
-      external"C" fileWriter = fileWriterInit(instanceName, fileName, numColumns, isCombiTimeTable)
-        annotation (
-          Include="#include <fileWriterInit.c>",
-          IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
+    extends Modelica.Icons.Function;
+    input String instanceName "Instance name of the file write";
+    input String fileName "Name of the file, including extension";
+    input Integer numColumns "Number of columns that are written to file";
+    input Boolean isCombiTimeTable
+      "Flag to indicate whether combiTimeTable header should be prepended upon destruction";
+    output FileWriterObject fileWriter "Pointer to the file writer";
+    external"C" fileWriter = fileWriterInit(instanceName, fileName, numColumns, isCombiTimeTable)
+    annotation (
+      Include="#include <fileWriterInit.c>",
+      IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
 
     annotation(Documentation(info="<html>
 <p>
@@ -26,9 +27,9 @@ the simulation stops with an error.
 </html>", revisions="<html>
 c
 </html>"));
-    end constructor;
+  end constructor;
 
-  function destructor "Release storage of table and close the external object"
+  function destructor "Release storage and close the external object"
     input FileWriterObject fileWriter "Pointer to file writer object";
     external "C" fileWriterFree(fileWriter)
     annotation(Include=" #include <fileWriterFree.c>",
