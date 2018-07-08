@@ -20,4 +20,3 @@ typedef struct FileWriter {
 void writeLine(void *ptrFileWriter, const char* line, const int isMetaData); /* This function writes a line to the FileWriter object file and counts the number of lines that are written. */
 
 #endif
-

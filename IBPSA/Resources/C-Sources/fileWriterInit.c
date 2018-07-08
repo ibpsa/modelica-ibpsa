@@ -9,8 +9,6 @@
 #include <stdio.h>
 #include <string.h>
 
-
-
 int fileWriterIsUnique(const char* fileName){
   int i;
   int isUnique = 1;
@@ -28,9 +26,6 @@ void* fileWriterInit(
   const char* fileName,
   const int numColumns,
   const int isCombiTimeTable){
-  /* FILE *f = fopen(fileName, "w"); */
-  /* fclose(f); */
-  ModelicaFormatMessage("Instantiation for %s in %s\n", fileName, instanceName);
 
   if ( FileWriterNames_n == 0 ){
     /* Allocate memory for array of file names */
@@ -78,24 +73,24 @@ void* fileWriterInit(
   ID->numRows=0;
 
   if (isCombiTimeTable<0 || isCombiTimeTable >1)
-    ModelicaFormatError("In fileWriterInit.c: the initialisation flag 'isCombiTimeTable' of FileWriter %s must equal 0 or 1 but it equals %i.", instanceName, isCombiTimeTable);
+    ModelicaFormatError("In fileWriterInit.c: The initialisation flag 'isCombiTimeTable' of FileWriter %s must equal 0 or 1 but it equals %i.", instanceName, isCombiTimeTable);
   ID->isCombiTimeTable=isCombiTimeTable;
 
   FILE *fp = fopen(fileName, "w");
   if (fp == NULL)
-    ModelicaFormatError("In fileWriterInit.c: failed to create empty .csv file %s during initialisation.", fileName);
+    ModelicaFormatError("In fileWriterInit.c: Failed to create empty .csv file %s during initialisation.", fileName);
   fclose(fp);
   return (void*) ID;
 }
 
-/* This function writes a line to the FileWriter object file 
-and counts the total number of lines that are written 
+/* This function writes a line to the FileWriter object file
+and counts the total number of lines that are written
 by incrementing the counter numRows if isMetaData==0. */
 void writeLine(void *ptrFileWriter, const char* line, const int isMetaData){
   FileWriter *ID = (FileWriter*)ptrFileWriter;
   FILE *fOut = fopen(ID->fileWriterName, "a");
   if (fputs(line, fOut)==EOF){
-    ModelicaFormatError("In fileWriterInit.c: returned an error when writing to %s.", ID->fileWriterName);
+    ModelicaFormatError("In fileWriterInit.c: Returned an error when writing to %s.", ID->fileWriterName);
   }
   if (isMetaData==0)
     ID->numRows=ID->numRows+1;
