@@ -1,7 +1,7 @@
 within IBPSA.Utilities.IO.Reports.Examples;
 model CSVWriter "Example of csv writer use"
   import IBPSA;
-  extends IBPSA.Utilities.IO.Reports.BaseClasses.PartialCSV;
+  extends IBPSA.Utilities.IO.Reports.Examples.BaseClasses.PartialCSV;
   CombiTimeTableWriter combiTimeTableWriter(
     nin=2,
     samplePeriod=0.3,

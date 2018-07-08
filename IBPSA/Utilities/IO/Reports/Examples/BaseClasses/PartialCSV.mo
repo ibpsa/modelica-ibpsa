@@ -1,4 +1,4 @@
-within IBPSA.Utilities.IO.Reports.BaseClasses;
+within IBPSA.Utilities.IO.Reports.Examples.BaseClasses;
 model PartialCSV "Base model for CSV reader and writer example"
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Cosine cos(freqHz=0.345) "Cosine"
