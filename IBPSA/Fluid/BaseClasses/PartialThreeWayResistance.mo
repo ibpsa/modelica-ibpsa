@@ -116,38 +116,38 @@ equation
   if verifyFlowReversal then
     if portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Entering then
       assert(port_1.m_flow> -m_flow_small,
-      "In " + getInstanceName() + ": the flow is leaving port_1 while 
-      portFlowDirection_1=PortFlowDirection.Entering since m_flow=" +
+      "In " + getInstanceName() + ":
+      Flow is leaving port_1 but portFlowDirection_1=PortFlowDirection.Entering since m_flow=" +
       String(port_1.m_flow) + ">-"+String(m_flow_small));
     end if;
     if portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Leaving then
       assert(port_1.m_flow< m_flow_small,
-      "In " + getInstanceName() + ": the flow is entering port_1 while 
-      portFlowDirection_1=PortFlowDirection.Leaving since m_flow=" +
+      "In " + getInstanceName() + ":
+      Flow is entering port_1 but portFlowDirection_1=PortFlowDirection.Leaving since m_flow=" +
       String(port_1.m_flow) + "<"+String(m_flow_small));
     end if;
     if portFlowDirection_2==Modelica.Fluid.Types.PortFlowDirection.Entering then
       assert(port_2.m_flow> -m_flow_small,
-      "In " + getInstanceName() + ": the flow is leaving port_2 while 
-      portFlowDirection_2=PortFlowDirection.Entering since m_flow=" +
+      "In " + getInstanceName() + ":
+      Flow is leaving port_2 but portFlowDirection_2=PortFlowDirection.Entering since m_flow=" +
       String(port_2.m_flow) + ">-"+String(m_flow_small));
     end if;
     if portFlowDirection_2==Modelica.Fluid.Types.PortFlowDirection.Leaving then
       assert(port_2.m_flow< m_flow_small,
-      "In " + getInstanceName() + ": the flow is entering port_2 while 
-      portFlowDirection_2=PortFlowDirection.Leaving since m_flow=" +
+      "In " + getInstanceName() + ":
+      Flow is entering port_2 but portFlowDirection_2=PortFlowDirection.Leaving since m_flow=" +
       String(port_2.m_flow) + "<"+String(m_flow_small));
     end if;
     if portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Entering then
       assert(port_3.m_flow> -m_flow_small,
-      "In " + getInstanceName() + ": the flow is leaving port_3 while 
-      portFlowDirection_3=PortFlowDirection.Entering since m_flow=" +
+      "In " + getInstanceName() + ":
+      Flow is leaving port_3 but portFlowDirection_3=PortFlowDirection.Entering since m_flow=" +
       String(port_3.m_flow) + ">-"+String(m_flow_small));
     end if;
     if portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving then
       assert(port_3.m_flow< m_flow_small,
-      "In " + getInstanceName() + ": the flow is entering port_3 while 
-      portFlowDirection_3=PortFlowDirection.Leaving since m_flow=" +
+      "In " + getInstanceName() + ": 
+      Flow is entering port_3 but portFlowDirection_3=PortFlowDirection.Leaving since m_flow=" +
       String(port_3.m_flow) + "<"+String(m_flow_small));
     end if;
   end if;
@@ -163,7 +163,7 @@ equation
       color={0,127,255}));
     end if;
     connect(port_1, res1.port_b) annotation (Line(points={{-100,0},{-100,0},{-40,
-            0}},                                                                      color={0,127,255}));
+            0}}, color={0,127,255}));
   else
     if not have_controlVolume then
        connect(res1.port_b, port_internal) annotation (Line(
