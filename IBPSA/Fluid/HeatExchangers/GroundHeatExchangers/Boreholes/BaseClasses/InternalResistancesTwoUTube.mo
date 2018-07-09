@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 model InternalResistancesTwoUTube
+  "Internal resistance model for single U-Tube borehole segments."
   extends partialInternalResistances;
 
   parameter Modelica.SIunits.ThermalResistance Rgg1_val
@@ -170,5 +171,18 @@ equation
   connect(capFil4.port, Rpg4.port_b) annotation (Line(points={{-74,20},{-74,12},
           {-66,12},{-66,0},{-72,0},{-72,-9.99201e-016}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+        Documentation(info="<html>
+<p>
+This model simulates the internal thermal resistance network of a borehole segment in
+the case of a double U-Tube borehole.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 5, 2018, by Alex Laferri&egrave;re:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end InternalResistancesTwoUTube;

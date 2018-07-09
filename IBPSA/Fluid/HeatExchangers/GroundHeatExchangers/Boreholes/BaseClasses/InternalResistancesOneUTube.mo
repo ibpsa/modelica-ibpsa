@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 model InternalResistancesOneUTube
+  "Internal resistance model for single U-Tube borehole segments."
   extends partialInternalResistances;
 
   parameter Real Rgg_val "Thermal resistance between the two grout zones";
@@ -71,4 +72,19 @@ equation
     annotation (Line(points={{20,0},{0,0},{0,0}}, color={191,0,0}));
   connect(capFil2.port, Rgg.port_b)
     annotation (Line(points={{60,50},{50,50},{40,50}}, color={191,0,0}));
+
+    annotation (
+    Documentation(info="<html>
+<p>
+This model simulates the internal thermal resistance network of a borehole segment in
+the case of a single U-Tube borehole.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 5, 2018, by Alex Laferri&egrave;re:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end InternalResistancesOneUTube;

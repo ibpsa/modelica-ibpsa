@@ -37,8 +37,8 @@ partial model partialInternalResistances
 Partial model to implement the inner resistance network of a borehole segment.
 </p>
 <p>
-The partial model supposes a thermal port representing a uniform borehole wall for
-that segment, and at least two thermal ports (one for each tube going through the borehole
+The partial model uses a thermal port representing a uniform borehole wall for
+that segment, and at least two other thermal ports (one for each tube going through the borehole
 segment).
 </p>
 </html>", revisions="<html>
