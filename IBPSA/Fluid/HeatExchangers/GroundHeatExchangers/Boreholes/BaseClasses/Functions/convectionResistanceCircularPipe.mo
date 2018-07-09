@@ -30,7 +30,7 @@ protected
     "Coefficient used in the computation of the convective heat transfer coefficient";
   Modelica.SIunits.MassFlowRate m_flow_abs = IBPSA.Utilities.Math.Functions.spliceFunction(m_flow,-m_flow,m_flow,m_flow_nominal/30);
   Real Re "Reynolds number";
-  Real Nu10k "Nusselt at Re=10000";
+  Real NuTurb "Nusselt at Re=2400";
   Real Nu "Nusselt";
 
 algorithm
@@ -38,8 +38,8 @@ algorithm
   k := 2/(muMed*Modelica.Constants.pi*rTub_in);
   Re := m_flow_abs*k;
 
-  if Re>=10000 then
-    // Turbulent, fully-developped flow in a smooth circular pipe with
+  if Re>=2400 then
+    // Turbulent, fully-developped flow in a smooth circular pipe with the
     // Dittus-Boelter correlation: h = 0.023*k_f*Re*Pr/(2*rTub)
     // Re = rho*v*DTub / mue_f
     //    = m_flow/(pi r^2) * DTub/mue_f = 2*m_flow / ( mue*pi*rTub)
@@ -50,10 +50,10 @@ algorithm
         delta=0.01*m_flow_nominal*k);
   else
     // Laminar, fully-developped flow in a smooth circular pipe with uniform
-    // imposed temperature: Nu=3.66 for Re<=2300. For 2300<Re<10000, a smooth
+    // imposed temperature: Nu=3.66 for Re<=2300. For 2300<Re<2400, a smooth
     // transition is created with the splice function.
-    Nu10k := 0.023*(cpMed*muMed/kMed)^(0.35)*(10000)^(0.8);
-    Nu := IBPSA.Utilities.Math.Functions.spliceFunction(Nu10k,3.66,Re-(2300+10000)/2,((2300+10000)/2)-2300);
+    NuTurb := 0.023*(cpMed*muMed/kMed)^(0.35)*(2400)^(0.8);
+    Nu := IBPSA.Utilities.Math.Functions.spliceFunction(NuTurb,3.66,Re-(2300+2400)/2,((2300+2400)/2)-2300);
   end if;
   h := Nu*kMed/(2*rTub_in);
 
@@ -66,7 +66,7 @@ with heigth <i>h<sub>Seg</sub></i>.
 </p>
 <p>
 If the flow is laminar (<i>Re &le; 2300</i>, with <i>Re</i> being the Reynolds number of the flow),
-the Nusselt number of the flow is assumed to be constant at 3.66. If the flow is turbulent (<i>Re &ge; 10,000</i>),
+the Nusselt number of the flow is assumed to be constant at 3.66. If the flow is turbulent (<i>Re &gt; 2300</i>),
 the correlation of Dittus-Boelter is used to find the convection heat transfer coefficient as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -76,8 +76,9 @@ the correlation of Dittus-Boelter is used to find the convection heat transfer c
 where <i>Nu</i> is the Nusselt number and 
 <i>Pr</i> is the Prandlt number.
 We selected <i>n=0.35</i>, as the reference uses <i>n=0.4</i> for heating and 
-<i>n=0.3</i> for cooling. For the range <i>2300 &lt; Re &lt; 10,000</i>, a smooth
-transition is created between the laminar and turbulent values.
+<i>n=0.3</i> for cooling. To ensure that the function is continuously differentiable,
+a smooth transition between the laminar and turbulent values is created for the
+range <i>2300 &lt; Re &lt; 2400</i>.
 </p>
 </html>", revisions="<html>
 <p>
