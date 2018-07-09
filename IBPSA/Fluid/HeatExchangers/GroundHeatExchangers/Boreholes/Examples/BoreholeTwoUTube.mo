@@ -1,8 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples;
 model BoreholeTwoUTube "Test for double U-tube borehole model"
-  extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples.BoreholeOneUTube(
-    redeclare
+  extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples.partialBorehole(
+      redeclare
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeTwoUTube
       borHol,
     borFieDat(conDat=
