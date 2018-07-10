@@ -13,7 +13,8 @@ partial model partialBorehole
     "Initial soil temperature";
 
   replaceable
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.partialBorehole borHol(
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.partialBorehole
+    borHol(
     redeclare package Medium = Medium,
     borFieDat=borFieDat,
     m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,

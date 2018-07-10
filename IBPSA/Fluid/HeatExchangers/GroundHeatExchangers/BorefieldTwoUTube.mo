@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers;
 model BorefieldTwoUTube
-  extends partialBorefield;
+  extends BaseClasses.partialBorefield;
   Boreholes.BoreholeTwoUTube borHol(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
