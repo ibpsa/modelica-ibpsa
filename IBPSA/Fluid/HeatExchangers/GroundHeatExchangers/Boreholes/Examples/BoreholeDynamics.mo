@@ -15,7 +15,9 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
     dp_nominal=borFieUTubDat.conDat.dp_nominal,
     dynFil=true,
-    nSeg=nSeg)   "Borehole with U-Tub configuration and grout dynamics"
+    nSeg=nSeg,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                 "Borehole with U-Tub configuration and grout dynamics"
     annotation (Placement(transformation(
         extent={{-14,-14},{14,14}},
         rotation=0,
@@ -64,7 +66,9 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
     dp_nominal=borFieUTubDat.conDat.dp_nominal,
     dynFil=false,
-    nSeg=nSeg)    "Borehole with U-Tub configuration and steady states grout"
+    nSeg=nSeg,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                  "Borehole with U-Tub configuration and steady states grout"
     annotation (Placement(transformation(
         extent={{-14,-14},{14,14}},
         rotation=0,
@@ -104,7 +108,8 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     dynFil=true,
     m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal,
     borFieDat=borFie2UTubDat,
-    nSeg=nSeg)
+    nSeg=nSeg,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Borehole with 2U-Tub configuration and grout dynamics" annotation (
       Placement(transformation(
         extent={{-14,-14},{14,14}},
@@ -153,7 +158,8 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     dynFil=false,
     m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal,
     borFieDat=borFie2UTubDat,
-    nSeg=nSeg)
+    nSeg=nSeg,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Borehole with 2U-Tub configuration and steady states grout" annotation (
       Placement(transformation(
         extent={{-14,-14},{14,14}},
@@ -268,12 +274,5 @@ equation
         Documentation(info="<html>
 This example illustrates different borehole models using different mass
 and energy dynamics.
-</html>", revisions="<html>
-<ul>
-<li>
-July 10, 2018, by Alex Laferri&egrave;re:<br>
-First implementation.
-</li>
-</ul>
 </html>"));
 end BoreholeDynamics;

@@ -61,7 +61,12 @@ equation
     m_flow_nominal=m_flow_nominal,
     printDebug=true);
 
-  annotation (Documentation(info="<html>
+  annotation (
+  experiment(StopTime=1),
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Examples/InternalResistancesOneUTube.mos"
+        "Simulate and plot"),
+  Documentation(info="<html>
 This example calculates and validates the internal resistances of a single U-tube
 borehole segment.
 </html>", revisions="<html>

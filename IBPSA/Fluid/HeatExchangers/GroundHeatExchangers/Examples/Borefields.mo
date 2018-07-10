@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Examples;
 model Borefields
-  "Borefield with a double U-Tube configuration in parallel"
+  "Example model with several borefield configurations operating simultaneously."
 extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Water;
 
@@ -12,6 +12,7 @@ extends Modelica.Icons.Example;
     borFieDat=borFie2UTubParDat,
     tLoaAgg=tLoaAgg,
     dynFil=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TMedGro=283.15)
     "Borefield with a 2-U-tube connected in parallel borehole configuration"
     annotation (Placement(transformation(extent={{-22,-18},{20,18}})));
@@ -50,6 +51,7 @@ extends Modelica.Icons.Example;
     borFieDat=borFie2UTubSerDat,
     tLoaAgg=tLoaAgg,
     dynFil=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TMedGro=283.15)
     "Borefield with a 2-U-tube connected in serie borehole configuration"
     annotation (Placement(transformation(extent={{-20,42},{22,78}})));
@@ -86,6 +88,7 @@ extends Modelica.Icons.Example;
     borFieDat=borFieUTubDat,
     tLoaAgg=tLoaAgg,
     dynFil=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TMedGro=283.15)
                 "Borefield with a U-tube borehole configuration"
     annotation (Placement(transformation(extent={{-22,-78},{20,-42}})));
@@ -150,5 +153,16 @@ equation
   connect(TGro.y, borFieUTub.TSoi) annotation (Line(points={{-59,40},{-59,40},{-36,
           40},{-36,-49.2},{-26.2,-49.2}}, color={0,0,127}));
   annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Examples/Borefields.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+  Documentation(info="<html>
+<p>
+This example shows three different borefields, each with a different configuration
+(single U-tube, double U-tube in parallel, and double U-tube in series) and compares
+the thermal behaviour of the circulating fluid in each case. The borefields in this
+example include some of the dynamic behavior of the boreholes, but not that of the filling
+material.
+</p>
+</html>",
+    experiment(
+      StopTime=36000)));
 end Borefields;

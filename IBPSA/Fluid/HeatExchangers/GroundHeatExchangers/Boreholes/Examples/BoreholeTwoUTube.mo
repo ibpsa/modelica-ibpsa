@@ -3,10 +3,11 @@ model BoreholeTwoUTube "Test for the double U-tube borehole model"
   extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples.BaseClasses.partialBorehole(
       redeclare
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeTwoUTube
-      borHol,
+      borHol(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     borFieDat(conDat=
           IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.SandBox_validation(
           borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel)));
+  extends Modelica.Icons.Example;
 
   annotation (__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/Examples/BoreholeTwoUTube.mos"

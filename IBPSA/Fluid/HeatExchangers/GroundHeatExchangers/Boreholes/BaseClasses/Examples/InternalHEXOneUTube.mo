@@ -18,7 +18,8 @@ model InternalHEXOneUTube
     borFieDat=borFieDat,
     m1_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     m2_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
-    T_start=285.15)
+    T_start=285.15,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-10,-12},{10,10}})));
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15
@@ -79,6 +80,9 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(StopTime=100000),
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Examples/InternalHEXOneUTube.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This example simulates the interior thermal behavior of a single U-tube borehole segment.
 </html>", revisions="<html>
