@@ -1,14 +1,14 @@
-within IBPSA.Utilities.IO.Reports.Examples;
+within IBPSA.Utilities.IO.Files.Examples;
 model CSVWriter "Example of csv writer use"
   import IBPSA;
-  extends IBPSA.Utilities.IO.Reports.Examples.BaseClasses.PartialCSV;
+  extends IBPSA.Utilities.IO.Files.Examples.BaseClasses.PartialCSV;
   CombiTimeTableWriter combiTimeTableWriter(
     nin=2,
     samplePeriod=0.3,
     fileName="test.csv")
     "Model that writes two inputs to csv file in a format that can be read by a combiTimeTable"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  IBPSA.Utilities.IO.Reports.CSVWriter csvWriter(
+  IBPSA.Utilities.IO.Files.CSVWriter csvWriter(
     writeHeader=false,
     nin=2,
     samplePeriod=0.3)
@@ -41,6 +41,6 @@ This model demonstrates the use of the csv file writer.
 </p>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Utilities/IO/Reports/Examples/CSVWriter.mos"
+          "Resources/Scripts/Dymola/Utilities/IO/Files/Examples/CSVWriter.mos"
         "Simulate and plot"));
 end CSVWriter;

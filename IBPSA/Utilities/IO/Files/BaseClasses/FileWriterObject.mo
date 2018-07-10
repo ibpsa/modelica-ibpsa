@@ -1,4 +1,4 @@
-within IBPSA.Utilities.IO.Reports.BaseClasses;
+within IBPSA.Utilities.IO.Files.BaseClasses;
 class FileWriterObject
   "Class used to ensure that each CSV writer writes to a unique file"
 extends ExternalObject;
@@ -20,8 +20,8 @@ extends ExternalObject;
 <p>
 Creates an empty file with name <code>fileName</code>.
 If <code>fileName</code> is used in another instance of
-<a href=\"modelica://IBPSA.Utilities.IO.Reports.CSVWriter\">
-IBPSA.Utilities.IO.Reports.CSVWriter</a>,
+<a href=\"modelica://IBPSA.Utilities.IO.Files.CSVWriter\">
+IBPSA.Utilities.IO.Files.CSVWriter</a>,
 the simulation stops with an error.
 </p>
 </html>", revisions="<html>

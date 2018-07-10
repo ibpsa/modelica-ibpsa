@@ -1,4 +1,4 @@
-within IBPSA.Utilities.IO.Reports.BaseClasses;
+within IBPSA.Utilities.IO.Files.BaseClasses;
 model FileWriter "Partial model for writing results to a .csv file"
   extends Modelica.Blocks.Icons.DiscreteBlock;
 
@@ -26,8 +26,8 @@ protected
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
   parameter String insNam = getInstanceName() "Instance name";
-  IBPSA.Utilities.IO.Reports.BaseClasses.FileWriterObject filWri=
-      IBPSA.Utilities.IO.Reports.BaseClasses.FileWriterObject(
+  IBPSA.Utilities.IO.Files.BaseClasses.FileWriterObject filWri=
+      IBPSA.Utilities.IO.Files.BaseClasses.FileWriterObject(
         insNam,
         fileName,
         nin+1,
@@ -40,7 +40,7 @@ protected
   function writeLine
     "Prepend a string to an existing text file"
     extends Modelica.Icons.Function;
-    input IBPSA.Utilities.IO.Reports.BaseClasses.FileWriterObject id "ID of the file writer";
+    input IBPSA.Utilities.IO.Files.BaseClasses.FileWriterObject id "ID of the file writer";
     input String string "Written string";
     input Integer isMetaData "=1, if line should not be included for row count of combiTimeTable";
     external"C" writeLine(id, string, isMetaData)
