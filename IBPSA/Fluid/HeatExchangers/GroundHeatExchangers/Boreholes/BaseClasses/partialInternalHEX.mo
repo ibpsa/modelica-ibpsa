@@ -2,7 +2,8 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 partial model partialInternalHEX
   "Partial model to implement the interior of a borehole segment"
 
-  parameter Data.BorefieldData.Template borFieDat "Borefield parameters"
+  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
+    borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
   replaceable package Medium =

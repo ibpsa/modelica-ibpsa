@@ -43,16 +43,17 @@ protected
 
   parameter Real rTub_in = rTub-eTub "Inner radius of tube";
 
-  Real RConv(unit="(m.K)/W") = convectionResistanceCircularPipe(
-    hSeg=hSeg,
-    rBor=rBor,
-    rTub=rTub,
-    eTub=eTub,
-    kMed=kMed,
-    muMed=muMed,
-    cpMed=cpMed,
-    m_flow=m_flow_nominal,
-    m_flow_nominal=m_flow_nominal)*hSeg;
+  Real RConv(unit="(m.K)/W")=
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+      hSeg=hSeg,
+      rBor=rBor,
+      rTub=rTub,
+      eTub=eTub,
+      kMed=kMed,
+      muMed=muMed,
+      cpMed=cpMed,
+      m_flow=m_flow_nominal,
+      m_flow_nominal=m_flow_nominal)*hSeg;
 
   Boolean test=false "thermodynamic test for R and x value";
 

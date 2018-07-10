@@ -20,16 +20,16 @@ model SandboxValidation
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-20,60},{-40,40}})));
-  Sensors.TemperatureTwoPort TBorFieIn(redeclare package Medium = Medium,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorFieIn(redeclare package Medium = Medium,
       m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     T_start=T_start)
     "Inlet temperature of the borefield"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Sensors.TemperatureTwoPort TBorFieOut(redeclare package Medium = Medium,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorFieOut(redeclare package Medium = Medium,
       m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     T_start=T_start) "Outlet temperature of the borefield"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Data.BorefieldData.SandBox_validation borFieDat "Borefield data"
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   IBPSA.Fluid.Sources.Boundary_ph sin(redeclare package Medium =
         Medium, nPorts=1) "Sink"

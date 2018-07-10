@@ -11,7 +11,8 @@ model SmallScaleValidation
     "Second resistance in resistance-capacitance model of measurement apparatus";
   parameter Modelica.SIunits.HeatCapacity C = 325
     "Capacitance in resistance-capacitance model of measurement apparatus";
-  BorefieldOneUTube borHol(redeclare package Medium = Medium, borFieDat=
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BorefieldOneUTube borHol(redeclare
+      package                                                                                Medium = Medium, borFieDat=
         borFieDat,
     tLoaAgg=5,
     TMedGro=T_start)       "Borehole"
@@ -27,12 +28,12 @@ model SmallScaleValidation
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-20,90},{-40,70}})));
-  Sensors.TemperatureTwoPort TBorFieIn(redeclare package Medium = Medium,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorFieIn(redeclare package Medium = Medium,
       m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     T_start=T_start)
     "Inlet temperature of the borefield"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Sensors.TemperatureTwoPort TBorFieOut(redeclare package Medium = Medium,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorFieOut(redeclare package Medium = Medium,
       m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     T_start=T_start) "Outlet temperature of the borefield"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
@@ -58,7 +59,7 @@ model SmallScaleValidation
     annotation (Placement(transformation(extent={{20,90},{0,70}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=10.06)
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Sensors.TemperatureTwoPort TMeaIn(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TMeaIn(
     redeclare package Medium = Medium,
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     T_start=T_start)
@@ -67,7 +68,7 @@ model SmallScaleValidation
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,34})));
-  Sensors.TemperatureTwoPort TMeaOut(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TMeaOut(
     redeclare package Medium = Medium,
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     T_start=T_start)
@@ -76,14 +77,14 @@ model SmallScaleValidation
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,34})));
-  MixingVolumes.MixingVolume vol(redeclare package Medium = Medium, nPorts=2,
+  IBPSA.Fluid.MixingVolumes.MixingVolume vol(redeclare package Medium = Medium, nPorts=2,
     m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     V=8.2e-6)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-50,0})));
-  MixingVolumes.MixingVolume vol1(redeclare package Medium = Medium, nPorts=2,
+  IBPSA.Fluid.MixingVolumes.MixingVolume vol1(redeclare package Medium = Medium, nPorts=2,
     m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     V=8.2e-6)
     annotation (Placement(transformation(

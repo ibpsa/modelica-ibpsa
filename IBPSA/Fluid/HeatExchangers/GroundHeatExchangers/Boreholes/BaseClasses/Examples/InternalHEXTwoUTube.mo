@@ -29,17 +29,17 @@ model InternalHEXTwoUTube
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15
          + 12)
     annotation (Placement(transformation(extent={{-22,30},{-2,50}})));
-  Sources.MassFlowSource_T boundary(nPorts=2,
+  IBPSA.Fluid.Sources.MassFlowSource_T boundary(nPorts=2,
     redeclare package Medium = Medium,
     m_flow=borFieDat.conDat.mBor_flow_nominal,
     T=293.15)
     annotation (Placement(transformation(extent={{-48,0},{-28,20}})));
-  Sources.MassFlowSource_T boundary1(nPorts=2,
+  IBPSA.Fluid.Sources.MassFlowSource_T boundary1(nPorts=2,
     redeclare package Medium = Medium,
     m_flow=borFieDat.conDat.mBor_flow_nominal,
     T=288.15)
     annotation (Placement(transformation(extent={{54,4},{34,-16}})));
-  Sources.FixedBoundary bou(nPorts=4, redeclare package Medium = Medium)
+  IBPSA.Fluid.Sources.FixedBoundary bou(nPorts=4, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-60,-14},{-40,-34}})));
   Real Rb_sim = ((senTem.T + senTem1.T + senTem2.T + senTem3.T)/4 - intHex.port_wall.T)/max(-intHex.port_wall.Q_flow / hSeg,1);
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =

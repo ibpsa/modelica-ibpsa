@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 model InternalHEXOneUTube
   "Internal part of a borehole for a U-Tube configuration"
 
-  extends partialInternalHEX;
+  extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.partialInternalHEX;
   extends IBPSA.Fluid.Interfaces.FourPortHeatMassExchanger(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -30,42 +30,42 @@ protected
 
 public
   Modelica.Blocks.Sources.RealExpression RVol1(y=
-        Functions.convectionResistanceCircularPipe(
-        hSeg=hSeg,
-        rBor=borFieDat.conDat.rBor,
-        rTub=borFieDat.conDat.rTub,
-        eTub=borFieDat.conDat.eTub,
-        kMed=kMed,
-        muMed=muMed,
-        cpMed=cpMed,
-        m_flow=m1_flow,
-        m_flow_nominal=m1_flow_nominal))
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+      hSeg=hSeg,
+      rBor=borFieDat.conDat.rBor,
+      rTub=borFieDat.conDat.rTub,
+      eTub=borFieDat.conDat.eTub,
+      kMed=kMed,
+      muMed=muMed,
+      cpMed=cpMed,
+      m_flow=m1_flow,
+      m_flow_nominal=m1_flow_nominal))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-100,-2},{-80,18}})));
   Modelica.Blocks.Sources.RealExpression RVol2(y=
-        Functions.convectionResistanceCircularPipe(
-        hSeg=hSeg,
-        rBor=borFieDat.conDat.rBor,
-        rTub=borFieDat.conDat.rTub,
-        eTub=borFieDat.conDat.eTub,
-        kMed=kMed,
-        muMed=muMed,
-        cpMed=cpMed,
-        m_flow=m2_flow,
-        m_flow_nominal=m2_flow_nominal))
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+      hSeg=hSeg,
+      rBor=borFieDat.conDat.rBor,
+      rTub=borFieDat.conDat.rTub,
+      eTub=borFieDat.conDat.eTub,
+      kMed=kMed,
+      muMed=muMed,
+      cpMed=cpMed,
+      m_flow=m2_flow,
+      m_flow_nominal=m2_flow_nominal))
     "Convective and thermal resistance at fluid 2"
     annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
 
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalResistancesOneUTube
     intResUTub(
-    dynFil=dynFil,
-    hSeg=hSeg,
-    T_start=T_start,
-    energyDynamics=energyDynamics,
-    Rgb_val=Rgb_val,
-    Rgg_val=Rgg_val,
-    RCondGro_val=RCondGro_val,
-    borFieDat=borFieDat)
+      dynFil=dynFil,
+      hSeg=hSeg,
+      T_start=T_start,
+      energyDynamics=energyDynamics,
+      Rgb_val=Rgb_val,
+      Rgg_val=Rgg_val,
+      RCondGro_val=RCondGro_val,
+      borFieDat=borFieDat)
     "Internal resistances for a single U-tube configuration"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor RConv2
@@ -79,25 +79,26 @@ public
         rotation=90,
         origin={0,28})));
 initial equation
-  (x, Rgb_val, Rgg_val, RCondGro_val) =Functions.internalResistancesOneUTube(
-    hSeg=hSeg,
-    rBor=borFieDat.conDat.rBor,
-    rTub=borFieDat.conDat.rTub,
-    eTub=borFieDat.conDat.eTub,
-    sha=borFieDat.conDat.xC,
-    kFil=borFieDat.filDat.kFil,
-    kSoi=borFieDat.soiDat.kSoi,
-    kTub=borFieDat.conDat.kTub,
-    use_Rb=borFieDat.conDat.use_Rb,
-    Rb=borFieDat.conDat.Rb,
-    kMed=kMed,
-    muMed=muMed,
-    cpMed=cpMed,
-    m_flow_nominal=m1_flow_nominal,
-    printDebug=false);
+  (x, Rgb_val, Rgg_val, RCondGro_val) =
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesOneUTube(
+      hSeg=hSeg,
+      rBor=borFieDat.conDat.rBor,
+      rTub=borFieDat.conDat.rTub,
+      eTub=borFieDat.conDat.eTub,
+      sha=borFieDat.conDat.xC,
+      kFil=borFieDat.filDat.kFil,
+      kSoi=borFieDat.soiDat.kSoi,
+      kTub=borFieDat.conDat.kTub,
+      use_Rb=borFieDat.conDat.use_Rb,
+      Rb=borFieDat.conDat.Rb,
+      kMed=kMed,
+      muMed=muMed,
+      cpMed=cpMed,
+      m_flow_nominal=m1_flow_nominal,
+      printDebug=false);
 
 equation
-    assert(borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.SingleUTube,
+    assert(borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.SingleUTube,
   "This model should be used for single U-type borefield, not double U-type. 
   Check that the record General has been correctly parametrized");
   connect(RVol2.y, RConv2.Rc) annotation (Line(points={{-79,-8},{-60,-8},{-40,

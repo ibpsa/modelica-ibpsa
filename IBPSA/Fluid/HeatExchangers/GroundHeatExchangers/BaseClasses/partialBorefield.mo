@@ -23,24 +23,24 @@ partial model partialBorefield
     "Initial temperature of grout material and fluid medium";
 
   // General parameters of borefield
-  parameter Data.BorefieldData.Template borFieDat "Borefield data"
+  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
   parameter Boolean dynFil=true
     "Set to false to remove the dynamics of the filling material."
     annotation (Dialog(tab="Dynamics"));
 
-  BaseClasses.MassFlowRateMultiplier masFloDiv(
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.MassFlowRateMultiplier masFloDiv(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
     k=borFieDat.conDat.nbBor) "Division of flow rate"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
-  BaseClasses.MassFlowRateMultiplier masFloMul(
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.MassFlowRateMultiplier masFloMul(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
     k=borFieDat.conDat.nbBor) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  GroundHeatTransfer.GroundTemperatureResponse groTemRes(
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse groTemRes(
     tLoaAgg=tLoaAgg,
     p_max=p_max,
     borFieDat=borFieDat) "Ground temperature response"
