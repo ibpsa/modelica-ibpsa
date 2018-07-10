@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples;
+within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples.BaseClasses;
 partial model partialBorehole
   "Partial model for borehole example models"
   extends Modelica.Icons.Example;
