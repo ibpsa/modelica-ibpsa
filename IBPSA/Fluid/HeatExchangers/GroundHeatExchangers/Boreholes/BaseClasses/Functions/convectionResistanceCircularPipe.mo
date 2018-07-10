@@ -62,7 +62,7 @@ algorithm
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
 This model computes the convection resistance in the pipes of a borehole segment 
-with heigth <i>h<sub>Seg</sub></i>.
+with heigth <i>h<sub>Seg</sub></i> using correlations suggested by Bergman et al. (2011).
 </p>
 <p>
 If the flow is laminar (<i>Re &le; 2300</i>, with <i>Re</i> being the Reynolds number of the flow),
@@ -75,14 +75,24 @@ the correlation of Dittus-Boelter is used to find the convection heat transfer c
 <p>
 where <i>Nu</i> is the Nusselt number and 
 <i>Pr</i> is the Prandlt number.
-We selected <i>n=0.35</i>, as the reference uses <i>n=0.4</i> for heating and 
+A value of <i>n=0.35</i> is used, as the reference uses <i>n=0.4</i> for heating and 
 <i>n=0.3</i> for cooling. To ensure that the function is continuously differentiable,
 a smooth transition between the laminar and turbulent values is created for the
 range <i>2300 &lt; Re &lt; 2400</i>.
 </p>
+<h4>References</h4>
+<p>
+Bergman, T. L., Incropera, F. P., DeWitt, D. P., & Lavine, A. S. (2011). <i>Fundamentals of heat and mass
+transfer</i> (7th ed.). New York: John Wiley & Sons.
+</p>
 </html>", revisions="<html>
 <p>
 <ul>
+<li>
+July 10, 2018, by Alex Laferri&egrave;re:<br/>
+Added laminar flow and smooth laminar-turbulent transition.
+Revised documentation.
+</li>
 <li>
 February 14, 2014, by Michael Wetter:<br/>
 Removed unused input <code>rBor</code>.

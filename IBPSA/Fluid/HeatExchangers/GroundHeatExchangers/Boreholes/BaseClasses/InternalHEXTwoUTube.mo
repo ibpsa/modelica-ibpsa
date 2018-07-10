@@ -240,14 +240,6 @@ and computing explicitely the fluid-to-ground thermal resistance
 grout-to-grout resistance
 <i>R<sub>a</sub></i> as defined by Hellstroem (1991)
 using the multipole method.
-The multipole method is implemented in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances\">
-IBPSA.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances</a>. 
-The convection resistance is calculated using the 
-Dittus-Boelter correlation
-as implemented in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance\">
-IBPSA.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance</a>. 
 </p>
 <p>
 The figure below shows the thermal network set up by Bauer et al. (2010).
@@ -273,6 +265,10 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </html>", revisions="<html>
 <p>
 <ul>
+<li>
+July 10, 2018, by Alex Laferri&egrave;re:<br/>
+Updated documentation following major changes to the GroundHeatExchangers package.
+Additionally, implemented a partial InternalHex model.
 <li>
 June 18, 2014, by Michael Wetter:<br/>
 Added initialization for temperatures and derivatives of <code>capFil1</code>

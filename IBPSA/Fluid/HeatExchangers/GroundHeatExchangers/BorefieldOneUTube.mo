@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers;
 model BorefieldOneUTube
+  "Borefield model containing single U-Tube boreholes"
   extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.partialBorefield;
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeOneUTube borHol(
     redeclare package Medium = Medium,
@@ -30,4 +31,21 @@ equation
     annotation (Line(points={{-20,0},{-60,0}}, color={0,127,255}));
   connect(theCol.port_a, borHol.port_wall) annotation (Line(points={{-20,60},{-10,
           60},{0,60},{0,20}}, color={191,0,0}));
+
+  annotation(Documentation(info="<html>
+This model simulates a borefield containing one or many single U-Tube boreholes
+using the parameters in the <code>borFieDat</code> record. The fluid mass flow rate
+is adjusted to reflect the per-borehole fluid mass flow rate, and the borehole model
+calculates both the dynamics between the uniform borehole wall and the surrounding soil
+temperature (<code>TSoi</code>) as well as the dynamics within the borehole itself
+using an axial discretization and a resistance-capacitance network for the internal
+thermal resistances.
+</html>", revisions="<html>
+<ul>
+<li>
+July 10, 2018, by Alex Laferri&egrave;re:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end BorefieldOneUTube;

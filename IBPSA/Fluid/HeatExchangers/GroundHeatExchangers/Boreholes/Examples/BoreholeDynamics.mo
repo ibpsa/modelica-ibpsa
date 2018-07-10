@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples;
-model BoreholeDynamics
+model BoreholeDynamics "Example model for different borehole models and dynamics"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Water;
 
@@ -264,5 +264,16 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,100}})),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/Examples/BoreholeDynamics.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+        Documentation(info="<html>
+This example illustrates different borehole models using different mass
+and energy dynamics.
+</html>", revisions="<html>
+<ul>
+<li>
+July 10, 2018, by Alex Laferri&egrave;re:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end BoreholeDynamics;

@@ -131,7 +131,8 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-Model for the heat transfer between the fluid and within the borehole filling. 
+Model for the heat transfer between the fluid and within the borehole filling
+for a single borehole segment. 
 This model computes the dynamic response of the fluid in the tubes, 
 the heat transfer between the fluid and the borehole filling, 
 and the heat storage within the fluid and the borehole filling.
@@ -143,15 +144,7 @@ and computing explicitely the fluid-to-ground thermal resistance
 <i>R<sub>b</sub></i> and the 
 grout-to-grout resistance
 <i>R<sub>a</sub></i> as defined by Hellstroem (1991)
-using the multipole method.
-The multipole method is implemented in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances\">
-IBPSA.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances</a>. 
-The convection resistance is calculated using the 
-Dittus-Boelter correlation
-as implemented in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance\">
-IBPSA.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance</a>. 
+using the multipole method. 
 </p>
 <p>
 The figure below shows the thermal network set up by Bauer et al. (2010).
@@ -177,6 +170,11 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </html>", revisions="<html>
 <p>
 <ul>
+<li>
+July 10, 2018, by Alex Laferri&egrave;re:<br/>
+Updated documentation following major changes to the GroundHeatExchangers package.
+Additionally, implemented a partial InternalHex model.
+</li>
 <li>
 June 18, 2014, by Michael Wetter:<br/>
 Added initialization for temperatures and derivatives of <code>capFil1</code>

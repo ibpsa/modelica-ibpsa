@@ -71,35 +71,51 @@ equation
   connect(fixedTemperature.port, intHex.port_wall)
     annotation (Line(points={{-2,40},{0,40},{0,10}}, color={191,0,0}));
   connect(boundary.ports[1], intHex.port_a1)
-    annotation (Line(points={{-28,12},{-10,12},{-10,8}},
+    annotation (Line(points={{-28,12},{-10,12},{-10,7.8}},
                                                        color={0,127,255}));
   connect(bou.ports[1], senTem.port_b) annotation (Line(points={{-40,-27},{70,-27},
           {70,8},{28,8}}, color={0,127,255}));
   connect(senTem.port_a, intHex.port_b1)
-    annotation (Line(points={{16,8},{10,8}},        color={0,127,255}));
+    annotation (Line(points={{16,8},{14,8},{14,7.8},{10,7.8}},
+                                                    color={0,127,255}));
   connect(realExpression.y, error.u1) annotation (Line(points={{11,-48},{14,-48},
           {14,-54},{20,-54}}, color={0,0,127}));
   connect(Rb_ref.y, error.u2) annotation (Line(points={{11,-70},{14,-70},{14,-66},
           {20,-66}}, color={0,0,127}));
 
   connect(boundary.ports[2], intHex.port_a3) annotation (Line(points={{-28,8},{-22,
-          8},{-14,8},{-14,-3.2},{-10,-3.2}}, color={0,127,255}));
+          8},{-14,8},{-14,-4.52},{-10,-4.52}},
+                                             color={0,127,255}));
   connect(boundary1.ports[1], intHex.port_a4)
-    annotation (Line(points={{34,-8},{22,-8},{10,-8}}, color={0,127,255}));
+    annotation (Line(points={{34,-8},{10,-8},{10,-9.8}},
+                                                       color={0,127,255}));
   connect(boundary1.ports[2], intHex.port_a2) annotation (Line(points={{34,-4},{
-          30,-4},{30,3},{10,3}}, color={0,127,255}));
-  connect(intHex.port_b2, senTem1.port_a) annotation (Line(points={{-10,3},{-16,
-          3},{-16,2},{-20,2},{-20,-6},{-24,-6}}, color={0,127,255}));
+          30,-4},{30,2.3},{10,2.3}},
+                                 color={0,127,255}));
+  connect(intHex.port_b2, senTem1.port_a) annotation (Line(points={{-10,2.3},{-16,
+          2.3},{-16,2},{-20,2},{-20,-6},{-24,-6}},
+                                                 color={0,127,255}));
   connect(senTem1.port_b, bou.ports[2])
     annotation (Line(points={{-36,-6},{-40,-6},{-40,-25}}, color={0,127,255}));
-  connect(intHex.port_b4, senTem2.port_a) annotation (Line(points={{-10,-8.5},{-12,
-          -8.5},{-12,-8},{-14,-8},{-14,-16}}, color={0,127,255}));
+  connect(intHex.port_b4, senTem2.port_a) annotation (Line(points={{-10,-10.35},
+          {-12,-10.35},{-12,-8},{-14,-8},{-14,-16}},
+                                              color={0,127,255}));
   connect(senTem2.port_b, bou.ports[3]) annotation (Line(points={{-26,-16},{-34,
           -16},{-34,-23},{-40,-23}}, color={0,127,255}));
-  connect(intHex.port_b3, senTem3.port_a) annotation (Line(points={{10,-3.1},{12,
-          -3.1},{12,-4},{16,-4},{16,-16}}, color={0,127,255}));
+  connect(intHex.port_b3, senTem3.port_a) annotation (Line(points={{10,-4.41},{12,
+          -4.41},{12,-4},{16,-4},{16,-16}},color={0,127,255}));
   connect(senTem3.port_b, bou.ports[4]) annotation (Line(points={{28,-16},{32,-16},
           {32,-21},{-40,-21}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})));
+            -100},{100,100}})),
+            Documentation(info="<html>
+This example simulates the interior thermal behavior of a double U-tube borehole segment.
+</html>", revisions="<html>
+<ul>
+<li>
+July 10, 2018, by Alex Laferri&egrave;re:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end InternalHEXTwoUTube;

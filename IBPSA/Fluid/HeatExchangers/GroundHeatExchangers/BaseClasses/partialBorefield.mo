@@ -136,43 +136,23 @@ equation
           fillPattern=FillPattern.Forward)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),Documentation(info="<html>
-  <p>The proposed model is a so-called hybrid step-response
-model (HSRM). This type of model uses the
-borefield’s temperature response to a step load input.
-An arbitrary load can always be approximated by a superposition
-of step loads. The borefield’s response to
-the load is then calculated by superposition of the step responses
-using the linearity property of the heat diffusion
-equation. The most famous example of HSRM
-for borefields is probably the <i>g-function</i> of Eskilson
-(1987). The major challenge of this approach is to obtain a
-HSRM which is valid for both minute-based and year-based
-simulations. To tackle this problem, a HSRM
-has been implemented. A long-term response model
-is implemented in order to take into account
-the interactions between the boreholes and the
-temperature evolution of the surrounding ground. A
-short-term response model is implemented to
-describe the transient heat flux in the borehole heat exchanger to the surrounding
-ground. The step-response of each model is then calculated and merged into one
-in order to achieve both short- and long-term
-accuracy. Finally an aggregation method is implemented to speed up the calculation.
-However, the aggregation method calculates the temperature for discrete time step. In order to avoid
-abrut temperature changes, the aggregation method is used to calculate the average borehole wall
-temperature instead of the average fluid temperature. The calculated borehole wall temperature is then
-connected to the dynamic model of the borehole heat exchanger.</p>
-<p>More detailed documentation can be found in 
-<a href=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/BroundHeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>.
-and in 
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.UsersGuide\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.UsersGuide</a>.
-</p>
-<p>
-A verification of this model can be found in 
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.Validation.TrtValidation\">TrtValidation</a>
-.
+This partial model is used to implement borefield models using the parameters specified
+in the <code>borFieDat</code> record. The borefield uses a uniform borehole wall temperature
+for all boreholes in the borefield, and a single input and output fluid port with
+a mass flow rate that is adjusted within the model to reflect the per-borehole mass flow rate.
+The exact behaviour of the borehole depends on the chosen borehole model, but in all cases the
+thermal interaction between the borefield wall temperature and the surrounding soil
+is modelised using <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>,
+which uses a cell-shifting load aggregation technique to calculate the borehole wall
+temperature after having calculated and/or read (from a previous calculation) the borefield's thermal response factor.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 2018, by Alex Laferri&egrave;re:<br>
+Changed into a partial model and changed documentation to reflect the new approach
+used by the borefield models.
+</li>
 <li>
 July 2014, by Damien Picard:<br>
 First implementation.

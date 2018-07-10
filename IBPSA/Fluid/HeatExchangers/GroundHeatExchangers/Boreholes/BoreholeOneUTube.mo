@@ -128,48 +128,25 @@ equation
 Model of a single U-tube borehole heat exchanger. 
 The borehole heat exchanger is vertically discretized into <i>n<sub>seg</sub></i>
 elements of height <i>h=h<sub>Bor</sub>&frasl;n<sub>seg</sub></i>.
-each final segment contains a model for the heat transfer in the borehole, 
-for heat transfer in the soil and for the far-field boundary condition.
+Each final segment contains a model for the heat transfer in the borehole, 
+with a uniform borehole wall boundary temperature given by the <code>port_wall</code>
+port.
 </p>
 <p>
 The heat transfer in the borehole is computed using a convective heat transfer coefficient
 that depends on the fluid velocity, a heat resistance between the two pipes, and
 a heat resistance between the pipes and the circumference of the borehole.
 The heat capacity of the fluid, and the heat capacity of the grout, is taken into account.
-All thermal mass is assumed to be at the two bulk temperatures of the down-flowing 
-and up-flowing fluid.
-</p>
-<p>
-The heat transfer in the soil is computed using transient heat conduction in cylindrical
-coordinates for the spatial domain <i>r<sub>bor</sub> &le; r &le; r<sub>ext</sub></i>. 
-In the radial direction, the spatial domain is discretized into 
-<i>n<sub>hor</sub></i> segments with uniform material properties.
-Thermal properties can be specified separately for each final horizontal layer.
-The vertical heat flow is assumed to be zero, and there is assumed to be 
-no ground water flow. 
-</p>
-<p>
-The far-field temperature, i.e., the temperature at the radius 
-<i>r<sub>ext</sub></i>, is kept constant because this model is only use to compute the short-term
-temperature response of the borehole.
-</p>
-
-<h4>Implementation</h4>
-<p>
-each final horizontal layer is modeled using an instance of
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.BaseClasses.BoreHoles.BaseClasses.BoreHoleSegmentFourPort\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.BaseClasses.BoreHoles.BaseClasses.BoreHoleSegmentFourPort</a>.
-This model is composed of the model
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX</a> which computes
-the heat transfer in the pipes and the borehole filling, and
-of the model
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.BaseClasses.BoreHoles.BaseClasses.CylindricalGroundLayer\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.BaseClasses.BoreHoles.BaseClasses.CylindricalGroundLayer</a> which computes
-the heat transfer in the soil.
+The vertical heat flow is assumed to be zero, and there is assumed to be no ground water flow.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 2018, by Alex Laferri&egrave;re:<br>
+Following major changes to the structure of the GroundHeatExchangers package,
+the documentation has been changed to reflect the new role of this model. Additionally,
+this model now extends a partial borehole model.
+</li>
 <li>
 July 2014, by Damien Picard:<br>
 First implementation.
