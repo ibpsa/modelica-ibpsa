@@ -32,7 +32,7 @@ partial function partialInternalResistances
     "Specific heat capacity of the fluid";
   input Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
 
-  input Boolean printDebug
+  input Boolean printDebug=false
     "Print resistances values in log for debug purposes.";
   // Outputs
 
