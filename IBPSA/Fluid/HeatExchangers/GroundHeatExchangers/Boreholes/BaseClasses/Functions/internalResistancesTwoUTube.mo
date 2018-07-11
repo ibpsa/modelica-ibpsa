@@ -16,8 +16,8 @@ function internalResistancesTwoUTube
 protected
   Real[4,4] RDelta "Delta-circuit thermal resistances";
   Real[4,4] R "Internal thermal resistances";
-  Real[4] xPip = {-sha, 0., sha, 0.} "x-Coordinates of pipes";
-  Real[4] yPip = {0., -sha, 0., sha} "y-Coordinates of pipes";
+  Real[4] xPip = {-sha, sha, 0., 0.} "x-Coordinates of pipes";
+  Real[4] yPip = {0., 0., -sha, sha} "y-Coordinates of pipes";
   Real[4] rPip = {rTub, rTub, rTub, rTub} "Outer radius of pipes";
   Real[4] RFluPip(unit="(m.K)/W") = {RCondPipe+RConv, RCondPipe+RConv, RCondPipe+RConv, RCondPipe+RConv} "Fluid to pipe wall thermal resistances";
 
@@ -35,32 +35,52 @@ algorithm
 
   // Rb and Ra
   Rb_internal :=if use_Rb then Rb else 1./(1./RDelta[1,1] + 1./RDelta[2,2] + 1./RDelta[3,3] + 1./RDelta[4,4]);
-  Ra := R[1,1] + R[2,2] - 2*R[1,2];
+  Ra := R[1,1] + R[3,3] - 2*R[1,3];
 
   // ------ Calculation according to Bauer et al. (2010)
   Rg := (4*Rb_internal - RCondPipe - RConv)/hSeg;
   Rar1 := ((2 + sqrt(2))*Rg*hSeg*(Ra - RCondPipe)/(Rg*hSeg + Ra - RCondPipe))/hSeg;
   Rar2 := sqrt(2)*Rar1;
 
-  x := 1;
-  // ********** Resistances and capacity location according to Bauer **********
-  while test == false and i <= 10 loop
-    // Capacity location (with correction factor in case that the test is negative)
-    x := Modelica.Math.log(sqrt(rBor^2 + 4*(rTub + eTub)^2)/(2*sqrt(2)*(rTub + eTub)))/
-        Modelica.Math.log(rBor/(2*(rTub + eTub)))*((15 - i + 1)/15);
-
+  // If any of the internal delta-circuit resistances is negative, then
+  // the location (x) of the thermal capacity is set to zero to limit
+  // instabilities in the calculations. Otherwise, calculations follow the
+  // method of Bauer et al. (2011).
+  if (RDelta[1,2] < 0) or (RDelta[1,3] < 0) then
     //Thermal resistance between the grout zone and bore hole wall
-    Rgb := (1 - x)*Rg;
+    Rgb := Rg;
+
+    //Conduction resistance in grout from pipe wall to capacity in grout
+    RCondGro := RCondPipe/hSeg;
 
     //Thermal resistance between the two grout zones
-    Rgg1 := 2*Rgb*(Rar1 - 2*x*Rg)/(2*Rgb - Rar1 + 2*x*Rg);
-    Rgg2 := 2*Rgb*(Rar2 - 2*x*Rg)/(2*Rgb - Rar2 + 2*x*Rg);
+    Rgg1 := 2*Rgb*(Rar1)/(2*Rgb - Rar1);
+    Rgg2 := 2*Rgb*(Rar2)/(2*Rgb - Rar2);
 
-    // Thermodynamic test to check if negative R values make sense. If not, decrease x-value.
-    // fixme: the implemented is only for single U-tube BHE's.
-    test := (((1/Rgg1 + 1/2/Rgb)^(-1) > 0) and ((1/Rgg2 + 1/2/Rgb)^(-1) > 0));
-    i := i + 1;
-  end while;
+    test := true;
+  else
+    // ********** Resistances and capacity location according to Bauer **********
+    while test == false and i <= 16 loop
+      // Capacity location (with correction factor in case that the test is negative)
+      x := Modelica.Math.log(sqrt(rBor^2 + 4*rTub^2)/(2*sqrt(2)*rTub))/
+          Modelica.Math.log(rBor/(2*rTub))*((15 - i + 1)/15);
+
+      //Thermal resistance between the grout zone and bore hole wall
+      Rgb := (1 - x)*Rg;
+
+      //Conduction resistance in grout from pipe wall to capacity in grout
+      RCondGro := x*Rg + RCondPipe/hSeg;
+
+      //Thermal resistance between the two grout zones
+      Rgg1 := 2*Rgb*(Rar1 - 2*x*Rg)/(2*Rgb - Rar1 + 2*x*Rg);
+      Rgg2 := 2*Rgb*(Rar2 - 2*x*Rg)/(2*Rgb - Rar2 + 2*x*Rg);
+
+      // Thermodynamic test to check if negative R values make sense. If not, decrease x-value.
+      // fixme: the implemented is only for single U-tube BHE's.
+     test := (((1/Rgg1 + 1/2/Rgb)^(-1) > 0) and ((1/Rgg2 + 1/2/Rgb)^(-1) > 0));
+      i := i + 1;
+    end while;
+  end if;
   assert(test,
   "Maximum number of iterations exceeded. Check the borehole geometry.
   The tubes may be too close to the borehole wall.
@@ -79,9 +99,6 @@ algorithm
             Rgb  = " + String(Rgb) + " K/W
             Rgg1  = " + String(Rgg1) + " K/W
             Rgg2  = " + String(Rgg2) + " K/W");
-
-  //Conduction resistance in grout from pipe wall to capacity in grout
-  RCondGro := x*Rg + RCondPipe/hSeg;
 
   if printDebug then
     Modelica.Utilities.Streams.print("
