@@ -18,7 +18,7 @@ partial model partialInternalHEX
     annotation (Dialog(tab="Dynamics"));
   parameter Modelica.SIunits.Length hSeg
     "Length of the internal heat exchanger";
-  parameter Modelica.SIunits.Volume VTubSeg = hSeg*Modelica.Constants.pi*borFieDat.conDat.rTub^2
+  parameter Modelica.SIunits.Volume VTubSeg = hSeg*Modelica.Constants.pi*(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2
     "Fluid volume in each tube";
   parameter Modelica.SIunits.Temperature T_start
     "Initial temperature of the filling material and fluid"

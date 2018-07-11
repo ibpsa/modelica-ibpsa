@@ -8,7 +8,7 @@ partial model partialInternalResistances
   parameter Data.BorefieldData.Template borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   parameter Modelica.SIunits.HeatCapacity Co_fil=borFieDat.filDat.dFil*borFieDat.filDat.cFil*hSeg*Modelica.Constants.pi
-      *(borFieDat.conDat.rBor^2 - 2*(borFieDat.conDat.rTub + borFieDat.conDat.eTub)^2)
+      *(borFieDat.conDat.rBor^2 - borFieDat.conDat.rTub^2)
     "Heat capacity of the whole filling material";
   parameter Modelica.SIunits.ThermalResistance Rgb_val
     "Thermal resistance between grout zone and borehole wall";
