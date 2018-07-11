@@ -138,7 +138,7 @@ protected
 
 initial equation
   (x,Rgb_val,Rgg1_val,Rgg2_val,RCondGro_val) =
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesTwoUtube(
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube(
       hSeg=hSeg,
       rBor=borFieDat.conDat.rBor,
       rTub=borFieDat.conDat.rTub,

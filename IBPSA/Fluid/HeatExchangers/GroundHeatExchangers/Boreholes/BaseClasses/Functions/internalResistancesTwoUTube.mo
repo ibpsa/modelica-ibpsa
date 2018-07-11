@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions;
-function internalResistancesTwoUtube
+function internalResistancesTwoUTube
   "Thermal resistances for double U-tube, according to Zeng et al. (2003) and Bauer et al (2010)"
   extends
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.partialInternalResistances;
@@ -170,4 +170,4 @@ First implementation.
 </li>
 </ul></p>
 </html>"));
-end internalResistancesTwoUtube;
+end internalResistancesTwoUTube;
