@@ -33,8 +33,11 @@ algorithm
       2, 3, xPip, yPip, rBor, rPip, kFil, kSoi, RFluPip);
 
   // Rb and Ra
-  Rb_internal := if use_Rb then Rb else (1./(1./RDelta[1,1] + 1./RDelta[2,2]));
-  Ra := R[1,1] + R[2,2] - 2*R[1,2];
+  Rb_multipole := 1./(1./RDelta[1,1] + 1./RDelta[2,2]);
+  Rb_internal := if use_Rb then Rb else Rb_multipole;
+  // The short-circuit resistance in weigthed by the ratio between the used
+  // value of Rb and the theoretical value
+  Ra := (R[1,1] + R[2,2] - 2*R[1,2])*Rb_internal/Rb_multipole;
 
   // Conversion of Rb (resp. Ra) to Rg (resp. Rar) of Bauer:
   Rg  :=(2*Rb_internal-RCondPipe-RConv)/hSeg;

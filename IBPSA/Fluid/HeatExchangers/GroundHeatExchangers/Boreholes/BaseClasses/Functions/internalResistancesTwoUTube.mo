@@ -34,8 +34,11 @@ algorithm
       4, 3, xPip, yPip, rBor, rPip, kFil, kSoi, RFluPip);
 
   // Rb and Ra
-  Rb_internal :=if use_Rb then Rb else 1./(1./RDelta[1,1] + 1./RDelta[2,2] + 1./RDelta[3,3] + 1./RDelta[4,4]);
-  Ra := R[1,1] + R[3,3] - 2*R[1,3];
+  Rb_multipole := 1./(1./RDelta[1,1] + 1./RDelta[2,2] + 1./RDelta[3,3] + 1./RDelta[4,4]);
+  Rb_internal := if use_Rb then Rb else Rb_multipole;
+  // The short-circuit resistance in weigthed by the ratio between the used
+  // value of Rb and the theoretical value
+  Ra := R[1,1] + R[3,3] - 2*R[1,3]*Rb_internal/Rb_multipole;
 
   // ------ Calculation according to Bauer et al. (2010)
   Rg := (4*Rb_internal - RCondPipe - RConv)/hSeg;

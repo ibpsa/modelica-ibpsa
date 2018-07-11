@@ -60,7 +60,10 @@ protected
     "Thermal resistance of the pipe wall";
 
   Real Rb_internal(unit="(m.K)/W")
-    "Fluid-to-grout resistance, as defined by Hellstroem. Resistance from the fluid in the pipe to the borehole wall";
+    "Resistance from the fluid in the pipe to the borehole wall";
+
+  Real Rb_multipole(unit="(m.K)/W")
+    "Theoretical Fluid-to-borehole-wall resistance evaluated from the multipole method";
 
   Integer i=1 "Loop counter";
 
