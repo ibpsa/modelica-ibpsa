@@ -3,10 +3,10 @@ ConservationEquation
 EightPort
 EightPortHeatMassExchanger
 FourPortHeatMassExchanger
+PartialEightPortInterface
 PartialFourPort
 PartialFourPortInterface
 PartialFourPortParallel
-PartialEightPortInterface
 PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
