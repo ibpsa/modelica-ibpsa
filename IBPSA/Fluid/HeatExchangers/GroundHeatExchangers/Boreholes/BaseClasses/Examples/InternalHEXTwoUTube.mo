@@ -51,7 +51,7 @@ model InternalHEXTwoUTube
     annotation (Placement(transformation(extent={{-24,-12},{-36,0}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=Rb_sim)
     annotation (Placement(transformation(extent={{-10,-58},{10,-38}})));
-  Modelica.Blocks.Sources.Constant Rb_ref(k=0.0677701)
+  Modelica.Blocks.Sources.Constant Rb_ref(k=0.166258)
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
   Modelica.Blocks.Math.Add error(k2=-1)
     annotation (Placement(transformation(extent={{22,-70},{42,-50}})));

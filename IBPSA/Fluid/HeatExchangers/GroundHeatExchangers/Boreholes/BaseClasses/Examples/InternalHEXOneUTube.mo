@@ -46,7 +46,7 @@ model InternalHEXOneUTube
     annotation (Placement(transformation(extent={{-28,-12},{-16,0}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=Rb_sim)
     annotation (Placement(transformation(extent={{-10,-58},{10,-38}})));
-  Modelica.Blocks.Sources.Constant Rb_ref(k=0.229206)
+  Modelica.Blocks.Sources.Constant Rb_ref(k=0.234428)
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
   Modelica.Blocks.Math.Add error(k2=-1)
     annotation (Placement(transformation(extent={{22,-70},{42,-50}})));
