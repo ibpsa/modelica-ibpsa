@@ -50,7 +50,6 @@ model InternalHEXTwoUTube
   Modelica.Blocks.Sources.RealExpression RVol1(y=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
-      rBor=borFieDat.conDat.rBor,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
       kMed=kMed,
@@ -63,7 +62,6 @@ model InternalHEXTwoUTube
   Modelica.Blocks.Sources.RealExpression RVol2(y=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
-      rBor=borFieDat.conDat.rBor,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
       kMed=kMed,
@@ -76,7 +74,6 @@ model InternalHEXTwoUTube
   Modelica.Blocks.Sources.RealExpression RVol3(y=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
-      rBor=borFieDat.conDat.rBor,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
       kMed=kMed,
@@ -90,7 +87,6 @@ model InternalHEXTwoUTube
   Modelica.Blocks.Sources.RealExpression RVol4(y=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
-      rBor=borFieDat.conDat.rBor,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
       kMed=kMed,

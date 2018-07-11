@@ -46,7 +46,6 @@ protected
   Real RConv(unit="(m.K)/W")=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
-      rBor=rBor,
       rTub=rTub,
       eTub=eTub,
       kMed=kMed,

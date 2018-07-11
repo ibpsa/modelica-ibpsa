@@ -32,7 +32,6 @@ public
   Modelica.Blocks.Sources.RealExpression RVol1(y=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
-      rBor=borFieDat.conDat.rBor,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
       kMed=kMed,
@@ -45,7 +44,6 @@ public
   Modelica.Blocks.Sources.RealExpression RVol2(y=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
-      rBor=borFieDat.conDat.rBor,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
       kMed=kMed,

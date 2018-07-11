@@ -4,7 +4,6 @@ function convectionResistanceCircularPipe
 
   // Geometry of the borehole
   input Modelica.SIunits.Height hSeg "Height of the element";
-  input Modelica.SIunits.Radius rBor "Radius of the borehole";
   input Modelica.SIunits.Radius rTub "Tube radius";
   input Modelica.SIunits.Length eTub "Tube thickness";
   // thermal properties
