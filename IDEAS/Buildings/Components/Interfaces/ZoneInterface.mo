@@ -16,7 +16,8 @@ partial model ZoneInterface "Partial model for thermal building zones"
     annotation(Dialog(group="Building physics"));
   parameter Modelica.SIunits.Area A = V/hZone "Total conditioned floor area"
     annotation(Dialog(group="Building physics"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = V * 1.2*10/3600
+  //default ACH=2 for ventilation
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = V * 1.2*2/3600
     "Nominal flow rate of the air flow system"
     annotation(Dialog(tab="Advanced"));
 
