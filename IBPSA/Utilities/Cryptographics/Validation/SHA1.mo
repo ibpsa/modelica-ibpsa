@@ -33,7 +33,7 @@ equation
   cmp5 = Modelica.Utilities.Strings.isEqual(IBPSA.Utilities.Cryptographics.sha(strIn5),strEx5,false);
   cmpAll = cmp1 and cmp2 and cmp3 and cmp4 and cmp5;
 
-  annotation(experiment(Tolerance=1e-4,StopTime=1.0),
+  annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Cryptographics/Validation/SHA1.mos"
         "Simulate and plot"),
       Documentation(info="<html>
