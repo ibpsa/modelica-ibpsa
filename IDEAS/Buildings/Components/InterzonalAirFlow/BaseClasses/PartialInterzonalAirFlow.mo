@@ -11,24 +11,38 @@ partial model PartialInterzonalAirFlow "Partial for interzonal air flow"
   //  or none of the are connected, to avoid incorrect use.
   parameter Boolean verifyBothPortsConnected = false
     "=true, to verify fluid port connections";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_vent
+    "Nominal mass flow rate of ventilation system"
+    annotation(Dialog(tab="Advanced"));
   Modelica.Fluid.Interfaces.FluidPort_b port_b_interior(
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    m_flow(nominal=m_flow_nominal_vent),
+    h_outflow(nominal=Medium.h_default))
     "Port a connection to zone air model ports"
     annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_interior(
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    m_flow(nominal=m_flow_nominal_vent),
+    h_outflow(nominal=Medium.h_default))
     "Port b connection to zone air model ports"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_exterior(
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    m_flow(nominal=m_flow_nominal_vent),
+    h_outflow(nominal=Medium.h_default))
     "Port a connection to model exterior ports"
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b_exterior(
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    m_flow(nominal=m_flow_nominal_vent),
+    h_outflow(nominal=Medium.h_default))
     "Port b connection to model exterior ports"
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
   Modelica.Fluid.Interfaces.FluidPorts_a[nPorts] ports(
-    redeclare each package Medium = Medium) "Ports connector for multiple ports" annotation (Placement(
+    redeclare each package Medium = Medium,
+    each m_flow(nominal=m_flow_nominal_vent),
+    each h_outflow(nominal=Medium.h_default))
+    "Ports connector for multiple ports" annotation (Placement(
         transformation(
         extent={{-10,40},{10,-40}},
         rotation=90,
@@ -87,6 +101,13 @@ partial model PartialInterzonalAirFlow "Partial for interzonal air flow"
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+July 11, 2018, Filip Jorissen:<br/>
+Added <code>m_flow_nominal_vent</code> and set 
+<code>h_outflow</code> and </code>m_flow</code>
+in <code>FluidPorts</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/859\">#859</a>.
+</li>
 <li>
 April 27, 2018 by Filip Jorissen:<br/>
 First version.

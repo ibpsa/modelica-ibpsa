@@ -16,6 +16,9 @@ partial model ZoneInterface "Partial model for thermal building zones"
     annotation(Dialog(group="Building physics"));
   parameter Modelica.SIunits.Area A = V/hZone "Total conditioned floor area"
     annotation(Dialog(group="Building physics"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = V * 1.2*10/3600
+    "Nominal flow rate of the air flow system"
+    annotation(Dialog(tab="Advanced"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b gainRad
     "Internal zone node for radiative heat gains"
@@ -27,9 +30,15 @@ partial model ZoneInterface "Partial model for thermal building zones"
     "Sensor temperature of the zone, i.e. operative temeprature" annotation (
       Placement(transformation(extent={{96,-10},{116,10}}), iconTransformation(
           extent={{96,-10},{116,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = Medium)
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(
+    redeclare package Medium = Medium,
+    m_flow(nominal=m_flow_nominal),
+    h_outflow(nominal=Medium.h_default))
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = Medium)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare package Medium = Medium,
+    m_flow(nominal=m_flow_nominal),
+    h_outflow(nominal=Medium.h_default))
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
 protected
   Modelica.Blocks.Sources.RealExpression Eexpr "Internal energy model";
@@ -107,6 +116,12 @@ equation
           textString="%name")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+July 11, 2018, Filip Jorissen:<br/>
+Added nominal values for <code>h_outflow</code> and </code>m_flow</code>
+in <code>FluidPorts</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/859\">#859</a>.
+</li>
 <li>
 May 29, 2018, Filip Jorissen:<br/>
 Removed conditional fluid ports for JModelica compatibility.
