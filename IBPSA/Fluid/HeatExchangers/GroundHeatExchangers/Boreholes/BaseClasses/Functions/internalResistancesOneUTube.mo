@@ -1,7 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions;
 function internalResistancesOneUTube
   "Thermal resistances for single U-tube, according to Bauer et al. (2011)"
-  // FIXME: if python is used, the results are slightly different. I guess the Dymola resultion is quite low.
   extends
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.partialInternalResistances;
 
@@ -41,22 +40,44 @@ algorithm
   Rg  :=(2*Rb_internal-RCondPipe-RConv)/hSeg;
   Rar :=(Ra-2*(RCondPipe + RConv))/hSeg;
 
-  // ********** Resistances and capacity location according to Bauer **********
-  while test == false and i <= 10 loop
-    // Capacity location (with correction factor in case that the test is negative)
-    x := Modelica.Math.log(sqrt(rBor^2 + 2*rTub^2)/(2*rTub))/
-      Modelica.Math.log(rBor/(sqrt(2)*rTub))*((15 - i + 1)/15);
-
+  // If any of the internal delta-circuit resistances is negative, then
+  // the location (x) of the thermal capacity is set to zero to limit
+  // instabilities in the calculations. Otherwise, calculations follow the
+  // method of Bauer et al. (2011).
+  if (RDelta[1,2] < 0) then
     //Thermal resistance between the grout zone and bore hole wall
-    Rgb := (1 - x)*Rg;
+    Rgb := Rg;
+
+    //Conduction resistance in grout from pipe wall to capacity in grout
+    RCondGro := RCondPipe/hSeg;
 
     //Thermal resistance between the two grout zones
-    Rgg := 2*Rgb*(Rar - 2*x*Rg)/(2*Rgb - Rar + 2*x*Rg);
+    Rgg := 2*Rgb*Rar/(2*Rgb - Rar);
 
-    // Thermodynamic test to check if negative R values make sense. If not, decrease x-value.
-    test := ((1/Rgg + 1/2/Rgb)^(-1) > 0);
-    i := i + 1;
-  end while;
+    test := true;
+  else
+    // ********** Resistances and capacity location according to Bauer **********
+    while test == false and i <= 10 loop
+      // Capacity location (with correction factor in case that the test is
+      // negative)
+      x := Modelica.Math.log(sqrt(rBor^2 + 2*rTub^2)/(2*rTub))/
+        Modelica.Math.log(rBor/(sqrt(2)*rTub))*((15 - i + 1)/15);
+
+      //Thermal resistance between the grout zone and bore hole wall
+      Rgb := (1 - x)*Rg;
+
+      //Conduction resistance in grout from pipe wall to capacity in grout
+      RCondGro := x*Rg + RCondPipe/hSeg;
+
+      //Thermal resistance between the two grout zones
+      Rgg := 2*Rgb*(Rar - 2*x*Rg)/(2*Rgb - Rar + 2*x*Rg);
+
+      // Thermodynamic test to check if negative R values make sense. If not,
+      // decrease x-value.
+      test := ((1/Rgg + 1/2/Rgb)^(-1) > 0);
+      i := i + 1;
+    end while;
+  end if;
   assert(test,
   "Maximum number of iterations exceeded. Check the borehole geometry.
   The tubes may be too close to the borehole wall.
@@ -74,9 +95,6 @@ algorithm
   Computed x    = " + String(x) + " K/W
            Rgb  = " + String(Rgb) + " K/W
            Rgg  = " + String(Rgg) + " K/W");
-
-  //Conduction resistance in grout from pipe wall to capacity in grout
-  RCondGro := x*Rg + RCondPipe/hSeg;
 
   if printDebug then
     Modelica.Utilities.Streams.print("
