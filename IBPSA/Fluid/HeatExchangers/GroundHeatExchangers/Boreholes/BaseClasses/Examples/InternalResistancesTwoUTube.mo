@@ -71,7 +71,7 @@ borehole segment.
 </html>", revisions="<html>
 <ul>
 <li>
-July 10, 2018, by Alex Laferri&egrave;re:<br>
+June 2018, by Damien Picard:<br>
 First implementation.
 </li>
 </ul>

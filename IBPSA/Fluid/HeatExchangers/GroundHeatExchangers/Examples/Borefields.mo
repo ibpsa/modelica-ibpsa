@@ -163,6 +163,14 @@ example include some of the dynamic behavior of the boreholes, but not that of t
 material.
 </p>
 </html>",
+revisions="<html>
+<ul>
+<li>
+June 2018, by Damien Picard:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     experiment(
-      StopTime=36000)));
+      StopTime=36000));
 end Borefields;

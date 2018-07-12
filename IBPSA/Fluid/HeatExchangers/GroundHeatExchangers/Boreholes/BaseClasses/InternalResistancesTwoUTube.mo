@@ -1,7 +1,8 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 model InternalResistancesTwoUTube
   "Internal resistance model for single U-Tube borehole segments."
-  extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.partialInternalResistances;
+  extends
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.partialInternalResistances;
 
   parameter Modelica.SIunits.ThermalResistance Rgg1_val
     "Thermal resistance between two neightbouring grout capacities, as defined by Bauer et al (2010)";
@@ -170,7 +171,74 @@ equation
           {-12,-50},{0,-50},{0,-60},{4.996e-016,-60}}, color={191,0,0}));
   connect(capFil4.port, Rpg4.port_b) annotation (Line(points={{-74,20},{-74,12},
           {-66,12},{-66,0},{-72,0},{-72,-9.99201e-016}}, color={191,0,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{0,-50},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,40},{0,
+              50}},
+          color={0,0,0},
+          origin={50,0},
+          rotation=-90,
+          thickness=0.5),
+        Line(
+          points={{0,-50},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,40},{0,
+              50}},
+          color={0,0,0},
+          origin={-50,0},
+          rotation=-90,
+          thickness=0.5),
+        Line(
+          points={{0,-50},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,40},{0,
+              50}},
+          color={0,0,0},
+          origin={0,50},
+          rotation=360,
+          thickness=0.5),
+        Line(
+          points={{0,-50},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,40},{0,
+              50}},
+          color={0,0,0},
+          origin={0,-50},
+          rotation=360,
+          thickness=0.5),
+        Line(
+          points={{0,-70.7107},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,
+              40},{-7.10543e-015,70.7107}},
+          color={0,0,0},
+          origin={50,52},
+          rotation=45,
+          thickness=0.5),
+        Line(
+          points={{0,-70.7107},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,
+              40},{-7.10543e-015,70.7107}},
+          color={0,0,0},
+          origin={-50,-50},
+          rotation=45,
+          thickness=0.5),
+        Line(
+          points={{7.10543e-015,-70.7107},{0,-40},{-10,-30},{9.99997,-9.99997},
+              {-9.99997,9.99997},{10,30},{0,40},{-7.10543e-015,70.7107}},
+          color={0,0,0},
+          origin={-50,50},
+          rotation=135,
+          thickness=0.5),
+        Line(
+          points={{7.10543e-015,-70.7107},{0,-40},{-10,-30},{9.99997,-9.99997},
+              {-9.99997,9.99997},{10,30},{0,40},{-7.10543e-015,70.7107}},
+          color={0,0,0},
+          origin={50,-50},
+          rotation=135,
+          thickness=0.5),        Text(
+          extent={{-100,144},{100,106}},
+          lineColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         Documentation(info="<html>
 <p>

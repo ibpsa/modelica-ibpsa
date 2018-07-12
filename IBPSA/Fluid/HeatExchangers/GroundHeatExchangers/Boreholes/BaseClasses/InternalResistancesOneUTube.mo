@@ -1,7 +1,8 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 model InternalResistancesOneUTube
   "Internal resistance model for single U-Tube borehole segments."
-  extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.partialInternalResistances;
+  extends
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.partialInternalResistances;
 
   parameter Real Rgg_val "Thermal resistance between the two grout zones";
 
@@ -86,5 +87,36 @@ July 5, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(points={{0,0},{0,10},{-10,20},{10,40},{-10,60},{10,80},{0,90},{0,100}},
+            color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{0,-50},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,40},{0,
+              50}},
+          color={0,0,0},
+          origin={50,0},
+          rotation=-90,
+          thickness=0.5),
+        Line(
+          points={{0,-70.7107},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,
+              40},{-7.10543e-015,70.7107}},
+          color={0,0,0},
+          origin={50,50},
+          rotation=45,
+          thickness=0.5),
+        Line(
+          points={{-2,100}},
+          color={0,0,0},
+          thickness=1),          Text(
+          extent={{-100,144},{100,106}},
+          lineColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          textString="%name")}));
 end InternalResistancesOneUTube;
