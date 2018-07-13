@@ -65,7 +65,8 @@ model InternalHEXTwoUTube
   parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation
     borFieDat(conDat=
         IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.SandBox_validation(
-         borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeSeries))
+        borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeSeries,
+        use_Rb=false))
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
 

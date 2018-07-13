@@ -2,13 +2,18 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Validation;
 model SandboxValidation
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Water;
+  Real Rb_sim = ((TBorFieOut.T + TBorFieIn.T)/2 - borHol.groTemRes.borWall.T)/max(hea.Q_flow / 18.3,1);
+  Real Rb_exp = ((sandBoxMea.y[1] + sandBoxMea.y[2])/2 + 273.15 - borHol.groTemRes.borWall.T)/max(hea.Q_flow / 18.3,1);
 
-  parameter Modelica.SIunits.Temperature T_start = 273.15 + 22;
+  parameter Modelica.SIunits.Temperature T_start = 273.15 + 22.09;
+  parameter Real mSenFac = 1 + (1.8e6*Modelica.Constants.pi*(borFieDat.conDat.rTub^2-(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2)+2.4e6*2*Modelica.Constants.pi*borFieDat.conDat.rBor*0.002/2)/(4.2e6*Modelica.Constants.pi*(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2);
 
   BorefieldOneUTube borHol(redeclare package Medium = Medium, borFieDat=
         borFieDat,
     tLoaAgg=60,
-    TMedGro=T_start)       "Borehole"
+    TMedGro=T_start,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    mSenFac=mSenFac)             "Borehole"
     annotation (Placement(transformation(extent={{-12,-76},{14,-44}})));
   IBPSA.Fluid.Movers.FlowControlled_m_flow
                                         pum(

@@ -3,8 +3,8 @@ record SandBox_validation
   "SoilData record for the Beier et al. (2011) experiment"
   extends
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData.Template(
-    kSoi=2.8,
-    cSoi=1600,
+    kSoi=2.82,
+    cSoi=1500,
     dSoi=2000);
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),

@@ -3,6 +3,8 @@ record SandBox_validation
   "ConfigurationData record for the Beier et al. (2011) experiment"
   extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Template(
     borCon = Types.BoreholeConfiguration.SingleUTube,
+    use_Rb=true,
+    Rb=0.165,
     nbBor=1,
     cooBor={{0,0}},
     mBor_flow_nominal=0.197/998*1000,

@@ -51,7 +51,9 @@ model InternalHEXOneUTube
   Modelica.Blocks.Math.Add error(k2=-1)
     annotation (Placement(transformation(extent={{22,-70},{42,-50}})));
   parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation
-    borFieDat = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation()
+    borFieDat(conDat=
+        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.SandBox_validation(
+        use_Rb=false))
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
 
