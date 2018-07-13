@@ -5,6 +5,9 @@ model InternalResistancesOneUTube
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.partialInternalResistances;
 
   parameter Real Rgg_val "Thermal resistance between the two grout zones";
+  parameter Modelica.SIunits.HeatCapacity Co_fil=borFieDat.filDat.dFil*borFieDat.filDat.cFil*hSeg*Modelica.Constants.pi
+    *(borFieDat.conDat.rBor^2 - 2*borFieDat.conDat.rTub^2)
+    "Heat capacity of the whole filling material";
 
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg1(R=RCondGro_val)
     "Grout thermal resistance" annotation (Placement(transformation(

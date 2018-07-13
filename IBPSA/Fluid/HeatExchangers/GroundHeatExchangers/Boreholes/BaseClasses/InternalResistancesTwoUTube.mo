@@ -8,6 +8,9 @@ model InternalResistancesTwoUTube
     "Thermal resistance between two neightbouring grout capacities, as defined by Bauer et al (2010)";
   parameter Modelica.SIunits.ThermalResistance Rgg2_val
     "Thermal resistance between two  grout capacities opposite to each other, as defined by Bauer et al (2010)";
+  parameter Modelica.SIunits.HeatCapacity Co_fil=borFieDat.filDat.dFil*borFieDat.filDat.cFil*hSeg*Modelica.Constants.pi
+    *(borFieDat.conDat.rBor^2 - 4*borFieDat.conDat.rTub^2)
+    "Heat capacity of the whole filling material";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_3
     "Thermal connection for borehole wall"
