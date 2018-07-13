@@ -2,19 +2,19 @@
  *
  * Sen Huang, PNNL                     2018-07-09
  */
- 
-#include<stdio.h> 
-#include<string.h> 
+
+#include<stdio.h>  /* fixme: fix spacing */
+#include<string.h>
 #include <stdlib.h>
 #include <assert.h>
 
 /* Function to parse message . */
 char** str_split(char* a_str, char a_delim)
 {
-    char** result    = 0;
+    char** result    = NULL;
     size_t count     = 0;
     char* tmp        = a_str;
-    char* last_comma = 0;
+    char* last_comma = NULL;
     char delim[2];
     delim[0] = a_delim;
     delim[1] = 0;
@@ -38,6 +38,7 @@ char** str_split(char* a_str, char a_delim)
     count++;
 
     result = malloc(sizeof(char*) * count);
+    // fixme: add check if malloc is successful, else call ModelicaError
 
     if (result)
     {
@@ -57,17 +58,22 @@ char** str_split(char* a_str, char a_delim)
     return result;
 }
 
+/* fixme: below, arrays of fixed length are used and there is no protection
+   against buffer overflow. This is a security vulnerability and need to be fixed.
+   Also, please use compiler directive only for the code that is different between
+   Linux and Windows, but not for the common code.
+*/
 /* Linux version of the socket client function. */
-#ifdef __linux__ 
-#include<sys/socket.h>    
-#include<arpa/inet.h> 
+#ifdef __linux__
+#include<sys/socket.h>
+#include<arpa/inet.h>
 int linuxSocket(int as,double a[],  const char** host, const int port, double c[])
 {
     int sock;
     struct sockaddr_in server;
     char message[1000], server_reply[2000];
     char** tokens;
-   
+
     //Create socket
     sock = socket(AF_INET , SOCK_STREAM , 0);
     if (sock == -1)
@@ -75,58 +81,61 @@ int linuxSocket(int as,double a[],  const char** host, const int port, double c[
         printf("Could not create socket");
     }
     puts("Socket created");
-     
+
     server.sin_addr.s_addr = inet_addr(host);
     server.sin_family = AF_INET;
     server.sin_port = htons(port);
- 
+
+/* fixme: use 'slash and asterisk' as comment, not //. The Modelica standard does not allow for //
+    and JModelica won't compile if you use //
+    */
     //Connect to remote server
     if (connect(sock , (struct sockaddr *)&server , sizeof(server)) < 0)
     {
         perror("connect failed. Error");
         return 1;
     }
-     
+
     puts("Connected\n");
-         
+
     int i;
 
    /* for loop execution */
-    strcpy(message, ""); 
+    strcpy(message, "");
     for( i = 0; i < as; i = i + 1 ){
       char buf[8];
       strcpy(buf, "");
       sprintf(buf,"%1f", a[i]);
 //      strcat(buf, ",");
       strcat(message, buf);
-      strcat(message, ",");	  
-    }	
+      strcat(message, ",");
+    }
 
     puts(message);
-         
+
         //Send some data
     if( send(sock , message , strlen(message) , 0) < 0)
     {
             puts("Send failed");
             return 1;
     }
-         
+
         //Receive a reply from the server
     if( recv(sock , server_reply , 2000 , 0) < 0)
     {
             puts("recv failed");
             return 2;
     }
-         
+
     puts("Server reply :");
     puts(server_reply);
-    
+
     tokens = str_split(server_reply, ',');
     puts(*tokens+as-2);
     for( i = 0; i <as; i = i + 1 ){
          *(c+i) = atof(*(tokens+i));
-    }	
-    
+    }
+
     close(sock);
     return 1;
 }
@@ -138,12 +147,12 @@ int linuxSocket(int as,double a[],  const char** host, const int port, double c[
 #pragma comment (lib, "Ws2_32.lib")
 #pragma comment (lib, "Mswsock.lib")
 #pragma comment (lib, "AdvApi32.lib")
-#pragma warning(disable:4996) 
+#pragma warning(disable:4996)
 #pragma comment (lib, "Ws2_32.lib")
 #pragma comment (lib, "Mswsock.lib")
 #pragma comment (lib, "AdvApi32.lib")
-#pragma warning(disable:4996) 
- 
+#pragma warning(disable:4996)
+
 int winSocket(int as, double a[],  char* host, int port, double c[])
 {
     WSADATA wsa;
@@ -152,33 +161,34 @@ int winSocket(int as, double a[],  char* host, int port, double c[])
     char server_reply[2000];
     int recv_size;
     char** tokens;
-//    puts("start\n");    
+//    puts("start\n");
 
     if (WSAStartup(MAKEWORD(2,2),&wsa) != 0)
     {
         printf("Failed. Error Code : %d",WSAGetLastError());
         return 1;
     }
-     
- 
+
+
     //Create socket
     if((s = socket(AF_INET , SOCK_STREAM , 0 )) == INVALID_SOCKET)
     {
         printf("Could not create socket : %d" , WSAGetLastError());
+        /* fixme: if there is an error, you must call ModelicaError. See Modelica spec. */
 		return 1;
     }
-     
+
     server.sin_addr.s_addr = inet_addr(host);
     server.sin_family = AF_INET;
     server.sin_port = htons( port );
-	
+
     int i;
 
    /* for loop execution */
     char message[2000];
     char buf[8];
 
-//    puts(message);	
+//    puts(message);
 
     //Connect to remote server
     if (connect(s , (struct sockaddr *)&server , sizeof(server)) < 0)
@@ -186,10 +196,10 @@ int winSocket(int as, double a[],  char* host, int port, double c[])
         puts("connect error");
         return 1;
     }
-    strcpy(message, ""); 
+    strcpy(message, "");
     for( i = 0; i < as; i = i + 1 ){
 //     printf("%ld",as);
-//      printf("start");		
+//      printf("start");
 //      printf("%lf",a[i]);
 //      printf("end");
       char buf[8];
@@ -197,29 +207,30 @@ int winSocket(int as, double a[],  char* host, int port, double c[])
       sprintf(buf,"%1f", a[i]);
 //      strcat(buf, ",");
       strcat(message, buf);
-      strcat(message, ",");	  
+      strcat(message, ",");
 //	  puts(message);
-//      printf("messageend");	  
-    }	
+//      printf("messageend");
+    }
     if( send(s, message, strlen(message), 0) < 0)
     {
         puts("Send failed");
         return 0;
     }
-    
+
 //    puts("Data Send\n");
-         
+
         //Receive a reply from the server
     if((recv_size = recv(s , server_reply , 2000 , 0)) == SOCKET_ERROR)
     {
+      /* Fixme: use ModelicaMessage, not puts. Otherwise tools may not show what you write. See Modelica Spec. */
         puts("recv failed");
         return 0;
     }
-     
+
 
 //    puts("Server reply :");
 //    puts(server_reply);
-    
+
     tokens = str_split(server_reply, ',');
 //    puts(*tokens);
     i=0;
@@ -227,7 +238,7 @@ int winSocket(int as, double a[],  char* host, int port, double c[])
          *(c+i) = atof(*(tokens+i));
 //         *(c+i) = *(a+i);
 //		     puts(*(tokens+i));
-    }	
+    }
 
     closesocket(s);
     WSACleanup();
@@ -235,19 +246,15 @@ int winSocket(int as, double a[],  char* host, int port, double c[])
 
     return 1;
 }
-#endif	
+#endif
 
 int swap(int as, double a[],  char* host, int port, double c[])
 {
- /* Detect the operation system and choose corresponding function to set up the socket connection . */	
- #ifdef __linux__ 
+ /* Detect the operation system and choose corresponding function to set up the socket connection . */
+ #ifdef __linux__
     linuxSocket(as, a,host, port,c);
- #elif _WIN32	
+ #elif _WIN32
     winSocket(as, a,host, port,c);
- #endif	
+ #endif
  return 1;
 }
-
-
-
-

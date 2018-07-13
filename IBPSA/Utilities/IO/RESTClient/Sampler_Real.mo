@@ -1,9 +1,7 @@
 within IBPSA.Utilities.IO.RESTClient;
-block Sampler_Real "the block to send the model output to the external party"
+block Sampler_Real "Block that sends the model output to the external server"
   extends IBPSA.Utilities.IO.RESTClient.BaseClasses.PartialSocketClient;
 
-equation
-  t0 = 0;
   annotation (Icon(graphics={
         Rectangle(
           extent={{-88,54},{92,-6}},

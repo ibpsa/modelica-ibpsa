@@ -1,9 +1,9 @@
 within IBPSA.Utilities.IO.RESTClient;
 block OverWritten_Real
-  "the block to receieve the model input from the external party"
+  "Block that receives model input from an external server"
   extends IBPSA.Utilities.IO.RESTClient.BaseClasses.PartialSocketClient;
 
-  parameter Real threshold( start=0)
+  parameter Real threshold(start=0)
     "The threshold to determine if the inputs from external server is valid";
   Modelica.Blocks.Interfaces.RealOutput y[numVar]
     "Connector of Real output signal"    annotation (Placement(transformation(extent={{100,-14},{128,14}})));
@@ -14,8 +14,6 @@ block OverWritten_Real
   Modelica.Blocks.Math.RealToBoolean realToBoolean[numVar](each threshold=threshold)
     annotation (Placement(transformation(extent={{-50,-8},{-34,8}})));
 equation
-  t0 = 0;
-
   connect(realExpression.y, realToBoolean.u)
     annotation (Line(points={{-73,20},{-74,20},{-62,20},{-62,0},{-51.6,0}}, color={0,0,127}));
   connect(switch.u1, realExpression.y)

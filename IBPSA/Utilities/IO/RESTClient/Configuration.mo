@@ -85,7 +85,13 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           rotation=395)}),                                                                         Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This block can be used to globally configure the parameters for the blocks from the package <a href=\"IBPSA.Utilities.IO.RESTClient\">IBPSA.Utilities.IO.RESTClient</a>.. Use this block for example to set the sampling time. </p>
-<p>To use this block, simply drag it at the top-most level, or higher, where your block is. </p>
+<p>
+This block can be used to globally configure the parameters for the blocks from the package
+<a href=\"IBPSA.Utilities.IO.RESTClient\">IBPSA.Utilities.IO.RESTClient</a>.
+Use this block for example to set the sampling time.
+</p>
+<p>
+To use this block, simply drag it at the top-most level, or higher, where your model is.
+</p>
 </html>"));
 end Configuration;

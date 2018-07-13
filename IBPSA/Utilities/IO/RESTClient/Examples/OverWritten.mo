@@ -1,11 +1,12 @@
 within IBPSA.Utilities.IO.RESTClient.Examples;
-model OverWritten
-  import IBPSA;
+model OverWritten "fixme: Short comment is missing"
  extends Modelica.Icons.Example;
-   inner IBPSA.Utilities.IO.RESTClient.Configuration
-                                          config(samplePeriod=0.5, activation=
-        IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation.use_input)
+   inner IBPSA.Utilities.IO.RESTClient.Configuration config(
+     samplePeriod=0.5,
+     activation=IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation.use_input)
+    "fixme: all instances require a comment"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    // fixme: use short names, such as oveWri, see coding guidelines
   IBPSA.Utilities.IO.RESTClient.OverWritten_Real overWritten(
     numVar=2,
     samplePeriod=1,
@@ -33,6 +34,12 @@ equation
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/IO/RESTClient/Examples/OverWritten.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>This example demonstrates the use of a sampler that sends time series to a remoted server. Please start the socket server (see Server.py in IBPSA/Resources/src/SocketServer) before starting this example. </p>
+<p>
+This example demonstrates the use of a sampler that sends time series to a remoted server.
+<!-- fixme: This is the same comment as the other example, but only one is a sampler. -->
+Please start the socket server
+<code>IBPSA/Resources/src/SocketServer/Utilities/IO/RESTClient/Examples/Server.py</code>
+before simulating this model.
+</p>
 </html>"));
 end OverWritten;

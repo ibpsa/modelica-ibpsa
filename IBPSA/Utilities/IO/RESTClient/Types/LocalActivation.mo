@@ -6,4 +6,4 @@ type LocalActivation = enumeration(
   "Enumeration for local activation of the socket connection"
  annotation (Documentation(info="<html>
 <p>Enumeration that is used to locally configure the socket connection. </p>
-</html>",revisions=""));
+</html>",revisions="fixme: revision notes are missing"));
