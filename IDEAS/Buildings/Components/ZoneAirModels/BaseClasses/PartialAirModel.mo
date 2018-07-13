@@ -81,7 +81,7 @@ protected
 <li>
 July 11, 2018, Filip Jorissen:<br/>
 Added <code>m_flow_nominal</code> for setting nominal values 
-of <code>h_outflow</code> and </code>m_flow</code>
+of <code>h_outflow</code> and <code>m_flow</code>
 in <code>FluidPorts</code>.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/859\">#859</a>.
 </li>

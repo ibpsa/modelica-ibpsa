@@ -119,7 +119,7 @@ equation
 <ul>
 <li>
 July 11, 2018, Filip Jorissen:<br/>
-Added nominal values for <code>h_outflow</code> and </code>m_flow</code>
+Added nominal values for <code>h_outflow</code> and <code>m_flow</code>
 in <code>FluidPorts</code>.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/859\">#859</a>.
 </li>
