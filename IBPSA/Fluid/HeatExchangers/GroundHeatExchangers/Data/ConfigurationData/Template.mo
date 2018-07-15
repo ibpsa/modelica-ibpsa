@@ -3,7 +3,7 @@ record Template
   "Template for ConfigurationData records"
   extends Modelica.Icons.Record;
 
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreHoleConfiguration borCon
+  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration borCon
     "Borehole configuration";
 
   parameter Boolean use_Rb = false
