@@ -20,7 +20,8 @@ model CylindricalGroundLayer
 
   parameter Real gridFac(min=1) = 2 "Grid factor for spacing";
 
-  Modelica.SIunits.TemperatureDifference dT "port_a.T - port_b.T";
+  parameter Modelica.SIunits.Radius r[nSta + 1](each fixed=false)
+   "Radius to the boundary of the i-th domain";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=TInt_start))
     "Heat port at surface a" annotation (Placement(transformation(extent={{-110,
@@ -29,15 +30,16 @@ model CylindricalGroundLayer
     "Heat port at surface b" annotation (Placement(transformation(extent={{90,-10},
             {110,10}},rotation=0)));
 
-  Modelica.SIunits.Temperature T[nSta](start={TInt_start + (TExt_start -
-        TInt_start)/Modelica.Math.log(r_b/r_a)*Modelica.Math.log((r_a + (r_b -
-        r_a)/(nSta)*(i - 0.5))/r_a) for i in 1:nSta})
+  Modelica.SIunits.Temperature T[nSta](
+    start={TInt_start +
+      (TExt_start - TInt_start)/Modelica.Math.log(r_b/r_a)*
+      Modelica.Math.log((r_a + (r_b - r_a)/(nSta)*(i - 0.5))/r_a) for i in 1:nSta})
     "Temperature of the states";
+
+  Modelica.SIunits.TemperatureDifference dT "port_a.T - port_b.T";
+
   Modelica.SIunits.HeatFlowRate Q_flow[nSta + 1]
     "Heat flow rate from state i to i+1";
-
-  parameter Modelica.SIunits.Radius r[nSta + 1](each fixed=false)
-    "Radius to the boundary of the i-th domain";
 
 protected
   parameter Modelica.SIunits.Radius rC[nSta](each fixed=false)
