@@ -9,19 +9,13 @@ function infiniteLineSource
 
   output Real h_ils "Thermal response factor of borehole 1 on borehole 2";
 
-protected
-  Real lowBou "Lower bound of integration";
-  // Upper bound is infinite
-
 algorithm
-  if t > 0.0 then
-    lowBou := dis^2/(4*aSoi*t);
-    h_ils := IBPSA.Utilities.Math.Functions.exponentialIntegralE1(lowBou);
-  else
-    h_ils := 0.0;
-  end if;
-
+  h_ils := if t > 0.0 then
+              IBPSA.Utilities.Math.Functions.exponentialIntegralE1(dis^2/(4*aSoi*t))
+           else
+              0.0;
 annotation (
+Inline=true,
 Documentation(info="<html>
 <p>
 This function evaluates the infinite line source solution. This solution gives
@@ -46,7 +40,7 @@ The infinite line source solution is given by the exponential integral:
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/InfiniteLineSource_02.png\" />
 </p>
 <p>
-where <i>&aSoi;<sub>s</sub></i> is the ground thermal diffusivity. The
+where <i>&alpha;<sub>s</sub></i> is the ground thermal diffusivity. The
 exponential integral is implemented in
 <a href=\"modelica://IBPSA.Utilities.Math.Functions.exponentialIntegralE1\">IBPSA.Utilities.Math.Functions.exponentialIntegralE1</a>.
 </p>

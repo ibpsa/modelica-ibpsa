@@ -15,22 +15,22 @@ protected
   Real p = dis/rBor "Fourier number";
 
 algorithm
-
   G := Modelica.Math.Nonlinear.quadratureLobatto(
-    function
-      IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource_Integrand(
-      Fo=Fo, p=p),
-    1e-12,
-    100,
-    1e-6);
+      function IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource_Integrand(
+      Fo=Fo,
+      p=p),
+    a = 1e-12,
+    b = 100,
+    tolerance = 1e-6);
 
 annotation (
+Inline=true,
 Documentation(info="<html>
 <p>
 This function evaluates the cylindrical heat source solution. This solution
 gives the relation between the constant heat transfer rate (per unit length)
 injected by a cylindrical heat source of infinite length and the temperature
-raise in the medium. The cylindrical heat source solution is defined by:
+raise in the medium. The cylindrical heat source solution is defined by
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/CylindricalHeatSource_01.png\" />
@@ -40,7 +40,7 @@ where <i>&Delta;T(t,r)</i> is the temperature raise after a time <i>t</i> of
 constant heat injection and at a distance <i>r</i> from the cylindrical source,
 <i>Q'</i> is the heat injection rate per unit length, <i>k<sub>s</sub></i> is
 the soil thermal conductivity, <i>Fo</i> is the Fourier number,
-<i>&aSoi;<sub>s</sub></i> is the ground thermal diffusivity,
+<i>aSoi<sub>s</sub></i> is the ground thermal diffusivity,
 <i>r<sub>b</sub></i> is the radius of the cylindrical source and <i>G</i>
 is the cylindrical heat source solution.
 </p>

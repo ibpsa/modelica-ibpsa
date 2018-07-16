@@ -3,7 +3,8 @@ function setFirstAggregationCell "Sets the load for the current time step"
   extends Modelica.Icons.Function;
 
   input Integer i "Size of vector";
-  input Real QBor_flow "Averaged load over last aggregation step";
+  input Modelica.SIunits.HeatFlowRate QBor_flow
+    "Averaged load over last aggregation step";
   input Modelica.SIunits.HeatFlowRate QAggShi_flow[i]
     "Shifted vector of aggregated loads from last aggregation step";
 
@@ -14,8 +15,11 @@ algorithm
   QAgg_flow := QAggShi_flow;
   QAgg_flow[1] := QBor_flow;
 
-  annotation (Documentation(info="<html>
-<p>After the cell shifting operation, this function sets the first aggregation
+  annotation (
+Inline=true,
+Documentation(info="<html>
+<p>
+After the cell shifting operation, this function sets the first aggregation
 cell with the present thermal load value.
 </p>
 </html>", revisions="<html>

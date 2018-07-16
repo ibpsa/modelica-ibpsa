@@ -1,19 +1,22 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
 function countAggregationCells
-  "Function which returns i, the number of aggragtion cells in aggregation vector"
+  "Function which returns the number of aggregation cells in the aggregation vector"
   extends Modelica.Icons.Function;
 
   input Real lvlBas "Base for growth between each level, e.g. 2";
-  input Integer p_max "Number of cells of same size per level";
+  input Integer p_max(min=1) "Number of cells of same size per level";
   input Modelica.SIunits.Time timFin "Total simulation max length";
   input Modelica.SIunits.Time tLoaAgg "Aggregation step";
 
-  output Integer i "Size of aggregation vectors";
+  output Integer i(min=1) "Size of aggregation vectors";
 
+  // fixme: add comments and if applicable units for width_i and nu_i
 protected
-  Real width_i, nu_i;
+  Real width_i;
+  Real nu_i;
 
 algorithm
+  assert(timFin > 0, "Total simulation time must be bigger than 0.");
   width_i := 0;
   nu_i := 0;
   i := 0;
@@ -25,12 +28,18 @@ algorithm
   end while;
 
 annotation (Documentation(info="<html>
-<p>Counts the required length of the aggregation time vector <code>nu</code> and
+<p>
+Function that counts the required length of the aggregation time vector <code>nu</code> and
 of the weighting factor vectors <code>kappa</code> based on the maximum time for
 calculations related to the ground temperature response.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 15, 2018, by Michael Wetter:<br/>
+Added <code>min=1</code> to <code>p_max</code>
+so that a tool can infer that this quantity is non-zero.
+</li>
 <li>
 March 5, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.

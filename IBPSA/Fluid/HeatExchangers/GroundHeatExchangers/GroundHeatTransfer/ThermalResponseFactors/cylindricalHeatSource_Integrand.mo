@@ -11,13 +11,18 @@ function cylindricalHeatSource_Integrand
 
 algorithm
 
-  y := 1.0/(u^2*Modelica.Constants.pi^2)*(exp(-u^2*Fo) - 1.0)/(IBPSA.Utilities.Math.Functions.besselJ1(u)^2+IBPSA.Utilities.Math.Functions.besselY1(u)^2)*(IBPSA.Utilities.Math.Functions.besselJ0(p*u)*IBPSA.Utilities.Math.Functions.besselY1(u)-IBPSA.Utilities.Math.Functions.besselJ1(u)*IBPSA.Utilities.Math.Functions.besselY0(p*u));
+  y := 1.0/(u^2*Modelica.Constants.pi^2)*(exp(-u^2*Fo) - 1.0)
+    /(IBPSA.Utilities.Math.Functions.besselJ1(u)^2+IBPSA.Utilities.Math.Functions.besselY1(u)^2)
+    *(IBPSA.Utilities.Math.Functions.besselJ0(p*u)*IBPSA.Utilities.Math.Functions.besselY1(u)
+      -IBPSA.Utilities.Math.Functions.besselJ1(u)*IBPSA.Utilities.Math.Functions.besselY0(p*u));
 
 annotation (
+Inline=true,
 Documentation(info="<html>
 <p>
 Integrand of the cylindrical heat source solution for use in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource</a>.
 </p>
 </html>", revisions="<html>
 <ul>

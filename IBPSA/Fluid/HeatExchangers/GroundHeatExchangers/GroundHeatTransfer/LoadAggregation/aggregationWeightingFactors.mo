@@ -4,19 +4,25 @@ function aggregationWeightingFactors
   extends Modelica.Icons.Function;
 
   input Integer i "Size of vector";
+  // fixme: what is meant by "input file" below?
   input Integer nbTimTot "Number of rows in input file";
   input Real TStep[nbTimTot,2] "Time matrix with TStep";
   input Modelica.SIunits.Time nu[i] "Aggregation time vector nu";
 
   output Real kappa[i] "Weighting factors vector";
 
+  // fixme: add comment, and if applicable, add unit of prevT and curT
 protected
-  Real prevT, curT;
+  Real prevT;
+  Real curT;
   Integer curInt "Integer to select data interval";
-  Real[size(TStep[:,1], 1)] d(each fixed=false) "Derivatives at the support points";
+  Real[size(TStep[:,1], 1)] d "Derivatives at the support points";
 
 algorithm
-  d := IBPSA.Utilities.Math.Functions.splineDerivatives(x=TStep[:,1], y=TStep[:,2], ensureMonotonicity=false);
+  d := IBPSA.Utilities.Math.Functions.splineDerivatives(
+    x=TStep[:,1],
+    y=TStep[:,2],
+    ensureMonotonicity=false);
 
   for j in 1:i loop
     if j==1 then
@@ -59,7 +65,8 @@ algorithm
   end for;
 
   annotation (Documentation(info="<html>
-<p>This function uses spline interpolations to construct the weighting factors
+<p>
+This function uses spline interpolations to construct the weighting factors
 vector <code>kappa</code> using the aggregation times <code>nu</code>  and the
 temperature step reponse (a time-series in the form of a matrix) of the borefield as an input.
 </p>

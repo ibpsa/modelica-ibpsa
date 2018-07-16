@@ -26,8 +26,8 @@ model GroundTemperatureResponse_20Years
       cFil=Modelica.Constants.small,
       dFil=Modelica.Constants.small,
       steadyState=true))
-              "Borefield parameters"
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+      "Borefield parameters"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   GroundHeatTransfer.GroundTemperatureResponse groTemRes(
     tLoaAgg=3600,
@@ -45,13 +45,15 @@ model GroundTemperatureResponse_20Years
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/GroundTemperatureResponse_20Years.txt"))
-                 "Table for heat injected, using constant segments"
+      "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/GroundTemperatureResponse_20Years.txt"))
+        "Table for heat injected, using constant segments"
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
 
-  Modelica.Blocks.Math.Add add(k2=-1)
+  Modelica.Blocks.Math.Add add(
+    k2=-1,
+    y(unit="K"))
     "Difference between FFT method and ground temperature response model"
-                                      annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,-70})));
@@ -64,8 +66,9 @@ model GroundTemperatureResponse_20Years
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/GroundTemperatureResponse_20Years.txt"))
-    "Table for resulting wall temperature using FFT and linearly interpolated"
+      "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/GroundTemperatureResponse_20Years.txt"),
+    y(each unit="K", each displayUnit="degC"))
+      "Table for resulting wall temperature using FFT and linearly interpolated"
     annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
 
   Modelica.Blocks.Sources.Constant const(k=273.15)
@@ -86,13 +89,11 @@ equation
     annotation (Line(points={{-22,10},{-39,10}}, color={0,0,127}));
 
   annotation (experiment(StopTime=630720000),
-    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/GroundTemperatureResponse_20Years.mos"
         "Simulate and plot"),
-              Documentation(info="<html>
+Documentation(info="<html>
 <p>
-This validation case applies the assymetrical synthetic load profile developed
+This validation case applies the asymetrical synthetic load profile developed
 by Pinel (2003) over a 20 year period by directly injecting the heat at the
 borehole wall in the ground temperature response model. The difference between
 the resulting borehole wall temperature and the same temperature precalculated

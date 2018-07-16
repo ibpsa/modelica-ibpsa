@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples;
-model InfiniteLineSource "Test case for infiniteLinesource"
+model InfiniteLineSource "Test case for infinite line source"
   extends Modelica.Icons.Example;
 
   parameter Modelica.SIunits.ThermalDiffusivity aSoi = 1.0e-6 "Ground thermal diffusivity";

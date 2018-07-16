@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples;
-model FiniteLineSource "Test case for finiteLineSource"
+model FiniteLineSource "Test case for finite line source"
   extends Modelica.Icons.Example;
 
   parameter Modelica.SIunits.ThermalDiffusivity aSoi = 1.0e-6 "Ground thermal diffusivity";
@@ -23,9 +23,32 @@ equation
 
   for i in 1:2 loop
     for j in 1:7 loop
-        hRea[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(t, aSoi, r[i], len1, burDep1, len2[j], burDep2[j], includeMirrorSource=false);
-        hMir[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(t, aSoi, r[i], len1, burDep1, len2[j], burDep2[j], includeRealSource=false);
-        h[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(t, aSoi, r[i], len1, burDep1, len2[j], burDep2[j]);
+        hRea[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
+          t = t,
+          aSoi = aSoi,
+          dis = r[i],
+          len1 = len1,
+          burDep1 = burDep1,
+          len2 = len2[j],
+          burDep2 = burDep2[j],
+          includeMirrorSource=false);
+        hMir[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
+          t = t,
+          aSoi = aSoi,
+          dis = r[i],
+          len1 = len1,
+          burDep1 = burDep1,
+          len2 = len2[j],
+          burDep2 = burDep2[j],
+          includeRealSource=false);
+        h[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
+          t = t,
+          aSoi = aSoi,
+          dis = r[i],
+          len1 = len1,
+          burDep1 = burDep1,
+          len2 = len2[j],
+          burDep2 = burDep2[j]);
     end for;
   end for;
 
@@ -38,7 +61,7 @@ equation
 <p>
 This example demonstrates the use of the function for the evaluation of the
 finite line source solution. The solution is evaluated at different positions
-ans averaged over different lengths around line heat sources.
+and averaged over different lengths around line heat sources.
 </p>
 </html>", revisions="<html>
 <ul>

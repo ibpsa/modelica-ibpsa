@@ -10,8 +10,8 @@ function finiteLineSource_Integrand
   input Real burDep1 "Buried depth of emitting borehole";
   input Real len2 "Length of receiving borehole";
   input Real burDep2 "Buried depth of receiving borehole";
-  input Boolean includeRealSource = true "True if contribution of real source is included";
-  input Boolean includeMirrorSource = true "True if contribution of mirror source is included";
+  input Boolean includeRealSource = true "true if contribution of real source is included";
+  input Boolean includeMirrorSource = true "true if contribution of mirror source is included";
 
   output Real y "Value of integrand";
 

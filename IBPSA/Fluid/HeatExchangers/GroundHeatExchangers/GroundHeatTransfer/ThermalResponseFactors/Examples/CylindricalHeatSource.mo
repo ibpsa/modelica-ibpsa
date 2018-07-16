@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples;
-model CylindricalHeatSource "Test case for cylindricalHeatSource"
+model CylindricalHeatSource "Test case for cylindrical heat source"
   extends Modelica.Icons.Example;
 
   parameter Modelica.SIunits.ThermalDiffusivity aSoi = 1.0e-6 "Ground thermal diffusivity";
@@ -10,11 +10,13 @@ model CylindricalHeatSource "Test case for cylindricalHeatSource"
   Real[5] G "Cylindrical heat source solution";
 
 equation
-
   t = exp(time) - 1.0;
-
   for k in 1:5 loop
-    G[k] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource(t, aSoi, r[k], rSource);
+    G[k] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource(
+      t = t,
+      aSoi = aSoi,
+      dis = r[k],
+      rBor = rSource);
   end for;
 
   annotation (

@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation.GroundTemperatureResponse_20Years", tolerance=1e-6, stopTime=6.3072e+08, outputInterval=3600, method="dassl", resultFile="GroundTemperatureResponse_20Years");
+simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation.GroundTemperatureResponse_20Years", tolerance=1e-6, stopTime=6.3072e+08, outputInterval=3600, method="Cvode", resultFile="GroundTemperatureResponse_20Years");
 createPlot(id = 1,
  position = {50, 50, 700, 500},
  x = "time",

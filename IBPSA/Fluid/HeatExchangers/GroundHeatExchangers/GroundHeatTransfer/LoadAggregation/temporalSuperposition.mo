@@ -12,10 +12,17 @@ function temporalSuperposition
 
   output Modelica.SIunits.TemperatureDifference deltaTb "Delta T at wall";
 
+  // fixme: There is something wrong in this function:
+  // QAgg_flow has units of W, kappa has units of K (which is consistent
+  // with the info section of GroundTemperatureResponse)
+  // and deltaTb is declared to have units of K.
+  // This is incorrect.
 algorithm
-  deltaTb := (QAgg_flow[1:curCel]*kappa[1:curCel]);
+  deltaTb := QAgg_flow[1:curCel]*kappa[1:curCel];
 
-  annotation (Documentation(info="<html>
+  annotation (
+Inline=true,
+Documentation(info="<html>
 <p>
 Performs the temporal superposition operation to obtain the temperature change
 at the borehole wall at the current timstep, which is the scalar product of the

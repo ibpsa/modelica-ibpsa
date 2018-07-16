@@ -5,7 +5,7 @@ function shiftAggregationCells
 
   input Integer i "Number of aggregation cells";
   input Modelica.SIunits.HeatFlowRate QAgg_flow[i] "Vector of aggregated loads";
-  input Real rCel[i] "Aggregation cell widths";
+  input Real rCel[i](each min=Modelica.Constants.small) "Aggregation cell widths";
   input Modelica.SIunits.Time nu[i] "Cell aggregation times";
   input Modelica.SIunits.Time curTim "Current simulation time";
 
@@ -26,12 +26,18 @@ algorithm
   QAggShi_flow[1] := 0;
 
   annotation (Documentation(info="<html>
-<p>Performs the shifting operation which propagates the thermal load history
+<p>
+Performs the shifting operation which propagates the thermal load history
 towards the more distant aggregation cells, and then sets the current cell's
-value at 0. Additionally, this function also outputs the current load aggregation cell.
+value at <i>0</i>. Additionally, this function also outputs the current load aggregation cell.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 15, 2018, by Michael Wetter:<br/>
+Added <code>min=Modelica.Constants.small</code> to <code>rCel</code>
+so that a tool can infer that this quantity is non-zero.
+</li>
 <li>
 March 5, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.

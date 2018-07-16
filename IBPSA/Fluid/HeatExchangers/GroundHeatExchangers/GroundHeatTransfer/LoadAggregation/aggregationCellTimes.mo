@@ -6,11 +6,11 @@ function aggregationCellTimes
   input Integer i "Size of time vector";
   input Real lvlBas "Base for growth between each level, e.g. 2";
   input Integer p_max "Number of cells of same size per level";
-  input Modelica.SIunits.Time tLoaAgg "Aggregation step";
+  input Modelica.SIunits.Time tLoaAgg(final min=Modelica.Constants.small) "Aggregation step";
   input Modelica.SIunits.Time timFin "Total simulation max length";
 
   output Modelica.SIunits.Time nu[i] "Time vector nu of size i";
-  output Real rCel[i] "Cell width vector of size i";
+  output Real rCel[i](each unit="1") "Cell width vector of size i";
 
 protected
   Real width_j;
@@ -32,12 +32,17 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>Simultaneously constructs both the <code>nu</code> vector, which is the
-aggregation time of each cell, and the <code>rcel</code> vector, which
+aggregation time of each cell, and the <code>rCel</code> vector, which
 is the temporal size of each cell normalized with the aggregation step
-length (the <code>tLoaAgg</code> parameter).
+length <code>tLoaAgg</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 15, 2018, by Michael Wetter:<br/>
+Added <code>min=Modelica.Constants.small</code> to <code>tLoaAgg</code>
+so that a tool can infer that this quantity is non-zero.
+</li>
 <li>
 March 5, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.

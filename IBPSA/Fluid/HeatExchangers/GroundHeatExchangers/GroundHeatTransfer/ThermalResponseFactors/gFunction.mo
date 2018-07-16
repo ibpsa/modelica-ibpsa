@@ -39,7 +39,6 @@ protected
   Real CHS "Cylindrical heat source solution";
 
 algorithm
-
   // Generate geometrically expanding time vectors
   tSho :=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.timeGeometric(
@@ -196,7 +195,7 @@ Cimmino and Bernier (see: Cimmino and Bernier (2014), and Cimmino (2018)) based
 on the <i>g</i>-function function concept first introduced by Eskilson (1987).
 The <i>g</i>-function gives the relation between the variation of the borehole
 wall temperature at a time <i>t</i> and the heat extraction and injection rates
-at all times preceding time <i>t</i>:
+at all times preceding time <i>t</i> as
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/GFunction_01.png\" />
@@ -235,7 +234,7 @@ Since this <i>g</i>-function is based on line sources of heat, rather than
 cylinders, the <i>g</i>-function is corrected to consider the cylindrical
 geometry. The correction factor is then the difference between the cylindrical
 heat source solution and the infinite line source solution, as proposed by
-Li et al. (2014):
+Li et al. (2014) as
 </p>
 <p align=\"center\">
 <i>g(t) = g<sub>FLS</sub> + (g<sub>CHS</sub> - g<sub>ILS</sub>)</i>
@@ -280,5 +279,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end gFunction;

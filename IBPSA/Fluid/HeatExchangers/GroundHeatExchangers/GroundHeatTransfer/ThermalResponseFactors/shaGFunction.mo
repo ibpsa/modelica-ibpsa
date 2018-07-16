@@ -42,15 +42,16 @@ Documentation(info="<html>
 <p>
 This function concatenates the various arguments required to generate the borefield's
 thermal response into a single input string. Each argument is formatted in exponential notation
-with four significant digits, for example &quot;1.234e+001&quot;, with no spaces or
+with four significant digits, for example <code>1.234e+001</code>, with no spaces or
 other separating characters between each argument value. Because a borefield has a variable
 number of boreholes, and because the (x,y) coordinates of each borehole are taken into
 account, the total length of this input string is variable.
 </p>
 <p>
 Once the input string has been put together, the SHA1 encryption of this string
-is outputted using
-<a href=\"modelica://IBPSA.Utilities.Cryptographics.sha\">IBPSA.Utilities.Cryptographics.sha</a>.
+is computed using
+<a href=\"modelica://IBPSA.Utilities.Cryptographics.sha\">IBPSA.Utilities.Cryptographics.sha</a>
+and returned by this function.
 </p>
 </html>", revisions="<html>
 <ul>
