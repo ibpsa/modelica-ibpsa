@@ -187,7 +187,7 @@ the heat transfer in the soil.
 </html>", revisions="<html>
 <ul>
 <li>
-July 2014, by Damien Picard:<br>
+July 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

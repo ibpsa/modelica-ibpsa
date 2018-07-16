@@ -309,7 +309,6 @@ Thermal resistance and capacity models for borehole heat exchangers
 International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
 </html>", revisions="<html>
-<p>
 <ul>
 <li>
 June 18, 2014, by Michael Wetter:<br/>
@@ -331,7 +330,6 @@ January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</p>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
