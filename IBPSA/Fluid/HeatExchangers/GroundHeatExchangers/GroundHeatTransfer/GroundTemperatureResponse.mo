@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer;
 model GroundTemperatureResponse "Model calculating discrete load aggregation"
   parameter Modelica.SIunits.Time tLoaAgg=3600 "Time resolution of load aggregation";
-  parameter Integer p_max(min=1)=5 "Number of cells per aggregation level";
+  parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether it has been pre-computed";
   parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
@@ -18,26 +18,26 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 protected
-  constant Integer nbSeg = 12 "Number of line source segments per borehole";
-  constant Integer nbTimSho = 26 "Number of time steps in short time region";
-  constant Integer nbTimLon = 50 "Number of time steps in long time region";
+  constant Integer nSeg = 12 "Number of line source segments per borehole";
+  constant Integer nTimSho = 26 "Number of time steps in short time region";
+  constant Integer nTimLon = 50 "Number of time steps in long time region";
   // fixme: what is adimensional time? Do you mean non-dimensional
   constant Real ttsMax = exp(5) "Maximum adimensional time for gfunc calculation";
-  constant Integer nbTimTot = nbTimSho+nbTimLon
+  constant Integer nTimTot = nTimSho+nTimLon
     "Total length of g-function vector";
   constant Real lvlBas = 2 "Base for exponential cell growth between levels";
 
   parameter String SHAgfun=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.shaGFunction(
-      nbBor=borFieDat.conDat.nbBor,
+      nBor=borFieDat.conDat.nBor,
       cooBor=borFieDat.conDat.cooBor,
       hBor=borFieDat.conDat.hBor,
       dBor=borFieDat.conDat.dBor,
       rBor=borFieDat.conDat.rBor,
       aSoi=borFieDat.soiDat.aSoi,
-      nbSeg=nbSeg,
-      nbTimSho=nbTimSho,
-      nbTimLon=nbTimLon,
+      nSeg=nSeg,
+      nTimSho=nTimSho,
+      nTimLon=nTimLon,
       ttsMax=ttsMax) "String with encrypted g-function arguments";
   // fixme: comment for timFin is missing
   parameter Modelica.SIunits.Time timFin=
@@ -45,23 +45,23 @@ protected
   parameter Integer i(min=1)=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.countAggregationCells(
       lvlBas=lvlBas,
-      p_max=p_max,
+      nCel=nCel,
       timFin=timFin,
       tLoaAgg=tLoaAgg)
       "Number of aggregation cells";
-  parameter Real timSer[nbTimTot,2]=
+  parameter Real timSer[nTimTot,2]=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.temperatureResponseMatrix(
-      nbBor=borFieDat.conDat.nbBor,
+      nBor=borFieDat.conDat.nBor,
       cooBor=borFieDat.conDat.cooBor,
       hBor=borFieDat.conDat.hBor,
       dBor=borFieDat.conDat.dBor,
       rBor=borFieDat.conDat.rBor,
       aSoi=borFieDat.soiDat.aSoi,
       kSoi=borFieDat.soiDat.kSoi,
-      nbSeg=nbSeg,
-      nbTimSho=nbTimSho,
-      nbTimLon=nbTimLon,
-      nbTimTot=nbTimTot,
+      nSeg=nSeg,
+      nTimSho=nTimSho,
+      nTimLon=nTimLon,
+      nTimTot=nTimTot,
       ttsMax=ttsMax,
       sha=SHAgfun,
       forceGFunCalc=forceGFunCalc)
@@ -87,7 +87,7 @@ protected
   discrete Modelica.SIunits.TemperatureDifference delTBor_old "Tb-TSoi at previous time step";
   final parameter Real dhdt(fixed=false)
     "Time derivative of g/(2*pi*H*ks) within most recent cell";
-  Modelica.SIunits.HeatFlowRate QBor_flow=borWall.Q_flow*borFieDat.conDat.nbBor
+  Modelica.SIunits.HeatFlowRate QBor_flow=borWall.Q_flow*borFieDat.conDat.nBor
     "Totat heat flow from all boreholes";
   Modelica.SIunits.Heat U "Accumulated heat flow from all boreholes";
   discrete Modelica.SIunits.Heat U_old "Accumulated heat flow from all boreholes at last aggregation step";
@@ -106,7 +106,7 @@ initial equation
   (nu,rCel) = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.aggregationCellTimes(
     i=i,
     lvlBas=lvlBas,
-    p_max=p_max,
+    nCel=nCel,
     tLoaAgg=tLoaAgg,
     timFin=timFin);
 
@@ -114,7 +114,7 @@ initial equation
 
   kappa = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.aggregationWeightingFactors(
     i=i,
-    nbTimTot=nbTimTot,
+    nTimTot=nTimTot,
     TStep=timSer,
     nu=nu);
 

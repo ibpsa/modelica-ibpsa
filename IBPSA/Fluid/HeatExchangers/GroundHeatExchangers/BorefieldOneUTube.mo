@@ -16,7 +16,7 @@ model BorefieldOneUTube
 
   // Simulation parameters
   parameter Modelica.SIunits.Time tLoaAgg=3600 "Time resolution of load aggregation";
-  parameter Integer p_max(min=1)=5 "Number of cells per aggregation level";
+  parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
   parameter Integer nSeg(min=1)=10
     "Number of segments to use in vertical discretization of the boreholes";
   parameter Modelica.SIunits.Temperature TMedGro
@@ -33,16 +33,16 @@ model BorefieldOneUTube
   BaseClasses.MassFlowRateMultiplier masFloDiv(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
-    k=borFieDat.conDat.nbBor) "Division of flow rate"
+    k=borFieDat.conDat.nBor) "Division of flow rate"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
   BaseClasses.MassFlowRateMultiplier masFloMul(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
-    k=borFieDat.conDat.nbBor) "Mass flow multiplier"
+    k=borFieDat.conDat.nBor) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   GroundHeatTransfer.GroundTemperatureResponse groTemRes(
     tLoaAgg=tLoaAgg,
-    p_max=p_max,
+    nCel=nCel,
     borFieDat=borFieDat) "Ground temperature response"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=nSeg)

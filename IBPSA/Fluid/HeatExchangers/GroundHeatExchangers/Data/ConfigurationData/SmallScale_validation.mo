@@ -4,7 +4,7 @@ record SmallScale_validation
   extends
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Template(
       borCon = Types.BoreholeConfiguration.SingleUTube,
-      nbBor=1,
+      nBor=1,
       cooBor={{0,0}},
       mBor_flow_nominal=0.0303/60,
       dp_nominal=5e4,

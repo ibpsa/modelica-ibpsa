@@ -4,7 +4,7 @@ function countAggregationCells
   extends Modelica.Icons.Function;
 
   input Real lvlBas "Base for growth between each level, e.g. 2";
-  input Integer p_max(min=1) "Number of cells of same size per level";
+  input Integer nCel(min=1) "Number of cells of same size per level";
   input Modelica.SIunits.Time timFin "Total simulation max length";
   input Modelica.SIunits.Time tLoaAgg "Aggregation step";
 
@@ -23,7 +23,7 @@ algorithm
 
   while nu_i<timFin loop
     i := i+1;
-    width_i := tLoaAgg*lvlBas^floor((i-1)/p_max);
+    width_i := tLoaAgg*lvlBas^floor((i-1)/nCel);
     nu_i := nu_i + width_i;
   end while;
 
@@ -37,7 +37,7 @@ calculations related to the ground temperature response.
 <ul>
 <li>
 July 15, 2018, by Michael Wetter:<br/>
-Added <code>min=1</code> to <code>p_max</code>
+Added <code>min=1</code> to <code>nCel</code>
 so that a tool can infer that this quantity is non-zero.
 </li>
 <li>

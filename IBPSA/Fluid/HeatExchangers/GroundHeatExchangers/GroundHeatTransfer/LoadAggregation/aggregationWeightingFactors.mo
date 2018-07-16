@@ -5,8 +5,8 @@ function aggregationWeightingFactors
 
   input Integer i "Size of vector";
   // fixme: what is meant by "input file" below?
-  input Integer nbTimTot "Number of rows in input file";
-  input Real TStep[nbTimTot,2] "Time matrix with TStep";
+  input Integer nTimTot "Number of rows in input file";
+  input Real TStep[nTimTot,2] "Time matrix with TStep";
   input Modelica.SIunits.Time nu[i] "Aggregation time vector nu";
 
   output Real kappa[i] "Weighting factors vector";

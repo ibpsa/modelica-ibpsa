@@ -4,7 +4,7 @@ record SandBox_validation
   extends
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Template(
       borCon = Types.BoreholeConfiguration.SingleUTube,
-      nbBor=1,
+      nBor=1,
       cooBor={{0,0}},
       mBor_flow_nominal=0.197/998*1000,
       dp_nominal=5e4,

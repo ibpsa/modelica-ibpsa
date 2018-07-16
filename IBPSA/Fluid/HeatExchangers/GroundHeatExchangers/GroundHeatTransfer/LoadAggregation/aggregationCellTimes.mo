@@ -5,7 +5,7 @@ function aggregationCellTimes
 
   input Integer i "Size of time vector";
   input Real lvlBas "Base for growth between each level, e.g. 2";
-  input Integer p_max "Number of cells of same size per level";
+  input Integer nCel "Number of cells of same size per level";
   input Modelica.SIunits.Time tLoaAgg(final min=Modelica.Constants.small) "Aggregation step";
   input Modelica.SIunits.Time timFin "Total simulation max length";
 
@@ -19,10 +19,10 @@ algorithm
   width_j := 0;
 
   for j in 1:i loop
-    width_j := width_j + tLoaAgg*lvlBas^floor((j-1)/p_max);
+    width_j := width_j + tLoaAgg*lvlBas^floor((j-1)/nCel);
     nu[j] := width_j;
 
-    rCel[j] := lvlBas^floor((j-1)/p_max);
+    rCel[j] := lvlBas^floor((j-1)/nCel);
   end for;
 
   if nu[i]>timFin then

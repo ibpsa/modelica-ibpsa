@@ -13,7 +13,7 @@ record Template
   parameter Modelica.SIunits.MassFlowRate mBor_flow_nominal
     "Nominal mass flow rate per borehole"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mBorFie_flow_nominal = mBor_flow_nominal*nbBor
+  parameter Modelica.SIunits.MassFlowRate mBorFie_flow_nominal = mBor_flow_nominal*nBor
     "Nominal mass flow of borefield"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Pressure dp_nominal
@@ -27,10 +27,10 @@ record Template
     annotation (Dialog(group="Borehole"));
   parameter Modelica.SIunits.Height dBor "Borehole buried depth"
     annotation (Dialog(group="Borehole"));
-  parameter Integer nbBor "Total number of boreholes"
+  parameter Integer nBor "Total number of boreholes"
     annotation (Dialog(group="Borehole"));
 
-  parameter Real[nbBor,2] cooBor
+  parameter Real[nBor,2] cooBor
     "Cartesian coordinates of the boreholes in meters."
     annotation (Dialog(group="Borehole"));
 

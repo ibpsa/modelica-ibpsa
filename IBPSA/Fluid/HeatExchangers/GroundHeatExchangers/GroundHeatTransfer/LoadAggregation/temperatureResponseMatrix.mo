@@ -3,8 +3,8 @@ function temperatureResponseMatrix
   "Reads and possibly writes a matrix with a time series of the borefield's temperature response"
   extends Modelica.Icons.Function;
 
-  input Integer nbBor "Number of boreholes";
-  input Real cooBor[nbBor, 2] "Borehole coordonates";
+  input Integer nBor "Number of boreholes";
+  input Real cooBor[nBor, 2] "Borehole coordonates";
   input Modelica.SIunits.Height hBor "Borehole length";
   input Modelica.SIunits.Height dBor "Borehole buried depth";
   input Modelica.SIunits.Radius rBor "Borehole radius";
@@ -12,21 +12,21 @@ function temperatureResponseMatrix
     "Thermal diffusivity of soil";
   input Modelica.SIunits.ThermalConductivity kSoi
     "Thermal conductivity of soil";
-  input Integer nbSeg "Number of line source segments per borehole";
-  input Integer nbTimSho "Number of time steps in short time region";
-  input Integer nbTimLon "Number of time steps in long time region";
-  input Integer nbTimTot "Number of g-function points";
+  input Integer nSeg "Number of line source segments per borehole";
+  input Integer nTimSho "Number of time steps in short time region";
+  input Integer nTimLon "Number of time steps in long time region";
+  input Integer nTimTot "Number of g-function points";
   input Real ttsMax "Maximum adimensional time for g-function calculation";
   input String sha "Pseudo-SHA of the g-function arguments";
   input Boolean forceGFunCalc
     "Set to true to force the thermal response to be calculated at the start";
 
-  output Real matrix[nbTimTot, 2] "Temperature response time series";
+  output Real matrix[nTimTot, 2] "Temperature response time series";
 
 protected
   String pathSave "Path of the saving folder";
-  Modelica.SIunits.Time[nbTimTot] tGFun;
-  Real[nbTimTot] gFun;
+  Modelica.SIunits.Time[nTimTot] tGFun;
+  Real[nTimTot] gFun;
   Boolean writegFun = false;
 
 algorithm
@@ -37,18 +37,18 @@ algorithm
   if forceGFunCalc or not Modelica.Utilities.Files.exist(pathSave) then
     (tGFun,gFun) :=
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction(
-      nbBor=nbBor,
+      nBor=nBor,
       cooBor=cooBor,
       hBor=hBor,
       dBor=dBor,
       rBor=rBor,
       aSoi=aSoi,
-      nbSeg=nbSeg,
-      nbTimSho=nbTimSho,
-      nbTimLon=nbTimLon,
+      nSeg=nSeg,
+      nTimSho=nTimSho,
+      nTimLon=nTimLon,
       ttsMax=ttsMax);
 
-    for i in 1:nbTimTot loop
+    for i in 1:nTimTot loop
       matrix[i,1] := tGFun[i];
       matrix[i,2] := gFun[i]/(2*Modelica.Constants.pi*hBor*kSoi);
     end for;
@@ -63,7 +63,7 @@ algorithm
   matrix := Modelica.Utilities.Streams.readRealMatrix(
     fileName=pathSave,
     matrixName="TStep",
-    nrow=nbTimTot,
+    nrow=nTimTot,
     ncol=2);
 
   annotation (Documentation(info="<html>

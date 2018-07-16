@@ -6,7 +6,7 @@ model GroundTemperatureResponse_20Years
   parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
     borFieDat(conDat(
       borCon=Types.BoreholeConfiguration.SingleUTube,
-      nbBor=1,
+      nBor=1,
       cooBor={{0,0}},
       mBor_flow_nominal=0.3,
       dp_nominal=5e4,
@@ -31,7 +31,7 @@ model GroundTemperatureResponse_20Years
 
   GroundHeatTransfer.GroundTemperatureResponse groTemRes(
     tLoaAgg=3600,
-    p_max=5,
+    nCel=5,
     borFieDat=borFieDat,
     forceGFunCalc=true) "Ground temperature response of borehole"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));

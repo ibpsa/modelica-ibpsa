@@ -2,15 +2,15 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Therma
 function shaGFunction
   "Returns a SHA1 encryption of the formatted arguments for the g-function generation"
   extends Modelica.Icons.Function;
-  input Integer nbBor "Number of boreholes";
-  input Modelica.SIunits.Position cooBor[nbBor, 2] "Coordinates of boreholes";
+  input Integer nBor "Number of boreholes";
+  input Modelica.SIunits.Position cooBor[nBor, 2] "Coordinates of boreholes";
   input Modelica.SIunits.Height hBor "Borehole length";
   input Modelica.SIunits.Height dBor "Borehole buried depth";
   input Modelica.SIunits.Radius rBor "Borehole radius";
   input Modelica.SIunits.ThermalDiffusivity aSoi "Ground thermal diffusivity used in g-function evaluation";
-  input Integer nbSeg "Number of line source segments per borehole";
-  input Integer nbTimSho "Number of time steps in short time region";
-  input Integer nbTimLon "Number of time steps in long time region";
+  input Integer nSeg "Number of line source segments per borehole";
+  input Integer nTimSho "Number of time steps in short time region";
+  input Integer nTimLon "Number of time steps in long time region";
   input Real ttsMax "Maximum adimensional time for gfunc calculation";
 
   output String sha
@@ -21,8 +21,8 @@ protected
   String formatStr =  "1.3e";
 
 algorithm
-  shaStr := shaStr + String(nbBor, format=formatStr);
-  for i in 1:nbBor loop
+  shaStr := shaStr + String(nBor, format=formatStr);
+  for i in 1:nBor loop
    shaStr := shaStr + String(cooBor[i, 1], format=formatStr) + String(cooBor[i,
      2], format=formatStr);
   end for;
@@ -30,9 +30,9 @@ algorithm
   shaStr := shaStr + String(dBor, format=formatStr);
   shaStr := shaStr + String(rBor, format=formatStr);
   shaStr := shaStr + String(aSoi, format=formatStr);
-  shaStr := shaStr + String(nbSeg, format=formatStr);
-  shaStr := shaStr + String(nbTimSho, format=formatStr);
-  shaStr := shaStr + String(nbTimLon, format=formatStr);
+  shaStr := shaStr + String(nSeg, format=formatStr);
+  shaStr := shaStr + String(nTimSho, format=formatStr);
+  shaStr := shaStr + String(nTimLon, format=formatStr);
   shaStr := shaStr + String(ttsMax, format=formatStr);
 
   sha := IBPSA.Utilities.Cryptographics.sha(shaStr);

@@ -3,24 +3,24 @@ model gFunction_100boreholes
   "gFunction calculation for a field of 10 by 10 boreholes"
   extends Modelica.Icons.Example;
 
-  parameter Integer nbBor = 100 "Number of boreholes";
-  parameter Real cooBor[nbBor, 2] = {{7.5*mod(i-1,10), 7.5*floor((i-1)/10)} for i in 1:nbBor}
+  parameter Integer nBor = 100 "Number of boreholes";
+  parameter Real cooBor[nBor, 2] = {{7.5*mod(i-1,10), 7.5*floor((i-1)/10)} for i in 1:nBor}
     "Coordinates of boreholes";
   parameter Real hBor = 150 "Borehole length";
   parameter Real dBor = 4 "Borehole buried depth";
   parameter Real rBor = 0.075 "Borehole radius";
   parameter Real aSoi = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
-  parameter Integer nbSeg = 12 "Number of line source segments per borehole";
-  parameter Integer nbTimSho = 26 "Number of time steps in short time region";
-  parameter Integer nbTimLon = 50 "Number of time steps in long time region";
+  parameter Integer nSeg = 12 "Number of line source segments per borehole";
+  parameter Integer nTimSho = 26 "Number of time steps in short time region";
+  parameter Integer nTimLon = 50 "Number of time steps in long time region";
   parameter Real ttsMax = exp(5) "Maximum adimensional time for gfunc calculation";
 
   // fixme: comments are missing for parameters and variables below
-  final parameter Integer nbTimTot=nbTimSho+nbTimLon;
-  final parameter Real[nbTimTot] gFun(fixed=false);
-  final parameter Real[nbTimTot] lntts(fixed=false);
-  final parameter Modelica.SIunits.Time[nbTimTot] tGFun(fixed=false);
-  final parameter Real[nbTimTot] dspline(fixed=false);
+  final parameter Integer nTimTot=nTimSho+nTimLon;
+  final parameter Real[nTimTot] gFun(fixed=false);
+  final parameter Real[nTimTot] lntts(fixed=false);
+  final parameter Modelica.SIunits.Time[nTimTot] tGFun(fixed=false);
+  final parameter Real[nTimTot] dspline(fixed=false);
 
   Real gFun_int;
   Real lntts_int;
@@ -36,15 +36,15 @@ initial equation
   // Evaluate g-function for the specified bore field configuration
   (tGFun,gFun) =
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction(
-      nbBor = nbBor,
+      nBor = nBor,
       cooBor = cooBor,
       hBor = hBor,
       dBor = dBor,
       rBor = rBor,
       aSoi = aSoi,
-      nbSeg = nbSeg,
-      nbTimSho = nbTimSho,
-      nbTimLon = nbTimLon,
+      nSeg = nSeg,
+      nTimSho = nTimSho,
+      nTimLon = nTimLon,
       ttsMax = ttsMax);
   lntts = log(tGFun/ts .+ Modelica.Constants.small);
   // Initialize parameters for interpolation
@@ -71,7 +71,7 @@ equation
     y2d = dspline[pre(k)+1]);
   // Update interpolation parameters, when needed
   when time >= pre(t2) then
-    k = min(pre(k) + 1, nbTimTot);
+    k = min(pre(k) + 1, nTimTot);
     t1 = tGFun[k];
     t2 = tGFun[k+1];
     gFun1 = gFun[k];

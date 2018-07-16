@@ -6,9 +6,9 @@ function timeGeometric "Geometric expansion of time steps"
   // in which case unit="1" should be declared for clarity.
   input Real dt "Minimum time step";
   input Real t_max "Maximum value of time";
-  input Integer nbTim "Number of time values";
+  input Integer nTim "Number of time values";
 
-  output Real t[nbTim] "Time vector";
+  output Real t[nTim] "Time vector";
 
   // fixme: comment and units if applicable missing for r and dr
 protected
@@ -17,24 +17,24 @@ protected
 
 algorithm
 
-  if t_max > nbTim*dt then
+  if t_max > nTim*dt then
     // Determine expansion rate (r)
     dr := 1e99;
     r := 2;
     while abs(dr) > 1e-10 loop
-      dr := (1+t_max/dt*(r-1))^(1/nbTim) - r;
+      dr := (1+t_max/dt*(r-1))^(1/nTim) - r;
       r := r + dr;
     end while;
     // Assign time values
-    for i in 1:nbTim-1 loop
+    for i in 1:nTim-1 loop
       t[i] := dt*(1-r^i)/(1-r);
     end for;
-      t[nbTim] := t_max;
+      t[nTim] := t_max;
 
   else
     // Number of time values to large for chosen parameters:
     // Use a constant time step
-    for i in 1:nbTim loop
+    for i in 1:nTim loop
       t[i] := i*dt;
     end for;
 
@@ -42,11 +42,11 @@ algorithm
 annotation (
 Documentation(info="<html>
 <p>
-This function attemps to build a vector of length <code>nbTim</code> with a geometric
+This function attemps to build a vector of length <code>nTim</code> with a geometric
 expansion of the time variable between <code>dt</code> and <code>t_max</code>.
 </p>
 <p>
-If <code>t_max &gt; nbTim*dt</code>, then a geometrically expanding vector is built as
+If <code>t_max &gt; nTim*dt</code>, then a geometrically expanding vector is built as
 </p>
 <p align=\"center\">
 <i>t = [dt, dt*(1-r<sup>2</sup>)/(1-r), ... , dt*(1-r<sup>n</sup>)/(1-r), ... , t<sub>max</sub>],</i>
@@ -55,10 +55,10 @@ If <code>t_max &gt; nbTim*dt</code>, then a geometrically expanding vector is bu
 where <i>r</i> is the geometric expansion factor.
 </p>
 <p>
-If <code>t_max &lt; nbTim*dt</code>, then a linearly expanding vector is built as
+If <code>t_max &lt; nTim*dt</code>, then a linearly expanding vector is built as
 </p>
 <p align=\"center\">
-<i>t = [dt, 2*dt, ... , n*dt, ... , <code>nbTim</code>*dt]</i>
+<i>t = [dt, 2*dt, ... , n*dt, ... , <code>nTim</code>*dt]</i>
 </p>
 </html>", revisions="<html>
 <ul>

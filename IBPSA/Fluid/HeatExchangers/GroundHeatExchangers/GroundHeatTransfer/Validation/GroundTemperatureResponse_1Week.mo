@@ -32,7 +32,7 @@ model GroundTemperatureResponse_1Week
       steadyState=true),
     conDat(
       borCon=Types.BoreholeConfiguration.SingleUTube,
-      nbBor=1,
+      nBor=1,
       cooBor={{0,0}},
       mBor_flow_nominal=0.3,
       dp_nominal=5e4,
@@ -56,7 +56,7 @@ model GroundTemperatureResponse_1Week
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
   GroundHeatTransfer.GroundTemperatureResponse groTemRes(
     borFieDat=borFieDat,
-    p_max=5,
+    nCel=5,
     tLoaAgg=30) "Heat conduction in the soil"
     annotation (Placement(transformation(extent={{8,-70},{-12,-50}})));
   Modelica.Blocks.Sources.Constant groTem(k=T_start)
