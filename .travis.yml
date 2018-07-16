@@ -23,8 +23,8 @@ env:
 ##  - TEST_ARG="make test-dymola    PACKAGE=\"IBPSA.Fluid.{Actuators,BaseClasses,Chillers,Delays,Examples,FMI,FixedResistances}\""
 ##  - TEST_ARG="make test-jmodelica PACKAGE=\"IBPSA.Fluid.{Actuators,BaseClasses,Chillers,Delays,Examples,FMI,FixedResistances}\""
 ## Temporarily only test the revised examples and validation tests, as other may not yet work.
-  - TEST_ARG="make test-dymola    PACKAGE=\"IBPSA.{Utilities.Cryptographics,Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer}\""
-  - TEST_ARG="make test-jmodelica PACKAGE=\"IBPSA.{Utilities.Cryptographics,Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer}\""
+  - TEST_ARG="make test-dymola    PACKAGE=\"IBPSA.{Utilities.Cryptographics,Utilities.Math,Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer}\""
+  - TEST_ARG="make test-jmodelica PACKAGE=\"IBPSA.{Utilities.Cryptographics,Utilities.Math,Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer}\""
 ##  - TEST_ARG="make test-dymola    PACKAGE=\"IBPSA.Fluid.{HeatExchangers,HeatPumps,Interfaces,MassExchangers,MixingVolumes,Movers,Sensors,Sources,Storage}\""
 ##  - TEST_ARG="make test-jmodelica PACKAGE=\"IBPSA.Fluid.{HeatExchangers,HeatPumps,Interfaces,MassExchangers,MixingVolumes,Movers,Sensors,Sources,Storage}\""
 ##  - TEST_ARG="make test-dymola    PACKAGE=\"IBPSA.ThermalZones\""
