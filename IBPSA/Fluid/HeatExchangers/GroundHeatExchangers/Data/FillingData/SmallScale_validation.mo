@@ -1,14 +1,15 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData;
 record SmallScale_validation
-  "FillingData record for the Cimmino and Bernier (2015) experiment"
-  extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData.Template(
-    kFil=0.262,
-    dFil=1750,
-    cFil=745);
+  "Filling data record for the Cimmino and Bernier (2015) experiment"
+  extends
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData.Template(
+      kFil=0.262,
+      dFil=1750,
+      cFil=745);
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram( coordinateSystem(preserveAspectRatio=false)),
-    Documentation(
+  defaultComponentPrefixes="parameter",
+  defaultComponentName="filDat",
+Documentation(
 info="<html>
 <p>This record contains the filling data of the Cimmino and
 Bernier (2015) experiment.</p>
@@ -21,7 +22,12 @@ g-functions of a small-scale geothermal borehole</i>. Geothermics 56: 60-71.
 revisions="<html>
 <ul>
 <li>
-July 28, 2018, by Massimo Cimmino:<br/>
+July 15, 2018, by Michael Wetter:<br/>
+Revised implementation, added <code>defaultComponentPrefixes</code> and
+<code>defaultComponentName</code>.
+</li>
+<li>
+June 28, 2018, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>

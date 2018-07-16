@@ -1,15 +1,15 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData;
 record ExampleBorefieldData
-  "Example definition of a BorefieldData record"
-  extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template(
-    filDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData.Bentonite(),
-    soiDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData.SandStone(),
-    conDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.ExampleConfigurationData());
-
+  "Example definition of a borefield data record"
+  extends
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template(
+      filDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData.Bentonite(),
+      soiDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData.SandStone(),
+      conDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.ExampleConfigurationData());
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram( coordinateSystem(preserveAspectRatio=false)),
-    Documentation(
+defaultComponentPrefixes="parameter",
+defaultComponentName="borFieDat",
+Documentation(
 info="<html>
 <p>This record presents an example on how to define BorefieldData records
 using the template in
@@ -19,7 +19,12 @@ IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template</a>.
 revisions="<html>
 <ul>
 <li>
-July 28, 2018, by Damien Picard:<br/>
+July 15, 2018, by Michael Wetter:<br/>
+Revised implementation, added <code>defaultComponentPrefixes</code> and
+<code>defaultComponentName</code>.
+</li>
+<li>
+June 28, 2018, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

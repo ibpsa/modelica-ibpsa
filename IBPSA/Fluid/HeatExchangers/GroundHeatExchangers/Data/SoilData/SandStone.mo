@@ -1,22 +1,29 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData;
 record SandStone
-  "SoilData records of sanstone heat transfer properties"
-  extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData.Template(
+  "Soil data record of sandstone heat transfer properties"
+  extends
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData.Template(
     kSoi=2.8,
     dSoi=540,
     cSoi=1210);
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram( coordinateSystem(preserveAspectRatio=false)),
-    Documentation(
+  defaultComponentPrefixes="parameter",
+  defaultComponentName="soiDat",
+Documentation(
 info="<html>
-<p>This soil data record contains the heat transfer properties of
-sandstone.</p>
+<p>
+This soil data record contains the heat transfer properties of sandstone.
+</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-July 28, 2018, by Damien Picard:<br/>
+July 15, 2018, by Michael Wetter:<br/>
+Revised implementation, added <code>defaultComponentPrefixes</code> and
+<code>defaultComponentName</code>.
+</li>
+<li>
+June 28, 2018, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

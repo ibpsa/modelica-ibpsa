@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData;
 record Template
-  "Template for SoilData records"
+  "Template for soil data records"
   extends Modelica.Icons.Record;
   parameter Modelica.SIunits.ThermalConductivity kSoi
     "Thermal conductivity of the soil material";
@@ -13,18 +13,25 @@ record Template
   final parameter Modelica.SIunits.ThermalDiffusivity aSoi=kSoi/(dSoi*cSoi)
     "Heat diffusion coefficient of the soil material";
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram( coordinateSystem(preserveAspectRatio=false)),
-    Documentation(
+  defaultComponentPrefixes="parameter",
+  defaultComponentName="soiDat",
+Documentation(
 info="<html>
-<p>This record is a template for the records in
+<p>
+This record is a template for the records in
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData</a>.</p>
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-July 28, 2018, by Damien Picard:<br/>
+July 15, 2018, by Michael Wetter:<br/>
+Revised implementation, added <code>defaultComponentPrefixes</code> and
+<code>defaultComponentName</code>.
+</li>
+<li>
+June28, 2018, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData;
 record Template
-  "Template for FillingData records"
+  "Template for filling data records"
   extends Modelica.Icons.Record;
   parameter Modelica.SIunits.ThermalConductivity kFil
     "Thermal conductivity of the borehole filling material";
@@ -14,9 +14,9 @@ record Template
   final parameter Modelica.SIunits.ThermalDiffusivity aFil = kFil/(dFil*cFil)
     "Heat diffusion coefficient of the borehole filling material";
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram( coordinateSystem(preserveAspectRatio=false)),
-    Documentation(
+  defaultComponentPrefixes="parameter",
+  defaultComponentName="filDat",
+Documentation(
 info="<html>
 <p>This record is a template for the records in
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData\">
@@ -25,7 +25,12 @@ IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData</a>.</p>
 revisions="<html>
 <ul>
 <li>
-July 28, 2018, by Damien Picard:<br/>
+July 15, 2018, by Michael Wetter:<br/>
+Revised implementation, added <code>defaultComponentPrefixes</code> and
+<code>defaultComponentName</code>.
+</li>
+<li>
+June 28, 2018, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
