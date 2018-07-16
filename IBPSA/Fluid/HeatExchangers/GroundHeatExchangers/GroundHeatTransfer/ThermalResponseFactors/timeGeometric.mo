@@ -16,7 +16,6 @@ protected
   Real dr;
 
 algorithm
-
   if t_max > nTim*dt then
     // Determine expansion rate (r)
     dr := 1e99;
