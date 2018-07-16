@@ -293,7 +293,7 @@ void SHA1(
     hash_out[20] = '\0';
 }
 
-const char* hash(char* str)
+const char* cryptographicsHash(char* str)
 {
     char result[21];
 	char* hexresult = malloc(41*sizeof(char));

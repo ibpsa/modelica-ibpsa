@@ -59,7 +59,7 @@ the following strings:
 </p>
 <p>
 If the encrypted strings are identical to the expected (known) encryption
-results, the <code>cmpAll</code> boolean variable will return <code>True</code>.
+results, the <code>cmpAll</code> boolean variable will be <code>true</code>.
 </p>
 </html>",
 revisions="<html>
