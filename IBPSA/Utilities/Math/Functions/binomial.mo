@@ -2,7 +2,7 @@ within IBPSA.Utilities.Math.Functions;
 function binomial "Returns the binomial coefficient"
   extends Modelica.Icons.Function;
 
-  input Integer n(min=k) "Size of set";
+  input Integer n "Size of set";
   input Integer k(min=0) "Size of subsets";
   output Integer binom "Binomial coefficient";
 
