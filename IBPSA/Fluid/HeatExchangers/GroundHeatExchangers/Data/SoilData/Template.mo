@@ -7,7 +7,7 @@ record Template
   parameter Modelica.SIunits.SpecificHeatCapacity cSoi
     "Specific heat capacity of the soil material";
   parameter Modelica.SIunits.Density dSoi "Density of the soil material";
-  parameter Boolean steadyState = (cSoi == 0 or dSoi == 0)
+  parameter Boolean steadyState = (cSoi < Modelica.Constants.eps or dSoi < Modelica.Constants.eps)
     "Flag, if true, then material is computed using steady-state heat conduction"
     annotation(Evaluate=true);
   final parameter Modelica.SIunits.ThermalDiffusivity aSoi=kSoi/(dSoi*cSoi)
@@ -29,6 +29,7 @@ revisions="<html>
 July 15, 2018, by Michael Wetter:<br/>
 Revised implementation, added <code>defaultComponentPrefixes</code> and
 <code>defaultComponentName</code>.
+Corrected check of real variable against zero which is not allowed in Modelica.
 </li>
 <li>
 June28, 2018, by Damien Picard:<br/>

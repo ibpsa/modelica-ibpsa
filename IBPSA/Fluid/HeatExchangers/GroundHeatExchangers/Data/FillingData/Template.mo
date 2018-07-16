@@ -8,7 +8,7 @@ record Template
     "Specific heat capacity of the borehole filling material";
   parameter Modelica.SIunits.Density dFil
     "Density of the borehole filling material";
-  parameter Boolean steadyState = (cFil == 0 or dFil == 0)
+  parameter Boolean steadyState = (cFil < Modelica.Constants.eps or dFil < Modelica.Constants.eps)
     "Flag, if true, then material is computed using steady-state heat conduction"
     annotation(Evaluate=true);
   final parameter Modelica.SIunits.ThermalDiffusivity aFil = kFil/(dFil*cFil)
@@ -28,6 +28,7 @@ revisions="<html>
 July 15, 2018, by Michael Wetter:<br/>
 Revised implementation, added <code>defaultComponentPrefixes</code> and
 <code>defaultComponentName</code>.
+Corrected check of real variable against zero which is not allowed in Modelica.
 </li>
 <li>
 June 28, 2018, by Damien Picard:<br/>
