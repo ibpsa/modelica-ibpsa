@@ -1,5 +1,5 @@
-#ifndef SHA1_H
-#define SHA1_H
+#ifndef CRYPTOGRAPHICSHASH_H
+#define CRYPTOGRAPHICSHASH_H
 
 /*
    SHA-1 in C
@@ -41,4 +41,4 @@ void SHA1(
     const char *str,
     int len);
 
-#endif /* SHA1_H */
+#endif /* CRYPTOGRAPHICSHASH_H */

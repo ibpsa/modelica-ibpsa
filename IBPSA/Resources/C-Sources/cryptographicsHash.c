@@ -22,7 +22,7 @@ A million repetitions of "a"
 /* for uint32_t */
 #include <stdint.h>
 
-#include "sha1.h"
+#include "cryptographicsHash.h"
 
 
 #define rol(value, bits) (((value) << (bits)) | ((value) >> (32 - (bits))))
@@ -304,6 +304,6 @@ const char* cryptographicsHash(char* str)
     for( offset = 0; offset < 20; offset++) {
         sprintf( ( hexresult + (2*offset)), "%02x", result[offset]&0xff);
     }
-	
+
     return hexresult;
 }
