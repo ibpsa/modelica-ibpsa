@@ -1,11 +1,10 @@
 within IBPSA.Utilities.Math.Functions.Examples;
-model BesselJ1 "Test case for bessel function J1"
+model BesselJ1 "Test case for Bessel function J1"
   extends Modelica.Icons.Example;
 
   Real J1 "Bessel function J1";
 
 equation
-
   J1 = IBPSA.Utilities.Math.Functions.besselJ1(time);
 
   annotation (
@@ -15,8 +14,8 @@ equation
     experiment(Tolerance=1e-6, StopTime=30.0),
     Documentation(info="<html>
 <p>
-This example demonstrates the use of the function for bessel functions of the
-first kind of order 1, J1.
+This example demonstrates the use of the function for Bessel functions of the
+first kind of order 1, <i>J1</i>.
 </p>
 </html>", revisions="<html>
 <ul>

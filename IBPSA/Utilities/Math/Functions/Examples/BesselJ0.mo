@@ -1,5 +1,5 @@
 within IBPSA.Utilities.Math.Functions.Examples;
-model BesselJ0 "Test case for bessel function J0"
+model BesselJ0 "Test case for Bessel function J0"
   extends Modelica.Icons.Example;
 
   Real J0 "Bessel function J0";
@@ -15,8 +15,8 @@ equation
     experiment(Tolerance=1e-6, StopTime=30.0),
     Documentation(info="<html>
 <p>
-This example demonstrates the use of the function for bessel functions of the
-first kind of order 0, J0.
+This example demonstrates the use of the function for Bessel functions of the
+first kind of order 0, <i>J0</i>.
 </p>
 </html>", revisions="<html>
 <ul>

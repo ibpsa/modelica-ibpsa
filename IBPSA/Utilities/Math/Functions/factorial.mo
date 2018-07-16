@@ -2,7 +2,7 @@ within IBPSA.Utilities.Math.Functions;
 function factorial "Returns the value n! as an integer"
   extends Modelica.Icons.Function;
 
-  input Integer n "Integer number";
+  input Integer n(min=0, max=12) "Integer number";
   output Integer f "Factorial of n";
 
 algorithm
@@ -15,7 +15,7 @@ algorithm
 
 annotation (Documentation(info="<html>
 <p>
-Function that evaluates the factorial of the input.
+Function that returns the factorial <i>n!</i> for <i>0 &le; n &le; 12</i>.
 </p>
 </html>", revisions="<html>
 <ul>

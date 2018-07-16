@@ -6,7 +6,6 @@ model Factorial "Test case for evaluation of factorials"
   Integer n "n";
 
 equation
-
   n = integer(floor(time));
   fac = IBPSA.Utilities.Math.Functions.factorial(n);
 

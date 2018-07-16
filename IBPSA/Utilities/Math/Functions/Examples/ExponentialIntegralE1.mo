@@ -6,7 +6,6 @@ model ExponentialIntegralE1
   Real E1 "Exponential integral E1";
 
 equation
-
   E1 = IBPSA.Utilities.Math.Functions.exponentialIntegralE1(time + Modelica.Constants.small);
 
   annotation (
@@ -17,7 +16,7 @@ equation
     Documentation(info="<html>
 <p>
 This example demonstrates the use of the function for the exponential integral,
-E1.
+<i>E1</i>.
 </p>
 </html>", revisions="<html>
 <ul>

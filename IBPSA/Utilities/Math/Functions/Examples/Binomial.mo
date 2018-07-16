@@ -6,7 +6,6 @@ model Binomial "Test case for evaluation of binomial coefficients"
   Integer n "Size of set";
 
 equation
-
   n = integer(if time >= 1 then floor(time) else 1);
 
   for k in 1:10 loop
@@ -16,8 +15,6 @@ equation
       bin[k] = 0.0;
     end if;
   end for;
-
-
 
   annotation (
     __Dymola_Commands(file=

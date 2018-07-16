@@ -7,7 +7,6 @@ model FallingFactorial
   Integer n "n";
 
 equation
-
   n = integer(floor(time));
 
   for k in 1:10 loop

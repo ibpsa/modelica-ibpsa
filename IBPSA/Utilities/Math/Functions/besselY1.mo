@@ -37,7 +37,6 @@ protected
   Real coeff2;
 
 algorithm
-
   if ax < 8.0 then
     y := x^2;
     coeff1 := R[6];
@@ -62,7 +61,7 @@ algorithm
 annotation (
 Documentation(info="<html>
 <p>
-Evaluates the bessel function of the second kind of order 1 (Y<sub>1</sub>), based
+Evaluates the Bessel function of the second kind of order 1 (<i>Y<sub>1</sub></i>), based
 on the implementations of Press et al. (1986).
 </p>
 <h4>References</h4>

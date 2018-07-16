@@ -1,11 +1,10 @@
 within IBPSA.Utilities.Math.Functions.Examples;
-model BesselY0 "Test case for bessel function Y0"
+model BesselY0 "Test case for Bessel function Y0"
   extends Modelica.Icons.Example;
 
   Real Y0 "Bessel function Y0";
 
 equation
-
   Y0 = IBPSA.Utilities.Math.Functions.besselY0(time + Modelica.Constants.small);
 
   annotation (
@@ -15,8 +14,8 @@ equation
     experiment(Tolerance=1e-6, StopTime=30.0),
     Documentation(info="<html>
 <p>
-This example demonstrates the use of the function for bessel functions of the
-second kind of order 0, Y0.
+This example demonstrates the use of the function for Bessel functions of the
+second kind of order 0, <i>Y0</i>.
 </p>
 </html>", revisions="<html>
 <ul>
