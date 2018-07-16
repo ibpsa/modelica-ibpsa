@@ -1,7 +1,6 @@
 aggregationCellTimes
 aggregationWeightingFactors
 countAggregationCells
-setFirstAggregationCell
 shiftAggregationCells
 temperatureResponseMatrix
 temporalSuperposition

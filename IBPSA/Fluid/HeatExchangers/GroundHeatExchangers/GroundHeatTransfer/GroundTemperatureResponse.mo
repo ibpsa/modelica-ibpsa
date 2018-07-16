@@ -129,11 +129,9 @@ equation
     // Assign average load since last aggregation step to the first cell of the
     // aggregation vector
     U_old = U;
-    QAgg_flow = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.setFirstAggregationCell(
-      i=i,
-      QBor_flow=(U - pre(U_old))/tLoaAgg,
-      QAggShi_flow=pre(QAggShi_flow));
 
+    // Store (U - pre(U_old))/tLoaAgg in QAgg_flow[1], and pre(QAggShi_flow) in the other elements
+    QAgg_flow = cat(1, {(U - pre(U_old))/tLoaAgg}, pre(QAggShi_flow[2:end]));
     // Shift loads in aggregation cells
     (curCel,QAggShi_flow) = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.shiftAggregationCells(
       i=i,
