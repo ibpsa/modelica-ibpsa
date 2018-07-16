@@ -98,7 +98,7 @@ initial equation
 equation
     assert(borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.SingleUTube,
   "This model should be used for single U-type borefield, not double U-type. 
-  Check that the record General has been correctly parametrized");
+  Check that the conDat record has been correctly parametrized");
   connect(RVol2.y, RConv2.Rc) annotation (Line(points={{-79,-8},{-60,-8},{-40,
           -8},{-40,-28},{-12,-28}},
                                 color={0,0,127}));

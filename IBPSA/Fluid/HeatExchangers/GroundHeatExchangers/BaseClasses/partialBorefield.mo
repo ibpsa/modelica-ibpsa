@@ -2,11 +2,6 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses;
 partial model partialBorefield
   "Borefield model using single U-tube borehole heat exchanger configuration.Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
 
-  //FIXME: add assert to check configurations:
-   // assert(gen.rBor > gen.xC + gen.rTub + gen.eTub and
-   //       0 < gen.xC - gen.rTub - gen.eTub,
-   //       "The borehole geometry is not physical. Check rBor, rTub and xC to make sure that the tube is placed inside the halve of the borehole.");
-
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
     m_flow_nominal=borFieDat.conDat.mBor_flow_nominal);
 
@@ -15,12 +10,15 @@ partial model partialBorefield
     dp_nominal=borFieDat.conDat.dp_nominal);
 
   // Simulation parameters
-  parameter Modelica.SIunits.Time tLoaAgg=3600 "Time resolution of load aggregation";
+  parameter Modelica.SIunits.Time tLoaAgg=300 "Time resolution of load aggregation";
   parameter Integer p_max(min=1)=5 "Number of cells per aggregation level";
   parameter Integer nSeg(min=1)=10
     "Number of segments to use in vertical discretization of the boreholes";
   parameter Modelica.SIunits.Temperature TMedGro
     "Initial temperature of grout material and fluid medium";
+  parameter Boolean forceGFunCalc = false
+    "Set to true to force the thermal response to be calculated at the start instead of checking whether this has been pre-computed"
+    annotation (Dialog(tab="Advanced"));
 
   // General parameters of borefield
   parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template borFieDat "Borefield data"
@@ -43,7 +41,9 @@ partial model partialBorefield
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse groTemRes(
     tLoaAgg=tLoaAgg,
     p_max=p_max,
-    borFieDat=borFieDat) "Ground temperature response"
+    borFieDat=borFieDat,
+    forceGFunCalc=forceGFunCalc)
+                         "Ground temperature response"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=nSeg)
     "Thermal collector to connect the unique ground temperature to each borehole wall temperature of each segment"
@@ -63,7 +63,7 @@ equation
   connect(masFloDiv.port_b, port_a)
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
   connect(TSoi, groTemRes.TSoi)
-    annotation (Line(points={{-120,60},{-82,60},{-82,60}}, color={0,0,127}));
+    annotation (Line(points={{-120,60},{-82,60}},          color={0,0,127}));
   annotation (
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
     __Dymola_experimentSetupOutput,

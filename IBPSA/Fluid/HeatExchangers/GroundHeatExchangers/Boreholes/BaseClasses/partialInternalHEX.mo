@@ -50,6 +50,14 @@ protected
   parameter Real RCondGro_val(fixed=false)
     "Thermal resistance between: pipe wall to capacity in grout";
   parameter Real x(fixed=false) "Capacity location";
+
+initial equation
+  assert(borFieDat.conDat.rBor > borFieDat.conDat.xC + borFieDat.conDat.rTub and
+         0 < borFieDat.conDat.xC - borFieDat.conDat.rTub,
+         "The borehole geometry is not physical. Check the borefield data record
+         to ensure that the shank spacing is larger than the outer tube radius
+         and that the borehole radius is sufficiently large.");
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>

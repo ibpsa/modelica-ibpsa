@@ -159,7 +159,7 @@ equation
   assert(borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel
      or borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeSeries,
     "This model should be used for double U-type borefield, not single U-type. 
-  Check that the record General has been correctly parametrized");
+  Check that the conDat record has been correctly parametrized");
   connect(RVol1.y, RConv1.Rc) annotation (Line(
       points={{-30.7,64},{-34,64},{-34,46},{-8,46}},
       color={0,0,127},
