@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation;
+within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation;
 model GroundTemperatureResponse_20Years
   "Long term validation of ground temperature response model"
   extends Modelica.Icons.Example;
