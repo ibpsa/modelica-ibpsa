@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData;
-record ExampleConfigurationData
+record Example
   "Example definition of a configuration data record"
   extends
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Template(
@@ -40,4 +40,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ExampleConfigurationData;
+end Example;

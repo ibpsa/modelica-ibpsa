@@ -38,8 +38,8 @@ extends Modelica.Icons.Example;
       m_flow_nominal=borFie2UTubParDat.conDat.mBor_flow_nominal)
     "Outlet temperature of the borefield with 2-UTube in parallel configuration"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Data.BorefieldData.ExampleBorefieldData borFieUTubDat(conDat=
-        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.ExampleConfigurationData(
+  Data.BorefieldData.Example borFieUTubDat(conDat=
+        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
         borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.SingleUTube))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Modelica.Blocks.Sources.Constant TGro(k=283.15) "Ground temperature"
@@ -76,8 +76,8 @@ extends Modelica.Icons.Example;
       m_flow_nominal=borFie2UTubSerDat.conDat.mBor_flow_nominal)
     "Outlet temperature of the borefield with 2-UTube in serie configuration"
     annotation (Placement(transformation(extent={{42,50},{62,70}})));
-  Data.BorefieldData.ExampleBorefieldData borFie2UTubParDat(conDat=
-        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.ExampleConfigurationData(
+  Data.BorefieldData.Example borFie2UTubParDat(conDat=
+        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
         borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel))
     "Data from the borefield with 2-UTube in parallel borehole configuration"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
@@ -112,8 +112,8 @@ extends Modelica.Icons.Example;
       m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal)
     "Inlet temperature of the borefield with UTube configuration"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Data.BorefieldData.ExampleBorefieldData borFie2UTubSerDat(conDat=
-        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.ExampleConfigurationData(
+  Data.BorefieldData.Example borFie2UTubSerDat(conDat=
+        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
         borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeSeries))
     "Data from the borefield with 2-UTube in serie borehole configuration"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));

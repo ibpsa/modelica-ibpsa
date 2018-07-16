@@ -1,11 +1,11 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData;
-record ExampleBorefieldData
+record Example
   "Example definition of a borefield data record"
   extends
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template(
       filDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData.Bentonite(),
       soiDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData.SandStone(),
-      conDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.ExampleConfigurationData());
+      conDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example());
   annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="borFieDat",
@@ -29,4 +29,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ExampleBorefieldData;
+end Example;
