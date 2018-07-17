@@ -43,7 +43,7 @@ model InternalResistancesTwoUTube "Validation of singleUTubeResistance by compar
   parameter Real RCondPipe_ref =  0.07868;
 equation
   (x,Rgb_val,Rgg_val,RCondGro_val) =
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesTwoUtube(
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube(
     hSeg=hSeg,
     rBor=rBor,
     rTub=rTub,

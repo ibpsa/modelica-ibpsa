@@ -179,7 +179,7 @@ protected
 
 initial equation
   (x,Rgb_val,Rgg1_val,Rgg2_val,RCondGro_val) =
-    Functions.internalResistancesTwoUtube(
+    Functions.internalResistancesTwoUTube(
     hSeg=hSeg,
     rBor=borFieDat.conDat.rBor,
     rTub=borFieDat.conDat.rTub,
