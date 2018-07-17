@@ -5,13 +5,13 @@ model BesselY0 "Test case for Bessel function Y0"
   Real Y0 "Bessel function Y0";
 
 equation
-  Y0 = IBPSA.Utilities.Math.Functions.besselY0(time + Modelica.Constants.small);
+  Y0 = IBPSA.Utilities.Math.Functions.besselY0(time);
 
   annotation (
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/BesselY0.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-6, StopTime=30.0),
+    experiment(Tolerance=1e-6, StartTime=0.1, StopTime=30.0),
     Documentation(info="<html>
 <p>
 This example demonstrates the use of the function for Bessel functions of the

@@ -6,13 +6,13 @@ model ExponentialIntegralE1
   Real E1 "Exponential integral E1";
 
 equation
-  E1 = IBPSA.Utilities.Math.Functions.exponentialIntegralE1(time + Modelica.Constants.small);
+  E1 = IBPSA.Utilities.Math.Functions.exponentialIntegralE1(time);
 
   annotation (
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/ExponentialIntegralE1.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-6, StopTime=3.0),
+    experiment(Tolerance=1e-6, StartTime=0.01, StopTime=3.0),
     Documentation(info="<html>
 <p>
 This example demonstrates the use of the function for the exponential integral,
