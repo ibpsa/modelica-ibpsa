@@ -97,7 +97,6 @@ model InternalHEXTwoUTube
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-68,12},{-54,28}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalResistancesTwoUTube intRes2UTub(
-    T_start=T_start,
     hSeg=hSeg,
     borFieDat=borFieDat,
     Rgb_val=Rgb_val,
@@ -105,7 +104,8 @@ model InternalHEXTwoUTube
     Rgg2_val=Rgg2_val,
     RCondGro_val=RCondGro_val,
     dynFil=dynFil,
-    energyDynamics=energyDynamics)
+    energyDynamics=energyDynamics,
+    T_start=TGro_start)
                    "Internal resistances for a double U-tube configuration"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor RConv1

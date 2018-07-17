@@ -5,7 +5,7 @@ partial model partialBorefield
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
     m_flow_nominal=borFieDat.conDat.mBor_flow_nominal);
 
-  extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = TMedGro);
+  extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     dp_nominal=borFieDat.conDat.dp_nominal);
 
@@ -14,8 +14,9 @@ partial model partialBorefield
   parameter Integer p_max(min=1)=5 "Number of cells per aggregation level";
   parameter Integer nSeg(min=1)=10
     "Number of segments to use in vertical discretization of the boreholes";
-  parameter Modelica.SIunits.Temperature TMedGro
-    "Initial temperature of grout material and fluid medium";
+  parameter Modelica.SIunits.Temperature TGro_start = Medium.T_default
+    "Start value of grout temperature"
+    annotation (Dialog(tab="Initialization"));
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether this has been pre-computed"
     annotation (Dialog(tab="Advanced"));

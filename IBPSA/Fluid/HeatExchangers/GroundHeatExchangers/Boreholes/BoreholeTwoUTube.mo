@@ -56,7 +56,8 @@ model BoreholeTwoUTube "Double U-tube borehole heat exchanger"
     each final p2_start=p_start,
     each final p3_start=p_start,
     each final p4_start=p_start,
-    each final T_start=T_start) "Discretized borehole segments"
+    each final T_start=T_start,
+    each final TGro_start=TGro_start)      "Discretized borehole segments"
     annotation (Placement(transformation(extent={{-10,-30},{10,10}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall[nSeg] "Borehole wall temperatures"

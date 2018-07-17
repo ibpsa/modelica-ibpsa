@@ -21,8 +21,11 @@ partial model partialInternalHEX
   parameter Modelica.SIunits.Volume VTubSeg = hSeg*Modelica.Constants.pi*(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2
     "Fluid volume in each tube";
   parameter Modelica.SIunits.Temperature T_start
-    "Initial temperature of the filling material and fluid"
-    annotation (Dialog(group="Filling material"));
+    "Start value of fluid temperature"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.SIunits.Temperature TGro_start
+    "Start value of grout temperature"
+    annotation (Dialog(tab="Initialization"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall
     "Thermal connection for borehole wall"

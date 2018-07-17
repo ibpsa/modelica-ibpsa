@@ -23,8 +23,9 @@ model InternalHEXTwoUTube
     dp4_nominal=10,
     dynFil=true,
     borFieDat=borFieDat,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=285.15,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    TGro_start=285.15)
     annotation (Placement(transformation(extent={{-10,-12},{10,10}})));
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15

@@ -58,12 +58,12 @@ public
     intResUTub(
       dynFil=dynFil,
       hSeg=hSeg,
-      T_start=T_start,
       energyDynamics=energyDynamics,
       Rgb_val=Rgb_val,
       Rgg_val=Rgg_val,
       RCondGro_val=RCondGro_val,
-      borFieDat=borFieDat)
+      borFieDat=borFieDat,
+      T_start=TGro_start)
     "Internal resistances for a single U-tube configuration"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor RConv2
@@ -113,7 +113,7 @@ equation
   connect(RConv2.solid, intResUTub.port_2) annotation (Line(points={{0,-16},{0,
           -12},{16,-12},{16,0},{10,0}}, color={191,0,0}));
   connect(intResUTub.port_wall, port_wall) annotation (Line(points={{0,0},{0,0},
-          {0,6},{0,6},{0,6},{-28,6},{-28,86},{0,86},{0,100}}, color={191,0,0}));
+          {0,6},{-28,6},{-28,86},{0,86},{0,100}},             color={191,0,0}));
     annotation (Dialog(tab="Dynamics"),
     Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
                     graphics={Rectangle(

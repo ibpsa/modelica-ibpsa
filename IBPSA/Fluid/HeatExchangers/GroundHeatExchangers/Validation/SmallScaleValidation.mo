@@ -15,7 +15,8 @@ model SmallScaleValidation
       package                                                                                Medium = Medium, borFieDat=
         borFieDat,
     tLoaAgg=5,
-    TMedGro=T_start)       "Borehole"
+    T_start=T_start,
+    TGro_start=T_start)       "Borehole"
     annotation (Placement(transformation(extent={{-12,-76},{14,-44}})));
 
   IBPSA.Fluid.Movers.FlowControlled_m_flow

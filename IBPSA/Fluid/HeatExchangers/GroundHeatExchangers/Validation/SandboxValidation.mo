@@ -11,7 +11,8 @@ model SandboxValidation
   BorefieldOneUTube borHol(redeclare package Medium = Medium, borFieDat=
         borFieDat,
     tLoaAgg=60,
-    TMedGro=T_start,
+    T_start=T_start,
+    TGro_start=T_start,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     mSenFac=mSenFac)             "Borehole"
     annotation (Placement(transformation(extent={{-12,-76},{14,-44}})));

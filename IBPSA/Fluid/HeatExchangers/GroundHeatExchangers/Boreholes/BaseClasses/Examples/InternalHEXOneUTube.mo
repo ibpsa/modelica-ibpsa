@@ -18,8 +18,9 @@ model InternalHEXOneUTube
     borFieDat=borFieDat,
     m1_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     m2_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=285.15,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    TGro_start=285.15)
     annotation (Placement(transformation(extent={{-10,-12},{10,10}})));
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15

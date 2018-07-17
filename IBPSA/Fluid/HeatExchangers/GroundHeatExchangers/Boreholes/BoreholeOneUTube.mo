@@ -25,7 +25,8 @@ model BoreholeOneUTube "Single U-tube borehole heat exchanger"
     each final allowFlowReversal2=allowFlowReversal,
     each final show_T=show_T,
     each final p1_start=p_start,
-    each final p2_start=p_start) "Discretized borehole segments"
+    each final p2_start=p_start,
+    each final TGro_start=TGro_start)       "Discretized borehole segments"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(port_a, intHex[1].port_a1) annotation (Line(

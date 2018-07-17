@@ -13,6 +13,9 @@ partial model partialBorehole
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   parameter Integer nSeg(min=1) = 10
     "Number of segments to use in vertical discretization of the boreholes";
+  parameter Modelica.SIunits.Temperature TGro_start = Medium.T_default
+    "Start value of grout temperature"
+    annotation (Dialog(tab="Initialization"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall[nSeg]
     "Thermal connection for borehole wall"

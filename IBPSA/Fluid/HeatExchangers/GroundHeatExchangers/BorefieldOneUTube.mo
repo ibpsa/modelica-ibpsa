@@ -23,7 +23,9 @@ model BorefieldOneUTube
     C_nominal=C_nominal,
     mSenFac=mSenFac,
     dynFil=dynFil,
-    nSeg=nSeg) "Borehole"
+    nSeg=nSeg,
+    TGro_start=TGro_start)
+               "Borehole"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
 equation
   connect(borHol.port_b, masFloMul.port_a)
