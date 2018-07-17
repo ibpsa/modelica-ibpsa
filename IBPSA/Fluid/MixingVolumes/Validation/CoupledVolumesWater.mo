@@ -1,7 +1,6 @@
 within IBPSA.Fluid.MixingVolumes.Validation;
 model CoupledVolumesWater
   "Validation model for two coupled volumes with water"
-  import IBPSA;
   extends Modelica.Icons.Example;
 
   replaceable package Medium = IBPSA.Media.Water
