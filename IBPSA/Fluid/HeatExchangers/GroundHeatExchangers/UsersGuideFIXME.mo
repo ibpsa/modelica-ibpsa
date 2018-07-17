@@ -5,256 +5,114 @@ package UsersGuideFIXME "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This package contains a borefield model. The model is able to simulate any arbitrary configuration of boreholes with both short and 
-long-term accuracy and an aggregation method is used to speed up the calculations. 
+This package contains borefield models. These models are able to simulate any arbitrary configuration of boreholes with both short and 
+long-term accuracy with an aggregation method to speed up the calculations of the ground heat transfer. Examples
+of how to use the borefield models and validation cases can be found in
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Examples\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Examples</a>
+and
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Validation\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Validation</a>,
+respectively.
 </p>
 <p>
-The major degrees of freedom currently supported are:
-</p>
+The major features and configurations currently supported are:
 <ul>
-<li> single U-tube, double U-tube in parallel, double U-tube in serie borehole heat exchangers for which the geometry
-is defined by the user (borehole radius, pipe radius, shank spacing, ...). </li>
-<li> the resistances <i>Rb</i> and <i>Ra</i> are either automatically calculated using the Multipole method, 
+<li> User-defined borefield characteristics and geometry (borehole radius, pipe radius, shank spacing, etc.), including 
+single U-tube, double U-tube in parallel and double U-tube in series configurations. </li>
+<li> The resistances <i>Rb</i> and <i>Ra</i> are either automatically calculated using the multipole method, 
 or they can be directly provided by the user.</li>
-<li> vertical discretization of each borehole is possible. However, the borehole wall temperature is identical for each borehole and along the 
+<li> User-defined vertical discretization of boreholes. However, the borehole wall temperature is identical for each borehole and along the 
 depth, as the analytical solution only computes the average borehole wall temperature.
-<li> multiple boreholes can be connected in parallel or in series.</li>
-<li> each borehole can be positioned arbitrarly in the field.</li>
-<li> the resolution of the aggregation technic can be adapted.</li>
-<li> pressure losses can be calculated if the <i>dp_nominal</i> is provided. </li>
+<li> Borefields can have one or many boreholes. Each borehole can be positioned arbitrarily in the field. </li>
+<li> The resolution and precision of the load aggregation method for the ground heat transfer can be adapted.</li>
+<li> The thermal response of the ground heat transfer can be stored locally to avoid having to recalculate it for future simulations with the same borefield configuration.
+<li> Pressure losses can be calculated if the <i>dp_nominal</i> parameter is provided. </li>
 </ul>
 
-<h4>How to use the model</h4>
+<h4>How to use the borefield models</h4>
+<h5>Borefield data record</h5>
 <p>
-The following paragrahs briefly describe how to use the model 
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.MultipleBoreHolesUTube\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.MultipleBoreHolesUTube</a>
-and 
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.MultipleBoreHoles2UTube\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.MultipleBoreHoles2UTube</a>
-.</p>
-<p>
-All the parameter values of the model are contained in the record called <i>BfData</i>. This record is composed of three subrecords, 
-namely <i>soi</i> (containing the ground thermal charachteristics), <i>fill</i> (containing the grout thermal charachteristics), 
-and <i>gen</i> (containing all others parameters). The record structures and default values are in the package: 
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.Data.Records\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.Data.Records</a>.
-Examples of <i>soi</i>, <i>fill</i> and <i>gen</i> records 
+Most of the parameter values of the model are contained in the record called <b><i>borFieDat</i></b>. This record is composed of three subrecords:
+<i>filDat</i> (containing the thermal characteristics of the borehole filling material), <i>soiDat</i> (containing the thermal characteristics of the surrounding soil), 
+and <i>conDat</i> (containing all others parameters, namely parameters defining the configuration of the borefield). The structure and default values of the record are in the package: 
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data</a>. The
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData\">BorefieldData</a> subpackage therein is the <i>borFieDat</i> record,
+while the other subpackages contain the exact fields and default values of the subrecords.
+Examples of <i>conDat</i>, <i>filDat</i> and <i>soiDat</i> records 
 can be found in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.Data.SoilData\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.Data.SoilData</a>,
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.Data.FillingData\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.Data.FillingData</a> and 
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.Data.GeneralData\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.Data.GeneralData</a>
-, respectively.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData</a>,
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData</a> and 
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData</a>, respectively.
 </p>
-
 <p>
-In order to use the model with the desired parameters, create and save in your own library a new <i>BfData</i> record as an extension 
-of <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.Data.Records.BorefieldData\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.Data.Records.BorefieldData</a>. 
-This records call the subrecords <i>soi</i>, <i>fill</i> and <i>gen</i>. 
-Create and save also these subrecords if they do not exist yet with the right parameter values.
-<b>Do not use modifiers for the records</b> as the model computes a SHA-code of the records and compare it with the 
-SHA-code of a previous simulation. This enable the user to avoid the re-computation of the short-term-response 
-and the aggregation matrix if this has already be done by a previous simulation.
+It is important to make sure that the <i>borCon</i> parameter within the <i>conDat</i> subrecord is compatible with the exact borefield model chosen. For example, if a double U-tube
+borefield model is chosen, the <i>borCon</i> parameter could be set to both a parallel double U-tube configuration and a double U-tube configuration in series,
+but could not be set to a single U-tube configuration.
 </p>
-
+<h5>Ground heat transfer parameters</h5>
 <p>
-Now that you have created your own <i>BfData</i> record, you can run your model containing a borefield using this <i>BfData</i> record. 
-At the initialization of the first simulation, you will receive an error message, asking you to paste a command in the command window 
-of the simulation tab. Pasting the command and pressing <i>enter</i> will call a script which computes the short-term response of the 
-borefield for the given parameters and save it in a folder <i>current folder/.bfData</i>. Once this is done, you can run your model. 
-For any future simulations using the same record <i>BfData</i>, you will not need to call this initialization script anymore.
-<b>Do not forget to adapt the parameter <i>lenSim</i></b>. <i>lenSim</i> should be equal or bigger than the simulation length. This parameter
-is used to define the number and size and the aggregation cells.
+Other than the parameters contained in the <i>borFieDat</i> record, the borefield models have other parameters which can be modified by the user.
+The <b><i>tLoaAgg</i></b> parameter is the time resolution of the load aggregation for the calculation of the ground heat transfer. It represents the
+frequency at which the load aggregation procedure is performed in the simulation. Therefore, lower values of <i>tLoaAgg</i>  will improve
+the accuracy of the model, at the cost of increased simulation times due to a higher number of events occuring in the simulation. While a default value
+is provided for this parameter, it is advisable to ensure that it is lower than a fraction (e.g. half) of the time required for the fluid to completely circulate
+through the borefield, as increasing the value of <i>tLoaAgg</i> beyond this will result in the borehole wall temperature profile becoming decreasingly physical.
 </p>
-
+<p>
+The <b><i>p_max</i></b> parameter also affects the accuracy and simulation time of the ground heat transfer calculations. As this parameter sets the number
+of consecutive equal-size aggregation cells before increasing the size of cells, increasing its value will result in less load aggregation, which will increase
+accuracy at the cost of computation time. On the other hand, decreasing the value of <i>p_max</i> (down to a minimum of 1) will decrease accuracy but improve
+computation time. The default value is chosen as a compromise between the two. 
+</p>
+<p>
+Further information on the <i>tLoaAgg</i> and <i>p_max</i> parameters can
+be found in the documentation of
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>.
+</p>
+<h5>Other parameters</h5>
+<p>
+Other parameters which can be modified include the dynamics, initial conditions, and further information regarding the fluid flow, for example whether the flow is reversible.
+It is worth noting that regardless of the <i>energyDynamics</i> chosen, the <b><i>dynFil</i></b> parameter can be set to false to remove the effect of the thermal capacitance
+of the filling material in the borehole(s). As for the <b><i>nSeg</i></b> parameter, it specifies the number of segments for the vertical discretization of the borehole(s).
+Further information on this discretization can be found in the &#34;Model description&#34; section below.
+</p>
+<h5>Running simulations</h5>
+<p>
+When running simulations using the borefield models, the <i>.BfData</i> directory within the root <i>IBPSA</i> package directory will be checked to see if any of the
+borefield configurations used in the simulation have already had their ground temperature response calculated previously (if the <i>.BfData</i> directory does not exist,
+it will be created when launching a simulation). If the data doesn't exist in the <i>.BfData</i> folder, it will be calculated during the initialization of the model
+and will be saved there for future use.
+</p>
 <h4>Model description</h4>
-<p>A detailed description of the model can be
-found in
-<a href=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>.
-Below, the model is briefly described.
+<p>
+The borefield models are constructed in two main parts: the borehole(s) and the ground heat transfer.
+The former is modelized as a vertical discretization of borehole segments, all of them sharing a common
+uniform borehole wall temperature. The thermal effects of the circulating fluid (including the convection resistance),
+of the pipes and of the filling material are all taken into consideration, which allows for the modelization of
+short-term thermal effects in the borehole. Each borehole segment does not take into account axial effects,
+thus only radial (horizontal) effects are considered within the borehole(s). The thermal
+behaviour between the pipes and borehole wall are modelized as a resistance-capacitance network.
 </p>
 <p>
-The proposed model is a so-called hybrid step-response
-model (HSRM). This type of model uses the
-borefield’s temperature response to a step load input.
-An arbitrary load can always be approximated by a superposition
-of step loads. The borefield’s response to
-the load is then calculated by superposition of the step responses
-using the linearity property of the heat diffusion
-equation. The most famous example of HSRM
-for borefields is probably the <i>g-function</i> of Eskilson
-(1987). The major challenge of this approach is to obtain a
-HSRM which is valid for both minute-based and year-based
-simulations. To tackle this problem, a HSRM
-has been implemented. A long-term response model
-is implemented in order to take into account
-the interactions between the boreholes and the
-temperature evolution of the surrounding ground. A
-short-term response model is implemented to
-describe the transient heat flux in the borehole heat exchanger to the surrounding
-ground. The step-response of each model is then calculated and merged into one
-in order to achieve both short- and long-term
-accuracy. Finally an aggregation method is implemented to speed up the calculation.
-However, the aggregation method calculates the temperature for discrete time step. In order to avoid
-abrut temperature changes, the aggregation method is used to calculate the average borehole wall
-temperature instead of the average fluid temperature. The calculated borehole wall temperature is then
-connected to the dynamic model of the borehole heat exchanger.
-</p>
-
-<h5>Long-term response model</h5>
-<p>
-The long-term temperature response of the borefield
-is calculated using the analytical model of Javed (2012).
+The second main part of the borefield models is the ground heat transfer, which shares a thermal boundary
+condition at the uniform borehole wall with all of the borehole segments. The heat transfer in the ground
+is modelized analytically with a load aggregation technique to reduce calculation times. The ground
+thermal response works with a simulation of any length up to the maximum allowed time for ground thermal
+response calculations, which will typically be in the order of tens of thousands of years, depending
+on the exact borefield. The load aggregation technique is modified to allow it
+to function with Modelica's variable simulation time steps.
 </p>
 <p>
-The model is based on the spatial superposition of
-finite line-sources of equal length, each representing
-one borehole of the borefield. The finite line-source
-is calculated from the convolution of a point source of
-constant power along the depth of the borefield. The
-mirror of the solution at z=0 is subtracted to ensure
-that zero temperature gradient at the boundary between the air and the ground. After several mathematical manipulations
-to simplify the calculation, Javed and Claesson
-obtain the following compact expression for the mean
-borehole wall temperature:
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/analyticalSolution.png\" />
-</p>
-<p>
-where q<sub>0</sub> is the heat flux per meter length, lambda is the
-ground heat conductivity, alpha is the ground heat diffusivity, N is the number of boreholes and H
-is the depth of the borefield. I<sub>ls</sub> and r<sub>i</sub> are defined by the following equations:
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/analyticalSolution2.png\" />
-</p>
-<p>
-with <i>erf</i> the error function.
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/analyticalSolution3.png\" />
-</p>
-<p>
-where r<sub>b</sub> is the borehole radius and (x<sub>i</sub>,y<sub>i</sub>) are the spatial
-coordinates of the center of each borehole from an arbitrary
-reference point.
-
-The analytical solution is valid only for time > 5*r<sub>b</sub>/alpha, i.e after the transient part
-of the heat transfer through the BHX is completed.
-</p>
-
-<h5>Short-term response model</h5>
-<p>
-The short-term response model should be able
-to calculate the transient thermal response of the HCF,
-the grout and the surrounding ground accurately for
-time periods ranging from minutes to t = 5*r<sub>b</sub>/alpha (typically
-smaller than 200 hours). The interaction between the boreholes
-for these short times can be neglected, therefore a single
-borehole model is used.
-</p>
-<p>
-The model is composed of a resistance-capacitive network as shown by the following figure (single U-tube case):
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/RC-model.png\" />
-</p>
-<p>
-The different thermal resistances present in the single-U-tube and in the double-U-tube borehole are calculated using the method of Bauer et al. (2010). 
-The fluid-to-ground thermal resistance R<sub>b</sub> and the grout-to-grout thermal resistance R<sub>a</sub> 
-as defined by Hellstroem (1991) are calculated
-using the multipole method. The multipole method is implemented in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.BaseClasses.BoreHoles.BaseClasses.singleUTubeResistances\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.BaseClasses.BoreHoles.BaseClasses.singleUTubeResistances</a> and in 
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.BaseClasses.BoreHoles.BaseClasses.doubleUTubeResistances\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.BaseClasses.BoreHoles.BaseClasses.doubleUTubeResistances</a>. 
-The convection resistance is calculated using the 
-Dittus-Boelter correlation
-as implemented in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.BaseClasses.BoreHoles.BaseClasses.convectionResistance\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Borefield2.BaseClasses.BoreHoles.BaseClasses.convectionResistance</a>. 
-Finally, the surrounding ground is approximated by cylindrical layers
-of a total thickness of three meters. The external side of the layer is connected to a constant temperature 
-(equal to the initial ground temperature). Vertical discretization of the borehole is possible for the short-term model
-as well as serial connection of boreholes but these features are not yet implemented for the hybrid borefield model.
-<b>These features should therefore not yet be used</b>.
-</p>
-
-
-<h5>Aggregation method</h5>
-<p> The following paragraphs briefly explain the aggregation method of Claessons and Javed (2012). More details can be found in 
-<a href=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>
-or in Claessons and Javed (2012).
-</p>
-<p>
-The aggregation technic is based on the discrete approximation of the heat load and the superposition technic. 
-Assume that the discrete load input to the borefield
-is <i>Q</i> and the HCF temperature is <i>T<sub>f</sub></i> . <i>Q</i> and <i>T<sub>f</sub></i> can be
-written as:
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/discreteLoad.png\" />
-</p>
-<p>
-with <i>v<sub>max</sub></i> >= <i>n</i>, <i>h</i> the discrete time-step, <i>Q</i> the discrete
-load and <i>T<sub>f,step</sub></i> the response function from HSRM with
-step load <i>Q<sub>step</sub></i>. Notice that the model assumes an uniform
-temperature at time 0.
-</p>
-<p>
-The idea behind this aggregation is the following:
-the average boreholes wall temperature difference of the borehole system
-(from an initial steady state) at <i>t = nh</i> depends
-on the <i>nh</i>  load pulses which have been applied to the
-borehole system from <i>t = 0</i>  to <i>nh</i> . However, the influence
-of the pulses on the wall temperature decreases
-the further they are from the observation time <i>nh</i> . If
-the pulses happened long before the observation time,
-the transient behaviour of the BHX has faded out, and
-only the net energy injection of extraction of the pulse
-is important. This net energy injection or extraction
-will indeed increase or decrease the global temperature
-of the borefield. An accurate profile of the load,
-far away from the observation time, is therefore not
-necessary. On the contrary, the load profile at times
-close to the observation time is important because they
-still influence the transient behaviour of the borefield
-and immediate surrounding ground.
-</p>
-<p>
-Claesson and Javed proposed an aggregation algorithm
-grouping (i.e. taking the average of) the load
-pulses and their coefficients into cells of exponentially
-increasing size. The cells are themselves grouped into
-<i>q</i> levels. Each level has a given number of cells <i>p<sub>max</sub></i>
-and each cell of a same level contains the same amount
-of load pulses <i>R<sub>q</sub></i>. The following figure illustrates the concept graphically.
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/aggregationCells.png\" />
-</p>
-<p>
-After several manipulations, the wall temperature can be written as followed:
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/wallTemperature.png\" />
-</p>
-<p>
-with
-<span style=\"text-decoration: overline\">Q</span><sub>v(p,q)</sub> the average load in the aggregation cell <i>(p,q)</i>, 
-<span style=\"text-decoration: overline\">k</span><sub>v(p,q)</sub> * <i>R<sub>ss</sub></i> the average thermal resistance of the cell <i>(p,q)</i>.
-<span style=\"text-decoration: overline\">Q</span><sub>v(p,q)</sub><span style=\"text-decoration: overline\">k</span><sub>v(p,q)</sub>*<i>R<sub>ss</sub></i>
-gives then the temperature rise (or decrease) that a load which has happened at the time of cell <i>(p,q)</i> cause at the boreholes wall. Summing all the 
-temperature differences gives the temperature at time <i>nh</i>.
-</p>
-<p>
-Finally, the aggregated load has to be updated at each time step <i>n</i>. This is done as described by the following equation:
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/loadAggregation.png\" />
-</p>
-<p>
-with <span style=\"text-decoration: overline\">Q</span><sub>v(p,q)</sub><sup>(n)</sup> the average load in the aggregation cell <i>(p,q)</i> 
-at time <i>nh</i> and <i>r<sub>q</sub></i> the cell width at the <i>q</i> aggregation level.
+The ground heat transfer takes into account both the borehole axial effects and
+the borehole radial effects which are a result of its cylindrical geometry. The borefield's
+thermal response to a constant load, also known as its <i>g-function</i>, is used 
+to calculate the real thermal response in the simulation. This <i>g-function</i>
+is stored in the <i>.BfData</i> subdirectory, as discussed previously in the
+&#34;How to use the borefield models&#34; section. Further information on the
+ground heat transfer model and the thermal temperature response calculations can
+be found in the documentations of
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>
+and
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction</a>.
 </p>
 
 <h4>References</h4>

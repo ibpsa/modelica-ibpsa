@@ -1,0 +1,7 @@
+simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Examples.InternalHEXTwoUTube", stopTime=100000, method="dassl", resultFile="InternalHEXTwoUTube");
+removePlots();
+createPlot(id=1,
+           position={0, 0, 870, 731},
+           y={"realExpression.y", "Rb_ref.y"},
+           grid=true,
+           filename="InternalHEXTwoUTube.mat");

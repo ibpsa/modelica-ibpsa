@@ -32,7 +32,7 @@ partial function partialInternalResistances
     "Specific heat capacity of the fluid";
   input Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
 
-  input Boolean printDebug
+  input Boolean printDebug=false
     "Print resistances values in log for debug purposes.";
   // Outputs
 
@@ -43,16 +43,16 @@ protected
 
   parameter Real rTub_in = rTub-eTub "Inner radius of tube";
 
-  Real RConv(unit="(m.K)/W") = convectionResistanceCircularPipe(
-    hSeg=hSeg,
-    rBor=rBor,
-    rTub=rTub,
-    eTub=eTub,
-    kMed=kMed,
-    muMed=muMed,
-    cpMed=cpMed,
-    m_flow=m_flow_nominal,
-    m_flow_nominal=m_flow_nominal)*hSeg;
+  Real RConv(unit="(m.K)/W")=
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+      hSeg=hSeg,
+      rTub=rTub,
+      eTub=eTub,
+      kMed=kMed,
+      muMed=muMed,
+      cpMed=cpMed,
+      m_flow=m_flow_nominal,
+      m_flow_nominal=m_flow_nominal)*hSeg;
 
   Boolean test=false "thermodynamic test for R and x value";
 
@@ -60,7 +60,10 @@ protected
     "Thermal resistance of the pipe wall";
 
   Real Rb_internal(unit="(m.K)/W")
-    "Fluid-to-grout resistance, as defined by Hellstroem. Resistance from the fluid in the pipe to the borehole wall";
+    "Resistance from the fluid in the pipe to the borehole wall";
+
+  Real Rb_multipole(unit="(m.K)/W")
+    "Theoretical Fluid-to-borehole-wall resistance evaluated from the multipole method";
 
   Integer i=1 "Loop counter";
 

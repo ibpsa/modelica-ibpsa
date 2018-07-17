@@ -1,0 +1,163 @@
+within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses;
+partial model partialBorefield
+  "Borefield model using single U-tube borehole heat exchanger configuration.Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
+
+  extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
+    m_flow_nominal=borFieDat.conDat.mBor_flow_nominal);
+
+  extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+    dp_nominal=borFieDat.conDat.dp_nominal);
+
+  // Simulation parameters
+  parameter Modelica.SIunits.Time tLoaAgg=300 "Time resolution of load aggregation";
+  parameter Integer p_max(min=1)=5 "Number of cells per aggregation level";
+  parameter Integer nSeg(min=1)=10
+    "Number of segments to use in vertical discretization of the boreholes";
+  parameter Modelica.SIunits.Temperature TGro_start = Medium.T_default
+    "Start value of grout temperature"
+    annotation (Dialog(tab="Initialization"));
+  parameter Boolean forceGFunCalc = false
+    "Set to true to force the thermal response to be calculated at the start instead of checking whether this has been pre-computed"
+    annotation (Dialog(tab="Advanced"));
+
+  // General parameters of borefield
+  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template borFieDat "Borefield data"
+    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
+  parameter Boolean dynFil=true
+    "Set to false to remove the dynamics of the filling material."
+    annotation (Dialog(tab="Dynamics"));
+
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.MassFlowRateMultiplier masFloDiv(
+    redeclare package Medium = Medium,
+    allowFlowReversal=allowFlowReversal,
+    k=borFieDat.conDat.nbBor) "Division of flow rate"
+    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.MassFlowRateMultiplier masFloMul(
+    redeclare package Medium = Medium,
+    allowFlowReversal=allowFlowReversal,
+    k=borFieDat.conDat.nbBor) "Mass flow multiplier"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse groTemRes(
+    tLoaAgg=tLoaAgg,
+    p_max=p_max,
+    borFieDat=borFieDat,
+    forceGFunCalc=forceGFunCalc)
+                         "Ground temperature response"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=nSeg)
+    "Thermal collector to connect the unique ground temperature to each borehole wall temperature of each segment"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-30,60})));
+
+  Modelica.Blocks.Interfaces.RealInput TSoi
+    "Temperature input for undisturbed ground conditions"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+equation
+  connect(masFloMul.port_b, port_b)
+    annotation (Line(points={{80,0},{86,0},{100,0}}, color={0,127,255}));
+  connect(groTemRes.borWall, theCol.port_b)
+    annotation (Line(points={{-60,60},{-50,60},{-40,60}}, color={191,0,0}));
+  connect(masFloDiv.port_b, port_a)
+    annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
+  connect(TSoi, groTemRes.TSoi)
+    annotation (Line(points={{-120,60},{-82,60}},          color={0,0,127}));
+  annotation (
+    experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
+    __Dymola_experimentSetupOutput,
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
+        Rectangle(
+          extent={{-100,60},{100,-66}},
+          lineColor={0,0,0},
+          fillColor={234,210,210},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-88,-6},{-32,-62}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{-82,-12},{-38,-56}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{-88,54},{-32,-2}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{-82,48},{-38,4}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{-26,54},{30,-2}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{-20,48},{24,4}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{-28,-6},{28,-62}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{-22,-12},{22,-56}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{36,56},{92,0}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{42,50},{86,6}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{38,-4},{94,-60}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{44,-10},{88,-54}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward)}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),Documentation(info="<html>
+This partial model is used to implement borefield models using the parameters specified
+in the <code>borFieDat</code> record. The borefield uses a uniform borehole wall temperature
+for all boreholes in the borefield, and a single input and output fluid port with
+a mass flow rate that is adjusted within the model to reflect the per-borehole mass flow rate.
+The exact behaviour of the borehole depends on the chosen borehole model, but in all cases the
+thermal interaction between the borefield wall temperature and the surrounding soil
+is modelised using <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>,
+which uses a cell-shifting load aggregation technique to calculate the borehole wall
+temperature after having calculated and/or read (from a previous calculation) the borefield's thermal response factor.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2018, by Alex Laferri&egrave;re:<br>
+Changed into a partial model and changed documentation to reflect the new approach
+used by the borefield models.
+</li>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
+end partialBorefield;

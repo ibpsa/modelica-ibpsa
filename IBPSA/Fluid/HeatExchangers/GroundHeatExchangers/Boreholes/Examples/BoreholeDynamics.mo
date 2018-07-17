@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples;
-model BoreholeDynamics
+model BoreholeDynamics "Example model for different borehole models and dynamics"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Water;
 
@@ -15,7 +15,9 @@ model BoreholeDynamics
     m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
     dp_nominal=borFieUTubDat.conDat.dp_nominal,
     dynFil=true,
-    nSeg=nSeg)   "Borehole with U-Tub configuration and grout dynamics"
+    nSeg=nSeg,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                 "Borehole with U-Tub configuration and grout dynamics"
     annotation (Placement(transformation(
         extent={{-14,-14},{14,14}},
         rotation=0,
@@ -46,10 +48,6 @@ model BoreholeDynamics
         borFieUTubDat.conDat.mBor_flow_nominal, redeclare package Medium =
         Medium) "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse
-    groTemRes(borFieDat=borFieUTubDat, tLoaAgg=60)
-    "Ground temperature response"
-    annotation (Placement(transformation(extent={{-70,80},{-50,100}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol1(m=nSeg)
                                    "Thermal collector" annotation (Placement(
         transformation(
@@ -68,7 +66,9 @@ model BoreholeDynamics
     m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
     dp_nominal=borFieUTubDat.conDat.dp_nominal,
     dynFil=false,
-    nSeg=nSeg)    "Borehole with U-Tub configuration and steady states grout"
+    nSeg=nSeg,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                  "Borehole with U-Tub configuration and steady states grout"
     annotation (Placement(transformation(
         extent={{-14,-14},{14,14}},
         rotation=0,
@@ -95,10 +95,6 @@ model BoreholeDynamics
         borFieUTubDat.conDat.mBor_flow_nominal, redeclare package Medium =
         Medium) "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse
-    groTemRes1(borFieDat=borFieUTubDat, tLoaAgg=60)
-    "Ground temperature response"
-    annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol2(m=nSeg)
                                    "Thermal collector" annotation (Placement(
         transformation(
@@ -112,7 +108,8 @@ model BoreholeDynamics
     dynFil=true,
     m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal,
     borFieDat=borFie2UTubDat,
-    nSeg=nSeg)
+    nSeg=nSeg,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Borehole with 2U-Tub configuration and grout dynamics" annotation (
       Placement(transformation(
         extent={{-14,-14},{14,14}},
@@ -148,10 +145,6 @@ model BoreholeDynamics
         Medium, m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal)
     "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse
-    groTemRes2(tLoaAgg=60, borFieDat=borFie2UTubDat)
-    "Ground temperature response"
-    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol3(m=nSeg)
                                     "Thermal collector" annotation (Placement(
         transformation(
@@ -165,7 +158,8 @@ model BoreholeDynamics
     dynFil=false,
     m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal,
     borFieDat=borFie2UTubDat,
-    nSeg=nSeg)
+    nSeg=nSeg,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Borehole with 2U-Tub configuration and steady states grout" annotation (
       Placement(transformation(
         extent={{-14,-14},{14,14}},
@@ -195,16 +189,24 @@ model BoreholeDynamics
       Medium = Medium, m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal)
     "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse
-    groTemRes3(tLoaAgg=60, borFieDat=borFie2UTubDat)
-    "Ground temperature response"
-    annotation (Placement(transformation(extent={{-70,-100},{-50,-80}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol4(m=nSeg)
                                     "Thermal collector" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-36,-90})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
+    prescribedTemperature
+    annotation (Placement(transformation(extent={{-70,80},{-50,100}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
+    prescribedTemperature1
+    annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
+    prescribedTemperature2
+    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
+    prescribedTemperature3
+    annotation (Placement(transformation(extent={{-70,-100},{-50,-80}})));
 equation
   connect(sou.ports[1],TBorIn. port_a)
     annotation (Line(points={{-60,60},{-40,60}},
@@ -247,26 +249,30 @@ equation
     annotation (Line(points={{40,-120},{60,-120}}, color={0,127,255}));
   connect(therCol4.port_a, borHol2UTubSteSta.port_wall)
     annotation (Line(points={{-26,-90},{0,-90},{0,-106}}, color={191,0,0}));
-  connect(TGroUn.y, groTemRes.TSoi)
-    annotation (Line(points={{-79,90},{-75.5,90},{-72,90}}, color={0,0,127}));
-  connect(TGroUn.y, groTemRes1.TSoi) annotation (Line(points={{-79,90},{-80,90},
-          {-80,30},{-72,30}}, color={0,0,127}));
-  connect(TGroUn.y, groTemRes2.TSoi) annotation (Line(points={{-79,90},{-80,90},
-          {-80,-30},{-72,-30}}, color={0,0,127}));
-  connect(TGroUn.y, groTemRes3.TSoi) annotation (Line(points={{-79,90},{-80,90},
-          {-80,-90},{-72,-90}}, color={0,0,127}));
-  connect(groTemRes.borWall, therCol1.port_b)
-    annotation (Line(points={{-50,90},{-48,90},{-46,90}}, color={191,0,0}));
-  connect(groTemRes1.borWall, therCol2.port_b)
-    annotation (Line(points={{-50,30},{-48,30},{-46,30}}, color={191,0,0}));
-  connect(therCol3.port_b, groTemRes2.borWall)
-    annotation (Line(points={{-46,-30},{-48,-30},{-50,-30}}, color={191,0,0}));
-  connect(groTemRes3.borWall, therCol4.port_b)
-    annotation (Line(points={{-50,-90},{-48,-90},{-46,-90}}, color={191,0,0}));
+  connect(TGroUn.y, prescribedTemperature.T)
+    annotation (Line(points={{-79,90},{-72,90}}, color={0,0,127}));
+  connect(therCol1.port_b, prescribedTemperature.port)
+    annotation (Line(points={{-46,90},{-50,90}}, color={191,0,0}));
+  connect(therCol2.port_b, prescribedTemperature1.port)
+    annotation (Line(points={{-46,30},{-50,30}}, color={191,0,0}));
+  connect(TGroUn.y, prescribedTemperature1.T) annotation (Line(points={{-79,90},
+          {-80,90},{-80,30},{-72,30}}, color={0,0,127}));
+  connect(therCol3.port_b, prescribedTemperature2.port)
+    annotation (Line(points={{-46,-30},{-50,-30}}, color={191,0,0}));
+  connect(prescribedTemperature2.T, prescribedTemperature1.T) annotation (Line(
+        points={{-72,-30},{-80,-30},{-80,30},{-72,30}}, color={0,0,127}));
+  connect(therCol4.port_b, prescribedTemperature3.port)
+    annotation (Line(points={{-46,-90},{-50,-90}}, color={191,0,0}));
+  connect(prescribedTemperature3.T, prescribedTemperature1.T) annotation (Line(
+        points={{-72,-90},{-80,-90},{-80,30},{-72,30}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,100}})),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/Examples/BoreholeDynamics.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+        Documentation(info="<html>
+This example illustrates different borehole models using different mass
+and energy dynamics.
+</html>"));
 end BoreholeDynamics;

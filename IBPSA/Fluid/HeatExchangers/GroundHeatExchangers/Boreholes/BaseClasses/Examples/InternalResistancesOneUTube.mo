@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Examples;
 model InternalResistancesOneUTube "Validation of singleUTubeResistance by comparing the obtained Rb and Ra values to the values obtained by EED. The values should be close to parameters _ref. 
-  The differences are due to numerical noise, as the same formula's give better results in Python."
+  The differences are due to numerical noise, as the same formulas give better results in Python."
   extends Modelica.Icons.Example;
 
   parameter Boolean use_Rb = false
@@ -61,5 +61,20 @@ equation
     m_flow_nominal=m_flow_nominal,
     printDebug=true);
 
-  annotation (experiment, __Dymola_experimentSetupOutput);
+  annotation (
+  experiment(StopTime=1),
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Examples/InternalResistancesOneUTube.mos"
+        "Simulate and plot"),
+  Documentation(info="<html>
+This example calculates and validates the internal resistances of a single U-tube
+borehole segment.
+</html>", revisions="<html>
+<ul>
+<li>
+June 2018, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end InternalResistancesOneUTube;

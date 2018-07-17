@@ -1,0 +1,7 @@
+simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Examples.InternalResistancesOneUTube", stopTime=100000, method="dassl", resultFile="InternalResistancesOneUTube");
+removePlots();
+createPlot(id=1,
+           position={0, 0, 870, 731},
+           y={"Rb", "Rb_ref"},
+           grid=true,
+           filename="InternalResistancesOneUTube.mat");
