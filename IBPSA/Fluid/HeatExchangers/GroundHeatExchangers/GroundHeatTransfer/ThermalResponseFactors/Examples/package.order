@@ -1,4 +1,8 @@
 CylindricalHeatSource
+CylindricalHeatSource_Integrand
 FiniteLineSource
-InfiniteLineSource
+FiniteLineSource_erfint
+FiniteLineSource_Integrand
 gFunction_100boreholes
+InfiniteLineSource
+TimeGeometric

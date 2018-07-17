@@ -51,7 +51,6 @@ algorithm
       h_21 := Modelica.Math.Nonlinear.quadratureLobatto(
         function
           IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
-          lowBou=lowBou,
           dis=dis,
           len1=len1,
           burDep1=burDep1,
@@ -68,7 +67,6 @@ algorithm
       h_21 := t/timTre*Modelica.Math.Nonlinear.quadratureLobatto(
         function
           IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
-          lowBou=lowBou,
           dis=dis,
           len1=len1,
           burDep1=burDep1,

@@ -4,7 +4,6 @@ function finiteLineSource_Integrand
   extends Modelica.Icons.Function;
 
   input Real u "Normalized integration variable";
-  input Real lowBou "Lower boundary of integral before normalization";
   input Real dis "Radial distance between borehole axes";
   input Real len1 "Length of emitting borehole";
   input Real burDep1 "Buried depth of emitting borehole";
