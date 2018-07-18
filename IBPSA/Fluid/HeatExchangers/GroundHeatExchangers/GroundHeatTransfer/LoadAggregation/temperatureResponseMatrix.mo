@@ -16,18 +16,18 @@ function temperatureResponseMatrix
   input Integer nTimSho "Number of time steps in short time region";
   input Integer nTimLon "Number of time steps in long time region";
   input Integer nTimTot "Number of g-function points";
-  input Real ttsMax "Maximum adimensional time for g-function calculation";
-  input String sha "Pseudo-SHA of the g-function arguments";
+  input Real ttsMax "Maximum non-dimensional time for g-function calculation";
+  input String sha "SHA-1 encryption of the g-function arguments";
   input Boolean forceGFunCalc
     "Set to true to force the thermal response to be calculated at the start";
 
-  output Real matrix[nTimTot, 2] "Temperature response time series";
+  output Modelica.SIunits.ThermalResistance TStep[nTimTot, 2] "Temperature step-response time series";
 
 protected
   String pathSave "Path of the saving folder";
-  Modelica.SIunits.Time[nTimTot] tGFun;
-  Real[nTimTot] gFun;
-  Boolean writegFun = false;
+  Modelica.SIunits.Time[nTimTot] tGFun "g-Function evaluation times";
+  Real[nTimTot] gFun "g-Function vector";
+  Boolean writegFun = false "True if g-frunction was succesfully written to file";
 
 algorithm
   //creation of a folder .BfData in the simulation folder
@@ -49,18 +49,18 @@ algorithm
       ttsMax=ttsMax);
 
     for i in 1:nTimTot loop
-      matrix[i,1] := tGFun[i];
-      matrix[i,2] := gFun[i]/(2*Modelica.Constants.pi*hBor*kSoi);
+      TStep[i,1] := tGFun[i];
+      TStep[i,2] := gFun[i]/(2*Modelica.Constants.pi*hBor*kSoi);
     end for;
 
     writegFun := Modelica.Utilities.Streams.writeRealMatrix(
       fileName=pathSave,
       matrixName="TStep",
-      matrix=matrix,
+      matrix=TStep,
       append=false);
   end if;
 
-  matrix := Modelica.Utilities.Streams.readRealMatrix(
+  TStep := Modelica.Utilities.Streams.readRealMatrix(
     fileName=pathSave,
     matrixName="TStep",
     nrow=nTimTot,

@@ -6,17 +6,12 @@ function temporalSuperposition
   input Integer i "Number of aggregation cells";
   input Modelica.SIunits.HeatFlowRate QAgg_flow[i]
     "Vector of aggregated loads";
-  input Modelica.SIunits.Temperature kappa[i]
+  input Modelica.SIunits.ThermalResistance kappa[i]
     "Weighting factors for each aggregation cell";
   input Integer curCel "Current occupied aggregation cell";
 
   output Modelica.SIunits.TemperatureDifference deltaTb "Delta T at wall";
 
-  // fixme: There is something wrong in this function:
-  // QAgg_flow has units of W, kappa has units of K (which is consistent
-  // with the info section of GroundTemperatureResponse)
-  // and deltaTb is declared to have units of K.
-  // This is incorrect.
 algorithm
   deltaTb := QAgg_flow[1:curCel]*kappa[1:curCel];
 

@@ -3,20 +3,18 @@ function aggregationWeightingFactors
   "Calculates the kappa vector for load aggregation"
   extends Modelica.Icons.Function;
 
-  input Integer i "Size of vector";
-  // fixme: what is meant by "input file" below?
-  input Integer nTimTot "Number of rows in input file";
-  input Real TStep[nTimTot,2] "Time matrix with TStep";
+  input Integer i "Size of aggregation vector";
+  input Integer nTimTot "Size of g-function time table";
+  input Modelica.SIunits.ThermalResistance TStep[nTimTot,2] "Time matrix with TStep";
   input Modelica.SIunits.Time nu[i] "Aggregation time vector nu";
 
-  output Real kappa[i] "Weighting factors vector";
+  output Modelica.SIunits.ThermalResistance kappa[i] "Weighting factors vector";
 
-  // fixme: add comment, and if applicable, add unit of prevT and curT
 protected
-  Real prevT;
-  Real curT;
+  Modelica.SIunits.ThermalResistance prevT "Interpolated value of TStep at previous cell";
+  Modelica.SIunits.ThermalResistance curT "Interpolated value of TStep at current cell";
   Integer curInt "Integer to select data interval";
-  Real[size(TStep[:,1], 1)] d "Derivatives at the support points";
+  Real[size(TStep[:,1], 1)] d(unit="K/J") "Derivatives at the support points";
 
 algorithm
   d := IBPSA.Utilities.Math.Functions.splineDerivatives(

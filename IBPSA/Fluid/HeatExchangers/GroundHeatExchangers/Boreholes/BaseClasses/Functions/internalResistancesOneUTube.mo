@@ -146,16 +146,15 @@ are calculated with the multipole method (Hellstroem (1991)) shown below.
 <img alt=\"image\" src=\"E:/work\\modelica/DaPModels/Images/Documentation/Ra_multipole.png\"/>
 </p>
 <p>
-where 
-<!-- fixme: use greek symbols such as &lambda; -->
-<i>lambda<sub>b</sub></i> and <i>lambda</i>are the conductivity of the filling material 
+where
+<i>&lambda;<sub>b</sub></i> and <i>&lambda;</i>are the conductivity of the filling material 
 and of the ground respectively, 
 <i>r<sub>p</sub></i> and <i>r<sub>b</sub></i> 
 are the pipe and the borehole radius, 
 <i>D</i> is the shank spacing (center of borehole to center of pipe), 
 <i>R<sub>p</sub></i> is resistance from the fluid to the outside wall of the pipe, 
 <i>r<sub>c</sub></i> is the radius at which the ground temperature is radially uniform and 
-<i>Epsilon</i> can be neglected as it is close to zero.
+<i>&epsilon;</i> can be neglected as it is close to zero.
 </p>
 <h4>References</h4>
 <p>G. Hellstr&ouml;m. 

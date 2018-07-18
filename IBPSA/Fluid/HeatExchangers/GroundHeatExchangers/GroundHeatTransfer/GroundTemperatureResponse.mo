@@ -21,8 +21,7 @@ protected
   constant Integer nSeg = 12 "Number of line source segments per borehole";
   constant Integer nTimSho = 26 "Number of time steps in short time region";
   constant Integer nTimLon = 50 "Number of time steps in long time region";
-  // fixme: what is adimensional time? Do you mean non-dimensional
-  constant Real ttsMax = exp(5) "Maximum adimensional time for gfunc calculation";
+  constant Real ttsMax = exp(5) "Maximum non-dimensional time for g-function calculation";
   constant Integer nTimTot = nTimSho+nTimLon
     "Total length of g-function vector";
   constant Real lvlBas = 2 "Base for exponential cell growth between levels";
@@ -39,9 +38,9 @@ protected
       nTimSho=nTimSho,
       nTimLon=nTimLon,
       ttsMax=ttsMax) "String with encrypted g-function arguments";
-  // fixme: comment for timFin is missing
   parameter Modelica.SIunits.Time timFin=
-    (borFieDat.conDat.hBor^2/(9*borFieDat.soiDat.aSoi))*ttsMax;
+    (borFieDat.conDat.hBor^2/(9*borFieDat.soiDat.aSoi))*ttsMax
+    "Final time for g-function calculation";
   parameter Integer i(min=1)=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.countAggregationCells(
       lvlBas=lvlBas,
@@ -88,7 +87,7 @@ protected
   final parameter Real dhdt(fixed=false)
     "Time derivative of g/(2*pi*H*ks) within most recent cell";
   Modelica.SIunits.HeatFlowRate QBor_flow=borWall.Q_flow*borFieDat.conDat.nBor
-    "Totat heat flow from all boreholes";
+    "Total heat flow from all boreholes";
   Modelica.SIunits.Heat U "Accumulated heat flow from all boreholes";
   discrete Modelica.SIunits.Heat U_old "Accumulated heat flow from all boreholes at last aggregation step";
 
@@ -217,7 +216,7 @@ which follows the exponential growth
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_02.png\" />
 </p>
 <p>
-where <i>p<sub>max</sub></i> is the number of consecutive cells which can have the same size.
+where <i>n<sub>Cel</sub></i> is the number of consecutive cells which can have the same size.
 Decreasing <i>r<sub>cel</sub></i> will generally decrease calculation times, at the cost of
 precision in the temporal superposition. <code>rcel</code> is thus expressed in multiples
 of the aggregation step time (via the parameter <code>tLoaAgg</code>).

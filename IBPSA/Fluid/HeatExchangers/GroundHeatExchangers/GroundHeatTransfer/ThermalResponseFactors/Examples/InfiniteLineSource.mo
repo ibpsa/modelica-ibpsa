@@ -7,7 +7,7 @@ model InfiniteLineSource "Test case for infinite line source"
   parameter Modelica.SIunits.Radius[5] r = {rSource, 2*rSource, 5*rSource, 10*rSource, 20*rSource}
     "Radial position of evaluation of the solution";
   Modelica.SIunits.Time t "Time";
-  Real[5] E "Infinite heat source solution";
+  Real[5] E "Infinite line source solution";
 
 equation
 

@@ -14,16 +14,14 @@ function shiftAggregationCells
 
 algorithm
   curCel := 1;
-  // fixme: This function looks like there is a bug: QAggShi_flow is assigned
-  // in an "if" and an "elseif" statement. If neither of these are true, then the
-  // value QAggShi_flow[j+1] is not set. If you can guarantee that at least one
-  // is true, then then "elseif curTim>=nu[j] then" can simply be changed to "else"
   for j in (i-1):-1:1 loop
     if curTim>=nu[j+1] then
-      QAggShi_flow[j+1] :=((rCel[j+1] - 1)*QAgg_flow[j+1] + QAgg_flow[j])/rCel[j+1];
+      QAggShi_flow[j+1] := ((rCel[j+1] - 1)*QAgg_flow[j+1] + QAgg_flow[j])/rCel[j+1];
     elseif curTim>=nu[j] then
-      QAggShi_flow[j+1] :=(rCel[j+1]*QAgg_flow[j+1] + QAgg_flow[j])/rCel[j+1];
+      QAggShi_flow[j+1] := (rCel[j+1]*QAgg_flow[j+1] + QAgg_flow[j])/rCel[j+1];
       curCel := j+1;
+    else
+      QAggShi_flow[j+1] := QAgg_flow[j+1];
     end if;
   end for;
 

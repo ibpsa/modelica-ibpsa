@@ -10,10 +10,9 @@ function countAggregationCells
 
   output Integer i(min=1) "Size of aggregation vectors";
 
-  // fixme: add comments and if applicable units for width_i and nu_i
 protected
-  Real width_i;
-  Real nu_i;
+  Modelica.SIunits.Duration width_i "Width of current aggregation cell";
+  Modelica.SIunits.Time nu_i "End time of current aggregation cell";
 
 algorithm
   assert(timFin > 0, "Total simulation time must be bigger than 0.");

@@ -2,18 +2,15 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Therma
 function timeGeometric "Geometric expansion of time steps"
   extends Modelica.Icons.Function;
 
-  // fixme: check if dt and t_max should have units of s, or are indeed non-dimensional,
-  // in which case unit="1" should be declared for clarity.
-  input Real dt "Minimum time step";
-  input Real t_max "Maximum value of time";
+  input Modelica.SIunits.Duration dt "Minimum time step";
+  input Modelica.SIunits.Time t_max "Maximum value of time";
   input Integer nTim "Number of time values";
 
   output Real t[nTim] "Time vector";
 
-  // fixme: comment and units if applicable missing for r and dr
 protected
-  Real r;
-  Real dr;
+  Real r(min=1.) "Expansion rate of time values";
+  Real dr "Error on expansion rate evaluation";
 
 algorithm
   if t_max > nTim*dt then
