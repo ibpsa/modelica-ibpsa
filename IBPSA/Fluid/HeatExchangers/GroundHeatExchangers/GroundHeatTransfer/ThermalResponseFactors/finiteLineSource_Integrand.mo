@@ -3,7 +3,7 @@ function finiteLineSource_Integrand
   "Integrand function for finite line source evaluation"
   extends Modelica.Icons.Function;
 
-  input Real s(unit="m-1") "Integration variable";
+  input Real u(unit="m-1") "Integration variable";
   input Modelica.SIunits.Distance dis "Radial distance between borehole axes";
   input Modelica.SIunits.Height len1 "Length of emitting borehole";
   input Modelica.SIunits.Height burDep1 "Buried depth of emitting borehole";
@@ -16,9 +16,11 @@ function finiteLineSource_Integrand
 
 protected
   Real f "Intermediate function";
+  Real s "Unitless integration variable";
 
 algorithm
   f := 0;
+  s := u;
   if includeRealSource then
     f := f +
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_erfint(
