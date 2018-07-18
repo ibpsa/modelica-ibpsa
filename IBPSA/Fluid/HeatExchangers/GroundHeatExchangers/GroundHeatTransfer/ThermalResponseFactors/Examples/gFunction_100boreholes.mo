@@ -6,10 +6,10 @@ model gFunction_100boreholes
   parameter Integer nBor = 100 "Number of boreholes";
   parameter Modelica.SIunits.Position cooBor[nBor, 2] = {{7.5*mod(i-1,10), 7.5*floor((i-1)/10)} for i in 1:nBor}
     "Coordinates of boreholes";
-  parameter Modelica.Siunits.Height hBor = 150 "Borehole length";
-  parameter Modelica.Siunits.Height dBor = 4 "Borehole buried depth";
-  parameter Modelica.Siunits.Radius rBor = 0.075 "Borehole radius";
-  parameter Modelica.Siunits.ThermalDiffusivity aSoi = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
+  parameter Modelica.SIunits.Height hBor = 150 "Borehole length";
+  parameter Modelica.SIunits.Height dBor = 4 "Borehole buried depth";
+  parameter Modelica.SIunits.Radius rBor = 0.075 "Borehole radius";
+  parameter Modelica.SIunits.ThermalDiffusivity aSoi = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
   parameter Integer nSeg = 12 "Number of line source segments per borehole";
   parameter Integer nTimSho = 26 "Number of time steps in short time region";
   parameter Integer nTimLon = 50 "Number of time steps in long time region";

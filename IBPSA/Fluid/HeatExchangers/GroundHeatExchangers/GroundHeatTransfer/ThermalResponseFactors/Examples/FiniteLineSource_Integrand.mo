@@ -8,13 +8,13 @@ model FiniteLineSource_Integrand
   parameter Modelica.SIunits.Height burDep1 = 4.0 "Buried depth of emitting borehole";
   parameter Modelica.SIunits.Height len2 = 150.0 "Length of receiving borehole";
   parameter Modelica.SIunits.Height burDep2 = 4.0 "Buried depth of receiving borehole";
-  Real u "Integration variable";
+  Real s "Integration variable";
   Real y "Finite line source integrand";
 
 equation
-  u = time;
+  s = time;
   y = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
-    u=u,
+    s=s,
     dis=dis,
     len1=len1,
     burDep1=burDep1,
