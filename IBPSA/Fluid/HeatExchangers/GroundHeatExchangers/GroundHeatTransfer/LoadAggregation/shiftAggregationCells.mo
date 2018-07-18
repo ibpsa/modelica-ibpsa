@@ -17,6 +17,9 @@ algorithm
   for j in (i-1):-1:1 loop
     if curTim>=nu[j+1] then
       QAggShi_flow[j+1] := ((rCel[j+1] - 1)*QAgg_flow[j+1] + QAgg_flow[j])/rCel[j+1];
+      if j==(i-1) then
+        curCel := i;
+      end if;
     elseif curTim>=nu[j] then
       QAggShi_flow[j+1] := (rCel[j+1]*QAgg_flow[j+1] + QAgg_flow[j])/rCel[j+1];
       curCel := j+1;
