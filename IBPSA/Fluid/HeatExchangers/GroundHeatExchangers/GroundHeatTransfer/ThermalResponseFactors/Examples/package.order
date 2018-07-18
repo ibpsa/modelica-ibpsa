@@ -4,6 +4,7 @@ FiniteLineSource
 FiniteLineSource_erfint
 FiniteLineSource_Integrand
 gFunction_100boreholes
+gFunction_SmallScaleValidation
 InfiniteLineSource
 ShaGFunction
 TimeGeometric
