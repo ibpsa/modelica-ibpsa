@@ -16,9 +16,9 @@ function finiteLineSource
   output Real h_21 "Thermal response factor of borehole 1 on borehole 2";
 
 protected
-  Real lowBou "Lower bound of integration";
+  Real lowBou(unit="m-1") "Lower bound of integration";
   // Upper bound is infinite
-  Real uppBou = 100.0 "Upper bound of integration";
+  Real uppBou(unit="m-1") = 100.0 "Upper bound of integration";
   Modelica.SIunits.Distance disMin
     "Minimum distance between sources and receiving line";
   Modelica.SIunits.Time timTre "Time treshold for evaluation of the solution";

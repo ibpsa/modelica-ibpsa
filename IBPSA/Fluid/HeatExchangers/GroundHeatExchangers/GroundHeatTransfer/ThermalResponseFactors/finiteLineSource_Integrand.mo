@@ -3,7 +3,7 @@ function finiteLineSource_Integrand
   "Integrand function for finite line source evaluation"
   extends Modelica.Icons.Function;
 
-  input Real s "Integration variable";
+  input Real s(unit="m-1") "Integration variable";
   input Modelica.SIunits.Distance dis "Radial distance between borehole axes";
   input Modelica.SIunits.Height len1 "Length of emitting borehole";
   input Modelica.SIunits.Height burDep1 "Buried depth of emitting borehole";
@@ -12,7 +12,7 @@ function finiteLineSource_Integrand
   input Boolean includeRealSource = true "true if contribution of real source is included";
   input Boolean includeMirrorSource = true "true if contribution of mirror source is included";
 
-  output Real y "Value of integrand";
+  output Real y(unit="m") "Value of integrand";
 
 protected
   Real f "Intermediate function";
