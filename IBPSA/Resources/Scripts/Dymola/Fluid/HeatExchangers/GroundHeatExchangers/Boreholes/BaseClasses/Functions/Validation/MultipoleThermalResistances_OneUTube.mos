@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.Validation.MultipoleThermalResistances_OneUTube", stopTime=1.0, method="dassl", resultFile="MultipoleThermalResistances_OneUTube");
+simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.Validation.MultipoleThermalResistances_OneUTube", stopTime=1.0, method="dassl", resultFile="FunctionMultipoleThermalResistances_OneUTube");
 
 createPlot(
   id   = 1,
@@ -10,7 +10,7 @@ createPlot(
   autoreplot = true, 
   grid=true,
   color=true,
-  filename="MultipoleThermalResistances_OneUTube.mat", 
+  filename="FunctionMultipoleThermalResistances_OneUTube.mat", 
   leftTitleType = 1,
   bottomTitleType = 1);
 
@@ -24,6 +24,6 @@ createPlot(
   autoreplot = true, 
   grid=true,
   color=true,
-  filename="MultipoleThermalResistances_OneUTube.mat", 
+  filename="FunctionMultipoleThermalResistances_OneUTube.mat", 
   leftTitleType = 1,
   bottomTitleType = 1);
