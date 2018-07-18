@@ -1,15 +1,16 @@
 within IBPSA.Fluid.HeatPumps.Data.ScrollWaterToWater.Heating;
 record ClimateMaster_TMW170_48kW_4_30COP_R410A =
   IBPSA.Fluid.HeatPumps.Data.ScrollWaterToWater.Generic (
-    volRat=2.14272406967,
-    V_flow_nominal=0.00593752063272,
-    leaCoe=0.0001,
-    etaEle=1.0,
-    PLos=3217.60778902,
-    dTSup=4.12544294557,
-    UACon=7127.67902377,
-    UAEva=6702.69056458)
+    volRat = 2.14272406967,
+    V_flow_nominal = 0.00593752063272,
+    leaCoe = 0.0001,
+    etaEle = 1.0,
+    PLos = 3217.60778902,
+    dTSup = 4.12544294557,
+    UACon = 7127.67902377,
+    UAEva = 6702.69056458)
     "Calibrated parameters for ClimateMaster TMW170"
+
   annotation (
     defaultComponentPrefixes = "parameter",
     defaultComponentName="datHeaPum",

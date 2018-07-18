@@ -3,14 +3,14 @@ model ReciprocatingWaterToWater
   "Model for a reciprocating water to water heat pump"
 
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialWaterToWater(
-    final UAEva=per.UAEva*scaling_factor,
-    final UACon=per.UACon*scaling_factor,
+    final UAEva=per.UAEva * scaling_factor,
+    final UACon=per.UACon * scaling_factor,
     redeclare HeatPumps.Compressors.ReciprocatingCompressor com(
-      redeclare final package ref = ref,
-      pisDis=per.pisDis*scaling_factor,
+      redeclare final package ref=ref,
+      pisDis=per.pisDis * scaling_factor,
       cleFac=per.cleFac,
       etaEle=per.etaEle,
-      PLos=per.PLos*scaling_factor,
+      PLos=per.PLos * scaling_factor,
       pDro=per.pDro,
       dTSup=per.dTSup));
 
