@@ -27,6 +27,7 @@ protected
   Modelica.SIunits.Time tLon[nTimLon] "Time vector for long time calculations";
   Modelica.SIunits.Distance dis "Separation distance between boreholes";
   Modelica.SIunits.Distance dis_mn "Separation distance for comparison";
+  Modelica.SIunits.Radius rLin=0.0005*hBor "Radius for evaluation of same-borehole line source solutions";
   Real hSegRea[nSeg] "Real part of the FLS solution";
   Real hSegMir[2*nSeg-1] "Mirror part of the FLS solution";
   Modelica.SIunits.Height dSeg "Buried depth of borehole segment";
@@ -60,7 +61,7 @@ algorithm
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
       tSho[k],
       aSoi,
-      rBor,
+      rLin,
       hBor,
       dBor,
       hBor,
@@ -70,7 +71,7 @@ algorithm
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.infiniteLineSource(
       tSho[k],
       aSoi,
-      rBor);
+      rLin);
     // Cylindrical heat source solution
     CHS := 2*Modelica.Constants.pi*
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource(
@@ -106,7 +107,7 @@ algorithm
         // Distance between boreholes
         if i == j then
           // If same borehole, distance is the radius
-          dis := rBor;
+          dis := rLin;
         else
           dis := sqrt((cooBor[i,1] - cooBor[j,1])^2 + (cooBor[i,2] - cooBor[j,2])^2);
         end if;
@@ -143,7 +144,7 @@ algorithm
           for m in 1:nBor loop
             for n in m:nBor loop
               if m == n then
-                dis_mn := rBor;
+                dis_mn := rLin;
               else
                 dis_mn := sqrt((cooBor[m,1] - cooBor[n,1])^2 + (cooBor[m,2] - cooBor[n,2])^2);
               end if;
@@ -176,7 +177,7 @@ algorithm
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.infiniteLineSource(
       tLon[k],
       aSoi,
-      rBor);
+      rLin);
     // Cylindrical heat source
     CHS := 2*Modelica.Constants.pi*
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource(
