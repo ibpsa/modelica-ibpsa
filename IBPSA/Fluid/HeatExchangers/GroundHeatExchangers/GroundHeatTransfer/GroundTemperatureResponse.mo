@@ -152,13 +152,6 @@ equation
     derDelTBor0 = (delTBor0-delTBor_old)/tLoaAgg;
   end when;
 
-  // Fixme: I don't understand this test: timFin depends on material
-  // and on ttsMax = exp(5). What can the user do if this assert
-  // triggers false?
-  assert((time - t_start) <= timFin,
-    "The borefield's calculated thermal response does
-    not cover the entire simulation length.");
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

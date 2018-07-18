@@ -5,4 +5,5 @@ FiniteLineSource_erfint
 FiniteLineSource_Integrand
 gFunction_100boreholes
 InfiniteLineSource
+ShaGFunction
 TimeGeometric
