@@ -7,24 +7,24 @@ function multipoleFmk "Complex matrix F_mk from Claesson and Hellstrom (2011)"
   input Real QPip_flow[nPip](unit="W/m") "Heat flow in pipes";
   input Real PRea[nPip,J] "Multipoles (Real part)";
   input Real PIma[nPip,J] "Multipoles (Imaginary part)";
-  input Real rBor "Borehole radius";
-  input Real rPip[nPip] "Outter radius of pipes";
-  input Real xPip[nPip] "x-Coordinates of pipes";
-  input Real yPip[nPip] "y-Coordinates of pipes";
-  input Real kFil "Thermal conductivity of grouting material";
-  input Real kSoi "Thermal conductivity of soil material";
+  input Modelica.SIunits.Radius rBor "Borehole radius";
+  input Modelica.SIunits.Radius rPip[nPip] "Outter radius of pipes";
+  input Modelica.SIunits.Position xPip[nPip] "x-Coordinates of pipes";
+  input Modelica.SIunits.Position yPip[nPip] "y-Coordinates of pipes";
+  input Modelica.SIunits.ThermalConductivity kFil "Thermal conductivity of grouting material";
+  input Modelica.SIunits.ThermalConductivity kSoi "Thermal conductivity of soil material";
 
   output Real FRea[nPip,J] "Multipole coefficients";
   output Real FIma[nPip,J] "Multipole coefficients";
 
 protected
-  Complex zPip_i;
-  Complex zPip_j;
-  Complex P_nj;
-  Real pikFil=1/(2*Modelica.Constants.pi*kFil);
-  Real sigma=(kFil - kSoi)/(kFil + kSoi);
-  Complex f;
-  Integer j_pend;
+  Complex zPip_i "Position of pipe i";
+  Complex zPip_j "Position of pipe j";
+  Complex P_nj "Multipole of order j for pipe n";
+  Real pikFil(unit="(m.K)/W")=1/(2*Modelica.Constants.pi*kFil) "Coefficient based on grout thermal conductivity";
+  Real sigma=(kFil - kSoi)/(kFil + kSoi) "Thermal conductivity ratio";
+  Complex f "Intermedia value of multipole coefficient";
+  Integer j_pend "Maximum loop index in fourth term";
 
 algorithm
 
@@ -66,7 +66,7 @@ algorithm
   end for;
 
   annotation (Documentation(info="<html>
-<p> Evaluate the complex coefficient matrix F_mk from Claesson and Hellstrom (2011).
+<p>Evaluate the complex coefficient matrix F_mk from Claesson and Hellstrom (2011).
 </p>
 <h4>References</h4>
 <p>J. Claesson and G. Hellstrom. 

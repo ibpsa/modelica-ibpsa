@@ -4,47 +4,46 @@ function multipoleFluidTemperature "Fluid temperatures from multipole solution"
 
   input Integer nPip "Number of pipes";
   input Integer J "Number of multipoles";
-  input Real xPip[nPip] "x-Coordinates of pipes";
-  input Real yPip[nPip] "y-Coordinates of pipes";
-  input Real QPip_flow[nPip] "Heat flow in pipes";
-  input Real TBor "Average borehole wall temperature";
-  input Real rBor "Borehole radius";
-  input Real rPip[nPip] "Outter radius of pipes";
-  input Real kFil "Thermal conductivity of grouting material";
-  input Real kSoi "Thermal conductivity of soil material";
-  input Real RFluPip[nPip] "Fluid to pipe wall thermal resistances";
+  input Modelica.SIunits.Position xPip[nPip] "x-Coordinates of pipes";
+  input Modelica.SIunits.Position yPip[nPip] "y-Coordinates of pipes";
+  input Real QPip_flow[nPip](unit="W/m") "Heat flow in pipes";
+  input Modelica.SIunits.Temperature TBor "Average borehole wall temperature";
+  input Modelica.SIunits.Radius rBor "Borehole radius";
+  input Modelica.SIunits.Radius rPip[nPip] "Outter radius of pipes";
+  input Modelica.SIunits.ThermalConductivity kFil "Thermal conductivity of grouting material";
+  input Modelica.SIunits.ThermalConductivity kSoi "Thermal conductivity of soil material";
+  input Real RFluPip[nPip](unit="(m.K)/W") "Fluid to pipe wall thermal resistances";
   input Real eps=1.0e-5 "Iteration relative accuracy";
-  input Real it_max=100 "Maximum number of iterations";
+  input Integer it_max=100 "Maximum number of iterations";
 
-  output Real TFlu[nPip] "Fluid temperature in pipes";
+  output Modelica.SIunits.Temperature TFlu[nPip] "Fluid temperature in pipes";
 
 protected
-  Real pikFil=1/(2*Modelica.Constants.pi*kFil);
-  Real sigma=(kFil - kSoi)/(kFil + kSoi);
-  Real betaPip[nPip]=2*Modelica.Constants.pi*kFil*RFluPip;
-  Complex zPip_i;
-  Complex zPip_j;
-  Complex P_nj;
-  Real PRea[nPip,J];
-  Real PIma[nPip,J];
-  Complex P_nj_new;
-  Real PRea_new[nPip,J];
-  Real PIma_new[nPip,J];
-  Complex F_mk;
-  Real FRea[nPip,J];
-  Real FIma[nPip,J];
-  Real R0[nPip,nPip];
-  Complex deltaTFlu;
-  Complex deltaT;
-  Real rbm;
-  Real dz;
-  Real coeff[nPip,J];
-  Real diff;
-  Real diff_max;
-  Real diff_min;
-  Real diff0;
-  Integer it;
-  Real eps_max;
+  Real pikFil(unit="(m.K)/W")=1/(2*Modelica.Constants.pi*kFil) "Coefficient based on grout thermal conductivity";
+  Real sigma=(kFil - kSoi)/(kFil + kSoi) "Thermal conductivity ratio";
+  Real betaPip[nPip]=2*Modelica.Constants.pi*kFil*RFluPip "Dimensionless fluid to outter pipe wall thermal resistance";
+  Complex zPip_i "Position of pipe i";
+  Complex zPip_j "Position of pipe j";
+  Complex P_nj "Multipole of order j for pipe n";
+  Real PRea[nPip,J] "Matrix of real part of multipoles";
+  Real PIma[nPip,J] "Matrix of imaginary part of multipole";
+  Complex P_nj_new "New value of multipole of order j for pipe n";
+  Real PRea_new[nPip,J] "New value of real part of multipoles";
+  Real PIma_new[nPip,J] "New value of imaginary part of multipoles";
+  Complex F_mk "Coefficient F of order k of pipe m";
+  Real FRea[nPip,J] "Real part of matrix F_mk";
+  Real FIma[nPip,J] "Imaginary part of matrix F_mk";
+  Real R0[nPip,nPip](unit="(m.K)/W") "Line source approximation of thermal resistances";
+  Complex deltaTFlu "Fluid temperature difference with line source approximation";
+  Real rbm "Intermediate coefficient";
+  Modelica.SIunits.Distance dz "Pipe to pipe distance";
+  Real coeff[nPip,J] "Coefficient for multiplication with matrix F_mk";
+  Real diff "Difference in subsequent multipole evaluations";
+  Real diff_max "Maximum difference in subsequent multipole evaluations";
+  Real diff_min "Minimum difference in subsequent multipole evaluations";
+  Real diff0 "Difference in subsequent multipole evaluations";
+  Integer it "Iteration counter";
+  Real eps_max "Convergence variable";
 
 algorithm
   // Thermal resistance matrix from 0th order multipole

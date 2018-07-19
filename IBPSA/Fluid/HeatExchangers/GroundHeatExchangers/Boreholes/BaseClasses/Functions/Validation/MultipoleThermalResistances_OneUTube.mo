@@ -16,22 +16,22 @@ model MultipoleThermalResistances_OneUTube
     "Thermal conductivity of grouting material";
   parameter Modelica.SIunits.ThermalConductivity kSoi=2.5
     "Thermal conductivity of soil material";
-  parameter Modelica.SIunits.ThermalInsulance[nPip] RFluPip=
+  parameter Real[nPip] RFluPip(unit="(m.K)/W")=
     fill(1.2/(2*Modelica.Constants.pi*kFil), nPip)
     "Fluid to pipe wall thermal resistances";
   parameter Modelica.SIunits.Temperature TBor=0
     "Average borehole wall temperature";
 
-  parameter Modelica.SIunits.ThermalInsulance[nPip,nPip] RDelta_Ref=
+  parameter Real[nPip,nPip] RDelta_Ref=
     {{1/3.680, 1/0.242},{1/0.242, 1/3.724}}
     "Reference delta-circuit thermal resistances";
-  parameter Modelica.SIunits.ThermalInsulance[nPip,nPip] R_Ref=
+  parameter Real[nPip,nPip] R_Ref=
     {{0.25592, 0.01561},{0.01561, 0.25311}}
     "Reference internal thermal resistances";
 
-  Modelica.SIunits.ThermalInsulance[nPip,nPip] RDelta
+  Real[nPip,nPip] RDelta(unit="(m.K)/W")
     "Delta-circuit thermal resistances";
-  Modelica.SIunits.ThermalInsulance[nPip,nPip] R
+  Real[nPip,nPip] R(unit="(m.K)/W")
     "Internal thermal resistances";
 
 equation

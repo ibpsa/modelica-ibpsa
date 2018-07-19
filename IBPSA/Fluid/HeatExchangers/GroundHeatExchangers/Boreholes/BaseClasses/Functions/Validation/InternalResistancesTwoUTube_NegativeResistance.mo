@@ -68,21 +68,20 @@ initial equation
     Documentation(info="<html>
 <p>
 This example validates the implementation of
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.multipoleThermalResistances\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.multipoleThermalResistances</a>
-for the evaluation of the borehole thermal resistances.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube</a>
+for the evaluation of the internal thermal resistances of a double U-tube borehole
+as defined by Bauer et al (2011).
 </p>
 <p>
-The multipole method is used to evaluate thermal resistances for a single U-tube
-borehole with asymmetrically positionned pipes. Results are compared to
-reference values given in Claesson and Hellstr&ouml;m (2011).
+In this case, the shank spacing is defined such that the pipes are close to the
+borehole wall, rendering the short-circuit thermal resistances negative. The
+capacity location <code>x</code> is then automatically set to zero.
 </p>
 <h4>References</h4>
-<p>
-Claesson, J., &amp; Hellstr&ouml;m, G. (2011). Multipole method to calculate
-borehole thermal resistances in a borehole heat exchanger. <i>HVAC&amp;R
-Research, 17</i>(6), 895-911.
-</p>
+<p>D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch. 
+<i>Thermal resistance and capacity models for borehole heat exchangers</i>. 
+International Journal of Energy Research, 35:312&ndash;320, 2011.</p>
 </html>", revisions="<html>
 <ul>
 <li>

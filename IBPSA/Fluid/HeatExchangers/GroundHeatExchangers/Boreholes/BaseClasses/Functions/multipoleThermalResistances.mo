@@ -5,22 +5,22 @@ function multipoleThermalResistances
 
   input Integer nPip "Number of pipes";
   input Integer J "Number of multipoles";
-  input Real xPip[nPip] "x-Coordinates of pipes";
-  input Real yPip[nPip] "y-Coordinates of pipes";
-  input Real rBor "Borehole radius";
-  input Real rPip[nPip] "Outter radius of pipes";
-  input Real kFil "Thermal conductivity of grouting material";
-  input Real kSoi "Thermal conductivity of soil material";
-  input Real RFluPip[nPip] "Fluid to pipe wall thermal resistances";
-  input Real TBor=0 "Average borehole wall temperature";
+  input Modelica.SIunits.Position xPip[nPip] "x-Coordinates of pipes";
+  input Modelica.SIunits.Position yPip[nPip] "y-Coordinates of pipes";
+  input Modelica.SIunits.Radius rBor "Borehole radius";
+  input Modelica.SIunits.Radius rPip[nPip] "Outter radius of pipes";
+  input Modelica.SIunits.ThermalConductivity kFil "Thermal conductivity of grouting material";
+  input Modelica.SIunits.ThermalConductivity kSoi "Thermal conductivity of soil material";
+  input Real RFluPip[nPip](unit="(m.K)/W") "Fluid to pipe wall thermal resistances";
+  input Modelica.SIunits.Temperature TBor=0 "Average borehole wall temperature";
 
-  output Real RDelta[nPip,nPip] "Delta-circuit thermal resistances";
-  output Real R[nPip,nPip] "Internal thermal resistances";
+  output Real RDelta[nPip,nPip](unit="(m.K)/W") "Delta-circuit thermal resistances";
+  output Real R[nPip,nPip](unit="(m.K)/W") "Internal thermal resistances";
 
 protected
-  Real QPip_flow[nPip];
-  Real TFlu[nPip];
-  Real K[nPip,nPip];
+  Real QPip_flow[nPip](unit="W/m") "Pipe heat transfer rates";
+  Modelica.SIunits.Temperature TFlu[nPip] "Fluid temperatures";
+  Real K[nPip,nPip](unit="W/(m.K)") "Internal thermal conductances";
 
 algorithm
   for m in 1:nPip loop
@@ -64,7 +64,7 @@ algorithm
   end for;
 
   annotation (Documentation(info="<html>
-<p> Evaluate the delta-circuit borehole thermal resistances using the multipole method of Claesson and Hellstrom (2011).
+<p>Evaluate the delta-circuit borehole thermal resistances using the multipole method of Claesson and Hellstrom (2011).
 </p>
 <h4>References</h4>
 <p>J. Claesson and G. Hellstrom. 
