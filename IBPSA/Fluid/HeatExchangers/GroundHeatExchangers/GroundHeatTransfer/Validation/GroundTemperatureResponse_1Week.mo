@@ -112,7 +112,7 @@ equation
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/GroundTemperatureResponse_1Week.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-6, StopTime=360000.0),
+    experiment(Tolerance=1e-6, StopTime=604800.0),
     Documentation(info="<html>
 <p>
 This example validates the implementation of
