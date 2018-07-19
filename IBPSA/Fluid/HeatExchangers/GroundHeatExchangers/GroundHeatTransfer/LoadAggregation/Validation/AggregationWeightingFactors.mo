@@ -3,7 +3,7 @@ model AggregationWeightingFactors
   "This validation case verifies the calculation of the weighting factors kappa"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Time[6,2] timSer=
+  parameter Real[6,2] timSer=
     [0, 0;
     0.999999999999999, 7.96581783184631e-06;
     2.30986142530843, 1.36683711896241e-05;
