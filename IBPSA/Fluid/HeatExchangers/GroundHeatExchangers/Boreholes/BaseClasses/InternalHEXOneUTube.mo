@@ -1,8 +1,9 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 model InternalHEXOneUTube
-  "Internal part of a borehole for a U-Tube configuration"
+  "Internal heat exchanger of a borehole for a single U-Tube configuration"
 
-  extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.partialInternalHEX;
+  extends
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.partialInternalHEX;
   extends IBPSA.Fluid.Interfaces.FourPortHeatMassExchanger(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -141,29 +142,21 @@ in a single-U-tube borehole using the method of Bauer et al. (2011)
 and computing explicitely the fluid-to-ground thermal resistance 
 <i>R<sub>b</sub></i> and the 
 grout-to-grout resistance
-<i>R<sub>a</sub></i> as defined by Hellstroem (1991)
+<i>R<sub>a</sub></i> as defined by Claesson and Hellstrom (2011)
 using the multipole method. 
 </p>
-<p>
-The figure below shows the thermal network set up by Bauer et al. (2010).
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Boreholes/BaseClasses/Bauer_singleUTube.png\"/>
-</p>
 <h4>References</h4>
-<p>
-G. Hellstr&ouml;m. 
-<i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>. 
-Dept. of Mathematical Physics, University of Lund, Sweden, 1991.
-</p>
+<p>J. Claesson and G. Hellstrom. 
+<i>Multipole method to calculate borehole thermal resistances in a borehole heat exchanger. 
+</i>
+HVAC&R Research,
+17(6): 895-911, 2011.</p>
 <p>
 D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch.
 <i>
-<a href=\"http://dx.doi.org/10.1002/er.1689\">
 Thermal resistance and capacity models for borehole heat exchangers
-</a>
 </i>.
-International Journal Of Energy Research, 35:312&ndash;320, 2011.
+International Journal Of Energy Research, 35:312-320, 2011.
 </p>
 </html>", revisions="<html>
 <p>

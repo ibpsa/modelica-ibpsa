@@ -137,15 +137,24 @@ equation
           fillPattern=FillPattern.Forward)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),Documentation(info="<html>
-This partial model is used to implement borefield models using the parameters specified
-in the <code>borFieDat</code> record. The borefield uses a uniform borehole wall temperature
-for all boreholes in the borefield, and a single input and output fluid port with
-a mass flow rate that is adjusted within the model to reflect the per-borehole mass flow rate.
-The exact behaviour of the borehole depends on the chosen borehole model, but in all cases the
-thermal interaction between the borefield wall temperature and the surrounding soil
-is modelised using <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>,
+<p>
+This model simulates a borefield containing one or multiple boreholes
+using the parameters in the <code>borFieDat</code> record.
+</p>
+<p>
+Heat transfer to the soil is modeled using only one borehole heat exchanger
+(To be added in an extended model). The
+fluid mass flow rate into the borehole is divided to reflect the per-borehole
+fluid mass flow rate. The borehole model calculates the dynamics within the
+borehole itself using an axial discretization and a resistance-capacitance
+network for the internal thermal resistances between the individual pipes and
+between each pipe and the borehole wall.
+</p>
+<p>
+The thermal interaction between the borehole wall and the surrounding soil
+is modeled using <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>,
 which uses a cell-shifting load aggregation technique to calculate the borehole wall
-temperature after having calculated and/or read (from a previous calculation) the borefield's thermal response factor.
+temperature after calculating and/or read (from a previous calculation) the borefield's thermal response factor.
 </p>
 </html>", revisions="<html>
 <ul>

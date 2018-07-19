@@ -14,9 +14,13 @@ model BoreholeTwoUTube "Test for the double U-tube borehole model"
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/Examples/BoreholeTwoUTube.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
-This example illustrates modeling a segment of a double U-tube borehole heat exchanger.
-It simulates the behavior of the borehole on a single horizontal section with a prescribed
+<p>
+This example illustrates the use of the 
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeTwoUTube\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeTwoUTube</a>
+model. It simulates the behavior of a borehole with a prescribed
 borehole wall boundary condition.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

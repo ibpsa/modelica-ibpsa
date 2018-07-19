@@ -23,7 +23,7 @@ partial model partialBorehole
 
     annotation(Documentation(info="<html>
 <p>
-Partial model to implement models simulating geothermal U-tube boreholes modelized
+Partial model to implement models simulating geothermal U-tube boreholes modeled
 as several borehole segments, with a uniform borehole wall boundary condition.
 </p>
 </html>", revisions="<html>

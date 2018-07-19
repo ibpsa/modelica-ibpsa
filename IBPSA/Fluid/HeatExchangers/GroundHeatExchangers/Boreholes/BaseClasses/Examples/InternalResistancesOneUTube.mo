@@ -32,15 +32,12 @@ model InternalResistancesOneUTube "Validation of singleUTubeResistance by compar
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 2
     "Nominal mass flow rate";
 
-  Real Rgb_val(fixed=false);
-  Real Rgg_val(fixed=false);
-  Real RCondGro_val(fixed=false);
-  Real x(fixed=false);
+  Real Rgb_val(fixed=false) "Grout node to borehole wall thermal resistance";
+  Real Rgg_val(fixed=false) "Grout node to grout node thermal resistance";
+  Real RCondGro_val(fixed=false) "Pipe to grout node thermal resistance";
+  Real x(fixed=false) "Grout capacity node location";
 
-  parameter Real Rb_ref =  0.1465;
-  parameter Real Ra_ref =  0.62;
-  parameter Real RConv_ref =  0.003;
-  parameter Real RCondPipe_ref =  0.07868;
+  parameter Real Rb_ref = 0.1465 "Reference value of borehole thermal resistance";
 equation
 
   (x,Rgb_val,Rgg_val,RCondGro_val) =

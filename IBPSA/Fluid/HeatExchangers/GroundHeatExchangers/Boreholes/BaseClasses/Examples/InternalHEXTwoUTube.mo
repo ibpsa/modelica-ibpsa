@@ -68,6 +68,7 @@ model InternalHEXTwoUTube
         IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
         borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel,
         use_Rb=false))
+    "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
 

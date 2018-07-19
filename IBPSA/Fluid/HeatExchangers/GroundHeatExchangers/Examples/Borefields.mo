@@ -161,9 +161,7 @@ equation
 <p>
 This example shows three different borefields, each with a different configuration
 (single U-tube, double U-tube in parallel, and double U-tube in series) and compares
-the thermal behaviour of the circulating fluid in each case. The borefields in this
-example include some of the dynamic behavior of the boreholes, but not that of the filling
-material.
+the thermal behaviour of the circulating fluid in each case.
 </p>
 </html>",
 revisions="<html>

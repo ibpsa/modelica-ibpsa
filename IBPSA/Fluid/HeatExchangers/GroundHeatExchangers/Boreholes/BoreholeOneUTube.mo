@@ -136,9 +136,9 @@ port.
 <p>
 The heat transfer in the borehole is computed using a convective heat transfer coefficient
 that depends on the fluid velocity, a heat resistance between the two pipes, and
-a heat resistance between the pipes and the circumference of the borehole.
+a heat resistance between the pipes and the borehole wall.
 The heat capacity of the fluid, and the heat capacity of the grout, is taken into account.
-The vertical heat flow is assumed to be zero, and there is assumed to be no ground water flow.
+The vertical heat flow is assumed to be zero.
 </p>
 </html>", revisions="<html>
 <ul>

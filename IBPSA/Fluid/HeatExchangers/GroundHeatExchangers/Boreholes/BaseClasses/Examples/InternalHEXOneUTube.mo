@@ -55,6 +55,7 @@ model InternalHEXOneUTube
     borFieDat(conDat=
         IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
         use_Rb=false))
+    "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
 

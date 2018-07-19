@@ -6,8 +6,6 @@ partial model partialBorehole
 
   parameter Integer nSeg(min=1) = 10
     "Number of segments to use in vertical discretization of the boreholes";
-  parameter Integer nHor(min=1) = 10
-    "Number of cells to use in radial discretization of soil";
   parameter Modelica.SIunits.Temperature T_start = 273.15 + 22
     "Initial soil temperature";
 
@@ -80,9 +78,11 @@ equation
     annotation (Line(points={{-10,70},{0,70},{0,14}}, color={191,0,0}));
 
   annotation(Documentation(info="<html>
+<p>
 This partial model is used for examples using boreholes models which extend
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.partialBorehole\">
 IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.partialBorehole</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

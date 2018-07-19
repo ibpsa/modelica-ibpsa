@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers;
 model BorefieldTwoUTube
+  "Borefield model containing double U-Tube boreholes"
   extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.partialBorefield;
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeTwoUTube borHol(
     redeclare package Medium = Medium,
@@ -35,13 +36,18 @@ equation
     annotation (Line(points={{-20,60},{0,60},{0,20}}, color={191,0,0}));
 
   annotation(Documentation(info="<html>
+<p>
 This model simulates a borefield containing one or many double U-Tube boreholes
-using the parameters in the <code>borFieDat</code> record. The fluid mass flow rate
-is adjusted to reflect the per-borehole fluid mass flow rate, and the borehole model
-calculates both the dynamics between the uniform borehole wall and the surrounding soil
-temperature (<code>TSoi</code>) as well as the dynamics within the borehole itself
-using an axial discretization and a resistance-capacitance network for the internal
-thermal resistances.
+using the parameters in the <code>borFieDat</code> record.
+</p>
+<p>
+Heat transfer to the soil is modeled using only one borehole heat exchanger. The
+fluid mass flow rate into the borehole is divided to reflect the per-borehole
+fluid mass flow rate. The borehole model calculates the dynamics within the
+borehole itself using an axial discretization and a resistance-capacitance
+network for the internal thermal resistances between the individual pipes and
+between each pipe and the borehole wall.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

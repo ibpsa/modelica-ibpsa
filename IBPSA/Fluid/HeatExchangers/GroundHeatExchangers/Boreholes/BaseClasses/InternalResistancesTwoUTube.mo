@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 model InternalResistancesTwoUTube
-  "Internal resistance model for single U-Tube borehole segments."
+  "Internal resistance model for double U-Tube borehole segments."
   extends
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.partialInternalResistances;
 
@@ -246,7 +246,25 @@ equation
         Documentation(info="<html>
 <p>
 This model simulates the internal thermal resistance network of a borehole segment in
-the case of a double U-Tube borehole.
+the case of a double U-Tube borehole using the method of Bauer et al. (2011) 
+and computing explicitely the fluid-to-ground thermal resistance 
+<i>R<sub>b</sub></i> and the 
+grout-to-grout resistance
+<i>R<sub>a</sub></i> as defined by Claesson and Hellstrom (2011)
+using the multipole method. 
+</p>
+<h4>References</h4>
+<p>J. Claesson and G. Hellstrom. 
+<i>Multipole method to calculate borehole thermal resistances in a borehole heat exchanger. 
+</i>
+HVAC&R Research,
+17(6): 895-911, 2011.</p>
+<p>
+D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch.
+<i>
+Thermal resistance and capacity models for borehole heat exchangers
+</i>.
+International Journal Of Energy Research, 35:312-320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>

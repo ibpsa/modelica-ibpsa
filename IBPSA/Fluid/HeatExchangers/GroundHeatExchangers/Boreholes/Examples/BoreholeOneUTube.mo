@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples;
 model BoreholeOneUTube "Test for the single U-tube borehole model"
-  extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples.BaseClasses.partialBorehole(
+  extends
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples.BaseClasses.partialBorehole(
       redeclare
       IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeOneUTube
       borHol(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
@@ -13,9 +14,13 @@ model BoreholeOneUTube "Test for the single U-tube borehole model"
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
-This example illustrates modeling a segment of a single U-tube borehole heat exchanger.
-It simulates the behavior of the borehole on a single horizontal section with a prescribed
+<p>
+This example illustrates the use of the 
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeOneUTube\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeOneUTubes</a>
+model. It simulates the behavior of a borehole with a prescribed
 borehole wall boundary condition.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -9,7 +9,12 @@ extends Modelica.Icons.VariantsPackage;
 
 
 
-annotation (preferedView="info", Documentation(info="<html>
+
+
+
+  annotation (preferedView="info", Documentation(info="<html>
+<p>
 This package contains models for borehole heat exchangers.
+</p>
 </html>"));
 end Boreholes;

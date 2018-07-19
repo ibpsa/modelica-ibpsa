@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers;
-package Types
+package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 
   type BoreholeConfiguration = enumeration(

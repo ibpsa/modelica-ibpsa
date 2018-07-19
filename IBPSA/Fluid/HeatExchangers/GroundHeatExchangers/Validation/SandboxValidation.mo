@@ -1,12 +1,12 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Validation;
-model SandboxValidation
+model SandboxValidation "Validation of BorefieldOneUTube based on the experiment of Beier et al. (2011)"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Water;
-  Real Rb_sim = ((TBorFieOut.T + TBorFieIn.T)/2 - borHol.groTemRes.borWall.T)/max(hea.Q_flow / 18.3,1);
-  Real Rb_exp = ((sandBoxMea.y[1] + sandBoxMea.y[2])/2 + 273.15 - borHol.groTemRes.borWall.T)/max(hea.Q_flow / 18.3,1);
 
-  parameter Modelica.SIunits.Temperature T_start = 273.15 + 22.09;
-  parameter Real mSenFac = 1 + (1.8e6*Modelica.Constants.pi*(borFieDat.conDat.rTub^2-(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2)+2.4e6*2*Modelica.Constants.pi*borFieDat.conDat.rBor*0.002/2)/(4.2e6*Modelica.Constants.pi*(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2);
+  parameter Modelica.SIunits.Temperature T_start = 273.15 + 22.09
+    "Initial temperature of the sandbox";
+  parameter Real mSenFac = 1 + (1.8e6*Modelica.Constants.pi*(borFieDat.conDat.rTub^2-(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2)+2.4e6*2*Modelica.Constants.pi*borFieDat.conDat.rBor*0.002/2)/(4.2e6*Modelica.Constants.pi*(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2)
+    "Scaling factor for the borehole capacitances, modified to account for the thermal mass of the pipes and the borehole casing";
 
   BorefieldOneUTube borHol(redeclare package Medium = Medium, borFieDat=
         borFieDat,
@@ -47,8 +47,7 @@ model SandboxValidation
     tableName="data",
     offset={0,0,0},
     columns={2,3,4},
-    fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/Beier_Smith_Spitler_2011_SandBoxValidation.txt"))
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/Beier_Smith_Spitler_2011_SandBoxValidation.txt"))
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Modelica.Blocks.Sources.Constant TSoi(k=T_start)
     annotation (Placement(transformation(extent={{8,-40},{-12,-20}})));
@@ -86,5 +85,24 @@ equation
           -26,-50.4},{-14.6,-50.4}}, color={0,0,127}));
   annotation (__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Validation/SandboxValidation.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+Documentation(info="<html>
+<p>
+This validation case simulates the experiment of Beier et al. (2011). Measured
+experimental data is taken from the reference.
+</p>
+<h4>References</h4>
+<p>
+Beier, R.A., Smith, M.D. and Spitler, J.D. 2011. <i>Reference data sets for
+vertical borehole ground heat exchanger models and thermal response test
+analysis</i>. Geothermics 40: 79-85.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 18, 2018, by Massimo Cimmino:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SandboxValidation;

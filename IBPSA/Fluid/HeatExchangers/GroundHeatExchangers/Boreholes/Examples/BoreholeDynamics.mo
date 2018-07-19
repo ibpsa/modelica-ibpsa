@@ -272,7 +272,20 @@ equation
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/Examples/BoreholeDynamics.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
+<p>
 This example illustrates different borehole models using different mass
 and energy dynamics.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 10, 2018, by Alex Laferri&egrave;re:<br>
+Removed ground heat transfer models so the example focuses on the boreholes.
+</li>
+<li>
+February, 2018, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
 </html>"));
 end BoreholeDynamics;
