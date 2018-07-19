@@ -257,7 +257,7 @@ using the multipole method.
 <p>J. Claesson and G. Hellstrom. 
 <i>Multipole method to calculate borehole thermal resistances in a borehole heat exchanger. 
 </i>
-HVAC&R Research,
+HVAC&amp;R Research,
 17(6): 895-911, 2011.</p>
 <p>
 D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch.

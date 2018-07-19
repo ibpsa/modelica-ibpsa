@@ -121,7 +121,7 @@ This example simulates the interior thermal behavior of a double U-tube borehole
 </html>", revisions="<html>
 <ul>
 <li>
-June 2018, by Damien Picard:<br>
+June 2018, by Damien Picard:<br\>
 First implementation.
 </li>
 </ul>

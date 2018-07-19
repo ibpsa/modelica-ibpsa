@@ -22,8 +22,6 @@ partial function partialInternalResistances
     "Thermal conductivity of the soi";
   input Modelica.SIunits.ThermalConductivity kTub
     "Thermal conductivity of the tube";
-
-  // thermal properties
   input Modelica.SIunits.ThermalConductivity kMed
     "Thermal conductivity of the fluid";
   input Modelica.SIunits.DynamicViscosity muMed
@@ -34,8 +32,8 @@ partial function partialInternalResistances
 
   input Boolean printDebug=false
     "Print resistances values in log for debug purposes.";
-  // Outputs
 
+  // Outputs
   output Real x "Capacity location";
 
 protected
@@ -73,7 +71,6 @@ This partial function defines the common inputs to functions that calculate
 the borehole internal resistances.
 </p>
 </html>", revisions="<html>
-<p>
 <ul>
 <li>
 July 18, 2018 by Massimo Cimmino:<br/>
@@ -95,6 +92,6 @@ Revised implementation.
 January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
-</ul></p>
+</ul>
 </html>"));
 end partialInternalResistances;

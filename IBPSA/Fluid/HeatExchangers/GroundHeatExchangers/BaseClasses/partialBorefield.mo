@@ -159,12 +159,12 @@ temperature after calculating and/or read (from a previous calculation) the bore
 </html>", revisions="<html>
 <ul>
 <li>
-July 2018, by Alex Laferri&egrave;re:<br>
+July 2018, by Alex Laferri&egrave;re:<br\>
 Changed into a partial model and changed documentation to reflect the new approach
 used by the borefield models.
 </li>
 <li>
-July 2014, by Damien Picard:<br>
+July 2014, by Damien Picard:<br\>
 First implementation.
 </li>
 </ul>

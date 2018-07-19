@@ -66,7 +66,7 @@ algorithm
   end for;
 
   annotation (Documentation(info="<html>
-<p>Evaluate the complex coefficient matrix F_mk from Claesson and Hellstrom (2011).
+<p>This model evaluates the complex coefficient matrix F_mk from Claesson and Hellstrom (2011).
 </p>
 <h4>References</h4>
 <p>J. Claesson and G. Hellstrom. 

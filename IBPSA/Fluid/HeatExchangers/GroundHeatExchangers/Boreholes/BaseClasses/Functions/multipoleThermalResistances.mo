@@ -64,13 +64,13 @@ algorithm
   end for;
 
   annotation (Documentation(info="<html>
-<p>Evaluate the delta-circuit borehole thermal resistances using the multipole method of Claesson and Hellstrom (2011).
+<p>This model evaluates the delta-circuit borehole thermal resistances using the multipole method of Claesson and Hellstrom (2011).
 </p>
 <h4>References</h4>
 <p>J. Claesson and G. Hellstrom. 
 <i>Multipole method to calculate borehole thermal resistances in a borehole heat exchanger. 
 </i>
-HVAC&R Research,
+HVAC&amp;R Research,
 17(6): 895-911, 2011.</p>
 </html>", revisions="<html>
 <ul>

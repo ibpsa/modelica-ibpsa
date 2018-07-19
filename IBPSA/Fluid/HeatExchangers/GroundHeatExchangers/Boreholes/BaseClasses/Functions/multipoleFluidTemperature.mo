@@ -144,7 +144,7 @@ algorithm
   end if;
 
   annotation (Documentation(info="<html>
-<p> Evaluate the Fluid temperatures using the multipole method of Claesson and Hellstrom (2011).
+<p> This model evaluates the fluid temperatures using the multipole method of Claesson and Hellstrom (2011).
 </p>
 <h4>References</h4>
 <p>J. Claesson and G. Hellstrom. 

@@ -82,11 +82,10 @@ range <i>2300 &lt; Re &lt; 2400</i>.
 </p>
 <h4>References</h4>
 <p>
-Bergman, T. L., Incropera, F. P., DeWitt, D. P., & Lavine, A. S. (2011). <i>Fundamentals of heat and mass
-transfer</i> (7th ed.). New York: John Wiley & Sons.
+Bergman, T. L., Incropera, F. P., DeWitt, D. P., &amp; Lavine, A. S. (2011). <i>Fundamentals of heat and mass
+transfer</i> (7th ed.). New York: John Wiley &amp; Sons.
 </p>
 </html>", revisions="<html>
-<p>
 <ul>
 <li>
 July 10, 2018, by Alex Laferri&egrave;re:<br/>
@@ -110,6 +109,5 @@ January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</p>
 </html>"));
 end convectionResistanceCircularPipe;

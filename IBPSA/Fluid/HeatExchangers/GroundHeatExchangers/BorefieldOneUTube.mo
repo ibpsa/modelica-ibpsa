@@ -51,7 +51,12 @@ between each pipe and the borehole wall.
 </html>", revisions="<html>
 <ul>
 <li>
-July 10, 2018, by Alex Laferri&egrave;re:<br/>
+July 2018, by Alex Laferri&egrave;re:<br/>
+Extended partial model and changed documentation to reflect the new approach
+used by the borefield models.
+</li>
+<li>
+July 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

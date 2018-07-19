@@ -34,7 +34,7 @@ model InternalResistancesTwoUTube "Validation of singleUTubeResistance by compar
 
   Real Rgb_val(fixed=false) "Grout node to borehole wall thermal resistance";
   Real Rgg_val(fixed=false) "Grout node to grout node thermal resistance";
-  Real RCondGro_val(fixed=false) "Pipe to grout node thermal resistance";
+  Real RCondGro_val(fixed=false) "Pipe to grout node th#ermal resistance";
   Real x(fixed=false) "Grout capacity node location";
 
   parameter Real Rb_ref = 0.08328 "Reference value of borehole thermal resistance";
@@ -68,7 +68,7 @@ borehole segment.
 </html>", revisions="<html>
 <ul>
 <li>
-June 2018, by Damien Picard:<br>
+June 2018, by Damien Picard:<br\>
 First implementation.
 </li>
 </ul>

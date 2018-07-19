@@ -86,7 +86,7 @@ IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.partialBorehole</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-July 9, 2018, by Alex Laferri&egrave;re:<br>
+July 9, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.
 </li>
 </ul>

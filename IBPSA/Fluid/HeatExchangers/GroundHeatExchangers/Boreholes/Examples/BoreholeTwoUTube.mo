@@ -24,12 +24,12 @@ borehole wall boundary condition.
 </html>", revisions="<html>
 <ul>
 <li>
-July 10, 2018, by Alex Laferri&egrave;re:<br>
+July 10, 2018, by Alex Laferri&egrave;re:<br/>
 Adjusted the example following major changes to the GroundHeatExchangers package.
 Additionally, implemented a partial example model.
 </li>
 <li>
-August 30, 2011, by Pierre Vigouroux:<br>
+August 30, 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>
