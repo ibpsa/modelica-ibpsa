@@ -1,65 +1,60 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Examples;
-model InternalResistancesOneUTube "Validation of singleUTubeResistance by comparing the obtained Rb and Ra values to the values obtained by EED. The values should be close to parameters _ref. 
-  The differences are due to numerical noise, as the same formulas give better results in Python."
+model InternalResistancesOneUTube "Validation of InternalResistancesOneUTube"
   extends Modelica.Icons.Example;
 
-  parameter Boolean use_Rb = false
-    "True if the value Rb should be used instead of calculated";
-  parameter Real Rb(unit="(m.K)/W") = 0.145 "Borehole thermal resistance";
-  parameter Modelica.SIunits.Height hSeg = 110 "Height of the element";
-  parameter Modelica.SIunits.Radius rBor = 0.11/2 "Radius of the borehole";
-  // Geometry of the pipe
-  parameter Modelica.SIunits.Radius rTub = 0.032/2 "Radius of the tube";
-  parameter Modelica.SIunits.Length eTub = 0.003 "Thickness of the tubes";
-  parameter Modelica.SIunits.Length sha = 0.07/2
-    "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
+  parameter Integer nSeg(min=1) = 10
+    "Number of segments to use in vertical discretization of the boreholes";
+  parameter Modelica.SIunits.Length hSeg = borFieDat.conDat.hBor/nSeg
+    "Length of the internal heat exchanger";
+  parameter Modelica.SIunits.ThermalResistance Rgb_val=0.0430511 "Grout node to borehole wall thermal resistance";
+  parameter Modelica.SIunits.ThermalResistance Rgg_val=0.00605573 "Grout node to grout node thermal resistance";
+  parameter Modelica.SIunits.ThermalResistance RCondGro_val=0.14285 "Pipe to grout node thermal resistance";
+  parameter Modelica.SIunits.Temperature T_start=298.15 "Initial temperature";
 
-  // Thermal properties
-  parameter Modelica.SIunits.ThermalConductivity kFil = 0.6
-    "Thermal conductivity of the grout";
-  parameter Modelica.SIunits.ThermalConductivity kSoi = 3.5
-    "Thermal conductivity of the soi";
-  parameter Modelica.SIunits.ThermalConductivity kTub = 0.42
-    "Thermal conductivity of the tube";
-
-  // thermal properties
-  parameter Modelica.SIunits.ThermalConductivity kMed = 0.48
-    "Thermal conductivity of the fluid";
-  parameter Modelica.SIunits.DynamicViscosity muMed = 0.0052
-    "Dynamic viscosity of the fluid";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpMed = 3795
-    "Specific heat capacity of the fluid";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 2
-    "Nominal mass flow rate";
-
-  Real Rgb_val(fixed=false) "Grout node to borehole wall thermal resistance";
-  Real Rgg_val(fixed=false) "Grout node to grout node thermal resistance";
-  Real RCondGro_val(fixed=false) "Pipe to grout node thermal resistance";
-  Real x(fixed=false) "Grout capacity node location";
-
-  parameter Real Rb_ref = 0.1465 "Reference value of borehole thermal resistance";
+  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalResistancesOneUTube
+    intRes1UTub(
+    hSeg=hSeg,
+    T_start=T_start,
+    borFieDat=borFieDat,
+    Rgb_val=Rgb_val,
+    RCondGro_val=RCondGro_val,
+    Rgg_val=Rgg_val,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                     "Thermal resistance and capacitances of the borehole"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TWal(T=T_start)
+    "Borehole wall temperature"
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TPip2(T=T_start + 15)
+    "Wall temperature of pipe 2"
+    annotation (Placement(transformation(extent={{70,-10},{50,10}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TPip1
+    "Wall temperature of pipe 1"
+    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
+  Modelica.Blocks.Sources.Ramp T_ramp(
+    height=20,
+    duration=600,
+    offset=T_start)
+                   "Temperature ramp of pipe 1"
+    annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
+  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Example
+    borFieDat(conDat=
+        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
+        use_Rb=false))
+    "Borefield data"
+    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
 
-  (x,Rgb_val,Rgg_val,RCondGro_val) =
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesOneUTube(
-    hSeg=hSeg,
-    rBor=rBor,
-    rTub=rTub,
-    eTub=eTub,
-    sha=sha,
-    kFil=kFil,
-    kSoi=kSoi,
-    kTub=kTub,
-    use_Rb=use_Rb,
-    Rb=Rb,
-    kMed=kMed,
-    muMed=muMed,
-    cpMed=cpMed,
-    m_flow_nominal=m_flow_nominal,
-    printDebug=true);
-
+  connect(TWal.port, intRes1UTub.port_wall)
+    annotation (Line(points={{-50,0},{-26,0},{0,0}}, color={191,0,0}));
+  connect(TPip2.port, intRes1UTub.port_2)
+    annotation (Line(points={{50,0},{10,0}}, color={191,0,0}));
+  connect(TPip1.port, intRes1UTub.port_1)
+    annotation (Line(points={{-10,40},{0,40},{0,10}}, color={191,0,0}));
+  connect(T_ramp.y, TPip1.T)
+    annotation (Line(points={{-49,40},{-40,40},{-32,40}}, color={0,0,127}));
   annotation (
-  experiment(StopTime=100000, Tolerance=1e-6),
+  experiment(StopTime=3600, Tolerance=1e-6),
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Examples/InternalResistancesOneUTube.mos"
         "Simulate and plot"),
@@ -69,7 +64,7 @@ borehole segment.
 </html>", revisions="<html>
 <ul>
 <li>
-June 2018, by Damien Picard:<br/>
+July 19, 2018, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
