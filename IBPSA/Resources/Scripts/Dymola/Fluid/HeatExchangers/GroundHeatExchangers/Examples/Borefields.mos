@@ -22,8 +22,7 @@ createPlot(
 createPlot(
   id=1,
   position={0, 0, 1268, 180},
-  y={"borFie2UTubSer.borHol.intHex[10].vol1.heatPort.T", "borFie2UTubSer.borHol.intHex[10].vol2.heatPort.T",
-  "borFie2UTubSer.borHol.intHex[10].vol3.heatPort.T", "borFie2UTubSer.borHol.intHex[10].vol4.heatPort.T"},
+  y={"borFie2UTubSer.borHol.intHex[10].vol1.heatPort.T", "borFie2UTubSer.borHol.intHex[10].vol2.heatPort.T", "borFie2UTubSer.borHol.intHex[10].vol3.heatPort.T", "borFie2UTubSer.borHol.intHex[10].vol4.heatPort.T"},
   range={0.0, 36000.0, 5.0, 30.0},
   grid=true,
   subPlot=3,
