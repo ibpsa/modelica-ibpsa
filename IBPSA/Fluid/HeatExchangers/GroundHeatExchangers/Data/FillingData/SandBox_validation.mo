@@ -4,7 +4,7 @@ record SandBox_validation
   extends
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData.Template(
       kFil=0.73,
-      dFil=2000,
+      dFil=1900,
       cFil=2000);
   annotation (
   defaultComponentPrefixes="parameter",

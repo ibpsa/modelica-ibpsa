@@ -45,11 +45,10 @@ model SandboxValidation
   Modelica.Blocks.Sources.CombiTimeTable sandBoxMea(
     tableOnFile=true,
     tableName="data",
-    fileName=
-        Modelica.Utilities.Files.loadResource(
-      "modelica://IBPSA/Resources/ValidationData/SpitlerCstLoad_Time_Tsup_Tret_deltaT.txt"),
     offset={0,0,0},
-    columns={2,3,4})
+    columns={2,3,4},
+    fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/Beier_Smith_Spitler_2011_SandBoxValidation.txt"))
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Modelica.Blocks.Sources.Constant TSoi(k=T_start)
     annotation (Placement(transformation(extent={{8,-40},{-12,-20}})));
