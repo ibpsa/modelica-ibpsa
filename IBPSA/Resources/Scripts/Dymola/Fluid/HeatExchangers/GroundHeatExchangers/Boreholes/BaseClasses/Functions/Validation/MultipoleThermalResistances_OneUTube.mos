@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.Validation.MultipoleThermalResistances_OneUTube", stopTime=1.0, method="dassl", resultFile="FunctionMultipoleThermalResistances_OneUTube");
+simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.Validation.MultipoleThermalResistances_OneUTube", stopTime=1.0, method="dassl", tolerance=1E-6, resultFile="FunctionMultipoleThermalResistances_OneUTube");
 
 createPlot(
   id = 1,

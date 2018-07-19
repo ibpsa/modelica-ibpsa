@@ -7,7 +7,7 @@ model TemporalSuperposition "This validation case applies temporal superposition
       QAgg_flow={2,1e6,3,1e6,1e6},
       kappa={0.4,0,0.2,1,0},
       curCel=3) "Temporal superposition";
-  Real supPosErr;
+  Real supPosErr "Error in temporal superposition";
 
 equation
   supPosErr = abs((2*0.4+3*0.2)-supPos);
