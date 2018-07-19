@@ -228,13 +228,13 @@ The vertical heat flow is assumed to be zero, and there is assumed to be no grou
 </html>", revisions="<html>
 <ul>
 <li>
-July 2018, by Alex Laferri&egrave;re:<br>
+July 2018, by Alex Laferri&egrave;re:<br/>
 Following major changes to the structure of the GroundHeatExchangers package,
 the documentation has been changed to reflect the new role of this model. Additionally,
 this model now extends a partial borehole model.
 </li>
 <li>
-July 2014, by Damien Picard:<br>
+July 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

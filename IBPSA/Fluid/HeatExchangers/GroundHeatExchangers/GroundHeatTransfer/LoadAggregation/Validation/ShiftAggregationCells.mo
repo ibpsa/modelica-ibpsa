@@ -30,8 +30,6 @@ This validation case replicates the load-shifting procedure illustred in the fig
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_01.png\" />
 </p>
-<p>
-</p>
 <h4>References</h4>
 <p>
 Cimmino, M. 2014. <i>D&eacute;veloppement et validation exp&eacute;rimentale de facteurs de r&eacute;ponse

@@ -279,11 +279,11 @@ and energy dynamics.
 </html>", revisions="<html>
 <ul>
 <li>
-July 10, 2018, by Alex Laferri&egrave;re:<br>
+July 10, 2018, by Alex Laferri&egrave;re:<br/>
 Removed ground heat transfer models so the example focuses on the boreholes.
 </li>
 <li>
-February, 2018, by Damien Picard:<br>
+February, 2018, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
