@@ -1,10 +1,10 @@
 simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.Validation.InternalResistancesTwoUTube_NegativeResistance", stopTime=1.0, method="dassl", resultFile="FunctionInternalResistancesTwoUTube_NegativeResistance");
 
 createPlot(
-  id   = 1,
+  id = 1,
   position = {35, 30, 631, 456},
-  x    = "time",
-  y    = {"Rgb", "Rgg1", "Rgg2", "RCondGro"}, 
+  x = "time",
+  y = {"Rgb", "Rgg1", "Rgg2", "RCondGro"}, 
   autoscale = true,
   autoerase = true,
   autoreplot = true, 
@@ -15,10 +15,10 @@ createPlot(
   bottomTitleType = 1);
 
 createPlot(
-  id   = 2,
+  id = 2,
   position = {35, 30, 631, 456},
-  x    = "time",
-  y    = {"x"}, 
+  x = "time",
+  y = {"x"}, 
   autoscale = true,
   autoerase = true,
   autoreplot = true, 

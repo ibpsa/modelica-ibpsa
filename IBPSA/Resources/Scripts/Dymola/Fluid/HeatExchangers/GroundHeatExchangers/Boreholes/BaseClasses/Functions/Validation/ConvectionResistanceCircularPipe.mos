@@ -1,10 +1,10 @@
 simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.Validation.ConvectionResistanceCircularPipe", stopTime=10000.0, method="dassl", resultFile="FunctionConvectionResistanceCircularPipe");
 
 createPlot(
-  id   = 1,
+  id = 1,
   position = {35, 30, 631, 456},
-  x    = "Re",
-  y    = {"RConv"}, 
+  x = "Re",
+  y = {"RConv"}, 
   autoscale = true,
   autoerase = true,
   autoreplot = true, 
@@ -15,10 +15,10 @@ createPlot(
   bottomTitleType = 1);
 
 createPlot(
-  id   = 2,
+  id = 2,
   position = {35, 30, 631, 456},
-  x    = "Re",
-  y    = {"Nu"}, 
+  x = "Re",
+  y = {"Nu"}, 
   autoscale = true,
   autoerase = true,
   autoreplot = true, 
