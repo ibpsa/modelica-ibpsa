@@ -77,7 +77,7 @@ the thermal response will be calculated and written as a
 <code>.mat</code> file. Otherwise, the
 thermal response will simply be read from the 
 <code>.mat</code> file. In the <code>.mat</code> file, the data
-is saved in a matrix with name <code>TStep</code>, where the first column is the time (in
+is saved in a matrix with the name <code>TStep</code>, where the first column is the time (in
 seconds) and the second column is the temperature step response, which is the
 g-function divided by <code>2*&pi;*H*ks</code>, with <code>H</code> being the borehole length
 and <code>ks</code> being the thermal conductivity of the soil.
