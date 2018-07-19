@@ -11,7 +11,7 @@ partial model partialBorefield
 
   // Simulation parameters
   parameter Modelica.SIunits.Time tLoaAgg=300 "Time resolution of load aggregation";
-  parameter Integer p_max(min=1)=5 "Number of cells per aggregation level";
+  parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
   parameter Integer nSeg(min=1)=10
     "Number of segments to use in vertical discretization of the boreholes";
   parameter Modelica.SIunits.Temperature TGro_start = Medium.T_default
@@ -32,16 +32,16 @@ partial model partialBorefield
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.MassFlowRateMultiplier masFloDiv(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
-    k=borFieDat.conDat.nbBor) "Division of flow rate"
+    k=borFieDat.conDat.nBor) "Division of flow rate"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.MassFlowRateMultiplier masFloMul(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
-    k=borFieDat.conDat.nbBor) "Mass flow multiplier"
+    k=borFieDat.conDat.nBor) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse groTemRes(
     tLoaAgg=tLoaAgg,
-    p_max=p_max,
+    nCel=nCel,
     borFieDat=borFieDat,
     forceGFunCalc=forceGFunCalc)
                          "Ground temperature response"
