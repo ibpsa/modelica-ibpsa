@@ -15,7 +15,7 @@ model InternalResistancesTwoUTube
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
 
   // Thermal properties (Solids)
-  parameter Modelica.SIunits.ThermalConductivity kFil = 1.5
+  parameter Modelica.SIunits.ThermalConductivity kFil = 0.5
     "Thermal conductivity of the grout";
   parameter Modelica.SIunits.ThermalConductivity kSoi = 2.5
     "Thermal conductivity of the soi";
