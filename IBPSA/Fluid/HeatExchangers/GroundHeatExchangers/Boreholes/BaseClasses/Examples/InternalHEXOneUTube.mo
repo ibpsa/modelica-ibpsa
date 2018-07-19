@@ -38,7 +38,7 @@ model InternalHEXOneUTube
     annotation (Placement(transformation(extent={{54,4},{34,-16}})));
   IBPSA.Fluid.Sources.FixedBoundary bou(nPorts=2, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-48,-34},{-28,-14}})));
-  Real Rb_sim = ((senTem.T + senTem1.T)/2 - intHex.port_wall.T)/max(-intHex.port_wall.Q_flow / hSeg,1);
+  Real Rb_sim(unit="(m.K)/W") = ((senTem.T + senTem1.T)/2 - intHex.port_wall.T)/max(-intHex.port_wall.Q_flow / hSeg,1);
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
         Medium, m_flow_nominal=borFieDat.conDat.mBor_flow_nominal)
     annotation (Placement(transformation(extent={{16,0},{28,12}})));
