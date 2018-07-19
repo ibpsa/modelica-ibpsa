@@ -83,8 +83,7 @@ algorithm
       Rgg2 := 2*Rgb*(Rar2 - 2*x*Rg)/(2*Rgb - Rar2 + 2*x*Rg);
 
       // Thermodynamic test to check if negative R values make sense. If not, decrease x-value.
-      // fixme: the implemented is only for single U-tube BHE's.
-     test := (((1/Rgg1 + 1/2/Rgb)^(-1) > 0) and ((1/Rgg2 + 1/2/Rgb)^(-1) > 0));
+      test := (((1/Rgg1 + 1/2/Rgb)^(-1) > 0) and ((1/Rgg2 + 1/2/Rgb)^(-1) > 0));
       i := i + 1;
     end while;
   end if;
