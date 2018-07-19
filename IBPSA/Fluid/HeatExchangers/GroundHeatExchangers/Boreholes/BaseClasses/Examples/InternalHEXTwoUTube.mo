@@ -112,7 +112,7 @@ equation
           {32,-21},{-40,-21}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-            experiment(StopTime=100000),
+            experiment(StopTime=100000, Tolerance=1e-6),
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Examples/InternalHEXTwoUTube.mos"
         "Simulate and plot"),

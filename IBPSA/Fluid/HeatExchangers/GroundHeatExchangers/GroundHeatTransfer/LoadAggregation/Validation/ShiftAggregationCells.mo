@@ -20,7 +20,7 @@ equation
         curTim=time);
   end when;
 
-annotation (experiment(StartTime=3.5,StopTime=5.5),
+annotation (experiment(StartTime=3.5,StopTime=5.5,Tolerance=1e-6),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/LoadAggregation/Validation/ShiftAggregationCells.mos"
         "Simulate and plot"),
 Documentation(info="<html>

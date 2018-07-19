@@ -24,7 +24,7 @@ model TemperatureResponseMatrix
 equation
   TStep = Modelica.Math.Vectors.interpolate(timSer[:,1],timSer[:,2],time);
 
-annotation (experiment(StopTime=31536000),
+annotation (experiment(StopTime=31536000,Tolerance=1e-6),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/LoadAggregation/Validation/TemperatureResponseMatrix.mos"
         "Simulate and plot"),
 Documentation(info="<html>

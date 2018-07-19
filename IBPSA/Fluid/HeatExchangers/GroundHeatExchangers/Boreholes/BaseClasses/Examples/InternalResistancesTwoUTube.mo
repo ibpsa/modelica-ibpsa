@@ -58,7 +58,7 @@ equation
     printDebug=true);
 
   annotation (
-  experiment(StopTime=1),
+  experiment(StopTime=100000, Tolerance=1e-6),
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Examples/InternalResistancesTwoUTube.mos"
         "Simulate and plot"),

@@ -173,5 +173,5 @@ First implementation.
 </ul>
 </html>"),
     experiment(
-      StopTime=36000));
+      StopTime=36000,Tolerance=1e-6));
 end Borefields;

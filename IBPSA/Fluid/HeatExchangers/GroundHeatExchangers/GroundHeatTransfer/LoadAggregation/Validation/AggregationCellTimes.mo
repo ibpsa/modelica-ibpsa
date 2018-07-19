@@ -23,7 +23,7 @@ equation
   nu_error = 100.0-nu[i-1];
   rCel_error = 2.0-rCel[i];
 
-annotation (
+annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/LoadAggregation/Validation/AggregationCellTimes.mos"
         "Simulate and plot"),
 Documentation(info="<html>

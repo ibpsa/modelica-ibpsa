@@ -36,7 +36,7 @@ equation
     m_flow_nominal=m_flow_nominal);
   Nu = 1/(kMed*Modelica.Constants.pi*hSeg*RConv);
 
-  annotation (
+  annotation (experiment(Tolerance=1e-6, StopTime=10000.0),
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Functions/Validation/ConvectionResistanceCircularPipe.mos"
         "Simulate and plot"),

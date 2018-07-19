@@ -83,7 +83,8 @@ equation
           60,44},{42,44}}, color={0,0,127}));
   connect(TSoi.y, borHol.TSoi) annotation (Line(points={{-13,-30},{-26,-30},{
           -26,-50.4},{-14.6,-50.4}}, color={0,0,127}));
-  annotation (__Dymola_Commands(file=
+  annotation (experiment(Tolerance=1e-6, StopTime=186360),
+  __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Validation/SandboxValidation.mos"
         "Simulate and Plot"),
 Documentation(info="<html>

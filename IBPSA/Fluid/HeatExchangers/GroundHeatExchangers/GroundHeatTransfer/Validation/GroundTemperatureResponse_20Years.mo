@@ -88,7 +88,7 @@ equation
   connect(groTemRes.TSoi, const.y)
     annotation (Line(points={{-22,10},{-39,10}}, color={0,0,127}));
 
-  annotation (experiment(StopTime=630720000),
+  annotation (experiment(StopTime=630720000,Tolerance=1e-6),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/GroundTemperatureResponse_20Years.mos"
         "Simulate and plot"),
 Documentation(info="<html>

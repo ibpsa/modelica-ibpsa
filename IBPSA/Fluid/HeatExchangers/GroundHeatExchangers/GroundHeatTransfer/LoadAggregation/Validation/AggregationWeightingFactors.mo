@@ -21,7 +21,7 @@ equation
     TStep=timSer,
     nu=cat(1,linspace(0.4,2,5),linspace(2.8,6,5)));
 
-annotation (
+annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/LoadAggregation/Validation/AggregationWeightingFactors.mos"
         "Simulate and plot"),
 Documentation(info="<html>

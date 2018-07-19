@@ -265,7 +265,8 @@ equation
     annotation (Line(points={{-46,-90},{-50,-90}}, color={191,0,0}));
   connect(prescribedTemperature3.T, prescribedTemperature1.T) annotation (Line(
         points={{-72,-90},{-80,-90},{-80,30},{-72,30}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},
+  annotation (experiment(Tolerance=1e-6, StopTime=15000),
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,100}})),
     __Dymola_Commands(file=

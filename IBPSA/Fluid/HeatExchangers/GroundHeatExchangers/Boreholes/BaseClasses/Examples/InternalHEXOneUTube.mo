@@ -83,7 +83,7 @@ equation
     annotation (Line(points={{-2,40},{0,40},{0,10}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-    experiment(StopTime=100000),
+    experiment(StopTime=100000, Tolerance=1e-6),
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Examples/InternalHEXOneUTube.mos"
         "Simulate and plot"),

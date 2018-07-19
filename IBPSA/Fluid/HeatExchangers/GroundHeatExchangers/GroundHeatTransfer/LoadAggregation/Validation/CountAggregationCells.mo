@@ -11,7 +11,7 @@ equation
       timFin=120,
       tLoaAgg=10);
 
-annotation (
+annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/LoadAggregation/Validation/CountAggregationCells.mos"
         "Simulate and plot"),
 Documentation(info="<html>
