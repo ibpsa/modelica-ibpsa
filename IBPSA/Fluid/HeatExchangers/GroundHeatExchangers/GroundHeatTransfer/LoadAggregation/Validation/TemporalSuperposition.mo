@@ -2,12 +2,12 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAg
 model TemporalSuperposition "This validation case applies temporal superposition with truncated vectors"
   extends Modelica.Icons.Example;
 
-  parameter Real supPos = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.temporalSuperposition(
+  parameter Modelica.SIunits.Temperature supPos = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.temporalSuperposition(
       i=6,
       QAgg_flow={2,1e6,3,1e6,1e6},
       kappa={0.4,0,0.2,1,0},
       curCel=3) "Temporal superposition";
-  Real supPosErr "Error in temporal superposition";
+  Modelica.SIunits.Temperature supPosErr;
 
 equation
   supPosErr = abs((2*0.4+3*0.2)-supPos);

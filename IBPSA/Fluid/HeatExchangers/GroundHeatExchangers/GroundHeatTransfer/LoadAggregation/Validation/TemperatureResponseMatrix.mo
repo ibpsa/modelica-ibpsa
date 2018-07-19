@@ -3,7 +3,7 @@ model TemperatureResponseMatrix
   "This validation case test the calculation, writing and reading of the temperature step response"
   extends Modelica.Icons.Example;
 
-  parameter Real timSer[26+50,2]=
+  parameter Modelica.SIunits.Time timSer[26+50,2]=
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.temperatureResponseMatrix(
       nBor=1,
       cooBor={{0,0}},
@@ -19,7 +19,7 @@ model TemperatureResponseMatrix
       ttsMax=exp(5),
       sha="TemperatureResponseMatrix_validation",
       forceGFunCalc=true) "Resulting temperature response matrix";
-  Real TStep;
+  Modelica.SIunits.ThermalResistance TStep "Temperature step response";
 
 equation
   TStep = Modelica.Math.Vectors.interpolate(timSer[:,1],timSer[:,2],time);

@@ -7,9 +7,9 @@ model AggregationCellTimes
   parameter Modelica.SIunits.Time tLoaAgg=10 "Time resolution of load aggregation";
   final parameter Modelica.SIunits.Time[i] nu(each fixed=false)
     "Time vector for load aggregation";
-  final parameter Real[i] rCel(each fixed=false) "Cell widths";
+  final parameter Modelica.SIunits.Time[i] rCel(each fixed=false) "Cell widths";
 
-  Real nu_error,rCel_error "Error on chosen values";
+  Modelica.SIunits.Time nu_error,rCel_error "Error on chosen values";
 
 initial equation
   (nu,rCel) = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.aggregationCellTimes(

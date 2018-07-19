@@ -3,7 +3,7 @@ model AggregationWeightingFactors
   "This validation case verifies the calculation of the weighting factors kappa"
   extends Modelica.Icons.Example;
 
-  parameter Real[6,2] timSer=
+  parameter Modelica.SIunits.Time[6,2] timSer=
     [0, 0;
     0.999999999999999, 7.96581783184631e-06;
     2.30986142530843, 1.36683711896241e-05;
@@ -11,7 +11,7 @@ model AggregationWeightingFactors
     6.27297603019976, 2.43435015306157e-05;
     9.21672932384307, 3.00295537091117e-05]
     "Complete time matrix with TStep";
-  Real[10] kappa
+  Modelica.SIunits.ThermalResistance[10] kappa
     "Weight factor for each aggregation cell";
 
 equation

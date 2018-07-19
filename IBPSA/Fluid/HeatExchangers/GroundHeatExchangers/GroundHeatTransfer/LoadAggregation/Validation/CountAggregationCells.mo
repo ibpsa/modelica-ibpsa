@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAg
 model CountAggregationCells "This validation case verifies the counting of the required length of aggregation vectors"
   extends Modelica.Icons.Example;
 
-  Integer i;
+  Integer i "Number of aggregation cells";
 
 equation
   i = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.countAggregationCells(
