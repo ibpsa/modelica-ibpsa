@@ -39,8 +39,8 @@ partial model partialBorehole
     p=101330,
     T=283.15) "Sink" annotation (Placement(transformation(extent={{90,-12},{70,
             8}},  rotation=0)));
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation
-                                        borFieDat "Borefield parameters"
+  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Example
+    borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn(m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
       redeclare package Medium = Medium) "Inlet borehole temperature"

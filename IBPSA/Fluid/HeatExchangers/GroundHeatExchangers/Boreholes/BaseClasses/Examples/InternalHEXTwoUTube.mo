@@ -13,19 +13,19 @@ model InternalHEXTwoUTube
     intHex(
     redeclare package Medium = Medium,
     hSeg=hSeg,
-    m1_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
-    m2_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     dp1_nominal=10,
     dp2_nominal=10,
-    m3_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
-    m4_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     dp3_nominal=10,
     dp4_nominal=10,
     dynFil=true,
     borFieDat=borFieDat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=285.15,
-    TGro_start=285.15)
+    T_start(displayUnit="K") = 285.15,
+    TGro_start(displayUnit="K") = 285.15,
+    m1_flow_nominal=borFieDat.conDat.mBor_flow_nominal/2,
+    m2_flow_nominal=borFieDat.conDat.mBor_flow_nominal/2,
+    m3_flow_nominal=borFieDat.conDat.mBor_flow_nominal/2,
+    m4_flow_nominal=borFieDat.conDat.mBor_flow_nominal/2)
     annotation (Placement(transformation(extent={{-10,-12},{10,10}})));
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15
@@ -52,7 +52,7 @@ model InternalHEXTwoUTube
     annotation (Placement(transformation(extent={{-24,-12},{-36,0}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=Rb_sim)
     annotation (Placement(transformation(extent={{-10,-58},{10,-38}})));
-  Modelica.Blocks.Sources.Constant Rb_ref(k=0.166258)
+  Modelica.Blocks.Sources.Constant Rb_ref(k=0.0443802)
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
   Modelica.Blocks.Math.Add error(k2=-1)
     annotation (Placement(transformation(extent={{22,-70},{42,-50}})));
@@ -63,10 +63,10 @@ model InternalHEXTwoUTube
                                                 redeclare package Medium =
         Medium, m_flow_nominal=borFieDat.conDat.mBor_flow_nominal)
     annotation (Placement(transformation(extent={{16,-22},{28,-10}})));
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation
+  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Example
     borFieDat(conDat=
-        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.SandBox_validation(
-        borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeSeries,
+        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
+        borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel,
         use_Rb=false))
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation

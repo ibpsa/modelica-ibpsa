@@ -38,7 +38,7 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     T=283.15) "Sink" annotation (Placement(transformation(extent={{80,50},{60,70}},
                   rotation=0)));
   parameter
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Example
     borFieUTubDat "Borefield parameters with UTube borehole configuration"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn(m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
@@ -131,9 +131,9 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     T=283.15) "Sink" annotation (Placement(transformation(extent={{80,-70},{60,-50}},
                   rotation=0)));
   parameter
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Example
     borFie2UTubDat(conDat=
-        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.SandBox_validation(
+        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
          borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel))
     "Borefield parameters with UTube borehole configuration"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
