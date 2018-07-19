@@ -3,24 +3,34 @@ model SHA1 "Model that verifies the SHA1 encryption C function"
   extends Modelica.Icons.Example;
 
   //Test strings
-  parameter String strIn1 = "abc";
-  parameter String strIn2 = "";
-  parameter String strIn3 = "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq";
-  parameter String strIn4 = "1.23e+4";
+  parameter String strIn1 = "abc"
+    "First test string";
+  parameter String strIn2 = ""
+    "Second test string";
+  parameter String strIn3 = "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq"
+    "Third test string";
+  parameter String strIn4 = "1.23e+4"
+    "Fourth test string";
   parameter String strIn5 = Modelica.Utilities.Strings.repeat(1000,
-    string="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    string="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    "Fifth test string";
 
   //Expected outputs
   parameter String strEx1=
-    "a9993e364706816aba3e25717850c26c9cd0d89d";
+    "a9993e364706816aba3e25717850c26c9cd0d89d"
+    "Encryption result of first string";
   parameter String strEx2=
-    "da39a3ee5e6b4b0d3255bfef95601890afd80709";
+    "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    "Encryption result of second string";
   parameter String strEx3=
-    "84983e441c3bd26ebaae4aa1f95129e5e54670f1";
+    "84983e441c3bd26ebaae4aa1f95129e5e54670f1"
+    "Encryption result of third string";
   parameter String strEx4=
-    "bdd220adb45b392f17915af70ed8a006c382b983";
+    "bdd220adb45b392f17915af70ed8a006c382b983"
+    "Encryption result of fourth string";
   parameter String strEx5=
-    "34aa973cd4c4daa4f61eeb2bdbad27316534016f";
+    "34aa973cd4c4daa4f61eeb2bdbad27316534016f"
+    "Encryption result of fifth string";
 
   //Comparison results
   Boolean cmp1,cmp2,cmp3,cmp4,cmp5,cmpAll;
@@ -40,6 +50,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Cryp
 <p>
 This validation function tests the C implementation of the SHA1 encryption for
 the following strings:
+</p>
 <ul>
 <li>
 <code>&#34;abc&#34;</code>
@@ -56,7 +67,7 @@ the following strings:
 <li>
 <code>&#34;a&#34;</code> repeated a million consecutive times
 </li>
-</p>
+</ul>
 <p>
 If the encrypted strings are identical to the expected (known) encryption
 results, the <code>cmpAll</code> boolean variable will be <code>true</code>.
