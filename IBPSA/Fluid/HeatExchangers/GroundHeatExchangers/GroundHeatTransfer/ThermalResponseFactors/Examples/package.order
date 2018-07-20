@@ -3,8 +3,8 @@ CylindricalHeatSource_Integrand
 FiniteLineSource
 FiniteLineSource_Erfint
 FiniteLineSource_Integrand
-gFunction_100boreholes
-gFunction_SmallScaleValidation
+GFunction_100boreholes
+GFunction_SmallScaleValidation
 InfiniteLineSource
 ShaGFunction
 TimeGeometric

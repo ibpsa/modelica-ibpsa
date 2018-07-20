@@ -1,15 +1,18 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples;
-model gFunction_100boreholes
-  "gFunction calculation for a field of 10 by 10 boreholes"
+model GFunction_SmallScaleValidation
+  "g-Function calculation for the small scale validation case"
   extends Modelica.Icons.Example;
 
-  parameter Integer nBor = 100 "Number of boreholes";
-  parameter Modelica.SIunits.Position cooBor[nBor, 2] = {{7.5*mod(i-1,10), 7.5*floor((i-1)/10)} for i in 1:nBor}
+  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SmallScale_validation borFieDat
+    "Record of borehole configuration data";
+  parameter Integer nBor = borFieDat.conDat.nBor "Number of boreholes";
+  parameter Modelica.SIunits.Position cooBor[nBor, 2] = borFieDat.conDat.cooBor
     "Coordinates of boreholes";
-  parameter Modelica.SIunits.Height hBor = 150 "Borehole length";
-  parameter Modelica.SIunits.Height dBor = 4 "Borehole buried depth";
-  parameter Modelica.SIunits.Radius rBor = 0.075 "Borehole radius";
-  parameter Modelica.SIunits.ThermalDiffusivity aSoi = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
+  parameter Modelica.SIunits.Height hBor = borFieDat.conDat.hBor "Borehole length";
+  parameter Modelica.SIunits.Height dBor = borFieDat.conDat.dBor "Borehole buried depth";
+  parameter Modelica.SIunits.Radius rBor = borFieDat.conDat.rBor "Borehole radius";
+  parameter Modelica.SIunits.ThermalDiffusivity aSoi = borFieDat.soiDat.kSoi/(borFieDat.soiDat.dSoi*borFieDat.soiDat.cSoi)
+    "Ground thermal diffusivity used in g-function evaluation";
   parameter Integer nSeg = 12 "Number of line source segments per borehole";
   parameter Integer nTimSho = 26 "Number of time steps in short time region";
   parameter Integer nTimLon = 50 "Number of time steps in long time region";
@@ -77,21 +80,27 @@ equation
     gFun2 = gFun[k+1];
   end when;
 
-   annotation(experiment(Tolerance=1e-6, StopTime=3.7e11),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/ThermalResponseFactors/Examples/gFunction_100boreholes.mos"
+   annotation(experiment(Tolerance=1e-6, StopTime=1.8e+12),
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/ThermalResponseFactors/Examples/GFunction_SmallScaleValidation.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
 This example checks the implementation of functions that evaluate the
-g-function of a borefield of 100 boreholes in a 10 by 10 configuration.
+g-function of the borehole used in the small-scale experiment of Cimmino and
+Bernier (2015).
+</p>
+<h4>References</h4>
+<p>
+Cimmino, M. and Bernier, M. 2015. <i>Experimental determination of the
+g-functions of a small-scale geothermal borehole</i>. Geothermics 56: 60-71.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-March 20, 2018, by Massimo Cimmino:<br/>
+July 18, 2018, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end gFunction_100boreholes;
+end GFunction_SmallScaleValidation;
