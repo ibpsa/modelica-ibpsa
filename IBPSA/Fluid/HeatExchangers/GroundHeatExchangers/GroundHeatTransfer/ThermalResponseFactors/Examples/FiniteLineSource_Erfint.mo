@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples;
-model FiniteLineSource_erfint
+model FiniteLineSource_Erfint
   "Test case for the evaluation of the integral of the error function"
   extends Modelica.Icons.Example;
 
@@ -13,13 +13,13 @@ initial equation
 
 equation
   u = time;
-  erfint = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_erfint(u=u);
+  erfint = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(u=u);
   der(erfint_num) = Modelica.Math.Special.erf(u);
   err = erfint - erfint_num;
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/ThermalResponseFactors/Examples/FiniteLineSource_erfint.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/ThermalResponseFactors/Examples/FiniteLineSource_Erfint.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StartTime=0.0, StopTime=15.0),
     Documentation(info="<html>
@@ -35,4 +35,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FiniteLineSource_erfint;
+end FiniteLineSource_Erfint;

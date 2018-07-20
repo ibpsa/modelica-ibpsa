@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors;
-function finiteLineSource_erfint "Integral of the error function"
+function finiteLineSource_Erfint "Integral of the error function"
   extends Modelica.Math.Nonlinear.Interfaces.partialScalarFunction;
 
 algorithm
@@ -22,4 +22,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end finiteLineSource_erfint;
+end finiteLineSource_Erfint;
