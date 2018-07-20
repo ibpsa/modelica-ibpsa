@@ -62,7 +62,7 @@ initial equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Functions/Validation/internalResistancesTwoUTube.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Functions/Validation/InternalResistancesTwoUTube.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=1.0),
     Documentation(info="<html>
