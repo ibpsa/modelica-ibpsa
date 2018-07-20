@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 model InternalResistancesOneUTube
   "Internal resistance model for single U-Tube borehole segments."
   extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.partialInternalResistances;
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.PartialInternalResistances;
 
   parameter Modelica.SIunits.ThermalResistance Rgg_val "Thermal resistance between the two grout zones";
   parameter Modelica.SIunits.HeatCapacity Co_fil=borFieDat.filDat.dFil*borFieDat.filDat.cFil*hSeg*Modelica.Constants.pi

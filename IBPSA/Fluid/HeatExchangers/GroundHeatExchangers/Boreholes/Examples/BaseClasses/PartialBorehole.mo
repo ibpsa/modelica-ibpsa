@@ -1,6 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples.BaseClasses;
-partial model partialBorehole
-  "Partial model for borehole example models"
+partial model PartialBorehole "Partial model for borehole example models"
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
@@ -10,7 +9,7 @@ partial model partialBorehole
     "Initial soil temperature";
 
   replaceable
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.partialBorehole
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.PartialBorehole
     borHol(
     redeclare package Medium = Medium,
     borFieDat=borFieDat,
@@ -91,4 +90,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end partialBorehole;
+end PartialBorehole;
