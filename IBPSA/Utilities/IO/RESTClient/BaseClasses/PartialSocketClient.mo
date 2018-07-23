@@ -15,25 +15,24 @@ partial block PartialSocketClient "The socket client "
   parameter IBPSA.Utilities.IO.RESTClient.Types.LocalActivation activation=IBPSA.Utilities.IO.RESTClient.Types.LocalActivation.use_activation
     "Set to true to enable an input that allows activating and deactivating the block"
     annotation (Dialog(group="Activation"));
+  parameter String varName[numVar]
+    "Variable Name";
   Modelica.Blocks.Interfaces.BooleanInput activate if (activation == IBPSA.Utilities.IO.RESTClient.Types.LocalActivation.use_input)
     "Set to true to enable block of time series after activationDelay elapsed"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Integer reVal
-    "Return value (1: the function is successfully ran; 0: errors occur): fixme: On Posix, 0 return value means success, and non-zero failure. Is this a typo?. Why not calling ModelicaError if there was an error?";
-
   Modelica.Blocks.Interfaces.RealInput u[numVar]
     "Connector of second Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Real oveSig[numVar](each start=0)
     "Overwritten signals";
-protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
+  Modelica.SIunits.Time t0
     "Start time of component";
+
+protected
     Modelica.Blocks.Interfaces.BooleanInput activate_internal
     "Internal connector to activate the block";
-initial equation
-  t0 = time;
+
 equation
   if (activation == IBPSA.Utilities.IO.RESTClient.Types.LocalActivation.use_input) then
     connect(activate, activate_internal);
@@ -43,13 +42,22 @@ equation
     activate_internal = true;
   end if;
   when (sample(t0, samplePeriod) and activate_internal) then
-    (oveSig,reVal) = IBPSA.Utilities.IO.RESTClient.BaseClasses.SocClient(
+    oveSig = IBPSA.Utilities.IO.RESTClient.BaseClasses.SocClient(
       numVar,
       u,
+      varName,
       hostAddress,
       tcpPort);
   end when;
   annotation (Documentation(info="<html>
 <p>Partial block that implements the basic functionality used by Sampler_Real and OverWritten_Real. </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 18, 2018 by Sen Huang:<br/>
+First implementation.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/926\">#926</a>.
+</li>
+</ul>
 </html>"));
 end PartialSocketClient;

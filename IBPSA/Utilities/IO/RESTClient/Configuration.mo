@@ -3,7 +3,7 @@ model Configuration "Configuration"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3)=60
     "Sample period of component";
-  parameter IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation activation=IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation.always
+  parameter IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation activation = IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation.always
     "Set to true to enable an input that allows activating and deactivating the socket connections"
     annotation (Dialog(group="Activation"));
 
@@ -93,5 +93,13 @@ Use this block for example to set the sampling time.
 <p>
 To use this block, simply drag it at the top-most level, or higher, where your model is.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 18, 2018 by Sen Huang:<br/>
+First implementation.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/926\">#926</a>.
+</li>
+</ul>
 </html>"));
 end Configuration;

@@ -1,31 +1,40 @@
 within IBPSA.Utilities.IO.RESTClient;
-block OverWritten_Real
-  "Block that receives model input from an external server"
+block Read_Real "Block that receives model input from an external server"
   extends IBPSA.Utilities.IO.RESTClient.BaseClasses.PartialSocketClient;
-
   parameter Real threshold(start=0)
-    "The threshold to determine if the inputs from external server is valid";
+    "Threshold to determine if the inputs from external server is valid";
+  parameter Modelica.SIunits.Time tSta(start=0)
+    "Start time of component";
   Modelica.Blocks.Interfaces.RealOutput y[numVar]
-    "Connector of Real output signal"    annotation (Placement(transformation(extent={{100,-14},{128,14}})));
+    "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-14},{128,14}})));
   Modelica.Blocks.Logical.Switch switch[numVar]
+    "Switch to determine if the overwritten signals can be accepted"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
   Modelica.Blocks.Sources.RealExpression realExpression[numVar](y=oveSig)
-    annotation (Placement(transformation(extent={{-94,10},{-74,30}})));
+    "Hold the overwritten signals from external servers"
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Math.RealToBoolean realToBoolean[numVar](each threshold=threshold)
-    annotation (Placement(transformation(extent={{-50,-8},{-34,8}})));
+    "Check if the overwritten signals exceed the thresholds"
+    annotation (Placement(transformation(extent={{-64,-10},{-44,10}})));
+
 equation
+  t0 = tSta;
   connect(realExpression.y, realToBoolean.u)
-    annotation (Line(points={{-73,20},{-74,20},{-62,20},{-62,0},{-51.6,0}}, color={0,0,127}));
+    annotation (Line(points={{-79,30},{-74,30},{-74,20},{-74,0},{-66,0}},   color={0,0,127}));
   connect(switch.u1, realExpression.y)
-    annotation (Line(points={{-14,8},{-26,8},{-26,20},{-62,20},{-73,20}}, color={0,0,127}));
+    annotation (Line(points={{-14,8},{-26,8},{-26,46},{-74,46},{-74,46},{-74,30},
+          {-79,30}},                                                      color={0,0,127}));
   connect(realToBoolean.y,switch. u2)
-    annotation (Line(points={{-33.2,0},{-33.2,0},{-14,0}}, color={255,0,255}));
+    annotation (Line(points={{-43,0},{-43,0},{-14,0}},     color={255,0,255}));
   connect(switch.y, y)
     annotation (Line(points={{9,0},{114,0},{114,1.77636e-015}},
                                                      color={0,0,127}));
   connect(u, switch.u3) annotation (Line(points={{-120,0},{-80,0},{-80,-20},{
           -20,-20},{-20,-8},{-14,-8}}, color={0,0,127}));
-  annotation (Icon(graphics={
+    annotation (Placement(transformation(extent={{-94,10},{-74,30}})),
+                Placement(transformation(extent={{-50,-8},{-34,8}})),
+              Icon(graphics={
         Rectangle(
           extent={{-88,54},{92,-6}},
           lineColor={28,108,200},
@@ -43,5 +52,14 @@ equation
           color={255,0,0},
           thickness=0.5)}), Documentation(info="<html>
 <p>Block that receives input signals from a remoted server. Please noted that users can set a threshold such that the remoted server can actively disable the overwritten. </p>
+<p>The message received by the remoted server will be a string with delimiter as &QUOT;,&QUOT;. In addition, there will be a pair of a variable name and a variable value in the message, i.e., &QUOT;variable name 1, variable value 1,variable name 2, variable value2,...&QUOT;</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 18, 2018 by Sen Huang:<br/>
+First implementation.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/926\">#926</a>.
+</li>
+</ul>
 </html>"));
-end OverWritten_Real;
+end Read_Real;

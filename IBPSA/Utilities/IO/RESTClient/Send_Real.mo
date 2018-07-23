@@ -1,7 +1,8 @@
 within IBPSA.Utilities.IO.RESTClient;
-block Sampler_Real "Block that sends the model output to the external server"
+block Send_Real "Block that sends the model output to the external server"
   extends IBPSA.Utilities.IO.RESTClient.BaseClasses.PartialSocketClient;
-
+equation
+    t0 = 0;
   annotation (Icon(graphics={
         Rectangle(
           extent={{-88,54},{92,-6}},
@@ -16,6 +17,15 @@ block Sampler_Real "Block that sends the model output to the external server"
           extent={{-62,-22},{70,-60}},
           lineColor={28,108,200},
           textString="Sampler")}), Documentation(info="<html>
-<p>Block that samples time series, and sends them to the remoted server. Please noted that the information received by the remoted server will be a string with delimiter as &QUOT;,&QUOT;. </p>
+<p>Block that samples time series, and sends them to the remoted server. Please noted that the message received by the remoted server will be a string with delimiter as &QUOT;,&QUOT;.</p>
+<p> In addition, there will be a pair of a variable name and a variable value in the message, i.e., &QUOT;variable name 1, variable value 1,variable name 2, variable value2,...&QUOT;</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 18, 2018 by Sen Huang:<br/>
+First implementation.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/926\">#926</a>.
+</li>
+</ul>
 </html>"));
-end Sampler_Real;
+end Send_Real;

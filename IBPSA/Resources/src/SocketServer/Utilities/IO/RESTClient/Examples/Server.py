@@ -19,5 +19,9 @@ while True:
 
 ### inputs for Modelica models
     inputs=''
-    inputs=inputs+str(data[:-1])
-    conn.send(inputs)
+    datas=data.split(',')
+### Getting rid of the variable names from the incoming message
+    for i in range((len(datas)-1)/2):
+         inputs=inputs+str(datas[i*2+1])+','
+    print inputs
+    conn.send(inputs[:-1])
