@@ -1,7 +1,9 @@
 within IBPSA.BoundaryConditions.WeatherData.BaseClasses;
 block ConvertTime
-  "Converts the simulation time to calendar time in scale of 1 year (365 days)"
+  "Converts the simulation time to calendar time in scale of 1 year (365 days), or a multiple of a year if this is the length of the weather file"
   extends Modelica.Blocks.Icons.Block;
+  parameter Modelica.SIunits.Time[3] timeSpan "Start time, end time and average increment of weather data";
+
   Modelica.Blocks.Interfaces.RealInput modTim(
     final quantity="Time",
     final unit="s") "Simulation time"
@@ -18,9 +20,14 @@ protected
 initial equation
   tStart = integer(modTim/year)*year;
 equation
-  when modTim - pre(tStart) > year then
-    tStart = integer(modTim/year)*year;
+  when (modTim - pre(tStart)) > (timeSpan[2]-timeSpan[1] + timeSpan[3]) then // when the simulation period is longer than the time span of the weather file
+     if mod(timeSpan[2]-timeSpan[1] + timeSpan[3], year) < 1 then // if the time span in weather file equal to a year or a multiple of it
+      tStart = integer(modTim/year)*year; // the new start time is the start of the next year
+     else
+      tStart = pre(tStart);
+     end if;
   end when;
+
   calTim = modTim - tStart;
   annotation (
     defaultComponentName="conTim",

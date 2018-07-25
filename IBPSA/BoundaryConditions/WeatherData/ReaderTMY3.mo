@@ -203,18 +203,18 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter String filNam="" "Name of weather data file" annotation (
     Dialog(loadSelector(filter="Weather files (*.mos)",
                         caption="Select weather file")));
-
-  parameter String tableName="tab1"
-    "Table name on file ";
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
-    absFilNam) "Longitude";
+    filNam) "Longitude";
   final parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
-    absFilNam) "Latitude";
+    filNam) "Latitude";
   final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
-    IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(absFilNam)
+    IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
+  final parameter Modelica.SIunits.Time[3] timeSpan=
+  IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam,"tab1")
+  "Start time, end time and average increment of weather data";
   Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{
             290,-10},{310,10}}), iconTransformation(extent={{190,-10},{210,10}})));
 
@@ -228,23 +228,16 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   constant Real epsCos = 1e-6 "Small value to avoid division by 0";
   constant Modelica.SIunits.HeatFlux solCon = 1367.7 "Solar constant";
 
-  // For evalating time span of weather data
 protected
-  final parameter Modelica.SIunits.Time[2] timeSpan=
-  IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, tableName)
-
-  "Start and end time of weather data";
-
-
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
+    final tableName="tab1",
     final fileName=filNam,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
-        28,29,30,8},
-    final tableName=tableName)
+        28,29,30,8})
                    "Data reader"
-    annotation (Placement(transformation(extent={{-66,-40},{-46,-20}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
     cheTemDryBul "Check dry bulb temperature "
     annotation (Placement(transformation(extent={{160,-200},{180,-180}})));
@@ -296,22 +289,22 @@ protected
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   Modelica.Blocks.Tables.CombiTable1Ds datRea1(
     final tableOnFile=true,
+    final tableName="tab1",
     final fileName=filNam,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    final columns=9:11,
-    final tableName=tableName)
-                        "Data reader"
-    annotation (Placement(transformation(extent={{-56,180},{-36,200}})));
-  IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1
+    final columns=9:11) "Data reader"
+    annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
+  IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1(timeSpan=
+        timeSpan)
     "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-110,180},{-90,200}})));
-  BaseClasses.ConvertTime conTim "Convert simulation time to calendar time"
+  BaseClasses.ConvertTime conTim(timeSpan=timeSpan)
+                                 "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   BaseClasses.EquationOfTime eqnTim "Equation of time"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   BaseClasses.SolarTime solTim "Solar time"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
-
   // Conditional connectors
   Modelica.Blocks.Interfaces.RealInput pAtm_in_internal(
     final quantity="Pressure",
@@ -514,27 +507,6 @@ First implementation.
 
 equation
   //---------------------------------------------------------------------------
-  // Evaluate time span of weather data
-  if ((timeSpan[1] >= 0.0) and (timeSpan[2] <= 31536000.0)) then // Data spans one year or less and ends no later than 31.12 24:00
-    connect(conTim1.calTim, datRea1.u) annotation (Line(
-        points={{-89,190},{-58,190}},
-        color={0,0,127},
-        pattern=LinePattern.Dot));
-    connect(conTim.calTim, datRea.u) annotation (Line(
-      points={{-99,-30},{-68,-30}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
-  else
-    connect(add.y, datRea1.u) annotation (Line(
-      points={{-119,190},{-120,190},{-120,152},{-58,152},{-58,190}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
-    connect(modTim.y, datRea.u) annotation (Line(
-      points={{-159,0},{-150,0},{-150,-68},{-68,-68},{-68,-30}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
-  end if;
-  //---------------------------------------------------------------------------
   // Select atmospheric pressure connector
   if pAtmSou == IBPSA.BoundaryConditions.Types.DataSource.Parameter then
     pAtm_in_internal = pAtm;
@@ -563,7 +535,7 @@ equation
     connect(totSkyCov_in, totSkyCov_in_internal);
   else
     connect(conTotSkyCov.u, datRea.y[13]) annotation (Line(
-      points={{118,-30},{-45,-30}},
+      points={{118,-30},{-59,-30}},
       color={0,0,127}));
     connect(conTotSkyCov.y, totSkyCov_in_internal);
   end if;
@@ -576,7 +548,7 @@ equation
     connect(opaSkyCov_in, opaSkyCov_in_internal);
   else
     connect(conOpaSkyCov.u, datRea.y[14]) annotation (Line(
-      points={{118,-148},{30,-148},{30,-30},{-45,-30}},
+      points={{118,-148},{30,-148},{30,-30},{-59,-30}},
       color={0,0,127}));
     connect(conOpaSkyCov.y, opaSkyCov_in_internal);
   end if;
@@ -783,11 +755,17 @@ equation
   connect(add.y, conTim1.modTim) annotation (Line(
       points={{-119,190},{-112,190}},
       color={0,0,127}));
+  connect(conTim1.calTim, datRea1.u) annotation (Line(
+      points={{-89,190},{-82,190}},
+      color={0,0,127}));
   connect(modTim.y, locTim.cloTim) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-150},{-122,-150}},
       color={0,0,127}));
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-30},{-122,-30}},
+      color={0,0,127}));
+  connect(conTim.calTim, datRea.u) annotation (Line(
+      points={{-99,-30},{-82,-30}},
       color={0,0,127}));
   connect(modTim.y, eqnTim.nDay) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-110},{-122,-110}},
@@ -806,16 +784,16 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(datRea.y[11], conWinDir.u) annotation (Line(
-      points={{-45,-30},{20,-30},{20,-270},{118,-270}},
+      points={{-59,-30},{20,-30},{20,-270},{118,-270}},
       color={0,0,127}));
   connect(cheTemDryBul.TOut, TBlaSkyCom.TDryBul) annotation (Line(
       points={{181,-190},{220,-190},{220,-202},{238,-202}},
       color={0,0,127}));
   connect(datRea.y[1], conTDryBul.u) annotation (Line(
-      points={{-45,-30},{20,-30},{20,-190},{118,-190}},
+      points={{-59,-30},{20,-30},{20,-190},{118,-190}},
       color={0,0,127}));
   connect(datRea.y[2], conTDewPoi.u) annotation (Line(
-      points={{-45,-30},{20,-30},{20,-230},{118,-230}},
+      points={{-59,-30},{20,-30},{20,-230},{118,-230}},
       color={0,0,127}));
   connect(cheTemDewPoi.TOut, weaBus.TDewPoi) annotation (Line(
       points={{181,-230},{280,-230},{280,0},{300,0}},
@@ -827,16 +805,16 @@ equation
       points={{238,-207},{220,-207},{220,-230},{181,-230}},
       color={0,0,127}));
   connect(datRea1.y[2], conDirNorRad.HIn) annotation (Line(
-      points={{-35,190},{20,190},{20,230},{118,230}},
+      points={{-59,190},{20,190},{20,230},{118,230}},
       color={0,0,127}));
   connect(datRea1.y[1], conGloHorRad.HIn) annotation (Line(
-      points={{-35,190},{118,190}},
+      points={{-59,190},{-40,190},{20,190},{118,190}},
       color={0,0,127}));
   connect(datRea1.y[3], conDifHorRad.HIn) annotation (Line(
-      points={{-35,190},{20,190},{20,150},{118,150}},
+      points={{-59,190},{20,190},{20,150},{118,150}},
       color={0,0,127}));
   connect(conRelHum.relHumIn, datRea.y[3]) annotation (Line(
-      points={{118,30},{20,30},{20,-30},{-45,-30}},
+      points={{118,30},{20,30},{20,-30},{-59,-30}},
       color={0,0,127}));
   connect(cheRelHum.relHumOut, weaBus.relHum) annotation (Line(
       points={{181,30},{280,30},{280,0},{300,0}},
@@ -908,8 +886,8 @@ equation
       color={0,0,127}));
   connect(cheTemBlaSky.TOut, weaBus.TBlaSky) annotation (Line(points={{261,-250},
           {261,-250},{280,-250},{280,0},{300,0}}, color={0,0,127}));
-  connect(datRea.y[26], conHorRad.HIn) annotation (Line(points={{-45,-30},{20,-30},
-          {20,110},{118,110}},      color={0,0,127}));
+  connect(datRea.y[26], conHorRad.HIn) annotation (Line(points={{-59,-30},{20,
+          -30},{20,110},{118,110}}, color={0,0,127}));
   annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
@@ -1582,6 +1560,19 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>", revisions="<html>
 <ul>
 <li>
+December 4, 2017, by Michael Wetter:<br/>
+Removed function call to <code>getAbsolutePath</code>, as this causes in Dymola 2018FD01
+the error
+\"A call of loadResource with a non-literal string remains in the generated code; it will not work for an URI.\"
+when exporting <a href=\"modelica://IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
+IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>
+as an FMU. Instead, if the weather file is specified as a Modelica, URI, syntax such as
+<code>Modelica.Utilities.Files.loadResource(\"modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos\")</code>
+should be used.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/867\">#867</a>.
+</li>
+<li>
 February 18, 2017, by Filip Jorissen:<br/>
 Infrared radiation on horizontal surface is now delayed by 30 minutes
 such that the results in
@@ -1628,7 +1619,7 @@ This is for
 </li>
 <li>
 September 24, 2015, by Marcus Fuchs:<br/>
-Replace annotation <code>__Dymola_loadSelector</code> by <code>loadSelector</code>
+Replace Dymola specific annotation by <code>loadSelector</code>
 for MSL compliancy as reported by @tbeu at
 <a href=\"https://github.com/RWTH-EBC/AixLib/pull/107\">RWTH-EBC/AixLib#107</a>
 </li>
