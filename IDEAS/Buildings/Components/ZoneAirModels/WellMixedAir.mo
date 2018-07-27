@@ -49,7 +49,10 @@ protected
 protected
     model MixingVolumeNominalU
       "To avoid warning when modifying protected model"
-      parameter Modelica.SIunits.Energy U_nominal "Nominal value of internal energy";
+      parameter Modelica.SIunits.Energy U_nominal = mSenFac*10*m_nominal*1000 "Nominal value of internal energy";
+      parameter Modelica.SIunits.Mass m_nominal = V*1.2 "Nominal value of internal energy";
+      parameter Real[Medium.nXi] mXi_nominal = m_nominal*Medium.X_default[1:Medium.nXi] "Nominal value of internal energy";
+      parameter Real[Medium.nC] mC_nominal = m_nominal*0.0015*ones(Medium.nC) "Nominal value of internal energy";
       extends IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir(dynBal(U(nominal=U_nominal)));
     end MixingVolumeNominalU;
 equation
@@ -105,6 +108,11 @@ equation
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
+<li>
+July 27, 2018 by Filip Jorissen:<br/>
+Added nominal values for <code>m</code>, <code>mXi</code> and <code>mC</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/864\">#864</a>.
+</li>
 <li>
 April 27, 2018 by Filip Jorissen:<br/>
 Created <code>MixingVolumeNominalU</code> such that 
