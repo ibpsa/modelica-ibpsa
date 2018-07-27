@@ -4,7 +4,8 @@ model PartialZone "Building zone model"
     Qgai(y=(if not sim.computeConservationOfEnergy then 0 elseif sim.openSystemConservationOfEnergy
             then airModel.QGai
             else gainCon.Q_flow + gainRad.Q_flow + airModel.QGai)),
-    Eexpr(y=if sim.computeConservationOfEnergy then E else 0));
+    Eexpr(y=if sim.computeConservationOfEnergy then E else 0),
+    useOccNumInput = occNum.useInput);
     replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
@@ -56,9 +57,6 @@ model PartialZone "Building zone model"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange", enable=linIntRad));
   parameter Boolean simVieFac=false "Simplify view factor computation"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange"));
-  parameter Boolean useOccNumInput = occNum.useInput
-    "=false, to remove icon of nOcc"
-    annotation(Dialog(tab="Advanced",group="Occupants"));
 protected
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurf] propsBusInt(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
@@ -145,9 +143,6 @@ public
   Modelica.Blocks.Interfaces.RealOutput TAir(unit="K") = airModel.TAir;
   Modelica.Blocks.Interfaces.RealOutput TRad(unit="K") = radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
-  Modelica.Blocks.Interfaces.RealInput nOcc if useOccNumInput
-    "Number of occupants (optional, see occNum)"
-    annotation (Placement(transformation(extent={{128,12},{88,52}})));
 
 protected
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
@@ -160,9 +155,8 @@ protected
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-50,-10})));
-  Modelica.Blocks.Math.Sum add(nin=2, k=if airModel.computeTSensorAsFunctionOfZoneAir
-         then {0.5,0.5} else {1,0})                "Operative temperature"
-    annotation (Placement(transformation(extent={{24,4},{36,16}})));
+  Modelica.Blocks.Math.Sum add(nin=2, k={0.5,0.5}) "Operative temperature"
+    annotation (Placement(transformation(extent={{84,14},{96,26}})));
 
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistributionViewFactor
     zoneLwDistributionViewFactor(
@@ -191,7 +185,7 @@ equation
   end if;
   for i in 1:nSurf loop
     connect(sim.weaBus, propsBusInt[i].weaBus) annotation (Line(
-        points={{-84,92.8},{-84,92},{-80,92},{-80,66},{-80.1,66},{-80.1,39.9}},
+        points={{-81,93},{-81,92},{-80,92},{-80,66},{-80.1,66},{-80.1,39.9}},
         color={255,204,51},
         thickness=0.5,
         smooth=Smooth.None));
@@ -203,7 +197,7 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
   connect(radDistr.TRad, add.u[1]) annotation (Line(
-      points={{-40,-50},{-6,-50},{-6,9.4},{22.8,9.4}},
+      points={{-40,-50},{-6,-50},{-6,19.4},{82.8,19.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(propsBusInt[1:nSurf].area, radDistr.area[1:nSurf]) annotation (Line(
@@ -287,8 +281,7 @@ end for;
       points={{-30,-20},{-30,-30},{-50,-30},{-50,-40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(add.y, TSensor) annotation (Line(points={{36.6,10},{36.6,10},{54,10},{
-          80,10},{80,0},{106,0}},
+  connect(add.y, TSensor) annotation (Line(points={{96.6,20},{110,20}},
                    color={0,0,127}));
   connect(radDistr.radSurfTot[1:nSurf], propsBusInt[1:nSurf].surfRad)
     annotation (Line(points={{-50,-40},{-50,-30},{-80,-30},{-80,39.9},{-80.1,
@@ -307,9 +300,8 @@ end for;
           0,127}));
   connect(airModel.ports_air[1], gainCon) annotation (Line(points={{-20,30},{2,30},
           {2,-30},{100,-30}}, color={191,0,0}));
-  connect(airModel.TAir, add.u[2]) annotation (Line(points={{-19.2,24},{-10,24},
-          {-10,10.6},{22.8,10.6}},
-                               color={0,0,127}));
+  connect(airModel.TAir, add.u[2]) annotation (Line(points={{-19,24},{-10,24},{-10,
+          20.6},{82.8,20.6}},  color={0,0,127}));
   connect(radDistr.azi[1:nSurf], propsBusInt[1:nSurf].azi) annotation (Line(
         points={{-60,-42},{-70,-42},{-80,-42},{-80,39.9},{-80.1,39.9}}, color={
           0,0,127}), Text(
@@ -331,15 +323,16 @@ end for;
   connect(intGai.C_flow, airModel.C_flow)
     annotation (Line(points={{19.4,34},{-19.2,34}}, color={0,0,127}));
   connect(comfort.TAir, airModel.TAir) annotation (Line(points={{19,0},{-10,0},{
-          -10,24},{-19.2,24}}, color={0,0,127}));
+          -10,24},{-19,24}},   color={0,0,127}));
   connect(comfort.TRad, radDistr.TRad) annotation (Line(points={{19,-4},{-6,-4},
           {-6,-50},{-40,-50}}, color={0,0,127}));
   connect(comfort.phi, airModel.phi) annotation (Line(points={{19,-8},{-12,-8},{
-          -12,26},{-19.2,26}}, color={0,0,127}));
+          -12,26},{-19,26}},   color={0,0,127}));
   connect(occNum.nOcc, intGai.nOcc)
     annotation (Line(points={{58,32},{41,32}}, color={0,0,127}));
   connect(nOcc, occNum.nOccIn)
-    annotation (Line(points={{108,32},{82,32}}, color={0,0,127}));
+    annotation (Line(points={{120,40},{96,40},{96,32},{82,32}},
+                                                color={0,0,127}));
   connect(airModel.port_b, interzonalAirFlow.port_a_interior)
     annotation (Line(points={{-36,40},{-36,60}}, color={0,127,255}));
   connect(airModel.port_a, interzonalAirFlow.port_b_interior)
@@ -350,6 +343,8 @@ end for;
           -32,80},{-32,92},{-20,92},{-20,100}}, color={0,127,255}));
   connect(interzonalAirFlow.port_a_exterior, port_a) annotation (Line(points={{
           -28,80},{-28,84},{20,84},{20,100}}, color={0,127,255}));
+  connect(ppm, airModel.ppm) annotation (Line(points={{110,0},{52,0},{52,16},{-8,
+          16},{-8,28},{-19,28}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
@@ -357,6 +352,11 @@ end for;
 <p>See extending models.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 27, 2018 by Filip Jorissen:<br/>
+Added output for the CO2 concentration.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/868\">#868</a>.
+</li>
 <li>
 May 29, 2018, Filip Jorissen:<br/>
 Removed conditional fluid ports for JModelica compatibility.

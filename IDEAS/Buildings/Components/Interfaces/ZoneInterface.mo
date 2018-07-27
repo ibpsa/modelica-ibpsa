@@ -16,7 +16,9 @@ partial model ZoneInterface "Partial model for thermal building zones"
     annotation(Dialog(group="Building physics"));
   parameter Modelica.SIunits.Area A = V/hZone "Total conditioned floor area"
     annotation(Dialog(group="Building physics"));
-
+  parameter Boolean useOccNumInput = occNum.useInput
+    "=false, to remove icon of nOcc"
+    annotation(Dialog(tab="Advanced",group="Occupants"));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b gainRad
     "Internal zone node for radiative heat gains"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
@@ -25,12 +27,18 @@ partial model ZoneInterface "Partial model for thermal building zones"
     annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
   Modelica.Blocks.Interfaces.RealOutput TSensor(unit="K", displayUnit="degC")
     "Sensor temperature of the zone, i.e. operative temeprature" annotation (
-      Placement(transformation(extent={{96,-10},{116,10}}), iconTransformation(
-          extent={{96,-10},{116,10}})));
+      Placement(transformation(extent={{100,10},{120,30}}), iconTransformation(
+          extent={{100,10},{120,30}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
+  Modelica.Blocks.Interfaces.RealInput nOcc if useOccNumInput
+    "Number of occupants (optional, see occNum)"
+    annotation (Placement(transformation(extent={{140,20},{100,60}})));
+  Modelica.Blocks.Interfaces.RealOutput ppm(unit="1")
+    "CO2 concentration in the zone" annotation (Placement(transformation(extent=
+           {{100,-10},{120,10}}), iconTransformation(extent={{100,10},{120,30}})));
 protected
   Modelica.Blocks.Sources.RealExpression Eexpr "Internal energy model";
   BaseClasses.ConservationOfEnergy.PrescribedEnergy prescribedHeatFlowE
@@ -107,6 +115,11 @@ equation
           textString="%name")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+July 27, 2018 by Filip Jorissen:<br/>
+Added output for the CO2 concentration.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/868\">#868</a>.
+</li>
 <li>
 May 29, 2018, Filip Jorissen:<br/>
 Removed conditional fluid ports for JModelica compatibility.

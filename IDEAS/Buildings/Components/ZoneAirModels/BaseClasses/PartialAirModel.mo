@@ -14,13 +14,10 @@ partial model PartialAirModel "Partial for air models"
   parameter Boolean allowFlowReversal=true
      "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Advanced"));
-  constant Boolean computeTSensorAsFunctionOfZoneAir = true
-    "Set to false if TSensor in zone model should not take into account the value of the zone air temperature";
-
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput QGai(unit="J/s") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput TAir "Zone air temperature"
-    annotation (Placement(transformation(extent={{98,-70},{118,-50}})));
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSurf] ports_surf
     "Heat convection ports for surfaces"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -55,9 +52,12 @@ partial model PartialAirModel "Partial for air models"
   Modelica.Blocks.Interfaces.RealInput C_flow[max(Medium.nC,1)]
     "Trace substance mass flow rate being added to the zone air"
     annotation (Placement(transformation(extent={{128,20},{88,60}})));
-  Modelica.Blocks.Interfaces.RealOutput phi
-    "Zone air relative humidity"
-    annotation (Placement(transformation(extent={{98,-50},{118,-30}})));
+  Modelica.Blocks.Interfaces.RealOutput phi(unit="1")
+    "Relative humidity in the zone"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+  Modelica.Blocks.Interfaces.RealOutput ppm(unit="1")
+    "CO2 concentration in the zone" annotation (Placement(transformation(extent=
+           {{100,-30},{120,-10}})));
 protected
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
@@ -70,6 +70,11 @@ protected
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
+<li>
+July 27, 2018 by Filip Jorissen:<br/>
+Added output for the CO2 concentration.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/868\">#868</a>.
+</li>
 <li>
 May 29, 2018, Filip Jorissen:<br/>
 Removed conditional fluid ports for JModelica compatibility.
