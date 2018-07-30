@@ -53,7 +53,12 @@ protected
       parameter Modelica.SIunits.Mass m_nominal = V*1.2 "Nominal value of internal energy";
       parameter Real[Medium.nXi] mXi_nominal = m_nominal*Medium.X_default[1:Medium.nXi] "Nominal value of internal energy";
       parameter Real[Medium.nC] mC_nominal = m_nominal*0.0015*ones(Medium.nC) "Nominal value of internal energy";
-      extends IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir(dynBal(U(nominal=U_nominal)));
+      extends IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir(
+        dynBal(
+          U(nominal=U_nominal),
+          mC(nominal=mC_nominal),
+          mXi(nominal=mXi_nominal),
+          m(nominal=m_nominal)));
     end MixingVolumeNominalU;
 equation
   if hasVap then
