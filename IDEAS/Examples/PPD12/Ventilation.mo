@@ -89,6 +89,8 @@ model Ventilation "Ppd 12 example model"
     dp1_nominal=65,
     dp2_nominal=225) "Heat recovery unit"
     annotation (Placement(transformation(extent={{290,150},{310,170}})));
+  Modelica.Blocks.Sources.RealExpression Te(y=sim.Te) "Ambient air"
+    annotation (Placement(transformation(extent={{374,130},{394,150}})));
 equation
   connect(hallway.proBusD, living.proBusB) annotation (Line(
       points={{-73,50},{-45,50},{-45,40}},
@@ -190,15 +192,6 @@ equation
       points={{182.833,-10},{76.2,-10},{76.2,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(sim.weaBus, weaBus1) annotation (Line(
-      points={{384,50.8},{380,50.8},{380,80}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(bouAir.T_in, weaBus1.Te) annotation (Line(points={{382,174},{404,174},
-          {404,80.05},{380.05,80.05}}, color={0,0,127}));
   connect(fanSup.port_a, bouAir.ports[1]) annotation (Line(points={{340,140},{
           360,140},{360,172.667}},
                            color={0,127,255}));
@@ -241,6 +234,8 @@ equation
           {150,180}}, color={0,127,255}));
   connect(Diner.port_a, bouAir.ports[3]) annotation (Line(points={{-34,-38},{30,
           -38},{30,202},{360,202},{360,167.333}},     color={0,127,255}));
+  connect(Te.y, bouAir.T_in) annotation (Line(points={{395,140},{400,140},{400,
+          174},{382,174}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -200},{400,240}},
         initialScale=0.1), graphics={

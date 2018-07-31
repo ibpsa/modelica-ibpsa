@@ -25,15 +25,12 @@ model Adsolair58 "Adsolair58 example model"
   IDEAS.Fluid.Sources.Boundary_pT env(
     redeclare package Medium = Medium,
     use_T_in=true,
-    use_X_in=true,
-    nPorts=2) "Environment"
+    nPorts=2,
+    use_Xi_in=true)
+              "Environment"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  IDEAS.Buildings.Components.Interfaces.WeaBus weaBus1(numSolBus=sim.numIncAndAziInBus,
-      outputAngles=sim.outputAngles)
-    annotation (Placement(transformation(extent={{-74,82},{-54,102}})));
 
-  Modelica.Blocks.Routing.RealPassThrough X_w;
-  Modelica.Blocks.Sources.RealExpression reaExpXw[2](y={X_w.y,1 - X_w.y})
+  Modelica.Blocks.Sources.RealExpression reaExpXw(y=sim.XiEnv.X[1])
     "For setting humidity of inlet air"
     annotation (Placement(transformation(extent={{-112,26},{-92,46}})));
   Modelica.Blocks.Sources.Constant dpNom[2](each k=dp_nominal)
@@ -217,22 +214,9 @@ model Adsolair58 "Adsolair58 example model"
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixTem(T=295.15)
     "Fixed temperature obundary"
     annotation (Placement(transformation(extent={{120,52},{100,72}})));
+  Modelica.Blocks.Sources.RealExpression Te(y=sim.Te) "Ambient temperature"
+    annotation (Placement(transformation(extent={{-112,40},{-92,60}})));
 equation
-  connect(sim.weaBus, weaBus1) annotation (Line(
-      points={{-84,92.8},{-74,92.8},{-74,96},{-64,96},{-64,92}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(env.T_in, weaBus1.Te) annotation (Line(points={{-82,44},{-96,44},{-96,
-          72},{-63.95,72},{-63.95,92.05}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(X_w.u, weaBus1.X_wEnv);
-  connect(reaExpXw.y, env.X_in)
-    annotation (Line(points={{-91,36},{-86.5,36},{-82,36}}, color={0,0,127}));
   connect(env.ports[1], adsolair58.port_b1) annotation (Line(points={{-60,42},{-56,
           42},{-52,42},{-52,46},{-40,46}}, color={0,127,255}));
   connect(env.ports[2], adsolair58.port_a2) annotation (Line(points={{-60,38},{-52,
@@ -351,6 +335,10 @@ equation
     annotation (Line(points={{82,38},{82,46},{-20,46}}, color={0,127,255}));
   connect(fixTem.port, vol.heatPort)
     annotation (Line(points={{100,62},{92,62},{92,50}}, color={191,0,0}));
+  connect(Te.y, env.T_in) annotation (Line(points={{-91,50},{-86,50},{-86,44},{-82,
+          44}}, color={0,0,127}));
+  connect(reaExpXw.y, env.Xi_in[1])
+    annotation (Line(points={{-91,36},{-82,36}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,100}}),

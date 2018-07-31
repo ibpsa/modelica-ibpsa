@@ -126,9 +126,12 @@ annotation(Dialog(tab="Flow resistance"));
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   IDEAS.Fluid.Sensors.Temperature senTemIn(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,18},{-90,38}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nDiscr] heatFlowWater
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nDiscr] heatFlowWater(
+    each final alpha=0) "Heat flow rate that is extracted from the fluid"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nDiscr] heatFlowSolid
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nDiscr] heatFlowSolid(
+    each final alpha=0)
+    "Heat flow rate that is injected in the solid material"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Modelica.Blocks.Math.Gain[nDiscr] negate(each k=-1)
     annotation (Placement(transformation(extent={{-56,36},{-48,44}})));
@@ -342,6 +345,12 @@ A limited verification has been performed in IDEAS.Fluid.HeatExchangers.RadiantS
 <p>[TRNSYS, 2007] - Multizone Building modeling with Type 56 and TRNBuild.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+Juni 21, 2018 by Filip Jorissen:<br/>
+Set <code>final alpha=0</code> in <code>prescribedHeatFlow</code>
+to avoid large algebraic loops in specific cases.
+See <a href=https://github.com/open-ideas/IDEAS/issues/852>#852</a>.
+</li>
 <li>
 April 26, 2017 by Filip Jorissen:<br/>
 Removed <code>useSimplifiedRt</code> parameter
