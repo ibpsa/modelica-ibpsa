@@ -127,10 +127,16 @@ protected
     annotation (Placement(transformation(extent={{60,-58},{80,-38}})));
 
 
+  // Icon of weaBus is made very small as it is not intended that a user would use it.
+  // weaBus is still directly connected in the zone model and the connector should
+  // therefore not be protected.
+  // Connector weaDatBus is made available for the user and it should be used instead
+  // of weaBus.
 public
   Buildings.Components.Interfaces.WeaBus weaBus(numSolBus=numIncAndAziInBus,
       final outputAngles=outputAngles)
-    annotation (Placement(transformation(extent={{90,30},{110,50}})));
+    annotation (Placement(transformation(extent={{90,30},{110,50}}),
+        iconTransformation(extent={{90,30},{90,30}})));
   SolarIrradiation.ShadedRadSol[numIncAndAziInBus] radSol(
     inc=incAndAziInBus[:, 1],
     azi=incAndAziInBus[:, 2],
@@ -168,6 +174,12 @@ public
     "Bus for windows in case of linearisation";
   Modelica.Blocks.Routing.RealPassThrough solTim "Solar time"
     annotation (Placement(transformation(extent={{-86,-2},{-78,6}})));
+  WeatherData.Bus weaDatBus "Weather data bus connectable to weaBus connector from Buildings Library"
+    annotation (Placement(transformation(extent={{-110,-20},{-90,0}}),
+        iconTransformation(
+        extent={{-20,-19},{20,19}},
+        rotation=270,
+        origin={99,3.55271e-015})));
 protected
   Modelica.Blocks.Routing.RealPassThrough solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{-86,66},{-78,74}})));
@@ -188,9 +200,6 @@ protected
     "Diffuse solar irradiation on a horizontal plane"
     annotation (Placement(transformation(extent={{-86,94},{-78,102}})));
 
-  WeatherData.Bus weaBus1
-             "Weather data bus"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
 initial equation
   Etot = 0;
 equation
@@ -339,32 +348,30 @@ equation
           110},{-70,98},{-77.6,98}},color={0,0,127}));
   connect(skyClearness.HGloHor,HGloHor. y) annotation (Line(points={{-62,116},{-72,
           116},{-72,112},{-77.6,112}},color={0,0,127}));
-  connect(solTim.u,weaBus1. solTim) annotation (Line(points={{-86.8,2},{-100,2},
-          {-100,60}},color={0,0,127}));
-  connect(angZen.u, weaBus1.solZen) annotation (Line(points={{-86.8,84},{-100,84},
-          {-100,60}}, color={0,0,127}));
-  connect(HDifHor.u,weaBus1. HDifHor)
-    annotation (Line(points={{-86.8,98},{-100,98},{-100,60}},
-                                                            color={0,0,127}));
-  connect(HGloHor.u,weaBus1. HGloHor) annotation (Line(points={{-86.8,112},{-100,
-          112},{-100,60}},color={0,0,127}));
-  connect(HDirNor.u,weaBus1. HDirNor)
-    annotation (Line(points={{-86.8,44},{-100,44},{-100,60}},
-                                                            color={0,0,127}));
-  connect(solDec.u,weaBus1. solDec)
-    annotation (Line(points={{-86.8,56},{-100,56},{-100,60}},
-                                                            color={0,0,127}));
-  connect(solHouAng.u,weaBus1. solHouAng)
-    annotation (Line(points={{-86.8,70},{-100,70},{-100,60}},
-                                                            color={0,0,127}));
-  connect(TDryBul.u,weaBus1. TDryBul)
-    annotation (Line(points={{-86.8,30},{-100,30},{-100,60}},
-                                                            color={0,0,127}));
-  connect(phiEnv.u,weaBus1. relHum)
-    annotation (Line(points={{-86.8,16},{-100,16},{-100,60}},
-                                                          color={0,0,127}));
-  connect(weaDat.weaBus, weaBus1) annotation (Line(
-      points={{-80,-50},{-80,-40},{-100,-40},{-100,60}},
+  connect(solTim.u, weaDatBus.solTim)
+    annotation (Line(points={{-86.8,2},{-100,2},{-100,-10}},color={0,0,127}));
+  connect(angZen.u, weaDatBus.solZen) annotation (Line(points={{-86.8,84},{-100,
+          84},{-100,-10}},color={0,0,127}));
+  connect(HDifHor.u, weaDatBus.HDifHor) annotation (Line(points={{-86.8,98},{
+          -100,98},{-100,-10}},
+                          color={0,0,127}));
+  connect(HGloHor.u, weaDatBus.HGloHor) annotation (Line(points={{-86.8,112},{
+          -100,112},{-100,-10}},
+                           color={0,0,127}));
+  connect(HDirNor.u, weaDatBus.HDirNor) annotation (Line(points={{-86.8,44},{
+          -100,44},{-100,-10}},
+                          color={0,0,127}));
+  connect(solDec.u, weaDatBus.solDec) annotation (Line(points={{-86.8,56},{-100,
+          56},{-100,-10}},color={0,0,127}));
+  connect(solHouAng.u, weaDatBus.solHouAng) annotation (Line(points={{-86.8,70},
+          {-100,70},{-100,-10}},color={0,0,127}));
+  connect(TDryBul.u, weaDatBus.TDryBul) annotation (Line(points={{-86.8,30},{
+          -100,30},{-100,-10}},
+                          color={0,0,127}));
+  connect(phiEnv.u, weaDatBus.relHum) annotation (Line(points={{-86.8,16},{-100,
+          16},{-100,-10}},color={0,0,127}));
+  connect(weaDat.weaBus, weaDatBus) annotation (Line(
+      points={{-80,-50},{-80,-40},{-80,-10},{-100,-10}},
       color={255,204,51},
       thickness=0.5));
   connect(TDryBul.y, weaBus.Te) annotation (Line(points={{-77.6,30},{100.05,30},
@@ -452,6 +459,13 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+June 21, 2018, by Damien Picard:<br/>
+Reduce the icon size of weaBus to something very small such that users would
+not try to connect to it.
+Rename and make public the connector weaDatBus such that it can be connected 
+to models from the Buildings library.
+</li>
 <li>
 June 12, 2018, by Filip Jorissen:<br/>
 Refactored implementation such that we use more computations from the weather

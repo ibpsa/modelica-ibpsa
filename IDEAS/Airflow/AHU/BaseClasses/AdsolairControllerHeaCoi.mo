@@ -7,8 +7,8 @@ model AdsolairControllerHeaCoi
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=0,
     yMax=1,
-    Ti=120,
-    k=0.2)
+    k=0.05,
+    Ti=120)
     annotation (Placement(transformation(extent={{6,-86},{18,-74}})));
   Modelica.Blocks.Sources.BooleanExpression piHeaOn(y=on and not onAdiaExp.y
          and not onChiExp.y and (damPid.y > 0.97 or damPid.y < 0.03))
@@ -37,6 +37,14 @@ equation
           -128}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+January 26, 2018, by Filip Jorissen:<br/>
+Improved adsolair controller performance.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/751\">#751</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/730\">#730</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/729\">#729</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/754\">#754</a>.
+</li>
 <li>
 May 15, 2018, by Filip Jorissen:<br/>
 Changes for setting unique initial conditions.

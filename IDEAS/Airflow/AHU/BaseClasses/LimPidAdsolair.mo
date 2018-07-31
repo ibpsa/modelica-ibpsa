@@ -60,9 +60,6 @@ model LimPidAdsolair
   parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
 
-  parameter Boolean reverseAction = false
-    "Set to true for throttling the water flow rate through a cooling coil controller";
-
   parameter IDEAS.Types.Reset reset = IDEAS.Types.Reset.Disabled
     "Type of controller output reset"
     annotation(Evaluate=true, Dialog(group="Integrator reset"));
@@ -116,12 +113,13 @@ model LimPidAdsolair
     annotation (Placement(transformation(extent={{38,-14},{50,-2}})));
   Modelica.Blocks.Interfaces.RealInput kIn if useKIn "Connector for k"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=(if (if useRevActIn
-         then on else revActPar) then -1 else 1)*k_internal)
-    annotation (Placement(transformation(extent={{-78,-26},{-58,-6}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=(if revActIn_internal
+         then -1 else 1)*k_internal)
+    annotation (Placement(transformation(extent={{-100,-26},{-60,-6}})));
 protected
   Modelica.Blocks.Interfaces.RealInput k_internal;
   Modelica.Blocks.Interfaces.BooleanInput revActIn_internal;
+
 
 equation
   connect(k_internal,kIn);
@@ -131,7 +129,7 @@ equation
     k_internal=k;
   end if;
   if not useRevActIn then
-    revActIn_internal=reverseAction;
+    revActIn_internal=revActPar;
   end if;
   connect(risingEdge.y, conPID.trigger)
     annotation (Line(points={{8.8,16},{22,16},{22,18}}, color={255,0,255}));
@@ -155,8 +153,17 @@ equation
     annotation (Line(points={{81,0},{110,0},{110,0}}, color={0,0,127}));
   connect(risingEdge.u, on) annotation (Line(points={{-1.6,16},{-10,16},{-10,60},
           {-40,60},{-40,100}}, color={255,0,255}));
-  connect(realExpression.y, revActM.u1) annotation (Line(points={{-57,-16},{-50,
+  connect(realExpression.y, revActM.u1) annotation (Line(points={{-58,-16},{-50,
           -16},{-50,-24},{-42,-24}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+January 26, 2018, by Filip Jorissen:<br/>
+Fixed bug in reverse action implementation.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/730\">#730</a>.
+</li>
+</ul>
+</html>"));
 end LimPidAdsolair;
