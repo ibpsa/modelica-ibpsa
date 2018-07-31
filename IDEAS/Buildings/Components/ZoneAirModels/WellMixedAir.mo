@@ -7,7 +7,7 @@ protected
     "Latent heat of evaporation water";
   constant Boolean hasVap = Medium.nXi>0
     "Medium has water vapour";
-  MixingVolumeNominalU       vol(
+  MixingVolumeNominal       vol(
     redeclare package Medium = Medium,
     energyDynamics=energyDynamics,
     massDynamics=massDynamics,
@@ -47,8 +47,8 @@ protected
     "Relative humidity of the zone air"
     annotation (Placement(transformation(extent={{20,-30},{40,-50}})));
 protected
-    model MixingVolumeNominalU
-      "To avoid warning when modifying protected model"
+    model MixingVolumeNominal
+      "To avoid warning when modifying parameters of protected submodel dynBal of MixingVolumeMoistAir"
       parameter Modelica.SIunits.Energy U_nominal = mSenFac*10*m_nominal*1000 "Nominal value of internal energy";
       parameter Modelica.SIunits.Mass m_nominal = V*1.2 "Nominal value of internal energy";
       parameter Real[Medium.nXi] mXi_nominal = m_nominal*Medium.X_default[1:Medium.nXi] "Nominal value of internal energy";
@@ -59,7 +59,7 @@ protected
           mC(nominal=mC_nominal),
           mXi(nominal=mXi_nominal),
           m(nominal=m_nominal)));
-    end MixingVolumeNominalU;
+    end MixingVolumeNominal;
 equation
   if hasVap then
     assert(vol.ports[1].Xi_outflow[1] <= 0.1,
