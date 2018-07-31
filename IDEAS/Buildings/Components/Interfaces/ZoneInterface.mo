@@ -16,6 +16,9 @@ partial model ZoneInterface "Partial model for thermal building zones"
     annotation(Dialog(group="Building physics"));
   parameter Modelica.SIunits.Area A = V/hZone "Total conditioned floor area"
     annotation(Dialog(group="Building physics"));
+  parameter Boolean useOccNumInput
+    "=false, to remove icon of nOcc"
+    annotation(Dialog(tab="Advanced",group="Occupants"));
   //default ACH=2 for ventilation
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = V * 1.2*2/3600
     "Nominal flow rate of the air flow system fluid ports"
@@ -29,8 +32,8 @@ partial model ZoneInterface "Partial model for thermal building zones"
     annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
   Modelica.Blocks.Interfaces.RealOutput TSensor(unit="K", displayUnit="degC")
     "Sensor temperature of the zone, i.e. operative temeprature" annotation (
-      Placement(transformation(extent={{96,-10},{116,10}}), iconTransformation(
-          extent={{96,-10},{116,10}})));
+      Placement(transformation(extent={{100,10},{120,30}}), iconTransformation(
+          extent={{100,10},{120,30}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare package Medium = Medium,
     m_flow(nominal=m_flow_nominal),
@@ -41,6 +44,12 @@ partial model ZoneInterface "Partial model for thermal building zones"
     m_flow(nominal=m_flow_nominal),
     h_outflow(nominal=Medium.h_default))
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
+  Modelica.Blocks.Interfaces.RealInput nOcc if useOccNumInput
+    "Number of occupants (optional, see occNum)"
+    annotation (Placement(transformation(extent={{140,20},{100,60}})));
+  Modelica.Blocks.Interfaces.RealOutput ppm(unit="1")
+    "CO2 concentration in the zone" annotation (Placement(transformation(extent=
+           {{100,-10},{120,10}}), iconTransformation(extent={{100,10},{120,30}})));
 protected
   Modelica.Blocks.Sources.RealExpression Eexpr "Internal energy model";
   BaseClasses.ConservationOfEnergy.PrescribedEnergy prescribedHeatFlowE
@@ -117,6 +126,11 @@ equation
           textString="%name")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+July 27, 2018 by Filip Jorissen:<br/>
+Added output for the CO2 concentration.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/868\">#868</a>.
+</li>
 <li>
 July 11, 2018, Filip Jorissen:<br/>
 Added nominal values for <code>h_outflow</code> and <code>m_flow</code>
