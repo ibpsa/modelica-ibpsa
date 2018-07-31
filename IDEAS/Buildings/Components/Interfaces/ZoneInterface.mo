@@ -16,7 +16,7 @@ partial model ZoneInterface "Partial model for thermal building zones"
     annotation(Dialog(group="Building physics"));
   parameter Modelica.SIunits.Area A = V/hZone "Total conditioned floor area"
     annotation(Dialog(group="Building physics"));
-  parameter Boolean useOccNumInput = occNum.useInput
+  parameter Boolean useOccNumInput
     "=false, to remove icon of nOcc"
     annotation(Dialog(tab="Advanced",group="Occupants"));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b gainRad
