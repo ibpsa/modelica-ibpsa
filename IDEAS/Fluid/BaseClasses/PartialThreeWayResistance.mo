@@ -6,18 +6,21 @@ partial model PartialThreeWayResistance
 
   Modelica.Fluid.Interfaces.FluidPort_a port_1(
     redeclare package Medium = Medium,
+    h_outflow(nominal=Medium.h_default),
     m_flow(min=if (portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Entering) then 0.0 else -Modelica.Constants.inf,
            max=if (portFlowDirection_1== Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
     "First port, typically inlet"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_2(
     redeclare package Medium = Medium,
+    h_outflow(nominal=Medium.h_default),
     m_flow(min=if (portFlowDirection_2 == Modelica.Fluid.Types.PortFlowDirection.Entering) then 0.0 else -Modelica.Constants.inf,
            max=if (portFlowDirection_2 == Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
     "Second port, typically outlet"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_3(
     redeclare package Medium=Medium,
+    h_outflow(nominal=Medium.h_default),
     m_flow(min=if (portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Entering) then 0.0 else -Modelica.Constants.inf,
            max=if (portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
     "Third port, can be either inlet or outlet"
