@@ -39,7 +39,6 @@ model PartialZone "Building zone model"
   final parameter Modelica.SIunits.Power QInf_design=1012*1.204*V/3600*n50/n50toAch*(273.15
        + 21 - sim.Tdes)
     "Design heat losses from infiltration at reference outdoor temperature";
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1*1.224*V/3600;
   final parameter Modelica.SIunits.Power QRH_design=A*fRH
     "Additional power required to compensate for the effects of intermittent heating";
   final parameter Modelica.SIunits.Power Q_design(fixed=false)
@@ -57,19 +56,7 @@ model PartialZone "Building zone model"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange", enable=linIntRad));
   parameter Boolean simVieFac=false "Simplify view factor computation"
     annotation(Dialog(tab="Advanced", group="Radiative heat exchange"));
-protected
-  IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurf] propsBusInt(
-    each final numIncAndAziInBus=sim.numIncAndAziInBus,
-    each final outputAngles=sim.outputAngles)
-    "Dummy propsbus for partial" annotation (Placement(transformation(
-        extent={{-20,20},{20,-20}},
-        rotation=-90,
-        origin={-80,40}), iconTransformation(
-        extent={{-20,20},{20,-20}},
-        rotation=-90,
-        origin={-80,40})));
 
-public
   replaceable ZoneAirModels.WellMixedAir airModel(
     redeclare package Medium = Medium,
     nSurf=nSurf,
@@ -85,7 +72,8 @@ public
     final T_start=T_start,
     allowFlowReversal=allowFlowReversal,
     energyDynamics=energyDynamicsAir,
-    nPorts=interzonalAirFlow.nPorts)
+    nPorts=interzonalAirFlow.nPorts,
+    m_flow_nominal=m_flow_nominal)
     "Zone air model"
     annotation (choicesAllMatching=true,
     Placement(transformation(extent={{-40,20},{-20,40}})),
@@ -96,7 +84,8 @@ public
       redeclare package Medium = Medium,
       V=V,
       n50=n50,
-      n50toAch=n50toAch)
+      n50toAch=n50toAch,
+      m_flow_nominal_vent=m_flow_nominal)
       "Interzonal air flow model"
     annotation (choicesAllMatching = true,Dialog(tab="Advanced", group="Air model"),
       Placement(transformation(extent={{-40,60},{-20,80}})),
@@ -145,6 +134,17 @@ public
   Modelica.SIunits.Energy E = airModel.E;
 
 protected
+  IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurf] propsBusInt(
+    each final numIncAndAziInBus=sim.numIncAndAziInBus,
+    each final outputAngles=sim.outputAngles)
+    "Dummy propsbus for partial" annotation (Placement(transformation(
+        extent={{-20,20},{20,-20}},
+        rotation=-90,
+        origin={-80,40}), iconTransformation(
+        extent={{-20,20},{20,-20}},
+        rotation=-90,
+        origin={-80,40})));
+
   IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwDistribution
     radDistrLw(nSurf=nSurf, final linearise=linIntRad or sim.linearise,
     Tzone_nom=Tzone_nom,
@@ -356,6 +356,13 @@ end for;
 July 27, 2018 by Filip Jorissen:<br/>
 Added output for the CO2 concentration.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/868\">#868</a>.
+</li>
+<li>
+July 11, 2018, Filip Jorissen:<br/>
+Propagated <code>m_flow_nominal</code> for setting nominal values 
+of <code>h_outflow</code> and <code>m_flow</code>
+in <code>FluidPorts</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/859\">#859</a>.
 </li>
 <li>
 May 29, 2018, Filip Jorissen:<br/>

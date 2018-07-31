@@ -14,6 +14,8 @@ partial model PartialAirModel "Partial for air models"
   parameter Boolean allowFlowReversal=true
      "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal flow rate of the ventilation system";
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput QGai(unit="J/s") "Model internal energy";
   Modelica.Blocks.Interfaces.RealOutput TAir "Zone air temperature"
@@ -31,13 +33,19 @@ partial model PartialAirModel "Partial for air models"
     "Azimuth of surface"
     annotation (Placement(transformation(extent={{-128,20},{-88,60}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    m_flow(nominal=m_flow_nominal),
+    h_outflow(nominal=Medium.h_default))
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    m_flow(nominal=m_flow_nominal),
+    h_outflow(nominal=Medium.h_default))
     annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
   Modelica.Fluid.Interfaces.FluidPorts_a[nPorts] ports(
-    redeclare each package Medium = Medium)
+    redeclare each package Medium = Medium,
+    each m_flow(nominal=m_flow_nominal),
+    each h_outflow(nominal=Medium.h_default))
     "Ports connector for multiple ports" annotation (Placement(
         transformation(
         extent={{-10,-40},{10,40}},
@@ -74,6 +82,13 @@ protected
 July 27, 2018 by Filip Jorissen:<br/>
 Added output for the CO2 concentration.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/868\">#868</a>.
+</li>
+<li>
+July 11, 2018, Filip Jorissen:<br/>
+Added <code>m_flow_nominal</code> for setting nominal values 
+of <code>h_outflow</code> and <code>m_flow</code>
+in <code>FluidPorts</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/859\">#859</a>.
 </li>
 <li>
 May 29, 2018, Filip Jorissen:<br/>
