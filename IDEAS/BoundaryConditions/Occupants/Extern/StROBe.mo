@@ -2,7 +2,9 @@ within IDEAS.BoundaryConditions.Occupants.Extern;
 model StROBe "StROBe occupant, for multi zone building models"
 
   extends IDEAS.Templates.Interfaces.BaseClasses.Occupant(
-                                                final nLoads=1);
+      P = {strobe.tabP.y[id]},
+      Q = {strobe.tabQ.y[id]},
+      final nLoads=1);
   outer StrobeInfoManager strobe(final StROBe_P=true, StROBe = true)
     annotation (Placement(transformation(extent={{-186,80},{-166,100}})));
 
@@ -31,8 +33,6 @@ protected
         origin={0,60})));
 equation
 
-  P = {strobe.tabP.y[id]};
-  Q = {strobe.tabQ.y[id]};
   TSet_internal[1] = strobe.tabTSet.y[id];
   if nZones > 1 then
     for i in 2:nZones loop
@@ -66,5 +66,14 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{200,100}}),
-                      graphics));
+                      graphics), Documentation(revisions="<html>
+<ul>
+<li>
+July 25, 2018 by Filip Jorissen:<br/>
+Fixed bug in assignment of <code>P</code> and <code>Q</code>.
+This is for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/869\">#869</a>.
+</li>
+</ul>
+</html>"));
 end StROBe;
