@@ -74,7 +74,7 @@ IDEAS release v0.3 has been pushed on 2 september 2015. Major changes compared t
 
 ### License
 
-The **IDEAS** package is licensed by [KU Leuven](http://www.kuleuven.be) and [3E](http://www.3e.eu) under the [Modelica License Version 2](https://www.modelica.org/licenses/ModelicaLicense2).
+The **IDEAS** package is licensed by [KU Leuven](http://www.kuleuven.be) and [3E](http://www.3e.eu) under a [BSD 3 license](https://htmlpreview.github.io/?https://github.com/open-ideas/IDEAS//blob/master/IBPSA/legal.html).
 
 <!-- ### Development and contribution
 
