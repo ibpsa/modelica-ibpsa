@@ -265,6 +265,8 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
     end for;
+  connect(XiEnv.X[1], weaDatBus.X_wEnv) annotation (Line(points={{1,30},{-100,
+            30},{-100,-10}},                             color={0,0,127}));
     connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
       points={{21,94},{26,94},{26,38},{100.05,38},{100.05,40.05}},
       color={0,0,127},
@@ -378,6 +380,8 @@ equation
           {100.05,40.05}}, color={0,0,127}));
   connect(solTim.y, weaBus.solTim) annotation (Line(points={{-77.6,2},{18,2},{
           18,36},{100.05,36},{100.05,40.05}}, color={0,0,127}));
+  connect(CEnv.y, weaDatBus.CEnv) annotation (Line(points={{81,-20},{82,-20},{
+          82,-10},{40,-10},{40,-10},{-100,-10}}, color={0,0,127}));
     annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
@@ -459,6 +463,11 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+July 27, 2018 by Filip Jorissen:<br/>
+Added outputs <code>CEnv</code> and <code>X_wEnv</code> to <code>weaDatBus</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/868\">#868</a>.
+</li>
 <li>
 June 21, 2018, by Damien Picard:<br/>
 Reduce the icon size of weaBus to something very small such that users would
