@@ -91,12 +91,14 @@ protected
     s=shaPro.s,
     w=shaPro.w,
     t=shaPro.t,
+    beta = shaPro.beta,
     use_betaInput=shaPro.use_betaInput) if shaPro.shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.HorizontalFins "Horizontal fins model"
     annotation (Placement(transformation(extent={{-16,100},{-6,120}})));
   IDEAS.Buildings.Components.Shading.OverhangAndHorizontalFins overhangAndHorizontalFins(
     s=shaPro.s,
     w=shaPro.w,
     t=shaPro.t,
+    beta = shaPro.beta,
     use_betaInput=shaPro.use_betaInput,
     hWin=shaPro.hWin,
     wWin=shaPro.wWin,
@@ -326,6 +328,10 @@ equation
     annotation (Line(points={{-16,124},{-60,124},{-60,-70}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+Aug 2 2018, by Iago Cupeiro:<br/>
+Added missing beta parameter.
+</li>
 <li>
 May 4 2018, by Iago Cupeiro:<br/>
 Extended with HorizontalFins and OverhangAndHorizontalFins models.
