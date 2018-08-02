@@ -110,6 +110,10 @@ record ShadingProperties
     Documentation(revisions="<html>
 <ul>
 <li>
+Aug 2 2018, by Iago Cupeiro:<br/>
+Corrected initialization bug in assert
+</li>
+<li>
 May 4 2018, by Iago Cupeiro:<br/>
 Extended with HorizontalFins and OverhangAndHorizontalFins models.
 </li>

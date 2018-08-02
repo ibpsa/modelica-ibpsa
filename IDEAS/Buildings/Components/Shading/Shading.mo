@@ -329,6 +329,10 @@ equation
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
+Aug 2 2018, by Iago Cupeiro:<br/>
+Added missing beta parameter.
+</li>
+<li>
 May 4 2018, by Iago Cupeiro:<br/>
 Extended with HorizontalFins and OverhangAndHorizontalFins models.
 </li>
