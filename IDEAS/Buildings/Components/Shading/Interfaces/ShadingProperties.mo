@@ -79,12 +79,12 @@ record ShadingProperties
                       enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.Screen or
                                shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndScreen)));
 
-  parameter Modelica.SIunits.Length s(min=0)=0.01
+  parameter Modelica.SIunits.Length s(min=0)=0.1
     "Vertical spacing between fins"
     annotation(Dialog(group="Horizontal fins",
                       enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.HorizontalFins or
                                shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.OverhangAndHorizontalFins)));
-  parameter Modelica.SIunits.Length w(min=0)=0.01
+  parameter Modelica.SIunits.Length w(min=0)=0.1
     "Fin width"
         annotation(Dialog(group="Horizontal fins",
                       enable= (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.HorizontalFins or
@@ -99,7 +99,7 @@ record ShadingProperties
         annotation(Dialog(group="Horizontal fins",
                       Evaluate = true,
                       enable= false));
-  parameter Modelica.SIunits.Angle beta(min=0)=0
+  parameter Modelica.SIunits.Angle beta(min=0) = 0.01
     "Fin inclination angle: 0 for horizontal inclination, see documentation"
     annotation(Dialog(group="Horizontal fins",
                       enable= not controlled and (shaType==IDEAS.Buildings.Components.Shading.Interfaces.ShadingType.HorizontalFins or
