@@ -1,8 +1,11 @@
 within IDEAS.Buildings.Components.Examples;
 model RectangularZone
   "Example that compares a zone with internal wall and without internal wall"
-  import IDEAS;
   extends Modelica.Icons.Example;
+ inner BoundaryConditions.SimInfoManager       sim
+    "Simulation information manager for climate data"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
   Validation.Cases.Case900Template zoneIntWal(
     hasIntZone=true,
     lIntZone=zoneIntWal.lA*3,
@@ -11,9 +14,7 @@ model RectangularZone
     annotation (Placement(transformation(extent={{-24,-60},{20,-18}})));
   Validation.Cases.Case900Template zone "Unshaded zone"
     annotation (Placement(transformation(extent={{-22,18},{20,60}})));
-  inner BoundaryConditions.SimInfoManager       sim
-    "Simulation information manager for climate data"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+ 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
@@ -28,9 +29,8 @@ on the building facade for the Case 900 example model.
 </html>", revisions="<html>
 <ul>
 <li>
-June 13, 2018 by Filip Jorissen:<br/>
+August 10, 2018 by Damien Picard:<br/>
 First implementation
-See <a href=\"https://github.com/open-ideas/IDEAS/issues/576\">#576</a>.
 </li>
 </ul>
 </html>"),

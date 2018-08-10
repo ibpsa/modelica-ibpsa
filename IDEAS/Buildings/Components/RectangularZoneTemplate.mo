@@ -402,7 +402,7 @@ model RectangularZoneTemplate
     "Height difference between top of shading object and top of wall D"
     annotation(Dialog(enable=hasBuildingShadeD,tab="Face D", group="Building shade"));
 
-  parameter SI.Length PWall = (if hasExtA then lA else 0) + (if hasExtB then lB else 0) + (if hasExtC then lC else 0) + (if hasExtD then lD else 0)
+  parameter SI.Length PWall = (if hasOutA then lA else 0) + (if hasOutB then lB else 0) + (if hasOutC then lC else 0) + (if hasOutD then lD else 0)
   "Total floor slab perimeter" annotation(Dialog(tab="Advanced", group="SlabOnGround", enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
 
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurfExt] proBusExt(
@@ -1549,6 +1549,11 @@ components cannot be propagated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 10, 2018, by Damien Picard:<br/>
+Adapt model to make it possible to remove walls from the template.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/880\">#880</a>.
+</li>
 <li>
 June 13, 2018, by Filip Jorissen:<br/>
 Added parameters for shade cast by external building.
