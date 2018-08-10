@@ -9,4 +9,5 @@ WeaBus
 WindowBus
 WindowDynamicsType
 ZoneBus
+ZoneBusVarMultiplicator
 ZoneInterface

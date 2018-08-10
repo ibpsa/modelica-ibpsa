@@ -3,6 +3,7 @@ BuildingShadeExample
 CavityWalls
 FacadeShadeExample
 NumberOccupants
+ScalingWindow
 WallUnitTest
 WindowDynamics
 WindowLinearisation
