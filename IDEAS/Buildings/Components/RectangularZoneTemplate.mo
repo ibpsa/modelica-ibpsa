@@ -393,7 +393,7 @@ model RectangularZoneTemplate
     annotation(Dialog(enable=hasBuildingShadeD,tab="Face D", group="Building shade"));
 
   parameter SI.Length PWall = (if hasExtA then lA else 0) + (if hasExtB then lB else 0) + (if hasExtC then lC else 0) + (if hasExtD then lD else 0)
-  "Total floor slab perimeter" annotation(Dialog(tab="Advanced", group="SlabOnGround", enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
+  "Total floor slab perimeter length" annotation(Dialog(tab="Advanced", group="SlabOnGround", enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
 
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurfExt] proBusExt(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
