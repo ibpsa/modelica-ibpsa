@@ -1387,20 +1387,17 @@ All walls are vertical and perpendicular to each other and both the roof and
 the floor are horizontal.
 </p>
 <p>
-Notice that the surface area of each wall is calculated by default using
+The surface area of each wall is calculated by default using
 the parameters <code>w</code> and <code>l</code>. If you want to split a wall
 and add external walls using the external bus connector, use the overwrite
-length parameter from the <code>Face</code> tabs. Be also aware that the model
+length parameters <code>lA, lB, lC, lD</code> from the <code>Face</code> tabs
+such that the surface area of the wall is correct. 
+Be also aware that the model
 <code>slabOnGround</code> has a parameter <code>PWall</code> which specifies the
-perimeter of slab on ground. The model can not detect external walls connected
-using the external bus connector and you might want to adapt that parameter
+perimeter of slab on ground. The model cannot detect external walls connected
+using the external bus connector. When splitting outer walls by using the external bus connector
+you should update this parameter
 manually using the parameter <code>PWall</code> from the <code>Advanced</code> tab.
-</p>
-<p>
-It is also possible to use the model for non-rectangular zones by, for example,
-using the <code>None</code> type for a wall and adding additional walls through
-the external bus connector. If you do so, carefully check all parameters of the zone
-model to be sure all surfaces are correctly calculated.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
@@ -1438,6 +1435,15 @@ Advanced options are found under the <code>Advanced</code>
 parameter tab. 
 The model may also be adapted further by
 overriding the default parameter assignments in the template.
+</p>
+<p>
+You can also use this model for non-rectangular zones by, for example,
+using the <code>None</code> type for a wall and by adding additional walls
+corresponding to a different geometry through
+the external bus connector. 
+This model however then does not guarantee that all parameters are consistent.
+Therefore, some internal parameters of this model will need to be
+updated manually.
 </p>
 <h4>Dynamics</h4>
 <p>
