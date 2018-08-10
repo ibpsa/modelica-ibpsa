@@ -46,6 +46,8 @@ model RectangularZoneTemplate
   parameter Boolean hasWinCei = false
     "Modelling window for ceiling if true"
     annotation(Dialog(tab="Ceiling", group="Window details", enable=not (bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.None)));
+  parameter Boolean hasIntZone = false "True if the zone contains an internal wall with both faces connected to itself"
+    annotation(Dialog(tab="Internal wall"));
   parameter Integer nSurfExt = 0
     "Number of additional connected external surfaces";
   parameter Modelica.SIunits.Angle aziA
@@ -62,6 +64,8 @@ model RectangularZoneTemplate
     "Horizontal length of face C" annotation(Dialog(tab="Face C", group="Overwrite"));
   parameter Modelica.SIunits.Length lD = w
     "Horizontal length of face D" annotation(Dialog(tab="Face D", group="Overwrite"));
+  parameter Modelica.SIunits.Length lIntZone = lA
+    "Horizontal length of internal wall contained within the zone" annotation(Dialog(tab="Internal wall", group="Construction details", enable=hasIntZone));
   parameter Modelica.SIunits.Area AZone = w*l
     "Parameter to overwrite the zone surface area"
                                   annotation(Dialog(tab="Advanced", group="Overwrite"));
@@ -205,6 +209,12 @@ model RectangularZoneTemplate
     Dialog(tab="Floor",group="Construction details",
            enable=not (bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.None) and not
                  (bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
+  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypIntZone
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
+    "Material structure of internal wall" annotation (
+    choicesAllMatching=true,
+    Placement(transformation(extent={{-228,-72},{-224,-68}})),
+    Dialog(tab="Internal wall",group="Construction details", enable=hasIntZone));
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazingA
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type of window of face A"
     annotation (choicesAllMatching=true,
@@ -817,8 +827,7 @@ protected
     T=T,
     dT=dT,
     A=lA*h - (if hasWinA then A_winA else 0) - (if hasCavityA then hA*wA else 0)) if
-    hasIntA
-    "Internal wall for face A of this zone"
+    hasIntA "Internal wall for face A of this zone"
     annotation (Placement(transformation(extent={{-176,0},{-164,20}})));
   IDEAS.Buildings.Components.InternalWall intB(
            inc=IDEAS.Types.Tilt.Wall,
@@ -909,6 +918,23 @@ protected
     hasIntFlo
     "Internal wall for zone floor"
     annotation (Placement(transformation(extent={{-176,-80},{-164,-60}})));
+
+  IDEAS.Buildings.Components.InternalWall intZone(
+    inc=IDEAS.Types.Tilt.Wall,
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
+      locGain=conTypIntZone.locGain,
+      mats=conTypIntZone.mats,
+      incLastLay=conTypIntZone.incLastLay),
+    T_start=T_start,
+    linIntCon_a=linIntCon,
+    dT_nominal_a=dT_nominal_intA,
+    linIntCon_b=linIntCon,
+    dT_nominal_b=dT_nominal_intA,
+    azi=0,
+    A=lIntZone*h,
+    final hasCavity=false) if
+    hasIntZone "Internal wall contained within the zone"
+    annotation (Placement(transformation(extent={{-116,54},{-104,74}})));
 public
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusA(
     final numIncAndAziInBus=sim.numIncAndAziInBus,
@@ -1100,11 +1126,14 @@ protected
   final parameter Integer indWalD = indWalC + (if hasNoD then 0 else 1);
   final parameter Integer indFlo = indWalD + (if hasNoFlo then 0 else 1);
   final parameter Integer indCei = indFlo + (if hasNoCei then 0 else 1);
-  final parameter Integer indWinA = indCei + (if hasWinA then 1 else 0);
+  final parameter Integer indIntZone_a = indCei + (if hasIntZone then 1 else 0);
+  final parameter Integer indIntZone_b = indIntZone_a + (if hasIntZone then 1 else 0);
+  final parameter Integer indWinA = indIntZone_b + (if hasWinA then 1 else 0);
   final parameter Integer indWinB = indWinA + (if hasWinB then 1 else 0);
   final parameter Integer indWinC = indWinB + (if hasWinC then 1 else 0);
   final parameter Integer indWinD = indWinC + (if hasWinD then 1 else 0);
   final parameter Integer indWinCei = indWinD + (if hasWinCei then 1 else 0);
+
 
 initial equation
   assert(not bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
@@ -1165,6 +1194,8 @@ initial equation
 
 
 
+
+
 equation
   connect(intA.propsBus_a, propsBusInt[indWalA]) annotation (Line(
       points={{-165,12},{-152,12},{-152,40},{-80,40}},
@@ -1184,6 +1215,14 @@ equation
       thickness=0.5));
   connect(intFlo.propsBus_a, propsBusInt[indFlo]) annotation (Line(
       points={{-165,-68},{-152,-68},{-152,40},{-80,40}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(intZone.propsBus_a, propsBusInt[indIntZone_a]) annotation (Line(
+      points={{-105,66},{-80,66},{-80,40}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(intZone.propsBus_b, propsBusInt[indIntZone_b]) annotation (Line(
+      points={{-115,66},{-120,66},{-120,76},{-80,76},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(outA.propsBus_a, propsBusInt[indWalA]) annotation (Line(
@@ -1330,6 +1369,7 @@ equation
   connect(ctrlA, winA.Ctrl) annotation (Line(points={{-171,-111},{-171,-106},{
           -172,-106},{-172,-100},{-98.3333,-100},{-98.3333,0}},
                                                            color={0,0,127}));
+
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
         graphics={
         Text(
@@ -1438,8 +1478,10 @@ When doing this, you may need to change the surface areas of
 the surfaces in the template as these are not updated automatically.
 </p>
 <p>
-Six parameter tabs allow to specify further parameters
-that are specific for each of the six surfaces.
+Seven parameter tabs allow to specify further parameters
+that are specific for each of the seven surfaces: six surfaces 
+for the walls, floor and ceiling and one for an internal wall 
+contained within the zone.
 For each surface the surface type may be specified
 using parameters <code>bouTyp*</code>.
 The construction type should be defined

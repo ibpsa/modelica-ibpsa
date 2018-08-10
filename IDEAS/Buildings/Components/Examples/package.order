@@ -9,4 +9,5 @@ WindowLinearisation
 WindowThermalBridge
 ZoneDynamic
 ZoneStatic
+RectangularZone
 BaseClasses
