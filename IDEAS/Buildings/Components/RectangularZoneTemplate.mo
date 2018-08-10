@@ -9,7 +9,7 @@ model RectangularZoneTemplate
     calculateViewFactor=false,
     final nSurf=indWinCei+nSurfExt,
     final V=A*h,
-    final A=AZon,
+    final A=AZone,
     final hZone=h,
     final fRH=11);
 
@@ -33,19 +33,19 @@ model RectangularZoneTemplate
     annotation(Dialog(tab="Ceiling", group="Construction details"));
   parameter Boolean hasWinA = false
     "Modelling window for face A if true"
-    annotation(Dialog(tab="Face A", group="Window details", enable=not hasNoA));
+    annotation(Dialog(tab="Face A", group="Window details", enable=not (bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.None)));
   parameter Boolean hasWinB = false
     "Modelling window for face B if true"
-    annotation(Dialog(tab="Face B", group="Window details", enable=not hasNoB));
+    annotation(Dialog(tab="Face B", group="Window details", enable=not (bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.None)));
   parameter Boolean hasWinC = false
     "Modelling window for face C if true"
-    annotation(Dialog(tab="Face C", group="Window details", enable=not hasNoC));
+    annotation(Dialog(tab="Face C", group="Window details", enable=not (bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.None)));
   parameter Boolean hasWinD = false
     "Modelling window for face D if true"
-    annotation(Dialog(tab="Face D", group="Window details", enable=not hasNoD));
+    annotation(Dialog(tab="Face D", group="Window details", enable=not (bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.None)));
   parameter Boolean hasWinCei = false
     "Modelling window for ceiling if true"
-    annotation(Dialog(tab="Ceiling", group="Window details", enable=not hasNoCei));
+    annotation(Dialog(tab="Ceiling", group="Window details", enable=not (bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.None)));
   parameter Integer nSurfExt = 0
     "Number of additional connected external surfaces";
   parameter Modelica.SIunits.Angle aziA
@@ -57,15 +57,12 @@ model RectangularZoneTemplate
   parameter Modelica.SIunits.Length lA = l
     "Horizontal length of face A" annotation(Dialog(tab="Face A", group="Overwrite"));
   parameter Modelica.SIunits.Length lB = w
-    "Horizontal length of face BHorizontal length of face A"
-                                  annotation(Dialog(tab="Face B", group="Overwrite"));
+    "Horizontal length of face B" annotation(Dialog(tab="Face B", group="Overwrite"));
   parameter Modelica.SIunits.Length lC = l
-    "Horizontal length of face CHorizontal length of face A"
-                                  annotation(Dialog(tab="Face C", group="Overwrite"));
+    "Horizontal length of face C" annotation(Dialog(tab="Face C", group="Overwrite"));
   parameter Modelica.SIunits.Length lD = w
-    "Horizontal length of face DHorizontal length of face A"
-                                  annotation(Dialog(tab="Face D", group="Overwrite"));
-  parameter Modelica.SIunits.Area AZon = w*l
+    "Horizontal length of face D" annotation(Dialog(tab="Face D", group="Overwrite"));
+  parameter Modelica.SIunits.Area AZone = w*l
     "Parameter to overwrite the zone surface area"
                                   annotation(Dialog(tab="Advanced", group="Overwrite"));
   parameter Modelica.SIunits.Length h
@@ -144,16 +141,16 @@ model RectangularZoneTemplate
     annotation(Dialog(tab="Advanced", group="Convective heat transfer"));
   parameter SI.Temperature TeAvg=273.15 + 10.8
     "Annual average outdoor temperature"
-    annotation(Dialog(tab="Floor", group="Slab on ground", enable=bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround));
+    annotation(Dialog(tab="Floor", group="Slab on ground", enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
   parameter SI.Temperature TiAvg=273.15 + 22
     "Annual average indoor temperature"
-    annotation(Dialog(tab="Floor", group="Slab on ground", enable=bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround));
+    annotation(Dialog(tab="Floor", group="Slab on ground", enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
   parameter SI.TemperatureDifference dTeAvg=4
     "Amplitude of variation of monthly average outdoor temperature"
-    annotation(Dialog(tab="Floor", group="Slab on ground", enable=bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround));
+    annotation(Dialog(tab="Floor", group="Slab on ground", enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
   parameter SI.TemperatureDifference dTiAvg=2
     "Amplitude of variation of monthly average indoor temperature"
-    annotation(Dialog(tab="Floor", group="Slab on ground", enable=bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround));
+    annotation(Dialog(tab="Floor", group="Slab on ground", enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
   parameter SI.TemperatureDifference dT_nominal_intA=1
     "Nominal temperature difference between zone air and interior walls, used for linearisation"
     annotation(Dialog(tab="Advanced", group="Convective heat transfer"));
@@ -166,7 +163,7 @@ model RectangularZoneTemplate
     choicesAllMatching=true,
     Placement(transformation(extent={{-228,8},{-224,12}})),
     Dialog(tab="Face A",group="Construction details",
-           enable=not hasNoA or not
+           enable=not (bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.None) and not
                  (bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypB
     constrainedby IDEAS.Buildings.Data.Interfaces.Construction
@@ -174,7 +171,7 @@ model RectangularZoneTemplate
     choicesAllMatching=true,
     Placement(transformation(extent={{-228,-12},{-224,-8}})),
     Dialog(tab="Face B",group="Construction details",
-           enable=not hasNoB or not
+           enable=not (bouTypB==IDEAS.Buildings.Components.Interfaces.BoundaryType.None) and not
                  (bouTypB==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypC
     constrainedby IDEAS.Buildings.Data.Interfaces.Construction
@@ -182,7 +179,7 @@ model RectangularZoneTemplate
     choicesAllMatching=true,
     Placement(transformation(extent={{-228,-32},{-224,-28}})),
     Dialog(tab="Face C",group="Construction details",
-           enable=not hasNoC or not
+           enable=not (bouTypC==IDEAS.Buildings.Components.Interfaces.BoundaryType.None) and not
                  (bouTypC==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypD
     constrainedby IDEAS.Buildings.Data.Interfaces.Construction
@@ -190,7 +187,7 @@ model RectangularZoneTemplate
     choicesAllMatching=true,
     Placement(transformation(extent={{-228,-52},{-224,-48}})),
     Dialog(tab="Face D",group="Construction details",
-           enable=not hasNoD or not
+           enable=not (bouTypD==IDEAS.Buildings.Components.Interfaces.BoundaryType.None) and not
                  (bouTypD==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypCei
     constrainedby IDEAS.Buildings.Data.Interfaces.Construction
@@ -198,7 +195,7 @@ model RectangularZoneTemplate
     choicesAllMatching=true,
     Placement(transformation(extent={{-228,-92},{-224,-88}})),
     Dialog(tab="Ceiling",group="Construction details",
-           enable=not hasNoCei or not
+           enable=not (bouTypCei==IDEAS.Buildings.Components.Interfaces.BoundaryType.None) and not
                  (bouTypCei==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
   replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypFlo
     constrainedby IDEAS.Buildings.Data.Interfaces.Construction
@@ -206,7 +203,7 @@ model RectangularZoneTemplate
     choicesAllMatching=true,
     Placement(transformation(extent={{-228,-72},{-224,-68}})),
     Dialog(tab="Floor",group="Construction details",
-           enable=not hasNoFlo or not
+           enable=not (bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.None) and not
                  (bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazingA
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type of window of face A"
@@ -304,7 +301,7 @@ model RectangularZoneTemplate
   // open door modelling
   parameter Boolean hasCavityA = false
     "=true, to model open door or cavity in internal wall"
-    annotation(Dialog(tab="Face A", group="Cavity or open door", enable=bouTypeA==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
+    annotation(Dialog(tab="Face A", group="Cavity or open door", enable=(bouTypeA==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall)));
   parameter Modelica.SIunits.Length hA(min=0) = 2
     "Height of (rectangular) cavity in internal wall"
      annotation(Dialog(enable=hasCavityA,tab="Face A", group="Cavity or open door"));
@@ -313,7 +310,7 @@ model RectangularZoneTemplate
      annotation(Dialog(enable=hasCavityA,tab="Face A", group="Cavity or open door"));
   parameter Boolean hasCavityB = false
     "=true, to model open door or cavity in internal wall"
-    annotation(Dialog(tab="Face B", group="Cavity or open door", enable=bouTypeB==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
+    annotation(Dialog(tab="Face B", group="Cavity or open door", enable=(bouTypeB==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall)));
   parameter Modelica.SIunits.Length hB(min=0) = 2
     "Height of (rectangular) cavity in internal wall"
      annotation(Dialog(enable=hasCavityB,tab="Face B", group="Cavity or open door"));
@@ -322,7 +319,7 @@ model RectangularZoneTemplate
      annotation(Dialog(enable=hasCavityB,tab="Face B", group="Cavity or open door"));
   parameter Boolean hasCavityC = false
     "=true, to model open door or cavity in internal wall"
-    annotation(Dialog(tab="Face C", group="Cavity or open door", enable=bouTypeC==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
+    annotation(Dialog(tab="Face C", group="Cavity or open door", enable=(bouTypeC==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall)));
   parameter Modelica.SIunits.Length hC(min=0) = 2
     "Height of (rectangular) cavity in internal wall"
      annotation(Dialog(enable=hasCavityC,tab="Face C", group="Cavity or open door"));
@@ -331,7 +328,7 @@ model RectangularZoneTemplate
      annotation(Dialog(enable=hasCavityC,tab="Face C", group="Cavity or open door"));
   parameter Boolean hasCavityD = false
     "=true, to model open door or cavity in internal wall"
-    annotation(Dialog(tab="Face D", group="Cavity or open door", enable=bouTypeD==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall));
+    annotation(Dialog(tab="Face D", group="Cavity or open door", enable=(bouTypeD==IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall)));
   parameter Modelica.SIunits.Length hD(min=0) = 2
     "Height of (rectangular) cavity in internal wall"
      annotation(Dialog(enable=hasCavityD,tab="Face D", group="Cavity or open door"));
@@ -360,7 +357,7 @@ model RectangularZoneTemplate
 
   parameter Boolean hasBuildingShadeA=false
     "=true, to enable computation of shade cast by opposite building or object on OuterWall"
-    annotation(Dialog(tab="Face A", group="Building shade", enable=bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall));
+    annotation(Dialog(tab="Face A", group="Building shade", enable=(bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall)));
   parameter SI.Length LShaA=0
     "Distance between shading object and wall, perpendicular to wall"
     annotation(Dialog(enable=hasBuildingShadeA,tab="Face A", group="Building shade"));
@@ -369,7 +366,7 @@ model RectangularZoneTemplate
     annotation(Dialog(enable=hasBuildingShadeA,tab="Face A", group="Building shade"));
   parameter Boolean hasBuildingShadeB=false
     "=true, to enable computation of shade cast by opposite building or object on OuterWall"
-    annotation(Dialog(tab="Face B", group="Building shade", enable=bouTypB==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall));
+    annotation(Dialog(tab="Face B", group="Building shade", enable=(bouTypB==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall)));
   parameter SI.Length LShaB=0
     "Distance between shading object and wall, perpendicular to wall"
     annotation(Dialog(enable=hasBuildingShadeB,tab="Face B", group="Building shade"));
@@ -378,7 +375,7 @@ model RectangularZoneTemplate
     annotation(Dialog(enable=hasBuildingShadeB,tab="Face B", group="Building shade"));
   parameter Boolean hasBuildingShadeC=false
     "=true, to enable computation of shade cast by opposite building or object on OuterWall"
-    annotation(Dialog(tab="Face C", group="Building shade", enable=bouTypC==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall));
+    annotation(Dialog(tab="Face C", group="Building shade", enable=(bouTypC==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall)));
   parameter SI.Length LShaC=0
     "Distance between shading object and wall, perpendicular to wall"
     annotation(Dialog(enable=hasBuildingShadeC,tab="Face C", group="Building shade"));
@@ -387,7 +384,7 @@ model RectangularZoneTemplate
     annotation(Dialog(enable=hasBuildingShadeC,tab="Face C", group="Building shade"));
   parameter Boolean hasBuildingShadeD=false
     "=true, to enable computation of shade cast by opposite building or object on OuterWall"
-    annotation(Dialog(tab="Face D", group="Building shade", enable=bouTypD==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall));
+    annotation(Dialog(tab="Face D", group="Building shade", enable=(bouTypD==IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall)));
   parameter SI.Length LShaD=0
     "Distance between shading object and wall, perpendicular to wall"
     annotation(Dialog(enable=hasBuildingShadeD,tab="Face D", group="Building shade"));
@@ -396,7 +393,7 @@ model RectangularZoneTemplate
     annotation(Dialog(enable=hasBuildingShadeD,tab="Face D", group="Building shade"));
 
   parameter SI.Length PWall = (if hasExtA then lA else 0) + (if hasExtB then lB else 0) + (if hasExtC then lC else 0) + (if hasExtD then lD else 0)
-  "Total floor slab perimeter" annotation(Dialog(tab="Advanced", group="SlabOnGround", enable=bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround));
+  "Total floor slab perimeter" annotation(Dialog(tab="Advanced", group="SlabOnGround", enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
 
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurfExt] proBusExt(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
@@ -1164,6 +1161,10 @@ initial equation
 
 
 
+
+
+
+
 equation
   connect(intA.propsBus_a, propsBusInt[indWalA]) annotation (Line(
       points={{-165,12},{-152,12},{-152,40},{-80,40}},
@@ -1410,8 +1411,8 @@ the floor are horizontal.
 <p>
 Notice that the surface area of each wall is calculated by default using
 the parameters <code>w</code> and <code>l</code>. If you want to split a wall
-and add external wall using the external bus connector, use the overwrite
-length parameter from the <code>Face</code> tab. Be also aware that the model
+and add external walls using the external bus connector, use the overwrite
+length parameter from the <code>Face</code> tabs. Be also aware that the model
 <code>slabOnGround</code> has a parameter <code>PWall</code> which specifies the
 perimeter of slab on ground. The model can not detect external walls connected
 using the external bus connector and you might want to adapt that parameter
