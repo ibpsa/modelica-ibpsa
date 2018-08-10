@@ -3,11 +3,11 @@ BuildingShadeExample
 CavityWalls
 FacadeShadeExample
 NumberOccupants
+RectangularZone
 WallUnitTest
 WindowDynamics
 WindowLinearisation
 WindowThermalBridge
 ZoneDynamic
 ZoneStatic
-RectangularZone
 BaseClasses
