@@ -11,7 +11,7 @@ protected
     "Medium has water vapour";
   constant Boolean hasPpm = Medium.nC>0
     "Medium has trace substance";
-  MixingVolumeNominalU       vol(
+  MixingVolumeNominal       vol(
     redeclare package Medium = Medium,
     energyDynamics=energyDynamics,
     massDynamics=massDynamics,
@@ -46,20 +46,28 @@ protected
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={64,22})));
+protected
   IDEAS.Fluid.Sensors.RelativeHumidity senRelHum(
     redeclare package Medium = Medium) if hasVap
     "Relative humidity of the zone air"
     annotation (Placement(transformation(extent={{30,-30},{50,-50}})));
+    model MixingVolumeNominal
+      "To avoid warning when modifying parameters of protected submodel dynBal of MixingVolumeMoistAir"
+      parameter Modelica.SIunits.Energy U_nominal = mSenFac*10*m_nominal*1000 "Nominal value of internal energy";
+      parameter Modelica.SIunits.Mass m_nominal = V*1.2 "Nominal value of internal energy";
+      parameter Real[Medium.nXi] mXi_nominal = m_nominal*Medium.X_default[1:Medium.nXi] "Nominal value of internal energy";
+      parameter Real[Medium.nC] mC_nominal = m_nominal*0.0015*ones(Medium.nC) "Nominal value of internal energy";
+      extends IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir(
+        dynBal(
+          U(nominal=U_nominal),
+          mC(nominal=mC_nominal),
+          mXi(nominal=mXi_nominal),
+          m(nominal=m_nominal)));
+    end MixingVolumeNominal;
   IDEAS.Fluid.Sensors.PPM senPPM(
     redeclare package Medium = Medium) if hasPpm
     "CO2 sensor"
     annotation (Placement(transformation(extent={{50,-10},{70,-30}})));
-
-    model MixingVolumeNominalU
-      "To avoid warning when modifying protected model"
-      parameter Modelica.SIunits.Energy U_nominal "Nominal value of internal energy";
-      extends IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir(dynBal(U(nominal=U_nominal)));
-    end MixingVolumeNominalU;
 equation
   if hasVap then
     assert(vol.ports[1].Xi_outflow[1] <= 0.1,
@@ -126,6 +134,10 @@ equation
 <ul>
 <li>
 July 27, 2018 by Filip Jorissen:<br/>
+Added nominal values for <code>m</code>, <code>mXi</code> and <code>mC</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/864\">#864</a>.
+</li>
+<li>
 Added output for the CO2 concentration.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/868\">#868</a>.
 </li>
