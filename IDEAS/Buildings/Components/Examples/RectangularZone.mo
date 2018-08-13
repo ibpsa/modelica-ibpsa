@@ -2,19 +2,20 @@ within IDEAS.Buildings.Components.Examples;
 model RectangularZone
   "Example that compares a zone with internal wall and without internal wall"
   extends Modelica.Icons.Example;
- inner BoundaryConditions.SimInfoManager       sim
+  inner BoundaryConditions.SimInfoManager       sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  Validation.Cases.Case900Template zoneIntWal(
+  IDEAS.Buildings.Validation.Cases.Case900Template zoneIntWal(
     hasIntZone=true,
     lIntZone=zoneIntWal.lA*3,
     redeclare IDEAS.Examples.PPD12.Data.InteriorWall18 conTypIntZone)
-                                              "Zone with internal wall"
-    annotation (Placement(transformation(extent={{-24,-60},{20,-18}})));
-  Validation.Cases.Case900Template zone "Unshaded zone"
-    annotation (Placement(transformation(extent={{-22,18},{20,60}})));
- 
+    "Zone with internal wall"
+    annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
+  IDEAS.Buildings.Validation.Cases.Case900Template zone
+    "Zone without internal wall"
+    annotation (Placement(transformation(extent={{-20,20},{20,60}})));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
@@ -23,8 +24,8 @@ model RectangularZone
       __Dymola_Algorithm="Lsodar"),
     Documentation(info="<html>
 <p>
-This example illustrates the impact of external shading 
-on the building facade for the Case 900 example model.
+This example illustrates the impact of having an internal wall
+on the thermal dynamics of a single zone.
 </p>
 </html>", revisions="<html>
 <ul>
