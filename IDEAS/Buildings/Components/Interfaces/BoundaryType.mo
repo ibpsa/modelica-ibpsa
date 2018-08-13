@@ -4,4 +4,5 @@ type BoundaryType = enumeration(
     InternalWall "Internal wall",
     OuterWall "Outer wall",
     SlabOnGround "Slab on ground",
-    External "External connection using propsbus") "Type of zone boundary conditions that should be considered";
+    External "External connection using propsbus",
+    None "No wall for this orientation") "Type of zone boundary conditions that should be considered";
