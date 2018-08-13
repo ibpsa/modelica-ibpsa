@@ -7,9 +7,9 @@ model RectangularZone
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   IDEAS.Buildings.Validation.Cases.Case900Template zoneIntWal(
-    hasIntZone=true,
-    lIntZone=zoneIntWal.lA*3,
-    redeclare IDEAS.Examples.PPD12.Data.InteriorWall18 conTypIntZone)
+    hasInt=true,
+    lInt=zoneIntWal.lA*3,
+    redeclare IDEAS.Examples.PPD12.Data.InteriorWall18 conTypInt)
     "Zone with internal wall"
     annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
   IDEAS.Buildings.Validation.Cases.Case900Template zone

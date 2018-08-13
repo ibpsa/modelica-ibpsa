@@ -46,7 +46,8 @@ model RectangularZoneTemplate
   parameter Boolean hasWinCei = false
     "Modelling window for ceiling if true"
     annotation(Dialog(tab="Ceiling", group="Window details", enable=not (bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.None)));
-  parameter Boolean hasIntZone = false "True if the zone contains an internal wall with both faces connected to itself"
+  parameter Boolean hasInt = false
+    "If true, the zone contains an internal wall with both faces connected to the zone"
     annotation(Dialog(tab="Internal wall"));
   parameter Integer nSurfExt = 0
     "Number of additional connected external surfaces";
@@ -64,8 +65,8 @@ model RectangularZoneTemplate
     "Horizontal length of face C" annotation(Dialog(tab="Face C", group="Overwrite"));
   parameter Modelica.SIunits.Length lD = w
     "Horizontal length of face D" annotation(Dialog(tab="Face D", group="Overwrite"));
-  parameter Modelica.SIunits.Length lIntZone = lA
-    "Horizontal length of internal wall contained within the zone" annotation(Dialog(tab="Internal wall", group="Construction details", enable=hasIntZone));
+  parameter Modelica.SIunits.Length lInt = lA
+    "Horizontal length of internal wall contained within the zone" annotation(Dialog(tab="Internal wall", group="Construction details", enable=hasInt));
   parameter Modelica.SIunits.Area AZone = w*l
     "Parameter to overwrite the zone surface area"
                                   annotation(Dialog(tab="Advanced", group="Overwrite"));
@@ -209,12 +210,12 @@ model RectangularZoneTemplate
     Dialog(tab="Floor",group="Construction details",
            enable=not (bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.None) and not
                  (bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
-  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypIntZone
+  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypInt
     constrainedby IDEAS.Buildings.Data.Interfaces.Construction
     "Material structure of internal wall" annotation (
     choicesAllMatching=true,
     Placement(transformation(extent={{-228,-72},{-224,-68}})),
-    Dialog(tab="Internal wall",group="Construction details", enable=hasIntZone));
+    Dialog(tab="Internal wall",group="Construction details", enable=hasInt));
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazingA
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type of window of face A"
     annotation (choicesAllMatching=true,
@@ -920,22 +921,22 @@ protected
     "Internal wall for zone floor"
     annotation (Placement(transformation(extent={{-176,-80},{-164,-60}})));
 
-  IDEAS.Buildings.Components.InternalWall intZone(
+  IDEAS.Buildings.Components.InternalWall int(
     inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
-      locGain=conTypIntZone.locGain,
-      mats=conTypIntZone.mats,
-      incLastLay=conTypIntZone.incLastLay),
+      locGain=conTypInt.locGain,
+      mats=conTypInt.mats,
+      incLastLay=conTypInt.incLastLay),
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_intA,
     linIntCon_b=linIntCon,
     dT_nominal_b=dT_nominal_intA,
     azi=0,
-    A=lIntZone*h,
+    A=lInt*h,
     final hasCavity=false) if
-    hasIntZone "Internal wall contained within the zone"
-    annotation (Placement(transformation(extent={{-116,54},{-104,74}})));
+    hasInt "Internal wall contained within the zone"
+    annotation (Placement(transformation(extent={{-176,20},{-164,40}})));
 public
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusA(
     final numIncAndAziInBus=sim.numIncAndAziInBus,
@@ -1127,8 +1128,8 @@ protected
   final parameter Integer indWalD = indWalC + (if hasNoD then 0 else 1);
   final parameter Integer indFlo = indWalD + (if hasNoFlo then 0 else 1);
   final parameter Integer indCei = indFlo + (if hasNoCei then 0 else 1);
-  final parameter Integer indIntZone_a = indCei + (if hasIntZone then 1 else 0);
-  final parameter Integer indIntZone_b = indIntZone_a + (if hasIntZone then 1 else 0);
+  final parameter Integer indIntZone_a = indCei + (if hasInt then 1 else 0);
+  final parameter Integer indIntZone_b = indIntZone_a + (if hasInt then 1 else 0);
   final parameter Integer indWinA = indIntZone_b + (if hasWinA then 1 else 0);
   final parameter Integer indWinB = indWinA + (if hasWinB then 1 else 0);
   final parameter Integer indWinC = indWinB + (if hasWinC then 1 else 0);
@@ -1195,12 +1196,12 @@ equation
       points={{-165,-68},{-152,-68},{-152,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
-  connect(intZone.propsBus_a, propsBusInt[indIntZone_a]) annotation (Line(
-      points={{-105,66},{-80,66},{-80,40}},
+  connect(int.propsBus_a, propsBusInt[indIntZone_a]) annotation (Line(
+      points={{-165,32},{-80,32},{-80,40}},
       color={255,204,51},
       thickness=0.5));
-  connect(intZone.propsBus_b, propsBusInt[indIntZone_b]) annotation (Line(
-      points={{-115,66},{-120,66},{-120,76},{-80,76},{-80,40}},
+  connect(int.propsBus_b, propsBusInt[indIntZone_b]) annotation (Line(
+      points={{-175,32},{-180,32},{-180,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(outA.propsBus_a, propsBusInt[indWalA]) annotation (Line(
