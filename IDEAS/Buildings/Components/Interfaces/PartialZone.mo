@@ -106,6 +106,14 @@ model PartialZone "Building zone model"
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{80,82},{100,102}})));
+  replaceable parameter IDEAS.Buildings.Components.LightingType.OpenOfficeLed
+    lightTyp(A=A) constrainedby
+    IDEAS.Buildings.Components.OccupancyType.BaseClasses.PartialOccupancyType
+    "Lighting type, only used for evaluating lighting heat gains" annotation (
+    choicesAllMatching=true,
+    Dialog(group="Occupants (optional)"),
+    Placement(transformation(extent={{56,82},{76,102}})));
+
   replaceable Comfort.None comfort
     constrainedby Comfort.BaseClasses.PartialComfort(occupancyType=occTyp) "Comfort model" annotation (
     choicesAllMatching=true,
@@ -118,14 +126,24 @@ model PartialZone "Building zone model"
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-50,-50})));
-  replaceable IDEAS.Buildings.Components.InternalGains.Simple intGai
+  replaceable IDEAS.Buildings.Components.InternalGains.Occupants intGai
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialOccupancyGains(
-    occupancyType=occTyp,
-    redeclare final package Medium = Medium) "Internal gains model" annotation (
+      occupancyType=occTyp, redeclare final package Medium = Medium)
+    "Internal gains model" annotation (
     choicesAllMatching=true,
-    Dialog(tab="Advanced",group="Occupants"),
+    Dialog(tab="Advanced", group="Occupants"),
     Placement(transformation(extent={{40,22},{20,42}})));
+
+        replaceable IDEAS.Buildings.Components.InternalGains.Lighting lightGai
+    constrainedby
+    IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains(
+      lightingType=lightTyp,
+      A=A)
+        annotation (
+    choicesAllMatching=true,
+    Dialog(group="Occupants (optional)"),
+    Placement(transformation(extent={{40,52},{20,72}})));
 
   Modelica.SIunits.Power QTra_design=sum(propsBusInt.QTra_design)
     "Total design transmission heat losses for the zone";
@@ -316,8 +334,9 @@ end for;
       extent={{6,3},{6,3}}));
   connect(intGai.portCon, airModel.ports_air[1]) annotation (Line(points={{20,30},
           {-20,30}},                 color={191,0,0}));
-  connect(intGai.portRad, radDistr.radGain) annotation (Line(points={{20,26},{4,
-          26},{4,-60},{-46.2,-60}}, color={191,0,0}));
+  connect(intGai.portRad, radDistr.radGain) annotation (Line(points={{20,26},
+          {4,26},{4,-60},{-46.2,-60}},
+                                    color={191,0,0}));
   connect(intGai.mWat_flow, airModel.mWat_flow) annotation (Line(points={{19.4,38},
           {-19.2,38}},           color={0,0,127}));
   connect(intGai.C_flow, airModel.C_flow)
@@ -345,6 +364,15 @@ end for;
           -28,80},{-28,84},{20,84},{20,100}}, color={0,127,255}));
   connect(ppm, airModel.ppm) annotation (Line(points={{110,0},{52,0},{52,16},{-8,
           16},{-8,28},{-19,28}}, color={0,0,127}));
+  connect(occNum.nOcc, lightGai.nOcc) annotation (
+     Line(points={{58,32},{52,32},{52,62},{41,62}},
+        color={0,0,127}));
+  connect(lightGai.portRad, gainRad) annotation (
+      Line(points={{20,60},{4,60},{4,-60},{100,-60}},
+        color={191,0,0}));
+  connect(lightGai.portCon, gainCon) annotation (
+      Line(points={{20,64},{2,64},{2,-30},{100,-30}},
+        color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
