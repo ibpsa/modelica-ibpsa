@@ -3,7 +3,8 @@ model EmbeddedPipeNDiscr
   extends Modelica.Icons.Example;
   package Medium = IDEAS.Media.Water;
 
-  Real QFlows[3]= -{sum(embeddedPipe.heatPortEmb.Q_flow),sum(embeddedPipe1.heatPortEmb.Q_flow),sum(embeddedPipe2.heatPortEmb.Q_flow)};
+  Real QFlows[3]=-{sum(embeddedPipe.heatPortEmb.Q_flow),sum(embeddedPipe1.heatPortEmb.Q_flow),
+      sum(embeddedPipe2.heatPortEmb.Q_flow)};
 
   IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe embeddedPipe(
     redeclare package Medium = Medium,
@@ -24,8 +25,8 @@ model EmbeddedPipeNDiscr
     T=273.15 + 30)
     annotation (Placement(transformation(extent={{-60,42},{-40,62}})));
 
-  IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{80,42},{60,62}})));
+  IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
+        Medium) annotation (Placement(transformation(extent={{80,42},{60,62}})));
   Modelica.Blocks.Sources.Trapezoid trapezoid(
     amplitude=embeddedPipe.m_flow_nominal,
     width=5000,
@@ -33,8 +34,9 @@ model EmbeddedPipeNDiscr
     rising=2000,
     falling=2000)
     annotation (Placement(transformation(extent={{-100,42},{-80,62}})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = Medium,
-      m_flow_nominal=1,
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1,
     initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{26,42},{46,62}})));
   IDEAS.Buildings.Validation.Cases.Case900Template zone(bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
@@ -44,12 +46,11 @@ model EmbeddedPipeNDiscr
     azi=IDEAS.Types.Azimuth.S,
     redeclare IDEAS.Buildings.Data.Constructions.TABS constructionType,
     A=zone.w*zone.l,
-    inc=IDEAS.Types.Tilt.Floor)
-                     annotation (Placement(transformation(
+    inc=IDEAS.Types.Tilt.Floor) annotation (Placement(transformation(
         extent={{6,-10},{-6,10}},
         rotation=90,
         origin={30,92})));
-  EmbeddedPipe                                        embeddedPipe1(
+  IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe embeddedPipe1(
     redeclare package Medium = Medium,
     redeclare BaseClasses.FH_ValidationEmpa4_6 RadSlaCha,
     computeFlowResistance=true,
@@ -59,33 +60,32 @@ model EmbeddedPipeNDiscr
     nParCir=embeddedPipe.nParCir,
     nDiscr=4)
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  Sources.MassFlowSource_T             boundary1(
+  Sources.MassFlowSource_T boundary1(
     nPorts=1,
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=273.15 + 30)
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Sources.Boundary_pT             bou1(nPorts=1, redeclare package Medium =
-        Medium)
+  Sources.Boundary_pT bou1(nPorts=1, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
-  Sensors.TemperatureTwoPort             senTem1(
+  Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{26,-40},{46,-20}})));
-  Buildings.Validation.Cases.Case900Template       zone1(bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
-      bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External)
+  IDEAS.Buildings.Validation.Cases.Case900Template zone1(
+    bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
+    bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Buildings.Components.InternalWall       ceiling1(
+  Buildings.Components.InternalWall ceiling1(
     azi=IDEAS.Types.Azimuth.S,
     redeclare Buildings.Data.Constructions.TABS constructionType,
     A=zone.w*zone.l,
-    inc=IDEAS.Types.Tilt.Floor)
-                     annotation (Placement(transformation(
+    inc=IDEAS.Types.Tilt.Floor) annotation (Placement(transformation(
         extent={{6,-10},{-6,10}},
         rotation=90,
         origin={30,10})));
-  EmbeddedPipe                                        embeddedPipe2(
+  IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe embeddedPipe2(
     redeclare package Medium = Medium,
     redeclare BaseClasses.FH_ValidationEmpa4_6 RadSlaCha,
     computeFlowResistance=true,
@@ -95,31 +95,30 @@ model EmbeddedPipeNDiscr
     nParCir=embeddedPipe.nParCir,
     nDiscr=embeddedPipe1.nDiscr)
     annotation (Placement(transformation(extent={{-10,-122},{10,-102}})));
-  Sources.MassFlowSource_T             boundary2(
+  IDEAS.Fluid.Sources.MassFlowSource_T boundary2(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=273.15 + 30,
     nPorts=1)
     annotation (Placement(transformation(extent={{-60,-122},{-40,-102}})));
-  Sources.Boundary_pT             bou2(nPorts=1, redeclare package Medium =
-        Medium)
+  IDEAS.Fluid.Sources.Boundary_pT bou2(nPorts=1, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{80,-122},{60,-102}})));
-  Sensors.TemperatureTwoPort             senTem2(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem2(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{26,-122},{46,-102}})));
-  Buildings.Validation.Cases.Case900Template       zone2(
+  IDEAS.Buildings.Validation.Cases.Case900Template zone2(
     bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
     nSurfExt=(embeddedPipe1.nDiscr - 1)*2)
     annotation (Placement(transformation(extent={{-10,-82},{10,-62}})));
-  Buildings.Components.InternalWall ceiling2[embeddedPipe1.nDiscr](
+  IDEAS.Buildings.Components.InternalWall ceiling2[embeddedPipe1.nDiscr](
     redeclare each Buildings.Data.Constructions.TABS constructionType,
     each inc=IDEAS.Types.Tilt.Floor,
     each azi=IDEAS.Types.Azimuth.S,
-    each A=zone.w*zone.l/embeddedPipe1.nDiscr)
-                            annotation (Placement(transformation(
+    each A=zone.w*zone.l/embeddedPipe1.nDiscr) annotation (Placement(
+        transformation(
         extent={{6,-10},{-6,10}},
         rotation=90,
         origin={30,-72})));
@@ -167,15 +166,16 @@ equation
       color={255,204,51},
       thickness=0.5));
   for i in 1:embeddedPipe1.nDiscr loop
-    connect(embeddedPipe1.heatPortEmb[i], ceiling1.port_emb[1]) annotation (Line(points={{0,-20},
-            {0,-12},{40,-12},{40,10}},        color={191,0,0}));
+    connect(embeddedPipe1.heatPortEmb[i], ceiling1.port_emb[1]) annotation (
+        Line(points={{0,-20},{0,-12},{40,-12},{40,10}}, color={191,0,0}));
   end for;
-  connect(senTem2.port_b,bou2. ports[1]) annotation (Line(
+  connect(senTem2.port_b, bou2.ports[1]) annotation (Line(
       points={{46,-112},{60,-112}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(embeddedPipe2.heatPortEmb[1:embeddedPipe1.nDiscr], ceiling2[1:embeddedPipe1.nDiscr].port_emb[1]) annotation (Line(
-        points={{0,-102},{0,-90},{40,-90},{40,-72}}, color={191,0,0}));
+  connect(embeddedPipe2.heatPortEmb[1:embeddedPipe1.nDiscr], ceiling2[1:
+    embeddedPipe1.nDiscr].port_emb[1]) annotation (Line(points={{0,-102},{0,-90},
+          {40,-90},{40,-72}}, color={191,0,0}));
   connect(ceiling2[1].propsBus_b, zone2.proBusCei) annotation (Line(
       points={{28,-67},{28,-50},{-0.2,-50},{-0.2,-66}},
       color={255,204,51},
@@ -185,30 +185,33 @@ equation
       color={255,204,51},
       thickness=0.5));
   for i in 2:embeddedPipe1.nDiscr loop
-    connect(ceiling2[i].propsBus_b, zone2.proBusExt[(i-2)*2+1]) annotation (Line(
-      points={{28,-67},{28,-50},{-12,-50},{-12,-62}},
-      color={255,204,51},
-      thickness=0.5));
+    connect(ceiling2[i].propsBus_b, zone2.proBusExt[(i - 2)*2 + 1]) annotation (
+       Line(
+        points={{28,-67},{28,-50},{-12,-50},{-12,-62}},
+        color={255,204,51},
+        thickness=0.5));
 
-    connect(ceiling2[i].propsBus_a, zone2.proBusExt[(i-2)*2+2]) annotation (Line(
-      points={{28,-77},{28,-86},{-12,-86},{-12,-62}},
-      color={255,204,51},
-      thickness=0.5));
+    connect(ceiling2[i].propsBus_a, zone2.proBusExt[(i - 2)*2 + 2]) annotation (
+       Line(
+        points={{28,-77},{28,-86},{-12,-86},{-12,-62}},
+        color={255,204,51},
+        thickness=0.5));
 
   end for;
 
-  connect(boundary1.m_flow_in, trapezoid.y) annotation (Line(points={{-62,-22},
-          {-68,-22},{-68,52},{-79,52}}, color={0,0,127}));
-  connect(trapezoid.y, boundary.m_flow_in) annotation (Line(points={{-79,52},{
-          -68,52},{-68,60},{-62,60}}, color={0,0,127}));
+  connect(boundary1.m_flow_in, trapezoid.y) annotation (Line(points={{-62,-22},{
+          -68,-22},{-68,52},{-79,52}}, color={0,0,127}));
+  connect(trapezoid.y, boundary.m_flow_in) annotation (Line(points={{-79,52},{-68,
+          52},{-68,60},{-62,60}}, color={0,0,127}));
   connect(boundary2.m_flow_in, trapezoid.y) annotation (Line(points={{-62,-104},
           {-68,-104},{-68,52},{-79,52}}, color={0,0,127}));
   connect(embeddedPipe2.port_a, boundary2.ports[1])
     annotation (Line(points={{-10,-112},{-40,-112}}, color={0,127,255}));
   connect(embeddedPipe2.port_b, senTem2.port_a)
     annotation (Line(points={{10,-112},{26,-112}}, color={0,127,255}));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -140},{100,120}}), graphics={
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,
+            120}}), graphics={
         Text(
           extent={{88,56},{130,46}},
           lineColor={28,108,200},
@@ -228,5 +231,14 @@ equation
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlab/Examples/EmbeddedPipeNDiscr.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-100,-140},{100,120}})));
+    Icon(coordinateSystem(extent={{-100,-140},{100,120}})),
+    Documentation(revisions="<html>
+<ul>
+<li>
+August 14, 2018 by Filip Jorissen:<br/>
+First implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/862\">#862</a>.
+</li>
+</ul>
+</html>"));
 end EmbeddedPipeNDiscr;
