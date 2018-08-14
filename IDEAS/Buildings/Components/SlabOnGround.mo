@@ -144,7 +144,7 @@ zone that is surrounded by air at the ambient temperature.
 <ul>
 <li>
 August 10, 2018 by Damien Picard:<br/>
-Set nWin final to 0 as this should only be used for windows.
+Set nWin final to 1 as this should only be used for windows.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/888\">
 #888</a>. 
 </li>
