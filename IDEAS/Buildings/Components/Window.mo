@@ -13,8 +13,8 @@ model Window "Multipane window"
            dT_nominal=dT_nominal_a),
     QTra_design(fixed=false),
     Qgai(y=if sim.computeConservationOfEnergy then
-                                                  -(propsBusInt.surfCon.Q_flow +
-        propsBusInt.surfRad.Q_flow + propsBusInt.iSolDif.Q_flow + propsBusInt.iSolDir.Q_flow) else 0),
+                                                  (gain.propsBus_a.surfCon.Q_flow +
+        gain.propsBus_a.surfRad.Q_flow + gain.propsBus_a.iSolDif.Q_flow + gain.propsBus_a.iSolDir.Q_flow) else 0),
     E(y=0),
     layMul(
       A=A*(1 - frac),
@@ -162,6 +162,7 @@ initial equation
 
 
 
+
 equation
   connect(eCon.port_a, layMul.port_b) annotation (Line(
       points={{-20,-28},{-14,-28},{-14,0},{-10,0}},
@@ -172,11 +173,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolDir, propsBusInt.iSolDir) annotation (Line(
-      points={{-2,-60},{-2,-70},{53.075,-70},{53.075,19.91}},
+      points={{-2,-60},{-2,-70},{56.09,-70},{56.09,19.91}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolDif, propsBusInt.iSolDif) annotation (Line(
-      points={{2,-60},{2,-70},{53.075,-70},{53.075,19.91}},
+      points={{2,-60},{2,-70},{56.09,-70},{56.09,19.91}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolAbs, layMul.port_gain) annotation (Line(
@@ -192,7 +193,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(iConFra.port_b, propsBusInt.surfCon) annotation (Line(
-      points={{40,70},{46,70},{46,19.91},{53.075,19.91}},
+      points={{40,70},{46,70},{46,19.91},{56.09,19.91}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layFra.port_a, iConFra.port_a) annotation (Line(
@@ -220,7 +221,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.weaBus, propsBusInt.weaBus) annotation (Line(
-      points={{-80,-42},{-80,20},{0,20},{0,19.91},{53.075,19.91}},
+      points={{-80,-42},{-80,20},{0,20},{0,19.91},{56.09,19.91}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -241,11 +242,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(eCon.Te, propsBusInt.weaBus.Te) annotation (Line(
-      points={{-20,-32.8},{53.075,-32.8},{53.075,19.91}},
+      points={{-20,-32.8},{56.09,-32.8},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eCon.hConExt, propsBusInt.weaBus.hConExt) annotation (Line(
-      points={{-20,-37},{53.075,-37},{53.075,19.91}},
+      points={{-20,-37},{56.09,-37},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tdes.u, propsBusInt.weaBus.Tdes);
