@@ -48,22 +48,7 @@ protected
       timFin=timFin,
       tLoaAgg=tLoaAgg)
       "Number of aggregation cells";
-  parameter Real timSer[nTimTot,2]=
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.temperatureResponseMatrix(
-      nBor=borFieDat.conDat.nBor,
-      cooBor=borFieDat.conDat.cooBor,
-      hBor=borFieDat.conDat.hBor,
-      dBor=borFieDat.conDat.dBor,
-      rBor=borFieDat.conDat.rBor,
-      aSoi=borFieDat.soiDat.aSoi,
-      kSoi=borFieDat.soiDat.kSoi,
-      nSeg=nSeg,
-      nTimSho=nTimSho,
-      nTimLon=nTimLon,
-      nTimTot=nTimTot,
-      ttsMax=ttsMax,
-      sha=SHAgfun,
-      forceGFunCalc=forceGFunCalc)
+  final parameter Real[nTimTot,2] timSer(each fixed=false)
     "g-function input from matrix, with the second column as temperature Tstep";
   final parameter Modelica.SIunits.Time t_start(fixed=false) "Simulation start time";
   final parameter Modelica.SIunits.Time[i] nu(each fixed=false)
@@ -118,6 +103,23 @@ initial equation
     nu=nu);
 
   dhdt = kappa[1]/tLoaAgg;
+
+  timSer =
+    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.temperatureResponseMatrix(
+      nBor=borFieDat.conDat.nBor,
+      cooBor=borFieDat.conDat.cooBor,
+      hBor=borFieDat.conDat.hBor,
+      dBor=borFieDat.conDat.dBor,
+      rBor=borFieDat.conDat.rBor,
+      aSoi=borFieDat.soiDat.aSoi,
+      kSoi=borFieDat.soiDat.kSoi,
+      nSeg=nSeg,
+      nTimSho=nTimSho,
+      nTimLon=nTimLon,
+      nTimTot=nTimTot,
+      ttsMax=ttsMax,
+      sha=SHAgfun,
+      forceGFunCalc=forceGFunCalc);
 
 equation
   der(delTBor) = dhdt*QBor_flow + derDelTBor0;
