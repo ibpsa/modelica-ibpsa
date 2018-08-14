@@ -3,8 +3,10 @@ model EnergyFlowMultiplicator "Component to scale the energy flow of a energyPor
   parameter Real k = 1 "Multiplication factor for heat flow";
 
   ConservationOfEnergy.EnergyPort E_a
+    "Unscaled port"
     annotation (Placement(transformation(extent={{-108,-10},{-88,10}})));
   ConservationOfEnergy.EnergyPort E_b
+    "Scaled port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
   E_a.E  * k = - E_b.E;

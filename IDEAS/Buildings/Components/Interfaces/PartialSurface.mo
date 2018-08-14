@@ -76,15 +76,16 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai
     "Component for computing conservation of energy";
 
-  ZoneBusVarMultiplicator gain(k=nWin)
-                               "Gain for all propsBus variable to represent nWin surfaces instead of 1"
-    annotation (Placement(transformation(extent={{68,4},{88,36}})));
+  IDEAS.Buildings.Components.Interfaces.ZoneBusVarMultiplicator gain(k=nWin)
+    "Gain for all propsBus variable to represent nWin surfaces instead of 1"
+    annotation (Placement(transformation(extent={{70,6},{88,36}})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus propsBusInt(
-    numIncAndAziInBus=sim.numIncAndAziInBus, outputAngles=sim.outputAngles)
+    numIncAndAziInBus=sim.numIncAndAziInBus,
+    outputAngles=sim.outputAngles)
     annotation (Placement(transformation(
-        extent={{-18,-15},{18,15}},
+        extent={{-18,-18},{18,18}},
         rotation=-90,
-        origin={53,20}),  iconTransformation(
+        origin={56,20}),  iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={50,20})));
@@ -95,12 +96,12 @@ equation
   connect(E.y,prescribedHeatFlowE. E);
   connect(QDesign.y, propsBusInt.QTra_design);
   connect(propsBusInt.surfCon, intCon_a.port_b) annotation (Line(
-      points={{53.075,19.91},{46,19.91},{46,0},{40,0}},
+      points={{56.09,19.91},{46,19.91},{46,0},{40,0}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(layMul.port_a, propsBusInt.surfRad) annotation (Line(
-      points={{10,0},{16,0},{16,19.91},{53.075,19.91}},
+      points={{10,0},{16,0},{16,19.91},{56.09,19.91}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_a, intCon_a.port_a) annotation (Line(
@@ -108,21 +109,21 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.iEpsSw_a, propsBusInt.epsSw) annotation (Line(
-      points={{10,4},{20,4},{20,19.91},{53.075,19.91}},
+      points={{10,4},{20,4},{20,19.91},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsLw_a, propsBusInt.epsLw) annotation (Line(
-      points={{10,8},{18,8},{18,19.91},{53.075,19.91}},
+      points={{10,8},{18,8},{18,19.91},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.area, propsBusInt.area) annotation (Line(
-      points={{0,10},{0,19.91},{53.075,19.91}},
+      points={{0,10},{0,19.91},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -131,11 +132,11 @@ equation
   connect(incExp.y, propsBusInt.inc);
   connect(aziExp.y, propsBusInt.azi);
   connect(propsBus_a, gain.propsBus_b) annotation (Line(
-      points={{100,20},{94,20},{94,19.1579},{88,19.1579}},
+      points={{100,20},{94,20},{94,20.2105},{88,20.2105}},
       color={255,204,51},
       thickness=0.5));
   connect(gain.propsBus_a, propsBusInt) annotation (Line(
-      points={{68,19.1579},{60,19.1579},{60,20},{53,20}},
+      points={{70,20.2105},{60,20.2105},{60,20},{56,20}},
       color={255,204,51},
       thickness=0.5));
   annotation (
