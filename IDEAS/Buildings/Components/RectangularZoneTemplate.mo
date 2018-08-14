@@ -46,6 +46,9 @@ model RectangularZoneTemplate
   parameter Boolean hasWinCei = false
     "Modelling window for ceiling if true"
     annotation(Dialog(tab="Ceiling", group="Window details", enable=not (bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.None)));
+  parameter Boolean hasInt = false
+    "If true, the zone contains an internal wall with both faces connected to the zone"
+    annotation(Dialog(tab="Internal wall"));
   parameter Integer nSurfExt = 0
     "Number of additional connected external surfaces";
   parameter Modelica.SIunits.Angle aziA
@@ -62,6 +65,8 @@ model RectangularZoneTemplate
     "Horizontal length of face C" annotation(Dialog(tab="Face C", group="Overwrite"));
   parameter Modelica.SIunits.Length lD = w
     "Horizontal length of face D" annotation(Dialog(tab="Face D", group="Overwrite"));
+  parameter Modelica.SIunits.Length lInt = lA
+    "Horizontal length of internal wall contained within the zone" annotation(Dialog(tab="Internal wall", group="Construction details", enable=hasInt));
   parameter Modelica.SIunits.Area AZone = w*l
     "Parameter to overwrite the zone surface area"
                                   annotation(Dialog(tab="Advanced", group="Overwrite"));
@@ -205,6 +210,12 @@ model RectangularZoneTemplate
     Dialog(tab="Floor",group="Construction details",
            enable=not (bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.None) and not
                  (bouTypFlo==IDEAS.Buildings.Components.Interfaces.BoundaryType.External)));
+  replaceable parameter IDEAS.Buildings.Data.Constructions.CavityWall conTypInt
+    constrainedby IDEAS.Buildings.Data.Interfaces.Construction
+    "Material structure of internal wall" annotation (
+    choicesAllMatching=true,
+    Placement(transformation(extent={{-228,-72},{-224,-68}})),
+    Dialog(tab="Internal wall",group="Construction details", enable=hasInt));
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazingA
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type of window of face A"
     annotation (choicesAllMatching=true,
@@ -909,6 +920,23 @@ protected
     hasIntFlo
     "Internal wall for zone floor"
     annotation (Placement(transformation(extent={{-176,-80},{-164,-60}})));
+
+  IDEAS.Buildings.Components.InternalWall int(
+    inc=IDEAS.Types.Tilt.Wall,
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
+      locGain=conTypInt.locGain,
+      mats=conTypInt.mats,
+      incLastLay=conTypInt.incLastLay),
+    T_start=T_start,
+    linIntCon_a=linIntCon,
+    dT_nominal_a=dT_nominal_intA,
+    linIntCon_b=linIntCon,
+    dT_nominal_b=dT_nominal_intA,
+    azi=0,
+    A=lInt*h,
+    final hasCavity=false) if
+    hasInt "Internal wall contained within the zone"
+    annotation (Placement(transformation(extent={{-176,20},{-164,40}})));
 public
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusA(
     final numIncAndAziInBus=sim.numIncAndAziInBus,
@@ -1100,11 +1128,14 @@ protected
   final parameter Integer indWalD = indWalC + (if hasNoD then 0 else 1);
   final parameter Integer indFlo = indWalD + (if hasNoFlo then 0 else 1);
   final parameter Integer indCei = indFlo + (if hasNoCei then 0 else 1);
-  final parameter Integer indWinA = indCei + (if hasWinA then 1 else 0);
+  final parameter Integer indIntZone_a = indCei + (if hasInt then 1 else 0);
+  final parameter Integer indIntZone_b = indIntZone_a + (if hasInt then 1 else 0);
+  final parameter Integer indWinA = indIntZone_b + (if hasWinA then 1 else 0);
   final parameter Integer indWinB = indWinA + (if hasWinB then 1 else 0);
   final parameter Integer indWinC = indWinB + (if hasWinC then 1 else 0);
   final parameter Integer indWinD = indWinC + (if hasWinD then 1 else 0);
   final parameter Integer indWinCei = indWinD + (if hasWinCei then 1 else 0);
+
 
 initial equation
   assert(not bouTypA==IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround,
@@ -1143,6 +1174,7 @@ initial equation
   assert(not hasCavityD or (hD <= h and wD <=lD),
     "In " + getInstanceName() + ": The cavity dimensions of surface D exceed the zone dimensions. This is non-physical");
 
+
 equation
   connect(intA.propsBus_a, propsBusInt[indWalA]) annotation (Line(
       points={{-165,12},{-152,12},{-152,40},{-80,40}},
@@ -1162,6 +1194,14 @@ equation
       thickness=0.5));
   connect(intFlo.propsBus_a, propsBusInt[indFlo]) annotation (Line(
       points={{-165,-68},{-152,-68},{-152,40},{-80,40}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(int.propsBus_a, propsBusInt[indIntZone_a]) annotation (Line(
+      points={{-165,32},{-80,32},{-80,40}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(int.propsBus_b, propsBusInt[indIntZone_b]) annotation (Line(
+      points={{-175,32},{-180,32},{-180,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
   connect(outA.propsBus_a, propsBusInt[indWalA]) annotation (Line(
@@ -1308,6 +1348,7 @@ equation
   connect(ctrlA, winA.Ctrl) annotation (Line(points={{-171,-111},{-171,-106},{
           -172,-106},{-172,-100},{-98.3333,-100},{-98.3333,0}},
                                                            color={0,0,127}));
+
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
         graphics={
         Text(
@@ -1413,8 +1454,10 @@ When doing this, you may need to change the surface areas of
 the surfaces in the template as these are not updated automatically.
 </p>
 <p>
-Six parameter tabs allow to specify further parameters
-that are specific for each of the six surfaces.
+Seven parameter tabs allow to specify further parameters
+that are specific for each of the seven surfaces: six surfaces 
+for the walls, floor and ceiling and one for an internal wall 
+contained within the zone.
 For each surface the surface type may be specified
 using parameters <code>bouTyp*</code>.
 The construction type should be defined
