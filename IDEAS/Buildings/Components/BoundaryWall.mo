@@ -44,7 +44,7 @@ equation
   connect(proPreQ.y, prescribedHeatFlow.Q_flow) annotation (Line(points={{-77.5,
           -17},{-69.75,-17},{-69.75,-20},{-60,-20}}, color={0,0,127}));
   connect(proPreQ.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-89,-14},
-            {-92,-14},{-92,40},{53.075,40},{53.075,19.91}}, color={0,0,127}),
+            {-92,-14},{-92,40},{56.09,40},{56.09,19.91}},   color={0,0,127}),
       Text(
       string="%second",
       index=1,
@@ -55,7 +55,7 @@ equation
       connect(proPreT.y, prescribedTemperature.T) annotation (Line(points={{-77.5,23},
           {-68.75,23},{-68.75,20},{-62,20}}, color={0,0,127}));
   connect(proPreT.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-89,26},
-            {-92,26},{-92,40},{53.075,40},{53.075,19.91}},
+            {-92,26},{-92,40},{56.09,40},{56.09,19.91}},
                                                       color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -135,7 +135,7 @@ If both are disabled then an adiabatic boundary (<code>Q_flow=0</code>) is assum
 <ul>
 <li>
 August 10, 2018 by Damien Picard:<br/>
-Set nWin final to 0 as this should only be used for windows.
+Set nWin final to 1 as this should only be used for windows.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/888\">
 #888</a>. 
 </li>

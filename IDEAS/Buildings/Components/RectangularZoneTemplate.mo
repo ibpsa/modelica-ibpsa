@@ -117,19 +117,19 @@ model RectangularZoneTemplate
     "Scaling factor to model nWinA identical windows in facade A"
     annotation(Dialog(tab="Face A", group="Window details",
     enable=hasWinA));
-  parameter Real nWinB=0.15
+  parameter Real nWinB=1
     "Scaling factor to model nWinB identical windows in facade B"
     annotation(Dialog(tab="Face B", group="Window details",
     enable=hasWinB));
-  parameter Real nWinC=0.15
+  parameter Real nWinC=1
     "Scaling factor to model nWinC identical windows in facade C"
     annotation(Dialog(tab="Face C", group="Window details",
     enable=hasWinC));
-  parameter Real nWinD=0.15
+  parameter Real nWinD=1
     "Scaling factor to model nWinD identical windows in facade D"
     annotation(Dialog(tab="Face D", group="Window details",
     enable=hasWinD));
-  parameter Real nWinCei=0.15
+  parameter Real nWinCei=1
     "Scaling factor to model nWinCei identical windows in the ceiling"
     annotation(Dialog(tab="Ceiling", group="Window details",
     enable=hasWinCei));
@@ -1199,6 +1199,7 @@ initial equation
     "In " + getInstanceName() + ": The cavity dimensions of surface C exceed the zone dimensions. This is non-physical");
   assert(not hasCavityD or (hD <= h and wD <=lD),
     "In " + getInstanceName() + ": The cavity dimensions of surface D exceed the zone dimensions. This is non-physical");
+
 
 equation
   connect(intA.propsBus_a, propsBusInt[indWalA]) annotation (Line(

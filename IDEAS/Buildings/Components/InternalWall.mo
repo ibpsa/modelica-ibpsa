@@ -142,7 +142,7 @@ equation
   connect(theConDoor.port_a, propsBus_b.surfCon) annotation (Line(points={{-10,50},
           {-48,50},{-48,20.1},{-100.1,20.1}}, color={191,0,0}));
   connect(theConDoor.port_b, propsBusInt.surfCon) annotation (Line(points={{10,50},
-          {46,50},{46,19.91},{53.075,19.91}},
+          {46,50},{46,19.91},{56.09,19.91}},
                                            color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-60,-100},{60,100}}),
@@ -205,7 +205,7 @@ We assume that the value of <code>A</code> excludes the surface area of the cavi
 <ul>
 <li>
 August 10, 2018 by Damien Picard:<br/>
-Set nWin final to 0 as this should only be used for windows.
+Set nWin final to 1 as this should only be used for windows.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/888\">
 #888</a>. 
 </li>

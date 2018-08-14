@@ -97,7 +97,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.weaBus, propsBusInt.weaBus) annotation (Line(
-      points={{-80,12},{-80,19.91},{53.075,19.91}},
+      points={{-80,12},{-80,19.91},{56.09,19.91}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -106,11 +106,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(extCon.Te, propsBusInt.weaBus.Te) annotation (Line(
-      points={{-22,-22.8},{53.075,-22.8},{53.075,19.91}},
+      points={{-22,-22.8},{56.09,-22.8},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(extCon.hConExt, propsBusInt.weaBus.hConExt) annotation (Line(
-      points={{-22,-27},{53.075,-27},{53.075,19.91}},
+      points={{-22,-27},{56.09,-27},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tdes.u, propsBusInt.weaBus.Tdes);
@@ -244,7 +244,7 @@ The correct shading parameter values should then be passed through the redeclara
 <ul>
 <li>
 August 10, 2018 by Damien Picard:<br/>
-Set nWin final to 0 as this should only be used for windows.
+Set nWin final to 1 as this should only be used for windows.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/888\">
 #888</a>. 
 </li>
