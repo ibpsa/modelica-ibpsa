@@ -14,7 +14,8 @@ extends Modelica.Icons.Example;
     dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=283.15,
-    TGro_start=283.15)
+    TGro_start=283.15,
+    forceGFunCalc=true)
     "Borefield with a 2-U-tube connected in parallel borehole configuration"
     annotation (Placement(transformation(extent={{-22,-18},{20,18}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sou1(
@@ -54,7 +55,8 @@ extends Modelica.Icons.Example;
     dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=283.15,
-    TGro_start=283.15)
+    TGro_start=283.15,
+    forceGFunCalc=true)
     "Borefield with a 2-U-tube connected in serie borehole configuration"
     annotation (Placement(transformation(extent={{-20,42},{22,78}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sou2(
@@ -92,7 +94,8 @@ extends Modelica.Icons.Example;
     dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=283.15,
-    TGro_start=283.15)
+    TGro_start=283.15,
+    forceGFunCalc=true)
                 "Borefield with a U-tube borehole configuration"
     annotation (Placement(transformation(extent={{-22,-78},{20,-42}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sou(
