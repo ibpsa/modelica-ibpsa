@@ -4,6 +4,7 @@ CavityWalls
 FacadeShadeExample
 NumberOccupants
 RectangularZone
+ScalingWindow
 WallUnitTest
 WindowDynamics
 WindowLinearisation

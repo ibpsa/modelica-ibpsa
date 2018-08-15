@@ -1,6 +1,7 @@
 within IDEAS.Buildings.Components;
 model BoundaryWall "Opaque wall with optional prescribed heat flow rate or temperature boundary conditions"
   extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
+     final nWin=1,
      QTra_design=U_value*A    *(273.15 + 21 - TRef_a),
      dT_nominal_a=-1,
      layMul(monLay(energyDynamics=cat(1, {(if not sim.lineariseDymola and use_T_in and energyDynamics ==  Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics)}, fill(energyDynamics, layMul.nLay-1)),
@@ -42,8 +43,8 @@ equation
                                                     color={0,0,127}));
   connect(proPreQ.y, prescribedHeatFlow.Q_flow) annotation (Line(points={{-77.5,
           -17},{-69.75,-17},{-69.75,-20},{-60,-20}}, color={0,0,127}));
-  connect(proPreQ.u2, propsBus_a.weaBus.dummy) annotation (Line(points={{-89,
-          -14},{-92,-14},{-92,40},{100.1,40},{100.1,19.9}}, color={0,0,127}),
+  connect(proPreQ.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-89,-14},
+            {-92,-14},{-92,40},{56.09,40},{56.09,19.91}},   color={0,0,127}),
       Text(
       string="%second",
       index=1,
@@ -53,8 +54,9 @@ equation
   if use_T_in then
       connect(proPreT.y, prescribedTemperature.T) annotation (Line(points={{-77.5,23},
           {-68.75,23},{-68.75,20},{-62,20}}, color={0,0,127}));
-  connect(proPreT.u2, propsBus_a.weaBus.dummy) annotation (Line(points={{-89,26},
-          {-92,26},{-92,40},{100.1,40},{100.1,19.9}}, color={0,0,127}), Text(
+  connect(proPreT.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-89,26},
+            {-92,26},{-92,40},{56.09,40},{56.09,19.91}},
+                                                      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
@@ -131,6 +133,12 @@ If both are disabled then an adiabatic boundary (<code>Q_flow=0</code>) is assum
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 10, 2018 by Damien Picard:<br/>
+Set nWin final to 1 as this should only be used for windows.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/888\">
+#888</a>. 
+</li>
 <li>
 March 22, 2017, by Filip Jorissen:<br/>
 Changes for JModelica compatibility.

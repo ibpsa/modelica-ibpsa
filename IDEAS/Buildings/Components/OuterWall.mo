@@ -1,6 +1,7 @@
 within IDEAS.Buildings.Components;
 model OuterWall "Opaque building envelope construction"
    extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
+     final nWin=1,
      dT_nominal_a=-3,
      QTra_design(fixed=false));
 
@@ -95,8 +96,8 @@ equation
       points={{-10,8},{-16,8},{-16,25.4},{-22,25.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
-      points={{-80,12},{-80,19.9},{100.1,19.9}},
+  connect(radSolData.weaBus, propsBusInt.weaBus) annotation (Line(
+      points={{-80,12},{-80,19.91},{56.09,19.91}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -104,15 +105,15 @@ equation
       points={{-79.4,2},{-70,2},{-70,38},{-22,38},{-22,28}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(extCon.Te, propsBus_a.weaBus.Te) annotation (Line(
-      points={{-22,-22.8},{100.1,-22.8},{100.1,19.9}},
+  connect(extCon.Te, propsBusInt.weaBus.Te) annotation (Line(
+      points={{-22,-22.8},{56.09,-22.8},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(extCon.hConExt, propsBus_a.weaBus.hConExt) annotation (Line(
-      points={{-22,-27},{100.1,-27},{100.1,19.9}},
+  connect(extCon.hConExt, propsBusInt.weaBus.hConExt) annotation (Line(
+      points={{-22,-27},{56.09,-27},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(Tdes.u, propsBus_a.weaBus.Tdes);
+  connect(Tdes.u, propsBusInt.weaBus.Tdes);
   connect(solDif.y, solAbs.solDif) annotation (Line(points={{-45.6,4},{-42,4}},
                                color={0,0,127}));
   connect(radSolData.angInc, shaType.angInc) annotation (Line(
@@ -241,6 +242,12 @@ The correct shading parameter values should then be passed through the redeclara
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 10, 2018 by Damien Picard:<br/>
+Set nWin final to 1 as this should only be used for windows.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/888\">
+#888</a>. 
+</li>
 <li>
 May 29, 2018 by Filip Jorissen:<br/>
 Added building shade implementation.

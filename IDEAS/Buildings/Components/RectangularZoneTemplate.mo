@@ -113,6 +113,27 @@ model RectangularZoneTemplate
     "Area fraction of the window frame of the ceiling"
     annotation(Dialog(tab="Ceiling", group="Window details",
     enable=hasWinCei));
+  parameter Real nWinA=1
+    "Scaling factor to model nWinA identical windows in facade A"
+    annotation(Dialog(tab="Face A", group="Window details",
+    enable=hasWinA));
+  parameter Real nWinB=1
+    "Scaling factor to model nWinB identical windows in facade B"
+    annotation(Dialog(tab="Face B", group="Window details",
+    enable=hasWinB));
+  parameter Real nWinC=1
+    "Scaling factor to model nWinC identical windows in facade C"
+    annotation(Dialog(tab="Face C", group="Window details",
+    enable=hasWinC));
+  parameter Real nWinD=1
+    "Scaling factor to model nWinD identical windows in facade D"
+    annotation(Dialog(tab="Face D", group="Window details",
+    enable=hasWinD));
+  parameter Real nWinCei=1
+    "Scaling factor to model nWinCei identical windows in the ceiling"
+    annotation(Dialog(tab="Ceiling", group="Window details",
+    enable=hasWinCei));
+
   parameter Boolean linIntCon=sim.linIntCon
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Advanced", group="Convective heat exchange"));
@@ -453,7 +474,8 @@ protected
   shaCorr=shaTypA.shaCorr)),
     fraType(present=fraTypA.present,
             U_value=fraTypA.U_value),
-    linExtRad=linExtRadWin) if
+    linExtRad=linExtRadWin,
+    nWin=nWinA) if
        hasWinA
     "Window for face A of this zone" annotation (Placement(transformation(extent={{-100,0},{-90,20}})));
   IDEAS.Buildings.Components.Window winB(
@@ -491,7 +513,8 @@ protected
   dh=shaTypB.dh,
   shaCorr=shaTypB.shaCorr)),
     fraType(present=fraTypB.present, U_value=fraTypB.U_value),
-    linExtRad=linExtRadWin) if
+    linExtRad=linExtRadWin,
+    nWin=nWinB) if
        hasWinB
     "Window for face B of this zone" annotation (Placement(
         transformation(
@@ -532,7 +555,8 @@ protected
   dh=shaTypC.dh,
   shaCorr=shaTypC.shaCorr)),
     fraType(present=fraTypC.present, U_value=fraTypC.U_value),
-    linExtRad=linExtRadWin) if
+    linExtRad=linExtRadWin,
+    nWin=nWinC) if
        hasWinC
     "Window for face C of this zone" annotation (Placement(
         transformation(
@@ -573,7 +597,8 @@ protected
   dh=shaTypD.dh,
   shaCorr=shaTypD.shaCorr)),
     fraType(present=fraTypD.present, U_value=fraTypD.U_value),
-    linExtRad=linExtRadWin) if
+    linExtRad=linExtRadWin,
+    nWin=nWinD) if
        hasWinD
     "Window for face D of this zone" annotation (Placement(
         transformation(
@@ -613,7 +638,8 @@ protected
   dh=shaTypCei.dh,
   shaCorr=shaTypCei.shaCorr)),
     fraType(present=fraTypCei.present, U_value=fraTypCei.U_value),
-    linExtRad=linExtRadWin) if
+    linExtRad=linExtRadWin,
+    nWin=nWinCei) if
        hasWinCei
     "Window for ceiling of this zone" annotation (Placement(
         transformation(
@@ -1343,8 +1369,7 @@ equation
           -140,-104},{-140,-100},{-98,-100},{-98,-40},{-98.3333,-40}},
                                                                   color={0,0,127}));
   connect(ctrlB, winB.Ctrl) annotation (Line(points={{-155,-111},{-155,-100},{
-          -156,-100},{-156,-100},{-98,-100},{-98,-20},{-98.3333,-20}},
-                                                                  color={0,0,127}));
+          -156,-100},{-98,-100},{-98,-20},{-98.3333,-20}},        color={0,0,127}));
   connect(ctrlA, winA.Ctrl) annotation (Line(points={{-171,-111},{-171,-106},{
           -172,-106},{-172,-100},{-98.3333,-100},{-98.3333,0}},
                                                            color={0,0,127}));
@@ -1536,7 +1561,11 @@ components cannot be propagated.
 <ul>
 <li>
 August 10, 2018, by Damien Picard:<br/>
-Adapt model to make it possible to remove walls from the template.
+Added parameters for scaling factors for windows.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/888\">#888</a>.
+</li>
+<li>
+Adapted model to make it possible to remove walls from the template.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/880\">#880</a>.
 </li>
 <li>
