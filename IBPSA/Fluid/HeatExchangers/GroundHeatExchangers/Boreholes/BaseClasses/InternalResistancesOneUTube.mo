@@ -105,6 +105,10 @@ International Journal Of Energy Research, 35:312-320, 2011.
 <ul>
 <li>
 July 5, 2018, by Alex Laferri&egrave;re:<br/>
+Extended the model from a partial class.
+</li>
+<li>
+June, 2018, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>

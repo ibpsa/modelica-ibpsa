@@ -65,6 +65,10 @@ segment).
 <ul>
 <li>
 July 5, 2018, by Alex Laferri&egrave;re:<br/>
+First implementation of partial class.
+</li>
+<li>
+June, 2018, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
