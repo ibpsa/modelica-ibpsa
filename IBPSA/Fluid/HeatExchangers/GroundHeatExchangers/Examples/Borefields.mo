@@ -21,11 +21,11 @@ extends Modelica.Icons.Example;
     redeclare package Medium = Medium,
     nPorts=1,
     use_T_in=false,
-    m_flow=borFie2UTubParDat.conDat.mBor_flow_nominal,
+    m_flow=borFie2UTubParDat.conDat.mBorFie_flow_nominal,
     T=303.15) "Source" annotation (Placement(transformation(extent={{-100,-10},{
             -80,10}}, rotation=0)));
   IBPSA.Fluid.Sensors.TemperatureTwoPort T2UTubParIn(redeclare package Medium = Medium,
-      m_flow_nominal=borFie2UTubParDat.conDat.mBor_flow_nominal)
+      m_flow_nominal=borFie2UTubParDat.conDat.mBorFie_flow_nominal)
     "Inlet temperature of the borefield with 2-UTube in serie configuration"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   IBPSA.Fluid.Sources.Boundary_pT sin1(
@@ -37,7 +37,7 @@ extends Modelica.Icons.Example;
     T=283.15) "Sink" annotation (Placement(transformation(extent={{100,-10},{80,
             10}}, rotation=0)));
   IBPSA.Fluid.Sensors.TemperatureTwoPort T2UTubParOut(redeclare package Medium = Medium,
-      m_flow_nominal=borFie2UTubParDat.conDat.mBor_flow_nominal)
+      m_flow_nominal=borFie2UTubParDat.conDat.mBorFie_flow_nominal)
     "Outlet temperature of the borefield with 2-UTube in parallel configuration"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Data.BorefieldData.Example borFieUTubDat(conDat=
@@ -61,11 +61,11 @@ extends Modelica.Icons.Example;
     redeclare package Medium = Medium,
     nPorts=1,
     use_T_in=false,
-    m_flow=borFie2UTubSerDat.conDat.mBor_flow_nominal,
+    m_flow=borFie2UTubSerDat.conDat.mBorFie_flow_nominal,
     T=303.15) "Source" annotation (Placement(transformation(extent={{-100,50},{-80,
             70}}, rotation=0)));
   IBPSA.Fluid.Sensors.TemperatureTwoPort T2UTubSerIn(redeclare package Medium = Medium,
-      m_flow_nominal=borFie2UTubSerDat.conDat.mBor_flow_nominal)
+      m_flow_nominal=borFie2UTubSerDat.conDat.mBorFie_flow_nominal)
     "Inlet temperature of the borefield with 2-UTube in serie configuration"
     annotation (Placement(transformation(extent={{-58,50},{-38,70}})));
   IBPSA.Fluid.Sources.Boundary_pT sin2(
@@ -77,7 +77,7 @@ extends Modelica.Icons.Example;
     T=283.15) "Sink" annotation (Placement(transformation(extent={{100,50},{80,
             70}}, rotation=0)));
   IBPSA.Fluid.Sensors.TemperatureTwoPort T2UTubSerOut(redeclare package Medium = Medium,
-      m_flow_nominal=borFie2UTubSerDat.conDat.mBor_flow_nominal)
+      m_flow_nominal=borFie2UTubSerDat.conDat.mBorFie_flow_nominal)
     "Outlet temperature of the borefield with 2-UTube in serie configuration"
     annotation (Placement(transformation(extent={{42,50},{62,70}})));
   Data.BorefieldData.Example borFie2UTubParDat(conDat=
@@ -99,11 +99,11 @@ extends Modelica.Icons.Example;
     redeclare package Medium = Medium,
     nPorts=1,
     use_T_in=false,
-    m_flow=borFieUTubDat.conDat.mBor_flow_nominal,
+    m_flow=borFieUTubDat.conDat.mBorFie_flow_nominal,
     T=303.15) "Source" annotation (Placement(transformation(extent={{-100,-70},{
             -80,-50}}, rotation=0)));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TUTubIn(redeclare package Medium = Medium,
-      m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal)
+      m_flow_nominal=borFieUTubDat.conDat.mBorFie_flow_nominal)
     "Inlet temperature of the borefield with UTube configuration"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   IBPSA.Fluid.Sources.Boundary_pT sin(
@@ -115,7 +115,7 @@ extends Modelica.Icons.Example;
     T=283.15) "Sink" annotation (Placement(transformation(extent={{100,-70},{80,
             -50}}, rotation=0)));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TUTubOut(redeclare package Medium = Medium,
-      m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal)
+      m_flow_nominal=borFieUTubDat.conDat.mBorFie_flow_nominal)
     "Inlet temperature of the borefield with UTube configuration"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Data.BorefieldData.Example borFie2UTubSerDat(conDat=

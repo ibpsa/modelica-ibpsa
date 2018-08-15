@@ -19,28 +19,29 @@ model SandboxValidation "Validation of BorefieldOneUTube based on the experiment
   IBPSA.Fluid.Movers.FlowControlled_m_flow
                                         pum(
     redeclare package Medium = Medium,
-    m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     T_start=T_start,
     addPowerToMedium=false,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal)
     annotation (Placement(transformation(extent={{-20,60},{-40,40}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBorFieIn(redeclare package Medium = Medium,
-      m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
-    T_start=T_start)
+    T_start=T_start,
+    m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal)
     "Inlet temperature of the borefield"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBorFieOut(redeclare package Medium = Medium,
-      m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
-    T_start=T_start) "Outlet temperature of the borefield"
+    T_start=T_start,
+    m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal)
+                     "Outlet temperature of the borefield"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   IBPSA.Fluid.Sources.Boundary_ph sin(redeclare package Medium =
         Medium, nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Modelica.Blocks.Sources.Constant mFlo(k=borFieDat.conDat.mBor_flow_nominal)
+  Modelica.Blocks.Sources.Constant mFlo(k=borFieDat.conDat.mBorFie_flow_nominal)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Sources.CombiTimeTable sandBoxMea(
     tableOnFile=true,
@@ -56,11 +57,11 @@ model SandboxValidation "Validation of BorefieldOneUTube based on the experiment
     dp_nominal=10000,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
-    m_flow(start=borFieDat.conDat.mBor_flow_nominal),
     T_start=T_start,
-    p_start=100000,
-    Q_flow_nominal=1056)
+    Q_flow_nominal=1056,
+    m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
+    m_flow(start=borFieDat.conDat.mBorFie_flow_nominal),
+    p_start=100000)
     annotation (Placement(transformation(extent={{40,60},{20,40}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=sandBoxMea.y[3])
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
