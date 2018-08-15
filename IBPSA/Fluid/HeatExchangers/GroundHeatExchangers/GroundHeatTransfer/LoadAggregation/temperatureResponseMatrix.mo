@@ -50,7 +50,7 @@ algorithm
 
     for i in 1:nTimTot loop
       TStep[i,1] := tGFun[i];
-      TStep[i,2] := gFun[i]/(2*Modelica.Constants.pi*hBor*kSoi);
+      TStep[i,2] := gFun[i]/(2*Modelica.Constants.pi*hBor*nBor*kSoi);
     end for;
 
     writegFun := Modelica.Utilities.Streams.writeRealMatrix(
