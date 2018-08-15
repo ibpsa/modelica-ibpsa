@@ -175,19 +175,6 @@ equation
   connect(capFil4.port, Rpg4.port_b) annotation (Line(points={{-74,20},{-74,12},
           {-66,12},{-66,0},{-72,0},{-72,-9.99201e-016}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{0,-50},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,40},{0,
-              50}},
-          color={0,0,0},
-          origin={50,0},
-          rotation=-90,
-          thickness=0.5),
         Line(
           points={{0,-50},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,40},{0,
               50}},
@@ -199,22 +186,8 @@ equation
           points={{0,-50},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,40},{0,
               50}},
           color={0,0,0},
-          origin={0,50},
-          rotation=360,
-          thickness=0.5),
-        Line(
-          points={{0,-50},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,40},{0,
-              50}},
-          color={0,0,0},
           origin={0,-50},
           rotation=360,
-          thickness=0.5),
-        Line(
-          points={{0,-70.7107},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,
-              40},{-7.10543e-015,70.7107}},
-          color={0,0,0},
-          origin={50,52},
-          rotation=45,
           thickness=0.5),
         Line(
           points={{0,-70.7107},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,

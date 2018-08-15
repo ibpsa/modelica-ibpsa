@@ -61,7 +61,13 @@ initial equation
          to ensure that the shank spacing is larger than the outer tube radius
          and that the borehole radius is sufficiently large.");
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-70,80},{70,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>

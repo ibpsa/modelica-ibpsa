@@ -36,5 +36,44 @@ First implementation of partial model.
 July 2014, by Damien Picard:<br/>
 First implementation.
 </ul>
-</html>"));
+</html>"),
+Icon(coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}},
+        grid={2,2},
+        initialScale=0.5), graphics={
+        Rectangle(
+          extent={{-68,76},{72,-84}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,-56},{64,-64}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,54},{64,50}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,2},{64,-4}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-70,76},{-60,-84}},
+          lineColor={0,0,0},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Backward),
+        Rectangle(
+          extent={{64,76},{74,-84}},
+          lineColor={0,0,0},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Backward)}));
 end PartialBorehole;

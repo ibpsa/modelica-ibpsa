@@ -27,7 +27,30 @@ partial model PartialInternalResistances
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_2
     "Thermal connection for borehole wall"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(points={{0,0},{0,10},{-10,20},{10,40},{-10,60},{10,80},{0,90},{0,
+              100}},
+            color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{0,-70.7107},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,
+              40},{-7.10543e-015,70.7107}},
+          color={0,0,0},
+          origin={50,50},
+          rotation=45,
+          thickness=0.5),
+        Line(
+          points={{0,-50},{0,-40},{-10,-30},{10,-10},{-10,10},{10,30},{0,40},{0,
+              50}},
+          color={0,0,0},
+          origin={50,0},
+          rotation=-90,
+          thickness=0.5)}),                                      Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         Documentation(info="<html>
 <p>

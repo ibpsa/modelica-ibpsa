@@ -8,7 +8,6 @@ model BoreholeTwoUTube "Test for the double U-tube borehole model"
     borFieDat(conDat=
           IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
           borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel)));
-  extends Modelica.Icons.Example;
 
   annotation (experiment(Tolerance=1e-6, StopTime=360000),
         __Dymola_Commands(file=
