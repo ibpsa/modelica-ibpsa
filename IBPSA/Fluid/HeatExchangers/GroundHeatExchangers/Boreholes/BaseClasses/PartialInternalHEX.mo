@@ -88,9 +88,26 @@ need to be declared in models which extend this partial model:
 </html>", revisions="<html>
 <ul>
 <li>
-July 5, 2018, by Alex Laferri&egrave;re:<br/>
+July 10, 2018, by Alex Laferri&egrave;re:<br/>
+First implementation of partial model.
+<li>
+June 18, 2014, by Michael Wetter:<br/>
+Added initialization for temperatures and derivatives of <code>capFil1</code>
+and <code>capFil2</code> to avoid a warning during translation.
+</li>
+<li>
+February 14, 2014, by Michael Wetter:<br/>
+Removed unused parameters <code>B0</code> and <code>B1</code>.
+</li>
+<li>
+January 24, 2014, by Michael Wetter:<br/>
+Revised implementation, added comments, replaced 
+<code>HeatTransfer.Windows.BaseClasses.ThermalConductor</code>
+with resistance models from the Modelica Standard Library.
+</li>
+<li>
+January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
-</ul>
 </html>"));
 end PartialInternalHEX;

@@ -30,8 +30,11 @@ as several borehole segments, with a uniform borehole wall boundary condition.
 <ul>
 <li>
 July 5, 2018, by Alex Laferri&egrave;re:<br/>
-First implementation.
+First implementation of partial model.
 </li>
+<li>
+July 2014, by Damien Picard:<br/>
+First implementation.
 </ul>
 </html>"));
 end PartialBorehole;
