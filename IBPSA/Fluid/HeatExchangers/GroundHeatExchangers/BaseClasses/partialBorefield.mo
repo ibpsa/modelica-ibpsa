@@ -56,6 +56,31 @@ partial model partialBorefield
   Modelica.Blocks.Interfaces.RealInput TSoi
     "Temperature input for undisturbed ground conditions"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+  replaceable Boreholes.BaseClasses.PartialBorehole borHol constrainedby
+    Boreholes.BaseClasses.PartialBorehole(
+    redeclare package Medium = Medium,
+    borFieDat=borFieDat,
+    nSeg=nSeg,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    allowFlowReversal=allowFlowReversal,
+    m_flow_small=m_flow_small,
+    show_T=show_T,
+    computeFlowResistance=computeFlowResistance,
+    from_dp=from_dp,
+    linearizeFlowResistance=linearizeFlowResistance,
+    deltaM=deltaM,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    p_start=p_start,
+    T_start=T_start,
+    X_start=X_start,
+    C_start=C_start,
+    C_nominal=C_nominal,
+    mSenFac=mSenFac,
+    dynFil=dynFil,
+    TGro_start=TGro_start) "Borehole"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(masFloMul.port_b, port_b)
     annotation (Line(points={{80,0},{86,0},{100,0}}, color={0,127,255}));
@@ -65,6 +90,12 @@ equation
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
   connect(TSoi, groTemRes.TSoi)
     annotation (Line(points={{-120,60},{-82,60}},          color={0,0,127}));
+  connect(masFloDiv.port_a, borHol.port_a)
+    annotation (Line(points={{-60,0},{-36,0},{-10,0}}, color={0,127,255}));
+  connect(borHol.port_b, masFloMul.port_a)
+    annotation (Line(points={{10,0},{35,0},{60,0}}, color={0,127,255}));
+  connect(theCol.port_a, borHol.port_wall)
+    annotation (Line(points={{-20,60},{0,60},{0,10}}, color={191,0,0}));
   annotation (
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
     __Dymola_experimentSetupOutput,
