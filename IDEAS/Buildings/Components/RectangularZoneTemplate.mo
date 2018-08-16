@@ -438,8 +438,8 @@ model RectangularZoneTemplate
         extent={{-20,20},{20,-20}},
         rotation=180,
         origin={-120,100})));
-protected
-  constant Real r = 287 "Gas constant";
+
+replaceable
   IDEAS.Buildings.Components.Window winA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
     glazing(
       nLay=glazingA.nLay,
@@ -476,8 +476,22 @@ protected
             U_value=fraTypA.U_value),
     linExtRad=linExtRadWin,
     nWin=nWinA) if
-       hasWinA
-    "Window for face A of this zone" annotation (Placement(transformation(extent={{-100,0},{-90,20}})));
+       hasWinA constrainedby Window(
+       azi=aziA,
+       inc=IDEAS.Types.Tilt.Wall,
+       T_start=T_start,
+       linIntCon_a=linIntCon,
+       dT_nominal_a=dT_nominal_win,
+       linExtCon=linExtCon,
+       windowDynamicsType=windowDynamicsType,
+       linExtRad=linExtRadWin,
+       nWin=nWinA)
+    "Window for face A of this zone"
+    annotation (Dialog(tab="Advanced",group="Windows"),
+      enable=hasWinA,
+      choicesAllMatching=true,
+      Placement(transformation(extent={{-100,0},{-90,20}})));
+  replaceable
   IDEAS.Buildings.Components.Window winB(
       inc=IDEAS.Types.Tilt.Wall,
     glazing(
@@ -515,12 +529,25 @@ protected
     fraType(present=fraTypB.present, U_value=fraTypB.U_value),
     linExtRad=linExtRadWin,
     nWin=nWinB) if
-       hasWinB
-    "Window for face B of this zone" annotation (Placement(
+       hasWinB constrainedby Window(
+       azi=aziB,
+       inc=IDEAS.Types.Tilt.Wall,
+       T_start=T_start,
+       linIntCon_a=linIntCon,
+       dT_nominal_a=dT_nominal_win,
+       linExtCon=linExtCon,
+       windowDynamicsType=windowDynamicsType,
+       linExtRad=linExtRadWin,
+       nWin=nWinB)
+    "Window for face B of this zone" annotation (Dialog(tab="Advanced",group="Windows"),
+      enable=hasWinB,
+      choicesAllMatching=true,
+      Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=0,
         origin={-95,-10})));
+  replaceable
   IDEAS.Buildings.Components.Window winC(inc=IDEAS.Types.Tilt.Wall,
     glazing(
       nLay=glazingC.nLay,
@@ -557,12 +584,25 @@ protected
     fraType(present=fraTypC.present, U_value=fraTypC.U_value),
     linExtRad=linExtRadWin,
     nWin=nWinC) if
-       hasWinC
-    "Window for face C of this zone" annotation (Placement(
+       hasWinC constrainedby Window(
+       azi=aziC,
+       inc=IDEAS.Types.Tilt.Wall,
+       T_start=T_start,
+       linIntCon_a=linIntCon,
+       dT_nominal_a=dT_nominal_win,
+       linExtCon=linExtCon,
+       windowDynamicsType=windowDynamicsType,
+       linExtRad=linExtRadWin,
+       nWin=nWinC)
+    "Window for face C of this zone" annotation (Dialog(tab="Advanced",group="Windows"),
+      enable=hasWinC,
+      choicesAllMatching=true,
+      Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=0,
         origin={-95,-30})));
+  replaceable
   IDEAS.Buildings.Components.Window winD(inc=IDEAS.Types.Tilt.Wall, azi=aziA +
         Modelica.Constants.pi/2*3,
     glazing(
@@ -599,12 +639,25 @@ protected
     fraType(present=fraTypD.present, U_value=fraTypD.U_value),
     linExtRad=linExtRadWin,
     nWin=nWinD) if
-       hasWinD
-    "Window for face D of this zone" annotation (Placement(
+       hasWinD constrainedby Window(
+       azi=aziD,
+       inc=IDEAS.Types.Tilt.Wall,
+       T_start=T_start,
+       linIntCon_a=linIntCon,
+       dT_nominal_a=dT_nominal_win,
+       linExtCon=linExtCon,
+       windowDynamicsType=windowDynamicsType,
+       linExtRad=linExtRadWin,
+       nWin=nWinD)
+    "Window for face D of this zone" annotation (Dialog(tab="Advanced",group="Windows"),
+      enable=hasWinD,
+      choicesAllMatching=true,
+      Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=0,
         origin={-95,-50})));
+  replaceable
   IDEAS.Buildings.Components.Window winCei(inc=IDEAS.Types.Tilt.Ceiling, azi=aziA,
     glazing(
       nLay=glazingCei.nLay,
@@ -640,12 +693,27 @@ protected
     fraType(present=fraTypCei.present, U_value=fraTypCei.U_value),
     linExtRad=linExtRadWin,
     nWin=nWinCei) if
-       hasWinCei
-    "Window for ceiling of this zone" annotation (Placement(
+       hasWinCei constrainedby Window(
+       azi=aziCei,
+       inc=IDEAS.Types.Tilt.Wall,
+       T_start=T_start,
+       linIntCon_a=linIntCon,
+       dT_nominal_a=dT_nominal_win,
+       linExtCon=linExtCon,
+       windowDynamicsType=windowDynamicsType,
+       linExtRad=linExtRadWin,
+       nWin=nWinCei)
+    "Window for ceiling of this zone" annotation (Dialog(tab="Advanced",group="Windows"),
+      enable=hasWinCei,
+      choicesAllMatching=true,
+      Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=0,
         origin={-95,-90})));
+protected
+  constant Real r = 287 "Gas constant";
+
 
   IDEAS.Buildings.Components.BoundaryWall bouA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
@@ -655,7 +723,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=lA*h - (if hasWinA then A_winA else 0)) if
+    A=lA*h - (if hasWinA then winA.A * winA.nWin else 0)) if
        hasBouA
     "Boundary wall for face A of this zone"
     annotation (Placement(transformation(extent={{-120,0},{-110,20}})));
@@ -669,7 +737,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=lB*h - (if hasWinB then A_winB else 0)) if
+    A=lB*h - (if hasWinB then  winB.A * winB.nWin else 0)) if
        hasBouB
     "Boundary wall for face A of this zone"
     annotation (Placement(transformation(extent={{-120,-20},{-110,0}})));
@@ -682,7 +750,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=lC*h - (if hasWinC then A_winC else 0)) if
+    A=lC*h - (if hasWinC then  winC.A * winC.nWin else 0)) if
        hasBouC
     "Boundary wall for face C of this zone"
     annotation (Placement(transformation(extent={{-120,-40},{-110,-20}})));
@@ -695,7 +763,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=lD*h - (if hasWinD then A_winD else 0)) if
+    A=lD*h - (if hasWinD then  winD.A * winD.nWin else 0)) if
        hasBouD
     "Boundary wall for face D of this zone"
     annotation (Placement(transformation(extent={{-120,-60},{-110,-40}})));
@@ -719,7 +787,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=A - (if hasWinCei then A_winCei else 0)) if
+    A=A - (if hasWinCei then  winCei.A * winCei.nWin else 0)) if
        hasBouCei
     "Boundary wall for zone ceiling"
     annotation (Placement(transformation(extent={{-120,-100},{-110,-80}})));
@@ -733,7 +801,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=lA*h - (if hasWinA then A_winA else 0),
+    A=lA*h - (if hasWinA then  winA.A * winA.nWin else 0),
     final hWal=h,
     final hasBuildingShade=hasBuildingShadeA,
     final L=LShaA,
@@ -753,7 +821,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=lB*h - (if hasWinB then A_winB else 0),
+    A=lB*h - (if hasWinB then  winB.A * winB.nWin else 0),
     final hasBuildingShade=hasBuildingShadeB,
     final L=LShaB,
     final dh=dhShaB,
@@ -772,7 +840,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=lC*h - (if hasWinC then A_winC else 0),
+    A=lC*h - (if hasWinC then  winC.A * winC.nWin else 0),
     final hasBuildingShade=hasBuildingShadeC,
     final L=LShaC,
     final dh=dhShaC,
@@ -791,7 +859,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=lD*h - (if hasWinD then A_winD else 0),
+    A=lD*h - (if hasWinD then  winD.A * winD.nWin else 0),
     final hasBuildingShade=hasBuildingShadeD,
     final L=LShaD,
     final dh=dhShaD,
@@ -811,7 +879,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=A - (if hasWinCei then A_winCei else 0)) if
+    A=A - (if hasWinCei then  winCei.A * winCei.nWin else 0)) if
        hasOutCei
     "Outer wall for zone ceiling"
     annotation (Placement(transformation(extent={{-140,-100},{-130,-80}})));
@@ -853,7 +921,7 @@ protected
     c_p=c_p,
     T=T,
     dT=dT,
-    A=lA*h - (if hasWinA then A_winA else 0) - (if hasCavityA then hA*wA else 0)) if
+    A=lA*h - (if hasWinA then  winA.A * winA.nWin else 0) - (if hasCavityA then hA*wA else 0)) if
     hasIntA
     "Internal wall for face A of this zone"
     annotation (Placement(transformation(extent={{-176,0},{-164,20}})));
@@ -878,7 +946,7 @@ protected
     hasCavity=hasCavityB,
     h=hB,
     w=wB,
-    A=lB*h - (if hasWinB then A_winB else 0) - (if hasCavityB then hB*wB else 0)) if
+    A=lB*h - (if hasWinB then  winB.A * winB.nWin else 0) - (if hasCavityB then hB*wB else 0)) if
     hasIntB
     "Internal wall for face B of this zone"
     annotation (Placement(transformation(extent={{-176,-20},{-164,0}})));
@@ -902,7 +970,7 @@ protected
     hasCavity=hasCavityC,
     h=hC,
     w=wC,
-    A=lC*h - (if hasWinC then A_winC else 0) - (if hasCavityC then hC*wC else 0)) if
+    A=lC*h - (if hasWinC then  winC.A * winC.nWin else 0) - (if hasCavityC then hC*wC else 0)) if
     hasIntC
     "Internal wall for face C of this zone"
     annotation (Placement(transformation(extent={{-176,-40},{-164,-20}})));
@@ -926,7 +994,7 @@ protected
     hasCavity=hasCavityD,
     h=hD,
     w=wD,
-    A=lD*h - (if hasWinD then A_winD else 0) - (if hasCavityD then hD*wD else 0)) if
+    A=lD*h - (if hasWinD then  winD.A * winD.nWin else 0) - (if hasCavityD then hD*wD else 0)) if
     hasIntD
     "Internal wall for face D of this zone"
     annotation (Placement(transformation(extent={{-176,-60},{-164,-40}})));
@@ -1002,7 +1070,7 @@ public
         origin={-188,-30}), iconTransformation(
         extent={{-20,20},{20,-20}},
         rotation=0,
-        origin={0,-90})));
+        origin={68,-98})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusD(
     final numIncAndAziInBus=sim.numIncAndAziInBus,
     final outputAngles=sim.outputAngles) if
@@ -1015,7 +1083,7 @@ public
         origin={-188,-50}), iconTransformation(
         extent={{-20,20},{20,-20}},
         rotation=-90,
-        origin={-90,0})));
+        origin={-96,-70})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusFlo(
     final numIncAndAziInBus=sim.numIncAndAziInBus,
     final outputAngles=sim.outputAngles) if
@@ -1513,6 +1581,23 @@ This model however then does not guarantee that all parameters are consistent.
 Therefore, some internal parameters of this model will need to be
 updated manually.
 </p>
+<p>
+In the parameter group <code>Windows</code>, you can redeclare the windows
+type. This is useful if you used windows which have pre-configured area,
+glazing type, frame fraction and shading. The parameters 
+<code>azi=aziA</code>,
+<code>inc=IDEAS.Types.Tilt.Wall</code>,
+<code>T_start=T_start</code>,
+<code>linIntCon_a=linIntCon</code>,
+<code>dT_nominal_a=dT_nominal_win</code>,
+<code>linExtCon=linExtCon</code>,
+<code>windowDynamicsType=windowDynamicsType</code>,
+<code>linExtRad=linExtRadWin</code>,
+<code>nWin=nWinA</code>,
+will still be inherited from the zone model but the
+other windows parameters are those configured in the
+used window model.
+</p>
 <h4>Dynamics</h4>
 <p>
 This model contains wall dynamics
@@ -1559,6 +1644,13 @@ components cannot be propagated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 16, 2018, by Damien Picard:<br/>
+Make windows replaceable.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/891\">#891</a>.
+And correct wall surface computation.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/890\">#890</a>. 
+</li>
 <li>
 August 10, 2018, by Damien Picard:<br/>
 Added parameters for scaling factors for windows.
