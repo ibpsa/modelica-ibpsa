@@ -13,7 +13,7 @@ record SandBox_validation
       hBor=18.3,
       rBor=0.063,
       dBor=0.0,
-      rTub=0.02733/2,
+      rTub=0.0167,
       kTub=0.39,
       eTub=0.003,
       xC=0.053/2);
