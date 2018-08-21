@@ -921,7 +921,7 @@ protected
     c_p=c_p,
     T=T,
     dT=dT,
-    A=AWallA - (if hasCavityA then hA*wA else 0)) if
+    A=lA*h - (if hasCavityA then hA*wA else 0)) if
     hasIntA
     "Internal wall for face A of this zone"
     annotation (Placement(transformation(extent={{-176,0},{-164,20}})));
@@ -946,7 +946,7 @@ protected
     hasCavity=hasCavityB,
     h=hB,
     w=wB,
-    A=AWallB - (if hasCavityB then hB*wB else 0)) if
+    A=lB*h - (if hasCavityB then hB*wB else 0)) if
     hasIntB
     "Internal wall for face B of this zone"
     annotation (Placement(transformation(extent={{-176,-20},{-164,0}})));
@@ -970,7 +970,7 @@ protected
     hasCavity=hasCavityC,
     h=hC,
     w=wC,
-    A=AWallC - (if hasCavityC then hC*wC else 0)) if
+    A=lC*h - (if hasCavityC then hC*wC else 0)) if
     hasIntC
     "Internal wall for face C of this zone"
     annotation (Placement(transformation(extent={{-176,-40},{-164,-20}})));
@@ -994,7 +994,7 @@ protected
     hasCavity=hasCavityD,
     h=hD,
     w=wD,
-    A=AWallD - (if hasCavityD then hD*wD else 0)) if
+    A=lD*h - (if hasCavityD then hD*wD else 0)) if
     hasIntD
     "Internal wall for face D of this zone"
     annotation (Placement(transformation(extent={{-176,-60},{-164,-40}})));
@@ -1281,6 +1281,12 @@ initial equation
   AWallD = lD*h - (if hasWinD then  propsBusInt[indWinD].area else 0);
   ACei = A - (if hasWinCei then  propsBusInt[indWinCei].area else 0);
 
+  // assert that the windows are not bigger than the wall
+  assert(AWallA >= 0, "The netto surface area of wall A is negative. This is not allowed.");
+  assert(AWallB >= 0, "The netto surface area of wall B is negative. This is not allowed.");
+  assert(AWallD >= 0, "The netto surface area of wall C is negative. This is not allowed.");
+  assert(AWallD >= 0, "The netto surface area of wall D is negative. This is not allowed.");
+  assert(ACei >= 0, "The netto surface area of the ceiling is negative. This is not allowed.");
 equation
   connect(intA.propsBus_a, propsBusInt[indWalA]) annotation (Line(
       points={{-165,12},{-152,12},{-152,40},{-80,40}},
