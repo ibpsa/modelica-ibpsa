@@ -4,13 +4,32 @@ block Fixed "Fixed number of occupants"
   parameter Real nOccFix(min=0)=0 "Fixed number of occupants";
   Modelica.Blocks.Sources.Constant constOcc(final k=nOccFix)
     "Constant block for number of occupants"
-    annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
+    annotation (Placement(transformation(extent={{-14,-16},{6,4}})));
 
+  outer BoundaryConditions.SimInfoManager       sim
+    "Simulation information manager for climate data"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
+public
+  Modelica.Blocks.Math.Product product
+    annotation (Placement(transformation(extent={{42,10},{62,-10}})));
+protected
+  Interfaces.WeaBus weaBus(numSolBus=sim.numIncAndAziInBus, outputAngles=sim.outputAngles)
+    annotation (Placement(transformation(extent={{-74,82},{-54,102}})));
 equation
-  connect(constOcc.y, nOcc)
-    annotation (Line(points={{9,0},{120,0}}, color={0,0,127}));
+  connect(sim.weaBus, weaBus) annotation (Line(
+      points={{-84,92.8},{-74,92.8},{-74,92},{-64,92}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(product.u1, constOcc.y)
+    annotation (Line(points={{40,-6},{7,-6}}, color={0,0,127}));
+  connect(product.y, nOcc)
+    annotation (Line(points={{63,0},{120,0}}, color={0,0,127}));
+  connect(product.u2, weaBus.dummy) annotation (Line(points={{40,6},{24,6},{24,92.05},
+          {-63.95,92.05}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
+<li>August 21, 2018 by Damien Picard: <br/> Multiply the occupant number with the dummy variable to avoid the suppression of it while linearizing.</li>
 <li>
 July 26, 2018 by Filip Jorissen:<br/>
 First implementation

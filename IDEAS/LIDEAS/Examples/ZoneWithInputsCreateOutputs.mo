@@ -31,5 +31,13 @@ equation
       extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(extent={{-100,-160},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-160},{100,100}})),          __Dymola_Commands(file=
-          "Scripts/createOutputs_zoneWithInputsCreateOutputs.mos" "Create outputs"));
+          "Scripts/createOutputs_zoneWithInputsCreateOutputs.mos" "Create outputs"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+April 5, 2018 by Damien Picard:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ZoneWithInputsCreateOutputs;

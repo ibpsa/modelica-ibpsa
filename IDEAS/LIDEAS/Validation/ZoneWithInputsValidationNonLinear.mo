@@ -72,10 +72,10 @@ model ZoneWithInputsValidationNonLinear "Model to validate the linearization met
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
 protected
   parameter Real x_start[nSta](each fixed=false) "Initial state values";
-  final parameter Integer[2] Bsize=readMatrixSize(fileName=fileName, matrixName
-      ="B") "Size of B matrix of state space model";
-  final parameter Integer[2] Csize=readMatrixSize(fileName=fileName, matrixName
-      ="C") "Size of C matrix of state space model";
+  final parameter Integer[2] Bsize=readMatrixSize(fileName=fileName, matrixName=
+       "B") "Size of B matrix of state space model";
+  final parameter Integer[2] Csize=readMatrixSize(fileName=fileName, matrixName=
+       "C") "Size of C matrix of state space model";
 public
   Modelica.Blocks.Sources.Sine ctrlInputTestCon[nZones](
     each freqHz=1/1/3600,
@@ -102,33 +102,63 @@ public
     "Difference between the temperature of the zone models and the state space model outputs"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
 initial algorithm
-  x_start := {groFlo.airModel.TAir,window.heaCapGla.T,window.heaCapFra.T,firFlo.airModel.TAir,
-    commonWall.layMul.monLay[1].monLayDyn.T[1],commonWall.layMul.monLay[1].monLayDyn.T[
-    2],commonWall.layMul.monLay[2].monLayDyn.T[1],commonWall.layMul.monLay[2].monLayDyn.T[
-    2],commonWall.layMul.monLay[3].monLayDyn.T[1],commonWall.layMul.monLay[3].monLayDyn.T[
-    2],commonWall.layMul.monLay[3].monLayDyn.T[3],floor.layMul.monLay[1].monLayDyn.T[
-    1],floor.layMul.monLay[1].monLayDyn.T[2],floor.layMul.monLay[2].monLayDyn.T[
-    1],floor.layMul.monLay[3].monLayDyn.T[1],floor.layMul.monLay[4].monLayDyn.T[
-    1],floor.layMul.monLay[5].monLayDyn.T[1],slabOnGround.layMul.monLay[1].monLayDyn.T[
-    1],slabOnGround.layMul.monLay[1].monLayDyn.T[2],slabOnGround.layMul.monLay[
-    2].monLayDyn.T[1],slabOnGround.layMul.monLay[2].monLayDyn.T[2],slabOnGround.layMul.monLay[
-    3].monLayDyn.T[1],slabOnGround.layMul.monLay[3].monLayDyn.T[2],slabOnGround.layGro.monLay[
-    1].monLayDyn.T[1],slabOnGround.layGro.monLay[1].monLayDyn.T[2],slabOnGround.layGro.monLay[
-    1].monLayDyn.T[3],slabOnGround.layGro.monLay[1].monLayDyn.T[4],slabOnGround.layGro.monLay[
-    1].monLayDyn.T[5],slabOnGround.layGro.monLay[1].monLayDyn.T[6],slabOnGround.layGro.monLay[
-    1].monLayDyn.T[7],slabOnGround.layGro.monLay[2].monLayDyn.T[1],slabOnGround.layGro.monLay[
-    2].monLayDyn.T[2],slabOnGround.layGro.monLay[2].monLayDyn.T[3],slabOnGround.layGro.monLay[
-    2].monLayDyn.T[4],slabOnGround.layGro.monLay[3].monLayDyn.T[1],slabOnGround.layGro.monLay[
-    3].monLayDyn.T[2],outerWall.layMul.monLay[1].monLayDyn.T[1],outerWall.layMul.monLay[
-    1].monLayDyn.T[2],outerWall.layMul.monLay[2].monLayDyn.T[1],outerWall.layMul.monLay[
-    3].monLayDyn.T[1],outerWall.layMul.monLay[3].monLayDyn.T[2],commonWall1.layMul.monLay[
-    1].monLayDyn.T[1],commonWall1.layMul.monLay[1].monLayDyn.T[2],commonWall1.layMul.monLay[
-    2].monLayDyn.T[1],commonWall1.layMul.monLay[3].monLayDyn.T[1],commonWall1.layMul.monLay[
-    3].monLayDyn.T[2],outerWall1.layMul.monLay[1].monLayDyn.T[1],outerWall1.layMul.monLay[
-    1].monLayDyn.T[2],outerWall1.layMul.monLay[2].monLayDyn.T[1],outerWall1.layMul.monLay[
-    3].monLayDyn.T[1],outerWall1.layMul.monLay[3].monLayDyn.T[2],Roof.layMul.monLay[
-    1].monLayDyn.T[1],Roof.layMul.monLay[1].monLayDyn.T[2],Roof.layMul.monLay[2].monLayDyn.T[
-    1],Roof.layMul.monLay[3].monLayDyn.T[1]};
+  x_start := {groFlo.airModel.vol.T,
+window.heaCapGla.T,
+window.heaCapFra.T,
+firFlo.airModel.vol.T,
+groFlo.airModel.vol.dynBal.mXi[1],
+firFlo.airModel.vol.dynBal.mXi[1],
+commonWall.layMul.monLay[1].monLayDyn.T[1],
+commonWall.layMul.monLay[1].monLayDyn.T[2],
+commonWall.layMul.monLay[2].monLayDyn.T[1],
+commonWall.layMul.monLay[2].monLayDyn.T[2],
+commonWall.layMul.monLay[3].monLayDyn.T[1],
+commonWall.layMul.monLay[3].monLayDyn.T[2],
+commonWall.layMul.monLay[3].monLayDyn.T[3],
+floor.layMul.monLay[1].monLayDyn.T[1],
+floor.layMul.monLay[1].monLayDyn.T[2],
+floor.layMul.monLay[2].monLayDyn.T[1],
+floor.layMul.monLay[3].monLayDyn.T[1],
+floor.layMul.monLay[4].monLayDyn.T[1],
+floor.layMul.monLay[5].monLayDyn.T[1],
+slabOnGround.layMul.monLay[1].monLayDyn.T[1],
+slabOnGround.layMul.monLay[1].monLayDyn.T[2],
+slabOnGround.layMul.monLay[2].monLayDyn.T[1],
+slabOnGround.layMul.monLay[2].monLayDyn.T[2],
+slabOnGround.layMul.monLay[3].monLayDyn.T[1],
+slabOnGround.layMul.monLay[3].monLayDyn.T[2],
+slabOnGround.layGro.monLay[1].monLayDyn.T[1],
+slabOnGround.layGro.monLay[1].monLayDyn.T[2],
+slabOnGround.layGro.monLay[1].monLayDyn.T[3],
+slabOnGround.layGro.monLay[1].monLayDyn.T[4],
+slabOnGround.layGro.monLay[1].monLayDyn.T[5],
+slabOnGround.layGro.monLay[1].monLayDyn.T[6],
+slabOnGround.layGro.monLay[1].monLayDyn.T[7],
+slabOnGround.layGro.monLay[2].monLayDyn.T[1],
+slabOnGround.layGro.monLay[2].monLayDyn.T[2],
+slabOnGround.layGro.monLay[2].monLayDyn.T[3],
+slabOnGround.layGro.monLay[2].monLayDyn.T[4],
+slabOnGround.layGro.monLay[3].monLayDyn.T[1],
+slabOnGround.layGro.monLay[3].monLayDyn.T[2],
+outerWall.layMul.monLay[1].monLayDyn.T[1],
+outerWall.layMul.monLay[1].monLayDyn.T[2],
+outerWall.layMul.monLay[2].monLayDyn.T[1],
+outerWall.layMul.monLay[3].monLayDyn.T[1],
+outerWall.layMul.monLay[3].monLayDyn.T[2],
+commonWall1.layMul.monLay[1].monLayDyn.T[1],
+commonWall1.layMul.monLay[1].monLayDyn.T[2],
+commonWall1.layMul.monLay[2].monLayDyn.T[1],
+commonWall1.layMul.monLay[3].monLayDyn.T[1],
+commonWall1.layMul.monLay[3].monLayDyn.T[2],
+outerWall1.layMul.monLay[1].monLayDyn.T[1],
+outerWall1.layMul.monLay[1].monLayDyn.T[2],
+outerWall1.layMul.monLay[2].monLayDyn.T[1],
+outerWall1.layMul.monLay[3].monLayDyn.T[1],
+outerWall1.layMul.monLay[3].monLayDyn.T[2],
+Roof.layMul.monLay[1].monLayDyn.T[1],
+Roof.layMul.monLay[1].monLayDyn.T[2],
+Roof.layMul.monLay[2].monLayDyn.T[1],
+Roof.layMul.monLay[3].monLayDyn.T[1]};
 
 
 
@@ -181,6 +211,8 @@ equation
         "Linearize, simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>August 21, 2018 by Damien Picard: <br/>Adapt the name of the states which have 
+changed due to the change of medium to <code>IDEAS.Media.Specialized.DryAir</code>.</li>
 <li>May 15, 2018 by Damien Picard: <br/>First implementation<\\br></li>
 </ul>
 </html>", info="<html>

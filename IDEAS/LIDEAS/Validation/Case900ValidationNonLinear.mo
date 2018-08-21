@@ -90,7 +90,7 @@ public
     "Difference between the temperature of the zone models and the state space model outputs"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 initial algorithm
-  x_start :={linRecZon.airModel.TAir,
+  x_start :={linRecZon.airModel.vol.T,
 linRecZon.winA.heaCapGla.T,
 linRecZon.bouFlo.layMul.monLay[1].monLayDyn.T[1],
 linRecZon.bouFlo.layMul.monLay[1].monLayDyn.T[2],
@@ -148,6 +148,8 @@ equation
         "Linearise, simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>August 21, 2018 by Damien Picard: <br/>Adapt the name of the states which have 
+changed due to the change of medium to <code>IDEAS.Media.Specialized.DryAir</code>.</li>
 <li>May 15, 2018 by Damien Picard: <br/>First implementation</li>
 </ul>
 </html>", info="<html>

@@ -4,7 +4,7 @@ model Case900Linearise "Rectangular zone model parameterised to represent Case90
   extends Modelica.Icons.Example;
   Components.LinRectangularZoneTemplate linRecZon(
     h=2.7,
-    redeclare package Medium = IDEAS.Media.Air,
+    redeclare package Medium = IDEAS.Media.Specialized.DryAir,
     n50=0.822*0.5*20,
     bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
     bouTypB=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
@@ -46,6 +46,7 @@ equation
           "Scripts/linearize_Case900Linearise.mos" "Linearise"),
     Documentation(revisions="<html>
 <ul>
+<li>August 21, 2018 by Damien Picard: <br/>Change medium to <code>IDEAS.Media.Specialized.DryAir</code>.</li>
 <li>May 15, 2018 by Damien Picard: <br/>First implementation</li>
 </ul>
 </html>"));

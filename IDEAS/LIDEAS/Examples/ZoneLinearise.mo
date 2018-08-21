@@ -3,7 +3,7 @@ model ZoneLinearise "Test for linearisation"
   extends LIDEAS.Components.LinearisationInterface(sim(nWindow=1));
   parameter Integer nZones=2 "Number of zone";
   parameter Integer nEmb=1 "Number of embbed systems";
-  package Medium = IDEAS.Media.Air;
+  package Medium = IDEAS.Media.Specialized.DryAir;
   extends Modelica.Icons.Example;
   LIDEAS.Components.LinZone groFlo(
     redeclare package Medium = Medium,
@@ -147,6 +147,7 @@ equation
           "Scripts/linearize_ZoneLinearise.mos" "Linearise"),
     Documentation(revisions="<html>
 <ul>
+<li>August 21, 2018 by Damien Picard: <br/>Change medium to <code>IDEAS.Media.Specialized.DryAir</code>.</li>
 <li>April 10, 2018 by Damien Picard: <br/>Add documentation.</li>
 <li>July 18, 2016 by Filip Jorissen:<br/>Cleaned up code and implementation. </li>
 <li>By Filip Jorissen:<br/>First implementation. </li>

@@ -1,6 +1,5 @@
-LinearAirModel
-LinWindowResponse
 Inputs
+LinWindowResponse
 Outputs
 OutputsWithStates
 Prescribed
