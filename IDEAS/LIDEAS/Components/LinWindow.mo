@@ -1,5 +1,5 @@
 within IDEAS.LIDEAS.Components;
-model LinWindow
+model LinWindow "Extension of the window model to allow linearization"
   extends IDEAS.Buildings.Components.Window(redeclare
       BaseClasses.LinWindowResponse solWin(linearise=sim.linearise,
         createOutputs=sim.createOutputs));
@@ -32,4 +32,15 @@ equation
     connect(solWin.iSolDirOutput, winBusOut.iSolDir);
     connect(solWin.iSolDifOutput, winBusOut.iSolDif);
   end if;
+  annotation (Documentation(info="<html>
+<p> This model extends the <code>IDEAS.Building.Components.Window</code> model
+and it adds two propsBusses. The propsBusses are used to transform the heat flows
+through the windows due to solar radiation into inputs (for linearization purposes)
+and into outputs (to pre-compute the inputs of the linearized model).
+</p>
+</html>", revisions="<html>
+<ul>
+<li>August 21, 2018 by Damien Picard: <br/> Add documentation.</li>
+</ul>
+</html>"));
 end LinWindow;

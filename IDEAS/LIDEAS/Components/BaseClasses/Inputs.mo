@@ -1,5 +1,5 @@
 within IDEAS.LIDEAS.Components.BaseClasses;
-expandable connector Inputs
+connector Inputs
   extends Modelica.Icons.SignalBus;
   parameter Integer nZones=2;
   parameter Integer nEmb=1;

@@ -44,8 +44,13 @@ equation
 <p>double data(xx,10)</p>
 <p>where xx should be replaced by the number of time entries (number of rows).</p>
 <p>The following lines should have 10 tab-separated columns containing following values:</p>
-<p>time [s], ambiant temperature [K], dew point temperature [K], atmospheric pressure [bar], wind speed [m/s], wind bearing [deg] (between 0 and 360), relative humidity [-] (between 0 and 1), direct normal sun irradiance [W/m2], diffuse horizontal irradiance [W/m2] and weather the measurement is trusted or not (even though nothing is done in modelica with the last column).</p>
-<p>Once the custom text file is created, give the correct path to the <code><i>fileNameLocalWeather</i> parameter.</code></p>
+<p>time [s], ambiant temperature [K], dew point temperature [K], 
+atmospheric pressure [bar], wind speed [m/s], wind bearing [deg] (between 0 and 360), 
+relative humidity [-] (between 0 and 1), direct normal sun irradiance [W/m2], 
+diffuse horizontal irradiance [W/m2] and weather the measurement is trusted 
+or not (even though nothing is done in modelica with the last column).</p>
+<p>Once the custom text file is created, give the correct path to the 
+<code><i>fileNameLocalWeather</i> parameter.</code></p>
 </html>"),
     experiment(StopTime=1000));
 end SimInfoManagerInputs;
