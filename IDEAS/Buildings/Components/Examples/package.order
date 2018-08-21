@@ -12,3 +12,4 @@ WindowThermalBridge
 ZoneDynamic
 ZoneStatic
 BaseClasses
+RectangularZone2

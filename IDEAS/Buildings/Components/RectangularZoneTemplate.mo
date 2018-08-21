@@ -723,7 +723,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=lA*h - (if hasWinA then winA.A * winA.nWin else 0)) if
+    A=AWallA) if
        hasBouA
     "Boundary wall for face A of this zone"
     annotation (Placement(transformation(extent={{-120,0},{-110,20}})));
@@ -737,7 +737,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=lB*h - (if hasWinB then  winB.A * winB.nWin else 0)) if
+    A=AWallB) if
        hasBouB
     "Boundary wall for face A of this zone"
     annotation (Placement(transformation(extent={{-120,-20},{-110,0}})));
@@ -750,7 +750,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=lC*h - (if hasWinC then  winC.A * winC.nWin else 0)) if
+    A=AWallC) if
        hasBouC
     "Boundary wall for face C of this zone"
     annotation (Placement(transformation(extent={{-120,-40},{-110,-20}})));
@@ -763,7 +763,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=lD*h - (if hasWinD then  winD.A * winD.nWin else 0)) if
+    A=AWallD) if
        hasBouD
     "Boundary wall for face D of this zone"
     annotation (Placement(transformation(extent={{-120,-60},{-110,-40}})));
@@ -787,7 +787,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=A - (if hasWinCei then  winCei.A * winCei.nWin else 0)) if
+    A=ACei) if
        hasBouCei
     "Boundary wall for zone ceiling"
     annotation (Placement(transformation(extent={{-120,-100},{-110,-80}})));
@@ -801,7 +801,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=lA*h - (if hasWinA then  winA.A * winA.nWin else 0),
+    A=AWallA,
     final hWal=h,
     final hasBuildingShade=hasBuildingShadeA,
     final L=LShaA,
@@ -821,7 +821,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=lB*h - (if hasWinB then  winB.A * winB.nWin else 0),
+    A=AWallB,
     final hasBuildingShade=hasBuildingShadeB,
     final L=LShaB,
     final dh=dhShaB,
@@ -840,7 +840,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=lC*h - (if hasWinC then  winC.A * winC.nWin else 0),
+    A=AWallC,
     final hasBuildingShade=hasBuildingShadeC,
     final L=LShaC,
     final dh=dhShaC,
@@ -859,7 +859,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=lD*h - (if hasWinD then  winD.A * winD.nWin else 0),
+    A=AWallD,
     final hasBuildingShade=hasBuildingShadeD,
     final L=LShaD,
     final dh=dhShaD,
@@ -879,7 +879,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=A - (if hasWinCei then  winCei.A * winCei.nWin else 0)) if
+    A=ACei) if
        hasOutCei
     "Outer wall for zone ceiling"
     annotation (Placement(transformation(extent={{-140,-100},{-130,-80}})));
@@ -921,7 +921,7 @@ protected
     c_p=c_p,
     T=T,
     dT=dT,
-    A=lA*h - (if hasWinA then  winA.A * winA.nWin else 0) - (if hasCavityA then hA*wA else 0)) if
+    A=AWallA - (if hasCavityA then hA*wA else 0)) if
     hasIntA
     "Internal wall for face A of this zone"
     annotation (Placement(transformation(extent={{-176,0},{-164,20}})));
@@ -946,7 +946,7 @@ protected
     hasCavity=hasCavityB,
     h=hB,
     w=wB,
-    A=lB*h - (if hasWinB then  winB.A * winB.nWin else 0) - (if hasCavityB then hB*wB else 0)) if
+    A=AWallB - (if hasCavityB then hB*wB else 0)) if
     hasIntB
     "Internal wall for face B of this zone"
     annotation (Placement(transformation(extent={{-176,-20},{-164,0}})));
@@ -970,7 +970,7 @@ protected
     hasCavity=hasCavityC,
     h=hC,
     w=wC,
-    A=lC*h - (if hasWinC then  winC.A * winC.nWin else 0) - (if hasCavityC then hC*wC else 0)) if
+    A=AWallC - (if hasCavityC then hC*wC else 0)) if
     hasIntC
     "Internal wall for face C of this zone"
     annotation (Placement(transformation(extent={{-176,-40},{-164,-20}})));
@@ -994,7 +994,7 @@ protected
     hasCavity=hasCavityD,
     h=hD,
     w=wD,
-    A=lD*h - (if hasWinD then  winD.A * winD.nWin else 0) - (if hasCavityD then hD*wD else 0)) if
+    A=AWallD - (if hasCavityD then hD*wD else 0)) if
     hasIntD
     "Internal wall for face D of this zone"
     annotation (Placement(transformation(extent={{-176,-60},{-164,-40}})));
@@ -1216,6 +1216,12 @@ protected
     bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.None;
 
 
+  parameter Modelica.SIunits.Area AWallA(fixed=false);
+  parameter Modelica.SIunits.Area AWallB(fixed=false);
+  parameter Modelica.SIunits.Area AWallC(fixed=false);
+  parameter Modelica.SIunits.Area AWallD(fixed=false);
+  parameter Modelica.SIunits.Area ACei(fixed=false);
+
   final parameter Integer indWalA = if hasNoA then 0 else 1;
   final parameter Integer indWalB = indWalA + (if hasNoB then 0 else 1);
   final parameter Integer indWalC = indWalB + (if hasNoC then 0 else 1);
@@ -1268,6 +1274,12 @@ initial equation
   assert(not hasCavityD or (hD <= h and wD <=lD),
     "In " + getInstanceName() + ": The cavity dimensions of surface D exceed the zone dimensions. This is non-physical");
 
+
+  AWallA = lA*h - (if hasWinA then  propsBusInt[indWinA].area else 0);
+  AWallB = lB*h - (if hasWinB then  propsBusInt[indWinB].area else 0);
+  AWallC = lC*h - (if hasWinC then  propsBusInt[indWinC].area else 0);
+  AWallD = lD*h - (if hasWinD then  propsBusInt[indWinD].area else 0);
+  ACei = A - (if hasWinCei then  propsBusInt[indWinCei].area else 0);
 
 equation
   connect(intA.propsBus_a, propsBusInt[indWalA]) annotation (Line(
