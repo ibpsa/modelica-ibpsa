@@ -347,11 +347,11 @@ model Adsolair58 "Menerga Adsolair type 58 air handling unit"
   IDEAS.Fluid.Sensors.TemperatureTwoPort senTemFanSupOut(
     redeclare package Medium = MediumAir,
     m_flow_nominal=m2_flow_nominal,
-    tau=tau,
-    transferHeat=true,
     TAmb=fixedTemperature.T,
     tauHeaTra=3600,
-    allowFlowReversal=allowFlowReversal) "Inlet temperature of the heater"
+    allowFlowReversal=allowFlowReversal,
+    transferHeat=false,
+    tau=0)                               "Inlet temperature of the heater"
     annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=180,
@@ -677,6 +677,14 @@ equation
     __Dymola_experimentSetupOutput(events=false),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 26, 2018, by Filip Jorissen:<br/>
+Improved adsolair controller performance.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/751\">#751</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/730\">#730</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/729\">#729</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/754\">#754</a>.
+</li>
 <li>
 April 27, 2017, by Filip Jorissen:<br/>
 Removed thermal resistors at pumps. 

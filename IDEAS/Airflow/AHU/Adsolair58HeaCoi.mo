@@ -45,6 +45,14 @@ equation
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
+January 26, 2018, by Filip Jorissen:<br/>
+Improved adsolair controller performance.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/751\">#751</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/730\">#730</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/729\">#729</a>,
+<a href=\"https://github.com/open-ideas/IDEAS/issues/754\">#754</a>.
+</li>
+<li>
 October 11, 2016, by Filip Jorissen:<br/>
 First implementation.
 </li>

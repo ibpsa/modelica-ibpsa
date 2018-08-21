@@ -9,7 +9,7 @@ model SkyClearness "Test model for sky clearness"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
   IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   IDEAS.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-2,20},{18,40}})));

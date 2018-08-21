@@ -32,9 +32,6 @@ protected
   Boolean ventilate = not occ.occupied;
 
 equation
-  wattsLawPlug.P[1] = 0;
-  wattsLawPlug.Q[1] = 0;
-
   for i in 1:nZones loop
     connect(port_b[i], boundary.ports[i]);
     connect(port_a[i], bou.ports[i]);
@@ -52,6 +49,11 @@ equation
             -100},{100,100}}),
                       graphics), Documentation(revisions="<html>
 <ul>
+<li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
 <li>
 January 14, 2017 by Filip Jorissen:<br/>
 Corrected error in computation of air density.

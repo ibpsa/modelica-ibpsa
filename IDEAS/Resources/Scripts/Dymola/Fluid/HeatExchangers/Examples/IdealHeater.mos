@@ -1,3 +1,0 @@
-simulateModel("IDEAS.Fluid.HeatExchangers.Examples.IdealHeater", stopTime=40000, method="dassl", resultFile="IdealHeater");
-plot(y={"pump.heatPort.T"}, colors={{0,0,255}});
-

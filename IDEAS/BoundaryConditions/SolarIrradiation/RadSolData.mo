@@ -34,11 +34,18 @@ model RadSolData "Selects or generates correct solar data for this surface"
   Modelica.Blocks.Interfaces.RealOutput Tenv "Environment temperature"
     annotation (Placement(transformation(extent={{96,-30},{116,-10}})));
 protected
-  final parameter Boolean solDataInBus=if sum( { if sum(abs({mod(incAndAziInBus[i,1],Modelica.Constants.pi*2),mod(incAndAziInBus[i,2],Modelica.Constants.pi*2)} -
-  {mod(inc,Modelica.Constants.pi*2),mod(azi,Modelica.Constants.pi*2)}))<0.01 then 1 else 0 for i in 1:numIncAndAziInBus})   ==1 then true else false
+  final parameter Integer numMatches=
+    sum( {if     IDEAS.Utilities.Math.Functions.isAngle(incAndAziInBus[i,1],inc)
+             and IDEAS.Utilities.Math.Functions.isAngle(incAndAziInBus[i,2],azi)
+          then 1
+          else 0 for i in 1:numIncAndAziInBus});
+  final parameter Boolean solDataInBus = numMatches==1
     "True if the {inc,azi} combination is found in incAndAziInBus" annotation(Evaluate=true);
-  final parameter Integer solDataIndex=sum( { if sum(abs({mod(incAndAziInBus[i,1],Modelica.Constants.pi*2),mod(incAndAziInBus[i,2],Modelica.Constants.pi*2)} -
-  {mod(inc,Modelica.Constants.pi*2),mod(azi,Modelica.Constants.pi*2)}))<0.01 then i else 0 for i in 1:numIncAndAziInBus})
+  final parameter Integer solDataIndex=
+    sum( {if     IDEAS.Utilities.Math.Functions.isAngle(incAndAziInBus[i,1],inc)
+             and IDEAS.Utilities.Math.Functions.isAngle(incAndAziInBus[i,2],azi)
+          then i
+          else 0 for i in 1:numIncAndAziInBus})
     "Index of the {inc,azi} combination in incAndAziInBus" annotation(Evaluate=true);
   IDEAS.BoundaryConditions.SolarIrradiation.ShadedRadSol radSol(
     final inc=inc,
@@ -60,7 +67,10 @@ protected
     "Dummy inputs when linearising. This avoids unnecessary state space inputs."
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 equation
-      assert( not useLinearisation or (useLinearisation and solDataInBus), "The solar data must come
+    assert(numMatches<=1, "In "+getInstanceName()+
+      ": The parameter sim.incAndAziInBus contains duplicates. 
+      This is not allowed. Remove the duplicate entry.");
+    assert( not useLinearisation or (useLinearisation and solDataInBus), "The solar data must come
       from the weabus when the model is linearised. Add the combination {inc,azi} = {"+String(inc)+","+String(azi)+"}
       to the parameter incAndAziInBus of the SimInfoManager.");
   connect(radSol.solBus, solBusDummy) annotation (Line(
@@ -140,13 +150,21 @@ equation
           {-39.9,0},{-39.9,30.1}}, color={0,0,127}));
   connect(angHou, weaBus.angHou) annotation (Line(points={{106,-100},{80,-100},
           {80,80.05},{100.05,80.05}}, color={0,0,127}));
-  connect(radSol.solTim, weaBus.solTim) annotation (Line(points={{-80.4,33},{-86,33},
-          {-86,64},{100.05,64},{100.05,80.05}}, color={0,0,127}));
+  connect(radSol.solTim, weaBus.solTim) annotation (Line(points={{-80.4,33},{-86,
+          33},{-86,64},{100.05,64},{100.05,80.05}},
+                                                color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Documentation(info="<html>
 <p>This model usually takes the appropriate solar data from the bus. If the correct data is not contained by the bus, custom solar data is calculated.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 9, 2018 by Filip Jorissen:<br/>
+Revised implementation for checking solData index and added
+assert to avoid duplicate entries in <code>incAndAziInBus</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/881\">
+#881</a>.
+</li>
 <li>
 March 26, 2018 by Iago Cupeiro &amp; Damien Picard:<br/>
 Solved bug in linearisation

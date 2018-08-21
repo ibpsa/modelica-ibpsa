@@ -1,5 +1,5 @@
-Buoyancy_eqcon
-Buoyancy_powexp
-Partial_Buoyancy
-StratifiedInlet
-areaCalculation
+Buoyancy
+IndirectTankHeatExchanger
+PartialStratified
+ThirdOrderStratifier
+Examples

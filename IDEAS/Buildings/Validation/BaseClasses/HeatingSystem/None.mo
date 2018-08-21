@@ -4,15 +4,20 @@ model None "None"
     final nLoads=1, nZones=1, final nTemSen = nZones);
 
 equation
-  P = {0};
-  Q = {0};
-
   for i in 1:nZones loop
     heatPortCon[i].Q_flow = 0;
     heatPortRad[i].Q_flow = 0;
-//    heatPortEmb[i].Q_flow = 0;
   end for;
+  heatPortEmb.Q_flow=zeros(nEmbPorts);
 
-  QHeaSys = 0;
 
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+June 5, 2018 by Filip Jorissen:<br/>
+Cleaned up implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/821\">#821</a>.
+</li>
+</ul>
+</html>"));
 end None;

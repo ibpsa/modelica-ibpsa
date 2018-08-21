@@ -28,7 +28,6 @@ model Building
     final isDH=isDH,
     final nZones=building.nZones,
     final nEmbPorts=building.nEmb,
-    final InInterface=InInterface,
     final Q_design=Q_design) "Thermal building heating system" annotation (
       Placement(transformation(extent={{-20,-10},{20,10}})), choicesAllMatching=
        true);
@@ -140,11 +139,6 @@ equation
         smooth=Smooth.None));
   end if;
 
-  connect(heatingSystem.mDHW60C, occupant.mDHW60C) annotation (Line(
-      points={{6,-10.2},{6,-30}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
   connect(ventilationSystem.port_b, building.port_a) annotation (Line(
       points={{-20,28},{-49,28},{-49,10}},
       color={0,0,0},
@@ -159,10 +153,10 @@ equation
       thickness=0.5));
   connect(heatingSystem.port_b, port_b) annotation (Line(
       points={{16,-10},{16,-10},{16,-22},{34,-22},{34,-80},{20,-80},{20,-100}},
-
       color={0,127,255},
       thickness=0.5,
       pattern=LinePattern.Dash));
+
   annotation (Icon(graphics={
         Line(
           points={{60,22},{0,74},{-60,24},{-60,-46},{60,-46}},

@@ -122,7 +122,10 @@ model Structure "Ppd 12 example model"
     redeclare IDEAS.Examples.PPD12.Data.FloorOnGround conTypFlo,
     nSurfExt=1,
     redeclare Data.Ppd12WestShadingGnd shaTypC,
-    n50=n50)
+    n50=n50,
+    hasCavityA=true,
+    hA=2.7,
+    wA=2)
     annotation (Placement(transformation(extent={{-26,56},{-46,36}})));
 
   IDEAS.Buildings.Components.RectangularZoneTemplate hallway(
@@ -346,9 +349,6 @@ model Structure "Ppd 12 example model"
     inc=IDEAS.Types.Tilt.Floor)
     "Dummy for representing stairway connection between floors"
     annotation (Placement(transformation(extent={{182,-22},{192,-2}})));
-  Buildings.Components.Interfaces.WeaBus weaBus1(numSolBus=sim.numIncAndAziInBus,
-      outputAngles=sim.outputAngles)
-    annotation (Placement(transformation(extent={{370,70},{390,90}})));
 equation
   connect(hallway.proBusD, living.proBusB) annotation (Line(
       points={{-73,50},{-45,50},{-45,40}},
@@ -450,13 +450,6 @@ equation
       points={{182.833,-10},{76.2,-10},{76.2,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(sim.weaBus, weaBus1) annotation (Line(
-      points={{384,50.8},{380,50.8},{380,80}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -200},{400,240}},
         initialScale=0.1), graphics={
@@ -499,6 +492,11 @@ This model only contains the building structure.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 21, 2018, by Filip Jorissen:<br/>
+Using model for air flow through vertical cavity.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/822\">#822</a>.
+</li>
 <li>
 December 20, 2016 by Filip Jorissen:<br/>
 First implementation.

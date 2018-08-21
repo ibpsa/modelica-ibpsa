@@ -1,6 +1,7 @@
 within IDEAS.Buildings.Components;
 model OuterWall "Opaque building envelope construction"
    extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
+     final nWin=1,
      dT_nominal_a=-3,
      QTra_design(fixed=false));
 
@@ -10,9 +11,31 @@ model OuterWall "Opaque building envelope construction"
   parameter Boolean linExtRad=sim.linExtRad
     "= true, if exterior radiative heat transfer should be linearised"
     annotation(Dialog(tab="Radiation"));
-
+  parameter Boolean hasBuildingShade = false
+    "=true, to enable computation of shade cast by opposite building or object"
+    annotation(Dialog(group="Building shade"));
+  parameter Modelica.SIunits.Length L(min=0)=0
+    "Distance between object and wall, perpendicular to wall"
+    annotation(Dialog(group="Building shade",enable=hasBuildingShade));
+  parameter Modelica.SIunits.Length dh(min=-hWal)=0
+    "Height difference between top of object and top of wall"
+    annotation(Dialog(group="Building shade",enable=hasBuildingShade));
+  parameter Modelica.SIunits.Length hWal(min=0)=0 "Wall height"
+    annotation(Dialog(group="Building shade",enable=hasBuildingShade));
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
+
+  replaceable IDEAS.Buildings.Components.Shading.BuildingShade shaType(
+    final L=L,
+    final dh=dh,
+    final hWin=hWal) if hasBuildingShade
+  constrainedby IDEAS.Buildings.Components.Shading.Interfaces.PartialShading(
+    final azi=azi)
+    "Building shade model"
+    annotation (Placement(transformation(extent={{-72,-8},{-62,12}})),
+      __Dymola_choicesAllMatching=true,
+      Dialog(tab="Advanced",group="Shading"));
+
 
 protected
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.ExteriorConvection
@@ -39,11 +62,19 @@ protected
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough";
   Modelica.Blocks.Math.Add solDif(final k1=1, final k2=1)
     "Sum of ground and sky diffuse solar irradiation"
-    annotation (Placement(transformation(extent={{-60,0},{-54,6}})));
+    annotation (Placement(transformation(extent={{-54,0},{-46,8}})));
 initial equation
   QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
 
 equation
+  if hasBuildingShade then
+    assert(L>0, "Shading is enabled in " + getInstanceName() +
+    ": Provide a value for L, the distance to the shading object, that is larger than 0.");
+    assert(not sim.lineariseDymola, "Shading is enabled in " + getInstanceName() +
+    " but this is not supported when linearising a model.");
+    assert(hWal>0, "Shading is enabled in " + getInstanceName() +
+    ": Provide a value for hWal, the wall height, that is larger than 0.");
+  end if;
 
   connect(extCon.port_a, layMul.port_b) annotation (Line(
       points={{-22,-18},{-18,-18},{-18,0},{-10,0}},
@@ -65,8 +96,8 @@ equation
       points={{-10,8},{-16,8},{-16,25.4},{-22,25.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
-      points={{-80,12},{-80,19.9},{100.1,19.9}},
+  connect(radSolData.weaBus, propsBusInt.weaBus) annotation (Line(
+      points={{-80,12},{-80,19.91},{56.09,19.91}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -74,23 +105,51 @@ equation
       points={{-79.4,2},{-70,2},{-70,38},{-22,38},{-22,28}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(extCon.Te, propsBus_a.weaBus.Te) annotation (Line(
-      points={{-22,-22.8},{100.1,-22.8},{100.1,19.9}},
+  connect(extCon.Te, propsBusInt.weaBus.Te) annotation (Line(
+      points={{-22,-22.8},{56.09,-22.8},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(extCon.hConExt, propsBus_a.weaBus.hConExt) annotation (Line(
-      points={{-22,-27},{100.1,-27},{100.1,19.9}},
+  connect(extCon.hConExt, propsBusInt.weaBus.hConExt) annotation (Line(
+      points={{-22,-27},{56.09,-27},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(Tdes.u, propsBus_a.weaBus.Tdes);
-  connect(radSolData.HSkyDifTil, solDif.u1) annotation (Line(points={{-79.4,6},{
-          -64,6},{-64,4.8},{-60.6,4.8}}, color={0,0,127}));
-  connect(solDif.u2, radSolData.HGroDifTil) annotation (Line(points={{-60.6,1.2},
-          {-66,1.2},{-66,4},{-79.4,4}}, color={0,0,127}));
-  connect(solDif.y, solAbs.solDif) annotation (Line(points={{-53.7,3},{-47.85,3},
-          {-47.85,4},{-42,4}}, color={0,0,127}));
-  connect(solAbs.solDir, radSolData.HDirTil)
-    annotation (Line(points={{-42,8},{-58,8},{-79.4,8}}, color={0,0,127}));
+  connect(Tdes.u, propsBusInt.weaBus.Tdes);
+  connect(solDif.y, solAbs.solDif) annotation (Line(points={{-45.6,4},{-42,4}},
+                               color={0,0,127}));
+  connect(radSolData.angInc, shaType.angInc) annotation (Line(
+      points={{-79.4,0},{-76,0},{-76,-2},{-72,-2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSolData.angAzi, shaType.angAzi) annotation (Line(
+      points={{-79.4,-4},{-78,-4},{-78,-6},{-72,-6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSolData.angZen, shaType.angZen) annotation (Line(
+      points={{-79.4,-2},{-76,-2},{-76,-4},{-72,-4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSolData.HDirTil, shaType.HDirTil) annotation (Line(points={{-79.4,8},
+          {-72,8}},                            color={0,0,127}));
+  connect(radSolData.HSkyDifTil, shaType.HSkyDifTil) annotation (Line(points={{-79.4,6},
+          {-72,6}},                                  color={0,0,127}));
+  connect(radSolData.HGroDifTil, shaType.HGroDifTil) annotation (Line(points={{-79.4,4},
+          {-72,4}},                                  color={0,0,127}));
+  if not hasBuildingShade then
+    connect(solDif.u1, radSolData.HSkyDifTil) annotation (Line(points={{-54.8,
+            6.4},{-55.3,6.4},{-55.3,6},{-79.4,6}},
+                                            color={0,0,127}));
+    connect(solDif.u2, radSolData.HGroDifTil) annotation (Line(points={{-54.8,
+            1.6},{-55.3,1.6},{-55.3,4},{-79.4,4}},
+                                            color={0,0,127}));
+    connect(solAbs.solDir, radSolData.HDirTil)
+      annotation (Line(points={{-42,8},{-79.4,8}}, color={0,0,127}));
+  end if;
+  connect(shaType.HShaDirTil, solAbs.solDir)
+    annotation (Line(points={{-62,8},{-42,8}},           color={0,0,127}));
+  connect(shaType.HShaSkyDifTil, solDif.u1) annotation (Line(points={{-62,6},{
+          -54.8,6},{-54.8,6.4}},   color={0,0,127}));
+  connect(shaType.HShaGroDifTil, solDif.u2) annotation (Line(points={{-62,4},{
+          -56,4},{-56,1.6},{-54.8,1.6}},   color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-60,-100},{60,100}}),
         graphics={
@@ -159,11 +218,42 @@ equation
 <p>
 This is the main wall model that should be used to
 simulate a wall or roof between a zone and the outside environment.
-See <a href=modelica://IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface>IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface</a> 
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+See <a href=modelica://IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface>
+IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface</a> 
 for equations, options, parameters, validation and dynamics that are common for all surfaces.
+</p>
+<p>
+In addition to these parameters, this model computes the shade cast by an outside
+object such as a building using 
+<a href=\"IDEAS.Buildings.Components.Shading.BuildingShade\">IDEAS.Buildings.Components.Shading.BuildingShade</a>
+if parameter <code>hasBuildingShade=true</code>.
+Values for parameters <code>L</code>, <code>dh</code> and <code>hWal</code> then have to be specified.
+</p>
+<h4>Options</h4>
+<p>
+The model <a href=\"IDEAS.Buildings.Components.Shading.BuildingShade\">IDEAS.Buildings.Components.Shading.BuildingShade</a> 
+is implemented by default but it can be redeclared in the advanced tab. 
+In this case the user still has to provide values for <code>L</code>, <code>dh</code> and <code>hWal</code>
+to avoid failing an assert that verifies the parameter consistency. The values are however not used in this case.
+The correct shading parameter values should then be passed through the redeclaration.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 10, 2018 by Damien Picard:<br/>
+Set nWin final to 1 as this should only be used for windows.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/888\">
+#888</a>. 
+</li>
+<li>
+May 29, 2018 by Filip Jorissen:<br/>
+Added building shade implementation.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/576\">
+#576</a>.
+</li>
 <li>
 May 26, 2017 by Filip Jorissen:<br/>
 Revised implementation for renamed

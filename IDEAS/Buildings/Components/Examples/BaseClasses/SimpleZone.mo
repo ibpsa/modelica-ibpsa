@@ -3,7 +3,7 @@ model SimpleZone
   "Simple fully configured zone model based on case 900"
   extends IDEAS.Buildings.Components.RectangularZoneTemplate(
     h=2.7,
-    redeclare package Medium = IDEAS.Media.Air,
+    redeclare replaceable package Medium = IDEAS.Media.Air,
     n50=0.822*0.5*20,
     redeclare Components.ZoneAirModels.WellMixedAir airModel,
     T_start=293.15,

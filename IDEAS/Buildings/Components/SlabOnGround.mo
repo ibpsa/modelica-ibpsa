@@ -1,6 +1,7 @@
 within IDEAS.Buildings.Components;
 model SlabOnGround "opaque floor on ground slab"
    extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
+     final nWin=1,
      QTra_design=UEqui*A    *(273.15 + 21 - sim.Tdes),
         dT_nominal_a=-3,
         inc=IDEAS.Types.Tilt.Floor,
@@ -44,7 +45,7 @@ protected
   final parameter Real delta=sqrt(3.15*10^7*ground1.k/3.14/ground1.rho/ground1.c);
   final parameter Real Lpi=A    *ground1.k/dt*sqrt(1/((1 + delta/dt)^2 + 1));
   final parameter Real Lpe=0.37*PWall*ground1.k*log(delta/dt + 1);
-  Real m = sim.timCal/3.1536e7*12 "time in months";
+  Real m = sim.solTim.y/3.1536e7*12 "time in months";
 
   BaseClasses.ConductiveHeatTransfer.MultiLayer layGro(
     final inc=inc,
@@ -78,8 +79,9 @@ equation
     annotation (Line(points={{-40,0},{-45,0},{-50,0}}, color={191,0,0}));
   connect(Qm_val.y, product.u1) annotation (Line(points={{-21,60},{-26,60},{-26,
           42.4},{-29.2,42.4}}, color={0,0,127}));
-  connect(product.u2, propsBus_a.weaBus.dummy) annotation (Line(points={{-29.2,37.6},
-          {100.1,37.6},{100.1,19.9}}, color={0,0,127}));
+  connect(product.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-29.2,
+          37.6},{53.075,37.6},{53.075,19.91}},
+                                      color={0,0,127}));
   connect(product.y, periodicFlow.Q_flow) annotation (Line(points={{-38.4,40},{-50,
           40},{-50,22},{-40,22}}, color={0,0,127}));
   annotation (
@@ -140,6 +142,12 @@ zone that is surrounded by air at the ambient temperature.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 10, 2018 by Damien Picard:<br/>
+Set nWin final to 1 as this should only be used for windows.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/888\">
+#888</a>. 
+</li>
 <li>
 May 14, 2018, by Filip Jorissen:<br/>
 Revised value of <code>energyDynamics</code>

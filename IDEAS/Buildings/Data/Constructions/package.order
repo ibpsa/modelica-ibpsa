@@ -1,6 +1,7 @@
 CavityWall
 CavityWallPartialFill
-FloorOnGround
-EpcSolidWall2
-TABS
 ConcreteSlab
+EpcSolidWall2
+FloorOnGround
+InsulatedFloorHeating
+TABS

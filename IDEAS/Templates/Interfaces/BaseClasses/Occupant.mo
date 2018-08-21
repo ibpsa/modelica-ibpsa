@@ -4,8 +4,6 @@ partial model Occupant
   extends IDEAS.Templates.Interfaces.BaseClasses.PartialSystem;
 
   parameter Integer nZones(min=1) "number of conditioned thermal zones";
-  parameter Integer nLoads(min=0) = 1 "number of electric loads";
-
   parameter Integer id=1 "id-number on extern data references";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
