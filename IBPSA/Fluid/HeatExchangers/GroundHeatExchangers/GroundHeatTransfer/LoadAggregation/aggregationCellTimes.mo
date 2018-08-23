@@ -6,7 +6,7 @@ function aggregationCellTimes
   input Integer i "Size of time vector";
   input Real lvlBas "Base for growth between each level, e.g. 2";
   input Integer nCel "Number of cells of same size per level";
-  input Modelica.SIunits.Time tLoaAgg(final min=Modelica.Constants.small) "Aggregation step";
+  input Modelica.SIunits.Time tLoaAgg(final min=Modelica.Constants.small) "Time resolution of load aggregation";
   input Modelica.SIunits.Time timFin "Total simulation max length";
 
   output Modelica.SIunits.Time nu[i] "Time vector nu of size i";
@@ -33,8 +33,8 @@ algorithm
   annotation (Documentation(info="<html>
 <p>Simultaneously constructs both the <code>nu</code> vector, which is the
 aggregation time of each cell, and the <code>rCel</code> vector, which
-is the temporal size of each cell normalized with the aggregation step
-length <code>tLoaAgg</code>.
+is the temporal size of each cell normalized with the time resolution of load
+aggregation <code>tLoaAgg</code>.
 </p>
 </html>", revisions="<html>
 <ul>

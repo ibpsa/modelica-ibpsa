@@ -36,7 +36,7 @@ equation
     experiment(Tolerance=1e-6, StartTime=0.0, StopTime=10.0),
     Documentation(info="<html>
 <p>
-This example demonstrates the evaluation of 
+This example demonstrates the use of 
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.MassFlowRateMultiplier\">
 IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.MassFlowRateMultiplier</a>.
 </p>

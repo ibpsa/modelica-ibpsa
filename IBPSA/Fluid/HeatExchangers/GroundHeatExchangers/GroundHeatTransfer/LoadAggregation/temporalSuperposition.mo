@@ -20,10 +20,10 @@ Inline=true,
 Documentation(info="<html>
 <p>
 Performs the temporal superposition operation to obtain the temperature change
-at the borehole wall at the current timstep, which is the scalar product of the
-aggregated load vector and the <code>kappa</code> step response vector. To
+at the borehole wall at the current time step, which is the scalar product of
+the aggregated load vector and the <code>kappa</code> step response vector. To
 avoid unnecessary calculations, the current aggregation cell in the simulation
-is used to trunkate the values from the vectors which are not required.
+is used to truncate the values from the vectors that are not required.
 </p>
 </html>", revisions="<html>
 <ul>

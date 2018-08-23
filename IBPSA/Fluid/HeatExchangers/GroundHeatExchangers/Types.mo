@@ -12,7 +12,7 @@ package Types "Package with type definitions"
   "Enumaration to define the borehole configurations"
   annotation (Documentation(info="<html>
 <p>
-Typedefinition for different ground heat exchangers.
+Type definition for different ground heat exchangers.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -6,7 +6,7 @@ function countAggregationCells
   input Real lvlBas "Base for growth between each level, e.g. 2";
   input Integer nCel(min=1) "Number of cells of same size per level";
   input Modelica.SIunits.Time timFin "Total simulation max length";
-  input Modelica.SIunits.Time tLoaAgg "Aggregation step";
+  input Modelica.SIunits.Time tLoaAgg "Time resolution of load aggregation";
 
   output Integer i(min=1) "Size of aggregation vectors";
 
@@ -28,9 +28,9 @@ algorithm
 
 annotation (Documentation(info="<html>
 <p>
-Function that counts the required length of the aggregation time vector <code>nu</code> and
-of the weighting factor vectors <code>kappa</code> based on the maximum time for
-calculations related to the ground temperature response.
+Function that counts the required length of the aggregation time vector
+<code>nu</code> and of the weighting factor vectors <code>kappa</code> based on
+the maximum time for calculations related to the ground temperature response.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -132,7 +132,7 @@ IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGr
 </html>", revisions="<html>
 <ul>
 <li>
-June 13, 2018, by MassimoCimmino:<br/>
+June 13, 2018, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>

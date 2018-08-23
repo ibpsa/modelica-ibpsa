@@ -34,7 +34,8 @@ algorithm
 <p>
 Performs the shifting operation which propagates the thermal load history
 towards the more distant aggregation cells, and then sets the current cell's
-value at <i>0</i>. Additionally, this function also outputs the current load aggregation cell.
+value at <i>0</i>. Additionally, this function also outputs the last filled load
+aggregation cell.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -21,7 +21,7 @@ single U-tube, double U-tube in parallel and double U-tube in series configurati
 <li> The resistances <i>Rb</i> and <i>Ra</i> are either automatically calculated using the multipole method, 
 or they can be directly provided by the user.</li>
 <li> User-defined vertical discretization of boreholes. However, the borehole wall temperature is identical for each borehole and along the 
-depth, as the analytical solution only computes the average borehole wall temperature.
+depth, as the ground temperature response model only computes the average borehole wall temperature.
 <li> Borefields can have one or many boreholes. Each borehole can be positioned arbitrarily in the field. </li>
 <li> The resolution and precision of the load aggregation method for the ground heat transfer can be adapted.</li>
 <li> The thermal response of the ground heat transfer can be stored locally to avoid having to recalculate it for future simulations with the same borefield configuration.
