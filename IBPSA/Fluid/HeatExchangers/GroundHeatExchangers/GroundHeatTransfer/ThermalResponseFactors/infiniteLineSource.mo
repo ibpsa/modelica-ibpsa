@@ -21,7 +21,7 @@ Documentation(info="<html>
 This function evaluates the infinite line source solution. This solution gives
 the relation between the constant heat transfer rate (per unit length) injected
 by a line heat source of infinite length and the temperature raise in the
-medium. The infinite line source solution is defined by:
+medium. The infinite line source solution is defined by
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/InfiniteLineSource_01.png\" />
@@ -34,7 +34,7 @@ the soil thermal conductivity and <i>h<sub>ILS</sub></i> is the infinite line
 source solution.
 </p>
 <p>
-The infinite line source solution is given by the exponential integral:
+The infinite line source solution is given by the exponential integral
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/InfiniteLineSource_02.png\" />

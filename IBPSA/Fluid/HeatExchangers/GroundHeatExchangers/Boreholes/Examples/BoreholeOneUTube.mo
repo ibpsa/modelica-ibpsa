@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples;
 model BoreholeOneUTube "Test for the single U-tube borehole model"
+  extends Modelica.Icons.Example;
   extends
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples.BaseClasses.PartialBorehole(
       redeclare

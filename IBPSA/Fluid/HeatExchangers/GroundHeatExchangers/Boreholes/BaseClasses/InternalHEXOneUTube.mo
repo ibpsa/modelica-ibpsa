@@ -1,7 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 model InternalHEXOneUTube
   "Internal heat exchanger of a borehole for a single U-Tube configuration"
-
   extends
     IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.PartialInternalHEX;
   extends IBPSA.Fluid.Interfaces.FourPortHeatMassExchanger(

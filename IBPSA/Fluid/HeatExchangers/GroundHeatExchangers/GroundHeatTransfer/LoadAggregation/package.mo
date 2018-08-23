@@ -6,7 +6,7 @@ annotation (Documentation(info="<html>
 <p>
 This package contains functions for load aggregation. For further information,
 consult the documentation of <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>.
 </p>
 </html>"));
 end LoadAggregation;

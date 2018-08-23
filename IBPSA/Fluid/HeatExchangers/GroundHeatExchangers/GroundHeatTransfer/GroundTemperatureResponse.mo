@@ -4,13 +4,11 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
   parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether it has been pre-computed";
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
-    borFieDat
+  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template borFieDat
     "Record containing all the parameters of the borefield model" annotation (
-     choicesAllMatching=true, Placement(transformation(extent={{-100,-100},{-80,
-            -80}})));
+     choicesAllMatching=true, Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  Modelica.Blocks.Interfaces.RealInput TSoi(unit="K")
+  Modelica.Blocks.Interfaces.RealInput TSoi(unit="K", displayUnit="degC")
     "Temperature input for undisturbed ground conditions"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a borWall
@@ -184,7 +182,8 @@ equation
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-            textString="%name")}),                      Diagram(
+            textString="%name")}),
+  Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         Documentation(info="<html>
 <p>
@@ -271,8 +270,8 @@ is the undisturbed ground temperature equal to the soil temperature
 <code>TSoi</code>, which is an input of this model, 
 <i>Q</i> is the ground thermal load per borehole length and <i>h = g/(2 &pi; k<sub>s</sub>)</i>
 is a temperature response factor based on the g-function. <i>t<sub>k</sub></i>
-is the last discrete aggregation time step, meaning that the current time <i>t</i> is
-defined as <i>t<sub>k</sub>&le;t&le;t<sub>k+1</sub></i>.
+is the last discrete aggregation time step, meaning that the current time <i>t</i>
+satisfies <i>t<sub>k</sub>&le;t&le;t<sub>k+1</sub></i>.
 </p>
 <p>
 Thus,
@@ -288,7 +287,7 @@ temperature change at the last aggregation time step, <i>&Delta;T<sub>b</sub>(t)
 <p>
 The second term <i>&Delta;T<sub>b,q</sub>(t)</i> concerns the ongoing aggregation time step.
 To obtain the time derivative of this term, the thermal response factor <i>h</i> is assumed
-to vary linearly over the course of a aggregation time step. Therefore, because
+to vary linearly over the course of an aggregation time step. Therefore, because
 the ongoing aggregation time step always concerns the first aggregation cell, its derivative (denoted
 by the parameter <code>dhdt</code> in this model) can be calculated as
 <code>kappa[1]</code>, the first value in the <code>kappa</code> vector,
