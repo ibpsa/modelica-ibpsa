@@ -213,10 +213,10 @@ which follows the exponential growth
 <p>
 where <i>n<sub>Cel</sub></i> is the number of consecutive cells which can have the same size.
 Decreasing <i>r<sub>cel</sub></i> will generally decrease calculation times, at the cost of
-precision in the temporal superposition. <code>rcel</code> is thus expressed in multiples
-of the aggregation step time (via the parameter <code>tLoaAgg</code>).
+precision in the temporal superposition. <code>rcel</code> is expressed in multiples
+of the aggregation time resolution (via the parameter <code>tLoaAgg</code>).
 Then, <code>nu</code> may be expressed as the sum of all <code>rcel</code> values
-(multiplied by the aggregation step time) up to and including that cell in question.
+(multiplied by the aggregation time resolution) up to and including that cell in question.
 </p>
 <p>
 To determine the weighting factors, the borefield's temperature
@@ -247,10 +247,9 @@ energy is conserved. This operation is illustred in the figure below by Cimmino 
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_01.png\" />
 </p>
 <p>
-When performing the shifting operation, the first cell (which
-is always the most recent in the simulation) is set to zero. After the shifting, its
-value is set to the average thermal load since the last aggregation step.
-Finally, temporal superposition is applied by means
+After the cell-shifting operation is performed, the first aggregation cell has its
+value set to the average thermal load since the last aggregation step.
+Temporal superposition is then applied by means
 of a scalar product between the aggregated thermal loads <code>QAgg_flow</code> and the
 weighting factors <i>&kappa;</i>. 
 </p>
@@ -272,18 +271,23 @@ is the undisturbed ground temperature equal to the soil temperature
 <i>Q</i> is the ground thermal load per borehole length and <i>h = g/(2 &pi; k<sub>s</sub>)</i>
 is a temperature response factor based on the g-function. <i>t<sub>k</sub></i>
 is the last discrete aggregation time step, meaning that the current time <i>t</i> is
-defined as <i>t<sub>k</sub>&le;t&le;t<sub>k+1</sub></i>.
+defined as <i>t<sub>k</sub>&le;t&le;t<sub>k+1</sub></i> with <i>t<sub>k+1</sub>-t<sub>k</sub>=&Delta;t<sub>agg</sub></i>.
+<i>&Delta;t<sub>agg</sub></i> is the parameter <code>tLoaAgg</code> in the present model.
 </p>
 <p>
 Thus,
 <i>&Delta;T<sub>b</sub>*(t)</i>
 is the borehole wall temperature change due to the thermal history prior to the current
 aggregation step. At every aggregation time step, load aggregation and temporal superposition
-are used to calculate its discrete value. This term is assumed to have a linear
+are used to calculate its discrete value. Assuming no heat injection or extraction until
+<i>t<sub>k+1</sub></i>, this term is assumed to have a linear
 time derivative, which is given by the difference between <i>&Delta;T<sub>b</sub>*(t<sub>k+1</sub>)</i>
 (the temperature change from load history at the next discrete aggregation time step, which
 is constant over the duration of the ongoing aggregation time step) and the total
 temperature change at the last aggregation time step, <i>&Delta;T<sub>b</sub>(t)</i>.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_09.png\" />
 </p>
 <p>
 The second term <i>&Delta;T<sub>b,q</sub>(t)</i> concerns the ongoing aggregation time step.
@@ -297,6 +301,12 @@ The derivative of the temperature change at the borehole wall is then expressed
 as the multiplication of <code>dhdt</code> (which only needs to be
 calculated once at the start of the simulation) and the heat flow <i>Q</i> at
 the borehole wall.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_10.png\" />
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_11.png\" />
 </p>
 <p>
 With the two terms in the expression of <i>&Delta;T<sub>b</sub>(t)</i> expressed
