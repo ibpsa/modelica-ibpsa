@@ -99,8 +99,11 @@ uniform borehole wall temperature. The thermal effects of the circulating fluid 
 of the pipes and of the filling material are all taken into consideration, which allows for the modelization of
 short-term thermal effects in the borehole. Each borehole segment does not take into account axial effects,
 thus only radial (horizontal) effects are considered within the borehole(s). The thermal
-behaviour between the pipes and borehole wall are modeled as a resistance-capacitance network.
-The figure below shows an example for a borehole with in a single U-tube configuration.
+behaviour between the pipes and borehole wall are modeled as a resistance-capacitance network, with
+the grout capacitance being split in the number of pipes present in a borehole section.
+The capacitance is only present if the <i>dynFil</i> parameter has not been set
+to <code>false</code>.
+The figure below shows an example for a borehole section with in a single U-tube configuration.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/BoreholeResistances_01.png\" />
@@ -130,6 +133,13 @@ be found in the documentations of
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>
 and
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction</a>.
+</p>
+<h4>References</h4>
+<p>
+D. Picard, L. Helsen.
+<i>Advanced Hybrid Model for Borefield Heat
+Exchanger Performance Evaluation, an Implementation in Modelica</i>
+Proc. of the 10th Intertional ModelicaConference, p. 857-866. Lund, Sweden. March 2014.
 </p>
 </html>"));
 
