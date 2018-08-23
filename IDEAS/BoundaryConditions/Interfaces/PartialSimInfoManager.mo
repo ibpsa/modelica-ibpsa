@@ -241,6 +241,37 @@ equation
             116},{54,80.6}},               color={0,0,127}));
   end for;
   if not lineariseDymola then
+    connect(solTim.y, weaBus.solTim) annotation (Line(points={{-77.6,2},{18,2},{
+          18,36},{100.05,36},{100.05,40.05}}, color={0,0,127}));
+    connect(angZen.y, weaBus.angZen) annotation (Line(
+      points={{-77.6,84},{-68,84},{-68,54},{100.05,54},{100.05,40.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(solHouAng.y, weaBus.angHou) annotation (Line(
+        points={{-77.6,70},{-74,70},{-74,48},{100.05,48},{100.05,40.05}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(solDec.y, weaBus.angDec) annotation (Line(
+        points={{-77.6,56},{-76,56},{-76,46},{100.05,46},{100.05,40.05}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(HGloHor.y, weaBus.solGloHor) annotation (Line(
+        points={{-77.6,112},{-72,112},{-72,50},{100.05,50},{100.05,40.05}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(HDifHor.y, weaBus.solDifHor) annotation (Line(
+        points={{-77.6,98},{-70,98},{-70,40.05},{100.05,40.05}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(HDirNor.y, weaBus.solDirPer) annotation (Line(
+        points={{-77.6,44},{100.05,44},{100.05,40.05}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(phiEnv.y, weaBus.phi) annotation (Line(points={{-77.6,16},{-70,16},{
+          -70,42},{100.05,42},{100.05,40.05}},
+                                             color={0,0,127}));
+    connect(TDryBul.y, weaBus.Te) annotation (Line(points={{-77.6,30},{100.05,30},
+          {100.05,40.05}}, color={0,0,127}));
     connect(CEnv.y, weaBus.CEnv) annotation (Line(points={{81,-20},{100.05,-20},
             {100.05,40.05}},
                          color={0,0,127}));
@@ -265,7 +296,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
     end for;
-  connect(XiEnv.X[1], weaDatBus.X_wEnv) annotation (Line(points={{1,30},{-100,
+    connect(XiEnv.X[1], weaDatBus.X_wEnv) annotation (Line(points={{1,30},{-100,
             30},{-100,-10}},                             color={0,0,127}));
     connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
       points={{21,94},{26,94},{26,38},{100.05,38},{100.05,40.05}},
@@ -311,33 +342,6 @@ equation
     connect(HGloHor.y, radSol[i].solGloHor) annotation (Line(points={{-77.6,112},
             {-72,112},{-72,50},{24,50},{24,78},{39.6,78}}, color={0,0,127}));
   end for;
-  connect(angZen.y, weaBus.angZen) annotation (Line(
-      points={{-77.6,84},{-68,84},{-68,54},{100.05,54},{100.05,40.05}},
-      color={0,0,127},
-      smooth=Smooth.None));
-    connect(solHouAng.y, weaBus.angHou) annotation (Line(
-        points={{-77.6,70},{-74,70},{-74,48},{100.05,48},{100.05,40.05}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(solDec.y, weaBus.angDec) annotation (Line(
-        points={{-77.6,56},{-76,56},{-76,46},{100.05,46},{100.05,40.05}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(HGloHor.y, weaBus.solGloHor) annotation (Line(
-        points={{-77.6,112},{-72,112},{-72,50},{100.05,50},{100.05,40.05}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(HDifHor.y, weaBus.solDifHor) annotation (Line(
-        points={{-77.6,98},{-70,98},{-70,40.05},{100.05,40.05}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(HDirNor.y, weaBus.solDirPer) annotation (Line(
-        points={{-77.6,44},{100.05,44},{100.05,40.05}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(phiEnv.y, weaBus.phi) annotation (Line(points={{-77.6,16},{-70,16},{
-          -70,42},{100.05,42},{100.05,40.05}},
-                                             color={0,0,127}));
   connect(skyBrightnessCoefficients.zen, angZen.y)
     annotation (Line(points={{-2,84},{-77.6,84}}, color={0,0,127}));
   connect(skyBrightness.HDifHor,HDifHor. y) annotation (Line(points={{-32,66},{-70,
@@ -376,10 +380,8 @@ equation
       points={{-80,-50},{-80,-40},{-80,-10},{-100,-10}},
       color={255,204,51},
       thickness=0.5));
-  connect(TDryBul.y, weaBus.Te) annotation (Line(points={{-77.6,30},{100.05,30},
-          {100.05,40.05}}, color={0,0,127}));
-  connect(solTim.y, weaBus.solTim) annotation (Line(points={{-77.6,2},{18,2},{
-          18,36},{100.05,36},{100.05,40.05}}, color={0,0,127}));
+
+
   connect(CEnv.y, weaDatBus.CEnv) annotation (Line(points={{81,-20},{82,-20},{
           82,-10},{40,-10},{40,-10},{-100,-10}}, color={0,0,127}));
     annotation (
