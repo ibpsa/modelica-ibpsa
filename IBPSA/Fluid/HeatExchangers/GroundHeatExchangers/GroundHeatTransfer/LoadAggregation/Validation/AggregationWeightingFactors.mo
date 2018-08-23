@@ -28,7 +28,7 @@ Documentation(info="<html>
 <p>
 This validation case uses the first few values of a borehole temperature reponse
 time series to construct the weighting factors <code>kappa</code>. The aggregation
-cells are chose such that there is a change in levels (and therefore a doubling
+cells are chosen such that there is a change in levels (and therefore a doubling
 in the size of the cells) from cell 5 to 6. Therefore, <code>kappa[5]</code> is lower than
 <code>kappa[4]</code> and <code>kappa[7]</code> is lower than <code>kappa[6]</code>, but
 <code>kappa[6]</code> is higher than <code>kappa[5]</code>.
