@@ -69,13 +69,9 @@ initial equation
 This example validates the implementation of
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesOneUTube\">
 IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesOneUTube</a>
-for the evaluation of the internal thermal resistances of a single U-tube borehole
-as defined by Bauer et al (2011).
+for the evaluation of the internal thermal resistances of a single U-tube
+borehole.
 </p>
-<h4>References</h4>
-<p>D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch. 
-<i>Thermal resistance and capacity models for borehole heat exchangers</i>. 
-International Journal of Energy Research, 35:312&ndash;320, 2011.</p>
 </html>", revisions="<html>
 <ul>
 <li>

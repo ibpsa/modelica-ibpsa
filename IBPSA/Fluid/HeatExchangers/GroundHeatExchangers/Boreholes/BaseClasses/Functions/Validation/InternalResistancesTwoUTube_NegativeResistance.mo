@@ -70,18 +70,14 @@ initial equation
 This example validates the implementation of
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube\">
 IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube</a>
-for the evaluation of the internal thermal resistances of a double U-tube borehole
-as defined by Bauer et al (2011).
+for the evaluation of the internal thermal resistances of a double U-tube
+borehole.
 </p>
 <p>
 In this case, the shank spacing is defined such that the pipes are close to the
 borehole wall, rendering the short-circuit thermal resistances negative. The
 capacity location <code>x</code> is then automatically set to zero.
 </p>
-<h4>References</h4>
-<p>D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch. 
-<i>Thermal resistance and capacity models for borehole heat exchangers</i>. 
-International Journal of Energy Research, 35:312&ndash;320, 2011.</p>
 </html>", revisions="<html>
 <ul>
 <li>

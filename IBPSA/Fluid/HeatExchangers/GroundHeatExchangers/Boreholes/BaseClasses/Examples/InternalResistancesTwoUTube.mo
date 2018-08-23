@@ -73,8 +73,10 @@ equation
           "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Examples/InternalResistancesTwoUTube.mos"
         "Simulate and plot"),
   Documentation(info="<html>
-This example calculates and validates the internal resistances of a double U-tube
-borehole segment.
+This example tests the implementation of
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalResistancesTwoUTube\">
+IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalResistancesTwoUTube</a>
+for the dynamic behavior of the filling material in a double U-tube borehole.
 </html>", revisions="<html>
 <ul>
 <li>
