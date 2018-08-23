@@ -104,11 +104,9 @@ prescribedOut.QRad[2]}) "Precomputed input values"
         matrixName="D",
         rows=nOut,
         columns=nInp),
-    x_start=x_start,
     initType=Modelica.Blocks.Types.Init.NoInit) "State space model"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
 protected
-  parameter Real x_start[nSta](each fixed=false) "Initial state values";
   final parameter Integer[2] Bsize=readMatrixSize(fileName=fileName, matrixName=
        "B") "Size of B matrix of state space model";
   final parameter Integer[2] Csize=readMatrixSize(fileName=fileName, matrixName=
@@ -138,8 +136,8 @@ public
   Modelica.Blocks.Math.Add err[nZones](each k2=-1)
     "Difference between the temperature of the zone models and the state space model outputs"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
-initial algorithm
-  x_start := {groFlo.airModel.vol.T,
+initial equation
+  stateSpace.x =  {groFlo.airModel.vol.T,
 window.heaCapGla.T,
 window.heaCapFra.T,
 firFlo.airModel.vol.T,
@@ -226,11 +224,11 @@ equation
   connect(stateSpace.y, TZon_ssm.u)
     annotation (Line(points={{-19,110},{-16,110},{-12,110}}, color={0,0,127}));
   connect(TZon[1].u, groFlo.TSensor) annotation (Line(
-      points={{-12,80},{-36,80},{-36,6},{62,6},{62,-10},{40.6,-10}},
+      points={{-12,80},{-36,80},{-36,6},{62,6},{62,-8},{41,-8}},
       color={0,0,127},
       visible=false));
   connect(TZon[2].u, firFlo.TSensor) annotation (Line(
-      points={{-12,80},{-36,80},{-36,6},{150,6},{150,-60},{40.6,-60}},
+      points={{-12,80},{-36,80},{-36,6},{150,6},{150,-58},{41,-58}},
       color={0,0,127},
       visible=false));
   connect(TZon_ssm.y, err.u1) annotation (Line(points={{11,110},{20,110},{20,
@@ -251,7 +249,22 @@ changed due to the change of medium to <code>IDEAS.Media.Specialized.DryAir</cod
 <li>May 15, 2018 by Damien Picard: <br/>First implementation<\\br></li>
 </ul>
 </html>", info="<html>
-<p>Notice that this model has the commando <i>Linearise, simulate and plot</i>. The model being linearised is <i>IDEAS.LIDEAS.Examples.ZoneLinearise</i>. The linearisation creates 3 text files and 1 mat file in the simulation folder: <i>uNames_ZoneLinearise.txt</i> (inputs name), <i>xNames_ZoneLinearise.txt </i>(state names), <i>yNames_ZoneLinearise.txt</i> (output names) and <i>ssm_ZoneLinearise.mat</i> (state space model). The name of the states were manually copied into the model to retrieve the initial state values (<i>x_start</i>). Also the input names were manually copied to feed their value to the SSM model included in this example. However, the input names <i>winBusIn,</i> <i>weaBus, ctrlInput, and prescribed</i> were renamed to <i>winBusOut,</i> <i>weaBusOut, ctrlInputTest, and prescribedOut</i> to coincide with the variables created in the model.</p>
-<p>Notice that the error between the state space model output and the zone output is rather large. This is unusual and it is probably accentuated by the fact that the model is not very physical is (no roof, random dimensions, ...). <i>IDEAS.LIDEAS.Validation.Case900ValidationNonLinearInputs</i> shows that the error remains limited for more realistic models.</p>
+<p>
+Notice that this model has the commando <i>Linearise, simulate and plot</i>. 
+The model being linearised is <i>IDEAS.LIDEAS.Examples.ZoneLinearise</i>. 
+The linearisation creates 3 text files and 1 mat file in the simulation folder:
+ <i>uNames_ZoneLinearise.txt</i> (inputs name), <i>xNames_ZoneLinearise.txt </i>(state names), 
+<i>yNames_ZoneLinearise.txt</i> (output names) and <i>ssm_ZoneLinearise.mat</i> (state space model). 
+The name of the states were manually copied into the model to retrieve the initial state values. 
+Also the input names were manually copied to feed their value to the SSM model included in this example. 
+However, the input names <i>winBusIn,</i> <i>weaBus, ctrlInput, 
+and prescribed</i> were renamed to <i>winBusOut,</i> <i>weaBusOut, ctrlInputTest, and prescribedOut</i> 
+to coincide with the variables created in the model.
+</p>
+<p>
+Notice that the error between the state space model output and the zone output is rather large. 
+This is unusual and it is probably accentuated by the fact that the model is not very physical is (no roof, random dimensions, ...). 
+<i>IDEAS.LIDEAS.Validation.Case900ValidationNonLinearInputs</i> shows that the error remains limited for more realistic models.
+</p>
 </html>"));
 end ZoneWithInputsValidationNonLinear;

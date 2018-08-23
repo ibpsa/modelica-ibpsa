@@ -4,7 +4,8 @@ model ZoneWithInputsValidationLinear "Model to validate the linearization method
     firFlo(
           linearise=true),
     groFlo(
-         linearise=true),                   sim(linIntCon=true,
+         linearise=true),
+  sim(linIntCon=true,
       linExtCon=true,
       linIntRad=true,
       linExtRad=true),

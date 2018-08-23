@@ -66,7 +66,7 @@ model Case900ValidationNonLinear "Model to validate the linearization method by 
      C=readMatrix(fileName=fileName, matrixName="C", rows=nOut, columns=nSta),
      D=readMatrix(fileName=fileName, matrixName="D", rows=nOut, columns=nInp),
      x_start=x_start,
-    initType=Modelica.Blocks.Types.Init.NoInit)       "State space model"
+    initType=Modelica.Blocks.Types.Init.InitialState) "State space model"
      annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 protected
   parameter Real x_start[nSta](each fixed=false) "Initial state values";
@@ -127,7 +127,8 @@ equation
   connect(preInp.y, stateSpace.u)
     annotation (Line(points={{-19,0},{-12,0}}, color={0,0,127}));
   connect(recZon.TSensor, TRecZon.u)
-    annotation (Line(points={{10.6,-70},{28,-70}}, color={0,0,127}));
+    annotation (Line(points={{11,-68},{20,-68},{20,-70},{28,-70}},
+                                                   color={0,0,127}));
   connect(stateSpace.y[1], TSsm.u)
     annotation (Line(points={{11,0},{28,0}}, color={0,0,127}));
   connect(TSsm.y, err_linRecZon_ssm.u2) annotation (Line(points={{51,0},{51,0},{
@@ -135,7 +136,7 @@ equation
   connect(TRecZon.y, err_linRecZon_recZon.u2) annotation (Line(points={{51,-70},
           {60,-70},{60,-46},{78,-46}}, color={0,0,127}));
   connect(linRecZon.TSensor, TLinRecZon.u)
-    annotation (Line(points={{10.6,70},{19.3,70},{28,70}}, color={0,0,127}));
+    annotation (Line(points={{11,72},{19.3,70},{28,70}},   color={0,0,127}));
   connect(TLinRecZon.y, err_linRecZon_ssm.u1) annotation (Line(points={{51,70},{
           60,70},{60,46},{78,46}}, color={0,0,127}));
   connect(TLinRecZon.y, err_linRecZon_recZon.u1) annotation (Line(points={{51,70},
