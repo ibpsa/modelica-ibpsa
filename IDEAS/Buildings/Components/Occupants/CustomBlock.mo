@@ -8,6 +8,9 @@ block CustomBlock
     annotation (choicesAllMatching=true,Placement(transformation(extent={{-10,-10},
             {10,10}})));
 
+  outer BoundaryConditions.SimInfoManager       sim
+    "Simulation information manager for climate data"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
     assert(not sim.linearise, "Number of occupant can not be defined using the CustomBlock when the model is linearized. Change the occupancy type.");
 
