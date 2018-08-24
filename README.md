@@ -4,22 +4,21 @@ IDEAS v2.0
 
 Modelica model environment for Integrated District Energy Assessment Simulations (IDEAS), allowing simultaneous transient simulation of thermal and electrical systems at both building and feeder level.
 
-##Release history
-August, 2018: IDEAS v2.0 has been released.
-May 5th, 2017: IDEAS v1.0 has been released.  
-February 16th 2018: A [paper describing IDEAS v1.0](http://www.tandfonline.com/doi/full/10.1080/19401493.2018.1428361) has been published on line.
-September 2nd, 2015: IDEAS v0.3 has been released.
+## Release history
++ August, 2018: IDEAS v2.0 has been released.
++ May 5th, 2017: IDEAS v1.0 has been released.  
+   February 16th 2018: A [paper describing IDEAS v1.0](http://www.tandfonline.com/doi/full/10.1080/19401493.2018.1428361) has been published on line.
++ September 2nd, 2015: IDEAS v0.3 has been released.
 
-##Release notes
+## Release notes
 [This is a link to detailed release notes.](https://github.com/open-ideas/IDEAS/blob/master/ReleaseNotes.md)
 
-##Backwards compatibility:
+## Backwards compatibility:
 IDEAS 2.0 is not backwards compatible with IDEAS 1.0, although the required changes should be limited or non-existent for most users.
 In the future we hope to provide automated Dymola conversion scripts when making releases.
 
 
 ## License
-
 IDEAS is licensed by [KU Leuven](http://www.kuleuven.be) and [3E](http://www.3e.eu) under a [BSD 3 license](https://htmlpreview.github.io/?https://github.com/open-ideas/IDEAS//blob/master/IBPSA/legal.html).
 
 <!-- ### Development and contribution
@@ -62,8 +61,10 @@ IDEAS is licensed by [KU Leuven](http://www.kuleuven.be) and [3E](http://www.3e.
 15. F. Jorissen. (2018) Toolchain for optimal control and design of energy systems in buildings. PhD thesis, Arenberg Doctoral School, KU Leuven.
 16. Picard D., Sourbron M., Jorissen F., Vana Z., Cigler J., Ferkl L., Helsen L. (2016). Comparison of Model Predictive Control Performance Using Grey-Box and White-Box Controller Models of a Multi-zone Office Building. International High Performance Buildings Conference. International High Performance Buildings Conference. West Lafayette, 11-14 July 2016 (art.nr. 203).
 
-Please cite IDEAS using the information below.
+
 ### Bibtex entry for citing IDEAS
+Please cite IDEAS using the information below.
+
 @article{Jorissen2018ideas,  
 author = {Jorissen, Filip and Reynders, Glenn and Baetens, Ruben and Picard, Damien and Saelens, Dirk and Helsen, Lieve},  
 journal = {Journal of Building Performance Simulation},  
