@@ -10,11 +10,11 @@ model LinRectangularZoneTemplate
     redeclare LinWindow winC(indexWindow=indexWindowC),
     redeclare LinWindow winD(indexWindow=indexWindowD));
   parameter Boolean linearise=sim.linearise;
-  parameter Integer indexWindowA=1 if hasWinA "Index of this window A";
-  parameter Integer indexWindowB=1 if hasWinB "Index of this window B";
-  parameter Integer indexWindowC=1 if hasWinC "Index of this window C";
-  parameter Integer indexWindowD=1 if hasWinD "Index of this window D";
-  parameter Integer indexWindowCei=1 if hasWinCei "Index of this window Cei";
+  parameter Integer indexWindowA "Index of this window A";
+  parameter Integer indexWindowB "Index of this window B";
+  parameter Integer indexWindowC "Index of this window C";
+  parameter Integer indexWindowD "Index of this window D";
+  parameter Integer indexWindowCei "Index of this window Cei";
 equation
   assert(Medium.nX ==1, "LinZone model does not allow moist air or air with CO2 medium. Use the IDEAS.Media.Specialized.DryAir medium.");
   annotation (Documentation(info="<html>
