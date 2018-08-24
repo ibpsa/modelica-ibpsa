@@ -11,7 +11,7 @@ model ZoneWithInputsValidationLinear "Model to validate the linearization method
       linExtRad=true),
     slabOnGround(linearise=true),
   commonWall(layMul(monLay(each monLayDyn(addRes_b=true),
-    each energyDynamics=Modelica.Fluid.Types.EnergyDynamics.FixedInitial))));
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial))));
 
 equation
   assert(abs(err[1].y) <= 1e-6, "The error between zone 1 of SSM and linear model is bigger than it used to be (" + String(err[1].y) + "instead of 1 E-6 at time 10E5)");
