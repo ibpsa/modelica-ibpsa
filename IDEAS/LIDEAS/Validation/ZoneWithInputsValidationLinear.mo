@@ -9,8 +9,7 @@ model ZoneWithInputsValidationLinear "Model to validate the linearization method
       linExtCon=true,
       linIntRad=true,
       linExtRad=true),
-    slabOnGround(linearise=true),
-    commonWall(layMul(monLay(each monLayDyn(addRes_b=true)))));
+    slabOnGround(linearise=true));
   annotation (experiment(StopTime=100000), __Dymola_Commands(file="Resources/Scripts/Dymola/LIDEAS/Validation/ZoneWithInputsValidationLinear.mos"
         "Linearize, simulate and plot"),
     Documentation(revisions="<html>
