@@ -53,7 +53,6 @@ algorithm
   // -----------------------
   // Short time calculations
   // -----------------------
-  Modelica.Utilities.Streams.print(("Evaluation of short time g-function.")); // fixme: remove for release
   g[1] := 0.;
   for k in 1:nTimSho loop
     // Finite line source solution
@@ -86,7 +85,6 @@ algorithm
   // ----------------------
   // Long time calculations
   // ----------------------
-  Modelica.Utilities.Streams.print(("Evaluation of long time g-function.")); // fixme: remove for release
   // Initialize coefficient matrix A
   for m in 1:nBor loop
     for u in 1:nSeg loop
