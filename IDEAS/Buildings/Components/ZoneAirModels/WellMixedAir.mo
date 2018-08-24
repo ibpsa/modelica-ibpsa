@@ -2,7 +2,7 @@ within IDEAS.Buildings.Components.ZoneAirModels;
 model WellMixedAir "Zone air model assuming perfectly mixed air"
   extends IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(
     final nSeg=1,
-    mSenFac=5);
+    mSenFac(min=0)=5);
 
 protected
   constant Modelica.SIunits.SpecificEnthalpy lambdaWater = Medium.enthalpyOfCondensingGas(T=273.15+35)
@@ -58,6 +58,7 @@ protected
       parameter Real[Medium.nXi] mXi_nominal = m_nominal*Medium.X_default[1:Medium.nXi] "Nominal value of internal energy";
       parameter Real[Medium.nC] mC_nominal = m_nominal*0.0015*ones(Medium.nC) "Nominal value of internal energy";
       extends IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir(
+        mSenFac(min=0),
         dynBal(
           U(nominal=U_nominal),
           mC(nominal=mC_nominal),
