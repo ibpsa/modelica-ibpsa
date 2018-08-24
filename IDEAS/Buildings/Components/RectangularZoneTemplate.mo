@@ -438,8 +438,9 @@ model RectangularZoneTemplate
         extent={{-20,20},{20,-20}},
         rotation=180,
         origin={-120,100})));
-
-replaceable
+protected
+  constant Real r = 287 "Gas constant";
+  replaceable
   IDEAS.Buildings.Components.Window winA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
     glazing(
       nLay=glazingA.nLay,
@@ -476,21 +477,42 @@ replaceable
             U_value=fraTypA.U_value),
     linExtRad=linExtRadWin,
     nWin=nWinA) if
-       hasWinA constrainedby Window(
-       azi=aziA,
-       inc=IDEAS.Types.Tilt.Wall,
-       T_start=T_start,
-       linIntCon_a=linIntCon,
-       dT_nominal_a=dT_nominal_win,
-       linExtCon=linExtCon,
-       windowDynamicsType=windowDynamicsType,
-       linExtRad=linExtRadWin,
-       nWin=nWinA)
-    "Window for face A of this zone"
-    annotation (Dialog(tab="Advanced",group="Windows"),
-      enable=hasWinA,
-      choicesAllMatching=true,
-      Placement(transformation(extent={{-100,0},{-90,20}})));
+       hasWinA constrainedby Window(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
+    glazing(
+      nLay=glazingA.nLay,
+      mats=glazingA.mats,
+      SwAbs=glazingA.SwAbs,
+      SwTrans=glazingA.SwTrans,
+      SwAbsDif=glazingA.SwAbsDif,
+      SwTransDif=glazingA.SwTransDif,
+      U_value=glazingA.U_value,
+      g_value=glazingA.g_value),
+    A=A_winA,
+    frac=fracA,
+    T_start=T_start,
+    linIntCon_a=linIntCon,
+    dT_nominal_a=dT_nominal_win,
+    linExtCon=linExtCon,
+    windowDynamicsType=windowDynamicsType,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+  controlled=shaTypA.controlled,
+  shaType=shaTypA.shaType,
+  hWin=shaTypA.hWin,
+  wWin=shaTypA.wWin,
+  wLeft=shaTypA.wLeft,
+  wRight=shaTypA.wRight,
+  ovDep=shaTypA.ovDep,
+  ovGap=shaTypA.ovGap,
+  hFin=shaTypA.hFin,
+  finDep=shaTypA.finDep,
+  finGap=shaTypA.finGap,
+  L=shaTypA.L,
+  dh=shaTypA.dh,
+  shaCorr=shaTypA.shaCorr)),
+    fraType(present=fraTypA.present,
+            U_value=fraTypA.U_value),
+    linExtRad=linExtRadWin)
+    "Window for face A of this zone" annotation (Placement(transformation(extent={{-100,0},{-90,20}})));
   replaceable
   IDEAS.Buildings.Components.Window winB(
       inc=IDEAS.Types.Tilt.Wall,
@@ -530,19 +552,42 @@ replaceable
     linExtRad=linExtRadWin,
     nWin=nWinB) if
        hasWinB constrainedby Window(
-       azi=aziB,
-       inc=IDEAS.Types.Tilt.Wall,
-       T_start=T_start,
-       linIntCon_a=linIntCon,
-       dT_nominal_a=dT_nominal_win,
-       linExtCon=linExtCon,
-       windowDynamicsType=windowDynamicsType,
-       linExtRad=linExtRadWin,
-       nWin=nWinB)
-    "Window for face B of this zone" annotation (Dialog(tab="Advanced",group="Windows"),
-      enable=hasWinB,
-      choicesAllMatching=true,
-      Placement(
+      inc=IDEAS.Types.Tilt.Wall,
+    glazing(
+      nLay=glazingB.nLay,
+      mats=glazingB.mats,
+      SwAbs=glazingB.SwAbs,
+      SwTrans=glazingB.SwTrans,
+      SwAbsDif=glazingB.SwAbsDif,
+      SwTransDif=glazingB.SwTransDif,
+      U_value=glazingB.U_value,
+      g_value=glazingB.g_value),
+    A=A_winB,
+    frac=fraB,
+    azi=aziA + Modelica.Constants.pi/2,
+    T_start=T_start,
+    linIntCon_a=linIntCon,
+    dT_nominal_a=dT_nominal_win,
+    linExtCon=linExtCon,
+    windowDynamicsType=windowDynamicsType,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+  controlled=shaTypB.controlled,
+  shaType=shaTypB.shaType,
+  hWin=shaTypB.hWin,
+  wWin=shaTypB.wWin,
+  wLeft=shaTypB.wLeft,
+  wRight=shaTypB.wRight,
+  ovDep=shaTypB.ovDep,
+  ovGap=shaTypB.ovGap,
+  hFin=shaTypB.hFin,
+  finDep=shaTypB.finDep,
+  finGap=shaTypB.finGap,
+  L=shaTypB.L,
+  dh=shaTypB.dh,
+  shaCorr=shaTypB.shaCorr)),
+    fraType(present=fraTypB.present, U_value=fraTypB.U_value),
+    linExtRad=linExtRadWin)
+    "Window for face B of this zone" annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=0,
@@ -584,20 +629,42 @@ replaceable
     fraType(present=fraTypC.present, U_value=fraTypC.U_value),
     linExtRad=linExtRadWin,
     nWin=nWinC) if
-       hasWinC constrainedby Window(
-       azi=aziC,
-       inc=IDEAS.Types.Tilt.Wall,
-       T_start=T_start,
-       linIntCon_a=linIntCon,
-       dT_nominal_a=dT_nominal_win,
-       linExtCon=linExtCon,
-       windowDynamicsType=windowDynamicsType,
-       linExtRad=linExtRadWin,
-       nWin=nWinC)
-    "Window for face C of this zone" annotation (Dialog(tab="Advanced",group="Windows"),
-      enable=hasWinC,
-      choicesAllMatching=true,
-      Placement(
+       hasWinC constrainedby Window(inc=IDEAS.Types.Tilt.Wall,
+    glazing(
+      nLay=glazingC.nLay,
+      mats=glazingC.mats,
+      SwAbs=glazingC.SwAbs,
+      SwTrans=glazingC.SwTrans,
+      SwAbsDif=glazingC.SwAbsDif,
+      SwTransDif=glazingC.SwTransDif,
+      U_value=glazingC.U_value,
+      g_value=glazingC.g_value),
+    A=A_winC,
+    frac=fracC,
+    azi=aziA + Modelica.Constants.pi,
+    T_start=T_start,
+    linIntCon_a=linIntCon,
+    dT_nominal_a=dT_nominal_win,
+    linExtCon=linExtCon,
+    windowDynamicsType=windowDynamicsType,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+  controlled=shaTypC.controlled,
+  shaType=shaTypC.shaType,
+  hWin=shaTypC.hWin,
+  wWin=shaTypC.wWin,
+  wLeft=shaTypC.wLeft,
+  wRight=shaTypC.wRight,
+  ovDep=shaTypC.ovDep,
+  ovGap=shaTypC.ovGap,
+  hFin=shaTypC.hFin,
+  finDep=shaTypC.finDep,
+  finGap=shaTypC.finGap,
+  L=shaTypC.L,
+  dh=shaTypC.dh,
+  shaCorr=shaTypC.shaCorr)),
+    fraType(present=fraTypC.present, U_value=fraTypC.U_value),
+    linExtRad=linExtRadWin)
+    "Window for face C of this zone" annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=0,
@@ -639,20 +706,42 @@ replaceable
     fraType(present=fraTypD.present, U_value=fraTypD.U_value),
     linExtRad=linExtRadWin,
     nWin=nWinD) if
-       hasWinD constrainedby Window(
-       azi=aziD,
-       inc=IDEAS.Types.Tilt.Wall,
-       T_start=T_start,
-       linIntCon_a=linIntCon,
-       dT_nominal_a=dT_nominal_win,
-       linExtCon=linExtCon,
-       windowDynamicsType=windowDynamicsType,
-       linExtRad=linExtRadWin,
-       nWin=nWinD)
-    "Window for face D of this zone" annotation (Dialog(tab="Advanced",group="Windows"),
-      enable=hasWinD,
-      choicesAllMatching=true,
-      Placement(
+       hasWinD constrainedby Window(inc=IDEAS.Types.Tilt.Wall, azi=aziA +
+        Modelica.Constants.pi/2*3,
+    glazing(
+      nLay=glazingD.nLay,
+      mats=glazingD.mats,
+      SwAbs=glazingD.SwAbs,
+      SwTrans=glazingD.SwTrans,
+      SwAbsDif=glazingD.SwAbsDif,
+      SwTransDif=glazingD.SwTransDif,
+      U_value=glazingD.U_value,
+      g_value=glazingD.g_value),
+    A=A_winD,
+    frac=fracD,
+    T_start=T_start,
+    linIntCon_a=linIntCon,
+    dT_nominal_a=dT_nominal_win,
+    linExtCon=linExtCon,
+    windowDynamicsType=windowDynamicsType,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+      controlled=shaTypD.controlled,
+  shaType=shaTypD.shaType,
+  hWin=shaTypD.hWin,
+  wWin=shaTypD.wWin,
+  wLeft=shaTypD.wLeft,
+  wRight=shaTypD.wRight,
+  ovDep=shaTypD.ovDep,
+  ovGap=shaTypD.ovGap,
+  hFin=shaTypD.hFin,
+  finDep=shaTypD.finDep,
+  finGap=shaTypD.finGap,
+  L=shaTypD.L,
+  dh=shaTypD.dh,
+  shaCorr=shaTypD.shaCorr)),
+    fraType(present=fraTypD.present, U_value=fraTypD.U_value),
+    linExtRad=linExtRadWin)
+    "Window for face D of this zone" annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=0,
@@ -693,27 +782,45 @@ replaceable
     fraType(present=fraTypCei.present, U_value=fraTypCei.U_value),
     linExtRad=linExtRadWin,
     nWin=nWinCei) if
-       hasWinCei constrainedby Window(
-       azi=aziCei,
-       inc=IDEAS.Types.Tilt.Wall,
-       T_start=T_start,
-       linIntCon_a=linIntCon,
-       dT_nominal_a=dT_nominal_win,
-       linExtCon=linExtCon,
-       windowDynamicsType=windowDynamicsType,
-       linExtRad=linExtRadWin,
-       nWin=nWinCei)
-    "Window for ceiling of this zone" annotation (Dialog(tab="Advanced",group="Windows"),
-      enable=hasWinCei,
-      choicesAllMatching=true,
-      Placement(
+       hasWinCei constrainedby Window(inc=IDEAS.Types.Tilt.Ceiling, azi=aziA,
+    glazing(
+      nLay=glazingCei.nLay,
+      mats=glazingCei.mats,
+      SwAbs=glazingCei.SwAbs,
+      SwTrans=glazingCei.SwTrans,
+      SwAbsDif=glazingCei.SwAbsDif,
+      SwTransDif=glazingCei.SwTransDif,
+      U_value=glazingCei.U_value,
+      g_value=glazingCei.g_value),
+    A=A_winCei,
+    frac=fracCei,
+    T_start=T_start,
+    linIntCon_a=linIntCon,
+    dT_nominal_a=dT_nominal_win,
+    linExtCon=linExtCon,
+    windowDynamicsType=windowDynamicsType,
+    redeclare IDEAS.Buildings.Components.Shading.Shading shaType(shaPro(
+      controlled=shaTypCei.controlled,
+  shaType=shaTypCei.shaType,
+  hWin=shaTypCei.hWin,
+  wWin=shaTypCei.wWin,
+  wLeft=shaTypCei.wLeft,
+  wRight=shaTypCei.wRight,
+  ovDep=shaTypCei.ovDep,
+  ovGap=shaTypCei.ovGap,
+  hFin=shaTypCei.hFin,
+  finDep=shaTypCei.finDep,
+  finGap=shaTypCei.finGap,
+  L=shaTypCei.L,
+  dh=shaTypCei.dh,
+  shaCorr=shaTypCei.shaCorr)),
+    fraType(present=fraTypCei.present, U_value=fraTypCei.U_value),
+    linExtRad=linExtRadWin)
+    "Window for ceiling of this zone" annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=0,
         origin={-95,-90})));
-protected
-  constant Real r = 287 "Gas constant";
-
 
   IDEAS.Buildings.Components.BoundaryWall bouA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
@@ -723,7 +830,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=AWallA) if
+    A=lA*h - (if hasWinA then A_winA else 0)) if
        hasBouA
     "Boundary wall for face A of this zone"
     annotation (Placement(transformation(extent={{-120,0},{-110,20}})));
@@ -737,7 +844,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=AWallB) if
+    A=lB*h - (if hasWinB then A_winB else 0)) if
        hasBouB
     "Boundary wall for face A of this zone"
     annotation (Placement(transformation(extent={{-120,-20},{-110,0}})));
@@ -750,7 +857,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=AWallC) if
+    A=lC*h - (if hasWinC then A_winC else 0)) if
        hasBouC
     "Boundary wall for face C of this zone"
     annotation (Placement(transformation(extent={{-120,-40},{-110,-20}})));
@@ -763,7 +870,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=AWallD) if
+    A=lD*h - (if hasWinD then A_winD else 0)) if
        hasBouD
     "Boundary wall for face D of this zone"
     annotation (Placement(transformation(extent={{-120,-60},{-110,-40}})));
@@ -787,7 +894,7 @@ protected
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=ACei) if
+    A=A - (if hasWinCei then A_winCei else 0)) if
        hasBouCei
     "Boundary wall for zone ceiling"
     annotation (Placement(transformation(extent={{-120,-100},{-110,-80}})));
@@ -801,7 +908,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=max(0,AWallA),
+    A=lA*h - (if hasWinA then A_winA else 0),
     final hWal=h,
     final hasBuildingShade=hasBuildingShadeA,
     final L=LShaA,
@@ -821,7 +928,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=max(0,AWallB),
+    A=lB*h - (if hasWinB then A_winB else 0),
     final hasBuildingShade=hasBuildingShadeB,
     final L=LShaB,
     final dh=dhShaB,
@@ -840,7 +947,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=max(0,AWallC),
+    A=lC*h - (if hasWinC then A_winC else 0),
     final hasBuildingShade=hasBuildingShadeC,
     final L=LShaC,
     final dh=dhShaC,
@@ -859,7 +966,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=max(0,AWallD),
+    A=lD*h - (if hasWinD then A_winD else 0),
     final hasBuildingShade=hasBuildingShadeD,
     final L=LShaD,
     final dh=dhShaD,
@@ -879,7 +986,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=max(0,ACei)) if
+    A=A - (if hasWinCei then A_winCei else 0)) if
        hasOutCei
     "Outer wall for zone ceiling"
     annotation (Placement(transformation(extent={{-140,-100},{-130,-80}})));
@@ -921,7 +1028,7 @@ protected
     c_p=c_p,
     T=T,
     dT=dT,
-    A=lA*h - (if hasCavityA then hA*wA else 0)) if
+    A=lA*h - (if hasWinA then A_winA else 0) - (if hasCavityA then hA*wA else 0)) if
     hasIntA
     "Internal wall for face A of this zone"
     annotation (Placement(transformation(extent={{-176,0},{-164,20}})));
@@ -946,7 +1053,7 @@ protected
     hasCavity=hasCavityB,
     h=hB,
     w=wB,
-    A=lB*h - (if hasCavityB then hB*wB else 0)) if
+    A=lB*h - (if hasWinB then A_winB else 0) - (if hasCavityB then hB*wB else 0)) if
     hasIntB
     "Internal wall for face B of this zone"
     annotation (Placement(transformation(extent={{-176,-20},{-164,0}})));
@@ -970,7 +1077,7 @@ protected
     hasCavity=hasCavityC,
     h=hC,
     w=wC,
-    A=lC*h - (if hasCavityC then hC*wC else 0)) if
+    A=lC*h - (if hasWinC then A_winC else 0) - (if hasCavityC then hC*wC else 0)) if
     hasIntC
     "Internal wall for face C of this zone"
     annotation (Placement(transformation(extent={{-176,-40},{-164,-20}})));
@@ -994,7 +1101,7 @@ protected
     hasCavity=hasCavityD,
     h=hD,
     w=wD,
-    A=lD*h - (if hasCavityD then hD*wD else 0)) if
+    A=lD*h - (if hasWinD then A_winD else 0) - (if hasCavityD then hD*wD else 0)) if
     hasIntD
     "Internal wall for face D of this zone"
     annotation (Placement(transformation(extent={{-176,-60},{-164,-40}})));
@@ -1070,7 +1177,7 @@ public
         origin={-188,-30}), iconTransformation(
         extent={{-20,20},{20,-20}},
         rotation=0,
-        origin={68,-98})));
+        origin={0,-90})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusD(
     final numIncAndAziInBus=sim.numIncAndAziInBus,
     final outputAngles=sim.outputAngles) if
@@ -1083,7 +1190,7 @@ public
         origin={-188,-50}), iconTransformation(
         extent={{-20,20},{20,-20}},
         rotation=-90,
-        origin={-96,-70})));
+        origin={-90,0})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusFlo(
     final numIncAndAziInBus=sim.numIncAndAziInBus,
     final outputAngles=sim.outputAngles) if
@@ -1216,12 +1323,6 @@ protected
     bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.None;
 
 
-  parameter Modelica.SIunits.Area AWallA(fixed=false);
-  parameter Modelica.SIunits.Area AWallB(fixed=false);
-  parameter Modelica.SIunits.Area AWallC(fixed=false);
-  parameter Modelica.SIunits.Area AWallD(fixed=false);
-  parameter Modelica.SIunits.Area ACei(fixed=false);
-
   final parameter Integer indWalA = if hasNoA then 0 else 1;
   final parameter Integer indWalB = indWalA + (if hasNoB then 0 else 1);
   final parameter Integer indWalC = indWalB + (if hasNoC then 0 else 1);
@@ -1275,18 +1376,8 @@ initial equation
     "In " + getInstanceName() + ": The cavity dimensions of surface D exceed the zone dimensions. This is non-physical");
 
 
-  AWallA = lA*h - (if hasWinA then  propsBusInt[indWinA].area else 0);
-  AWallB = lB*h - (if hasWinB then  propsBusInt[indWinB].area else 0);
-  AWallC = lC*h - (if hasWinC then  propsBusInt[indWinC].area else 0);
-  AWallD = lD*h - (if hasWinD then  propsBusInt[indWinD].area else 0);
-  ACei = A - (if hasWinCei then  propsBusInt[indWinCei].area else 0);
 
-  // assert that the windows are not bigger than the wall
-  assert(AWallA >= 0, "The netto surface area of wall A is negative. This is not allowed.");
-  assert(AWallB >= 0, "The netto surface area of wall B is negative. This is not allowed.");
-  assert(AWallD >= 0, "The netto surface area of wall C is negative. This is not allowed.");
-  assert(AWallD >= 0, "The netto surface area of wall D is negative. This is not allowed.");
-  assert(ACei >= 0, "The netto surface area of the ceiling is negative. This is not allowed.");
+
 equation
   connect(intA.propsBus_a, propsBusInt[indWalA]) annotation (Line(
       points={{-165,12},{-152,12},{-152,40},{-80,40}},
@@ -1599,24 +1690,6 @@ This model however then does not guarantee that all parameters are consistent.
 Therefore, some internal parameters of this model will need to be
 updated manually.
 </p>
-<p>
-In the parameter group <code>Windows</code>, you can redeclare the window. 
-This is useful when using a window model that has a pre-configured surface area,
-glazing type, frame fraction and shading. 
-The parameters 
-<code>azi=aziA</code>,
-<code>inc=IDEAS.Types.Tilt.Wall</code>,
-<code>T_start=T_start</code>,
-<code>linIntCon_a=linIntCon</code>,
-<code>dT_nominal_a=dT_nominal_win</code>,
-<code>linExtCon=linExtCon</code>,
-<code>windowDynamicsType=windowDynamicsType</code>,
-<code>linExtRad=linExtRadWin</code>,
-<code>nWin=nWinA</code>,
-are still computed from the zone model parameters but, the
-other windows parameters are those configured in the
-used window model, including the window surface area.
-</p>
 <h4>Dynamics</h4>
 <p>
 This model contains wall dynamics
@@ -1663,13 +1736,6 @@ components cannot be propagated.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-August 16, 2018, by Damien Picard:<br/>
-Make windows replaceable.
-See <a href=\"https://github.com/open-ideas/IDEAS/issues/891\">#891</a>.
-And correct wall surface computation.
-See <a href=\"https://github.com/open-ideas/IDEAS/issues/890\">#890</a>. 
-</li>
 <li>
 August 10, 2018, by Damien Picard:<br/>
 Added parameters for scaling factors for windows.
