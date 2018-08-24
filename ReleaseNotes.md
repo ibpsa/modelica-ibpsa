@@ -13,17 +13,17 @@ IDEAS 2.0 has been released in August 2018. Highlights of this release compared 
 
 ### Detailed release notes:
 1. The rectangular zone template has been extended and improved:
-⋅⋅⋅ Internal walls can no longer be combined with a window.
-⋅⋅⋅ A building shade option has been added for outer walls.
-⋅⋅⋅ An option has been added to completely drop one of the surfaces of the model.
-⋅⋅⋅ An option has been added to override the default wall lengths.
-⋅⋅⋅ An option to add a wall that is entirely enclosed by the zone.
-⋅⋅⋅ The window model has been made replaceable such that a fully configured window can easily be used.
-⋅⋅⋅ An option for adding a cavity to internal walls has been added.
-⋅⋅⋅ An option has been added for including an internal wall that is completely surrounded by the zone.
+⋅⋅⋅Internal walls can no longer be combined with a window.
+⋅⋅⋅A building shade option has been added for outer walls.
+⋅⋅⋅An option has been added to completely drop one of the surfaces of the model.
+⋅⋅⋅An option has been added to override the default wall lengths.
+⋅⋅⋅An option to add a wall that is entirely enclosed by the zone.
+⋅⋅⋅The window model has been made replaceable such that a fully configured window can easily be used.
+⋅⋅⋅An option for adding a cavity to internal walls has been added.
+⋅⋅⋅An option has been added for including an internal wall that is completely surrounded by the zone.
 2. The EmbeddedPipe model has been modified:
-⋅⋅⋅ The parameter useSimplifiedRt has been removed.
-⋅⋅⋅ The implementation now has final alpha=0 in the PrescribedHeatFlowRate blocks, which can significantly reduce the size of algebraic loops that are formed.
+⋅⋅⋅The parameter useSimplifiedRt has been removed.
+⋅⋅⋅The implementation now has final alpha=0 in the PrescribedHeatFlowRate blocks, which can significantly reduce the size of algebraic loops that are formed.
 3. A bug has been solved in the building shade model that caused it to only work correctly for south oriented surfaces.
 4. A bug has been solved in the computation of the absolute humidity.
 The shading models now compute the impact on the diffuse solar irradiation more accurately. Although the used models are relatively simple, they are more accurate than the previous implementation, which disregarded the influence completely.
@@ -52,10 +52,10 @@ The shading models now compute the impact on the diffuse solar irradiation more 
 27. Added an output for the CO2 concentration in the Zone model, which outputs zero when the Zone Medium does not contain CO2.
 28. The window model has been extended such that it can be configured to consist of nWin identical windows. This makes it easier to correctly configure the shading of multiple identical windows. The heat flow rates are simply scaled by nWin.
 29. IDEAS 2.0 is based on IBPSA 3.0, which includes general performance and documentation improvements. Notable additions from the IBPSA library are:
-⋅⋅⋅ A heat pump model that implements a detailed thermodynamic cycle has been added.
-⋅⋅⋅ A thermal storage tank model has been added.
-⋅⋅⋅ A geothermal bore field model has been added.
-⋅⋅⋅ A model has been added for directly writing .csv result files. These result files can also be used as an input for a CombiTimeTable.
+⋅⋅⋅A heat pump model that implements a detailed thermodynamic cycle has been added.
+⋅⋅⋅A thermal storage tank model has been added.
+⋅⋅⋅A geothermal bore field model has been added.
+⋅⋅⋅A model has been added for directly writing .csv result files. These result files can also be used as an input for a CombiTimeTable.
 
 
 ###Backwards compatibility:
@@ -72,9 +72,9 @@ Changes compared to v0.3 include but are not limited to:
 
 0. IDEAS 1.0.0 is based on Annex 60 version 1.0.0
 1. The IDEAS packages have been restructured to be more in line with the Annex 60 package structure.
-⋅⋅⋅ IDEAS.Constants has been replaced by IDEAS.Types
-⋅⋅⋅ The SimInfoManager has been moved to IDEAS.BoundaryConditions
-⋅⋅⋅ Interfaces such as HeatingSystem and BaseCircuits have been moved to IDEAS.Templates
+⋅⋅⋅IDEAS.Constants has been replaced by IDEAS.Types
+⋅⋅⋅The SimInfoManager has been moved to IDEAS.BoundaryConditions
+⋅⋅⋅Interfaces such as HeatingSystem and BaseCircuits have been moved to IDEAS.Templates
 2. Setting up new Construction records has been simplified. Parameter values of nLay and nGain are now inferred from the other parameters and may therefore no longer be assigned.
 3. Optional parameter incLastLay has been added to Construction records. Users may use this to double-check if InternalWalls are connected as intended.
 4. The way how internal gains may be connected to surfaces has been changed.
@@ -84,9 +84,9 @@ Changes compared to v0.3 include but are not limited to:
 8. The zone air model is now replaceable such that custom models may be created.
 9. A zone template has been added that allows to add a rectangular zone, including 4 walls, 4 optional windows, a floor and a ceiling.
 10. Some variables have been renamed. A conversion script is provided for converting the user's models to accomodate these changes.
-⋅⋅⋅ TStar has been renamed into TRad in the zone model.
-⋅⋅⋅ flowPort_Out and flowPort_In have been renamed in the zone model, heating system, ventilaiton system and structure models.
-⋅⋅⋅ Some Annex 60 models were renamed.
+⋅⋅⋅TStar has been renamed into TRad in the zone model.
+⋅⋅⋅flowPort_Out and flowPort_In have been renamed in the zone model, heating system, ventilaiton system and structure models.
+⋅⋅⋅Some Annex 60 models were renamed.
 11. Added example model of a terraced house in IDEAS.Examples.PPD12
 12. Added twin house validation models in IDEAS.Examples.TwinHouse
 13. Added solar irradiation model for window frames.
