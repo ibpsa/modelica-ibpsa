@@ -9,7 +9,11 @@ model ZoneWithInputsValidationLinear "Model to validate the linearization method
       linExtCon=true,
       linIntRad=true,
       linExtRad=true),
-    slabOnGround(linearise=true));
+    slabOnGround(linearise=true),commonWall(layMul(monLay(each monLayDyn(addRes_b=true)))));
+
+equation
+  assert(abs(err[1].y) <= 7*10^(-7), "The error between zone 1 of SSM and linear model is bigger than it used to be (" + String(err[1].y) + "instead of 6 E-6 at time 10E5)");
+  assert(abs(err[2].y) <= 0.00014, "The error between zone 2 of SSM and linear model is bigger than it used to be (" + String(err[2].y) + "instead of 0.000134 at time 10E5)");
   annotation (experiment(StopTime=100000), __Dymola_Commands(file="Resources/Scripts/Dymola/LIDEAS/Validation/ZoneWithInputsValidationLinear.mos"
         "Linearize, simulate and plot"),
     Documentation(revisions="<html>

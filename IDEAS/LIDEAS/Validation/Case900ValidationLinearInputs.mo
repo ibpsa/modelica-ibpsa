@@ -4,6 +4,9 @@ model Case900ValidationLinearInputs "Model to validate the linearization method 
       linExtCon=true,
       linIntRad=true,
       linExtRad=true));
+equation
+    assert(abs(err_linRecZon_ssm.y) <= 5*10^(-5), "The error between zone 1 of SSM and linear model is bigger than it used to be (" + String(err_linRecZon_ssm.y) + "instead of 6 E-6 at time 10E5)");
+
         annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=100000),
