@@ -5,26 +5,26 @@ IDEAS 2.0 has been released in August 2018. Highlights of this release compared 
 + IDEAS has been updated to IBPSA version 3.0. This includes a new heat pump model and a thoroughly updated bore field model.
 + Some old models have been removed and the library has been cleaned up in general.
 + New example models and unit tests have been added that better demonstrate how IDEAS can be used. In general, the documentation of the library has improved.
-+ The OuterWall model now natively supports shading from external buildings using the BuildingShade model.
-+ The InternalWall model now has the option to simulate natural convection through open doors or cavities.
++ The `OuterWall` model now natively supports shading from external buildings using the BuildingShade model.
++ The `InternalWall` model now has the option to simulate natural convection through open doors or cavities.
 + The license has been modified from MSL2 to BSD3.
 + LIDEAS has been merged into IDEAS. LIDEAS contains code for linearizing an IDEAS building envelope model and for exporting it as a state space model. For more details see http://www.ep.liu.se/ecp/118/005/ecp1511851.pdf
 
 
 ### Detailed release notes:
-1. The rectangular zone template has been extended and improved:
+1. The `RectangularZoneTemplate` has been extended and improved:
    + Internal walls can no longer be combined with a window.
    + A building shade option has been added for outer walls.
    + An option has been added to completely drop one of the surfaces of the model.
    + An option has been added to override the default wall lengths.
    + An option to add a wall that is entirely enclosed by the zone.
-   + The window model has been made replaceable such that a fully configured window can easily be used.
+   + The `Window` model has been made replaceable such that a fully configured window can easily be used.
    + An option for adding a cavity to internal walls has been added.
    + An option has been added for including an internal wall that is completely surrounded by the zone.
-2. The EmbeddedPipe model has been modified:
+2. The `EmbeddedPipe` model has been modified:
    + The parameter useSimplifiedRt has been removed.
    + The implementation now has final alpha=0 in the PrescribedHeatFlowRate blocks, which can significantly reduce the size of algebraic loops that are formed.
-3. A bug has been solved in the building shade model that caused it to only work correctly for south oriented surfaces.
+3. A bug has been solved in the `BuildingShade` model that caused it to only work correctly for south oriented surfaces.
 4. A bug has been solved in the computation of the absolute humidity.
 The shading models now compute the impact on the diffuse solar irradiation more accurately. Although the used models are relatively simple, they are more accurate than the previous implementation, which disregarded the influence completely.
 5. Several bugs have been solved in the implementation of the Adsolair internal controller, which caused the unit not to work as intended.

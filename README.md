@@ -65,6 +65,7 @@ IDEAS is licensed by [KU Leuven](http://www.kuleuven.be) and [3E](http://www.3e.
 ### Bibtex entry for citing IDEAS
 Please cite IDEAS using the information below.
 
+```
 @article{Jorissen2018ideas,  
 author = {Jorissen, Filip and Reynders, Glenn and Baetens, Ruben and Picard, Damien and Saelens, Dirk and Helsen, Lieve},  
 journal = {Journal of Building Performance Simulation},  
@@ -74,3 +75,4 @@ volume = {},
 doi={10.1080/19401493.2018.1428361},  
 year = {2018}  
 }
+```
