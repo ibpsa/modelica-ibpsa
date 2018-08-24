@@ -1,15 +1,15 @@
 within IDEAS.LIDEAS.Components.BaseClasses;
 model LinWindowResponse
-  "Shortwave window response implementation for linearisation"
-  parameter Integer nLay(min=1) "number of layers of the wall";
+  "Shortwave window response implementation for LIDEAS"
+  parameter Integer nLay(min=1) "Number of layers of the wall";
   parameter Real[:, nLay + 1] SwAbs
-    "absorbed solar radiation for each layer for look-up table as function of angle of incidence";
+    "Absorbed solar radiation for each layer for look-up table as function of angle of incidence";
   parameter Real[:, 2] SwTrans
-    "transmitted solar radiation for look-up table as function of angle of incidence";
+    "Transmitted solar radiation for look-up table as function of angle of incidence";
   parameter Real[nLay] SwAbsDif
-    "absorbed solar radiation for each layer for look-up table as function of angle of incidence";
+    "Absorbed solar radiation for each layer for look-up table as function of angle of incidence";
   parameter Real SwTransDif
-    "transmitted solar radiation for look-up table as function of angle of incidence";
+    "Transmitted solar radiation for look-up table as function of angle of incidence";
   parameter Boolean linearise = false
     "Set to true for enabling linearization inputs/outputs";
   parameter Boolean createOutputs = false
@@ -21,26 +21,41 @@ model LinWindowResponse
       nLay + 1,
       nLay));
   Modelica.Blocks.Interfaces.RealInput solDir
-    "direct solar illuminance on surface se"
+    "Direct solar illuminance on surface"
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
   Modelica.Blocks.Interfaces.RealInput solDif
-    "diffuse solar illuminance on surface s"
+    "Diffuse solar illuminance on surface"
     annotation (Placement(transformation(extent={{-120,0},{-80,40}})));
-  Modelica.Blocks.Interfaces.RealInput angInc "angle of incidence"
+  Modelica.Blocks.Interfaces.RealInput angInc
+    "Angle of incidence"
     annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nLay] iSolAbs
-    "solar absorptance in the panes"
+    "Solar absorptance in the panes"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir
-    "transmitted direct solar radiation"
+    "Transmitted direct solar radiation"
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDif
-    "transmitted difuse solar radiation"
+    "Transmitted diffuse solar radiation"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
+  Modelica.Blocks.Interfaces.RealInput[nLay] AbsQFlowInput if linearise
+    annotation (Placement(transformation(extent={{124,70},{84,110}})));
+  Modelica.Blocks.Interfaces.RealInput iSolDirInput if linearise
+    annotation (Placement(transformation(extent={{124,30},{84,70}})));
+  Modelica.Blocks.Interfaces.RealInput iSolDifInput if linearise
+    annotation (Placement(transformation(extent={{124,-10},{84,30}})));
+  Modelica.Blocks.Interfaces.RealOutput[nLay] AbsQFlowOutput if createOutputs
+    annotation (Placement(transformation(extent={{96,-30},{116,-10}})));
+  Modelica.Blocks.Interfaces.RealOutput iSolDifOutput if createOutputs
+    annotation (Placement(transformation(extent={{96,-90},{116,-70}})));
+  Modelica.Blocks.Interfaces.RealOutput iSolDirOutput if createOutputs
+    annotation (Placement(transformation(extent={{96,-60},{116,-40}})));
+protected
   Modelica.Blocks.Tables.CombiTable1Ds SwAbsDir(
     final table=SwAbs,
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    final columns=columns) "lookup table for AOI dependent absorptance"
+    final columns=columns)
+    "Table for AOI dependent absorptance"
     annotation (Placement(transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
@@ -48,25 +63,26 @@ model LinWindowResponse
   Modelica.Blocks.Tables.CombiTable1Ds SwTransDir(
     final table=SwTrans,
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    final columns={2}) "lookup table for AOI dependent transmittance"
+    final columns={2})
+    "Table for AOI dependent transmittance"
     annotation (Placement(transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={-3,-11})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nLay] Abs_flow
-    "solar absorptance in the panes source" annotation (Placement(
+    "Solar absorptance in the panes source" annotation (Placement(
         transformation(
         extent={{-8,-8},{8,8}},
         rotation=90,
         origin={-8.88178e-016,78})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Dir_flow
-    "transmitted direct solar radiation source" annotation (Placement(
+    "Transmitted direct solar radiation source" annotation (Placement(
         transformation(
         extent={{-8,-8},{8,8}},
         rotation=-90,
         origin={-20,-78})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Dif_flow
-    "transmitted difuse solar radiation source" annotation (Placement(
+    "Transmitted difuse solar radiation source" annotation (Placement(
         transformation(
         extent={{-8,-8},{8,8}},
         rotation=-90,
@@ -95,20 +111,8 @@ model LinWindowResponse
         extent={{8,-8},{-8,8}},
         rotation=-90,
         origin={-32,48})));
-  Modelica.Blocks.Interfaces.RealInput[nLay] AbsQFlowInput if linearise
-    annotation (Placement(transformation(extent={{124,70},{84,110}})));
-  Modelica.Blocks.Interfaces.RealInput iSolDirInput if linearise
-    annotation (Placement(transformation(extent={{124,30},{84,70}})));
-  Modelica.Blocks.Interfaces.RealInput iSolDifInput if linearise
-    annotation (Placement(transformation(extent={{124,-10},{84,30}})));
-  Modelica.Blocks.Interfaces.RealOutput[nLay] AbsQFlowOutput if createOutputs
-    annotation (Placement(transformation(extent={{96,-30},{116,-10}})));
-  Modelica.Blocks.Interfaces.RealOutput iSolDifOutput if createOutputs
-    annotation (Placement(transformation(extent={{96,-90},{116,-70}})));
-  Modelica.Blocks.Interfaces.RealOutput iSolDirOutput if createOutputs
-    annotation (Placement(transformation(extent={{96,-60},{116,-40}})));
   Modelica.Blocks.Math.Gain radToDeg(final k=180/Modelica.Constants.pi)
-    "Conversion of radians to degrees"
+    "Conversion from radians to degrees"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 equation
   connect(Abs_flow.port, iSolAbs) annotation (Line(
@@ -266,5 +270,13 @@ equation
           color={127,0,0})}),
     Documentation(info="<html>
 <p>he properties for absorption by and transmission through the glazingare taken into account depending on the angle of incidence of solar irradiation and are based on the output of the <a href=\"Solarwind.Buildings.UsersGuide.References\">[WINDOW 6.3]</a> software, i.e. the shortwave properties itselves based on the layers in the window are not calculated in the model but are input parameters. </p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 24, 2018 by Filip Jorissen: <br/> 
+Revised implementation for
+<a href=\"https://github.com/open-ideas/IDEAS/issues/812\">#812</a>.
+</li>
+</ul>
 </html>"));
 end LinWindowResponse;

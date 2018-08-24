@@ -1,9 +1,9 @@
 within IDEAS.LIDEAS.Components;
 model LinRectangularZoneTemplate
   extends IDEAS.Buildings.Components.RectangularZoneTemplate(
-      redeclare replaceable Buildings.Components.ZoneAirModels.WellMixedAir
-      airModel(vol(T(stateSelect=StateSelect.prefer))),redeclare
-      Buildings.Components.InterzonalAirFlow.n50FixedPressure interzonalAirFlow,
+      redeclare IDEAS.Buildings.Components.ZoneAirModels.WellMixedAir
+      airModel(vol(T(stateSelect=StateSelect.prefer))),
+      redeclare IDEAS.Buildings.Components.InterzonalAirFlow.n50FixedPressure interzonalAirFlow,
     redeclare LinWindow winA(indexWindow=indexWindowA),
     redeclare LinWindow winCei(indexWindow=indexWindowCei),
     redeclare LinWindow winB(indexWindow=indexWindowB),

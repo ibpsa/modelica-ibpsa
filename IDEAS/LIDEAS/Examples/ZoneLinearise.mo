@@ -15,9 +15,10 @@ model ZoneLinearise "Test for linearisation"
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
     A=10,
-    azi=0,
-    inc=1.5707963267949,
-    use_T_in=true) "Common wall model"
+    use_T_in=true,
+    azi=IDEAS.Types.Azimuth.S,
+    inc=IDEAS.Types.Tilt.Wall)
+                   "Common wall model"
     annotation (Placement(transformation(extent={{-54,-2},{-44,18}})));
   IDEAS.Buildings.Components.InternalWall floor(
     A=10,
@@ -47,17 +48,18 @@ model ZoneLinearise "Test for linearisation"
     azi=0) "Floor model"
     annotation (Placement(transformation(extent={{-54,20},{-44,40}})));
   IDEAS.Buildings.Components.OuterWall outerWall(
-    azi=0,
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
     A=10,
-    inc=1.5707963267949) "Outer wall model"
+    inc=IDEAS.Types.Tilt.Wall,
+    azi=IDEAS.Types.Azimuth.S)
+                         "Outer wall model"
     annotation (Placement(transformation(extent={{-54,-58},{-44,-38}})));
   LIDEAS.Components.LinZone firFlo(
     redeclare package Medium = Medium,
     allowFlowReversal=true,
     V=20,
-    nSurf=4) "first floor"
+    nSurf=4) "First floor"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   IDEAS.Buildings.Components.Shading.ShadingControl shadingControl
     "Shading control model"
@@ -66,22 +68,26 @@ model ZoneLinearise "Test for linearisation"
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
     A=10,
-    azi=0,
-    inc=1.5707963267949,
     use_T_in=false,
-    use_Q_in=true) "Common wall model"
+    use_Q_in=true,
+    azi=IDEAS.Types.Azimuth.S,
+    inc=IDEAS.Types.Tilt.Wall)
+                   "Common wall model"
     annotation (Placement(transformation(extent={{-54,-26},{-44,-6}})));
 
-  Modelica.Blocks.Sources.Constant const(k=273.15 + 20) "Temperature at one side of the common wall"
+  Modelica.Blocks.Sources.Constant TCom(k=273.15 + 20)
+    "Temperature at one side of the common wall"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Modelica.Blocks.Sources.Constant const1(k=10) "Constant heat flow at one side of the common wall 1"
+  Modelica.Blocks.Sources.Constant QCom(k=10)
+    "Constant heat flow at one side of the common wall 1"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   IDEAS.Buildings.Components.OuterWall outerWall1(
-    azi=0,
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
     A=10,
-    inc=1.5707963267949) "Outer wall model"
+    azi=IDEAS.Types.Azimuth.S,
+    inc=IDEAS.Types.Tilt.Wall)
+                         "Outer wall model"
     annotation (Placement(transformation(extent={{-30,-100},{-20,-80}})));
   IDEAS.Buildings.Components.OuterWall Roof(
     azi=0,
@@ -119,12 +125,10 @@ equation
       points={{-44.8333,-14},{-12,-14},{-12,-7.6},{20,-7.6}},
       color={255,204,51},
       thickness=0.5));
-  connect(const.y, commonWall.T)
-    annotation (Line(points={{-79,10},{-57.8333,10}},
-                                                   color={0,0,127}));
-  connect(const1.y, commonWall1.Q_flow) annotation (Line(points={{-79,-20},{
-          -57.8333,-20},{-57.8333,-18}},
-                                   color={0,0,127}));
+  connect(TCom.y, commonWall.T)
+    annotation (Line(points={{-79,10},{-57.8333,10}}, color={0,0,127}));
+  connect(QCom.y, commonWall1.Q_flow) annotation (Line(points={{-79,-20},{
+          -57.8333,-20},{-57.8333,-18}}, color={0,0,127}));
   connect(outerWall1.propsBus_a, firFlo.propsBus[3]) annotation (Line(
       points={{-20.8333,-88},{-14,-88},{-14,-72},{8,-72},{8,-56.5},{20,-56.5}},
       color={255,204,51},
