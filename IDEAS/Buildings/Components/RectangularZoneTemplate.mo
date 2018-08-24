@@ -801,7 +801,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=AWallA,
+    A=max(0,AWallA),
     final hWal=h,
     final hasBuildingShade=hasBuildingShadeA,
     final L=LShaA,
@@ -821,7 +821,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=AWallB,
+    A=max(0,AWallB),
     final hasBuildingShade=hasBuildingShadeB,
     final L=LShaB,
     final dh=dhShaB,
@@ -840,7 +840,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=AWallC,
+    A=max(0,AWallC),
     final hasBuildingShade=hasBuildingShadeC,
     final L=LShaC,
     final dh=dhShaC,
@@ -859,7 +859,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=AWallD,
+    A=max(0,AWallD),
     final hasBuildingShade=hasBuildingShadeD,
     final L=LShaD,
     final dh=dhShaD,
@@ -879,7 +879,7 @@ protected
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=ACei) if
+    A=max(0,ACei)) if
        hasOutCei
     "Outer wall for zone ceiling"
     annotation (Placement(transformation(extent={{-140,-100},{-130,-80}})));
