@@ -134,7 +134,7 @@ June 9, 2015 by Michael Wetter:<br/>
 Changed type of <code>T_in1</code> and <code>T_in2</code>
 to <code>Medium1.Temperature</code> and <code>Medium2.Temperature</code>
 to avoid an error because of conflicting start values if
-<a href=\"modelica://Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSetPointControl\">
+<a href=\"modelica://IDEAS.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSetPointControl\">
 Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSetPointControl</a>
 is translated using pedantic mode in Dymola 2016.
 This is for
