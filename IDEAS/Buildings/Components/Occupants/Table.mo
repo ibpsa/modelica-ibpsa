@@ -54,12 +54,17 @@ block Table "Number of occupants read from CombiTimeTable"
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
-  assert(not sim.linearise, "Number of occupant can not be defined by a table in case the model is linearized. Change the occupancy type to IDEAS.Buildings.Components.Occupants.Fixed or IDEAS.Buildings.Components.Occupants.Input.");
+  assert(not sim.linearise, "Number of occupant can not be defined by a table when the model is linearized. Change the occupancy type.");
   connect(combiTimeTable.y[1], nOcc)
     annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
-<li>August 21, 2018 by Damien Picard: <br/> Add assert statement such that this model cannot be used when linearizing as it would lead to an error.</li>
+<li>
+August 21, 2018 by Damien Picard: <br/> 
+Added assert statement such that this model cannot be 
+used when linearizing as it would lead to an error.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/812\">#812</a>.
+</li>
 <li>
 July 26, 2018 by Filip Jorissen:<br/>
 First implementation

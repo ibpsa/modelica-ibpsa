@@ -1,8 +1,9 @@
 within IDEAS.LIDEAS.Components;
 model LinWindow "Extension of the window model to allow linearization"
-  extends IDEAS.Buildings.Components.Window(redeclare
-      BaseClasses.LinWindowResponse solWin(linearise=sim.linearise,
-        createOutputs=sim.createOutputs));
+  extends IDEAS.Buildings.Components.Window(
+    redeclare IDEAS.LIDEAS.Components.BaseClasses.LinWindowResponse solWin(
+      linearise=sim.linearise,
+      createOutputs=sim.createOutputs));
   parameter Integer indexWindow = 1 "Index of this window"
     annotation(Dialog(group="Linearisation"),Evaluate=true);
 protected
@@ -40,7 +41,10 @@ and into outputs (to pre-compute the inputs of the linearized model).
 </p>
 </html>", revisions="<html>
 <ul>
-<li>August 21, 2018 by Damien Picard: <br/> Add documentation.</li>
+<li>
+August 21, 2018 by Damien Picard: <br/> 
+Added documentation.
+</li>
 </ul>
 </html>"));
 end LinWindow;
