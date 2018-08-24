@@ -55,7 +55,7 @@ model Case900ValidationNonLinear "Model to validate the linearization method by 
         weaBusOut.phi})
                    "Precomputed input values"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  parameter String fileName = "ssm_Case900Linearise.mat";
+  parameter String fileName = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/LIDEAS/") + "ssm_Case900Linearise.mat";
   final parameter Integer nSta = Bsize[1] "Number of states";
   final parameter Integer nInp = Bsize[2] "Number of inputs";
   final parameter Integer nPreInp = size(preInp,1) "Number of precomputed inputs";

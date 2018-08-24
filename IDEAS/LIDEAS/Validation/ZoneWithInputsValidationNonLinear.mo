@@ -77,7 +77,7 @@ prescribedOut.QCon[2],
 prescribedOut.QRad[1],
 prescribedOut.QRad[2]}) "Precomputed input values"
     annotation (Placement(transformation(extent={{-70,100},{-50,120}})));
-  parameter String fileName="ssm_ZoneWithInputsLinearise.mat";
+  parameter String fileName= Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/LIDEAS/")  + "ssm_ZoneWithInputsLinearise.mat";
   final parameter Integer nSta=Bsize[1] "Number of states";
   final parameter Integer nInp=Bsize[2] "Number of inputs";
   final parameter Integer nPreInp=size(preInp, 1)
