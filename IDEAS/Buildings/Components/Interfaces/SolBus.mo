@@ -9,15 +9,18 @@ connector SolBus
   IDEAS.Buildings.Components.Interfaces.RealConnector angInc(
     final quantity="Angle",
     final unit="rad",
-    displayUnit="deg") if outputAngles;
+    displayUnit="deg",
+    start=1) if outputAngles;
   IDEAS.Buildings.Components.Interfaces.RealConnector angZen(
     final quantity="Angle",
     final unit="rad",
-    displayUnit="deg") if outputAngles;
+    displayUnit="deg",
+    start=1) if outputAngles;
   IDEAS.Buildings.Components.Interfaces.RealConnector angAzi(
     final quantity="Angle",
     final unit="rad",
-    displayUnit="deg") if outputAngles;
+    displayUnit="deg",
+    start=1) if outputAngles;
   IDEAS.Buildings.Components.Interfaces.RealConnector Tenv(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -33,6 +36,10 @@ Connector that contains all solar irridiation information for one inclination an
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 24, 2018, by Damien Picard:<br/>
+Add start value for linearisation.
+</li>
 <li>
 May 26, 2017 by Filip Jorissen:<br/>
 Revised implementation for renamed

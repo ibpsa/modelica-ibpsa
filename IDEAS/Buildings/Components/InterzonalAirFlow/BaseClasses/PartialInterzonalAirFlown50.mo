@@ -21,7 +21,6 @@ partial model PartialInterzonalAirFlown50
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-10,-50})));
-
 protected
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
