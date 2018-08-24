@@ -6,7 +6,8 @@ connector WeaBus "Data bus that stores weather data"
 
   IDEAS.Buildings.Components.Interfaces.RealConnector solTim(
     final unit="s",
-    final quantity="Time") "Solar time";
+    final quantity="Time",
+    start=1) "Solar time";
   IDEAS.Buildings.Components.Interfaces.SolBus[numSolBus] solBus(each outputAngles=outputAngles) annotation ();
   IDEAS.Buildings.Components.Interfaces.RealConnector Te(
     final quantity="ThermodynamicTemperature",
@@ -38,7 +39,7 @@ connector WeaBus "Data bus that stores weather data"
   IDEAS.Buildings.Components.Interfaces.RealConnector dummy(start=1)
     "Dummy variable of value 1 to include constant term in linearization (see SlabOnGround)"
     annotation ();
-  IDEAS.Buildings.Components.Interfaces.RealConnector TskyPow4,TePow4, solGloHor, solDifHor, F1, F2, angZen, angHou, angDec, solDirPer, phi;
+  IDEAS.Buildings.Components.Interfaces.RealConnector TskyPow4(start=273^4),TePow4(start=273^4), solGloHor(start=100), solDifHor(start=100), F1(start=0.1), F2(start=-0.1), angZen(start=1), angHou(start=1), angDec(start=1), solDirPer(start=1), phi(start=1);
   annotation (
     defaultComponentName="weaBus",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
