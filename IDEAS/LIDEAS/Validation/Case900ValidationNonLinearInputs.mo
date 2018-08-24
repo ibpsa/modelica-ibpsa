@@ -18,7 +18,7 @@ model Case900ValidationNonLinearInputs "Model to validate the linearization meth
           weaBusOut.solDifHor,weaBusOut.F1,weaBusOut.F2,weaBusOut.angZen,
           weaBusOut.angHou,weaBusOut.angDec,weaBusOut.solDirPer,weaBusOut.phi,
           gainCon.y,gainRad.y}),
-                           fileName="ssm_Case900LineariseInputs.mat");
+      fileName=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/LIDEAS/ssm_Case900LineariseInputs.mat"));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQCon "Prescribed convective heat flow for linRect zone"
     annotation (Placement(transformation(extent={{-68,10},{-48,30}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedQRad "Prescribed radiative heat flow for linRect zone"
