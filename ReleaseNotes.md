@@ -65,12 +65,12 @@ In the future we hope to provide automated Dymola conversion scripts when making
 
 ## IDEAS v1.0
 May 5th 2017: IDEAS v1.0.0 has been released.  
-February 16th 2018: A [paper describing IDEAS v1.0.0](http://www.tandfonline.com/doi/full/10.1080/19401493.2018.1428361) has been published on line.
+February 16th 2018: A [paper describing IDEAS v1.0](http://www.tandfonline.com/doi/full/10.1080/19401493.2018.1428361) has been published on line.
 
 ### Release notes
 Changes compared to v0.3 include but are not limited to:
 
-0. IDEAS 1.0.0 is based on Annex 60 version 1.0.0
+0. IDEAS 1.0.0 is based on Annex 60 version 1.0
 1. The IDEAS packages have been restructured to be more in line with the Annex 60 package structure.
    + IDEAS.Constants has been replaced by IDEAS.Types
    + The SimInfoManager has been moved to IDEAS.BoundaryConditions
@@ -82,11 +82,11 @@ Changes compared to v0.3 include but are not limited to:
 6. Added an option to the zone model for evaluating thermal comfort.
 7. Added an option to the zone model for computing the sensible and latent heat gains from occupants.
 8. The zone air model is now replaceable such that custom models may be created.
-9. A zone template has been added that allows to add a rectangular zone, including 4 walls, 4 optional windows, a floor and a ceiling.
-10. Some variables have been renamed. A conversion script is provided for converting the user's models to accomodate these changes.
+9. Some variables have been renamed. A conversion script is provided for converting the user's models to accomodate these changes.
    + TStar has been renamed into TRad in the zone model.
    + flowPort_Out and flowPort_In have been renamed in the zone model, heating system, ventilaiton system and structure models.
    + Some Annex 60 models were renamed.
+10. A zone template has been added that allows to add a rectangular zone, including 4 walls, 4 optional windows, a floor and a ceiling.
 11. Added example model of a terraced house in IDEAS.Examples.PPD12
 12. Added twin house validation models in IDEAS.Examples.TwinHouse
 13. Added solar irradiation model for window frames.
