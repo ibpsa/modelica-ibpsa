@@ -28,13 +28,14 @@ model SandboxValidation "Validation of BorefieldOneUTube based on the experiment
     annotation (Placement(transformation(extent={{-20,60},{-40,40}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBorFieIn(redeclare package Medium = Medium,
     T_start=T_start,
-    m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal)
+    m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
+    tau=0)
     "Inlet temperature of the borefield"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBorFieOut(redeclare package Medium = Medium,
     T_start=T_start,
-    m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal)
-                     "Outlet temperature of the borefield"
+    m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
+    tau=0)           "Outlet temperature of the borefield"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -51,7 +52,7 @@ model SandboxValidation "Validation of BorefieldOneUTube based on the experiment
     fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/Beier_Smith_Spitler_2011_SandBoxValidation.txt"))
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Modelica.Blocks.Sources.Constant TSoi(k=T_start)
-    annotation (Placement(transformation(extent={{8,-40},{-12,-20}})));
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   IBPSA.Fluid.HeatExchangers.HeaterCooler_u hea(
     redeclare package Medium = Medium,
     dp_nominal=10000,
@@ -70,19 +71,19 @@ equation
     annotation (Line(points={{-40,-60},{-12,-60}}, color={0,127,255}));
   connect(borHol.port_b, TBorFieOut.port_a)
     annotation (Line(points={{14,-60},{40,-60}},          color={0,127,255}));
-  connect(pum.port_b, TBorFieIn.port_a) annotation (Line(points={{-40,50},{-62,50},
-          {-80,50},{-80,-60},{-60,-60}}, color={0,127,255}));
+  connect(pum.port_b, TBorFieIn.port_a) annotation (Line(points={{-40,50},{-80,
+          50},{-80,-60},{-60,-60}},      color={0,127,255}));
   connect(sin.ports[1], TBorFieOut.port_b) annotation (Line(points={{60,-30},{80,
           -30},{80,-60},{60,-60}},color={0,127,255}));
   connect(mFlo.y, pum.m_flow_in)
     annotation (Line(points={{-39,10},{-30,10},{-30,38}}, color={0,0,127}));
   connect(hea.port_b, pum.port_a)
-    annotation (Line(points={{20,50},{2,50},{-20,50}}, color={0,127,255}));
-  connect(hea.port_a, TBorFieOut.port_b) annotation (Line(points={{40,50},{40,50},
-          {80,50},{80,-60},{60,-60}}, color={0,127,255}));
-  connect(realExpression.y, hea.u) annotation (Line(points={{41,20},{60,20},{
-          60,44},{42,44}}, color={0,0,127}));
-  connect(TSoi.y, borHol.TSoi) annotation (Line(points={{-13,-30},{-26,-30},{
+    annotation (Line(points={{20,50},{-20,50}},        color={0,127,255}));
+  connect(hea.port_a, TBorFieOut.port_b) annotation (Line(points={{40,50},{80,
+          50},{80,-60},{60,-60}},     color={0,127,255}));
+  connect(realExpression.y, hea.u) annotation (Line(points={{41,20},{60,20},{60,
+          44},{42,44}},    color={0,0,127}));
+  connect(TSoi.y, borHol.TSoi) annotation (Line(points={{-39,-30},{-26,-30},{
           -26,-50.4},{-14.6,-50.4}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=186360),
   __Dymola_Commands(file=

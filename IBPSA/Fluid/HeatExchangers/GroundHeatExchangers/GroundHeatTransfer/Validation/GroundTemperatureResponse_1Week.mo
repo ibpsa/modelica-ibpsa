@@ -44,7 +44,7 @@ model GroundTemperatureResponse_1Week
       eTub=0.002,
       xC=0.05))
       "Borefield parameters"
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    annotation (Placement(transformation(extent={{-90,-88},{-70,-68}})));
 
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/(24*3600),

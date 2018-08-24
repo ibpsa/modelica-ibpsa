@@ -23,7 +23,7 @@ partial model partialBorefield
 
   // General parameters of borefield
   parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template borFieDat "Borefield data"
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   parameter Boolean dynFil=true
     "Set to false to remove the dynamics of the filling material."
@@ -44,7 +44,7 @@ partial model partialBorefield
     nCel=nCel,
     borFieDat=borFieDat,
     forceGFunCalc=forceGFunCalc)
-                         "Ground temperature response"
+    "Ground temperature response"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=nSeg)
     "Thermal collector to connect the unique ground temperature to each borehole wall temperature of each segment"

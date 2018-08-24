@@ -15,7 +15,7 @@ function gFunction "Evaluate the g-function of a bore field"
   input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
 
   output Modelica.SIunits.Time tGFun[nTimSho+nTimLon] "Time of g-function evaluation";
-  output Real g[nTimSho+nTimLon] "g-Function";
+  output Real g[nTimSho+nTimLon] "g-function";
 
 protected
   Modelica.SIunits.Time ts = hBor^2/(9*aSoi) "Characteristic time";
@@ -53,7 +53,7 @@ algorithm
   // -----------------------
   // Short time calculations
   // -----------------------
-  Modelica.Utilities.Streams.print(("Evaluation of short time g-function."));
+  Modelica.Utilities.Streams.print(("Evaluation of short time g-function.")); // fixme: remove for release
   g[1] := 0.;
   for k in 1:nTimSho loop
     // Finite line source solution
@@ -86,7 +86,7 @@ algorithm
   // ----------------------
   // Long time calculations
   // ----------------------
-  Modelica.Utilities.Streams.print(("Evaluation of long time g-function."));
+  Modelica.Utilities.Streams.print(("Evaluation of long time g-function.")); // fixme: remove for release
   // Initialize coefficient matrix A
   for m in 1:nBor loop
     for u in 1:nSeg loop

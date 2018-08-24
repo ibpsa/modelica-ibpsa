@@ -1,15 +1,12 @@
 within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
 partial model PartialInternalHEX
   "Partial model to implement the internal heat exchanger of a borehole segment"
-
   parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
     borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium"
     annotation (choicesAllMatching = true);
-
   parameter Real mSenFac=1
     "Factor for scaling the sensible thermal mass of the volume"
     annotation (Dialog(group="Advanced"));
@@ -26,11 +23,9 @@ partial model PartialInternalHEX
   parameter Modelica.SIunits.Temperature TGro_start
     "Start value of grout temperature"
     annotation (Dialog(tab="Initialization"));
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall
     "Thermal connection for borehole wall"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cpMed=
       Medium.specificHeatCapacityCp(Medium.setState_pTX(
@@ -47,20 +42,17 @@ protected
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Dynamic viscosity of the fluid";
-
   parameter Real Rgb_val(fixed=false)
     "Thermal resistance between grout zone and borehole wall";
   parameter Real RCondGro_val(fixed=false)
     "Thermal resistance between: pipe wall to capacity in grout";
   parameter Real x(fixed=false) "Capacity location";
-
 initial equation
   assert(borFieDat.conDat.rBor > borFieDat.conDat.xC + borFieDat.conDat.rTub and
          0 < borFieDat.conDat.xC - borFieDat.conDat.rTub,
          "The borehole geometry is not physical. Check the borefield data record
          to ensure that the shank spacing is larger than the outer tube radius
          and that the borehole radius is sufficiently large.");
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
@@ -96,6 +88,7 @@ need to be declared in models which extend this partial model:
 <li>
 July 10, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation of partial model.
+</li>
 <li>
 June 18, 2014, by Michael Wetter:<br/>
 Added initialization for temperatures and derivatives of <code>capFil1</code>
@@ -115,5 +108,6 @@ with resistance models from the Modelica Standard Library.
 January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
+</ul>
 </html>"));
 end PartialInternalHEX;

@@ -26,14 +26,14 @@ algorithm
    shaStr := shaStr + String(cooBor[i, 1], format=formatStr) + String(cooBor[i,
      2], format=formatStr);
   end for;
-  shaStr := shaStr + String(hBor, format=formatStr);
-  shaStr := shaStr + String(dBor, format=formatStr);
-  shaStr := shaStr + String(rBor, format=formatStr);
-  shaStr := shaStr + String(aSoi, format=formatStr);
-  shaStr := shaStr + String(nSeg, format=formatStr);
-  shaStr := shaStr + String(nTimSho, format=formatStr);
-  shaStr := shaStr + String(nTimLon, format=formatStr);
-  shaStr := shaStr + String(ttsMax, format=formatStr);
+  shaStr := shaStr + String(hBor, format=formatStr)
+    + String(dBor, format=formatStr)
+    + String(rBor, format=formatStr)
+    + String(aSoi, format=formatStr)
+    + String(nSeg, format=formatStr)
+    + String(nTimSho, format=formatStr)
+    + String(nTimLon, format=formatStr)
+    + String(ttsMax, format=formatStr);
 
   sha := IBPSA.Utilities.Cryptographics.sha(shaStr);
 

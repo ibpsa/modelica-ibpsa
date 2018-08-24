@@ -26,14 +26,14 @@ model BoreholeOneUTube "Single U-tube borehole heat exchanger"
     each final show_T=show_T,
     each final p1_start=p_start,
     each final p2_start=p_start,
-    each final TGro_start=TGro_start)       "Discretized borehole segments"
+    each final TGro_start=TGro_start)
+    "Discretized borehole segments"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(port_a, intHex[1].port_a1) annotation (Line(
       points={{-100,5.55112e-016},{-52,5.55112e-016},{-52,6},{-10,6}},
       color={0,127,255},
       smooth=Smooth.None));
-
   connect(port_b, intHex[1].port_b2) annotation (Line(
       points={{100,5.55112e-016},{28,5.55112e-016},{28,-40},{-32,-40},{-32,-6},{
           -10,-6}},
@@ -57,8 +57,7 @@ equation
   connect(intHex.port_wall, port_wall)
     annotation (Line(points={{0,10},{0,10},{0,100}}, color={191,0,0}));
   annotation (
-    Dialog(group="Borehole"),
-    defaultComponentName="borehole",
+    defaultComponentName="borHol",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
