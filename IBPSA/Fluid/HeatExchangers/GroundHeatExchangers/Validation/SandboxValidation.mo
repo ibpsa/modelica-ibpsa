@@ -104,7 +104,7 @@ capacity and density was not reported. Values were chosen from the estimated
 volumetric heat capacity used by Pasquier and Marcotte (2014).
 </p>
 <p>
-The The construction of the borehole is non-conventional: the borehole is
+The construction of the borehole is non-conventional: the borehole is
 contained within an aluminum pipe that acts as the borehole wall. As this
 modifies the thermal resistances inside the borehole, the values evaluated by
 the multipole method are modified to obtain the effective borehole thermal
