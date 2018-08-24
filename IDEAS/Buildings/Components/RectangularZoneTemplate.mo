@@ -1600,9 +1600,10 @@ Therefore, some internal parameters of this model will need to be
 updated manually.
 </p>
 <p>
-In the parameter group <code>Windows</code>, you can redeclare the windows
-type. This is useful if you used windows which have pre-configured area,
-glazing type, frame fraction and shading. The parameters 
+In the parameter group <code>Windows</code>, you can redeclare the window. 
+This is useful when using a window model that has a pre-configured surface area,
+glazing type, frame fraction and shading. 
+The parameters 
 <code>azi=aziA</code>,
 <code>inc=IDEAS.Types.Tilt.Wall</code>,
 <code>T_start=T_start</code>,
@@ -1612,9 +1613,9 @@ glazing type, frame fraction and shading. The parameters
 <code>windowDynamicsType=windowDynamicsType</code>,
 <code>linExtRad=linExtRadWin</code>,
 <code>nWin=nWinA</code>,
-will still be inherited from the zone model but the
+are still computed from the zone model parameters but, the
 other windows parameters are those configured in the
-used window model.
+used window model, including the window surface area.
 </p>
 <h4>Dynamics</h4>
 <p>
