@@ -269,9 +269,10 @@ is the undisturbed ground temperature equal to the soil temperature
 <code>TSoi</code>, which is an input of this model, 
 <i>Q</i> is the ground thermal load per borehole length and <i>h = g/(2 &pi; k<sub>s</sub>)</i>
 is a temperature response factor based on the g-function. <i>t<sub>k</sub></i>
-is the last discrete aggregation time step, meaning that the current time <i>t</i> is
-defined as <i>t<sub>k</sub>&le;t&le;t<sub>k+1</sub></i> with <i>t<sub>k+1</sub>-t<sub>k</sub>=&Delta;t<sub>agg</sub></i>.
-<i>&Delta;t<sub>agg</sub></i> is the parameter <code>tLoaAgg</code> in the present model.
+is the last discrete aggregation time step, meaning that the current time <i>t</i>
+satisfies <i>t<sub>k</sub>&le;t&le;t<sub>k+1</sub></i>.
+<i>&Delta;t<sub>agg</sub>(=t<sub>k+1</sub>-t<sub>k</sub>)</i> is the
+parameter <code>tLoaAgg</code> in the present model.
 </p>
 <p>
 Thus,
