@@ -1,63 +1,64 @@
-### IDEAS v2.0
+## IDEAS v2.0
 IDEAS 2.0 has been released in August 2018. Highlights of this release compared to v1.0 are:
 
-Unit tests have been automated. When a developer makes a pull request against the master, unit tests are run automatically using Travis CI. This greatly simplifies the development process when no unit test results change.
-IDEAS has been updated to IBPSA version 3.0. This includes a new heat pump model and a thoroughly updated bore field model.
-Some old models have been removed and the library has been cleaned up in general.
-New example models and unit tests have been added that better demonstrate how IDEAS can be used. In general, the documentation of the library has improved.
-The OuterWall model now natively supports shading from external buildings using the BuildingShade model.
-The InternalWall model now has the option to simulate natural convection through open doors or cavities.
-The license has been modified from MSL2 to BSD3.
-LIDEAS has been merged into IDEAS. LIDEAS contains code for linearizing an IDEAS building envelope model and for exporting it as a state space model. For more details see http://www.ep.liu.se/ecp/118/005/ecp1511851.pdf
-Detailed release notes:
++ Unit tests have been automated. When a developer makes a pull request against the master, unit tests are run automatically using Travis CI. This greatly simplifies the development process when no unit test results change.
++ IDEAS has been updated to IBPSA version 3.0. This includes a new heat pump model and a thoroughly updated bore field model.
++ Some old models have been removed and the library has been cleaned up in general.
++ New example models and unit tests have been added that better demonstrate how IDEAS can be used. In general, the documentation of the library has improved.
++ The OuterWall model now natively supports shading from external buildings using the BuildingShade model.
++ The InternalWall model now has the option to simulate natural convection through open doors or cavities.
++ The license has been modified from MSL2 to BSD3.
++ LIDEAS has been merged into IDEAS. LIDEAS contains code for linearizing an IDEAS building envelope model and for exporting it as a state space model. For more details see http://www.ep.liu.se/ecp/118/005/ecp1511851.pdf
 
-The rectangular zone template has been extended and improved:
-... Internal walls can no longer be combined with a window.
-... A building shade option has been added for outer walls.
-... An option has been added to completely drop one of the surfaces of the model.
-... An option has been added to override the default wall lengths.
-... An option to add a wall that is entirely enclosed by the zone.
-... The window model has been made replaceable such that a fully configured window can easily be used.
-... An option for adding a cavity to internal walls has been added.
-... An option has been added for including an internal wall that is completely surrounded by the zone.
-The EmbeddedPipe model has been modified:
-... The parameter useSimplifiedRt has been removed.
-... The implementation now has final alpha=0 in the PrescribedHeatFlowRate blocks, which can significantly reduce the size of algebraic loops that are formed.
-A bug has been solved in the building shade model that caused it to only work correctly for south oriented surfaces.
-A bug has been solved in the computation of the absolute humidity.
+
+### Detailed release notes:
+1. The rectangular zone template has been extended and improved:
+..* Internal walls can no longer be combined with a window.
+..* A building shade option has been added for outer walls.
+..* An option has been added to completely drop one of the surfaces of the model.
+..* An option has been added to override the default wall lengths.
+..* An option to add a wall that is entirely enclosed by the zone.
+..* The window model has been made replaceable such that a fully configured window can easily be used.
+..* An option for adding a cavity to internal walls has been added.
+..* An option has been added for including an internal wall that is completely surrounded by the zone.
+2. The EmbeddedPipe model has been modified:
+..* The parameter useSimplifiedRt has been removed.
+..* The implementation now has final alpha=0 in the PrescribedHeatFlowRate blocks, which can significantly reduce the size of algebraic loops that are formed.
+3. A bug has been solved in the building shade model that caused it to only work correctly for south oriented surfaces.
+4. A bug has been solved in the computation of the absolute humidity.
 The shading models now compute the impact on the diffuse solar irradiation more accurately. Although the used models are relatively simple, they are more accurate than the previous implementation, which disregarded the influence completely.
-Several bugs have been solved in the implementation of the Adsolair internal controller, which caused the unit not to work as intended.
-A bug has been fixed where the Zone model did not work when the air medium does not contain water vapor.
-The zone model now has several options for defining the occupancy internally. A fixed occupancy, a table, or an external input can be used. The relevant block is replaceable such that users can write their own occupancy models.
-Fixed the propagation of T_start in MonoLayerDynamic.
-A bug has been fixed where the shading control input of the window model was not displayed correctly.
-Two new shading models have been added: a horizontal fin shading model and the combination of a horizontal fin shading model with an overhang.
-ThreeWayValveMotor now also has a valve leakage since the old implementation can lead to singularities when the flow rate is exactly zero.
-The azimuth angle computation has been modified such that the argument of an arcsin cannot become larger than 1 due to roundoff/numerical errors. This caused models to crash in very rare occasions.
-Atmospheric pressure and relative humidity have been added to the weather bus since these variables are sometimes used to set the boundary conditions of a zone using a Boundary_pT.
-Fixed a bug in RunningMeanTemperatureEN15251 where the model output is incorrect for non-zero start times.
-energyDynamicsAir and mSenFac were not propagated correctly into the zone air model. This is now fixed.
-The StrobeInfoManager has been modified such that it also works for negative simulation times.
-The zone air model has been modified such that air infiltration is treated separately from the heat transfer equations. This allows multiple air infiltration models to be selected. Right now four options exist, which are combination of 1) an 'air tight' and a completely 'air open' envelope that is internally connected to a Boundary_pT without pressure drop and 2) a case with and without air infiltration. Ongoing work will work on adding more detailed air infiltration models.
-A dry air medium for MPC applications has been added.
-The unit test tolerances have been decrease from the default of 1e-4 to 1e-6 to achieve more consistent results in the automated unit tests. LSodar is now used instead of DASSL.
-The zone air states now have a nominal attribute such that the state variables are better scaled when using implicit integrators. Similarly, the nominal values of the FluidPorts have been set.
-We now allow an OuterWall to be used as a floor.
-A bug has been corrected in the BESTEST weather file.
-Many old models have been removed and examples that depend on them have been updated to better illustrate how IDEAS can/should be used.
-The OuterWall model now also supports the computation of shading cast by external objects buildings. Future work should extend the set of supported shading models.
-The SimInfoManager has been modified such that it now exposes the same WeatherBus as the one that is used in the LBL Buildings library. The Buildings library solar thermal collectors are thus natively supported.
-IDEAS is now licensed under BSD3.
-Added multiple asserts that avoid the improper use of IDEAS models.
-Added an output for the CO2 concentration in the Zone model, which outputs zero when the Zone Medium does not contain CO2.
-The window model has been extended such that it can be configured to consist of nWin identical windows. This makes it easier to correctly configure the shading of multiple identical windows. The heat flow rates are simply scaled by nWin.
-IDEAS 2.0 is based on IBPSA 3.0, which includes general performance and documentation improvements. Notable additions from the IBPSA library are:
-... A heat pump model that implements a detailed thermodynamic cycle has been added.
-... A thermal storage tank model has been added.
-... A geothermal bore field model has been added.
-... A model has been added for directly writing .csv result files. These result files can also be used as an input for a CombiTimeTable.
-Backwards compatibility:
+5. Several bugs have been solved in the implementation of the Adsolair internal controller, which caused the unit not to work as intended.
+6. A bug has been fixed where the Zone model did not work when the air medium does not contain water vapor.
+7. The zone model now has several options for defining the occupancy internally. A fixed occupancy, a table, or an external input can be used. The relevant block is replaceable such that users can write their own occupancy models.
+8. Fixed the propagation of T_start in MonoLayerDynamic.
+9. A bug has been fixed where the shading control input of the window model was not displayed correctly.
+10. Two new shading models have been added: a horizontal fin shading model and the combination of a horizontal fin shading model with an overhang.
+11. ThreeWayValveMotor now also has a valve leakage since the old implementation can lead to singularities when the flow rate is exactly zero.
+12. The azimuth angle computation has been modified such that the argument of an arcsin cannot become larger than 1 due to roundoff/numerical errors. This caused models to crash in very rare occasions.
+13. Atmospheric pressure and relative humidity have been added to the weather bus since these variables are sometimes used to set the boundary conditions of a zone using a Boundary_pT.
+14. Fixed a bug in RunningMeanTemperatureEN15251 where the model output is incorrect for non-zero start times.
+15. Parameters energyDynamicsAir and mSenFac were not propagated correctly into the zone air model. This is now fixed.
+16. The StrobeInfoManager has been modified such that it also works for negative simulation times.
+17. A dry air medium for MPC applications has been added.
+18. The unit test tolerances have been decrease from the default of 1e-4 to 1e-6 to achieve more consistent results in the automated unit tests. LSodar is now used instead of DASSL.
+19. The zone air states now have a nominal attribute such that the state variables are better scaled when using implicit integrators. Similarly, the nominal values of the FluidPorts have been set.
+20. We now allow an OuterWall to be used as a floor.
+21. A bug has been corrected in the BESTEST weather file.
+22. Many old models have been removed and examples that depend on them have been updated to better illustrate how IDEAS can/should be used.
+23. The OuterWall model now also supports the computation of shading cast by external objects buildings. Future work should extend the set of supported shading models.
+24. The SimInfoManager has been modified such that it now exposes the same WeatherBus as the one that is used in the LBL Buildings library. The Buildings library solar thermal collectors are thus natively supported.
+25. IDEAS is now licensed under BSD3.
+26. Added multiple asserts that avoid the improper use of IDEAS models.
+27. Added an output for the CO2 concentration in the Zone model, which outputs zero when the Zone Medium does not contain CO2.
+28. The window model has been extended such that it can be configured to consist of nWin identical windows. This makes it easier to correctly configure the shading of multiple identical windows. The heat flow rates are simply scaled by nWin.
+29. IDEAS 2.0 is based on IBPSA 3.0, which includes general performance and documentation improvements. Notable additions from the IBPSA library are:
+..* A heat pump model that implements a detailed thermodynamic cycle has been added.
+..* A thermal storage tank model has been added.
+..* A geothermal bore field model has been added.
+..* A model has been added for directly writing .csv result files. These result files can also be used as an input for a CombiTimeTable.
 
+
+###Backwards compatibility:
 IDEAS 2.0 is not backwards compatible with IDEAS 1.0, although the required changes should be limited or non-existent for most users.
 In the future we hope to provide automated Dymola conversion scripts when making releases.
 
