@@ -344,6 +344,15 @@ See <a href=\"https://github.com/open-ideas/IDEAS/issues/735\">
 #735</a>.
 </li>
 </ul>
+</html>", info="<html>
+<ul>
+<li>
+August 22, 2018 by Filip Jorissen:<br/>
+Fixed bug in implementation due to missing <code>irr</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/pull/818\">
+#818</a>.
+</li>
+</ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-100,-100},{100,140}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,140}})));

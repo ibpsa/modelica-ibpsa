@@ -5,7 +5,10 @@ partial model PartialInterzonalAirFlowBoundary
     IDEAS.Buildings.Components.InterzonalAirFlow.BaseClasses.PartialInterzonalAirFlow;
   outer BoundaryConditions.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
 protected
+    IDEAS.Buildings.Components.Interfaces.WeaBus weaBus(numSolBus=sim.numIncAndAziInBus, outputAngles=sim.outputAngles)
+    annotation (Placement(transformation(extent={{-78,80},{-58,100}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo(final
       alpha=0) if                                                                 sim.computeConservationOfEnergy
     "Prescribed heat flow rate for conservation of energy check" annotation (
@@ -26,13 +29,15 @@ protected
         rotation=90,
         origin={0,10})));
 
-  Modelica.Blocks.Sources.RealExpression Te(y=sim.Te) "Ambient temperature"
+  Modelica.Blocks.Sources.RealExpression Te(y=weaBus.Te)
+                                                      "Ambient temperature"
     annotation (Placement(transformation(extent={{-44,52},{-26,68}})));
-  Modelica.Blocks.Sources.RealExpression Xi(y=sim.XiEnv.X[1])
+  Modelica.Blocks.Sources.RealExpression Xi(y=weaBus.X_wEnv)
     annotation (Placement(transformation(extent={{-44,64},{-26,80}})));
-  Modelica.Blocks.Sources.RealExpression CEnv(y=sim.CEnv.y)
+  Modelica.Blocks.Sources.RealExpression CEnv(y=weaBus.CEnv)
     annotation (Placement(transformation(extent={{-44,74},{-26,90}})));
 equation
+  connect( sim.weaBus,weaBus);
   connect(port_a_interior, port_b_exterior) annotation (Line(points={{-60,-100},
           {-60,0},{-20,0},{-20,100}}, color={0,127,255}));
   connect(port_a_exterior, port_b_interior) annotation (Line(points={{20,100},{20,
@@ -56,6 +61,11 @@ equation
 
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+August 24, 2018 by Damien Picard:<br/>
+Use weaDatBus.Te instead of sim.Te such that the variable is correctly 
+used when linearizing with LIDEAS.
+</li>
 <li>
 June 11, 2018 by Filip Jorissen:<br/>
 Using <code>Xi_in</code> instead of <code>X_in</code> since this
