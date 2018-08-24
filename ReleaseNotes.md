@@ -58,11 +58,6 @@ The shading models now compute the impact on the diffuse solar irradiation more 
    + A model has been added for directly writing .csv result files. These result files can also be used as an input for a CombiTimeTable.
 
 
-###Backwards compatibility:
-IDEAS 2.0 is not backwards compatible with IDEAS 1.0, although the required changes should be limited or non-existent for most users.
-In the future we hope to provide automated Dymola conversion scripts when making releases.
-
-
 ## IDEAS v1.0
 May 5th 2017: IDEAS v1.0.0 has been released.  
 February 16th 2018: A [paper describing IDEAS v1.0](http://www.tandfonline.com/doi/full/10.1080/19401493.2018.1428361) has been published on line.
