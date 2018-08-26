@@ -4,6 +4,7 @@ PartialOpaqueSurface
 PartialSurface
 PartialZone
 RealConnector
+RectangularZoneTemplateInterface
 SolBus
 WeaBus
 WindowBus
@@ -11,3 +12,4 @@ WindowDynamicsType
 ZoneBus
 ZoneBusVarMultiplicator
 ZoneInterface
+
