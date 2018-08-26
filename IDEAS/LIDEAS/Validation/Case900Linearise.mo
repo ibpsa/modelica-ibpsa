@@ -32,22 +32,28 @@ model Case900Linearise "Rectangular zone model parameterised to represent Case90
     l=8,
     w=6,
     A_winA=12,
-    indexWindowA=1,
+    indexWinA=1,
     T_start=293.15)
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Modelica.Blocks.Interfaces.RealOutput TSenLinRecZon if sim.linearise
     "Sensor temperature of the zone, i.e. operative temeprature"
     annotation (Placement(transformation(extent={{96,80},{116,100}})));
 equation
-  connect(linRecZon.TSensor, TSenLinRecZon) annotation (Line(points={{10.6,70},{
-          16,70},{20,70},{20,90},{106,90}}, color={0,0,127}));
+  connect(linRecZon.TSensor, TSenLinRecZon) annotation (Line(points={{11,72},{16,
+          72},{20,72},{20,90},{106,90}},    color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),           __Dymola_Commands(file=
           "Scripts/linearize_Case900Linearise.mos" "Linearise"),
     Documentation(revisions="<html>
 <ul>
-<li>August 21, 2018 by Damien Picard: <br/>Change medium to <code>IDEAS.Media.Specialized.DryAir</code>.</li>
-<li>May 15, 2018 by Damien Picard: <br/>First implementation</li>
+<li>
+August 21, 2018 by Damien Picard: <br/>
+Change medium to <code>IDEAS.Media.Specialized.DryAir</code>.
+</li>
+<li>
+May 15, 2018 by Damien Picard: <br/>
+First implementation
+</li>
 </ul>
 </html>"));
 end Case900Linearise;
