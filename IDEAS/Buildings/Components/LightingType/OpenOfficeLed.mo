@@ -2,12 +2,12 @@ within IDEAS.Buildings.Components.LightingType;
 record OpenOfficeLed "Properties for typical open office with led lights."
   extends Modelica.Icons.Record;
   extends
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting;
+      IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting;
   extends
-    IDEAS.Buildings.Components.LightingType.LightingGains.OpenOfficeLights;
+      IDEAS.Buildings.Components.LightingType.LightingGains.OpenOfficeLights(
+      A = A_zone);
   extends
-    IDEAS.Buildings.Components.LightingType.LightingHeatDist.RecessedLEDTrofferUniformDiffuser;
-
+      IDEAS.Buildings.Components.LightingType.LightingHeatDist.RecessedLEDTrofferUniformDiffuser;
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -29,4 +29,6 @@ Chapter 18, Internal Heat Gains; pages 18.4; Atlanta, USA, 2009.
 </li>
 </ul>
 </html>"));
+
+
 end OpenOfficeLed;

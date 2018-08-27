@@ -8,12 +8,14 @@ model InternalGainExample
 
 
   IDEAS.Buildings.Validation.Cases.Case900 case900_default(redeclare package
-      MediumAir =                                                                        MediumAir)
+              MediumAir =                                                                MediumAir)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   IDEAS.Buildings.Validation.Cases.Case900 case900_gains(
     redeclare package MediumAir = MediumAir, building(gF(
         redeclare Components.OccupancyType.OfficeWork occTyp,
-        redeclare Components.InternalGains.Occupants intGai,
+        redeclare
+          Components.InternalGains.Occupants
+          intGai,
         redeclare IDEAS.Buildings.Components.Occupants.Input occNum)))
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Pulse occ(
@@ -25,9 +27,45 @@ model InternalGainExample
     {case900_gains.building.gF.airModel.port_a.C_outflow[1]*29/44*1e6,
      case900_default.building.gF.airModel.port_a.C_outflow[1]*29/44*1e6})
     annotation (Placement(transformation(extent={{-4,-54},{16,-34}})));
+  Validation.Cases.Case900                 case900_lights(
+      redeclare package MediumAir = MediumAir,
+      building(gF(
+        redeclare
+          Components.LightingType.OpenOfficeLed
+          lightTyp,
+        redeclare
+          Components.InternalGains.Lighting
+          lightGai,
+        redeclare Components.LightControl.Input
+          lightControl)))
+    annotation (Placement(transformation(extent={{20,40},
+            {40,60}})));
+  Validation.Cases.Case900 case900_gains_and_lights(
+      redeclare package MediumAir = MediumAir,
+      building(gF(
+        redeclare
+          Components.OccupancyType.OfficeWork
+          occTyp,
+        redeclare
+          Components.InternalGains.Occupants
+          intGai,
+        redeclare Components.Occupants.Input
+          occNum,
+        redeclare
+          Components.LightingType.OpenOfficeLed
+          lightTyp,
+        redeclare
+          Components.LightControl.OccupancyBased
+          lightControl,
+        redeclare
+          Components.InternalGains.Lighting
+          lightGai)))     annotation (Placement(
+        transformation(extent={{-40,40},{-20,60}})));
 equation
   // equation for setting number of zone occupants
   case900_gains.building.gF.nOcc=occ.y;
+  case900_lights.building.gF.lightCtrl=occ.y;
+  case900_gains_and_lights.building.gF.nOcc=occ.y;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

@@ -2,10 +2,9 @@ within IDEAS.Buildings.Components.LightingType.BaseClasses;
 partial record PartialLighting
   "Record for defining the type of the lighting"
   extends Modelica.Icons.Record;
-  extends
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains;
-  extends
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingHeatDist;
+
+  parameter Modelica.SIunits.Area A_zone(min=0)
+    "Area of the zone";
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

@@ -8,7 +8,7 @@ model Lighting
     "Radiant fraction of lighting heat exchange, default based on Ashrae fundamentals chap 18.2.2, Table 3 - Lighting Heat Gain Parameters for Typical Operating Conditions";
   parameter Modelica.SIunits.Power Qlight(min=0) = lightingType.Q
     "Sensible heat gain from electric lighting";
-  parameter Modelica.SIunits.Area A(min=0);
+  parameter Modelica.SIunits.Area A(min=0)=lightingType.A;
 
   Modelica.Blocks.Math.Gain gaiHea(k=Qlight*spaFra)
                 "Gain for computing heat flow rate"
