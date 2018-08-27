@@ -97,8 +97,6 @@ equation
   connect(theCol.port_a, borHol.port_wall)
     annotation (Line(points={{-20,60},{0,60},{0,10}}, color={191,0,0}));
   annotation (
-    experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
-    __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
