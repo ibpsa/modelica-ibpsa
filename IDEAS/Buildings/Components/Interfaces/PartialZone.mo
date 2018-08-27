@@ -1,11 +1,13 @@
 within IDEAS.Buildings.Components.Interfaces;
 model PartialZone "Building zone model"
-  extends IDEAS.Buildings.Components.Interfaces.ZoneInterface(
+  extends
+    IDEAS.Buildings.Components.Interfaces.ZoneInterface(
     Qgai(y=(if not sim.computeConservationOfEnergy then 0 elseif sim.openSystemConservationOfEnergy
             then airModel.QGai
             else gainCon.Q_flow + gainRad.Q_flow + airModel.QGai)),
     Eexpr(y=if sim.computeConservationOfEnergy then E else 0),
-    useOccNumInput = occNum.useInput);
+    useOccNumInput = occNum.useInput,
+    useLightCtrlInput = lightControl.useCtrlInput);
     replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
@@ -106,12 +108,14 @@ model PartialZone "Building zone model"
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{80,82},{100,102}})));
-  replaceable parameter IDEAS.Buildings.Components.LightingType.OpenOfficeLed
+  replaceable parameter
+    IDEAS.Buildings.Components.LightingType.OpenOfficeLed
     lightTyp(A=A) constrainedby
-    IDEAS.Buildings.Components.OccupancyType.BaseClasses.PartialOccupancyType
-    "Lighting type, only used for evaluating lighting heat gains" annotation (
+    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting
+    "Lighting type, only used for evaluating lighting heat gains"
+    annotation (
     choicesAllMatching=true,
-    Dialog(group="Occupants (optional)"),
+    Dialog(group="Lightning (optional)"),
     Placement(transformation(extent={{56,82},{76,102}})));
 
   replaceable Comfort.None comfort
@@ -129,7 +133,8 @@ model PartialZone "Building zone model"
   replaceable IDEAS.Buildings.Components.InternalGains.Occupants intGai
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialOccupancyGains(
-      occupancyType=occTyp, redeclare final package Medium = Medium)
+      occupancyType=occTyp, redeclare final package
+              Medium =                                       Medium)
     "Internal gains model" annotation (
     choicesAllMatching=true,
     Dialog(tab="Advanced", group="Occupants"),
@@ -138,11 +143,12 @@ model PartialZone "Building zone model"
         replaceable IDEAS.Buildings.Components.InternalGains.Lighting lightGai
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains(
-      lightingType=lightTyp,
+      lightingType=lightTyp, redeclare final package
+              Medium =                                       Medium,
       A=A)
         annotation (
     choicesAllMatching=true,
-    Dialog(group="Occupants (optional)"),
+    Dialog(tab="Advanced", group="Lightning"),
     Placement(transformation(extent={{40,52},{20,72}})));
 
   Modelica.SIunits.Power QTra_design=sum(propsBusInt.QTra_design)
@@ -150,6 +156,16 @@ model PartialZone "Building zone model"
   Modelica.Blocks.Interfaces.RealOutput TAir(unit="K") = airModel.TAir;
   Modelica.Blocks.Interfaces.RealOutput TRad(unit="K") = radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
+
+  replaceable LightControl.Fixed lightControl
+    constrainedby LightControl.BaseClasses.PartialLights
+    "Signal for the light control"
+    annotation (
+    choicesAllMatching=true,
+    Dialog(group="Lightning (optional)"),
+    Placement(transformation(extent={{80,52},{60,72}})));
+
+
 
 protected
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurf] propsBusInt(
@@ -189,6 +205,8 @@ protected
         origin={-30,-10})));
 
 
+ annotation (Placement(transformation(extent={{
+            140,48},{100,88}})));
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 
@@ -352,6 +370,11 @@ end for;
   connect(nOcc, occNum.nOccIn)
     annotation (Line(points={{120,40},{96,40},{96,32},{82,32}},
                                                 color={0,0,127}));
+  connect(lightCtrl, lightControl.lightCtrl)
+    annotation (Line(points={{120,70},{96,70},{96,
+          60},{82,60}},                         color={0,0,127}));
+    connect(nOcc, lightControl.lightOcc) annotation (Line(points={{120,40},
+          {96,40},{96,64},{82,64}},             color={0,0,127}));
   connect(airModel.port_b, interzonalAirFlow.port_a_interior)
     annotation (Line(points={{-36,40},{-36,60}}, color={0,127,255}));
   connect(airModel.port_a, interzonalAirFlow.port_b_interior)
@@ -364,15 +387,15 @@ end for;
           -28,80},{-28,84},{20,84},{20,100}}, color={0,127,255}));
   connect(ppm, airModel.ppm) annotation (Line(points={{110,0},{52,0},{52,16},{-8,
           16},{-8,28},{-19,28}}, color={0,0,127}));
-  connect(occNum.nOcc, lightGai.nOcc) annotation (
-     Line(points={{58,32},{52,32},{52,62},{41,62}},
-        color={0,0,127}));
   connect(lightGai.portRad, gainRad) annotation (
       Line(points={{20,60},{4,60},{4,-60},{100,-60}},
         color={191,0,0}));
   connect(lightGai.portCon, gainCon) annotation (
       Line(points={{20,64},{2,64},{2,-30},{100,-30}},
         color={191,0,0}));
+  connect(lightControl.ctrl, lightGai.ctrl)
+    annotation (Line(points={{58,62},{41,62}},
+        color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),

@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.InternalGains;
 model Lighting
-  "Constant sensible, latent and CO2 heat production per person"
+  "Fraction of heat to space, radiative heat, lighting type, light power and floor area"
   extends BaseClasses.PartialLightingGains;
   parameter Real spaFra(min=0,max=1) = lightingType.spaFra
     "Space fraction of lighting heat exchange, default based on Ashrae fundamentals chap 18.2.2, Table 3 - Lighting Heat Gain Parameters for Typical Operating Conditions";
@@ -26,10 +26,6 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloRad(final
       alpha=0) "Prescribed heat flow rate for radiative sensible heat"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-public
-  Modelica.Blocks.Sources.RealExpression realExpression(y=if nOcc > 0 then 1
-         else 0)
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 equation
   connect(preHeaFloCon.port, portCon)
     annotation (Line(points={{60,20},{100,20}},            color={191,0,0}));
@@ -45,8 +41,8 @@ equation
   connect(gain.u, gaiHea.y)
     annotation (Line(points={{-10,-20},{-20,-20},{-20,0},{-31,0}},
                                                              color={0,0,127}));
-  connect(realExpression.y, gaiHea.u)
-    annotation (Line(points={{-59,0},{-54,0}}, color={0,0,127}));
+  connect(ctrl, gaiHea.u) annotation (Line(points=
+         {{-110,0},{-54,0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This occupancy model assumes a constant latent and sensible load per person. 

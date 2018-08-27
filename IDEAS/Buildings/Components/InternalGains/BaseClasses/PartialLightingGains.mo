@@ -22,7 +22,7 @@ This is for <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portCon
     "Port for convective sensible heat transfer due to occupants"
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
-  Modelica.Blocks.Interfaces.RealInput nOcc "Number of occupants"
+  Modelica.Blocks.Interfaces.RealInput ctrl "Number of occupants"
     annotation (Placement(transformation(extent={{-130,-20},{-90,20}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo(final

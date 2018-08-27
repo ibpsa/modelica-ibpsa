@@ -13,7 +13,7 @@ model InternalGainExample
   IDEAS.Buildings.Validation.Cases.Case900 case900_gains(
     redeclare package MediumAir = MediumAir, building(gF(
         redeclare Components.OccupancyType.OfficeWork occTyp,
-        redeclare Components.InternalGains.Simple intGai,
+        redeclare Components.InternalGains.Occupants intGai,
         redeclare IDEAS.Buildings.Components.Occupants.Input occNum)))
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Pulse occ(
