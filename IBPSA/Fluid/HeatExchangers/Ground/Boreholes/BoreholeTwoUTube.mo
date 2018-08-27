@@ -7,32 +7,32 @@ model BoreholeTwoUTube "Double U-tube borehole heat exchanger"
     redeclare each final package Medium = Medium,
     each final borFieDat=borFieDat,
     each final hSeg=borFieDat.conDat.hBor/nSeg,
-    final dp1_nominal={if i == 1 and borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then
-        dp_nominal elseif i == 1 and borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeSeries then
+    final dp1_nominal={if i == 1 and borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then
+        dp_nominal elseif i == 1 and borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeSeries then
         dp_nominal/2 else 0 for i in 1:nSeg},
-    final dp3_nominal={if i == 1 and borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then
-        dp_nominal elseif i == 1 and borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeSeries then
+    final dp3_nominal={if i == 1 and borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then
+        dp_nominal elseif i == 1 and borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeSeries then
         dp_nominal/2 else 0 for i in 1:nSeg},
     each final dp2_nominal=0,
     each final dp4_nominal=0,
     each final show_T=show_T,
     each final energyDynamics=energyDynamics,
     each final massDynamics=massDynamics,
-    each final m1_flow_nominal=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then
+    each final m1_flow_nominal=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then
         m_flow_nominal/2 else m_flow_nominal,
-    each final m2_flow_nominal=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then
+    each final m2_flow_nominal=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then
         m_flow_nominal/2 else m_flow_nominal,
-    each final m3_flow_nominal=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then
+    each final m3_flow_nominal=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then
         m_flow_nominal/2 else m_flow_nominal,
-    each final m4_flow_nominal=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then
+    each final m4_flow_nominal=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then
         m_flow_nominal/2 else m_flow_nominal,
-    each final m1_flow_small=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
+    each final m1_flow_small=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
         /2 else borFieDat.conDat.mBor_flow_small,
-    each final m2_flow_small=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
+    each final m2_flow_small=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
         /2 else borFieDat.conDat.mBor_flow_small,
-    each final m3_flow_small=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
+    each final m3_flow_small=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
         /2 else borFieDat.conDat.mBor_flow_small,
-    each final m4_flow_small=if borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
+    each final m4_flow_small=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
         /2 else borFieDat.conDat.mBor_flow_small,
     each final dynFil=dynFil,
     each final mSenFac=mSenFac,
@@ -198,7 +198,7 @@ into account. The vertical heat flow is assumed to be zero.
 <ul>
 <li>
 July 2018, by Alex Laferri&egrave;re:<br/>
-Following major changes to the structure of the GroundHeatExchangers package,
+Following major changes to the structure of the IBPSA.Fluid.HeatExchangers.Ground package,
 the documentation has been changed to reflect the new role of this model.
 Additionally, this model now extends a partial borehole model.
 </li>

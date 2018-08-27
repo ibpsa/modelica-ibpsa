@@ -49,7 +49,7 @@ model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier 
     tableName="data",
     offset={0,0,0},
     columns={2,3,4},
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/Beier_Smith_Spitler_2011_SandBoxValidation.txt"))
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/Data/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Beier_Smith_Spitler_2011_SandBox.txt"))
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Modelica.Blocks.Sources.Constant TSoi(k=T_start)
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));

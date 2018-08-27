@@ -25,7 +25,7 @@ borehole wall boundary condition.
 <ul>
 <li>
 July 10, 2018, by Alex Laferri&egrave;re:<br/>
-Adjusted the example following major changes to the GroundHeatExchangers package.
+Adjusted the example following major changes to the IBPSA.Fluid.HeatExchangers.Ground package.
 Additionally, implemented a partial example model.
 </li>
 <li>

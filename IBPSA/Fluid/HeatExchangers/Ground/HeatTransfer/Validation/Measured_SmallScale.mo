@@ -21,7 +21,7 @@ model Measured_SmallScale
   Modelica.Blocks.Sources.CombiTimeTable meaDat(
     tableOnFile=true,
     timeScale=sizFac^2,
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/Cimmino_Bernier_2015_SmallScaleValidation.txt"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/Data/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Cimmino_Bernier_2015_SmallScale.txt"),
     columns={2,3,4,5,6,7,8,9},
     tableName="data",
     offset={0,0,0,273.15,273.15,273.15,273.15,273.15})

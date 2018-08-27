@@ -110,7 +110,7 @@ into account. The vertical heat flow is assumed to be zero.
 <ul>
 <li>
 July 2018, by Alex Laferri&egrave;re:<br/>
-Following major changes to the structure of the GroundHeatExchangers package,
+Following major changes to the structure of the IBPSA.Fluid.HeatExchangers.Ground package,
 the documentation has been changed to reflect the new role of this model.
 Additionally, this model now extends a partial borehole model.
 </li>

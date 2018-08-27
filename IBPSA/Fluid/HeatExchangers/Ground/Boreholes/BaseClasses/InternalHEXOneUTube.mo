@@ -161,7 +161,7 @@ International Journal Of Energy Research, 35:312-320, 2011.
 <ul>
 <li>
 July 10, 2018, by Alex Laferri&egrave;re:<br/>
-Updated documentation following major changes to the GroundHeatExchangers package.
+Updated documentation following major changes to the IBPSA.Fluid.HeatExchangers.Ground package.
 Additionally, implemented a partial InternalHex model.
 </li>
 <li>

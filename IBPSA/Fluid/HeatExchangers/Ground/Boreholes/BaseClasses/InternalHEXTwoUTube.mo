@@ -157,8 +157,8 @@ initial equation
       printDebug=false);
 
 equation
-  assert(borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel
-     or borFieDat.conDat.borCon == GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeSeries,
+  assert(borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel
+     or borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeSeries,
     "This model should be used for double U-type borefield, not single U-type. 
   Check that the conDat record has been correctly parametrized");
   connect(RVol1.y, RConv1.Rc) annotation (Line(
@@ -255,7 +255,7 @@ International Journal Of Energy Research, 35:312-320, 2011.
 <ul>
 <li>
 July 10, 2018, by Alex Laferri&egrave;re:<br/>
-Updated documentation following major changes to the GroundHeatExchangers package.
+Updated documentation following major changes to the IBPSA.Fluid.HeatExchangers.Ground package.
 Additionally, implemented a partial InternalHex model.
 <li>
 June 18, 2014, by Michael Wetter:<br/>

@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.Ground;
-package Examples "Example models for GroundHeatExchangers"
+package Examples "Example models for IBPSA.Fluid.HeatExchangers.Ground"
 extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
