@@ -29,7 +29,7 @@ model Analytic_20Years
       "Borefield parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  GroundHeatTransfer.GroundTemperatureResponse groTemRes(
+  IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.GroundTemperatureResponse groTemRes(
     tLoaAgg=3600,
     nCel=5,
     borFieDat=borFieDat,
@@ -67,8 +67,7 @@ model Analytic_20Years
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     fileName=Modelica.Utilities.Files.loadResource(
       "modelica://IBPSA/Resources/Data/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Analytic_20Years.txt"),
-    y(
-      each unit="K",
+    y(each unit="K",
       each displayUnit="degC"))
       "Table for resulting wall temperature using FFT and linearly interpolated"
     annotation (Placement(transformation(extent={{80,-40},{60,-20}})));

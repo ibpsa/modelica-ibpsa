@@ -54,7 +54,7 @@ model FiniteDifference_1Week
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo1
     "Prescribed heat flow to soil for the analytical model"
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
-  GroundHeatTransfer.GroundTemperatureResponse groTemRes(
+  IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.GroundTemperatureResponse groTemRes(
     borFieDat=borFieDat,
     nCel=5,
     tLoaAgg=30) "Heat conduction in the soil"

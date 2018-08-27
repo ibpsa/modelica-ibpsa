@@ -7,7 +7,7 @@ model Cylindrical
     "Initial soil temperature";
   parameter Ground.Data.BorefieldData.Template borFieDat=
     IBPSA.Fluid.HeatExchangers.Ground.Validation.BaseClasses.SandBox_Borefield()
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Cylindrical soi(
     final steadyStateInitial=false,

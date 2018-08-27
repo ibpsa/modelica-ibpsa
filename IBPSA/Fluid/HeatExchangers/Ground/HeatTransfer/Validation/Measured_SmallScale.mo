@@ -5,14 +5,14 @@ model Measured_SmallScale
 
   parameter Real sizFac=375.0 "Scaling factor of the experiment";
   parameter IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.BaseClasses.SmallScale_Borefield
-    borFieDat   "Borefield parameters"
+    borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  GroundHeatTransfer.GroundTemperatureResponse groTemRes(
+  IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.GroundTemperatureResponse groTemRes(
     nCel=5,
     borFieDat=borFieDat,
     forceGFunCalc=true,
-    tLoaAgg=360000)     "Ground temperature response of borehole"
+    tLoaAgg=360000) "Ground temperature response of borehole"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
@@ -21,7 +21,8 @@ model Measured_SmallScale
   Modelica.Blocks.Sources.CombiTimeTable meaDat(
     tableOnFile=true,
     timeScale=sizFac^2,
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/Data/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Cimmino_Bernier_2015_SmallScale.txt"),
+    fileName=Modelica.Utilities.Files.loadResource(
+      "modelica://IBPSA/Resources/Data/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Cimmino_Bernier_2015_SmallScale.txt"),
     columns={2,3,4,5,6,7,8,9},
     tableName="data",
     offset={0,0,0,273.15,273.15,273.15,273.15,273.15})
@@ -41,7 +42,7 @@ model Measured_SmallScale
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
   Modelica.Blocks.Math.Gain scaFac(k=sizFac)
-                                          "Scaling factor of the experiment"
+    "Scaling factor of the experiment"
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
 equation
   connect(preHeaFlo.port, groTemRes.borWall)
