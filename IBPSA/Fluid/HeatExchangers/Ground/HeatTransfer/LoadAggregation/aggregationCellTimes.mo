@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation;
 function aggregationCellTimes
   "Function which builds the time and cell width vectors for aggregation"
   extends Modelica.Icons.Function;

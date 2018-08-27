@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors;
 function finiteLineSource_Integrand
   "Integrand function for finite line source evaluation"
   extends Modelica.Icons.Function;
@@ -19,26 +19,26 @@ protected
 algorithm
   if includeRealSource then
     f := sum({
-      +IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
+      +IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
        (burDep2 - burDep1 + len2)*u),
-      -IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
+      -IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
        (burDep2 - burDep1)*u),
-      +IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
+      +IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
        (burDep2 - burDep1 - len1)*u),
-      -IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
+      -IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
        (burDep2 - burDep1 + len2 - len1)*u)});
   else
     f := 0;
   end if;
   if includeMirrorSource then
     f := f + sum({
-      +IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
+      +IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
       (burDep2 + burDep1 + len2)*u),
-      -IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
+      -IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
       (burDep2 + burDep1)*u),
-      +IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
+      +IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
       (burDep2 + burDep1 + len1)*u),
-      -IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
+      -IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(
       (burDep2 + burDep1 + len2 + len1)*u)});
   end if;
 
@@ -48,8 +48,8 @@ annotation (
 Documentation(info="<html>
 <p>
 Integrand of the cylindrical heat source solution for use in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource\">
+IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource</a>.
 </p>
 </html>", revisions="<html>
 <ul>

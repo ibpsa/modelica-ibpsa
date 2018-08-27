@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.Examples;
 model InfiniteLineSource "Test case for infinite line source"
   extends Modelica.Icons.Example;
 
@@ -14,12 +14,12 @@ equation
   t = exp(time) - 1.0;
 
   for k in 1:5 loop
-    E[k] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.infiniteLineSource(t, aSoi, r[k]);
+    E[k] = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.infiniteLineSource(t, aSoi, r[k]);
   end for;
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/ThermalResponseFactors/Examples/InfiniteLineSource.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/ThermalResponseFactors/Examples/InfiniteLineSource.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=15.0),
     Documentation(info="<html>

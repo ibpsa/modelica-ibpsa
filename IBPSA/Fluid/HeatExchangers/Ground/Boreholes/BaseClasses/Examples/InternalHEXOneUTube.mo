@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Examples;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Examples;
 model InternalHEXOneUTube
   "Comparison of the effective borehole thermal resistance  from the thermal network of Bauer et al. with the resistance calculated by singleUTubeResistances (ref)"
   extends Modelica.Icons.Example;
@@ -9,7 +9,7 @@ model InternalHEXOneUTube
     "Length of the internal heat exchanger";
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalHEXOneUTube
+  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalHEXOneUTube
     intHex(
     redeclare package Medium = Medium,
     hSeg=hSeg,
@@ -51,9 +51,9 @@ model InternalHEXOneUTube
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
   Modelica.Blocks.Math.Add error(k2=-1)
     annotation (Placement(transformation(extent={{22,-70},{42,-50}})));
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Example
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Example
     borFieDat(conDat=
-        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
+        IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Example(
         use_Rb=false))
     "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -85,7 +85,7 @@ equation
             -100},{100,100}})),
     experiment(StopTime=100000, Tolerance=1e-6),
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Examples/InternalHEXOneUTube.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/Boreholes/BaseClasses/Examples/InternalHEXOneUTube.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This example simulates the interior thermal behavior of a single U-tube borehole segment.

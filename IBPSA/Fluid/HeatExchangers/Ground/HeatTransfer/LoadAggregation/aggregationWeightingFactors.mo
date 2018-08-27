@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation;
 function aggregationWeightingFactors
   "Calculates the kappa vector for load aggregation"
   extends Modelica.Icons.Function;

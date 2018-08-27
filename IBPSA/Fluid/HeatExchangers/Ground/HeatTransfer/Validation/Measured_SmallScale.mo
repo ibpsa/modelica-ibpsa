@@ -1,10 +1,10 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation;
-model GroundTemperatureResponse_SmallScaleValidation
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation;
+model Measured_SmallScale
   "Long term validation of ground temperature response model using the small scale experiment of Cimmino and Bernier (2015)"
   extends Modelica.Icons.Example;
 
   parameter Real sizFac=375.0 "Scaling factor of the experiment";
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SmallScale_validation
+  parameter IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.BaseClasses.SmallScale_Borefield
     borFieDat   "Borefield parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
@@ -61,7 +61,7 @@ equation
   connect(meaDat.y[8], groTemRes.TSoi) annotation (Line(points={{59,10},{56,10},
           {56,40},{-58,40},{-58,10},{-42,10}},         color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=85050000000.0),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/GroundTemperatureResponse_SmallScaleValidation.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Measured_SmallScale.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
@@ -101,4 +101,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end GroundTemperatureResponse_SmallScaleValidation;
+end Measured_SmallScale;

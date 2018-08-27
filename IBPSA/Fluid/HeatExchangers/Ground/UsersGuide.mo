@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers;
+within IBPSA.Fluid.HeatExchangers.Ground;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
@@ -8,9 +8,9 @@ package UsersGuide "User's Guide"
 This package contains borefield models. These models are able to simulate any arbitrary configuration of boreholes with both short and 
 long-term accuracy with an aggregation method to speed up the calculations of the ground heat transfer. Examples
 of how to use the borefield models and validation cases can be found in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Examples\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Examples</a>
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Examples\">IBPSA.Fluid.HeatExchangers.Ground.Examples</a>
 and
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Validation\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Validation</a>,
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Validation\">IBPSA.Fluid.HeatExchangers.Ground.Validation</a>,
 respectively.
 </p>
 <p>
@@ -34,13 +34,13 @@ depth, as the ground temperature response model only computes the average boreho
 Most of the parameter values of the model are contained in the record called <b><i>borFieDat</i></b>. This record is composed of three subrecords:
 <i>filDat</i> (containing the thermal characteristics of the borehole filling material), <i>soiDat</i> (containing the thermal characteristics of the surrounding soil), 
 and <i>conDat</i> (containing all others parameters, namely parameters defining the configuration of the borefield). The structure and default values of the record are in the package: 
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data</a>. The <b><i>borFieDat</i></b> record
-can be found in the <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData\">BorefieldData</a> subpackage therein.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data\">IBPSA.Fluid.HeatExchangers.Ground.Data</a>. The <b><i>borFieDat</i></b> record
+can be found in the <a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData\">BorefieldData</a> subpackage therein.
 Examples of the subrecords (<i>conDat</i>, <i>filDat</i> and <i>soiDat</i>) 
 can be found in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData</a>,
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData</a> and 
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData</a>, respectively.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData\">IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData</a>,
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.FillingData\">IBPSA.Fluid.HeatExchangers.Ground.Data.FillingData</a> and 
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData\">IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData</a>, respectively.
 </p>
 <p>
 It is important to make sure that the <i>borCon</i> parameter within the <i>conDat</i> subrecord is compatible with the chosen borefield model. For example, if a double U-tube
@@ -65,7 +65,7 @@ computation time. The default value is chosen as a compromise between the two.
 <p>
 Further information on the <i>tLoaAgg</i> and <i>nCel</i> parameters can
 be found in the documentation of
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.GroundTemperatureResponse</a>.
 </p>
 <h5>Other parameters</h5>
 <p>
@@ -106,7 +106,7 @@ to <code>false</code>.
 The figure below shows an example for a borehole section with in a single U-tube configuration.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/BoreholeResistances_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/BoreholeResistances_01.png\" />
 </p>
 <p>
 The second main part of the borefield models is the ground heat transfer, which shares a thermal boundary
@@ -115,7 +115,7 @@ is modeled analytically as a convolution integral between the heat flux at the b
 and the borefield's thermal response factor <i>h</i>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_12.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_12.png\" />
 </p>
 <p>
 The model uses a load aggregation technique to reduce the time required to calculate
@@ -130,9 +130,9 @@ is stored in the <i>.BfData</i> subdirectory, as discussed previously in the
 &#34;How to use the borefield models&#34; section. Further information on the
 ground heat transfer model and the thermal temperature response calculations can
 be found in the documentations of
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.GroundTemperatureResponse</a>
 and
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.gFunction\">IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.gFunction</a>.
 </p>
 <h4>References</h4>
 <p>

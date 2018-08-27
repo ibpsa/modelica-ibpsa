@@ -1,8 +1,8 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData;
-record SmallScale_validation
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.BaseClasses;
+record SmallScale_Configuration
   "Configuration data record for the Cimmino and Bernier (2015) experiment"
   extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Template(
+    IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Template(
       borCon = Types.BoreholeConfiguration.SingleUTube,
       nBor=1,
       cooBor={{0,0}},
@@ -46,4 +46,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SmallScale_validation;
+end SmallScale_Configuration;

@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.Examples;
 model GFunction_100boreholes
   "g-Function calculation for a field of 10 by 10 boreholes"
   extends Modelica.Icons.Example;
@@ -34,7 +34,7 @@ model GFunction_100boreholes
 initial equation
   // Evaluate g-function for the specified bore field configuration
   (tGFun,gFun) =
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction(
+    IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.gFunction(
       nBor = nBor,
       cooBor = cooBor,
       hBor = hBor,
@@ -78,7 +78,7 @@ equation
   end when;
 
    annotation(experiment(Tolerance=1e-6, StopTime=3.7e11),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/ThermalResponseFactors/Examples/GFunction_100boreholes.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/ThermalResponseFactors/Examples/GFunction_100boreholes.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>

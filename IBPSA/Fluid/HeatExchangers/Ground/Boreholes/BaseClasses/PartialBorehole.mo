@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses;
 partial model PartialBorehole
   "Partial model to implement multi-segment boreholes"
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;

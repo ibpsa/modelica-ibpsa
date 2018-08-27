@@ -1,8 +1,8 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses;
 model InternalHEXOneUTube
   "Internal heat exchanger of a borehole for a single U-Tube configuration"
   extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.PartialInternalHEX;
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.PartialInternalHEX;
   extends IBPSA.Fluid.Interfaces.FourPortHeatMassExchanger(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -30,7 +30,7 @@ protected
 
 public
   Modelica.Blocks.Sources.RealExpression RVol1(y=
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
@@ -42,7 +42,7 @@ public
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-100,-2},{-80,18}})));
   Modelica.Blocks.Sources.RealExpression RVol2(y=
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
@@ -54,7 +54,7 @@ public
     "Convective and thermal resistance at fluid 2"
     annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
 
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalResistancesOneUTube
+  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalResistancesOneUTube
     intResUTub(
       dynFil=dynFil,
       hSeg=hSeg,
@@ -78,7 +78,7 @@ public
         origin={0,28})));
 initial equation
   (x, Rgb_val, Rgg_val, RCondGro_val) =
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesOneUTube(
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.internalResistancesOneUTube(
       hSeg=hSeg,
       rBor=borFieDat.conDat.rBor,
       rTub=borFieDat.conDat.rTub,
@@ -96,7 +96,7 @@ initial equation
       printDebug=false);
 
 equation
-    assert(borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.SingleUTube,
+    assert(borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.SingleUTube,
   "This model should be used for single U-type borefield, not double U-type. 
   Check that the conDat record has been correctly parametrized");
   connect(RVol2.y, RConv2.Rc) annotation (Line(points={{-79,-8},{-60,-8},{-40,

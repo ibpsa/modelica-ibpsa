@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Examples;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Examples;
 model InternalResistancesOneUTube "Validation of InternalResistancesOneUTube"
   extends Modelica.Icons.Example;
 
@@ -11,7 +11,7 @@ model InternalResistancesOneUTube "Validation of InternalResistancesOneUTube"
   parameter Modelica.SIunits.ThermalResistance RCondGro_val=0.14285 "Pipe to grout node thermal resistance";
   parameter Modelica.SIunits.Temperature T_start=298.15 "Initial temperature";
 
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalResistancesOneUTube
+  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalResistancesOneUTube
     intRes1UTub(
     hSeg=hSeg,
     T_start=T_start,
@@ -37,9 +37,9 @@ model InternalResistancesOneUTube "Validation of InternalResistancesOneUTube"
     offset=T_start)
                    "Temperature ramp of pipe 1"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Example
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Example
     borFieDat(conDat=
-        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
+        IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Example(
         use_Rb=false))
     "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -56,12 +56,12 @@ equation
   annotation (
   experiment(StopTime=3600, Tolerance=1e-6),
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Examples/InternalResistancesOneUTube.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/Boreholes/BaseClasses/Examples/InternalResistancesOneUTube.mos"
         "Simulate and plot"),
   Documentation(info="<html>
   This example tests the implementation of
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalResistancesOneUTube\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalResistancesOneUTube</a>
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalResistancesOneUTube\">
+IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalResistancesOneUTube</a>
 for the dynamic behavior of the filling material in a single U-tube borehole.
 </html>", revisions="<html>
 <ul>

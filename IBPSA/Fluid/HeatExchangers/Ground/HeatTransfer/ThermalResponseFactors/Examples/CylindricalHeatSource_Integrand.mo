@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.Examples;
 model CylindricalHeatSource_Integrand
   "Test case for cylindrical heat source integrand function"
   extends Modelica.Icons.Example;
@@ -11,7 +11,7 @@ model CylindricalHeatSource_Integrand
 equation
   u = time;
   for k in 1:4 loop
-    y[k] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource_Integrand(
+    y[k] = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.cylindricalHeatSource_Integrand(
       u = u,
       Fo = Fo,
       p = p[k]);
@@ -19,7 +19,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/ThermalResponseFactors/Examples/CylindricalHeatSource_Integrand.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/ThermalResponseFactors/Examples/CylindricalHeatSource_Integrand.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StartTime=0.01, StopTime=15.0),
     Documentation(info="<html>

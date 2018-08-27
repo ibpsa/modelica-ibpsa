@@ -1,8 +1,8 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData;
-record SmallScale_validation
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.BaseClasses;
+record SmallScale_Soil
   "Soil data record for the Cimmino and Bernier (2015) experiment"
   extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData.Template(
+    IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData.Template(
       kSoi=0.262,
       cSoi=745,
       dSoi=1750);
@@ -33,4 +33,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SmallScale_validation;
+end SmallScale_Soil;

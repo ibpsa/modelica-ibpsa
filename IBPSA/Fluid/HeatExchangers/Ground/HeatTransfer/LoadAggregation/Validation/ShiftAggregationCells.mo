@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.Validation;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.Validation;
 model ShiftAggregationCells "This validation case test the cell shifting procedure"
   extends Modelica.Icons.Example;
 
@@ -12,7 +12,7 @@ initial equation
 
 equation
   when (sample(4, 1)) then
-    (curCel,QAggShi_flow) = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.shiftAggregationCells(
+    (curCel,QAggShi_flow) = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.shiftAggregationCells(
         i=5,
         QAgg_flow=pre(QAggShi_flow),
         rCel={1,1,1,2,2},
@@ -21,14 +21,14 @@ equation
   end when;
 
 annotation (experiment(StartTime=3.5,StopTime=5.5,Tolerance=1e-6),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/LoadAggregation/Validation/ShiftAggregationCells.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/LoadAggregation/Validation/ShiftAggregationCells.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
 This validation case replicates the load-shifting procedure illustred in the figure below by Cimmino (2014).
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_01.png\" />
 </p>
 <h4>References</h4>
 <p>

@@ -1,9 +1,9 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation;
-model GroundTemperatureResponse_20Years
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation;
+model Analytic_20Years
   "Long term validation of ground temperature response model"
   extends Modelica.Icons.Example;
 
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Template
     borFieDat(conDat(
       borCon=Types.BoreholeConfiguration.SingleUTube,
       nBor=1,
@@ -89,7 +89,7 @@ equation
     annotation (Line(points={{-22,10},{-39,10}}, color={0,0,127}));
 
   annotation (experiment(StopTime=630720000,Tolerance=1e-6),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/GroundTemperatureResponse_20Years.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Analytic_20Years.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
@@ -100,8 +100,8 @@ the resulting borehole wall temperature and the same temperature precalculated
 by using a fast Fourier transform is calculated with the <code>add</code>
 component. The fast Fourier transform calculation was done using the same
 g-function as was calculated by
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.gFunction\">
+IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.gFunction</a>.
 </p>
 <h4>References</h4>
 <p>
@@ -117,4 +117,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end GroundTemperatureResponse_20Years;
+end Analytic_20Years;

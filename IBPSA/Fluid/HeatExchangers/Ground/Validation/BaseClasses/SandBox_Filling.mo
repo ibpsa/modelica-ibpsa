@@ -1,8 +1,8 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData;
-record SandBox_validation
+within IBPSA.Fluid.HeatExchangers.Ground.Validation.BaseClasses;
+record SandBox_Filling
   "Filling data record for the Beier et al. (2011) experiment"
   extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData.Template(
+    IBPSA.Fluid.HeatExchangers.Ground.Data.FillingData.Template(
       kFil=0.73,
       dFil=1900,
       cFil=2000);
@@ -34,4 +34,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SandBox_validation;
+end SandBox_Filling;

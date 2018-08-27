@@ -1,15 +1,15 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation;
-model CylindricalGroundLayer
-  "Comparison of the CylindricalGroundLayer with the GroundTemperatureResponse"
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation;
+model Cylindrical
+  "Comparison of the Cylindrical with the GroundTemperatureResponse"
   extends Modelica.Icons.Example;
 
   parameter Modelica.SIunits.Temperature T_start = 295.15
     "Initial soil temperature";
-  parameter Data.BorefieldData.Template borFieDat=
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation()
+  parameter Ground.Data.BorefieldData.Template borFieDat=
+    IBPSA.Fluid.HeatExchangers.Ground.Validation.BaseClasses.SandBox_Borefield()
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer soi(
+  IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Cylindrical soi(
     final steadyStateInitial=false,
     final soiDat=borFieDat.soiDat,
     final h=1,
@@ -45,14 +45,14 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/Validation/CylindricalGroundLayer.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Cylindrical.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=360000.0),
     Documentation(info="<html>
 <p>
 This example demonstrates the use of
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.CylindricalGroundLayer</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Cylindrical\">
+IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Cylindrical</a>.
 </p>
 <p>
 After a short delay, a constant heat flow rate is applied to the inner surface
@@ -67,4 +67,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CylindricalGroundLayer;
+end Cylindrical;

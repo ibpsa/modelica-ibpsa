@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.Validation;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.Validation;
 model AggregationWeightingFactors
   "This validation case verifies the calculation of the weighting factors kappa"
   extends Modelica.Icons.Example;
@@ -15,14 +15,14 @@ model AggregationWeightingFactors
     "Weight factor for each aggregation cell";
 
 equation
-  kappa = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.aggregationWeightingFactors(
+  kappa = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.aggregationWeightingFactors(
     i=10,
     nTimTot=6,
     TStep=timSer,
     nu=cat(1,linspace(0.4,2,5),linspace(2.8,6,5)));
 
 annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/LoadAggregation/Validation/AggregationWeightingFactors.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/LoadAggregation/Validation/AggregationWeightingFactors.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>

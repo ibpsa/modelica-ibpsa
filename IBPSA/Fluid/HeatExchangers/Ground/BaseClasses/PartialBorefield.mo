@@ -1,5 +1,5 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses;
-partial model partialBorefield
+within IBPSA.Fluid.HeatExchangers.Ground.BaseClasses;
+partial model PartialBorefield
   "Borefield model using single U-tube borehole heat exchanger configuration.Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
 
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
@@ -22,24 +22,24 @@ partial model partialBorefield
     annotation (Dialog(tab="Advanced"));
 
   // General parameters of borefield
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template borFieDat "Borefield data"
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Template borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   parameter Boolean dynFil=true
     "Set to false to remove the dynamics of the filling material."
     annotation (Dialog(tab="Dynamics"));
 
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.MassFlowRateMultiplier masFloDiv(
+  IBPSA.Fluid.HeatExchangers.Ground.BaseClasses.MassFlowRateMultiplier masFloDiv(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
     k=borFieDat.conDat.nBor) "Division of flow rate"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.MassFlowRateMultiplier masFloMul(
+  IBPSA.Fluid.HeatExchangers.Ground.BaseClasses.MassFlowRateMultiplier masFloMul(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
     k=borFieDat.conDat.nBor) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse groTemRes(
+  IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.GroundTemperatureResponse groTemRes(
     tLoaAgg=tLoaAgg,
     nCel=nCel,
     borFieDat=borFieDat,
@@ -56,8 +56,8 @@ partial model partialBorefield
   Modelica.Blocks.Interfaces.RealInput TSoi
     "Temperature input for undisturbed ground conditions"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  replaceable Boreholes.BaseClasses.PartialBorehole borHol constrainedby
-    Boreholes.BaseClasses.PartialBorehole(
+  replaceable Ground.Boreholes.BaseClasses.PartialBorehole borHol constrainedby
+    Ground.Boreholes.BaseClasses.PartialBorehole(
     redeclare package Medium = Medium,
     borFieDat=borFieDat,
     nSeg=nSeg,
@@ -183,7 +183,7 @@ between each pipe and the borehole wall.
 </p>
 <p>
 The thermal interaction between the borehole wall and the surrounding soil
-is modeled using <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.GroundTemperatureResponse</a>,
+is modeled using <a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.GroundTemperatureResponse</a>,
 which uses a cell-shifting load aggregation technique to calculate the borehole wall
 temperature after calculating and/or read (from a previous calculation) the borefield's thermal response factor.
 </p>
@@ -200,4 +200,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end partialBorefield;
+end PartialBorefield;

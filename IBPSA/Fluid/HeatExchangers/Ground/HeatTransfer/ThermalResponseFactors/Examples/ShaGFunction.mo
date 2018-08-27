@@ -1,11 +1,11 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.Examples;
 model ShaGFunction
   "Verifies the SHA-1 encryption of a single borehole"
   extends Modelica.Icons.Example;
 
   //Input
   parameter String strIn=
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.shaGFunction(
+    IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.shaGFunction(
     1,
     {{0,0}},
     150,
@@ -29,7 +29,7 @@ equation
   cmp = Modelica.Utilities.Strings.isEqual(strIn,strEx,false);
 
 annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/ThermalResponseFactors/Examples/ShaGFunction.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/ThermalResponseFactors/Examples/ShaGFunction.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>

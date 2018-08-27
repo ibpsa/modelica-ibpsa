@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.Examples;
 model FiniteLineSource_Integrand
   "Test case for finite line source integrand function"
   extends Modelica.Icons.Example;
@@ -13,7 +13,7 @@ model FiniteLineSource_Integrand
 
 equation
   u = time;
-  y = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
+  y = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
     u=u,
     dis=dis,
     len1=len1,
@@ -23,7 +23,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/ThermalResponseFactors/Examples/FiniteLineSource_Integrand.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/ThermalResponseFactors/Examples/FiniteLineSource_Integrand.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StartTime=0.01, StopTime=15.0),
     Documentation(info="<html>

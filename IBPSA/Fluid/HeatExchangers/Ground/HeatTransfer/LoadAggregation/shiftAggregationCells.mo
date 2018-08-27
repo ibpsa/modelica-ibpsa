@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation;
 function shiftAggregationCells
   "Performs the shifting operation for load aggregation and determines the current cell"
   extends Modelica.Icons.Function;

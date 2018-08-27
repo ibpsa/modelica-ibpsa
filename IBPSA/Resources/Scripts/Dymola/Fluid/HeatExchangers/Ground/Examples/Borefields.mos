@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Examples.Borefields", startTime=0, method="dassl", tolerance=1e-6, stopTime=36000, resultFile="Borefields");
+simulateModel("IBPSA.Fluid.HeatExchangers.Ground.Examples.Borefields", startTime=0, method="dassl", tolerance=1e-6, stopTime=36000, resultFile="Borefields");
 removePlots();
 createPlot(
   id=1,

@@ -1,8 +1,8 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData;
+within IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData;
 record SandStone
   "Soil data record of sandstone heat transfer properties"
   extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData.Template(
+    IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData.Template(
     kSoi=2.8,
     dSoi=540,
     cSoi=1210);

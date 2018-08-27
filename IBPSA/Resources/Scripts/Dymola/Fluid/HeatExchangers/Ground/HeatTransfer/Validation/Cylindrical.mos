@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation.CylindricalGroundLayer", startTime=0, stopTime=360000.0, tolerance=1E-6, method="dassl", resultFile="CylindricalGroundLayer");
+simulateModel("IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.Cylindrical", startTime=0, stopTime=360000.0, tolerance=1E-6, method="dassl", resultFile="Cylindrical");
 
 createPlot(
   id   = 1,
@@ -10,6 +10,6 @@ createPlot(
   autoreplot = true, 
   grid=true,
   color=true,
-  filename="CylindricalGroundLayer.mat", 
+  filename="Cylindrical.mat", 
   leftTitleType = 1,
   bottomTitleType = 1);

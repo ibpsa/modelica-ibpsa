@@ -1,5 +1,5 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Validation;
-model SandboxValidation "Validation of BorefieldOneUTube based on the experiment of Beier et al. (2011)"
+within IBPSA.Fluid.HeatExchangers.Ground.Validation;
+model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier et al. (2011)"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Water;
 
@@ -37,7 +37,7 @@ model SandboxValidation "Validation of BorefieldOneUTube based on the experiment
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     tau=0)           "Outlet temperature of the borefield"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SandBox_validation borFieDat "Borefield data"
+  IBPSA.Fluid.HeatExchangers.Ground.Validation.BaseClasses.SandBox_Borefield borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   IBPSA.Fluid.Sources.Boundary_ph sin(redeclare package Medium =
         Medium, nPorts=1) "Sink"
@@ -87,7 +87,7 @@ equation
           -26,-50.4},{-14.6,-50.4}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=186360),
   __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Validation/SandboxValidation.mos"
+          "Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/Validation/Sandbox.mos"
         "Simulate and Plot"),
 Documentation(info="<html>
 <p>
@@ -128,4 +128,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SandboxValidation;
+end Sandbox;

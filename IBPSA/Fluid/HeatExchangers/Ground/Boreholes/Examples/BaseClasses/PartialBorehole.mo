@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples.BaseClasses;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.Examples.BaseClasses;
 partial model PartialBorehole "Partial model for borehole example models"
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
@@ -8,7 +8,7 @@ partial model PartialBorehole "Partial model for borehole example models"
     "Initial soil temperature";
 
   replaceable
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.PartialBorehole
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.PartialBorehole
     borHol(
     redeclare package Medium = Medium,
     borFieDat=borFieDat,
@@ -35,7 +35,7 @@ partial model PartialBorehole "Partial model for borehole example models"
     p=101330,
     T=283.15) "Sink" annotation (Placement(transformation(extent={{90,-12},{70,
             8}},  rotation=0)));
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Example
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Example
     borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn(m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
@@ -73,8 +73,8 @@ equation
   annotation(Documentation(info="<html>
 <p>
 This partial model is used for examples using boreholes models which extend
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.partialBorehole\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.partialBorehole</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Boreholes.partialBorehole\">
+IBPSA.Fluid.HeatExchangers.Ground.Boreholes.partialBorehole</a>.
 </p>
 </html>", revisions="<html>
 <ul>

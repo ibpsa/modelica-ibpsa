@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.Validation;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.Validation;
 model ConvectionResistanceCircularPipe
   "Validation of the correlation used to evaluate the convection resistance in circular pipes"
   extends Modelica.Icons.Example;
@@ -25,7 +25,7 @@ equation
 
   Re = time;
   Re = 2*m_flow/(muMed*Modelica.Constants.pi*(rTub-eTub));
-  RConv = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+  RConv = IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
     hSeg=hSeg,
     rTub=rTub,
     eTub=eTub,
@@ -38,13 +38,13 @@ equation
 
   annotation (experiment(Tolerance=1e-6, StopTime=10000.0),
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Functions/Validation/ConvectionResistanceCircularPipe.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/Boreholes/BaseClasses/Functions/Validation/ConvectionResistanceCircularPipe.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates the implementation of
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe</a>
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe\">
+IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe</a>
 for the evaluation of the convection thermal resistance in circular pipes.
 </p>
 <p>

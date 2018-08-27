@@ -1,8 +1,8 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData;
-record SandBox_validation
+within IBPSA.Fluid.HeatExchangers.Ground.Validation.BaseClasses;
+record SandBox_Configuration
   "Configuration data record for the Beier et al. (2011) experiment"
   extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Template(
+    IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Template(
       borCon = Types.BoreholeConfiguration.SingleUTube,
       use_Rb=true,
       Rb=0.165,
@@ -46,4 +46,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SandBox_validation;
+end SandBox_Configuration;

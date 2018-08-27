@@ -1,10 +1,10 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer;
 model GroundTemperatureResponse "Model calculating discrete load aggregation"
   parameter Modelica.SIunits.Time tLoaAgg=3600 "Time resolution of load aggregation";
   parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether it has been pre-computed";
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Template borFieDat
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Template borFieDat
     "Record containing all the parameters of the borefield model" annotation (
      choicesAllMatching=true, Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
@@ -25,7 +25,7 @@ protected
   constant Real lvlBas = 2 "Base for exponential cell growth between levels";
 
   parameter String SHAgfun=
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.shaGFunction(
+    IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.shaGFunction(
       nBor=borFieDat.conDat.nBor,
       cooBor=borFieDat.conDat.cooBor,
       hBor=borFieDat.conDat.hBor,
@@ -40,7 +40,7 @@ protected
     (borFieDat.conDat.hBor^2/(9*borFieDat.soiDat.aSoi))*ttsMax
     "Final time for g-function calculation";
   parameter Integer i(min=1)=
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.countAggregationCells(
+    IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.countAggregationCells(
       lvlBas=lvlBas,
       nCel=nCel,
       timFin=timFin,
@@ -85,7 +85,7 @@ initial equation
   delTBor_old = 0;
   derDelTBor0 = 0;
 
-  (nu,rCel) = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.aggregationCellTimes(
+  (nu,rCel) = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.aggregationCellTimes(
     i=i,
     lvlBas=lvlBas,
     nCel=nCel,
@@ -94,7 +94,7 @@ initial equation
 
   t_start = time;
 
-  kappa = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.aggregationWeightingFactors(
+  kappa = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.aggregationWeightingFactors(
     i=i,
     nTimTot=nTimTot,
     TStep=timSer,
@@ -103,7 +103,7 @@ initial equation
   dhdt = kappa[1]/tLoaAgg;
 
   timSer =
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.temperatureResponseMatrix(
+    IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.temperatureResponseMatrix(
       nBor=borFieDat.conDat.nBor,
       cooBor=borFieDat.conDat.cooBor,
       hBor=borFieDat.conDat.hBor,
@@ -132,7 +132,7 @@ equation
     // Store (U - pre(U_old))/tLoaAgg in QAgg_flow[1], and pre(QAggShi_flow) in the other elements
     QAgg_flow = cat(1, {(U - pre(U_old))/tLoaAgg}, pre(QAggShi_flow[2:end]));
     // Shift loads in aggregation cells
-    (curCel,QAggShi_flow) = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.shiftAggregationCells(
+    (curCel,QAggShi_flow) = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.shiftAggregationCells(
       i=i,
       QAgg_flow=QAgg_flow,
       rCel=rCel,
@@ -141,7 +141,7 @@ equation
 
     // Determine the temperature change at the next aggregation step (assuming
     // no loads until then)
-    delTBor0 = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.temporalSuperposition(
+    delTBor0 = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.temporalSuperposition(
       i=i,
       QAgg_flow=QAggShi_flow,
       kappa=kappa,
@@ -207,7 +207,7 @@ cells. To determine <code>nu</code>, cells have a temporal size <i>r<sub>cel</su
 which follows the exponential growth
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_02.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_02.png\" />
 </p>
 <p>
 where <i>n<sub>Cel</sub></i> is the number of consecutive cells which can have the same size.
@@ -222,7 +222,7 @@ To determine the weighting factors, the borefield's temperature
 step response at the borefield wall is determined as
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_03.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_03.png\" />
 </p>
 <p>
 where <i>g(&middot;)</i> is the borefield's thermal response factor known as the <em>g-function</em>,
@@ -231,7 +231,7 @@ conductivity of the soil. The weighting factors <code>kappa</code> (<i>&kappa;</
 for a given cell <i>i</i> are then expressed as follows.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_04.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_04.png\" />
 </p>
 <p>
 where <i>&nu;</i> refers to the vector <code>nu</code> in this model and
@@ -243,7 +243,7 @@ First, the thermal load is shifted. When shifting between cells of different siz
 energy is conserved. This operation is illustred in the figure below by Cimmino (2014).
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_01.png\" />
 </p>
 <p>
 After the cell-shifting operation is performed, the first aggregation cell has its
@@ -258,9 +258,9 @@ the thermal response between the current aggregation time step and everything pr
 This is done according to
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_05.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_05.png\" />
 <br/>
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_06.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_06.png\" />
 </p>
 <p>
 where <i>T<sub>b</sub></i> is the borehole wall temperature,
@@ -287,7 +287,7 @@ is constant over the duration of the ongoing aggregation time step) and the tota
 temperature change at the last aggregation time step, <i>&Delta;T<sub>b</sub>(t)</i>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_09.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_09.png\" />
 </p>
 <p>
 The second term <i>&Delta;T<sub>b,q</sub>(t)</i> concerns the ongoing aggregation time step.
@@ -303,10 +303,10 @@ calculated once at the start of the simulation) and the heat flow <i>Q</i> at
 the borehole wall.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_10.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_10.png\" />
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_11.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_11.png\" />
 </p>
 <p>
 With the two terms in the expression of <i>&Delta;T<sub>b</sub>(t)</i> expressed
@@ -315,14 +315,14 @@ expressed as its time derivative and implemented as such directly in the Modelic
 equations block with the <code>der()</code> operator.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_07.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_07.png\" />
 <br/>
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/LoadAggregation_08.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_08.png\" />
 </p>
 <p>
 This load aggregation scheme is validated in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation.GroundTemperatureResponse_20Years\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation.GroundTemperatureResponse_20Years</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.Analytic_20Years\">
+IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.Analytic_20Years</a>.
 </p>
 <h4>References</h4>
 <p>

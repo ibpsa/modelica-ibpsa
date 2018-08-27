@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes;
 package BaseClasses "Base classes for Borehole"
 extends Modelica.Icons.BasesPackage;
 

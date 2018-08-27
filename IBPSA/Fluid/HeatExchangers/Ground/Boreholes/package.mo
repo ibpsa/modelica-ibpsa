@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers;
+within IBPSA.Fluid.HeatExchangers.Ground;
 package Boreholes "Package with borehole heat exchangers"
 extends Modelica.Icons.VariantsPackage;
 

@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Examples;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Examples;
 model InternalHEXTwoUTube
   "Comparison of the effective borehole thermal resistance from the thermal network of Bauer et al. with the resistance calculated by doubleUTubeResistances (ref)"
   extends Modelica.Icons.Example;
@@ -9,7 +9,7 @@ model InternalHEXTwoUTube
     "Length of the internal heat exchanger";
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalHEXTwoUTube
+  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalHEXTwoUTube
     intHex(
     redeclare package Medium = Medium,
     hSeg=hSeg,
@@ -63,10 +63,10 @@ model InternalHEXTwoUTube
                                                 redeclare package Medium =
         Medium, m_flow_nominal=borFieDat.conDat.mBor_flow_nominal)
     annotation (Placement(transformation(extent={{16,-22},{28,-10}})));
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.Example
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Example
     borFieDat(conDat=
-        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
-        borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel,
+        IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Example(
+        borCon=IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel,
         use_Rb=false))
     "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -114,7 +114,7 @@ equation
             -100},{100,100}})),
             experiment(StopTime=100000, Tolerance=1e-6),
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Examples/InternalHEXTwoUTube.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/Boreholes/BaseClasses/Examples/InternalHEXTwoUTube.mos"
         "Simulate and plot"),
             Documentation(info="<html>
 This example simulates the interior thermal behavior of a double U-tube borehole segment.

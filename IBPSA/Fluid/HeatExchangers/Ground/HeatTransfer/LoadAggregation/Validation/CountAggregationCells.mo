@@ -1,25 +1,25 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.Validation;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.Validation;
 model CountAggregationCells "This validation case verifies the counting of the required length of aggregation vectors"
   extends Modelica.Icons.Example;
 
   Integer i "Number of aggregation cells";
 
 equation
-  i = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.countAggregationCells(
+  i = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.countAggregationCells(
       lvlBas=2,
       nCel=2,
       timFin=120,
       tLoaAgg=10);
 
 annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/LoadAggregation/Validation/CountAggregationCells.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/LoadAggregation/Validation/CountAggregationCells.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
 This validation case counts the required length of the aggregation vectors for the
 same fictional case as in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.Validation.AggregationCellTimes\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.Validation.AggregationCellTimes</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.Validation.AggregationCellTimes\">
+IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.Validation.AggregationCellTimes</a>.
 </p>
 </html>", revisions="<html>
 <ul>

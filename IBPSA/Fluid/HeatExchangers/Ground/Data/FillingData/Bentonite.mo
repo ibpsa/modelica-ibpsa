@@ -1,8 +1,8 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData;
+within IBPSA.Fluid.HeatExchangers.Ground.Data.FillingData;
 record Bentonite
   "Filling data record of Bentonite heat transfer properties"
   extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData.Template(
+    IBPSA.Fluid.HeatExchangers.Ground.Data.FillingData.Template(
       kFil=1.15,
       dFil=1600,
       cFil=800);

@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions;
 function multipoleFluidTemperature "Fluid temperatures from multipole solution"
   extends Modelica.Icons.Function;
 
@@ -77,7 +77,7 @@ algorithm
     while eps_max > eps and it < it_max loop
       it := it + 1;
       (FRea, FIma) :=
-        IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.multipoleFmk(
+        IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.multipoleFmk(
         nPip,
         J,
         QPip_flow,

@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.Examples.BoreholeDynamics", stopTime=15000, method="dassl", tolerance=1E-6, resultFile="BoreholeDynamics");
+simulateModel("IBPSA.Fluid.HeatExchangers.Ground.Boreholes.Examples.BoreholeDynamics", stopTime=15000, method="dassl", tolerance=1E-6, resultFile="BoreholeDynamics");
 removePlots();
 createPlot(
   id=1,

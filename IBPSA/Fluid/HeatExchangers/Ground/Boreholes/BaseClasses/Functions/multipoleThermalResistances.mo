@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions;
 function multipoleThermalResistances
   "Thermal resistances from multipole solution"
   extends Modelica.Icons.Function;
@@ -32,7 +32,7 @@ algorithm
       end if;
     end for;
     TFlu :=
-      IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.multipoleFluidTemperature(
+      IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.multipoleFluidTemperature(
       nPip,
       J,
       xPip,

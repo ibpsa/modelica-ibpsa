@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Examples;
+within IBPSA.Fluid.HeatExchangers.Ground.Examples;
 model Borefields
   "Example model with several borefield configurations operating simultaneously."
   extends Modelica.Icons.Example;
@@ -7,7 +7,7 @@ model Borefields
   parameter Modelica.SIunits.Time tLoaAgg=300
     "Time resolution of load aggregation";
 
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BorefieldTwoUTube borFie2UTubPar(
+  IBPSA.Fluid.HeatExchangers.Ground.BorefieldTwoUTube borFie2UTubPar(
     redeclare package Medium = Medium,
     borFieDat=borFie2UTubParDat,
     tLoaAgg=tLoaAgg,
@@ -45,14 +45,14 @@ model Borefields
     tau=0)
     "Outlet temperature of the borefield with 2-UTube in parallel configuration"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Data.BorefieldData.Example borFieUTubDat(
-    conDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
-    borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.SingleUTube))
+  Ground.Data.BorefieldData.Example borFieUTubDat(
+    conDat=IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Example(
+    borCon=IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.SingleUTube))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Modelica.Blocks.Sources.Constant TGro(k=283.15) "Ground temperature"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BorefieldTwoUTube borFie2UTubSer(
+  IBPSA.Fluid.HeatExchangers.Ground.BorefieldTwoUTube borFie2UTubSer(
     redeclare package Medium = Medium,
     borFieDat=borFie2UTubSerDat,
     tLoaAgg=tLoaAgg,
@@ -90,12 +90,12 @@ model Borefields
     tau=0)
     "Outlet temperature of the borefield with 2-UTube in serie configuration"
     annotation (Placement(transformation(extent={{42,50},{62,70}})));
-  Data.BorefieldData.Example borFie2UTubParDat(
-    conDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
-    borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeParallel))
+  Ground.Data.BorefieldData.Example borFie2UTubParDat(
+    conDat=IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Example(
+    borCon=IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel))
     "Data from the borefield with 2-UTube in parallel borehole configuration"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BorefieldOneUTube borFieUTub(
+  IBPSA.Fluid.HeatExchangers.Ground.BorefieldOneUTube borFieUTub(
     redeclare package Medium = Medium,
     borFieDat=borFieUTubDat,
     tLoaAgg=tLoaAgg,
@@ -133,9 +133,9 @@ model Borefields
     tau=0)
     "Inlet temperature of the borefield with UTube configuration"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Data.BorefieldData.Example borFie2UTubSerDat(
-    conDat=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Example(
-    borCon=IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration.DoubleUTubeSeries))
+  Ground.Data.BorefieldData.Example borFie2UTubSerDat(
+    conDat=IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Example(
+    borCon=IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeSeries))
     "Data from the borefield with 2-UTube in serie borehole configuration"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
@@ -170,7 +170,7 @@ equation
     annotation (Line(points={{60,-60},{70,-60},{80,-60}}, color={0,127,255}));
   connect(TGro.y, borFieUTub.TSoi) annotation (Line(points={{-59,40},{-59,40},{-36,
           40},{-36,-49.2},{-26.2,-49.2}}, color={0,0,127}));
-  annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Examples/Borefields.mos"
+  annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/Examples/Borefields.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>

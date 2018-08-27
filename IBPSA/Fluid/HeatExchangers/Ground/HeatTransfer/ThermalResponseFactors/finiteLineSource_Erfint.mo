@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors;
 function finiteLineSource_Erfint "Integral of the error function"
   extends Modelica.Math.Nonlinear.Interfaces.partialScalarFunction;
 
@@ -12,7 +12,7 @@ Documentation(info="<html>
 This function evaluates the integral of the error function, given by:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/ErrorFunctionIntegral_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/ErrorFunctionIntegral_01.png\" />
 </p>
 </html>", revisions="<html>
 <ul>

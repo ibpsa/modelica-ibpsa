@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.Validation;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.Validation;
 model InternalResistancesTwoUTube
   "Validation of the thermal resistances using the method of Bauer et al. (2011) for a double U-tube borehole"
   extends Modelica.Icons.Example;
@@ -45,7 +45,7 @@ model InternalResistancesTwoUTube
 
 initial equation
   (x, Rgb, Rgg1, Rgg2, RCondGro) =
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube(
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube(
       hSeg=hSeg,
       rBor=rBor,
       rTub=rTub,
@@ -62,14 +62,14 @@ initial equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Boreholes/BaseClasses/Functions/Validation/InternalResistancesTwoUTube.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/Boreholes/BaseClasses/Functions/Validation/InternalResistancesTwoUTube.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=1.0),
     Documentation(info="<html>
 <p>
 This example validates the implementation of
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube</a>
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube\">
+IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube</a>
 for the evaluation of the internal thermal resistances of a double U-tube
 borehole.
 </p>

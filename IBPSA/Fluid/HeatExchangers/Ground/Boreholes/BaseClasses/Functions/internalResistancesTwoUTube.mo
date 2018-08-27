@@ -1,8 +1,8 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions;
 function internalResistancesTwoUTube
   "Thermal resistances for double U-tube, according to Bauer et al (2011)"
   extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.partialInternalResistances;
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.partialInternalResistances;
 
   // Outputs
   output Modelica.SIunits.ThermalResistance Rgb
@@ -34,7 +34,7 @@ protected
 algorithm
   // Internal thermal resistances
   (RDelta, R) :=
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.multipoleThermalResistances(
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.multipoleThermalResistances(
       4, 3, xPip, yPip, rBor, rPip, kFil, kSoi, RFluPip);
 
   // Rb and Ra

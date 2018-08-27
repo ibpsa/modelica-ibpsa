@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.Examples;
 model FiniteLineSource "Test case for finite line source"
   extends Modelica.Icons.Example;
 
@@ -23,7 +23,7 @@ equation
 
   for i in 1:2 loop
     for j in 1:7 loop
-        hRea[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
+        hRea[i,j] = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource(
           t = t,
           aSoi = aSoi,
           dis = r[i],
@@ -32,7 +32,7 @@ equation
           len2 = len2[j],
           burDep2 = burDep2[j],
           includeMirrorSource=false);
-        hMir[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
+        hMir[i,j] = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource(
           t = t,
           aSoi = aSoi,
           dis = r[i],
@@ -41,7 +41,7 @@ equation
           len2 = len2[j],
           burDep2 = burDep2[j],
           includeRealSource=false);
-        h[i,j] = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource(
+        h[i,j] = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource(
           t = t,
           aSoi = aSoi,
           dis = r[i],
@@ -54,7 +54,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/ThermalResponseFactors/Examples/FiniteLineSource.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/ThermalResponseFactors/Examples/FiniteLineSource.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=20.0),
     Documentation(info="<html>

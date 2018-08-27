@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors;
 function finiteLineSource
   "Finite line source solution of Claesson and Javed"
   extends Modelica.Icons.Function;
@@ -50,7 +50,7 @@ algorithm
       lowBou := 1.0/sqrt(4*aSoi*t);
       h_21 := Modelica.Math.Nonlinear.quadratureLobatto(
         function
-          IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
+          IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
           dis=dis,
           len1=len1,
           burDep1=burDep1,
@@ -66,7 +66,7 @@ algorithm
       lowBou := 1.0/sqrt(4*aSoi*timTre);
       h_21 := t/timTre*Modelica.Math.Nonlinear.quadratureLobatto(
         function
-          IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
+          IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
           dis=dis,
           len1=len1,
           burDep1=burDep1,
@@ -93,7 +93,7 @@ temperature surface.
 The finite line source solution is defined by:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/FiniteLineSource_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/FiniteLineSource_01.png\" />
 </p>
 <p>
 where <i>&Delta;T<sub>1-2</sub>(t,r,H<sub>1</sub>,D<sub>1</sub>,H<sub>2</sub>,D<sub>2</sub>)</i>
@@ -106,14 +106,14 @@ rate per unit length, <i>k<sub>s</sub></i> is the soil thermal conductivity and
 The finite line source solution is given by:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/FiniteLineSource_02.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/FiniteLineSource_02.png\" />
 </p>
 <p>
 where <i>&alpha;<sub>s</sub></i> is the ground thermal diffusivity and
 <i>erfint</i> is the integral of the error function, defined in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_erfint</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint\">IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_erfint</a>.
 The integral is solved numerically, with the integrand defined in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand\">IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand\">IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand</a>.
 </p>
 </html>", revisions="<html>
 <ul>

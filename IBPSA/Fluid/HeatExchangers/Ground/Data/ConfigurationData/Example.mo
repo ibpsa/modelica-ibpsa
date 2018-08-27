@@ -1,8 +1,8 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData;
+within IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData;
 record Example
   "Example definition of a configuration data record"
   extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Template(
+    IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Template(
       borCon = Types.BoreholeConfiguration.SingleUTube,
       nBor=4,
       cooBor={{0,0},{0,6},{6,0},{6,6}},
@@ -23,8 +23,8 @@ info="<html>
 <p>
 This record presents an example for how to define configuration data records
 using the template in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Template\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Template</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Template\">
+IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Template</a>.
 </p>
 </html>",
 revisions="<html>

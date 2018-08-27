@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.Validation.ConvectionResistanceCircularPipe", stopTime=10000.0, method="dassl", tolerance=1E-6, resultFile="FunctionConvectionResistanceCircularPipe");
+simulateModel("IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.Validation.ConvectionResistanceCircularPipe", stopTime=10000.0, method="dassl", tolerance=1E-6, resultFile="FunctionConvectionResistanceCircularPipe");
 
 createPlot(
   id = 1,

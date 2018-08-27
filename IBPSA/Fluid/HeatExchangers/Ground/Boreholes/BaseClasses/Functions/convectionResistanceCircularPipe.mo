@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions;
 function convectionResistanceCircularPipe
   "Thermal resistance from the fluid in pipes and the grout zones (Bauer et al. 2011)"
 

@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions;
 function multipoleFmk "Complex matrix F_mk from Claesson and Hellstrom (2011)"
   extends Modelica.Icons.Function;
 

@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses;
 partial model PartialInternalResistances
   "Partial model to implement borehole segment internal resistance models"
   parameter Modelica.SIunits.Length hSeg

@@ -4,7 +4,7 @@ Heater_T
 PrescribedOutlet
 SensibleCooler_T
 ActiveBeams
-GroundHeatExchangers
+Ground
 Radiators
 Examples
 Validation

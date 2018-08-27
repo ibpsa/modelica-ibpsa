@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.Validation.GroundTemperatureResponse_SmallScaleValidation", tolerance=1e-6, stopTime=85050000000.0, method="Cvode", resultFile="GroundTemperatureResponse_SmallScaleValidation");
+simulateModel("IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.Measured_SmallScale", tolerance=1e-6, stopTime=85050000000.0, method="Cvode", resultFile="Measured_SmallScale");
 createPlot(id = 1,
  position = {50, 50, 700, 500},
  x = "time",
@@ -8,7 +8,7 @@ createPlot(id = 1,
  autoreplot = true,
  grid = true,
  color = true,
- filename="GroundTemperatureResponse_SmallScaleValidation.mat",
+ filename="Measured_SmallScale.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 2,
@@ -20,6 +20,6 @@ createPlot(id = 2,
  autoreplot = true,
  grid = true,
  color = true,
- filename="GroundTemperatureResponse_SmallScaleValidation.mat",
+ filename="Measured_SmallScale.mat",
  leftTitleType = 1,
  bottomTitleType = 1);

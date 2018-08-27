@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers;
+within IBPSA.Fluid.HeatExchangers.Ground;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 

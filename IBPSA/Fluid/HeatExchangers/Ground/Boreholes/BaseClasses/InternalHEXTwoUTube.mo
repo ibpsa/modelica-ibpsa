@@ -1,9 +1,9 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses;
 model InternalHEXTwoUTube
   "Internal heat exchanger of a borehole for a double U-Tube configuration. In loop 1, fluid 1 streams from a1 to b1 and comes back from a2 to b2. In loop 2: fluid 2 streams from a3 to b3 and comes back from a4 to b4."
 
   extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.PartialInternalHEX;
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.PartialInternalHEX;
   extends IBPSA.Fluid.Interfaces.EightPortHeatMassExchanger(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -49,7 +49,7 @@ model InternalHEXTwoUTube
       final mSenFac=mSenFac));
 
   Modelica.Blocks.Sources.RealExpression RVol1(y=
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
@@ -61,7 +61,7 @@ model InternalHEXTwoUTube
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-16,56},{-30,72}})));
   Modelica.Blocks.Sources.RealExpression RVol2(y=
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
@@ -73,7 +73,7 @@ model InternalHEXTwoUTube
     "Convective and thermal resistance at fluid 2"
     annotation (Placement(transformation(extent={{88,-8},{72,-26}})));
   Modelica.Blocks.Sources.RealExpression RVol3(y=
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
@@ -86,7 +86,7 @@ model InternalHEXTwoUTube
     annotation (Placement(transformation(extent={{-12,-60},{-26,-76}})));
 
   Modelica.Blocks.Sources.RealExpression RVol4(y=
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
@@ -97,7 +97,7 @@ model InternalHEXTwoUTube
       m_flow_nominal=m4_flow_nominal))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-68,12},{-54,28}})));
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalResistancesTwoUTube intRes2UTub(
+  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalResistancesTwoUTube intRes2UTub(
     hSeg=hSeg,
     borFieDat=borFieDat,
     Rgb_val=Rgb_val,
@@ -139,7 +139,7 @@ protected
 
 initial equation
   (x,Rgb_val,Rgg1_val,Rgg2_val,RCondGro_val) =
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube(
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube(
       hSeg=hSeg,
       rBor=borFieDat.conDat.rBor,
       rTub=borFieDat.conDat.rTub,

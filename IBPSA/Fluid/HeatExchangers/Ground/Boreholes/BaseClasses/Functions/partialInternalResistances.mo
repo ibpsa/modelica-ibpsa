@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions;
 partial function partialInternalResistances
   "Partial model for borehole resistance calculation"
   extends Modelica.Icons.Function;
@@ -42,7 +42,7 @@ protected
   parameter Real rTub_in = rTub-eTub "Inner radius of tube";
 
   Real RConv(unit="(m.K)/W")=
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
       hSeg=hSeg,
       rTub=rTub,
       eTub=eTub,

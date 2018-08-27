@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation;
 function countAggregationCells
   "Function which returns the number of aggregation cells in the aggregation vector"
   extends Modelica.Icons.Function;

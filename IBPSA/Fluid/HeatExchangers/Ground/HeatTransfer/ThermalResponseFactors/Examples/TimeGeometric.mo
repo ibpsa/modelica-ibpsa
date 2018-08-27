@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.Examples;
 model TimeGeometric
   "Test case for geometric expansion of time vector"
   extends Modelica.Icons.Example;
@@ -10,14 +10,14 @@ model TimeGeometric
   final parameter Modelica.SIunits.Time[nTim] t(fixed=false) "Time vector";
 
 initial equation
-  t = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.timeGeometric(
+  t = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.timeGeometric(
     dt=dt,
     t_max=t_max,
     nTim=nTim);
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/ThermalResponseFactors/Examples/TimeGeometric.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/ThermalResponseFactors/Examples/TimeGeometric.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=1.0),
     Documentation(info="<html>

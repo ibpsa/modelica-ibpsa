@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors;
 function shaGFunction
   "Returns a SHA1 encryption of the formatted arguments for the g-function generation"
   extends Modelica.Icons.Function;

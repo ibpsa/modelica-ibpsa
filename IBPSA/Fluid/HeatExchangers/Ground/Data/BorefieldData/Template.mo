@@ -1,12 +1,12 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData;
+within IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData;
 record Template
   "Template for borefield data records"
   extends Modelica.Icons.Record;
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.FillingData.Template filDat
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.FillingData.Template filDat
     "Filling data";
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.SoilData.Template soiDat
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData.Template soiDat
     "Soil data";
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData.Template conDat
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Template conDat
     "Configuration data";
 
   annotation (
@@ -16,8 +16,8 @@ Documentation(
 info="<html>
 <p>
 This record is a template for the records in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData\">
+IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData</a>.
 </p>
 </html>",
 revisions="<html>

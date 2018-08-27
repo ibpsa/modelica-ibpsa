@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.Validation.ShiftAggregationCells", tolerance=1e-6, startTime=3.5, stopTime=5.5, resultFile="ShiftAggregationCells");
+simulateModel("IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.Validation.ShiftAggregationCells", tolerance=1e-6, startTime=3.5, stopTime=5.5, resultFile="ShiftAggregationCells");
 removePlots();
 createPlot(id = 1,
  position = {50, 50, 700, 500},

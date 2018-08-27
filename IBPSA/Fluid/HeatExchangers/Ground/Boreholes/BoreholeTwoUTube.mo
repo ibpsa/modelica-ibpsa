@@ -1,9 +1,9 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes;
+within IBPSA.Fluid.HeatExchangers.Ground.Boreholes;
 model BoreholeTwoUTube "Double U-tube borehole heat exchanger"
   extends
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.PartialBorehole;
+    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.PartialBorehole;
 
-  IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.InternalHEXTwoUTube intHex[nSeg](
+  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalHEXTwoUTube intHex[nSeg](
     redeclare each final package Medium = Medium,
     each final borFieDat=borFieDat,
     each final hSeg=borFieDat.conDat.hBor/nSeg,

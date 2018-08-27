@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation;
 function temporalSuperposition
   "Performs temporal superposition for the load aggregation procedure"
   extends Modelica.Icons.Function;

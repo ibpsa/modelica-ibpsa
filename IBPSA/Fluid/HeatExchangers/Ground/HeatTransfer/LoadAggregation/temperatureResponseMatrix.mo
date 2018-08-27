@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation;
 function temperatureResponseMatrix
   "Reads and possibly writes a matrix with a time series of the borefield's temperature response"
   extends Modelica.Icons.Function;
@@ -36,7 +36,7 @@ algorithm
 
   if forceGFunCalc or not Modelica.Utilities.Files.exist(pathSave) then
     (tGFun,gFun) :=
-      IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction(
+      IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.gFunction(
       nBor=nBor,
       cooBor=cooBor,
       hBor=hBor,

@@ -1,9 +1,9 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData;
+within IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData;
 record Template
   "Template for configuration data records"
   extends Modelica.Icons.Record;
 
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Types.BoreholeConfiguration borCon
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration borCon
     "Borehole configuration";
 
   parameter Boolean use_Rb = false
@@ -61,8 +61,8 @@ record Template
 info="<html>
 <p>
 This record is a template for the records in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.ConfigurationData</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData\">
+IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData</a>.
 </p>
 </html>",
 revisions="<html>

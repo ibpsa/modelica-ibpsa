@@ -1,8 +1,8 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers;
+within IBPSA.Fluid.HeatExchangers.Ground;
 model BorefieldOneUTube
   "Borefield model containing single U-Tube boreholes"
-  extends IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.BaseClasses.partialBorefield(
-    redeclare IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BoreholeOneUTube borHol);
+  extends IBPSA.Fluid.HeatExchangers.Ground.BaseClasses.PartialBorefield(
+    redeclare IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BoreholeOneUTube borHol);
 
   annotation (
   defaultComponentName="borFie",

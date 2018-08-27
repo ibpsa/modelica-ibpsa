@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Boreholes.BaseClasses.Examples.InternalResistancesTwoUTube", stopTime=3600, method="dassl", tolerance=1E-6, resultFile="InternalResistancesTwoUTube");
+simulateModel("IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Examples.InternalResistancesTwoUTube", stopTime=3600, method="dassl", tolerance=1E-6, resultFile="InternalResistancesTwoUTube");
 removePlots();
 createPlot(
   id=1,

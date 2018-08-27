@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers;
-package GroundHeatExchangers "Package for borehole heat exchangers"
+package Ground "Package for borehole heat exchangers"
 extends Modelica.Icons.VariantsPackage;
 
 annotation (Documentation(info="<html>
@@ -8,4 +8,4 @@ This package contains models to evaluate ground heat transfer around geothermal
 heat exchangers.
 </p>
 </html>"));
-end GroundHeatExchangers;
+end Ground;

@@ -1,9 +1,9 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.Examples;
 model GFunction_SmallScaleValidation
   "g-Function calculation for the small scale validation case"
   extends Modelica.Icons.Example;
 
-  parameter IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data.BorefieldData.SmallScale_validation borFieDat
+  parameter IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.BaseClasses.SmallScale_Borefield borFieDat
     "Record of borehole configuration data";
   parameter Integer nBor = borFieDat.conDat.nBor "Number of boreholes";
   parameter Modelica.SIunits.Position cooBor[nBor, 2] = borFieDat.conDat.cooBor
@@ -37,7 +37,7 @@ model GFunction_SmallScaleValidation
 initial equation
   // Evaluate g-function for the specified bore field configuration
   (tGFun,gFun) =
-    IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.gFunction(
+    IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.gFunction(
       nBor = nBor,
       cooBor = cooBor,
       hBor = hBor,
@@ -81,7 +81,7 @@ equation
   end when;
 
    annotation(experiment(Tolerance=1e-6, StopTime=1.8e+12),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/ThermalResponseFactors/Examples/GFunction_SmallScaleValidation.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/ThermalResponseFactors/Examples/GFunction_SmallScaleValidation.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>

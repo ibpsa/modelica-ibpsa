@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors;
 function cylindricalHeatSource_Integrand
   "Integrand function for cylindrical heat source evaluation"
   extends Modelica.Icons.Function;
@@ -20,8 +20,8 @@ Inline=true,
 Documentation(info="<html>
 <p>
 Integrand of the cylindrical heat source solution for use in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.cylindricalHeatSource</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.cylindricalHeatSource\">
+IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.cylindricalHeatSource</a>.
 </p>
 </html>", revisions="<html>
 <ul>

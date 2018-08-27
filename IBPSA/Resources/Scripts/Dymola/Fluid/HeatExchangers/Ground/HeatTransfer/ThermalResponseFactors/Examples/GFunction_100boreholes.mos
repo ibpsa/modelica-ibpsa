@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.ThermalResponseFactors.Examples.GFunction_100boreholes", startTime=0, stopTime=3.7e+11, tolerance=1E-6, method="dassl", resultFile="GFunction_100boreholes");
+simulateModel("IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.ThermalResponseFactors.Examples.GFunction_100boreholes", startTime=0, stopTime=3.7e+11, tolerance=1E-6, method="dassl", resultFile="GFunction_100boreholes");
 
 createPlot(
   id   = 1,

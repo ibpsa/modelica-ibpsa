@@ -1,12 +1,12 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.Data;
+within IBPSA.Fluid.HeatExchangers.Ground.Data;
 package SoilData "Collection of records of soil data"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 annotation (Documentation(info="<html>
 <p>
 This package contains data records for use with ground heat exchanger models
-in <a href=\"modelica://IBPSA.Fluid.HeatExchangers.GroundHeatExchangers\">
-IBPSA.Fluid.HeatExchangers.GroundHeatExchangers</a>. The soil data
+in <a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground\">
+IBPSA.Fluid.HeatExchangers.Ground</a>. The soil data
 records contain the heat transfer properties of soil materials.
 </p>
 </html>"));

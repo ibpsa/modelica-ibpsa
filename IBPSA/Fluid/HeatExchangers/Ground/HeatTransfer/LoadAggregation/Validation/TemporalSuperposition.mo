@@ -1,8 +1,8 @@
-within IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.Validation;
+within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.Validation;
 model TemporalSuperposition "This validation case applies temporal superposition with truncated vectors"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.TemperatureDifference supPos = IBPSA.Fluid.HeatExchangers.GroundHeatExchangers.GroundHeatTransfer.LoadAggregation.temporalSuperposition(
+  parameter Modelica.SIunits.TemperatureDifference supPos = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.temporalSuperposition(
       i=6,
       QAgg_flow={2,1e6,3,1e6,1e6},
       kappa={0.4,0,0.2,1,0},
@@ -13,7 +13,7 @@ equation
   supPosErr = abs((2*0.4+3*0.2)-supPos);
 
 annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/GroundHeatTransfer/LoadAggregation/Validation/TemporalSuperposition.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/LoadAggregation/Validation/TemporalSuperposition.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
