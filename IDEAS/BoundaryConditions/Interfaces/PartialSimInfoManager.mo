@@ -29,8 +29,6 @@ partial model PartialSimInfoManager
     "Compute conservation of energy for open system" annotation (Evaluate=true,
       Dialog(tab="Conservation of energy", enable=computeConservationOfEnergy));
 
-  final parameter Boolean linearise=lineariseDymola or lineariseJModelica "Linearises building model equations"
-    annotation (Dialog(tab="Linearisation"));
   parameter Boolean lineariseDymola=false "Linearises building model equations for Dymola linearisation approach"
     annotation (Dialog(tab="Linearisation"));
   parameter Boolean lineariseJModelica=false "Linearises building model equations for optimisations in JModelica"
@@ -56,16 +54,9 @@ partial model PartialSimInfoManager
   parameter Boolean linExtRadWin=true
     "= true, if exterior radiative heat transfer for windows should be linearised"
     annotation (Dialog(tab="Linearisation", group="Radiation"));
-
   parameter Modelica.SIunits.Energy Emax=1
     "Error bound for violation of conservation of energy" annotation (Evaluate=true,
       Dialog(tab="Conservation of energy", enable=strictConservationOfEnergy));
-  final parameter Modelica.SIunits.Temperature Tdes=-8 + 273.15
-    "design outdoor temperature";
-
-  final parameter Modelica.SIunits.Temperature TdesGround=10 + 273.15
-    "design ground temperature";
-
   parameter Modelica.SIunits.Temperature Tenv_nom= 280
     "Nominal ambient temperature, only used when linearising equations";
 
@@ -75,8 +66,18 @@ partial model PartialSimInfoManager
   parameter Integer nLayWin= 3
     "Number of window layers in the to be linearised model; should be maximum of all windows"
     annotation(Dialog(tab="Linearisation"));
-  parameter Real ppmCO2 = 400 "Default CO2 concentration in [ppm] when using air medium containing CO2"
+  parameter Real ppmCO2 = 400
+    "Default CO2 concentration in [ppm] when using air medium containing CO2"
     annotation(Dialog(tab="Advanced", group="CO2"));
+  final parameter Integer numIncAndAziInBus = size(incAndAziInBus,1)
+    "Number of pre-computed azimuth";
+  final parameter Modelica.SIunits.Temperature Tdes=-8 + 273.15
+    "design outdoor temperature";
+  final parameter Modelica.SIunits.Temperature TdesGround=10 + 273.15
+    "design ground temperature";
+  final parameter Boolean linearise=lineariseDymola or lineariseJModelica
+    "Linearises building model equations"
+    annotation (Dialog(tab="Linearisation"));
 
   Modelica.SIunits.Temperature Te
     "ambient outdoor temperature for determination of sky radiation exchange";
@@ -98,46 +99,21 @@ partial model PartialSimInfoManager
       x=Va - 5,
       pos=7.1*abs(Va)^(0.78),
       neg=4.0*Va + 5.6,
-      deltax=0.5);
-  Utilities.Psychrometrics.X_pTphi XiEnv(use_p_in=false)
+      deltax=0.5)
+    "Convection coefficient due to wind speed";
+  IDEAS.Utilities.Psychrometrics.X_pTphi XiEnv(use_p_in=false)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  final parameter Integer numIncAndAziInBus = size(incAndAziInBus,1) "Number of pre-computed azimuth";
-protected
-  final parameter Integer yr=2014 "depcited year for DST only";
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=filNam)
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  SolarIrradiation.BaseClasses.RelativeAirMass
-    relativeAirMass "Computation of relative air mass"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  SolarIrradiation.BaseClasses.SkyBrightness
-    skyBrightness "Computation of sky brightness"
-    annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
-  SolarIrradiation.BaseClasses.SkyClearness                       skyClearness
-    "Computation of sky clearness"
-    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
-
-  SolarIrradiation.BaseClasses.BrighteningCoefficient
-    skyBrightnessCoefficients
-    "Computation of sky brightness coefficients F1 and F2"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Modelica.Blocks.Sources.RealExpression TGround(y=TdesGround)
-    annotation (Placement(transformation(extent={{60,-44},{80,-24}})));
-  Modelica.Blocks.Sources.RealExpression u_dummy(y=1)
-    annotation (Placement(transformation(extent={{60,-58},{80,-38}})));
-
 
   // Icon of weaBus is made very small as it is not intended that a user would use it.
   // weaBus is still directly connected in the zone model and the connector should
   // therefore not be protected.
   // Connector weaDatBus is made available for the user and it should be used instead
   // of weaBus.
-public
-  Buildings.Components.Interfaces.WeaBus weaBus(numSolBus=numIncAndAziInBus,
+  IDEAS.Buildings.Components.Interfaces.WeaBus weaBus(numSolBus=numIncAndAziInBus,
       final outputAngles=outputAngles)
     annotation (Placement(transformation(extent={{90,30},{110,50}}),
         iconTransformation(extent={{90,30},{90,30}})));
-  SolarIrradiation.ShadedRadSol[numIncAndAziInBus] radSol(
+  IDEAS.BoundaryConditions.SolarIrradiation.ShadedRadSol[numIncAndAziInBus] radSol(
     inc=incAndAziInBus[:, 1],
     azi=incAndAziInBus[:, 2],
     each lat=lat,
@@ -155,9 +131,11 @@ public
     "Exterior convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{60,-14},{80,6}})));
   Modelica.Blocks.Sources.RealExpression TdesExpr(y=Tdes)
+    "Expression for design temperature"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=10e6);
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=10e6)
+    "Fixed temperature";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a Qgai
     "Thermal gains in model"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
@@ -172,15 +150,40 @@ public
   input IDEAS.Buildings.Components.Interfaces.WindowBus[nWindow] winBusOut(
       each nLay=nLayWin) if createOutputs
     "Bus for windows in case of linearisation";
-  Modelica.Blocks.Routing.RealPassThrough solTim "Solar time"
+  Modelica.Blocks.Routing.RealPassThrough solTim
+    "Solar time"
     annotation (Placement(transformation(extent={{-86,-2},{-78,6}})));
-  WeatherData.Bus weaDatBus "Weather data bus connectable to weaBus connector from Buildings Library"
+  IDEAS.BoundaryConditions.WeatherData.Bus weaDatBus
+    "Weather data bus connectable to weaBus connector from Buildings Library"
     annotation (Placement(transformation(extent={{-110,-20},{-90,0}}),
         iconTransformation(
         extent={{-20,-19},{20,19}},
         rotation=270,
         origin={99,3.55271e-015})));
+
 protected
+  final parameter Integer yr=2014 "depcited year for DST only";
+  IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam=filNam)
+    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass
+    relativeAirMass "Computation of relative air mass"
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses.SkyBrightness
+    skyBrightness "Computation of sky brightness"
+    annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
+  IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness skyClearness
+    "Computation of sky clearness"
+    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
+
+  IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses.BrighteningCoefficient
+    skyBrightnessCoefficients
+    "Computation of sky brightness coefficients F1 and F2"
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+  Modelica.Blocks.Sources.RealExpression TGround(y=TdesGround)
+    annotation (Placement(transformation(extent={{60,-44},{80,-24}})));
+  Modelica.Blocks.Sources.RealExpression u_dummy(y=1)
+    annotation (Placement(transformation(extent={{60,-58},{80,-38}})));
   Modelica.Blocks.Routing.RealPassThrough solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{-86,66},{-78,74}})));
   Modelica.Blocks.Routing.RealPassThrough solDec "Solar declination angle"
@@ -231,71 +234,6 @@ equation
       smooth=Smooth.None));
 
   for i in 1:numIncAndAziInBus loop
-    connect(radSol[i].F2, skyBrightnessCoefficients.F2) annotation (Line(points={{39.6,60},
-            {28,60},{28,86},{21,86}},         color={0,0,127}));
-    connect(radSol[i].F1, skyBrightnessCoefficients.F1) annotation (Line(points={{39.6,62},
-            {26,62},{26,94},{21,94}},         color={0,0,127}));
-    connect(TskyPow4Expr.y, radSol[i].TskyPow4) annotation (Line(points={{1,104},
-            {48,104},{48,80.6}}, color={0,0,127}));
-    connect(TePow4Expr.y, radSol[i].TePow4) annotation (Line(points={{1,116},{54,
-            116},{54,80.6}},               color={0,0,127}));
-  end for;
-  if not lineariseDymola then
-    connect(CEnv.y, weaBus.CEnv) annotation (Line(points={{81,-20},{100.05,-20},
-            {100.05,40.05}},
-                         color={0,0,127}));
-    connect(XiEnv.X[1], weaBus.X_wEnv) annotation (Line(points={{1,30},{100.05,30},
-            {100.05,40.05}},                             color={0,0,127}));
-    connect(TdesExpr.y, weaBus.Tdes) annotation (Line(
-      points={{81,10},{100.05,10},{100.05,40.05}},
-      color={0,0,127},
-      smooth=Smooth.None));
-    connect(u_dummy.y, weaBus.dummy) annotation (Line(points={{81,-48},{100.05,-48},
-            {100.05,40.05}},          color={0,0,127}));
-    connect(TGround.y, weaBus.TGroundDes) annotation (Line(points={{81,-34},{100.05,
-            -34},{100.05,40.05}},    color={0,0,127}));
-    connect(hConExpr.y, weaBus.hConExt) annotation (Line(
-      points={{81,-4},{100.05,-4},{100.05,40.05}},
-      color={0,0,127},
-      smooth=Smooth.None));
-    for i in 1:numIncAndAziInBus loop
-      connect(radSol[i].solBus, weaBus.solBus[i]) annotation (Line(
-      points={{60,70},{100.05,70},{100.05,40.05}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
-    end for;
-  connect(XiEnv.X[1], weaDatBus.X_wEnv) annotation (Line(points={{1,30},{-100,
-            30},{-100,-10}},                             color={0,0,127}));
-    connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
-      points={{21,94},{26,94},{26,38},{100.05,38},{100.05,40.05}},
-      color={0,0,127},
-      smooth=Smooth.None));
-    connect(skyBrightnessCoefficients.F2, weaBus.F2) annotation (Line(
-      points={{21,86},{28,86},{28,34},{100.05,34},{100.05,40.05}},
-      color={0,0,127},
-      smooth=Smooth.None));
-    connect(TskyPow4Expr.y, weaBus.TskyPow4) annotation (Line(
-      points={{1,104},{100.05,104},{100.05,40.05}},
-      color={0,0,127},
-      smooth=Smooth.None));
-    connect(TePow4Expr.y, weaBus.TePow4) annotation (Line(
-      points={{1,116},{100.05,116},{100.05,40.05}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  end if;
-  connect(fixedTemperature.port, Qgai)
-    annotation (Line(points={{0,-92},{0,-100}},          color={191,0,0}));
-
-  connect(TDryBul.y, XiEnv.T) annotation (Line(
-      points={{-77.6,30},{-22,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(phiEnv.y, XiEnv.phi) annotation (Line(
-      points={{-77.6,16},{-22,16},{-22,24}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  for i in 1:numIncAndAziInBus loop
     connect(solTim.y, radSol[i].solTim) annotation (Line(points={{-77.6,2},{18,2},
             {18,74},{38,74},{38,73},{39.6,73}},   color={0,0,127}));
     connect(solHouAng.y, radSol[i].angHou) annotation (Line(points={{-77.6,70},{
@@ -310,8 +248,19 @@ equation
             26,76},{26,52},{-70,52},{-70,98},{-77.6,98}}, color={0,0,127}));
     connect(HGloHor.y, radSol[i].solGloHor) annotation (Line(points={{-77.6,112},
             {-72,112},{-72,50},{24,50},{24,78},{39.6,78}}, color={0,0,127}));
+    connect(radSol[i].F2, skyBrightnessCoefficients.F2) annotation (Line(points={{39.6,60},
+            {28,60},{28,86},{21,86}},         color={0,0,127}));
+    connect(radSol[i].F1, skyBrightnessCoefficients.F1) annotation (Line(points={{39.6,62},
+            {26,62},{26,94},{21,94}},         color={0,0,127}));
+    connect(TskyPow4Expr.y, radSol[i].TskyPow4) annotation (Line(points={{1,104},
+            {48,104},{48,80.6}}, color={0,0,127}));
+    connect(TePow4Expr.y, radSol[i].TePow4) annotation (Line(points={{1,116},{54,
+            116},{54,80.6}},               color={0,0,127}));
   end for;
-  connect(angZen.y, weaBus.angZen) annotation (Line(
+  if not lineariseDymola then
+    connect(solTim.y, weaBus.solTim) annotation (Line(points={{-77.6,2},{18,2},{
+          18,36},{100.05,36},{100.05,40.05}}, color={0,0,127}));
+    connect(angZen.y, weaBus.angZen) annotation (Line(
       points={{-77.6,84},{-68,84},{-68,54},{100.05,54},{100.05,40.05}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -338,6 +287,62 @@ equation
     connect(phiEnv.y, weaBus.phi) annotation (Line(points={{-77.6,16},{-70,16},{
           -70,42},{100.05,42},{100.05,40.05}},
                                              color={0,0,127}));
+    connect(TDryBul.y, weaBus.Te) annotation (Line(points={{-77.6,30},{100.05,30},
+          {100.05,40.05}}, color={0,0,127}));
+    connect(CEnv.y, weaBus.CEnv) annotation (Line(points={{81,-20},{100.05,-20},
+            {100.05,40.05}},
+                         color={0,0,127}));
+    connect(XiEnv.X[1], weaBus.X_wEnv) annotation (Line(points={{1,30},{100.05,30},
+            {100.05,40.05}},                             color={0,0,127}));
+    connect(TdesExpr.y, weaBus.Tdes) annotation (Line(
+      points={{81,10},{100.05,10},{100.05,40.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(u_dummy.y, weaBus.dummy) annotation (Line(points={{81,-48},{100.05,-48},
+            {100.05,40.05}},          color={0,0,127}));
+    connect(TGround.y, weaBus.TGroundDes) annotation (Line(points={{81,-34},{100.05,
+            -34},{100.05,40.05}},    color={0,0,127}));
+    connect(hConExpr.y, weaBus.hConExt) annotation (Line(
+      points={{81,-4},{100.05,-4},{100.05,40.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(XiEnv.X[1], weaDatBus.X_wEnv) annotation (Line(points={{1,30},{-100,
+            30},{-100,-10}},                             color={0,0,127}));
+    connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
+      points={{21,94},{26,94},{26,38},{100.05,38},{100.05,40.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(skyBrightnessCoefficients.F2, weaBus.F2) annotation (Line(
+      points={{21,86},{28,86},{28,34},{100.05,34},{100.05,40.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(TskyPow4Expr.y, weaBus.TskyPow4) annotation (Line(
+      points={{1,104},{100.05,104},{100.05,40.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(TePow4Expr.y, weaBus.TePow4) annotation (Line(
+      points={{1,116},{100.05,116},{100.05,40.05}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    for i in 1:numIncAndAziInBus loop
+      connect(radSol[i].solBus, weaBus.solBus[i]) annotation (Line(
+      points={{60,70},{100.05,70},{100.05,40.05}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+    end for;
+   end if;
+  connect(fixedTemperature.port, Qgai)
+    annotation (Line(points={{0,-92},{0,-100}},          color={191,0,0}));
+
+  connect(TDryBul.y, XiEnv.T) annotation (Line(
+      points={{-77.6,30},{-22,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(phiEnv.y, XiEnv.phi) annotation (Line(
+      points={{-77.6,16},{-22,16},{-22,24}},
+      color={0,0,127},
+      smooth=Smooth.None));
   connect(skyBrightnessCoefficients.zen, angZen.y)
     annotation (Line(points={{-2,84},{-77.6,84}}, color={0,0,127}));
   connect(skyBrightness.HDifHor,HDifHor. y) annotation (Line(points={{-32,66},{-70,
@@ -376,10 +381,6 @@ equation
       points={{-80,-50},{-80,-40},{-80,-10},{-100,-10}},
       color={255,204,51},
       thickness=0.5));
-  connect(TDryBul.y, weaBus.Te) annotation (Line(points={{-77.6,30},{100.05,30},
-          {100.05,40.05}}, color={0,0,127}));
-  connect(solTim.y, weaBus.solTim) annotation (Line(points={{-77.6,2},{18,2},{
-          18,36},{100.05,36},{100.05,40.05}}, color={0,0,127}));
   connect(CEnv.y, weaDatBus.CEnv) annotation (Line(points={{81,-20},{82,-20},{
           82,-10},{40,-10},{40,-10},{-100,-10}}, color={0,0,127}));
     annotation (

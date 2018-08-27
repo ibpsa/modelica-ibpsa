@@ -1,7 +1,8 @@
 within IDEAS.Buildings.Components;
 model InternalWall "interior opaque wall between two zones"
   extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
-  dT_nominal_a=1,
+    final nWin=1,
+     dT_nominal_a=1,
   E(y= if sim.computeConservationOfEnergy then layMul.E else 0),
   Qgai(y=(if sim.openSystemConservationOfEnergy or not sim.computeConservationOfEnergy
          then 0 else sum(port_emb.Q_flow))),
@@ -140,8 +141,9 @@ equation
 
   connect(theConDoor.port_a, propsBus_b.surfCon) annotation (Line(points={{-10,50},
           {-48,50},{-48,20.1},{-100.1,20.1}}, color={191,0,0}));
-  connect(theConDoor.port_b, propsBus_a.surfCon) annotation (Line(points={{10,50},
-          {46,50},{46,19.9},{100.1,19.9}}, color={191,0,0}));
+  connect(theConDoor.port_b, propsBusInt.surfCon) annotation (Line(points={{10,50},
+          {46,50},{46,19.91},{56.09,19.91}},
+                                           color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-60,-100},{60,100}}),
         graphics={
@@ -201,6 +203,12 @@ We assume that the value of <code>A</code> excludes the surface area of the cavi
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 10, 2018 by Damien Picard:<br/>
+Set nWin final to 1 as this should only be used for windows.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/888\">
+#888</a>. 
+</li>
 <li>
 May 21, 2018, by Filip Jorissen:<br/>
 Added model for air flow through cavity.

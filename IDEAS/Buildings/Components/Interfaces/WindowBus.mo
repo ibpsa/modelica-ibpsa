@@ -1,12 +1,12 @@
 within IDEAS.Buildings.Components.Interfaces;
-expandable connector WindowBus
+connector WindowBus
   "Bus containing inputs/outputs for linear window model"
   extends Modelica.Icons.SignalBus;
   parameter Integer nLay = 3 "Number of window layers";
 
-  Real[nLay] AbsQFlow(start=fill(100,nLay)) annotation ();
-  Real iSolDir(start=100) annotation ();
-  Real iSolDif(start=100) annotation ();
+  RealConnector[nLay] AbsQFlow(start=fill(100,nLay)) annotation ();
+  RealConnector iSolDir(start=100) annotation ();
+  RealConnector iSolDif(start=100) annotation ();
 
   annotation (Documentation(revisions="<html>
 <ul>

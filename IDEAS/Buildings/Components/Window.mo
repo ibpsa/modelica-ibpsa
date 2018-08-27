@@ -13,8 +13,8 @@ model Window "Multipane window"
            dT_nominal=dT_nominal_a),
     QTra_design(fixed=false),
     Qgai(y=if sim.computeConservationOfEnergy then
-                                                  -(propsBus_a.surfCon.Q_flow +
-        propsBus_a.surfRad.Q_flow + propsBus_a.iSolDif.Q_flow + propsBus_a.iSolDir.Q_flow) else 0),
+                                                  (gain.propsBus_a.surfCon.Q_flow +
+        gain.propsBus_a.surfRad.Q_flow + gain.propsBus_a.iSolDif.Q_flow + gain.propsBus_a.iSolDir.Q_flow) else 0),
     E(y=0),
     layMul(
       A=A*(1 - frac),
@@ -161,6 +161,8 @@ initial equation
 
 
 
+
+
 equation
   connect(eCon.port_a, layMul.port_b) annotation (Line(
       points={{-20,-28},{-14,-28},{-14,0},{-10,0}},
@@ -170,12 +172,12 @@ equation
       points={{-20,0},{-10,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(solWin.iSolDir, propsBus_a.iSolDir) annotation (Line(
-      points={{-2,-60},{-2,-70},{100.1,-70},{100.1,19.9}},
+  connect(solWin.iSolDir, propsBusInt.iSolDir) annotation (Line(
+      points={{-2,-60},{-2,-70},{56.09,-70},{56.09,19.91}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(solWin.iSolDif, propsBus_a.iSolDif) annotation (Line(
-      points={{2,-60},{2,-70},{100.1,-70},{100.1,19.9}},
+  connect(solWin.iSolDif, propsBusInt.iSolDif) annotation (Line(
+      points={{2,-60},{2,-70},{56.09,-70},{56.09,19.91}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolAbs, layMul.port_gain) annotation (Line(
@@ -190,8 +192,8 @@ equation
       points={{-65,-60},{-50,-60},{-50,-110}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(iConFra.port_b, propsBus_a.surfCon) annotation (Line(
-      points={{40,70},{46,70},{46,19.9},{100.1,19.9}},
+  connect(iConFra.port_b, propsBusInt.surfCon) annotation (Line(
+      points={{40,70},{46,70},{46,19.91},{56.09,19.91}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layFra.port_a, iConFra.port_a) annotation (Line(
@@ -218,8 +220,8 @@ equation
       points={{-79.4,-56},{-70,-56}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
-      points={{-80,-42},{-80,20},{0,20},{0,19.9},{100.1,19.9}},
+  connect(radSolData.weaBus, propsBusInt.weaBus) annotation (Line(
+      points={{-80,-42},{-80,20},{0,20},{0,19.91},{56.09,19.91}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -239,15 +241,15 @@ equation
       points={{-20,-37},{-20,-36},{-14,-36},{-14,61},{-20,61}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(eCon.Te, propsBus_a.weaBus.Te) annotation (Line(
-      points={{-20,-32.8},{100.1,-32.8},{100.1,19.9}},
+  connect(eCon.Te, propsBusInt.weaBus.Te) annotation (Line(
+      points={{-20,-32.8},{56.09,-32.8},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(eCon.hConExt, propsBus_a.weaBus.hConExt) annotation (Line(
-      points={{-20,-37},{100.1,-37},{100.1,19.9}},
+  connect(eCon.hConExt, propsBusInt.weaBus.hConExt) annotation (Line(
+      points={{-20,-37},{56.09,-37},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(Tdes.u, propsBus_a.weaBus.Tdes);
+  connect(Tdes.u, propsBusInt.weaBus.Tdes);
   connect(shaType.iAngInc, solWin.angInc) annotation (Line(points={{-60,-54},{
           -60,-54},{-10,-54}},           color={0,0,127}));
   connect(heaCapGla.port, layMul.port_a)
@@ -349,8 +351,19 @@ If <code>fraType = None</code> then the frame is assumed to be perfectly insulat
 <p>
 Optional parameter <code>shaType</code> may be used to define the window shading properties.
 </p>
+<p>
+The parameter <code>n</code> may be used to scale the window to <code>n</code> identical windows.
+For example, if a wall has 10 identical windows with identical shading, this parameter
+can be used to simulate 10 windows by scaling the model of a single window.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 10, 2018 by Damien Picard:<br/>
+Add scaling to propsBus_a to allow simulation of n windows instead of 1
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/888\">
+#888</a>.
+</li>
 <li>
 January 21, 2018 by Filip Jorissen:<br/>
 Changed implementation such that control input is visible.

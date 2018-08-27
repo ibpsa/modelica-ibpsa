@@ -11,6 +11,7 @@ partial model PartialSurface "Partial model for building envelope component"
     "Azimuth angle of the wall, i.e. see IDEAS.Types.Azimuth, set IDEAS.Types.Azimuth.S for horizontal ceilings and floors";
   parameter Modelica.SIunits.Area A
     "Component surface area";
+  parameter Real nWin = 1 "Use this factor to scale the component to nWin identical components";
   parameter Modelica.SIunits.Power QTra_design
     "Design heat losses at reference temperature of the boundary space"
     annotation (Dialog(group="Design power",tab="Advanced"));
@@ -75,54 +76,82 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai
     "Component for computing conservation of energy";
 
+  IDEAS.Buildings.Components.Interfaces.ZoneBusVarMultiplicator gain(k=nWin)
+    "Gain for all propsBus variable to represent nWin surfaces instead of 1"
+    annotation (Placement(transformation(extent={{70,6},{88,36}})));
+  IDEAS.Buildings.Components.Interfaces.ZoneBus propsBusInt(
+    numIncAndAziInBus=sim.numIncAndAziInBus,
+    outputAngles=sim.outputAngles)
+    annotation (Placement(transformation(
+        extent={{-18,-18},{18,18}},
+        rotation=-90,
+        origin={56,20}),  iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={50,20})));
 equation
-  connect(prescribedHeatFlowE.port, propsBus_a.E);
+  connect(prescribedHeatFlowE.port, propsBusInt.E);
   connect(Qgai.y,prescribedHeatFlowQgai. Q_flow);
-  connect(prescribedHeatFlowQgai.port, propsBus_a.Qgai);
+  connect(prescribedHeatFlowQgai.port, propsBusInt.Qgai);
   connect(E.y,prescribedHeatFlowE. E);
-  connect(QDesign.y, propsBus_a.QTra_design);
-  connect(propsBus_a.surfCon, intCon_a.port_b) annotation (Line(
-      points={{100.1,19.9},{46,19.9},{46,0},{40,0}},
+  connect(QDesign.y, propsBusInt.QTra_design);
+  connect(propsBusInt.surfCon, intCon_a.port_b) annotation (Line(
+      points={{56.09,19.91},{46,19.91},{46,0},{40,0}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(layMul.port_a, propsBus_a.surfRad) annotation (Line(
-      points={{10,0},{16,0},{16,19.9},{100.1,19.9}},
+  connect(layMul.port_a, propsBusInt.surfRad) annotation (Line(
+      points={{10,0},{16,0},{16,19.91},{56.09,19.91}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_a, intCon_a.port_a) annotation (Line(
       points={{10,0},{20,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.iEpsSw_a, propsBus_a.epsSw) annotation (Line(
-      points={{10,4},{20,4},{20,19.9},{100.1,19.9}},
+  connect(layMul.iEpsSw_a, propsBusInt.epsSw) annotation (Line(
+      points={{10,4},{20,4},{20,19.91},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(layMul.iEpsLw_a, propsBus_a.epsLw) annotation (Line(
-      points={{10,8},{18,8},{18,19.9},{100.1,19.9}},
+  connect(layMul.iEpsLw_a, propsBusInt.epsLw) annotation (Line(
+      points={{10,8},{18,8},{18,19.91},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(layMul.area, propsBus_a.area) annotation (Line(
-      points={{0,10},{0,19.9},{100.1,19.9}},
+  connect(layMul.area, propsBusInt.area) annotation (Line(
+      points={{0,10},{0,19.91},{56.09,19.91}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(incExp.y, propsBus_a.inc);
-  connect(aziExp.y, propsBus_a.azi);
+  connect(incExp.y, propsBusInt.inc);
+  connect(aziExp.y, propsBusInt.azi);
+  connect(propsBus_a, gain.propsBus_b) annotation (Line(
+      points={{100,20},{94,20},{94,20.2105},{88,20.2105}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(gain.propsBus_a, propsBusInt) annotation (Line(
+      points={{70,20.2105},{60,20.2105},{60,20},{56,20}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-50,-100},{50,100}})),
     Documentation(revisions="<html>
 <ul>
+<li>
+August 10, 2018 by Damien Picard:<br/>
+Add scaling to propsBus_a to allow simulation of nWin windows instead of 1
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/888\">
+#888</a>. This factor is not useful for wall and it is set final to 1 
+for them.
+</li>
 <li>
 January 26, 2018, by Filip Jorissen:<br/>
 Extended documentation.
@@ -187,6 +216,11 @@ and an angle of Pi is the floor (downward) orientation.
 Preferably the azimuth angle is set to zero for horizontal tilt angles, 
 since this leads to more efficient code, 
 although the model results will not change.
+</p>
+<p>
+The parameter <code>nWin</code> is used in the window model to scale
+the window to <code>nWin</code> identical window using the single window
+model.
 </p>
 <h4>Options</h4>
 <p>
