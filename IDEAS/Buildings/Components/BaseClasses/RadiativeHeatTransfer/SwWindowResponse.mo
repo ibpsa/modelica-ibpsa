@@ -29,10 +29,10 @@ model SwWindowResponse "shortwave window respones"
     "solar absorptance in the panes"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir
-    "transmitted direct solar riadtion"
+    "transmitted direct solar radiation"
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDif
-    "transmitted difuse solar riadtion"
+    "transmitted difuse solar radiation"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
   Modelica.Blocks.Math.Gain radToDeg(final k=180/Modelica.Constants.pi)
     "Conversion of radians to degrees"
@@ -60,13 +60,13 @@ model SwWindowResponse "shortwave window respones"
         rotation=90,
         origin={-8.88178e-016,78})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Dir_flow
-    "transmitted direct solar riadtion source" annotation (Placement(
+    "transmitted direct solar radiation source" annotation (Placement(
         transformation(
         extent={{-8,-8},{8,8}},
         rotation=-90,
         origin={-20,-78})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Dif_flow
-    "transmitted difuse solar riadtion source" annotation (Placement(
+    "transmitted difuse solar radiation source" annotation (Placement(
         transformation(
         extent={{-8,-8},{8,8}},
         rotation=-90,
