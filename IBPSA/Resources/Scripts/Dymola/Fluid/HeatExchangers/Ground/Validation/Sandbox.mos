@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.HeatExchangers.Ground.Validation.Sandbox", startTime=0, method="dassl", tolerance=1e-6, stopTime=186360, resultFile="Sandbox");
+simulateModel("IBPSA.Fluid.HeatExchangers.Ground.Validation.Sandbox", startTime=0, method="Cvode", tolerance=1e-6, stopTime=186360, resultFile="Sandbox");
 removePlots();
 createPlot(
   id=1,
