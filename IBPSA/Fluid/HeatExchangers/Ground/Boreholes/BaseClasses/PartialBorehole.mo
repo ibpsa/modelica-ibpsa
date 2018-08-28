@@ -4,18 +4,40 @@ partial model PartialBorehole
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
 
   extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters;
-  extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations;
+
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choicesAllMatching = true);
+
+  parameter Integer nSeg(min=1) = 10
+    "Number of segments to use in vertical discretization of the boreholes";
+  parameter Modelica.SIunits.Temperature TGro_start[nSeg]
+    "Start value of grout temperature"
+    annotation (Dialog(tab="Initialization"));
+
+  parameter Modelica.SIunits.Temperature TFlu_start[nSeg]
+    "Start value of fluid temperature"
+    annotation (Dialog(tab="Initialization"));
+
+  // Assumptions
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+
+  // Initialization
+  parameter Medium.AbsolutePressure p_start = Medium.p_default
+    "Start value of pressure"
+    annotation(Dialog(tab = "Initialization"));
+
+  parameter Real mSenFac(min=1)=1
+    "Factor for scaling the sensible thermal mass of the volume"
+    annotation(Dialog(tab="Dynamics"));
 
   parameter Boolean dynFil=true
       "Set to false to remove the dynamics of the filling material"
       annotation (Dialog(tab="Dynamics"));
   parameter Data.BorefieldData.Template borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  parameter Integer nSeg(min=1) = 10
-    "Number of segments to use in vertical discretization of the boreholes";
-  parameter Modelica.SIunits.Temperature TGro_start = Medium.T_default
-    "Start value of grout temperature"
-    annotation (Dialog(tab="Initialization"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall[nSeg]
     "Thermal connection for borehole wall"

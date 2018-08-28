@@ -1,39 +1,38 @@
 within IBPSA.Fluid.HeatExchangers.Ground.Boreholes;
 model BoreholeTwoUTube "Double U-tube borehole heat exchanger"
-  extends
-    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.PartialBorehole;
+  extends IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.PartialBorehole;
 
-  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalHEXTwoUTube intHex[nSeg](
+  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalHEXTwoUTube
+    intHex[nSeg](
     redeclare each final package Medium = Medium,
     each final borFieDat=borFieDat,
     each final hSeg=borFieDat.conDat.hBor/nSeg,
-    final dp1_nominal={if i == 1 and borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then
-        dp_nominal elseif i == 1 and borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeSeries then
-        dp_nominal/2 else 0 for i in 1:nSeg},
-    final dp3_nominal={if i == 1 and borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then
-        dp_nominal elseif i == 1 and borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeSeries then
-        dp_nominal/2 else 0 for i in 1:nSeg},
+    final dp1_nominal={if i == 1 and borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel
+         then dp_nominal elseif i == 1 and borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeSeries
+         then dp_nominal/2 else 0 for i in 1:nSeg},
+    final dp3_nominal={if i == 1 and borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel
+         then dp_nominal elseif i == 1 and borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeSeries
+         then dp_nominal/2 else 0 for i in 1:nSeg},
     each final dp2_nominal=0,
     each final dp4_nominal=0,
     each final show_T=show_T,
     each final energyDynamics=energyDynamics,
-    each final massDynamics=massDynamics,
-    each final m1_flow_nominal=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then
-        m_flow_nominal/2 else m_flow_nominal,
-    each final m2_flow_nominal=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then
-        m_flow_nominal/2 else m_flow_nominal,
-    each final m3_flow_nominal=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then
-        m_flow_nominal/2 else m_flow_nominal,
-    each final m4_flow_nominal=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then
-        m_flow_nominal/2 else m_flow_nominal,
-    each final m1_flow_small=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
-        /2 else borFieDat.conDat.mBor_flow_small,
-    each final m2_flow_small=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
-        /2 else borFieDat.conDat.mBor_flow_small,
-    each final m3_flow_small=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
-        /2 else borFieDat.conDat.mBor_flow_small,
-    each final m4_flow_small=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel then borFieDat.conDat.mBor_flow_small
-        /2 else borFieDat.conDat.mBor_flow_small,
+    each final m1_flow_nominal=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel
+         then m_flow_nominal/2 else m_flow_nominal,
+    each final m2_flow_nominal=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel
+         then m_flow_nominal/2 else m_flow_nominal,
+    each final m3_flow_nominal=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel
+         then m_flow_nominal/2 else m_flow_nominal,
+    each final m4_flow_nominal=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel
+         then m_flow_nominal/2 else m_flow_nominal,
+    each final m1_flow_small=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel
+         then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
+    each final m2_flow_small=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel
+         then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
+    each final m3_flow_small=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel
+         then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
+    each final m4_flow_small=if borFieDat.conDat.borCon == IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel
+         then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
     each final dynFil=dynFil,
     each final mSenFac=mSenFac,
     each final allowFlowReversal1=allowFlowReversal,
@@ -56,14 +55,10 @@ model BoreholeTwoUTube "Double U-tube borehole heat exchanger"
     each final p2_start=p_start,
     each final p3_start=p_start,
     each final p4_start=p_start,
-    each final T_start=T_start,
-    each final TGro_start=TGro_start)
-    "Discretized borehole segments"
+    final TFlu_start=TFlu_start,
+    final TGro_start=TGro_start) "Discretized borehole segments"
     annotation (Placement(transformation(extent={{-10,-30},{10,10}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall[nSeg]
-    "Borehole wall temperatures"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 equation
   // Couple borehole port_a and port_b to first borehole segment.
   connect(port_a, intHex[1].port_a1) annotation (Line(
