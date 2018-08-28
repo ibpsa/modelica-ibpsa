@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses;
 model InternalHEXTwoUTube
-  "Internal heat exchanger of a borehole for a double U-Tube configuration. In loop 1, fluid 1 streams from a1 to b1 and comes back from a2 to b2. In loop 2: fluid 2 streams from a3 to b3 and comes back from a4 to b4."
+  "Internal heat exchanger of a borehole for a double U-tube configuration. In loop 1, fluid 1 streams from a1 to b1 and comes back from a2 to b2. In loop 2: fluid 2 streams from a3 to b3 and comes back from a4 to b4."
 
   extends
     IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.PartialInternalHEX;

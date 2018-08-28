@@ -48,7 +48,7 @@ algorithm
   // instabilities in the calculations. Otherwise, calculations follow the
   // method of Bauer et al. (2011).
   if (RDelta[1,2] < 0) then
-    //Thermal resistance between the grout zone and bore hole wall
+    //Thermal resistance between the grout zone and borehole wall
     Rgb := Rg;
 
     //Conduction resistance in grout from pipe wall to capacity in grout
@@ -66,7 +66,7 @@ algorithm
       x := Modelica.Math.log(sqrt(rBor^2 + 2*rTub^2)/(2*rTub))/
         Modelica.Math.log(rBor/(sqrt(2)*rTub))*((15 - i + 1)/15);
 
-      //Thermal resistance between the grout zone and bore hole wall
+      //Thermal resistance between the grout zone and borehole wall
       Rgb := (1 - x)*Rg;
 
       //Conduction resistance in grout from pipe wall to capacity in grout

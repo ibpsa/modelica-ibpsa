@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses;
 model InternalResistancesOneUTube
-  "Internal resistance model for single U-Tube borehole segments."
+  "Internal resistance model for single U-tube borehole segments."
   extends
     IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.PartialInternalResistances;
 
@@ -81,7 +81,7 @@ equation
     Documentation(info="<html>
 <p>
 This model simulates the internal thermal resistance network of a borehole segment in
-the case of a single U-Tube borehole using the method of Bauer et al. (2011) 
+the case of a single U-tube borehole using the method of Bauer et al. (2011) 
 and computing explicitely the fluid-to-ground thermal resistance 
 <i>R<sub>b</sub></i> and the 
 grout-to-grout resistance

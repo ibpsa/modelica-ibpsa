@@ -4,17 +4,29 @@ package Types "Package with type definitions"
 
   type BoreholeConfiguration = enumeration(
       SingleUTube
-    "Single U-Tube configuration",
+    "Single U-tube configuration",
       DoubleUTubeParallel
-    "Double parallel U-Tube configuration: pipes connected in parallel",
+    "Double U-tube configuration with pipes connected in parallel",
       DoubleUTubeSeries
-    "Double series U-Tube configuration: pipes connected in series")
+    "Double U-tube configuration with pipes connected in series")
   "Enumaration to define the borehole configurations"
   annotation (Documentation(info="<html>
 <p>
-Type definition for different ground heat exchangers.
+Enumeration that defines the pipe configuration in the borehole.
 </p>
-</html>", revisions="<html>
+<p>
+The following pipe configurations are available in this enumeration:
+</p>
+<table summary=\"summary\" border=\"1\">
+<tr><th>Enumeration</th><th>Description</th></tr>
+<tr><td>SingleUTube</td><td>Single U-tube configuration</td></tr>
+
+<tr><td>DoubleUTubeParallel</td><td>Double U-tube configuration with pipes connected in parallel</td></tr>
+<tr><td>DoubleUTubeSeries</td><td>Double U-tube configuration with pipes connected in series</td></tr>
+</table>
+</p>
+</html>",
+  revisions="<html>
 <ul>
 <li>
 July 15, 2018, by Michael Wetter:<br/>
