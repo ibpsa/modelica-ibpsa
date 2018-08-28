@@ -17,16 +17,18 @@ function shaGFunction
   "SHA1 encryption of the g-function arguments";
 
 protected
-  String shaStr =  "";
+  String shaStr;
   String formatStr =  "1.3e";
 
 algorithm
-  shaStr := shaStr + String(nBor, format=formatStr);
+  shaStr := String(nBor, format=formatStr);
   for i in 1:nBor loop
-   shaStr := shaStr + String(cooBor[i, 1], format=formatStr) + String(cooBor[i,
-     2], format=formatStr);
+   shaStr := shaStr
+     + String(cooBor[i, 1], format=formatStr)
+     + String(cooBor[i, 2], format=formatStr);
   end for;
-  shaStr := shaStr + String(hBor, format=formatStr)
+  shaStr := shaStr
+    + String(hBor, format=formatStr)
     + String(dBor, format=formatStr)
     + String(rBor, format=formatStr)
     + String(aSoi, format=formatStr)
