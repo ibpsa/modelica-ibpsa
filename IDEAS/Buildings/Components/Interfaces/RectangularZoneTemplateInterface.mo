@@ -778,8 +778,8 @@ protected
     annotation (Placement(transformation(extent={{-176,20},{-164,40}})));
 public
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusA[nExtA](
-    final numIncAndAziInBus=sim.numIncAndAziInBus,
-    final outputAngles=sim.outputAngles) if
+    each final numIncAndAziInBus=sim.numIncAndAziInBus,
+    each final outputAngles=sim.outputAngles) if
     bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of face A"
@@ -791,8 +791,8 @@ public
         rotation=180,
         origin={-60,90})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusB[nExtB](
-    final numIncAndAziInBus=sim.numIncAndAziInBus,
-    final outputAngles=sim.outputAngles) if
+    each final numIncAndAziInBus=sim.numIncAndAziInBus,
+    each final outputAngles=sim.outputAngles) if
     bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of face B"
@@ -804,8 +804,8 @@ public
         rotation=90,
         origin={90,60})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusC[nExtC](
-    final numIncAndAziInBus=sim.numIncAndAziInBus,
-    final outputAngles=sim.outputAngles) if
+    each final numIncAndAziInBus=sim.numIncAndAziInBus,
+    each final outputAngles=sim.outputAngles) if
     bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of face C"
@@ -817,8 +817,8 @@ public
         rotation=0,
         origin={68,-98})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusD[nExtD](
-    final numIncAndAziInBus=sim.numIncAndAziInBus,
-    final outputAngles=sim.outputAngles) if
+    each final numIncAndAziInBus=sim.numIncAndAziInBus,
+    each final outputAngles=sim.outputAngles) if
     bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of face D"
@@ -830,8 +830,8 @@ public
         rotation=-90,
         origin={-96,-70})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusFlo[nExtFlo](
-    final numIncAndAziInBus=sim.numIncAndAziInBus,
-    final outputAngles=sim.outputAngles) if
+    each final numIncAndAziInBus=sim.numIncAndAziInBus,
+    each final outputAngles=sim.outputAngles) if
     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface or internalWall of floor"
@@ -843,8 +843,8 @@ public
         rotation=180,
         origin={0,-60})));
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusCei[nExtCei](
-    final numIncAndAziInBus=sim.numIncAndAziInBus,
-    final outputAngles=sim.outputAngles) if
+    each final numIncAndAziInBus=sim.numIncAndAziInBus,
+    each final outputAngles=sim.outputAngles) if
     bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface of ceiling: internal walls should be modelled as the floor of the zone above"
