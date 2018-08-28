@@ -19,7 +19,7 @@ model InternalHEXOneUTube
     m1_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     m2_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=285.15,
+    TFlu_start=285.15,
     TGro_start=285.15)
     annotation (Placement(transformation(extent={{-10,-12},{10,10}})));
 
