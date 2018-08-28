@@ -24,15 +24,13 @@ function temperatureResponseMatrix
   output Modelica.SIunits.ThermalResistance TStep[nTimTot, 2] "Temperature step-response time series";
 
 protected
-  constant String tmpDir = "tmp/temperatureResponseMatrix/"
-    "Name of temporary directory used to store the g-function";
   String pathSave "Path of the folder used to save the g-function";
   Modelica.SIunits.Time[nTimTot] tGFun "g-function evaluation times";
   Real[nTimTot] gFun "g-function vector";
   Boolean writegFun = false "True if g-function was succesfully written to file";
 
 algorithm
-  pathSave := tmpDir + sha + "TStep.mat";
+  pathSave := "tmp/temperatureResponseMatrix/" + sha + "TStep.mat";
 
   if forceGFunCalc or not Modelica.Utilities.Files.exist(pathSave) then
     (tGFun,gFun) :=
@@ -54,7 +52,8 @@ algorithm
     end for;
 
     //creation of a temporary folder in the simulation folder
-    Modelica.Utilities.Files.createDirectory(tmpDir);
+    Modelica.Utilities.Files.createDirectory("tmp");
+    Modelica.Utilities.Files.createDirectory("tmp/temperatureResponseMatrix");
 
     writegFun := Modelica.Utilities.Streams.writeRealMatrix(
       fileName=pathSave,
