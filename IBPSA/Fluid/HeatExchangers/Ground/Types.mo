@@ -24,7 +24,6 @@ The following pipe configurations are available in this enumeration:
 <tr><td>DoubleUTubeParallel</td><td>Double U-tube configuration with pipes connected in parallel</td></tr>
 <tr><td>DoubleUTubeSeries</td><td>Double U-tube configuration with pipes connected in series</td></tr>
 </table>
-</p>
 </html>",
   revisions="<html>
 <ul>
