@@ -24,10 +24,10 @@ function temperatureResponseMatrix
   output Modelica.SIunits.ThermalResistance TStep[nTimTot, 2] "Temperature step-response time series";
 
 protected
-  String pathSave "Path of the saving folder";
-  Modelica.SIunits.Time[nTimTot] tGFun "g-Function evaluation times";
-  Real[nTimTot] gFun "g-Function vector";
-  Boolean writegFun = false "True if g-frunction was succesfully written to file";
+  String pathSave "Path of the folder used to save the g-function";
+  Modelica.SIunits.Time[nTimTot] tGFun "g-function evaluation times";
+  Real[nTimTot] gFun "g-function vector";
+  Boolean writegFun = false "True if g-function was succesfully written to file";
 
 algorithm
   //creation of a folder .BfData in the simulation folder
@@ -70,7 +70,7 @@ algorithm
 <p>
 This function uses the parameters required to calculate the borefield's thermal
 response to build a SHA1-encrypted string unique to the borefield in question.
-Then, if the <code>forceGFunCalc</code> input is <code>True</code> or if
+Then, if the <code>forceGFunCalc</code> input is <code>true</code> or if
 there is no <code>.mat</code> file with the SHA1 hash as its filename in the
 <code>.BfData</code> folder,
 the thermal response will be calculated and written as a 
@@ -79,8 +79,8 @@ thermal response will simply be read from the
 <code>.mat</code> file. In the <code>.mat</code> file, the data
 is saved in a matrix with the name <code>TStep</code>, where the first column is
 the time (in seconds) and the second column is the temperature step response,
-which is the g-function divided by <code>2*&pi;*H*kSoi</code>, with
-<code>H</code> being the borehole length and <code>kSoi</code> being the thermal
+which is the g-function divided by <i>2 &pi; H k<sub>soi</sub></i>, with
+<code>H</code> being the borehole length and <i>k<sub>soi</sub></i> being the thermal
 conductivity of the soil.
 </p>
 </html>", revisions="<html>
