@@ -24,15 +24,15 @@ function temperatureResponseMatrix
   output Modelica.SIunits.ThermalResistance TStep[nTimTot, 2] "Temperature step-response time series";
 
 protected
+  constant String tmpDir = "tmp/temperatureResponseMatrix/"
+    "Name of temporary directory used to store the g-function";
   String pathSave "Path of the folder used to save the g-function";
   Modelica.SIunits.Time[nTimTot] tGFun "g-function evaluation times";
   Real[nTimTot] gFun "g-function vector";
   Boolean writegFun = false "True if g-function was succesfully written to file";
 
 algorithm
-  //creation of a folder .BfData in the simulation folder
-  Modelica.Utilities.Files.createDirectory(".BfData");
-  pathSave := ".BfData/" + sha + "Tstep.mat";
+  pathSave := tmpDir + sha + "TStep.mat";
 
   if forceGFunCalc or not Modelica.Utilities.Files.exist(pathSave) then
     (tGFun,gFun) :=
@@ -53,6 +53,9 @@ algorithm
       TStep[i,2] := gFun[i]/(2*Modelica.Constants.pi*hBor*nBor*kSoi);
     end for;
 
+    //creation of a temporary folder in the simulation folder
+    Modelica.Utilities.Files.createDirectory(tmpDir);
+
     writegFun := Modelica.Utilities.Streams.writeRealMatrix(
       fileName=pathSave,
       matrixName="TStep",
@@ -72,7 +75,7 @@ This function uses the parameters required to calculate the borefield's thermal
 response to build a SHA1-encrypted string unique to the borefield in question.
 Then, if the <code>forceGFunCalc</code> input is <code>true</code> or if
 there is no <code>.mat</code> file with the SHA1 hash as its filename in the
-<code>.BfData</code> folder,
+<code>tmp/temperatureResponseMatrix</code> folder,
 the thermal response will be calculated and written as a 
 <code>.mat</code> file. Otherwise, the
 thermal response will simply be read from the 
@@ -85,6 +88,11 @@ conductivity of the soil.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 27, 2018, by Michael Wetter:<br/>
+Changed name of temporary directory so that it is clear for users
+that this is a temporary directory.
+</li>
 <li>
 July 15, 2018, by Michael Wetter:<br/>
 Changed implementation to use matrix read and write from

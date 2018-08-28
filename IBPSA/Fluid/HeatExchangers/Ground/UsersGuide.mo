@@ -18,8 +18,8 @@ respectively.
 <p>
 The major features and configurations currently supported are:
 <ul>
-<li> User-defined borefield characteristics and geometry (borehole radius, pipe radius, shank spacing, etc.), including
-single U-tube, double U-tube in parallel and double U-tube in series configurations.
+<li> User-defined borefield characteristics and geometry (borehole radius, pipe radius, shank spacing, etc.),
+including single U-tube, double U-tube in parallel and double U-tube in series configurations.
 </li>
 <li> The resistances <i>R<sub>b</sub></i> and <i>R<sub>a</sub></i> are
 either automatically calculated using the multipole method,
@@ -52,7 +52,8 @@ Most of the parameter values of the model are contained in the record called <co
 This record is composed of three subrecords:
 <code>filDat</code> (containing the thermal characteristics of the borehole filling material),
 <code>soiDat</code> (containing the thermal characteristics of the surrounding soil),
-and <code>conDat</code> (containing all others parameters, namely parameters defining the configuration of the borefield).
+and <code>conDat</code> (containing all others parameters, namely parameters
+defining the configuration of the borefield).
 The structure and default values of the record are in the package:
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data\">IBPSA.Fluid.HeatExchangers.Ground.Data</a>.
 The <code>borFieDat</code> record
@@ -127,10 +128,12 @@ Further information on this discretization can be found in the &#34;Model descri
 <h5>Running simulations</h5>
 <p>
 When running simulations using the borefield models,
-the <code>.BfData</code> directory within the current directory will be checked to see if any of the
+the <code>tmp/temperatureResponseMatrix</code> directory within the current directory
+will be checked to see if any of the
 borefield configurations used in the simulation have already
 had their ground temperature response calculated previously
-If the data doesn't exist in the <code>.BfData</code> folder, it will be calculated during the initialization of the model
+If the data doesn't exist in the <code>tmp/temperatureResponseMatrix</code> folder,
+it will be calculated during the initialization of the model
 and will be saved there for future use.
 </p>
 <h4>Model description</h4>
@@ -189,7 +192,8 @@ The ground heat transfer takes into account both the borehole axial effects and
 the borehole radial effects which are a result of its cylindrical geometry. The borefield's
 thermal response to a constant load, also known as its <em>g-function</em>, is used
 to calculate the thermal response in the simulation. This g-function
-is stored in the <code>.BfData</code> subdirectory, as discussed previously in the
+is stored in the <code>tmp/temperatureResponseMatrix</code> subdirectory,
+as discussed previously in the
 &#34;How to use the borefield models&#34; section. Further information on the
 ground heat transfer model and the thermal temperature response calculations can
 be found in
