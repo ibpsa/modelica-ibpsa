@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer;
 model GroundTemperatureResponse "Model calculating discrete load aggregation"
-  parameter Modelica.SIunits.Time tLoaAgg=3600 "Time resolution of load aggregation";
+  parameter Modelica.SIunits.Time tLoaAgg(final min = Modelica.Constants.eps)=
+    3600 "Time resolution of load aggregation";
   parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether it has been pre-computed";
@@ -124,7 +125,7 @@ equation
   delTBor = borWall.T - TSoi;
   der(U) = QBor_flow;
 
-  when (sample(t_start, tLoaAgg)) then
+  when sample(t_start, tLoaAgg) then
     // Assign average load since last aggregation step to the first cell of the
     // aggregation vector
     U_old = U;
