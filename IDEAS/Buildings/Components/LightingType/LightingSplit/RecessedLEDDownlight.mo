@@ -1,7 +1,7 @@
-within IDEAS.Buildings.Components.LightingType.LightingHeatDist;
+within IDEAS.Buildings.Components.LightingType.LightingSplit;
 record RecessedLEDDownlight "Recessed LED downlight"
   extends
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingHeatDist(
+    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingSplit(
       spaFra=0.48, radFra=0.17);
 
   annotation (Documentation(revisions="<html>

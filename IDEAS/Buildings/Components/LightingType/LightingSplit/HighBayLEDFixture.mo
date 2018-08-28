@@ -1,7 +1,7 @@
-within IDEAS.Buildings.Components.LightingType.LightingHeatDist;
+within IDEAS.Buildings.Components.LightingType.LightingSplit;
 record HighBayLEDFixture "High-bay LED fixture"
   extends
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingHeatDist(
+    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingSplit(
       spaFra=1.00, radFra=0.47);
 
   annotation (Documentation(revisions="<html>

@@ -40,13 +40,9 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-July 26, 2018 by Filip Jorissen:<br/>
-Revised implementation to add support for
-<a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
-</li>
-<li>
-July 18, 2016 by Filip Jorissen:<br/>
+August 28, 2018 by Iago Cupeiro:<br/>
 First implementation
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
 </li>
 </ul>
 </html>"));

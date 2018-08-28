@@ -1,8 +1,8 @@
-within IDEAS.Buildings.Components.LightingType.LightingHeatDist;
+within IDEAS.Buildings.Components.LightingType.LightingSplit;
 record RecessedLEDColorTuningFixture
   "Recessed LED color tuning fixture"
   extends
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingHeatDist(
+    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingSplit(
       spaFra=0.55, radFra=0.41);
 
   annotation (Documentation(revisions="<html>

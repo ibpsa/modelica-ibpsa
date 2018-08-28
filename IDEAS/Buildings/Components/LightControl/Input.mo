@@ -9,10 +9,12 @@ equation
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
-July 26, 2018 by Filip Jorissen:<br/>
+August 28, 2018 by Iago Cupeiro:<br/>
 First implementation
-See <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
 </li>
 </ul>
+</html>", info="<html>
+<p>This block defines a controllable lighting control</p>
 </html>"));
 end Input;

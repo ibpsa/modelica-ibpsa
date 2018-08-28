@@ -1,8 +1,8 @@
-within IDEAS.Buildings.Components.LightingType.LightingHeatDist;
+within IDEAS.Buildings.Components.LightingType.LightingSplit;
 record NonInCeilingFluorescentLuminaire
   "Non-in-ceiling fluorescent luminaire"
   extends
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingHeatDist(
+    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingSplit(
       spaFra=1.0, radFra=0.54);
 
   annotation (Documentation(revisions="<html>

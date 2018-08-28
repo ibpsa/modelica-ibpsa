@@ -1,3 +1,3 @@
 within IDEAS.Buildings.Components.LightingType;
-package LightingHeatDist
-end LightingHeatDist;
+package LightingSplit
+end LightingSplit;

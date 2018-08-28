@@ -1,8 +1,8 @@
-within IDEAS.Buildings.Components.LightingType.LightingHeatDist;
+within IDEAS.Buildings.Components.LightingType.LightingSplit;
 record RecessedFluorescentLuminaire
   "Properties for typical fluoresecent luminaire without lens."
   extends
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingHeatDist(
+    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingSplit(
       spaFra=0.69, radFra=0.58);
 
   annotation (Documentation(revisions="<html>

@@ -1,8 +1,8 @@
-within IDEAS.Buildings.Components.LightingType.LightingHeatDist;
+within IDEAS.Buildings.Components.LightingType.LightingSplit;
 record RecessedLEDTrofferUniformDiffuser
   "Recessed LED troffer uniform diffuser"
   extends
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingHeatDist(
+    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingSplit(
       spaFra=0.55, radFra=0.36);
 
   annotation (Documentation(revisions="<html>

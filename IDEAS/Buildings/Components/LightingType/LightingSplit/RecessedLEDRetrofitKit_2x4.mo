@@ -1,7 +1,7 @@
-within IDEAS.Buildings.Components.LightingType.LightingHeatDist;
+within IDEAS.Buildings.Components.LightingType.LightingSplit;
 record RecessedLEDRetrofitKit_2x4 "Recessed LED retrofit kit 2x4"
   extends
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingHeatDist(
+    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingSplit(
       spaFra=0.47, radFra=0.37);
 
   annotation (Documentation(revisions="<html>

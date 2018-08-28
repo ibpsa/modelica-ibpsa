@@ -73,6 +73,12 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+August 28, 2018 by Iago Cupeiro:<br/>
+Updated model to include lighting gains
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
+</li>
+</li>
+<li>
 July 26, 2018 by Filip Jorissen:<br/>
 Updated example for <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
 </li>

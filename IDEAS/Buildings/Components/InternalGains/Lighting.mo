@@ -45,30 +45,20 @@ equation
          {{-110,0},{-54,0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-This occupancy model assumes a constant latent and sensible load per person. 
-We assume this heat gain is caused by the metabolic combustion of suger, 
-resulting into a corresponding CO2 production. 
-The CO2 mass flow rate is added only if the Medium contains CO2. 
-Latent heat is only added if the Medium is a moist air medium. 
-Sensible heat is emitted both as convective and radiant heat using a fixed weighing factor.
+This lighting model assumes an input signal between 0 and 1
+(adjustable) that is multiplied by the lighting power calculated 
+according to the indications of ASHRAE Fundamentals 2017
+(Chapter 18). The total lighting gains are split first by the
+fraction that goes into the conditioned space and then between
+the radiative and convective gains.
 </p>
 </html>",
         revisions="<html>
 <ul>
 <li>
-July 26, 2018 by Filip Jorissen:<br/>
-Revised implementation to add support for
-<a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
-</li>
-<li>
-January 18, 2017 by Filip Jorissen:<br/>
-Changed latent heat of evaporation of water.
-This is for issue
-<a href=https://github.com/open-ideas/IDEAS/issues/635>#635</a>.
-</li>
-<li>
-July 18, 2016 by Filip Jorissen:<br/>
+August 28, 2018 by Iago Cupeiro:<br/>
 First implementation
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
 </li>
 </ul>
 </html>"));
