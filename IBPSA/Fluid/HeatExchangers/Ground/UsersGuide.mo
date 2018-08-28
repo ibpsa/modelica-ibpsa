@@ -74,8 +74,8 @@ the <code>conDat</code> subrecord is compatible with the chosen borefield model.
 For example, if a double U-tube
 borefield model is chosen, the <code>borCon</code> parameter could be set
 to both a parallel double U-tube configuration and a double U-tube configuration in series,
-but could not be set to a single U-tube configuration.
-<!-- fixme: explain what happens if it is set to a single U-tube configuration. An assert should stop the simulation -->
+but could not be set to a single U-tube configuration. An incompatible borehole
+configuration will stop the simulation.
 </p>
 <h5>Ground heat transfer parameters</h5>
 <p>
