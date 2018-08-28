@@ -31,6 +31,25 @@ partial model RectangularZoneTemplateInterface
   parameter IDEAS.Buildings.Components.Interfaces.BoundaryType bouTypCei
     "Modelled boundary for the zone ceiling"
     annotation(Dialog(tab="Ceiling", group="Construction details"));
+  parameter Integer nExtA = 1 "Number of external surfaces connected to face A"
+    annotation(Dialog(tab="Face A", group="Construction details",
+               enable=bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.External));
+  parameter Integer nExtB = 1 "Number of external surfaces connected to face B"
+    annotation(Dialog(tab="Face B", group="Construction details",
+               enable=bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.External));
+  parameter Integer nExtC = 1 "Number of external surfaces connected to face C"
+    annotation(Dialog(tab="Face C", group="Construction details",
+               enable=bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.External));
+  parameter Integer nExtD = 1 "Number of external surfaces connected to face D"
+    annotation(Dialog(tab="Face D", group="Construction details",
+               enable=bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.External));
+  parameter Integer nExtFlo = 1 "Number of external surfaces connected to floor"
+    annotation(Dialog(tab="Floor", group="Construction details",
+               enable=bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.External));
+  parameter Integer nExtCei = 1 "Number of external surfaces connected to ceiling"
+    annotation(Dialog(tab="Ceiling", group="Construction details",
+               enable=bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.External));
+
   parameter Boolean hasWinA = false
     "Modelling window for face A if true"
     annotation(Dialog(tab="Face A", group="Window details", enable=not (bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.None)));
@@ -758,7 +777,7 @@ protected
     hasInt "Internal wall contained within the zone"
     annotation (Placement(transformation(extent={{-176,20},{-164,40}})));
 public
-  IDEAS.Buildings.Components.Interfaces.ZoneBus proBusA(
+  IDEAS.Buildings.Components.Interfaces.ZoneBus proBusA[nExtA](
     final numIncAndAziInBus=sim.numIncAndAziInBus,
     final outputAngles=sim.outputAngles) if
     bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
@@ -771,7 +790,7 @@ public
         extent={{-20,20},{20,-20}},
         rotation=180,
         origin={-60,90})));
-  IDEAS.Buildings.Components.Interfaces.ZoneBus proBusB(
+  IDEAS.Buildings.Components.Interfaces.ZoneBus proBusB[nExtB](
     final numIncAndAziInBus=sim.numIncAndAziInBus,
     final outputAngles=sim.outputAngles) if
     bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
@@ -784,7 +803,7 @@ public
         extent={{-20,20},{20,-20}},
         rotation=90,
         origin={90,60})));
-  IDEAS.Buildings.Components.Interfaces.ZoneBus proBusC(
+  IDEAS.Buildings.Components.Interfaces.ZoneBus proBusC[nExtC](
     final numIncAndAziInBus=sim.numIncAndAziInBus,
     final outputAngles=sim.outputAngles) if
     bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
@@ -797,7 +816,7 @@ public
         extent={{-20,20},{20,-20}},
         rotation=0,
         origin={68,-98})));
-  IDEAS.Buildings.Components.Interfaces.ZoneBus proBusD(
+  IDEAS.Buildings.Components.Interfaces.ZoneBus proBusD[nExtD](
     final numIncAndAziInBus=sim.numIncAndAziInBus,
     final outputAngles=sim.outputAngles) if
     bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
@@ -810,7 +829,7 @@ public
         extent={{-20,20},{20,-20}},
         rotation=-90,
         origin={-96,-70})));
-  IDEAS.Buildings.Components.Interfaces.ZoneBus proBusFlo(
+  IDEAS.Buildings.Components.Interfaces.ZoneBus proBusFlo[nExtFlo](
     final numIncAndAziInBus=sim.numIncAndAziInBus,
     final outputAngles=sim.outputAngles) if
     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
@@ -823,7 +842,7 @@ public
         extent={{-20,20},{20,-20}},
         rotation=180,
         origin={0,-60})));
-  IDEAS.Buildings.Components.Interfaces.ZoneBus proBusCei(
+  IDEAS.Buildings.Components.Interfaces.ZoneBus proBusCei[nExtCei](
     final numIncAndAziInBus=sim.numIncAndAziInBus,
     final outputAngles=sim.outputAngles) if
     bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
@@ -901,12 +920,18 @@ protected
   parameter Modelica.SIunits.Area ACei(fixed=false);
 
   final parameter Integer indWalA = if hasNoA then 0 else 1;
-  final parameter Integer indWalB = indWalA + (if hasNoB then 0 else 1);
-  final parameter Integer indWalC = indWalB + (if hasNoC then 0 else 1);
-  final parameter Integer indWalD = indWalC + (if hasNoD then 0 else 1);
-  final parameter Integer indFlo = indWalD + (if hasNoFlo then 0 else 1);
-  final parameter Integer indCei = indFlo + (if hasNoCei then 0 else 1);
-  final parameter Integer indIntZone_a = indCei + (if hasInt then 1 else 0);
+  final parameter Integer indWalB = indWalA + (if not hasNoA and bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+                                    then nExtA - 1  else 0) + (if hasNoB then 0 else 1);
+  final parameter Integer indWalC = indWalB + (if not hasNoB and bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+                                    then nExtB - 1  else 0) + (if hasNoC then 0 else 1);
+  final parameter Integer indWalD = indWalC + (if not hasNoC and bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+                                    then nExtC - 1  else 0) + (if hasNoD then 0 else 1);
+  final parameter Integer indFlo = indWalD + (if not hasNoD and bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+                                    then nExtD - 1  else 0) + (if hasNoFlo then 0 else 1);
+  final parameter Integer indCei = indFlo + (if not hasNoFlo and bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+                                    then nExtFlo - 1  else 0) + (if hasNoCei then 0 else 1);
+  final parameter Integer indIntZone_a = indCei + (if not hasNoCei and bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+                                    then nExtCei - 1  else 0) + (if hasInt then 1 else 0);
   final parameter Integer indIntZone_b = indIntZone_a + (if hasInt then 1 else 0);
   final parameter Integer indWinA = indIntZone_b + (if hasWinA then 1 else 0);
   final parameter Integer indWinB = indWinA + (if hasWinB then 1 else 0);
@@ -1060,40 +1085,52 @@ equation
       color={255,204,51},
       thickness=0.5));
   if hasExtA then
-    connect(proBusA, propsBusInt[indWalA]) annotation (Line(
+    for i in indWalA:indWalB-1 loop
+    connect(proBusA[i-indWalA+1], propsBusInt[i]) annotation (Line(
       points={{-188,10},{-188,10},{-188,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
+    end for;
   end if;
   if hasExtB then
-    connect(proBusB, propsBusInt[indWalB]) annotation (Line(
+    for i in indWalB:indWalC-1 loop
+    connect(proBusB[i-indWalB+1], propsBusInt[i]) annotation (Line(
       points={{-188,-10},{-188,-10},{-188,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
+    end for;
   end if;
   if hasExtC then
-    connect(proBusC, propsBusInt[indWalC]) annotation (Line(
+    for i in indWalC:indWalD-1 loop
+    connect(proBusC[i-indWalC+1], propsBusInt[i]) annotation (Line(
       points={{-188,-30},{-188,-30},{-188,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
+    end for;
   end if;
   if hasExtD then
-    connect(proBusD, propsBusInt[indWalD]) annotation (Line(
+    for i in indWalD:indFlo-1 loop
+    connect(proBusD[i-indWalD+1], propsBusInt[i]) annotation (Line(
       points={{-188,-50},{-188,-50},{-188,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
+    end for;
   end if;
   if hasExtFlo then
-    connect(proBusFlo, propsBusInt[indFlo]) annotation (Line(
+    for i in indFlo:indCei-1 loop
+    connect(proBusFlo[i-indFlo+1], propsBusInt[i]) annotation (Line(
       points={{-188,-70},{-188,-70},{-188,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
+    end for;
   end if;
   if hasExtCei then
-    connect(proBusCei, propsBusInt[indCei]) annotation (Line(
+    for i in indCei:indIntZone_a-1 loop
+    connect(proBusCei[i-indCei+1], propsBusInt[i]) annotation (Line(
       points={{-188,-90},{-188,-90},{-188,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
+    end for;
   end if;
 
   connect(propsBusInt[(indWinCei+1):(indWinCei+nSurfExt)], proBusExt[1:nSurfExt]) annotation (Line(
@@ -1303,6 +1340,11 @@ components cannot be propagated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 28, 2018, by Damien Picard:<br/>
+Changes to allow multiple external surfaces connection per faces.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/901\">#901</a>.
+</li>
 <li>
 August 26, 2018, by Damien Picard:<br/>
 Move all equations except windows equations of
