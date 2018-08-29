@@ -992,6 +992,22 @@ initial equation
   assert(AWallD >= 0, "The netto surface area of wall C is negative. This is not allowed.");
   assert(AWallD >= 0, "The netto surface area of wall D is negative. This is not allowed.");
   assert(ACei >= 0, "The netto surface area of the ceiling is negative. This is not allowed.");
+
+  if hasIntA then
+    assert(nExtA == 1, "The parameter nExtA should be = 1 when internalWall type is chosen for surface A");
+  end if;
+  if hasIntB then
+    assert(nExtB == 1, "The parameter nExtB should be = 1 when internalWall type is chosen for surface B");
+  end if;
+  if hasIntC then
+    assert(nExtC == 1, "The parameter nExtC should be = 1 when internalWall type is chosen for surface C");
+  end if;
+  if hasIntD then
+    assert(nExtD == 1, "The parameter nExtD should be = 1 when internalWall type is chosen for surface D");
+  end if;
+  if hasIntFlo then
+    assert(nExtFlo == 1, "The parameter nExtFlo should be = 1 when internalWall type is chosen for Floor");
+  end if;
 equation
   connect(intA.propsBus_a, propsBusInt[indWalA]) annotation (Line(
       points={{-165,12},{-152,12},{-152,40},{-80,40}},
