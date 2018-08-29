@@ -845,7 +845,6 @@ public
   IDEAS.Buildings.Components.Interfaces.ZoneBus proBusCei[nExtCei](
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final outputAngles=sim.outputAngles) if
-    bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
     "Propsbus connector for connecting to external surface of ceiling: internal walls should be modelled as the floor of the zone above"
     annotation (Placement(transformation(
@@ -920,18 +919,24 @@ protected
   parameter Modelica.SIunits.Area ACei(fixed=false);
 
   final parameter Integer indWalA = if hasNoA then 0 else 1;
-  final parameter Integer indWalB = indWalA + (if not hasNoA and bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
-                                    then nExtA - 1  else 0) + (if hasNoB then 0 else 1);
-  final parameter Integer indWalC = indWalB + (if not hasNoB and bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
-                                    then nExtB - 1  else 0) + (if hasNoC then 0 else 1);
-  final parameter Integer indWalD = indWalC + (if not hasNoC and bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
-                                    then nExtC - 1  else 0) + (if hasNoD then 0 else 1);
-  final parameter Integer indFlo = indWalD + (if not hasNoD and bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
-                                    then nExtD - 1  else 0) + (if hasNoFlo then 0 else 1);
-  final parameter Integer indCei = indFlo + (if not hasNoFlo and bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
-                                    then nExtFlo - 1  else 0) + (if hasNoCei then 0 else 1);
-  final parameter Integer indIntZone_a = indCei + (if not hasNoCei and bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
-                                    then nExtCei - 1  else 0) + (if hasInt then 1 else 0);
+  final parameter Integer indWalA_end = indWalA + (if not hasNoA and bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+                                    then nExtA - 1  else 0);
+  final parameter Integer indWalB = indWalA_end + (if hasNoB then 0 else 1);
+  final parameter Integer indWalB_end = indWalB+ (if not hasNoB and bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+                                    then nExtB - 1  else 0);
+  final parameter Integer indWalC = indWalB_end  + (if hasNoC then 0 else 1);
+  final parameter Integer indWalC_end = indWalC + (if not hasNoC and bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+                                    then nExtC - 1  else 0);
+  final parameter Integer indWalD = indWalC_end  + (if hasNoD then 0 else 1);
+  final parameter Integer indWalD_end = indWalD + (if not hasNoD and bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+                                    then nExtD - 1  else 0);
+  final parameter Integer indFlo = indWalD_end + (if hasNoFlo then 0 else 1);
+  final parameter Integer indFlo_end = indFlo + (if not hasNoFlo and bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+                                    then nExtFlo - 1  else 0);
+  final parameter Integer indCei = indFlo_end  + (if hasNoCei then 0 else 1);
+  final parameter Integer indCei_end = indCei + (if not hasNoCei and bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+                                    then nExtCei - 1  else 0);
+  final parameter Integer indIntZone_a = indCei_end + (if hasInt then 1 else 0);
   final parameter Integer indIntZone_b = indIntZone_a + (if hasInt then 1 else 0);
   final parameter Integer indWinA = indIntZone_b + (if hasWinA then 1 else 0);
   final parameter Integer indWinB = indWinA + (if hasWinB then 1 else 0);
@@ -1064,28 +1069,28 @@ equation
       points={{-110.833,-88},{-106,-88},{-106,-76},{-106,40},{-80,40}},
       color={255,204,51},
       thickness=0.5));
-  connect(intA.propsBus_b, proBusA) annotation (Line(
+  connect(intA.propsBus_b, proBusA[1]) annotation (Line(
       points={{-175,12},{-188,12},{-188,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(intB.propsBus_b, proBusB) annotation (Line(
+  connect(intB.propsBus_b, proBusB[1]) annotation (Line(
       points={{-175,-8},{-188,-8},{-188,-10}},
       color={255,204,51},
       thickness=0.5));
-  connect(intC.propsBus_b, proBusC) annotation (Line(
+  connect(intC.propsBus_b, proBusC[1]) annotation (Line(
       points={{-175,-28},{-188,-28},{-188,-30}},
       color={255,204,51},
       thickness=0.5));
-  connect(intD.propsBus_b, proBusD) annotation (Line(
+  connect(intD.propsBus_b, proBusD[1]) annotation (Line(
       points={{-175,-48},{-188,-48},{-188,-50}},
       color={255,204,51},
       thickness=0.5));
-  connect(intFlo.propsBus_b, proBusFlo) annotation (Line(
+  connect(intFlo.propsBus_b, proBusFlo[1]) annotation (Line(
       points={{-175,-68},{-188,-68},{-188,-70}},
       color={255,204,51},
       thickness=0.5));
   if hasExtA then
-    for i in indWalA:indWalB-1 loop
+    for i in indWalA:indWalA_end loop
     connect(proBusA[i-indWalA+1], propsBusInt[i]) annotation (Line(
       points={{-188,10},{-188,10},{-188,40},{-80,40}},
       color={255,204,51},
@@ -1093,7 +1098,7 @@ equation
     end for;
   end if;
   if hasExtB then
-    for i in indWalB:indWalC-1 loop
+    for i in indWalB:indWalB_end loop
     connect(proBusB[i-indWalB+1], propsBusInt[i]) annotation (Line(
       points={{-188,-10},{-188,-10},{-188,40},{-80,40}},
       color={255,204,51},
@@ -1101,7 +1106,7 @@ equation
     end for;
   end if;
   if hasExtC then
-    for i in indWalC:indWalD-1 loop
+    for i in indWalC:indWalC_end loop
     connect(proBusC[i-indWalC+1], propsBusInt[i]) annotation (Line(
       points={{-188,-30},{-188,-30},{-188,40},{-80,40}},
       color={255,204,51},
@@ -1109,7 +1114,7 @@ equation
     end for;
   end if;
   if hasExtD then
-    for i in indWalD:indFlo-1 loop
+    for i in indWalD:indWalD_end loop
     connect(proBusD[i-indWalD+1], propsBusInt[i]) annotation (Line(
       points={{-188,-50},{-188,-50},{-188,40},{-80,40}},
       color={255,204,51},
@@ -1117,7 +1122,7 @@ equation
     end for;
   end if;
   if hasExtFlo then
-    for i in indFlo:indCei-1 loop
+    for i in indFlo:indFlo_end loop
     connect(proBusFlo[i-indFlo+1], propsBusInt[i]) annotation (Line(
       points={{-188,-70},{-188,-70},{-188,40},{-80,40}},
       color={255,204,51},
@@ -1125,7 +1130,7 @@ equation
     end for;
   end if;
   if hasExtCei then
-    for i in indCei:indIntZone_a-1 loop
+    for i in indCei:indCei_end loop
     connect(proBusCei[i-indCei+1], propsBusInt[i]) annotation (Line(
       points={{-188,-90},{-188,-90},{-188,40},{-80,40}},
       color={255,204,51},
