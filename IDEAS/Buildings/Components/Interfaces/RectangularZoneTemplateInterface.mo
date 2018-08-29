@@ -429,7 +429,8 @@ partial model RectangularZoneTemplateInterface
   parameter Boolean hasEmb = false "Set to true if floor is equipped with floor heating or concrete core activation"
   annotation(Dialog(tab="Floor", group="Floor heating / CCA",
             enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
-                    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall)));
+                    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall or
+                    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
   parameter Integer nGainEmb = 1 "Number of planes in which CCA or FH pipes are located"
     annotation(Dialog(tab="Floor", group="Floor heating / CCA", enable=hasEmb));
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurfExt] proBusExt(
@@ -844,7 +845,8 @@ public
         origin={-2,60})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b gainEmb[nGainEmb] if
     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
-    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall
+    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall or
+    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround
     "Floor node for embedded heat gain if case of floor heating or CCA."
     annotation (Placement(transformation(extent={{90,-100},{110,-80}})));
 protected
@@ -1115,6 +1117,8 @@ equation
           {100,-104},{100,-90}}, color={191,0,0}));
   connect(bouFlo.port_emb, gainEmb) annotation (Line(points={{-115,-80},{-88,-80},
           {-88,-104},{100,-104},{100,-90}}, color={191,0,0}));
+  connect(slaOnGro.port_emb, gainEmb) annotation (Line(points={{-155,-80},{-156,
+          -80},{-156,-104},{100,-104},{100,-90}}, color={191,0,0}));
     annotation(Dialog(tab="Floor", group="Floor heating / CCA", enable=
     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall),
