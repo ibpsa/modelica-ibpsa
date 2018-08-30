@@ -5,14 +5,23 @@ model LinRectangularZoneTemplate
       airModel(vol(T(stateSelect=StateSelect.prefer))),
     redeclare IDEAS.Buildings.Components.InterzonalAirFlow.n50FixedPressure interzonalAirFlow);
 
-  parameter Boolean linearise=sim.linearise annotation(Dialog(tab="Linearization"));
-  parameter Integer firstWindowIndex "Index attributed to first window of zone. All other index will be computed automatically from that index" annotation(Dialog(tab="Linearization"));
-  parameter Integer indexWinA = firstWindowIndex "Index of window A" annotation(Dialog(tab="Linearization",enable=hasWinA));
-  parameter Integer indexWinB = indexWinA + (if hasWinA then 1 else 0) "Index of window B" annotation(Dialog(tab="Linearization",enable=hasWinB));
-  parameter Integer indexWinC = indexWinB + (if hasWinB then 1 else 0) "Index of window C" annotation(Dialog(tab="Linearization",enable=hasWinC));
-  parameter Integer indexWinD = indexWinC + (if hasWinC then 1 else 0) "Index of window D" annotation(Dialog(tab="Linearization",enable=hasWinD));
-  parameter Integer indexWinCei = indexWinD + (if hasWinD then 1 else 0) "Index of window Cei" annotation(Dialog(tab="Linearization",enable=hasWinCei));
-  final parameter Integer lastWindowIndex = indexWinCei + (if hasWinCei then 1 else 0) "Index of the last window of the zone";
+  parameter Boolean linearise=sim.linearise
+    "Linearises equations"
+     annotation(Dialog(tab="Linearization"));
+  parameter Integer firstWindowIndex
+    "Index for the first window of the zone. All window index are computed from this index" annotation(Dialog(tab="Linearization"));
+  parameter Integer indexWinA = firstWindowIndex
+    "Index of window A" annotation(Dialog(tab="Linearization",enable=hasWinA));
+  parameter Integer indexWinB = indexWinA + (if hasWinA then 1 else 0)
+    "Index of window B" annotation(Dialog(tab="Linearization",enable=hasWinB));
+  parameter Integer indexWinC = indexWinB + (if hasWinB then 1 else 0)
+    "Index of window C" annotation(Dialog(tab="Linearization",enable=hasWinC));
+  parameter Integer indexWinD = indexWinC + (if hasWinC then 1 else 0)
+    "Index of window D" annotation(Dialog(tab="Linearization",enable=hasWinD));
+  parameter Integer indexWinCei = indexWinD + (if hasWinD then 1 else 0)
+    "Index of window Cei" annotation(Dialog(tab="Linearization",enable=hasWinCei));
+  final parameter Integer lastWindowIndex = indexWinCei + (if hasWinCei then 1 else 0)
+    "Index of the last window of the zone";
 
   Modelica.Blocks.Interfaces.RealInput ctrlA if
                                                shaTypA.controlled
@@ -404,14 +413,14 @@ the linearization does not support other type of media.
 <ul>
 <li>
 August 30, 2018, by Damien Picard:<br/>
-Compute windows index automatically
+Computing window indices automatically
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/907\">#907</a>.
 </li>
 <li>
 August 26, 2018, by Damien Picard:<br/>
 Extends from new interface model 
 <code>RectangularZoneTemplateInterface</code>
-such that LinWin is used without requriring
+such that LinWin is used without requiring
 a redeclaration.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/891\">#891</a>.
 </li>
