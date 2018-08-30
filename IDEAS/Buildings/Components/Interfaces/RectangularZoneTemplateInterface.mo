@@ -426,6 +426,12 @@ partial model RectangularZoneTemplateInterface
   parameter SI.Length PWall = (if hasOutA then lA else 0) + (if hasOutB then lB else 0) + (if hasOutC then lC else 0) + (if hasOutD then lD else 0)
   "Total floor slab perimeter length" annotation(Dialog(tab="Advanced", group="SlabOnGround", enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
 
+  parameter Boolean hasEmb = false "Set to true if floor is equipped with floor heating or concrete core activation"
+  annotation(Dialog(tab="Floor", group="Floor heating / CCA",
+            enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
+                    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall or
+                    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
+
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurfExt] proBusExt(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final outputAngles=sim.outputAngles) if nSurfExt>0
@@ -440,7 +446,8 @@ partial model RectangularZoneTemplateInterface
 
 protected
   constant Real r = 287 "Gas constant";
-
+final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CCA or FH pipes are located"
+    annotation(Dialog(tab="Floor", group="Floor heating / CCA"));
   IDEAS.Buildings.Components.BoundaryWall bouA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       locGain=conTypA.locGain,
@@ -836,6 +843,12 @@ public
         extent={{-20,20},{20,-20}},
         rotation=180,
         origin={-2,60})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b gainEmb[nGainEmb] if
+    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
+    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall or
+    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround
+    "Floor node for embedded heat gain if case of floor heating or CCA."
+    annotation (Placement(transformation(extent={{90,-100},{110,-80}})));
 protected
   final parameter Boolean hasBouA=
     bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall;
@@ -1100,7 +1113,16 @@ equation
       points={{-80,40},{-82,40},{-82,54},{-82,50},{-210,50}},
       color={255,204,51},
       thickness=0.5));
-      annotation (Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
+  connect(intFlo.port_emb, gainEmb) annotation (Line(points={{-170,-80},{-170,-104},
+          {100,-104},{100,-90}}, color={191,0,0}));
+  connect(bouFlo.port_emb, gainEmb) annotation (Line(points={{-115,-80},{-88,-80},
+          {-88,-104},{100,-104},{100,-90}}, color={191,0,0}));
+  connect(slaOnGro.port_emb, gainEmb) annotation (Line(points={{-155,-80},{-156,
+          -80},{-156,-104},{100,-104},{100,-90}}, color={191,0,0}));
+    annotation(Dialog(tab="Floor", group="Floor heating / CCA", enable=
+    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
+    bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall),
+                  Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
         graphics={
         Text(
           extent={{-60,-72},{-30,-38}},
@@ -1223,6 +1245,16 @@ the shading properties.
 The surface area of the window is deducted from the surface area
 of the wall such that the total surface areas add up.
 </p>
+<p>
+The zone template also has a heat port for embedded heat gains
+in the floor. This can be used when the floor has a floor heating
+system or a concrete core activation system. Set then 
+<code>hasEmb</code> from the tab Floor to <code>true</code> 
+to get the <code>gaiEmb</code> heat port on the zone template.
+Notice that the zone template does not have a heat port for embedded
+gains in the ceiling. To model concrete core activation in the ceiling,
+use an external surface.
+</p>
 <h4>Options</h4>
 <p>
 Advanced options are found under the <code>Advanced</code> 
@@ -1303,6 +1335,11 @@ components cannot be propagated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 29, 2018, by Damien Picard:<br/>
+Add embedded heat port for floor heating or CCA.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/903\">#903</a>.
+</li>
 <li>
 August 26, 2018, by Damien Picard:<br/>
 Move all equations except windows equations of
