@@ -31,22 +31,22 @@ partial model RectangularZoneTemplateInterface
   parameter IDEAS.Buildings.Components.Interfaces.BoundaryType bouTypCei
     "Modelled boundary for the zone ceiling"
     annotation(Dialog(tab="Ceiling", group="Construction details"));
-  parameter Integer nExtA = 1 "Number of external surfaces connected to face A"
+  parameter Integer nExtA(min=0) = 1 "Number of external surfaces connected to face A"
     annotation(Dialog(tab="Face A", group="Construction details",
                enable=bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.External));
-  parameter Integer nExtB = 1 "Number of external surfaces connected to face B"
+  parameter Integer nExtB(min=0) = 1 "Number of external surfaces connected to face B"
     annotation(Dialog(tab="Face B", group="Construction details",
                enable=bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.External));
-  parameter Integer nExtC = 1 "Number of external surfaces connected to face C"
+  parameter Integer nExtC(min=0) = 1 "Number of external surfaces connected to face C"
     annotation(Dialog(tab="Face C", group="Construction details",
                enable=bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.External));
-  parameter Integer nExtD = 1 "Number of external surfaces connected to face D"
+  parameter Integer nExtD(min=0) = 1 "Number of external surfaces connected to face D"
     annotation(Dialog(tab="Face D", group="Construction details",
                enable=bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.External));
-  parameter Integer nExtFlo = 1 "Number of external surfaces connected to floor"
+  parameter Integer nExtFlo(min=0) = 1 "Number of external surfaces connected to floor"
     annotation(Dialog(tab="Floor", group="Construction details",
                enable=bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.External));
-  parameter Integer nExtCei = 1 "Number of external surfaces connected to ceiling"
+  parameter Integer nExtCei(min=0) = 1 "Number of external surfaces connected to ceiling"
     annotation(Dialog(tab="Ceiling", group="Construction details",
                enable=bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.External));
 
@@ -919,22 +919,22 @@ protected
   parameter Modelica.SIunits.Area ACei(fixed=false);
 
   final parameter Integer indWalA = if hasNoA then 0 else 1;
-  final parameter Integer indWalA_end = indWalA + (if not hasNoA and bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+  final parameter Integer indWalA_end = indWalA + (if bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
                                     then nExtA - 1  else 0);
   final parameter Integer indWalB = indWalA_end + (if hasNoB then 0 else 1);
-  final parameter Integer indWalB_end = indWalB+ (if not hasNoB and bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+  final parameter Integer indWalB_end = indWalB+ (if bouTypB == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
                                     then nExtB - 1  else 0);
   final parameter Integer indWalC = indWalB_end  + (if hasNoC then 0 else 1);
-  final parameter Integer indWalC_end = indWalC + (if not hasNoC and bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+  final parameter Integer indWalC_end = indWalC + (if bouTypC == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
                                     then nExtC - 1  else 0);
   final parameter Integer indWalD = indWalC_end  + (if hasNoD then 0 else 1);
-  final parameter Integer indWalD_end = indWalD + (if not hasNoD and bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+  final parameter Integer indWalD_end = indWalD + (if bouTypD == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
                                     then nExtD - 1  else 0);
   final parameter Integer indFlo = indWalD_end + (if hasNoFlo then 0 else 1);
-  final parameter Integer indFlo_end = indFlo + (if not hasNoFlo and bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+  final parameter Integer indFlo_end = indFlo + (if bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
                                     then nExtFlo - 1  else 0);
   final parameter Integer indCei = indFlo_end  + (if hasNoCei then 0 else 1);
-  final parameter Integer indCei_end = indCei + (if not hasNoCei and bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
+  final parameter Integer indCei_end = indCei + (if bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
                                     then nExtCei - 1  else 0);
   final parameter Integer indIntZone_a = indCei_end + (if hasInt then 1 else 0);
   final parameter Integer indIntZone_b = indIntZone_a + (if hasInt then 1 else 0);
