@@ -137,11 +137,11 @@ equation
       smooth=Smooth.None));
   connect(embeddedPipe.heatPortEmb, ceiling.port_emb)
     annotation (Line(points={{0,62},{0,70},{40,70},{40,92}}, color={191,0,0}));
-  connect(ceiling.propsBus_b, zone.proBusCei) annotation (Line(
+  connect(ceiling.propsBus_b, zone.proBusCei[1]) annotation (Line(
       points={{28,97},{28,106},{-0.2,106},{-0.2,96}},
       color={255,204,51},
       thickness=0.5));
-  connect(ceiling.propsBus_a, zone.proBusFlo) annotation (Line(
+  connect(ceiling.propsBus_a, zone.proBusFlo[1]) annotation (Line(
       points={{28,87},{28,76},{0,76},{0,84}},
       color={255,204,51},
       thickness=0.5));
@@ -157,11 +157,11 @@ equation
       points={{46,-30},{60,-30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(ceiling1.propsBus_b, zone1.proBusCei) annotation (Line(
+  connect(ceiling1.propsBus_b, zone1.proBusCei[1]) annotation (Line(
       points={{28,15},{28,24},{-0.2,24},{-0.2,16}},
       color={255,204,51},
       thickness=0.5));
-  connect(ceiling1.propsBus_a, zone1.proBusFlo) annotation (Line(
+  connect(ceiling1.propsBus_a, zone1.proBusFlo[1]) annotation (Line(
       points={{28,5},{28,-6},{0,-6},{0,4}},
       color={255,204,51},
       thickness=0.5));
@@ -176,11 +176,11 @@ equation
   connect(embeddedPipe2.heatPortEmb[1:embeddedPipe1.nDiscr], ceiling2[1:
     embeddedPipe1.nDiscr].port_emb[1]) annotation (Line(points={{0,-102},{0,-90},
           {40,-90},{40,-72}}, color={191,0,0}));
-  connect(ceiling2[1].propsBus_b, zone2.proBusCei) annotation (Line(
+  connect(ceiling2[1].propsBus_b, zone2.proBusCei[1]) annotation (Line(
       points={{28,-67},{28,-50},{-0.2,-50},{-0.2,-66}},
       color={255,204,51},
       thickness=0.5));
-  connect(ceiling2[1].propsBus_a, zone2.proBusFlo) annotation (Line(
+  connect(ceiling2[1].propsBus_a, zone2.proBusFlo[1]) annotation (Line(
       points={{28,-77},{28,-86},{0,-86},{0,-78}},
       color={255,204,51},
       thickness=0.5));
