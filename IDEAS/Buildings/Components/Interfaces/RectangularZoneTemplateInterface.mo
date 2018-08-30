@@ -1245,6 +1245,16 @@ the shading properties.
 The surface area of the window is deducted from the surface area
 of the wall such that the total surface areas add up.
 </p>
+<p>
+The zone template also has a heat port for embedded heat gains
+in the floor. This can be used when the floor has a floor heating
+system or a concrete core activation system. Set then 
+<code>hasEmb</code> from the tab Floor to <code>true</code> 
+to get the <code>gaiEmb</code> heat port on the zone template.
+Notice that the zone template does not have a heat port for embedded
+gains in the ceiling. To model concrete core activation in the ceiling,
+use an external surface.
+</p>
 <h4>Options</h4>
 <p>
 Advanced options are found under the <code>Advanced</code> 
