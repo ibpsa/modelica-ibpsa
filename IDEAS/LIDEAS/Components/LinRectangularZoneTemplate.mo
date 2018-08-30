@@ -9,7 +9,7 @@ model LinRectangularZoneTemplate
     "Linearises equations"
      annotation(Dialog(tab="Linearization"));
   parameter Integer firstWindowIndex
-    "Index for the first window of the zone. All window index are computed from this index" annotation(Dialog(tab="Linearization"));
+    "Index for the first window of the zone. All window indices are computed from this index" annotation(Dialog(tab="Linearization"));
   parameter Integer indexWinA = firstWindowIndex
     "Index of window A" annotation(Dialog(tab="Linearization",enable=hasWinA));
   parameter Integer indexWinB = indexWinA + (if hasWinA then 1 else 0)
