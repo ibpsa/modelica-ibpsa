@@ -403,6 +403,11 @@ the linearization does not support other type of media.
 </html>", revisions="<html>
 <ul>
 <li>
+August 30, 2018, by Damien Picard:<br/>
+Compute windows index automatically
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/907\">#907</a>.
+</li>
+<li>
 August 26, 2018, by Damien Picard:<br/>
 Extends from new interface model 
 <code>RectangularZoneTemplateInterface</code>
