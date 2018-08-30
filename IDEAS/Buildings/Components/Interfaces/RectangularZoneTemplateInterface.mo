@@ -431,8 +431,7 @@ partial model RectangularZoneTemplateInterface
             enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
                     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall or
                     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
-  parameter Integer nGainEmb = 1 "Number of planes in which CCA or FH pipes are located"
-    annotation(Dialog(tab="Floor", group="Floor heating / CCA", enable=hasEmb));
+
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurfExt] proBusExt(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
     each final outputAngles=sim.outputAngles) if nSurfExt>0
@@ -447,7 +446,8 @@ partial model RectangularZoneTemplateInterface
 
 protected
   constant Real r = 287 "Gas constant";
-
+final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CCA or FH pipes are located"
+    annotation(Dialog(tab="Floor", group="Floor heating / CCA"));
   IDEAS.Buildings.Components.BoundaryWall bouA(azi=aziA, inc=IDEAS.Types.Tilt.Wall,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       locGain=conTypA.locGain,

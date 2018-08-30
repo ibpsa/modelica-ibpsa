@@ -8,9 +8,8 @@ model RectangularZoneEmbedded
       zoneIntWal(
       bouTypFlo=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
       redeclare IDEAS.Buildings.Data.Constructions.FloorOnGround conTypFlo,
-      hasEmb=true,
-      nGainEmb=1,
-      bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External));
+      bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
+      hasEmb=true));
 
   package Medium = IDEAS.Media.Water;
   IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe       embeddedPipe(
