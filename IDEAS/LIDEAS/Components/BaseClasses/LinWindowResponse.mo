@@ -38,6 +38,9 @@ model LinWindowResponse
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDif
     "Transmitted diffuse solar radiation"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
+  Modelica.Blocks.Math.Gain radToDeg(final k=180/Modelica.Constants.pi)
+    "Conversion from radians to degrees"
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Modelica.Blocks.Interfaces.RealInput[nLay] AbsQFlowInput if linearise
     annotation (Placement(transformation(extent={{124,70},{84,110}})));
   Modelica.Blocks.Interfaces.RealInput iSolDirInput if linearise
@@ -50,7 +53,7 @@ model LinWindowResponse
     annotation (Placement(transformation(extent={{96,-90},{116,-70}})));
   Modelica.Blocks.Interfaces.RealOutput iSolDirOutput if createOutputs
     annotation (Placement(transformation(extent={{96,-60},{116,-40}})));
-protected
+
   Modelica.Blocks.Tables.CombiTable1Ds SwAbsDir(
     final table=SwAbs,
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
@@ -111,9 +114,7 @@ protected
         extent={{8,-8},{-8,8}},
         rotation=-90,
         origin={-32,48})));
-  Modelica.Blocks.Math.Gain radToDeg(final k=180/Modelica.Constants.pi)
-    "Conversion from radians to degrees"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+
 equation
   connect(Abs_flow.port, iSolAbs) annotation (Line(
       points={{4.89859e-016,86},{0,86},{0,100}},
