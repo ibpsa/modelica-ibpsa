@@ -11,7 +11,7 @@ defaultComponentPrefixes="parameter",
 defaultComponentName="borFieDat",
 Documentation(
 info="<html>
-<p>This record presents an example on how to define BorefieldData records
+<p>This record presents an example on how to define borefield records
 using the template in
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Template\">
 IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Template</a>.</p>

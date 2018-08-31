@@ -45,7 +45,7 @@ model Borefields
     tau=0)
     "Outlet temperature of the borefield with 2-UTube in parallel configuration"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Ground.Data.BorefieldData.Example borFieUTubDat(
+  IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Example borFieUTubDat(
     conDat=IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration.Example(
     borCon=IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.SingleUTube))
     annotation (Placement(transformation(extent={{70,-100},{90,-80}})));
@@ -87,7 +87,7 @@ model Borefields
     tau=0)
     "Outlet temperature of the borefield with 2-UTube in serie configuration"
     annotation (Placement(transformation(extent={{42,50},{62,70}})));
-  Ground.Data.BorefieldData.Example borFie2UTubParDat(
+  IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Example borFie2UTubParDat(
     conDat=IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration.Example(
     borCon=IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel))
     "Data from the borefield with 2-UTube in parallel borehole configuration"
@@ -128,7 +128,7 @@ model Borefields
     tau=0)
     "Inlet temperature of the borefield with UTube configuration"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Ground.Data.BorefieldData.Example borFie2UTubSerDat(
+  IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Example borFie2UTubSerDat(
     conDat=IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration.Example(
     borCon=IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeSeries))
     "Data from the borefield with 2-UTube in serie borehole configuration"

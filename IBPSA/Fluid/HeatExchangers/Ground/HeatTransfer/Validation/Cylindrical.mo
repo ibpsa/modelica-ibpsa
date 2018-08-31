@@ -5,7 +5,7 @@ model Cylindrical
 
   parameter Modelica.SIunits.Temperature T_start = 295.15
     "Initial soil temperature";
-  parameter Ground.Data.BorefieldData.Template borFieDat=
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Template borFieDat=
     IBPSA.Fluid.HeatExchangers.Ground.Validation.BaseClasses.SandBox_Borefield()
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
