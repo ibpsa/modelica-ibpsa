@@ -1,4 +1,4 @@
-﻿within IBPSA.Media.Refrigerants.R410A;
+within IBPSA.Media.Refrigerants.R410A;
 function specificIsochoricHeatCapacityVap_Tv
   "Function that calculates the specific isochoric heat capacity of R410A vapor
   based on temperature and specific volume"

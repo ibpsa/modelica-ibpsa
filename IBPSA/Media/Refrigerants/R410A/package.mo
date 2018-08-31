@@ -1,4 +1,4 @@
-﻿within IBPSA.Media.Refrigerants;
+within IBPSA.Media.Refrigerants;
 package R410A "Refrigerant R410A"
   extends Modelica.Icons.VariantsPackage;
 
