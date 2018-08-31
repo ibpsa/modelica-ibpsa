@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.Ground.BaseClasses;
+within IBPSA.Fluid.BaseClasses;
 model MassFlowRateMultiplier "Model that multiplies the mass flow rate"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 

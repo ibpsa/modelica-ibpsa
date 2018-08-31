@@ -1,9 +1,9 @@
-within IBPSA.Fluid.HeatExchangers.Ground.BaseClasses.Examples;
+within IBPSA.Fluid.BaseClasses.Validation;
 model MassFlowRateMultiplier "Example use of MassFlowRateMultiplier"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Water;
 
-  IBPSA.Fluid.HeatExchangers.Ground.BaseClasses.MassFlowRateMultiplier
+  IBPSA.Fluid.BaseClasses.MassFlowRateMultiplier
     massFlowRateMultiplier(
       redeclare package Medium = Medium,
       k=5)
@@ -35,14 +35,14 @@ equation
     annotation (Line(points={{30,0},{60,0}},        color={0,127,255}));
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/BaseClasses/Examples/MassFlowRateMultiplier.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/BaseClasses/Validation/MassFlowRateMultiplier.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StartTime=0.0, StopTime=10.0),
     Documentation(info="<html>
 <p>
 This example demonstrates the use of 
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.BaseClasses.MassFlowRateMultiplier\">
-IBPSA.Fluid.HeatExchangers.Ground.BaseClasses.MassFlowRateMultiplier</a>.
+<a href=\"modelica://IBPSA.Fluid.BaseClasses.MassFlowRateMultiplier\">
+IBPSA.Fluid.BaseClasses.MassFlowRateMultiplier</a>.
 </p>
 </html>", revisions="<html>
 <ul>
