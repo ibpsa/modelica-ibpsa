@@ -2,7 +2,7 @@ within IDEAS.LIDEAS.Components;
 model LinRectangularZoneTemplate
   extends IDEAS.Buildings.Components.Interfaces.RectangularZoneTemplateInterface(
     redeclare IDEAS.Buildings.Components.ZoneAirModels.WellMixedAir
-      airModel(vol(T(stateSelect=StateSelect.prefer))),
+      airModel(stateSelectTVol=StateSelect.prefer),
     redeclare IDEAS.Buildings.Components.InterzonalAirFlow.n50FixedPressure interzonalAirFlow);
 
   parameter Boolean linearise=sim.linearise
