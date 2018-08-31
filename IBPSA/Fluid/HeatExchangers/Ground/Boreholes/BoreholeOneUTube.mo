@@ -26,7 +26,7 @@ model BoreholeOneUTube "Single U-tube borehole heat exchanger"
     each final p1_start=p_start,
     each final p2_start=p_start,
     final TFlu_start=TFlu_start,
-    final TGro_start=TGro_start) "Discretized borehole segments"
+    final TGro_start=TGro_start) "Borehole segments"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

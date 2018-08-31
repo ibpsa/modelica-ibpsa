@@ -11,16 +11,16 @@ partial model PartialBorehole "Partial model for borehole example models"
     borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  replaceable
-    IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.PartialBorehole
-    borHol constrainedby
+  replaceable IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.PartialBorehole borHol
+    constrainedby
     IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.PartialBorehole(
     redeclare package Medium = Medium,
     borFieDat=borFieDat,
     m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     dp_nominal=borFieDat.conDat.dp_nominal,
     nSeg=nSeg,
-    TGro_start={T_start for i in 1:nSeg})
+    TGro_start={T_start for i in 1:nSeg},
+    TFlu_start={Medium.T_default for i in 1:nSeg})
     "Borehole connected to a discrete ground model" annotation (
       Placement(transformation(
         extent={{-14,-14},{14,14}},

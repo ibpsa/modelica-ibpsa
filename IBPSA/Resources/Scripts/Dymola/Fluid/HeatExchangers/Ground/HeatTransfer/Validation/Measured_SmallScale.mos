@@ -2,7 +2,7 @@ simulateModel("IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.Measure
 createPlot(id = 1,
  position = {50, 50, 700, 500},
  x = "time",
- y = {"meaDat.y[4]","temSen.T"},
+ y = {"meaDat.y[4]","TBorHol.y"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,

@@ -17,7 +17,8 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     dynFil=true,
     nSeg=nSeg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    TGro_start = {T_start for i in 1:nSeg})
+    TGro_start = {T_start for i in 1:nSeg},
+    TFlu_start={Medium.T_default for i in 1:nSeg})
     "Borehole with U-Tub configuration and grout dynamics"
     annotation (Placement(transformation(
         extent={{-14,-14},{14,14}},
@@ -63,8 +64,7 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-98,90})));
-  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BoreholeOneUTube
-    borHolOneUTubSteSta(
+  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BoreholeOneUTube borHolOneUTubSteSta(
     redeclare package Medium = Medium,
     borFieDat=borFieUTubDat,
     m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
@@ -72,8 +72,9 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     dynFil=false,
     nSeg=nSeg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    TGro_start = {T_start for i in 1:nSeg})
-                  "Borehole with U-Tub configuration and steady states grout"
+    TGro_start = {T_start for i in 1:nSeg},
+    TFlu_start={Medium.T_default for i in 1:nSeg})
+    "Borehole with U-Tub configuration and steady states grout"
     annotation (Placement(transformation(
         extent={{-14,-14},{14,14}},
         rotation=0,
@@ -94,17 +95,18 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     p=101330,
     T=283.15) "Sink" annotation (Placement(transformation(extent={{80,-10},{60,10}},
                   rotation=0)));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn1(m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
-      redeclare package Medium = Medium,
-    tau=0)                               "Inlet borehole temperature"
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn1(
+    m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
+    redeclare package Medium = Medium,
+    tau=0) "Inlet borehole temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort TBor1UTubSteSta(m_flow_nominal=
-        borFieUTubDat.conDat.mBor_flow_nominal, redeclare package Medium =
-        Medium,
-    tau=0)      "Outlet borehole temperature"
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBor1UTubSteSta(
+    m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
+    redeclare package Medium = Medium,
+    tau=0) "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol2(m=nSeg)
-                                   "Thermal collector" annotation (Placement(
+    "Thermal collector" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -118,7 +120,8 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     borFieDat=borFie2UTubDat,
     nSeg=nSeg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    TGro_start = {T_start for i in 1:nSeg})
+    TGro_start = {T_start for i in 1:nSeg},
+    TFlu_start={Medium.T_default for i in 1:nSeg})
     "Borehole with 2U-Tub configuration and grout dynamics" annotation (
       Placement(transformation(
         extent={{-14,-14},{14,14}},
@@ -172,7 +175,8 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     borFieDat=borFie2UTubDat,
     nSeg=nSeg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    TGro_start = {T_start for i in 1:nSeg})
+    TGro_start = {T_start for i in 1:nSeg},
+    TFlu_start={Medium.T_default for i in 1:nSeg})
     "Borehole with 2U-Tub configuration and steady states grout" annotation (
       Placement(transformation(
         extent={{-14,-14},{14,14}},
@@ -194,13 +198,15 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     T=283.15) "Sink" annotation (Placement(transformation(extent={{80,-130},{60,
             -110}},
                   rotation=0)));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn3(redeclare package Medium =
-        Medium, m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn3(
+    redeclare package Medium = Medium,
+    m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal,
     tau=0)
     "Inlet borehole temperature"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort TBor2UTubSteSta(redeclare package
-      Medium = Medium, m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBor2UTubSteSta(
+    redeclare package Medium = Medium,
+    m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal,
     tau=0)
     "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));

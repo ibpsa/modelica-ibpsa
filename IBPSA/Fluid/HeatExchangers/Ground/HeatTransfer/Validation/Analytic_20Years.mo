@@ -34,11 +34,8 @@ model Analytic_20Years
     nCel=5,
     borFieDat=borFieDat,
     forceGFunCalc=true) "Ground temperature response of borehole"
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
-    "Prescribed heat injected into borehole"
-    annotation (Placement(transformation(extent={{40,0},{20,20}})));
   Modelica.Blocks.Sources.CombiTimeTable timTabQ(
     tableOnFile=true,
     tableName="tab1",
@@ -47,19 +44,15 @@ model Analytic_20Years
     fileName=Modelica.Utilities.Files.loadResource(
       "modelica://IBPSA/Resources/Data/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Analytic_20Years.txt"))
         "Table for heat injected, using constant segments"
-    annotation (Placement(transformation(extent={{80,0},{60,20}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   Modelica.Blocks.Math.Add add(
-    k2=-1,
-    y(unit="K"))
+    y(unit="K"), k1=-1)
     "Difference between FFT method and ground temperature response model"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={50,-70})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
-    "Borehole wall temperature"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+        rotation=0,
+        origin={60,-14})));
   Modelica.Blocks.Sources.CombiTimeTable timTabT(
     tableOnFile=true,
     tableName="tab1",
@@ -70,25 +63,28 @@ model Analytic_20Years
     y(each unit="K",
       each displayUnit="degC"))
       "Table for resulting wall temperature using FFT and linearly interpolated"
-    annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
   Modelica.Blocks.Sources.Constant const(k=273.15)
     "Cosntant ground temperature"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Modelica.Blocks.Math.Add TBorWal(y(unit="K")) "Borewall temperature"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={10,16})));
 equation
-  connect(preHeaFlo.port, groTemRes.borWall)
-    annotation (Line(points={{20,10},{0,10}}, color={191,0,0}));
-  connect(temSen.port, groTemRes.borWall) annotation (Line(points={{20,-30},{10,
-          -30},{10,10},{0,10}}, color={191,0,0}));
-  connect(temSen.T, add.u2)
-    annotation (Line(points={{40,-30},{44,-30},{44,-58}}, color={0,0,127}));
-  connect(timTabQ.y[1], preHeaFlo.Q_flow)
-    annotation (Line(points={{59,10},{40,10}}, color={0,0,127}));
-  connect(timTabT.y[1], add.u1)
-    annotation (Line(points={{59,-30},{56,-30},{56,-58}}, color={0,0,127}));
-  connect(groTemRes.TSoi, const.y)
-    annotation (Line(points={{-22,10},{-39,10}}, color={0,0,127}));
 
+  connect(timTabQ.y[1], groTemRes.QOneBor_flow)
+    annotation (Line(points={{-59,50},{-41,50}}, color={0,0,127}));
+  connect(TBorWal.u2, const.y)
+    annotation (Line(points={{-2,10},{-39,10}}, color={0,0,127}));
+  connect(groTemRes.delTBor, TBorWal.u1) annotation (Line(points={{-19,50},{-6,
+          50},{-6,22},{-2,22}}, color={0,0,127}));
+  connect(add.u1, TBorWal.y) annotation (Line(points={{48,-8},{42,-8},{42,16},{
+          21,16}}, color={0,0,127}));
+  connect(add.u2, timTabT.y[1])
+    annotation (Line(points={{48,-20},{-59,-20}}, color={0,0,127}));
   annotation (experiment(StopTime=630720000,Tolerance=1e-6),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Analytic_20Years.mos"
         "Simulate and plot"),

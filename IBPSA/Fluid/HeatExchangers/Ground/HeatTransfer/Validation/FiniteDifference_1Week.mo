@@ -51,17 +51,14 @@ model FiniteDifference_1Week
     startTime=21600,
     amplitude=1e8) "Heat flow signal"
     annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo1
-    "Prescribed heat flow to soil for the analytical model"
-    annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
   IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.GroundTemperatureResponse groTemRes(
     borFieDat=borFieDat,
     nCel=5,
     tLoaAgg=30) "Heat conduction in the soil"
-    annotation (Placement(transformation(extent={{8,-70},{-12,-50}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Modelica.Blocks.Sources.Constant groTem(k=T_start)
     "Ground temperature signal"
-    annotation (Placement(transformation(extent={{88,-10},{68,10}})));
+    annotation (Placement(transformation(extent={{-94,-46},{-74,-26}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
     "Ground temperature for discretized model"
     annotation (Placement(transformation(extent={{48,50},{28,70}})));
@@ -76,38 +73,35 @@ model FiniteDifference_1Week
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,20})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenAna
-    "Borehole wall temperature sensor for the analytical model"
-    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+  Modelica.Blocks.Math.Add TSoiAna(y(unit="K"))
+    "Ground temperature from ground response model"
+    annotation (Placement(transformation(extent={{-12,-40},{8,-20}})));
 equation
   connect(preHeaFlo.port, soi.port_a) annotation (Line(
       points={{-30,60},{-12,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(sine.y, preHeaFlo1.Q_flow) annotation (Line(points={{-71,0},{-60,0},{
-          -60,-60},{-50,-60}},
-                           color={0,0,127}));
   connect(sine.y, preHeaFlo.Q_flow) annotation (Line(points={{-71,0},{-60,0},{
           -60,60},{-50,60}},
                          color={0,0,127}));
-  connect(preHeaFlo1.port, groTemRes.borWall)
-    annotation (Line(points={{-30,-60},{-12,-60}}, color={191,0,0}));
-  connect(groTem.y, groTemRes.TSoi) annotation (Line(points={{67,0},{60,0},{60,
-          -60},{10,-60}},
-                    color={0,0,127}));
   connect(preTem.port, soi.port_b)
     annotation (Line(points={{28,60},{18,60},{8,60}}, color={191,0,0}));
   connect(preTem.T, groTem.y)
-    annotation (Line(points={{50,60},{60,60},{60,0},{67,0}}, color={0,0,127}));
-  connect(temSenAna.T, deltaT.u2) annotation (Line(points={{10,-20},{20,-20},{
-          20,-6},{28,-6}}, color={0,0,127}));
+    annotation (Line(points={{50,60},{60,60},{60,88},{-66,88},{-66,-36},{-73,
+          -36}},                                             color={0,0,127}));
   connect(temSenDis.T, deltaT.u1)
     annotation (Line(points={{10,20},{20,20},{20,6},{28,6}}, color={0,0,127}));
   connect(soi.port_a, temSenDis.port) annotation (Line(points={{-12,60},{-20,60},
           {-20,20},{-10,20}}, color={191,0,0}));
-  connect(temSenAna.port, groTemRes.borWall) annotation (Line(points={{-10,-20},
-          {-20,-20},{-20,-60},{-12,-60}}, color={191,0,0}));
 
+  connect(groTemRes.QOneBor_flow, sine.y)
+    annotation (Line(points={{-51,0},{-71,0}}, color={0,0,127}));
+  connect(groTemRes.delTBor, TSoiAna.u1) annotation (Line(points={{-29,0},{-20,
+          0},{-20,-24},{-14,-24}}, color={0,0,127}));
+  connect(groTem.y, TSoiAna.u2)
+    annotation (Line(points={{-73,-36},{-14,-36}}, color={0,0,127}));
+  connect(deltaT.u2, TSoiAna.y) annotation (Line(points={{28,-6},{18,-6},{18,
+          -30},{9,-30}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/FiniteDifference_1Week.mos"

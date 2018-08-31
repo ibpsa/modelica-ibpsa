@@ -13,11 +13,8 @@ model Measured_SmallScale
     borFieDat=borFieDat,
     forceGFunCalc=true,
     tLoaAgg=360000) "Ground temperature response of borehole"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
-    "Prescribed heat injected into borehole"
-    annotation (Placement(transformation(extent={{20,0},{0,20}})));
   Modelica.Blocks.Sources.CombiTimeTable meaDat(
     tableOnFile=true,
     timeScale=sizFac^2,
@@ -27,40 +24,34 @@ model Measured_SmallScale
     tableName="data",
     offset={0,0,0,273.15,273.15,273.15,273.15,273.15})
                      "Measurement data"
-    annotation (Placement(transformation(extent={{80,0},{60,20}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Modelica.Blocks.Math.Add add(
-    k2=-1,
-    y(unit="K"))
-    "Difference between experiment data and ground temperature response model"
+  Modelica.Blocks.Math.Add TBorHol(y(unit="K")) "Borehole temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={30,-70})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
-    "Borehole wall temperature"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+        rotation=0,
+        origin={40,-30})));
 
   Modelica.Blocks.Math.Gain scaFac(k=sizFac)
     "Scaling factor of the experiment"
-    annotation (Placement(transformation(extent={{50,0},{30,20}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  Modelica.Blocks.Math.Add add(k2=-1)
+    "Difference between experiment data and ground temperature response model"
+    annotation (Placement(transformation(extent={{68,-70},{88,-50}})));
 equation
-  connect(preHeaFlo.port, groTemRes.borWall)
-    annotation (Line(points={{0,10},{-20,10}},color={191,0,0}));
-  connect(temSen.port, groTemRes.borWall) annotation (Line(points={{0,-30},{-10,
-          -30},{-10,10},{-20,10}},
-                                color={191,0,0}));
-  connect(temSen.T, add.u2)
-    annotation (Line(points={{20,-30},{24,-30},{24,-58}}, color={0,0,127}));
 
-  connect(preHeaFlo.Q_flow, scaFac.y)
-    annotation (Line(points={{20,10},{29,10}},         color={0,0,127}));
   connect(meaDat.y[3], scaFac.u)
-    annotation (Line(points={{59,10},{52,10}},           color={0,0,127}));
-  connect(meaDat.y[4], add.u1) annotation (Line(points={{59,10},{56,10},{56,-58},
-          {36,-58}}, color={0,0,127}));
-  connect(meaDat.y[8], groTemRes.TSoi) annotation (Line(points={{59,10},{56,10},
-          {56,40},{-58,40},{-58,10},{-42,10}},         color={0,0,127}));
+    annotation (Line(points={{-59,0},{-42,0}},           color={0,0,127}));
+  connect(scaFac.y, groTemRes.QOneBor_flow)
+    annotation (Line(points={{-19,0},{-11,0}}, color={0,0,127}));
+  connect(add.u1, meaDat.y[4]) annotation (Line(points={{66,-54},{-50,-54},{-50,
+          0},{-59,0}}, color={0,0,127}));
+  connect(add.u2, TBorHol.y) annotation (Line(points={{66,-66},{60,-66},{60,-30},
+          {51,-30}}, color={0,0,127}));
+  connect(TBorHol.u2, meaDat.y[8]) annotation (Line(points={{28,-36},{-50,-36},
+          {-50,0},{-59,0}}, color={0,0,127}));
+  connect(TBorHol.u1, groTemRes.delTBor) annotation (Line(points={{28,-24},{20,
+          -24},{20,0},{11,0}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=85050000000.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Measured_SmallScale.mos"
         "Simulate and plot"),

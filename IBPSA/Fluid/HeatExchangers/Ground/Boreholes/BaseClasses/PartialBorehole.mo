@@ -15,7 +15,7 @@ partial model PartialBorehole
     "Start value of grout temperature"
     annotation (Dialog(tab="Initialization"));
 
-  parameter Modelica.SIunits.Temperature TFlu_start[nSeg]
+  parameter Modelica.SIunits.Temperature TFlu_start[nSeg] = TGro_start
     "Start value of fluid temperature"
     annotation (Dialog(tab="Initialization"));
 
@@ -37,7 +37,7 @@ partial model PartialBorehole
       "Set to false to remove the dynamics of the filling material"
       annotation (Dialog(tab="Dynamics"));
   parameter Data.BorefieldData.Template borFieDat "Borefield parameters"
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall[nSeg]
     "Thermal connection for borehole wall"
