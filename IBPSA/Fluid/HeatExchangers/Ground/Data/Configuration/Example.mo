@@ -4,7 +4,6 @@ record Example
   extends
     IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration.Template(
       borCon = Types.BoreholeConfiguration.SingleUTube,
-      nBor=4,
       cooBor={{0,0},{0,6},{6,0},{6,6}},
       mBor_flow_nominal=0.3,
       dp_nominal=5e4,

@@ -4,7 +4,7 @@ function temperatureResponseMatrix
   extends Modelica.Icons.Function;
 
   input Integer nBor "Number of boreholes";
-  input Real cooBor[nBor, 2] "Borehole coordonates";
+  input Real cooBor[nBor, 2] "Borehole coordinates";
   input Modelica.SIunits.Height hBor "Borehole length";
   input Modelica.SIunits.Height dBor "Borehole buried depth";
   input Modelica.SIunits.Radius rBor "Borehole radius";

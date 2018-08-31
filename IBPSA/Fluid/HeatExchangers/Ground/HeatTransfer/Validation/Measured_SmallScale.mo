@@ -42,8 +42,6 @@ equation
 
   connect(meaDat.y[3], scaFac.u)
     annotation (Line(points={{-59,0},{-42,0}},           color={0,0,127}));
-  connect(scaFac.y, groTemRes.QOneBor_flow)
-    annotation (Line(points={{-19,0},{-11,0}}, color={0,0,127}));
   connect(add.u1, meaDat.y[4]) annotation (Line(points={{66,-54},{-50,-54},{-50,
           0},{-59,0}}, color={0,0,127}));
   connect(add.u2, TBorHol.y) annotation (Line(points={{66,-66},{60,-66},{60,-30},
@@ -52,6 +50,8 @@ equation
           {-50,0},{-59,0}}, color={0,0,127}));
   connect(TBorHol.u1, groTemRes.delTBor) annotation (Line(points={{28,-24},{20,
           -24},{20,0},{11,0}}, color={0,0,127}));
+  connect(groTemRes.QBor_flow, scaFac.y)
+    annotation (Line(points={{-11,0},{-19,0}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=85050000000.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Measured_SmallScale.mos"
         "Simulate and plot"),

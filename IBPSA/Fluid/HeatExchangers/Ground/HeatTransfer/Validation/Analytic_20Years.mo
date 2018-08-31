@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation;
+﻿within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation;
 model Analytic_20Years
   "Long term validation of ground temperature response model"
   extends Modelica.Icons.Example;
@@ -52,7 +52,7 @@ model Analytic_20Years
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={60,-14})));
+        origin={70,-10})));
   Modelica.Blocks.Sources.CombiTimeTable timTabT(
     tableOnFile=true,
     tableName="tab1",
@@ -72,19 +72,21 @@ model Analytic_20Years
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={10,16})));
+        origin={30,20})));
 equation
 
-  connect(timTabQ.y[1], groTemRes.QOneBor_flow)
-    annotation (Line(points={{-59,50},{-41,50}}, color={0,0,127}));
   connect(TBorWal.u2, const.y)
-    annotation (Line(points={{-2,10},{-39,10}}, color={0,0,127}));
+    annotation (Line(points={{18,14},{-14,14},{-14,10},{-39,10}},
+                                                color={0,0,127}));
   connect(groTemRes.delTBor, TBorWal.u1) annotation (Line(points={{-19,50},{-6,
-          50},{-6,22},{-2,22}}, color={0,0,127}));
-  connect(add.u1, TBorWal.y) annotation (Line(points={{48,-8},{42,-8},{42,16},{
-          21,16}}, color={0,0,127}));
+          50},{-6,26},{18,26}}, color={0,0,127}));
+  connect(add.u1, TBorWal.y) annotation (Line(points={{58,-4},{50,-4},{50,20},{
+          41,20}}, color={0,0,127}));
   connect(add.u2, timTabT.y[1])
-    annotation (Line(points={{48,-20},{-59,-20}}, color={0,0,127}));
+    annotation (Line(points={{58,-16},{0,-16},{0,-20},{-59,-20}},
+                                                  color={0,0,127}));
+  connect(groTemRes.QBor_flow, timTabQ.y[1])
+    annotation (Line(points={{-41,50},{-59,50}}, color={0,0,127}));
   annotation (experiment(StopTime=630720000,Tolerance=1e-6),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Analytic_20Years.mos"
         "Simulate and plot"),

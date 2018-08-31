@@ -27,11 +27,11 @@ record Template
     annotation (Dialog(group="Borehole"));
   parameter Modelica.SIunits.Height dBor "Borehole buried depth"
     annotation (Dialog(group="Borehole"));
-  parameter Integer nBor "Total number of boreholes"
+  parameter Integer nBor = size(cooBor, 1) "Total number of boreholes"
     annotation (Dialog(group="Borehole"));
 
-  parameter Real[nBor,2] cooBor
-    "Cartesian coordinates of the boreholes in meters."
+  parameter Modelica.SIunits.Length[:,2] cooBor
+    "Cartesian coordinates of the boreholes in meters"
     annotation (Dialog(group="Borehole"));
 
   // -- Tube

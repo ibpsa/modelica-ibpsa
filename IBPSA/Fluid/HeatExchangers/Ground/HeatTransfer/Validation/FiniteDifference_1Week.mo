@@ -94,14 +94,14 @@ equation
   connect(soi.port_a, temSenDis.port) annotation (Line(points={{-12,60},{-20,60},
           {-20,20},{-10,20}}, color={191,0,0}));
 
-  connect(groTemRes.QOneBor_flow, sine.y)
-    annotation (Line(points={{-51,0},{-71,0}}, color={0,0,127}));
   connect(groTemRes.delTBor, TSoiAna.u1) annotation (Line(points={{-29,0},{-20,
           0},{-20,-24},{-14,-24}}, color={0,0,127}));
   connect(groTem.y, TSoiAna.u2)
     annotation (Line(points={{-73,-36},{-14,-36}}, color={0,0,127}));
   connect(deltaT.u2, TSoiAna.y) annotation (Line(points={{28,-6},{18,-6},{18,
           -30},{9,-30}}, color={0,0,127}));
+  connect(groTemRes.QBor_flow, sine.y)
+    annotation (Line(points={{-51,0},{-71,0}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/FiniteDifference_1Week.mos"

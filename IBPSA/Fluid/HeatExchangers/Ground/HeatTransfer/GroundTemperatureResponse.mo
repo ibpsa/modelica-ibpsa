@@ -13,8 +13,8 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
     "Temperature difference current borehole wall temperature minus initial borehole wall temperature"
     annotation (Placement(transformation(extent={{100,-14},{126,12}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput QOneBor_flow(unit="W")
-    "Heat flow from one borehole (positive if heat from fluid into soil)"
+  Modelica.Blocks.Interfaces.RealInput QBor_flow(unit="W")
+    "Heat flow from all boreholes combined (positive if heat from fluid into soil)"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
 
@@ -70,8 +70,7 @@ protected
     "Derivative of wall temperature change from previous time steps";
   final parameter Real dhdt(fixed=false)
     "Time derivative of g/(2*pi*H*ks) within most recent cell";
-  Modelica.SIunits.HeatFlowRate QBor_flow=QOneBor_flow*borFieDat.conDat.nBor
-    "Total heat flow from all boreholes";
+
   Modelica.SIunits.Heat U "Accumulated heat flow from all boreholes";
   discrete Modelica.SIunits.Heat U_old "Accumulated heat flow from all boreholes at last aggregation step";
 
