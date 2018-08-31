@@ -15,9 +15,7 @@ model Borefields
     tLoaAgg=tLoaAgg,
     dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    forceGFunCalc=true,
-    TExt0_start=TGro,
-    dT_dz=0)
+    TExt0_start=TGro)
     "Borefield with a 2-U-tube connected in parallel borehole configuration"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sou1(
@@ -58,11 +56,9 @@ model Borefields
     tLoaAgg=tLoaAgg,
     dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    forceGFunCalc=true,
-    TExt0_start=TGro,
-    dT_dz=0)
+    TExt0_start=TGro)
     "Borefield with a 2-U-tube connected in serie borehole configuration"
-    annotation (Placement(transformation(extent={{-12,50},{8,70}})));
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium,
     nPorts=1,
@@ -102,9 +98,7 @@ model Borefields
     tLoaAgg=tLoaAgg,
     dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    forceGFunCalc=true,
-    TExt0_start=TGro,
-    dT_dz=0)
+    TExt0_start=TGro)
     "Borefield with a U-tube borehole configuration"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sou(
@@ -152,9 +146,9 @@ equation
   connect(sou2.ports[1], T2UTubSerIn.port_a)
     annotation (Line(points={{-72,60},{-58,60}}, color={0,127,255}));
   connect(T2UTubSerIn.port_b, borFie2UTubSer.port_a)
-    annotation (Line(points={{-38,60},{-12,60}},          color={0,127,255}));
+    annotation (Line(points={{-38,60},{-10,60}},          color={0,127,255}));
   connect(T2UTubSerOut.port_a, borFie2UTubSer.port_b)
-    annotation (Line(points={{42,60},{8,60}},  color={0,127,255}));
+    annotation (Line(points={{42,60},{10,60}}, color={0,127,255}));
   connect(T2UTubSerOut.port_b,sin2. ports[1])
     annotation (Line(points={{62,60},{70,60}},         color={0,127,255}));
   connect(sou.ports[1], TUTubIn.port_a)
