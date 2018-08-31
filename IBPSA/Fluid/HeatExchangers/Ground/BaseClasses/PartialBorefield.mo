@@ -13,6 +13,9 @@ partial model PartialBorefield
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
+  constant Real mSenFac(min=1)=1
+    "Factor for scaling the sensible thermal mass of the volume";
+
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -22,10 +25,6 @@ partial model PartialBorefield
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
-
-  parameter Real mSenFac(min=1)=1
-    "Factor for scaling the sensible thermal mass of the volume"
-    annotation(Dialog(tab="Dynamics"));
 
   // Simulation parameters
   parameter Modelica.SIunits.Time tLoaAgg=300 "Time resolution of load aggregation";

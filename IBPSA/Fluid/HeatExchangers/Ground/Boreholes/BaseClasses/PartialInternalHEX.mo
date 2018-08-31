@@ -7,9 +7,8 @@ partial model PartialInternalHEX
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium"
     annotation (choicesAllMatching = true);
-  parameter Real mSenFac=1
-    "Factor for scaling the sensible thermal mass of the volume"
-    annotation (Dialog(group="Advanced"));
+  constant Real mSenFac=1
+    "Factor for scaling the sensible thermal mass of the volume";
   parameter Boolean dynFil=true
     "Set to false to remove the dynamics of the filling material"
     annotation (Dialog(tab="Dynamics"));
@@ -100,7 +99,7 @@ Removed unused parameters <code>B0</code> and <code>B1</code>.
 </li>
 <li>
 January 24, 2014, by Michael Wetter:<br/>
-Revised implementation, added comments, replaced 
+Revised implementation, added comments, replaced
 <code>HeatTransfer.Windows.BaseClasses.ThermalConductor</code>
 with resistance models from the Modelica Standard Library.
 </li>

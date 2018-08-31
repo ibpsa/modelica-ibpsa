@@ -10,6 +10,9 @@ partial model PartialBorehole
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
+  constant Real mSenFac(min=1)=1
+   "Factor for scaling the sensible thermal mass of the volume";
+
   parameter Integer nSeg(min=1) = 10
     "Number of segments to use in vertical discretization of the boreholes";
   parameter Modelica.SIunits.Temperature TGro_start[nSeg]
@@ -29,10 +32,6 @@ partial model PartialBorehole
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
-
-  parameter Real mSenFac(min=1)=1
-    "Factor for scaling the sensible thermal mass of the volume"
-    annotation(Dialog(tab="Dynamics"));
 
   parameter Boolean dynFil=true
       "Set to false to remove the dynamics of the filling material"

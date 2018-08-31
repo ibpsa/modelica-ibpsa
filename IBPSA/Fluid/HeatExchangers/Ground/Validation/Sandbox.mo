@@ -5,12 +5,16 @@ model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier 
 
   parameter Modelica.SIunits.Temperature T_start = 273.15 + 22.09
     "Initial temperature of the sandbox";
-  parameter Real mSenFac = 1 +
-    (1.8e6*Modelica.Constants.pi*(borFieDat.conDat.rTub^2
-          -(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2)
-          +2.4e6*2*Modelica.Constants.pi*borFieDat.conDat.rBor*0.002/2)
-          /(4.2e6*Modelica.Constants.pi*(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2)
-    "Scaling factor for the borehole capacitances, modified to account for the thermal mass of the pipes and the borehole casing";
+
+  // mSenFac is set to its numerical value because it is a constant in the borehole model.
+  // mSenFac = 1 +
+  //  (1.8e6*Modelica.Constants.pi*(borFieDat.conDat.rTub^2
+  //        -(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2)
+  //        +2.4e6*2*Modelica.Constants.pi*borFieDat.conDat.rBor*0.002/2)
+  //        /(4.2e6*Modelica.Constants.pi*(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2)
+
+  constant Real mSenFac = 1.59186
+  "Scaling factor for the borehole capacitances, modified to account for the thermal mass of the pipes and the borehole casing";
 
   BorefieldOneUTube borHol(
     redeclare package Medium = Medium, borFieDat=
@@ -19,7 +23,7 @@ model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier 
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     mSenFac=mSenFac,
     TExt0_start=T_start,
-    dT_dz=0)         "Borehole"
+    dT_dz=0) "Borehole"
     annotation (Placement(transformation(extent={{-10,-76},{16,-44}})));
   IBPSA.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
