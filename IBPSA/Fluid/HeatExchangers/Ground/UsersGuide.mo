@@ -90,11 +90,8 @@ due to a higher number of events occuring in the simulation. While a default val
 is provided for this parameter, it is advisable to ensure that it is lower
 than a fraction (e.g. half) of the time required for the fluid to completely circulate
 through the borefield,
-as increasing the value of <code>tLoaAgg</code> beyond this will result
-in the borehole wall temperature profile becoming decreasingly physical.
-<!-- fixme: should this be 'will result in non-physical borehole wall temperatures'?
-            Can we compute tLoaAgg = f(diameter, length, m_flow_nominal) as default.
-            and warn for bad values? -->
+as increasing the value of <code>tLoaAgg</code> beyond this
+will result in non-physical borehole wall temperatures.
 </p>
 <p>
 The <code>nCel</code> parameter also affects the accuracy and simulation time
@@ -120,8 +117,6 @@ It is worth noting that regardless of the <code>energyDynamics</code> chosen,
 the <code>dynFil</code> parameter can be set to <code>false</code>
 to remove the effect of the thermal capacitance
 of the filling material in the borehole(s).
-<!-- fixme: fine with me, but is there a use case for dynFil = false? Maybe we can simplify the model
-            by setting dynFil to a constant so that the user has one less decision to make? -->
 The <code>nSeg</code> parameter specifies the number of segments for the vertical discretization of the borehole(s).
 Further information on this discretization can be found in the &#34;Model description&#34; section below.
 </p>
