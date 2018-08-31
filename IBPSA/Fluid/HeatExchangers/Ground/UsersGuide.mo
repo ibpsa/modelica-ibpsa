@@ -57,16 +57,16 @@ defining the configuration of the borefield).
 The structure and default values of the record are in the package:
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data\">IBPSA.Fluid.HeatExchangers.Ground.Data</a>.
 The <code>borFieDat</code> record
-can be found in the <a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData\">
-IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData</a> subpackage therein.
+can be found in the <a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield\">
+IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield</a> subpackage therein.
 Examples of the subrecords <code>conDat</code>, <code>filDat</code> and <code>soiDat</code>
 can be found in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData\">
-IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData</a>,
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.FillingData\">
-IBPSA.Fluid.HeatExchangers.Ground.Data.FillingData</a> and
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData\">
-IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData</a>, respectively.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration\">
+IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration</a>,
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.Filling\">
+IBPSA.Fluid.HeatExchangers.Ground.Data.Filling</a> and
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.Soil\">
+IBPSA.Fluid.HeatExchangers.Ground.Data.Soil</a>, respectively.
 </p>
 <p>
 It is important to make sure that the <code>borCon</code> parameter within

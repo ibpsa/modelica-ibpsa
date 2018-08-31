@@ -3,7 +3,7 @@ model Analytic_20Years
   "Long term validation of ground temperature response model"
   extends Modelica.Icons.Example;
 
-  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Template
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Template
     borFieDat(conDat(
       borCon=Types.BoreholeConfiguration.SingleUTube,
       nBor=1,

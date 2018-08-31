@@ -1,18 +1,18 @@
-within IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData;
-record SandStone
-  "Soil data record of sandstone heat transfer properties"
+within IBPSA.Fluid.HeatExchangers.Ground.Data.Filling;
+record Bentonite
+  "Filling data record of Bentonite heat transfer properties"
   extends
-    IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData.Template(
-    kSoi=2.8,
-    dSoi=540,
-    cSoi=1210);
+    IBPSA.Fluid.HeatExchangers.Ground.Data.Filling.Template(
+      kFil=1.15,
+      dFil=1600,
+      cFil=800);
   annotation (
   defaultComponentPrefixes="parameter",
-  defaultComponentName="soiDat",
+  defaultComponentName="filDat",
 Documentation(
 info="<html>
 <p>
-This soil data record contains the heat transfer properties of sandstone.
+This filling data record contains the heat transfer properties of bentonite.
 </p>
 </html>",
 revisions="<html>
@@ -28,4 +28,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SandStone;
+end Bentonite;

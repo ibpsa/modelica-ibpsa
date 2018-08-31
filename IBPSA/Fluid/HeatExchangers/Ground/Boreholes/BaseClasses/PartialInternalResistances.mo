@@ -5,7 +5,7 @@ partial model PartialInternalResistances
     "Length of the internal heat exchanger";
   parameter Modelica.SIunits.Temperature T_start
     "Initial temperature of the filling material";
-  parameter Data.BorefieldData.Template borFieDat "Borefield data"
+  parameter Data.Borefield.Template borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   parameter Modelica.SIunits.ThermalResistance Rgb_val
     "Thermal resistance between grout zone and borehole wall";

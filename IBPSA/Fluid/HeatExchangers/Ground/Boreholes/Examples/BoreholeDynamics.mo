@@ -8,7 +8,7 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
   parameter Modelica.SIunits.Temperature T_start = 273.15 + 22
     "Initial soil temperature";
 
-  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BoreholeOneUTube
+  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.OneUTube
     borHolOneUTubDyn(
     redeclare package Medium = Medium,
     borFieDat=borFieUTubDat,
@@ -41,7 +41,7 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     T=283.15) "Sink" annotation (Placement(transformation(extent={{80,50},{60,70}},
                   rotation=0)));
   parameter
-    IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Example
+    IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Example
     borFieUTubDat "Borefield parameters with UTube borehole configuration"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort TBorIn(m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
@@ -64,7 +64,7 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-98,90})));
-  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BoreholeOneUTube borHolOneUTubSteSta(
+  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.OneUTube borHolOneUTubSteSta(
     redeclare package Medium = Medium,
     borFieDat=borFieUTubDat,
     m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
@@ -112,7 +112,7 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
         rotation=270,
         origin={-36,30})));
 
-  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BoreholeTwoUTube borHol2UTubDyn(
+  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.TwoUTube borHol2UTubDyn(
     redeclare package Medium = Medium,
     dp_nominal=borFie2UTubDat.conDat.dp_nominal,
     dynFil=true,
@@ -144,9 +144,9 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     T=283.15) "Sink" annotation (Placement(transformation(extent={{80,-70},{60,-50}},
                   rotation=0)));
   parameter
-    IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Example
+    IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Example
     borFie2UTubDat(conDat=
-        IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Example(
+        IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration.Example(
          borCon=IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel))
     "Borefield parameters with UTube borehole configuration"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
@@ -167,7 +167,7 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
         rotation=270,
         origin={-36,-30})));
 
-  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BoreholeTwoUTube borHol2UTubSteSta(
+  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.TwoUTube borHol2UTubSteSta(
     redeclare package Medium = Medium,
     dp_nominal=borFie2UTubDat.conDat.dp_nominal,
     dynFil=false,

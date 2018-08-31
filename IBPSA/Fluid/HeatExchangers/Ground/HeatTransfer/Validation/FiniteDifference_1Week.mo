@@ -20,7 +20,7 @@ model FiniteDifference_1Week
     "Prescribed heat flow to soil for the discretized model"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
-  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Template borFieDat(
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Template borFieDat(
     soiDat(
       kSoi=1,
       cSoi=1,

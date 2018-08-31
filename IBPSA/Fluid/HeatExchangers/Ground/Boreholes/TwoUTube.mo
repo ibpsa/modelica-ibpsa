@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.Ground.Boreholes;
-model BoreholeTwoUTube "Double U-tube borehole heat exchanger"
+model TwoUTube "Double U-tube borehole heat exchanger"
   extends IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.PartialBorehole;
 
   IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalHEXTwoUTube
@@ -203,4 +203,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end BoreholeTwoUTube;
+end TwoUTube;

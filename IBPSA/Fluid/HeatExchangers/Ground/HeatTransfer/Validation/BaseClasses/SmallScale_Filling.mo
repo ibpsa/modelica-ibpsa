@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.BaseClasses;
 record SmallScale_Filling
   "Filling data record for the Cimmino and Bernier (2015) experiment"
   extends
-    IBPSA.Fluid.HeatExchangers.Ground.Data.FillingData.Template(
+    IBPSA.Fluid.HeatExchangers.Ground.Data.Filling.Template(
       kFil=0.262,
       dFil=1750,
       cFil=745);

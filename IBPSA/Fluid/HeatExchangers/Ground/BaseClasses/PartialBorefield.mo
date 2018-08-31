@@ -36,7 +36,7 @@ partial model PartialBorefield
     annotation (Dialog(tab="Advanced"));
 
   // General parameters of borefield
-  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Template borFieDat "Borefield data"
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Template borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   // Temperature gradient in undisturbed soil

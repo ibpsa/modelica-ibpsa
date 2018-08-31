@@ -7,7 +7,7 @@ partial model PartialBorehole "Partial model for borehole example models"
   parameter Modelica.SIunits.Temperature T_start = 273.15 + 22
     "Initial soil temperature";
 
-  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Example
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Example
     borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 

@@ -51,9 +51,9 @@ model InternalHEXOneUTube
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
   Modelica.Blocks.Math.Add error(k2=-1)
     annotation (Placement(transformation(extent={{22,-70},{42,-50}})));
-  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Example
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Example
     borFieDat(conDat=
-        IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Example(
+        IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration.Example(
         use_Rb=false))
     "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));

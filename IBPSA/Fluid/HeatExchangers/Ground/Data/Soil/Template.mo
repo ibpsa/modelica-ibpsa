@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData;
+within IBPSA.Fluid.HeatExchangers.Ground.Data.Soil;
 record Template
   "Template for soil data records"
   extends Modelica.Icons.Record;
@@ -19,8 +19,8 @@ Documentation(
 info="<html>
 <p>
 This record is a template for the records in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData\">
-IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.Soil\">
+IBPSA.Fluid.HeatExchangers.Ground.Data.Soil</a>.
 </p>
 </html>",
 revisions="<html>

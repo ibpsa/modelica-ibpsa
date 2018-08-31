@@ -36,7 +36,7 @@ partial model PartialBorehole
   parameter Boolean dynFil=true
       "Set to false to remove the dynamics of the filling material"
       annotation (Dialog(tab="Dynamics"));
-  parameter Data.BorefieldData.Template borFieDat "Borefield parameters"
+  parameter Data.Borefield.Template borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall[nSeg]

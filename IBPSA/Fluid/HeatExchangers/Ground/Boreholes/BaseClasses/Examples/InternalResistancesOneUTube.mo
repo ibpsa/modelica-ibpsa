@@ -37,9 +37,9 @@ model InternalResistancesOneUTube "Validation of InternalResistancesOneUTube"
     offset=T_start)
                    "Temperature ramp of pipe 1"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
-  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Example
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Example
     borFieDat(conDat=
-        IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Example(
+        IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration.Example(
         use_Rb=false))
     "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
