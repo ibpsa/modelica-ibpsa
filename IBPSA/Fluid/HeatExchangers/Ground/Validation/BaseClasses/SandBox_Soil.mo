@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatExchangers.Ground.Validation.BaseClasses;
 record SandBox_Soil
   "Soil data record for the Beier et al. (2011) experiment"
   extends
-    IBPSA.Fluid.HeatExchangers.Ground.Data.SoilData.Template(
+    IBPSA.Fluid.HeatExchangers.Ground.Data.Soil.Template(
       kSoi=2.88,
       cSoi=1275,
       dSoi=2000);

@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatExchangers.Ground.Validation.BaseClasses;
 record SandBox_Borefield
   "Borefield data record for the Beier et al. (2011) experiment"
   extends
-    IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Template(
+    IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Template(
       filDat=IBPSA.Fluid.HeatExchangers.Ground.Validation.BaseClasses.SandBox_Filling(),
       soiDat=IBPSA.Fluid.HeatExchangers.Ground.Validation.BaseClasses.SandBox_Soil(),
       conDat=IBPSA.Fluid.HeatExchangers.Ground.Validation.BaseClasses.SandBox_Configuration());

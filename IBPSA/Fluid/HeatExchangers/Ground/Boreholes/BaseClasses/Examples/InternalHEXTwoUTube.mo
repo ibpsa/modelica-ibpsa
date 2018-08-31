@@ -63,9 +63,9 @@ model InternalHEXTwoUTube
                                                 redeclare package Medium =
         Medium, m_flow_nominal=borFieDat.conDat.mBor_flow_nominal)
     annotation (Placement(transformation(extent={{16,-22},{28,-10}})));
-  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Example
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Example
     borFieDat(conDat=
-        IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Example(
+        IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration.Example(
         borCon=IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel,
         use_Rb=false))
     "Borefield data"

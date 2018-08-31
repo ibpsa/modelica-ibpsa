@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.BaseClasses;
 record SmallScale_Borefield
   "Borefield data record for the Cimmino and Bernier (2015) experiment"
   extends
-    IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Template(
+    IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Template(
       filDat=IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.BaseClasses.SmallScale_Filling(),
       soiDat=IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.BaseClasses.SmallScale_Soil(),
       conDat=IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.Validation.BaseClasses.SmallScale_Configuration());

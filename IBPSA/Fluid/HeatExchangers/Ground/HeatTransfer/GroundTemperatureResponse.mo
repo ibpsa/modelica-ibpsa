@@ -5,7 +5,7 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
   parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether it has been pre-computed";
-  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Template borFieDat
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Template borFieDat
     "Record containing all the parameters of the borefield model" annotation (
      choicesAllMatching=true, Placement(transformation(extent={{-80,-80},{-60,-60}})));
 

@@ -2,10 +2,10 @@ within IBPSA.Fluid.HeatExchangers.Ground.Boreholes.Examples;
 model BoreholeTwoUTube "Test for the double U-tube borehole model"
   extends Modelica.Icons.Example;
   extends IBPSA.Fluid.HeatExchangers.Ground.Boreholes.Examples.BaseClasses.PartialBorehole(
-      redeclare IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BoreholeTwoUTube
+      redeclare IBPSA.Fluid.HeatExchangers.Ground.Boreholes.TwoUTube
         borHol(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
       borFieDat(
-        conDat=IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Example(
+        conDat=IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration.Example(
           borCon=IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel)));
 
   annotation (experiment(Tolerance=1e-6, StopTime=360000),
@@ -15,8 +15,8 @@ model BoreholeTwoUTube "Test for the double U-tube borehole model"
         Documentation(info="<html>
 <p>
 This example illustrates the use of the 
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BoreholeTwoUTube\">
-IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BoreholeTwoUTube</a>
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Boreholes.TwoUTube\">
+IBPSA.Fluid.HeatExchangers.Ground.Boreholes.TwoUTube</a>
 model. It simulates the behavior of a borehole with a prescribed
 borehole wall boundary condition.
 </p>

@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData;
+within IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration;
 record Template
   "Template for configuration data records"
   extends Modelica.Icons.Record;
@@ -61,8 +61,8 @@ record Template
 info="<html>
 <p>
 This record is a template for the records in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData\">
-IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration\">
+IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration</a>.
 </p>
 </html>",
 revisions="<html>

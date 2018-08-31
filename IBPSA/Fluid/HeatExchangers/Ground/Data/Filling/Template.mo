@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers.Ground.Data.FillingData;
+within IBPSA.Fluid.HeatExchangers.Ground.Data.Filling;
 record Template
   "Template for filling data records"
   extends Modelica.Icons.Record;
@@ -19,8 +19,8 @@ record Template
 Documentation(
 info="<html>
 <p>This record is a template for the records in
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.FillingData\">
-IBPSA.Fluid.HeatExchangers.Ground.Data.FillingData</a>.</p>
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground.Data.Filling\">
+IBPSA.Fluid.HeatExchangers.Ground.Data.Filling</a>.</p>
 </html>",
 revisions="<html>
 <ul>

@@ -28,9 +28,9 @@ model InternalResistancesTwoUTube "Validation of InternalResistancesTwoUTube"
     offset=T_start)
                    "Temperature ramp of pipe 1"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
-  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Example
+  parameter IBPSA.Fluid.HeatExchangers.Ground.Data.Borefield.Example
     borFieDat(conDat=
-        IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Example(
+        IBPSA.Fluid.HeatExchangers.Ground.Data.Configuration.Example(
         borCon=IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.DoubleUTubeParallel,
         use_Rb=false))
     "Borefield data"
