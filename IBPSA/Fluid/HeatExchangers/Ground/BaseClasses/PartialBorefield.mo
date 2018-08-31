@@ -5,18 +5,32 @@ partial model PartialBorefield
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal);
 
-  extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-    dp_nominal=borFieDat.conDat.dp_nominal);
+    dp_nominal=borFieDat.conDat.dp_nominal,
+    final computeFlowResistance=(borFieDat.conDat.dp_nominal > Modelica.Constants.eps));
+
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choicesAllMatching = true);
+
+  constant Real mSenFac(min=1)=1
+    "Factor for scaling the sensible thermal mass of the volume";
+
+  // Assumptions
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+
+  // Initialization
+  parameter Medium.AbsolutePressure p_start = Medium.p_default
+    "Start value of pressure"
+    annotation(Dialog(tab = "Initialization"));
 
   // Simulation parameters
   parameter Modelica.SIunits.Time tLoaAgg=300 "Time resolution of load aggregation";
   parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
   parameter Integer nSeg(min=1)=10
     "Number of segments to use in vertical discretization of the boreholes";
-  parameter Modelica.SIunits.Temperature TGro_start = Medium.T_default
-    "Start value of grout temperature"
-    annotation (Dialog(tab="Initialization"));
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether this has been pre-computed"
     annotation (Dialog(tab="Advanced"));
@@ -25,77 +39,137 @@ partial model PartialBorefield
   parameter IBPSA.Fluid.HeatExchangers.Ground.Data.BorefieldData.Template borFieDat "Borefield data"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
+  // Temperature gradient in undisturbed soil
+  parameter Modelica.SIunits.Temperature TExt0_start=283.15
+    "Initial far field temperature"
+    annotation (Dialog(tab="Initialization", group="Soil"));
+  parameter Modelica.SIunits.Temperature TExt_start[nSeg]=
+    {if z[i] >= z0 then TExt0_start + (z[i] - z0)*dT_dz else TExt0_start for i in 1:nSeg}
+    "Temperature of the undisturbed ground"
+    annotation (Dialog(tab="Initialization", group="Soil"));
+
+  parameter Modelica.SIunits.Temperature TGro_start[nSeg]=TExt_start
+    "Start value of grout temperature"
+    annotation (Dialog(tab="Initialization", group="Filling material"));
+
+  parameter Modelica.SIunits.Temperature TFlu_start[nSeg]=TGro_start
+    "Start value of fluid temperature"
+    annotation (Dialog(tab="Initialization"));
+
+  parameter Modelica.SIunits.Height z0=10
+    "Depth below which the temperature gradient starts"
+    annotation (Dialog(tab="Initialization", group="Temperature profile"));
+  parameter Real dT_dz(final unit="K/m", min=0) = 0.01
+    "Vertical temperature gradient of the undisturbed soil for h below z0"
+    annotation (Dialog(tab="Initialization", group="Temperature profile"));
+
+  // Dynamics of filling material
   parameter Boolean dynFil=true
     "Set to false to remove the dynamics of the filling material."
     annotation (Dialog(tab="Dynamics"));
 
   IBPSA.Fluid.HeatExchangers.Ground.BaseClasses.MassFlowRateMultiplier masFloDiv(
-    redeclare package Medium = Medium,
-    allowFlowReversal=allowFlowReversal,
-    k=borFieDat.conDat.nBor) "Division of flow rate"
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final k=borFieDat.conDat.nBor) "Division of flow rate"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
-  IBPSA.Fluid.HeatExchangers.Ground.BaseClasses.MassFlowRateMultiplier masFloMul(
-    redeclare package Medium = Medium,
-    allowFlowReversal=allowFlowReversal,
-    k=borFieDat.conDat.nBor) "Mass flow multiplier"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.GroundTemperatureResponse groTemRes(
-    tLoaAgg=tLoaAgg,
-    nCel=nCel,
-    borFieDat=borFieDat,
-    forceGFunCalc=forceGFunCalc)
-    "Ground temperature response"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=nSeg)
-    "Thermal collector to connect the unique ground temperature to each borehole wall temperature of each segment"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-30,60})));
 
-  Modelica.Blocks.Interfaces.RealInput TSoi
-    "Temperature input for undisturbed ground conditions"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+  IBPSA.Fluid.HeatExchangers.Ground.BaseClasses.MassFlowRateMultiplier masFloMul(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final k=borFieDat.conDat.nBor) "Mass flow multiplier"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+
+  IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.GroundTemperatureResponse groTemRes(
+    final tLoaAgg=tLoaAgg,
+    final nCel=nCel,
+    final borFieDat=borFieDat,
+    final forceGFunCalc=forceGFunCalc)
+    "Ground temperature response"
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+
   replaceable Ground.Boreholes.BaseClasses.PartialBorehole borHol constrainedby
     Ground.Boreholes.BaseClasses.PartialBorehole(
-    redeclare package Medium = Medium,
-    borFieDat=borFieDat,
-    nSeg=nSeg,
-    m_flow_nominal=m_flow_nominal/borFieDat.conDat.nBor,
-    dp_nominal=dp_nominal,
-    allowFlowReversal=allowFlowReversal,
-    m_flow_small=m_flow_small,
-    show_T=show_T,
-    computeFlowResistance=computeFlowResistance,
-    from_dp=from_dp,
-    linearizeFlowResistance=linearizeFlowResistance,
-    deltaM=deltaM,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    p_start=p_start,
-    T_start=T_start,
-    X_start=X_start,
-    C_start=C_start,
-    C_nominal=C_nominal,
-    mSenFac=mSenFac,
-    dynFil=dynFil,
-    TGro_start=TGro_start) "Borehole"
+    redeclare final package Medium = Medium,
+    final borFieDat=borFieDat,
+    final nSeg=nSeg,
+    final m_flow_nominal=m_flow_nominal/borFieDat.conDat.nBor,
+    final dp_nominal=dp_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small,
+    final show_T=show_T,
+    final computeFlowResistance=computeFlowResistance,
+    final from_dp=from_dp,
+    final linearizeFlowResistance=linearizeFlowResistance,
+    final deltaM=deltaM,
+    final energyDynamics=energyDynamics,
+    final p_start=p_start,
+    final mSenFac=mSenFac,
+    final dynFil=dynFil,
+    final TFlu_start=TFlu_start,
+    final TGro_start=TGro_start) "Borehole"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+protected
+  parameter Modelica.SIunits.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}
+    "Distance from the surface to the considered segment";
+
+  Modelica.Blocks.Sources.Constant TSoiUnd[nSeg](
+    k = TExt_start,
+    y(each unit="K",
+      each displayUnit="degC"))
+    "Undisturbed soil temperature"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor QBorHol[nSeg]
+    "Heat flow rate of all segments of the borehole"
+    annotation (Placement(transformation(extent={{-10,40},{-30,20}})));
+
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TemBorWal[nSeg]
+    "Borewall temperature"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+
+  Modelica.Blocks.Math.Add TSoiDis[nSeg](each final k1=1, each final k2=1)
+    "Addition of undisturbed soil temperature and change of soil temperature"
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+
+  Modelica.Blocks.Math.Sum QTotSeg_flow(
+    final nin=nSeg,
+    final k = ones(nSeg))
+    "Total heat flow rate for all segments of this borehole"
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+
+  Modelica.Blocks.Routing.Replicator repDelTBor(final nout=nSeg)
+    "Signal replicator for temperature difference of the borehole"
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+
 equation
   connect(masFloMul.port_b, port_b)
     annotation (Line(points={{80,0},{86,0},{100,0}}, color={0,127,255}));
-  connect(groTemRes.borWall, theCol.port_b)
-    annotation (Line(points={{-60,60},{-50,60},{-40,60}}, color={191,0,0}));
   connect(masFloDiv.port_b, port_a)
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
-  connect(TSoi, groTemRes.TSoi)
-    annotation (Line(points={{-120,60},{-82,60}},          color={0,0,127}));
   connect(masFloDiv.port_a, borHol.port_a)
-    annotation (Line(points={{-60,0},{-36,0},{-10,0}}, color={0,127,255}));
+    annotation (Line(points={{-60,0},{-10,0}},         color={0,127,255}));
   connect(borHol.port_b, masFloMul.port_a)
-    annotation (Line(points={{10,0},{35,0},{60,0}}, color={0,127,255}));
-  connect(theCol.port_a, borHol.port_wall)
-    annotation (Line(points={{-20,60},{0,60},{0,10}}, color={191,0,0}));
+    annotation (Line(points={{10,0},{60,0}},        color={0,127,255}));
+  connect(TSoiDis.y, TemBorWal.T) annotation (Line(points={{81,60},{90,60},{90,48},
+          {-80,48},{-80,30},{-62,30}}, color={0,0,127}));
+  connect(TemBorWal.port, QBorHol.port_b)
+    annotation (Line(points={{-40,30},{-30,30}}, color={191,0,0}));
+  connect(QBorHol.port_a, borHol.port_wall)
+    annotation (Line(points={{-10,30},{0,30},{0,10}},   color={191,0,0}));
+  connect(groTemRes.QOneBor_flow, QTotSeg_flow.y)
+    annotation (Line(points={{-11,80},{-19,80}},
+                                              color={0,0,127}));
+  connect(QBorHol.Q_flow, QTotSeg_flow.u)
+    annotation (Line(points={{-20,40},{-20,66},{-50,66},{-50,80},{-42,80}},
+                                                          color={0,0,127}));
+  connect(groTemRes.delTBor, repDelTBor.u)
+    annotation (Line(points={{11,80},{18,80}}, color={0,0,127}));
+  connect(TSoiDis.u1, repDelTBor.y) annotation (Line(points={{58,66},{48,66},{48,
+          80},{41,80}}, color={0,0,127}));
+  connect(TSoiDis.u2, TSoiUnd.y) annotation (Line(points={{58,54},{-54,54},{-54,
+          70},{-59,70}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={

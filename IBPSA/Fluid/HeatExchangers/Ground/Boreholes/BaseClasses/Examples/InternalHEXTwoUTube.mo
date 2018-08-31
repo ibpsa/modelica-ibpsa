@@ -11,6 +11,7 @@ model InternalHEXTwoUTube
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
   IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalHEXTwoUTube
     intHex(
+    TFlu_start(displayUnit="K") = 285.15,
     redeclare package Medium = Medium,
     hSeg=hSeg,
     dp1_nominal=10,
@@ -20,7 +21,6 @@ model InternalHEXTwoUTube
     dynFil=true,
     borFieDat=borFieDat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start(displayUnit="K") = 285.15,
     TGro_start(displayUnit="K") = 285.15,
     m1_flow_nominal=borFieDat.conDat.mBor_flow_nominal/2,
     m2_flow_nominal=borFieDat.conDat.mBor_flow_nominal/2,

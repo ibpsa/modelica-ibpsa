@@ -2,7 +2,8 @@ within IBPSA.Fluid.HeatExchangers.Ground.Boreholes;
 model BoreholeOneUTube "Single U-tube borehole heat exchanger"
   extends IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.PartialBorehole;
 
-  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalHEXOneUTube intHex[nSeg](
+  IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.InternalHEXOneUTube
+    intHex[nSeg](
     redeclare each final package Medium = Medium,
     each final hSeg=borFieDat.conDat.hBor/nSeg,
     each final from_dp1=from_dp,
@@ -12,8 +13,6 @@ model BoreholeOneUTube "Single U-tube borehole heat exchanger"
     each final deltaM1=deltaM,
     each final deltaM2=deltaM,
     each final energyDynamics=energyDynamics,
-    each final massDynamics=massDynamics,
-    each final T_start=T_start,
     each final dynFil=dynFil,
     each final mSenFac=mSenFac,
     final dp1_nominal={if i == 1 then dp_nominal else 0 for i in 1:nSeg},
@@ -26,9 +25,10 @@ model BoreholeOneUTube "Single U-tube borehole heat exchanger"
     each final show_T=show_T,
     each final p1_start=p_start,
     each final p2_start=p_start,
-    each final TGro_start=TGro_start)
-    "Discretized borehole segments"
+    final TFlu_start=TFlu_start,
+    final TGro_start=TGro_start) "Borehole segments"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
 equation
   connect(port_a, intHex[1].port_a1) annotation (Line(
       points={{-100,5.55112e-016},{-52,5.55112e-016},{-52,6},{-10,6}},

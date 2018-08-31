@@ -7,17 +7,17 @@ model Borefields
   parameter Modelica.SIunits.Time tLoaAgg=300
     "Time resolution of load aggregation";
 
+  parameter Modelica.SIunits.Temperature TGro = 283.15
+    "Ground temperature";
   IBPSA.Fluid.HeatExchangers.Ground.BorefieldTwoUTube borFie2UTubPar(
     redeclare package Medium = Medium,
     borFieDat=borFie2UTubParDat,
     tLoaAgg=tLoaAgg,
     dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=283.15,
-    TGro_start=283.15,
-    forceGFunCalc=true)
+    TExt0_start=TGro)
     "Borefield with a 2-U-tube connected in parallel borehole configuration"
-    annotation (Placement(transformation(extent={{12,-10},{32,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium,
     nPorts=1,
@@ -49,8 +49,6 @@ model Borefields
     conDat=IBPSA.Fluid.HeatExchangers.Ground.Data.ConfigurationData.Example(
     borCon=IBPSA.Fluid.HeatExchangers.Ground.Types.BoreholeConfiguration.SingleUTube))
     annotation (Placement(transformation(extent={{70,-100},{90,-80}})));
-  Modelica.Blocks.Sources.Constant TGro(k=283.15) "Ground temperature"
-    annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
 
   IBPSA.Fluid.HeatExchangers.Ground.BorefieldTwoUTube borFie2UTubSer(
     redeclare package Medium = Medium,
@@ -58,11 +56,9 @@ model Borefields
     tLoaAgg=tLoaAgg,
     dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=283.15,
-    TGro_start=283.15,
-    forceGFunCalc=true)
+    TExt0_start=TGro)
     "Borefield with a 2-U-tube connected in serie borehole configuration"
-    annotation (Placement(transformation(extent={{10,50},{30,70}})));
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium,
     nPorts=1,
@@ -102,11 +98,9 @@ model Borefields
     tLoaAgg=tLoaAgg,
     dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=283.15,
-    TGro_start=283.15,
-    forceGFunCalc=true)
+    TExt0_start=TGro)
     "Borefield with a U-tube borehole configuration"
-    annotation (Placement(transformation(extent={{12,-70},{32,-50}})));
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     nPorts=1,
@@ -144,33 +138,27 @@ equation
   connect(sou1.ports[1], T2UTubParIn.port_a)
     annotation (Line(points={{-72,0},{-60,0}}, color={0,127,255}));
   connect(T2UTubParIn.port_b, borFie2UTubPar.port_a)
-    annotation (Line(points={{-40,0},{12,0}},          color={0,127,255}));
+    annotation (Line(points={{-40,0},{-10,0}},         color={0,127,255}));
   connect(T2UTubParOut.port_a, borFie2UTubPar.port_b)
-    annotation (Line(points={{40,0},{32,0}}, color={0,127,255}));
+    annotation (Line(points={{40,0},{10,0}}, color={0,127,255}));
   connect(T2UTubParOut.port_b, sin1.ports[1])
     annotation (Line(points={{60,0},{70,0}},        color={0,127,255}));
-  connect(TGro.y, borFie2UTubPar.TSoi) annotation (Line(points={{-9,80},{0,80},
-          {0,6},{10,6}},            color={0,0,127}));
   connect(sou2.ports[1], T2UTubSerIn.port_a)
     annotation (Line(points={{-72,60},{-58,60}}, color={0,127,255}));
   connect(T2UTubSerIn.port_b, borFie2UTubSer.port_a)
-    annotation (Line(points={{-38,60},{10,60}},           color={0,127,255}));
+    annotation (Line(points={{-38,60},{-10,60}},          color={0,127,255}));
   connect(T2UTubSerOut.port_a, borFie2UTubSer.port_b)
-    annotation (Line(points={{42,60},{30,60}}, color={0,127,255}));
+    annotation (Line(points={{42,60},{10,60}}, color={0,127,255}));
   connect(T2UTubSerOut.port_b,sin2. ports[1])
     annotation (Line(points={{62,60},{70,60}},         color={0,127,255}));
-  connect(TGro.y, borFie2UTubSer.TSoi) annotation (Line(points={{-9,80},{0,80},
-          {0,66},{8,66}},           color={0,0,127}));
   connect(sou.ports[1], TUTubIn.port_a)
     annotation (Line(points={{-72,-60},{-60,-60}}, color={0,127,255}));
   connect(TUTubIn.port_b, borFieUTub.port_a)
-    annotation (Line(points={{-40,-60},{12,-60}},  color={0,127,255}));
+    annotation (Line(points={{-40,-60},{-10,-60}}, color={0,127,255}));
   connect(borFieUTub.port_b, TUTubOut.port_a)
-    annotation (Line(points={{32,-60},{40,-60}},          color={0,127,255}));
+    annotation (Line(points={{10,-60},{40,-60}},          color={0,127,255}));
   connect(TUTubOut.port_b, sin.ports[1])
     annotation (Line(points={{60,-60},{70,-60}},          color={0,127,255}));
-  connect(TGro.y, borFieUTub.TSoi) annotation (Line(points={{-9,80},{0,80},{0,
-          -54},{10,-54}},                 color={0,0,127}));
   annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/Examples/Borefields.mos"
         "Simulate and plot"),
   Documentation(info="<html>

@@ -6,8 +6,8 @@ model InternalHEXOneUTube
   extends IBPSA.Fluid.Interfaces.FourPortHeatMassExchanger(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
-    T1_start=T_start,
-    T2_start=T_start,
+    T1_start=TFlu_start,
+    T2_start=TFlu_start,
     final tau1=VTubSeg*rho1_nominal/m1_flow_nominal,
     final tau2=VTubSeg*rho2_nominal/m2_flow_nominal,
     redeclare final IBPSA.Fluid.MixingVolumes.MixingVolume vol1(

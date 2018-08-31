@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer;
 model GroundTemperatureResponse "Model calculating discrete load aggregation"
-  parameter Modelica.SIunits.Time tLoaAgg(final min = Modelica.Constants.eps)=
-    3600 "Time resolution of load aggregation";
+  parameter Modelica.SIunits.Time tLoaAgg(final min = Modelica.Constants.eps)=3600
+    "Time resolution of load aggregation";
   parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether it has been pre-computed";
@@ -9,12 +9,14 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
     "Record containing all the parameters of the borefield model" annotation (
      choicesAllMatching=true, Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  Modelica.Blocks.Interfaces.RealInput TSoi(unit="K", displayUnit="degC")
-    "Temperature input for undisturbed ground conditions"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a borWall
-    "Heat port for resulting borehole wall conditions"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Modelica.Blocks.Interfaces.RealOutput delTBor(unit="K")
+    "Temperature difference current borehole wall temperature minus initial borehole wall temperature"
+    annotation (Placement(transformation(extent={{100,-14},{126,12}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealInput QOneBor_flow(unit="W")
+    "Heat flow from one borehole (positive if heat from fluid into soil)"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
 
 protected
   constant Integer nSeg = 12 "Number of line source segments per borehole";
@@ -62,15 +64,13 @@ protected
     "Shifted vector of aggregated loads";
   discrete Integer curCel "Current occupied cell";
 
-  Modelica.SIunits.TemperatureDifference delTBor "Tb-TSoi";
-
-  discrete Modelica.SIunits.TemperatureDifference delTBor0 "Wall temperature change from previous time steps";
+  discrete Modelica.SIunits.TemperatureDifference delTBor0
+    "Previous time step's temperature difference current borehole wall temperature minus initial borehole temperature";
   discrete Real derDelTBor0(unit="K/s")
     "Derivative of wall temperature change from previous time steps";
-  discrete Modelica.SIunits.TemperatureDifference delTBor_old "Tb-TSoi at previous time step";
   final parameter Real dhdt(fixed=false)
     "Time derivative of g/(2*pi*H*ks) within most recent cell";
-  Modelica.SIunits.HeatFlowRate QBor_flow=borWall.Q_flow*borFieDat.conDat.nBor
+  Modelica.SIunits.HeatFlowRate QBor_flow=QOneBor_flow*borFieDat.conDat.nBor
     "Total heat flow from all boreholes";
   Modelica.SIunits.Heat U "Accumulated heat flow from all boreholes";
   discrete Modelica.SIunits.Heat U_old "Accumulated heat flow from all boreholes at last aggregation step";
@@ -83,7 +83,6 @@ initial equation
   delTBor0 = 0;
   U = 0;
   U_old = 0;
-  delTBor_old = 0;
   derDelTBor0 = 0;
 
   (nu,rCel) = IBPSA.Fluid.HeatExchangers.Ground.HeatTransfer.LoadAggregation.aggregationCellTimes(
@@ -122,7 +121,6 @@ initial equation
 
 equation
   der(delTBor) = dhdt*QBor_flow + derDelTBor0;
-  delTBor = borWall.T - TSoi;
   der(U) = QBor_flow;
 
   when sample(t_start, tLoaAgg) then
@@ -148,9 +146,7 @@ equation
       kappa=kappa,
       curCel=curCel);
 
-    delTBor_old = borWall.T - TSoi;
-
-    derDelTBor0 = (delTBor0-delTBor_old)/tLoaAgg;
+    derDelTBor0 = (delTBor0-delTBor)/tLoaAgg;
   end when;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -165,16 +161,16 @@ equation
           fillColor={127,127,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{100,30},{58,-100}},
+          extent={{-52,30},{-94,-100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{72,-4},{-66,-4}},
+          points={{-66,-4},{72,-4}},
           color={255,0,0},
           arrow={Arrow.None,Arrow.Filled}),
         Rectangle(
-          extent={{94,30},{100,-100}},
+          extent={{-100,30},{-94,-100}},
           lineColor={0,0,0},
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid),
@@ -251,7 +247,7 @@ After the cell-shifting operation is performed, the first aggregation cell has i
 value set to the average thermal load since the last aggregation step.
 Temporal superposition is then applied by means
 of a scalar product between the aggregated thermal loads <code>QAgg_flow</code> and the
-weighting factors <i>&kappa;</i>. 
+weighting factors <i>&kappa;</i>.
 </p>
 <p>
 Due to Modelica's variable time steps, the load aggregation scheme is modified by separating
@@ -267,7 +263,7 @@ This is done according to
 where <i>T<sub>b</sub></i> is the borehole wall temperature,
 <i>T<sub>g</sub></i>
 is the undisturbed ground temperature equal to the soil temperature
-<code>TSoi</code>, which is an input of this model, 
+<code>TSoi</code>, which is an input of this model,
 <i>Q</i> is the ground thermal load per borehole length and <i>h = g/(2 &pi; k<sub>s</sub>)</i>
 is a temperature response factor based on the g-function. <i>t<sub>k</sub></i>
 is the last discrete aggregation time step, meaning that the current time <i>t</i>
@@ -336,6 +332,11 @@ Claesson, J. and Javed, S. 2012. <i>A load-aggregation method to calculate extra
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 30, 2018, by Michael Wetter:<br/>
+Refactored model to compute the temperature difference relative to the initial temperature,
+because the model is independent of the initial temperature.
+</li>
 <li>
 April 5, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.

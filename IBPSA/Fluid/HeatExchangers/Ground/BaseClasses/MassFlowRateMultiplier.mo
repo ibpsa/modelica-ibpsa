@@ -4,7 +4,7 @@ model MassFlowRateMultiplier "Model that multiplies the mass flow rate"
 
   parameter Real k "Gain for mass flow rate";
 initial equation
-  assert( k > Modelica.Constants.small or -k < -Modelica.Constants.small,
+  assert(k > Modelica.Constants.small or -k < -Modelica.Constants.small,
     "Gain must not be zero. Received k = " + String(k));
 equation
     // Pressure drop in design flow direction

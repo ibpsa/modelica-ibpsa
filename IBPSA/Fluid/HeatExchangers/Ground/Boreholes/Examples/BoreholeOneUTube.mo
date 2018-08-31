@@ -5,7 +5,8 @@ model BoreholeOneUTube "Test for the single U-tube borehole model"
     IBPSA.Fluid.HeatExchangers.Ground.Boreholes.Examples.BaseClasses.PartialBorehole(
       redeclare
       IBPSA.Fluid.HeatExchangers.Ground.Boreholes.BoreholeOneUTube
-      borHol(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+      borHol(
+        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   annotation (
     __Dymola_Commands( file=

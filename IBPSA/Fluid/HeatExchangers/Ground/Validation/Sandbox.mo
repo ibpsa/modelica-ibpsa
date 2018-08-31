@@ -5,22 +5,26 @@ model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier 
 
   parameter Modelica.SIunits.Temperature T_start = 273.15 + 22.09
     "Initial temperature of the sandbox";
-  parameter Real mSenFac = 1 +
-    (1.8e6*Modelica.Constants.pi*(borFieDat.conDat.rTub^2
-          -(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2)
-          +2.4e6*2*Modelica.Constants.pi*borFieDat.conDat.rBor*0.002/2)
-          /(4.2e6*Modelica.Constants.pi*(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2)
-    "Scaling factor for the borehole capacitances, modified to account for the thermal mass of the pipes and the borehole casing";
+
+  // mSenFac is set to its numerical value because it is a constant in the borehole model.
+  // mSenFac = 1 +
+  //  (1.8e6*Modelica.Constants.pi*(borFieDat.conDat.rTub^2
+  //        -(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2)
+  //        +2.4e6*2*Modelica.Constants.pi*borFieDat.conDat.rBor*0.002/2)
+  //        /(4.2e6*Modelica.Constants.pi*(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2)
+
+  constant Real mSenFac = 1.59186
+  "Scaling factor for the borehole capacitances, modified to account for the thermal mass of the pipes and the borehole casing";
 
   BorefieldOneUTube borHol(
     redeclare package Medium = Medium, borFieDat=
     borFieDat,
     tLoaAgg=60,
-    T_start=T_start,
-    TGro_start=T_start,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    mSenFac=mSenFac) "Borehole"
-    annotation (Placement(transformation(extent={{-12,-76},{14,-44}})));
+    mSenFac=mSenFac,
+    TExt0_start=T_start,
+    dT_dz=0) "Borehole"
+    annotation (Placement(transformation(extent={{-10,-76},{16,-44}})));
   IBPSA.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
     T_start=T_start,
@@ -75,9 +79,9 @@ model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier 
     annotation (Placement(transformation(extent={{40,40},{20,60}})));
 equation
   connect(TBorFieIn.port_b, borHol.port_a)
-    annotation (Line(points={{-40,-60},{-12,-60}}, color={0,127,255}));
+    annotation (Line(points={{-40,-60},{-10,-60}}, color={0,127,255}));
   connect(borHol.port_b, TBorFieOut.port_a)
-    annotation (Line(points={{14,-60},{40,-60}},          color={0,127,255}));
+    annotation (Line(points={{16,-60},{40,-60}},          color={0,127,255}));
   connect(pum.port_b, TBorFieIn.port_a) annotation (Line(points={{-40,50},{-80,
           50},{-80,-60},{-60,-60}},      color={0,127,255}));
   connect(sin.ports[1], TBorFieOut.port_b) annotation (Line(points={{60,-30},{80,
@@ -86,8 +90,6 @@ equation
     annotation (Line(points={{20,50},{-20,50}},        color={0,127,255}));
   connect(hea.port_a, TBorFieOut.port_b) annotation (Line(points={{40,50},{80,
           50},{80,-60},{60,-60}},     color={0,127,255}));
-  connect(TSoi.y, borHol.TSoi) annotation (Line(points={{-39,-30},{-26,-30},{
-          -26,-50.4},{-14.6,-50.4}}, color={0,0,127}));
   connect(sandBoxMea.y[3], hea.u) annotation (Line(points={{11,80},{52,80},{52,
           56},{42,56}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=186360),
