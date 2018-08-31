@@ -3,7 +3,8 @@ partial model PartialBorehole
   "Partial model to implement multi-segment boreholes"
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
 
-  extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters;
+  extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+    computeFlowResistance=dp_nominal > Modelica.Constants.eps);
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"

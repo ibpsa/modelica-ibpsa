@@ -6,7 +6,8 @@ partial model PartialBorefield
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal);
 
   extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-    dp_nominal=borFieDat.conDat.dp_nominal);
+    dp_nominal=borFieDat.conDat.dp_nominal,
+    final computeFlowResistance=(borFieDat.conDat.dp_nominal > Modelica.Constants.eps));
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
