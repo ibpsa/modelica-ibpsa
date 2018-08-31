@@ -3,10 +3,10 @@ partial model PartialBorefield
   "Borefield model using single U-tube borehole heat exchanger configuration.Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
 
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
-    m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal);
+    final m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal);
 
   extends IBPSA.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-    dp_nominal=borFieDat.conDat.dp_nominal,
+    final dp_nominal=borFieDat.conDat.dp_nominal,
     final computeFlowResistance=(borFieDat.conDat.dp_nominal > Modelica.Constants.eps));
 
   replaceable package Medium =
