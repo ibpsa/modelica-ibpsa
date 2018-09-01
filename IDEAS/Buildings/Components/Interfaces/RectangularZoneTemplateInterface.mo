@@ -89,6 +89,9 @@ partial model RectangularZoneTemplateInterface
   parameter Modelica.SIunits.Area AZone = w*l
     "Parameter to overwrite the zone surface area"
                                   annotation(Dialog(tab="Advanced", group="Overwrite"));
+  parameter Modelica.SIunits.Area ACei = w*l "Surface of roof or ceiling (including potential windows)"
+    annotation(Dialog(tab="Ceiling", group="Overwrite"));
+
   parameter Modelica.SIunits.Length h
     "Height between top of floor and bottom of ceiling";
   parameter Modelica.SIunits.Area A_winA=0
@@ -489,7 +492,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=AWallB) if
+    A=AWallBNet) if
        hasBouB
     "Boundary wall for face A of this zone"
     annotation (Placement(transformation(extent={{-120,-20},{-110,0}})));
@@ -502,7 +505,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=AWallC) if
+    A=AWallCNet) if
        hasBouC
     "Boundary wall for face C of this zone"
     annotation (Placement(transformation(extent={{-120,-40},{-110,-20}})));
@@ -515,7 +518,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=AWallD) if
+    A=AWallDNet) if
        hasBouD
     "Boundary wall for face D of this zone"
     annotation (Placement(transformation(extent={{-120,-60},{-110,-40}})));
@@ -539,7 +542,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=ACei) if
+    A=ACeiNet) if
        hasBouCei
     "Boundary wall for zone ceiling"
     annotation (Placement(transformation(extent={{-120,-100},{-110,-80}})));
@@ -573,7 +576,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=max(0,AWallB),
+    A=max(0,AWallBNet),
     final hasBuildingShade=hasBuildingShadeB,
     final L=LShaB,
     final dh=dhShaB,
@@ -592,7 +595,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=max(0,AWallC),
+    A=max(0,AWallCNet),
     final hasBuildingShade=hasBuildingShadeC,
     final L=LShaC,
     final dh=dhShaC,
@@ -611,7 +614,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=max(0,AWallD),
+    A=max(0,AWallDNet),
     final hasBuildingShade=hasBuildingShadeD,
     final L=LShaD,
     final dh=dhShaD,
@@ -631,7 +634,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=max(0,ACei)) if
+    A=max(0,ACeiNet)) if
        hasOutCei
     "Outer wall for zone ceiling"
     annotation (Placement(transformation(extent={{-140,-100},{-130,-80}})));
@@ -925,11 +928,11 @@ protected
   final parameter Boolean hasNoCei=
     bouTypCei == IDEAS.Buildings.Components.Interfaces.BoundaryType.None;
 
-  parameter Modelica.SIunits.Area AWallA(fixed=false);
-  parameter Modelica.SIunits.Area AWallB(fixed=false);
-  parameter Modelica.SIunits.Area AWallC(fixed=false);
-  parameter Modelica.SIunits.Area AWallD(fixed=false);
-  parameter Modelica.SIunits.Area ACei(fixed=false);
+  parameter Modelica.SIunits.Area AWallANet(fixed=false);
+  parameter Modelica.SIunits.Area AWallBNet(fixed=false);
+  parameter Modelica.SIunits.Area AWallCNet(fixed=false);
+  parameter Modelica.SIunits.Area AWallDNet(fixed=false);
+  parameter Modelica.SIunits.Area ACeiNet(fixed=false);
 
   final parameter Integer indWalA = if hasNoA then 0 else 1;
   final parameter Integer indWalA_end = indWalA + (if bouTypA == IDEAS.Buildings.Components.Interfaces.BoundaryType.External
@@ -993,18 +996,18 @@ initial equation
   assert(not hasCavityD or (hD <= h and wD <=lD),
     "In " + getInstanceName() + ": The cavity dimensions of surface D exceed the zone dimensions. This is non-physical");
 
-  AWallA = lA*h - (if hasWinA then  propsBusInt[indWinA].area else 0);
-  AWallB = lB*h - (if hasWinB then  propsBusInt[indWinB].area else 0);
-  AWallC = lC*h - (if hasWinC then  propsBusInt[indWinC].area else 0);
-  AWallD = lD*h - (if hasWinD then  propsBusInt[indWinD].area else 0);
-  ACei = A - (if hasWinCei then  propsBusInt[indWinCei].area else 0);
+  AWallANet = lA*h - (if hasWinA then  propsBusInt[indWinA].area else 0);
+  AWallBNet = lB*h - (if hasWinB then  propsBusInt[indWinB].area else 0);
+  AWallCNet = lC*h - (if hasWinC then  propsBusInt[indWinC].area else 0);
+  AWallDNet = lD*h - (if hasWinD then  propsBusInt[indWinD].area else 0);
+  ACeiNet = ACei - (if hasWinCei then  propsBusInt[indWinCei].area else 0);
 
   // assert that the windows are not bigger than the wall
-  assert(AWallA >= 0, "The netto surface area of wall A is negative. This is not allowed.");
-  assert(AWallB >= 0, "The netto surface area of wall B is negative. This is not allowed.");
-  assert(AWallD >= 0, "The netto surface area of wall C is negative. This is not allowed.");
-  assert(AWallD >= 0, "The netto surface area of wall D is negative. This is not allowed.");
-  assert(ACei >= 0, "The netto surface area of the ceiling is negative. This is not allowed.");
+  assert(AWallANet >= 0, "The net surface area of wall A is negative. This is not allowed.");
+  assert(AWallBNet >= 0, "The net surface area of wall B is negative. This is not allowed.");
+  assert(AWallDNet >= 0, "The net surface area of wall C is negative. This is not allowed.");
+  assert(AWallDNet >= 0, "The net surface area of wall D is negative. This is not allowed.");
+  assert(ACeiNet >= 0, "The net surface area of the ceiling is negative. This is not allowed.");
 
   if hasIntA then
     assert(nExtA == 1, "The parameter nExtA should be = 1 when internalWall type is chosen for surface A");
@@ -1260,10 +1263,12 @@ the floor are horizontal.
 </p>
 <p>
 The surface area of each wall is calculated by default using
-the parameters <code>w</code> and <code>l</code>. If you want to split a wall
+the parameters <code>h, w</code> and <code>l</code>. If you want to split a wall
 and add external walls using the external bus connector, use the overwrite
 length parameters <code>lA, lB, lC, lD</code> from the <code>Face</code> tabs
-such that the surface area of the wall is correct. 
+such that the surface area of the wall is correct. Also the ceiling or roof
+surface area can be overwritten using the parameter <code>ACei</code>
+from the <code>Ceiling</code> tab.
 Be also aware that the model
 <code>slabOnGround</code> has a parameter <code>PWall</code> which specifies the
 perimeter of slab on ground. The model cannot detect external walls connected
