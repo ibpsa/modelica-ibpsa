@@ -1024,6 +1024,10 @@ initial equation
   if hasIntFlo then
     assert(nExtFlo == 1, "The parameter nExtFlo should be = 1 when internalWall type is chosen for Floor");
   end if;
+
+  if hasWinCei then
+    assert(abs(ACei-ACeiNet) < 0.001, "The overwrite parameter ACei should not be used when the roof has a window");
+  end if;
 equation
   connect(intA.propsBus_a, propsBusInt[indWalA]) annotation (Line(
       points={{-165,12},{-152,12},{-152,40},{-80,40}},
