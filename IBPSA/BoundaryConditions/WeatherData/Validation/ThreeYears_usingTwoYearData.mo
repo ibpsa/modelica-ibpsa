@@ -1,6 +1,6 @@
 within IBPSA.BoundaryConditions.WeatherData.Validation;
-model TwoYears_usingOneYearData
-  "Validation model for a data reader that has data spanning only some hours in December to January"
+model ThreeYears_usingTwoYearData
+  "Validation model for a simulation spanning three years but using only two years of data"
   extends Modelica.Icons.Example;
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     computeWetBulbTemperature=false,
@@ -9,23 +9,24 @@ model TwoYears_usingOneYearData
     HInfHor=100,
     calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
-    "Weather data reader with data file going from December to January"
+        "modelica://IBPSA/Resources/weatherdata/TwoYears_DataOnceAMonth_TMY3.mos"))
+    "Weather data reader with data for two years, only monthly values"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   annotation (experiment(
-      StartTime=30992400,
-      StopTime=31860000,
-      Interval=3600,
+      StopTime=94608000,
+      Interval=2678400,
       Tolerance=1e-006),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/DecemberToJanuary.mos"
         "Simulate and plot"),
       Documentation(info="<html>
-<p>This is a validation case for a a simulation extending with two montgs over one year but using data for only one year.</p>
+<p>This is a validation case for a a simulation extending over three years but using only two years of data with monthly values. </p>
+<p>The time stamps are a bit tricked in order to get two full years when calculating trimeStampEnd-timeStampBegin+AvgIncrement. Check <a href=\"IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime.mo\">ConvertTime </a>block for more information.</p>
+<p>Check dry bulb temperature to see how thze values are repeated.</p>
 </html>", revisions="<html>
 <ul>
 <li>September 3, 2018 by Ana Constantin:<br>First implementation for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">issue 842</a>. </li>
 </ul>
 </html>"));
 
-end TwoYears_usingOneYearData;
+end ThreeYears_usingTwoYearData;
