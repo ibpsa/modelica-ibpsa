@@ -1,4 +1,4 @@
-﻿within IBPSA.Media.Refrigerants.R410A;
+within IBPSA.Media.Refrigerants.R410A;
 function isentropicExponentVap_Tv
   "Function that calculates the isentropic exponent of R410A vapor based on temperature and specific volume"
   input Modelica.SIunits.Temperature T
