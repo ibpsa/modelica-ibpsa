@@ -4,7 +4,10 @@ CavityWalls
 FacadeShadeExample
 NumberOccupants
 RectangularZone
-RectangularZone2
+RectangularZoneEmbedded
+RectangularZoneExternalSurfaces
+RectangularZoneRedeclarationWindows
+
 ScalingWindow
 WallUnitTest
 WindowDynamics

@@ -2,7 +2,9 @@ within IDEAS.Buildings.Components.ZoneAirModels;
 model WellMixedAir "Zone air model assuming perfectly mixed air"
   extends IDEAS.Buildings.Components.ZoneAirModels.BaseClasses.PartialAirModel(
     final nSeg=1,
-    mSenFac=5);
+    mSenFac(min=0)=5);
+
+    constant StateSelect stateSelectTVol = StateSelect.avoid "Set to .prefer to use temperature as a state in mixing volume";
 
 protected
   constant Modelica.SIunits.SpecificEnthalpy lambdaWater = Medium.enthalpyOfCondensingGas(T=273.15+35)
@@ -26,7 +28,8 @@ protected
     U_nominal=mSenFac*10*Vtot*1.2*1000,
     use_C_flow=true,
     nPorts=(2 + (if hasVap then 1 else 0) + (if hasPpm then 1 else 0))+nPorts,
-    m_flow_nominal=0.1)  annotation (Placement(
+    m_flow_nominal=0.1,
+    T(stateSelect=stateSelectTVol))  annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -58,6 +61,7 @@ protected
       parameter Real[Medium.nXi] mXi_nominal = m_nominal*Medium.X_default[1:Medium.nXi] "Nominal value of internal energy";
       parameter Real[Medium.nC] mC_nominal = m_nominal*0.0015*ones(Medium.nC) "Nominal value of internal energy";
       extends IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir(
+        mSenFac(min=0),
         dynBal(
           U(nominal=U_nominal),
           mC(nominal=mC_nominal),
@@ -132,6 +136,12 @@ equation
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
+<li>
+August 30, 2018 by Damien Picard:<br/>
+Added constant StateSelectTVol to be able to select preferred state
+of mixing volume.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/905\">#905</a>.
+</li>
 <li>
 July 27, 2018 by Filip Jorissen:<br/>
 Added nominal values for <code>m</code>, <code>mXi</code> and <code>mC</code>.

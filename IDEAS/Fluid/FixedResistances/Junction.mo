@@ -2,6 +2,7 @@ within IDEAS.Fluid.FixedResistances;
 model Junction
   "Flow splitter with fixed resistance at each port"
     extends IDEAS.Fluid.BaseClasses.PartialThreeWayResistance(
+    m_flow_small=mDyn_flow_nominal*1e-4,
     mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
     redeclare IDEAS.Fluid.FixedResistances.PressureDrop res1(
       from_dp=from_dp,

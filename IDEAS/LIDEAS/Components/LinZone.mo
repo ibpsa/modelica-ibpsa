@@ -2,7 +2,7 @@ within IDEAS.LIDEAS.Components;
 model LinZone "Linearisable zone model"
   extends IDEAS.Buildings.Components.Zone(
     redeclare IDEAS.Buildings.Components.ZoneAirModels.WellMixedAir
-      airModel(vol(T(stateSelect=StateSelect.prefer))),
+      airModel(stateSelectTVol=StateSelect.prefer),
     redeclare IDEAS.Buildings.Components.InterzonalAirFlow.n50FixedPressure interzonalAirFlow);
   parameter Boolean linearise=sim.linearise
     "Linearise model equations";
