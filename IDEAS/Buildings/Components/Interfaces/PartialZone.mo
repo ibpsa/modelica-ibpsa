@@ -133,18 +133,17 @@ model PartialZone "Building zone model"
   replaceable IDEAS.Buildings.Components.InternalGains.Occupants intGai
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialOccupancyGains(
-      occupancyType=occTyp, redeclare final package
-              Medium =                                       Medium)
-    "Internal gains model" annotation (
+      occupancyType=occTyp,
+      redeclare final package Medium = Medium)
+      "Internal gains model" annotation (
     choicesAllMatching=true,
     Dialog(tab="Advanced", group="Occupants"),
     Placement(transformation(extent={{40,22},{20,42}})));
 
-        replaceable IDEAS.Buildings.Components.InternalGains.Lighting lightGai
+    replaceable IDEAS.Buildings.Components.InternalGains.Lighting lightGai
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains(
-      lightingType=lightTyp, redeclare final package
-              Medium =                                       Medium,
+      lightingType=lightTyp,
       A=A)
     "Lightning model"    annotation (
     choicesAllMatching=true,
@@ -205,8 +204,6 @@ protected
         origin={-30,-10})));
 
 
- annotation (Placement(transformation(extent={{
-            140,48},{100,88}})));
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 
@@ -396,7 +393,8 @@ end for;
   connect(lightControl.ctrl, lightGai.ctrl)
     annotation (Line(points={{58,62},{41,62}},
         color={0,0,127}));
-  annotation (
+ annotation (Placement(transformation(extent={{
+            140,48},{100,88}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
     Documentation(info="<html>

@@ -8,7 +8,9 @@ model EnergyConservationValidation
     zone(airModel(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)),
     zone1(airModel(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
       redeclare Components.OccupancyType.OfficeWork occTyp,
-      redeclare Components.InternalGains.Simple intGai));
+      redeclare IDEAS.Buildings.Components.InternalGains.Occupants intGai,
+      redeclare Components.LightingType.OpenOfficeLed lightTyp,
+      redeclare Components.LightControl.Fixed lightControl(ctrlFix=1)));
 
   Modelica.Blocks.Sources.Constant const(k=0)
     annotation (Placement(transformation(extent={{82,-68},{62,-48}})));

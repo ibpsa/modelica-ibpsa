@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components.InternalGains;
 model Lighting
   "Fraction of heat to space, radiative heat, lighting type, light power and floor area"
-  extends BaseClasses.PartialLightingGains;
+  extends IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains;
   parameter Real spaFra(min=0,max=1) = lightingType.spaFra
     "Space fraction of lighting heat exchange, default based on Ashrae fundamentals chap 18.2.2, Table 3 - Lighting Heat Gain Parameters for Typical Operating Conditions";
   parameter Real radFra(min=0,max=1) = lightingType.radFra
@@ -16,8 +16,6 @@ model Lighting
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon(final
       alpha=0) "Prescribed heat flow rate for convective sensible heat"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-
-public
   Modelica.Blocks.Math.Gain gain(final k=radFra)
     annotation (Placement(transformation(extent={{-8,-30},{12,-10}})));
   Modelica.Blocks.Math.Gain gainCon(final k=1 - radFra)
