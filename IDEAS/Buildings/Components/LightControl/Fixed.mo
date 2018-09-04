@@ -9,9 +9,27 @@ block Fixed "Fixed lighting"
             -12,-10},{8,10}})));
     //FIX-ME: parameter is Real instead of Integer since this way we include the possibility of adjustable lights
 
+protected
+  Interfaces.WeaBus weaBus(numSolBus=sim.numIncAndAziInBus, outputAngles=sim.outputAngles)
+    annotation (Placement(transformation(extent={{-74,82},{-54,102}})));
+public
+  Modelica.Blocks.Math.Product product "For LIDEAS"
+    annotation (Placement(transformation(extent={{40,10},{60,-10}})));
+  outer BoundaryConditions.SimInfoManager       sim
+    "Simulation information manager for climate data"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
-  connect(constCtrl.y, ctrl) annotation (Line(
-        points={{9,0},{120,0}}, color={0,0,127}));
+  connect(product.u2,weaBus. dummy) annotation (Line(points={{38,6},{24,6},{24,
+          92.05},{-63.95,92.05}},
+                           color={0,0,127}));
+  connect(sim.weaBus,weaBus)  annotation (Line(
+      points={{-81,93},{-74,93},{-74,92},{-64,92}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(constCtrl.y, product.u1)
+    annotation (Line(points={{9,0},{20,0},{20,-6},{38,-6}}, color={0,0,127}));
+  connect(product.y, ctrl)
+    annotation (Line(points={{61,0},{120,0}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
