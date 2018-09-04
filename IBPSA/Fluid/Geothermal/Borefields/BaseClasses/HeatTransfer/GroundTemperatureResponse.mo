@@ -261,8 +261,7 @@ This is done according to
 <p>
 where <i>T<sub>b</sub></i> is the borehole wall temperature,
 <i>T<sub>g</sub></i>
-is the undisturbed ground temperature equal to the soil temperature
-<code>TSoi</code>, which is an input of this model,
+is the undisturbed ground temperature,
 <i>Q</i> is the ground thermal load per borehole length and <i>h = g/(2 &pi; k<sub>s</sub>)</i>
 is a temperature response factor based on the g-function. <i>t<sub>k</sub></i>
 is the last discrete aggregation time step, meaning that the current time <i>t</i>

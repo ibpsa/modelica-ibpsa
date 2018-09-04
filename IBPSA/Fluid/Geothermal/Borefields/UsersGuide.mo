@@ -145,7 +145,7 @@ The conductivity, capacitance and density of the grout and pipe material are con
 There is no heat extraction or injection prior to the simulation start.
 </li>
 <li>
-The undisturbed ground temperature <code>TSoi</code> is the same all along the length of the boreholes.
+The undisturbed ground temperature is the same all along the length of the boreholes.
 </li>
 <li>
 All of the boreholes in the borefield have uniform dimensions (including the pipe dimensions).
