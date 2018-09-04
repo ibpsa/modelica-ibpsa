@@ -32,8 +32,8 @@ model Case900Linearise "Rectangular zone model parameterised to represent Case90
     l=8,
     w=6,
     A_winA=12,
-    indexWinA=1,
-    T_start=293.15)
+    T_start=293.15,
+    firstWindowIndex=1)
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Modelica.Blocks.Interfaces.RealOutput TSenLinRecZon if sim.linearise
     "Sensor temperature of the zone, i.e. operative temeprature"
