@@ -26,7 +26,6 @@ August 28, 2018 by Iago Cupeiro:<br/>
 First implementation
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
 </li>
-</li>
 </ul>
 </html>", info="<html>
 <p>Record combining lighting gains and split</p>
