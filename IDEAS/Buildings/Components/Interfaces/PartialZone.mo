@@ -115,7 +115,7 @@ model PartialZone "Building zone model"
     "Lighting type, only used for evaluating lighting heat gains"
     annotation (
     choicesAllMatching=true,
-    Dialog(group="Lightning (optional)"),
+    Dialog(group="Lighting (optional)"),
     Placement(transformation(extent={{56,82},{76,102}})));
 
   replaceable Comfort.None comfort
@@ -145,9 +145,9 @@ model PartialZone "Building zone model"
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains(
       lightingType=lightTyp,
       A=A)
-    "Lightning model"    annotation (
+    "Lighting model"    annotation (
     choicesAllMatching=true,
-    Dialog(tab="Advanced", group="Lightning"),
+    Dialog(tab="Advanced", group="Lighting"),
     Placement(transformation(extent={{40,52},{20,72}})));
 
   Modelica.SIunits.Power QTra_design=sum(propsBusInt.QTra_design)
@@ -161,7 +161,7 @@ model PartialZone "Building zone model"
     "Signal for the light control"
     annotation (
     choicesAllMatching=true,
-    Dialog(group="Lightning (optional)"),
+    Dialog(group="Lighting (optional)"),
     Placement(transformation(extent={{80,52},{60,72}})));
 
 

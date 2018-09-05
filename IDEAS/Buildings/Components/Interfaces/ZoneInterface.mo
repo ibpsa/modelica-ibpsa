@@ -21,7 +21,7 @@ partial model ZoneInterface "Partial model for thermal building zones"
     annotation(Dialog(tab="Advanced",group="Occupants"));
   parameter Boolean useLightCtrlInput
     "=false, to remove icon of lightCtrl"
-    annotation(Dialog(tab="Advanced",group="Lightning"));
+    annotation(Dialog(tab="Advanced",group="Lighting"));
   //default ACH=2 for ventilation
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = V * 1.2*2/3600
     "Nominal flow rate of the air flow system fluid ports"
