@@ -1,13 +1,12 @@
 within IDEAS.Buildings.Components.Interfaces;
 model PartialZone "Building zone model"
-  extends
-    IDEAS.Buildings.Components.Interfaces.ZoneInterface(
+  extends IDEAS.Buildings.Components.Interfaces.ZoneInterface(
     Qgai(y=(if not sim.computeConservationOfEnergy then 0 elseif sim.openSystemConservationOfEnergy
-            then airModel.QGai
-            else gainCon.Q_flow + gainRad.Q_flow + airModel.QGai)),
+           then airModel.QGai else gainCon.Q_flow + gainRad.Q_flow + airModel.QGai)),
     Eexpr(y=if sim.computeConservationOfEnergy then E else 0),
-    useOccNumInput = occNum.useInput,
-    useLightCtrlInput = lightControl.useCtrlInput);
+    useOccNumInput=occNum.useInput,
+    useLigCtrInput=ligCtr.useCtrInput);
+
     replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
@@ -108,11 +107,10 @@ model PartialZone "Building zone model"
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{80,82},{100,102}})));
-  replaceable parameter
-    IDEAS.Buildings.Components.LightingType.OpenOfficeLed lightTyp
+  replaceable parameter IDEAS.Buildings.Components.LightingType.OpenOfficeLed ligTyp
     constrainedby
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting(A_zone=A)
-    "Lighting type, only used for evaluating lighting heat gains"
+    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting(A_zone=
+        A) "Lighting type, only used for evaluating lighting heat gains"
     annotation (
     choicesAllMatching=true,
     Dialog(group="Lighting (optional)"),
@@ -130,22 +128,20 @@ model PartialZone "Building zone model"
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-50,-50})));
-  replaceable IDEAS.Buildings.Components.InternalGains.Occupants intGai
+  replaceable IDEAS.Buildings.Components.InternalGains.Occupants intGaiOcc
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialOccupancyGains(
-      occupancyType=occTyp,
-      redeclare final package Medium = Medium)
-      "Internal gains model" annotation (
+      occupancyType=occTyp, redeclare final package Medium = Medium)
+    "Internal gains model" annotation (
     choicesAllMatching=true,
     Dialog(tab="Advanced", group="Occupants"),
     Placement(transformation(extent={{40,22},{20,42}})));
 
-    replaceable IDEAS.Buildings.Components.InternalGains.Lighting lightGai
+  replaceable IDEAS.Buildings.Components.InternalGains.Lighting intGaiLig
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains(
-      lightingType=lightTyp,
-      A=A)
-    "Lighting model"    annotation (
+    lightingType=ligTyp,
+    A=A) "Lighting model" annotation (
     choicesAllMatching=true,
     Dialog(tab="Advanced", group="Lighting"),
     Placement(transformation(extent={{40,52},{20,72}})));
@@ -156,9 +152,8 @@ model PartialZone "Building zone model"
   Modelica.Blocks.Interfaces.RealOutput TRad(unit="K") = radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
 
-  replaceable LightControl.Fixed lightControl
-    constrainedby LightControl.BaseClasses.PartialLights
-    "Signal for the light control"
+  replaceable LightControl.Fixed ligCtr constrainedby
+    LightControl.BaseClasses.PartialLights "Signal for the light control"
     annotation (
     choicesAllMatching=true,
     Dialog(group="Lighting (optional)"),
@@ -347,14 +342,13 @@ end for;
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(intGai.portCon, airModel.ports_air[1]) annotation (Line(points={{20,30},
-          {-20,30}},                 color={191,0,0}));
-  connect(intGai.portRad, radDistr.radGain) annotation (Line(points={{20,26},
-          {4,26},{4,-60},{-46.2,-60}},
-                                    color={191,0,0}));
-  connect(intGai.mWat_flow, airModel.mWat_flow) annotation (Line(points={{19.4,38},
-          {-19.2,38}},           color={0,0,127}));
-  connect(intGai.C_flow, airModel.C_flow)
+  connect(intGaiOcc.portCon, airModel.ports_air[1])
+    annotation (Line(points={{20,30},{-20,30}}, color={191,0,0}));
+  connect(intGaiOcc.portRad, radDistr.radGain) annotation (Line(points={{20,26},
+          {4,26},{4,-60},{-46.2,-60}}, color={191,0,0}));
+  connect(intGaiOcc.mWat_flow, airModel.mWat_flow)
+    annotation (Line(points={{19.4,38},{-19.2,38}}, color={0,0,127}));
+  connect(intGaiOcc.C_flow, airModel.C_flow)
     annotation (Line(points={{19.4,34},{-19.2,34}}, color={0,0,127}));
   connect(comfort.TAir, airModel.TAir) annotation (Line(points={{19,0},{-10,0},{
           -10,24},{-19,24}},   color={0,0,127}));
@@ -362,16 +356,15 @@ end for;
           {-6,-50},{-40,-50}}, color={0,0,127}));
   connect(comfort.phi, airModel.phi) annotation (Line(points={{19,-8},{-12,-8},{
           -12,26},{-19,26}},   color={0,0,127}));
-  connect(occNum.nOcc, intGai.nOcc)
+  connect(occNum.nOcc, intGaiOcc.nOcc)
     annotation (Line(points={{58,32},{41,32}}, color={0,0,127}));
   connect(nOcc, occNum.nOccIn)
     annotation (Line(points={{120,40},{96,40},{96,32},{82,32}},
                                                 color={0,0,127}));
-  connect(lightCtrl, lightControl.lightCtrl)
-    annotation (Line(points={{120,70},{96,70},{96,
-          60},{82,60}},                         color={0,0,127}));
-    connect(nOcc, lightControl.lightOcc) annotation (Line(points={{120,40},
-          {96,40},{96,64},{82,64}},             color={0,0,127}));
+  connect(uLig, ligCtr.ligCtrl) annotation (Line(points={{120,70},{96,70},{96,60},
+          {82,60}}, color={0,0,127}));
+  connect(nOcc, ligCtr.ligOcc) annotation (Line(points={{120,40},{96,40},{96,64},
+          {82,64}}, color={0,0,127}));
   connect(airModel.port_b, interzonalAirFlow.port_a_interior)
     annotation (Line(points={{-36,40},{-36,60}}, color={0,127,255}));
   connect(airModel.port_a, interzonalAirFlow.port_b_interior)
@@ -384,15 +377,12 @@ end for;
           -28,80},{-28,84},{20,84},{20,100}}, color={0,127,255}));
   connect(ppm, airModel.ppm) annotation (Line(points={{110,0},{52,0},{52,16},{-8,
           16},{-8,28},{-19,28}}, color={0,0,127}));
-  connect(lightGai.portRad, gainRad) annotation (
-      Line(points={{20,60},{4,60},{4,-60},{100,-60}},
-        color={191,0,0}));
-  connect(lightGai.portCon, gainCon) annotation (
-      Line(points={{20,64},{2,64},{2,-30},{100,-30}},
-        color={191,0,0}));
-  connect(lightControl.ctrl, lightGai.ctrl)
-    annotation (Line(points={{58,62},{41,62}},
-        color={0,0,127}));
+  connect(intGaiLig.portRad, gainRad) annotation (Line(points={{20,60},{4,60},{4,
+          -60},{100,-60}}, color={191,0,0}));
+  connect(intGaiLig.portCon, gainCon) annotation (Line(points={{20,64},{2,64},{2,
+          -30},{100,-30}}, color={191,0,0}));
+  connect(ligCtr.ctr, intGaiLig.ctrl)
+    annotation (Line(points={{58,62},{41,62}}, color={0,0,127}));
  annotation (Placement(transformation(extent={{
             140,48},{100,88}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

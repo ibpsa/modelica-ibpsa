@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components.LightControl;
 block CustomBlock
   "Source that has replaceable for a block with a single output"
-  extends BaseClasses.PartialLights(   final useCtrlInput=false,
+  extends BaseClasses.PartialLights(   final useCtrInput=false,
   final useOccInput=false);
 
   replaceable Modelica.Blocks.Sources.Constant singleOutput(k=0)
@@ -10,7 +10,7 @@ block CustomBlock
     annotation (choicesAllMatching=true,Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-  connect(singleOutput.y,ctrl)
+  connect(singleOutput.y, ctr)
     annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>

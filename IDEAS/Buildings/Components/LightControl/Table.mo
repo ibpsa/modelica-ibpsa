@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.LightControl;
 block Table "Lighting control read from CombiTimeTable"
-  extends BaseClasses.PartialLights(   final useCtrlInput=false,
+  extends BaseClasses.PartialLights(   final useCtrInput=false,
   final useOccInput=false);
   parameter Boolean tableOnFile=false
     "= true, if table is defined on file or in function usertab"
@@ -52,7 +52,7 @@ block Table "Lighting control read from CombiTimeTable"
     columns={column}) "Table for reading number of occupants from file"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  connect(combiTimeTable.y[1],ctrl)
+  connect(combiTimeTable.y[1], ctr)
     annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>

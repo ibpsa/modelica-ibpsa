@@ -19,7 +19,7 @@ partial model ZoneInterface "Partial model for thermal building zones"
   parameter Boolean useOccNumInput
     "=false, to remove icon of nOcc"
     annotation(Dialog(tab="Advanced",group="Occupants"));
-  parameter Boolean useLightCtrlInput
+  parameter Boolean useLigCtrInput
     "=false, to remove icon of lightCtrl"
     annotation(Dialog(tab="Advanced",group="Lighting"));
   //default ACH=2 for ventilation
@@ -50,10 +50,9 @@ partial model ZoneInterface "Partial model for thermal building zones"
   Modelica.Blocks.Interfaces.RealInput nOcc if useOccNumInput
     "Number of occupants (optional, see occNum)"
     annotation (Placement(transformation(extent={{140,20},{100,60}})));
-  Modelica.Blocks.Interfaces.RealInput lightCtrl if
-                                               useLightCtrlInput
-    "Light control signal (optional)" annotation (Placement(transformation(extent={{140,50},
-            {100,90}})));
+  Modelica.Blocks.Interfaces.RealInput uLig if useLigCtrInput
+    "Light control signal (optional)"
+    annotation (Placement(transformation(extent={{140,50},{100,90}})));
   Modelica.Blocks.Interfaces.RealOutput ppm(unit="1")
     "CO2 concentration in the zone" annotation (Placement(transformation(extent=
            {{100,-10},{120,10}}), iconTransformation(extent={{100,10},{120,30}})));

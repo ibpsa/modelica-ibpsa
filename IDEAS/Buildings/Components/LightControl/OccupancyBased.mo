@@ -3,11 +3,11 @@ block OccupancyBased
   "Lighting control from zone when nOcc > 0"
   extends BaseClasses.PartialLights(   final useOccInput=true);
 
-  Modelica.Blocks.Sources.RealExpression realExpression(y=if lightOcc > 0 then
-        1 else 0)
+  Modelica.Blocks.Sources.RealExpression realExpression(y=if ligOcc > 0 then 1
+         else 0)
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
 equation
-  connect(realExpression.y, ctrl)
+  connect(realExpression.y, ctr)
     annotation (Line(points={{9,0},{120,0}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
