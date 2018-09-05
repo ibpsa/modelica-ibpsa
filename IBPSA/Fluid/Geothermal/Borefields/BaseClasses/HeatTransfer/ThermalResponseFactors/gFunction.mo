@@ -197,7 +197,7 @@ wall temperature at a time <i>t</i> and the heat extraction and injection rates
 at all times preceding time <i>t</i> as
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/GFunction_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/GFunction_01.png\" />
 </p>
 <p>
 where <i>T<sub>b</sub></i> is the borehole wall temperature,

@@ -19,7 +19,7 @@ model Measured_SmallScale
     tableOnFile=true,
     timeScale=sizFac^2,
     fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://IBPSA/Resources/Data/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Cimmino_Bernier_2015_SmallScale.txt"),
+      "modelica://IBPSA/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Cimmino_Bernier_2015_SmallScale.txt"),
     columns={2,3,4,5,6,7,8,9},
     tableName="data",
     offset={0,0,0,273.15,273.15,273.15,273.15,273.15})

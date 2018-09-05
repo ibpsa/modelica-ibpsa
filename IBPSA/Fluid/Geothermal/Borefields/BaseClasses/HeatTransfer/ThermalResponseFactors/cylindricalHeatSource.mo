@@ -33,7 +33,7 @@ injected by a cylindrical heat source of infinite length and the temperature
 raise in the medium. The cylindrical heat source solution is defined by
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/CylindricalHeatSource_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/CylindricalHeatSource_01.png\" />
 </p>
 <p>
 where <i>&Delta;T(t,r)</i> is the temperature raise after a time <i>t</i> of
@@ -48,7 +48,7 @@ is the cylindrical heat source solution.
 The cylindrical heat source solution is given by:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/CylindricalHeatSource_02.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/CylindricalHeatSource_02.png\" />
 </p>
 <p>
 The integral is solved numerically, with the integrand defined in

@@ -203,7 +203,7 @@ cells. To determine <code>nu</code>, cells have a temporal size <i>r<sub>cel</su
 which follows the exponential growth
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_02.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_02.png\" />
 </p>
 <p>
 where <i>n<sub>Cel</sub></i> is the number of consecutive cells which can have the same size.
@@ -218,7 +218,7 @@ To determine the weighting factors, the borefield's temperature
 step response at the borefield wall is determined as
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_03.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_03.png\" />
 </p>
 <p>
 where <i>g(&middot;)</i> is the borefield's thermal response factor known as the <em>g-function</em>,
@@ -227,7 +227,7 @@ conductivity of the soil. The weighting factors <code>kappa</code> (<i>&kappa;</
 for a given cell <i>i</i> are then expressed as follows.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_04.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_04.png\" />
 </p>
 <p>
 where <i>&nu;</i> refers to the vector <code>nu</code> in this model and
@@ -239,7 +239,7 @@ First, the thermal load is shifted. When shifting between cells of different siz
 energy is conserved. This operation is illustred in the figure below by Cimmino (2014).
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_01.png\" />
 </p>
 <p>
 After the cell-shifting operation is performed, the first aggregation cell has its
@@ -254,9 +254,9 @@ the thermal response between the current aggregation time step and everything pr
 This is done according to
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_05.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_05.png\" />
 <br/>
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_06.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_06.png\" />
 </p>
 <p>
 where <i>T<sub>b</sub></i> is the borehole wall temperature,
@@ -283,7 +283,7 @@ is constant over the duration of the ongoing aggregation time step) and the tota
 temperature change at the last aggregation time step, <i>&Delta;T<sub>b</sub>(t)</i>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_09.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_09.png\" />
 </p>
 <p>
 The second term <i>&Delta;T<sub>b,q</sub>(t)</i> concerns the ongoing aggregation time step.
@@ -299,10 +299,10 @@ calculated once at the start of the simulation) and the heat flow <i>Q</i> at
 the borehole wall.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_10.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_10.png\" />
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_11.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_11.png\" />
 </p>
 <p>
 With the two terms in the expression of <i>&Delta;T<sub>b</sub>(t)</i> expressed
@@ -311,9 +311,9 @@ expressed as its time derivative and implemented as such directly in the Modelic
 equations block with the <code>der()</code> operator.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_07.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_07.png\" />
 <br/>
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_08.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_08.png\" />
 </p>
 <p>
 This load aggregation scheme is validated in

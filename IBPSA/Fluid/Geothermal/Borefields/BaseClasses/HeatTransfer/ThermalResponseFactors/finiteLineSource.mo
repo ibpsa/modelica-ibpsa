@@ -93,7 +93,7 @@ temperature surface.
 The finite line source solution is defined by:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/FiniteLineSource_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/FiniteLineSource_01.png\" />
 </p>
 <p>
 where <i>&Delta;T<sub>1-2</sub>(t,r,H<sub>1</sub>,D<sub>1</sub>,H<sub>2</sub>,D<sub>2</sub>)</i>
@@ -106,7 +106,7 @@ rate per unit length, <i>k<sub>s</sub></i> is the soil thermal conductivity and
 The finite line source solution is given by:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/FiniteLineSource_02.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/FiniteLineSource_02.png\" />
 </p>
 <p>
 where <i>&alpha;<sub>s</sub></i> is the ground thermal diffusivity and

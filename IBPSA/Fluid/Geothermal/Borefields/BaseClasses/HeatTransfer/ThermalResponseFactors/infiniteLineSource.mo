@@ -24,7 +24,7 @@ by a line heat source of infinite length and the temperature raise in the
 medium. The infinite line source solution is defined by
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/InfiniteLineSource_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/InfiniteLineSource_01.png\" />
 </p>
 <p>
 where <i>&Delta;T(t,r)</i> is the temperature raise after a time <i>t</i> of
@@ -37,7 +37,7 @@ source solution.
 The infinite line source solution is given by the exponential integral
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/InfiniteLineSource_02.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/InfiniteLineSource_02.png\" />
 </p>
 <p>
 where <i>&alpha;<sub>s</sub></i> is the ground thermal diffusivity. The

@@ -167,7 +167,7 @@ The capacitance is only present if the <code>dynFil</code> parameter is set to <
 The figure below shows an example for a borehole section within a single U-tube configuration.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/BoreholeResistances_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/BoreholeResistances_01.png\" />
 </p>
 <p>
 The second main part of the borefield models is the ground heat transfer, which shares a thermal boundary
@@ -176,7 +176,7 @@ is modeled analytically as a convolution integral between the heat flux at the b
 and the borefield's thermal response factor <code>h</code>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_12.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_12.png\" />
 </p>
 <p>
 The model uses a load aggregation technique to reduce the time required to calculate

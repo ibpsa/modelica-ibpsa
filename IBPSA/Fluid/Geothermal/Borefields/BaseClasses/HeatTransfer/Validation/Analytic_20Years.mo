@@ -42,7 +42,7 @@ model Analytic_20Years
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://IBPSA/Resources/Data/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Analytic_20Years.txt"))
+      "modelica://IBPSA/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Analytic_20Years.txt"))
         "Table for heat injected, using constant segments"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
@@ -59,7 +59,7 @@ model Analytic_20Years
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://IBPSA/Resources/Data/Fluid/HeatExchangers/Ground/HeatTransfer/Validation/Analytic_20Years.txt"),
+      "modelica://IBPSA/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Analytic_20Years.txt"),
     y(each unit="K",
       each displayUnit="degC"))
       "Table for resulting wall temperature using FFT and linearly interpolated"

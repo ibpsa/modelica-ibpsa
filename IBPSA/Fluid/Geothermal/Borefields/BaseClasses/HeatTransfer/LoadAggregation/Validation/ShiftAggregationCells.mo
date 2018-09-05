@@ -28,7 +28,7 @@ Documentation(info="<html>
 This validation case replicates the load-shifting procedure illustred in the figure below by Cimmino (2014).
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatExchangers/Ground/LoadAggregation_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_01.png\" />
 </p>
 <h4>References</h4>
 <p>
