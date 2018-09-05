@@ -2,13 +2,17 @@ within IDEAS.Buildings.Components.InternalGains;
 model Lighting
   "Fraction of heat to space, radiative heat, lighting type, light power and floor area"
   extends IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains;
-  parameter Real spaFra(min=0,max=1) = lightingType.spaFra
+  parameter Real spaFra(
+    min=0,
+    max=1) = ligTyp.ligSpl.spaFra
     "Space fraction of lighting heat exchange, default based on Ashrae fundamentals chap 18.2.2, Table 3 - Lighting Heat Gain Parameters for Typical Operating Conditions";
-  parameter Real radFra(min=0,max=1) = lightingType.radFra
+  parameter Real radFra(
+    min=0,
+    max=1) = ligTyp.ligSpl.radFra
     "Radiant fraction of lighting heat exchange, default based on Ashrae fundamentals chap 18.2.2, Table 3 - Lighting Heat Gain Parameters for Typical Operating Conditions";
-  parameter Modelica.SIunits.Power Qlight(min=0) = lightingType.Q
+  parameter Modelica.SIunits.Power Qlight(min=0) = ligTyp.ligGai.Q
     "Sensible heat gain from electric lighting";
-  parameter Modelica.SIunits.Area A(min=0)=lightingType.A;
+  parameter Modelica.SIunits.Area A(min=0) = ligTyp.ligGai.A;
 
   Modelica.Blocks.Math.Gain gaiHea(k=Qlight*spaFra)
                 "Gain for computing heat flow rate"

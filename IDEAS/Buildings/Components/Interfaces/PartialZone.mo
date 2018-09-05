@@ -109,8 +109,7 @@ model PartialZone "Building zone model"
     Placement(transformation(extent={{80,82},{100,102}})));
   replaceable parameter IDEAS.Buildings.Components.LightingType.OpenOfficeLed ligTyp
     constrainedby
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting(A_zone=
-        A) "Lighting type, only used for evaluating lighting heat gains"
+    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting(A=A) "Lighting type, only used for evaluating lighting heat gains"
     annotation (
     choicesAllMatching=true,
     Dialog(group="Lighting (optional)"),
@@ -140,8 +139,7 @@ model PartialZone "Building zone model"
   replaceable IDEAS.Buildings.Components.InternalGains.Lighting intGaiLig
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains(
-    lightingType=ligTyp,
-    A=A) "Lighting model" annotation (
+      ligTyp=ligTyp) "Lighting model" annotation (
     choicesAllMatching=true,
     Dialog(tab="Advanced", group="Lighting"),
     Placement(transformation(extent={{40,52},{20,72}})));
@@ -361,7 +359,7 @@ end for;
   connect(nOcc, occNum.nOccIn)
     annotation (Line(points={{120,40},{96,40},{96,32},{82,32}},
                                                 color={0,0,127}));
-  connect(uLig, ligCtr.ligCtrl) annotation (Line(points={{120,70},{96,70},{96,60},
+  connect(uLig, ligCtr.ligCtr) annotation (Line(points={{120,70},{96,70},{96,60},
           {82,60}}, color={0,0,127}));
   connect(nOcc, ligCtr.ligOcc) annotation (Line(points={{120,40},{96,40},{96,64},
           {82,64}}, color={0,0,127}));
@@ -391,6 +389,11 @@ end for;
 <p>See extending models.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 5, 2018 by Iago Cupeiro:<br/>
+Implementation of the lighting model
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#879</a>.
+</li>
 <li>
 July 27, 2018 by Filip Jorissen:<br/>
 Added output for the CO2 concentration.

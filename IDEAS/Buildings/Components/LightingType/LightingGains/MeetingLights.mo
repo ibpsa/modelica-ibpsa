@@ -3,7 +3,7 @@ record MeetingLights
   "Properties for typical meeting/conference rooms"
   extends
     IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains(
-      W_per_sqm=13.3);
+      speW=13.3);
 
   annotation (Documentation(revisions="<html>
 <ul>

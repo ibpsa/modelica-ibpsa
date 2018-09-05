@@ -15,7 +15,7 @@ model InternalGainExample
         redeclare Components.OccupancyType.OfficeWork occTyp,
         redeclare
           Components.InternalGains.Occupants
-          intGai,
+          intGaiOcc,
         redeclare IDEAS.Buildings.Components.Occupants.Input occNum)))
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Pulse occ(
@@ -32,12 +32,12 @@ model InternalGainExample
       building(gF(
         redeclare
           Components.LightingType.OpenOfficeLed
-          lightTyp,
+          ligTyp,
         redeclare
           Components.InternalGains.Lighting
-          lightGai,
+          intGaiLig,
         redeclare Components.LightControl.Input
-          lightControl)))
+          ligCtr)))
     annotation (Placement(transformation(extent={{20,40},
             {40,60}})));
   Validation.Cases.Case900 case900_gains_and_lights(
@@ -48,23 +48,23 @@ model InternalGainExample
           occTyp,
         redeclare
           Components.InternalGains.Occupants
-          intGai,
+          intGaiOcc,
         redeclare Components.Occupants.Input
           occNum,
         redeclare
           Components.LightingType.OpenOfficeLed
-          lightTyp,
+          ligTyp,
         redeclare
           Components.LightControl.OccupancyBased
-          lightControl,
+          ligCtr,
         redeclare
           Components.InternalGains.Lighting
-          lightGai)))     annotation (Placement(
+          intGaiLig)))     annotation (Placement(
         transformation(extent={{-40,40},{-20,60}})));
 equation
   // equation for setting number of zone occupants
   case900_gains.building.gF.nOcc=occ.y;
-  case900_lights.building.gF.lightCtrl=occ.y;
+  case900_lights.building.gF.ligCtr.ctr =occ.y;
   case900_gains_and_lights.building.gF.nOcc=occ.y;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

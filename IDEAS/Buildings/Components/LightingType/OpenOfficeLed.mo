@@ -2,12 +2,10 @@ within IDEAS.Buildings.Components.LightingType;
 record OpenOfficeLed "Properties for typical open office with led lights."
   extends Modelica.Icons.Record;
   extends
-      IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting;
-  extends
-      IDEAS.Buildings.Components.LightingType.LightingGains.OpenOfficeLights(
-      A = A_zone);
-  extends
-      IDEAS.Buildings.Components.LightingType.LightingSplit.RecessedLEDTrofferUniformDiffuser;
+      IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting(
+      redeclare replaceable IDEAS.Buildings.Components.LightingType.LightingGains.OpenOfficeLights ligGai(A=A),
+      redeclare replaceable IDEAS.Buildings.Components.LightingType.LightingSplit.RecessedLEDTrofferUniformDiffuser ligSpl);
+
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

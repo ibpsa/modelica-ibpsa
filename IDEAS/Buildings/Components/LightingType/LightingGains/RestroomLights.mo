@@ -2,7 +2,7 @@ within IDEAS.Buildings.Components.LightingType.LightingGains;
 record RestroomLights "Properties for typical restrooms."
   extends
     IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains(
-      W_per_sqm=10.6);
+      speW=10.6);
 
   annotation (Documentation(revisions="<html>
 <ul>

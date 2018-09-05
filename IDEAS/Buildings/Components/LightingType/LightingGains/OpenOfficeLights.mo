@@ -2,7 +2,7 @@ within IDEAS.Buildings.Components.LightingType.LightingGains;
 record OpenOfficeLights "Properties for typical open plan office work."
   extends
     IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains(
-      W_per_sqm=10.6);
+      speW=10.6);
 
   annotation (Documentation(revisions="<html>
 <ul>

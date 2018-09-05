@@ -2,7 +2,7 @@ within IDEAS.Buildings.Components.LightingType.LightingGains;
 record CorridorLights "Properties for typical corridors"
   extends
     IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains(
-      W_per_sqm=7.1);
+      speW=7.1);
 
   annotation (Documentation(revisions="<html>
 <ul>

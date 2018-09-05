@@ -3,17 +3,18 @@ partial record PartialLightingGains
   "Record for defining the type of the lighting, to compute the light heat gains"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.Power W(min=0) = W_per_sqm*A
+  parameter Modelica.SIunits.Power W(min=0) = speW*A
     "Total light wattage";
   parameter Real F_sa(min=0) = 1.0
     "Special allowance factor";
-  parameter Modelica.SIunits.Irradiance W_per_sqm(min=0) = Q/A
+protected
+  parameter SI.Area A(min=0) "Area of the zone";
+
+  parameter Modelica.SIunits.Irradiance speW(min=0)
     "Total light wattage per square meter";
-  parameter Modelica.SIunits.Area A(min=0)
-    "Area of the zone";
   parameter Modelica.SIunits.Power Q(min=0) = W*F_sa
     "Sensible heat gain from electric lighting";
-  annotation (Documentation(revisions="<html>
+   annotation (Documentation(revisions="<html>
 <ul>
 <li>
 August 28, 2018 by Iago Cupeiro:<br/>
@@ -40,7 +41,7 @@ luminaires. Generally, the instantaneous rate of sensible heat gain
 from electric lighting may be calculated from:
 </p>
 <pre>
-	qel = W*Ful*Fsa
+        qel = W*Ful*Fsa
 </pre>
 <p>
 where:

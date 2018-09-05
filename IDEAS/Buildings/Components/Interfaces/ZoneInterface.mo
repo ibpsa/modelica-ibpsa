@@ -133,6 +133,11 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+September 5, 2018 by Iago Cupeiro:<br/>
+Added uLig input for controlling lighting
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#879</a>.
+</li>
+<li>
 July 27, 2018 by Filip Jorissen:<br/>
 Added output for the CO2 concentration.
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/868\">#868</a>.

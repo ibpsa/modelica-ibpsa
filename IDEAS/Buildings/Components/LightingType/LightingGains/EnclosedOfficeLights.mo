@@ -3,7 +3,7 @@ record EnclosedOfficeLights
   "Properties for typical enclosed plan office work."
   extends
     IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains(
-      W_per_sqm=12.0);
+      speW=12.0);
 
   annotation (Documentation(revisions="<html>
 <ul>

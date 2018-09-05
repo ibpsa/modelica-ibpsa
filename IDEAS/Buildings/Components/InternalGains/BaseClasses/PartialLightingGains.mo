@@ -3,7 +3,7 @@ partial model PartialLightingGains "Partial model for lighting internal gains"
   extends Modelica.Blocks.Icons.Block;
   outer IDEAS.BoundaryConditions.SimInfoManager sim
     "Simulation information manager";
-  parameter IDEAS.Buildings.Components.LightingType.OpenOfficeLed lightingType
+  parameter IDEAS.Buildings.Components.LightingType.OpenOfficeLed ligTyp
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portCon
