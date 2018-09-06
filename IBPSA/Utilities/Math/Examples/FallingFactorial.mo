@@ -1,6 +1,5 @@
 within IBPSA.Utilities.Math.Examples;
 model FallingFactorial "Test model for falling factorial function "
-  import IBPSA;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp k(
     startTime=0.5,

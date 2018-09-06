@@ -1,6 +1,5 @@
 within IBPSA.Utilities.Math.Examples;
 model Factorial "Test model for factorial function "
-  import IBPSA;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x(
     startTime=0.5,
