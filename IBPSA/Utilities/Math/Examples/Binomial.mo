@@ -1,6 +1,5 @@
 within IBPSA.Utilities.Math.Examples;
 model Binomial "Test model for binomial function "
-  import IBPSA;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp k(
     startTime=0.5,

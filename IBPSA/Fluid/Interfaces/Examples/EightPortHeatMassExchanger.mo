@@ -1,7 +1,6 @@
 within IBPSA.Fluid.Interfaces.Examples;
 model EightPortHeatMassExchanger
   "EightPortHeatMassExchanger example model"
-  import IBPSA;
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Water;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
