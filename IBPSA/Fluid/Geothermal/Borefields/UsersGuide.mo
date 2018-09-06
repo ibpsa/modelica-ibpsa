@@ -173,7 +173,7 @@ The figure below shows an example for a borehole section within a single U-tube 
 The second main part of the borefield models is the ground heat transfer, which shares a thermal boundary
 condition at the uniform borehole wall with all of the borehole segments. The heat transfer in the ground
 is modeled analytically as a convolution integral between the heat flux at the borehole wall
-and the borefield's thermal response factor <code>h</code>.
+and the borefield's thermal response factor.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_12.png\" />
