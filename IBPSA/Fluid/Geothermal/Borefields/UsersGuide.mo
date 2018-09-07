@@ -45,6 +45,17 @@ Pressure losses can be calculated if the <code>dp_nominal</code> parameter is se
 </li>
 </ul>
 
+<p>
+The model is limited to the simulation of borefields with boreholes connected in
+parallel, as shown on the figure below for a single U-tube configuration. All
+boreholes have the same length <code>hBor</code>, the same radius
+<code>rBor</code>, and are buried at the same depth <code>dBor</code> below the
+ground surface (also known as the inactive borehole length).
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/BorefieldGeometry_01.png\" />
+</p>
+
 <h4>How to use the borefield models</h4>
 <h5>Borefield data record</h5>
 <p>
