@@ -23,7 +23,10 @@ including single U-tube, double U-tube in parallel and double U-tube in series c
 </li>
 <li> The resistances <i>R<sub>b</sub></i> and <i>R<sub>a</sub></i> are
 either automatically calculated using the multipole method,
-or they can be directly provided by the user.
+or the resistance <i>R<sub>b</sub></i> can be directly provided by the user.
+In this case, the resistances <i>R<sub>b</sub></i> and <i>R<sub>a</sub></i> are
+still evaluated internally, but their values are weighted so that the borehole
+resistance matches the specified value.
 </li>
 <li>
 User-defined vertical discretization of boreholes. However, the borehole wall temperature
