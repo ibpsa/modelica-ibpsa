@@ -13,6 +13,7 @@ partial model Heater "Base class for example model for the heater and cooler"
 
   IBPSA.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
+    T_start=289.15,
     V=V,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal,
@@ -63,7 +64,8 @@ partial model Heater "Base class for example model for the heater and cooler"
     annotation (Placement(transformation(extent={{110,-30},{90,-10}})));
   Sensors.TemperatureTwoPort THeaOut(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal) "Outlet temperature of the heater"
+    m_flow_nominal=m_flow_nominal,
+    T_start=289.15) "Outlet temperature of the heater"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
