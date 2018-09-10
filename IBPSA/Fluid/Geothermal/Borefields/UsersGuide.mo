@@ -56,7 +56,7 @@ boreholes have the same length <code>hBor</code>, the same radius
 ground surface (also known as the inactive borehole length).
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/BorefieldGeometry_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/BorefieldGeometry_01.png\" width=\"610\"/>
 </p>
 
 <h4>How to use the borefield models</h4>
