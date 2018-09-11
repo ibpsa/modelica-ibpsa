@@ -1,7 +1,9 @@
 within IBPSA.BoundaryConditions.WeatherData.BaseClasses;
 block ConvertTime
-  "Converts the simulation time to calendar time in scale of 1 year (365 days)"
+  "Converts the simulation time to calendar time in scale of 1 year (365 days), or a multiple of a year if this is the length of the weather file"
   extends Modelica.Blocks.Icons.Block;
+  parameter Modelica.SIunits.Time[3] timeSpan "Start time, end time and average increment of weather data";
+
   Modelica.Blocks.Interfaces.RealInput modTim(
     final quantity="Time",
     final unit="s") "Simulation time"
@@ -13,15 +15,27 @@ block ConvertTime
 
 protected
   constant Modelica.SIunits.Time year=31536000 "Number of seconds in a year";
+  constant Modelica.SIunits.Time shiftSolarRad=1800 "Number of seconds for the shift for solar radiation calculation";
   discrete Modelica.SIunits.Time tStart "Start time of period";
+  Boolean repeatWeatherFile( start = true) "Should the weather file be repeated";
 
 initial equation
   tStart = integer(modTim/year)*year;
 equation
-  when modTim - pre(tStart) > year then
-    tStart = integer(modTim/year)*year;
+  when (modTim - pre(tStart)) > (timeSpan[2]+timeSpan[3]) then // when the simulation time stamp goes over the last time stamp of the weather file + average increment
+     if mod(timeSpan[2]-timeSpan[1] + timeSpan[3], year) < 1 then // if the time span in weather file equal to a year or a multiple of it
+      tStart = integer(modTim/year)*year; // the new start time is the start of the next year
+      repeatWeatherFile = true;
+     else
+      tStart = pre(tStart);
+      repeatWeatherFile = false;
+     end if;
   end when;
   calTim = modTim - tStart;
+
+  if repeatWeatherFile == false then
+    assert((time - timeSpan[2]) < shiftSolarRad, "For the desired simulation period insufficient weather data is provided", AssertionLevel.error);
+  end if;
   annotation (
     defaultComponentName="conTim",
     Documentation(info="<html>
