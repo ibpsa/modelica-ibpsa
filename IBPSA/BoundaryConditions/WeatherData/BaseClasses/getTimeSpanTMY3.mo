@@ -3,8 +3,8 @@ function getTimeSpanTMY3
   "Get the time span of the weather data from the file"
 
   input String filNam "Name of weather data file";
-  input String tabName "Name of weather table";
-  output Modelica.SIunits.Time[2] timeSpan "Start and end time of weather data";
+  input String tabName "Name of table on weather file";
+  output Modelica.SIunits.Time[3] timeSpan "Start time, end time and average increment of weather data";
 
 protected
  String lin "Line that is used in parser";
@@ -78,6 +78,7 @@ algorithm
   avgIncrement := (endTime - startTime) / (nrRows -1);
   timeSpan[1] :=startTime;
   timeSpan[2] :=endTime;
+  timeSpan[3] := avgIncrement;
 
   annotation (Documentation(info="<html>
 <p>This function returns the first and last time stamp, as well as the average increment of the TMY3 weather data file. </p>

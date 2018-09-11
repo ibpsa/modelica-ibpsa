@@ -1,0 +1,32 @@
+within IBPSA.BoundaryConditions.WeatherData.Validation;
+model ThreeYears_usingTwoYearData
+  "Validation model for a simulation spanning three years but using only two years of data"
+  extends Modelica.Icons.Example;
+  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    computeWetBulbTemperature=false,
+    TDewPoiSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,
+    HInfHorSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,
+    HInfHor=100,
+    calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
+    filNam=Modelica.Utilities.Files.loadResource(
+        "modelica://IBPSA/Resources/weatherdata/TwoYears_DataOnceAMonth_TMY3.mos"))
+    "Weather data reader with data for two years, only monthly values"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+  annotation (experiment(
+      StopTime=94608000,
+      Interval=2678400,
+      Tolerance=1e-006),
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/DecemberToJanuary.mos"
+        "Simulate and plot"),
+      Documentation(info="<html>
+<p>This is a validation case for a a simulation extending over three years but using only two years of data with monthly values. </p>
+<p>The time stamps are a bit tricked in order to get two full years when calculating trimeStampEnd-timeStampBegin+AvgIncrement. Check <a href=\"IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime.mo\">ConvertTime </a>block for more information.</p>
+<p>Check dry bulb temperature to see how thze values are repeated.</p>
+</html>", revisions="<html>
+<ul>
+<li>September 3, 2018 by Ana Constantin:<br>First implementation for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">issue 842</a>. </li>
+</ul>
+</html>"));
+
+end ThreeYears_usingTwoYearData;
