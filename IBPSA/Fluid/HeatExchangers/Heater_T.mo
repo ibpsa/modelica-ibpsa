@@ -119,7 +119,7 @@ revisions="<html>
 <ul>
 <li>
 September 10, 2018, by Michael Wetter:<br/>
-Corrected missing in propagation of initial conditions.<br/>
+Corrected missing propagation of initial conditions.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1016\">
 IBPSA, #1016</a>.
