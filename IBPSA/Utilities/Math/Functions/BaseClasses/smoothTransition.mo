@@ -24,7 +24,7 @@ protected
 
 algorithm
  aX:= abs(x);
- y := (if x >= 0 then 1 else -1) * a + aX*(b + aX*(c + aX*(d + aX*(e + aX*f))));
+ y := (if x >= 0 then 1 else -1) * (a + aX*(b + aX*(c + aX*(d + aX*(e + aX*f)))));
 annotation(smoothOrder=2,
   derivative(order=1,
           zeroDerivative=delta,
