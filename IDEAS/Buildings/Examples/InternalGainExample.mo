@@ -36,8 +36,7 @@ model InternalGainExample
         redeclare
           Components.InternalGains.Lighting
           intGaiLig,
-        redeclare Components.LightControl.Input
-          ligCtr)))
+        redeclare Components.LightingControl.Input ligCtr)))
     annotation (Placement(transformation(extent={{20,40},
             {40,60}})));
   Validation.Cases.Case900 case900_gains_and_lights(
@@ -54,9 +53,7 @@ model InternalGainExample
         redeclare
           Components.LightingType.OpenOfficeLed
           ligTyp,
-        redeclare
-          Components.LightControl.OccupancyBased
-          ligCtr,
+        redeclare Components.LightingControl.OccupancyBased ligCtr,
         redeclare
           Components.InternalGains.Lighting
           intGaiLig)))     annotation (Placement(
@@ -64,8 +61,8 @@ model InternalGainExample
 equation
   // equation for setting number of zone occupants
   case900_gains.building.gF.nOcc=occ.y;
-  case900_lights.building.gF.ligCtr.ctr =occ.y;
   case900_gains_and_lights.building.gF.nOcc=occ.y;
+  case900_lights.building.gF.uLig=1;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
