@@ -1,7 +1,8 @@
 within IBPSA.Fluid.Geothermal.Borefields.Examples;
 model Borefields
-  "Example model with several borefield configurations operating simultaneously."
+  "Example model with several borefield configurations operating simultaneously"
   extends Modelica.Icons.Example;
+
   package Medium = IBPSA.Media.Water;
 
   parameter Modelica.SIunits.Time tLoaAgg=300
