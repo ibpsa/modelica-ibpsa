@@ -94,7 +94,7 @@ model PartialZone "Building zone model"
     Dialog(group="Building physics"));
   replaceable IDEAS.Buildings.Components.Occupants.Fixed occNum
     constrainedby Occupants.BaseClasses.PartialOccupants(
-      final linearise = sim.linearise)
+      final linearise = sim.lineariseDymola)
     "Number of occupants that are present" annotation (
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
@@ -154,7 +154,7 @@ model PartialZone "Building zone model"
   replaceable IDEAS.Buildings.Components.LightingControl.Fixed ligCtr
     constrainedby
     IDEAS.Buildings.Components.LightingControl.BaseClasses.PartialLightingControl(
-      final linearise = sim.linearise)
+      final linearise = sim.lineariseDymola)
     "Signal for the light control" annotation (
     choicesAllMatching=true,
     Dialog(group="Lighting (optional)"),
