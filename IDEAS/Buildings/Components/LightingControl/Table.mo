@@ -1,7 +1,9 @@
-within IDEAS.Buildings.Components.LightControl;
+within IDEAS.Buildings.Components.LightingControl;
 block Table "Lighting control read from CombiTimeTable"
-  extends BaseClasses.PartialLights(   final useCtrInput=false,
-  final useOccInput=false);
+  extends IDEAS.Buildings.Components.LightingControl.BaseClasses.PartialLightingControl(
+    final useCtrInput=false,
+    final useOccInput=false);
+
   parameter Boolean tableOnFile=false
     "= true, if table is defined on file or in function usertab"
     annotation (Dialog(group="Table data definition"));
@@ -52,7 +54,9 @@ block Table "Lighting control read from CombiTimeTable"
     columns={column}) "Table for reading number of occupants from file"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  connect(combiTimeTable.y[1], ctr)
+  assert(not linearise, "In " + getInstanceName() + ": Lighting control can 
+    not be defined by a table when the model is linearized. Change the control type.");
+  connect(combiTimeTable.y[1], ctrl)
     annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
@@ -63,6 +67,8 @@ See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
 </li>
 </ul>
 </html>", info="<html>
-<p>This block defines a lighting control through an schedule (combiTable)</p>
+<p>
+This block defines a lighting control using a schedule (CombiTable).
+</p>
 </html>"));
 end Table;

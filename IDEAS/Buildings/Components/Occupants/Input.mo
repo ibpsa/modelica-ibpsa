@@ -1,9 +1,12 @@
 within IDEAS.Buildings.Components.Occupants;
-block Input "Number of occupants from zone input nOcc"
+block Input "Number of occupants defined using zone input nOcc"
   extends BaseClasses.PartialOccupants(final useInput=true);
 
 equation
-  connect(nOcc, nOccIn) annotation (Line(points={{120,0},{14,0},{14,0},{-100,0}},
+  assert(not linearise, "Linearising the model when using an occupancy control input. 
+    Make sure to add the lighting control input as an input for the linearisation to work correctly.",
+    level=AssertionLevel.warning);
+  connect(nOcc, nOccIn) annotation (Line(points={{120,0},{14,0},{14,0},{-120,0}},
         color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>

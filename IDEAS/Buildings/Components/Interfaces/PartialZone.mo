@@ -93,7 +93,8 @@ model PartialZone "Building zone model"
     choicesAllMatching=true,
     Dialog(group="Building physics"));
   replaceable IDEAS.Buildings.Components.Occupants.Fixed occNum
-    constrainedby Occupants.BaseClasses.PartialOccupants
+    constrainedby Occupants.BaseClasses.PartialOccupants(
+      final linearise = sim.linearise)
     "Number of occupants that are present" annotation (
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
@@ -150,9 +151,11 @@ model PartialZone "Building zone model"
   Modelica.Blocks.Interfaces.RealOutput TRad(unit="K") = radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
 
-  replaceable LightControl.Fixed ligCtr constrainedby
-    LightControl.BaseClasses.PartialLights "Signal for the light control"
-    annotation (
+  replaceable IDEAS.Buildings.Components.LightingControl.Fixed ligCtr
+    constrainedby
+    IDEAS.Buildings.Components.LightingControl.BaseClasses.PartialLightingControl(
+      final linearise = sim.linearise)
+    "Signal for the light control" annotation (
     choicesAllMatching=true,
     Dialog(group="Lighting (optional)"),
     Placement(transformation(extent={{80,52},{60,72}})));
@@ -359,10 +362,10 @@ end for;
   connect(nOcc, occNum.nOccIn)
     annotation (Line(points={{120,40},{96,40},{96,32},{82,32}},
                                                 color={0,0,127}));
-  connect(uLig, ligCtr.ligCtr) annotation (Line(points={{120,70},{96,70},{96,60},
-          {82,60}}, color={0,0,127}));
-  connect(nOcc, ligCtr.ligOcc) annotation (Line(points={{120,40},{96,40},{96,64},
-          {82,64}}, color={0,0,127}));
+  connect(uLig, ligCtr.nOcc) annotation (Line(points={{120,70},{96,70},{96,64},{
+          82,64}}, color={0,0,127}));
+  connect(nOcc, ligCtr.nOcc) annotation (Line(points={{120,40},{96,40},{96,64},{
+          82,64}}, color={0,0,127}));
   connect(airModel.port_b, interzonalAirFlow.port_a_interior)
     annotation (Line(points={{-36,40},{-36,60}}, color={0,127,255}));
   connect(airModel.port_a, interzonalAirFlow.port_b_interior)

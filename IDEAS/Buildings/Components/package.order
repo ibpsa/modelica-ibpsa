@@ -11,7 +11,7 @@ InterzonalAirFlow
 OccupancyType
 LightingType
 Occupants
-LightControl
+LightingControl
 Shading
 ThermalBridges
 Validations

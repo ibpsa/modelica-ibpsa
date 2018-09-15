@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components;
-package LightControl "Models for defining the lighting control that is present"
+package LightingControl "Models for defining the lighting control that is present"
 extends Modelica.Icons.Package;
 
 annotation (Documentation(revisions="<html>
@@ -11,4 +11,4 @@ See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
 </li>
 </ul>
 </html>"));
-end LightControl;
+end LightingControl;
