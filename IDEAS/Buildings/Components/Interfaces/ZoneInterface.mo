@@ -48,10 +48,10 @@ partial model ZoneInterface "Partial model for thermal building zones"
     h_outflow(nominal=Medium.h_default))
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
   Modelica.Blocks.Interfaces.RealInput nOcc if useOccNumInput
-    "Number of occupants (optional, see occNum)"
+    "Number of occupants, only used when using Occupants.Input"
     annotation (Placement(transformation(extent={{140,20},{100,60}})));
   Modelica.Blocks.Interfaces.RealInput uLig if useLigCtrInput
-    "Light control signal (optional)"
+    "Lighting control input (1 corresponds to 100%), only used when using LightingControl.Input"
     annotation (Placement(transformation(extent={{140,50},{100,90}})));
   Modelica.Blocks.Interfaces.RealOutput ppm(unit="1")
     "CO2 concentration in the zone" annotation (Placement(transformation(extent=
