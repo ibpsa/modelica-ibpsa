@@ -362,10 +362,11 @@ end for;
   connect(nOcc, occNum.nOccIn)
     annotation (Line(points={{120,40},{96,40},{96,32},{82,32}},
                                                 color={0,0,127}));
-  connect(uLig, ligCtr.nOcc) annotation (Line(points={{120,70},{96,70},{96,64},{
-          82,64}}, color={0,0,127}));
-  connect(nOcc, ligCtr.nOcc) annotation (Line(points={{120,40},{96,40},{96,64},{
-          82,64}}, color={0,0,127}));
+  connect(uLig, ligCtr.ligCtr) annotation (Line(points={{120,70},{96,70},{96,60},
+          {82,60}},color={0,0,127}));
+  connect(occNum.nOcc, ligCtr.nOcc) annotation (Line(points={{58,32},{96,32},{96,
+          64},{82,64}},
+                   color={0,0,127}));
   connect(airModel.port_b, interzonalAirFlow.port_a_interior)
     annotation (Line(points={{-36,40},{-36,60}}, color={0,127,255}));
   connect(airModel.port_a, interzonalAirFlow.port_b_interior)
@@ -382,7 +383,7 @@ end for;
           -60},{100,-60}}, color={191,0,0}));
   connect(intGaiLig.portCon, gainCon) annotation (Line(points={{20,64},{2,64},{2,
           -30},{100,-30}}, color={191,0,0}));
-  connect(ligCtr.ctr, intGaiLig.ctrl)
+  connect(ligCtr.ctrl, intGaiLig.ctrl)
     annotation (Line(points={{58,62},{41,62}}, color={0,0,127}));
  annotation (Placement(transformation(extent={{
             140,48},{100,88}})),
