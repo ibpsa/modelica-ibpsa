@@ -11,7 +11,7 @@ model EnergyConservationValidation
       redeclare IDEAS.Buildings.Components.InternalGains.Occupants intGaiOcc,
       redeclare IDEAS.Buildings.Components.InternalGains.Lighting intGaiLig,
       redeclare Components.LightingType.OpenOfficeLed ligTyp,
-      redeclare Components.LightControl.Fixed ligCtr(ctrFix=1)));
+      redeclare Components.LightingControl.Fixed ligCtr(ctrFix=1)));
 
   Modelica.Blocks.Sources.Constant const(k=0)
     annotation (Placement(transformation(extent={{82,-68},{62,-48}})));
