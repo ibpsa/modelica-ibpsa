@@ -8,14 +8,12 @@ model InternalGainExample
 
 
   IDEAS.Buildings.Validation.Cases.Case900 case900_default(redeclare package
-              MediumAir =                                                                MediumAir)
+      MediumAir =                                                                        MediumAir)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   IDEAS.Buildings.Validation.Cases.Case900 case900_gains(
     redeclare package MediumAir = MediumAir, building(gF(
         redeclare Components.OccupancyType.OfficeWork occTyp,
-        redeclare
-          Components.InternalGains.Occupants
-          intGaiOcc,
+        redeclare Components.InternalGains.Simple intGai,
         redeclare IDEAS.Buildings.Components.Occupants.Input occNum)))
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Pulse occ(
@@ -27,53 +25,15 @@ model InternalGainExample
     {case900_gains.building.gF.airModel.port_a.C_outflow[1]*29/44*1e6,
      case900_default.building.gF.airModel.port_a.C_outflow[1]*29/44*1e6})
     annotation (Placement(transformation(extent={{-4,-54},{16,-34}})));
-  Validation.Cases.Case900                 case900_lights(
-      redeclare package MediumAir = MediumAir,
-      building(gF(
-        redeclare
-          Components.LightingType.OpenOfficeLed
-          ligTyp,
-        redeclare
-          Components.InternalGains.Lighting
-          intGaiLig,
-        redeclare Components.LightingControl.Input ligCtr)))
-    annotation (Placement(transformation(extent={{20,40},
-            {40,60}})));
-  Validation.Cases.Case900 case900_gains_and_lights(
-      redeclare package MediumAir = MediumAir,
-      building(gF(
-        redeclare
-          Components.OccupancyType.OfficeWork
-          occTyp,
-        redeclare
-          Components.InternalGains.Occupants
-          intGaiOcc,
-        redeclare Components.Occupants.Input
-          occNum,
-        redeclare
-          Components.LightingType.OpenOfficeLed
-          ligTyp,
-        redeclare Components.LightingControl.OccupancyBased ligCtr,
-        redeclare
-          Components.InternalGains.Lighting
-          intGaiLig)))     annotation (Placement(
-        transformation(extent={{-40,40},{-20,60}})));
 equation
   // equation for setting number of zone occupants
   case900_gains.building.gF.nOcc=occ.y;
-  case900_gains_and_lights.building.gF.nOcc=occ.y;
-  case900_lights.building.gF.uLig=1;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Model demonstrating the use of the comfort evaluation model and CO2 modelling.</p>
 </html>", revisions="<html>
 <ul>
-<li>
-August 28, 2018 by Iago Cupeiro:<br/>
-Updated model to include lighting gains
-See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
-</li>
 <li>
 July 26, 2018 by Filip Jorissen:<br/>
 Updated example for <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
