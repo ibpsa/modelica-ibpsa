@@ -1,6 +1,7 @@
 within IDEAS.Buildings.Components.Examples;
 model NumberOccupants
   "Example model that demonstrates the use of the number of occupants in a zone"
+  import IDEAS;
   extends Modelica.Icons.Example;
   inner BoundaryConditions.SimInfoManager       sim
     "Simulation information manager for climate data"
@@ -20,6 +21,12 @@ model NumberOccupants
         singleOutput(
         amplitude=2,
         freqHz=0.001,
+        offset=2)),
+    redeclare LightingType.OpenOfficeLed ligTyp,
+    redeclare IDEAS.Buildings.Components.LightingControl.CustomBlock ligCtr(
+        redeclare Modelica.Blocks.Sources.Sine singleOutput(
+        amplitude=2,
+        freqHz=0.001,
         offset=2))) "Zone with block replaceable for number of occupants"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Modelica.Blocks.Sources.Ramp ramp(
@@ -33,16 +40,13 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>
-This example demonstrates how the number of 
-occupants can be defined in a zone model.
-</p>
+<p>This example demonstrates how the lighting control can be defined in a zone model. </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January 26, 2018 by Filip Jorissen:<br/>
+September 17, 2018 by Iago Cupeiro:<br/>
 First implementation
-See <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
 </li>
 </ul>
 </html>"),
