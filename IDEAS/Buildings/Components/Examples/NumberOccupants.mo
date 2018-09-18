@@ -40,13 +40,13 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This example demonstrates how the lighting control can be defined in a zone model. </p>
+<p>This example demonstrates how the number of occupants can be defined in a zone model. </p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 17, 2018 by Iago Cupeiro:<br/>
+January 26, 2018 by Filip Jorissen:<br/>
 First implementation
-See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/760\">#760</a>.
 </li>
 </ul>
 </html>"),
