@@ -2,7 +2,7 @@ within IDEAS.Buildings.Components.LightingType.LightingGains;
 record CopyroomLights "Properties for typical copy/print room lights"
   extends
     IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains(
-      speW=7.8);
+      PSpe=7.8);
 
   annotation (Documentation(revisions="<html>
 <ul>

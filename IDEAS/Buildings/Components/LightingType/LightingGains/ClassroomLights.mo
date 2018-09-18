@@ -3,7 +3,7 @@ record ClassroomLights
   "Properties for typical class/training/lecture rooms"
   extends
     IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains(
-      speW=13.4);
+      PSpe=13.4);
 
   annotation (Documentation(revisions="<html>
 <ul>

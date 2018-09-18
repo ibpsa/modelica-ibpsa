@@ -110,7 +110,8 @@ model PartialZone "Building zone model"
     Placement(transformation(extent={{80,82},{100,102}})));
   replaceable parameter IDEAS.Buildings.Components.LightingType.OpenOfficeLed ligTyp
     constrainedby
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting(A=A) "Lighting type, only used for evaluating lighting heat gains"
+    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting
+    "Lighting type, only used for evaluating lighting heat gains"
     annotation (
     choicesAllMatching=true,
     Dialog(group="Lighting (optional)"),
@@ -137,7 +138,7 @@ model PartialZone "Building zone model"
     Dialog(tab="Advanced", group="Occupants"),
     Placement(transformation(extent={{40,22},{20,42}})));
 
-  replaceable IDEAS.Buildings.Components.InternalGains.Lighting intGaiLig
+  replaceable IDEAS.Buildings.Components.InternalGains.Lighting intGaiLig(A=A)
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains(
       ligTyp=ligTyp) "Lighting model" annotation (

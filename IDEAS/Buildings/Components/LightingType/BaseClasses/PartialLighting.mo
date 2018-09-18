@@ -1,9 +1,9 @@
 within IDEAS.Buildings.Components.LightingType.BaseClasses;
 partial record PartialLighting
-  "Record for defining the type of the lighting"
+  "Record for defining the lighting type"
   extends Modelica.Icons.Record;
 
-  replaceable parameter IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains ligGai(A=A)
+  replaceable parameter IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains ligGai
     constrainedby
     IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains "Lighting gains, only used for evaluating lighting heat gains"
     annotation (
@@ -18,7 +18,6 @@ partial record PartialLighting
     choicesAllMatching=true,
     Dialog(group="Lighting (optional)"),
     Placement(transformation(extent={{20,0},{40,20}})));
-    final parameter SI.Area A "Area of the zone";
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

@@ -1,19 +1,12 @@
 within IDEAS.Buildings.Components.LightingType.BaseClasses;
 partial record PartialLightingGains
-  "Record for defining the type of the lighting, to compute the light heat gains"
+  "Lighting properties for computing heat gains from lighting"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.Power W(min=0) = speW*A
-    "Total light wattage";
+  parameter Real PSpe(min=0, unit="W/m2")
+    "Specific electric power of the lighting";
   parameter Real F_sa(min=0) = 1.0
     "Special allowance factor";
-protected
-  parameter SI.Area A(min=0) "Area of the zone";
-
-  parameter Modelica.SIunits.Irradiance speW(min=0)
-    "Total light wattage per square meter";
-  parameter Modelica.SIunits.Power Q(min=0) = W*F_sa
-    "Sensible heat gain from electric lighting";
    annotation (Documentation(revisions="<html>
 <ul>
 <li>

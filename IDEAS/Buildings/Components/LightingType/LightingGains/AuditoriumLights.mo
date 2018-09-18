@@ -2,7 +2,7 @@ within IDEAS.Buildings.Components.LightingType.LightingGains;
 record AuditoriumLights "Properties for typical auditorium rooms"
   extends
     IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains(
-      speW=6.8);
+      PSpe=6.8);
 
   annotation (Documentation(revisions="<html>
 <ul>

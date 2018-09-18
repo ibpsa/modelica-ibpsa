@@ -1,8 +1,7 @@
 within IDEAS.Buildings.Components.LightingType.LightingSplit;
 record DownlightCompactFluorescentLuminaire
   "Downlight compact fluorescent luminaire."
-  extends
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingSplit(
+  extends IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingSplit(
       spaFra=0.18, radFra=0.98);
 
   annotation (Documentation(revisions="<html>

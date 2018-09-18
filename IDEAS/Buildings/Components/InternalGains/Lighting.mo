@@ -2,27 +2,17 @@ within IDEAS.Buildings.Components.InternalGains;
 model Lighting
   "Fraction of heat to space, radiative heat, lighting type, light power and floor area"
   extends IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains;
-  parameter Real spaFra(
-    min=0,
-    max=1) = ligTyp.ligSpl.spaFra
-    "Space fraction of lighting heat exchange, default based on Ashrae fundamentals chap 18.2.2, Table 3 - Lighting Heat Gain Parameters for Typical Operating Conditions";
-  parameter Real radFra(
-    min=0,
-    max=1) = ligTyp.ligSpl.radFra
-    "Radiant fraction of lighting heat exchange, default based on Ashrae fundamentals chap 18.2.2, Table 3 - Lighting Heat Gain Parameters for Typical Operating Conditions";
-  parameter Modelica.SIunits.Power Qlight(min=0) = ligTyp.ligGai.Q
-    "Sensible heat gain from electric lighting";
-  parameter Modelica.SIunits.Area A(min=0) = ligTyp.ligGai.A;
+  parameter Modelica.SIunits.Area A(min=0);
 
-  Modelica.Blocks.Math.Gain gaiHea(k=Qlight*spaFra)
+  Modelica.Blocks.Math.Gain gaiHea(k=ligTyp.ligGai.PSpe*ligTyp.ligGai.F_sa*A*ligTyp.ligSpl.spaFra)
                 "Gain for computing heat flow rate"
     annotation (Placement(transformation(extent={{-52,-10},{-32,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon(final
       alpha=0) "Prescribed heat flow rate for convective sensible heat"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Modelica.Blocks.Math.Gain gain(final k=radFra)
+  Modelica.Blocks.Math.Gain gain(final k=ligTyp.ligSpl.radFra)
     annotation (Placement(transformation(extent={{-8,-30},{12,-10}})));
-  Modelica.Blocks.Math.Gain gainCon(final k=1 - radFra)
+  Modelica.Blocks.Math.Gain gainCon(final k=1 - ligTyp.ligSpl.radFra)
     annotation (Placement(transformation(extent={{-8,10},{12,30}})));
 protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloRad(final
