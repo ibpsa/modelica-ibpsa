@@ -4,7 +4,7 @@ block OccupancyBased
   extends IDEAS.Buildings.Components.LightingControl.BaseClasses.PartialLightingControl(
     final useOccInput=true);
 
-  Modelica.Blocks.Logical.GreaterEqualThreshold greEquThr(threshold=0)
+  Modelica.Blocks.Logical.GreaterThreshold      greEquThr(threshold=0)
     "Greater or equal than threshold"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Math.BooleanToReal booToRea(realTrue=1, realFalse=0)
