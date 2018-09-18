@@ -15,7 +15,7 @@ See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
 </ul>
 </html>", info="<html>
 <p>
-Lighting gains distribution for non-in-ceiling fluoreecent luminaire
+Lighting gains distribution for non-in-ceiling fluorescent luminaire
 </p>
 </html>"));
 end NonInCeilingFluorescentLuminaire;

@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.LightingType.LightingSplit;
 record DownlightIncandescentLuminaire
-  "Downlogith incandescent luminaire"
+  "Downligth incandescent luminaire"
   extends
     IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingSplit(
       spaFra=0.75, radFra=0.98);
