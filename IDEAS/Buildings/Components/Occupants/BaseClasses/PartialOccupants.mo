@@ -1,7 +1,10 @@
 within IDEAS.Buildings.Components.Occupants.BaseClasses;
 partial block PartialOccupants "Partial for defining the number of occupants"
   extends Modelica.Blocks.Icons.Block;
-  parameter Boolean useInput= false "=true to use external input";
+  parameter Boolean useInput= false
+    "=true to use external input";
+  parameter Boolean linearise
+    "For linearisation checks";
   Modelica.Blocks.Interfaces.RealOutput nOcc "Number of occupants"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Modelica.Blocks.Interfaces.RealInput nOccIn if useInput

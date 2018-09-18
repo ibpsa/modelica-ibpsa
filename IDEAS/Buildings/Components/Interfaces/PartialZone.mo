@@ -93,7 +93,8 @@ model PartialZone "Building zone model"
     choicesAllMatching=true,
     Dialog(group="Building physics"));
   replaceable IDEAS.Buildings.Components.Occupants.Fixed occNum
-    constrainedby Occupants.BaseClasses.PartialOccupants
+    constrainedby Occupants.BaseClasses.PartialOccupants(
+      final linearise = sim.lineariseDymola)
     "Number of occupants that are present" annotation (
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
@@ -150,9 +151,11 @@ model PartialZone "Building zone model"
   Modelica.Blocks.Interfaces.RealOutput TRad(unit="K") = radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
 
-  replaceable LightControl.Fixed ligCtr constrainedby
-    LightControl.BaseClasses.PartialLights "Signal for the light control"
-    annotation (
+  replaceable IDEAS.Buildings.Components.LightingControl.Fixed ligCtr
+    constrainedby
+    IDEAS.Buildings.Components.LightingControl.BaseClasses.PartialLightingControl(
+      final linearise = sim.lineariseDymola)
+    "Signal for the light control" annotation (
     choicesAllMatching=true,
     Dialog(group="Lighting (optional)"),
     Placement(transformation(extent={{80,52},{60,72}})));
@@ -360,9 +363,10 @@ end for;
     annotation (Line(points={{120,40},{96,40},{96,32},{82,32}},
                                                 color={0,0,127}));
   connect(uLig, ligCtr.ligCtr) annotation (Line(points={{120,70},{96,70},{96,60},
-          {82,60}}, color={0,0,127}));
-  connect(nOcc, ligCtr.ligOcc) annotation (Line(points={{120,40},{96,40},{96,64},
-          {82,64}}, color={0,0,127}));
+          {82,60}},color={0,0,127}));
+  connect(occNum.nOcc, ligCtr.nOcc) annotation (Line(points={{58,32},{96,32},{96,
+          64},{82,64}},
+                   color={0,0,127}));
   connect(airModel.port_b, interzonalAirFlow.port_a_interior)
     annotation (Line(points={{-36,40},{-36,60}}, color={0,127,255}));
   connect(airModel.port_a, interzonalAirFlow.port_b_interior)
@@ -379,7 +383,7 @@ end for;
           -60},{100,-60}}, color={191,0,0}));
   connect(intGaiLig.portCon, gainCon) annotation (Line(points={{20,64},{2,64},{2,
           -30},{100,-30}}, color={191,0,0}));
-  connect(ligCtr.ctr, intGaiLig.ctrl)
+  connect(ligCtr.ctrl, intGaiLig.ctrl)
     annotation (Line(points={{58,62},{41,62}}, color={0,0,127}));
  annotation (Placement(transformation(extent={{
             140,48},{100,88}})),

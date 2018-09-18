@@ -1,4 +1,4 @@
-﻿within IDEAS.Buildings.Components.LightingType.BaseClasses;
+within IDEAS.Buildings.Components.LightingType.BaseClasses;
 partial record PartialLightingGains
   "Record for defining the type of the lighting, to compute the light heat gains"
   extends Modelica.Icons.Record;
