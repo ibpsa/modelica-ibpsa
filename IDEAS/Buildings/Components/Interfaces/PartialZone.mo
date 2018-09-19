@@ -138,9 +138,10 @@ model PartialZone "Building zone model"
     Dialog(tab="Advanced", group="Occupants"),
     Placement(transformation(extent={{40,22},{20,42}})));
 
-  replaceable IDEAS.Buildings.Components.InternalGains.Lighting intGaiLig(A=A)
+  replaceable IDEAS.Buildings.Components.InternalGains.Lighting intGaiLig
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains(
+      A=A,
       ligTyp=ligTyp) "Lighting model" annotation (
     choicesAllMatching=true,
     Dialog(tab="Advanced", group="Lighting"),
