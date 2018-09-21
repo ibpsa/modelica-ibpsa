@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.Validation;
-model InternalResistancesOneUTube_NegativeResistance
-  "Validation of the thermal resistances using the method of Bauer et al. (2011) for a single U-tube borehole"
+model InternalResistancesTwoUTubeNegative
+  "Validation of the thermal resistances using the method of Bauer et al. (2011) for a double U-tube borehole"
   extends Modelica.Icons.Example;
 
   // Geometry of the borehole
@@ -36,14 +36,16 @@ model InternalResistancesOneUTube_NegativeResistance
   parameter Real x(fixed=false) "Capacity location";
   parameter Modelica.SIunits.ThermalResistance Rgb(fixed=false)
     "Thermal resistance between grout zone and borehole wall";
-  parameter Modelica.SIunits.ThermalResistance Rgg(fixed=false)
-    "Thermal resistance between the two grout zones";
+  parameter Modelica.SIunits.ThermalResistance Rgg1(fixed=false)
+    "Thermal resistance between the two adjacent grout zones";
+  parameter Modelica.SIunits.ThermalResistance Rgg2(fixed=false)
+    "Thermal resistance between the two opposite grout zones";
   parameter Modelica.SIunits.ThermalResistance RCondGro(fixed=false)
     "Thermal resistance between: pipe wall to capacity in grout";
 
 initial equation
-  (x, Rgb, Rgg, RCondGro) =
-    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesOneUTube(
+  (x, Rgb, Rgg1, Rgg2, RCondGro) =
+    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube(
       hSeg=hSeg,
       rBor=rBor,
       rTub=rTub,
@@ -60,15 +62,15 @@ initial equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesOneUTube_NegativeResistance.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesTwoUTubeNegative.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=1.0),
     Documentation(info="<html>
 <p>
 This example validates the implementation of
-<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesOneUTube\">
-IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesOneUTube</a>
-for the evaluation of the internal thermal resistances of a single U-tube
+<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube\">
+IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube</a>
+for the evaluation of the internal thermal resistances of a double U-tube
 borehole.
 </p>
 <p>
@@ -84,4 +86,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end InternalResistancesOneUTube_NegativeResistance;
+end InternalResistancesTwoUTubeNegative;
