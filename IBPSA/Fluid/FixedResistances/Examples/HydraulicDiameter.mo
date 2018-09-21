@@ -9,7 +9,7 @@ model HydraulicDiameter
     duration=1,
     height=4000,
     offset=300000 - 2000)
-                        "Ramp pressure signal"
+     "Ramp pressure signal"
     annotation (Placement(transformation(extent={{-92,-2},{-72,18}})));
 
   IBPSA.Fluid.Sources.Boundary_pT sou(
@@ -35,7 +35,8 @@ model HydraulicDiameter
     m_flow_nominal=0.2,
     v_nominal=1,
     from_dp=true,
-    length=1)     "Fixed resistance with specified hydraulic diameter"
+    length=1)
+    "Fixed resistance with specified hydraulic diameter"
     annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
 
   IBPSA.Fluid.FixedResistances.HydraulicDiameter resLarPip(
