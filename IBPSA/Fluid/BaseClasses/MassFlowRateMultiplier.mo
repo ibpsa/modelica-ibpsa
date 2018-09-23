@@ -3,6 +3,7 @@ model MassFlowRateMultiplier "Model that multiplies the mass flow rate"
   extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
   parameter Real k "Gain for mass flow rate";
+
 initial equation
   assert(k > Modelica.Constants.small or -k < -Modelica.Constants.small,
     "Gain must not be zero. Received k = " + String(k));
@@ -11,7 +12,7 @@ equation
   port_a.p = port_b.p;
 
   // Mass balance (mass is not conserved by this model!)
- port_b.m_flow = -k*port_a.m_flow;
+  port_b.m_flow = -k*port_a.m_flow;
 
   // Specific enthalpy flow rate
   port_a.h_outflow = inStream(port_b.h_outflow);
@@ -33,9 +34,10 @@ The specific enthalpy, the species concentration and the trace substance concent
 remains unchanged.
 Therefore, this model does not conserve mass or energy.
 It is used in 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab\">
-Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab</a>
-to avoid having to instanciate multiple slab models in parallel, with each
+<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield\">
+IBPSA.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield</a> 
+and also in the Buildings library
+to avoid having to instantiate circuits in parallel, with each
 having the same mass flow rate and temperatures.
 </p>
 </html>", revisions="<html>
