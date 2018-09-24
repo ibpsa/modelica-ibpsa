@@ -13,7 +13,7 @@ model TwoWayTRV "Two way thermostatic radiator valve"
     rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
 
   parameter Modelica.SIunits.Temperature TSet = 294.15 "Temperature set point";
-  parameter Modelica.SIunits.Temperature P = 2 "Proportional band of valve";
+  parameter Modelica.SIunits.Temperature P(displayUnit="K") = 2 "Proportional band of valve";
 
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
@@ -114,6 +114,11 @@ to reflect the typical delay of radiator knobs.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 24, 2018 by Filip Jorissen:<br/>
+Modified displayUnit of proportional band P to Kelvin to avoid displaying -271.15C.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/919\">#919</a>.
+</li>
 <li>
 November 15, 2016 by Filip Jorissen:<br/>
 First implementation.
