@@ -62,7 +62,7 @@ protected
   final parameter Real ASWotherSurface(fixed=false)
     "Total absorption surface on surfaces other than the floor";
   final parameter Real fraTotAbsFloor(fixed=false)
-    "Fraction of the bream radiation that is absorbed by the floor";
+    "Fraction of the beam radiation that is absorbed by the floor";
 public
 Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
     annotation (Placement(transformation(
