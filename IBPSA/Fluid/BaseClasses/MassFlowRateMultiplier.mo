@@ -31,11 +31,11 @@ This model multiplies the mass flow rate so that
 </p>
 <p>
 The specific enthalpy, the species concentration and the trace substance concentration
-remains unchanged.
+remain unchanged.
 Therefore, this model does not conserve mass or energy.
-It is used in 
+It is used in
 <a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield\">
-IBPSA.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield</a> 
+IBPSA.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield</a>
 and also in the Buildings library
 to avoid having to instantiate circuits in parallel, with each
 having the same mass flow rate and temperatures.
