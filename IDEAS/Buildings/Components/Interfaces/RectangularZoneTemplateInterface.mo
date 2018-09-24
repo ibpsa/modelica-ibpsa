@@ -444,15 +444,21 @@ partial model RectangularZoneTemplateInterface
   parameter SI.Length dhShaD=0
     "Height difference between top of shading object and top of wall D"
     annotation(Dialog(enable=hasBuildingShadeD,tab="Face D", group="Building shade"));
-
   parameter SI.Length PWall = (if hasOutA then lA else 0) + (if hasOutB then lB else 0) + (if hasOutC then lC else 0) + (if hasOutD then lD else 0)
-  "Total floor slab perimeter length" annotation(Dialog(tab="Advanced", group="SlabOnGround", enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
+    "Total floor slab perimeter length" annotation(Dialog(tab="Advanced", group="SlabOnGround", enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
 
-  parameter Boolean hasEmb = false "Set to true if floor is equipped with floor heating or concrete core activation"
+  parameter Boolean hasEmb = false
+    "Set to true if floor is equipped with floor heating or concrete core activation"
   annotation(Dialog(tab="Floor", group="Floor heating / CCA",
             enable=(bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall or
                     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall or
                     bouTypFlo == IDEAS.Buildings.Components.Interfaces.BoundaryType.SlabOnGround)));
+  final parameter Modelica.SIunits.Angle aziB = aziA + Modelica.Constants.pi/2
+    "Azimuth angle of face B";
+  final parameter Modelica.SIunits.Angle aziC = aziA + Modelica.Constants.pi
+    "Azimuth angle of face C";
+  final parameter Modelica.SIunits.Angle aziD = aziA + 3*Modelica.Constants.pi/2
+    "Azimuth angle of face D";
 
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurfExt] proBusExt(
     each final numIncAndAziInBus=sim.numIncAndAziInBus,
@@ -488,7 +494,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
       locGain=conTypB.locGain,
       incLastLay=conTypB.incLastLay,
       mats=conTypB.mats),
-    azi=aziA + Modelica.Constants.pi/2,
+    azi=aziB,
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
@@ -501,7 +507,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
       locGain=conTypC.locGain,
       incLastLay=conTypC.incLastLay,
       mats=conTypC.mats),
-    azi=aziA + Modelica.Constants.pi,
+    azi=aziC,
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
@@ -509,8 +515,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
        hasBouC
     "Boundary wall for face C of this zone"
     annotation (Placement(transformation(extent={{-120,-40},{-110,-20}})));
-  IDEAS.Buildings.Components.BoundaryWall bouD(inc=IDEAS.Types.Tilt.Wall, azi=aziA
-         + Modelica.Constants.pi/2*3,
+  IDEAS.Buildings.Components.BoundaryWall bouD(inc=IDEAS.Types.Tilt.Wall, azi=aziD,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       locGain=conTypD.locGain,
       incLastLay=conTypD.incLastLay,
@@ -570,7 +575,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
       locGain=conTypB.locGain,
       incLastLay=conTypB.incLastLay,
       mats=conTypB.mats),
-    azi=aziA + Modelica.Constants.pi/2,
+    azi=aziB,
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_out,
@@ -589,7 +594,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
       locGain=conTypC.locGain,
       incLastLay=conTypC.incLastLay,
       mats=conTypC.mats),
-    azi=aziA + Modelica.Constants.pi,
+    azi=aziC,
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_out,
@@ -603,8 +608,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
        hasOutC
     "Outer wall for face C of this zone"
     annotation (Placement(transformation(extent={{-140,-40},{-130,-20}})));
-  IDEAS.Buildings.Components.OuterWall outD(inc=IDEAS.Types.Tilt.Wall, azi=aziA +
-        Modelica.Constants.pi/2*3,
+  IDEAS.Buildings.Components.OuterWall outD(inc=IDEAS.Types.Tilt.Wall, azi=aziD,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       locGain=conTypD.locGain,
       incLastLay=conTypD.incLastLay,
@@ -686,7 +690,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
       locGain=conTypB.locGain,
       incLastLay=conTypB.incLastLay,
       mats=conTypB.mats),
-    azi=aziA + Modelica.Constants.pi/2,
+    azi=aziB,
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_intA,
@@ -710,7 +714,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
       locGain=conTypC.locGain,
       incLastLay=conTypC.incLastLay,
       mats=conTypC.mats),
-    azi=aziA + Modelica.Constants.pi,
+    azi=aziC,
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_intA,
@@ -729,8 +733,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
     hasIntC
     "Internal wall for face C of this zone"
     annotation (Placement(transformation(extent={{-176,-40},{-164,-20}})));
-  IDEAS.Buildings.Components.InternalWall intD(inc=IDEAS.Types.Tilt.Wall, azi=aziA
-         + Modelica.Constants.pi/2*3,
+  IDEAS.Buildings.Components.InternalWall intD(inc=IDEAS.Types.Tilt.Wall, azi=aziD,
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType(
       locGain=conTypD.locGain,
       incLastLay=conTypD.incLastLay,
