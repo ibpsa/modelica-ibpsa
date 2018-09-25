@@ -1,7 +1,6 @@
 within IDEAS.Fluid.MixingVolumes.Validation;
 model CoupledVolumesWater
   "Validation model for two coupled volumes with water"
-  import IDEAS;
   extends Modelica.Icons.Example;
 
   replaceable package Medium = IDEAS.Media.Water

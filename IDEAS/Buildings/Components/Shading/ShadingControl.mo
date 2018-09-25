@@ -6,20 +6,32 @@ model ShadingControl "shading control based on irradiation"
   parameter Real uHigh(final quantity="Irradiance", final unit="W/m2")=150
     "lower limit below which shading goes up again";
   IDEAS.Controls.Discrete.HysteresisRelease hyst(uLow_val=uHigh, uHigh_val=uLow, use_input=false);
-  Modelica.SIunits.Irradiance irr = sim.irr "Irradiance";
   Modelica.Blocks.Interfaces.RealOutput y "control signal"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
 
   outer BoundaryConditions.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
+protected
+  IDEAS.BoundaryConditions.WeatherData.Bus weaDatBus
+    "Weather data bus connectable to weaBus connector from Buildings Library"
+    annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
+  Modelica.Blocks.Interfaces.RealOutput irr
+    "Solar irradiance on a horizontal surface"
+    annotation (Placement(transformation(extent={{40,-70},{20,-50}})));
 equation
 
   hyst.u = irr;
   hyst.y = y;
 
+  connect(sim.weaDatBus, weaDatBus) annotation (Line(
+      points={{99.9,-90},{100,-90},{100,-60},{60,-60}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(irr, weaDatBus.HGloHor)
+    annotation (Line(points={{30,-60},{60,-60}}, color={0,0,127}));
   annotation (
-    Diagram(graphics),
     Icon(graphics={Rectangle(
           extent={{-74,56},{74,-58}},
           lineColor={95,95,95},
@@ -67,9 +79,10 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <h4>General description</h4>
-<h4>Goal</h4>
-<p>The <code>ShadingControl.mo</code> model describes the shadeing controller 
-lowering the shadeing at a default irradiance level of 250 W/m2 and raising again at 150 W/m2 (values are input parameters).
+<p>
+This model creates a control signal for a shading device.
+The shading device is closed when the solar irradiation (global solar irradiation on a horizontal surface)
+exceeds <code>uHigh</code> and is opened again when the irradiation is below <code>uLow</code>.
 </p>
 </html>"));
 end ShadingControl;
