@@ -18,12 +18,12 @@ model OpenDoorComparison
       hasWinA=false) "Zone with a connection to internal wall of zone1_b"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 equation
-  connect(zone2_a.proBusD, zone1_a.proBusB) annotation (Line(
-      points={{21,50},{0,50},{0,56},{-21,56}},
+  connect(zone2_a.proBusD[1], zone1_a.proBusB[1]) annotation (Line(
+      points={{20.4,43},{0,43},{0,56},{-21,56}},
       color={255,204,51},
       thickness=0.5));
-  connect(zone2_b.proBusD, zone1_b.proBusB) annotation (Line(
-      points={{21,-50},{0,-50},{0,-44},{-21,-44}},
+  connect(zone2_b.proBusD[1], zone1_b.proBusB[1]) annotation (Line(
+      points={{20.4,-57},{0,-57},{0,-44},{-21,-44}},
       color={255,204,51},
       thickness=0.5));
   annotation (
