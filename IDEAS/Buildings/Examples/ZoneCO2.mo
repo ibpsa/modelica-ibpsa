@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Examples;
 model ZoneCO2 "Zone with CO2 concentration model"
   extends Modelica.Icons.Example;
-  replaceable package Medium = IDEAS.Media.Air(extraPropertiesNames={"CO2"});
+  replaceable package Medium = IDEAS.Media.Air(extraPropertiesNames={"test", "CO2"});
   inner BoundaryConditions.SimInfoManager       sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -50,6 +50,15 @@ protected
   BoundaryConditions.WeatherData.Bus weaDatBus1
                             "Weather data bus connectable to weaBus connector from Buildings Library"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  Modelica.Blocks.Sources.RealExpression CEnv[max(Medium.nC,1)](y=sim.CEnv.y*
+        s_co2)
+    annotation (Placement(transformation(extent={{-62,78},{-44,94}})));
+protected
+  final parameter Real s_co2[max(Medium.nC,1)] = {if Modelica.Utilities.Strings.isEqual(string1=if Medium.nC>0 then Medium.extraPropertiesNames[i] else "",
+                                             string2="CO2",
+                                             caseSensitive=false)
+                                             then 1 else 0 for i in 1:max(Medium.nC,1)};
+
 equation
   connect(pulse.y, zone.nOcc) annotation (Line(points={{19,10},{0,10},{0,14},{-18,
           14}}, color={0,0,127}));
@@ -63,8 +72,6 @@ equation
     annotation (Line(points={{-24,82},{-24,90},{-70,90}}, color={0,0,127}));
   connect(boundary.Xi_in[1], weaDatBus1.X_wEnv)
     annotation (Line(points={{-32,82},{-32,90},{-70,90}}, color={0,0,127}));
-  connect(boundary.C_in[1], weaDatBus1.CEnv)
-    annotation (Line(points={{-36,82},{-36,90},{-70,90}}, color={0,0,127}));
   connect(boundary.ports[1], zone.port_a)
     annotation (Line(points={{-28,60},{-28,20}}, color={0,127,255}));
   connect(hys.u, zone.ppm)
@@ -73,6 +80,8 @@ equation
     annotation (Line(points={{10,81},{-20,81},{-20,82}}, color={0,0,127}));
   connect(m_flow.u, hys.y)
     annotation (Line(points={{10,58},{10,51}}, color={255,0,255}));
+  connect(CEnv.y, boundary.C_in)
+    annotation (Line(points={{-43.1,86},{-36,86},{-36,82}}, color={0,0,127}));
   annotation (experiment(
       StopTime=100000,
       Tolerance=1e-06,
@@ -83,6 +92,11 @@ simulating the CO2 generation caused by occupants.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2018 by Filip Jorissen:<br/>
+Fix for supporting multiple trace substances.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/920\">#920</a>.
+</li>
 <li>
 July 27, 2018 by Filip Jorissen:<br/>
 First implementation
