@@ -484,7 +484,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
     T_start=T_start,
     linIntCon_a=linIntCon,
     dT_nominal_a=dT_nominal_bou,
-    A=AWallA) if
+    A=AWallANet) if
        hasBouA
     "Boundary wall for face A of this zone"
     annotation (Placement(transformation(extent={{-120,0},{-110,20}})));
@@ -561,7 +561,7 @@ final parameter Integer nGainEmb = conTypFlo.nGain "Number of planes in which CC
     dT_nominal_a=dT_nominal_out,
     linExtCon=linExtCon,
     linExtRad=linExtRad,
-    A=max(0,AWallA),
+    A=max(0,AWallANet),
     final hWal=h,
     final hasBuildingShade=hasBuildingShadeA,
     final L=LShaA,
