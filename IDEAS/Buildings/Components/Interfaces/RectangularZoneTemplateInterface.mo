@@ -1278,6 +1278,8 @@ length parameters <code>lA, lB, lC, lD</code> from the <code>Face</code> tabs
 such that the surface area of the wall is correct. Also the ceiling or roof
 surface area can be overwritten using the parameter <code>ACei</code>
 from the <code>Ceiling</code> tab.
+This way the user can overwrite the default ceiling surface area, 
+e.g. to better approximate an inclinated roof.
 Be also aware that the model
 <code>slabOnGround</code> has a parameter <code>PWall</code> which specifies the
 perimeter of slab on ground. The model cannot detect external walls connected
