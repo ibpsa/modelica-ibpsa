@@ -1029,7 +1029,9 @@ initial equation
   end if;
 
   if hasWinCei then
-    assert(abs(ACei-ACeiNet) < 0.001, "The overwrite parameter ACei should not be used when the roof has a window");
+    // note that w*l is the default value of ACei
+    assert(abs(ACei-w*l) < 1e-6, "The overwrite parameter ACei should not be used when the roof has a window
+                                  since then the window surface area cannot be factored in correctly.");
   end if;
 equation
   connect(intA.propsBus_a, propsBusInt[indWalA]) annotation (Line(
