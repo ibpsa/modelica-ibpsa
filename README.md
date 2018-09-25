@@ -68,10 +68,10 @@ Please cite IDEAS using the information below.
 ```
 @article{Jorissen2018ideas,  
 author = {Jorissen, Filip and Reynders, Glenn and Baetens, Ruben and Picard, Damien and Saelens, Dirk and Helsen, Lieve},  
-journal = {Journal of Building Performance Simulation},  
-note = {Published on line},  
+journal = {Journal of Building Performance Simulation},    
 title = {{Implementation and Verification of the IDEAS Building Energy Simulation Library}},  
-volume = {},  
+volume = {11},
+issue = {6},  
 doi={10.1080/19401493.2018.1428361},  
 year = {2018}  
 }
