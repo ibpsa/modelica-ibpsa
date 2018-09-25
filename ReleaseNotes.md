@@ -2,7 +2,7 @@
 IDEAS 2.0 has been released in August 2018. Highlights of this release compared to v1.0 are:
 
 + Unit tests have been automated. When a developer makes a pull request against the master, unit tests are run automatically using Travis CI. This greatly simplifies the development process when no unit test results change.
-+ IDEAS has been updated to IBPSA version 3.0. This includes a new heat pump model and a thoroughly updated bore field model.
++ IDEAS has been updated to IBPSA version 3.0. This includes a new heat pump model and a thoroughly updated borefield model.
 + Some old models have been removed and the library has been cleaned up in general.
 + New example models and unit tests have been added that better demonstrate how IDEAS can be used. In general, the documentation of the library has improved.
 + The `OuterWall` model now natively supports shading from external buildings using the BuildingShade model.
@@ -12,7 +12,7 @@ IDEAS 2.0 has been released in August 2018. Highlights of this release compared 
 
 
 ### Detailed release notes:
-1. The `RectangularZoneTemplate` has been extended and improved:
+1. The `RectangularZoneTemplate` has been extended considerably. Some changes are not reverse compatible.
    + Internal walls can no longer be combined with a window.
    + A building shade option has been added for outer walls.
    + An option has been added to completely drop one of the surfaces of the model.
@@ -21,6 +21,7 @@ IDEAS 2.0 has been released in August 2018. Highlights of this release compared 
    + The `Window` model has been made replaceable such that a fully configured window can easily be used.
    + An option for adding a cavity to internal walls has been added.
    + An option has been added for including an internal wall that is completely surrounded by the zone.
+   + External proBus connectors are now vectors.
 2. The `EmbeddedPipe` model has been modified:
    + The parameter useSimplifiedRt has been removed.
    + The implementation now has final alpha=0 in the PrescribedHeatFlowRate blocks, which can significantly reduce the size of algebraic loops that are formed.
@@ -56,6 +57,7 @@ The shading models now compute the impact on the diffuse solar irradiation more 
    + A thermal storage tank model has been added.
    + A geothermal bore field model has been added.
    + A model has been added for directly writing .csv result files. These result files can also be used as an input for a CombiTimeTable.
+30. IDEAS now supports multiple trace substances for the zone model. I.e. other trace substances than CO2 are also supported.
 
 
 ## IDEAS v1.0
