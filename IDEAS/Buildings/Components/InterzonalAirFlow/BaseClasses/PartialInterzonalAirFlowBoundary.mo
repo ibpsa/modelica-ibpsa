@@ -7,7 +7,11 @@ partial model PartialInterzonalAirFlowBoundary
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 protected
-    IDEAS.Buildings.Components.Interfaces.WeaBus weaBus(numSolBus=sim.numIncAndAziInBus, outputAngles=sim.outputAngles)
+  final parameter Real s_co2[max(Medium.nC,1)] = {if Modelica.Utilities.Strings.isEqual(string1=if Medium.nC>0 then Medium.extraPropertiesNames[i] else "",
+                                             string2="CO2",
+                                             caseSensitive=false)
+                                             then 1 else 0 for i in 1:max(Medium.nC,1)};
+  IDEAS.Buildings.Components.Interfaces.WeaBus weaBus(numSolBus=sim.numIncAndAziInBus, outputAngles=sim.outputAngles)
     annotation (Placement(transformation(extent={{-78,80},{-58,100}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo(final
       alpha=0) if                                                                 sim.computeConservationOfEnergy
@@ -23,7 +27,7 @@ protected
     redeclare package Medium = Medium,
     use_T_in=true,
     use_p_in=false,
-    use_C_in=Medium.nC == 1,
+    use_C_in=Medium.nC > 0,
     use_Xi_in=Medium.nX == 2) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -34,7 +38,7 @@ protected
     annotation (Placement(transformation(extent={{-44,52},{-26,68}})));
   Modelica.Blocks.Sources.RealExpression Xi(y=weaBus.X_wEnv)
     annotation (Placement(transformation(extent={{-44,64},{-26,80}})));
-  Modelica.Blocks.Sources.RealExpression CEnv(y=weaBus.CEnv)
+  Modelica.Blocks.Sources.RealExpression CEnv[max(Medium.nC,1)](y=weaBus.CEnv*s_co2)
     annotation (Placement(transformation(extent={{-44,74},{-26,90}})));
 equation
   connect( sim.weaBus,weaBus);
@@ -52,15 +56,21 @@ equation
     connect(bou.Xi_in[1], Xi.y) annotation (Line(points={{4,22},{4,72},{-25.1,
             72}},            color={0,0,127}));
   end if;
-  if Medium.nC == 1 then
-    connect(bou.C_in[1], CEnv.y) annotation (Line(points={{8,22},{8,82},{-25.1,
-            82}},            color={0,0,127}));
+  if Medium.nC > 0 then
+    connect(CEnv.y, bou.C_in)
+      annotation (Line(points={{-25.1,82},{8,82},{8,22}}, color={0,0,127}));
   end if;
   connect(bou.T_in, Te.y) annotation (Line(points={{-4,22},{-4,60},{-25.1,60}},
                    color={0,0,127}));
 
+
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+September 24, 2018 by Filip Jorissen:<br/>
+Fix for supporting multiple trace substances.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/920\">#920</a>.
+</li>
 <li>
 August 24, 2018 by Damien Picard:<br/>
 Use weaDatBus.Te instead of sim.Te such that the variable is correctly 

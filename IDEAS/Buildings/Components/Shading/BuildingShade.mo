@@ -4,10 +4,15 @@ model BuildingShade
   extends IDEAS.Buildings.Components.Shading.Interfaces.PartialShading(
     final controlled=false);
 
-  parameter Modelica.SIunits.Length L "Distance to object perpendicular to window";
+  parameter Modelica.SIunits.Length L(min=0)
+    "Distance to object perpendicular to window"
+    annotation(Dialog(group="Dimensions (see illustration in documentation)"));
   parameter Modelica.SIunits.Length dh
-    "Height difference between top of object and top of window";
-  parameter Modelica.SIunits.Length hWin = 1 "Window height";
+    "Height difference between top of object and top of window glazing"
+    annotation(Dialog(group="Dimensions (see illustration in documentation)"));
+  parameter Modelica.SIunits.Length hWin(min=0) = 1
+    "Window height: distance between top and bottom of window glazing"
+    annotation(Dialog(group="Dimensions (see illustration in documentation)"));
   final parameter Real fraSunDifSky(final min=0,final max=1, final unit="1") = 1-vieAngObj/(Modelica.Constants.pi/2)
     "Fraction of window area exposed to diffuse sun light";
 
@@ -64,6 +69,8 @@ equation
 This model computes the shading cast by a building (or other object) at 
 distance <code>L</code> and relative height <code>dh</code> 
 on a window (or wall) with height <code>hWin</code>.
+For a window this height corresponds to the window glazing height,
+excluding the window frame.
 Diffuse sky solar radiation is reduced
 by computing a simplified view factor of the building,
 which blocks the sky view.
@@ -72,18 +79,25 @@ Diffuse ground solar radiation is unaffected by this model.
 <p><img alt=\"illustration\" src=\"modelica://IDEAS/Resources/Images/Buildings/Components/Shading/BuildingShade.png\"/></p>
 <h4>Assumption and limitations</h4>
 <p>
-This model assumes that the obstructing object is very wide 
-compared to the window
+This model assumes that the obstructing object is very wide (infinite) 
+compared to the window/wall
 and that it is parallel to the window. 
 This model is inaccurate when this is not the case.
 </p>
 <p>
 We assume that the opposite building is shaded or that its reflectivity is zero,
-such that it does not reflect diffuse solar irradiation towards
+such that it does not reflect solar irradiation towards
 the window.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 25, 2018 by Filip Jorissen:<br/>
+Clarified meaning of <code>hWin</code>
+and grouped parameters with reference to documentation.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/909\">
+#909</a>.
+</li>
 <li>
 May 26, 2017 by Filip Jorissen:<br/>
 Added computation of diffuse solar shading.
