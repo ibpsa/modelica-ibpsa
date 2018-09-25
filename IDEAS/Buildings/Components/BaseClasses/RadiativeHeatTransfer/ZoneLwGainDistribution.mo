@@ -62,7 +62,7 @@ protected
   final parameter Real ASWotherSurface(fixed=false)
     "Total absorption surface on surfaces other than the floor";
   final parameter Real fraTotAbsFloor(fixed=false)
-    "Fraction of the bream radiation that is absorbed by the floor";
+    "Fraction of the beam radiation that is absorbed by the floor";
 public
 Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
     annotation (Placement(transformation(
@@ -159,7 +159,7 @@ Internal gains from occupants are redistributed in the same way, but using
 the long wave emissivity instead of the short wave emissivity.
 </p>
 <p>
-Direct/bream solar gains are redistributed by assuming that a fixed fraction of the beam solar
+Direct/beam solar gains are redistributed by assuming that a fixed fraction of the beam solar
 gains are absorbed by the floor. 
 This fraction equals the short wave emissivity of the floor. 
 If there are multiple floors (based on the inclination angle) 
