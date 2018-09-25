@@ -159,7 +159,7 @@ Internal gains from occupants are redistributed in the same way, but using
 the long wave emissivity instead of the short wave emissivity.
 </p>
 <p>
-Direct/bream solar gains are redistributed by assuming that a fixed fraction of the beam solar
+Direct/beam solar gains are redistributed by assuming that a fixed fraction of the beam solar
 gains are absorbed by the floor. 
 This fraction equals the short wave emissivity of the floor. 
 If there are multiple floors (based on the inclination angle) 
