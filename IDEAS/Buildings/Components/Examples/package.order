@@ -7,7 +7,6 @@ RectangularZone
 RectangularZoneEmbedded
 RectangularZoneExternalSurfaces
 RectangularZoneRedeclarationWindows
-
 ScalingWindow
 WallUnitTest
 WindowDynamics

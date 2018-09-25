@@ -52,7 +52,7 @@ record EightPortFlowResistanceParameters
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable = computeFlowResistance3,
                tab="Flow resistance", group="Medium 3"));
-  parameter Real deltaM3 = 0.3
+  parameter Real deltaM3 = 0.1
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation(Dialog(enable = computeFlowResistance3,
                       tab="Flow resistance", group="Medium 3"));
@@ -70,7 +70,7 @@ record EightPortFlowResistanceParameters
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable = computeFlowResistance4,
                tab="Flow resistance", group="Medium 4"));
-  parameter Real deltaM4 = 0.3
+  parameter Real deltaM4 = 0.1
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation(Dialog(enable = computeFlowResistance4,
                       tab="Flow resistance", group="Medium 4"));
