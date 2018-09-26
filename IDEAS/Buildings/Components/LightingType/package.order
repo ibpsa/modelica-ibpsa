@@ -1,4 +1,6 @@
-OpenOfficeLed
-LightingGains
-LightingSplit
+Fluorescent
+Halogen
+Incandescent
+None
+LED
 BaseClasses

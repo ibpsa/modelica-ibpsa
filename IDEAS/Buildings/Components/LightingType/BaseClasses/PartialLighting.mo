@@ -3,21 +3,15 @@ partial record PartialLighting
   "Record for defining the lighting type"
   extends Modelica.Icons.Record;
 
-  replaceable parameter IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains ligGai
-    constrainedby
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingGains "Lighting gains, only used for evaluating lighting heat gains"
-    annotation (
-    choicesAllMatching=true,
-    Dialog(group="Lighting (optional)"),
-    Placement(transformation(extent={{-40,0},{-20,20}})));
+  parameter Real radFra(min=0,max=1)
+    "Radiant fraction of lighting heat exchange";
 
-  replaceable parameter IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingSplit ligSpl
-    constrainedby
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLightingSplit "Lighting split, only used for evaluating lighting heat fractions"
-    annotation (
-    choicesAllMatching=true,
-    Dialog(group="Lighting (optional)"),
-    Placement(transformation(extent={{20,0},{40,20}})));
+  parameter Modelica.SIunits.LuminousEfficacy eps
+    "Luminous efficacy,specifies the lm/W (lumen per watt) of the installed lighting";
+
+protected
+  parameter Real conFra(min=0, max=1) = 1-radFra
+    "Convective fraction of lighting heat exchange";
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -29,4 +23,5 @@ See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
 </html>", info="<html>
 <p>Record combining lighting gains and split</p>
 </html>"));
+
 end PartialLighting;
