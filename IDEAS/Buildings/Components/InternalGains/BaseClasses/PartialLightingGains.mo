@@ -3,9 +3,11 @@ partial model PartialLightingGains "Partial model for lighting internal gains"
   extends Modelica.Blocks.Icons.Block;
   outer IDEAS.BoundaryConditions.SimInfoManager sim
     "Simulation information manager";
-  parameter IDEAS.Buildings.Components.LightingType.OpenOfficeLed ligTyp
+  parameter IDEAS.Buildings.Components.LightingType.None ligTyp
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-
+  parameter IDEAS.Buildings.Components.RoomType.Generic rooTyp
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  parameter  Modelica.SIunits.Area A "Area of the zone";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portCon
     "Port for convective sensible heat transfer due to occupants"
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
@@ -21,6 +23,7 @@ partial model PartialLightingGains "Partial model for lighting internal gains"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portRad
     "Port for radiative sensible heat transfer due to occupants"
     annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
+
 equation
   connect(preHeaFlo.port, sim.Qgai);
   connect(Qgai.y, preHeaFlo.Q_flow);

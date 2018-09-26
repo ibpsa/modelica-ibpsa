@@ -1,18 +1,19 @@
 within IDEAS.Buildings.Components.InternalGains;
 model Lighting
   "Fraction of heat to space, radiative heat, lighting type, light power and floor area"
-  extends IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains;
-  parameter Modelica.SIunits.Area A(min=0);
+  extends
+    IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains;
 
-  Modelica.Blocks.Math.Gain gaiHea(k=ligTyp.ligGai.PSpe*ligTyp.ligGai.F_sa*A*ligTyp.ligSpl.spaFra)
-                "Gain for computing heat flow rate"
+  Modelica.Blocks.Math.Gain gaiHea(k=rooTyp.Ev*A/ligTyp.eps)
+    "Gain for computing heat lighting gains based on zone lighting requirements"
     annotation (Placement(transformation(extent={{-52,-10},{-32,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon(final
       alpha=0) "Prescribed heat flow rate for convective sensible heat"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Modelica.Blocks.Math.Gain gain(final k=ligTyp.ligSpl.radFra)
+  Modelica.Blocks.Math.Gain gainRad(final k=ligTyp.radFra) "Radiative fraction"
     annotation (Placement(transformation(extent={{-8,-30},{12,-10}})));
-  Modelica.Blocks.Math.Gain gainCon(final k=1 - ligTyp.ligSpl.radFra)
+  Modelica.Blocks.Math.Gain gainCon(final k=1 - ligTyp.radFra)
+    "Convective fraction"
     annotation (Placement(transformation(extent={{-8,10},{12,30}})));
 protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloRad(final
@@ -23,16 +24,15 @@ equation
     annotation (Line(points={{60,20},{100,20}},            color={191,0,0}));
   connect(preHeaFloRad.port, portRad)
     annotation (Line(points={{60,-20},{100,-20}},           color={191,0,0}));
-  connect(gain.y, preHeaFloRad.Q_flow)
-    annotation (Line(points={{13,-20},{40,-20}},          color={0,0,127}));
+  connect(gainRad.y, preHeaFloRad.Q_flow)
+    annotation (Line(points={{13,-20},{40,-20}}, color={0,0,127}));
   connect(gainCon.y, preHeaFloCon.Q_flow) annotation (Line(points={{13,20},{40,20}},
                                    color={0,0,127}));
   connect(gainCon.u, gaiHea.y)
     annotation (Line(points={{-10,20},{-20,20},{-20,0},{-31,0}},
                                                              color={0,0,127}));
-  connect(gain.u, gaiHea.y)
-    annotation (Line(points={{-10,-20},{-20,-20},{-20,0},{-31,0}},
-                                                             color={0,0,127}));
+  connect(gainRad.u, gaiHea.y) annotation (Line(points={{-10,-20},{-20,-20},{-20,
+          0},{-31,0}}, color={0,0,127}));
   connect(ctrl, gaiHea.u) annotation (Line(points=
          {{-110,0},{-54,0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
