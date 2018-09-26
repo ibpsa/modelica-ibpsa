@@ -11,8 +11,6 @@ model PartialZone "Building zone model"
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
-  parameter Modelica.SIunits.Volume V "Total zone air volume"
-    annotation(Dialog(group="Building physics"));
   parameter Modelica.SIunits.Length hZone = 2.8
     "Zone height: distance between floor and ceiling"
     annotation(Dialog(group="Building physics"));
@@ -396,9 +394,14 @@ end for;
 </html>", revisions="<html>
 <ul>
 <li>
-September 5, 2018 by Iago Cupeiro:<br/>
+September 26, 2018 by Iago Cupeiro:<br/>
 Implementation of the lighting model
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
+</li>
+<li>
+September 24, 2018 by Filip Jorissen:<br/>
+Fixed duplicate declaration of <code>V</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/917\">#917</a>.
 </li>
 <li>
 July 27, 2018 by Filip Jorissen:<br/>
