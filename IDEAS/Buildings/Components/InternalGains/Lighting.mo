@@ -42,8 +42,8 @@ equation
 <p>
 This lighting model uses a light control input signal, 
 which should have a value between 0 and 1,
-which is multiplied by the lighting requirements of the zone (<i>lx=lm/m<sup>2</i></sup>), 
-the floor area (<i>m<sup>2</i></sup>) and the inverse of the luminous efficacy (<i>lm/W</i>). 
+which is multiplied by the lighting requirements of the zone (<i>lx=lm/m<sup>2</sup></i>), 
+the floor area (<i>m<sup>2</sup></i>) and the inverse of the luminous efficacy (<i>lm/W</i>). 
 The total lighting gains are then split into a radiative and a convective part. 
 </p>
 </html>",
