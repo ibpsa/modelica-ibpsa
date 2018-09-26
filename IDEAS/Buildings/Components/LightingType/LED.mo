@@ -13,6 +13,12 @@ First implementation
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
 </li>
 </ul>
-</html>", info=""));
+</html>", info="<html>
+<p>
+Record for lighting properties of LED lighting. 
+Based on <a href=\"https://en.wikipedia.org/wiki/Luminous_efficacy\">
+https://en.wikipedia.org/wiki/Luminous_efficacy</a>.
+</p>
+</html>"));
 
 end LED;

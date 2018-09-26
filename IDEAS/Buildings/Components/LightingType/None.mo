@@ -13,6 +13,10 @@ First implementation
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
 </li>
 </ul>
-</html>", info=""));
+</html>", info="<html>
+<p>
+Model in case no lighting heat gains should be modelled.
+</p>
+</html>"));
 
 end None;
