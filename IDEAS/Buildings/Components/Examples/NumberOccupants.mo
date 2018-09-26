@@ -22,7 +22,7 @@ model NumberOccupants
         amplitude=2,
         freqHz=0.001,
         offset=2)),
-    redeclare LightingType.OpenOfficeLed ligTyp,
+    redeclare IDEAS.Buildings.Components.LightingType.LED ligTyp,
     redeclare IDEAS.Buildings.Components.LightingControl.CustomBlock ligCtr(
         redeclare Modelica.Blocks.Sources.Sine singleOutput(
         amplitude=2,

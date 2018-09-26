@@ -6,17 +6,18 @@ model LightingControl
   inner BoundaryConditions.SimInfoManager       sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  BaseClasses.SimpleZone zoneFixed(redeclare LightingType.OpenOfficeLed ligTyp,
+  BaseClasses.SimpleZone zoneFixed(redeclare
+      IDEAS.Buildings.Components.LightingType.LED ligTyp,
       redeclare IDEAS.Buildings.Components.LightingControl.Fixed ligCtr(ctrFix=1))
                                    "Zone with fixed lighting control (always on)"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   BaseClasses.SimpleZone zoneInput(redeclare
-      IDEAS.Buildings.Components.LightingType.OpenOfficeLed ligTyp, redeclare
+      IDEAS.Buildings.Components.LightingType.LED ligTyp,           redeclare
       IDEAS.Buildings.Components.LightingControl.Input ligCtr)
     "Zone with input for lighting control"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   BaseClasses.SimpleZone zoneBlock(redeclare
-      IDEAS.Buildings.Components.LightingType.OpenOfficeLed ligTyp, redeclare
+      IDEAS.Buildings.Components.LightingType.LED ligTyp,           redeclare
       IDEAS.Buildings.Components.LightingControl.CustomBlock ligCtr(redeclare
         Modelica.Blocks.Sources.Sine singleOutput(
         freqHz=0.001,
@@ -30,7 +31,7 @@ model LightingControl
 
   IDEAS.Buildings.Components.Examples.BaseClasses.SimpleZone zoneOcc(
     useOccNumInput=false,
-    redeclare IDEAS.Buildings.Components.LightingType.OpenOfficeLed ligTyp,
+    redeclare IDEAS.Buildings.Components.LightingType.LED ligTyp,
     redeclare IDEAS.Buildings.Components.LightingControl.OccupancyBased ligCtr,
     redeclare IDEAS.Buildings.Components.Occupants.CustomBlock occNum(
         redeclare Modelica.Blocks.Sources.Step singleOutput(height=2, startTime=
