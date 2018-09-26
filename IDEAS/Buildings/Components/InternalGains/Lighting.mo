@@ -36,19 +36,12 @@ equation
   connect(ctrl, gaiHea.u) annotation (Line(points=
          {{-110,0},{-54,0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>
-This lighting model assumes an input signal between 0 and 1
-(adjustable) that is multiplied by the lighting power calculated 
-according to the indications of ASHRAE Fundamentals 2017
-(Chapter 18). The total lighting gains are split first by the
-fraction that goes into the conditioned space and then between
-the radiative and convective gains.
-</p>
+<p>This lighting model assumes an input signal between 0 and 1 (adjustable) that is multiplied by the lighting requirements of the zone (<i>lx=lm/m<sup>2</i></sup>), the floor area (<i>m<sup>2</i></sup>) and the inverse of the luminous efficacy (<i>lm/W</i>). The total lighting gains are then split between the radiative and convective gains. </p>
 </html>",
         revisions="<html>
 <ul>
 <li>
-August 28, 2018 by Iago Cupeiro:<br/>
+September 26, 2018 by Iago Cupeiro:<br/>
 First implementation
 See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
 </li>
