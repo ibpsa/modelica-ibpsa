@@ -106,20 +106,20 @@ model PartialZone "Building zone model"
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{80,82},{100,102}})));
-  replaceable parameter IDEAS.Buildings.Components.LightingType.None ligTyp
-    constrainedby
-    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting
-    "Lighting type, only used for evaluating lighting heat gains" annotation (
-    choicesAllMatching=true,
-    Dialog(group="Lighting (optional)"),
-    Placement(transformation(extent={{56,82},{76,102}})));
-
   replaceable parameter IDEAS.Buildings.Components.RoomType.Generic rooTyp
     constrainedby
     IDEAS.Buildings.Components.RoomType.BaseClasses.PartialRoomType
-    "Room type, used to compute certain parameters in function of the room destination use"
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-
+    "Room type or function, currently only determines the desired lighting intensity"
+    annotation (choicesAllMatching=true,
+    Dialog(group="Lighting (optional)"),
+    Placement(transformation(extent={{32,82},{52,102}})));
+  replaceable parameter IDEAS.Buildings.Components.LightingType.None ligTyp
+    constrainedby
+    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting
+    "Lighting type, determines the lighting efficacy/efficiency" annotation (
+    choicesAllMatching=true,
+    Dialog(group="Lighting (optional)"),
+    Placement(transformation(extent={{56,82},{76,102}})));
   replaceable Comfort.None comfort
     constrainedby Comfort.BaseClasses.PartialComfort(occupancyType=occTyp) "Comfort model" annotation (
     choicesAllMatching=true,
@@ -127,7 +127,7 @@ model PartialZone "Building zone model"
     Placement(transformation(extent={{20,-20},{40,0}})));
   replaceable IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwGainDistribution
     radDistr(nSurf=nSurf, lineariseJModelica=sim.lineariseJModelica)
-                          "Distribution of radiative internal gains"
+    "Distribution of radiative internal gains"
     annotation (choicesAllMatching=true,Dialog(tab="Advanced",group="Building physics"),Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
@@ -135,7 +135,8 @@ model PartialZone "Building zone model"
   replaceable IDEAS.Buildings.Components.InternalGains.Occupants intGaiOcc
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialOccupancyGains(
-      occupancyType=occTyp, redeclare final package Medium = Medium)
+      occupancyType=occTyp,
+      redeclare final package Medium = Medium)
     "Internal gains model" annotation (
     choicesAllMatching=true,
     Dialog(tab="Advanced", group="Occupants"),
@@ -161,7 +162,7 @@ model PartialZone "Building zone model"
     constrainedby
     IDEAS.Buildings.Components.LightingControl.BaseClasses.PartialLightingControl(
       final linearise = sim.lineariseDymola)
-    "Signal for the light control" annotation (
+    "Lighting control type" annotation (
     choicesAllMatching=true,
     Dialog(group="Lighting (optional)"),
     Placement(transformation(extent={{80,52},{60,72}})));

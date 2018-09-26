@@ -1,8 +1,8 @@
 within IDEAS.Buildings.Components.LightingType;
-record Fluorescent "Properties for gener fluorescent lights"
+record Fluorescent "Properties for generic fluorescent lighting"
   extends Modelica.Icons.Record;
   extends IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting(
-      eps = 80,
+      K = 80,
       radFra = 0.65);
 
   annotation (Documentation(revisions="<html>

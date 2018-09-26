@@ -1,12 +1,16 @@
 within IDEAS.Buildings.Components.InternalGains;
 model Lighting
-  "Fraction of heat to space, radiative heat, lighting type, light power and floor area"
-  extends
-    IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains;
+  "Computes heat gains due to lighting requirements"
+  extends IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains;
 
-  Modelica.Blocks.Math.Gain gaiHea(k=rooTyp.Ev*A/ligTyp.eps)
+
+  Modelica.Blocks.Math.Gain gaiHea(final k=PNom)
     "Gain for computing heat lighting gains based on zone lighting requirements"
     annotation (Placement(transformation(extent={{-52,-10},{-32,10}})));
+
+protected
+  final parameter Modelica.SIunits.Power PNom = rooTyp.Ev*A/ligTyp.K
+    "Nominal power, avoids parameter division";
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon(final
       alpha=0) "Prescribed heat flow rate for convective sensible heat"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
@@ -15,9 +19,8 @@ model Lighting
   Modelica.Blocks.Math.Gain gainCon(final k=1 - ligTyp.radFra)
     "Convective fraction"
     annotation (Placement(transformation(extent={{-8,10},{12,30}})));
-protected
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloRad(final
-      alpha=0) "Prescribed heat flow rate for radiative sensible heat"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloRad(
+    final alpha=0) "Prescribed heat flow rate for radiative sensible heat"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 equation
   connect(preHeaFloCon.port, portCon)
@@ -36,7 +39,13 @@ equation
   connect(ctrl, gaiHea.u) annotation (Line(points=
          {{-110,0},{-54,0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>This lighting model assumes an input signal between 0 and 1 (adjustable) that is multiplied by the lighting requirements of the zone (<i>lx=lm/m<sup>2</i></sup>), the floor area (<i>m<sup>2</i></sup>) and the inverse of the luminous efficacy (<i>lm/W</i>). The total lighting gains are then split between the radiative and convective gains. </p>
+<p>
+This lighting model uses a light control input signal, 
+which should have a value between 0 and 1,
+which is multiplied by the lighting requirements of the zone (<i>lx=lm/m<sup>2</i></sup>), 
+the floor area (<i>m<sup>2</i></sup>) and the inverse of the luminous efficacy (<i>lm/W</i>). 
+The total lighting gains are then split into a radiative and a convective part. 
+</p>
 </html>",
         revisions="<html>
 <ul>

@@ -1,8 +1,8 @@
 within IDEAS.Buildings.Components.LightingType;
-record LED "Properties for generic LED lights"
+record LED "Properties for generic LED lighting"
   extends Modelica.Icons.Record;
   extends IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting(
-      eps = 150,
+      K = 150,
       radFra = 0.35);
 
   annotation (Documentation(revisions="<html>

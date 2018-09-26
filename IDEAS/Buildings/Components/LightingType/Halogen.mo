@@ -1,8 +1,8 @@
 within IDEAS.Buildings.Components.LightingType;
-record Halogen "Properties for generic halogen lights"
+record Halogen "Properties for generic halogen lighting"
   extends Modelica.Icons.Record;
   extends IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting(
-      eps = 15,
+      K = 15,
       radFra = 0.95);
 
   annotation (Documentation(revisions="<html>

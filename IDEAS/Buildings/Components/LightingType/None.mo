@@ -2,7 +2,7 @@ within IDEAS.Buildings.Components.LightingType;
 record None "No lighting installed in the zone"
   extends Modelica.Icons.Record;
   extends IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting(
-      eps = Modelica.Constants.inf,
+      K = Modelica.Constants.inf,
       radFra = 0);                   //infinite to force 0 lighting gains in the lighting model
 
   annotation (Documentation(revisions="<html>

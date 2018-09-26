@@ -1,8 +1,8 @@
 within IDEAS.Buildings.Components.LightingType;
-record Incandescent "Properties for generic incandescent lights"
+record Incandescent "Properties for generic incandescent lighting"
   extends Modelica.Icons.Record;
   extends IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting(
-      eps = 10,
+      K = 10,
       radFra = 0.90);
 
   annotation (Documentation(revisions="<html>

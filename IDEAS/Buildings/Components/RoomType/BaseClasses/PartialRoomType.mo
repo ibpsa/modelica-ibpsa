@@ -1,9 +1,8 @@
 within IDEAS.Buildings.Components.RoomType.BaseClasses;
 partial record PartialRoomType
   extends Modelica.Icons.Record;
-
-  parameter String use "zone type determined by the usage";
-  parameter Modelica.SIunits.Illuminance Ev "Illuminance requirements of the zone";
+  parameter Modelica.SIunits.Illuminance Ev
+    "Illuminance requirement of the zone";
 
   annotation (Documentation(revisions="<html>
 <ul>
@@ -14,7 +13,12 @@ See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
 </li>
 </ul>
 </html>", info="<html>
-<p>This record may be used to describe the destination use of the zone.</p>
-<p>At this stage, this record only supports the illuminance requirements of the zone.</p>
+<p>
+This record describes the function of the zone.
+</p>
+<p>
+At this point, this record only contains the illuminance requirements of the zone.
+In the future, other functionality may be added.
+</p>
 </html>"));
 end PartialRoomType;
