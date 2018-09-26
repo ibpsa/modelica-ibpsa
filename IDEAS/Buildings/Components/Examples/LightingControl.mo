@@ -1,22 +1,21 @@
 within IDEAS.Buildings.Components.Examples;
 model LightingControl
   "Example model that demonstrates the use of the lighting control in a zone"
-  import IDEAS;
   extends Modelica.Icons.Example;
   inner BoundaryConditions.SimInfoManager       sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  BaseClasses.SimpleZone zoneFixed(redeclare
+  IDEAS.Buildings.Components.Examples.BaseClasses.SimpleZone zoneFixed(redeclare
       IDEAS.Buildings.Components.LightingType.LED ligTyp,
       redeclare IDEAS.Buildings.Components.LightingControl.Fixed ligCtr(ctrFix=1))
                                    "Zone with fixed lighting control (always on)"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  BaseClasses.SimpleZone zoneInput(redeclare
+  IDEAS.Buildings.Components.Examples.BaseClasses.SimpleZone zoneInput(redeclare
       IDEAS.Buildings.Components.LightingType.LED ligTyp,           redeclare
       IDEAS.Buildings.Components.LightingControl.Input ligCtr)
     "Zone with input for lighting control"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  BaseClasses.SimpleZone zoneBlock(redeclare
+  IDEAS.Buildings.Components.Examples.BaseClasses.SimpleZone zoneBlock(redeclare
       IDEAS.Buildings.Components.LightingType.LED ligTyp,           redeclare
       IDEAS.Buildings.Components.LightingControl.CustomBlock ligCtr(redeclare
         Modelica.Blocks.Sources.Sine singleOutput(
@@ -44,7 +43,9 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This example demonstrates how the lighting control can be defined in a zone model. </p>
+<p>
+This example demonstrates the use of the lighting control options of the zone model. 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

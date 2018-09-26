@@ -1,20 +1,19 @@
 within IDEAS.Buildings.Components.Examples;
 model NumberOccupants
   "Example model that demonstrates the use of the number of occupants in a zone"
-  import IDEAS;
   extends Modelica.Icons.Example;
   inner BoundaryConditions.SimInfoManager       sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  BaseClasses.SimpleZone zoneFixed(
+  IDEAS.Buildings.Components.Examples.BaseClasses.SimpleZone zoneFixed(
     redeclare Occupants.Fixed occNum(nOccFix=2),
     useOccNumInput=false) "Zone with fixed number of occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  BaseClasses.SimpleZone zoneInput(
+  IDEAS.Buildings.Components.Examples.BaseClasses.SimpleZone zoneInput(
     redeclare Occupants.Input occNum)
     "Zone with input for number of occupants"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  BaseClasses.SimpleZone zoneBlock(
+  IDEAS.Buildings.Components.Examples.BaseClasses.SimpleZone zoneBlock(
     useOccNumInput=false,
     redeclare Occupants.CustomBlock occNum(
         redeclare Modelica.Blocks.Sources.Sine
@@ -40,7 +39,10 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This example demonstrates how the number of occupants can be defined in a zone model. </p>
+<p>
+This example demonstrates how the number of 
+occupants can be defined in a zone model. 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
