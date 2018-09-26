@@ -324,6 +324,7 @@ initial algorithm
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau4 = " + String(tau4) + "\n");
 
+
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,80},{100,80}},
@@ -380,6 +381,11 @@ equation
 <h4>Implementation</h4>
 <p>The variable names follow the conventions used in <a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">Modelica.Fluid.HeatExchangers.BasicHX</a>. </p>
 </html>", revisions="<html>
+<ul>
+<li>July 18, 2018, by Massimo Cimmino:
+<br/>Remove start values of m_flow and dp variables.
+</li>
+</ul>
 <ul>
 <li>July 2014, by Damien Picard:<br/>First implementation. </li>
 </ul>
