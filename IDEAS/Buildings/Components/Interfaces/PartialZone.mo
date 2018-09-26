@@ -106,7 +106,7 @@ model PartialZone "Building zone model"
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{80,82},{100,102}})));
-  replaceable parameter IDEAS.Buildings.Components.LightingType.LED ligTyp
+  replaceable parameter IDEAS.Buildings.Components.LightingType.None ligTyp
     constrainedby
     IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting
     "Lighting type, only used for evaluating lighting heat gains" annotation (
@@ -141,12 +141,12 @@ model PartialZone "Building zone model"
     Dialog(tab="Advanced", group="Occupants"),
     Placement(transformation(extent={{40,22},{20,42}})));
 
-  replaceable IDEAS.Buildings.Components.InternalGains.Lighting intGaiLig(rooTyp=
-        rooTyp)
+  replaceable IDEAS.Buildings.Components.InternalGains.Lighting intGaiLig
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains(
       A=A,
-      ligTyp=ligTyp) "Lighting model" annotation (
+      ligTyp=ligTyp,
+      rooTyp=rooTyp) "Lighting model" annotation (
     choicesAllMatching=true,
     Dialog(tab="Advanced", group="Lighting"),
     Placement(transformation(extent={{40,52},{20,72}})));
