@@ -106,14 +106,19 @@ model PartialZone "Building zone model"
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{80,82},{100,102}})));
-  replaceable parameter IDEAS.Buildings.Components.LightingType.OpenOfficeLed ligTyp
+  replaceable parameter IDEAS.Buildings.Components.LightingType.LED ligTyp
     constrainedby
     IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting
-    "Lighting type, only used for evaluating lighting heat gains"
-    annotation (
+    "Lighting type, only used for evaluating lighting heat gains" annotation (
     choicesAllMatching=true,
     Dialog(group="Lighting (optional)"),
     Placement(transformation(extent={{56,82},{76,102}})));
+
+  replaceable parameter IDEAS.Buildings.Components.RoomType.Generic rooTyp
+    constrainedby
+    IDEAS.Buildings.Components.RoomType.BaseClasses.PartialRoomType
+    "Room type, used to compute certain parameters in function of the room destination use"
+    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
   replaceable Comfort.None comfort
     constrainedby Comfort.BaseClasses.PartialComfort(occupancyType=occTyp) "Comfort model" annotation (
@@ -136,7 +141,8 @@ model PartialZone "Building zone model"
     Dialog(tab="Advanced", group="Occupants"),
     Placement(transformation(extent={{40,22},{20,42}})));
 
-  replaceable IDEAS.Buildings.Components.InternalGains.Lighting intGaiLig
+  replaceable IDEAS.Buildings.Components.InternalGains.Lighting intGaiLig(rooTyp=
+        rooTyp)
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains(
       A=A,
@@ -198,6 +204,7 @@ protected
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-30,-10})));
+
 
 
 initial equation

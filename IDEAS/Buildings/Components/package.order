@@ -8,10 +8,11 @@ Zone
 Comfort
 InternalGains
 InterzonalAirFlow
-OccupancyType
-LightingType
-Occupants
 LightingControl
+LightingType
+OccupancyType
+Occupants
+RoomType
 Shading
 ThermalBridges
 Validations
