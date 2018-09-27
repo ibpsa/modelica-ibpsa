@@ -1,5 +1,6 @@
 within IDEAS.Media;
 package Antifreeze "Medium packages of secondary working fluids"
+  extends Modelica.Icons.Package;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
