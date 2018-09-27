@@ -130,6 +130,15 @@ Non-SI units are to be kept at an absolute minimum, and they must be declared as
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+  class Version_3_0_0 "Version 3.0.0"
+    extends Modelica.Icons.ReleaseNotes;
+      annotation (preferredView="info", Documentation(info="<html>
+<p>
+Third release of the IBPSA library.
+</p>
+</html>"));
+  end Version_3_0_0;
+
   class Version_2_0_0 "Version 2.0.0"
     extends Modelica.Icons.ReleaseNotes;
       annotation (preferredView="info", Documentation(info="<html>
@@ -155,6 +164,9 @@ First official release of the IBPSA library.
 This section summarizes the releases of the <code>IBPSA</code> library.
 </p>
 <ul>
+<li>
+<a href=\"modelica://IBPSA.UsersGuide.ReleaseNotes.Version_3_0_0\">Version 3.0.0</a>(September 28, 2018)
+</li>
 <li>
 <a href=\"modelica://IBPSA.UsersGuide.ReleaseNotes.Version_2_0_0\">Version 2.0.0</a>(June 14, 2018)
 </li>
@@ -238,7 +250,7 @@ and the Province of Limburg.
  Aalborg University
  was supported for the development of this library
  by the Danish Energy Agency, under the Energy Technology Development and
- Demonstration Program (EUDP), journal no. 64013-0566.
+ Demonstration Program (EUDP), journal no. 64013-0566.
 </li>
 </ul>
 
@@ -263,6 +275,9 @@ Marcus Fuchs, RWTH Aachen University, Germany
 </li>
 <li>
 Filip Jorissen, KU Leuven, Belgium
+</li>
+<li>
+Alex Laferriere, Polytechnique Montreal, Canada
 </li>
 <li>
 Moritz Lauster, RWTH Aachen University, Germany
@@ -428,9 +443,9 @@ end UsersGuide;
 
 
 annotation (
-version="2.0.0",
-versionDate="2018-06-14",
-dateModified = "2018-06-14",
+version="3.0.0",
+versionDate="2018-09-28",
+dateModified = "2018-09-28",
 uses(Modelica(version="3.2.2")),
 preferredView="info",
 Documentation(info="<html>
