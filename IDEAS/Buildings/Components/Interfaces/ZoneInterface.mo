@@ -19,6 +19,9 @@ partial model ZoneInterface "Partial model for thermal building zones"
   parameter Boolean useOccNumInput
     "=false, to remove icon of nOcc"
     annotation(Dialog(tab="Advanced",group="Occupants"));
+  parameter Boolean useLigCtrInput
+    "=false, to remove icon of lightCtrl"
+    annotation(Dialog(tab="Advanced",group="Lighting"));
   //default ACH=2 for ventilation
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = V * 1.2*2/3600
     "Nominal flow rate of the air flow system fluid ports"
@@ -45,8 +48,11 @@ partial model ZoneInterface "Partial model for thermal building zones"
     h_outflow(nominal=Medium.h_default))
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
   Modelica.Blocks.Interfaces.RealInput nOcc if useOccNumInput
-    "Number of occupants (optional, see occNum)"
+    "Number of occupants, only used when using Occupants.Input"
     annotation (Placement(transformation(extent={{140,20},{100,60}})));
+  Modelica.Blocks.Interfaces.RealInput uLig if useLigCtrInput
+    "Lighting control input (1 corresponds to 100%), only used when using LightingControl.Input"
+    annotation (Placement(transformation(extent={{140,50},{100,90}})));
   Modelica.Blocks.Interfaces.RealOutput ppm(unit="1")
     "CO2 concentration in the zone" annotation (Placement(transformation(extent=
            {{100,-10},{120,10}}), iconTransformation(extent={{100,10},{120,30}})));
@@ -126,6 +132,11 @@ equation
           textString="%name")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 5, 2018 by Iago Cupeiro:<br/>
+Added uLig input for controlling lighting
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
+</li>
 <li>
 July 27, 2018 by Filip Jorissen:<br/>
 Added output for the CO2 concentration.
