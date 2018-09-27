@@ -12,9 +12,9 @@ model InternalGainExample
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   IDEAS.Buildings.Validation.Cases.Case900 case900_gains(
     redeclare package MediumAir = MediumAir, building(gF(
-        redeclare Components.OccupancyType.OfficeWork occTyp,
-        redeclare Components.InternalGains.Simple intGai,
-        redeclare IDEAS.Buildings.Components.Occupants.Input occNum)))
+        redeclare IDEAS.Buildings.Components.InternalGains.Occupants intGaiOcc,
+        redeclare IDEAS.Buildings.Components.Occupants.Input occNum,
+        redeclare IDEAS.Buildings.Components.OccupancyType.OfficeWork occTyp)))
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Pulse occ(
     amplitude=1,
@@ -27,7 +27,7 @@ model InternalGainExample
     annotation (Placement(transformation(extent={{-4,-54},{16,-34}})));
 equation
   // equation for setting number of zone occupants
-  case900_gains.building.gF.nOcc=occ.y;
+  case900_gains.building.gF.nOcc =occ.y;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

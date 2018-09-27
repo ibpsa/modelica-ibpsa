@@ -1,6 +1,5 @@
 within IDEAS.Buildings.Components.InternalGains;
-model Simple
-  "Constant sensible, latent and CO2 heat production per person"
+model Occupants "Constant sensible, latent and CO2 heat production per person"
   extends BaseClasses.PartialOccupancyGains;
   parameter Modelica.SIunits.Power QlatPp = occupancyType.QlatPp
     "Latent heat production per person, default from Ashrae Fundamentals: 'Seated, very light work'";
@@ -102,4 +101,4 @@ First implementation
 </li>
 </ul>
 </html>"));
-end Simple;
+end Occupants;

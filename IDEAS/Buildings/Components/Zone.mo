@@ -94,6 +94,19 @@ This model can have a strong influence on numerics and on model results
 if used inappropliately, therefore only change the default value 
 if you know what you are doing. 
 </p>
+<p>
+The lighting options allow to compute the thermal heat gains originating in the 
+zone lighting. We assume that electric power use is converted for 100 % into heat gains.
+The record <code>rooType</code> determines the type of room, and the typical
+illuminance that corresponds to such a room type.
+The record <code>ligTyp</code> determines what kind of lighting device is used,
+which contains the lighting efficacy of the device,
+i.e. how much electric power is required per square meter of lighted zone.
+We assume that the zone is lighted completely.
+The model <code>ligCtr</code> determines how the lighting is controlled.
+See <a href=\"modelica://IDEAS.Buildings.Components.LightingControl\">
+IDEAS.Buildings.Components.LightingControl</a> for the available options.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

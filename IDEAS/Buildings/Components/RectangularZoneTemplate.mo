@@ -422,8 +422,8 @@ zones with a rectangular geometry more quickly.
 This template consists of a zone, four walls, a horizontal roof and a floor
 and five optional windows.
 Additional surfaces may also be connected through external bus connector.
-For the documentation of the zone parameters, see the documentation of 
-<a href=\"modelica://IDEAS.Buildings.Components.Zone\">Zone</a>.
+For the documentation of the regular zone parameters, see the documentation of 
+<a href=\"modelica://IDEAS.Buildings.Components.Zone\">IDEAS.Buildings.Components.Zone</a>.
 </p>
 <h4>Main equations</h4>
 <p>

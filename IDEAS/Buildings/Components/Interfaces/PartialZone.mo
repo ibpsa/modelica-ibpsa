@@ -2,10 +2,11 @@ within IDEAS.Buildings.Components.Interfaces;
 model PartialZone "Building zone model"
   extends IDEAS.Buildings.Components.Interfaces.ZoneInterface(
     Qgai(y=(if not sim.computeConservationOfEnergy then 0 elseif sim.openSystemConservationOfEnergy
-            then airModel.QGai
-            else gainCon.Q_flow + gainRad.Q_flow + airModel.QGai)),
+           then airModel.QGai else gainCon.Q_flow + gainRad.Q_flow + airModel.QGai)),
     Eexpr(y=if sim.computeConservationOfEnergy then E else 0),
-    useOccNumInput = occNum.useInput);
+    useOccNumInput=occNum.useInput,
+    useLigCtrInput=ligCtr.useCtrInput);
+
     replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
@@ -90,7 +91,8 @@ model PartialZone "Building zone model"
     choicesAllMatching=true,
     Dialog(group="Building physics"));
   replaceable IDEAS.Buildings.Components.Occupants.Fixed occNum
-    constrainedby Occupants.BaseClasses.PartialOccupants
+    constrainedby Occupants.BaseClasses.PartialOccupants(
+      final linearise = sim.lineariseDymola)
     "Number of occupants that are present" annotation (
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
@@ -104,6 +106,20 @@ model PartialZone "Building zone model"
     choicesAllMatching=true,
     Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{80,82},{100,102}})));
+  replaceable parameter IDEAS.Buildings.Components.RoomType.Generic rooTyp
+    constrainedby
+    IDEAS.Buildings.Components.RoomType.BaseClasses.PartialRoomType
+    "Room type or function, currently only determines the desired lighting intensity"
+    annotation (choicesAllMatching=true,
+    Dialog(group="Lighting (optional)"),
+    Placement(transformation(extent={{32,82},{52,102}})));
+  replaceable parameter IDEAS.Buildings.Components.LightingType.None ligTyp
+    constrainedby
+    IDEAS.Buildings.Components.LightingType.BaseClasses.PartialLighting
+    "Lighting type, determines the lighting efficacy/efficiency" annotation (
+    choicesAllMatching=true,
+    Dialog(group="Lighting (optional)"),
+    Placement(transformation(extent={{56,82},{76,102}})));
   replaceable Comfort.None comfort
     constrainedby Comfort.BaseClasses.PartialComfort(occupancyType=occTyp) "Comfort model" annotation (
     choicesAllMatching=true,
@@ -111,25 +127,47 @@ model PartialZone "Building zone model"
     Placement(transformation(extent={{20,-20},{40,0}})));
   replaceable IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwGainDistribution
     radDistr(nSurf=nSurf, lineariseJModelica=sim.lineariseJModelica)
-                          "Distribution of radiative internal gains"
+    "Distribution of radiative internal gains"
     annotation (choicesAllMatching=true,Dialog(tab="Advanced",group="Building physics"),Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-50,-50})));
-  replaceable IDEAS.Buildings.Components.InternalGains.Simple intGai
+  replaceable IDEAS.Buildings.Components.InternalGains.Occupants intGaiOcc
     constrainedby
     IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialOccupancyGains(
-    occupancyType=occTyp,
-    redeclare final package Medium = Medium) "Internal gains model" annotation (
+      occupancyType=occTyp,
+      redeclare final package Medium = Medium)
+    "Internal gains model" annotation (
     choicesAllMatching=true,
-    Dialog(tab="Advanced",group="Occupants"),
+    Dialog(tab="Advanced", group="Occupants"),
     Placement(transformation(extent={{40,22},{20,42}})));
+
+  replaceable IDEAS.Buildings.Components.InternalGains.Lighting intGaiLig
+    constrainedby
+    IDEAS.Buildings.Components.InternalGains.BaseClasses.PartialLightingGains(
+      A=A,
+      ligTyp=ligTyp,
+      rooTyp=rooTyp) "Lighting model" annotation (
+    choicesAllMatching=true,
+    Dialog(tab="Advanced", group="Lighting"),
+    Placement(transformation(extent={{40,52},{20,72}})));
 
   Modelica.SIunits.Power QTra_design=sum(propsBusInt.QTra_design)
     "Total design transmission heat losses for the zone";
   Modelica.Blocks.Interfaces.RealOutput TAir(unit="K") = airModel.TAir;
   Modelica.Blocks.Interfaces.RealOutput TRad(unit="K") = radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
+
+  replaceable IDEAS.Buildings.Components.LightingControl.Fixed ligCtr
+    constrainedby
+    IDEAS.Buildings.Components.LightingControl.BaseClasses.PartialLightingControl(
+      final linearise = sim.lineariseDymola)
+    "Lighting control type" annotation (
+    choicesAllMatching=true,
+    Dialog(group="Lighting (optional)"),
+    Placement(transformation(extent={{80,52},{60,72}})));
+
+
 
 protected
   IDEAS.Buildings.Components.Interfaces.ZoneBus[nSurf] propsBusInt(
@@ -167,6 +205,7 @@ protected
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-30,-10})));
+
 
 
 initial equation
@@ -312,13 +351,13 @@ end for;
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(intGai.portCon, airModel.ports_air[1]) annotation (Line(points={{20,30},
-          {-20,30}},                 color={191,0,0}));
-  connect(intGai.portRad, radDistr.radGain) annotation (Line(points={{20,26},{4,
-          26},{4,-60},{-46.2,-60}}, color={191,0,0}));
-  connect(intGai.mWat_flow, airModel.mWat_flow) annotation (Line(points={{19.4,38},
-          {-19.2,38}},           color={0,0,127}));
-  connect(intGai.C_flow, airModel.C_flow)
+  connect(intGaiOcc.portCon, airModel.ports_air[1])
+    annotation (Line(points={{20,30},{-20,30}}, color={191,0,0}));
+  connect(intGaiOcc.portRad, radDistr.radGain) annotation (Line(points={{20,26},
+          {4,26},{4,-60},{-46.2,-60}}, color={191,0,0}));
+  connect(intGaiOcc.mWat_flow, airModel.mWat_flow)
+    annotation (Line(points={{19.4,38},{-19.2,38}}, color={0,0,127}));
+  connect(intGaiOcc.C_flow, airModel.C_flow)
     annotation (Line(points={{19.4,34},{-19.2,34}}, color={0,0,127}));
   connect(comfort.TAir, airModel.TAir) annotation (Line(points={{19,0},{-10,0},{
           -10,24},{-19,24}},   color={0,0,127}));
@@ -326,11 +365,16 @@ end for;
           {-6,-50},{-40,-50}}, color={0,0,127}));
   connect(comfort.phi, airModel.phi) annotation (Line(points={{19,-8},{-12,-8},{
           -12,26},{-19,26}},   color={0,0,127}));
-  connect(occNum.nOcc, intGai.nOcc)
+  connect(occNum.nOcc, intGaiOcc.nOcc)
     annotation (Line(points={{58,32},{41,32}}, color={0,0,127}));
   connect(nOcc, occNum.nOccIn)
     annotation (Line(points={{120,40},{96,40},{96,32},{82,32}},
                                                 color={0,0,127}));
+  connect(uLig, ligCtr.ligCtr) annotation (Line(points={{120,70},{96,70},{96,60},
+          {82,60}},color={0,0,127}));
+  connect(occNum.nOcc, ligCtr.nOcc) annotation (Line(points={{58,32},{96,32},{96,
+          64},{82,64}},
+                   color={0,0,127}));
   connect(airModel.port_b, interzonalAirFlow.port_a_interior)
     annotation (Line(points={{-36,40},{-36,60}}, color={0,127,255}));
   connect(airModel.port_a, interzonalAirFlow.port_b_interior)
@@ -343,13 +387,25 @@ end for;
           -28,80},{-28,84},{20,84},{20,100}}, color={0,127,255}));
   connect(ppm, airModel.ppm) annotation (Line(points={{110,0},{52,0},{52,16},{-8,
           16},{-8,28},{-19,28}}, color={0,0,127}));
-  annotation (
+  connect(intGaiLig.portRad, gainRad) annotation (Line(points={{20,60},{4,60},{4,
+          -60},{100,-60}}, color={191,0,0}));
+  connect(intGaiLig.portCon, gainCon) annotation (Line(points={{20,64},{2,64},{2,
+          -30},{100,-30}}, color={191,0,0}));
+  connect(ligCtr.ctrl, intGaiLig.ctrl)
+    annotation (Line(points={{58,62},{41,62}}, color={0,0,127}));
+ annotation (Placement(transformation(extent={{
+            140,48},{100,88}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
     Documentation(info="<html>
 <p>See extending models.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 26, 2018 by Iago Cupeiro:<br/>
+Implementation of the lighting model
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/879\">#879</a>.
+</li>
 <li>
 September 24, 2018 by Filip Jorissen:<br/>
 Fixed duplicate declaration of <code>V</code>.
