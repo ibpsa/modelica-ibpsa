@@ -1,5 +1,5 @@
 ## IDEAS v2.0
-IDEAS 2.0 has been released in August 2018. Highlights of this release compared to v1.0 are:
+IDEAS 2.0 has been released on September 28th, 2018. Highlights of this release compared to v1.0 are:
 
 + Unit tests have been automated. When a developer makes a pull request against the master, unit tests are run automatically using Travis CI. This greatly simplifies the development process when no unit test results change.
 + IDEAS has been updated to IBPSA version 3.0. This includes a new heat pump model and a thoroughly updated borefield model.
@@ -58,6 +58,7 @@ The shading models now compute the impact on the diffuse solar irradiation more 
    + A geothermal bore field model has been added.
    + A model has been added for directly writing .csv result files. These result files can also be used as an input for a CombiTimeTable.
 30. IDEAS now supports multiple trace substances for the zone model. I.e. other trace substances than CO2 are also supported.
+31. The Zone models now have the option for computing thermal heat gains due to lighting. Various zone types are supported, which determine the illuminance requirements. The lighting type determines the electrical power required for this illuminance. A lighting controller determines whether the lighting is enabled.
 
 
 ## IDEAS v1.0
