@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.Occupants;
 block CustomBlock
-  "Source that has replaceable for a block with a single output"
+  "Occupancy defined by a replaceable block"
   extends IDEAS.Buildings.Components.Occupants.BaseClasses.PartialOccupants(final useInput=false);
   replaceable Modelica.Blocks.Sources.Constant singleOutput(k=0)
   constrainedby Modelica.Blocks.Interfaces.SO
@@ -12,7 +12,7 @@ block CustomBlock
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
-    assert(not sim.linearise, "Number of occupant can not be defined using the CustomBlock when the model is linearized. Change the occupancy type.");
+    assert(not linearise, "Number of occupant can not be defined using the CustomBlock when the model is linearized. Change the occupancy type.");
 
   connect(singleOutput.y, nOcc)
     annotation (Line(points={{11,0},{58,0},{58,0},{120,0}}, color={0,0,127}));
