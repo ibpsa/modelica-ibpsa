@@ -19,7 +19,7 @@ In the future we hope to provide automated Dymola conversion scripts when making
 
 
 ## License
-IDEAS is licensed by [KU Leuven](http://www.kuleuven.be) and [3E](http://www.3e.eu) under a [BSD 3 license](https://htmlpreview.github.io/?https://github.com/open-ideas/IDEAS//blob/master/IBPSA/legal.html).
+IDEAS is licensed by [KU Leuven](http://www.kuleuven.be) and [3E](http://www.3e.eu) under a [BSD 3 license](https://htmlpreview.github.io/?https://github.com/open-ideas/IDEAS/blob/master/IDEAS/legal.html).
 
 <!-- ### Development and contribution
 
