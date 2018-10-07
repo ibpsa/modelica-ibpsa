@@ -18,7 +18,9 @@ model FileWriter "Partial model for writing results to a .csv file"
   parameter String[nin] headerNames = {"col"+String(i) for i in 1:nin}
     "Header names, indices by default"
     annotation(Dialog(tab="Advanced"));
-
+  parameter Integer precision(min=1,max=16) = 6
+    "Output precision (significant number of digits) for time and the inputs."
+    annotation(Dialog(tab="Advanced"));
   Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that are saved"
      annotation (Placement(transformation(extent={{-120,20},{-80,-20}})));
 
@@ -29,6 +31,7 @@ protected
   parameter Modelica.SIunits.Time t0(fixed=false)
     "First sample time instant";
   parameter String insNam = getInstanceName() "Instance name";
+
   IBPSA.Utilities.IO.Files.BaseClasses.FileWriterObject filWri=
       IBPSA.Utilities.IO.Files.BaseClasses.FileWriterObject(
         insNam,
@@ -52,6 +55,18 @@ protected
         IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
   end writeLine;
 
+  function realToString
+    "Converts real into string reperesentation with user-defined precision"
+    extends Modelica.Icons.Function;
+    input Real real_in "Real input";
+    input Integer precision "Precision of the returned string";
+    output String string_out "String output";
+    external"C" string_out =  realToString(real_in, precision)
+      annotation (
+        Include="#include \"fileWriterStructure.h\"",
+        IncludeDirectory="modelica://IDEAS/Resources/C-Sources");
+  end realToString;
+
 initial equation
   t0 = time;
 
@@ -61,11 +76,11 @@ equation
 
 algorithm
   when sampleTrigger then
-    str :=String(time) + delimiter;
+    str :=realToString(time,precision) + delimiter;
     for i in 1:nin-1 loop
-      str :=str + String(u[i]) + delimiter;
+      str :=str + realToString(u[i],precision) + delimiter;
     end for;
-    str :=str + String(u[nin]) + "\n";
+    str :=str + realToString(u[nin],precision) + "\n";
     writeLine(filWri, str, 0);
   end when;
 
