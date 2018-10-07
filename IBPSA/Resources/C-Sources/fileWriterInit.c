@@ -83,6 +83,20 @@ void* fileWriterInit(
   return (void*) ID;
 }
 
+/* This function converts a double into a string representation
+using the precision 'precision'. */
+const char* realToString(double real, int precision){
+  if (precision<1 || precision > 16){
+    ModelicaFormatError("In fileWriterInit.c: The precision used for `realToString` has to be between 1 and 16.");
+  }
+  char buf[50];
+  char* res;
+  sprintf(buf,"%*.*g",0,precision, real);
+  res = StringAllocate(strlen(buf));
+  strcpy(res,buf);
+  return res;
+}
+
 /* This function writes a line to the FileWriter object file
 and counts the total number of lines that are written
 by incrementing the counter numRows if isMetaData==0. */
