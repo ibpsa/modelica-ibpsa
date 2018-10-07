@@ -85,7 +85,7 @@ void* fileWriterInit(
 
 /* This function converts a double into a string representation
 using the precision 'precision'. */
-const char* realToString(double real, const int precision){
+const char* realToString(double real, int precision){
   if (precision<1 || precision > 16){
     ModelicaFormatError("In fileWriterInit.c: The precision used for `realToString` has to be between 1 and 16.");
   }
