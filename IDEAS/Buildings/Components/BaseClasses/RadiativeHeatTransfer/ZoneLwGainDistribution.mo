@@ -47,24 +47,7 @@ model ZoneLwGainDistribution
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-80,100})));
-
-protected
-  final parameter Real[nSurf] weightFactorDir(each final fixed=false)
-    "weightfactor for received direct shortwave solar radiation";
-  final parameter Real[nSurf] weightFactorDif(each final fixed=false)
-    "weightfactor for received direct shortwave solar radiation";
-  final parameter Real[nSurf] weightFactorGain(each final fixed=false)
-    "weightfactor for received direct shortwave solar radiation";
-  final parameter Real[nSurf] weightFactorTRad(each final fixed=false)
-    "weightfactor for received direct shortwave solar radiation";
-  final parameter Modelica.SIunits.Area AfloorTot(fixed=false)
-    "Total floor surface area";
-  final parameter Real ASWotherSurface(fixed=false)
-    "Total absorption surface on surfaces other than the floor";
-  final parameter Real fraTotAbsFloor(fixed=false)
-    "Fraction of the beam radiation that is absorbed by the floor";
-public
-Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
+  Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
@@ -74,6 +57,23 @@ Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={80,100})));
+
+protected
+  final parameter Real[nSurf] weightFactorDir(each final fixed=false)
+    "Distribution factor for incident direct solar irradiation";
+  final parameter Real[nSurf] weightFactorDif(each final fixed=false)
+    "Distribution factor for incident diffuse solar irradiation";
+  final parameter Real[nSurf] weightFactorGain(each final fixed=false)
+    "Distribution factor for other radiative heat gains irradiation";
+  final parameter Real[nSurf] weightFactorTRad(each final fixed=false)
+    "Weight factor for radiative temperature computation";
+  final parameter Modelica.SIunits.Area AfloorTot(fixed=false)
+    "Total floor surface area";
+  final parameter Real ASWotherSurface(fixed=false)
+    "Total absorption surface area on surfaces other than the floor";
+  final parameter Real fraTotAbsFloor(fixed=false)
+    "Fraction of the direct solar irradiation that is absorbed by the floor";
+
 initial equation
   weightFactorDir = {if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor)
                      then area[i]*epsSw[i]/AfloorTot
@@ -170,6 +170,10 @@ If there is no floor then the beam radiation is spread over all surfaces and a w
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 7, 2018 by Filip Jorissen:<br/>
+Improved documentation.
+</li>
 <li>
 March 28, 2018 by Filip Jorissen:<br/>
 Added option for introducing state for
