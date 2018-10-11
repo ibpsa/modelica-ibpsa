@@ -115,7 +115,7 @@ model Heating "Ppd 12 example model"
   Modelica.Blocks.Sources.Constant Thea(k=273.15 + 70)
     "Supply water temperature set point"
     annotation (Placement(transformation(extent={{402,-114},{382,-94}})));
-  Thermostat the "Custom thermostat"
+  Thermostat             the "Custom thermostat"
     annotation (Placement(transformation(extent={{240,-90},{260,-70}})));
   Modelica.Blocks.Math.BooleanToReal booToRea(realTrue=50000, realFalse=0)
     "Conversion block of control signal to pump pressure set point"
