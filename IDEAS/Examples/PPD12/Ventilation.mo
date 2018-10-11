@@ -15,6 +15,8 @@ model Ventilation "Ppd 12 example model"
     radBed2(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     radBed3(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
+
+
   IDEAS.Fluid.Movers.FlowControlled_m_flow fanSup(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m_flow_nominal_air,
@@ -23,7 +25,7 @@ model Ventilation "Ppd 12 example model"
     use_inputFilter=false,
     dp_nominal=300,
     redeclare package Medium = MediumAir,
-    constantMassFlowRate=200*1.2/3600)    "Supply fan"
+    constantMassFlowRate=70*1.2/3600)     "Supply fan"
     annotation (Placement(transformation(extent={{340,130},{320,150}})));
   IDEAS.Fluid.Movers.FlowControlled_m_flow fanRet(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -33,7 +35,7 @@ model Ventilation "Ppd 12 example model"
     use_inputFilter=false,
     dp_nominal=300,
     redeclare package Medium = MediumAir,
-    constantMassFlowRate=200*1.2/3600)    "Return fan"
+    constantMassFlowRate=70*1.2/3600)     "Return fan"
     annotation (Placement(transformation(extent={{320,170},{340,190}})));
   IDEAS.Fluid.Sources.Boundary_pT bouAir(
     nPorts=3,
@@ -266,7 +268,8 @@ equation
         preserveAspectRatio=false,
         initialScale=0.1)),
     experiment(
-      StopTime=500000,
+      StartTime=1526425717,
+      StopTime=1529480797,
       __Dymola_NumberOfIntervals=5000,
       __Dymola_fixedstepsize=15,
       __Dymola_Algorithm="Euler"),
