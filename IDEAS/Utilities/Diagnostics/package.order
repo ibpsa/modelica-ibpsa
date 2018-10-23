@@ -1,5 +1,6 @@
 AssertEquality
 AssertInequality
 CheckEquality
+GitShaLogger
 Validation
 BaseClasses
