@@ -1,9 +1,9 @@
 within IDEAS.Examples.PPD12;
 model Structure "Ppd 12 example model"
   extends Modelica.Icons.Example;
-  inner IDEAS.BoundaryConditions.SimInfoManager sim
+  inner replaceable IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{400,38},{380,58}})));
-  parameter Real n50=8
+  parameter Real n50=1.1
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
   package MediumAir = IDEAS.Media.Air;
   package MediumWater = IDEAS.Media.Water;
@@ -29,7 +29,7 @@ model Structure "Ppd 12 example model"
   parameter Modelica.SIunits.Length lHalfBuilding = 3.75;
   parameter Modelica.SIunits.Length lBuilding = 8;
 
-  parameter Modelica.SIunits.Conversions.NonSIunits.Angle_deg angDelta=26;
+  parameter Modelica.SIunits.Conversions.NonSIunits.Angle_deg angDelta=23.6;
   parameter Modelica.SIunits.Angle north = IDEAS.Types.Azimuth.N + Modelica.SIunits.Conversions.from_deg(angDelta)
     "Azimuth of the wall, i.e. 0deg denotes South";
   parameter Modelica.SIunits.Angle south = IDEAS.Types.Azimuth.S + Modelica.SIunits.Conversions.from_deg(angDelta)
@@ -116,7 +116,6 @@ model Structure "Ppd 12 example model"
     A_winC=2.55*1.74,
     fracC=0.1,
     redeclare IDEAS.Examples.PPD12.Data.OuterWall conTypC,
-    redeclare IDEAS.Examples.PPD12.Data.InteriorWall10 conTypA,
     redeclare IDEAS.Examples.PPD12.Data.InteriorWall10 conTypB,
     redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypD,
     redeclare IDEAS.Examples.PPD12.Data.FloorOnGround conTypFlo,
@@ -125,7 +124,8 @@ model Structure "Ppd 12 example model"
     n50=n50,
     hasCavityA=true,
     hA=2.7,
-    wA=2)
+    wA=2,
+    redeclare Data.InteriorWall18 conTypA)
     annotation (Placement(transformation(extent={{-26,56},{-46,36}})));
 
   IDEAS.Buildings.Components.RectangularZoneTemplate hallway(
@@ -167,11 +167,11 @@ model Structure "Ppd 12 example model"
     bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
     redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypD,
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.OuterWall,
-    redeclare IDEAS.Examples.PPD12.Data.Roof conTypCei,
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall conTypA,
     nSurfExt=4,
     redeclare IDEAS.Examples.PPD12.Data.FloorOnGround conTypFlo,
-    n50=n50)
+    n50=n50,
+    redeclare Data.RoofHor conTypCei,
+    redeclare Data.GlassWall conTypA)
     annotation (Placement(transformation(extent={{-46,-18},{-26,-38}})));
   IDEAS.Buildings.Components.RectangularZoneTemplate Porch(
     aziA=east,
