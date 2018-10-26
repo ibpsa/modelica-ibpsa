@@ -67,10 +67,10 @@ partial model VentilationNoControl "Ppd 12 example model"
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
-    dp_nominal={200,0,27})
+    dp_nominal={200,0,27},
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering)
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
   IDEAS.Fluid.FixedResistances.Junction spl8(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
