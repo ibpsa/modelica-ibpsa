@@ -99,12 +99,14 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     dp_nominal=50000,
     allowFlowReversal=false)
     annotation (Placement(transformation(extent={{330,-120},{310,-100}})));
-  Fluid.HeatExchangers.Heater_T             hea(
+  Fluid.HeatExchangers.PrescribedOutlet hea(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=5000,
     redeclare package Medium = MediumWater,
     allowFlowReversal=false,
-    QMax_flow=30000) "Bulex thermo master T30/35"
+    QMax_flow=30000,
+    QMin_flow=0,
+    use_X_wSet=false) "Bulex thermo master T30/35"
     annotation (Placement(transformation(extent={{370,-120},{350,-100}})));
   IDEAS.Fluid.Sources.Boundary_pT       bou1(
     nPorts=1,
@@ -382,9 +384,8 @@ equation
       points={{182.833,-10},{76.2,-10},{76.2,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(pump.port_a,hea. port_b)
-    annotation (Line(points={{330,-110},{340,-110},{350,-110}},
-                                                     color={0,127,255}));
+  connect(pump.port_a, hea.port_b) annotation (Line(points={{330,-110},{340,-110},
+          {350,-110}}, color={0,127,255}));
   connect(radGnd.port_b,radBed1. port_b) annotation (Line(points={{-40,-180},{-40,
           -180},{60,-180}},                          color={0,127,255}));
   connect(radBed1.port_b,radBat2. port_b) annotation (Line(points={{60,-180},{60,
@@ -395,10 +396,10 @@ equation
           -180},{230,-180}},                           color={0,127,255}));
   connect(radBed2.port_b,radBed3. port_b) annotation (Line(points={{230,-180},{230,
           -180},{270,-180}},                           color={0,127,255}));
-  connect(radBed3.port_b,hea. port_a) annotation (Line(points={{270,-180},{270,
-          -180},{378,-180},{378,-110},{370,-110}},            color={0,127,255}));
-  connect(bou1.ports[1],hea. port_b) annotation (Line(points={{380,-190},{350,
-          -190},{350,-110}}, color={0,127,255}));
+  connect(radBed3.port_b, hea.port_a) annotation (Line(points={{270,-180},{270,
+          -180},{378,-180},{378,-110},{370,-110}}, color={0,127,255}));
+  connect(bou1.ports[1], hea.port_b) annotation (Line(points={{380,-190},{350,-190},
+          {350,-110}}, color={0,127,255}));
   connect(radGnd.heatPortRad, living.gainRad) annotation (Line(
       points={{-47.2,-172},{-66,-172},{-66,52},{-46,52}},
       color={191,0,0},
