@@ -1,4 +1,4 @@
-within IDEAS.Examples.PPD12;
+within IDEAS.Examples.PPD12.BaseClasses;
 model Thermostat
   extends Modelica.Blocks.Icons.Block;
 
