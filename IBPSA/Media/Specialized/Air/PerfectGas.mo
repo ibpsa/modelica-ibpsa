@@ -44,7 +44,7 @@ package PerfectGas "Model for air as a perfect gas"
     MassFraction X_air "Mass fraction of air";
   equation
     assert(T >= 200.0 and T <= 423.15, "
-Temperature T is not in the allowed range
+In "   + getInstanceName() + ": temperature T is not in the allowed range
 200.0 K <= (T =" + String(T) + " K) <= 423.15 K
 required from medium model \""     + mediumName + "\".");
 
@@ -635,6 +635,12 @@ space dimension</i>. CRC Press. 1998.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 26, 2018, by Filip Jorissen:<br/>
+Now printing instance name when triggering temperature limit assert.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
+</li>
 <li>
 March 15, 2016, by Michael Wetter:<br/>
 Replaced <code>spliceFunction</code> with <code>regStep</code>.

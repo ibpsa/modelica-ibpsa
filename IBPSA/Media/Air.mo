@@ -60,7 +60,7 @@ package Air
       "Temperature difference used to compute enthalpy";
   equation
     assert(T >= 200.0 and T <= 423.15, "
-Temperature T is not in the allowed range
+In "   + getInstanceName() + ": temperature T is not in the allowed range
 200.0 K <= (T ="
                + String(T) + " K) <= 423.15 K
 required from medium model \""     + mediumName + "\".");
@@ -961,6 +961,12 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 26, 2018, by Filip Jorissen:<br/>
+Now printing instance name when triggering temperature limit assert.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
+</li>
 <li>
 November 4, 2016, by Michael Wetter:<br/>
 Set default value for <code>dT.start</code> in base properties.<br/>

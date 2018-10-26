@@ -53,7 +53,8 @@ package Water "Package with model for liquid water with constant density"
 
   equation
     assert(T >= T_min and T <= T_max, "
-Temperature T (= " + String(T) + " K) is not
+  In "   + getInstanceName() + ":  temperature T (= "
+                   + String(T) + " K) is not
 in the allowed range (" + String(T_min) + " K <= T <= " + String(T_max) + " K)
 required from medium model \"" + mediumName + "\".
 ");
@@ -134,6 +135,12 @@ There are no phase changes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 26, 2018, by Filip Jorissen:<br/>
+Now printing instance name when triggering temperature limit assert.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
+</li>
 <li>
 June 6, 2015, by Michael Wetter:<br/>
 Set <code>AbsolutePressure(start=p_default)</code> to avoid

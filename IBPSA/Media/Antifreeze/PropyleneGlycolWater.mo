@@ -72,12 +72,14 @@ package PropyleneGlycolWater
 
   equation
     assert(T >= T_min and T <= T_max, "
-Temperature T (= " + String(T) + " K) is not
+In "   + getInstanceName() + ": temperature T (= "
+                   + String(T) + " K) is not
 in the allowed range (" + String(T_min) + " K <= T <= " + String(T_max) + " K)
 required from medium model \"" + mediumName + "\".
 ");
     assert(X_a >= X_a_min and X_a <= X_a_max, "
-    Mass fraction X_a (= " + String(X_a) + " ) is not
+In "   + getInstanceName() + ": mass fraction X_a (= "
+                           + String(X_a) + " ) is not
 in the allowed range (" + String(X_a_min) + " <= X_a <= " + String(X_a_max) + " )
 required from medium model \"" + mediumName + "\".
 ");
@@ -453,6 +455,12 @@ a temperature of <i>20</i> &deg;C and a mass fraction of <i>0.40</i>):
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 26, 2018, by Filip Jorissen:<br/>
+Now printing instance name when triggering temperature limit assert.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
+</li>
 <li>
 March 16, 2018, by Massimo Cimmino:<br/>
 First implementation.
