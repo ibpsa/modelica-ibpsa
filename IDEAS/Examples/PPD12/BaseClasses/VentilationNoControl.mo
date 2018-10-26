@@ -112,11 +112,11 @@ partial model VentilationNoControl "Ppd 12 example model"
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
     redeclare package Medium = MediumAir,
-    dp_nominal={0,0,0})
-    annotation (Placement(transformation(extent={{260,140},{280,120}})));
+    dp_nominal={0,0,0},
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering)
+    annotation (Placement(transformation(extent={{280,140},{260,120}})));
   Fluid.Actuators.Valves.Simplified.ThreeWayValveMotor bypassSup(redeclare
       package Medium = MediumAir, m_flow_nominal=0.1)
     "Supply air bypass control valve"
@@ -268,16 +268,16 @@ equation
           {270,180}}, color={0,127,255}));
   connect(spl9.port_1, spl7.port_2)
     annotation (Line(points={{260,190},{160,190}}, color={0,127,255}));
-  connect(spl10.port_1, spl5.port_1)
-    annotation (Line(points={{260,130},{240,130}}, color={0,127,255}));
   connect(spl10.port_3, hex.port_b2) annotation (Line(points={{270,140},{270,
           154},{280,154}}, color={0,127,255}));
-  connect(bypassSup.port_a1, spl10.port_2)
-    annotation (Line(points={{300,130},{280,130}}, color={0,127,255}));
   connect(bypassSup.port_a2, hex.port_a2) annotation (Line(points={{310,140},{
           310,154},{300,154}}, color={0,127,255}));
   connect(bypassSup.port_b, fanSup.port_b) annotation (Line(points={{320,130},{
           340,130},{340,128}}, color={0,127,255}));
+  connect(spl10.port_1, bypassSup.port_a1)
+    annotation (Line(points={{280,130},{300,130}}, color={0,127,255}));
+  connect(spl10.port_2, spl5.port_1)
+    annotation (Line(points={{260,130},{240,130}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -200},{400,240}},
         initialScale=0.1), graphics={
