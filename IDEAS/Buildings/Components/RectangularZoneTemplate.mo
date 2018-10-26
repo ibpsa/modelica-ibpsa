@@ -307,7 +307,7 @@ replaceable
     linExtRad=linExtRadWin,
     nWin=nWinCei) if
        hasWinCei constrainedby Window(
-       azi=aziCei,
+       azi=aziA,
        inc=IDEAS.Types.Tilt.Wall,
        T_start=T_start,
        linIntCon_a=linIntCon,
@@ -566,6 +566,11 @@ components cannot be propagated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 26, 2018, by Filip Jorissen:<br/>
+Removed use of non-existent parameter <code>aziCei</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/946\">#946</a>. 
+</li>
 <li>
 August 26, 2018, by Damien Picard:<br/>
 Move all equations except those of windows to 
