@@ -60,7 +60,7 @@ package Air
       "Temperature difference used to compute enthalpy";
   equation
     assert(T >= 200.0 and T <= 423.15, "
-In "   + getInstanceName() + ": temperature T is not in the allowed range
+In "   + getInstanceName() + ": Temperature T is not in the allowed range
 200.0 K <= (T ="
                + String(T) + " K) <= 423.15 K
 required from medium model \""     + mediumName + "\".");

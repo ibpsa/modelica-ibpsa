@@ -53,7 +53,7 @@ package Water "Package with model for liquid water with constant density"
 
   equation
     assert(T >= T_min and T <= T_max, "
-  In "   + getInstanceName() + ":  temperature T (= "
+  In "   + getInstanceName() + ":  Temperature T (= "
                    + String(T) + " K) is not
 in the allowed range (" + String(T_min) + " K <= T <= " + String(T_max) + " K)
 required from medium model \"" + mediumName + "\".

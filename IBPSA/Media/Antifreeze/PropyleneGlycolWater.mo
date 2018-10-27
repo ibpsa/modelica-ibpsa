@@ -72,13 +72,13 @@ package PropyleneGlycolWater
 
   equation
     assert(T >= T_min and T <= T_max, "
-In "   + getInstanceName() + ": temperature T (= "
+In "   + getInstanceName() + ": Temperature T (= "
                    + String(T) + " K) is not
 in the allowed range (" + String(T_min) + " K <= T <= " + String(T_max) + " K)
 required from medium model \"" + mediumName + "\".
 ");
     assert(X_a >= X_a_min and X_a <= X_a_max, "
-In "   + getInstanceName() + ": mass fraction X_a (= "
+In "   + getInstanceName() + ": Mass fraction X_a (= "
                            + String(X_a) + " ) is not
 in the allowed range (" + String(X_a_min) + " <= X_a <= " + String(X_a_max) + " )
 required from medium model \"" + mediumName + "\".
