@@ -5,9 +5,9 @@ package Tilt "List of possible constant values for surface tilt"
   constant Modelica.SIunits.Angle Ceiling = 0 "Tilt for ceiling";
   constant Modelica.SIunits.Angle Floor =   Modelica.Constants.pi
   "Tilt for floor";
+  constant Modelica.SIunits.Angle Other=10e6 "Dummy tilt for unspecified cases";
   constant Modelica.SIunits.Angle Wall =    Modelica.Constants.pi/2
   "Tilt for wall";
-  constant Modelica.SIunits.Angle Other=10e6 "Dummy tilt for unspecified cases";
 
 
 annotation(preferredView="info", Documentation(info="<html>
