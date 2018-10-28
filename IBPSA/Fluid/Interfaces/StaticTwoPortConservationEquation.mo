@@ -153,7 +153,8 @@ equation
    String(abs(Q_flow)/ (dTMax*cp_default*max(m_flow_small/1E3, abs(m_flow)))) +
    " K > dTMax=" +String(dTMax) + " K.
    This may indicate that energy is not conserved for small mass flow rates.
-   The implementation may require prescribedHeatFlowRate = false.");
+   The implementation may require prescribedHeatFlowRate = false.",
+   level=AssertionLevel.warning);
   end if;
 
   if allowFlowReversal then
@@ -339,6 +340,11 @@ IBPSA.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 27, 2018, by Michael Wetter:<br/>
+Changed energy conservation assert to issue a warning rather than an error.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1048\">#1048</a>.
+</li>
 <li>
 June 23, 2018, by Filip Jorissen:<br/>
 Added more details to energy conservation assert to facilitate
