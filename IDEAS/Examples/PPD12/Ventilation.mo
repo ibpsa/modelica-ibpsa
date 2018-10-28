@@ -1,9 +1,7 @@
 within IDEAS.Examples.PPD12;
 model Ventilation "Ppd 12 example model"
   extends IDEAS.Examples.PPD12.BaseClasses.VentilationNoControl(fanRet(
-        inputType=IDEAS.Fluid.Types.InputType.Constant), fanSup(inputType=IDEAS.Fluid.Types.InputType.Constant),
-    bypassRet(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    bypassSup(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
+        inputType=IDEAS.Fluid.Types.InputType.Constant), fanSup(inputType=IDEAS.Fluid.Types.InputType.Constant));
 
 
 

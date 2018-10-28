@@ -94,7 +94,8 @@ partial model VentilationNoControl "Ppd 12 example model"
   Modelica.Blocks.Sources.RealExpression Te(y=sim.Te) "Ambient air"
     annotation (Placement(transformation(extent={{360,80},{380,100}})));
   Fluid.Actuators.Valves.Simplified.ThreeWayValveMotor bypassRet(redeclare
-      package Medium = MediumAir, m_flow_nominal=0.1)
+      package Medium = MediumAir, m_flow_nominal=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Return air bypass control valve"
     annotation (Placement(transformation(extent={{300,180},{320,200}})));
   Fluid.FixedResistances.Junction       spl9(
@@ -118,7 +119,8 @@ partial model VentilationNoControl "Ppd 12 example model"
     dp_nominal={0,300,0})
     annotation (Placement(transformation(extent={{280,140},{260,120}})));
   Fluid.Actuators.Valves.Simplified.ThreeWayValveMotor bypassSup(redeclare
-      package Medium = MediumAir, m_flow_nominal=0.1)
+      package Medium = MediumAir, m_flow_nominal=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Supply air bypass control valve"
     annotation (Placement(transformation(extent={{300,140},{320,120}})));
 equation
