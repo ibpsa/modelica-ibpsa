@@ -3,7 +3,8 @@ model Heating "Ppd 12 example model"
   extends IDEAS.Examples.PPD12.BaseClasses.HeatingNoControl;
   BaseClasses.Thermostat the "Custom thermostat"
     annotation (Placement(transformation(extent={{240,-80},{260,-60}})));
-  Modelica.Blocks.Math.BooleanToReal booToRea(realTrue=50000, realFalse=0)
+  Modelica.Blocks.Math.BooleanToReal booToRea(                realFalse=0, realTrue=
+       100000)
     "Conversion block of control signal to pump pressure set point"
     annotation (Placement(transformation(extent={{280,-80},{300,-60}})));
   Modelica.Blocks.Continuous.Integrator integrator(k=1/3600000)
