@@ -23,8 +23,8 @@ partial model VentilationNoControl "Ppd 12 example model"
     dp_nominal=300,
     redeclare package Medium = MediumAir,
     constantMassFlowRate=70*1.2/3600,
-    inputType=IDEAS.Fluid.Types.InputType.Continuous)
-                                          "Supply fan"
+    inputType=IDEAS.Fluid.Types.InputType.Continuous,
+    redeclare Data.FanCurvePP12 per)      "Supply fan"
     annotation (Placement(transformation(extent={{360,118},{340,138}})));
   IDEAS.Fluid.Movers.FlowControlled_m_flow fanRet(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -34,8 +34,8 @@ partial model VentilationNoControl "Ppd 12 example model"
     dp_nominal=300,
     redeclare package Medium = MediumAir,
     constantMassFlowRate=70*1.2/3600,
-    inputType=IDEAS.Fluid.Types.InputType.Continuous)
-                                          "Return fan"
+    inputType=IDEAS.Fluid.Types.InputType.Continuous,
+    redeclare Data.FanCurvePP12 per)      "Return fan"
     annotation (Placement(transformation(extent={{340,180},{360,200}})));
   IDEAS.Fluid.Sources.Boundary_pT bouAir(
     nPorts=3,
