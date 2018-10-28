@@ -50,7 +50,7 @@ partial model VentilationNoControl "Ppd 12 example model"
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
-    dp_nominal={0,0,100})
+    dp_nominal={0,0,700})
     annotation (Placement(transformation(extent={{240,120},{220,140}})));
   IDEAS.Fluid.FixedResistances.Junction spl6(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -60,7 +60,7 @@ partial model VentilationNoControl "Ppd 12 example model"
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
-    dp_nominal={0,5,100})
+    dp_nominal={0,0,700})
     annotation (Placement(transformation(extent={{200,120},{180,140}})));
   IDEAS.Fluid.FixedResistances.Junction spl7(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -69,8 +69,8 @@ partial model VentilationNoControl "Ppd 12 example model"
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
-    dp_nominal={200,0,27},
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering)
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    dp_nominal={350,0,700})
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
   IDEAS.Fluid.FixedResistances.Junction spl8(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -80,7 +80,7 @@ partial model VentilationNoControl "Ppd 12 example model"
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
-    dp_nominal={0,5,100})
+    dp_nominal={0,350,700})
     annotation (Placement(transformation(extent={{120,120},{100,140}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumAir,
@@ -105,7 +105,7 @@ partial model VentilationNoControl "Ppd 12 example model"
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
     redeclare package Medium = MediumAir,
-    dp_nominal={0,0,0})
+    dp_nominal={300,0,0})
     annotation (Placement(transformation(extent={{260,180},{280,200}})));
   Fluid.FixedResistances.Junction       spl10(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -114,8 +114,8 @@ partial model VentilationNoControl "Ppd 12 example model"
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
     redeclare package Medium = MediumAir,
-    dp_nominal={0,0,0},
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering)
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    dp_nominal={0,300,0})
     annotation (Placement(transformation(extent={{280,140},{260,120}})));
   Fluid.Actuators.Valves.Simplified.ThreeWayValveMotor bypassSup(redeclare
       package Medium = MediumAir, m_flow_nominal=0.1)
