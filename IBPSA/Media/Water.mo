@@ -52,12 +52,14 @@ package Water "Package with model for liquid water with constant density"
       "Mass fraction as input signal connector";
 
   equation
-    assert(T >= T_min and T <= T_max, "
-  In "   + getInstanceName() + ":  Temperature T (= "
-                   + String(T) + " K) is not
-in the allowed range (" + String(T_min) + " K <= T <= " + String(T_max) + " K)
-required from medium model \"" + mediumName + "\".
-");
+  assert(T >= T_min, "
+Temperature T exceeded its minimum allowed value of " + String(T_min-273.15)
+    + " degC (" + String(T_min) + " Kelvin)
+as required from medium model \"" + mediumName + "\".");
+  assert(T <= T_max, "
+Temperature T exceeded its maximum allowed value of " + String(T_max-273.15)
+    + " degC (" + String(T_max) + " Kelvin)
+as required from medium model \"" + mediumName + "\".");
 
     h = cp_const*(T-reference_T);
     u = h;
@@ -101,7 +103,6 @@ IBPSA.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
 </ul>
 </html>"));
 end enthalpyOfLiquid;
-
   annotation(preferredView="info", Documentation(info="<html>
 <p>
 This medium package models liquid water.
@@ -137,7 +138,7 @@ There are no phase changes.
 <ul>
 <li>
 October 26, 2018, by Filip Jorissen:<br/>
-Now printing instance name when triggering temperature limit assert.
+Now printing different messages if temperature is above or below its limit.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
 </li>

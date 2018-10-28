@@ -59,11 +59,12 @@ package Air
     Modelica.SIunits.TemperatureDifference dT(start=T_default-reference_T)
       "Temperature difference used to compute enthalpy";
   equation
-    assert(T >= 200.0 and T <= 423.15, "
-In "   + getInstanceName() + ": Temperature T is not in the allowed range
-200.0 K <= (T ="
-               + String(T) + " K) <= 423.15 K
-required from medium model \""     + mediumName + "\".");
+    assert(T >= 200.0, "
+Temperature T exceeded its minimum allowed value of -73.15 degC (200 Kelvin)
+as required from medium model \"" + mediumName + "\".");
+    assert(T <= 423.15, "
+Temperature T exceeded its maximum allowed value of 150 degC (423.15 Kelvin)
+as required from medium model \"" + mediumName + "\".");
 
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
 
@@ -963,7 +964,7 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 <ul>
 <li>
 October 26, 2018, by Filip Jorissen:<br/>
-Now printing instance name when triggering temperature limit assert.
+Now printing different messages if temperature is above or below its limit.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
 </li>
