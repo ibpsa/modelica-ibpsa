@@ -1,7 +1,8 @@
 within IDEAS.Examples.PPD12;
 model Ventilation "Ppd 12 example model"
-  extends IDEAS.Examples.PPD12.BaseClasses.VentilationNoControl(fanRet(
-        inputType=IDEAS.Fluid.Types.InputType.Constant), fanSup(inputType=IDEAS.Fluid.Types.InputType.Constant));
+  extends IDEAS.Examples.PPD12.BaseClasses.VentilationNoControl(
+    fanRet(inputType=IDEAS.Fluid.Types.InputType.Constant),
+    fanSup(inputType=IDEAS.Fluid.Types.InputType.Constant));
 
 
 
@@ -65,7 +66,7 @@ equation
     experiment(
       StopTime=500000,
       __Dymola_NumberOfIntervals=5000,
-      __Dymola_fixedstepsize=15,
+      __Dymola_fixedstepsize=10,
       __Dymola_Algorithm="Euler"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Examples/PPD12/Ventilation.mos"
