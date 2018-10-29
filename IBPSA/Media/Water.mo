@@ -53,11 +53,11 @@ package Water "Package with model for liquid water with constant density"
 
   equation
   assert(T >= T_min, "
-Temperature T exceeded its minimum allowed value of " + String(T_min-273.15)
+In "   + getInstanceName() + ": Temperature T exceeded its minimum allowed value of " + String(T_min-273.15)
     + " degC (" + String(T_min) + " Kelvin)
 as required from medium model \"" + mediumName + "\".");
   assert(T <= T_max, "
-Temperature T exceeded its maximum allowed value of " + String(T_max-273.15)
+In "   + getInstanceName() + ": Temperature T exceeded its maximum allowed value of " + String(T_max-273.15)
     + " degC (" + String(T_max) + " Kelvin)
 as required from medium model \"" + mediumName + "\".");
 
@@ -137,8 +137,9 @@ There are no phase changes.
 </html>", revisions="<html>
 <ul>
 <li>
-October 26, 2018, by Filip Jorissen:<br/>
-Now printing different messages if temperature is above or below its limit.
+October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
+Now printing different messages if temperature is above or below its limit,
+and adding instance name as JModelica does not print the full instance name in the assertion.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
 </li>

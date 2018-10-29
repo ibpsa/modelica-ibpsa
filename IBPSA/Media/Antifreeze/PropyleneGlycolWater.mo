@@ -72,19 +72,19 @@ package PropyleneGlycolWater
 
   equation
   assert(T >= T_min, "
-Temperature T exceeded its minimum allowed value of " + String(T_min-273.15)
+In "   + getInstanceName() + ": Temperature T exceeded its minimum allowed value of " + String(T_min-273.15)
     + " degC (" + String(T_min) + " Kelvin)
 as required from medium model \"" + mediumName + "\".");
   assert(T <= T_max, "
-Temperature T exceeded its maximum allowed value of " + String(T_max-273.15)
+In "   + getInstanceName() + ": Temperature T exceeded its maximum allowed value of " + String(T_max-273.15)
     + " degC (" + String(T_max) + " Kelvin)
 as required from medium model \"" + mediumName + "\".");
 
   assert(X_a >= X_a_min, "
-Mass fraction x_a exceeded its minimum allowed value of " + String(X_a_min) + "
+In "   + getInstanceName() + ": Mass fraction x_a exceeded its minimum allowed value of " + String(X_a_min) + "
 as required from medium model \"" + mediumName + "\".");
   assert(X_a <= X_a_max, "
-Mass fraction x_a exceeded its maximum allowed value of " + String(X_a_max) + "
+In "   + getInstanceName() + ": Mass fraction x_a exceeded its maximum allowed value of " + String(X_a_max) + "
 as required from medium model \"" + mediumName + "\".");
 
     h = cp_const*(T-reference_T);
@@ -459,8 +459,9 @@ a temperature of <i>20</i> &deg;C and a mass fraction of <i>0.40</i>):
 </html>", revisions="<html>
 <ul>
 <li>
-October 26, 2018, by Filip Jorissen:<br/>
-Now printing different messages if temperature or mass fraction is above or below its limit.
+October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
+Now printing different messages if temperature or mass fraction is above or below its limit,
+and adding instance name as JModelica does not print the full instance name in the assertion.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
 </li>

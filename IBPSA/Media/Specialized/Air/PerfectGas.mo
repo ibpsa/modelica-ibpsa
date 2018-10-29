@@ -44,10 +44,10 @@ package PerfectGas "Model for air as a perfect gas"
     MassFraction X_air "Mass fraction of air";
   equation
     assert(T >= 200.0, "
-Temperature T exceeded its minimum allowed value of -73.15 degC (200 Kelvin)
+In "   + getInstanceName() + ": Temperature T exceeded its minimum allowed value of -73.15 degC (200 Kelvin)
 as required from medium model \"" + mediumName + "\".");
     assert(T <= 423.15, "
-Temperature T exceeded its maximum allowed value of 150 degC (423.15 Kelvin)
+In "   + getInstanceName() + ": Temperature T exceeded its maximum allowed value of 150 degC (423.15 Kelvin)
 as required from medium model \"" + mediumName + "\".");
 
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
@@ -638,8 +638,9 @@ space dimension</i>. CRC Press. 1998.
 </html>", revisions="<html>
 <ul>
 <li>
-October 26, 2018, by Filip Jorissen:<br/>
-Now printing different messages if temperature is above or below its limit.
+October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
+Now printing different messages if temperature is above or below its limit,
+and adding instance name as JModelica does not print the full instance name in the assertion.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
 </li>
