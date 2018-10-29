@@ -3,7 +3,7 @@ model Thermostat
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Temperature THigh=273.15+21 "Temperature set point during high temperature period";
-  parameter Modelica.SIunits.Temperature TLow=273.15+17 "Temperature set point during low temperature period";
+  parameter Modelica.SIunits.Temperature TLow=273.15+16 "Temperature set point during low temperature period";
 
   Modelica.Blocks.Interfaces.RealInput u
     annotation (Placement(transformation(extent={{-126,-20},{-86,20}})));
@@ -24,11 +24,11 @@ model Thermostat
   Modelica.Blocks.Sources.RealExpression TLowExp(y=TLow) "Expression for TLow"
     annotation (Placement(transformation(extent={{-100,12},{-80,32}})));
   Modelica.Blocks.Sources.BooleanExpression onWeekDay(y=calTim.weekDay < 6 and
-        not (calTim.hour < 6 or calTim.hour >= 23 or calTim.hour > 9 and calTim.hour
-         < 17)) "Schedule during week days"
+        not (calTim.hour < 7 or calTim.hour >= 23 or calTim.hour > 9 and calTim.hour
+         < 18)) "Schedule during week days"
     annotation (Placement(transformation(extent={{-60,70},{20,90}})));
   Modelica.Blocks.Sources.BooleanExpression onWeekEnd(y=calTim.weekDay >= 6
-         and calTim.hour >= 7 and calTim.hour <= 22) "Schedule during weekend"
+         and calTim.hour >= 7 and calTim.hour <= 23) "Schedule during weekend"
     annotation (Placement(transformation(extent={{-60,58},{20,78}})));
   Modelica.Blocks.Logical.Or weekSched
     "Combined schedule of week day and weekend"
