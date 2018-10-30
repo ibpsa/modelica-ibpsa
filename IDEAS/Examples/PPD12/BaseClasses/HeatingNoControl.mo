@@ -25,7 +25,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     T_a_nominal=273.15 + 75,
     T_b_nominal=273.15 + 65,
     TAir_nominal=273.15 + 20,
-    allowFlowReversal=false)
+    allowFlowReversal=false,
+    nEle=3)
     "Radiator ground floor: Superia super design 33/500/2400"
                                                     annotation (Placement(
         transformation(
@@ -38,7 +39,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     Q_flow_nominal=1844,
     T_a_nominal=273.15 + 75,
     T_b_nominal=273.15 + 65,
-    TAir_nominal=273.15 + 20)
+    TAir_nominal=273.15 + 20,
+    nEle=3)
     "Radiator for first bedroom: Superia super design 22/500/1400"
                                                                  annotation (
       Placement(transformation(
@@ -52,7 +54,9 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     T_a_nominal=273.15 + 75,
     T_b_nominal=273.15 + 65,
     TAir_nominal=273.15 + 20,
-    n=1.2) "Towel dryer for bathroom: Brugman ibiza 1186/600" annotation (
+    n=1.2,
+    nEle=3)
+           "Towel dryer for bathroom: Brugman ibiza 1186/600" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -63,7 +67,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     Q_flow_nominal=1844,
     T_a_nominal=273.15 + 75,
     T_b_nominal=273.15 + 65,
-    TAir_nominal=273.15 + 20)
+    TAir_nominal=273.15 + 20,
+    nEle=3)
     "Radiator for bedroom 2: Superia super design 22/500/1400"   annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -75,7 +80,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     Q_flow_nominal=1671,
     T_a_nominal=273.15 + 75,
     T_b_nominal=273.15 + 65,
-    TAir_nominal=273.15 + 20)
+    TAir_nominal=273.15 + 20,
+    nEle=3)
     "Radiator for bedroom 3: Superia super design 22/800/900"    annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -87,7 +93,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     Q_flow_nominal=1822,
     T_a_nominal=273.15 + 75,
     T_b_nominal=273.15 + 65,
-    TAir_nominal=273.15 + 20)
+    TAir_nominal=273.15 + 20,
+    nEle=3)
     "Main radiator for bathroom: Superia super design 33/500/1000"
                                                     annotation (Placement(
         transformation(
