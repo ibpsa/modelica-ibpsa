@@ -16,7 +16,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
   parameter Modelica.SIunits.Temperature TSet2=303.15 "Temperature set point";
 
   Modelica.SIunits.Efficiency eta = {-6.017763e-11,2.130271e-8,-3.058709e-6,2.266453e-4,-9.048470e-3,1.805752e-1,-4.540036e-1}*{TCorr^(6-i) for i in 0:6};
-  Real TCorr = min(max(senTem.T - 273.15, 25), 75) "Temperature within validity range of correlation";
+  Real TCorr=min(max(senTemRet.T - 273.15, 25), 75)
+    "Temperature within validity range of correlation";
   Modelica.SIunits.Power QGas = hea.Q_flow/eta;
 
   IDEAS.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 radGnd(
@@ -117,7 +118,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     allowFlowReversal=false,
     QMax_flow=30000,
     QMin_flow=0,
-    use_X_wSet=false) "Bulex thermo master T30/35"
+    use_X_wSet=false)
+    "Bulex thermo master T30/35 represented using ideal heater"
     annotation (Placement(transformation(extent={{370,-120},{350,-100}})));
   IDEAS.Fluid.Sources.Boundary_pT       bou1(
     nPorts=1,
@@ -288,11 +290,11 @@ partial model HeatingNoControl "Ppd 12 example model without control"
         extent={{-7,-7},{7,7}},
         rotation=90,
         origin={-51,-155})));
-  Fluid.Sensors.TemperatureTwoPort senTem(
+  Fluid.Sensors.TemperatureTwoPort senTemRet(
     redeclare package Medium = MediumWater,
     tau=0,
-    m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{312,-190},{332,-170}})));
+    m_flow_nominal=m_flow_nominal) "Return water temperature sensor"
+    annotation (Placement(transformation(extent={{310,-190},{330,-170}})));
 equation
   connect(hallway.proBusD[1], living.proBusB[1]) annotation (Line(
       points={{-72.4,57},{-45,57},{-45,40}},
@@ -514,10 +516,10 @@ equation
                                                color={191,0,0}));
   connect(radGnd.port_a, valGnd.port_b) annotation (Line(points={{-40,-160},{-40,
           -150}},            color={0,127,255}));
-  connect(senTem.port_a, radBed3.port_b) annotation (Line(points={{312,-180},{292,
-          -180},{292,-180},{270,-180}}, color={0,127,255}));
-  connect(senTem.port_b, hea.port_a) annotation (Line(points={{332,-180},{380,-180},
-          {380,-110},{370,-110}}, color={0,127,255}));
+  connect(senTemRet.port_a, radBed3.port_b)
+    annotation (Line(points={{310,-180},{270,-180}}, color={0,127,255}));
+  connect(senTemRet.port_b, hea.port_a) annotation (Line(points={{330,-180},{
+          380,-180},{380,-110},{370,-110}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -200},{400,240}},
         initialScale=0.1), graphics={
