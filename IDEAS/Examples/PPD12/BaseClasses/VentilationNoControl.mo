@@ -81,7 +81,7 @@ partial model VentilationNoControl "Ppd 12 example model"
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
     dp_nominal={0,350,700})
-    annotation (Placement(transformation(extent={{120,120},{100,140}})));
+    annotation (Placement(transformation(extent={{142,120},{122,140}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumAir,
@@ -247,17 +247,17 @@ equation
   connect(spl6.port_1, spl5.port_2) annotation (Line(points={{200,130},{220,130}},
                       color={0,127,255}));
   connect(spl8.port_1, spl6.port_2)
-    annotation (Line(points={{120,130},{180,130}}, color={0,127,255}));
-  connect(spl8.port_3, bedRoom1.port_b) annotation (Line(points={{110,120},{110,
-          106},{132,106},{132,60}},      color={0,127,255}));
-  connect(spl8.port_2, living.port_a) annotation (Line(points={{100,130},{-38,
+    annotation (Line(points={{142,130},{180,130}}, color={0,127,255}));
+  connect(spl8.port_3, bedRoom1.port_b) annotation (Line(points={{132,120},{132,
+          60}},                          color={0,127,255}));
+  connect(spl8.port_2, living.port_a) annotation (Line(points={{122,130},{-38,
           130},{-38,36}}, color={0,127,255}));
   connect(living.port_b, Diner.port_a) annotation (Line(points={{-34,
           36},{-34,-38},{-34,-38}}, color={0,127,255}));
-  connect(Diner.port_b, spl7.port_1) annotation (Line(points={{-38,-38},{-40,
-          -38},{-40,-2},{-42,-2},{-42,190},{140,190}}, color={0,127,255}));
-  connect(Diner.port_a, bouAir.ports[3]) annotation (Line(points={{-34,-38},{30,
-          -38},{30,214},{380,214},{380,167.333}},     color={0,127,255}));
+  connect(Diner.port_b, spl7.port_1) annotation (Line(points={{-38,-38},{-56,
+          -38},{-56,190},{140,190}},                   color={0,127,255}));
+  connect(Diner.port_a, bouAir.ports[3]) annotation (Line(points={{-34,-38},{
+          -16,-38},{-16,212},{380,212},{380,167.333}},color={0,127,255}));
   connect(Te.y, bouAir.T_in) annotation (Line(points={{381,90},{400,90},{400,
           174},{402,174}}, color={0,0,127}));
   connect(bypassRet.port_b, fanRet.port_a)
