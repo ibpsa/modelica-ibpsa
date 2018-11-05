@@ -76,6 +76,9 @@ protected
   final parameter Real fraTotAbsFloor(fixed=false)
     "Fraction of the direct solar irradiation that is absorbed by the floor";
 
+  Modelica.SIunits.Temperature TRad_internal = radSurfTot.T * weightFactorTRad
+    "To avoid duplicate operations";
+
 initial equation
   weightFactorDir = {if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor)
                      then area[i]*epsSw[i]/AfloorTot
@@ -107,14 +110,14 @@ equation
   end for;
 
   if lineariseJModelica then // this introduces a state for the radiative temperature, which is useful when linearising
-    der(TRad) = (radSurfTot.T * weightFactorTRad - TRad)/tau;
+    der(TRad) = (TRad_internal - TRad)/tau;
   else
-    TRad = radSurfTot.T * weightFactorTRad;
+    TRad = TRad_internal;
   end if;
 
-  iSolDir.T = TRad;
-  iSolDif.T = TRad;
-  radGain.T = TRad;
+  iSolDir.T = TRad_internal;
+  iSolDif.T = TRad_internal;
+  radGain.T = TRad_internal;
 
   annotation (
     Icon(graphics={
