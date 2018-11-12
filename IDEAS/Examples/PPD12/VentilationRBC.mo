@@ -1,10 +1,8 @@
 within IDEAS.Examples.PPD12;
-model Ventilation "Ppd 12 example model"
+model VentilationRBC "Ppd 12 example model using rule based controller"
   extends IDEAS.Examples.PPD12.BaseClasses.VentilationNoControl(
     fanRet(inputType=IDEAS.Fluid.Types.InputType.Constant),
     fanSup(inputType=IDEAS.Fluid.Types.InputType.Constant));
-
-
 
   Modelica.Blocks.Sources.Constant bypContr(k=0)
     "Bypass control: always bypass"
@@ -89,4 +87,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Ventilation;
+end VentilationRBC;
