@@ -17,7 +17,11 @@ model VentilationRBC "Ppd 12 example model using rule based controller"
   Modelica.Blocks.Sources.Constant TSup(k=273.15 + 70)
     "Supply water temperature set point"
     annotation (Placement(transformation(extent={{400,-100},{380,-80}})));
+  Modelica.SIunits.Energy EGas "Total gas energy use";
+initial equation
+  EGas=0;
 equation
+  der(EGas)=QGas/3600000;
   connect(bypContr.y, bypassRet.ctrl) annotation (Line(points={{261,230},{310,230},
           {310,200.8}}, color={0,0,127}));
   connect(bypassSup.ctrl, bypassRet.ctrl) annotation (Line(points={{310,119.2},{
