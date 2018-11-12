@@ -126,7 +126,8 @@ model PartialZone "Building zone model"
     Dialog(group="Occupants (optional)"),
     Placement(transformation(extent={{20,-20},{40,0}})));
   replaceable IDEAS.Buildings.Components.BaseClasses.RadiativeHeatTransfer.ZoneLwGainDistribution
-    radDistr(nSurf=nSurf, lineariseJModelica=sim.lineariseJModelica)
+    radDistr(nSurf=nSurf, lineariseJModelica=sim.lineariseJModelica,
+    T_start=T_start)
     "Distribution of radiative internal gains"
     annotation (choicesAllMatching=true,Dialog(tab="Advanced",group="Building physics"),Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -401,6 +402,10 @@ end for;
 <p>See extending models.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 5, 2018 by Filip Jorissen:<br/>
+Propagated <code>T_start</code> into <code>radDistr</code>.
+</li>
 <li>
 September 26, 2018 by Iago Cupeiro:<br/>
 Implementation of the lighting model
