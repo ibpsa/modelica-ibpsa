@@ -1,45 +1,50 @@
 within IBPSA.Utilities.IO.RESTClient.Examples;
-model OverWritten "fixme: Short comment is missing"
+model OverWritten "Overwriting the control signals based on external source"
  extends Modelica.Icons.Example;
-   inner IBPSA.Utilities.IO.RESTClient.Configuration config(
-     samplePeriod=0.5,
-     activation=IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation.use_input)
-    "fixme: all instances require a comment"
+  inner IBPSA.Utilities.IO.RESTClient.Configuration config(
+      samplePeriod=10, activation=IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation.use_input,
+    hosAddress="127.0.0.1",
+    tcpPort=8888)
+     "Configuration for the overwritten block"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-    // fixme: use short names, such as oveWri, see coding guidelines
-  IBPSA.Utilities.IO.RESTClient.OverWritten_Real overWritten(
-    numVar=2,
-    samplePeriod=1,
-    oveSig(fixed=true, start={0,0}),
-    hostAddress="127.0.01",
+  Read_Real oveWri(
+    activation=IBPSA.Utilities.IO.RESTClient.Types.LocalActivation.dynamic,
+    hosAddress="127.0.0.1",
     tcpPort=8888,
-    threshold=0.5)
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Modelica.Blocks.Sources.Sine sine1(amplitude=2, freqHz=1/60)
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Modelica.Blocks.Sources.Sine sine2(freqHz=1/30)
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=true)
-    annotation (Placement(transformation(extent={{-20,68},{0,88}})));
+    overVariable="control",
+    valueVariable(fixed=true),
+    derivativeVariable(fixed=true),
+    enableFlag(fixed=true),
+    u(fixed=false),
+    t0=1) "Overwritten block"
+    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+
+  Modelica.Blocks.Sources.Sine sinSig(freqHz=1/30, amplitude=2) "Control signal 2 to be overwritten"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Modelica.Blocks.Sources.BooleanExpression oveCon(y=time > -1)
+    "Boolean command to enable/disenable the overwritten block"
+    annotation (Placement(transformation(extent={{-80,44},{-60,64}})));
 equation
-  connect(sine1.y, overWritten.u[1]) annotation (Line(points={{-59,-40},{-60,-40},
-          {-20,-40},{-20,-1},{-2,-1}}, color={0,0,127}));
-  connect(sine2.y, overWritten.u[2]) annotation (Line(points={{-59,20},{-20,20},
-          {-20,1},{-2,1}}, color={0,0,127}));
-  connect(booleanExpression.y, config.activate)
-    annotation (Line(points={{1,78},{30,78},{58,78}}, color={255,0,255}));
+  connect(sinSig.y, oveWri.u) annotation (Line(points={{-59,0},{8,0}},                  color={0,0,127}));
+  connect(oveCon.y, config.activate) annotation (Line(points={{-59,54},{-32,54},
+          {-32,78},{58,78}}, color={255,0,255}));
+  connect(oveWri.activate, config.activate) annotation (Line(points={{8,8},{-32,
+          8},{-32,54},{-32,78},{58,78}},                color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-   experiment(Tolerance=1e-6, StartTime=0, StopTime=120),
+   experiment(StopTime=200),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/IO/RESTClient/Examples/OverWritten.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>
-This example demonstrates the use of a sampler that sends time series to a remoted server.
-<!-- fixme: This is the same comment as the other example, but only one is a sampler. -->
-Please start the socket server
-<code>IBPSA/Resources/src/SocketServer/Utilities/IO/RESTClient/Examples/Server.py</code>
-before simulating this model.
-</p>
+<p>This example demonstrates the use of an overwritting block that overwrites control signals in the simulation based on a remoted server. </p>
+<p>Please start the socket server IBPSA/Resources/src/SocketServer/Utilities/IO/RESTClient/Examples/Server.py before simulating this model. </p>
+</html>", revisions="<html>
+<ul>
+<li>
+Nov 12, 2018 by Sen Huang:<br/>
+First implementation.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/926\">#926</a>.
+</li>
+</ul>
 </html>"));
 end OverWritten;
