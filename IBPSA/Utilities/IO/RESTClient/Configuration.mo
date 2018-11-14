@@ -3,15 +3,21 @@ model Configuration "Configuration"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3)=60
     "Sample period of component";
-  parameter IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation activation=IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation.always
+  parameter String hosAddress="127.0.0.1"
+    "Host address";
+  parameter Integer tcpPort=8888
+    "TCP port";
+
+  parameter IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation activation = IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation.always
     "Set to true to enable an input that allows activating and deactivating the socket connections"
     annotation (Dialog(group="Activation"));
 
   Modelica.Blocks.Interfaces.BooleanInput activate if (activation == IBPSA.Utilities.IO.RESTClient.Types.GlobalActivation.use_input)
-    "Set to true to enable pocket connections"
+    "Set to true to enable bolean input connections"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Boolean active "Flag, true if the block is enabled";
+
 protected
   Modelica.Blocks.Interfaces.BooleanInput activate_internal
     "Internal connector to activate the block";
@@ -85,13 +91,15 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           rotation=395)}),                                                                         Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>
-This block can be used to globally configure the parameters for the blocks from the package
-<a href=\"IBPSA.Utilities.IO.RESTClient\">IBPSA.Utilities.IO.RESTClient</a>.
-Use this block for example to set the sampling time.
-</p>
-<p>
-To use this block, simply drag it at the top-most level, or higher, where your model is.
-</p>
+<p>This block can be used to globally configure the parameters for the blocks from the package <a href=\"IBPSA.Utilities.IO.RESTClient\">IBPSA.Utilities.IO.RESTClient</a>.</p>
+<p>Use this block, for example, to set the sampling time, host ip, and port.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+Nov 12, 2018 by Sen Huang:<br/>
+First implementation.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/926\">#926</a>.
+</li>
+</ul>
 </html>"));
 end Configuration;
