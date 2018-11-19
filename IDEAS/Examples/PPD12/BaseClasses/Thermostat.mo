@@ -12,7 +12,7 @@ model Thermostat
   IDEAS.Utilities.Time.CalendarTime calTim(zerTim=IDEAS.Utilities.Time.Types.ZeroTime.NY2016)
     "Calendar time block"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=-0.5, uHigh=0.5)
+  Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=-1, uHigh=0)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.RealExpression THighExp(y=THigh)
     "Expression for THigh"
@@ -24,11 +24,12 @@ model Thermostat
   Modelica.Blocks.Sources.RealExpression TLowExp(y=TLow) "Expression for TLow"
     annotation (Placement(transformation(extent={{-100,12},{-80,32}})));
   Modelica.Blocks.Sources.BooleanExpression onWeekDay(y=calTim.weekDay < 6 and
-        not (calTim.hour < 6 or calTim.hour >= 23 or calTim.hour > 9 and calTim.hour
-         < 17)) "Schedule during week days"
+        not (calTim.hour < 6 or calTim.hour >= 23 or calTim.hour >= 9 and
+        calTim.hour < 17))
+                "Schedule during week days"
     annotation (Placement(transformation(extent={{-60,70},{20,90}})));
   Modelica.Blocks.Sources.BooleanExpression onWeekEnd(y=calTim.weekDay >= 6
-         and calTim.hour >= 6 and calTim.hour <= 23) "Schedule during weekend"
+         and calTim.hour >= 6 and calTim.hour < 23)  "Schedule during weekend"
     annotation (Placement(transformation(extent={{-60,58},{20,78}})));
   Modelica.Blocks.Logical.Or weekSched
     "Combined schedule of week day and weekend"
