@@ -4,12 +4,14 @@ model ZoneLwGainDistribution
 
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
   parameter Boolean lineariseJModelica = false
-    "For introducing radiative temperature state"
+    "=true, to introduce radiative temperature node"
     annotation(Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Time tau = 120
     "Time constant for radiative node"
      annotation(Dialog(enable=lineariseJModelica, tab="Advanced"));
-
+  parameter Modelica.SIunits.Temperature T_start=296.15
+    "Start value of radiative temperature node"
+    annotation(Dialog(tab = "Advanced", enable=lineariseJModelica));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir
     "Direct solar radiation gains received through windows"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
@@ -22,7 +24,7 @@ model ZoneLwGainDistribution
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nSurf] radSurfTot
     "Port for connecting to surfaces"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.Blocks.Interfaces.RealOutput TRad
+  Modelica.Blocks.Interfaces.RealOutput TRad(start=T_start)
     "Radiative zone temperature, computed as weighted sum of surface temperatures."
     annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
@@ -74,6 +76,9 @@ protected
   final parameter Real fraTotAbsFloor(fixed=false)
     "Fraction of the direct solar irradiation that is absorbed by the floor";
 
+  Modelica.SIunits.Temperature TRad_internal = radSurfTot.T * weightFactorTRad
+    "To avoid duplicate operations";
+
 initial equation
   weightFactorDir = {if IDEAS.Utilities.Math.Functions.isAngle(inc[i], IDEAS.Types.Tilt.Floor)
                      then area[i]*epsSw[i]/AfloorTot
@@ -93,6 +98,9 @@ initial equation
   assert(abs(1-sum(weightFactorDif))<1e-4, "Error in computation of weightFactorDif, please submit a bug report");
   assert(abs(1-sum(weightFactorGain))<1e-4, "Error in computation of weightFactorGain, please submit a bug report");
 
+  if lineariseJModelica then
+    TRad=T_start;
+  end if;
 equation
   for k in 1:nSurf loop
     radSurfTot[k].Q_flow =
@@ -102,14 +110,14 @@ equation
   end for;
 
   if lineariseJModelica then // this introduces a state for the radiative temperature, which is useful when linearising
-    der(TRad) = (radSurfTot.T * weightFactorTRad - TRad)/tau;
+    der(TRad) = (TRad_internal - TRad)/tau;
   else
-    TRad = radSurfTot.T * weightFactorTRad;
+    TRad = TRad_internal;
   end if;
 
-  iSolDir.T = TRad;
-  iSolDif.T = TRad;
-  radGain.T = TRad;
+  iSolDir.T = TRad_internal;
+  iSolDif.T = TRad_internal;
+  radGain.T = TRad_internal;
 
   annotation (
     Icon(graphics={
@@ -170,6 +178,10 @@ If there is no floor then the beam radiation is spread over all surfaces and a w
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 5, 2018 by Filip Jorissen:<br/>
+Added initial equation for <code>TRad</code>.
+</li>
 <li>
 October 7, 2018 by Filip Jorissen:<br/>
 Improved documentation.
