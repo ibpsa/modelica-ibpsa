@@ -17,14 +17,26 @@ void getCommit(const char *path, char* res){
 
   /* Read command result */
   FILE *fp;
-  fp = popen(buffer, "r");
+  #ifdef __linux__ 
+    fp = popen(buffer, "r");
+   #elif _WIN32
+    fp = _popen(buffer, "r");
+  #else
+    ModelicaFormatError("Unsupported operating system\n");
+  #endif  
+  
   if (fp == NULL) {
     ModelicaFormatError("Failed to call git command\n");
   }
   if (fgets(sha, sizeof(sha)-1, fp) == NULL){
   	ModelicaFormatError("Path %s does not exist or git cannot be called\n", path);
   }
-  pclose(fp);
+  
+  #ifdef __linux__ 
+    pclose(fp);
+  #else
+    _pclose(fp);
+  #endif    
 
   /* Return result */
   strcpy(res,sha);
