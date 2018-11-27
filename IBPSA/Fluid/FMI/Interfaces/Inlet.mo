@@ -1,7 +1,15 @@
 within IBPSA.Fluid.FMI.Interfaces;
 connector Inlet "Connector for fluid inlet"
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium model" annotation (choicesAllMatching=true);
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = IBPSA.Media.Air "Moist air"),
+        choice(redeclare package Medium = IBPSA.Media.Water "Water"),
+        choice(redeclare package Medium =
+            IBPSA.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water")));
 
   parameter Boolean use_p_in = true
     "= true to use a pressure from connector, false to output Medium.p_default"

@@ -2,17 +2,45 @@ within IBPSA.Fluid.Interfaces;
 partial model EightPort "Partial model with eight ports"
 
   replaceable package Medium1 =
-      Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
+      annotation (choices(
+        choice(redeclare package Medium = IBPSA.Media.Air "Moist air"),
+        choice(redeclare package Medium = IBPSA.Media.Water "Water"),
+        choice(redeclare package Medium =
+            IBPSA.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water")));
   replaceable package Medium2 =
-      Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
+      annotation (choices(
+        choice(redeclare package Medium = IBPSA.Media.Air "Moist air"),
+        choice(redeclare package Medium = IBPSA.Media.Water "Water"),
+        choice(redeclare package Medium =
+            IBPSA.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water")));
   replaceable package Medium3 =
-      Modelica.Media.Interfaces.PartialMedium "Medium 3 in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium 3 in the component"
+      annotation (choices(
+        choice(redeclare package Medium = IBPSA.Media.Air "Moist air"),
+        choice(redeclare package Medium = IBPSA.Media.Water "Water"),
+        choice(redeclare package Medium =
+            IBPSA.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water")));
   replaceable package Medium4 =
-      Modelica.Media.Interfaces.PartialMedium "Medium 4 in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium 4 in the component"
+      annotation (choices(
+        choice(redeclare package Medium = IBPSA.Media.Air "Moist air"),
+        choice(redeclare package Medium = IBPSA.Media.Water "Water"),
+        choice(redeclare package Medium =
+            IBPSA.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water")));
 
   parameter Boolean allowFlowReversal1 = true
     "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"

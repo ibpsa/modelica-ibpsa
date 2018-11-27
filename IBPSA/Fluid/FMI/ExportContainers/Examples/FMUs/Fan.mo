@@ -23,7 +23,7 @@ block Fan "Declaration of an FMU that exports a fan"
 
 equation
   connect(dp_in, com.dp_in) annotation (Line(
-      points={{-120,68},{-0.2,68},{-0.2,12}},
+      points={{-120,68},{0,68},{0,12}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

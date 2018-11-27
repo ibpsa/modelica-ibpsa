@@ -2,8 +2,15 @@ within IBPSA.Fluid.FMI.ExportContainers;
 partial block PartialTwoPort
   "Partial block to be used as a container to export a thermofluid flow model with two ports"
   replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = IBPSA.Media.Air "Moist air"),
+        choice(redeclare package Medium = IBPSA.Media.Water "Water"),
+        choice(redeclare package Medium =
+            IBPSA.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water")));
 
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
