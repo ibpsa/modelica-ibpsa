@@ -29,7 +29,7 @@ record EpcDouble =
     final SwTransDif=0.619,
     final SwAbsDif={0.093, 0,  0.063},
     final U_value=2.9,
-    final g_value=0.78) "EPC dubbel glas / double glazing"
+    final g_value=0.78) "EPC dubbel glas / double glazing, uncoated"
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
