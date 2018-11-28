@@ -2,7 +2,7 @@ within IBPSA.Fluid.Sources;
 model MassFlowSource_WeatherData
   "Ideal flow source that produces a prescribed mass flow with prescribed
   trace substances, outside specific enthalpy and mass fraction "
-  extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"
     annotation(Evaluate=true, HideResult=true);
