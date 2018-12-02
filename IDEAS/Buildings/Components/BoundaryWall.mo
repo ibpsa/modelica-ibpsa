@@ -4,8 +4,8 @@ model BoundaryWall "Opaque wall with optional prescribed heat flow rate or tempe
      final nWin=1,
      QTra_design=U_value*A*(273.15 + 21 - TRef_a),
      dT_nominal_a=-1,
-     layMul(monLay(energyDynamics=cat(1, {(if not sim.lineariseDymola and use_T_in and energyDynamics ==  Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics)}, fill(energyDynamics, layMul.nLay-1)),
-          monLayDyn(each addRes_b=(sim.lineariseDymola and use_T_in)))));
+     layMul(monLay(energyDynamics=cat(1, {(if not sim.lineariseDymola and (use_T_in or use_T_fixed) and energyDynamics ==  Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics)}, fill(energyDynamics, layMul.nLay-1)),
+          monLayDyn(each addRes_b=(sim.lineariseDymola and (use_T_in or use_T_fixed))))));
 
   parameter Boolean use_T_fixed = false
     "Get the boundary temperature from the input connector"
