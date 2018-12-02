@@ -50,40 +50,33 @@ protected
 equation
   assert(sum({if x then 1 else 0 for x in {use_T_in, use_Q_in, use_T_fixed}})<2,
     "Only one of the following options can be used simultaneously: use_T_in, use_Q_in, use_T_fixed");
-  if use_Q_in then
-    connect(Q_flow, proPreQ.u1)
+  connect(Q_flow, proPreQ.u1)
     annotation (Line(points={{-110,-20},{-100,-20},{-100,-23.6},{-87.2,-23.6}},
                                                     color={0,0,127}));
-    connect(proPreQ.y, preFlo.Q_flow)
-      annotation (Line(points={{-73.4,-20},{-60,-20}}, color={0,0,127}));
-    connect(proPreQ.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-87.2,
+  connect(proPreQ.y, preFlo.Q_flow)
+    annotation (Line(points={{-73.4,-20},{-60,-20}}, color={0,0,127}));
+  connect(proPreQ.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-87.2,
             -16.4},{-92,-16.4},{-92,40},{56.09,40},{56.09,19.91}},
                                                             color={0,0,127}),
       Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  end if;
-
-  if use_T_in then
-    connect(proPreT.y, preTem.T)
+  connect(proPreT.y, preTem.T)
       annotation (Line(points={{-73.4,20},{-62,20}}, color={0,0,127}));
-    connect(proPreT.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-87.2,
+  connect(proPreT.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-87.2,
             23.6},{-92,23.6},{-92,40},{56.09,40},{56.09,19.91}},
                                                       color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-    connect(T, proPreT.u1)
+  connect(T, proPreT.u1)
     annotation (Line(points={{-110,20},{-100,20},{-100,16.4},{-87.2,16.4}},
                                                            color={0,0,127}));
-  end if;
-
   connect(layMul.port_b, preFlo.port) annotation (Line(points={{-10,0},{-10,0},{
           -20,0},{-20,-20},{-40,-20}}, color={191,0,0}));
   connect(preTem.port, layMul.port_b) annotation (Line(points={{-40,20},{-20,20},
           {-20,0},{-10,0}}, color={191,0,0}));
-
   connect(TConst.y, proPreT.u1) annotation (Line(points={{-99.5,37},{-96,37},{-96,
           16.4},{-87.2,16.4}},
                          color={0,0,127}));
