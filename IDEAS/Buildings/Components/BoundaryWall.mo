@@ -29,7 +29,7 @@ model BoundaryWall "Opaque wall with optional prescribed heat flow rate or tempe
         transformation(extent={{-120,-30},{-100,-10}}),
                                                     iconTransformation(extent={{-120,
             -30},{-100,-10}})));
-  Modelica.Blocks.Math.Product proPreT if  use_T_in "Product for linearisation"
+  Modelica.Blocks.Math.Product proPreT if  use_T_in or use_T_fixed "Product for linearisation"
     annotation (Placement(transformation(extent={{-86,26},{-74,14}})));
   Modelica.Blocks.Math.Product proPreQ if use_Q_in "Product for linearisation"
     annotation (Placement(transformation(extent={{-86,-14},{-74,-26}})));
@@ -44,7 +44,7 @@ protected
                        use_Q_in "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem if
-                             use_T_in "Prescribed temperature"
+                             use_T_in or use_T_fixed "Prescribed temperature"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
 equation
