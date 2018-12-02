@@ -2,49 +2,63 @@ within IDEAS.Buildings.Components;
 model BoundaryWall "Opaque wall with optional prescribed heat flow rate or temperature boundary conditions"
   extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
      final nWin=1,
-     QTra_design=U_value*A    *(273.15 + 21 - TRef_a),
+     QTra_design=U_value*A*(273.15 + 21 - TRef_a),
      dT_nominal_a=-1,
      layMul(monLay(energyDynamics=cat(1, {(if not sim.lineariseDymola and use_T_in and energyDynamics ==  Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics)}, fill(energyDynamics, layMul.nLay-1)),
           monLayDyn(each addRes_b=(sim.lineariseDymola and use_T_in)))));
 
+  parameter Boolean use_T_fixed = false
+    "Get the boundary temperature from the input connector"
+    annotation(Dialog(group="Boundary conditions"));
+  parameter Modelica.SIunits.Temperature T_fixed = 294.15
+    "Fixed boundary temperature"
+    annotation(Dialog(group="Boundary conditions",enable=use_T_fixed));
   parameter Boolean use_T_in = false
     "Get the boundary temperature from the input connector"
     annotation(Dialog(group="Boundary conditions"));
   parameter Boolean use_Q_in = false
     "Get the boundary heat flux from the input connector"
     annotation(Dialog(group="Boundary conditions"));
-  Modelica.Blocks.Interfaces.RealInput T if use_T_in annotation (Placement(
-        transformation(extent={{-116,10},{-96,30}}), iconTransformation(extent=
-            {{-116,10},{-96,30}})));
-  Modelica.Blocks.Interfaces.RealInput Q_flow if use_Q_in annotation (Placement(
-        transformation(extent={{-116,-30},{-96,-10}}),
-                                                    iconTransformation(extent={{-116,
-            -30},{-96,-10}})));
+
+  Modelica.Blocks.Interfaces.RealInput T if use_T_in
+    "Input for boundary temperature"                 annotation (Placement(
+        transformation(extent={{-120,10},{-100,30}}),iconTransformation(extent={{-120,10},
+            {-100,30}})));
+  Modelica.Blocks.Interfaces.RealInput Q_flow if use_Q_in
+    "Input for boundary heat flow rate entering the wall" annotation (Placement(
+        transformation(extent={{-120,-30},{-100,-10}}),
+                                                    iconTransformation(extent={{-120,
+            -30},{-100,-10}})));
+  Modelica.Blocks.Math.Product proPreT if  use_T_in "Product for linearisation"
+    annotation (Placement(transformation(extent={{-86,26},{-74,14}})));
+  Modelica.Blocks.Math.Product proPreQ if use_Q_in "Product for linearisation"
+    annotation (Placement(transformation(extent={{-86,-14},{-74,-26}})));
+  Modelica.Blocks.Sources.Constant TConst(k=T_fixed) if use_T_fixed
+    "Constant block for temperature"
+    annotation (Placement(transformation(extent={{-110,32},{-100,42}})));
+
 protected
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/8)
     "Wall U-value";
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow(
-     final alpha=0) if use_Q_in
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preFlo(final alpha=0) if
+                       use_Q_in "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature if use_T_in
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem if
+                             use_T_in "Prescribed temperature"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
-
-public
-  Modelica.Blocks.Math.Product proPreT if  use_T_in
-    annotation (Placement(transformation(extent={{-88,28},{-78,18}})));
-  Modelica.Blocks.Math.Product proPreQ if use_Q_in
-    annotation (Placement(transformation(extent={{-88,-12},{-78,-22}})));
 equation
+  assert(sum({if x then 1 else 0 for x in {use_T_in, use_Q_in, use_T_fixed}})<2,
+    "Only one of the following options can be used simultaneously: use_T_in, use_Q_in, use_T_fixed");
   if use_Q_in then
-  connect(Q_flow, proPreQ.u1)
-    annotation (Line(points={{-106,-20},{-78,-20},{-89,-20}},
+    connect(Q_flow, proPreQ.u1)
+    annotation (Line(points={{-110,-20},{-100,-20},{-100,-23.6},{-87.2,-23.6}},
                                                     color={0,0,127}));
-  connect(proPreQ.y, prescribedHeatFlow.Q_flow) annotation (Line(points={{-77.5,
-          -17},{-69.75,-17},{-69.75,-20},{-60,-20}}, color={0,0,127}));
-  connect(proPreQ.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-89,-14},
-            {-92,-14},{-92,40},{56.09,40},{56.09,19.91}},   color={0,0,127}),
+    connect(proPreQ.y, preFlo.Q_flow)
+      annotation (Line(points={{-73.4,-20},{-60,-20}}, color={0,0,127}));
+    connect(proPreQ.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-87.2,
+            -16.4},{-92,-16.4},{-92,40},{56.09,40},{56.09,19.91}},
+                                                            color={0,0,127}),
       Text(
       string="%second",
       index=1,
@@ -52,23 +66,27 @@ equation
   end if;
 
   if use_T_in then
-      connect(proPreT.y, prescribedTemperature.T) annotation (Line(points={{-77.5,23},
-          {-68.75,23},{-68.75,20},{-62,20}}, color={0,0,127}));
-  connect(proPreT.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-89,26},
-            {-92,26},{-92,40},{56.09,40},{56.09,19.91}},
+    connect(proPreT.y, preTem.T)
+      annotation (Line(points={{-73.4,20},{-62,20}}, color={0,0,127}));
+    connect(proPreT.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-87.2,
+            23.6},{-92,23.6},{-92,40},{56.09,40},{56.09,19.91}},
                                                       color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
     connect(T, proPreT.u1)
-    annotation (Line(points={{-106,20},{-106,20},{-89,20}},color={0,0,127}));
+    annotation (Line(points={{-110,20},{-100,20},{-100,16.4},{-87.2,16.4}},
+                                                           color={0,0,127}));
   end if;
 
-  connect(layMul.port_b, prescribedHeatFlow.port) annotation (Line(points={{-10,0},
-          {-10,0},{-20,0},{-20,-20},{-40,-20}},  color={191,0,0}));
-  connect(prescribedTemperature.port, layMul.port_b) annotation (Line(points={{-40,20},
-          {-20,20},{-20,0},{-10,0}},     color={191,0,0}));
+  connect(layMul.port_b, preFlo.port) annotation (Line(points={{-10,0},{-10,0},{
+          -20,0},{-20,-20},{-40,-20}}, color={191,0,0}));
+  connect(preTem.port, layMul.port_b) annotation (Line(points={{-40,20},{-20,20},
+          {-20,0},{-10,0}}, color={191,0,0}));
 
+  connect(TConst.y, proPreT.u1) annotation (Line(points={{-99.5,37},{-96,37},{-96,
+          16.4},{-87.2,16.4}},
+                         color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),
@@ -128,11 +146,19 @@ Instead a prescribed temperature or heat flow rate may be set.
 <p>
 Parameters <code>use_T_in</code> and <code>use_Q_in</code> may be used
 to enable an input for a prescribed boundary condition temperature or heat flow rate.
-It is not allowed to enabled both. 
-If both are disabled then an adiabatic boundary (<code>Q_flow=0</code>) is assumed.
+Alternatively, parameters <code>use_T_fixed</code> and <code>T_fixed</code> can be used
+to specify a fixed boundary condition temperature.
+It is not allowed to enabled multiple of these three options. 
+If all are disabled then an adiabatic boundary (<code>Q_flow=0</code>) is used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 2, 2018 by Filip Jorissen:<br/>
+Added option for setting fixed boundary condition temperature.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/961\">
+#961</a>. 
+</li>
 <li>
 August 10, 2018 by Damien Picard:<br/>
 Set nWin final to 1 as this should only be used for windows.
