@@ -79,7 +79,7 @@ model TwoWayTRV "Two way thermostatic radiator valve"
         (TSet - T)/P,
         0,
         1,
-        0.1))        "Control signal"
+        0.001))        "Control signal"
     annotation (Placement(transformation(extent={{-46,36},{-8,54}})));
   Modelica.Blocks.Interfaces.RealOutput y "Valve set point"
     annotation (Placement(transformation(extent={{40,60},{60,80}}),
