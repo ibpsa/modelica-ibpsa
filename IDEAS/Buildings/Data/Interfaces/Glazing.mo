@@ -50,7 +50,7 @@ record Glazing
   </p>
   <p>
 Furthermore, it is important that the <code>epsLw_b</code>
-OR <code>epsLw_a</code> fields of the glazing layers are adjusted
+or <code>epsLw_a</code> fields of the glazing layers are adjusted
 to reflect the effect of the glazing coating, assuming it exists.
 This makes the difference of a U value of about 3 W/mK or 1 W/mK for double glazing!
 See <a href=\"modelica://IDEAS.Buildings.Data.Glazing.Ins2Ar\">IDEAS.Buildings.Data.Glazing.Ins2Ar</a>
