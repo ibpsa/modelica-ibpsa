@@ -16,11 +16,11 @@ model TwinHouseInfoManager
     radSol(each rho=0.23),
     lat=0.83555892609977,
     lon=0.20469221467389,
-    final filNam=filNam2);
+    final filNam=filPat);
   parameter Integer exp = 1 "Experiment number: 1 or 2";
   parameter Integer bui = 1 "Building number 1 (N2), 2 (O5)";
   final parameter String filNam3 = (if exp == 1 and bui == 1 then "validationdataN2Exp1.txt" elseif exp==2 and bui == 1 then "validationdataExp2.txt" else "validationdataO5Exp1.txt");
-  final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Inputs/")    annotation(Evaluate=true);
+  final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/weatherdata/")    annotation(Evaluate=true);
 
   Modelica.Blocks.Sources.CombiTimeTable inputSolTTH(
     tableOnFile=true,
@@ -44,17 +44,16 @@ equation
   connect(weaDat.HDirNor_in, radCon.HDirNor);
   connect(weaDat.HDifHor_in, radCon.HDifHor);
 
-  connect(radCon.solHouAng, hour.y) annotation (Line(points={{-30.4,-78.6},{-44,
-          -78.6},{-44,24},{-90,24},{-90,44},{-103,44}},
-                                                 color={0,0,127}));
-  connect(radCon.decAng, dec.y) annotation (Line(points={{-30.4,-76},{-42,-76},{
-          -42,22},{-92,22},{-92,32},{-103,32}}, color={0,0,127}));
   connect(inputSolTTH.y[4], radCon.HEast) annotation (Line(points={{-79,-30},{-36,
           -30},{-36,-64},{-30.4,-64}}, color={0,0,127}));
   connect(inputSolTTH.y[5], radCon.HSouth) annotation (Line(points={{-79,-30},{
           -38,-30},{-38,-68},{-30.4,-68}}, color={0,0,127}));
   connect(inputSolTTH.y[6], radCon.HWest) annotation (Line(points={{-79,-30},{-40,
           -30},{-40,-72},{-30.4,-72}}, color={0,0,127}));
+  connect(radCon.decAng, solDec.y) annotation (Line(points={{-30.4,-76},{-42,
+          -76},{-42,56},{-77.6,56}}, color={0,0,127}));
+  connect(radCon.solHouAng, solHouAng.y) annotation (Line(points={{-30.4,-78.6},
+          {-44,-78.6},{-44,70},{-77.6,70}}, color={0,0,127}));
   annotation (
       defaultComponentName="sim",
     defaultComponentPrefixes="inner",

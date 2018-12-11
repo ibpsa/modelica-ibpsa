@@ -3,6 +3,8 @@ model ElectricHeating_Twinhouse_alt
   "Electric heating Twinhouse| alternative temperature or heat input"
 
   extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
+    P={QHeaSys/COP},
+    QHeaSys=sum(IDEAL_heating_rad.Q_flow)+sum(IDEAL_heating_con.Q_flow),
     nLoads=1,nZones=7,nEmbPorts=0);
 
   parameter Integer exp = 1 "Experiment number: 1 or 2";
@@ -26,10 +28,6 @@ initial equation
             (exp==2 and bui==2), "Combination of exp=2 and bui=2 does not exist");
 
 equation
-
-  P[1] = QHeaSys/COP;
-  Q[1] = 0;
-  QHeaSys=sum(IDEAL_heating_rad.Q_flow)+sum(IDEAL_heating_con.Q_flow);
   Qhea = IDEAL_heating_rad.Q_flow+IDEAL_heating_con.Q_flow;
   for i in 1:nZones loop
   IDEAL_heating_rad[i].Q_flow =frad*min(heaSche.y[i], Q_design[i]);

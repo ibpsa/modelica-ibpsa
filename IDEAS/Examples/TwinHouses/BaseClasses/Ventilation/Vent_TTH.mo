@@ -53,8 +53,6 @@ model Vent_TTH
     each m_flow=0)
     annotation (Placement(transformation(extent={{-124,-90},{-144,-70}})));
 equation
-  P[1:nLoads_min] = zeros(nLoads_min);
-  Q[1:nLoads_min] = zeros(nLoads_min);
   connect(port_b[1], source[1].ports[1]);
 
   connect(port_a[2], spl.port_1) annotation (Line(points={{-200,14.2857},{-172,
@@ -71,8 +69,8 @@ equation
           57},{-142,57}},           color={0,0,0}));
   connect(measuredInput.y[2], massflowInput.u) annotation (Line(points={{13.3,-57},
           {0,-57},{0,-38},{-22,-38},{-42.4,-38}}, color={0,0,127}));
-  connect(source[1].m_flow_in, massflowInput.y) annotation (Line(points={{-80,-38},
-          {-70,-38},{-60.8,-38}},             color={0,0,127}));
+  connect(source[1].m_flow_in, massflowInput.y) annotation (Line(points={{-78,-38},
+          {-78,-38},{-60.8,-38}},             color={0,0,127}));
   connect(measuredInput.y[1], from_degC.u) annotation (Line(points={{13.3,-57},{
           0,-57},{0,-68},{-36.4,-68}}, color={0,0,127}));
   connect(from_degC.y, source[1].T_in) annotation (Line(points={{-54.8,-68},{-70,

@@ -15,8 +15,7 @@ partial model PartialTwinHouse
     bui=bui) "Sim info manager"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
-   replaceable IDEAS.Examples.TwinHouses.BaseClasses.Structures.TwinhouseN2 struct(T_start={303.15,
-        303.15,303.15,303.15,303.15,303.15,303.15})
+   replaceable IDEAS.Examples.TwinHouses.BaseClasses.Structures.TwinhouseN2 struct(T_start=303.15)
    constrainedby IDEAS.Examples.TwinHouses.Interfaces.PartialTTHStructure(
     final exp=exp,
     final bui=bui)
@@ -27,7 +26,6 @@ partial model PartialTwinHouse
    constrainedby IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
     nEmbPorts=0,
     nZones=struct.nZones,
-    InInterface=true,
     nLoads=0,
     Crad={1000,1000,1000,1000,1100,1000,100},
     Kemission={100,100,100,100,110,100,100},
@@ -43,7 +41,7 @@ partial model PartialTwinHouse
     final bui=bui)                              "Ventilation model"
     annotation (Placement(transformation(extent={{0,20},{40,40}})));
 protected
-  Modelica.Blocks.Sources.RealExpression[8] noInput(each y=0) "No occupants"
+  Modelica.Blocks.Sources.RealExpression[7] noInput(each y=0) "No occupants"
     annotation (Placement(transformation(extent={{-30,-46},{-10,-26}})));
 
 public
@@ -76,12 +74,10 @@ equation
                                            color={0,0,0}));
   connect(struct.port_a, vent.port_b) annotation (Line(points={{-25,10},
           {-24,10},{-24,28},{0,28}},              color={0,0,0}));
-          for i in 1:struct.nZones loop
-          end for;
-  connect(noInput[1:7].y, heaSys.TSet) annotation (Line(points={{-9,-36},{20,-36},
+
+  connect(noInput.y, heaSys.TSet) annotation (Line(points={{-9,-36},{20,-36},
           {20,-10.2}},               color={0,0,127}));
-  connect(noInput[8].y, heaSys.mDHW60C) annotation (Line(points={{-9,-36},{26,
-          -36},{26,-10.2}}, color={0,0,127}));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
