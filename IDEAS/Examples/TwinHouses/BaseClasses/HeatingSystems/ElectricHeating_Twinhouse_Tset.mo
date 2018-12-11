@@ -7,6 +7,8 @@ model ElectricHeating_Twinhouse_Tset
 
 
   extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
+    P={QHeaSys/COP},
+    QHeaSys=sum(IDEAL_heating_rad.Q_flow)+sum(IDEAL_heating_con.Q_flow),
     nLoads=1,nZones=7,nEmbPorts=0);
 
   parameter Integer exp = 1 "Experiment number: 1 or 2";
@@ -21,10 +23,11 @@ model ElectricHeating_Twinhouse_Tset
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nZones] IDEAL_heating_rad
     annotation (Placement(transformation(extent={{6,-44},{-14,-24}})));
-  Modelica.Blocks.Math.Add[nZones] add(k1=+100000, k2=-100000)
+  Modelica.Blocks.Math.Add[nZones] add(
+    each k1=+100000,
+    each k2=-100000)
     annotation (Placement(transformation(extent={{80,12},{56,36}})));
-  Modelica.Blocks.Sources.CombiTimeTable
-                                       measuredInput(
+  Modelica.Blocks.Sources.CombiTimeTable measuredInput(
     tableOnFile=true,
     tableName="data",
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
@@ -34,9 +37,9 @@ model ElectricHeating_Twinhouse_Tset
     annotation (Placement(transformation(extent={{-56,50},{-36,70}})));
   Modelica.Blocks.Math.UnitConversions.From_degC[7] TdegC
     annotation (Placement(transformation(extent={{16,56},{36,76}})));
-  Modelica.Blocks.Math.Gain[7] fradGain(k=frad)
+  Modelica.Blocks.Math.Gain[7] fradGain(each k=frad)
     annotation (Placement(transformation(extent={{38,-30},{26,-18}})));
-  Modelica.Blocks.Math.Gain[7] fconGain(k=1 - frad)
+  Modelica.Blocks.Math.Gain[7] fconGain(each k=1 - frad)
     annotation (Placement(transformation(extent={{36,-2},{24,10}})));
 initial equation
   assert(exp==1 or exp==2, "Only experiment numbers 1 or 2 are supported.");
@@ -44,10 +47,6 @@ initial equation
             (exp==2 and bui==2), "Combination of exp=2 and bui=2 does not exist");
 
 equation
-
-  P[1] = QHeaSys/COP;
-  Q[1] = 0;
-  QHeaSys=sum(IDEAL_heating_rad.Q_flow)+sum(IDEAL_heating_con.Q_flow);
   Qhea = IDEAL_heating_rad.Q_flow+IDEAL_heating_con.Q_flow;
 
 
