@@ -48,5 +48,21 @@ record Glazing
   <code>SwAbsDif</code> in a similar fashion. Parameter <code>g_value</code> 
   does not need to be filled in. 
   </p>
+  <p>
+Furthermore, it is important that the <code>epsLw_b</code>
+or <code>epsLw_a</code> fields of the glazing layers are adjusted
+to reflect the effect of the glazing coating, assuming it exists.
+This makes the difference of a U value of about 3 W/mK or 1 W/mK for double glazing!
+See <a href=\"modelica://IDEAS.Buildings.Data.Glazing.Ins2Ar\">IDEAS.Buildings.Data.Glazing.Ins2Ar</a>
+for an example with double glazing that has 1 glazed sheet with a coating on the inside.
+</p> 
+</html>", revisions="<html>
+<ul>
+<li>
+November 27, 2018, by Filip Jorissen:<br/>
+Revised documentation for issue
+<a href=\"https://github.com/open-ideas/IDEAS/issues/959\">#959</a>.
+</li>
+</ul>
 </html>"));
 end Glazing;
