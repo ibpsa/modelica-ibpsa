@@ -2,7 +2,7 @@ within IDEAS.Examples.TwinHouses.BaseClasses.HeatingSystems;
 model ElectricHeating_Twinhouse_Tset
   "Electric heating Twinhouse| measured temperature as setpoint"
 
-  final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Inputs/");
+  final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/measurements/");
   final parameter String filename = if exp==1 and bui== 1 then "MeasurementTwinHouseN2Exp1.txt" elseif exp==2 and bui==1 then "MeasurementTwinHouseN2Exp2.txt" else "MeasurementTwinHouseO5.txt";
 
 

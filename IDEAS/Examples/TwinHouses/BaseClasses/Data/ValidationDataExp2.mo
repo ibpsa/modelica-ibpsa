@@ -5,14 +5,14 @@ final parameter Integer exp = 2 "Experiment number: 1 or 2";
 parameter Integer bui = 1 "Building number 1 (N2), 2 (O5)";
 
 final parameter String filNam = "validationdataExp2.txt";
-final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Inputs/")    annotation(Evaluate=true);
+final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/measurements/")    annotation(Evaluate=true);
 Modelica.Blocks.Sources.CombiTimeTable data(
 tableOnFile=true,
-tableName="data",
 columns=2:68,
 smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative2,
 extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
-final fileName=dirPath+filNam)
+final fileName=dirPath+filNam,
+    tableName="data")
 "input for solGloHor and solDifHor measured at TTH"
 annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 

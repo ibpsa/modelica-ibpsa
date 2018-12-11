@@ -27,7 +27,7 @@ model TwinHouseInfoManager
     tableName="data",
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative2,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
-    final fileName=dirPath+filNam3,
+    final fileName=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/measurements/")+filNam3,
     columns= (if exp== 1 then 37:42 else {55,56,58,59,60,61}))
     "input for solGloHor and solDifHor measured at TTH"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));

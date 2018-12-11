@@ -7,16 +7,16 @@ model Vent_TTH
   parameter Integer exp = 1 "Experiment number: 1 or 2";
   parameter Integer bui = 1 "Building number 1 (N2), 2 (O5)";
 
-  final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Inputs/")
+  final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/measurements/")
     annotation(Evaluate=true);
 
   Modelica.Blocks.Sources.CombiTimeTable measuredInput(
     tableOnFile=true,
-    tableName="data",
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     columns={4,5},
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
-    fileName=dirPath+filename)
+    fileName=dirPath+filename,
+    tableName="data")
     annotation (Placement(transformation(extent={{28,-64},{14,-50}})));
 
   IDEAS.Fluid.Sources.MassFlowSource_T source[1](
@@ -29,13 +29,13 @@ model Vent_TTH
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     tau=300,
     from_dp=false,
-    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
-    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     m_flow_nominal={120,-60,-60}*1.204/3600,
     dp_nominal={50,50,50},
     linearized=true,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving)
     annotation (Placement(transformation(extent={{-144,12},{-124,32}})));
   IDEAS.Fluid.Sources.FixedBoundary bou[5](each final nPorts=1,  redeclare
       package Medium =
@@ -48,19 +48,16 @@ model Vent_TTH
   IDEAS.Fluid.Sources.MassFlowSource_T source1[3](
     redeclare package Medium = Medium,
      each final nPorts=1,
-    each use_m_flow_in=false,
-    each use_T_in=false,
     each m_flow=0)
-    annotation (Placement(transformation(extent={{-124,-90},{-144,-70}})));
+    annotation (Placement(transformation(extent={{-120,-92},{-140,-72}})));
 equation
   connect(port_b[1], source[1].ports[1]);
 
   connect(port_a[2], spl.port_1) annotation (Line(points={{-200,14.2857},{-172,
           14.2857},{-172,22},{-144,22}},
                                 color={0,0,0}));
-  connect(spl.port_3, port_b[3]) annotation (Line(points={{-134,12},{-134,12},{
-          -134,-22.8571},{-200,-22.8571}},
-                                      color={0,127,255}));
+  connect(spl.port_3, port_b[3]) annotation (Line(points={{-134,12},{-134,
+          -22.8571},{-200,-22.8571}}, color={0,127,255}));
   connect(spl.port_2, port_b[4]) annotation (Line(points={{-124,22},{-110,
           22},{-110,-20},{-200,-20}}, color={0,127,255}));
   connect(port_a[3], bou[1].ports[1]) annotation (Line(points={{-200,17.1429},{
@@ -78,9 +75,8 @@ equation
   connect(port_a[5:7], bou[3:5].ports[1]) annotation (Line(points={{-200,
           28.5714},{-190,28.5714},{-190,48},{-190,57},{-142,57}},
                                                   color={0,0,0}));
-  connect(source1[1:3].ports[1], port_b[5:7]) annotation (Line(points={{-144,
-          -80},{-152,-80},{-152,-82},{-200,-82},{-200,-11.4286}},
-                                                             color={0,127,255}));
+  connect(source1[1:3].ports[1], port_b[5:7]) annotation (Line(points={{-140,
+          -82},{-200,-82},{-200,-11.4286}},                  color={0,127,255}));
   connect(port_b[2], port_a[1]) annotation (Line(points={{-200,-25.7143},{-200,
           11.4286}},                 color={0,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

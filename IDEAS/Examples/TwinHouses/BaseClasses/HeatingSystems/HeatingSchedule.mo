@@ -2,7 +2,7 @@ within IDEAS.Examples.TwinHouses.BaseClasses.HeatingSystems;
 model HeatingSchedule "Heating schedule for twin house experiments"
   parameter Integer exp = 1 "Experiment number: 1 or 2";
   parameter Integer bui = 1 "Building number 1 (N2), 2 (O5)";
-  final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Inputs/")
+  final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/measurements/")
     annotation(Evaluate=true);
 
   Modelica.Blocks.Interfaces.RealInput[7] TSensor

@@ -5,7 +5,7 @@ partial model PartialTwinHouse
   parameter Integer exp = 1 "Experiment number: 1 or 2";
   parameter Integer bui = 1 "Building number 1 (N2), 2 (O5)";
   parameter Boolean loadVal = false annotation (Evaluate=true);
-  final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Inputs/")
+  final parameter String dirPath = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Inputs/measurements/")
     annotation(Evaluate=true);
   final parameter String filNam=if exp == 1  then "WeatherTwinHouseExp1.txt" else "WeatherTwinHouseExp2.txt"
     annotation(Evaluate=true);
