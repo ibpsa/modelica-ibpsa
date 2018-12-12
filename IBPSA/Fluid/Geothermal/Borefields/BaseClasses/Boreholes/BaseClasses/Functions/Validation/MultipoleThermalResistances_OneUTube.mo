@@ -16,7 +16,7 @@ model MultipoleThermalResistances_OneUTube
     "Thermal conductivity of grouting material";
   parameter Modelica.SIunits.ThermalConductivity kSoi=2.5
     "Thermal conductivity of soil material";
-  parameter Real[nPip] RFluPip(unit="(m.K)/W")=
+  parameter Real[nPip] RFluPip(each unit="(m.K)/W")=
     fill(1.2/(2*Modelica.Constants.pi*kFil), nPip)
     "Fluid to pipe wall thermal resistances";
   parameter Modelica.SIunits.Temperature TBor=0
