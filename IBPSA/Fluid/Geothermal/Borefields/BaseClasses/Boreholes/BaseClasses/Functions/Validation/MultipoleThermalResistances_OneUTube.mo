@@ -22,16 +22,16 @@ model MultipoleThermalResistances_OneUTube
   parameter Modelica.SIunits.Temperature TBor=0
     "Average borehole wall temperature";
 
-  parameter Real[nPip,nPip] RDelta_Ref=
+  parameter Real[nPip,nPip] RDelta_Ref(each unit="(m.K)/W")=
     {{1/3.680, 1/0.242},{1/0.242, 1/3.724}}
     "Reference delta-circuit thermal resistances";
-  parameter Real[nPip,nPip] R_Ref=
+  parameter Real[nPip,nPip] R_Ref(each unit="(m.K)/W")=
     {{0.25592, 0.01561},{0.01561, 0.25311}}
     "Reference internal thermal resistances";
 
-  Real[nPip,nPip] RDelta(unit="(m.K)/W")
+  Real[nPip,nPip] RDelta(each unit="(m.K)/W")
     "Delta-circuit thermal resistances";
-  Real[nPip,nPip] R(unit="(m.K)/W")
+  Real[nPip,nPip] R(each unit="(m.K)/W")
     "Internal thermal resistances";
 
 equation
