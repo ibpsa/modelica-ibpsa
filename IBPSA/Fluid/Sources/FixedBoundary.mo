@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Sources;
 model FixedBoundary "Boundary source component"
-  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource;
+  extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_p=true "select p or d"
     annotation (Evaluate = true,
                 Dialog(group = "Boundary pressure or Boundary density"));
