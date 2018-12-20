@@ -24,7 +24,7 @@ block Humidifier_u
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 equation
   connect(com.u, u) annotation (Line(
-      points={{-11,6},{-40,6},{-40,60},{-120,60}},
+      points={{-12,6},{-40,6},{-40,60},{-120,60}},
       color={0,0,127},
       smooth=Smooth.None));
 
