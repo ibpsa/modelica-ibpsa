@@ -5,7 +5,7 @@ model OneOpenDoor "Model with one open and one closed door"
   package Medium = Modelica.Media.Air.SimpleAir;
 
   IBPSA.Airflow.Multizone.DoorDiscretizedOpen dooOpe(redeclare package Medium
-        = Medium) "Discretized door"
+      = Medium) "Discretized door"
     annotation (Placement(transformation(extent={{10,-8},{30,12}})));
 
   IBPSA.Fluid.MixingVolumes.MixingVolume volA(
