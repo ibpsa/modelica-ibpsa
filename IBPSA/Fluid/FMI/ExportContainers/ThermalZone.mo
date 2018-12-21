@@ -10,7 +10,7 @@ partial block ThermalZone
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Integer nPorts(min=2) "Number of fluid ports";
 

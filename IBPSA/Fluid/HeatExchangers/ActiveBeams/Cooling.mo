@@ -10,7 +10,7 @@ model Cooling "Active beam unit for cooling"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
   replaceable package MediumAir =
     Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
       annotation (choices(
@@ -20,7 +20,7 @@ model Cooling "Active beam unit for cooling"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
 
   replaceable parameter Data.Generic perCoo "Performance data for cooling"
     annotation (

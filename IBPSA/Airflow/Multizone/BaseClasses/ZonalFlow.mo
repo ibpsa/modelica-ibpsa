@@ -16,7 +16,7 @@ partial model ZonalFlow "Flow across zonal boundaries of a room"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
 
 equation
   // Energy balance (no storage, no heat loss/gain)

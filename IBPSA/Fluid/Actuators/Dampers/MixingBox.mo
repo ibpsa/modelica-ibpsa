@@ -11,7 +11,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
   import Modelica.Constants;
 
   parameter Boolean allowFlowReversal = true

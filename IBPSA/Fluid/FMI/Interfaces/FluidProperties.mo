@@ -9,7 +9,7 @@ connector FluidProperties "Type definition for fluid properties"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
 
 
   Medium.Temperature T "Temperature";

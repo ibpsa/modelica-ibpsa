@@ -11,7 +11,7 @@ model Sink_T
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Boolean use_p_in = true
     "= true to use a pressure from connector, false to output Medium.p_default"

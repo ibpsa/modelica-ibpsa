@@ -11,7 +11,7 @@ partial block ThermalZones
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Integer nZon(min=1)
     "Number of thermal zones in this container";

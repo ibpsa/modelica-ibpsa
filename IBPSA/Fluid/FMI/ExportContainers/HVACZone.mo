@@ -11,7 +11,7 @@ partial block HVACZone
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
 
   // Set allowFlowReversal = true to get access to the states of the zone.
   Interfaces.Outlet fluPor[size(hvacAda.fluPor, 1)](

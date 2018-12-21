@@ -10,7 +10,7 @@ partial model PartialTwoPortVector "Partial component with two ports, one of whi
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
   parameter Integer nPorts "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Boolean allowFlowReversal=true
