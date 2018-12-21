@@ -166,10 +166,14 @@ equation
    No further warnings will be written for this energy balance.",
    level=AssertionLevel.warning);
      // During the initialization, this block is executed.
-     // Hence we set checkHeatFlowRate to true if there was no violation,
-     // or false otherwise.
+     // Hence we set checkHeatFlowRate to true if executed during initialization.
      // At all other invocations, this test results in false.
-     checkHeatFlowRate = abs(Q_flow) < QMaxVio_flow;
+       checkHeatFlowRate = initial();
+    end when;
+  else
+    QMaxVio_flow = 0;
+    when initial() then
+      checkHeatFlowRate = false;
     end when;
   end if;
 
