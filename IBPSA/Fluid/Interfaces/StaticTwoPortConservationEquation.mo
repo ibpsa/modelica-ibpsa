@@ -104,6 +104,11 @@ protected
     "Specific heat capacity, used to verify energy conservation";
   constant Modelica.SIunits.TemperatureDifference dTMax(min=1) = 200
     "Maximum temperature difference across the StaticTwoPortConservationEquation";
+  Modelica.SIunits.HeatFlowRate QMaxVio_flow
+   "Maximum magnitude of heat flow rate if flow reverse is disabled, if exceeded a warning will be written";
+  Boolean checkHeatFlowRate(start=true, fixed=true)
+   "Flag to disable check of heat flow rate after first assertion is written";
+
   // Conditional connectors
   Modelica.Blocks.Interfaces.RealInput mWat_flow_internal(unit="kg/s")
     "Needed to connect to conditional connector";
@@ -145,16 +150,27 @@ equation
   end if;
 
   if prescribedHeatFlowRate then
-    assert(noEvent( abs(Q_flow) < dTMax*cp_default*max(m_flow_small/1E3, abs(m_flow))),
+    QMaxVio_flow = dTMax*cp_default*max(m_flow_small/1E3, abs(m_flow));
+    // Fire the when clause during initialization. Otherwise, if the model starts
+    // with a violation, no warning would be written.
+    when {initial(), (pre(checkHeatFlowRate) and abs(Q_flow) >= QMaxVio_flow)} then
+      assert(noEvent( abs(Q_flow) < QMaxVio_flow),
    "In " + getInstanceName() + ":
-   The heat flow rate equals " + String(Q_flow) +
-   " W and the mass flow rate equals " + String(m_flow) + " kg/s,
-   which results in a temperature difference " +
-   String(abs(Q_flow)/ (dTMax*cp_default*max(m_flow_small/1E3, abs(m_flow)))) +
-   " K > dTMax=" +String(dTMax) + " K.
-   This may indicate that energy is not conserved for small mass flow rates.
-   The implementation may require prescribedHeatFlowRate = false.",
+   Heat flow rate Q_flow =" + String(Q_flow) +
+   " W and mass flow rate m_flow = " + String(m_flow) + " kg/s.
+   This yields a temperature difference of " +
+   String(abs(Q_flow)/ QMaxVio_flow * dTMax) +
+   " K > dTMax = " +String(dTMax) + " K.
+   This indicates that energy is not conserved for small mass flow rates.
+   The implementation may require prescribedHeatFlowRate = false.
+   No further warnings will be written for this energy balance.",
    level=AssertionLevel.warning);
+     // During the initialization, this block is executed.
+     // Hence we set checkHeatFlowRate to true if there was no violation,
+     // or false otherwise.
+     // At all other invocations, this test results in false.
+     checkHeatFlowRate = abs(Q_flow) < QMaxVio_flow;
+    end when;
   end if;
 
   if allowFlowReversal then
@@ -341,7 +357,7 @@ IBPSA.Fluid.Interfaces.ConservationEquation</a>.
 revisions="<html>
 <ul>
 <li>
-October 27, 2018, by Michael Wetter:<br/>
+December 21, 2018, by Michael Wetter:<br/>
 Changed energy conservation assert to issue a warning rather than an error.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1048\">#1048</a>.
 </li>
