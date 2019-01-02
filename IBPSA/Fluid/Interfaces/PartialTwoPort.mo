@@ -9,7 +9,7 @@ partial model PartialTwoPort "Partial component with two ports"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
               property_T=293.15,
               X_a=0.40)
-              "Propylene glycol water")));
+              "Propylene glycol water, 40% mass fraction")));
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"

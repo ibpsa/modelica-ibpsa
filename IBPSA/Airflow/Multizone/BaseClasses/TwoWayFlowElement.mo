@@ -18,7 +18,7 @@ partial model TwoWayFlowElement "Flow resistance that uses the power law"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Modelica.SIunits.Velocity vZer=0.001
     "Minimum velocity to prevent zero flow. Recommended: 0.001";

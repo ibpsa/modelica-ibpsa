@@ -11,7 +11,7 @@ partial model PartialFourPortParallel
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
   replaceable package Medium2 =
     Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
       annotation (choices(
@@ -21,7 +21,7 @@ partial model PartialFourPortParallel
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Boolean allowFlowReversal1 = true
     "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"

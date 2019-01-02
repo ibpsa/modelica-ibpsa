@@ -11,7 +11,7 @@ block FlowSplitter_u "Model of a flow splitter that can be exported as an FMU"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal[nout](
     each min=0) "Nominal mass flow rate for each outlet";

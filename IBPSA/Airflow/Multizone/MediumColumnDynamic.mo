@@ -12,7 +12,7 @@ model MediumColumnDynamic
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
 

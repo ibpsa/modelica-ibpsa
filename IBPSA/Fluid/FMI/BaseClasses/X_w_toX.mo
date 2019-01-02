@@ -11,7 +11,7 @@ block X_w_toX "Conversion from Xi to X"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
   Modelica.Blocks.Interfaces.RealInput X_w(final unit="kg/kg") if
         Medium.nXi > 0 "Water mass fraction per total air mass"
      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

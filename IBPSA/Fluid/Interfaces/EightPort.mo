@@ -10,7 +10,7 @@ partial model EightPort "Partial model with eight ports"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
   replaceable package Medium2 =
     Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
       annotation (choices(
@@ -20,7 +20,7 @@ partial model EightPort "Partial model with eight ports"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
   replaceable package Medium3 =
     Modelica.Media.Interfaces.PartialMedium "Medium 3 in the component"
       annotation (choices(
@@ -30,7 +30,7 @@ partial model EightPort "Partial model with eight ports"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
   replaceable package Medium4 =
     Modelica.Media.Interfaces.PartialMedium "Medium 4 in the component"
       annotation (choices(
@@ -40,7 +40,7 @@ partial model EightPort "Partial model with eight ports"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Boolean allowFlowReversal1 = true
     "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"

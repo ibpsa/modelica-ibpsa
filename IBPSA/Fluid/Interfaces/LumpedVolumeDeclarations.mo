@@ -9,7 +9,7 @@ record LumpedVolumeDeclarations "Declarations for lumped volumes"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
               property_T=293.15,
               X_a=0.40)
-              "Propylene glycol water")));
+              "Propylene glycol water, 40% mass fraction")));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial

@@ -11,7 +11,7 @@ partial model PartialSource
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
               property_T=293.15,
               X_a=0.40)
-              "Propylene glycol water")));
+              "Propylene glycol water, 40% mass fraction")));
 
   parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
   parameter Boolean verifyInputs = false

@@ -11,7 +11,7 @@ block hOut_toT "Conversion from h to T"
             IBPSA.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
-          "Propylene glycol water")));
+          "Propylene glycol water, 40% mass fraction")));
   Modelica.Blocks.Interfaces.RealInput h(final unit="J/kg") "Specific enthalpy"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
