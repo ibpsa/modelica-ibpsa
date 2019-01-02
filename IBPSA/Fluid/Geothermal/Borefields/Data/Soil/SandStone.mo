@@ -19,9 +19,9 @@ revisions="<html>
 <ul>
 <li>
 December 21, 2018, by Jianjun Hu:<br/>
-Changed the default properties based on Table 4 in 
+Changed the default properties based on Table 4 in the
 <a href=\"http://www.15000inc.com/wp/wp-content/uploads/Geothermal-Heat-Pump-Design-Manual.pdf\">
-design manual</a>.
+McQuay geothermal heat pump design manual</a>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1062\">#1062</a>.
 </li>
 
