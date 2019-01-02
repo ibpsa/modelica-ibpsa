@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Sources.BaseClasses;
 partial model Outside
   "Boundary that takes weather data, and optionally trace substances, as an input"
-  extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_volume;
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
     annotation(Evaluate=true, HideResult=true);
