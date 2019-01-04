@@ -37,6 +37,11 @@ with respect to the mass flow rate.
 revisions="<html>
 <ul>
 <li>
+January 4, 2019, by Michael Wetter:<br/>
+Set `Inline=false`.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1070\">#1070</a>.
+</li>
+<li>
 May 1, 2017, by Filip Jorissen:<br/>
 Revised implementation such that
 <a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
