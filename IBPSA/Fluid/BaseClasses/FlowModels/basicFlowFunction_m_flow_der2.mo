@@ -30,7 +30,7 @@ algorithm
                + (4.5 - 2.5*m_flowNormSq)*m_flowNorm/m_flow_turbulent*m_flow_der^2);
 
  annotation (smoothOrder=0,
- Inline=true,
+ Inline=false,
 Documentation(info="<html>
 <p>
 Function that implements the second order derivative of

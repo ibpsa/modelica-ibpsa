@@ -30,7 +30,7 @@ algorithm
                      + (-3.375 + 3.125*dpNormSq)*dpNorm/dp_turbulent*dp_der^2);
 
  annotation (smoothOrder=0,
- Inline=true,
+ Inline=false,
 Documentation(info="<html>
 <p>
 Function that implements the second order derivative of
