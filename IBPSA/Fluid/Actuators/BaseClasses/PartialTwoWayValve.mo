@@ -2,9 +2,10 @@ within IBPSA.Fluid.Actuators.BaseClasses;
 partial model PartialTwoWayValve "Partial model for a two way valve"
 
   extends IBPSA.Fluid.BaseClasses.PartialResistance(
-       final dp_nominal=dpValve_nominal + dpFixed_nominal,
-       dp(nominal=6000),
-       final m_flow_turbulent = deltaM * abs(m_flow_nominal));
+    from_dp=true,
+    final dp_nominal=dpValve_nominal + dpFixed_nominal,
+    dp(nominal=6000),
+    final m_flow_turbulent = deltaM * abs(m_flow_nominal));
 
   extends IBPSA.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
@@ -101,6 +102,12 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 8, 2019, by Filip Jorissen:<br/>
+Changed default to <code>from_dp=true</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1073\">#1073</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
