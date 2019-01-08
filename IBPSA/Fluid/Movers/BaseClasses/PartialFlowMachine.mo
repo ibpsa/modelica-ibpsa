@@ -4,7 +4,7 @@ partial model PartialFlowMachine
   extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1);
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
-    m_flow_nominal(min=Modelica.Constants.small),
+    m_flow_nominal(final min=Modelica.Constants.small),
     show_T=false,
     port_a(
       h_outflow(start=h_outflow_start)),
@@ -343,8 +343,8 @@ protected
 
 initial equation
   // Check incorrect value of m_flow_nominal
-  assert(m_flow_nominal>Modelica.Constants.small, "In "+ getInstanceName()+
-  ": The value of parameter m_flow_nominal should be larger than " +
+  assert(m_flow_nominal >= Modelica.Constants.small, "In "+ getInstanceName()+
+  ": The value of parameter m_flow_nominal should be greater or equal than " +
   String(Modelica.Constants.small) + " but it equals " + String(m_flow_nominal));
   // The control signal is dp or m_flow but the user did not provide a pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
