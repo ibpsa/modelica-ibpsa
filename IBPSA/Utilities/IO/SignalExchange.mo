@@ -33,6 +33,7 @@ package SignalExchange
 
   model Read "Model that allows a signal to be read as an FMU output"
     extends Modelica.Blocks.Routing.RealPassThrough;
+    parameter String KPIs = "" "List of KPIs in comma-delimited list";
   protected
     parameter Boolean is_read = true "Protected parameter indicating signal read block";
     annotation (Icon(graphics={Rectangle(
