@@ -1332,10 +1332,10 @@ The atmospheric pressure,
 the ceiling height,
 </li>
 <li>
-the total sky cover pressure,
+the total sky cover,
 </li>
 <li>
-the opaque sky cover pressure,
+the opaque sky cover,
 </li>
 <li>
 the dry bulb temperature,
@@ -1565,6 +1565,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+September 20, 2018, by Michael Wetter:<br/>
+Corrected documentation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1022\">#1022</a>.
+</li>
 <li>
 December 4, 2017, by Michael Wetter:<br/>
 Removed function call to <code>getAbsolutePath</code>, as this causes in Dymola 2018FD01

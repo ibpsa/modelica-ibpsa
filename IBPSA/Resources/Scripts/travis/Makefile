@@ -5,6 +5,7 @@ ROOT = ../../../..
 
 test-documentation:
 	(cd $(ROOT)/IBPSA; ../bin/runUnitTests.py --validate-html-only)
+	(cd $(ROOT)/IBPSA/Resources/src/fluid/heatpumps/calibration/doc; make regressiontest)
 
 test-experiment-setup:
 	(cd $(ROOT)/IBPSA; ../bin/runUnitTests.py --validate-experiment-setup)
