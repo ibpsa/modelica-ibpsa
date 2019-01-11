@@ -17,7 +17,7 @@ model ThreeYears_usingTwoYearData
       StopTime=94608000,
       Interval=2678400,
       Tolerance=1e-006),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/DecemberToJanuary.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearData.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>This is a validation case for a a simulation extending over three years but using only two years of data with monthly values. </p>
