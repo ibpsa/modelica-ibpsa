@@ -516,6 +516,12 @@ The control model consists of dummy inputs.
 </html>", revisions="<html>
 <ul>
 <li>
+January 11, 2019 by Michael Wetter:<br/>
+Removed <code>each</code> statements.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1079\">#1079</a>.
+</li>
+<li>
 May 8, 2017, by Michael Wetter:<br/>
 Updated heater model.<br/>
 This is for
