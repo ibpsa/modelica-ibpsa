@@ -1,7 +1,8 @@
 within IBPSA.Fluid.Sources.BaseClasses;
 partial model Outside
   "Boundary that takes weather data, and optionally trace substances, as an input"
-  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_volume;
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource;
+
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
     annotation(Evaluate=true, HideResult=true);
@@ -21,6 +22,7 @@ partial model Outside
 protected
   final parameter Boolean singleSubstance = (Medium.nX == 1)
     "True if single substance medium";
+  Medium.BaseProperties medium "Medium in the source";
   IBPSA.Utilities.Psychrometrics.X_pTphi x_pTphi if
        not singleSubstance "Block to compute water vapor concentration";
 
@@ -36,6 +38,7 @@ protected
   Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC](
        quantity=Medium.extraPropertiesNames)
     "Needed to connect to conditional connector";
+  // Modelica.Blocks.Interfaces.RealInput h_internal = Medium.specificEnthalpy(Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal));
 
 equation
   // Check medium properties
@@ -50,6 +53,7 @@ equation
   // Connections to input. This is required to obtain the data from
   // the weather bus in case that the component x_pTphi is conditionally removed
   connect(weaBus.TDryBul, T_in_internal);
+  // connect(weaBus.pAtm, p_in_internal);
 
   // Connections to compute species concentration
   connect(p_in_internal, x_pTphi.p_in);
@@ -60,11 +64,20 @@ equation
   if singleSubstance then
     X_in_internal = ones(Medium.nX);
   end if;
+
   // Assign medium properties
   medium.p = p_in_internal;
   medium.T = T_in_internal;
+  // medium.h = h_internal;
   medium.Xi = X_in_internal[1:Medium.nXi];
   ports.C_outflow = fill(C_in_internal, nPorts);
+
+     for i in 1:nPorts loop
+        ports[i].p          = medium.p;
+        ports[i].h_outflow  = medium.h;
+        ports[i].Xi_outflow = medium.Xi;
+     end for;
+
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=true,

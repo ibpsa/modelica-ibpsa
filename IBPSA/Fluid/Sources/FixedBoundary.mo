@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Sources;
 model FixedBoundary "Boundary source component"
-  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource_volume;
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_p=true "select p or d"
     annotation (Evaluate = true,
                 Dialog(group = "Boundary pressure or Boundary density"));
@@ -32,6 +32,9 @@ model FixedBoundary "Boundary source component"
     final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Boundary trace substances"
     annotation (Dialog(group = "Only for trace-substance flow", enable=Medium.nC > 0));
+
+protected
+  Medium.BaseProperties medium "Medium in the source";
 
 initial equation
   Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
