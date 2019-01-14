@@ -29,6 +29,7 @@ model MassFlowSource_WeatherData
         iconTransformation(extent={{-120,-18},{-80,22}})));
 
 protected
+  Medium.BaseProperties medium "Medium in the source";
   Modelica.Blocks.Interfaces.RealOutput TDryBul(
     final unit="K",
     displayUnit="degC")
@@ -97,6 +98,16 @@ equation
   medium.h = h_in_internal;
   medium.Xi = X_in_internal[1:Medium.nXi];
   ports.C_outflow = fill(C_in_internal, nPorts);
+
+  connect(X_in_internal[1:Medium.nXi], Xi_in_internal);
+  connect(p_in_internal, pAtm);
+
+  for i in 1:nPorts loop
+     ports[i].p          = medium.p;
+     ports[i].h_outflow  = medium.h;
+     ports[i].Xi_outflow = medium.Xi;
+  end for;
+
   annotation (defaultComponentName="bou",
     Icon(coordinateSystem(
         preserveAspectRatio=true,

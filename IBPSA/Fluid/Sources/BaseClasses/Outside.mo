@@ -38,7 +38,6 @@ protected
   Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC](
        quantity=Medium.extraPropertiesNames)
     "Needed to connect to conditional connector";
-  // Modelica.Blocks.Interfaces.RealInput h_internal = Medium.specificEnthalpy(Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal));
 
 equation
   // Check medium properties
@@ -53,7 +52,6 @@ equation
   // Connections to input. This is required to obtain the data from
   // the weather bus in case that the component x_pTphi is conditionally removed
   connect(weaBus.TDryBul, T_in_internal);
-  // connect(weaBus.pAtm, p_in_internal);
 
   // Connections to compute species concentration
   connect(p_in_internal, x_pTphi.p_in);
@@ -65,18 +63,19 @@ equation
     X_in_internal = ones(Medium.nX);
   end if;
 
+  connect(X_in_internal[1:Medium.nXi], Xi_in_internal);
+
   // Assign medium properties
   medium.p = p_in_internal;
   medium.T = T_in_internal;
-  // medium.h = h_internal;
   medium.Xi = X_in_internal[1:Medium.nXi];
   ports.C_outflow = fill(C_in_internal, nPorts);
 
-     for i in 1:nPorts loop
-        ports[i].p          = medium.p;
-        ports[i].h_outflow  = medium.h;
-        ports[i].Xi_outflow = medium.Xi;
-     end for;
+  for i in 1:nPorts loop
+     ports[i].p          = medium.p;
+     ports[i].h_outflow  = medium.h;
+     ports[i].Xi_outflow = medium.Xi;
+  end for;
 
   annotation (
     Icon(coordinateSystem(

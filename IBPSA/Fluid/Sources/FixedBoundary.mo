@@ -56,6 +56,17 @@ equation
   medium.Xi = X[1:Medium.nXi];
 
   ports.C_outflow = fill(C, nPorts);
+
+  p_in_internal = medium.p;
+  X_in_internal = X;
+
+  for i in 1:nPorts loop
+     ports[i].p          = medium.p;
+     ports[i].h_outflow  = medium.h;
+     ports[i].Xi_outflow = medium.Xi;
+  end for;
+
+
   annotation (defaultComponentName="bou",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
