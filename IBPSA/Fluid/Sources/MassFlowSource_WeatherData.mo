@@ -2,7 +2,7 @@ within IBPSA.Fluid.Sources;
 model MassFlowSource_WeatherData
   "Ideal flow source that produces a prescribed mass flow with prescribed
   trace substances, outside specific enthalpy and mass fraction "
-  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource;
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
   parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"
     annotation(Evaluate=true, HideResult=true);
@@ -29,7 +29,6 @@ model MassFlowSource_WeatherData
         iconTransformation(extent={{-120,-18},{-80,22}})));
 
 protected
-  Medium.BaseProperties medium "Medium in the source";
   Modelica.Blocks.Interfaces.RealOutput TDryBul(
     final unit="K",
     displayUnit="degC")
@@ -65,7 +64,7 @@ equation
     Medium.substanceNames,
     Medium.singleState,
     true,
-    medium.X,
+    X_in_internal,
     "MassFlowSourceFromOutside_h");
 
   // Connections and calculation to find specific enthalpy
@@ -78,10 +77,10 @@ equation
   connect(weaBus.pAtm, x_pTphi.p_in);
   connect(weaBus.TDryBul, x_pTphi.T);
   connect(weaBus.relHum, x_pTphi.phi);
+  connect(x_pTphi.X, X_in_internal);
 
   connect(m_flow_in, m_flow_in_internal);
   connect(C_in, C_in_internal);
-  connect(x_pTphi.X, X_in_internal);
   connect(h_out_internal, h_in_internal);
 
   if singleSubstance then
@@ -95,17 +94,23 @@ equation
   end if;
 
   sum(ports.m_flow) = -m_flow_in_internal;
-  medium.h = h_in_internal;
-  medium.Xi = X_in_internal[1:Medium.nXi];
+  connect(medium.h, h_in_internal);
+  connect(medium.Xi, Xi_in_internal);
   ports.C_outflow = fill(C_in_internal, nPorts);
 
   connect(X_in_internal[1:Medium.nXi], Xi_in_internal);
-  connect(p_in_internal, pAtm);
+
+  if not verifyInputs then
+    h_in_internal = Medium.h_default;
+    p_in_internal = Medium.p_default;
+    X_in_internal = Medium.X_default;
+    TDryBul       = Medium.T_default;
+  end if;
 
   for i in 1:nPorts loop
-     ports[i].p          = medium.p;
-     ports[i].h_outflow  = medium.h;
-     ports[i].Xi_outflow = medium.Xi;
+    ports[i].p          = p_in_internal;
+    ports[i].h_outflow  = h_in_internal;
+    ports[i].Xi_outflow = Xi_in_internal;
   end for;
 
   annotation (defaultComponentName="bou",
@@ -189,6 +194,12 @@ with exception of boundary flow rate, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 14, 2019 by Jianjun Hu:<br/>
+Changed to extend <a href=\"modelica://IBPSA.Fluid.Sources.BaseClasses.PartialSource\">
+IBPSA.Fluid.Sources.BaseClasses.PartialSource</a>. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\"> #1050</a>.
+</li>
 <li>
 May 21, 2017, by Jianjun Hu:<br/>
 First implementation. Created flow source with prescribed mass flow and trace

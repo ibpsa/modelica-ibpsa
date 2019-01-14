@@ -34,7 +34,15 @@ model FixedBoundary "Boundary source component"
     annotation (Dialog(group = "Only for trace-substance flow", enable=Medium.nC > 0));
 
 protected
-  Medium.BaseProperties medium "Medium in the source";
+  Modelica.Blocks.Interfaces.RealInput T_in_internal(final unit="K",
+                                                     displayUnit="degC")
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput p_in_internal(final unit="Pa")
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput d_in_internal(final unit="kg/m3")
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput h_in_internal(final unit="J/kg")
+    "Needed to connect to conditional connector";
 
 initial equation
   Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
@@ -42,28 +50,32 @@ initial equation
                                         "FixedBoundary");
 
 equation
+  d_in_internal = d;
+  h_in_internal = h;
+  X_in_internal = X;
   if use_p or Medium.singleState then
-    medium.p = p;
+    p_in_internal = p;
+    connect(medium.p, p_in_internal);
   else
-    medium.d = d;
+    connect(medium.d, d_in_internal);
   end if;
   if use_T then
-    medium.T = T;
+    T_in_internal = T;
+    connect(medium.T, T_in_internal);
   else
-    medium.h = h;
+    connect(medium.h, h_in_internal);
   end if;
 
-  medium.Xi = X[1:Medium.nXi];
+  connect(medium.Xi, X_in_internal);
 
   ports.C_outflow = fill(C, nPorts);
 
-  p_in_internal = medium.p;
-  X_in_internal = X;
+  connect(X_in_internal[1:Medium.nXi], Xi_in_internal);
 
   for i in 1:nPorts loop
-     ports[i].p          = medium.p;
-     ports[i].h_outflow  = medium.h;
-     ports[i].Xi_outflow = medium.Xi;
+     ports[i].p          = p_in_internal;
+     ports[i].h_outflow  = h_in_internal;
+     ports[i].Xi_outflow = Xi_in_internal;
   end for;
 
 
@@ -98,6 +110,12 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 14, 2019 by Jianjun Hu:<br/>
+Changed to extend <a href=\"modelica://IBPSA.Fluid.Sources.BaseClasses.PartialSource\">
+IBPSA.Fluid.Sources.BaseClasses.PartialSource</a>. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\"> #1050</a>.
+</li>
 <li>
 April 18, 2017, by Filip Jorissen:<br/>
 Changed <code>checkBoundary</code> implementation
