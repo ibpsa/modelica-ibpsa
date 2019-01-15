@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Sources;
 model FixedBoundary "Boundary source component"
-  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource;
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
   parameter Boolean use_p=true "select p or d"
     annotation (Evaluate = true,
                 Dialog(group = "Boundary pressure or Boundary density"));
@@ -39,10 +39,11 @@ protected
     "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput p_in_internal(final unit="Pa")
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput d_in_internal(final unit="kg/m3")
+  Modelica.Blocks.Interfaces.RealInput h_in(final unit="J/kg")
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput h_in_internal(final unit="J/kg")
-    "Needed to connect to conditional connector";
+
+  Modelica.Blocks.Interfaces.RealInput h_in_internal= Medium.specificEnthalpy(Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal));
+  // Modelica.Blocks.Interfaces.RealInput d_in_internal = Medium.density(Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal));
 
 initial equation
   Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
@@ -50,27 +51,35 @@ initial equation
                                         "FixedBoundary");
 
 equation
-  d_in_internal = d;
-  h_in_internal = h;
-  X_in_internal = X;
+  h_in = h;
   if use_p or Medium.singleState then
     p_in_internal = p;
     connect(medium.p, p_in_internal);
   else
-    connect(medium.d, d_in_internal);
+    p_in_internal = Medium.p_default;
+    connect(medium.p, p_in_internal);
   end if;
   if use_T then
     T_in_internal = T;
-    connect(medium.T, T_in_internal);
-  else
     connect(medium.h, h_in_internal);
+  else
+    T_in_internal = Medium.T_default;
+    connect(medium.h, h_in);
   end if;
 
-  connect(medium.Xi, X_in_internal);
+  X_in_internal = X;
+  connect(X_in_internal[1:Medium.nXi], Xi_in_internal);
+  connect(medium.Xi, Xi_in_internal);
 
   ports.C_outflow = fill(C, nPorts);
+  C_in_internal = C;
 
-  connect(X_in_internal[1:Medium.nXi], Xi_in_internal);
+  if not verifyInputs then
+    h_in_internal = Medium.h_default;
+    p_in_internal = Medium.p_default;
+    X_in_internal = Medium.X_default;
+    T_in_internal = Medium.T_default;
+  end if;
 
   for i in 1:nPorts loop
      ports[i].p          = p_in_internal;
