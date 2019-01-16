@@ -75,7 +75,7 @@ results, the <code>cmpAll</code> boolean variable will be <code>true</code>.
 revisions="<html>
 <ul>
 <li>
-January 13, 2018, by Michael Wetter:<br/>
+January 13, 2019, by Michael Wetter:<br/>
 Reduced string length for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1081\">issue 1081</a>.
 </li>
