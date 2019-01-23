@@ -76,6 +76,10 @@ equation
 
   assert(m_flow_in_internal >= 0, "Reverse flow for species source is not yet implemented.");
 
+  for i in 2:nPorts loop
+    ports[1].p = ports[i].p;
+  end for;
+
   ports.C_outflow = fill(C_in_internal, nPorts);
   ports.h_outflow = fill(h_default, nPorts);
   ports.Xi_outflow = fill(Medium.X_default[1:Medium.nXi], nPorts);
