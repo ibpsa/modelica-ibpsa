@@ -374,7 +374,7 @@ initial equation
 "*** Warning: You are using a flow or pressure controlled mover with the
              default pressure curve and you set use_powerCharacteristic = true.
              Since this can cause wrong power consumption, the model will overwrite
-             this setting and use instead use_powerCharacteristic = false."+
+             this setting and use instead use_powerCharacteristic = false." +
              "Since this causes the efficiency curve to be used,
              make sure that the efficiency curves in the performance record per
              are correct or add the pressure curve of the mover.
