@@ -117,10 +117,10 @@ equation
                                  color={191,0,0}));
   connect(senRelHum.phi, phi)
     annotation (Line(points={{51,-40},{110,-40}},          color={0,0,127}));
-  connect(port_b, vol.ports[1]) annotation (Line(points={{-60,100},{-60,10},{
+  connect(port_b, vol.ports[2]) annotation (Line(points={{-60,100},{-60,10},{
           1.33227e-15,10}},
                 color={0,127,255}));
-  connect(port_a, vol.ports[2]) annotation (Line(points={{60,100},{60,10},{8.88178e-16,
+  connect(port_a, vol.ports[1]) annotation (Line(points={{60,100},{60,10},{8.88178e-16,
           10}}, color={0,127,255}));
   connect(senRelHum.port, vol.ports[nPorts+3]) annotation (Line(points={{40,-30},
           {40,10},{1.33227e-15,10}},
@@ -136,6 +136,11 @@ equation
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
+<li>
+December 11, 2018 by Filip Jorissen:<br/>
+Revised mixing volume connection order to avoid triggering flow reversal warnings.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/964\">#964</a>.
+</li>
 <li>
 August 30, 2018 by Damien Picard:<br/>
 Added constant StateSelectTVol to be able to select preferred state
