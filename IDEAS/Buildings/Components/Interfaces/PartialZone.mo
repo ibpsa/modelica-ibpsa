@@ -71,6 +71,9 @@ model PartialZone "Building zone model"
     final T_start=T_start,
     allowFlowReversal=allowFlowReversal,
     energyDynamics=energyDynamicsAir,
+    massDynamics=if interzonalAirFlow.prescribesPressure
+                 then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+                 else energyDynamicsAir,
     nPorts=interzonalAirFlow.nPorts,
     m_flow_nominal=m_flow_nominal)
     "Zone air model"
@@ -402,6 +405,11 @@ end for;
 <p>See extending models.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 25, 2019 by Filip Jorissen:<br/>
+Avoided redundant consistent initial equation for pressure in <code>airModel</code>.
+See <a href=https://github.com/open-ideas/IDEAS/issues/971>#971</a>.
+</li>
 <li>
 November 5, 2018 by Filip Jorissen:<br/>
 Propagated <code>T_start</code> into <code>radDistr</code>.

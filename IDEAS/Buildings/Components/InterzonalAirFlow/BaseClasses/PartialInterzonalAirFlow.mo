@@ -7,6 +7,8 @@ partial model PartialInterzonalAirFlow "Partial for interzonal air flow"
   parameter Real n50toAch = 20
     "Conversion fractor from n50 to Air Change Rate"
     annotation(Dialog(tab="Advanced"));
+  constant Boolean prescribesPressure = false
+    "Indication whether this model prescribes the air zone pressure or not";
   // = true to enable check in zone that verifies whether both FluidPorts
   //  or none of the are connected, to avoid incorrect use.
   parameter Boolean verifyBothPortsConnected = false
@@ -101,6 +103,12 @@ partial model PartialInterzonalAirFlow "Partial for interzonal air flow"
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 25, 2019, Filip Jorissen:<br/>
+Added constant <code>prescribesPressure</code> that indicates
+whether this model prescribes the zone air pressure or not.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/971\">#971</a>.
+</li>
 <li>
 July 11, 2018, Filip Jorissen:<br/>
 Added <code>m_flow_nominal_vent</code> and set 

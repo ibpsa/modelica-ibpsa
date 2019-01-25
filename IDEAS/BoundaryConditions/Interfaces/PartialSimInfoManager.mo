@@ -204,7 +204,9 @@ protected
     annotation (Placement(transformation(extent={{-86,94},{-78,102}})));
 
 initial equation
-  Etot = 0;
+  if not linearise and computeConservationOfEnergy then
+    Etot = 0;
+  end if;
 equation
   if strictConservationOfEnergy and computeConservationOfEnergy then
     assert(abs(Etot) < Emax, "Conservation of energy violation > Emax J!");
@@ -464,6 +466,11 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+January 25, 2019 by Filip Jorissen:<br/>
+Avoided redundant consistent initial equation for <code>Etot</code>.
+See <a href=https://github.com/open-ideas/IDEAS/issues/971>#971</a>.
+</li>
 <li>
 July 27, 2018 by Filip Jorissen:<br/>
 Added outputs <code>CEnv</code> and <code>X_wEnv</code> to <code>weaDatBus</code>.

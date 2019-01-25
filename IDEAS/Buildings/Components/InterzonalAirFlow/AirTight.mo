@@ -1,7 +1,9 @@
 within IDEAS.Buildings.Components.InterzonalAirFlow;
 model AirTight
   "Airtight: Air tight zone without air infiltration"
-  extends IDEAS.Buildings.Components.InterzonalAirFlow.BaseClasses.PartialInterzonalAirFlow(nPorts=0);
+  extends IDEAS.Buildings.Components.InterzonalAirFlow.BaseClasses.PartialInterzonalAirFlow(
+    nPorts=0,
+    prescribesPressure=false);
 equation
   connect(port_a_interior, port_b_exterior) annotation (Line(points={{-60,-100},
           {-60,0},{-20,0},{-20,100}}, color={0,127,255}));
@@ -9,6 +11,12 @@ equation
           0},{60,0},{60,-100}}, color={0,127,255}));
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+January 25, 2019, Filip Jorissen:<br/>
+Added constant <code>prescribesPressure</code> that indicates
+whether this model prescribes the zone air pressure or not.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/971\">#971</a>.
+</li>
 <li>
 April 27, 2018 by Filip Jorissen:<br/>
 First version.

@@ -48,8 +48,8 @@ protected
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
 equation
-  assert(sum({if x then 1 else 0 for x in {use_T_in, use_Q_in, use_T_fixed}})<2,
-    "Only one of the following options can be used simultaneously: use_T_in, use_Q_in, use_T_fixed");
+  assert(not (use_T_in and use_Q_in or use_T_in and use_T_fixed or use_Q_in and use_T_fixed),
+    "In "+getInstanceName()+": Only one of the following options can be used simultaneously: use_T_in, use_Q_in, use_T_fixed");
   connect(Q_flow, proPreQ.u1)
     annotation (Line(points={{-110,-20},{-100,-20},{-100,-23.6},{-87.2,-23.6}},
                                                     color={0,0,127}));
