@@ -1,7 +1,8 @@
 within IDEAS.Buildings.Components.InterzonalAirFlow;
 model n50Tight
   "n50Tight: n50 air leakage into and from airtight zone"
-  extends IDEAS.Buildings.Components.InterzonalAirFlow.BaseClasses.PartialInterzonalAirFlown50;
+  extends IDEAS.Buildings.Components.InterzonalAirFlow.BaseClasses.PartialInterzonalAirFlown50(
+    prescribesPressure=false);
   Fluid.Interfaces.IdealSource airExfiltration(
     redeclare package Medium = Medium,
     control_m_flow=true,
@@ -21,6 +22,12 @@ equation
                                     color={0,127,255}));
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+January 25, 2019, Filip Jorissen:<br/>
+Added constant <code>prescribesPressure</code> that indicates
+whether this model prescribes the zone air pressure or not.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/971\">#971</a>.
+</li>
 <li>
 April 27, 2018 by Filip Jorissen:<br/>
 First version.
