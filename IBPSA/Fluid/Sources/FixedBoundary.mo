@@ -54,22 +54,17 @@ equation
   h_in = h;
   if use_p or Medium.singleState then
     p_in_internal = p;
-    connect(medium.p, p_in_internal);
   else
     p_in_internal = Medium.p_default;
-    connect(medium.p, p_in_internal);
   end if;
   if use_T then
     T_in_internal = T;
-    connect(medium.h, h_in_internal);
   else
     T_in_internal = Medium.T_default;
-    connect(medium.h, h_in);
   end if;
 
   X_in_internal = X;
   connect(X_in_internal[1:Medium.nXi], Xi_in_internal);
-  connect(medium.Xi, Xi_in_internal);
 
   ports.C_outflow = fill(C, nPorts);
   C_in_internal = C;
@@ -119,6 +114,11 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 25, 2019, by Michael Wetter:<br/>
+Refactored use of base classes.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\">#1072</a>.
+</li>
 <li>
 January 14, 2019 by Jianjun Hu:<br/>
 Changed to extend <a href=\"modelica://IBPSA.Fluid.Sources.BaseClasses.PartialSource\">
