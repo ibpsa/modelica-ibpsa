@@ -132,6 +132,20 @@ First implementation.
 </ul>
 </html>"),
     Icon(graphics={
+        Text(
+          visible=use_m_flow_in,
+          extent={{-185,132},{-45,100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="m_flow"),
+        Text(
+          visible=use_T_in,
+          extent={{-162,34},{-60,-6}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="T"),
         Rectangle(
           extent={{35,45},{100,-45}},
           lineColor={0,0,0},
