@@ -16,7 +16,7 @@ partial model PartialSource
   parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
   parameter Boolean verifyInputs = false
     "Set to true to stop the simulation with an error if the medium temperature is outside its allowable range"
-    annotation(Dialog(tab="Advanced"));
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
     redeclare each package Medium = Medium,
@@ -52,6 +52,19 @@ place in these connections, which is usually not the intention
 of the modeller. Increase nPorts to add an additional port.
 ");
   end for;
+
+equation
+  if verifyInputs then
+    for i in 1:Medium.nX loop
+       assert(X_in_internal[i] >= -1.e-5 and X_in_internal[i] <= 1 + 1.e-5, "Mass fraction X[" +
+         String(i) + "] = " + String(X_in_internal[i]) + "of substance " +
+         Medium.substanceNames[i] + "\nof medium " + Medium.mediumName +
+         " is not in the range 0..1");
+    end for;
+    assert(p_in_internal >= 0.0,
+      "Pressure (= " + String(p_in_internal) + " Pa) of medium \"" +
+      Medium.mediumName + "\" is negative.");
+  end if;
 
   annotation (defaultComponentName="bou",
   Documentation(info="<html>
