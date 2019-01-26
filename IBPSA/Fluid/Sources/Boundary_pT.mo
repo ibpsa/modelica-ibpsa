@@ -52,7 +52,6 @@ equation
   for i in 1:nPorts loop
      ports[i].h_outflow  = h_internal;
   end for;
-  connect(medium.h, h_internal);
   annotation (defaultComponentName="bou",
     Documentation(info="<html>
 <p>

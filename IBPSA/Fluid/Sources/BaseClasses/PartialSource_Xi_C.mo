@@ -54,7 +54,6 @@ equation
   connect(Xi_in, Xi_in_internal);
   connect(C_in, C_in_internal);
 
-  connect(medium.Xi, Xi_in_internal);
   if not use_X_in and not use_Xi_in then
     Xi_in_internal = X[1:Medium.nXi];
   end if;

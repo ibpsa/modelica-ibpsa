@@ -31,7 +31,6 @@ protected
     "Allowed flow direction" annotation (Evaluate=true, Dialog(tab="Advanced"));
   Modelica.Blocks.Interfaces.RealInput p_in_internal(final unit="Pa")
     "Needed to connect to conditional connector";
-  Medium.BaseProperties medium if verifyInputs "Medium in the source";
   Modelica.Blocks.Interfaces.RealInput Xi_in_internal[Medium.nXi](
     each final unit = "kg/kg")
     "Needed to connect to conditional connector";
@@ -53,9 +52,6 @@ place in these connections, which is usually not the intention
 of the modeller. Increase nPorts to add an additional port.
 ");
   end for;
-
-equation
-  connect(medium.p, p_in_internal);
 
   annotation (defaultComponentName="bou",
   Documentation(info="<html>
