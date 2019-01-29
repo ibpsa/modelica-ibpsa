@@ -14,7 +14,7 @@ package SignalExchange
       "Block to activate use of external signal"
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   protected
-    parameter Boolean is_overwrite = true "Protected parameter indicating signal overwrite block";
+    parameter Boolean boptestOverwrite = true "Protected parameter indicating signal overwrite block";
   equation
     connect(activate.y, swi.u2)
       annotation (Line(points={{-39,0},{-12,0}}, color={255,0,255}));
@@ -35,7 +35,7 @@ package SignalExchange
     extends Modelica.Blocks.Routing.RealPassThrough;
     parameter String KPIs = "" "List of KPIs in comma-delimited list";
   protected
-    parameter Boolean is_read = true "Protected parameter indicating signal read block";
+    parameter Boolean boptestRead = true "Protected parameter indicating signal read block";
     annotation (Icon(graphics={Rectangle(
             extent={{-100,100},{100,-100}},
             lineColor={28,108,200},
