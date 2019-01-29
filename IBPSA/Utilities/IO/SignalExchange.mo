@@ -24,10 +24,40 @@ package SignalExchange
             {-12,8}}, color={0,0,127}));
     connect(swi.y, y)
       annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
-    annotation (Icon(graphics={Rectangle(
-            extent={{-100,100},{100,-100}},
-            lineColor={28,108,200},
-            fillColor={255,170,170},
+    annotation (Icon(graphics={          Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={223,211,169},
+          lineThickness=5.0,
+          borderPattern=BorderPattern.Raised,
+          fillPattern=FillPattern.Solid),
+          Line(points={{100,0},{42,0}}, color={0,0,0}),
+          Line(points={{42,0},{-20,60}}, color={0,0,0}),
+          Line(points={{-100,0},{-20,0}}, color={0,0,0}),
+          Line(
+            points={{-20,0},{42,0}},
+            color={0,0,0},
+            pattern=LinePattern.Dot),
+          Line(points={{-100,60},{-20,60}}, color={0,0,0}),
+          Polygon(
+            points={{-100,80},{-60,60},{-100,40},{-100,80}},
+            lineColor={0,0,0},
+            fillColor={0,0,0},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{-22,62},{-18,58}},
+            lineColor={0,0,0},
+            fillColor={0,0,0},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{-22,2},{-18,-2}},
+            lineColor={0,0,0},
+            fillColor={0,0,0},
+            fillPattern=FillPattern.Solid),
+          Ellipse(
+            extent={{40,2},{44,-2}},
+            lineColor={0,0,0},
+            fillColor={0,0,0},
             fillPattern=FillPattern.Solid)}));
   end Overwrite;
 
@@ -36,10 +66,26 @@ package SignalExchange
     parameter String KPIs = "" "List of KPIs in comma-delimited list";
   protected
     parameter Boolean boptestRead = true "Protected parameter indicating signal read block";
-    annotation (Icon(graphics={Rectangle(
-            extent={{-100,100},{100,-100}},
-            lineColor={28,108,200},
-            fillColor={170,213,255},
+    annotation (Icon(graphics={          Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={223,211,169},
+          lineThickness=5.0,
+          borderPattern=BorderPattern.Raised,
+          fillPattern=FillPattern.Solid),
+          Line(points={{22,60},{100,60}}, color={0,0,0}),
+          Line(points={{-38,0},{22,60}}, color={0,0,0}),
+          Line(points={{-100,0},{-38,0}}, color={0,0,0}),
+          Polygon(
+            points={{60,80},{100,60},{60,40},{60,80}},
+            lineColor={0,0,0},
+            fillColor={0,0,0},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-38,0},{100,0}}, color={0,0,0}),
+          Ellipse(
+            extent={{-40,2},{-36,-2}},
+            lineColor={0,0,0},
+            fillColor={0,0,0},
             fillPattern=FillPattern.Solid)}));
   end Read;
 
