@@ -21,6 +21,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryCondit
         "Simulate and plot"),
       Documentation(info="<html>
 <p>This is a validation case for a simulation extending with two months over one year but using data for only one year.</p>
+<p>The test script should plot the dry bulb temperature for the days 0-10 and 365-375 for comparison. If your version of Dymola does not run the script correctly, please adjust the ranges of the diagrams manually. </p>
 </html>", revisions="<html>
 <ul>
 <li>September 3, 2018 by Ana Constantin:<br>First implementation for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">issue 842</a>. </li>

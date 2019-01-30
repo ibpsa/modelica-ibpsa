@@ -20,9 +20,7 @@ model ThreeYears_usingTwoYearData
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearData.mos"
         "Simulate and plot"),
       Documentation(info="<html>
-<p>This is a validation case for a a simulation extending over three years but using only two years of data with monthly values. </p>
-<p>The time stamps are a bit tricked in order to get two full years when calculating trimeStampEnd-timeStampBegin+AvgIncrement. Check <a href=\"IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime.mo\">ConvertTime </a>block for more information.</p>
-<p>Check dry bulb temperature to see how thze values are repeated.</p>
+<p>This is a validation case for a a simulation extending over three years but using only two years of data with equidistant monthly values. </p>
 </html>", revisions="<html>
 <ul>
 <li>September 3, 2018 by Ana Constantin:<br>First implementation for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">issue 842</a>. </li>
