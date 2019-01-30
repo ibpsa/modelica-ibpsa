@@ -10,19 +10,24 @@ model MultiLayer "multiple material layers in series"
   parameter Integer nGain = 0 "Number of gains";
   parameter Boolean linIntCon=false
     "Linearise interior convection inside air layers / cavities in walls";
-  parameter Boolean disableInitPortB= false
-    "Remove initial equation at port b";
-
-  parameter Modelica.SIunits.Temperature T_start[nLay]=ones(nLay)*293.15
-    "Start temperature from port_b to port_a";
   final parameter Modelica.SIunits.ThermalInsulance R=sum(monLay.R)
     "total specific thermal resistance";
   final parameter Modelica.SIunits.HeatCapacity C = sum(mats.d.*mats.rho.*mats.c*A)
     "Total heat capacity of the layers"
     annotation(Evaluate=true);
+
+  parameter Modelica.SIunits.Temperature T_start[nLay]=ones(nLay)*293.15
+    "Start temperature from port_b to port_a"
+    annotation(Evaluate=true, Dialog(group="Dynamics"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Static (steady state) or transient (dynamic) thermal conduction model"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(group="Dynamics"));
+  parameter Boolean disableInitPortA= false
+    "Remove initial equation at port a"
+    annotation(Evaluate=true, Dialog(group="Dynamics"));
+  parameter Boolean disableInitPortB= false
+    "Remove initial equation at port b"
+    annotation(Evaluate=true, Dialog(group="Dynamics"));
   parameter SI.TemperatureDifference dT_nom_air=1
     "Nominal temperature difference for air layers, used for linearising Rayleigh number"
     annotation(Dialog(enable=linIntCon));
@@ -87,7 +92,7 @@ initial equation
         monLay[i].port_b.T=T_start[i];
       end if;
     end if;
-    if monLay[i].isDynamic and (if i==nLay then true else not monLay[i+1].isDynamic) then
+    if monLay[i].isDynamic and (if i==nLay then not disableInitPortA else not monLay[i+1].isDynamic) then
       monLay[i].port_a.T=T_start[i];
     end if;
   end for;
