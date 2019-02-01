@@ -9,7 +9,7 @@ model DecemberToJanuary
     HInfHor=100,
     calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/weatherdata/DecemberToJanuary.mos"))
+        "modelica://IBPSA/Resources/Data/BoundaryConditions/WeatherData/Validation/DecemberToJanuary.mos"))
     "Weather data reader with data file going from December to January"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 

@@ -9,7 +9,7 @@ model ThreeYears_usingTwoYearData
     HInfHor=100,
     calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/weatherdata/TwoYears_DataOnceAMonth_TMY3.mos"))
+        "modelica://IBPSA/Resources/Data/BoundaryConditions/WeatherData/Validation/TwoYears_DataOnceAMonth_TMY3.mos"))
     "Weather data reader with data for two years, only monthly values"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
