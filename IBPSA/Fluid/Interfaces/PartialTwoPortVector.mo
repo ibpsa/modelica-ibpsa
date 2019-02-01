@@ -42,7 +42,7 @@ partial model PartialTwoPortVector "Partial component with two ports, one of whi
                           noEvent(actualStream(port_a.Xi_outflow))) if
          show_T "Medium properties in port_a";
 
-  Medium.ThermodynamicState stas_b[nPorts]=
+  Medium.ThermodynamicState sta_b[nPorts]=
       Medium.setState_phX(ports_b.p,
                           noEvent(actualStream(ports_b.h_outflow)),
                           noEvent(actualStream(ports_b.Xi_outflow))) if
