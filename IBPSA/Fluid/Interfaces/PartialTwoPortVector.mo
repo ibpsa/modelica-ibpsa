@@ -46,7 +46,7 @@ partial model PartialTwoPortVector "Partial component with two ports, one of whi
       Medium.setState_phX(ports_b.p,
                           noEvent(actualStream(ports_b.h_outflow)),
                           noEvent(actualStream(ports_b.Xi_outflow))) if
-         show_T "Medium properties in port_b";
+         show_T "Medium properties in ports_b";
   annotation (
     Documentation(info="<html>
 <p>
