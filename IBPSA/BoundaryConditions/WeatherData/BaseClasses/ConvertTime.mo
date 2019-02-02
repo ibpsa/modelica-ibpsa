@@ -2,7 +2,10 @@ within IBPSA.BoundaryConditions.WeatherData.BaseClasses;
 block ConvertTime
   "Converts the simulation time to calendar time in scale of 1 year (365 days), or a multiple of a year if this is the length of the weather file"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Time[3] timeSpan "Start time, end time and average increment of weather data";
+
+  parameter Modelica.SIunits.Time weaDatStaTim(displayUnit="d") "Start time of weather data";
+  parameter Modelica.SIunits.Time weaDatEndTim(displayUnit="d") "End time of weather data";
+  parameter Modelica.SIunits.Time weaDatAveInc(displayUnit="d") "Average increment of weather data";
 
   Modelica.Blocks.Interfaces.RealInput modTim(
     final quantity="Time",
@@ -17,13 +20,17 @@ protected
   constant Modelica.SIunits.Time year=31536000 "Number of seconds in a year";
   constant Modelica.SIunits.Time shiftSolarRad=1800 "Number of seconds for the shift for solar radiation calculation";
   discrete Modelica.SIunits.Time tStart "Start time of period";
-  Boolean repeatWeatherFile( start = true) "Should the weather file be repeated";
+  Boolean repeatWeatherFile(
+    start = true,
+    fixed=true) "true if the weather file should be repeated";
 
 initial equation
   tStart = integer(modTim/year)*year;
 equation
-  when (modTim - pre(tStart)) > (timeSpan[2]+timeSpan[3]) then // when the simulation time stamp goes over the last time stamp of the weather file + average increment
-     if mod(timeSpan[2]-timeSpan[1] + timeSpan[3], year) < 1 then // if the time span in weather file equal to a year or a multiple of it
+  when (modTim - pre(tStart)) > (weaDatEndTim+weaDatAveInc) then
+    // simulation time stamp went over the last time stamp of the weather file + average increment
+     if mod(weaDatEndTim-weaDatStaTim + weaDatAveInc, year) < 1 then
+       // time span in weather file equal to a year or a multiple of it
       tStart = integer(modTim/year)*year; // the new start time is the start of the next year
       repeatWeatherFile = true;
      else
@@ -34,7 +41,9 @@ equation
   calTim = modTim - tStart;
 
   if repeatWeatherFile == false then
-    assert((time - timeSpan[2]) < shiftSolarRad, "For the desired simulation period insufficient weather data is provided", AssertionLevel.error);
+    assert((time - weaDatEndTim) < shiftSolarRad,
+     "Insufficient weather data provided for the desired simulation period.",
+     AssertionLevel.error);
   end if;
   annotation (
     defaultComponentName="conTim",
@@ -45,9 +54,14 @@ This component converts the simulation time to calendar time in a scale of 1 yea
 </html>", revisions="<html>
 <ul>
 <li>
-September 27, 2011, by Wangda Zuo, Michael Wetter:<br/>
+July 27, 2018, by Ana Constantin:<br/>
+Added shift for multiple time spans.
+</li>
+<li>
+September 27, 2011, by Wangda Zuo and Michael Wetter:<br/>
 Modify it to convert negative value of time.
-Use the when-then to allow dymola differentiating this model when conducting index reduction which is not allowed in previous implementation.
+Use the when-then to allow dymola differentiating this model when
+conducting index reduction which is not allowed in previous implementation.
 </li>
 <li>
 February 27, 2011, by Wangda Zuo:<br/>

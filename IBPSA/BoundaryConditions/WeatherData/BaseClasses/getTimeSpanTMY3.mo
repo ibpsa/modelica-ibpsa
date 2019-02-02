@@ -76,12 +76,15 @@ algorithm
   (endTime, nextIndex) :=Modelica.Utilities.Strings.scanReal(string=lin,
   startIndex=1);
   avgIncrement := (endTime - startTime) / (nrRows -1);
-  timeSpan[1] :=startTime;
-  timeSpan[2] :=endTime;
+  timeSpan[1] := startTime;
+  timeSpan[2] := endTime;
   timeSpan[3] := avgIncrement;
 
   annotation (Documentation(info="<html>
-<p>This function returns the first and last time stamp, as well as the average increment of the TMY3 weather data file. </p>
+<p>
+This function returns the first time stamp, the last time stamp and
+the average increment of the TMY3 weather data file.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

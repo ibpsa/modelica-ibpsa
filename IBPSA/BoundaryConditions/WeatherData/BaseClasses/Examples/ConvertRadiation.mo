@@ -10,7 +10,10 @@ model ConvertRadiation "Test model for ConvertRadiation"
   IBPSA.Utilities.Time.ModelTime modTim
     "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime timCon
+  IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime timCon(
+    weaDatStaTim=0,
+    weaDatEndTim=31536000,
+    weaDatAveInc=86400)
     "Convert simmulation time to calendar time"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 protected
@@ -29,10 +32,10 @@ equation
       points={{-19,0},{-2,0}},
       color={0,0,127}));
   connect(datRea.y[8], conGloRad.HIn) annotation (Line(
-      points={{21,-0.482759},{30,-0.482759},{30,20},{38,20}},
+      points={{21,0},{30,0},{30,20},{38,20}},
       color={0,0,127}));
   connect(datRea.y[10], conDifRad.HIn) annotation (Line(
-      points={{21,-0.344828},{30,-0.344828},{30,-20},{38,-20}},
+      points={{21,0},{30,0},{30,-20},{38,-20}},
       color={0,0,127}));
   connect(modTim.y, timCon.modTim) annotation (Line(
       points={{-59,0},{-42,0}},

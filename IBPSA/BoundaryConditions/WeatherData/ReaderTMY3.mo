@@ -231,18 +231,13 @@ protected
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, "tab1")
   "Start time, end time and average increment of weather data";
 
-//  final parameter Modelica.SIunits.Time[2] timeSpan=
-//  IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, tableName)
-//  "Start and end time of weather data";
-
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
     final tableName="tab1",
     final fileName=filNam,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
-        28,29,30,8})
-                   "Data reader"
+        28,29,30,8}) "Data reader"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
     cheTemDryBul "Check dry bulb temperature "
@@ -271,8 +266,7 @@ protected
     annotation (Placement(transformation(extent={{160,-120},{180,-100}})));
   BaseClasses.CheckWindSpeed cheWinSpe "Check the wind speed"
     annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
-  BaseClasses.CheckIRRadiation
-                             cheHorRad
+  BaseClasses.CheckIRRadiation cheHorRad
     "Check the horizontal infrared irradiation"
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
   BaseClasses.CheckWindDirection cheWinDir "Check the wind direction"
@@ -300,12 +294,17 @@ protected
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns=9:11) "Data reader"
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
-  IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1(timeSpan=
-        timeSpan)
+  IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1(
+    final weaDatStaTim = timeSpan[1],
+    final weaDatEndTim = timeSpan[2],
+    final weaDatAveInc = timeSpan[3])
     "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-110,180},{-90,200}})));
-  BaseClasses.ConvertTime conTim(timeSpan=timeSpan)
-                                 "Convert simulation time to calendar time"
+  IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim(
+    final weaDatStaTim = timeSpan[1],
+    final weaDatEndTim = timeSpan[2],
+    final weaDatAveInc = timeSpan[3])
+    "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   BaseClasses.EquationOfTime eqnTim "Equation of time"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
