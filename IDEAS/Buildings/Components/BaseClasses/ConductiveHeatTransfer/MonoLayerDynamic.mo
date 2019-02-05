@@ -49,10 +49,16 @@ initial equation
   // redundant initial equations.
   // Initial equations for the outer states are defined at the MultiLayer level.
   if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
+    if addRes_b then
+      T[nSta]=T_start;
+    end if;
     for i in 2:nSta-1 loop
       T[i] = T_start;
     end for;
   elseif energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+    if addRes_b then
+      der(T[nSta])=0;
+    end if;
     for i in 2:nSta-1 loop
       der(T[i]) = 0;
     end for;

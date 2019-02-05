@@ -1,6 +1,5 @@
 within IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.Examples;
 model MonoLayer "Unit test for mono layer model"
-  import IDEAS;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Area A=10 "total multilayer area";
   parameter IDEAS.Buildings.Data.Constructions.CavityWallPartialFill cavityWallData
@@ -25,7 +24,7 @@ model MonoLayer "Unit test for mono layer model"
     inc=IDEAS.Types.Tilt.Wall,
     epsLw_a=0.9,
     epsLw_b=0.9,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Mono layer of solid material"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   IDEAS.Buildings.Components.BaseClasses.ConductiveHeatTransfer.MonoLayer monoLayerAir(
@@ -52,12 +51,6 @@ model MonoLayer "Unit test for mono layer model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mono layer of solid material"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-initial equation
-  // manually adding initial conditions to avoid conflict
-  // with prescribedTemperature blocks
-  monoLayerSolid.monLayDyn.T[2] =   monoLayerSolid.T_start;
-  monoLayerSolid.monLayDyn.T[3] =   monoLayerSolid.T_start;
-  monoLayerSolid.monLayDyn.T[4] =   monoLayerSolid.T_start;
 equation
   connect(ramp.y, preTem.T)
     annotation (Line(points={{-79,0},{-70.5,0},{-62,0}}, color={0,0,127}));
@@ -87,6 +80,10 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 30, 2019 by Filip Jorissen:<br/>
+Revised initial conditions according to new implementation of <code>MultiLayer</code>.
+</li>
 <li>
 May 15, 2018 by Filip Jorissen:<br/>
 Fixed initial conditions.
