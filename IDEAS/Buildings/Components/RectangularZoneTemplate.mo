@@ -568,7 +568,7 @@ components cannot be propagated.
 <ul>
 <li>
 February 5, 2019, by Damien Picard:<br/>
-Correct typoo in winB declaration (fraB should be fracB). 
+Correct typo in winB declaration (fraB should be fracB). 
 </li>
 <li>
 October 26, 2018, by Filip Jorissen:<br/>
