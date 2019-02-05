@@ -27,26 +27,29 @@ model SingleZoneResidentialHydronic
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_inputFilter=false,
-    inputType=IDEAS.Fluid.Types.InputType.Stages,
     massFlowRates={0,0.05},
     redeclare package Medium = Medium,
-    m_flow_nominal=rad.m_flow_nominal) "Hydronic pump"
+    m_flow_nominal=rad.m_flow_nominal,
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    constantMassFlowRate=0.05)         "Hydronic pump"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Modelica.Blocks.Math.BooleanToInteger booToInt(integerTrue=1, integerFalse=2)
-    "Boolean to integer conversion"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Modelica.Blocks.Logical.Hysteresis hys(uLow=21, uHigh=23)
-    "Hysteresis controller"
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Modelica.Thermal.HeatTransfer.Celsius.TemperatureSensor senTem
-    "Temperature sensor"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Modelica.Blocks.Sources.Constant TSet(k=273.15 + 70) "Temperature set point"
-    annotation (Placement(transformation(extent={{68,20},{48,40}})));
 
-  Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = Medium)
+  Fluid.Sources.Boundary_pT bou(nPorts=1,
+    redeclare package Medium = Medium)
     "Absolute pressure boundary"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+  Modelica.Blocks.Interfaces.RealInput TSup(start=320)
+    "Temperature set point of heater"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={40,120})));
+  Modelica.Blocks.Interfaces.RealOutput Q
+    "Thermal power use of heater"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  Modelica.Blocks.Interfaces.RealOutput TZone
+    "Zone operative temperature"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   connect(rad.heatPortCon, case900Template.gainCon) annotation (Line(points={{-37.2,
           12},{-48,12},{-48,7},{-60,7}}, color={191,0,0}));
@@ -58,18 +61,14 @@ equation
     annotation (Line(points={{0,-10},{-30,-10},{-30,0}}, color={0,127,255}));
   connect(pump.port_b, hea.port_a) annotation (Line(points={{20,-10},{40,-10},{40,
           30},{20,30}}, color={0,127,255}));
-  connect(hys.y, booToInt.u)
-    annotation (Line(points={{21,70},{38,70}}, color={255,0,255}));
-  connect(senTem.port, case900Template.gainCon) annotation (Line(points={{-40,70},
-          {-56,70},{-56,7},{-60,7}}, color={191,0,0}));
-  connect(senTem.T, hys.u)
-    annotation (Line(points={{-20,70},{-2,70}}, color={0,0,127}));
-  connect(booToInt.y, pump.stage) annotation (Line(points={{61,70},{74,70},{74,6},
-          {10,6},{10,2}}, color={255,127,0}));
-  connect(TSet.y, hea.TSet) annotation (Line(points={{47,30},{44,30},{44,38},{22,
-          38}}, color={0,0,127}));
   connect(bou.ports[1], pump.port_a)
     annotation (Line(points={{-20,-30},{0,-30},{0,-10}}, color={0,127,255}));
+  connect(hea.TSet,TSup)
+    annotation (Line(points={{22,38},{40,38},{40,120}}, color={0,0,127}));
+  connect(hea.Q_flow, Q) annotation (Line(points={{-1,38},{0,38},{0,60},{110,60}},
+        color={0,0,127}));
+  connect(case900Template.TSensor, TZone) annotation (Line(points={{-59,12},{80,
+          12},{80,0},{110,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
@@ -83,6 +82,10 @@ for WP 1.2 of IBPSA project 1.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22nd, 2019 by Filip Jorissen:<br/>
+Revised implementation by adding external inputs.
+</li>
 <li>
 May 2, 2018 by Filip Jorissen:<br/>
 First implementation.
