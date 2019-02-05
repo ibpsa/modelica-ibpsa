@@ -10,17 +10,24 @@ model MultiLayer "multiple material layers in series"
   parameter Integer nGain = 0 "Number of gains";
   parameter Boolean linIntCon=false
     "Linearise interior convection inside air layers / cavities in walls";
-
-  parameter Modelica.SIunits.Temperature T_start[nLay]=ones(nLay)*293.15
-    "Start temperature from port_b to port_a";
   final parameter Modelica.SIunits.ThermalInsulance R=sum(monLay.R)
     "total specific thermal resistance";
   final parameter Modelica.SIunits.HeatCapacity C = sum(mats.d.*mats.rho.*mats.c*A)
     "Total heat capacity of the layers"
     annotation(Evaluate=true);
+
+  parameter Modelica.SIunits.Temperature T_start[nLay]=ones(nLay)*293.15
+    "Start temperature from port_b to port_a"
+    annotation(Evaluate=true, Dialog(group="Dynamics"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Static (steady state) or transient (dynamic) thermal conduction model"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(group="Dynamics"));
+  parameter Boolean disableInitPortA= false
+    "Remove initial equation at port a"
+    annotation(Evaluate=true, Dialog(group="Dynamics"));
+  parameter Boolean disableInitPortB= false
+    "Remove initial equation at port b"
+    annotation(Evaluate=true, Dialog(group="Dynamics"));
   parameter SI.TemperatureDifference dT_nom_air=1
     "Nominal temperature difference for air layers, used for linearising Rayleigh number"
     annotation(Dialog(enable=linIntCon));
@@ -71,6 +78,24 @@ model MultiLayer "multiple material layers in series"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,100})));
+initial equation
+  // This code sets initial equations for the outer states of each monolayer.
+  // These initial equations are not added at the monoLayer level
+  // since then two adjacent monolayers may set an initial equation for the
+  // same port, which causes warnings when the initial equations are consistent
+  // and errors otherwise.
+  // Moreover, multiple multiLayers may be connected to each other, such as in
+  // the SlabOnGround model. For this case the parameter disableInitPortB is added.
+  for i in 1:nLay loop
+    if monLay[i].isDynamic then
+      if i>1 or not disableInitPortB then
+        monLay[i].port_b.T=T_start[i];
+      end if;
+    end if;
+    if monLay[i].isDynamic and (if i==nLay then not disableInitPortA else not monLay[i+1].isDynamic) then
+      monLay[i].port_a.T=T_start[i];
+    end if;
+  end for;
 
 equation
   // Last layer of monLay is connected to port_a
@@ -137,6 +162,11 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+January 25, 2019, by Filip Jorissen:<br/>
+Revised initial equation implementation.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/971>#971</a>.
+</li>
 <li>
 March 8, 2016, by Filip Jorissen:<br/>
 Fixed bug in output of iEpsLw and iEpsSw for issue 464.
