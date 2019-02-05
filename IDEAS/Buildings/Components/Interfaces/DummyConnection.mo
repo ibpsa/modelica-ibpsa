@@ -46,6 +46,9 @@ model DummyConnection "Source generator/sink for propsbus"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Modelica.Blocks.Sources.Constant zero(k=0) if not isZone
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow QRad(Q_flow=0) if
+                         isZone
+    annotation (Placement(transformation(extent={{-40,-64},{-20,-44}})));
 equation
   connect(prescribedHeatFlow[1].port, zoneBus.surfCon) annotation (Line(
       points={{-50,20},{62,20},{62,-1.9},{100.1,-1.9}},
@@ -85,13 +88,10 @@ equation
       smooth=Smooth.None));
   if isZone then
   connect(sim.weaBus, zoneBus.weaBus) annotation (Line(
-      points={{-84,32.8},{-40,32.8},{-40,-1.9},{100.1,-1.9}},
+      points={{-81,33},{-40,33},{-40,-1.9},{100.1,-1.9}},
       color={255,204,51},
       thickness=0.5));
   end if;
-  connect(fixedTemperature.port, zoneBus.surfRad) annotation (Line(points={{-50,-6},
-          {-48,-6},{-48,-10},{-44,-10},{100.1,-10},{100.1,-1.9}},
-                                        color={191,0,0}));
   if isZone then
     connect(fixedTemperature.port, zoneBus.surfCon) annotation (Line(points={{-50,
           -6},{100.1,-6},{100.1,-1.9}}, color={191,0,0}));
@@ -109,11 +109,19 @@ equation
   connect(zero.y, prescribedEnergy.E) annotation (Line(points={{-59,-40},{-49.5,
           -40},{-40,-40}}, color={0,0,127}));
   if isZone then
+    connect(QRad.port, zoneBus.surfRad) annotation (Line(points={{-20,-54},{100.1,
+          -54},{100.1,-1.9}}, color={191,0,0}));
     connect(sim.E, zoneBus.E) annotation (Line(points={{-90,20},{-90,20},{-90,-2},
             {100.1,-2},{100.1,-1.9}},          color={0,0,0}));
     connect(sim.Qgai, zoneBus.Qgai) annotation (Line(points={{-90,20},{-90,20},{
             -90,-1.9},{100.1,-1.9}},    color={0,0,0}));
+  else
+    connect(fixedTemperature.port, zoneBus.surfRad) annotation (Line(points={{-50,
+          -6},{-50,-8},{-48,-8},{-48,-10},{100.1,-10},{100.1,-1.9}}, color={191,
+          0,0}));
   end if;
+
+
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={

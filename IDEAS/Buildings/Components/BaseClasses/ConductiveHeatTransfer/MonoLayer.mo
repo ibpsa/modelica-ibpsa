@@ -20,6 +20,7 @@ model MonoLayer "single material layer"
     "Start temperature for each of the states";
   final parameter Modelica.SIunits.ThermalInsulance R = mat.R
     "Total specific thermal resistance";
+  final parameter Boolean isDynamic = dynamicLayer and realLayer and not airLayer;
 
   Modelica.SIunits.Energy E = E_internal;
 
@@ -37,10 +38,10 @@ model MonoLayer "single material layer"
     A=A,
     mat=mat,
     T_start=T_start,
-    energyDynamics=energyDynamics) if
-                            dynamicLayer and realLayer and not airLayer
+    energyDynamics=energyDynamics) if isDynamic
     "Dynamic monolayer for solid"
     annotation (Placement(transformation(extent={{-10,-42},{10,-22}})));
+
   IDEAS.Buildings.Components.BaseClasses.ConvectiveHeatTransfer.MonoLayerAir
     monLayAir(
     A=A,
@@ -146,6 +147,11 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+January 25, 2019, by Filip Jorissen:<br/>
+Revised initial equation implementation.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/971>#971</a>.
+</li>
 <li>
 March 8, 2016, by Filip Jorissen:<br/>
 Fixed bug in connection of internal gains. 

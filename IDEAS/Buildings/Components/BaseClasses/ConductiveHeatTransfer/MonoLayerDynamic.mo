@@ -45,10 +45,23 @@ public
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 initial equation
+  // We define initial conditions only for the inner states to avoid
+  // redundant initial equations.
+  // Initial equations for the outer states are defined at the MultiLayer level.
   if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
-    T = ones(nSta)*T_start;
+    if addRes_b then
+      T[nSta]=T_start;
+    end if;
+    for i in 2:nSta-1 loop
+      T[i] = T_start;
+    end for;
   elseif energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
-    der(T) = zeros(nSta);
+    if addRes_b then
+      der(T[nSta])=0;
+    end if;
+    for i in 2:nSta-1 loop
+      der(T[i]) = 0;
+    end for;
   end if;
   assert(nSta >= 1, "Number of states needs to be higher than zero.");
   assert(abs(sum(C) - A*mat.rho*mat.c*mat.d) < 1e-6, "Verification error in MonLayerDynamic");
@@ -126,6 +139,11 @@ The number of capacitive elements $n$ used in modeling the transient thermal res
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 25, 2019, by Filip Jorissen:<br/>
+Revised initial equation implementation.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/971>#971</a>.
+</li>
 <li>
 January 25, 2018, by Filip Jorissen:<br/>
 Propagated <code>T_start</code> in the declaration of <code>T</code>.
