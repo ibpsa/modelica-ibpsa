@@ -7,7 +7,7 @@ model SlabOnGround "opaque floor on ground slab"
         inc=IDEAS.Types.Tilt.Floor,
         azi=0,
     redeclare replaceable Data.Constructions.FloorOnGround constructionType,
-    layMul(monLay(each monLayDyn(final addRes_b=true))));
+    layMul(disableInitPortB=true));
 
   parameter Modelica.SIunits.Length PWall=4*sqrt(A)
     "Total floor slab perimeter";
@@ -80,7 +80,7 @@ equation
   connect(Qm_val.y, product.u1) annotation (Line(points={{-21,60},{-26,60},{-26,
           42.4},{-29.2,42.4}}, color={0,0,127}));
   connect(product.u2, propsBusInt.weaBus.dummy) annotation (Line(points={{-29.2,
-          37.6},{53.075,37.6},{53.075,19.91}},
+          37.6},{56.09,37.6},{56.09,19.91}},
                                       color={0,0,127}));
   connect(product.y, periodicFlow.Q_flow) annotation (Line(points={{-38.4,40},{-50,
           40},{-50,22},{-40,22}}, color={0,0,127}));
@@ -142,6 +142,11 @@ zone that is surrounded by air at the ambient temperature.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 25, 2019, by Filip Jorissen:<br/>
+Revised initial equation implementation.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/971>#971</a>.
+</li>
 <li>
 August 10, 2018 by Damien Picard:<br/>
 Set nWin final to 1 as this should only be used for windows.

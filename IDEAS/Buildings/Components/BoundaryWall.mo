@@ -4,8 +4,7 @@ model BoundaryWall "Opaque wall with optional prescribed heat flow rate or tempe
      final nWin=1,
      QTra_design=U_value*A*(273.15 + 21 - TRef_a),
      dT_nominal_a=-1,
-     layMul(monLay(energyDynamics=cat(1, {(if not sim.lineariseDymola and (use_T_in or use_T_fixed) and energyDynamics ==  Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics)}, fill(energyDynamics, layMul.nLay-1)),
-          monLayDyn(each addRes_b=(sim.lineariseDymola and (use_T_in or use_T_fixed))))));
+    layMul(disableInitPortB=use_T_in or use_T_fixed, monLay(monLayDyn(each addRes_b=(sim.lineariseDymola and (use_T_in or use_T_fixed))))));
 
   parameter Boolean use_T_fixed = false
     "Get the boundary temperature from the input connector"
@@ -146,6 +145,11 @@ If all are disabled then an adiabatic boundary (<code>Q_flow=0</code>) is used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 25, 2019, by Filip Jorissen:<br/>
+Revised initial equation implementation.
+See issue <a href=https://github.com/open-ideas/IDEAS/issues/971>#971</a>.
+</li>
 <li>
 December 2, 2018 by Filip Jorissen:<br/>
 Added option for setting fixed boundary condition temperature.
