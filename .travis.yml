@@ -26,7 +26,7 @@ env:
   - TEST_ARG="make test-dymola    PACKAGE=\"IDEAS.{ThermalZones,LIDEAS}\""
   - TEST_ARG="make test-dymola    PACKAGE=\"IDEAS.{Airflow,BoundaryConditions,Controls}\""
   - TEST_ARG="make test-dymola    PACKAGE=\"IDEAS.{Media,Utilities,Templates}\""
-  - TEST_ARG="make test-dymola    PACKAGE=\"IDEAS.Examples.{PPD12,IBPSA,Benchmark}\""   
+  - TEST_ARG="make test-dymola    PACKAGE=\"IDEAS.Examples.{PPD12,IBPSA}\""   
   - TEST_ARG="make test-dymola    PACKAGE=\"IDEAS.Examples.TwinHouses\""   
 
 before_install:
