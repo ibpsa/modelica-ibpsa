@@ -117,7 +117,7 @@ replaceable
       U_value=glazingB.U_value,
       g_value=glazingB.g_value),
     A=A_winB,
-    frac=fraB,
+    frac=fracB,
     azi=aziA + Modelica.Constants.pi/2,
     T_start=T_start,
     linIntCon_a=linIntCon,
@@ -566,6 +566,10 @@ components cannot be propagated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 5, 2019, by Damien Picard:<br/>
+Correct typo in winB declaration (fraB should be fracB). 
+</li>
 <li>
 October 26, 2018, by Filip Jorissen:<br/>
 Removed use of non-existent parameter <code>aziCei</code>.
