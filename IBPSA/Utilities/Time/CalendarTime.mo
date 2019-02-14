@@ -78,8 +78,8 @@ protected
   Boolean firstDaySampling(fixed=true, start=true)
     "=true if the day is sampled the first time";
 initial equation
-  hourSampleStart = integer(time/3600)*3600;
-  daySampleStart  = integer(time/(3600*24))*3600*24;
+  hourSampleStart = integer(time/3600)*3600 - offset;
+  daySampleStart  = integer(time/(3600*24))*3600*24 - offset;
 
   hour = integer(floor(rem(unixTimeStamp,3600*24)/3600));
   daysSinceEpoch = integer(floor(unixTimeStamp/3600/24));
@@ -256,6 +256,10 @@ equation
     defaultComponentName="calTim",
   Documentation(revisions="<html>
 <ul>
+<li>
+February 14, 2019, by Damien Picard:<br/>
+Fix bug when non-zero offset by substracting the offset from hourSampleStart and daySampleStart (see <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1099\">#1099</a>).
+<li>
 <li>
 August 3, 2016, by Filip Jorissen:<br/>
 First implementation.
