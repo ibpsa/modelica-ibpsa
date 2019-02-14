@@ -259,7 +259,7 @@ equation
 <li>
 February 14, 2019, by Damien Picard:<br/>
 Fix bug when non-zero offset by substracting the offset from hourSampleStart and daySampleStart (see <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1099\">#1099</a>).
-<li>
+</li>
 <li>
 August 3, 2016, by Filip Jorissen:<br/>
 First implementation.
