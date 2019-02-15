@@ -28,6 +28,6 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
             graphics),
-    experiment(StopTime=30),
+    experiment(StopTime=30, Tolerance=1e-06),
     __Dymola_experimentSetupOutput);
 end MovingAverage;
