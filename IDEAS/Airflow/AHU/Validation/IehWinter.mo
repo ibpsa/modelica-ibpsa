@@ -14,7 +14,8 @@ model IehWinter
     V_flowRet(k=14200/3600*1.195),
     V_flowSup(k=12460*1.35/3600),
     IEH(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
-  annotation (experiment(StopTime=500),__Dymola_experimentSetupOutput,
+  annotation (experiment(StopTime=500, Tolerance=1e-06),
+                                       __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
           "modelica://IDEAS/Resources/Scripts/Dymola/Airflow/AHU/Validation/IehWinter.mos"
         "Simulate and plot"));

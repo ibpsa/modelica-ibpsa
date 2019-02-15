@@ -55,7 +55,7 @@ In this example two two-zones models are compared where
 only one of the two models has the open door option enabled.
 </p>
 </html>"),
-    experiment(StopTime=1000000),
+    experiment(StopTime=1000000, Tolerance=1e-06),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Examples/OpenDoorComparison.mos"
         "Simulate and plot"));

@@ -74,6 +74,7 @@ equation
     experiment(
       StopTime=31500000,
       __Dymola_NumberOfIntervals=5000,
+      Tolerance=1e-06,
       __Dymola_Algorithm="Lsodar"),
     Documentation(info="<html>
 <p>

@@ -51,7 +51,7 @@ equation
     annotation (Line(points={{-59,70},{0,70},{0,30.6}}, color={0,0,127}));
   connect(valDyn.T, valSte.T)
     annotation (Line(points={{0,-9.4},{0,30.6}}, color={0,0,127}));
-    annotation (experiment(StopTime=7200),
+    annotation (experiment(StopTime=7200, Tolerance=1e-06),
 __Dymola_Commands(file=
           "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValveTRV.mos"
         "Simulate and plot"),
