@@ -103,7 +103,7 @@ Changed implementation for more flexible 3wayvalve
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=15),
+    experiment(StopTime=15, Tolerance=1e-06),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
           "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Simplified/Examples/Thermostatic3WayValve.mos"

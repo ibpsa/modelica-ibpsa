@@ -235,7 +235,10 @@ equation
   annotation (
     Diagram(coordinateSystem(extent={{-120,-160},{100,120}})),
     Icon(coordinateSystem(extent={{-120,-160},{100,120}})),
-    experiment(StopTime=1e+006, __Dymola_NumberOfIntervals=1000),
+    experiment(
+      StopTime=1000000,
+      __Dymola_NumberOfIntervals=1000,
+      Tolerance=1e-06),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/LIDEAS/Validation/ZoneWithInputsValidationNonLinear.mos"
         "Linearize, simulate and plot"),

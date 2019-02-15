@@ -135,7 +135,7 @@ Initial version
 </html>", info="<html>
 <p>This model demonstrates the use of a heat pump with a temperature set point.</p>
 </html>"),
-    experiment(StopTime=1000),
+    experiment(StopTime=1000, Tolerance=1e-06),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-120,-100},{120,100}})));
 end HeatPump_WaterWaterTSet;
