@@ -85,7 +85,7 @@ equation
                       __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Controls/Discrete/Examples/HysteresisRelease_Cooling.mos"
         "Simulate and plot"),
-    experiment(StopTime=86400),
+    experiment(StopTime=86400, Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 Example that demonstrates the use of the hysteresis with release and variable uLow and uHigh for a typical cooling control. 

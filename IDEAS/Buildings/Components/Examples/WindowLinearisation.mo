@@ -76,6 +76,9 @@ This model allows comparing the result of a window with non-linear and linear
 convection equations for computing the thermal resistance of the gas between the glass sheets.
 </p>
 </html>"),
-    experiment(StopTime=1000000, __Dymola_Algorithm="Lsodar"),
+    experiment(
+      StopTime=1000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput);
 end WindowLinearisation;

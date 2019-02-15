@@ -143,7 +143,7 @@ equation
           {60,70},{60,-34},{78,-34}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=100000),
+    experiment(StopTime=100000, Tolerance=1e-06),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/LIDEAS/Validation/Case900ValidationNonLinear.mos"
         "Linearise, simulate and plot"),

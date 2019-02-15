@@ -90,7 +90,7 @@ equation
             100,100}})),
     experiment(
       StopTime=3000,
-      Tolerance=0.001,
+      Tolerance=1e-06,
       __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput(events=false),
     __Dymola_Commands(file=

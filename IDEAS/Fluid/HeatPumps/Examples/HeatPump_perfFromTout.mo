@@ -327,7 +327,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-160},{100,
             100}})),
-    experiment(StopTime=10000),
+    experiment(StopTime=10000, Tolerance=1e-06),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-120,-160},{100,100}})),
     __Dymola_Commands(file=

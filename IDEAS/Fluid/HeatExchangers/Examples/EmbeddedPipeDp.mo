@@ -73,7 +73,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(firstOrder1.y, pump.m_flow_in)
-    annotation (Line(points={{-33,40},{-26.2,40},{-26.2,8}}, color={0,0,127}));
+    annotation (Line(points={{-33,40},{-26,40},{-26,8}},     color={0,0,127}));
   connect(convection.fluid,prescribedTemperature. port) annotation (Line(
       points={{42,60},{42,80}},
       color={191,0,0},
@@ -96,7 +96,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{140,100}})),
-    experiment(StopTime=10000),
+    experiment(StopTime=10000, Tolerance=1e-06),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-100,-100},{140,100}})));
 end EmbeddedPipeDp;
