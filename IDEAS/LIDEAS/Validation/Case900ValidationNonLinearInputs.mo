@@ -68,7 +68,7 @@ equation
           0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=100000),
+    experiment(StopTime=100000, Tolerance=1e-06),
     __Dymola_Commands(file="Resources/Scripts/Dymola/LIDEAS/Validation/Case900ValidationNonLinearInputs.mos"
         "Linearise, simulate and plot"),
     Documentation(revisions="<html>

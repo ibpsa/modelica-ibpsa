@@ -42,6 +42,6 @@ equation
           50},{0,12}},         color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-    experiment(StopTime=10000),
+    experiment(StopTime=10000, Tolerance=1e-06),
     __Dymola_experimentSetupOutput);
 end PumpWithPulseControl;

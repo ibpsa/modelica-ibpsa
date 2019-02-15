@@ -57,7 +57,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(trapezoid.y, boundary.m_flow_in) annotation (Line(
-      points={{-79,0},{-70,0},{-70,8},{-60,8}},
+      points={{-79,0},{-70,0},{-70,8},{-62,8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(embeddedPipe.port_b, senTem.port_a) annotation (Line(
@@ -87,7 +87,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
-    experiment(StopTime=10000),
+    experiment(StopTime=10000, Tolerance=1e-06),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
           "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlab/Examples/EmbeddedPipeExample.mos"

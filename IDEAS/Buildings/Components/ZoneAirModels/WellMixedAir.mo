@@ -4,7 +4,8 @@ model WellMixedAir "Zone air model assuming perfectly mixed air"
     final nSeg=1,
     mSenFac(min=0)=5);
 
-    constant StateSelect stateSelectTVol = StateSelect.avoid "Set to .prefer to use temperature as a state in mixing volume";
+    parameter StateSelect stateSelectTVol = if sim.linearise then StateSelect.prefer else StateSelect.default
+      "Set to .prefer to use temperature as a state in mixing volume";
 
 protected
   constant Modelica.SIunits.SpecificEnthalpy lambdaWater = Medium.enthalpyOfCondensingGas(T=273.15+35)
@@ -136,6 +137,11 @@ equation
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>
+<li>
+February 14, 2019 by Filip Jorissen:<br/>
+Changed default value of <code>stateSelectTVol</code>.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/982\">#982</a>.
+</li>
 <li>
 December 11, 2018 by Filip Jorissen:<br/>
 Revised mixing volume connection order to avoid triggering flow reversal warnings.

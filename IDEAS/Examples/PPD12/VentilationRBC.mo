@@ -68,7 +68,8 @@ equation
     experiment(
       StopTime=500000,
       __Dymola_NumberOfIntervals=5000,
-      __Dymola_fixedstepsize=10,
+      Tolerance=1e-06,
+      __Dymola_fixedstepsize=15,
       __Dymola_Algorithm="Euler"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Examples/PPD12/VentilationRBC.mos"

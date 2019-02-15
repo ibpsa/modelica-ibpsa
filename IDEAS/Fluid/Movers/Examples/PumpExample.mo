@@ -47,13 +47,13 @@ equation
   connect(booleanPulse.y, booleanToReal.u) annotation (Line(points={{-35.3,41},{
           -35.3,41},{-31,41}}, color={255,0,255}));
   connect(product.y, pump.m_flow_in)
-    annotation (Line(points={{0,19.4},{0,12},{-0.2,12}}, color={0,0,127}));
+    annotation (Line(points={{0,19.4},{0,12},{0,12}},    color={0,0,127}));
   connect(booleanToReal.y, product.u2) annotation (Line(points={{-19.5,41},{-3.6,
           41},{-3.6,33.2}}, color={0,0,127}));
   connect(sine.y, product.u1) annotation (Line(points={{-19,70},{-6,70},{3.6,70},
           {3.6,33.2}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-    experiment(StopTime=10000),
+    experiment(StopTime=10000, Tolerance=1e-06),
     __Dymola_experimentSetupOutput);
 end PumpExample;
