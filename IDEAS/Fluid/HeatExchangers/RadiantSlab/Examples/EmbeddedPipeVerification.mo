@@ -68,11 +68,12 @@ equation
   end for;
   connect(embeddedPipe.heatPortEmb, theRes1.port_a)
     annotation (Line(points={{0,10},{0,34}}, color={191,0,0}));
-  connect(realExpression.y, sou.m_flow_in) annotation (Line(points={{-73,6},{-66,
-          6},{-66,8},{-60,8}}, color={0,0,127}));
+  connect(realExpression.y, sou.m_flow_in) annotation (Line(points={{-73,6},{
+          -66,6},{-66,8},{-62,8}},
+                               color={0,0,127}));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-    experiment,
+    experiment(Tolerance=1e-06),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
           "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlab/Examples/EmbeddedPipeVerification.mos"

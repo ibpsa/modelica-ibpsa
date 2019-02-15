@@ -354,7 +354,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-160},{100,
             100}}),     graphics),
-    experiment(StopTime=1000),
+    experiment(StopTime=1000, Tolerance=1e-06),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-120,-160},{100,100}})),
     __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/HeatPump_WaterWater.mos"
