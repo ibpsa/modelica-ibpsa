@@ -150,8 +150,8 @@ equation
           30},{-38,29.2}},        color={0,127,255}));
   connect(boundary.X_in, XRet.X) annotation (Line(points={{-102,34},{-105.4,34},
           {-105.4,38}}, color={0,0,127}));
-  connect(boundary.m_flow_in, from_m3PersSup.m_flow) annotation (Line(points={{-100,
-          22},{-105.64,22},{-105.64,6}}, color={0,0,127}));
+  connect(boundary.m_flow_in, from_m3PersSup.m_flow) annotation (Line(points={{-102,22},
+          {-105.64,22},{-105.64,6}},     color={0,0,127}));
   connect(boundary.T_in, TRet.y) annotation (Line(points={{-102,26},{-122,26},{-122,
           46},{-127.4,46}}, color={0,0,127}));
   connect(boundary1.ports[1], IEH.port_a2)
@@ -165,7 +165,7 @@ equation
   connect(from_m3PerhSup.V_flow, V_flowSup.y) annotation (Line(points={{80.24,16.4},
           {84,16.4},{84,26},{87.4,26}}, color={0,0,127}));
   connect(from_m3PerhSup.m_flow, boundary1.m_flow_in)
-    annotation (Line(points={{67.64,14},{60,14},{60,8}}, color={0,0,127}));
+    annotation (Line(points={{67.64,14},{62,14},{62,8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},
             {100,100}}), graphics), Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-140,-100},{100,100}}), graphics={
@@ -173,7 +173,7 @@ equation
           extent={{-92,-34},{-40,-48}},
           lineColor={28,108,200},
           textString="Datasheet solutions")}),
-    experiment(StopTime=500, Tolerance=0.001),
+    experiment(StopTime=500, Tolerance=1e-06),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Airflow/AHU/Validation/IehSummer.mos"
         "Simulate and plot"),
