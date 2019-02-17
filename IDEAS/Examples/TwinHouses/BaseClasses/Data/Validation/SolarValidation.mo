@@ -72,6 +72,7 @@ equation
       StopTime=23587200,
       Interval=600,
       Tolerance=1e-06),
-                     __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Examples/Twinhouses/BaseClasses/Data/Validation/SolarValidation.mos"
+                     __Dymola_Commands(file=
+          "modelica://IDEAS/Resources/Scripts/Dymola/Examples/TwinHouses/BaseClasses/Data/Validation/SolarValidation.mos"
         "Simulate and plot"));
 end SolarValidation;

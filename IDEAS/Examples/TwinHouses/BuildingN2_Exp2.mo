@@ -60,5 +60,8 @@ model BuildingN2_Exp2 "Model for simulation of experiment2 for the N2 building"
           colors={{28,108,200},{238,46,47},{0,140,72}})} "Validation living",
       file="Resources/Scripts/TwinHouse/Living.mos" "Living",
       file="Resources/Scripts/TwinHouse/MeanAbsoluteTemperatureErrors.mos"
-        "Mean absolute temperature errors"));
+        "Mean absolute temperature errors",
+      file=
+          "modelica://IDEAS/Resources/Scripts/Dymola/Examples/TwinHouses/BuildingN2_Exp2.mos"
+        "Simulate and plot"));
 end BuildingN2_Exp2;

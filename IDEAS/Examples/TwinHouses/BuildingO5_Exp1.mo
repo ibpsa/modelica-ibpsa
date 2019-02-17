@@ -19,6 +19,7 @@ model BuildingO5_Exp1
       Evaluate=true,
       OutputCPUtime=true,
       OutputFlatModelica=false),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/Twinhouses/BuildingO5_Exp1.mos"
+    __Dymola_Commands(file=
+          "modelica://IDEAS/Resources/Scripts/Dymola/Examples/TwinHouses/BuildingO5_Exp1.mos"
         "Simulate and plot"));
 end BuildingO5_Exp1;
