@@ -18,8 +18,8 @@ model BuildingN2_Exp2 "Model for simulation of experiment2 for the N2 building"
       Evaluate=true,
       OutputCPUtime=true,
       OutputFlatModelica=false),
-    __Dymola_Commands(
-      executeCall={createPlot(
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/Twinhouses/BuildingN2_Exp2.mos"
+        "Simulate and plot", executeCall={createPlot(
           id=4,
           position={0,0,1309,724},
           y={"struct.W31.propsBus_a.surfRad.T",

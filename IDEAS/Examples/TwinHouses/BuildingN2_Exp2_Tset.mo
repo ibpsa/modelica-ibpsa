@@ -19,5 +19,6 @@ model BuildingN2_Exp2_Tset
       Evaluate=true,
       OutputCPUtime=true,
       OutputFlatModelica=false),
-    __Dymola_Commands);
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/Twinhouses/BuildingN2_Exp2_Tset.mos"
+        "Simulate and plot"));
 end BuildingN2_Exp2_Tset;
