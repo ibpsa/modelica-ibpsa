@@ -1,7 +1,7 @@
 within IDEAS.Examples.TwinHouses.BaseClasses.Data.Validation;
 model SolarValidation
   extends Modelica.Icons.Example;
-  ValidationDataN2Exp1 validationDataN2Exp1(bui=1)
+  ValidationDataN2Exp1 validationDataN2Exp1
     "Measurement data for validation purposes"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   IDEAS.Examples.TwinHouses.BaseClasses.TwinHouseInfoManager sim(
@@ -10,7 +10,7 @@ model SolarValidation
     radSol(each rho=0.23))
            "Sim info manager"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Components.Interfaces.WeaBus weaBus1(numSolBus=5)
+  Buildings.Components.Interfaces.WeaBus weaBus1(numSolBus=6)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Modelica.Blocks.Math.Add3 HGloHor
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
@@ -24,7 +24,7 @@ model SolarValidation
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 equation
   connect(sim.weaBus, weaBus1) annotation (Line(
-      points={{-64,92.8},{-40,92.8},{-40,92},{-40,10},{-30,10}},
+      points={{-61,93},{-40,93},{-40,92},{-40,10},{-30,10}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -68,8 +68,10 @@ equation
 
 
     annotation (experiment(
-      StartTime=2e+07,
-      StopTime=2.35872e+07,
-      Interval=600), __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/Twinhouses/BaseClasses/Data/Validation/SolarValidation.mos"
+      StartTime=20000000,
+      StopTime=23587200,
+      Interval=600,
+      Tolerance=1e-06),
+                     __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Examples/Twinhouses/BaseClasses/Data/Validation/SolarValidation.mos"
         "Simulate and plot"));
 end SolarValidation;

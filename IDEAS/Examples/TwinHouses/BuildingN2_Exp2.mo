@@ -8,9 +8,10 @@ model BuildingN2_Exp2 "Model for simulation of experiment2 for the N2 building"
 
   annotation (
     experiment(
-      StartTime=8.46e+06,
-      StopTime=1.2e+07,
+      StartTime=8460000,
+      StopTime=12000000,
       Interval=900,
+      Tolerance=1e-06,
       __Dymola_Algorithm="Lsodar"),
     __Dymola_experimentSetupOutput,
     __Dymola_experimentFlags(
@@ -18,8 +19,8 @@ model BuildingN2_Exp2 "Model for simulation of experiment2 for the N2 building"
       Evaluate=true,
       OutputCPUtime=true,
       OutputFlatModelica=false),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Examples/Twinhouses/BuildingN2_Exp2.mos"
-        "Simulate and plot", executeCall={createPlot(
+    __Dymola_Commands(
+      executeCall={createPlot(
           id=4,
           position={0,0,1309,724},
           y={"struct.W31.propsBus_a.surfRad.T",
