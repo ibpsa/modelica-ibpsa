@@ -35,7 +35,8 @@ model Vent_TTH
     redeclare package Medium = Medium,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-144,12},{-124,32}})));
   IDEAS.Fluid.Sources.FixedBoundary bou[5](each final nPorts=1,  redeclare
       package Medium =
