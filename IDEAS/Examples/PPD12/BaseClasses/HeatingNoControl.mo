@@ -15,7 +15,7 @@ partial model HeatingNoControl "Ppd 12 example model without control"
   parameter Modelica.SIunits.Temperature TSet=294.15 "Temperature set point";
   parameter Modelica.SIunits.Temperature TSet2=303.15 "Temperature set point";
 
-  Modelica.SIunits.Efficiency eta = {-6.017763e-11,2.130271e-8,-3.058709e-6,2.266453e-4,-9.048470e-3,1.805752e-1,-4.540036e-1}*{TCorr^(6-i) for i in 0:6};
+  Modelica.SIunits.Efficiency eta = {-6.017763e-11,2.130271e-8,-3.058709e-6,2.266453e-4,-9.048470e-3,1.805752e-1,-4.540036e-1}*{TCorr^(6-i) for i in 0:6} "Boiler efficiency";
   Real TCorr=min(max(senTemRet.T - 273.15, 25), 75)
     "Temperature within validity range of correlation";
   Modelica.SIunits.Power QGas = hea.Q_flow/eta;
