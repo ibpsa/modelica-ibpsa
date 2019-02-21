@@ -18,28 +18,30 @@ partial model VentilationNoControl "Ppd 12 example model"
   IDEAS.Fluid.Movers.FlowControlled_m_flow fanSup(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m_flow_nominal_air,
-    inputType=IDEAS.Fluid.Types.InputType.Constant,
     tau=0,
     use_inputFilter=false,
     dp_nominal=300,
     redeclare package Medium = MediumAir,
-    constantMassFlowRate=70*1.2/3600)     "Supply fan"
-    annotation (Placement(transformation(extent={{340,130},{320,150}})));
+    constantMassFlowRate=70*1.2/3600,
+    inputType=IDEAS.Fluid.Types.InputType.Continuous,
+    redeclare Data.FanCurvePP12 per)      "Supply fan"
+    annotation (Placement(transformation(extent={{360,118},{340,138}})));
   IDEAS.Fluid.Movers.FlowControlled_m_flow fanRet(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m_flow_nominal_air,
-    inputType=IDEAS.Fluid.Types.InputType.Constant,
     tau=0,
     use_inputFilter=false,
     dp_nominal=300,
     redeclare package Medium = MediumAir,
-    constantMassFlowRate=70*1.2/3600)     "Return fan"
-    annotation (Placement(transformation(extent={{320,170},{340,190}})));
+    constantMassFlowRate=70*1.2/3600,
+    inputType=IDEAS.Fluid.Types.InputType.Continuous,
+    redeclare Data.FanCurvePP12 per)      "Return fan"
+    annotation (Placement(transformation(extent={{340,180},{360,200}})));
   IDEAS.Fluid.Sources.Boundary_pT bouAir(
     nPorts=3,
     use_T_in=true,
     redeclare package Medium = MediumAir) "Boundary for air model"
-    annotation (Placement(transformation(extent={{380,160},{360,180}})));
+    annotation (Placement(transformation(extent={{400,160},{380,180}})));
   IDEAS.Fluid.FixedResistances.Junction spl5(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -48,8 +50,8 @@ partial model VentilationNoControl "Ppd 12 example model"
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
-    dp_nominal={0,0,100})
-    annotation (Placement(transformation(extent={{272,130},{252,150}})));
+    dp_nominal={0,0,700})
+    annotation (Placement(transformation(extent={{240,120},{220,140}})));
   IDEAS.Fluid.FixedResistances.Junction spl6(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -58,18 +60,18 @@ partial model VentilationNoControl "Ppd 12 example model"
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
-    dp_nominal={0,5,100})
-    annotation (Placement(transformation(extent={{240,130},{220,150}})));
+    dp_nominal={0,0,700})
+    annotation (Placement(transformation(extent={{200,120},{180,140}})));
   IDEAS.Fluid.FixedResistances.Junction spl7(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
-    dp_nominal={200,0,27})
-    annotation (Placement(transformation(extent={{130,170},{150,190}})));
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    dp_nominal={350,0,700})
+    annotation (Placement(transformation(extent={{140,180},{160,200}})));
   IDEAS.Fluid.FixedResistances.Junction spl8(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -78,8 +80,8 @@ partial model VentilationNoControl "Ppd 12 example model"
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     redeclare package Medium = MediumAir,
     m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
-    dp_nominal={0,5,100})
-    annotation (Placement(transformation(extent={{120,130},{100,150}})));
+    dp_nominal={0,350,700})
+    annotation (Placement(transformation(extent={{142,120},{122,140}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumAir,
@@ -88,9 +90,39 @@ partial model VentilationNoControl "Ppd 12 example model"
     eps=0.75,
     dp1_nominal=65,
     dp2_nominal=225) "Heat recovery unit"
-    annotation (Placement(transformation(extent={{290,150},{310,170}})));
+    annotation (Placement(transformation(extent={{280,150},{300,170}})));
   Modelica.Blocks.Sources.RealExpression Te(y=sim.Te) "Ambient air"
-    annotation (Placement(transformation(extent={{374,130},{394,150}})));
+    annotation (Placement(transformation(extent={{360,80},{380,100}})));
+  Fluid.Actuators.Valves.Simplified.ThreeWayValveMotor bypassRet(redeclare
+      package Medium = MediumAir, m_flow_nominal=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Return air bypass control valve"
+    annotation (Placement(transformation(extent={{300,180},{320,200}})));
+  Fluid.FixedResistances.Junction       spl9(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
+    redeclare package Medium = MediumAir,
+    dp_nominal={300,0,0})
+    annotation (Placement(transformation(extent={{260,180},{280,200}})));
+  Fluid.FixedResistances.Junction       spl10(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    m_flow_nominal={m_flow_nominal_air,m_flow_nominal_air,m_flow_nominal_air},
+    redeclare package Medium = MediumAir,
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    dp_nominal={0,300,0})
+    annotation (Placement(transformation(extent={{280,140},{260,120}})));
+  Fluid.Actuators.Valves.Simplified.ThreeWayValveMotor bypassSup(redeclare
+      package Medium = MediumAir, m_flow_nominal=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Supply air bypass control valve"
+    annotation (Placement(transformation(extent={{300,140},{320,120}})));
 equation
   connect(hallway.proBusD[1], living.proBusB[1]) annotation (Line(
       points={{-72.4,57},{-45,57},{-45,40}},
@@ -192,18 +224,18 @@ equation
       points={{182.833,-10},{76.2,-10},{76.2,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(fanSup.port_a, bouAir.ports[1]) annotation (Line(points={{340,140},{
-          360,140},{360,172.667}},
+  connect(fanSup.port_a, bouAir.ports[1]) annotation (Line(points={{360,128},{
+          380,128},{380,172.667}},
                            color={0,127,255}));
-  connect(fanRet.port_b, bouAir.ports[2]) annotation (Line(points={{340,180},{
-          360,180},{360,170}},
+  connect(fanRet.port_b, bouAir.ports[2]) annotation (Line(points={{360,190},{
+          380,190},{380,170}},
                            color={0,127,255}));
-  connect(spl5.port_3, bedRoom2.port_b) annotation (Line(points={{262,130},
-          {268,130},{268,84},{268,62}},          color={0,127,255}));
+  connect(spl5.port_3, bedRoom2.port_b) annotation (Line(points={{230,120},{230,
+          58},{268,58},{268,62}},                color={0,127,255}));
   connect(bedRoom2.port_a, bedRoom3.port_a) annotation (Line(points={{
           264,62},{254,62},{250,62},{250,20},{268,20}}, color={0,127,255}));
-  connect(spl6.port_3, bedRoom3.port_a) annotation (Line(points={{230,130},
-          {230,20},{268,20}},            color={0,127,255}));
+  connect(spl6.port_3, bedRoom3.port_a) annotation (Line(points={{190,120},{190,
+          20},{268,20}},                 color={0,127,255}));
   connect(stairWay.port_b, bedRoom3.port_b) annotation (Line(points=
          {{78,6},{80,6},{80,0},{80,8},{272,8},{272,20}}, color={0,127,255}));
   connect(stairWay.port_a, bathRoom.port_a) annotation (Line(points={{
@@ -211,31 +243,43 @@ equation
   connect(bedRoom1.port_a, stairWay.port_b) annotation (Line(points={
           {128,60},{122,60},{122,56},{78,56},{78,6}}, color={0,127,255}));
   connect(spl7.port_3, bathRoom.port_b)
-    annotation (Line(points={{140,170},{140,6},{132,6}}, color={0,127,255}));
-  connect(spl6.port_1, spl5.port_2) annotation (Line(points={{240,140},{240,140},
-          {252,140}}, color={0,127,255}));
+    annotation (Line(points={{150,180},{150,6},{132,6}}, color={0,127,255}));
+  connect(spl6.port_1, spl5.port_2) annotation (Line(points={{200,130},{220,130}},
+                      color={0,127,255}));
   connect(spl8.port_1, spl6.port_2)
-    annotation (Line(points={{120,140},{220,140}}, color={0,127,255}));
-  connect(spl8.port_3, bedRoom1.port_b) annotation (Line(points={{110,130},
-          {110,106},{132,106},{132,60}}, color={0,127,255}));
-  connect(spl8.port_2, living.port_a) annotation (Line(points={{100,140},{-38,
-          140},{-38,36}}, color={0,127,255}));
+    annotation (Line(points={{142,130},{180,130}}, color={0,127,255}));
+  connect(spl8.port_3, bedRoom1.port_b) annotation (Line(points={{132,120},{132,
+          60}},                          color={0,127,255}));
+  connect(spl8.port_2, living.port_a) annotation (Line(points={{122,130},{-38,
+          130},{-38,36}}, color={0,127,255}));
   connect(living.port_b, Diner.port_a) annotation (Line(points={{-34,
           36},{-34,-38},{-34,-38}}, color={0,127,255}));
-  connect(Diner.port_b, spl7.port_1) annotation (Line(points={{-38,-38},{-40,
-          -38},{-40,-2},{-42,-2},{-42,180},{130,180}}, color={0,127,255}));
-  connect(hex.port_a2, fanSup.port_b) annotation (Line(points={{310,154},{310,
-          140},{320,140}}, color={0,127,255}));
-  connect(hex.port_b2, spl5.port_1) annotation (Line(points={{290,154},{290,140},
-          {272,140}}, color={0,127,255}));
-  connect(hex.port_b1, fanRet.port_a) annotation (Line(points={{310,166},{310,
-          180},{320,180}}, color={0,127,255}));
-  connect(hex.port_a1, spl7.port_2) annotation (Line(points={{290,166},{290,180},
-          {150,180}}, color={0,127,255}));
-  connect(Diner.port_a, bouAir.ports[3]) annotation (Line(points={{-34,-38},{30,
-          -38},{30,202},{360,202},{360,167.333}},     color={0,127,255}));
-  connect(Te.y, bouAir.T_in) annotation (Line(points={{395,140},{400,140},{400,
-          174},{382,174}}, color={0,0,127}));
+  connect(Diner.port_b, spl7.port_1) annotation (Line(points={{-38,-38},{-56,
+          -38},{-56,190},{140,190}},                   color={0,127,255}));
+  connect(Diner.port_a, bouAir.ports[3]) annotation (Line(points={{-34,-38},{
+          -16,-38},{-16,212},{380,212},{380,167.333}},color={0,127,255}));
+  connect(Te.y, bouAir.T_in) annotation (Line(points={{381,90},{400,90},{400,
+          174},{402,174}}, color={0,0,127}));
+  connect(bypassRet.port_b, fanRet.port_a)
+    annotation (Line(points={{320,190},{340,190}}, color={0,127,255}));
+  connect(hex.port_b1, bypassRet.port_a2) annotation (Line(points={{300,166},{
+          310,166},{310,180}}, color={0,127,255}));
+  connect(spl9.port_2, bypassRet.port_a1)
+    annotation (Line(points={{280,190},{300,190}}, color={0,127,255}));
+  connect(hex.port_a1, spl9.port_3) annotation (Line(points={{280,166},{270,166},
+          {270,180}}, color={0,127,255}));
+  connect(spl9.port_1, spl7.port_2)
+    annotation (Line(points={{260,190},{160,190}}, color={0,127,255}));
+  connect(spl10.port_3, hex.port_b2) annotation (Line(points={{270,140},{270,
+          154},{280,154}}, color={0,127,255}));
+  connect(bypassSup.port_a2, hex.port_a2) annotation (Line(points={{310,140},{
+          310,154},{300,154}}, color={0,127,255}));
+  connect(bypassSup.port_b, fanSup.port_b) annotation (Line(points={{320,130},{
+          340,130},{340,128}}, color={0,127,255}));
+  connect(spl10.port_1, bypassSup.port_a1)
+    annotation (Line(points={{280,130},{300,130}}, color={0,127,255}));
+  connect(spl10.port_2, spl5.port_1)
+    annotation (Line(points={{260,130},{240,130}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -200},{400,240}},
         initialScale=0.1), graphics={
