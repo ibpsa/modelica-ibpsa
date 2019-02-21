@@ -5,8 +5,8 @@ model Structure "Ppd 12 example model"
     annotation (Placement(transformation(extent={{400,38},{380,58}})));
   parameter Real n50=1.1
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
-  package MediumAir = IDEAS.Media.Air;
-  package MediumWater = IDEAS.Media.Water;
+  replaceable package MediumAir = IDEAS.Media.Air;
+  replaceable package MediumWater = IDEAS.Media.Water;
 
   // GEOMETRY
   parameter Modelica.SIunits.Length hFloor0=2.9 "Height of ground floor";
@@ -125,7 +125,8 @@ model Structure "Ppd 12 example model"
     hasCavityA=true,
     hA=2.7,
     wA=2,
-    redeclare Data.InteriorWall18 conTypA)
+    redeclare Data.InteriorWall18 conTypA,
+    mSenFac=1)
     annotation (Placement(transformation(extent={{-26,56},{-46,36}})));
 
   IDEAS.Buildings.Components.RectangularZoneTemplate hallway(
@@ -148,7 +149,8 @@ model Structure "Ppd 12 example model"
     redeclare IDEAS.Examples.PPD12.Data.InteriorWall30 conTypA,
     redeclare IDEAS.Examples.PPD12.Data.CommonWall conTypB,
     nSurfExt=1,
-    n50=n50)
+    n50=n50,
+    mSenFac=1)
     annotation (Placement(transformation(extent={{-72,60},{-92,40}})));
   IDEAS.Buildings.Components.RectangularZoneTemplate Diner(
     h=hFloor0,
@@ -171,7 +173,8 @@ model Structure "Ppd 12 example model"
     redeclare IDEAS.Examples.PPD12.Data.FloorOnGround conTypFlo,
     n50=n50,
     redeclare Data.RoofHor conTypCei,
-    redeclare Data.GlassWall conTypA)
+    redeclare Data.GlassWall conTypA,
+    mSenFac=1)
     annotation (Placement(transformation(extent={{-46,-18},{-26,-38}})));
   IDEAS.Buildings.Components.RectangularZoneTemplate Porch(
     aziA=east,
@@ -201,7 +204,8 @@ model Structure "Ppd 12 example model"
     A_winCei=wPorch*lPorch*0.9,
     redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall
       conTypA,
-    n50=n50)
+    n50=n50,
+    mSenFac=1)
     annotation (Placement(transformation(extent={{-44,-66},{-24,-86}})));
 
   IDEAS.Buildings.Components.RectangularZoneTemplate bedRoom1(
@@ -225,7 +229,9 @@ model Structure "Ppd 12 example model"
     bouTypA=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
     nSurfExt=2,
     redeclare Data.Ppd12WestShadingFirst shaTypC,
-    n50=n50) "Master bedroom"
+    n50=n50,
+    mSenFac=1)
+             "Master bedroom"
     annotation (Placement(transformation(extent={{140,80},{120,60}})));
 
   IDEAS.Buildings.Components.RectangularZoneTemplate bathRoom(
@@ -249,7 +255,8 @@ model Structure "Ppd 12 example model"
     bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
     redeclare IDEAS.Examples.PPD12.Data.InteriorWall18 conTypC,
     nSurfExt=0,
-    n50=n50)
+    n50=n50,
+    mSenFac=1)
     "Bathroom"
     annotation (Placement(transformation(extent={{140,26},{120,6}})));
 
@@ -275,7 +282,8 @@ model Structure "Ppd 12 example model"
     bouTypD=IDEAS.Buildings.Components.Interfaces.BoundaryType.External,
     bouTypC=IDEAS.Buildings.Components.Interfaces.BoundaryType.InternalWall,
     redeclare IDEAS.Examples.PPD12.Data.InteriorWall10 conTypC,
-    n50=n50)
+    n50=n50,
+    mSenFac=1)
     "Stairway"
     annotation (Placement(transformation(extent={{86,26},{66,6}})));
   IDEAS.Buildings.Components.RectangularZoneTemplate bedRoom2(
@@ -302,7 +310,8 @@ model Structure "Ppd 12 example model"
     bouTypCei=IDEAS.Buildings.Components.Interfaces.BoundaryType.BoundaryWall,
     redeclare IDEAS.Examples.PPD12.Data.FloorAttic conTypCei,
     redeclare Data.Ppd12WestShadingSecond shaTypC,
-    n50=n50)
+    n50=n50,
+    mSenFac=1)
     "Master bedroom"
     annotation (Placement(transformation(extent={{276,82},{256,62}})));
   IDEAS.Buildings.Components.RectangularZoneTemplate bedRoom3(
@@ -328,7 +337,8 @@ model Structure "Ppd 12 example model"
     redeclare IDEAS.Examples.PPD12.Data.TripleGlazing glazingA,
     nSurfExt=3,
     calculateViewFactor=false,
-    n50=n50)
+    n50=n50,
+    mSenFac=1)
     "Master bedroom"
     annotation (Placement(transformation(extent={{280,40},{260,20}})));
 

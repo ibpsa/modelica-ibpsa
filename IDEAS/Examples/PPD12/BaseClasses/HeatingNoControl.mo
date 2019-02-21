@@ -13,7 +13,12 @@ partial model HeatingNoControl "Ppd 12 example model without control"
 
   //CONTROL
   parameter Modelica.SIunits.Temperature TSet=294.15 "Temperature set point";
-  parameter Modelica.SIunits.Temperature TSet2=296.15 "Temperature set point";
+  parameter Modelica.SIunits.Temperature TSet2=303.15 "Temperature set point";
+
+  Modelica.SIunits.Efficiency eta = {-6.017763e-11,2.130271e-8,-3.058709e-6,2.266453e-4,-9.048470e-3,1.805752e-1,-4.540036e-1}*{TCorr^(6-i) for i in 0:6} "Boiler efficiency";
+  Real TCorr=min(max(senTemRet.T - 273.15, 25), 75)
+    "Temperature within validity range of correlation";
+  Modelica.SIunits.Power QGas = hea.Q_flow/eta;
 
   IDEAS.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 radGnd(
     redeclare package Medium = MediumWater,
@@ -21,7 +26,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     T_a_nominal=273.15 + 75,
     T_b_nominal=273.15 + 65,
     TAir_nominal=273.15 + 20,
-    allowFlowReversal=false)
+    allowFlowReversal=false,
+    nEle=3)
     "Radiator ground floor: Superia super design 33/500/2400"
                                                     annotation (Placement(
         transformation(
@@ -34,7 +40,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     Q_flow_nominal=1844,
     T_a_nominal=273.15 + 75,
     T_b_nominal=273.15 + 65,
-    TAir_nominal=273.15 + 20)
+    TAir_nominal=273.15 + 20,
+    nEle=3)
     "Radiator for first bedroom: Superia super design 22/500/1400"
                                                                  annotation (
       Placement(transformation(
@@ -48,7 +55,9 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     T_a_nominal=273.15 + 75,
     T_b_nominal=273.15 + 65,
     TAir_nominal=273.15 + 20,
-    n=1.2) "Towel dryer for bathroom: Brugman ibiza 1186/600" annotation (
+    n=1.2,
+    nEle=3)
+           "Towel dryer for bathroom: Brugman ibiza 1186/600" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -59,7 +68,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     Q_flow_nominal=1844,
     T_a_nominal=273.15 + 75,
     T_b_nominal=273.15 + 65,
-    TAir_nominal=273.15 + 20)
+    TAir_nominal=273.15 + 20,
+    nEle=3)
     "Radiator for bedroom 2: Superia super design 22/500/1400"   annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -71,7 +81,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     Q_flow_nominal=1671,
     T_a_nominal=273.15 + 75,
     T_b_nominal=273.15 + 65,
-    TAir_nominal=273.15 + 20)
+    TAir_nominal=273.15 + 20,
+    nEle=3)
     "Radiator for bedroom 3: Superia super design 22/800/900"    annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -83,7 +94,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     Q_flow_nominal=1822,
     T_a_nominal=273.15 + 75,
     T_b_nominal=273.15 + 65,
-    TAir_nominal=273.15 + 20)
+    TAir_nominal=273.15 + 20,
+    nEle=3)
     "Main radiator for bathroom: Superia super design 33/500/1000"
                                                     annotation (Placement(
         transformation(
@@ -96,15 +108,18 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_inputFilter=false,
     redeclare package Medium = MediumWater,
-    dp_nominal=50000,
-    allowFlowReversal=false)
+    allowFlowReversal=false,
+    dp_nominal=100000)
     annotation (Placement(transformation(extent={{330,-120},{310,-100}})));
-  Fluid.HeatExchangers.Heater_T             hea(
+  Fluid.HeatExchangers.PrescribedOutlet hea(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=5000,
     redeclare package Medium = MediumWater,
     allowFlowReversal=false,
-    QMax_flow=30000) "Bulex thermo master T30/35"
+    QMax_flow=30000,
+    QMin_flow=0,
+    use_X_wSet=false)
+    "Bulex thermo master T30/35 represented using ideal heater"
     annotation (Placement(transformation(extent={{370,-120},{350,-100}})));
   IDEAS.Fluid.Sources.Boundary_pT       bou1(
     nPorts=1,
@@ -116,61 +131,61 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
     m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
-    dp_nominal=2*{0,0,dp_16mm*5},
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    dp_nominal=2*{0,0,0})
     annotation (Placement(transformation(extent={{240,-120},{220,-100}})));
   IDEAS.Fluid.FixedResistances.Junction spl1(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
     m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
-    dp_nominal=2*{dp_26mm*2,0,dp_16mm*2},
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    dp_nominal=0*2*{dp_26mm*2,0,0})
     annotation (Placement(transformation(extent={{280,-120},{260,-100}})));
   IDEAS.Fluid.FixedResistances.Junction spl2(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
     m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
-    dp_nominal=2*{dp_26mm*3,0,dp_16mm*5},
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    dp_nominal=0*2*{dp_26mm*3,0,0})
     annotation (Placement(transformation(extent={{130,-120},{110,-100}})));
   IDEAS.Fluid.FixedResistances.Junction spl3(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
     m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
-    dp_nominal=2*{0,0,dp_16mm*1.5},
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    dp_nominal=2*{0,0,0})
     annotation (Placement(transformation(extent={{100,-120},{80,-100}})));
   IDEAS.Fluid.FixedResistances.Junction spl4(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = MediumWater,
     m_flow_nominal={m_flow_nominal,m_flow_nominal,m_flow_nominal},
-    dp_nominal=2*{0,dp_16mm*4*2 + dp_26mm*4*2,dp_16mm*5},
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    dp_nominal=2*{0,0,0})
     annotation (Placement(transformation(extent={{70,-120},{50,-100}})));
   IDEAS.Fluid.Actuators.Valves.TwoWayTRV valBed1(
     redeclare package Medium = MediumWater,
     TSet=TSet,
-    m_flow_nominal=0.2,
     CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=false)
-                  "Thermostatic radiator valve for bedroom 1" annotation (
+    m_flow_nominal=m_flow_nominal,
+    dpFixed_nominal=2*dp_16mm*4,
+    from_dp=true) "Thermostatic radiator valve for bedroom 1" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -188,8 +203,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=false)
-                  "Thermostatic radiator valve for towel dryer in bathroom"
+    dpFixed_nominal=2*dp_16mm*4,
+    from_dp=true) "Thermostatic radiator valve for towel dryer in bathroom"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -207,8 +222,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=false)
-                  "Thermostatic radiator valve for radiator in bathroom"
+    dpFixed_nominal=2*dp_16mm*6,
+    from_dp=true) "Thermostatic radiator valve for radiator in bathroom"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -226,8 +241,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=false)
-                  "Thermostatic radiator valve for radiator in bedroom 2"
+    dpFixed_nominal=2*dp_16mm*5,
+    from_dp=true) "Thermostatic radiator valve for radiator in bedroom 2"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -245,8 +260,8 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     Kv=0.5,
     allowFlowReversal=false,
     use_inputFilter=true,
-    from_dp=false)
-                  "Thermostatic radiator valve for bedroom 3" annotation (
+    dpFixed_nominal=2*dp_16mm*2,
+    from_dp=true) "Thermostatic radiator valve for bedroom 3" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -263,10 +278,9 @@ partial model HeatingNoControl "Ppd 12 example model without control"
     allowFlowReversal=false,
     use_inputFilter=true,
     m_flow_nominal=m_flow_nominal,
-    dpFixed_nominal=0,
     TSet=TSet2,
-    from_dp=false)
-                  "Thermostatic radiator valve for radiator on ground floor"
+    dpFixed_nominal=2*(dp_16mm*4 + dp_26mm*5),
+    from_dp=true) "Thermostatic radiator valve for radiator on ground floor"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -276,6 +290,11 @@ partial model HeatingNoControl "Ppd 12 example model without control"
         extent={{-7,-7},{7,7}},
         rotation=90,
         origin={-51,-155})));
+  Fluid.Sensors.TemperatureTwoPort senTemRet(
+    redeclare package Medium = MediumWater,
+    tau=0,
+    m_flow_nominal=m_flow_nominal) "Return water temperature sensor"
+    annotation (Placement(transformation(extent={{310,-190},{330,-170}})));
 equation
   connect(hallway.proBusD[1], living.proBusB[1]) annotation (Line(
       points={{-72.4,57},{-45,57},{-45,40}},
@@ -377,9 +396,8 @@ equation
       points={{182.833,-10},{76.2,-10},{76.2,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(pump.port_a,hea. port_b)
-    annotation (Line(points={{330,-110},{340,-110},{350,-110}},
-                                                     color={0,127,255}));
+  connect(pump.port_a, hea.port_b) annotation (Line(points={{330,-110},{340,-110},
+          {350,-110}}, color={0,127,255}));
   connect(radGnd.port_b,radBed1. port_b) annotation (Line(points={{-40,-180},{-40,
           -180},{60,-180}},                          color={0,127,255}));
   connect(radBed1.port_b,radBat2. port_b) annotation (Line(points={{60,-180},{60,
@@ -390,10 +408,8 @@ equation
           -180},{230,-180}},                           color={0,127,255}));
   connect(radBed2.port_b,radBed3. port_b) annotation (Line(points={{230,-180},{230,
           -180},{270,-180}},                           color={0,127,255}));
-  connect(radBed3.port_b,hea. port_a) annotation (Line(points={{270,-180},{270,
-          -180},{378,-180},{378,-110},{370,-110}},            color={0,127,255}));
-  connect(bou1.ports[1],hea. port_b) annotation (Line(points={{380,-190},{350,
-          -190},{350,-110}}, color={0,127,255}));
+  connect(bou1.ports[1], hea.port_b) annotation (Line(points={{380,-190},{350,-190},
+          {350,-110}}, color={0,127,255}));
   connect(radGnd.heatPortRad, living.gainRad) annotation (Line(
       points={{-47.2,-172},{-66,-172},{-66,52},{-46,52}},
       color={191,0,0},
@@ -500,6 +516,10 @@ equation
                                                color={191,0,0}));
   connect(radGnd.port_a, valGnd.port_b) annotation (Line(points={{-40,-160},{-40,
           -150}},            color={0,127,255}));
+  connect(senTemRet.port_a, radBed3.port_b)
+    annotation (Line(points={{310,-180},{270,-180}}, color={0,127,255}));
+  connect(senTemRet.port_b, hea.port_a) annotation (Line(points={{330,-180},{
+          380,-180},{380,-110},{370,-110}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -200},{400,240}},
         initialScale=0.1), graphics={
