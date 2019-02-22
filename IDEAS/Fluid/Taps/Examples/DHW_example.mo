@@ -69,7 +69,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
-    experiment(StopTime=172800),
+    experiment(StopTime=172800, Tolerance=1e-06),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Taps/Examples/DHW_example.mos"
