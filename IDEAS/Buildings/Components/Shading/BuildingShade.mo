@@ -13,6 +13,8 @@ model BuildingShade
   parameter Modelica.SIunits.Length hWin(min=0) = 1
     "Window height: distance between top and bottom of window glazing"
     annotation(Dialog(group="Dimensions (see illustration in documentation)"));
+  parameter Real fraSha(min=0,max=1) = 1
+    "Fraction of the light that is shaded, e.g. smaller than 1 for shading cast by tree lines.";
   final parameter Real fraSunDifSky(final min=0,final max=1, final unit="1") = 1-vieAngObj/(Modelica.Constants.pi/2)
     "Fraction of window area exposed to diffuse sun light";
 
@@ -24,6 +26,8 @@ protected
   final parameter Modelica.SIunits.Angle rot = 0
     "Rotation angle of opposite building. Zero when parallel, positive when rotated clockwise"
     annotation(Evaluate=true);
+  final parameter Real coeff = 1-fraSha "More efficient implementation";
+  final parameter Real hWinInv = 1/hWin "More efficient implementation";
   Real tanZen = tan(min(angZen, Modelica.Constants.pi/2.01));
   Modelica.SIunits.Length L1 "Horizontal distance to object when following vertical plane through sun ray";
   Modelica.SIunits.Length L2 "Distance to object, taking into account sun position";
@@ -33,23 +37,12 @@ protected
 
 equation
   verAzi = Modelica.Math.acos(cos(angInc)/cos(alt));
-
   L1 = max(0,L/cos(verAzi));
-//   if abs(rot)<1e-4 then
-    //L2=L/cosAzi;
   L2 = L1*tan(alt);
-//   else
-//     //implementation for rot not equal to zero has not been completed nor validated!
-//     if angAzi-azi>rot then
-//       L2=L/cosAzi*(1+sin(abs(angAzi-azi))*sin(abs(rot))/sin(Modelica.Constants.pi-abs(angAzi-azi)-Modelica.Constants.pi/2-abs(rot)));
-//     else
-//       L2=L*(cosAzi+sin(abs(angAzi-azi))*tan(abs(angAzi-azi)-abs(rot)));
-//     end if;
-//   end if;
   if noEvent(L2<dh) then
-    fraSunDir=0;
+    fraSunDir=coeff;
   elseif noEvent(L2<dh+hWin) then
-    fraSunDir=(L2-dh)/hWin;
+    fraSunDir=coeff + (L2-dh)*fraSha*hWinInv;
   else
     fraSunDir=1;
   end if;
@@ -88,9 +81,18 @@ This model is inaccurate when this is not the case.
 We assume that the opposite building is shaded or that its reflectivity is zero,
 such that it does not reflect solar irradiation towards
 the window.
+Partial shading, e.g. when modelling treelines, 
+can be modelled by changing the value of parameter <code>fraSha</code> accordingly.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 21, 2019 by Filip Jorissen:<br/>
+Added parameter <code>shaFra</code> for lowering shading
+fraction of the model.
+See <a href=\"https://github.com/open-ideas/IDEAS/issues/912\">
+#912</a>.
+</li>
 <li>
 September 25, 2018 by Filip Jorissen:<br/>
 Clarified meaning of <code>hWin</code>
