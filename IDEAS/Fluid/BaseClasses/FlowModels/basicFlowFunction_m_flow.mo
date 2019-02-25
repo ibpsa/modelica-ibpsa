@@ -23,7 +23,7 @@ algorithm
       then sign(m_flow)*(m_flow/k)^2
       else (0.375 + (0.75-0.125*m_flowNormSq)*m_flowNormSq)*dp_turbulent*m_flowNorm;
 
- annotation (Inline=false,
+ annotation (LateInline=true,
              smoothOrder=2,
              derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
                IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der,
