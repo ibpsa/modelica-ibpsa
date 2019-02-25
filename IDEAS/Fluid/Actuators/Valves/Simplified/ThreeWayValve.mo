@@ -1,9 +1,10 @@
 within IDEAS.Fluid.Actuators.Valves.Simplified;
 model ThreeWayValve "Ideal mixing point"
-
+  extends Modelica.Icons.ObsoleteModel;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
+
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare package Medium =
         Medium) "Hot fluid inlet"
@@ -14,8 +15,10 @@ model ThreeWayValve "Ideal mixing point"
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) "Fluid outlet"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-equation
+initial equation
+  assert(false, "In " + getInstanceName() + ": this model is deprecated and will be removed in a future version of IDEAS. Use IDEAS.Fluid.FixedResistances.Junction instead.", level=AssertionLevel.warning);
 
+equation
   connect(port_a1, port_b) annotation (Line(
       points={{-100,0},{100,0}},
       color={0,127,255},
@@ -67,6 +70,10 @@ equation
           smooth=Smooth.None)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+February 21, 2019 by Filip Jorissen:<br/> 
+Deprecated model.
+</li>
 <li>March 2014 by Filip Jorissen:<br/> 
 Annex60 compatibility
 </li>
