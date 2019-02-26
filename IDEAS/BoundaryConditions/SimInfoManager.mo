@@ -101,7 +101,6 @@ of the TMY3 weather data reader is used.
 <h4>TMY3 weather data files</h4>
 IDEAS uses TMY3 input files. For detailed documentation see 
 <a href=\"modelica://IDEAS.BoundaryConditions.WeatherData.ReaderTMY3\">IDEAS.BoundaryConditions.WeatherData.ReaderTMY3</a>.
-See <a href=\"http://climate.onebuilding.org\">http://climate.onebuilding.org</a> for more climate file examples.
 </html>", revisions="<html>
 <ul>
 <li>
