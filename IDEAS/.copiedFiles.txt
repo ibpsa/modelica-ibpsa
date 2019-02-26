@@ -1210,8 +1210,6 @@ IDEAS/Media/Specialized/package.order
 IDEAS/Media/Water.mo
 IDEAS/Media/package.mo
 IDEAS/Media/package.order
-IDEAS/Resources/.DS_Store
-IDEAS/Resources/C-Sources/.DS_Store
 IDEAS/Resources/C-Sources/cryptographicsHash.c
 IDEAS/Resources/C-Sources/cryptographicsHash.h
 IDEAS/Resources/C-Sources/fileWriterFree.c
@@ -2380,6 +2378,3 @@ IDEAS/dslog.txt
 IDEAS/dsmodel.c
 IDEAS/dymosim
 IDEAS/package.order
-IDEAS/request.
-IDEAS/status.
-IDEAS/success.
