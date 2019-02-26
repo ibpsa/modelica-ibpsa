@@ -1,7 +1,9 @@
 CommonWall
+FanCurvePP12
 Floor
 FloorAttic
 FloorOnGround
+GlassWall
 InteriorWall10
 InteriorWall18
 InteriorWall30
@@ -13,5 +15,3 @@ PvcInsulated
 Roof
 RoofHor
 TripleGlazing
-GlassWall
-FanCurvePP12

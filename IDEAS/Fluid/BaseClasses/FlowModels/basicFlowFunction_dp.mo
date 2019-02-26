@@ -57,6 +57,11 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </html>", revisions="<html>
 <ul>
 <li>
+January 4, 2019, by Michael Wetter:<br/>
+Set `Inline=false`.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1070\">#1070</a>.
+</li>
+<li>
 May 1, 2017, by Filip Jorissen:<br/>
 Revised implementation such that
 <a href=\"modelica://IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">basicFlowFunction_dp</a>
