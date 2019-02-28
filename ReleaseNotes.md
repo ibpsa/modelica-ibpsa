@@ -1,3 +1,25 @@
+## IDEAS v2.1
+IDEAS 2.1 has been released on February 28th, 2019. The most important changes are:
+
++ IBPSA has been updated up to commit 2d6a5a6ff80.
++ The twin house example model has been re-added to the library.
++ The PPD12 examples now includes a model that compares a rule based controller with a model predictive controller.
+
+### Detailed release notes:
+1. Deprecated IDEAS.Fluid.Actuators.Valves.Simplified.ThreeWayValve.
+2. Extended IDEAS.Buildings.Components.Shading.BuildingShade with a parameter for configuring partial shading.
+3. Added a two-way and three-way valve with a mixed linear-equal percentage opening characteristic.
+4. Added a bypass for the PPD12 air handling unit.
+5. Modified the way how initial equations are defined for wall models. This avoids duplicate initial equations.
+6. Fixed a bug in the zone model when allowFlowReversal was set to false.
+7. Added the option for setting a fixed boudnary condition temperature in BoundaryWall.
+8. Added a utility that automatically checks the git version of library dependencies when running a model, for enhanced version checking of models.
+9. Revised the implementation of the thermostatic radiator valve model such that it is smooth.
+10. Revised documentation in ExteriorSolarAbsorption.
+11. Fixed a compatibility bug with OpenModelica.
+12. Removed reference to non-existent parameter in RectangularZoneTemplate.
+
+
 ## IDEAS v2.0
 IDEAS 2.0 has been released on September 28th, 2018. Highlights of this release compared to v1.0 are:
 

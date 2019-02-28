@@ -1,10 +1,11 @@
-IDEAS v2.0
+IDEAS v2.1
 ============
 [![Build Status](https://travis-ci.org/open-ideas/IDEAS.svg?branch=master)](https://travis-ci.org/open-ideas/IDEAS)
 
 Modelica model environment for Integrated District Energy Assessment Simulations (IDEAS), allowing simultaneous transient simulation of thermal and electrical systems at both building and feeder level.
 
 ## Release history
++ February 28th, 2019: IDEAS v2.1 has been released.
 + September 28th, 2018: IDEAS v2.0 has been released.
 + May 5th, 2017: IDEAS v1.0 has been released.  
    February 16th 2018: A [paper describing IDEAS v1.0](http://www.tandfonline.com/doi/full/10.1080/19401493.2018.1428361) has been published on line.
@@ -42,6 +43,7 @@ IDEAS is licensed by [KU Leuven](http://www.kuleuven.be) and [3E](http://www.3e.
 8. D. Picard, L. Helsen (2014). Advanced Hybrid Model for Borefield Heat Exchanger Performance Evaluation, an Implementation in Modelica. In Proceedings of the 10th International Modelica Conference. Lund, 857-866.
 9. D. Picard, L. Helsen (2014). A New Hybrid Model For Borefield Heat Exchangers Performance Evaluation. 2014 ASHRAE ANNUAL CONFERENCE: Vol. 120 (2). ASHRAE: Ground Source Heat Pumps: State of the Art Design, Performance and Research. Seattle, 1-8.
 10. Picard D., Jorissen F., Helsen L. (2015). Methodology for Obtaining Linear State Space Building Energy Simulation Models. 11th International Modelica Conference. International Modelica Conference. Paris, 21-23 September 2015 (pp. 51-58).
+10. Jorissen F., Helsen L. (2019). Integrated Modelica Model and Model Predictive Control of a Terraced House Using IDEAS. 13th International Modelica Conference. Regensburg, 4-6 March 2019.
 
 ### Applications of IDEAS
 1. D. Picard. (2017) Modeling, optimal control and HVAC design of large buildings using ground source heat pump systems. PhD thesis, Arenberg Doctoral School, KU Leuven.
