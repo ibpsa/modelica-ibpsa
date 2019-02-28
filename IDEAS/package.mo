@@ -10,7 +10,7 @@ annotation (
   uses(Modelica(version="3.2.2")),
   Icon(graphics),
   version="2.1.0",
-  versionDate="2019-02-27",
+  versionDate="2019-02-28",
   dateModified = "2019-02-27",
   conversion(
  from(version={"0.2"},
