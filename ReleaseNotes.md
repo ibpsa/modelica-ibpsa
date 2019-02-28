@@ -1,5 +1,5 @@
 ## IDEAS v2.1
-IDEAS 2.1 has been released on February 26th, 2019. The most important changes are:
+IDEAS 2.1 has been released on February 28th, 2019. The most important changes are:
 
 + IBPSA has been updated up to commit 2d6a5a6ff80.
 + The twin house example model has been re-added to the library.
