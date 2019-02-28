@@ -11,7 +11,7 @@ annotation (
   Icon(graphics),
   version="2.1.0",
   versionDate="2019-02-28",
-  dateModified = "2019-02-27",
+  dateModified = "2019-02-28",
   conversion(
  from(version={"0.2"},
       script="modelica://IDEAS/Resources/Scripts/convertIdeas030to100.mos")),
