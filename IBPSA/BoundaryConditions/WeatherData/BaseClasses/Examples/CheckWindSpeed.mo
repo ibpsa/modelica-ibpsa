@@ -9,8 +9,7 @@ model CheckWindSpeed "Test model for wind speed check"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim(
     weaDatStaTim=0,
-    weaDatEndTim=31536000,
-    weaDatAveInc=86400)
+    weaDatEndTim=31536000)
     "Block that converts time"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 protected

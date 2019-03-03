@@ -20,23 +20,21 @@ protected
   constant Modelica.SIunits.Time year=31536000 "Number of seconds in a year";
   constant Modelica.SIunits.Time shiftSolarRad=1800 "Number of seconds for the shift for solar radiation calculation";
   discrete Modelica.SIunits.Time tStart "Start time of period";
-  Boolean canRepeatWeatherFile(
-    start = true,
-    fixed=true) "true if the weather file can be repeated, since it has the lenth of a year or a multiple of it";
+  Boolean canRepeatWeatherFile "true if the weather file can be repeated, since it has the lenth of a year or a multiple of it";
 
 initial equation
   if mod(lengthWeatherData, year) < 1 then
      // time span in weather file equal to a year or a multiple of it
-    tStart = integer(modTim/lengthWeatherData)*lengthWeatherData;
     canRepeatWeatherFile = true;
   else
-    tStart = 0;
     canRepeatWeatherFile = false;
   end if;
+  tStart = 0;
 
 equation
-  // dummy equation to pass the check
-  canRepeatWeatherFile = pre(canRepeatWeatherFile);
+  canRepeatWeatherFile = pre(canRepeatWeatherFile); // dummy equation,
+   // to pass the check
+
   when (modTim - pre(tStart)) > weaDatEndTim then
     // simulation time stamp went over the end time of the weather file
     //(last time stamp of the weather file + average increment)
@@ -56,7 +54,8 @@ equation
     defaultComponentName="conTim",
     Documentation(info="<html>
 <p>
-This component converts the simulation time to calendar time in a scale of 1 year (365 days).
+This component converts the simulation time to calendar time in a scale of 1 year (365 days), 
+or a multiple of it, if this is the length of the weather file.
 </p>
 </html>", revisions="<html>
 <ul>

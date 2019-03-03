@@ -10,8 +10,7 @@ model CheckPressure "Test model for pressure check"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim(
     weaDatStaTim=0,
-    weaDatEndTim=31536000,
-    weaDatAveInc=86400)
+    weaDatEndTim=31536000)
     "Block that converts time"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 protected

@@ -8,8 +8,7 @@ model CheckCeilingHeight "Test model for ceiling height check"
      annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim(
     weaDatStaTim=0,
-    weaDatEndTim=31536000,
-    weaDatAveInc=86400)
+    weaDatEndTim=31536000)
     "Block that converts time"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 protected
