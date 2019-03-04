@@ -4,7 +4,7 @@ function getTimeSpanTMY3
 
   input String filNam "Name of weather data file";
   input String tabName "Name of table on weather file";
-  output Modelica.SIunits.Time[3] timeSpan "Start time, end time and average increment of weather data";
+  output Modelica.SIunits.Time[2] timeSpan "Start time, end time of weather data";
 
 protected
  String lin "Line that is used in parser";
@@ -16,8 +16,8 @@ protected
  Boolean EOF "Flag, true if EOF has been reached";
  Boolean headerOn "Still reading the header";
  Modelica.SIunits.Time avgIncrement "Average time increment of weather data";
- Modelica.SIunits.Time startTime "End time of weather data";
- Modelica.SIunits.Time endTime "End time of weather data";
+ Modelica.SIunits.Time firstTimeStamp "first time stamp of weather data";
+ Modelica.SIunits.Time lastTimeStamp "last time stamp of weather data";
 
 algorithm
   iLin :=0;
@@ -64,7 +64,7 @@ algorithm
          + ", in weather file " + filNam  +" when scanning the weather file."
          + "\n   Check for correct weather file syntax.");
   // Get first time stamp
-  (startTime, nextIndex) :=Modelica.Utilities.Strings.scanReal(string=lin,
+  (firstTimeStamp, nextIndex) :=Modelica.Utilities.Strings.scanReal(string=lin,
   startIndex=1);
   // Get last line of table
   (lin, EOF) :=Modelica.Utilities.Streams.readLine(fileName=filNam,
@@ -73,17 +73,16 @@ algorithm
          +  " in table" + tabName + ", in weather file " + filNam
          +  " when scanning the weather file."
          +  "\n   Check for correct weather file syntax.");
-  (endTime, nextIndex) :=Modelica.Utilities.Strings.scanReal(string=lin,
+  (lastTimeStamp, nextIndex) :=Modelica.Utilities.Strings.scanReal(string=lin,
   startIndex=1);
-  avgIncrement := (endTime - startTime) / (nrRows -1);
-  timeSpan[1] := startTime;
-  timeSpan[2] := endTime;
-  timeSpan[3] := avgIncrement;
+  avgIncrement := (lastTimeStamp - firstTimeStamp) / (nrRows -1);
+  timeSpan[1] := firstTimeStamp;
+  timeSpan[2] := lastTimeStamp + avgIncrement;
 
   annotation (Documentation(info="<html>
 <p>
-This function returns the first time stamp, the last time stamp and
-the average increment of the TMY3 weather data file.
+This function returns the start time (first time stamp) and end time 
+(last time stamp + average increment) of the TMY3 weather data file.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -12,8 +12,7 @@ model ConvertRadiation "Test model for ConvertRadiation"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime timCon(
     weaDatStaTim=0,
-    weaDatEndTim=31536000,
-    weaDatAveInc=86400)
+    weaDatEndTim=31536000)
     "Convert simmulation time to calendar time"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 protected

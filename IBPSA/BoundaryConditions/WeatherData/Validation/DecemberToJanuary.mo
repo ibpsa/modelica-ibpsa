@@ -2,7 +2,7 @@ within IBPSA.BoundaryConditions.WeatherData.Validation;
 model DecemberToJanuary
   "Validation model for a data reader that has data spanning only some hours in December to January"
   extends Modelica.Icons.Example;
-  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+  ReaderTMY3                                      weaDat(
     computeWetBulbTemperature=false,
     TDewPoiSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,
     HInfHorSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,

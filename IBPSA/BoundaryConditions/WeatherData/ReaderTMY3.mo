@@ -227,9 +227,9 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   constant Modelica.SIunits.HeatFlux solCon = 1367.7 "Solar constant";
 
 protected
-  final parameter Modelica.SIunits.Time[3] timeSpan=
+  final parameter Modelica.SIunits.Time[2] timeSpan=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, "tab1")
-  "Start time, end time and average increment of weather data";
+  "Start time, end time of weather data";
 
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
@@ -296,14 +296,12 @@ protected
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1(
     final weaDatStaTim = timeSpan[1],
-    final weaDatEndTim = timeSpan[2],
-    final weaDatAveInc = timeSpan[3])
+    final weaDatEndTim = timeSpan[2])
     "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-110,180},{-90,200}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim(
     final weaDatStaTim = timeSpan[1],
-    final weaDatEndTim = timeSpan[2],
-    final weaDatAveInc = timeSpan[3])
+    final weaDatEndTim = timeSpan[2])
     "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   BaseClasses.EquationOfTime eqnTim "Equation of time"
@@ -1534,6 +1532,8 @@ midnight at December 31 is deleted.
 These changes in the weather data file are done in the Java program that converts
 EnergyPlus weather data file to Modelica weather data files, and which is described
 below.
+The length of the weather data is calculated as 
+= end time stamp - start time stamp + average increment.
 </p>
 <h5>Time shift for solar radiation data</h5>
 <p>

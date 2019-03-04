@@ -23,8 +23,7 @@ protected
 
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim(
     weaDatStaTim=0,
-    weaDatEndTim=31536000,
-    weaDatAveInc=86400)
+    weaDatEndTim=31536000)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
   Modelica.Blocks.Math.Gain conTotSkyCov(final k=0.1)

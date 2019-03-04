@@ -1,11 +1,11 @@
 within IBPSA.BoundaryConditions.WeatherData.BaseClasses;
 block ConvertTime
-  "Converts the simulation time to calendar time in scale of 1 year (365 days), or a multiple of a year if this is the length of the weather file"
+  "Converts the simulation time to calendar time in scale of 1 year (365 days), or a multiple of a year"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.SIunits.Time weaDatStaTim(displayUnit="d") "Start time of weather data";
   parameter Modelica.SIunits.Time weaDatEndTim(displayUnit="d") "End time of weather data";
-  parameter Modelica.SIunits.Time weaDatAveInc(displayUnit="d") "Average increment of weather data";
+  parameter Modelica.SIunits.Time lengthWeatherData(displayUnit="d") = weaDatEndTim - weaDatStaTim "Length of weather data";
 
   Modelica.Blocks.Interfaces.RealInput modTim(
     final quantity="Time",
@@ -20,36 +20,42 @@ protected
   constant Modelica.SIunits.Time year=31536000 "Number of seconds in a year";
   constant Modelica.SIunits.Time shiftSolarRad=1800 "Number of seconds for the shift for solar radiation calculation";
   discrete Modelica.SIunits.Time tStart "Start time of period";
-  Boolean repeatWeatherFile(
-    start = true,
-    fixed=true) "true if the weather file should be repeated";
+  Boolean canRepeatWeatherFile "true if the weather file can be repeated, since it has the lenth of a year or a multiple of it";
 
 initial equation
-  tStart = integer(modTim/year)*year;
+  if mod(lengthWeatherData, year) < 1 then
+     // time span in weather file equal to a year or a multiple of it
+    canRepeatWeatherFile = true;
+  else
+    canRepeatWeatherFile = false;
+  end if;
+  tStart = 0;
+
 equation
-  when (modTim - pre(tStart)) > (weaDatEndTim+weaDatAveInc) then
-    // simulation time stamp went over the last time stamp of the weather file + average increment
-     if mod(weaDatEndTim-weaDatStaTim + weaDatAveInc, year) < 1 then
-       // time span in weather file equal to a year or a multiple of it
-      tStart = integer(modTim/year)*year; // the new start time is the start of the next year
-      repeatWeatherFile = true;
+  canRepeatWeatherFile = pre(canRepeatWeatherFile); // dummy equation,
+   // to pass the check
+
+  when (modTim - pre(tStart)) > weaDatEndTim then
+    // simulation time stamp went over the end time of the weather file
+    //(last time stamp of the weather file + average increment)
+     if canRepeatWeatherFile then
+      // the new start time is the start of the next year
+      tStart = integer(modTim/lengthWeatherData)*lengthWeatherData;
      else
       tStart = pre(tStart);
-      repeatWeatherFile = false;
+      assert((time - weaDatEndTim) < shiftSolarRad,
+     "Insufficient weather data provided for the desired simulation period.",
+     AssertionLevel.error);
      end if;
   end when;
   calTim = modTim - tStart;
 
-  if repeatWeatherFile == false then
-    assert((time - weaDatEndTim) < shiftSolarRad,
-     "Insufficient weather data provided for the desired simulation period.",
-     AssertionLevel.error);
-  end if;
   annotation (
     defaultComponentName="conTim",
     Documentation(info="<html>
 <p>
-This component converts the simulation time to calendar time in a scale of 1 year (365 days).
+This component converts the simulation time to calendar time in a scale of 1 year (365 days), 
+or a multiple of it, if this is the length of the weather file.
 </p>
 </html>", revisions="<html>
 <ul>
