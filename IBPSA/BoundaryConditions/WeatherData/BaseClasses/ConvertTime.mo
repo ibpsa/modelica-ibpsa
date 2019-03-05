@@ -5,8 +5,6 @@ block ConvertTime
 
   parameter Modelica.SIunits.Time weaDatStaTim(displayUnit="d") "Start time of weather data";
   parameter Modelica.SIunits.Time weaDatEndTim(displayUnit="d") "End time of weather data";
-  final parameter Modelica.SIunits.Time lengthWeatherData(displayUnit="d")=
-    weaDatEndTim - weaDatStaTim "Length of weather data";
 
   Modelica.Blocks.Interfaces.RealInput modTim(
     final quantity="Time",
@@ -18,31 +16,33 @@ block ConvertTime
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  constant Modelica.SIunits.Time year=31536000 "Number of seconds in a year";
   constant Modelica.SIunits.Time shiftSolarRad=1800 "Number of seconds for the shift for solar radiation calculation";
-  discrete Modelica.SIunits.Time tStart "Start time of period";
-  parameter Boolean canRepeatWeatherFile = mod(lengthWeatherData, year) < 1
+  parameter Modelica.SIunits.Time lenWea = weaDatEndTim-weaDatStaTim "Length of weather data";
+
+  parameter Boolean canRepeatWeatherFile = abs(mod(lenWea, 365*24)) < 1E-2
     "true if the weather file can be repeated, since it has the lenth of a year or a multiple of it";
 
+  Modelica.SIunits.Time tNext "Start time of next period";
+  function getNextTime
+    input Modelica.SIunits.Time modelTime "Model time";
+    input Modelica.SIunits.Time lengthWeather "Length of weather data";
+    output Modelica.SIunits.Time t "Next time when switch needs to happen";
+  algorithm
+    t := integer(modelTime/lengthWeather)*lengthWeather + lengthWeather;
+  end getNextTime;
 initial equation
-  tStart = integer(1e-2+integer(modTim/lengthWeatherData)*lengthWeatherData);
+  tNext = getNextTime(modTim, lenWea);
 
 equation
-  when (modTim - pre(tStart)) > weaDatEndTim then
+  when modTim > pre(tNext) then
     // simulation time stamp went over the end time of the weather file
     //(last time stamp of the weather file + average increment)
-    if canRepeatWeatherFile then
-      // the new start time is the start of the next year, represented as a double.
-      // The call to integer(1e-2+... is to guard against rounding errors.
-      tStart = integer(1e-2+integer(modTim/lengthWeatherData)*lengthWeatherData);
-    else
-      tStart = pre(tStart);
-      assert((time - weaDatEndTim) < shiftSolarRad,
-        "Insufficient weather data provided for the desired simulation period.",
-        AssertionLevel.error);
-    end if;
+    tNext = if canRepeatWeatherFile then getNextTime(modTim, lenWea) else integer(Modelica.Constants.inf);
   end when;
-  calTim = modTim - tStart;
+  calTim = if canRepeatWeatherFile then modTim - (tNext - lenWea) else modTim;
+  assert(canRepeatWeatherFile or (time - weaDatEndTim) < shiftSolarRad,
+    "Insufficient weather data provided for the desired simulation period.",
+    AssertionLevel.error);
 
   annotation (
     defaultComponentName="conTim",
@@ -53,6 +53,10 @@ or a multiple of it, if this is the length of the weather file.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 4, 2019, by Michael Wetter:<br/>
+Refactored implementation to correctly account for negative start times.
+</li>
 <li>
 July 27, 2018, by Ana Constantin:<br/>
 Added shift for multiple time spans.
