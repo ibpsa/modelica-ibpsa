@@ -15,7 +15,6 @@ model ThreeYears_usingTwoYearData
 
   annotation (experiment(
       StopTime=94608000,
-      Interval=2678400,
       Tolerance=1e-006),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearData.mos"
         "Simulate and plot"),

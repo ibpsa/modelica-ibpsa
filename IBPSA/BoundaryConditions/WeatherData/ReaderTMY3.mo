@@ -969,7 +969,7 @@ as obtained from the EnergyPlus web site at
 <a href=\"http://energyplus.net/weather\">
 http://energyplus.net/weather</a>. These
 data, which are in the EnergyPlus format, need to be converted as described
-in the next paragraph.
+below.
 </p>
 <!-- ============================================== -->
 <h4>Output to weaBus</h4>
@@ -1460,9 +1460,28 @@ and allows the following configurations:
   </td>
 </tr>
 </table>
+<!-- ============================================== -->
+<h4>Length of weather data and simulation period</h4>
 <p>
-<b>Notes</b>
+If weather data span a year, which is the default for TMY3 data, or multiple years,
+then this model can be used for simulations that span multiple years. The simulation
+start time need to be set to the clock time of the respective start time. For example,
+to start at January 2 at 10am, set start time to <code>t=(24+10)*3600</code> seconds.
 </p>
+<p>
+Moreover, weather data need not span a whole year, or it can span across New Year.
+In this case, the simulation cannot exceed the time of the weather data file. Otherwise,
+the simulation stops with an error.
+</p>
+<p>
+As weather data have one entry at the start of the time interval, the end time of the weather
+data file is computed as the last time entry plus the average time increment of the file.
+For example, an hourly weather data file has 8760 entries, starting on January 1 at 0:00.
+The last entry in the file will be for December 31 at 23:00. As the time increment is 1 hour,
+the model assumes the weather file to end at December 31 at 23:00 plus 1 hour, e.g., at January 1 at 0:00.
+</p>
+<!-- ============================================== -->
+<h4>Notes</h4>
 <ol>
 <li>
 <p>
@@ -1529,9 +1548,10 @@ midnight at December 31 as the value for <i>t=0</i>. Rather, the
 value from 1:00 AM on January 1 is duplicated and used for 0:00 on January 1.
 To maintain a data record with <i>8760</i> hours, the weather data record from
 midnight at December 31 is deleted.
-These changes in the weather data file are done in the Java program that converts
+These changes in the weather data file are done in the Java program
+<code>IBPSA/Resources/bin/ConvertWeatherData.jar</code> that converts
 EnergyPlus weather data file to Modelica weather data files, and which is described
-below.
+above.
 The length of the weather data is calculated as 
 = end time stamp - start time stamp + average increment.
 </p>
@@ -1564,6 +1584,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+March 5, 2019, by Michael Wetter:<br/>
+Updated documentation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">#842</a>.
+</li>
 <li>
 September 20, 2018, by Michael Wetter:<br/>
 Corrected documentation.<br/>

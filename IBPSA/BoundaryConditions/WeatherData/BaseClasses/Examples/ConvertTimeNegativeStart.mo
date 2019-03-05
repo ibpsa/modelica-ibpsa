@@ -1,7 +1,7 @@
 within IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model ConvertTimeNegativeStart
   "Validation of time conversion for negative start time"
-  extends ConvertTime;
+  extends IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples.ConvertTime;
   annotation (
   Documentation(info="<html>
 <p>

@@ -19,7 +19,7 @@ protected
   constant Modelica.SIunits.Time shiftSolarRad=1800 "Number of seconds for the shift for solar radiation calculation";
   parameter Modelica.SIunits.Time lenWea = weaDatEndTim-weaDatStaTim "Length of weather data";
 
-  parameter Boolean canRepeatWeatherFile = abs(mod(lenWea, 365*24)) < 1E-2
+  parameter Boolean canRepeatWeatherFile = abs(mod(lenWea, 365*24*3600)) < 1E-2
     "true if the weather file can be repeated, since it has the lenth of a year or a multiple of it";
 
   Modelica.SIunits.Time tNext "Start time of next period";
@@ -55,7 +55,8 @@ or a multiple of it, if this is the length of the weather file.
 <ul>
 <li>
 March 4, 2019, by Michael Wetter:<br/>
-Refactored implementation to correctly account for negative start times.
+Refactored implementation to correctly account for negative start times.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">#842</a>.
 </li>
 <li>
 July 27, 2018, by Ana Constantin:<br/>

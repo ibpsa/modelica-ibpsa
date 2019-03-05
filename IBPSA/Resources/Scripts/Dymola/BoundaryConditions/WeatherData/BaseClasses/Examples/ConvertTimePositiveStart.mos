@@ -1,4 +1,4 @@
-simulateModel("IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples.ConvertTimeNegativeStart", tolerance=1e-6, startTime = -31536000, stopTime=31536000, method="CVode", resultFile="ConvertTimeNegativeStart");
+simulateModel("IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples.ConvertTimePositiveStart", tolerance=1e-6, startTime = 47174400, stopTime=126144000, method="CVode", resultFile="ConvertTimePositiveStart");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
  y = {"conTim.modTim", "conTim.calTim"},
@@ -8,6 +8,6 @@ createPlot(id = 1,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "ConvertTimeNegativeStart.mat",
+ filename = "ConvertTimePositiveStart.mat",
  leftTitleType = 1,
  bottomTitleType = 1);

@@ -15,7 +15,6 @@ model OverAYear_usingOneYearData
 
   annotation (experiment(
       StopTime=36633600,
-      Interval=3600,
       Tolerance=1e-006),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/OverAYear_usingOneYearData.mos"
         "Simulate and plot"),
