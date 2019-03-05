@@ -10,6 +10,7 @@ CheckWindSpeed
 ConvertRadiation
 ConvertRelativeHumidity
 ConvertTime
+ConvertTimeNegativeStart
 EquationOfTime
 GetAbsolutePath
 GetHeaderElement

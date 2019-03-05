@@ -25,7 +25,7 @@ protected
     "true if the weather file can be repeated, since it has the lenth of a year or a multiple of it";
 
 initial equation
-  tStart = 0;
+  tStart = integer(1e-2+integer(modTim/lengthWeatherData)*lengthWeatherData);
 
 equation
   when (modTim - pre(tStart)) > weaDatEndTim then
