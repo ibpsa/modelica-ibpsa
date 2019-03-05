@@ -81,14 +81,14 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-This function returns the start time (first time stamp) and end time 
+This function returns the start time (first time stamp) and end time
 (last time stamp + average increment) of the TMY3 weather data file.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 November 15, 2017, by Ana Constantin:<br/>
-First implementation, as part of solution to <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">#842</a>
+First implementation, as part of solution to <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">#842</a>.
 </li>
 </ul>
 </html>"));
