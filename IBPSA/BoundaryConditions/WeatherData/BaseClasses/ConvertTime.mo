@@ -20,7 +20,7 @@ protected
   parameter Modelica.SIunits.Time lenWea = weaDatEndTim-weaDatStaTim "Length of weather data";
 
   parameter Boolean canRepeatWeatherFile = abs(mod(lenWea, 365*24*3600)) < 1E-2
-    "true if the weather file can be repeated, since it has the lenth of a year or a multiple of it";
+    "=true, if the weather file can be repeated, since it has the length of a year or a multiple of it";
 
   Modelica.SIunits.Time tNext "Start time of next period";
   function getNextTime
