@@ -41,7 +41,7 @@ equation
   end when;
   calTim = if canRepeatWeatherFile then modTim - (tNext - lenWea) else modTim;
   assert(canRepeatWeatherFile or (time - weaDatEndTim) < shiftSolarRad,
-    "Insufficient weather data provided for the desired simulation period.",
+    "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.",
     AssertionLevel.error);
 
   annotation (
