@@ -23,7 +23,7 @@ protected
     "=true, if the weather file can be repeated, since it has the length of a year or a multiple of it";
 
   Modelica.SIunits.Time tNext "Start time of next period";
-  function getNextTime
+  function getNextTime "Function that computes the next time when a switch needs to happen"
     input Modelica.SIunits.Time modelTime "Model time";
     input Modelica.SIunits.Time lengthWeather "Length of weather data";
     output Modelica.SIunits.Time t "Next time when switch needs to happen";
