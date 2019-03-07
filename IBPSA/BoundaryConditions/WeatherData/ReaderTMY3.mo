@@ -1465,7 +1465,7 @@ and allows the following configurations:
 <p>
 If weather data span a year, which is the default for TMY3 data, or multiple years,
 then this model can be used for simulations that span multiple years. The simulation
-start time need to be set to the clock time of the respective start time. For example,
+start time needs to be set to the clock time of the respective start time. For example,
 to start at January 2 at 10am, set start time to <code>t=(24+10)*3600</code> seconds.
 </p>
 <p>
