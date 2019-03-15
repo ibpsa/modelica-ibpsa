@@ -1,8 +1,10 @@
 CylindricalHeatSource
 CylindricalHeatSource_Integrand
+FiniteLineSource_Integrand_Test
 FiniteLineSource
 FiniteLineSource_Erfint
 FiniteLineSource_Integrand
+GFunction_1borehole
 GFunction_100boreholes
 GFunction_SmallScaleValidation
 InfiniteLineSource
