@@ -18,7 +18,7 @@ function finiteLineSource
 protected
   Real lowBou(unit="m-1") "Lower bound of integration";
   // Upper bound is infinite
-  Real uppBou(unit="m-1") = 100.0 "Upper bound of integration";
+  Real uppBou(unit="m-1") = max(100.0, 10.0/dis) "Upper bound of integration";
   Modelica.SIunits.Distance disMin
     "Minimum distance between sources and receiving line";
   Modelica.SIunits.Time timTre "Time treshold for evaluation of the solution";
