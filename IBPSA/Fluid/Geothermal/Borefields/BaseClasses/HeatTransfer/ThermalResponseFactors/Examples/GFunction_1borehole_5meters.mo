@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Examples;
-model GFunction_1borehole
+model GFunction_1borehole_5meters
   "g-Function calculation for a field of 1 borehole"
   extends Modelica.Icons.Example;
 
@@ -78,7 +78,7 @@ equation
   end when;
 
    annotation(experiment(Tolerance=1e-6, StopTime=859680000),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Examples/GFunction_1borehole.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Examples/GFunction_1borehole_5meters.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -94,4 +94,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end GFunction_1borehole;
+end GFunction_1borehole_5meters;

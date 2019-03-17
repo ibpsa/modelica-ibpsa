@@ -1,10 +1,10 @@
 CylindricalHeatSource
 CylindricalHeatSource_Integrand
-FiniteLineSource_Integrand_Test
 FiniteLineSource
 FiniteLineSource_Erfint
 FiniteLineSource_Integrand
-GFunction_1borehole
+FiniteLineSource_Integrand_BoreholeLength
+GFunction_1borehole_5meters
 GFunction_100boreholes
 GFunction_SmallScaleValidation
 InfiniteLineSource
