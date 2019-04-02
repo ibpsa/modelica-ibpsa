@@ -4,7 +4,7 @@ package SignalExchange
   extends Modelica.Icons.Package;
   block Overwrite "Block that allows a signal to be overwritten"
     extends Modelica.Blocks.Interfaces.SISO;
-
+    parameter String Description "Describes the signal being overwritten";
     Modelica.Blocks.Logical.Switch swi
       "Switch between external signal and direct feedthrough signal"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -81,6 +81,7 @@ package SignalExchange
 
   model Read "Model that allows a signal to be read as an FMU output"
     extends Modelica.Blocks.Routing.RealPassThrough;
+    parameter String Description "Describes the signal being read";
     parameter String KPIs = "" "List of KPIs in comma-delimited list";
   protected
     final parameter Boolean boptestRead = true
