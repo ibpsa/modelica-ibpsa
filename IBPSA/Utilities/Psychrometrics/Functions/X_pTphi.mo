@@ -9,7 +9,7 @@ function X_pTphi
     "Water vapor mass fraction per unit mass total air";
 
 algorithm
-  X_w:=phi/((p/saturationPressure(T)-phi)/IBPSA.Utilities.Psychrometrics.Constants.k_mair+phi);
+  X_w:=phi/((p/saturationPressure(T)-phi) / IBPSA.Utilities.Psychrometrics.Constants.k_mair + phi);
   annotation (
     inverse(phi=phi_pTX(p,T,X_w)),
     smoothOrder=1,
