@@ -18,8 +18,8 @@ equation
     T = 293.15+convT*(time-0.5)*10;
   end if;
   phi = IBPSA.Utilities.Psychrometrics.Functions.phi_pTX(p=p, T=T, X_w=X_w);
-  X_inv=IBPSA.Utilities.Psychrometrics.Functions.X_pTphi(p=p,T=T,phi=phi);
-  assert(abs(X_inv-X_w)<1e-5,
+  X_inv=IBPSA.Utilities.Psychrometrics.Functions.X_pTphi(p=p, T=T, phi=phi);
+  assert(abs(X_inv-X_w) < 1e-5,
     "Inconsistency in the inverse implementation of phi_pTX: X_pTphi");
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),
