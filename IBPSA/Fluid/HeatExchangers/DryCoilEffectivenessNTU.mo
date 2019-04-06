@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatExchangers;
 model DryCoilEffectivenessNTU
   "Heat exchanger with effectiveness - NTU relation and no moisture condensation"
-  extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU(
+  extends IBPSA.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU(
     UA = 1/(1/hA.hA_1 + 1/hA.hA_2));
 
   parameter Real r_nominal(
@@ -83,8 +83,8 @@ IBPSA.Fluid.MassExchangers.ConstantEffectiveness</a>.
 <li>
 September 25, 2018, by Michael Wetter:<br/>
 Refactored model to use a common base class with
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU\">
+IBPSA.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</a>.
 </li>
 </ul>
 </html>"));
