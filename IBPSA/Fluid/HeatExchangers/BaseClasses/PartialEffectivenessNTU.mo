@@ -7,7 +7,8 @@ model PartialEffectivenessNTU
       Q1_flow = eps*QMax_flow,
       Q2_flow = -Q1_flow,
       mWat1_flow = 0,
-      mWat2_flow = 0);
+      mWat2_flow = 0,
+      C1_flow=abs(m1_flow)*cp1Wet);
   import con = IBPSA.Fluid.Types.HeatExchangerConfiguration;
   import flo = IBPSA.Fluid.Types.HeatExchangerFlowRegime;
 
@@ -51,6 +52,8 @@ model PartialEffectivenessNTU
     "Nominal number of transfer units";
 
 protected
+  constant Modelica.SIunits.SpecificEnthalpy lambda = 2453500
+    "Heat of evaporation of water at 20 degrees Celsius, source: Engineering Toolbox";
   final parameter Medium1.ThermodynamicState sta1_default = Medium1.setState_pTX(
      T=Medium1.T_default,
      p=Medium1.p_default,
@@ -84,6 +87,16 @@ protected
     "Heat exchanger flow regime at nominal flow rates";
   flo flowRegime(fixed=false, start=flowRegime_nominal)
     "Heat exchanger flow regime";
+
+  // todo: bidirectional flow
+  Modelica.SIunits.SpecificHeatCapacity cp1Wet = if sensibleOnly1 then cp1_nominal else max((inStream(port_a1.h_outflow) - hCoi_outMax) / (T_in1 - T_in2), Medium1.specificHeatCapacityCp(state_a1_inflow))
+      "Heat capacity used in the ficticious fluid when condensation occurs in Medium1, according to Braun-Lebrun model";
+  Modelica.SIunits.MassFraction xSat1 = if sensibleOnly1 then 0 else IDEAS.Utilities.Psychrometrics.Functions.X_pTphi(p=port_b1.p, T=T_in2, phi = 1);
+
+  Real hCoi_outMax = if sensibleOnly1 then 0 else IDEAS.Media.Air.specificEnthalpy_pTX(
+      T= T_in2,
+      p=port_b1.p,
+      X={min(xSat,inStream(port_a1.Xi_outflow[1]))}) if hum1 "Outlet air enthalpy of Medium1";
 initial equation
   assert(m1_flow_nominal > 0,
     "m1_flow_nominal must be positive, m1_flow_nominal = " + String(
