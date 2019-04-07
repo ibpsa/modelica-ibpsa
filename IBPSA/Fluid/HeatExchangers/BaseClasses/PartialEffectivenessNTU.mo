@@ -6,7 +6,7 @@ model PartialEffectivenessNTU
       sensibleOnly2=true,
       Q1_flow = eps*QMax_flow,
       Q2_flow = -Q1_flow,
-      mWat1_flow = 0,
+      mWat1_flow = if sensibleOnly1 then 0 else Q1_flow*(cp1Wet-Medium1.specificHeatCapacityCp(state_a1_inflow))/cp1Wet/lambda,
       mWat2_flow = 0,
       C1_flow=abs(m1_flow)*cp1Wet);
   import con = IBPSA.Fluid.Types.HeatExchangerConfiguration;
@@ -89,14 +89,26 @@ protected
     "Heat exchanger flow regime";
 
   // todo: bidirectional flow
-  Modelica.SIunits.SpecificHeatCapacity cp1Wet = if sensibleOnly1 then cp1_nominal else max((inStream(port_a1.h_outflow) - hCoi_outMax) / (T_in1 - T_in2), Medium1.specificHeatCapacityCp(state_a1_inflow))
+  Modelica.SIunits.SpecificHeatCapacity cp1Wet=
+    if sensibleOnly1
+    then cp1_nominal
+    else max((inStream(port_a1.h_outflow) - hCoi_outMax) / (T_in1 - T_in2), Medium1.specificHeatCapacityCp(state_a1_inflow))
       "Heat capacity used in the ficticious fluid when condensation occurs in Medium1, according to Braun-Lebrun model";
-  Modelica.SIunits.MassFraction xSat1 = if sensibleOnly1 then 0 else IDEAS.Utilities.Psychrometrics.Functions.X_pTphi(p=port_b1.p, T=T_in2, phi = 1);
+  Modelica.SIunits.MassFraction xSat1=
+    if sensibleOnly1
+    then 0
+    else IBPSA.Utilities.Psychrometrics.Functions.X_pTphi(p=port_b1.p, T=T_in2, phi = 1);
 
-  Real hCoi_outMax = if sensibleOnly1 then 0 else IDEAS.Media.Air.specificEnthalpy_pTX(
+  Modelica.SIunits.SpecificEnthalpy hCoi_outMax=
+    if sensibleOnly1
+    then 0
+    else
+      IBPSA.Media.Air.specificEnthalpy_pTX(
       T= T_in2,
       p=port_b1.p,
-      X={min(xSat,inStream(port_a1.Xi_outflow[1]))}) if hum1 "Outlet air enthalpy of Medium1";
+      X={min(xSat1,inStream(port_a1.Xi_outflow[1]))})
+      "Outlet air enthalpy of Medium1";
+  Real QLat1 = mWat1_flow*lambda "Latent heat load";
 initial equation
   assert(m1_flow_nominal > 0,
     "m1_flow_nominal must be positive, m1_flow_nominal = " + String(
