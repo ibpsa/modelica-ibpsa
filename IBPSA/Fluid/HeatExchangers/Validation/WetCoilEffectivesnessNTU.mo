@@ -13,11 +13,12 @@ model WetCoilEffectivesnessNTU
     dp2_nominal=0,
     m1_flow_nominal=485*1.2/3600,
     configuration=IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed,
-
     m2_flow_nominal=1176/2/4180,
+    X_w1_nominal=0.010203,
     T_a1_nominal=300.15,
     T_a2_nominal=289.15)
     annotation (Placement(transformation(extent={{12,-26},{-8,-46}})));
+
   Sources.MassFlowSource_T bouAirCoo(
     redeclare package Medium = MediumAir,
     use_m_flow_in=true,
@@ -68,13 +69,13 @@ model WetCoilEffectivesnessNTU
     dp2_nominal=0,
     m1_flow_nominal=485*1.2/3600,
     configuration=IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed,
-
-    r_nominal=1/4.1,
-    m2_flow_nominal=2176/5/4180,
-    Q_flow_nominal=2176,
+    m2_flow_nominal=2934/5/4180,
+    Q_flow_nominal=2934,
+    X_w1_nominal=0.010203,
     T_a1_nominal=300.15,
     T_a2_nominal=280.15)
     annotation (Placement(transformation(extent={{12,-66},{-8,-86}})));
+
   Sources.Boundary_pT sinAir(redeclare package Medium = MediumAir, nPorts=2)
     "Air sink"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
@@ -101,8 +102,8 @@ equation
     annotation (Line(points={{12,-30},{80,-30},{80,2}}, color={0,127,255}));
   connect(cooCoi16.port_a1, bouAirCoo.ports[1])
     annotation (Line(points={{12,-42},{40,-42}}, color={0,127,255}));
-  connect(cooCoi16.port_b1, sinAir.ports[1]) annotation (Line(points={{-8,-42},
-          {-80,-42},{-80,-48}}, color={0,127,255}));
+  connect(cooCoi16.port_b1, sinAir.ports[1]) annotation (Line(points={{-8,-42},{
+          -80,-42},{-80,-48}}, color={0,127,255}));
   connect(cooCoi7.port_a2, bouWatCoo7.ports[1])
     annotation (Line(points={{-8,-70},{-20,-70}}, color={0,127,255}));
   connect(cooCoi7.port_b2, sinWat.ports[2])
@@ -110,8 +111,13 @@ equation
   connect(bouAirCoo1.ports[1], cooCoi7.port_a1)
     annotation (Line(points={{40,-82},{12,-82}}, color={0,127,255}));
   connect(cooCoi7.port_b1, sinAir.ports[2]) annotation (Line(points={{-8,-82},{
-          -80,-82},{-80,-52}}, color={0,127,255}));
-  connect(gainFloFcu7.u, cooData.y[4]) annotation (Line(points={{-65.2,-62},{
-          -72,-62},{-72,-10},{-79,-10}}, color={0,0,127}));
-  annotation (experiment(StopTime=50000));
+          -80,-82},{-80,-52}},
+                           color={0,127,255}));
+  connect(gainFloFcu7.u, cooData.y[4]) annotation (Line(points={{-65.2,-62},{-72,
+          -62},{-72,-10},{-79,-10}}, color={0,0,127}));
+  annotation (experiment(
+      StopTime=50000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Lsodar"), __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTU.mos"
+        "Simulate and plot"));
 end WetCoilEffectivesnessNTU;

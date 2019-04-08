@@ -24,6 +24,10 @@ model PartialEffectivenessNTU
     "Nominal heat transfer"
     annotation (Dialog(group="Nominal thermal performance",
                        enable=use_Q_flow_nominal));
+  parameter Modelica.SIunits.MassFraction X_w1_nominal
+    "Absolute humidity of inlet at nominal condition"
+    annotation (Dialog(group="Nominal thermal performance",
+                       enable=not sensibleOnly1));
   parameter Modelica.SIunits.Temperature T_a1_nominal(fixed=use_Q_flow_nominal)
     "Nominal temperature at port a1"
     annotation (Dialog(group="Nominal thermal performance",
@@ -83,6 +87,11 @@ protected
     "Nominal temperature at port b1";
   parameter Modelica.SIunits.Temperature T_b2_nominal(fixed=false)
     "Nominal temperature at port b2";
+  parameter Modelica.SIunits.MassFraction xSat1_nominal=
+    IBPSA.Utilities.Psychrometrics.Functions.X_pTphi(p=Medium1.p_default, T=T_a2_nominal, phi = 1)
+    "Absolute humidity of outlet at saturation condition"
+    annotation (Dialog(group="Nominal thermal performance",
+                       enable=not sensibleOnly1));
   parameter flo flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
   flo flowRegime(fixed=false, start=flowRegime_nominal)
@@ -117,7 +126,7 @@ initial equation
     "m2_flow_nominal must be positive, m2_flow_nominal = " + String(
     m2_flow_nominal));
 
-  cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default);
+  cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default)*(1+max(0, (X_w1_nominal -xSat1_nominal)*m1_flow_nominal*lambda)/Q_flow_nominal);
   cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
 
   // Heat transferred from fluid 1 to 2 at nominal condition
