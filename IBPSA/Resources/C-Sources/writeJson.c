@@ -20,7 +20,7 @@ void writeJson(const char* fileName, const char** varNames, const int numNames, 
 			ModelicaFormatError("The variable name \"%s\" is too long. It must be shorter than 100 characters.", varNames[i]);
 		}
 		char buffer[200];
-		sprintf(buffer, "\"%s\" : %.10e", varNames[i], varVals[i]);
+		sprintf(buffer, "  \"%s\" : %.10e", varNames[i], varVals[i]);
 		writeLine(fOut, buffer, fileName);
 		if (i==numNames-1){
 			writeLine(fOut,"\n",fileName);
