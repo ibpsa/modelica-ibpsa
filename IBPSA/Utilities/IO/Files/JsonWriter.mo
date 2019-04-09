@@ -77,5 +77,5 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1114\">#1114</a>.
           extent={{-88,90},{88,48}},
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="CSV")}));
+          textString="JSON")}));
 end JsonWriter;
