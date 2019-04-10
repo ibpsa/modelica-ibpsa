@@ -1,4 +1,4 @@
-void writeLine(FILE * fOut, const char* line, const char* fileName){
+void writeJsonLine(FILE * fOut, const char* line, const char* fileName){
 	if (fputs(line, fOut)==EOF){
     	ModelicaFormatError("In writeJson.c: Returned an error when writing to %s.", fileName);
 	}
@@ -12,7 +12,7 @@ void writeJson(const char* fileName, const char** varNames, const int numNames, 
 
 	FILE *fOut = fopen(fileName, "w");
 	
-	writeLine(fOut, "{\n", fileName);
+	writeJsonLine(fOut, "{\n", fileName);
 
 	int i;
 	for (i = 0; i < numNames; ++i){
@@ -21,14 +21,14 @@ void writeJson(const char* fileName, const char** varNames, const int numNames, 
 		}
 		char buffer[200];
 		sprintf(buffer, "  \"%s\" : %.10e", varNames[i], varVals[i]);
-		writeLine(fOut, buffer, fileName);
+		writeJsonLine(fOut, buffer, fileName);
 		if (i==numNames-1){
-			writeLine(fOut,"\n",fileName);
+			writeJsonLine(fOut,"\n",fileName);
 		}else{
-			writeLine(fOut,",\n",fileName);
+			writeJsonLine(fOut,",\n",fileName);
 		}
 	}
-	writeLine(fOut, "}\n", fileName);
+	writeJsonLine(fOut, "}\n", fileName);
 
 	fclose(fOut);
 }
