@@ -25,49 +25,42 @@ package SignalExchange
             {-12,8}}, color={0,0,127}));
     connect(swi.y, y)
       annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
-    annotation (Icon(graphics={          Rectangle(
-          extent={{-100,-100},{100,100}},
-          lineColor={0,0,127},
-          fillColor={223,211,169},
-          lineThickness=5.0,
-          borderPattern=BorderPattern.Raised,
-          fillPattern=FillPattern.Solid),
-          Line(points={{100,0},{42,0}}, color={0,0,0}),
+    annotation (Icon(graphics={
+          Line(points={{100,0},{42,0}}, color={0,0,127}),
           Line(points={{42,0},{-20,60}},
-          color = DynamicSelect({0,0,0}, if activate.y then {0,0,0}
-                      else {235,235,235})),
+          color={0,0,127}),
           Line(points={{42,0},{-20,0}},
           color = DynamicSelect({235,235,235}, if activate.y then {235,235,235}
                       else {0,0,0})),
-          Line(points={{-100,0},{-20,0}}, color={0,0,0}),
-          Line(points={{-62,60},{-20,60}},  color={0,0,0}),
+          Line(points={{-100,0},{-20,0}}, color={0,0,127}),
+          Line(points={{-62,60},{-20,60}},  color={0,0,127}),
           Polygon(
             points={{-58,70},{-28,60},{-58,50},{-58,70}},
-            lineColor={0,0,0},
-            fillColor={0,0,0},
+            lineColor={0,0,127},
+            fillColor={0,0,127},
             fillPattern=FillPattern.Solid),
           Ellipse(
             extent={{-22,62},{-18,58}},
-            lineColor={0,0,0},
-            fillColor={0,0,0},
+            lineColor={0,0,127},
+            fillColor={0,0,127},
             fillPattern=FillPattern.Solid),
           Ellipse(
             extent={{-22,2},{-18,-2}},
-            lineColor={0,0,0},
-            fillColor={0,0,0},
+            lineColor={0,0,127},
+            fillColor={0,0,127},
             fillPattern=FillPattern.Solid),
           Ellipse(
             extent={{40,2},{44,-2}},
-            lineColor={0,0,0},
-            fillColor={0,0,0},
+            lineColor={0,0,127},
+            fillColor={0,0,127},
             fillPattern=FillPattern.Solid),
-          Line(points={{-16,0},{16,0}},     color={0,0,0},
+          Line(points={{-16,0},{16,0}},     color={0,0,127},
             origin={-62,60},
             rotation=90),
-          Line(points={{-16,0},{16,0}},     color={0,0,0},
+          Line(points={{-16,0},{16,0}},     color={0,0,127},
             origin={-66,60},
             rotation=90),
-          Line(points={{-16,0},{16,0}},     color={0,0,0},
+          Line(points={{-16,0},{16,0}},     color={0,0,127},
             origin={-70,60},
             rotation=90),
           Ellipse(
@@ -86,34 +79,28 @@ package SignalExchange
   protected
     final parameter Boolean boptestRead = true
       "Protected parameter, used by tools to search for read block in models";
-    annotation (Icon(graphics={          Rectangle(
-          extent={{-100,-100},{100,100}},
-          lineColor={0,0,127},
-          fillColor={223,211,169},
-          lineThickness=5.0,
-          borderPattern=BorderPattern.Raised,
-          fillPattern=FillPattern.Solid),
-          Line(points={{22,60},{70,60}},  color={0,0,0}),
-          Line(points={{-38,0},{22,60}}, color={0,0,0}),
-          Line(points={{-100,0},{-38,0}}, color={0,0,0}),
-          Line(points={{-38,0},{100,0}}, color={0,0,0}),
+    annotation (Icon(graphics={
+          Line(points={{22,60},{70,60}},  color={0,0,127}),
+          Line(points={{-38,0},{22,60}}, color={0,0,127}),
+          Line(points={{-100,0},{-38,0}}, color={0,0,127}),
+          Line(points={{-38,0},{100,0}}, color={0,0,127}),
           Ellipse(
             extent={{-40,2},{-36,-2}},
-            lineColor={0,0,0},
-            fillColor={0,0,0},
+            lineColor={28,108,200},
+            fillColor={0,0,127},
             fillPattern=FillPattern.Solid),
           Polygon(
             points={{36,70},{66,60},{36,50},{36,70}},
-            lineColor={0,0,0},
-            fillColor={0,0,0},
+            lineColor={0,0,127},
+            fillColor={0,0,127},
             fillPattern=FillPattern.Solid),
-          Line(points={{-16,0},{16,0}},     color={0,0,0},
+          Line(points={{-16,0},{16,0}},     color={0,0,127},
             origin={78,60},
             rotation=90),
-          Line(points={{-16,0},{16,0}},     color={0,0,0},
+          Line(points={{-16,0},{16,0}},     color={0,0,127},
             origin={74,60},
             rotation=90),
-          Line(points={{-16,0},{16,0}},     color={0,0,0},
+          Line(points={{-16,0},{16,0}},     color={0,0,127},
             origin={70,60},
             rotation=90)}));
   end Read;
