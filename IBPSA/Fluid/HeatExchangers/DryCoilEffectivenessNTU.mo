@@ -69,11 +69,6 @@ The convective heat transfer coefficients scale proportional to
 <i>n=0.8</i> on the air-side and <i>n=0.85</i> on the water side.
 </p>
 <p>
-For a plate exchanger, use
-<a href=\"modelica://IBPSA.Fluid.MassExchangers.PlateHeatExchangerEffectivenessNTU\">
-IBPSA.Fluid.MassExchangers.PlateHeatExchangerEffectivenessNTU</a>.
-</p>
-<p>
 For a heat and moisture exchanger, use
 <a href=\"modelica://IBPSA.Fluid.MassExchangers.ConstantEffectiveness\">
 IBPSA.Fluid.MassExchangers.ConstantEffectiveness</a>.
@@ -83,8 +78,8 @@ IBPSA.Fluid.MassExchangers.ConstantEffectiveness</a>.
 <li>
 September 25, 2018, by Michael Wetter:<br/>
 Refactored model to use a common base class with
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU\">
-IBPSA.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</a>.
 </li>
 </ul>
 </html>"));
