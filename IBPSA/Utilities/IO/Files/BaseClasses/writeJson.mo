@@ -6,7 +6,7 @@ function writeJson
     input Real[:] varVals "Variable values";
 
     external "C" writeJson(fileName, varNames, size(varNames,1), varVals, size(varVals,1))
-    annotation(Include=" #include <writeJson.c>",
+    annotation(Include=" #include \"writeJson.c\"",
     IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
 
 end writeJson;
