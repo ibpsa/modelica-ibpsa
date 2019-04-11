@@ -205,24 +205,14 @@ package SignalExchange
           "Zone temperature",
         ElectricPower
           "Electric power from grid",
-        ElectricEnergy
-          "Electric energy from grid",
         DistrictHeatingPower
           "Thermal power from district heating",
-        DistrictHeatingEnergy
-          "Thermal energy from district heating",
         GasPower
           "Thermal power from natural gas",
-        GasEnergy
-          "Thermal energy from natural gas",
         BiomassPower
           "Thermal power from biomass",
-        BiomassEnergy
-          "Thermal energy from biomass",
         SolarThermalPower
           "Thermal power from solar thermal",
-        SolarThermalEnergy
-          "Thermal energy from solar thermal",
         Water
           "Water") "Signals used for the calculation of key performance indicators";
   end SignalTypes;
