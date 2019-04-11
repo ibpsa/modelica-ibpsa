@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 void writeJsonLine(FILE * fOut, const char* line, const char* fileName){
 	if (fputs(line, fOut)==EOF){
     	ModelicaFormatError("In writeJson.c: Returned an error when writing to %s.", fileName);
@@ -11,17 +13,16 @@ void writeJson(const char* fileName, const char** varNames, const int numNames, 
 	}
 
 	FILE *fOut = fopen(fileName, "w");
+	if (fOut == NULL)
+		ModelicaFormatError("In writeJson.c: Failed open file %s.", fileName);	
 	
 	writeJsonLine(fOut, "{\n", fileName);
 
 	int i;
 	for (i = 0; i < numNames; ++i){
-		if (strlen(varNames[i])>100){
-			ModelicaFormatError("The variable name \"%s\" is too long. It must be shorter than 100 characters.", varNames[i]);
+		if (fprintf(fOut, "  \"%s\" : %.10e", varNames[i], varVals[i])<0){
+			ModelicaFormatError("In writeJson.c: Returned an error when writing to %s.", fileName);
 		}
-		char buffer[200];
-		sprintf(buffer, "  \"%s\" : %.10e", varNames[i], varVals[i]);
-		writeJsonLine(fOut, buffer, fileName);
 		if (i==numNames-1){
 			writeJsonLine(fOut,"\n",fileName);
 		}else{
@@ -30,5 +31,6 @@ void writeJson(const char* fileName, const char** varNames, const int numNames, 
 	}
 	writeJsonLine(fOut, "}\n", fileName);
 
-	fclose(fOut);
+	if (fclose(fOut)==EOF)
+		ModelicaFormatError("In writeJson.c: Returned an error when closing %s.", fileName);
 }

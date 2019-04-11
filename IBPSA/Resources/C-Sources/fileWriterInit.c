@@ -79,7 +79,8 @@ void* fileWriterInit(
   FILE *fp = fopen(fileName, "w");
   if (fp == NULL)
     ModelicaFormatError("In fileWriterInit.c: Failed to create empty .csv file %s during initialisation.", fileName);
-  fclose(fp);
+  if (fclose(fp)==EOF)
+    ModelicaFormatError("In fileWriterInit.c: Returned an error when closing %s.", fileName);
   return (void*) ID;
 }
 
@@ -89,10 +90,13 @@ by incrementing the counter numRows if isMetaData==0. */
 void writeLine(void *ptrFileWriter, const char* line, const int isMetaData){
   FileWriter *ID = (FileWriter*)ptrFileWriter;
   FILE *fOut = fopen(ID->fileWriterName, "a");
+  if (fOut == NULL)
+    ModelicaFormatError("In fileWriterInit.c: Failed open .csv file %s for appending.", ID->fileWriterName);
   if (fputs(line, fOut)==EOF){
     ModelicaFormatError("In fileWriterInit.c: Returned an error when writing to %s.", ID->fileWriterName);
   }
   if (isMetaData==0)
     ID->numRows=ID->numRows+1;
-  fclose(fOut);
+  if (fclose(fOut)==EOF)
+    ModelicaFormatError("In fileWriterInit.c: Returned an error when closing %s.", ID->fileWriterName);
 }
