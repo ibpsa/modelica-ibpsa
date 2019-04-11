@@ -38,7 +38,9 @@ equation
     end when;
   end if;
 
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="jsonWri",
+  Documentation(info="<html>
 <p>
 This model samples the model inputs <code>u</code> and saves them to a json file.
 </p>
