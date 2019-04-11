@@ -31,16 +31,16 @@ IBPSA.Utilities.IO.Files.Examples.CSVReader</a>.
 <h4>Typical use and important parameters</h4>
 <p>
 The parameter <code>nin</code> defines the number of variables that are stored.
-In Dymola this variable is updated automatically when inputs are connected to the component.
+In Dymola, this parameter is updated automatically when inputs are connected to the component.
 </p>
 <p>
 The parameter <code>fileName</code> defines to what file name the results
-are stored. Results are saved in the current working directory
+are saved. The file is in the current working directory,
 unless an absolute path is provided.
 </p>
 <p>
-The parameter <code>samplePeriod</code> defines every how may seconds
-the inputs are saved to the file. 
+The parameter <code>samplePeriod</code> defines every how many seconds
+the inputs are saved to the file.
 </p>
 <h4>Options</h4>
 <p>
