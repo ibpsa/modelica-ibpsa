@@ -6,11 +6,11 @@ model JsonWriter "Model for writing results to a json file"
     annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter String fileName = getInstanceName() + ".json"
     "File name, including extension";
-  parameter String[nin] keyNames = {"key"+String(i) for i in 1:nin}
+  parameter String[nin] keyNames = {"key" + String(i) for i in 1:nin}
     "Key names, indices by default";
   parameter IBPSA.Utilities.IO.Files.BaseClasses.OutputTime outputTime=
     IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Terminal
-    "Time when results are outputted"
+    "Time when results are written to file"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.Time customTime = 0
     "Custom time when results are stored, used if outputTime=Custom only"
@@ -76,7 +76,8 @@ If <code>outputTime==OutputTime.Terminal</code>, results are saved when the simu
 </li>
 </ul>
 </p>
-</html>", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 April 9, 2019 by Filip Jorissen:<br/>
@@ -84,7 +85,9 @@ First implementation.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1114\">#1114</a>.
 </li>
 </ul>
-</html>"), Icon(graphics={                                                Text(
+</html>"),
+  Icon(graphics={
+         Text(
           extent={{-88,90},{88,48}},
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
