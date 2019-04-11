@@ -13,7 +13,7 @@ model JsonWriter "Model for writing results to a json file"
     "Time when results are outputted"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.Time customTime = 0
-    "Custom time when results are stored, if outpuTime=Custom only"
+    "Custom time when results are stored, used if outputTime=Custom only"
     annotation(Dialog(enable=outputTime==IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Custom));
 
   Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that are saved"
@@ -25,7 +25,6 @@ equation
       IBPSA.Utilities.IO.Files.BaseClasses.writeJson(fileName, keyNames, u);
     end when;
   end if;
-
 
   if outputTime==IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Initial then
     when initial() then
@@ -40,16 +39,17 @@ equation
   end if;
 
   annotation (Documentation(info="<html>
-<p>This model samples the model inputs <code>u</code> and saves them to a .json file.
+<p>
+This model samples the model inputs <code>u</code> and saves them to a json file.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
 The parameter <code>nin</code> defines the number of variables that are stored.
-In Dymola this variable is updated automatically when inputs are connected to the component.
+In Dymola, this parameter is updated automatically when inputs are connected to the component.
 </p>
 <p>
 The parameter <code>fileName</code> defines to what file name the results
-are stored. Results are saved in the current working directory
+are saved. The file is in the current working directory,
 unless an absolute path is provided.
 </p>
 <p>
