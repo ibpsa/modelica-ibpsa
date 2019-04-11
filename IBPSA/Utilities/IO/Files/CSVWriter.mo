@@ -14,7 +14,9 @@ initial algorithm
     writeLine(filWri, str, 1);
   end if;
 
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="csvWri",
+  Documentation(info="<html>
 <p>This model samples the model inputs <code>u</code> and saves them to a .csv file,
 which can be read using e.g. Excel or Python.
 </p>

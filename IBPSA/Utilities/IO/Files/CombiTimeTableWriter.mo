@@ -15,7 +15,9 @@ initial algorithm
     writeLine(filWri, str, 1);
   end if;
 
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="tabWri",
+  Documentation(info="<html>
 <p>This model samples the model inputs <code>u</code> and saves them to a .csv file,
 which can be read by a 
 <a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">
