@@ -276,7 +276,7 @@ temperature after calculating and/or read (from a previous calculation) the bore
 <ul>
 <li>
 April 11, 2019, by Filip Jorissen:<br/>
-Added choicesAllMatching for <code>borFieDat</code>.
+Added <code>choicesAllMatching</code> for <code>borFieDat</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1117\">#1117</a>.
 </li>
 <li>
