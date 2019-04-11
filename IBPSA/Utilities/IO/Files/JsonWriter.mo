@@ -6,14 +6,14 @@ model JsonWriter "Model for writing results to a json file"
     annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter String fileName = getInstanceName() + ".json"
     "File name, including extension";
-  parameter String[nin] keyNames = {"key"+String(i) for i in 1:nin}
+  parameter String[nin] keyNames = {"key" + String(i) for i in 1:nin}
     "Key names, indices by default";
   parameter IBPSA.Utilities.IO.Files.BaseClasses.OutputTime outputTime=
     IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Terminal
-    "Time when results are outputted"
+    "Time when results are written to file"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.Time customTime = 0
-    "Custom time when results are stored, if outpuTime=Custom only"
+    "Custom time when results are stored, used if outputTime=Custom only"
     annotation(Dialog(enable=outputTime==IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Custom));
 
   Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that are saved"
@@ -25,7 +25,6 @@ equation
       IBPSA.Utilities.IO.Files.BaseClasses.writeJson(fileName, keyNames, u);
     end when;
   end if;
-
 
   if outputTime==IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Initial then
     when initial() then
@@ -39,17 +38,20 @@ equation
     end when;
   end if;
 
-  annotation (Documentation(info="<html>
-<p>This model samples the model inputs <code>u</code> and saves them to a .json file.
+  annotation (
+  defaultComponentName="jsonWri",
+  Documentation(info="<html>
+<p>
+This model samples the model inputs <code>u</code> and saves them to a json file.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
 The parameter <code>nin</code> defines the number of variables that are stored.
-In Dymola this variable is updated automatically when inputs are connected to the component.
+In Dymola, this parameter is updated automatically when inputs are connected to the component.
 </p>
 <p>
 The parameter <code>fileName</code> defines to what file name the results
-are stored. Results are saved in the current working directory
+are saved. The file is in the current working directory,
 unless an absolute path is provided.
 </p>
 <p>
@@ -58,14 +60,24 @@ store the json values corresponding to the inputs <code>u</code>.
 </p>
 <h4>Dynamics</h4>
 <p>
-This model samples the outputs at one point in time and saves the results to file.
-The point in time is determined by the parameter <code>outputTime</code>.
-When <code>outputTime==OutputTime.Custom</code>, results are saved when the built-in variable
+This model samples its inputs at the time defined by the parameter <code>outputTime</code>
+and writes them to the file <code>fileName</code>.
+The model has the following options:
+<ul>
+<li>
+If <code>outputTime==OutputTime.Initial</code>, results are saved at initialisation.
+</li>
+<li>
+If <code>outputTime==OutputTime.Custom</code>, results are saved when the built-in variable
 <code>time</code> achieves <code>customTime</code>.
-When <code>outputTime==OutputTime.Initial</code>, results are saved at initialisation.
-When <code>outputTime==OutputTime.Terminal</code>, results are saved when terminating the simulation.
+</li>
+<li>
+If <code>outputTime==OutputTime.Terminal</code>, results are saved when the simulation terminates.
+</li>
+</ul>
 </p>
-</html>", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 April 9, 2019 by Filip Jorissen:<br/>
@@ -73,7 +85,9 @@ First implementation.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1114\">#1114</a>.
 </li>
 </ul>
-</html>"), Icon(graphics={                                                Text(
+</html>"),
+  Icon(graphics={
+         Text(
           extent={{-88,90},{88,48}},
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,

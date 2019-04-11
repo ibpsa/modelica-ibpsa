@@ -22,10 +22,10 @@ model JsonWriter "Example use of the JSON writer"
   Modelica.Blocks.Sources.Ramp ramp(
     height=1,
     duration=1,
-    offset=1) annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.Constant const(k=2)
+    offset=1) "Ramp signal" annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  Modelica.Blocks.Sources.Constant const(k=2) "Constant signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Modelica.Blocks.Sources.Cosine cosine(amplitude=1, freqHz=12)
+  Modelica.Blocks.Sources.Cosine cosine(amplitude=1, freqHz=12) "Cosine signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   IBPSA.Utilities.IO.Files.JsonWriter jsonWriterOneVar(nin=1, fileName="TerminalOutput.json")
     "Single variable output"
