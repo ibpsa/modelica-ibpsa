@@ -75,7 +75,9 @@ package SignalExchange
   model Read "Model that allows a signal to be read as an FMU output"
     extends Modelica.Blocks.Routing.RealPassThrough;
     parameter String Description "Describes the signal being read";
-    parameter String KPIs = "" "List of KPIs in comma-delimited list";
+    parameter SignalTypes.SignalsForKPIs KPIs
+      "Tag with the type of signal for the calculation of the KPIs";
+
   protected
     final parameter Boolean boptestRead = true
       "Protected parameter, used by tools to search for read block in models";
@@ -194,6 +196,36 @@ package SignalExchange
       end ExportedModel;
     end BaseClasses;
   end Examples;
+
+  package SignalTypes "Package with signal type definitions"
+   extends Modelica.Icons.TypesPackage;
+
+    type SignalsForKPIs = enumeration(
+        ZoneTemperature
+          "Zone temperature",
+        ElectricPower
+          "Electric power from grid",
+        ElectricEnergy
+          "Electric energy from grid",
+        DistrictHeatingPower
+          "Thermal power from district heating",
+        DistrictHeatingEnergy
+          "Thermal energy from district heating",
+        GasPower
+          "Thermal power from natural gas",
+        GasEnergy
+          "Thermal energy from natural gas",
+        BiomassPower
+          "Thermal power from biomass",
+        BiomassEnergy
+          "Thermal energy from biomass",
+        SolarThermalPower
+          "Thermal power from solar thermal",
+        SolarThermalEnergy
+          "Thermal energy from solar thermal",
+        Water
+          "Water") "Signals used for the calculation of key performance indicators";
+  end SignalTypes;
   annotation (Icon(graphics={Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,
               0,0},
           fillColor={255,255,255},
