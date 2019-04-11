@@ -34,7 +34,7 @@ equation
   end if;
 
   if outputTime==IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Custom then
-    when time>customTime then
+    when time>=customTime then
       IBPSA.Utilities.IO.Files.BaseClasses.writeJson(fileName, keyNames, u);
     end when;
   end if;
