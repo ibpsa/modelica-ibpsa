@@ -60,12 +60,21 @@ store the json values corresponding to the inputs <code>u</code>.
 </p>
 <h4>Dynamics</h4>
 <p>
-This model samples the outputs at one point in time and saves the results to file.
-The point in time is determined by the parameter <code>outputTime</code>.
-When <code>outputTime==OutputTime.Custom</code>, results are saved when the built-in variable
+This model samples its inputs at the time defined by the parameter <code>outputTime</code>
+and writes them to the file <code>fileName</code>.
+The model has the following options:
+<ul>
+<li>
+If <code>outputTime==OutputTime.Initial</code>, results are saved at initialisation.
+</li>
+<li>
+If <code>outputTime==OutputTime.Custom</code>, results are saved when the built-in variable
 <code>time</code> exceeds <code>customTime</code>.
-When <code>outputTime==OutputTime.Initial</code>, results are saved at initialisation.
-When <code>outputTime==OutputTime.Terminal</code>, results are saved when terminating the simulation.
+</li>
+<li>
+If <code>outputTime==OutputTime.Terminal</code>, results are saved when the simulation terminates.
+</li>
+</ul>
 </p>
 </html>", revisions="<html>
 <ul>
