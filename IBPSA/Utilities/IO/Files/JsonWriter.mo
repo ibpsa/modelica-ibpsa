@@ -61,7 +61,7 @@ store the json values corresponding to the inputs <code>u</code>.
 This model samples the outputs at one point in time and saves the results to file.
 The point in time is determined by the parameter <code>outputTime</code>.
 When <code>outputTime==OutputTime.Custom</code>, results are saved when the built-in variable
-<code>time</code> exceeds <code>customTime</code>.
+<code>time</code> achieves <code>customTime</code>.
 When <code>outputTime==OutputTime.Initial</code>, results are saved at initialisation.
 When <code>outputTime==OutputTime.Terminal</code>, results are saved when terminating the simulation.
 </p>
