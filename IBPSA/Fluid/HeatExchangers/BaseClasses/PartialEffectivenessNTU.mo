@@ -45,7 +45,6 @@ model PartialEffectivenessNTU
   input Modelica.SIunits.ThermalConductance UA "UA value";
 
   Real eps(min=0, max=1) "Heat exchanger effectiveness";
-  Real Z(min=0) "Ratio of capacity flow rate (CMin/CMax)";
 
   // NTU has been removed as NTU goes to infinity as CMin goes to zero.
   // This quantity is not good for modeling.
@@ -199,7 +198,7 @@ equation
   end if;
 
   // Effectiveness
-  (eps,,  Z) = IBPSA.Fluid.HeatExchangers.BaseClasses.epsilon_C(
+  eps = IBPSA.Fluid.HeatExchangers.BaseClasses.epsilon_C(
     UA=UA,
     C1_flow=C1_flow,
     C2_flow=C2_flow,
@@ -249,6 +248,12 @@ for <code>UA</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 10, 2018 by Michael Wetter:<br/>
+Removed variable <code>Z</code> that is not used.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1328\">issue 1328</a>.
+</li>
 <li>
 January 10, 2018 by Filip Jorissen:<br/>
 Corrected an error where the value of NTU was assigned to Z.
