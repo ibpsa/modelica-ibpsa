@@ -86,7 +86,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWat_flow.y, sin_1.m_flow_in) annotation (Line(
-      points={{-21,110},{160,110},{160,68},{142,68}},
+      points={{-21,110},{160,110},{160,68},{140,68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mAirGai.y, mAir_flow.u) annotation (Line(
@@ -94,7 +94,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(mAir_flow.y, sin_2.m_flow_in) annotation (Line(
-      points={{-19,32},{-2,32}},
+      points={{-19,32},{0,32}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
