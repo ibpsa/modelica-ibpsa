@@ -75,7 +75,7 @@ package SignalExchange
   model Read "Model that allows a signal to be read as an FMU output"
     extends Modelica.Blocks.Routing.RealPassThrough;
     parameter String Description "Describes the signal being read";
-    parameter SignalTypes.SignalsForKPIs KPIs
+    parameter SignalTypes.SignalsForKPIs KPIs = SignalTypes.SignalsForKPIs.None
       "Tag with the type of signal for the calculation of the KPIs";
 
   protected
@@ -201,6 +201,8 @@ package SignalExchange
    extends Modelica.Icons.TypesPackage;
 
     type SignalsForKPIs = enumeration(
+        None
+          "Not used for KPI",
         ZoneTemperature
           "Zone temperature",
         ElectricPower
