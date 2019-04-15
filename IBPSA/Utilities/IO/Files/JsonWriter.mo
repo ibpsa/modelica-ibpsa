@@ -69,6 +69,7 @@ store the json values corresponding to the inputs <code>u</code>.
 This model samples its inputs at the time defined by the parameter <code>outputTime</code>
 and writes them to the file <code>fileName</code>.
 The model has the following options:
+</p>
 <ul>
 <li>
 If <code>outputTime==OutputTime.Initial</code>, results are saved at initialisation.
@@ -81,7 +82,6 @@ If <code>outputTime==OutputTime.Custom</code>, results are saved when the built-
 If <code>outputTime==OutputTime.Terminal</code>, results are saved when the simulation terminates.
 </li>
 </ul>
-</p>
 </html>",
 revisions="<html>
 <ul>
