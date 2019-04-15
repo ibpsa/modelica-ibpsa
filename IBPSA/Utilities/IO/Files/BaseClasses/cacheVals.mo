@@ -8,4 +8,16 @@ function cacheVals
     annotation(Include=" #include \"jsonWriterInit.c\"",
     IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
 
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+April 15 2019, by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+Function for writing data to cache such that the results can be written at destruction.
+</p>
+</html>"));
 end cacheVals;

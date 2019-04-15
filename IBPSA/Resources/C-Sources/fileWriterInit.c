@@ -9,17 +9,6 @@
 #include <stdio.h>
 #include <string.h>
 
-int fileWriterIsUnique(const char* fileName){
-  int i;
-  int isUnique = 1;
-  for(i = 0; i < FileWriterNames_n; i++){
-    if (!strcmp(fileName, FileWriterNames[i])){
-      isUnique = 0;
-      break;
-    }
-  }
-  return isUnique;
-}
 
 void* fileWriterInit(
   const char* instanceName,

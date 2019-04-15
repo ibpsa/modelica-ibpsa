@@ -3,6 +3,17 @@
 
 #include "fileWriterStructure.h"
 
+
+signed int fileWriterIsUnique(const char* fileName){
+  int i;
+  for(i = 0; i < FileWriterNames_n; i++){
+    if (!strcmp(fileName, FileWriterNames[i])){
+      return i;
+    }
+  }
+  return -1;
+}
+
 void* allocateFileWriter(
     const char* instanceName,
     const char* fileName){
@@ -15,9 +26,11 @@ void* allocateFileWriter(
   }
   else{
     /* Check if the file name is unique */
-    if (! fileWriterIsUnique(fileName)){
+    signed int index = fileWriterIsUnique(fileName);
+    if (index>=0){
       ModelicaFormatError("FileWriter %s writes to file %s which is already used by another FileWriter.\nEach FileWriter must use a unique file name.",
-      FileWriterNames[0], fileName);
+      FileWriterNames[index], fileName);
+      /* TODO:  print instance name instead of file name */
     }
     /* Reallocate memory for array of file names */
     FileWriterNames = realloc(FileWriterNames, (FileWriterNames_n+1) * sizeof(char*));

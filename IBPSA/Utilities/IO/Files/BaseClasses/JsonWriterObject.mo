@@ -3,12 +3,12 @@ class JsonWriterObject
   "Class used to ensure that each JSON writer writes to a unique file"
 extends ExternalObject;
   function constructor
-    "Construct an extendable array that can be used to store double valuesCreate empty file"
+    "Verify whether a file writer with  the same path exists and cache variable keys"
     extends Modelica.Icons.Function;
     input String instanceName "Instance name of the file write";
     input String fileName "Name of the file, including extension";
-    input Boolean dumpAtDestruction "";
-    input String[:] varKeys "Number of columns that are written to file";
+    input Boolean dumpAtDestruction "=true, to write cached values at destruction";
+    input String[:] varKeys "Keys for values that are written to file";
     output JsonWriterObject jsonWriter "Pointer to the file writer";
     external"C" jsonWriter = jsonWriterInit(instanceName, fileName, dumpAtDestruction, size(varKeys,1), varKeys)
     annotation (
@@ -28,7 +28,7 @@ c
 </html>"));
   end constructor;
 
-  function destructor "Release storage and close the external object"
+  function destructor "Release storage and close the external object, write data if needed"
     input JsonWriterObject jsonWriter "Pointer to file writer object";
     external "C" jsonWriterFree(jsonWriter)
     annotation(Include=" #include <jsonWriterFree.c>",
