@@ -6,7 +6,7 @@ model JsonWriter "Model for writing results to a json file"
     annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter String fileName = getInstanceName() + ".json"
     "File name, including extension";
-  parameter String[nin] keyNames = {"key" + String(i) for i in 1:nin}
+  parameter String[nin] varKeys = {"key" + String(i) for i in 1:nin}
     "Key names, indices by default";
   parameter IBPSA.Utilities.IO.Files.BaseClasses.OutputTime outputTime=
     IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Terminal
@@ -18,23 +18,29 @@ model JsonWriter "Model for writing results to a json file"
 
   Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that are saved"
      annotation (Placement(transformation(extent={{-120,20},{-80,-20}})));
-
+protected
+  parameter String insNam = getInstanceName() "Instance name";
+  IBPSA.Utilities.IO.Files.BaseClasses.JsonWriterObject jsonWri=
+      IBPSA.Utilities.IO.Files.BaseClasses.JsonWriterObject(
+        insNam,
+        fileName,
+        outputTime==IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Terminal,
+        varKeys)
+    "File writer object";
 equation
   if outputTime==IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Terminal then
-    when terminal() then
-      IBPSA.Utilities.IO.Files.BaseClasses.writeJson(fileName, keyNames, u);
-    end when;
+    IBPSA.Utilities.IO.Files.BaseClasses.cacheVals(jsonWri, u);
   end if;
 
   if outputTime==IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Initial then
     when initial() then
-      IBPSA.Utilities.IO.Files.BaseClasses.writeJson(fileName, keyNames, u);
+      IBPSA.Utilities.IO.Files.BaseClasses.writeJson(jsonWri, u);
     end when;
   end if;
 
   if outputTime==IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Custom then
     when time>=customTime then
-      IBPSA.Utilities.IO.Files.BaseClasses.writeJson(fileName, keyNames, u);
+      IBPSA.Utilities.IO.Files.BaseClasses.writeJson(jsonWri, u);
     end when;
   end if;
 

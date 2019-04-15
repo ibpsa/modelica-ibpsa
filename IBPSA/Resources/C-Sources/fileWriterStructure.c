@@ -11,7 +11,7 @@ void* allocateFileWriter(
     /* Allocate memory for array of file names */
     FileWriterNames = malloc(sizeof(char*));
     if ( FileWriterNames == NULL )
-      ModelicaError("Not enough memory in jsonWriterInit.c for allocating FileWriterNames.");
+      ModelicaError("Not enough memory in fileWriterStructure.c for allocating FileWriterNames.");
   }
   else{
     /* Check if the file name is unique */
@@ -22,12 +22,12 @@ void* allocateFileWriter(
     /* Reallocate memory for array of file names */
     FileWriterNames = realloc(FileWriterNames, (FileWriterNames_n+1) * sizeof(char*));
     if ( FileWriterNames == NULL )
-      ModelicaError("Not enough memory in jsonWriterInit.c for reallocating FileWriterNames.");
+      ModelicaError("Not enough memory in fileWriterStructure.c for reallocating FileWriterNames.");
   }
   /* Allocate memory for this file name */
   FileWriterNames[FileWriterNames_n] = malloc((strlen(fileName)+1) * sizeof(char));
   if ( FileWriterNames[FileWriterNames_n] == NULL )
-    ModelicaError("Not enough memory in jsonWriterInit.c for allocating FileWriterNames[].");
+    ModelicaError("Not enough memory in fileWriterStructure.c for allocating FileWriterNames[].");
   /* Copy the file name */
   strcpy(FileWriterNames[FileWriterNames_n], fileName);
   FileWriterNames_n++;
@@ -35,17 +35,23 @@ void* allocateFileWriter(
   FileWriter* ID;
   ID = (FileWriter*)malloc(sizeof(*ID));
   if ( ID == NULL )
-    ModelicaFormatError("Not enough memory in jsonWriterInit.c for allocating ID of FileWriter %s.", instanceName);
+    ModelicaFormatError("Not enough memory in fileWriterStructure.c for allocating ID of FileWriter %s.", instanceName);
 
   ID->fileWriterName = malloc((strlen(fileName)+1) * sizeof(char));
   if ( ID->fileWriterName == NULL )
-    ModelicaFormatError("Not enough memory in jsonWriterInit.c for allocating ID->fileWriterName in FileWriter %s.", instanceName);
+    ModelicaFormatError("Not enough memory in fileWriterStructure.c for allocating ID->fileWriterName in FileWriter %s.", instanceName);
   strcpy(ID->fileWriterName, fileName);
 
   ID->instanceName = malloc((strlen(instanceName)+1) * sizeof(char));
   if ( ID->instanceName == NULL )
-    ModelicaFormatError("Not enough memory in jsonWriterInit.c for allocating ID->instanceName in FileWriter %s.", instanceName);
+    ModelicaFormatError("Not enough memory in fileWriterStructure.c for allocating ID->instanceName in FileWriter %s.", instanceName);
   strcpy(ID->instanceName, instanceName);
+
+  FILE *fp = fopen(fileName, "w");
+  if (fp == NULL)
+    ModelicaFormatError("In fileWriterStructure.c: Failed to create empty file %s during initialisation.", fileName);
+  if (fclose(fp)==EOF)
+    ModelicaFormatError("In fileWriterStructure.c: Returned an error when closing %s.", fileName);
 
   return (void*)ID;
 }

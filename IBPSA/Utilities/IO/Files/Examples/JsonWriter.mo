@@ -12,7 +12,7 @@ model JsonWriter "Example use of the JSON writer"
     outputTime=IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Custom,
     customTime=0.5,
     fileName="CustomOutputs.json",
-    keyNames={"Output1","Key2","Name3"}) "Outputs at custom time"
+    varKeys={"Output1","Key2","Name3"}) "Outputs at custom time"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   IBPSA.Utilities.IO.Files.JsonWriter jsonWriterTerminal(
     nin=3,
