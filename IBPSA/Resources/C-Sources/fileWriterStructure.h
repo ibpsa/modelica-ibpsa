@@ -10,6 +10,7 @@ static unsigned int FileWriterNames_n = 0;     /* Number of files */
 
 typedef struct FileWriter {
   int isCombiTimeTable; /* Indicates whether combiTimeTable header should be prepended before destruction */
+  int isJsonWriter; /* Indicates whether json data should be dumped before destruction */
   int numRows; /* Number of lines that have been written to file */
   int numColumns; /* Number of rows that the file writer is storing */
   char* fileWriterName; /* The result data file of this file writer */
@@ -18,5 +19,7 @@ typedef struct FileWriter {
 } FileWriter;
 
 void writeLine(void *ptrFileWriter, const char* line, const int isMetaData); /* This function writes a line to the FileWriter object file and counts the number of lines that are written. */
+
+void* allocateFileWriter(const char* instanceName, const char* fileName); /* This function verifies whether a file writer with the same path does not yet exist */
 
 #endif

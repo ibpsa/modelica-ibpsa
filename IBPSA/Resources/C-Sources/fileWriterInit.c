@@ -4,7 +4,7 @@
  * Michael Wetter, LBNL                     2018-05-12
  * Filip Jorissen, KU Leuven
  */
-#include "fileWriterStructure.h"
+#include "fileWriterStructure.c"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -27,45 +27,7 @@ void* fileWriterInit(
   const int numColumns,
   const int isCombiTimeTable){
 
-  if ( FileWriterNames_n == 0 ){
-    /* Allocate memory for array of file names */
-    FileWriterNames = malloc(sizeof(char*));
-    if ( FileWriterNames == NULL )
-      ModelicaError("Not enough memory in fileWriterInit.c for allocating FileWriterNames.");
-  }
-  else{
-    /* Check if the file name is unique */
-    if (! fileWriterIsUnique(fileName)){
-      ModelicaFormatError("FileWriter %s writes to file %s which is already used by another FileWriter.\nEach FileWriter must use a unique file name.",
-      FileWriterNames[0], fileName);
-    }
-    /* Reallocate memory for array of file names */
-    FileWriterNames = realloc(FileWriterNames, (FileWriterNames_n+1) * sizeof(char*));
-    if ( FileWriterNames == NULL )
-      ModelicaError("Not enough memory in fileWriterInit.c for reallocating FileWriterNames.");
-  }
-  /* Allocate memory for this file name */
-  FileWriterNames[FileWriterNames_n] = malloc((strlen(fileName)+1) * sizeof(char));
-  if ( FileWriterNames[FileWriterNames_n] == NULL )
-    ModelicaError("Not enough memory in fileWriterInit.c for allocating FileWriterNames[].");
-  /* Copy the file name */
-  strcpy(FileWriterNames[FileWriterNames_n], fileName);
-  FileWriterNames_n++;
-
-  FileWriter* ID;
-  ID = (FileWriter*)malloc(sizeof(*ID));
-  if ( ID == NULL )
-    ModelicaFormatError("Not enough memory in fileWriterInit.c for allocating ID of FileWriter %s.", instanceName);
-
-  ID->fileWriterName = malloc((strlen(fileName)+1) * sizeof(char));
-  if ( ID->fileWriterName == NULL )
-    ModelicaFormatError("Not enough memory in fileWriterInit.c for allocating ID->fileWriterName in FileWriter %s.", instanceName);
-  strcpy(ID->fileWriterName, fileName);
-
-  ID->instanceName = malloc((strlen(instanceName)+1) * sizeof(char));
-  if ( ID->instanceName == NULL )
-    ModelicaFormatError("Not enough memory in fileWriterInit.c for allocating ID->instanceName in FileWriter %s.", instanceName);
-  strcpy(ID->instanceName, instanceName);
+  FileWriter* ID = (FileWriter*)allocateFileWriter(instanceName, fileName);
 
   if (numColumns<0)
     ModelicaFormatError("In fileWriterInit.c: The number of columns that are written by the FileWriter %s cannot be negative", instanceName);
