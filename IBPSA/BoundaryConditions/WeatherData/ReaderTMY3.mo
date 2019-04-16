@@ -962,229 +962,630 @@ equation
           smooth=Smooth.Bezier,
           fillColor={230,230,230})}),
     Documentation(info="<html>
-<p>This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data. The weather data format is the Typical Meteorological Year (TMY3) as obtained from the EnergyPlus web site at <a href=\"http://energyplus.net/weather\">http://energyplus.net/weather</a>. These data, which are in the EnergyPlus format, need to be converted as described below. </p>
+<p>
+This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data.
+The weather data format is the Typical Meteorological Year (TMY3)
+as obtained from the EnergyPlus web site at
+<a href=\"http://energyplus.net/weather\">
+http://energyplus.net/weather</a>. These
+data, which are in the EnergyPlus format, need to be converted as described
+below.
+</p>
+<!-- ============================================== -->
 <h4>Output to weaBus</h4>
-<p>The following variables serve as output and are accessible via <code>weaBus</code>: </p>
-<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
-<td><p align=\"center\"><h4>Name </h4></p></td>
-<td><p align=\"center\"><h4>Unit </h4></p></td>
-<td><p align=\"center\"><h4>Description </h4></p></td>
-</tr>
+<p>
+The following variables serve as output and are accessible via <code>weaBus</code>:
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<!-- ============================================== -->
 <tr>
-<td><p><code>HDifHor</code> </p></td>
-<td><p>W/m2 </p></td>
-<td><p>Horizontal diffuse solar radiation. </p></td>
+  <th>Name
+  </th>
+  <th>Unit
+  </th>
+  <th>Description
+  </th>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>HDifNor</code> </p></td>
-<td><p>W/m2 </p></td>
-<td><p>Direct normal radiation. </p></td>
+  <td>
+    <code>HDifHor</code>
+  </td>
+  <td>
+    W/m2
+  </td>
+  <td>
+    Horizontal diffuse solar radiation.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>HGloHor</code> </p></td>
-<td><p>W/m2 </p></td>
-<td><p>Horizontal global radiation. </p></td>
+  <td>
+    <code>HDifNor</code>
+  </td>
+  <td>
+    W/m2
+  </td>
+  <td>
+    Direct normal radiation.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>HHorIR</code> </p></td>
-<td><p>W/m2 </p></td>
-<td><p>Horizontal infrared irradiation. </p></td>
+  <td>
+    <code>HGloHor</code>
+  </td>
+  <td>
+    W/m2
+  </td>
+  <td>
+    Horizontal global radiation.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>TBlaSky</code> </p></td>
-<td><p>K </p></td>
-<td><p>Output temperature. </p></td>
+  <td>
+    <code>HHorIR</code>
+  </td>
+  <td>
+    W/m2
+  </td>
+  <td>
+    Horizontal infrared irradiation.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>TDewPoi</code> </p></td>
-<td><p>K </p></td>
-<td><p>Dew point temperature. </p></td>
+  <td>
+    <code>TBlaSky</code>
+  </td>
+  <td>
+    K
+  </td>
+  <td>
+    Output temperature.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>TDryBul</code> </p></td>
-<td><p>K </p></td>
-<td><p>Dry bulb temperature at ground level. </p></td>
+  <td>
+    <code>TDewPoi</code>
+  </td>
+  <td>
+    K
+  </td>
+  <td>
+    Dew point temperature.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>TWetBul</code> </p></td>
-<td><p>K </p></td>
-<td><p>Wet bulb temperature. </p></td>
+  <td>
+    <code>TDryBul</code>
+  </td>
+  <td>
+    K
+  </td>
+  <td>
+    Dry bulb temperature at ground level.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>celHei</code> </p></td>
-<td><p>m </p></td>
-<td><p>Ceiling height. </p></td>
+  <td>
+    <code>TWetBul</code>
+  </td>
+  <td>
+    K
+  </td>
+  <td>
+    Wet bulb temperature.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>cloTim</code> </p></td>
-<td><p>s </p></td>
-<td><p>One-based day number in seconds. </p></td>
+  <td>
+    <code>celHei</code>
+  </td>
+  <td>
+    m
+  </td>
+  <td>
+    Ceiling height.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>lat</code> </p></td>
-<td><p>rad </p></td>
-<td><p>Latitude of the location. </p></td>
+  <td>
+    <code>cloTim</code>
+  </td>
+  <td>
+    s
+  </td>
+  <td>
+    One-based day number in seconds.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>lon</code> </p></td>
-<td><p>rad </p></td>
-<td><p>Longitude of the location. </p></td>
+  <td>
+    <code>lat</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+  Latitude of the location.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>nOpa</code> </p></td>
-<td><p>1 </p></td>
-<td><p>Opaque sky cover [0, 1]. </p></td>
+  <td>
+    <code>lon</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+  Longitude of the location.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>nTot</code> </p></td>
-<td><p>1 </p></td>
-<td><p>Total sky Cover [0, 1]. </p></td>
+  <td>
+    <code>nOpa</code>
+  </td>
+  <td>
+    1
+  </td>
+  <td>
+  Opaque sky cover [0, 1].
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>pAtm</code> </p></td>
-<td><p>Pa </p></td>
-<td><p>Atmospheric pressure. </p></td>
+  <td>
+    <code>nTot</code>
+  </td>
+  <td>
+    1
+  </td>
+  <td>
+   Total sky Cover [0, 1].
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>relHum</code> </p></td>
-<td><p>1 </p></td>
-<td><p>Relative humidity. </p></td>
+  <td>
+    <code>pAtm</code>
+  </td>
+  <td>
+    Pa
+  </td>
+  <td>
+    Atmospheric pressure.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>solAlt</code> </p></td>
-<td><p>rad </p></td>
-<td><p>Altitude angle. </p></td>
+  <td>
+    <code>relHum</code>
+  </td>
+  <td>
+    1
+  </td>
+  <td>
+    Relative humidity.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>solDec</code> </p></td>
-<td><p>rad </p></td>
-<td><p>Declination angle. </p></td>
+  <td>
+    <code>solAlt</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Altitude angle.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>solHouAng</code> </p></td>
-<td><p>rad </p></td>
-<td><p>Solar hour angle. </p></td>
+  <td>
+    <code>solDec</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Declination angle.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>solTim</code> </p></td>
-<td><p>s </p></td>
-<td><p>Solar time. </p></td>
+  <td>
+    <code>solHouAng</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Solar hour angle.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>solZen</code> </p></td>
-<td><p>rad </p></td>
-<td><p>Zenith angle. </p></td>
+  <td>
+    <code>solTim</code>
+  </td>
+  <td>
+    s
+  </td>
+  <td>
+    Solar time.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>winDir</code> </p></td>
-<td><p>rad </p></td>
-<td><p>Wind direction. </p></td>
+  <td>
+    <code>solZen</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Zenith angle.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p><code>winSpe</code> </p></td>
-<td><p>m/s </p></td>
-<td><p>Wind speed. </p></td>
+  <td>
+    <code>winDir</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Wind direction.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>winSpe</code>
+  </td>
+  <td>
+    m/s
+  </td>
+  <td>
+    Wind speed.
+  </td>
 </tr>
 </table>
-<p><br><h4>Adding new weather data</h4></p>
-<p>To add new weather data, proceed as follows: </p>
+<!-- ============================================== -->
+<h4>Adding new weather data</h4>
+<p>
+To add new weather data, proceed as follows:
+</p>
 <ol>
-<li>Download the weather data file with the <code>epw</code> extension from <a href=\"http://energyplus.net/weather\">http://energyplus.net/weather</a>. </li>
-<li>Add the file to <code>IBPSA/Resources/weatherdata</code> (or to any directory for which you have write permission). </li>
-<li>On a console window, type</li>
+<li>
+Download the weather data file with the <code>epw</code> extension from
+<a href=\"http://energyplus.net/weather\">
+http://energyplus.net/weather</a>.
+</li>
+<li>
+Add the file to <code>IBPSA/Resources/weatherdata</code> (or to any directory
+for which you have write permission).
+</li>
+<li>
+On a console window, type<pre>
+  cd IBPSA/Resources/weatherdata
+  java -jar ../bin/ConvertWeatherData.jar inputFile.epw
+</pre>
+This will generate the weather data file <code>inputFile.mos</code>, which can be read
+by the model
+<a href=\"modelica://IBPSA.BoundaryConditions.WeatherData.ReaderTMY3\">
+IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+</li>
 </ol>
-<pre>  cd IBPSA/Resources/weatherdata
-  java -jar ../bin/ConvertWeatherData.jar inputFile.epw</pre>
-<p>This will generate the weather data file <code>inputFile.mos</code>, which can be read by the model <a href=\"modelica://IBPSA.BoundaryConditions.WeatherData.ReaderTMY3\">IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>. </p>
+<!-- ============================================== -->
 <h4>Location data that are read automatically from the weather data file</h4>
-<p>The following location data are automatically read from the weather file: </p>
+<p>
+The following location data are automatically read from the weather file:
+</p>
 <ul>
-<li>The latitude of the weather station, <code>lat</code>, </li>
-<li>the longitude of the weather station, <code>lon</code>, and </li>
-<li>the time zone relative to Greenwich Mean Time, <code>timZone</code>. </li>
+<li>
+The latitude of the weather station, <code>lat</code>,
+</li>
+<li>
+the longitude of the weather station, <code>lon</code>, and
+</li>
+<li>
+the time zone relative to Greenwich Mean Time, <code>timZone</code>.
+</li>
 </ul>
+<!-- ============================================== -->
 <h4>Wet bulb temperature</h4>
-<p>By default, the data bus contains the wet bulb temperature. This introduces a nonlinear equation. However, we have not observed an increase in computing time because of this equation. To disable the computation of the wet bulb temperature, set <code>computeWetBulbTemperature=false</code>. </p>
+<p>
+By default, the data bus contains the wet bulb temperature.
+This introduces a nonlinear equation.
+However, we have not observed an increase in computing time because
+of this equation.
+To disable the computation of the wet bulb temperature, set
+<code>computeWetBulbTemperature=false</code>.
+</p>
+<!-- ============================================== -->
 <h4>Using constant or user-defined input signals for weather data</h4>
-<p>This model has the option of using a constant value, using the data from the weather file, or using data from an input connector for the following variables: </p>
+<p>
+This model has the option of using a constant value, using the data from the weather file,
+or using data from an input connector for the following variables:
+</p>
 <ul>
-<li>The atmospheric pressure, </li>
-<li>the ceiling height, </li>
-<li>the total sky cover, </li>
-<li>the opaque sky cover, </li>
-<li>the dry bulb temperature, </li>
-<li>the dew point temperature, </li>
-<li>the sky black body temperature, </li>
-<li>the relative humidity, </li>
-<li>the wind direction, </li>
-<li>the wind speed, </li>
-<li>the global horizontal radiation, direct normal and diffuse horizontal radiation, and </li>
-<li>the infrared horizontal radiation. </li>
+<li>
+The atmospheric pressure,
+</li>
+<li>
+the ceiling height,
+</li>
+<li>
+the total sky cover,
+</li>
+<li>
+the opaque sky cover,
+</li>
+<li>
+the dry bulb temperature,
+</li>
+<li>
+the dew point temperature,
+</li>
+<li>
+the sky black body temperature,
+</li>
+<li>
+the relative humidity,
+</li>
+<li>
+the wind direction,
+</li>
+<li>
+the wind speed,
+</li>
+<li>
+the global horizontal radiation, direct normal and diffuse horizontal radiation,
+and
+</li>
+<li>
+the infrared horizontal radiation.
+</li>
 </ul>
-<p>By default, all data are obtained from the weather data file, except for the atmospheric pressure, which is set to the parameter <code>pAtm=101325</code> Pascals. </p>
-<p>The parameter <code>*Sou</code> configures the source of the data. For the atmospheric pressure, temperatures, relative humidity, wind speed and wind direction, the enumeration <a href=\"modelica://IBPSA.BoundaryConditions.Types.DataSource\">IBPSA.BoundaryConditions.Types.DataSource</a> is used as follows: </p>
-<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
-<td><p align=\"center\"><b>Parameter <code>*Sou</code> </b></p></td>
-<td><p align=\"center\"><h4>Data used to compute weather data. </h4></p></td>
-</tr>
+<p>
+By default, all data are obtained from the weather data file,
+except for the atmospheric pressure, which is set to the
+parameter <code>pAtm=101325</code> Pascals.
+</p>
+<p>
+The parameter <code>*Sou</code> configures the source of the data.
+For the atmospheric pressure, temperatures, relative humidity, wind speed and wind direction,
+the enumeration
+<a href=\"modelica://IBPSA.BoundaryConditions.Types.DataSource\">
+IBPSA.BoundaryConditions.Types.DataSource</a>
+is used as follows:
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<!-- ============================================== -->
 <tr>
-<td><p>File </p></td>
-<td><p>Use data from file. </p></td>
+  <th>Parameter <code>*Sou</code>
+  </th>
+  <th>Data used to compute weather data.
+  </th>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p>Parameter </p></td>
-<td><p>Use value specified by the parameter. </p></td>
+  <td>
+    File
+  </td>
+  <td>
+    Use data from file.
+  </td>
 </tr>
+<!-- ============================================== -->
 <tr>
-<td><p>Input </p></td>
-<td><p>Use value from the input connector. </p></td>
+  <td>
+    Parameter
+  </td>
+  <td>
+    Use value specified by the parameter.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    Input
+  </td>
+  <td>
+    Use value from the input connector.
+  </td>
 </tr>
 </table>
-<p><br>Because global, diffuse and direct radiation are related to each other, the parameter <code>HSou</code> is treated differently. It is set to a value of the enumeration <a href=\"modelica://IBPSA.BoundaryConditions.Types.RadiationDataSource\">IBPSA.BoundaryConditions.Types.RadiationDataSource</a>, and allows the following configurations: </p>
-<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
-<td><p align=\"center\"><b>Parameter <code>HSou</code> </b></p></td>
-<td><p align=\"center\"><h4>Data used to compute weather data. </h4></p></td>
+<p>
+Because global, diffuse and direct radiation are related to each other, the parameter
+<code>HSou</code> is treated differently.
+It is set to a value of the enumeration
+<a href=\"modelica://IBPSA.BoundaryConditions.Types.RadiationDataSource\">
+IBPSA.BoundaryConditions.Types.RadiationDataSource</a>,
+and allows the following configurations:
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<!-- ============================================== -->
+<tr>
+  <th>Parameter <code>HSou</code>
+  </th>
+  <th>Data used to compute weather data.
+  </th>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    File
+  </td>
+  <td>
+    Use data from file.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    Input_HGloHor_HDifHor
+  </td>
+  <td>
+    Use global horizontal and diffuse horizontal radiation from input connector.
+  </td>
 </tr>
 <tr>
-<td><p>File </p></td>
-<td><p>Use data from file. </p></td>
+  <td>
+    Input_HDirNor_HDifHor
+  </td>
+  <td>
+    Use direct normal and diffuse horizontal radiation from input connector.
+  </td>
 </tr>
 <tr>
-<td><p>Input_HGloHor_HDifHor </p></td>
-<td><p>Use global horizontal and diffuse horizontal radiation from input connector. </p></td>
-</tr>
-<tr>
-<td><p>Input_HDirNor_HDifHor </p></td>
-<td><p>Use direct normal and diffuse horizontal radiation from input connector. </p></td>
-</tr>
-<tr>
-<td><p>Input_HDirNor_HGloHor </p></td>
-<td><p>Use direct normal and global horizontal radiation from input connector. </p></td>
+  <td>
+    Input_HDirNor_HGloHor
+  </td>
+  <td>
+    Use direct normal and global horizontal radiation from input connector.
+  </td>
 </tr>
 </table>
-<p><br><h4>Length of weather data and simulation period</h4></p>
-<p>If weather data span a year, which is the default for TMY3 data, or multiple years, then this model can be used for simulations that span multiple years. The simulation start time needs to be set to the clock time of the respective start time. For example, to start at January 2 at 10am, set start time to <code>t=(24+10)*3600</code> seconds. For this computation, the used date and time (here January 2, 10 am) must be expressed in the same time zone as the one that is used to define the TMY3 file. This is usually the local (winter) time zone. The parameter `timZon` represents the TMY3 file time zone, expressed in seconds compared to UTC. </p>
-<p>Moreover, weather data need not span a whole year, or it can span across New Year. In this case, the simulation cannot exceed the time of the weather data file. Otherwise, the simulation stops with an error. </p>
-<p>As weather data have one entry at the start of the time interval, the end time of the weather data file is computed as the last time entry plus the average time increment of the file. For example, an hourly weather data file has 8760 entries, starting on January 1 at 0:00. The last entry in the file will be for December 31 at 23:00. As the time increment is 1 hour, the model assumes the weather file to end at December 31 at 23:00 plus 1 hour, e.g., at January 1 at 0:00. </p>
+<!-- ============================================== -->
+<h4>Length of weather data and simulation period</h4>
+<p>
+If weather data span a year, which is the default for TMY3 data, or multiple years,
+then this model can be used for simulations that span multiple years. The simulation
+start time needs to be set to the clock time of the respective start time. For example,
+to start at January 2 at 10am, set start time to <code>t=(24+10)*3600</code> seconds.
+For this computation, the used date and time (here January 2, 10 am) must be expressed in the same time zone
+as the one that is used to define the TMY3 file. This is usually the local (winter) time zone.
+The parameter `timZon` represents the TMY3 file time zone, expressed in seconds compared to UTC.
+</p>
+<p>
+Moreover, weather data need not span a whole year, or it can span across New Year.
+In this case, the simulation cannot exceed the time of the weather data file. Otherwise,
+the simulation stops with an error.
+</p>
+<p>
+As weather data have one entry at the start of the time interval, the end time of the weather
+data file is computed as the last time entry plus the average time increment of the file.
+For example, an hourly weather data file has 8760 entries, starting on January 1 at 0:00.
+The last entry in the file will be for December 31 at 23:00. As the time increment is 1 hour,
+the model assumes the weather file to end at December 31 at 23:00 plus 1 hour, e.g., at January 1 at 0:00.
+</p>
+<!-- ============================================== -->
 <h4>Notes</h4>
 <ol>
-<li>In HVAC systems, when the fan is off, changes in atmospheric pressure can cause small air flow rates in the duct system due to change in pressure and hence in the mass of air that is stored in air volumes (such as in fluid junctions or in the room model). This may increase computing time. Therefore, the default value for the atmospheric pressure is set to a constant. Furthermore, if the initial pressure of air volumes are different from the atmospheric pressure, then fast pressure transients can happen in the first few seconds of the simulation. This can cause numerical problems for the solver. To avoid this problem, set the atmospheric pressure to the same value as the medium default pressure, which is typically set to the parameter <code>Medium.p_default</code>. For medium models for moist air and dry air, the default is <code>Medium.p_default=101325</code> Pascals. </li>
-<li>Different units apply depending on whether data are obtained from a file, or from a parameter or an input connector: </li>
-<li><ul>
-<li>When using TMY3 data from a file (e.g. <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>), the units must be the same as the original TMY3 file used by EnergyPlus (e.g. <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw</code>). The TMY3 data used by EnergyPlus are in both SI units and non-SI units. If <code>Resources/bin/ConvertWeatherData.jar</code> is used to convert the <code>.epw</code> file to an <code>.mos</code> file, the units of the TMY3 data are preserved and the file can be directly used by this data reader. The data reader will automatically convert units to the SI units used by Modelica. For example, the dry bulb temperature <code>TDryBul</code> in TMY3 is in degree Celsius. The data reader will automatically convert the data to Kelvin. The wind direction <code>winDir</code> in TMY3 is degrees and will be automatically converted to radians. </li>
-<li>When using data from a parameter or from an input connector, the data must be in the SI units used by Modelica. For instance, the unit must be <code>Pa</code> for pressure, <code>K</code> for temperature, <code>W/m2</code> for solar radiations and <code>rad</code> for wind direction. </li>
-</ul></li>
-<li>The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for solar radiation data that is explained below. This time shift needs to be removed if the user may want to use the ReaderTMY3 for other weather data types. </li>
+<li>
+<p>
+In HVAC systems, when the fan is off, changes in atmospheric pressure can cause small air flow rates
+in the duct system due to change in pressure and hence in the mass of air that is stored
+in air volumes (such as in fluid junctions or in the room model).
+This may increase computing time. Therefore, the default value for the atmospheric pressure is set to a constant.
+Furthermore, if the initial pressure of air volumes are different
+from the atmospheric pressure, then fast pressure transients can happen in the first few seconds of the simulation.
+This can cause numerical problems for the solver. To avoid this problem, set the atmospheric pressure to the
+same value as the medium default pressure, which is typically set to the parameter <code>Medium.p_default</code>.
+For medium models for moist air and dry air, the default is
+<code>Medium.p_default=101325</code> Pascals.
+</p>
+</li>
+<li>
+<p>
+Different units apply depending on whether data are obtained from a file, or
+from a parameter or an input connector:
+</p>
+<ul>
+<li>
+When using TMY3 data from a file (e.g. <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>), the units must be the same as the original TMY3 file used by EnergyPlus (e.g.
+<code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw</code>).
+The TMY3 data used by EnergyPlus are in both SI units and non-SI units.
+If <code>Resources/bin/ConvertWeatherData.jar</code> is used to convert the <code>.epw</code> file to an <code>.mos</code> file, the units of the TMY3 data are preserved and the file can be directly
+used by this data reader.
+The data reader will automatically convert units to the SI units used by Modelica.
+For example, the dry bulb temperature <code>TDryBul</code> in TMY3 is in degree Celsius.
+The data reader will automatically convert the data to Kelvin.
+The wind direction <code>winDir</code> in TMY3 is degrees and will be automatically converted to radians.
+</li>
+<li>
+When using data from a parameter or from an input connector,
+the data must be in the SI units used by Modelica.
+For instance, the unit must be
+<code>Pa</code> for pressure,
+<code>K</code> for temperature,
+<code>W/m2</code> for solar radiations and
+<code>rad</code> for wind direction.
+</li>
+</ul>
+</li>
+<li>
+The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for solar radiation data
+that is explained below. This time shift needs to be removed if the user may want to
+use the ReaderTMY3 for other weather data types.
+</li>
 </ol>
 <h4>Implementation</h4>
 <h5>Start and end data for annual weather data files</h5>
-<p>The TMY3 weather data, as well as the EnergyPlus weather data, start at 1:00 AM on January 1, and provide hourly data until midnight on December 31. Thus, the first entry for temperatures, humidity, wind speed etc. are values at 1:00 AM and not at midnight. Furthermore, the TMY3 weather data files can have values at midnight of December 31 that may be significantly different from the values at 1:00 AM on January 1. Since annual simulations require weather data that start at 0:00 on January 1, data need to be provided for this hour. Due to the possibly large change in weatherdata between 1:00 AM on January 1 and midnight at December 31, the weather data files in the IBPSA library do not use the data entry from midnight at December 31 as the value for <i>t=0</i>. Rather, the value from 1:00 AM on January 1 is duplicated and used for 0:00 on January 1. To maintain a data record with <i>8760</i> hours, the weather data record from midnight at December 31 is deleted. These changes in the weather data file are done in the Java program <code>IBPSA/Resources/bin/ConvertWeatherData.jar</code> that converts EnergyPlus weather data file to Modelica weather data files, and which is described above. The length of the weather data is calculated as = end time stamp - start time stamp + average increment, where average increment = (end time stamp - start time stamp) / (nrRows -1). This only works correctly for weather files with equidistant time stamps. </p>
+<p>
+The TMY3 weather data, as well as the EnergyPlus weather data, start at 1:00 AM
+on January 1, and provide hourly data until midnight on December 31.
+Thus, the first entry for temperatures, humidity, wind speed etc. are values
+at 1:00 AM and not at midnight. Furthermore, the TMY3 weather data files can have
+values at midnight of December 31 that may be significantly different from the values
+at 1:00 AM on January 1.
+Since annual simulations require weather data that start at 0:00 on January 1,
+data need to be provided for this hour. Due to the possibly large change in
+weatherdata between 1:00 AM on January 1 and midnight at December 31,
+the weather data files in the IBPSA library do not use the data entry from
+midnight at December 31 as the value for <i>t=0</i>. Rather, the
+value from 1:00 AM on January 1 is duplicated and used for 0:00 on January 1.
+To maintain a data record with <i>8760</i> hours, the weather data record from
+midnight at December 31 is deleted.
+These changes in the weather data file are done in the Java program
+<code>IBPSA/Resources/bin/ConvertWeatherData.jar</code> that converts
+EnergyPlus weather data file to Modelica weather data files, and which is described
+above.
+The length of the weather data is calculated as 
+= end time stamp - start time stamp + average increment, where 
+average increment = (end time stamp - start time stamp) / (nrRows -1). 
+This only works correctly for weather files with equidistant time stamps.
+</p>
 <h5>Time shift for solar radiation data</h5>
-<p>To read weather data from the TMY3 weather data file, there are two data readers in this model. One data reader obtains all data except solar radiation, and the other data reader reads only the solar radiation data, shifted by <i>30</i> minutes. The reason for this time shift is as follows: The TMY3 weather data file contains for solar radiation the &quot;...radiation received on a horizontal surface during the 60-minute period ending at the timestamp.&quot; Thus, as the figure below shows, a more accurate interpolation is obtained if time is shifted by <i>30</i> minutes prior to reading the weather data. </p>
-<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\" alt=\"image\"/> </p>
+<p>
+To read weather data from the TMY3 weather data file, there are
+two data readers in this model. One data reader obtains all data
+except solar radiation, and the other data reader reads only the
+solar radiation data, shifted by <i>30</i> minutes.
+The reason for this time shift is as follows:
+The TMY3 weather data file contains for solar radiation the
+\"...radiation received
+on a horizontal surface during
+the 60-minute period ending at
+the timestamp.\"
+
+Thus, as the figure below shows, a more accurate interpolation is obtained if
+time is shifted by <i>30</i> minutes prior to reading the weather data.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\"
+border=\"1\" />
+</p>
 <h4>References</h4>
 <ul>
-<li>Wilcox S. and W. Marion. <i>Users Manual for TMY3 Data Sets</i>. Technical Report, NREL/TP-581-43156, revised May 2008. </li>
+<li>
+Wilcox S. and W. Marion. <i>Users Manual for TMY3 Data Sets</i>.
+Technical Report, NREL/TP-581-43156, revised May 2008.
+</li>
 </ul>
 </html>", revisions="<html>
 <ul>
