@@ -7,20 +7,15 @@ model GetTimeSpanTMY3 "Test model to get time span of a weather file"
     "Name of weather data file";
   parameter String tabNam = "tab1" "Name of table on weather file";
 
-  final parameter String absFilNam = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam)
-    "Absolute path of the file";
-
   parameter Modelica.SIunits.Time[2] timeSpan(fixed=false) "Start time, end time of weather data";
 
 initial equation
   timeSpan = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(
-  absFilNam, tabNam);
-  Modelica.Utilities.Streams.print("Start time of weather file = " +
-  String(timeSpan[1]) + "End time of weather file = " + String(timeSpan[2]) +
-  "(end time stamp + calculated average increment)");
-  assert(timeSpan[2] > timeSpan[1],
-      "Error in weather file, end time " + String(timeSpan[2]) +
-      ", smaller than start time " + String(timeSpan[1]));
+  filNam, tabNam);
+
+  assert(abs(timeSpan[2]-365*24*3600.) < 1E-5  and abs(timeSpan[1]) < 1E-5,
+      "Error in weather file, start time " + String(timeSpan[1]) +
+      " and end time " + String(timeSpan[2]) + ", but expected 0 and 31536000.");
 
   annotation (
     Documentation(info="<html>
@@ -31,12 +26,17 @@ This example tests getting the header of the TMY3 weather data file.
 revisions="<html>
 <ul>
 <li>
+April 16, 2019, by Michael Wetter:<br/>
+Removed call to get the absolute path of the file, corrected the <code>.mos</code>
+file name and updated the documentation
+</li>
+<li>
 April 15, 2019, by Ana Constantin:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
 experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3.mos"
         "Simulate and plot"));
 end GetTimeSpanTMY3;
