@@ -1,6 +1,6 @@
 FileWriter
 FileWriterObject
-JsonWriterObject
+JSONWriterObject
 OutputTime
 cacheVals
-writeJson
+writeJSON

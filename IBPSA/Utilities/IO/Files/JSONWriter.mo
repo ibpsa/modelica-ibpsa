@@ -1,5 +1,5 @@
 within IBPSA.Utilities.IO.Files;
-model JsonWriter "Model for writing results to a json file"
+model JSONWriter "Model for writing results to a json file"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Integer nin
     "Number of inputs"
@@ -20,8 +20,8 @@ model JsonWriter "Model for writing results to a json file"
      annotation (Placement(transformation(extent={{-120,20},{-80,-20}})));
 protected
   parameter String insNam = getInstanceName() "Instance name";
-  IBPSA.Utilities.IO.Files.BaseClasses.JsonWriterObject jsonWri=
-      IBPSA.Utilities.IO.Files.BaseClasses.JsonWriterObject(
+  IBPSA.Utilities.IO.Files.BaseClasses.JSONWriterObject jsonWri=
+      IBPSA.Utilities.IO.Files.BaseClasses.JSONWriterObject(
         insNam,
         fileName,
         outputTime==IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Terminal,
@@ -34,13 +34,13 @@ equation
 
   if outputTime==IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Initial then
     when initial() then
-      IBPSA.Utilities.IO.Files.BaseClasses.writeJson(jsonWri, u);
+      IBPSA.Utilities.IO.Files.BaseClasses.writeJSON(jsonWri, u);
     end when;
   end if;
 
   if outputTime==IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Custom then
     when time>=customTime then
-      IBPSA.Utilities.IO.Files.BaseClasses.writeJson(jsonWri, u);
+      IBPSA.Utilities.IO.Files.BaseClasses.writeJSON(jsonWri, u);
     end when;
   end if;
 
@@ -98,4 +98,4 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1114\">#1114</a>.
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="JSON")}));
-end JsonWriter;
+end JSONWriter;
