@@ -4,7 +4,7 @@ function writeJSON
     input IBPSA.Utilities.IO.Files.BaseClasses.JSONWriterObject ID "JSON writer object id";
     input Real[:] varVals "Variable values";
 
-    external "C" writeJSON(ID, varVals, size(varVals,1))
+    external "C" writeJson(ID, varVals, size(varVals,1))
     annotation(Include=" #include \"jsonWriterInit.h\"",
     IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
 

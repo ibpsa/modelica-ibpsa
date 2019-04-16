@@ -1,5 +1,5 @@
 within IBPSA.Utilities.IO.Files.BaseClasses;
-class JsonWriterObject
+class JSONWriterObject
   "Class used to ensure that each JSON writer writes to a unique file"
 extends ExternalObject;
   function constructor
@@ -9,7 +9,7 @@ extends ExternalObject;
     input String fileName "Name of the file, including extension";
     input Boolean dumpAtDestruction "=true, to write cached values at destruction";
     input String[:] varKeys "Keys for values that are written to file";
-    output JsonWriterObject jsonWriter "Pointer to the file writer";
+    output JSONWriterObject jsonWriter "Pointer to the file writer";
     external"C" jsonWriter = jsonWriterInit(instanceName, fileName, dumpAtDestruction, size(varKeys,1), varKeys)
     annotation (
       Include="#include <jsonWriterInit.c>",
@@ -29,7 +29,7 @@ c
   end constructor;
 
   function destructor "Release storage and close the external object, write data if needed"
-    input JsonWriterObject jsonWriter "Pointer to file writer object";
+    input JSONWriterObject jsonWriter "Pointer to file writer object";
     external "C" jsonWriterFree(jsonWriter)
     annotation(Include=" #include <jsonWriterFree.c>",
     IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
@@ -63,4 +63,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end JsonWriterObject;
+end JSONWriterObject;
