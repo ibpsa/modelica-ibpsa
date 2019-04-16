@@ -32,7 +32,6 @@ void* allocateFileWriter(
     if (index>=0){
       ModelicaFormatError("FileWriter %s writes to file %s which is already used by FileWriter %s.\nEach FileWriter must use a unique file name.",
       instanceName, fileName, InstanceNames[index]);
-      /* TODO:  print instance name instead of file name */
     }
     /* Reallocate memory for array of file names */
     FileWriterNames = realloc(FileWriterNames, (FileWriterNames_n+1) * sizeof(char*));
