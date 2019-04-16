@@ -6,6 +6,7 @@
 #define IBPSA_FILEWRITERStructure_h
 
 static char** FileWriterNames; /* Array with pointers to all file names */
+static char** InstanceNames; /* Array with pointers to all instance names */
 static unsigned int FileWriterNames_n = 0;     /* Number of files */
 
 typedef struct FileWriter {
@@ -20,14 +21,16 @@ typedef struct FileWriter {
 
   /* Parameters for JSON writer only */	
   int dumpAtDestruction; /* Indicates whether json data should be dumped before destruction */
-  char **varKeys;
-  int numKeys;
-  double *varVals;
+  char **varKeys;	/* The JSON key names that are written to file */
+  int numKeys; /* The number of keys in varKeys */
+  double *varVals; /* A cache for the values that should be written to file at terminal() */
 
 } FileWriter;
 
 void writeLine(void *ptrFileWriter, const char* line, const int isMetaData); /* This function writes a line to the FileWriter object file and counts the number of lines that are written. */
 
 void* allocateFileWriter(const char* instanceName, const char* fileName); /* This function verifies whether a file writer with the same path does not yet exist */
+
+void freeBase(void* ptrFileWriter);  /* This function frees up common resources of the JSON and CSV file writer. */
 
 #endif

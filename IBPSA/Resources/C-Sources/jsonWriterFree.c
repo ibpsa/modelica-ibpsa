@@ -23,15 +23,7 @@ void jsonWriterFree(void* ptrFileWriter){
   }
   free(ID->varKeys);
 
-  if ( FileWriterNames_n > 0 ){
-    FileWriterNames_n--;
-    free(FileWriterNames[FileWriterNames_n]);
-    if ( FileWriterNames_n == 0 ){
-      free(FileWriterNames);
-    }
-  }
-  free(ID->fileWriterName);
-  free(ID->instanceName);
-  free(ID);
+  freeBase(ptrFileWriter);
+  
   return;
 }

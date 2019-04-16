@@ -21,28 +21,32 @@ void* allocateFileWriter(
    if ( FileWriterNames_n == 0 ){
     /* Allocate memory for array of file names */
     FileWriterNames = malloc(sizeof(char*));
-    if ( FileWriterNames == NULL )
-      ModelicaError("Not enough memory in fileWriterStructure.c for allocating FileWriterNames.");
+    InstanceNames = malloc(sizeof(char*));
+    if ( FileWriterNames == NULL || InstanceNames == NULL)
+      ModelicaError("Not enough memory in fileWriterStructure.c for allocating FileWriterNames and InstanceNames.");
   }
   else{
     /* Check if the file name is unique */
     signed int index = fileWriterIsUnique(fileName);
     if (index>=0){
-      ModelicaFormatError("FileWriter %s writes to file %s which is already used by another FileWriter.\nEach FileWriter must use a unique file name.",
-      FileWriterNames[index], fileName);
+      ModelicaFormatError("FileWriter %s writes to file %s which is already used by FileWriter %s.\nEach FileWriter must use a unique file name.",
+      instanceName, fileName, InstanceNames[index]);
       /* TODO:  print instance name instead of file name */
     }
     /* Reallocate memory for array of file names */
     FileWriterNames = realloc(FileWriterNames, (FileWriterNames_n+1) * sizeof(char*));
-    if ( FileWriterNames == NULL )
-      ModelicaError("Not enough memory in fileWriterStructure.c for reallocating FileWriterNames.");
+    InstanceNames = realloc(InstanceNames, (FileWriterNames_n+1) * sizeof(char*));
+    if ( FileWriterNames == NULL || InstanceNames == NULL )
+      ModelicaError("Not enough memory in fileWriterStructure.c for reallocating FileWriterNames and InstanceNames.");
   }
   /* Allocate memory for this file name */
   FileWriterNames[FileWriterNames_n] = malloc((strlen(fileName)+1) * sizeof(char));
-  if ( FileWriterNames[FileWriterNames_n] == NULL )
-    ModelicaError("Not enough memory in fileWriterStructure.c for allocating FileWriterNames[].");
+  InstanceNames[FileWriterNames_n] = malloc((strlen(instanceName)+1) * sizeof(char));
+  if ( FileWriterNames[FileWriterNames_n] == NULL || InstanceNames[FileWriterNames_n] == NULL)
+    ModelicaError("Not enough memory in fileWriterStructure.c for allocating FileWriterNames[] and InstanceNames[].");
   /* Copy the file name */
   strcpy(FileWriterNames[FileWriterNames_n], fileName);
+  strcpy(InstanceNames[FileWriterNames_n], instanceName);
   FileWriterNames_n++;
 
   FileWriter* ID;
@@ -67,6 +71,24 @@ void* allocateFileWriter(
     ModelicaFormatError("In fileWriterStructure.c: Returned an error when closing %s.", fileName);
 
   return (void*)ID;
+}
+
+void freeBase(void* ptrFileWriter){
+  FileWriter *ID = (FileWriter*)ptrFileWriter;
+
+  if ( FileWriterNames_n > 0 ){
+    FileWriterNames_n--;
+    free(FileWriterNames[FileWriterNames_n]);
+    free(InstanceNames[FileWriterNames_n]);
+    if ( FileWriterNames_n == 0 ){
+      free(FileWriterNames);
+      free(InstanceNames);
+    }
+  }
+  free(ID->fileWriterName);
+  free(ID->instanceName);
+  free(ID);
+
 }
 
 #endif
