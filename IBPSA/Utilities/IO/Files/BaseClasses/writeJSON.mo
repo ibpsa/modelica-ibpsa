@@ -1,10 +1,10 @@
 within IBPSA.Utilities.IO.Files.BaseClasses;
-function writeJson
+function writeJSON
   "Write a vector of Real variables to a JSON file"
-    input IBPSA.Utilities.IO.Files.BaseClasses.JsonWriterObject ID "JSON writer object id";
+    input IBPSA.Utilities.IO.Files.BaseClasses.JSONWriterObject ID "JSON writer object id";
     input Real[:] varVals "Variable values";
 
-    external "C" writeJson(ID, varVals, size(varVals,1))
+    external "C" writeJSON(ID, varVals, size(varVals,1))
     annotation(Include=" #include \"jsonWriterInit.h\"",
     IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
 
@@ -20,4 +20,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end writeJson;
+end writeJSON;
