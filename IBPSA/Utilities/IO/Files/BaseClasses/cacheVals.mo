@@ -5,7 +5,7 @@ function cacheVals
     input Real[:] varVals "Variable values";
 
     external "C" cacheVals(ID, varVals, size(varVals,1))
-    annotation(Include=" #include \"jsonWriterInit.c\"",
+    annotation(Include=" #include \"jsonWriterInit.h\"",
     IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
 
   annotation (Documentation(revisions="<html>

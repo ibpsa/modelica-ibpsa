@@ -7,17 +7,20 @@
 #include <stdio.h>
 
 void prependString(const char* fileName, const char* string){
+  char *origString;
+  FILE *fOut;
+  long fsize;
   /* read original file contents */
   FILE *fr = fopen(fileName, "r");
   if(fseek(fr, 0, SEEK_END)!=0)
     ModelicaFormatError("The file %s could not be read.", fileName);
-  long fsize = ftell(fr);
+  fsize = ftell(fr);
   if (fsize==-1)
     ModelicaFormatError("The file %s could not be read.", fileName);
   if(fseek(fr, 0, SEEK_SET)!=0)
     ModelicaFormatError("The file %s could not be read.", fileName);
 
-  char *origString = malloc(fsize + 1);
+  origString = malloc(fsize + 1);
   if ( origString == NULL ){
     /* not enough memory is available: file too large */
     ModelicaError("Not enough memory in fileWriterInit.c for prepending string.");
@@ -29,7 +32,7 @@ void prependString(const char* fileName, const char* string){
   origString[fsize] = '\0';
 
   /* write new contents */
-  FILE *fOut = fopen(fileName, "w");
+  fOut = fopen(fileName, "w");
   /* prepended string */
   if (fputs(string, fOut)==EOF)
     ModelicaFormatError("The file %s could not be written.", fileName);

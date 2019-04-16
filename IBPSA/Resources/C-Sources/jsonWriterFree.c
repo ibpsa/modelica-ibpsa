@@ -2,10 +2,12 @@
  *
  * Michael Wetter, LBNL                     2018-05-12
  */
-#include "fileWriterStructure.h"
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "jsonWriterFree.h"
+#include "fileWriterStructure.h"
+#include "jsonWriterInit.h"
 
 void jsonWriterFree(void* ptrFileWriter){
   FileWriter *ID = (FileWriter*)ptrFileWriter;

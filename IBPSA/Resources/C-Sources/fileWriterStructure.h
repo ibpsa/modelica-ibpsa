@@ -4,6 +4,7 @@
 
 #ifndef IBPSA_FILEWRITERStructure_h /* Not needed since it is only a typedef; added for safety */
 #define IBPSA_FILEWRITERStructure_h
+
 #include <stdio.h>
 
 static char** FileWriterNames; /* Array with pointers to all file names */

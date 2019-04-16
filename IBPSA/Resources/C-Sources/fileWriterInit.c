@@ -4,11 +4,11 @@
  * Michael Wetter, LBNL                     2018-05-12
  * Filip Jorissen, KU Leuven
  */
-#include "fileWriterStructure.c"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
+#include "fileWriterStructure.c"
 
 void* fileWriterInit(
   const char* instanceName,
@@ -16,18 +16,19 @@ void* fileWriterInit(
   const int numColumns,
   const int isCombiTimeTable){
 
+  FILE *fp;
   FileWriter* ID = (FileWriter*)allocateFileWriter(instanceName, fileName);
 
-  if (numColumns<0)
+  if (numColumns < 0)
     ModelicaFormatError("In fileWriterInit.c: The number of columns that are written by the FileWriter %s cannot be negative", instanceName);
   ID->numColumns=numColumns;
   ID->numRows=0;
 
-  if (isCombiTimeTable<0 || isCombiTimeTable >1)
+  if (isCombiTimeTable < 0 || isCombiTimeTable > 1)
     ModelicaFormatError("In fileWriterInit.c: The initialisation flag 'isCombiTimeTable' of FileWriter %s must equal 0 or 1 but it equals %i.", instanceName, isCombiTimeTable);
   ID->isCombiTimeTable=isCombiTimeTable;
 
-  FILE *fp = fopen(fileName, "w");
+  fp = fopen(fileName, "w");
   if (fp == NULL)
     ModelicaFormatError("In fileWriterInit.c: Failed to create empty .csv file %s during initialisation.", fileName);
   if (fclose(fp)==EOF)

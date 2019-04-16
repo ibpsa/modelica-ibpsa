@@ -5,20 +5,15 @@
  * Filip Jorissen, KU Leuven
  */
 
-#ifndef IBPSA_JSONRITERSInit_c
-#define IBPSA_JSONRITERSInit_c
-
+#include "jsonWriterInit.h"
 #include "fileWriterStructure.c"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 
 void* jsonWriterInit(
   const char* instanceName,
   const char* fileName,
   const int dumpAtDestruction,
   const int numKeys,
-  const char** varKeys){
+  char** varKeys){
 
   int i;
   FileWriter* ID = (FileWriter*)allocateFileWriter(instanceName, fileName);
@@ -62,9 +57,7 @@ void cacheVals(void *ptrFileWriter, const double* varVals, const int numVals){
   for (i = 0; i < numVals; ++i){
     ID->varVals[i]=varVals[i];
   }
-
 }
-
 
 void writeJson(void *ptrFileWriter,  const double* varVals, const int numVals){
   int i;
@@ -95,5 +88,3 @@ void writeJson(void *ptrFileWriter,  const double* varVals, const int numVals){
   if (fclose(fOut) == EOF)
     ModelicaFormatError("In writeJson.c: Returned an error when closing %s.", ID->fileWriterName);
 }
-
-#endif
