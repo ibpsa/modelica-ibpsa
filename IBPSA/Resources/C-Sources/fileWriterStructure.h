@@ -4,6 +4,7 @@
 
 #ifndef IBPSA_FILEWRITERStructure_h /* Not needed since it is only a typedef; added for safety */
 #define IBPSA_FILEWRITERStructure_h
+#include <stdio.h>
 
 static char** FileWriterNames; /* Array with pointers to all file names */
 static char** InstanceNames; /* Array with pointers to all instance names */
@@ -19,7 +20,7 @@ typedef struct FileWriter {
   int numRows; /* Number of lines that have been written to file */
   int numColumns; /* Number of rows that the file writer is storing */
 
-  /* Parameters for JSON writer only */	
+  /* Parameters for JSON writer only */
   int dumpAtDestruction; /* Indicates whether json data should be dumped before destruction */
   char **varKeys;	/* The JSON key names that are written to file */
   int numKeys; /* The number of keys in varKeys */

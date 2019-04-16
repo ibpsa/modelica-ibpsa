@@ -1,8 +1,7 @@
-#ifndef IBPSA_FILEWRITERStructure_c 
+#ifndef IBPSA_FILEWRITERStructure_c
 #define IBPSA_FILEWRITERStructure_c
 
 #include "fileWriterStructure.h"
-
 
 signed int fileWriterIsUnique(const char* fileName){
   int i;
@@ -15,10 +14,12 @@ signed int fileWriterIsUnique(const char* fileName){
 }
 
 void* allocateFileWriter(
-    const char* instanceName,
-    const char* fileName){
+  const char* instanceName,
+  const char* fileName){
+  FileWriter* ID;
+  FILE* fp;
 
-   if ( FileWriterNames_n == 0 ){
+  if ( FileWriterNames_n == 0 ){
     /* Allocate memory for array of file names */
     FileWriterNames = malloc(sizeof(char*));
     InstanceNames = malloc(sizeof(char*));
@@ -49,7 +50,6 @@ void* allocateFileWriter(
   strcpy(InstanceNames[FileWriterNames_n], instanceName);
   FileWriterNames_n++;
 
-  FileWriter* ID;
   ID = (FileWriter*)malloc(sizeof(*ID));
   if ( ID == NULL )
     ModelicaFormatError("Not enough memory in fileWriterStructure.c for allocating ID of FileWriter %s.", instanceName);
@@ -64,7 +64,7 @@ void* allocateFileWriter(
     ModelicaFormatError("Not enough memory in fileWriterStructure.c for allocating ID->instanceName in FileWriter %s.", instanceName);
   strcpy(ID->instanceName, instanceName);
 
-  FILE *fp = fopen(fileName, "w");
+  fp = fopen(fileName, "w");
   if (fp == NULL)
     ModelicaFormatError("In fileWriterStructure.c: Failed to create empty file %s during initialisation.", fileName);
   if (fclose(fp)==EOF)
@@ -88,7 +88,6 @@ void freeBase(void* ptrFileWriter){
   free(ID->fileWriterName);
   free(ID->instanceName);
   free(ID);
-
 }
 
 #endif

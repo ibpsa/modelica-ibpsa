@@ -9,6 +9,7 @@
 
 void jsonWriterFree(void* ptrFileWriter){
   FileWriter *ID = (FileWriter*)ptrFileWriter;
+  int i;
 
   /* If this FileWriter writes output at terminal(), dump data upon destruction. */
   if (ID->dumpAtDestruction){
@@ -16,7 +17,7 @@ void jsonWriterFree(void* ptrFileWriter){
   }
 
   free(ID->varVals);
-  int i;
+
   for (i = 0; i < ID->numKeys; ++i)
   {
     free(ID->varKeys[i]);
@@ -24,6 +25,6 @@ void jsonWriterFree(void* ptrFileWriter){
   free(ID->varKeys);
 
   freeBase(ptrFileWriter);
-  
+
   return;
 }
