@@ -1,20 +1,20 @@
 within IBPSA.Utilities.IO.Files.Examples;
-model JsonWriter "Example use of the JSON writer"
+model JSONWriter "Example use of the JSON writer"
   extends Modelica.Icons.Example;
-  IBPSA.Utilities.IO.Files.JsonWriter jsonWriterInitial(
+  IBPSA.Utilities.IO.Files.JSONWriter jsonWriterInitial(
     nin=3,
     fileName="InitialOutputs.json",
     outputTime=IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Initial)
     "Outputs at initial time"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  IBPSA.Utilities.IO.Files.JsonWriter jsonWriterCustom(
+  IBPSA.Utilities.IO.Files.JSONWriter jsonWriterCustom(
     nin=3,
     outputTime=IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Custom,
     customTime=0.5,
     fileName="CustomOutputs.json",
     varKeys={"Output1","Key2","Name3"}) "Outputs at custom time"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  IBPSA.Utilities.IO.Files.JsonWriter jsonWriterTerminal(
+  IBPSA.Utilities.IO.Files.JSONWriter jsonWriterTerminal(
     nin=3,
     outputTime=IBPSA.Utilities.IO.Files.BaseClasses.OutputTime.Terminal,
     fileName="TerminalOutputs.json") "Outputs at terminal time"
@@ -27,7 +27,7 @@ model JsonWriter "Example use of the JSON writer"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Sources.Cosine cosine(amplitude=1, freqHz=12) "Cosine signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  IBPSA.Utilities.IO.Files.JsonWriter jsonWriterOneVar(nin=1, fileName="TerminalOutput.json")
+  IBPSA.Utilities.IO.Files.JSONWriter jsonWriterOneVar(nin=1, fileName="TerminalOutput.json")
     "Single variable output"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 equation
@@ -72,6 +72,6 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1114\">#1114</a>.
       StopTime=2,
       Tolerance=1e-06,
       __Dymola_Algorithm="Lsodar"),
-    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/JsonWriter.mos"
+    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/JSONWriter.mos"
         "Simulate and plot"));
-end JsonWriter;
+end JSONWriter;
