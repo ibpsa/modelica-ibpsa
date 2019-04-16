@@ -15,5 +15,6 @@ ConvertTimePositiveStart
 EquationOfTime
 GetAbsolutePath
 GetHeaderElement
+GetTimeSpanTMY3
 LocalCivilTime
 SolarTime

@@ -1556,7 +1556,9 @@ These changes in the weather data file are done in the Java program
 EnergyPlus weather data file to Modelica weather data files, and which is described
 above.
 The length of the weather data is calculated as 
-= end time stamp - start time stamp + average increment.
+= end time stamp - start time stamp + average increment, where 
+average increment = (end time stamp - start time stamp) / (nrRows -1). 
+This only works correctly for weather files with equidistant time stamps.
 </p>
 <h5>Time shift for solar radiation data</h5>
 <p>
