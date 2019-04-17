@@ -6,12 +6,16 @@ function getTimeSpanTMY3_test
   input String tabNam "Name of table on weather file";
   output Modelica.SIunits.Time startTime;
   output Modelica.SIunits.Time endTime;
-  //output Modelica.SIunits.Time[2] timeSpan "Start time, end time of weather data";
+//   output Modelica.SIunits.Time[2] timeSpan "Start time, end time of weather data";
 
+  // timeSpan[1]=startTime;
+  // timeSpan[2]=endTime;
 external "C" getTimeSpan(filNam, tabNam, startTime, endTime)
   annotation (
   Include="#include <getTimeSpan.c>",
   IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
+
+
 
   annotation (Documentation(info="<html>
 <p>
