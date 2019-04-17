@@ -11,6 +11,6 @@
 
 #include <sys/types.h>
 
-void getTimeSpan(const char * filename, const char * tabName, double * startTime, double * endTime);
+void getTimeSpan(const char * filename, const char * tabNam, double* timeSpan);
 
 #endif /* GETTIMESPAN_H_ */

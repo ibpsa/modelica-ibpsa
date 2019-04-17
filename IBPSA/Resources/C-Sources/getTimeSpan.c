@@ -38,19 +38,17 @@ char *concat(const char *s1, const char *s2) {
  *
  * filename: weather data file path
  * tabNam: name of table on weather file
- * startTime: start time
- * endTime: end time
+ * timeSpan: vector [start time, end time]
  */
-void getTimeSpan(const char * filename, const char * tabNam, double * startTime, double * endTime) {
+void getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 	double firstTimeStamp, lastTimeStamp, interval;
-	int loopFlag = 0;
 	char temp[500];
 	int rowCount, colonCount, rowIndex=0;
 	char colonCountString[5];
 	int tempInd=0;
 	char *lastColonIndicator;
 
-	// format string: "%*s tab1(rowCount, colonCount)"
+	// create format string: "%*s tab1(rowCount, colonCount)"
 	char *tempString = concat("%*s ", tabNam);
 	char *formatString = concat(tempString, "(%d,%d)");
 
@@ -58,11 +56,11 @@ void getTimeSpan(const char * filename, const char * tabNam, double * startTime,
 	fp = fopen(filename, "r");
 
 	// find rowCount and colonCount
-	while (loopFlag == 0) {
-		if (fscanf(fp, formatString, &rowCount, &colonCount) == 2) {
-			loopFlag = 1;
-		}
+	while (1) {
 		rowIndex++;
+		if (fscanf(fp, formatString, &rowCount, &colonCount) == 2) {
+			break;
+		}
 	}
 	fgets(temp, 500, fp); // finish the line
 	fgets(temp, 500, fp); // keep reading next line
@@ -85,7 +83,7 @@ void getTimeSpan(const char * filename, const char * tabNam, double * startTime,
 	fgets(temp, 500, fp); // finish the line
 	rowIndex++;
 
-	// read to the file end to find the last time stamp
+	// scan to file end, to find the last time stamp
 	tempInd = rowIndex;
 	while (rowIndex < (rowCount+tempInd-2)) {
 		fgets(temp, 500, fp);
@@ -96,6 +94,7 @@ void getTimeSpan(const char * filename, const char * tabNam, double * startTime,
 
 	// find average time inteval
 	interval = (lastTimeStamp - firstTimeStamp) / (rowCount - 1);
-	*startTime = firstTimeStamp;
-	*endTime = lastTimeStamp + interval;
+
+	timeSpan[0] = firstTimeStamp;
+	timeSpan[1] = lastTimeStamp + interval;
 }

@@ -21,5 +21,3 @@ getLongitudeTMY3
 getTimeSpanTMY3
 getTimeZoneTMY3
 Examples
-getTimeSpanTMY3_test
-testGetTimeSpan
