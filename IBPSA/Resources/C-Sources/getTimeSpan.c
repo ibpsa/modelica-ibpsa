@@ -15,17 +15,21 @@
 /*
  * Function: concat
  * -----------------
- *  concatenate two string .
+ *  Concatenate two strings. This function calls malloc and hence
+ *  the caller must call free when the returned string is no longer used.
  *
  *  s1: string one
  *  s2: string two
  *
- *  returns: concatenate string (s1 + s2)
+ *  returns: concatenate strings (s1 + s2)
  */
 char *concat(const char *s1, const char *s2) {
 	const size_t len1 = strlen(s1);
 	const size_t len2 = strlen(s2);
 	char *result = malloc(len1 + len2 + 1);
+	if (result == NULL){
+		ModelicaError("Failed to allocate memory in getTimeSpan.c");
+	}
 	strcpy(result, s1);
 	strcat(result, s2);
 	return result;
@@ -34,7 +38,7 @@ char *concat(const char *s1, const char *s2) {
 /*
  * Funciton: getTimeSpan
  * ---------------------
- * get start and end time of weather data
+ * Get start and end time of weather data.
  *
  * filename: weather data file path
  * tabNam: name of table on weather file
@@ -51,6 +55,7 @@ void getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 	// create format string: "%*s tab1(rowCount, colonCount)"
 	char *tempString = concat("%*s ", tabNam);
 	char *formatString = concat(tempString, "(%d,%d)");
+	free(tempString);
 
 	FILE *fp;
 	fp = fopen(filename, "r");
@@ -62,6 +67,8 @@ void getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 			break;
 		}
 	}
+	free(formatString);
+
 	fgets(temp, 500, fp); // finish the line
 	fgets(temp, 500, fp); // keep reading next line
 	rowIndex++;
