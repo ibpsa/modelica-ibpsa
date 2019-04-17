@@ -51,16 +51,17 @@ void getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 	char colonCountString[5];
 	int tempInd=0;
 	char *lastColonIndicator;
+	FILE *fp;
 
-	// create format string: "%*s tab1(rowCount, colonCount)"
+	/* create format string: "%*s tab1(rowCount, colonCount)" */
 	char *tempString = concat("%*s ", tabNam);
 	char *formatString = concat(tempString, "(%d,%d)");
 	free(tempString);
 
-	FILE *fp;
+
 	fp = fopen(filename, "r");
 
-	// find rowCount and colonCount
+	/* find rowCount and colonCount */
 	while (1) {
 		rowIndex++;
 		if (fscanf(fp, formatString, &rowCount, &colonCount) == 2) {
@@ -69,11 +70,11 @@ void getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 	}
 	free(formatString);
 
-	fgets(temp, 500, fp); // finish the line
-	fgets(temp, 500, fp); // keep reading next line
+	fgets(temp, 500, fp); /* finish the line */
+	fgets(temp, 500, fp); /* keep reading next line */
 	rowIndex++;
 
-  // find the end of file head
+   /* find the end of file head */
 	sprintf(colonCountString, "%d", colonCount);
 	lastColonIndicator = concat("#C",colonCountString);
 	while (1) {
@@ -85,12 +86,12 @@ void getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 		}
 	}
 
-	// find first time stamp
+	/* find first time stamp */
 	fscanf(fp, "%lf", &firstTimeStamp);
-	fgets(temp, 500, fp); // finish the line
+	fgets(temp, 500, fp); /* finish the line */
 	rowIndex++;
 
-	// scan to file end, to find the last time stamp
+	/* scan to file end, to find the last time stamp */
 	tempInd = rowIndex;
 	while (rowIndex < (rowCount+tempInd-2)) {
 		fgets(temp, 500, fp);
@@ -99,7 +100,7 @@ void getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 	fscanf(fp, "%lf", &lastTimeStamp);
 	fclose(fp);
 
-	// find average time inteval
+	/* find average time inteval */
 	interval = (lastTimeStamp - firstTimeStamp) / (rowCount - 1);
 
 	timeSpan[0] = firstTimeStamp;
