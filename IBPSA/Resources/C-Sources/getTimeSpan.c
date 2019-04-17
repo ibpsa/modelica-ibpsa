@@ -44,20 +44,22 @@ char *concat(const char *s1, const char *s2) {
  * tabNam: name of table on weather file
  * timeSpan: vector [start time, end time]
  */
-void getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
+int getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 	double firstTimeStamp, lastTimeStamp, interval;
-	char temp[500];
-	int rowCount, colonCount, rowIndex=0;
-	char colonCountString[5];
+	int rowCount, colonCount;
+	int rowIndex=0;
 	int tempInd=0;
+	char colonCountString[5];
 	char *lastColonIndicator;
+	char *line = NULL;
+	size_t len=0;
+
 	FILE *fp;
 
 	/* create format string: "%*s tab1(rowCount, colonCount)" */
 	char *tempString = concat("%*s ", tabNam);
 	char *formatString = concat(tempString, "(%d,%d)");
 	free(tempString);
-
 
 	fp = fopen(filename, "r");
 
@@ -70,34 +72,35 @@ void getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 	}
 	free(formatString);
 
-	fgets(temp, 500, fp); /* finish the line */
-	fgets(temp, 500, fp); /* keep reading next line */
+	getline(&line, &len, fp); /* finish the line */
+	getline(&line, &len, fp); /* keep reading next line */
 	rowIndex++;
 
    /* find the end of file head */
 	sprintf(colonCountString, "%d", colonCount);
 	lastColonIndicator = concat("#C",colonCountString);
 	while (1) {
-		fgets(temp, 500, fp);
-		printf("line: %s\n", temp);
+		getline(&line, &len, fp);
 		rowIndex++;
-		if (strstr(temp, lastColonIndicator)) {
+		if (strstr(line, lastColonIndicator)) {
 			break;
 		}
 	}
+	free(lastColonIndicator);
 
 	/* find first time stamp */
 	fscanf(fp, "%lf", &firstTimeStamp);
-	fgets(temp, 500, fp); /* finish the line */
+	getline(&line, &len, fp); /* finish the line */
 	rowIndex++;
 
 	/* scan to file end, to find the last time stamp */
 	tempInd = rowIndex;
 	while (rowIndex < (rowCount+tempInd-2)) {
-		fgets(temp, 500, fp);
+		getline(&line, &len, fp);
 		rowIndex++;
 	}
 	fscanf(fp, "%lf", &lastTimeStamp);
+	free(line);
 	fclose(fp);
 
 	/* find average time inteval */
@@ -105,4 +108,6 @@ void getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 
 	timeSpan[0] = firstTimeStamp;
 	timeSpan[1] = lastTimeStamp + interval;
+
+	return(0);
 }
