@@ -15,6 +15,10 @@ initial equation
   timeSpan = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(
   filNam, tabNam);
 
+  assert(abs(timeSpan[2]-31863600) < 1E-5  and abs(timeSpan[1]-30992400) < 1E-5,
+      "Error in weather file, start time " + String(timeSpan[1]) +
+      " and end time " + String(timeSpan[2]) + ", but expected 30992400 and 31863600.");
+
   annotation (
     Documentation(info="<html>
 <p>
