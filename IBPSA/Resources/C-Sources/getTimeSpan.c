@@ -49,10 +49,12 @@ int getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 	int rowCount, colonCount;
 	int rowIndex=0;
 	int tempInd=0;
-	char colonCountString[5];
+	char *colonCountString;
 	char *lastColonIndicator;
 	char *line = NULL;
-	size_t len=0;
+	int retVal;
+	size_t len = 0;
+
 
 	FILE *fp;
 
@@ -62,6 +64,9 @@ int getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 	free(tempString);
 
 	fp = fopen(filename, "r");
+	if (fp == NULL){
+		ModelicaFormatError("Failed to open file %s", filename);
+	}
 
 	/* find rowCount and colonCount */
 	while (1) {
@@ -77,8 +82,13 @@ int getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 	rowIndex++;
 
    /* find the end of file head */
-	sprintf(colonCountString, "%d", colonCount);
-	lastColonIndicator = concat("#C",colonCountString);
+   if (-1 == asprintf(&colonCountString, "%d", colonCount)){
+	   ModelicaError("Failed to allocate memory in getTimeSpan.c");
+   }
+
+	lastColonIndicator = concat("#C", colonCountString);
+	free(colonCountString);
+
 	while (1) {
 		getline(&line, &len, fp);
 		rowIndex++;
@@ -89,7 +99,11 @@ int getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 	free(lastColonIndicator);
 
 	/* find first time stamp */
-	fscanf(fp, "%lf", &firstTimeStamp);
+	retVal = fscanf(fp, "%lf", &firstTimeStamp);
+	if (retVal == EOF){
+		ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching for first time stamp in %s.",
+		filename);
+	}
 	getline(&line, &len, fp); /* finish the line */
 	rowIndex++;
 
@@ -99,7 +113,11 @@ int getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
 		getline(&line, &len, fp);
 		rowIndex++;
 	}
-	fscanf(fp, "%lf", &lastTimeStamp);
+	retVal = fscanf(fp, "%lf", &lastTimeStamp);
+	if (retVal == EOF){
+		ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching last time stamp in %s.",
+		filename);
+	}
 	free(line);
 	fclose(fp);
 
