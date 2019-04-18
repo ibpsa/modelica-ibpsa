@@ -13,13 +13,13 @@ external "C" getTimeSpan(filNam, tabNam, timeSpan)
   annotation (Documentation(info="<html>
 <p>
 This function returns the start time (first time stamp) and end time
-(last time stamp + average increment) of the TMY3 weather data file.
+(last time stamp plus average increment) of the TMY3 weather data file.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 April 16, 2019, by Jianjun Hu:<br/>
-Reimplemented to simply use C function, this is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1108\">#1108</a>.
+Reimplemented to use a C function, this is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1108\">#1108</a>.
 </li>
 <li>
 November 15, 2017, by Ana Constantin:<br/>

@@ -1,5 +1,5 @@
 within IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples;
-model GetTimeSpanTMY3 "Test model to get time span of a weather file"
+model GetTimeSpanTMY3 "Test model to get the time span of a weather file"
   extends Modelica.Icons.Example;
 
   parameter String filNam = Modelica.Utilities.Files.loadResource(
@@ -21,7 +21,7 @@ initial equation
   annotation (
     Documentation(info="<html>
 <p>
-This example tests getting time span of the TMY3 weather data file.
+This example tests getting the time span of a TMY3 weather data file.
 </p>
 </html>",
 revisions="<html>

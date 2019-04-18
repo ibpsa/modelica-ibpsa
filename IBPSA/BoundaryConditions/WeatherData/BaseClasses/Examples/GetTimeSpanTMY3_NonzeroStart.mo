@@ -18,7 +18,8 @@ initial equation
   annotation (
     Documentation(info="<html>
 <p>
-This example tests getting time span of the TMY3 weather data file.
+This example tests getting time span of a TMY3 weather data file that
+starts at a non-zero time.
 </p>
 </html>",
 revisions="<html>
