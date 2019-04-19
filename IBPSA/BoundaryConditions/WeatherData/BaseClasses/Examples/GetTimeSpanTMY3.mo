@@ -10,13 +10,18 @@ model GetTimeSpanTMY3 "Test model to get the time span of a weather file"
   parameter Modelica.SIunits.Time[2] timeSpan(each fixed=false)
     "Start time, end time of weather data";
 
+protected
+  constant Real endTim = 365*24*3600.;
+  constant Real staTim = 0.;
+
 initial equation
   timeSpan = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(
   filNam, tabNam);
 
-  assert(abs(timeSpan[2]-365*24*3600.) < 1E-5  and abs(timeSpan[1]) < 1E-5,
+  assert(abs(timeSpan[2]-endTim) < 1E-5  and abs(timeSpan[1]-staTim) < 1E-5,
       "Error in weather file, start time " + String(timeSpan[1]) +
-      " and end time " + String(timeSpan[2]) + ", but expected 0 and 31536000.");
+      " and end time " + String(timeSpan[2]) +
+      ", but expected " + String(staTim) + " and " + String(endTim) + ".");
 
   annotation (
     Documentation(info="<html>
