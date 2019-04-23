@@ -11,8 +11,8 @@ model GetTimeSpanTMY3 "Test model to get the time span of a weather file"
     "Start time, end time of weather data";
 
 protected
-  constant Real endTim = 365*24*3600.;
-  constant Real staTim = 0.;
+  constant Modelica.SIunits.Time endTim = 365*24*3600.;
+  constant Modelica.SIunits.Time staTim = 0.;
 
 initial equation
   timeSpan = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(
