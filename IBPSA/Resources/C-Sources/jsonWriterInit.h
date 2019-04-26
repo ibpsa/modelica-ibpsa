@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "FileWriterStructure.h"
+#include "fileWriterStructure.h"
 
 void* jsonWriterInit(
   const char* instanceName,
