@@ -169,7 +169,7 @@ protected
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
-      "If Medium.nXi > 1, then substance 'water' must be present for one component.'"
+      "In " + getInstanceName() + ": If Medium.nXi > 1, then substance 'water' must be present for one component.'"
          + Medium.mediumName + "'.\n"
          + "Check medium model.");
 
@@ -177,7 +177,7 @@ initial equation
   // massDynamics is also SteadyState.
   // Otherwise, the system of ordinary differential equations may be inconsistent.
   if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    assert(massDynamics == energyDynamics, "
+    assert(massDynamics == energyDynamics, "In " + getInstanceName() + "
          If 'massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState', then it is
          required that 'energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState'.
          Otherwise, the system of equations may not be consistent.
@@ -421,6 +421,11 @@ IBPSA.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 26, 2019, by Filip Jorissen:<br/>
+Returning <code>getInstanceName()</code> in asserts.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1133\">1133</a>.
+</li>
 <li>
 April 16, 2019, by Michael Wetter:<br/>
 Changed computation of <code>computeCSen</code> to avoid the volume to become
