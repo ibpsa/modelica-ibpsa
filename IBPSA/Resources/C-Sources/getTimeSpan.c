@@ -28,7 +28,7 @@ char *concat(const char *s1, const char *s2) {
   const size_t len2 = strlen(s2);
   char *result = malloc(len1 + len2 + 1);
   if (result == NULL){
-	  ModelicaError("Failed to allocate memory in getTimeSpan.c");
+    ModelicaError("Failed to allocate memory in getTimeSpan.c");
   }
   strcpy(result, s1);
   strcat(result, s2);
@@ -47,26 +47,26 @@ char *concat(const char *s1, const char *s2) {
  * 	returns: entire line string
  */
 char *searchLine(int length, FILE *fp) {
-	char *tempLine = (char *)malloc(length*sizeof(char));
-	char *line = (char *)malloc(length*sizeof(char));
-	if (line == NULL || tempLine == NULL) {
-		ModelicaError("Failed to allocate memory in getTimeSpan.c");
-	}
-	int loop = 0;
-	while (fgets(tempLine, length, fp)) {
-		loop++;
-		line = (char *)realloc(line, loop*length*sizeof(char));
-		if (line == NULL) {
-			ModelicaError("Failed to allocate memory in getTimeSpan.c");
-		}
-		line = concat(line, tempLine);
-		if (strstr(tempLine, "\n")) {
-			break;
-		}
-	}
-	free(tempLine);
+  char *tempLine = (char *)malloc(length*sizeof(char));
+  char *line = (char *)malloc(length*sizeof(char));
+  if (line == NULL || tempLine == NULL) {
+    ModelicaError("Failed to allocate memory in getTimeSpan.c");
+  }
+  int loop = 0;
+  while (fgets(tempLine, length, fp)) {
+    loop++;
+    line = (char *)realloc(line, loop*length*sizeof(char));
+    if (line == NULL) {
+      ModelicaError("Failed to allocate memory in getTimeSpan.c");
+    }
+    line = concat(line, tempLine);
+    if (strstr(tempLine, "\n")) {
+      break;
+    }
+  }
+  free(tempLine);
 
-	return line;
+  return line;
 }
 
 /*
@@ -103,8 +103,8 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   while (1) {
     rowIndex++;
     if (fscanf(fp, formatString, &rowCount, &columnCount) == 2) {
-    	line = searchLine(length, fp); /* finish reading current line */
-    	break;
+      line = searchLine(length, fp); /* finish reading current line */
+      break;
     }
   }
   free(formatString);
@@ -114,8 +114,8 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
 
    /* find the end of file head */
   while(strstr(line,"#")) {
-	  line = searchLine(length, fp);
-	  rowIndex++;
+    line = searchLine(length, fp);
+    rowIndex++;
   }
 
   /* find first time stamp */
