@@ -50,6 +50,7 @@ char *searchLine(int length, FILE *fp) {
   int loop = 0;
   char *tempLine;
   char *line;
+
   tempLine = (char *)malloc(length*sizeof(char));
   if (tempLine == NULL) {
     ModelicaError("Failed to allocate memory in getTimeSpan.c");
@@ -58,6 +59,7 @@ char *searchLine(int length, FILE *fp) {
   if (line == NULL) {
     ModelicaError("Failed to allocate memory in getTimeSpan.c");
   }
+
   while (fgets(tempLine, length, fp)) {
     loop++;
     /* reallocate memory for line, to ensure enough space to concatenate new reading */
@@ -67,6 +69,7 @@ char *searchLine(int length, FILE *fp) {
     }
     /* concatenate new reading to old reading */
     line = concat(line, tempLine);
+    /* check if end-of-line is achieved */
     if (strstr(tempLine, "\n")) {
       break;
     }
@@ -120,7 +123,7 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   line = searchLine(length, fp); /* read next line */
   rowIndex++;
 
-   /* find the end of file head */
+  /* find the end of file head */
   while(strstr(line, "#")) {
     free(line); /* free allocated memory */
     line = searchLine(length, fp);
