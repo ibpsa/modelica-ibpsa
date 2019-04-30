@@ -38,13 +38,13 @@ char *concat(const char *s1, const char *s2) {
 /*
  * Function: searchLine
  * --------------------
- * 	Output an entire line in file. This function calls malloc and hence
- * 	the caller must call free when the return string is no longer used.
+ *  Output an entire line in file. This function calls malloc and hence
+ *  the caller must call free when the return string is no longer used.
  *
- * 	length: maximum length of each read done by fgets()
- * 	fp: pointer to the FILE object
+ *  length: maximum length of each read done by fgets()
+ *  fp: pointer to the FILE object
  *
- * 	returns: entire line string
+ *  returns: entire line string
  */
 char *searchLine(int length, FILE *fp) {
   char *tempLine = (char *)malloc(length*sizeof(char));
