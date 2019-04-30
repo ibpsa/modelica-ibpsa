@@ -49,9 +49,9 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   int rowCount, columnCount;
   int rowIndex=0;
   int tempInd=0;
-  char *line = NULL;
+  /*char *lineHead = (char*) malloc(20*sizeof(char));*/
+  char lineHead[20]; /* first section of  each line has maximum length of 20 */
   int retVal;
-  size_t len = 0;
 
   FILE *fp;
 
@@ -69,23 +69,23 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   while (1) {
     rowIndex++;
     if (fscanf(fp, formatString, &rowCount, &columnCount) == 2) {
-      break;
+    	fscanf(fp, "%[\n]\n", &lineHead); /* finish the line and change to new line */
+    	break;
     }
   }
   free(formatString);
 
-  getline(&line, &len, fp); /* finish the line */
-  getline(&line, &len, fp); /* keep reading next line */
+  fscanf(fp, "%s %*[^\n]\n", &lineHead, NULL);
   rowIndex++;
 
    /* find the end of file head */
-  while(strstr(line,"#")) {
-    getline(&line, &len, fp);
+  while(strstr(&lineHead,"#")) {
+	fscanf(fp, "%s %*[^\n]\n", &lineHead, NULL);
     rowIndex++;
   }
 
   /* find first time stamp */
-  retVal = sscanf(line, "%lf", &firstTimeStamp);
+  retVal = sscanf(lineHead, "%lf", &firstTimeStamp);
   if (retVal == EOF){
     ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching for first time stamp in %s.",
     fileName);
@@ -94,15 +94,17 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   /* scan to file end, to find the last time stamp */
   tempInd = rowIndex;
   while (rowIndex < (rowCount+tempInd-2)) {
-    getline(&line, &len, fp);
+    fscanf(fp, "%*[^\n]\n", NULL); /* skip line */
     rowIndex++;
   }
+
   retVal = fscanf(fp, "%lf", &lastTimeStamp);
+
   if (retVal == EOF){
     ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching last time stamp in %s.",
     fileName);
   }
-  free(line);
+  /* free(lineHead); */
   fclose(fp);
 
   /* find average time interval */
