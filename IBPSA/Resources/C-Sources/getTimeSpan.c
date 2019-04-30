@@ -46,7 +46,6 @@ char *concat(const char *s1, const char *s2) {
  *
  * 	returns: entire line string
  */
-
 char *searchLine(int length, FILE *fp) {
 	char *tempLine = (char *)malloc(length*sizeof(char));
 	char *line = (char *)malloc(length*sizeof(char));
