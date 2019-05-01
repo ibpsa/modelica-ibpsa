@@ -11,6 +11,14 @@
 
 #include "getTimeSpan.h"
 
+/*
+ * Function: getLine
+ * -----------------
+ * Reimplement the getline() function to allow it run in windows. This
+ * implementation is based on the reimplementation from
+ * web.mit.edu/freebsd/head/contrib/file/src/getline.c
+ *
+ */
 int getDelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp) {
   char *ptr, *eptr, *nbuf;
   int c;
@@ -19,17 +27,18 @@ int getDelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp) {
 
   if (*buf == NULL || *bufsiz == 0) {
     *bufsiz = BUFSIZ;
-    if ((*buf = malloc(*bufsiz)) == NULL)
-      return -1;
+    if ((*buf = malloc(*bufsiz)) == NULL) {
+      ModelicaError("Failed to allocate memory in getTimeSpan.c");
     }
-
+  }
   for (ptr = *buf, eptr = *buf + *bufsiz;;) {
     c = fgetc(fp);
     if (c == -1) {
-      if (feof(fp))
+      if (feof(fp)) {
         return ptr == *buf ? -1 : ptr - *buf;
-      else
-        return -1;
+      } else {
+        ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching lines.");
+      }
     }
     *ptr++ = c;
     if (c == delimiter) {
@@ -39,8 +48,9 @@ int getDelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp) {
     if (ptr + 2 >= eptr) {
       nbufsiz = *bufsiz * 2;
       d = ptr - *buf;
-      if ((nbuf = realloc(*buf, nbufsiz)) == NULL)
-        return -1;
+      if ((nbuf = realloc(*buf, nbufsiz)) == NULL) {
+        ModelicaError("Failed to allocate memory in getTimeSpan.c");
+      }
       *buf = nbuf;
       *bufsiz = nbufsiz;
       eptr = nbuf + nbufsiz;
