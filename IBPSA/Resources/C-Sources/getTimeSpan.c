@@ -135,21 +135,21 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
 
   /* find first time stamp */
   retVal = sscanf(line, "%lf", &firstTimeStamp);
-  free(line); /* free allocated memory */
   if (retVal == EOF){
     ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching for first time stamp in %s.",
     fileName);
   }
+  free(line); /* free allocated memory */
 
   /* scan to file end, to find the last time stamp */
   tempInd = rowIndex;
   while (rowIndex < (rowCount+tempInd-2)) {
-    fscanf(fp, "%*[^\n]\n", NULL);
+    line = searchLine(length, fp); /* move to the end of each line */
+    free(line);
     rowIndex++;
   }
 
   retVal = fscanf(fp, "%lf", &lastTimeStamp);
-
   if (retVal == EOF){
     ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching last time stamp in %s.",
     fileName);
