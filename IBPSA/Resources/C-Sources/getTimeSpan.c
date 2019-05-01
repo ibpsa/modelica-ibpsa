@@ -26,12 +26,15 @@
 char *concat(const char *s1, const char *s2) {
   const size_t len1 = strlen(s1);
   const size_t len2 = strlen(s2);
-  char *result = malloc(len1 + len2 + 1);
-  if (result == NULL){
+  size_t len = len1 + len2 + 1;
+  char *result = malloc(len);
+  if (result == NULL) {
     ModelicaError("Failed to allocate memory in getTimeSpan.c");
   }
+
   strcpy(result, s1);
   strcat(result, s2);
+
   return result;
 }
 
@@ -41,42 +44,56 @@ char *concat(const char *s1, const char *s2) {
  *  Output an entire line in file. This function calls malloc and hence
  *  the caller must call free when the return string is no longer used.
  *
- *  length: maximum length of each read done by fgets()
  *  fp: pointer to the FILE object
  *
  *  returns: entire line string
  */
-char *searchLine(int length, FILE *fp) {
-  int loop = 0;
+char *searchLine(FILE *fp) {
+  size_t loop = 0;
+  const size_t length = 20;
   char *tempLine;
   char *line;
   char *oldLine;
+  char *retVal;
 
-  tempLine = (char *)malloc(length*sizeof(char));
+  tempLine = malloc(length+1);
   if (tempLine == NULL) {
     ModelicaError("Failed to allocate memory in getTimeSpan.c");
   }
-  line = (char *)malloc(length*sizeof(char));
+  line = malloc(length+1);
   if (line == NULL) {
     ModelicaError("Failed to allocate memory in getTimeSpan.c");
   }
+  oldLine = malloc(length+1);
+  if (oldLine == NULL) {
+    ModelicaError("Failed to allocate memory in getTimeSpan.c");
+  }
 
-  while (fgets(tempLine, length, fp)) {
+  while (1) {
+    retVal = fgets(tempLine, length, fp);
+    if (retVal == NULL) {
+      ModelicaError("Failed to read text line in getTimeSpan.c");
+    }
     loop++;
+
     /* reallocate memory for line, to ensure enough space to concatenate new reading */
-    line = (char *)realloc(line, loop*length*sizeof(char));
+    line = realloc(line, (loop*length+1));
     if (line == NULL) {
       ModelicaError("Failed to allocate memory in getTimeSpan.c");
     }
+    oldLine = realloc(oldLine, (loop+1)*length);
+    if (oldLine == NULL) {
+      ModelicaError("Failed to allocate memory in getTimeSpan.c");
+    }
     /* concatenate new reading to old reading */
-    oldLine = line;
+    strcpy(oldLine, line); /* copy content in line pointer to oldLine pointer */
     line = concat(oldLine, tempLine);
-    free(oldLine);
     /* check if end-of-line is achieved */
     if (strstr(tempLine, "\n")) {
       break;
     }
   }
+  free(oldLine);
   free(tempLine);
 
   return line;
@@ -96,7 +113,6 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   int rowCount, columnCount;
   int rowIndex = 0;
   int tempInd  = 0;
-  int length   = 20; /* maximum length of each read done by fgets() */
   char *line;
   int retVal;
 
@@ -108,7 +124,7 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   free(tempString);
 
   fp = fopen(fileName, "r");
-  if (fp == NULL){
+  if (fp == NULL) {
     ModelicaFormatError("Failed to open file %s", fileName);
   }
 
@@ -116,26 +132,26 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   while (1) {
     rowIndex++;
     if (fscanf(fp, formatString, &rowCount, &columnCount) == 2) {
-      line = searchLine(length, fp); /* finish reading current line */
+      line = searchLine(fp); /* finish reading current line */
       free(line); /* free allocated memory */
       break;
     }
   }
   free(formatString);
 
-  line = searchLine(length, fp); /* read next line */
+  line = searchLine(fp); /* read next line */
   rowIndex++;
 
   /* find the end of file head */
   while(strstr(line, "#")) {
     free(line); /* free allocated memory */
-    line = searchLine(length, fp);
+    line = searchLine(fp);
     rowIndex++;
   }
 
   /* find first time stamp */
   retVal = sscanf(line, "%lf", &firstTimeStamp);
-  if (retVal == EOF){
+  if (retVal == EOF) {
     ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching for first time stamp in %s.",
     fileName);
   }
@@ -144,20 +160,20 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   /* scan to file end, to find the last time stamp */
   tempInd = rowIndex;
   while (rowIndex < (rowCount+tempInd-2)) {
-    line = searchLine(length, fp); /* move to the end of each line */
+	  line = searchLine(fp); /* move to the end of each line */
     free(line);
     rowIndex++;
   }
 
   retVal = fscanf(fp, "%lf", &lastTimeStamp);
-  if (retVal == EOF){
+  if (retVal == EOF) {
     ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching last time stamp in %s.",
     fileName);
   }
   fclose(fp);
 
   /* find average time interval */
-  if (rowCount < 2){
+  if (rowCount < 2) {
     ModelicaFormatError("Expected rowCount larger than 2 when reading %s.", fileName);
   }
   interval = (lastTimeStamp - firstTimeStamp) / (rowCount - 1);
