@@ -10,7 +10,51 @@
 #include <string.h>
 #include <sys/stat.h>
 
+#include <unistd.h>
+#include <errno.h>
+
 #include "getTimeSpan.h"
+
+ssize_t getDelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp) {
+  char *ptr, *eptr;
+
+  if (*buf == NULL || *bufsiz == 0) {
+    *bufsiz = BUFSIZ;
+    if ((*buf = malloc(*bufsiz)) == NULL)
+      return -1;
+    }
+
+  for (ptr = *buf, eptr = *buf + *bufsiz;;) {
+    int c = fgetc(fp);
+    if (c == -1) {
+      if (feof(fp))
+        return ptr == *buf ? -1 : ptr - *buf;
+      else
+        return -1;
+    }
+    *ptr++ = c;
+    if (c == delimiter) {
+      *ptr = '\0';
+      return ptr - *buf;
+    }
+    if (ptr + 2 >= eptr) {
+      char *nbuf;
+      size_t nbufsiz = *bufsiz * 2;
+      ssize_t d = ptr - *buf;
+      if ((nbuf = realloc(*buf, nbufsiz)) == NULL)
+        return -1;
+      *buf = nbuf;
+      *bufsiz = nbufsiz;
+      eptr = nbuf + nbufsiz;
+      ptr = nbuf + d;
+    }
+  }
+}
+
+ssize_t getLine(char **buf, size_t *bufsiz, FILE *fp)
+{
+  return getDelim(buf, bufsiz, '\n', fp);
+}
 
 /*
  * Function: concat
@@ -27,7 +71,7 @@ char *concat(const char *s1, const char *s2) {
   const size_t len1 = strlen(s1);
   const size_t len2 = strlen(s2);
   char *result = malloc(len1 + len2 + 1);
-  if (result == NULL){
+  if (result == NULL) {
     ModelicaError("Failed to allocate memory in getTimeSpan.c");
   }
   strcpy(result, s1);
@@ -74,13 +118,13 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   }
   free(formatString);
 
-  getline(&line, &len, fp); /* finish the line */
-  getline(&line, &len, fp); /* keep reading next line */
+  getLine(&line, &len, fp); /* finish the line */
+  getLine(&line, &len, fp); /* keep reading next line */
   rowIndex++;
 
    /* find the end of file head */
   while(strstr(line,"#")) {
-    getline(&line, &len, fp);
+    getLine(&line, &len, fp);
     rowIndex++;
   }
 
@@ -94,7 +138,7 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   /* scan to file end, to find the last time stamp */
   tempInd = rowIndex;
   while (rowIndex < (rowCount+tempInd-2)) {
-    getline(&line, &len, fp);
+    getLine(&line, &len, fp);
     rowIndex++;
   }
   retVal = fscanf(fp, "%lf", &lastTimeStamp);
