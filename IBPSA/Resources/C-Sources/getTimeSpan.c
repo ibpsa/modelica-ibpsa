@@ -8,15 +8,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
-
-#include <unistd.h>
-#include <errno.h>
 
 #include "getTimeSpan.h"
 
-ssize_t getDelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp) {
-  char *ptr, *eptr;
+int getDelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp) {
+  char *ptr, *eptr, *nbuf;
+  int c;
+  size_t nbufsiz;
+  size_t d;
 
   if (*buf == NULL || *bufsiz == 0) {
     *bufsiz = BUFSIZ;
@@ -25,7 +24,7 @@ ssize_t getDelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp) {
     }
 
   for (ptr = *buf, eptr = *buf + *bufsiz;;) {
-    int c = fgetc(fp);
+    c = fgetc(fp);
     if (c == -1) {
       if (feof(fp))
         return ptr == *buf ? -1 : ptr - *buf;
@@ -38,9 +37,8 @@ ssize_t getDelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp) {
       return ptr - *buf;
     }
     if (ptr + 2 >= eptr) {
-      char *nbuf;
-      size_t nbufsiz = *bufsiz * 2;
-      ssize_t d = ptr - *buf;
+      nbufsiz = *bufsiz * 2;
+      d = ptr - *buf;
       if ((nbuf = realloc(*buf, nbufsiz)) == NULL)
         return -1;
       *buf = nbuf;
@@ -51,7 +49,7 @@ ssize_t getDelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp) {
   }
 }
 
-ssize_t getLine(char **buf, size_t *bufsiz, FILE *fp)
+int getLine(char **buf, size_t *bufsiz, FILE *fp)
 {
   return getDelim(buf, bufsiz, '\n', fp);
 }
