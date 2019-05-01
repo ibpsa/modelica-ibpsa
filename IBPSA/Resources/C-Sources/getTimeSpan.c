@@ -50,6 +50,7 @@ char *searchLine(int length, FILE *fp) {
   int loop = 0;
   char *tempLine;
   char *line;
+  char *oldLine;
 
   tempLine = (char *)malloc(length*sizeof(char));
   if (tempLine == NULL) {
@@ -68,7 +69,9 @@ char *searchLine(int length, FILE *fp) {
       ModelicaError("Failed to allocate memory in getTimeSpan.c");
     }
     /* concatenate new reading to old reading */
-    line = concat(line, tempLine);
+    oldLine = line;
+    line = concat(oldLine, tempLine);
+    free(oldLine);
     /* check if end-of-line is achieved */
     if (strstr(tempLine, "\n")) {
       break;
