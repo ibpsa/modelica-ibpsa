@@ -14,8 +14,8 @@
 /*
  * Function: getLine
  * -----------------
- * Reimplement the getline() function to allow it run in windows. This
- * implementation is based on the reimplementation from
+ * Reimplement the getline() function to allow it run on Windows OS. This
+ * implementation is based on:
  * web.mit.edu/freebsd/head/contrib/file/src/getline.c
  *
  */
