@@ -55,6 +55,7 @@ int getDelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp) {
       *bufsiz = nbufsiz;
       eptr = nbuf + nbufsiz;
       ptr = nbuf + d;
+      free(nbuf);
     }
   }
 }
