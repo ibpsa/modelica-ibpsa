@@ -1,0 +1,9 @@
+// Conversion script for IBPSA library
+//  from: Obsolete model
+//  to:   New model
+clear
+
+convertClear();
+
+convertClass("IBPSA.Fluid.Sources.FixedBoundary",
+             "IBPSA.Fluid.Sources.Boundary_pT");

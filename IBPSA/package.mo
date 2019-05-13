@@ -377,7 +377,6 @@ at the end that makes it easy to accept improvements.
 </p>
 </html>"));
   end License;
-
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
@@ -441,12 +440,13 @@ The library has the following <i>User's Guides</i>:
 </html>"));
 end UsersGuide;
 
-
 annotation (
 version="3.0.0",
 versionDate="2018-09-28",
 dateModified = "2018-09-28",
 uses(Modelica(version="3.2.2")),
+conversion(from(version="3.0.0",
+                script="modelica://IBPSA/Resources/Scripts/Dymola/ConvertObsolete.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>
