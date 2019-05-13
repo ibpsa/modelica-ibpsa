@@ -15,18 +15,12 @@ model ScrollWaterToWater_TemperatureProtection
   parameter Modelica.SIunits.MassFlowRate flowLoad = 0.47
     "Mass flow rate on the evaporator side";
 
-  IBPSA.Fluid.Sources.FixedBoundary sin2(
+  IBPSA.Fluid.Sources.Boundary_pT sin2(
     redeclare package Medium = Medium2, nPorts=1) "Source side sink"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-70,-40})));
-  IBPSA.Fluid.Sources.FixedBoundary sin1(
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-70,-40})));
+  IBPSA.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium1, nPorts=1) "Load side sink"
-    annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        origin={58,20})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}}, origin={58,20})));
   Modelica.Blocks.Sources.Constant isOn(k=1)
     "Heat pump control signal"
     annotation (Placement(transformation(extent={{-52,-26},{-40,-14}})));

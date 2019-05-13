@@ -43,14 +43,14 @@ model Carnot_TEva
     use_T_in=false,
     T=295.15)
     annotation (Placement(transformation(extent={{80,-16},{60,4}})));
-  IBPSA.Fluid.Sources.FixedBoundary sin1(
+  IBPSA.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium1,
     nPorts=1)
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={70,30})));
-  IBPSA.Fluid.Sources.FixedBoundary sin2(nPorts=1,
+  IBPSA.Fluid.Sources.Boundary_pT sin2(nPorts=1,
     redeclare package Medium = Medium2)
     annotation (Placement(
         transformation(

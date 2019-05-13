@@ -106,7 +106,7 @@ block HVACZones
     use_m_flow_in=true,
     T=TWSup_nominal) "Source for water flow rate"
     annotation (Placement(transformation(extent={{-40,-48},{-20,-28}})));
-  Sources.FixedBoundary sinWat(
+  IBPSA.Fluid.Sources.Boundary_pT sinWat(
     redeclare package Medium = MediumW, nPorts=1) "Sink for water circuit"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,

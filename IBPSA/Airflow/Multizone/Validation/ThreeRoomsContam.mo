@@ -32,7 +32,7 @@ model ThreeRoomsContam
     h=1.5,
     densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{121,-10},{141,10}})));
-  IBPSA.Fluid.Sources.FixedBoundary volOut(
+  IBPSA.Fluid.Sources.Boundary_pT volOut(
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 101325,

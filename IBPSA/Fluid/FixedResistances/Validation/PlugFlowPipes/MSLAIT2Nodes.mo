@@ -53,7 +53,7 @@ model MSLAIT2Nodes
   Modelica.Blocks.Sources.RealExpression T_p1(y=DataReader.y[1])
     "Inlet temperature"
     annotation (Placement(transformation(extent={{18,-132},{58,-112}})));
-  Fluid.Sources.FixedBoundary ExcludedBranch(redeclare package Medium = Medium,
+  IBPSA.Fluid.Sources.Boundary_pT ExcludedBranch(redeclare package Medium = Medium,
       nPorts=1) "Mass flow sink for excluded branch"
                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

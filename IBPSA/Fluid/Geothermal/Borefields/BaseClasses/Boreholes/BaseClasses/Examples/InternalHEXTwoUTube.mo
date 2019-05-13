@@ -41,7 +41,7 @@ model InternalHEXTwoUTube
     m_flow=borFieDat.conDat.mBor_flow_nominal,
     T=288.15)
     annotation (Placement(transformation(extent={{54,4},{34,-16}})));
-  IBPSA.Fluid.Sources.FixedBoundary bou(nPorts=4, redeclare package Medium = Medium)
+  IBPSA.Fluid.Sources.Boundary_pT bou(nPorts=4, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-60,-14},{-40,-34}})));
   Real Rb_sim(unit="(m.K)/W") = ((senTem.T + senTem1.T + senTem2.T + senTem3.T)/4 - intHex.port_wall.T)/max(-intHex.port_wall.Q_flow / hSeg,1);
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
@@ -59,8 +59,7 @@ model InternalHEXTwoUTube
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium =
         Medium, m_flow_nominal=borFieDat.conDat.mBor_flow_nominal)
     annotation (Placement(transformation(extent={{-14,-22},{-26,-10}})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort senTem3(
-                                                redeclare package Medium =
+  IBPSA.Fluid.Sensors.TemperatureTwoPort senTem3(redeclare package Medium =
         Medium, m_flow_nominal=borFieDat.conDat.mBor_flow_nominal)
     annotation (Placement(transformation(extent={{16,-22},{28,-10}})));
   parameter IBPSA.Fluid.Geothermal.Borefields.Data.Borefield.Example

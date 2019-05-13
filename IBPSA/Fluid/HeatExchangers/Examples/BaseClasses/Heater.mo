@@ -57,7 +57,7 @@ partial model Heater "Base class for example model for the heater and cooler"
   Modelica.Blocks.Sources.Constant mFan_flow(k=m_flow_nominal)
     "Mass flow rate of the fan"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  Sources.FixedBoundary bou(
+  IBPSA.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     nPorts=1)
     "Fixed pressure boundary condition, required to set a reference pressure"

@@ -10,7 +10,7 @@ model Convector
     T=288.15,
     nPorts=1)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  IBPSA.Fluid.Sources.FixedBoundary bou(
+  IBPSA.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium, nPorts=1) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   Modelica.Blocks.Sources.Ramp airFlo(height=0.0792, duration=4)

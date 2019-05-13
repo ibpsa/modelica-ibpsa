@@ -136,14 +136,13 @@ model ReverseBuoyancy
     vZer=0.01,
     dp_turbulent=0.1) "Discretized door"
     annotation (Placement(transformation(extent={{-63,80},{-43,100}})));
-  IBPSA.Fluid.Sources.FixedBoundary volOut(
+  IBPSA.Fluid.Sources.Boundary_pT volOut(
     redeclare package Medium = Medium,
     p=100000,
     T=283.15,
-    nPorts=2) "Ambient conditions" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={130,-50})));
+    nPorts=2) "Ambient conditions"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=180, origin={130,-50})));
 equation
   connect(ope.y, dooOpeClo.y) annotation (Line(points={{-81,-13},{-74,-13},{-74,
           -45},{-62,-45}}, color={0,0,255}));
