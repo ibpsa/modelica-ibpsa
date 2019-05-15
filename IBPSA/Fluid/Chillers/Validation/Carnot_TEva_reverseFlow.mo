@@ -132,6 +132,11 @@ This example checks the correct behavior if a mass flow rate attains zero.
 revisions="<html>
 <ul>
 <li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
+<li>
 November 25, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>

@@ -504,6 +504,11 @@ Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/(m K)
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>November 28, 2016 by Bram van der Heijde:<br/>Remove <code>pipVol.</code>
 </li>
 <li>August 24, 2016 by Bram van der Heijde:<br/>

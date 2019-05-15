@@ -182,6 +182,11 @@ capacity of the non-scaled heat pump model.
 </html>", revisions="<html>
 <ul>
 <li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
+<li>
 December 5, 2016, by Massimo Cimmino:<br/>
 First implementation.
 </li>
