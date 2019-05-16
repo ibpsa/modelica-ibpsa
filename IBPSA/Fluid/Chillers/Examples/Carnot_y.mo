@@ -113,6 +113,11 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
     Documentation(revisions="<html>
 <ul>
 <li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
+<li>
 November 25, 2015 by Michael Wetter:<br/>
 Changed sign of <code>dTEva_nominal</code> to be consistent.
 </li>

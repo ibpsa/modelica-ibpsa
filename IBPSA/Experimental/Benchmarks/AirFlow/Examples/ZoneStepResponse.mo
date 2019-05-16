@@ -79,6 +79,11 @@ rate of <i>3</i> times the air volume per hour. </p>
 </html>", revisions="<html>
 <ul>
 <li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
+<li>
 May 28, 2015, by Marcus Fuchs:<br/>
 First implementation.
 </li>

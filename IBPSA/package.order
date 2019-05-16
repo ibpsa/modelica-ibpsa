@@ -4,8 +4,8 @@ BoundaryConditions
 Controls
 Fluid
 Media
-ObsoleteModel
 ThermalZones
 Utilities
 Types
 Experimental
+Obsolete

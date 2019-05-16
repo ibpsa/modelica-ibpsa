@@ -154,6 +154,11 @@ for both heating and cooling mode. An air volume is maintained at a temperature 
 </html>", revisions="<html>
 <ul>
 <li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
+<li>
 June 25, 2016, by Michael Wetter:<br/>
 Changed medium start temperature to avoid conflicting
 start values of the same precedence in Dymola 2016.

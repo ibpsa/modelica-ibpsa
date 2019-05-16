@@ -119,6 +119,11 @@ is increased linearly to its full load value and then ramped down to zero.
 </html>", revisions="<html>
 <ul>
 <li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
+<li>
 April 25, 2017, by Michael Wetter:<br/>
 Changed input signal from ramp to a trapezoid to test switching it off.
 </li>

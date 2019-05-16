@@ -226,6 +226,11 @@ despite of a very small temperature lift.
 </html>", revisions="<html>
 <ul>
 <li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
+<li>
 January 9, 2017, by Michael Wetter:<br/>
 Renamed internal protected class <code>Chiller</code> to be upper-case.
 </li>

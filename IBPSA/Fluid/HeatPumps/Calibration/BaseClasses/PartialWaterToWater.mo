@@ -113,6 +113,11 @@ Source and load temperatures and flow rates are read from an external time table
 </html>", revisions="<html>
 <ul>
 <li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
+<li>
 October 31, 2016, by Massimo Cimmino:<br/>
 First implementation.
 </li>

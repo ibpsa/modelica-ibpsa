@@ -327,6 +327,11 @@ ports which are exposed at the FMU interface.
 </html>", revisions="<html>
 <ul>
 <li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
+<li>
 April 4, 2017, by Michael Wetter:<br/>
 Removed import statement.
 </li>

@@ -118,6 +118,11 @@ requirements are not satisfied.
 </html>", revisions="<html>
 <ul>
 <li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
+<li>
 May 30, 2017, by Filip Jorissen:<br/>
 First implementation.
 See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/769\">#769</a>.
