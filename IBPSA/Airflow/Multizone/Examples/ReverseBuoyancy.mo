@@ -264,7 +264,7 @@ bottom floor directly exchanges air with the outside.
 <ul>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+Replaced fluid source. This is for 
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

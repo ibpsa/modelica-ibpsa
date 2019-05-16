@@ -155,7 +155,7 @@ the setpoint, which does not comply with ASHRAE regulations.
 <ul>
 <li>
 May 2, 2019, by Jianjun Hu:<br/>
-Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+Replaced fluid source. This is for 
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

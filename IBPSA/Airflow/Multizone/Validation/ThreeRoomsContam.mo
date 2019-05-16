@@ -257,7 +257,7 @@ Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria,
 <ul>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+Replaced fluid source. This is for 
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>
