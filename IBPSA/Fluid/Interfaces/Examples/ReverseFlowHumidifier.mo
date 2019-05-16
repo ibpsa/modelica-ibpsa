@@ -44,7 +44,7 @@ package Medium = IBPSA.Media.Air;
                    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-90,30})));
-  Sources.Boundary_pT  sink1(
+  IBPSA.Fluid.Sources.Boundary_pT  sink1(
     redeclare package Medium = Medium,
     nPorts=2) "Fluid sink"
     annotation (Placement(

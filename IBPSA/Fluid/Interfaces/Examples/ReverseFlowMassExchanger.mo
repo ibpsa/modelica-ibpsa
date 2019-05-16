@@ -41,7 +41,7 @@ package Medium = IBPSA.Media.Air;
     dp2_nominal=0,
     epsL=0) "Mass exchanger with reverse flow"
     annotation (Placement(transformation(extent={{-30,30},{-50,50}})));
-  Sources.Boundary_pT sink2(
+  IBPSA.Fluid.Sources.Boundary_pT sink2(
      redeclare package Medium = Medium,
      nPorts=2) "Fluid sink"
      annotation (Placement(
