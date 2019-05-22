@@ -100,7 +100,7 @@ protected
   Modelica.SIunits.SpecificHeatCapacity cp1Wet=
     if sensibleOnly1
     then cp1_nominal
-    else max((inStream(port_a1.h_outflow) - hCoi_outMax) / (T_in1 - T_in2), Medium1.specificHeatCapacityCp(state_a1_inflow))
+    else max((inStream(port_a1.h_outflow) - hCoi_outMax) *IBPSA.Utilities.Math.Functions.inverseXRegularized(T_in1 - T_in2, delta=1e-2), Medium1.specificHeatCapacityCp(state_a1_inflow))
       "Heat capacity used in the ficticious fluid when condensation occurs in Medium1, according to Braun-Lebrun model";
   Modelica.SIunits.MassFraction xSat1=
     if sensibleOnly1
