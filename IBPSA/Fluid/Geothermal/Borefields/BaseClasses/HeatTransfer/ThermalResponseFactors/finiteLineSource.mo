@@ -118,6 +118,13 @@ The integral is solved numerically, with the integrand defined in
 </html>", revisions="<html>
 <ul>
 <li>
+March 17, 2019, by Massimo Cimmino:<br/>
+Modified the upper bound of integration to avoid underestimating the value of
+the integral.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1107\">IBPSA, issue 1107</a>.
+</li>
+<li>
 March 22, 2018 by Massimo Cimmino:<br/>
 First implementation.
 </li>
