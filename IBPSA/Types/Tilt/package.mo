@@ -16,10 +16,14 @@ For example, for a construction that is a floor, use
 <code>IBPSA.Types.Tilt.Floor</code>.
 </p>
 <p>
-Note that a ceiling has a tilt of <i>0</i>, and also the solar collector models
+Note that a ceiling has a tilt of <i>0</i>
+<!--
+@, and also the solar collector models
 in
 <a href=\"IBPSA.Fluid.SolarCollectors\">IBPSA.Fluid.SolarCollectors</a>
-require a tilt of <i>0</i> if they are facing straight upwards.
+require a tilt of <i>0</i>
+-->
+if they are facing straight upwards.
 This is correct because
 the solar irradiation on a ceiling construction is on the other-side surface,
 which faces upwards toward the sky. Hence, a construction is considered

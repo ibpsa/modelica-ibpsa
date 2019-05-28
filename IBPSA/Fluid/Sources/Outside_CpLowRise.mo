@@ -58,10 +58,12 @@ The correlation that is used to compute the wind pressure is based
 on Swami and Chandra (1987) and valid for low-rise buildings
 with rectangular shape.
 The same correlation is also implemented in CONTAM (Persily and Ivy, 2001).
-For other buildings, the model
+<!--
+@For other buildings, the model
 <a href=\"modelica://IBPSA.Fluid.Sources.Outside_Cp\">
 IBPSA.Fluid.Sources.Outside_Cp</a> should be used that takes
 the wind pressure coefficient as an input or parameter.
+-->
 </p>
 <p>
 The wind pressure coefficient is computed based on the

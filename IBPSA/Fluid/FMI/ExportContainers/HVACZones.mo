@@ -172,11 +172,13 @@ The example
 IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones</a>
 shows how a simple HVAC system that serves two rooms can be implemented and exported as
 an FMU.
-The example
+<!--
+@The example
 <a href=\"modelica://IBPSA.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
 IBPSA.Fluid.FMI.ExportContainers.Validation.RoomHVAC</a>
 shows how such an FMU can be connected
 to a room model that has signal flow.
+-->
 </p>
 <p>
 The following two parameters need to be assigned by the user:
