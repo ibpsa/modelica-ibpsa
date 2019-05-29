@@ -137,8 +137,8 @@ The example
 IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones</a>
 shows how multiple simple thermal zones can be implemented and exported as
 an FMU.
-<!--
-@The example
+<!-- @include_Buildings
+The example
 <a href=\"modelica://IBPSA.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
 IBPSA.Fluid.FMI.ExportContainers.Validation.RoomHVAC</a>
 shows how such an FMU can be connected
@@ -181,8 +181,8 @@ the port <code>fluPor</code> (which is negative if it is an exhaust),
 Note that without the <i>max(&middot;, &middot;)</i>, the energy
 balance would be wrong.
 For example,
-<!--
-@models in the package
+<!-- @include_Buildings
+models in the package
 <a href=\"modelica://IBPSA.ThermalZones.Detailed\">
 IBPSA.ThermalZones.Detailed</a> as well as
 -->
@@ -213,8 +213,8 @@ All <code>nPorts</code>
 IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones</a>.
 </p>
 <p>
-<!--
-@The example
+<!-- @include_Buildings
+The example
 <a href=\"modelica://IBPSA.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
 IBPSA.Fluid.FMI.ExportContainers.Validation.RoomHVAC</a>
 shows conceptually how such an FMU can then be connected to a HVAC system

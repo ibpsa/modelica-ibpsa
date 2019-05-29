@@ -254,16 +254,16 @@ equation
 <p>
 This example demonstrates how to export a model of an HVAC system
 that only provides convective cooling to a single thermal zone.
-<!--
-@The HVAC system is adapted from
+<!-- @include_Buildings
+The HVAC system is adapted from
 <a href=\"modelica://IBPSA.Examples.Tutorial.SpaceCooling.System3\">
 IBPSA.Examples.Tutorial.SpaceCooling.System3</a>,
 but flow resistances have been added to have the same configuration as
 <a href=\"modelica://IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones\">
 IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones</a>.
 -->
-<!--
-@Having the same configuration is needed for the validation test
+<!-- @include_Buildings
+Having the same configuration is needed for the validation test
 <a href=\"modelica://IBPSA.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
 IBPSA.Fluid.FMI.ExportContainers.Validation.RoomHVAC</a>.
 -->

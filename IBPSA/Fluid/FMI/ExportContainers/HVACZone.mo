@@ -125,8 +125,8 @@ The example
 IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone</a>
 shows how a simple HVAC system can be implemented and exported as
 an FMU.
-<!--
-@The example
+<!-- @include_Buildings
+The example
 <a href=\"modelica://IBPSA.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
 IBPSA.Fluid.FMI.ExportContainers.Validation.RoomHVAC</a>
 shows how such an FMU can be connected

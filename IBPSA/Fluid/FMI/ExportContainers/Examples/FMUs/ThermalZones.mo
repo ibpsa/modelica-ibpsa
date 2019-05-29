@@ -192,8 +192,8 @@ that contains two thermal zones with convective heat input from the
 HVAC system only. The thermal zones are connected to an adaptor so that
 they can be coupled
 to an air-based HVAC system. 
-<!--
-@The thermal zone is
+<!-- @include_Buildings
+The thermal zone is
 taken from
 <a href=\"modelica://IBPSA.Examples.Tutorial.SpaceCooling.System3\">
 IBPSA.Examples.Tutorial.SpaceCooling.System3</a>.

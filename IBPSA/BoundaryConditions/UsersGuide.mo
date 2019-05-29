@@ -75,8 +75,8 @@ can be used.
 </p>
 <p>
 Note that a ceiling has a tilt of <i>0</i>
-<!--
-@, and also the solar collector models
+<!-- @include_Buildings
+, and also the solar collector models
 in
 <a href=\"IBPSA.Fluid.SolarCollectors\">IBPSA.Fluid.SolarCollectors</a>
 require a tilt of <i>0</i>
