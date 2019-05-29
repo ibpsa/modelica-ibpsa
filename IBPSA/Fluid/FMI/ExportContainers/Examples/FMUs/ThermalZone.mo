@@ -144,9 +144,8 @@ to an air-based HVAC system.
 @The thermal zone is
 taken from
 <a href=\"modelica://IBPSA.Examples.Tutorial.SpaceCooling.System3\">
-IBPSA.Examples.Tutorial.SpaceCooling.System3
+IBPSA.Examples.Tutorial.SpaceCooling.System3</a>.
 -->
-</a>.
 </p>
 <p>
 The example extends from
