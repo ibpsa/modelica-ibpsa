@@ -3,6 +3,6 @@ removePlots();
 createPlot(
   id=1,
   position={0, 0, 1268, 736},
-  y={"borHol.groTemRes.delTBor"},
+  y={"borHol.TBorAve"},
   grid=true,
   filename = "ConstantHeatInjection_100Boreholes.mat");

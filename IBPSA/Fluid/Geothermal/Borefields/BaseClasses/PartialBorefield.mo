@@ -116,6 +116,15 @@ partial model PartialBorefield
   Modelica.Blocks.Math.Gain gaiQ_flow(k=borFieDat.conDat.nBor)
     "Gain to multiply the heat extracted by one borehole by the number of boreholes"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+  Modelica.Blocks.Interfaces.RealOutput TBorAve(final quantity="ThermodynamicTemperature",
+                                                final unit="K",
+                                                displayUnit = "degC",
+                                                start=TExt0_start)
+    "Average borehole wall temperature in the borefield"
+    annotation (Placement(transformation(extent={{100,34},{120,54}})));
+  Utilities.Math.Average AveTBor(nin=nSeg)
+    "Average temperature of all the borehole segments"
+    annotation (Placement(transformation(extent={{50,34},{70,54}})));
 protected
   parameter Modelica.SIunits.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}
     "Distance from the surface to the considered segment";
@@ -135,7 +144,7 @@ protected
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TemBorWal[nSeg]
     "Borewall temperature"
-    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+    annotation (Placement(transformation(extent={{50,6},{70,26}})));
 
   Modelica.Blocks.Math.Add TSoiDis[nSeg](each final k1=1, each final k2=1)
     "Addition of undisturbed soil temperature and change of soil temperature"
@@ -180,9 +189,14 @@ equation
   connect(gaiQ_flow.y, groTemRes.QBor_flow)
     annotation (Line(points={{1,80},{19,80}}, color={0,0,127}));
   connect(TSoiDis.y, TemBorWal.T)
-    annotation (Line(points={{31,30},{38,30}}, color={0,0,127}));
-  connect(QBorHol.port_b, TemBorWal.port) annotation (Line(points={{6.66134e-16,
-          0},{0,0},{0,10},{80,10},{80,30},{60,30}}, color={191,0,0}));
+    annotation (Line(points={{31,30},{36,30},{36,16},{48,16}},
+                                               color={0,0,127}));
+  connect(QBorHol.port_b, TemBorWal.port) annotation (Line(points={{4.44089e-16,
+          0},{0,0},{0,4},{80,4},{80,16},{70,16}},   color={191,0,0}));
+  connect(TSoiDis.y, AveTBor.u) annotation (Line(points={{31,30},{36,30},{36,44},
+          {48,44}}, color={0,0,127}));
+  connect(AveTBor.y, TBorAve)
+    annotation (Line(points={{71,44},{110,44}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
