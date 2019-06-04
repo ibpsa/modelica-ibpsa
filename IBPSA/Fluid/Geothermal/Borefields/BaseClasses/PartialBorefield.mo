@@ -289,6 +289,12 @@ temperature after calculating and/or read (from a previous calculation) the bore
 </html>", revisions="<html>
 <ul>
 <li>
+June 4, 2019, by Massimo Cimmino:<br/>
+Added an output for the average borehole wall temperature.
+See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1107\">#1107</a>.
+</li>
+<li>
 April 11, 2019, by Filip Jorissen:<br/>
 Added <code>choicesAllMatching</code> for <code>borFieDat</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1117\">#1117</a>.
