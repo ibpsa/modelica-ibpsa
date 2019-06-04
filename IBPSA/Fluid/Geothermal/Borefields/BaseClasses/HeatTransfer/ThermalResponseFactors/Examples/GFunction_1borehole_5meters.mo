@@ -77,7 +77,7 @@ equation
     gFun2 = gFun[k+1];
   end when;
 
-   annotation(experiment(Tolerance=1e-6, StopTime=859680000),
+   annotation(experiment(Tolerance=1e-6, StopTime=412000000),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Examples/GFunction_1borehole_5meters.mos"
         "Simulate and plot"),
       Documentation(info="<html>
