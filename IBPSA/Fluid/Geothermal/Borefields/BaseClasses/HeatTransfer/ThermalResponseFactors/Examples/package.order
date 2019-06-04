@@ -4,8 +4,8 @@ FiniteLineSource
 FiniteLineSource_Erfint
 FiniteLineSource_Integrand
 FiniteLineSource_Integrand_BoreholeLength
-GFunction_1borehole_5meters
 GFunction_100boreholes
+GFunction_1borehole_5meters
 GFunction_SmallScaleValidation
 InfiniteLineSource
 ShaGFunction
