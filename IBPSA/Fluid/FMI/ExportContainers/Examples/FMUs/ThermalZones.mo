@@ -191,7 +191,7 @@ This example demonstrates how to export a model
 that contains two thermal zones with convective heat input from the
 HVAC system only. The thermal zones are connected to an adaptor so that
 they can be coupled
-to an air-based HVAC system. 
+to an air-based HVAC system.
 <!-- @include_Buildings
 The thermal zone is
 taken from
