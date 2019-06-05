@@ -5,8 +5,8 @@ extends Modelica.Icons.MaterialPropertiesPackage;
 annotation (Documentation(info="<html>
 <p>
 This package contains data records for use with ground heat exchanger models
-in <a href=\"modelica://IBPSA.Fluid.HeatExchangers.Ground\">
-IBPSA.Fluid.HeatExchangers.Ground</a>.
+in <a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields\">
+IBPSA.Fluid.Geothermal.Borefields</a>.
 </p>
 </html>"));
 end Data;
