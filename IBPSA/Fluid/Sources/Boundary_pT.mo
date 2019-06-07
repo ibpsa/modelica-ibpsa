@@ -38,26 +38,22 @@ initial equation
   if not use_p_in then
     if Medium.mediumName == "SimpleLiquidWater" then
       assert(p_in_internal>1e4, "In "+getInstanceName() +
-        ": The parameter value p="+String(p_in_internal)+" is low for water, 
-        and thus is likely an error.");
+        ": The parameter value p="+String(p_in_internal)+" is low for water. This is likely an error.");
     end if;
     if Medium.mediumName == "Air" then
       assert(p_in_internal>5e4 and p_in_internal < 1.5e5, "In "+getInstanceName() +
-        ": The parameter value p="+String(p_in_internal)+" is not within a realistic range for air, 
-        and thus is likely an error.");
+        ": The parameter value p="+String(p_in_internal)+" is not within a realistic range for air. This is likely an error.");
     end if;
   end if;
 equation
   if use_p_in then
     if Medium.mediumName == "SimpleLiquidWater" then
       assert(p_in_internal>1e4, "In "+getInstanceName() +
-        ": The value of p_in="+String(p_in_internal)+" is low for water, 
-        and thus is likely an error.");
+        ": The value of p_in="+String(p_in_internal)+" is low for water. This is likely an error.");
     end if;
     if Medium.mediumName == "Air" then
       assert(p_in_internal>5e4 and p_in_internal < 1.5e5, "In "+getInstanceName() +
-        ": The value of p_in="+String(p_in_internal)+" is not within a realistic range for air, 
-        and thus is likely an error.");
+        ": The value of p_in="+String(p_in_internal)+" is not within a realistic range for air. This is likely an error.");
     end if;
   end if;
   // Pressure
