@@ -125,11 +125,13 @@ The example
 IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone</a>
 shows how a simple HVAC system can be implemented and exported as
 an FMU.
+<!-- @include_Buildings
 The example
 <a href=\"modelica://IBPSA.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
 IBPSA.Fluid.FMI.ExportContainers.Validation.RoomHVAC</a>
 shows how such an FMU can be connected
 to a room model that has signal flow.
+-->
 </p>
 <p>
 The conversion between the fluid ports and signal ports is done
