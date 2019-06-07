@@ -14,7 +14,7 @@ model ConstantHeatInjection_100Boreholes
     TExt0_start=T_start,
     dT_dz=0,
     tLoaAgg=3600000)
-             "Borehole"
+    "Borehole"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   IBPSA.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
@@ -41,7 +41,8 @@ model ConstantHeatInjection_100Boreholes
     tau=0)
     "Outlet temperature of the borefield"
     annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
-  IBPSA.Fluid.Geothermal.Borefields.Validation.BaseClasses.ConstantHeatInjection_100Boreholes_Borefield borFieDat "Borefield data"
+  IBPSA.Fluid.Geothermal.Borefields.Validation.BaseClasses.ConstantHeatInjection_100Boreholes_Borefield borFieDat
+    "Borefield data"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   IBPSA.Fluid.Sources.Boundary_ph sin(
     redeclare package Medium = Medium,
@@ -58,7 +59,7 @@ model ConstantHeatInjection_100Boreholes
     p_start=100000,
     Q_flow_nominal=2*Modelica.Constants.pi*borFieDat.soiDat.kSoi*borFieDat.conDat.hBor
         *borFieDat.conDat.nBor)
-                    "Heater"
+      "Heater"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   Modelica.Blocks.Sources.Constant heaRat(k=1)
     "Constant heat injection rate into the borefield"
