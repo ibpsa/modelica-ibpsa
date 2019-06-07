@@ -83,7 +83,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geotherm
       Documentation(info="<html>
 <p>
 This example checks the implementation of functions that evaluate the
-g-function of a borefield of 100 boreholes in a 1 configuration.
+g-function of a borefield of <i>100</i> boreholes in a <i>1</i> configuration.
 </p>
 </html>",
 revisions="<html>

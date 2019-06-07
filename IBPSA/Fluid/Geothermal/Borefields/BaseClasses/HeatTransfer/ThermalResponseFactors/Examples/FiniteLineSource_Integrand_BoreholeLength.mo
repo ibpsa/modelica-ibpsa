@@ -19,41 +19,46 @@ model FiniteLineSource_Integrand_BoreholeLength
 
 equation
   u = time;
-  logy150 = log10(max(Modelica.Constants.small, IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
-    u=u,
-    dis=dis_over_len*len150,
-    len1=len150,
-    burDep1=burDep,
-    len2=len150,
-    burDep2=burDep)));
-  logy75 = log10(max(Modelica.Constants.small, IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
-    u=u,
-    dis=dis_over_len*len75,
-    len1=len75,
-    burDep1=burDep,
-    len2=len75,
-    burDep2=burDep)));
-  logy25 = log10(max(Modelica.Constants.small, IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
-    u=u,
-    dis=dis_over_len*len25,
-    len1=len25,
-    burDep1=burDep,
-    len2=len25,
-    burDep2=burDep)));
-  logy5 = log10(max(Modelica.Constants.small, IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
-    u=u,
-    dis=dis_over_len*len5,
-    len1=len5,
-    burDep1=burDep,
-    len2=len5,
-    burDep2=burDep)));
-  logy1 = log10(max(Modelica.Constants.small, IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
-    u=u,
-    dis=dis_over_len*len1,
-    len1=len1,
-    burDep1=burDep,
-    len2=len1,
-    burDep2=burDep)));
+  logy150 = log10(max(Modelica.Constants.small,
+    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
+      u=u,
+      dis=dis_over_len*len150,
+      len1=len150,
+      burDep1=burDep,
+      len2=len150,
+      burDep2=burDep)));
+  logy75 = log10(max(Modelica.Constants.small,
+    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
+      u=u,
+      dis=dis_over_len*len75,
+      len1=len75,
+      burDep1=burDep,
+      len2=len75,
+      burDep2=burDep)));
+  logy25 = log10(max(Modelica.Constants.small,
+    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
+      u=u,
+      dis=dis_over_len*len25,
+      len1=len25,
+      burDep1=burDep,
+      len2=len25,
+      burDep2=burDep)));
+  logy5 = log10(max(Modelica.Constants.small,
+    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
+      u=u,
+      dis=dis_over_len*len5,
+      len1=len5,
+      burDep1=burDep,
+      len2=len5,
+      burDep2=burDep)));
+  logy1 = log10(max(Modelica.Constants.small,
+    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
+      u=u,
+      dis=dis_over_len*len1,
+      len1=len1,
+      burDep1=burDep,
+      len2=len1,
+      burDep2=burDep)));
 
   annotation (
     __Dymola_Commands(file=
