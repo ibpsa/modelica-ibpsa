@@ -118,7 +118,7 @@ record ConstantHeatInjection_100Boreholes_Configuration
     Documentation(
 info="<html>
 <p>
-This record contains the configuration data of a field of 100 boreholes..
+This record contains the configuration data of a field of <i>100</i> boreholes..
 </p>
 </html>",
 revisions="<html>

@@ -11,7 +11,7 @@ record ConstantHeatInjection_100Boreholes_Soil
 Documentation(
 info="<html>
 <p>
-This record contains the soil data of a field of 100 boreholes.
+This record contains the soil data of a field of <i>100</i> boreholes.
 </p>
 </html>",
 revisions="<html>
