@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation;
 model InfiniteLineSource "Test case for infinite line source"
   extends Modelica.Icons.Example;
 
@@ -19,7 +19,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Examples/InfiniteLineSource.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/InfiniteLineSource.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=15.0),
     Documentation(info="<html>

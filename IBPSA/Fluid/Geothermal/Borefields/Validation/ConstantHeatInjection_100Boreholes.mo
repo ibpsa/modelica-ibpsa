@@ -93,8 +93,8 @@ grid.
 The heat injection rate in the borefield is constant and equal to
 <code>2*pi*kSoi*hBor*nBor</code>. In this case, the borehole wall temperature
 variation corresponds to the g-function of the borefield, as evaluated in
-<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Examples.GFunction_100boreholes\">
-IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Examples.GFunction_100boreholes</a>.
+<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_100boreholes\">
+IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_100boreholes</a>.
 </p>
 </html>", revisions="<html>
 <ul>

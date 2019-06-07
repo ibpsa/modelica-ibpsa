@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Examples.GFunction_1borehole_5meters", startTime=0, stopTime=412000000, tolerance=1E-6, method="dassl", resultFile="GFunction_1borehole_5meters");
+simulateModel("IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_1borehole_5meters", startTime=0, stopTime=412000000, tolerance=1E-6, method="dassl", resultFile="GFunction_1borehole_5meters");
 
 createPlot(
   id   = 1,
