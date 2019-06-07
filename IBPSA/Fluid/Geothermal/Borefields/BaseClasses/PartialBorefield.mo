@@ -73,15 +73,12 @@ partial model PartialBorefield
     "Set to false to remove the dynamics of the filling material."
     annotation (Dialog(tab="Dynamics"));
 
-  IBPSA.Fluid.BaseClasses.MassFlowRateMultiplier masFloDiv(
-    redeclare final package Medium = Medium,
-    final k=borFieDat.conDat.nBor) "Division of flow rate"
-    annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
-
-  IBPSA.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul(
-    redeclare final package Medium = Medium,
-    final k=borFieDat.conDat.nBor) "Mass flow multiplier"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+  Modelica.Blocks.Interfaces.RealOutput TBorAve(final quantity="ThermodynamicTemperature",
+                                                final unit="K",
+                                                displayUnit = "degC",
+                                                start=TExt0_start)
+    "Average borehole wall temperature in the borefield"
+    annotation (Placement(transformation(extent={{100,34},{120,54}})));
 
   IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse groTemRes(
     final tLoaAgg=tLoaAgg,
@@ -113,21 +110,26 @@ partial model PartialBorefield
     final TGro_start=TGro_start) "Borehole"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
-  Modelica.Blocks.Math.Gain gaiQ_flow(k=borFieDat.conDat.nBor)
-    "Gain to multiply the heat extracted by one borehole by the number of boreholes"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Modelica.Blocks.Interfaces.RealOutput TBorAve(final quantity="ThermodynamicTemperature",
-                                                final unit="K",
-                                                displayUnit = "degC",
-                                                start=TExt0_start)
-    "Average borehole wall temperature in the borefield"
-    annotation (Placement(transformation(extent={{100,34},{120,54}})));
-  Utilities.Math.Average AveTBor(nin=nSeg)
-    "Average temperature of all the borehole segments"
-    annotation (Placement(transformation(extent={{50,34},{70,54}})));
 protected
   parameter Modelica.SIunits.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}
     "Distance from the surface to the considered segment";
+
+  IBPSA.Fluid.BaseClasses.MassFlowRateMultiplier masFloDiv(
+    redeclare final package Medium = Medium,
+    final k=borFieDat.conDat.nBor) "Division of flow rate"
+    annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
+
+  IBPSA.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul(
+    redeclare final package Medium = Medium,
+    final k=borFieDat.conDat.nBor) "Mass flow multiplier"
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+
+  Modelica.Blocks.Math.Gain gaiQ_flow(k=borFieDat.conDat.nBor)
+    "Gain to multiply the heat extracted by one borehole by the number of boreholes"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+  Utilities.Math.Average AveTBor(nin=nSeg)
+    "Average temperature of all the borehole segments"
+    annotation (Placement(transformation(extent={{50,34},{70,54}})));
 
   Modelica.Blocks.Sources.Constant TSoiUnd[nSeg](
     k = TExt_start,
@@ -282,12 +284,18 @@ between each pipe and the borehole wall.
 </p>
 <p>
 The thermal interaction between the borehole wall and the surrounding soil
-is modeled using <a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse\">IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</a>,
+is modeled using
+<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse\">
+IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</a>,
 which uses a cell-shifting load aggregation technique to calculate the borehole wall
 temperature after calculating and/or read (from a previous calculation) the borefield's thermal response factor.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2019, by Massimo Cimmino:<br/>
+Converted instances that are not of interest to user to be <code>protected</code>.
+</li>
 <li>
 June 4, 2019, by Massimo Cimmino:<br/>
 Added an output for the average borehole wall temperature.
