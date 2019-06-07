@@ -1,0 +1,9 @@
+// Conversion script for IBPSA library
+//  from: Version 3.0
+//  to:   Version 4.0
+clear
+
+convertClear();
+
+convertClass("IBPSA.Fluid.Sources.FixedBoundary",
+             "IBPSA.Obsolete.Fluid.Sources.FixedBoundary");
