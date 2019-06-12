@@ -201,6 +201,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
 
   //--------------------------------------------------------------
   parameter String filNam="" "Name of weather data file" annotation (
+    Evaluate=false,
     Dialog(loadSelector(filter="Weather files (*.mos)",
                         caption="Select weather file")));
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
@@ -1590,6 +1591,13 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+June 11, 2019, by Michael Wetter:<br/>
+Added <code>Evaluate=false</code> annotation to <code>filNam</code>,
+which is needed for JModelica to include the weather data file.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1147\">#1147</a>.
+</li>
 <li>
 March 5, 2019, by Michael Wetter:<br/>
 Updated documentation.<br/>
