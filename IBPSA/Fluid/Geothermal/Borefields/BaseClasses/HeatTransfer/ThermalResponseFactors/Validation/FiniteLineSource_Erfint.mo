@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation;
 model FiniteLineSource_Erfint
   "Test case for the evaluation of the integral of the error function"
   extends Modelica.Icons.Example;
@@ -19,7 +19,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Examples/FiniteLineSource_Erfint.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Erfint.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StartTime=0.0, StopTime=15.0),
     Documentation(info="<html>

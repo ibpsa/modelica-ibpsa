@@ -1,13 +1,13 @@
-within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Examples;
-model GFunction_100boreholes
-  "g-Function calculation for a field of 10 by 10 boreholes"
+within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation;
+model GFunction_1borehole_5meters
+  "g-Function calculation for a field of 1 borehole"
   extends Modelica.Icons.Example;
 
-  parameter Integer nBor = 100 "Number of boreholes";
-  parameter Modelica.SIunits.Position cooBor[nBor, 2] = {{7.5*mod(i-1,10), 7.5*floor((i-1)/10)} for i in 1:nBor}
+  parameter Integer nBor = 1 "Number of boreholes";
+  parameter Modelica.SIunits.Position cooBor[nBor, 2] = {{5.*mod(i-1,3), 5.*floor((i-1)/3)} for i in 1:nBor}
     "Coordinates of boreholes";
-  parameter Modelica.SIunits.Height hBor = 150 "Borehole length";
-  parameter Modelica.SIunits.Height dBor = 4 "Borehole buried depth";
+  parameter Modelica.SIunits.Height hBor = 5 "Borehole length";
+  parameter Modelica.SIunits.Height dBor = 1 "Borehole buried depth";
   parameter Modelica.SIunits.Radius rBor = 0.075 "Borehole radius";
   parameter Modelica.SIunits.ThermalDiffusivity aSoi = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
   parameter Integer nSeg = 12 "Number of line source segments per borehole";
@@ -77,21 +77,21 @@ equation
     gFun2 = gFun[k+1];
   end when;
 
-   annotation(experiment(Tolerance=1e-6, StopTime=3.7e11),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Examples/GFunction_100boreholes.mos"
+   annotation(experiment(Tolerance=1e-6, StopTime=412000000),
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/GFunction_1borehole_5meters.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
 This example checks the implementation of functions that evaluate the
-g-function of a borefield of 100 boreholes in a 10 by 10 configuration.
+g-function of a borefield of <i>100</i> boreholes in a <i>1</i> configuration.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-March 20, 2018, by Massimo Cimmino:<br/>
+March 15, 2019, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end GFunction_100boreholes;
+end GFunction_1borehole_5meters;
