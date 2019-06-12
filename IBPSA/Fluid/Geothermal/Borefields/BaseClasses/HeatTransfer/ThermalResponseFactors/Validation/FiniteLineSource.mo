@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation;
 model FiniteLineSource "Test case for finite line source"
   extends Modelica.Icons.Example;
 
@@ -54,7 +54,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Examples/FiniteLineSource.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=20.0),
     Documentation(info="<html>

@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation;
 model GFunction_SmallScaleValidation
   "g-Function calculation for the small scale validation case"
   extends Modelica.Icons.Example;
@@ -81,7 +81,7 @@ equation
   end when;
 
    annotation(experiment(Tolerance=1e-6, StopTime=1.8e+12),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Examples/GFunction_SmallScaleValidation.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/GFunction_SmallScaleValidation.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>

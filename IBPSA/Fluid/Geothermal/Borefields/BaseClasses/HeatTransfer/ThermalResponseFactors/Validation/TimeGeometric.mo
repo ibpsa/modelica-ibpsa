@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation;
 model TimeGeometric
   "Test case for geometric expansion of time vector"
   extends Modelica.Icons.Example;
@@ -17,7 +17,7 @@ initial equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Examples/TimeGeometric.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/TimeGeometric.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=1.0),
     Documentation(info="<html>

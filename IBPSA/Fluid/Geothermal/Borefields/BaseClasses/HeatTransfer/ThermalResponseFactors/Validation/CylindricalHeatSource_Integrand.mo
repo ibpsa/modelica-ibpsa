@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Examples;
+within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation;
 model CylindricalHeatSource_Integrand
   "Test case for cylindrical heat source integrand function"
   extends Modelica.Icons.Example;
@@ -19,7 +19,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Examples/CylindricalHeatSource_Integrand.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/CylindricalHeatSource_Integrand.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StartTime=0.01, StopTime=15.0),
     Documentation(info="<html>
