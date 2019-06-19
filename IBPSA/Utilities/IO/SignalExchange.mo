@@ -203,8 +203,16 @@ package SignalExchange
     type SignalsForKPIs = enumeration(
         None
           "Not used for KPI",
-        ZoneTemperature
-          "Zone temperature",
+        AirZoneTemperature
+          "Air zone temperature",
+        RadiativeZoneTemperature
+          "Radiative zone temperature",
+        OperativeZoneTemperature
+          "Operative zone temperature",
+        RelativeHumidity
+          "Relative humidity",
+        CO2Concentration
+          "CO2 Concentration",
         ElectricPower
           "Electric power from grid",
         DistrictHeatingPower
@@ -215,8 +223,8 @@ package SignalExchange
           "Thermal power from biomass",
         SolarThermalPower
           "Thermal power from solar thermal",
-        Water
-          "Water") "Signals used for the calculation of key performance indicators";
+        FreshWaterFlowRate
+          "FreshWaterFlowRate") "Signals used for the calculation of key performance indicators";
   end SignalTypes;
   annotation (Icon(graphics={Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,
               0,0},
