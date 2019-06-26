@@ -52,7 +52,8 @@ The cylindrical heat source solution is given by:
 </p>
 <p>
 The integral is solved numerically, with the integrand defined in
-<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.ThermalResponseFactors.cylindricalHeatSource_Integrand\">IBPSA.Fluid.Geothermal.Borefields.BaseClasses.ThermalResponseFactors.cylindricalHeatSource_Integrand</a>.
+<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.cylindricalHeatSource_Integrand\">
+IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.cylindricalHeatSource_Integrand</a>.
 </p>
 </html>", revisions="<html>
 <ul>
