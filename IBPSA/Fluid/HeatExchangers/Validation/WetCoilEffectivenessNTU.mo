@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatExchangers.Validation;
-model WetCoilEffectivesnessNTU
+model WetCoilEffectivenessNTU
   "Validation of WetCoilEffectivesnessNTU based on fan coil unit performance data"
   extends Modelica.Icons.Example;
   package MediumAir = IBPSA.Media.Air;
@@ -165,4 +165,4 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Lsodar"), __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTU.mos"
         "Simulate and plot"));
-end WetCoilEffectivesnessNTU;
+end WetCoilEffectivenessNTU;
