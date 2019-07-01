@@ -24,7 +24,7 @@ model PartialEffectivenessNTU
     "Nominal heat transfer"
     annotation (Dialog(group="Nominal thermal performance",
                        enable=use_Q_flow_nominal));
-  parameter Modelica.SIunits.MassFraction X_w1_nominal
+  parameter Modelica.SIunits.MassFraction X_w1_nominal(min=0)
     "Absolute humidity of inlet at nominal condition"
     annotation (Dialog(group="Nominal thermal performance",
                        enable=not sensibleOnly1));
@@ -125,7 +125,7 @@ initial equation
     "m2_flow_nominal must be positive, m2_flow_nominal = " + String(
     m2_flow_nominal));
 
-  cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default)*(1+max(0, (X_w1_nominal -xSat1_nominal)*m1_flow_nominal*lambda)/Q_flow_nominal);
+  cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default)*(1+max(0, (X_w1_nominal - xSat1_nominal)*m1_flow_nominal*lambda)/Q_flow_nominal);
   cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
 
   // Heat transferred from fluid 1 to 2 at nominal condition
@@ -180,6 +180,18 @@ initial equation
     Z=Z_nominal,
     flowRegime=Integer(flowRegime_nominal)) else 0;
   UA_nominal = NTU_nominal*CMin_flow_nominal;
+
+initial equation
+  if not sensibleOnly1 then
+    assert(IBPSA.Utilities.Psychrometrics.Functions.phi_pTX(
+    p=port_a1.p,
+    T=T_a1_nominal,
+    X_w=X_w1_nominal) > 1, "In " + getInstanceName() +
+    ": The nominal inlet temperature of " +String(T_a1_nominal) +
+    " K and the nominal inlet absolute humidity of " +String(X_w1_nominal) +
+    " kg/kg result in a relative humidity larger than 100 %, which is non-physical.");
+  end if;
+
 equation
   // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
   if (configuration == con.ParallelFlow) then
