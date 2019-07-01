@@ -3,7 +3,9 @@ model DryCoilEffectivenessNTU
   "Heat exchanger with effectiveness - NTU relation and no moisture condensation"
   extends IBPSA.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU(
     final X_w1_nominal=0,
+    final X_w2_nominal=0,
     final sensibleOnly1=true,
+    final sensibleOnly2=true,
     UA = 1/(1/hA.hA_1 + 1/hA.hA_2));
 
   parameter Real r_nominal(

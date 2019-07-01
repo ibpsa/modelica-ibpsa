@@ -2,7 +2,8 @@ within IBPSA.Fluid.HeatExchangers;
 model WetCoilEffectivesnessNTU
   "Heat exchanger with effectiveness - NTU relation and simple model for moisture condensation"
   extends IBPSA.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU(
-    sensibleOnly1=false,
+    sensibleOnly1=not Medium1.nXi>0,
+    sensibleOnly2=not Medium2.nXi>0,
     UA = 1/(1/hA.hA_1 + 1/hA.hA_2));
 
   parameter Real r_nominal(
