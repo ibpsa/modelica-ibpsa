@@ -3,10 +3,6 @@ model WetCoilEffectivesnessNTU
   "Heat exchanger with effectiveness - NTU relation and simple model for moisture condensation"
   extends IBPSA.Fluid.HeatExchangers.DryCoilEffectivenessNTU(sensibleOnly1=false);
 
-equation
-  // todo: check using substance names
-  assert(sensibleOnly1 or Medium1.nXi > 0,
-    "In "+getInstanceName() + ": model that computes condensation in air, but model contains no water fraction.");
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

@@ -192,6 +192,11 @@ initial equation
     " kg/kg result in a relative humidity larger than 100 %, which is non-physical.");
   end if;
 
+  // todo: check using substance names
+  assert(sensibleOnly1 or Medium1.nXi > 0,
+    "In "+getInstanceName() + ": The model computes condensation in air, 
+    but uses a medium that contains no water. Choose a different medium.");
+
 equation
   // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
   if (configuration == con.ParallelFlow) then
