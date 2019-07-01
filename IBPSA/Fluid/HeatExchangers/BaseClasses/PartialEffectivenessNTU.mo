@@ -57,6 +57,10 @@ model PartialEffectivenessNTU
 protected
   constant Modelica.SIunits.SpecificEnthalpy lambda = 2453500
     "Heat of evaporation of water at 20 degrees Celsius, source: Engineering Toolbox";
+  final parameter Medium1.ThermodynamicState sta1_nominal = Medium1.setState_pTX(
+     T=T_a1_nominal,
+     p=Medium1.p_default,
+     X={X_w1_nominal, 1-X_w1_nominal}) "Default state for medium 1";
   final parameter Medium1.ThermodynamicState sta1_default = Medium1.setState_pTX(
      T=Medium1.T_default,
      p=Medium1.p_default,
@@ -93,6 +97,18 @@ protected
                        enable=not sensibleOnly1));
   parameter flo flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
+
+  parameter Modelica.SIunits.SpecificEnthalpy hCoi_outMax_nominal=
+    if sensibleOnly1
+    then 0
+    else
+      IBPSA.Media.Air.specificEnthalpy_pTX(
+      T= T_a2_nominal,
+      p=Medium1.p_default,
+      X={min(xSat1_nominal,X_w1_nominal)})
+      "Outlet air enthalpy of Medium1";
+
+
   flo flowRegime(fixed=false, start=flowRegime_nominal)
     "Heat exchanger flow regime";
 
@@ -110,12 +126,12 @@ protected
   Modelica.SIunits.SpecificEnthalpy hCoi_outMax=
     if sensibleOnly1
     then 0
-    else
-      IBPSA.Media.Air.specificEnthalpy_pTX(
+    else IBPSA.Media.Air.specificEnthalpy_pTX(
       T= T_in2,
       p=port_b1.p,
       X={min(xSat1,inStream(port_a1.Xi_outflow[1]))})
       "Outlet air enthalpy of Medium1";
+
   Real QLat1 = mWat1_flow*lambda "Latent heat load";
 initial equation
   assert(m1_flow_nominal > 0,
@@ -125,7 +141,7 @@ initial equation
     "m2_flow_nominal must be positive, m2_flow_nominal = " + String(
     m2_flow_nominal));
 
-  cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default)*(1+max(0, (X_w1_nominal - xSat1_nominal)*m1_flow_nominal*lambda)/Q_flow_nominal);
+  cp1_nominal = if sensibleOnly1 then Medium1.specificHeatCapacityCp(sta1_nominal) else max((Medium1.specificEnthalpy(state_a1_inflow) - hCoi_outMax_nominal) *IBPSA.Utilities.Math.Functions.inverseXRegularized(T_a1_nominal - T_a2_nominal, delta=1e-2), Medium1.specificHeatCapacityCp(sta1_nominal));
   cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
 
   // Heat transferred from fluid 1 to 2 at nominal condition
