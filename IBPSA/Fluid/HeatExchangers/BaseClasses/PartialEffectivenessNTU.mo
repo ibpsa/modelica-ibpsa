@@ -24,7 +24,7 @@ model PartialEffectivenessNTU
     "Nominal heat transfer"
     annotation (Dialog(group="Nominal thermal performance",
                        enable=use_Q_flow_nominal));
-  parameter Modelica.SIunits.MassFraction X_w1_nominal(min=0)
+  parameter Modelica.SIunits.MassFraction X_w1_nominal(min=0,start=0)
     "Absolute humidity of inlet at nominal condition"
     annotation (Dialog(group="Nominal thermal performance",
                        enable=not sensibleOnly1));
