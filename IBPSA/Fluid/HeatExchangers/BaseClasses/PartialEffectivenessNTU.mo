@@ -186,10 +186,15 @@ initial equation
     assert(IBPSA.Utilities.Psychrometrics.Functions.phi_pTX(
     p=port_a1.p,
     T=T_a1_nominal,
-    X_w=X_w1_nominal) > 1, "In " + getInstanceName() +
+    X_w=X_w1_nominal) <= 1, "In " + getInstanceName() +
     ": The nominal inlet temperature of " +String(T_a1_nominal) +
     " K and the nominal inlet absolute humidity of " +String(X_w1_nominal) +
-    " kg/kg result in a relative humidity larger than 100 %, which is non-physical.");
+    " kg/kg result in a relative humidity of "
+    + String(100*IBPSA.Utilities.Psychrometrics.Functions.phi_pTX(
+    p=port_a1.p,
+    T=T_a1_nominal,
+    X_w=X_w1_nominal))+
+    " %, which is larger than 100 %. This is non-physical.");
   end if;
 
   // todo: check using substance names
