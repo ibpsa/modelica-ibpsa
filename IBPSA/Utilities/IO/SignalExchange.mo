@@ -1,8 +1,8 @@
 within IBPSA.Utilities.IO;
 package SignalExchange
-  "Package for blocks that identify signals to be exposed for overwriting and reading by a top-level model"
+  "External Signal Exchange Package"
   extends Modelica.Icons.Package;
-  block Overwrite "Block that allows a signal to be overwritten"
+  block Overwrite "Block that allows a signal to overwritten by an FMU input"
     extends Modelica.Blocks.Interfaces.SISO;
     parameter String Description "Describes the signal being overwritten";
     Modelica.Blocks.Logical.Switch swi
@@ -25,7 +25,42 @@ package SignalExchange
             {-12,8}}, color={0,0,127}));
     connect(swi.y, y)
       annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
-    annotation (Icon(graphics={
+    annotation (Documentation(info="<html>
+<p>
+This block enables the overwriting of a control signal by an external program,
+as well as reading of its meta-data, without the need to explicitly propogate 
+the external input or activation switch to a top-level model.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+This block is typically used by the BOPTEST framework 
+(see <a href=\"https://github.com/ibpsa/project1-boptest\">BOPTEST</a>)
+to identify and activate control signals that can be overwritten by test 
+controllers.  It is used in combination with a dedicated parser to perform 
+this task (see <a href=\"https://github.com/ibpsa/project1-boptest/tree/master/parsing\">Parser Code</a>).
+</p>
+<p>
+The input <code>u</code> is the signal to be overwritten.  The output
+<code>y</code> will be equal to the input signal if the <code>activate</code>
+flag is false and will be equal to the external input signal <code>uExt</code>
+if the flag is true.
+</p>
+<p>
+It is important to add a brief description of the signal using the 
+<code>Description</code> parameter and assign a <code>min</code>, 
+<code>max</code>, and <code>unit</code> to the input variable <code>u</code>
+by modifying its attributes.
+</p>
+</html>",
+  revisions="<html>
+<ul>
+<li>
+December 17, 2018 by David Blum:<br/>
+First implementation.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1059\">#1059</a>.
+</li>
+</ul>
+</html>"),  Icon(graphics={
           Line(points={{100,0},{42,0}}, color={0,0,127}),
           Line(points={{42,0},{-20,60}},
           color={0,0,127}),
@@ -72,7 +107,7 @@ package SignalExchange
                       else {235,235,235}))}));
   end Overwrite;
 
-  model Read "Model that allows a signal to be read as an FMU output"
+  model Read "Block that allows a signal to be read as an FMU output"
     extends Modelica.Blocks.Routing.RealPassThrough;
     parameter String Description "Describes the signal being read";
     parameter SignalTypes.SignalsForKPIs KPIs = SignalTypes.SignalsForKPIs.None
@@ -81,7 +116,45 @@ package SignalExchange
   protected
     final parameter Boolean boptestRead = true
       "Protected parameter, used by tools to search for read block in models";
-    annotation (Icon(graphics={
+    annotation (Documentation(info="<html>
+<p>
+This block enables the reading of a signal and its meta-data by an external 
+program without the need to explicitly propogate the signal to a top-level model.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+This block is typically used by the BOPTEST framework 
+(see <a href=\"https://github.com/ibpsa/project1-boptest\">BOPTEST</a>)
+to identify and read signals as measurements by test 
+controllers.  It is used in combination with a dedicated parser to perform 
+this task (see <a href=\"https://github.com/ibpsa/project1-boptest/tree/master/parsing\">Parser Code</a>).
+This block is also used by BOPTEST to specify if the signal is needed
+for calculation of specific key performance indicators (KPI).  
+</p>
+<p>
+The block output <code>y</code> is equal to the input <code>u</code> so that
+the block can be used in line with connections.  However, input signal will
+also be directed to an external program as an output.
+</p>
+<p>
+It is important to add a brief description of the signal using the 
+<code>Description</code> parameter and assign a type if needed for KPI 
+calculation using the <code>KPIs</code> parameter.
+</p>
+</html>",
+  revisions="<html>
+<ul>
+<li>
+April 11, 2019 by Javier Arroyo:<br/>
+Enumeration type KPI tags added.
+</li>
+<li>
+December 17, 2018 by David Blum:<br/>
+First implementation.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1059\">#1059</a>.
+</li>
+</ul>
+</html>"),   Icon(graphics={
           Line(points={{22,60},{70,60}},  color={0,0,127}),
           Line(points={{-38,0},{22,60}}, color={0,0,127}),
           Line(points={{-100,0},{-38,0}}, color={0,0,127}),
@@ -111,7 +184,7 @@ package SignalExchange
     "This package contains examples for the signal exchange block"
     extends Modelica.Icons.ExamplesPackage;
     model FirstOrder
-      "Implements signal exchange block for a first order dynamic system"
+      "Uses signal exchange block for a first order dynamic system"
       extends Modelica.Icons.Example;
       BaseClasses.ExportedModel expMod
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -132,7 +205,27 @@ package SignalExchange
               -39,-20},{-30,-20},{-30,-4},{-12,-4}}, color={255,0,255}));
       connect(uAct.y, expMod.oveWriAct_u) annotation (Line(points={{-39,10},{
               -34,10},{-34,0},{-12,0}}, color={0,0,127}));
-      annotation (experiment(StopTime=150));
+      annotation (experiment(StopTime=150,Tolerance=1e-06),
+      __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/IO/SignalExchange/Examples/FirstOrder.mos"
+            "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This example uses the signal exchange blocks in an original model,
+<a href=\"modelica://IBPSA.Utilities.IO.SignalExchange.Examples.BaseClasses.OriginalModel\">IBPSA.Utilities.IO.SignalExchange.Examples.BaseClasses.OriginalModel</a>
+along with a corresponding model that would result if the original model were 
+compiled with the BOPTEST parser, <a href=\"modelica://IBPSA.Utilities.IO.SignalExchange.Examples.BaseClasses.ExportedModel\">IBPSA.Utilities.IO.SignalExchange.Examples.BaseClasses.ExportedModel</a>
+to demonstrate the overwriting of either setpoint or actuator control signals 
+and reading of signals.
+</p>
+</html>",
+    revisions="<html>
+<ul>
+<li>
+December 17, 2018, by David Blum:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
     end FirstOrder;
 
     package BaseClasses "Contains base classes for signal exchange examples"
@@ -150,11 +243,18 @@ package SignalExchange
           initType=Modelica.Blocks.Types.Init.InitialOutput)
           "First order element"
           annotation (Placement(transformation(extent={{50,20},{70,40}})));
-        Overwrite oveWriSet "Overwrite block for setpoint"
+        Overwrite oveWriSet(Description="First order system control setpoint", u(
+            min=-10,
+            max=-10,
+            unit="1"))      "Overwrite block for setpoint"
           annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-        Overwrite oveWriAct "Overwrite block for actuator signal"
+        Overwrite oveWriAct(Description="First order system input", u(
+            min=-10,
+            max=-10,
+            unit="1"))      "Overwrite block for actuator signal"
           annotation (Placement(transformation(extent={{20,20},{40,40}})));
-        Read rea "Measured state variable"
+        Read rea(Description="First order system output", KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None)
+                 "Measured state variable"
           annotation (Placement(transformation(extent={{50,-30},{30,-10}})));
       equation
         connect(TSet.y, oveWriSet.u)
@@ -169,7 +269,21 @@ package SignalExchange
                 -20}}, color={0,0,127}));
         connect(rea.y, conPI.u_m)
           annotation (Line(points={{29,-20},{0,-20},{0,18}}, color={0,0,127}));
-        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+        annotation (Documentation(info="<html>
+<p>
+This is a model of a first order dynamic system with feedback control.
+Signal exchange blocks are implemented to overwrite either the setpoint or
+actuator control signals as well as read the output fo the first order
+system.
+</p>
+</html>",       revisions="<html>
+<ul>
+<li>
+December 17, 2018, by David Blum:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),      Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
               coordinateSystem(preserveAspectRatio=false)));
       end OriginalModel;
 
@@ -192,7 +306,21 @@ package SignalExchange
                  oveWriSet_activate)), oveWriAct(uExt(y=oveWriAct_u), activate(
                 y=oveWriAct_activate))) "Original model"
           annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
+      annotation(Documentation(info="<html>
+<p>
+This is an example of a model that would be compiled in BOPTEST if the
+original model were using the signal exchange blocks.  Note that inputs
+are added to activate and set values of control signals that can be overwritten
+and outputs are added to read signals from the read blocks.
+</p>
+</html>",       revisions="<html>
+<ul>
+<li>
+December 17, 2018, by David Blum:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
       end ExportedModel;
     end BaseClasses;
   end Examples;
@@ -226,7 +354,12 @@ package SignalExchange
         FreshWaterFlowRate
           "FreshWaterFlowRate") "Signals used for the calculation of key performance indicators";
   end SignalTypes;
-  annotation (Icon(graphics={Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,
+  annotation (Documentation(info="<html>
+<p>
+Package to allow overwriting of control signals by external programs and 
+reading of measurement signals to external programs.
+</p>
+</html>", Icon(graphics={Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,
               0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
@@ -258,5 +391,5 @@ package SignalExchange
           points={{60,10},{60,-10},{80,0},{60,10}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)})));
 end SignalExchange;
