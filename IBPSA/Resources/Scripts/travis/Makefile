@@ -21,4 +21,4 @@ test-dymola:
 	(cd $(ROOT)/IBPSA && python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola)
 
 test-jmodelica:
-	(cd $(ROOT)/IBPSA && python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool jmodelica)
+	(cd $(ROOT)/IBPSA && python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool jmodelica --skip-verification)
