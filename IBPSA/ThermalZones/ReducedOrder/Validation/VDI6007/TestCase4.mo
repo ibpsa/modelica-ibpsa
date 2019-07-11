@@ -128,7 +128,7 @@ equation
   <p>This test validates basic functionalities.</p>
   </html>", revisions="<html>
   <ul>
-   li>
+  <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaWall</code> to <code>hConWall</code>
   </li>

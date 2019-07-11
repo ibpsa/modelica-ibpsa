@@ -1,6 +1,6 @@
 // Conversion script for IBPSA library
-//  from: Version 4.0
-//  to:   Version 4.1
+//  from: Version 4.0.0
+//  to:   Version 4.0.1
 clear
 
 //refactoring of alpha to hCon or hRad
