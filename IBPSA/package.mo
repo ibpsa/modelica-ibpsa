@@ -483,12 +483,15 @@ The library has the following <i>User's Guides</i>:
 end UsersGuide;
 
 annotation (
-version="3.0.0",
-versionDate="2018-09-28",
+version="4.0.1",
+versionDate="2019-07-11",
 dateModified = "2018-09-28",
 uses(Modelica(version="3.2.2")),
-conversion(from(version="3.0.0",
-                script="modelica://IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_from_3.0_to_4.0.mos")),
+conversion(from(
+    version="3.0.0",
+    script="modelica://IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_from_3.0_to_4.0.mos",
+    version="4.0.0",
+    script="modelica://IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_from_4.0.0_to_4.0.1.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>
