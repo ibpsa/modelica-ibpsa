@@ -1,0 +1,790 @@
+// Conversion script for IBPSA library
+//  from: Version 4.0
+//  to:   Version 4.1
+clear
+
+//refactoring of alpha to hCon or hRad
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaWin",
+    "hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaWin",
+    "hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
+    "alphaWin",
+    "hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
+    "alphaWin",
+    "hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "thermalZoneFourElements.alphaWin",
+    "thermalZoneFourElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomOneElement",
+    "thermalZoneOneElement.alphaWin",
+    "thermalZoneOneElement.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "thermalZoneThreeElements.alphaWin",
+    "thermalZoneThreeElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements",
+    "thermalZoneTwoElements.alphaWin",
+    "thermalZoneTwoElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase1",
+    "thermalZoneTwoElements.alphaWin",
+    "thermalZoneTwoElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase10",
+    "thermalZoneTwoElements.alphaWin",
+    "thermalZoneTwoElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11",
+    "thermalZoneTwoElements.alphaWin",
+    "thermalZoneTwoElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase12",
+    "thermalZoneTwoElements.alphaWin",
+    "thermalZoneTwoElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase2",
+    "thermalZoneTwoElements.alphaWin",
+    "thermalZoneTwoElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase3",
+    "thermalZoneTwoElements.alphaWin",
+    "thermalZoneTwoElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase4",
+    "thermalZoneTwoElements.alphaWin",
+    "thermalZoneTwoElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase5",
+    "thermalZoneTwoElements.alphaWin",
+    "thermalZoneTwoElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase6",
+    "thermalZoneTwoElements.alphaWin",
+    "thermalZoneTwoElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase7",
+    "thermalZoneTwoElements.alphaWin",
+    "thermalZoneTwoElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase8",
+    "thermalZoneTwoElements.alphaWin",
+    "thermalZoneTwoElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase9",
+    "thermalZoneTwoElements.alphaWin",
+    "thermalZoneTwoElements.hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaExt",
+    "hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaExt",
+    "hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
+    "alphaExt",
+    "hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
+    "alphaExt",
+    "hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "thermalZoneFourElements.alphaExt",
+    "thermalZoneFourElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomOneElement",
+    "thermalZoneOneElement.alphaExt",
+    "thermalZoneOneElement.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "thermalZoneThreeElements.alphaExt",
+    "thermalZoneThreeElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements",
+    "thermalZoneTwoElements.alphaExt",
+    "thermalZoneTwoElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase1",
+    "thermalZoneTwoElements.alphaExt",
+    "thermalZoneTwoElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase10",
+    "thermalZoneTwoElements.alphaExt",
+    "thermalZoneTwoElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11",
+    "thermalZoneTwoElements.alphaExt",
+    "thermalZoneTwoElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase12",
+    "thermalZoneTwoElements.alphaExt",
+    "thermalZoneTwoElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase2",
+    "thermalZoneTwoElements.alphaExt",
+    "thermalZoneTwoElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase3",
+    "thermalZoneTwoElements.alphaExt",
+    "thermalZoneTwoElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase4",
+    "thermalZoneTwoElements.alphaExt",
+    "thermalZoneTwoElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase5",
+    "thermalZoneTwoElements.alphaExt",
+    "thermalZoneTwoElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase6",
+    "thermalZoneTwoElements.alphaExt",
+    "thermalZoneTwoElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase7",
+    "thermalZoneTwoElements.alphaExt",
+    "thermalZoneTwoElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase8",
+    "thermalZoneTwoElements.alphaExt",
+    "thermalZoneTwoElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase9",
+    "thermalZoneTwoElements.alphaExt",
+    "thermalZoneTwoElements.hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaExtWallConst",
+    "hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaExtWallConst",
+    "hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
+    "alphaExtWallConst",
+    "hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
+    "alphaExtWallConst",
+    "hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "thermalZoneFourElements.alphaExtWallConst",
+    "thermalZoneFourElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomOneElement",
+    "thermalZoneOneElement.alphaExtWallConst",
+    "thermalZoneOneElement.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "thermalZoneThreeElements.alphaExtWallConst",
+    "thermalZoneThreeElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements",
+    "thermalZoneTwoElements.alphaExtWallConst",
+    "thermalZoneTwoElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase1",
+    "thermalZoneTwoElements.alphaExtWallConst",
+    "thermalZoneTwoElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase10",
+    "thermalZoneTwoElements.alphaExtWallConst",
+    "thermalZoneTwoElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11",
+    "thermalZoneTwoElements.alphaExtWallConst",
+    "thermalZoneTwoElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase12",
+    "thermalZoneTwoElements.alphaExtWallConst",
+    "thermalZoneTwoElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase2",
+    "thermalZoneTwoElements.alphaExtWallConst",
+    "thermalZoneTwoElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase3",
+    "thermalZoneTwoElements.alphaExtWallConst",
+    "thermalZoneTwoElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase4",
+    "thermalZoneTwoElements.alphaExtWallConst",
+    "thermalZoneTwoElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase5",
+    "thermalZoneTwoElements.alphaExtWallConst",
+    "thermalZoneTwoElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase6",
+    "thermalZoneTwoElements.alphaExtWallConst",
+    "thermalZoneTwoElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase7",
+    "thermalZoneTwoElements.alphaExtWallConst",
+    "thermalZoneTwoElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase8",
+    "thermalZoneTwoElements.alphaExtWallConst",
+    "thermalZoneTwoElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase9",
+    "thermalZoneTwoElements.alphaExtWallConst",
+    "thermalZoneTwoElements.hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaWinConst",
+    "hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaWinConst",
+    "hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
+    "alphaWinConst",
+    "hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
+    "alphaWinConst",
+    "hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "thermalZoneFourElements.alphaWinConst",
+    "thermalZoneFourElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomOneElement",
+    "thermalZoneOneElement.alphaWinConst",
+    "thermalZoneOneElement.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "thermalZoneThreeElements.alphaWinConst",
+    "thermalZoneThreeElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements",
+    "thermalZoneTwoElements.alphaWinConst",
+    "thermalZoneTwoElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase1",
+    "thermalZoneTwoElements.alphaWinConst",
+    "thermalZoneTwoElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase10",
+    "thermalZoneTwoElements.alphaWinConst",
+    "thermalZoneTwoElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11",
+    "thermalZoneTwoElements.alphaWinConst",
+    "thermalZoneTwoElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase12",
+    "thermalZoneTwoElements.alphaWinConst",
+    "thermalZoneTwoElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase2",
+    "thermalZoneTwoElements.alphaWinConst",
+    "thermalZoneTwoElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase3",
+    "thermalZoneTwoElements.alphaWinConst",
+    "thermalZoneTwoElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase4",
+    "thermalZoneTwoElements.alphaWinConst",
+    "thermalZoneTwoElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase5",
+    "thermalZoneTwoElements.alphaWinConst",
+    "thermalZoneTwoElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase6",
+    "thermalZoneTwoElements.alphaWinConst",
+    "thermalZoneTwoElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase7",
+    "thermalZoneTwoElements.alphaWinConst",
+    "thermalZoneTwoElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase8",
+    "thermalZoneTwoElements.alphaWinConst",
+    "thermalZoneTwoElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase9",
+    "thermalZoneTwoElements.alphaWinConst",
+    "thermalZoneTwoElements.hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaFloor",
+    "hConFloor");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
+    "alphaFloor",
+    "hConFloor");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "thermalZoneFourElements.alphaFloor",
+    "thermalZoneFourElements.hConFloor");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "thermalZoneThreeElements.alphaFloor",
+    "thermalZoneThreeElements.hConFloor");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaFloorConst",
+    "hConFloor_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
+    "alphaFloorConst",
+    "hConFloor_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "thermalZoneFourElements.alphaFloorConst",
+    "thermalZoneFourElements.hConFloor_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "thermalZoneThreeElements.alphaFloorConst",
+    "thermalZoneThreeElements.hConFloor_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaInt",
+    "hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
+    "alphaInt",
+    "hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
+    "alphaInt",
+    "hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "thermalZoneFourElements.alphaInt",
+    "thermalZoneFourElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "thermalZoneThreeElements.alphaInt",
+    "thermalZoneThreeElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements",
+    "thermalZoneTwoElements.alphaInt",
+    "thermalZoneTwoElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase1",
+    "thermalZoneTwoElements.alphaInt",
+    "thermalZoneTwoElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase10",
+    "thermalZoneTwoElements.alphaInt",
+    "thermalZoneTwoElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11",
+    "thermalZoneTwoElements.alphaInt",
+    "thermalZoneTwoElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase12",
+    "thermalZoneTwoElements.alphaInt",
+    "thermalZoneTwoElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase2",
+    "thermalZoneTwoElements.alphaInt",
+    "thermalZoneTwoElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase3",
+    "thermalZoneTwoElements.alphaInt",
+    "thermalZoneTwoElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase4",
+    "thermalZoneTwoElements.alphaInt",
+    "thermalZoneTwoElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase5",
+    "thermalZoneTwoElements.alphaInt",
+    "thermalZoneTwoElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase6",
+    "thermalZoneTwoElements.alphaInt",
+    "thermalZoneTwoElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase7",
+    "thermalZoneTwoElements.alphaInt",
+    "thermalZoneTwoElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase8",
+    "thermalZoneTwoElements.alphaInt",
+    "thermalZoneTwoElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase9",
+    "thermalZoneTwoElements.alphaInt",
+    "thermalZoneTwoElements.hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaIntWall",
+    "hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
+    "alphaIntWall",
+    "hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
+    "alphaIntWall",
+    "hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "thermalZoneFourElements.alphaIntWall",
+    "thermalZoneFourElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "thermalZoneThreeElements.alphaIntWall",
+    "thermalZoneThreeElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements",
+    "thermalZoneTwoElements.alphaIntWall",
+    "thermalZoneTwoElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase1",
+    "thermalZoneTwoElements.alphaIntWall",
+    "thermalZoneTwoElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase10",
+    "thermalZoneTwoElements.alphaIntWall",
+    "thermalZoneTwoElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11",
+    "thermalZoneTwoElements.alphaIntWall",
+    "thermalZoneTwoElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase12",
+    "thermalZoneTwoElements.alphaIntWall",
+    "thermalZoneTwoElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase2",
+    "thermalZoneTwoElements.alphaIntWall",
+    "thermalZoneTwoElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase3",
+    "thermalZoneTwoElements.alphaIntWall",
+    "thermalZoneTwoElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase4",
+    "thermalZoneTwoElements.alphaIntWall",
+    "thermalZoneTwoElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase5",
+    "thermalZoneTwoElements.alphaIntWall",
+    "thermalZoneTwoElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase6",
+    "thermalZoneTwoElements.alphaIntWall",
+    "thermalZoneTwoElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase7",
+    "thermalZoneTwoElements.alphaIntWall",
+    "thermalZoneTwoElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase8",
+    "thermalZoneTwoElements.alphaIntWall",
+    "thermalZoneTwoElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase9",
+    "thermalZoneTwoElements.alphaIntWall",
+    "thermalZoneTwoElements.hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaRoof",
+    "hConRoof");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "thermalZoneFourElements.alphaRoof",
+    "thermalZoneFourElements.hConRoof");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaRoofConst",
+    "hConRoof_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "thermalZoneFourElements.alphaRoofConst",
+    "thermalZoneFourElements.hConRoof_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaRad",
+    "hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaRad",
+    "hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
+    "alphaRad",
+    "hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
+    "alphaRad",
+    "hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "thermalZoneFourElements.alphaRad",
+    "thermalZoneFourElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomOneElement",
+    "thermalZoneOneElement.alphaRad",
+    "thermalZoneOneElement.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "thermalZoneThreeElements.alphaRad",
+    "thermalZoneThreeElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements",
+    "thermalZoneTwoElements.alphaRad",
+    "thermalZoneTwoElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase1",
+    "thermalZoneTwoElements.alphaRad",
+    "thermalZoneTwoElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase10",
+    "thermalZoneTwoElements.alphaRad",
+    "thermalZoneTwoElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11",
+    "thermalZoneTwoElements.alphaRad",
+    "thermalZoneTwoElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase12",
+    "thermalZoneTwoElements.alphaRad",
+    "thermalZoneTwoElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase2",
+    "thermalZoneTwoElements.alphaRad",
+    "thermalZoneTwoElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase3",
+    "thermalZoneTwoElements.alphaRad",
+    "thermalZoneTwoElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase4",
+    "thermalZoneTwoElements.alphaRad",
+    "thermalZoneTwoElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase5",
+    "thermalZoneTwoElements.alphaRad",
+    "thermalZoneTwoElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase6",
+    "thermalZoneTwoElements.alphaRad",
+    "thermalZoneTwoElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase7",
+    "thermalZoneTwoElements.alphaRad",
+    "thermalZoneTwoElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase8",
+    "thermalZoneTwoElements.alphaRad",
+    "thermalZoneTwoElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase9",
+    "thermalZoneTwoElements.alphaRad",
+    "thermalZoneTwoElements.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007",
+    "alphaWallOut",
+    "hConWallOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow",
+    "alphaWallOut",
+    "hConWallOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007",
+    "alphaWallOut",
+    "hConWallOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "eqAirTemp.alphaWallOut",
+    "eqAirTemp.hConWallOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "eqAirTempVDI.alphaWallOut",
+    "eqAirTempVDI.hConWallOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomOneElement",
+    "eqAirTemp.alphaWallOut",
+    "eqAirTemp.hConWallOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "eqAirTemp.alphaWallOut",
+    "eqAirTemp.hConWallOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements",
+    "eqAirTemp.alphaWallOut",
+    "eqAirTemp.hConWallOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase10",
+    "eqAirTemp.alphaWallOut",
+    "eqAirTemp.hConWallOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase8",
+    "eqAirTemp.alphaWallOut",
+    "eqAirTemp.hConWallOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase9",
+    "eqAirTemp.alphaWallOut",
+    "eqAirTemp.hConWallOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007",
+    "alphaRad",
+    "hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow",
+    "alphaRad",
+    "hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007",
+    "alphaRad",
+    "hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "eqAirTemp.alphaRad",
+    "eqAirTemp.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "eqAirTempVDI.alphaRad",
+    "eqAirTempVDI.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomOneElement",
+    "eqAirTemp.alphaRad",
+    "eqAirTemp.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "eqAirTemp.alphaRad",
+    "eqAirTemp.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements",
+    "eqAirTemp.alphaRad",
+    "eqAirTemp.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase10",
+    "eqAirTemp.alphaRad",
+    "eqAirTemp.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase8",
+    "eqAirTemp.alphaRad",
+    "eqAirTemp.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase9",
+    "eqAirTemp.alphaRad",
+    "eqAirTemp.hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow",
+    "alphaWinOut",
+    "hConWinOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "eqAirTemp.alphaWinOut",
+    "eqAirTemp.hConWinOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomOneElement",
+    "eqAirTemp.alphaWinOut",
+    "eqAirTemp.hConWinOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "eqAirTemp.alphaWinOut",
+    "eqAirTemp.hConWinOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements",
+    "eqAirTemp.alphaWinOut",
+    "eqAirTemp.hConWinOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "alphaWin",
+    "hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements",
+    "alphaRoof",
+    "hConRoof");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomOneElement",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomOneElement",
+    "alphaWin",
+    "hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements",
+    "alphaWin",
+    "hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements",
+    "alphaWin",
+    "hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase1",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase10",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase12",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase2",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase3",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase4",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase5",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase6",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase7",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase8",
+    "alphaWall",
+    "hConWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase9",
+    "alphaWall",
+    "hConWall");
