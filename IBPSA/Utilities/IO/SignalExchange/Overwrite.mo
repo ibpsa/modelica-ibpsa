@@ -2,7 +2,7 @@ within IBPSA.Utilities.IO.SignalExchange;
 block Overwrite "Block that allows a signal to overwritten by an FMU input"
   extends Modelica.Blocks.Interfaces.SISO;
 
-  parameter String description "Describes the signal being overwritten";
+  parameter String description "Description of the signal being overwritten";
 
   Modelica.Blocks.Logical.Switch swi
     "Switch between external signal and direct feedthrough signal"

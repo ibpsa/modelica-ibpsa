@@ -2,7 +2,7 @@ within IBPSA.Utilities.IO.SignalExchange;
 model Read "Block that allows a signal to be read as an FMU output"
   extends Modelica.Blocks.Routing.RealPassThrough;
 
-  parameter String description "Describes the signal being read";
+  parameter String description "Description of the signal being read";
 
   parameter SignalTypes.SignalsForKPIs KPIs = SignalTypes.SignalsForKPIs.None
     "Tag with the type of signal for the calculation of the KPIs";
