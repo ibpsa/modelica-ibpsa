@@ -17,14 +17,14 @@ model OriginalModel "Original model"
     annotation (Placement(transformation(extent={{50,20},{70,40}})));
 
   Overwrite oveWriSet(
-    Description="First order system control setpoint",
+    description="First order system control setpoint",
     u(
       min=-10,
       max=10,
       unit="1")) "Overwrite block for setpoint"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  Overwrite oveWriAct(Description="First order system input",
+  Overwrite oveWriAct(description="First order system input",
     u(
       min=-10,
       max=10,
@@ -32,7 +32,7 @@ model OriginalModel "Original model"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Read rea(
-    Description="First order system output",
+    description="First order system output",
     KPIs=IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None)
     "Measured state variable"
     annotation (Placement(transformation(extent={{50,-30},{30,-10}})));

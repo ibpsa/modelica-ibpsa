@@ -2,7 +2,7 @@ within IBPSA.Utilities.IO.SignalExchange;
 model Read "Block that allows a signal to be read as an FMU output"
   extends Modelica.Blocks.Routing.RealPassThrough;
 
-  parameter String Description "Describes the signal being read";
+  parameter String description "Describes the signal being read";
 
   parameter SignalTypes.SignalsForKPIs KPIs = SignalTypes.SignalsForKPIs.None
     "Tag with the type of signal for the calculation of the KPIs";
@@ -32,12 +32,16 @@ also be directed to an external program as an output.
 </p>
 <p>
 It is important to add a brief description of the signal using the
-<code>Description</code> parameter and assign a type if needed for KPI
+<code>description</code> parameter and assign a type if needed for KPI
 calculation using the <code>KPIs</code> parameter.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 17, 2019 by Michael Wetter:<br/>
+Changed parameter name from <code>Description</code> to <code>description</code>.
+</li>
 <li>
 April 11, 2019 by Javier Arroyo:<br/>
 Enumeration type KPI tags added.

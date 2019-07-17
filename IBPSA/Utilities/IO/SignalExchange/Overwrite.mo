@@ -2,7 +2,7 @@ within IBPSA.Utilities.IO.SignalExchange;
 block Overwrite "Block that allows a signal to overwritten by an FMU input"
   extends Modelica.Blocks.Interfaces.SISO;
 
-  parameter String Description "Describes the signal being overwritten";
+  parameter String description "Describes the signal being overwritten";
 
   Modelica.Blocks.Logical.Switch swi
     "Switch between external signal and direct feedthrough signal"
@@ -48,13 +48,17 @@ if the flag is <code>true</code>.
 </p>
 <p>
 It is important to add a brief description of the signal using the
-<code>Description</code> parameter and assign a <code>min</code>,
+<code>description</code> parameter and assign a <code>min</code>,
 <code>max</code>, and <code>unit</code> to the input variable <code>u</code>
 by modifying its attributes.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 17, 2019 by Michael Wetter:<br/>
+Changed parameter name from <code>Description</code> to <code>description</code>.
+</li>
 <li>
 December 17, 2018 by David Blum:<br/>
 First implementation.
