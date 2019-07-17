@@ -3,11 +3,10 @@ package SignalExchange "External Signal Exchange Package"
   extends Modelica.Icons.Package;
 
 
-
   annotation (Documentation(info="<html>
 <p>
-Package to allow overwriting of control signals by external programs and 
-reading of measurement signals to external programs.
+Package to allow overwriting of control signals by external programs and
+reading of measurement signals by external programs.
 </p>
 </html>", Icon(graphics={Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,
               0,0},

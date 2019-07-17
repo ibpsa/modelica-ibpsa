@@ -1,5 +1,6 @@
 within IBPSA.Utilities.IO.SignalExchange.Examples.BaseClasses;
 model ExportedModel "Model to be exported as an FMU"
+  extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.RealInput oveWriSet_u "Signal for overwrite block for set point"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
@@ -14,14 +15,24 @@ model ExportedModel "Model to be exported as an FMU"
     "Measured state variable"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  BaseClasses.OriginalModel mod(oveWriSet(uExt(y=oveWriSet_u), activate(y=
-           oveWriSet_activate)), oveWriAct(uExt(y=oveWriAct_u), activate(
+  BaseClasses.OriginalModel mod(
+      oveWriSet(
+        uExt(
+          y=oveWriSet_u),
+        activate(
+          y=oveWriSet_activate)
+      ),
+      oveWriAct(
+        uExt(
+          y=oveWriAct_u),
+        activate(
           y=oveWriAct_activate))) "Original model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
 annotation(Documentation(info="<html>
 <p>
 This is an example of a model that would be compiled in BOPTEST if the
-original model were using the signal exchange blocks.  Note that inputs
+original model were using the signal exchange blocks. Note that inputs
 are added to activate and set values of control signals that can be overwritten
 and outputs are added to read signals from the read blocks.
 </p>

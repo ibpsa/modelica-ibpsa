@@ -1,7 +1,9 @@
 within IBPSA.Utilities.IO.SignalExchange;
 block Overwrite "Block that allows a signal to overwritten by an FMU input"
   extends Modelica.Blocks.Interfaces.SISO;
+
   parameter String Description "Describes the signal being overwritten";
+
   Modelica.Blocks.Logical.Switch swi
     "Switch between external signal and direct feedthrough signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -13,6 +15,7 @@ block Overwrite "Block that allows a signal to overwritten by an FMU input"
 protected
   final parameter Boolean boptestOverwrite = true
     "Protected parameter, used by tools to search for overwrite block in models";
+
 equation
   connect(activate.y, swi.u2)
     annotation (Line(points={{-39,0},{-12,0}}, color={255,0,255}));
@@ -22,29 +25,30 @@ equation
           {-12,8}}, color={0,0,127}));
   connect(swi.y, y)
     annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
+
   annotation (Documentation(info="<html>
 <p>
 This block enables the overwriting of a control signal by an external program,
-as well as reading of its meta-data, without the need to explicitly propogate 
+as well as reading of its meta-data, without the need to explicitly propogate
 the external input or activation switch to a top-level model.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-This block is typically used by the BOPTEST framework 
+This block is typically used by the BOPTEST framework
 (see <a href=\"https://github.com/ibpsa/project1-boptest\">BOPTEST</a>)
-to identify and activate control signals that can be overwritten by test 
-controllers.  It is used in combination with a dedicated parser to perform 
+to identify and activate control signals that can be overwritten by test
+controllers. It is used in combination with a dedicated parser to perform
 this task (see <a href=\"https://github.com/ibpsa/project1-boptest/tree/master/parsing\">Parser Code</a>).
 </p>
 <p>
-The input <code>u</code> is the signal to be overwritten.  The output
+The input <code>u</code> is the signal to be overwritten. The output
 <code>y</code> will be equal to the input signal if the <code>activate</code>
-flag is false and will be equal to the external input signal <code>uExt</code>
-if the flag is true.
+flag is <code>false</code> and will be equal to the external input signal <code>uExt</code>
+if the flag is <code>true</code>.
 </p>
 <p>
-It is important to add a brief description of the signal using the 
-<code>Description</code> parameter and assign a <code>min</code>, 
+It is important to add a brief description of the signal using the
+<code>Description</code> parameter and assign a <code>min</code>,
 <code>max</code>, and <code>unit</code> to the input variable <code>u</code>
 by modifying its attributes.
 </p>

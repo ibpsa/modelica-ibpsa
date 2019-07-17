@@ -1,7 +1,9 @@
 within IBPSA.Utilities.IO.SignalExchange;
 model Read "Block that allows a signal to be read as an FMU output"
   extends Modelica.Blocks.Routing.RealPassThrough;
+
   parameter String Description "Describes the signal being read";
+
   parameter SignalTypes.SignalsForKPIs KPIs = SignalTypes.SignalsForKPIs.None
     "Tag with the type of signal for the calculation of the KPIs";
 
@@ -10,18 +12,18 @@ protected
     "Protected parameter, used by tools to search for read block in models";
   annotation (Documentation(info="<html>
 <p>
-This block enables the reading of a signal and its meta-data by an external 
+This block enables the reading of a signal and its meta-data by an external
 program without the need to explicitly propogate the signal to a top-level model.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-This block is typically used by the BOPTEST framework 
+This block is typically used by the BOPTEST framework
 (see <a href=\"https://github.com/ibpsa/project1-boptest\">BOPTEST</a>)
-to identify and read signals as measurements by test 
-controllers.  It is used in combination with a dedicated parser to perform 
+to identify and read signals as measurements by test
+controllers. It is used in combination with a dedicated parser to perform
 this task (see <a href=\"https://github.com/ibpsa/project1-boptest/tree/master/parsing\">Parser Code</a>).
 This block is also used by BOPTEST to specify if the signal is needed
-for calculation of specific key performance indicators (KPI).  
+for calculation of specific key performance indicators (KPI).
 </p>
 <p>
 The block output <code>y</code> is equal to the input <code>u</code> so that
@@ -29,8 +31,8 @@ the block can be used in line with connections.  However, input signal will
 also be directed to an external program as an output.
 </p>
 <p>
-It is important to add a brief description of the signal using the 
-<code>Description</code> parameter and assign a type if needed for KPI 
+It is important to add a brief description of the signal using the
+<code>Description</code> parameter and assign a type if needed for KPI
 calculation using the <code>KPIs</code> parameter.
 </p>
 </html>",
