@@ -105,9 +105,9 @@ package RC
   Instead of using Stefan&apos;s Law for radiation exchange
   </p>
   <p align=\"center\" style=\"font-style:italic;\">
-  Q = &epsilon; &sigma; (T<sub>1<sup>4</sup></sub> - T<sub>2<sup>4</sup></sub>)
+  Q = &epsilon; &sigma; (T<sub>1<sup>4</sup></sub> - T<sub>2<sup>4</sup></sub>),
   </p>
-  <p>,
+  <p>
   the models use a linearized approach
   </p>
   <p align=\"center\" style=\"font-style:italic;\">
