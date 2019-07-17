@@ -20,15 +20,15 @@ Guideline VDI 6007 Part 1 (VDI, 2012). The influence of indoor temperatures
 via heat transfer through exterior walls is neglected. The exterior wall&apos;s
 outdoor surface is assumed to have the outdoor air temperature for calculation
 of radiative heat exchange with the ambient.</p>
-<p>The fundamental equation is: </p>
+<p>The fundamental equation is</p>
 <p align=\"center\" style=\"font-style:italic;\">
 T<sub>EqAirExt</sub> = T
 <sub>AirAmb</sub>+&Delta;T<sub>EqLW</sub>+&Delta;T
-<sub>EqSW</sub>
+<sub>EqSW</sub>.
 </p>
 <p>
 The correction term for long-wave radiation is based on the black body sky
-temperature and dry bulb temperature.</p>
+temperature and dry bulb temperature, and it is calculated as</p>
 <p align=\"center\" style=\"font-style:italic;\">
 &Delta;T<sub>EqLW</sub> =
 (T<sub>BlaSky</sub>-T<sub>DryBul</sub>)
