@@ -32,49 +32,47 @@ to compute the key performance indices (KPI).
 <p>
 The following signal types are supported.
 </p>
-<p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><th>Value</th>
-    <th>Description</td>
+    <th>Description</th>
 </tr>
-<tr><td><code>None<code/></td>
+<tr><td><code>None</code></td>
     <td>Not used for KPI</td>
 </tr>
-<tr><td><code>AirZoneTemperature<code/></td>
+<tr><td><code>AirZoneTemperature</code></td>
     <td>Air zone temperature</td>
 </tr>
-<tr><td><code>RadiativeZoneTemperature<code/></td>
+<tr><td><code>RadiativeZoneTemperature</code></td>
     <td>Radiative zone temperature</td>
 </tr>
-<tr><td><code>OperativeZoneTemperature<code/></td>
+<tr><td><code>OperativeZoneTemperature</code></td>
     <td>Operative zone temperature</td>
 </tr>
-<tr><td><code>RelativeHumidity<code/></td>
+<tr><td><code>RelativeHumidity</code></td>
     <td>Relative humidity</td>
 </tr>
-<tr><td><code>CO2Concentration<code/></td>
+<tr><td><code>CO2Concentration</code></td>
     <td>CO<sub>2</sub> concentration</td>
 </tr>
-<tr><td><code>ElectricPower<code/></td>
+<tr><td><code>ElectricPower</code></td>
     <td>Electric power from grid</td>
 </tr>
-<tr><td><code>DistrictHeatingPower<code/></td>
+<tr><td><code>DistrictHeatingPower</code></td>
     <td>Thermal power from district heating</td>
 </tr>
-<tr><td><code>GasPower<code/></td>
+<tr><td><code>GasPower</code></td>
     <td>Thermal power from natural gas</td>
 </tr>
-<tr><td><code>BiomassPower<code/></td>
+<tr><td><code>BiomassPower</code></td>
     <td>Thermal power from biomass</td>
 </tr>
-<tr><td><code>SolarThermalPower<code/></td>
+<tr><td><code>SolarThermalPower</code></td>
     <td>Thermal power from solar thermal</td>
 </tr>
-<tr><td><code>FreshWaterFlowRate<code/></td>
+<tr><td><code>FreshWaterFlowRate</code></td>
     <td>FreshWaterFlowRate</td>
 </tr>
 </table>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
