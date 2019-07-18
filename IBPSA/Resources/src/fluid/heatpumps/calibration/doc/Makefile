@@ -34,6 +34,7 @@ clean:
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	rm -f $(BUILDDIR)/doctrees/environment.pickle
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
