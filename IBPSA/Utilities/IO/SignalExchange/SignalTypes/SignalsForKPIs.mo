@@ -80,7 +80,7 @@ July 17, 2019, by Michael Wetter:<br/>
 Added documentation.
 </li>
 <li>
-December 17, 2018, by David Blum:<br/>
+April 10, 2019, by Javier Arroyo:<br/>
 First implementation.
 </li>
 </ul>
