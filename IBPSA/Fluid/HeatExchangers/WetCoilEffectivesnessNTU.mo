@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatExchangers;
 model WetCoilEffectivesnessNTU
-  "Heat exchanger with effectiveness - NTU relation and simple model for moisture condensation"
+  "Heat exchanger with effectiveness - NTU relation and simple model for moisture condensation, assuming completely wet coil"
   extends IBPSA.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU(
     sensibleOnly1=not Medium1.nXi>0,
     sensibleOnly2=not Medium2.nXi>0,
@@ -34,5 +34,33 @@ First implementation for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1109\">#1109</a>.
 </li>
 </ul>
-</html>"));
+</html>", info="<html>
+<p>
+fixme: Documentation must be added.
+</p>
+</html>"), Icon(graphics={
+        Polygon(
+          points={{-56,-50},{-58,-56},{-60,-64},{-58,-72},{-54,-74},{-44,-74},{-38,
+              -68},{-40,-60},{-44,-48},{-50,-36},{-56,-50}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-26,-32},{-28,-38},{-30,-46},{-28,-54},{-24,-56},{-14,-56},{-8,
+              -50},{-10,-42},{-14,-30},{-20,-18},{-26,-32}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{8,-48},{6,-54},{4,-62},{6,-70},{10,-72},{20,-72},{26,-66},{24,
+              -58},{20,-46},{14,-34},{8,-48}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{44,-22},{42,-28},{40,-36},{42,-44},{46,-46},{56,-46},{62,-40},
+              {60,-32},{56,-20},{50,-8},{44,-22}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid)}));
 end WetCoilEffectivesnessNTU;

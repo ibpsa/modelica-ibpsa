@@ -6,8 +6,8 @@ model PartialEffectivenessNTU
       sensibleOnly2=true,
       Q1_flow = eps*QMax_flow,
       Q2_flow = -Q1_flow,
-      mWat1_flow = if sensibleOnly1 then 0 else Q1_flow*(cp1Wet-Medium1.specificHeatCapacityCp(state_a1_inflow))/cp1Wet/lambda,
-      mWat2_flow = if sensibleOnly2 then 0 else Q2_flow*(cp2Wet-Medium2.specificHeatCapacityCp(state_a2_inflow))/cp2Wet/lambda,
+      mWat1_flow = if sensibleOnly1 then 0 else Q1_flow*(cp1Wet-Medium1.specificHeatCapacityCp(state_a1_inflow))/cp1Wet/h_fg,
+      mWat2_flow = if sensibleOnly2 then 0 else Q2_flow*(cp2Wet-Medium2.specificHeatCapacityCp(state_a2_inflow))/cp2Wet/h_fg,
       C1_flow=abs(m1_flow)*cp1Wet,
       C2_flow=abs(m2_flow)*cp2Wet);
   import con = IBPSA.Fluid.Types.HeatExchangerConfiguration;
@@ -61,8 +61,9 @@ model PartialEffectivenessNTU
     "Nominal number of transfer units";
 
 protected
-  constant Modelica.SIunits.SpecificEnthalpy lambda = 2453500
-    "Heat of evaporation of water at 20 degrees Celsius, source: Engineering Toolbox";
+  final parameter Modelica.SIunits.SpecificEnthalpy h_fg=
+    IBPSA.Utilities.Psychrometrics.Constants.h_fg
+    "Heat of evaporation of water";
   final parameter Medium1.ThermodynamicState sta1_nominal = Medium1.setState_pTX(
      T=T_a1_nominal,
      p=Medium1.p_default,
@@ -136,12 +137,14 @@ protected
   Modelica.SIunits.SpecificHeatCapacity cp1Wet=
     if sensibleOnly1
     then cp1_nominal
-    else max((inStream(port_a1.h_outflow) - h_b1_max) *IBPSA.Utilities.Math.Functions.inverseXRegularized(T_in1 - T_in2, delta=1e-2), Medium1.specificHeatCapacityCp(state_a1_inflow))
+    else max((inStream(port_a1.h_outflow) - h_b1_max) * IBPSA.Utilities.Math.Functions.inverseXRegularized(T_in1 - T_in2, delta=1e-2),
+      Medium1.specificHeatCapacityCp(state_a1_inflow))
       "Heat capacity used in the ficticious fluid when condensation occurs in Medium1, according to Braun-Lebrun model";
   Modelica.SIunits.SpecificHeatCapacity cp2Wet=
     if sensibleOnly2
     then cp2_nominal
-    else max((inStream(port_a2.h_outflow) - h_b2_max) *IBPSA.Utilities.Math.Functions.inverseXRegularized(T_in2 - T_in1, delta=1e-2), Medium2.specificHeatCapacityCp(state_a2_inflow))
+    else max((inStream(port_a2.h_outflow) - h_b2_max) *IBPSA.Utilities.Math.Functions.inverseXRegularized(T_in2 - T_in1, delta=1e-2),
+      Medium2.specificHeatCapacityCp(state_a2_inflow))
       "Heat capacity used in the ficticious fluid when condensation occurs in Medium2, according to Braun-Lebrun model";
 
   Modelica.SIunits.SpecificEnthalpy h_b1_max=
@@ -150,7 +153,7 @@ protected
     else IBPSA.Media.Air.specificEnthalpy_pTX(
       T= T_in2,
       p=port_b1.p,
-      X={min(xSat1,inStream(port_a1.Xi_outflow[1]))})
+      X={min(xSat1, inStream(port_a1.Xi_outflow[1]))})
       "Outlet air enthalpy of Medium1 for perfect heat exchange";
   Modelica.SIunits.SpecificEnthalpy h_b2_max=
     if sensibleOnly2
@@ -158,21 +161,21 @@ protected
     else IBPSA.Media.Air.specificEnthalpy_pTX(
       T= T_in1,
       p=port_b2.p,
-      X={min(xSat2,inStream(port_a2.Xi_outflow[1]))})
+      X={min(xSat2, inStream(port_a2.Xi_outflow[1]))})
       "Outlet air enthalpy of Medium2 for perfect heat exchange";
 
   Modelica.SIunits.MassFraction xSat1=
     if sensibleOnly1
     then 0
     else IBPSA.Utilities.Psychrometrics.Functions.X_pTphi(p=port_b1.p, T=T_in2, phi = 1)
-      "Absolute humidity assuming saturated outlet condition for flow 1";
+      "Absolute humidity assuming saturated outlet condition for medium 1";
   Modelica.SIunits.MassFraction xSat2=
     if sensibleOnly2
     then 0
     else IBPSA.Utilities.Psychrometrics.Functions.X_pTphi(p=port_b2.p, T=T_in1, phi = 1)
-      "Absolute humidity assuming saturated outlet condition for flow 2";
+      "Absolute humidity assuming saturated outlet condition for medium 2";
 
-  Real QLat1 = mWat1_flow*lambda "Latent heat load";
+  Real QLat1 = mWat1_flow*h_fg "Latent heat extracted from medium 1";
 initial equation
   assert(m1_flow_nominal > 0,
     "m1_flow_nominal must be positive, m1_flow_nominal = " + String(
@@ -181,8 +184,20 @@ initial equation
     "m2_flow_nominal must be positive, m2_flow_nominal = " + String(
     m2_flow_nominal));
 
-  cp1_nominal = if sensibleOnly1 then Medium1.specificHeatCapacityCp(sta1_nominal) else max((Medium1.specificEnthalpy(state_a1_inflow) - h_b1_max_nominal) *IBPSA.Utilities.Math.Functions.inverseXRegularized(T_a1_nominal - T_a2_nominal, delta=1e-2), Medium1.specificHeatCapacityCp(sta1_nominal));
-  cp2_nominal = if sensibleOnly2 then Medium2.specificHeatCapacityCp(sta2_nominal) else max((Medium2.specificEnthalpy(state_a2_inflow) - h_b2_max_nominal) *IBPSA.Utilities.Math.Functions.inverseXRegularized(T_a2_nominal - T_a1_nominal, delta=1e-2), Medium2.specificHeatCapacityCp(sta2_nominal));
+  // fixme: I don't understand these assignments: state_a1_inflow changes with
+  // time, yet it is assigned to cp1_nominal, and evaluated in an 'initial equation' section.
+  cp1_nominal = if sensibleOnly1
+    then Medium1.specificHeatCapacityCp(sta1_nominal)
+    else max((Medium1.specificEnthalpy(state_a1_inflow) - h_b1_max_nominal)
+        *IBPSA.Utilities.Math.Functions.inverseXRegularized(
+          T_a1_nominal - T_a2_nominal, delta=1e-2),
+          Medium1.specificHeatCapacityCp(sta1_nominal));
+  cp2_nominal = if sensibleOnly2
+    then Medium2.specificHeatCapacityCp(sta2_nominal)
+    else max((Medium2.specificEnthalpy(state_a2_inflow) - h_b2_max_nominal)
+        *IBPSA.Utilities.Math.Functions.inverseXRegularized(
+          T_a2_nominal - T_a1_nominal, delta=1e-2),
+          Medium2.specificHeatCapacityCp(sta2_nominal));
 
   // Heat transferred from fluid 1 to 2 at nominal condition
   C1_flow_nominal = m1_flow_nominal*cp1_nominal;
@@ -190,6 +205,7 @@ initial equation
   CMin_flow_nominal = min(C1_flow_nominal, C2_flow_nominal);
   CMax_flow_nominal = max(C1_flow_nominal, C2_flow_nominal);
   Z_nominal = CMin_flow_nominal/CMax_flow_nominal;
+
   Q_flow_nominal = m1_flow_nominal*cp1_nominal*(T_a1_nominal - T_b1_nominal);
   if use_Q_flow_nominal then
     Q_flow_nominal = -m2_flow_nominal*cp2_nominal*(T_a2_nominal - T_b2_nominal);
@@ -237,35 +253,34 @@ initial equation
     flowRegime=Integer(flowRegime_nominal)) else 0;
   UA_nominal = NTU_nominal*CMin_flow_nominal;
 
-initial equation
   if not sensibleOnly1 then
-    assert(IBPSA.Utilities.Psychrometrics.Functions.phi_pTX(
-    p=port_a1.p,
-    T=T_a1_nominal,
-    X_w=X_w1_nominal) <= 1, "In " + getInstanceName() +
-    ": The nominal inlet temperature of " +String(T_a1_nominal) +
-    " K and the nominal inlet absolute humidity of " +String(X_w1_nominal) +
-    " kg/kg result in a relative humidity of "
-    + String(100*IBPSA.Utilities.Psychrometrics.Functions.phi_pTX(
-    p=port_a1.p,
-    T=T_a1_nominal,
-    X_w=X_w1_nominal))+
+      assert(IBPSA.Utilities.Psychrometrics.Functions.phi_pTX(
+        p=Medium1.p_default,
+       T=T_a1_nominal,
+       X_w=X_w1_nominal) <= 1, "In " + getInstanceName() +
+       ": The nominal inlet temperature of " +String(T_a1_nominal) +
+       " K and the nominal inlet absolute humidity of " +String(X_w1_nominal) +
+       " kg/kg result in a relative humidity of "
+          + String(100*IBPSA.Utilities.Psychrometrics.Functions.phi_pTX(
+       p=Medium1.p_default,
+       T=T_a1_nominal,
+       X_w=X_w1_nominal))+
     " %, which is larger than 100 %. This is non-physical.");
   end if;
 
   if not sensibleOnly2 then
     assert(IBPSA.Utilities.Psychrometrics.Functions.phi_pTX(
-    p=port_a2.p,
-    T=T_a2_nominal,
-    X_w=X_w2_nominal) <= 1, "In " + getInstanceName() +
-    ": The nominal inlet temperature of " +String(T_a2_nominal) +
-    " K and the nominal inlet absolute humidity of " +String(X_w2_nominal) +
-    " kg/kg result in a relative humidity of "
-    + String(100*IBPSA.Utilities.Psychrometrics.Functions.phi_pTX(
-    p=port_a2.p,
-    T=T_a2_nominal,
-    X_w=X_w2_nominal))+
-    " %, which is larger than 100 %. This is non-physical.");
+       p=Medium2.p_default,
+       T=T_a2_nominal,
+       X_w=X_w2_nominal) <= 1, "In " + getInstanceName() +
+       ": The nominal inlet temperature of " +String(T_a2_nominal) +
+       " K and the nominal inlet absolute humidity of " +String(X_w2_nominal) +
+       " kg/kg result in a relative humidity of "
+       + String(100*IBPSA.Utilities.Psychrometrics.Functions.phi_pTX(
+       p=Medium2.p_default,
+       T=T_a2_nominal,
+       X_w=X_w2_nominal))+
+       " %, which is larger than 100 %. This is non-physical.");
   end if;
   // todo: check using substance names
   assert(sensibleOnly1 or Medium1.nXi > 0,
