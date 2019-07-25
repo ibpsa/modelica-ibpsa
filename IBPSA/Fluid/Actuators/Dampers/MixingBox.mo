@@ -12,9 +12,9 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  VAVBoxExponential damOA(
+  IBPSA.Fluid.Actuators.Dampers.Exponential damOA(
     redeclare package Medium = Medium,
-    dp_nominal=dpOut_nominal,
+    dpExp_nominal=dpOut_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
     linearized=linearized,
@@ -47,10 +47,10 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "Reynolds number where transition to turbulent starts"
     annotation(Dialog(enable=not use_deltaM));
 
-  VAVBoxExponential damExh(
+  IBPSA.Fluid.Actuators.Dampers.Exponential damExh(
     redeclare package Medium = Medium,
     m_flow_nominal=mExh_flow_nominal,
-    dp_nominal=dpExh_nominal,
+    dpExp_nominal=dpExh_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
     linearized=linearized,
@@ -69,10 +69,10 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final use_inputFilter=false) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
 
-  VAVBoxExponential damRec(
+  IBPSA.Fluid.Actuators.Dampers.Exponential damRec(
     redeclare package Medium = Medium,
     m_flow_nominal=mRec_flow_nominal,
-    dp_nominal=dpRec_nominal,
+    dpExp_nominal=dpRec_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
     linearized=linearized,
