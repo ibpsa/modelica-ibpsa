@@ -238,12 +238,12 @@ between the flow rate and the pressure drop is C<sup>2</sup>.
 </p>
 <p>
 The example
-<a href=Buildings.Fluid.Actuators.Dampers.Examples.Damper>
-Buildings.Fluid.Actuators.Dampers.Examples.Damper</a> (see <code>preIndCha</code>)
+<a href=IBPSA.Fluid.Actuators.Dampers.Examples.Damper>
+IBPSA.Fluid.Actuators.Dampers.Examples.Damper</a> (see <code>preIndCha</code>)
 provides the typical flow characteristics that is thus obtained (also illustrated in the figure hereunder).
 </p>
 <p align=\"left\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/Dampers/PressureIndependent.png\"/>
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Actuators/Dampers/PressureIndependent.png\"/>
 </p>
 <h4>Fractional opening </h4>
 <p>
@@ -251,13 +251,13 @@ The fractional opening of the damper is then computed by:
 </p>
 <ul>
 <li>
-inverting the quadratic flow function (see <a href=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow>
-Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>)
+inverting the quadratic flow function (see <a href=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow>
+IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>)
 to compute the flow coefficient from the flow rate and the pressure drop values;
 </li>
 <li>
-inverting the exponential characteristics (see <a href=Buildings.Fluid.Actuators.Dampers.Exponential>
-Buildings.Fluid.Actuators.Dampers.Exponential</a>) to compute
+inverting the exponential characteristics (see <a href=IBPSA.Fluid.Actuators.Dampers.Exponential>
+IBPSA.Fluid.Actuators.Dampers.Exponential</a>) to compute
 the fractional opening from the loss coefficient value (directly yielded from the flow coefficient).
 </li>
 </ul>
