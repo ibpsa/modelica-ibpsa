@@ -50,7 +50,7 @@ protected
     {yU-1/3*(yU-yL), (yU+yL)/2, yU-2/3*(yU-yL)},
     linspace(yL, 0, sizeSupSplBnd))
     "y values of unsorted support points for spline interpolation";
-  parameter Real[sizeSupSpl] kSupSpl_raw = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+  parameter Real[sizeSupSpl] kSupSpl_raw = IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=ySupSpl_raw, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)
     "k values of unsorted support points for spline interpolation";
   parameter Real[sizeSupSpl] ySupSpl(each fixed=false)
@@ -89,37 +89,37 @@ equation
   // basicFlowFunction_m_flow and basicFlowFunction_dp are not strict inverse outside the
   // turbulent flow region: we assume the leakage flow regime to be turbulent for all flow
   // rate values.
-  dp_0 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+  dp_0 = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
       m_flow=m_flow_lim,
       k=kTot_0,
       m_flow_turbulent=y_min * m_flow_nominal);
-  dp_1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+  dp_1 = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
     m_flow=y_internal * m_flow_nominal,
     k=kTot_1,
     m_flow_turbulent=m_flow_turbulent);
   m_flow_smooth = smooth(2, noEvent(
     if dp <= dp_1 then
-      Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+      IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
         dp=dp,
         k=kTot_1,
         m_flow_turbulent=m_flow_turbulent)
     elseif dp <= dp_1 + dp_small then
-      Buildings.Utilities.Math.Functions.quinticHermite(
+      IBPSA.Utilities.Math.Functions.quinticHermite(
         x=dp,
         x1=dp_1,
         x2=dp_1 + dp_small,
-        y1=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+        y1=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
           dp=dp_1,
           k=kTot_1,
           m_flow_turbulent=m_flow_turbulent),
         y2=y_internal * m_flow_nominal + c_regul * dp_small,
-        y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+        y1d=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
           dp=dp_1,
           k=kTot_1,
           m_flow_turbulent=m_flow_turbulent,
           dp_der=1),
         y2d=c_regul,
-        y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
+        y1dd=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
           dp=dp_1,
           k=kTot_1,
           m_flow_turbulent=m_flow_turbulent,
@@ -129,40 +129,40 @@ equation
     elseif dp < dp_lim then
       y_internal * m_flow_nominal + c_regul * (dp - dp_1)
     elseif dp < dp_0 then
-      Buildings.Utilities.Math.Functions.quinticHermite(
+      IBPSA.Utilities.Math.Functions.quinticHermite(
         x=dp,
         x1=dp_lim,
         x2=dp_0,
         y1=y_internal * m_flow_nominal + c_regul * (dp_lim - dp_1),
-        y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+        y2=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
           dp=dp_0,
           k=kTot_0,
           m_flow_turbulent=y_min * m_flow_nominal),
         y1d=c_regul,
-        y2d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+        y2d=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
           dp=dp_0,
           k=kTot_0,
           m_flow_turbulent=y_min * m_flow_nominal,
           dp_der=1),
         y1dd=0,
-        y2dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
+        y2dd=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
           dp=dp_0,
           k=kTot_0,
           m_flow_turbulent=y_min * m_flow_nominal,
           dp_der=1,
           dp_der2=0))
     else
-      Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+      IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
         dp=dp,
         k=kTot_0,
         m_flow_turbulent=y_min * m_flow_nominal)));
   // Computation of damper opening
-  kThetaTot = Buildings.Utilities.Math.Functions.regStep(
+  kThetaTot = IBPSA.Utilities.Math.Functions.regStep(
     x=dp - dp_1 - dp_small / 2,
-    y1=Buildings.Utilities.Math.Functions.regStep(
+    y1=IBPSA.Utilities.Math.Functions.regStep(
       x=dp - dp_0 + dp_small / 2,
       y1=2 * rho * A^2 / kTot_0^2,
-      y2=2 * rho * A^2 / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
+      y2=2 * rho * A^2 / IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
         m_flow=m_flow,
         dp=dp, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
         k_min=kTot_0, k_max=kTot_1),
@@ -171,9 +171,9 @@ equation
     x_small=dp_small / 2);
   kThetaDam = if dpFixed_nominal > Modelica.Constants.eps then
     kThetaTot - 2 * rho * A^2 / kResSqu else kThetaTot;
-  y_actual_smooth = Buildings.Utilities.Math.Functions.regStep(
+  y_actual_smooth = IBPSA.Utilities.Math.Functions.regStep(
     x=y_internal - y_min,
-    y1=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
+    y1=IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
       kThetaSqRt=sqrt(kThetaDam), kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer),
     y2=0,
     x_small=1E-3);
