@@ -43,10 +43,10 @@ partial model PartialDamperExponential
   Real k
     "Flow coefficient of damper plus fixed resistance, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
-  parameter Real kL = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+  parameter Real kL = IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)^2
     "Loss coefficient at the lower limit of the exponential characteristics";
-  parameter Real kU = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+  parameter Real kU = IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=yU, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)^2
     "Loss coefficient at the upper limit of the exponential characteristics";
   parameter Medium.Density rho_default=Medium.density(sta_default)
@@ -98,7 +98,7 @@ equation
       sqrt(1 / (1 / k^2 - 1 / kFixed^2)) else k;
   else
     y_char_linear = y_actual;
-    kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+    kDam=sqrt(2*rho)*A/IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper(
       y=y_actual, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
     k = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
   end if;
@@ -110,21 +110,21 @@ equation
       if homotopyInitialization then
         if from_dp then
           m_flow=homotopy(
-            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+            actual=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
               dp=dp, k=k, m_flow_turbulent=m_flow_turbulent),
             simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
         else
           dp=homotopy(
-            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+            actual=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
               m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent),
             simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
         end if;  // from_dp
       else // do not use homotopy
         if from_dp then
-          m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+          m_flow=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
             dp=dp, k=k, m_flow_turbulent=m_flow_turbulent);
         else
-          dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+          dp=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
             m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent);
         end if;  // from_dp
       end if; // homotopyInitialization
@@ -151,7 +151,7 @@ revisions="<html>
 April 19, 2019, by Antoine Gautier:<br/>
 Added the option for characteristics linearization.<br/>
 Added the option to exclude pressure drop computation for use with
-<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
+<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.PressureIndependent\">
 PressureIndependent</a>.<br/>
 Extended the range of allowed values for <code>k0</code> and <code>k1</code>.<br/>
 This is for
