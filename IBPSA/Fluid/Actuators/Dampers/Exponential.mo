@@ -1,30 +1,67 @@
 within IBPSA.Fluid.Actuators.Dampers;
-model Exponential "Air damper with exponential opening characteristics"
+model Exponential
+  "Damper model with exponential characteristics and optional fixed flow resistance"
   extends IBPSA.Fluid.Actuators.BaseClasses.PartialDamperExponential(
-  final dp_nominal=(m_flow_nominal/kDam_default)^2,
-  dp(nominal=10),
-  final kFixed=0);
+    dp(nominal=if dp_nominalIncludesDamper then dpExp_nominal else dpExp_nominal + dpDamOpe_nominal),
+    final kFixed=sqrt(kResSqu),
+    final char_linear_pro=char_linear,
+    final dp_nominal=if dp_nominalIncludesDamper then dpExp_nominal else dpExp_nominal + dpDamOpe_nominal);
+  parameter Modelica.SIunits.PressureDifference dpExp_nominal(displayUnit="Pa")
+    "Pressure drop at nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Boolean dp_nominalIncludesDamper = true
+    "Set to true if dpExp_nominal includes the pressure loss of the open damper"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Boolean char_linear = false
+    "Set to true to linearize the flow characteristics of damper plus fixed resistance"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 protected
-   parameter Real kDam_default = sqrt(2*rho_default)*A/kThetaSqRt_default
-    "Flow coefficient for damper, k=m_flow/sqrt(dp), with unit=(kg*m)^(1/2)";
-   parameter Real kThetaSqRt_default(min=0)=
-     IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper(
-       y=1,
-       a=a,
-       b=b,
-       cL=cL,
-       cU=cU,
-       yL=yL,
-       yU=yU)
-    "Flow coefficient, kThetaSqRt = sqrt(pressure drop divided by dynamic pressure)";
-initial algorithm
-   assert(kThetaSqRt_default>0, "Flow coefficient must be strictly positive.");
-   annotation (
+  parameter Modelica.SIunits.PressureDifference dpDamOpe_nominal(displayUnit="Pa")=
+     k1*m_flow_nominal^2/2/Medium.density(sta_default)/A^2
+    "Pressure drop of fully open damper at nominal flow rate";
+  parameter Real kResSqu(unit="kg.m", fixed=false)
+    "Resistance coefficient for fixed resistance element";
+initial equation
+  assert(abs(dpExp_nominal) > Modelica.Constants.eps or not dp_nominalIncludesDamper,
+    "dpExp_nominal cannot be zero when dp_nominalIncludesDamper is true.");
+  assert(kResSqu >= 0,
+         "Wrong parameters in damper model: dpExp_nominal < dpDamOpe_nominal"
+          + "\n  dpExp_nominal = " + String(dpExp_nominal)
+          + "\n  dpDamOpe_nominal = " + String(dpDamOpe_nominal));
+  if not casePreInd then
+    kResSqu = if dpExp_nominal < Modelica.Constants.eps then 0
+    elseif dp_nominalIncludesDamper then
+      m_flow_nominal^2 / (dpExp_nominal - dpDamOpe_nominal)
+    else m_flow_nominal^2 / dpExp_nominal;
+  end if;
+annotation (
 defaultComponentName="dam",
 Documentation(info="<html>
+<h4>General description</h4>
 <p>
-This model is an air damper with flow coefficient that is an exponential function
-of the opening angle. The model is as in ASHRAE 825-RP.
+Model of two resistances in series. One (optional) resistance has a fixed flow coefficient.
+The other resistance corresponds to a damper whose loss coefficient is an exponential function
+of the opening angle.
+</p>
+<p>
+If <code>dp_nominalIncludesDamper=true</code>, then the parameter <code>dpExp_nominal</code>
+is equal to the pressure drop of the damper plus the fixed flow resistance at the nominal
+flow rate.
+If <code>dp_nominalIncludesDamper=false</code>, then <code>dpExp_nominal</code>
+does not include the flow resistance of the air damper.
+</p>
+<p>
+If <code>char_linear=true</code>, then the lumped flow coefficient
+(for both damper and optional fixed flow resistance) varies linearly with the filtered control
+input signal <code>y_actual</code>.
+This yields a linear relationship between the mass flow rate and <code>y_actual</code> when
+the model is exposed to constant pressure boundary conditions. This option is used to approximate
+a feedback control compensating for the static nonlinearities of the controlled system.
+</p>
+<h4>Exponential damper model description</h4>
+<p>
+The relationship between the damper loss coefficient and the opening angle is modeled with
+an exponential function. The model is as in ASHRAE 825-RP.
 A control signal of <code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper
 is open. This is opposite of the implementation of ASHRAE 825-RP, but used here
 for consistency within this library.
@@ -36,7 +73,7 @@ For <code>yL &lt; y &lt; yU</code>, the damper characteristics is
   k<sub>d</sub>(y) = exp(a+b (1-y)).
 </p>
 <p>
-Outside this range, the damper characteristic is defined by a quadratic polynomial that
+Outside this range, the damper characteristics is defined by a quadratic polynomial that
 matches the damper resistance at <code>y=0</code> and <code>y=yL</code> or <code>y=yU</code> and
 <code>y=1</code>, respectively. In addition, the polynomials are such that
 <i>k<sub>d</sub>(y)</i> is
@@ -57,13 +94,14 @@ is used to compute the mass flow rate versus pressure
 drop relation as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m = sign(&Delta;p) k(y)  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+  m&#775; = sign(&Delta;p) k(y)  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 with regularization near the origin.
 </p>
 <p>
 ASHRAE 825-RP lists the following parameter values as typical:
+<br />
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
@@ -88,18 +126,40 @@ ASHRAE 825-RP lists the following parameter values as typical:
 <td>b</td><td>0.105*90</td><td>0.0842*90</td>
 </tr>
 </table>
-
+<p>
+<br />
+ASHRAE 2009 <i>Dampers and Airflow Control</i> provides additional data.
+<br />
+</p>
 <h4>References</h4>
 <p>
 P. Haves, L. K. Norford, M. DeSimone and L. Mei,
 <i>A Standard Simulation Testbed for the Evaluation of Control Algorithms &amp; Strategies</i>,
 ASHRAE Final Report 825-RP, Atlanta, GA.
 </p>
+<p>
+L. G. Felker and T. L. Felker,
+<i>Dampers and Airflow Control</i>,
+ASHRAE, Atlanta, GA, 2009.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
+April 19, 2019, by Antoine Gautier:<br/>
+Refactored <code>Exponential</code> and <code>VAVBoxExponential</code> into one single class.<br/>
+Added the option for characteristics linearization.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+</li>
+<li>
 March 22, 2017, by Michael Wetter:<br/>
 Updated documentation.
+</li>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 </li>
 <li>
 April 14, 2014 by Michael Wetter:<br/>
@@ -116,6 +176,15 @@ December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
+April 13, 2010 by Michael Wetter:<br/>
+Added <code>noEvent</code> to guard evaluation of the square root
+for negative numbers during the solver iterations.
+</li>
+<li>
+February 24, 2010 by Michael Wetter:<br/>
+Added parameter <code>dp_nominalIncludesDamper</code>.
+</li>
+<li>
 June 22, 2008 by Michael Wetter:<br/>
 Extended range of control signal from 0 to 1 by implementing the function
 <a href=\"modelica://IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper\">
@@ -128,10 +197,15 @@ Introduced new partial base class,
 PartialDamperExponential</a>.
 </li>
 <li>
+September 11, 2007 by Michael Wetter:<br/>
+Redefined <code>kRes</code>, now the pressure drop of the fully open damper is subtracted from the fixed resistance.
+</li>
+<li>
 June 30, 2007 by Michael Wetter:<br/>
 Introduced new partial base class,
 <a href=\"modelica://IBPSA.Fluid.Actuators.BaseClasses.PartialActuator\">PartialActuator</a>.
 </li>
+
 <li>
 July 27, 2007 by Michael Wetter:<br/>
 Introduced partial base class.
@@ -141,17 +215,18 @@ July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
-        Rectangle(
-          extent={{-100,22},{100,-24}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),  Polygon(
-          points={{-26,12},{22,54},{22,42},{-26,0},{-26,12}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Solid), Polygon(
-          points={{-22,-32},{26,10},{26,-2},{-22,-44},{-22,-32}},
+        Text(
+          extent={{-110,-34},{12,-100}},
+          lineColor={0,0,255},
+          textString="dpExp_nominal=%dp_nominal"),
+        Text(
+          extent={{-102,-76},{10,-122}},
+          lineColor={0,0,255},
+          textString="m0=%m_flow_nominal"),
+        Polygon(
+          points={{-24,-16},{24,22},{24,14},{-24,-24},{-24,-16}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid)}));
 end Exponential;

@@ -4,18 +4,11 @@ model Damper
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air "Medium model for air";
 
-  IBPSA.Fluid.Actuators.Dampers.Exponential res(
-    redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    use_inputFilter=false)
-    "A damper with quadratic relationship between m_flow and dp"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
-
-    Modelica.Blocks.Sources.Ramp yRam(
-    duration=0.3,
-    offset=0,
-    startTime=0.2,
-    height=1) annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+  Modelica.Blocks.Sources.Ramp yRam(
+  duration=0.3,
+  offset=0,
+  startTime=0.2,
+  height=1) annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
   IBPSA.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -23,81 +16,179 @@ model Damper
     T=293.15,
     nPorts=4) "Pressure boundary condition"
      annotation (Placement(
-        transformation(extent={{-60,-10},{-40,10}})));
+        transformation(extent={{-62,-10},{-42,10}})));
 
   IBPSA.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
-    nPorts=4) "Pressure boundary condition"
+    nPorts=7) "Pressure boundary condition"
       annotation (Placement(
-        transformation(extent={{94,-10},{74,10}})));
+        transformation(extent={{102,-10},{82,10}})));
 
-  IBPSA.Fluid.Actuators.Dampers.PressureIndependent preIndDpFixed_nominal(
-    use_inputFilter=false,
+  PressureIndependent preInd(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dpFixed_nominal=5,
-    dp_nominal=10)
+    dpDam_nominal=5,
+    use_inputFilter=false,
+    v_nominal=3) "A damper with a mass flow proportional to the input signal"
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+  Exponential res(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1,
+    use_inputFilter=false,
+    dpExp_nominal=0,
+    dp_nominalIncludesDamper=false)
+    "A damper with quadratic relationship between m_flow and dp"
+    annotation (Placement(transformation(extent={{30,70},{50,90}})));
+  PressureIndependent preIndDpFixed_nominal(
+    m_flow_nominal=1,
+    dpDam_nominal=5,
+    use_inputFilter=false,
+    v_nominal=3,
+    dpFixed_nominal=20,
+    redeclare package Medium = Medium)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-
-  IBPSA.Fluid.Actuators.Dampers.PressureIndependent preIndFrom_dp(
+    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
+    Modelica.Blocks.Sources.Ramp pSouVar(
+    duration=0.3,
+    startTime=0.2,
+    height=20,
+    offset=Medium.p_default - 10)
+    annotation (Placement(transformation(extent={{-100,-94},{-80,-74}})));
+  Sources.Boundary_pT souVar(
+    redeclare package Medium = Medium,
+    nPorts=2,
+    use_p_in=true,
+    p(displayUnit="Pa"),
+    T=293.15) "Pressure boundary condition variable"
+    annotation (Placement(transformation(extent={{-60,-102},{-40,-82}})));
+  PressureIndependent preInd0(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1,
+    dpDam_nominal=5,
     use_inputFilter=false,
+    v_nominal=3) "A damper with a mass flow proportional to the input signal"
+    annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
+  Modelica.Blocks.Sources.Constant yCst0(k=0)
+    annotation (Placement(transformation(extent={{-12,-70},{8,-50}})));
+  PressureIndependent preInd1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dpFixed_nominal=0,
-    dp_nominal=10,
-    from_dp=false)
-    "A damper with a mass flow proportional to the input signal and using from_dp = false"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-
-  IBPSA.Fluid.Actuators.Dampers.PressureIndependent preInd(
+    dpDam_nominal=5,
+    use_inputFilter=false,
+    v_nominal=3) "A damper with a mass flow proportional to the input signal"
+    annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
+  Modelica.Blocks.Sources.Constant yCst1(k=1)
+    annotation (Placement(transformation(extent={{-12,-110},{8,-90}})));
+  Exponential resChaLin(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dp_nominal=10,
-    use_inputFilter=false)
-    "A damper with a mass flow proportional to the input signal"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-
+    use_inputFilter=false,
+    linearized=false,
+    char_linear=true,
+    dpExp_nominal=0,
+    dp_nominalIncludesDamper=false)
+    "A damper with quadratic relationship between m_flow and dp and linearized characteristic"
+    annotation (Placement(transformation(extent={{30,30},{50,50}})));
+  PressureIndependent preIndCha(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1,
+    use_inputFilter=false,
+    v_nominal=3,
+    dpDam_nominal=5,
+    l=0.02,
+    dpFixed_nominal=100) "A damper with a mass flow proportional to the input signal"
+    annotation (Placement(transformation(extent={{30,-170},{50,-150}})));
+  Sources.Boundary_pT                 sou1(
+    redeclare package Medium = Medium,
+    p(displayUnit="Pa") = 101335,
+    nPorts=1,
+    use_p_in=true,
+    T=293.15) "Pressure boundary condition"
+     annotation (Placement(
+        transformation(extent={{-60,-170},{-40,-150}})));
+    Modelica.Blocks.Sources.Ramp pSouVar1(
+    duration=0.3,
+    startTime=0.2,
+    offset=Medium.p_default,
+    height=400)
+    annotation (Placement(transformation(extent={{-100,-162},{-80,-142}})));
+  Modelica.Blocks.Sources.Constant yCst01(k=0.1) annotation (Placement(transformation(extent={{-10,-150},{10,-130}})));
 equation
-  connect(yRam.y, res.y) annotation (Line(
-      points={{1,70},{10,70},{10,52}},
-      color={0,0,127}));
-  connect(yRam.y, preInd.y) annotation (Line(points={{1,70},{30,70},{30,20},{10,
-          20},{10,12}}, color={0,0,127}));
-  connect(res.port_a, sou.ports[1]) annotation (Line(points={{0,40},{-20,40},{
-          -20,4},{-20,3},{-40,3}},
-                               color={0,127,255}));
-  connect(preInd.port_a, sou.ports[2])
-    annotation (Line(points={{0,0},{-40,0},{-40,1}}, color={0,127,255}));
-  connect(preIndFrom_dp.port_a, sou.ports[3]) annotation (Line(points={{0,-40},
-          {-20,-40},{-20,-1},{-40,-1}}, color={0,127,255}));
-  connect(res.port_b, sin.ports[1]) annotation (Line(points={{20,40},{60,40},{
-          60,3},{74,3}},
-                      color={0,127,255}));
+  connect(res.port_b, sin.ports[1]) annotation (Line(points={{50,80},{68,80},{68,3.42857},{82,3.42857}},
+                         color={0,127,255}));
   connect(preInd.port_b, sin.ports[2])
-    annotation (Line(points={{20,0},{74,0},{74,1}}, color={0,127,255}));
-  connect(sou.ports[4], preIndDpFixed_nominal.port_a) annotation (Line(points={
-          {-40,-3},{-24,-3},{-24,-4},{-24,-4},{-24,-80},{0,-80}}, color={0,127,
-          255}));
-  connect(preIndFrom_dp.port_b, sin.ports[3]) annotation (Line(points={{20,-40},
-          {60,-40},{60,-1},{74,-1}}, color={0,127,255}));
-  connect(preIndDpFixed_nominal.port_b, sin.ports[4]) annotation (Line(points={
-          {20,-80},{44,-80},{64,-80},{64,-3},{74,-3}}, color={0,127,255}));
-  connect(preIndFrom_dp.y, yRam.y) annotation (Line(points={{10,-28},{10,-20},{
-          30,-20},{30,70},{1,70}}, color={0,0,127}));
-  connect(preIndDpFixed_nominal.y, yRam.y) annotation (Line(points={{10,-68},{
-          10,-60},{30,-60},{30,70},{1,70}}, color={0,0,127}));
+    annotation (Line(points={{50,0},{68,0},{68,2.28571},{82,2.28571}},
+                                                           color={0,127,255}));
+  connect(yRam.y, res.y)
+    annotation (Line(points={{11,100},{40,100},{40,92}},color={0,0,127}));
+  connect(yRam.y, preInd.y) annotation (Line(points={{11,100},{20,100},{20,20},
+          {40,20},{40,12}}, color={0,0,127}));
+  connect(yRam.y, preIndDpFixed_nominal.y) annotation (Line(points={{11,100},{
+          20,100},{20,-20},{40,-20},{40,-28}},  color={0,0,127}));
+  connect(pSouVar.y, souVar.p_in) annotation (Line(points={{-79,-84},{-62,-84}},
+                                color={0,0,127}));
+  connect(souVar.ports[1], preInd0.port_a)
+    annotation (Line(points={{-40,-90},{-20,-90},{-20,-80},{30,-80}},
+                                                 color={0,127,255}));
+  connect(yCst0.y, preInd0.y)
+    annotation (Line(points={{9,-60},{40,-60},{40,-68}},  color={0,0,127}));
+  connect(preIndDpFixed_nominal.port_b, sin.ports[3]) annotation (Line(points={{50,-40},{68,-40},{68,1.14286},{82,
+          1.14286}},                          color={0,127,255}));
+  connect(preInd0.port_b, sin.ports[4]) annotation (Line(points={{50,-80},{68,-80},{68,1.11022e-16},{82,1.11022e-16}},
+                                 color={0,127,255}));
+  connect(yCst1.y, preInd1.y)
+    annotation (Line(points={{9,-100},{40,-100},{40,-108}},  color={0,0,127}));
+  connect(souVar.ports[2], preInd1.port_a) annotation (Line(points={{-40,-94},{-20,-94},{-20,-120},{30,-120}},
+                                          color={0,127,255}));
+  connect(preInd1.port_b, sin.ports[5]) annotation (Line(points={{50,-120},{68,-120},{68,-1.14286},{82,-1.14286}},
+                                    color={0,127,255}));
+  connect(yRam.y, resChaLin.y) annotation (Line(points={{11,100},{20,100},{20,60},
+          {40,60},{40,52}},     color={0,0,127}));
+  connect(resChaLin.port_b, sin.ports[6]) annotation (Line(points={{50,40},{68,40},{68,-2.28571},{82,-2.28571}},
+                                            color={0,127,255}));
+  connect(sou.ports[1], preIndDpFixed_nominal.port_a) annotation (Line(points={{-42,3},{-20,3},{-20,-40},{30,-40}},
+                                               color={0,127,255}));
+  connect(sou.ports[2], preInd.port_a) annotation (Line(points={{-42,1},{-20,1},{-20,0},{30,0}},
+                           color={0,127,255}));
+  connect(sou.ports[3], resChaLin.port_a) annotation (Line(points={{-42,-1},{-20,-1},{-20,40},{30,40}},
+                                     color={0,127,255}));
+  connect(sou.ports[4], res.port_a) annotation (Line(points={{-42,-3},{-20,-3},{-20,80},{30,80}},
+                             color={0,127,255}));
+  connect(preIndCha.port_b, sin.ports[7])
+    annotation (Line(points={{50,-160},{68,-160},{68,-3.42857},{82,-3.42857}}, color={0,127,255}));
+  connect(sou1.ports[1], preIndCha.port_a) annotation (Line(points={{-40,-160},{30,-160}}, color={0,127,255}));
+  connect(sou1.p_in, pSouVar1.y) annotation (Line(points={{-62,-152},{-66,-152},{-70,-152},{-79,-152}},
+                                                                                  color={0,0,127}));
+  connect(yCst01.y, preIndCha.y) annotation (Line(points={{11,-140},{40,-140},{40,-148}}, color={0,0,127}));
     annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-Test model for exponential and linear air dampers.
-The air dampers are connected to models for constant inlet and outlet
-pressures. The control signal of the dampers is a ramp.
+Test model for exponential and pressure independent dampers.
+</p>
+<p>
+In the first set of tests a constant pressure drop is applied at the damper (and optional fixed resistance) boundaries.
+The control signal of the dampers is a ramp from 0 (fully closed damper) to 1 (fully open damper).
+</p>
+<p>
+In the second set of tests a variable pressure drop is applied at the damper (and optional fixed resistance) boundaries
+from negative (reverse flow) to positive values.
+The control signal of the dampers is constant, either equal to 0 or 1.
+</p>
+<p>
+In the last test case, a variable pressure drop is applied at the damper (and optional fixed resistance) boundaries
+from zero to a value leading to a fully closed damper position for the demanded flow rate (0.1 of the nominal value).
+That example illustrates the typical flow characteristics obtained with the model
+<a href=IBPSA.Fluid.Actuators.Dampers.PressureIndependent>
+IBPSA.Fluid.Actuators.Dampers.PressureIndependent</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 19, 2019, by Antoine Gautier:<br/>
+Updated the test cases for pressure independent dampers.
+</li>
 <li>
 March 21, 2017 by David Blum:<br/>
 Added Linear damper models <code>lin</code>, <code>preIndFrom_dp</code>, and <code>preInd</code>.
@@ -107,5 +198,6 @@ July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-120,-200},{120,120}})));
 end Damper;
