@@ -11,7 +11,7 @@ function exponentialDamper
   input Real yL "Lower value for damper curve";
   input Real yU "Upper value for damper curve";
   output Real kThetaSqRt(min=0)
-    "Flow coefficient, kThetaSqRT = =sqrt(kTheta) = sqrt(pressure drop/dynamic pressure)";
+    "Flow coefficient, kThetaSqRT = sqrt(kTheta) = sqrt(pressure drop/dynamic pressure)";
 protected
   Real yC(min=0, max=1, unit="")
     "y constrained to 0 <= y <= 1 to avoid numerical problems";
@@ -19,13 +19,11 @@ algorithm
   if y < yL then
     yC :=max(0, y);
     kThetaSqRt := sqrt(Modelica.Math.exp(cL[3] + yC * (cL[2] + yC * cL[1])));
-  else
-    if (y > yU) then
+  elseif (y > yU) then
       yC := min(1, y);
       kThetaSqRt := sqrt(Modelica.Math.exp(cU[3] + yC * (cU[2] + yC * cU[1])));
-    else
-      kThetaSqRt := sqrt(Modelica.Math.exp(a+b*(1-y))) "y=0 is closed";
-    end if;
+  else
+    kThetaSqRt := sqrt(Modelica.Math.exp(a+b*(1-y))) "y=0 is closed";
   end if;
 annotation (
 Documentation(info="<html>
