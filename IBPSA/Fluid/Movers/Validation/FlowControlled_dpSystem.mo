@@ -58,6 +58,7 @@ model FlowControlled_dpSystem
     dp_nominal=dp_nominal/2) "Heating coil pressure drop"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Actuators.Dampers.Exponential dam2(
+    dpExp_nominal=0, dp_nominalIncludesDamper=false,
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
@@ -72,6 +73,7 @@ model FlowControlled_dpSystem
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
           annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Actuators.Dampers.Exponential dam1(
+    dpExp_nominal=0, dp_nominalIncludesDamper=false,
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
@@ -79,6 +81,7 @@ model FlowControlled_dpSystem
                            "Damper"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Actuators.Dampers.Exponential dam3(
+    dpExp_nominal=0, dp_nominalIncludesDamper=false,
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
@@ -86,6 +89,7 @@ model FlowControlled_dpSystem
                            "Damper"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Actuators.Dampers.Exponential dam4(
+    dpExp_nominal=0, dp_nominalIncludesDamper=false,
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
