@@ -483,8 +483,8 @@ The library has the following <i>User's Guides</i>:
 end UsersGuide;
 
 annotation (
-version="4.0.0",
-versionDate="2019-07-12",
+version="3.0.0",
+versionDate="2018-09-28",
 dateModified = "2018-09-28",
 uses(Modelica(version="3.2.2")),
 conversion(from(version="3.0.0",
