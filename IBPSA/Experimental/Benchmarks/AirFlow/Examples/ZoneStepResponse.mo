@@ -52,14 +52,14 @@ equation
   connect(boundary.T_in, weaBus.TDryBul) annotation (Line(
       points={{-62,12},{-70,12},{-70,34},{-84,34}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-42,-42},{-26,-42},{-26,-16},{-84,-16},{-84,34}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(step.y, weaDat.TDryBul_in) annotation (Line(
