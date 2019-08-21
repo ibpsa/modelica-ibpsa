@@ -295,7 +295,7 @@ As for the weather data reader
 <a href=\"modelica://IBPSA.BoundaryConditions.WeatherData.ReaderTMY3\">
 IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>,
 <code>time=0</code> corresponds to January 1st at midnight
-in the <emph>local time zone</emph>.
+in the <em>local time zone</em>.
 The computed outputs are thus also for the local time zone.
 The year for which <code>time=0</code> is determined by
 the parameter <code>zerTim</code>.
