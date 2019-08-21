@@ -966,9 +966,9 @@ equation
 This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data.
 The Modelica built-in variable <code>time</code> determines what row
 of the weather file is read.
-The value of <code>time</code>, by convention, is the number of seconds
+The value of <code>time</code> is the number of seconds
 that have passed since January 1st at midnight (00:00) in the local time zone.
-The local time zone value, longitude and latitute are also read from the weather data, 
+The local time zone value, longitude and latitute are also read from the weather data,
 such that the solar position computations are consistent with the weather data.
 </p>
 <p>

@@ -291,11 +291,11 @@ First implementation.
 This blocks computes the unix time stamp, date and time
 and the day of the week based on the Modelica
 variable <code>time</code>.
-We use the convention from 
+As for the weather data reader
 <a href=\"modelica://IBPSA.BoundaryConditions.WeatherData.ReaderTMY3\">
-IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>
-that <code>time=0</code> corresponds to January 1st at midnight 
-in the <b>local time zone</b>.
+IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>,
+<code>time=0</code> corresponds to January 1st at midnight
+in the <emph>local time zone</emph>.
 The computed outputs are thus also for the local time zone.
 The year for which <code>time=0</code> is determined by
 the parameter <code>zerTim</code>.
@@ -318,13 +318,11 @@ using the model parameters <code>zerTim</code>, and, if
 <code>zerTim==IBPSA.Utilities.Time.Types.ZeroTime.Custom</code>,
 the parameter <code>yearRef</code>.
 When <code>zerTim==IBPSA.Utilities.Time.Types.ZeroTime.UnixTimeStampGMT</code>,
-<code>time</code> is defined with respect to GMT. This is incompatible with
+<code>time</code> is defined with respect to GMT. This is different from the use
+of <code>time</code> in the weather data reader
 <a href=\"modelica://IBPSA.BoundaryConditions.WeatherData.ReaderTMY3\">
-IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>, which assumes
+IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>, as the weather data reader assumes
 that <code>time</code> is expressed in local time.
-This option should thus not be combined with 
-<a href=\"modelica://IBPSA.BoundaryConditions.WeatherData.ReaderTMY3\">
-IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>.
 
 
 The user can choose from new year, midnight for a number of years:
@@ -338,10 +336,10 @@ when setting <code>zerTim = ZeroTime.UnixTimeStamp</code>.
 This is within the 2010-2020 range and is therefore allowed.)
 The unix time stamp is formally defined as the number of
 seconds since midnight of new year in 1970 GMT.
-To output the correct unix time stamp, set <code>outputUnixTimeStamp=true</code> 
-We then require the local time zone <code>timZon</code> 
+To output the correct unix time stamp, set <code>outputUnixTimeStamp=true</code>
+We then require the local time zone <code>timZon</code>
 (see <a href=\"modelica://IBPSA.BoundaryConditions.WeatherData.ReaderTMY3\">
-IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>) 
+IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>)
 since <code>time</code> uses the local time zone instead of GMT.
 We always output <code>unixTimeStampLocal</code>, which is a time stamp
 that uses the local time zone reference instead of GMT.

@@ -1,7 +1,7 @@
 within IBPSA.Utilities.Time.Types;
 type ZeroTime = enumeration(
     UnixTimeStamp "Thu, 01 Jan 1970 00:00:00 local time",
-    UnixTimeStampGMT "Thu, 01 Jan 1970 00:00:00 GMT (expert option)",
+    UnixTimeStampGMT "Thu, 01 Jan 1970 00:00:00 GMT",
     Custom "User specified local time",
     NY2010 "New year 2010, 00:00:00 local time",
     NY2011 "New year 2011, 00:00:00 local time",
@@ -28,13 +28,11 @@ January 1, 2016, 0:00:00 local time.
 </p>
 <p>
 When using <code>IBPSA.Utilities.Time.Types.ZeroTime.UnixTimeStampGMT</code>,
-<code>time</code> is defined with respect to GMT. This is incompatible with
+<code>time</code> is defined with respect to GMT. This is different from the use
+of <code>time</code> in the weather data reader
 <a href=\"modelica://IBPSA.BoundaryConditions.WeatherData.ReaderTMY3\">
-IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>, which assumes
+IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>, as the weather data reader assumes
 that <code>time</code> is expressed in local time.
-This option should thus not be combined with 
-<a href=\"modelica://IBPSA.BoundaryConditions.WeatherData.ReaderTMY3\">
-IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>.
 </p>
 </html>", revisions="<html>
 <ul>
