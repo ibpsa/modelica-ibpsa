@@ -10,10 +10,10 @@ model CalendarTime
   parameter Boolean outputUnixTimeStamp = false
     "= true, to output the unix time stamp (using GMT reference)"
     annotation(Dialog(group="Unix time stamp"));
-  parameter Modelica.SIunits.Time timZon = 0
+  parameter Modelica.SIunits.Time timZon(displayUnit="h") = 0
     "The local time zone, for computing the unix time stamp only"
     annotation(Dialog(enable=outputUnixTimeStamp,group="Unix time stamp"));
-  parameter Modelica.SIunits.Time offset = 0
+  parameter Modelica.SIunits.Time offset(displayUnit="h") = 0
     "Offset that is added to 'time', may be used for computing time in different time zones"
     annotation(Dialog(tab="Advanced"));
 
@@ -25,10 +25,10 @@ model CalendarTime
     "Unix time stamp"
         annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
-  discrete Modelica.Blocks.Interfaces.IntegerOutput year(start=2010) "Year"
+  discrete Modelica.Blocks.Interfaces.IntegerOutput year "Year"
     annotation (Placement(transformation(extent={{100,-24},{120,-4}}),
         iconTransformation(extent={{100,-24},{120,-4}})));
-  discrete Modelica.Blocks.Interfaces.IntegerOutput month(start=1) "Month of the year"
+  discrete Modelica.Blocks.Interfaces.IntegerOutput month "Month of the year"
     annotation (Placement(transformation(extent={{100,2},{120,22}}),
         iconTransformation(extent={{100,2},{120,22}})));
   Modelica.Blocks.Interfaces.IntegerOutput day(fixed=false) "Day of the month"
