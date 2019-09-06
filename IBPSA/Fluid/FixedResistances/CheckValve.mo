@@ -16,10 +16,6 @@ model CheckValve "Hydraulic one way valve"
     min=0) = 0 "Pressure drop of pipe and other resistances that are in series"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.PressureDifference dpCracking(
-    displayUnit="Pa",
-    min=0) = 1e5 + 0*0.35e5 "Cracking pressure";
-
   parameter Real l(
     min=1e-10,
     max=1) = 0.001 "Valve leakage, l=Kv(y=0)/Kv(y=1)";
