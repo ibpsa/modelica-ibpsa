@@ -76,5 +76,21 @@ equation
         Line(
           points={{40,0},{100,0}},
           color={0,128,255},
-          lineThickness=0.2)}));
+          lineThickness=0.2)}), Documentation(info="<html>
+<p>
+This function implements a hydraulic check valve. The implementation reuses the basic flow functions and defines the hydraulic restriction paramter as a funcion of the pressuredifference and gradually transitioning between the reverse and forward coefficient. The reverse coefficient is defined as a leakage factor with respect to the forward coefficient.
+</p>
+<p>
+The transition between the hydraulic coefficients is done by a tanh funcion which is shaped so that the parameter dpValve_nominal resembles the cracking pressure od the valve.</p>
+
+</html>", revisions="<html>
+<ul>
+<li>
+September 6, 2019, by Kristoff Six:<br/>
+First implementation.
+<br/> See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1198\">Issue #1198</a>.
+</li>
+</ul>
+</html>
+"));
 end CheckValve;
