@@ -1,11 +1,11 @@
 within IBPSA.Fluid.FixedResistances;
 model CheckValve "Hydraulic one way valve"
 
-  extends IDEAS.Fluid.BaseClasses.PartialResistance(
+  extends IBPSA.Fluid.BaseClasses.PartialResistance(
     final dp_nominal=dpValve_nominal + dpFixed_nominal,
     dp(nominal=6000),
     final m_flow_turbulent=deltaM*abs(m_flow_nominal));
-  extends IDEAS.Fluid.Actuators.BaseClasses.ValveParameters(rhoStd=
+  extends IBPSA.Fluid.Actuators.BaseClasses.ValveParameters(rhoStd=
         Medium.density_pTX(
         101325,
         273.15 + 4,
@@ -24,20 +24,25 @@ model CheckValve "Hydraulic one way valve"
     unit="",
     min=0) = if dpFixed_nominal > Modelica.Constants.eps then m_flow_nominal/
     sqrt(dpFixed_nominal) else 0
-    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
+    "Flow coefficient of fixed resistance that may be in series with valve, 
+    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 
   Real k(unit="", min=Modelica.Constants.small)
-    "Flow coefficient of valve and pipe in series in allowed/forward direction, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
+    "Flow coefficient of valve and pipe in series in allowed/forward direction, 
+    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 
   Real kRev(unit="", min=Modelica.Constants.small)
-    "Flow coefficient of valve and pipe in series in restricted/reverse direction, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
+    "Flow coefficient of valve and pipe in series in restricted/reverse 
+    direction, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 
 protected
-  Real a, kstar;
+  Real a "Interpolating variable";
+  Real kstar "Flow dependant restriction";
 
 initial equation
-  assert(dpFixed_nominal > -Modelica.Constants.eps, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
-     + String(dpFixed_nominal) + " Pa.");
+  assert(dpFixed_nominal > -Modelica.Constants.eps,
+    "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
+    + String(dpFixed_nominal) + " Pa.");
 
 equation
 
@@ -46,12 +51,15 @@ equation
   else
     k = Kv_SI;
   end if;
-  kRev=k*l;
+  kRev = k*l;
 
-  a = (1+tanh(dp/dpValve_nominal*5-5))/2;
+  a = (1 + tanh(dp/dpValve_nominal*2*5 - 5))/2;
   kstar = a*k + (1 - a)*kRev;
 
-  m_flow = IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp = dp, k = kstar, m_flow_turbulent = m_flow_turbulent);
+  m_flow = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+    dp=dp,
+    k=kstar,
+    m_flow_turbulent=m_flow_turbulent);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={
@@ -78,11 +86,19 @@ equation
           color={0,128,255},
           lineThickness=0.2)}), Documentation(info="<html>
 <p>
-This function implements a hydraulic check valve. The implementation reuses the basic flow functions and defines the hydraulic restriction paramter as a funcion of the pressuredifference and gradually transitioning between the reverse and forward coefficient. The reverse coefficient is defined as a leakage factor with respect to the forward coefficient.
+This function implements a hydraulic check valve. The implementation 
+reuses the basic flow functions and defines the hydraulic restriction 
+paramter as a funcion of the pressuredifference and gradually 
+transitioning between the reverse and forward coefficient. The 
+reverse coefficient is defined as a leakage factor with respect 
+to the forward coefficient.
 </p>
-<p>
-The transition between the hydraulic coefficients is done by a tanh funcion which is shaped so that the parameter dpValve_nominal resembles the cracking pressure od the valve.</p>
 
+<p>
+The transition between the hydraulic coefficients is done by a tanh 
+funcion which is shaped so that the parameter dpValve_nominal resembles 
+the cracking pressure od the valve.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
