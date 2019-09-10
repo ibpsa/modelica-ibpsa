@@ -121,7 +121,7 @@ equation
   <ul>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
-  Renamed <code>alphaRad</code> to <code>hRad</code>, 
+  Renamed <code>alphaRad</code> to <code>hRad</code>,
   <code>alphaWinOut</code> to <code>hConWallOut</code>
   </li>
   <li>

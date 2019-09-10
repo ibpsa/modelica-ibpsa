@@ -256,7 +256,7 @@ equation
   <ul>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
-  Renamed <code>alphaWall</code> to <code>hConWall</code>, 
+  Renamed <code>alphaWall</code> to <code>hConWall</code>,
   <code>alphaWin</code> to <code>hConWin</code>
   </li>
   <li>

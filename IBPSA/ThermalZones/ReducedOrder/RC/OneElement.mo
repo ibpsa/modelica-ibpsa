@@ -471,10 +471,10 @@ revisions="<html>
 <ul>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
-  Renamed <code>alphaRad</code> to <code>hRad</code>, 
-  <code>alphaWin</code> to <code>hConWin</code>, 
-  <code>alphaExt</code> to <code>hConExt</code>, 
-  <code>alphaExtWallConst</code> to <code>hConExtWall_const</code>, 
+  Renamed <code>alphaRad</code> to <code>hRad</code>,
+  <code>alphaWin</code> to <code>hConWin</code>,
+  <code>alphaExt</code> to <code>hConExt</code>,
+  <code>alphaExtWallConst</code> to <code>hConExtWall_const</code>,
   <code>alphaWinConst</code> to <code>hConWin_const</code>
   </li>
   <li>
@@ -484,7 +484,7 @@ revisions="<html>
   <li>
   September 26, 2016, by Moritz Lauster:<br/>
   Added conditional statements to solar radiation part.<br/>
-  Deleted conditional statements of 
+  Deleted conditional statements of
   <code>splitFactor</code> and <code>splitFactorSolRad</code>.
   </li>
   <li>

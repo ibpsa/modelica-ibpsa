@@ -199,7 +199,7 @@ equation
   <ul>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
-  Renamed <code>alphaRoof</code> to <code>hConRoof</code>, 
+  Renamed <code>alphaRoof</code> to <code>hConRoof</code>,
   <code>alphaRoofConst</code> to <code>hConRoof_const</code>
   </li>
   <li>

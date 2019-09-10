@@ -129,7 +129,7 @@ equation
   <ul>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
-  Renamed <code>alphaInt</code> to <code>hConInt</code>, 
+  Renamed <code>alphaInt</code> to <code>hConInt</code>,
   <code>alphaIntWall</code> to <code>hConIntWall</code>
   </li>
   <li>
