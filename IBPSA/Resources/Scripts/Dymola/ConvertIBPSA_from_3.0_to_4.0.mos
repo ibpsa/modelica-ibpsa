@@ -10,105 +10,33 @@ convertClass("IBPSA.Fluid.Sources.FixedBoundary",
 
 //refactoring of alpha to hCon or hRad
 convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
-    "alphaWin",
-    "hConWin");
-convertElement(
     "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
     "alphaWin",
     "hConWin");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
-    "alphaWin",
-    "hConWin");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
-    "alphaWin",
-    "hConWin");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
-    "alphaExt",
-    "hConExt");
 convertElement(
     "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
     "alphaExt",
     "hConExt");
 convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
-    "alphaExt",
-    "hConExt");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
-    "alphaExt",
-    "hConExt");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
-    "alphaExtWallConst",
-    "hConExtWall_const");
-convertElement(
     "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
     "alphaExtWallConst",
     "hConExtWall_const");
 convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
-    "alphaExtWallConst",
-    "hConExtWall_const");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
-    "alphaExtWallConst",
-    "hConExtWall_const");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
-    "alphaWinConst",
-    "hConWin_const");
-convertElement(
     "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
     "alphaWinConst",
     "hConWin_const");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
-    "alphaWinConst",
-    "hConWin_const");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
-    "alphaWinConst",
-    "hConWin_const");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
-    "alphaFloor",
-    "hConFloor");
 convertElement(
     "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
     "alphaFloor",
     "hConFloor");
 convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
-    "alphaFloorConst",
-    "hConFloor_const");
-convertElement(
     "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
     "alphaFloorConst",
     "hConFloor_const");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
-    "alphaInt",
-    "hConInt");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
-    "alphaInt",
-    "hConInt");
 convertElement(
     "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
     "alphaInt",
     "hConInt");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
-    "alphaIntWall",
-    "hConIntWall");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
-    "alphaIntWall",
-    "hConIntWall");
 convertElement(
     "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
     "alphaIntWall",
@@ -122,41 +50,13 @@ convertElement(
     "alphaRoofConst",
     "hConRoof_const");
 convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
-    "alphaRad",
-    "hRad");
-convertElement(
     "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
     "alphaRad",
     "hRad");
 convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
-    "alphaRad",
-    "hRad");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
-    "alphaRad",
-    "hRad");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007",
-    "alphaWallOut",
-    "hConWallOut");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow",
-    "alphaWallOut",
-    "hConWallOut");
-convertElement(
     "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007",
     "alphaWallOut",
     "hConWallOut");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007",
-    "alphaRad",
-    "hRad");
-convertElement(
-    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow",
-    "alphaRad",
-    "hRad");
 convertElement(
     "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007",
     "alphaRad",
