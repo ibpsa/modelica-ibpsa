@@ -3,22 +3,25 @@ model BoundaryWithXi_in
   "Validation model for boundary with different media and mass fraction input"
   extends Modelica.Icons.Example;
 
-  BoundarySystemWithXi_in bouMoiAir(redeclare package Medium = Media.Air)
+  IBPSA.Fluid.Sources.Validation.BaseClasses.BoundarySystemWithXi_in bouMoiAir(
+    redeclare package Medium = Media.Air)
     "Boundary with moist air"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-  BoundarySystemWithXi_in bouMoiAirCO2(redeclare package Medium = Media.Air(extraPropertiesNames={"CO2"}))
+  IBPSA.Fluid.Sources.Validation.BaseClasses.BoundarySystemWithXi_in bouMoiAirCO2(
+    redeclare package Medium = Media.Air(extraPropertiesNames={"CO2"}))
     "Boundary with moist air"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
-  BoundarySystemWithXi_in bouProFluGas(
+  IBPSA.Fluid.Sources.Validation.BaseClasses.BoundarySystemWithXi_in bouProFluGas(
    redeclare package Medium =
         Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents)
     "Boundary with flue gas"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  BoundarySystemWithXi_in bouNatGas(redeclare package Medium =
-       Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas)
+  IBPSA.Fluid.Sources.Validation.BaseClasses.BoundarySystemWithXi_in bouNatGas(
+    redeclare package Medium =
+        Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas)
     "Boundary with natural gas"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 

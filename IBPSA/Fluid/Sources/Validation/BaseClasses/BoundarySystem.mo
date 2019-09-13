@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Sources.Validation;
+within IBPSA.Fluid.Sources.Validation.BaseClasses;
 model BoundarySystem "System model for testing of boundary condition"
   extends Modelica.Blocks.Icons.Block;
   replaceable package Medium =
@@ -36,7 +36,7 @@ which is a protected variable in
 <a href=\"modelica://IBPSA.Fluid.Sources.Boundary_pT\">
 IBPSA.Fluid.Sources.Boundary_pT</a>.
 Therefore, this model has been created so that the boundary model has a port which
-is here used to access the mass fraction.
+is used to access the mass fraction.
 </p>
 </html>", revisions="<html>
 <ul>

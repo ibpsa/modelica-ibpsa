@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Sources.Validation;
+within IBPSA.Fluid.Sources.Validation.BaseClasses;
 model BoundarySystemWithXi_in
   "System model for testing boundary condition with mass fraction input"
   extends BoundarySystem(sou(use_Xi_in=true));
