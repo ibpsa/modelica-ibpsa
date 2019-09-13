@@ -12,7 +12,7 @@ algorithm
 <p>
 Twice continuously differentiable approximation to the
 <code>Heaviside(.,.)</code> function.<br/>
-Function is derived from a quintic polynomal going through (0,0) and (1,1), 
+Function is derived from a quintic polynomial going through (0,0) and (1,1), 
 with zero first and second order derivatives at those points.<br/>
 See Example <a href=\"modelica://IBPSA.Utilities.Math.Examples.SmoothHeaviside\">
 IBPSA.Utilities.Math.Examples.SmoothHeaviside</a>.
