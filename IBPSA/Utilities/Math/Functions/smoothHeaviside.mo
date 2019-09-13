@@ -20,7 +20,7 @@ IBPSA.Utilities.Math.Examples.SmoothHeaviside</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-Setpember 13, 2019, by Kristoff Six:<br/>
+September 13, 2019, by Kristoff Six:<br/>
 Once continuously differentiable replaced by twice continuously differentiable implementation. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
 </li>
