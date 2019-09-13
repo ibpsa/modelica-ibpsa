@@ -68,34 +68,13 @@ equation
 
 
   if not use_X_in and not use_Xi_in then
-    // No connector is used. Use parameter X
+    // No connector is used. Use parameter X.
     X_in_internal = X;
     Xi_in_internal = X[1:Medium.nXi];
   end if;
 
-
-
-
- // connect(X_in[1:Medium.nXi], Xi_in_internal);
- // connect(X_in, X_in_internal);
- // connect(Xi_in, Xi_in_internal);
   connect(C_in, C_in_internal);
 
-//  connect(medium.Xi, Xi_in_internal);
-//  if not use_X_in and not use_Xi_in then
-//    Xi_in_internal = X[1:Medium.nXi];
-//  end if;
-//  if not use_X_in then
-//    X_in_internal[1:Medium.nXi] = Xi_in_internal[1:Medium.nXi];
-//    if (Medium.reducedX and not Medium.fixedX) then
-////      X_in_internal[Medium.nX] = 1-sum(Xi_in_internal); // needed for Water, MoistAir
-//    elseif Medium.fixedX then
-      // This is needed for IBPSA.Medium.Water and Modelica.Media.Water.ConstantPropertyLiquidWater
-      // because above, X_in_internal[1] is not assigned, and these media have fixedX=true
-//      X_in_internal[1] = 1;
-//   end if;
-//    X_in_internal = X;
- // end if;
   if not use_C_in then
     C_in_internal = C;
   end if;
@@ -141,6 +120,16 @@ Otherwise the parameter value is used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 19, 2019, by Michael Wetter:<br/>
+Refactored handling of mass fractions which was needed to handle media such as
+<a href=\"modelica://Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents\">
+Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents</a> and
+<a href=\"modelica://Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas\">
+Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">IBPSA, #1205</a>.
+</li>
 <li>
 February 13, 2018, by Michael Wetter:<br/>
 Corrected error in quantity assignment for <code>Xi_in</code>.
