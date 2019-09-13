@@ -4,12 +4,12 @@ model BoundaryWithXi_in
   extends Modelica.Icons.Example;
 
   IBPSA.Fluid.Sources.Validation.BaseClasses.BoundarySystemWithXi_in bouMoiAir(
-    redeclare package Medium = Media.Air)
+    redeclare package Medium = IBPSA.Media.Air)
     "Boundary with moist air"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
   IBPSA.Fluid.Sources.Validation.BaseClasses.BoundarySystemWithXi_in bouMoiAirCO2(
-    redeclare package Medium = Media.Air(extraPropertiesNames={"CO2"}))
+    redeclare package Medium = IBPSA.Media.Air(extraPropertiesNames={"CO2"}))
     "Boundary with moist air"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
