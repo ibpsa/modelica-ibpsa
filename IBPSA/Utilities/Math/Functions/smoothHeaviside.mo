@@ -3,9 +3,13 @@ function smoothHeaviside
   "Twice continuously differentiable approximation to the Heaviside function"
   extends Modelica.Icons.Function;
   input Real x "Argument";
+  input Real delta "Parameter used for scaling";
   output Real y "Result";
+protected
+  Real dx;
 algorithm
- y := max(0, min(1, x^3*(10+x*(-15+6*x))));
+  dx:=x/delta;
+  y := max(0, min(1, dx^3*(10+dx*(-15+6*dx))));
 
  annotation (smoothOrder = 2,
  Documentation(info="<html>
