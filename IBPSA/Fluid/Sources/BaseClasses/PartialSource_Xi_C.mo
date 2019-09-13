@@ -49,19 +49,51 @@ equation
     Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
       Medium.singleState, true, X_in_internal, "Boundary_pT");
   end if;
-  connect(X_in[1:Medium.nXi], Xi_in_internal);
-  connect(X_in,X_in_internal);
-  connect(Xi_in, Xi_in_internal);
-  connect(C_in, C_in_internal);
 
-  connect(medium.Xi, Xi_in_internal);
+  // Assign Xi_in_internal and X_in_internal
+  // Note that at most one of X_in or Xi_in is present
+  connect(X_in, X_in_internal);
+  connect(Xi_in, Xi_in_internal);
+
+  if use_Xi_in then
+    // Must assign all components of X_in_internal, using Xi_in
+    X_in_internal[1:Medium.nXi] = Xi_in_internal[1:Medium.nXi];
+    // If reducedX = true, medium contains the equation sum(X) = 1.0
+    // Media with only one substance (e.g., water) have reducedX=true
+    // FlueGas and SimpleNaturalGas has reducedX = false
+    X_in_internal[Medium.nX] = if Medium.reducedX then 1-sum(Xi_in_internal) else X[Medium.nX];
+  end if;
+
+
   if not use_X_in and not use_Xi_in then
+    // No connector is used. Use parameter X
+    X_in_internal = X;
     Xi_in_internal = X[1:Medium.nXi];
   end if;
-  if not use_X_in then
-    X_in_internal[1:Medium.nXi] = Xi_in_internal[1:Medium.nXi];
-    X_in_internal[Medium.nX] = 1-sum(X_in_internal[1:Medium.nXi]);
-  end if;
+
+
+
+
+ // connect(X_in[1:Medium.nXi], Xi_in_internal);
+ // connect(X_in, X_in_internal);
+ // connect(Xi_in, Xi_in_internal);
+  connect(C_in, C_in_internal);
+
+//  connect(medium.Xi, Xi_in_internal);
+//  if not use_X_in and not use_Xi_in then
+//    Xi_in_internal = X[1:Medium.nXi];
+//  end if;
+//  if not use_X_in then
+//    X_in_internal[1:Medium.nXi] = Xi_in_internal[1:Medium.nXi];
+//    if (Medium.reducedX and not Medium.fixedX) then
+////      X_in_internal[Medium.nX] = 1-sum(Xi_in_internal); // needed for Water, MoistAir
+//    elseif Medium.fixedX then
+      // This is needed for IBPSA.Medium.Water and Modelica.Media.Water.ConstantPropertyLiquidWater
+      // because above, X_in_internal[1] is not assigned, and these media have fixedX=true
+//      X_in_internal[1] = 1;
+//   end if;
+//    X_in_internal = X;
+ // end if;
   if not use_C_in then
     C_in_internal = C;
   end if;
