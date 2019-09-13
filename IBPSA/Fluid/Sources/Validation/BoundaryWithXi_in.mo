@@ -3,41 +3,41 @@ model BoundaryWithXi_in
   "Validation model for boundary with different media and mass fraction input"
   extends Modelica.Icons.Example;
 
-  Boundary_pT bouMoiAir(redeclare package Medium = Media.Air, use_Xi_in=true)
+  BoundarySystemWithXi_in bouMoiAir(redeclare package Medium = Media.Air)
     "Boundary with moist air"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Boundary_pT bouMoiAirCO2(redeclare package Medium = Media.Air(extraPropertiesNames={"CO2"}),
-      use_Xi_in=true)
+
+  BoundarySystemWithXi_in bouMoiAirCO2(redeclare package Medium = Media.Air(extraPropertiesNames={"CO2"}))
     "Boundary with moist air"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Boundary_pT bouProFluGas(
+
+  BoundarySystemWithXi_in bouProFluGas(
    redeclare package Medium =
-        Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents, use_Xi_in=true)
+        Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents)
     "Boundary with flue gas"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Boundary_pT bouNatGas(redeclare package Medium =
-        Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas, use_Xi_in=true)
+
+  BoundarySystemWithXi_in bouNatGas(redeclare package Medium =
+       Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas)
     "Boundary with natural gas"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
-  Modelica.Blocks.Sources.Constant X_i1[1](k={0.985})
+  Modelica.Blocks.Sources.Constant Xi_1[1](k={0.985})
     "Prescribed mass fraction"
     annotation (Placement(transformation(extent={{-20,66},{0,86}})));
-  Modelica.Blocks.Sources.Constant X_i6[6](k={0.01*i for i in 1:6})
+  Modelica.Blocks.Sources.Constant Xi_6[6](k={0.5,0.2,0.0,0.3,0.0,0.0})
     "Prescribed mass fraction"
     annotation (Placement(transformation(extent={{-20,-14},{0,6}})));
-  Modelica.Blocks.Sources.Constant X_i2[6](k={0.01*i for i in 1:6})
-    "Prescribed mass fraction"
-    annotation (Placement(transformation(extent={{-20,-54},{0,-34}})));
+
 equation
-  connect(X_i1.y, bouMoiAir.Xi_in)
-    annotation (Line(points={{1,76},{18,76}}, color={0,0,127}));
-  connect(X_i6.y, bouProFluGas.Xi_in)
-    annotation (Line(points={{1,-4},{18,-4}}, color={0,0,127}));
-  connect(X_i1.y, bouMoiAirCO2.Xi_in) annotation (Line(points={{1,76},{10,76},{10,
-          36},{18,36}}, color={0,0,127}));
-  connect(X_i2.y, bouNatGas.Xi_in)
-    annotation (Line(points={{1,-44},{18,-44}}, color={0,0,127}));
+  connect(Xi_6.y, bouProFluGas.Xi_in)
+    annotation (Line(points={{1,-4},{10,-4},{10,0},{18,0}}, color={0,0,127}));
+  connect(Xi_1.y, bouMoiAir.Xi_in) annotation (Line(points={{1,76},{10,76},{10,80},
+          {18,80}}, color={0,0,127}));
+  connect(Xi_6.y, bouNatGas.Xi_in) annotation (Line(points={{1,-4},{10,-4},{10,-40},
+          {18,-40}}, color={0,0,127}));
+  connect(Xi_1.y, bouMoiAirCO2.Xi_in) annotation (Line(points={{1,76},{10,76},{10,
+          40},{18,40}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Validation model for <a href=\"modelica://IBPSA.Fluid.Sources.Boundary_pT\">

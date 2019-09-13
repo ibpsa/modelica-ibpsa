@@ -61,7 +61,9 @@ equation
     // If reducedX = true, medium contains the equation sum(X) = 1.0
     // Media with only one substance (e.g., water) have reducedX=true
     // FlueGas and SimpleNaturalGas has reducedX = false
-    X_in_internal[Medium.nX] = if Medium.reducedX then 1-sum(Xi_in_internal) else X[Medium.nX];
+    if Medium.reducedX then
+      X_in_internal[Medium.nX] = 1-sum(Xi_in_internal);
+    end if;
   end if;
 
 
