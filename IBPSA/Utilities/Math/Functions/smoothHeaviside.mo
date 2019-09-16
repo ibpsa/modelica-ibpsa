@@ -16,7 +16,7 @@ algorithm
 <p>
 Twice continuously differentiable approximation to the
 <code>Heaviside(.,.)</code> function.<br/>
-Function is derived from a quintic polynomal going through (0,0) and (1,1), 
+Function is derived from a quintic polynomial going through (0,0) and (1,1), 
 with zero first and second order derivatives at those points.<br/>
 See Example <a href=\"modelica://IBPSA.Utilities.Math.Examples.SmoothHeaviside\">
 IBPSA.Utilities.Math.Examples.SmoothHeaviside</a>.
@@ -24,7 +24,7 @@ IBPSA.Utilities.Math.Examples.SmoothHeaviside</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-Setpember 13, 2019, by Kristoff Six and Filip Jorissen:<br/>
+September 13, 2019, by Kristoff Six and Filip Jorissen:<br/>
 Once continuously differentiable replaced by twice continuously differentiable implementation. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
 </li>
