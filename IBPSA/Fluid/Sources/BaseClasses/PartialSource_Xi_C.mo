@@ -72,6 +72,10 @@ equation
     Xi_in_internal = X[1:Medium.nXi];
   end if;
 
+  if use_X_in then
+    X_in_internal[1:Medium.nXi] = Xi_in_internal[1:Medium.nXi];
+  end if;
+
   connect(C_in, C_in_internal);
 
   if not use_C_in then
