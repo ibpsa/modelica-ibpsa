@@ -64,6 +64,8 @@ equation
     if Medium.reducedX then
       X_in_internal[Medium.nX] = 1-sum(Xi_in_internal);
     end if;
+  elseif use_X_in then
+    X_in_internal[1:Medium.nXi] = Xi_in_internal[1:Medium.nXi];
   end if;
 
 

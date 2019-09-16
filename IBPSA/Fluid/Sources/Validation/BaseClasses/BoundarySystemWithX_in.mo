@@ -1,20 +1,20 @@
 within IBPSA.Fluid.Sources.Validation.BaseClasses;
-model BoundarySystemWithXi_in
+model BoundarySystemWithX_in
   "System model for testing boundary condition with mass fraction input"
-  extends IBPSA.Fluid.Sources.Validation.BaseClasses.BoundarySystem(sou(use_Xi_in=true));
-  Modelica.Blocks.Interfaces.RealInput Xi_in[Medium.nXi]
+  extends IBPSA.Fluid.Sources.Validation.BaseClasses.BoundarySystem(sou(use_X_in=true));
+  Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX]
     "Prescribed boundary composition"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 equation
   for i in 1:Medium.nXi loop
-    assert(abs(Xi[i] - Xi_in[i]) < 1E-6, "Error in implementation of mass fraction");
+    assert(abs(Xi[i] - X_in[i]) < 1E-6, "Error in implementation of mass fraction");
   end for;
-  connect(sou.Xi_in, Xi_in) annotation (Line(points={{-62,-4},{-82,-4},{-82,0},{
-          -120,0}}, color={0,0,127}));
+  connect(sou.X_in, X_in) annotation (Line(points={{-62,-4},{-82,-4},{-82,0},{-120,
+          0}},      color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 System model used to test the boundary conditions for different media
-with independent prescribed mass fraction <code>Xi</code>.
+with prescribed mass fraction <code>X</code>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -26,4 +26,4 @@ This is for
 </li>
 </ul>
 </html>"));
-end BoundarySystemWithXi_in;
+end BoundarySystemWithX_in;
