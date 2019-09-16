@@ -6,10 +6,10 @@ function smoothHeaviside
   input Real delta "Parameter used for scaling";
   output Real y "Result";
 protected
-  Real dx;
+  Real dx=0.5*x/delta;
+  Real xpow2=dx*dx;
 algorithm
-  dx:=x/delta;
-  y := max(0, min(1, dx^3*(10+dx*(-15+6*dx))));
+  y := max(0, min(1, 0.5+dx*(1.875+xpow2*(-5+6*xpow2))));
 
  annotation (smoothOrder = 2,
  Documentation(info="<html>
@@ -24,7 +24,7 @@ IBPSA.Utilities.Math.Examples.SmoothHeaviside</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-Setpember 13, 2019, by Kristoff Six:<br/>
+Setpember 13, 2019, by Kristoff Six and Filip Jorissen:<br/>
 Once continuously differentiable replaced by twice continuously differentiable implementation. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
 </li>
