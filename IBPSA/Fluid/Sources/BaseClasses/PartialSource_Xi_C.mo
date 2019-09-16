@@ -66,10 +66,7 @@ equation
     end if;
   elseif use_X_in then
     X_in_internal[1:Medium.nXi] = Xi_in_internal[1:Medium.nXi];
-  end if;
-
-
-  if not use_X_in and not use_Xi_in then
+  else
     // No connector is used. Use parameter X.
     X_in_internal = X;
     Xi_in_internal = X[1:Medium.nXi];
