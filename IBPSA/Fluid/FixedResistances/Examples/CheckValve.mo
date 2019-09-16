@@ -1,5 +1,5 @@
 within IBPSA.Fluid.FixedResistances.Examples;
-model CheckValve_from_dp "Example model for check valve"
+model CheckValve "Example model for check valve"
   extends Modelica.Icons.Example;
 
   package Medium = IDEAS.Media.Water "Medium model";
@@ -43,4 +43,4 @@ equation
   connect(checkValve.port_b, sin.ports[1])
     annotation (Line(points={{10,0},{30,0}}, color={0,127,255}));
   annotation (experiment(StopTime=1));
-end CheckValve_from_dp;
+end CheckValve;
