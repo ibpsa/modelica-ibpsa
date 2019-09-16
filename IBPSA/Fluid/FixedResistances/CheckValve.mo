@@ -45,7 +45,8 @@ initial equation
 equation
 
   a = dp/dpValve_nominal;
-  cv = max(0,min(1,a^3*(10+a*(-15+6*a))));
+  cv = max(0,min(1,a^3*(10+a*(-15+6*a)))); // update this to call
+  //IBPSA.Utilities.Math.Functions.smoothHeaviside when issue 1202 is merged
   kstar = Kv_SI*(cv + l);
 
   // add series restriction when applicable
