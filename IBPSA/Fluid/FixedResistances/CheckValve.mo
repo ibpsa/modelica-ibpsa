@@ -1,14 +1,14 @@
 within IBPSA.Fluid.FixedResistances;
 model CheckValve "Hydraulic one way valve"
 
-  extends IDEAS.Fluid.BaseClasses.PartialResistance(
+  extends IBPSA.Fluid.BaseClasses.PartialResistance(
     dp(nominal=6000),
     final dp_nominal=dpValve_nominal + dpFixed_nominal,
     final m_flow_turbulent=deltaM*abs(m_flow_nominal),
     final from_dp=false,
     final linearized=false);
 
-  extends IDEAS.Fluid.Actuators.BaseClasses.ValveParameters(
+  extends IBPSA.Fluid.Actuators.BaseClasses.ValveParameters(
     rhoStd=Medium.density_pTX(101325, 273.15 + 4, Medium.X_default));
 
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(
