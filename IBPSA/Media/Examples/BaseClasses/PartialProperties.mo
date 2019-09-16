@@ -15,6 +15,8 @@ partial model PartialProperties
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
     "Celsius temperature";
 
+  Medium.ThermodynamicState state_pTX "Medium state";
+
   Modelica.SIunits.Density d "Density";
   Modelica.SIunits.DynamicViscosity eta "Dynamic viscosity";
   Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";

@@ -1,10 +1,9 @@
 within IBPSA.Media.Examples.BaseClasses;
 partial model SteamProperties
   "Model that tests the implementation of the fluid properties"
-  extends PartialProperties;
+  extends IBPSA.Media.Examples.BaseClasses.PartialProperties;
 
-  Medium.ThermodynamicState state_pTX "Medium state";
-
+  //Medium.ThermodynamicState state_pTX "Medium state";
   Modelica.Media.Interfaces.Types.DerDensityByPressure ddph
     "Density derivative w.r.t. pressure";
   Modelica.Media.Interfaces.Types.DerDensityByEnthalpy ddhp
