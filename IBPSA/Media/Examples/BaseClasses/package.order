@@ -1,2 +1,4 @@
 FluidProperties
+PartialProperties
+SteamProperties
 TestTemperatureEnthalpyInversion
