@@ -31,7 +31,7 @@ model CheckValve "Hydraulic one way valve"
 
 protected
   Real a     "Pressure scaled variable";
-  Real cv    "Smoothed heaviside checkvalve characteristic";
+  Real cv    "Smoothed heaviside check valve characteristic";
   Real kstar "Smoothed restriction characteristic";
 
 initial equation
