@@ -10,3 +10,4 @@ WaterDerivativeCheck
 WaterProperties
 WaterTemperatureEnthalpyInversion
 BaseClasses
+SteamTemperatureEnthalpyInversionError
