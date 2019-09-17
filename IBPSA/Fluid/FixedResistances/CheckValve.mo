@@ -40,7 +40,7 @@ initial equation
     Received dpFixed_nominal = " + String(dpFixed_nominal) + " Pa.");
 
   assert(l > -Modelica.Constants.eps,
-    "In " + getInstanceName() + ": Require l >= 0. Received l = " + String(l));
+    "In " + getInstanceName() + ": We require l >= 0. Received l = " + String(l));
 
 equation
 
