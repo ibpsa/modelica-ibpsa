@@ -5,7 +5,7 @@ model CheckValve "Hydraulic one way valve"
     dp(nominal=6000),
     final dp_nominal=dpValve_nominal + dpFixed_nominal,
     final m_flow_turbulent=deltaM*abs(m_flow_nominal),
-    final from_dp=false,
+    final from_dp=true,
     final linearized=false);
 
   extends IBPSA.Fluid.Actuators.BaseClasses.ValveParameters(
@@ -30,25 +30,26 @@ model CheckValve "Hydraulic one way valve"
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 
 protected
-  Real a     "Pressure scaled variable";
-  Real cv    "Smoothed heaviside checkvalve characteristic";
-  Real kstar "Smoothed restriction characteristic";
+  Real a = dp/dpValve_nominal
+    "Pressure scaled variable"
+    annotation(Inline=true);
+  Real cv = max(0,min(1,a^3*(10+a*(-15+6*a))))
+    "Smoothed heaviside check valve characteristic"
+    annotation(Inline=true);
+// update cv to call IBPSA.Utilities.Math.Functions.smoothHeaviside when issue 1202 is merged
+  Real kstar = Kv_SI*(cv + l)
+    "Smoothed restriction characteristic"
+    annotation(Inline=true);
 
 initial equation
   assert(dpFixed_nominal > -Modelica.Constants.eps,
-    "In " + getInstanceName() + ": Require dpFixed_nominal >= 0. 
+    "In " + getInstanceName() + ": We require dpFixed_nominal >= 0. 
     Received dpFixed_nominal = " + String(dpFixed_nominal) + " Pa.");
 
   assert(l > -Modelica.Constants.eps,
-    "In " + getInstanceName() + ": Require l >= 0. Received l = " + String(l));
+    "In " + getInstanceName() + ": Wr require l >= 0. Received l = " + String(l));
 
 equation
-
-  a = dp/dpValve_nominal;
-  cv = max(0,min(1,a^3*(10+a*(-15+6*a)))); // update this to call
-  //IBPSA.Utilities.Math.Functions.smoothHeaviside when issue 1202 is merged
-  kstar = Kv_SI*(cv + l);
-
   // add series restriction when applicable
   if (dpFixed_nominal > Modelica.Constants.eps) then
     k = sqrt(1/(1/kFixed^2 + 1/kstar^2));
@@ -59,7 +60,7 @@ equation
   if homotopyInitialization then m_flow = homotopy(actual=
       IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
         dp = dp, k = k, m_flow_turbulent = m_flow_turbulent),
-      simplified = if dp > 0 then k*dp else k*l*dp);
+      simplified = m_flow_nominal_pos*dp/dp_nominal_pos);
   else
     // do not use homotopy
     m_flow = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
@@ -97,7 +98,8 @@ equation
           lineThickness=0.5)}), Documentation(info="<html>
 <p>Implementation of a hydraulic check valve. </p>
 <h4>Main equations</h4>
-<p>The basic flow function <code>IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</code> 
+<p>The basic flow function <a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
+IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a> 
 is used with a pressure drop specific <code>k</code> factor. The latter is a combination of the 
 actual check valve characteristic <code>kstar</code>, in series with the optional fixed restriction 
 <code>kFixed</code>.</p>
@@ -114,7 +116,7 @@ helping the solver.
 </p>
 <p>
 <code>cv</code> is calculated from a twice differentiable smooth Heaviside function 
-<code>IBPSA.Utilities.Math.Functions.smoothHeaviside</code> with the normalized pressure as input.
+<a href=\"modelica://IBPSA.Utilities.Math.Functions.smoothHeaviside\">IBPSA.Utilities.Math.Functions.smoothHeaviside</a> with the normalized pressure as input.
 </p>
 <h4>Assumption and limitations</h4>
 <p>The cracking pressure of the valve is defined as a fixed ratio defined by the Heaviside function with respect to the nominal pressure.</p>
@@ -122,7 +124,7 @@ helping the solver.
 <p>
 <code>m_flow_nominal</code> together with <code>dp_nominal</code> determine where the check valve is completely opened.</p>
 
-The leakage ratio <code>l</code> defines the overall leakage restriction with respect to <code>Kv_SI</code>
+The leakage ratio <code>l</code> determines the flow rate when a reverse differential pressure exists.
 
 <!-- <h4>Validation</h4>
 <p>Describe whether the validation was done using analytical validation, comparative model validation or empirical validation. </p>
