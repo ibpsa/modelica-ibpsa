@@ -5,7 +5,7 @@ model CheckValve "Hydraulic one way valve"
     dp(nominal=6000),
     final dp_nominal=dpValve_nominal + dpFixed_nominal,
     final m_flow_turbulent=deltaM*abs(m_flow_nominal),
-    final from_dp=false,
+    final from_dp=true,
     final linearized=false);
 
   extends IBPSA.Fluid.Actuators.BaseClasses.ValveParameters(
