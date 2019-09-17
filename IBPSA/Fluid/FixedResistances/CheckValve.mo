@@ -36,7 +36,7 @@ protected
 
 initial equation
   assert(dpFixed_nominal > -Modelica.Constants.eps,
-    "In " + getInstanceName() + ": Require dpFixed_nominal >= 0. 
+    "In " + getInstanceName() + ": We require dpFixed_nominal >= 0. 
     Received dpFixed_nominal = " + String(dpFixed_nominal) + " Pa.");
 
   assert(l > -Modelica.Constants.eps,
