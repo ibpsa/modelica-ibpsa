@@ -120,7 +120,7 @@ helping the solver.
 <p>The cracking pressure of the valve is defined as a fixed ratio defined by the Heaviside function with respect to the nominal pressure.</p>
 <h4>Typical use and important parameters</h4>
 <p>
-<code>m_flow_nominal</code> together with <code>dp_nominal</code> determine where the check valve is completely opened.</p>
+The parameters <code>m_flow_nominal</code> and <code>dp_nominal</code> determine when the check valve is fully opened. From this point on, it has a normal quadratic pressure drop characteristic.</p>
 
 The leakage ratio <code>l</code> defines the overall leakage restriction with respect to <code>Kv_SI</code>
 
