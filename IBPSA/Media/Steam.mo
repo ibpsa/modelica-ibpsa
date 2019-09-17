@@ -23,13 +23,17 @@ Limitation
 <li>
 This model uses standard physical equations to calculate enthalpy from temperature for different regions, 
 and use backward equations to calculate temperature from enthalpy to avoid iterations.
-The numnerical differences between standard equations and backward equations in terms of temperature is shown in the following figure.
+The numnerical differences between basic equations and backward equations in terms of temperature is shown in the following figure.
 </li>
 <li>
 The steam model has discontious properties when changing from liquid phase to vapor phase. Details can be observed in 
 <a href=\"modelica://IBPSA.Media.Examples.SteamProperties\">IBPSA.Media.Examples.SteamProperties</a>.
 </li>
 </ul>
+</p>
+<p align=\"center\">
+<img src=\"modelica://IBPSA/Resources/Images/Media/Steam/steam-error.png\"  
+alt=\"Numerical errors of temperature between basic equations and backward equations\"/>
 </p>
 
 </html>", revisions="<html>
