@@ -262,14 +262,16 @@ protected
 equation
   connect(volAir.ports, ports)
     annotation (Line(
-    points={{28,-10},{28,-70},{56,-70},{56,-122},{86,-122},{86,-180},{85,-180}},
-    color={0,127,255},
-    smooth=Smooth.None));
+      points={{28,-10},{28,-66},{56,-66},{56,-122},{86,-122},{86,-180},{85,-180}},
+
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(volMoistAir.ports, ports)
     annotation (Line(
-    points={{28,-10},{28,-70},{56,-70},{56,-122},{86,-122},{86,-180},{85,-180}},
-    color={0,127,255},
-    smooth=Smooth.None));
+      points={{28,-10},{28,-66},{56,-66},{56,-122},{86,-122},{86,-180},{85,-180}},
+
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(resWin.port_a, window)
     annotation (Line(
     points={{-180,40},{-240,40}},
@@ -512,6 +514,11 @@ The image below shows the RC-network of this model.
   </html>",
 revisions="<html>
 <ul>
+  <li>
+  September 24, 2019, by Martin Kremer:<br/>
+  Added possibility to consider moisture balance. <br/>
+  Defined <code>volAir</code> conditional. Added conditional <code>volMoistAir</code> and corresponding in- and output connectors.
+  </li>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaRad</code> to <code>hRad</code>,
