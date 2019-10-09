@@ -55,6 +55,10 @@ model OneElement "Thermal Zone with one element for exterior walls"
   parameter Boolean indoorPortExtWalls = false
     "Additional heat port at indoor surface of exterior walls"
     annotation(Dialog(group="Exterior walls"),choices(checkBox = true));
+  parameter Boolean use_moisture_balance = false
+    "Considering moisture balance in air volume. If set to true, make sure
+    Medium is used, that considers moisture content."
+    annotation(Dialog(tab="Advanced"),choices(checkBox = true));
 
   Modelica.Blocks.Interfaces.RealInput solRad[nOrientations](
     each final quantity="RadiantEnergyFluenceRate",
@@ -129,8 +133,25 @@ model OneElement "Thermal Zone with one element for exterior walls"
     final C_start=C_start,
     final C_nominal=C_nominal,
     final mSenFac=mSenFac,
-    final use_C_flow=false) if VAir > 0 "Indoor air volume"
+    final use_C_flow=false) if VAir > 0 and not use_moisture_balance
+    "Indoor air volume"
     annotation (Placement(transformation(extent={{38,-10},{18,10}})));
+  Fluid.MixingVolumes.MixingVolumeMoistAir volMoistAir(
+    redeclare final package Medium = Medium,
+    final nPorts=nPorts,
+    m_flow_nominal=VAir*6/3600*1.2,
+    final V=VAir,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final C_nominal=C_nominal,
+    final mSenFac=mSenFac,
+    final use_C_flow=false) if VAir > 0 and use_moisture_balance
+    "Indoor air volume"
+    annotation (Placement(transformation(extent={{18,-10},{38,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor resWin(final R=RWin) if
     ATotWin > 0 "Resistor for windows"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
@@ -164,6 +185,11 @@ model OneElement "Thermal Zone with one element for exterior walls"
     final RExtRem=RExtRem,
     final T_start=T_start) if ATotExt > 0 "RC-element for exterior walls"
     annotation (Placement(transformation(extent={{-158,-50},{-178,-28}})));
+  Modelica.Blocks.Interfaces.RealInput mWat_flow if use_moisture_balance and ATot >0
+    annotation (Placement(transformation(extent={{-280,-140},{-240,-100}}),
+        iconTransformation(extent={{-260,-120},{-240,-100}})));
+  Modelica.Blocks.Interfaces.RealOutput X_w if use_moisture_balance and ATot >0
+    annotation (Placement(transformation(extent={{240,-130},{260,-110}})));
 
 protected
   parameter Modelica.SIunits.Area ATot=sum(AArray) "Sum of wall surface areas";
@@ -236,9 +262,16 @@ protected
 equation
   connect(volAir.ports, ports)
     annotation (Line(
-    points={{28,-10},{28,-66},{56,-66},{56,-122},{86,-122},{86,-180},{85,-180}},
-    color={0,127,255},
-    smooth=Smooth.None));
+      points={{28,-10},{28,-66},{56,-66},{56,-122},{86,-122},{86,-180},{85,-180}},
+
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(volMoistAir.ports, ports)
+    annotation (Line(
+      points={{28,-10},{28,-66},{56,-66},{56,-122},{86,-122},{86,-180},{85,-180}},
+
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(resWin.port_a, window)
     annotation (Line(
     points={{-180,40},{-240,40}},
@@ -331,6 +364,8 @@ equation
     color={191,0,0}));
   connect(volAir.heatPort, senTAir.port)
     annotation (Line(points={{38,0},{58,0},{80,0}}, color={191,0,0}));
+  connect(volMoistAir.heatPort, senTAir.port)
+    annotation (Line(points={{18,0},{18,0},{80,0}}, color={191,0,0}));
   connect(senTAir.T, TAir)
     annotation (Line(points={{100,0},{108,0},{108,160},{250,160}},
     color={0,0,127}));
@@ -361,6 +396,16 @@ equation
     pattern=LinePattern.Dash));
   connect(sumSolRad.y, convHeatSol.Q_flow)
     annotation (Line(points={{-173.4,124},{-166,124}}, color={0,0,127}));
+  if use_moisture_balance then
+    connect(volMoistAir.X_w,X_w)
+      annotation (Line(points={{40,-4},{66,-4},{66,-120},{250,-120}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+    connect(mWat_flow,volMoistAir.mWat_flow)
+      annotation (Line(points={{-260,-120},{-20,-120},{-20,8},{16,8}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  end if;
   annotation (defaultComponentName="theZon",Diagram(coordinateSystem(
   preserveAspectRatio=false, extent={{-240,-180},{240,180}},
   grid={2,2}),  graphics={
@@ -469,6 +514,11 @@ The image below shows the RC-network of this model.
   </html>",
 revisions="<html>
 <ul>
+  <li>
+  September 24, 2019, by Martin Kremer:<br/>
+  Added possibility to consider moisture balance. <br/>
+  Defined <code>volAir</code> conditional. Added conditional <code>volMoistAir</code> and corresponding in- and output connectors.
+  </li>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaRad</code> to <code>hRad</code>,
