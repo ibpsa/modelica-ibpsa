@@ -56,9 +56,8 @@ model OneElement "Thermal Zone with one element for exterior walls"
     "Additional heat port at indoor surface of exterior walls"
     annotation(Dialog(group="Exterior walls"),choices(checkBox = true));
   parameter Boolean use_moisture_balance = false
-    "Considering moisture balance in air volume. If set to true, make sure
-    Medium is used, that considers moisture content."
-    annotation(Dialog(tab="Advanced"),choices(checkBox = true));
+    "If true, input connector QLat_flow is enabled and room air computes moisture balance"
+    annotation(choices(checkBox = true));
 
   Modelica.Blocks.Interfaces.RealInput solRad[nOrientations](
     each final quantity="RadiantEnergyFluenceRate",
@@ -67,6 +66,16 @@ model OneElement "Thermal Zone with one element for exterior walls"
     annotation (
     Placement(transformation(extent={{-280,120},{-240,160}}),
     iconTransformation(extent={{-260,140},{-240,160}})));
+
+  Modelica.Blocks.Interfaces.RealInput QLat_flow(final unit="W") if
+    use_moisture_balance and ATot >0
+    "Latent heat gains for the room"
+    annotation (Placement(transformation(extent={{-280,-140},{-240,-100}})));
+
+  Modelica.Blocks.Interfaces.RealOutput X_w(final unit="1") if
+       use_moisture_balance and ATot >0
+    "Water vapor concentration in air in kg/kg total air"
+    annotation (Placement(transformation(extent={{240,-130},{260,-110}})));
 
   Modelica.Blocks.Interfaces.RealOutput TAir(
     final quantity="ThermodynamicTemperature",
@@ -101,7 +110,8 @@ model OneElement "Thermal Zone with one element for exterior walls"
     annotation (Placement(transformation(extent={{-250,30},{-230,50}}),
     iconTransformation(extent={{-250,30},{-230,50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsConv if
-    ATot > 0 or VAir > 0 "Auxiliary port for internal convective gains"
+    ATot > 0 or VAir > 0
+    "Auxiliary port for sensible internal convective gains"
     annotation (Placement(
     transformation(extent={{230,30},{250,50}}), iconTransformation(extent={{230,30},
     {250,50}})));
@@ -185,13 +195,10 @@ model OneElement "Thermal Zone with one element for exterior walls"
     final RExtRem=RExtRem,
     final T_start=T_start) if ATotExt > 0 "RC-element for exterior walls"
     annotation (Placement(transformation(extent={{-158,-50},{-178,-28}})));
-  Modelica.Blocks.Interfaces.RealInput mWat_flow if use_moisture_balance and ATot >0
-    annotation (Placement(transformation(extent={{-280,-140},{-240,-100}}),
-        iconTransformation(extent={{-260,-120},{-240,-100}})));
-  Modelica.Blocks.Interfaces.RealOutput X_w if use_moisture_balance and ATot >0
-    annotation (Placement(transformation(extent={{240,-130},{260,-110}})));
 
 protected
+  constant Modelica.SIunits.SpecificEnergy h_fg=
+    IBPSA.Media.Air.enthalpyOfCondensingGas(273.15+37) "Latent heat of water vapor";
   parameter Modelica.SIunits.Area ATot=sum(AArray) "Sum of wall surface areas";
   parameter Modelica.SIunits.Area ATotExt=sum(AExt)
     "Sum of exterior wall surface areas";
@@ -259,6 +266,17 @@ protected
     "Sums up solar radiation from different directions"
     annotation (Placement(transformation(extent={{-186,118},{-174,130}})));
 
+  Modelica.Blocks.Math.Gain mWat_flow(
+    final k(unit="kg/J") = 1/h_fg,
+    u(final unit="W"),
+    y(final unit="kg/s")) if
+       use_moisture_balance and ATot >0 "Water flow rate due to latent heat gain"
+    annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
+
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow conQLat_flow if
+    use_moisture_balance and ATot >0
+    "Converter for latent heat flow rate"
+    annotation (Placement(transformation(extent={{-202,-130},{-182,-110}})));
 equation
   connect(volAir.ports, ports)
     annotation (Line(
@@ -401,12 +419,19 @@ equation
         points={{2,-20},{14,-20},{14,-120},{250,-120}},
         color={0,0,127},
         pattern=LinePattern.Dash));
-    connect(mWat_flow, volMoiAir.mWat_flow) annotation (Line(
-        points={{-260,-120},{-220,-120},{-220,-80},{-34,-80},{-34,-8},{-22,-8}},
-
+    connect(mWat_flow.y, volMoiAir.mWat_flow) annotation (Line(
+        points={{-179,-90},{-168,-90},{-168,-80},{-34,-80},{-34,-8},{-22,-8}},
         color={0,0,127},
         pattern=LinePattern.Dash));
+
   end if;
+  connect(conQLat_flow.port, volMoiAir.heatPort) annotation (Line(points={{-182,
+          -120},{-166,-120},{-166,-82},{-32,-82},{-32,-16},{-20,-16}}, color={191,
+          0,0}));
+  connect(mWat_flow.u, QLat_flow) annotation (Line(points={{-202,-90},{-232,-90},
+          {-232,-120},{-260,-120}}, color={0,0,127}));
+  connect(conQLat_flow.Q_flow, QLat_flow)
+    annotation (Line(points={{-202,-120},{-260,-120}}, color={0,0,127}));
   annotation (defaultComponentName="theZon",Diagram(coordinateSystem(
   preserveAspectRatio=false, extent={{-240,-180},{240,180}},
   grid={2,2}),  graphics={
@@ -515,6 +540,12 @@ The image below shows the RC-network of this model.
   </html>",
 revisions="<html>
 <ul>
+<li>
+October 9, 2019, by Michael Wetter:<br/>
+Refactored addition of moisture to also account for the energy content of the
+water vapor.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1209\">IBPSA, issue 1209</a>.
+</li>
   <li>
   September 24, 2019, by Martin Kremer:<br/>
   Added possibility to consider moisture balance. <br/>
