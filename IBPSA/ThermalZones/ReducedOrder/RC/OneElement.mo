@@ -70,12 +70,8 @@ model OneElement "Thermal Zone with one element for exterior walls"
   Modelica.Blocks.Interfaces.RealInput QLat_flow(final unit="W") if
     use_moisture_balance and ATot >0
     "Latent heat gains for the room"
-    annotation (Placement(transformation(extent={{-280,-140},{-240,-100}})));
-
-  Modelica.Blocks.Interfaces.RealOutput X_w(final unit="1") if
-       use_moisture_balance and ATot >0
-    "Water vapor concentration in air in kg/kg total air"
-    annotation (Placement(transformation(extent={{240,-130},{260,-110}})));
+    annotation (Placement(transformation(extent={{-280,-140},{-240,-100}}),
+        iconTransformation(extent={{-260,-120},{-240,-100}})));
 
   Modelica.Blocks.Interfaces.RealOutput TAir(
     final quantity="ThermodynamicTemperature",
@@ -415,10 +411,6 @@ equation
   connect(sumSolRad.y, convHeatSol.Q_flow)
     annotation (Line(points={{-173.4,124},{-166,124}}, color={0,0,127}));
   if use_moisture_balance then
-    connect(volMoiAir.X_w, X_w) annotation (Line(
-        points={{2,-20},{14,-20},{14,-120},{250,-120}},
-        color={0,0,127},
-        pattern=LinePattern.Dash));
     connect(mWat_flow.y, volMoiAir.mWat_flow) annotation (Line(
         points={{-179,-90},{-168,-90},{-168,-80},{-34,-80},{-34,-8},{-22,-8}},
         color={0,0,127},
