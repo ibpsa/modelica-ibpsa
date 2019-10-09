@@ -70,8 +70,8 @@ model OneElement "Thermal Zone with one element for exterior walls"
   Modelica.Blocks.Interfaces.RealInput QLat_flow(final unit="W") if
     use_moisture_balance and ATot >0
     "Latent heat gains for the room"
-    annotation (Placement(transformation(extent={{-280,-140},{-240,-100}}),
-        iconTransformation(extent={{-260,-120},{-240,-100}})));
+    annotation (Placement(transformation(extent={{-280,-150},{-240,-110}}),
+        iconTransformation(extent={{-260,-130},{-240,-110}})));
 
   Modelica.Blocks.Interfaces.RealOutput TAir(
     final quantity="ThermodynamicTemperature",
@@ -421,9 +421,10 @@ equation
           -120},{-166,-120},{-166,-82},{-32,-82},{-32,-16},{-20,-16}}, color={191,
           0,0}));
   connect(mWat_flow.u, QLat_flow) annotation (Line(points={{-202,-90},{-232,-90},
-          {-232,-120},{-260,-120}}, color={0,0,127}));
+          {-232,-130},{-260,-130}}, color={0,0,127}));
   connect(conQLat_flow.Q_flow, QLat_flow)
-    annotation (Line(points={{-202,-120},{-260,-120}}, color={0,0,127}));
+    annotation (Line(points={{-202,-120},{-232,-120},{-232,-130},{-260,-130}},
+                                                       color={0,0,127}));
   annotation (defaultComponentName="theZon",Diagram(coordinateSystem(
   preserveAspectRatio=false, extent={{-240,-180},{240,180}},
   grid={2,2}),  graphics={
