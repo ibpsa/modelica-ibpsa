@@ -3,7 +3,8 @@ model RoomWithLatentGain
   "Test case based on VDI 6007 Case 12, with latent heat gain added"
   extends VDI6007.TestCase12(
     redeclare package Medium = IBPSA.Media.Air,
-    thermalZoneTwoElements(use_moisture_balance=true, nPorts=4));
+    thermalZoneTwoElements(use_moisture_balance=true, nPorts=4,
+      VAir=52.5));
   Fluid.Sensors.RelativeHumidity senRelHum(
     redeclare package Medium = Medium)
     "Relative humidity of room air"
