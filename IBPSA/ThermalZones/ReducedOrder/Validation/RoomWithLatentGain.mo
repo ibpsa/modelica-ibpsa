@@ -3,8 +3,16 @@ model RoomWithLatentGain
   "Test case based on VDI 6007 Case 12, with latent heat gain added"
   extends VDI6007.TestCase12(
     redeclare package Medium = IBPSA.Media.Air,
-    thermalZoneTwoElements(use_moisture_balance=true, nPorts=4,
-      VAir=52.5));
+    thermalZoneTwoElements(use_moisture_balance=true,
+    nPorts=4,
+    VAir=52.5),
+    assEqu(
+      startTime=0,
+      endTime=0,
+      startTime2=0,
+      endTime2=0,
+      startTime3=0,
+      endTime3=0));
   Fluid.Sensors.RelativeHumidity senRelHum(
     redeclare package Medium = Medium)
     "Relative humidity of room air"
@@ -38,8 +46,7 @@ This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1209\">IBPS
 </ul>
 </html>"),
 experiment(
-      StopTime=604800,
-      __Dymola_NumberOfIntervals=5000,
+      StopTime=31536000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file=

@@ -3,8 +3,17 @@ model RoomWithoutLatentGain
   "Test case based on VDI 6007 Case 12, with zero latent heat gain added"
   extends VDI6007.TestCase12(
     redeclare package Medium = IBPSA.Media.Air,
-    thermalZoneTwoElements(use_moisture_balance=true, nPorts=4,
-      VAir=52.5));
+    thermalZoneTwoElements(
+      use_moisture_balance=true,
+      nPorts=4,
+      VAir=52.5),
+    assEqu(
+      startTime=0,
+      endTime=0,
+      startTime2=0,
+      endTime2=0,
+      startTime3=0,
+      endTime3=0));
   Modelica.Blocks.Sources.Constant QLat_flow(k=0) "Zero latent heat gain"
     annotation (Placement(
     transformation(
