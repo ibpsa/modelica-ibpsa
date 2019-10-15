@@ -269,7 +269,7 @@ protected
        use_moisture_balance and ATot >0 "Water flow rate due to latent heat gain"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow conQLat_flow if
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow conQLat_flow if
     use_moisture_balance and ATot >0
     "Converter for latent heat flow rate"
     annotation (Placement(transformation(extent={{-202,-130},{-182,-110}})));
