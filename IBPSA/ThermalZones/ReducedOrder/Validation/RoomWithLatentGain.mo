@@ -46,7 +46,7 @@ This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1209\">IBPS
 </ul>
 </html>"),
 experiment(
-      StopTime=31536000,
+      StopTime=604800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file=
