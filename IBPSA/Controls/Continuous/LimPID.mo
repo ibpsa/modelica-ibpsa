@@ -183,7 +183,7 @@ protected
     final uMin=yMin,
     final strict=strict,
     final homotopyType=Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy)
-                         "Output limiter"
+    "Output limiter"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
 
