@@ -181,7 +181,9 @@ protected
   Modelica.Blocks.Nonlinear.Limiter limiter(
     final uMax=yMax,
     final uMin=yMin,
-    final strict=strict) "Output limiter"
+    final strict=strict,
+    final homotopyType=Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy)
+                         "Output limiter"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
 
@@ -335,6 +337,11 @@ Some parameters assignments in the instances have been made final.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 19, 2019, by Filip Jorissen:<br/>
+Disabled homotopy to ensure bounded outputs, 
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">issue 1221</a>.
+</li>
 <li>
 September 29, 2016, by Michael Wetter:<br/>
 Refactored model.
