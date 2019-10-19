@@ -1,0 +1,8 @@
+simulateModel("IBPSA.Fluid.FixedResistances.Examples.CheckValve", method="Lsodar", tolerance=1e-06, stopTime=1, resultFile="CheckValve");
+
+createPlot(id=1, position={0, 0, 1097, 648}, y={"checkValve.dp"}, range={0.0, 1.0, -400000.0, 400000.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1097, 214}, y={"checkValve.m_flow", "checkValveDpFix.m_flow"}, range={0.0, 1.0, -5.0, 10.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1097, 213}, y={"checkValve.k"}, range={0.0, 1.0, -0.01, 0.019999999999999997}, grid=true, subPlot=3, colors={{28,108,200}});
+
+
+
