@@ -1,5 +1,4 @@
-CheckValve_from_dp
-CheckValve_from_m_flow
+CheckValve
 FlowJunction
 HydraulicDiameter
 PlugFlowPipe

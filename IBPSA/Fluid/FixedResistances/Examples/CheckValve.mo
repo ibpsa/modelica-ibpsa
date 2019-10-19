@@ -1,8 +1,8 @@
 within IBPSA.Fluid.FixedResistances.Examples;
-model CheckValve_from_dp "Example model for check valve"
+model CheckValve "Example model for check valve"
   extends Modelica.Icons.Example;
 
-  package Medium = IDEAS.Media.Water "Medium model";
+  package Medium = IBPSA.Media.Water "Medium model";
 
   Modelica.Blocks.Sources.Ramp P(
     duration=1.001,
@@ -11,7 +11,7 @@ model CheckValve_from_dp "Example model for check valve"
     startTime=0)        "Ramp pressure signal"
     annotation (Placement(transformation(extent={{-92,-2},{-72,18}})));
 
-  IDEAS.Fluid.Sources.Boundary_pT sou(
+  IBPSA.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     T=273.15 + 20,
     use_p_in=true,
@@ -20,7 +20,7 @@ model CheckValve_from_dp "Example model for check valve"
     annotation (Placement(transformation(
           extent={{-50,-10},{-30,10}})));
 
-  IDEAS.Fluid.Sources.Boundary_pT sin(
+  IBPSA.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     T=273.15 + 10,
     p(displayUnit="bar") = 500000,
@@ -30,7 +30,7 @@ model CheckValve_from_dp "Example model for check valve"
           extent={{50,-10},{30,10}})));
 
   IBPSA.Fluid.FixedResistances.CheckValve checkValve(
-    redeclare package Medium = IDEAS.Media.Water,
+    redeclare package Medium = IBPSA.Media.Water,
     m_flow_nominal=5,
     dpValve_nominal=1e5)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -43,4 +43,4 @@ equation
   connect(checkValve.port_b, sin.ports[1])
     annotation (Line(points={{10,0},{30,0}}, color={0,127,255}));
   annotation (experiment(StopTime=1));
-end CheckValve_from_dp;
+end CheckValve;
