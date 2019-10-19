@@ -24,7 +24,7 @@ model CheckValve "Check valve that avoids flow reversal"
     "Flow coefficient of valve and pipe in series in allowed/forward direction, 
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 protected
-  Real a = dp/dpValve_nominal*10
+  Real a = dp/dpValve_nominal
     "Scaled pressure variable"
     annotation(Inline=true);
   Real cv = smooth(2,max(0,min(1,a^3*(10+a*(-15+6*a)))))
