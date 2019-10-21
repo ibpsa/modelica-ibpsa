@@ -14,7 +14,7 @@ algorithm
  annotation (smoothOrder = 2,
  Documentation(info="<html>
 <p>
-Twice continuously differentiable approximation to the
+Twice Lipschitz continuously differentiable approximation to the
 <code>Heaviside(.,.)</code> function.<br/>
 Function is derived from a quintic polynomial going through (0,0) and (1,1), 
 with zero first and second order derivatives at those points.<br/>
