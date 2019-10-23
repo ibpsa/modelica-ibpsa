@@ -321,13 +321,13 @@ When <code>zerTim==IBPSA.Utilities.Time.Types.ZeroTime.UnixTimeStampGMT</code>,
 <code>time</code> is defined with respect to GMT. This is different from the use
 of <code>time</code> in the weather data reader
 <a href=\"modelica://IBPSA.BoundaryConditions.WeatherData.ReaderTMY3\">
-IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>, as the weather data reader assumes
-that <code>time</code> is expressed in local time.
-An instance of CalendarTime with this 
-option should thus not be used in a model that also contains
+IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>, as the weather data files
+used with this reader are generally defined with <code>time</code> being local time.
+If  <code>zerTim==IBPSA.Utilities.Time.Types.ZeroTime.UnixTimeStampGMT</code> is used,
+then the weather data files read by
 <a href=\"modelica://IBPSA.BoundaryConditions.WeatherData.ReaderTMY3\">
-IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>.
-
+IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>
+must also be defined with GMT as the time stamp.
 
 The user can choose from new year, midnight for a number of years:
 2010 to 2020 and also 1970.
