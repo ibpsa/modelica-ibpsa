@@ -48,7 +48,7 @@ equation
     annotation (Line(points={{-30,-2},{-30,30},{-10,30}}, color={0,127,255}));
   connect(checkValveDpFix.port_b, sin.ports[2])
     annotation (Line(points={{10,30},{30,30},{30,-2}}, color={0,127,255}));
-  annotation (experiment(Tolerance=1e-06, __Dymola_Algorithm="Lsodar",stopTime=1),
+  annotation (experiment(Tolerance=1e-06, __Dymola_Algorithm="Lsodar",StopTime=1),
       __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/CheckValve.mos"
         "Simulate and plot"));
