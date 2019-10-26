@@ -6,7 +6,7 @@ model CheckValve "Check valve that avoids flow reversal"
     final m_flow_turbulent=deltaM*abs(m_flow_nominal),
     final from_dp=true,
     final linearized=false,
-    allowFlowReversal=false);
+    allowFlowReversal=true);
   extends IBPSA.Fluid.Actuators.BaseClasses.ValveParameters(
     rhoStd=Medium.density_pTX(101325, 273.15 + 4, Medium.X_default));
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(
