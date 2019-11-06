@@ -1,4 +1,6 @@
 ConstantEffectiveness
+DryCoilEffectivenessNTU
+EvaporatorCondenser
 HeaterCooler_u
 Heater_T
 PrescribedOutlet
