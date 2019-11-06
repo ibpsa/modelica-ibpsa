@@ -1,4 +1,4 @@
-﻿within ;
+within ;
 package IBPSA "Library with models for building energy and control systems"
   extends Modelica.Icons.Package;
 
@@ -130,6 +130,15 @@ Non-SI units are to be kept at an absolute minimum, and they must be declared as
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+  class Version_3_0_0 "Version 3.0.0"
+    extends Modelica.Icons.ReleaseNotes;
+      annotation (preferredView="info", Documentation(info="<html>
+<p>
+Third release of the IBPSA library.
+</p>
+</html>"));
+  end Version_3_0_0;
+
   class Version_2_0_0 "Version 2.0.0"
     extends Modelica.Icons.ReleaseNotes;
       annotation (preferredView="info", Documentation(info="<html>
@@ -155,6 +164,9 @@ First official release of the IBPSA library.
 This section summarizes the releases of the <code>IBPSA</code> library.
 </p>
 <ul>
+<li>
+<a href=\"modelica://IBPSA.UsersGuide.ReleaseNotes.Version_3_0_0\">Version 3.0.0</a>(September 28, 2018)
+</li>
 <li>
 <a href=\"modelica://IBPSA.UsersGuide.ReleaseNotes.Version_2_0_0\">Version 2.0.0</a>(June 14, 2018)
 </li>
@@ -238,7 +250,7 @@ and the Province of Limburg.
  Aalborg University
  was supported for the development of this library
  by the Danish Energy Agency, under the Energy Technology Development and
- Demonstration Program (EUDP), journal no. 64013-0566.
+ Demonstration Program (EUDP), journal no. 64013-0566.
 </li>
 </ul>
 
@@ -263,6 +275,9 @@ Marcus Fuchs, RWTH Aachen University, Germany
 </li>
 <li>
 Filip Jorissen, KU Leuven, Belgium
+</li>
+<li>
+Alex Laferriere, Polytechnique Montreal, Canada
 </li>
 <li>
 Moritz Lauster, RWTH Aachen University, Germany
@@ -360,9 +375,50 @@ such enhancements or derivative works thereof, in binary and source code form.
 Note: The license is a revised 3 clause BSD license with an ADDED paragraph
 at the end that makes it easy to accept improvements.
 </p>
+<h4>Third Party License</h4>
+<p>
+To parse weather file, the function <code>getTimeSpan.c</code> uses
+third party code that uses the following license:
+</p>
+<p>
+Copyright (c) 2011 The NetBSD Foundation, Inc.<br/>
+All rights reserved.
+</p>
+<p>
+This code is derived from software contributed to The NetBSD Foundation
+by Christos Zoulas.
+</p>
+<p>
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+</p>
+<ol>
+<li>
+  Redistributions of source code must retain the above copyright
+  notice, this list of conditions and the following disclaimer.
+</li>
+<li>
+  Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+</li>
+</ol>
+<p>
+THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
+''AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
+BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+</p>
 </html>"));
   end License;
-
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
@@ -426,12 +482,13 @@ The library has the following <i>User's Guides</i>:
 </html>"));
 end UsersGuide;
 
-
 annotation (
-version="2.0.0",
-versionDate="2018-06-14",
-dateModified = "2018-06-14",
-uses(Modelica(version="3.2.2")),
+version="3.0.0",
+versionDate="2018-09-28",
+dateModified = "2018-09-28",
+uses(Modelica(version="3.2.3")),
+conversion(from(version="3.0.0",
+                script="modelica://IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_from_3.0_to_4.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>
