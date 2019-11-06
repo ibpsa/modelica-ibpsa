@@ -264,6 +264,10 @@ equation
   Documentation(revisions="<html>
 <ul>
 <li>
+November 6, 2019, by Milica Grahovac:<br/>
+Extended functionality to year 2030.
+</li>
+<li>
 August 3, 2016, by Filip Jorissen:<br/>
 First implementation.
 </li>
