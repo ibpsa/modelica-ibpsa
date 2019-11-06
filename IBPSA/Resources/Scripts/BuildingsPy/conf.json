@@ -1,12 +1,6 @@
 [
   {
     "jmodelica": {
-      "solver": "Radau5ODE"
-    },
-    "model_name": "IBPSA.Airflow.Multizone.Examples.OneOpenDoor"
-  },
-  {
-    "jmodelica": {
       "simulate": false
   },
   "model_name": "IBPSA.Fluid.Examples.FlowSystem.Basic"
