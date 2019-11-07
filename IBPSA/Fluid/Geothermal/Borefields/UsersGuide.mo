@@ -32,8 +32,7 @@ resistance matches the specified value.
 <li>
 User-defined vertical discretization of boreholes are supported.
 However, the borehole wall temperature
-is identical for each borehole and along the
-depth, as the ground temperature response model only computes the average borehole wall temperature
+is identical for each borehole, as the ground temperature response model only computes the average borehole wall temperature
 for all boreholes combined.
 </li>
 <li>
@@ -161,9 +160,6 @@ The conductivity, capacitance and density of the grout and pipe material are con
 </li>
 <li>
 There is no heat extraction or injection prior to the simulation start.
-</li>
-<li>
-The undisturbed ground temperature is the same all along the length of the boreholes.
 </li>
 <li>
 All of the boreholes in the borefield have uniform dimensions (including the pipe dimensions).
