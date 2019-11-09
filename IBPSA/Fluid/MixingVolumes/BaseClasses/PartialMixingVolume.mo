@@ -126,7 +126,7 @@ equation
   // asserts
   if not allowFlowReversal then
     assert(ports[1].m_flow > -m_flow_small,
-  "In " + getInstanceName() + ": Model has flow reversal, 
+  "In " + getInstanceName() + ": Model has flow reversal,
   but the parameter allowFlowReversal is set to false.
   m_flow_small    = " + String(m_flow_small) + "
   ports[1].m_flow = " + String(ports[1].m_flow) + "
