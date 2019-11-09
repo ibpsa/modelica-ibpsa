@@ -80,3 +80,5 @@ after_failure:
       cat $ff
       echo "*** End of $ff"
     done
+    ls
+    cat IBPSA/failed-simulator-dymola.log
