@@ -3,12 +3,12 @@ model TwoWayEqualPercentage
   "Two way valve with equal percentage flow characteristics"
   extends BaseClasses.PartialTwoWayValveKv(phi=if homotopyInitialization then
         homotopy(actual=IBPSA.Fluid.Actuators.BaseClasses.equalPercentage(
-        y_actual,
+        max(0,y_actual),
         R,
         l,
-        delta0), simplified=l + y_actual*(1 - l)) else
+        delta0), simplified=l + max(0,y_actual)*(1 - l)) else
         IBPSA.Fluid.Actuators.BaseClasses.equalPercentage(
-        y_actual,
+        max(0,y_actual),
         R,
         l,
         delta0));
@@ -38,6 +38,14 @@ as the regularization near the origin.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 9, 2019, by Filip Jorissen:<br/>
+Guarded the valve control signal using
+<code>max(0, . )</code> to avoid
+negative control signals.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">
+issue 1223</a>.
+</li>
 <li>
 April 4, 2014, by Michael Wetter:<br/>
 Moved the assignment of the flow function <code>phi</code>
