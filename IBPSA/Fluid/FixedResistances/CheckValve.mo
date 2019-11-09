@@ -13,6 +13,9 @@ model CheckValve "Check valve that avoids flow reversal"
     displayUnit="Pa", min=0) = 0
     "Pressure drop of pipe and other resistances that are in series"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dpValve_closed = dpValve_nominal/20
+    "Pressure drop when the check valve starts to close"
+    annotation(Dialog(group="Nominal condition"));
   parameter Real l(min=1e-10, max=1)=0.001 "Valve leakage, l=Kv(y=0)/Kv(y=1)";
   parameter Real kFixed(unit="", min=0)=
     if dpFixed_nominal > Modelica.Constants.eps then
@@ -24,15 +27,12 @@ model CheckValve "Check valve that avoids flow reversal"
     "Flow coefficient of valve and pipe in series in allowed/forward direction, 
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 protected
-  Real a = dp/dpValve_nominal
-    "Scaled pressure variable"
-    annotation(Inline=true);
-  Real cv = smooth(2,max(0,min(1,a^3*(10+a*(-15+6*a)))))
-    "Twice differentiable Heaviside check valve characteristic"
-    annotation(Inline=true);
-  Real kCv = Kv_SI*(cv*(1-l) + l)
-    "Smoothed restriction characteristic"
-    annotation(Inline=true);
+  Real a
+    "Scaled pressure variable";
+  Real cv
+    "Twice differentiable Heaviside check valve characteristic";
+  Real kCv
+    "Smoothed restriction characteristic";
 initial equation
   assert(dpFixed_nominal > -Modelica.Constants.eps,
     "In " + getInstanceName() + ": We require dpFixed_nominal >= 0. 
@@ -40,6 +40,10 @@ initial equation
   assert(l > -Modelica.Constants.eps,
     "In " + getInstanceName() + ": We require l >= 0. Received l = " + String(l));
 equation
+  a = dp/dpValve_closed;
+  cv = smooth(2,max(0,min(1,a^3*(10+a*(-15+6*a)))));
+  kCv = Kv_SI*(cv*(1-l) + l);
+
   if (dpFixed_nominal > Modelica.Constants.eps) then
     k = sqrt(1/(1/kFixed^2 + 1/kCv^2));
   else
@@ -90,6 +94,7 @@ equation
           lineThickness=0.5)}), Documentation(info="<html>
 <p>
 Implementation of a hydraulic check valve. 
+Note that the small reverse flows can still occur with this model.
 </p>
 <h4>Main equations</h4>
 <p>
@@ -99,14 +104,22 @@ is used with a pressure drop dependent flow coefficient <code>k</code>,
 which becomes small for negative pressure differences. 
 The flow coefficient is computed using a twice differentiable Heaviside function,
 which increases the flow coefficient from <code>l*KV_Si</code> to <code>KV_Si</code>.
-The flow coefficient saturates to its maximum value at 10 % of <code>dp_nominal</code>.
+The flow coefficient saturates to its maximum value at the pressure <code>dpValve_closed</code>.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-The parameters <code>m_flow_nominal</code> and <code>dp_nominal</code> 
+The parameters <code>m_flow_nominal</code> and <code>dpValve_nominal</code> 
 determine the pressure drop of the check valve when it is fully opened. 
-<code>dp_nominal</code>  should therefore not have a large value.
-The leakage ratio <code>l</code> determines the flow coefficient when a reverse differential pressure exists.
+A typical value for nominal flow rates of 1 m/s is 
+<code>dpValve_nominal = 4000 Pa</code>.
+The leakage ratio <code>l</code> determines the flow coefficient 
+when a reverse differential pressure exists.
+The parameter <code>dpFixed_nominal</code> allows to include a series
+pressure drop with a fixed flow coefficient into the model.
+The parameter <code>dpValve_closed</code> determines when the
+flow coefficient starts to increase.
+The default value <code>dpValve_nominal/20</code> is a good value for
+avoiding numerical problems.
 </p>
 </html>", revisions="<html>
 <ul>
