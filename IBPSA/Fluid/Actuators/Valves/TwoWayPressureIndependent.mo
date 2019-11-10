@@ -3,7 +3,7 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
   extends IBPSA.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
             final linearized = false,
             from_dp=true,
-            phi=l + max(0,y_actual)*(1 - l));
+            phi=max(0,l + y_actual*(1 - l)));
 
   parameter Real l2(min=1e-10) = 0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
@@ -221,9 +221,9 @@ revisions="<html>
 <ul>
 <li>
 November 9, 2019, by Filip Jorissen:<br/>
-Guarded the valve control signal using
+Guarded the computation of phi using
 <code>max(0, . )</code> to avoid
-negative control signals.
+negative phi.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">
 issue 1223</a>.
 </li>

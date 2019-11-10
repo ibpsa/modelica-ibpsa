@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Actuators.Valves;
 model TwoWayLinear "Two way valve with linear flow characteristics"
-  extends BaseClasses.PartialTwoWayValveKv(phi=l + max(0,y_actual)*(1 - l));
+  extends BaseClasses.PartialTwoWayValveKv(phi=max(0,l + y_actual*(1 - l)));
 
 initial equation
   // Since the flow model IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
@@ -23,9 +23,9 @@ revisions="<html>
 <ul>
 <li>
 November 9, 2019, by Filip Jorissen:<br/>
-Guarded the valve control signal using
+Guarded the computation of phi using
 <code>max(0, . )</code> to avoid
-negative control signals.
+negative phi.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">
 issue 1223</a>.
 </li>
