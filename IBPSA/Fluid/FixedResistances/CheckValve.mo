@@ -1,7 +1,7 @@
 within IBPSA.Fluid.FixedResistances;
 model CheckValve "Check valve that avoids flow reversal"
   extends IBPSA.Fluid.BaseClasses.PartialResistance(
-    dp(nominal=6000),
+    dp(nominal=2000),
     final dp_nominal=dpValve_nominal + dpFixed_nominal,
     final m_flow_turbulent=deltaM*abs(m_flow_nominal),
     final from_dp=true,
@@ -13,7 +13,7 @@ model CheckValve "Check valve that avoids flow reversal"
     displayUnit="Pa", min=0) = 0
     "Pressure drop of pipe and other resistances that are in series"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpValve_closed = dpValve_nominal/20
+  parameter Modelica.SIunits.PressureDifference dpValve_closing = dpValve_nominal/2
     "Pressure drop when the check valve starts to close"
     annotation(Dialog(group="Nominal condition"));
   parameter Real l(min=1e-10, max=1)=0.001 "Valve leakage, l=Kv(y=0)/Kv(y=1)";
@@ -40,7 +40,7 @@ initial equation
   assert(l > -Modelica.Constants.eps,
     "In " + getInstanceName() + ": We require l >= 0. Received l = " + String(l));
 equation
-  a = dp/dpValve_closed;
+  a = dp/dpValve_closing;
   cv = smooth(2,max(0,min(1,a^3*(10+a*(-15+6*a)))));
   kCv = Kv_SI*(cv*(1-l) + l);
 
@@ -104,22 +104,22 @@ is used with a pressure drop dependent flow coefficient <code>k</code>,
 which becomes small for negative pressure differences. 
 The flow coefficient is computed using a twice differentiable Heaviside function,
 which increases the flow coefficient from <code>l*KV_Si</code> to <code>KV_Si</code>.
-The flow coefficient saturates to its maximum value at the pressure <code>dpValve_closed</code>.
+The flow coefficient saturates to its maximum value at the pressure <code>dpValve_closing</code>.
+For larger pressure drops, the pressure drop is a quadratic function of the flow rate.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
 The parameters <code>m_flow_nominal</code> and <code>dpValve_nominal</code> 
 determine the pressure drop of the check valve when it is fully opened. 
-A typical value for nominal flow rates of 1 m/s is 
-<code>dpValve_nominal = 4000 Pa</code>.
-The leakage ratio <code>l</code> determines the flow coefficient 
-when a reverse differential pressure exists.
+A typical value for a nominal flow rate of 1 m/s is 
+<code>dpValve_nominal = 3400 Pa</code>.
+The leakage ratio <code>l</code> determines the minimum flow coefficient, 
+for negative pressure differences.
 The parameter <code>dpFixed_nominal</code> allows to include a series
 pressure drop with a fixed flow coefficient into the model.
-The parameter <code>dpValve_closed</code> determines when the
-flow coefficient starts to increase.
-The default value <code>dpValve_nominal/20</code> is a good value for
-avoiding numerical problems.
+The parameter <code>dpValve_closing</code> determines when the
+flow coefficient starts to increase,
+which is typically in the order of <code>dpValve_nominal</code>.
 </p>
 </html>", revisions="<html>
 <ul>
