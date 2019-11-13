@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Actuators.Valves;
 model TwoWayPolynomial "Two way valve with polynomial characteristic"
   extends IBPSA.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv(
-    phi=max(0,l + pol_y*(1 - l)));
+    phi=max(0, l + pol_y*(1 - l)));
 
   parameter Real[:] c
     "Polynomial coefficients, starting with fixed offset";
@@ -52,7 +52,7 @@ revisions="<html>
 <ul>
 <li>
 November 9, 2019, by Filip Jorissen:<br/>
-Guarded the computation of phi using
+Guarded the computation of <code>phi</code> using
 <code>max(0, . )</code> to avoid
 negative phi.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">

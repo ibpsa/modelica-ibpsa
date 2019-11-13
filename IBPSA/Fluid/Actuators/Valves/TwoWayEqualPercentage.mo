@@ -2,7 +2,7 @@ within IBPSA.Fluid.Actuators.Valves;
 model TwoWayEqualPercentage
   "Two way valve with equal percentage flow characteristics"
   extends BaseClasses.PartialTwoWayValveKv(
-    phi=max(0,if homotopyInitialization then
+    phi=max(0, if homotopyInitialization then
         homotopy(actual=IBPSA.Fluid.Actuators.BaseClasses.equalPercentage(
         y_actual,
         R,
@@ -41,7 +41,7 @@ as the regularization near the origin.
 <ul>
 <li>
 November 9, 2019, by Filip Jorissen:<br/>
-Guarded the computation of phi using
+Guarded the computation of <code>phi</code> using
 <code>max(0, . )</code> to avoid
 negative phi.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">

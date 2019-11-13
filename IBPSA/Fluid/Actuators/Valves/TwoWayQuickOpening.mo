@@ -2,7 +2,7 @@ within IBPSA.Fluid.Actuators.Valves;
 model TwoWayQuickOpening
   "Two way valve with quick opening flow characteristics"
   extends BaseClasses.PartialTwoWayValveKv(
-    phi=max(0,if homotopyInitialization then
+    phi=max(0, if homotopyInitialization then
         homotopy(actual=l + Modelica.Fluid.Utilities.regPow(
         y_actual,
         alpInv,
@@ -38,7 +38,7 @@ revisions="<html>
 <ul>
 <li>
 November 9, 2019, by Filip Jorissen:<br/>
-Guarded the computation of phi using
+Guarded the computation of <code>phi</code> using
 <code>max(0, . )</code> to avoid
 negative phi.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">
