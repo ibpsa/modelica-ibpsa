@@ -210,7 +210,7 @@ IBPSA.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 <ul>
 <li>
 November 13, 2019 by Jianjun Hu:<br/>
-added parameter <code>TFlu_start</code> and changed the initial tank segments
+Added parameter <code>TFlu_start</code> and changed the initial tank segments
 temperature to <code>TFlu_start</code> so each segment could have different
 temperature.
 This is for
