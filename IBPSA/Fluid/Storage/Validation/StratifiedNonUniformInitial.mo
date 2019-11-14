@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Storage.Validation;
 model StratifiedNonUniformInitial
-  "Test model for stratified tank of non-uniform initial temperature"
+  "Test model for stratified tank with non-uniform initial temperature"
   extends Modelica.Icons.Example;
 
   package Medium = IBPSA.Media.Water "Medium model";
@@ -18,9 +18,9 @@ model StratifiedNonUniformInitial
   IBPSA.Fluid.Sources.MassFlowSource_T sin_1(
     redeclare package Medium = Medium,
     T=273.15 + 20,
-    m_flow=-0.028,
-    use_m_flow_in=true,
-    nPorts=1) annotation (Placement(transformation(extent={{78,10},{58,30}})));
+    m_flow=-m_flow_nominal,
+    nPorts=1)
+    "Mass flow source" annotation (Placement(transformation(extent={{80,10},{60,30}})));
   IBPSA.Fluid.Storage.Stratified heaTan(
     redeclare package Medium = Medium,
     hTan=3,
@@ -30,14 +30,14 @@ model StratifiedNonUniformInitial
     show_T=true,
     m_flow_nominal=m_flow_nominal,
     TFlu_start={313.15,312.15,311.15,310.15,309.15,308.15,307.15})
-    "Tank that will be heated up "
+    "Tank that will be heated up"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sin_2(
     redeclare package Medium = Medium,
     T=273.15 + 20,
-    m_flow=-0.028,
-    use_m_flow_in=true,
-    nPorts=1) annotation (Placement(transformation(extent={{78,-60},{58,-40}})));
+    m_flow=m_flow_nominal,
+    nPorts=1)
+    "Mass flow source" annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
   IBPSA.Fluid.Storage.Stratified cooTan(
     redeclare package Medium = Medium,
     hTan=3,
@@ -50,8 +50,6 @@ model StratifiedNonUniformInitial
     "Tank that will be cooled down"
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
 
-  Modelica.Blocks.Sources.Constant const1(k=-m_flow_nominal)
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
   IBPSA.Fluid.Sensors.EnthalpyFlowRate HIn_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
@@ -68,18 +66,16 @@ model StratifiedNonUniformInitial
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
     annotation (Placement(transformation(extent={{2,12},{18,28}})));
-  Modelica.Blocks.Math.Add add(k2=-1)
+  Modelica.Blocks.Math.Add add(k2=-1) "Adder for enthalpy difference"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Continuous.Integrator dHTanEnh
     "Difference in enthalpy (should be zero at steady-state)"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  Modelica.Blocks.Math.Add add1(k2=-1)
+  Modelica.Blocks.Math.Add add1(k2=-1) "Adder for enthalpy difference"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Modelica.Blocks.Continuous.Integrator dHTan
     "Difference in enthalpy (should be zero at steady-state)"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Modelica.Blocks.Sources.Constant const(k=m_flow_nominal)
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
 equation
   connect(HIn_flow.port_b, cooTan.port_a) annotation (Line(
@@ -91,11 +87,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(HOut_flow.port_b, sin_2.ports[1]) annotation (Line(
-      points={{18,-50},{58,-50}},
+      points={{18,-50},{60,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(HOutEnh_flow.port_b, sin_1.ports[1]) annotation (Line(
-      points={{18,20},{58,20}},
+      points={{18,20},{60,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(HInEnh_flow.H_flow, add.u1) annotation (Line(
@@ -122,12 +118,6 @@ equation
       points={{41,-20},{58,-20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const1.y, sin_1.m_flow_in) annotation (Line(
-      points={{41,80},{90,80},{90,28},{80,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(const.y, sin_2.m_flow_in) annotation (Line(points={{41,-80},{90,-80},{
-          90,-42},{80,-42}}, color={0,0,127}));
   connect(HInEnh_flow.port_b, heaTan.port_a)
     annotation (Line(points={{-44,20},{-30,20}}, color={0,127,255}));
   connect(heaTan.port_b, HOutEnh_flow.port_a)
@@ -141,7 +131,7 @@ annotation (experiment(Tolerance=1e-6, StopTime=3600),
   __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedNonUniformInitial.mos"
         "Simulate and plot"),
 Documentation(info="<html>
-This test model validates the tank model
+This test model validates
 <a href=\"modelica://IBPSA.Fluid.Storage.Stratified\">
 IBPSA.Fluid.Storage.Stratified</a> by specifying a non-uniform initial 
 temperature. 
@@ -149,7 +139,7 @@ temperature.
 <ul>
 <li>
 November 13, 2019 by Jianjun Hu:<br/>
-Changed the uniform initial tank temperature to be non-uniform.
+Changed the uniform initial tank temperature to be non-uniform.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1246\">#1246</a>.
 </li>
