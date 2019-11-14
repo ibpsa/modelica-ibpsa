@@ -30,7 +30,7 @@ model PartialStratified
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
   parameter Modelica.SIunits.Temperature TFlu_start[nSeg]=T_start*ones(nSeg)
-    "Initial temperature of the tank segments"
+    "Initial temperature of the tank segments, with TFlu_start[1] being the top segment"
     annotation(Dialog(tab = "Initialization"));
   parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
     "Start value of mass fractions m_i/m"
