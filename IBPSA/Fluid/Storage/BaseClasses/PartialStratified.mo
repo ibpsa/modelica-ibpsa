@@ -12,7 +12,6 @@ model PartialStratified
     "Specific heat conductivity of insulation";
   parameter Integer nSeg(min=2) = 2 "Number of volume segments";
 
-
   ////////////////////////////////////////////////////////////////////
   // Assumptions
   parameter Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
