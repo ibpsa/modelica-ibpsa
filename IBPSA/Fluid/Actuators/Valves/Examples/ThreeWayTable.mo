@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Actuators.Valves.Examples;
-model ThreeWayTable "Three way valves with different opening characteristics"
+model ThreeWayTable "Three way valve with different table-specified opening characteristics for each path"
   extends Modelica.Icons.Example;
 
   package Medium = IBPSA.Media.Water "Medium in the component";
@@ -65,7 +65,7 @@ equation
           "Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ThreeWayTable.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>Test model for table-based three way valves. A different characteristic for each path is used.</p>
+<p>Test model for table-specified three way valves.</p>
 </html>", revisions="<html>
 <ul>
 <li>November 15, 2019, by Alexander K&uuml;mpel:<br>First implementation. </li>
