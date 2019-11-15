@@ -8,11 +8,12 @@ block IndexMassFraction
   parameter String substanceName="" "Name of species substance";
 
 protected
-  constant Integer i_x = sum(
+  parameter Integer i_x = sum(
     if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
                                           string2=substanceName,
                                           caseSensitive=false) then i else 0
-                                          for i in 1:Medium.nXi) "Index of substance";
+                                          for i in 1:Medium.nXi) "Index of substance"
+                                          annotation(Evaluate=true);
 initial equation
   assert(i_x > 0, "Substance '" + substanceName + "' is not present in medium '"
                   + Medium.mediumName + "'.\n"

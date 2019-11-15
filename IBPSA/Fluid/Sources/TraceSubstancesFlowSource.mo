@@ -28,13 +28,14 @@ model TraceSubstancesFlowSource
     annotation (Placement(transformation(extent={{90,40},{110,-40}})));
 
 protected
-  constant Medium.ExtraProperty C_in_internal[Medium.nC](
+  parameter Medium.ExtraProperty C_in_internal[Medium.nC](
     final quantity=Medium.extraPropertiesNames)=
      {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
                                              string2=substanceName,
                                              caseSensitive=false)) then 1 else 0
                                              for i in 1:Medium.nC}
-     "Boundary trace substances";
+     "Boundary trace substances"
+     annotation(Evaluate=true);
   Modelica.Blocks.Interfaces.RealInput m_flow_in_internal(final unit="kg/s")
     "Needed to connect to conditional connector";
 
