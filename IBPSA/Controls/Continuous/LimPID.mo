@@ -192,6 +192,9 @@ protected
     "Signal source for integrator reset"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
+  // The block Limiter below has been implemented as it is introduced in MSL 3.2.3, but
+  // not all tools include MSL 3.2.3.
+  // See https://github.com/ibpsa/modelica-ibpsa/pull/1222#issuecomment-554114617
 block Limiter "Limit the range of a signal"
   parameter Real uMax(start=1) "Upper limits of input signals";
   parameter Real uMin= -uMax "Lower limits of input signals";
