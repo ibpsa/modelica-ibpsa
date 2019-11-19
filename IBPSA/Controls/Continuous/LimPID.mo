@@ -425,7 +425,7 @@ revisions="<html>
 October 19, 2019, by Filip Jorissen:<br/>
 Disabled homotopy to ensure bounded outputs
 by copying the implementation from MSL 3.2.3 and by
-hardcoding the ipmlementation for <code>homotopyType=NoHomotopy</code>.
+hardcoding the implementation for <code>homotopyType=NoHomotopy</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">issue 1221</a>.
 </li>
 <li>
