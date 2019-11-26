@@ -110,7 +110,7 @@ For larger pressure drops, the pressure drop is a quadratic function of the flow
 <h4>Typical use and important parameters</h4>
 <p>
 The parameters <code>m_flow_nominal</code> and <code>dpValve_nominal</code> 
-determine the pressure drop of the check valve when it is fully opened. 
+determine the flow coefficient of the check valve when it is fully opened. 
 A typical value for a nominal flow rate of 1 m/s is 
 <code>dpValve_nominal = 3400 Pa</code>.
 The leakage ratio <code>l</code> determines the minimum flow coefficient, 
@@ -120,6 +120,18 @@ pressure drop with a fixed flow coefficient into the model.
 The parameter <code>dpValve_closing</code> determines when the
 flow coefficient starts to increase,
 which is typically in the order of <code>dpValve_nominal</code>.
+</p>
+<h4>Implementation</h4>
+<p>
+The check valve implementation is based on physical reality, 
+where a forward pressure difference opens the valve such that
+the valve opening increases, causing a growing orrifice 
+and thus increasing flow coefficient.
+At some point (<code>dp=dpValve_closing</code>), the valve is fully open and the flow coefficient saturates
+to the flow coefficient value determined by <code>dpValve_nominal</code> and <code>m_flow_nominal</code>.
+For typical valve diameters, the check valve is only fully open
+near nominal mass flow rate. Therefore we set <code>dpValve_closing=dpValve_nominal/2</code>
+by default.
 </p>
 </html>", revisions="<html>
 <ul>
