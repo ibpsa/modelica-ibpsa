@@ -24,27 +24,103 @@ equation
 Documentation(info="<html>
 <p>
 Three way valve with table-specified opening characteristics.
-A separate characteristic for each flow path is used.</p>
-<p>The parameters <span style=\"font-family: Courier New;\">flowCharacteristics1</span> and <span style=\"font-family: Courier New;\">flowCharacteristics3</span> declare tables of the form </p>
-<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
-<td><p><i>y</i></p></td>
-<td><p>0</p></td>
-<td><p>...</p></td>
-<td><p>1</p></td>
+A separate characteristic for each flow path is used.
+</p>
+<p>
+Each flow path uses an instance of the model
+<a href=\"modelica://IBPSA.Fluid.Actuators.TwoWayTable\">
+IBPSA.Fluid.Actuators.TwoWayTable</a>.
+Therefore, this model needs to be parameterized the same way as
+<a href=\"modelica://IBPSA.Fluid.Actuators.TwoWayTable\">
+IBPSA.Fluid.Actuators.TwoWayTable</a>.
+Specifically,
+the mass flow rate for the fully open valve is determined based
+on the value of the parameter <code>CvData</code>.
+For the different valve positions <i>y &isin; [0, 1]</i>, this nominal flow rate is
+scaled by the values of the parameter
+<code>flowCharacteristics1</code> and <code>flowCharacteristics3</code>, respectively.
+These parameters declare a table of the form
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr>
+<td><i>y</i></td>  <td>0</td>  <td>...</td>  <td>1</td>
 </tr>
 <tr>
-<td><p><i>&phi;</i></p></td>
-<td><p><i>l</i></p></td>
-<td><p>...</p></td>
-<td><p>1</p></td>
+<td><i>&phi;</i></td>  <td><i>l</i></td>  <td>...</td>  <td>1</td>
 </tr>
 </table>
-<p><br><br><br>Further details can be found in the model <a href=\"modelica://IBPSA.Fluid.Actuators.TwoWayTable\">IBPSA.Fluid.Actuators.TwoWayTable</a>. </p>
-<p>This model is based on the partial valve model <a href=\"modelica://IBPSA.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">IBPSA.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a> and <a href=\"modelica://IBPSA.Fluid.Actuators.TwoWayTable\">IBPSA.Fluid.Actuators.TwoWayTable</a>.</p>
+<p>
+where <i>l = K<sub>v</sub>(y=0)/K<sub>v</sub>(y=1) &gt; 0</i> is the valve leakage.
+The first row is the valve opening, and the second row is the
+mass flow rate, relative to the mass flow rate of the fully open
+valve, under the assumption of a constant pressure difference across the
+valve.
+A suggested value for the valve leakage is <i>l=0.0001</i>.
+If <i>l = 0</i>, then this model will replace it with
+<i>l = 10<sup>-8</sup></i> for numerical reasons.
+For example, if a valve has <i>K<sub>v</sub>=0.5</i> [m<sup>3</sup>/h/bar<sup>1/2</sup>] and
+a linear opening characteristics and
+a valve leakage of <i>l=0.0001</i>, then one would set
+</p>
+<pre>
+ CvData=IBPSA.Fluid.Types.CvTypes.Kv
+ Kv = 0.5
+ flowCharacteristics1(y={0,1}, phi={0.0001,1})
+ flowCharacteristics3(y={0,1}, phi={0.0001,1})
+</pre>
+<p>
+Note, however, that
+<a href=\"modelica://IBPSA.Fluid.Actuators.Valves.ThreeWayLinear\">
+IBPSA.Fluid.Actuators.Valves.ThreeWayLinear</a> provides a more
+efficient implementation for this simple case.
+</p>
+<p>
+The parameters <code>flowCharacteristics1</code> and <code>flowCharacteristics3</code> must meet the following
+requirements, otherwise the model stops with an error:
+</p>
+<ul>
+<li>
+Their arrays
+<code>y</code> and <code>phi</code>
+must be strictly monotonic increasing.
+</li>
+<li>
+The first value must satisfy
+<code>y[1]=0</code>, and
+<code>phi[1]</code> must be equal to the
+leakage flow rate, which must be bigger than zero.
+Otherwise, a default value of <code>1E-8</code> is used.
+</li>
+<li>
+The last values must satisfy
+<code>y[end]=1</code> and
+<code>phi[end]=1</code>.
+</li>
+</ul>
+<p>
+This model is based on the partial valve model
+<a href=\"modelica://IBPSA.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
+IBPSA.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>.
+Check this model for more information, such
+as the regularization near the origin.
+</p>
+<p>
+For an example that specifies an opening characteristics, see
+<a href=\"modelica://IBPSA.Fluid.Actuators.Valves.Examples.ThreeWayValveTable\">
+IBPSA.Fluid.Actuators.Valves.Examples.ThreeWayValveTable</a>.
+</p>
+
 </html>",
 revisions="<html>
 <ul>
-<li>November 15, 2019, by Alexander K&uuml;mpel:<br>First implementation. </li>
+<li>
+November 28, 2019, by Michael Wetter:<br/>
+Revised implementation.
+</li>
+<li>
+November 15, 2019, by Alexander K&uuml;mpel:<br/>
+First implementation.
+</li>
 </ul>
 </html>"),
     Icon(graphics={
