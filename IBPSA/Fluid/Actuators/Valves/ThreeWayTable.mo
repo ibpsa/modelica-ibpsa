@@ -42,5 +42,19 @@ revisions="<html>
 <ul>
 <li>November 15, 2019, by Alexander K&uuml;mpel:<br>First implementation. </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          origin={-70,83},
+          lineColor={64,64,64},
+          fillColor={255,215,136},
+          fillPattern=FillPattern.Solid,
+          extent={{-12,-11},{12,11}},
+          radius=5.0),
+        Line(
+          points={{-70,94},{-70,72}}),
+        Line(
+          points={{-82,86},{-58,86}}),
+        Line(
+          points={{-82,78},{-58,78}})}));
 end ThreeWayTable;
