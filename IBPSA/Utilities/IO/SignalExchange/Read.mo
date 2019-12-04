@@ -7,6 +7,8 @@ model Read "Block that allows a signal to be read as an FMU output"
   parameter SignalTypes.SignalsForKPIs KPIs = SignalTypes.SignalsForKPIs.None
     "Tag with the type of signal for the calculation of the KPIs";
 
+  parameter String zone = "1" if (Integer(KPIs)==2 or Integer(KPIs)==3 or Integer(KPIs)==4 or Integer(KPIs)==5 or Integer(KPIs)==6) "Zone designation, required if KPIs is AirZoneTemperature, RadiativeZoneTemperature, OperativeZoneTemperature, RelativeHumidity, or CO2Concentration";
+
 protected
   final parameter Boolean boptestRead = true
     "Protected parameter, used by tools to search for read block in models";
@@ -32,12 +34,20 @@ also be directed to an external program as an output.
 </p>
 <p>
 It is important to add a brief description of the signal using the
-<code>description</code> parameter and assign a type if needed for KPI
-calculation using the <code>KPIs</code> parameter.
+<code>description</code> parameter, assign a type if needed for KPI
+calculation using the <code>KPIs</code> parameter, and assign a zone 
+designation using the <code>zone</code> parameter if the KPI calculation is
+specific to a particular zone (for multi-zone models). See documentation for 
+the parameter <code>zone</code> for more details.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 4, 2019 by David Blum:<br/>
+Added zone designation for KPI calculation by parameter <code>zone</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1257\">#1257</a>.
+</li>
 <li>
 July 17, 2019 by Michael Wetter:<br/>
 Changed parameter name from <code>Description</code> to <code>description</code>.
