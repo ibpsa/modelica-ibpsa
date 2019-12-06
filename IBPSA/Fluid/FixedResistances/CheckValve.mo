@@ -9,23 +9,29 @@ model CheckValve "Check valve that avoids flow reversal"
     allowFlowReversal=true);
   extends IBPSA.Fluid.Actuators.BaseClasses.ValveParameters(
     rhoStd=Medium.density_pTX(101325, 273.15 + 4, Medium.X_default));
+
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(
     displayUnit="Pa", min=0) = 0
     "Pressure drop of pipe and other resistances that are in series"
     annotation (Dialog(group="Nominal condition"));
+
   parameter Modelica.SIunits.PressureDifference dpValve_closing = dpValve_nominal/2
     "Pressure drop when the check valve starts to close"
     annotation(Dialog(group="Nominal condition"));
+
   parameter Real l(min=1e-10, max=1)=0.001 "Valve leakage, l=Kv(y=0)/Kv(y=1)";
+
   parameter Real kFixed(unit="", min=0)=
     if dpFixed_nominal > Modelica.Constants.eps then
       m_flow_nominal/sqrt(dpFixed_nominal)
     else 0
     "Flow coefficient of fixed resistance that may be in series with valve, 
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
-  Real k(unit="", min=Modelica.Constants.small)
+
+  Real k(min=Modelica.Constants.small)
     "Flow coefficient of valve and pipe in series in allowed/forward direction, 
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
+
 protected
   Real a
     "Scaled pressure variable";
@@ -33,6 +39,7 @@ protected
     "Twice differentiable Heaviside check valve characteristic";
   Real kCv
     "Smoothed restriction characteristic";
+
 initial equation
   assert(dpFixed_nominal > -Modelica.Constants.eps,
     "In " + getInstanceName() + ": We require dpFixed_nominal >= 0. 
@@ -41,7 +48,7 @@ initial equation
     "In " + getInstanceName() + ": We require l >= 0. Received l = " + String(l));
 equation
   a = dp/dpValve_closing;
-  cv = smooth(2,max(0,min(1,a^3*(10+a*(-15+6*a)))));
+  cv = smooth(2, max(0, min(1, a^3*(10+a*(-15+6*a)))));
   kCv = Kv_SI*(cv*(1-l) + l);
 
   if (dpFixed_nominal > Modelica.Constants.eps) then
@@ -134,14 +141,14 @@ which is typically in the order of <code>dpValve_nominal</code>.
 </p>
 <h4>Implementation</h4>
 <p>
-The check valve implementation is based on physical reality, 
+The check valve implementation approximates the physics
 where a forward pressure difference opens the valve such that
 the valve opening increases, causing a growing orifice area
 and thus increasing the flow coefficient.
-Near <code>dp=dpValve_closing</code>), the valve is fully open and the flow coefficient saturates
+Near <code>dp=dpValve_closing</code>, the valve is fully open and the flow coefficient saturates
 to the flow coefficient value determined by <code>dpValve_nominal</code> and <code>m_flow_nominal</code>.
 For typical valve diameters, the check valve is only fully open
-near nominal mass flow rate. Therefore we set <code>dpValve_closing=dpValve_nominal/2</code>
+near nominal mass flow rate. Therefore, the model sets <code>dpValve_closing=dpValve_nominal/2</code>
 by default.
 </p>
 </html>", revisions="<html>
