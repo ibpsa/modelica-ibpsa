@@ -98,7 +98,9 @@ equation
         Line(
           points={{70,0},{100,0}},
           color={0,128,255},
-          lineThickness=0.5)}), Documentation(info="<html>
+          lineThickness=0.5)}),
+defaultComponentName="cheVal",
+Documentation(info="<html>
 <p>
 Implementation of a hydraulic check valve.
 Note that the small reverse flows can still occur with this model.
