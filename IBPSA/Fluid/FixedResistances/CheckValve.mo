@@ -93,25 +93,36 @@ equation
           color={0,128,255},
           lineThickness=0.5)}), Documentation(info="<html>
 <p>
-Implementation of a hydraulic check valve. 
+Implementation of a hydraulic check valve.
 Note that the small reverse flows can still occur with this model.
 </p>
 <h4>Main equations</h4>
 <p>
-The basic flow function <a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
-IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a> 
-is used with a pressure drop dependent flow coefficient <code>k</code>,
-which becomes small for negative pressure differences. 
-The flow coefficient is computed using a twice differentiable Heaviside function,
-which increases the flow coefficient from <code>l*KV_Si</code> to <code>KV_Si</code>.
-The flow coefficient saturates to its maximum value at the pressure <code>dpValve_closing</code>.
+The basic flow function
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>,
+</p>
+<p>
+with regularization near the origin, is used to compute the pressure drop.
+The flow coefficient
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  k = m &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+</p>
+<p>
+is increased from <code>l*KV_Si</code> to <code>KV_Si</code>,
+where <code>KV_Si</code> is equal to <code>Kv</code> but in SI units.
+Therefore, the flow coefficient <code>k</code> is set to a value close to zero for negative pressure differences, thereby
+restricting reverse flow to a small value.
+The flow coefficient <code>k</code> saturates to its maximum value at the pressure <code>dpValve_closing</code>.
 For larger pressure drops, the pressure drop is a quadratic function of the flow rate.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
 The parameters <code>m_flow_nominal</code> and <code>dpValve_nominal</code> 
 determine the flow coefficient of the check valve when it is fully opened. 
-A typical value for a nominal flow rate of 1 m/s is 
+A typical value for a nominal flow rate of <i>1</i> m/s is
 <code>dpValve_nominal = 3400 Pa</code>.
 The leakage ratio <code>l</code> determines the minimum flow coefficient, 
 for negative pressure differences.
@@ -125,9 +136,9 @@ which is typically in the order of <code>dpValve_nominal</code>.
 <p>
 The check valve implementation is based on physical reality, 
 where a forward pressure difference opens the valve such that
-the valve opening increases, causing a growing orrifice 
-and thus increasing flow coefficient.
-At some point (<code>dp=dpValve_closing</code>), the valve is fully open and the flow coefficient saturates
+the valve opening increases, causing a growing orifice area
+and thus increasing the flow coefficient.
+Near <code>dp=dpValve_closing</code>), the valve is fully open and the flow coefficient saturates
 to the flow coefficient value determined by <code>dpValve_nominal</code> and <code>m_flow_nominal</code>.
 For typical valve diameters, the check valve is only fully open
 near nominal mass flow rate. Therefore we set <code>dpValve_closing=dpValve_nominal/2</code>
