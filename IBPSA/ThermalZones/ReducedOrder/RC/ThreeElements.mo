@@ -182,6 +182,11 @@ equation
     Documentation(revisions="<html>
   <ul>
   <li>
+  December 9, 2019, by Moritz Lauster:<br/>
+  Changes <code>nExt</code> to <code>nFloor</code> for
+  <code>RFloor</code> and <code>CFloor</code>
+  </li>
+  <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaFloor</code> to <code>hConFloor</code>,
   <code>alphaFloorConst</code> to <code>hConFloor_const</code>

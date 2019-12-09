@@ -198,6 +198,11 @@ equation
   Documentation(revisions="<html>
   <ul>
   <li>
+  December 9, 2019, by Moritz Lauster:<br/>
+  Changes <code>nExt</code> to <code>nRoof</code> for
+  <code>RRoof</code> and <code>CRoof</code>
+  </li>
+  <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaRoof</code> to <code>hConRoof</code>,
   <code>alphaRoofConst</code> to <code>hConRoof_const</code>
