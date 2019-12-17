@@ -17,7 +17,7 @@ model ThreeWayValves "Three way valves with different opening characteristics"
     height=1,
     duration=1,
     offset=0) "Control signal"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{-62,70},{-42,90}})));
   IBPSA.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     nPorts=3,
@@ -62,12 +62,13 @@ model ThreeWayValves "Three way valves with different opening characteristics"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 equation
   connect(y.y, valLin.y) annotation (Line(
-      points={{-39,70},{10,70},{10,72}},
+      points={{-41,80},{10,80},{10,72}},
       color={0,0,127}));
   connect(PSin.y, sin.p_in)
     annotation (Line(points={{81,70},{86,70},{86,8},{72,8}}, color={0,0,127}));
-  connect(y.y, valEquPerLin.y) annotation (Line(points={{-39,70},{-12,70},{-12,
-          12},{10,12}},       color={0,0,127}));
+  connect(y.y, valEquPerLin.y) annotation (Line(points={{-41,80},{-12,80},{-12,
+          20},{10,20},{10,12}},
+                              color={0,0,127}));
   connect(sou.ports[1], valLin.port_1) annotation (Line(
       points={{-30,2.66667},{-16,2.66667},{-16,60},{-5.55112e-16,60}},
       color={0,127,255}));
@@ -84,11 +85,10 @@ equation
       points={{-67,8},{-60,8},{-60,-88},{90,-88},{90,-62},{76,-62}},
       color={0,0,127}));
   connect(ret.ports[1], valLin.port_3) annotation (Line(
-      points={{54,-67.3333},{44,-67.3333},{44,-68},{30,-68},{30,26},{10,26},{10,
-          50}},
+      points={{54,-67.3333},{36,-67.3333},{36,26},{10,26},{10,50}},
       color={0,127,255}));
   connect(ret.ports[2], valEquPerLin.port_3) annotation (Line(
-      points={{54,-70},{32,-70},{32,-38},{10,-38},{10,-10}},
+      points={{54,-70},{32,-70},{32,-20},{10,-20},{10,-10}},
       color={0,127,255}));
   connect(PSou.y, sou.p_in) annotation (Line(
       points={{-67,8},{-52,8}},
@@ -99,8 +99,9 @@ equation
           -60},{40,-2.66667},{50,-2.66667}}, color={0,127,255}));
   connect(valTab.port_3, ret.ports[3]) annotation (Line(points={{10,-70},{10,
           -72.6667},{54,-72.6667}}, color={0,127,255}));
-  connect(valTab.y, y.y) annotation (Line(points={{10,-48},{-12,-48},{-12,70},{
-          -39,70}}, color={0,0,127}));
+  connect(valTab.y, y.y) annotation (Line(points={{10,-48},{10,-40},{-12,-40},{
+          -12,80},{-41,80}},
+                    color={0,0,127}));
   annotation (
     experiment(Tolerance=1e-6, StopTime=1.0),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ThreeWayValves.mos"
@@ -117,7 +118,8 @@ To use common values, use the default values.
 <ul>
 <li>
 December 17, 2019, by Alexander Kümpel:<br/>
-Added ThreeWayTable to example.
+Added <a href=\"modelica://IBPSA.Fluid.Actuators.Valves.ThreeWayTable\">IBPSA.Fluid.Actuators.Valves.ThreeWayTable</a>
+to example.
 </li>
 <li>
 February 28, 2013, by Michael Wetter:<br/>
