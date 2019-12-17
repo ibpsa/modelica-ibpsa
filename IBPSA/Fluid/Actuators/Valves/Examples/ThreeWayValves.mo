@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Actuators.Valves.Examples;
+﻿within IBPSA.Fluid.Actuators.Valves.Examples;
 model ThreeWayValves "Three way valves with different opening characteristics"
   extends Modelica.Icons.Example;
 
@@ -115,6 +115,10 @@ To use common values, use the default values.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December, 2019, by Alexander Kümpel:<br/>
+Added ThreeWayTable to example.
+</li>
 <li>
 February 28, 2013, by Michael Wetter:<br/>
 Added default value for <code>dpValve_nominal</code>.
