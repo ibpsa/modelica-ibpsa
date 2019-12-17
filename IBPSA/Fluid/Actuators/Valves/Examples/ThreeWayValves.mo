@@ -116,7 +116,7 @@ To use common values, use the default values.
 </html>", revisions="<html>
 <ul>
 <li>
-December, 2019, by Alexander Kümpel:<br/>
+December 17, 2019, by Alexander Kümpel:<br/>
 Added ThreeWayTable to example.
 </li>
 <li>
