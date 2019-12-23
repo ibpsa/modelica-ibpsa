@@ -1,7 +1,9 @@
 within IBPSA.Fluid.Actuators.Dampers;
 model PressureIndependent
   "Model for an air damper whose mass flow is proportional to the input signal"
-  extends IBPSA.Fluid.Actuators.BaseClasses.PartialDamperExponential;
+  extends IBPSA.Fluid.Actuators.BaseClasses.PartialDamperExponential(
+    final linearized=false,
+    from_dp=true);
   input Real phi = l + y_actual*(1 - l)
     "Ratio actual to nominal mass flow rate of damper, phi=kDam(y)/kDam(y=1)";
   parameter Real l2(unit="1", min=1e-10) = 0.01
