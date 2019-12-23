@@ -68,24 +68,40 @@ convertElement(
 
 // Refactoring damper models.
 convertElement(
-    "IBPSA.Fluid.Actuators.Dampers.PressureIndependent",
+    {"IBPSA.Fluid.Actuators.Dampers.PressureIndependent",
+    "Fluid.Actuators.Dampers.PressureIndependent",
+    "Actuators.Dampers.PressureIndependent",
+    "Dampers.PressureIndependent",
+    "PressureIndependent"},
     "dp_nominal",
     "dpDamper_nominal");
 convertModifiers(
-    "IBPSA.Fluid.Actuators.Dampers.Exponential",
+    {"IBPSA.Fluid.Actuators.Dampers.Exponential",
+    "Fluid.Actuators.Dampers.Exponential",
+    "Actuators.Dampers.Exponential",
+    "Dampers.Exponential",
+    "Exponential"},
     {"k1=0.45", "v_nominal=1"},
     {"k1=%k1%",
     "dpDamper_nominal=%k1% * 1.2 * %v_nominal%^2 / 2"},
     true);
 convertModifiers(
-    "IBPSA.Fluid.Actuators.Dampers.VAVBoxExponential",
+    {"IBPSA.Fluid.Actuators.Dampers.VAVBoxExponential",
+    "Fluid.Actuators.Dampers.VAVBoxExponential",
+    "Actuators.Dampers.VAVBoxExponential",
+    "Dampers.VAVBoxExponential",
+    "VAVBoxExponential"},
     {"dp_nominal", "k1=0.45", "v_nominal=1", "dp_nominalIncludesDamper=true"},
     {"k1=%k1%",
     "dpDamper_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
     "dpFixed_nominal=if %dp_nominalIncludesDamper% then %dp_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dp_nominal%"},
     true);
 convertModifiers(
-    "IBPSA.Fluid.Actuators.Dampers.MixingBox",
+    {"IBPSA.Fluid.Actuators.Dampers.MixingBox",
+    "Fluid.Actuators.Dampers.MixingBox",
+    "Actuators.Dampers.MixingBox",
+    "Dampers.MixingBox",
+    "MixingBox"},
     {"dpOut_nominal", "dpRec_nominal", "dpExh_nominal", "k1=0.45", "v_nominal=1", "dp_nominalIncludesDamper=false"},
     {"k1=%k1%",
     "dpDamOut_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
@@ -96,5 +112,9 @@ convertModifiers(
     "dpFixExh_nominal=if %dp_nominalIncludesDamper% then %dpExh_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpExh_nominal%"},
     true);
 convertClass(
-    "IBPSA.Fluid.Actuators.Dampers.VAVBoxExponential",
+    {"IBPSA.Fluid.Actuators.Dampers.VAVBoxExponential",
+    "Fluid.Actuators.Dampers.VAVBoxExponential",
+    "Actuators.Dampers.VAVBoxExponential",
+    "Dampers.VAVBoxExponential",
+    "VAVBoxExponential"},
     "IBPSA.Fluid.Actuators.Dampers.Exponential");
