@@ -61,8 +61,9 @@ model FlowControlled_dpSystem
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
-    m_flow_nominal=m_flow_nominal/2)
-                           "Damper"
+    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
+    k1=0.45,
+    m_flow_nominal=m_flow_nominal/2) "Damper"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   MixingVolumes.MixingVolume zone1(
     redeclare package Medium = Medium,
@@ -75,22 +76,25 @@ model FlowControlled_dpSystem
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
-    m_flow_nominal=m_flow_nominal/2)
-                           "Damper"
+    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
+    k1=0.45,
+    m_flow_nominal=m_flow_nominal/2) "Damper"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Actuators.Dampers.Exponential dam3(
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
-    m_flow_nominal=m_flow_nominal/2)
-                           "Damper"
+    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
+    k1=0.45,
+    m_flow_nominal=m_flow_nominal/2) "Damper"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Actuators.Dampers.Exponential dam4(
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
-    m_flow_nominal=m_flow_nominal/2)
-                           "Damper"
+    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
+    k1=0.45,
+    m_flow_nominal=m_flow_nominal/2) "Damper"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   MixingVolumes.MixingVolume zone3(
     redeclare package Medium = Medium,
