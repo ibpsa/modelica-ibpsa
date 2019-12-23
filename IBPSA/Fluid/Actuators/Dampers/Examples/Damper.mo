@@ -6,8 +6,10 @@ model Damper
 
   IBPSA.Fluid.Actuators.Dampers.Exponential res(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    use_inputFilter=false)
+    use_inputFilter=false,
+    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
+    k1=0.45,
+    m_flow_nominal=1)
     "A damper with quadratic relationship between m_flow and dp"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
@@ -36,7 +38,7 @@ model Damper
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dpFixed_nominal=5,
-    dp_nominal=10)
+    dpDamper_nominal=10)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
@@ -45,7 +47,7 @@ model Damper
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dpFixed_nominal=0,
-    dp_nominal=10,
+    dpDamper_nominal=10,
     from_dp=false)
     "A damper with a mass flow proportional to the input signal and using from_dp = false"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
@@ -53,7 +55,7 @@ model Damper
   IBPSA.Fluid.Actuators.Dampers.PressureIndependent preInd(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dp_nominal=10,
+    dpDamper_nominal=10,
     use_inputFilter=false)
     "A damper with a mass flow proportional to the input signal"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
