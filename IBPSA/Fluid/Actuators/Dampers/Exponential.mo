@@ -5,7 +5,6 @@ model Exponential "Air damper with exponential opening characteristics"
       m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
       eta_default*ReC*sqrt(A)*facRouDuc);
    extends IBPSA.Fluid.Actuators.BaseClasses.ActuatorSignal;
-
  parameter Modelica.SIunits.PressureDifference dpDamper_nominal(displayUnit="Pa")
    "Pressure drop of fully open damper at nominal conditions"
    annotation(Dialog(group = "Nominal condition"));
@@ -35,15 +34,18 @@ model Exponential "Air damper with exponential opening characteristics"
   annotation(Dialog(tab="Damper coefficients"));
  parameter Real yU(unit="1") = 55/90 "Upper value for damper curve"
   annotation(Dialog(tab="Damper coefficients"));
- parameter Real k0(min=0, unit="1") = 1E6
+ final parameter Real k0(min=0, unit="1") = 2 * rho_default * (A / (l * kDamMax))^2
     "Loss coefficient for y=0, k0 = pressure drop divided by dynamic pressure"
   annotation(Dialog(tab="Damper coefficients"));
  parameter Real k1(min=0, unit="1") = 0.45
     "Loss coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
   annotation(Dialog(tab="Damper coefficients"));
+ parameter Real l(min=1e-10, max=1) = 0.0001
+    "Damper leakage, ratio of flow coefficients k(y=0)/k(y=1)"
+  annotation(Dialog(tab="Damper coefficients"));
  parameter Boolean use_constant_density=true
     "Set to true to use constant density for flow friction"
-   annotation (Evaluate=true, Dialog(tab="Advanced"));
+  annotation (Evaluate=true, Dialog(tab="Advanced"));
  Medium.Density rho "Medium density";
  final parameter Real kFixed(fixed=false)
     "Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
@@ -232,6 +234,7 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 December 23, 2019, by Antoine Gautier:<br/>
 Merged the content of <code>PartialDamperExponential</code> and <code>VAVBoxExponential</code> that are retired.<br/>
 Added the declaration of <code>dpDamper_nominal</code> and <code>dpFixed_nominal</code>.<br/>
+Expose leakage coefficient instead of <code>k0</code>.<br/>
 Modified the limiting values for <code>k0</code> and <code>k1</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.

@@ -26,7 +26,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     b=b,
     yL=yL,
     yU=yU,
-    k0=k0,
+    l=l,
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
@@ -62,7 +62,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     b=b,
     yL=yL,
     yU=yU,
-    k0=k0,
+    l=l,
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
@@ -84,7 +84,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     b=b,
     yL=yL,
     yU=yU,
-    k0=k0,
+    l=l,
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
@@ -141,12 +141,12 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     annotation (Dialog(tab="Damper coefficients"));
   parameter Real yU=55/90 "Upper value for damper curve"
     annotation (Dialog(tab="Damper coefficients"));
-  parameter Real k0=1E6
-    "Flow coefficient for y=0, k0 = pressure drop divided by dynamic pressure"
-    annotation (Dialog(tab="Damper coefficients"));
   parameter Real k1=0.45
     "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
     annotation (Dialog(tab="Damper coefficients"));
+  parameter Real l(min=1e-10, max=1) = 0.0001
+    "Damper leakage, ratio of flow coefficients k(y=0)/k(y=1)"
+    annotation(Dialog(tab="Damper coefficients"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(redeclare package Medium =
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else

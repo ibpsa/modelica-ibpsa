@@ -3,11 +3,7 @@ model PressureIndependent
   "Model for an air damper whose mass flow is proportional to the input signal"
   extends IBPSA.Fluid.Actuators.Dampers.Exponential(
     final linearized=false,
-    final casePreInd=true,
-    final k0=2 * rho_default * (A / (l * kDamMax))^2);
-  parameter Real l(min=1e-10, max=1) = 0.0001
-    "Damper leakage, l=kDam(y=0)/kDam(y=1)"
-    annotation(Dialog(tab="Advanced"));
+    final casePreInd=true);
   input Real phi = l + y_actual*(1 - l)
     "Ratio actual to nominal mass flow rate of damper, phi=kDam(y)/kDam(y=1)";
   parameter Real l2(unit="1", min=1e-10) = 0.01
