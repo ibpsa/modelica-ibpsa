@@ -16,14 +16,14 @@ protected
        cU=cU,
        yL=yL,
        yU=yU)
-    "Flow coefficient, kThetaSqRt = sqrt(pressure drop divided by dynamic pressure)";
+    "Loss coefficient, kThetaSqRt = sqrt(pressure drop divided by dynamic pressure)";
 initial algorithm
-   assert(kThetaSqRt_default>0, "Flow coefficient must be strictly positive.");
+   assert(kThetaSqRt_default>0, "Loss coefficient must be strictly positive.");
    annotation (
 defaultComponentName="dam",
 Documentation(info="<html>
 <p>
-This model is an air damper with flow coefficient that is an exponential function
+This model is an air damper with loss coefficient that is an exponential function
 of the opening angle. The model is as in ASHRAE 825-RP.
 A control signal of <code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper
 is open. This is opposite of the implementation of ASHRAE 825-RP, but used here
@@ -36,7 +36,7 @@ For <code>yL &lt; y &lt; yU</code>, the damper characteristics is
   k<sub>d</sub>(y) = exp(a+b (1-y)).
 </p>
 <p>
-Outside this range, the damper characteristic is defined by a quadratic polynomial that
+Outside this range, the damper characteristics is defined by a quadratic polynomial that
 matches the damper resistance at <code>y=0</code> and <code>y=yL</code> or <code>y=yU</code> and
 <code>y=1</code>, respectively. In addition, the polynomials are such that
 <i>k<sub>d</sub>(y)</i> is

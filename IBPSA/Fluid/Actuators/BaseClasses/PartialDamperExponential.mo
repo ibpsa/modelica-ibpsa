@@ -29,10 +29,10 @@ partial model PartialDamperExponential
  parameter Real yU = 55/90 "Upper value for damper curve"
   annotation(Dialog(tab="Damper coefficients"));
  parameter Real k0(min=0) = 1E6
-    "Flow coefficient for y=0, k0 = pressure drop divided by dynamic pressure"
+    "Loss coefficient for y=0, k0 = pressure drop divided by dynamic pressure"
   annotation(Dialog(tab="Damper coefficients"));
  parameter Real k1(min=0) = 0.45
-    "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
+    "Loss coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
   annotation(Dialog(tab="Damper coefficients"));
  parameter Boolean use_constant_density=true
     "Set to true to use constant density for flow friction"
