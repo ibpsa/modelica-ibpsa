@@ -293,9 +293,9 @@ Documentation(revisions="<html>
 <ul>
 <li>
 December 23, 2019, by Antoine Gautier:<br/>
-Updated parameter bindings consistently with refactoring of 
-<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.Exponential\">
-IBPSA.Fluid.Actuators.Dampers.Exponential</a>.<br/>
+Updated parameter bindings consistently with refactoring of
+<a href=\"modelica://IBPSA.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
+IBPSA.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.
 </li>
