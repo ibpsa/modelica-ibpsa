@@ -163,6 +163,13 @@ Please see that documentation for more information.
 revisions="<html>
 <ul>
 <li>
+December 23, 2019 by Antoine Gautier:<br/>
+Refactored as the model can now extend directly <a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.Exponential\">
+IBPSA.Fluid.Actuators.Dampers.Exponential</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.
+</li>
+<li>
 March 21, 2017 by David Blum:<br/>
 First implementation.
 </li>

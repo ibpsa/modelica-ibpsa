@@ -142,9 +142,20 @@ equation
 defaultComponentName="dam",
 Documentation(info="<html>
 <p>
-This model is an air damper with loss coefficient that is an exponential function
-of the opening angle. The model is as in ASHRAE 825-RP.
-A control signal of <code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper
+Model of two flow resistances in series:
+</p>
+<ul>
+<li>
+one resistance has a fixed flow coefficient;
+</li>
+<li>
+the other resistance represents a damper whose flow coefficient is an 
+exponential function of the opening angle. 
+</li>
+</ul>
+<p>
+The damper model is as in ASHRAE 825-RP except that a control signal of 
+<code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper
 is open. This is opposite of the implementation of ASHRAE 825-RP, but used here
 for consistency within this library.
 </p>
@@ -176,13 +187,14 @@ is used to compute the mass flow rate versus pressure
 drop relation as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m = sign(&Delta;p) k(y)  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+  m&#775; = sign(&Delta;p) k(y)  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 with regularization near the origin.
 </p>
 <p>
 ASHRAE 825-RP lists the following parameter values as typical:
+<br />
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
@@ -218,9 +230,11 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 <ul>
 <li>
 December 23, 2019, by Antoine Gautier:<br/>
-Merged content of <code>PartialDamperExponential</code> that is retired.<br/>
+Merged the content of <code>PartialDamperExponential</code> and <code>VAVBoxExponential</code> that are retired.<br/>
 Added the declaration of <code>dpDamper_nominal</code> and <code>dpFixed_nominal</code>.<br/>
-Modified the limiting values for <code>k0</code> and <code>k1</code>.
+Modified the limiting values for <code>k0</code> and <code>k1</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.
 </li>
 <li>
 March 22, 2017, by Michael Wetter:<br/>

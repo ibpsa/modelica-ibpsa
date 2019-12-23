@@ -94,10 +94,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
         extent={{-10,-10},{10,10}},
         rotation=90)));
 
-  parameter Boolean dp_nominalIncludesDamper=false
-    "set to true if dp_nominal includes the pressure loss of the open damper"
-    annotation (Dialog(group="Nominal condition"));
-
   parameter Modelica.SIunits.MassFlowRate mOut_flow_nominal
     "Mass flow rate outside air damper"
     annotation (Dialog(group="Nominal condition"));
@@ -298,6 +294,14 @@ defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
 <li>
+December 23, 2019, by Antoine Gautier:<br/>
+Updated parameter bindings consistently with refactoring of 
+<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.Exponential\">
+IBPSA.Fluid.Actuators.Dampers.Exponential</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.
+</li>
+<li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to moist air only.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
@@ -345,14 +349,7 @@ First implementation.
 </html>", info="<html>
 <p>
 Model of an outside air mixing box with air dampers.
-Set <code>y=0</code> to close the outside air and exhast air dampers.
-</p>
-<p>
-If <code>dp_nominalIncludesDamper=true</code>, then the parameter <code>dp_nominal</code>
-is equal to the pressure drop of the damper plus the fixed flow resistance at the nominal
-flow rate.
-If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
-does not include the flow resistance of the air damper.
+Set <code>y=0</code> to close the outside air and exhaust air dampers.
 </p>
 </html>"));
 end MixingBox;
