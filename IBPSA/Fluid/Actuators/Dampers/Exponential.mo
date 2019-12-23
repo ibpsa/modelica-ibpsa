@@ -234,7 +234,7 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 December 23, 2019, by Antoine Gautier:<br/>
 Merged the content of <code>PartialDamperExponential</code> and <code>VAVBoxExponential</code> that are retired.<br/>
 Added the declaration of <code>dpDamper_nominal</code> and <code>dpFixed_nominal</code>.<br/>
-Expose leakage coefficient instead of <code>k0</code>.<br/>
+Replaced <code>k0</code> by leakage coefficient.<br/>
 Modified the limiting values for <code>k0</code> and <code>k1</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.
