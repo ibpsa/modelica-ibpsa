@@ -3,6 +3,7 @@ model PressureIndependent
   "Model for an air damper whose mass flow is proportional to the input signal"
   extends IBPSA.Fluid.Actuators.Dampers.Exponential(
     final linearized=false,
+    final casePreInd=true,
     final k0=2 * rho_default * (A / (l * kDamMax))^2);
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Damper leakage, l=kDam(y=0)/kDam(y=1)"
@@ -38,7 +39,7 @@ equation
   m_flow_set = m_flow_nominal*phi;
   dp_min = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
               m_flow=m_flow_set,
-              k=k,
+              k=kTotMax,
               m_flow_turbulent=m_flow_turbulent);
 
   if from_dp then
@@ -55,7 +56,7 @@ equation
     // min function ensures that m_flow_y1 does not increase further for dp_x > dp_x1
     m_flow_y1 = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
                                   dp=min(dp, dp_min+dp_x1),
-                                  k=k,
+                                  k=kTotMax,
                                   m_flow_turbulent=m_flow_turbulent);
     // max function ensures that m_flow_y2 does not decrease further for dp_x < dp_x2
     m_flow_y2 = m_flow_set + coeff1*max(dp_x,dp_x2);
@@ -73,13 +74,13 @@ equation
                  y2=m_flow_y2,
                  y1d= IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
                                      dp=dp_min + dp_x1,
-                                     k=k,
+                                     k=kTotMax,
                                      m_flow_turbulent=m_flow_turbulent,
                                      dp_der=1),
                  y2d=coeff1,
                  y1dd=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
                                      dp=dp_min + dp_x1,
-                                     k=k,
+                                     k=kTotMax,
                                      m_flow_turbulent=m_flow_turbulent,
                                      dp_der=1,
                                      dp_der2=0),
@@ -98,7 +99,7 @@ equation
     // min function ensures that dp_y1 does not increase further for m_flow_x > m_flow_x1
     dp_y1 = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
                                      m_flow=min(m_flow, m_flow_set + m_flow_x1),
-                                     k=k,
+                                     k=kTotMax,
                                      m_flow_turbulent=m_flow_turbulent);
     // max function ensures that dp_y2 does not decrease further for m_flow_x < m_flow_x2
     dp_y2 = dp_min + coeff2*max(m_flow_x, m_flow_x2);
@@ -116,13 +117,13 @@ equation
                  y2=dp_y2,
                  y1d=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der(
                                      m_flow=m_flow_set + m_flow_x1,
-                                     k=k,
+                                     k=kTotMax,
                                      m_flow_turbulent=m_flow_turbulent,
                                      m_flow_der=1),
                  y2d=coeff2,
                  y1dd=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2(
                                      m_flow=m_flow_set + m_flow_x1,
-                                     k=k,
+                                     k=kTotMax,
                                      m_flow_turbulent=m_flow_turbulent,
                                      m_flow_der=1,
                                      m_flow_der2=0),

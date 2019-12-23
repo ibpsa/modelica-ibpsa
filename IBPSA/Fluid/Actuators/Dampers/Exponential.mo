@@ -45,7 +45,7 @@ model Exponential "Air damper with exponential opening characteristics"
     "Set to true to use constant density for flow friction"
    annotation (Evaluate=true, Dialog(tab="Advanced"));
  Medium.Density rho "Medium density";
- parameter Real kFixed(unit="1", fixed=false)
+ final parameter Real kFixed(fixed=false)
     "Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
  Real kDam
     "Flow coefficient of damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
@@ -54,6 +54,7 @@ model Exponential "Air damper with exponential opening characteristics"
 protected
  parameter Medium.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
+ parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
  parameter Real kL = IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)^2
     "Loss coefficient at the lower limit of the exponential characteristics";
@@ -69,7 +70,16 @@ protected
     (-b*yU^2 - 2*Modelica.Math.log(k1)*yU - (-2*b - 2*a)*yU - b)/(yU^2 - 2*yU + 1),
     (Modelica.Math.log(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1)}
     "Polynomial coefficients for curve fit for y > yu";
- parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
+  parameter Real kDamMax =  (2 * rho_default / k1)^0.5 * A
+    "Flow coefficient of damper fully open, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+  parameter Real kTotMax = if dpFixed_nominal > Modelica.Constants.eps then
+    sqrt(1 / (1 / kFixed^2 + 1 / kDamMax^2)) else kDamMax
+    "Flow coefficient of damper fully open plus fixed resistance, with unit=(kg.m)^(1/2)";
+  parameter Real kDamMin = (2 * rho_default / k0)^0.5 * A
+    "Flow coefficient of damper fully closed, with unit=(kg.m)^(1/2)";
+  parameter Real kTotMin = if dpFixed_nominal > Modelica.Constants.eps then
+    sqrt(1 / (1 / kFixed^2 + 1 / kDamMin^2)) else kDamMin
+    "Flow coefficient of damper fully closed + fixed resistance, with unit=(kg.m)^(1/2)";
 initial equation
   assert(dpDamper_nominal > Modelica.Constants.eps, "dpDamper_nominal must be strictly greater than zero.");
   assert(dpFixed_nominal >= 0, "dpFixed_nominal must be greater than zero.");

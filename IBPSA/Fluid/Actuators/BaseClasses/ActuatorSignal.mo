@@ -30,6 +30,9 @@ model ActuatorSignal
 
   // Classes used to implement the filtered opening
 protected
+  parameter Boolean casePreInd = false
+    "casePreInd is true in case of PressureIndependent model"
+    annotation(Evaluate=true);
   Modelica.Blocks.Interfaces.RealOutput y_filtered if use_inputFilter
     "Filtered valve position in the range 0..1"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
