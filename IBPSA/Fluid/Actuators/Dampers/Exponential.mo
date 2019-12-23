@@ -123,7 +123,7 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 <ul>
 <li>
 December 23, 2019, by Antoine Gautier:<br/>
-Added the pressure drop calculation.<br/>
+Added the pressure drop calculation as it is no longer in the base class.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.
 </li>

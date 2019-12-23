@@ -112,13 +112,6 @@ for a description of the filter.
 </html>", revisions="<html>
 <ul>
 <li>
-December 23, 2019, by Antoine Gautier:<br/>
-Added protected parameter <code>casePreInd=false</code> needed for refactoring
-the damper models.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.
-</li>
-<li>
 November 14, 2019, by Michael Wetter:<br/>
 Set <code>start</code> attribute for <code>filter.x</code>.<br/>
 This is for

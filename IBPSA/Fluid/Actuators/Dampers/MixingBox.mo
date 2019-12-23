@@ -14,6 +14,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
 
   IBPSA.Fluid.Actuators.Dampers.Exponential damOA(
     redeclare package Medium = Medium,
+    m_flow_nominal=mOut_flow_nominal,
     dpDamper_nominal=dpDamOut_nominal,
     dpFixed_nominal=dpFixOut_nominal,
     from_dp=from_dp,
@@ -30,7 +31,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=mOut_flow_nominal,
     final use_inputFilter=false)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   parameter Boolean use_deltaM = true
@@ -38,8 +38,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Real deltaM = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation(Dialog(enable=use_deltaM));
-  parameter Modelica.SIunits.Velocity v_nominal=1 "Nominal face velocity";
-
   parameter Boolean roundDuct = false
     "Set to true for round duct, false for square cross section"
     annotation(Dialog(enable=not use_deltaM));
