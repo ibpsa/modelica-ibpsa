@@ -30,9 +30,6 @@ model ActuatorSignal
 
   // Classes used to implement the filtered opening
 protected
-  parameter Boolean casePreInd = false
-    "casePreInd is true in case of PressureIndependent model"
-    annotation(Evaluate=true);
   Modelica.Blocks.Interfaces.RealOutput y_filtered if use_inputFilter
     "Filtered valve position in the range 0..1"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
@@ -116,7 +113,7 @@ for a description of the filter.
 <ul>
 <li>
 December 23, 2019, by Antoine Gautier:<br/>
-Added protected parameter <code>casePreInd=false</code> needed for refactoring 
+Added protected parameter <code>casePreInd=false</code> needed for refactoring
 the damper models.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\">#1188</a>.

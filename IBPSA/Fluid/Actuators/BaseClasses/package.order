@@ -1,4 +1,5 @@
 ActuatorSignal
+PartialDamperExponential
 PartialThreeWayValve
 PartialTwoWayValve
 PartialTwoWayValveKv
