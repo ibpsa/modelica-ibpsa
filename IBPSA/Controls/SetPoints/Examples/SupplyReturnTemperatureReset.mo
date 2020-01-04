@@ -1,7 +1,7 @@
 within IBPSA.Controls.SetPoints.Examples;
-model HotWaterTemperatureReset "Test model for the heating curve"
+model SupplyReturnTemperatureReset "Test model for the heating curve"
   extends Modelica.Icons.Example;
-  IBPSA.Controls.SetPoints.HotWaterTemperatureReset heaCur(
+  IBPSA.Controls.SetPoints.SupplyReturnTemperatureReset heaCur(
     m=1,
     TSup_nominal=333.15,
     TRet_nominal=313.15,
@@ -12,7 +12,7 @@ model HotWaterTemperatureReset "Test model for the heating curve"
     duration=1,
     offset=263.15)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  IBPSA.Controls.SetPoints.HotWaterTemperatureReset heaCur1(
+  IBPSA.Controls.SetPoints.SupplyReturnTemperatureReset heaCur1(
     m=1,
     use_TRoo_in=true,
     TSup_nominal=333.15,
@@ -38,7 +38,7 @@ equation
       points={{-59,-30},{-50,-30},{-50,4},{-41.9,4}},
       color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Controls/SetPoints/Examples/HotWaterTemperatureReset.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Controls/SetPoints/Examples/SupplyReturnTemperatureReset.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -56,7 +56,7 @@ an outside temperature of
 The figure below shows the computed supply and return water temperatures.
 </p>
 <p align=\"center\">
-<img src=\"modelica://IBPSA/Resources/Images/Controls/SetPoints/Examples/HotWaterTemperatureReset.png\" border=\"1\" alt=\"Supply and return water temperatures.\"/>
+<img src=\"modelica://IBPSA/Resources/Images/Controls/SetPoints/Examples/SupplyReturnTemperatureReset.png\" border=\"1\" alt=\"Supply and return water temperatures.\"/>
 </p>
 </html>", revisions="<html>
 <ul>
@@ -66,4 +66,4 @@ Added documentation.
 </li>
 </ul>
 </html>"));
-end HotWaterTemperatureReset;
+end SupplyReturnTemperatureReset;
