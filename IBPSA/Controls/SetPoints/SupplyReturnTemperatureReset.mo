@@ -88,7 +88,7 @@ shift the heating curve.
 <li>
 January 03, 2020, by Jianjun Hu:<br/>
 Changed name from <code>HotWaterTemperatureReset</code> to 
-<code>SupplyReturnTemperatureReset</code>.
+<code>SupplyReturnTemperatureReset</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1273\">#1273</a>.
 </li>
