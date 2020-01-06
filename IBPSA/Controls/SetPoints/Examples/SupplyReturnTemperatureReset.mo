@@ -6,11 +6,13 @@ model SupplyReturnTemperatureReset "Test model for the heating curve"
     TSup_nominal=333.15,
     TRet_nominal=313.15,
     TOut_nominal=263.15)
+    "Temperature reset"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Ramp TOut(
     height=40,
     duration=1,
     offset=263.15)
+    "Signal for outside air temperature"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   IBPSA.Controls.SetPoints.SupplyReturnTemperatureReset heaCur1(
     m=1,
@@ -19,6 +21,7 @@ model SupplyReturnTemperatureReset "Test model for the heating curve"
     TRet_nominal=313.15,
     TOut_nominal=263.15,
     dTOutHeaBal=15)
+    "Temperature reset that uses room temperature as input"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Modelica.Blocks.Sources.Step TRoo(
     offset=273.15 + 20,
@@ -26,6 +29,7 @@ model SupplyReturnTemperatureReset "Test model for the heating curve"
     height=-5) "Night set back from 20 to 15 deg C"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Sources.Constant TOut2(k=273.15 - 10)
+   "Constant signal for outdoor air temperature"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
   connect(TOut.y, heaCur.TOut) annotation (Line(
