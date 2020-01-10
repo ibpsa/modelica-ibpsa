@@ -7,10 +7,10 @@ model PartialDamperExponential
       eta_default*ReC*sqrt(A)*facRouDuc);
   extends IBPSA.Fluid.Actuators.BaseClasses.ActuatorSignal;
   parameter Modelica.SIunits.PressureDifference dpDamper_nominal(displayUnit="Pa")
-    "Pressure drop of fully open damper at nominal conditions"
+    "Pressure drop of fully open damper at nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa") = 0
-    "Pressure drop of duct and other resistances in series, at nominal conditions"
+    "Pressure drop of duct and resistances other than the damper in series, at nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
