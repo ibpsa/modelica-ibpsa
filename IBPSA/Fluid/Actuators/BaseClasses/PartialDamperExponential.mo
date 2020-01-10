@@ -84,15 +84,23 @@ protected
     sqrt(1 / (1 / kFixed^2 + 1 / kDamMin^2)) else kDamMin
     "Flow coefficient of damper fully closed + fixed resistance, with unit=(kg.m)^(1/2)";
 initial equation
-  assert(dpDamper_nominal > Modelica.Constants.eps, "dpDamper_nominal must be strictly greater than zero.");
-  assert(dpFixed_nominal >= 0, "dpFixed_nominal must be greater than zero.");
-  assert(yL < yU, "yL must be strictly lower than yU.");
-  assert(m_flow_turbulent > 0, "m_flow_turbulent must be strictly greater than zero.");
-  assert(k1 >= 0.2, "k1 must be greater than 0.2. k1=" + String(k1));
-  assert(k1 < kU, "k1 must be strictly lower than exp(a + b * (1 - yU)). k1=" +
+  assert(dpDamper_nominal > Modelica.Constants.eps,
+    "In " + getInstanceName() + ": dpDamper_nominal must be strictly greater than zero.");
+  assert(dpFixed_nominal >= 0,
+    "In " + getInstanceName() + ": dpFixed_nominal must be greater than zero.");
+  assert(yL < yU,
+    "In " + getInstanceName() + ": yL must be strictly lower than yU.");
+  assert(m_flow_turbulent > 0,
+    "In " + getInstanceName() + ": m_flow_turbulent must be strictly greater than zero.");
+  assert(k1 >= 0.2,
+    "In " + getInstanceName() + ": k1 must be greater than 0.2. k1=" + String(k1));
+  assert(k1 < kU,
+    "In " + getInstanceName() + ": k1 must be strictly lower than exp(a + b * (1 - yU)). k1=" +
     String(k1) + ", exp(...) = " + String(kU));
-  assert(k0 <= 1e10, "k0 must be lower than 1e10. k0=" + String(k0));
-  assert(k0 > kL, "k0 must be strictly higher than exp(a + b * (1 - yL)). k0=" +
+  assert(k0 <= 1e10,
+    "In " + getInstanceName() + ": k0 must be lower than 1e10. k0=" + String(k0));
+  assert(k0 > kL,
+    "In " + getInstanceName() + ": k0 must be strictly higher than exp(a + b * (1 - yL)). k0=" +
     String(k0) + ", exp(...) = " + String(kL));
   kFixed = if dpFixed_nominal > Modelica.Constants.eps then
     m_flow_nominal / sqrt(dpFixed_nominal) else Modelica.Constants.inf;
