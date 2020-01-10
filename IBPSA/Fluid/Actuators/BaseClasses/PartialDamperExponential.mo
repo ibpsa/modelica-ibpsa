@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Actuators.BaseClasses;
-model PartialDamperExponential
+partial model PartialDamperExponential
   "Partial model for air dampers with exponential opening characteristics"
   extends IBPSA.Fluid.BaseClasses.PartialResistance(
     final dp_nominal=dpDamper_nominal+dpFixed_nominal,
