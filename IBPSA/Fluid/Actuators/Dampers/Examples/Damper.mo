@@ -7,7 +7,7 @@ model Damper
   IBPSA.Fluid.Actuators.Dampers.Exponential res(
     redeclare package Medium = Medium,
     use_inputFilter=false,
-    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamper_nominal=10,
     m_flow_nominal=1,
     k1=0.45) "A damper with quadratic relationship between m_flow and dp"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));

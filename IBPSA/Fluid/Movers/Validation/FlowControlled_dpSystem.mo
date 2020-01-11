@@ -61,7 +61,7 @@ model FlowControlled_dpSystem
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
-    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamper_nominal=10,
     m_flow_nominal=m_flow_nominal/2,
     k1=0.45) "Damper"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
@@ -76,7 +76,7 @@ model FlowControlled_dpSystem
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
-    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamper_nominal=10,
     m_flow_nominal=m_flow_nominal/2,
     k1=0.45) "Damper"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
@@ -84,7 +84,7 @@ model FlowControlled_dpSystem
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
-    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamper_nominal=10,
     m_flow_nominal=m_flow_nominal/2,
     k1=0.45) "Damper"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
@@ -92,7 +92,7 @@ model FlowControlled_dpSystem
     redeclare package Medium = Medium,
     from_dp=true,
     use_inputFilter=false,
-    dpDamper_nominal=(0.45)*1.2*(1)^2/2,
+    dpDamper_nominal=10,
     m_flow_nominal=m_flow_nominal/2,
     k1=0.45) "Damper"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
@@ -138,10 +138,10 @@ model FlowControlled_dpSystem
     m_flow_nominal=m_flow_nominal/2) "Duct pressure drop"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 equation
-  connect(y.y, floConDp.dp_in) annotation (Line(points={{-99,90},{-70.2,90},{-70.2,
+  connect(y.y, floConDp.dp_in) annotation (Line(points={{-99,90},{-70,90},{-70,
           72}}, color={0,0,127}));
   connect(y.y, floConDpSystem.dp_in) annotation (Line(points={{-99,90},{-90,90},
-          {-90,20},{-70,20},{-70,-68},{-70.2,-68}},
+          {-90,20},{-70,20},{-70,-68},{-70,-68}},
                                            color={0,0,127}));
   connect(zone2.ports[1], sin.ports[1])
     annotation (Line(points={{88,40},{100,40},{100,3}},    color={0,127,255}));
