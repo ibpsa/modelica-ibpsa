@@ -1,12 +1,52 @@
 within IBPSA.Media;
 package Steam "Package with model for ideal steam"
-  extends Modelica.Media.Water.IdealSteam;
+  extends Modelica.Media.Water.IdealSteam(
+     mediumName="steam",
+     reference_T=273.15,
+     reference_p=101325,
+     AbsolutePressure(start=p_default),
+     Temperature(start=T_default));
 
   extends Modelica.Icons.Package;
+
+  redeclare record extends ThermodynamicState
+    "ThermodynamicState record for ideal steam"
+  end ThermodynamicState;
 
   redeclare model extends BaseProperties "Base properties"
 
   end BaseProperties;
+
+function enthalpyOfVaporization
+  "Return vaporization enthalpy of condensing fluid"
+  extends Modelica.Icons.Function;
+  input Temperature T "Temperature";
+  output SpecificEnthalpy r0 "Vaporization enthalpy";
+algorithm
+  r0 := h_fg;
+end enthalpyOfVaporization;
+
+function enthalpySteam
+    "Enthalpy of steam"
+  extends Modelica.Icons.Function;
+  input Temperature T "temperature";
+  output SpecificEnthalpy h "steam enthalpy";
+algorithm
+  h := (T-reference_T) * cp_const + h_fg;
+  annotation(smoothOrder=5,
+  Inline=true,
+  derivative=der_enthalpyOfCondensingGas);
+end enthalpySteam;
+
+protected
+  constant Modelica.SIunits.SpecificHeatCapacity cp_const=
+    IBPSA.Utilities.Psychrometrics.Constants.cpSte
+    "Specific heat capacity at constant pressure";
+
+  constant Modelica.SIunits.SpecificEnergy h_fg=
+    IBPSA.Utilities.Psychrometrics.Constants.h_fg
+    "Latent heat of evaporation of water";
+
 annotation (Documentation(info="<html>
 <p>
 The steam model can be utilized for steam systems and components that use the 
