@@ -35,7 +35,7 @@ algorithm
   h := (T-reference_T) * cp_const + h_fg;
   annotation(smoothOrder=5,
   Inline=true,
-  derivative=der_enthalpyOfCondensingGas);
+  derivative=der_enthalpySteam);
 end enthalpySteam;
 
 protected
@@ -47,6 +47,17 @@ protected
     IBPSA.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of evaporation of water";
 
+replaceable function der_enthalpySteam
+    "Derivative of enthalpy of steam"
+  extends Modelica.Icons.Function;
+  input Temperature T "temperature";
+  input Real der_T "temperature derivative";
+  output Real der_h "derivative of steam enthalpy";
+algorithm
+  der_h := cp_const*der_T;
+
+  annotation(Inline=true);
+end der_enthalpySteam;
 annotation (Documentation(info="<html>
 <p>
 The steam model can be utilized for steam systems and components that use the 
