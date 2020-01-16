@@ -30,22 +30,40 @@ function enthalpySteam
     "Enthalpy of steam"
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
+//  input ThermodynamicState state "Thermodynamic state";
   output SpecificEnthalpy h "steam enthalpy";
 algorithm
-  h := (T-reference_T) * cp_const + h_fg;
+  h := (T-reference_T) * cp + h_fg;
   annotation(smoothOrder=5,
   Inline=true,
   derivative=der_enthalpySteam);
 end enthalpySteam;
-
 protected
-  constant Modelica.SIunits.SpecificHeatCapacity cp_const=
+  constant Modelica.SIunits.SpecificHeatCapacity cp=
     IBPSA.Utilities.Psychrometrics.Constants.cpSte
     "Specific heat capacity at constant pressure";
+//  constant Modelica.SIunits.SpecificHeatCapacity cp=
+//    specificHeatCapacityCp(state)
+//    "Specific heat at constant pressure";
 
   constant Modelica.SIunits.SpecificEnergy h_fg=
     IBPSA.Utilities.Psychrometrics.Constants.h_fg
-    "Latent heat of evaporation of water";
+    "Default latent heat of evaporation of water";
+//  constant Modelica.SIunits.SpecificEnergy h_f=
+//    specificEnthalpy(state0)
+//    "Enthalpy of fusion";
+//  constant Modelica.SIunits.SpecificEnergy h_g=
+//    specificEnthalpy(state1)
+//    "Enthalpy of evaporation";
+//  constant Modelica.SIunits.SpecificEnergy h_fg=h_g - h_f
+//    "Latent heat of vaporization";
+//  constant ThermodynamicState state "Thermodynamic state of steam";
+//  constant ThermodynamicState state0=setState_pTX(p,T,X=0)
+//    "Thermodynamic state of steam at current pressure and quality x=0";
+//  constant ThermodynamicState state1
+//    "Thermodynamic state of steam at current pressure and quality x=1";
+
+//  constant Temperature T(start=T_default) "Temperature";
 
 replaceable function der_enthalpySteam
     "Derivative of enthalpy of steam"
@@ -54,8 +72,7 @@ replaceable function der_enthalpySteam
   input Real der_T "temperature derivative";
   output Real der_h "derivative of steam enthalpy";
 algorithm
-  der_h := cp_const*der_T;
-
+  der_h := cp*der_T;
   annotation(Inline=true);
 end der_enthalpySteam;
 annotation (Documentation(info="<html>
