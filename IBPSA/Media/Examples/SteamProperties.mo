@@ -2,10 +2,10 @@ within IBPSA.Media.Examples;
 model SteamProperties
   "Model that tests the implementation of the steam properties"
   extends Modelica.Icons.Example;
-  extends IBPSA.Media.Examples.BaseClasses.SteamProperties(
+  extends IBPSA.Media.Examples.BaseClasses.FluidProperties(
     redeclare package Medium = IBPSA.Media.Steam,
-    TMin=274.15,
-    TMax=673.15);
+    TMin=200,
+    TMax=600);
 equation
   // Check the implementation of the base properties
   basPro.state.p=p;

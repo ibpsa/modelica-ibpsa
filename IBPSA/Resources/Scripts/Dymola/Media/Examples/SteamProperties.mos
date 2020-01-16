@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Media.Examples.SteamProperties", method="dassl", startTime=0, stopTime=1.0, tolerance=1e-06, resultFile="SteamProperties");
+﻿simulateModel("IBPSA.Media.Examples.SteamProperties", method="dassl", startTime=0, stopTime=1.0, tolerance=1e-06, resultFile="SteamProperties");
 createPlot(
   id   = 1,
   x    = "T_degC",
@@ -74,54 +74,54 @@ createPlot(
 createPlot(
   id   = 14,
   x    = "T_degC",
-  y    = {"ddhp"},
+  y    = {"ddpT"},
   grid = true
 )
 createPlot(
   id   = 15,
   x    = "T_degC",
-  y    = {"ddph"},
+  y    = {"ddTp"},
   grid = true
-)
+  )
 createPlot(
   id   = 16,
+  x    = "T_degC",
+  y    = {"dddX[1]"},
+  grid = true
+)  
+createPlot(
+  id   = 17,
   x    = "T_degC",
   y    = {"cp"},
   grid = true
 )
 createPlot(
-  id   = 17,
+  id   = 18,
   x    = "T_degC",
   y    = {"cv"},
   grid = true
 )
 createPlot(
-  id   = 18,
+  id   = 19,
   x    = "T_degC",
   y    = {"lambda"},
   grid = true
 )
 createPlot(
-  id   = 19,
+  id   = 20,
   x    = "T_degC",
   y    = {"pMed"},
   grid = true
 )
 createPlot(
-  id   = 20,
+  id   = 21,
   x    = "T_degC",
   y    = {"TMed"},
   grid = true
 )
 createPlot(
-  id   = 21,
-  x    = "T_degC",
-  y    = {"MM"},
-  grid = true
-)
-createPlot(
   id   = 22,
   x    = "T_degC",
-  y    = {"region"},
+  y    = {"MM"},
   grid = true
 )
