@@ -11,6 +11,9 @@ partial model PartialTwoPort "Partial component with two ports"
               X_a=0.40)
               "Propylene glycol water, 40% mass fraction")));
 
+  parameter String iconLabel="%name" "Icon label"
+    annotation (Dialog(tab="Visualization"));
+
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -20,13 +23,23 @@ partial model PartialTwoPort "Partial component with two ports"
      m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
      h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+   annotation (Placement(transformation(
+        extent={{-110,-10},{-90,10}},
+        origin={0,0},
+        rotation=portRotation)));
+
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
      h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}})));
+    annotation (Placement(transformation(
+        extent={{110,-10},{90,10}},
+        origin={0,0},
+        rotation=portRotation)));
+
+protected
+  constant Integer portRotation=0 "Rotation of fluid ports";
 
   annotation (
     Documentation(info="<html>
@@ -104,7 +117,9 @@ First implementation.
           color={0,128,255},
           visible=not allowFlowReversal),
         Text(
-          extent={{-149,-114},{151,-154}},
-          lineColor={0,0,255},
-          textString="%name")}));
+         extent={{-149,-114},{151,-154}},
+         origin={0,0},
+         rotation=port_rotation,
+         lineColor={0,0,255},
+         textString=iconLabel)}));
 end PartialTwoPort;
