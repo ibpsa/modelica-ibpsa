@@ -32,7 +32,7 @@ equation
     end if; // homotopyInitialization
   end if; // linearized
 annotation (
-defaultComponentName="dam",
+defaultComponentName="damExp",
 Documentation(info="<html>
 <p>
 Model of two flow resistances in series:
@@ -47,77 +47,19 @@ exponential function of the opening angle.
 </li>
 </ul>
 <p>
-The damper model is as in ASHRAE 825-RP except that a control signal of
-<code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper
-is open. This is opposite of the implementation of ASHRAE 825-RP, but used here
-for consistency within this library.
+The lumped flow coefficient <i>k(y)</i> (function of the fractional opening
+<i>y</i>) is used to compute the mass flow rate versus pressure drop relation as:
 </p>
-<p>
-For <code>yL &lt; y &lt; yU</code>, the damper characteristics is
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  k<sub>d</sub>(y) = exp(a+b (1-y)).
-</p>
-<p>
-Outside this range, the damper characteristics is defined by a quadratic polynomial that
-matches the damper resistance at <code>y=0</code> and <code>y=yL</code> or <code>y=yU</code> and
-<code>y=1</code>, respectively. In addition, the polynomials are such that
-<i>k<sub>d</sub>(y)</i> is
-differentiable in <i>y</i> and the derivative is continuous.
-</p>
-<p>
-The damper characteristics <i>k<sub>d</sub>(y)</i> is then used to
-compute the flow coefficient <i>k(y)</i> as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-k(y) = (2 &rho; &frasl; k<sub>d</sub>(y))<sup>1/2</sup> A,
-</p>
-<p>
-where <i>A</i> is the face area, which is computed using the nominal
-mass flow rate <code>m_flow_nominal</code>, the nominal velocity
-<code>v_nominal</code> and the density of the medium. The flow coefficient <i>k(y)</i>
-is used to compute the mass flow rate versus pressure
-drop relation as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
+<p style=\"font-style:italic;\">
   m&#775; = sign(&Delta;p) k(y)  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 with regularization near the origin.
-</p>
 <p>
-ASHRAE 825-RP lists the following parameter values as typical:
-<br />
-</p>
-<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr>
-<td></td><th>opposed blades</th><th>single blades</th>
-</tr>
-<tr>
-<td>yL</td><td>15/90</td><td>15/90</td>
-</tr>
-<tr>
-<td>yU</td><td>55/90</td><td>65/90</td>
-</tr>
-<tr>
-<td>k0</td><td>1E6</td><td>1E6</td>
-</tr>
-<tr>
-<td>k1</td><td>0.2 to 0.5</td><td>0.2 to 0.5</td>
-</tr>
-<tr>
-<td>a</td><td>-1.51</td><td>-1.51</td>
-</tr>
-<tr>
-<td>b</td><td>0.105*90</td><td>0.0842*90</td>
-</tr>
-</table>
-<br />
-<h4>References</h4>
-<p>
-P. Haves, L. K. Norford, M. DeSimone and L. Mei,
-<i>A Standard Simulation Testbed for the Evaluation of Control Algorithms &amp; Strategies</i>,
-ASHRAE Final Report 825-RP, Atlanta, GA.
+For a description of the damper opening characteristics and typical
+parameter values, see the partial model
+<a href=\"modelica://IBPSA.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
+IBPSA.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.
 </p>
 </html>", revisions="<html>
 <ul>
