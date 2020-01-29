@@ -11,28 +11,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-  IBPSA.Fluid.Actuators.Dampers.Exponential damOA(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mOut_flow_nominal,
-    dpDamper_nominal=dpDamOut_nominal,
-    dpFixed_nominal=dpFixOut_nominal,
-    from_dp=from_dp,
-    linearized=linearized,
-    use_deltaM=use_deltaM,
-    deltaM=deltaM,
-    roundDuct=roundDuct,
-    ReC=ReC,
-    a=a,
-    b=b,
-    yL=yL,
-    yU=yU,
-    l=l,
-    k1=k1,
-    use_constant_density=use_constant_density,
-    allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false)
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
   parameter Real deltaM = 0.3
@@ -44,54 +22,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Real ReC=4000
     "Reynolds number where transition to turbulent starts"
     annotation(Dialog(enable=not use_deltaM));
-
-  IBPSA.Fluid.Actuators.Dampers.Exponential damExh(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mExh_flow_nominal,
-    dpDamper_nominal=dpDamExh_nominal,
-    dpFixed_nominal=dpFixExh_nominal,
-    from_dp=from_dp,
-    linearized=linearized,
-    use_deltaM=use_deltaM,
-    deltaM=deltaM,
-    roundDuct=roundDuct,
-    ReC=ReC,
-    a=a,
-    b=b,
-    yL=yL,
-    yU=yU,
-    l=l,
-    k1=k1,
-    use_constant_density=use_constant_density,
-    allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false) "Exhaust air damper"
-    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
-
-  IBPSA.Fluid.Actuators.Dampers.Exponential damRec(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mRec_flow_nominal,
-    dpDamper_nominal=dpDamRec_nominal,
-    dpFixed_nominal=dpFixRec_nominal,
-    from_dp=from_dp,
-    linearized=linearized,
-    use_deltaM=use_deltaM,
-    deltaM=deltaM,
-    roundDuct=roundDuct,
-    ReC=ReC,
-    a=a,
-    b=b,
-    yL=yL,
-    yU=yU,
-    l=l,
-    k1=k1,
-    use_constant_density=use_constant_density,
-    allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false) "Recirculation air damper" annotation (
-      Placement(transformation(
-        origin={30,0},
-        extent={{-10,-10},{10,10}},
-        rotation=90)));
-
   parameter Modelica.SIunits.MassFlowRate mOut_flow_nominal
     "Mass flow rate outside air damper"
     annotation (Dialog(group="Nominal condition"));
@@ -166,13 +96,83 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
                 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
-  Modelica.Blocks.Sources.Constant uni(k=1) "Unity signal"
+  IBPSA.Fluid.Actuators.Dampers.Exponential damOA(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mOut_flow_nominal,
+    final dpDamper_nominal=dpDamOut_nominal,
+    final dpFixed_nominal=dpFixOut_nominal,
+    final from_dp=from_dp,
+    final linearized=linearized,
+    final use_deltaM=use_deltaM,
+    final deltaM=deltaM,
+    final roundDuct=roundDuct,
+    final ReC=ReC,
+    final a=a,
+    final b=b,
+    final yL=yL,
+    final yU=yU,
+    final l=l,
+    final k1=k1,
+    final use_constant_density=use_constant_density,
+    final allowFlowReversal=allowFlowReversal,
+    final use_inputFilter=false)
+    "Outdoor air damper"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  IBPSA.Fluid.Actuators.Dampers.Exponential damExh(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mExh_flow_nominal,
+    final dpDamper_nominal=dpDamExh_nominal,
+    final dpFixed_nominal=dpFixExh_nominal,
+    final from_dp=from_dp,
+    final linearized=linearized,
+    final use_deltaM=use_deltaM,
+    final deltaM=deltaM,
+    final roundDuct=roundDuct,
+    final ReC=ReC,
+    final a=a,
+    final b=b,
+    final yL=yL,
+    final yU=yU,
+    final l=l,
+    final k1=k1,
+    final use_constant_density=use_constant_density,
+    final allowFlowReversal=allowFlowReversal,
+    final use_inputFilter=false)
+    "Exhaust air damper"
+    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
+  IBPSA.Fluid.Actuators.Dampers.Exponential damRec(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mRec_flow_nominal,
+    final dpDamper_nominal=dpDamRec_nominal,
+    final dpFixed_nominal=dpFixRec_nominal,
+    final from_dp=from_dp,
+    final linearized=linearized,
+    final use_deltaM=use_deltaM,
+    final deltaM=deltaM,
+    final roundDuct=roundDuct,
+    final ReC=ReC,
+    final a=a,
+    final b=b,
+    final yL=yL,
+    final yU=yU,
+    final l=l,
+    final k1=k1,
+    final use_constant_density=use_constant_density,
+    final allowFlowReversal=allowFlowReversal,
+    final use_inputFilter=false)
+    "Recirculation air damper"
+    annotation (
+      Placement(transformation(
+        origin={30,0},
+        extent={{-10,-10},{10,10}},
+        rotation=90)));
+  Modelica.Blocks.Sources.Constant uni(k=1)
+    "Unity signal"
     annotation (Placement(transformation(extent={{-90,-4},{-70,16}})));
-
-  Modelica.Blocks.Math.Add add(k2=-1) "Adder"
-                             annotation (Placement(transformation(extent={{-40,-10},
+  Modelica.Blocks.Math.Add add(k2=-1)
+    "Adder"
+    annotation (Placement(transformation(extent={{-40,-10},
             {-20,10}})));
-
 protected
   parameter Medium.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
@@ -346,8 +346,12 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Model of an outside air mixing box with air dampers.
+Model of an outside air mixing box with exponential dampers.
 Set <code>y=0</code> to close the outside air and exhaust air dampers.
+See 
+<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.Exponential\">
+IBPSA.Fluid.Actuators.Dampers.Exponential</a>
+for the description of the exponential damper model.
 </p>
 </html>"));
 end MixingBox;
