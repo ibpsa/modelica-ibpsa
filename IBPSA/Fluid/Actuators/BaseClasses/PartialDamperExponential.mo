@@ -3,7 +3,7 @@ partial model PartialDamperExponential
   "Partial model for air dampers with exponential opening characteristics"
   extends IBPSA.Fluid.BaseClasses.PartialResistance(
     final dp_nominal=dpDamper_nominal+dpFixed_nominal,
-    m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
+    final m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
       eta_default*ReC*sqrt(A)*facRouDuc);
   extends IBPSA.Fluid.Actuators.BaseClasses.ActuatorSignal;
   parameter Modelica.SIunits.PressureDifference dpDamper_nominal(displayUnit="Pa")
@@ -35,11 +35,11 @@ partial model PartialDamperExponential
     annotation(Dialog(tab="Damper coefficients"));
   parameter Real yU(unit="1") = 55/90 "Upper value for damper curve"
     annotation(Dialog(tab="Damper coefficients"));
-  final parameter Real k0(min=0, unit="1") = 2 * rho_default * (A / (l * kDamMax))^2
-    "Loss coefficient for y=0, k0 = pressure drop divided by dynamic pressure"
+  final parameter Real k0(min=0, unit="1") = 2 * rho_default * (A / kDamMin)^2
+    "Loss coefficient for y=0 (pressure drop divided by dynamic pressure)"
     annotation(Dialog(tab="Damper coefficients"));
   parameter Real k1(min=0, unit="1") = 0.45
-    "Loss coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
+    "Loss coefficient for y=1 (pressure drop divided by dynamic pressure)"
     annotation(Dialog(tab="Damper coefficients"));
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Damper leakage, ratio of flow coefficients k(y=0)/k(y=1)"
@@ -48,7 +48,8 @@ partial model PartialDamperExponential
     "Set to true to use constant density for flow friction"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
   Medium.Density rho "Medium density";
-  final parameter Real kFixed(fixed=false)
+  final parameter Real kFixed = if dpFixed_nominal > Modelica.Constants.eps then
+    m_flow_nominal / sqrt(dpFixed_nominal) else Modelica.Constants.inf
     "Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
   Real kDam
     "Flow coefficient of damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
@@ -57,7 +58,8 @@ partial model PartialDamperExponential
 protected
   parameter Medium.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
-  parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
+  parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1
+    "Shape factor used to compute the hydraulic diameter for round ducts";
   parameter Real kL = IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)^2
     "Loss coefficient at the lower limit of the exponential characteristics";
@@ -78,7 +80,7 @@ protected
   parameter Real kTotMax = if dpFixed_nominal > Modelica.Constants.eps then
     sqrt(1 / (1 / kFixed^2 + 1 / kDamMax^2)) else kDamMax
     "Flow coefficient of damper fully open plus fixed resistance, with unit=(kg.m)^(1/2)";
-  parameter Real kDamMin = (2 * rho_default / k0)^0.5 * A
+  parameter Real kDamMin = l * kDamMax
     "Flow coefficient of damper fully closed, with unit=(kg.m)^(1/2)";
   parameter Real kTotMin = if dpFixed_nominal > Modelica.Constants.eps then
     sqrt(1 / (1 / kFixed^2 + 1 / kDamMin^2)) else kDamMin
@@ -102,8 +104,6 @@ initial equation
   assert(k0 > kL,
     "In " + getInstanceName() + ": k0 must be strictly higher than exp(a + b * (1 - yL)). k0=" +
     String(k0) + ", exp(...) = " + String(kL));
-  kFixed = if dpFixed_nominal > Modelica.Constants.eps then
-    m_flow_nominal / sqrt(dpFixed_nominal) else Modelica.Constants.inf;
 equation
   rho = if use_constant_density then
       rho_default
@@ -130,10 +130,75 @@ The model also defines parameters that are used by different air damper
 models.
 </p>
 <p>
-For a description of the opening characteristics and typical parameter values,
-see the damper model
-<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.Exponential\">
-IBPSA.Fluid.Actuators.Dampers.Exponential</a>.
+The model is as in ASHRAE 825-RP except that a control signal of
+<code>y=0</code> means the damper is closed, and <code>y=1</code> means
+the damper is open.
+This is opposite of the implementation of ASHRAE 825-RP, but used here
+for consistency within this library.
+</p>
+<p>
+For <code>yL &lt; y &lt; yU</code>, the damper characteristics is:
+</p>
+<p style=\"font-style:italic;\">
+  k<sub>d</sub>(y) = exp(a+b (1-y))
+</p>
+<p>
+where <i>kd</i> is the loss coefficient (total pressure drop divided
+by dynamic pressure) and <i>y</i> is the fractional opening.
+</p>
+<p>
+Outside this range, the damper characteristics is defined by a quadratic polynomial that
+matches the damper resistance at <code>y=0</code> and <code>y=yL</code> or
+<code>y=yU</code> and <code>y=1</code>, respectively.
+In addition, the polynomials are such that <i>k<sub>d</sub>(y)</i> is differentiable in
+<i>y</i> and the derivative is continuous.
+</p>
+<p>
+The damper characteristics is then used to compute the flow coefficient <i>k(y)</i> as:
+</p>
+<p style=\"font-style:italic;\">
+k(y) = (2 &rho; &frasl; k<sub>d</sub>(y))<sup>1/2</sup> A
+</p>
+<p>
+where <i>A</i> is the face area, which is computed using the nominal
+mass flow rate <code>m_flow_nominal</code>, the nominal velocity
+<code>v_nominal</code> and the density of the medium.
+</p>
+<p>
+ASHRAE 825-RP lists the following parameter values as typical (note that the 
+default values in the model correspond to opposed blades).
+<br />
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" 
+style=\"border-collapse:collapse;\">
+<tr>
+<td></td><th>opposed blades</th><th>single blades</th>
+</tr>
+<tr>
+<td>yL</td><td>15/90</td><td>15/90</td>
+</tr>
+<tr>
+<td>yU</td><td>55/90</td><td>65/90</td>
+</tr>
+<tr>
+<td>k1</td><td>0.2 to 0.5</td><td>0.2 to 0.5</td>
+</tr>
+<tr>
+<td>a</td><td>-1.51</td><td>-1.51</td>
+</tr>
+<tr>
+<td>b</td><td>0.105*90</td><td>0.0842*90</td>
+</tr>
+</table>
+<p>
+(The loss coefficient in fully closed position <code>k0</code> is computed based on the leakage coefficient
+and the coefficient in fully open position.)
+</p>
+<h4>References</h4>
+<p>
+P. Haves, L. K. Norford, M. DeSimone and L. Mei,
+<i>A Standard Simulation Testbed for the Evaluation of Control Algorithms &amp; Strategies</i>,
+ASHRAE Final Report 825-RP, Atlanta, GA.
 </p>
 </html>",
 revisions="<html>
