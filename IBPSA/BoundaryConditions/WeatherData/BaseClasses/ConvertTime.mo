@@ -38,7 +38,7 @@ equation
     " exceeds the end time " + String(weaDatEndTim) + " of the weather data file.",
     AssertionLevel.error);
 
-  assert(canRepeatWeatherFile or (time > weaDatStaTim),
+  assert(canRepeatWeatherFile or (time >= weaDatStaTim),
     "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.
     The simulation time " + String(time) +
     " is less than the start time " + String(weaDatStaTim) + " of the weather data file.",
