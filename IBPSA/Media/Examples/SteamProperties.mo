@@ -4,12 +4,18 @@ model SteamProperties
   extends Modelica.Icons.Example;
   extends IBPSA.Media.Examples.BaseClasses.FluidProperties(
     redeclare package Medium = IBPSA.Media.Steam,
-    TMin=200,
-    TMax=600);
+    TMin=273.16,
+    TMax=647);
+    // Min and max temperature ranges limited by h_fg(T) formulation
+
+  Modelica.SIunits.SpecificEnthalpy h_fg "Enthalpy of vaporization";
+
 equation
   // Check the implementation of the base properties
   basPro.state.p=p;
   basPro.state.T=T;
+
+  h_fg = Medium.enthalpyOfVaporization(T);
 
    annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamProperties.mos"

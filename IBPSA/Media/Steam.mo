@@ -64,8 +64,15 @@ algorithm
   annotation (
     smoothOrder=2,
     Documentation(info="<html>
-<p>Enthalpy of vaporization of water is computed from temperature in the region of 273.16 to 647.096 K.</p>
-<p>Source: W Wagner, A Pruss: \"International equations for the saturation properties of ordinary water substance. Revised according to the international temperature scale of 1990\" (1993).</p>
+    <p>
+    Enthalpy of vaporization of water is computed from temperature in the region 
+    of 273.16 to 647.096 K.
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
 </html>"));
 end enthalpyOfVaporization_T;
 
@@ -84,14 +91,14 @@ end enthalpySteam;
 protected
   constant Modelica.SIunits.SpecificHeatCapacity cp=
     IBPSA.Utilities.Psychrometrics.Constants.cpSte
-    "Specific heat capacity at constant pressure";
+    "Specific heat capacity at constant pressure, at T_ref=273.15";
 //  constant Modelica.SIunits.SpecificHeatCapacity cp=
 //    specificHeatCapacityCp(state)
 //    "Specific heat at constant pressure";
 
   constant Modelica.SIunits.SpecificEnergy h_fg=
     IBPSA.Utilities.Psychrometrics.Constants.h_fg
-    "Default latent heat of evaporation of water";
+    "Default latent heat of evaporation of water, at T_ref=273.15";
 //  constant Modelica.SIunits.SpecificEnergy h_f=
 //    specificEnthalpy(state0)
 //    "Enthalpy of fusion";
