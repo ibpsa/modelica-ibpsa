@@ -142,7 +142,9 @@ equation
       dp=dp_smooth;
     end if;
   end if;
-annotation(Documentation(info="<html>
+annotation (
+  defaultComponentName="damPreInd",
+  Documentation(info="<html>
 <p>
 Model for an air damper whose airflow is proportional to the input signal, assuming
 that at <code>y = 1</code>, <code>m_flow = m_flow_nominal</code>. This is unless the pressure difference
