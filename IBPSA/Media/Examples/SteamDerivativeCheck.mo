@@ -19,9 +19,13 @@ initial equation
      cvSym   = cvCod;
 equation
     T = 273.15+110+convT*time^3;
-    hVapCod=Medium.enthalpySteam(T);
+    hVapCod=Medium.specificEnthalpy(
+      Medium.setState_pTX(
+         p=1e5,
+         T=T,
+         X=Medium.X_default));
     der(hVapCod)=der(hVapSym);
-    assert(abs(hVapCod-hVapSym) < 1E-2, "Model has an error");
+    assert(abs(hVapCod-hVapSym) < 1E-1, "Model has an error");
 
     cpCod=Medium.specificHeatCapacityCp(
       Medium.setState_pTX(
