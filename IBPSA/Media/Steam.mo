@@ -134,7 +134,7 @@ of T.
 alt=\"Specific heat of ideal steam\"/>
 </p>
 <h4> 
-Limitation [UPDATE!!!!!!!!!!!!!!!!]
+Limitation
 </h4>
 <p>
 <ul>
@@ -149,20 +149,6 @@ incompressible liquid water for the liquid phase (quality = 0).
 <li>
 The two-phase region (e.g., mixed liquid and vapor) is not included.
 </li>
-<li>
-This model uses standard physical equations to calculate enthalpy from temperature for different regions, 
-and use backward equations to calculate temperature from enthalpy to avoid iterations.
-The numerical differences between basic equations and backward equations in terms of temperature is shown in the following figure.
-</li>
-<li>
-The steam model has discontious properties when changing from liquid phase to vapor phase. Details can be observed in 
-<a href=\"modelica://IBPSA.Media.Examples.SteamProperties\">IBPSA.Media.Examples.SteamProperties</a>.
-</li>
-</ul>
-</p>
-<p align=\"center\">
-<img src=\"modelica://IBPSA/Resources/Images/Media/Steam/numericalError.png\"  
-alt=\"Numerical errors of temperature between basic equations and backward equations\"/>
 </p>
 <h4>
 Reference
