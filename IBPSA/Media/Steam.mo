@@ -16,17 +16,16 @@ package Steam "Package with model for ideal steam"
   redeclare model extends BaseProperties "Base properties"
 
   end BaseProperties;
+//function enthalpyOfVaporization_default
+//  "Return vaporization enthalpy of condensing fluid at default state"
+//  extends Modelica.Icons.Function;
+//  input Temperature T "Temperature";
+//  output SpecificEnthalpy r0 "Vaporization enthalpy";
+//algorithm
+//  r0 := h_fg;
+//end enthalpyOfVaporization_default;
 
-function enthalpyOfVaporization_default
-  "Return vaporization enthalpy of condensing fluid at default state"
-  extends Modelica.Icons.Function;
-  input Temperature T "Temperature";
-  output SpecificEnthalpy r0 "Vaporization enthalpy";
-algorithm
-  r0 := h_fg;
-end enthalpyOfVaporization_default;
-
-function enthalpyOfVaporization_T
+function enthalpyOfVaporization
   "Return enthalpy of vaporization of water as a function of temperature T, 
     273.16 to 647.096 K"
   extends Modelica.Icons.Function;
@@ -74,31 +73,29 @@ algorithm
     temperature scale of 1990\" (1993).
     </p>
 </html>"));
-end enthalpyOfVaporization_T;
-
-function enthalpySteam
-    "Enthalpy of steam"
-  extends Modelica.Icons.Function;
-  input Temperature T "temperature";
-//  input ThermodynamicState state "Thermodynamic state";
-  output SpecificEnthalpy h "steam enthalpy";
-algorithm
-  h := (T-reference_T) * cp + h_fg;
-  annotation(smoothOrder=5,
-  Inline=true,
-  derivative=der_enthalpySteam);
-end enthalpySteam;
-protected
-  constant Modelica.SIunits.SpecificHeatCapacity cp=
-    IBPSA.Utilities.Psychrometrics.Constants.cpSte
-    "Specific heat capacity at constant pressure, at T_ref=273.15";
+end enthalpyOfVaporization;
+//function enthalpySteam
+//    "Enthalpy of steam"
+//  extends Modelica.Icons.Function;
+//  input Temperature T "temperature";
+////  input ThermodynamicState state "Thermodynamic state";
+//  output SpecificEnthalpy h "steam enthalpy";
+//algorithm
+//  h := (T-reference_T) * cp + h_fg;
+//  annotation(smoothOrder=5,
+//  Inline=true,
+//  derivative=der_enthalpySteam);
+//end enthalpySteam;
+//  constant Modelica.SIunits.SpecificHeatCapacity cp=
+//    IBPSA.Utilities.Psychrometrics.Constants.cpSte
+//    "Specific heat capacity at constant pressure, at T_ref=273.15";
 //  constant Modelica.SIunits.SpecificHeatCapacity cp=
 //    specificHeatCapacityCp(state)
 //    "Specific heat at constant pressure";
 
-  constant Modelica.SIunits.SpecificEnergy h_fg=
-    IBPSA.Utilities.Psychrometrics.Constants.h_fg
-    "Default latent heat of evaporation of water, at T_ref=273.15";
+//  constant Modelica.SIunits.SpecificEnergy h_fg=
+//    IBPSA.Utilities.Psychrometrics.Constants.h_fg
+//    "Default latent heat of evaporation of water, at T_ref=273.15";
 //  constant Modelica.SIunits.SpecificEnergy h_f=
 //    specificEnthalpy(state0)
 //    "Enthalpy of fusion";
@@ -115,16 +112,16 @@ protected
 
 //  constant Temperature T(start=T_default) "Temperature";
 
-replaceable function der_enthalpySteam
-    "Derivative of enthalpy of steam"
-  extends Modelica.Icons.Function;
-  input Temperature T "temperature";
-  input Real der_T "temperature derivative";
-  output Real der_h "derivative of steam enthalpy";
-algorithm
-  der_h := cp*der_T;
-  annotation(Inline=true);
-end der_enthalpySteam;
+//replaceable function der_enthalpySteam
+//    "Derivative of enthalpy of steam"
+//  extends Modelica.Icons.Function;
+//  input Temperature T "temperature";
+//  input Real der_T "temperature derivative";
+//  output Real der_h "derivative of steam enthalpy";
+//algorithm
+//  der_h := cp*der_T;
+//  annotation(Inline=true);
+//end der_enthalpySteam;
 annotation (Documentation(info="<html>
 <p>
 The steam model can be utilized for steam systems and components that use the 
