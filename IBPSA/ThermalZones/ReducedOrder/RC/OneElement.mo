@@ -59,6 +59,10 @@ model OneElement "Thermal Zone with one element for exterior walls"
     "If true, input connector QLat_flow is enabled and room air computes moisture balance"
     annotation(choices(checkBox = true));
 
+  parameter Boolean use_C_flow = false
+    "Set to true to enable input connector for trace substance"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealInput solRad[nOrientations](
     each final quantity="RadiantEnergyFluenceRate",
     each final unit="W/m2") if sum(ATransparent) > 0
@@ -191,6 +195,10 @@ model OneElement "Thermal Zone with one element for exterior walls"
     final RExtRem=RExtRem,
     final T_start=T_start) if ATotExt > 0 "RC-element for exterior walls"
     annotation (Placement(transformation(extent={{-158,-50},{-178,-28}})));
+
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow
+    "Trace substance mass flow rate added to the thermal zone"
+    annotation (Placement(transformation(extent={{-280,70},{-240,110}}), iconTransformation(extent={{-260,90},{-240,110}})));
 
 protected
   constant Modelica.SIunits.SpecificEnergy h_fg=
@@ -415,7 +423,11 @@ equation
         points={{-179,-90},{-168,-90},{-168,-80},{-34,-80},{-34,-8},{-22,-8}},
         color={0,0,127},
         pattern=LinePattern.Dash));
-
+    if use_C_flow then
+      connect(C_flow, volMoiAir.C_flow);
+    end if;
+  elseif use_C_flow then
+    connect(C_flow, volAir.C_flow);
   end if;
   connect(conQLat_flow.port, volMoiAir.heatPort) annotation (Line(points={{-182,
           -120},{-166,-120},{-166,-82},{-32,-82},{-32,-16},{-20,-16}}, color={191,
