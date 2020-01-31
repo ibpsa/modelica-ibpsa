@@ -32,8 +32,9 @@ env:
   - TEST_ARG="make test-jmodelica PACKAGE=\"IBPSA.{Media,Utilities}\""
 
 before_install:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - if [[ "$TEST_ARG" == *test-dymola* ]]; then
-       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola-2020x-x86_64;
+       docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola-2020x-x86_64;
        chmod +x IBPSA/Resources/Scripts/travis/bin/dymola;
        cp IBPSA/Resources/Scripts/travis/bin/dymola $HOME/bin/;
     fi;
