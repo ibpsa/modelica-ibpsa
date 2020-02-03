@@ -9,6 +9,7 @@ model SteamProperties
     // Min and max temperature ranges limited by h_fg(T) formulation
 
   Modelica.SIunits.SpecificEnthalpy h_fg "Enthalpy of vaporization";
+  Modelica.SIunits.SpecificEnthalpy hSte "Enthalpy of steam";
 
 equation
   // Check the implementation of the base properties
@@ -16,6 +17,7 @@ equation
   basPro.state.T=T;
 
   h_fg = Medium.enthalpyOfVaporization(T);
+  hSte = Medium.enthalpySteam(T);
 
    annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamProperties.mos"
