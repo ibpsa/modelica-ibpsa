@@ -10,6 +10,7 @@ model SteamProperties
 
   Modelica.SIunits.SpecificEnthalpy h_fg "Enthalpy of vaporization";
   Modelica.SIunits.SpecificEnthalpy hSte "Enthalpy of steam";
+  Modelica.SIunits.SpecificEnthalpy h_g "Enthalpy of steam";
 
 equation
   // Check the implementation of the base properties
@@ -18,6 +19,7 @@ equation
 
   h_fg = Medium.enthalpyOfVaporization(T);
   hSte = Medium.enthalpySteam(T);
+  h_g = Medium.h_g(T);
 
    annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamProperties.mos"

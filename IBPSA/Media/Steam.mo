@@ -115,6 +115,16 @@ end enthalpySteam;
 //    "Thermodynamic state of steam at current pressure and quality x=1";
 
 //  constant Temperature T(start=T_default) "Temperature";
+function h_g
+    "Enthalpy of steam"
+  extends Modelica.Icons.Function;
+  input Temperature T "temperature";
+  output SpecificEnthalpy h "steam enthalpy";
+
+algorithm
+    h := Modelica.Media.IdealGases.Common.Functions.h_T(
+             data,T,exclEnthForm=false);
+end h_g;
 
 redeclare replaceable function extends specificEnthalpy "Return specific enthalpy"
 //    extends Modelica.Icons.Function;
