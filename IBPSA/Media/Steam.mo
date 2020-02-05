@@ -126,6 +126,36 @@ algorithm
              data,T,exclEnthForm=false);
 end h_g;
 
+function h_g2 "Compute specific enthalpy from temperature and gas data; reference is decided by the
+    refChoice input, or by the referenceChoice package constant by default"
+  import Modelica.Media.Interfaces.Choices;
+  extends Modelica.Icons.Function;
+//  input IdealGases.Common.DataRecord data "Ideal gas data";
+  input Temperature T "Temperature";
+//  input Boolean exclEnthForm=excludeEnthalpyOfFormation
+//    "If true, enthalpy of formation Hf is not included in specific enthalpy h";
+//  input Modelica.Media.Interfaces.Choices.ReferenceEnthalpy
+//                                  refChoice=referenceChoice
+//    "Choice of reference enthalpy";
+//  input SI.SpecificEnthalpy h_off=h_offset
+//    "User defined offset for reference enthalpy, if referenceChoice = UserDefined";
+  output SpecificEnthalpy h "Specific enthalpy at temperature T";
+
+algorithm
+  h := smooth(0,(if T < data.Tlimit then data.R*((-data.alow[1] + T*(data.
+    blow[1] + data.alow[2]*Modelica.Math.log(T) + T*(1.*data.alow[3] + T*(0.5*data.
+    alow[4] + T*(1/3*data.alow[5] + T*(0.25*data.alow[6] + 0.2*data.alow[7]*T))))))
+    /T) else data.R*((-data.ahigh[1] + T*(data.bhigh[1] + data.ahigh[2]*
+    Modelica.Math.log(T) + T*(1.*data.ahigh[3] + T*(0.5*data.ahigh[4] + T*(1/3*data.
+    ahigh[5] + T*(0.25*data.ahigh[6] + 0.2*data.ahigh[7]*T))))))/T)) + (if
+    exclEnthForm then -data.Hf else 0.0) + data.H0 + h_off);
+
+  protected
+  Boolean exclEnthForm = true;
+  SpecificEnthalpy h_off=0;
+  annotation (Inline=false,smoothOrder=2);
+end h_g2;
+
 redeclare replaceable function extends specificEnthalpy "Return specific enthalpy"
 //    extends Modelica.Icons.Function;
 //    input Temperature T;
