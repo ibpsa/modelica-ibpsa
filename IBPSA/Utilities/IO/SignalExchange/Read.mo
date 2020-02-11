@@ -7,7 +7,8 @@ model Read "Block that allows a signal to be read as an FMU output"
   parameter SignalTypes.SignalsForKPIs KPIs = SignalTypes.SignalsForKPIs.None
     "Tag with the type of signal for the calculation of the KPIs";
 
-  parameter String zone = "1" if (Integer(KPIs)==2 or Integer(KPIs)==3 or Integer(KPIs)==4 or Integer(KPIs)==5 or Integer(KPIs)==6) "Zone designation, required if KPIs is AirZoneTemperature, RadiativeZoneTemperature, OperativeZoneTemperature, RelativeHumidity, or CO2Concentration";
+  parameter String zone = "1" if (Integer(KPIs)==2 or Integer(KPIs)==3 or Integer(KPIs)==4 or Integer(KPIs)==5 or Integer(KPIs)==6) "Zone designation, required if KPIs is AirZoneTemperature, RadiativeZoneTemperature, OperativeZoneTemperature, RelativeHumidity, or CO2Concentration"
+  annotation(Dialog(enable=(Integer(KPIs)==2 or Integer(KPIs)==3 or Integer(KPIs)==4 or Integer(KPIs)==5 or Integer(KPIs)==6)));
 
 protected
   final parameter Boolean boptestRead = true
@@ -85,5 +86,11 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1059\">#1059</a>.
           rotation=90),
         Line(points={{-16,0},{16,0}},     color={0,0,127},
           origin={70,60},
-          rotation=90)}));
+          rotation=90),
+        Text(
+          extent={{-50,-24},{54,-72}},
+          lineColor={153,153,153},
+          textString=DynamicSelect("", if (Integer(KPIs) == 2 or Integer(KPIs)
+               == 3 or Integer(KPIs) == 4 or Integer(KPIs) == 5 or Integer(KPIs)
+               == 6) then "zone" else ""))}));
 end Read;
