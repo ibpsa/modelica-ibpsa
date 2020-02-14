@@ -418,17 +418,11 @@ equation
     pattern=LinePattern.Dash));
   connect(sumSolRad.y, convHeatSol.Q_flow)
     annotation (Line(points={{-173.4,124},{-166,124}}, color={0,0,127}));
-  if use_moisture_balance then
-    connect(mWat_flow.y, volMoiAir.mWat_flow) annotation (Line(
+  connect(mWat_flow.y, volMoiAir.mWat_flow) annotation (Line(
         points={{-179,-90},{-168,-90},{-168,-80},{-34,-80},{-34,-8},{-22,-8}},
         color={0,0,127},
         pattern=LinePattern.Dash));
-    if use_C_flow then
-      connect(C_flow, volMoiAir.C_flow);
-    end if;
-  elseif use_C_flow then
-    connect(C_flow, volAir.C_flow);
-  end if;
+
   connect(conQLat_flow.port, volMoiAir.heatPort) annotation (Line(points={{-182,
           -120},{-166,-120},{-166,-82},{-32,-82},{-32,-16},{-20,-16}}, color={191,
           0,0}));
@@ -437,6 +431,10 @@ equation
   connect(conQLat_flow.Q_flow, QLat_flow)
     annotation (Line(points={{-202,-120},{-232,-120},{-232,-130},{-260,-130}},
                                                        color={0,0,127}));
+  connect(volMoiAir.C_flow, C_flow) annotation (Line(points={{-22,-22},{-52,-22},
+          {-52,90},{-260,90}}, color={0,0,127}));
+  connect(volAir.C_flow, C_flow) annotation (Line(points={{44,-22},{56,-22},{56,
+          90},{-260,90}}, color={0,0,127}));
   annotation (defaultComponentName="theZon",Diagram(coordinateSystem(
   preserveAspectRatio=false, extent={{-240,-180},{240,180}},
   grid={2,2}),  graphics={
