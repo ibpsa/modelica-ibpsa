@@ -152,7 +152,7 @@ algorithm
 
   protected
   Boolean exclEnthForm = true;
-  SpecificEnthalpy h_off=0;
+  SpecificEnthalpy h_off=1985500;
   annotation (Inline=false,smoothOrder=2);
 end h_g2;
 
