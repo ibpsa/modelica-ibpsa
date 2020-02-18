@@ -16,16 +16,6 @@ package Steam "Package with model for ideal steam"
   redeclare model extends BaseProperties "Base properties"
 
   end BaseProperties;
-//function enthalpyOfVaporization_default
-//  "Return vaporization enthalpy of condensing fluid at default state"
-//  extends Modelica.Icons.Function;
-//  input Temperature T "Temperature";
-//  output SpecificEnthalpy r0 "Vaporization enthalpy";
-//algorithm
-//  r0 := h_fg;
-//end enthalpyOfVaporization_default;
-
-//equation
 
 function enthalpyOfVaporization
   "Return enthalpy of vaporization of water as a function of temperature T, 
@@ -76,109 +66,6 @@ algorithm
     </p>
 </html>"));
 end enthalpyOfVaporization;
-
-function enthalpySteam
-    "Enthalpy of steam"
-  extends Modelica.Icons.Function;
-  input Temperature T "temperature";
-//  input ThermodynamicState state "Thermodynamic state";
-  output SpecificEnthalpy h "steam enthalpy";
-algorithm
-  h := (T-reference_T) * cp + enthalpyOfVaporization(T);
-  annotation(smoothOrder=5,
-  Inline=true,
-  derivative=der_enthalpySteam);
-end enthalpySteam;
-  constant Modelica.SIunits.SpecificHeatCapacity cp=
-    IBPSA.Utilities.Psychrometrics.Constants.cpSte
-    "Specific heat capacity at constant pressure, at T_ref=273.15";
-
-//  constant Modelica.SIunits.SpecificHeatCapacity cp=
-//    specificHeatCapacityCp(state)
-//    "Specific heat at constant pressure";
-
-//  constant Modelica.SIunits.SpecificEnergy h_fg=
-//    IBPSA.Utilities.Psychrometrics.Constants.h_fg
-//    "Default latent heat of evaporation of water, at T_ref=273.15";
-//  constant Modelica.SIunits.SpecificEnergy h_f=
-//    specificEnthalpy(state0)
-//    "Enthalpy of fusion";
-//  constant Modelica.SIunits.SpecificEnergy h_g=
-//    specificEnthalpy(state1)
-//    "Enthalpy of evaporation";
-//  constant Modelica.SIunits.SpecificEnergy h_fg=h_g - h_f
-//    "Latent heat of vaporization";
-//  constant ThermodynamicState state "Thermodynamic state of steam";
-//  constant ThermodynamicState state0=setState_pTX(p,T,X=0)
-//    "Thermodynamic state of steam at current pressure and quality x=0";
-//  constant ThermodynamicState state1
-//    "Thermodynamic state of steam at current pressure and quality x=1";
-
-//  constant Temperature T(start=T_default) "Temperature";
-function h_g
-    "Enthalpy of steam"
-  extends Modelica.Icons.Function;
-  input Temperature T "temperature";
-  output SpecificEnthalpy h "steam enthalpy";
-
-algorithm
-    h := Modelica.Media.IdealGases.Common.Functions.h_T(
-             data,T,exclEnthForm=false);
-end h_g;
-
-function h_g2 "Compute specific enthalpy from temperature and gas data; reference is decided by the
-    refChoice input, or by the referenceChoice package constant by default"
-  import Modelica.Media.Interfaces.Choices;
-  extends Modelica.Icons.Function;
-//  input IdealGases.Common.DataRecord data "Ideal gas data";
-  input Temperature T "Temperature";
-//  input Boolean exclEnthForm=excludeEnthalpyOfFormation
-//    "If true, enthalpy of formation Hf is not included in specific enthalpy h";
-//  input Modelica.Media.Interfaces.Choices.ReferenceEnthalpy
-//                                  refChoice=referenceChoice
-//    "Choice of reference enthalpy";
-//  input SI.SpecificEnthalpy h_off=h_offset
-//    "User defined offset for reference enthalpy, if referenceChoice = UserDefined";
-  output SpecificEnthalpy h "Specific enthalpy at temperature T";
-
-algorithm
-  h := smooth(0,(if T < data.Tlimit then data.R*((-data.alow[1] + T*(data.
-    blow[1] + data.alow[2]*Modelica.Math.log(T) + T*(1.*data.alow[3] + T*(0.5*data.
-    alow[4] + T*(1/3*data.alow[5] + T*(0.25*data.alow[6] + 0.2*data.alow[7]*T))))))
-    /T) else data.R*((-data.ahigh[1] + T*(data.bhigh[1] + data.ahigh[2]*
-    Modelica.Math.log(T) + T*(1.*data.ahigh[3] + T*(0.5*data.ahigh[4] + T*(1/3*data.
-    ahigh[5] + T*(0.25*data.ahigh[6] + 0.2*data.ahigh[7]*T))))))/T)) + (if
-    exclEnthForm then -data.Hf else 0.0) + data.H0 + h_off);
-
-  protected
-  Boolean exclEnthForm = true;
-  SpecificEnthalpy h_off=1985500;
-  annotation (Inline=false,smoothOrder=2);
-end h_g2;
-
-redeclare replaceable function extends specificEnthalpy "Return specific enthalpy"
-//    extends Modelica.Icons.Function;
-//    input Temperature T;
-//    input ThermodynamicState state "Thermodynamic state";
-//    input Boolean exclEnthForm;
-//    output SpecificEnthalpy h;
-//algorithm
-//    h := (state.T - reference_T)*cp  + enthalpyOfVaporization(state.T);
-//    h := Modelica.Media.IdealGases.Common.Functions.h_T(
-//             data,state.T,exclEnthForm=false);
-    annotation(Inline=true,smoothOrder=2);
-end specificEnthalpy;
-
-replaceable function der_enthalpySteam
-    "Derivative of enthalpy of steam"
-  extends Modelica.Icons.Function;
-  input Temperature T "temperature";
-  input Real der_T "temperature derivative";
-  output Real der_h "derivative of steam enthalpy";
-algorithm
-  der_h := cp*der_T;
-  annotation(Inline=true);
-end der_enthalpySteam;
 annotation (Documentation(info="<html>
 <p>
 The steam model can be utilized for steam systems and components that use the 
