@@ -38,10 +38,16 @@ package Steam "Package with model for ideal steam"
   end setSat_p;
 
   function saturationPressure
-    "Return saturation pressure from a given temperature"
+    "Return saturation pressure from a given temperature, valid for 223.16 
+    <= T <= 373.16 (and slightly outside with less accuracy)"
     extends Modelica.Icons.Function;
     input Temperature T "Temperature";
     output AbsolutePressure p "Saturation pressure";
+  algorithm
+  p := IBPSA.Utilities.Psychrometrics.Functions.saturationPressure(T);
+  annotation (
+  smoothOrder=5,
+  Inline=true);
   end saturationPressure;
 
   function saturationTemperature
