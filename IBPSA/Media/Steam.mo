@@ -86,10 +86,10 @@ package Steam "Package with model for ideal steam"
     extends Modelica.Icons.Function;
     input Temperature T "Temperature";
     output SpecificEnthalpy r0 "Vaporization enthalpy";
+    //    Real Tcritical=647.096 "Critical temperature";
+    //    Real dcritical=322 "Critical density";
+    //    Real pcritical=22.064e6 "Critical pressure";
   protected
-    Real Tcritical=647.096 "Critical temperature";
-    Real dcritical=322 "Critical density";
-    Real pcritical=22.064e6 "Critical pressure";
     Real n[:]={1,1.5,3,3.5,4,7.5} "Powers in equation (1)";
     Real a[:]={-7.85951783,1.84408259,-11.7866497,22.6807411,-15.9618719,
         1.80122502} "Coefficients in equation (1) of [1]";
@@ -129,6 +129,11 @@ package Steam "Package with model for ideal steam"
     </p>
   </html>"));
   end enthalpyOfVaporization;
+protected
+    constant Real Tcritical=647.096 "Critical temperature";
+    constant Real dcritical=322 "Critical density";
+    constant Real pcritical=22.064e6 "Critical pressure";
+
 annotation (Documentation(info="<html>
 <p>
 The steam model can be utilized for steam systems and components that use the 
