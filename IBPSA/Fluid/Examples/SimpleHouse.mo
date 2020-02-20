@@ -23,8 +23,9 @@ model SimpleHouse
     "= false because flow will not reverse in these circuits";
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor walCap(
-                    T(fixed=true), C=10*A_wall*0.05*1000*1000)
-                                   "Thermal mass of walls"
+    T(fixed=true),
+    C=10*A_wall*0.05*1000*1000)
+    "Thermal mass of walls"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={142,-8})));
@@ -99,8 +100,8 @@ model SimpleHouse
     from_dp=true,
     m_flow_nominal=mAir_flow_nominal,
     dpDamper_nominal=10,
-    dpFixed_nominal=dpAir_nominal - 10,
-    k1=0.45) "Damper" annotation (Placement(transformation(extent={{-10,10},{10,
+    dpFixed_nominal=dpAir_nominal - 10)
+    "Damper" annotation (Placement(transformation(extent={{-10,10},{10,
             -10}}, origin={72,120})));
 
   Movers.FlowControlled_dp fan(
