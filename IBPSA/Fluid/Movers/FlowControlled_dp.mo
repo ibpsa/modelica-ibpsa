@@ -290,14 +290,6 @@ Revised implementation to allow zero flow rate.
           points={{0,100},{0,50}},
           color={0,0,0},
           smooth=Smooth.None),
-        Text(
-          visible=use_inputFilter,
-          extent={{-22,92},{20,46}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="M",
-          textStyle={TextStyle.Bold}),
         Rectangle(
           visible=use_inputFilter,
           extent={{-34,40},{32,100}},
@@ -309,5 +301,13 @@ Revised implementation to allow zero flow rate.
           extent={{-34,100},{32,40}},
           lineColor={0,0,0},
           fillColor=DynamicSelect({135,135,135}, dp_actual/dp_nominal*{0,140,72}+(1-dp_actual/dp_nominal)*{238,46,47}),
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid),
+               Text(
+          visible=use_inputFilter,
+          extent={{-22,92},{20,46}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="M",
+          textStyle={TextStyle.Bold})}));
 end FlowControlled_dp;

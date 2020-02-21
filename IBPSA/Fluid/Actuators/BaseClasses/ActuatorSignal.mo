@@ -119,7 +119,7 @@ for a description of the filter.
 <ul>
 <li>
 February 21, 2020, by Michael Wetter:<br/>
-Changed icon to display its operating stage.<br/>
+Changed icon to display its operating state.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
 </li>
