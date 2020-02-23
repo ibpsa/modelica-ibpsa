@@ -35,7 +35,8 @@ also be directed to an external program as an output.
 </p>
 <p>
 It is important to add a brief description of the signal using the
-<code>description</code> parameter, assign a type if needed for KPI
+<code>description</code> parameter, assign a <code>unit</code> to the output 
+variable <code>y</code>, assign a type if needed for KPI
 calculation using the <code>KPIs</code> parameter, and assign a zone 
 designation using the <code>zone</code> parameter if the KPI calculation is
 specific to a particular zone (for multi-zone models). See documentation for 
@@ -45,9 +46,14 @@ the parameter <code>zone</code> for more details.
 revisions="<html>
 <ul>
 <li>
-December 4, 2019 by David Blum:<br/>
+February 23, 2020 by David Blum:<br/>
 Added zone designation for KPI calculation by parameter <code>zone</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1257\">#1257</a>.
+</li>
+<li>
+January 9, 2020 by David Blum:<br/>
+Updated documentation to prompt user to add unit to output.  
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1276\">#1276</a>.
 </li>
 <li>
 July 17, 2019 by Michael Wetter:<br/>
