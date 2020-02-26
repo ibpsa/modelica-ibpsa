@@ -89,6 +89,12 @@ IBPSA.Fluid.Sensors.UsersGuide</a> for an explanation.
 revisions="<html>
 <ul>
 <li>
+February 25, 2020, by Michael Wetter:<br/>
+Changed icon to display its operating state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
+</li>
+<li>
 July 29, 2016, by Michael Wetter:<br/>
 First implementation based on
 <a href=\"modelica://IBPSA.Fluid.Sensors.EnthalpyFlowRate\">
