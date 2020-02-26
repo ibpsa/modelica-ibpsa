@@ -92,7 +92,7 @@ annotation (defaultComponentName="senEntFlo",
         Line(points={{-22.9,32.8},{-40.2,57.3}}),
         Line(points={{-37.6,13.7},{-65.8,23.9}}),
         Text(
-          extent={{-20,90},{-140,40}},
+         extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
           textString=DynamicSelect("", String(H_flow, format=".3g")))}),
   Documentation(info="<html>

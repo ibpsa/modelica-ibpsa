@@ -65,9 +65,9 @@ annotation (defaultComponentName="senSpeEnt",
         Line(points={{70,0},{100,0}}, color={0,128,255}),
         Ellipse(extent={{-70,70},{70,-70}}, lineColor={255,0,0}),
         Text(
-          extent={{-40,90},{-160,40}},
+          extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(s, format=".1f")))}),
+          textString=DynamicSelect("", String(s, format=".0f")))}),
   Documentation(info="<html>
 <p>
 This model outputs the specific entropy of the passing fluid.
