@@ -23,7 +23,11 @@ annotation (defaultComponentName="senMasFlo",
           lineColor={0,0,0},
           textString="m_flow"),
         Line(points={{0,100},{0,70}}, color={0,0,127}),
-        Line(points={{-100,0},{-70,0}}, color={0,128,255})}),
+        Line(points={{-100,0},{-70,0}}, color={0,128,255}),
+        Text(
+          extent={{-20,90},{-140,40}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(m_flow, format=".3g")))}),
   Documentation(info="<html>
 <p>
 This model outputs the mass flow rate flowing from

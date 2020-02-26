@@ -50,7 +50,11 @@ equation
           fillPattern=FillPattern.Solid),Text(
           extent={{-48,146},{50,98}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{98,-46},{-22,-96}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(V, format=".3g")))}),
 defaultComponentName="toVolFra",
 Documentation(info="<html>
 <p>

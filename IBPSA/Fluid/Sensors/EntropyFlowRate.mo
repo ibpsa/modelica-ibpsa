@@ -66,7 +66,11 @@ annotation (defaultComponentName="senS_flow",
           extent={{180,151},{20,99}},
           lineColor={0,0,0},
           textString="S_flow"),
-        Ellipse(extent={{-70,70},{70,-70}}, lineColor={255,0,0})}),
+        Ellipse(extent={{-70,70},{70,-70}}, lineColor={255,0,0}),
+        Text(
+          extent={{-20,90},{-140,40}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(S_flow, format=".3g")))}),
   Documentation(info="<html>
 <p>
 This model outputs the entropy flow rate of the medium in the flow

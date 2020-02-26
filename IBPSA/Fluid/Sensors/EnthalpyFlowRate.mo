@@ -55,7 +55,11 @@ annotation (defaultComponentName="senEntFlo",
         Text(
           extent={{180,151},{20,99}},
           lineColor={0,0,0},
-          textString="H_flow")}),
+          textString="H_flow"),
+        Text(
+          extent={{-20,90},{-140,40}},
+          lineColor={0,0,0},
+          textString=DynamicSelect("", String(H_flow, format=".3g")))}),
   Documentation(info="<html>
 <p>
 This model outputs the enthalphy flow rate of the medium in the flow
