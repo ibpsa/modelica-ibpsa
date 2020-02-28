@@ -28,7 +28,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Modelica.SIunits.PressureDifference dpDamOut_nominal(min=0, displayUnit="Pa")
     "Pressure drop of damper in outside air leg"
      annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFixOut_nominal(min=0, displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpFixOut_nominal(min=0, displayUnit="Pa")=0
     "Pressure drop of duct and other resistances in outside air leg"
      annotation (Dialog(group="Nominal condition"));
 
@@ -38,7 +38,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Modelica.SIunits.PressureDifference dpDamRec_nominal(min=0, displayUnit="Pa")
     "Pressure drop of damper in recirculation air leg"
      annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFixRec_nominal(min=0, displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpFixRec_nominal(min=0, displayUnit="Pa")=0
     "Pressure drop of duct and other resistances in recirculation air leg"
      annotation (Dialog(group="Nominal condition"));
 
@@ -48,7 +48,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Modelica.SIunits.PressureDifference dpDamExh_nominal(min=0, displayUnit="Pa")
     "Pressure drop of damper in exhaust air leg"
      annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFixExh_nominal(min=0, displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpFixExh_nominal(min=0, displayUnit="Pa")=0
     "Pressure drop of duct and other resistances in exhaust air leg"
      annotation (Dialog(group="Nominal condition"));
 
@@ -348,7 +348,7 @@ First implementation.
 <p>
 Model of an outside air mixing box with exponential dampers.
 Set <code>y=0</code> to close the outside air and exhaust air dampers.
-See 
+See
 <a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.Exponential\">
 IBPSA.Fluid.Actuators.Dampers.Exponential</a>
 for the description of the exponential damper model.
