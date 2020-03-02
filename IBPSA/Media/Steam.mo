@@ -32,6 +32,18 @@ package Steam "Package with model for ideal steam"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
     output Temperature T "Saturation temperature";
+  protected
+    Real pr = p/pcritical  "Reduced pressure";
+    Real a[:]={9.37817e-3,4.98951e-4,1.11049e-5,3.34995e-7,3.44102e-8}
+      "Coefficients in equation (2)";
+  algorithm
+    T := exp(a[1]+a[2]*pr+a[3]*pr^2+a[4]*pr^3+a[5]*pr^4)^(-0.4);
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+<p>Saturation temperature for a given pressure is valid in the range of of 273.16 to 643.15 K. </p>
+<p>Source: Affandi, M., Mamat, N., Kanafiah, S. N. A. M., &amp; Khalid, N. S. (2013). &quot;Simplified equations for saturated steam properties for simulation purpose&quot;. <i>Procedia Engineering</i>, 53. Malaysian Technical Universities Conference on Engineering &amp; Technology 2012, 722&ndash;726. </p>
+</html>"));
   end saturationTemperature;
 
   replaceable function densityOfSaturatedLiquid
@@ -132,7 +144,6 @@ package Steam "Package with model for ideal steam"
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sv "Saturated vapor specific enthalpy";
   end entropyOfSaturatedVapor;
-
 protected
     constant Real Tcritical=647.096 "Critical temperature";
     constant Real dcritical=322 "Critical density";
