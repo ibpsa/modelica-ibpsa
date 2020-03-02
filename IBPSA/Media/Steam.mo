@@ -144,10 +144,35 @@ package Steam "Package with model for ideal steam"
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sv "Saturated vapor specific enthalpy";
   end entropyOfSaturatedVapor;
+
+//////////////////////////////////////////////////////////////////////
+// Protected classes.
+// These classes are only of use within this medium model.
+// Models generally have no need to access them.
+// Therefore, they are made protected. This also allows to redeclare the
+// medium model with another medium model that does not provide an
+// implementation of these classes.
+
 protected
-    constant Real Tcritical=647.096 "Critical temperature";
-    constant Real dcritical=322 "Critical density";
-    constant Real pcritical=22.064e6 "Critical pressure";
+    constant Real Tcritical=647.096 "Critical temperature (K)";
+    constant Real dcritical=322 "Critical density (kg/m^3)";
+    constant Real pcritical=22.064e6 "Critical pressure (Pa)";
+    constant Real a0 = 1000 "Auxiliary quantity for specific enthalpy (J/kg)";
+
+  replaceable function vaporPressure
+    "Returns vapor pressure for a given temperature"
+    extends Modelica.Icons.Function;
+    input Temperature T  "Temperature";
+    output AbsolutePressure p  "Vapor pressure";
+    Real n[:]={1,1.5,3,3.5,4,7.5} "Powers in equation (1)";
+    Real a[:]={-7.85951783,1.84408259,-11.7866497,22.6807411,-15.9618719,
+        1.80122502} "Coefficients in equation (1) of [1]";
+    Real tau=1 - T/Tcritical "Temperature expression";
+  algorithm
+    p := pcritical*exp(Tcritical/T*(a[1]*tau^n[1] + a[2]*tau^n[2] + a[3]
+        *tau^n[3] + a[4]*tau^n[4]) + a[5]*tau^n[5] + a[6]*tau^n[6])
+        "Equation (1) for vapor pressure";
+  end vaporPressure;
 
 annotation (Documentation(info="<html>
 <p>
@@ -211,4 +236,9 @@ First implementation.
         points={{50,30},{30,10},{50,-10},{30,-30}},
         color={0,0,0},
         smooth=Smooth.Bezier)}));
+
+
+
+
+
 end Steam;
