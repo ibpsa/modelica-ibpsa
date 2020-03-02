@@ -51,6 +51,28 @@ package Steam "Package with model for ideal steam"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output Density dl "Density of saturated liquid";
+  protected
+    Real m[:]={1/3,2/3,5/3,16/3,43/3,110/3} "Powers in equation (2)";
+    Real b[:]={1.99274064,1.09965342,-0.510839303,-1.75493479,-45.5170352,-6.74694450e5}
+      "Coefficients in equation (2)";
+    Real tau=1 - sat.Tsat/Tcritical "Temperature expression";
+  algorithm
+    dl := dcritical*(1 + b[1]*tau^m[1] + b[2]*tau^m[2] + b[3]*tau^m[3] +
+      b[4]*tau^m[4] + b[5]*tau^m[5] + b[6]*tau^m[6])
+      "Density of saturated liquid";
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Density of saturated liquid is computed from temperature in the region 
+    of 273.16 to 647.096 K.
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
+  </html>"));
   end densityOfSaturatedLiquid;
 
   replaceable function densityOfSaturatedVapor
@@ -163,6 +185,7 @@ protected
     extends Modelica.Icons.Function;
     input Temperature T  "Temperature";
     output AbsolutePressure p  "Vapor pressure";
+  protected
     Real n[:]={1,1.5,3,3.5,4,7.5} "Powers in equation (1)";
     Real a[:]={-7.85951783,1.84408259,-11.7866497,22.6807411,-15.9618719,
         1.80122502} "Coefficients in equation (1) of [1]";
