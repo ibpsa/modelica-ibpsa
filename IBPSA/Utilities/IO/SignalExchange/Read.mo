@@ -7,8 +7,15 @@ model Read "Block that allows a signal to be read as an FMU output"
   parameter SignalTypes.SignalsForKPIs KPIs = SignalTypes.SignalsForKPIs.None
     "Tag with the type of signal for the calculation of the KPIs";
 
-  parameter String zone = "1" if (Integer(KPIs)==2 or Integer(KPIs)==3 or Integer(KPIs)==4 or Integer(KPIs)==5 or Integer(KPIs)==6) "Zone designation, required if KPIs is AirZoneTemperature, RadiativeZoneTemperature, OperativeZoneTemperature, RelativeHumidity, or CO2Concentration"
-  annotation(Dialog(enable=(Integer(KPIs)==2 or Integer(KPIs)==3 or Integer(KPIs)==4 or Integer(KPIs)==5 or Integer(KPIs)==6)));
+  parameter String zone = "1" if (
+    Integer(KPIs)==2 or Integer(KPIs)==3 or Integer(KPIs)==4 or
+    Integer(KPIs)==5 or Integer(KPIs)==6)
+    "Zone designation, required if KPIs is AirZoneTemperature, 
+    RadiativeZoneTemperature, OperativeZoneTemperature, RelativeHumidity, 
+    or CO2Concentration"
+  annotation(Dialog(enable=(
+    Integer(KPIs)==2 or Integer(KPIs)==3 or Integer(KPIs)==4 or
+    Integer(KPIs)==5 or Integer(KPIs)==6)));
 
 protected
   final parameter Boolean boptestRead = true
