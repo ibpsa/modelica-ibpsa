@@ -59,7 +59,7 @@ package Steam "Package with model for ideal steam"
   algorithm
     dl := dcritical*(1 + b[1]*tau^m[1] + b[2]*tau^m[2] + b[3]*tau^m[3] +
       b[4]*tau^m[4] + b[5]*tau^m[5] + b[6]*tau^m[6])
-      "Density of saturated liquid";
+      "Density of saturated liquid, equation (2)";
   annotation (
     smoothOrder=2,
     Documentation(info="<html>
@@ -80,6 +80,28 @@ package Steam "Package with model for ideal steam"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output Density dv "Density of saturated vapor";
+  protected
+    Real m[:]={2/6,4/6,8/6,18/6,37/6,71/6}  "Powers in equation (3)";
+    Real c[:]={-2.03150240,-2.68302940,-5.38626492,-17.2991605,-44.7586581,-63.9201063}
+      "Coefficients in equation (3)";
+    Real tau=1 - sat.Tsat/Tcritical "Temperature expression";
+  algorithm
+    dv := dcritical*exp(c[1]*tau^m[1] + c[2]*tau^m[2] + c[3]*tau^m[3] +
+      c[4]*tau^m[4] + c[5]*tau^m[5] + c[6]*tau^m[6])
+      "Density of saturated vapor, equation (3)";
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Density of saturated vapor is computed from temperature in the region 
+    of 273.16 to 647.096 K.
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
+  </html>"));
   end densityOfSaturatedVapor;
 
   replaceable function enthalpyOfSaturatedLiquid
