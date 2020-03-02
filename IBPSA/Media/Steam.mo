@@ -144,7 +144,6 @@ package Steam "Package with model for ideal steam"
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sv "Saturated vapor specific enthalpy";
   end entropyOfSaturatedVapor;
-
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.
@@ -172,8 +171,20 @@ protected
     p := pcritical*exp(Tcritical/T*(a[1]*tau^n[1] + a[2]*tau^n[2] + a[3]
         *tau^n[3] + a[4]*tau^n[4]) + a[5]*tau^n[5] + a[6]*tau^n[6])
         "Equation (1) for vapor pressure";
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Vapor pressure is computed from temperature in the region 
+    of 273.16 to 647.096 K.
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
+  </html>"));
   end vaporPressure;
-
 annotation (Documentation(info="<html>
 <p>
 The steam model can be utilized for steam systems and components that use the 
@@ -236,9 +247,5 @@ First implementation.
         points={{50,30},{30,10},{50,-10},{30,-30}},
         color={0,0,0},
         smooth=Smooth.Bezier)}));
-
-
-
-
 
 end Steam;
