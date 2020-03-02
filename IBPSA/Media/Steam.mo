@@ -17,16 +17,6 @@ package Steam "Package with model for ideal steam"
 
   end BaseProperties;
 
-  function setSat_T
-    "Return saturation property record from temperature"
-    extends Modelica.Icons.Function;
-    input Temperature T "Temperature";
-    output SaturationProperties sat "Saturation property record";
-  algorithm
-    sat.Tsat := T;
-    sat.psat := saturationPressure(T);
-  end setSat_T;
-
   function setSat_p
     "Return saturation property record from pressure"
     extends Modelica.Icons.Function;
@@ -36,19 +26,6 @@ package Steam "Package with model for ideal steam"
     sat.psat := p;
     sat.Tsat := saturationTemperature(p);
   end setSat_p;
-
-  function saturationPressure
-    "Return saturation pressure from a given temperature, valid for 223.16 
-    <= T <= 373.16 (and slightly outside with less accuracy)"
-    extends Modelica.Icons.Function;
-    input Temperature T "Temperature";
-    output AbsolutePressure p "Saturation pressure";
-  algorithm
-  p := IBPSA.Utilities.Psychrometrics.Functions.saturationPressure(T);
-  annotation (
-  smoothOrder=5,
-  Inline=true);
-  end saturationPressure;
 
   function saturationTemperature
     "Return saturation temperature from a given pressure"
@@ -155,7 +132,6 @@ package Steam "Package with model for ideal steam"
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sv "Saturated vapor specific enthalpy";
   end entropyOfSaturatedVapor;
-
 protected
     constant Real Tcritical=647.096 "Critical temperature";
     constant Real dcritical=322 "Critical density";
