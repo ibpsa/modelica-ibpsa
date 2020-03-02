@@ -17,7 +17,7 @@ package Steam "Package with model for ideal steam"
 
   end BaseProperties;
 
-  function setSat_p
+  replaceable function setSat_p
     "Return saturation property record from pressure"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
@@ -27,28 +27,28 @@ package Steam "Package with model for ideal steam"
     sat.Tsat := saturationTemperature(p);
   end setSat_p;
 
-  function saturationTemperature
+  replaceable function saturationTemperature
     "Return saturation temperature from a given pressure"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
     output Temperature T "Saturation temperature";
   end saturationTemperature;
 
-  function densityOfSaturatedLiquid
+  replaceable function densityOfSaturatedLiquid
     "Return density of saturated liquid"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output Density dl "Density of saturated liquid";
   end densityOfSaturatedLiquid;
 
-  function densityOfSaturatedVapor
+  replaceable function densityOfSaturatedVapor
     "Return density of saturated vapor"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output Density dv "Density of saturated vapor";
   end densityOfSaturatedVapor;
 
-  function enthalpyOfSaturatedLiquid
+  replaceable function enthalpyOfSaturatedLiquid
     "Return specific enthalpy of saturated liquid"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -62,14 +62,14 @@ package Steam "Package with model for ideal steam"
     hl :=hv - hlv;
   end enthalpyOfSaturatedLiquid;
 
-  function enthalpyOfSaturatedVapor
+  replaceable function enthalpyOfSaturatedVapor
     "Return specific enthalpy of saturated vapor"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEnthalpy hv "Dew curve specific enthalpy";
   end enthalpyOfSaturatedVapor;
 
-  function enthalpyOfVaporization
+  replaceable function enthalpyOfVaporization
     "Return enthalpy of vaporization of water as a function of temperature T, 
       273.16 to 647.096 K"
     extends Modelica.Icons.Function;
@@ -119,19 +119,20 @@ package Steam "Package with model for ideal steam"
   </html>"));
   end enthalpyOfVaporization;
 
-  function entropyOfSaturatedLiquid
+  replaceable function entropyOfSaturatedLiquid
     "Return specific entropy of saturated liquid"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sl "Saturated liquid specific enthalpy";
   end entropyOfSaturatedLiquid;
 
-  function entropyOfSaturatedVapor
+  replaceable function entropyOfSaturatedVapor
     "Return specific entropy of saturated vapor"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sv "Saturated vapor specific enthalpy";
   end entropyOfSaturatedVapor;
+
 protected
     constant Real Tcritical=647.096 "Critical temperature";
     constant Real dcritical=322 "Critical density";
