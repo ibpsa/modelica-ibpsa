@@ -114,8 +114,9 @@ package Steam "Package with model for ideal steam"
     Density dl = densityOfSaturatedLiquid(sat)  "Saturated liquid density";
     Real r1 = enthalpyExpression1(sat)  "Intermediate expression 1";
     Real r2 = enthalpyExpression2(sat)  "Intermediate expression 2";
+    Real a = auxiliaryAlpha(sat)  "Value for alpha";
   algorithm
-    hl := a0 - exp(r1)*pcritical*(r2+r1*tau)/(dl*tau)
+    hl := a - exp(r1)*pcritical*(r2+r1*tau)/(dl*tau)
       "Saturated liquid enthalpy, derived from equation (6)";
   end enthalpyOfSaturatedLiquid;
 
@@ -129,8 +130,9 @@ package Steam "Package with model for ideal steam"
     Density dv = densityOfSaturatedVapor(sat)  "Saturated vapor density";
     Real r1 = enthalpyExpression1(sat)  "Intermediate expression 1";
     Real r2 = enthalpyExpression2(sat)  "Intermediate expression 2";
+    Real a = auxiliaryAlpha(sat)  "Value for alpha";
   algorithm
-    hv := a0 - exp(r1)*pcritical*(r2+r1*tau)/(dv*tau)
+    hv := a - exp(r1)*pcritical*(r2+r1*tau)/(dv*tau)
       "Saturated vapor enthalpy, derived from equation (7)";
   end enthalpyOfSaturatedVapor;
 
@@ -263,8 +265,8 @@ protected
   </html>"));
   end vaporPressure;
 
-  function auxilaryAlpha
-    "This is auxilary equation (4) for specific enthalpy calculations"
+  function auxiliaryAlpha
+    "This is auxiliary equation (4) for specific enthalpy calculations"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output Real a  "Alpha in equation (4)";
@@ -277,10 +279,10 @@ protected
   algorithm
     a := a0*(d_a + d[1]*theta^m[1] + d[2]*theta^m[2] + d[3]*theta^m[3] +
       d[4]*theta^m[4] + d[5]*theta^m[5])  "Equation (4)";
-  end auxilaryAlpha;
+  end auxiliaryAlpha;
 
-  function auxilaryPhi
-    "This is auxilary equation (5) for specific entropy calculations"
+  function auxiliaryPhi
+    "This is auxiliary equation (5) for specific entropy calculations"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output Real phi  "Phi in equation (5)";
@@ -296,7 +298,7 @@ protected
     phi := phi0*(d_phi + a[1]*d[1]*theta^m[1] + a[2]*d[2]*log(theta) +
       a[3]*d[3]*theta^m[3] + a[4]*d[4]*theta^m[4] + a[5]*d[5]*theta^m[5])
       "Equation (5)";
-  end auxilaryPhi;
+  end auxiliaryPhi;
 
   function enthalpyExpression1
     "This expression represents ln(p/pcritical), which is used in the saturated
