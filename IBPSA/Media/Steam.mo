@@ -230,6 +230,40 @@ protected
     </p>
   </html>"));
   end vaporPressure;
+
+  function enthalpyExpression1
+    "This expression represents ln(p/pcritical), which is used in the saturated
+      enthalpy functions above"
+    extends Modelica.Icons.Function;
+    input Temperature T  "Temperature";
+    output Real r1  "Expression 1";
+  protected
+    Real n[:]={1,1.5,3,3.5,4,7.5} "Powers in equation (1)";
+    Real a[:]={-7.85951783,1.84408259,-11.7866497,22.6807411,-15.9618719,
+        1.80122502} "Coefficients in equation (1) of [1]";
+    Real tau=1 - T/Tcritical "Temperature expression";
+  algorithm
+    r1 := (a[1]*Tcritical*tau^n[1])/T + (a[2]*Tcritical*tau^n[2])/T + (a[3]
+      *Tcritical*tau^n[3])/T + (a[4]*Tcritical*tau^n[4])/T + (a[5]*
+      Tcritical*tau^n[5])/T + (a[6]*Tcritical*tau^n[6])/T "Expression 1";
+  end enthalpyExpression1;
+
+  function enthalpyExpression2
+    "This expression is used in the saturated enthalpy functions above, which
+    was formulated via evaluating the derivative dP/dT"
+    extends Modelica.Icons.Function;
+    input Temperature T  "Temperature";
+    output Real r2  "Expression 2";
+  protected
+    Real n[:]={1,1.5,3,3.5,4,7.5} "Powers in equation (1)";
+    Real a[:]={-7.85951783,1.84408259,-11.7866497,22.6807411,-15.9618719,
+        1.80122502} "Coefficients in equation (1) of [1]";
+    Real tau=1 - T/Tcritical "Temperature expression";
+  algorithm
+    r2 := a[1]*n[1]*tau^n[1] + a[2]*n[2]*tau^n[2] + a[3]*n[3]*tau^n[3] +
+      a[4]*n[4]*tau^n[4] + a[5]*n[5]*tau^n[5] + a[6]*n[6]*tau^n[6]
+      "Expression 2";
+  end enthalpyExpression2;
 annotation (Documentation(info="<html>
 <p>
 The steam model can be utilized for steam systems and components that use the 
