@@ -110,12 +110,15 @@ package Steam "Package with model for ideal steam"
     input SaturationProperties sat "Saturation property record";
     output SpecificEnthalpy hl "Boiling curve specific enthalpy";
   protected
-    SpecificEnthalpy hv "Dew curve specific enthalpy";
-    SpecificEnthalpy hlv "Enthalpy of vaporization";
+    Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
+    Density dl = densityOfSaturatedLiquid(sat);
+    Real r1 = enthalpyExpression1(sat);
+    Real r2 = enthalpyExpression2(sat);
   algorithm
-    hv := enthalpyOfSaturatedVapor(sat);
-    hlv := enthalpyOfVaporization(sat.Tsat);
-    hl :=hv - hlv;
+    hl := a0 - exp(r1)*pcritical*(r2+r1*tau)/(dl*tau);
+    //    hv := enthalpyOfSaturatedVapor(sat);
+    //    hlv := enthalpyOfVaporization(sat.Tsat);
+    //    hl :=hv - hlv;
   end enthalpyOfSaturatedLiquid;
 
   replaceable function enthalpyOfSaturatedVapor
@@ -124,7 +127,7 @@ package Steam "Package with model for ideal steam"
     input SaturationProperties sat "Saturation property record";
     output SpecificEnthalpy hv "Dew curve specific enthalpy";
   protected
-    Real tau=1 - sat.Tsat/Tcritical "Temperature expression";
+    Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
     Density dv = densityOfSaturatedVapor(sat);
     Real r1 = enthalpyExpression1(sat);
     Real r2 = enthalpyExpression2(sat);
