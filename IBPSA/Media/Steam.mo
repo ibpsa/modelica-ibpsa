@@ -220,7 +220,6 @@ package Steam "Package with model for ideal steam"
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sv "Saturated vapor specific enthalpy";
   end entropyOfSaturatedVapor;
-
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.
@@ -263,6 +262,41 @@ protected
     </p>
   </html>"));
   end vaporPressure;
+
+  function auxilaryAlpha
+    "This is auxilary equation (4) for specific enthalpy calculations"
+    extends Modelica.Icons.Function;
+    input SaturationProperties sat "Saturation property record";
+    output Real a  "Alpha in equation (4)";
+  protected
+    Real m[:] = {-19,1,4.5,5,54.5}  "Powers in equation (4)";
+    Real d_a = -1135.905627715  "Coefficient in equation (4)";
+    Real d[:] = {-5.65134998e-8,2690.66631,127.287297,-135.003439,0.981825814}
+      "Coefficients in equation (4) and (5)";
+    Real theta = sat.Tsat / Tcritical  "Temperature ratio";
+  algorithm
+    a := a0*(d_a + d[1]*theta^m[1] + d[2]*theta^m[2] + d[3]*theta^m[3] +
+      d[4]*theta^m[4] + d[5]*theta^m[5])  "Equation (4)";
+  end auxilaryAlpha;
+
+  function auxilaryPhi
+    "This is auxilary equation (5) for specific entropy calculations"
+    extends Modelica.Icons.Function;
+    input SaturationProperties sat "Saturation property record";
+    output Real phi  "Phi in equation (5)";
+  protected
+    Real m[:] = {-20,0,3.5,4,53.5}  "Powers in equation (5)";
+    Real d_phi = 2319.5246  "Coefficient in equation (5)";
+    Real d[:] = {-5.65134998e-8,2690.66631,127.287297,-135.003439,0.981825814}
+      "Coefficients in equation (4) and (5)";
+    Real a[:] = {19/20,1,9/7,5/4,109/107}  "Additional coefficients in (5)";
+    Real phi0 = a0 / Tcritical  "Given reference constant";
+    Real theta = sat.Tsat / Tcritical  "Temperature ratio";
+  algorithm
+    phi := phi0*(d_phi + a[1]*d[1]*theta^m[1] + a[2]*d[2]*log(theta) +
+      a[3]*d[3]*theta^m[3] + a[4]*d[4]*theta^m[4] + a[5]*d[5]*theta^m[5])
+      "Equation (5)";
+  end auxilaryPhi;
 
   function enthalpyExpression1
     "This expression represents ln(p/pcritical), which is used in the saturated
