@@ -125,9 +125,3 @@ createPlot(
   y    = {"MM"},
   grid = true
 )
-createPlot(
-  id   = 23,
-  x    = "T_degC",
-  y    = {"h_fg"},
-  grid = true
-)

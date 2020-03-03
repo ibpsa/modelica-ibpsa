@@ -8,20 +8,24 @@ model SteamProperties
     TMax=647);
     // Min and max temperature ranges limited by h_fg(T) formulation
 
-  Modelica.SIunits.SpecificEnthalpy h_fg "Enthalpy of vaporization";
-  Modelica.SIunits.SpecificEnthalpy hSte "Enthalpy of steam";
-  Modelica.SIunits.SpecificEnthalpy h_g "Enthalpy of steam";
-  Modelica.SIunits.SpecificEnthalpy h_g2 "Enthalpy of steam";
+//  Medium.SaturationProperties sat "Saturation state properties";
+//  Modelica.SIunits.SpecificEnthalpy h_f "Enthalpy of saturated liquid";
+//  Modelica.SIunits.SpecificEnthalpy h_g "Enthalpy of saturated vapor";
+//  Modelica.SIunits.SpecificEnthalpy h_fg "Enthalpy of vaporization";
+//  Modelica.SIunits.SpecificEnthalpy h_fgOld "Enthalpy of vaporization, old formulation";
 
 equation
   // Check the implementation of the base properties
   basPro.state.p=p;
   basPro.state.T=T;
 
-  h_fg = Medium.enthalpyOfVaporization(T);
-  hSte = Medium.enthalpySteam(T);
-  h_g = Medium.h_g(T);
-  h_g2 = Medium.h_g2(T);
+  // Set saturation state
+//  sat = Medium.setSat_p(p);
+
+//  h_f = Medium.enthalpyOfVaporization(sat);
+//  h_g = Medium.enthalpyOfVaporization(sat);
+//  h_fg = Medium.enthalpyOfVaporization(sat);
+//  h_fg = Medium.enthalpyOfVaporization_old(sat.Tsat);
 
    annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamProperties.mos"
