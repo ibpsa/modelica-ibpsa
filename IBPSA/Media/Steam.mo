@@ -230,7 +230,17 @@ package Steam "Package with model for ideal steam"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sv "Saturated vapor specific enthalpy";
+  protected
+    Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
+    Density dv = densityOfSaturatedVapor(sat)  "Saturated vapor density";
+    Real r1 = enthalpyExpression1(sat)  "Intermediate expression 1";
+    Real r2 = enthalpyExpression2(sat)  "Intermediate expression 2";
+    Real phi = auxiliaryPhi(sat)  "Value for phi";
+  algorithm
+    sv := phi - exp(r1)*pcritical*(r2 + r1*tau)/(dv*tau*sat.Tsat)
+      "Saturated vapor enthalpy, derived from Equation (9)";
   end entropyOfSaturatedVapor;
+
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.
