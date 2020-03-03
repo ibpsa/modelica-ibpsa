@@ -24,8 +24,8 @@ equation
          p=1e5,
          T=T,
          X=Medium.X_default));
+    assert(abs(hVapCod-hVapSym) < 1E-2, "Model has an error");
     der(hVapCod)=der(hVapSym);
-    assert(abs(hVapCod-hVapSym) < 1E-1, "Model has an error");
 
     cpCod=Medium.specificHeatCapacityCp(
       Medium.setState_pTX(
