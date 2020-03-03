@@ -123,6 +123,13 @@ package Steam "Package with model for ideal steam"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEnthalpy hv "Dew curve specific enthalpy";
+  protected
+    Real tau=1 - sat.Tsat/Tcritical "Temperature expression";
+    Density dv = densityOfSaturatedVapor(sat);
+    Real r1 = enthalpyExpression1(sat);
+    Real r2 = enthalpyExpression2(sat);
+  algorithm
+    hv := a0 - exp(r1)*pcritical*(r2+r1*tau)/(dv*tau);
   end enthalpyOfSaturatedVapor;
 
   replaceable function enthalpyOfVaporization
@@ -205,15 +212,15 @@ protected
   replaceable function vaporPressure
     "Returns vapor pressure for a given temperature"
     extends Modelica.Icons.Function;
-    input Temperature T  "Temperature";
+    input SaturationProperties sat "Saturation property record";
     output AbsolutePressure p  "Vapor pressure";
   protected
     Real n[:]={1,1.5,3,3.5,4,7.5} "Powers in equation (1)";
     Real a[:]={-7.85951783,1.84408259,-11.7866497,22.6807411,-15.9618719,
         1.80122502} "Coefficients in equation (1) of [1]";
-    Real tau=1 - T/Tcritical "Temperature expression";
+    Real tau=1 - sat.Tsat/Tcritical "Temperature expression";
   algorithm
-    p := pcritical*exp(Tcritical/T*(a[1]*tau^n[1] + a[2]*tau^n[2] + a[3]
+    p := pcritical*exp(Tcritical/sat.Tsat*(a[1]*tau^n[1] + a[2]*tau^n[2] + a[3]
         *tau^n[3] + a[4]*tau^n[4]) + a[5]*tau^n[5] + a[6]*tau^n[6])
         "Equation (1) for vapor pressure";
   annotation (
@@ -235,30 +242,31 @@ protected
     "This expression represents ln(p/pcritical), which is used in the saturated
       enthalpy functions above"
     extends Modelica.Icons.Function;
-    input Temperature T  "Temperature";
+    input SaturationProperties sat "Saturation property record";
     output Real r1  "Expression 1";
   protected
     Real n[:]={1,1.5,3,3.5,4,7.5} "Powers in equation (1)";
     Real a[:]={-7.85951783,1.84408259,-11.7866497,22.6807411,-15.9618719,
         1.80122502} "Coefficients in equation (1) of [1]";
-    Real tau=1 - T/Tcritical "Temperature expression";
+    Real tau=1 - sat.Tsat/Tcritical "Temperature expression";
   algorithm
-    r1 := (a[1]*Tcritical*tau^n[1])/T + (a[2]*Tcritical*tau^n[2])/T + (a[3]
-      *Tcritical*tau^n[3])/T + (a[4]*Tcritical*tau^n[4])/T + (a[5]*
-      Tcritical*tau^n[5])/T + (a[6]*Tcritical*tau^n[6])/T "Expression 1";
+    r1 := (a[1]*Tcritical*tau^n[1])/sat.Tsat + (a[2]*Tcritical*tau^n[2])/sat.Tsat
+       + (a[3]*Tcritical*tau^n[3])/sat.Tsat + (a[4]*Tcritical*tau^n[4])/sat.Tsat
+       + (a[5]*Tcritical*tau^n[5])/sat.Tsat + (a[6]*Tcritical*tau^n[6])/sat.Tsat
+       "Expression 1";
   end enthalpyExpression1;
 
   function enthalpyExpression2
     "This expression is used in the saturated enthalpy functions above, which
     was formulated via evaluating the derivative dP/dT"
     extends Modelica.Icons.Function;
-    input Temperature T  "Temperature";
+    input SaturationProperties sat "Saturation property record";
     output Real r2  "Expression 2";
   protected
     Real n[:]={1,1.5,3,3.5,4,7.5} "Powers in equation (1)";
     Real a[:]={-7.85951783,1.84408259,-11.7866497,22.6807411,-15.9618719,
         1.80122502} "Coefficients in equation (1) of [1]";
-    Real tau=1 - T/Tcritical "Temperature expression";
+    Real tau=1 - sat.Tsat/Tcritical "Temperature expression";
   algorithm
     r2 := a[1]*n[1]*tau^n[1] + a[2]*n[2]*tau^n[2] + a[3]*n[3]*tau^n[3] +
       a[4]*n[4]*tau^n[4] + a[5]*n[5]*tau^n[5] + a[6]*n[6]*tau^n[6]
