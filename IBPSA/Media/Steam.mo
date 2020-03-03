@@ -139,6 +139,32 @@ package Steam "Package with model for ideal steam"
     "Return enthalpy of vaporization of water as a function of temperature T, 
       273.16 to 647.096 K"
     extends Modelica.Icons.Function;
+    input SaturationProperties sat "Saturation property record";
+    output SpecificEnthalpy hlv "Vaporization enthalpy";
+  protected
+    SpecificEnthalpy hv = enthalpyOfSaturatedVapor(sat)  "Saturated vapor enthalpy";
+    SpecificEnthalpy hl = enthalpyOfSaturatedLiquid(sat)  "Saturated liquid enthalpy";
+  algorithm
+    hlv := hv - hl  "Difference of equations (7) and (6)";
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Enthalpy of vaporization of water is computed from temperature in the region 
+    of 273.16 to 647.096 K.
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
+  </html>"));
+  end enthalpyOfVaporization;
+
+  replaceable function enthalpyOfVaporization_old
+    "Return enthalpy of vaporization of water as a function of temperature T, 
+      273.16 to 647.096 K"
+    extends Modelica.Icons.Function;
     input Temperature T "Temperature";
     output SpecificEnthalpy r0 "Vaporization enthalpy";
     //    Real Tcritical=647.096 "Critical temperature";
@@ -183,7 +209,7 @@ package Steam "Package with model for ideal steam"
     temperature scale of 1990\" (1993).
     </p>
   </html>"));
-  end enthalpyOfVaporization;
+  end enthalpyOfVaporization_old;
 
   replaceable function entropyOfSaturatedLiquid
     "Return specific entropy of saturated liquid"
