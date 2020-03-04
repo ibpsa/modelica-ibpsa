@@ -39,9 +39,9 @@ INVALID_IN_ALL=["fixme", "import \"",
                 "__Dymola_saveSelector",
                 "__Dymola_Text",
                 "modelica://AixLib",
-	            "modelica://Buildings",
+                "modelica://Buildings",
                 "modelica://BuildingSystems",
-	            "modelica://IDEAS",
+                "modelica://IDEAS",
                 "modelica://https://"]
 # List of invalid strings in .mos files
 INVALID_IN_MOS=[]
