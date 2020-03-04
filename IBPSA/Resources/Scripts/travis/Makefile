@@ -27,19 +27,19 @@ test-for-wrong-strings:
 	        modelica://BuildingSystems \
 	          modelica://IDEAS \
 			  modelica://https; do \
-	         content=$(for ff in `find . -name '*.mo'`; do grep "${wrongString}" $ff; done)
+	         content=$(for ff in `find . -name '*.mo'`; do grep "${wrongString}" $ff; done); \
 	         if [ -n "${content}" ]; then
-	           echo "Error: Found invalid string ${wrongString} in"
+	           echo "Error: Found invalid string ${wrongString} in"; \
 			   for ff in `find . -name '*.mo'`; do
 	              if [ `grep -c "${wrongString}" $ff` != 0 ]; then
-			        echo "  $ff";
-				  fi;
-			   done
-	           foundError="true"
-	         fi;
-	      done;
+			        echo "  $ff"; \
+				  fi; \
+			   done; \
+	           foundError="true"; \
+	         fi; \
+	      done; \
 		  if [ ${foundError} == "true" ]; then
-		    exit 1
+		    exit 1; \
 		  fi;
 	)
 
