@@ -28,7 +28,7 @@ test-for-wrong-strings:
 	          modelica://IDEAS \
 			  modelica://https; do \
 	         content=$(for ff in `find . -name '*.mo'`; do grep "${wrongString}" $ff; done); \
-	         if [ -n "${content}" ]; then
+	         if [ "${content}x" != "x" ]; then
 	           echo "Error: Found invalid string ${wrongString} in"; \
 			   for ff in `find . -name '*.mo'`; do
 	              if [ `grep -c "${wrongString}" $ff` != 0 ]; then
