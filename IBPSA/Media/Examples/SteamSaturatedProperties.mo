@@ -9,16 +9,22 @@ model SteamSaturatedProperties
     "Minimum temperature for the simulation";
   parameter Modelica.SIunits.Temperature TMax = 293.15
     "Maximum temperature for the simulation";
-  parameter Modelica.SIunits.Pressure pMin = 1e5
+  parameter Modelica.SIunits.Pressure pMin
     "Minimum pressure for the simulation";
-  parameter Modelica.SIunits.Pressure pMax = 10e5
+  parameter Modelica.SIunits.Pressure pMax
     "Maximum pressure for the simulation";
-  parameter Modelica.SIunits.Pressure p "Pressure";
-  parameter Modelica.SIunits.MassFraction X[Medium.nX]=
-    Medium.X_default "Mass fraction";
-  Medium.Temperature T =  Medium.T_default  "Temperature";
+  Modelica.SIunits.Pressure p "Pressure";
+//  parameter Modelica.SIunits.MassFraction X[Medium.nX]=
+//    Medium.X_default "Mass fraction";
+  Medium.Temperature T  "Temperature";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
     "Celsius temperature";
+
+//  Medium.ThermodynamicState state_pTX "Medium state";
+  Medium.SaturationProperties sat "Medium saturation state";
+
+  Modelica.SIunits.Density dl "Density of saturated liquid";
+  Modelica.SIunits.Density dv "Density of saturated vapor";
 
 //protected
   constant Real conv(unit="1/s") = 1 "Conversion factor to satisfy unit check";
@@ -40,8 +46,13 @@ equation
     p = pMin + conv*time * (pMax-pMin);
     T_degC = Modelica.SIunits.Conversions.to_degC(T);
 
-    // Check the implementation of the functions
+    // Saturation state
+    sat = Medium.setSat_p(p);
+    T = sat.Tsat;
 
+    // Check the implementation of the functions
+    dl = Medium.densityOfSaturatedLiquid(sat);
+    dv = Medium.densityOfSaturatedVapor(sat);
 
    annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamProperties.mos"
