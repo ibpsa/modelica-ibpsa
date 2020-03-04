@@ -7,9 +7,7 @@
 import os, string, fnmatch, os.path, sys
 # --------------------------
 # Global settings
-LIBHOME=os.path.join("..", "..", "..", "..", "..", "IBPSA")
-print(LIBHOME)
-exit
+LIBHOME=os.path.join(".")
 
 # List of invalid strings
 # Regarding the strings __Dymola_*, see https://trac.modelica.org/Modelica/ticket/786
