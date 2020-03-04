@@ -8,14 +8,20 @@ model Read "Block that allows a signal to be read as an FMU output"
     "Tag with the type of signal for the calculation of the KPIs";
 
   parameter String zone = "1" if (
-    Integer(KPIs)==2 or Integer(KPIs)==3 or Integer(KPIs)==4 or
-    Integer(KPIs)==5 or Integer(KPIs)==6)
+    KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.AirZoneTemperature or
+    KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RadiativeZoneTemperature or
+    KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.OperativeZoneTemperature or
+    KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RelativeHumidity or
+    KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.CO2Concentration)
     "Zone designation, required if KPIs is AirZoneTemperature, 
     RadiativeZoneTemperature, OperativeZoneTemperature, RelativeHumidity, 
     or CO2Concentration"
   annotation(Dialog(enable=(
-    Integer(KPIs)==2 or Integer(KPIs)==3 or Integer(KPIs)==4 or
-    Integer(KPIs)==5 or Integer(KPIs)==6)));
+    KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.AirZoneTemperature or
+    KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RadiativeZoneTemperature or
+    KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.OperativeZoneTemperature or
+    KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RelativeHumidity or
+    KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.CO2Concentration)));
 
 protected
   final parameter Boolean boptestRead = true
@@ -103,7 +109,10 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1059\">#1059</a>.
         Text(
           extent={{-50,-24},{54,-72}},
           lineColor={153,153,153},
-          textString=DynamicSelect("", if (Integer(KPIs) == 2 or Integer(KPIs)
-               == 3 or Integer(KPIs) == 4 or Integer(KPIs) == 5 or Integer(KPIs)
-               == 6) then "zone" else ""))}));
+          textString=DynamicSelect("", if (
+            (KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.AirZoneTemperature) or
+            (KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RadiativeZoneTemperature) or
+            (KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.OperativeZoneTemperature) or
+            (KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RelativeHumidity) or
+            (KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.CO2Concentration)) then "zone" else ""))}));
 end Read;
