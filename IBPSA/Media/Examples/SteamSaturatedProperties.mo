@@ -5,20 +5,20 @@ model SteamSaturatedProperties
 
   package Medium = IBPSA.Media.Steam  "Steam medium model";
 
-  parameter Modelica.SIunits.Temperature TMin = 273.15
+  parameter Modelica.SIunits.Temperature TMin = 273.16
     "Minimum temperature for the simulation";
-  parameter Modelica.SIunits.Temperature TMax = 293.15
+  parameter Modelica.SIunits.Temperature TMax = 643.15
     "Maximum temperature for the simulation";
-  parameter Modelica.SIunits.Pressure pMin
+  parameter Modelica.SIunits.Pressure pMin = 616.66
     "Minimum pressure for the simulation";
-  parameter Modelica.SIunits.Pressure pMax
+  parameter Modelica.SIunits.Pressure pMax = 21043400
     "Maximum pressure for the simulation";
-  Modelica.SIunits.Pressure p "Pressure";
+  Modelica.SIunits.Pressure pSat "Saturation pressure";
 //  parameter Modelica.SIunits.MassFraction X[Medium.nX]=
 //    Medium.X_default "Mass fraction";
-  Medium.Temperature T  "Temperature";
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
-    "Celsius temperature";
+  Medium.Temperature TSat  "Saturation temperature";
+  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TSat_degC
+    "Celsius saturation temperature";
 
 //  Medium.ThermodynamicState state_pTX "Medium state";
   Medium.SaturationProperties sat "Medium saturation state";
@@ -43,19 +43,21 @@ model SteamSaturatedProperties
 
 equation
     // Compute temperatures that are used as input to the functions
-    p = pMin + conv*time * (pMax-pMin);
-    T_degC = Modelica.SIunits.Conversions.to_degC(T);
+    pSat = pMin + conv*time * (pMax-pMin);
+    TSat_degC = Modelica.SIunits.Conversions.to_degC(TSat);
 
     // Saturation state
-    sat = Medium.setSat_p(p);
-    T = sat.Tsat;
+    sat = Medium.setSat_p(pSat);
+    TSat = sat.Tsat;
+//    assert(TSat < TMin, "Temperature exceeded minimum value.");
+//    assert(TSat > TMax, "Temperature exceeded maximum value.");
 
     // Check the implementation of the functions
     dl = Medium.densityOfSaturatedLiquid(sat);
     dv = Medium.densityOfSaturatedVapor(sat);
 
    annotation(experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamProperties.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamSaturatedProperties.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>

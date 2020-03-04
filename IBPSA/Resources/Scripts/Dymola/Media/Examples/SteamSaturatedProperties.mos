@@ -1,0 +1,20 @@
+﻿simulateModel("IBPSA.Media.Examples.SteamSaturatedProperties", method="dassl", startTime=0, stopTime=1.0, tolerance=1e-06, resultFile="SteamSaturatedProperties");
+createPlot(
+  id   = 1,
+  x    = "pSat",
+  y    = {"TSat_degC"},
+  grid = true
+)
+createPlot(
+  id   = 2,
+  x    = "pSat",
+  y    = {"dl"},
+  grid = true
+  )
+  createPlot(
+  id   = 3,
+  x    = "pSat",
+  y    = {"dv"},
+  grid = true
+)
+
