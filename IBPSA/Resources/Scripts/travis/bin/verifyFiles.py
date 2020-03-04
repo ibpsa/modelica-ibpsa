@@ -1,14 +1,15 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 #####################################################################
 # This script checks mo and mos files for invalid syntax.
-# Run this file before checking changes into the trunk.
 #
 # MWetter@lbl.gov                                          2011-03-06
 #####################################################################
 import os, string, fnmatch, os.path, sys
 # --------------------------
 # Global settings
-LIBHOME=os.path.abspath(".")
+LIBHOME=os.path.join("..", "..", "..", "..", "..", "IBPSA")
+print(LIBHOME)
+exit
 
 # List of invalid strings
 # Regarding the strings __Dymola_*, see https://trac.modelica.org/Modelica/ticket/786
@@ -40,9 +41,9 @@ INVALID_IN_ALL=["fixme", "import \"",
                 "__Dymola_saveSelector",
                 "__Dymola_Text",
                 "modelica://AixLib",
-	        "modelica://Buildings",
-	        "modelica://BuildingSystems",
-	        "modelica://IDEAS",
+	            "modelica://Buildings",
+                "modelica://BuildingSystems",
+	            "modelica://IDEAS",
                 "modelica://https://"]
 # List of invalid strings in .mos files
 INVALID_IN_MOS=[]
@@ -53,7 +54,7 @@ REQUIRED_IN_MO=["documentation"]
 
 #########################################################
 def reportError(message):
-    print "*** Error: ", message
+    print("*** Error: ", message)
     global IERR
     IERR=IERR+1
 
@@ -159,5 +160,5 @@ for (path, dirs, files) in os.walk(LIBHOME):
 # Terminate if there was an error.
 # This allows other scripts to check the return value
 if IERR != 0:
-    print "*** Terminating due to found errors in examined files."
-    sys.exit(2)
+    print("*** Terminating due to found errors in examined files.")
+    sys.exit(1)
