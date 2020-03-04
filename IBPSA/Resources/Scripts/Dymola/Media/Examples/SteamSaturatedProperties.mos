@@ -11,10 +11,39 @@ createPlot(
   y    = {"dl"},
   grid = true
   )
-  createPlot(
+createPlot(
   id   = 3,
   x    = "pSat",
   y    = {"dv"},
   grid = true
+  )
+createPlot(
+  id   = 4,
+  x    = "pSat",
+  y    = {"hl"},
+  grid = true
+  )
+createPlot(
+  id   = 5,
+  x    = "pSat",
+  y    = {"hv"},
+  grid = true
+  )
+createPlot(
+  id   = 6,
+  x    = "pSat",
+  y    = {"hlv"},
+  grid = true
+  )
+createPlot(
+  id   = 7,
+  x    = "pSat",
+  y    = {"sl"},
+  grid = true
 )
-
+createPlot(
+  id   = 8,
+  x    = "pSat",
+  y    = {"sv"},
+  grid = true
+)

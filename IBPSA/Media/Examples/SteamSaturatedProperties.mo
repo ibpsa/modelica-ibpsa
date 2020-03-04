@@ -25,6 +25,12 @@ model SteamSaturatedProperties
 
   Modelica.SIunits.Density dl "Density of saturated liquid";
   Modelica.SIunits.Density dv "Density of saturated vapor";
+  Modelica.SIunits.SpecificEnthalpy hl "Enthalpy of saturated liquid";
+  Modelica.SIunits.SpecificEnthalpy hv "Enthalpy of saturated vapor";
+  Modelica.SIunits.SpecificEnthalpy hlv "Enthalpy of vaporization";
+  Modelica.SIunits.SpecificEnthalpy hlv_old "Enthalpy of vaporization";
+  Modelica.SIunits.SpecificEntropy sl "Entropy of saturated liquid";
+  Modelica.SIunits.SpecificEntropy sv "Entropy of saturated vapor";
 
 //protected
   constant Real conv(unit="1/s") = 1 "Conversion factor to satisfy unit check";
@@ -55,6 +61,12 @@ equation
     // Check the implementation of the functions
     dl = Medium.densityOfSaturatedLiquid(sat);
     dv = Medium.densityOfSaturatedVapor(sat);
+    hl = Medium.enthalpyOfSaturatedLiquid(sat);
+    hv = Medium.enthalpyOfSaturatedVapor(sat);
+    hlv = Medium.enthalpyOfVaporization(sat);
+    hlv_old = Medium.enthalpyOfVaporization_old(sat.Tsat);
+    sl = Medium.entropyOfSaturatedLiquid(sat);
+    sv = Medium.entropyOfSaturatedVapor(sat);
 
    annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamSaturatedProperties.mos"
