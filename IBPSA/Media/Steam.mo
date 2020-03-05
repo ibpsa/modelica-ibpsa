@@ -31,20 +31,35 @@ package Steam "Package with model for ideal steam"
     "Return saturation temperature from a given pressure"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
-    output Temperature T "Saturation temperature";
+    output Temperature T   "Saturation temperature";
+  protected
+    Real a[:] = {2.8002262E+02,1.4474213E+01,1.0074890E+00,1.1009133E-02,
+      5.5240262E-03,5.5702047E-04}
+      "Coefficients";
+  algorithm
+    T := a[1] + a[2]*log(p/1000) + a[3]*log(p/1000)^2 + a[4]*log(p/1000)^3 +
+      a[5]*log(p/1000)^4 + a[6]*log(p/1000)^5  "Fitted relationship";
+  end saturationTemperature;
+
+  replaceable function saturationTemperature_Affandi
+    "Return saturation temperature from a given pressure"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    output Temperature T   "Saturation temperature";
   protected
     Real pr = p/pcritical  "Reduced pressure";
     Real a[:] = {9.37817e-3,4.98951e-4,1.11049e-5,3.34995e-7,3.44102e-8}
       "Coefficients in equation (2)";
   algorithm
-    T := exp(a[1]+a[2]*pr+a[3]*pr^2+a[4]*pr^3+a[5]*pr^4)^(-0.4);
+    T := Modelica.SIunits.Conversions.from_degC(
+      exp((a[1]+a[2]*pr+a[3]*pr^2+a[4]*pr^3+a[5]*pr^4)^(-0.4)));
   annotation (
     smoothOrder=2,
     Documentation(info="<html>
 <p>Saturation temperature for a given pressure is valid in the range of of 273.16 to 643.15 K. </p>
 <p>Source: Affandi, M., Mamat, N., Kanafiah, S. N. A. M., &amp; Khalid, N. S. (2013). &quot;Simplified equations for saturated steam properties for simulation purpose&quot;. <i>Procedia Engineering</i>, 53. Malaysian Technical Universities Conference on Engineering &amp; Technology 2012, 722&ndash;726. </p>
 </html>"));
-  end saturationTemperature;
+  end saturationTemperature_Affandi;
 
   replaceable function densityOfSaturatedLiquid
     "Return density of saturated liquid"
@@ -240,7 +255,6 @@ package Steam "Package with model for ideal steam"
     sv := phi - exp(r1)*pcritical*(r2 + r1*tau)/(dv*tau*sat.Tsat)
       "Saturated vapor enthalpy, derived from Equation (9)";
   end entropyOfSaturatedVapor;
-
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.
