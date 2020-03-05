@@ -39,6 +39,32 @@ package Steam "Package with model for ideal steam"
   algorithm
     T := a[1] + a[2]*log(p/1000) + a[3]*log(p/1000)^2 + a[4]*log(p/1000)^3 +
       a[5]*log(p/1000)^4 + a[6]*log(p/1000)^5  "Saturation temperature";
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Saturation temperature (K) is computed from pressure (Pa). This relation is
+    valid in the region of 273.16 to 647.096 K (613.3 to 22049100 Pa).
+    </p>
+    <p>
+    The function has the following form:
+    </p>
+    <p align=\\center\" style=\"font-style:italic;\">
+    T = a<sub>1</sub> + a<sub>2</sub> ln(p) + a<sub>3</sub> ln(p)<sup>2</sup> + 
+    a<sub>4</sub> ln(p)<sup>3</sup> + a<sub>5</sub> ln(p)<sup>4</sup> + a<sub>6</sub> ln(p)<sup>5</sup>
+    </p>
+    <p>
+    where temperature <i>T</i> is in units Kelvin, pressure <i>p</i> is in units Pa, and <i>a<sub>1</sub></i> 
+    through <i>a<sub>6</sub></i> are regression coefficients.
+    </p>
+  </html>", revisions="<html>
+<ul>
+<li>
+March 6, 2020, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
   end saturationTemperature;
 
   replaceable function densityOfSaturatedLiquid
@@ -266,7 +292,6 @@ package Steam "Package with model for ideal steam"
     </p>
   </html>"));
   end entropyOfVaporization;
-
 
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
