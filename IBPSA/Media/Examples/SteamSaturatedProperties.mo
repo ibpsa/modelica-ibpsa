@@ -9,18 +9,15 @@ model SteamSaturatedProperties
     "Minimum temperature for the simulation";
   parameter Modelica.SIunits.Temperature TMax = 643.15
     "Maximum temperature for the simulation";
-  parameter Modelica.SIunits.Pressure pMin = 630
-    "Minimum pressure for the simulation";  // 616.66
+  parameter Modelica.SIunits.Pressure pMin = 620
+    "Minimum pressure for the simulation";
   parameter Modelica.SIunits.Pressure pMax = 20000000
-    "Maximum pressure for the simulation";  // 21043400
+    "Maximum pressure for the simulation";
   Modelica.SIunits.Pressure pSat "Saturation pressure";
-//  parameter Modelica.SIunits.MassFraction X[Medium.nX]=
-//    Medium.X_default "Mass fraction";
   Medium.Temperature TSat  "Saturation temperature";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TSat_degC
     "Celsius saturation temperature";
 
-//  Medium.ThermodynamicState state_pTX "Medium state";
   Medium.SaturationProperties sat "Medium saturation state";
 
   Modelica.SIunits.Density dl "Density of saturated liquid";
@@ -33,20 +30,8 @@ model SteamSaturatedProperties
   Modelica.SIunits.SpecificEntropy sv "Entropy of saturated vapor";
   Modelica.SIunits.SpecificEntropy slv "Entropy of vaporization";
 
-//protected
+protected
   constant Real conv(unit="1/s") = 1 "Conversion factor to satisfy unit check";
-
-  function checkState
-    extends Modelica.Icons.Function;
-    input Medium.ThermodynamicState state1 "Medium state";
-    input Medium.ThermodynamicState state2 "Medium state";
-    input String message "Message for error reporting";
-  algorithm
-    assert(abs(Medium.temperature(state1)-Medium.temperature(state2))
-       < 1e-8, "Error in temperature of " + message);
-    assert(abs(Medium.pressure(state1)-Medium.pressure(state2))
-       < 1e-8, "Error in pressure of " + message);
-  end checkState;
 
 equation
     // Compute temperatures that are used as input to the functions
@@ -56,9 +41,10 @@ equation
     // Saturation state
     sat = Medium.setSat_p(pSat);
     TSat = sat.Tsat;
-//    assert(TSat < TMin, "Temperature exceeded minimum value.");
-//    assert(TSat > TMax, "Temperature exceeded maximum value.");
-
+    assert(TSat > TMin, "Temperature exceeded minimum value.\n" +
+      "   TSat = " + String(TSat));
+    assert(TSat < TMax, "Temperature exceeded maximum value.\n" +
+      "   TSat = " + String(TSat));
     // Check the implementation of the functions
     dl = Medium.densityOfSaturatedLiquid(sat);
     dv = Medium.densityOfSaturatedVapor(sat);
@@ -80,7 +66,8 @@ This example checks the saturation properties of the medium.
 <p>
 The steam medium is designed for single phase (saturated or 
 superheated) vapor (x=1). The saturated state functions are 
-provided for phase change models involving the <a href=\"modelica://IBPSA.Media.Steam\">
+provided for models involving phase change by implementing both
+the <a href=\"modelica://IBPSA.Media.Steam\">
 IBPSA.Media.Steam</a> model (vapor phase) and the
 <a href=\"modelica://IBPSA.Media.Water\"> IBPSA.Media.Water</a> 
 model (liquid phase). See <a href=\"modelica://IBPSA.Media.Steam\">
