@@ -9,14 +9,6 @@ package Steam "Package with model for ideal steam"
 
   extends Modelica.Icons.Package;
 
-  redeclare record extends ThermodynamicState
-    "ThermodynamicState record for ideal steam"
-  end ThermodynamicState;
-
-  redeclare model extends BaseProperties "Base properties"
-
-  end BaseProperties;
-
   replaceable function setSat_p
     "Return saturation property record from pressure"
     extends Modelica.Icons.Function;
@@ -292,7 +284,6 @@ First implementation.
     </p>
   </html>"));
   end entropyOfVaporization;
-
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.
