@@ -25,7 +25,6 @@ model SteamSaturatedProperties
   Modelica.SIunits.SpecificEnthalpy hl "Enthalpy of saturated liquid";
   Modelica.SIunits.SpecificEnthalpy hv "Enthalpy of saturated vapor";
   Modelica.SIunits.SpecificEnthalpy hlv "Enthalpy of vaporization";
-  Modelica.SIunits.SpecificEnthalpy hlv_old "Enthalpy of vaporization";
   Modelica.SIunits.SpecificEntropy sl "Entropy of saturated liquid";
   Modelica.SIunits.SpecificEntropy sv "Entropy of saturated vapor";
   Modelica.SIunits.SpecificEntropy slv "Entropy of vaporization";
@@ -51,7 +50,6 @@ equation
     hl = Medium.enthalpyOfSaturatedLiquid(sat);
     hv = Medium.enthalpyOfSaturatedVapor(sat);
     hlv = Medium.enthalpyOfVaporization(sat);
-    hlv_old = Medium.enthalpyOfVaporization_old(sat.Tsat);
     sl = Medium.entropyOfSaturatedLiquid(sat);
     sv = Medium.entropyOfSaturatedVapor(sat);
     slv = Medium.entropyOfVaporization(sat);
