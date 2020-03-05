@@ -255,6 +255,33 @@ package Steam "Package with model for ideal steam"
     sv := phi - exp(r1)*pcritical*(r2 + r1*tau)/(dv*tau*sat.Tsat)
       "Saturated vapor enthalpy, derived from Equation (9)";
   end entropyOfSaturatedVapor;
+
+  replaceable function entropyOfVaporization
+    "Return entropy of vaporization of water as a function of temperature T, 
+      273.16 to 647.096 K"
+    extends Modelica.Icons.Function;
+    input SaturationProperties sat "Saturation property record";
+    output SpecificEntropy slv "Vaporization enthalpy";
+  protected
+    SpecificEntropy sv = entropyOfSaturatedVapor(sat)  "Saturated vapor entropy";
+    SpecificEntropy sl = entropyOfSaturatedLiquid(sat)  "Saturated liquid entropy";
+  algorithm
+    slv := sv - sl  "Difference of equations (8) and (9)";
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Enthalpy of vaporization of water is computed from temperature in the region 
+    of 273.16 to 647.096 K.
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
+  </html>"));
+  end entropyOfVaporization;
+
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.

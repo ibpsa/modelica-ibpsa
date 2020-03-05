@@ -9,10 +9,10 @@ model SteamSaturatedProperties
     "Minimum temperature for the simulation";
   parameter Modelica.SIunits.Temperature TMax = 643.15
     "Maximum temperature for the simulation";
-  parameter Modelica.SIunits.Pressure pMin = 616.66
-    "Minimum pressure for the simulation";
-  parameter Modelica.SIunits.Pressure pMax = 21043400
-    "Maximum pressure for the simulation";
+  parameter Modelica.SIunits.Pressure pMin = 630
+    "Minimum pressure for the simulation";  // 616.66
+  parameter Modelica.SIunits.Pressure pMax = 20000000
+    "Maximum pressure for the simulation";  // 21043400
   Modelica.SIunits.Pressure pSat "Saturation pressure";
 //  parameter Modelica.SIunits.MassFraction X[Medium.nX]=
 //    Medium.X_default "Mass fraction";
@@ -31,6 +31,7 @@ model SteamSaturatedProperties
   Modelica.SIunits.SpecificEnthalpy hlv_old "Enthalpy of vaporization";
   Modelica.SIunits.SpecificEntropy sl "Entropy of saturated liquid";
   Modelica.SIunits.SpecificEntropy sv "Entropy of saturated vapor";
+  Modelica.SIunits.SpecificEntropy slv "Entropy of vaporization";
 
 //protected
   constant Real conv(unit="1/s") = 1 "Conversion factor to satisfy unit check";
@@ -67,6 +68,7 @@ equation
     hlv_old = Medium.enthalpyOfVaporization_old(sat.Tsat);
     sl = Medium.entropyOfSaturatedLiquid(sat);
     sv = Medium.entropyOfSaturatedVapor(sat);
+    slv = Medium.entropyOfVaporization(sat);
 
    annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamSaturatedProperties.mos"
