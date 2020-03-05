@@ -75,7 +75,16 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
-This example checks the saturation properties of the medium.
+This example checks the saturation properties of the medium. 
+</p>
+<p>
+The steam medium is designed for single phase (saturated or 
+superheated) vapor (x=1). The saturated state functions are 
+provided for phase change models involving the <a href=\"modelica://IBPSA.Media.Steam\">
+IBPSA.Media.Steam</a> model (vapor phase) and the
+<a href=\"modelica://IBPSA.Media.Water\"> IBPSA.Media.Water</a> 
+model (liquid phase). See <a href=\"modelica://IBPSA.Media.Steam\">
+IBPSA.Media.Steam</a> for more information.
 </p>
 </html>",
 revisions="<html>
