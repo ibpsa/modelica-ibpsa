@@ -38,7 +38,7 @@ This example checks thermophysical properties of the medium.
 revisions="<html>
 <ul>
 <li>
-January 16, 2020, by Kathryn Hinkelman:<br/>
+March 6, 2020, by Kathryn Hinkelman:<br/>
 Change medium to ideal steam to eliminate discontinuities.
 </li>
 <li>

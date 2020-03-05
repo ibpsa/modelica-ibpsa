@@ -7,7 +7,7 @@ model SteamSaturatedProperties
 
   parameter Modelica.SIunits.Temperature TMin = 273.16
     "Minimum temperature for the simulation";
-  parameter Modelica.SIunits.Temperature TMax = 643.15
+  parameter Modelica.SIunits.Temperature TMax = 647.096
     "Maximum temperature for the simulation";
   parameter Modelica.SIunits.Pressure pMin = 620
     "Minimum pressure for the simulation";
@@ -59,7 +59,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
-This example checks the saturation properties of the medium. 
+This example checks the saturation properties of the medium.
 </p>
 <p>
 The steam medium is designed for single phase (saturated or 
@@ -71,11 +71,16 @@ IBPSA.Media.Steam</a> model (vapor phase) and the
 model (liquid phase). See <a href=\"modelica://IBPSA.Media.Steam\">
 IBPSA.Media.Steam</a> for more information.
 </p>
+<p>
+Since the Steam medium model assumes pressure is steady throughout 
+simulation, these saturation properties are evaluted over the possible 
+range of saturated pressure values.
+</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-March 4, 2020, by Kathryn Hinkelman:<br/>
+March 6, 2020, by Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>

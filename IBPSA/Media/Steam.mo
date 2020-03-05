@@ -343,12 +343,14 @@ of T.
 alt=\"Specific heat of ideal steam\"/>
 </p>
 <h4> 
-Limitation
+Limitations
 </h4>
 <p>
 <ul>
 <li>
-The properties are valid in the range: <i>200 K &le; T &le; 6000 K</i>
+The properties are valid in the range: <i>200 K &le; T &le; 6000 K</i>, with the
+exception of saturated state properties, which are valid in the range: 
+<i>273.16 K &le; T &le; 647.096 K</i>
 </li>
 <li>
 When phase change is required, this model is to be used in combination with the
@@ -358,21 +360,34 @@ incompressible liquid water for the liquid phase (quality = 0).
 <li>
 The two-phase region (e.g., mixed liquid and vapor) is not included.
 </li>
+<li>
+This model assumes the pressure/saturation pressure is steady throughout 
+simulation. This is done to improve simulation performance by decoupling 
+the pressure drop and energy balance calculations. Thus, a function for 
+calculating saturation pressure is not provided.
+</li>
 </p>
 <h4>
-Reference
+References
 </h4>
 <p>
-Computer program for calculation of complex chemical equilibrium compositions 
-and applications. Part 1: Analysis Document ID: 19950013764 N (95N20180) File 
-Series: NASA Technical Reports Report Number: NASA-RP-1311 E-8017 NAS 1.61:1311 
-Authors: Gordon, Sanford (NASA Lewis Research Center) Mcbride, Bonnie J. 
-(NASA Lewis Research Center) Published: Oct 01, 1994.
+S. Gordon and B. J. McBride, \"Computer Program for Calculation of Complex 
+Chemical Equilibrium Compositions and Applications: I. Analysis,\" NASA Technical 
+Reports, NASA-RP-1311, Cleveland, OH, 1994. Available: 
+<a href=\"https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19950013764.pdf\">
+https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19950013764.pdf</a>.
+</p>
+<p>
+W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+Ordinary Water Substance. Revised According to the International Temperature Scale 
+of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+<a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January 16, 2020, by Kathryn Hinkelman:<br/>
+March 6, 2020, by Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>
