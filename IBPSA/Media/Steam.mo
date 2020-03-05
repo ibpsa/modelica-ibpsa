@@ -107,12 +107,25 @@ package Steam "Package with model for ideal steam"
   protected
     Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
     Density dl = densityOfSaturatedLiquid(sat)  "Saturated liquid density";
-    Real r1 = enthalpyExpression1(sat)  "Intermediate expression 1";
-    Real r2 = enthalpyExpression2(sat)  "Intermediate expression 2";
+    Real r1 = expression1(sat)  "Intermediate expression 1";
+    Real r2 = expression2(sat)  "Intermediate expression 2";
     Real a = auxiliaryAlpha(sat)  "Value for alpha";
   algorithm
     hl := a - exp(r1)*pcritical*(r2+r1*tau)/(dl*tau)
       "Saturated liquid enthalpy, derived from equation (6)";
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Enthalpy of saturated liquid is computed from temperature in the region 
+    of 273.16 to 647.096 K.
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
+  </html>"));
   end enthalpyOfSaturatedLiquid;
 
   replaceable function enthalpyOfSaturatedVapor
@@ -123,12 +136,25 @@ package Steam "Package with model for ideal steam"
   protected
     Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
     Density dv = densityOfSaturatedVapor(sat)  "Saturated vapor density";
-    Real r1 = enthalpyExpression1(sat)  "Intermediate expression 1";
-    Real r2 = enthalpyExpression2(sat)  "Intermediate expression 2";
+    Real r1 = expression1(sat)  "Intermediate expression 1";
+    Real r2 = expression2(sat)  "Intermediate expression 2";
     Real a = auxiliaryAlpha(sat)  "Value for alpha";
   algorithm
     hv := a - exp(r1)*pcritical*(r2+r1*tau)/(dv*tau)
       "Saturated vapor enthalpy, derived from equation (7)";
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Enthalpy of saturated vapor is computed from temperature in the region 
+    of 273.16 to 647.096 K.
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
+  </html>"));
   end enthalpyOfSaturatedVapor;
 
   replaceable function enthalpyOfVaporization
@@ -165,12 +191,25 @@ package Steam "Package with model for ideal steam"
   protected
     Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
     Density dl = densityOfSaturatedLiquid(sat)  "Saturated liquid density";
-    Real r1 = enthalpyExpression1(sat)  "Intermediate expression 1";
-    Real r2 = enthalpyExpression2(sat)  "Intermediate expression 2";
+    Real r1 = expression1(sat)  "Intermediate expression 1";
+    Real r2 = expression2(sat)  "Intermediate expression 2";
     Real phi = auxiliaryPhi(sat)  "Value for phi";
   algorithm
     sl := phi - exp(r1)*pcritical*(r2 + r1*tau)/(dl*tau*sat.Tsat)
       "Saturated liquid enthalpy, derived from Equation (8)";
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Entropy of saturated liquid is computed from temperature in the region 
+    of 273.16 to 647.096 K.
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
+  </html>"));
   end entropyOfSaturatedLiquid;
 
   replaceable function entropyOfSaturatedVapor
@@ -181,12 +220,25 @@ package Steam "Package with model for ideal steam"
   protected
     Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
     Density dv = densityOfSaturatedVapor(sat)  "Saturated vapor density";
-    Real r1 = enthalpyExpression1(sat)  "Intermediate expression 1";
-    Real r2 = enthalpyExpression2(sat)  "Intermediate expression 2";
+    Real r1 = expression1(sat)  "Intermediate expression 1";
+    Real r2 = expression2(sat)  "Intermediate expression 2";
     Real phi = auxiliaryPhi(sat)  "Value for phi";
   algorithm
     sv := phi - exp(r1)*pcritical*(r2 + r1*tau)/(dv*tau*sat.Tsat)
       "Saturated vapor enthalpy, derived from Equation (9)";
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Entropy of saturated vapor is computed from temperature in the region 
+    of 273.16 to 647.096 K.
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
+  </html>"));
   end entropyOfSaturatedVapor;
 
   replaceable function entropyOfVaporization
@@ -204,7 +256,7 @@ package Steam "Package with model for ideal steam"
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Enthalpy of vaporization of water is computed from temperature in the region 
+    Entropy of vaporization of water is computed from temperature in the region 
     of 273.16 to 647.096 K.
     </p>
     <p>
@@ -214,6 +266,7 @@ package Steam "Package with model for ideal steam"
     </p>
   </html>"));
   end entropyOfVaporization;
+
 
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
@@ -272,6 +325,18 @@ protected
   algorithm
     a := a0*(d_a + d[1]*theta^m[1] + d[2]*theta^m[2] + d[3]*theta^m[3] +
       d[4]*theta^m[4] + d[5]*theta^m[5])  "Equation (4)";
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Auxiliary equation for alpha, equation (4).
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
+  </html>"));
   end auxiliaryAlpha;
 
   function auxiliaryPhi
@@ -291,11 +356,23 @@ protected
     phi := phi0*(d_phi + a[1]*d[1]*theta^m[1] + a[2]*d[2]*log(theta) +
       a[3]*d[3]*theta^m[3] + a[4]*d[4]*theta^m[4] + a[5]*d[5]*theta^m[5])
       "Equation (5)";
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Auxiliary equation for phi, equation (5).
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
+  </html>"));
   end auxiliaryPhi;
 
-  function enthalpyExpression1
+  function expression1
     "This expression represents ln(p/pcritical), which is used in the saturated
-      enthalpy functions above"
+      enthalpy and entropy functions above"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output Real r1  "Expression 1";
@@ -309,11 +386,25 @@ protected
        + (a[3]*Tcritical*tau^n[3])/sat.Tsat + (a[4]*Tcritical*tau^n[4])/sat.Tsat
        + (a[5]*Tcritical*tau^n[5])/sat.Tsat + (a[6]*Tcritical*tau^n[6])/sat.Tsat
        "Expression 1";
-  end enthalpyExpression1;
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Intermediate expression developed based on the work by Wagner & Pruss (1993), 
+    which is used in calculating various saturation state properties, including
+    enthalpy and entropy.
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
+  </html>"));
+  end expression1;
 
-  function enthalpyExpression2
-    "This expression is used in the saturated enthalpy functions above, which
-    was formulated via evaluating the derivative dP/dT"
+  function expression2
+    "This expression is used in the saturated enthalpy and entropy functions 
+      above, which was formulated via evaluating the derivative dP/dT"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output Real r2  "Expression 2";
@@ -326,7 +417,21 @@ protected
     r2 := a[1]*n[1]*tau^n[1] + a[2]*n[2]*tau^n[2] + a[3]*n[3]*tau^n[3] +
       a[4]*n[4]*tau^n[4] + a[5]*n[5]*tau^n[5] + a[6]*n[6]*tau^n[6]
       "Expression 2";
-  end enthalpyExpression2;
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Intermediate expression developed based on the work by Wagner & Pruss (1993), 
+    which is used in calculating various saturation state properties, including
+    enthalpy and entropy.
+    </p>
+    <p>
+    Source: W Wagner, A Pruss: \"International equations for the saturation 
+    properties of ordinary water substance. Revised according to the international 
+    temperature scale of 1990\" (1993).
+    </p>
+  </html>"));
+  end expression2;
 annotation (Documentation(info="<html>
 <p>
 The steam model can be utilized for steam systems and components that use the 
