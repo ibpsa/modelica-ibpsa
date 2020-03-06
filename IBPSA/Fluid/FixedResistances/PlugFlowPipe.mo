@@ -210,8 +210,8 @@ d = %dh")}),
     Documentation(revisions="<html>
 <ul>
 <li>
-March 6, 2019, by Jelger Jansen:<br/>
-Revised calculation of thermal resistance <code>R<\\code> 
+March 6, 2020, by Jelger Jansen:<br/>
+Revised calculation of thermal resistance <code>R</code> 
 by using correct radiuses.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1310\">#1310</a>.
 </li>
