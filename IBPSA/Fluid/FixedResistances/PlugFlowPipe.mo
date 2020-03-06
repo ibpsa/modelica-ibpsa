@@ -65,7 +65,7 @@ model PlugFlowPipe
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
   parameter Real R(unit="(m.K)/W")=1/(kIns*2*Modelica.Constants.pi/
-    Modelica.Math.log((dh/2 + dIns)/(dh/2)))
+    Modelica.Math.log((dh/2 + thickness + dIns)/(dh/2 + thickness)))
     "Thermal resistance per unit length from fluid to boundary temperature"
     annotation (Dialog(group="Thermal resistance"));
 
