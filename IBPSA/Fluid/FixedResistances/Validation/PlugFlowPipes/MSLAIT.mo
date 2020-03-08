@@ -37,7 +37,11 @@ model MSLAIT
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-104,110})));
-  Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataAIT151218.data)
+  Modelica.Blocks.Sources.CombiTimeTable DataReader(
+    tableOnFile=true,
+    tableName="dat",
+    columns=2:pipeDataAIT151218.nCol,
+    fileName=pipeDataAIT151218.filNam)
     "Read measurement data"
     annotation (Placement(transformation(extent={{34,-152},{54,-132}})));
   Data.PipeDataAIT151218 pipeDataAIT151218 "Record with measurement data"

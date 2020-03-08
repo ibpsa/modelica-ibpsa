@@ -1,4 +1,4 @@
-within IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes;
+﻿within IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes;
 model PlugFlowULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Water;
@@ -53,8 +53,13 @@ model PlugFlowULg "Validation against data from Université de Liège"
     tau=0,
     T_start=T_start_in) "Temperature sensor"
     annotation (Placement(transformation(extent={{0,-10},{-20,10}})));
-  Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataULg.data,
-      extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
+  Modelica.Blocks.Sources.CombiTimeTable DataReader(
+    tableOnFile=true,
+    tableName="dat",
+    fileName=pipeDataULg.filNam,
+    columns=2:pipeDataULg.nCol,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
+    "Measurement data"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 
   Modelica.Blocks.Math.UnitConversions.From_degC Tout

@@ -1,10 +1,10 @@
 within IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses;
 partial record PipeDataBaseDefinition
   "BaseClass for experimental data from the pipe test bench"
-      extends Modelica.Icons.Record;
-      parameter Integer n "Number of measurement data point";
-      parameter Real[:, 1+n] data
-    "Time in s | measure 1 | measure 2 | ... | measure n |";
+    extends Modelica.Icons.Record;
+      parameter Integer nCol "Number of columns in the data file";
+      parameter String filNam
+      "Name of data file";
       annotation(Documentation(info="<html>
 <p>
 Defines basic record of experimental data with <code>n</code> measured points.
