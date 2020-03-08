@@ -10,6 +10,13 @@ record PipeDataULg160104_2 "Experimental data from ULg's pipe test bench from 4 
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
+March 7, 2020, by Michael Wetter:<br/>
+Replaced measured data from specification in Modelica file to external table,
+as this reduces the computing time.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1289\"> #1289</a>.
+</li>
+<li>
 October 14, 2015 by Kevin Sartor:<br/>
 Add some information about the test.
 </li>

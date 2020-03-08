@@ -509,8 +509,15 @@ Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/(m K)
 </html>", revisions="<html>
 <ul>
 <li>
+March 7, 2020, by Michael Wetter:<br/>
+Replaced measured data from specification in Modelica file to external table,
+as this reduces the computing time.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1289\"> #1289</a>.
+</li>
+<li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>November 28, 2016 by Bram van der Heijde:<br/>Remove <code>pipVol.</code>

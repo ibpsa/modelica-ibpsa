@@ -210,6 +210,13 @@ U = 1/R = 0.462 W/(m K)</p>
 </html>", revisions="<html>
 <ul>
 <li>
+March 7, 2020, by Michael Wetter:<br/>
+Replaced measured data from specification in Modelica file to external table,
+as this reduces the computing time.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1289\"> #1289</a>.
+</li>
+<li>
 November 24, 2016 by Bram van der Heijde:<br/>Add pipe thickness for wall
 capacity calculation and expand documentation section.</li>
 <li>April 2, 2016 by Bram van der Heijde:<br/>Change thermal conductivity and

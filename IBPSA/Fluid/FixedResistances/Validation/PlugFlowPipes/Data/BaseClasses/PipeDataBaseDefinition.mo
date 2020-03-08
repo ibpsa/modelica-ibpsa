@@ -14,6 +14,13 @@ The first column corresponds to <code>time</code>, further columns to measured d
 revisions="<html>
 <ul>
 <li>
+March 7, 2020, by Michael Wetter:<br/>
+Replaced measured data from specification in Modelica file to external table,
+as this reduces the computing time.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1289\"> #1289</a>.
+</li>
+<li>
 Januar 19, 2016 by Carles Ribas:<br/>
 Move experiment documentation to the <a href=\"modelica://IBPSA.Experimental.Pipe.Data.PipeDatauLg150801\">
 specific model</a>. Add parameter <code>n</code> to facilitate use of extends clause.

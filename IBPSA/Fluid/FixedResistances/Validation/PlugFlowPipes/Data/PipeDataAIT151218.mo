@@ -8,6 +8,13 @@ record PipeDataAIT151218
      annotation (Documentation(revisions="<html>
 <ul>
 <li>
+March 7, 2020, by Michael Wetter:<br/>
+Replaced measured data from specification in Modelica file to external table,
+as this reduces the computing time.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1289\"> #1289</a>.
+</li>
+<li>
 December 18, 2015 by Daniele Basciotti:<br/>
 First implementation.
 </li>
