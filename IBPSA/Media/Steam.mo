@@ -81,9 +81,11 @@ First implementation.
     of 273.16 to 647.096 K.
     </p>
     <p>
-    Source: W Wagner, A Pruss: \"International equations for the saturation 
-    properties of ordinary water substance. Revised according to the international 
-    temperature scale of 1990\" (1993).
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+    Ordinary Water Substance. Revised According to the International Temperature Scale 
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end densityOfSaturatedLiquid;
@@ -110,9 +112,11 @@ First implementation.
     of 273.16 to 647.096 K.
     </p>
     <p>
-    Source: W Wagner, A Pruss: \"International equations for the saturation 
-    properties of ordinary water substance. Revised according to the international 
-    temperature scale of 1990\" (1993).
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+    Ordinary Water Substance. Revised According to the International Temperature Scale 
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end densityOfSaturatedVapor;
@@ -139,9 +143,11 @@ First implementation.
     of 273.16 to 647.096 K.
     </p>
     <p>
-    Source: W Wagner, A Pruss: \"International equations for the saturation 
-    properties of ordinary water substance. Revised according to the international 
-    temperature scale of 1990\" (1993).
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+    Ordinary Water Substance. Revised According to the International Temperature Scale 
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end enthalpyOfSaturatedLiquid;
@@ -168,9 +174,11 @@ First implementation.
     of 273.16 to 647.096 K.
     </p>
     <p>
-    Source: W Wagner, A Pruss: \"International equations for the saturation 
-    properties of ordinary water substance. Revised according to the international 
-    temperature scale of 1990\" (1993).
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+    Ordinary Water Substance. Revised According to the International Temperature Scale 
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end enthalpyOfSaturatedVapor;
@@ -194,9 +202,11 @@ First implementation.
     of 273.16 to 647.096 K.
     </p>
     <p>
-    Source: W Wagner, A Pruss: \"International equations for the saturation 
-    properties of ordinary water substance. Revised according to the international 
-    temperature scale of 1990\" (1993).
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+    Ordinary Water Substance. Revised According to the International Temperature Scale 
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end enthalpyOfVaporization;
@@ -223,9 +233,11 @@ First implementation.
     of 273.16 to 647.096 K.
     </p>
     <p>
-    Source: W Wagner, A Pruss: \"International equations for the saturation 
-    properties of ordinary water substance. Revised according to the international 
-    temperature scale of 1990\" (1993).
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+    Ordinary Water Substance. Revised According to the International Temperature Scale 
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end entropyOfSaturatedLiquid;
@@ -252,9 +264,11 @@ First implementation.
     of 273.16 to 647.096 K.
     </p>
     <p>
-    Source: W Wagner, A Pruss: \"International equations for the saturation 
-    properties of ordinary water substance. Revised according to the international 
-    temperature scale of 1990\" (1993).
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+    Ordinary Water Substance. Revised According to the International Temperature Scale 
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end entropyOfSaturatedVapor;
@@ -278,9 +292,11 @@ First implementation.
     of 273.16 to 647.096 K.
     </p>
     <p>
-    Source: W Wagner, A Pruss: \"International equations for the saturation 
-    properties of ordinary water substance. Revised according to the international 
-    temperature scale of 1990\" (1993).
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+    Ordinary Water Substance. Revised According to the International Temperature Scale 
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end entropyOfVaporization;
