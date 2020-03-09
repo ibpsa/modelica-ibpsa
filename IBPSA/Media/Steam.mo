@@ -41,7 +41,7 @@ package Steam "Package with model for ideal steam"
     <p>
     The function has the following form:
     </p>
-    <p align=\\center\" style=\"font-style:italic;\">
+    <p align=\"center\" style=\"font-style:italic;\">
     T = a<sub>1</sub> + a<sub>2</sub> ln(p) + a<sub>3</sub> ln(p)<sup>2</sup> + 
     a<sub>4</sub> ln(p)<sup>3</sup> + a<sub>5</sub> ln(p)<sup>4</sup> + a<sub>6</sub> ln(p)<sup>5</sup>
     </p>
@@ -336,9 +336,11 @@ protected
     of 273.16 to 647.096 K.
     </p>
     <p>
-    Source: W Wagner, A Pruss: \"International equations for the saturation 
-    properties of ordinary water substance. Revised according to the international 
-    temperature scale of 1990\" (1993).
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+    Ordinary Water Substance. Revised According to the International Temperature Scale 
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end vaporPressure;
@@ -364,9 +366,11 @@ protected
     Auxiliary equation for alpha, equation (4).
     </p>
     <p>
-    Source: W Wagner, A Pruss: \"International equations for the saturation 
-    properties of ordinary water substance. Revised according to the international 
-    temperature scale of 1990\" (1993).
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+    Ordinary Water Substance. Revised According to the International Temperature Scale 
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end auxiliaryAlpha;
@@ -395,9 +399,11 @@ protected
     Auxiliary equation for phi, equation (5).
     </p>
     <p>
-    Source: W Wagner, A Pruss: \"International equations for the saturation 
-    properties of ordinary water substance. Revised according to the international 
-    temperature scale of 1990\" (1993).
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+    Ordinary Water Substance. Revised According to the International Temperature Scale 
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end auxiliaryPhi;
@@ -422,14 +428,16 @@ protected
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Intermediate expression developed based on the work by Wagner & Pruss (1993), 
+    Intermediate expression developed based on the work by Wagner and Pruss (1993), 
     which is used in calculating various saturation state properties, including
     enthalpy and entropy.
     </p>
     <p>
-    Source: W Wagner, A Pruss: \"International equations for the saturation 
-    properties of ordinary water substance. Revised according to the international 
-    temperature scale of 1990\" (1993).
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+    Ordinary Water Substance. Revised According to the International Temperature Scale 
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end expression1;
@@ -453,14 +461,16 @@ protected
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Intermediate expression developed based on the work by Wagner & Pruss (1993), 
+    Intermediate expression developed based on the work by Wagner and Pruss (1993), 
     which is used in calculating various saturation state properties, including
     enthalpy and entropy.
     </p>
     <p>
-    Source: W Wagner, A Pruss: \"International equations for the saturation 
-    properties of ordinary water substance. Revised according to the international 
-    temperature scale of 1990\" (1993).
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
+    Ordinary Water Substance. Revised According to the International Temperature Scale 
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end expression2;
@@ -482,7 +492,6 @@ alt=\"Specific heat of ideal steam\"/>
 <h4> 
 Limitations
 </h4>
-<p>
 <ul>
 <li>
 The properties are valid in the range: <i>200 K &le; T &le; 6000 K</i>, with the
@@ -503,7 +512,7 @@ simulation. This is done to improve simulation performance by decoupling
 the pressure drop and energy balance calculations. Thus, a function for 
 calculating saturation pressure is not provided.
 </li>
-</p>
+</ul>
 <h4>
 References
 </h4>
