@@ -20,17 +20,17 @@ package Steam "Package with model for ideal steam"
   end setSat_p;
 
   replaceable function saturationTemperature
-    "Return saturation temperature from a given pressure"
+    "Return saturation temperature (K) from a given pressure (Pa)"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
     output Temperature T   "Saturation temperature";
   protected
-    Real a[:] = {2.8002262E+02,1.4474213E+01,1.0074890E+00,1.1009133E-02,
-      5.5240262E-03,5.5702047E-04}
+    Real a[:] = {2.2830066E+02,1.1893913E+00,5.2484699E-01,1.2416857E-01,
+      -1.3714779E-02,5.5702047E-04}
       "Coefficients";
   algorithm
-    T := a[1] + a[2]*log(p/1000) + a[3]*log(p/1000)^2 + a[4]*log(p/1000)^3 +
-      a[5]*log(p/1000)^4 + a[6]*log(p/1000)^5  "Saturation temperature";
+    T := a[1] + a[2]*log(p) + a[3]*log(p)^2 + a[4]*log(p)^3 +
+      a[5]*log(p)^4 + a[6]*log(p)^5  "Saturation temperature";
   annotation (
     smoothOrder=2,
     Documentation(info="<html>
