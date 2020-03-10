@@ -45,7 +45,7 @@ equation
 
    annotation(experiment(
                  StartTime=0, StopTime=1,
-                 Tolerance=1E-8),
+                 Tolerance=1E-10),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>
