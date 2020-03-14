@@ -38,7 +38,7 @@ equation
     TSat_degC = Modelica.SIunits.Conversions.to_degC(TSat);
 
     // Saturation state
-    sat = Medium.setSat_p(pSat);
+    sat = Medium.saturationState_p(pSat);
     TSat = sat.Tsat;
     assert(TSat > TMin, "Temperature exceeded minimum value.\n" +
       "   TSat = " + String(TSat));
@@ -62,7 +62,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples
 This example checks the saturation properties of the medium.
 </p>
 <p>
-The steam medium is designed for single phase (saturated or 
+The steam medium is designed for single phase (saturated or
 superheated) vapor (<code>x=1</code>). The saturated state functions are
 provided for models involving phase change by implementing both
 the <a href=\"modelica://IBPSA.Media.Steam\">
@@ -73,7 +73,7 @@ IBPSA.Media.Steam</a> for more information.
 </p>
 <p>
 Since the steam medium model assumes pressure is steady throughout
-simulation, these saturation properties are evaluted over the possible 
+simulation, these saturation properties are evaluted over the possible
 range of saturated pressure values.
 </p>
 </html>",

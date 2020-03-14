@@ -9,7 +9,7 @@ package Steam "Package with model for ideal steam"
 
   extends Modelica.Icons.Package;
 
-  replaceable function setSat_p
+  replaceable function saturationState_p
     "Return saturation property record from pressure"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
@@ -17,7 +17,39 @@ package Steam "Package with model for ideal steam"
   algorithm
     sat.psat := p;
     sat.Tsat := saturationTemperature(p);
-  end setSat_p;
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Returns the saturation state for given pressure. This relation is
+    valid in the region of <i>273.16</i> to <i>647.096</i> K (<i>613.3</i> to <i>22,049,100</i> Pa).
+    </p>
+    <p>
+    To compute the saturation temperature, the function uses
+    </p>
+    <p align=\"center\" style=\"font-style:italic;\">
+    T = a<sub>1</sub> + a<sub>2</sub> ln(p) + a<sub>3</sub> ln(p)<sup>2</sup> +
+    a<sub>4</sub> ln(p)<sup>3</sup> + a<sub>5</sub> ln(p)<sup>4</sup> + a<sub>6</sub> ln(p)<sup>5</sup>,
+    </p>
+    <p>
+    where temperature <i>T</i> is in units Kelvin, pressure <i>p</i> is in units Pa, and <i>a<sub>1</sub></i>
+    through <i>a<sub>6</sub></i> are regression coefficients.
+    </p>
+  </html>", revisions="<html>
+<ul>
+<li>
+March 14, 2020, by Michael Wetter:<br/>
+Renamed function so it has a similar name as
+<a href=\"modelica://IBPSA.Media.Steam.saturationTemperature\">
+IBPSA.Media.Steam.saturationTemperature</a>.
+</li>
+<li>
+March 6, 2020, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end saturationState_p;
 
   replaceable function saturationTemperature
     "Return saturation temperature (K) from a given pressure (Pa)"
@@ -35,18 +67,18 @@ package Steam "Package with model for ideal steam"
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Saturation temperature (K) is computed from pressure (Pa). This relation is
-    valid in the region of 273.16 to 647.096 K (613.3 to 22049100 Pa).
+    Saturation temperature is computed from pressure. This relation is
+    valid in the region of <i>273.16</i> to <i>647.096</i> K (<i>613.3</i> to <i>22,049,100</i> Pa).
     </p>
     <p>
     The function has the following form:
     </p>
     <p align=\"center\" style=\"font-style:italic;\">
-    T = a<sub>1</sub> + a<sub>2</sub> ln(p) + a<sub>3</sub> ln(p)<sup>2</sup> + 
+    T = a<sub>1</sub> + a<sub>2</sub> ln(p) + a<sub>3</sub> ln(p)<sup>2</sup> +
     a<sub>4</sub> ln(p)<sup>3</sup> + a<sub>5</sub> ln(p)<sup>4</sup> + a<sub>6</sub> ln(p)<sup>5</sup>
     </p>
     <p>
-    where temperature <i>T</i> is in units Kelvin, pressure <i>p</i> is in units Pa, and <i>a<sub>1</sub></i> 
+    where temperature <i>T</i> is in units Kelvin, pressure <i>p</i> is in units Pa, and <i>a<sub>1</sub></i>
     through <i>a<sub>6</sub></i> are regression coefficients.
     </p>
   </html>", revisions="<html>
@@ -77,14 +109,14 @@ First implementation.
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Density of saturated liquid is computed from temperature in the region 
-    of 273.16 to 647.096 K.
+    Density of saturated liquid is computed from temperature in the region
+    of <i>273.16</i> to <i>647.096</i> K.
     </p>
     <p>
-    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-    Ordinary Water Substance. Revised According to the International Temperature Scale 
-    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+    Ordinary Water Substance. Revised According to the International Temperature Scale
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
@@ -108,14 +140,14 @@ First implementation.
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Density of saturated vapor is computed from temperature in the region 
-    of 273.16 to 647.096 K.
+    Density of saturated vapor is computed from temperature in the region
+    of <i>273.16</i> to <i>647.096</i> K.
     </p>
     <p>
-    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-    Ordinary Water Substance. Revised According to the International Temperature Scale 
-    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+    Ordinary Water Substance. Revised According to the International Temperature Scale
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
@@ -139,14 +171,14 @@ First implementation.
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Enthalpy of saturated liquid is computed from temperature in the region 
-    of 273.16 to 647.096 K.
+    Enthalpy of saturated liquid is computed from temperature in the region
+    of <i>273.16</i> to <i>647.096</i> K.
     </p>
     <p>
-    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-    Ordinary Water Substance. Revised According to the International Temperature Scale 
-    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+    Ordinary Water Substance. Revised According to the International Temperature Scale
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
@@ -170,45 +202,61 @@ First implementation.
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Enthalpy of saturated vapor is computed from temperature in the region 
-    of 273.16 to 647.096 K.
+    Enthalpy of saturated vapor is computed from temperature in the region
+    of <i>273.16</i> to <i>647.096</i> K.
     </p>
     <p>
-    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-    Ordinary Water Substance. Revised According to the International Temperature Scale 
-    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+    Ordinary Water Substance. Revised According to the International Temperature Scale
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end enthalpyOfSaturatedVapor;
 
   replaceable function enthalpyOfVaporization
-    "Return enthalpy of vaporization of water as a function of temperature T, 
-      273.16 to 647.096 K"
+    "Return enthalpy of vaporization of water as a function of temperature T"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEnthalpy hlv "Vaporization enthalpy";
   protected
-    SpecificEnthalpy hv = enthalpyOfSaturatedVapor(sat)  "Saturated vapor enthalpy";
-    SpecificEnthalpy hl = enthalpyOfSaturatedLiquid(sat)  "Saturated liquid enthalpy";
+    Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
+    Density dv = densityOfSaturatedVapor(sat)  "Saturated vapor density";
+    Density dl = densityOfSaturatedLiquid(sat)  "Saturated liquid density";
+    Real r1 = expression1(sat)  "Intermediate expression 1";
+    Real r2 = expression2(sat)  "Intermediate expression 2";
+    Real a = auxiliaryAlpha(sat)  "Value for alpha";
+
   algorithm
-    hlv := hv - hl  "Difference of equations (7) and (6)";
+    hlv = exp(r1)*pcritical*(r2+r1*tau)/tau * (1/dl-1/dv)
+      "Difference of equations (7) and (6)";
   annotation (
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Enthalpy of vaporization of water is computed from temperature in the region 
-    of 273.16 to 647.096 K.
+    Enthalpy of vaporization of water is computed from temperature in the region
+    of <i>273.16</i> to <i>647.096</i> K.
     </p>
     <p>
-    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-    Ordinary Water Substance. Revised According to the International Temperature Scale 
-    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+    Ordinary Water Substance. Revised According to the International Temperature Scale
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
-  </html>"));
+  </html>", revisions="<html>
+<ul>
+<li>
+March 14, 2020, by Michael Wetter:<br/>
+Reformulated function to avoid computing common expressions twice.
+</li>
+<li>
+March 6, 2020, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
   end enthalpyOfVaporization;
 
   replaceable function entropyOfSaturatedLiquid
@@ -229,14 +277,14 @@ First implementation.
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Entropy of saturated liquid is computed from temperature in the region 
-    of 273.16 to 647.096 K.
+    Entropy of saturated liquid is computed from temperature in the region
+    of <i>273.16</i> to <i>647.096</i> K.
     </p>
     <p>
-    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-    Ordinary Water Substance. Revised According to the International Temperature Scale 
-    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+    Ordinary Water Substance. Revised According to the International Temperature Scale
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
@@ -260,45 +308,61 @@ First implementation.
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Entropy of saturated vapor is computed from temperature in the region 
-    of 273.16 to 647.096 K.
+    Entropy of saturated vapor is computed from temperature in the region
+    of <i>273.16</i> to <i>647.096</i> K.
     </p>
     <p>
-    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-    Ordinary Water Substance. Revised According to the International Temperature Scale 
-    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+    Ordinary Water Substance. Revised According to the International Temperature Scale
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end entropyOfSaturatedVapor;
 
   replaceable function entropyOfVaporization
-    "Return entropy of vaporization of water as a function of temperature T, 
-      273.16 to 647.096 K"
+    "Return entropy of vaporization of water as a function of temperature T,
+      <i>273.16</i> to <i>647.096</i> K"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy slv "Vaporization enthalpy";
   protected
-    SpecificEntropy sv = entropyOfSaturatedVapor(sat)  "Saturated vapor entropy";
-    SpecificEntropy sl = entropyOfSaturatedLiquid(sat)  "Saturated liquid entropy";
+    Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
+    Density dv = densityOfSaturatedVapor(sat)  "Saturated vapor density";
+    Density dl = densityOfSaturatedLiquid(sat)  "Saturated liquid density";
+    Real r1 = expression1(sat)  "Intermediate expression 1";
+    Real r2 = expression2(sat)  "Intermediate expression 2";
+    Real phi = auxiliaryPhi(sat)  "Value for phi";
   algorithm
-    slv := sv - sl  "Difference of equations (8) and (9)";
+    slv := exp(r1)*pcritical*(r2 + r1*tau)/(tau*sat.Tsat) * (1/dl-1/dv)
+     "Difference of equations (8) and (9)";
   annotation (
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Entropy of vaporization of water is computed from temperature in the region 
-    of 273.16 to 647.096 K.
+    Entropy of vaporization of water is computed from temperature in the region
+    of <i>273.16</i> to <i>647.096</i> K.
     </p>
     <p>
-    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-    Ordinary Water Substance. Revised According to the International Temperature Scale 
-    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+    Ordinary Water Substance. Revised According to the International Temperature Scale
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
-  </html>"));
+  </html>", revisions="<html>
+<ul>
+<li>
+March 14, 2020, by Michael Wetter:<br/>
+Reformulated function to avoid computing common expressions twice.
+</li>
+<li>
+March 6, 2020, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
   end entropyOfVaporization;
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
@@ -309,10 +373,11 @@ First implementation.
 // implementation of these classes.
 
 protected
-    constant Real Tcritical=647.096 "Critical temperature (K)";
-    constant Real dcritical=322 "Critical density (kg/m^3)";
-    constant Real pcritical=22.064e6 "Critical pressure (Pa)";
-    constant Real a0 = 1000 "Auxiliary quantity for specific enthalpy (J/kg)";
+    constant Modelica.SIunits.Temperature Tcritical=647.096 "Critical temperature";
+    constant Modelica.SIunits.Density dcritical=322 "Critical density";
+    constant Modelica.SIunits.Pressure pcritical=22.064e6 "Critical pressure";
+    constant Modelica.SIunits.SpecificEnthalpy a0 = 1000
+      "Auxiliary quantity for specific enthalpy";
 
   replaceable function vaporPressure
     "Returns vapor pressure for a given temperature"
@@ -332,14 +397,14 @@ protected
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Vapor pressure is computed from temperature in the region 
-    of 273.16 to 647.096 K.
+    Vapor pressure is computed from temperature in the region
+    of <i>273.16</i> to <i>647.096</i> K.
     </p>
     <p>
-    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-    Ordinary Water Substance. Revised According to the International Temperature Scale 
-    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+    Ordinary Water Substance. Revised According to the International Temperature Scale
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
@@ -366,10 +431,10 @@ protected
     Auxiliary equation for alpha, equation (4).
     </p>
     <p>
-    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-    Ordinary Water Substance. Revised According to the International Temperature Scale 
-    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+    Ordinary Water Substance. Revised According to the International Temperature Scale
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
@@ -396,13 +461,13 @@ protected
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Auxiliary equation for phi, equation (5).
+    Auxiliary equation for <code>phi</code>, equation (5).
     </p>
     <p>
-    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-    Ordinary Water Substance. Revised According to the International Temperature Scale 
-    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+    Ordinary Water Substance. Revised According to the International Temperature Scale
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
@@ -418,32 +483,35 @@ protected
     Real n[:] = {1,1.5,3,3.5,4,7.5} "Powers in equation (1)";
     Real a[:] = {-7.85951783,1.84408259,-11.7866497,22.6807411,-15.9618719,
         1.80122502} "Coefficients in equation (1) of [1]";
+    Real Tcri_Tsat = Tcritical/sat.Tsat "Ratio of critical over saturation temperature";
     Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
   algorithm
-    r1 := (a[1]*Tcritical*tau^n[1])/sat.Tsat + (a[2]*Tcritical*tau^n[2])/sat.Tsat
+    r1 := Tcri_Tsat * sum(a[i] * tau^n[i] for i in 1:6);
+  /*   r1 := (a[1]*Tcritical*tau^n[1])/sat.Tsat + (a[2]*Tcritical*tau^n[2])/sat.Tsat
        + (a[3]*Tcritical*tau^n[3])/sat.Tsat + (a[4]*Tcritical*tau^n[4])/sat.Tsat
        + (a[5]*Tcritical*tau^n[5])/sat.Tsat + (a[6]*Tcritical*tau^n[6])/sat.Tsat
        "Expression 1";
+  */
   annotation (
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Intermediate expression developed based on the work by Wagner and Pruss (1993), 
+    Intermediate expression developed based on the work by Wagner and Pruss (1993),
     which is used in calculating various saturation state properties, including
     enthalpy and entropy.
     </p>
     <p>
-    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-    Ordinary Water Substance. Revised According to the International Temperature Scale 
-    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+    Ordinary Water Substance. Revised According to the International Temperature Scale
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end expression1;
 
   function expression2
-    "This expression is used in the saturated enthalpy and entropy functions 
+    "This expression is used in the saturated enthalpy and entropy functions
       above, which was formulated via evaluating the derivative dP/dT"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -454,62 +522,63 @@ protected
         1.80122502} "Coefficients in equation (1) of [1]";
     Real tau = 1 - sat.Tsat/Tcritical "Temperature expression";
   algorithm
-    r2 := a[1]*n[1]*tau^n[1] + a[2]*n[2]*tau^n[2] + a[3]*n[3]*tau^n[3] +
-      a[4]*n[4]*tau^n[4] + a[5]*n[5]*tau^n[5] + a[6]*n[6]*tau^n[6]
+    r2 := sum(a[i]*n[i]*tau^n[i] for i in 1:6)
       "Expression 2";
   annotation (
     smoothOrder=2,
     Documentation(info="<html>
     <p>
-    Intermediate expression developed based on the work by Wagner and Pruss (1993), 
+    Intermediate expression developed based on the work by Wagner and Pruss (1993),
     which is used in calculating various saturation state properties, including
     enthalpy and entropy.
     </p>
     <p>
-    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-    Ordinary Water Substance. Revised According to the International Temperature Scale 
-    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+    Source: W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+    Ordinary Water Substance. Revised According to the International Temperature Scale
+    of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+    Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
     <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
     </p>
   </html>"));
   end expression2;
+
 annotation (Documentation(info="<html>
 <p>
-The steam model can be utilized for steam systems and components that use the 
-vapor phase of water (quality = 1).  
+The steam model can be utilized for steam systems and components that use the
+vapor phase of water (quality = 1).
 </p>
 <p>
-States are formulated from the NASA Glenn coefficients for ideal gas \"H2O\". 
-Independent variables are temperature <b>T</b> and pressure <b>p</b>. Only 
-density is a function of T and p. All other quantities are solely a function 
-of T. 
+States are formulated from the NASA Glenn coefficients for ideal gas \"H2O\".
+Independent variables are temperature <i>T</i> and pressure <i>p</i>. Only
+density is a function of <i>T</i> and <i>p</i>. All other quantities are solely a function
+of T.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Modelica/Resources/Images/Media/IdealGases/SingleGases/H2O.png\"
 alt=\"Specific heat of ideal steam\"/>
 </p>
-<h4> 
+<h4>
 Limitations
 </h4>
 <ul>
 <li>
 The properties are valid in the range: <i>200 K &le; T &le; 6000 K</i>, with the
-exception of saturated state properties, which are valid in the range: 
+exception of saturated state properties, which are valid in the range:
 <i>273.16 K &le; T &le; 647.096 K</i>
 </li>
 <li>
 When phase change is required, this model is to be used in combination with the
-<a href=\"modelica://IBPSA.Media.Water\">IBPSA.Media.Water</a> media model for 
+<a href=\"modelica://IBPSA.Media.Water\">IBPSA.Media.Water</a> media model for
 incompressible liquid water for the liquid phase (quality = 0).
 </li>
 <li>
 The two-phase region (e.g., mixed liquid and vapor) is not included.
 </li>
 <li>
-This model assumes the pressure/saturation pressure is steady throughout 
-simulation. This is done to improve simulation performance by decoupling 
-the pressure drop and energy balance calculations. Thus, a function for 
+This model assumes the pressure, and hence the saturation pressure,
+is constant throughout the simulation.
+This is done to improve simulation performance by decoupling
+the pressure drop and energy balance calculations. Thus, a function for
 calculating saturation pressure is not provided.
 </li>
 </ul>
@@ -517,21 +586,25 @@ calculating saturation pressure is not provided.
 References
 </h4>
 <p>
-S. Gordon and B. J. McBride, \"Computer Program for Calculation of Complex 
-Chemical Equilibrium Compositions and Applications: I. Analysis,\" NASA Technical 
-Reports, NASA-RP-1311, Cleveland, OH, 1994. Available: 
+S. Gordon and B. J. McBride, \"Computer Program for Calculation of Complex
+Chemical Equilibrium Compositions and Applications: I. Analysis,\" NASA Technical
+Reports, NASA-RP-1311, Cleveland, OH, 1994. Available:
 <a href=\"https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19950013764.pdf\">
 https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19950013764.pdf</a>.
 </p>
 <p>
-W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of 
-Ordinary Water Substance. Revised According to the International Temperature Scale 
-of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem. 
-Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi: 
+W. Wagner and A. Pruss, \"International Equations for the Saturation Properties of
+Ordinary Water Substance. Revised According to the International Temperature Scale
+of 1990. Addendum to J. Phys. Chem. Ref. Data 16, 893 (1987),\" <i>J. Phys. Chem.
+Ref. Data</i>, vol. 22, no. 3, pp. 783-787, 1993. doi:
 <a href=\"https://doi.org/10.1063/1.555926\">10.1063/1.555926</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 14, 2020, by Michael Wetter:<br/>
+Revised implementation.
+</li>
 <li>
 March 6, 2020, by Kathryn Hinkelman:<br/>
 First implementation.
