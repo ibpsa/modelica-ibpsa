@@ -63,16 +63,16 @@ This example checks the saturation properties of the medium.
 </p>
 <p>
 The steam medium is designed for single phase (saturated or 
-superheated) vapor (x=1). The saturated state functions are 
+superheated) vapor (<code>x=1</code>). The saturated state functions are
 provided for models involving phase change by implementing both
 the <a href=\"modelica://IBPSA.Media.Steam\">
 IBPSA.Media.Steam</a> model (vapor phase) and the
-<a href=\"modelica://IBPSA.Media.Water\"> IBPSA.Media.Water</a> 
+<a href=\"modelica://IBPSA.Media.Water\"> IBPSA.Media.Water</a>
 model (liquid phase). See <a href=\"modelica://IBPSA.Media.Steam\">
 IBPSA.Media.Steam</a> for more information.
 </p>
 <p>
-Since the Steam medium model assumes pressure is steady throughout 
+Since the steam medium model assumes pressure is steady throughout
 simulation, these saturation properties are evaluted over the possible 
 range of saturated pressure values.
 </p>

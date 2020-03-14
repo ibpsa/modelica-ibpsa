@@ -2,7 +2,7 @@ within IBPSA.Media.Examples;
 model SteamDerivativeCheck "Model that tests the derivative implementation"
   extends Modelica.Icons.Example;
 
-   package Medium = IBPSA.Media.Steam;
+   package Medium = IBPSA.Media.Steam "Medim model";
 
     Modelica.SIunits.Temperature T "Temperature";
     Modelica.SIunits.SpecificEnthalpy hVapSym "Vapor phase specific enthalpy";
