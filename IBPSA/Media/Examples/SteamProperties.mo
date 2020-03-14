@@ -2,10 +2,12 @@ within IBPSA.Media.Examples;
 model SteamProperties
   "Model that tests the implementation of the steam properties"
   extends Modelica.Icons.Example;
-  extends IBPSA.Media.Examples.BaseClasses.SteamProperties(
+  extends IBPSA.Media.Examples.BaseClasses.FluidProperties(
     redeclare package Medium = IBPSA.Media.Steam,
-    TMin=274.15,
-    TMax=673.15);
+    TMin=273.16,
+    TMax=647.096);
+
+
 equation
   // Check the implementation of the base properties
   basPro.state.p=p;
@@ -21,6 +23,10 @@ This example checks thermophysical properties of the medium.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 6, 2020, by Kathryn Hinkelman:<br/>
+Change medium to ideal steam to eliminate discontinuities.
+</li>
 <li>
 September 12, 2019, by Yangyang Fu:<br/>
 First implementation.
