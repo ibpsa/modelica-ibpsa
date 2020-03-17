@@ -1,16 +1,26 @@
-within IBPSA.Types;
+﻿within IBPSA.Types;
 package Azimuth "List of possible constant values for surface azimuth"
    extends Modelica.Icons.TypesPackage;
 
-   constant Modelica.SIunits.Angle E = -Modelica.Constants.pi/2
-  "Azimuth for an exterior wall whose outer surface faces east";
-   constant Modelica.SIunits.Angle N = Modelica.Constants.pi
-  "Azimuth for an exterior wall whose outer surface faces north";
+
+
+
    constant Modelica.SIunits.Angle S = 0
   "Azimuth for an exterior wall whose outer surface faces south";
+   constant Modelica.SIunits.Angle SW = +Modelica.Constants.pi/4
+  "Azimuth for an exterior wall whose outer surface faces 45° south-west";
    constant Modelica.SIunits.Angle W = +Modelica.Constants.pi/2
   "Azimuth for an exterior wall whose outer surface faces west";
-
+   constant Modelica.SIunits.Angle NW = +Modelica.Constants.pi*3/4
+  "Azimuth for an exterior wall whose outer surface faces 45° north-west";
+   constant Modelica.SIunits.Angle N = Modelica.Constants.pi
+  "Azimuth for an exterior wall whose outer surface faces north";
+   constant Modelica.SIunits.Angle NE = -Modelica.Constants.pi*3/4
+  "Azimuth for an exterior wall whose outer surface faces 45° north-east";
+   constant Modelica.SIunits.Angle E = -Modelica.Constants.pi/2
+  "Azimuth for an exterior wall whose outer surface faces east";
+   constant Modelica.SIunits.Angle SE = -Modelica.Constants.pi/4
+  "Azimuth for an exterior wall whose outer surface faces 45° south-east";
 
   annotation(preferredView="info",
 Documentation(info="<html>
