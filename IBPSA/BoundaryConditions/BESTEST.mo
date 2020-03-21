@@ -63,13 +63,13 @@ package BESTEST "Collection of validation models BESTEST"
       ComRadIsoPerDir Azi315Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.E/2,
+        azi=IBPSA.Types.Azimuth.SE,
         rho=rho) "Azimuth = 45 ° SE, Tilt = 0 °"
         annotation (Placement(transformation(extent={{-58,68},{-78,88}})));
       ComRadIsoPerDir Azi045Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.W/2,
+        azi=IBPSA.Types.Azimuth.SW,
         rho=rho) "Azimuth = 45 SW, Tilt = 90 °"
         annotation (Placement(transformation(extent={{-58,36},{-78,56}})));
       ComRadIsoPerDir Azi270Til30(
@@ -149,10 +149,145 @@ package BESTEST "Collection of validation models BESTEST"
           thickness=0.5));
       annotation (
       Documentation(info="<html>
-<p>
-This example computes the WD100: Base Case BESTEST (maybe add everything that is
-written into the specification?
-</p>
+<h4>WD100: Base Case</h4>
+<p>Weather data file : 725650.epw</p>
+<p><i>Table 1: Site Data for Weather file 725650.epw</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Latitude</p></td>
+<td><p>39.833&deg; north</p></td>
+</tr>
+<tr>
+<td><p>Longitude</p></td>
+<td><p>104.65&deg; west</p></td>
+</tr>
+<tr>
+<td><p>Altitude</p></td>
+<td><p>1650 m</p></td>
+</tr>
+<tr>
+<td><p>Time Zone</p></td>
+<td><p>7</p></td>
+</tr>
+</table>
+<p><br>The Weather radiation data has to be provided at different orientations and inclinations.</p>
+<p><br><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Azimuth</p></td>
+<td><p>Slope</p></td>
+</tr>
+<tr>
+<td><p>Horizontal</p></td>
+<td><p>0&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>North</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; East of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; West of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+</table>
+<p><br><h4>Additional parameters and correlations:</h4></p>
+<p>Ground reflectance &rho; is set to 0</p>
+<p>Black body temperature calculated using Horizontal radiation</p>
+<p><br>Perez and Isoentropic sky model used</p>
+<h4>Outputs required:</h4>
+<p>&nbsp;<b>Annual Outputs:&nbsp;</b>The following outputs shall be provided for an annual simulation:</p>
+<ul>
+<li>Average dry bulb temperature (&deg;C)</li>
+<li>Average relative humidity (&percnt;)</li>
+<li>Average dewpoint temperature (&deg;C)</li>
+<li>Average humidity ratio (kg moisture/kg dry air)</li>
+<li>Average wet bulb temperature (&deg;C)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)</li>
+</ul>
+<p><br><b>Hourly Outputs:</b> The following outputs shall be provided for each hour of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (&deg;C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Dewpoint temperature (&deg;C)</li>
+<li>Humidity ratio (kg moisture/kg dry air)</li>
+<li>Wet bulb temperature (&deg;C)</li>
+<li>Windspeed (m/s)</li>
+<li>Wind direction (degrees from north)</li>
+<li>Station pressure (mbar)</li>
+<li>Total cloud cover (tenths of sky)</li>
+<li>Opaque cloud cover (tenths of sky)</li>
+<li>Sky temperature (&deg;C)</li>
+</ul>
+<p><br>&bull; Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</p>
+<p><br><i>Table 3: Specific Days for Output</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Case </p></td>
+<td><p>Days</p></td>
+</tr>
+<tr>
+<td><p>WD100 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+<tr>
+<td><p>WD200 </p></td>
+<td><p>May 24th, August 26th</p></td>
+</tr>
+<tr>
+<td><p>WD300 </p></td>
+<td><p>February 7th, August 13th</p></td>
+</tr>
+<tr>
+<td><p>WD400 </p></td>
+<td><p>January 24th, July 1st</p></td>
+</tr>
+<tr>
+<td><p>WD500 </p></td>
+<td><p>March 1st, September 14th</p></td>
+</tr>
+<tr>
+<td><p>WD600 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><b>Sub-hourly Outputs:</b></p>
+<p><br>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
+</ul>
+<p><br>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<ul>
+<li>Total incident horizontal solar radiation (Wh/m2)</li>
+<li>Total incident horizontal beam solar radiation (Wh/m2)</li>
+<li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
+</ul>
 </html>",     revisions="<html>
 <ul>
 <li>
@@ -161,7 +296,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(
+          StartTime=10713600,
+          StopTime=10800000,
+          Tolerance=1e-06,
+          __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mos"
             "Simulate and plot"));
     end WD100Hor;
@@ -226,13 +365,13 @@ First implementation.
       ComRadIsoPerDir Azi315Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.E/2,
+        azi=IBPSA.Types.Azimuth.SE,
         rho=rho) "Azimuth = 45 ° SE, Tilt = 0 °"
         annotation (Placement(transformation(extent={{-58,68},{-78,88}})));
       ComRadIsoPerDir Azi045Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.W/2,
+        azi=IBPSA.Types.Azimuth.SW,
         rho=rho) "Azimuth = 45 SW, Tilt = 90 °"
         annotation (Placement(transformation(extent={{-58,36},{-78,56}})));
       ComRadIsoPerDir Azi270Til30(
@@ -312,10 +451,145 @@ First implementation.
           thickness=0.5));
       annotation (
       Documentation(info="<html>
-<p>
-This example computes the WD100: Base Case BESTEST (maybe add everything that is
-written into the specification?
-</p>
+<h4>WD100: Base Case</h4>
+<p>Weather data file : 725650.epw</p>
+<p><i>Table 1: Site Data for Weather file 725650.epw</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Latitude</p></td>
+<td><p>39.833&deg; north</p></td>
+</tr>
+<tr>
+<td><p>Longitude</p></td>
+<td><p>104.65&deg; west</p></td>
+</tr>
+<tr>
+<td><p>Altitude</p></td>
+<td><p>1650 m</p></td>
+</tr>
+<tr>
+<td><p>Time Zone</p></td>
+<td><p>7</p></td>
+</tr>
+</table>
+<p><br><br>The Weather radiation data has to be provided at different orientations and inclinations.</p>
+<p><br><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Azimuth</p></td>
+<td><p>Slope</p></td>
+</tr>
+<tr>
+<td><p>Horizontal</p></td>
+<td><p>0&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>North</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; East of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; West of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+</table>
+<h4>Additional parameters and correlations:</h4>
+<p>Ground reflectance &rho; is set to 0</p>
+<p>Black body temperature calculated using dew point temperature and sky cover</p>
+<p><br>Perez and Isoentropic sky model used</p>
+<h4>Outputs required:</h4>
+<p>&nbsp;<b>Annual Outputs:&nbsp;</b>The following outputs shall be provided for an annual simulation:</p>
+<ul>
+<li>Average dry bulb temperature (&deg;C)</li>
+<li>Average relative humidity (&percnt;)</li>
+<li>Average dewpoint temperature (&deg;C)</li>
+<li>Average humidity ratio (kg moisture/kg dry air)</li>
+<li>Average wet bulb temperature (&deg;C)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)</li>
+</ul>
+<p><br><b>Hourly Outputs:</b> The following outputs shall be provided for each hour of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (&deg;C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Dewpoint temperature (&deg;C)</li>
+<li>Humidity ratio (kg moisture/kg dry air)</li>
+<li>Wet bulb temperature (&deg;C)</li>
+<li>Windspeed (m/s)</li>
+<li>Wind direction (degrees from north)</li>
+<li>Station pressure (mbar)</li>
+<li>Total cloud cover (tenths of sky)</li>
+<li>Opaque cloud cover (tenths of sky)</li>
+<li>Sky temperature (&deg;C)</li>
+</ul>
+<p><br>&bull; Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</p>
+<p><br><i>Table 3: Specific Days for Output</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Case </p></td>
+<td><p>Days</p></td>
+</tr>
+<tr>
+<td><p>WD100 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+<tr>
+<td><p>WD200 </p></td>
+<td><p>May 24th, August 26th</p></td>
+</tr>
+<tr>
+<td><p>WD300 </p></td>
+<td><p>February 7th, August 13th</p></td>
+</tr>
+<tr>
+<td><p>WD400 </p></td>
+<td><p>January 24th, July 1st</p></td>
+</tr>
+<tr>
+<td><p>WD500 </p></td>
+<td><p>March 1st, September 14th</p></td>
+</tr>
+<tr>
+<td><p>WD600 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br><b>Sub-hourly Outputs:</b></p>
+<p><br>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
+</ul>
+<p><br>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<ul>
+<li>Total incident horizontal solar radiation (Wh/m2)</li>
+<li>Total incident horizontal beam solar radiation (Wh/m2)</li>
+<li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
+</ul>
 </html>",     revisions="<html>
 <ul>
 <li>
@@ -324,7 +598,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(
+          StartTime=10713600,
+          StopTime=10800000,
+          Tolerance=1e-06,
+          __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mos"
             "Simulate and plot"));
     end WD100Dew;
@@ -390,13 +668,13 @@ First implementation.
       ComRadIsoPerDir Azi315Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.E/2,
+        azi=IBPSA.Types.Azimuth.SE,
         rho=rho) "Azimuth = 45 ° SE, Tilt = 0 °"
         annotation (Placement(transformation(extent={{-58,68},{-78,88}})));
       ComRadIsoPerDir Azi045Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.W/2,
+        azi=IBPSA.Types.Azimuth.SW,
         rho=rho) "Azimuth = 45 SW, Tilt = 90 °"
         annotation (Placement(transformation(extent={{-58,36},{-78,56}})));
       ComRadIsoPerDir Azi270Til30(
@@ -476,10 +754,145 @@ First implementation.
           thickness=0.5));
       annotation (
       Documentation(info="<html>
-<p>
-This example computes the WD100: Base Case BESTEST (maybe add everything that is
-written into the specification?
-</p>
+<h4>WD200: Low Elevation, Hot and Humid Case.</h4>
+<p>Weather data file : 722190.epw</p>
+<p><i>Table 1: Site Data for Weather file 722190.epw</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Latitude</p></td>
+<td><p>33.633&deg; north</p></td>
+</tr>
+<tr>
+<td><p>Longitude</p></td>
+<td><p>84.433&deg; west</p></td>
+</tr>
+<tr>
+<td><p>Altitude</p></td>
+<td><p>308 m</p></td>
+</tr>
+<tr>
+<td><p>Time Zone</p></td>
+<td><p>5</p></td>
+</tr>
+</table>
+<p><br><br><br>The Weather radiation data has to be provided at different orientations and inclinations.</p>
+<p><br><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Azimuth</p></td>
+<td><p>Slope</p></td>
+</tr>
+<tr>
+<td><p>Horizontal</p></td>
+<td><p>0&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>North</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; East of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; West of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+</table>
+<p><br><h4>Additional parameters and correlations:</h4></p>
+<p>Ground reflectance &rho; is set to 0</p>
+<p>Black body temperature calculated using Horizontal radiation</p>
+<p><br>Perez and Isoentropic sky model used</p>
+<h4>Outputs required:</h4>
+<p>&nbsp;<b>Annual Outputs:&nbsp;</b>The following outputs shall be provided for an annual simulation:</p>
+<ul>
+<li>Average dry bulb temperature (&deg;C)</li>
+<li>Average relative humidity (&percnt;)</li>
+<li>Average dewpoint temperature (&deg;C)</li>
+<li>Average humidity ratio (kg moisture/kg dry air)</li>
+<li>Average wet bulb temperature (&deg;C)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)</li>
+</ul>
+<p><br><b>Hourly Outputs:</b> The following outputs shall be provided for each hour of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (&deg;C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Dewpoint temperature (&deg;C)</li>
+<li>Humidity ratio (kg moisture/kg dry air)</li>
+<li>Wet bulb temperature (&deg;C)</li>
+<li>Windspeed (m/s)</li>
+<li>Wind direction (degrees from north)</li>
+<li>Station pressure (mbar)</li>
+<li>Total cloud cover (tenths of sky)</li>
+<li>Opaque cloud cover (tenths of sky)</li>
+<li>Sky temperature (&deg;C)</li>
+</ul>
+<p><br>&bull; Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</p>
+<p><br><i>Table 3: Specific Days for Output</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Case </p></td>
+<td><p>Days</p></td>
+</tr>
+<tr>
+<td><p>WD100 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+<tr>
+<td><p>WD200 </p></td>
+<td><p>May 24th, August 26th</p></td>
+</tr>
+<tr>
+<td><p>WD300 </p></td>
+<td><p>February 7th, August 13th</p></td>
+</tr>
+<tr>
+<td><p>WD400 </p></td>
+<td><p>January 24th, July 1st</p></td>
+</tr>
+<tr>
+<td><p>WD500 </p></td>
+<td><p>March 1st, September 14th</p></td>
+</tr>
+<tr>
+<td><p>WD600 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br><br><b>Sub-hourly Outputs:</b></p>
+<p><br>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
+</ul>
+<p><br>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<ul>
+<li>Total incident horizontal solar radiation (Wh/m2)</li>
+<li>Total incident horizontal beam solar radiation (Wh/m2)</li>
+<li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
+</ul>
 </html>",     revisions="<html>
 <ul>
 <li>
@@ -488,7 +901,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(
+          StartTime=10713600,
+          StopTime=10800000,
+          Tolerance=1e-06,
+          __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mos"
             "Simulate and plot"));
     end WD200Hor;
@@ -554,13 +971,13 @@ First implementation.
       ComRadIsoPerDir Azi315Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.E/2,
+        azi=IBPSA.Types.Azimuth.SE,
         rho=rho) "Azimuth = 45 ° SE, Tilt = 0 °"
         annotation (Placement(transformation(extent={{-58,68},{-78,88}})));
       ComRadIsoPerDir Azi045Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.W/2,
+        azi=IBPSA.Types.Azimuth.SW,
         rho=rho) "Azimuth = 45 SW, Tilt = 90 °"
         annotation (Placement(transformation(extent={{-58,36},{-78,56}})));
       ComRadIsoPerDir Azi270Til30(
@@ -640,10 +1057,145 @@ First implementation.
           thickness=0.5));
       annotation (
       Documentation(info="<html>
-<p>
-This example computes the WD100: Base Case BESTEST (maybe add everything that is
-written into the specification?
-</p>
+<h4>WD200: Low Elevation, Hot and Humid Case.</h4>
+<p>Weather data file : 722190.epw</p>
+<p><i>Table 1: Site Data for Weather file 722190.epw</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Latitude</p></td>
+<td><p>33.633&deg; north</p></td>
+</tr>
+<tr>
+<td><p>Longitude</p></td>
+<td><p>84.433&deg; west</p></td>
+</tr>
+<tr>
+<td><p>Altitude</p></td>
+<td><p>308 m</p></td>
+</tr>
+<tr>
+<td><p>Time Zone</p></td>
+<td><p>5</p></td>
+</tr>
+</table>
+<p><br><br><br><br>The Weather radiation data has to be provided at different orientations and inclinations.</p>
+<p><br><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Azimuth</p></td>
+<td><p>Slope</p></td>
+</tr>
+<tr>
+<td><p>Horizontal</p></td>
+<td><p>0&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>North</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; East of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; West of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+</table>
+<h4>Additional parameters and correlations:</h4>
+<p>Ground reflectance &rho; is set to 0</p>
+<p>Black body temperature calculated using dew point temperature and sky cover</p>
+<p><br>Perez and Isoentropic sky model used</p>
+<h4>Outputs required:</h4>
+<p>&nbsp;<b>Annual Outputs:&nbsp;</b>The following outputs shall be provided for an annual simulation:</p>
+<ul>
+<li>Average dry bulb temperature (&deg;C)</li>
+<li>Average relative humidity (&percnt;)</li>
+<li>Average dewpoint temperature (&deg;C)</li>
+<li>Average humidity ratio (kg moisture/kg dry air)</li>
+<li>Average wet bulb temperature (&deg;C)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)</li>
+</ul>
+<p><br><b>Hourly Outputs:</b> The following outputs shall be provided for each hour of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (&deg;C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Dewpoint temperature (&deg;C)</li>
+<li>Humidity ratio (kg moisture/kg dry air)</li>
+<li>Wet bulb temperature (&deg;C)</li>
+<li>Windspeed (m/s)</li>
+<li>Wind direction (degrees from north)</li>
+<li>Station pressure (mbar)</li>
+<li>Total cloud cover (tenths of sky)</li>
+<li>Opaque cloud cover (tenths of sky)</li>
+<li>Sky temperature (&deg;C)</li>
+</ul>
+<p><br>&bull; Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</p>
+<p><br><i>Table 3: Specific Days for Output</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Case </p></td>
+<td><p>Days</p></td>
+</tr>
+<tr>
+<td><p>WD100 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+<tr>
+<td><p>WD200 </p></td>
+<td><p>May 24th, August 26th</p></td>
+</tr>
+<tr>
+<td><p>WD300 </p></td>
+<td><p>February 7th, August 13th</p></td>
+</tr>
+<tr>
+<td><p>WD400 </p></td>
+<td><p>January 24th, July 1st</p></td>
+</tr>
+<tr>
+<td><p>WD500 </p></td>
+<td><p>March 1st, September 14th</p></td>
+</tr>
+<tr>
+<td><p>WD600 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br><br><br><b>Sub-hourly Outputs:</b></p>
+<p><br>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
+</ul>
+<p><br>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<ul>
+<li>Total incident horizontal solar radiation (Wh/m2)</li>
+<li>Total incident horizontal beam solar radiation (Wh/m2)</li>
+<li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
+</ul>
 </html>",     revisions="<html>
 <ul>
 <li>
@@ -652,7 +1204,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(
+          StartTime=10713600,
+          StopTime=10800000,
+          Tolerance=1e-06,
+          __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mos"
             "Simulate and plot"));
     end WD200Dew;
@@ -660,7 +1216,7 @@ First implementation.
     model WD300Hor
       "Test model for BESTEST weather data: Southern hemisphere case, Tsky estimated using Horizontal Radiation"
       extends Modelica.Icons.Example;
-      parameter Modelica.SIunits.Angle lat=0.58281779711847 "Latitude angle";
+      parameter Modelica.SIunits.Angle lat=-0.58281779711847 "Latitude angle";
       parameter Real rho=0 "Ground reflectance";
 
       WeatherData.ReaderTMY3                          weaDat(
@@ -718,13 +1274,13 @@ First implementation.
       ComRadIsoPerDir Azi315Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.E/2,
+        azi=IBPSA.Types.Azimuth.SE,
         rho=rho) "Azimuth = 45 ° SE, Tilt = 0 °"
         annotation (Placement(transformation(extent={{-58,68},{-78,88}})));
       ComRadIsoPerDir Azi045Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.W/2,
+        azi=IBPSA.Types.Azimuth.SW,
         rho=rho) "Azimuth = 45 SW, Tilt = 90 °"
         annotation (Placement(transformation(extent={{-58,36},{-78,56}})));
       ComRadIsoPerDir Azi270Til30(
@@ -804,10 +1360,145 @@ First implementation.
           thickness=0.5));
       annotation (
       Documentation(info="<html>
-<p>
-This example computes the WD100: Base Case BESTEST (maybe add everything that is
-written into the specification?
-</p>
+<h4>WD300: Southern Hemisphere Case</h4>
+<p>Weather data file : 855740.epw</p>
+<p><i>Table 1: Site Data for Weather file 855740.epw</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Latitude</p></td>
+<td><p>33.393&deg; south</p></td>
+</tr>
+<tr>
+<td><p>Longitude</p></td>
+<td><p>70.786&deg; west</p></td>
+</tr>
+<tr>
+<td><p>Altitude</p></td>
+<td><p>474 m</p></td>
+</tr>
+<tr>
+<td><p>Time Zone</p></td>
+<td><p>4</p></td>
+</tr>
+</table>
+<p><br><br><br><br>The Weather radiation data has to be provided at different orientations and inclinations.</p>
+<p><br><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Azimuth</p></td>
+<td><p>Slope</p></td>
+</tr>
+<tr>
+<td><p>Horizontal</p></td>
+<td><p>0&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>North</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; East of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; West of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+</table>
+<h4>Additional parameters and correlations:</h4>
+<p>Ground reflectance &rho; is set to 0</p>
+<p>Black body temperature calculated using Horizontal radiation</p>
+<p><br>Perez and Isoentropic sky model used</p>
+<h4>Outputs required:</h4>
+<p>&nbsp;<b>Annual Outputs:&nbsp;</b>The following outputs shall be provided for an annual simulation:</p>
+<ul>
+<li>Average dry bulb temperature (&deg;C)</li>
+<li>Average relative humidity (&percnt;)</li>
+<li>Average dewpoint temperature (&deg;C)</li>
+<li>Average humidity ratio (kg moisture/kg dry air)</li>
+<li>Average wet bulb temperature (&deg;C)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)</li>
+</ul>
+<p><br><b>Hourly Outputs:</b> The following outputs shall be provided for each hour of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (&deg;C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Dewpoint temperature (&deg;C)</li>
+<li>Humidity ratio (kg moisture/kg dry air)</li>
+<li>Wet bulb temperature (&deg;C)</li>
+<li>Windspeed (m/s)</li>
+<li>Wind direction (degrees from north)</li>
+<li>Station pressure (mbar)</li>
+<li>Total cloud cover (tenths of sky)</li>
+<li>Opaque cloud cover (tenths of sky)</li>
+<li>Sky temperature (&deg;C)</li>
+</ul>
+<p><br>&bull; Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</p>
+<p><br><i>Table 3: Specific Days for Output</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Case </p></td>
+<td><p>Days</p></td>
+</tr>
+<tr>
+<td><p>WD100 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+<tr>
+<td><p>WD200 </p></td>
+<td><p>May 24th, August 26th</p></td>
+</tr>
+<tr>
+<td><p>WD300 </p></td>
+<td><p>February 7th, August 13th</p></td>
+</tr>
+<tr>
+<td><p>WD400 </p></td>
+<td><p>January 24th, July 1st</p></td>
+</tr>
+<tr>
+<td><p>WD500 </p></td>
+<td><p>March 1st, September 14th</p></td>
+</tr>
+<tr>
+<td><p>WD600 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br><br><br><b>Sub-hourly Outputs:</b></p>
+<p><br>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
+</ul>
+<p><br>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<ul>
+<li>Total incident horizontal solar radiation (Wh/m2)</li>
+<li>Total incident horizontal beam solar radiation (Wh/m2)</li>
+<li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
+</ul>
 </html>",     revisions="<html>
 <ul>
 <li>
@@ -816,7 +1507,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(
+          StartTime=10713600,
+          StopTime=10800000,
+          Tolerance=1e-06,
+          __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mos"
             "Simulate and plot"));
     end WD300Hor;
@@ -824,7 +1519,7 @@ First implementation.
     model WD300Dew
       "Test model for BESTEST weather data: Southern hemisphere case, Tsky estimated using dew point temperature and skycover"
       extends Modelica.Icons.Example;
-      parameter Modelica.SIunits.Angle lat=0.58281779711847 "Latitude angle";
+      parameter Modelica.SIunits.Angle lat=-0.58281779711847 "Latitude angle";
       parameter Real rho=0 "Ground reflectance";
 
       WeatherData.ReaderTMY3                          weaDat(
@@ -882,13 +1577,13 @@ First implementation.
       ComRadIsoPerDir Azi315Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.E/2,
+        azi=IBPSA.Types.Azimuth.SE,
         rho=rho) "Azimuth = 45 ° SE, Tilt = 0 °"
         annotation (Placement(transformation(extent={{-58,68},{-78,88}})));
       ComRadIsoPerDir Azi045Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.W/2,
+        azi=IBPSA.Types.Azimuth.SW,
         rho=rho) "Azimuth = 45 SW, Tilt = 90 °"
         annotation (Placement(transformation(extent={{-58,36},{-78,56}})));
       ComRadIsoPerDir Azi270Til30(
@@ -968,10 +1663,145 @@ First implementation.
           thickness=0.5));
       annotation (
       Documentation(info="<html>
-<p>
-This example computes the WD100: Base Case BESTEST (maybe add everything that is
-written into the specification?
-</p>
+<h4>WD300: Southern Hemisphere Case</h4>
+<p>Weather data file : 855740.epw</p>
+<p><i>Table 1: Site Data for Weather file 855740.epw</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Latitude</p></td>
+<td><p>33.393&deg; south</p></td>
+</tr>
+<tr>
+<td><p>Longitude</p></td>
+<td><p>70.786&deg; west</p></td>
+</tr>
+<tr>
+<td><p>Altitude</p></td>
+<td><p>474 m</p></td>
+</tr>
+<tr>
+<td><p>Time Zone</p></td>
+<td><p>4</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br>The Weather radiation data has to be provided at different orientations and inclinations.</p>
+<p><br><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Azimuth</p></td>
+<td><p>Slope</p></td>
+</tr>
+<tr>
+<td><p>Horizontal</p></td>
+<td><p>0&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>North</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; East of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; West of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+</table>
+<p><br><h4>Additional parameters and correlations:</h4></p>
+<p>Ground reflectance &rho; is set to 0</p>
+<p>Black body temperature calculated using dew point temperature and sky cover</p>
+<p><br>Perez and Isoentropic sky model used</p>
+<h4>Outputs required:</h4>
+<p>&nbsp;<b>Annual Outputs:&nbsp;</b>The following outputs shall be provided for an annual simulation:</p>
+<ul>
+<li>Average dry bulb temperature (&deg;C)</li>
+<li>Average relative humidity (&percnt;)</li>
+<li>Average dewpoint temperature (&deg;C)</li>
+<li>Average humidity ratio (kg moisture/kg dry air)</li>
+<li>Average wet bulb temperature (&deg;C)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)</li>
+</ul>
+<p><br><b>Hourly Outputs:</b> The following outputs shall be provided for each hour of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (&deg;C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Dewpoint temperature (&deg;C)</li>
+<li>Humidity ratio (kg moisture/kg dry air)</li>
+<li>Wet bulb temperature (&deg;C)</li>
+<li>Windspeed (m/s)</li>
+<li>Wind direction (degrees from north)</li>
+<li>Station pressure (mbar)</li>
+<li>Total cloud cover (tenths of sky)</li>
+<li>Opaque cloud cover (tenths of sky)</li>
+<li>Sky temperature (&deg;C)</li>
+</ul>
+<p><br>&bull; Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</p>
+<p><br><i>Table 3: Specific Days for Output</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Case </p></td>
+<td><p>Days</p></td>
+</tr>
+<tr>
+<td><p>WD100 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+<tr>
+<td><p>WD200 </p></td>
+<td><p>May 24th, August 26th</p></td>
+</tr>
+<tr>
+<td><p>WD300 </p></td>
+<td><p>February 7th, August 13th</p></td>
+</tr>
+<tr>
+<td><p>WD400 </p></td>
+<td><p>January 24th, July 1st</p></td>
+</tr>
+<tr>
+<td><p>WD500 </p></td>
+<td><p>March 1st, September 14th</p></td>
+</tr>
+<tr>
+<td><p>WD600 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br><br><br><br><b>Sub-hourly Outputs:</b></p>
+<p><br>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
+</ul>
+<p><br>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<ul>
+<li>Total incident horizontal solar radiation (Wh/m2)</li>
+<li>Total incident horizontal beam solar radiation (Wh/m2)</li>
+<li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
+</ul>
 </html>",     revisions="<html>
 <ul>
 <li>
@@ -980,7 +1810,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(
+          StartTime=10713600,
+          StopTime=10800000,
+          Tolerance=1e-06,
+          __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mos"
             "Simulate and plot"));
     end WD300Dew;
@@ -1046,13 +1880,13 @@ First implementation.
       ComRadIsoPerDir Azi315Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.E/2,
+        azi=IBPSA.Types.Azimuth.SE,
         rho=rho) "Azimuth = 45 ° SE, Tilt = 0 °"
         annotation (Placement(transformation(extent={{-58,68},{-78,88}})));
       ComRadIsoPerDir Azi045Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.W/2,
+        azi=IBPSA.Types.Azimuth.SW,
         rho=rho) "Azimuth = 45 SW, Tilt = 90 °"
         annotation (Placement(transformation(extent={{-58,36},{-78,56}})));
       ComRadIsoPerDir Azi270Til30(
@@ -1132,10 +1966,145 @@ First implementation.
           thickness=0.5));
       annotation (
       Documentation(info="<html>
-<p>
-This example computes the WD100: Base Case BESTEST (maybe add everything that is
-written into the specification?
-</p>
+<h4>WD400: High Latitude Case</h4>
+<p>Weather data file : 700260.epw</p>
+<p><i>Table 1: Site Data for Weather file 700260.epw</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Latitude</p></td>
+<td><p>71.286&deg; north</p></td>
+</tr>
+<tr>
+<td><p>Longitude</p></td>
+<td><p>156.767&deg; west</p></td>
+</tr>
+<tr>
+<td><p>Altitude</p></td>
+<td><p>10 m</p></td>
+</tr>
+<tr>
+<td><p>Time Zone</p></td>
+<td><p>9</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br>The Weather radiation data has to be provided at different orientations and inclinations.</p>
+<p><br><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Azimuth</p></td>
+<td><p>Slope</p></td>
+</tr>
+<tr>
+<td><p>Horizontal</p></td>
+<td><p>0&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>North</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; East of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; West of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+</table>
+<p><br><h4>Additional parameters and correlations:</h4></p>
+<p>Ground reflectance &rho; is set to 0</p>
+<p>Black body temperature calculated using Horizontal radiation</p>
+<p><br>Perez and Isoentropic sky model used</p>
+<h4>Outputs required:</h4>
+<p>&nbsp;<b>Annual Outputs:&nbsp;</b>The following outputs shall be provided for an annual simulation:</p>
+<ul>
+<li>Average dry bulb temperature (&deg;C)</li>
+<li>Average relative humidity (&percnt;)</li>
+<li>Average dewpoint temperature (&deg;C)</li>
+<li>Average humidity ratio (kg moisture/kg dry air)</li>
+<li>Average wet bulb temperature (&deg;C)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)</li>
+</ul>
+<p><br><b>Hourly Outputs:</b> The following outputs shall be provided for each hour of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (&deg;C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Dewpoint temperature (&deg;C)</li>
+<li>Humidity ratio (kg moisture/kg dry air)</li>
+<li>Wet bulb temperature (&deg;C)</li>
+<li>Windspeed (m/s)</li>
+<li>Wind direction (degrees from north)</li>
+<li>Station pressure (mbar)</li>
+<li>Total cloud cover (tenths of sky)</li>
+<li>Opaque cloud cover (tenths of sky)</li>
+<li>Sky temperature (&deg;C)</li>
+</ul>
+<p><br>&bull; Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</p>
+<p><br><i>Table 3: Specific Days for Output</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Case </p></td>
+<td><p>Days</p></td>
+</tr>
+<tr>
+<td><p>WD100 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+<tr>
+<td><p>WD200 </p></td>
+<td><p>May 24th, August 26th</p></td>
+</tr>
+<tr>
+<td><p>WD300 </p></td>
+<td><p>February 7th, August 13th</p></td>
+</tr>
+<tr>
+<td><p>WD400 </p></td>
+<td><p>January 24th, July 1st</p></td>
+</tr>
+<tr>
+<td><p>WD500 </p></td>
+<td><p>March 1st, September 14th</p></td>
+</tr>
+<tr>
+<td><p>WD600 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br><br><br><br><b>Sub-hourly Outputs:</b></p>
+<p><br>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
+</ul>
+<p><br>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<ul>
+<li>Total incident horizontal solar radiation (Wh/m2)</li>
+<li>Total incident horizontal beam solar radiation (Wh/m2)</li>
+<li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
+</ul>
 </html>",     revisions="<html>
 <ul>
 <li>
@@ -1144,7 +2113,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(
+          StartTime=10713600,
+          StopTime=10800000,
+          Tolerance=1e-06,
+          __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mos"
             "Simulate and plot"));
     end WD400Hor;
@@ -1210,13 +2183,13 @@ First implementation.
       ComRadIsoPerDir Azi315Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.E/2,
+        azi=IBPSA.Types.Azimuth.SE,
         rho=rho) "Azimuth = 45 ° SE, Tilt = 0 °"
         annotation (Placement(transformation(extent={{-58,68},{-78,88}})));
       ComRadIsoPerDir Azi045Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.W/2,
+        azi=IBPSA.Types.Azimuth.SW,
         rho=rho) "Azimuth = 45 SW, Tilt = 90 °"
         annotation (Placement(transformation(extent={{-58,36},{-78,56}})));
       ComRadIsoPerDir Azi270Til30(
@@ -1296,10 +2269,145 @@ First implementation.
           thickness=0.5));
       annotation (
       Documentation(info="<html>
-<p>
-This example computes the WD100: Base Case BESTEST (maybe add everything that is
-written into the specification?
-</p>
+<h4>WD400: High Latitude Case</h4>
+<p>Weather data file : 700260.epw</p>
+<p><i>Table 1: Site Data for Weather file 700260.epw</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Latitude</p></td>
+<td><p>71.286&deg; north</p></td>
+</tr>
+<tr>
+<td><p>Longitude</p></td>
+<td><p>156.767&deg; west</p></td>
+</tr>
+<tr>
+<td><p>Altitude</p></td>
+<td><p>10 m</p></td>
+</tr>
+<tr>
+<td><p>Time Zone</p></td>
+<td><p>9</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br>The Weather radiation data has to be provided at different orientations and inclinations.</p>
+<p><br><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Azimuth</p></td>
+<td><p>Slope</p></td>
+</tr>
+<tr>
+<td><p>Horizontal</p></td>
+<td><p>0&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>North</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; East of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; West of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+</table>
+<h4>Additional parameters and correlations:</h4>
+<p>Ground reflectance &rho; is set to 0</p>
+<p>Black body temperature calculated using dew point temperature ans sky cover</p>
+<p><br>Perez and Isoentropic sky model used</p>
+<h4>Outputs required:</h4>
+<p>&nbsp;<b>Annual Outputs:&nbsp;</b>The following outputs shall be provided for an annual simulation:</p>
+<ul>
+<li>Average dry bulb temperature (&deg;C)</li>
+<li>Average relative humidity (&percnt;)</li>
+<li>Average dewpoint temperature (&deg;C)</li>
+<li>Average humidity ratio (kg moisture/kg dry air)</li>
+<li>Average wet bulb temperature (&deg;C)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)</li>
+</ul>
+<p><br><b>Hourly Outputs:</b> The following outputs shall be provided for each hour of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (&deg;C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Dewpoint temperature (&deg;C)</li>
+<li>Humidity ratio (kg moisture/kg dry air)</li>
+<li>Wet bulb temperature (&deg;C)</li>
+<li>Windspeed (m/s)</li>
+<li>Wind direction (degrees from north)</li>
+<li>Station pressure (mbar)</li>
+<li>Total cloud cover (tenths of sky)</li>
+<li>Opaque cloud cover (tenths of sky)</li>
+<li>Sky temperature (&deg;C)</li>
+</ul>
+<p><br>&bull; Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</p>
+<p><br><i>Table 3: Specific Days for Output</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Case </p></td>
+<td><p>Days</p></td>
+</tr>
+<tr>
+<td><p>WD100 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+<tr>
+<td><p>WD200 </p></td>
+<td><p>May 24th, August 26th</p></td>
+</tr>
+<tr>
+<td><p>WD300 </p></td>
+<td><p>February 7th, August 13th</p></td>
+</tr>
+<tr>
+<td><p>WD400 </p></td>
+<td><p>January 24th, July 1st</p></td>
+</tr>
+<tr>
+<td><p>WD500 </p></td>
+<td><p>March 1st, September 14th</p></td>
+</tr>
+<tr>
+<td><p>WD600 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br><br><br><br><br><b>Sub-hourly Outputs:</b></p>
+<p><br>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
+</ul>
+<p><br>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<ul>
+<li>Total incident horizontal solar radiation (Wh/m2)</li>
+<li>Total incident horizontal beam solar radiation (Wh/m2)</li>
+<li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
+</ul>
 </html>",     revisions="<html>
 <ul>
 <li>
@@ -1308,7 +2416,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(
+          StartTime=10713600,
+          StopTime=10800000,
+          Tolerance=1e-06,
+          __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mos"
             "Simulate and plot"));
     end WD400Dew;
@@ -1316,7 +2428,7 @@ First implementation.
     model WD500Hor
       "Test model for BESTEST weather data: time zone case, Tsky estimated using Horizontal Radiation"
       extends Modelica.Icons.Example;
-      parameter Modelica.SIunits.Angle lat=1.3457012131652 "Latitude angle";
+      parameter Modelica.SIunits.Angle lat=0.49858820742 "Latitude angle";
       parameter Real rho=0 "Ground reflectance";
 
       WeatherData.ReaderTMY3                          weaDat(
@@ -1374,13 +2486,13 @@ First implementation.
       ComRadIsoPerDir Azi315Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.E/2,
+        azi=IBPSA.Types.Azimuth.SE,
         rho=rho) "Azimuth = 45 ° SE, Tilt = 0 °"
         annotation (Placement(transformation(extent={{-58,68},{-78,88}})));
       ComRadIsoPerDir Azi045Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.W/2,
+        azi=IBPSA.Types.Azimuth.SW,
         rho=rho) "Azimuth = 45 SW, Tilt = 90 °"
         annotation (Placement(transformation(extent={{-58,36},{-78,56}})));
       ComRadIsoPerDir Azi270Til30(
@@ -1460,10 +2572,145 @@ First implementation.
           thickness=0.5));
       annotation (
       Documentation(info="<html>
-<p>
-This example computes the WD100: Base Case BESTEST (maybe add everything that is
-written into the specification?
-</p>
+<h4>WD500: Time Zone Case</h4>
+<p>Weather data file : 421810.epw</p>
+<p><i>Table 1: Site Data for Weather file 421810epw</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Latitude</p></td>
+<td><p>28.567&deg; north</p></td>
+</tr>
+<tr>
+<td><p>Longitude</p></td>
+<td><p>77.103&deg; west</p></td>
+</tr>
+<tr>
+<td><p>Altitude</p></td>
+<td><p>236.9 m</p></td>
+</tr>
+<tr>
+<td><p>Time Zone</p></td>
+<td><p>-5.5</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br>The Weather radiation data has to be provided at different orientations and inclinations.</p>
+<p><br><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Azimuth</p></td>
+<td><p>Slope</p></td>
+</tr>
+<tr>
+<td><p>Horizontal</p></td>
+<td><p>0&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>North</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; East of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; West of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+</table>
+<h4>Additional parameters and correlations:</h4>
+<p>Ground reflectance &rho; is set to 0</p>
+<p>Black body temperature calculated using Horizontal radiation</p>
+<p><br>Perez and Isoentropic sky model used</p>
+<h4>Outputs required:</h4>
+<p>&nbsp;<b>Annual Outputs:&nbsp;</b>The following outputs shall be provided for an annual simulation:</p>
+<ul>
+<li>Average dry bulb temperature (&deg;C)</li>
+<li>Average relative humidity (&percnt;)</li>
+<li>Average dewpoint temperature (&deg;C)</li>
+<li>Average humidity ratio (kg moisture/kg dry air)</li>
+<li>Average wet bulb temperature (&deg;C)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)</li>
+</ul>
+<p><br><b>Hourly Outputs:</b> The following outputs shall be provided for each hour of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (&deg;C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Dewpoint temperature (&deg;C)</li>
+<li>Humidity ratio (kg moisture/kg dry air)</li>
+<li>Wet bulb temperature (&deg;C)</li>
+<li>Windspeed (m/s)</li>
+<li>Wind direction (degrees from north)</li>
+<li>Station pressure (mbar)</li>
+<li>Total cloud cover (tenths of sky)</li>
+<li>Opaque cloud cover (tenths of sky)</li>
+<li>Sky temperature (&deg;C)</li>
+</ul>
+<p><br>&bull; Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</p>
+<p><br><i>Table 3: Specific Days for Output</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Case </p></td>
+<td><p>Days</p></td>
+</tr>
+<tr>
+<td><p>WD100 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+<tr>
+<td><p>WD200 </p></td>
+<td><p>May 24th, August 26th</p></td>
+</tr>
+<tr>
+<td><p>WD300 </p></td>
+<td><p>February 7th, August 13th</p></td>
+</tr>
+<tr>
+<td><p>WD400 </p></td>
+<td><p>January 24th, July 1st</p></td>
+</tr>
+<tr>
+<td><p>WD500 </p></td>
+<td><p>March 1st, September 14th</p></td>
+</tr>
+<tr>
+<td><p>WD600 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br><br><br><br><br><b>Sub-hourly Outputs:</b></p>
+<p><br>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
+</ul>
+<p><br>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<ul>
+<li>Total incident horizontal solar radiation (Wh/m2)</li>
+<li>Total incident horizontal beam solar radiation (Wh/m2)</li>
+<li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
+</ul>
 </html>",     revisions="<html>
 <ul>
 <li>
@@ -1472,7 +2719,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(
+          StartTime=10713600,
+          StopTime=10800000,
+          Tolerance=1e-06,
+          __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mos"
             "Simulate and plot"));
     end WD500Hor;
@@ -1480,7 +2731,7 @@ First implementation.
     model WD500Dew
       "Test model for BESTEST weather data: time zone case, Tsky estimated using dew point temperature and sky cover"
       extends Modelica.Icons.Example;
-      parameter Modelica.SIunits.Angle lat=1.3457012131652 "Latitude angle";
+      parameter Modelica.SIunits.Angle lat=0.49858820742 "Latitude angle";
       parameter Real rho=0 "Ground reflectance";
 
       WeatherData.ReaderTMY3                          weaDat(
@@ -1538,13 +2789,13 @@ First implementation.
       ComRadIsoPerDir Azi315Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.E/2,
+        azi=IBPSA.Types.Azimuth.SE,
         rho=rho) "Azimuth = 45 ° SE, Tilt = 0 °"
         annotation (Placement(transformation(extent={{-58,68},{-78,88}})));
       ComRadIsoPerDir Azi045Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.W/2,
+        azi=IBPSA.Types.Azimuth.SW,
         rho=rho) "Azimuth = 45 SW, Tilt = 90 °"
         annotation (Placement(transformation(extent={{-58,36},{-78,56}})));
       ComRadIsoPerDir Azi270Til30(
@@ -1624,10 +2875,145 @@ First implementation.
           thickness=0.5));
       annotation (
       Documentation(info="<html>
-<p>
-This example computes the WD100: Base Case BESTEST (maybe add everything that is
-written into the specification?
-</p>
+<h4>WD500: Time Zone Case</h4>
+<p>Weather data file : 421810.epw</p>
+<p><i>Table 1: Site Data for Weather file 421810epw</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Latitude</p></td>
+<td><p>28.567&deg; north</p></td>
+</tr>
+<tr>
+<td><p>Longitude</p></td>
+<td><p>77.103&deg; west</p></td>
+</tr>
+<tr>
+<td><p>Altitude</p></td>
+<td><p>236.9 m</p></td>
+</tr>
+<tr>
+<td><p>Time Zone</p></td>
+<td><p>-5.5</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br><br>The Weather radiation data has to be provided at different orientations and inclinations.</p>
+<p><br><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Azimuth</p></td>
+<td><p>Slope</p></td>
+</tr>
+<tr>
+<td><p>Horizontal</p></td>
+<td><p>0&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>North</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; East of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; West of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+</table>
+<p><br><h4>Additional parameters and correlations:</h4></p>
+<p>Ground reflectance &rho; is set to 0</p>
+<p>Black body temperature calculated using dew point temperature and sky cover</p>
+<p><br>Perez and Isoentropic sky model used</p>
+<h4>Outputs required:</h4>
+<p>&nbsp;<b>Annual Outputs:&nbsp;</b>The following outputs shall be provided for an annual simulation:</p>
+<ul>
+<li>Average dry bulb temperature (&deg;C)</li>
+<li>Average relative humidity (&percnt;)</li>
+<li>Average dewpoint temperature (&deg;C)</li>
+<li>Average humidity ratio (kg moisture/kg dry air)</li>
+<li>Average wet bulb temperature (&deg;C)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)</li>
+</ul>
+<p><br><b>Hourly Outputs:</b> The following outputs shall be provided for each hour of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (&deg;C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Dewpoint temperature (&deg;C)</li>
+<li>Humidity ratio (kg moisture/kg dry air)</li>
+<li>Wet bulb temperature (&deg;C)</li>
+<li>Windspeed (m/s)</li>
+<li>Wind direction (degrees from north)</li>
+<li>Station pressure (mbar)</li>
+<li>Total cloud cover (tenths of sky)</li>
+<li>Opaque cloud cover (tenths of sky)</li>
+<li>Sky temperature (&deg;C)</li>
+</ul>
+<p><br>&bull; Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</p>
+<p><br><i>Table 3: Specific Days for Output</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Case </p></td>
+<td><p>Days</p></td>
+</tr>
+<tr>
+<td><p>WD100 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+<tr>
+<td><p>WD200 </p></td>
+<td><p>May 24th, August 26th</p></td>
+</tr>
+<tr>
+<td><p>WD300 </p></td>
+<td><p>February 7th, August 13th</p></td>
+</tr>
+<tr>
+<td><p>WD400 </p></td>
+<td><p>January 24th, July 1st</p></td>
+</tr>
+<tr>
+<td><p>WD500 </p></td>
+<td><p>March 1st, September 14th</p></td>
+</tr>
+<tr>
+<td><p>WD600 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br><br><br><br><br><br><b>Sub-hourly Outputs:</b></p>
+<p><br>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
+</ul>
+<p><br>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<ul>
+<li>Total incident horizontal solar radiation (Wh/m2)</li>
+<li>Total incident horizontal beam solar radiation (Wh/m2)</li>
+<li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
+</ul>
 </html>",     revisions="<html>
 <ul>
 <li>
@@ -1636,7 +3022,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(
+          StartTime=10713600,
+          StopTime=10800000,
+          Tolerance=1e-06,
+          __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mos"
             "Simulate and plot"));
     end WD500Dew;
@@ -1702,13 +3092,13 @@ First implementation.
       ComRadIsoPerDir Azi315Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.E/2,
+        azi=IBPSA.Types.Azimuth.SE,
         rho=rho) "Azimuth = 45 ° SE, Tilt = 0 °"
         annotation (Placement(transformation(extent={{-58,68},{-78,88}})));
       ComRadIsoPerDir Azi045Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.W/2,
+        azi=IBPSA.Types.Azimuth.SW,
         rho=rho) "Azimuth = 45 SW, Tilt = 90 °"
         annotation (Placement(transformation(extent={{-58,36},{-78,56}})));
       ComRadIsoPerDir Azi270Til30(
@@ -1788,10 +3178,145 @@ First implementation.
           thickness=0.5));
       annotation (
       Documentation(info="<html>
-<p>
-This example computes the WD100: Base Case BESTEST (maybe add everything that is
-written into the specification?
-</p>
+<h4>WD600: Ground Reflactance</h4>
+<p>Weather data file : 725650.epw</p>
+<p><i>Table 1: Site Data for Weather file 725650.epw</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Latitude</p></td>
+<td><p>39.833&deg; north</p></td>
+</tr>
+<tr>
+<td><p>Longitude</p></td>
+<td><p>104.65&deg; west</p></td>
+</tr>
+<tr>
+<td><p>Altitude</p></td>
+<td><p>1650 m</p></td>
+</tr>
+<tr>
+<td><p>Time Zone</p></td>
+<td><p>7</p></td>
+</tr>
+</table>
+<p><br><br>The Weather radiation data has to be provided at different orientations and inclinations.</p>
+<p><br><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Azimuth</p></td>
+<td><p>Slope</p></td>
+</tr>
+<tr>
+<td><p>Horizontal</p></td>
+<td><p>0&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>North</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; East of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; West of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+</table>
+<h4>Additional parameters and correlations:</h4>
+<p>Ground reflectance &rho; is set to 0.2</p>
+<p>Black body temperature calculated using Horizontal radiation</p>
+<p><br>Perez and Isoentropic sky model used</p>
+<h4>Outputs required:</h4>
+<p>&nbsp;<b>Annual Outputs:&nbsp;</b>The following outputs shall be provided for an annual simulation:</p>
+<ul>
+<li>Average dry bulb temperature (&deg;C)</li>
+<li>Average relative humidity (&percnt;)</li>
+<li>Average dewpoint temperature (&deg;C)</li>
+<li>Average humidity ratio (kg moisture/kg dry air)</li>
+<li>Average wet bulb temperature (&deg;C)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)</li>
+</ul>
+<p><br><b>Hourly Outputs:</b> The following outputs shall be provided for each hour of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (&deg;C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Dewpoint temperature (&deg;C)</li>
+<li>Humidity ratio (kg moisture/kg dry air)</li>
+<li>Wet bulb temperature (&deg;C)</li>
+<li>Windspeed (m/s)</li>
+<li>Wind direction (degrees from north)</li>
+<li>Station pressure (mbar)</li>
+<li>Total cloud cover (tenths of sky)</li>
+<li>Opaque cloud cover (tenths of sky)</li>
+<li>Sky temperature (&deg;C)</li>
+</ul>
+<p><br>&bull; Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</p>
+<p><br><i>Table 3: Specific Days for Output</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Case </p></td>
+<td><p>Days</p></td>
+</tr>
+<tr>
+<td><p>WD100 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+<tr>
+<td><p>WD200 </p></td>
+<td><p>May 24th, August 26th</p></td>
+</tr>
+<tr>
+<td><p>WD300 </p></td>
+<td><p>February 7th, August 13th</p></td>
+</tr>
+<tr>
+<td><p>WD400 </p></td>
+<td><p>January 24th, July 1st</p></td>
+</tr>
+<tr>
+<td><p>WD500 </p></td>
+<td><p>March 1st, September 14th</p></td>
+</tr>
+<tr>
+<td><p>WD600 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br><b>Sub-hourly Outputs:</b></p>
+<p><br>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
+</ul>
+<p><br>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<ul>
+<li>Total incident horizontal solar radiation (Wh/m2)</li>
+<li>Total incident horizontal beam solar radiation (Wh/m2)</li>
+<li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
+</ul>
 </html>",     revisions="<html>
 <ul>
 <li>
@@ -1800,7 +3325,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(
+          StartTime=10713600,
+          StopTime=10800000,
+          Tolerance=1e-06,
+          __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mos"
             "Simulate and plot"));
     end WD600Hor;
@@ -1866,13 +3395,13 @@ First implementation.
       ComRadIsoPerDir Azi315Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.E/2,
+        azi=IBPSA.Types.Azimuth.SE,
         rho=rho) "Azimuth = 45 ° SE, Tilt = 0 °"
         annotation (Placement(transformation(extent={{-58,68},{-78,88}})));
       ComRadIsoPerDir Azi045Til90(
         til=IBPSA.Types.Tilt.Wall,
         lat=lat,
-        azi=IBPSA.Types.Azimuth.W/2,
+        azi=IBPSA.Types.Azimuth.SW,
         rho=rho) "Azimuth = 45 SW, Tilt = 90 °"
         annotation (Placement(transformation(extent={{-58,36},{-78,56}})));
       ComRadIsoPerDir Azi270Til30(
@@ -1952,10 +3481,145 @@ First implementation.
           thickness=0.5));
       annotation (
       Documentation(info="<html>
-<p>
-This example computes the WD100: Base Case BESTEST (maybe add everything that is
-written into the specification?
-</p>
+<h4>WD600: Ground Reflactance</h4>
+<p>Weather data file : 725650.epw</p>
+<p><i>Table 1: Site Data for Weather file 725650.epw</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Latitude</p></td>
+<td><p>39.833&deg; north</p></td>
+</tr>
+<tr>
+<td><p>Longitude</p></td>
+<td><p>104.65&deg; west</p></td>
+</tr>
+<tr>
+<td><p>Altitude</p></td>
+<td><p>1650 m</p></td>
+</tr>
+<tr>
+<td><p>Time Zone</p></td>
+<td><p>7</p></td>
+</tr>
+</table>
+<p><br><br><br>The Weather radiation data has to be provided at different orientations and inclinations.</p>
+<p><br><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Azimuth</p></td>
+<td><p>Slope</p></td>
+</tr>
+<tr>
+<td><p>Horizontal</p></td>
+<td><p>0&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>North</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; East of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>45&deg; West of South</p></td>
+<td><p>90&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>East</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>South</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+<tr>
+<td><p>West</p></td>
+<td><p>30&deg; from horizontal</p></td>
+</tr>
+</table>
+<p><br><h4>Additional parameters and correlations:</h4></p>
+<p>Ground reflectance &rho; is set to 0.2</p>
+<p>Black body temperature calculated using dew point temperature and sky cover</p>
+<p><br>Perez and Isoentropic sky model used</p>
+<h4>Outputs required:</h4>
+<p>&nbsp;<b>Annual Outputs:&nbsp;</b>The following outputs shall be provided for an annual simulation:</p>
+<ul>
+<li>Average dry bulb temperature (&deg;C)</li>
+<li>Average relative humidity (&percnt;)</li>
+<li>Average dewpoint temperature (&deg;C)</li>
+<li>Average humidity ratio (kg moisture/kg dry air)</li>
+<li>Average wet bulb temperature (&deg;C)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)</li>
+</ul>
+<p><br><b>Hourly Outputs:</b> The following outputs shall be provided for each hour of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (&deg;C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Dewpoint temperature (&deg;C)</li>
+<li>Humidity ratio (kg moisture/kg dry air)</li>
+<li>Wet bulb temperature (&deg;C)</li>
+<li>Windspeed (m/s)</li>
+<li>Wind direction (degrees from north)</li>
+<li>Station pressure (mbar)</li>
+<li>Total cloud cover (tenths of sky)</li>
+<li>Opaque cloud cover (tenths of sky)</li>
+<li>Sky temperature (&deg;C)</li>
+</ul>
+<p><br>&bull; Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</p>
+<p><br><i>Table 3: Specific Days for Output</i></p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<td><p>Case </p></td>
+<td><p>Days</p></td>
+</tr>
+<tr>
+<td><p>WD100 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+<tr>
+<td><p>WD200 </p></td>
+<td><p>May 24th, August 26th</p></td>
+</tr>
+<tr>
+<td><p>WD300 </p></td>
+<td><p>February 7th, August 13th</p></td>
+</tr>
+<tr>
+<td><p>WD400 </p></td>
+<td><p>January 24th, July 1st</p></td>
+</tr>
+<tr>
+<td><p>WD500 </p></td>
+<td><p>March 1st, September 14th</p></td>
+</tr>
+<tr>
+<td><p>WD600 </p></td>
+<td><p>May 4th, July 14th, September 6th</p></td>
+</tr>
+</table>
+<p><br><br><br><br><br><br><br><b>Sub-hourly Outputs:</b></p>
+<p><br>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
+<ul>
+<li>Dry bulb temperature (C)</li>
+<li>Relative humidity (&percnt;)</li>
+<li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
+</ul>
+<p><br>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<ul>
+<li>Total incident horizontal solar radiation (Wh/m2)</li>
+<li>Total incident horizontal beam solar radiation (Wh/m2)</li>
+<li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
+</ul>
 </html>",     revisions="<html>
 <ul>
 <li>
@@ -1964,7 +3628,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(
+          StartTime=10713600,
+          StopTime=10800000,
+          Tolerance=1e-06,
+          __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mos"
             "Simulate and plot"));
     end WD600Dew;
@@ -2042,6 +3710,25 @@ First implementation.
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end ComRadIsoPerDir;
+
+  function massFraction_pTphi
+    "Return steam mass fraction as a function of relative humidity phi and temperature T"
+    extends Modelica.Icons.Function;
+    input Modelica.Media.Interfaces.Types.AbsolutePressure p "Pressure";
+    input Modelica.Media.Interfaces.Types.Temperature T "Temperature";
+    input Real phi "Relative humidity (0 ... 1.0)";
+    output Modelica.Media.Interfaces.Types.MassFraction X_steam
+      "Absolute humidity, steam mass fraction";
+  protected
+    constant Real k=0.621964713077499 "Ratio of molar masses";
+    Modelica.Media.Interfaces.Types.AbsolutePressure psat=
+        Modelica.Media.Air.MoistAir.saturationPressure(T) "Saturation pressure";
+  algorithm
+    X_steam := phi*k/(k*phi + p/psat - phi);
+    annotation (smoothOrder=2, Documentation(info="<html>
+Absolute humidity per unit mass of moist air is computed from temperature, pressure and relative humidity.
+</html>"));
+  end massFraction_pTphi;
 annotation (Documentation(info="<html>
 <p>
 This package contains models for validation of weather data models.
