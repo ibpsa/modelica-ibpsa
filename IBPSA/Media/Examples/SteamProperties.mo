@@ -11,12 +11,10 @@ model SteamProperties
   Medium.ThermodynamicState state_phX "Medium state";
   Medium.ThermodynamicState state_psX "Medium state";
 
-  Modelica.Media.Interfaces.Types.DerDensityByPressure ddpT
+  Modelica.Media.Interfaces.Types.DerDensityByEnthalpy ddhp
+    "Density derivative w.r.t. enthalpy";
+  Modelica.Media.Interfaces.Types.DerDensityByPressure ddph
     "Density derivative w.r.t. pressure";
-  Modelica.Media.Interfaces.Types.DerDensityByTemperature ddTp
-    "Density derivative w.r.t. temperature";
-  Modelica.SIunits.Density[Medium.nX] dddX
-    "Density derivative w.r.t. mass fraction";
 
 equation
 
@@ -28,9 +26,8 @@ equation
     checkState(state_pTX, state_psX, "state_psX");
 
     // Check the implementation of the functions
-    ddpT = Medium.density_derp_T(state_pTX);
-    ddTp = Medium.density_derT_p(state_pTX);
-    dddX   = Medium.density_derX(state_pTX);
+    ddhp = Medium.density_derh_p(state_pTX);
+    ddph = Medium.density_derp_h(state_pTX);
 
   // Check the implementation of the base properties
   basPro.state.p=p;
