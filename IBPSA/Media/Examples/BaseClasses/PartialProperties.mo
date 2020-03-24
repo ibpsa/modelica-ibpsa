@@ -48,11 +48,15 @@ protected
     input Medium.ThermodynamicState state1 "Medium state";
     input Medium.ThermodynamicState state2 "Medium state";
     input String message "Message for error reporting";
+    parameter Real TErrAbs=abs(Medium.temperature(state1)-Medium.temperature(state2))
+      "Absolute error in temperature";
+    parameter Real pErrAbs=abs(Medium.pressure(state1)-Medium.pressure(state2))
+      "Absolute error in pressure";
   algorithm
-    assert(abs(Medium.temperature(state1)-Medium.temperature(state2))
-       < 1e-8, "Error in temperature of " + message);
-    assert(abs(Medium.pressure(state1)-Medium.pressure(state2))
-       < 1e-8, "Error in pressure of " + message);
+    assert(TErrAbs < 1e-8, "Absolute temperature error: " + String(TErrAbs) +
+       "K. Error in temperature of " + message);
+    assert(pErrAbs < 1e-8, "Absolute pressure error: " + String(pErrAbs) +
+       "Pa. Error in pressure of " + message);
   end checkState;
 equation
     // Compute temperatures that are used as input to the functions
@@ -92,6 +96,10 @@ This example checks thermophysical properties of the medium.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 24, 2020, by Kathryn Hinkelman:<br/>
+Expand error message for checkState and added relative error function check checkStateRelative.
+</li>
 <li>
 September 16, 2019, by Yangyang Fu:<br/>
 Reconstruct the implementation structure to avoid duplicated codes for different media.
