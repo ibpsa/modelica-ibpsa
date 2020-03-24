@@ -1,6 +1,6 @@
 within IBPSA.Media;
 package Steam "Package with model for ideal steam"
-  extends Modelica.Media.Water.IdealSteam(
+  extends Modelica.Media.Water.WaterIF97_R2pT(
      mediumName="steam",
      reference_T=273.15,
      reference_p=101325,
@@ -16,7 +16,7 @@ package Steam "Package with model for ideal steam"
     output SaturationProperties sat "Saturation property record";
   algorithm
     sat.psat := p;
-    sat.Tsat := saturationTemperature(p);
+    sat.Tsat := saturationTemperature_p(p);
   annotation (
     smoothOrder=2,
     Documentation(info="<html>
@@ -51,7 +51,7 @@ First implementation.
 </html>"));
   end saturationState_p;
 
-  replaceable function saturationTemperature
+  replaceable function saturationTemperature_p
     "Return saturation temperature (K) from a given pressure (Pa)"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
@@ -89,7 +89,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  end saturationTemperature;
+  end saturationTemperature_p;
 
   replaceable function densityOfSaturatedLiquid_sat
     "Return density of saturated liquid"
@@ -541,7 +541,6 @@ protected
     </p>
   </html>"));
   end expression2_sat;
-
 annotation (Documentation(info="<html>
 <p>
 The steam model can be utilized for steam systems and components that use the
