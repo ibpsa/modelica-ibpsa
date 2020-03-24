@@ -4,7 +4,8 @@ model SteamTemperatureEnthalpyInversion
   extends Modelica.Icons.Example;
   extends IBPSA.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion(
      redeclare package Medium = IBPSA.Media.Steam,
-     T0 = 273.15 + 200);
+     T0 = 273.15 + 200,
+     tol = 1e-3);
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamTemperatureEnthalpyInversion.mos"
@@ -16,6 +17,10 @@ is implemented correctly for the steam model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 24, 2020, by Kathryn Hinkelman:<br/>
+Relaxed absolute error tolerance.
+</li>
 <li>
 January 16, 2020, by Kathryn Hinkelman:<br/>
 Change medium to ideal steam to eliminate property discontinuities.
