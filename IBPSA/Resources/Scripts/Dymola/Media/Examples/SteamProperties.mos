@@ -74,53 +74,47 @@ createPlot(
 createPlot(
   id   = 14,
   x    = "T_degC",
-  y    = {"ddpT"},
+  y    = {"ddhp"},
   grid = true
 )
 createPlot(
   id   = 15,
   x    = "T_degC",
-  y    = {"ddTp"},
+  y    = {"ddph"},
   grid = true
-  )
+  ) 
 createPlot(
   id   = 16,
-  x    = "T_degC",
-  y    = {"dddX[1]"},
-  grid = true
-)  
-createPlot(
-  id   = 17,
   x    = "T_degC",
   y    = {"cp"},
   grid = true
 )
 createPlot(
-  id   = 18,
+  id   = 17,
   x    = "T_degC",
   y    = {"cv"},
   grid = true
 )
 createPlot(
-  id   = 19,
+  id   = 18,
   x    = "T_degC",
   y    = {"lambda"},
   grid = true
 )
 createPlot(
-  id   = 20,
+  id   = 19,
   x    = "T_degC",
   y    = {"pMed"},
   grid = true
 )
 createPlot(
-  id   = 21,
+  id   = 20,
   x    = "T_degC",
   y    = {"TMed"},
   grid = true
 )
 createPlot(
-  id   = 22,
+  id   = 21,
   x    = "T_degC",
   y    = {"MM"},
   grid = true
