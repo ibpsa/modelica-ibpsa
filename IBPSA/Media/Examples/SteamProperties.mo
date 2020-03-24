@@ -5,7 +5,7 @@ model SteamProperties
   extends IBPSA.Media.Examples.BaseClasses.PartialProperties(
     redeclare package Medium = IBPSA.Media.Steam,
     TMin=273.15+100,
-    TMax=273.15+800,
+    TMax=273.15+700,
     p=100000);
 
   Medium.ThermodynamicState state_phX "Medium state";
@@ -22,8 +22,8 @@ equation
     state_pTX = Medium.setState_pTX(p=p, T=T, X=X);
     state_phX = Medium.setState_phX(p=p, h=h, X=X);
     state_psX = Medium.setState_psX(p=p, s=s, X=X);
-    checkState(state_pTX, state_phX, "state_phX");
-    checkState(state_pTX, state_psX, "state_psX");
+    checkStateRelative(state_pTX, state_phX, "state_phX");
+    checkStateRelative(state_pTX, state_psX, "state_psX");
 
     // Check the implementation of the functions
     ddhp = Medium.density_derh_p(state_pTX);
