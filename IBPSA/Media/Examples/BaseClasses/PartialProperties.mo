@@ -43,7 +43,7 @@ partial model PartialProperties
 protected
   constant Real conv(unit="1/s") = 1 "Conversion factor to satisfy unit check";
 
-  function checkState
+  function checkState "This function checks the absolute error in the state calculations"
     extends Modelica.Icons.Function;
     input Medium.ThermodynamicState state1 "Medium state";
     input Medium.ThermodynamicState state2 "Medium state";
@@ -54,10 +54,29 @@ protected
       "Absolute error in pressure";
   algorithm
     assert(TErrAbs < 1e-8, "Absolute temperature error: " + String(TErrAbs) +
-       "K. Error in temperature of " + message);
+       " K. Error in temperature of " + message);
     assert(pErrAbs < 1e-8, "Absolute pressure error: " + String(pErrAbs) +
-       "Pa. Error in pressure of " + message);
+       " Pa. Error in pressure of " + message);
   end checkState;
+
+  function checkStateRelative "This function checks the relative error in the state calculations"
+    extends Modelica.Icons.Function;
+    input Medium.ThermodynamicState state1 "Medium state";
+    input Medium.ThermodynamicState state2 "Medium state";
+    input String message "Message for error reporting";
+    parameter Real TErrRel=
+      abs((Medium.temperature(state1)-Medium.temperature(state2))/Medium.temperature(state1))
+      "Relative error in temperature";
+    parameter Real pErrRel=
+      abs((Medium.pressure(state1)-Medium.pressure(state2))/Medium.pressure(state1))
+      "Relative error in pressure";
+  algorithm
+    assert(TErrRel < 1e-4, "Relative temperature error: " + String(TErrRel*100) +
+       "%. Error in temperature of " + message);
+    assert(pErrRel < 1e-4, "Relative pressure error: " + String(pErrRel*100) +
+       "%. Error in pressure of " + message);
+  end checkStateRelative;
+
 equation
     // Compute temperatures that are used as input to the functions
     T = TMin + conv*time * (TMax-TMin);
