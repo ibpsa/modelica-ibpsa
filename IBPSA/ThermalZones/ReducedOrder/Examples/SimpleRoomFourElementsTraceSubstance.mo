@@ -164,11 +164,12 @@ model SimpleRoomFourElementsTraceSubstance
     "Sets sunblind signal to zero (open)"
     annotation (Placement(transformation(extent={{68,90},{62,96}})));
 
-  Modelica.Blocks.Sources.Pulse TraceSub(
+  Modelica.Blocks.Sources.Pulse traSub(
     amplitude=0.004,
     width=50,
-    period=3600,
-    offset=-0.002) "Source of trace substance (for example CO2)" annotation (Placement(transformation(extent={{-88,-58},{-68,-38}})));
+    period=86400,
+    offset=-0.002) "Source of trace substance (for example CO2)"
+    annotation (Placement(transformation(extent={{-88,-58},{-68,-38}})));
 equation
   connect(eqAirTemp.TEqAirWin, preTem1.T)
     annotation (Line(points={{-3,-0.2},{0,-0.2},{0,20},{6.8,20}},
@@ -296,7 +297,8 @@ equation
                                       color={0,0,127}));
   connect(corGDouPan.solarRadWinTrans, thermalZoneFourElements.solRad)
     annotation (Line(points={{27,56},{40,56},{40,31},{43,31}}, color={0,0,127}));
-  connect(TraceSub.y, thermalZoneFourElements.C_flow[1]) annotation (Line(points={{-67,-48},{-12,-48},{-12,26},{43,26}}, color={0,0,127}));
+  connect(traSub.y, thermalZoneFourElements.C_flow[1]) annotation (Line(points=
+          {{-67,-48},{-12,-48},{-12,26},{43,26}}, color={0,0,127}));
   annotation ( Documentation(info="<html>
   <p>This example shows the application of
   <a href=\"IBPSA.ThermalZones.ReducedOrder.RC.FourElements\">
@@ -342,7 +344,10 @@ equation
   </li>
   </ul>
   </html>"),
-  experiment(Tolerance=1e-6, StopTime=3.1536e+007, Interval=3600),
+  experiment(
+      StopTime=604800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Radau"),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElementsTraceSubstance.mos"
         "Simulate and plot"));

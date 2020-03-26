@@ -117,11 +117,12 @@ model SimpleRoomOneElementTraceSubstance "Illustrates the use of a thermal zone 
     rotation=90,
     origin={32,38})));
 
-  Modelica.Blocks.Sources.Pulse TraceSub(
+  Modelica.Blocks.Sources.Pulse traSub(
     amplitude=0.004,
     width=50,
-    period=3600,
-    offset=-0.002) "Source of trace substance (for example CO2)" annotation (Placement(transformation(extent={{-88,-58},{-68,-38}})));
+    period=86400,
+    offset=-0.002) "Source of trace substance (for example CO2)"
+    annotation (Placement(transformation(extent={{-88,-58},{-68,-38}})));
 equation
   connect(eqAirTemp.TEqAirWin, preTem1.T)
     annotation (Line(
@@ -232,7 +233,8 @@ equation
   connect(corGDouPan.solarRadWinTrans, thermalZoneOneElement.solRad)
     annotation (Line(points={{27,64},{34,64},{40,64},{40,31},{43,31}}, color={0,
     0,127}));
-  connect(TraceSub.y, thermalZoneOneElement.C_flow[1]) annotation (Line(points={{-67,-48},{2,-48},{2,26},{43,26}}, color={0,0,127}));
+  connect(traSub.y, thermalZoneOneElement.C_flow[1]) annotation (Line(points={{
+          -67,-48},{2,-48},{2,26},{43,26}}, color={0,0,127}));
   annotation ( Documentation(info="<html>
   <p>This example shows the application of
   <a href=\"IBPSA.ThermalZones.ReducedOrder.RC.OneElement\">
@@ -276,7 +278,7 @@ equation
   </li>
   </ul>
   </html>"),
-  experiment(Tolerance=1e-6, StopTime=3.1536e+007, Interval=3600),
+  experiment(Tolerance=1e-6, StopTime=604800),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomOneElementTraceSubstance.mos"
         "Simulate and plot"));
