@@ -344,6 +344,6 @@ equation
   </html>"),
   experiment(Tolerance=1e-6, StopTime=3.1536e+007, Interval=3600),
   __Dymola_Commands(file=
-  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElements.mos"
+  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElementsTraceSubstance.mos"
         "Simulate and plot"));
 end SimpleRoomFourElementsTraceSubstance;
