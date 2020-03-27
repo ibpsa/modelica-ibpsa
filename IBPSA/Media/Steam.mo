@@ -5,6 +5,7 @@ package Steam "Package with model for ideal steam"
      reference_T=273.15,
      reference_p=101325,
      AbsolutePressure(start=p_default),
+     T_default=Modelica.SIunits.Conversions.from_degC(200),
      Temperature(start=T_default));
 
   extends Modelica.Icons.Package;
