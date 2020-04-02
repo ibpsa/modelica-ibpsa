@@ -3,7 +3,7 @@ model DryCoilEffectivenessNTU
   "Model that demonstrates use of a heat exchanger without condensation that uses the epsilon-NTU relation"
   extends Modelica.Icons.Example;
 
- package Medium1 = Buildings.Media.Water;
+ package Medium1 = IBPSA.Media.Water;
  package Medium2 = IBPSA.Media.Air;
 
  parameter Modelica.SIunits.SpecificHeatCapacity cp1=
@@ -247,7 +247,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation(experiment(Tolerance=1e-6, StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/DryCoilEffectivenessNTU.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/DryCoilEffectivenessNTU.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
