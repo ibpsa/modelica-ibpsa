@@ -1,6 +1,6 @@
 # Modelica IBPSA library
 
-[![Build Status](https://travis-ci.org/ibpsa/modelica-ibpsa.svg?branch=master)](https://travis-ci.org/ibpsa/modelica-ibpsa)
+[![Build Status](https://travis-ci.com/ibpsa/modelica-ibpsa.svg?branch=master)](https://travis-ci.com/ibpsa/modelica-ibpsa)
 
 This is the development site for the _Modelica IBPSA Library_ and its user guide.
 
