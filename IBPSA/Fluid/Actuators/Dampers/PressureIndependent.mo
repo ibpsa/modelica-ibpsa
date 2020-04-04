@@ -5,14 +5,14 @@ model PressureIndependent
     final linearized=false,
     final casePreInd=true,
     from_dp=true);
-  input Real phi = l + y_actual*(1 - l)
+  input Real phi = l + y_internal*(1 - l)
     "Ratio actual to nominal mass flow rate of damper, phi=kDam(y)/kDam(y=1)";
   parameter Real l2(unit="1", min=1e-10) = 0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
     annotation(Dialog(tab="Advanced"));
   parameter Real deltax(unit="1", min=1E-5) = 0.02 "Transition interval for flow rate"
     annotation(Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.PressureDifference dp_small(displayUnit="Pa") =
+  parameter Modelica.SIunits.PressureDifference dp_small(displayUnit="Pa")=
     1E-2 * dp_nominal_pos
     "Pressure drop for sizing the transition regions"
     annotation(Dialog(tab="Advanced"));
@@ -207,31 +207,26 @@ The model is similar to
 IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent</a>, except for adaptations for damper parameters.
 Please see that documentation for more information.
 </p>
-<h4>Fractional opening </h4>
+<h4>Computation of the fractional opening</h4>
 <p>
 The fractional opening of the damper is computed by
 </p>
 <ul>
 <li>
-inverting the quadratic flow function (see
-<a href=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow>
-IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>)
-to compute the flow coefficient from the flow rate and the pressure drop values;
+inverting the quadratic flow function to compute the flow coefficient
+from the flow rate and the pressure drop values;
 </li>
 <li>
-inverting the exponential characteristics (see
-<a href=IBPSA.Fluid.Actuators.Dampers.Exponential>
-IBPSA.Fluid.Actuators.Dampers.Exponential</a>)
-to compute the fractional opening from the loss coefficient value
-(directly derived from the flow coefficient).
+inverting the exponential characteristics to compute the fractional opening
+from the loss coefficient value (directly derived from the flow coefficient).
 </li>
 </ul>
 <p>
 Below a threshold value of the input control signal (fixed at 0.02) the fractional opening
 is forced to zero and no more related to the actual flow coefficient of the damper.
-This avoids steep transient of the computed opening while transiting from reverse flow.
-This is to be implemented so as to prevent control chattering during shut off period
-(while avoiding an additional state variable).
+This avoids steep transient of the computed opening while transitioning from reverse flow.
+This is to be considered as a modeling workaround to prevent control chattering during
+shut off operation (while avoiding an additional state variable).
 </p>
 </html>",
 revisions="<html>
