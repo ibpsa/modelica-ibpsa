@@ -120,7 +120,7 @@ equation
       cU=cU,
       yL=yL,
       yU=yU);
-    k = sqrt(1/(1/kFixed^2 + 1/kDam^2));
+    k = if dpFixed_nominal > Modelica.Constants.eps then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
   end if;
 annotation(Documentation(info="<html>
 <p>
