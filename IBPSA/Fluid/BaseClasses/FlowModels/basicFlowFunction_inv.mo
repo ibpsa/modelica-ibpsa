@@ -27,7 +27,9 @@ algorithm
 annotation (smoothOrder=1,
 Documentation(info="<html>
 <p>
-Function that computes the flow coefficient from the mass flow rate and pressure drop values.
+Function that computes the flow coefficient from the mass flow rate
+and pressure drop values, under the assumption of a turbulent
+flow regime.
 </p>
 </html>",
 revisions="<html>

@@ -41,9 +41,9 @@ IBPSA.Fluid.Actuators.Dampers.PressureIndependent</a>.
 </p><p>
 The quadratic interpolation used outside the exponential domain in the function
 <a href=\"modelica://IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper\">
-IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper</a> yields a local extremum:
-the formal inversion of the function is thus impossible.
-Therefore a cubic spline is used to fit the inverse of the characteristics.
+IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper</a> yields a local extremum.
+Therefore, the formal inversion of the function is not possible.
+A cubic spline is used instead to fit the inverse of the characteristics.
 </p>
 </html>",
 revisions="<html>
