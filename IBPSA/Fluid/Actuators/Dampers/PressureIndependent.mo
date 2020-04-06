@@ -33,7 +33,7 @@ protected
   parameter Real[sizeSupSpl] kSupSpl(each fixed=false)
     "k values of sorted support points for spline interpolation";
   parameter Integer[sizeSupSpl] idx_sorted(each fixed=false)
-    "Indexes of sorted support points";
+    "Indices of sorted support points";
   parameter Real[sizeSupSpl] invSplDer(each fixed=false)
     "Derivatives at support points for spline interpolation";
   parameter Real coeff1 = l2/dpDamper_nominal*m_flow_nominal
@@ -202,7 +202,7 @@ in which case a <code>kDam = m_flow_nominal/sqrt(dp_nominal)</code> characterist
 <p>
 The model is similar to
 <a href=\"modelica://IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent\">
-IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent</a>, 
+IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent</a>,
 except for adaptations for damper parameters.
 Please see that documentation for more information.
 </p>
@@ -222,14 +222,14 @@ from the loss coefficient value (directly derived from the flow coefficient).
 </li>
 </ul>
 <p>
-Note that below a threshold value of the input control signal (fixed at 0.02), 
-the fractional opening is forced to zero and no more related to the actual 
+Note that below a threshold value of the input control signal (fixed at 0.02),
+the fractional opening is forced to zero and no more related to the actual
 flow coefficient of the damper.
 This avoids steep transients of the computed opening while transitioning from reverse flow.
-This is to be considered as a modeling workaround (avoiding the introduction of 
+This is to be considered as a modeling workaround (avoiding the introduction of
 an additional state variable) to prevent control chattering during
-shut off operation where the pressure difference at the damper boundaries 
-can vary between slightly positive and negative values due to outdoor pressure 
+shut off operation where the pressure difference at the damper boundaries
+can vary between slightly positive and negative values due to outdoor pressure
 variations.
 </p>
 </html>",

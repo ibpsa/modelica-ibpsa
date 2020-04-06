@@ -66,7 +66,7 @@ model PressureIndependent
     duration=0.3,
     offset=0,
     startTime=0.7,
-    height=-40) "Ram down supply pressure"
+    height=-40) "Ramp down supply pressure"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{-52,30},{-32,50}})));
@@ -123,14 +123,14 @@ file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Validati
 "Simulate and plot"),
 Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.PressureIndependent\">
 IBPSA.Fluid.Actuators.Dampers.PressureIndependent</a>
-by comparing it with 
+by comparing it with
 </p>
 <ul>
 <li>
-an exponential damper model which opening is the one computed by the 
+an exponential damper model which opening is the one computed by the
 pressure independent model, see <code>damExp</code>,
 </li>
 <li>
@@ -139,14 +139,14 @@ tracking the same discharge mass flow rate, see <code>damExpPI</code>.
 </li>
 </ul>
 <p>
-The simulation consists in exposing these three models to 
+The simulation consists in exposing these three models to
 <ol>
 <li>
 a first increase in the pressure drop at the damper boundaries, from negative
 to positive values, with a zero input control signal,
 </li>
 <li>
-a consecutive increase of input control signal, from zero to one, with a 
+a consecutive increase of input control signal, from zero to one, with a
 constant pressure drop at the damper boundaries,
 </li>
 <li>
@@ -156,9 +156,9 @@ with an input control signal equal to one.
 </ol>
 <p>
 One can notice a small variation of the computed damper opening in the last
-transient around flow reversal. 
-This is because the expression of the flow coefficient as a function of the 
-mass flow rate and pressure drop is ill-defined near zero flow rate and 
+transient around flow reversal.
+This is because the expression of the flow coefficient as a function of the
+mass flow rate and pressure drop is ill-defined near zero flow rate and
 the damper opening value results from the regularization process.
 </p>
 </html>", revisions="<html>
