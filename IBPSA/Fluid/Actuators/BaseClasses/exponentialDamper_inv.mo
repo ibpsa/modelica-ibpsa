@@ -2,11 +2,11 @@ within IBPSA.Fluid.Actuators.BaseClasses;
 function exponentialDamper_inv
   "Inverse function of the exponential damper characteristics"
   extends Modelica.Icons.Function;
-  input Real kThetaSqRt(min=0, unit="1") "Square root of loss coefficient";
+  input Real kThetaSqRt "Square root of loss coefficient";
   input Real[:] kSupSpl "k values of support points";
   input Real[:] ySupSpl "y values of support points";
   input Real[:] invSplDer "Derivatives at support points";
-  output Real y(unit="1") "Fractional opening";
+  output Real y "Fractional opening";
 protected
   parameter Integer sizeSupSpl = size(kSupSpl, 1) "Number of spline support points";
   Integer i "Integer to select data interval";
@@ -49,7 +49,7 @@ A cubic spline is used instead to fit the inverse of the characteristics.
 revisions="<html>
 <ul>
 <li>
-April 19, 2019, by Antoine Gautier:<br/>
+April 6, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

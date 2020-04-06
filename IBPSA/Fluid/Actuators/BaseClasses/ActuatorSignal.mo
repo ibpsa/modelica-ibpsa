@@ -124,6 +124,13 @@ for a description of the filter.
 </html>", revisions="<html>
 <ul>
 <li>
+April 6, 2020, by Antoine Gautier:<br/>
+Add the boolean parameter <code>casePreInd</code>.<br/>
+This is needed for the computation of the damper opening in
+<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.PressureIndependent\">
+IBPSA.Fluid.Actuators.Dampers.PressureIndependent</a>.
+</li>
+<li>
 February 21, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>
 This is for
