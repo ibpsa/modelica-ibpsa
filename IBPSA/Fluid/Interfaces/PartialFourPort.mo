@@ -83,6 +83,12 @@ are not implemented.
 </html>", revisions="<html>
 <ul>
 <li>
+April 6, 2020, by Filip Jorissen:<br/>
+Added arrows to the icon indicating the intended flow direction
+when <code>allowFlowReversal=false</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1336\">#1336</a>.
+</li>
+<li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
@@ -141,10 +147,42 @@ are often iteration variables in nonlinear equation systems.
     Icon(coordinateSystem(
           preserveAspectRatio=true,
           extent={{-100,-100},{100,100}},
-          grid={1,1}), graphics={Text(
+          grid={1,1}), graphics={Polygon(
+          points={{1,8},{21,6.12323e-17},{1,-8},{1,8}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=not allowFlowReversal1,
+          origin={-121,81},
+          rotation=360),
+          Text(
           extent={{-151,147},{149,107}},
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          textString="%name")}));
+          textString="%name"),
+          Polygon(
+          points={{1,8},{21,6.12323e-17},{1,-8},{1,8}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=not allowFlowReversal1,
+          origin={99,80},
+          rotation=360),
+          Polygon(
+          points={{-1,8},{-21,0},{-1,-8},{-1,8}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=not allowFlowReversal2,
+          origin={121,-80},
+          rotation=360),
+          Polygon(
+          points={{-1,8},{-21,0},{-1,-8},{-1,8}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=not allowFlowReversal2,
+          origin={-99,-80},
+          rotation=360)}));
 end PartialFourPort;
