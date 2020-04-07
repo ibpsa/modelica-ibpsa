@@ -148,12 +148,12 @@ are often iteration variables in nonlinear equation systems.
           preserveAspectRatio=true,
           extent={{-100,-100},{100,100}},
           grid={1,1}), graphics={Polygon(
-          points={{1,8},{21,6.12323e-17},{1,-8},{1,8}},
+          points={{1,10},{21,6.12323e-17},{1,-10},{1,10}},
           lineColor={0,128,255},
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
           visible=not allowFlowReversal1,
-          origin={-121,81},
+          origin={-91,61},
           rotation=360),
           Text(
           extent={{-151,147},{149,107}},
@@ -162,27 +162,27 @@ are often iteration variables in nonlinear equation systems.
           fillColor={0,127,255},
           textString="%name"),
           Polygon(
-          points={{1,8},{21,6.12323e-17},{1,-8},{1,8}},
+          points={{2,10},{22,6.12323e-17},{2,-10},{2,10}},
           lineColor={0,128,255},
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
           visible=not allowFlowReversal1,
-          origin={99,80},
+          origin={68,60},
           rotation=360),
           Polygon(
-          points={{-1,8},{-21,0},{-1,-8},{-1,8}},
+          points={{1,10},{-19,0},{1,-10},{1,10}},
           lineColor={0,128,255},
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
           visible=not allowFlowReversal2,
-          origin={121,-80},
+          origin={89,-60},
           rotation=360),
           Polygon(
-          points={{-1,8},{-21,0},{-1,-8},{-1,8}},
+          points={{-1,10},{-21,0},{-1,-11},{-1,10}},
           lineColor={0,128,255},
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
           visible=not allowFlowReversal2,
-          origin={-99,-80},
+          origin={-69,-60},
           rotation=360)}));
 end PartialFourPort;
