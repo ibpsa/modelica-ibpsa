@@ -20,9 +20,7 @@ block CheckBlackBodySkyTemperature
 
 equation
   TOut = TIn;
-  assert(TOut > TMin, "In " + getInstanceName() + ": Weather data black-body sky temperature out of bounds.\n" + "   TOut = " + String(
-    TOut));
-  assert(TOut < TMax, "In " + getInstanceName() + ": Weather data black-body sky temperature out of bounds.\n" + "   TOut = " + String(
+  assert(noEvent(TOut > TMin and TOut < TMax), "In " + getInstanceName() + ": Weather data black-body sky temperature out of bounds.\n" + "   TOut = " + String(
     TOut));
 
   annotation (
@@ -35,6 +33,11 @@ the simulation will stop with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2020, by Michael Wetter:<br/>
+Added <code>noEvent</code>.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1340\">#1340</a>.
+</li>
 <li>
 January 31, 2020 by Filip Jorissen:<br/>
 Improved error message.
