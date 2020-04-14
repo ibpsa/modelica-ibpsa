@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples.CheckCeilingHeight", startTime=0, tolerance=1e-6, stopTime=8640000, method="dassl", resultFile="CheckCeilingHeight");
+simulateModel("IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples.LimitMin", startTime=0, tolerance=1e-6, stopTime=8640000, method="dassl", resultFile="LimitMin");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
  y = {"cheCeiHei.ceiHeiIn","cheCeiHei.ceiHeiOut"},
@@ -9,6 +9,6 @@ createPlot(id = 1,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "CheckCeilingHeight.mat",
+ filename = "LimitMin.mat",
  leftTitleType = 1,
  bottomTitleType = 1);

@@ -13,7 +13,8 @@ block CheckPressure
   constant Modelica.SIunits.Pressure PMin=3100 "Minimum allowed pressure";
   constant Modelica.SIunits.Pressure PMax=120000 "Maximum allowed pressure";
 equation
-  assert(noEvent(PIn > PMin and PIn < PMax), "In " + getInstanceName() + ": Weather data atmospheric pressure out of bounds.\n" + "   PIn = " + String(PIn));
+  assert(noEvent(PIn > PMin and PIn < PMax), "In " + getInstanceName() +
+    ": Weather data atmospheric pressure out of bounds.\n" + "   PIn = " + String(PIn));
   POut = PIn;
 
   annotation (

@@ -19,7 +19,8 @@ block CheckTemperature "Check the validity of temperature data"
 
 equation
   TOut = TIn;
-  assert(noEvent(TOut > TMin and TOut < TMax), "In " + getInstanceName() + ": Weather data dry bulb temperature out of bounds.\n" + "   TOut = " + String(
+  assert(noEvent(TOut > TMin and TOut < TMax), "In " + getInstanceName() +
+     ": Weather data dry bulb temperature out of bounds.\n" + "   TOut = " + String(
     TOut));
   annotation (
     defaultComponentName="cheTem",
