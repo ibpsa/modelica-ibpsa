@@ -14,6 +14,8 @@ import os
 import shutil
 import numpy as np 
 import copy
+import sys
+from pathlib import Path
 from datetime import date
 # Make code Verbose
 CodeVerbose = True
@@ -24,12 +26,15 @@ CLEAN_MAT = True
 # Erse anything but the Json file results in the ResultJson folder and .matfiles
 DelEvr = False
 #Get IBPSA library from gitHub
-FROM_GIT_HUB = False
+FROM_GIT_HUB = True
 # Modelica IBPSA Library working branch
 #BRANCH = 'issue1314_BESTEST_weather'
 BRANCH ='master'
-#Path to local library copy
-LIBPATH = "C:\\Users\\ettor\\Documents\\Repositories\\MODELICA\\TRY\\modelica-ibpsa\\IBPSA"
+#Path to local library copy (This assumes the script is run Inside the library folder)
+ScriptPath = sys.path[0]
+path = Path(ScriptPath)
+levels_up = 5 # goes up five levels to get the IBPSA folder
+LIBPATH = str(path.parents[levels_up-1])
 # simulator, Dymola
 TOOL = 'dymola'
 
@@ -39,30 +44,30 @@ PACKAGES = 'IBPSA.BoundaryConditions.BESTEST.Validation'
 CASES = ['WD100','WD200','WD300','WD400','WD500','WD600']
 
 
-reVals= ['Azi000Til00.H', 'Azi000Til00.HPer', 'Azi000Til00.HDir.H', 'Azi000Til00.HDiffIso.H', \
- 'Azi000Til00.HDiffPer.H', 'Azi000Til90.H', 'Azi000Til90.HPer', 'Azi000Til90.HDir.H', \
- 'Azi000Til90.HDiffIso.H', 'Azi000Til90.HDiffPer.H', 'Azi270Til90.H', 'Azi270Til90.HPer',\
- 'Azi270Til90.HDir.H', 'Azi270Til90.HDiffIso.H', 'Azi270Til90.HDiffPer.H', \
- 'Azi180Til90.H', 'Azi180Til90.HPer', 'Azi180Til90.HDir.H', 'Azi180Til90.HDiffIso.H',\
- 'Azi180Til90.HDiffPer.H', 'Azi090Til90.H', 'Azi090Til90.HPer', 'Azi090Til90.HDir.H',\
- 'Azi090Til90.HDiffIso.H', 'Azi090Til90.HDiffPer.H', 'Azi315Til90.H', 'Azi315Til90.HPer',\
- 'Azi315Til90.HDir.H', 'Azi315Til90.HDiffIso.H', 'Azi315Til90.HDiffPer.H', 'Azi045Til90.H',\
- 'Azi045Til90.HDir.H', 'Azi045Til90.HDiffIso.H', 'Azi045Til90.HDiffPer.H', 'Azi270Til30.H', \
- 'Azi270Til30.HDir.H', 'Azi270Til30.HDiffIso.H', 'Azi270Til30.HDiffPer.H', 'Azi000Til30.H', \
- 'Azi000Til30.HDir.H', 'Azi000Til30.HDiffIso.H', 'Azi000Til30.HDiffPer.H', 'Azi000Til30.HPer',\
- 'Azi090Til30.H', 'Azi090Til30.HPer', 'Azi090Til30.HDir.H', 'Azi090Til30.HDiffPer.H', \
- 'toDryAir.XiDry', 'weaBus.pAtm', 'weaBus.TDryBul', 'weaBus.relHum', 'weaBus.TBlaSky', \
- 'weaBus.TDewPoi', 'weaBus.TWetBul', 'weaBus.nOpa', 'weaBus.nTot', 'weaBus.winDir', \
- 'weaBus.winSpe', 'weaBusDew.TBlaSky','Azi270Til30.HPer','Azi045Til90.HPer','Azi090Til30.HDiffIso.H']
+reVals= ['azi000til00.H', 'azi000til00.HPer', 'azi000til00.HDir.H', 'azi000til00.HDiffIso.H', \
+ 'azi000til00.HDiffPer.H', 'azi000til90.H', 'azi000til90.HPer', 'azi000til90.HDir.H', \
+ 'azi000til90.HDiffIso.H', 'azi000til90.HDiffPer.H', 'azi270til90.H', 'azi270til90.HPer',\
+ 'azi270til90.HDir.H', 'azi270til90.HDiffIso.H', 'azi270til90.HDiffPer.H', \
+ 'azi180til90.H', 'azi180til90.HPer', 'azi180til90.HDir.H', 'azi180til90.HDiffIso.H',\
+ 'azi180til90.HDiffPer.H', 'azi090til90.H', 'azi090til90.HPer', 'azi090til90.HDir.H',\
+ 'azi090til90.HDiffIso.H', 'azi090til90.HDiffPer.H', 'azi315til90.H', 'azi315til90.HPer',\
+ 'azi315til90.HDir.H', 'azi315til90.HDiffIso.H', 'azi315til90.HDiffPer.H', 'azi045til90.H',\
+ 'azi045til90.HDir.H', 'azi045til90.HDiffIso.H', 'azi045til90.HDiffPer.H', 'azi270til30.H', \
+ 'azi270til30.HDir.H', 'azi270til30.HDiffIso.H', 'azi270til30.HDiffPer.H', 'azi000til30.H', \
+ 'azi000til30.HDir.H', 'azi000til30.HDiffIso.H', 'azi000til30.HDiffPer.H', 'azi000til30.HPer',\
+ 'azi090til30.H', 'azi090til30.HPer', 'azi090til30.HDir.H', 'azi090til30.HDiffPer.H', \
+ 'toDryAir.XiDry', 'weaBusHHorIR.pAtm', 'weaBusHHorIR.TDryBul', 'weaBusHHorIR.relHum', 'weaBusHHorIR.TBlaSky', \
+ 'weaBusHHorIR.TDewPoi', 'weaBusHHorIR.TWetBul', 'weaBusHHorIR.nOpa', 'weaBusHHorIR.nTot', 'weaBusHHorIR.winDir', \
+ 'weaBusHHorIR.winSpe', 'weaBusTDryBulTDewPoinOpa.TBlaSky','azi270til30.HPer','azi045til90.HPer','azi090til30.HDiffIso.H']
 
 
 
-#Software specifications 
+#Software specifications
+library_name = 'IBPSA'
+library_version = 'v4.0.0dev'
 modeler_organization = 'LBNL'
 modeler_organization_for_tables_and_charts ='LBNL'
-program_name_and_version = 'IBPSA v4.0.0dev commit: 44c8cb5446f16e6f241494fb47f7d61418248f69, Buildings v7.0.0dev 56a796c3f2b93d86e5ea8c9aa3084457b160a478'
 program_name_for_tables_and_charts = 'BuildingsPy & Python'
-program_version_release_date = '08/28/2018'
 results_submission_date = str(date.today().strftime('%m/%d/%Y'))
 
 def create_working_directory():
@@ -74,6 +79,7 @@ def create_working_directory():
     if CodeVerbose:
         print("Created directory {}".format(worDir))    
     return worDir
+
 def checkout_repository(working_directory, CaseDict):
     ''' The function will download the repository from GitHub or a copy from a local library 
           to the temporary working directory
@@ -86,7 +92,9 @@ def checkout_repository(working_directory, CaseDict):
     import os
     from git import Repo
     import git
+    import time
     d = {}
+    d['LibName'] = CaseDict['LibName']
     if CaseDict['from_git_hub']:
         git_url = "https://github.com/ibpsa/modelica-ibpsa"
         r = Repo.clone_from(git_url, working_directory)
@@ -97,14 +105,20 @@ def checkout_repository(working_directory, CaseDict):
         # Print commit
         d['branch'] = CaseDict['BRANCH']
         d['commit'] = str(r.active_branch.commit)
+        headcommit = r.head.commit
+        time.asctime(time.gmtime(headcommit.committed_date))
+        d['commit_time']= time.strftime("%m/%d/%Y", time.gmtime(headcommit.committed_date))
     else:
         # This is a hack to get the local copy of the repository
-        des =  os.path.join(working_directory, "IBPSA")
-        #des = "\\\\?\\" + os.path.join(working_directory, "IBPSA")
+        des =  os.path.join(working_directory, d['LibName'])
         if CodeVerbose:
-            print("*** Copying IBPSA library to {}".format(des))
-        #   shutil.copytree("\\\\?\\"+"C:\\Users\\ettor\\Documents\\Repositories\\MODELICA\\TRY\\modelica-ibpsa\\IBPSA", des) 
-        shutil.copytree(CaseDict['LIBPATH'], des) 
+            print("*** Copying"+d['LibName']+" library to {}".format(des))
+        shutil.copytree(CaseDict['LIBPATH'], des)
+        if CodeVerbose:
+            print("Since this a local copy of the library is in use, remember to manyally add software version and commit")
+            d['branch'] ='AddManually'
+            d['commit'] ='AddManually'
+            d['commit_time']= 'AddManually'
     return d
 
 def get_cases(CaseDict):
@@ -299,288 +313,288 @@ def MapDymolaAndJson(results,case,resFin):
     """
   
     dictHourly = [ {'json':'dry_bulb_temperature',
-                'mat':'weaBus.TDryBul'},               
+                'mat':'weaBusHHorIR.TDryBul'},               
               {'json':'relative_humidity',
-               'mat':'weaBus.relHum'},
+               'mat':'weaBusHHorIR.relHum'},
               {'json':'humidity_ratio',
                'mat': 'toDryAir.XiDry'},
               {'json':'wet_bulb_temperature',
-               'mat':'weaBus.TWetBul'},
+               'mat':'weaBusHHorIR.TWetBul'},
               {'json':'wind_speed', 
-               'mat':'weaBus.winSpe'},
+               'mat':'weaBusHHorIR.winSpe'},
               {'json':'wind_direction',
-               'mat':'weaBus.winDir'},
+               'mat':'weaBusHHorIR.winDir'},
               {'json':'station_pressure', 
-               'mat':'weaBus.pAtm'},
+               'mat':'weaBusHHorIR.pAtm'},
               {'json':'total_cloud_cover', 
-               'mat':'weaBus.nTot'},
+               'mat':'weaBusHHorIR.nTot'},
               {'json':'opaque_cloud_cover', 
-               'mat':'weaBus.nOpa'},
+               'mat':'weaBusHHorIR.nOpa'},
               {'json':'sky_temperature',
-               'matHor':'weaBus.TBlaSky',
-               'matDew':'weaBusDew.TBlaSky'},
+               'matHor':'weaBusHHorIR.TBlaSky',
+               'matDew':'weaBusTDryBulTDewPoinOpa.TBlaSky'},
               {'json':'total_horizontal_radiation',
-               'matIso':'Azi000Til00.H',
-               'matPer':'Azi000Til00.HPer'},
+               'matIso':'azi000til00.H',
+               'matPer':'azi000til00.HPer'},
               {'json':'beam_horizontal_radiation',
-               'mat':'Azi000Til00.HDir.H'},
+               'mat':'azi000til00.HDir.H'},
               {'json':'diffuse_horizontal_radiation',
-               'matIso':'Azi000Til00.HDiffIso.H',
-               'matPer':'Azi000Til00.HDiffPer.H'},             
+               'matIso':'azi000til00.HDiffIso.H',
+               'matPer':'azi000til00.HDiffPer.H'},             
               {'json':'total_radiation_s_90',
-               'matIso':'Azi000Til90.H',
-               'matPer':'Azi000Til90.HPer'},
+               'matIso':'azi000til90.H',
+               'matPer':'azi000til90.HPer'},
               {'json':'total_beam_radiation_s_90',
-               'mat':'Azi000Til90.HDir.H'},
+               'mat':'azi000til90.HDir.H'},
               {'json':'total_diffuse_radiation_s_90',
-               'matIso':'Azi000Til90.HDiffIso.H',
-               'matPer':'Azi000Til90.HDiffPer.H'},
+               'matIso':'azi000til90.HDiffIso.H',
+               'matPer':'azi000til90.HDiffPer.H'},
               {'json':'total_radiation_e_90',
-               'matIso':'Azi270Til90.H',
-               'matPer':'Azi270Til90.HPer'},
+               'matIso':'azi270til90.H',
+               'matPer':'azi270til90.HPer'},
               {'json':'total_beam_radiation_e_90',
-               'mat':'Azi270Til90.HDir.H'},
+               'mat':'azi270til90.HDir.H'},
               {'json':'total_diffuse_radiation_e_90',
-               'matIso':'Azi270Til90.HDiffIso.H',
-               'matPer':'Azi270Til90.HDiffPer.H'},
+               'matIso':'azi270til90.HDiffIso.H',
+               'matPer':'azi270til90.HDiffPer.H'},
               {'json':'total_radiation_n_90',
-               'matIso':'Azi180Til90.H',
-               'matPer':'Azi180Til90.HPer'},
+               'matIso':'azi180til90.H',
+               'matPer':'azi180til90.HPer'},
               {'json':'total_beam_radiation_n_90',
-               'mat':'Azi180Til90.HDir.H'},
+               'mat':'azi180til90.HDir.H'},
               {'json':'total_diffuse_radiation_n_90',
-               'matIso':'Azi180Til90.HDiffIso.H',
-               'matPer':'Azi180Til90.HDiffPer.H'},
+               'matIso':'azi180til90.HDiffIso.H',
+               'matPer':'azi180til90.HDiffPer.H'},
               {'json':'total_radiation_w_90',
-               'matIso':'Azi090Til90.H',
-               'matPer':'Azi090Til90.HPer'},
+               'matIso':'azi090til90.H',
+               'matPer':'azi090til90.HPer'},
               {'json':'total_beam_radiation_w_90',
-               'mat':'Azi090Til90.HDir.H'},
+               'mat':'azi090til90.HDir.H'},
               {'json':'total_diffuse_radiation_w_90',
-               'matIso':'Azi090Til90.HDiffIso.H',
-               'matPer':'Azi090Til90.HDiffPer.H'},
+               'matIso':'azi090til90.HDiffIso.H',
+               'matPer':'azi090til90.HDiffPer.H'},
               {'json':'total_radiation_45_e_90',
-               'matIso':'Azi315Til90.H',
-               'matPer':'Azi315Til90.HPer'},
+               'matIso':'azi315til90.H',
+               'matPer':'azi315til90.HPer'},
               {'json':'total_beam_radiation_45_e_90',
-               'mat':'Azi315Til90.HDir.H'},
+               'mat':'azi315til90.HDir.H'},
               {'json':'total_diffuse_radiation_45_e_90', 
-               'matIso':'Azi315Til90.HDiffIso.H',
-               'matPer':'Azi315Til90.HDiffPer.H'},
+               'matIso':'azi315til90.HDiffIso.H',
+               'matPer':'azi315til90.HDiffPer.H'},
               {'json':'total_radiation_45_w_90',
-               'matIso':'Azi045Til90.H',
-               'matPer':'Azi045Til90.HPer'},
+               'matIso':'azi045til90.H',
+               'matPer':'azi045til90.HPer'},
               {'json':'total_beam_radiation_45_w_90',
-               'mat':'Azi045Til90.HDir.H'},
+               'mat':'azi045til90.HDir.H'},
               {'json':'total_diffuse_radiation_45_w_90',
-               'matIso':'Azi045Til90.HDiffIso.H',
-               'matPer':'Azi045Til90.HDiffPer.H'},
+               'matIso':'azi045til90.HDiffIso.H',
+               'matPer':'azi045til90.HDiffPer.H'},
               {'json':'total_radiation_e_30',
-               'matIso':'Azi270Til30.H',
-               'matPer':'Azi270Til30.HPer'},
+               'matIso':'azi270til30.H',
+               'matPer':'azi270til30.HPer'},
               {'json':'total_beam_radiation_e_30',
-               'mat':'Azi270Til30.HDir.H'},
+               'mat':'azi270til30.HDir.H'},
               {'json':'total_diffuse_radiation_e_30',
-               'matIso':'Azi270Til30.HDiffIso.H',
-               'matPer':'Azi270Til30.HDiffPer.H'},
+               'matIso':'azi270til30.HDiffIso.H',
+               'matPer':'azi270til30.HDiffPer.H'},
               {'json':'total_radiation_s_30',
-               'matIso':'Azi000Til30.H',
-               'matPer':'Azi000Til30.HPer'},
+               'matIso':'azi000til30.H',
+               'matPer':'azi000til30.HPer'},
               {'json':'total_beam_radiation_s_30',
-               'mat':'Azi000Til30.HDir.H'},
+               'mat':'azi000til30.HDir.H'},
               {'json':'total_diffuse_radiation_s_30',
-               'matIso':'Azi000Til30.HDiffIso.H',
-               'matPer':'Azi000Til30.HDiffPer.H'},
+               'matIso':'azi000til30.HDiffIso.H',
+               'matPer':'azi000til30.HDiffPer.H'},
               {'json':'total_radiation_w_30',
-               'matIso':'Azi090Til30.H',
-               'matPer':'Azi090Til30.HPer'},
+               'matIso':'azi090til30.H',
+               'matPer':'azi090til30.HPer'},
               {'json':'total_beam_radiation_w_30',
-               'mat':'Azi090Til30.HDir.H'},
+               'mat':'azi090til30.HDir.H'},
               {'json':'total_diffuse_radiation_w_30',
-               'matIso':'Azi090Til30.HDiffIso.H',
-               'matPer':'Azi090Til30.HDiffPer.H'}]
+               'matIso':'azi090til30.HDiffIso.H',
+               'matPer':'azi090til30.HDiffPer.H'}]
     dictSubHourly =  [ {'json':'dry_bulb_temperature',
-                'mat':'weaBus.TDryBul'},               
+                'mat':'weaBusHHorIR.TDryBul'},               
               {'json':'relative_humidity',
-               'mat':'weaBus.relHum'},
+               'mat':'weaBusHHorIR.relHum'},
               {'json':'total_horizontal_radiation',
-               'matIso':'Azi000Til00.H',
-               'matPer':'Azi000Til00.HPer'},
+               'matIso':'azi000til00.H',
+               'matPer':'azi000til00.HPer'},
               {'json':'beam_horizontal_radiation',
-               'mat':'Azi000Til00.HDir.H'},
+               'mat':'azi000til00.HDir.H'},
               {'json':'diffuse_horizontal_radiation',
-               'matIso':'Azi000Til00.HDiffIso.H',
-               'matPer':'Azi000Til00.HDiffPer.H'},             
+               'matIso':'azi000til00.HDiffIso.H',
+               'matPer':'azi000til00.HDiffPer.H'},             
               {'json':'total_radiation_s_90',
-               'matIso':'Azi000Til90.H',
-               'matPer':'Azi000Til90.HPer'},
+               'matIso':'azi000til90.H',
+               'matPer':'azi000til90.HPer'},
               {'json':'total_beam_radiation_s_90',
-               'mat':'Azi000Til90.HDir.H'},
+               'mat':'azi000til90.HDir.H'},
               {'json':'total_diffuse_radiation_s_90',
-               'matIso':'Azi000Til90.HDiffIso.H',
-               'matPer':'Azi000Til90.HDiffPer.H'},
+               'matIso':'azi000til90.HDiffIso.H',
+               'matPer':'azi000til90.HDiffPer.H'},
               {'json':'total_radiation_e_90',
-               'matIso':'Azi270Til90.H',
-               'matPer':'Azi270Til90.HPer'},
+               'matIso':'azi270til90.H',
+               'matPer':'azi270til90.HPer'},
               {'json':'total_beam_radiation_e_90',
-               'mat':'Azi270Til90.HDir.H'},
+               'mat':'azi270til90.HDir.H'},
               {'json':'total_diffuse_radiation_e_90',
-               'matIso':'Azi270Til90.HDiffIso.H',
-               'matPer':'Azi270Til90.HDiffPer.H'},
+               'matIso':'azi270til90.HDiffIso.H',
+               'matPer':'azi270til90.HDiffPer.H'},
               {'json':'total_radiation_n_90',
-               'matIso':'Azi180Til90.H',
-               'matPer':'Azi180Til90.HPer'},
+               'matIso':'azi180til90.H',
+               'matPer':'azi180til90.HPer'},
               {'json':'total_beam_radiation_n_90',
-               'mat':'Azi180Til90.HDir.H'},
+               'mat':'azi180til90.HDir.H'},
               {'json':'total_diffuse_radiation_n_90',
-               'matIso':'Azi180Til90.HDiffIso.H',
-               'matPer':'Azi180Til90.HDiffPer.H'},
+               'matIso':'azi180til90.HDiffIso.H',
+               'matPer':'azi180til90.HDiffPer.H'},
               {'json':'total_radiation_w_90',
-               'matIso':'Azi090Til90.H',
-               'matPer':'Azi090Til90.HPer'},
+               'matIso':'azi090til90.H',
+               'matPer':'azi090til90.HPer'},
               {'json':'total_beam_radiation_w_90',
-               'mat':'Azi090Til90.HDir.H'},
+               'mat':'azi090til90.HDir.H'},
               {'json':'total_diffuse_radiation_w_90',
-               'matIso':'Azi090Til90.HDiffIso.H',
-               'matPer':'Azi090Til90.HDiffPer.H'},
+               'matIso':'azi090til90.HDiffIso.H',
+               'matPer':'azi090til90.HDiffPer.H'},
               {'json':'total_radiation_45_e_90',
-               'matIso':'Azi315Til90.H',
-               'matPer':'Azi315Til90.HPer'},
+               'matIso':'azi315til90.H',
+               'matPer':'azi315til90.HPer'},
               {'json':'total_beam_radiation_45_e_90',
-               'mat':'Azi315Til90.HDir.H'},
+               'mat':'azi315til90.HDir.H'},
               {'json':'total_diffuse_radiation_45_e_90', 
-               'matIso':'Azi315Til90.HDiffIso.H',
-               'matPer':'Azi315Til90.HDiffPer.H'},
+               'matIso':'azi315til90.HDiffIso.H',
+               'matPer':'azi315til90.HDiffPer.H'},
               {'json':'total_radiation_45_w_90',
-               'matIso':'Azi045Til90.H',
-               'matPer':'Azi045Til90.HPer'},
+               'matIso':'azi045til90.H',
+               'matPer':'azi045til90.HPer'},
               {'json':'total_beam_radiation_45_w_90',
-               'mat':'Azi045Til90.HDir.H'},
+               'mat':'azi045til90.HDir.H'},
               {'json':'total_diffuse_radiation_45_w_90',
-               'matIso':'Azi045Til90.HDiffIso.H',
-               'matPer':'Azi045Til90.HDiffPer.H'},
+               'matIso':'azi045til90.HDiffIso.H',
+               'matPer':'azi045til90.HDiffPer.H'},
               {'json':'total_radiation_e_30',
-               'matIso':'Azi270Til30.H',
-               'matPer':'Azi270Til30.HPer'},
+               'matIso':'azi270til30.H',
+               'matPer':'azi270til30.HPer'},
               {'json':'total_beam_radiation_e_30',
-               'mat':'Azi270Til30.HDir.H'},
+               'mat':'azi270til30.HDir.H'},
               {'json':'total_diffuse_radiation_e_30',
-               'matIso':'Azi270Til30.HDiffIso.H',
-               'matPer':'Azi270Til30.HDiffPer.H'},
+               'matIso':'azi270til30.HDiffIso.H',
+               'matPer':'azi270til30.HDiffPer.H'},
               {'json':'total_radiation_s_30',
-               'matIso':'Azi000Til30.H',
-               'matPer':'Azi000Til30.HPer'},
+               'matIso':'azi000til30.H',
+               'matPer':'azi000til30.HPer'},
               {'json':'total_beam_radiation_s_30',
-               'mat':'Azi000Til30.HDir.H'},
+               'mat':'azi000til30.HDir.H'},
               {'json':'total_diffuse_radiation_s_30',
-               'matIso':'Azi000Til30.HDiffIso.H',
-               'matPer':'Azi000Til30.HDiffPer.H'},
+               'matIso':'azi000til30.HDiffIso.H',
+               'matPer':'azi000til30.HDiffPer.H'},
               {'json':'total_radiation_w_30',
-               'matIso':'Azi090Til30.H',
-               'matPer':'Azi090Til30.HPer'},
+               'matIso':'azi090til30.H',
+               'matPer':'azi090til30.HPer'},
               {'json':'total_beam_radiation_w_30',
-               'mat':'Azi090Til30.HDir.H'},
+               'mat':'azi090til30.HDir.H'},
               {'json':'total_diffuse_radiation_w_30',
-               'matIso':'Azi090Til30.HDiffIso.H',
-               'matPer':'Azi090Til30.HDiffPer.H'},
+               'matIso':'azi090til30.HDiffIso.H',
+               'matPer':'azi090til30.HDiffPer.H'},
               {'json':'integrated_total_horizontal_radiation',
-               'matIso':'Azi000Til00.H',
-               'matPer':'Azi000Til00.HPer'},
+               'matIso':'azi000til00.H',
+               'matPer':'azi000til00.HPer'},
               {'json':'integrated_beam_horizontal_radiation',
-               'mat':'Azi000Til00.HDir.H'},
+               'mat':'azi000til00.HDir.H'},
               {'json':'integrated_diffuse_horizontal_radiation',
-               'matIso':'Azi000Til00.HDiffIso.H',
-               'matPer':'Azi000Til00.HDiffPer.H'}]
+               'matIso':'azi000til00.HDiffIso.H',
+               'matPer':'azi000til00.HDiffPer.H'}]
     dictYearly = [ {'json':'average_dry_bulb_temperature',
-                'mat':'weaBus.TDryBul'},               
+                'mat':'weaBusHHorIR.TDryBul'},               
               {'json':'average_relative_humidity',
-               'mat':'weaBus.relHum'},
+               'mat':'weaBusHHorIR.relHum'},
               {'json':'average_humidity_ratio',
                'mat': 'toDryAir.XiDry'},
               {'json':'average_wet_bulb_temperature',
-               'mat':'weaBus.TWetBul'},
+               'mat':'weaBusHHorIR.TWetBul'},
               {'json':'average_dew_point_temperature',
-               'mat':'weaBus.TDewPoi'},
+               'mat':'weaBusHHorIR.TDewPoi'},
               {'json':'total_horizontal_solar_radiation',
-               'matIso':'Azi000Til00.H',
-               'matPer':'Azi000Til00.HPer'},
+               'matIso':'azi000til00.H',
+               'matPer':'azi000til00.HPer'},
               {'json':'total_horizontal_beam_solar_radiation',
-               'mat':'Azi000Til00.HDir.H'},
+               'mat':'azi000til00.HDir.H'},
               {'json':'total_horizontal_diffuse_solar_radiation',
-               'matIso':'Azi000Til00.HDiffIso.H',
-               'matPer':'Azi000Til00.HDiffPer.H'},             
+               'matIso':'azi000til00.HDiffIso.H',
+               'matPer':'azi000til00.HDiffPer.H'},             
               {'json':'total_radiation_s_90',
-               'matIso':'Azi000Til90.H',
-               'matPer':'Azi000Til90.HPer'},
+               'matIso':'azi000til90.H',
+               'matPer':'azi000til90.HPer'},
               {'json':'total_beam_radiation_s_90',
-               'mat':'Azi000Til90.HDir.H'},
+               'mat':'azi000til90.HDir.H'},
               {'json':'total_diffuse_radiation_s_90',
-               'matIso':'Azi000Til90.HDiffIso.H',
-               'matPer':'Azi000Til90.HDiffPer.H'},
+               'matIso':'azi000til90.HDiffIso.H',
+               'matPer':'azi000til90.HDiffPer.H'},
               {'json':'total_radiation_e_90',
-               'matIso':'Azi270Til90.H',
-               'matPer':'Azi270Til90.HPer'},
+               'matIso':'azi270til90.H',
+               'matPer':'azi270til90.HPer'},
               {'json':'total_beam_radiation_e_90',
-               'mat':'Azi270Til90.HDir.H'},
+               'mat':'azi270til90.HDir.H'},
               {'json':'total_diffuse_radiation_e_90',
-               'matIso':'Azi270Til90.HDiffIso.H',
-               'matPer':'Azi270Til90.HDiffPer.H'},
+               'matIso':'azi270til90.HDiffIso.H',
+               'matPer':'azi270til90.HDiffPer.H'},
               {'json':'total_radiation_n_90',
-               'matIso':'Azi180Til90.H',
-               'matPer':'Azi180Til90.HPer'},
+               'matIso':'azi180til90.H',
+               'matPer':'azi180til90.HPer'},
               {'json':'total_beam_radiation_n_90',
-               'mat':'Azi180Til90.HDir.H'},
+               'mat':'azi180til90.HDir.H'},
               {'json':'total_diffuse_radiation_n_90',
-               'matIso':'Azi180Til90.HDiffIso.H',
-               'matPer':'Azi180Til90.HDiffPer.H'},
+               'matIso':'azi180til90.HDiffIso.H',
+               'matPer':'azi180til90.HDiffPer.H'},
               {'json':'total_radiation_w_90',
-               'matIso':'Azi090Til90.H',
-               'matPer':'Azi090Til90.HPer'},
+               'matIso':'azi090til90.H',
+               'matPer':'azi090til90.HPer'},
               {'json':'total_beam_radiation_w_90',
-               'mat':'Azi090Til90.HDir.H'},
+               'mat':'azi090til90.HDir.H'},
               {'json':'total_diffuse_radiation_w_90',
-               'matIso':'Azi090Til90.HDiffIso.H',
-               'matPer':'Azi090Til90.HDiffPer.H'},
+               'matIso':'azi090til90.HDiffIso.H',
+               'matPer':'azi090til90.HDiffPer.H'},
               {'json':'total_radiation_45_e_90',
-               'matIso':'Azi315Til90.H',
-               'matPer':'Azi315Til90.HPer'},
+               'matIso':'azi315til90.H',
+               'matPer':'azi315til90.HPer'},
               {'json':'total_beam_radiation_45_e_90',
-               'mat':'Azi315Til90.HDir.H'},
+               'mat':'azi315til90.HDir.H'},
               {'json':'total_diffuse_radiation_45_e_90', 
-               'matIso':'Azi315Til90.HDiffIso.H',
-               'matPer':'Azi315Til90.HDiffPer.H'},
+               'matIso':'azi315til90.HDiffIso.H',
+               'matPer':'azi315til90.HDiffPer.H'},
               {'json':'total_radiation_45_w_90',
-               'matIso':'Azi045Til90.H',
-               'matPer':'Azi045Til90.HPer'},
+               'matIso':'azi045til90.H',
+               'matPer':'azi045til90.HPer'},
               {'json':'total_beam_radiation_45_w_90',
-               'mat':'Azi045Til90.HDir.H'},
+               'mat':'azi045til90.HDir.H'},
               {'json':'total_diffuse_radiation_45_w_90',
-               'matIso':'Azi045Til90.HDiffIso.H',
-               'matPer':'Azi045Til90.HDiffPer.H'},
+               'matIso':'azi045til90.HDiffIso.H',
+               'matPer':'azi045til90.HDiffPer.H'},
               {'json':'total_radiation_e_30',
-               'matIso':'Azi270Til30.H',
-               'matPer':'Azi270Til30.HPer'},
+               'matIso':'azi270til30.H',
+               'matPer':'azi270til30.HPer'},
               {'json':'total_beam_radiation_e_30',
-               'mat':'Azi270Til30.HDir.H'},
+               'mat':'azi270til30.HDir.H'},
               {'json':'total_diffuse_radiation_e_30',
-               'matIso':'Azi270Til30.HDiffIso.H',
-               'matPer':'Azi270Til30.HDiffPer.H'},
+               'matIso':'azi270til30.HDiffIso.H',
+               'matPer':'azi270til30.HDiffPer.H'},
               {'json':'total_radiation_s_30',
-               'matIso':'Azi000Til30.H',
-               'matPer':'Azi000Til30.HPer'},
+               'matIso':'azi000til30.H',
+               'matPer':'azi000til30.HPer'},
               {'json':'total_beam_radiation_s_30',
-               'mat':'Azi000Til30.HDir.H'},
+               'mat':'azi000til30.HDir.H'},
               {'json':'total_diffuse_radiation_s_30',
-               'matIso':'Azi000Til30.HDiffIso.H',
-               'matPer':'Azi000Til30.HDiffPer.H'},
+               'matIso':'azi000til30.HDiffIso.H',
+               'matPer':'azi000til30.HDiffPer.H'},
               {'json':'total_radiation_w_30',
-               'matIso':'Azi090Til30.H',
-               'matPer':'Azi090Til30.HPer'},
+               'matIso':'azi090til30.H',
+               'matPer':'azi090til30.HPer'},
               {'json':'total_beam_radiation_w_30',
-               'mat':'Azi090Til30.HDir.H'},
+               'mat':'azi090til30.HDir.H'},
               {'json':'total_diffuse_radiation_w_30',
-               'matIso':'Azi090Til30.HDiffIso.H',
-               'matPer':'Azi090Til30.HDiffPer.H'}]    
+               'matIso':'azi090til30.HDiffIso.H',
+               'matPer':'azi090til30.HDiffPer.H'}]    
     Days={'WD100':{	'days': ['yearly','may4','jul14','sep6' ],
                'tstart' : [0,10627200,16761600,21427200],
             	'tstop' : [0,10713600,16848000,21513600]},
@@ -675,7 +689,7 @@ def ExtrapolateResults(dicT,dR,day):
     for dT in dicT:
         if dR['variable'] in list(dT.values()) and 'integrated' not in dT['json']:
             if day['days'] in 'yearly':
-                if 'Azi' in dR['variable']:
+                if 'azi' in dR['variable']:
                     res = np.trapz(dR['value'],x = dR['time'])/3600
                     
                 else:
@@ -729,13 +743,17 @@ if __name__=='__main__':
            'BRANCH': BRANCH,
            'LIBPATH': LIBPATH,
            'CLEAN_MAT': CLEAN_MAT,
-           'DelEvr': DelEvr}
+           'DelEvr': DelEvr,
+           'LibName':library_name}
     if not POST_PROCESS_ONLY:  
         #Get list of case to simulate with their parameters        
         lib_dir = create_working_directory()
         CaseDict['lib_dir']=lib_dir
         list_of_cases = get_cases(CaseDict)
         d = checkout_repository(lib_dir, CaseDict)
+        program_version_release_date = d['commit_time']
+        program_name_and_version = d['LibName']+' '+library_version +' commit: '+ d['commit']
+
         # Add the directory where the library has been checked out
         for case in list_of_cases:
             case['lib_dir'] = lib_dir
@@ -754,6 +772,12 @@ if __name__=='__main__':
         os.chdir(CWD)
         shutil.rmtree(lib_dir)
     
+    # Post process only#
+    if POST_PROCESS_ONLY:
+        print('Add Manually program realease date and version at the end of the script')
+        program_version_release_date = 'AddManually'
+        program_name_and_version = 'AddManually'
+        
     # Organize results 
     mat_dir=os.path.join(CWD,'simulations')
     Matfd=_organize_cases(mat_dir)
@@ -780,28 +804,28 @@ if __name__=='__main__':
         if Subcase in 'Iso':
             CaseDictIsoHor = copy.deepcopy(CaseDict)
             CaseDictIsoHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'Per')
-            CaseDictIsoHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusDew')
+            CaseDictIsoHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusTDryBulTDewPoinOpa')
             resFinIsoHor =  WeatherJson(resForm,Matfd,CaseDict)
-            with open(os.path.join(nJsonRes,'WeatherIsoHor.json'),'w') as outfile:
+            with open(os.path.join(nJsonRes,'WeatherIsoHHorIR.json'),'w') as outfile:
                 json.dump(resFinIsoHor,outfile, sort_keys=True, indent=4)
             CaseDictIsoDew = copy.deepcopy(CaseDict)              
             CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'Per')
-            CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBus.TDewPoi')
+            CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusHHorIR.TDewPoi')
             resFinIsoDew =  WeatherJson(resForm,Matfd,CaseDict)
-            with open(os.path.join(nJsonRes,'WeatherIsoDew.json'),'w') as outfile:
+            with open(os.path.join(nJsonRes,'WeatherIsoTDryBulTDewPoinOpa.json'),'w') as outfile:
                 json.dump(resFinIsoDew,outfile, sort_keys=True, indent=4)
         elif Subcase in 'Per':
             CaseDictPerHor = copy.deepcopy(CaseDict)
             CaseDictPerHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'Per')
-            CaseDictPerHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusDew')
+            CaseDictPerHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusTDryBulTDewPoinOpa')
             resFinPerHor =  WeatherJson(resForm,Matfd,CaseDict)
-            with open(os.path.join(nJsonRes,'WeatherPerHor.json'),'w') as outfile:
+            with open(os.path.join(nJsonRes,'WeatherPerHHorIR.json'),'w') as outfile:
                 json.dump(resFinPerHor,outfile, sort_keys=True, indent=4)
             CaseDictPerDew = copy.deepcopy(CaseDict)
             CaseDictPerDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'Per')
-            CaseDictPerDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBus.TDewPoi')
+            CaseDictPerDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusHHorIR.TDewPoi')
             resFinPerDew =  WeatherJson(resForm,Matfd,CaseDict)
-            with open(os.path.join(nJsonRes,'WeatherPerDew.json'),'w') as outfile:
+            with open(os.path.join(nJsonRes,'WeatherPerTDryBulTDewPoinOpa.json'),'w') as outfile:
                 json.dump(resFinPerDew,outfile, sort_keys=True, indent=4)
     if DelEvr:
         if CodeVerbose:
