@@ -138,7 +138,7 @@ package UsersGuide "User's Guide"
 <li>Clone the last master branch of the IBPSA repository into a temporary directory</li>
 <li>Execute all the simulations and create the folders with the .mat and .json files inside the BESTEST/Simulations folder</li>
 </ul>
-<p><h4>References</h4></p>
+<h4>References</h4>
 <p>(Not available yet)</p>
 </html>", revisions="<html>
 </html>"));
