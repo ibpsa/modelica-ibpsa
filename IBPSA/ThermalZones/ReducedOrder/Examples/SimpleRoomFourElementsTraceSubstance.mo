@@ -33,10 +33,11 @@ model SimpleRoomFourElementsTraceSubstance
         extent={{6,-6},{-6,6}},
         rotation=-90,
         origin={-22,-68})));
-  Modelica.Blocks.Sources.Ramp CO2Amb(
+  Modelica.Blocks.Sources.Ramp traSubAmb(
     height=1000,
     duration(displayUnit="d") = 604800,
-    offset=200) annotation (Placement(transformation(extent={{-88,-88},{-68,-68}})));
+    offset=200)
+    annotation (Placement(transformation(extent={{-88,-88},{-68,-68}})));
 protected
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
@@ -54,8 +55,8 @@ equation
           -1.95}},                                                   color={0,127,255}));
   connect(sinAir.ports[1], thermalZoneFourElements.ports[2]) annotation (Line(points={{-22,-62},
           {2,-62},{2,-24},{44,-24},{44,-1.95},{83,-1.95}},                                                            color={0,127,255}));
-  connect(CO2Amb.y,souAir. C_in[1]) annotation (Line(points={{-67,-78},{-35.4,
-          -78},{-35.4,-73.4}},                                                                                   color={0,0,127}));
+  connect(traSubAmb.y, souAir.C_in[1]) annotation (Line(points={{-67,-78},{
+          -35.4,-78},{-35.4,-73.4}}, color={0,0,127}));
   annotation ( Documentation(info="<html>
 <p>This example shows the application of
   <a href=\"IBPSA.ThermalZones.ReducedOrder.RC.OneElement\">
