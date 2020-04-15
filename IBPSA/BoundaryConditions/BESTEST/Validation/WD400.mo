@@ -4,10 +4,12 @@ model WD400  "Test model for BESTEST weather data: high latitude case"
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
-March 11, 2020, by Ettore Zanetti:<br>First implementation.
+March 11, 2020, by Ettore Zanetti:<br/>
+First implementation.
 </li>
 <li>
-April 14, 2020, by Ettore Zanetti:<br>Rework after comments from pull request
+April 14, 2020, by Ettore Zanetti:<br/>
+Rework after comments from pull request
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1339\">#1339</a>.
 </li>
 </ul>
