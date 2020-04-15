@@ -2,7 +2,8 @@ within IBPSA.ThermalZones.ReducedOrder.Examples;
 model SimpleRoomFourElementsTraceSubstance
   "Illustrates the use of a thermal zone with four heat conduction elements and a balance of a trace substance"
   extends Modelica.Icons.Example;
-  extends IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements(thermalZoneFourElements(redeclare package Medium = Media.Air (
+  extends IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElements(
+      thermalZoneFourElements(redeclare package Medium = Media.Air (
             extraPropertiesNames={"C_flow"}), use_C_flow=true));
 
   Modelica.Blocks.Sources.Pulse traSub(
@@ -144,16 +145,17 @@ equation
   <p>This example shows the application of
   <a href=\"IBPSA.ThermalZones.ReducedOrder.RC.FourElements\">
   IBPSA.ThermalZones.ReducedOrder.RC.FourElements</a>
+  considering a trace substance such as co2
   in combination with
   <a href=\"IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
- IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a>
+  IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a>
   and
   <a href=\"IBPSA.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane\">
   IBPSA.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane</a>.
   Solar radiation on tilted surface is calculated using models of
   IBPSA. The thermal zone is a simple room defined in Guideline
   VDI 6007 Part 1 (VDI, 2012). All models, parameters and inputs
-  except sunblinds, separate handling of heat transfer through
+  except concentration of trace substances, sunblinds, separate handling of heat transfer through
   windows, an extra wall element for ground floor (with additional
   area), an extra wall element for roof (with additional area) and
   solar radiation are similar to the ones defined for the
@@ -167,7 +169,7 @@ equation
   <p>VDI. German Association of Engineers Guideline VDI
   6007-1 March 2012. Calculation of transient thermal response of
   rooms and buildings - modelling of rooms.</p>
-  </html>", revisions="<html>
+</html>",   revisions="<html>
   <ul>
   <li>
   April 15, 2020, by Katharina Brinkmann:<br/>

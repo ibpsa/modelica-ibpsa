@@ -1,7 +1,8 @@
 within IBPSA.ThermalZones.ReducedOrder.Examples;
 model SimpleRoomOneElementTraceSubstance "Illustrates the use of a thermal zone with one heat conduction element"
   extends Modelica.Icons.Example;
-  extends IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomOneElement(thermalZoneOneElement(redeclare package Medium = Media.Air (
+  extends IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomOneElement(
+      thermalZoneOneElement(redeclare package Medium = Media.Air (
             extraPropertiesNames={"C_flow"}), use_C_flow=true));
 
   Modelica.Blocks.Sources.Pulse traSub(
@@ -14,9 +15,10 @@ equation
   connect(traSub.y, thermalZoneOneElement.C_flow[1]) annotation (Line(points={{
           -67,-48},{2,-48},{2,26},{43,26}}, color={0,0,127}));
   annotation ( Documentation(info="<html>
-  <p>This example shows the application of
+<p>This example shows the application of
   <a href=\"IBPSA.ThermalZones.ReducedOrder.RC.OneElement\">
   IBPSA.ThermalZones.ReducedOrder.RC.OneElement</a>
+  considering a trace substance such as co2
   in combination with
   <a href=\"IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
  IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a>
@@ -26,7 +28,7 @@ equation
   Solar radiation on tilted surface is calculated using models of
   IBPSA. The thermal zone is a simple room defined in Guideline
   VDI 6007 Part 1 (VDI, 2012). All models, parameters and inputs
-  except sunblinds, separate handling of heat transfer through
+  except concentration of trace substances, sunblinds, separate handling of heat transfer through
   windows, no wall element for internal walls and solar radiation
   are similar to the ones defined for the guideline&apos;s test
   room. For solar radiation, the example relies on the standard
@@ -39,7 +41,7 @@ equation
   <p>VDI. German Association of Engineers Guideline VDI 6007-1
   March 2012. Calculation of transient thermal response of rooms
   and buildings - modelling of rooms.</p>
-  </html>", revisions="<html>
+</html>",   revisions="<html>
   <ul>
   <li>
   April 15, 2020, by Katharina Brinkmann:<br/>
