@@ -42,7 +42,7 @@ model SimpleRoomOneElement
     AWin={7,7},
     ATransparent={7,7},
     AExt={3.5,8},
-    redeclare replaceable package Medium = Modelica.Media.Air.SimpleAir,
+    redeclare package Medium = Modelica.Media.Air.SimpleAir,
     extWallRC(thermCapExt(each der_T(fixed=true))),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=295.15) "Thermal zone"
