@@ -131,9 +131,12 @@ package UsersGuide "User's Guide"
 <p>(Not available yet)</p>
 <h4>Implementation</h4>
 <p>To generate the data shown in this user guide, run </p>
-<p><span style=\"font-family: Courier New;\">cd IBPSA/Resources/src/BoundaryConditions/Validation/BESTEST</span></p>
-<p><span style=\"font-family: Courier New;\">python3 WeatherBESTEST.py</span></p>
-<p><span style=\"font-family: (Default);\">At the beginning of the Python script there are several options that the user can choose, by default the script will:</span></p>
+<pre>
+cd IBPSA/Resources/src/BoundaryConditions/Validation/BESTEST
+python3 WeatherBESTEST.py
+</pre>
+<p>At the beginning of the Python script there are several options that the user can choose, by default the script will:
+</p>
 <ul>
 <li>Clone the last master branch of the IBPSA repository into a temporary directory</li>
 <li>Execute all the simulations and create the folders with the .mat and .json files inside the BESTEST/Simulations folder</li>
