@@ -1,6 +1,9 @@
 within IBPSA.BoundaryConditions.BESTEST.Validation;
 model WD600 "Test model for BESTEST weather data: ground reflectance"
-  extends WD100(lat= 0.6952170009469,  rho = 0.2, alt = 1650);
+  extends WD100(
+    lat= 0.6952170009469,
+    rho = 0.2,
+    alt = 1650);
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

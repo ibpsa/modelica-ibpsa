@@ -11,7 +11,6 @@ model WD100 "Test model for BESTEST weather data: base case"
     ceiHei=alt,
     filNam=Modelica.Utilities.Files.loadResource(
         "modelica://IBPSA/Resources/Data/BoundaryConditions/WeatherData/Validation/725650.mos"),
-
     calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation)
     "reads all weather data and Tsky using horizontal radiation" annotation (
       Placement(transformation(
@@ -93,7 +92,6 @@ model WD100 "Test model for BESTEST weather data: base case"
     ceiHei=alt,
     filNam=Modelica.Utilities.Files.loadResource(
         "modelica://IBPSA/Resources/Data/BoundaryConditions/WeatherData/Validation/725650.mos"),
-
     calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover)
     "Reads all weather data and Tsky using dry bulb temperature, dew point temperature and sky cover"
     annotation (Placement(transformation(
@@ -235,6 +233,5 @@ Rework after comments from pull request
 </html>"),
 experiment(
       StopTime=31539600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+      Tolerance=1e-06));
 end WD100;

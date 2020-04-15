@@ -53,7 +53,7 @@ package UsersGuide "User's Guide"
 </table>
 <p><i>Additional parameters and correlations</i></p>
 <ul>
-<li>Ground reflectance &rho; can be set to 0 or 0.</li>
+<li>Ground reflectance &rho; can be set to 0 or 0. fixme: correct statement.</li>
 <li>Black body temperature calculated using Horizontal radiation or dew point temperature and sky cover</li>
 <li>Perez or Isoentropic sky model used</li>
 </ul>

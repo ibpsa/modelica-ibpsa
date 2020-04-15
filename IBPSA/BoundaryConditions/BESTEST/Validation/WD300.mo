@@ -1,6 +1,9 @@
 within IBPSA.BoundaryConditions.BESTEST.Validation;
 model WD300 "Test model for BESTEST weather data: Southern hemisphere case"
-  extends WD100(lat= -0.58281779711847,  rho = 0, alt = 474);
+  extends WD100(
+    lat= -0.58281779711847,
+    rho = 0,
+    alt = 474);
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

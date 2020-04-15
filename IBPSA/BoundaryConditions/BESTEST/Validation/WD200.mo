@@ -1,6 +1,9 @@
 within IBPSA.BoundaryConditions.BESTEST.Validation;
 model WD200  "Test model for BESTEST weather data: Low Elevation, Hot and Humid Case"
-  extends WD100(lat= 0.58700658732325,  rho = 0, alt = 308);
+  extends WD100(
+    lat= 0.58700658732325,
+    rho = 0,
+    alt = 308);
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
