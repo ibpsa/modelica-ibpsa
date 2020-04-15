@@ -38,6 +38,7 @@ model SimpleRoomFourElementsTraceSubstance
     duration(displayUnit="d") = 604800,
     offset=200)
     annotation (Placement(transformation(extent={{-88,-88},{-68,-68}})));
+
 protected
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
@@ -48,20 +49,19 @@ protected
     state=state_default) "Density, used to compute fluid mass";
 
 equation
-  connect(traSub.y, thermalZoneFourElements.C_flow[1]) annotation (Line(points={{-67,-48},
-          {0,-48},{0,26},{43,26}},          color={0,0,127}));
+  connect(traSub.y, thermalZoneFourElements.C_flow[1])
+    annotation (Line(points={{-67,-48},{0,-48},{0,26},{43,26}},color={0,0,127}));
   connect(souAir.ports[1], thermalZoneFourElements.ports[1])
-    annotation (Line(points={{-41,-58},{2,-58},{2,-24},{44,-24},{44,-1.95},{83,
-          -1.95}},                                                   color={0,127,255}));
-  connect(sinAir.ports[1], thermalZoneFourElements.ports[2]) annotation (Line(points={{-22,-62},
-          {2,-62},{2,-24},{44,-24},{44,-1.95},{83,-1.95}},                                                            color={0,127,255}));
-  connect(traSubAmb.y, souAir.C_in[1]) annotation (Line(points={{-67,-78},{
-          -35.4,-78},{-35.4,-73.4}}, color={0,0,127}));
+    annotation (Line(points={{-41,-58},{2,-58},{2,-24},{44,-24},{44,-1.95},{83,-1.95}},color={0,127,255}));
+  connect(sinAir.ports[1], thermalZoneFourElements.ports[2])
+    annotation (Line(points={{-22,-62},{2,-62},{2,-24},{44,-24},{44,-1.95},{83,-1.95}},color={0,127,255}));
+  connect(traSubAmb.y, souAir.C_in[1])
+    annotation (Line(points={{-67,-78},{-35.4,-78},{-35.4,-73.4}}, color={0,0,127}));
   annotation ( Documentation(info="<html>
 <p>This example shows the application of
-  <a href=\"IBPSA.ThermalZones.ReducedOrder.RC.OneElement\">
-  IBPSA.ThermalZones.ReducedOrder.RC.OneElement</a>
-  considering a trace substance such as co2
+  <a href=\"IBPSA.ThermalZones.ReducedOrder.RC.FourElements\">
+  IBPSA.ThermalZones.ReducedOrder.RC.FourElements</a>
+  considering a trace substance such as CO2
   in combination with
   <a href=\"IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
  IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a>
@@ -70,8 +70,11 @@ equation
   IBPSA.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane</a>.
   Solar radiation on tilted surface is calculated using models of
   IBPSA. The thermal zone is a simple room defined in Guideline
-  VDI 6007 Part 1 (VDI, 2012). All models, parameters and inputs
-  except concentration of trace substances, sunblinds, separate handling of heat transfer through
+  VDI 6007 Part 1 (VDI, 2012).
+  The trace substance calculation is based on the CO2 emissions of 2 persons.
+  They stay in the thermal zone for 12 hours every 24 hours. The air exchange rate is 2 1/h.
+  All further models, parameters and inputs
+  except sunblinds, separate handling of heat transfer through
   windows, no wall element for internal walls and solar radiation
   are similar to the ones defined for the guideline&apos;s test
   room. For solar radiation, the example relies on the standard
@@ -107,6 +110,6 @@ equation
   </html>"),
   experiment(Tolerance=1e-6, StopTime=604800),
   __Dymola_Commands(file=
-  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomOneElementTraceSubstance.mos"
+  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElementsTraceSubstance.mos"
         "Simulate and plot"));
 end SimpleRoomFourElementsTraceSubstance;
