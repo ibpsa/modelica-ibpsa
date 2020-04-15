@@ -3,10 +3,13 @@ model WD500  "Test model for BESTEST weather data: time zone case"
   extends WD100(lat= 0.49858820742,  rho = 0, alt = 236.9);
   annotation (Documentation(revisions="<html>
 <ul>
-<li>March 11, 2020, by Ettore Zanetti:<br>First implementation. </li>
-<li>April 14, 2020, by Ettore Zanetti:<br>Rework after comments from pull request <a href=\"
-https://github.com/ibpsa/modelica-ibpsa/pull/1339\">#1339</a>. </li>
-<li></li>
+<li>
+March 11, 2020, by Ettore Zanetti:<br>First implementation.
+</li>
+<li>
+April 14, 2020, by Ettore Zanetti:<br>Rework after comments from pull request
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1339\">#1339</a>.
+</li>
 </ul>
 </html>", info="<html>
 <h4>WD500: Time Zone Case</h4>

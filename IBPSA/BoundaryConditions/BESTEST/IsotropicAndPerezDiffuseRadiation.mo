@@ -72,10 +72,13 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
-<li>March 11, 2020, by Ettore Zanetti:<br>First implementation. </li>
-<li>April 14, 2020, by Ettore Zanetti:<br>Rework after comments from pull request <a href=\"
-https://github.com/ibpsa/modelica-ibpsa/pull/1339\">#1339</a>. </li>
-<li></li>
+<li>
+March 11, 2020, by Ettore Zanetti:<br>First implementation.
+</li>
+<li>
+April 14, 2020, by Ettore Zanetti:<br>Rework after comments from pull request
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1339\">#1339</a>.
+</li>
 </ul>
 </html>", info="<html>
 <p>This model is used to have as output the global radiation with a certain inclination and orientation using both the Isotropic sky model and the Perez sky model</p>
