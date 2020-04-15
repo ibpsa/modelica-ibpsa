@@ -42,6 +42,10 @@ equation
   </html>", revisions="<html>
   <ul>
   <li>
+  April 15, 2020, by Katharina Brinkmann:<br/>
+  Extend <code>SimpleRoomOneElement</code> for testing trace substances
+  </li>
+  <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaWall</code> to <code>hConWall</code>,
   <code>alphaWin</code> to <code>hConWin</code>

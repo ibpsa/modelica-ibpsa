@@ -170,6 +170,10 @@ equation
   </html>", revisions="<html>
   <ul>
   <li>
+  April 15, 2020, by Katharina Brinkmann:<br/>
+  Extend <code>SimpleRoomFourElements</code> for testing trace substances
+  </li>
+  <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaWall</code> to <code>hConWall</code>,
   <code>alphaRoof</code> to <code>hConRoof</code>,
