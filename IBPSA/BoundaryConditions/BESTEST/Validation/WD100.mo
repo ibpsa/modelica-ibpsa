@@ -219,7 +219,7 @@ equation
 <td><p>7</p></td>
 </tr>
 </table>
-<p><br><br><br>This model is a template for all the other test cases. It allows to extrapolate all the weather data from the Reader TMY3 for a specific location, incliation and azimuth. The model <a href=\"modelica://IBPSA.BoundaryConditions.BESTEST.IsotropicAndPerezDiffuseRadiation\">IBPSA.BoundaryConditions.BESTEST.IsotropicAndPerezDiffuseRadiation</a> outputs radiation data using the available Isotropic and Perez methodlogies. The sky temperature is calculated using both the Horizontal radiation model, from data reader weaBusHorRad and the dew point temperature plus sky cover model from the datareader weaBusSkyCovDewTem</p>
+<p>This model is a template for all the other test cases. It allows to extrapolate all the weather data from the Reader TMY3 for a specific location, incliation and azimuth. The model <a href=\"modelica://IBPSA.BoundaryConditions.BESTEST.IsotropicAndPerezDiffuseRadiation\">IBPSA.BoundaryConditions.BESTEST.IsotropicAndPerezDiffuseRadiation</a> outputs radiation data using the available Isotropic and Perez methodlogies. The sky temperature is calculated using both the Horizontal radiation model, from data reader weaBusHorRad and the dew point temperature plus sky cover model from the datareader weaBusSkyCovDewTem</p>
 </html>", revisions="<html>
 <ul>
 <li>

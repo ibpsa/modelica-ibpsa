@@ -4,7 +4,7 @@ package UsersGuide "User's Guide"
 
   annotation(preferredView="info",
   Documentation(info="<html>
-<p><br>The package <a href=\"modelica://IBPSA.BoundaryConditions.BESTEST.Validation\">IBPSA.BoundaryConditions.BESTEST.Validation</a> contains the models that were used for the BESTEST validation ASHRAE 2020 for weather data acquisition and postprocessing. Each model represents a different climate with different days as shown in the tables below. All examples have a script that runs the simulation according to the specifications and derive the required Json file as reported below. The weather radiation data has to be provided at different orientations and inclinations.</p>
+<p>The package <a href=\"modelica://IBPSA.BoundaryConditions.BESTEST.Validation\">IBPSA.BoundaryConditions.BESTEST.Validation</a> contains the models that were used for the BESTEST validation ASHRAE 2020 for weather data acquisition and postprocessing. Each model represents a different climate with different days as shown in the tables below. All examples have a script that runs the simulation according to the specifications and derive the required Json file as reported below. The weather radiation data has to be provided at different orientations and inclinations.</p>
 <p><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
 <td><p>Azimuth</p></td>
@@ -51,7 +51,7 @@ package UsersGuide "User's Guide"
 <td><p>30&deg; from horizontal</p></td>
 </tr>
 </table>
-<p><br><br><br><br><i>Additional parameters and correlations</i></p>
+<p><i>Additional parameters and correlations</i></p>
 <ul>
 <li>Ground reflectance &rho; can be set to 0 or 0.</li>
 <li>Black body temperature calculated using Horizontal radiation or dew point temperature and sky cover</li>
@@ -84,7 +84,7 @@ package UsersGuide "User's Guide"
 <li>Sky temperature (&deg;C)</li>
 <li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</li>
 </ul>
-<p><br><i>Table 3: Specific Days for Output</i></p>
+<p><i>Table 3: Specific Days for Output</i></p>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
 <td><p>Case </p></td>
 <td><p>Days</p></td>
@@ -114,14 +114,14 @@ package UsersGuide "User's Guide"
 <td><p>May 4th, July 14th, September 6th</p></td>
 </tr>
 </table>
-<p><br><br><br><br><i>Sub-hourly Outputs</i></p>
+<p><i>Sub-hourly Outputs</i></p>
 <p>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
 <ul>
 <li>Dry bulb temperature (C)</li>
 <li>Relative humidity (&percnt;)</li>
 <li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
 </ul>
-<p><br>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<p>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
 <ul>
 <li>Total incident horizontal solar radiation (Wh/m2)</li>
 <li>Total incident horizontal beam solar radiation (Wh/m2)</li>
@@ -138,7 +138,7 @@ package UsersGuide "User's Guide"
 <li>Clone the last master branch of the IBPSA repository into a temporary directory</li>
 <li>Execute all the simulations and create the folders with the .mat and .json files inside the BESTEST/Simulations folder</li>
 </ul>
-<p><br><h4>References</h4></p>
+<p><h4>References</h4></p>
 <p>(Not available yet)</p>
 </html>", revisions="<html>
 </html>"));
