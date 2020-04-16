@@ -11,7 +11,6 @@ model WD100 "Test model for BESTEST weather data: base case"
     ceiHei=alt,
     filNam=Modelica.Utilities.Files.loadResource(
         "modelica://IBPSA/Resources/Data/BoundaryConditions/WeatherData/Validation/725650.mos"),
-
     calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation)
     "reads all weather data and Tsky using horizontal radiation" annotation (
       Placement(transformation(
@@ -93,7 +92,6 @@ model WD100 "Test model for BESTEST weather data: base case"
     ceiHei=alt,
     filNam=Modelica.Utilities.Files.loadResource(
         "modelica://IBPSA/Resources/Data/BoundaryConditions/WeatherData/Validation/725650.mos"),
-
     calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover)
     "Reads all weather data and Tsky using dry bulb temperature, dew point temperature and sky cover"
     annotation (Placement(transformation(
@@ -219,17 +217,21 @@ equation
 <td><p>7</p></td>
 </tr>
 </table>
-<p><br><br><br>This model is a template for all the other test cases. It allows to extrapolate all the weather data from the Reader TMY3 for a specific location, incliation and azimuth. The model <a href=\"modelica://IBPSA.BoundaryConditions.BESTEST.IsotropicAndPerezDiffuseRadiation\">IBPSA.BoundaryConditions.BESTEST.IsotropicAndPerezDiffuseRadiation</a> outputs radiation data using the available Isotropic and Perez methodlogies. The sky temperature is calculated using both the Horizontal radiation model, from data reader weaBusHorRad and the dew point temperature plus sky cover model from the datareader weaBusSkyCovDewTem</p>
+<p>This model is a template for all the other test cases. It allows to extrapolate all the weather data from the Reader TMY3 for a specific location, incliation and azimuth. The model <a href=\"modelica://IBPSA.BoundaryConditions.BESTEST.IsotropicAndPerezDiffuseRadiation\">IBPSA.BoundaryConditions.BESTEST.IsotropicAndPerezDiffuseRadiation</a> outputs radiation data using the available Isotropic and Perez methodlogies. The sky temperature is calculated using both the Horizontal radiation model, from data reader weaBusHorRad and the dew point temperature plus sky cover model from the datareader weaBusSkyCovDewTem</p>
 </html>", revisions="<html>
 <ul>
-<li>March 11, 2020, by Ettore Zanetti:<br>First implementation. </li>
-<li>April 14, 2020, by Ettore Zanetti:<br>Rework after comments from pull request <a href=\"
-https://github.com/ibpsa/modelica-ibpsa/pull/1339\">#1339</a>. </li>
-<li></li>
+<li>
+March 11, 2020, by Ettore Zanetti:<br/>
+First implementation.
+</li>
+<li>
+April 14, 2020, by Ettore Zanetti:<br/>
+Rework after comments from pull request
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1339\">#1339</a>.
+</li>
 </ul>
 </html>"),
 experiment(
       StopTime=31539600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+      Tolerance=1e-06));
 end WD100;

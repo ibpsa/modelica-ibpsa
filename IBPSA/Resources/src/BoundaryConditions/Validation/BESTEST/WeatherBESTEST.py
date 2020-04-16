@@ -1,18 +1,21 @@
+#!/usr/bin/env python3
 #####################################################################
 # This script is used to validate weather reading and postprocessing
-# for tilted and oriented surfaces according to the BESTEST standard
-# at the end it will create a folder in the current working directory
-# called simulations and inside there can be the .mat files and the
+# for tilted and oriented surfaces according to the BESTEST standard.
+# It will create a folder in the current working directory
+# called simulations and inside there will be the .mat files and the
 # .json files or just the .json files
-# Creates folders in "Temp" directory
-# Copies library from local-git-hub repository
+#
+# This script creates folders in the temporary directory.
+# It copies the library from a local-git-hub repository,
 # executes simulations and prints results in current working directory
+#
 # ettore.zanetti@polimi.it                                 2020-03-11
 #####################################################################
 import json
 import os
 import shutil
-import numpy as np 
+import numpy as np
 import copy
 import sys
 from pathlib import Path
@@ -77,17 +80,17 @@ def create_working_directory():
     import getpass
     worDir = tempfile.mkdtemp( prefix='tmp_Weather_Bestest' + getpass.getuser() )
     if CodeVerbose:
-        print("Created directory {}".format(worDir))    
+        print("Created directory {}".format(worDir))
     return worDir
 
 def checkout_repository(working_directory, CaseDict):
-    ''' The function will download the repository from GitHub or a copy from a local library 
+    ''' The function will download the repository from GitHub or a copy from a local library
           to the temporary working directory
-          
+
     :param working_directory: Current working directory
     :param CaseDict : from_git_hub get the library repository from local copy or git_hub,
     BRANCH, to specify branch from git_hub, LIBPATH, to specify the local library path
-          
+
     '''
     import os
     from git import Repo
@@ -115,7 +118,7 @@ def checkout_repository(working_directory, CaseDict):
             print("*** Copying"+d['LibName']+" library to {}".format(des))
         shutil.copytree(CaseDict['LIBPATH'], des)
         if CodeVerbose:
-            print("Since this a local copy of the library is in use, remember to manyally add software version and commit")
+            print("Since this a local copy of the library is in use, remember to manually add software version and commit.")
             d['branch'] ='AddManually'
             d['commit'] ='AddManually'
             d['commit_time']= 'AddManually'
@@ -125,7 +128,7 @@ def get_cases(CaseDict):
     ''' Return the simulation cases that are used for the case study.
         The cases are stored in this function as they are used
         for the simulation and for the post processing.
-        
+
         :param CaseDict : In the dictionary are reported the options for the Dymola simulations
     '''
     cases = list()
@@ -147,11 +150,11 @@ def get_cases(CaseDict):
     return cases
 
 def _simulate(spec):
-    ''' 
+    '''
     This function execute the simulation of a specific Case model and stores
     the result in the simulation directory, then copies the result to the current
     working directory and if CLEAN_MAT option is selected the old .mat files are removed
-        
+
     '''
     from buildingspy.simulate.Simulator import Simulator
 
@@ -164,7 +167,7 @@ def _simulate(spec):
             text_file.write("branch={}\n".format(spec['git']['branch']))
             text_file.write("commit={}\n".format(spec['git']['commit']))
 
-    # Get current library directory 
+    # Get current library directory
     IBPSAtemp = os.path.join(spec['lib_dir'], 'IBPSA')
     # Set Model to simulate, the tool, the output dir and the package directory
     s=Simulator(spec["model"], TOOL, outputDirectory=out_dir, packagePath = IBPSAtemp )
@@ -186,7 +189,7 @@ def _simulate(spec):
     res_des = os.path.join(spec["CWD"], "simulations", spec["name"])
     if CodeVerbose:
         print("*** Copying results to {}".format(res_des))
-        
+
     #Removing old results directory
     if os.path.isdir(res_des) and spec["CLEAN_MAT"]:
         shutil.rmtree(res_des)
@@ -205,7 +208,7 @@ def _organize_cases(mat_dir):
         for file in f:
             if '.mat' in file:
                 matFiles.append(os.path.join(r, file))
-    
+
     caseList = list()
     if len(CASES) == len(matFiles):
         for case in CASES:
@@ -273,14 +276,14 @@ def _CleanTimeSeries(time, val, nPoi):
     timen=time[timeDn>tol]
     valn=val[timeDn>tol]
     if len(timen) != nPoi:
-        raise ValueError("_CleatTimeSeries encouterd an error time length and number of results points do not match")
+        raise ValueError("Error: In _CleanTimeSeries, length and number of results points do not match.")
     return timen, valn
 
 def WeatherJson(resForm,Matfd,CaseDict):
     """
     This function take the results and writes them in the required json BESTEST
     format
-    
+
     :param resForm: json file format.
     :param Matfd: list of the results matfiles and their path.
     :param CaseDict: in CaseDict are stored the simulation cases "reVals"
@@ -299,11 +302,11 @@ def WeatherJson(resForm,Matfd,CaseDict):
                 results[k]['value'] = results[k]['value']-273.15
             elif 'relHum' in resSplit[-1]:
                 #pass from [0,1] to %
-                results[k]['value'] = results[k]['value']*100     
-            k+=1        
+                results[k]['value'] = results[k]['value']*100
+            k+=1
         MapDymolaAndJson(results,dic['case'],resFin)
     return resFin
-      
+
 def MapDymolaAndJson(results,case,resFin):
     """
     This function couples the .mat file variable with the final .json variable
@@ -311,24 +314,24 @@ def MapDymolaAndJson(results,case,resFin):
     :param case: dict that specifies the BESTEST case
     :para resFin: dict with the same format as the desired json file
     """
-  
+
     dictHourly = [ {'json':'dry_bulb_temperature',
-                'mat':'weaBusHHorIR.TDryBul'},               
+                'mat':'weaBusHHorIR.TDryBul'},
               {'json':'relative_humidity',
                'mat':'weaBusHHorIR.relHum'},
               {'json':'humidity_ratio',
                'mat': 'toDryAir.XiDry'},
               {'json':'wet_bulb_temperature',
                'mat':'weaBusHHorIR.TWetBul'},
-              {'json':'wind_speed', 
+              {'json':'wind_speed',
                'mat':'weaBusHHorIR.winSpe'},
               {'json':'wind_direction',
                'mat':'weaBusHHorIR.winDir'},
-              {'json':'station_pressure', 
+              {'json':'station_pressure',
                'mat':'weaBusHHorIR.pAtm'},
-              {'json':'total_cloud_cover', 
+              {'json':'total_cloud_cover',
                'mat':'weaBusHHorIR.nTot'},
-              {'json':'opaque_cloud_cover', 
+              {'json':'opaque_cloud_cover',
                'mat':'weaBusHHorIR.nOpa'},
               {'json':'sky_temperature',
                'matHor':'weaBusHHorIR.TBlaSky',
@@ -340,7 +343,7 @@ def MapDymolaAndJson(results,case,resFin):
                'mat':'azi000til00.HDir.H'},
               {'json':'diffuse_horizontal_radiation',
                'matIso':'azi000til00.HDiffIso.H',
-               'matPer':'azi000til00.HDiffPer.H'},             
+               'matPer':'azi000til00.HDiffPer.H'},
               {'json':'total_radiation_s_90',
                'matIso':'azi000til90.H',
                'matPer':'azi000til90.HPer'},
@@ -378,7 +381,7 @@ def MapDymolaAndJson(results,case,resFin):
                'matPer':'azi315til90.HPer'},
               {'json':'total_beam_radiation_45_e_90',
                'mat':'azi315til90.HDir.H'},
-              {'json':'total_diffuse_radiation_45_e_90', 
+              {'json':'total_diffuse_radiation_45_e_90',
                'matIso':'azi315til90.HDiffIso.H',
                'matPer':'azi315til90.HDiffPer.H'},
               {'json':'total_radiation_45_w_90',
@@ -414,7 +417,7 @@ def MapDymolaAndJson(results,case,resFin):
                'matIso':'azi090til30.HDiffIso.H',
                'matPer':'azi090til30.HDiffPer.H'}]
     dictSubHourly =  [ {'json':'dry_bulb_temperature',
-                'mat':'weaBusHHorIR.TDryBul'},               
+                'mat':'weaBusHHorIR.TDryBul'},
               {'json':'relative_humidity',
                'mat':'weaBusHHorIR.relHum'},
               {'json':'total_horizontal_radiation',
@@ -424,7 +427,7 @@ def MapDymolaAndJson(results,case,resFin):
                'mat':'azi000til00.HDir.H'},
               {'json':'diffuse_horizontal_radiation',
                'matIso':'azi000til00.HDiffIso.H',
-               'matPer':'azi000til00.HDiffPer.H'},             
+               'matPer':'azi000til00.HDiffPer.H'},
               {'json':'total_radiation_s_90',
                'matIso':'azi000til90.H',
                'matPer':'azi000til90.HPer'},
@@ -462,7 +465,7 @@ def MapDymolaAndJson(results,case,resFin):
                'matPer':'azi315til90.HPer'},
               {'json':'total_beam_radiation_45_e_90',
                'mat':'azi315til90.HDir.H'},
-              {'json':'total_diffuse_radiation_45_e_90', 
+              {'json':'total_diffuse_radiation_45_e_90',
                'matIso':'azi315til90.HDiffIso.H',
                'matPer':'azi315til90.HDiffPer.H'},
               {'json':'total_radiation_45_w_90',
@@ -506,7 +509,7 @@ def MapDymolaAndJson(results,case,resFin):
                'matIso':'azi000til00.HDiffIso.H',
                'matPer':'azi000til00.HDiffPer.H'}]
     dictYearly = [ {'json':'average_dry_bulb_temperature',
-                'mat':'weaBusHHorIR.TDryBul'},               
+                'mat':'weaBusHHorIR.TDryBul'},
               {'json':'average_relative_humidity',
                'mat':'weaBusHHorIR.relHum'},
               {'json':'average_humidity_ratio',
@@ -522,7 +525,7 @@ def MapDymolaAndJson(results,case,resFin):
                'mat':'azi000til00.HDir.H'},
               {'json':'total_horizontal_diffuse_solar_radiation',
                'matIso':'azi000til00.HDiffIso.H',
-               'matPer':'azi000til00.HDiffPer.H'},             
+               'matPer':'azi000til00.HDiffPer.H'},
               {'json':'total_radiation_s_90',
                'matIso':'azi000til90.H',
                'matPer':'azi000til90.HPer'},
@@ -560,7 +563,7 @@ def MapDymolaAndJson(results,case,resFin):
                'matPer':'azi315til90.HPer'},
               {'json':'total_beam_radiation_45_e_90',
                'mat':'azi315til90.HDir.H'},
-              {'json':'total_diffuse_radiation_45_e_90', 
+              {'json':'total_diffuse_radiation_45_e_90',
                'matIso':'azi315til90.HDiffIso.H',
                'matPer':'azi315til90.HDiffPer.H'},
               {'json':'total_radiation_45_w_90',
@@ -594,7 +597,7 @@ def MapDymolaAndJson(results,case,resFin):
                'mat':'azi090til30.HDir.H'},
               {'json':'total_diffuse_radiation_w_30',
                'matIso':'azi090til30.HDiffIso.H',
-               'matPer':'azi090til30.HDiffPer.H'}]    
+               'matPer':'azi090til30.HDiffPer.H'}]
     Days={'WD100':{	'days': ['yearly','may4','jul14','sep6' ],
                'tstart' : [0,10627200,16761600,21427200],
             	'tstop' : [0,10713600,16848000,21513600]},
@@ -613,8 +616,8 @@ def MapDymolaAndJson(results,case,resFin):
      'WD600':{'days': ['yearly','may4','jul14','sep6' ],
               'tstart' : [0,10627200,16761600,21427200],
               'tstop' : [0,10713600,16848000,21513600]}}
-    caseDays =[{key : value[i] for key, value in Days[case].items()} for i in range(len(Days[case]['days']))] 
-    
+    caseDays =[{key : value[i] for key, value in Days[case].items()} for i in range(len(Days[case]['days']))]
+
     outDir=resFin
 
     missing=list()
@@ -649,7 +652,7 @@ def MapDymolaAndJson(results,case,resFin):
                      sHRlist=list()
                      k=0
                      for sHR in ressH['res']:
-                          
+
                           sHRdict ={}
                           sHRdict['time'] =float( (ressH['time'][k]-ressH['time'][0])/3600)
                           if 'radiation' in ressH['json']:
@@ -660,9 +663,9 @@ def MapDymolaAndJson(results,case,resFin):
                           k+=1
                      outDir[case ]['subhourly_results'][day['days']][ressH['json']] = sHRlist
                      #manually update integrated values for 'integrated' variables for subhourly results
-                     if 'horizontal_radiation' in ressH['json']: 
+                     if 'horizontal_radiation' in ressH['json']:
                          ressH['time'] = ressH['time']
-                         time_int = ressH['time'][0::4]                         
+                         time_int = ressH['time'][0::4]
                          H_int = np.interp(time_int, ressH['time'], ressH['res'])
                          sHRlist=list()
                          k=0
@@ -671,16 +674,16 @@ def MapDymolaAndJson(results,case,resFin):
                           sHRdict['time'] = float((time_int[k]-time_int[0])/3600)
                           sHRdict['value'] = float(sHR)
                           sHRlist.append(sHRdict)
-                          k+=1                         
+                          k+=1
                          outDir[case ]['subhourly_results'][day['days']]['integrated_'+ressH['json']] = sHRlist
 
-        
-        
+
+
 def ExtrapolateResults(dicT,dR,day):
     """
      This function takes a result time series matches it with the corresponding
     json, and extrapolates the data
-    
+
     :param dictT: This is the dictionary with the mapping between .mat and .Json variables
     :param dR: in this dictionary is contained the name, time and value of a certain variable in the .mat file
     :param day: day is a subdictionary with all the days required for the bestest see table 3 in BESTEST package
@@ -691,7 +694,7 @@ def ExtrapolateResults(dicT,dR,day):
             if day['days'] in 'yearly':
                 if 'azi' in dR['variable']:
                     res = np.trapz(dR['value'],x = dR['time'])/3600
-                    
+
                 else:
                     res = np.mean(dR['value'])
             else:
@@ -701,28 +704,28 @@ def ExtrapolateResults(dicT,dR,day):
                 idxStop = FindNearest(dR['time'], tStop)
                 res = dR['value'][idxStart:idxStop]
                 OutDict['time']=dR['time'][idxStart:idxStop]
-            OutDict['res']=res           
+            OutDict['res']=res
             OutDict.update(dT)
-    return OutDict            
-               
-               
-               
-def FindNearest(array, value): 
+    return OutDict
+
+
+
+def FindNearest(array, value):
     '''
     This function finds the nearest desired value 'value' in an array 'array'
     '''
     array = np.asarray(array)
     idx = (np.abs(array - value)).argmin()
-    return idx                           
-        
-                
+    return idx
+
+
 def RemoveString(Slist,String):
     '''
     This function strips a list of strings from elements that contain a certain substring
     '''
     Slist[:] = [x for x in Slist if String not in x]
     return Slist
-       
+
 
 
 ############End of functions main code portion###################
@@ -745,8 +748,8 @@ if __name__=='__main__':
            'CLEAN_MAT': CLEAN_MAT,
            'DelEvr': DelEvr,
            'LibName':library_name}
-    if not POST_PROCESS_ONLY:  
-        #Get list of case to simulate with their parameters        
+    if not POST_PROCESS_ONLY:
+        #Get list of case to simulate with their parameters
         lib_dir = create_working_directory()
         CaseDict['lib_dir']=lib_dir
         list_of_cases = get_cases(CaseDict)
@@ -758,33 +761,33 @@ if __name__=='__main__':
         for case in list_of_cases:
             case['lib_dir'] = lib_dir
             if FROM_GIT_HUB:
-                case['git'] = d        
+                case['git'] = d
         # # Run all cases
         freeze_support() #you need this in windows
         po = Pool()
         po.map(_simulate, list_of_cases)
         po.close()
         po.join()  # block at this line until all processes are done
-        # Delete the temporary folder    
+        # Delete the temporary folder
         if CodeVerbose:
             print(" Erasing temperarary folder {}".format(lib_dir))
         #Going back to original working directory and removing temporary working directory
         os.chdir(CWD)
         shutil.rmtree(lib_dir)
-    
+
     # Post process only#
     if POST_PROCESS_ONLY:
         print('Add Manually program realease date and version at the end of the script')
         program_version_release_date = 'AddManually'
         program_name_and_version = 'AddManually'
-        
-    # Organize results 
+
+    # Organize results
     mat_dir=os.path.join(CWD,'simulations')
     Matfd=_organize_cases(mat_dir)
     # Create Json file for each case (ISO,PEREZ,TBSKY_HOR,TBSKY_DEW)
-    # import results template 
+    # import results template
     with open('WeatherDriversResultsSubmittal.json') as f:
-        resForm = json.load(f) 
+        resForm = json.load(f)
     # Add library and organization details
     resForm["modeler_organization"] = modeler_organization
     resForm["modeler_organization_for_tables_and_charts"] = modeler_organization_for_tables_and_charts
@@ -808,7 +811,7 @@ if __name__=='__main__':
             resFinIsoHor =  WeatherJson(resForm,Matfd,CaseDict)
             with open(os.path.join(nJsonRes,'WeatherIsoHHorIR.json'),'w') as outfile:
                 json.dump(resFinIsoHor,outfile, sort_keys=True, indent=4)
-            CaseDictIsoDew = copy.deepcopy(CaseDict)              
+            CaseDictIsoDew = copy.deepcopy(CaseDict)
             CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'Per')
             CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusHHorIR.TDewPoi')
             resFinIsoDew =  WeatherJson(resForm,Matfd,CaseDict)
@@ -832,8 +835,3 @@ if __name__=='__main__':
             print(" Erasing evrything but .json folder ")
             for matfd in Matfd:
                 shutil.rmtree(os.path.dirname(matfd['matFile']))
-                
-        
- 
-            
-        
