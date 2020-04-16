@@ -2,26 +2,22 @@ within IBPSA.BoundaryConditions.WeatherData.BaseClasses;
 block CheckBlackBodySkyTemperature
   "Check the validity of the black-body sky temperature data"
   extends Modelica.Blocks.Icons.Block;
-  Modelica.Blocks.Interfaces.RealInput TIn(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC") "Black-body sky temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput TOut(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC") "Black-body sky temperature"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   parameter Modelica.SIunits.Temperature TMin(displayUnit="degC") = 203.15
     "Minimum allowed temperature";
   parameter Modelica.SIunits.Temperature TMax(displayUnit="degC") = 343.15
     "Maximum allowed temperature";
 
+  Modelica.Blocks.Interfaces.RealInput TIn(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Black-body sky temperature"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
 equation
-  TOut = TIn;
-  assert(noEvent(TOut > TMin and TOut < TMax), "In " + getInstanceName() + ": Weather data black-body sky temperature out of bounds.\n" + "   TOut = " + String(
-    TOut));
+  assert(noEvent(TIn > TMin and TIn < TMax),
+    "In " + getInstanceName() + ": Weather data black-body sky temperature out of bounds.\n" + "   TIn = " +
+     String(TIn));
 
   annotation (
     defaultComponentName="cheSkyBlaBodTem",
@@ -35,7 +31,7 @@ the simulation will stop with an error.
 <ul>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
-Added <code>noEvent</code>.<br/>
+Added <code>noEvent</code> and removed output connector.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1340\">#1340</a>.
 </li>
 <li>

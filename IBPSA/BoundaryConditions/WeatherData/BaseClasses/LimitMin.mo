@@ -26,5 +26,5 @@ First implementation.
         Text(
           extent={{-100,30},{98,-16}},
           lineColor={0,0,0},
-          textString="min(0, u)")}));
+          textString="min(%minVal, u)")}));
 end LimitMin;
