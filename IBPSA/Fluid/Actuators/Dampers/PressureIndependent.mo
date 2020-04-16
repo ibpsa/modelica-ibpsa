@@ -222,6 +222,18 @@ from the loss coefficient value (directly derived from the flow coefficient).
 </li>
 </ul>
 <p>
+As explained in
+<a href=\"modelica://IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper_inv\">
+IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper_inv</a>,
+a cubic spline is used to fit the inverse of the damper characteristics.
+The central part of the characteritics having a fixed exponential profile, its
+inverse can be properly approximated with three equidistant support points.
+However, the quadratic functions used on each side of the exponential part of the 
+characteristics can have various profiles depending on the damper coefficients.
+Therefore, five equidistant support points on each side are considered to 
+ensure a good fit of the inverse.
+</p>
+<p>
 Note that below a threshold value of the input control signal (fixed at 0.02),
 the fractional opening is forced to zero and no more related to the actual
 flow coefficient of the damper.
