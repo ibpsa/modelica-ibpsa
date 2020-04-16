@@ -226,11 +226,11 @@ As explained in
 <a href=\"modelica://IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper_inv\">
 IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper_inv</a>,
 a cubic spline is used to fit the inverse of the damper characteristics.
-The central part of the characteritics having a fixed exponential profile, its
-inverse can be properly approximated with three equidistant support points.
-However, the quadratic functions used on each side of the exponential part of the 
-characteristics can have various profiles depending on the damper coefficients.
-Therefore, five equidistant support points on each side are considered to 
+The central domain of the characteritics having a monotonous exponential profile, its
+inverse can be properly approximated with three linearly distributed support points.
+However, the quadratic functions used outside of the exponential domain can have 
+various profiles depending on the damper coefficients.
+Therefore, five linearly distributed support points are used on each side domain to 
 ensure a good fit of the inverse.
 </p>
 <p>
