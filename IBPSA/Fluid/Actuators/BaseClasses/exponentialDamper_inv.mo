@@ -34,7 +34,8 @@ annotation (smoothOrder=1,
 Documentation(info="<html>
 <p>
 This function provides an approximate inverse of the exponential damper characteristics.
-</p><p>
+</p>
+<p>
 The function is used by the model
 <a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.PressureIndependent\">
 IBPSA.Fluid.Actuators.Dampers.PressureIndependent</a>.
