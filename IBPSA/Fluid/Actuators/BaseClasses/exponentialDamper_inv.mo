@@ -39,7 +39,8 @@ This function provides an approximate inverse of the exponential damper characte
 The function is used by the model
 <a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.PressureIndependent\">
 IBPSA.Fluid.Actuators.Dampers.PressureIndependent</a>.
-</p><p>
+</p>
+<p>
 The quadratic interpolation used outside the exponential domain in the function
 <a href=\"modelica://IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper\">
 IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper</a> yields a local extremum.
