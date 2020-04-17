@@ -223,9 +223,6 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     Evaluate=true,
     Dialog(group="Sky temperature"));
 
-  constant Real epsCos = 1e-6 "Small value to avoid division by 0";
-  constant Modelica.SIunits.HeatFlux solCon = 1367.7 "Solar constant";
-
   BaseClasses.SourceSelector pAtmSel(
     datSou=pAtmSou,
     p=pAtm) "Source selection for atmospheric pressure"
@@ -257,6 +254,12 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   BaseClasses.SourceSelector winDirSel(datSou=winDirSou, p=winDir)
                                        "Source selection for wind speed"
     annotation (Placement(transformation(extent={{120,-280},{140,-260}})));
+  BaseClasses.SourceSelector horInfRadSel(datSou=HInfHorSou, p=HInfHor)
+    "Source selection for horizontal infrared radiation"
+    annotation (Placement(transformation(extent={{120,60},{140,80}})));
+  BaseClasses.SourceSelectorRadiation souSelRad(datSou=HSou)
+    "Source selection for solar irradiation"
+    annotation (Placement(transformation(extent={{120,180},{140,200}})));
 protected
   final parameter Modelica.SIunits.Time[2] timeSpan=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, "tab1")
@@ -269,7 +272,7 @@ protected
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
         28,29,30,8}) "Data reader"
-    annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
+    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
     cheTemDryBul "Check dry bulb temperature "
     annotation (Placement(transformation(extent={{160,-200},{180,-180}})));
@@ -297,21 +300,12 @@ protected
     homotopyType=Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy)
     "Limit the opaque sky cover"
     annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
-  BaseClasses.LimitMin limGloHorRad
-    "Limit the global horizontal radiation"
-    annotation (Placement(transformation(extent={{160,180},{180,200}})));
-  BaseClasses.LimitMin limDifHorRad
-    "Limit the diffuse horizontal radiation"
-    annotation (Placement(transformation(extent={{160,140},{180,160}})));
-  BaseClasses.LimitMin limDirNorRad "Limit the direct normal radiation"
-    annotation (Placement(transformation(extent={{160,220},{180,240}})));
   BaseClasses.LimitMin limCeiHei "Limit the ceiling height"
     annotation (Placement(transformation(extent={{160,-120},{180,-100}})));
   BaseClasses.LimitMin limWinSpe "Limit the wind speed"
     annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
-  BaseClasses.LimitMin limHorRad
-    "Limit the horizontal infrared irradiation"
-    annotation (Placement(transformation(extent={{160,100},{180,120}})));
+  BaseClasses.LimitMin limHorInfRad "Limit the horizontal infrared irradiation"
+    annotation (Placement(transformation(extent={{160,60},{180,80}})));
   Modelica.Blocks.Nonlinear.Limiter limWinDir(
     uMax=2*Modelica.Constants.pi,
     uMin=0,
@@ -325,69 +319,53 @@ protected
     annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
   Utilities.Time.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Modelica.Blocks.Math.Add add
+  Modelica.Blocks.Math.Add add30Min
     "Add 30 minutes to time to shift weather data reader"
     annotation (Placement(transformation(extent={{-112,180},{-92,200}})));
-  Modelica.Blocks.Sources.Constant con30mins(final k=1800)
+  Modelica.Blocks.Sources.Constant con30Min(final k=1800)
     "Constant used to shift weather data reader"
     annotation (Placement(transformation(extent={{-160,186},{-140,206}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(
       final lon=lon, final timZon=timZon) "Local civil time"
-    annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
-  Modelica.Blocks.Tables.CombiTable1Ds datRea1(
+    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
+  Modelica.Blocks.Tables.CombiTable1Ds datRea30Min(
     final tableOnFile=true,
     final tableName="tab1",
     final fileName=filNam,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    final columns=9:11) "Data reader"
-    annotation (Placement(transformation(extent={{-52,180},{-32,200}})));
-  IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1(
-    final weaDatStaTim = timeSpan[1],
-    final weaDatEndTim = timeSpan[2])
+    final columns=9:11) "Data reader with 30 min offset for solar irradiation"
+    annotation (Placement(transformation(extent={{-50,180},{-30,200}})));
+  IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTimMin(final
+      weaDatStaTim=timeSpan[1], final weaDatEndTim=timeSpan[2])
     "Convert simulation time to calendar time"
-    annotation (Placement(transformation(extent={{-82,180},{-62,200}})));
+    annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim(
     final weaDatStaTim = timeSpan[1],
     final weaDatEndTim = timeSpan[2])
     "Convert simulation time to calendar time"
-    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   BaseClasses.EquationOfTime eqnTim "Equation of time"
-    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   BaseClasses.SolarTime solTim "Solar time"
-    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
+    annotation (Placement(transformation(extent={{-88,-140},{-68,-120}})));
 
-  // Conditional connectors
-  Modelica.Blocks.Interfaces.RealInput HGloHor_in_internal(
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput HDifHor_in_internal(
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput HDirNor_in_internal(
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput HInfHor_in_internal(
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") "Needed to connect to conditional connector";
 
   Modelica.Blocks.Math.UnitConversions.From_deg conWinDir
     "Convert the wind direction unit from [deg] to [rad]"
     annotation (Placement(transformation(extent={{40,-286},{60,-266}})));
   Modelica.Blocks.Math.UnitConversions.From_degC conTDryBul
     annotation (Placement(transformation(extent={{40,-200},{60,-180}})));
-  BaseClasses.ConvertRadiation conHorRad "Convert the radiation from Wh/m2 to W/m2"
-   annotation (Placement(transformation(extent={{120,100},{140,120}})));
 
 
   Modelica.Blocks.Math.UnitConversions.From_degC conTDewPoi
     "Convert the dew point temperature form [degC] to [K]"
     annotation (Placement(transformation(extent={{40,-240},{60,-220}})));
   BaseClasses.ConvertRadiation conDirNorRad "Convert the radiation from Wh/m2 to W/m2"
-    annotation (Placement(transformation(extent={{0,220},{20,240}})));
+    annotation (Placement(transformation(extent={{66,244},{86,264}})));
   BaseClasses.ConvertRadiation conGloHorRad "Convert the radiation from Wh/m2 to W/m2"
-    annotation (Placement(transformation(extent={{120,180},{140,200}})));
+    annotation (Placement(transformation(extent={{116,234},{136,254}})));
   BaseClasses.ConvertRadiation conDifHorRad "Convert the radiation from Wh/m2 to W/m2"
-    annotation (Placement(transformation(extent={{120,140},{140,160}})));
+    annotation (Placement(transformation(extent={{66,214},{86,234}})));
   Modelica.Blocks.Nonlinear.Limiter limRelHum(
     uMax=1,
     uMin=0,
@@ -396,19 +374,19 @@ protected
     "Limiter for relative humidity"
     annotation (Placement(transformation(extent={{160,20},{180,40}})));
   SolarGeometry.BaseClasses.AltitudeAngle altAng "Solar altitude angle"
-    annotation (Placement(transformation(extent={{-30,-280},{-10,-260}})));
+    annotation (Placement(transformation(extent={{-28,-226},{-8,-206}})));
    SolarGeometry.BaseClasses.ZenithAngle zenAng(
      final lat = lat) "Zenith angle"
-    annotation (Placement(transformation(extent={{-20,-226},{0,-206}})));
+    annotation (Placement(transformation(extent={{-70,-226},{-50,-206}})));
    SolarGeometry.BaseClasses.Declination decAng "Declination angle"
-    annotation (Placement(transformation(extent={{-78,-220},{-58,-200}})));
+    annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
    SolarGeometry.BaseClasses.SolarHourAngle
     solHouAng "Solar hour angle"
-    annotation (Placement(transformation(extent={{-78,-250},{-58,-230}})));
+    annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
   Latitude latitude(final latitude=lat) "Latitude"
-    annotation (Placement(transformation(extent={{-120,-290},{-100,-270}})));
+    annotation (Placement(transformation(extent={{-150,-290},{-130,-270}})));
   Longitude longitude(final longitude=lon) "Longitude"
-    annotation (Placement(transformation(extent={{-78,-280},{-58,-260}})));
+    annotation (Placement(transformation(extent={{-120,-282},{-100,-262}})));
 
   //---------------------------------------------------------------------------
   // Optional instanciation of a block that computes the wet bulb temperature.
@@ -525,63 +503,6 @@ First implementation.
   end Longitude;
 
 equation
-  //---------------------------------------------------------------------------
-  // Select global horizontal radiation connector
-  if HSou ==  IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor then
-    connect(HGloHor_in, HGloHor_in_internal)
-      "Get HGloHor using user input file";
-  elseif HSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor then
-     HDirNor_in_internal*cos(zenAng.zen)+HDifHor_in_internal = HGloHor_in_internal
-      "Calculate the HGloHor using HDirNor and HDifHor according to (A.4.14) and (A.4.15)";
-  else
-    connect(conGloHorRad.HOut, HGloHor_in_internal)
-      "Get HGloHor using weather data file";
-  end if;
-  connect(HGloHor_in_internal,limGloHorRad.u);
-  //---------------------------------------------------------------------------
-  // Select diffuse horizontal radiation connector
-  if HSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor then
-     connect(HDifHor_in, HDifHor_in_internal)
-      "Get HDifHor using user input file";
-  elseif  HSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor then
-    HDifHor_in_internal = HGloHor_in_internal - HDirNor_in_internal*cos(zenAng.zen)
-      "Calculate the HGloHor using HDirNor and HDifHor according to (A.4.14) and (A.4.15)";
-  else
-    connect(conDifHorRad.HOut, HDifHor_in_internal)
-      "Get HDifHor using weather data file";
-  end if;
-  connect(HDifHor_in_internal,limDifHorRad.u);
-  //---------------------------------------------------------------------------
-  // Select direct normal radiation connector
-  if HSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor or HSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor then
-     connect(HDirNor_in, HDirNor_in_internal)
-      "Get HDirNor using user input file";
-  elseif  HSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor then
-      HDirNor_in_internal = min(
-        solCon,
-        (HGloHor_in_internal -HDifHor_in_internal)*
-          IBPSA.Utilities.Math.Functions.spliceFunction(
-            x=cos(zenAng.zen),
-            pos=IBPSA.Utilities.Math.Functions.inverseXRegularized(cos(zenAng.zen),epsCos),
-            neg=0,
-            deltax=epsCos))
-      "Calculate the HDirNor using HGloHor and HDifHor according to (A.4.14) and (A.4.15)";
-  else
-    connect(conDirNorRad.HOut, HDirNor_in_internal)
-      "Get HDirNor using weather data file";
-  end if;
-  connect(HDirNor_in_internal,limDirNorRad.u);
-
-  //---------------------------------------------------------------------------
-  // Select infrared radiation connector
-  if HInfHorSou == IBPSA.BoundaryConditions.Types.DataSource.Parameter then
-    HInfHor_in_internal = HInfHor;
-  elseif HInfHorSou == IBPSA.BoundaryConditions.Types.DataSource.Input then
-    connect(HInfHor_in, HInfHor_in_internal);
-  else
-    connect(conHorRad.HOut, HInfHor_in_internal);
-  end if;
-  connect(HInfHor_in_internal,limHorRad.u);
 
   connect(limTotSkyCov.y, weaBus.nTot) annotation (Line(points={{181,-30},{220,
           -30},{220,0},{300,0}}, color={0,0,127}), Text(
@@ -590,21 +511,6 @@ equation
       extent={{6,3},{6,3}}));
   connect(limOpaSkyCov.y, weaBus.nOpa) annotation (Line(points={{181,-150},{220,
           -150},{220,0},{300,0}}, color={0,0,127}), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(limGloHorRad.y, weaBus.HGloHor) annotation (Line(points={{181,190},{
-          220,190},{220,0},{300,0}}, color={0,0,127}), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(limDifHorRad.y, weaBus.HDifHor) annotation (Line(points={{181,150},{
-          220,150},{220,0},{300,0}}, color={0,0,127}), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(limDirNorRad.y, weaBus.HDirNor) annotation (Line(points={{181,230},{
-          220,230},{220,0},{300,0}}, color={0,0,127}), Text(
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
@@ -619,8 +525,8 @@ equation
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(limHorRad.y, weaBus.HHorIR) annotation (Line(points={{181,110},{220,
-          110},{220,0},{300,0}}, color={0,0,127}), Text(
+  connect(limHorInfRad.y, weaBus.HHorIR) annotation (Line(points={{181,70},{220,
+          70},{220,0},{300,0}},  color={0,0,127}), Text(
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
@@ -631,61 +537,57 @@ equation
       extent={{6,3},{6,3}}));
   connect(limOpaSkyCov.y, TBlaSkyCom.nOpa) annotation (Line(points={{181,-150},
           {220,-150},{220,-213},{238,-213}}, color={0,0,127}));
-  connect(limHorRad.y, TBlaSkyCom.HHorIR) annotation (Line(points={{181,110},{
-          220,110},{220,-218},{238,-218}}, color={0,0,127}));
+  connect(limHorInfRad.y, TBlaSkyCom.HHorIR) annotation (Line(points={{181,70},{
+          220,70},{220,-218},{238,-218}},   color={0,0,127}));
   connect(modTim.y, weaBus.cloTim) annotation (Line(
       points={{-139,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{300,0}},
       color={0,0,127}), Text(
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(modTim.y, add.u2) annotation (Line(
-      points={{-139,0},{-128,0},{-128,184},{-114,184}},
-      color={0,0,127}));
-  connect(con30mins.y, add.u1) annotation (Line(
-      points={{-139,196},{-114,196}},
-      color={0,0,127}));
-  connect(add.y, conTim1.modTim) annotation (Line(
-      points={{-91,190},{-84,190}},
-      color={0,0,127}));
-  connect(conTim1.calTim, datRea1.u) annotation (Line(
-      points={{-61,190},{-54,190}},
-      color={0,0,127}));
+  connect(modTim.y, add30Min.u2) annotation (Line(points={{-139,0},{-128,0},{-128,
+          184},{-114,184}}, color={0,0,127}));
+  connect(con30Min.y, add30Min.u1)
+    annotation (Line(points={{-139,196},{-114,196}}, color={0,0,127}));
+  connect(add30Min.y, conTimMin.modTim)
+    annotation (Line(points={{-91,190},{-82,190}}, color={0,0,127}));
+  connect(conTimMin.calTim, datRea30Min.u)
+    annotation (Line(points={{-59,190},{-52,190}}, color={0,0,127}));
   connect(modTim.y, locTim.cloTim) annotation (Line(
-      points={{-139,6.10623e-16},{-128,6.10623e-16},{-128,-150},{-102,-150}},
+      points={{-139,6.10623e-16},{-128,6.10623e-16},{-128,-150},{-122,-150}},
       color={0,0,127}));
   connect(modTim.y, conTim.modTim) annotation (Line(
-      points={{-139,6.10623e-16},{-128,6.10623e-16},{-128,-30},{-92,-30}},
+      points={{-139,6.10623e-16},{-128,6.10623e-16},{-128,-30},{-102,-30}},
       color={0,0,127}));
   connect(conTim.calTim, datRea.u) annotation (Line(
-      points={{-69,-30},{-52,-30}},
+      points={{-79,-30},{-72,-30}},
       color={0,0,127}));
   connect(modTim.y, eqnTim.nDay) annotation (Line(
-      points={{-139,6.10623e-16},{-128,6.10623e-16},{-128,-110},{-102,-110}},
+      points={{-139,6.10623e-16},{-128,6.10623e-16},{-128,-110},{-122,-110}},
       color={0,0,127}));
   connect(eqnTim.eqnTim, solTim.equTim) annotation (Line(
-      points={{-79,-110},{-70,-110},{-70,-124},{-62,-124}},
+      points={{-99,-110},{-94,-110},{-94,-124},{-90,-124}},
       color={0,0,127}));
   connect(locTim.locTim, solTim.locTim) annotation (Line(
-      points={{-79,-150},{-72,-150},{-72,-135.4},{-62,-135.4}},
+      points={{-99,-150},{-96,-150},{-96,-135.4},{-90,-135.4}},
       color={0,0,127}));
   connect(solTim.solTim, weaBus.solTim) annotation (Line(
-      points={{-39,-130},{-10,-130},{-10,0},{300,0}},
+      points={{-67,-130},{-10,-130},{-10,0},{300,0}},
       color={0,0,127}), Text(
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(datRea.y[11], conWinDir.u) annotation (Line(
-      points={{-29,-30},{20,-30},{20,-276},{38,-276}},
+      points={{-49,-30},{20,-30},{20,-276},{38,-276}},
       color={0,0,127}));
   connect(cheTemDryBul.TOut, TBlaSkyCom.TDryBul) annotation (Line(
       points={{181,-190},{220,-190},{220,-202},{238,-202}},
       color={0,0,127}));
   connect(datRea.y[1], conTDryBul.u) annotation (Line(
-      points={{-29,-30},{20,-30},{20,-190},{38,-190}},
+      points={{-49,-30},{20,-30},{20,-190},{38,-190}},
       color={0,0,127}));
   connect(datRea.y[2], conTDewPoi.u) annotation (Line(
-      points={{-29,-30},{20,-30},{20,-230},{38,-230}},
+      points={{-49,-30},{20,-30},{20,-230},{38,-230}},
       color={0,0,127}));
   connect(cheTemDewPoi.TOut, weaBus.TDewPoi) annotation (Line(
       points={{181,-230},{280,-230},{280,0},{300,0}},
@@ -696,17 +598,14 @@ equation
   connect(TBlaSkyCom.TDewPoi, cheTemDewPoi.TOut) annotation (Line(
       points={{238,-207},{220,-207},{220,-230},{181,-230}},
       color={0,0,127}));
-  connect(datRea1.y[2], conDirNorRad.HIn) annotation (Line(
-      points={{-31,190},{-16,190},{-16,230},{-2,230}},
-      color={0,0,127}));
-  connect(datRea1.y[1], conGloHorRad.HIn) annotation (Line(
-      points={{-31,190},{118,190}},
-      color={0,0,127}));
-  connect(datRea1.y[3], conDifHorRad.HIn) annotation (Line(
-      points={{-31,190},{20,190},{20,150},{118,150}},
-      color={0,0,127}));
+  connect(datRea30Min.y[2], conDirNorRad.HIn) annotation (Line(points={{-29,190},
+          {-16,190},{-16,254},{64,254}}, color={0,0,127}));
+  connect(datRea30Min.y[1], conGloHorRad.HIn) annotation (Line(points={{-29,190},
+          {40,190},{40,244},{114,244}}, color={0,0,127}));
+  connect(datRea30Min.y[3], conDifHorRad.HIn) annotation (Line(points={{-29,190},
+          {20,190},{20,224},{64,224}}, color={0,0,127}));
   connect(conRelHum.u, datRea.y[3]) annotation (Line(points={{38,24},{20,24},{20,
-          -30},{-29,-30}},    color={0,0,127}));
+          -30},{-49,-30}},    color={0,0,127}));
   connect(limRelHum.y, weaBus.relHum) annotation (Line(points={{181,30},{280,30},
           {280,0},{300,0}}, color={0,0,127}), Text(
       textString="%second",
@@ -720,19 +619,20 @@ equation
       extent={{6,3},{6,3}}));
   connect(decAng.decAng, zenAng.decAng)
                                   annotation (Line(
-      points={{-57,-210},{-22,-210},{-22,-210.6}},
+      points={{-99,-210},{-72,-210},{-72,-210.6}},
       color={0,0,127}));
   connect(solHouAng.solHouAng, zenAng.solHouAng)  annotation (Line(
-      points={{-57,-240},{-50,-240},{-50,-220},{-32,-220},{-32,-220.8},{-22,-220.8}},
+      points={{-99,-240},{-80,-240},{-80,-220.8},{-72,-220.8}},
       color={0,0,127}));
   connect(solHouAng.solTim, solTim.solTim) annotation (Line(
-      points={{-80,-240},{-100,-240},{-100,-174},{-10,-174},{-10,-130},{-39,-130}},
+      points={{-122,-240},{-140,-240},{-140,-174},{-10,-174},{-10,-130},{-67,-130}},
       color={0,0,127}));
   connect(decAng.nDay, modTim.y) annotation (Line(
-      points={{-80,-210},{-90,-210},{-90,-180},{0,-180},{0,6.10623e-16},{-139,6.10623e-16}},
+      points={{-122,-210},{-134,-210},{-134,-180},{0,-180},{0,6.10623e-16},{-139,
+          6.10623e-16}},
       color={0,0,127}));
   connect(zenAng.zen, altAng.zen) annotation (Line(
-      points={{1,-216},{8,-216},{8,-240},{-40,-240},{-40,-270},{-32,-270}},
+      points={{-49,-216},{-30,-216}},
       color={0,0,127}));
 
   // Connectors for wet bulb temperature.
@@ -750,44 +650,40 @@ equation
           {230,30},{230,-50},{239,-50}}, color={0,0,127}));
 
   connect(altAng.alt, weaBus.solAlt) annotation (Line(
-      points={{-9,-270},{8,-270},{8,-290},{290,-290},{290,0},{300,0}},
+      points={{-7,-216},{0,-216},{0,-290},{290,-290},{290,0},{300,0}},
       color={0,0,127}));
   connect(zenAng.zen, weaBus.solZen) annotation (Line(
-      points={{1,-216},{8,-216},{8,-290},{290,-290},{290,0},{300,0}},
+      points={{-49,-216},{-40,-216},{-40,-290},{290,-290},{290,0},{300,0}},
       color={0,0,127}));
   connect(decAng.decAng, weaBus.solDec) annotation (Line(
-      points={{-57,-210},{-50,-210},{-50,-290},{290,-290},{290,0},{300,0}},
+      points={{-99,-210},{-90,-210},{-90,-290},{290,-290},{290,0},{300,0}},
       color={0,0,127}));
   connect(solHouAng.solHouAng, weaBus.solHouAng) annotation (Line(
-      points={{-57,-240},{-50,-240},{-50,-290},{290,-290},{290,0},{300,0}},
+      points={{-99,-240},{-90,-240},{-90,-290},{290,-290},{290,0},{300,0}},
       color={0,0,127}));
   connect(longitude.y, weaBus.lon) annotation (Line(
-      points={{-57,-270},{-50,-270},{-50,-290},{290,-290},{290,0},{300,0}},
+      points={{-99,-272},{-90,-272},{-90,-290},{290,-290},{290,0},{300,0}},
       color={0,0,127}));
   connect(latitude.y, weaBus.lat) annotation (Line(
-      points={{-99,-280},{-88,-280},{-88,-290},{290,-290},{290,0},{300,0}},
+      points={{-129,-280},{-124,-280},{-124,-290},{290,-290},{290,0},{300,0}},
       color={0,0,127}));
-  connect(datRea.y[26], conHorRad.HIn) annotation (Line(points={{-29,-30},{20,-30},
-          {20,110},{118,110}},      color={0,0,127}));
   connect(pAtmSel.y, chePre.PIn)
     annotation (Line(points={{21,270},{238,270}},   color={0,0,127}));
-  connect(pAtmSel.uCon, pAtm_in) annotation (Line(points={{-1,276},{-110,276},{
-          -110,274},{-220,274}},
-                            color={0,0,127}));
-  connect(datRea.y[4], pAtmSel.uFil) annotation (Line(points={{-29,-30},{-20,
-          -30},{-20,264},{-1,264}},
-                               color={0,0,127}));
+  connect(pAtmSel.uCon, pAtm_in) annotation (Line(points={{-1,278},{-110,278},{-110,
+          274},{-220,274}}, color={0,0,127}));
+  connect(datRea.y[4], pAtmSel.uFil) annotation (Line(points={{-49,-30},{-20,-30},
+          {-20,262},{-1,262}}, color={0,0,127}));
   connect(cheTemDewPoi.TIn, TDewPoiSel.y)
     annotation (Line(points={{158,-230},{113,-230}}, color={0,0,127}));
-  connect(TDewPoiSel.uFil, conTDewPoi.y) annotation (Line(points={{91,-236},{76,
-          -236},{76,-230},{61,-230}}, color={0,0,127}));
-  connect(TDewPoiSel.uCon, TDewPoi_in) annotation (Line(points={{91,-224},{82,-224},
+  connect(TDewPoiSel.uFil, conTDewPoi.y) annotation (Line(points={{91,-238},{76,
+          -238},{76,-230},{61,-230}}, color={0,0,127}));
+  connect(TDewPoiSel.uCon, TDewPoi_in) annotation (Line(points={{91,-222},{82,-222},
           {82,146},{-168,146},{-168,224},{-220,224}}, color={0,0,127}));
   connect(TDryBulSel.y, cheTemDryBul.TIn)
     annotation (Line(points={{113,-190},{158,-190}}, color={0,0,127}));
-  connect(TDryBulSel.uFil, conTDryBul.y) annotation (Line(points={{91,-196},{70,
-          -196},{70,-190},{61,-190}}, color={0,0,127}));
-  connect(TDryBulSel.uCon, TDryBul_in) annotation (Line(points={{91,-184},{78,-184},
+  connect(TDryBulSel.uFil, conTDryBul.y) annotation (Line(points={{91,-198},{70,
+          -198},{70,-190},{61,-190}}, color={0,0,127}));
+  connect(TDryBulSel.uCon, TDryBul_in) annotation (Line(points={{91,-182},{78,-182},
           {78,142},{-176,142},{-176,180},{-220,180}}, color={0,0,127}));
 
   connect(TBlaSkySel.y, weaBus.TBlaSky) annotation (Line(points={{261,-170},{280,
@@ -795,53 +691,99 @@ equation
   connect(TBlaSkySel.y, cheTemBlaSky.TIn) annotation (Line(points={{261,-170},{270,
           -170},{270,-148},{230,-148},{230,-130},{238,-130}}, color={0,0,127}));
   connect(TBlaSkyCom.TBlaSky, TBlaSkySel.uFil) annotation (Line(points={{261,-210},
-          {268,-210},{268,-186},{232,-186},{232,-176},{239,-176}}, color={0,0,127}));
+          {268,-210},{268,-186},{232,-186},{232,-178},{239,-178}}, color={0,0,127}));
   connect(TBlaSky_in, TBlaSkySel.uCon) annotation (Line(points={{-220,140},{74,140},
-          {74,-168},{228,-168},{228,-164},{239,-164}}, color={0,0,127}));
+          {74,-168},{228,-168},{228,-162},{239,-162}}, color={0,0,127}));
   connect(relHumSel.y, limRelHum.u)
     annotation (Line(points={{141,30},{158,30}}, color={0,0,127}));
   connect(relHumSel.uFil, conRelHum.y)
-    annotation (Line(points={{119,24},{61,24}},  color={0,0,127}));
+    annotation (Line(points={{119,22},{90,22},{90,24},{61,24}},
+                                                 color={0,0,127}));
   connect(relHum_in, relHumSel.uCon) annotation (Line(points={{-220,100},{110,100},
-          {110,36},{119,36}}, color={0,0,127}));
+          {110,38},{119,38}}, color={0,0,127}));
   connect(limOpaSkyCov.u, opaSkyCovSel.y)
     annotation (Line(points={{158,-150},{141,-150}}, color={0,0,127}));
   connect(conOpaSkyCov.y, opaSkyCovSel.uFil)
-    annotation (Line(points={{61,-156},{119,-156}}, color={0,0,127}));
+    annotation (Line(points={{61,-156},{90,-156},{90,-158},{119,-158}},
+                                                    color={0,0,127}));
   connect(opaSkyCov_in, opaSkyCovSel.uCon) annotation (Line(points={{-220,52},{70,
-          52},{70,-144},{119,-144}}, color={0,0,127}));
+          52},{70,-142},{119,-142}}, color={0,0,127}));
   connect(ceiHeiSel.y, limCeiHei.u)
     annotation (Line(points={{141,-110},{158,-110}}, color={0,0,127}));
-  connect(ceiHeiSel.uFil, datRea.y[16]) annotation (Line(points={{119,-116},{20,
-          -116},{20,-30},{-29,-30}}, color={0,0,127}));
-  connect(ceiHeiSel.uCon, ceiHei_in) annotation (Line(points={{119,-104},{-40,-104},
+  connect(ceiHeiSel.uFil, datRea.y[16]) annotation (Line(points={{119,-118},{20,
+          -118},{20,-30},{-49,-30}}, color={0,0,127}));
+  connect(ceiHeiSel.uCon, ceiHei_in) annotation (Line(points={{119,-102},{-40,-102},
           {-40,-90},{-180,-90},{-180,10},{-220,10}}, color={0,0,127}));
-  connect(totSkyCovSel.uFil, conTotSkyCov.y) annotation (Line(points={{119,-36},
-          {100,-36},{100,-30},{61,-30}}, color={0,0,127}));
-  connect(totSkyCovSel.uCon, totSkyCov_in) annotation (Line(points={{119,-24},{108,
-          -24},{108,-50},{-190,-50},{-190,-38},{-220,-38}}, color={0,0,127}));
+  connect(totSkyCovSel.uFil, conTotSkyCov.y) annotation (Line(points={{119,-38},
+          {100,-38},{100,-30},{61,-30}}, color={0,0,127}));
+  connect(totSkyCovSel.uCon, totSkyCov_in) annotation (Line(points={{119,-22},{108,
+          -22},{108,-50},{-190,-50},{-190,-38},{-220,-38}}, color={0,0,127}));
   connect(totSkyCovSel.y, limTotSkyCov.u)
     annotation (Line(points={{141,-30},{158,-30}}, color={0,0,127}));
   connect(winSpeSel.y, limWinSpe.u)
     annotation (Line(points={{141,-70},{158,-70}}, color={0,0,127}));
   connect(conTotSkyCov.u, datRea.y[13])
-    annotation (Line(points={{38,-30},{-29,-30}}, color={0,0,127}));
-  connect(winSpeSel.uFil, datRea.y[12]) annotation (Line(points={{119,-76},{-20,
-          -76},{-20,-30},{-29,-30}}, color={0,0,127}));
-  connect(winSpeSel.uCon, winSpe_in) annotation (Line(points={{119,-64},{-190,-64},
+    annotation (Line(points={{38,-30},{-49,-30}}, color={0,0,127}));
+  connect(winSpeSel.uFil, datRea.y[12]) annotation (Line(points={{119,-78},{-20,
+          -78},{-20,-30},{-49,-30}}, color={0,0,127}));
+  connect(winSpeSel.uCon, winSpe_in) annotation (Line(points={{119,-62},{-190,-62},
           {-190,-78},{-220,-78}}, color={0,0,127}));
   connect(winDirSel.y, limWinDir.u)
     annotation (Line(points={{141,-270},{158,-270}}, color={0,0,127}));
   connect(conWinDir.y, winDirSel.uFil)
-    annotation (Line(points={{61,-276},{119,-276}}, color={0,0,127}));
-  connect(winDirSel.uCon, winDir_in) annotation (Line(points={{119,-264},{66,-264},
+    annotation (Line(points={{61,-276},{90,-276},{90,-278},{119,-278}},
+                                                    color={0,0,127}));
+  connect(winDirSel.uCon, winDir_in) annotation (Line(points={{119,-262},{66,-262},
           {66,-80},{-190,-80},{-190,-120},{-220,-120}}, color={0,0,127}));
   connect(pAtmSel.y, weaBus.pAtm) annotation (Line(points={{21,270},{220,270},{
           220,0},{300,0}}, color={0,0,127}));
   connect(tWetBul_TDryBulXi.p, pAtmSel.y) annotation (Line(points={{239,-58},{
           220,-58},{220,270},{21,270}}, color={0,0,127}));
-  connect(conOpaSkyCov.u, datRea.y[14]) annotation (Line(points={{38,-156},{20,
-          -156},{20,-30},{-29,-30}}, color={0,0,127}));
+  connect(conOpaSkyCov.u, datRea.y[14]) annotation (Line(points={{38,-156},{20,-156},
+          {20,-30},{-49,-30}},       color={0,0,127}));
+  connect(horInfRadSel.y, limHorInfRad.u) annotation (Line(points={{141,70},{158,
+          70}},                      color={0,0,127}));
+  connect(horInfRadSel.uFil, datRea.y[26]) annotation (Line(points={{119,62},{20,
+          62},{20,-30},{-49,-30}},  color={0,0,127}));
+  connect(horInfRadSel.uCon, HInfHor_in) annotation (Line(points={{119,78},{-174,
+          78},{-174,-160},{-220,-160}},  color={0,0,127}));
+  connect(souSelRad.HDifHor, weaBus.HDifHor) annotation (Line(points={{141,
+          197.8},{220,197.8},{220,0},{300,0}},
+                                        color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(souSelRad.HDirNor, weaBus.HDirNor) annotation (Line(points={{141,190},
+          {220,190},{220,0},{300,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(souSelRad.HGloHor, weaBus.HGloHor) annotation (Line(points={{141,182},
+          {220,182},{220,0},{300,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(souSelRad.HDifHorFil, datRea30Min.y[3]) annotation (Line(points={{119,199},
+          {44,199},{44,190},{-29,190}}, color={0,0,127}));
+  connect(souSelRad.HDifHorIn, HDifHor_in) annotation (Line(points={{119,196},{
+          98,196},{98,166},{-170,166},{-170,-220},{-220,-220}},
+                                                             color={0,0,127}));
+  connect(souSelRad.HDirNorFil, datRea30Min.y[2]) annotation (Line(points={{119,192},
+          {44,192},{44,190},{-29,190}}, color={0,0,127}));
+  connect(souSelRad.HDirNorIn, HDirNor_in) annotation (Line(points={{119,188},{
+          100,188},{100,160},{-168,160},{-168,-260},{-220,-260}},
+                                                              color={0,0,127}));
+  connect(souSelRad.HGloHorIn, HGloHor_in) annotation (Line(points={{119,181},{
+          102,181},{102,156},{-164,156},{-164,-300},{-220,-300}},
+                                                              color={0,0,127}));
+  connect(souSelRad.zen, zenAng.zen) annotation (Line(points={{124,179},{124,
+          152},{-40,152},{-40,-216},{-49,-216}},
+                                            color={0,0,127}));
+  connect(souSelRad.HGloHorFil, datRea30Min.y[1]) annotation (Line(points={{119,
+          184},{44,184},{44,190},{-29,190}}, color={0,0,127}));
     annotation (Placement(transformation(extent={{120,100},{140,120}})),
     defaultComponentName="weaDat",
     Icon(coordinateSystem(

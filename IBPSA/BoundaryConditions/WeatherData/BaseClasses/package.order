@@ -8,6 +8,7 @@ LimitMin
 LocalCivilTime
 SolarTime
 SourceSelector
+SourceSelectorRadiation
 getAbsolutePath
 getHeaderElementTMY3
 getLatitudeTMY3
