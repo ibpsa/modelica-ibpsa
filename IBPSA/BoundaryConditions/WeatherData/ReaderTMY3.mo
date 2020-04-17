@@ -360,12 +360,6 @@ protected
   Modelica.Blocks.Math.UnitConversions.From_degC conTDewPoi
     "Convert the dew point temperature form [degC] to [K]"
     annotation (Placement(transformation(extent={{40,-240},{60,-220}})));
-  BaseClasses.ConvertRadiation conDirNorRad "Convert the radiation from Wh/m2 to W/m2"
-    annotation (Placement(transformation(extent={{66,244},{86,264}})));
-  BaseClasses.ConvertRadiation conGloHorRad "Convert the radiation from Wh/m2 to W/m2"
-    annotation (Placement(transformation(extent={{116,234},{136,254}})));
-  BaseClasses.ConvertRadiation conDifHorRad "Convert the radiation from Wh/m2 to W/m2"
-    annotation (Placement(transformation(extent={{66,214},{86,234}})));
   Modelica.Blocks.Nonlinear.Limiter limRelHum(
     uMax=1,
     uMin=0,
@@ -598,12 +592,6 @@ equation
   connect(TBlaSkyCom.TDewPoi, cheTemDewPoi.TOut) annotation (Line(
       points={{238,-207},{220,-207},{220,-230},{181,-230}},
       color={0,0,127}));
-  connect(datRea30Min.y[2], conDirNorRad.HIn) annotation (Line(points={{-29,190},
-          {-16,190},{-16,254},{64,254}}, color={0,0,127}));
-  connect(datRea30Min.y[1], conGloHorRad.HIn) annotation (Line(points={{-29,190},
-          {40,190},{40,244},{114,244}}, color={0,0,127}));
-  connect(datRea30Min.y[3], conDifHorRad.HIn) annotation (Line(points={{-29,190},
-          {20,190},{20,224},{64,224}}, color={0,0,127}));
   connect(conRelHum.u, datRea.y[3]) annotation (Line(points={{38,24},{20,24},{20,
           -30},{-49,-30}},    color={0,0,127}));
   connect(limRelHum.y, weaBus.relHum) annotation (Line(points={{181,30},{280,30},

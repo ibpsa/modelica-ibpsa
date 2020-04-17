@@ -25,8 +25,8 @@ block SourceSelectorRadiation
     final unit="W/m2") if
      datSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.File
     "Diffuse horizontal solar irradiation from weather data file" annotation (Placement(transformation(
-          extent={{-140,60},{-100,100}}), iconTransformation(extent={{-120,80},
-            {-100,100}})));
+          extent={{-140,60},{-100,100}}), iconTransformation(extent={{-120,80},{
+            -100,100}})));
 
   Modelica.Blocks.Interfaces.RealInput HDifHorIn(
     final quantity="RadiantEnergyFluenceRate",
@@ -34,16 +34,16 @@ block SourceSelectorRadiation
      datSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or
      datSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor
     "Diffuse horizontal solar irradiation from input connector" annotation (Placement(transformation(
-          extent={{-140,30},{-100,70}}),  iconTransformation(extent={{-120,50},
-            {-100,70}})));
+          extent={{-140,30},{-100,70}}),  iconTransformation(extent={{-120,50},{
+            -100,70}})));
 
   Modelica.Blocks.Interfaces.RealInput HGloHorFil(
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") if
       datSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.File
     "Global horizontal solar irradiation from weather data file" annotation (Placement(transformation(extent={{-140,
-            -70},{-100,-30}}),        iconTransformation(extent={{-120,-70},{
-            -100,-50}})));
+            -70},{-100,-30}}),        iconTransformation(extent={{-120,-70},{-100,
+            -50}})));
 
   Modelica.Blocks.Interfaces.RealInput HGloHorIn(
     final quantity="RadiantEnergyFluenceRate",
@@ -51,8 +51,8 @@ block SourceSelectorRadiation
       datSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or
       datSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor
     "Global horizontal solar irradiation from input connector" annotation (Placement(transformation(extent={{-140,
-            -98},{-100,-58}}),        iconTransformation(extent={{-120,-100},{
-            -100,-80}})));
+            -98},{-100,-58}}),        iconTransformation(extent={{-120,-100},{-100,
+            -80}})));
 
   Modelica.Blocks.Interfaces.RealInput zen(
     final quantity="Angle",
@@ -75,13 +75,13 @@ block SourceSelectorRadiation
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2")
     "Diffuse horizontal solar irradiation" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,68},
+        transformation(extent={{100,60},{120,80}}),  iconTransformation(extent={{100,68},
             {120,88}})));
   Modelica.Blocks.Interfaces.RealOutput HGloHor(
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2")
     "Global horizontal solar irradiation" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-90},
+        transformation(extent={{100,-80},{120,-60}}),iconTransformation(extent={{100,-90},
             {120,-70}})));
 
 protected
@@ -101,15 +101,19 @@ protected
 
 equation
   // Conditional connect statements
-  connect(HGloHor_in_internal, HGloHor);
-  connect(HDifHor_in_internal, HDifHor);
-  connect(HDirNor_in_internal, HDirNor);
+  connect(HGloHor_in_internal, HGloHorFil);
+  connect(HDifHor_in_internal, HDifHorFil);
+  connect(HDirNor_in_internal, HDirNorFil);
+  connect(HGloHor_in_internal, HGloHorIn);
+  connect(HDifHor_in_internal, HDifHorIn);
+  connect(HDirNor_in_internal, HDirNorIn);
 
   //---------------------------------------------------------------------------
   // Select global horizontal radiation connector
   if datSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor then
     HGloHor = max(0, HDirNor_in_internal*cos(zen)+HDifHor_in_internal)
       "Calculate the HGloHor using HDirNor and HDifHor according to (A.4.14) and (A.4.15)";
+    HGloHor_in_internal = 0;
   else
     HGloHor = max(0, HGloHor_in_internal)
       "Get HGloHor using weather data file or input connector of weather data reader";
@@ -120,6 +124,7 @@ equation
   if datSou == IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor then
     HDifHor = max(0, HGloHor_in_internal - HDirNor_in_internal*cos(zen))
       "Calculate the HGloHor using HDirNor and HDifHor according to (A.4.14) and (A.4.15)";
+    HDifHor_in_internal = 0;
   else
     HDifHor = max(0, HDifHor_in_internal)
       "Get HDifHor using weather data file or input connector of weather data reader";
@@ -137,6 +142,7 @@ equation
             neg=0,
             deltax=epsCos)))
       "Calculate the HDirNor using HGloHor and HDifHor according to (A.4.14) and (A.4.15)";
+    HDirNor_in_internal = 0;
   else
     HDirNor = max(0, HDirNor_in_internal)
       "Get HDirNor using weather data file or input connector of weather data reader";
