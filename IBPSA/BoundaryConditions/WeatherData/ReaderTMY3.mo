@@ -510,29 +510,6 @@ First implementation.
 
 equation
 
-  connect(limTotSkyCov.nTot, weaBus.nTot) annotation (Line(points={{181,-30},{220,
-          -30},{220,0},{300,0}}, color={0,0,127}), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(limOpaSkyCov.nOpa, weaBus.nOpa) annotation (Line(points={{181,-150},{220,
-          -150},{220,0},{300,0}}, color={0,0,127}), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(limWinDir.winDir, weaBus.winDir) annotation (Line(points={{181,-270},{280,
-          -270},{280,0},{300,0}}, color={0,0,127}), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(limOpaSkyCov.nOpa, TBlaSkyCom.nOpa) annotation (Line(points={{181,-150},
-          {220,-150},{220,-213},{238,-213}}, color={0,0,127}));
-  connect(modTim.y, weaBus.cloTim) annotation (Line(
-      points={{-139,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{300,0}},
-      color={0,0,127}), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(modTim.y, add30Min.u2) annotation (Line(points={{-139,0},{-128,0},{-128,
           184},{-114,184}}, color={0,0,127}));
   connect(con30Min.y, add30Min.u1)
@@ -559,12 +536,6 @@ equation
   connect(locTim.locTim, solTim.locTim) annotation (Line(
       points={{-99,-150},{-96,-150},{-96,-135.4},{-90,-135.4}},
       color={0,0,127}));
-  connect(solTim.solTim, weaBus.solTim) annotation (Line(
-      points={{-67,-130},{-10,-130},{-10,0},{300,0}},
-      color={0,0,127}), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(datRea.y[11], conWinDir.u) annotation (Line(
       points={{-49,-30},{20,-30},{20,-276},{38,-276}},
       color={0,0,127}));
@@ -576,11 +547,7 @@ equation
       color={0,0,127}));
   connect(conRelHum.u, datRea.y[3]) annotation (Line(points={{38,24},{20,24},{20,
           -30},{-49,-30}},    color={0,0,127}));
-  connect(limRelHum.relHum, weaBus.relHum) annotation (Line(points={{181,30},{280,30},
-          {280,0},{300,0}}, color={0,0,127}), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
+
   connect(decAng.decAng, zenAng.decAng)
                                   annotation (Line(
       points={{-99,-210},{-72,-210},{-72,-210.6}},
@@ -599,35 +566,11 @@ equation
       points={{-49,-216},{-30,-216}},
       color={0,0,127}));
 
-  // Connectors for wet bulb temperature.
-  // These are removed if computeWetBulbTemperature = false
-  connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
-      points={{261,-50},{280,-50},{280,0},{300,0}},
-      color={0,0,127}), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
+  connect(limOpaSkyCov.nOpa, TBlaSkyCom.nOpa) annotation (Line(points={{181,-150},
+          {220,-150},{220,-213},{238,-213}}, color={0,0,127}));
   connect(limRelHum.relHum, tWetBul_TDryBulXi.phi) annotation (Line(points={{181,30},
           {220,30},{220,-50},{239,-50}}, color={0,0,127}));
 
-  connect(altAng.alt, weaBus.solAlt) annotation (Line(
-      points={{-7,-216},{0,-216},{0,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127}));
-  connect(zenAng.zen, weaBus.solZen) annotation (Line(
-      points={{-49,-216},{-40,-216},{-40,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127}));
-  connect(decAng.decAng, weaBus.solDec) annotation (Line(
-      points={{-99,-210},{-90,-210},{-90,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127}));
-  connect(solHouAng.solHouAng, weaBus.solHouAng) annotation (Line(
-      points={{-99,-240},{-90,-240},{-90,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127}));
-  connect(longitude.y, weaBus.lon) annotation (Line(
-      points={{-99,-272},{-90,-272},{-90,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127}));
-  connect(latitude.y, weaBus.lat) annotation (Line(
-      points={{-129,-280},{-124,-280},{-124,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127}));
   connect(pAtmSel.y, chePre.PIn)
     annotation (Line(points={{21,270},{158,270}},   color={0,0,127}));
   connect(pAtmSel.uCon, pAtm_in) annotation (Line(points={{-1,278},{-110,278},{-110,
@@ -700,25 +643,7 @@ equation
           62},{20,-30},{-49,-30}},  color={0,0,127}));
   connect(horInfRadSel.uCon, HInfHor_in) annotation (Line(points={{119,78},{-174,
           78},{-174,-160},{-220,-160}},  color={0,0,127}));
-  connect(souSelRad.HDifHor, weaBus.HDifHor) annotation (Line(points={{141,
-          197.8},{220,197.8},{220,0},{300,0}},
-                                        color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(souSelRad.HDirNor, weaBus.HDirNor) annotation (Line(points={{141,190},
-          {220,190},{220,0},{300,0}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(souSelRad.HGloHor, weaBus.HGloHor) annotation (Line(points={{141,182},
-          {220,182},{220,0},{300,0}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+
   connect(souSelRad.HDifHorFil, datRea30Min.y[3]) annotation (Line(points={{119,199},
           {44,199},{44,190},{-29,190}}, color={0,0,127}));
   connect(souSelRad.HDifHorIn, HDifHor_in) annotation (Line(points={{119,196},{
@@ -737,61 +662,156 @@ equation
                                             color={0,0,127}));
   connect(souSelRad.HGloHorFil, datRea30Min.y[1]) annotation (Line(points={{119,
           184},{44,184},{44,190},{-29,190}}, color={0,0,127}));
-  connect(limCeiHei.ceiHei, weaBus.ceiHei) annotation (Line(points={{181,-110},{
-          220,-110},{220,0},{300,0}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+
   connect(TBlaSkyCom.HHorIR, limHorInfRad.HHorIR) annotation (Line(points={{238,
           -218},{220,-218},{220,70},{181,70}}, color={0,0,127}));
-  connect(limHorInfRad.HHorIR, weaBus.HHorIR) annotation (Line(points={{181,70},
-          {220,70},{220,0},{300,0}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(limWinSpe.winSpe, weaBus.winSpe) annotation (Line(points={{181,-70},{220,
-          -70},{220,0},{300,0}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+
   connect(opaSkyCovSel.y, limOpaSkyCov.u)
     annotation (Line(points={{141,-150},{158,-150}}, color={0,0,127}));
-  connect(chePre.pAtm, weaBus.pAtm) annotation (Line(points={{181,270},{220,270},
-          {220,0},{300,0}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(chePre.pAtm, tWetBul_TDryBulXi.p) annotation (Line(points={{181,270},
-          {220,270},{220,-58},{239,-58}}, color={0,0,127}));
-  connect(cheTemBlaSky.TBlaSky, weaBus.TBlaSky) annotation (Line(points={{261,
-          -130},{280,-130},{280,0},{300,0}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(cheTemDryBul.TDryBul, TBlaSkyCom.TDryBul) annotation (Line(points={{
           181,-190},{220,-190},{220,-202},{238,-202}}, color={0,0,127}));
   connect(cheTemDryBul.TDryBul, tWetBul_TDryBulXi.TDryBul) annotation (Line(
         points={{181,-190},{220,-190},{220,-42},{239,-42}}, color={0,0,127}));
+
+  connect(chePre.pAtm, tWetBul_TDryBulXi.p) annotation (Line(points={{181,270},
+          {220,270},{220,-58},{239,-58}}, color={0,0,127}));
+
+  connect(cheTemDewPoi.TDewPoi, TBlaSkyCom.TDewPoi) annotation (Line(points={{
+          181,-230},{220,-230},{220,-207},{238,-207}}, color={0,0,127}));
+
+  // Connections to weather data bus
   connect(cheTemDryBul.TDryBul, weaBus.TDryBul) annotation (Line(points={{181,
           -190},{220,-190},{220,0},{300,0}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(cheTemDewPoi.TDewPoi, TBlaSkyCom.TDewPoi) annotation (Line(points={{
-          181,-230},{220,-230},{220,-207},{238,-207}}, color={0,0,127}));
+
   connect(cheTemDewPoi.TDewPoi, weaBus.TDewPoi) annotation (Line(points={{181,
           -230},{280,-230},{280,0},{300,0}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-    annotation (Placement(transformation(extent={{120,100},{140,120}})),
+  connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
+      points={{261,-50},{280,-50},{280,0},{300,0}},
+      color={0,0,127}), Text(
+      textString="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+
+  connect(limRelHum.relHum, weaBus.relHum) annotation (Line(points={{181,30},{280,30},
+          {280,0},{300,0}}, color={0,0,127}), Text(
+      textString="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+
+  connect(souSelRad.HDirNor, weaBus.HDirNor) annotation (Line(points={{141,190},
+          {220,190},{220,0},{300,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(souSelRad.HDifHor, weaBus.HDifHor) annotation (Line(points={{141,
+          197.8},{220,197.8},{220,0},{300,0}},
+                                        color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+
+  connect(souSelRad.HGloHor, weaBus.HGloHor) annotation (Line(points={{141,182},
+          {220,182},{220,0},{300,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+
+  connect(cheTemBlaSky.TBlaSky, weaBus.TBlaSky) annotation (Line(points={{261,
+          -130},{280,-130},{280,0},{300,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(limHorInfRad.HHorIR, weaBus.HHorIR) annotation (Line(points={{181,70},
+          {220,70},{220,0},{300,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+
+  connect(limWinSpe.winSpe, weaBus.winSpe) annotation (Line(points={{181,-70},{220,
+          -70},{220,0},{300,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+
+  connect(limWinDir.winDir, weaBus.winDir) annotation (Line(points={{181,-270},{280,
+          -270},{280,0},{300,0}}, color={0,0,127}), Text(
+      textString="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+
+  connect(limCeiHei.ceiHei, weaBus.ceiHei) annotation (Line(points={{181,-110},{
+          220,-110},{220,0},{300,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+
+  connect(limTotSkyCov.nTot, weaBus.nTot) annotation (Line(points={{181,-30},{220,
+          -30},{220,0},{300,0}}, color={0,0,127}), Text(
+      textString="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(limOpaSkyCov.nOpa, weaBus.nOpa) annotation (Line(points={{181,-150},{220,
+          -150},{220,0},{300,0}}, color={0,0,127}), Text(
+      textString="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+
+  connect(modTim.y, weaBus.cloTim) annotation (Line(
+      points={{-139,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{300,0}},
+      color={0,0,127}), Text(
+      textString="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+
+  connect(solTim.solTim, weaBus.solTim) annotation (Line(
+      points={{-67,-130},{-10,-130},{-10,0},{300,0}},
+      color={0,0,127}), Text(
+      textString="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+
+  connect(altAng.alt, weaBus.solAlt) annotation (Line(
+      points={{-7,-216},{0,-216},{0,-290},{290,-290},{290,0},{300,0}},
+      color={0,0,127}));
+  connect(zenAng.zen, weaBus.solZen) annotation (Line(
+      points={{-49,-216},{-40,-216},{-40,-290},{290,-290},{290,0},{300,0}},
+      color={0,0,127}));
+  connect(decAng.decAng, weaBus.solDec) annotation (Line(
+      points={{-99,-210},{-90,-210},{-90,-290},{290,-290},{290,0},{300,0}},
+      color={0,0,127}));
+  connect(solHouAng.solHouAng, weaBus.solHouAng) annotation (Line(
+      points={{-99,-240},{-90,-240},{-90,-290},{290,-290},{290,0},{300,0}},
+      color={0,0,127}));
+  connect(longitude.y, weaBus.lon) annotation (Line(
+      points={{-99,-272},{-90,-272},{-90,-290},{290,-290},{290,0},{300,0}},
+      color={0,0,127}));
+  connect(latitude.y, weaBus.lat) annotation (Line(
+      points={{-129,-280},{-124,-280},{-124,-290},{290,-290},{290,0},{300,0}},
+      color={0,0,127}));
+
+  connect(chePre.pAtm, weaBus.pAtm) annotation (Line(points={{181,270},{220,270},
+          {220,0},{300,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+
+    annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
