@@ -4,17 +4,23 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{
             290,-10},{310,10}}), iconTransformation(extent={{190,-10},{210,10}})));
 
+  //--------------------------------------------------------------
+  parameter String filNam="" "Name of weather data file" annotation (
+    Dialog(loadSelector(filter="Weather files (*.mos)",
+                        caption="Select weather file")));
+
   parameter Boolean computeWetBulbTemperature = true
     "If true, then this model computes the wet bulb temperature"
     annotation(Evaluate=true);
+
   //--------------------------------------------------------------
   // Atmospheric pressure
   parameter IBPSA.BoundaryConditions.Types.DataSource pAtmSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter
     "Atmospheric pressure"
-    annotation (Evaluate=true, HideResult=true, Dialog(group="Data source"));
+    annotation (Evaluate=true, HideResult=true, Dialog(tab="Data source"));
   parameter Modelica.SIunits.Pressure pAtm=101325
     "Atmospheric pressure (used if pAtmSou=Parameter)"
-    annotation (Dialog(group="Data source"));
+    annotation (Dialog(tab="Data source"));
   Modelica.Blocks.Interfaces.RealInput pAtm_in(
     final quantity="Pressure",
     final unit="Pa",
@@ -22,63 +28,15 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Input pressure"
     annotation (Placement(transformation(extent={{-240,254},{-200,294}}),
         iconTransformation(extent={{-240,254},{-200,294}})));
-  //--------------------------------------------------------------
-  // Ceiling height
-  parameter IBPSA.BoundaryConditions.Types.DataSource ceiHeiSou=IBPSA.BoundaryConditions.Types.DataSource.File
-    "Ceiling height" annotation (Evaluate=true, HideResult=true, Dialog(group="Data source"));
-  parameter Real ceiHei(
-    final quantity="Height",
-    final unit="m",
-    displayUnit="m") = 20000 "Ceiling height (used if ceiHei=Parameter)"
-    annotation (Dialog(group="Data source"));
-  Modelica.Blocks.Interfaces.RealInput ceiHei_in(
-    final quantity="Height",
-    final unit="m",
-    displayUnit="m") if (ceiHeiSou == IBPSA.BoundaryConditions.Types.DataSource.Input)
-    "Input ceiling height"
-    annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
-        iconTransformation(extent={{-240,-10},{-200,30}})));
-  //--------------------------------------------------------------
-  // Total sky cover
-  parameter IBPSA.BoundaryConditions.Types.DataSource totSkyCovSou=IBPSA.BoundaryConditions.Types.DataSource.File
-    "Total sky cover" annotation (Evaluate=true, HideResult=true, Dialog(group="Data source"));
-  parameter Real totSkyCov(
-    min=0,
-    max=1,
-    unit="1") = 0.5
-    "Total sky cover (used if totSkyCov=Parameter). Use 0 <= totSkyCov <= 1"
-    annotation (Dialog(group="Data source"));
-  Modelica.Blocks.Interfaces.RealInput totSkyCov_in(
-    min=0,
-    max=1,
-    unit="1") if (totSkyCovSou == IBPSA.BoundaryConditions.Types.DataSource.Input)
-    "Input total sky cover"
-    annotation (Placement(transformation(extent={{-240,-58},{-200,-18}}),
-        iconTransformation(extent={{-240,-58},{-200,-18}})));
-  // Opaque sky cover
-  parameter IBPSA.BoundaryConditions.Types.DataSource opaSkyCovSou=IBPSA.BoundaryConditions.Types.DataSource.File
-    "Opaque sky cover" annotation (Evaluate=true, HideResult=true, Dialog(group="Data source"));
-  parameter Real opaSkyCov(
-    min=0,
-    max=1,
-    unit="1") = 0.5
-    "Opaque sky cover (used if opaSkyCov=Parameter). Use 0 <= opaSkyCov <= 1"
-    annotation (Dialog(group="Data source"));
-  Modelica.Blocks.Interfaces.RealInput opaSkyCov_in(
-    min=0,
-    max=1,
-    unit="1") if (opaSkyCovSou == IBPSA.BoundaryConditions.Types.DataSource.Input)
-    "Input opaque sky cover"
-    annotation (Placement(transformation(extent={{-240,32},{-200,72}}),
-        iconTransformation(extent={{-240,32},{-200,72}})));
+
   //--------------------------------------------------------------
   // Dry bulb temperature
   parameter IBPSA.BoundaryConditions.Types.DataSource TDryBulSou=IBPSA.BoundaryConditions.Types.DataSource.File
     "Dry bulb temperature"
-    annotation (Evaluate=true, HideResult=true, Dialog(group="Data source"));
+    annotation (Evaluate=true, HideResult=true, Dialog(tab="Data source"));
   parameter Modelica.SIunits.Temperature TDryBul(displayUnit="degC") = 293.15
     "Dry bulb temperature (used if TDryBul=Parameter)"
-    annotation (Dialog(group="Data source"));
+    annotation (Dialog(tab="Data source"));
   Modelica.Blocks.Interfaces.RealInput TDryBul_in(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -90,10 +48,10 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   // Dew point temperature
   parameter IBPSA.BoundaryConditions.Types.DataSource TDewPoiSou=IBPSA.BoundaryConditions.Types.DataSource.File
     "Dew point temperature"
-    annotation (Evaluate=true, HideResult=true, Dialog(group="Data source"));
+    annotation (Evaluate=true, HideResult=true, Dialog(tab="Data source"));
   parameter Modelica.SIunits.Temperature TDewPoi(displayUnit="degC") = 283.15
     "Dew point temperature (used if TDewPoi=Parameter)"
-    annotation (Dialog(group="Data source"));
+    annotation (Dialog(tab="Data source"));
   Modelica.Blocks.Interfaces.RealInput TDewPoi_in(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -104,10 +62,10 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   //--------------------------------------------------------------
   // Black body sky temperature
   parameter IBPSA.BoundaryConditions.Types.DataSource TBlaSkySou=IBPSA.BoundaryConditions.Types.DataSource.File
-    "Black-body sky temperature" annotation (Evaluate=true, HideResult=true, Dialog(group="Data source"));
+    "Black-body sky temperature" annotation (Evaluate=true, HideResult=true, Dialog(tab="Data source"));
   parameter Modelica.SIunits.Temperature TBlaSky=273.15
     "Black-body sky temperature (used if TBlaSkySou=Parameter)"
-    annotation (Dialog(group="Data source"));
+    annotation (Dialog(tab="Data source"));
   Modelica.Blocks.Interfaces.RealInput TBlaSky_in(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
@@ -119,12 +77,12 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   //--------------------------------------------------------------
   // Relative humidity
   parameter IBPSA.BoundaryConditions.Types.DataSource relHumSou=IBPSA.BoundaryConditions.Types.DataSource.File
-    "Relative humidity" annotation (Evaluate=true, HideResult=true, Dialog(group="Data source"));
+    "Relative humidity" annotation (Evaluate=true, HideResult=true, Dialog(tab="Data source"));
   parameter Real relHum(
     min=0,
     max=1,
     unit="1") = 0.5 "Relative humidity (used if relHum=Parameter)"
-    annotation (Dialog(group="Data source"));
+    annotation (Dialog(tab="Data source"));
   Modelica.Blocks.Interfaces.RealInput relHum_in(
     min=0,
     max=1,
@@ -135,10 +93,10 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   //--------------------------------------------------------------
   // Wind speed
   parameter IBPSA.BoundaryConditions.Types.DataSource winSpeSou=IBPSA.BoundaryConditions.Types.DataSource.File
-    "Wind speed" annotation (Evaluate=true, HideResult=true, Dialog(group="Data source"));
+    "Wind speed" annotation (Evaluate=true, HideResult=true, Dialog(tab="Data source"));
   parameter Modelica.SIunits.Velocity winSpe(min=0) = 1
     "Wind speed (used if winSpe=Parameter)"
-    annotation (Dialog(group="Data source"));
+    annotation (Dialog(tab="Data source"));
   Modelica.Blocks.Interfaces.RealInput winSpe_in(
     final quantity="Velocity",
     final unit="m/s",
@@ -149,10 +107,10 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   //--------------------------------------------------------------
   // Wind direction
   parameter IBPSA.BoundaryConditions.Types.DataSource winDirSou=IBPSA.BoundaryConditions.Types.DataSource.File
-    "Wind direction" annotation (Evaluate=true, HideResult=true, Dialog(group="Data source"));
+    "Wind direction" annotation (Evaluate=true, HideResult=true, Dialog(tab="Data source"));
   parameter Modelica.SIunits.Angle winDir=1.0
     "Wind direction (used if winDir=Parameter)"
-    annotation (Dialog(group="Data source"));
+    annotation (Dialog(tab="Data source"));
   Modelica.Blocks.Interfaces.RealInput winDir_in(
     final quantity="Angle",
     final unit="rad",
@@ -163,10 +121,10 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   //--------------------------------------------------------------
   // Infrared horizontal radiation
   parameter IBPSA.BoundaryConditions.Types.DataSource HInfHorSou=IBPSA.BoundaryConditions.Types.DataSource.File
-    "Infrared horizontal radiation" annotation (Evaluate=true, HideResult=true, Dialog(group="Data source"));
+    "Infrared horizontal radiation" annotation (Evaluate=true, HideResult=true, Dialog(tab="Data source"));
   parameter Modelica.SIunits.HeatFlux HInfHor=0.0
     "Infrared horizontal radiation (used if HInfHorSou=Parameter)"
-    annotation (Dialog(group="Data source"));
+    annotation (Dialog(tab="Data source"));
   Modelica.Blocks.Interfaces.RealInput HInfHor_in(
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") if (HInfHorSou == IBPSA.BoundaryConditions.Types.DataSource.Input)
@@ -176,7 +134,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
 
    parameter IBPSA.BoundaryConditions.Types.RadiationDataSource HSou=IBPSA.BoundaryConditions.Types.RadiationDataSource.File
     "Global, diffuse, and direct normal radiation"
-     annotation (Evaluate=true, HideResult=true, Dialog(group="Data source"));
+     annotation (Evaluate=true, HideResult=true, Dialog(tab="Data source"));
   //--------------------------------------------------------------
   // Global horizontal radiation
   Modelica.Blocks.Interfaces.RealInput HGloHor_in(
@@ -207,10 +165,63 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     annotation (Placement(transformation(extent={{-240,-280},{-200,-240}}),
         iconTransformation(extent={{-240,-240},{-200,-200}})));
 
+//--------------------------------------------------------------
+  // Ceiling height
+  parameter IBPSA.BoundaryConditions.Types.DataSource ceiHeiSou=IBPSA.BoundaryConditions.Types.DataSource.File
+    "Ceiling height" annotation (Evaluate=true, HideResult=true, Dialog(tab="Data source"));
+  parameter Real ceiHei(
+    final quantity="Height",
+    final unit="m",
+    displayUnit="m") = 20000 "Ceiling height (used if ceiHei=Parameter)"
+    annotation (Dialog(tab="Data source"));
+  Modelica.Blocks.Interfaces.RealInput ceiHei_in(
+    final quantity="Height",
+    final unit="m",
+    displayUnit="m") if (ceiHeiSou == IBPSA.BoundaryConditions.Types.DataSource.Input)
+    "Input ceiling height"
+    annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
+        iconTransformation(extent={{-240,-10},{-200,30}})));
   //--------------------------------------------------------------
-  parameter String filNam="" "Name of weather data file" annotation (
-    Dialog(loadSelector(filter="Weather files (*.mos)",
-                        caption="Select weather file")));
+  // Total sky cover
+  parameter IBPSA.BoundaryConditions.Types.DataSource totSkyCovSou=IBPSA.BoundaryConditions.Types.DataSource.File
+    "Total sky cover" annotation (Evaluate=true, HideResult=true, Dialog(tab="Data source"));
+  parameter Real totSkyCov(
+    min=0,
+    max=1,
+    unit="1") = 0.5
+    "Total sky cover (used if totSkyCov=Parameter). Use 0 <= totSkyCov <= 1"
+    annotation (Dialog(tab="Data source"));
+  Modelica.Blocks.Interfaces.RealInput totSkyCov_in(
+    min=0,
+    max=1,
+    unit="1") if (totSkyCovSou == IBPSA.BoundaryConditions.Types.DataSource.Input)
+    "Input total sky cover"
+    annotation (Placement(transformation(extent={{-240,-58},{-200,-18}}),
+        iconTransformation(extent={{-240,-58},{-200,-18}})));
+  // Opaque sky cover
+  parameter IBPSA.BoundaryConditions.Types.DataSource opaSkyCovSou=IBPSA.BoundaryConditions.Types.DataSource.File
+    "Opaque sky cover" annotation (Evaluate=true, HideResult=true, Dialog(tab="Data source"));
+  parameter Real opaSkyCov(
+    min=0,
+    max=1,
+    unit="1") = 0.5
+    "Opaque sky cover (used if opaSkyCov=Parameter). Use 0 <= opaSkyCov <= 1"
+    annotation (Dialog(tab="Data source"));
+  Modelica.Blocks.Interfaces.RealInput opaSkyCov_in(
+    min=0,
+    max=1,
+    unit="1") if (opaSkyCovSou == IBPSA.BoundaryConditions.Types.DataSource.Input)
+    "Input opaque sky cover"
+    annotation (Placement(transformation(extent={{-240,32},{-200,72}}),
+        iconTransformation(extent={{-240,32},{-200,72}})));
+
+  parameter IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation
+    calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover
+    "Model choice for black-body sky temperature calculation" annotation (
+    choicesAllMatching=true,
+    Evaluate=true,
+    Dialog(tab="Advanced", group="Sky temperature"));
+
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
     filNam) "Longitude";
@@ -220,13 +231,6 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
-
-  parameter IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation
-    calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover
-    "Computation of black-body sky temperature" annotation (
-    choicesAllMatching=true,
-    Evaluate=true,
-    Dialog(group="Sky temperature"));
 
 protected
   final parameter Modelica.SIunits.Time[2] timeSpan=
