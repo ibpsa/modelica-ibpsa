@@ -28,7 +28,7 @@ equation
   when {initial(), canRepeatWeatherFile and modTim > pre(tNext)} then
     // simulation time stamp went over the end time of the weather file
     //(last time stamp of the weather file + average increment)
-    tNext = if canRepeatWeatherFile then integer(modTim/lenWea)*lenWea + lenWea else time;
+    tNext = if canRepeatWeatherFile then noEvent(integer(modTim/lenWea))*lenWea + lenWea else time;
   end when;
   calTim = if canRepeatWeatherFile then modTim - tNext + lenWea else modTim;
 
