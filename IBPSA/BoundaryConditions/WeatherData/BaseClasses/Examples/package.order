@@ -1,7 +1,6 @@
 CheckBlackBodySkyTemperature
 CheckPressure
 CheckTemperature
-ConvertRadiation
 ConvertTime
 ConvertTimeNegativeStart
 ConvertTimePositiveStart

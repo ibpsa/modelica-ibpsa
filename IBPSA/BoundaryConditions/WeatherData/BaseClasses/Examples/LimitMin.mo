@@ -3,9 +3,9 @@ model LimitMin "Test model for ceiling height check"
   extends Modelica.Icons.Example;
   IBPSA.Utilities.Time.ModelTime modTim
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  IBPSA.BoundaryConditions.WeatherData.BaseClasses.LimitMin
-    limCeiHei "Block that constrains the ceiling height"
-     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+  IBPSA.BoundaryConditions.WeatherData.BaseClasses.LimiterCeilingHeight limCeiHei
+    "Block that constrains the ceiling height"
+    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim(
     weaDatStaTim=0,
     weaDatEndTim=31536000)
@@ -22,7 +22,7 @@ protected
     "Data reader"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 equation
-  connect(datRea.y[20],limCeiHei. ceiHeiIn) annotation (Line(
+  connect(datRea.y[20],limCeiHei.u) annotation (Line(
       points={{21,-10},{30,-10},{30,-10},{38,-10}},
       color={0,0,127}));
   connect(modTim.y, conTim.modTim) annotation (Line(

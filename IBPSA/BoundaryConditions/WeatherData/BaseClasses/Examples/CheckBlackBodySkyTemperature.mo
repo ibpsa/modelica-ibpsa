@@ -11,8 +11,8 @@ model CheckBlackBodySkyTemperature
     offset=273.15 - 69.99) "Black body sky temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
-  connect(TBlaBod.y, cheSkyBlaBodTem.u)
-    annotation (Line(points={{-19,0},{0,0},{18,0}}, color={0,0,127}));
+  connect(TBlaBod.y, cheSkyBlaBodTem.TIn)
+    annotation (Line(points={{-19,0},{18,0}}, color={0,0,127}));
   annotation (
 Documentation(info="<html>
 <p>

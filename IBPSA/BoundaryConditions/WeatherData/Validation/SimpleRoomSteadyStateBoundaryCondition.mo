@@ -23,15 +23,15 @@ model SimpleRoomSteadyStateBoundaryCondition
     annotation (Placement(transformation(extent={{-134,44},{-114,64}})));
 equation
   connect(zer.y, weaDat.HDifHor_in) annotation (Line(points={{-113,54},{-106,54},
-          {-106,54.4},{-99,54.4}}, color={0,0,127}));
+          {-106,52.5},{-99,52.5}}, color={0,0,127}));
   connect(zer.y, weaDat.HGloHor_in) annotation (Line(points={{-113,54},{-106,54},
           {-106,49},{-99,49}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=604800,
-      Tolerance=1e-06,
+      Tolerance=1e-06),
       __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/SimpleRoomSteadyStateBoundaryCondition.mos"
-        "Simulate and plot")),
+        "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-140,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>

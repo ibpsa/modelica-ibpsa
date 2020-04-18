@@ -14,7 +14,14 @@ block CheckBlackBodySkyTemperature
     displayUnit="degC") "Black-body sky temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
+  Modelica.Blocks.Interfaces.RealOutput TBlaSky(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Black-body sky temperature"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
 equation
+  TBlaSky = TIn;
   assert(noEvent(TIn > TMin and TIn < TMax),
     "In " + getInstanceName() + ": Weather data black-body sky temperature out of bounds.\n" + "   TIn = " +
      String(TIn));
@@ -48,8 +55,27 @@ This was implemented to get the corrected documentation string in the weather bu
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Text(
-          extent={{56,12},{-68,-16}},
+            100}}), graphics={
+        Ellipse(
+          extent={{-20,-78},{20,-40}},
+          lineColor={99,17,20},
+          lineThickness=0.5,
+          fillColor={99,17,20},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-40,40},{-12,40}}),
+        Line(points={{-40,10},{-12,10}}),
+        Line(points={{-40,-20},{-12,-20}}),
+        Rectangle(
+          extent={{-12,40},{12,-44}},
+          lineColor={99,17,20},
+          fillColor={99,17,20},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-12,40},{-12,60},{-10,66},{-6,68},{0,70},{6,68},{10,66},{12,
+              60},{12,40},{-12,40}},
           lineColor={0,0,0},
-          textString="TSkyBlaBod")}));
+          lineThickness=0.5),
+        Line(
+          points={{-12,40},{-12,-45}},
+          thickness=0.5)}));
 end CheckBlackBodySkyTemperature;

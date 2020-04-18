@@ -4,11 +4,16 @@ block CheckPressure
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput PIn(
     final quantity="Pressure",
-    final unit="Pa") "Input pressure"
+    final unit="Pa") "Atmospheric pressure"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.RealOutput pAtm(
+    final quantity="Pressure",
+    final unit="Pa") "Atmospheric pressure"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   constant Modelica.SIunits.Pressure PMin=3100 "Minimum allowed pressure";
   constant Modelica.SIunits.Pressure PMax=120000 "Maximum allowed pressure";
 equation
+  pAtm = PIn;
   assert(noEvent(PIn > PMin and PIn < PMax), "In " + getInstanceName() +
     ": Weather data atmospheric pressure out of bounds.\n" + "   PIn = " + String(PIn));
 
