@@ -45,5 +45,6 @@ if there is no solar radiation and constant outdoor conditions.
 April 14, 2020, by Michael Wetter:<br/>
 First implementation.
 </li>
+</ul>
 </html>"));
 end SimpleRoomSteadyStateBoundaryCondition;
