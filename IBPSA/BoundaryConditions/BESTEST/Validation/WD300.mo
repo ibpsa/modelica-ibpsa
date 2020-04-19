@@ -4,7 +4,12 @@ model WD300 "Test model for BESTEST weather data: Southern hemisphere case"
     lat= -0.58281779711847,
     rho = 0,
     alt = 474);
-  annotation (Documentation(revisions="<html>
+  annotation (experiment(
+      StopTime=3.1536e+07,
+      Interval=900,
+      Tolerance=1e-6),
+__Dymola_Commands(file="modelica://IBPSA/BoundaryConditions/BESTEST/Validation/WD300.mos"
+        "Simulate and plot"),Documentation(revisions="<html>
 <ul>
 <li>
 March 11, 2020, by Ettore Zanetti:<br/>
@@ -20,7 +25,7 @@ Rework after comments from pull request
 <h4>WD300: Southern Hemisphere Case</h4>
 <p>Weather data file : 855740.epw</p>
 <p><i>Table 1: Site Data for Weather file 855740.epw</i></p>
-<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<table summary=\"Site Data for Weather file 855740.epw\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
 <td><p>Latitude</p></td>
 <td><p>33.393&deg; south</p></td>
 </tr>

@@ -16,76 +16,76 @@ model WD100 "Test model for BESTEST weather data: base case"
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,-88})));
+        origin={-10,-90})));
 
   WeatherData.Bus weaBusHHorIR
     "weather bus to read all weather data and Tsky using horizontal radiation"
-                               annotation (Placement(transformation(extent={{-16,
-            -82},{14,-54}}), iconTransformation(extent={{-220,70},{-200,90}})));
+                               annotation (Placement(transformation(extent={{-14,-82},
+            {16,-54}}),      iconTransformation(extent={{-220,70},{-200,90}})));
   IsotropicAndPerezDiffuseRadiation azi000til00(
     til=IBPSA.Types.Tilt.Ceiling,
     lat=lat,
     azi=IBPSA.Types.Azimuth.S,
     rho=rho) "Azimuth = Horizontal, Tilt = 0 °"
-    annotation (Placement(transformation(extent={{68,68},{88,88}})));
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
   IsotropicAndPerezDiffuseRadiation azi000til90(
     til=IBPSA.Types.Tilt.Wall,
     lat=lat,
     azi=IBPSA.Types.Azimuth.S,
     rho=rho) "Azimuth = South, Tilt = 90 °"
-    annotation (Placement(transformation(extent={{68,36},{88,56}})));
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
   IsotropicAndPerezDiffuseRadiation azi270til90(
     til=IBPSA.Types.Tilt.Wall,
     lat=lat,
     azi=IBPSA.Types.Azimuth.E,
     rho=rho) "Azimuth = East, Tilt = 90 °"
-    annotation (Placement(transformation(extent={{68,2},{88,22}})));
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
   IsotropicAndPerezDiffuseRadiation azi180til90(
     til=IBPSA.Types.Tilt.Wall,
     lat=lat,
     azi=IBPSA.Types.Azimuth.N,
     rho=rho) "Azimuth = North, Tilt = 90 °"
-    annotation (Placement(transformation(extent={{66,-28},{86,-8}})));
+    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   IsotropicAndPerezDiffuseRadiation azi090til90(
     til=IBPSA.Types.Tilt.Wall,
     lat=lat,
     azi=IBPSA.Types.Azimuth.W,
     rho=rho) "Azimuth =  West, Tilt = 90 °"
-    annotation (Placement(transformation(extent={{66,-56},{86,-36}})));
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   IsotropicAndPerezDiffuseRadiation azi315til90(
     til=IBPSA.Types.Tilt.Wall,
     lat=lat,
     azi=IBPSA.Types.Azimuth.SE,
     rho=rho) "Azimuth = 45 ° SE, Tilt = 0 °"
-    annotation (Placement(transformation(extent={{-58,68},{-78,88}})));
+    annotation (Placement(transformation(extent={{-60,70},{-80,90}})));
   IsotropicAndPerezDiffuseRadiation azi045til90(
     til=IBPSA.Types.Tilt.Wall,
     lat=lat,
     azi=IBPSA.Types.Azimuth.SW,
     rho=rho) "Azimuth = 45 SW, Tilt = 90 °"
-    annotation (Placement(transformation(extent={{-58,36},{-78,56}})));
+    annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
   IsotropicAndPerezDiffuseRadiation azi270til30(
     til=0.5235987755983,
     lat=lat,
     azi=IBPSA.Types.Azimuth.E,
     rho=rho) "Azimuth = East, Tilt = 30 °"
-    annotation (Placement(transformation(extent={{-58,2},{-78,22}})));
+    annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
   IsotropicAndPerezDiffuseRadiation azi000til30(
     til=0.5235987755983,
     lat=lat,
     azi=IBPSA.Types.Azimuth.S,
     rho=rho) "Azimuth = South, Tilt = 0 °"
-    annotation (Placement(transformation(extent={{-58,-28},{-78,-8}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-80,0}})));
   IsotropicAndPerezDiffuseRadiation azi090til30(
     til=0.5235987755983,
     lat=lat,
     azi=IBPSA.Types.Azimuth.W,
     rho=rho) "Azimuth = West, Tilt = 0 °"
-    annotation (Placement(transformation(extent={{-58,-56},{-78,-36}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
   Utilities.Psychrometrics.X_pTphi x_pTphi
-    annotation (Placement(transformation(extent={{-48,-90},{-68,-70}})));
+    annotation (Placement(transformation(extent={{-40,-80},{-60,-60}})));
   Utilities.Psychrometrics.ToDryAir toDryAir
-    annotation (Placement(transformation(extent={{-76,-92},{-98,-70}})));
+    annotation (Placement(transformation(extent={{-72,-80},{-92,-60}})));
   WeatherData.ReaderTMY3 weaDatTDryBulTDewPoinOpa(
     pAtmSou=IBPSA.BoundaryConditions.Types.DataSource.File,
     ceiHeiSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,
@@ -97,71 +97,23 @@ model WD100 "Test model for BESTEST weather data: base case"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={86,-82})));
+        origin={70,-90})));
 
   WeatherData.Bus weaBusTDryBulTDewPoinOpa
     "weather bus to read Tsky using dew point temperature and sky cover"
-    annotation (Placement(transformation(extent={{36,-78},{62,-96}}),
+    annotation (Placement(transformation(extent={{54,-78},{86,-48}}),
         iconTransformation(extent={{-220,70},{-200,90}})));
 equation
   connect(weaDatHHorIR.weaBus, weaBusHHorIR) annotation (Line(
-      points={{6.66134e-16,-78},{6.66134e-16,-68},{-1,-68}},
+      points={{-10,-80},{-10,-74},{0,-74},{0,-68},{1,-68}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(weaBusHHorIR, azi000til00.weaBus) annotation (Line(
-      points={{-1,-68},{0,-68},{0,78},{68,78}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(azi000til90.weaBus,azi000til00. weaBus) annotation (Line(
-      points={{68,46},{0,46},{0,78},{68,78}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(azi270til90.weaBus,azi000til00. weaBus) annotation (Line(
-      points={{68,12},{0,12},{0,78},{68,78}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(azi180til90.weaBus,azi000til00. weaBus) annotation (Line(
-      points={{66,-18},{0,-18},{0,78},{68,78}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(azi090til90.weaBus,azi000til00. weaBus) annotation (Line(
-      points={{66,-46},{0,-46},{0,78},{68,78}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(weaBusHHorIR, azi315til90.weaBus) annotation (Line(
-      points={{-1,-68},{0,-68},{0,78},{-58,78}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(azi045til90.weaBus,azi315til90. weaBus) annotation (Line(
-      points={{-58,46},{0,46},{0,78},{-58,78}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(azi270til30.weaBus,azi315til90. weaBus) annotation (Line(
-      points={{-58,12},{0,12},{0,78},{-58,78}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(azi000til30.weaBus,azi315til90. weaBus) annotation (Line(
-      points={{-58,-18},{0,-18},{0,78},{-58,78}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(azi090til30.weaBus,azi315til90. weaBus) annotation (Line(
-      points={{-58,-46},{0,-46},{0,78},{-58,78}},
-      color={255,204,51},
-      thickness=0.5));
   connect(weaBusHHorIR.pAtm, x_pTphi.p_in) annotation (Line(
-      points={{-1,-68},{-34,-68},{-34,-74},{-46,-74}},
+      points={{1,-68},{-18,-68},{-18,-64},{-38,-64}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -169,7 +121,7 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBusHHorIR.TDryBul, x_pTphi.T) annotation (Line(
-      points={{-1,-68},{-22,-68},{-22,-80},{-46,-80}},
+      points={{1,-68},{-18,-68},{-18,-70},{-38,-70}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -177,30 +129,115 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(weaBusHHorIR.relHum, x_pTphi.phi) annotation (Line(
-      points={{-1,-68},{-18,-68},{-18,-86},{-46,-86}},
+      points={{1,-68},{-18,-68},{-18,-76},{-38,-76}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(x_pTphi.X[1], toDryAir.XiTotalAir) annotation (Line(points={{-69,
-          -80},{-72,-80},{-72,-81},{-74.9,-81}}, color={0,0,127}));
+  connect(x_pTphi.X[1], toDryAir.XiTotalAir) annotation (Line(points={{-61,-70},
+          {-71,-70}},                            color={0,0,127}));
   connect(weaDatTDryBulTDewPoinOpa.weaBus, weaBusTDryBulTDewPoinOpa)
     annotation (Line(
-      points={{86,-72},{86,-70},{49,-70},{49,-87}},
+      points={{70,-80},{70,-63}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
+  connect(weaBusHHorIR, azi090til90.weaBus) annotation (Line(
+      points={{1,-68},{0,-68},{0,-40},{60,-40}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(weaBusHHorIR, azi090til30.weaBus) annotation (Line(
+      points={{1,-68},{0,-68},{0,-40},{-60,-40}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(weaBusHHorIR, azi000til30.weaBus) annotation (Line(
+      points={{1,-68},{0,-68},{0,-10},{-60,-10}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(weaBusHHorIR, azi180til90.weaBus) annotation (Line(
+      points={{1,-68},{0,-68},{0,-10},{60,-10}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(weaBusHHorIR, azi270til30.weaBus) annotation (Line(
+      points={{1,-68},{0,-68},{0,20},{-60,20}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(weaBusHHorIR, azi270til90.weaBus) annotation (Line(
+      points={{1,-68},{0,-68},{0,20},{60,20}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(weaBusHHorIR, azi045til90.weaBus) annotation (Line(
+      points={{1,-68},{0,-68},{0,50},{-60,50}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(weaBusHHorIR, azi000til90.weaBus) annotation (Line(
+      points={{1,-68},{0,-68},{0,50},{60,50}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(weaBusHHorIR, azi315til90.weaBus) annotation (Line(
+      points={{1,-68},{0,-68},{0,80},{-60,80}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(weaBusHHorIR, azi000til00.weaBus) annotation (Line(
+      points={{1,-68},{0,-68},{0,80},{60,80}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
-  Documentation(info="<html>
+  Documentation(experiment(
+      StopTime=3.1536e+07,
+      Interval=900,
+      Tolerance=1e-6),
+__Dymola_Commands(file="modelica://IBPSA/BoundaryConditions/BESTEST/Validation/WD100.mos"
+        "Simulate and plot"),info="<html>
 <h4>WD100: Base Case</h4>
 <p>Weather data file : 725650.epw</p>
 <p><i>Table 1: Site Data for Weather file 725650.epw</i></p>
-<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<table summary=\"Site Data for Weather file 725650.epw\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
 <td><p>Latitude</p></td>
 <td><p>39.833&deg; north</p></td>
 </tr>

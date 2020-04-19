@@ -4,9 +4,11 @@ package UsersGuide "User's Guide"
 
   annotation(preferredView="info",
   Documentation(info="<html>
-<p>The package <a href=\"modelica://IBPSA.BoundaryConditions.BESTEST.Validation\">IBPSA.BoundaryConditions.BESTEST.Validation</a> contains the models that were used for the BESTEST validation ASHRAE 2020 for weather data acquisition and postprocessing. Each model represents a different climate with different days as shown in the tables below. All examples have a script that runs the simulation according to the specifications and derive the required Json file as reported below. The weather radiation data has to be provided at different orientations and inclinations.</p>
+<p>The package <a href=\"modelica://IBPSA.BoundaryConditions.BESTEST.Validation\">IBPSA.BoundaryConditions.BESTEST.Validation</a> contains the models that are used for the BESTEST validation ASHRAE 2020 for weather data acquisition and postprocessing. <br>
+Each model represents a different climate with different days as shown in the tables below. All examples have a script that runs the simulation according to the specifications and derive the required Json file as reported below. <br>
+The weather radiation data has to be provided at different orientations and inclinations.</p><br>
 <p><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
-<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<table summary = \"Azimuth and Slope for Surfaces\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
 <td><p>Azimuth</p></td>
 <td><p>Slope</p></td>
 </tr>
@@ -51,28 +53,29 @@ package UsersGuide "User's Guide"
 <td><p>30&deg; from horizontal</p></td>
 </tr>
 </table>
-<p><i>Additional parameters and correlations</i></p>
+
+<br><p><i>Additional parameters and correlations</i></p>
 <ul>
-<li>Ground reflectance &rho; can be set to 0 or 0. fixme: correct statement.</li>
-<li>Black body temperature calculated using Horizontal radiation or dew point temperature and sky cover</li>
-<li>Perez or Isoentropic sky model used</li>
+<li>Ground reflectance &rho; is set to 0 for cases from WD100 to WD500 and 0.2 for WD600</li>
+<li><a href=\"modelica://IBPSA.BoundaryConditions.SkyTemperature.BlackBody\">Sky black body temperature</a> calculated using Horizontal radiation or dew point temperature and sky cover</li>
+<li>Diffused radiation calculated using <a href=\"modelica://IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez\">Perez</a> and <a href=\"modelica://IBPSA.BoundaryConditions.SolarIrradiation.DiffuseIsotropic\">Isotropic</a> sky models</li>
 </ul>
-<h4>Outputs required</h4>
+<br><h4>Outputs required</h4>
 <p><i>Annual Outputs</i></p>
-<p><b>&nbsp;</b>The following outputs shall be provided for an annual simulation:</p>
+<p><b>&nbsp;</b>The following outputs are  provided for an annual simulation:</p>
 <ul>
 <li>Average dry bulb temperature (&deg;C)</li>
-<li>Average relative humidity (&percnt;)</li>
+<li>Average relative humidity (%)</li>
 <li>Average dewpoint temperature (&deg;C)</li>
 <li>Average humidity ratio (kg moisture/kg dry air)</li>
 <li>Average wet bulb temperature (&deg;C)</li>
 <li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)</li>
 </ul>
-<p><i>Hourly Outputs</i></p>
-<p>The following outputs shall be provided for each hour of the days specified for each test case in Table 3:</p>
+<br><p><i>Hourly Outputs</i></p>
+<p>The following outputs are  provided for each hour of the days specified for each test case in Table 3:</p>
 <ul>
 <li>Dry bulb temperature (&deg;C)</li>
-<li>Relative humidity (&percnt;)</li>
+<li>Relative humidity (%)</li>
 <li>Dewpoint temperature (&deg;C)</li>
 <li>Humidity ratio (kg moisture/kg dry air)</li>
 <li>Wet bulb temperature (&deg;C)</li>
@@ -84,8 +87,8 @@ package UsersGuide "User's Guide"
 <li>Sky temperature (&deg;C)</li>
 <li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2)&nbsp;</li>
 </ul>
-<p><i>Table 3: Specific Days for Output</i></p>
-<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<br><p><i>Table 3: Specific Days for Output</i></p>
+<table summary = \"Specific Days for Output\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
 <td><p>Case </p></td>
 <td><p>Days</p></td>
 </tr>
@@ -114,22 +117,22 @@ package UsersGuide "User's Guide"
 <td><p>May 4th, July 14th, September 6th</p></td>
 </tr>
 </table>
-<p><i>Sub-hourly Outputs</i></p>
-<p>The following outputs shall be provided at each timestep of the days specified for each test case in Table 3:</p>
+<br><p><i>Sub-hourly Outputs</i></p>
+<p>The following outputs are  provided at each timestep of the days specified for each test case in Table 3:</p>
 <ul>
 <li>Dry bulb temperature (C)</li>
-<li>Relative humidity (&percnt;)</li>
+<li>Relative humidity (%)</li>
 <li>Sum of total, beam, and diffuse solar radiation incident on each surface (Wh/m2) </li>
 </ul>
-<p>The following outputs shall be provided integrated hourly for the days specified for each test case in Table 3:</p>
+<p>The following outputs are  provided integrated hourly for the days specified for each test case in Table 3:</p>
 <ul>
 <li>Total incident horizontal solar radiation (Wh/m2)</li>
 <li>Total incident horizontal beam solar radiation (Wh/m2)</li>
 <li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
 </ul>
-<h4>Validation results</h4>
+<br><h4>Validation results</h4>
 <p>(Not available yet)</p>
-<h4>Implementation</h4>
+<br><h4>Implementation</h4>
 <p>To generate the data shown in this user guide, run </p>
 <pre>
 cd IBPSA/Resources/src/BoundaryConditions/Validation/BESTEST
@@ -141,7 +144,7 @@ python3 WeatherBESTEST.py
 <li>Clone the last master branch of the IBPSA repository into a temporary directory</li>
 <li>Execute all the simulations and create the folders with the .mat and .json files inside the BESTEST/Simulations folder</li>
 </ul>
-<h4>References</h4>
+<br><h4>References</h4>
 <p>(Not available yet)</p>
 </html>", revisions="<html>
 </html>"));

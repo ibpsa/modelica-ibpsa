@@ -4,7 +4,12 @@ model WD400  "Test model for BESTEST weather data: high latitude case"
     lat= 1.2441754105767,
     rho = 0,
     alt = 10);
-  annotation (Documentation(revisions="<html>
+  annotation (experiment(
+      StopTime=3.1536e+07,
+      Interval=900,
+      Tolerance=1e-6),
+__Dymola_Commands(file="modelica://IBPSA/BoundaryConditions/BESTEST/Validation/WD400.mos"
+        "Simulate and plot"),Documentation(revisions="<html>
 <ul>
 <li>
 March 11, 2020, by Ettore Zanetti:<br/>
@@ -20,7 +25,7 @@ Rework after comments from pull request
 <h4>WD400: High Latitude Case</h4>
 <p>Weather data file : 700260.epw</p>
 <p><i>Table 1: Site Data for Weather file 700260.epw</i></p>
-<table cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<table summary=\"Site Data for Weather file 700260.epw\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
 <td><p>Latitude</p></td>
 <td><p>71.286&deg; north</p></td>
 </tr>
