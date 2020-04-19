@@ -156,7 +156,7 @@ equation
                  y2dd=y2dd)));
   end if;
   // Computation of damper opening
-  k = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
+  k =IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_m_flow(
     m_flow=m_flow,
     dp=dp,
     m_flow_small=1E-2*abs(m_flow_nominal),
