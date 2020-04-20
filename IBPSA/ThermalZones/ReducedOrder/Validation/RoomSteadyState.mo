@@ -1,5 +1,5 @@
-within IBPSA.BoundaryConditions.WeatherData.Validation;
-model SimpleRoomSteadyStateBoundaryCondition
+within IBPSA.ThermalZones.ReducedOrder.Validation;
+model RoomSteadyState
   "Validation model that checks whether all weather data is set to a constant"
   extends ThermalZones.ReducedOrder.Examples.SimpleRoomOneElement(
     weaDat(
@@ -30,7 +30,7 @@ equation
     experiment(
       StopTime=604800,
       Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/SimpleRoomSteadyStateBoundaryCondition.mos"
+      __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/RoomSteadyState.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-140,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
@@ -47,4 +47,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SimpleRoomSteadyStateBoundaryCondition;
+end RoomSteadyState;
