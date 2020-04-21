@@ -10,7 +10,7 @@ model WD100 "Test model for BESTEST weather data: base case"
     ceiHeiSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,
     ceiHei=alt,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/Data/BoundaryConditions/WeatherData/Validation/725650.mos"),
+        "modelica://IBPSA/Resources/Data/BoundaryConditions/BESTEST/Validation/725650.mos"),
     calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation)
     "reads all weather data and Tsky using horizontal radiation" annotation (
       Placement(transformation(
