@@ -3,7 +3,7 @@
 # This script is used to validate weather reading and postprocessing
 # for tilted and oriented surfaces according to the BESTEST standard.
 # It will create a folder in the current working directory
-# called simulations and inside there will be the .mat files and the
+# called results and inside there will be the .mat files and the
 # .json files or just the .json files
 #
 # This script creates folders in the temporary directory.
@@ -20,6 +20,10 @@ import copy
 import sys
 from pathlib import Path
 from datetime import date
+
+# Set to true if run as part of the continuous integration,
+# or to false if results should be stamped with time and commit
+CI_TESTING = True
 # Make code Verbose
 CodeVerbose = False
 # check if it just implements post-process (from .mat files to Json files)
@@ -33,7 +37,7 @@ FROM_GIT_HUB = False
 # Modelica IBPSA Library working branch
 #BRANCH = 'master'
 BRANCH ='issue1314_BESTEST_weather'
-#Path to local library copy (This assumes the script is run Inside the library folder)
+#Path to local library copy (This assumes the script is run inside the library folder)
 ScriptPath = sys.path[0]
 path = Path(ScriptPath)
 levels_up = 5 # goes up five levels to get the IBPSA folder
@@ -41,8 +45,25 @@ LIBPATH = str(path.parents[levels_up-1])
 # simulator, Dymola
 TOOL = 'dymola'
 
+#Software specifications
+# Set library_name to IBPSA, or Buildings, etc.
+library_name = os.path.abspath(".").split(os.path.sep)[-6]
+library_version = 'v4.0.0dev'
+modeler_organization = 'LBNL'
+modeler_organization_for_tables_and_charts ='LBNL'
+program_name_for_tables_and_charts = 'BuildingsPy & Python'
+if CI_TESTING:
+    results_submission_date = "n/a"
+else:
+    results_submission_date = str(date.today().strftime('%m/%d/%Y'))
+
+# Make sure script is run from correct directory
+run_dir = ['Resources', 'Data', 'BoundaryConditions', 'Validation', 'BESTEST']
+if os.path.abspath(".").split(os.path.sep)[-5:] != run_dir:
+    raise ValueError(f"Script must be run from directory {os.path.sep.join(run_dir)}")
+
 # List of cases and result cases
-PACKAGES = 'IBPSA.BoundaryConditions.BESTEST.Validation'
+PACKAGES = f'{library_name}.BoundaryConditions.BESTEST.Validation'
 
 CASES = ['WD100','WD200','WD300','WD400','WD500','WD600']
 
@@ -62,14 +83,6 @@ reVals= ['azi000til00.H', 'azi000til00.HPer', 'azi000til00.HDir.H', 'azi000til00
  'toDryAir.XiDry', 'weaBusHHorIR.pAtm', 'weaBusHHorIR.TDryBul', 'weaBusHHorIR.relHum', 'weaBusHHorIR.TBlaSky', \
  'weaBusHHorIR.TDewPoi', 'weaBusHHorIR.TWetBul', 'weaBusHHorIR.nOpa', 'weaBusHHorIR.nTot', 'weaBusHHorIR.winDir', \
  'weaBusHHorIR.winSpe', 'weaBusTDryBulTDewPoinOpa.TBlaSky','azi270til30.HPer','azi045til90.HPer','azi090til30.HDiffIso.H']
-
-#Software specifications
-library_name = 'IBPSA'
-library_version = 'v4.0.0dev'
-modeler_organization = 'LBNL'
-modeler_organization_for_tables_and_charts ='LBNL'
-program_name_for_tables_and_charts = 'BuildingsPy & Python'
-results_submission_date = str(date.today().strftime('%m/%d/%Y'))
 
 def create_working_directory():
     ''' Create working directory in temp folder
@@ -156,7 +169,7 @@ def _simulate(spec):
     '''
     from buildingspy.simulate.Simulator import Simulator
 
-    out_dir = os.path.join(spec['lib_dir'], "simulations", spec["name"])
+    out_dir = os.path.join(spec['lib_dir'], "results", spec["name"])
     os.makedirs(out_dir)
 
     # Write git information if the simulation is based on a github checkout
@@ -166,7 +179,7 @@ def _simulate(spec):
             text_file.write("commit={}\n".format(spec['git']['commit']))
 
     # Get current library directory
-    IBPSAtemp = os.path.join(spec['lib_dir'], 'IBPSA')
+    IBPSAtemp = os.path.join(spec['lib_dir'], library_name)
     # Set Model to simulate, the tool, the output dir and the package directory
     s=Simulator(spec["model"], TOOL, outputDirectory=out_dir, packagePath = IBPSAtemp )
     #Add all necessary parameters from Case Dict
@@ -184,7 +197,7 @@ def _simulate(spec):
     s.simulate()
 
     #Copy results back
-    res_des = os.path.join(spec["CWD"], "simulations", spec["name"])
+    res_des = os.path.join(spec["CWD"], "results", spec["name"])
     if CodeVerbose:
         print("*** Copying results to {}".format(res_des))
 
@@ -742,13 +755,13 @@ if __name__=='__main__':
            'ShowGUI':False,
            'nIntervals':35040,
            'CWD': CWD,
-           'from_git_hub': FROM_GIT_HUB,
+           'from_git_hub': FROM_GIT_HUB or not CI_TESTING,
            'BRANCH': BRANCH,
            'LIBPATH': LIBPATH,
            'CLEAN_MAT': CLEAN_MAT,
-           'DelEvr': DelEvr,
+           'DelEvr': DelEvr or CI_TESTING,
            'LibName':library_name}
-    if not POST_PROCESS_ONLY:
+    if CI_TESTING or not POST_PROCESS_ONLY:
         #Get list of case to simulate with their parameters
         lib_dir = create_working_directory()
         CaseDict['lib_dir']=lib_dir
@@ -760,7 +773,7 @@ if __name__=='__main__':
         # Add the directory where the library has been checked out
         for case in list_of_cases:
             case['lib_dir'] = lib_dir
-            if FROM_GIT_HUB:
+            if FROM_GIT_HUB or not CI_TESTING:
                 case['git'] = d
         # # Run all cases
         freeze_support() #you need this in windows
@@ -782,7 +795,7 @@ if __name__=='__main__':
         program_name_and_version = 'AddManually'
 
     # Organize results
-    mat_dir=os.path.join(CWD,'simulations')
+    mat_dir=os.path.join(CWD,'results')
     Matfd=_organize_cases(mat_dir)
     # Create Json file for each case (ISO,PEREZ,TBSKY_HOR,TBSKY_DEW)
     # import results template
@@ -830,7 +843,7 @@ if __name__=='__main__':
             resFinPerDew =  WeatherJson(resForm,Matfd,CaseDict)
             with open(os.path.join(nJsonRes,'WeatherPerTDryBulTDewPoinOpa.json'),'w') as outfile:
                 json.dump(resFinPerDew,outfile, sort_keys=True, indent=4)
-    if DelEvr:
+    if DelEvr or CI_TESTING:
         if CodeVerbose:
             print(" Erasing .mat files.")
             for matfd in Matfd:
