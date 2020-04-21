@@ -8,7 +8,7 @@ model WD200  "Test model for BESTEST weather data: Low Elevation, Hot and Humid 
       StopTime=3.1536e+07,
       Interval=900,
       Tolerance=1e-6),
-__Dymola_Commands(file="modelica://IBPSA/BoundaryConditions/BESTEST/Validation/WD200.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/BESTEST/Validation/WD200.mos"
         "Simulate and plot"),Documentation(revisions="<html>
 <ul>
 <li>

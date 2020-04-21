@@ -8,7 +8,7 @@ model WD300 "Test model for BESTEST weather data: Southern hemisphere case"
       StopTime=3.1536e+07,
       Interval=900,
       Tolerance=1e-6),
-__Dymola_Commands(file="modelica://IBPSA/BoundaryConditions/BESTEST/Validation/WD300.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/BESTEST/Validation/WD300.mos"
         "Simulate and plot"),Documentation(revisions="<html>
 <ul>
 <li>
