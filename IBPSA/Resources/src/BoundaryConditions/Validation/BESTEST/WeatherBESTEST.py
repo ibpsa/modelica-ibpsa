@@ -31,8 +31,8 @@ DelEvr = False
 #Get IBPSA library from gitHub
 FROM_GIT_HUB = True
 # Modelica IBPSA Library working branch
-#BRANCH = 'issue1314_BESTEST_weather'
-BRANCH ='master'
+#BRANCH = 'master'
+BRANCH ='issue1314_BESTEST_weather'
 #Path to local library copy (This assumes the script is run Inside the library folder)
 ScriptPath = sys.path[0]
 path = Path(ScriptPath)
