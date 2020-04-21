@@ -21,15 +21,15 @@ import sys
 from pathlib import Path
 from datetime import date
 # Make code Verbose
-CodeVerbose = True
+CodeVerbose = False
 # check if it just implements post-process (from .mat files to Json files)
 POST_PROCESS_ONLY = False
 # Erase old .mat files
 CLEAN_MAT = True
-# Erse anything but the Json file results in the ResultJson folder and .matfiles
+# Erase anything but the Json file results in the ResultJson folder and .mat files
 DelEvr = False
 #Get IBPSA library from gitHub
-FROM_GIT_HUB = True
+FROM_GIT_HUB = False
 # Modelica IBPSA Library working branch
 #BRANCH = 'master'
 BRANCH ='issue1314_BESTEST_weather'
@@ -62,8 +62,6 @@ reVals= ['azi000til00.H', 'azi000til00.HPer', 'azi000til00.HDir.H', 'azi000til00
  'toDryAir.XiDry', 'weaBusHHorIR.pAtm', 'weaBusHHorIR.TDryBul', 'weaBusHHorIR.relHum', 'weaBusHHorIR.TBlaSky', \
  'weaBusHHorIR.TDewPoi', 'weaBusHHorIR.TWetBul', 'weaBusHHorIR.nOpa', 'weaBusHHorIR.nTot', 'weaBusHHorIR.winDir', \
  'weaBusHHorIR.winSpe', 'weaBusTDryBulTDewPoinOpa.TBlaSky','azi270til30.HPer','azi045til90.HPer','azi090til30.HDiffIso.H']
-
-
 
 #Software specifications
 library_name = 'IBPSA'
@@ -119,9 +117,9 @@ def checkout_repository(working_directory, CaseDict):
         shutil.copytree(CaseDict['LIBPATH'], des)
         if CodeVerbose:
             print("Since this a local copy of the library is in use, remember to manually add software version and commit.")
-            d['branch'] ='AddManually'
-            d['commit'] ='AddManually'
-            d['commit_time']= 'AddManually'
+        d['branch'] ='AddManually'
+        d['commit'] ='AddManually'
+        d['commit_time']= 'AddManually'
     return d
 
 def get_cases(CaseDict):
@@ -220,14 +218,15 @@ def _organize_cases(mat_dir):
                     temp['matFile'] = os.path.join(mat_dir, matFile)
             caseList.append(temp)
     else:
-        raise ValueError("*** There is failed simulation and has no result file or the cwd was accidentally changed. Check the simulations or cwd. ***")
+        raise ValueError("*** There is failed simulation, no result file was found. Check the simulations.")
     return caseList
 
 def _extract_data(matFile, reVal):
     """
     Extract time series data from mat file.
-    :param matFile: modelica simulation result path
-    :param relVal: list of variables that the data should be extracted
+
+    :param matFile: Path of .mat output file
+    :param relVal: List of variables that the data should be extracted
     """
     from buildingspy.io.outputfile import Reader
 
@@ -259,8 +258,9 @@ def _extract_data(matFile, reVal):
 def _CleanTimeSeries(time, val, nPoi):
     """
     Clean doubled time values and checks with wanted number of nPoi
-    :param time: time .
-    :param val: variable values.
+
+    :param time: Time.
+    :param val: Variable values.
     :param nPoi: Number of result points.
     """
     import numpy as np
@@ -285,8 +285,8 @@ def WeatherJson(resForm,Matfd,CaseDict):
     format
 
     :param resForm: json file format.
-    :param Matfd: list of the results matfiles and their path.
-    :param CaseDict: in CaseDict are stored the simulation cases "reVals"
+    :param Matfd: List of the results matfiles and their path.
+    :param CaseDict: CaseDict are stored the simulation cases "reVals"
     """
     # list of type of results
     #taking hourly variables
@@ -310,9 +310,10 @@ def WeatherJson(resForm,Matfd,CaseDict):
 def MapDymolaAndJson(results,case,resFin):
     """
     This function couples the .mat file variable with the final .json variable
-    :param results: the result that come out from the _extract_data function
-    :param case: dict that specifies the BESTEST case
-    :para resFin: dict with the same format as the desired json file
+
+    :param results: Result obtained from the _extract_data function
+    :param case: Dictionary that specifies the BESTEST case
+    :para resFin: Dictionary with the same format as the desired json file
     """
 
     dictHourly = [ {'json':'dry_bulb_temperature',
@@ -628,7 +629,7 @@ def MapDymolaAndJson(results,case,resFin):
                 if not res:
                     missing.append(day['days']+'_'+dR['variable'])
                 else:
-                         outDir[case]['annual_results'][res['json']] = float(res['res'])
+                    outDir[case]['annual_results'][res['json']] = float(res['res'])
             else:
                  resH = ExtrapolateResults(dictHourly,dR,day)
                  ressH = ExtrapolateResults(dictSubHourly,dR,day)
@@ -681,12 +682,13 @@ def MapDymolaAndJson(results,case,resFin):
 
 def ExtrapolateResults(dicT,dR,day):
     """
-     This function takes a result time series matches it with the corresponding
+    This function takes a result time series, matches it with the corresponding
     json, and extrapolates the data
 
     :param dictT: This is the dictionary with the mapping between .mat and .Json variables
-    :param dR: in this dictionary is contained the name, time and value of a certain variable in the .mat file
-    :param day: day is a subdictionary with all the days required for the bestest see table 3 in BESTEST package
+    :param dR: Dictionary with the name, time and value of certain variables in the .mat file
+    :param day: Subdictionary with all the days required for the bestest. See table 3
+                in BESTEST package
     """
     OutDict = {}
     for dT in dicT:
@@ -708,8 +710,6 @@ def ExtrapolateResults(dicT,dR,day):
             OutDict.update(dT)
     return OutDict
 
-
-
 def FindNearest(array, value):
     '''
     This function finds the nearest desired value 'value' in an array 'array'
@@ -719,7 +719,7 @@ def FindNearest(array, value):
     return idx
 
 
-def RemoveString(Slist,String):
+def RemoveString(Slist, String):
     '''
     This function strips a list of strings from elements that contain a certain substring
     '''
@@ -770,7 +770,7 @@ if __name__=='__main__':
         po.join()  # block at this line until all processes are done
         # Delete the temporary folder
         if CodeVerbose:
-            print(" Erasing temperarary folder {}".format(lib_dir))
+            print("Deleting temporary folder {}".format(lib_dir))
         #Going back to original working directory and removing temporary working directory
         os.chdir(CWD)
         shutil.rmtree(lib_dir)
@@ -801,7 +801,7 @@ if __name__=='__main__':
         os.makedirs(nJsonRes)
     #execute all the Subcases
     if CodeVerbose:
-        print(" Converting .mat files into .json and copying it into ".format(nJsonRes))
+        print("Converting .mat files into .json and copying it into ".format(nJsonRes))
     Subcases=['Iso','Per']
     for Subcase in Subcases:
         if Subcase in 'Iso':
@@ -832,6 +832,6 @@ if __name__=='__main__':
                 json.dump(resFinPerDew,outfile, sort_keys=True, indent=4)
     if DelEvr:
         if CodeVerbose:
-            print(" Erasing evrything but .json folder ")
+            print(" Erasing .mat files.")
             for matfd in Matfd:
                 shutil.rmtree(os.path.dirname(matfd['matFile']))
