@@ -4,9 +4,17 @@ package UsersGuide "User's Guide"
 
   annotation(preferredView="info",
   Documentation(info="<html>
-<p>The package <a href=\"modelica://IBPSA.BoundaryConditions.BESTEST.Validation\">IBPSA.BoundaryConditions.BESTEST.Validation</a> contains the models that are used for the BESTEST validation ASHRAE 2020 for weather data acquisition and postprocessing. <br>
-Each model represents a different climate with different days as shown in the tables below. All examples have a script that runs the simulation according to the specifications and derive the required Json file as reported below. <br>
-The weather radiation data has to be provided at different orientations and inclinations.</p><br>
+<p>
+The package <a href=\"modelica://IBPSA.BoundaryConditions.BESTEST.Validation\">IBPSA.BoundaryConditions.BESTEST.Validation</a>
+contains the models that are used for the BESTEST validation ASHRAE 2020 for weather data acquisition and postprocessing.
+</p>
+<p>
+Each model represents a different climate with different days as shown in the tables below.
+All examples have a script that runs the simulation according to the specifications and derive the required Json file as reported below.
+</p>
+<p>
+The weather radiation data has to be provided at different orientations and inclinations.
+</p>
 <p><i>Table 2:&nbsp;</i>Azimuth and Slope for Surfaces</p>
 <table summary = \"Azimuth and Slope for Surfaces\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
 <td><p>Azimuth</p></td>
@@ -57,10 +65,14 @@ The weather radiation data has to be provided at different orientations and incl
 <br><p><i>Additional parameters and correlations</i></p>
 <ul>
 <li>Ground reflectance &rho; is set to 0 for cases from WD100 to WD500 and 0.2 for WD600</li>
-<li><a href=\"modelica://IBPSA.BoundaryConditions.SkyTemperature.BlackBody\">Sky black body temperature</a> calculated using Horizontal radiation or dew point temperature and sky cover</li>
-<li>Diffused radiation calculated using <a href=\"modelica://IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez\">Perez</a> and <a href=\"modelica://IBPSA.BoundaryConditions.SolarIrradiation.DiffuseIsotropic\">Isotropic</a> sky models</li>
+<li>
+<a href=\"modelica://IBPSA.BoundaryConditions.SkyTemperature.BlackBody\">Sky black body temperature</a>
+calculated using Horizontal radiation or dew point temperature and sky cover.
+</li>
+<li>Diffused radiation calculated using <a href=\"modelica://IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez\">Perez</a> and
+<a href=\"modelica://IBPSA.BoundaryConditions.SolarIrradiation.DiffuseIsotropic\">Isotropic</a> sky models</li>
 </ul>
-<br><h4>Outputs required</h4>
+<h4>Outputs required</h4>
 <p><i>Annual Outputs</i></p>
 <p><b>&nbsp;</b>The following outputs are  provided for an annual simulation:</p>
 <ul>
@@ -130,9 +142,9 @@ The weather radiation data has to be provided at different orientations and incl
 <li>Total incident horizontal beam solar radiation (Wh/m2)</li>
 <li>Total incident horizontal diffuse solar radiation (Wh/m2) </li>
 </ul>
-<br><h4>Validation results</h4>
+<h4>Validation results</h4>
 <p>(Not available yet)</p>
-<br><h4>Implementation</h4>
+<h4>Implementation</h4>
 <p>To generate the data shown in this user guide, run </p>
 <pre>
 cd IBPSA/Resources/src/BoundaryConditions/Validation/BESTEST
@@ -144,7 +156,7 @@ python3 WeatherBESTEST.py
 <li>Clone the last master branch of the IBPSA repository into a temporary directory</li>
 <li>Execute all the simulations and create the folders with the .mat and .json files inside the BESTEST/Simulations folder</li>
 </ul>
-<br><h4>References</h4>
+<h4>References</h4>
 <p>(Not available yet)</p>
 </html>", revisions="<html>
 </html>"));
