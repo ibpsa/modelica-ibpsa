@@ -861,3 +861,8 @@ if __name__=='__main__':
             print(" Erasing .mat files.")
             for matfd in Matfd:
                 shutil.rmtree(os.path.dirname(matfd['matFile']))
+
+    # If part of CI testing, delete the results directory because results/JsonResults
+    # is around 8 MB large and hence not worth storing in git
+    if CI_TESTING:
+        shutil.rmtree("results")
