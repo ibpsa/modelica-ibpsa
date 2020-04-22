@@ -3,7 +3,7 @@
 # This script is used to validate weather reading and postprocessing
 # for tilted and oriented surfaces according to the BESTEST standard.
 # It will create a folder in the current working directory
-# called simulations and inside there will be the .mat files and the
+# called results and inside there will be the .mat files and the
 # .json files or just the .json files
 #
 # This script creates folders in the temporary directory.
@@ -20,20 +20,24 @@ import copy
 import sys
 from pathlib import Path
 from datetime import date
+
+# Set to true if run as part of the continuous integration,
+# or to false if results should be stamped with time and commit
+CI_TESTING = True
 # Make code Verbose
-CodeVerbose = True
+CodeVerbose = False
 # check if it just implements post-process (from .mat files to Json files)
 POST_PROCESS_ONLY = False
 # Erase old .mat files
 CLEAN_MAT = True
-# Erse anything but the Json file results in the ResultJson folder and .matfiles
+# Erase anything but the Json file results in the ResultJson folder and .mat files
 DelEvr = False
 #Get IBPSA library from gitHub
-FROM_GIT_HUB = True
+FROM_GIT_HUB = False
 # Modelica IBPSA Library working branch
 #BRANCH = 'master'
 BRANCH ='issue1314_BESTEST_weather'
-#Path to local library copy (This assumes the script is run Inside the library folder)
+#Path to local library copy (This assumes the script is run inside the library folder)
 ScriptPath = sys.path[0]
 path = Path(ScriptPath)
 levels_up = 5 # goes up five levels to get the IBPSA folder
@@ -41,8 +45,25 @@ LIBPATH = str(path.parents[levels_up-1])
 # simulator, Dymola
 TOOL = 'dymola'
 
+#Software specifications
+# Set library_name to IBPSA, or Buildings, etc.
+library_name = os.path.abspath(".").split(os.path.sep)[-6]
+library_version = 'v4.0.0dev'
+modeler_organization = 'LBNL'
+modeler_organization_for_tables_and_charts ='LBNL'
+program_name_for_tables_and_charts = 'BuildingsPy & Python'
+if CI_TESTING:
+    results_submission_date = "n/a"
+else:
+    results_submission_date = str(date.today().strftime('%m/%d/%Y'))
+
+# Make sure script is run from correct directory
+run_dir = ['Resources', 'Data', 'BoundaryConditions', 'Validation', 'BESTEST']
+if os.path.abspath(".").split(os.path.sep)[-5:] != run_dir:
+    raise ValueError(f"Script must be run from directory {os.path.sep.join(run_dir)}")
+
 # List of cases and result cases
-PACKAGES = 'IBPSA.BoundaryConditions.BESTEST.Validation'
+PACKAGES = f'{library_name}.BoundaryConditions.BESTEST.Validation'
 
 CASES = ['WD100','WD200','WD300','WD400','WD500','WD600']
 
@@ -62,16 +83,6 @@ reVals= ['azi000til00.H', 'azi000til00.HPer', 'azi000til00.HDir.H', 'azi000til00
  'toDryAir.XiDry', 'weaBusHHorIR.pAtm', 'weaBusHHorIR.TDryBul', 'weaBusHHorIR.relHum', 'weaBusHHorIR.TBlaSky', \
  'weaBusHHorIR.TDewPoi', 'weaBusHHorIR.TWetBul', 'weaBusHHorIR.nOpa', 'weaBusHHorIR.nTot', 'weaBusHHorIR.winDir', \
  'weaBusHHorIR.winSpe', 'weaBusTDryBulTDewPoinOpa.TBlaSky','azi270til30.HPer','azi045til90.HPer','azi090til30.HDiffIso.H']
-
-
-
-#Software specifications
-library_name = 'IBPSA'
-library_version = 'v4.0.0dev'
-modeler_organization = 'LBNL'
-modeler_organization_for_tables_and_charts ='LBNL'
-program_name_for_tables_and_charts = 'BuildingsPy & Python'
-results_submission_date = str(date.today().strftime('%m/%d/%Y'))
 
 def create_working_directory():
     ''' Create working directory in temp folder
@@ -119,9 +130,9 @@ def checkout_repository(working_directory, CaseDict):
         shutil.copytree(CaseDict['LIBPATH'], des)
         if CodeVerbose:
             print("Since this a local copy of the library is in use, remember to manually add software version and commit.")
-            d['branch'] ='AddManually'
-            d['commit'] ='AddManually'
-            d['commit_time']= 'AddManually'
+        d['branch'] ='AddManually'
+        d['commit'] ='AddManually'
+        d['commit_time']= 'AddManually'
     return d
 
 def get_cases(CaseDict):
@@ -158,7 +169,7 @@ def _simulate(spec):
     '''
     from buildingspy.simulate.Simulator import Simulator
 
-    out_dir = os.path.join(spec['lib_dir'], "simulations", spec["name"])
+    out_dir = os.path.join(spec['lib_dir'], "results", spec["name"])
     os.makedirs(out_dir)
 
     # Write git information if the simulation is based on a github checkout
@@ -168,7 +179,7 @@ def _simulate(spec):
             text_file.write("commit={}\n".format(spec['git']['commit']))
 
     # Get current library directory
-    IBPSAtemp = os.path.join(spec['lib_dir'], 'IBPSA')
+    IBPSAtemp = os.path.join(spec['lib_dir'], library_name)
     # Set Model to simulate, the tool, the output dir and the package directory
     s=Simulator(spec["model"], TOOL, outputDirectory=out_dir, packagePath = IBPSAtemp )
     #Add all necessary parameters from Case Dict
@@ -186,7 +197,7 @@ def _simulate(spec):
     s.simulate()
 
     #Copy results back
-    res_des = os.path.join(spec["CWD"], "simulations", spec["name"])
+    res_des = os.path.join(spec["CWD"], "results", spec["name"])
     if CodeVerbose:
         print("*** Copying results to {}".format(res_des))
 
@@ -220,14 +231,15 @@ def _organize_cases(mat_dir):
                     temp['matFile'] = os.path.join(mat_dir, matFile)
             caseList.append(temp)
     else:
-        raise ValueError("*** There is failed simulation and has no result file or the cwd was accidentally changed. Check the simulations or cwd. ***")
+        raise ValueError("*** There is failed simulation, no result file was found. Check the simulations.")
     return caseList
 
 def _extract_data(matFile, reVal):
     """
     Extract time series data from mat file.
-    :param matFile: modelica simulation result path
-    :param relVal: list of variables that the data should be extracted
+
+    :param matFile: Path of .mat output file
+    :param relVal: List of variables that the data should be extracted
     """
     from buildingspy.io.outputfile import Reader
 
@@ -249,9 +261,11 @@ def _extract_data(matFile, reVal):
             timen, valn = _CleanTimeSeries(time, val,nPoi)
         except KeyError:
             raise ValueError("Result {} does not have variable {}.".format(matFile, var))
+        # Convert variable to compact format to save disk space.
         temp = {'variable': var,
                 'time': timen,
-                'value': valn}
+                'value': valn} #'value': f'{valn:.4g}'
+        print(f"Value is = {valn}")
         result.append(temp)
     return result
 
@@ -259,8 +273,9 @@ def _extract_data(matFile, reVal):
 def _CleanTimeSeries(time, val, nPoi):
     """
     Clean doubled time values and checks with wanted number of nPoi
-    :param time: time .
-    :param val: variable values.
+
+    :param time: Time.
+    :param val: Variable values.
     :param nPoi: Number of result points.
     """
     import numpy as np
@@ -285,8 +300,8 @@ def WeatherJson(resForm,Matfd,CaseDict):
     format
 
     :param resForm: json file format.
-    :param Matfd: list of the results matfiles and their path.
-    :param CaseDict: in CaseDict are stored the simulation cases "reVals"
+    :param Matfd: List of the results matfiles and their path.
+    :param CaseDict: CaseDict are stored the simulation cases "reVals"
     """
     # list of type of results
     #taking hourly variables
@@ -310,9 +325,10 @@ def WeatherJson(resForm,Matfd,CaseDict):
 def MapDymolaAndJson(results,case,resFin):
     """
     This function couples the .mat file variable with the final .json variable
-    :param results: the result that come out from the _extract_data function
-    :param case: dict that specifies the BESTEST case
-    :para resFin: dict with the same format as the desired json file
+
+    :param results: Result obtained from the _extract_data function
+    :param case: Dictionary that specifies the BESTEST case
+    :para resFin: Dictionary with the same format as the desired json file
     """
 
     dictHourly = [ {'json':'dry_bulb_temperature',
@@ -628,7 +644,7 @@ def MapDymolaAndJson(results,case,resFin):
                 if not res:
                     missing.append(day['days']+'_'+dR['variable'])
                 else:
-                         outDir[case]['annual_results'][res['json']] = float(res['res'])
+                    outDir[case]['annual_results'][res['json']] = float(res['res'])
             else:
                  resH = ExtrapolateResults(dictHourly,dR,day)
                  ressH = ExtrapolateResults(dictSubHourly,dR,day)
@@ -681,12 +697,13 @@ def MapDymolaAndJson(results,case,resFin):
 
 def ExtrapolateResults(dicT,dR,day):
     """
-     This function takes a result time series matches it with the corresponding
+    This function takes a result time series, matches it with the corresponding
     json, and extrapolates the data
 
     :param dictT: This is the dictionary with the mapping between .mat and .Json variables
-    :param dR: in this dictionary is contained the name, time and value of a certain variable in the .mat file
-    :param day: day is a subdictionary with all the days required for the bestest see table 3 in BESTEST package
+    :param dR: Dictionary with the name, time and value of certain variables in the .mat file
+    :param day: Subdictionary with all the days required for the bestest. See table 3
+                in BESTEST package
     """
     OutDict = {}
     for dT in dicT:
@@ -708,8 +725,6 @@ def ExtrapolateResults(dicT,dR,day):
             OutDict.update(dT)
     return OutDict
 
-
-
 def FindNearest(array, value):
     '''
     This function finds the nearest desired value 'value' in an array 'array'
@@ -719,7 +734,7 @@ def FindNearest(array, value):
     return idx
 
 
-def RemoveString(Slist,String):
+def RemoveString(Slist, String):
     '''
     This function strips a list of strings from elements that contain a certain substring
     '''
@@ -742,13 +757,13 @@ if __name__=='__main__':
            'ShowGUI':False,
            'nIntervals':35040,
            'CWD': CWD,
-           'from_git_hub': FROM_GIT_HUB,
+           'from_git_hub': FROM_GIT_HUB or not CI_TESTING,
            'BRANCH': BRANCH,
            'LIBPATH': LIBPATH,
            'CLEAN_MAT': CLEAN_MAT,
-           'DelEvr': DelEvr,
+           'DelEvr': DelEvr or CI_TESTING,
            'LibName':library_name}
-    if not POST_PROCESS_ONLY:
+    if CI_TESTING or not POST_PROCESS_ONLY:
         #Get list of case to simulate with their parameters
         lib_dir = create_working_directory()
         CaseDict['lib_dir']=lib_dir
@@ -760,7 +775,7 @@ if __name__=='__main__':
         # Add the directory where the library has been checked out
         for case in list_of_cases:
             case['lib_dir'] = lib_dir
-            if FROM_GIT_HUB:
+            if FROM_GIT_HUB or not CI_TESTING:
                 case['git'] = d
         # # Run all cases
         freeze_support() #you need this in windows
@@ -770,7 +785,7 @@ if __name__=='__main__':
         po.join()  # block at this line until all processes are done
         # Delete the temporary folder
         if CodeVerbose:
-            print(" Erasing temperarary folder {}".format(lib_dir))
+            print("Deleting temporary folder {}".format(lib_dir))
         #Going back to original working directory and removing temporary working directory
         os.chdir(CWD)
         shutil.rmtree(lib_dir)
@@ -782,7 +797,7 @@ if __name__=='__main__':
         program_name_and_version = 'AddManually'
 
     # Organize results
-    mat_dir=os.path.join(CWD,'simulations')
+    mat_dir=os.path.join(CWD,'results')
     Matfd=_organize_cases(mat_dir)
     # Create Json file for each case (ISO,PEREZ,TBSKY_HOR,TBSKY_DEW)
     # import results template
@@ -801,7 +816,7 @@ if __name__=='__main__':
         os.makedirs(nJsonRes)
     #execute all the Subcases
     if CodeVerbose:
-        print(" Converting .mat files into .json and copying it into ".format(nJsonRes))
+        print("Converting .mat files into .json and copying it into ".format(nJsonRes))
     Subcases=['Iso','Per']
     for Subcase in Subcases:
         if Subcase in 'Iso':
@@ -810,28 +825,28 @@ if __name__=='__main__':
             CaseDictIsoHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusTDryBulTDewPoinOpa')
             resFinIsoHor =  WeatherJson(resForm,Matfd,CaseDict)
             with open(os.path.join(nJsonRes,'WeatherIsoHHorIR.json'),'w') as outfile:
-                json.dump(resFinIsoHor,outfile, sort_keys=True, indent=4)
+                json.dump(resFinIsoHor,outfile, sort_keys=True, separators=(',', ':'))
             CaseDictIsoDew = copy.deepcopy(CaseDict)
             CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'Per')
             CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusHHorIR.TDewPoi')
             resFinIsoDew =  WeatherJson(resForm,Matfd,CaseDict)
             with open(os.path.join(nJsonRes,'WeatherIsoTDryBulTDewPoinOpa.json'),'w') as outfile:
-                json.dump(resFinIsoDew,outfile, sort_keys=True, indent=4)
+                json.dump(resFinIsoDew,outfile, sort_keys=True, separators=(',', ':'))
         elif Subcase in 'Per':
             CaseDictPerHor = copy.deepcopy(CaseDict)
             CaseDictPerHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'Per')
             CaseDictPerHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusTDryBulTDewPoinOpa')
             resFinPerHor =  WeatherJson(resForm,Matfd,CaseDict)
             with open(os.path.join(nJsonRes,'WeatherPerHHorIR.json'),'w') as outfile:
-                json.dump(resFinPerHor,outfile, sort_keys=True, indent=4)
+                json.dump(resFinPerHor,outfile, sort_keys=True, separators=(',', ':'))
             CaseDictPerDew = copy.deepcopy(CaseDict)
             CaseDictPerDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'Per')
             CaseDictPerDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusHHorIR.TDewPoi')
             resFinPerDew =  WeatherJson(resForm,Matfd,CaseDict)
             with open(os.path.join(nJsonRes,'WeatherPerTDryBulTDewPoinOpa.json'),'w') as outfile:
-                json.dump(resFinPerDew,outfile, sort_keys=True, indent=4)
-    if DelEvr:
+                json.dump(resFinPerDew,outfile, sort_keys=True, separators=(',', ':'))
+    if DelEvr or CI_TESTING:
         if CodeVerbose:
-            print(" Erasing evrything but .json folder ")
+            print(" Erasing .mat files.")
             for matfd in Matfd:
                 shutil.rmtree(os.path.dirname(matfd['matFile']))

@@ -8,7 +8,7 @@ model WD500  "Test model for BESTEST weather data: time zone case"
       StopTime=3.1536e+07,
       Interval=900,
       Tolerance=1e-6),
-__Dymola_Commands(file="modelica://IBPSA/BoundaryConditions/BESTEST/Validation/WD500.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/BESTEST/Validation/WD500.mos"
         "Simulate and plot"),Documentation(revisions="<html>
 <ul>
 <li>

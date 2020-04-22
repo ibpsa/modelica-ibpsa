@@ -10,17 +10,17 @@ model WD100 "Test model for BESTEST weather data: base case"
     ceiHeiSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,
     ceiHei=alt,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/Data/BoundaryConditions/WeatherData/Validation/725650.mos"),
+        "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/725650.mos"),
     calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation)
     "reads all weather data and Tsky using horizontal radiation" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-10,-90})));
+        origin={0,-90})));
 
   WeatherData.Bus weaBusHHorIR
     "weather bus to read all weather data and Tsky using horizontal radiation"
-                               annotation (Placement(transformation(extent={{-14,-82},
+   annotation (Placement(transformation(extent={{-14,-82},
             {16,-54}}),      iconTransformation(extent={{-220,70},{-200,90}})));
   IsotropicAndPerezDiffuseRadiation azi000til00(
     til=IBPSA.Types.Tilt.Ceiling,
@@ -91,7 +91,7 @@ model WD100 "Test model for BESTEST weather data: base case"
     ceiHeiSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,
     ceiHei=alt,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/Data/BoundaryConditions/WeatherData/Validation/725650.mos"),
+        "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/725650.mos"),
     calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover)
     "Reads all weather data and Tsky using dry bulb temperature, dew point temperature and sky cover"
     annotation (Placement(transformation(
@@ -101,11 +101,11 @@ model WD100 "Test model for BESTEST weather data: base case"
 
   WeatherData.Bus weaBusTDryBulTDewPoinOpa
     "weather bus to read Tsky using dew point temperature and sky cover"
-    annotation (Placement(transformation(extent={{54,-78},{86,-48}}),
+    annotation (Placement(transformation(extent={{52,-84},{84,-54}}),
         iconTransformation(extent={{-220,70},{-200,90}})));
 equation
   connect(weaDatHHorIR.weaBus, weaBusHHorIR) annotation (Line(
-      points={{-10,-80},{-10,-74},{0,-74},{0,-68},{1,-68}},
+      points={{4.44089e-16,-80},{4.44089e-16,-74},{0,-74},{0,-68},{1,-68}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -140,7 +140,7 @@ equation
           {-71,-70}},                            color={0,0,127}));
   connect(weaDatTDryBulTDewPoinOpa.weaBus, weaBusTDryBulTDewPoinOpa)
     annotation (Line(
-      points={{70,-80},{70,-63}},
+      points={{70,-80},{70,-69},{68,-69}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -228,12 +228,13 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   annotation (
-  Documentation(experiment(
+  experiment(
       StopTime=3.1536e+07,
       Interval=900,
       Tolerance=1e-6),
-__Dymola_Commands(file="modelica://IBPSA/BoundaryConditions/BESTEST/Validation/WD100.mos"
-        "Simulate and plot"),info="<html>
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/BESTEST/Validation/WD100.mos"
+        "Simulate and plot"),
+Documentation(info="<html>
 <h4>WD100: Base Case</h4>
 <p>Weather data file : 725650.epw</p>
 <p><i>Table 1: Site Data for Weather file 725650.epw</i></p>
@@ -267,8 +268,5 @@ Rework after comments from pull request
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1339\">#1339</a>.
 </li>
 </ul>
-</html>"),
-experiment(
-      StopTime=31539600,
-      Tolerance=1e-06));
+</html>"));
 end WD100;
