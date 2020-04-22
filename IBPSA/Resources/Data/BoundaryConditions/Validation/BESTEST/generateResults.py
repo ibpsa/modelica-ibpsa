@@ -261,9 +261,11 @@ def _extract_data(matFile, reVal):
             timen, valn = _CleanTimeSeries(time, val,nPoi)
         except KeyError:
             raise ValueError("Result {} does not have variable {}.".format(matFile, var))
+        # Convert variable to compact format to save disk space.
         temp = {'variable': var,
                 'time': timen,
-                'value': valn}
+                'value': valn} #'value': f'{valn:.4g}'
+        print(f"Value is = {valn}")
         result.append(temp)
     return result
 
@@ -823,26 +825,26 @@ if __name__=='__main__':
             CaseDictIsoHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusTDryBulTDewPoinOpa')
             resFinIsoHor =  WeatherJson(resForm,Matfd,CaseDict)
             with open(os.path.join(nJsonRes,'WeatherIsoHHorIR.json'),'w') as outfile:
-                json.dump(resFinIsoHor,outfile, sort_keys=True, indent=4)
+                json.dump(resFinIsoHor,outfile, sort_keys=True, separators=(',', ':'))
             CaseDictIsoDew = copy.deepcopy(CaseDict)
             CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'Per')
             CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusHHorIR.TDewPoi')
             resFinIsoDew =  WeatherJson(resForm,Matfd,CaseDict)
             with open(os.path.join(nJsonRes,'WeatherIsoTDryBulTDewPoinOpa.json'),'w') as outfile:
-                json.dump(resFinIsoDew,outfile, sort_keys=True, indent=4)
+                json.dump(resFinIsoDew,outfile, sort_keys=True, separators=(',', ':'))
         elif Subcase in 'Per':
             CaseDictPerHor = copy.deepcopy(CaseDict)
             CaseDictPerHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'Per')
             CaseDictPerHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusTDryBulTDewPoinOpa')
             resFinPerHor =  WeatherJson(resForm,Matfd,CaseDict)
             with open(os.path.join(nJsonRes,'WeatherPerHHorIR.json'),'w') as outfile:
-                json.dump(resFinPerHor,outfile, sort_keys=True, indent=4)
+                json.dump(resFinPerHor,outfile, sort_keys=True, separators=(',', ':'))
             CaseDictPerDew = copy.deepcopy(CaseDict)
             CaseDictPerDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'Per')
             CaseDictPerDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusHHorIR.TDewPoi')
             resFinPerDew =  WeatherJson(resForm,Matfd,CaseDict)
             with open(os.path.join(nJsonRes,'WeatherPerTDryBulTDewPoinOpa.json'),'w') as outfile:
-                json.dump(resFinPerDew,outfile, sort_keys=True, indent=4)
+                json.dump(resFinPerDew,outfile, sort_keys=True, separators=(',', ':'))
     if DelEvr or CI_TESTING:
         if CodeVerbose:
             print(" Erasing .mat files.")
