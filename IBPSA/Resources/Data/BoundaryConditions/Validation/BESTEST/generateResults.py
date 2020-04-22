@@ -20,6 +20,7 @@ import copy
 import sys
 from pathlib import Path
 from datetime import date
+import stat
 
 # Set to true if run as part of the continuous integration,
 # or to false if results should be stamped with time and commit
@@ -644,7 +645,7 @@ def MapDymolaAndJson(results,case,resFin):
                 if not res:
                     missing.append(day['days']+'_'+dR['variable'])
                 else:
-                    outDir[case]['annual_results'][res['json']] = float(res['res'])
+                    outDir[case]['annual_results'][res['json']] = f"{float(res['res']):.4g}" #float(res['res'])
             else:
                  resH = ExtrapolateResults(dictHourly,dR,day)
                  ressH = ExtrapolateResults(dictSubHourly,dR,day)
@@ -657,8 +658,8 @@ def MapDymolaAndJson(results,case,resFin):
                       k=0
                       for HR in resH['res']:
                           HRdict ={}
-                          HRdict['time'] = float((resH['time'][k]-resH['time'][0])/3600)
-                          HRdict['value'] = float(HR)
+                          HRdict['time'] = f"{float((resH['time'][k]-resH['time'][0])/3600):.4g}"
+                          HRdict['value'] = f"{float(HR):.4g}"
                           HRlist.append(HRdict)
                           k+=1
                       outDir[case]['hourly_results'][day['days']][resH['json']] = HRlist
@@ -670,11 +671,11 @@ def MapDymolaAndJson(results,case,resFin):
                      for sHR in ressH['res']:
 
                           sHRdict ={}
-                          sHRdict['time'] =float( (ressH['time'][k]-ressH['time'][0])/3600)
+                          sHRdict['time'] = f"{float( (ressH['time'][k]-ressH['time'][0])/3600):.4g}"
                           if 'radiation' in ressH['json']:
-                              sHRdict['value'] = float(sHR*900/3600)
+                              sHRdict['value'] = f"{float(sHR*900/3600):.4g}"
                           else:
-                              sHRdict['value'] = float(sHR)
+                              sHRdict['value'] = f"{float(sHR):.4g}"
                           sHRlist.append(sHRdict)
                           k+=1
                      outDir[case ]['subhourly_results'][day['days']][ressH['json']] = sHRlist
@@ -687,8 +688,8 @@ def MapDymolaAndJson(results,case,resFin):
                          k=0
                          for sHR in H_int:
                           sHRdict ={}
-                          sHRdict['time'] = float((time_int[k]-time_int[0])/3600)
-                          sHRdict['value'] = float(sHR)
+                          sHRdict['time'] = f"{float((time_int[k]-time_int[0])/3600):.4g}"
+                          sHRdict['value'] = f"{float(sHR):.4g}"
                           sHRlist.append(sHRdict)
                           k+=1
                          outDir[case ]['subhourly_results'][day['days']]['integrated_'+ressH['json']] = sHRlist
@@ -742,6 +743,17 @@ def RemoveString(Slist, String):
     return Slist
 
 
+def remove_readonly(fn, path, excinfo):
+    '''
+    This function is complementary to shutil remove tree, allowing to remove the gnerated read only file 
+    from git when using the FROM_GIT_HUB option
+    '''
+    try:
+        os.chmod(path, stat.S_IWRITE)
+        fn(path)
+    except Exception as exc:
+        print("Skipped:", path, "because:\n", exc)
+
 
 ############End of functions main code portion###################
 if __name__=='__main__':
@@ -788,7 +800,7 @@ if __name__=='__main__':
             print("Deleting temporary folder {}".format(lib_dir))
         #Going back to original working directory and removing temporary working directory
         os.chdir(CWD)
-        shutil.rmtree(lib_dir)
+        shutil.rmtree(lib_dir, onerror=remove_readonly)
 
     # Post process only#
     if POST_PROCESS_ONLY:
