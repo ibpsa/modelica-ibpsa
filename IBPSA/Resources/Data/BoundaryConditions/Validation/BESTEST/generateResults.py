@@ -744,7 +744,7 @@ def RemoveString(Slist, String):
 
 def remove_readonly(fn, path, excinfo):
     '''
-    This function is complementary to shutil remove tree, allowing to remove the gnerated read only file
+    This function is complementary to shutil remove tree, allowing to remove the generated read only file
     from git when using the FROM_GIT_HUB option
     '''
     try:
