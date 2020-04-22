@@ -83,7 +83,7 @@ reVals= ['azi000til00.H', 'azi000til00.HPer', 'azi000til00.HDir.H', 'azi000til00
  'azi090til30.H', 'azi090til30.HPer', 'azi090til30.HDir.H', 'azi090til30.HDiffPer.H', \
  'toDryAir.XiDry', 'weaBusHHorIR.pAtm', 'weaBusHHorIR.TDryBul', 'weaBusHHorIR.relHum', 'weaBusHHorIR.TBlaSky', \
  'weaBusHHorIR.TDewPoi', 'weaBusHHorIR.TWetBul', 'weaBusHHorIR.nOpa', 'weaBusHHorIR.nTot', 'weaBusHHorIR.winDir', \
- 'weaBusHHorIR.winSpe', 'weaBusTDryBulTDewPoinOpa.TBlaSky','azi270til30.HPer','azi045til90.HPer','azi090til30.HDiffIso.H']
+ 'weaBusHHorIR.winSpe', 'weaBusTDryBulTDewPoiOpa.TBlaSky','azi270til30.HPer','azi045til90.HPer','azi090til30.HDiffIso.H']
 
 def create_working_directory():
     ''' Create working directory in temp folder
@@ -265,8 +265,7 @@ def _extract_data(matFile, reVal):
         # Convert variable to compact format to save disk space.
         temp = {'variable': var,
                 'time': timen,
-                'value': valn} #'value': f'{valn:.4g}'
-        print(f"Value is = {valn}")
+                'value': valn}
         result.append(temp)
     return result
 
@@ -352,7 +351,7 @@ def MapDymolaAndJson(results,case,resFin):
                'mat':'weaBusHHorIR.nOpa'},
               {'json':'sky_temperature',
                'matHor':'weaBusHHorIR.TBlaSky',
-               'matDew':'weaBusTDryBulTDewPoinOpa.TBlaSky'},
+               'matDew':'weaBusTDryBulTDewPoiOpa.TBlaSky'},
               {'json':'total_horizontal_radiation',
                'matIso':'azi000til00.H',
                'matPer':'azi000til00.HPer'},
@@ -745,7 +744,7 @@ def RemoveString(Slist, String):
 
 def remove_readonly(fn, path, excinfo):
     '''
-    This function is complementary to shutil remove tree, allowing to remove the gnerated read only file 
+    This function is complementary to shutil remove tree, allowing to remove the gnerated read only file
     from git when using the FROM_GIT_HUB option
     '''
     try:
@@ -834,7 +833,7 @@ if __name__=='__main__':
         if Subcase in 'Iso':
             CaseDictIsoHor = copy.deepcopy(CaseDict)
             CaseDictIsoHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'Per')
-            CaseDictIsoHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusTDryBulTDewPoinOpa')
+            CaseDictIsoHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusTDryBulTDewPoiOpa')
             resFinIsoHor =  WeatherJson(resForm,Matfd,CaseDict)
             with open(os.path.join(nJsonRes,'WeatherIsoHHorIR.json'),'w') as outfile:
                 json.dump(resFinIsoHor,outfile, sort_keys=True, separators=(',', ':'))
@@ -847,7 +846,7 @@ if __name__=='__main__':
         elif Subcase in 'Per':
             CaseDictPerHor = copy.deepcopy(CaseDict)
             CaseDictPerHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'Per')
-            CaseDictPerHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusTDryBulTDewPoinOpa')
+            CaseDictPerHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'],'weaBusTDryBulTDewPoiOpa')
             resFinPerHor =  WeatherJson(resForm,Matfd,CaseDict)
             with open(os.path.join(nJsonRes,'WeatherPerHHorIR.json'),'w') as outfile:
                 json.dump(resFinPerHor,outfile, sort_keys=True, separators=(',', ':'))

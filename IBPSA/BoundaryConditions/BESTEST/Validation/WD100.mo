@@ -99,7 +99,7 @@ model WD100 "Test model for BESTEST weather data: base case"
         rotation=90,
         origin={70,-90})));
 
-  WeatherData.Bus weaBusTDryBulTDewPoinOpa
+  WeatherData.Bus weaBusTDryBulTDewPoiOpa
     "weather bus to read Tsky using dew point temperature and sky cover"
     annotation (Placement(transformation(extent={{52,-84},{84,-54}}),
         iconTransformation(extent={{-220,70},{-200,90}})));
@@ -138,7 +138,7 @@ equation
       horizontalAlignment=TextAlignment.Left));
   connect(x_pTphi.X[1], toDryAir.XiTotalAir) annotation (Line(points={{-61,-70},
           {-71,-70}},                            color={0,0,127}));
-  connect(weaDatTDryBulTDewPoinOpa.weaBus, weaBusTDryBulTDewPoinOpa)
+  connect(weaDatTDryBulTDewPoinOpa.weaBus, weaBusTDryBulTDewPoiOpa)
     annotation (Line(
       points={{70,-80},{70,-69},{68,-69}},
       color={255,204,51},
