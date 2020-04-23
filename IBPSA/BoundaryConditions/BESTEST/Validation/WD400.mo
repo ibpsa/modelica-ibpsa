@@ -3,7 +3,12 @@ model WD400  "Test model for BESTEST weather data: high latitude case"
   extends WD100(
     lat= 1.2441754105767,
     rho = 0,
-    alt = 10);
+    alt = 10,
+    weaDatHHorIR(filNam=Modelica.Utilities.Files.loadResource(
+          "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/700260.mos")),
+
+    weaDatTDryBulTDewPoinOpa(filNam=Modelica.Utilities.Files.loadResource(
+          "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/700260.mos")));
   annotation (experiment(
       StopTime=3.1536e+07,
       Interval=900,
