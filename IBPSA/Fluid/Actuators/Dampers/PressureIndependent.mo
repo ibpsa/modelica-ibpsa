@@ -249,7 +249,7 @@ revisions="<html>
 <ul>
 <li>
 April 6, 2020, by Antoine Gautier:<br/>
-Add the computation of the damper opening.
+Added the computation of the damper opening.
 </li>
 <li>
 December 23, 2019 by Antoine Gautier:<br/>
