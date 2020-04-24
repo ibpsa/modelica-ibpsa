@@ -3,7 +3,12 @@ model WD200  "Test model for BESTEST weather data: Low Elevation, Hot and Humid 
   extends WD100(
     lat= 0.58700658732325,
     rho = 0,
-    alt = 308);
+    alt = 308,
+    weaDatHHorIR(filNam=Modelica.Utilities.Files.loadResource(
+          "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/722190.mos")),
+
+    weaDatTDryBulTDewPoinOpa(filNam=Modelica.Utilities.Files.loadResource(
+          "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/722190.mos")));
   annotation (experiment(
       StopTime=3.1536e+07,
       Interval=900,

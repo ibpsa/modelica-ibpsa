@@ -3,7 +3,12 @@ model WD500  "Test model for BESTEST weather data: time zone case"
   extends WD100(
     lat= 0.49858820742,
     rho = 0,
-    alt = 236.9);
+    alt = 236.8,
+    weaDatHHorIR(filNam=Modelica.Utilities.Files.loadResource(
+          "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/421810.mos")),
+
+    weaDatTDryBulTDewPoinOpa(filNam=Modelica.Utilities.Files.loadResource(
+          "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/421810.mos")));
   annotation (experiment(
       StopTime=3.1536e+07,
       Interval=900,
