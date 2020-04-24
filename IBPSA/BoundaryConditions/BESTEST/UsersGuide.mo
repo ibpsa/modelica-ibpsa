@@ -148,7 +148,7 @@ calculated using Horizontal radiation or dew point temperature and sky cover.
 <p>To generate the data shown in this user guide, run </p>
 <pre>
 cd IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST
-python3 generateResults.py
+python3 generateResults.py -p
 </pre>
 <p>At the beginning of the Python script there are several options that the user can choose, by default the script will:
 </p>
