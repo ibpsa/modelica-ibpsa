@@ -22,9 +22,6 @@ from pathlib import Path
 from datetime import date
 import stat
 
-# Set to true if run as part of the continuous integration,
-# or to false if results should be stamped with time and commit
-CI_TESTING = True
 # Make code Verbose
 CodeVerbose = False
 # check if it just implements post-process (from .mat files to Json files)
@@ -33,8 +30,6 @@ POST_PROCESS_ONLY = False
 CLEAN_MAT = True
 # Erase anything but the Json file results in the ResultJson folder and .mat files
 DelEvr = False
-# Get IBPSA library from gitHub
-FROM_GIT_HUB = False
 # Modelica IBPSA Library working branch
 #BRANCH = 'master'
 BRANCH = 'issue1314_BESTEST_weather'
@@ -53,10 +48,7 @@ library_version = 'v4.0.0dev'
 modeler_organization = 'LBNL'
 modeler_organization_for_tables_and_charts = 'LBNL'
 program_name_for_tables_and_charts = 'BuildingsPy & Python'
-if CI_TESTING:
-    results_submission_date = "n/a"
-else:
-    results_submission_date = str(date.today().strftime('%m/%d/%Y'))
+results_submission_date = str(date.today().strftime('%m/%d/%Y'))
 
 # Make sure script is run from correct directory
 run_dir = ['Resources', 'Data', 'BoundaryConditions', 'Validation', 'BESTEST']
@@ -818,6 +810,18 @@ def remove_readonly(fn, path, excinfo):
 ############End of functions main code portion###################
 if __name__ == '__main__':
     from multiprocessing import Pool, freeze_support
+
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-c', help='Specify to enable ci-testing (will delete output files not stored in version control).', action='store_true')
+    parser.add_argument('-g', help='Specify to get the library from github.', action='store_true')
+    parser.add_argument('-p', help='Specify to pretty print json output.', action='store_true')
+    args = parser.parse_args()
+
+    CI_TESTING = args.c
+    FROM_GIT_HUB = args.g
+    pretty_print = args.p
+
     CWD = os.getcwd()
     CaseDict = {'PACKAGES': PACKAGES,
                 'CASES': CASES,
@@ -847,7 +851,7 @@ if __name__ == '__main__':
         # Add the directory where the library has been checked out
         for case in list_of_cases:
             case['lib_dir'] = lib_dir
-            if FROM_GIT_HUB or not CI_TESTING:
+            if CaseDict['from_git_hub']:
                 case['git'] = d
         # # Run all cases
         freeze_support()  # you need this in windows
@@ -890,6 +894,8 @@ if __name__ == '__main__':
     if CodeVerbose:
         print("Converting .mat files into .json and copying it into ".format(nJsonRes))
     Subcases = ['Iso', 'Per']
+    separators = None if pretty_print else (',', ':')
+    indent = 2 if pretty_print else None
     for Subcase in Subcases:
         if Subcase in 'Iso':
             CaseDictIsoHor = copy.deepcopy(CaseDict)
@@ -898,14 +904,14 @@ if __name__ == '__main__':
                 CaseDictIsoHor['reVals'], 'weaBusTDryBulTDewPoiOpa')
             resFinIsoHor = WeatherJson(resForm, Matfd, CaseDict)
             with open(os.path.join(nJsonRes, 'WeatherIsoHHorIR.json'), 'w') as outfile:
-                json.dump(resFinIsoHor, outfile, sort_keys=True, separators=(',', ':'))
+                json.dump(resFinIsoHor, outfile, sort_keys=True, separators=separators)
             CaseDictIsoDew = copy.deepcopy(CaseDict)
             CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'], 'Per')
             CaseDictIsoDew['reVals'] = RemoveString(
                 CaseDictIsoHor['reVals'], 'weaBusHHorIR.TDewPoi')
             resFinIsoDew = WeatherJson(resForm, Matfd, CaseDict)
             with open(os.path.join(nJsonRes, 'WeatherIsoTDryBulTDewPoinOpa.json'), 'w') as outfile:
-                json.dump(resFinIsoDew, outfile, sort_keys=True, separators=(',', ':'))
+                json.dump(resFinIsoDew, outfile, sort_keys=True, indent=indent, separators=separators)
         elif Subcase in 'Per':
             CaseDictPerHor = copy.deepcopy(CaseDict)
             CaseDictPerHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'], 'Per')
@@ -913,14 +919,14 @@ if __name__ == '__main__':
                 CaseDictIsoHor['reVals'], 'weaBusTDryBulTDewPoiOpa')
             resFinPerHor = WeatherJson(resForm, Matfd, CaseDict)
             with open(os.path.join(nJsonRes, 'WeatherPerHHorIR.json'), 'w') as outfile:
-                json.dump(resFinPerHor, outfile, sort_keys=True, separators=(',', ':'))
+                json.dump(resFinPerHor, outfile, sort_keys=True, indent=indent, separators=separators)
             CaseDictPerDew = copy.deepcopy(CaseDict)
             CaseDictPerDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'], 'Per')
             CaseDictPerDew['reVals'] = RemoveString(
                 CaseDictIsoHor['reVals'], 'weaBusHHorIR.TDewPoi')
             resFinPerDew = WeatherJson(resForm, Matfd, CaseDict)
             with open(os.path.join(nJsonRes, 'WeatherPerTDryBulTDewPoinOpa.json'), 'w') as outfile:
-                json.dump(resFinPerDew, outfile, sort_keys=True, separators=(',', ':'))
+                json.dump(resFinPerDew, outfile, sort_keys=True, indent=indent, separators=separators)
     if DelEvr or CI_TESTING:
         if CodeVerbose:
             print(" Erasing .mat files.")
