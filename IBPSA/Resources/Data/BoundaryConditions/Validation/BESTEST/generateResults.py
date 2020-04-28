@@ -373,7 +373,10 @@ def WeatherJson(resForm, Matfd, CaseDict):
                 # pass from rad to °
                 Pi = 3.141592653589793
                 results[k]['value'] = results[k]['value'] * Pi / 180
-            
+            elif 'nOpa' or 'nTot' in resSplit[-1]:
+                # skycover from [0-1] to tenth of sky
+                results[k]['value'] = results[k]['value'] * 10
+ 
             k += 1
         MapDymolaAndJson(results, dic['case'], resFin)
     return resFin
