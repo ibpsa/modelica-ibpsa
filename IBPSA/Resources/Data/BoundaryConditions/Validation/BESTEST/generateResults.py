@@ -25,7 +25,7 @@ import stat
 # Make code Verbose
 CodeVerbose = False
 # check if it just implements post-process (from .mat files to Json files)
-POST_PROCESS_ONLY = True
+POST_PROCESS_ONLY = False
 # Erase old .mat files
 CLEAN_MAT = True
 # Erase anything but the Json file results in the ResultJson folder and .mat files
@@ -905,22 +905,22 @@ if __name__ == '__main__':
     if CodeVerbose:
         print("Converting .mat files into .json and copying it into ".format(nJsonRes))
     Subcases = ['Iso', 'Per']
-    separators = None# if pretty_print else (',', ':')
-    indent = 2# if pretty_print else None
+    separators = None if pretty_print else (',', ':')
+    indent = 2 if pretty_print else None
     for Subcase in Subcases:
         if Subcase in 'Iso':
             CaseDictIsoHor = copy.deepcopy(CaseDict)
             CaseDictIsoHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'], 'Per')
             CaseDictIsoHor['reVals'] = RemoveString(
                 CaseDictIsoHor['reVals'], 'weaBusTDryBulTDewPoiOpa')
-            resFinIsoHor = WeatherJson(resForm, Matfd, CaseDict)
+            resFinIsoHor = WeatherJson(resForm, Matfd, CaseDictIsoHor)
             with open(os.path.join(nJsonRes, 'WeatherIsoHHorIR.json'), 'w') as outfile:
                 json.dump(resFinIsoHor, outfile, sort_keys=True, indent=indent,separators=separators)
             CaseDictIsoDew = copy.deepcopy(CaseDict)
             CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoDew['reVals'], 'Per')
             CaseDictIsoDew['reVals'] = RemoveString(
                 CaseDictIsoDew['reVals'], 'weaBusHHorIR.TDewPoi')
-            resFinIsoDew = WeatherJson(resForm, Matfd, CaseDict)
+            resFinIsoDew = WeatherJson(resForm, Matfd, CaseDictIsoDew)
             with open(os.path.join(nJsonRes, 'WeatherIsoTDryBulTDewPoinOpa.json'), 'w') as outfile:
                 json.dump(resFinIsoDew, outfile, sort_keys=True, indent=indent, separators=separators)
         elif Subcase in 'Per':
@@ -935,7 +935,7 @@ if __name__ == '__main__':
             CaseDictPerHor['reVals'] = CaseList
             CaseDictPerHor['reVals'] = RemoveString(
                 CaseDictPerHor['reVals'], 'weaBusTDryBulTDewPoiOpa')
-            resFinPerHor = WeatherJson(resForm, Matfd, CaseDict)
+            resFinPerHor = WeatherJson(resForm, Matfd, CaseDictPerHor)
             with open(os.path.join(nJsonRes, 'WeatherPerHHorIR.json'), 'w') as outfile:
                 json.dump(resFinPerHor, outfile, sort_keys=True, indent=indent, separators=separators)
             CaseDictPerDew = copy.deepcopy(CaseDict)
@@ -949,7 +949,7 @@ if __name__ == '__main__':
             CaseDictPerDew['reVals'] = CaseList
             CaseDictPerDew['reVals'] = RemoveString(
                 CaseDictPerDew['reVals'], 'weaBusHHorIR.TDewPoi')
-            resFinPerDew = WeatherJson(resForm, Matfd, CaseDict)
+            resFinPerDew = WeatherJson(resForm, Matfd, CaseDictPerDew)
             with open(os.path.join(nJsonRes, 'WeatherPerTDryBulTDewPoinOpa.json'), 'w') as outfile:
                 json.dump(resFinPerDew, outfile, sort_keys=True, indent=indent, separators=separators)
     if DelEvr or CI_TESTING:
