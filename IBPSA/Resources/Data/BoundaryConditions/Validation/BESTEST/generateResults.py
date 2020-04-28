@@ -366,6 +366,9 @@ def WeatherJson(resForm, Matfd, CaseDict):
             elif 'relHum' in resSplit[-1]:
                 # pass from [0,1] to %
                 results[k]['value'] = results[k]['value'] * 100
+            elif 'pAtm' in resSplit[-1]:
+                # pass from Pa to mbar
+                results[k]['value'] = results[k]['value'] / 100
             k += 1
         MapDymolaAndJson(results, dic['case'], resFin)
     return resFin
