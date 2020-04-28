@@ -734,7 +734,7 @@ def MapDymolaAndJson(results, case, resFin):
                         sHRdict = {}
                         sHRdict['time'] = float( (ressH['time'][k]-ressH['time'][0])/3600)# f"{float( (ressH['time'][k]-ressH['time'][0])/3600):.4g}"
                         if 'radiation' in ressH['json']:
-                            sHRdict['value'] = float(sHR*900/3600)# f"{float(sHR*900/3600):.4g}"
+                            sHRdict['value'] =float(sHR)# float(sHR*900/3600)# f"{float(sHR*900/3600):.4g}"
                         else:
                             sHRdict['value'] = float(sHR)# f"{float(sHR):.4g}"
                         sHRlist.append(sHRdict)
