@@ -695,7 +695,7 @@ def MapDymolaAndJson(results, case, resFin):
                     missing.append(day['days'] + '_' + dR['variable'])
                 else:
                     # float(res['res'])
-                    outDir[case]['annual_results'][res['json']] = f"{float(res['res']):.4g}"
+                    outDir[case]['annual_results'][res['json']] =float(res['res'])# f"{float(res['res']):.4g}"
             else:
                 resH = ExtrapolateResults(dictHourly, dR, day)
                 ressH = ExtrapolateResults(dictSubHourly, dR, day)
@@ -708,8 +708,8 @@ def MapDymolaAndJson(results, case, resFin):
                     k = 0
                     for HR in resH['res']:
                         HRdict = {}
-                        HRdict['time'] = f"{float((resH['time'][k]-resH['time'][0])/3600):.4g}"
-                        HRdict['value'] = f"{float(HR):.4g}"
+                        HRdict['time'] = float((resH['time'][k]-resH['time'][0])/3600)# f"{float((resH['time'][k]-resH['time'][0])/3600):.4g}"
+                        HRdict['value'] = float(HR)# f"{float(HR):.4g}"
                         HRlist.append(HRdict)
                         k += 1
                     outDir[case]['hourly_results'][day['days']][resH['json']] = HRlist
@@ -721,11 +721,11 @@ def MapDymolaAndJson(results, case, resFin):
                     for sHR in ressH['res']:
 
                         sHRdict = {}
-                        sHRdict['time'] = f"{float( (ressH['time'][k]-ressH['time'][0])/3600):.4g}"
+                        sHRdict['time'] = float( (ressH['time'][k]-ressH['time'][0])/3600)# f"{float( (ressH['time'][k]-ressH['time'][0])/3600):.4g}"
                         if 'radiation' in ressH['json']:
-                            sHRdict['value'] = f"{float(sHR*900/3600):.4g}"
+                            sHRdict['value'] = float(sHR*900/3600)# f"{float(sHR*900/3600):.4g}"
                         else:
-                            sHRdict['value'] = f"{float(sHR):.4g}"
+                            sHRdict['value'] = float(sHR)# f"{float(sHR):.4g}"
                         sHRlist.append(sHRdict)
                         k += 1
                     outDir[case]['subhourly_results'][day['days']][ressH['json']] = sHRlist
@@ -739,8 +739,8 @@ def MapDymolaAndJson(results, case, resFin):
                         k = 0
                         for sHR in H_int:
                             sHRdict = {}
-                            sHRdict['time'] = f"{float((time_int[k]-time_int[0])/3600):.4g}"
-                            sHRdict['value'] = f"{float(sHR):.4g}"
+                            sHRdict['time'] = float((time_int[k]-time_int[0])/3600)#f"{float((time_int[k]-time_int[0])/3600):.4g}"
+                            sHRdict['value'] =float(sHR)# f"{float(sHR):.4g}"
                             sHRlist.append(sHRdict)
                             k += 1
                         outDir[case]['subhourly_results'][day['days']
@@ -904,7 +904,7 @@ if __name__ == '__main__':
                 CaseDictIsoHor['reVals'], 'weaBusTDryBulTDewPoiOpa')
             resFinIsoHor = WeatherJson(resForm, Matfd, CaseDict)
             with open(os.path.join(nJsonRes, 'WeatherIsoHHorIR.json'), 'w') as outfile:
-                json.dump(resFinIsoHor, outfile, sort_keys=True, separators=separators)
+                json.dump(resFinIsoHor, outfile, sort_keys=True, indent=indent,separators=separators)
             CaseDictIsoDew = copy.deepcopy(CaseDict)
             CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'], 'Per')
             CaseDictIsoDew['reVals'] = RemoveString(
