@@ -148,13 +148,13 @@ are often iteration variables in nonlinear equation systems.
           preserveAspectRatio=true,
           extent={{-100,-100},{100,100}},
           grid={1,1}), graphics={
-          Text(
+      Text(
           extent={{-151,147},{149,107}},
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name"),
-          Polygon(
+      Polygon(
           points={{-5,10},{25,10},{-5,-10},{-5,10}},
           lineColor={0,128,255},
           fillColor={0,128,255},
@@ -162,7 +162,7 @@ are often iteration variables in nonlinear equation systems.
           visible=not allowFlowReversal1,
           origin={75,50},
           rotation=360),
-          Polygon(
+      Polygon(
           points={{10,10},{-20,-10},{10,-10},{10,10}},
           lineColor={0,128,255},
           fillColor={0,128,255},
