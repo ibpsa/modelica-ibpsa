@@ -22,10 +22,10 @@ partial model PartialFourPort "Partial model with four ports"
           X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
 
-  parameter Boolean allowFlowReversal1 = false
+  parameter Boolean allowFlowReversal1 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Boolean allowFlowReversal2 = false
+  parameter Boolean allowFlowReversal2 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 2"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
@@ -153,7 +153,7 @@ are often iteration variables in nonlinear equation systems.
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
           visible=not allowFlowReversal1,
-          origin={-121,40},
+          origin={-101,49},
           rotation=360),
           Text(
           extent={{-151,147},{149,107}},
@@ -167,7 +167,7 @@ are often iteration variables in nonlinear equation systems.
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
           visible=not allowFlowReversal1,
-          origin={98,40},
+          origin={78,49},
           rotation=360),
           Polygon(
           points={{1,10},{-19,0},{1,-10},{1,10}},
@@ -175,7 +175,7 @@ are often iteration variables in nonlinear equation systems.
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
           visible=not allowFlowReversal2,
-          origin={119,-40},
+          origin={99,-50},
           rotation=360),
           Polygon(
           points={{-1,10},{-21,0},{-1,-11},{-1,10}},
@@ -183,6 +183,6 @@ are often iteration variables in nonlinear equation systems.
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
           visible=not allowFlowReversal2,
-          origin={-99,-40},
+          origin={-79,-50},
           rotation=360)}));
 end PartialFourPort;
