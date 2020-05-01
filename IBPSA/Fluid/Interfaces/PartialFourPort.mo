@@ -147,14 +147,7 @@ are often iteration variables in nonlinear equation systems.
     Icon(coordinateSystem(
           preserveAspectRatio=true,
           extent={{-100,-100},{100,100}},
-          grid={1,1}), graphics={Polygon(
-          points={{1,10},{21,6.12323e-17},{1,-10},{1,10}},
-          lineColor={0,128,255},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          visible=not allowFlowReversal1,
-          origin={-101,49},
-          rotation=360),
+          grid={1,1}), graphics={
           Text(
           extent={{-151,147},{149,107}},
           lineColor={0,0,255},
@@ -162,23 +155,15 @@ are often iteration variables in nonlinear equation systems.
           fillColor={0,127,255},
           textString="%name"),
           Polygon(
-          points={{2,10},{22,6.12323e-17},{2,-10},{2,10}},
+          points={{-5,10},{25,10},{-5,-10},{-5,10}},
           lineColor={0,128,255},
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
           visible=not allowFlowReversal1,
-          origin={78,49},
+          origin={75,50},
           rotation=360),
           Polygon(
-          points={{1,10},{-19,0},{1,-10},{1,10}},
-          lineColor={0,128,255},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          visible=not allowFlowReversal2,
-          origin={99,-50},
-          rotation=360),
-          Polygon(
-          points={{-1,10},{-21,0},{-1,-11},{-1,10}},
+          points={{10,10},{-20,-10},{10,-10},{10,10}},
           lineColor={0,128,255},
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
