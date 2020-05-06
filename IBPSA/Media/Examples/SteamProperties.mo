@@ -4,8 +4,8 @@ model SteamProperties
   extends Modelica.Icons.Example;
   extends IBPSA.Media.Examples.BaseClasses.PartialProperties(
     redeclare package Medium = IBPSA.Media.Steam,
-    TMin=273.15+100,
-    TMax=273.15+700,
+    TMin=273.15 + 100,
+    TMax=273.15 + 700,
     p=100000);
 
   Medium.ThermodynamicState state_phX "Medium state";

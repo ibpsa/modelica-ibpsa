@@ -3,9 +3,9 @@ model SteamTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse"
   extends Modelica.Icons.Example;
   extends IBPSA.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion(
-     redeclare package Medium = IBPSA.Media.Steam,
-     T0 = 273.15 + 200,
-     tol = 1e-3);
+    redeclare package Medium = IBPSA.Media.Steam,
+    T0=273.15 + 200,
+    tol=1e-3);
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamTemperatureEnthalpyInversion.mos"

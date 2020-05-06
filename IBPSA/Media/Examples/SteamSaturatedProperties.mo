@@ -3,7 +3,7 @@ model SteamSaturatedProperties
   "Model that tests the implementation of the steam properties at saturated liquid and vapor states"
   extends Modelica.Icons.Example;
 
-  package Medium = IBPSA.Media.Steam  "Steam medium model";
+  package Medium = IBPSA.Media.Steam "Steam medium model";
 
   parameter Modelica.SIunits.Temperature TMin = 273.16
     "Minimum temperature for the simulation";
@@ -45,14 +45,14 @@ equation
     assert(TSat < TMax, "Temperature exceeded maximum value.\n" +
       "   TSat = " + String(TSat));
     // Check the implementation of the functions
-    dl = Medium.densityOfSaturatedLiquid_sat(sat);
-    dv = Medium.densityOfSaturatedVapor_sat(sat);
-    hl = Medium.enthalpyOfSaturatedLiquid_sat(sat);
-    hv = Medium.enthalpyOfSaturatedVapor_sat(sat);
-    hlv = Medium.enthalpyOfVaporization_sat(sat);
-    sl = Medium.entropyOfSaturatedLiquid_sat(sat);
-    sv = Medium.entropyOfSaturatedVapor_sat(sat);
-    slv = Medium.entropyOfVaporization_sat(sat);
+    dl = Medium.bubbleDensity(sat);
+    dv = Medium.dewDensity(sat);
+    hl = Medium.bubbleEnthalpy(sat);
+    hv = Medium.dewEnthalpy(sat);
+    hlv = hv - hl;
+    sl = Medium.bubbleEntropy(sat);
+    sv = Medium.dewEntropy(sat);
+    slv = sv - sl;
 
    annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamSaturatedProperties.mos"
