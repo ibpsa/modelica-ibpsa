@@ -111,7 +111,7 @@ equation
       Medium.density(Medium.setState_phX(
         port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   // flow coefficient, k = m_flow/sqrt(dp)
-  kDam = sqrt(2*rho)*A/IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper(
+  kDam=sqrt(2*rho)*A/IBPSA.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=y_actual,
     a=a,
     b=b,
@@ -165,11 +165,11 @@ mass flow rate <code>m_flow_nominal</code>, the nominal velocity
 <code>v_nominal</code> and the density of the medium.
 </p>
 <p>
-ASHRAE 825-RP lists the following parameter values as typical (note that the
+ASHRAE 825-RP lists the following parameter values as typical (note that the 
 default values in the model correspond to opposed blades).
 <br />
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\"
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" 
 style=\"border-collapse:collapse;\">
 <tr>
 <td></td><th>opposed blades</th><th>single blades</th>
