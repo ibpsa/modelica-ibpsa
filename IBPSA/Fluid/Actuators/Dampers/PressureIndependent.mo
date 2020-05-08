@@ -60,6 +60,7 @@ protected
     "Smooth interpolation result between two flow regimes";
   Real y_actual_smooth(final unit="1")
     "Fractional opening computed based on m_flow_smooth and dp";
+
 function basicFlowFunction_dp_m_flow
   "Inverse of flow function that computes that computes the square inverse of flow coefficient"
   extends Modelica.Icons.Function;
@@ -73,7 +74,7 @@ function basicFlowFunction_dp_m_flow
     "Minimum value of pressure drop guarding against k=m_flow/(0)";
   output Real kSquInv
     "Square inverse of flow coefficient";
-protected
+  protected
   Modelica.SIunits.PressureDifference dpPos=
     IBPSA.Utilities.Math.Functions.smoothMax(dp, -dp, dp_small)
     "Regularized absolute value of pressure drop";
@@ -84,6 +85,7 @@ algorithm
   kSquInv := dpPos / mSqu_flow;
 annotation (smoothOrder=1);
 end basicFlowFunction_dp_m_flow;
+
 function exponentialDamper_inv
   "Inverse function of the exponential damper characteristics"
   extends Modelica.Icons.Function;
@@ -92,7 +94,7 @@ function exponentialDamper_inv
   input Real[:] ySupSpl "y values of support points";
   input Real[:] invSplDer "Derivatives at support points";
   output Real y "Fractional opening";
-protected
+  protected
   parameter Integer sizeSupSpl = size(kSupSpl, 1) "Number of spline support points";
   Integer i "Integer to select data interval";
 algorithm
@@ -117,6 +119,7 @@ algorithm
     1E-3);
 annotation (smoothOrder=1);
 end exponentialDamper_inv;
+
 initial equation
   (kSupSpl, idx_sorted) = Modelica.Math.Vectors.sort(kSupSpl_raw, ascending=true);
   ySupSpl = ySupSpl_raw[idx_sorted];
@@ -341,4 +344,3 @@ First implementation.
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255})}));
 end PressureIndependent;
-
