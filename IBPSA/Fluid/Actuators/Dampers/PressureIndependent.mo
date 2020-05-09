@@ -228,7 +228,7 @@ equation
   kDamSquInv = if dpFixed_nominal > Modelica.Constants.eps then
     kSquInv - 1 / kFixed^2 else kSquInv;
   // Use of regStep might no longer be needed when the leakage flow modeling is updated.
-  y_actual_smooth = Buildings.Utilities.Math.Functions.regStep(
+  y_actual_smooth = IBPSA.Utilities.Math.Functions.regStep(
     x=y_internal - y_min,
     y1=exponentialDamper_inv(
       kTheta=kDamSquInv*2*rho*A^2, kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer),
