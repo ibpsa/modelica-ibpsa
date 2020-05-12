@@ -30,7 +30,7 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     Temperature T "Temperature";
     AbsolutePressure p "Pressure";
   end ThermodynamicState;
-  constant Integer Region = 2 "Region of IF97, if known, zero otherwise";
+  constant Integer region = 2 "Region of IF97, if known, zero otherwise";
   constant Integer phase = 1 "1 for one-phase";
 
   redeclare replaceable partial model extends BaseProperties
@@ -57,6 +57,12 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input ThermodynamicState state "Thermodynamic state record";
     output DynamicViscosity eta "Dynamic viscosity";
   algorithm
+    eta := Modelica.Media.Water.IF97_Utilities.dynamicViscosity(
+          state.d,
+          state.T,
+          state.p,
+          phase);
+    annotation (Inline=true);
   end dynamicViscosity;
 
   redeclare function extends thermalConductivity
@@ -65,6 +71,12 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input ThermodynamicState state "Thermodynamic state record";
     output ThermalConductivity lambda "Thermal conductivity";
   algorithm
+    lambda := Modelica.Media.Water.IF97_Utilities.thermalConductivity(
+          state.d,
+          state.T,
+          state.p,
+          phase);
+    annotation (Inline=true);
   end thermalConductivity;
 
   redeclare function extends pressure "Return pressure"
@@ -72,6 +84,8 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input ThermodynamicState state "Thermodynamic state record";
     output AbsolutePressure p "Pressure";
   algorithm
+    p := state.p;
+    annotation (Inline=true);
   end pressure;
 
   redeclare function extends temperature "Return temperature"
@@ -79,6 +93,8 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input ThermodynamicState state "Thermodynamic state record";
     output Temperature T "Temperature";
   algorithm
+   T := state.T;
+    annotation (Inline=true);
   end temperature;
 
   redeclare function extends density "Return density"
@@ -86,6 +102,12 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input ThermodynamicState state "Thermodynamic state record";
     output Density d "Density";
   algorithm
+    d := state.d;
+    //    d := Modelica.Media.Water.IF97_Utilities.rho_pT(
+    //          state.p,
+    //          state.T,
+    //          region);
+    annotation (Inline=true);
   end density;
 
   redeclare function extends specificEnthalpy "Return specific enthalpy"
@@ -93,6 +115,8 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input ThermodynamicState state "Thermodynamic state record";
     output SpecificEnthalpy h "Specific enthalpy";
   algorithm
+    h := state.h;
+    annotation (Inline=true);
   end specificEnthalpy;
 
   redeclare function extends specificInternalEnergy
@@ -101,6 +125,8 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input ThermodynamicState state "Thermodynamic state record";
     output SpecificEnergy u "Specific internal energy";
   algorithm
+    u := state.h - state.p/state.d;
+    annotation (Inline=true);
   end specificInternalEnergy;
 
   redeclare function extends specificEntropy "Return specific entropy"
@@ -108,6 +134,11 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input ThermodynamicState state "Thermodynamic state record";
     output SpecificEntropy s "Specific entropy";
   algorithm
+    s := Modelica.Media.Water.IF97_Utilities.s_pT(
+          state.p,
+          state.T,
+          region);
+    annotation (Inline=true);
   end specificEntropy;
 
   redeclare function extends specificGibbsEnergy
@@ -116,6 +147,8 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input ThermodynamicState state "Thermodynamic state record";
     output SpecificEnergy g "Specific Gibbs energy";
   algorithm
+    g := state.h - state.T*specificEntropy(state);
+    annotation (Inline=true);
   end specificGibbsEnergy;
 
   redeclare function extends specificHelmholtzEnergy
@@ -124,6 +157,8 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input ThermodynamicState state "Thermodynamic state record";
     output SpecificEnergy f "Specific Helmholtz energy";
   algorithm
+    f := state.h - state.p/state.d - state.T*specificEntropy(state);
+    annotation (Inline=true);
   end specificHelmholtzEnergy;
 
   redeclare function extends specificHeatCapacityCp
@@ -133,6 +168,11 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     output SpecificHeatCapacity cp
       "Specific heat capacity at constant pressure";
   algorithm
+    cp := Modelica.Media.Water.IF97_Utilities.cp_pT(
+          state.p,
+          state.T,
+          region);
+    annotation (Inline=true);
   end specificHeatCapacityCp;
 
   redeclare function extends specificHeatCapacityCv
@@ -142,6 +182,11 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     output SpecificHeatCapacity cv
       "Specific heat capacity at constant volume";
   algorithm
+    cv := Modelica.Media.Water.IF97_Utilities.cv_pT(
+          state.p,
+          state.T,
+          region);
+    annotation (Inline=true);
   end specificHeatCapacityCv;
   // Saturation state functions
 
@@ -151,6 +196,8 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input AbsolutePressure p "Pressure";
     output Temperature T "Saturation temperature";
   algorithm
+    T := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.tsat(p);
+    annotation (Inline=true);
   end saturationTemperature_p;
 
   replaceable function enthalpyOfSaturatedLiquid_sat
@@ -159,6 +206,8 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input SaturationProperties sat "Saturation property record";
     output SpecificEnthalpy hl "Boiling curve specific enthalpy";
   algorithm
+    hl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hl_p(sat.psat);
+    annotation (Inline=true);
   end enthalpyOfSaturatedLiquid_sat;
 
   replaceable function enthalpyOfSaturatedVapor_sat
@@ -167,6 +216,8 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input SaturationProperties sat "Saturation property record";
     output SpecificEnthalpy hv "Dew curve specific enthalpy";
   algorithm
+    hv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hv_p(sat.psat);
+    annotation (Inline=true);
   end enthalpyOfSaturatedVapor_sat;
 
   replaceable function enthalpyOfVaporization_sat
@@ -176,6 +227,7 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     output SpecificEnthalpy hlv "Vaporization enthalpy";
   algorithm
     hlv := enthalpyOfSaturatedVapor_sat(sat)-enthalpyOfSaturatedLiquid_sat(sat);
+    annotation (Inline=true);
   end enthalpyOfVaporization_sat;
 
   replaceable function entropyOfSaturatedLiquid_sat
@@ -184,6 +236,8 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sl "Boiling curve specific entropy";
   algorithm
+    sl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.sl_p(sat.psat);
+    annotation (Inline=true);
   end entropyOfSaturatedLiquid_sat;
 
   replaceable function entropyOfSaturatedVapor_sat
@@ -192,6 +246,8 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sv "Dew curve specific entropy";
   algorithm
+    sv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.sv_p(sat.psat);
+    annotation (Inline=true);
   end entropyOfSaturatedVapor_sat;
 
   replaceable function entropyOfVaporization_sat
@@ -201,6 +257,7 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     output SpecificEntropy slv "Vaporization entropy";
   algorithm
     slv := entropyOfSaturatedVapor_sat(sat)-entropyOfSaturatedLiquid_sat(sat);
+    annotation (Inline=true);
   end entropyOfVaporization_sat;
 
   replaceable function densityOfSaturatedLiquid_sat
@@ -209,6 +266,8 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input SaturationProperties sat "Saturation property record";
     output Density dl "Boiling curve density";
   algorithm
+    dl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.rhol_p(sat.psat)
+    annotation (Inline=true);
   end densityOfSaturatedLiquid_sat;
 
   replaceable function densityOfSaturatedVapor_sat
@@ -217,6 +276,8 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input SaturationProperties sat "Saturation property record";
     output Density dv "Dew curve density";
   algorithm
+    dv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.rhov_p(sat.psat)
+    annotation (Inline=true);
   end densityOfSaturatedVapor_sat;
  // Set state functions
 
@@ -228,6 +289,19 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "Thermodynamic state record";
   algorithm
+    /*    state := ThermodynamicState(
+          d=density_pT(
+            p,
+            T,
+            region=region),
+          T=T,
+          phase=1,
+          h=specificEnthalpy_pT(
+            p,
+            T,
+            region=region),
+          p=p);   */
+    annotation (Inline=true);
   end setState_pTX;
 
   redeclare function extends setState_phX
@@ -238,6 +312,7 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "Thermodynamic state record";
   algorithm
+    annotation (Inline=true);
   end setState_phX;
 
   redeclare function extends setState_psX
@@ -248,6 +323,7 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "Thermodynamic state record";
   algorithm
+    annotation (Inline=true);
   end setState_psX;
 
   redeclare function extends setState_dTX
@@ -258,6 +334,7 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "Thermodynamic state record";
   algorithm
+    annotation (Inline=true);
   end setState_dTX;
 
   redeclare function extends setSmoothState
@@ -271,7 +348,10 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     output ThermodynamicState state
       "Smooth thermodynamic state for all x (continuous and differentiable)";
   algorithm
-    annotation (Documentation(info="<html>
+
+    annotation (
+      Inline=true,
+      Documentation(info="<html>
 <p>
 This function is used to approximate the equation
 </p>
