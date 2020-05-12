@@ -43,17 +43,40 @@ partial model PartialProperties
 protected
   constant Real conv(unit="1/s") = 1 "Conversion factor to satisfy unit check";
 
-  function checkState
+  function checkState "This function checks the absolute error in the state calculations"
     extends Modelica.Icons.Function;
     input Medium.ThermodynamicState state1 "Medium state";
     input Medium.ThermodynamicState state2 "Medium state";
     input String message "Message for error reporting";
+    parameter Real TErrAbs=abs(Medium.temperature(state1)-Medium.temperature(state2))
+      "Absolute error in temperature";
+    parameter Real pErrAbs=abs(Medium.pressure(state1)-Medium.pressure(state2))
+      "Absolute error in pressure";
   algorithm
-    assert(abs(Medium.temperature(state1)-Medium.temperature(state2))
-       < 1e-8, "Error in temperature of " + message);
-    assert(abs(Medium.pressure(state1)-Medium.pressure(state2))
-       < 1e-8, "Error in pressure of " + message);
+    assert(TErrAbs < 1e-8, "Absolute temperature error: " + String(TErrAbs) +
+       " K. Error in temperature of " + message);
+    assert(pErrAbs < 1e-8, "Absolute pressure error: " + String(pErrAbs) +
+       " Pa. Error in pressure of " + message);
   end checkState;
+
+  function checkStateRelative "This function checks the relative error in the state calculations"
+    extends Modelica.Icons.Function;
+    input Medium.ThermodynamicState state1 "Medium state";
+    input Medium.ThermodynamicState state2 "Medium state";
+    input String message "Message for error reporting";
+    parameter Real TErrRel=
+      abs((Medium.temperature(state1)-Medium.temperature(state2))/Medium.temperature(state1))
+      "Relative error in temperature";
+    parameter Real pErrRel=
+      abs((Medium.pressure(state1)-Medium.pressure(state2))/Medium.pressure(state1))
+      "Relative error in pressure";
+  algorithm
+    assert(TErrRel < 1e-4, "Relative temperature error: " + String(TErrRel*100) +
+       "%. Error in temperature of " + message);
+    assert(pErrRel < 1e-4, "Relative pressure error: " + String(pErrRel*100) +
+       "%. Error in pressure of " + message);
+  end checkStateRelative;
+
 equation
     // Compute temperatures that are used as input to the functions
     T = TMin + conv*time * (TMax-TMin);
@@ -92,6 +115,10 @@ This example checks thermophysical properties of the medium.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 24, 2020, by Kathryn Hinkelman:<br/>
+Expand error message for checkState and added relative error function check checkStateRelative.
+</li>
 <li>
 September 16, 2019, by Yangyang Fu:<br/>
 Reconstruct the implementation structure to avoid duplicated codes for different media.
