@@ -18,6 +18,7 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
       nominal=500,
       min=273.15,
       max=2273.15));
+   extends Modelica.Icons.Package;
 
   constant FluidConstants[1] fluidConstants=
      Modelica.Media.Water.waterConstants
@@ -38,16 +39,10 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
 
   equation
     MM = fluidConstants[1].molarMass;
-    h = specificEnthalpy_pT(
-          p,
-          T,
-          Region);
-    d = density_pT(
-          p,
-          T,
-          Region);
+    h = specificEnthalpy(state);
+    d = density(state);
     sat.psat = p;
-    sat.Tsat = saturationTemperature(p);
+    sat.Tsat = saturationTemperature_p(p);
     u = h - p/d;
     R = Modelica.Constants.R/fluidConstants[1].molarMass;
     h = state.h;
@@ -56,14 +51,297 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     d = state.d;
     phase = phase;
   end BaseProperties;
-/*  replaceable function saturationState_p
+
+  redeclare function extends dynamicViscosity "Return dynamic viscosity"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output DynamicViscosity eta "Dynamic viscosity";
+  algorithm
+  end dynamicViscosity;
+
+  redeclare function extends thermalConductivity
+    "Return thermal conductivity"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output ThermalConductivity lambda "Thermal conductivity";
+  algorithm
+  end thermalConductivity;
+
+  redeclare function extends pressure "Return pressure"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output AbsolutePressure p "Pressure";
+  algorithm
+  end pressure;
+
+  redeclare function extends temperature "Return temperature"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output Temperature T "Temperature";
+  algorithm
+  end temperature;
+
+  redeclare function extends density "Return density"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output Density d "Density";
+  algorithm
+  end density;
+
+  redeclare function extends specificEnthalpy "Return specific enthalpy"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output SpecificEnthalpy h "Specific enthalpy";
+  algorithm
+  end specificEnthalpy;
+
+  redeclare function extends specificInternalEnergy
+    "Return specific internal energy"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output SpecificEnergy u "Specific internal energy";
+  algorithm
+  end specificInternalEnergy;
+
+  redeclare function extends specificEntropy "Return specific entropy"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output SpecificEntropy s "Specific entropy";
+  algorithm
+  end specificEntropy;
+
+  redeclare function extends specificGibbsEnergy
+    "Return specific Gibbs energy"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output SpecificEnergy g "Specific Gibbs energy";
+  algorithm
+  end specificGibbsEnergy;
+
+  redeclare function extends specificHelmholtzEnergy
+    "Return specific Helmholtz energy"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output SpecificEnergy f "Specific Helmholtz energy";
+  algorithm
+  end specificHelmholtzEnergy;
+
+  redeclare function extends specificHeatCapacityCp
+    "Return specific heat capacity at constant pressure"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output SpecificHeatCapacity cp
+      "Specific heat capacity at constant pressure";
+  algorithm
+  end specificHeatCapacityCp;
+
+  redeclare function extends specificHeatCapacityCv
+    "Return specific heat capacity at constant volume"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output SpecificHeatCapacity cv
+      "Specific heat capacity at constant volume";
+  algorithm
+  end specificHeatCapacityCv;
+  // Saturation state functions
+
+  replaceable function saturationTemperature_p
+    "Return saturation temperature"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    output Temperature T "Saturation temperature";
+  algorithm
+  end saturationTemperature_p;
+
+  replaceable function enthalpyOfSaturatedLiquid_sat
+    "Return enthalpy of saturated liquid"
+    extends Modelica.Icons.Function;
+    input SaturationProperties sat "Saturation property record";
+    output SpecificEnthalpy hl "Boiling curve specific enthalpy";
+  algorithm
+  end enthalpyOfSaturatedLiquid_sat;
+
+  replaceable function enthalpyOfSaturatedVapor_sat
+    "Return enthalpy of saturated vapor"
+    extends Modelica.Icons.Function;
+    input SaturationProperties sat "Saturation property record";
+    output SpecificEnthalpy hv "Dew curve specific enthalpy";
+  algorithm
+  end enthalpyOfSaturatedVapor_sat;
+
+  replaceable function enthalpyOfVaporization_sat
+    "Return enthalpy of vaporization"
+    extends Modelica.Icons.Function;
+    input SaturationProperties sat "Saturation property record";
+    output SpecificEnthalpy hlv "Vaporization enthalpy";
+  algorithm
+    hlv := enthalpyOfSaturatedVapor_sat(sat)-enthalpyOfSaturatedLiquid_sat(sat);
+  end enthalpyOfVaporization_sat;
+
+  replaceable function entropyOfSaturatedLiquid_sat
+    "Return entropy of saturated liquid"
+    extends Modelica.Icons.Function;
+    input SaturationProperties sat "Saturation property record";
+    output SpecificEntropy sl "Boiling curve specific entropy";
+  algorithm
+  end entropyOfSaturatedLiquid_sat;
+
+  replaceable function entropyOfSaturatedVapor_sat
+    "Return entropy of saturated vapor"
+    extends Modelica.Icons.Function;
+    input SaturationProperties sat "Saturation property record";
+    output SpecificEntropy sv "Dew curve specific entropy";
+  algorithm
+  end entropyOfSaturatedVapor_sat;
+
+  replaceable function entropyOfVaporization_sat
+    "Return entropy of vaporization"
+    extends Modelica.Icons.Function;
+    input SaturationProperties sat "Saturation property record";
+    output SpecificEntropy slv "Vaporization entropy";
+  algorithm
+    slv := entropyOfSaturatedVapor_sat(sat)-entropyOfSaturatedLiquid_sat(sat);
+  end entropyOfVaporization_sat;
+
+  replaceable function densityOfSaturatedLiquid_sat
+       "Return density of saturated liquid"
+    extends Modelica.Icons.Function;
+    input SaturationProperties sat "Saturation property record";
+    output Density dl "Boiling curve density";
+  algorithm
+  end densityOfSaturatedLiquid_sat;
+
+  replaceable function densityOfSaturatedVapor_sat
+    "Return density of saturated vapor"
+    extends Modelica.Icons.Function;
+    input SaturationProperties sat "Saturation property record";
+    output Density dv "Dew curve density";
+  algorithm
+  end densityOfSaturatedVapor_sat;
+ // Set state functions
+
+  redeclare function extends setState_pTX
+    "Return thermodynamic state as function of p, T and composition X or Xi"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input Temperature T "Temperature";
+    input MassFraction X[:]=reference_X "Mass fractions";
+    output ThermodynamicState state "Thermodynamic state record";
+  algorithm
+  end setState_pTX;
+
+  redeclare function extends setState_phX
+    "Return thermodynamic state as function of p, h and composition X or Xi"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input SpecificEnthalpy h "Specific enthalpy";
+    input MassFraction X[:]=reference_X "Mass fractions";
+    output ThermodynamicState state "Thermodynamic state record";
+  algorithm
+  end setState_phX;
+
+  redeclare function extends setState_psX
+    "Return thermodynamic state as function of p, s and composition X or Xi"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input SpecificEntropy s "Specific entropy";
+    input MassFraction X[:]=reference_X "Mass fractions";
+    output ThermodynamicState state "Thermodynamic state record";
+  algorithm
+  end setState_psX;
+
+  redeclare function extends setState_dTX
+    "Return thermodynamic state as function of d, T and composition X or Xi"
+    extends Modelica.Icons.Function;
+    input Density d "Density";
+    input Temperature T "Temperature";
+    input MassFraction X[:]=reference_X "Mass fractions";
+    output ThermodynamicState state "Thermodynamic state record";
+  algorithm
+  end setState_dTX;
+
+  redeclare function extends setSmoothState
+    "Return thermodynamic state so that it smoothly approximates: if x > 0 then state_a else state_b"
+    extends Modelica.Icons.Function;
+    input Real x "m_flow or dp";
+    input ThermodynamicState state_a "Thermodynamic state if x > 0";
+    input ThermodynamicState state_b "Thermodynamic state if x < 0";
+    input Real x_small(min=0)
+      "Smooth transition in the region -x_small < x < x_small";
+    output ThermodynamicState state
+      "Smooth thermodynamic state for all x (continuous and differentiable)";
+  algorithm
+    annotation (Documentation(info="<html>
+<p>
+This function is used to approximate the equation
+</p>
+<pre>
+    state = <strong>if</strong> x &gt; 0 <strong>then</strong> state_a <strong>else</strong> state_b;
+</pre>
+
+<p>
+by a smooth characteristic, so that the expression is continuous and differentiable:
+</p>
+
+<pre>
+   state := <strong>smooth</strong>(1, <strong>if</strong> x &gt;  x_small <strong>then</strong> state_a <strong>else</strong>
+                      <strong>if</strong> x &lt; -x_small <strong>then</strong> state_b <strong>else</strong> f(state_a, state_b));
+</pre>
+
+<p>
+This is performed by applying function <strong>Media.Common.smoothStep</strong>(..)
+on every element of the thermodynamic state record.
+</p>
+
+<p>
+If <strong>mass fractions</strong> X[:] are approximated with this function then this can be performed
+for all <strong>nX</strong> mass fractions, instead of applying it for nX-1 mass fractions and computing
+the last one by the mass fraction constraint sum(X)=1. The reason is that the approximating function has the
+property that sum(state.X) = 1, provided sum(state_a.X) = sum(state_b.X) = 1.
+This can be shown by evaluating the approximating function in the abs(x) &lt; x_small
+region (otherwise state.X is either state_a.X or state_b.X):
+</p>
+
+<pre>
+    X[1]  = smoothStep(x, X_a[1] , X_b[1] , x_small);
+    X[2]  = smoothStep(x, X_a[2] , X_b[2] , x_small);
+       ...
+    X[nX] = smoothStep(x, X_a[nX], X_b[nX], x_small);
+</pre>
+
+<p>
+or
+</p>
+
+<pre>
+    X[1]  = c*(X_a[1]  - X_b[1])  + (X_a[1]  + X_b[1])/2
+    X[2]  = c*(X_a[2]  - X_b[2])  + (X_a[2]  + X_b[2])/2;
+       ...
+    X[nX] = c*(X_a[nX] - X_b[nX]) + (X_a[nX] + X_b[nX])/2;
+    c     = (x/x_small)*((x/x_small)^2 - 3)/4
+</pre>
+
+<p>
+Summing all mass fractions together results in
+</p>
+
+<pre>
+    sum(X) = c*(sum(X_a) - sum(X_b)) + (sum(X_a) + sum(X_b))/2
+           = c*(1 - 1) + (1 + 1)/2
+           = 1
+</pre>
+
+</html>"));
+  end setSmoothState;
+
+  replaceable function saturationState_p
     "Return saturation property record from pressure"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
     output SaturationProperties sat "Saturation property record";
-  algorithm 
+  algorithm
     sat.psat := p;
-    sat.Tsat := saturationTemperature(p);
+    sat.Tsat := saturationTemperature_p(p);
   annotation (
     smoothOrder=2,
     Documentation(info="<html>
@@ -80,9 +358,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end saturationState_p;
-*/
-
+  end saturationState_p;
 annotation (Documentation(info="<html>
 <p>
 The steam model based on IF97 formulations can be utilized for steam systems 
@@ -137,5 +413,17 @@ May 6, 2020, by Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+      Line(
+        points={{50,30},{30,10},{50,-10},{30,-30}},
+        color={0,0,0},
+        smooth=Smooth.Bezier),
+      Line(
+        points={{10,30},{-10,10},{10,-10},{-10,-30}},
+        color={0,0,0},
+        smooth=Smooth.Bezier),
+      Line(
+        points={{-30,30},{-50,10},{-30,-10},{-50,-30}},
+        color={0,0,0},
+        smooth=Smooth.Bezier)}));
 end Steam;
