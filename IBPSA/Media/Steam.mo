@@ -1,21 +1,67 @@
 ﻿within IBPSA.Media;
 package Steam "Package with model for region 2 (steam) water according to IF97 standard"
-  extends Modelica.Media.Water.WaterIF97_R2pT(
-     mediumName="steam",
-     reference_T=273.15,
-     reference_p=101325,
-     AbsolutePressure(start=p_default),
-     T_default=Modelica.SIunits.Conversions.from_degC(200),
-     Temperature(start=T_default));
+  extends Modelica.Media.Interfaces.PartialMedium(
+    redeclare replaceable record FluidConstants =
+        Modelica.Media.Interfaces.Types.TwoPhase.FluidConstants,
+    mediumName="WaterIF97_R2pT",
+    substanceNames={"water"},
+    singleState=false,
+    SpecificEnthalpy(start=1.0e5, nominal=5.0e5),
+    Density(start=150, nominal=500),
+    AbsolutePressure(
+      start=50e5,
+      nominal=10e5,
+      min=611.657,
+      max=100e6),
+    Temperature(
+      start=500,
+      nominal=500,
+      min=273.15,
+      max=2273.15));
 
-  extends Modelica.Icons.Package;
+  constant FluidConstants[1] fluidConstants=
+     Modelica.Media.Water.waterConstants
+     "Constant data for water";
 
-  replaceable function saturationState_p
+  redeclare record extends ThermodynamicState "Thermodynamic state"
+    SpecificEnthalpy h "Specific enthalpy";
+    Density d "Density";
+    Temperature T "Temperature";
+    AbsolutePressure p "Pressure";
+  end ThermodynamicState;
+  constant Integer Region = 2 "Region of IF97, if known, zero otherwise";
+  constant Integer phase = 1 "1 for one-phase";
+
+  redeclare replaceable partial model extends BaseProperties
+    "Base properties (p, d, T, h, u, R, MM, sat) of water"
+    SaturationProperties sat "Saturation properties at the medium pressure";
+
+  equation
+    MM = fluidConstants[1].molarMass;
+    h = specificEnthalpy_pT(
+          p,
+          T,
+          Region);
+    d = density_pT(
+          p,
+          T,
+          Region);
+    sat.psat = p;
+    sat.Tsat = saturationTemperature(p);
+    u = h - p/d;
+    R = Modelica.Constants.R/fluidConstants[1].molarMass;
+    h = state.h;
+    p = state.p;
+    T = state.T;
+    d = state.d;
+    phase = phase;
+  end BaseProperties;
+/*  replaceable function saturationState_p
     "Return saturation property record from pressure"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
     output SaturationProperties sat "Saturation property record";
-  algorithm
+  algorithm 
     sat.psat := p;
     sat.Tsat := saturationTemperature(p);
   annotation (
@@ -34,7 +80,8 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  end saturationState_p;
+end saturationState_p;
+*/
 
 annotation (Documentation(info="<html>
 <p>
@@ -90,17 +137,5 @@ May 6, 2020, by Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(graphics={
-      Line(
-        points={{-30,30},{-50,10},{-30,-10},{-50,-30}},
-        color={0,0,0},
-        smooth=Smooth.Bezier),
-      Line(
-        points={{10,30},{-10,10},{10,-10},{-10,-30}},
-        color={0,0,0},
-        smooth=Smooth.Bezier),
-      Line(
-        points={{50,30},{30,10},{50,-10},{30,-30}},
-        color={0,0,0},
-        smooth=Smooth.Bezier)}));
+</html>"));
 end Steam;
