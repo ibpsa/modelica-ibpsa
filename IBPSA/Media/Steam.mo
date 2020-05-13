@@ -33,14 +33,21 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
   constant Integer region = 2 "Region of IF97, if known, zero otherwise";
   constant Integer phase = 1 "1 for one-phase";
 
-  redeclare replaceable partial model extends BaseProperties
-    "Base properties (p, d, T, h, u, R, MM, sat) of water"
-    SaturationProperties sat "Saturation properties at the medium pressure";
-
+  redeclare replaceable model extends BaseProperties(
+    T(stateSelect=if preferredMediumStates then StateSelect.prefer
+           else StateSelect.default),
+    p(stateSelect=if preferredMediumStates then StateSelect.prefer
+           else StateSelect.default))
+    //    h(stateSelect=if preferredMediumStates then StateSelect.prefer
+    //           else StateSelect.default),
+    //    d(stateSelect=if preferredMediumStates then StateSelect.prefer
+    //           else StateSelect.default),
+    //    "Base properties (p, d, T, h, u, R, MM, sat) of water"
+  SaturationProperties sat "Saturation properties at the medium pressure";
   equation
     MM = fluidConstants[1].molarMass;
-    h = specificEnthalpy(state);
-    d = density(state);
+    h = specificEnthalpy_pT(p,T);
+    d = density_pT(p,T);
     sat.psat = p;
     sat.Tsat = saturationTemperature_p(p);
     u = h - p/d;
@@ -49,8 +56,106 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     p = state.p;
     T = state.T;
     d = state.d;
-    phase = phase;
   end BaseProperties;
+
+  redeclare function density_ph
+    "Computes density as a function of pressure and specific enthalpy"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input SpecificEnthalpy h "Specific enthalpy";
+    output Density d "Density";
+  algorithm
+    d := Modelica.Media.Water.IF97_Utilities.rho_ph(p,h);
+    annotation (Inline=true);
+  end density_ph;
+
+  redeclare function temperature_ph
+    "Computes temperature as a function of pressure and specific enthalpy"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input SpecificEnthalpy h "Specific enthalpy";
+    output Temperature T "Temperature";
+  algorithm
+    T := Modelica.Media.Water.IF97_Utilities.T_ph(p,h);
+    annotation (Inline=true);
+  end temperature_ph;
+
+  redeclare function temperature_ps
+    "Compute temperature from pressure and specific enthalpy"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input SpecificEntropy s "Specific entropy";
+    output Temperature T "Temperature";
+  algorithm
+    T := Modelica.Media.Water.IF97_Utilities.T_ps(p,s);
+    annotation (Inline=true);
+  end temperature_ps;
+
+  redeclare function density_ps
+    "Computes density as a function of pressure and specific enthalpy"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input SpecificEntropy s "Specific entropy";
+    output Density d "Density";
+  algorithm
+    d := Modelica.Media.Water.IF97_Utilities.rho_ps(p,s);
+    annotation (Inline=true);
+  end density_ps;
+
+  redeclare function pressure_dT
+    "Computes pressure as a function of density and temperature"
+    extends Modelica.Icons.Function;
+    input Density d "Density";
+    input Temperature T "Temperature";
+    output AbsolutePressure p "Pressure";
+  algorithm
+    p := Modelica.Media.Water.IF97_Utilities.p_dT(d,T);
+    annotation (Inline=true);
+  end pressure_dT;
+
+  redeclare function specificEnthalpy_dT
+    "Computes specific enthalpy as a function of density and temperature"
+    extends Modelica.Icons.Function;
+    input Density d "Density";
+    input Temperature T "Temperature";
+    output SpecificEnthalpy h "Specific enthalpy";
+  algorithm
+    h := Modelica.Media.Water.IF97_Utilities.h_dT(d,T);
+    annotation (Inline=true);
+  end specificEnthalpy_dT;
+
+  redeclare function specificEnthalpy_pT
+    "Computes specific enthalpy as a function of pressure and temperature"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input Temperature T "Temperature";
+    output SpecificEnthalpy h "Specific enthalpy";
+  algorithm
+    h := Modelica.Media.Water.IF97_Utilities.h_pT(p,T);
+    annotation (Inline=true);
+  end specificEnthalpy_pT;
+
+  redeclare function specificEnthalpy_ps
+    "Computes specific enthalpy as a function of pressure and temperature"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input SpecificEntropy s "Specific entropy";
+    output SpecificEnthalpy h "Specific enthalpy";
+  algorithm
+    h := Modelica.Media.Water.IF97_Utilities.h_ps(p,s);
+    annotation (Inline=true);
+  end specificEnthalpy_ps;
+
+  redeclare function density_pT
+    "Computes density as a function of pressure and temperature"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input Temperature T "Temperature";
+    output Density d "Density";
+  algorithm
+    d := Modelica.Media.Water.IF97_Utilities.rho_pT(p,T);
+    annotation (Inline=true);
+  end density_pT;
 
   redeclare function extends dynamicViscosity "Return dynamic viscosity"
     extends Modelica.Icons.Function;
@@ -103,10 +208,6 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     output Density d "Density";
   algorithm
     d := state.d;
-    //    d := Modelica.Media.Water.IF97_Utilities.rho_pT(
-    //          state.p,
-    //          state.T,
-    //          region);
     annotation (Inline=true);
   end density;
 
@@ -168,10 +269,9 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     output SpecificHeatCapacity cp
       "Specific heat capacity at constant pressure";
   algorithm
-    cp := Modelica.Media.Water.IF97_Utilities.cp_pT(
+    cp := cp_pT(
           state.p,
-          state.T,
-          region);
+          state.T);
     annotation (Inline=true);
   end specificHeatCapacityCp;
 
@@ -182,12 +282,77 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     output SpecificHeatCapacity cv
       "Specific heat capacity at constant volume";
   algorithm
-    cv := Modelica.Media.Water.IF97_Utilities.cv_pT(
+    cv := cv_pT(
+          state.p,
+          state.T);
+    annotation (Inline=true);
+  end specificHeatCapacityCv;
+
+  redeclare function extends density_derh_p
+    "Density derivative by specific enthalpy"
+  algorithm
+    ddhp := Modelica.Media.Water.IF97_Utilities.ddhp(
+          state.p,
+          state.h,
+          phase,
+          region);
+    annotation (Inline=true);
+  end density_derh_p;
+
+  redeclare function extends density_derp_h "Density derivative by pressure"
+  algorithm
+    ddph := Modelica.Media.Water.IF97_Utilities.ddph(
+          state.p,
+          state.h,
+          phase,
+          region);
+    annotation (Inline=true);
+  end density_derp_h;
+
+  redeclare function extends isentropicExponent "Return isentropic exponent"
+  algorithm
+    gamma := Modelica.Media.Water.IF97_Utilities.isentropicExponent_pT(
           state.p,
           state.T,
           region);
     annotation (Inline=true);
-  end specificHeatCapacityCv;
+  end isentropicExponent;
+
+  redeclare function extends isothermalCompressibility
+    "Isothermal compressibility of water"
+  algorithm
+    //    assert(state.phase <> 2, "Isothermal compressibility can not be computed with 2-phase inputs!");
+    kappa := Modelica.Media.Water.IF97_Utilities.kappa_pT(
+          state.p,
+          state.T,
+          region);
+    annotation (Inline=true);
+  end isothermalCompressibility;
+
+  redeclare function extends isobaricExpansionCoefficient
+    "Isobaric expansion coefficient of water"
+  algorithm
+    //    assert(state.phase <> 2, "The isobaric expansion coefficient can not be computed with 2-phase inputs!");
+    beta := Modelica.Media.Water.IF97_Utilities.beta_pT(
+          state.p,
+          state.T,
+          region);
+  end isobaricExpansionCoefficient;
+
+  redeclare function extends isentropicEnthalpy "Compute h(s,p)"
+  algorithm
+    h_is := Modelica.Media.Water.IF97_Utilities.isentropicEnthalpy(
+          p_downstream,
+          specificEntropy(refState),
+          0);
+    annotation (Inline=true);
+  end isentropicEnthalpy;
+
+  redeclare replaceable function extends molarMass
+    "Return the molar mass of the medium"
+  algorithm
+    MM := fluidConstants[1].molarMass;
+  end molarMass;
   // Saturation state functions
 
   replaceable function saturationTemperature_p
@@ -289,18 +454,15 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "Thermodynamic state record";
   algorithm
-    /*    state := ThermodynamicState(
+        state := ThermodynamicState(
           d=density_pT(
             p,
-            T,
-            region=region),
+            T),
           T=T,
-          phase=1,
           h=specificEnthalpy_pT(
             p,
-            T,
-            region=region),
-          p=p);   */
+            T),
+          p=p);
     annotation (Inline=true);
   end setState_pTX;
 
@@ -312,6 +474,15 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "Thermodynamic state record";
   algorithm
+    state := ThermodynamicState(
+          d=density_ph(
+            p,
+            h),
+          T=temperature_ph(
+            p,
+            h),
+          h=h,
+          p=p);
     annotation (Inline=true);
   end setState_phX;
 
@@ -323,6 +494,17 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "Thermodynamic state record";
   algorithm
+    state := ThermodynamicState(
+          d=density_ps(
+            p,
+            s),
+          T=temperature_ps(
+            p,
+            s),
+          h=specificEnthalpy_ps(
+            p,
+            s),
+          p=p);
     annotation (Inline=true);
   end setState_psX;
 
@@ -334,12 +516,22 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "Thermodynamic state record";
   algorithm
+    state := ThermodynamicState(
+          d=d,
+          T=T,
+          h=specificEnthalpy_dT(
+            d,
+            T),
+          p=pressure_dT(
+            d,
+            T));
     annotation (Inline=true);
   end setState_dTX;
 
   redeclare function extends setSmoothState
     "Return thermodynamic state so that it smoothly approximates: if x > 0 then state_a else state_b"
     extends Modelica.Icons.Function;
+    import Modelica.Media.Common.smoothStep;
     input Real x "m_flow or dp";
     input ThermodynamicState state_a "Thermodynamic state if x > 0";
     input ThermodynamicState state_b "Thermodynamic state if x < 0";
@@ -348,7 +540,35 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
     output ThermodynamicState state
       "Smooth thermodynamic state for all x (continuous and differentiable)";
   algorithm
-
+    state := ThermodynamicState(
+          p=smoothStep(
+            x,
+            state_a.p,
+            state_b.p,
+            x_small),
+          h=smoothStep(
+            x,
+            state_a.h,
+            state_b.h,
+            x_small),
+          d=density_ph(smoothStep(
+            x,
+            state_a.p,
+            state_b.p,
+            x_small), smoothStep(
+            x,
+            state_a.h,
+            state_b.h,
+            x_small)),
+          T=temperature_ph(smoothStep(
+            x,
+            state_a.p,
+            state_b.p,
+            x_small), smoothStep(
+            x,
+            state_a.h,
+            state_b.h,
+            x_small)));
     annotation (
       Inline=true,
       Documentation(info="<html>
@@ -439,6 +659,44 @@ First implementation.
 </ul>
 </html>"));
   end saturationState_p;
+  // Protected
+  replaceable function cp_pT
+    "Specific heat capacity at constant pressure as function of pressure and temperature"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input Temperature T "Temperature";
+    output SpecificHeatCapacity cp "Specific heat capacity";
+  protected
+    Modelica.Media.Common.IF97BaseTwoPhase aux "Auxiliary record";
+  algorithm
+    aux := Modelica.Media.Water.IF97_Utilities.waterBaseProp_pT(
+        p,
+        T,
+        region);
+    cp := aux.cp;
+    annotation (
+      smoothOrder=2,
+      Inline=true);
+  end cp_pT;
+
+  replaceable function cv_pT
+    "Specific heat capacity at constant volume as function of pressure and temperature"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input Temperature T "Temperature";
+    output SpecificHeatCapacity cv "Specific heat capacity";
+  protected
+    Modelica.Media.Common.IF97BaseTwoPhase aux "Auxiliary record";
+  algorithm
+    aux := Modelica.Media.Water.IF97_Utilities.waterBaseProp_pT(
+        p,
+        T,
+        region);
+    cv := aux.cv;
+    annotation (
+      smoothOrder=2,
+      Inline=true);
+  end cv_pT;
 annotation (Documentation(info="<html>
 <p>
 The steam model based on IF97 formulations can be utilized for steam systems 

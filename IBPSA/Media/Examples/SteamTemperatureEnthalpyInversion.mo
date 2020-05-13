@@ -14,8 +14,8 @@ model SteamTemperatureEnthalpyInversion
    Modelica.SIunits.SpecificEnthalpy h "Enthalpy";
 //   Medium.MassFraction Xi[:] = Medium.reference_X "Mass fraction";
 equation
-    h = Medium.specificEnthalpy_pT(p=101325, T=T0);
-    T = Medium.temperature_ph(p=101325, h=h);
+    h = Medium.specificEnthalpy_pTX(p=101325, T=T0);
+    T = Medium.temperature_phX(p=101325, h=h);
     if (time>0.1) then
     assert(abs(T-T0)<tol, "Error in implementation of functions.\n"
        + "   T0 = " + String(T0) + "\n"
