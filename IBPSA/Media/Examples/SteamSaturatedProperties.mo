@@ -3,7 +3,8 @@ model SteamSaturatedProperties
   "Model that tests the implementation of the steam properties at saturated liquid and vapor states"
   extends Modelica.Icons.Example;
 
-  package Medium = IBPSA.Media.Steam "Steam medium model";
+  package Medium = IBPSA.Media.Steam.Steam
+                                     "Steam medium model";
 
   parameter Modelica.SIunits.Temperature TMin = 273.16
     "Minimum temperature for the simulation";

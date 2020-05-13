@@ -1,4 +1,4 @@
-within IBPSA.Media;
+within IBPSA.Media.Steam;
 package SteamIdeal "Package with model for ideal steam"
   extends Modelica.Media.Water.IdealSteam(
      mediumName="steam",

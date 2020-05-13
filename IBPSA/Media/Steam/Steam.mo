@@ -1,5 +1,6 @@
-﻿within IBPSA.Media;
-package Steam "Package with model for region 2 (steam) water according to IF97 standard"
+﻿within IBPSA.Media.Steam;
+package Steam
+  "Package with model for region 2 (steam) water according to IF97 standard"
   extends Modelica.Media.Interfaces.PartialPureSubstance(
     redeclare replaceable record FluidConstants =
         Modelica.Media.Interfaces.Types.TwoPhase.FluidConstants,
@@ -741,7 +742,6 @@ protected
       smoothOrder=2,
       Inline=true);
       end waterBaseProp_pT; */
-
 
 annotation (Documentation(info="<html>
 <p>

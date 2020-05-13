@@ -3,7 +3,7 @@ model SteamProperties
   "Model that tests the implementation of the steam properties"
   extends Modelica.Icons.Example;
   extends IBPSA.Media.Examples.BaseClasses.PartialProperties(
-    redeclare package Medium = IBPSA.Media.Steam,
+    redeclare package Medium = IBPSA.Media.Steam.Steam,
     TMin=273.15 + 100,
     TMax=273.15 + 700,
     p=100000);
