@@ -19,9 +19,9 @@ model SteamProperties
 equation
 
    // Check setting the states
-    state_pTX = Medium.setState_pTX(p=p, T=T, X=X);
-    state_phX = Medium.setState_phX(p=p, h=h, X=X);
-    state_psX = Medium.setState_psX(p=p, s=s, X=X);
+    state_pTX = Medium.setState_pT(p=p, T=T);
+    state_phX = Medium.setState_ph(p=p, h=h);
+    state_psX = Medium.setState_ps(p=p, s=s);
     checkStateRelative(state_pTX, state_phX, "state_phX");
     checkStateRelative(state_pTX, state_psX, "state_psX");
 
