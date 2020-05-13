@@ -1,7 +1,7 @@
 ﻿within IBPSA.Media.Steam;
 package Steam
   "Package with model for region 2 (steam) water according to IF97 standard"
-  extends Modelica.Media.Interfaces.PartialPureSubstance(
+  extends IBPSA.Media.Steam.Interfaces.PartialPureSubstanceWithSat(
     redeclare replaceable record FluidConstants =
         Modelica.Media.Interfaces.Types.TwoPhase.FluidConstants,
     mediumName="WaterIF97_R2pT",
@@ -354,7 +354,7 @@ package Steam
   end molarMass;
   // Saturation state functions
 
-  replaceable function saturationTemperature_p
+  redeclare function extends saturationTemperature_p
     "Return saturation temperature"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
@@ -364,7 +364,7 @@ package Steam
     annotation (Inline=true);
   end saturationTemperature_p;
 
-  replaceable function enthalpyOfSaturatedLiquid_sat
+  redeclare function extends enthalpyOfSaturatedLiquid_sat
     "Return enthalpy of saturated liquid"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -374,7 +374,7 @@ package Steam
     annotation (Inline=true);
   end enthalpyOfSaturatedLiquid_sat;
 
-  replaceable function enthalpyOfSaturatedVapor_sat
+  redeclare function extends enthalpyOfSaturatedVapor_sat
     "Return enthalpy of saturated vapor"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -384,7 +384,7 @@ package Steam
     annotation (Inline=true);
   end enthalpyOfSaturatedVapor_sat;
 
-  replaceable function enthalpyOfVaporization_sat
+  redeclare function extends enthalpyOfVaporization_sat
     "Return enthalpy of vaporization"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -394,7 +394,7 @@ package Steam
     annotation (Inline=true);
   end enthalpyOfVaporization_sat;
 
-  replaceable function entropyOfSaturatedLiquid_sat
+  redeclare function extends entropyOfSaturatedLiquid_sat
     "Return entropy of saturated liquid"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -404,7 +404,7 @@ package Steam
     annotation (Inline=true);
   end entropyOfSaturatedLiquid_sat;
 
-  replaceable function entropyOfSaturatedVapor_sat
+  redeclare function extends entropyOfSaturatedVapor_sat
     "Return entropy of saturated vapor"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -414,7 +414,7 @@ package Steam
     annotation (Inline=true);
   end entropyOfSaturatedVapor_sat;
 
-  replaceable function entropyOfVaporization_sat
+  redeclare function extends entropyOfVaporization_sat
     "Return entropy of vaporization"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -424,7 +424,7 @@ package Steam
     annotation (Inline=true);
   end entropyOfVaporization_sat;
 
-  replaceable function densityOfSaturatedLiquid_sat
+  redeclare function extends densityOfSaturatedLiquid_sat
        "Return density of saturated liquid"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -434,7 +434,7 @@ package Steam
     annotation (Inline=true);
   end densityOfSaturatedLiquid_sat;
 
-  replaceable function densityOfSaturatedVapor_sat
+  redeclare function extends densityOfSaturatedVapor_sat
     "Return density of saturated vapor"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
@@ -633,7 +633,7 @@ Summing all mass fractions together results in
 </html>"));
   end setSmoothState;
 
-  replaceable function saturationState_p
+  redeclare function extends saturationState_p
     "Return saturation property record from pressure"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
@@ -658,8 +658,8 @@ First implementation.
 </ul>
 </html>"));
   end saturationState_p;
-
 protected
+
   replaceable function cp_pT
     "Specific heat capacity at constant pressure as function of pressure and temperature"
     extends Modelica.Icons.Function;
