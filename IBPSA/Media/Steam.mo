@@ -321,7 +321,6 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
   redeclare function extends isothermalCompressibility
     "Isothermal compressibility of water"
   algorithm
-    //    assert(state.phase <> 2, "Isothermal compressibility can not be computed with 2-phase inputs!");
     kappa := Modelica.Media.Water.IF97_Utilities.kappa_pT(
           state.p,
           state.T,
@@ -332,7 +331,6 @@ package Steam "Package with model for region 2 (steam) water according to IF97 s
   redeclare function extends isobaricExpansionCoefficient
     "Isobaric expansion coefficient of water"
   algorithm
-    //    assert(state.phase <> 2, "The isobaric expansion coefficient can not be computed with 2-phase inputs!");
     beta := Modelica.Media.Water.IF97_Utilities.beta_pT(
           state.p,
           state.T,
@@ -659,7 +657,8 @@ First implementation.
 </ul>
 </html>"));
   end saturationState_p;
-  // Protected
+
+protected
   replaceable function cp_pT
     "Specific heat capacity at constant pressure as function of pressure and temperature"
     extends Modelica.Icons.Function;
@@ -667,13 +666,17 @@ First implementation.
     input Temperature T "Temperature";
     output SpecificHeatCapacity cp "Specific heat capacity";
   protected
-    Modelica.Media.Common.IF97BaseTwoPhase aux "Auxiliary record";
+    Modelica.Media.Common.GibbsDerivs g
+      "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
+    //    Modelica.Media.Common.HelmholtzDerivs f
+    //      "Dimensionless Helmholtz function and derivatives w.r.t. delta and tau";
+    SpecificHeatCapacity R "Specific heat capacity";
+    Integer error "Error flag for inverse iterations";
   algorithm
-    aux := Modelica.Media.Water.IF97_Utilities.waterBaseProp_pT(
-        p,
-        T,
-        region);
-    cp := aux.cp;
+    R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
+    // Region 2 properties
+    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    cp := -R*g.tau*g.tau*g.gtautau;
     annotation (
       smoothOrder=2,
       Inline=true);
@@ -686,17 +689,60 @@ First implementation.
     input Temperature T "Temperature";
     output SpecificHeatCapacity cv "Specific heat capacity";
   protected
-    Modelica.Media.Common.IF97BaseTwoPhase aux "Auxiliary record";
+    Modelica.Media.Common.GibbsDerivs g
+      "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
+    SpecificHeatCapacity R "Specific gas constant of water vapor";
+    Integer error "Error flag for inverse iterations";
   algorithm
-    aux := Modelica.Media.Water.IF97_Utilities.waterBaseProp_pT(
-        p,
-        T,
-        region);
-    cv := aux.cv;
+    R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
+    // Region 2 properties
+    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    cv := R*(-g.tau*g.tau*g.gtautau + ((g.gpi - g.tau*g.gtaupi)*(g.gpi
+       - g.tau*g.gtaupi)/g.gpipi));
     annotation (
       smoothOrder=2,
       Inline=true);
   end cv_pT;
+/*  function waterBaseProp_pT
+    "Intermediate property record for water (p and T preferred states)"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input Temperature T "Temperature";
+    output Modelica.Media.Common.IF97BaseTwoPhase aux "Auxiliary record";
+  protected 
+    Modelica.Media.Common.GibbsDerivs g
+      "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
+    Modelica.Media.Common.HelmholtzDerivs f
+      "Dimensionless Helmholtz function and derivatives w.r.t. delta and tau";
+    Integer error "Error flag for inverse iterations";
+  algorithm 
+    aux.phase := phase;
+    aux.region := region;
+    aux.R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
+    aux.p := p;
+    aux.T := T;
+    aux.vt := 0.0 "initialized in case it is not needed";
+    aux.vp := 0.0 "initialized in case it is not needed";
+    // Region 2 properties
+    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    aux.h := aux.R*aux.T*g.tau*g.gtau;
+    aux.s := aux.R*(g.tau*g.gtau - g.g);
+    aux.rho := p/(aux.R*T*g.pi*g.gpi);
+    aux.vt := aux.R/p*(g.pi*g.gpi - g.tau*g.pi*g.gtaupi);
+    aux.vp := aux.R*T/(p*p)*g.pi*g.pi*g.gpipi;
+    aux.pt := -g.p/g.T*(g.gpi - g.tau*g.gtaupi)/(g.gpipi*g.pi);
+    aux.pd := -g.R*g.T*g.gpi*g.gpi/(g.gpipi);
+    aux.cp := -aux.R*g.tau*g.tau*g.gtautau;
+    aux.cv := aux.R*(-g.tau*g.tau*g.gtautau + ((g.gpi - g.tau*g.gtaupi)*(g.gpi
+       - g.tau*g.gtaupi)/g.gpipi));
+    aux.x := 1.0;
+    aux.dpT := -aux.vt/aux.vp;
+    annotation (
+      smoothOrder=2,
+      Inline=true);
+      end waterBaseProp_pT; */
+
+
 annotation (Documentation(info="<html>
 <p>
 The steam model based on IF97 formulations can be utilized for steam systems 
