@@ -5,6 +5,16 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1362
+convertModifiers("IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance", {"m_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.BaseClasses.TwoWayFlowElement", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.EffectiveAirLeakageArea", {"m_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.Orifice", {"m_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.DoorDiscretizedOpen", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.DoorDiscretizedOperable", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.ZonalFlow_ACS", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.ZonalFlow_m_flow", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+
 convertClass("IBPSA.Fluid.Sources.FixedBoundary",
              "IBPSA.Obsolete.Fluid.Sources.FixedBoundary");
 convertClass("IBPSA.Controls.SetPoints.HotWaterTemperatureReset",
