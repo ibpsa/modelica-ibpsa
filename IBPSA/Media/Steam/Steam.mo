@@ -132,7 +132,7 @@ package Steam
     input Temperature T "Temperature";
     output SpecificEnthalpy h "Specific enthalpy";
   algorithm
-    h := Modelica.Media.Water.IF97_Utilities.h_pT(p,T);
+    h := h_pT(p,T);
     annotation (Inline=true);
   end specificEnthalpy_pT;
 
@@ -154,7 +154,7 @@ package Steam
     input Temperature T "Temperature";
     output Density d "Density";
   algorithm
-    d := Modelica.Media.Water.IF97_Utilities.rho_pT(p,T);
+    d := rho_pT(p,T);
     annotation (Inline=true);
   end density_pT;
 
@@ -236,10 +236,9 @@ package Steam
     input ThermodynamicState state "Thermodynamic state record";
     output SpecificEntropy s "Specific entropy";
   algorithm
-    s := Modelica.Media.Water.IF97_Utilities.s_pT(
+    s := s_pT(
           state.p,
-          state.T,
-          region);
+          state.T);
     annotation (Inline=true);
   end specificEntropy;
 
@@ -660,6 +659,63 @@ First implementation.
   end saturationState_p;
 protected
 
+  replaceable function rho_pT "Density as function or pressure and temperature"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input Temperature T "Temperature";
+    output Density rho "Density";
+  protected
+    Modelica.Media.Common.GibbsDerivs g
+      "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
+    SpecificHeatCapacity R "Specific gas constant of water vapor";
+  algorithm
+    R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
+    // Region 2 properties
+    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    rho := p/(R*T*g.pi*g.gpi);
+    annotation (
+      smoothOrder=2,
+      Inline=true);
+  end rho_pT;
+
+  replaceable function h_pT "Specific enthalpy as function or pressure and temperature"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input Temperature T "Temperature";
+    output SpecificEnthalpy h "Specific enthalpy";
+  protected
+    Modelica.Media.Common.GibbsDerivs g
+      "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
+    SpecificHeatCapacity R "Specific gas constant of water vapor";
+  algorithm
+    R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
+    // Region 2 properties
+    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    h := R*T*g.tau*g.gtau;
+    annotation (
+      smoothOrder=2,
+      Inline=true);
+  end h_pT;
+
+  replaceable function s_pT "Specific entropy as function or pressure and temperature"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input Temperature T "Temperature";
+  output SpecificEntropy s "Specific entropy";
+  protected
+    Modelica.Media.Common.GibbsDerivs g
+      "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
+    SpecificHeatCapacity R "Specific gas constant of water vapor";
+  algorithm
+    R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
+    // Region 2 properties
+    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    s := R*(g.tau*g.gtau - g.g);
+    annotation (
+      smoothOrder=2,
+      Inline=true);
+  end s_pT;
+
   replaceable function cp_pT
     "Specific heat capacity at constant pressure as function of pressure and temperature"
     extends Modelica.Icons.Function;
@@ -669,9 +725,7 @@ protected
   protected
     Modelica.Media.Common.GibbsDerivs g
       "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
-    //    Modelica.Media.Common.HelmholtzDerivs f
-    //      "Dimensionless Helmholtz function and derivatives w.r.t. delta and tau";
-    SpecificHeatCapacity R "Specific heat capacity";
+    SpecificHeatCapacity R "Specific gas constant of water vapor";
     Integer error "Error flag for inverse iterations";
   algorithm
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
