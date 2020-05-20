@@ -18,7 +18,8 @@ package Steam
       start=500,
       nominal=500,
       min=273.15,
-      max=2273.15));
+      max=2273.15),
+    T_default=Modelica.SIunits.Conversions.from_degC(100));
    extends Modelica.Icons.Package;
 
   constant FluidConstants[1] fluidConstants=
@@ -759,7 +760,6 @@ protected
       Inline=true);
   end cv_pT;
   // Functions based on pressure and enthalpy
-
   function T_ph "Temperature as function or pressure and enthalpy"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
@@ -959,21 +959,6 @@ protected
       smoothOrder=2,
       Inline=true);
   end tph2;
-/*  
-    aux.T := BaseIF97.Basic.tph2(aux.p, aux.h);
-    g := BaseIF97.Basic.g2(p, aux.T);
-    aux.s := aux.R*(g.tau*g.gtau - g.g);
-    aux.rho := p/(aux.R*aux.T*g.pi*g.gpi);
-    aux.vt := aux.R/p*(g.pi*g.gpi - g.tau*g.pi*g.gtaupi);
-    aux.vp := aux.R*aux.T/(p*p)*g.pi*g.pi*g.gpipi;
-    aux.pt := -g.p/g.T*(g.gpi - g.tau*g.gtaupi)/(g.gpipi*g.pi);
-    aux.pd := -g.R*g.T*g.gpi*g.gpi/(g.gpipi);
-    aux.cp := -aux.R*g.tau*g.tau*g.gtautau;
-    aux.cv := aux.R*(-g.tau*g.tau*g.gtautau + ((g.gpi - g.tau*g.gtaupi)*(g.gpi
-       - g.tau*g.gtaupi)/g.gpipi));
-    aux.x := 1.0;
-    aux.dpT := -aux.vt/aux.vp;  
-*/
 annotation (Documentation(info="<html>
 <p>
 The steam model based on IF97 formulations can be utilized for steam systems 
