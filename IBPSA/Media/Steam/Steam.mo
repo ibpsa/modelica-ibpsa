@@ -10,12 +10,12 @@ package Steam
     SpecificEnthalpy(start=1.0e5, nominal=5.0e5),
     Density(start=150, nominal=500),
     AbsolutePressure(
-      start=50e5,
+      start=p_default,
       nominal=10e5,
       min=611.657,
       max=100e6),
     Temperature(
-      start=500,
+      start=T_default,
       nominal=500,
       min=273.15,
       max=2273.15),
