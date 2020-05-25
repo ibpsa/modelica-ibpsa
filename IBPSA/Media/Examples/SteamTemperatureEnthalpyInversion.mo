@@ -7,7 +7,7 @@ model SteamTemperatureEnthalpyInversion
 //    T0=273.15 + 200,
 //    tol=1e-3);
 
-   package Medium = IBPSA.Media.Steam.Steam;
+   package Medium = IBPSA.Media.Steam;
    parameter Modelica.SIunits.Temperature T0=273.15+200 "Temperature";
    parameter Real tol = 1e-3 "Numerical tolerance";
    Modelica.SIunits.Temperature T "Temperature";
