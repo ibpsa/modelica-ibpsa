@@ -78,84 +78,9 @@ There are no phase changes.
 </html>", revisions="<html>
 <ul>
 <li>
-October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
-Now printing different messages if temperature is above or below its limit,
-and adding instance name as JModelica does not print the full instance name in the assertion.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
-</li>
-<li>
-June 6, 2015, by Michael Wetter:<br/>
-Set <code>AbsolutePressure(start=p_default)</code> to avoid
-a translation error if
-<a href=\"modelica://IBPSA.Fluid.Sources.Examples.TraceSubstancesFlowSource\">
-IBPSA.Fluid.Sources.Examples.TraceSubstancesFlowSource</a>
-(if used with water instead of air)
-is translated in pedantic mode in Dymola 2016.
-The reason is that pressures use <code>Medium.p_default</code> as start values,
-but
-<a href=\"modelica://Modelica.Media.Interfaces.Types\">
-Modelica.Media.Interfaces.Types</a>
-sets a default value of <i>1E-5</i>.
-A similar change has been done for pressure and density.
-This fixes
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">#266</a>.
-</li>
-<li>
-June 6, 2015, by Michael Wetter:<br/>
-Changed type of <code>BaseProperties.T</code> from
-<code>Modelica.SIunits.Temperature</code> to <code>Temperature</code>.
-Otherwise, it has a different start value than <code>Medium.T</code>, which
-causes an error if
-<a href=\"IBPSA.Media.Examples.WaterProperties\">
-IBPSA.Media.Examples.WaterProperties</a>
-is translated in pedantic mode.
-This fixes
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">#266</a>.
-</li>
-<li>
-June 5, 2015, by Michael Wetter:<br/>
-Added <code>stateSelect</code> attribute in <code>BaseProperties.T</code>
-to allow correct use of <code>preferredMediumState</code> as
-described in
-<a href=\"modelica://Modelica.Media.Interfaces.PartialMedium\">
-Modelica.Media.Interfaces.PartialMedium</a>,
-and set <code>preferredMediumState=false</code>
-to keep the same states as were used before.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/260\">#260</a>.
-</li>
-<li>
-June 5, 2015, by Michael Wetter:<br/>
-Removed <code>ThermodynamicState</code> declaration as this lead to
-the error
-\"Attempting to redeclare record ThermodynamicState when the original was not replaceable.\"
-in Dymola 2016 using the pedantic model check.
-</li>
-<li>
-May 1, 2015, by Michael Wetter:<br/>
-Added <code>Inline=true</code> for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/227\">
-issue 227</a>.
-</li>
-<li>
-February 25, 2015, by Michael Wetter:<br/>
-Removed <code>stateSelect</code> attribute on pressure as this caused
-<a href=\"modelica://IBPSA.Examples.Tutorial.SpaceCooling.System3\">
-IBPSA.Examples.Tutorial.SpaceCooling.System3</a>
-to fail with the error message
-\"differentiated if-then-else was not continuous\".
-</li>
-<li>
-October 15, 2014, by Michael Wetter:<br/>
-Reimplemented media based on
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/blob/446aa83720884052476ad6d6d4f90a6a29bb8ec9/IBPSA/Media/Water.mo\">446aa83</a>.
-</li>
-<li>
-November 15, 2013, by Michael Wetter:<br/>
-Complete new reimplementation because the previous version
-had the option to add a compressibility to the medium, which
-has never been used.
+May 25, 2020, by Kathryn Hinkelman<br/>
+First implementation of water medium with default high temperature limit and
+saturation temperature function.
 </li>
 </ul>
 </html>"),
