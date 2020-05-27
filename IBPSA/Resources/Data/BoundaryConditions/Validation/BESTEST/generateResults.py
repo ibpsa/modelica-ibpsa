@@ -23,7 +23,7 @@ from datetime import date
 import stat
 
 # Make code Verbose
-CodeVerbose = False
+CodeVerbose = True
 # check if it just implements post-process (from .mat files to Json files)
 POST_PROCESS_ONLY = False
 # Erase old .mat files
@@ -921,7 +921,7 @@ if __name__ == '__main__':
             CaseDictIsoDew = copy.deepcopy(CaseDict)
             CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoDew['reVals'], 'Per')
             CaseDictIsoDew['reVals'] = RemoveString(
-                CaseDictIsoDew['reVals'], 'weaBusHHorIR.TDewPoi')
+                CaseDictIsoDew['reVals'], 'weaBusHHorIR.TBlaSky')
             resFinIsoDew = WeatherJson(resForm, Matfd, CaseDictIsoDew)
             with open(os.path.join(nJsonRes, 'WeatherIsoTDryBulTDewPoinOpa.json'), 'w') as outfile:
                 json.dump(resFinIsoDew, outfile, sort_keys=True, indent=indent, separators=separators)
@@ -950,7 +950,7 @@ if __name__ == '__main__':
                                    CaseDictPerDew['reVals']))
             CaseDictPerDew['reVals'] = CaseList
             CaseDictPerDew['reVals'] = RemoveString(
-                CaseDictPerDew['reVals'], 'weaBusHHorIR.TDewPoi')
+                CaseDictPerDew['reVals'], 'weaBusHHorIR.TBlaSky')
             resFinPerDew = WeatherJson(resForm, Matfd, CaseDictPerDew)
             with open(os.path.join(nJsonRes, 'WeatherPerTDryBulTDewPoinOpa.json'), 'w') as outfile:
                 json.dump(resFinPerDew, outfile, sort_keys=True, indent=indent, separators=separators)
