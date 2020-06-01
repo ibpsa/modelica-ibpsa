@@ -40,8 +40,7 @@ before_install:
     fi;
   - if [[ "$TEST_ARG" == *test-jmodelica* ]]; then
        docker pull "$DOCKER_USERNAME"/ubuntu-1804_jmodelica_trunk;
-       chmod +x IBPSA/Resources/Scripts/travis/bin/jm_ipython.sh;
-       cp IBPSA/Resources/Scripts/travis/bin/jmodelica/jm_ipython.sh $HOME/bin/;
+       cp IBPSA/Resources/Scripts/travis/jmodelica/jm_ipython.sh $HOME/bin/;
     fi;
 
 # Install dependencies
