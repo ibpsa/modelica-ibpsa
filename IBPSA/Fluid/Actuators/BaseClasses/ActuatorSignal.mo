@@ -26,7 +26,7 @@ model ActuatorSignal
         origin={0,120})));
 
   Modelica.Blocks.Interfaces.RealOutput y_actual
-  "Actual actuator position"
+    "Actual actuator position"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   // Classes used to implement the filtered opening
