@@ -127,7 +127,7 @@ block LimPID
 protected
   constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
 
-  final parameter Real revAct = if reverse then 1 else -1
+  final parameter Real revAct = if reverseActing then 1 else -1
     "Switch for sign for reverse or direct acting controller";
 
   parameter Boolean with_I = controllerType==Modelica.Blocks.Types.SimpleController.PI or
