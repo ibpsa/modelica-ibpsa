@@ -116,11 +116,13 @@ protected
 
   IBPSA.Fluid.BaseClasses.MassFlowRateMultiplier masFloDiv(
     redeclare final package Medium = Medium,
+    allowFlowReversal=allowFlowReversal,
     final k=borFieDat.conDat.nBor) "Division of flow rate"
     annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
 
   IBPSA.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul(
     redeclare final package Medium = Medium,
+    allowFlowReversal=allowFlowReversal,
     final k=borFieDat.conDat.nBor) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 
@@ -292,6 +294,10 @@ temperature after calculating and/or read (from a previous calculation) the bore
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 24, 2020, by Damien Picard:<br/>
+Propagate flowReversal into masFloDiv and masFloMul.
+</li>
 <li>
 June 7, 2019, by Massimo Cimmino:<br/>
 Converted instances that are not of interest to user to be <code>protected</code>.
