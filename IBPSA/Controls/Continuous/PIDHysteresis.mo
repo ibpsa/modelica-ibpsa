@@ -169,6 +169,12 @@ is small enough.
 </html>", revisions="<html>
 <ul>
 <li>
+June 1, 2020, by Michael Wetter:<br/>
+Corrected wrong convention of reverse and direct action.<br/>
+Changed default configuration from PID to PI.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">issue 1365</a>.
+</li>
+<li>
 September 29, 2016, by Michael Wetter:<br/>
 Removed parameter <code>limitsAtInit</code> because it is no longer
 used in the PID controller.
