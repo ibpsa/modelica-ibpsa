@@ -387,7 +387,7 @@ as P, PI, PD or PID controller. The default configuration is PI.
 <p>
 Through the parameter <code>reverseActing</code>, the controller can be configured to
 be reverse or direct acting.
-The standard form is reverse acting, which is the default configuration.
+The above standard form is reverse acting, which is the default configuration.
 For a reverse acting controller, for a constant set point,
 an increase in measurement signal <code>u_m</code> decreases the control output signal <code>y</code>
 (Montgomery and McDowall, 2008).
@@ -432,11 +432,11 @@ Note that this controller implements an integrator anti-windup. Therefore,
 for most applications, keeping the default setting of
 <code>reset = IBPSA.Types.Reset.Disabled</code> is sufficient.
 However, if the controller is used in conjuction with equipment that is being
-switched on, better control performance may be achieved by reseting the controller
+switched on, better control performance may be achieved by resetting the controller
 output when the equipment is switched on.
 This is in particular the case in situations
 where the equipment control input should continuously increase as the equipment is
-switched on, such as as a light dimmer that may slowly increase the luminance, or
+switched on, such as a light dimmer that may slowly increase the luminance, or
 a variable speed drive of a motor that should continuously increase the speed.
 </p>
 <h4>References</h4>
