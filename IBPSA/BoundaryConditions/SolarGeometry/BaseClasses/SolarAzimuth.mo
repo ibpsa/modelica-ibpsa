@@ -53,6 +53,12 @@ This component computes the solar azimuth angle.
 </html>", revisions="<html>
 <ul>
 <li>
+June 9, 2020, by David Blum:<br/>
+Reformulated to use one-line if-statements.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1373\">issue 1373</a>.
+</li>
+<li>
 October 13, 2017, by Michael Wetter:<br/>
 Reformulated to use equation rather than algorithm section.<br/>
 This is for
