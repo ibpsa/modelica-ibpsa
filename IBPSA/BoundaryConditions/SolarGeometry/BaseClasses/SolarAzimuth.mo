@@ -27,22 +27,19 @@ protected
     "Latitude of polar circle (66 degree 33 min 44 sec)";
   final parameter Boolean outsidePolarCircle = lat < polarCircle and lat > -polarCircle
     "Flag, true if latitude is outside polar region";
+equation
+  tmp = (Modelica.Math.sin(lat)*Modelica.Math.cos(zen) - Modelica.Math.sin(
+    decAng))/(Modelica.Math.cos(lat)*Modelica.Math.sin(zen));
+  arg = min(1.0, max(-1.0, tmp));
+
+  solAziTem =  Modelica.Math.acos(arg); // Solar azimuth (A4.9a and b) as a positive number
 
   // If outside the polar circle, the only non-differentiability is at night when the sun is set.
   // Hence, we use noEvent.
   // If inside the polar circle, there is a jump at (solar-)midnight when the sun can
   // be above the horizon. Hence, we do not use noEvent(...)
-  // Written as one line so that lat does not become structural parameter with JModelica.org
-  Real tmp2 = if outsidePolarCircle then noEvent(solTim - integer(solTim/day)) else solTim - integer(solTim/day) "Temporary variable for night check";
-equation
-  tmp = (Modelica.Math.sin(lat)*Modelica.Math.cos(zen) - Modelica.Math.sin(
-    decAng))/(Modelica.Math.cos(lat)*Modelica.Math.sin(zen));
-
-  arg = min(1.0, max(-1.0, tmp));
-
-  solAziTem =  Modelica.Math.acos(arg); // Solar azimuth (A4.9a and b) as a positive number
-
-  solAzi = solAziTem*(if (tmp2*day < 43200) then -1 else 1);
+  // Written as one line with functions so that lat does not become structural parameter with JModelica.org
+  solAzi = if outsidePolarCircle then SolarAzimuthNoEvent(solAziTem, solTim, day) else SolarAzimuthWithEvent(solAziTem, solTim, day);
 
   annotation (
     defaultComponentName="solAzi",
