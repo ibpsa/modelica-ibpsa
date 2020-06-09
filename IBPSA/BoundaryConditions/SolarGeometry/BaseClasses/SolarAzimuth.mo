@@ -39,7 +39,7 @@ equation
   // If inside the polar circle, there is a jump at (solar-)midnight when the sun can
   // be above the horizon. Hence, we do not use noEvent(...)
   // Written as one line with functions so that lat does not become structural parameter with JModelica.org
-  solAzi = if outsidePolarCircle then SolarAzimuthNoEvent(solAziTem, solTim, day) else SolarAzimuthWithEvent(solAziTem, solTim, day);
+  solAzi = if outsidePolarCircle then solarAzimuthNoEvent(solAziTem, solTim, day) else solarAzimuthWithEvent(solAziTem, solTim, day);
 
   annotation (
     defaultComponentName="solAzi",

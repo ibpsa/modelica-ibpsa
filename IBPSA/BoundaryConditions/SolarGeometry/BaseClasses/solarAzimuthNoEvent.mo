@@ -1,22 +1,23 @@
 within IBPSA.BoundaryConditions.SolarGeometry.BaseClasses;
-function SolarAzimuthWithEvent "Determines solar azimuth with event"
-  input Real solAziTem "Temporary solar azimuth";
-  input Real solTim "Solar time";
-  input Real day "Number of seconds in day";
-  output Real solAzi "Solar azimuth";
+function solarAzimuthNoEvent "Determines solar azimuth with no event"
+  input Real solAziTem(quantity="Angle",unit="rad",displayUnit="deg") "Temporary solar azimuth";
+  input Real solTim(quantity="Time", unit="s") "Solar time";
+  input Real day(quantity="Time", unit="s") "Number of seconds in day";
+  output Real solAzi(quantity="Angle",unit="rad",displayUnit="deg") "Solar azimuth";
 algorithm
-  if (solTim - integer(solTim/day)*day<43200) then
+  if noEvent(solTim - integer(solTim/day)*day<43200) then
     solAzi := -solAziTem;
   else
     solAzi := solAziTem;
   end if;
+
   annotation (
     Documentation(info="<html>
 <p>
 This function is used within
 <a href=\"modelica://IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth\">
 IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth</a> 
-to calculate solar azimuth with events.
+to calculate solar azimuth with no events.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -28,4 +29,4 @@ This is for issue
 </li>
 </ul>
 </html>"));
-end SolarAzimuthWithEvent;
+end solarAzimuthNoEvent;
