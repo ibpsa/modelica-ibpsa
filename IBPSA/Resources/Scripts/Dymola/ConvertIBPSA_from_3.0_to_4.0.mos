@@ -5,6 +5,22 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1365
+convertModifiers("IBPSA.Controls.Continuous.LimPID", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
+convertModifiers("IBPSA.Controls.Continuous.PIDHysteresis", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
+convertModifiers("IBPSA.Controls.Continuous.PIDHysteresisTimer", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
+
+
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1362
+convertModifiers("IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance", {"m_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.BaseClasses.TwoWayFlowElement", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.EffectiveAirLeakageArea", {"m_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.Orifice", {"m_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.DoorDiscretizedOpen", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.DoorDiscretizedOperable", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.ZonalFlow_ACS", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+convertModifiers("IBPSA.Airflow.Multizone.ZonalFlow_m_flow", {"m1_flow_small", "m2_flow_small"}, fill("",0), true);
+
 convertClass("IBPSA.Fluid.Sources.FixedBoundary",
              "IBPSA.Obsolete.Fluid.Sources.FixedBoundary");
 convertClass("IBPSA.Controls.SetPoints.HotWaterTemperatureReset",
@@ -67,3 +83,36 @@ convertElement(
     "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow",
     "alphaWinOut",
     "hConWinOut");
+
+// Refactoring damper models.
+convertElement(
+    "IBPSA.Fluid.Actuators.Dampers.PressureIndependent",
+    "dp_nominal",
+    "dpDamper_nominal");
+convertModifiers(
+    "IBPSA.Fluid.Actuators.Dampers.Exponential",
+    {"k1=0.45", "v_nominal=1"},
+    {"k1=%k1%",
+    "dpDamper_nominal=%k1% * 1.2 * %v_nominal%^2 / 2"},
+    true);
+convertModifiers(
+    "IBPSA.Fluid.Actuators.Dampers.VAVBoxExponential",
+    {"dp_nominal", "k1=0.45", "v_nominal=1", "dp_nominalIncludesDamper=true"},
+    {"k1=%k1%",
+    "dpDamper_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
+    "dpFixed_nominal=if %dp_nominalIncludesDamper% then %dp_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dp_nominal%"},
+    true);
+convertModifiers(
+    "IBPSA.Fluid.Actuators.Dampers.MixingBox",
+    {"dpOut_nominal", "dpRec_nominal", "dpExh_nominal", "k1=0.45", "v_nominal=1", "dp_nominalIncludesDamper=false"},
+    {"k1=%k1%",
+    "dpDamOut_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
+    "dpFixOut_nominal=if %dp_nominalIncludesDamper% then %dpOut_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpOut_nominal%",
+    "dpDamRec_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
+    "dpFixRec_nominal=if %dp_nominalIncludesDamper% then %dpRec_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpRec_nominal%",
+    "dpDamExh_nominal=%k1% * 1.2 * %v_nominal%^2 / 2",
+    "dpFixExh_nominal=if %dp_nominalIncludesDamper% then %dpExh_nominal% - %k1% * 1.2 * %v_nominal%^2 / 2 else %dpExh_nominal%"},
+    true);
+convertClass(
+    "IBPSA.Fluid.Actuators.Dampers.VAVBoxExponential",
+    "IBPSA.Fluid.Actuators.Dampers.Exponential");
