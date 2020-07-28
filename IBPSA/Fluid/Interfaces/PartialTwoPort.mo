@@ -33,7 +33,7 @@ partial model PartialTwoPort "Partial component with two ports"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
 protected
-  constant Integer port_a_coordinates={{-110,-10},{-90,10}} "Rotation of fluid ports";
+  constant Integer port_a_coordinates[:,:]={{-110,-10},{-90,10}} "Rotation of fluid ports";
 
   annotation (
     Documentation(info="<html>
