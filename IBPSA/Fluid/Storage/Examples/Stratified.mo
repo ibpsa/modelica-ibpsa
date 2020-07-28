@@ -87,9 +87,8 @@ equation
   connect(TWat.y, sou_1.T_in) annotation (Line(
       points={{-79,12},{-62,12}},
       color={0,0,127}));
-  connect(tanSim.port_b, HOut_flow.port_a) annotation (Line(points={{
-          5.55112e-16,10},{5.55112e-16,10},{6,10}},
-                                     color={0,127,255}));
+  connect(tanSim.port_b, HOut_flow.port_a) annotation (Line(points={{0,10},{0,
+          10},{6,10}},               color={0,127,255}));
   connect(HOut_flow.port_b, res_1.port_a)
     annotation (Line(points={{22,10},{30,10},{36,10}},
                                                color={0,127,255}));
@@ -128,7 +127,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou_1.ports[1], tanSim.port_a) annotation (Line(
-      points={{-40,10},{-20,10}},
+      points={{-40,10},{-26,10},{-26,20},{-10,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou_1.ports[2], tanEnh.port_a) annotation (Line(

@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Storage;
 model Stratified "Model of a stratified tank for thermal energy storage"
   extends IBPSA.Fluid.Storage.BaseClasses.PartialStratified(vol(each nPorts=3),
-  portRotation=-90);
+  port_a_coordinates={{-10,90},{10,110}});
 
   Modelica.Fluid.Interfaces.FluidPort_a fluPorVol[nSeg](
     redeclare each final package Medium = Medium)
@@ -9,8 +9,8 @@ model Stratified "Model of a stratified tank for thermal energy storage"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}}),
         iconTransformation(extent={{-36,-10},{-16,10}})));
 equation
-  connect(port_a, vol[1].ports[1]) annotation (Line(points={{-100,0},{-88,0},{
-          -88,-20},{16,-20},{16,-16}}, color={0,127,255}));
+  connect(port_a, vol[1].ports[1]) annotation (Line(points={{0,0},{-88,0},{-88,-20},
+          {16,-20},{16,-16}},          color={0,127,255}));
   connect(vol[nSeg].ports[2], port_b) annotation (Line(points={{16,-16},{20,-16},
           {20,-20},{90,-20},{90,0},{100,0}}, color={0,127,255}));
   for i in 1:(nSeg-1) loop
