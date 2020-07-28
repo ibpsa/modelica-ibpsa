@@ -1,6 +1,7 @@
 within IBPSA.Fluid.Storage;
 model Stratified "Model of a stratified tank for thermal energy storage"
-  extends IBPSA.Fluid.Storage.BaseClasses.PartialStratified(vol(each nPorts=3));
+  extends IBPSA.Fluid.Storage.BaseClasses.PartialStratified(vol(each nPorts=3),
+  portRotation=-90);
 
   Modelica.Fluid.Interfaces.FluidPort_a fluPorVol[nSeg](
     redeclare each final package Medium = Medium)
