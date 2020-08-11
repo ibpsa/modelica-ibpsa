@@ -970,8 +970,8 @@ Properties of Water and Steam (IAPWS) 1997 forumulations for water and steam. Th
 thermodynamic regions as determiend by IAPWS-IF97 are as follows:
 </p>
 <p align=\"center\">
-<img src=\"modelica://IBPSA/Resources/Images/Media/Steam/SteamIF97Regions.PNG\"
-alt=\"IF97 Water Steam Regions\" width=\"600\"/>
+<img src=\"modelica://IBPSA/Resources/Images/Media/Steam/SteamIF97Region2.PNG\"
+alt=\"IF97 Water Steam Region 2\" width=\"600\"/>
 </p>
 <h4>
 Limitations
@@ -983,19 +983,19 @@ The properties are valid in Region 2 shown above. The valid temperature range is
 </li>
 <li>
 When phase change is required, this model is to be used in combination with the
-<a href=\"modelica://IBPSA.Media.Water\">IBPSA.Media.Water</a> media model for
+<a href=\"modelica://IBPSA.Media.WaterHighTemperature\">IBPSA.Media.WaterHighTemperature</a> media model for
 incompressible liquid water for the liquid phase (quality = 0).
 </li>
 <li>
-The two-phase region (e.g., mixed liquid and vapor), high temperature region, 
-and liquid region are not included in this medium model.
+The two-phase region 3 (e.g., mixed liquid and vapor), high temperature region, 
+and liquid region 1 are not included in this medium model.
 </li>
 </ul>
 <h4>
 Applications
 </h4>
 For numerical robustness, applications of this medium model assume the pressure, 
-and hence the saturation pressure,is constant throughout the simulation. This 
+and hence the saturation pressure, is constant throughout the simulation. This 
 is done to improve simulation performance by decoupling the pressure drop and 
 energy balance calculations. 
 <h4>

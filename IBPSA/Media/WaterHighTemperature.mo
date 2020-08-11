@@ -46,7 +46,10 @@ First implementation.
   end saturationTemperature_p;
   annotation(preferredView="info", Documentation(info="<html>
 <p>
-This medium package models liquid water.
+This medium package models liquid water. Extending <a href=\"modelica://IBPSA.Media.Water\">
+IBPSA.Media.Water</a>, the package sets the maximum temperature threshold at <i>600</i> &deg;C. 
+A new function to calculate the saturation temperature from the saturation pressure is also
+provided. This model is intended for modeling liquid water at high pressure states.
 </p>
 <p>
 The mass density is computed using a constant value of <i>995.586</i> kg/s.
