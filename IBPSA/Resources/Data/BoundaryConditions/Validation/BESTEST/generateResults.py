@@ -11,6 +11,7 @@
 # executes simulations and prints results in current working directory
 #
 # ettore.zanetti@polimi.it                                 2020-03-11
+#                                              last update 2020-06-06
 #####################################################################
 import json
 import os
@@ -23,7 +24,7 @@ from datetime import date
 import stat
 
 # Make code Verbose
-CodeVerbose = False
+CodeVerbose = True
 # check if it just implements post-process (from .mat files to Json files)
 POST_PROCESS_ONLY = False
 # Erase old .mat files
@@ -47,7 +48,7 @@ library_name = os.path.abspath(".").split(os.path.sep)[-6]
 library_version = 'v4.0.0dev'
 modeler_organization = 'LBNL'
 modeler_organization_for_tables_and_charts = 'LBNL'
-program_name_for_tables_and_charts = 'BuildingsPy & Python'
+program_name_for_tables_and_charts = 'IBPSA'
 results_submission_date = str(date.today().strftime('%m/%d/%Y'))
 
 # Make sure script is run from correct directory
@@ -366,18 +367,30 @@ def WeatherJson(resForm, Matfd, CaseDict):
             elif 'relHum' in resSplit[-1]:
                 # pass from [0,1] to %
                 results[k]['value'] = results[k]['value'] * 100
+            elif 'pAtm' in resSplit[-1]:
+                # pass from Pa to mbar
+                results[k]['value'] = results[k]['value'] / 100
+            elif 'winDir' in resSplit[-1]:
+                # pass from rad to °
+                Pi = 3.141592653589793
+                results[k]['value'] = results[k]['value'] * 180 /Pi
+            elif ('nOpa' in resSplit[-1]) or ('nTot' in resSplit[-1]) :
+                # skycover from [0-1] to tenth of sky
+                results[k]['value'] = results[k]['value'] * 10
+ 
             k += 1
-        MapDymolaAndJson(results, dic['case'], resFin)
+        MapDymolaAndJson(results, dic['case'], resFin, CaseDict)
     return resFin
 
 
-def MapDymolaAndJson(results, case, resFin):
+def MapDymolaAndJson(results, case, resFin, CaseDict):
     """
     This function couples the .mat file variable with the final .json variable
 
     :param results: Result obtained from the _extract_data function
     :param case: Dictionary that specifies the BESTEST case
-    :para resFin: Dictionary with the same format as the desired json file
+    :param resFin: Dictionary with the same format as the desired json file
+    :param CaseDict: in CaseDict is stored TestN (which .json file format should be used)"
     """
 
     dictHourly = [{'json': 'dry_bulb_temperature',
@@ -386,6 +399,8 @@ def MapDymolaAndJson(results, case, resFin):
                    'mat': 'weaBusHHorIR.relHum'},
                   {'json': 'humidity_ratio',
                    'mat': 'toDryAir.XiDry'},
+                  {'json': 'dewpoint_temperature',
+                   'mat': 'weaBusHHorIR.TDewPoi'},
                   {'json': 'wet_bulb_temperature',
                    'mat': 'weaBusHHorIR.TWetBul'},
                   {'json': 'wind_speed',
@@ -412,73 +427,73 @@ def MapDymolaAndJson(results, case, resFin):
                   {'json': 'total_radiation_s_90',
                    'matIso': 'azi000til90.H',
                    'matPer': 'azi000til90.HPer'},
-                  {'json': 'total_beam_radiation_s_90',
+                  {'json': 'beam_radiation_s_90',
                    'mat': 'azi000til90.HDir.H'},
-                  {'json': 'total_diffuse_radiation_s_90',
+                  {'json': 'diffuse_radiation_s_90',
                    'matIso': 'azi000til90.HDiffIso.H',
                    'matPer': 'azi000til90.HDiffPer.H'},
                   {'json': 'total_radiation_e_90',
                    'matIso': 'azi270til90.H',
                    'matPer': 'azi270til90.HPer'},
-                  {'json': 'total_beam_radiation_e_90',
+                  {'json': 'beam_radiation_e_90',
                    'mat': 'azi270til90.HDir.H'},
-                  {'json': 'total_diffuse_radiation_e_90',
+                  {'json': 'diffuse_radiation_e_90',
                    'matIso': 'azi270til90.HDiffIso.H',
                    'matPer': 'azi270til90.HDiffPer.H'},
                   {'json': 'total_radiation_n_90',
                    'matIso': 'azi180til90.H',
                    'matPer': 'azi180til90.HPer'},
-                  {'json': 'total_beam_radiation_n_90',
+                  {'json': 'beam_radiation_n_90',
                    'mat': 'azi180til90.HDir.H'},
-                  {'json': 'total_diffuse_radiation_n_90',
+                  {'json': 'diffuse_radiation_n_90',
                    'matIso': 'azi180til90.HDiffIso.H',
                    'matPer': 'azi180til90.HDiffPer.H'},
                   {'json': 'total_radiation_w_90',
                    'matIso': 'azi090til90.H',
                    'matPer': 'azi090til90.HPer'},
-                  {'json': 'total_beam_radiation_w_90',
+                  {'json': 'beam_radiation_w_90',
                    'mat': 'azi090til90.HDir.H'},
-                  {'json': 'total_diffuse_radiation_w_90',
+                  {'json': 'diffuse_radiation_w_90',
                    'matIso': 'azi090til90.HDiffIso.H',
                    'matPer': 'azi090til90.HDiffPer.H'},
                   {'json': 'total_radiation_45_e_90',
                    'matIso': 'azi315til90.H',
                    'matPer': 'azi315til90.HPer'},
-                  {'json': 'total_beam_radiation_45_e_90',
+                  {'json': 'beam_radiation_45_e_90',
                    'mat': 'azi315til90.HDir.H'},
-                  {'json': 'total_diffuse_radiation_45_e_90',
+                  {'json': 'diffuse_radiation_45_e_90',
                    'matIso': 'azi315til90.HDiffIso.H',
                    'matPer': 'azi315til90.HDiffPer.H'},
                   {'json': 'total_radiation_45_w_90',
                    'matIso': 'azi045til90.H',
                    'matPer': 'azi045til90.HPer'},
-                  {'json': 'total_beam_radiation_45_w_90',
+                  {'json': 'beam_radiation_45_w_90',
                    'mat': 'azi045til90.HDir.H'},
-                  {'json': 'total_diffuse_radiation_45_w_90',
+                  {'json': 'diffuse_radiation_45_w_90',
                    'matIso': 'azi045til90.HDiffIso.H',
                    'matPer': 'azi045til90.HDiffPer.H'},
                   {'json': 'total_radiation_e_30',
                    'matIso': 'azi270til30.H',
                    'matPer': 'azi270til30.HPer'},
-                  {'json': 'total_beam_radiation_e_30',
+                  {'json': 'beam_radiation_e_30',
                    'mat': 'azi270til30.HDir.H'},
-                  {'json': 'total_diffuse_radiation_e_30',
+                  {'json': 'diffuse_radiation_e_30',
                    'matIso': 'azi270til30.HDiffIso.H',
                    'matPer': 'azi270til30.HDiffPer.H'},
                   {'json': 'total_radiation_s_30',
                    'matIso': 'azi000til30.H',
                    'matPer': 'azi000til30.HPer'},
-                  {'json': 'total_beam_radiation_s_30',
+                  {'json': 'beam_radiation_s_30',
                    'mat': 'azi000til30.HDir.H'},
-                  {'json': 'total_diffuse_radiation_s_30',
+                  {'json': 'diffuse_radiation_s_30',
                    'matIso': 'azi000til30.HDiffIso.H',
                    'matPer': 'azi000til30.HDiffPer.H'},
                   {'json': 'total_radiation_w_30',
                    'matIso': 'azi090til30.H',
                    'matPer': 'azi090til30.HPer'},
-                  {'json': 'total_beam_radiation_w_30',
+                  {'json': 'beam_radiation_w_30',
                    'mat': 'azi090til30.HDir.H'},
-                  {'json': 'total_diffuse_radiation_w_30',
+                  {'json': 'diffuse_radiation_w_30',
                    'matIso': 'azi090til30.HDiffIso.H',
                    'matPer': 'azi090til30.HDiffPer.H'}]
     dictSubHourly = [{'json': 'dry_bulb_temperature',
@@ -496,73 +511,73 @@ def MapDymolaAndJson(results, case, resFin):
                      {'json': 'total_radiation_s_90',
                       'matIso': 'azi000til90.H',
                       'matPer': 'azi000til90.HPer'},
-                     {'json': 'total_beam_radiation_s_90',
+                     {'json': 'beam_radiation_s_90',
                       'mat': 'azi000til90.HDir.H'},
-                     {'json': 'total_diffuse_radiation_s_90',
+                     {'json': 'diffuse_radiation_s_90',
                       'matIso': 'azi000til90.HDiffIso.H',
                       'matPer': 'azi000til90.HDiffPer.H'},
                      {'json': 'total_radiation_e_90',
                       'matIso': 'azi270til90.H',
                       'matPer': 'azi270til90.HPer'},
-                     {'json': 'total_beam_radiation_e_90',
+                     {'json': 'beam_radiation_e_90',
                       'mat': 'azi270til90.HDir.H'},
-                     {'json': 'total_diffuse_radiation_e_90',
+                     {'json': 'diffuse_radiation_e_90',
                       'matIso': 'azi270til90.HDiffIso.H',
                       'matPer': 'azi270til90.HDiffPer.H'},
                      {'json': 'total_radiation_n_90',
                       'matIso': 'azi180til90.H',
                       'matPer': 'azi180til90.HPer'},
-                     {'json': 'total_beam_radiation_n_90',
+                     {'json': 'beam_radiation_n_90',
                       'mat': 'azi180til90.HDir.H'},
-                     {'json': 'total_diffuse_radiation_n_90',
+                     {'json': 'diffuse_radiation_n_90',
                       'matIso': 'azi180til90.HDiffIso.H',
                       'matPer': 'azi180til90.HDiffPer.H'},
                      {'json': 'total_radiation_w_90',
                       'matIso': 'azi090til90.H',
                       'matPer': 'azi090til90.HPer'},
-                     {'json': 'total_beam_radiation_w_90',
+                     {'json': 'beam_radiation_w_90',
                       'mat': 'azi090til90.HDir.H'},
-                     {'json': 'total_diffuse_radiation_w_90',
+                     {'json': 'diffuse_radiation_w_90',
                       'matIso': 'azi090til90.HDiffIso.H',
                       'matPer': 'azi090til90.HDiffPer.H'},
                      {'json': 'total_radiation_45_e_90',
                       'matIso': 'azi315til90.H',
                       'matPer': 'azi315til90.HPer'},
-                     {'json': 'total_beam_radiation_45_e_90',
+                     {'json': 'beam_radiation_45_e_90',
                       'mat': 'azi315til90.HDir.H'},
-                     {'json': 'total_diffuse_radiation_45_e_90',
+                     {'json': 'diffuse_radiation_45_e_90',
                       'matIso': 'azi315til90.HDiffIso.H',
                       'matPer': 'azi315til90.HDiffPer.H'},
                      {'json': 'total_radiation_45_w_90',
                       'matIso': 'azi045til90.H',
                       'matPer': 'azi045til90.HPer'},
-                     {'json': 'total_beam_radiation_45_w_90',
+                     {'json': 'beam_radiation_45_w_90',
                       'mat': 'azi045til90.HDir.H'},
-                     {'json': 'total_diffuse_radiation_45_w_90',
+                     {'json': 'diffuse_radiation_45_w_90',
                       'matIso': 'azi045til90.HDiffIso.H',
                       'matPer': 'azi045til90.HDiffPer.H'},
                      {'json': 'total_radiation_e_30',
                       'matIso': 'azi270til30.H',
                       'matPer': 'azi270til30.HPer'},
-                     {'json': 'total_beam_radiation_e_30',
+                     {'json': 'beam_radiation_e_30',
                       'mat': 'azi270til30.HDir.H'},
-                     {'json': 'total_diffuse_radiation_e_30',
+                     {'json': 'diffuse_radiation_e_30',
                       'matIso': 'azi270til30.HDiffIso.H',
                       'matPer': 'azi270til30.HDiffPer.H'},
                      {'json': 'total_radiation_s_30',
                       'matIso': 'azi000til30.H',
                       'matPer': 'azi000til30.HPer'},
-                     {'json': 'total_beam_radiation_s_30',
+                     {'json': 'beam_radiation_s_30',
                       'mat': 'azi000til30.HDir.H'},
-                     {'json': 'total_diffuse_radiation_s_30',
+                     {'json': 'diffuse_radiation_s_30',
                       'matIso': 'azi000til30.HDiffIso.H',
                       'matPer': 'azi000til30.HDiffPer.H'},
                      {'json': 'total_radiation_w_30',
                       'matIso': 'azi090til30.H',
                       'matPer': 'azi090til30.HPer'},
-                     {'json': 'total_beam_radiation_w_30',
+                     {'json': 'beam_radiation_w_30',
                       'mat': 'azi090til30.HDir.H'},
-                     {'json': 'total_diffuse_radiation_w_30',
+                     {'json': 'diffuse_radiation_w_30',
                       'matIso': 'azi090til30.HDiffIso.H',
                       'matPer': 'azi090til30.HDiffPer.H'},
                      {'json': 'integrated_total_horizontal_radiation',
@@ -667,8 +682,8 @@ def MapDymolaAndJson(results, case, resFin):
                        'tstart': [0, 10627200, 16761600, 21427200],
                        'tstop': [0, 10713600, 16848000, 21513600]},
             'WD200': {'days': ['yearly', 'may24', 'aug26'],
-                      'tstart': [0, 12355200, 20476800],
-                      'tstop': [0, 12441600, 20563200]},
+                      'tstart': [0, 12355200, 20476800,0],
+                      'tstop': [0, 12441600, 20563200,31536000]},
             'WD300': {'days': ['yearly', 'feb7', 'aug13'],
                       'tstart': [0, 3196800, 19353600],
                       'tstop': [0, 3283200, 19440000]},
@@ -681,8 +696,135 @@ def MapDymolaAndJson(results, case, resFin):
             'WD600': {'days': ['yearly', 'may4', 'jul14', 'sep6'],
                       'tstart': [0, 10627200, 16761600, 21427200],
                       'tstop': [0, 10713600, 16848000, 21513600]}}
-    caseDays = [{key: value[i] for key, value in Days[case].items()}
-                for i in range(len(Days[case]['days']))]
+    Days2 = {'WD100': {	'days': ['test2'],
+                       'tstart': [0],
+                       'tstop': [31536000+3600]},
+            'WD200': {'days': ['test2'],
+                      'tstart': [0],
+                      'tstop': [31536000+3600]},
+            'WD300': {'days': ['test2'],
+                      'tstart': [0],
+                      'tstop': [31536000+3600]},
+            'WD400': {'days': ['test2'],
+                      'tstart': [0],
+                      'tstop': [31536000+3600]},
+            'WD500': {'days': ['test2'],
+                      'tstart': [0],
+                      'tstop': [31536000+3600]},
+            'WD600': {'days': ['test2'],
+                      'tstart': [0],
+                      'tstop': [31536000+3600]}}
+
+    dictTest2 = [{'json': 'dry_bulb_temperature',
+                   'mat': 'weaBusHHorIR.TDryBul'},
+                  {'json': 'relative_humidity',
+                   'mat': 'weaBusHHorIR.relHum'},
+                  {'json': 'humidity_ratio',
+                   'mat': 'toDryAir.XiDry'},
+                  {'json': 'dewpoint_temperature',
+                   'mat': 'weaBusHHorIR.TDewPoi'},
+                  {'json': 'wet_bulb_temperature',
+                   'mat': 'weaBusHHorIR.TWetBul'},
+                  {'json': 'wind_speed',
+                   'mat': 'weaBusHHorIR.winSpe'},
+                  {'json': 'wind_direction',
+                   'mat': 'weaBusHHorIR.winDir'},
+                  {'json': 'station_pressure',
+                   'mat': 'weaBusHHorIR.pAtm'},
+                  {'json': 'total_cloud_cover',
+                   'mat': 'weaBusHHorIR.nTot'},
+                  {'json': 'opaque_cloud_cover',
+                   'mat': 'weaBusHHorIR.nOpa'},
+                  {'json': 'sky_temperature',
+                   'matHor': 'weaBusHHorIR.TBlaSky',
+                   'matDew': 'weaBusTDryBulTDewPoiOpa.TBlaSky'},
+                  {'json': 'total_horizontal_radiation',
+                   'matIso': 'azi000til00.H',
+                   'matPer': 'azi000til00.HPer'},
+                  {'json': 'beam_horizontal_radiation',
+                   'mat': 'azi000til00.HDir.H'},
+                  {'json': 'diffuse_horizontal_radiation',
+                   'matIso': 'azi000til00.HDiffIso.H',
+                   'matPer': 'azi000til00.HDiffPer.H'},
+                  {'json': 'total_radiation_s_90',
+                   'matIso': 'azi000til90.H',
+                   'matPer': 'azi000til90.HPer'},
+                  {'json': 'beam_radiation_s_90',
+                   'mat': 'azi000til90.HDir.H'},
+                  {'json': 'diffuse_radiation_s_90',
+                   'matIso': 'azi000til90.HDiffIso.H',
+                   'matPer': 'azi000til90.HDiffPer.H'},
+                  {'json': 'total_radiation_e_90',
+                   'matIso': 'azi270til90.H',
+                   'matPer': 'azi270til90.HPer'},
+                  {'json': 'beam_radiation_e_90',
+                   'mat': 'azi270til90.HDir.H'},
+                  {'json': 'diffuse_radiation_e_90',
+                   'matIso': 'azi270til90.HDiffIso.H',
+                   'matPer': 'azi270til90.HDiffPer.H'},
+                  {'json': 'total_radiation_n_90',
+                   'matIso': 'azi180til90.H',
+                   'matPer': 'azi180til90.HPer'},
+                  {'json': 'beam_radiation_n_90',
+                   'mat': 'azi180til90.HDir.H'},
+                  {'json': 'diffuse_radiation_n_90',
+                   'matIso': 'azi180til90.HDiffIso.H',
+                   'matPer': 'azi180til90.HDiffPer.H'},
+                  {'json': 'total_radiation_w_90',
+                   'matIso': 'azi090til90.H',
+                   'matPer': 'azi090til90.HPer'},
+                  {'json': 'beam_radiation_w_90',
+                   'mat': 'azi090til90.HDir.H'},
+                  {'json': 'diffuse_radiation_w_90',
+                   'matIso': 'azi090til90.HDiffIso.H',
+                   'matPer': 'azi090til90.HDiffPer.H'},
+                  {'json': 'total_radiation_45_e_90',
+                   'matIso': 'azi315til90.H',
+                   'matPer': 'azi315til90.HPer'},
+                  {'json': 'beam_radiation_45_e_90',
+                   'mat': 'azi315til90.HDir.H'},
+                  {'json': 'diffuse_radiation_45_e_90',
+                   'matIso': 'azi315til90.HDiffIso.H',
+                   'matPer': 'azi315til90.HDiffPer.H'},
+                  {'json': 'total_radiation_45_w_90',
+                   'matIso': 'azi045til90.H',
+                   'matPer': 'azi045til90.HPer'},
+                  {'json': 'beam_radiation_45_w_90',
+                   'mat': 'azi045til90.HDir.H'},
+                  {'json': 'diffuse_radiation_45_w_90',
+                   'matIso': 'azi045til90.HDiffIso.H',
+                   'matPer': 'azi045til90.HDiffPer.H'},
+                  {'json': 'total_radiation_e_30',
+                   'matIso': 'azi270til30.H',
+                   'matPer': 'azi270til30.HPer'},
+                  {'json': 'beam_radiation_e_30',
+                   'mat': 'azi270til30.HDir.H'},
+                  {'json': 'diffuse_radiation_e_30',
+                   'matIso': 'azi270til30.HDiffIso.H',
+                   'matPer': 'azi270til30.HDiffPer.H'},
+                  {'json': 'total_radiation_s_30',
+                   'matIso': 'azi000til30.H',
+                   'matPer': 'azi000til30.HPer'},
+                  {'json': 'beam_radiation_s_30',
+                   'mat': 'azi000til30.HDir.H'},
+                  {'json': 'diffuse_radiation_s_30',
+                   'matIso': 'azi000til30.HDiffIso.H',
+                   'matPer': 'azi000til30.HDiffPer.H'},
+                  {'json': 'total_radiation_w_30',
+                   'matIso': 'azi090til30.H',
+                   'matPer': 'azi090til30.HPer'},
+                  {'json': 'beam_radiation_w_30',
+                   'mat': 'azi090til30.HDir.H'},
+                  {'json': 'diffuse_radiation_w_30',
+                   'matIso': 'azi090til30.HDiffIso.H',
+                   'matPer': 'azi090til30.HDiffPer.H'}]
+    
+    if CaseDict['TestN']:           
+        caseDays = [{key: value[i] for key, value in Days2[case].items()}
+                    for i in range(len(Days2[case]['days']))]
+    else:
+        caseDays = [{key: value[i] for key, value in Days[case].items()}
+                    for i in range(len(Days[case]['days']))]
 
     outDir = resFin
 
@@ -696,6 +838,12 @@ def MapDymolaAndJson(results, case, resFin):
                 else:
                     # float(res['res'])
                     outDir[case]['annual_results'][res['json']] =float(res['res'])# f"{float(res['res']):.4g}"
+            elif day['days'] in 'test2':
+                ressH = ExtrapolateResults(dictTest2, dR, day)
+                if 'dry_bulb_temperature' in ressH['json']:
+                    outDir[case]['hour_of_year'] = (ressH['time']/3600).tolist()
+                outDir[case][ressH['json']] =ressH['res'].tolist()
+                
             else:
                 resH = ExtrapolateResults(dictHourly, dR, day)
                 ressH = ExtrapolateResults(dictSubHourly, dR, day)
@@ -713,6 +861,7 @@ def MapDymolaAndJson(results, case, resFin):
                         HRlist.append(HRdict)
                         k += 1
                     outDir[case]['hourly_results'][day['days']][resH['json']] = HRlist
+                    
                 if not ressH:
                     missing.append(day['days'] + '_subhourly_' + dR['variable'])
                 else:
@@ -723,7 +872,7 @@ def MapDymolaAndJson(results, case, resFin):
                         sHRdict = {}
                         sHRdict['time'] = float( (ressH['time'][k]-ressH['time'][0])/3600)# f"{float( (ressH['time'][k]-ressH['time'][0])/3600):.4g}"
                         if 'radiation' in ressH['json']:
-                            sHRdict['value'] = float(sHR*900/3600)# f"{float(sHR*900/3600):.4g}"
+                            sHRdict['value'] =float(sHR)#f"{float(sHR):.4g}"
                         else:
                             sHRdict['value'] = float(sHR)# f"{float(sHR):.4g}"
                         sHRlist.append(sHRdict)
@@ -745,7 +894,7 @@ def MapDymolaAndJson(results, case, resFin):
                             k += 1
                         outDir[case]['subhourly_results'][day['days']
                                                           ]['integrated_' + ressH['json']] = sHRlist
-
+    return outDir
 
 def ExtrapolateResults(dicT, dR, day):
     """
@@ -771,8 +920,8 @@ def ExtrapolateResults(dicT, dR, day):
                 tStop = day['tstop']
                 idxStart = FindNearest(dR['time'], tStart)
                 idxStop = FindNearest(dR['time'], tStop)
-                res = dR['value'][idxStart:idxStop]
-                OutDict['time'] = dR['time'][idxStart:idxStop]
+                res = dR['value'][idxStart:idxStop+1]
+                OutDict['time'] = dR['time'][idxStart:idxStop+1]
             OutDict['res'] = res
             OutDict.update(dT)
     return OutDict
@@ -816,11 +965,13 @@ if __name__ == '__main__':
     parser.add_argument('-c', help='Specify to enable ci-testing (will delete output files not stored in version control).', action='store_true')
     parser.add_argument('-g', help='Specify to get the library from github.', action='store_true')
     parser.add_argument('-p', help='Specify to pretty print json output.', action='store_true')
+    parser.add_argument('-t', help='Specify .json result type -t for .jsonFormat2 no -t for .jsonFormat1', action='store_true')
     args = parser.parse_args()
 
     CI_TESTING = args.c
     FROM_GIT_HUB = args.g
     pretty_print = args.p
+    TestN = args.t
 
     CWD = os.getcwd()
     CaseDict = {'PACKAGES': PACKAGES,
@@ -838,7 +989,8 @@ if __name__ == '__main__':
                 'LIBPATH': LIBPATH,
                 'CLEAN_MAT': CLEAN_MAT,
                 'DelEvr': DelEvr or CI_TESTING,
-                'LibName': library_name}
+                'LibName': library_name,
+                'TestN': TestN}
     if CI_TESTING or not POST_PROCESS_ONLY:
         # Get list of case to simulate with their parameters
         lib_dir = create_working_directory()
@@ -847,6 +999,8 @@ if __name__ == '__main__':
         d = checkout_repository(lib_dir, CaseDict)
         program_version_release_date = d['commit_time']
         program_name_and_version = d['LibName'] + ' ' + library_version + ' commit: ' + d['commit']
+        program_name = d['LibName']
+        program_version = library_version + ' commit: ' + d['commit']
 
         # Add the directory where the library has been checked out
         for case in list_of_cases:
@@ -871,21 +1025,34 @@ if __name__ == '__main__':
         print('Add Manually program realease date and version at the end of the script')
         program_version_release_date = 'AddManually'
         program_name_and_version = 'AddManually'
+        program_name = "AddManually"
+        program_version = "AddManually"
 
     # Organize results
     mat_dir = os.path.join(CWD, 'results')
     Matfd = _organize_cases(mat_dir)
     # Create Json file for each case (ISO,PEREZ,TBSKY_HOR,TBSKY_DEW)
     # import results template
-    with open('WeatherDriversResultsSubmittal.json') as f:
+    if TestN:
+        json_name = 'WeatherDriversResultsSubmittal2.json'
+    else:
+        json_name = 'WeatherDriversResultsSubmittal1.json'
+    with open(json_name) as f:
         resForm = json.load(f)
     # Add library and organization details
     resForm["modeler_organization"] = modeler_organization
     resForm["modeler_organization_for_tables_and_charts"] = modeler_organization_for_tables_and_charts
-    resForm["program_name_and_version"] = program_name_and_version
+    
+    if TestN:
+        resForm["program_name"] = program_name
+        resForm["program_version"] = program_version
+    else:
+        resForm["program_name_and_version"] = program_name_and_version
+        
     resForm["program_name_for_tables_and_charts"] = program_name_for_tables_and_charts
     resForm["program_version_release_date"] = program_version_release_date
     resForm["results_submission_date"] = results_submission_date
+    
     # Create new Json result folder
     nJsonRes = os.path.join(mat_dir, 'JsonResults')
     if not os.path.exists(nJsonRes):
@@ -902,29 +1069,43 @@ if __name__ == '__main__':
             CaseDictIsoHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'], 'Per')
             CaseDictIsoHor['reVals'] = RemoveString(
                 CaseDictIsoHor['reVals'], 'weaBusTDryBulTDewPoiOpa')
-            resFinIsoHor = WeatherJson(resForm, Matfd, CaseDict)
+            resFinIsoHor = WeatherJson(resForm, Matfd, CaseDictIsoHor)
             with open(os.path.join(nJsonRes, 'WeatherIsoHHorIR.json'), 'w') as outfile:
                 json.dump(resFinIsoHor, outfile, sort_keys=True, indent=indent,separators=separators)
             CaseDictIsoDew = copy.deepcopy(CaseDict)
-            CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'], 'Per')
+            CaseDictIsoDew['reVals'] = RemoveString(CaseDictIsoDew['reVals'], 'Per')
             CaseDictIsoDew['reVals'] = RemoveString(
-                CaseDictIsoHor['reVals'], 'weaBusHHorIR.TDewPoi')
-            resFinIsoDew = WeatherJson(resForm, Matfd, CaseDict)
+                CaseDictIsoDew['reVals'], 'weaBusHHorIR.TBlaSky')
+            resFinIsoDew = WeatherJson(resForm, Matfd, CaseDictIsoDew)
             with open(os.path.join(nJsonRes, 'WeatherIsoTDryBulTDewPoinOpa.json'), 'w') as outfile:
                 json.dump(resFinIsoDew, outfile, sort_keys=True, indent=indent, separators=separators)
         elif Subcase in 'Per':
             CaseDictPerHor = copy.deepcopy(CaseDict)
-            CaseDictPerHor['reVals'] = RemoveString(CaseDictIsoHor['reVals'], 'Per')
+            TestList = copy.deepcopy(CaseDictPerHor['reVals'])
+            RemoveList = RemoveString(TestList, 'Per')
+            RemoveList = RemoveString(RemoveList,'weaBus')
+            RemoveList = RemoveString(RemoveList,'toDryAir')
+            RemoveList = RemoveString(RemoveList,'HDir')
+            CaseList = list(filter(lambda i: i not in RemoveList, 
+                                   CaseDictPerHor['reVals']))
+            CaseDictPerHor['reVals'] = CaseList
             CaseDictPerHor['reVals'] = RemoveString(
-                CaseDictIsoHor['reVals'], 'weaBusTDryBulTDewPoiOpa')
-            resFinPerHor = WeatherJson(resForm, Matfd, CaseDict)
+                CaseDictPerHor['reVals'], 'weaBusTDryBulTDewPoiOpa')
+            resFinPerHor = WeatherJson(resForm, Matfd, CaseDictPerHor)
             with open(os.path.join(nJsonRes, 'WeatherPerHHorIR.json'), 'w') as outfile:
                 json.dump(resFinPerHor, outfile, sort_keys=True, indent=indent, separators=separators)
             CaseDictPerDew = copy.deepcopy(CaseDict)
-            CaseDictPerDew['reVals'] = RemoveString(CaseDictIsoHor['reVals'], 'Per')
+            TestList = copy.deepcopy(CaseDictPerDew['reVals'])
+            RemoveList = RemoveString(TestList, 'Per')
+            RemoveList = RemoveString(RemoveList,'weaBus')
+            RemoveList = RemoveString(RemoveList,'toDryAir')
+            RemoveList = RemoveString(RemoveList,'HDir')
+            CaseList = list(filter(lambda i: i not in RemoveList, 
+                                   CaseDictPerDew['reVals']))
+            CaseDictPerDew['reVals'] = CaseList
             CaseDictPerDew['reVals'] = RemoveString(
-                CaseDictIsoHor['reVals'], 'weaBusHHorIR.TDewPoi')
-            resFinPerDew = WeatherJson(resForm, Matfd, CaseDict)
+                CaseDictPerDew['reVals'], 'weaBusHHorIR.TBlaSky')
+            resFinPerDew = WeatherJson(resForm, Matfd, CaseDictPerDew)
             with open(os.path.join(nJsonRes, 'WeatherPerTDryBulTDewPoinOpa.json'), 'w') as outfile:
                 json.dump(resFinPerDew, outfile, sort_keys=True, indent=indent, separators=separators)
     if DelEvr or CI_TESTING:
