@@ -22,6 +22,7 @@ import sys
 from pathlib import Path
 from datetime import date
 import stat
+import git
 
 # Make code Verbose
 CodeVerbose = True
@@ -31,9 +32,7 @@ POST_PROCESS_ONLY = False
 CLEAN_MAT = True
 # Erase anything but the Json file results in the ResultJson folder and .mat files
 DelEvr = False
-# Modelica IBPSA Library working branch
-#BRANCH = 'master'
-BRANCH = 'issue1314_BESTEST_weather'
+
 # Path to local library copy (This assumes the script is run inside the library folder)
 ScriptPath = sys.path[0]
 path = Path(ScriptPath)
@@ -41,6 +40,11 @@ levels_up = 5  # goes up five levels to get the IBPSA folder
 LIBPATH = str(path.parents[levels_up - 1])
 # simulator, Dymola
 TOOL = 'dymola'
+
+# Modelica IBPSA Library working branch
+#BRANCH = 'master'
+
+BRANCH = git.Repo(search_parent_directories=True).active_branch.name
 
 # Software specifications
 # Set library_name to IBPSA, or Buildings, etc.
@@ -377,7 +381,7 @@ def WeatherJson(resForm, Matfd, CaseDict):
             elif ('nOpa' in resSplit[-1]) or ('nTot' in resSplit[-1]) :
                 # skycover from [0-1] to tenth of sky
                 results[k]['value'] = results[k]['value'] * 10
- 
+
             k += 1
         MapDymolaAndJson(results, dic['case'], resFin, CaseDict)
     return resFin
@@ -818,8 +822,8 @@ def MapDymolaAndJson(results, case, resFin, CaseDict):
                   {'json': 'diffuse_radiation_w_30',
                    'matIso': 'azi090til30.HDiffIso.H',
                    'matPer': 'azi090til30.HDiffPer.H'}]
-    
-    if CaseDict['TestN']:           
+
+    if CaseDict['TestN']:
         caseDays = [{key: value[i] for key, value in Days2[case].items()}
                     for i in range(len(Days2[case]['days']))]
     else:
@@ -843,7 +847,7 @@ def MapDymolaAndJson(results, case, resFin, CaseDict):
                 if 'dry_bulb_temperature' in ressH['json']:
                     outDir[case]['hour_of_year'] = (ressH['time']/3600).tolist()
                 outDir[case][ressH['json']] =ressH['res'].tolist()
-                
+
             else:
                 resH = ExtrapolateResults(dictHourly, dR, day)
                 ressH = ExtrapolateResults(dictSubHourly, dR, day)
@@ -861,7 +865,7 @@ def MapDymolaAndJson(results, case, resFin, CaseDict):
                         HRlist.append(HRdict)
                         k += 1
                     outDir[case]['hourly_results'][day['days']][resH['json']] = HRlist
-                    
+
                 if not ressH:
                     missing.append(day['days'] + '_subhourly_' + dR['variable'])
                 else:
@@ -1042,17 +1046,17 @@ if __name__ == '__main__':
     # Add library and organization details
     resForm["modeler_organization"] = modeler_organization
     resForm["modeler_organization_for_tables_and_charts"] = modeler_organization_for_tables_and_charts
-    
+
     if TestN:
         resForm["program_name"] = program_name
         resForm["program_version"] = program_version
     else:
         resForm["program_name_and_version"] = program_name_and_version
-        
+
     resForm["program_name_for_tables_and_charts"] = program_name_for_tables_and_charts
     resForm["program_version_release_date"] = program_version_release_date
     resForm["results_submission_date"] = results_submission_date
-    
+
     # Create new Json result folder
     nJsonRes = os.path.join(mat_dir, 'JsonResults')
     if not os.path.exists(nJsonRes):
@@ -1086,7 +1090,7 @@ if __name__ == '__main__':
             RemoveList = RemoveString(RemoveList,'weaBus')
             RemoveList = RemoveString(RemoveList,'toDryAir')
             RemoveList = RemoveString(RemoveList,'HDir')
-            CaseList = list(filter(lambda i: i not in RemoveList, 
+            CaseList = list(filter(lambda i: i not in RemoveList,
                                    CaseDictPerHor['reVals']))
             CaseDictPerHor['reVals'] = CaseList
             CaseDictPerHor['reVals'] = RemoveString(
@@ -1100,7 +1104,7 @@ if __name__ == '__main__':
             RemoveList = RemoveString(RemoveList,'weaBus')
             RemoveList = RemoveString(RemoveList,'toDryAir')
             RemoveList = RemoveString(RemoveList,'HDir')
-            CaseList = list(filter(lambda i: i not in RemoveList, 
+            CaseList = list(filter(lambda i: i not in RemoveList,
                                    CaseDictPerDew['reVals']))
             CaseDictPerDew['reVals'] = CaseList
             CaseDictPerDew['reVals'] = RemoveString(
