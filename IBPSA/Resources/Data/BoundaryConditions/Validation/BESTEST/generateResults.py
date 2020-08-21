@@ -10,8 +10,7 @@
 # It copies the library from a local-git-hub repository,
 # executes simulations and prints results in current working directory
 #
-# ettore.zanetti@polimi.it                                 2020-03-11
-#                                              last update 2020-06-06
+# ettore.zanetti@polimi.it
 #####################################################################
 import json
 import os
