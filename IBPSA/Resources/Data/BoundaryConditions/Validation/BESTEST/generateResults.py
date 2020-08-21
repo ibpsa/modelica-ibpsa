@@ -157,7 +157,7 @@ def checkout_repository(working_directory, CaseDict):
     d = {}
     d['LibName'] = CaseDict['LibName']
     if CaseDict['from_git_hub']:
-        git_url = "https://github.com/ibpsa/modelica-ibpsa"
+        git_url = git.Repo(search_parent_directories=True).remotes.origin.url
         r = Repo.clone_from(git_url, working_directory)
         g = git.Git(working_directory)
         g.checkout(BRANCH)
