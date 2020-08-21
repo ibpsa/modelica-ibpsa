@@ -23,6 +23,7 @@ from datetime import date
 import stat
 import git
 
+
 # Make code Verbose
 CodeVerbose = True
 # check if it just implements post-process (from .mat files to Json files)
@@ -40,7 +41,7 @@ LIBPATH = str(path.parents[levels_up - 1])
 # simulator, Dymola
 TOOL = 'dymola'
 
-# Modelica IBPSA Library working branch
+# Modelica Library working branch
 #BRANCH = 'master'
 
 BRANCH = git.Repo(search_parent_directories=True).active_branch.name
@@ -51,7 +52,7 @@ library_name = os.path.abspath(".").split(os.path.sep)[-6]
 library_version = 'v4.0.0dev'
 modeler_organization = 'LBNL'
 modeler_organization_for_tables_and_charts = 'LBNL'
-program_name_for_tables_and_charts = 'IBPSA'
+program_name_for_tables_and_charts = library_name
 results_submission_date = str(date.today().strftime('%m/%d/%Y'))
 
 # Make sure script is run from correct directory
