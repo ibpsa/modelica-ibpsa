@@ -34,7 +34,7 @@ CLEAN_MAT = True
 DelEvr = False
 
 # Path to local library copy (This assumes the script is run inside the library folder)
-ScriptPath = sys.path[0]
+ScriptPath = os.path.dirname(os.path.realpath(__file__))
 path = Path(ScriptPath)
 levels_up = 5  # goes up five levels to get the IBPSA folder
 LIBPATH = str(path.parents[levels_up - 1])
