@@ -44,7 +44,11 @@ TOOL = 'dymola'
 # Modelica Library working branch
 #BRANCH = 'master'
 
-BRANCH = git.Repo(search_parent_directories=True).active_branch.name
+try:
+    BRANCH = git.Repo(search_parent_directories=True).active_branch.name
+except TypeError as e:
+    # Branch is detached from head. This is if one run "git checkout commit_hash"
+    BRANCH = None
 
 # Software specifications
 # Set library_name to IBPSA, or Buildings, etc.
