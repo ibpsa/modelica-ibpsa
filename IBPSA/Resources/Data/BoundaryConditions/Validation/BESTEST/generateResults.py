@@ -177,7 +177,7 @@ def checkout_repository(working_directory, CaseDict):
             print("*** Copying" + d['LibName'] + " library to {}".format(des))
         shutil.copytree(CaseDict['LIBPATH'], des)
         if CodeVerbose:
-            print("Since this a local copy of the library is in use, remember to manually add software version and commit.")
+            print("Since a local copy of the library is used, remember to manually add software version and commit.")
         d['branch'] = 'AddManually'
         d['commit'] = 'AddManually'
         d['commit_time'] = 'AddManually'
