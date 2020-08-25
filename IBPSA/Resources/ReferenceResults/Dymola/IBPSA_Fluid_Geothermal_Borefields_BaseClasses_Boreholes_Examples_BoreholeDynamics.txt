@@ -2,7 +2,7 @@ last-generated=2020-08-18
 statistics-initialization=
 {
   "linear": "30, 100",
-  "nonlinear": "1, 1, 1, 0, 1, 0",
+  "nonlinear": "1, 1",
   "numerical Jacobians": "0"
 }
 statistics-simulation=
