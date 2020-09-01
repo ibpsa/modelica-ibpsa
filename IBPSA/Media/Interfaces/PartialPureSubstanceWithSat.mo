@@ -72,4 +72,22 @@ partial package PartialPureSubstanceWithSat
     input SaturationProperties sat "Saturation property record";
     output Density dv "Dew curve density";
   end densityOfSaturatedVapor_sat;
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+May 6, 2020, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This interface model extends 
+<a href=\"modelica://Modelica.Media.Interfaces.PartialPureSubstance\">
+Modelica.Media.Interfaces.PartialPureSubstance</a> and includes 
+functions for calculating saturation properties of fluid media. 
+It is implemented in models requiring fluid phase change and when 
+saturation properties are of primary interest, such as with 
+<a href=\"modelica://IBPSA.Media.Steam\">IBPSA.Media.Steam</a>. 
+</p>
+</html>"));
 end PartialPureSubstanceWithSat;
