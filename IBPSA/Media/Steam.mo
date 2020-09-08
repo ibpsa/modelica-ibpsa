@@ -1,4 +1,4 @@
-﻿within IBPSA.Media;
+within IBPSA.Media;
 package Steam
   "Package with model for region 2 (steam) water according to IF97 standard"
   extends IBPSA.Media.Interfaces.PartialPureSubstanceWithSat(
@@ -983,7 +983,7 @@ The properties are valid in Region 2 shown above. The valid temperature range is
 </li>
 <li>
 When phase change is required, this model is to be used in combination with the
-<a href=\"modelica://IBPSA.Media.WaterHighTemperature\">IBPSA.Media.WaterHighTemperature</a> media model for
+<a href=\"modelica://IBPSA.Media.Specialized.Water.HighTemperature\">IBPSA.Media.Specialized.Water.HighTemperature</a> media model for
 incompressible liquid water for the liquid phase (quality = 0).
 </li>
 <li>

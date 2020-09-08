@@ -1,5 +1,5 @@
-within IBPSA.Media;
-package WaterHighTemperature
+within IBPSA.Media.Specialized.Water;
+package HighTemperature
   "Package with model for liquid water with constant density and an extended 
   maxiumum temperature threshold"
    extends IBPSA.Media.Water(
@@ -114,4 +114,4 @@ saturation temperature function.
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={95,95,95})}));
-end WaterHighTemperature;
+end HighTemperature;
