@@ -48,9 +48,9 @@ protected
     input Medium.ThermodynamicState state1 "Medium state";
     input Medium.ThermodynamicState state2 "Medium state";
     input String message "Message for error reporting";
-    parameter Real TErrAbs=abs(Medium.temperature(state1)-Medium.temperature(state2))
+    protected Real TErrAbs=abs(Medium.temperature(state1)-Medium.temperature(state2))
       "Absolute error in temperature";
-    parameter Real pErrAbs=abs(Medium.pressure(state1)-Medium.pressure(state2))
+    protected Real pErrAbs=abs(Medium.pressure(state1)-Medium.pressure(state2))
       "Absolute error in pressure";
   algorithm
     assert(TErrAbs < 1e-8, "Absolute temperature error: " + String(TErrAbs) +
@@ -64,10 +64,10 @@ protected
     input Medium.ThermodynamicState state1 "Medium state";
     input Medium.ThermodynamicState state2 "Medium state";
     input String message "Message for error reporting";
-    parameter Real TErrRel=
+    protected Real TErrRel=
       abs((Medium.temperature(state1)-Medium.temperature(state2))/Medium.temperature(state1))
       "Relative error in temperature";
-    parameter Real pErrRel=
+    protected Real pErrRel=
       abs((Medium.pressure(state1)-Medium.pressure(state2))/Medium.pressure(state1))
       "Relative error in pressure";
   algorithm
