@@ -169,10 +169,8 @@ medium model \"" + mediumName + "\".");
     annotation (Inline=true);
   end density_pT;
 
-  redeclare replaceable function extends dynamicViscosity "Return dynamic viscosity"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
-    output DynamicViscosity eta "Dynamic viscosity";
+  redeclare replaceable function extends dynamicViscosity
+    "Return dynamic viscosity"
   algorithm
     eta := Modelica.Media.Water.IF97_Utilities.dynamicViscosity(
           state.d,
@@ -184,9 +182,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends thermalConductivity
     "Return thermal conductivity"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
-    output ThermalConductivity lambda "Thermal conductivity";
   algorithm
     lambda := Modelica.Media.Water.IF97_Utilities.thermalConductivity(
           state.d,
@@ -196,37 +191,29 @@ medium model \"" + mediumName + "\".");
     annotation (Inline=true);
   end thermalConductivity;
 
-  redeclare replaceable function extends pressure "Return pressure"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
-    output AbsolutePressure p "Pressure";
+  redeclare replaceable function extends pressure
+    "Return pressure"
   algorithm
     p := state.p;
     annotation (Inline=true);
   end pressure;
 
-  redeclare replaceable function extends temperature "Return temperature"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
-    output Temperature T "Temperature";
+  redeclare replaceable function extends temperature
+    "Return temperature"
   algorithm
    T := state.T;
     annotation (Inline=true);
   end temperature;
 
-  redeclare replaceable function extends density "Return density"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
-    output Density d "Density";
+  redeclare replaceable function extends density
+    "Return density"
   algorithm
     d := state.d;
     annotation (Inline=true);
   end density;
 
-  redeclare replaceable function extends specificEnthalpy "Return specific enthalpy"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
-    output SpecificEnthalpy h "Specific enthalpy";
+  redeclare replaceable function extends specificEnthalpy
+    "Return specific enthalpy"
   algorithm
     h := state.h;
     annotation (Inline=true);
@@ -234,18 +221,13 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends specificInternalEnergy
     "Return specific internal energy"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
-    output SpecificEnergy u "Specific internal energy";
   algorithm
     u := state.h - state.p/state.d;
     annotation (Inline=true);
   end specificInternalEnergy;
 
-  redeclare replaceable function extends specificEntropy "Return specific entropy"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
-    output SpecificEntropy s "Specific entropy";
+  redeclare replaceable function extends specificEntropy
+    "Return specific entropy"
   algorithm
     s := s_pT(
           state.p,
@@ -255,9 +237,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends specificGibbsEnergy
     "Return specific Gibbs energy"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
-    output SpecificEnergy g "Specific Gibbs energy";
   algorithm
     g := state.h - state.T*specificEntropy(state);
     annotation (Inline=true);
@@ -265,9 +244,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends specificHelmholtzEnergy
     "Return specific Helmholtz energy"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
-    output SpecificEnergy f "Specific Helmholtz energy";
   algorithm
     f := state.h - state.p/state.d - state.T*specificEntropy(state);
     annotation (Inline=true);
@@ -275,10 +251,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends specificHeatCapacityCp
     "Return specific heat capacity at constant pressure"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
-    output SpecificHeatCapacity cp
-      "Specific heat capacity at constant pressure";
   algorithm
     cp := cp_pT(
           state.p,
@@ -288,10 +260,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends specificHeatCapacityCv
     "Return specific heat capacity at constant volume"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
-    output SpecificHeatCapacity cv
-      "Specific heat capacity at constant volume";
   algorithm
     cv := cv_pT(
           state.p,
@@ -310,7 +278,8 @@ medium model \"" + mediumName + "\".");
     annotation (Inline=true);
   end density_derh_p;
 
-  redeclare function extends density_derp_h "Density derivative by pressure"
+  redeclare function extends density_derp_h
+    "Density derivative by pressure"
   algorithm
     ddph := Modelica.Media.Water.IF97_Utilities.ddph(
           state.p,
@@ -320,7 +289,8 @@ medium model \"" + mediumName + "\".");
     annotation (Inline=true);
   end density_derp_h;
 
-  redeclare replaceable function extends isentropicExponent "Return isentropic exponent"
+  redeclare replaceable function extends isentropicExponent
+    "Return isentropic exponent"
   algorithm
     gamma := Modelica.Media.Water.IF97_Utilities.isentropicExponent_pT(
           state.p,
@@ -348,7 +318,8 @@ medium model \"" + mediumName + "\".");
           region);
   end isobaricExpansionCoefficient;
 
-  redeclare replaceable function extends isentropicEnthalpy "Compute h(s,p)"
+  redeclare replaceable function extends isentropicEnthalpy
+    "Compute h(s,p)"
   algorithm
     h_is := Modelica.Media.Water.IF97_Utilities.isentropicEnthalpy(
           p_downstream,
@@ -366,9 +337,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends saturationTemperature_p
     "Return saturation temperature"
-    extends Modelica.Icons.Function;
-    input AbsolutePressure p "Pressure";
-    output Temperature T "Saturation temperature";
   algorithm
     T := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.tsat(p);
     annotation (Inline=true);
@@ -376,9 +344,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends enthalpyOfSaturatedLiquid_sat
     "Return enthalpy of saturated liquid"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output SpecificEnthalpy hl "Boiling curve specific enthalpy";
   algorithm
     hl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hl_p(sat.psat);
     annotation (Inline=true);
@@ -386,9 +351,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends enthalpyOfSaturatedVapor_sat
     "Return enthalpy of saturated vapor"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output SpecificEnthalpy hv "Dew curve specific enthalpy";
   algorithm
     hv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hv_p(sat.psat);
     annotation (Inline=true);
@@ -396,9 +358,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends enthalpyOfVaporization_sat
     "Return enthalpy of vaporization"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output SpecificEnthalpy hlv "Vaporization enthalpy";
   algorithm
     hlv := enthalpyOfSaturatedVapor_sat(sat)-enthalpyOfSaturatedLiquid_sat(sat);
     annotation (Inline=true);
@@ -406,9 +365,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends entropyOfSaturatedLiquid_sat
     "Return entropy of saturated liquid"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output SpecificEntropy sl "Boiling curve specific entropy";
   algorithm
     sl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.sl_p(sat.psat);
     annotation (Inline=true);
@@ -416,9 +372,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends entropyOfSaturatedVapor_sat
     "Return entropy of saturated vapor"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output SpecificEntropy sv "Dew curve specific entropy";
   algorithm
     sv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.sv_p(sat.psat);
     annotation (Inline=true);
@@ -426,9 +379,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends entropyOfVaporization_sat
     "Return entropy of vaporization"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output SpecificEntropy slv "Vaporization entropy";
   algorithm
     slv := entropyOfSaturatedVapor_sat(sat)-entropyOfSaturatedLiquid_sat(sat);
     annotation (Inline=true);
@@ -436,9 +386,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends densityOfSaturatedLiquid_sat
        "Return density of saturated liquid"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output Density dl "Boiling curve density";
   algorithm
     dl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.rhol_p(sat.psat)
     annotation (Inline=true);
@@ -446,9 +393,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare replaceable function extends densityOfSaturatedVapor_sat
     "Return density of saturated vapor"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output Density dv "Dew curve density";
   algorithm
     dv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.rhov_p(sat.psat)
     annotation (Inline=true);
@@ -457,11 +401,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare function extends setState_pTX
     "Return thermodynamic state as function of p, T and composition X or Xi"
-    extends Modelica.Icons.Function;
-    input AbsolutePressure p "Pressure";
-    input Temperature T "Temperature";
-    input MassFraction X[:]=reference_X "Mass fractions";
-    output ThermodynamicState state "Thermodynamic state record";
   algorithm
         state := ThermodynamicState(
           d=density_pT(
@@ -477,11 +416,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare function extends setState_phX
     "Return thermodynamic state as function of p, h and composition X or Xi"
-    extends Modelica.Icons.Function;
-    input AbsolutePressure p "Pressure";
-    input SpecificEnthalpy h "Specific enthalpy";
-    input MassFraction X[:]=reference_X "Mass fractions";
-    output ThermodynamicState state "Thermodynamic state record";
   algorithm
     state := ThermodynamicState(
           d=density_ph(
@@ -497,11 +431,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare function extends setState_psX
     "Return thermodynamic state as function of p, s and composition X or Xi"
-    extends Modelica.Icons.Function;
-    input AbsolutePressure p "Pressure";
-    input SpecificEntropy s "Specific entropy";
-    input MassFraction X[:]=reference_X "Mass fractions";
-    output ThermodynamicState state "Thermodynamic state record";
   algorithm
     state := ThermodynamicState(
           d=density_ps(
@@ -519,11 +448,6 @@ medium model \"" + mediumName + "\".");
 
   redeclare function extends setState_dTX
     "Return thermodynamic state as function of d, T and composition X or Xi"
-    extends Modelica.Icons.Function;
-    input Density d "Density";
-    input Temperature T "Temperature";
-    input MassFraction X[:]=reference_X "Mass fractions";
-    output ThermodynamicState state "Thermodynamic state record";
   algorithm
     state := ThermodynamicState(
           d=d,
@@ -645,9 +569,6 @@ Summing all mass fractions together results in
 
   redeclare replaceable function extends saturationState_p
     "Return saturation property record from pressure"
-    extends Modelica.Icons.Function;
-    input AbsolutePressure p "Pressure";
-    output SaturationProperties sat "Saturation property record";
   algorithm
     sat.psat := p;
     sat.Tsat := saturationTemperature_p(p);
