@@ -609,7 +609,7 @@ protected
   algorithm
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
-    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    g := IBPSA.Media.Steam.g2(p, T);
     rho := p/(R*T*g.pi*g.gpi);
     annotation (
       smoothOrder=2,
@@ -628,7 +628,7 @@ protected
   algorithm
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
-    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    g := IBPSA.Media.Steam.g2(p, T);
     h := R*T*g.tau*g.gtau;
     annotation (
       smoothOrder=2,
@@ -647,7 +647,7 @@ protected
   algorithm
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
-    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    g := IBPSA.Media.Steam.g2(p, T);
     s := R*(g.tau*g.gtau - g.g);
     annotation (
       smoothOrder=2,
@@ -668,7 +668,7 @@ protected
   algorithm
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
-    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    g := IBPSA.Media.Steam.g2(p, T);
     cp := -R*g.tau*g.tau*g.gtautau;
     annotation (
       smoothOrder=2,
@@ -689,7 +689,7 @@ protected
   algorithm
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
-    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    g := IBPSA.Media.Steam.g2(p, T);
     cv := R*(-g.tau*g.tau*g.gtautau + ((g.gpi - g.tau*g.gtaupi)*(g.gpi
        - g.tau*g.gtaupi)/g.gpipi));
     annotation (
@@ -724,7 +724,7 @@ protected
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
     T := T_ph(p, h);
-    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    g := IBPSA.Media.Steam.g2(p, T);
     rho := p/(R*T*g.pi*g.gpi);
     annotation (
       smoothOrder=2,
@@ -745,7 +745,7 @@ protected
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
     T := T_ph(p, h);
-    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    g := IBPSA.Media.Steam.g2(p, T);
     s := R*(g.tau*g.gtau - g.g);
     annotation (
       smoothOrder=2,
@@ -767,7 +767,7 @@ protected
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
     T := T_ph(p, h);
-    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    g := IBPSA.Media.Steam.g2(p, T);
     cp := -R*g.tau*g.tau*g.gtautau;
     annotation (
       smoothOrder=2,
@@ -789,7 +789,7 @@ protected
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
     T := T_ph(p, h);
-    g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+    g := IBPSA.Media.Steam.g2(p, T);
     cv := R*(-g.tau*g.tau*g.gtautau + ((g.gpi - g.tau*g.gtaupi)*(g.gpi
        - g.tau*g.gtaupi)/g.gpipi));
     annotation (
@@ -896,6 +896,11 @@ protected
       smoothOrder=2,
       Inline=true);
   end tph2;
+
+  function g2
+  extends Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2;
+  annotation(smoothOrder=1);
+  end g2;
 annotation (Documentation(info="<html>
 <p>This steam model based on IF97 formulations can be utilized for water 
 systems and components that require vapor phase (regeion 2, quality = 1). 
