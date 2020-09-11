@@ -599,7 +599,7 @@ protected
   algorithm
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
-    g := IBPSA.Media.Steam.g2(p, T);
+    g := g2(p, T);
     rho := p/(R*T*g.pi*g.gpi);
     annotation (
       smoothOrder=2,
@@ -618,7 +618,7 @@ protected
   algorithm
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
-    g := IBPSA.Media.Steam.g2(p, T);
+    g := g2(p, T);
     h := R*T*g.tau*g.gtau;
     annotation (
       smoothOrder=2,
@@ -637,7 +637,7 @@ protected
   algorithm
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
-    g := IBPSA.Media.Steam.g2(p, T);
+    g := g2(p, T);
     s := R*(g.tau*g.gtau - g.g);
     annotation (
       smoothOrder=2,
@@ -658,7 +658,7 @@ protected
   algorithm
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
-    g := IBPSA.Media.Steam.g2(p, T);
+    g := g2(p, T);
     cp := -R*g.tau*g.tau*g.gtautau;
     annotation (
       smoothOrder=2,
@@ -679,7 +679,7 @@ protected
   algorithm
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
-    g := IBPSA.Media.Steam.g2(p, T);
+    g := g2(p, T);
     cv := R*(-g.tau*g.tau*g.gtautau + ((g.gpi - g.tau*g.gtaupi)*(g.gpi
        - g.tau*g.gtaupi)/g.gpipi));
     annotation (
@@ -694,7 +694,7 @@ protected
     output Temperature T "Temperature";
   algorithm
     // Region 2 properties
-    T := IBPSA.Media.Steam.tph2(p, h);
+    T := tph2(p, h);
     annotation (
       smoothOrder=2,
       Inline=true);
@@ -714,7 +714,7 @@ protected
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
     T := T_ph(p, h);
-    g := IBPSA.Media.Steam.g2(p, T);
+    g := g2(p, T);
     rho := p/(R*T*g.pi*g.gpi);
     annotation (
       smoothOrder=2,
@@ -735,7 +735,7 @@ protected
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
     T := T_ph(p, h);
-    g := IBPSA.Media.Steam.g2(p, T);
+    g := g2(p, T);
     s := R*(g.tau*g.gtau - g.g);
     annotation (
       smoothOrder=2,
@@ -757,7 +757,7 @@ protected
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
     T := T_ph(p, h);
-    g := IBPSA.Media.Steam.g2(p, T);
+    g := g2(p, T);
     cp := -R*g.tau*g.tau*g.gtautau;
     annotation (
       smoothOrder=2,
@@ -779,7 +779,7 @@ protected
     R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
     // Region 2 properties
     T := T_ph(p, h);
-    g := IBPSA.Media.Steam.g2(p, T);
+    g := g2(p, T);
     cv := R*(-g.tau*g.tau*g.gtautau + ((g.gpi - g.tau*g.gtaupi)*(g.gpi
        - g.tau*g.gtaupi)/g.gpipi));
     annotation (
@@ -853,4 +853,3 @@ First implementation.
         color={0,0,0},
         smooth=Smooth.Bezier)}));
 end Steam;
-
