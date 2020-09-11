@@ -11,6 +11,7 @@ partial model PartialProperties
   parameter Modelica.SIunits.Pressure p = Medium.p_default "Pressure";
   parameter Modelica.SIunits.MassFraction X[Medium.nX]=
     Medium.X_default "Mass fraction";
+  parameter Real errAbs=1E-8 "Absolute error used in the check of the state calculations";
   Medium.Temperature T "Temperature";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
     "Celsius temperature";
@@ -47,35 +48,21 @@ protected
     extends Modelica.Icons.Function;
     input Medium.ThermodynamicState state1 "Medium state";
     input Medium.ThermodynamicState state2 "Medium state";
+    input Real errAbs=errAbs "Absolute error threshold";
     input String message "Message for error reporting";
-    protected Real TErrAbs=abs(Medium.temperature(state1)-Medium.temperature(state2))
+
+  protected
+              Real TErrAbs=abs(Medium.temperature(state1)-Medium.temperature(state2))
       "Absolute error in temperature";
-    protected Real pErrAbs=abs(Medium.pressure(state1)-Medium.pressure(state2))
+  protected
+              Real pErrAbs=abs(Medium.pressure(state1)-Medium.pressure(state2))
       "Absolute error in pressure";
   algorithm
-    assert(TErrAbs < 1e-8, "Absolute temperature error: " + String(TErrAbs) +
+    assert(TErrAbs < errAbs, "Absolute temperature error: " + String(TErrAbs) +
        " K. Error in temperature of " + message);
-    assert(pErrAbs < 1e-8, "Absolute pressure error: " + String(pErrAbs) +
+    assert(pErrAbs < errAbs, "Absolute pressure error: " + String(pErrAbs) +
        " Pa. Error in pressure of " + message);
   end checkState;
-
-  function checkStateRelative "This function checks the relative error in the state calculations"
-    extends Modelica.Icons.Function;
-    input Medium.ThermodynamicState state1 "Medium state";
-    input Medium.ThermodynamicState state2 "Medium state";
-    input String message "Message for error reporting";
-    protected Real TErrRel=
-      abs((Medium.temperature(state1)-Medium.temperature(state2))/Medium.temperature(state1))
-      "Relative error in temperature";
-    protected Real pErrRel=
-      abs((Medium.pressure(state1)-Medium.pressure(state2))/Medium.pressure(state1))
-      "Relative error in pressure";
-  algorithm
-    assert(TErrRel < 1e-4, "Relative temperature error: " + String(TErrRel*100) +
-       "%. Error in temperature of " + message);
-    assert(pErrRel < 1e-4, "Relative pressure error: " + String(pErrRel*100) +
-       "%. Error in pressure of " + message);
-  end checkStateRelative;
 
 equation
     // Compute temperatures that are used as input to the functions
@@ -99,13 +86,13 @@ equation
     cv = Medium.specificHeatCapacityCv(state_pTX);
     lambda = Medium.thermalConductivity(state_pTX);
     pMed = Medium.pressure(state_pTX);
-    assert(abs(p-pMed) < 1e-8, "Error in pressure computation.");
+    assert(abs(p-pMed) < errAbs, "Error in pressure computation.");
     TMed = Medium.temperature(state_pTX);
-    assert(abs(T-TMed) < 1e-8, "Error in temperature computation.");
+    assert(abs(T-TMed) < errAbs, "Error in temperature computation.");
     MM = Medium.molarMass(state_pTX);
     // Check the implementation of the base properties
-    assert(abs(h-basPro.h) < 1e-8, "Error in enthalpy computation in BaseProperties.");
-    assert(abs(u-basPro.u) < 1e-8, "Error in internal energy computation in BaseProperties.");
+    assert(abs(h-basPro.h) < errAbs, "Error in enthalpy computation in BaseProperties.");
+    assert(abs(u-basPro.u) < errAbs, "Error in internal energy computation in BaseProperties.");
 
    annotation (
 Documentation(info="<html>
@@ -117,7 +104,7 @@ revisions="<html>
 <ul>
 <li>
 March 24, 2020, by Kathryn Hinkelman:<br/>
-Expand error message for checkState and added relative error function check checkStateRelative.
+Expand error message for checkState and added absolute error as input.
 </li>
 <li>
 September 16, 2019, by Yangyang Fu:<br/>

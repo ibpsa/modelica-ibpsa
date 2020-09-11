@@ -6,7 +6,8 @@ model SteamProperties
     redeclare package Medium = IBPSA.Media.Steam,
     TMin=273.15 + 100,
     TMax=273.15 + 700,
-    p=100000);
+    p=100000,
+    errAbs=0.01);
 
   Medium.ThermodynamicState state_phX "Medium state";
   Medium.ThermodynamicState state_psX "Medium state";
@@ -22,8 +23,8 @@ equation
     state_pTX = Medium.setState_pTX(p=p, T=T);
     state_phX = Medium.setState_phX(p=p, h=h);
     state_psX = Medium.setState_psX(p=p, s=s);
-    checkStateRelative(state_pTX, state_phX, "state_phX");
-    checkStateRelative(state_pTX, state_psX, "state_psX");
+    checkState(state_pTX, state_phX, errAbs, "state_phX");
+    checkState(state_pTX, state_psX, errAbs, "state_psX");
 
     // Check the implementation of the functions
     ddhp = Medium.density_derh_p(state_pTX);
