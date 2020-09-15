@@ -1015,6 +1015,8 @@ if __name__ == '__main__':
             case['lib_dir'] = lib_dir
             if CaseDict['from_git_hub']:
                 case['git'] = d
+        print("*** Returning here for debugging")
+        sys.exit(1)
         # # Run all cases
         freeze_support()  # you need this in windows
         po = Pool()
@@ -1035,9 +1037,6 @@ if __name__ == '__main__':
         program_name_and_version = 'AddManually'
         program_name = "AddManually"
         program_version = "AddManually"
-
-    print("*** Returning here for debugging")
-    sys.exit(1)
 
     # Organize results
     mat_dir = os.path.join(CWD, 'results')
