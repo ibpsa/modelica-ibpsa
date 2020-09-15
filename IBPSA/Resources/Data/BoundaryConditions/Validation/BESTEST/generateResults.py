@@ -1037,7 +1037,7 @@ if __name__ == '__main__':
         program_version = "AddManually"
 
     print("*** Returning here for debugging")
-    return
+    sys.exit(1)
 
     # Organize results
     mat_dir = os.path.join(CWD, 'results')
