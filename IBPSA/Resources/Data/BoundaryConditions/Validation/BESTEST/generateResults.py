@@ -222,7 +222,8 @@ def _simulate(spec):
 
     '''
     from buildingspy.simulate.Simulator import Simulator
-
+    print("*** Returning here for debugging on line 225.")
+    sys.exit(1)
     out_dir = os.path.join(spec['lib_dir'], "results", spec["name"])
     os.makedirs(out_dir)
 
@@ -234,8 +235,6 @@ def _simulate(spec):
 
     # Get current library directory
     IBPSAtemp = os.path.join(spec['lib_dir'], library_name)
-    print("*** Returning here for debugging on line 237.")
-    sys.exit(1)
     # Set Model to simulate, the tool, the output dir and the package directory
     s = Simulator(spec["model"], TOOL, outputDirectory=out_dir, packagePath=IBPSAtemp)
     # Add all necessary parameters from Case Dict
