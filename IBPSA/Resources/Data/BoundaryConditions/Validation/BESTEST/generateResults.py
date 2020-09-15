@@ -1036,6 +1036,9 @@ if __name__ == '__main__':
         program_name = "AddManually"
         program_version = "AddManually"
 
+    print("*** Returning here for debugging")
+    return
+
     # Organize results
     mat_dir = os.path.join(CWD, 'results')
     Matfd = _organize_cases(mat_dir)
