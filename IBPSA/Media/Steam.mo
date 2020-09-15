@@ -55,7 +55,7 @@ as required from medium model \"" + mediumName + "\".");
 as required from medium model \"" + mediumName + "\".");
     // Medium must be in a vapor state. A 2% error is deemed acceptable to account for numerical noise.
     assert(T >= saturationTemperature_p(p)*0.98, "
-    In "   + getInstanceName() + ": The fluid is in a liquid state, which violates the requirements for 
+    In "   + getInstanceName() + ": The fluid is in a liquid state, which violates the requirements for
 medium model \"" + mediumName + "\".");
     MM = fluidConstants[1].molarMass;
     h = specificEnthalpy_pT(p,T);
@@ -509,22 +509,22 @@ medium model \"" + mediumName + "\".");
 This function is used to approximate the equation
 </p>
 <pre>
-    state = <strong>if</strong> x &gt; 0 <strong>then</strong> state_a <strong>else</strong> state_b;
+    state = <em>if</em> x &gt; 0 <em>then</em> state_a <em>else</em> state_b;
 </pre>
 <p>
 by a smooth characteristic, so that the expression is continuous and differentiable:
 </p>
 <pre>
-   state := <strong>smooth</strong>(1, <strong>if</strong> x &gt;  x_small <strong>then</strong> state_a <strong>else</strong>
-                      <strong>if</strong> x &lt; -x_small <strong>then</strong> state_b <strong>else</strong> f(state_a, state_b));
+   state := <em>smooth</em>(1, <em>if</em> x &gt;  x_small <em>then</em> state_a <em>else</em>
+                      <em>if</em> x &lt; -x_small <em>then</em> state_b <em>else</em> f(state_a, state_b));
 </pre>
 <p>
-This is performed by applying function <strong>Media.Common.smoothStep</strong>(..)
+This is performed by applying function <em>Media.Common.smoothStep</em>(..)
 on every element of the thermodynamic state record.
 </p>
 <p>
-If <strong>mass fractions</strong> X[:] are approximated with this function then this can be performed
-for all <strong>nX</strong> mass fractions, instead of applying it for nX-1 mass fractions and computing
+If <em>mass fractions</em> X[:] are approximated with this function then this can be performed
+for all <em>nX</em> mass fractions, instead of applying it for nX-1 mass fractions and computing
 the last one by the mass fraction constraint sum(X)=1. The reason is that the approximating function has the
 property that sum(state.X) = 1, provided sum(state_a.X) = sum(state_b.X) = 1.
 This can be shown by evaluating the approximating function in the abs(x) &lt; x_small
@@ -797,40 +797,40 @@ protected
     annotation(smoothOrder=1, Inline=true);
   end g2;
 annotation (Documentation(info="<html>
-<p>This steam model based on IF97 formulations can be utilized for water 
-systems and components that require vapor phase (regeion 2, quality = 1). 
-This model design is largely copied from 
-<a href=\"modelica://Modelica.Media.Water.WaterIF97_R2pT\">Modelica.Media.Water.WaterIF97_R2pT</a>, 
+<p>This steam model based on IF97 formulations can be utilized for water
+systems and components that require vapor phase (regeion 2, quality = 1).
+This model design is largely copied from
+<a href=\"modelica://Modelica.Media.Water.WaterIF97_R2pT\">Modelica.Media.Water.WaterIF97_R2pT</a>,
 with the following main differences: </p>
 <ol>
 <li>Only the functions related to region 2 are included.</li>
 <li>Automatic differentiation is provided for all thermodynamic property functions.</li>
-<li>The implementation is generally simplier in order to increase the likelyhood 
+<li>The implementation is generally simplier in order to increase the likelyhood
 of more efficient simulations. </li>
 </ol>
-<p>Thermodynamic properties are formulated from the International Association 
-for the Properties of Water and Steam (IAPWS) 1997 forumulations for water and 
+<p>Thermodynamic properties are formulated from the International Association
+for the Properties of Water and Steam (IAPWS) 1997 forumulations for water and
 steam. The thermodynamic regions as determiend by IAPWS-IF97 are as follows: </p>
 <p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Media/Steam/SteamIF97Region2.PNG\" alt=\"IF97 Water Steam Region 2\"/ width=\"1239\" height=\"821\"> </p>
 <h4>Limitations </h4>
 <ul>
-<li>The properties are valid in Region 2 shown above. The valid temperature range 
-is <i>0 C &le; T &le; 800 C</i>, and the valid pressure range is <i>0 MPa &le; 
+<li>The properties are valid in Region 2 shown above. The valid temperature range
+is <i>0 C &le; T &le; 800 C</i>, and the valid pressure range is <i>0 MPa &le;
 p &le; 100 MPa</i>. </li>
-<li>When phase change is required, this model is to be used in combination with 
-the <a href=\"modelica://IBPSA.Media.Specialized.Water.HighTemperature\">IBPSA.Media.Specialized.Water.HighTemperature</a> 
+<li>When phase change is required, this model is to be used in combination with
+the <a href=\"modelica://IBPSA.Media.Specialized.Water.HighTemperature\">IBPSA.Media.Specialized.Water.HighTemperature</a>
 media model for incompressible liquid water for the liquid phase (quality = 0). </li>
-<li>The two-phase region 3 (e.g., mixed liquid and vapor), high temperature 
+<li>The two-phase region 3 (e.g., mixed liquid and vapor), high temperature
 region 5, and liquid region 1 are not included in this medium model. </li>
 </ul>
 <h4>Applications </h4>
-<p>For numerical robustness, applications of this medium model assume the pressure, 
-and hence the saturation pressure, is constant throughout the simulation. This 
-is done to improve simulation performance by decoupling the pressure drop and 
+<p>For numerical robustness, applications of this medium model assume the pressure,
+and hence the saturation pressure, is constant throughout the simulation. This
+is done to improve simulation performance by decoupling the pressure drop and
 energy balance calculations. </p>
 <h4>References </h4>
-<p>W. Wagner et al., &ldquo;The IAPWS industrial formulation 1997 for the thermodynamic 
-properties of water and steam,&rdquo; <i>J. Eng. Gas Turbines Power</i>, vol. 122, no. 
+<p>W. Wagner et al., &ldquo;The IAPWS industrial formulation 1997 for the thermodynamic
+properties of water and steam,&rdquo; <i>J. Eng. Gas Turbines Power</i>, vol. 122, no.
 1, pp. 150&ndash;180, 2000. </p>
 </html>", revisions="<html>
 <ul>
