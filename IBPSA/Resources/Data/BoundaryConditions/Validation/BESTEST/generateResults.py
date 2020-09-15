@@ -1019,10 +1019,12 @@ if __name__ == '__main__':
                 case['git'] = d
         # # Run all cases
         freeze_support()  # you need this in windows
-        po = Pool()
-        po.map(_simulate, list_of_cases)
-        po.close()
-        po.join()  # block at this line until all processes are done
+#        po = Pool()
+#        po.map(_simulate, list_of_cases)
+#        po.close()
+#        po.join()  # block at this line until all processes are done
+        for case in list_of_cases:
+            _simulate(case)
         # Delete the temporary folder
         if CodeVerbose:
             print("Deleting temporary folder {}".format(lib_dir))
