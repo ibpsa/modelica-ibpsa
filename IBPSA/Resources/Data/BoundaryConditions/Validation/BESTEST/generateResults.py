@@ -221,9 +221,10 @@ def _simulate(spec):
     working directory and if CLEAN_MAT option is selected the old .mat files are removed
 
     '''
-    from buildingspy.simulate.Simulator import Simulator
-    print("*** Returning here for debugging on line 225.")
+    print("*** Returning here for debugging on line 224.")
     sys.exit(1)
+    from buildingspy.simulate.Simulator import Simulator
+
     out_dir = os.path.join(spec['lib_dir'], "results", spec["name"])
     os.makedirs(out_dir)
 
