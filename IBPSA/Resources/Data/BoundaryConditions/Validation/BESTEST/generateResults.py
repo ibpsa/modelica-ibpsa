@@ -221,8 +221,6 @@ def _simulate(spec):
     working directory and if CLEAN_MAT option is selected the old .mat files are removed
 
     '''
-#    print("*** Returning here for debugging on line 224.")
-#    sys.exit(1)
     from buildingspy.simulate.Simulator import Simulator
 
     out_dir = os.path.join(spec['lib_dir'], "results", spec["name"])
@@ -1019,12 +1017,12 @@ if __name__ == '__main__':
                 case['git'] = d
         # # Run all cases
         freeze_support()  # you need this in windows
-#        po = Pool()
-#        po.map(_simulate, list_of_cases)
+        po = Pool()
+        po.map(_simulate, list_of_cases)
 #        po.close()
-#        po.join()  # block at this line until all processes are done
-        for case in list_of_cases:
-            _simulate(case)
+        po.join()  # block at this line until all processes are done
+#        for case in list_of_cases:
+#            _simulate(case)
         # Delete the temporary folder
         if CodeVerbose:
             print("Deleting temporary folder {}".format(lib_dir))
