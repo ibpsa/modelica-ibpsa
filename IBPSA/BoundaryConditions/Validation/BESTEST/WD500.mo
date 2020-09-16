@@ -1,4 +1,4 @@
-within IBPSA.BoundaryConditions.BESTEST.Validation;
+within IBPSA.BoundaryConditions.Validation.BESTEST;
 model WD500  "Test model for BESTEST weather data: time zone case"
   extends WD100(
     lat= 0.49858820742,
@@ -6,14 +6,14 @@ model WD500  "Test model for BESTEST weather data: time zone case"
     alt = 236.8,
     weaDatHHorIR(filNam=Modelica.Utilities.Files.loadResource(
           "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/421810.mos")),
-
     weaDatTDryBulTDewPoinOpa(filNam=Modelica.Utilities.Files.loadResource(
           "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/421810.mos")));
+
   annotation (experiment(
       StopTime=3.1536e+07,
       Interval=900,
       Tolerance=1e-6),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/BESTEST/Validation/WD500.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/Validation/BESTEST/WD500.mos"
         "Simulate and plot"),Documentation(revisions="<html>
 <ul>
 <li>

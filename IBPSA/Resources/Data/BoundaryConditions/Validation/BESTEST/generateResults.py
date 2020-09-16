@@ -65,7 +65,7 @@ if os.path.abspath(".").split(os.path.sep)[-5:] != run_dir:
     raise ValueError(f"Script must be run from directory {os.path.sep.join(run_dir)}")
 
 # List of cases and result cases
-PACKAGES = f'{library_name}.BoundaryConditions.BESTEST.Validation'
+PACKAGES = f'{library_name}.BoundaryConditions.Validation.BESTEST'
 
 CASES = ['WD100', 'WD200', 'WD300', 'WD400', 'WD500', 'WD600']
 

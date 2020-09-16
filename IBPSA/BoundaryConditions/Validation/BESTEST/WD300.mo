@@ -1,4 +1,4 @@
-within IBPSA.BoundaryConditions.BESTEST.Validation;
+within IBPSA.BoundaryConditions.Validation.BESTEST;
 model WD300 "Test model for BESTEST weather data: Southern hemisphere case"
   extends WD100(
     lat= -0.58281779711847,
@@ -6,14 +6,14 @@ model WD300 "Test model for BESTEST weather data: Southern hemisphere case"
     alt = 474,
     weaDatHHorIR(filNam=Modelica.Utilities.Files.loadResource(
           "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/855740.mos")),
-
     weaDatTDryBulTDewPoinOpa(filNam=Modelica.Utilities.Files.loadResource(
           "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/855740.mos")));
+
   annotation (experiment(
       StopTime=3.1536e+07,
       Interval=900,
       Tolerance=1e-6),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/BESTEST/Validation/WD300.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/Validation/BESTEST/WD300.mos"
         "Simulate and plot"),Documentation(revisions="<html>
 <ul>
 <li>

@@ -1,4 +1,4 @@
-within IBPSA.BoundaryConditions.BESTEST;
+within IBPSA.BoundaryConditions.Validation;
 model IsotropicAndPerezDiffuseRadiation
   "Partial model to run BESTEST validation case studies for weather data processing"
   extends

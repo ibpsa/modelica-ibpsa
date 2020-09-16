@@ -1,4 +1,4 @@
-simulateModel("IBPSA.BoundaryConditions.BESTEST.Validation.WD400", stopTime=31536000, method="CVode", outputInterval=900, tolerance=1e-06, resultFile="WD400");
+simulateModel("IBPSA.BoundaryConditions.Validation.BESTEST.WD600", stopTime=31536000, outputInterval=900, tolerance=1e-06, method="CVode", resultFile="WD600");
 createPlot(id=1,
 position={34, 34, 959, 423},
 y={"azi000til00.H", "azi000til90.H", "azi270til90.H", "azi180til90.H","azi090til90.H", "azi315til90.H", "azi045til90.H", "azi270til30.H","azi000til30.H", "azi090til30.H"},

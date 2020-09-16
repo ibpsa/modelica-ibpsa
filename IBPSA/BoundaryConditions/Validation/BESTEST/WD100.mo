@@ -1,4 +1,4 @@
-﻿within IBPSA.BoundaryConditions.BESTEST.Validation;
+within IBPSA.BoundaryConditions.Validation.BESTEST;
 model WD100 "Test model for BESTEST weather data: base case"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Angle lat=0.6952170009469 "Latitude angle";
@@ -232,7 +232,7 @@ equation
       StopTime=3.1536e+07,
       Interval=900,
       Tolerance=1e-6),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/BESTEST/Validation/WD100.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/Validation/BESTEST/WD100.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <h4>WD100: Base Case</h4>
@@ -255,7 +255,7 @@ Documentation(info="<html>
 <td><p>7</p></td>
 </tr>
 </table>
-<p>This model is a template for all the other test cases. It allows to extrapolate all the weather data from the Reader TMY3 for a specific location, incliation and azimuth. The model <a href=\"modelica://IBPSA.BoundaryConditions.BESTEST.IsotropicAndPerezDiffuseRadiation\">IBPSA.BoundaryConditions.BESTEST.IsotropicAndPerezDiffuseRadiation</a> outputs radiation data using the available Isotropic and Perez methodlogies. The sky temperature is calculated using both the Horizontal radiation model, from data reader weaBusHorRad and the dew point temperature plus sky cover model from the datareader weaBusSkyCovDewTem</p>
+<p>This model is a template for all the other test cases. It allows to extrapolate all the weather data from the Reader TMY3 for a specific location, incliation and azimuth. The model <a href=\"modelica://IBPSA.BoundaryConditions.Validation.IsotropicAndPerezDiffuseRadiation\">IBPSA.BoundaryConditions.Validation.IsotropicAndPerezDiffuseRadiation</a> outputs radiation data using the available Isotropic and Perez methodlogies. The sky temperature is calculated using both the Horizontal radiation model, from data reader weaBusHorRad and the dew point temperature plus sky cover model from the datareader weaBusSkyCovDewTem</p>
 </html>", revisions="<html>
 <ul>
 <li>

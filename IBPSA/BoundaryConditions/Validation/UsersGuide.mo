@@ -1,11 +1,11 @@
-within IBPSA.BoundaryConditions.BESTEST;
+within IBPSA.BoundaryConditions.Validation;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
   annotation(preferredView="info",
   Documentation(info="<html>
 <p>
-The package <a href=\"modelica://IBPSA.BoundaryConditions.BESTEST.Validation\">IBPSA.BoundaryConditions.BESTEST.Validation</a>
+The package <a href=\"modelica://IBPSA.BoundaryConditions.Validation.BESTEST\">IBPSA.BoundaryConditions.Validation.BESTEST</a>
 contains the models that are used for the BESTEST validation ASHRAE 2020 for weather data acquisition and postprocessing.
 </p>
 <p>

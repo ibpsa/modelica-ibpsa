@@ -1,4 +1,4 @@
-within IBPSA.BoundaryConditions.BESTEST.Validation;
+within IBPSA.BoundaryConditions.Validation.BESTEST;
 model WD600 "Test model for BESTEST weather data: ground reflectance"
   extends WD100(
     lat= 0.6952170009469,
@@ -6,7 +6,6 @@ model WD600 "Test model for BESTEST weather data: ground reflectance"
     alt = 1650,
     weaDatHHorIR(filNam=Modelica.Utilities.Files.loadResource(
           "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/WD600.mos")),
-
     weaDatTDryBulTDewPoinOpa(filNam=Modelica.Utilities.Files.loadResource(
           "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/WD600.mos")));
 
@@ -14,7 +13,7 @@ model WD600 "Test model for BESTEST weather data: ground reflectance"
       StopTime=3.1536e+07,
       Interval=900,
       Tolerance=1e-6),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/BESTEST/Validation/WD600.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/Validation/BESTEST/WD600.mos"
         "Simulate and plot"),Documentation(revisions="<html>
 <ul>
 <li>
