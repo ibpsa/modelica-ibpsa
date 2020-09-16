@@ -1,6 +1,6 @@
 within IBPSA.BoundaryConditions;
 package BESTEST "Collection of validation models BESTEST"
-    extends Modelica.Icons.ExamplesPackage;
+    extends Modelica.Icons.VariantsPackage;
 
 
 
