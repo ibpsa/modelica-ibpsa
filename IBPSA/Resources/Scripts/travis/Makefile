@@ -26,7 +26,7 @@ test-bestest:
 	  cd Resources/Data/BoundaryConditions/Validation/BESTEST && \
 	  python3 generateResults.py -c )
 	git status --porcelain $(ROOT)/IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST
-#	test -z "$$(git status --porcelain $(ROOT)/IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST)"
+	git diff --exit-code $(ROOT)/IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST
 
 test-verify-files:
 	(cd $(ROOT)/IBPSA && ../bin/verifyFiles.py)
