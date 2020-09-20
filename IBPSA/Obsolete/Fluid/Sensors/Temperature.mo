@@ -1,6 +1,7 @@
-within IBPSA.Fluid.Sensors;
+within IBPSA.Obsolete.Fluid.Sensors;
 model Temperature "Ideal one port temperature sensor"
-    extends IBPSA.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
+  extends IBPSA.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
+  extends IBPSA.Obsolete.BaseClasses.ObsoleteModel;
 
   Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
                                           final unit = "K",
@@ -12,8 +13,11 @@ model Temperature "Ideal one port temperature sensor"
 equation
   T = Medium.temperature(state=Medium.setState_phX(
         p=port.p, h=inStream(port.h_outflow), X=inStream(port.Xi_outflow)));
-annotation (defaultComponentName="senTem",
-    Documentation(info="<html>
+
+annotation (
+  obsolete = "Obsolete model - use IBPSA.Fluid.Sensors.TemperatureTwoPort instead",
+  defaultComponentName="senTem",
+  Documentation(info="<html>
 <p>
 This model outputs the temperature of the fluid connected to its port.
 The sensor is ideal, i.e., it does not influence the fluid.
