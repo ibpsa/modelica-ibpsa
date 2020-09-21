@@ -66,7 +66,8 @@ package Medium = IBPSA.Media.Air;
   Sensors.SpecificEnthalpy senEnt3(redeclare package Medium = Medium,
       warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{-310,140},{-290,160}})));
-  Modelica.Fluid.Sensors.Temperature senTem3(redeclare package Medium = Medium)
+  IBPSA.Fluid.Sensors.Temperature senTem3(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{-350,140},{-330,160}})));
   Sensors.MassFraction senMas3(redeclare package Medium = Medium,
       warnAboutOnePortConnection=false)
@@ -74,7 +75,8 @@ package Medium = IBPSA.Media.Air;
   Sensors.SpecificEnthalpy senEnt4(redeclare package Medium = Medium,
       warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{-310,60},{-290,80}})));
-  Modelica.Fluid.Sensors.Temperature senTem4(redeclare package Medium = Medium)
+  IBPSA.Fluid.Sensors.Temperature senTem4(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{-350,60},{-330,80}})));
   Sensors.MassFraction senMas4(redeclare package Medium = Medium,
       warnAboutOnePortConnection=false)
@@ -134,12 +136,14 @@ package Medium = IBPSA.Media.Air;
   Sensors.SpecificEnthalpy senEnt1(redeclare package Medium = Medium,
       warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{10,140},{30,160}})));
-  Modelica.Fluid.Sensors.Temperature senTem1(redeclare package Medium = Medium)
+  IBPSA.Fluid.Sensors.Temperature senTem1(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{-30,140},{-10,160}})));
   Sensors.MassFraction senMas1(redeclare package Medium = Medium,
       warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{50,140},{70,160}})));
-  Modelica.Fluid.Sensors.Temperature senTem2(redeclare package Medium = Medium)
+  IBPSA.Fluid.Sensors.Temperature senTem2(redeclare package Medium = Medium,
+      warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Sensors.SpecificEnthalpy senEnt2(redeclare package Medium = Medium,
       warnAboutOnePortConnection=false)
@@ -307,7 +311,7 @@ This is for
 </li>
 <li>
 May 2, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

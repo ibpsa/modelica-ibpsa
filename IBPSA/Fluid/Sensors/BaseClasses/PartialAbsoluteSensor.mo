@@ -97,13 +97,13 @@ Implementation is based on <code>Modelica.Fluid</code>.
           fillPattern=FillPattern.Solid),
         Rectangle(
           visible = warnAboutOnePortConnection,
-          extent={{-81,-62},{-79,-72}},
+          extent={{-81,-62},{-79,-70}},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Ellipse(
           visible = warnAboutOnePortConnection,
-          extent={{-81,-74},{-79,-76}},
+          extent={{-81,-72},{-79,-74}},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}));
