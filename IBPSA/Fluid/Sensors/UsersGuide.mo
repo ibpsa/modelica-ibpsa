@@ -21,8 +21,8 @@ Output signals that depend on the flow direction and are not multiplied by
 the mass flow rate are temperature, relative humidity,
 water vapor concentration <i>X</i>, trace substances <i>C</i> and density.
 For such quantities, sensors with two fluid ports need to be used.
-An exception is if the quantity is measured directly in a fluid volume, such as modeled in
-models of the package
+An exception is if the quantity is measured directly in a fluid volume, which is the case
+for models from the package
 <a href=\"modelica://IBPSA.Fluid.MixingVolumes\">
 IBPSA.Fluid.MixingVolumes</a>.
 Therefore, to measure for example the outlet temperature of a heat exchanger, the
@@ -50,14 +50,19 @@ Modelica.Fluid.Examples.Explanatory.MeasuringTemperature</a>.
 Except for the mass flow rate sensor,
 all sensors with two ports can be
 configured as dynamic sensors or as steady-state sensor.
+The list below advices on how to configure sensors.
 </p>
+<ul>
+<li>
 <p>
-Consider sensors for quantities that depend on the direction of the mass flow rate but
-not of its magnitude,
-which is the case for density, mass fraction, PPM, relative humidity, specific enthalpy, specific entropy, trace substances,
-but not for example enthalpy flow rate.
-For these sensors, if <code>allowFlowReversal=true</code> (which is the default setting),
-then it is strongly suggested to configure them
+<em>
+Sensors for quantities that depend on the direction of the mass flow rate but
+not of its magnitude:
+</em>
+Such quantities include density, mass fraction, PPM, relative humidity, specific enthalpy, specific entropy and trace substances.
+Not that these are all quantities that are carried by the fluid that flows through the sensor.
+For these sensors, if the parameter <code>allowFlowReversal=true</code> is set (which is the default setting),
+then it is strongly recommended to configure them
 as a dynamic sensor. This is the default setting.<br/>
 Configuring a sensor as a dynamic sensor is done by setting the time constant to a non-zero
 value. Typically, setting <code>tau=10</code> seconds yields good results.
@@ -71,11 +76,15 @@ the model still assumes <i>m&#775;<sub>a</sub> &gt; 0</i>. Hence there are no nu
 but use of the sensor output may yield wrong results.
 Therefore, only set <code>allowFlowReversal=false</code> if you can guarantee <i>m&#775;<sub>a</sub> &ge; 0</i>.
 </p>
-
+</li>
+<li>
 <p>
-If the sensor output signal is the product of mass flow rate times a measured fluid property,
-such as sensors for volumentric flow rate or enthalpy flow rate,
-then the sensor is by default configured as steady-state sensor. These sensors may be configured by the user
+<em>
+Sensors for quantities that are the product of mass flow rate times a measured fluid property:
+</em>
+Such quantities include volumentric flow rate or enthalpy flow rate.
+For these quantities, sensors are by default configured as steady-state sensor.
+These sensors may be configured by the user
 as a dynamic sensor by setting <code>tau &gt; 0</code>, but there is typically no benefit as these sensors typically
 do not cause numerical problems.
 The reason is that these sensors multiply the quantity that is carried by the flow,
@@ -84,10 +93,16 @@ to compute the measured signal <i>H&#775;=m&#775; h</i>.
 Hence, as the mass flow rate goes to zero, the sensor output
 signal also goes to zero, which avoids numerical problems.
 </p>
+</li>
+<li>
 <p>
-For static pressure measurements, sensors with one or with two
-ports can be used for all connection topologies.
+<em>Static pressure measurements:
+</em>
+For static pressure measurements, sensors always output the instantaneous measurement.
+These sensors cannot be configured to be dynamic.
 </p>
+</li>
+</ul>
 <p>
 The table below summarizes the recommendations for the use of sensors.
 </p>
