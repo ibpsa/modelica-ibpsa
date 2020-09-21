@@ -5,10 +5,6 @@ clear
 
 convertClear();
 
-// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1399
-convertClass("IBPSA.Fluid.Sensors.Temperature",
-             "IBPSA.Obsolete.Fluid.Sensors.Temperature");
-
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1365
 convertModifiers("IBPSA.Controls.Continuous.LimPID", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
 convertModifiers("IBPSA.Controls.Continuous.PIDHysteresis", {"reverseAction"}, {"reverseActing=not %reverseAction%"});

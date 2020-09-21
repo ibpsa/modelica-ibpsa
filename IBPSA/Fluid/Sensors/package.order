@@ -19,6 +19,7 @@ SpecificEnthalpy
 SpecificEnthalpyTwoPort
 SpecificEntropy
 SpecificEntropyTwoPort
+Temperature
 TemperatureTwoPort
 TemperatureWetBulbTwoPort
 TraceSubstances

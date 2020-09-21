@@ -1,7 +1,6 @@
-within IBPSA.Obsolete.Fluid.Sensors;
+within IBPSA.Fluid.Sensors;
 model Temperature "Ideal one port temperature sensor"
   extends IBPSA.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
-  extends IBPSA.Obsolete.BaseClasses.ObsoleteModel;
 
   Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
                                           final unit = "K",
@@ -15,7 +14,6 @@ equation
         p=port.p, h=inStream(port.h_outflow), X=inStream(port.Xi_outflow)));
 
 annotation (
-  obsolete = "Obsolete model - use IBPSA.Fluid.Sensors.TemperatureTwoPort instead",
   defaultComponentName="senTem",
   Documentation(info="<html>
 <p>
