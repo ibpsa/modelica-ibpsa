@@ -81,30 +81,11 @@ First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"), Icon(graphics={
-        Polygon(
-          visible = warnAboutOnePortConnection,
-          points={{-80,-48},{-98,-80},{-62,-80},{-80,-48}},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0}),
-        Polygon(
-          visible = warnAboutOnePortConnection,
-          points={{-80,-54},{-94,-78},{-66,-78},{-80,-54}},
-          lineColor={0,0,0},
-          fillColor={255,255,170},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          visible = warnAboutOnePortConnection,
-          extent={{-81,-62},{-79,-70}},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
-        Ellipse(
-          visible = warnAboutOnePortConnection,
-          extent={{-81,-72},{-79,-74}},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}));
+</html>"),
+Icon(
+  graphics={
+    Bitmap(
+      visible = warnAboutOnePortConnection,
+      extent={{-96,-82},{-64,-50}},
+      fileName="modelica://IBPSA/Resources/Images/Fluid/Sensors/warningIcon.png")}));
 end PartialAbsoluteSensor;

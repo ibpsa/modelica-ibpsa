@@ -21,10 +21,14 @@ This model outputs the temperature of the fluid connected to its port.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
+To measure temperature in a duct or pipe, use
+<a href=\"modelica://IBPSA.Fluid.Sensors.TemperatureTwoPort\">IBPSA.Fluid.Sensors.TemperatureTwoPort</a>
+rather than this sensor.
 Read the
 <a href=\"modelica://IBPSA.Fluid.Sensors.UsersGuide\">
 IBPSA.Fluid.Sensors.UsersGuide</a>
-prior to using this model with one fluid port.
+prior to using this model to see about potential numerical problems if this sensor is used incorrectly
+in a system model.
 </p>
 </html>",
 revisions="<html>
