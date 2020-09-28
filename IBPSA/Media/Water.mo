@@ -60,13 +60,14 @@ package Water "Package with model for liquid water with constant density"
     state.T = T;
     state.p = p;
 
+    // Assertions to test for bounds
     assert(noEvent(T >= T_min), "In " + getInstanceName() + ": Temperature T = " + String(T) + " K exceeded its minimum allowed value of " +
-  String(T_min-273.15) + " degC (" + String(T_min) + " Kelvin) as required from medium model \"" + mediumName + "\".");
+  String(T_min-273.15) + " degC (" + String(T_min) + " Kelvin) as required from medium model \"IBPSA.Media.Water\".");
 
     assert(noEvent(T <= T_max), "In " + getInstanceName() + ": Temperature T = " + String(T) + " K exceeded its maximum allowed value of " +
-  String(T_max-273.15) + " degC (" + String(T_max) + " Kelvin) as required from medium model \"" + mediumName + "\".");
+  String(T_max-273.15) + " degC (" + String(T_max) + " Kelvin) as required from medium model \"IBPSA.Media.Water\".");
 
-    assert(noEvent(p >= 0.0), "Pressure (= " + String(p) + " Pa) of medium \"IBPSA.Media.Air\" is negative\n(Temperature = " + String(T) + " K)");
+    assert(noEvent(p >= 0.0), "Pressure (= " + String(p) + " Pa) of medium \"IBPSA.Media.Water\" is negative\n(Temperature = " + String(T) + " K)");
 
     annotation(Documentation(info="<html>
 <p>

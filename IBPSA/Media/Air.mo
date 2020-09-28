@@ -118,6 +118,7 @@ package Air
     X[1] = Xi[1];
     X[2] = 1 - X[1];
 
+    // Assertions to test for bounds
     assert(noEvent(X[1] >= -1.e-5) and noEvent(X[1] <= 1 + 1.e-5), "Mass fraction X[1] = " + String(X[1]) + "of substance water"
       + "\nof medium \"IBPSA.Media.Air\" is not in the range 0..1");
 
