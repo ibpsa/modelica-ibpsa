@@ -1,14 +1,14 @@
 within IBPSA.Media;
 package Water "Package with model for liquid water with constant density"
    extends Modelica.Media.Water.ConstantPropertyLiquidWater(
+     final cv_const=cp_const,
      p_default=300000,
      reference_p=300000,
      reference_T=273.15,
      reference_X={1},
      AbsolutePressure(start=p_default),
      Temperature(start=T_default),
-     Density(start=d_const),
-     final cv_const=cp_const);
+     Density(start=d_const));
   // cp_const and cv_const have been made final because the model sets u=h.
   extends Modelica.Icons.Package;
 
