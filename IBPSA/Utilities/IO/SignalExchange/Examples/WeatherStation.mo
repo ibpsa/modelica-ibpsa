@@ -13,7 +13,7 @@ equation
       points={{-40,0},{-24,0},{-24,-0.1},{-9.9,-0.1}},
       color={255,204,51},
       thickness=0.5));
-  annotation (experiment(StopTime=86400,Tolerance=1e-06),
+  annotation (experiment(StopTime=864000,Tolerance=1e-06),
   __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/IO/SignalExchange/Examples/WeatherStation.mos"
         "Simulate and plot"),
 Documentation(info="<html>
