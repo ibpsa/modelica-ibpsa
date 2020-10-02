@@ -284,9 +284,9 @@ this task (see <a href=\"https://github.com/ibpsa/project1-boptest/tree/master/p
 revisions="<html>
 <ul>
 <li>
-September 29, 2020 by David Blum:<br/>
+October 2, 2020 by David Blum:<br/>
 First implementation.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1059\">#1059</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">#1402</a>.
 </li>
 </ul>
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false), graphics={
