@@ -1,5 +1,6 @@
-simulateModel("IBPSA.Utilities.IO.SignalExchange.Examples.WeatherStation", stopTime=86400, tolerance=1e-6, method="CVode", resultFile="WeatherStation");
-createPlot(id=1, position={0, 0, 1439, 758}, y={"weaSta.reaTDryBul.y"}, range={0.0, 1.0, 260.0, 275.0}, grid=true, colors={{28,108,200}}, timeUnit="d");
-createPlot(id=1, position={0, 0, 1439, 250}, y={"weaSta.reaRelHum.y"}, range={0.0, 1.0, 0.55, 0.8}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="d");
-createPlot(id=1, position={0, 0, 1439, 250}, y={"weaSta.reaHGloHor.y"}, range={0.0, 1.0, -100.0, 400.0}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="d");
+simulateModel("IBPSA.Utilities.IO.SignalExchange.Examples.WeatherStation", stopTime=864000, tolerance=1e-6, method="CVode", resultFile="WeatherStation");
+createPlot(id=1, position={89, 26, 792, 511}, y={"weaSta.reaWeaTDryBul.y", "weaSta.reaWeaTDewPoi.y", "weaSta.reaWeaTBlaSky.y"}, range={0.0, 10.0, 220.0, 280.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="d", displayUnits={"K", "K", "K"});
+createPlot(id=1, position={89, 26, 792, 511}, y={"weaSta.reaWeaHGloHor.y", "weaSta.reaWeaHDifHor.y", "weaSta.reaWeaHDirNor.y"}, range={0.0, 10.0, -200.0, 1000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="d", displayUnits={"W/m2", "W/m2", "W/m2"});
+
+
 
