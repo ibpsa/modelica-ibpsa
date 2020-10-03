@@ -7,7 +7,7 @@ model SteamProperties
     TMin=273.15 + 100,
     TMax=273.15 + 700,
     p=100000,
-    errAbs=0.01);
+    errAbs=1);
 
   Medium.ThermodynamicState state_phX "Medium state";
   Medium.ThermodynamicState state_psX "Medium state";
@@ -55,4 +55,3 @@ First implementation.
 </ul>
 </html>"));
 end SteamProperties;
-

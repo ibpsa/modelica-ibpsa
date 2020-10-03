@@ -1,5 +1,5 @@
 within IBPSA.Media;
-package Steam
+package SteamIF97
   "Package with model for region 2 (steam) water according to IF97 standard"
   extends IBPSA.Media.Interfaces.PartialPureSubstanceWithSat(
     redeclare replaceable record FluidConstants =
@@ -76,24 +76,9 @@ medium model \"" + mediumName + "\".");
     input AbsolutePressure p "Pressure";
     input SpecificEnthalpy h "Specific enthalpy";
     output Density d "Density";
-  protected
-      Real a[15]= {1.568,1.237,-0.4613,0.001316,-0.3633,0.1539,-0.001351,
-        0.1266,-0.05361,-0.00106,-0.04601,0.01638,0.0008628,0.009435,-0.002703};
-      AbsolutePressure pMean = 5.065093977752206e+05;
-      Real pSD = 3.997712486354108e+05;
-      AbsolutePressure pHat;
-      SpecificEnthalpy hMean = 3.336367318757193e+03;
-      Real hSD = 4.287497947505976e+02;
-      SpecificEnthalpy hHat;
   algorithm
-      pHat :=(p - pMean)/pSD;
-      hHat :=(h - hMean)/hSD;
-      d := a[1] + a[2]*pHat + a[3]*hHat + a[4]*pHat^2 + a[5]*pHat*hHat +
-        a[6]*hHat^2 + a[7]*pHat^2*hHat + a[8]*pHat*hHat^2 + a[9]*hHat^3 +
-        a[10]*pHat^2*hHat^2 + a[11]*pHat*hHat^3 + a[12]*hHat^4 +
-        a[13]*pHat^2*hHat^3 + a[14]*pHat*hHat^4 + a[15]*hHat^5;
-    annotation (Inline=true,
-      smoothOrder=4);
+    d := rho_ph(p,h);
+    annotation (Inline=true);
   end density_ph;
 
   redeclare replaceable function temperature_ph
@@ -102,24 +87,9 @@ medium model \"" + mediumName + "\".");
     input AbsolutePressure p "Pressure";
     input SpecificEnthalpy h "Specific enthalpy";
     output Temperature T "Temperature";
-  protected
-      Real a[15]= {703.7,2.485,203.4,0.06,-1.782,-5.399,-0.02249,1.809,
-        -1.231,-0.2306,-1.618,1.343,0.1352,0.4843,-0.3984};
-      AbsolutePressure pMean = 5.065093977752206e+05;
-      Real pSD = 3.997712486354108e+05;
-      AbsolutePressure pHat;
-      SpecificEnthalpy hMean = 3.336367318757193e+03;
-      Real hSD = 4.287497947505976e+02;
-      SpecificEnthalpy hHat;
   algorithm
-      pHat :=(p - pMean)/pSD;
-      hHat :=(h - hMean)/hSD;
-      T := a[1] + a[2]*pHat + a[3]*hHat + a[4]*pHat^2 + a[5]*pHat*hHat +
-        a[6]*hHat^2 + a[7]*pHat^2*hHat + a[8]*pHat*hHat^2 + a[9]*hHat^3 +
-        a[10]*pHat^2*hHat^2 + a[11]*pHat*hHat^3 + a[12]*hHat^4 +
-        a[13]*pHat^2*hHat^3 + a[14]*pHat*hHat^4 + a[15]*hHat^5;
-    annotation (Inline=true,
-      smoothOrder=4);
+    T := T_ph(p,h);
+    annotation (Inline=true);
   end temperature_ph;
 
   redeclare replaceable function temperature_ps
@@ -172,24 +142,9 @@ medium model \"" + mediumName + "\".");
     input AbsolutePressure p "Pressure";
     input Temperature T "Temperature";
     output SpecificEnthalpy h "Specific enthalpy";
-  protected
-      Real a[15]= {3327,-5.414,422.2,-0.06446,3.076,11.25,0.2477,-3.239,
-        3.114,-0.1651,4.021,-2.702,0.01816,-1.446,0.7918};
-      AbsolutePressure pMean = 5.065093977752206e+05;
-      Real pSD = 3.997712486354108e+05;
-      AbsolutePressure pHat;
-      Temperature TMean = 6.991204641349924e+02;
-      Real TSD = 2.005315697981283e+02;
-      Temperature THat;
   algorithm
-      pHat :=(p - pMean)/pSD;
-      THat :=(T - TMean)/TSD;
-      h := a[1] + a[2]*pHat + a[3]*THat + a[4]*pHat^2 + a[5]*pHat*THat +
-        a[6]*THat^2 + a[7]*pHat^2*THat + a[8]*pHat*THat^2 + a[9]*THat^3 +
-        a[10]*pHat^2*THat^2 + a[11]*pHat*THat^3 + a[12]*THat^4 +
-        a[13]*pHat^2*THat^3 + a[14]*pHat*THat^4 + a[15]*THat^5;
-    annotation (Inline=true,
-      smoothOrder=4);
+    h := h_pT(p,T);
+    annotation (Inline=true);
   end specificEnthalpy_pT;
 
   redeclare replaceable function specificEnthalpy_ps
@@ -209,24 +164,9 @@ medium model \"" + mediumName + "\".");
     input AbsolutePressure p "Pressure";
     input Temperature T "Temperature";
     output Density d "Density";
-  protected
-    Real a[15]= {1.58,1.253,-0.4569,0.004018,-0.3603,0.1286,-0.0109,0.1209,
-      -0.05189,0.01602,-0.06755,0.02655,-0.00644,0.02116,-0.005969};
-      AbsolutePressure pMean = 5.065093977752206e+05;
-      Real pSD = 3.997712486354108e+05;
-      AbsolutePressure pHat;
-      Temperature TMean = 6.991204641349924e+02;
-      Real TSD = 2.005315697981283e+02;
-      Temperature THat;
   algorithm
-    pHat :=(p - pMean)/pSD;
-    THat :=(T - TMean)/TSD;
-    d := a[1] + a[2]*pHat + a[3]*THat + a[4]*pHat^2 + a[5]*pHat*THat +
-      a[6]*THat^2 + a[7]*pHat^2*THat + a[8]*pHat*THat^2 + a[9]*THat^3 +
-      a[10]*pHat^2*THat^2 + a[11]*pHat*THat^3 + a[12]*THat^4 +
-        a[13]*pHat^2*THat^3 + a[14]*pHat*THat^4 + a[15]*THat^5;
-    annotation (Inline=true,
-      smoothOrder=4);
+    d := rho_pT(p,T);
+    annotation (Inline=true);
   end density_pT;
 
   redeclare replaceable function extends dynamicViscosity
@@ -520,7 +460,8 @@ medium model \"" + mediumName + "\".");
             T));
     annotation (Inline=true);
   end setState_dTX;
-/*  redeclare function extends setSmoothState
+
+  redeclare function extends setSmoothState
     "Return thermodynamic state so that it smoothly approximates: if x > 0 then state_a else state_b"
     extends Modelica.Icons.Function;
     import Modelica.Media.Common.smoothStep;
@@ -531,7 +472,7 @@ medium model \"" + mediumName + "\".");
       "Smooth transition in the region -x_small < x < x_small";
     output ThermodynamicState state
       "Smooth thermodynamic state for all x (continuous and differentiable)";
-  algorithm 
+  algorithm
     state := ThermodynamicState(
           p=smoothStep(
             x,
@@ -614,7 +555,7 @@ Summing all mass fractions together results in
            = 1
 </pre>
 </html>"));
-end setSmoothState; */
+  end setSmoothState;
 
   redeclare replaceable function extends saturationState_p
     "Return saturation property record from pressure"
@@ -645,57 +586,45 @@ First implementation.
 // Therefore, they are made protected. This also allows to redeclare the
 // medium model with another medium model that does not provide an
 // implementation of these classes.
-/*  function rho_pT "Density as function or pressure and temperature"
+protected
+  function rho_pT "Density as function or pressure and temperature"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
     input Temperature T "Temperature";
     output Density rho "Density";
-  protected 
-    Real a[12]= {2.687,2.622,-0.7471,0.03357,-0.788,0.2657,-0.07264,0.3711,
-      -0.1203,0.0357,-0.1235,0.02576};
-    AbsolutePressure pMean = 8.766717603911981e+05;
-    Real pSD = 8.540705946819051e+05;
-    AbsolutePressure pHat;
-    Temperature TMean = 4.373288508557457e+02;
-    Real TSD = 197.624268035491;
-    Temperature THat;
-
-  algorithm 
-    pHat :=(p - pMean)/pSD;
-    THat :=(T - TMean)/TSD;
-    rho := a[1] + a[2]*pHat + a[3]*THat + a[4]*pHat^2 + a[5]*pHat*THat +
-      a[6]*THat^2 + a[7]*pHat^2*THat + a[8]*pHat*THat^2 + a[9]*THat^3 +
-      a[10]*pHat^2*THat^2 + a[11]*pHat*THat^3 + a[12]*THat^4;
+  protected
+    Modelica.Media.Common.GibbsDerivs g
+      "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
+    SpecificHeatCapacity R "Specific gas constant of water vapor";
+  algorithm
+    R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
+    // Region 2 properties
+    g := g2(p, T);
+    rho := p/(R*T*g.pi*g.gpi);
     annotation (
       smoothOrder=2,
       Inline=true);
-      end rho_pT; */
+  end rho_pT;
 
-/*  function h_pT "Specific enthalpy as function or pressure and temperature"
+  function h_pT "Specific enthalpy as function or pressure and temperature"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
     input Temperature T "Temperature";
     output SpecificEnthalpy h "Specific enthalpy";
-  protected 
-    Real a[12]= {3346,-10.16,420.9,-0.383,9.953,6.141,0.4459,-10.83,5.911,-0.09231,4.252,-1.744};
-    AbsolutePressure pMean = 8.766717603911981e+05;
-    Real pSD = 8.540705946819051e+05;
-    AbsolutePressure pHat;
-    Temperature TMean = 4.373288508557457e+02;
-    Real TSD = 197.624268035491;
-    Temperature THat;
-  algorithm 
-    pHat :=(p - pMean)/pSD;
-    THat :=(T - TMean)/TSD;
-    h := a[1] + a[2]*pHat + a[3]*THat + a[4]*pHat^2 + a[5]*pHat*THat +
-      a[6]*THat^2 + a[7]*pHat^2*THat + a[8]*pHat*THat^2 + a[9]*THat^3 +
-      a[10]*pHat^2*THat^2 + a[11]*pHat*THat^3 + a[12]*THat^4;
+  protected
+    Modelica.Media.Common.GibbsDerivs g
+      "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
+    SpecificHeatCapacity R "Specific gas constant of water vapor";
+  algorithm
+    R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
+    // Region 2 properties
+    g := g2(p, T);
+    h := R*T*g.tau*g.gtau;
     annotation (
       smoothOrder=2,
       Inline=true);
-      end h_pT; */
+  end h_pT;
 
-protected
   function s_pT "Specific entropy as function or pressure and temperature"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
@@ -923,4 +852,4 @@ First implementation.
         points={{-30,30},{-50,10},{-30,-10},{-50,-30}},
         color={0,0,0},
         smooth=Smooth.Bezier)}));
-end Steam;
+end SteamIF97;
