@@ -1,7 +1,7 @@
 within IBPSA.Utilities.IO.SignalExchange;
 model WeatherStation
   "Implements typical weather measurements with signal exchange blocks"
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data"
+  IBPSA.BoundaryConditions.WeatherData.Bus weaBus "Weather data"
     annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-112,
             -14},{-86,12}})));
