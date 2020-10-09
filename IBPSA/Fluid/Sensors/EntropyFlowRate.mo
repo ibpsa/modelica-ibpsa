@@ -1,6 +1,7 @@
 within IBPSA.Fluid.Sensors;
 model EntropyFlowRate "Ideal entropy flow rate sensor"
-  extends IBPSA.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
+  extends IBPSA.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
+    tau=0);
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput S_flow(final unit="W/K")
     "Entropy flow rate, positive if from port_a to port_b"

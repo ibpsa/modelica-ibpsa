@@ -1,6 +1,7 @@
 within IBPSA.Fluid.Sensors;
 model VolumeFlowRate "Ideal sensor for volume flow rate"
-  extends IBPSA.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
+  extends IBPSA.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
+    tau=0);
   extends Modelica.Icons.RotationalSensor;
   parameter Medium.Density
     d_start=Medium.density(Medium.setState_pTX(p_start, T_start, X_start))
