@@ -1,28 +1,29 @@
 within IBPSA.Airflow.Multizone;
 model DoorOpen
-  "Door model using discretization along height coordinate"
+  "Door model for bi-directional air flow between rooms"
   extends IBPSA.Airflow.Multizone.BaseClasses.Door;
 
   parameter Real CD=0.65 "Discharge coefficient"
     annotation (Dialog(group="Orifice characteristics"));
 
+  parameter Real m = 0.5 "Flow coefficient";
+
 protected
-  constant Real mFixed = 0.5 "Fixed value for flow coefficient";
-  constant Real gamma(min=1) = 1.5
+  parameter Real gamma(min=1) = 1.5
     "Normalized flow rate where dphi(0)/dpi intersects phi(1)";
-  constant Real a = gamma
+  parameter Real a = gamma
     "Polynomial coefficient for regularized implementation of flow resistance";
-  constant Real b = 1/8*mFixed^2 - 3*gamma - 3/2*mFixed + 35.0/8
+  parameter Real b = 1/8*m^2 - 3*gamma - 3/2*m + 35.0/8
     "Polynomial coefficient for regularized implementation of flow resistance";
-  constant Real c = -1/4*mFixed^2 + 3*gamma + 5/2*mFixed - 21.0/4
+  parameter Real c = -1/4*m^2 + 3*gamma + 5/2*m - 21.0/4
     "Polynomial coefficient for regularized implementation of flow resistance";
-  constant Real d = 1/8*mFixed^2 - gamma - mFixed + 15.0/8
+  parameter Real d = 1/8*m^2 - gamma - m + 15.0/8
     "Polynomial coefficient for regularized implementation of flow resistance";
 
   parameter Real kVal=CD*A*sqrt(2/rho_default) "Flow coefficient, k = V_flow/ dp^m";
   parameter Real kT = CD*wOpe*sqrt(2/rho_default)
-    *(Modelica.Constants.g_n*rho_default*hOpe/2/Medium.T_default)^mFixed *hOpe/2
-    / conTP^mFixed
+    *(Modelica.Constants.g_n*rho_default*hOpe/2/Medium.T_default)^m *hOpe/2
+    / conTP^m
     "Constant coefficient for buoyancy driven air flow rate";
   parameter Real conTP = IBPSA.Media.Air.dStp*Modelica.Media.IdealGases.Common.SingleGasesData.Air.R
     "Conversion factor for converting temperature difference to pressure difference";
@@ -37,7 +38,7 @@ equation
   VABp_flow = IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
       k=kVal,
       dp=port_a1.p-port_a2.p,
-      m=mFixed,
+      m=m,
       a=a,
       b=b,
       c=c,
@@ -50,7 +51,7 @@ equation
   VABt_flow = IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
       k=kT,
       dp=conTP*(Medium.temperature(state_a1_inflow)-Medium.temperature(state_a2_inflow)),
-      m=mFixed,
+      m=m,
       a=a,
       b=b,
       c=c,

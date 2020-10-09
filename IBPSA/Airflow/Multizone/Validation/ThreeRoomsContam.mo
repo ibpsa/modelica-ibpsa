@@ -67,17 +67,15 @@ model ThreeRoomsContam
     h=1.5,
     densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{-70,71},{-50,91}})));
-  IBPSA.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(
+
+  replaceable DoorOpen                                        dooOpeClo(
     redeclare package Medium = Medium,
-    LClo=20*1E-4,
     wOpe=1,
     hOpe=2.2,
-    CDOpe=0.78,
-    CDClo=0.78,
-    nCom=10,
-    hA=3/2,
-    hB=3/2,
-    dp_turbulent(displayUnit="Pa") = 0.01) "Discretized door"
+    dp_turbulent(displayUnit="Pa") = 0.01,
+    CD=0.78,
+    m=0.78)                                constrainedby
+    Fluid.Interfaces.PartialFourPortInterface "Door"
     annotation (Placement(transformation(extent={{-1,-55},{19,-35}})));
   IBPSA.Fluid.MixingVolumes.MixingVolume volWes(
     redeclare package Medium = Medium,
@@ -87,8 +85,6 @@ model ThreeRoomsContam
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-  Modelica.Blocks.Sources.Constant open(k=1) annotation (Placement(
-        transformation(extent={{-40,-21},{-20,-1}})));
   IBPSA.Airflow.Multizone.MediumColumn col1EasBot(
     redeclare package Medium = Medium,
     h=1.5,
@@ -134,8 +130,6 @@ model ThreeRoomsContam
     "Thermal conductor"
     annotation (Placement(transformation(extent={{50,-20},{70,0}})));
 equation
-  connect(open.y, dooOpeClo.y) annotation (Line(points={{-19,-11},{-14,-11},{
-          -14,-45},{-2,-45}},  color={0,0,255}));
   connect(volWes.ports[1], dooOpeClo.port_b2) annotation (Line(
       points={{-82.6667,-30},{-82.6667,-51},{-1,-51}},
       color={0,127,255}));
@@ -242,9 +236,10 @@ The model implements the configuration shown below.</p>
 <img src=\"modelica://IBPSA/Resources/Images/Airflow/Multizone/Examples/3roomValidation.png\" border=\"1\" alt=\"Configuration of the three rooms.\"/>
 </p>
 <p>
-This model has been used for a comparative model validation between CONTAM and
-the <code>Buildings</code> library.
-See Wetter (2006) for details of the validation.
+For the model that has been used for a comparative model validation between CONTAM and
+the <code>Buildings</code> library in Wetter (2006), see
+<a href=\\\"modelica://IBPSA.Airflow.Multizone.Validation.ThreeRoomsContamDiscretizedDoor\\\">
+IBPSA.Airflow.Multizone.Validation.ThreeRoomsContamDiscretizedDoor</a>.
 </p>
 <h4>References</h4>
 <p>
@@ -255,6 +250,10 @@ Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria,
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 9, 2020, by Michael Wetter:<br/>
+Refactored model to use the new door model.
+</li>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
 Replaced fluid source. This is for 
