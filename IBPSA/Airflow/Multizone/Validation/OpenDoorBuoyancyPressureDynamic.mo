@@ -1,6 +1,6 @@
 within IBPSA.Airflow.Multizone.Validation;
-model OpenDoorBuoyancyDynamic
-  "Model with one open and buoyancy driven flow only"
+model OpenDoorBuoyancyPressureDynamic
+  "Model with one open and buoyancy and pressure driven flow"
   extends Modelica.Icons.Example;
 
   package Medium = IBPSA.Media.Air "Medium model";
@@ -28,6 +28,7 @@ model OpenDoorBuoyancyDynamic
   IBPSA.Fluid.MixingVolumes.MixingVolume bouB(
     redeclare package Medium = Medium,
     T_start=294.15,
+    p_start=101320,
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -48,8 +49,11 @@ equation
           {-20,-4.44089e-16},{-30,-4.44089e-16}}, color={0,127,255}));
   connect(bou.ports[1], bouA.ports[3])
     annotation (Line(points={{-30,-36},{-30,2.66667}}, color={0,127,255}));
+
+
+
   annotation (
-    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Validation/OpenDoorBuoyancyDynamic.mos"
+    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Validation/OpenDoorBuoyancyPressureDynamic.mos"
         "Simulate and plot"),
     experiment(
       StopTime=14400,
@@ -57,8 +61,8 @@ equation
       __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
 <p>
-This model validates the door model for the situation where there is only buoyancy-driven air flow.
-Initially the volume is at a different temperature than the pressure source, leading to an airflow that eventually decays to zero.
+This model validates the door model for the situation where there is air flow due to buoyancy and static pressure difference.
+Initially the volumes are at a different temperatures and pressure, leading to an airflow that eventually decays to zero.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -68,4 +72,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OpenDoorBuoyancyDynamic;
+end OpenDoorBuoyancyPressureDynamic;
