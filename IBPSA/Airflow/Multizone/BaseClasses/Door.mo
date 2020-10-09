@@ -21,6 +21,8 @@ partial model Door
   parameter Modelica.SIunits.Length hOpe=2.1 "Height of opening"
     annotation (Dialog(group="Geometry"));
 
+  final parameter Modelica.SIunits.Area A = wOpe*hOpe "Face area";
+
   parameter Modelica.SIunits.PressureDifference dp_turbulent(
     min=0,
     displayUnit="Pa") = 0.01
@@ -30,10 +32,6 @@ partial model Door
     "Volume flow rate from A to B if positive";
   Modelica.SIunits.VolumeFlowRate VBA_flow(nominal=0.001)
     "Volume flow rate from B to A if positive";
-  Modelica.SIunits.MassFlowRate mAB_flow(nominal=0.001)
-    "Mass flow rate from A to B if positive";
-  Modelica.SIunits.MassFlowRate mBA_flow(nominal=0.001)
-    "Mass flow rate from B to A if positive";
 
   Modelica.SIunits.Velocity vAB(nominal=0.01) "Average velocity from A to B";
   Modelica.SIunits.Velocity vBA(nominal=0.01) "Average velocity from B to A";
@@ -47,24 +45,12 @@ protected
   parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
     "Density";
 
-  Modelica.SIunits.Density rho_a1_inflow
-    "Density of air flowing in from port_a1";
-  Modelica.SIunits.Density rho_a2_inflow
-    "Density of air flowing in from port_a2";
-
 equation
-  // Compute the density of the inflowing media.
-  rho_a1_inflow = Medium1.density(state_a1_inflow);
-  rho_a2_inflow = Medium2.density(state_a2_inflow);
-
-  mAB_flow = rho_a1_inflow*VAB_flow;
-  mBA_flow = rho_a2_inflow*VBA_flow;
   // Average velocity (using the whole orifice area)
+  VAB_flow = (max(port_a1.m_flow, 0) + max(port_b2.m_flow, 0))/rho_default;
+  VBA_flow = (max(port_a2.m_flow, 0) + max(port_b1.m_flow, 0))/rho_default;
   vAB = VAB_flow/A;
   vBA = VBA_flow/A;
-
-  port_a1.m_flow = mAB_flow;
-  port_a2.m_flow = mBA_flow;
 
   // Energy balance (no storage, no heat loss/gain)
   port_a1.h_outflow = inStream(port_b1.h_outflow);

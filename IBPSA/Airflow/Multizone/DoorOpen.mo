@@ -6,8 +6,6 @@ model DoorOpen
   parameter Real CD=0.65 "Discharge coefficient"
     annotation (Dialog(group="Orifice characteristics"));
 
-  final Modelica.SIunits.Area A = wOpe*hOpe "Face area";
-
 protected
   constant Real mFixed = 0.5 "Fixed value for flow coefficient";
   constant Real gamma(min=1) = 1.5
@@ -22,13 +20,17 @@ protected
     "Polynomial coefficient for regularized implementation of flow resistance";
 
   parameter Real kVal=CD*A*sqrt(2/rho_default) "Flow coefficient, k = V_flow/ dp^m";
-  parameter Reak kT = CD*wOpe*sqrt(2/rho_default)
-    *(g*rho_default*hOpe/2/Medium.T_default)^mFixed *hOpe/2
+  parameter Real kT = CD*wOpe*sqrt(2/rho_default)
+    *(Modelica.Constants.g_n*rho_default*hOpe/2/Medium.T_default)^mFixed *hOpe/2
     / conTP^mFixed
     "Constant coefficient for buoyancy driven air flow rate";
   parameter Real conTP = IBPSA.Media.Air.dStp*Modelica.Media.IdealGases.Common.SingleGasesData.Air.R
     "Conversion factor for converting temperature difference to pressure difference";
 
+  Modelica.SIunits.VolumeFlowRate VABp_flow(nominal=0.001)
+    "Volume flow rate from A to B if positive due to static pressure difference";
+  Modelica.SIunits.VolumeFlowRate VABt_flow(nominal=0.001)
+    "Volume flow rate from A to B if positive due to buoyancy";
 
 equation
   // Air flow rate due to static pressure difference
@@ -54,10 +56,10 @@ equation
       c=c,
       d=d,
       dp_turbulent=dp_turbulent);
+
   // Net flow rate
-  // fixme: check sign and make sure documentation is consistent.
-  VAB_flow = +VABp_flow/2 + VABt_flow;
-  VBA_flow = -VABp_flow/2 - VABt_flow;
+  port_a1.m_flow = rho_default * (+VABp_flow/2 + VABt_flow);
+  port_b2.m_flow = rho_default * (+VABp_flow/2 - VABt_flow);
 
   annotation (defaultComponentName="doo",
 Documentation(info="<html>
@@ -101,23 +103,29 @@ The air flow rate due to temperature difference in the rooms is
 <i>V&#775;<sub>ab,t</sub></i> for flow from thermal zone <i>a</i> to <i>b</i>,
 and
 <i>V&#775;<sub>ba,t</sub></i> for flow from thermal zone <i>b</i> to <i>a</i>.
-The net air flow rate from <i>a</i> to <i>b</i> is
+The model has two air flow paths to allow bi-directional air flow.
+The mass flow rates at these two air flow paths are
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-    V&#775;<sub>ab</sub> = +&nbsp; V&#775;<sub>ab,p</sub>/2 + &nbsp; V&#775;<sub>ab,t</sub>,
+    m&#775;<sub>a1</sub> = &rho;<sub>0</sub> &nbsp; (+V&#775;<sub>ab,p</sub>/2 + &nbsp; V&#775;<sub>ab,t</sub>),
 </p>
+<p>
 and, similarly,
-<p align=\"center\" style=\"font-style:italic;\">
-    V&#775;<sub>ba</sub> = -&nbsp; V&#775;<sub>ab,p</sub>/2 + &nbsp; V&#775;<sub>ba,t</sub>.
-</p>
-<p>
-To calculate <i>V&#775;<sub>ba,p</sub></i>, we assume
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-    m&#775;<sub>ab,t</sub> =  -m&#775;<sub>ba,t</sub> = &rho;<sub>0</sub> &nbsp; V&#775;<sub>ab,t</sub> =  -&rho;<sub>0</sub> &nbsp; V&#775;<sub>ba,t</sub>.
+    V&#775;<sub>ba</sub> = &rho;<sub>0</sub> &nbsp; (-V&#775;<sub>ab,p</sub>/2 + &nbsp; V&#775;<sub>ba,t</sub>),
 </p>
 <p>
-With this assumption, the neutral height, e.g., the height where the air flow rate due to flow
+where we simplified the calculation by using the density <i>&rho;<sub>0</sub></i>.
+To calculate <i>V&#775;<sub>ba,p</sub></i>, we again use the density <i>&rho;<sub>0</sub></i>
+and with this simplification, we can write
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+    m&#775;<sub>ab,t</sub> =  -m&#775;<sub>ba,t</sub> = &rho;<sub>0</sub> &nbsp; V&#775;<sub>ab,t</sub>
+  =  -&rho;<sub>0</sub> &nbsp; V&#775;<sub>ba,t</sub>,
+</p>
+<p>
+from which follows that the neutral height, e.g., the height where the air flow rate due to flow
 induced by temperature difference is zero, is at <i>h/2</i>.
 Hence,
 </p>
@@ -133,12 +141,12 @@ and with
 and
 <p align=\"center\" style=\"font-style:italic;\">
   &Delta;p<sub>ab</sub><sup>m</sup>(z) = g z (&rho;<sub>a</sub>-&rho;<sub>b</sub>) = g z (&rho;<sub>a</sub>-&rho;<sub>b</sub>)
-    &approx; &rho;<sub>0</sub> (T<sub>b</sub> - T<sub>a</sub>) &frasl; T<sub>0</sub>,
+    &asymp; &rho;<sub>0</sub> (T<sub>b</sub> - T<sub>a</sub>) &frasl; T<sub>0</sub>,
 </p>
 <p>
 where we used
 <i>&rho;<sub>a</sub> = p<sub>0</sub> /(R T<sub>a</sub>)</i> and
-<i>T<sub>a</sub> T<sub>b</sub> &approx; T<sub>0</sub></i>.
+<i>T<sub>a</sub> T<sub>b</sub> &asymp; T<sub>0</sub></i>.
 Substituting this expression into the integral yields
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
