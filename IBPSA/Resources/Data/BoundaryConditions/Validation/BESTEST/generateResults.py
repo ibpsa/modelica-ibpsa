@@ -10,8 +10,7 @@
 # It copies the library from a local-git-hub repository,
 # executes simulations and prints results in current working directory
 #
-# ettore.zanetti@polimi.it                                 2020-03-11
-#                                              last update 2020-06-06
+# ettore.zanetti@polimi.it
 #####################################################################
 import json
 import os
@@ -22,6 +21,8 @@ import sys
 from pathlib import Path
 from datetime import date
 import stat
+import git
+
 
 # Make code Verbose
 CodeVerbose = True
@@ -31,16 +32,23 @@ POST_PROCESS_ONLY = False
 CLEAN_MAT = True
 # Erase anything but the Json file results in the ResultJson folder and .mat files
 DelEvr = False
-# Modelica IBPSA Library working branch
-#BRANCH = 'master'
-BRANCH = 'issue1314_BESTEST_weather'
+
 # Path to local library copy (This assumes the script is run inside the library folder)
-ScriptPath = sys.path[0]
+ScriptPath = os.path.dirname(os.path.realpath(__file__))
 path = Path(ScriptPath)
 levels_up = 5  # goes up five levels to get the IBPSA folder
 LIBPATH = str(path.parents[levels_up - 1])
 # simulator, Dymola
 TOOL = 'dymola'
+
+# Modelica Library working branch
+#BRANCH = 'master'
+
+try:
+    BRANCH = git.Repo(search_parent_directories=True).active_branch.name
+except TypeError as e:
+    # Branch is detached from head. This is if one run "git checkout commit_hash"
+    BRANCH = None
 
 # Software specifications
 # Set library_name to IBPSA, or Buildings, etc.
@@ -48,7 +56,7 @@ library_name = os.path.abspath(".").split(os.path.sep)[-6]
 library_version = 'v4.0.0dev'
 modeler_organization = 'LBNL'
 modeler_organization_for_tables_and_charts = 'LBNL'
-program_name_for_tables_and_charts = 'IBPSA'
+program_name_for_tables_and_charts = library_name
 results_submission_date = str(date.today().strftime('%m/%d/%Y'))
 
 # Make sure script is run from correct directory
@@ -57,7 +65,7 @@ if os.path.abspath(".").split(os.path.sep)[-5:] != run_dir:
     raise ValueError(f"Script must be run from directory {os.path.sep.join(run_dir)}")
 
 # List of cases and result cases
-PACKAGES = f'{library_name}.BoundaryConditions.BESTEST.Validation'
+PACKAGES = f'{library_name}.BoundaryConditions.Validation.BESTEST'
 
 CASES = ['WD100', 'WD200', 'WD300', 'WD400', 'WD500', 'WD600']
 
@@ -154,7 +162,7 @@ def checkout_repository(working_directory, CaseDict):
     d = {}
     d['LibName'] = CaseDict['LibName']
     if CaseDict['from_git_hub']:
-        git_url = "https://github.com/ibpsa/modelica-ibpsa"
+        git_url = git.Repo(search_parent_directories=True).remotes.origin.url
         r = Repo.clone_from(git_url, working_directory)
         g = git.Git(working_directory)
         g.checkout(BRANCH)
@@ -173,7 +181,7 @@ def checkout_repository(working_directory, CaseDict):
             print("*** Copying" + d['LibName'] + " library to {}".format(des))
         shutil.copytree(CaseDict['LIBPATH'], des)
         if CodeVerbose:
-            print("Since this a local copy of the library is in use, remember to manually add software version and commit.")
+            print("Since a local copy of the library is used, remember to manually add software version and commit.")
         d['branch'] = 'AddManually'
         d['commit'] = 'AddManually'
         d['commit_time'] = 'AddManually'
@@ -377,7 +385,7 @@ def WeatherJson(resForm, Matfd, CaseDict):
             elif ('nOpa' in resSplit[-1]) or ('nTot' in resSplit[-1]) :
                 # skycover from [0-1] to tenth of sky
                 results[k]['value'] = results[k]['value'] * 10
- 
+
             k += 1
         MapDymolaAndJson(results, dic['case'], resFin, CaseDict)
     return resFin
@@ -818,8 +826,8 @@ def MapDymolaAndJson(results, case, resFin, CaseDict):
                   {'json': 'diffuse_radiation_w_30',
                    'matIso': 'azi090til30.HDiffIso.H',
                    'matPer': 'azi090til30.HDiffPer.H'}]
-    
-    if CaseDict['TestN']:           
+
+    if CaseDict['TestN']:
         caseDays = [{key: value[i] for key, value in Days2[case].items()}
                     for i in range(len(Days2[case]['days']))]
     else:
@@ -843,7 +851,7 @@ def MapDymolaAndJson(results, case, resFin, CaseDict):
                 if 'dry_bulb_temperature' in ressH['json']:
                     outDir[case]['hour_of_year'] = (ressH['time']/3600).tolist()
                 outDir[case][ressH['json']] =ressH['res'].tolist()
-                
+
             else:
                 resH = ExtrapolateResults(dictHourly, dR, day)
                 ressH = ExtrapolateResults(dictSubHourly, dR, day)
@@ -861,7 +869,7 @@ def MapDymolaAndJson(results, case, resFin, CaseDict):
                         HRlist.append(HRdict)
                         k += 1
                     outDir[case]['hourly_results'][day['days']][resH['json']] = HRlist
-                    
+
                 if not ressH:
                     missing.append(day['days'] + '_subhourly_' + dR['variable'])
                 else:
@@ -1042,17 +1050,17 @@ if __name__ == '__main__':
     # Add library and organization details
     resForm["modeler_organization"] = modeler_organization
     resForm["modeler_organization_for_tables_and_charts"] = modeler_organization_for_tables_and_charts
-    
+
     if TestN:
         resForm["program_name"] = program_name
         resForm["program_version"] = program_version
     else:
         resForm["program_name_and_version"] = program_name_and_version
-        
+
     resForm["program_name_for_tables_and_charts"] = program_name_for_tables_and_charts
     resForm["program_version_release_date"] = program_version_release_date
     resForm["results_submission_date"] = results_submission_date
-    
+
     # Create new Json result folder
     nJsonRes = os.path.join(mat_dir, 'JsonResults')
     if not os.path.exists(nJsonRes):
@@ -1086,7 +1094,7 @@ if __name__ == '__main__':
             RemoveList = RemoveString(RemoveList,'weaBus')
             RemoveList = RemoveString(RemoveList,'toDryAir')
             RemoveList = RemoveString(RemoveList,'HDir')
-            CaseList = list(filter(lambda i: i not in RemoveList, 
+            CaseList = list(filter(lambda i: i not in RemoveList,
                                    CaseDictPerHor['reVals']))
             CaseDictPerHor['reVals'] = CaseList
             CaseDictPerHor['reVals'] = RemoveString(
@@ -1100,7 +1108,7 @@ if __name__ == '__main__':
             RemoveList = RemoveString(RemoveList,'weaBus')
             RemoveList = RemoveString(RemoveList,'toDryAir')
             RemoveList = RemoveString(RemoveList,'HDir')
-            CaseList = list(filter(lambda i: i not in RemoveList, 
+            CaseList = list(filter(lambda i: i not in RemoveList,
                                    CaseDictPerDew['reVals']))
             CaseDictPerDew['reVals'] = CaseList
             CaseDictPerDew['reVals'] = RemoveString(
