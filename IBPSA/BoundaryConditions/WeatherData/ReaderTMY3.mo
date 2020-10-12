@@ -1533,7 +1533,7 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 <ul>
 <li>
 October 4, 2020, by Ettore Zanetti:<br/>
-Updated documentation for Java weather file generator<br/>
+Updated documentation for Java weather file generator.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1396\">#1396</a>.
 </li>
