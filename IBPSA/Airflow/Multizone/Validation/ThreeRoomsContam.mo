@@ -253,7 +253,7 @@ The model implements the configuration shown below.</p>
 <p>
 For the model that has been used for a comparative model validation between CONTAM and
 the <code>Buildings</code> library in Wetter (2006), see
-<a href=\\\"modelica://IBPSA.Airflow.Multizone.Validation.ThreeRoomsContamDiscretizedDoor\\\">
+<a href=\"modelica://IBPSA.Airflow.Multizone.Validation.ThreeRoomsContamDiscretizedDoor\">
 IBPSA.Airflow.Multizone.Validation.ThreeRoomsContamDiscretizedDoor</a>.
 </p>
 <h4>References</h4>

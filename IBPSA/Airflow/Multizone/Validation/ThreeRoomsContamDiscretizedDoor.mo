@@ -40,7 +40,7 @@ experiment(Tolerance=1e-06, StopTime=3600),
     Documentation(info="<html>
 <p>
 This model is identical to
-<a href=\\\"modelica://IBPSA.Airflow.Multizone.Validation.ThreeRoomsContam\\\">
+<a href=\"modelica://IBPSA.Airflow.Multizone.Validation.ThreeRoomsContam\">
 IBPSA.Airflow.Multizone.Validation.ThreeRoomsContam</a>
 except that it uses a different door model.
 </p>
