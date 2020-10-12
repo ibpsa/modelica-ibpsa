@@ -1,12 +1,14 @@
 within IBPSA.Airflow.Multizone;
 model DoorOpen
   "Door model for bi-directional air flow between rooms"
-  extends IBPSA.Airflow.Multizone.BaseClasses.Door;
+  extends IBPSA.Airflow.Multizone.BaseClasses.Door(
+    A = AOpe);
 
   parameter Real CD=0.65 "Discharge coefficient"
     annotation (Dialog(group="Orifice characteristics"));
 
-  parameter Real m = 0.5 "Flow coefficient";
+  parameter Real m = 0.5 "Flow coefficient"
+    annotation (Dialog(group="Orifice characteristics"));
 
 protected
   parameter Real gamma(min=1) = 1.5

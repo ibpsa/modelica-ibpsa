@@ -21,12 +21,12 @@ partial model Door
   parameter Modelica.SIunits.Length hOpe=2.1 "Height of opening"
     annotation (Dialog(group="Geometry"));
 
-  final parameter Modelica.SIunits.Area A = wOpe*hOpe "Face area";
-
   parameter Modelica.SIunits.PressureDifference dp_turbulent(
     min=0,
     displayUnit="Pa") = 0.01
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended: 0.01";
+
+  input Modelica.SIunits.Area A(min=Modelica.Constants.small) = wOpe*hOpe "Face area";
 
   Modelica.SIunits.VolumeFlowRate VAB_flow(nominal=0.001)
     "Volume flow rate from A to B if positive";
@@ -37,6 +37,7 @@ partial model Door
   Modelica.SIunits.Velocity vBA(nominal=0.01) "Average velocity from B to A";
 
 protected
+  final parameter Modelica.SIunits.Area AOpe = wOpe*hOpe "Closed aperture area";
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
