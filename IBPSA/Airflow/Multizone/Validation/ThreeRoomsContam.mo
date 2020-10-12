@@ -12,25 +12,30 @@ model ThreeRoomsContam
     nPorts=5,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Air volume east room"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 
   IBPSA.Airflow.Multizone.Orifice oriOutBot(
     redeclare package Medium = Medium,
     A=0.01,
-    m=0.5) annotation (Placement(transformation(extent={{142,-90},{162,-70}})));
+    m=0.5) "Orifice at bottom of facade"
+           annotation (Placement(transformation(extent={{142,-90},{162,-70}})));
   IBPSA.Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Medium column for bottom floor outside air"
     annotation (Placement(transformation(extent={{191,-8},{211,12}})));
   IBPSA.Airflow.Multizone.Orifice oriOutTop(
     redeclare package Medium = Medium,
     A=0.01,
-    m=0.5) annotation (Placement(transformation(extent={{141,10},{161,30}})));
+    m=0.5) "Orifice at top of facade"
+           annotation (Placement(transformation(extent={{141,10},{161,30}})));
   IBPSA.Airflow.Multizone.MediumColumn colEasInTop(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Medium column for bottom floor"
     annotation (Placement(transformation(extent={{121,-10},{141,10}})));
   IBPSA.Fluid.Sources.Boundary_pT volOut(
     redeclare package Medium = Medium,
@@ -43,21 +48,25 @@ model ThreeRoomsContam
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromTop)
+    "Medium column for bottom floor"
     annotation (Placement(transformation(extent={{122,-70},{142,-50}})));
   IBPSA.Airflow.Multizone.MediumColumn colOutBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromTop)
+    "Medium column for bottom floor outside air"
     annotation (Placement(transformation(extent={{190,-68},{210,-48}})));
   IBPSA.Airflow.Multizone.MediumColumn colWesBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Medium column for bottom floor"
     annotation (Placement(transformation(extent={{-70,9},{-50,29}})));
   IBPSA.Airflow.Multizone.Orifice oriWesTop(
     redeclare package Medium = Medium,
     m=0.5,
-    A=0.01) annotation (Placement(transformation(
+    A=0.01) "Orifice between top and bottom west floor"
+            annotation (Placement(transformation(
         origin={-60,49},
         extent={{-10,-10},{10,10}},
         rotation=270)));
@@ -66,16 +75,17 @@ model ThreeRoomsContam
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromTop)
+    "Medium column for top floor"
     annotation (Placement(transformation(extent={{-70,71},{-50,91}})));
 
-  replaceable DoorOpen                                        dooOpeClo(
+  replaceable DoorOpen dooOpeClo(
     redeclare package Medium = Medium,
     wOpe=1,
     hOpe=2.2,
     dp_turbulent(displayUnit="Pa") = 0.01,
     CD=0.78,
-    m=0.78)                                constrainedby
-    Fluid.Interfaces.PartialFourPortInterface "Door"
+    m=0.78) constrainedby Fluid.Interfaces.PartialFourPortInterface
+    "Door"
     annotation (Placement(transformation(extent={{-1,-55},{19,-35}})));
   IBPSA.Fluid.MixingVolumes.MixingVolume volWes(
     redeclare package Medium = Medium,
@@ -84,16 +94,19 @@ model ThreeRoomsContam
     V=2.5*5*5,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Air volume west floor"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   IBPSA.Airflow.Multizone.MediumColumn col1EasBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Medium column for bottom floor"
     annotation (Placement(transformation(extent={{100,9},{120,29}})));
   IBPSA.Airflow.Multizone.Orifice oriEasTop(
     redeclare package Medium = Medium,
     m=0.5,
-    A=0.01) annotation (Placement(transformation(
+    A=0.01) "Orifice between top and bottom east floor"
+            annotation (Placement(transformation(
         origin={110,49},
         extent={{-10,-10},{10,10}},
         rotation=90)));
@@ -101,6 +114,7 @@ model ThreeRoomsContam
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=IBPSA.Airflow.Multizone.Types.densitySelection.fromTop)
+    "Medium column for top floor"
     annotation (Placement(transformation(extent={{100,71},{120,91}})));
   IBPSA.Fluid.MixingVolumes.MixingVolume volTop(
     redeclare package Medium = Medium,
@@ -109,6 +123,7 @@ model ThreeRoomsContam
     nPorts=2,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Air volume top floor"
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TTop(T=293.15)

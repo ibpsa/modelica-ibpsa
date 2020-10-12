@@ -5,11 +5,13 @@ model OpenDoorBuoyancyDynamic
 
   package Medium = IBPSA.Media.Air "Medium model";
 
-  IBPSA.Airflow.Multizone.DoorOpen doo(redeclare package Medium = Medium)
+  IBPSA.Airflow.Multizone.DoorOpen doo(
+    redeclare package Medium = Medium)
     "Door" annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  IBPSA.Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=
-       1) "Pressure boundary"
+  IBPSA.Fluid.Sources.Boundary_pT bou(
+    redeclare package Medium = Medium,
+    nPorts=1) "Pressure boundary"
     annotation (Placement(transformation(extent={{-50,18},{-30,38}})));
 
   Fluid.MixingVolumes.MixingVolume bouA(
@@ -41,9 +43,9 @@ model OpenDoorBuoyancyDynamic
     redeclare package Medium = Medium,
     vZer=0.000001) "Door"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
-  Fluid.Sources.Boundary_pT       bou1(redeclare package Medium = Medium,
-      nPorts=1)
-          "Pressure boundary"
+  Fluid.Sources.Boundary_pT bou1(
+    redeclare package Medium = Medium,
+    nPorts=1) "Pressure boundary"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Fluid.MixingVolumes.MixingVolume bouADis(
     redeclare package Medium = Medium,
@@ -96,8 +98,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=14400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model validates the door model for the situation where there is only buoyancy-driven air flow.

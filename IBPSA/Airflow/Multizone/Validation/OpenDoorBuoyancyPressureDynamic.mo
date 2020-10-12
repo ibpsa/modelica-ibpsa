@@ -8,8 +8,9 @@ model OpenDoorBuoyancyPressureDynamic
   IBPSA.Airflow.Multizone.DoorOpen doo(redeclare package Medium = Medium)
     "Door" annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  IBPSA.Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=
-       1) "Pressure boundary"
+  IBPSA.Fluid.Sources.Boundary_pT bou(
+    redeclare package Medium = Medium,
+    nPorts=1) "Pressure boundary"
     annotation (Placement(transformation(extent={{-50,-46},{-30,-26}})));
 
   Fluid.MixingVolumes.MixingVolume bouA(
@@ -51,14 +52,12 @@ equation
     annotation (Line(points={{-30,-36},{-30,2.66667}}, color={0,127,255}));
 
 
-
   annotation (
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Validation/OpenDoorBuoyancyPressureDynamic.mos"
         "Simulate and plot"),
     experiment(
       StopTime=14400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model validates the door model for the situation where there is air flow due to buoyancy and static pressure difference.

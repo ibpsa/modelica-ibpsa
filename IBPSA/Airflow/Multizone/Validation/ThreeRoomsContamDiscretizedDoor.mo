@@ -14,7 +14,7 @@ model ThreeRoomsContamDiscretizedDoor
     hB=3/2,
     dp_turbulent(displayUnit="Pa") = 0.01));
   Modelica.Blocks.Sources.Constant open1(k=1)
-                                             annotation (Placement(
+    annotation (Placement(
         transformation(extent={{-40,-30},{-20,-10}})));
 equation
   connect(open1.y, dooOpeClo.y) annotation (Line(points={{-19,-20},{-12,-20},{-12,
