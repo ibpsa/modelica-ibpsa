@@ -5,26 +5,27 @@ model DoorOperable
     final vAB = VAB_flow/A,
     final vBA = VBA_flow/A);
 
-   parameter Modelica.SIunits.PressureDifference dpCloRat(min=0,
-                                                          displayUnit="Pa") = 4
-    "Pressure drop at rating condition of closed door"
-      annotation (Dialog(group="Rating conditions"));
-
-  parameter Real CDCloRat(min=0, max=1)=1
-    "Discharge coefficient at rating conditions of closed door"
-      annotation (Dialog(group="Rating conditions"));
-
-  parameter Modelica.SIunits.Area LClo(min=0)
-    "Effective leakage area of closed door"
-      annotation (Dialog(group="Closed door"));
-
   parameter Real CDOpe=0.65 "Discharge coefficient of open door"
     annotation (Dialog(group="Open door"));
 
   parameter Real mOpe = 0.5 "Flow exponent for door of open door"
     annotation (Dialog(group="Open door"));
+
+  parameter Modelica.SIunits.Area LClo(min=0)
+    "Effective leakage area of closed door"
+      annotation (Dialog(group="Closed door"));
+
   parameter Real mClo= 0.65 "Flow exponent for crack of closed door"
     annotation (Dialog(group="Closed door"));
+
+  parameter Modelica.SIunits.PressureDifference dpCloRat(min=0,
+                                                         displayUnit="Pa") = 4
+    "Pressure drop at rating condition of closed door"
+      annotation (Dialog(group="Closed door rating conditions"));
+
+  parameter Real CDCloRat(min=0, max=1)=1
+    "Discharge coefficient at rating conditions of closed door"
+      annotation (Dialog(group="Closed door rating conditions"));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1")
     "Opening signal, 0=closed, 1=open"
