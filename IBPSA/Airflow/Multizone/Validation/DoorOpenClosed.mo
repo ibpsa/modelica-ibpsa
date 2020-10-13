@@ -31,7 +31,7 @@ model DoorOpenClosed
 
   EffectiveAirLeakageArea lea(
     redeclare package Medium = Medium,
-    m=0.5,
+    m=0.65,
     dp_turbulent=0.01,
     L=20*1E-4) "Leakage flow element"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
@@ -40,7 +40,7 @@ model DoorOpenClosed
     LClo=20*1E-4)
                "Operable door"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Modelica.Blocks.Sources.Ramp yDoo(duration=1) "Door opening signal"
+  Modelica.Blocks.Sources.Step yDoo(startTime=0.5) "Door opening signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium = Medium)
     "Mass flow rate sensor"
@@ -51,7 +51,15 @@ model DoorOpenClosed
     annotation (Placement(transformation(extent={{30,-46},{50,-26}})));
   Modelica.Blocks.Math.Add mNet_flow(y(final unit="kg/s"))
     "Net air flow rate from A to B through the operable door"
-    annotation (Placement(transformation(extent={{68,32},{88,52}})));
+    annotation (Placement(transformation(extent={{60,32},{80,52}})));
+  Modelica.Blocks.Sources.Step yDooCom(
+    height=-1,
+    offset=1,
+    startTime=0.5) "Outputs 1 if door is closed"
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+  Modelica.Blocks.Math.Product mNetClo_flow(y(final unit="kg/s"))
+    "Mass flow rate if door is closed"
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 equation
   connect(bouA.ports[1], doo.port_a1) annotation (Line(points={{-60,3.2},{-40,3.2},
           {-40,56},{-20,56}}, color={0,127,255}));
@@ -80,15 +88,20 @@ equation
   connect(senMasFlo2.port_b, bouB.ports[5]) annotation (Line(points={{50,-36},{62,
           -36},{62,-3.2},{70,-3.2}}, color={0,127,255}));
   connect(senMasFlo1.m_flow, mNet_flow.u1)
-    annotation (Line(points={{20,9},{20,48},{66,48}}, color={0,0,127}));
+    annotation (Line(points={{20,9},{20,48},{58,48}}, color={0,0,127}));
   connect(senMasFlo2.m_flow, mNet_flow.u2)
-    annotation (Line(points={{40,-25},{40,36},{66,36}}, color={0,0,127}));
+    annotation (Line(points={{40,-25},{40,36},{58,36}}, color={0,0,127}));
+  connect(yDooCom.y, mNetClo_flow.u2) annotation (Line(points={{-59,-80},{-32,
+          -80},{-32,-86},{-2,-86}}, color={0,0,127}));
+  connect(mNet_flow.y, mNetClo_flow.u1) annotation (Line(points={{81,42},{94,42},
+          {94,-60},{-12,-60},{-12,-74},{-2,-74}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Validation/DoorOpenClosed.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=1,
-      Tolerance=1e-06),
+      StopTime=0.3,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
 <p>
 This model validates the door model that takes as an input a signal
@@ -107,5 +120,7 @@ October 12, 2020 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
+    Icon(coordinateSystem(extent={{-100,-100},{80,100}})));
 end DoorOpenClosed;
