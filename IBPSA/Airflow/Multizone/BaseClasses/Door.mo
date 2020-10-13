@@ -24,20 +24,19 @@ partial model Door
   parameter Modelica.SIunits.PressureDifference dp_turbulent(
     min=0,
     displayUnit="Pa") = 0.01
-    "Pressure difference where laminar and turbulent flow relation coincide. Recommended: 0.01";
-
-  input Modelica.SIunits.Area A(min=Modelica.Constants.small) = wOpe*hOpe "Face area";
+    "Pressure difference where laminar and turbulent flow relation coincide"
+    annotation(Dialog(tab="Advanced"));
 
   Modelica.SIunits.VolumeFlowRate VAB_flow(nominal=0.001)
     "Volume flow rate from A to B if positive";
   Modelica.SIunits.VolumeFlowRate VBA_flow(nominal=0.001)
     "Volume flow rate from B to A if positive";
 
-  Modelica.SIunits.Velocity vAB(nominal=0.01) "Average velocity from A to B";
-  Modelica.SIunits.Velocity vBA(nominal=0.01) "Average velocity from B to A";
+  input Modelica.SIunits.Velocity vAB(nominal=0.01) "Average velocity from A to B";
+  input Modelica.SIunits.Velocity vBA(nominal=0.01) "Average velocity from B to A";
 
 protected
-  final parameter Modelica.SIunits.Area AOpe = wOpe*hOpe "Closed aperture area";
+  final parameter Modelica.SIunits.Area AOpe = wOpe*hOpe "Open aperture area";
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
@@ -50,8 +49,6 @@ equation
   // Average velocity (using the whole orifice area)
   VAB_flow = (max(port_a1.m_flow, 0) + max(port_b2.m_flow, 0))/rho_default;
   VBA_flow = (max(port_a2.m_flow, 0) + max(port_b1.m_flow, 0))/rho_default;
-  vAB = VAB_flow/A;
-  vBA = VBA_flow/A;
 
   // Energy balance (no storage, no heat loss/gain)
   port_a1.h_outflow = inStream(port_b1.h_outflow);

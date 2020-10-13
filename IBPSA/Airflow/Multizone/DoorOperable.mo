@@ -2,7 +2,8 @@ within IBPSA.Airflow.Multizone;
 model DoorOperable
   "Door model for bi-directional air flow between rooms that can be open or closed"
   extends IBPSA.Airflow.Multizone.BaseClasses.Door(
-    A = (1-y)*AClo + y*AOpe);
+    final vAB = VAB_flow/A,
+    final vBA = VBA_flow/A);
 
    parameter Modelica.SIunits.PressureDifference dpCloRat(min=0,
                                                           displayUnit="Pa") = 4
@@ -19,8 +20,6 @@ model DoorOperable
 
   parameter Real CDOpe=0.65 "Discharge coefficient of open door"
     annotation (Dialog(group="Open door"));
-  parameter Real CDClo=0.65 "Discharge coefficient of closed door"
-    annotation (Dialog(group="Closed door"));
 
   parameter Real mOpe = 0.5 "Flow exponent for door of open door"
     annotation (Dialog(group="Open door"));
@@ -43,26 +42,26 @@ protected
   parameter Real d[2] = {1/8*m^2 - gamma - m + 15.0/8 for m in {mOpe, mClo}}
     "Polynomial coefficient for regularized implementation of flow resistance";
 
+  parameter Modelica.SIunits.Area AClo = LClo * dpCloRat^(0.5-mClo) "Closed area";
   parameter Real kVal[2]={
-   CDOpe*AOpe*sqrt(2/rho_default),
-   CDClo*AClo*sqrt(2/rho_default)}
+   CDOpe   *AOpe*sqrt(2/rho_default),
+   CDCloRat*AClo*sqrt(2/rho_default)}
    "Flow coefficient, k = V_flow/ dp^m";
   parameter Real kTOpe = CDOpe*wOpe*sqrt(2/rho_default)
     *(Modelica.Constants.g_n*rho_default*hOpe/2/Medium.T_default)^mOpe *hOpe/2
-    / conTP^mOpe
+    / conTPOpe^mOpe
     "Constant coefficient for buoyancy driven air flow rate";
-  parameter Real conTP = IBPSA.Media.Air.dStp*Modelica.Media.IdealGases.Common.SingleGasesData.Air.R
+  parameter Real conTPOpe = IBPSA.Media.Air.dStp*Modelica.Media.IdealGases.Common.SingleGasesData.Air.R
     "Conversion factor for converting temperature difference to pressure difference";
 
-  Modelica.SIunits.VolumeFlowRate VABpOpeClo_flow(nominal=0.001)
+  Modelica.SIunits.VolumeFlowRate VABpOpeClo_flow[2](each nominal=0.001)
     "Volume flow rate from A to B if positive due to static pressure difference";
   Modelica.SIunits.VolumeFlowRate VABp_flow(nominal=0.001)
     "Volume flow rate from A to B if positive due to static pressure difference";
   Modelica.SIunits.VolumeFlowRate VABt_flow(nominal=0.001)
     "Volume flow rate from A to B if positive due to buoyancy";
 
- parameter Modelica.SIunits.Area AClo = CDClo/CDCloRat * LClo * dpCloRat^(0.5-mClo) "Closed aperture area";
-
+  Modelica.SIunits.Area A "Current opening area";
 equation
   // Air flow rate due to static pressure difference
   VABpOpeClo_flow = IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
@@ -75,19 +74,21 @@ equation
       d=d,
       dp_turbulent=dp_turbulent);
   VABp_flow = y*VABpOpeClo_flow[1] + (1-y)*VABpOpeClo_flow[2];
+  A = y*AOpe + (1-y)*AClo;
   // Air flow rate due to buoyancy
   // Because powerLawFixedM requires as an input a pressure difference pa-pb,
   // we convert Ta-Tb by multiplying it with rho*R, and we divide
   // above the constant expression by (rho*R)^m on the right hand-side of kT.
   VABt_flow = y*IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
-      k=kT,
-      dp=conTP*(Medium.temperature(state_a1_inflow)-Medium.temperature(state_a2_inflow)),
+      k=kTOpe,
+      dp=conTPOpe*(Medium.temperature(state_a1_inflow)-Medium.temperature(state_a2_inflow)),
       m=mOpe,
       a=a[1],
       b=b[1],
       c=c[1],
       d=d[1],
       dp_turbulent=dp_turbulent);
+
 
   // Net flow rate
   port_a1.m_flow = rho_default * (+VABp_flow/2 + VABt_flow);
@@ -129,6 +130,7 @@ where
 <i>&Delta;p<sub>Rat</sub></i> is the pressure drop at the rating condition, and
 <i>&rho;<sub>0</sub></i> is the mass density at the medium default pressure, temperature and humidity.
 </p>
+<p><b>fixme: Describe rating conditions.</b></p>
 <p>
 For the open door, the air flow rate
 <i>V&#775;<sub>ope</sub></i> is computed as described in

@@ -2,7 +2,8 @@ within IBPSA.Airflow.Multizone;
 model DoorOpen
   "Door model for bi-directional air flow between rooms"
   extends IBPSA.Airflow.Multizone.BaseClasses.Door(
-    A = AOpe);
+    final vAB = VAB_flow/AOpe,
+    final vBA = VBA_flow/AOpe);
 
   parameter Real CD=0.65 "Discharge coefficient"
     annotation (Dialog(group="Orifice characteristics"));
@@ -22,7 +23,7 @@ protected
   parameter Real d = 1/8*m^2 - gamma - m + 15.0/8
     "Polynomial coefficient for regularized implementation of flow resistance";
 
-  parameter Real kVal=CD*A*sqrt(2/rho_default) "Flow coefficient, k = V_flow/ dp^m";
+  parameter Real kVal=CD*AOpe*sqrt(2/rho_default) "Flow coefficient, k = V_flow/ dp^m";
   parameter Real kT = CD*wOpe*sqrt(2/rho_default)
     *(Modelica.Constants.g_n*rho_default*hOpe/2/Medium.T_default)^m *hOpe/2
     / conTP^m
