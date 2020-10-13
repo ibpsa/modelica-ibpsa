@@ -90,7 +90,6 @@ equation
       d=d[1],
       dp_turbulent=dp_turbulent);
 
-
   // Net flow rate
   port_a1.m_flow = rho_default * (+VABp_flow/2 + VABt_flow);
   port_b2.m_flow = rho_default * (+VABp_flow/2 - VABt_flow);
@@ -131,7 +130,17 @@ where
 <i>&Delta;p<sub>Rat</sub></i> is the pressure drop at the rating condition, and
 <i>&rho;<sub>0</sub></i> is the mass density at the medium default pressure, temperature and humidity.
 </p>
-<p><b>fixme: Describe rating conditions.</b></p>
+<p>
+The effective air leakage area <i>L<sub>clo</sub></i> can be obtained, for example,
+from the ASHRAE fundamentals (ASHRAE, 1997, p. 25.18). In
+the ASHRAE fundamentals, the effective air leakage area is
+based on a reference pressure difference of <i>&Delta;p<sub>Rat</sub> = 4</i> Pa and a discharge
+coefficient of <i>C<sub>DCloRat</sub> = 1</i>.
+A similar model is also used in the CONTAM software (Dols and Walton, 2002).
+Dols and Walton (2002) recommend to use for the flow exponent
+<i>mClo=0.6</i> to <i>mClo=0.7</i> if the flow exponent is not
+reported with the test results.
+</p>
 <p>
 For the open door, the air flow rate
 <i>V&#775;<sub>ope</sub></i> is computed as described in
@@ -147,7 +156,30 @@ V&#775;<sub>clo</sub> = (y-1) V&#775;<sub>clo</sub> + y V&#775;<sub>ope</sub>,
 </p>
 <p>
 where <i>y &isin; [0, 1]</i> is the control signal.
+Note that for values of <i>y</i> that are different from <i>0</i> and
+<i>1</i>, the model simply interpolates the air flow rate between a fully open
+and a fully closed door. In practice, the air flow rate would likely increase quickly if the
+door is slightly opened, and hence we do not claim that the model is accurate for
+values other than <i>y = 0</i> and <i>y = 1</i>.
 </p>
+<h4>References</h4>
+<ul>
+<li>
+<b>ASHRAE, 1997.</b>
+<i>ASHRAE Fundamentals</i>,
+American Society of Heating, Refrigeration and Air-Conditioning
+Engineers, 1997.
+</li>
+<li>
+<b>Dols and Walton, 2002.</b>
+W. Stuart Dols and George N. Walton, <i>CONTAMW 2.0 User Manual,
+Multizone Airflow and Contaminant Transport Analysis Software</i>,
+Building and Fire Research Laboratory,
+National Institute of Standards and Technology,
+Tech. Report NISTIR 6921,
+November, 2002.
+</li>
+</ul>
 </html>",
 revisions="<html>
 <ul>
