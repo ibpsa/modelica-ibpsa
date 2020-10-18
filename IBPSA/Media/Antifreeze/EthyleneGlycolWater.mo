@@ -1,4 +1,4 @@
-within Buildings.Media.Antifreeze;
+within IBPSA.Media.Antifreeze;
 package EthyleneGlycolWater
   "Package with model for ethylene glycol - water with constant properties"
   extends Modelica.Media.Interfaces.PartialSimpleMedium(
@@ -106,7 +106,6 @@ as required from medium model \"" + mediumName + "\".");
     </p>
 </html>"));
   end BaseProperties;
-
 protected
   constant Modelica.SIunits.MassFraction X_a_min=0.
     "Minimum allowed mass fraction of ethylene glycol in water";
@@ -177,8 +176,8 @@ protected
   May 2, 2018 by Massimo Cimmino:<br/>
   First implementation.
   This function is used by
-  <a href=\"modelica://Buildings.Media.Antifreeze.EthyleneGlycolWater\">
-  Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
+  <a href=\"modelica://IBPSA.Media.Antifreeze.EthyleneGlycolWater\">
+  IBPSA.Media.Antifreeze.EthyleneGlycolWater</a>.
   </li>
   </ul>
   </html>"));
@@ -215,8 +214,8 @@ IIR/IIF.
 May 2, 2018 by Massimo Cimmino:<br/>
 First implementation.
 This function is used by
-<a href=\"modelica://Buildings.Media.Antifreeze.EthyleneGlycolWater\">
-Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
+<a href=\"modelica://IBPSA.Media.Antifreeze.EthyleneGlycolWater\">
+IBPSA.Media.Antifreeze.EthyleneGlycolWater</a>.
 </li>
 </ul>
 </html>"));
@@ -252,8 +251,8 @@ IIR/IIF.
 May 2, 2018 by Massimo Cimmino:<br/>
 First implementation.
 This function is used by
-<a href=\"modelica://Buildings.Media.Antifreeze.EthyleneGlycolWater\">
-Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
+<a href=\"modelica://IBPSA.Media.Antifreeze.EthyleneGlycolWater\">
+IBPSA.Media.Antifreeze.EthyleneGlycolWater</a>.
 </li>
 </ul>
 </html>"));
@@ -317,8 +316,8 @@ IIR/IIF.
 March 16, 2018 by Massimo Cimmino:<br/>
 First implementation.
 This function is used models in
-<a href=\"modelica://Buildings.Media.Antifreeze\">
-Buildings.Media.Antifreeze</a>.
+<a href=\"modelica://IBPSA.Media.Antifreeze\">
+IBPSA.Media.Antifreeze</a>.
 </li>
 </ul>
 </html>"));
@@ -354,8 +353,8 @@ IIR/IIF.
 March 16, 2018 by Massimo Cimmino:<br/>
 First implementation.
 This function is used by
-<a href=\"modelica://Buildings.Media.Antifreeze.EthyleneGlycolWater\">
-Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
+<a href=\"modelica://IBPSA.Media.Antifreeze.EthyleneGlycolWater\">
+IBPSA.Media.Antifreeze.EthyleneGlycolWater</a>.
 </li>
 </ul>
 </html>"));
@@ -391,24 +390,24 @@ IIR/IIF.
 March 16, 2018 by Massimo Cimmino:<br/>
 First implementation.
 This function is used by
-<a href=\"modelica://Buildings.Media.Antifreeze.EthyleneGlycolWater\">
-Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
+<a href=\"modelica://IBPSA.Media.Antifreeze.EthyleneGlycolWater\">
+IBPSA.Media.Antifreeze.EthyleneGlycolWater</a>.
 </li>
 </ul>
 </html>"));
   end thermalConductivity_TX_a;
 annotation(preferredView="info", Documentation(info="<html>
 <p>
-This medium package models propylene glycol - water mixtures.
+This medium package models ethylene glycol - water mixtures.
 </p>
 <p>
 The mass density, specific heat capacity, thermal conductivity and viscosity
 are assumed constant and evaluated at a set temperature and mass fraction of
-propylene glycol within the mixture. The dependence of the four properties
+ethylene glycol within the mixture. The dependence of the four properties
 are shown on the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Media/Antifreeze/EthyleneGlycolWaterProperties.png\" border=\"1\"
+<img src=\"modelica://IBPSA/Resources/Images/Media/Antifreeze/EthyleneGlycolWaterProperties.png\" border=\"1\"
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
 <p>
@@ -416,23 +415,23 @@ The accuracy of the thermophysical properties is dependent on the temperature
 variations encountered during simulations.
 The figure below shows the relative error of the the four properties over a
 <i>10</i> &deg;C range around the temperature used to evaluate the constant
-properties. The maximum errors are <i>0.8</i> % for mass density, <i>1.5</i> %
-for specific heat capacity, <i>3.2</i> % for thermal conductivity and <i>250</i>
+properties. The maximum errors are <i>0.8</i> % for mass density, <i>2.7</i> %
+for specific heat capacity, <i>3.2</i> % for thermal conductivity and <i>160</i>
 % for dynamic viscosity.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Media/Antifreeze/EthyleneGlycolWaterError10degC.png\" border=\"1\"
+<img src=\"modelica://IBPSA/Resources/Images/Media/Antifreeze/EthyleneGlycolWaterError10degC.png\" border=\"1\"
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
 <p>
 The figure below shows the relative error of the the four properties over a
 <i>20</i> &deg;C range around the temperature used to evaluate the constant
-proepties. The maximum errors are <i>1.6</i> % for mass density, <i>3.0</i> %
-for specific heat capacity, <i>6.2</i> % for thermal conductivity and <i>950</i>
+proepties. The maximum errors are <i>1.5</i> % for mass density, <i>5.3</i> %
+for specific heat capacity, <i>5.9</i> % for thermal conductivity and <i>500</i>
 % for dynamic viscosity.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Media/Antifreeze/EthyleneGlycolWaterError20degC.png\" border=\"1\"
+<img src=\"modelica://IBPSA/Resources/Images/Media/Antifreeze/EthyleneGlycolWaterError20degC.png\" border=\"1\"
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
 <p>
@@ -442,10 +441,10 @@ if <i>T=0</i> &deg;C.
 <h4>Limitations</h4>
 <p>
 Density, specific heat capacity, thermal conductivity and viscosity are constant.
-The propylene glycol/water mixture is modeled as an incompressible liquid.
+The ethylene glycol/water mixture is modeled as an incompressible liquid.
 There are no phase changes. The medium is limited to temperatures below
 <i>100</i> &deg;C and mass fractions below <i>0.60</i>.
-As is the case for Buildings.Media.Water, this medium package should not be used if
+As is the case for IBPSA.Media.Water, this medium package should not be used if
 the simulation relies on the dynamic viscosity.
 </p>
 <h4>Typical use and important parameters</h4>
@@ -455,17 +454,10 @@ constant thermophysical properties. A typical use of the package is (e.g. for
 a temperature of <i>20</i> &deg;C and a mass fraction of <i>0.40</i>):
 </p>
 <p>
-<code>Medium = Buildings.Media.Antifreeze.EthyleneGlycolWater(property_T=293.15, X_a=0.40)</code>
+<code>Medium = IBPSA.Media.Antifreeze.EthyleneGlycolWater(property_T=293.15, X_a=0.40)</code>
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
-Now printing different messages if temperature or mass fraction is above or below its limit,
-and adding instance name as JModelica does not print the full instance name in the assertion.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
-</li>
 <li>
 August 05, 2020, by Wen HU:<br/>
 First implementation.
