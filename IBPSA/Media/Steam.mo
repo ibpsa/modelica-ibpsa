@@ -42,27 +42,35 @@ package Steam
     //d = p/(R*T);
     u = h - p/d;
     R = steam.R;
-    p = state.p;
-    T = state.T;
-    X = state.X;
+    state.p = p;
+    state.T = T;
+    state.X = X;
     //X = reference_X;
   end BaseProperties;
 
 redeclare replaceable function extends density
   "Returns density"
-  protected
+algorithm
+  d := rho_pT(state.p,state.T);
+  annotation (Inline=true);
+end density;
+/*  redeclare replaceable function extends density
+  "Returns density"
+  protected 
   Real a[:] = {2.752,2.938,-0.8873,-0.8445,0.2132};
   AbsolutePressure pMean =  8.766717603911981e+05;
   Temperature TMean =  7.104788508557040e+02;
   Real pSD = 8.540705946819051e+05;
   Real TSD = 1.976242680354902e+02;
-  AbsolutePressure pHat=(state.p - pMean)/pSD;
-  Temperature THat=(state.T - TMean)/TSD;
-algorithm
+  AbsolutePressure pHat;
+  Temperature THat;
+algorithm 
+  pHat := (state.p - pMean)/pSD;
+  THat := (state.T - TMean)/TSD;
   d := a[1] + a[2]*pHat + a[3]*THat + a[4]*pHat*THat + a[5]*THat^2;
   annotation (Inline=true,smoothOrder=2);
 end density;
-/*redeclare replaceable function extends density
+redeclare replaceable function extends density
   "Returns density"
   protected 
   Real a[:] = {2.702,2.653,-0.7555,0.02029,-0.7485,0.2043,-0.0521,0.2587,
@@ -96,25 +104,6 @@ algorithm
     annotation (Inline=true);
 end dynamicViscosity;
 
-redeclare replaceable function extends enthalpyOfGas
-  "Return enthalpy of non-condensing gas mixture"
-  //    input Temperature T "Temperature";
-  //    input MassFraction[:] X "Vector of mass fractions";
-  //    output SpecificEnthalpy h "Specific enthalpy";
-algorithm
-
-annotation (Inline=true);
-end enthalpyOfGas;
-
-redeclare replaceable function extends enthalpyOfLiquid
-  "Return liquid enthalpy of condensing fluid"
-  //    input Temperature T "Temperature";
-  //    output SpecificEnthalpy h "Liquid enthalpy";
-algorithm
-
-  annotation (Inline=true);
-end enthalpyOfLiquid;
-
 redeclare replaceable function extends enthalpyOfVaporization
   "Return vaporization enthalpy of condensing fluid"
   //    input Temperature T "Temperature";
@@ -130,16 +119,18 @@ end enthalpyOfVaporization;
 redeclare replaceable function extends specificEnthalpy
   "Returns specific enthalpy"
   protected
-  Real a[:] = {3354,-16.61,427.6};
+  Real a[:] = {3.354e+06,-1.661e+04,4.276e+05};
   AbsolutePressure pMean =  8.766717603911981e+05;
   Temperature TMean =  7.104788508557040e+02;
   Real pSD = 8.540705946819051e+05;
   Real TSD = 1.976242680354902e+02;
-  AbsolutePressure pHat=(state.p - pMean)/pSD;
-  Temperature THat=(state.T - TMean)/TSD;
+  AbsolutePressure pHat;
+  Temperature THat;
 algorithm
+  pHat := (state.p - pMean)/pSD;
+  THat := (state.T - TMean)/TSD;
   h := a[1] + a[2]*pHat + a[3]*THat;
-annotation (Inline=true,smoothOrder=1);
+annotation (Inline=true,smoothOrder=2);
 end specificEnthalpy;
 
 redeclare replaceable function extends molarMass
@@ -165,8 +156,9 @@ replaceable function pressure_dT
   Temperature TMean =  7.104788508557040e+02;
   Real pSD = 8.540705946819051e+05;
   Real TSD = 1.976242680354902e+02;
-  Temperature THat=(T - TMean)/TSD;
+  Temperature THat;
 algorithm
+  THat := (T - TMean)/TSD;
   p := pSD/(a[2]+a[4]*THat)*(-a[1]+d-THat*(a[3]+a[5]*THat))+pMean;
 annotation (Inline=true,smoothOrder=1);
 end pressure_dT;
@@ -234,14 +226,16 @@ end saturationTemperature;*/
 redeclare function extends specificEntropy
   "Return specific entropy"
   protected
-  Real a[:] = {7.801,-0.4452,0.5947};
+  Real a[:] = {7801,-445.2,594.7};
   AbsolutePressure pMean =  8.766717603911981e+05;
   Temperature TMean =  7.104788508557040e+02;
   Real pSD = 8.540705946819051e+05;
   Real TSD = 1.976242680354902e+02;
-  AbsolutePressure pHat=(state.p - pMean)/pSD;
-  Temperature THat=(state.T - TMean)/TSD;
+  AbsolutePressure pHat;
+  Temperature THat;
 algorithm
+  pHat := (state.p - pMean)/pSD;
+  THat := (state.T - TMean)/TSD;
   s := a[1] + a[2]*pHat + a[3]*THat;
 annotation (Inline=true,smoothOrder=1);
 end specificEntropy;
@@ -255,22 +249,15 @@ end specificInternalEnergy;
 
 redeclare replaceable function extends specificHeatCapacityCp
   "Specific heat capacity at constant pressure"
-  protected
-  Real a[:] = {3354,-16.61,427.6};
-  Real TSD = 1.976242680354902e+02;
 algorithm
-  cp := cp_pT(
-        state.p,
-        state.T);
+  cp := cp_pT(state.p,state.T);
   annotation (Inline=true);
 end specificHeatCapacityCp;
 
 redeclare replaceable function extends specificHeatCapacityCv
   "Specific heat capacity at constant volume"
 algorithm
-  cv := cv_pT(
-        state.p,
-        state.T);
+  cv := cv_pT(state.p,state.T);
   annotation (Inline=true);
 end specificHeatCapacityCv;
 
@@ -291,28 +278,28 @@ end specificHelmholtzEnergy;
 redeclare function extends setState_dTX
     "Return the thermodynamic state as function of d, T and composition X or Xi"
 algorithm
-  ThermodynamicState(p=pressure_dT(d,T), T=T, X=X);
+  state := ThermodynamicState(p=pressure_dT(d,T), T=T, X=X);
 annotation (Inline=true,smoothOrder=2);
 end setState_dTX;
 
 redeclare function extends setState_pTX
     "Return the thermodynamic state as function of p, T and composition X or Xi"
 algorithm
-  ThermodynamicState(p=p, T=T, X=X);
+  state := ThermodynamicState(p=p, T=T, X=X);
 annotation (Inline=true,smoothOrder=2);
 end setState_pTX;
 
 redeclare function extends setState_phX
     "Return the thermodynamic state as function of p, h and composition X or Xi"
 algorithm
-  ThermodynamicState(p=p, T=temperature_ph(p,h), X=X);
+  state := ThermodynamicState(p=p, T=temperature_ph(p,h), X=X);
 annotation (Inline=true,smoothOrder=2);
 end setState_phX;
 
 redeclare function extends setState_psX
     "Return the thermodynamic state as function of p, s and composition X or Xi"
 algorithm
-  ThermodynamicState(p=p, T=temperature_ps(p,s), X=X);
+  state := ThermodynamicState(p=p, T=temperature_ps(p,s), X=X);
 annotation (Inline=true,smoothOrder=2);
 end setState_psX;
 
@@ -328,14 +315,15 @@ replaceable function temperature_ph
   input SpecificEnthalpy h "Specific Enthalpy";
   output Temperature T "Temperature";
   protected
-  Real a[:] = {3354,-16.61,427.6} "Coefficients from forward function h(p,T)";
+  Real a[:] = {3.354e+06,-1.661e+04,4.276e+05} "Coefficients from forward function h(p,T)";
   Real b[:] = {-a[1]*TSD/a[3]+TMean, -a[2]*TSD/a[3], TSD/a[3]};
   AbsolutePressure pMean =  8.766717603911981e+05;
   Temperature TMean =  7.104788508557040e+02;
   Real pSD = 8.540705946819051e+05;
   Real TSD = 1.976242680354902e+02;
-  AbsolutePressure pHat=(p - pMean)/pSD;
+  AbsolutePressure pHat;
 algorithm
+  pHat := (p - pMean)/pSD;
   T := b[1] + b[2]*pHat + b[3]*h;
 annotation (Inline=true,smoothOrder=1);
 end temperature_ph;
@@ -346,14 +334,15 @@ replaceable function temperature_ps
   input SpecificEntropy s "Specific Entropy";
   output Temperature T "Temperature";
   protected
-  Real a[:] = {7.801,-0.4452,0.5947} "Coefficients from forward function s(p,T)";
+  Real a[:] = {7801,-445.2,594.7} "Coefficients from forward function s(p,T)";
   Real b[:] = {-a[1]*TSD/a[3]+TMean, -a[2]*TSD/a[3], TSD/a[3]};
   AbsolutePressure pMean =  8.766717603911981e+05;
   Temperature TMean =  7.104788508557040e+02;
   Real pSD = 8.540705946819051e+05;
   Real TSD = 1.976242680354902e+02;
-  AbsolutePressure pHat=(p - pMean)/pSD;
+  AbsolutePressure pHat;
 algorithm
+  pHat := (p - pMean)/pSD;
   T := b[1] + b[2]*pHat + b[3]*s;
 annotation (Inline=true,smoothOrder=1);
 end temperature_ps;
@@ -440,6 +429,23 @@ constant GasProperties steam(
   R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
   MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM)
   "Steam properties";
+
+function rho_pT "Density as function or pressure and temperature"
+  extends Modelica.Icons.Function;
+  input AbsolutePressure p "Pressure";
+  input Temperature T "Temperature";
+  output Density rho "Density";
+  protected
+  Modelica.Media.Common.GibbsDerivs g
+    "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
+  SpecificHeatCapacity R "Specific gas constant of water vapor";
+algorithm
+  R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
+  // Region 2 properties
+  g := g2(p, T);
+  rho := p/(R*T*g.pi*g.gpi);
+  annotation (smoothOrder=2,Inline=true);
+end rho_pT;
 
 function cp_pT
   "Specific heat capacity at constant pressure as function of pressure and temperature"

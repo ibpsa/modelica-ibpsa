@@ -4,13 +4,15 @@ model SteamProperties
   extends Modelica.Icons.Example;
   extends IBPSA.Media.Examples.BaseClasses.PartialProperties(
     redeclare package Medium = IBPSA.Media.Steam,
-    TMin=273.15 + 100,
+    TMin=273.15 + 200,
     TMax=273.15 + 700,
-    p=100000,
-    errAbs=1);
+    p=1400000,
+    errAbs=1E3);
 
   Medium.ThermodynamicState state_phX "Medium state";
   Medium.ThermodynamicState state_psX "Medium state";
+
+  Modelica.SIunits.SpecificEnthalpy hlg "Enthalpy of vaporization";
 
   Modelica.Media.Interfaces.Types.DerDensityByEnthalpy ddhp
     "Density derivative w.r.t. enthalpy";
@@ -27,6 +29,7 @@ equation
     checkState(state_pTX, state_psX, errAbs, "state_psX");
 
     // Check the implementation of the functions
+    hlg = Medium.enthalpyOfVaporization(state_pTX.T);
     ddhp = Medium.density_derh_p(state_pTX);
     ddph = Medium.density_derp_h(state_pTX);
 

@@ -3,75 +3,75 @@ partial package PartialPureSubstanceWithSat
   "Partial pure substance model with saturation state functions"
   extends Modelica.Media.Interfaces.PartialPureSubstance;
 
-  replaceable partial function saturationState_p
-    "Return saturation property record from pressure"
+  replaceable partial function saturationPressure
+    "Return saturation pressure from temperature"
     extends Modelica.Icons.Function;
-    input AbsolutePressure p "Pressure";
-    output SaturationProperties sat "Saturation property record";
-  end saturationState_p;
+    input Temperature T "Temperature";
+    output AbsolutePressure p "Saturation pressure";
+  end saturationPressure;
 
-  replaceable partial function saturationTemperature_p
+  replaceable partial function saturationTemperature
     "Return saturation temperature"
     extends Modelica.Icons.Function;
     input AbsolutePressure p "Pressure";
     output Temperature T "Saturation temperature";
-  end saturationTemperature_p;
+  end saturationTemperature;
 
-  replaceable partial function enthalpyOfSaturatedLiquid_sat
+  replaceable partial function enthalpyOfSaturatedLiquid
     "Return enthalpy of saturated liquid"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEnthalpy hl "Boiling curve specific enthalpy";
-  end enthalpyOfSaturatedLiquid_sat;
+  end enthalpyOfSaturatedLiquid;
 
-  replaceable partial function enthalpyOfSaturatedVapor_sat
+  replaceable partial function enthalpyOfSaturatedVapor
     "Return enthalpy of saturated vapor"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEnthalpy hv "Dew curve specific enthalpy";
-  end enthalpyOfSaturatedVapor_sat;
+  end enthalpyOfSaturatedVapor;
 
-  replaceable partial function enthalpyOfVaporization_sat
+  replaceable partial function enthalpyOfVaporization
     "Return enthalpy of vaporization"
     extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
+    input Temperature T "Temperature";
     output SpecificEnthalpy hlv "Vaporization enthalpy";
-  end enthalpyOfVaporization_sat;
+  end enthalpyOfVaporization;
 
-  replaceable partial function entropyOfSaturatedLiquid_sat
+  replaceable partial function entropyOfSaturatedLiquid
     "Return entropy of saturated liquid"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sl "Boiling curve specific entropy";
-  end entropyOfSaturatedLiquid_sat;
+  end entropyOfSaturatedLiquid;
 
-  replaceable partial function entropyOfSaturatedVapor_sat
+  replaceable partial function entropyOfSaturatedVapor
     "Return entropy of saturated vapor"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy sv "Dew curve specific entropy";
-  end entropyOfSaturatedVapor_sat;
+  end entropyOfSaturatedVapor;
 
-  replaceable partial function entropyOfVaporization_sat
+  replaceable partial function entropyOfVaporization
     "Return entropy of vaporization"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output SpecificEntropy slv "Vaporization entropy";
-  end entropyOfVaporization_sat;
+  end entropyOfVaporization;
 
-  replaceable partial function densityOfSaturatedLiquid_sat
+  replaceable partial function densityOfSaturatedLiquid
        "Return density of saturated liquid"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output Density dl "Boiling curve density";
-  end densityOfSaturatedLiquid_sat;
+  end densityOfSaturatedLiquid;
 
-  replaceable partial function densityOfSaturatedVapor_sat
+  replaceable partial function densityOfSaturatedVapor
     "Return density of saturated vapor"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "Saturation property record";
     output Density dv "Dew curve density";
-  end densityOfSaturatedVapor_sat;
+  end densityOfSaturatedVapor;
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
