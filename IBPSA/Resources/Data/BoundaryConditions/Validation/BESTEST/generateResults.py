@@ -7,7 +7,7 @@
 # .json files or just the .json files
 #
 # This script creates folders in the temporary directory.
-# It copies the library from a local-git-hub repository,
+# It copies the library from a local GitHub repository,
 # executes simulations and prints results in current working directory
 #
 # ettore.zanetti@polimi.it
@@ -26,7 +26,7 @@ import git
 
 # Make code Verbose
 CODE_VERBOSE = True
-# check if it just implements post-process (from .mat files to Json files)
+# Check if it just implements post-process (from .mat files to Json files)
 POST_PROCESS_ONLY = False
 # Erase old .mat files
 CLEAN_MAT = False
@@ -38,9 +38,9 @@ DEL_EVR = False
 # the library folder)
 script_path = os.path.dirname(os.path.realpath(__file__))
 path = Path(script_path)
-levels_up = 5  # goes up five levels to get the IBPSA folder
+levels_up = 5  # Goes up five levels to get the IBPSA folder
 LIBPATH = str(path.parents[levels_up - 1])
-# simulator, Dymola
+# Simulator, Dymola
 TOOL = 'dymola'
 
 # Modelica Library working branch
@@ -357,7 +357,7 @@ def clean_time_series(time, val, nPoi):
     time_sl = np.concatenate((time, Shift))
     time_d = time_sl - time_sr
     time_dn = time_d[0:-1]
-    # get new values for time and val
+    # Get new values for time and val
     tol = 1E-5
     timen = time[time_dn > tol]
     valn = val[time_dn > tol]
@@ -377,8 +377,8 @@ def weather_json(res_form, Matfd, case_dict):
     :param Matfd: List of the results mat files and their path.
     :param case_dict: case_dict are stored the simulation cases "result_vars"
     """
-    # list of type of results
-    # taking hourly variables
+    # List of type of results
+    # Taking hourly variables
     res_fin = copy.deepcopy(res_form)
     for dic in Matfd:
         mat_file = dic["mat_file"]
@@ -387,20 +387,20 @@ def weather_json(res_form, Matfd, case_dict):
         for result in results:
             resSplit = result['variable'].split('.')
             if resSplit[-1] in 'TDryBul_TBlaSky_TWetBul_TDewPoi':
-                # pass from K to °C
+                # Pass from K to °C
                 results[k]['value'] = results[k]['value'] - 273.15
             elif 'relHum' in resSplit[-1]:
-                # pass from [0,1] to %
+                # Pass from [0,1] to %
                 results[k]['value'] = results[k]['value'] * 100
             elif 'pAtm' in resSplit[-1]:
-                # pass from Pa to mbar
+                # Pass from Pa to mbar
                 results[k]['value'] = results[k]['value'] / 100
             elif 'winDir' in resSplit[-1]:
-                # pass from rad to °
+                # Pass from rad to °
                 Pi = 3.141592653589793
                 results[k]['value'] = results[k]['value'] * 180 / Pi
             elif ('nOpa' in resSplit[-1]) or ('nTot' in resSplit[-1]):
-                # skycover from [0-1] to tenth of sky
+                # Sky coverage from [0-1] to tenth of sky
                 results[k]['value'] = results[k]['value'] * 10
 
             k += 1
@@ -911,7 +911,7 @@ def map_dymola_and_json(results, case, res_fin, case_dict):
                         k += 1
                     out_dir[case]['subhourly_results'][day['days']]\
                         [ressH['json']] = sHRlist
-                    # manually update integrated values for 'integrated'
+                    # Manually update integrated values for 'integrated'
                     # variables for subhourly results
                     if 'horizontal_radiation' in ressH['json']:
                         ressH['time'] = ressH['time']
@@ -942,8 +942,7 @@ def extrapolate_results(dicT, dR, day):
     :param dR: Dictionary with the name, time and value of certain variables\
          in the .mat file
     :param day: Subdictionary with all the days required for the bestest. \
-        See table 3
-                in BESTEST package
+        See table 3 in BESTEST package
     """
     OutDict = {}
     for dT in dicT:
@@ -1062,12 +1061,12 @@ if __name__ == '__main__':
             case['lib_dir'] = lib_dir
             if case_dict['from_git_hub']:
                 case['git'] = d
-        # # Run all cases
-        freeze_support()  # you need this in windows
+        # Run all cases
+        freeze_support()  # You need this in windows
         po = Pool()
         po.map(_simulate, list_of_cases)
         po.close()
-        po.join()  # block at this line until all processes are done
+        po.join()  # Block at this line until all processes are done
         # Delete the temporary folder
         if CODE_VERBOSE:
             print("Deleting temporary folder {}".format(lib_dir))
@@ -1076,7 +1075,7 @@ if __name__ == '__main__':
         os.chdir(CWD)
         shutil.rmtree(lib_dir, onerror=remove_readonly)
 
-    # Post process only#
+    # Post process only
     if POST_PROCESS_ONLY:
         print('Add Manually program realease date and version at the end\
               of the script')
@@ -1089,7 +1088,7 @@ if __name__ == '__main__':
     mat_dir = os.path.join(CWD, 'results')
     Matfd = _organize_cases(mat_dir)
     # Create Json file for each case (ISO,PEREZ,TBSKY_HOR,TBSKY_DEW)
-    # import results template
+    # Import results template
     if TestN:
         json_name = 'WeatherDriversResultsSubmittal2.json'
     else:
@@ -1116,7 +1115,7 @@ if __name__ == '__main__':
     nJsonRes = os.path.join(mat_dir, 'JsonResults')
     if not os.path.exists(nJsonRes):
         os.makedirs(nJsonRes)
-    # execute all the Subcases
+    # Execute all the Subcases
     if CODE_VERBOSE:
         print("Converting .mat files into .json and copying it into \
               ".format(nJsonRes))
