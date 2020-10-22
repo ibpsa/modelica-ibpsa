@@ -30,13 +30,13 @@ model IsotropicAndPerezDiffuseRadiation
     lat=lat,
     azi=azi,
     outSkyCon=true,
-    outGroCon=true) "Diffused radiation using Perez "
+    outGroCon=true) "Diffused radiation using Perez"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 protected
-  Modelica.Blocks.Math.Add addHdirHdiffIso
+  Modelica.Blocks.Math.Add addHDirHDiffIso
     "Sum of Direct radiation and Isoentropic radiation"
     annotation (Placement(transformation(extent={{40,24},{60,44}})));
-  Modelica.Blocks.Math.Add addHdirHdiffPer
+  Modelica.Blocks.Math.Add addHDirHDiffPer
     "Sum of Direct radiation and Perez radiation"
     annotation (Placement(transformation(extent={{40,-42},{60,-22}})));
 equation
@@ -56,20 +56,20 @@ equation
       points={{-40,-40},{-74,-40},{-74,40},{-40,40}},
       color={255,204,51},
       thickness=0.5));
-  connect(HDir.H,addHdirHdiffPer. u1) annotation (Line(points={{-19,0},{0,0},{0,
+  connect(HDir.H,addHDirHDiffPer.u1)  annotation (Line(points={{-19,0},{0,0},{0,
           -20},{20,-20},{20,-26},{38,-26}},
                           color={0,0,127}));
-  connect(HDiffPer.H,addHdirHdiffPer. u2) annotation (Line(points={{-19,-40},{
+  connect(HDiffPer.H,addHDirHDiffPer.u2)  annotation (Line(points={{-19,-40},{
           32,-40},{32,-38},{38,-38}},
                                    color={0,0,127}));
-  connect(HDiffIso.H,addHdirHdiffIso. u1) annotation (Line(points={{-19,40},{38,
+  connect(HDiffIso.H,addHDirHDiffIso.u1)  annotation (Line(points={{-19,40},{38,
           40}},            color={0,0,127}));
-  connect(HDir.H,addHdirHdiffIso. u2)
+  connect(HDir.H,addHDirHDiffIso.u2)
     annotation (Line(points={{-19,0},{0,0},{0,20},{20,20},{20,28},{38,28}},
                                                             color={0,0,127}));
-  connect(addHdirHdiffIso.y, H) annotation (Line(points={{61,34},{80,34},{80,0},
+  connect(addHDirHDiffIso.y, H) annotation (Line(points={{61,34},{80,34},{80,0},
           {110,0}}, color={0,0,127}));
-  connect(addHdirHdiffPer.y, HPer) annotation (Line(points={{61,-32},{80,-32},{
+  connect(addHDirHDiffPer.y, HPer) annotation (Line(points={{61,-32},{80,-32},{
           80,-40},{110,-40}},
                            color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
