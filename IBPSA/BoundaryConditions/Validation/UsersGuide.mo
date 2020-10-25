@@ -159,5 +159,11 @@ python3 generateResults.py -p
 <h4>References</h4>
 <p>(Not available yet)</p>
 </html>", revisions="<html>
+<ul>
+<li>
+March 11, 2020, by Ettore Zanetti:<br/>
+first implementation of BESTEST weather validation
+</li>
+</ul>
 </html>"));
 end UsersGuide;
