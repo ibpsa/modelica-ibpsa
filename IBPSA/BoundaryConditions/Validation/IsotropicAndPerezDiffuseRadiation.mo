@@ -5,7 +5,7 @@ model IsotropicAndPerezDiffuseRadiation
     IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
   Modelica.Blocks.Interfaces.RealOutput HPer(
      final quantity="RadiantEnergyFluenceRate",
-     final unit="W/m2") "Radiation per unit area"
+     final unit="W/m2") "Radiation per unit area using Perez Model"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt angle";
@@ -77,18 +77,25 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-March 11, 2020, by Ettore Zanetti:<br/>
-First implementation.
+October 25, 2020, by Ettore Zanetti:<br/>
+Updated comments for variable descriptions
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1351\">#1351</a>.
 </li>
 <li>
 April 14, 2020, by Ettore Zanetti:<br/>
 Rework after comments from pull request
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1339\">#1339</a>.
 </li>
+<li>
+March 11, 2020, by Ettore Zanetti:<br/>
+First implementation.
+</li>
 </ul>
 </html>", info="<html>
 <p>
 This model outputs the global radiation with a certain inclination and orientation
-using the isotropic sky model and the Perez sky model.</p>
+using the isotropic sky model and the Perez sky model.The variable <code>H</code> is
+the global radiation calculated using the isotropic sky model, while <code>HPer</code> is
+the global radiation calculated using the Perez sky model.</p>
 </html>"));
 end IsotropicAndPerezDiffuseRadiation;
