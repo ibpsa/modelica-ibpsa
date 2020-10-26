@@ -186,7 +186,7 @@ def checkout_repository(working_directory, case_dict):
         # This is a hack to get the local copy of the repository
         des = os.path.join(working_directory, d['lib_name'])
         if CODE_VERBOSE:
-            print("*** Copying" + d['lib_name'] + " library to {}".format(des))
+            print("*** Copying " + d['lib_name'] + " library to {}".format(des))
         shutil.copytree(case_dict['LIBPATH'], des)
         if CODE_VERBOSE:
             print("Since a local copy of the library is used, remember \
@@ -233,7 +233,7 @@ def _simulate(spec):
     :param spec: dictionary with the simulation specifications
 
     '''
-    from buildingspy.simulate.Simulator import Simulator
+    from buildingspy.simulate.Dymola import Simulator
 
     out_dir = os.path.join(spec['lib_dir'], "results", spec["name"])
     os.makedirs(out_dir)
@@ -246,8 +246,8 @@ def _simulate(spec):
 
     # Get current library directory
     IBPSAtemp = os.path.join(spec['lib_dir'], library_name)
-    # Set Model to simulate, the tool, the output dir and the package directory
-    s = Simulator(spec["model"], TOOL, outputDirectory=out_dir,
+    # Set Model to simulate, the output dir and the package directory
+    s = Simulator(spec["model"], outputDirectory=out_dir,
                   packagePath=IBPSAtemp)
     # Add all necessary parameters from Case Dict
     s.addPreProcessingStatement("OutputCPUtime:= true;")
@@ -1017,7 +1017,7 @@ if __name__ == '__main__':
     parser.add_argument('-p', help='Specify to pretty print json output.',
                         action='store_true')
     parser.add_argument('-t', help='Specify .json result type -t for \
-                        .jsonFormat2 no -t for .jsonFormat1', 
+                        .jsonFormat2 no -t for .jsonFormat1',
                         action='store_true')
     args = parser.parse_args()
 
