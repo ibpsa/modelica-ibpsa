@@ -4,8 +4,9 @@ package Steam
   extends Modelica.Media.Interfaces.PartialCondensingGases(
      mediumName="steam",
      final substanceNames={"water"},
-     final singleState = false,
-     final fixedX = true,
+     singleState = true,
+     reducedX = true,
+     fixedX = true,
      fluidConstants={Modelica.Media.IdealGases.Common.FluidData.H2O},
      reference_T=273.15,
      reference_p=101325,
@@ -19,20 +20,19 @@ package Steam
 
   redeclare record extends ThermodynamicState
     "Thermodynamic state variables"
-    AbsolutePressure p "Absolute pressure of medium";
-    Temperature T "Temperature of medium";
-    MassFraction[nX] X(start=reference_X)
-      "Mass fractions (= (component mass)/total mass  m_i/m)";
+        AbsolutePressure p(start=p_default) "Absolute pressure of medium";
+        Temperature T(start=T_default) "Temperature of medium";
+    //    MassFraction[nX] X(start=reference_X);
+    //      "Mass fractions (= (component mass)/total mass  m_i/m)";
   end ThermodynamicState;
   constant Integer region = 2 "Region of IF97, if known, zero otherwise";
   constant Integer phase = 1 "1 for one-phase";
 
   redeclare replaceable model extends BaseProperties(
-    T(stateSelect=if preferredMediumStates then StateSelect.prefer
-           else StateSelect.default),
-    p(stateSelect=if preferredMediumStates then StateSelect.prefer
-  else StateSelect.default))
+    preferredMediumStates = true,
+    final standardOrderComponents=true)
     "Base properties (p, d, T, h, u, R, MM, sat) of water"
+    //    X(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
   equation
     // Temperature and pressure values must be within acceptable max & min bounds
     // Assert statements
@@ -44,7 +44,9 @@ package Steam
     R = steam.R;
     state.p = p;
     state.T = T;
-    state.X = X;
+    //    Xi=fill(0, 0);
+    //   X={1};
+    state.X = reference_X;
     //X = reference_X;
   end BaseProperties;
 
@@ -278,28 +280,28 @@ end specificHelmholtzEnergy;
 redeclare function extends setState_dTX
     "Return the thermodynamic state as function of d, T and composition X or Xi"
 algorithm
-  state := ThermodynamicState(p=pressure_dT(d,T), T=T, X=X);
+  state := ThermodynamicState(p=pressure_dT(d,T), T=T, X={1});
 annotation (Inline=true,smoothOrder=2);
 end setState_dTX;
 
 redeclare function extends setState_pTX
     "Return the thermodynamic state as function of p, T and composition X or Xi"
 algorithm
-  state := ThermodynamicState(p=p, T=T, X=X);
+  state := ThermodynamicState(p=p, T=T, X={1});
 annotation (Inline=true,smoothOrder=2);
 end setState_pTX;
 
 redeclare function extends setState_phX
     "Return the thermodynamic state as function of p, h and composition X or Xi"
 algorithm
-  state := ThermodynamicState(p=p, T=temperature_ph(p,h), X=X);
+  state := ThermodynamicState(p=p, T=temperature_ph(p,h), X={1});
 annotation (Inline=true,smoothOrder=2);
 end setState_phX;
 
 redeclare function extends setState_psX
     "Return the thermodynamic state as function of p, s and composition X or Xi"
 algorithm
-  state := ThermodynamicState(p=p, T=temperature_ps(p,s), X=X);
+  state := ThermodynamicState(p=p, T=temperature_ps(p,s), X={1});
 annotation (Inline=true,smoothOrder=2);
 end setState_psX;
 

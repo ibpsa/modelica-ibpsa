@@ -347,19 +347,20 @@ medium model \"" + mediumName + "\".");
     T := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.tsat(p);
     annotation (Inline=true);
   end saturationTemperature;
-/*  redeclare replaceable function extends enthalpyOfSaturatedLiquid
+
+  redeclare replaceable function extends enthalpyOfSaturatedLiquid
     "Return enthalpy of saturated liquid"
-  algorithm 
-    hl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hl_p(p);
+  algorithm
+    hl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hl_p(sat.psat);
     annotation (Inline=true);
   end enthalpyOfSaturatedLiquid;
 
   redeclare replaceable function extends enthalpyOfSaturatedVapor
     "Return enthalpy of saturated vapor"
-  algorithm 
-    hv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hv_p(p);
+  algorithm
+    hv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hv_p(sat.psat);
     annotation (Inline=true);
-  end enthalpyOfSaturatedVapor;*/
+  end enthalpyOfSaturatedVapor;
 
   redeclare replaceable function extends enthalpyOfVaporization
     "Return enthalpy of vaporization"
@@ -370,40 +371,41 @@ medium model \"" + mediumName + "\".");
         saturationPressure(T));
     annotation (Inline=true);
   end enthalpyOfVaporization;
-/*  redeclare replaceable function extends entropyOfSaturatedLiquid
+
+  redeclare replaceable function extends entropyOfSaturatedLiquid
     "Return entropy of saturated liquid"
-  algorithm 
-    sl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.sl_p(p);
+  algorithm
+    sl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.sl_p(sat.psat);
     annotation (Inline=true);
   end entropyOfSaturatedLiquid;
 
   redeclare replaceable function extends entropyOfSaturatedVapor
     "Return entropy of saturated vapor"
-  algorithm 
+  algorithm
     sv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.sv_p(sat.psat);
     annotation (Inline=true);
   end entropyOfSaturatedVapor;
 
   redeclare replaceable function extends entropyOfVaporization
     "Return entropy of vaporization"
-  algorithm 
+  algorithm
     slv := entropyOfSaturatedVapor(sat)-entropyOfSaturatedLiquid(sat);
     annotation (Inline=true);
   end entropyOfVaporization;
 
   redeclare replaceable function extends densityOfSaturatedLiquid
        "Return density of saturated liquid"
-  algorithm 
+  algorithm
     dl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.rhol_p(sat.psat)
     annotation (Inline=true);
   end densityOfSaturatedLiquid;
 
   redeclare replaceable function extends densityOfSaturatedVapor
     "Return density of saturated vapor"
-  algorithm 
+  algorithm
     dv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.rhov_p(sat.psat)
     annotation (Inline=true);
-  end densityOfSaturatedVapor;*/
+  end densityOfSaturatedVapor;
  // Set state functions
 
   redeclare function extends setState_pTX
@@ -563,6 +565,31 @@ Summing all mass fractions together results in
 </pre>
 </html>"));
   end setSmoothState;
+
+  replaceable function saturationState
+    "Return saturation property record from pressure"
+    input AbsolutePressure p "Pressure";
+    output SaturationProperties sat "Saturation state record";
+  algorithm
+    sat.psat := p;
+    sat.Tsat := saturationTemperature(p);
+  annotation (
+    smoothOrder=2,
+    Documentation(info="<html>
+    <p>
+    Returns the saturation state for given pressure. This relation is
+    valid in the region of <i>0</i> to <i>800</i> C (<i>0</i> to <i>100</i> MPa).
+    This corresponds to Region 2 of the IAPWS-IF97 water medium models.
+    </p>
+</html>",   revisions="<html>
+<ul>
+<li>
+May 6, 2020, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end saturationState;
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.

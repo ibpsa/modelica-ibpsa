@@ -3,8 +3,9 @@ model SteamSaturatedProperties
   "Model that tests the implementation of the steam properties at saturated liquid and vapor states"
   extends Modelica.Icons.Example;
 
-  package Medium = IBPSA.Media.xSteam
-                                     "Steam medium model";
+  package MediumIF97 = IBPSA.Media.SteamIF97 "Steam medium model, IF97";
+  package Medium = IBPSA.Media.Steam "Steam medium model";
+
 
   parameter Modelica.SIunits.Temperature TMin = 273.16
     "Minimum temperature for the simulation";
@@ -15,17 +16,18 @@ model SteamSaturatedProperties
   parameter Modelica.SIunits.Pressure pMax = 20000000
     "Maximum pressure for the simulation";
   Modelica.SIunits.Pressure pSat "Saturation pressure";
-  Medium.Temperature TSat  "Saturation temperature";
+  MediumIF97.Temperature TSat  "Saturation temperature";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TSat_degC
     "Celsius saturation temperature";
 
-  Medium.SaturationProperties sat "Medium saturation state";
+  MediumIF97.SaturationProperties sat "Medium saturation state";
 
   Modelica.SIunits.Density dl "Density of saturated liquid";
   Modelica.SIunits.Density dv "Density of saturated vapor";
   Modelica.SIunits.SpecificEnthalpy hl "Enthalpy of saturated liquid";
   Modelica.SIunits.SpecificEnthalpy hv "Enthalpy of saturated vapor";
   Modelica.SIunits.SpecificEnthalpy hlv "Enthalpy of vaporization";
+  Modelica.SIunits.SpecificEnthalpy hlvImp "Enthalpy of vaporization";
   Modelica.SIunits.SpecificEntropy sl "Entropy of saturated liquid";
   Modelica.SIunits.SpecificEntropy sv "Entropy of saturated vapor";
   Modelica.SIunits.SpecificEntropy slv "Entropy of vaporization";
@@ -39,21 +41,22 @@ equation
     TSat_degC = Modelica.SIunits.Conversions.to_degC(TSat);
 
     // Saturation state
-    sat = Medium.saturationState_p(pSat);
+    sat = MediumIF97.saturationState(pSat);
     TSat = sat.Tsat;
     assert(TSat > TMin, "Temperature exceeded minimum value.\n" +
       "   TSat = " + String(TSat));
     assert(TSat < TMax, "Temperature exceeded maximum value.\n" +
       "   TSat = " + String(TSat));
     // Check the implementation of the functions
-    dl = Medium.densityOfSaturatedLiquid_sat(sat);
-    dv = Medium.densityOfSaturatedVapor_sat(sat);
-    hl = Medium.enthalpyOfSaturatedLiquid_sat(sat);
-    hv = Medium.enthalpyOfSaturatedVapor_sat(sat);
-    hlv = Medium.enthalpyOfVaporization_sat(sat);
-    sl = Medium.entropyOfSaturatedLiquid_sat(sat);
-    sv = Medium.entropyOfSaturatedVapor_sat(sat);
-    slv = Medium.entropyOfVaporization_sat(sat);
+    dl = MediumIF97.densityOfSaturatedLiquid(sat);
+    dv = MediumIF97.densityOfSaturatedVapor(sat);
+    hl = MediumIF97.enthalpyOfSaturatedLiquid(sat);
+    hv = MediumIF97.enthalpyOfSaturatedVapor(sat);
+    hlv = MediumIF97.enthalpyOfVaporization(TSat);
+    hlvImp = Medium.enthalpyOfVaporization(TSat);
+    sl = MediumIF97.entropyOfSaturatedLiquid(sat);
+    sv = MediumIF97.entropyOfSaturatedVapor(sat);
+    slv = MediumIF97.entropyOfVaporization(sat);
    annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamSaturatedProperties.mos"
         "Simulate and plot"),
