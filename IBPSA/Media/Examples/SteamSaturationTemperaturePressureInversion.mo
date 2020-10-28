@@ -18,4 +18,8 @@ equation
      + "   TSat  = " + String(TSat) + "\n"
      + "   Absolute error: " + String(abs(TSat-TSat0)) + " K");
   end if;
+  annotation (
+experiment(Tolerance=1e-6, StopTime=1.0),
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamSaturationTemperaturePressureInversion.mos"
+        "Simulate and plot"));
 end SteamSaturationTemperaturePressureInversion;

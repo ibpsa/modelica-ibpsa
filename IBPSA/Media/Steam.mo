@@ -20,10 +20,6 @@ package Steam
 
   redeclare record extends ThermodynamicState
     "Thermodynamic state variables"
-        AbsolutePressure p(start=p_default) "Absolute pressure of medium";
-        Temperature T(start=T_default) "Temperature of medium";
-    //    MassFraction[nX] X(start=reference_X);
-    //      "Mass fractions (= (component mass)/total mass  m_i/m)";
   end ThermodynamicState;
   constant Integer region = 2 "Region of IF97, if known, zero otherwise";
   constant Integer phase = 1 "1 for one-phase";
@@ -32,10 +28,8 @@ package Steam
     preferredMediumStates = true,
     final standardOrderComponents=true)
     "Base properties (p, d, T, h, u, R, MM, sat) of water"
-    //    X(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
   equation
     // Temperature and pressure values must be within acceptable max & min bounds
-    // Assert statements
     MM = steam.MM;
     h = specificEnthalpy(state);
     d = density(state);
@@ -44,10 +38,7 @@ package Steam
     R = steam.R;
     state.p = p;
     state.T = T;
-    //    Xi=fill(0, 0);
-    //   X={1};
     state.X = reference_X;
-    //X = reference_X;
   end BaseProperties;
 
 redeclare replaceable function extends density
@@ -108,8 +99,6 @@ end dynamicViscosity;
 
 redeclare replaceable function extends enthalpyOfVaporization
   "Return vaporization enthalpy of condensing fluid"
-  //    input Temperature T "Temperature";
-  //    output SpecificEnthalpy r0 "Vaporization enthalpy";
 algorithm
   r0 := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hv_p(
       saturationPressure(T)) -
@@ -419,8 +408,8 @@ algorithm
         0);
   annotation (Inline=true);
 end isentropicEnthalpy;
-protected
 
+protected
 record GasProperties
   "Coefficient data record for properties of perfect gases"
   extends Modelica.Icons.Record;

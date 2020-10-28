@@ -1,11 +1,10 @@
 within IBPSA.Media.Examples;
-model SteamSaturatedProperties
+model xSteamSaturatedProperties
   "Model that tests the implementation of the steam properties at saturated liquid and vapor states"
   extends Modelica.Icons.Example;
 
   package MediumIF97 = IBPSA.Media.SteamIF97 "Steam medium model, IF97";
   package Medium = IBPSA.Media.Steam "Steam medium model";
-
 
   parameter Modelica.SIunits.Temperature TMin = 273.16
     "Minimum temperature for the simulation";
@@ -88,4 +87,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SteamSaturatedProperties;
+end xSteamSaturatedProperties;
