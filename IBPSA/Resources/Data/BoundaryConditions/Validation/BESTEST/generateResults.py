@@ -288,6 +288,8 @@ def _organize_cases(mat_dir):
         for file in f:
             if '.mat' in file:
                 mat_files.append(os.path.join(r, file))
+                if CODE_VERBOSE:
+                    print(f"Appending {os.path.join(r, file)} to mat_files.")
 
     case_list = list()
     if len(CASES) == len(mat_files):
@@ -301,8 +303,8 @@ def _organize_cases(mat_dir):
             case_list.append(temp)
     else:
         raise ValueError(
-            "*** There is failed simulation, no result file was found. \
-                Check the simulations.")
+            f"*** There is failed simulation, no result file was found. \
+                Check the simulations. len(CASES) = {len(CASES)}, len(mat_files) = {len(mat_files)}")
     return case_list
 
 
@@ -318,6 +320,8 @@ def _extract_data(mat_file, re_val):
     nPoi = case_dict["n_intervals"]
 
     try:
+        if CODE_VERBOSE:
+            print(f"**** Extracting {mat_file}")
         r = Reader(mat_file, TOOL)
     except IOError:
         raise ValueError("Failed to read {}.".format(mat_file))
