@@ -167,6 +167,7 @@ def checkout_repository(working_directory, case_dict):
     import time
     d = {}
     d['lib_name'] = case_dict['lib_name']
+    print(f"***** case_dict['from_git_hub'] = {case_dict['from_git_hub']}")
     if case_dict['from_git_hub']:
         git_url = git.Repo(search_parent_directories=True).remotes.origin.url
         r = Repo.clone_from(git_url, working_directory)
@@ -284,6 +285,8 @@ def _organize_cases(mat_dir):
     :param mat_dir: path to .mat_files directory
     '''
     mat_files = list()
+    if CODE_VERBOSE:
+        print(f"Searching for .mat files in {mat_dir}.")
     for r, d, f in os.walk(mat_dir):
         for file in f:
             if '.mat' in file:
@@ -1027,6 +1030,7 @@ if __name__ == '__main__':
 
     CI_TESTING = args.c
     FROM_GIT_HUB = args.g
+    print(f"********** FROM_GIT_HUB = {FROM_GIT_HUB}")
     pretty_print = args.p
     TestN = args.t
 
