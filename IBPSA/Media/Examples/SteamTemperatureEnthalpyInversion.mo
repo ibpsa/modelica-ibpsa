@@ -4,8 +4,7 @@ model SteamTemperatureEnthalpyInversion
   extends Modelica.Icons.Example;
   extends IBPSA.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion(
     redeclare package Medium = IBPSA.Media.Steam,
-    T0=273.15 + 300,
-    tol=0.1);
+    T0=273.15 + 300);
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamTemperatureEnthalpyInversion.mos"

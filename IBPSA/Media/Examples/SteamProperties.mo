@@ -6,8 +6,7 @@ model SteamProperties
     redeclare package Medium = IBPSA.Media.Steam,
     TMin=273.15 + 200,
     TMax=273.15 + 700,
-    p=1400000,
-    errAbs=1E3);
+    p=1400000);
 
   Medium.ThermodynamicState state_phX "Medium state";
   Medium.ThermodynamicState state_psX "Medium state";

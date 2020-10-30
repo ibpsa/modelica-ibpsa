@@ -1,13 +1,13 @@
 within IBPSA.Media;
 package Steam
-  "Package with model for region 2 (steam) water according to IF97 standard"
-  extends Modelica.Media.Interfaces.PartialCondensingGases(
+  "Package with model for pure water vapor (steam)"
+  extends Modelica.Media.Interfaces.PartialMedium(
      mediumName="steam",
      final substanceNames={"water"},
      singleState = true,
      reducedX = true,
      fixedX = true,
-     fluidConstants={Modelica.Media.IdealGases.Common.FluidData.H2O},
+     FluidConstants={Modelica.Media.IdealGases.Common.FluidData.H2O},
      reference_T=273.15,
      reference_p=101325,
      reference_X={1},
@@ -20,14 +20,18 @@ package Steam
 
   redeclare record extends ThermodynamicState
     "Thermodynamic state variables"
+    AbsolutePressure p "Absolute pressure of medium";
+    Temperature T "Temperature of medium";
+    MassFraction[nX] X(start=reference_X)
+      "Mass fractions (= (component mass)/total mass  m_i/m)";
   end ThermodynamicState;
-  constant Integer region = 2 "Region of IF97, if known, zero otherwise";
+  constant Integer region = 2 "Region of IF97";
   constant Integer phase = 1 "1 for one-phase";
 
   redeclare replaceable model extends BaseProperties(
     preferredMediumStates = true,
     final standardOrderComponents=true)
-    "Base properties (p, d, T, h, u, R, MM, sat) of water"
+    "Base properties (p, d, T, h, u, R, MM) of water"
   equation
     // Temperature and pressure values must be within acceptable max & min bounds
     MM = steam.MM;
@@ -97,8 +101,11 @@ algorithm
     annotation (Inline=true);
 end dynamicViscosity;
 
-redeclare replaceable function extends enthalpyOfVaporization
+replaceable function enthalpyOfVaporization
   "Return vaporization enthalpy of condensing fluid"
+    extends Modelica.Icons.Function;
+    input Temperature T "Temperature";
+    output SpecificEnthalpy r0 "Vaporization enthalpy";
 algorithm
   r0 := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hv_p(
       saturationPressure(T)) -
@@ -154,15 +161,16 @@ algorithm
 annotation (Inline=true,smoothOrder=1);
 end pressure_dT;
 
- redeclare replaceable function extends saturationPressure
+replaceable function saturationPressure
   "Return saturation pressure of condensing fluid"
-  //    input Temperature Tsat "Saturation temperature";
-  //    output AbsolutePressure psat "Saturation pressure";
- algorithm
+    extends Modelica.Icons.Function;
+    input Temperature Tsat "Saturation temperature";
+    output AbsolutePressure psat "Saturation pressure";
+algorithm
    psat := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.psat(Tsat);
 
  annotation (Inline=true);
- end saturationPressure;
+end saturationPressure;
 
 replaceable function saturationTemperature
     "Return saturation temperature"
@@ -408,8 +416,8 @@ algorithm
         0);
   annotation (Inline=true);
 end isentropicEnthalpy;
-
 protected
+
 record GasProperties
   "Coefficient data record for properties of perfect gases"
   extends Modelica.Icons.Record;
