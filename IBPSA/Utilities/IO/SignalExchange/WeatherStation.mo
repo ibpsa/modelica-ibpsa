@@ -289,7 +289,8 @@ First implementation.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">#1402</a>.
 </li>
 </ul>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),                                     graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,159},
@@ -311,5 +312,5 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">#1402</a>.
           lineColor={0,0,0},
           fillColor={244,125,35},
           fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{120,120}})));
 end WeatherStation;
