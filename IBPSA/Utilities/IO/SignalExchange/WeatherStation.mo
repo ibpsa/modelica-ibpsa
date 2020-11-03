@@ -267,7 +267,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This block enables the reading of weather measurements and their meta-data by an external
-program without the need to explicitly propogate the signal to a top-level model.
+program without the need to explicitly propagate the signal to a top-level model.
 This block utilizes a number of pre-configured instances of
 <a href=\"modelica://IBPSA.Utilities.IO.SignalExchange.Read\">
 IBPSA.Utilities.IO.SignalExchange.Read</a>
