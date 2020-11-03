@@ -5,78 +5,119 @@ model WeatherStation
     annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-112,
             -14},{-86,12}})));
-  IBPSA.Utilities.IO.SignalExchange.Read reaWeaTDryBul(description=
-        "Outside drybulb temperature measurement", y(unit="K"))
+  IBPSA.Utilities.IO.SignalExchange.Read reaWeaTDryBul(
+    description="Outside drybulb temperature measurement",
+    y(unit="K"))
     "Outside drybulb temperature measurement"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  IBPSA.Utilities.IO.SignalExchange.Read reaWeaRelHum(description=
-        "Outside relative humidity measurement", y(unit="1"))
+  IBPSA.Utilities.IO.SignalExchange.Read reaWeaRelHum(
+    description="Outside relative humidity measurement",
+    y(unit="1"))
     "Outside relative humidity measurement"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  IBPSA.Utilities.IO.SignalExchange.Read reaWeaWinSpe(description=
-        "Wind speed measurement", y(unit="m/s")) "Wind speed measurement"
+  IBPSA.Utilities.IO.SignalExchange.Read reaWeaWinSpe(
+    description="Wind speed measurement",
+    y(unit="m/s"))
+    "Wind speed measurement"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  IBPSA.Utilities.IO.SignalExchange.Read reaWeaWinDir(description=
-        "Wind direction measurement", y(unit="rad"))
+  IBPSA.Utilities.IO.SignalExchange.Read reaWeaWinDir(
+    description="Wind direction measurement",
+    y(unit="rad"))
     "Wind direction measurement"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  IBPSA.Utilities.IO.SignalExchange.Read reaWeaHGloHor(description=
-        "Global horizontal solar irradiation measurement", y(unit="W/m2"))
+  IBPSA.Utilities.IO.SignalExchange.Read reaWeaHGloHor(
+    description="Global horizontal solar irradiation measurement",
+    y(unit="W/m2"))
     "Global horizontal solar irradiation measurement"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  IBPSA.Utilities.IO.SignalExchange.Read reaWeaNTot(description=
-        "Sky cover measurement", y(unit="1")) "Sky cover measurement"
+  IBPSA.Utilities.IO.SignalExchange.Read reaWeaNTot(
+    description="Sky cover measurement",
+    y(unit="1"))
+    "Sky cover measurement"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  IBPSA.Utilities.IO.SignalExchange.Read reaWeaPAtm(description=
-        "Atmospheric pressure measurement", y(unit="Pa"))
+  IBPSA.Utilities.IO.SignalExchange.Read reaWeaPAtm(
+    description="Atmospheric pressure measurement",
+    y(unit="Pa"))
     "Atmospheric pressure measurement"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Read reaWeaHDifHor(description=
-        "Horizontal diffuse solar radiation measurement", y(unit="W/m2"))
+  Read reaWeaHDifHor(
+    description="Horizontal diffuse solar radiation measurement",
+    y(unit="W/m2"))
     "Horizontal diffuse solar radiation measurement"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Read reaWeaCeiHei(description="Cloud cover ceiling height measurement", y(
-        unit="m")) "Cloud cover ceiling height measurement"
+  Read reaWeaCeiHei(
+    description="Cloud cover ceiling height measurement",
+    y(unit="m"))
+    "Cloud cover ceiling height measurement"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
-  Read reaWeaTWetBul(description="Wet bulb temperature measurement", y(unit="K"))
+  Read reaWeaTWetBul(
+    description="Wet bulb temperature measurement",
+    y(unit="K"))
     "Wet bulb temperature measurement"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Read reaWeaTDewPoi(description="Dew point temperature measurement", y(unit=
-          "K")) "Dew point temperature measurement"
+  Read reaWeaTDewPoi(
+    description="Dew point temperature measurement",
+    y(unit= "K"))
+    "Dew point temperature measurement"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Read reaWeaTBlaSky(description="Black-body sky temperature measurement", y(
-        unit="K")) "Black-body sky temperature measurement"
+  Read reaWeaTBlaSky(
+    description = "Black-body sky temperature measurement",
+    y(unit = "K"))
+    "Black-body sky temperature measurement"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Read reaWeaHHorIR(description="Horizontal infrared irradiation measurement",
-      y(unit="W/m2")) "Horizontal infrared irradiation measurement"
+  Read reaWeaHHorIR(
+    description = "Horizontal infrared irradiation measurement",
+    y(unit = "W/m2"))
+    "Horizontal infrared irradiation measurement"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Read reaWeaHDirNor(description="Direct normal radiation measurement", y(unit=
-          "W/m2")) "Direct normal radiation measurement"
+  Read reaWeaHDirNor(
+    description="Direct normal radiation measurement",
+    y(unit="W/m2"))
+    "Direct normal radiation measurement"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Read reaWeaCloTim(description="Day number with units of seconds", y(unit="s"))
+  Read reaWeaCloTim(
+    description="Day number with units of seconds",
+    y(unit="s"))
     "Day number with units of seconds"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Read reaWeaSolAlt(description="Solar altitude angle measurement", y(unit=
-          "rad")) "Solar altitude angle measurement"
+  Read reaWeaSolAlt(
+    description="Solar altitude angle measurement",
+    y(unit="rad"))
+    "Solar altitude angle measurement"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Read reaWeaNOpa(description="Opaque sky cover measurement", y(unit="1"))
+  Read reaWeaNOpa(
+    description="Opaque sky cover measurement",
+    y(unit="1"))
     "Opaque sky cover measurement"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Read reaWeaLat(description="Latitude of the location", y(unit="rad"))
+  Read reaWeaLat(
+    description="Latitude of the location",
+    y(unit="rad"))
     "Latitude of the location"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Read reaWeaLon(description="Longitude of the location", y(unit="rad"))
+  Read reaWeaLon(
+    description="Longitude of the location",
+    y(unit="rad"))
     "Longitude of the location"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Read reaWeaSolDec(description="Solar declination angle measurement", y(unit=
-          "rad")) "Solar declination angle measurement"
+  Read reaWeaSolDec(
+    description="Solar declination angle measurement",
+    y(unit="rad"))
+    "Solar declination angle measurement"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Read reaWeaSolHouAng(description="Solar hour angle measurement", y(unit="rad"))
+  Read reaWeaSolHouAng(
+    description="Solar hour angle measurement",
+    y(unit="rad"))
     "Solar hour angle measurement"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Read reaWeaSolTim(description="Solar time", y(unit="s")) "Solar time"
+  Read reaWeaSolTim(
+    description="Solar time",
+    y(unit="s"))
+    "Solar time"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Read reaWeaSolZen(description="Solar zenith angle measurement", y(unit="rad"))
+  Read reaWeaSolZen(
+    description="Solar zenith angle measurement",
+    y(unit="rad"))
     "Solar zenith angle measurement"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
 equation
