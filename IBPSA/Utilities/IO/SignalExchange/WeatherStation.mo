@@ -61,13 +61,13 @@ model WeatherStation
     "Dew point temperature measurement"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   IBPSA.Utilities.IO.SignalExchange.Read reaWeaTBlaSky(
-    description = "Black-body sky temperature measurement",
-    y(final unit = "K"))
+    description="Black-body sky temperature measurement",
+    y(final unit="K"))
     "Black-body sky temperature measurement"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   IBPSA.Utilities.IO.SignalExchange.Read reaWeaHHorIR(
-    description = "Horizontal infrared irradiation measurement",
-    y(final unit = "W/m2"))
+    description="Horizontal infrared irradiation measurement",
+    y(final unit="W/m2"))
     "Horizontal infrared irradiation measurement"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   IBPSA.Utilities.IO.SignalExchange.Read reaWeaHDirNor(
