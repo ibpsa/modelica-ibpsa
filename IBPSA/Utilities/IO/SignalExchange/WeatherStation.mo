@@ -57,7 +57,7 @@ model WeatherStation
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   IBPSA.Utilities.IO.SignalExchange.Read reaWeaTDewPoi(
     description="Dew point temperature measurement",
-    y(final unit= "K"))
+    y(final unit="K"))
     "Dew point temperature measurement"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   IBPSA.Utilities.IO.SignalExchange.Read reaWeaTBlaSky(
