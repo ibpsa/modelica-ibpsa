@@ -78,13 +78,17 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Medium.BaseProperties medium(
     p(start=p_start),
     h(start=hStart),
+    u(nominal=1E4,
+      stateSelect=StateSelect.prefer),
     T(start=T_start),
     Xi(
       start=X_start[1:Medium.nXi],
       nominal=Medium.X_default[1:Medium.nXi],
       stateSelect=StateSelect.prefer),
     X(start=X_start),
-    d(start=rho_start)) "Medium properties";
+    d(start=rho_start,
+      stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
+      then StateSelect.default else StateSelect.prefer)) "Medium properties";
 
   Modelica.SIunits.Energy U(start=fluidVolume*rho_start*
     Medium.specificInternalEnergy(Medium.setState_pTX(
@@ -95,9 +99,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     nominal = 1E5) "Internal energy of fluid";
 
   Modelica.SIunits.Mass m(
-    start=fluidVolume*rho_start,
-    stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
-    then StateSelect.default else StateSelect.prefer)
+    start=fluidVolume*rho_start)
     "Mass of fluid";
 
   Modelica.SIunits.Mass[Medium.nXi] mXi(
@@ -302,7 +304,7 @@ equation
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     0 = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
   else
-    der(m) = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
+    der(medium.d) = (mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal))/fluidVolume;
   end if;
 
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
@@ -425,6 +427,15 @@ IBPSA.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 6, 2020, by Michael Wetter and Filip Jorissen:<br/>
+Changed model to use density instead of mass as a prefered state.
+Using mass would require to setting <code>m(nominal=fluidVolume...</code>
+but <code>fluidVolume</code> is in some models not a literal value.
+Also, set nominal attribute of <code>medium.u</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">1412</a>.
+</li>
 <li>
 April 26, 2019, by Filip Jorissen:<br/>
 Returning <code>getInstanceName()</code> in asserts.

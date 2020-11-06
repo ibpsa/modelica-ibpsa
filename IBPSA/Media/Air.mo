@@ -109,7 +109,7 @@ package Air
     // In this medium model, the density depends only
     // on temperature, but not on pressure.
     //  d = p/(R*T);
-    d/dStp = p/pStp;
+    p = d * pStp/dStp;
 
     state.p = p;
     state.T = T;
@@ -1059,6 +1059,13 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 6, 2020, by Michael Wetter and Filip Jorissen:<br/>
+Solved equation between pressure and density in the base properties
+for pressure, as this is what the symbolic formulation usually needs.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">1412</a>.
+</li>
 <li>
 September 28, 2020, by Michael Wetter:<br/>
 Reformulated <code>BaseProperties</code> to avoid event-triggering assertions.<br/>

@@ -61,7 +61,7 @@ as required from medium model \"" + mediumName + "\".");
     R = dryair.R*(1 - X_steam) + steam.R*X_steam;
     //
     u = h - R*T;
-    d = p/(R*T);
+    p = d*R*T;
     /* Note, u and d are computed under the assumption that the volume of the liquid
          water is negligible with respect to the volume of air and of steam
       */
@@ -586,7 +586,7 @@ First implementation.
     "Return specific entropy of moist air as a function of pressure p, temperature T and composition X (only valid for phi<1)";
   function s_pTX_der = Modelica.Media.Air.MoistAir.s_pTX_der
     "Return specific entropy of moist air as a function of pressure p, temperature T and composition X (only valid for phi<1)";
-  annotation(preferredView="info", Documentation(info="<html>
+  annotation(Documentation(info="<html>
 <p>
 This package contains a <i>thermally perfect</i> model of moist air.
 </p>
@@ -636,6 +636,13 @@ space dimension</i>. CRC Press. 1998.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 6, 2020, by Michael Wetter and Filip Jorissen:<br/>
+Solved equation between pressure and density in the base properties
+for pressure, as this is what the symbolic formulation usually needs.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">1412</a>.
+</li>
 <li>
 October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
 Now printing different messages if temperature is above or below its limit,
