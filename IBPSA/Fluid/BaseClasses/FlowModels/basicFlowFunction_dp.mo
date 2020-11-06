@@ -25,7 +25,7 @@ algorithm
            smoothOrder=2,
            derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
              IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der,
-           inverse(dp=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+           __inverse(dp=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
              m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Line(
