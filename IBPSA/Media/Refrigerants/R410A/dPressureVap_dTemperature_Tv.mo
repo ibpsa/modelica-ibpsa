@@ -35,14 +35,12 @@ protected
   Modelica.SIunits.SpecificVolume v_abs
     "Smoothed specific volume";
 
-  parameter Integer n = size(A, 1);
-
 algorithm
 
   v_abs := IBPSA.Utilities.Math.Functions.smoothMax(v, 1.01*b, 0.01*b);
 
   dpdT := R/(v_abs-b);
-  for i in 1:n loop
+  for i in 1:size(A, 1) loop
     dpdT := dpdT + (B[i] - C[i]*k/TCri*Modelica.Math.exp(-k*T/TCri))/(v_abs - b)^(i+1);
   end for;
 
@@ -61,6 +59,18 @@ https://www.chemours.com/Refrigerants/en_US/assets/downloads/h64423_Suva410A_the
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+November 8, 2020, by Michael Wetter:<br/>
+Corrected use of dimension <code>n</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">#1414</a>.
+</li>
+<li>
+November 8, 2020, by Michael Wetter:<br/>
+Corrected use of dimension <code>n</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">#1414</a>.
+</li>
 <li>
 November 30, 2016, by Massimo Cimmino:<br/>
 First implementation.
