@@ -66,12 +66,6 @@ This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">#1414</a>.
 </li>
 <li>
-November 8, 2020, by Michael Wetter:<br/>
-Corrected use of dimension <code>n</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">#1414</a>.
-</li>
-<li>
 November 30, 2016, by Massimo Cimmino:<br/>
 First implementation.
 </li>

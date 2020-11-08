@@ -79,13 +79,7 @@ https://www.chemours.com/Refrigerants/en_US/assets/downloads/h64423_Suva410A_the
 <ul>
 <li>
 November 8, 2020, by Michael Wetter:<br/>
-Reoved non-used parameters and reformulated integral as a sum, and multiplied sum with common factors.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">#1414</a>.
-</li>
-<li>
-November 8, 2020, by Michael Wetter:<br/>
-Removed non-used parameters.<br/>
+Removed non-used parameters and reformulated integral as a sum, and multiplied sum with common factors.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1414\">#1414</a>.
 </li>
