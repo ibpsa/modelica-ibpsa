@@ -27,8 +27,12 @@ package PerfectGas "Model for air as a perfect gas"
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
-    p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    u(nominal=1E4,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    d(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    Xi(
+      nominal={0.01},
+      each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true)
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
@@ -61,7 +65,7 @@ as required from medium model \"" + mediumName + "\".");
     R = dryair.R*(1 - X_steam) + steam.R*X_steam;
     //
     u = h - R*T;
-    p = d*R*T;
+    d = p/(R*T);
     /* Note, u and d are computed under the assumption that the volume of the liquid
          water is negligible with respect to the volume of air and of steam
       */

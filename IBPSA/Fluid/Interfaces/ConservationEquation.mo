@@ -76,29 +76,23 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   // Set nominal attributes where literal values can be used.
   Medium.BaseProperties medium(
+    preferredMediumStates = energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
     p(start=p_start),
     h(start=hStart),
-    u(nominal=1E4,
-      stateSelect=StateSelect.prefer),
     T(start=T_start),
-    Xi(
-      start=X_start[1:Medium.nXi],
-      nominal=Medium.X_default[1:Medium.nXi],
-      stateSelect=StateSelect.prefer),
+    Xi(start=X_start[1:Medium.nXi]),
     X(start=X_start),
-    d(start=rho_start,
-      stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
-      then StateSelect.default else StateSelect.prefer)) "Medium properties";
+    d(start=rho_start)) "Medium properties";
 
   Modelica.SIunits.Energy U(start=fluidVolume*rho_start*
     Medium.specificInternalEnergy(Medium.setState_pTX(
      T=T_start,
      p=p_start,
      X=X_start[1:Medium.nXi])) +
-    (T_start - Medium.reference_T)*CSen,
-    nominal = 1E5) "Internal energy of fluid";
+    (T_start - Medium.reference_T)*CSen) "Internal energy of fluid";
 
   Modelica.SIunits.Mass m(
+    min=Modelica.Constants.eps,
     start=fluidVolume*rho_start)
     "Mass of fluid";
 
@@ -125,11 +119,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   parameter Modelica.SIunits.Volume fluidVolume "Volume";
   final parameter Modelica.SIunits.HeatCapacity CSen=
     (mSenFac - 1)*rho_default*cp_default*fluidVolume
-    "Aditional heat capacity for implementing mFactor";
+    "Additional heat capacity for implementing mFactor";
 protected
-  Medium.EnthalpyFlowRate ports_H_flow[nPorts];
-  Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
-  Medium.ExtraPropertyFlowRate ports_mC_flow[nPorts,Medium.nC];
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
   Medium.specificHeatCapacityCp(state=state_default)
     "Heat capacity, to compute additional dry mass";
@@ -164,6 +155,14 @@ protected
   // cannot differentiate the equations.
   constant Boolean _simplify_mWat_flow = simplify_mWat_flow and Medium.nX > 1
    "If true, then port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero, and equations are simplified";
+
+  // Quantities exchanged through the fluid ports
+  Medium.EnthalpyFlowRate ports_H_flow[nPorts]
+    "Enthalpy flow rates at the ports";
+  Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts, Medium.nXi]
+    "Mass fraction flow rates at the ports";
+  Medium.ExtraPropertyFlowRate ports_mC_flow[nPorts, Medium.nC]
+    "Trace substance flow rates at the ports";
 
   // Conditional connectors
   Modelica.Blocks.Interfaces.RealInput mWat_flow_internal(unit="kg/s")

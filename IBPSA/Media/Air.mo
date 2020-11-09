@@ -55,17 +55,20 @@ package Air
 
   InputAbsolutePressure p "Absolute pressure of medium";
   InputMassFraction[1] Xi(
-    start=reference_X[1:1],
+    start=X_default[1:1],
+    nominal={0.01},
     each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
     "Structurally independent mass fractions";
   InputSpecificEnthalpy h "Specific enthalpy of medium";
   Modelica.Media.Interfaces.Types.Density d "Density of medium";
   Modelica.Media.Interfaces.Types.Temperature T(
-   stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+   nominal=100)
    "Temperature of medium";
   Modelica.Media.Interfaces.Types.MassFraction[2] X(start=reference_X)
     "Mass fractions (= (component mass)/total mass  m_i/m)";
-  Modelica.Media.Interfaces.Types.SpecificInternalEnergy u
+  Modelica.Media.Interfaces.Types.SpecificInternalEnergy u(
+   nominal=1E4,
+   stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
     "Specific internal energy of medium";
   Modelica.Media.Interfaces.Types.SpecificHeatCapacity R
     "Gas constant (of mixture if applicable)";
