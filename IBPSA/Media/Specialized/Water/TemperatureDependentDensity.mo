@@ -28,7 +28,7 @@ package TemperatureDependentDensity
     "Specific heat capacity at constant pressure";
 
   redeclare model extends BaseProperties(
-    u(nominal=1E4,
+    h(nominal=1E4,
       stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default))
      "Base properties"
 
