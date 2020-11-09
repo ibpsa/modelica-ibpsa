@@ -13,9 +13,6 @@ protected
   final constant Real x0 = 0.5541498
     "x0 for saturation pressure of liquid refrigerant";
 
-  final constant Modelica.SIunits.Temperature TCri = 345.25
-    "Critical temperature of refrigerant";
-
   Real x
     "Independent variable";
 

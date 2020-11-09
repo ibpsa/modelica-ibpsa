@@ -22,9 +22,6 @@ protected
   Modelica.SIunits.SpecificHeatCapacity cvo
     "Ideal gas specific isochoric heat capacity";
 
-  Modelica.SIunits.Temperature TCri = 345.25
-    "Critical temperature of refrigerant";
-
 algorithm
   // Ideal gas isobaric heat capacity from polynomial equation
   cpo := 1.0e3*IBPSA.Utilities.Math.Functions.polynomial(a = a, x = T);
