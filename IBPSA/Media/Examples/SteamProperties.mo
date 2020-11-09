@@ -1,6 +1,6 @@
 within IBPSA.Media.Examples;
 model SteamProperties
-  "Model that tests the implementation of the steam properties"
+  "Model that tests the implementation of the steam superheated properties"
   extends Modelica.Icons.Example;
   extends IBPSA.Media.Examples.BaseClasses.PartialProperties(
     redeclare package Medium = IBPSA.Media.Steam,
@@ -10,8 +10,6 @@ model SteamProperties
 
   Medium.ThermodynamicState state_phX "Medium state";
   Medium.ThermodynamicState state_psX "Medium state";
-
-  Modelica.SIunits.SpecificEnthalpy hlg "Enthalpy of vaporization";
 
   Modelica.Media.Interfaces.Types.DerDensityByEnthalpy ddhp
     "Density derivative w.r.t. enthalpy";
@@ -28,7 +26,6 @@ equation
     checkState(state_pTX, state_psX, errAbs, "state_psX");
 
     // Check the implementation of the functions
-    hlg = Medium.enthalpyOfVaporization(state_pTX.T);
     ddhp = Medium.density_derh_p(state_pTX);
     ddph = Medium.density_derp_h(state_pTX);
 
