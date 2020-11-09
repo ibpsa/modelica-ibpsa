@@ -10,18 +10,6 @@ function specificIsochoricHeatCapacityVap_Tv
     "Specific isochoric heat capacity";
 
 protected
-  Modelica.SIunits.SpecificEntropy R = 114.55
-    "Refrigerant gas constant for Martin-Hou equation of state";
-
-  Real C[:] = {-6.293665e3, 1.532461e1, 0, 1.604125e-4}
-    "Coefficients C for Martin-Hou equation of state";
-
-  Real b = 4.355134e-4
-    "Coefficient b for Martin-Hou equation of state";
-
-  Real k = 5.75
-    "Coefficient K for Martin-Hou equation of state";
-
   Real a[:] = {2.676087e-1, 2.115353e-3, -9.848184e-7, 6.493781e-11}
     "Coefficients for ideal gas specific isobaric heat capacity";
 

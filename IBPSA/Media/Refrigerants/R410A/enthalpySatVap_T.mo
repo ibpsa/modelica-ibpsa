@@ -7,14 +7,11 @@ function enthalpySatVap_T
     "Specific enthalpy of saturated liquid refrigerant";
 
 protected
-  final Real a[:] = {406.0598, -34.78156, 262.8079, 223.8549, -1162.627, 570.6635}
+  final constant Real a[:] = {406.0598, -34.78156, 262.8079, 223.8549, -1162.627, 570.6635}
     "Coefficients for polynomial equation";
 
-  final Real x0 = 0
+  final constant Real x0 = 0
     "x0 for saturation pressure of liquid refrigerant";
-
-  final Modelica.SIunits.Temperature TCri = 345.25
-    "Critical temperature of refrigerant";
 
   Real x
     "Independent variable";

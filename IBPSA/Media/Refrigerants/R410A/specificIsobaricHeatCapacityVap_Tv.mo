@@ -19,7 +19,6 @@ protected
     "Specific isochoric heat capacity";
 
 algorithm
-
   cv := IBPSA.Media.Refrigerants.R410A.specificIsochoricHeatCapacityVap_Tv(T, v);
   dpdT := IBPSA.Media.Refrigerants.R410A.dPressureVap_dTemperature_Tv(T, v);
   dpdv := IBPSA.Media.Refrigerants.R410A.dPressureVap_dSpecificVolume_Tv(T, v);

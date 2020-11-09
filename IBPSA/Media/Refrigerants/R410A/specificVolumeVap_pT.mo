@@ -9,12 +9,6 @@ function specificVolumeVap_pT
     "Specific volume of refrigerant";
 
 protected
-  Modelica.SIunits.SpecificEntropy R = 114.55
-    "Refrigerant gas constant for Martin-Hou equation of state";
-
-  Real b = 4.355134e-4
-    "Coefficient b for Martin-Hou equation of state";
-
   Modelica.SIunits.SpecificVolume dv
     "Error on specific volume of refrigerant";
 

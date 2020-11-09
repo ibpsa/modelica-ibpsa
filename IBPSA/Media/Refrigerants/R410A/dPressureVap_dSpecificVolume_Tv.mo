@@ -11,27 +11,6 @@ function dPressureVap_dSpecificVolume_Tv
      "Derivative of pressure with regards to specific volume";
 
 protected
-  Modelica.SIunits.SpecificEntropy R = 114.55
-    "Refrigerant gas constant for Martin-Hou equation of state";
-
-  Real A[:] = {-1.721781e2, 2.381558e-1, -4.329207e-4, -6.241072e-7}
-    "Coefficients A for Martin-Hou equation of state";
-
-  Real B[:] = {1.646288e-1, -1.462803e-5, 0, 1.380469e-9}
-    "Coefficients B for Martin-Hou equation of state";
-
-  Real C[:] = {-6.293665e3, 1.532461e1, 0, 1.604125e-4}
-    "Coefficients C for Martin-Hou equation of state";
-
-  Real b = 4.355134e-4
-    "Coefficient b for Martin-Hou equation of state";
-
-  Real k = 5.75
-    "Coefficient K for Martin-Hou equation of state";
-
-  Modelica.SIunits.Temperature TCri = 345.25
-    "Critical temperature of refrigerant";
-
   Modelica.SIunits.SpecificVolume v_abs
     "Smoothed specific volume";
 
