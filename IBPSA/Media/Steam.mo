@@ -101,8 +101,30 @@ algorithm
     annotation (Inline=true);
 end dynamicViscosity;
 
+replaceable function enthalpyOfSaturatedLiquid
+  "Return enthalpy of saturated liquid"
+    extends Modelica.Icons.Function;
+    input Temperature T "Temperature";
+    output SpecificEnthalpy hl "Enthalpy of saturated liquid";
+algorithm
+  hl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hl_p(
+      saturationPressure(T));
+annotation (Inline=true);
+end enthalpyOfSaturatedLiquid;
+
+replaceable function enthalpyOfSaturatedVapor
+  "Return enthalpy of saturated liquid"
+    extends Modelica.Icons.Function;
+    input Temperature T "Temperature";
+    output SpecificEnthalpy hv "Enthalpy of saturated liquid";
+algorithm
+  hv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hv_p(
+      saturationPressure(T));
+annotation (Inline=true);
+end enthalpyOfSaturatedVapor;
+
 replaceable function enthalpyOfVaporization
-  "Return vaporization enthalpy of condensing fluid"
+  "Return enthalpy of vaporization"
     extends Modelica.Icons.Function;
     input Temperature T "Temperature";
     output SpecificEnthalpy r0 "Vaporization enthalpy";

@@ -47,8 +47,9 @@ This example checks thermophysical properties of the medium.
 revisions="<html>
 <ul>
 <li>
-March 6, 2020, by Kathryn Hinkelman:<br/>
-Change medium to ideal steam to eliminate discontinuities.
+October 30, 2020, by Kathryn Hinkelman:<br/>
+Rebased steam medium to PartialMedium and improved steam property consistency
+and efficiency.
 </li>
 <li>
 September 12, 2019, by Yangyang Fu:<br/>

@@ -21,5 +21,18 @@ equation
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Media/Examples/SteamSaturationTemperaturePressureInversion.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+October 28, 2020, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model tests whether the inversion of saturated temperature
+and saturated pressure is implemented correctly for the steam model. 
+</p>
+</html>"));
 end SteamSaturationTemperaturePressureInversion;
