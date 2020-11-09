@@ -443,8 +443,8 @@ algorithm
         0);
   annotation (Inline=true);
 end isentropicEnthalpy;
-protected
 
+protected
 record GasProperties
   "Coefficient data record for properties of perfect gases"
   extends Modelica.Icons.Record;
