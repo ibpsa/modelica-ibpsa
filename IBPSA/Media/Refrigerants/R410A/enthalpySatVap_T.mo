@@ -10,15 +10,12 @@ protected
   final constant Real a[:] = {406.0598, -34.78156, 262.8079, 223.8549, -1162.627, 570.6635}
     "Coefficients for polynomial equation";
 
-  final constant Real x0 = 0
-    "x0 for saturation pressure of liquid refrigerant";
-
   Real x
     "Independent variable";
 
 algorithm
   // Independent variable
-  x := IBPSA.Utilities.Math.Functions.smoothMax(1-T/TCri, 1e-4, 5e-3)^(1/3) - x0;
+  x := IBPSA.Utilities.Math.Functions.smoothMax(1-T/TCri, 1e-4, 5e-3)^(1/3);
   // Pressure of saturated liquid refrigerant
   h := 1000*IBPSA.Utilities.Math.Functions.polynomial(a = a, x = x);
 
