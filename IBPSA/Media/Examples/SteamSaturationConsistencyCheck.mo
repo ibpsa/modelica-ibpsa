@@ -10,12 +10,14 @@ model SteamSaturationConsistencyCheck
     "Minimum temperature for the simulation";
   parameter Modelica.SIunits.Temperature TMax = 273.15+179.886
       "Maximum temperature for the simulation";
+  parameter Real tol = 1E-8 "Numerical tolerance";
 
-  Modelica.SIunits.Temperature TSat(displayUnit="degC") "Saturation temperature";
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TSat_degC
-    "Celsius saturation temperature";
   MediumSte.ThermodynamicState sat "Saturation state";
   Modelica.SIunits.Pressure pSat "Saturation pressure";
+  Modelica.SIunits.Temperature TSat0 "Starting saturation temperature";
+  Modelica.SIunits.Temperature TSat "Saturation temperature";
+  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TSat_degC
+    "Celsius saturation temperature";
   Modelica.SIunits.SpecificEnthalpy hlvIF97 "Enthalpy of vaporization, IF97 formulation";
   Modelica.SIunits.SpecificEnthalpy hlvWatSte "Enthalpy of vaporization, water and steam medium models";
   Modelica.SIunits.SpecificEnthalpy hlIF97 "Enthalpy of saturated liquid, IF97";
@@ -32,10 +34,18 @@ protected
 
 equation
   // Compute temperatures that are used as input to the functions
-  TSat = TMin + conv*time * (TMax-TMin);
+  TSat0 = TMin + conv*time * (TMax-TMin);
 
   // Set saturation states
-  pSat = MediumSte.saturationPressure(TSat);
+//  pSat = MediumSte.saturationPressure(TSat);
+  pSat = MediumSte.saturationPressure(TSat0);
+  TSat = MediumSte.saturationTemperature(pSat);
+  if (time>0.1) then
+  assert(abs(TSat-TSat0)<tol, "Error in implementation of functions.\n"
+     + "   TSat0 = " + String(TSat0) + "\n"
+     + "   TSat  = " + String(TSat) + "\n"
+     + "   Absolute error: " + String(abs(TSat-TSat0)) + " K");
+  end if;
   TSat_degC = Modelica.SIunits.Conversions.to_degC(TSat);
   sat = MediumSte.setState_pTX(p=pSat, T=TSat, X=MediumSte.X_default);
 
@@ -65,10 +75,12 @@ First implementation.
 </html>", info="<html>
 <p>
 This example checks the consistency of satuated property functions across the steam and liquid water mediums. 
+It also checks if the inversion of saturated temperature and saturated pressure is implemented correctly 
+for the steam model.
 </p>
 <p>
 Errors are presented as percent differences between the standard property functions - 
-e.g medium.specificEnthalpy(state) - and the IF97 saturated property functions as the baseline.
+e.g medium.specificEnthalpy(saturatedState) - and the IF97 saturated property functions as the baseline.
 </p>
 </html>"));
 end SteamSaturationConsistencyCheck;

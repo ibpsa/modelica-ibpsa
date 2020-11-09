@@ -18,12 +18,10 @@ package Steam
      T_default=Modelica.SIunits.Conversions.from_degC(100));
   extends Modelica.Icons.Package;
 
-  redeclare record extends ThermodynamicState
+  redeclare record ThermodynamicState
     "Thermodynamic state variables"
     AbsolutePressure p "Absolute pressure of medium";
     Temperature T "Temperature of medium";
-    MassFraction[nX] X(start=reference_X)
-      "Mass fractions (= (component mass)/total mass  m_i/m)";
   end ThermodynamicState;
   constant Integer region = 2 "Region of IF97";
   constant Integer phase = 1 "1 for one-phase";
@@ -37,12 +35,10 @@ package Steam
     MM = steam.MM;
     h = specificEnthalpy(state);
     d = density(state);
-    //d = p/(R*T);
     u = h - p/d;
     R = steam.R;
     state.p = p;
     state.T = T;
-    state.X = reference_X;
   end BaseProperties;
 
 redeclare replaceable function extends density
@@ -170,18 +166,27 @@ replaceable function pressure_dT
   input Density d "Density";
   input Temperature T "Temperature";
   output AbsolutePressure p "Absolute Pressure";
-  protected
+algorithm
+  p := Modelica.Media.Water.IF97_Utilities.p_dT(d,T);
+annotation (Inline=true,smoothOrder=1);
+end pressure_dT;
+/*replaceable function pressure_dT
+  "Return pressure from d and T, inverse function of d(p,T)"
+  input Density d "Density";
+  input Temperature T "Temperature";
+  output AbsolutePressure p "Absolute Pressure";
+  protected 
   Real a[:] = {2.752,2.938,-0.8873,-0.8445,0.2132};
   AbsolutePressure pMean =  8.766717603911981e+05;
   Temperature TMean =  7.104788508557040e+02;
   Real pSD = 8.540705946819051e+05;
   Real TSD = 1.976242680354902e+02;
   Temperature THat;
-algorithm
+algorithm 
   THat := (T - TMean)/TSD;
   p := pSD/(a[2]+a[4]*THat)*(-a[1]+d-THat*(a[3]+a[5]*THat))+pMean;
 annotation (Inline=true,smoothOrder=1);
-end pressure_dT;
+end pressure_dT; */
 
 replaceable function saturationPressure
   "Return saturation pressure of condensing fluid"
@@ -299,28 +304,28 @@ end specificHelmholtzEnergy;
 redeclare function extends setState_dTX
     "Return the thermodynamic state as function of d, T and composition X or Xi"
 algorithm
-  state := ThermodynamicState(p=pressure_dT(d,T), T=T, X={1});
+  state := ThermodynamicState(p=pressure_dT(d,T), T=T); //, X={1}
 annotation (Inline=true,smoothOrder=2);
 end setState_dTX;
 
 redeclare function extends setState_pTX
     "Return the thermodynamic state as function of p, T and composition X or Xi"
 algorithm
-  state := ThermodynamicState(p=p, T=T, X={1});
+  state := ThermodynamicState(p=p, T=T);
 annotation (Inline=true,smoothOrder=2);
 end setState_pTX;
 
 redeclare function extends setState_phX
     "Return the thermodynamic state as function of p, h and composition X or Xi"
 algorithm
-  state := ThermodynamicState(p=p, T=temperature_ph(p,h), X={1});
+  state := ThermodynamicState(p=p, T=temperature_ph(p,h));
 annotation (Inline=true,smoothOrder=2);
 end setState_phX;
 
 redeclare function extends setState_psX
     "Return the thermodynamic state as function of p, s and composition X or Xi"
 algorithm
-  state := ThermodynamicState(p=p, T=temperature_ps(p,s), X={1});
+  state := ThermodynamicState(p=p, T=temperature_ps(p,s));
 annotation (Inline=true,smoothOrder=2);
 end setState_psX;
 
@@ -527,5 +532,8 @@ end g2;
       Line(
         points={{-30,30},{-50,10},{-30,-10},{-50,-30}},
         color={0,0,0},
-        smooth=Smooth.Bezier)}));
+        smooth=Smooth.Bezier)}), Documentation(info="<html>
+<p>Pressure range: medium pressure (~100-1000kPa)</p>
+<p>Temperature: 100-700C</p>
+</html>"));
 end Steam;
