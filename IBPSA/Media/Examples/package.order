@@ -6,7 +6,7 @@ PropyleneGlycolWaterProperties
 PropyleneGlycolWaterTemperatureEnthalpyInversion
 SteamDerivativeCheck
 SteamProperties
-SteamSaturatedProperties
+SteamSaturationConsistencyCheck
 SteamTemperatureEnthalpyInversion
 WaterDerivativeCheck
 WaterProperties
