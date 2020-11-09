@@ -47,45 +47,6 @@ algorithm
   d := rho_pT(state.p,state.T);
   annotation (Inline=true);
 end density;
-/*  redeclare replaceable function extends density
-  "Returns density"
-  protected 
-  Real a[:] = {2.752,2.938,-0.8873,-0.8445,0.2132};
-  AbsolutePressure pMean =  8.766717603911981e+05;
-  Temperature TMean =  7.104788508557040e+02;
-  Real pSD = 8.540705946819051e+05;
-  Real TSD = 1.976242680354902e+02;
-  AbsolutePressure pHat;
-  Temperature THat;
-algorithm 
-  pHat := (state.p - pMean)/pSD;
-  THat := (state.T - TMean)/TSD;
-  d := a[1] + a[2]*pHat + a[3]*THat + a[4]*pHat*THat + a[5]*THat^2;
-  annotation (Inline=true,smoothOrder=2);
-end density;
-redeclare replaceable function extends density
-  "Returns density"
-  protected 
-  Real a[:] = {2.702,2.653,-0.7555,0.02029,-0.7485,0.2043,-0.0521,0.2587,
-    -0.1007,0.06978,-0.1735,0.0566,-0.02713,0.06016,-0.01156};
-  AbsolutePressure pMean =  8.766717603911981e+05;
-  Temperature TMean =  7.104788508557040e+02;
-  Real pSD = 8.540705946819051e+05;
-  Real TSD = 1.976242680354902e+02;
-  AbsolutePressure pHat;
-  Temperature THat;
-algorithm 
-   // function of state
-   //d := state.p/(steam.R*state.T);
-  pHat :=(state.p - pMean)/pSD;
-  THat :=(state.T - TMean)/TSD;
-  d := a[1] + a[2]*pHat + a[3]*THat + a[4]*pHat^2 + a[5]*pHat*THat +
-    a[6]*THat^2 + a[7]*pHat^2*THat + a[8]*pHat*THat^2 + a[9]*THat^3 +
-    a[10]*pHat^2*THat^2 + a[11]*pHat*THat^3 + a[12]*THat^4 +
-    a[13]*pHat^2*THat^3 + a[14]*pHat*THat^4 + a[15]*THat^5;
-  annotation (Inline=true);
-end density;
-*/
 
 redeclare function extends dynamicViscosity
     "Return dynamic viscosity"
@@ -170,23 +131,6 @@ algorithm
   p := Modelica.Media.Water.IF97_Utilities.p_dT(d,T);
 annotation (Inline=true,smoothOrder=1);
 end pressure_dT;
-/*replaceable function pressure_dT
-  "Return pressure from d and T, inverse function of d(p,T)"
-  input Density d "Density";
-  input Temperature T "Temperature";
-  output AbsolutePressure p "Absolute Pressure";
-  protected 
-  Real a[:] = {2.752,2.938,-0.8873,-0.8445,0.2132};
-  AbsolutePressure pMean =  8.766717603911981e+05;
-  Temperature TMean =  7.104788508557040e+02;
-  Real pSD = 8.540705946819051e+05;
-  Real TSD = 1.976242680354902e+02;
-  Temperature THat;
-algorithm 
-  THat := (T - TMean)/TSD;
-  p := pSD/(a[2]+a[4]*THat)*(-a[1]+d-THat*(a[3]+a[5]*THat))+pMean;
-annotation (Inline=true,smoothOrder=1);
-end pressure_dT; */
 
 replaceable function saturationPressure
   "Return saturation pressure of condensing fluid"
@@ -207,47 +151,6 @@ algorithm
     Tsat := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.tsat(psat);
     annotation (Inline=true);
 end saturationTemperature;
-/*replaceable function saturationTemperature
-  "Return saturation temperature from a given pressure"
-  extends Modelica.Icons.Function;
-  input AbsolutePressure p "Pressure";
-  output Temperature T   "Saturation temperature";
-  protected 
-  Real a[:] = {2.2830066E+02,1.1893913E+00,5.2484699E-01,1.2416857E-01,
-    -1.3714779E-02,5.5702047E-04}
-    "Coefficients";
-  Real logP = log(p);
-algorithm 
-  T := a[1] + a[2]*logP + a[3]*logP^2 + a[4]*logP^3 +
-    a[5]*logP^4 + a[6]*logP^5
-  "Saturation temperature";
-annotation (
-  smoothOrder=2,
-  Documentation(info="<html>
-  <p>
-  Saturation temperature is computed from pressure. This relation is
-  valid in the region of <i>273.16</i> to <i>647.096</i> K (<i>613.3</i> to <i>22,049,100</i> Pa).
-  </p>
-  <p>
-  The function has the following form:
-  </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  T = a<sub>1</sub> + a<sub>2</sub> ln(p) + a<sub>3</sub> ln(p)<sup>2</sup> +
-  a<sub>4</sub> ln(p)<sup>3</sup> + a<sub>5</sub> ln(p)<sup>4</sup> + a<sub>6</sub> ln(p)<sup>5</sup>
-  </p>
-  <p>
-  where temperature <i>T</i> is in units Kelvin, pressure <i>p</i> is in units Pa, and <i>a<sub>1</sub></i>
-  through <i>a<sub>6</sub></i> are regression coefficients.
-  </p>
-  </html>", revisions="<html>
-  <ul>
-  <li>
-  March 6, 2020, by Kathryn Hinkelman:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
-end saturationTemperature;*/
 
 redeclare function extends specificEntropy
   "Return specific entropy"
@@ -443,8 +346,8 @@ algorithm
         0);
   annotation (Inline=true);
 end isentropicEnthalpy;
-
 protected
+
 record GasProperties
   "Coefficient data record for properties of perfect gases"
   extends Modelica.Icons.Record;
