@@ -1470,6 +1470,15 @@ For instance, the unit must be
 </ul>
 </li>
 <li>
+<p>
+Hourly and Subhourly timestamp are handled in a different way in .epw files.From the EnergyPlus Auxiliary Programs Document (v9.3.0, p. 63):
+In hourly data the minute field can be 00 or 60. In this case as mentioned in the previous section, the weather data 
+is reported at the hourly value and the minute field has to be ignored, wrinting 1,60 or 1,00 is equivalent.
+If the minute field is between 00 and 60, the file becomes subhourly, in this case the timestamp corresponds to the 
+minute field in the considered hour. For example:1, 30 is equivalent to 00:30 and 3, 45 is equivalent to 02:45.
+</p>
+</li>
+<li>
 The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for solar radiation data
 that is explained below. This time shift needs to be removed if the user may want to
 use the ReaderTMY3 for other weather data types.
