@@ -1474,7 +1474,7 @@ For instance, the unit must be
 Hourly and subhourly timestamp are handled in a different way in <code>.epw</code> files.
 From the EnergyPlus Auxiliary Programs Document (v9.3.0, p. 63):
 In hourly data the minute field can be <code>00</code> or <code>60</code>. In this case as mentioned in the previous section, the weather data
-is reported at the hourly value and the minute field has to be ignored, wrinting <code>1,60</code> or <code>1,00</code> is equivalent.
+is reported at the hourly value and the minute field has to be ignored, writing <code>1, 60</code> or <code>1, 00</code> is equivalent.
 If the minute field is between <code>00</code> and <code>60</code>, the file becomes subhourly, in this case the timestamp corresponds to the
 minute field in the considered hour. For example: <code>1, 30</code> is equivalent to <i>00:30</i> and <code>3, 45</code> is equivalent to <i>02:45</i>.<br/>
 (Note the offset in the hour digit.)
