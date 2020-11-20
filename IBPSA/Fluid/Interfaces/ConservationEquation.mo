@@ -79,13 +79,12 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     preferredMediumStates = energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
     p(start=p_start),
     h(start=hStart),
-    u(stateSelect=if ((not computeCSen) and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState) then
-      StateSelect.prefer else StateSelect.never),
     T(start=T_start),
     Xi(start=X_start[1:Medium.nXi]),
     X(start=X_start),
     d(start=rho_start)) "Medium properties";
 
+  /* Set StateSelect.never so that tool chooses medium.T_degC or medium.u */
   Modelica.SIunits.Energy U(
     stateSelect=StateSelect.never,
     start=fluidVolume*rho_start*
@@ -97,7 +96,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   Modelica.SIunits.Mass m(
     min=Modelica.Constants.eps,
-    start=fluidVolume*rho_start)
+    start=fluidVolume*rho_start,
+    stateSelect=StateSelect.never)
     "Mass of fluid";
 
   Modelica.SIunits.Mass[Medium.nXi] mXi(
@@ -161,22 +161,6 @@ protected
   // cannot differentiate the equations.
   constant Boolean _simplify_mWat_flow = simplify_mWat_flow and Medium.nX > 1
    "If true, then port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero, and equations are simplified";
-
-  // The variable _u is used as a state. In the previous implementation, U
-  // was a state. However, setting the nominal attribute of U
-  // requires using the fluidVolume, which is a non-literal expression in some
-  // models. In this case, Dymola would simply set nominal=1, and the state
-  // is then not scaled properly, which can cause problems for the integrator.
-  // Therefore, we introduce  _u = U/(fluidVolume*rho_default), for which
-  // we can set the nominal attribute.
-  // Note that this is different from using medium.u if the expression
-  // U = m*medium.u + CSen*(medium.T-Medium.reference_T)
-  // is used. Therefore, the new variable _u has been introduced.
-  Medium.SpecificEnergy _u(
-    stateSelect = if (computeCSen and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)
-      then StateSelect.prefer else StateSelect.default,
-    nominal=1E4)
-    "Surrogate for specific energy, used as a state variable, and set to _u = U/(fluidVolume*rho_default)";
 
   // Quantities exchanged through the fluid ports
   Medium.EnthalpyFlowRate ports_H_flow[nPorts]
@@ -279,11 +263,8 @@ equation
   mXi = m*medium.Xi;
   if computeCSen then
     U = m*medium.u + CSen*(medium.T-Medium.reference_T);
-    // Internal state variable
-    _u = U * mInv;
   else
     U = m*medium.u;
-    _u = medium.u;
   end if;
   mC = m*C;
 

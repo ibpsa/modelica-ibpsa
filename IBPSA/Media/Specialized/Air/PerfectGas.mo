@@ -22,14 +22,18 @@ package PerfectGas "Model for air as a perfect gas"
 
   redeclare record extends ThermodynamicState(
     p(start=p_default),
-    T(start=T_default),
+    T(start=T_default,
+      nominal=100),
     X(start=X_default)) "ThermodynamicState record for moist air"
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
-    u(nominal=1E4,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    d(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    u(nominal=1E4),
+    p(stateSelect=StateSelect.avoid),
+    T(start=T_default,
+      stateSelect=StateSelect.avoid,
+      nominal=100),
+    d(stateSelect=StateSelect.avoid),
     Xi(
       nominal={0.01},
       each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
@@ -43,6 +47,17 @@ package PerfectGas "Model for air as a perfect gas"
   protected
     constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
       "Molar masses of components";
+
+    Modelica.SIunits.TemperatureDifference dT(
+      nominal=10,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = T - reference_T
+      "Temperature difference used to compute enthalpy";
+    // Nominal value is 100/1E5=1E-3
+    Modelica.Media.Interfaces.Types.Density dd(
+      nominal=1E-3,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = d - 1.2
+      "Density of medium";
+
 
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
@@ -59,8 +74,8 @@ as required from medium model \"" + mediumName + "\".");
     X_steam  = Xi[Water];
     X_air    = 1-Xi[Water];
 
-    h = (T - reference_T)*dryair.cp * (1 - Xi[Water]) +
-        ((T-reference_T) * steam.cp + h_fg) * Xi[Water];
+    h = dT*dryair.cp * (1 - Xi[Water]) +
+        (dT * steam.cp + h_fg) * Xi[Water];
 
     R = dryair.R*(1 - X_steam) + steam.R*X_steam;
     //
