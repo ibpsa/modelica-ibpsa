@@ -32,12 +32,42 @@ model SteamSaturationConsistencyCheck
 protected
   constant Real conv(unit="1/s") = 1 "Conversion factor to satisfy unit check";
 
+function enthalpyOfSaturatedLiquid
+  "Return enthalpy of saturated liquid"
+    extends Modelica.Icons.Function;
+    input Modelica.SIunits.AbsolutePressure p "Pressure";
+    output Modelica.SIunits.SpecificEnthalpy hl "Enthalpy of saturated liquid";
+algorithm
+  hl := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hl_p(p);
+annotation (Inline=true);
+end enthalpyOfSaturatedLiquid;
+
+function enthalpyOfSaturatedVapor
+  "Return enthalpy of saturated liquid"
+    extends Modelica.Icons.Function;
+    input Modelica.SIunits.AbsolutePressure p "Pressure";
+    output Modelica.SIunits.SpecificEnthalpy hv "Enthalpy of saturated liquid";
+algorithm
+  hv := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hv_p(p);
+annotation (Inline=true);
+end enthalpyOfSaturatedVapor;
+
+function enthalpyOfVaporization
+  "Return enthalpy of vaporization"
+    extends Modelica.Icons.Function;
+    input Modelica.SIunits.AbsolutePressure p "Pressure";
+    output Modelica.SIunits.SpecificEnthalpy r0 "Vaporization enthalpy";
+algorithm
+  r0 := Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hv_p(p) -
+    Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.hl_p(p);
+annotation (Inline=true);
+end enthalpyOfVaporization;
+
 equation
   // Compute temperatures that are used as input to the functions
   TSat0 = TMin + conv*time * (TMax-TMin);
 
   // Set saturation states
-//  pSat = MediumSte.saturationPressure(TSat);
   pSat = MediumSte.saturationPressure(TSat0);
   TSat = MediumSte.saturationTemperature(pSat);
   if (time>0.1) then
@@ -49,11 +79,11 @@ equation
   TSat_degC = Modelica.SIunits.Conversions.to_degC(TSat);
   sat = MediumSte.setState_pTX(p=pSat, T=TSat, X=MediumSte.X_default);
 
-  hlvIF97 = MediumSte.enthalpyOfVaporization(TSat);
+  hlvIF97 = enthalpyOfVaporization(pSat);
   hlvWatSte = MediumSte.specificEnthalpy(sat) - MediumWat.specificEnthalpy(sat);
-  hlIF97 = MediumSte.enthalpyOfSaturatedLiquid(TSat);
+  hlIF97 = enthalpyOfSaturatedLiquid(pSat);
   hlWat = MediumWat.specificEnthalpy(sat);
-  hvIF97 = MediumSte.enthalpyOfSaturatedVapor(TSat);
+  hvIF97 = enthalpyOfSaturatedVapor(pSat);
   hvSte = MediumSte.specificEnthalpy(sat);
 
   hlvErr = abs(hlvIF97 - hlvWatSte)/hlvIF97*100;
