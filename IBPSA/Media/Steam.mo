@@ -1,6 +1,6 @@
 within IBPSA.Media;
 package Steam
-  "Package with model for pure water vapor (steam)"
+  "Package with model for pure steam water vapor"
   extends Modelica.Media.Interfaces.PartialMedium(
      mediumName="steam",
      final substanceNames={"water"},
@@ -346,8 +346,8 @@ algorithm
         0);
   annotation (Inline=true);
 end isentropicEnthalpy;
-protected
 
+protected
 record GasProperties
   "Coefficient data record for properties of perfect gases"
   extends Modelica.Icons.Record;
@@ -436,7 +436,56 @@ end g2;
         points={{-30,30},{-50,10},{-30,-10},{-50,-30}},
         color={0,0,0},
         smooth=Smooth.Bezier)}), Documentation(info="<html>
-<p>Pressure range: medium pressure (~100-1000kPa)</p>
-<p>Temperature: 100-700C</p>
+<p>
+This medium package models water vapor (pure steam, region 2, quality=1).
+</p>
+<p>
+Thermodynamic properties are calculated primarily in terms of pressure 
+and temperature. IAPWS-IF97 formulations for thermodynamic properties are adapted, 
+as well as approximate relationships for commonly used functions to improve 
+computational efficiency and provide backward compatability. This model is intended
+for first generation district heating systems and other industrial processes involving 
+medium pressure steam.
+</p>
+<p> 
+Detailed functions from <a href=\"modelica://Modelica.Media.Water.WaterIF97_R2pT\">
+Modelica.Media.Water.WaterIF97_R2pT</a> are generally used, expect for specificEnthalpy and  
+specificEntropy (both \"forward\" functions), as well as their \"backward\" inverse functions 
+temperature_ph and temperature_ps, which are numerically consistent with the forward functions. 
+The following modifications from the WaterIF97_R2pT medium packages were made: 
+</p>
+<ol>
+<li>Automatic differentiation is provided for all thermodynamic property functions.</li>
+<li>The implementation is generally simplier in order to increase the likelyhood 
+of more efficient simulations. </li>
+</ol>
+<h4>Limitations </h4>
+<ul>
+<li>
+The valid temperature range is <i>100 C &le; T &le; 700 C</i>, and the valid 
+pressure range is <i>100 kPa &le; p &le; 1000 kPa</i> (medium pressure systems). 
+</li>
+<li>When phase change is required, this model is to be used in combination with 
+the <a href=\"modelica://IBPSA.Media.Specialized.Water.HighTemperature\">IBPSA.Media.Specialized.Water.HighTemperature</a> 
+media model for incompressible liquid water for the liquid phase (quality = 0). </li>
+</ul>
+<h4>Applications </h4>
+<p>For numerical robustness, applications of this medium model assume the pressure, 
+and hence the saturation pressure, is constant throughout the simulation. This 
+is done to improve simulation performance by decoupling the pressure drop and 
+energy balance calculations. </p>
+<h4>References </h4>
+<p>W. Wagner et al., &ldquo;The IAPWS industrial formulation 1997 for the thermodynamic 
+properties of water and steam,&rdquo; <i>J. Eng. Gas Turbines Power</i>, vol. 122, no. 
+1, pp. 150&ndash;180, 2000.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 30, 2020, by Kathryn Hinkelman:<br/>
+Complete new reimplementation to eliminate numerical inefficiencies 
+and improve accuracy of property function calculations.
+</li>
+</ul>
 </html>"));
 end Steam;
