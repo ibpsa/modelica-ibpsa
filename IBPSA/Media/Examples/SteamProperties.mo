@@ -3,7 +3,8 @@ model SteamProperties
   "Model that tests the implementation of the steam superheated properties"
   extends Modelica.Icons.Example;
   extends IBPSA.Media.Examples.BaseClasses.PartialProperties(
-    redeclare package Medium = IBPSA.Media.Steam,
+    redeclare package Medium = IBPSA.Media.Steam (
+      p_default=1400000),
     TMin=273.15 + 200,
     TMax=273.15 + 700,
     p=1400000);
