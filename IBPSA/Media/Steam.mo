@@ -58,23 +58,6 @@ algorithm
     annotation (Inline=true);
 end dynamicViscosity;
 
-redeclare replaceable function extends specificEnthalpy
-  "Returns specific enthalpy"
-  protected
-  Real a[:] = {3.354e+06,-1.661e+04,4.276e+05};
-  AbsolutePressure pMean =  8.766717603911981e+05;
-  Temperature TMean =  7.104788508557040e+02;
-  Real pSD = 8.540705946819051e+05;
-  Real TSD = 1.976242680354902e+02;
-  AbsolutePressure pHat;
-  Temperature THat;
-algorithm
-  pHat := (p_default - pMean)/pSD;
-  THat := (state.T - TMean)/TSD;
-  h := a[1] + a[2]*pHat + a[3]*THat;
-annotation (Inline=true,smoothOrder=2);
-end specificEnthalpy;
-
 redeclare replaceable function extends molarMass
   "Return the molar mass of the medium"
 algorithm
@@ -86,15 +69,6 @@ redeclare function extends pressure
 algorithm
   p := p_default;
 end pressure;
-/*replaceable function pressure_dT
-  "Return pressure from d and T, inverse function of d(p,T)"
-  input Density d "Density";
-  input Temperature T "Temperature";
-  output AbsolutePressure p "Absolute Pressure";
-algorithm 
-  p := Modelica.Media.Water.IF97_Utilities.p_dT(d,T);
-annotation (Inline=true,smoothOrder=1);
-end pressure_dT;*/
 
 replaceable function saturationPressure
   "Return saturation pressure of condensing fluid"
@@ -116,21 +90,88 @@ algorithm
     annotation (Inline=true);
 end saturationTemperature;
 
-redeclare function extends specificEntropy
-  "Return specific entropy"
+redeclare replaceable function extends specificEnthalpy
+  "Returns specific enthalpy"
   protected
-  Real a[:] = {7801,-445.2,594.7};
-  AbsolutePressure pMean =  8.766717603911981e+05;
-  Temperature TMean =  7.104788508557040e+02;
-  Real pSD = 8.540705946819051e+05;
-  Real TSD = 1.976242680354902e+02;
+  Real a[:] = {3.272e+06,-1.838e+04,3.504e+05};
+  AbsolutePressure pMean =  1.235156250000000e+06;
+  Temperature TMean =  6.775608072916825e+02;
+  Real pSD = 8.325568179102554e+05;
+  Real TSD = 1.610589787790216e+02;
   AbsolutePressure pHat;
   Temperature THat;
 algorithm
   pHat := (p_default - pMean)/pSD;
   THat := (state.T - TMean)/TSD;
-  s := a[1] + a[2]*pHat + a[3]*THat;
-annotation (Inline=true,smoothOrder=1);
+  h := a[1] + a[2]*pHat + a[3]*THat;
+annotation (Inline=true,smoothOrder=2,
+    Documentation(info="<html>
+<p>
+This function returns the specific enthalpy.
+</p>
+<h4>Implementation</h4>
+<p>
+The function is based on 
+<a href=\"modelica://Modelica.Media.Water.WaterIF97_base.specificEnthalpy_pT\">
+Modelica.Media.Water.WaterIF97_base.specificEnthalpy_pT</a>.
+However, for the typical range of temperatures and pressures 
+encountered in building and district energy applications, 
+a linear function sufficies. This implementation is therefore a linear 
+surface fit of the IF97 formulation <i>h(p,T)</i> in the ranges of 
+<i>100&deg;C &le; T &le; 700&deg;C</i> and 
+<i>100 kPa &le; p &le; 3000</i> kPa. The fit is scaled by the dataset's 
+mean and standard deviation values to improve conditioning. 
+The relative error of this linearization is
+<i>2.04</i>% at <i>235&deg;C</i> and <i>3000 kPa</i>,
+and is <i>0.29</i>% on average. The root mean square error (RMSE) 
+is <i>105.296 J/kg-K</i>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 30, 2020, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end specificEnthalpy;
+
+redeclare function extends specificEntropy
+  "Return specific entropy"
+  protected
+  Real a[:] = {7530,-636.9,532.8,159.8,4.13};
+  AbsolutePressure pMean =  8.161678571428572e+05;
+  Temperature TMean =  6.625678571428278e+02;
+  Real pSD = 7.802949628497174e+05;
+  Real TSD = 1.664480893697980e+02;
+  AbsolutePressure pHat;
+  Temperature THat;
+algorithm
+  pHat := (p_default - pMean)/pSD;
+  THat := (state.T - TMean)/TSD;
+  s := a[1] + a[2]*pHat + a[3]*THat + pHat*(a[4]*pHat + a[5]*THat);
+annotation (Inline=true,smoothOrder=1,
+    Documentation(info="<html>
+<p>
+This function returns the specific entropy.
+</p>
+<h4>Implementation</h4>
+<p>
+The function is based on 
+<a href=\"modelica://Modelica.Media.Water.WaterIF97_base.specificEntropy\">
+Modelica.Media.Water.WaterIF97_base.specificEntropy</a>.
+However, for the typical range of temperatures and pressures 
+encountered in building and district energy applications, 
+an invertible polynomial fit sufficies. This implementation is therefore 
+a polynomial fit (quadratic in pressure, linear in temperature) of the 
+IF97 formulation <i>s(p,T)</i> in the ranges of 
+<i>100&deg;C &le; T &le; 700&deg;C</i> and 
+<i>100 kPa &le; p &le; 3000</i> kPa. The fit is scaled by the dataset's 
+mean and standard deviation values to improve conditioning. 
+The relative error of this approximation is
+<i>4.96</i>% at <i>235&deg;C</i> and <i>3000 kPa</i>,
+and is <i>1.14</i>% on average. The root mean square error (RMSE) is <i>12.711 kJ/kg</i>.</p>
+</html>"));
 end specificEntropy;
 
 redeclare replaceable function extends specificInternalEnergy
@@ -207,17 +248,35 @@ replaceable function temperature_h
   input SpecificEnthalpy h "Specific Enthalpy";
   output Temperature T "Temperature";
   protected
-  Real a[:] = {3.354e+06,-1.661e+04,4.276e+05} "Coefficients from forward function h(p,T)";
+  Real a[:] = {3.272e+06,-1.838e+04,3.504e+05} "Coefficients from forward function h(p,T)";
   Real b[:] = {-a[1]*TSD/a[3]+TMean, -a[2]*TSD/a[3], TSD/a[3]};
-  AbsolutePressure pMean =  8.766717603911981e+05;
-  Temperature TMean =  7.104788508557040e+02;
-  Real pSD = 8.540705946819051e+05;
-  Real TSD = 1.976242680354902e+02;
+  AbsolutePressure pMean =  1.235156250000000e+06;
+  Temperature TMean =  6.775608072916825e+02;
+  Real pSD = 8.325568179102554e+05;
+  Real TSD = 1.610589787790216e+02;
   AbsolutePressure pHat;
 algorithm
   pHat := (p_default - pMean)/pSD;
   T := b[1] + b[2]*pHat + b[3]*h;
-annotation (Inline=true,smoothOrder=1);
+annotation (Inline=true,smoothOrder=1,
+      Documentation(info="<html>
+<p>
+This function returns temperature from specific enthalpy and <code>p_default</code>.
+</p>
+<h4>Implementation</h4>
+<p>
+This linear approximation is the inverse or backward function of 
+<a href=\"modelica://IBPSA.Media.Steam.specificEnthalpy\">
+IBPSA.Media.Steam.specificEnthalpy</a> and is numerically 
+consistent with that forward function.
+</html>", revisions="<html>
+<ul>
+<li>
+October 30, 2020, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end temperature_h;
 
 replaceable function temperature_s
@@ -225,17 +284,36 @@ replaceable function temperature_s
   input SpecificEntropy s "Specific Entropy";
   output Temperature T "Temperature";
   protected
-  Real a[:] = {7801,-445.2,594.7} "Coefficients from forward function s(p,T)";
-  Real b[:] = {-a[1]*TSD/a[3]+TMean, -a[2]*TSD/a[3], TSD/a[3]};
-  AbsolutePressure pMean =  8.766717603911981e+05;
-  Temperature TMean =  7.104788508557040e+02;
-  Real pSD = 8.540705946819051e+05;
-  Real TSD = 1.976242680354902e+02;
+  Real a[:] = {7530,-636.9,532.8,159.8,4.13} "Coefficients from forward function s(p,T)";
+  AbsolutePressure pMean =  8.161678571428572e+05;
+  Temperature TMean =  6.625678571428278e+02;
+  Real pSD = 7.802949628497174e+05;
+  Real TSD = 1.664480893697980e+02;
   AbsolutePressure pHat;
+  Temperature THat;
 algorithm
   pHat := (p_default - pMean)/pSD;
-  T := b[1] + b[2]*pHat + b[3]*s;
-annotation (Inline=true,smoothOrder=1);
+  THat := (s - a[1] - pHat*(a[2] + a[4]*pHat))/(a[3] + a[5]*pHat);
+  T := THat*TSD + TMean;
+annotation (Inline=true,smoothOrder=1,
+    Documentation(info="<html>
+<p>
+This function returns temperature from specific entropy and <code>p_default</code>.
+</p>
+<h4>Implementation</h4>
+<p>
+This polynomial approximation is the inverse or backward function of 
+<a href=\"modelica://IBPSA.Media.Steam.specificEntropy\">
+IBPSA.Media.Steam.specificEntropy</a> and is numerically 
+consistent with that forward function.
+</html>", revisions="<html>
+<ul>
+<li>
+October 30, 2020, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end temperature_s;
 
 redeclare replaceable function extends thermalConductivity
@@ -308,8 +386,8 @@ algorithm
         0);
   annotation (Inline=true);
 end isentropicEnthalpy;
-
 protected
+
 record GasProperties
   "Coefficient data record for properties of perfect gases"
   extends Modelica.Icons.Record;
@@ -416,7 +494,7 @@ Modelica.Media.Water.WaterIF97_R2pT</a> are generally used, expect for
 <a href=\"modelica://IBPSA.Media.Steam.temperature_h\">temperature_h</a> and 
 <a href=\"modelica://IBPSA.Media.Steam.temperature_s\">temperature_s</a>, 
 which are numerically consistent with the forward functions. 
-The following modifications from the WaterIF97_R2pT medium packages were made: 
+The following modifications were made relative to the <code>WaterIF97_R2pT</code> medium package: 
 </p>
 <ol>
 <li>Automatic differentiation is provided for all thermodynamic property functions.</li>
@@ -426,20 +504,20 @@ of more efficient simulations. </li>
 <h4>Limitations </h4>
 <ul>
 <li>
-The valid temperature range is <i>100 C &le; T &le; 700 C</i>, and the valid 
-pressure range is <i>100 kPa &le; p &le; 1000 kPa</i> (medium pressure systems), except for the 
+The valid temperature range is <i>100&deg;C &le; T &le; 700&deg;C</i>, and the valid 
+pressure range is <i>100 kPa &le; p &le; 3400 kPa</i>, except for the 
 <a href=\"modelica://IBPSA.Media.Steam.saturationTemperature\">saturationTemperature</a> and 
 <a href=\"modelica://IBPSA.Media.Steam.saturationPressure\">saturationPressure</a> 
-functions, which are only valid below water's critical temperature of <i>373.946 C</i>. 
+functions, which are only valid below water's critical temperature of <i>373.946&deg;C</i>. 
 </li>
 <li>When phase change is required, this model is to be used in combination with 
 the <a href=\"modelica://IBPSA.Media.Specialized.Water.HighTemperature\">IBPSA.Media.Specialized.Water.HighTemperature</a> 
-media model for incompressible liquid water for the liquid phase (quality = 0). </li>
+media model for incompressible liquid water for the liquid phase (quality=0). </li>
 </ul>
 <h4>Applications </h4>
 <p>
 This model is intended for first generation district heating systems and other 
-industrial processes involving medium pressure steam.
+industrial processes involving medium and high pressure steam.
 </p>
 <p>For numerical robustness, applications of this medium model assume the pressure 
 is constant throughout the simulation. This is done to improve simulation 
