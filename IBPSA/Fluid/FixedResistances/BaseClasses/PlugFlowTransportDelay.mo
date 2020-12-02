@@ -133,11 +133,19 @@ During reverse, the opposite is true and only the reverse output is used.
 </html>", revisions="<html>
 <ul>
 <li>
+December 2, 2020, by Philipp Mehrfeld:<br/>
+Corrected calculation of <code>tau</code> and <code>tauRev</code> to be be 
+only positive.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1427\">#1427</a>.
+</li>
+<li>
 December 14, 2018, by Michael Wetter:<br/>
 Corrected argument of <code>spatialDistribution</code> operator to be a parameter
 expression.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1055\">#1055</a>.
+</li>
 <li>
 September 9, 2016 by Bram van der Heijde:<br/>
 Rename from PDETime_massFlowMod to PlugFlowTransportDelayMod
