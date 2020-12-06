@@ -5,55 +5,6 @@ package HighTemperature
    extends IBPSA.Media.Water(
      mediumName="IBPSA.Media.Specialized.Water.HighTemperature",
      T_max = 273.15+600);
-
-  replaceable function saturationTemperature
-    "Return saturation temperature for a given pressure"
-    extends Modelica.Icons.Function;
-    input AbsolutePressure psat "Pressure";
-    output Temperature Tsat
-      "Saturation temperature";
-  protected
-    constant Real a[:] = {2.2830066E+02,1.1893913E+00,5.2484699E-01,1.2416857E-01,
-      -1.3714779E-02,5.5702047E-04}
-      "Coefficients";
-    Real log_psat = log(psat) "Logarithm of saturation pressure";
-  algorithm
-    Tsat := a[1] + a[2]*log_psat + a[3]*log_psat^2 + a[4]*log_psat^3 + a[5]*
-      log_psat^4 + a[6]*log_psat^5 "Saturation temperature";
-  annotation (
-    smoothOrder=2,
-    Documentation(info="<html>
-<p>
-Saturation temperature is computed from pressure. This relation is
-valid in the region of <i>273.16</i> to <i>647.096</i> K (<i>613.3</i> to <i>22,049,100</i> Pa).
-</p>
-<p>
-The function has the following form:
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-T = a<sub>1</sub> + a<sub>2</sub> ln(p) + a<sub>3</sub> ln(p)<sup>2</sup> +
-a<sub>4</sub> ln(p)<sup>3</sup> + a<sub>5</sub> ln(p)<sup>4</sup> + a<sub>6</sub> ln(p)<sup>5</sup>
-</p>
-<p>
-where temperature <i>T</i> is in units Kelvin, pressure <i>p</i> is in units Pa, and <i>a<sub>1</sub></i>
-through <i>a<sub>6</sub></i> are regression coefficients.
-</p>
-  </html>", revisions="<html>
-<ul>
-<li>
-December 6, 2020, by Michael Wetter:<br/>
-Changed function name and argument names so that they use the same names as
-<a href=\"modelica://IBPSA.Media.Air.saturationPressure\">
-IBPSA.Media.Air.saturationPressure</a>.<br/>
-Introduced intermediate variables to avoid repetitive calls to <code>log</code>.
-</li>
-<li>
-March 6, 2020, by Kathryn Hinkelman:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
-  end saturationTemperature;
   annotation(preferredView="info", Documentation(info="<html>
 <p>
 This medium package models liquid water. Extending <a href=\"modelica://IBPSA.Media.Water\">
@@ -92,8 +43,7 @@ There are no phase changes.
 <ul>
 <li>
 May 25, 2020, by Kathryn Hinkelman<br/>
-First implementation of water medium with default high temperature limit and
-saturation temperature function.
+First implementation of water medium with default high temperature limit.
 </li>
 </ul>
 </html>"),
