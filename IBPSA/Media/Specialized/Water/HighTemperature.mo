@@ -3,6 +3,7 @@ package HighTemperature
   "Package with model for liquid water with constant density and an extended 
   maxiumum temperature threshold"
    extends IBPSA.Media.Water(
+     mediumName="IBPSA.Media.Specialized.Water.HighTemperature",
      T_max = 273.15+600);
 
   replaceable function saturationTemperature
