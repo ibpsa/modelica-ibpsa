@@ -33,7 +33,7 @@ equation
          T=T,
          X=Medium.X_default));
     der(cpCod)=der(cpSym);
-    assert(abs(cpCod-cpSym) < 1E-4 * (1+abs(cvCod)), "Model has an error");
+    assert(abs(cpCod-cpSym) < 1E-4 * (1+abs(cpCod)), "Model has an error");
 
      cvCod=Medium.specificHeatCapacityCv(
       Medium.setState_pTX(
