@@ -1,13 +1,13 @@
 within IBPSA.Media.Examples;
 model SteamProperties
-  "Model that tests the implementation of the steam properties"
+  "Model that tests the implementation of the steam superheated properties"
   extends Modelica.Icons.Example;
   extends IBPSA.Media.Examples.BaseClasses.PartialProperties(
-    redeclare package Medium = IBPSA.Media.Steam,
-    TMin=273.15 + 100,
+    redeclare package Medium = IBPSA.Media.Steam (
+      p_default=1400000),
+    TMin=273.15 + 200,
     TMax=273.15 + 700,
-    p=100000,
-    errAbs=0.01);
+    p=1400000);
 
   Medium.ThermodynamicState state_phX "Medium state";
   Medium.ThermodynamicState state_psX "Medium state";
@@ -20,9 +20,9 @@ model SteamProperties
 equation
 
    // Check setting the states
-    state_pTX = Medium.setState_pTX(p=p, T=T);
-    state_phX = Medium.setState_phX(p=p, h=h);
-    state_psX = Medium.setState_psX(p=p, s=s);
+    state_pTX = Medium.setState_pTX(p=p, T=T, X=X);
+    state_phX = Medium.setState_phX(p=p, h=h, X=X);
+    state_psX = Medium.setState_psX(p=p, s=s, X=X);
     checkState(state_pTX, state_phX, errAbs, "state_phX");
     checkState(state_pTX, state_psX, errAbs, "state_psX");
 
@@ -45,8 +45,9 @@ This example checks thermophysical properties of the medium.
 revisions="<html>
 <ul>
 <li>
-March 6, 2020, by Kathryn Hinkelman:<br/>
-Change medium to ideal steam to eliminate discontinuities.
+October 30, 2020, by Kathryn Hinkelman:<br/>
+Rebased steam medium to PartialMedium and improved steam property consistency
+and efficiency.
 </li>
 <li>
 September 12, 2019, by Yangyang Fu:<br/>
@@ -55,4 +56,3 @@ First implementation.
 </ul>
 </html>"));
 end SteamProperties;
-
