@@ -46,8 +46,10 @@ redeclare replaceable function extends density
 algorithm
   d := rho_T(state.T);
   annotation (Inline=true, Documentation(info="<html>
+<p>
 Density is computed from temperature and <code>p_default</code> using the
 IAPWS-IF97 relationship via the Gibbs free energy for region 2.
+</p>
 </html>"));
 end density;
 
@@ -59,8 +61,10 @@ algorithm
           T=state.T,
           p=p_default);
     annotation (Inline=true, Documentation(info="<html>
+<p>
 Dynamic viscosity is computed from density, temperature and <code>p_default</code>
 using the IAPWS-IF97 formulation.
+</p>
 </html>"));
 end dynamicViscosity;
 
@@ -69,7 +73,9 @@ redeclare replaceable function extends molarMass
 algorithm
   MM := steam.MM;
     annotation (Documentation(info="<html>
+<p>
 This function returns the molar mass.
+</p>
 </html>"));
 end molarMass;
 
@@ -78,7 +84,9 @@ redeclare function extends pressure
 algorithm
   p := p_default;
     annotation (Documentation(info="<html>
+<p>
 Pressure is returned as the constant value <code>p_default</code>.
+</p>
 </html>"));
 end pressure;
 
@@ -91,8 +99,10 @@ algorithm
    psat := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.psat(Tsat);
 
  annotation (Inline=true, Documentation(info="<html>
+<p>
 Saturation pressure is computed from temperature
 using the IAPWS-IF97 formulation.
+</p>
 </html>"));
 end saturationPressure;
 
@@ -103,8 +113,10 @@ replaceable function saturationTemperature
 algorithm
     Tsat := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.tsat(psat);
     annotation (Inline=true, Documentation(info="<html>
+<p>
 Saturation temperature is computed from pressure
 using the IAPWS-IF97 formulation.
+</p>
 </html>"));
 end saturationTemperature;
 
@@ -198,6 +210,9 @@ redeclare replaceable function extends specificInternalEnergy
 algorithm
   u := specificEnthalpy(state) - p_default/density(state);
   annotation (Inline=true, Documentation(info="<html>
+<p>
+Returns the specific internal energy for a given state.
+</p>
 </html>"));
 end specificInternalEnergy;
 
@@ -206,9 +221,11 @@ redeclare replaceable function extends specificHeatCapacityCp
 algorithm
   cp := cp_T(state.T);
   annotation (Inline=true, Documentation(info="<html>
+<p>
 Specific heat at constant pressure is computed from temperature and
 <code>p_default</code> using the IAPWS-IF97 relationship via the Gibbs
 free energy for region 2.
+</p>
 </html>"));
 end specificHeatCapacityCp;
 
@@ -217,9 +234,11 @@ redeclare replaceable function extends specificHeatCapacityCv
 algorithm
   cv := cv_T(state.T);
   annotation (Inline=true, Documentation(info="<html>
+<p>
 Specific heat at constant volume is computed from temperature and
 <code>p_default</code> using the IAPWS-IF97 relationship via the Gibbs
 free energy for region 2.
+</p>
 </html>"));
 end specificHeatCapacityCv;
 
@@ -245,7 +264,7 @@ annotation (Inline=true,smoothOrder=2,
       Documentation(info="<html>
 <p>
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">thermodynamic state record</a>
-    is computed from density <code>d</code> and temperature <code>T</code>.
+is computed from density <code>d</code> and temperature <code>T</code>.
 </p>
 </html>"));
 end setState_dTX;
@@ -258,7 +277,7 @@ annotation (Inline=true,smoothOrder=2,
     Documentation(info="<html>
 <p>
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">thermodynamic state record</a>
-    is computed from pressure <code>p_default</code> and temperature <code>T</code>.
+is computed from pressure <code>p_default</code> and temperature <code>T</code>.
 </p>
 </html>"));
 end setState_pTX;
@@ -271,7 +290,7 @@ annotation (Inline=true,smoothOrder=2,
       Documentation(info="<html>
 <p>
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">thermodynamic state record</a>
-    is computed from pressure <code>p_default</code> and specific enthalpy <code>h</code>.
+is computed from pressure <code>p_default</code> and specific enthalpy <code>h</code>.
 </p>
 </html>"));
 end setState_phX;
@@ -284,7 +303,7 @@ annotation (Inline=true,smoothOrder=2,
     Documentation(info="<html>
 <p>
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">thermodynamic state record</a>
-    is computed from pressure <code>p_default</code> and specific entropy <code>s</code>.
+is computed from pressure <code>p_default</code> and specific entropy <code>s</code>.
 </p>
 </html>"));
 end setState_psX;
@@ -294,7 +313,9 @@ redeclare function extends temperature
 algorithm
   T := state.T;
     annotation (Documentation(info="<html>
+<p>
 Temperature is returned from the thermodynamic state record input as a simple assignment.
+</p>
 </html>"));
 end temperature;
 
@@ -379,8 +400,10 @@ algorithm
         state.T,
         p_default);
   annotation (Inline=true, Documentation(info="<html>
+<p>
 Thermal conductivity is computed from density, temperature and <code>p_default</code>
 using the IAPWS-IF97 formulation.
+</p>
 </html>"));
 end thermalConductivity;
 
@@ -393,8 +416,10 @@ algorithm
         phase,
         region);
   annotation (Inline=true, Documentation(info="<html>
+<p>
 This function returns the partial derivative of density with respect
 to specific enthalpy at constant pressure using the IAPWS-IF97 formulation.
+</p>
 </html>"));
 end density_derh_p;
 
@@ -407,8 +432,10 @@ algorithm
         phase,
         region);
   annotation (Inline=true, Documentation(info="<html>
+<p>
 This function returns the partial derivative of density with respect
 to pressure at constant specific enthalpy using the IAPWS-IF97 formulation.
+</p>
 </html>"));
 end density_derp_h;
 
@@ -420,8 +447,10 @@ algorithm
         state.T,
         region);
   annotation (Inline=true, Documentation(info="<html>
+<p>
 Isentropic exponent is computed from temperature and <code>p_default</code>
 using the IAPWS-IF97 formulation.
+</p>
 </html>"));
 end isentropicExponent;
 
@@ -433,8 +462,10 @@ algorithm
         state.T,
         region);
   annotation (Inline=true, Documentation(info="<html>
+<p>
 Isothermal compressibility is computed from temperature and <code>p_default</code>
 using the IAPWS-IF97 formulation.
+</p>
 </html>"));
 end isothermalCompressibility;
 
@@ -446,8 +477,10 @@ algorithm
         state.T,
         region);
     annotation (Documentation(info="<html>
+<p>
 Isobaric expansion coefficient is computed from temperature and
 <code>p_default</code> using the IAPWS-IF97 formulation.
+</p>
 </html>"));
 end isobaricExpansionCoefficient;
 
@@ -459,7 +492,9 @@ algorithm
         specificEntropy(refState),
         0);
   annotation (Inline=true, Documentation(info="<html>
+<p>
 Isentropic enthalpy is computed using the IAPWS-IF97 formulation.
+</p>
 </html>"));
 end isentropicEnthalpy;
 
@@ -493,8 +528,10 @@ algorithm
   rho := p_default/(R*T*g.pi*g.gpi);
   annotation (smoothOrder=2,Inline=true,
       Documentation(info="<html>
+<p>
 Density is computed from temperature and <code>p_default</code> using the
 IAPWS-IF97 relationship via the Gibbs free energy for region 2.
+</p>
 </html>"));
 end rho_T;
 
@@ -516,9 +553,11 @@ algorithm
     smoothOrder=2,
     Inline=true,
       Documentation(info="<html>
+<p>
 Specific heat at constant pressure is computed from temperature and
 <code>p_default</code> using the IAPWS-IF97 relationship via the Gibbs
 free energy for region 2.
+</p>
 </html>"));
 end cp_T;
 
@@ -541,9 +580,11 @@ algorithm
     smoothOrder=2,
     Inline=true,
       Documentation(info="<html>
+<p>
 Specific heat at constant volume is computed from temperature and
 <code>p_default</code> using the IAPWS-IF97 relationship via the Gibbs
 free energy for region 2.
+</p>
 </html>"));
 end cv_T;
 
