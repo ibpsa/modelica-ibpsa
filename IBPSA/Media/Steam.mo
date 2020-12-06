@@ -74,7 +74,7 @@ algorithm
   MM := steam.MM;
     annotation (Documentation(info="<html>
 <p>
-This function returns the molar mass.
+Returns the molar mass.
 </p>
 </html>"));
 end molarMass;
@@ -137,7 +137,7 @@ algorithm
 annotation (Inline=true,smoothOrder=2,
     Documentation(info="<html>
 <p>
-This function returns the specific enthalpy.
+Returns the specific enthalpy.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -183,7 +183,7 @@ algorithm
 annotation (Inline=true,smoothOrder=1,
     Documentation(info="<html>
 <p>
-This function returns the specific entropy.
+Returns the specific entropy.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -253,7 +253,11 @@ redeclare replaceable function extends specificHelmholtzEnergy
    "Specific Helmholtz energy"
 algorithm
   f := specificEnthalpy(state) - steam.R*state.T - state.T*specificEntropy(state);
-  annotation (Inline=true);
+  annotation (Inline=true, Documentation(info="<html>
+<p>
+Returns the specific Helmholtz energy for a given state.
+</p>
+</html>"));
 end specificHelmholtzEnergy;
 
 redeclare function extends setState_dTX
@@ -337,7 +341,7 @@ algorithm
 annotation (Inline=true,smoothOrder=1,
       Documentation(info="<html>
 <p>
-This function returns temperature from specific enthalpy and <code>p_default</code>.
+Returns temperature from specific enthalpy and <code>p_default</code>.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -374,7 +378,7 @@ algorithm
 annotation (Inline=true,smoothOrder=1,
     Documentation(info="<html>
 <p>
-This function returns temperature from specific entropy and <code>p_default</code>.
+Returns temperature from specific entropy and <code>p_default</code>.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -417,7 +421,7 @@ algorithm
         region);
   annotation (Inline=true, Documentation(info="<html>
 <p>
-This function returns the partial derivative of density with respect
+Returns the partial derivative of density with respect
 to specific enthalpy at constant pressure using the IAPWS-IF97 formulation.
 </p>
 </html>"));
@@ -433,7 +437,7 @@ algorithm
         region);
   annotation (Inline=true, Documentation(info="<html>
 <p>
-This function returns the partial derivative of density with respect
+Returns the partial derivative of density with respect
 to pressure at constant specific enthalpy using the IAPWS-IF97 formulation.
 </p>
 </html>"));
@@ -485,7 +489,7 @@ Isobaric expansion coefficient is computed from temperature and
 end isobaricExpansionCoefficient;
 
 redeclare replaceable function extends isentropicEnthalpy
-  "Compute h(s,p)"
+  "Isentropic enthalpy"
 algorithm
   h_is := Modelica.Media.Water.IF97_Utilities.isentropicEnthalpy(
         p_downstream,
@@ -493,15 +497,22 @@ algorithm
         0);
   annotation (Inline=true, Documentation(info="<html>
 <p>
-Isentropic enthalpy is computed using the IAPWS-IF97 formulation.
+Isentropic enthalpy is computed using the IAPWS-IF97 formulation:
 </p>
+<ol>
+<li> A medium is in a particular state, refState.</li>
+<li> The enthalpy at another state (h_is) shall be computed
+     under the assumption that the state transformation from refState to h_is
+     is performed with a change of specific entropy ds = 0 and the pressure of state h_is
+     is p_downstream and the composition X upstream and downstream is assumed to be the same.</li>
+</ol>
 </html>"));
 end isentropicEnthalpy;
 
 //////////////////////////////////////////////////////////////////////
 // Protected classes
-protected
 
+protected
 record GasProperties
   "Coefficient data record for properties of perfect gases"
   extends Modelica.Icons.Record;
