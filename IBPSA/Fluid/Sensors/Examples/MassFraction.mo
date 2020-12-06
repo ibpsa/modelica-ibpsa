@@ -20,7 +20,8 @@ model MassFraction "Test model for the mass fraction sensor"
           extent={{-80,0},{-60,20}})));
 
   IBPSA.Fluid.Sensors.MassFraction senMasFra2(
-    redeclare package Medium = Medium) "Mass fraction sensor for the volume"
+    redeclare package Medium = Medium, warnAboutOnePortConnection=false)
+                                       "Mass fraction sensor for the volume"
     annotation (Placement(transformation(extent={{20,36},{40,56}})));
   IBPSA.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
