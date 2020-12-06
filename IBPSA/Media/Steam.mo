@@ -508,7 +508,6 @@ Isentropic enthalpy is computed using the IAPWS-IF97 formulation:
 </ol>
 </html>"));
 end isentropicEnthalpy;
-
 //////////////////////////////////////////////////////////////////////
 // Protected classes
 
@@ -590,12 +589,25 @@ algorithm
   annotation (
     smoothOrder=2,
     Inline=true,
+    LateInline = true,
       Documentation(info="<html>
 <p>
 Specific heat at constant volume is computed from temperature and
 <code>p_default</code> using the IAPWS-IF97 relationship via the Gibbs
 free energy for region 2.
 </p>
+</html>",
+revision="<html>
+<ul>
+<li>
+December 6, 2020, by Michael Wetter:<br/>
+Added <code>LateInline=true</code>.
+This is required for OCT-r17595_JM-r14295, otherwise
+<a href=\modelica://IBPSA.Media.Examples.SteamDerivativeCheck\">
+IBPSA.Media.Examples.SteamDerivativeCheck</a>
+does not translate.
+</li>
+</ul>
 </html>"));
 end cv_T;
 
