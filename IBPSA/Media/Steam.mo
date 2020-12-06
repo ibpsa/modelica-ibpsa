@@ -26,11 +26,11 @@ package Steam
   constant Integer region = 2 "Region of IF97";
   constant Integer phase = 1 "1 for one-phase";
 
-  redeclare replaceable model extends BaseProperties(
+redeclare replaceable model extends BaseProperties(
     preferredMediumStates = true,
     final standardOrderComponents=true)
     "Base properties (p, d, T, h, u, R, MM) of water"
-  equation
+equation
     // Temperature and pressure values must be within acceptable max & min bounds
     MM = steam.MM;
     h = specificEnthalpy(state);
@@ -39,7 +39,7 @@ package Steam
     R = steam.R;
     state.p = p;
     state.T = T;
-  end BaseProperties;
+end BaseProperties;
 
 redeclare replaceable function extends density
   "Returns density"
@@ -53,7 +53,7 @@ IAPWS-IF97 relationship via the Gibbs free energy for region 2.
 </html>"));
 end density;
 
-redeclare function extends dynamicViscosity
+redeclare replaceable function extends dynamicViscosity
     "Return dynamic viscosity"
 algorithm
     eta := Modelica.Media.Water.IF97_Utilities.dynamicViscosity(
@@ -166,7 +166,7 @@ First implementation.
 </html>"));
 end specificEnthalpy;
 
-redeclare function extends specificEntropy
+redeclare replaceable function extends specificEntropy
   "Return specific entropy"
   protected
     constant Real a[:] = {7530,-636.9,532.8,159.8,4.13} "Regression coefficients";
@@ -260,7 +260,7 @@ Returns the specific Helmholtz energy for a given state.
 </html>"));
 end specificHelmholtzEnergy;
 
-redeclare function extends setState_dTX
+redeclare replaceable function extends setState_dTX
     "Return the thermodynamic state as function of d and T"
 algorithm
   state := ThermodynamicState(p=p_default, T=T);
@@ -273,7 +273,7 @@ is computed from density <code>d</code> and temperature <code>T</code>.
 </html>"));
 end setState_dTX;
 
-redeclare function extends setState_pTX
+redeclare replaceable function extends setState_pTX
     "Return the thermodynamic state as function of p and T"
 algorithm
   state := ThermodynamicState(p=p_default, T=T);
@@ -286,7 +286,7 @@ is computed from pressure <code>p_default</code> and temperature <code>T</code>.
 </html>"));
 end setState_pTX;
 
-redeclare function extends setState_phX
+redeclare replaceable function extends setState_phX
     "Return the thermodynamic state as function of p and h"
 algorithm
   state := ThermodynamicState(p=p_default, T=temperature_h(h));
@@ -299,7 +299,7 @@ is computed from pressure <code>p_default</code> and specific enthalpy <code>h</
 </html>"));
 end setState_phX;
 
-redeclare function extends setState_psX
+redeclare replaceable function extends setState_psX
     "Return the thermodynamic state as function of p and s"
 algorithm
   state := ThermodynamicState(p=p_default, T=temperature_s(s));
@@ -322,79 +322,6 @@ Temperature is returned from the thermodynamic state record input as a simple as
 </p>
 </html>"));
 end temperature;
-
-replaceable function temperature_h
-  "Return temperature from h, inverse function of h(T)"
-    input SpecificEnthalpy h "Specific Enthalpy";
-    output Temperature T "Temperature";
-  protected
-    constant Real a[:] = {3.272e+06,-1.838e+04,3.504e+05} "Coefficients from forward function h(p,T)";
-    constant Real b[:] = {-a[1]*TSD/a[3]+TMean, -a[2]*TSD/a[3], TSD/a[3]} "Regression coefficients";
-    constant AbsolutePressure pMean =  1.235156250000000e+06 "Mean pressure";
-    constant Temperature TMean =  6.775608072916825e+02 "Mean temperature";
-    constant Real pSD = 8.325568179102554e+05 "Normalization values";
-    constant Real TSD = 1.610589787790216e+02 "Normalization values";
-    AbsolutePressure pHat;
-algorithm
-  pHat := (p_default - pMean)/pSD;
-  T := b[1] + b[2]*pHat + b[3]*h;
-annotation (Inline=true,smoothOrder=1,
-      Documentation(info="<html>
-<p>
-Returns temperature from specific enthalpy and <code>p_default</code>.
-</p>
-<h4>Implementation</h4>
-<p>
-This linear approximation is the inverse or backward function of
-<a href=\"modelica://IBPSA.Media.Steam.specificEnthalpy\">
-IBPSA.Media.Steam.specificEnthalpy</a> and is numerically
-consistent with that forward function.
-</html>", revisions="<html>
-<ul>
-<li>
-October 30, 2020, by Kathryn Hinkelman:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
-end temperature_h;
-
-replaceable function temperature_s
-  "Return temperature from s, inverse function of s(T)"
-    input SpecificEntropy s "Specific Entropy";
-    output Temperature T "Temperature";
-  protected
-    constant Real a[:] = {7530,-636.9,532.8,159.8,4.13} "Coefficients from forward function s(p,T)";
-    constant AbsolutePressure pMean =  8.161678571428572e+05 "Mean pressure";
-    constant Temperature TMean =  6.625678571428278e+02 "Mean temperature";
-    constant Real pSD = 7.802949628497174e+05 "Normalization values";
-    constant Real TSD = 1.664480893697980e+02 "Normalization values";
-    AbsolutePressure pHat;
-    Temperature THat;
-algorithm
-  pHat := (p_default - pMean)/pSD;
-  THat := (s - a[1] - pHat*(a[2] + a[4]*pHat))/(a[3] + a[5]*pHat);
-  T := THat*TSD + TMean;
-annotation (Inline=true,smoothOrder=1,
-    Documentation(info="<html>
-<p>
-Returns temperature from specific entropy and <code>p_default</code>.
-</p>
-<h4>Implementation</h4>
-<p>
-This polynomial approximation is the inverse or backward function of
-<a href=\"modelica://IBPSA.Media.Steam.specificEntropy\">
-IBPSA.Media.Steam.specificEntropy</a> and is numerically
-consistent with that forward function.
-</html>", revisions="<html>
-<ul>
-<li>
-October 30, 2020, by Kathryn Hinkelman:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
-end temperature_s;
 
 redeclare replaceable function extends thermalConductivity
   "Return thermal conductivity"
@@ -522,6 +449,79 @@ constant GasProperties steam(
   R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
   MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM)
   "Steam properties";
+
+function temperature_h
+  "Return temperature from h, inverse function of h(T)"
+    input SpecificEnthalpy h "Specific Enthalpy";
+    output Temperature T "Temperature";
+  protected
+    constant Real a[:] = {3.272e+06,-1.838e+04,3.504e+05} "Coefficients from forward function h(p,T)";
+    constant Real b[:] = {-a[1]*TSD/a[3]+TMean, -a[2]*TSD/a[3], TSD/a[3]} "Regression coefficients";
+    constant AbsolutePressure pMean =  1.235156250000000e+06 "Mean pressure";
+    constant Temperature TMean =  6.775608072916825e+02 "Mean temperature";
+    constant Real pSD = 8.325568179102554e+05 "Normalization values";
+    constant Real TSD = 1.610589787790216e+02 "Normalization values";
+    AbsolutePressure pHat;
+algorithm
+  pHat := (p_default - pMean)/pSD;
+  T := b[1] + b[2]*pHat + b[3]*h;
+annotation (Inline=true,smoothOrder=1,
+      Documentation(info="<html>
+<p>
+Returns temperature from specific enthalpy and <code>p_default</code>.
+</p>
+<h4>Implementation</h4>
+<p>
+This linear approximation is the inverse or backward function of
+<a href=\"modelica://IBPSA.Media.Steam.specificEnthalpy\">
+IBPSA.Media.Steam.specificEnthalpy</a> and is numerically
+consistent with that forward function.
+</html>", revisions="<html>
+<ul>
+<li>
+October 30, 2020, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end temperature_h;
+
+function temperature_s
+  "Return temperature from s, inverse function of s(T)"
+    input SpecificEntropy s "Specific Entropy";
+    output Temperature T "Temperature";
+  protected
+    constant Real a[:] = {7530,-636.9,532.8,159.8,4.13} "Coefficients from forward function s(p,T)";
+    constant AbsolutePressure pMean =  8.161678571428572e+05 "Mean pressure";
+    constant Temperature TMean =  6.625678571428278e+02 "Mean temperature";
+    constant Real pSD = 7.802949628497174e+05 "Normalization values";
+    constant Real TSD = 1.664480893697980e+02 "Normalization values";
+    AbsolutePressure pHat;
+    Temperature THat;
+algorithm
+  pHat := (p_default - pMean)/pSD;
+  THat := (s - a[1] - pHat*(a[2] + a[4]*pHat))/(a[3] + a[5]*pHat);
+  T := THat*TSD + TMean;
+annotation (Inline=true,smoothOrder=1,
+    Documentation(info="<html>
+<p>
+Returns temperature from specific entropy and <code>p_default</code>.
+</p>
+<h4>Implementation</h4>
+<p>
+This polynomial approximation is the inverse or backward function of
+<a href=\"modelica://IBPSA.Media.Steam.specificEntropy\">
+IBPSA.Media.Steam.specificEntropy</a> and is numerically
+consistent with that forward function.
+</html>", revisions="<html>
+<ul>
+<li>
+October 30, 2020, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end temperature_s;
 
 function rho_T "Density as function of temperature and p_default"
   extends Modelica.Icons.Function;
