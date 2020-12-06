@@ -111,13 +111,13 @@ end saturationTemperature;
 redeclare replaceable function extends specificEnthalpy
   "Returns specific enthalpy"
   protected
-  Real a[:] = {3.272e+06,-1.838e+04,3.504e+05};
-  AbsolutePressure pMean =  1.235156250000000e+06;
-  Temperature TMean =  6.775608072916825e+02;
-  Real pSD = 8.325568179102554e+05;
-  Real TSD = 1.610589787790216e+02;
-  AbsolutePressure pHat;
-  Temperature THat;
+    constant Real a[:] = {3.272e+06,-1.838e+04,3.504e+05} "Regression coefficients";
+    constant AbsolutePressure pMean =  1.235156250000000e+06 "Mean pressure";
+    constant Temperature TMean =  6.775608072916825e+02 "Mean temperature";
+    constant Real pSD = 8.325568179102554e+05 "Normalization value";
+    constant Real TSD = 1.610589787790216e+02 "Normalization value";
+    AbsolutePressure pHat;
+    Temperature THat;
 algorithm
   pHat := (p_default - pMean)/pSD;
   THat := (state.T - TMean)/TSD;
@@ -157,13 +157,13 @@ end specificEnthalpy;
 redeclare function extends specificEntropy
   "Return specific entropy"
   protected
-  Real a[:] = {7530,-636.9,532.8,159.8,4.13};
-  AbsolutePressure pMean =  8.161678571428572e+05;
-  Temperature TMean =  6.625678571428278e+02;
-  Real pSD = 7.802949628497174e+05;
-  Real TSD = 1.664480893697980e+02;
-  AbsolutePressure pHat;
-  Temperature THat;
+    constant Real a[:] = {7530,-636.9,532.8,159.8,4.13} "Regression coefficients";
+    constant AbsolutePressure pMean =  8.161678571428572e+05 "Mean pressure";
+    constant Temperature TMean =  6.625678571428278e+02 "Mean temperature";
+    constant Real pSD = 7.802949628497174e+05 "Normalization values";
+    constant Real TSD = 1.664480893697980e+02 "Normalization values";
+    AbsolutePressure pHat;
+    Temperature THat;
 algorithm
   pHat := (p_default - pMean)/pSD;
   THat := (state.T - TMean)/TSD;
@@ -300,16 +300,16 @@ end temperature;
 
 replaceable function temperature_h
   "Return temperature from h, inverse function of h(T)"
-  input SpecificEnthalpy h "Specific Enthalpy";
-  output Temperature T "Temperature";
+    input SpecificEnthalpy h "Specific Enthalpy";
+    output Temperature T "Temperature";
   protected
-  Real a[:] = {3.272e+06,-1.838e+04,3.504e+05} "Coefficients from forward function h(p,T)";
-  Real b[:] = {-a[1]*TSD/a[3]+TMean, -a[2]*TSD/a[3], TSD/a[3]};
-  AbsolutePressure pMean =  1.235156250000000e+06;
-  Temperature TMean =  6.775608072916825e+02;
-  Real pSD = 8.325568179102554e+05;
-  Real TSD = 1.610589787790216e+02;
-  AbsolutePressure pHat;
+    constant Real a[:] = {3.272e+06,-1.838e+04,3.504e+05} "Coefficients from forward function h(p,T)";
+    constant Real b[:] = {-a[1]*TSD/a[3]+TMean, -a[2]*TSD/a[3], TSD/a[3]} "Regression coefficients";
+    constant AbsolutePressure pMean =  1.235156250000000e+06 "Mean pressure";
+    constant Temperature TMean =  6.775608072916825e+02 "Mean temperature";
+    constant Real pSD = 8.325568179102554e+05 "Normalization values";
+    constant Real TSD = 1.610589787790216e+02 "Normalization values";
+    AbsolutePressure pHat;
 algorithm
   pHat := (p_default - pMean)/pSD;
   T := b[1] + b[2]*pHat + b[3]*h;
@@ -336,16 +336,16 @@ end temperature_h;
 
 replaceable function temperature_s
   "Return temperature from s, inverse function of s(T)"
-  input SpecificEntropy s "Specific Entropy";
-  output Temperature T "Temperature";
+    input SpecificEntropy s "Specific Entropy";
+    output Temperature T "Temperature";
   protected
-  Real a[:] = {7530,-636.9,532.8,159.8,4.13} "Coefficients from forward function s(p,T)";
-  AbsolutePressure pMean =  8.161678571428572e+05;
-  Temperature TMean =  6.625678571428278e+02;
-  Real pSD = 7.802949628497174e+05;
-  Real TSD = 1.664480893697980e+02;
-  AbsolutePressure pHat;
-  Temperature THat;
+    constant Real a[:] = {7530,-636.9,532.8,159.8,4.13} "Coefficients from forward function s(p,T)";
+    constant AbsolutePressure pMean =  8.161678571428572e+05 "Mean pressure";
+    constant Temperature TMean =  6.625678571428278e+02 "Mean temperature";
+    constant Real pSD = 7.802949628497174e+05 "Normalization values";
+    constant Real TSD = 1.664480893697980e+02 "Normalization values";
+    AbsolutePressure pHat;
+    Temperature THat;
 algorithm
   pHat := (p_default - pMean)/pSD;
   THat := (s - a[1] - pHat*(a[2] + a[4]*pHat))/(a[3] + a[5]*pHat);
@@ -463,7 +463,10 @@ Isentropic enthalpy is computed using the IAPWS-IF97 formulation.
 </html>"));
 end isentropicEnthalpy;
 
+//////////////////////////////////////////////////////////////////////
+// Protected classes
 protected
+
 record GasProperties
   "Coefficient data record for properties of perfect gases"
   extends Modelica.Icons.Record;
@@ -504,7 +507,6 @@ function cp_T
   Modelica.Media.Common.GibbsDerivs g
     "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
   SpecificHeatCapacity R "Specific gas constant of water vapor";
-  Integer error "Error flag for inverse iterations";
 algorithm
   R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
   // Region 2 properties
@@ -529,7 +531,6 @@ function cv_T
   Modelica.Media.Common.GibbsDerivs g
     "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
   SpecificHeatCapacity R "Specific gas constant of water vapor";
-  Integer error "Error flag for inverse iterations";
 algorithm
   R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
   // Region 2 properties
@@ -584,10 +585,12 @@ Modelica.Media.Water.WaterIF97_R2pT</a> are generally used, expect for
 <a href=\"modelica://IBPSA.Media.Steam.temperature_h\">temperature_h</a> and
 <a href=\"modelica://IBPSA.Media.Steam.temperature_s\">temperature_s</a>,
 which are numerically consistent with the forward functions.
-The following modifications were made relative to the <code>WaterIF97_R2pT</code> medium package:
+The following modifications were made relative to the
+<a href=\"modelica://Modelica.Media.Water.WaterIF97_R2pT\">
+Modelica.Media.Water.WaterIF97_R2pT</a> medium package:
 </p>
 <ol>
-<li>Automatic differentiation is provided for all thermodynamic property functions.</li>
+<li>Analytic expressions for the derivatives are provided for all thermodynamic property functions.</li>
 <li>The implementation is generally simplier in order to increase the likelyhood
 of more efficient simulations. </li>
 </ol>
