@@ -167,6 +167,7 @@ def checkout_repository(working_directory, case_dict):
     import time
     d = {}
     d['lib_name'] = case_dict['lib_name']
+    print(f"***** case_dict['from_git_hub'] = {case_dict['from_git_hub']}")
     if case_dict['from_git_hub']:
         git_url = git.Repo(search_parent_directories=True).remotes.origin.url
         r = Repo.clone_from(git_url, working_directory)
@@ -186,7 +187,7 @@ def checkout_repository(working_directory, case_dict):
         # This is a hack to get the local copy of the repository
         des = os.path.join(working_directory, d['lib_name'])
         if CODE_VERBOSE:
-            print("*** Copying" + d['lib_name'] + " library to {}".format(des))
+            print("*** Copying " + d['lib_name'] + " library to {}".format(des))
         shutil.copytree(case_dict['LIBPATH'], des)
         if CODE_VERBOSE:
             print("Since a local copy of the library is used, remember \
@@ -233,7 +234,7 @@ def _simulate(spec):
     :param spec: dictionary with the simulation specifications
 
     '''
-    from buildingspy.simulate.Simulator import Simulator
+    from buildingspy.simulate.Dymola import Simulator
 
     out_dir = os.path.join(spec['lib_dir'], "results", spec["name"])
     os.makedirs(out_dir)
@@ -246,8 +247,8 @@ def _simulate(spec):
 
     # Get current library directory
     IBPSAtemp = os.path.join(spec['lib_dir'], library_name)
-    # Set Model to simulate, the tool, the output dir and the package directory
-    s = Simulator(spec["model"], TOOL, outputDirectory=out_dir,
+    # Set Model to simulate, the output dir and the package directory
+    s = Simulator(spec["model"], outputDirectory=out_dir,
                   packagePath=IBPSAtemp)
     # Add all necessary parameters from Case Dict
     s.addPreProcessingStatement("OutputCPUtime:= true;")
@@ -284,10 +285,14 @@ def _organize_cases(mat_dir):
     :param mat_dir: path to .mat_files directory
     '''
     mat_files = list()
+    if CODE_VERBOSE:
+        print(f"Searching for .mat files in {mat_dir}.")
     for r, d, f in os.walk(mat_dir):
         for file in f:
             if '.mat' in file:
                 mat_files.append(os.path.join(r, file))
+                if CODE_VERBOSE:
+                    print(f"Appending {os.path.join(r, file)} to mat_files.")
 
     case_list = list()
     if len(CASES) == len(mat_files):
@@ -301,8 +306,8 @@ def _organize_cases(mat_dir):
             case_list.append(temp)
     else:
         raise ValueError(
-            "*** There is failed simulation, no result file was found. \
-                Check the simulations.")
+            f"*** There is failed simulation, no result file was found. \
+                Check the simulations. len(CASES) = {len(CASES)}, len(mat_files) = {len(mat_files)}")
     return case_list
 
 
@@ -318,6 +323,8 @@ def _extract_data(mat_file, re_val):
     nPoi = case_dict["n_intervals"]
 
     try:
+        if CODE_VERBOSE:
+            print(f"**** Extracting {mat_file}")
         r = Reader(mat_file, TOOL)
     except IOError:
         raise ValueError("Failed to read {}.".format(mat_file))
@@ -1017,12 +1024,13 @@ if __name__ == '__main__':
     parser.add_argument('-p', help='Specify to pretty print json output.',
                         action='store_true')
     parser.add_argument('-t', help='Specify .json result type -t for \
-                        .jsonFormat2 no -t for .jsonFormat1', 
+                        .jsonFormat2 no -t for .jsonFormat1',
                         action='store_true')
     args = parser.parse_args()
 
     CI_TESTING = args.c
     FROM_GIT_HUB = args.g
+    print(f"********** FROM_GIT_HUB = {FROM_GIT_HUB}")
     pretty_print = args.p
     TestN = args.t
 
