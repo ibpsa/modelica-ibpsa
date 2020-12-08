@@ -20,9 +20,6 @@ defaults:
     shell: bash
     working-directory: IBPSA
 
-services:
-  jmodelica:
-    image: michaelwetter/ubuntu-1804_jmodelica_trunk
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -71,6 +68,8 @@ jobs:
 ##        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@master
 ##
       - name: "Run jmodelica tests"
+        container:
+          image: michaelwetter/ubuntu-1804_jmodelica_trunk
         run: docker images
 
 
