@@ -96,7 +96,7 @@ jobs:
           export PATH=${PATH}:${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica/jm_ipython.sh
           chmod +x ${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica/jm_ipython.sh
           echo "PATH = ${PATH}"
-          ls -l ${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica/jm_ipython.sh
+          cp ${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica/jm_ipython.sh ${GITHUB_WORKSPACE}/bin
           python3 ../bin/runUnitTests.py --batch --single-package "IBPSA.Controls.Continuous.Examples" --tool jmodelica --skip-verification
 
 
