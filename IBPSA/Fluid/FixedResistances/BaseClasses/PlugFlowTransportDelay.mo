@@ -138,6 +138,7 @@ Corrected argument of <code>spatialDistribution</code> operator to be a paramete
 expression.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1055\">#1055</a>.
+</li>
 <li>
 September 9, 2016 by Bram van der Heijde:<br/>
 Rename from PDETime_massFlowMod to PlugFlowTransportDelayMod
