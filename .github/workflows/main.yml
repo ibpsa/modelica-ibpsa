@@ -31,10 +31,10 @@ jobs:
         with:
           python-version: '3.6' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
-  
+
       - name: "Install pip"
         run: pip3 install --upgrade pip setuptools wheel
-        
+
       - name: "Install numpy"
         run: pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.13.3 scipy==0.19.1 matplotlib==2.1.0
 
@@ -42,12 +42,15 @@ jobs:
         run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@master
 
       - name: "Verify files for invalid strings"
-        run: $GITHUB_WORKSPACE/bin/verifyFiles.sh
-        
+        run: ls $GITHUB_WORKSPACE  #/bin/verifyFiles.sh
+
+      - name: "current dir"
+        run: echo `pwd`  #/bin/verifyFiles.sh
+
 #      - id: simulate
 #        name: Simulate models
 #        env:
 #          ARG: ${{ matrix.arg }}
 #        run: echo $ARG
-          
-         
+
+
