@@ -53,7 +53,7 @@ jobs:
       - name: "Test if package.order are correct"
         run : |
               cd ${GITHUB_WORKSPACE}/IBPSA
-          	  python -c 'import buildingspy.development.refactor as r; r.write_package_order(".", recursive=True)'
+              python -c 'import buildingspy.development.refactor as r; r.write_package_order(".", recursive=True)'
               git diff --exit-code .
 
       - name: "Verify files for invalid strings"
