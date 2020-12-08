@@ -59,7 +59,7 @@ equation
     initialPoints = {0.0, 1.0},
     initialValues = {t0 + t_in_start, t0 + t_out_start});
 
-  tau = max(0, time - time_out_des);
+  tau    = max(0, time - time_out_des);
   tauRev = max(0, time - time_out_rev);
 
   annotation (
