@@ -68,12 +68,12 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-  simulate:
-    strategy:
-      matrix:
-        arg: [test-verify-files]
-    steps:
-      - name Print argument
-        env:
-          TEST_ARG: {{ matrix.arg }}
-        run: echo $TEST_ARG
+    simulate:
+      strategy:
+        matrix:
+          arg: [test-verify-files]
+      steps:
+        - name Print argument
+          env:
+            TEST_ARG: {{ matrix.arg }}
+          run: echo $TEST_ARG
