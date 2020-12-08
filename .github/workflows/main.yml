@@ -79,7 +79,7 @@ jobs:
         run: docker pull michaelwetter/ubuntu-1804_jmodelica_trunk
 
       - name: "Run command in docker"
-        run: docker run ${{ ${{ job.services.jmodelica.id }}}} ls
+        run: docker run ${{ job.services.jmodelica.id }} ls
 
 
 ##      - name: "Test html syntax"
