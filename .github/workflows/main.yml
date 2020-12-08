@@ -24,9 +24,9 @@ defaults:
 jobs:
 
   simulate:
-    services:
-      jmodelica:
-        image: michaelwetter/ubuntu-1804_jmodelica_trunk
+##    services:
+##      jmodelica:
+##        image: michaelwetter/ubuntu-1804_jmodelica_trunk
 
     runs-on: ubuntu-18.04
 
@@ -74,6 +74,9 @@ jobs:
 
       - name: "Test for docker"
         run: which docker
+
+      - name: "Download jmodelica"
+        run: docker pull michaelwetter/ubuntu-1804_jmodelica_trunk
 
       - name: "Run command in docker"
         run: docker run michaelwetter/ubuntu-1804_jmodelica_trunk ls
