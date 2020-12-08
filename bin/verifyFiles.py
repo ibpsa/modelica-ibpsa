@@ -7,7 +7,8 @@
 import os, string, fnmatch, os.path, sys
 # --------------------------
 # Global settings
-LIBHOME=os.path.join(".")
+LIBNAME="IBPSA"
+LIBHOME=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", LIBNAME)
 
 # List of invalid strings
 # Regarding the strings __Dymola_*, see https://trac.modelica.org/Modelica/ticket/786
@@ -15,12 +16,12 @@ LIBHOME=os.path.join(".")
 INVALID_IN_ALL=["fixme", "import \"",
                 "import Buildings;",
                 "import IBPSA;",
-                "<h1", "<h2", "<h3", "todo", "xxx", "tt>", "<--",
+                "<h1", "<h2", "<h3", "todo", "tt>", "<--",
                 "realString", "integerString", "structurallyIncomplete",
                 "preferedView", "Algorithm=", "Diagram,", "DocumentationClass",
                 "Modelica.Icons.Info;",
-                "modelica:Buildings",
-                "Modelica:Buildings",
+                f"modelica:{LIBNAME}",
+                f"Modelica:{LIBNAME}",
                 "modelica:Modelica",
                 "Modelica:Modelica",
                 "__Dymola_Algorithm",
@@ -40,10 +41,13 @@ INVALID_IN_ALL=["fixme", "import \"",
                 "__Dymola_saveSelector",
                 "__Dymola_Text",
                 "modelica://AixLib",
-                "modelica://Buildings",
                 "modelica://BuildingSystems",
-                "modelica://IDEAS",
+	        "modelica://IDEAS",
                 "modelica://https://"]
+
+if LIBNAME is "IBPSA":
+    INVALID_IN_ALL.append("modelica://IBPSA")
+
 # List of invalid strings in .mos files
 INVALID_IN_MOS=[]
 # List of invalid regular expressions in .mo files
@@ -71,7 +75,7 @@ def report_empty_statements(fileName, start_line, next_line):
         else:
             if found_loop and lin.lstrip().startswith(next_line):
                 reportError("File '"
-                            + fileName.replace(LIBHOME, "", 1)
+                            + fileName.replace(LIBHOME + os.path.sep, "", 1)
                             + "' contains an empty '" + start_line + " ... " + next_line +
                             "' on line '" + str(iLin) + "'.")
                 found_loop = False
@@ -87,7 +91,7 @@ def reportErrorIfContains(fileName, listOfStrings):
     for string in listOfStrings:
         if (filTex.find(string.lower()) > -1):
             reportError("File '"
-                        + fileName.replace(LIBHOME, "", 1)
+                        + fileName.replace(LIBHOME + os.path.sep, "", 1)
                         + "' contains invalid string '"
                         + string + "'.")
 
@@ -100,7 +104,7 @@ def reportErrorIfContainsRegExp(fileName, listOfStrings):
         match = re.search(string, filTex, re.I)
         if match is not None:
             reportError("File '"
-                        + fileName.replace(LIBHOME, "", 1)
+                        + fileName.replace(LIBHOME + os.path.sep, "", 1)
                         + "' contains invalid string regular expression '"
                         + string + "' in '"
                         + match.group() + "'.")
@@ -113,7 +117,7 @@ def reportErrorIfMissing(fileName, listOfStrings):
     for string in listOfStrings:
         if (filTex.find(string.lower()) == -1):
             reportError("File '"
-                        + fileName.replace(LIBHOME, "", 1)
+                        + fileName.replace(LIBHOME + os.path.sep, "", 1)
                         + "' does not contain required string '"
                         + string + "'.")
 
@@ -121,7 +125,7 @@ def reportErrorIfMissing(fileName, listOfStrings):
 # Main method
 
 # Name of top-level package file
-maiPac=LIBHOME.split(os.path.sep)[-1] + os.path.sep + 'package.mo'
+maiPac=os.path.join(LIBHOME, 'package.mo')
 
 # Number of errors found
 IERR=0
@@ -141,7 +145,9 @@ for (path, dirs, files) in os.walk(LIBHOME):
             filFulNam=os.path.join(path, filNam)
             # Test .mo and .mos
             if foundMo or foundMos:
-                reportErrorIfContains(filFulNam, INVALID_IN_ALL)
+                # Skip Utilities/Plotters/BaseClasses/PartialPlotter.mo because it contains <h1>
+                if filFulNam != "./Utilities/Plotters/BaseClasses/PartialPlotter.mo":
+                    reportErrorIfContains(filFulNam, INVALID_IN_ALL)
             # Test .mos files only
             if foundMos:
                 reportErrorIfContains(filFulNam, INVALID_IN_MOS)
