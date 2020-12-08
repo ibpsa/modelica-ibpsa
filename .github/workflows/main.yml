@@ -75,29 +75,15 @@ jobs:
       - name: "Test for docker"
         run: which docker
 
-      - name: "Download jmodelica"
-        run: docker pull michaelwetter/ubuntu-1804_jmodelica_trunk
-
       - name: "Run command in docker"
         run: docker run michaelwetter/ubuntu-1804_jmodelica_trunk ls
 
-      - name: "github workspace"
-        run: |
-          echo ${GITHUB_WORKSPACE}
-          ls ${GITHUB_WORKSPACE}
-          echo ${PYTHONPATH}
-          echo "PATH = ${PATH}"
-
-      - name: "Updated PATH"
+      - name: "Update PATH"
         run: echo "${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica" >> $GITHUB_PATH
 
       - name: "Run command in docker"
         run: |
           export PYTHONPATH=${GITHUB_WORKSPACE}/IBPSA/Resources/Python-Sources
-          export PATH=${PATH}:${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica
-          chmod +x ${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica/jm_ipython.sh
-          echo "PATH = ${PATH}"
-          cp ${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica/jm_ipython.sh ${GITHUB_WORKSPACE}/bin
           python3 ../bin/runUnitTests.py --batch --single-package "IBPSA.Controls.Continuous.Examples" --tool jmodelica --skip-verification
 
 
