@@ -27,6 +27,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: "Install pip"
+        run: pip3 install --upgrade pip setuptools wheel
+        
+      - name: "Install numpy"
+        run: pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.13.3 scipy==0.19.1 matplotlib==2.1.0
+
+      - name: "Install BuidingsPy"
+        run: install git+https://github.com/lbl-srg/BuildingsPy@master
+
       - uses: actions/setup-python@v2
         with:
           python-version: '3.6' # Version range or exact version of a Python version to use, using SemVer's version range syntax
