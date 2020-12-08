@@ -62,9 +62,10 @@ jobs:
 ##        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@master
 ##
       - name: "Test directory"
+        working-directory: IBPSA
         run : |
           echo `pwd`
-          ls
+          ls ..
 
       - name: "Test html syntax"
         working-directory: ${GITHUB_WORKSPACE}/IBPSA
