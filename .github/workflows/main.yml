@@ -88,12 +88,13 @@ jobs:
           echo ${PYTHONPATH}
           echo "PATH = ${PATH}"
 
-
+      - name: "Updated PATH"
+        run: echo "${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica" >> $GITHUB_PATH
 
       - name: "Run command in docker"
         run: |
           export PYTHONPATH=${GITHUB_WORKSPACE}/IBPSA/Resources/Python-Sources
-          export PATH=${PATH}:${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica/jm_ipython.sh
+          export PATH=${PATH}:${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica
           chmod +x ${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica/jm_ipython.sh
           echo "PATH = ${PATH}"
           cp ${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica/jm_ipython.sh ${GITHUB_WORKSPACE}/bin
