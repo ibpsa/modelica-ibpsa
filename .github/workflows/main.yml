@@ -61,10 +61,10 @@ jobs:
           pip install git+https://github.com/lbl-srg/BuildingsPy@master
 
       # Runs a single command using the runners shell
-      - name: Run test matrix
-        run: |
-          cd ${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions
-          make ${{ matrix.TEST_ARG }} )
+#      - name: Run test matrix
+#        run: |
+#          cd ${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions
+#          make ${{ matrix.TEST_ARG }} )
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
