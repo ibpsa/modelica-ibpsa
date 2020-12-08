@@ -23,7 +23,7 @@ defaults:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-#  simulate:
+  simulate:
 #    services:
 #      jmodelica-docker:
 #        image: michaelwetter/ubuntu-1804_jmodelica_trunk
