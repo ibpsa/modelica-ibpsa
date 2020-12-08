@@ -72,6 +72,9 @@ jobs:
 ##      - name: "Install BuildingsPy"
 ##        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@master
 ##
+      - name: "Test for docker"
+        run: which docker
+
       - name: "Download jmodelica"
         run: docker pull michaelwetter/ubuntu-1804_jmodelica_trunk
 
