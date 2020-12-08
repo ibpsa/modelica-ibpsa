@@ -22,18 +22,18 @@ defaults:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  
+
 #  simulate:
 #    services:
-#      jmodelica-docker: 
+#      jmodelica-docker:
 #        image: michaelwetter/ubuntu-1804_jmodelica_trunk
 
-    runs-on: ubuntu-18.04     
+    runs-on: ubuntu-18.04
 
 #    strategy:
 #      matrix:
 #        arg: [ele1, ele2]
-   
+
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
 ##      - uses: actions/checkout@v2
@@ -73,11 +73,10 @@ jobs:
 ##        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@master
 ##
       - name: "Download jmodelica"
-        run: |
-          docker pull michaelwetter/ubuntu-1804_jmodelica_trunk
+        run: docker pull michaelwetter/ubuntu-1804_jmodelica_trunk
 
       - name: "Run command in docker"
-        docker run michaelwetter/ubuntu-1804_jmodelica_trunk ls
+        run: docker run michaelwetter/ubuntu-1804_jmodelica_trunk ls
 
 
 ##      - name: "Test html syntax"
