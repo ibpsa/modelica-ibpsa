@@ -73,7 +73,7 @@ jobs:
         matrix:
           arg: [test-verify-files]
       steps:
-        - name Print argument
+        - name: Print argument
           env:
             TEST_ARG: {{ matrix.arg }}
           run: echo $TEST_ARG
