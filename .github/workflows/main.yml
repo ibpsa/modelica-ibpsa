@@ -73,7 +73,7 @@ jobs:
 ##        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@master
 ##
       - name: "Run jmodelica tests"
-        run: docker images
+        run: docker run michaelwetter/ubuntu-1804_jmodelica_trunk ls
 
 
 ##      - name: "Test html syntax"
