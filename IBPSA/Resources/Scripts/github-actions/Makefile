@@ -1,8 +1,8 @@
 ############################################################
 # Makefile for the regression tests that are run on travis
 ############################################################
-# $(TRAVIS_BUILD_DIR) is /home/travis/build/ibpsa/modelica-ibpsa
-ROOT = $(TRAVIS_BUILD_DIR)
+# $(GITHUB_WORKSPACE) is /home/xyz/ibpsa/modelica-ibpsa
+ROOT = $(GITHUB_WORKSPACE)
 
 test-documentation:
 	(cd $(ROOT)/IBPSA; ../bin/runUnitTests.py --validate-html-only)
