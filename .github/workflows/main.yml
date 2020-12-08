@@ -17,7 +17,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+
+# This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -56,11 +57,6 @@ jobs:
 #            PyYAML==5.1.2;
 #          pip install git+https://github.com/lbl-srg/BuildingsPy@master
 
-      # Runs a single command using the runners shell
-#      - name: Run test matrix
-#        run: |
-#          cd ${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions
-#          make ${{ matrix.TEST_ARG }} )
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
@@ -68,12 +64,16 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-    simulate:
-      strategy:
-        matrix:
-          arg: [test-verify-files]
-      steps:
-        - name: Print argument
-          env:
-            TEST_ARG: {{ matrix.arg }}
-          run: echo $TEST_ARG
+  simulate:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arg: [ele1, ele2]
+    steps:
+      - id: simulate
+        name: Simulate models
+        env:
+          ARG: ${{ matrix.arg }}
+        run: echo $ARG
+          
+         
