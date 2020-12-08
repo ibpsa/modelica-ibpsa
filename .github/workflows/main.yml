@@ -24,9 +24,9 @@ defaults:
 jobs:
 
   simulate:
-#    services:
-#      jmodelica-docker:
-#        image: michaelwetter/ubuntu-1804_jmodelica_trunk
+    services:
+      jmodelica:
+        image: michaelwetter/ubuntu-1804_jmodelica_trunk
 
     runs-on: ubuntu-18.04
 
@@ -36,7 +36,7 @@ jobs:
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-##      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 ##
 ##      - uses: actions/setup-python@v2
 ##        with:
@@ -79,7 +79,7 @@ jobs:
         run: docker pull michaelwetter/ubuntu-1804_jmodelica_trunk
 
       - name: "Run command in docker"
-        run: docker run michaelwetter/ubuntu-1804_jmodelica_trunk ls
+        run: docker run ${{ ${{ job.services.jmodelica.id }}}} ls
 
 
 ##      - name: "Test html syntax"
