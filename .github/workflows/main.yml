@@ -20,17 +20,15 @@ defaults:
     shell: bash
     working-directory: IBPSA
 
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-
+  
   simulate:
+    services:
+      jmodelica-docker: 
+        image: michaelwetter/ubuntu-1804_jmodelica_trunk
 
-    runs-on: ubuntu-18.04
-    
-    container: 
-      image: michaelwetter/ubuntu-1804_jmodelica_trunk
-      
+    runs-on: ubuntu-18.04     
 
 #    strategy:
 #      matrix:
