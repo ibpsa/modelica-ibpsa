@@ -86,12 +86,17 @@ jobs:
           echo ${GITHUB_WORKSPACE}
           ls ${GITHUB_WORKSPACE}
           echo ${PYTHONPATH}
+          echo "PATH = ${PATH}"
+
 
 
       - name: "Run command in docker"
         run: |
           export PYTHONPATH=${GITHUB_WORKSPACE}/IBPSA/Resources/Python-Sources
           export PATH=${PATH}:${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica/jm_ipython.sh
+          chmod +x ${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica/jm_ipython.sh
+          echo "PATH = ${PATH}"
+          ls -l ${GITHUB_WORKSPACE}/IBPSA/Resources/Scripts/github-actions/jmodelica/jm_ipython.sh
           python3 ../bin/runUnitTests.py --batch --single-package "IBPSA.Controls.Continuous.Examples" --tool jmodelica --skip-verification
 
 
