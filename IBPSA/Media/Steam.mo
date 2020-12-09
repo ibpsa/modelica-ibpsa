@@ -603,7 +603,7 @@ revision="<html>
 December 6, 2020, by Michael Wetter:<br/>
 Added <code>LateInline=true</code>.
 This is required for OCT-r17595_JM-r14295, otherwise
-<a href=\modelica://IBPSA.Media.Examples.SteamDerivativeCheck\">
+<a href=\"modelica://IBPSA.Media.Examples.SteamDerivativeCheck\">
 IBPSA.Media.Examples.SteamDerivativeCheck</a>
 does not translate.
 </li>
