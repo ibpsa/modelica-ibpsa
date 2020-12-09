@@ -23,6 +23,7 @@ package Steam
     AbsolutePressure p "Absolute pressure of medium";
     Temperature T "Temperature of medium";
   end ThermodynamicState;
+
   constant Integer region = 2 "Region of IF97";
   constant Integer phase = 1 "1 for one-phase";
 
@@ -31,7 +32,6 @@ redeclare replaceable model extends BaseProperties(
     final standardOrderComponents=true)
     "Base properties (p, d, T, h, u, R, MM) of water"
 equation
-    // Temperature and pressure values must be within acceptable max & min bounds
     MM = steam.MM;
     h = specificEnthalpy(state);
     d = density(state);
@@ -668,11 +668,11 @@ pressure range is <i>100 kPa &le; p &le; 3000 kPa</i>, except for the
 functions, which are only valid below water's critical temperature of <i>373.946&deg;C</i>.
 </li>
 <li>When phase change is required, this model is to be used in combination with
-<a href=\"modelica://IBPSA.Media.Water\">IBPSA.Media.Water</a> 
-for the liquid phase (quality=0). Please note that the maximum temperature for liquid 
-water is <code>T_max=130&deg;C</code>. This is suitable for real-world condensate 
-return and boiler feedwater systems, which are typically vented to the atmosphere 
-with steam contained via steam traps (thus, <code>T_max=100&deg;C</code> for the 
+<a href=\"modelica://IBPSA.Media.Water\">IBPSA.Media.Water</a>
+for the liquid phase (quality=0). Please note that the maximum temperature for liquid
+water is <code>T_max=130&deg;C</code>. This is suitable for real-world condensate
+return and boiler feedwater systems, which are typically vented to the atmosphere
+with steam contained via steam traps (thus, <code>T_max=100&deg;C</code> for the
 condensate or feedwater in properly functioning systems).</li>
 </ul>
 <h4>Applications </h4>
