@@ -643,11 +643,11 @@ computational efficiency and provide backward compatability.
 <p>
 Detailed functions from <a href=\"modelica://Modelica.Media.Water.WaterIF97_R2pT\">
 Modelica.Media.Water.WaterIF97_R2pT</a> are generally used, expect for
-<a href=\"modelica://IBPSA.Media.Steam.specificEnthalpy\">specificEnthalpy</a> and
-<a href=\"modelica://IBPSA.Media.Steam.specificEntropy\">specificEntropy</a>
+<a href=\"modelica://IBPSA.Media.Steam.specificEnthalpy\">IBPSA.Media.Steam.specificEnthalpy</a> and
+<a href=\"modelica://IBPSA.Media.Steam.specificEntropy\">IBPSA.Media.Steam.specificEntropy</a>
 (both \"forward\" functions), as well as their \"backward\" inverse functions
-<a href=\"modelica://IBPSA.Media.Steam.temperature_h\">temperature_h</a> and
-<a href=\"modelica://IBPSA.Media.Steam.temperature_s\">temperature_s</a>,
+<a href=\"modelica://IBPSA.Media.Steam.temperature_h\">IBPSA.Media.Steam.temperature_h</a> and
+<a href=\"modelica://IBPSA.Media.Steam.temperature_s\">IBPSA.Media.Steam.temperature_s</a>,
 which are numerically consistent with the forward functions.
 The following modifications were made relative to the
 <a href=\"modelica://Modelica.Media.Water.WaterIF97_R2pT\">
