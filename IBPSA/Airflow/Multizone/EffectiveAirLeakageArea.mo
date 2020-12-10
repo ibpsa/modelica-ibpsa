@@ -14,6 +14,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
     annotation (Dialog(group="Rating conditions"));
 
   parameter Modelica.SIunits.Area L(min=0) "Effective leakage area";
+  Modelica.SIunits.Velocity v(nominal=1) "Average velocity";
 
 equation
    v = V_flow/L;
@@ -128,6 +129,10 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
+<li>
+Jun 26, 2020, by Klaas De Jonge:<br/>
+Changes due to changes in the baseclass, 'velocity' is now a top-level output. 
+</li>
 <li>
 June 24, 2018, by Michael Wetter:<br/>
 Removed parameter <code>lWet</code> as it is only used to compute

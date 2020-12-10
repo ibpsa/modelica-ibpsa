@@ -2,9 +2,15 @@ UsersGuide
 DoorDiscretizedOpen
 DoorDiscretizedOperable
 EffectiveAirLeakageArea
+F_Cdp
+FvsP
 MediumColumn
 MediumColumnDynamic
 Orifice
+Powerlaw_1Datapoint
+Powerlaw_2Datapoints
+Q_Cdp
+QvsP
 ZonalFlow_ACS
 ZonalFlow_m_flow
 Types

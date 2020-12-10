@@ -4,10 +4,9 @@ model Orifice "Orifice"
     m=0.5,
     k=CD*A*sqrt(2.0/rho_default));
 
-  parameter Modelica.SIunits.Area A "Area of orifice"
-    annotation (Dialog(group="Orifice characteristics"));
-  parameter Real CD=0.65 "Discharge coefficient"
-    annotation (Dialog(group="Orifice characteristics"));
+  parameter Modelica.SIunits.Area A "Area of orifice"    annotation (Dialog(group="Orifice characteristics"));
+  parameter Real CD=0.65 "Discharge coefficient"    annotation (Dialog(group="Orifice characteristics"));
+  Modelica.SIunits.Velocity v(nominal=1) "Average velocity";
 
 equation
   v = V_flow/A;
@@ -82,6 +81,10 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
+<li>
+Jun 26, 2020, by Klaas De Jonge:<br/>
+Changes due to changes in the baseclass, 'velocity' is now a top-level output. 
+</li>
 <li>
 June 27, 2018, by Michael Wetter:<br/>
 Corrected old parameter annotation.
