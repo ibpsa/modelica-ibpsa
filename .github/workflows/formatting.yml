@@ -20,7 +20,7 @@ defaults:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  test-jmodelica:
+  test-formatting:
     # Skip if the commit message contains "ci skip"
     if: "!contains(github.event.head_commit.message, 'ci skip')"
 
