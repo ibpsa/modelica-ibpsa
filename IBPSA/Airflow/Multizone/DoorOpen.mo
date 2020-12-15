@@ -24,8 +24,8 @@ protected
     "Polynomial coefficient for regularized implementation of flow resistance";
 
   parameter Real kVal=CD*AOpe*sqrt(2/rho_default) "Flow coefficient, k = V_flow/ dp^m";
-  parameter Real kT = CD*wOpe*sqrt(2/rho_default)
-    *(Modelica.Constants.g_n*rho_default*hOpe/2/Medium.T_default)^m *hOpe/2
+  parameter Real kT = CD*wOpe*hOpe/2*sqrt(2/rho_default)
+    *(Modelica.Constants.g_n*rho_default*(2*hOpe/9)/Medium.T_default)^m
     / conTP^m
     "Constant coefficient for buoyancy driven air flow rate";
   parameter Real conTP = IBPSA.Media.Air.dStp*Modelica.Media.IdealGases.Common.SingleGasesData.Air.R
