@@ -122,7 +122,7 @@ protected
     each molarMass=0.062068);
 
   // Coefficients for evaluation of physical properties
-  constant Buildings.Media.Antifreeze.BaseClasses.PropertyCoefficients
+  constant IBPSA.Media.Antifreeze.BaseClasses.PropertyCoefficients
     proCoe(
     X_a_ref=0.308462,
     T_ref=Modelica.SIunits.Conversions.from_degC(31.728),
