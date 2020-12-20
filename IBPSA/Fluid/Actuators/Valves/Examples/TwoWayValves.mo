@@ -66,9 +66,9 @@ model TwoWayValves "Two way valves with different opening characteristics"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   TwoWayButterfly valBut(
     redeclare package Medium = Medium,
+    Kv=valPol.Kv,
     use_inputFilter=false,
     m_flow_nominal=1,
-    dpValve_nominal=10000,
     l=0.05) "Butterfly valve"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
 equation
