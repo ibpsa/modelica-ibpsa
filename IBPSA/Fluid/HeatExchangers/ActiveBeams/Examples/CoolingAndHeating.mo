@@ -6,7 +6,7 @@ model CoolingAndHeating
 
   package MediumW = IBPSA.Media.Water "Medium model for water";
 
-  IBPSA.Fluid.Sources.FixedBoundary sin_1(
+  IBPSA.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = MediumW,
     nPorts=1) "Sink chilled water"
     annotation (Placement(transformation(extent={{100,90},{80,110}})));
@@ -17,7 +17,7 @@ model CoolingAndHeating
     nPorts=1,
     T=285.85) "Source air"
     annotation (Placement(transformation(extent={{100,10},{80,30}})));
-  IBPSA.Fluid.Sources.FixedBoundary bou(
+  IBPSA.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = MediumA,
     nPorts=1) "Sink air"
     annotation (Placement(transformation(extent={{100,-110},{80,-90}})));
@@ -36,10 +36,8 @@ model CoolingAndHeating
   IBPSA.Controls.Continuous.LimPID conHea(
     yMax=0.094,
     Td=0,
-    reverseAction=false,
     Ti=100,
-    k=0.1,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    k=0.1)
     "Controller for heating"
          annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
   Sources.MassFlowSource_T pumCoo(
@@ -59,7 +57,7 @@ model CoolingAndHeating
     nPorts=1,
     T=320.95) "Source hot water"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  IBPSA.Fluid.Sources.FixedBoundary sin_2(
+  IBPSA.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = MediumW,
     nPorts=1) "Sink hot water"
     annotation (Placement(transformation(extent={{100,50},{80,70}})));
@@ -80,11 +78,10 @@ model CoolingAndHeating
     annotation (Placement(transformation(extent={{-110,20},{-90,40}})));
   IBPSA.Controls.Continuous.LimPID conCoo(
     yMax=0.094,
-    reverseAction=true,
+    reverseActing=false,
     Td=0,
     k=0.5,
-    Ti=70,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    Ti=70)
     "Controller for cooling"
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
 
@@ -148,11 +145,16 @@ equation
 This example tests the implementation of
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
 IBPSA.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>
-for both heating and cooling mode. An air volume is maintained at a temperature between <i>22&circ;</i>C and
-<i>25&circ;</i>C by two controllers that regulate the water flow rate in the active beam.
+for both heating and cooling mode. An air volume is maintained at a temperature between <i>22&deg;</i>C and
+<i>25&deg;</i>C by two controllers that regulate the water flow rate in the active beam.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 June 25, 2016, by Michael Wetter:<br/>
 Changed medium start temperature to avoid conflicting

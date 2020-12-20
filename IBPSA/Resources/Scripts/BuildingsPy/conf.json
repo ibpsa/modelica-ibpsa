@@ -1,0 +1,20 @@
+[
+  {
+    "jmodelica": {
+      "simulate": false
+  },
+  "model_name": "IBPSA.Fluid.Examples.FlowSystem.Basic"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+  },
+  "model_name": "IBPSA.Fluid.Examples.FlowSystem.Simplified1"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+  },
+  "model_name": "IBPSA.Fluid.Examples.FlowSystem.Simplified2"
+  }
+]

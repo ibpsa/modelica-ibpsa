@@ -36,7 +36,11 @@ model MSLAIT2Nodes
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-96,152})));
-  Modelica.Blocks.Sources.CombiTimeTable DataReader(table=pipeDataAIT151218.data)
+  Modelica.Blocks.Sources.CombiTimeTable DataReader(
+    tableOnFile=true,
+    tableName="dat",
+    columns=2:pipeDataAIT151218.nCol,
+    fileName=pipeDataAIT151218.filNam)
     "Read measurement data"
     annotation (Placement(transformation(extent={{0,-158},{20,-138}})));
   Data.PipeDataAIT151218 pipeDataAIT151218 "Measurement data from AIT"
@@ -53,7 +57,7 @@ model MSLAIT2Nodes
   Modelica.Blocks.Sources.RealExpression T_p1(y=DataReader.y[1])
     "Inlet temperature"
     annotation (Placement(transformation(extent={{18,-132},{58,-112}})));
-  Fluid.Sources.FixedBoundary ExcludedBranch(redeclare package Medium = Medium,
+  IBPSA.Fluid.Sources.Boundary_pT ExcludedBranch(redeclare package Medium = Medium,
       nPorts=1) "Mass flow sink for excluded branch"
                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -493,6 +497,18 @@ Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/(m K)
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2020, by Michael Wetter:<br/>
+Replaced measured data from specification in Modelica file to external table,
+as this reduces the computing time.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1289\"> #1289</a>.
+</li>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>November 28, 2016 by Bram van der Heijde:<br/>Remove <code>pipVol.</code>
 </li>
 <li>

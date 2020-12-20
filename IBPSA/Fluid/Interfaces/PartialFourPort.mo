@@ -2,11 +2,25 @@ within IBPSA.Fluid.Interfaces;
 partial model PartialFourPort "Partial model with four ports"
 
   replaceable package Medium1 =
-      Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
+      annotation (choices(
+        choice(redeclare package Medium = IBPSA.Media.Air "Moist air"),
+        choice(redeclare package Medium = IBPSA.Media.Water "Water"),
+        choice(redeclare package Medium =
+            IBPSA.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
   replaceable package Medium2 =
-      Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
+      annotation (choices(
+        choice(redeclare package Medium = IBPSA.Media.Air "Moist air"),
+        choice(redeclare package Medium = IBPSA.Media.Water "Water"),
+        choice(redeclare package Medium =
+            IBPSA.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Boolean allowFlowReversal1 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1"
@@ -18,26 +32,26 @@ partial model PartialFourPort "Partial model with four ports"
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
                      redeclare final package Medium = Medium1,
                      m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium1.h_default))
+                     h_outflow(start = Medium1.h_default, nominal = Medium1.h_default))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
                      redeclare final package Medium = Medium1,
                      m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium1.h_default))
+                     h_outflow(start = Medium1.h_default, nominal = Medium1.h_default))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
                      redeclare final package Medium = Medium2,
                      m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium2.h_default))
+                     h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
                      redeclare final package Medium = Medium2,
                      m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium2.h_default))
+                     h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
@@ -68,6 +82,22 @@ are not implemented.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+April 6, 2020, by Filip Jorissen:<br/>
+Added arrows to the icon indicating the intended flow direction
+when <code>allowFlowReversal=false</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1336\">#1336</a>.
+</li>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
+<li>
+July 8, 2018, by Filip Jorissen:<br/>
+Added nominal value of <code>h_outflow</code> in <code>FluidPorts</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/977\">#977</a>.
+</li>
 <li>
 November 12, 2015, by Michael Wetter:<br/>
 Renamed model from <code>FourPort</code> to
@@ -117,10 +147,27 @@ are often iteration variables in nonlinear equation systems.
     Icon(coordinateSystem(
           preserveAspectRatio=true,
           extent={{-100,-100},{100,100}},
-          grid={1,1}), graphics={Text(
+          grid={1,1}), graphics={
+      Text(
           extent={{-151,147},{149,107}},
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          textString="%name")}));
+          textString="%name"),
+      Polygon(
+          points={{-5,10},{25,10},{-5,-10},{-5,10}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=not allowFlowReversal1,
+          origin={75,50},
+          rotation=360),
+      Polygon(
+          points={{10,10},{-20,-10},{10,-10},{10,10}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=not allowFlowReversal2,
+          origin={-79,-50},
+          rotation=360)}));
 end PartialFourPort;

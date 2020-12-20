@@ -40,9 +40,9 @@ initial equation
   t5 = time + endTime3;
   nFai = 0;
 equation
-  if (time >= t0) and (time <= t1) or
-     (time >= t2) and (time <= t3) or
-     (time >= t4) and (time <= t5) then
+  if (time >= t0) and (time < t1) or
+     (time >= t2) and (time < t3) or
+     (time >= t4) and (time < t5) then
      diff = abs(u1 - u2);
   else
     diff = 0; // Test is not needed in this time domain
@@ -78,9 +78,13 @@ chattering if <code>abs(u1-u2)</code> is near <code>threShold</code>.
 revisions="<html>
 <ul>
 <li>
+September 7, 2018, by Michael Wetter:<br/>
+Rewrote inequality to turn a state into a time event for Dymola 2019FD01.
+</li>
+<li>
 December 16, 2016, by Michael Wetter:<br/>
 Reformulated model for
-<a href=\"modelica://https://github.com/ibpsa/modelica-ibpsa/issues/623\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/623\">
 https://github.com/ibpsa/modelica-ibpsa/issues/623</a>.
 </li>
 <li>

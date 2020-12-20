@@ -6,7 +6,7 @@ model CoolingOnly
 
   package MediumW = IBPSA.Media.Water "Medium model for water";
 
-  IBPSA.Fluid.Sources.FixedBoundary sin_1(
+  IBPSA.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = MediumW,
     nPorts=1) "Sink for water"
     annotation (Placement(transformation(extent={{100,56},{80,76}})));
@@ -17,7 +17,7 @@ model CoolingOnly
     nPorts=1,
     T=285.85) "Source for air"
     annotation (Placement(transformation(extent={{100,10},{80,30}})));
-  IBPSA.Fluid.Sources.FixedBoundary bou(
+  IBPSA.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = MediumA,
     nPorts=1) "Sink for air"
     annotation (Placement(transformation(extent={{100,-110},{80,-90}})));
@@ -34,11 +34,10 @@ model CoolingOnly
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   IBPSA.Controls.Continuous.LimPID conPID(
-    reverseAction=true,
+    reverseActing=false,
     Td=0,
     k=0.5,
     Ti=70,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMax=0.094) "Controller"
          annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
   Sources.MassFlowSource_T pum(
@@ -112,11 +111,16 @@ equation
 <p>
 This example tests the implementation of <a href=\"modelica://IBPSA.Fluid.HeatExchangers.ActiveBeams.Cooling\">
 IBPSA.Fluid.HeatExchangers.ActiveBeams.Cooling</a>.
-An air volume is maintained at a temperature below <i>25&circ;</i>C by a controller
+An air volume is maintained at a temperature below <i>25&deg;</i>C by a controller
 that regulates the water flow rate in the active beam.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 June 14, 2016, by Michael Wetter:<br/>
 Revised implementation.

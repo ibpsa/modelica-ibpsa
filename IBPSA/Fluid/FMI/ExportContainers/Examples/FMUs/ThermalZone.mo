@@ -80,7 +80,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(theCon.port_b,vol. heatPort)
@@ -91,7 +91,7 @@ equation
                                                             color={191,0,0}));
   connect(TAirOut.T, weaBus.TDryBul) annotation (Line(points={{-32,120},{-40,120},
           {-40,160},{-10,160}}, color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TAirOut.port, theCon.port_a)
@@ -130,7 +130,6 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Simplified model of
 a thermal zone.")}),
     Documentation(info="<html>
@@ -139,11 +138,13 @@ This example demonstrates how to export a model
 that contains one thermal zone with convective heat input from the
 HVAC system only. The thermal zone is connected to an adaptor so that
 it can be coupled
-to an air-based HVAC system. The thermal zone is
+to an air-based HVAC system.
+<!-- @include_Buildings
+The thermal zone is
 taken from
 <a href=\"modelica://IBPSA.Examples.Tutorial.SpaceCooling.System3\">
-IBPSA.Examples.Tutorial.SpaceCooling.System3
-</a>.
+IBPSA.Examples.Tutorial.SpaceCooling.System3</a>.
+-->
 </p>
 <p>
 The example extends from
@@ -161,6 +162,12 @@ exposed at the FMU interface.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2020, by Michael Wetter:<br/>
+Removed <code>fontSize</code> in annotation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1318\">#1318</a>.
+</li>
 <li>
 December 4, 2017, by Michael Wetter:<br/>
 Added call to <code>Modelica.Utilities.Files.loadResource</code>

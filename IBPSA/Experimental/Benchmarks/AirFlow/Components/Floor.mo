@@ -112,7 +112,7 @@ equation
       points={{20,-30},{34,-30},{34,-72},{-40,-72},{-40,-100}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   end for;
@@ -121,7 +121,7 @@ equation
       points={{-40,-100},{-40,-72},{-90,-72},{-90,-26},{-81.8,-26}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   end for;
@@ -130,7 +130,7 @@ equation
       points={{-40,-100},{-40,-50},{-50,-50},{-50,-26},{-41.8,-26}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   end for;
@@ -138,7 +138,7 @@ equation
       points={{-40,-100},{-40,-72},{34,-72},{34,4},{58.2,4}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation ( Documentation(info="<html>

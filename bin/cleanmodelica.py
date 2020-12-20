@@ -18,7 +18,8 @@ if __name__ == "__main__":
                  'success.',
                  'stop', 'stop.',
                  'fmiModelIdentifier.h', 'modelDescription.xml',
-                 'fmiFunctions.o']
+                 'fmiFunctions.o',
+                 'CSVWriter.csvWriter.csv', 'test.csv']
     # Directories to be deleted. This will be non-recursive
     DELETEDIRS=['binaries']
 
