@@ -26,5 +26,10 @@ July 8, 2018 by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={Ellipse(
+          extent={{-16,18},{16,-14}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid)}));
 end TwoWayButterfly;
