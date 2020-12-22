@@ -16,7 +16,7 @@ Documentation(info="<html>
 Two way valve with the flow characteristic of a typical butterfly valve as listed below. 
 </p>
 <p>
-<img src=\"modelica://IBPSA/Resources/Images/Fluid/Actuators/Valves/Examples/TwoWayButterfly.png\"/>
+<img src=\"modelica://IBPSA/Resources/Images/Fluid/Actuators/Valves/Examples/TwoWayButterfly.png\" alt=\"Butterfly valve characteristic\"/>
 </p>
 </html>",
 revisions="<html>
