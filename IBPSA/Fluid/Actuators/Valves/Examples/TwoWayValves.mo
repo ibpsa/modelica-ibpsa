@@ -69,7 +69,8 @@ model TwoWayValves "Two way valves with different opening characteristics"
     Kv=valPol.Kv,
     use_inputFilter=false,
     m_flow_nominal=1,
-    l=0.05) "Butterfly valve"
+    l=0.05,
+    d=0.02) "Butterfly valve"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
 equation
   connect(y.y, valLin.y) annotation (Line(
