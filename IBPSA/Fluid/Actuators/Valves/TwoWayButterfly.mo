@@ -2,17 +2,21 @@ within IBPSA.Fluid.Actuators.Valves;
 model TwoWayButterfly
   "Two way valve with the flow characteristic of a typical butterfly valve"
   extends IBPSA.Fluid.Actuators.Valves.TwoWayPolynomial(
-    final CvData = IBPSA.Fluid.Types.CvTypes.Kv,
-    Kv = 0.0472*(DN*1000)^2 -2.0104*(DN*1000),
+    CvData = IBPSA.Fluid.Types.CvTypes.Kv,
+    Kv = 0.0472*(d*1000)^2 -2.0104*(d*1000),
     final c={0,1.101898284705380E-01, 2.217227395456580,  - 7.483401207660790, 1.277617623360130E+01, -6.618045307070130});
 
-  parameter Modelica.SIunits.Length DN(displayUnit="mm") "Nominal diameter";
+  parameter Modelica.SIunits.Length d
+    "Nominal diameter";
 
 annotation (
 defaultComponentName="valBut",
 Documentation(info="<html>
 <p>
-Two way valve with the flow characteristic of a typical butterfly valve.
+Two way valve with the flow characteristic of a typical butterfly valve as listed below. 
+</p>
+<p>
+<img src=\"modelica://IBPSA/Resources/Images/Fluid/Actuators/Valves/Examples/TwoWayButterfly.png\"/>
 </p>
 </html>",
 revisions="<html>
