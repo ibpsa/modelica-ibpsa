@@ -1,6 +1,6 @@
 within IBPSA.Media.Antifreeze.Validation;
 model EthyleneGlycolWater
-  "Model that tests the implementation of propylene glycol-water properties"
+  "Model that tests the implementation of ethylene glycol-water properties"
   extends Modelica.Icons.Example;
   extends IBPSA.Media.Antifreeze.Validation.BaseClasses.FluidProperties(
     redeclare package Medium =
