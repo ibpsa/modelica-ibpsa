@@ -9,6 +9,21 @@ model TwoWayButterfly
 
   parameter Real Kvs "Kv value at fully open valve"
     annotation(choices(
+     choice =  1.31 "DN 6",
+     choice =  2.34 "DN 8",
+     choice =  3.65 "DN 10",
+     choice =  8.22 "DN 15",
+     choice =  14.6 "DN 20",
+     choice =  22.8 "DN 25",
+     choice =  37.4 "DN 32",
+     choice =  58.5 "DN 40",
+     choice =  91.3 "DN 50",
+     choice =   154 "DN 65",
+     choice =   234 "DN 80",
+     choice =   296 "DN 90",
+     choice =   365 "DN 100",
+     choice =   483 "DN 115",
+     choice =   570 "DN 125",
      choice =   822 "DN 150",
      choice =  1492 "DN 200",
      choice =  2422 "DN 250",
@@ -40,6 +55,10 @@ Two way valve with the flow characteristic of a typical butterfly valve as liste
 <p>
 The model assigns a <code>Kv</code> based on the table at
 <a href=\"http://www.mydatabook.org/fluid-mechanics/flow-coefficient-opening-and-closure-curves-of-butterfly-valves/\">mydatabook.org</a>.
+The <code>Kv</code> values listed in the parameter <code>Kvs</code> are reasonable assumptions,
+but the actual value can depend much on the design of the specific valve.
+Moreover, the <code>Kv</code> values for DN value smaller than DN 150 are a simple quadratic extrapolation 
+from the value at DN 150.
 </p>
 </html>",
 revisions="<html>
