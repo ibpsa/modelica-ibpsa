@@ -57,7 +57,7 @@ The model assigns a <code>Kv</code> based on the table at
 <a href=\"http://www.mydatabook.org/fluid-mechanics/flow-coefficient-opening-and-closure-curves-of-butterfly-valves/\">mydatabook.org</a>.
 The <code>Kv</code> values listed in the parameter <code>Kvs</code> are reasonable assumptions,
 but the actual value can depend much on the design of the specific valve.
-Moreover, the <code>Kv</code> values for DN value smaller than DN 150 are a simple quadratic extrapolation 
+Moreover, the <code>Kv</code> values for DN value smaller than DN 150 are a quadratic extrapolation
 from the value at DN 150.
 </p>
 </html>",
