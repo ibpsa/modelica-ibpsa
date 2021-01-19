@@ -5,7 +5,7 @@ model Outside_CpData
 
   parameter Real table[:,:]=[0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3; 315,0.1; 360,0.4] "Cp at different angles of attack";
   parameter Modelica.SIunits.Angle azi "Surface azimuth (South:0, West:pi/2)"  annotation (choicesAllMatching=true);
-  parameter Real Cs "Wind speed modifier";
+  parameter Real Cs=1 "Wind speed modifier";
 
   Modelica.SIunits.Angle alpha "Wind incidence angle (0: normal to wall)";
   Real CpAct(min=0, final unit="1") "Actual wind pressure coefficient";
@@ -40,11 +40,11 @@ equation
     Documentation(info="<html>
 <p>The wind direction is computed relative to the azimuth of this surface, which is equal to the parameter <span style=\"font-family: Courier New;\">azi</span>. The surface azimuth is defined in <a href=\"modelica://IDEAS.Types.Azimuth\">IDEAS.Types.Azimuth</a>. For example, if an exterior wall is South oriented, i.e., its outside-facing surface is towards South, use <span style=\"font-family: Courier New;\">IDEAS.Types.Azimuth.S</span>. </p>
 <p>The pressure <i>p</i> at the port <span style=\"font-family: Courier New;\">ports</span> is computed as </p>
-<p align=\"center\"><i>p = p<sub>w</sub> + C<sub>p</sub> 1 &frasl; 2 v<sup>2</sup> &rho;, </i></p>
+<p align=\"center\"><i>p = p<sub>w</sub> + C<sub>p,act</sub> C<sub>s</sub>1 &frasl; 2 v<sup>2</sup> &rho;, </i></p>
 <p>where <i>p<sub>w</i></sub> is the atmospheric pressure from the weather bus, <i>v</i> is the wind speed from the weather bus, and <i>&rho;</i> is the fluid density. </p>
-<p><br>The wind pressure coefficient (Cp_act) is a function af the wind incidence angle. The relation is defined by a cubic hermite interpolation of the users table input. Typical table values can be obtained from the &quot;AIVC guide to energy efficient ventilation&quot;, appendix 2 (1996).</p>
-<p>The default table is appendix 2, table 2.2, face 1.</p>
-<p><br><h4>References</h4></p>
+<p><br>The wind pressure coefficient (C<sub>p,act</sub>) is a function af the wind incidence angle. The relation is defined by a cubic hermite interpolation of the users table input. Typical table values can be obtained from the &quot;AIVC guide to energy efficient ventilation&quot;, appendix 2 (1996).</p>
+<p>The default table is appendix 2, table 2.2, face 1. The wind speed modifier (C<sub>s</sub>) can be used to incorporate the effect of the surroundings on the local wind speed. </p>
+<p><b>References</b></p>
 <ul>
 <li>M. W. Liddament, 1996, <i>A guide to energy efficient ventilation</i>. AIVC Annex V. </li>
 </ul>

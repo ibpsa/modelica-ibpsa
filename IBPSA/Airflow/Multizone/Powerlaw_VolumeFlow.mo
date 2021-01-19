@@ -1,8 +1,8 @@
 ﻿within IBPSA.Airflow.Multizone;
-model Q_Cdp "Powerlaw Volume Flow"
+model Powerlaw_VolumeFlow "Powerlaw Volume Flow"
 
   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance(m=0.65, final k=C);
-  parameter Real C=0.00015 "flow coeffiënt";
+  parameter Real C=0.00015 "Flow coeffiënt";
 
      annotation (Icon(graphics={
         Rectangle(
@@ -83,4 +83,4 @@ First release. Model expecting direct input of volume flow powerlaw coefficients
 </li>
 </ul>
 </html>"));
-end Q_Cdp;
+end Powerlaw_VolumeFlow;

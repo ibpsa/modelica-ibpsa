@@ -1,7 +1,7 @@
 ﻿within IBPSA.Airflow.Multizone;
-model F_Cdp "Powerlaw Mass Flow"
+model Powerlaw_MassFlow "Powerlaw Mass Flow"
   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance_mflow(m=0.65, final k=C);
-  parameter Real C=0.00015 "flow coeffiënt";
+  parameter Real C=0.00015 "Flow coeffiënt";
 
      annotation (Icon(graphics={
         Text(
@@ -82,4 +82,4 @@ First release. Model expecting direct input of mass flow powerlaw coefficients.
 </li>
 </ul>
 </html>"));
-end F_Cdp;
+end Powerlaw_MassFlow;

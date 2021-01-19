@@ -5,7 +5,7 @@ model PrescribedFlow
 
   parameter Boolean flowOpt = true
     "type of prescribed airflow"
-    annotation(choices(__Dymola_radioButtons=true, choice=true "massflow", choice=false "volumeflow"));//choices
+    annotation(choices(__Dymola_radioButtons=true, choice=true "mass flow", choice=false "volume flow"));//choices
 
   Modelica.Blocks.Interfaces.RealInput PrescribedflowIn annotation (Placement(
         transformation(
@@ -74,5 +74,7 @@ equation
 <ul>
 <li>June 26, 2020, by Klaas De Jonge (UGent):<br>First implementation, idealised mover with prescribed mass or volume flow. Extension of IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowelement.</li>
 </ul>
+</html>", info="<html>
+<p>This model describes an idealised flow component. The model expects a real input signal prescribing the <u>mass <b>or</b> volume flow rate</u>.</p>
 </html>"));
 end PrescribedFlow;
