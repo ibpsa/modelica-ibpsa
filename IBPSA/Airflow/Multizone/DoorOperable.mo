@@ -48,12 +48,11 @@ protected
    CDOpe   *AOpe*sqrt(2/rho_default),
    CDCloRat*AClo*sqrt(2/rho_default)}
    "Flow coefficient, k = V_flow/ dp^m";
-  parameter Real kTOpe = CDOpe*wOpe*sqrt(2/rho_default)
-    *(Modelica.Constants.g_n*rho_default*hOpe/2/Medium.T_default)^mOpe *hOpe/2
-    / conTPOpe^mOpe
+
+  parameter Real kT = CDOpe*AOpe/2*sqrt(2/rho_default)
+    *(Modelica.Constants.g_n*rho_default*(2*hOpe/9)/Medium.T_default)^mOpe
+    / conTP^mOpe
     "Constant coefficient for buoyancy driven air flow rate";
-  parameter Real conTPOpe = IBPSA.Media.Air.dStp*Modelica.Media.IdealGases.Common.SingleGasesData.Air.R
-    "Conversion factor for converting temperature difference to pressure difference";
 
   Modelica.SIunits.VolumeFlowRate VABpOpeClo_flow[2](each nominal=0.001)
     "Volume flow rate from A to B if positive due to static pressure difference";
@@ -81,8 +80,8 @@ equation
   // we convert Ta-Tb by multiplying it with rho*R, and we divide
   // above the constant expression by (rho*R)^m on the right hand-side of kT.
   VABt_flow = y*IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
-      k=kTOpe,
-      dp=conTPOpe*(Medium.temperature(state_a1_inflow)-Medium.temperature(state_a2_inflow)),
+      k=kT,
+      dp=conTP*(Medium.temperature(state_a1_inflow)-Medium.temperature(state_a2_inflow)),
       m=mOpe,
       a=a[1],
       b=b[1],

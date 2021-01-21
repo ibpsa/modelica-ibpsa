@@ -1,6 +1,6 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
 partial model Door
-  "Door model for bi-directional flow"
+  "Partial door model for bi-directional flow"
   extends IBPSA.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -37,6 +37,10 @@ partial model Door
 
 protected
   final parameter Modelica.SIunits.Area AOpe = wOpe*hOpe "Open aperture area";
+
+  parameter Real conTP = IBPSA.Media.Air.dStp*Modelica.Media.IdealGases.Common.SingleGasesData.Air.R
+    "Conversion factor for converting temperature difference to pressure difference";
+
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
