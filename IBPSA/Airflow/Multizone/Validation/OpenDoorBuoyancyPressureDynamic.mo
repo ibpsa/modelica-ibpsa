@@ -38,6 +38,36 @@ model OpenDoorBuoyancyPressureDynamic
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={40,0})));
+  DoorDiscretizedOpen dooDis(redeclare package Medium = Medium) "Door"
+    annotation (Placement(transformation(extent={{-10,66},{10,86}})));
+  Fluid.Sources.Boundary_pT bouDis(redeclare package Medium = Medium, nPorts=1)
+    "Pressure boundary"
+    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+  Fluid.MixingVolumes.MixingVolume bouADis(
+    redeclare package Medium = Medium,
+    T_start=292.15,
+    V=2.5*5*5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=0.01,
+    nPorts=3) "Boundary condition at side a" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-40,76})));
+  Fluid.MixingVolumes.MixingVolume bouBDis(
+    redeclare package Medium = Medium,
+    T_start=294.15,
+    p_start=101320,
+    V=2.5*5*5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=0.01,
+    nPorts=2) "Boundary condition at side b" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={40,76})));
 equation
   connect(doo.port_b1, bouB.ports[1])
     annotation (Line(points={{10,6},{20,6},{20,2},{30,2}}, color={0,127,255}));
@@ -52,6 +82,16 @@ equation
     annotation (Line(points={{-30,-36},{-30,2.66667}}, color={0,127,255}));
 
 
+  connect(dooDis.port_b1, bouBDis.ports[1]) annotation (Line(points={{10,82},{
+          20,82},{20,78},{30,78}}, color={0,127,255}));
+  connect(dooDis.port_a2, bouBDis.ports[2]) annotation (Line(points={{10,70},{
+          20,70},{20,74},{30,74}}, color={0,127,255}));
+  connect(dooDis.port_a1, bouADis.ports[1]) annotation (Line(points={{-10,82},{
+          -20,82},{-20,73.3333},{-30,73.3333}}, color={0,127,255}));
+  connect(dooDis.port_b2, bouADis.ports[2]) annotation (Line(points={{-10,70},{
+          -20,70},{-20,76},{-30,76}}, color={0,127,255}));
+  connect(bouDis.ports[1], bouADis.ports[3])
+    annotation (Line(points={{-30,40},{-30,78.6667}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Validation/OpenDoorBuoyancyPressureDynamic.mos"
         "Simulate and plot"),

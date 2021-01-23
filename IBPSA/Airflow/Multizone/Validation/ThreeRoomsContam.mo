@@ -84,7 +84,7 @@ model ThreeRoomsContam
     hOpe=2.2,
     dp_turbulent(displayUnit="Pa") = 0.01,
     CD=0.78,
-    m=0.78) constrainedby Fluid.Interfaces.PartialFourPortInterface
+    m=0.5)  constrainedby Fluid.Interfaces.PartialFourPortInterface
     "Door"
     annotation (Placement(transformation(extent={{-1,-55},{19,-35}})));
   IBPSA.Fluid.MixingVolumes.MixingVolume volWes(
