@@ -99,7 +99,7 @@ equation
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Validation/DoorOpenClosed.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=0.3,
+      StopTime=1,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>

@@ -38,7 +38,7 @@ partial model Door
 protected
   final parameter Modelica.SIunits.Area AOpe = wOpe*hOpe "Open aperture area";
 
-  parameter Real conTP = IBPSA.Media.Air.dStp*Modelica.Media.IdealGases.Common.SingleGasesData.Air.R
+  constant Real conTP = IBPSA.Media.Air.dStp*Modelica.Media.IdealGases.Common.SingleGasesData.Air.R
     "Conversion factor for converting temperature difference to pressure difference";
 
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -49,7 +49,16 @@ protected
   parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
     "Density";
 
+  Modelica.SIunits.VolumeFlowRate VABp_flow(nominal=0.001)
+    "Volume flow rate from A to B if positive due to static pressure difference";
+  Modelica.SIunits.MassFlowRate mABt_flow(nominal=0.001)
+    "Mass flow rate from A to B if positive due to buoyancy";
+
 equation
+  // Net flow rate
+  port_a1.m_flow = (rho_default * VABp_flow/2 + mABt_flow);
+  port_b2.m_flow = (rho_default * VABp_flow/2 - mABt_flow);
+
   // Average velocity (using the whole orifice area)
   VAB_flow = (max(port_a1.m_flow, 0) + max(port_b2.m_flow, 0))/rho_default;
   VBA_flow = (max(port_a2.m_flow, 0) + max(port_b1.m_flow, 0))/rho_default;

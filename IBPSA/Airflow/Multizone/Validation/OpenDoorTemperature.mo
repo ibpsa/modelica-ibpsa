@@ -1,6 +1,6 @@
 within IBPSA.Airflow.Multizone.Validation;
-model OpenDoorPressure
-  "Model with one open door and only pressure-driven flow"
+model OpenDoorTemperature
+  "Model with one open door and only temperature-driven flow"
   extends Modelica.Icons.Example;
 
   package Medium = IBPSA.Media.Air "Medium model";
@@ -11,7 +11,6 @@ model OpenDoorPressure
 
   Fluid.Sources.Boundary_pT bouA(
     redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 101325,
     nPorts=4) "Boundary condition at side a" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -20,8 +19,7 @@ model OpenDoorPressure
 
   Fluid.Sources.Boundary_pT bouB(
     redeclare package Medium = Medium,
-    use_p_in=true,
-    p(displayUnit="Pa"),
+    use_T_in=true,
     nPorts=4) "Boundary condition at side b"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
@@ -32,7 +30,7 @@ model OpenDoorPressure
     hA=2.1/2,
     hB=2.1/2) "Door"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  Modelica.Blocks.Sources.TimeTable bouPre(
+  Modelica.Blocks.Sources.TimeTable bouTem(
     table=[
       0.0,0;
       1,0;
@@ -53,8 +51,8 @@ model OpenDoorPressure
       8,40;
       24,40],
     timeScale=3600,
-    offset=101325-20) "Pressure boundary condition"
-    annotation (Placement(transformation(extent={{86,-2},{66,18}})));
+    offset=273.15) "Temperature boundary condition"
+    annotation (Placement(transformation(extent={{86,-6},{66,14}})));
 equation
   connect(doo.port_b1, bouB.ports[1])
     annotation (Line(points={{10,6},{20,6},{20,3},{30,3}}, color={0,127,255}));
@@ -72,10 +70,10 @@ equation
           -24},{22,-1},{30,-1}}, color={0,127,255}));
   connect(dooDis.port_a2, bouB.ports[4]) annotation (Line(points={{10,-36},{24,
           -36},{24,-3},{30,-3}}, color={0,127,255}));
-  connect(bouPre.y, bouB.p_in)
-    annotation (Line(points={{65,8},{52,8}}, color={0,0,127}));
+  connect(bouTem.y, bouB.T_in)
+    annotation (Line(points={{65,4},{52,4}}, color={0,0,127}));
   annotation (
-    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Validation/OpenDoorPressure.mos"
+    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Validation/OpenDoorTemperature.mos"
         "Simulate and plot"),
     experiment(
       StopTime=28800,
@@ -84,7 +82,7 @@ equation
       __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
 <p>
-This model validates the door model for the situation where there is only pressure-driven air flow.
+This model validates the door model for the situation where there is only temperature-driven air flow.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -94,4 +92,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OpenDoorPressure;
+end OpenDoorTemperature;

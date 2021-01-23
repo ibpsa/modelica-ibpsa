@@ -49,17 +49,18 @@ protected
    CDCloRat*AClo*sqrt(2/rho_default)}
    "Flow coefficient, k = V_flow/ dp^m";
 
-  parameter Real kT = CDOpe*AOpe/2*sqrt(2/rho_default)
-    *(Modelica.Constants.g_n*rho_default*(2*hOpe/9)/Medium.T_default)^mOpe
-    / conTP^mOpe
+  parameter Real kT = rho_default * CDOpe * AOpe/3 *
+    sqrt(Modelica.Constants.g_n /(Medium.T_default*conTP) * hOpe)
     "Constant coefficient for buoyancy driven air flow rate";
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_turbulent=
+    kVal[1] * rho_default * sqrt(dp_turbulent)
+    "Mass flow rate where regularization to laminar flow occurs for temperature-driven flow";
 
   Modelica.SIunits.VolumeFlowRate VABpOpeClo_flow[2](each nominal=0.001)
     "Volume flow rate from A to B if positive due to static pressure difference";
   Modelica.SIunits.VolumeFlowRate VABp_flow(nominal=0.001)
     "Volume flow rate from A to B if positive due to static pressure difference";
-  Modelica.SIunits.VolumeFlowRate VABt_flow(nominal=0.001)
-    "Volume flow rate from A to B if positive due to buoyancy";
 
   Modelica.SIunits.Area A "Current opening area";
 equation
@@ -79,19 +80,10 @@ equation
   // Because powerLawFixedM requires as an input a pressure difference pa-pb,
   // we convert Ta-Tb by multiplying it with rho*R, and we divide
   // above the constant expression by (rho*R)^m on the right hand-side of kT.
-  VABt_flow = y*IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
+  mABt_flow = y*IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
       k=kT,
       dp=conTP*(Medium.temperature(state_a1_inflow)-Medium.temperature(state_a2_inflow)),
-      m=mOpe,
-      a=a[1],
-      b=b[1],
-      c=c[1],
-      d=d[1],
-      dp_turbulent=dp_turbulent);
-
-  // Net flow rate
-  port_a1.m_flow = rho_default * (+VABp_flow/2 + VABt_flow);
-  port_b2.m_flow = rho_default * (+VABp_flow/2 - VABt_flow);
+      m_flow_turbulent=m_flow_turbulent);
 
   annotation (defaultComponentName="doo",
 Documentation(info="<html>
@@ -182,6 +174,10 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2020, by Michael Wetter:<br/>
+Revised buoyancy-driven flow.
+</li>
 <li>
 October 6, 2020, by Michael Wetter:<br/>
 First implementation for
