@@ -1,6 +1,6 @@
 within IBPSA.Airflow.Multizone.Validation;
 model OpenDoorBuoyancyDynamic
-  "Model with one open and buoyancy driven flow only"
+  "Model with open door and buoyancy driven flow only"
   extends Modelica.Icons.Example;
 
   package Medium = IBPSA.Media.Air "Medium model";
