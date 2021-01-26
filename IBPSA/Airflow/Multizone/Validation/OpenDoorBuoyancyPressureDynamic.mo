@@ -97,8 +97,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=14400,
-      Tolerance=1e-08,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-08),
     Documentation(info="<html>
 <p>
 This model validates the door model for the situation where there is air flow due to buoyancy and static pressure difference.
