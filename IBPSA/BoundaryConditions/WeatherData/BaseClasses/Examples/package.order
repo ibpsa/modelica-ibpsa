@@ -12,3 +12,4 @@ GetTimeSpanTMY3_NonzeroStart
 LimitMin
 LocalCivilTime
 SolarTime
+GetTimeSpanTMY3LongHeader
