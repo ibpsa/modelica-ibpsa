@@ -11,6 +11,8 @@ model GetTimeSpanTMY3LongHeader
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, "tab1")
   "Start time, end time of weather data";
 
+initial equation
+  assert(abs(timeSpan[2]-14400) < 0.1, "Error in getting time span.");
   annotation (
     Documentation(info="<html>
 <p>
