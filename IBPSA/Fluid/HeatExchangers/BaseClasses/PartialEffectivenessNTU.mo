@@ -20,7 +20,7 @@ model PartialEffectivenessNTU
                 Dialog(group="Nominal thermal performance"));
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(fixed=use_Q_flow_nominal)
-    "Nominal heat transfer"
+    "Nominal heat transfer from port 2 to port 1 (positive if port 2 is heating up)"
     annotation (Dialog(group="Nominal thermal performance",
                        enable=use_Q_flow_nominal));
   parameter Modelica.SIunits.Temperature T_a1_nominal(fixed=use_Q_flow_nominal)
@@ -105,6 +105,11 @@ initial equation
     Q_flow_nominal = -m2_flow_nominal*cp2_nominal*(T_a2_nominal - T_b2_nominal);
     eps_nominal = abs(Q_flow_nominal/((T_a1_nominal - T_a2_nominal)*
       CMin_flow_nominal));
+    assert(Q_flow_nominal / (T_a1_nominal - T_a2_nominal) >= 0,
+    "In " + getInstanceName() + ": Q_flow_nominal is defined with the wrong sign. " +
+    "By convention, a positive value describe a heat flow from port 2 to port 1. " +
+    "Future version of this library might enforce this convention.",
+    level = AssertionLevel.warning)
   else
     T_a1_nominal = Medium1.T_default;
     T_a2_nominal = Medium2.T_default;
