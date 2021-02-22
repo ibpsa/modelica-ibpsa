@@ -109,7 +109,7 @@ initial equation
     "In " + getInstanceName() + ": Q_flow_nominal is defined with the wrong sign. " +
     "By convention, a positive value describes a heat flow from Medium1 to Medium2. " +
     "Future version of this library might enforce this convention and throw an error.",
-    level = AssertionLevel.warning)
+    level = AssertionLevel.warning);
   else
     T_a1_nominal = Medium1.T_default;
     T_a2_nominal = Medium2.T_default;
