@@ -190,8 +190,7 @@ def checkout_repository(working_directory, case_dict):
             print("*** Copying " + d['lib_name'] + " library to {}".format(des))
         shutil.copytree(case_dict['LIBPATH'], des)
         if CODE_VERBOSE:
-            print("Since a local copy of the library is used, remember \
-                  to manually add software version and commit.")
+            print("Since a local copy of the library is used, remember to manually add software version and commit.")
         d['branch'] = 'AddManually'
         d['commit'] = 'AddManually'
         d['commit_time'] = 'AddManually'
@@ -267,7 +266,10 @@ def _simulate(spec):
     # Copy results back
     res_des = os.path.join(spec["CWD"], "results", spec["name"])
     if CODE_VERBOSE:
-        print("*** Copying results to {}".format(res_des))
+        import glob
+        print(f"*** Copying results from {out_dir} to {res_des}")
+        d = out_dir + "/**"
+        print(f"*** fixme: files in directory are {glob.glob(d)}\n")
 
     # Removing old results directory
     if os.path.isdir(res_des) and spec["CLEAN_MAT"]:
@@ -287,7 +289,7 @@ def _organize_cases(mat_dir):
     mat_files = list()
     if CODE_VERBOSE:
         print(f"Searching for .mat files in {mat_dir}.")
-    for r, d, f in os.walk(mat_dir):
+    for r, _, f in os.walk(mat_dir):
         for file in f:
             if '.mat' in file:
                 mat_files.append(os.path.join(r, file))
