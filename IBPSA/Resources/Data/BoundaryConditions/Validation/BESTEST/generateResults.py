@@ -270,6 +270,10 @@ def _simulate(spec):
         print(f"*** Copying results from {out_dir} to {res_des}")
         d = out_dir + "/**"
         print(f"*** fixme: files in directory are {glob.glob(d)}\n")
+        with open(os.path.join(out_dir, 'simulator.log'), 'r') as f:
+            print("*** log file is")
+            print(f.read())
+            print("*** end of log file")
 
     # Removing old results directory
     if os.path.isdir(res_des) and spec["CLEAN_MAT"]:
