@@ -221,6 +221,10 @@ for <code>UA</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+February 25, 2021 by Baptiste Ravache:<br/>
+Added a warning for when Q_flow_nominal is specified with the wrong sign.
+</li>
+<li>
 January 10, 2018 by Michael Wetter:<br/>
 Removed variable <code>Z</code> that is not used.
 This is for
