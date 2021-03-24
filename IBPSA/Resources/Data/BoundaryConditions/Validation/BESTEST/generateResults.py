@@ -244,6 +244,8 @@ def _simulate(spec):
             text_file.write("branch={}\n".format(spec['git']['branch']))
             text_file.write("commit={}\n".format(spec['git']['commit']))
 
+    # Set MODELICAPATH
+    os.environ['MODELICAPATH'] = LIBPATH
     # Get current library directory
     IBPSAtemp = os.path.join(spec['lib_dir'], library_name)
     # Set Model to simulate, the output dir and the package directory
