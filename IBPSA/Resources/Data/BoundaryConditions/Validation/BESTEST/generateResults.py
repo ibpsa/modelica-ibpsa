@@ -253,6 +253,8 @@ def _simulate(spec):
     s.addPreProcessingStatement("OutputCPUtime:= true;")
     # fixme: Printing current directory for diagnostics
     s.addPreProcessingStatement("cd")
+    # fixme: Print directories and files
+    s.addPreProcessingStatement("Modelica.Utilities.Files.list(\".\");")
     s.setSolver(spec["solver"])
     if 'parameters' in spec:
         s.addParameters(spec['parameters'])
