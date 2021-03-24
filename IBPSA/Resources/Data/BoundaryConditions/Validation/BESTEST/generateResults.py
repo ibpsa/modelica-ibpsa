@@ -251,6 +251,8 @@ def _simulate(spec):
                   packagePath=IBPSAtemp)
     # Add all necessary parameters from Case Dict
     s.addPreProcessingStatement("OutputCPUtime:= true;")
+    # fixme: Printing current directory for diagnostics
+    s.addPreProcessingStatement("cd")
     s.setSolver(spec["solver"])
     if 'parameters' in spec:
         s.addParameters(spec['parameters'])
