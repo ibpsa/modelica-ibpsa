@@ -1,9 +1,12 @@
 ﻿within IBPSA.Airflow.Multizone;
 model Powerlaw_VolumeFlow "Powerlaw Volume Flow"
-
-  extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance(m=0.65, final k=C);
+  extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance(
+    m=0.65, final k=C);
+  // fixme : Is the parameter C needed? The documentation refers to the flow coefficient as k.
+  // fixme : Also, it seems the base class PowerLawResistance_mflow is not truly a partial model since there are no missing equations.
   parameter Real C=0.00015 "Flow coeffiënt";
 
+  // fixme : A validation/test case is missing.
      annotation (Icon(graphics={
         Rectangle(
           extent={{-54,34},{48,-34}},

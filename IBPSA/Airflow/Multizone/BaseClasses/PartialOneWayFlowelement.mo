@@ -1,8 +1,9 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
-partial model PartialOneWayFlowelement
-  "Partial for flow resistance with one-way flow"
+partial model PartialOneWayFlowElement
+  "Partial model for flow resistance with one-way flow"
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
     final allowFlowReversal=true);
+
   extends IBPSA.Airflow.Multizone.BaseClasses.ErrorControl;
 
   parameter Boolean useDefaultProperties=true
@@ -12,6 +13,7 @@ partial model PartialOneWayFlowelement
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1"
     annotation(Dialog(tab="Advanced"));
 
+  // fixme : homotopy was changed to a constant in IBPSA issue #1341, PR #1342
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
@@ -35,8 +37,10 @@ protected
   Modelica.SIunits.DynamicViscosity dynVis "Dynamic viscosity";
   Real mExc(quantity="Mass", final unit="kg")
     "Air mass exchanged (for purpose of error control only)";
+
 initial equation
   mExc=0;
+
 equation
   if forceErrorControlOnFlow then
     der(mExc) = port_a.m_flow;
@@ -45,23 +49,27 @@ equation
   end if;
 
   if useDefaultProperties then
-    sta    = sta_default;
-    rho    = rho_default;
+    sta = sta_default;
+    rho = rho_default;
     dynVis = dynVis_default;
 
   else
-    sta    = if homotopyInitialization then
-                Medium.setState_phX(port_a.p,
-                          homotopy(actual=actualStream(port_a.h_outflow),
-                                   simplified=inStream(port_a.h_outflow)),
-                          homotopy(actual=actualStream(port_a.Xi_outflow),
-                                   simplified=inStream(port_a.Xi_outflow)))
-             else
-               Medium.setState_phX(port_a.p,
-                          actualStream(port_a.h_outflow),
-                          actualStream(port_a.Xi_outflow));
+    sta = if homotopyInitialization then
+        Medium.setState_phX(
+          port_a.p,
+          homotopy(
+            actual=actualStream(port_a.h_outflow),
+            simplified=inStream(port_a.h_outflow)),
+          homotopy(
+            actual=actualStream(port_a.Xi_outflow),
+            simplified=inStream(port_a.Xi_outflow)))
+      else
+        Medium.setState_phX(
+          port_a.p,
+          actualStream(port_a.h_outflow),
+          actualStream(port_a.Xi_outflow));
 
-    rho    = Medium.density(sta);
+    rho = Medium.density(sta);
     dynVis = Medium.dynamicViscosity(sta);
   end if;
 
@@ -88,14 +96,14 @@ equation
 <p><span style=\"font-family: Courier New;\">m_flow = mass flow rate trough the component</span></p>
 <p><span style=\"font-family: Courier New;\">or</span></p>
 <p><span style=\"font-family: Courier New;\">V_flow = volume flow rate through the component</span></p>
-<p><br>The flow from A-&gt;B is the positive flow.This partial model can be used as a base for the interzonal air flow models. </p>
+<p><br>The flow from A-&gt;B is the positive flow. This partial model can be used as a base for the interzonal air flow models. </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 Jun 26, 2020, by Klaas De Jonge:<br/>
-Released first version. PartialOneWayFlowelement serves as a baseclass for a clean implementation of m_flow and V_flow models
+First implementation. PartialOneWayFlowelement serves as a baseclass for a clean implementation of m_flow and V_flow models
 </li>
 </ul>
 </html>"));
-end PartialOneWayFlowelement;
+end PartialOneWayFlowElement;

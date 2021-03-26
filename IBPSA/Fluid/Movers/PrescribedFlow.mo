@@ -1,11 +1,13 @@
 within IBPSA.Fluid.Movers;
 model PrescribedFlow
-  "Component for idealised, prescribed massflow or volume flow"
-  extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowelement;
+  "Component for idealized, prescribed massflow or volume flow"
+  extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement;
+  // fixme : if this is intended as an airflow model, it should be in IBPSA.Airflow.Multizone as IBPSA.Fluid.Movers is for fans and pumps.
 
   parameter Boolean flowOpt = true
     "type of prescribed airflow"
     annotation(choices(__Dymola_radioButtons=true, choice=true "mass flow", choice=false "volume flow"));//choices
+  // fixme : I am not sure if this kind of choice on input is "allowed" (M.Wetter can confirm). There are duplicates of all other models for mass and volume flow so having duplicate models here would make sense.
 
   Modelica.Blocks.Interfaces.RealInput PrescribedflowIn annotation (Placement(
         transformation(
@@ -25,6 +27,7 @@ equation
     V_flow=PrescribedflowIn;
   end if;
 
+  // fixme : A validation/test case is missing.
   annotation (Icon(graphics={
         Rectangle(
           extent={{-100,16},{100,-16}},
@@ -75,6 +78,6 @@ equation
 <li>June 26, 2020, by Klaas De Jonge (UGent):<br>First implementation, idealised mover with prescribed mass or volume flow. Extension of IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowelement.</li>
 </ul>
 </html>", info="<html>
-<p>This model describes an idealised flow component. The model expects a real input signal prescribing the <u>mass <b>or</b> volume flow rate</u>.</p>
+<p>This model describes an idealized flow component. The model expects a real input signal prescribing the <u>mass <b>or</b> volume flow rate</u>.</p>
 </html>"));
 end PrescribedFlow;

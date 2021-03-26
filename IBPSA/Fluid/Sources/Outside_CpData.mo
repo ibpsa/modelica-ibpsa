@@ -26,7 +26,9 @@ protected
 equation
   alpha = winDir-surOut;
 
-  CpAct =IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(u=alpha, table=table[:, :]);                                                                                                                                                      //input is in degrees
+  CpAct =IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(u=alpha, table=table[:, :]);
+  //input is in degrees
+  // fixme : I am confused by the above comment. It seems to me that angles are in radians everywhere.
 
   pWin = Cs*0.5*CpAct*medium.d*vWin*vWin;
   pTot = pWea + pWin;
@@ -36,6 +38,8 @@ equation
   connect(weaBus.pAtm, pWea);
   connect(p_in_internal, pTot);
   connect(weaBus.TDryBul, T_in_internal);
+  // fixme : An example is missing in IBPSA.Fluid.Sources.Examples.
+  // fixme : The documentation refers to IDEAS.
   annotation (defaultComponentName="out",
     Documentation(info="<html>
 <p>The wind direction is computed relative to the azimuth of this surface, which is equal to the parameter <span style=\"font-family: Courier New;\">azi</span>. The surface azimuth is defined in <a href=\"modelica://IDEAS.Types.Azimuth\">IDEAS.Types.Azimuth</a>. For example, if an exterior wall is South oriented, i.e., its outside-facing surface is towards South, use <span style=\"font-family: Courier New;\">IDEAS.Types.Azimuth.S</span>. </p>

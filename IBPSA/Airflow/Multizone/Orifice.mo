@@ -3,9 +3,13 @@ model Orifice "Orifice"
   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance(
     m=0.5,
     k=CD*A*sqrt(2.0/rho_default));
+    // fixme : Is it intended for users to change the values of m and k? If not, then they can be hidden with the final keyword.
 
-  parameter Modelica.SIunits.Area A "Area of orifice"    annotation (Dialog(group="Orifice characteristics"));
-  parameter Real CD=0.65 "Discharge coefficient"    annotation (Dialog(group="Orifice characteristics"));
+  parameter Modelica.SIunits.Area A "Area of orifice"
+    annotation (Dialog(group="Orifice characteristics"));
+  parameter Real CD=0.65 "Discharge coefficient"
+    annotation (Dialog(group="Orifice characteristics"));
+
   Modelica.SIunits.Velocity v(nominal=1) "Average velocity";
 
 equation

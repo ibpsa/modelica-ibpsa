@@ -1,17 +1,17 @@
 within IBPSA.Airflow.Multizone;
 model TableData_MassFlow
   "Mass flow(y-axis) vs Pressure(x-axis) cubic spline fit model based from table data, with last two points linearly interpolated"
-
-extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowelement;
+  extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement;
 
 parameter Real table[:,:]=[-50,-0.08709; -25,-0.06158; -10,-0.03895; -5,-0.02754;
       -3,-0.02133; -2,-0.01742; -1,-0.01232; 0,0; 1,0.01232; 2,0.01742; 3,0.02133;
-      4.5,0.02613; 50,0.02614] "1 column: reference pressure, 2 column: corresponding mass flow rate unit= kg/s";
+      4.5,0.02613; 50,0.02614] "Table of mass flow rate in kg/s (second column) as a function of pressure difference in Pa (first column)";
 
 equation
 
 m_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp, table=table[:, :]);
 
+  // fixme : A validation/test case is missing.
   annotation (Icon(graphics={
         Rectangle(
           extent={{-50,44},{50,-46}},
@@ -44,11 +44,11 @@ m_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp, table=table[:,
           pattern=LinePattern.None,
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid)}), Documentation(info="<html>
-<p>This model describes the one-directional pressure driven air flow through an opening based on fixed tabular input describing the relation between massflow and the pressure difference over the component.</p>
+          <p>This model describes the one-directional pressure driven air flow through an opening based on fixed tabular input describing the relation between mass flow and the pressure difference over the component.</p>
 <p><img src=\"modelica://IBPSA/Resources/Images/equations/equation-e8kZTJdc.png\" alt=\"m_flow = f(dp)\"/></p>
 <p><i>dp = the pressure difference over the flow element</i></p>
 <p><i>m_flow = the mass flow through the element (positive from A-&gt;B)</i></p>
-<p>Based on the table input, a cubic hermite spline is constructed between all point except for the second to last and last point. These point are connected linearly. The constructed curve is the direct relation between dp and m_flow. </p>
+<p>Based on the table input, a cubic hermite spline is constructed between all points except for the second to last and last points. These points are connected linearly. The constructed curve is the direct relation between dp and m_flow. </p>
 <p><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015). </p>
 <h4>References</h4>
 <ul>

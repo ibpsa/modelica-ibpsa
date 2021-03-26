@@ -1,16 +1,20 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
 function flowElementData
-  "CubicSplineData with last points linearly interpolated, yd values must be increasing"
+  "Function for the cubic spline interpolation of table input of a flow resistance"
+  // fixme : I propose a more specific description for the function.
+  // fixme : I am unsure if this implementation is efficient. The derivatives may be calculated at every call of the function (even though they are constant).
+  // I only find one other model that uses spline interpolation with a time-dependent argument : IBPSA.Fluid.Actuators.Dampers.PressureIndependent.
+  // It does not seem like the above implementation fits here. I would still consider splitting the function and evaluating the derivatives at initialization.
 
-  input Real u "independent variable";
-  input Real table[:,:];
+  input Real u "Independent variable";
+  input Real table[:,:] "Table of mass or volume flow rate (second column) as a function of pressure difference (first column)";
 
   output Real z "Dependent variable with monotone interpolation";
 
 protected
   Real[:] xd=table[:,1] "Support points";
   Real[size(xd, 1)] yd=table[:,2] "Support points";
-  Real[size(xd, 1)] d(each fixed=false);
+  Real[size(xd, 1)] d(each fixed=false) "Derivatives at the support points";
 
   Integer i "Integer to select data interval";
 
@@ -45,11 +49,12 @@ algorithm
         y2d=d[i + 1]);
   end if;
 
+// fixme : An example is missing in IBPSA.Airflow.Multizone.BaseClasses.Examples.
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This function return the value on a cubic hermite spline through the given table input. The last 2 point in the table are linearly interpolated.</p>
+    <p>This function return the value on a cubic hermite spline through the given table input with monotonically increasing values. The last 2 points in the table are linearly interpolated.</p>
 
 
 <p><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015).</p>

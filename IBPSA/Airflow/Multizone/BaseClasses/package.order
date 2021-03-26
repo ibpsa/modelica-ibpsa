@@ -2,7 +2,7 @@ DoorDiscretized
 ErrorControl
 PowerLawResistance
 PowerLawResistance_mflow
-PartialOneWayFlowelement
+PartialOneWayFlowElement
 TwoWayFlowElement
 TwoWayFlowElementBuoyancy
 ZonalFlow

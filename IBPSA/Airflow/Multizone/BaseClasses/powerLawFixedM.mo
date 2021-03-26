@@ -11,7 +11,7 @@ function powerLawFixedM
   input Real d "Polynomial coefficient";
   input Modelica.SIunits.PressureDifference dp_turbulent(min=0)=0.001
     "Pressure difference where regularization starts";
-  output Real Flow "Volume flow rate";
+  output Real Flow "Mass or volume flow rate";
 protected
   constant Real gamma(min=1) = 1.5
     "Normalized flow rate where dphi(0)/dpi intersects phi(1)";

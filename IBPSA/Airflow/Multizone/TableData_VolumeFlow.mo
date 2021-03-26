@@ -1,17 +1,18 @@
-﻿within IBPSA.Airflow.Multizone;
+within IBPSA.Airflow.Multizone;
 model TableData_VolumeFlow
   "Volume flow(y-axis) vs Pressure(x-axis) cubic spline fit model based on table data, with last two points linearly interpolated"
 
-extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowelement;
+extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement;
 
 parameter Real table[:,:]=[-50,-0.08709; -25,-0.06158; -10,-0.03895; -5,-0.02754;
       -3,-0.02133; -2,-0.01742; -1,-0.01232; 0,0; 1,0.01232; 2,0.01742; 3,0.02133;
-      4.5,0.02613; 50,0.02614] "1 column: reference pressure, 2 column: corresponding volume flow rate unit= m³/s";
+      4.5,0.02613; 50,0.02614] "Table of volume flow rate in m3/s (second column) as a function of pressure difference in Pa (first column)";
 
 equation
 
 V_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp, table=table[:, :]);
 
+  // fixme : A validation/test case is missing.
   annotation (Icon(graphics={
         Rectangle(
           extent={{-50,44},{50,-46}},
