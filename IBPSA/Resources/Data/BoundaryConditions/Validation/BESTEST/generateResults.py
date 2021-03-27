@@ -40,7 +40,6 @@ script_path = os.path.dirname(os.path.realpath(__file__))
 path = Path(script_path)
 levels_up = 5  # Goes up five levels to get the IBPSA folder
 LIBPATH = str(path.parents[levels_up - 1])
-print(f"*** path is {path} {LIBPATH}")
 # Simulator, Dymola
 TOOL = 'dymola'
 
