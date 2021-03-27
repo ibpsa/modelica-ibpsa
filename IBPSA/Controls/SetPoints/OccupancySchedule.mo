@@ -205,7 +205,7 @@ Integrated changes from Buildings for
 February 26, 2021, by Michael Wetter:<br/>
 Refactored implementation to use a function to compute the next time events.<br/>
 This is a work-around for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2369\">issue 2369</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2369\">Buildings, issue 2369</a>.
 </li>
 <li>
 October 30, 2017, by Michael Wetter:<br/>
