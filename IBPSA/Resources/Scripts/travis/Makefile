@@ -23,8 +23,7 @@ test-bestest:
 	@echo "*** Check if BESTEST results are up to date"
 	(cd  $(ROOT)/IBPSA && \
 	  rm -rf Resources/Data/BoundaryConditions/Validation/BESTEST/results && \
-	  cd Resources/Data/BoundaryConditions/Validation/BESTEST && \
-	  python3 generateResults.py -c )
+	  python3 Resources/Data/BoundaryConditions/Validation/BESTEST/generateResults.py -c )
 	git status --porcelain $(ROOT)/IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST
 	git diff --exit-code $(ROOT)/IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST
 
