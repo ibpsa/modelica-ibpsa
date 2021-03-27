@@ -2,7 +2,8 @@
 #####################################################################
 # This script is used to validate weather reading and postprocessing
 # for tilted and oriented surfaces according to the BESTEST standard.
-# It will create a folder in the current working directory
+# It will create a folder in
+# Resources/Data/BoundaryConditions/Validation/BESTEST/
 # called results and inside there will be the .mat files and the
 # .json files or just the .json files
 #
