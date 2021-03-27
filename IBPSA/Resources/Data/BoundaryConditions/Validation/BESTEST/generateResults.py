@@ -1113,6 +1113,7 @@ if __name__ == '__main__':
         json_name = os.path.join(script_path, 'WeatherDriversResultsSubmittal2.json')
     else:
         json_name = os.path.join(script_path, 'WeatherDriversResultsSubmittal1.json')
+    res_form = None
     with open(json_name) as f:
         res_form = json.load(f)
     # Add library and organization details
@@ -1137,8 +1138,7 @@ if __name__ == '__main__':
         os.makedirs(nJsonRes)
     # Execute all the Subcases
     if CODE_VERBOSE:
-        print("Converting .mat files into .json and copying it into \
-              ".format(nJsonRes))
+        print(f"Converting .mat files into .json and copying it into {nJsonRes}")
     Subcases = ['Iso', 'Per']
     separators = None if pretty_print else (',', ':')
     indent = 2 if pretty_print else None
