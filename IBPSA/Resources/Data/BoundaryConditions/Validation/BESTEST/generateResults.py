@@ -1069,8 +1069,6 @@ if __name__ == '__main__':
         d = checkout_repository(temp_lib_dir, case_dict)
         # Copy library to temporary directories
         for case in list_of_cases:
-            # Delete simulation directory
-            print(f"*** Copying {temp_lib_dir} to {case['wor_dir']}")
             shutil.copytree(
                 os.path.join(temp_lib_dir, library_name),
                 os.path.join(case['wor_dir'], library_name))
