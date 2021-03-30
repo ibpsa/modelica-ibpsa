@@ -12,6 +12,7 @@ This folder contains scripts that are used for the weather BESTEST.
 
 - the generateResults.py is the main script to run the BESTEST testcases.
   Several options are available when calling the script:
+  '-v', 'Make code verbose'
   '-c', 'Specify to enable ci-testing (will delete output files not stored 
          in version control)
   '-g', 'Specify to get the results from the github branch instead of local.'

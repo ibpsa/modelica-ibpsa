@@ -25,8 +25,6 @@ import stat
 import git
 
 
-# Make code Verbose
-CODE_VERBOSE = True
 # Check if it just implements post-process (from .mat files to Json files)
 POST_PROCESS_ONLY = False
 # Erase old .mat files
@@ -172,7 +170,7 @@ def checkout_repository(working_directory, case_dict):
         r = Repo.clone_from(git_url, working_directory)
         g = git.Git(working_directory)
         g.checkout(BRANCH)
-        if CODE_VERBOSE:
+        if case_dict['CODE_VERBOSE']:
             print("Checking out repository IBPSA repository branch \
                   {}".format(BRANCH))
         # Print commit
@@ -186,7 +184,7 @@ def checkout_repository(working_directory, case_dict):
         # This uses the local copy of the repository
         des = os.path.join(working_directory, d['lib_name'])
         shutil.copytree(case_dict['LIBPATH'], des)
-        if CODE_VERBOSE:
+        if case_dict['CODE_VERBOSE']:
             print("Since a local copy of the library is used, remember to manually add software version and commit.")
         d['branch'] = 'AddManually'
         d['commit'] = 'AddManually'
@@ -219,7 +217,8 @@ def get_cases(case_dict):
              "show_GUI": case_dict["show_GUI"],
              "n_intervals": case_dict["n_intervals"],
              "CLEAN_MAT": case_dict['CLEAN_MAT'],
-             "DEL_EVR": case_dict["DEL_EVR"]})
+             "DEL_EVR": case_dict["DEL_EVR"],
+             "CODE_VERBOSE": case_dict["CODE_VERBOSE"]})
     return cases
 
 
@@ -265,7 +264,7 @@ def _simulate(spec):
     s.setNumberOfIntervals(spec["n_intervals"])
     s.setTolerance(spec["set_tolerance"])
     s.showGUI(spec["show_GUI"])
-    if CODE_VERBOSE:
+    if spec['CODE_VERBOSE']:
         print("Starting simulation in {}".format(path.cwd()))
     s.simulate()
 
@@ -291,19 +290,21 @@ def _simulate(spec):
         _copy_results(wor_dir, res_des)
 
 
-def _organize_cases(mat_dir):
+def _organize_cases(mat_dir,case_dict):
     ''' Create a list of dictionaries. Each a dictionary include the case name
     and the mat file path.
     :param mat_dir: path to .mat_files directory
+    :param case_dict : In the dictionary are reported the general options for
+                       simulation and other parameters
     '''
     mat_files = list()
-    if CODE_VERBOSE:
+    if case_dict['CODE_VERBOSE']:
         print(f"Searching for .mat files in {mat_dir}.")
     for r, _, f in os.walk(mat_dir):
         for file in f:
             if '.mat' in file:
                 mat_files.append(os.path.join(r, file))
-                if CODE_VERBOSE:
+                if case_dict['CODE_VERBOSE']:
                     print(f"Appending {os.path.join(r, file)} to mat_files.")
 
     case_list = list()
@@ -335,7 +336,7 @@ def _extract_data(mat_file, re_val):
     nPoi = case_dict["n_intervals"]
 
     try:
-        if CODE_VERBOSE:
+        if case_dict['CODE_VERBOSE']:
             print(f"**** Extracting {mat_file}")
         r = Reader(mat_file, TOOL)
     except IOError:
@@ -1038,10 +1039,14 @@ if __name__ == '__main__':
     parser.add_argument('-t', help='Specify .json result type -t for \
                         .jsonFormat2 no -t for .jsonFormat1',
                         action='store_true')
+    parser.add_argument('-v', help='Specify if code will be verbose',
+                        action='store_true')
     args = parser.parse_args()
 
     CI_TESTING = args.c
-    FROM_GIT_HUB = args.g
+    FROM_GIT_HUB = args.g        
+    # Make code Verbose
+    CODE_VERBOSE = args.v
     print(f"********** FROM_GIT_HUB = {FROM_GIT_HUB}")
     pretty_print = args.p
     TestN = args.t
@@ -1060,6 +1065,7 @@ if __name__ == '__main__':
                  'LIBPATH': LIBPATH,
                  'CLEAN_MAT': CLEAN_MAT,
                  'DEL_EVR': DEL_EVR or CI_TESTING,
+                 'CODE_VERBOSE': CODE_VERBOSE,
                  'lib_name': library_name,
                  'TestN': TestN}
     if CI_TESTING or not POST_PROCESS_ONLY:
@@ -1108,7 +1114,7 @@ if __name__ == '__main__':
 
     # Organize results
     mat_dir = get_result_directory()
-    Matfd = _organize_cases(mat_dir)
+    Matfd = _organize_cases(mat_dir,case_dict)
     # Create Json file for each case (ISO,PEREZ,TBSKY_HOR,TBSKY_DEW)
     # Import results template
     if TestN:
