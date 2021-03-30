@@ -1207,7 +1207,7 @@ if __name__ == '__main__':
                           indent=indent, separators=separators)
     if DEL_EVR or CI_TESTING:
         if CODE_VERBOSE:
-            print(" Erasing .mat files.")
+            print(" Erasing .mat result files.")
             for matfd in Matfd:
                 shutil.rmtree(os.path.dirname(matfd['mat_file']))
 
@@ -1215,4 +1215,5 @@ if __name__ == '__main__':
     # results/JsonResults is around 8 MB large and hence not worth storing
     # in git
     if CI_TESTING:
+        print(" Erasing .json result files.")
         shutil.rmtree(get_result_directory())
