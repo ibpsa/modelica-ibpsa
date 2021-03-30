@@ -2,7 +2,8 @@
 #####################################################################
 # This script is used to validate weather reading and postprocessing
 # for tilted and oriented surfaces according to the BESTEST standard.
-# It will create a folder in the current working directory
+# It will create a folder in
+# Resources/Data/BoundaryConditions/Validation/BESTEST/
 # called results and inside there will be the .mat files and the
 # .json files or just the .json files
 #
@@ -25,7 +26,7 @@ import git
 
 
 # Make code Verbose
-CODE_VERBOSE = True
+CODE_VERBOSE = False
 # Check if it just implements post-process (from .mat files to Json files)
 POST_PROCESS_ONLY = False
 # Erase old .mat files
@@ -55,7 +56,7 @@ except TypeError as e:
 
 # Software specifications
 # Set library_name to IBPSA, or Buildings, etc.
-library_name = os.path.abspath(".").split(os.path.sep)[-6]
+library_name = LIBPATH.split(os.path.sep)[-1]
 library_version = 'v4.0.0dev'
 modeler_organization = 'LBNL'
 modeler_organization_for_tables_and_charts = 'LBNL'
@@ -63,10 +64,9 @@ program_name_for_tables_and_charts = library_name
 results_submission_date = str(date.today().strftime('%m/%d/%Y'))
 
 # Make sure script is run from correct directory
-run_dir = ['Resources', 'Data', 'BoundaryConditions', 'Validation', 'BESTEST']
-if os.path.abspath(".").split(os.path.sep)[-5:] != run_dir:
+if os.path.abspath(".").split(os.path.sep)[-1] != library_name:
     raise ValueError(f"Script must be run from directory \
-                     {os.path.sep.join(run_dir)}")
+                     {library_name}")
 
 # List of cases and result cases
 PACKAGES = f'{library_name}.BoundaryConditions.Validation.BESTEST'
@@ -167,7 +167,6 @@ def checkout_repository(working_directory, case_dict):
     import time
     d = {}
     d['lib_name'] = case_dict['lib_name']
-    print(f"***** case_dict['from_git_hub'] = {case_dict['from_git_hub']}")
     if case_dict['from_git_hub']:
         git_url = git.Repo(search_parent_directories=True).remotes.origin.url
         r = Repo.clone_from(git_url, working_directory)
@@ -184,19 +183,18 @@ def checkout_repository(working_directory, case_dict):
         d['commit_time'] = time.strftime("%m/%d/%Y", time.gmtime
                                          (headcommit.committed_date))
     else:
-        # This is a hack to get the local copy of the repository
+        # This uses the local copy of the repository
         des = os.path.join(working_directory, d['lib_name'])
-        if CODE_VERBOSE:
-            print("*** Copying " + d['lib_name'] + " library to {}".format(des))
         shutil.copytree(case_dict['LIBPATH'], des)
         if CODE_VERBOSE:
-            print("Since a local copy of the library is used, remember \
-                  to manually add software version and commit.")
+            print("Since a local copy of the library is used, remember to manually add software version and commit.")
         d['branch'] = 'AddManually'
         d['commit'] = 'AddManually'
         d['commit_time'] = 'AddManually'
     return d
 
+def get_result_directory():
+    return os.path.join(os.path.dirname(os.path.realpath(__file__)), "results")
 
 def get_cases(case_dict):
     ''' Return the simulation cases that are used for the case study.
@@ -208,9 +206,11 @@ def get_cases(case_dict):
     '''
     cases = list()
     for case in case_dict["CASES"]:
+        wor_dir = create_working_directory()
         cases.append(
             {'model': case_dict["PACKAGES"] + '.' + case,
              "name": case,
+             'wor_dir': wor_dir,
              "tex_label": "p",
              "start_time": case_dict["start_time"],
              "stop_time": case_dict["StopTime"],
@@ -218,10 +218,8 @@ def get_cases(case_dict):
              "set_tolerance": case_dict["set_tolerance"],
              "show_GUI": case_dict["show_GUI"],
              "n_intervals": case_dict["n_intervals"],
-             "CWD": case_dict['CWD'],
              "CLEAN_MAT": case_dict['CLEAN_MAT'],
-             "DEL_EVR": case_dict["DEL_EVR"],
-             "lib_dir": case_dict['lib_dir']})
+             "DEL_EVR": case_dict["DEL_EVR"]})
     return cases
 
 
@@ -234,24 +232,31 @@ def _simulate(spec):
     :param spec: dictionary with the simulation specifications
 
     '''
-    from buildingspy.simulate.Dymola import Simulator
+    import glob
 
-    out_dir = os.path.join(spec['lib_dir'], "results", spec["name"])
-    os.makedirs(out_dir)
+    from buildingspy.simulate.Dymola import Simulator
 
     # Write git information if the simulation is based on a github checkout
     if 'git' in spec:
-        with open(os.path.join(out_dir, "version.txt"), "w+") as text_file:
+        with open("version.txt", "w+") as text_file:
             text_file.write("branch={}\n".format(spec['git']['branch']))
             text_file.write("commit={}\n".format(spec['git']['commit']))
 
-    # Get current library directory
-    IBPSAtemp = os.path.join(spec['lib_dir'], library_name)
+    # Change to working directory
+    cur_dir = path.cwd()
+    wor_dir = spec['wor_dir']
+    os.chdir(wor_dir)
+
+    # Set MODELICAPATH
+    #os.environ['MODELICAPATH'] = LIBPATH
     # Set Model to simulate, the output dir and the package directory
-    s = Simulator(spec["model"], outputDirectory=out_dir,
-                  packagePath=IBPSAtemp)
+    s = Simulator(spec["model"])
     # Add all necessary parameters from Case Dict
     s.addPreProcessingStatement("OutputCPUtime:= true;")
+    # fixme: Printing current directory for diagnostics
+    s.addPreProcessingStatement("cd")
+    # fixme: Print directories and files
+    s.addPreProcessingStatement("Modelica.Utilities.Files.list(\".\");")
     s.setSolver(spec["solver"])
     if 'parameters' in spec:
         s.addParameters(spec['parameters'])
@@ -261,22 +266,29 @@ def _simulate(spec):
     s.setTolerance(spec["set_tolerance"])
     s.showGUI(spec["show_GUI"])
     if CODE_VERBOSE:
-        print("Starting simulation in {}".format(out_dir))
+        print("Starting simulation in {}".format(path.cwd()))
     s.simulate()
 
+    # Change back to current directory
+    os.chdir(cur_dir)
     # Copy results back
-    res_des = os.path.join(spec["CWD"], "results", spec["name"])
-    if CODE_VERBOSE:
-        print("*** Copying results to {}".format(res_des))
+    res_des = os.path.join(get_result_directory(), spec["name"])
+
+    def _copy_results(wor_dir, des_dir):
+        os.mkdir(des_dir)
+        files = glob.glob(os.path.join(wor_dir, '*.mat'))
+        files.extend(glob.glob(os.path.join(wor_dir, '*.log')))
+        for file in files:
+            shutil.copy(file, res_des)
 
     # Removing old results directory
     if os.path.isdir(res_des) and spec["CLEAN_MAT"]:
         shutil.rmtree(res_des)
-        shutil.copytree(out_dir, res_des)
+        _copy_results(wor_dir, res_des)
     elif os.path.isdir(res_des) and not spec["CLEAN_MAT"]:
         pass
     else:
-        shutil.copytree(out_dir, res_des)
+        _copy_results(wor_dir, res_des)
 
 
 def _organize_cases(mat_dir):
@@ -287,7 +299,7 @@ def _organize_cases(mat_dir):
     mat_files = list()
     if CODE_VERBOSE:
         print(f"Searching for .mat files in {mat_dir}.")
-    for r, d, f in os.walk(mat_dir):
+    for r, _, f in os.walk(mat_dir):
         for file in f:
             if '.mat' in file:
                 mat_files.append(os.path.join(r, file))
@@ -1034,7 +1046,6 @@ if __name__ == '__main__':
     pretty_print = args.p
     TestN = args.t
 
-    CWD = os.getcwd()
     case_dict = {'PACKAGES': PACKAGES,
                  'CASES': CASES,
                  'result_vars': result_vars,
@@ -1044,7 +1055,6 @@ if __name__ == '__main__':
                  'set_tolerance': 1E-6,
                  'show_GUI': False,
                  'n_intervals': 35040,
-                 'CWD': CWD,
                  'from_git_hub': FROM_GIT_HUB or not CI_TESTING,
                  'BRANCH': BRANCH,
                  'LIBPATH': LIBPATH,
@@ -1054,34 +1064,37 @@ if __name__ == '__main__':
                  'TestN': TestN}
     if CI_TESTING or not POST_PROCESS_ONLY:
         # Get list of case to simulate with their parameters
-        lib_dir = create_working_directory()
-        case_dict['lib_dir'] = lib_dir
         list_of_cases = get_cases(case_dict)
-        d = checkout_repository(lib_dir, case_dict)
+        # Directory where library is checked out out copied to
+        temp_lib_dir = create_working_directory()
+        d = checkout_repository(temp_lib_dir, case_dict)
+        # Copy library to temporary directories
+        for case in list_of_cases:
+            shutil.copytree(
+                os.path.join(temp_lib_dir, library_name),
+                os.path.join(case['wor_dir'], library_name))
+
         program_version_release_date = d['commit_time']
         program_name_and_version = d['lib_name'] + ' ' + library_version +\
             ' commit: ' + d['commit']
         program_name = d['lib_name']
         program_version = library_version + ' commit: ' + d['commit']
 
-        # Add the directory where the library has been checked out
-        for case in list_of_cases:
-            case['lib_dir'] = lib_dir
-            if case_dict['from_git_hub']:
-                case['git'] = d
         # Run all cases
+        # Create top-level result directory if it does not yet exist
+        os.mkdir(get_result_directory())
         freeze_support()  # You need this in windows
         po = Pool()
         po.map(_simulate, list_of_cases)
         po.close()
         po.join()  # Block at this line until all processes are done
-        # Delete the temporary folder
-        if CODE_VERBOSE:
-            print("Deleting temporary folder {}".format(lib_dir))
-        # Going back to original working directory and removing temporary
-        # working directory
-        os.chdir(CWD)
-        shutil.rmtree(lib_dir, onerror=remove_readonly)
+
+        # Delete temporary directories
+        for case in list_of_cases:
+            # Delete simulation directory
+            shutil.rmtree(case['wor_dir'])
+        # Delete temporary library directory
+        shutil.rmtree(temp_lib_dir)
 
     # Post process only
     if POST_PROCESS_ONLY:
@@ -1093,14 +1106,15 @@ if __name__ == '__main__':
         program_version = "AddManually"
 
     # Organize results
-    mat_dir = os.path.join(CWD, 'results')
+    mat_dir = get_result_directory()
     Matfd = _organize_cases(mat_dir)
     # Create Json file for each case (ISO,PEREZ,TBSKY_HOR,TBSKY_DEW)
     # Import results template
     if TestN:
-        json_name = 'WeatherDriversResultsSubmittal2.json'
+        json_name = os.path.join(script_path, 'WeatherDriversResultsSubmittal2.json')
     else:
-        json_name = 'WeatherDriversResultsSubmittal1.json'
+        json_name = os.path.join(script_path, 'WeatherDriversResultsSubmittal1.json')
+    res_form = None
     with open(json_name) as f:
         res_form = json.load(f)
     # Add library and organization details
@@ -1125,8 +1139,7 @@ if __name__ == '__main__':
         os.makedirs(nJsonRes)
     # Execute all the Subcases
     if CODE_VERBOSE:
-        print("Converting .mat files into .json and copying it into \
-              ".format(nJsonRes))
+        print(f"Converting .mat files into .json and copying it into {nJsonRes}")
     Subcases = ['Iso', 'Per']
     separators = None if pretty_print else (',', ':')
     indent = 2 if pretty_print else None
@@ -1195,4 +1208,4 @@ if __name__ == '__main__':
     # results/JsonResults is around 8 MB large and hence not worth storing
     # in git
     if CI_TESTING:
-        shutil.rmtree("results")
+        shutil.rmtree(get_result_directory())
