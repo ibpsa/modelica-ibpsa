@@ -13,16 +13,16 @@ This folder contains scripts that are used for the weather BESTEST.
 - The `generateResults.py` is the main script to run the BESTEST testcases.
   Several options are available when calling the script:
   
-  '-v', Make code verbose
+  `-v`, Make code verbose
   
-  '-c', Specify to enable ci-testing (will delete output files not stored 
+  `-c`, Specify to enable ci-testing (will delete output files not stored 
          in version control)
   
-  '-g', Specify to get the results from the github branch instead of local.
+  `-g`, Specify to get the results from the github branch instead of local.
   
-  '-p', Specify to pretty print json output.
+  `-p`, Specify to pretty print json output.
   
-  '-t', Specify `.json` result type `-t` for `.jsonFormat2` no `-t` for `.jsonFormat1`
+  `-t`, Specify `.json` result type `-t` for `.jsonFormat2` no `-t` for `.jsonFormat1`
 
 - The main results will be saved in the folder `results/JsonResults` and four files are 
   available:
