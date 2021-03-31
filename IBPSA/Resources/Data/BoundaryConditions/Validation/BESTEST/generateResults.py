@@ -1044,10 +1044,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     CI_TESTING = args.c
-    FROM_GIT_HUB = args.g        
+    FROM_GIT_HUB = args.g
     # Make code Verbose
     CODE_VERBOSE = args.v
-    print(f"********** FROM_GIT_HUB = {FROM_GIT_HUB}")
     pretty_print = args.p
     TestN = args.t
 
