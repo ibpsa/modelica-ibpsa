@@ -26,7 +26,7 @@ import git
 
 
 # Make code Verbose
-CODE_VERBOSE = False
+CODE_VERBOSE = True
 # Check if it just implements post-process (from .mat files to Json files)
 POST_PROCESS_ONLY = False
 # Erase old .mat files
@@ -1082,7 +1082,8 @@ if __name__ == '__main__':
 
         # Run all cases
         # Create top-level result directory if it does not yet exist
-        os.mkdir(get_result_directory())
+        if not os.path.exists(get_result_directory()):
+            os.mkdir(get_result_directory())
         freeze_support()  # You need this in windows
         po = Pool()
         po.map(_simulate, list_of_cases)
@@ -1094,7 +1095,7 @@ if __name__ == '__main__':
             # Delete simulation directory
             shutil.rmtree(case['wor_dir'])
         # Delete temporary library directory
-        shutil.rmtree(temp_lib_dir)
+        shutil.rmtree(temp_lib_dir, onerror=remove_readonly)
 
     # Post process only
     if POST_PROCESS_ONLY:
