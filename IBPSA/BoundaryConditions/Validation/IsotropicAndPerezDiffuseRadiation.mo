@@ -7,12 +7,10 @@ model IsotropicAndPerezDiffuseRadiation
      final quantity="RadiantEnergyFluenceRate",
      final unit="W/m2") "Radiation per unit area using Perez Model"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt angle";
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude angle";
   parameter Modelica.SIunits.Angle azi(displayUnit="deg") "Azimuth angle";
   parameter Real rho=0.2 "Ground reflectance";
-
   SolarIrradiation.DirectTiltedSurface HDir(
     til=til,
     lat=lat,
@@ -94,7 +92,7 @@ First implementation.
 </html>", info="<html>
 <p>
 This model outputs the global radiation with a certain inclination and orientation
-using the isotropic sky model and the Perez sky model.The variable <code>H</code> is
+using the isotropic sky model and the Perez sky model. The variable <code>H</code> is
 the global radiation calculated using the isotropic sky model, while <code>HPer</code> is
 the global radiation calculated using the Perez sky model.</p>
 </html>"));

@@ -4,7 +4,6 @@ model WD100 "Test model for BESTEST weather data: base case"
   parameter Modelica.SIunits.Angle lat=0.6952170009469 "Latitude angle";
   parameter Real rho=0 "Ground reflectance";
   parameter Modelica.SIunits.Length alt = 1650 "Altitude";
-
   WeatherData.ReaderTMY3 weaDatHHorIR(
     pAtmSou=IBPSA.BoundaryConditions.Types.DataSource.File,
     ceiHeiSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,
@@ -17,7 +16,6 @@ model WD100 "Test model for BESTEST weather data: base case"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-90})));
-
   WeatherData.Bus weaBusHHorIR
     "weather bus to read all weather data and Tsky using horizontal radiation"
    annotation (Placement(transformation(extent={{-14,-82},
@@ -98,7 +96,6 @@ model WD100 "Test model for BESTEST weather data: base case"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,-90})));
-
   WeatherData.Bus weaBusTDryBulTDewPoiOpa
     "Weather bus to read Tsky using dew point temperature and sky cover"
     annotation (Placement(transformation(extent={{52,-84},{84,-54}}),
@@ -255,7 +252,13 @@ Documentation(info="<html>
 <td><p>7</p></td>
 </tr>
 </table>
-<p>This model is a template for all the other test cases. It allows to extrapolate all the weather data from the Reader TMY3 for a specific location, incliation and azimuth. The model <a href=\"modelica://IBPSA.BoundaryConditions.Validation.IsotropicAndPerezDiffuseRadiation\">IBPSA.BoundaryConditions.Validation.IsotropicAndPerezDiffuseRadiation</a> outputs radiation data using the available Isotropic and Perez methodlogies. The sky temperature is calculated using both the Horizontal radiation model, from data reader weaBusHorRad and the dew point temperature plus sky cover model from the datareader weaBusSkyCovDewTem.</p>
+<p>This model is a template for all the other test cases.
+It allows to extrapolate all the weather data from the Reader TMY3 for a specific location, incliation and azimuth.
+The model
+<a href=\"modelica://IBPSA.BoundaryConditions.Validation.IsotropicAndPerezDiffuseRadiation\">IBPSA.BoundaryConditions.Validation.IsotropicAndPerezDiffuseRadiation</a>
+outputs radiation data using the available Isotropic and Perez methodlogies.
+The sky temperature is calculated using both the Horizontal radiation model,
+from data reader weaBusHorRad and the dew point temperature plus sky cover model from the datareader weaBusSkyCovDewTem.</p>
 </html>", revisions="<html>
 <ul>
 <li>
