@@ -19,6 +19,7 @@ services:
 
 env:
   # Test matrix for regression tests.
+  - TEST_ARG="make test-bestest"
   # The documentation is tested using github actions.
   - TEST_ARG="make test-dymola    PACKAGE=\"IBPSA.Experimental\""
 ##  - TEST_ARG="make test-jmodelica PACKAGE=\"IBPSA.Experimental\""
@@ -35,7 +36,7 @@ env:
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - if [[ "$TEST_ARG" == *test-dymola* ]]; then
+  - if [[ "$TEST_ARG" == *test-dymola* || "$TEST_ARG" == *test-bestest* ]]; then
        docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola:2021-x86_64;
        cp IBPSA/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
