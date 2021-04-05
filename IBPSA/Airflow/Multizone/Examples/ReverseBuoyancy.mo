@@ -92,7 +92,8 @@ model ReverseBuoyancy
     nPorts=3,
     p_start=101325) "Volume of bottom floor, west room"
     annotation (Placement(transformation(extent={{-161,-29},{-141,-9}})));
-  Modelica.Blocks.Sources.Constant ope(k=1) annotation (Placement(
+  Modelica.Blocks.Sources.Constant ope(k=1) "Constant signal for door opening"
+                                            annotation (Placement(
         transformation(extent={{-102,-23},{-82,-3}})));
   IBPSA.Airflow.Multizone.MediumColumn col1EasBot(
     redeclare package Medium = Medium,
