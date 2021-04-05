@@ -265,7 +265,7 @@ instead of three rooms.
 The outdoor conditions are held constant at <i>10</i>&deg;C and
 atmospheric pressure.
 All four rooms are at different temperatures, with the rooms on the bottom
-floor being initially at a higher temperature than the rooms on the bottom floor.
+floor being initially at a higher temperature than the rooms on the top floor.
 As time progresses, the temperatures of the two rooms on the respective floors
 asymptotically approach each other. The bottom floor eventually cools below
 the temperature of the top floor, because the
