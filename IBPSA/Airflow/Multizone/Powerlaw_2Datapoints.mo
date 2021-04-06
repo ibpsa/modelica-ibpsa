@@ -25,27 +25,6 @@ protected
   parameter Real  n=(log(m1_flow)-log(m2_flow))/(log(dP1)-log(dP2)) "Flow exponent";
 
      annotation (Icon(graphics={
-        Text(
-          extent={{12,-62},{96,-100}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="C=%C"),
-        Text(
-          extent={{16,-34},{92,-72}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString=
-               "m=%m"),
-        Text(
-          extent={{-86,100},{44,40}},
-          lineColor={28,108,200},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.None,
-          textString="F=C*dp^m"),
         Rectangle(
           extent={{-52,34},{50,-34}},
           lineColor={0,0,255},
@@ -81,8 +60,17 @@ protected
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,127,0},
-          fillPattern=FillPattern.Solid)}),
-defaultComponentName="lea",
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-120,-160},{120,-220}},
+          lineColor={0,0,127},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
+          textString="dP1=%dP1, m1=%m1_flow
+dP2=%dP2, m2=%m2_flow")}),
+defaultComponentName="powlaw_2dat",
 Documentation(info="<html>
 <p><br><br><br>Model that fits the flow coeffici&euml;nt and exponent of the orifice equation (mass flow) based on 2 measured datapoints.</p>
 <p><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015).</p>

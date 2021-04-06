@@ -33,11 +33,13 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{24,-24},{96,-100}},
-          lineColor={0,0,255},
+          extent={{-120,-162},{120,-222}},
+          lineColor={0,0,127},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
-          textString="A=%A")}),
+          textString="A=%A
+Cd=%Cd
+")}),
 defaultComponentName="ori",
 Documentation(info="<html>
 <p>

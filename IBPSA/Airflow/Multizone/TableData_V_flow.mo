@@ -13,39 +13,9 @@ equation
 
 V_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp, table=table[:, :]);
 
-  // fixme : A validation/test case is missing.
-  annotation (Icon(graphics={
-        Rectangle(
-          extent={{-50,44},{50,-46}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-74,12},{50,-12}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-60,94},{60,50}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="F vs P"),
-        Rectangle(
-          extent={{-100,6},{-50,-6}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,127,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{50,6},{100,-6}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,127,0},
-          fillPattern=FillPattern.Solid)}), Documentation(info="<html>
+  annotation (
+          defaultComponentName="tabdat_V",
+          Documentation(info="<html>
 <p>This model describes the one-directional pressure driven air flow through an opening based on fixed tabular input describing the relation between massflow and the pressure difference over the component.</p>
 <p><br><img src=\"modelica://IBPSA/Resources/Images/equations/equation-tGaXKOnB.png\" alt=\"V_flow = f(dp)\"/></p>
 <p><br><i>dp = the pressure difference over the flow element</i></p>
@@ -64,5 +34,46 @@ Jun 26, 2020, by Klaas De Jonge:<br/>
 First release
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-48,80},{52,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-98,6},{-48,-6}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{52,6},{102,-6}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-22,78},{2,-78}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{2,78},{28,-78}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-78,13},{78,-13}},
+          lineColor={0,0,127},
+          origin={15,0},
+          rotation=90,
+          textString="V_flow"),
+        Rectangle(
+          extent={{-22,78},{28,58}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Forward),
+        Line(points={{2,78},{2,-78}}, color={28,108,200})}));
 end TableData_V_flow;

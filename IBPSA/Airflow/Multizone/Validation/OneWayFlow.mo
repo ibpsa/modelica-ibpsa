@@ -55,20 +55,20 @@ protected
     dpRat=10,
     CDRat=0.6,
     L=0.01)
-    "EffectiveAirLeakageArea" annotation (Placement(transformation(extent={{-40,96},
-            {-20,116}})));
+    "EffectiveAirLeakageArea" annotation (Placement(transformation(extent={{-40,116},
+            {-20,136}})));
 
   Orifice ori(
     redeclare package Medium = Medium,
     A=0.01,
     CD=0.6) "Orifice"
-    annotation (Placement(transformation(extent={{-40,68},{-20,88}})));
+    annotation (Placement(transformation(extent={{-40,82},{-20,102}})));
   Powerlaw_1Datapoint powlaw_1dat(
     redeclare package Medium = Medium,
     dP1(displayUnit="Pa") = 4,
     m1_flow=0.019)
                "Powerlaw_1Datapoint"
-               annotation (Placement(transformation(extent={{-40,38},{-20,58}})));
+               annotation (Placement(transformation(extent={{-40,46},{-20,66}})));
   Powerlaw_2Datapoints powlaw_2dat(
     redeclare package Medium = Medium,
     dP1(displayUnit="Pa") = 4,
@@ -76,7 +76,7 @@ protected
     dP2(displayUnit="Pa") = 10,
     m2_flow=0.029)
                "Powerlaw_2Datapoints"
-               annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+               annotation (Placement(transformation(extent={{-40,6},{-20,26}})));
   Powerlaw_m_flow powlaw_M(
     redeclare package Medium = Medium,
     m=0.5,
@@ -86,31 +86,31 @@ protected
     redeclare package Medium = Medium,
     m=0.5,
     C=0.01) "Powerlaw_V_flow"
-            annotation (Placement(transformation(extent={{-40,-56},{-20,-36}})));
-  TableData_m_flow TabDat_M(redeclare package Medium = Medium)
+            annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  TableData_m_flow tabdat_M(redeclare package Medium = Medium)
     "TableData_m_flow"
-    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  TableData_V_flow TabDat_V(redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{-40,-96},{-20,-76}})));
+  TableData_V_flow tabdat_V(redeclare package Medium = Medium)
     "TableData_V_flow"
-    annotation (Placement(transformation(extent={{-40,-128},{-20,-108}})));
+    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
 
   //mass flow sensors
   Fluid.Sensors.MassFlowRate Sen_ela(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-8,96},{12,116}})));
+    annotation (Placement(transformation(extent={{-8,116},{12,136}})));
   Fluid.Sensors.MassFlowRate Sen_ori(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-8,68},{12,88}})));
+    annotation (Placement(transformation(extent={{-8,82},{12,102}})));
   Fluid.Sensors.MassFlowRate Sen_powlaw_1dat(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-8,38},{12,58}})));
+    annotation (Placement(transformation(extent={{-8,46},{12,66}})));
   Fluid.Sensors.MassFlowRate Sen_powlaw_2dat(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-8,0},{12,20}})));
+    annotation (Placement(transformation(extent={{-8,6},{12,26}})));
   Fluid.Sensors.MassFlowRate Sen_powlaw_M(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-8,-28},{12,-8}})));
   Fluid.Sensors.MassFlowRate Sen_powlaw_V(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-8,-56},{12,-36}})));
+    annotation (Placement(transformation(extent={{-8,-60},{12,-40}})));
   Fluid.Sensors.MassFlowRate Sen_tabdat_M(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
+    annotation (Placement(transformation(extent={{-8,-96},{12,-76}})));
   Fluid.Sensors.MassFlowRate Sen_tabdat_V(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-8,-128},{12,-108}})));
+    annotation (Placement(transformation(extent={{-8,-130},{12,-110}})));
 
   //Checking the data
 
@@ -137,8 +137,8 @@ equation
   connect(ramp_min50_50pa.y, sum.u[1]) annotation (Line(points={{-119,30},{-112,
           30},{-112,24},{-112.2,24},{-112.2,24.4}},
                                              color={0,0,127}));
-  connect(AmbP.y, sum.u[2]) annotation (Line(points={{99,30},{-111.8,30},{
-          -111.8,24.4}},           color={0,0,127}));
+  connect(AmbP.y, sum.u[2]) annotation (Line(points={{99,30},{-111.8,30},{-111.8,
+          24.4}},                  color={0,0,127}));
   connect(sum.y, bouA.p_in)
     annotation (Line(points={{-112,19.8},{-112,4},{-82,4}},
                                                           color={0,0,127}));
@@ -147,91 +147,97 @@ equation
   connect(AmbP.y, bouB.p_in)
     annotation (Line(points={{99,30},{92,30},{92,4},{82,4}}, color={0,0,127}));
   //Flow element connections
-  connect(bouA.ports[1],ela. port_a) annotation (Line(points={{-60,-0.5},{-54,-0.5},
-          {-54,106},{-40,106}},
+  connect(bouA.ports[1],ela. port_a) annotation (Line(points={{-60,-0.5},{-54,
+          -0.5},{-54,126},{-40,126}},
                               color={0,127,255}));
-  connect(bouA.ports[2], ori.port_a) annotation (Line(points={{-60,-1.5},{-50,-1.5},
-          {-50,78},{-40,78}}, color={0,127,255}));
+  connect(bouA.ports[2], ori.port_a) annotation (Line(points={{-60,-1.5},{-50,
+          -1.5},{-50,92},{-40,92}},
+                              color={0,127,255}));
   connect(bouA.ports[3], powlaw_1dat.port_a) annotation (Line(points={{-60,-2.5},
-          {-50,-2.5},{-50,48},{-40,48}}, color={0,127,255}));
+          {-50,-2.5},{-50,56},{-40,56}}, color={0,127,255}));
   connect(bouA.ports[4], powlaw_2dat.port_a) annotation (Line(points={{-60,-3.5},
-          {-50,-3.5},{-50,10},{-40,10}}, color={0,127,255}));
+          {-50,-3.5},{-50,16},{-40,16}}, color={0,127,255}));
   connect(bouA.ports[5], powlaw_M.port_a) annotation (Line(points={{-60,-4.5},{-50,
           -4.5},{-50,-18},{-40,-18}}, color={0,127,255}));
-  connect(bouA.ports[6], powlaw_V.port_a) annotation (Line(points={{-60,-5.5},{-50,
-          -5.5},{-50,-46},{-40,-46}}, color={0,127,255}));
-  connect(bouA.ports[7], TabDat_M.port_a) annotation (Line(points={{-60,-6.5},{-50,
-          -6.5},{-50,-80},{-40,-80}}, color={0,127,255}));
-  connect(bouA.ports[8], TabDat_V.port_a) annotation (Line(points={{-60,-7.5},{-50,
-          -7.5},{-50,-118},{-40,-118}}, color={0,127,255}));
+  connect(bouA.ports[6], powlaw_V.port_a) annotation (Line(points={{-60,-5.5},{
+          -50,-5.5},{-50,-50},{-40,-50}},
+                                      color={0,127,255}));
+  connect(bouA.ports[7],tabdat_M. port_a) annotation (Line(points={{-60,-6.5},{
+          -50,-6.5},{-50,-86},{-40,-86}},
+                                      color={0,127,255}));
+  connect(bouA.ports[8],tabdat_V. port_a) annotation (Line(points={{-60,-7.5},{
+          -50,-7.5},{-50,-120},{-40,-120}},
+                                        color={0,127,255}));
   connect(ramp_min50_50pa.y, replicator.u)
     annotation (Line(points={{-119,30},{-111,30},{-111,76}}, color={0,0,127}));
   connect(replicator.y, IntTestData.u)
     annotation (Line(points={{-99.5,76},{-92,76}}, color={0,0,127}));
   connect(ela.port_b, Sen_ela.port_a)
-    annotation (Line(points={{-20,106},{-8,106}},
+    annotation (Line(points={{-20,126},{-8,126}},
                                               color={0,127,255}));
-  connect(Sen_ela.port_b, bouB.ports[1]) annotation (Line(points={{12,106},{28,106},
-          {28,-0.5},{60,-0.5}}, color={0,127,255}));
+  connect(Sen_ela.port_b, bouB.ports[1]) annotation (Line(points={{12,126},{28,
+          126},{28,-0.5},{60,-0.5}},
+                                color={0,127,255}));
   connect(ori.port_b, Sen_ori.port_a)
-    annotation (Line(points={{-20,78},{-8,78}},
+    annotation (Line(points={{-20,92},{-8,92}},
                                               color={0,127,255}));
-  connect(Sen_ori.port_b, bouB.ports[2]) annotation (Line(points={{12,78},{24,78},
-          {24,-1.5},{60,-1.5}}, color={0,127,255}));
+  connect(Sen_ori.port_b, bouB.ports[2]) annotation (Line(points={{12,92},{24,
+          92},{24,-1.5},{60,-1.5}},
+                                color={0,127,255}));
   connect(powlaw_1dat.port_b, Sen_powlaw_1dat.port_a)
-    annotation (Line(points={{-20,48},{-8,48}},
+    annotation (Line(points={{-20,56},{-8,56}},
                                               color={0,127,255}));
-  connect(Sen_powlaw_1dat.port_b, bouB.ports[3]) annotation (Line(points={{12,48},
-          {24,48},{24,-2.5},{60,-2.5}}, color={0,127,255}));
+  connect(Sen_powlaw_1dat.port_b, bouB.ports[3]) annotation (Line(points={{12,56},
+          {24,56},{24,-2.5},{60,-2.5}}, color={0,127,255}));
   connect(powlaw_2dat.port_b, Sen_powlaw_2dat.port_a)
-    annotation (Line(points={{-20,10},{-8,10}},
+    annotation (Line(points={{-20,16},{-8,16}},
                                               color={0,127,255}));
-  connect(Sen_powlaw_2dat.port_b, bouB.ports[4]) annotation (Line(points={{12,10},
-          {24,10},{24,-3.5},{60,-3.5}}, color={0,127,255}));
+  connect(Sen_powlaw_2dat.port_b, bouB.ports[4]) annotation (Line(points={{12,16},
+          {24,16},{24,-3.5},{60,-3.5}}, color={0,127,255}));
   connect(powlaw_M.port_b, Sen_powlaw_M.port_a)
     annotation (Line(points={{-20,-18},{-8,-18}},
                                                 color={0,127,255}));
   connect(Sen_powlaw_M.port_b, bouB.ports[5]) annotation (Line(points={{12,-18},
           {24,-18},{24,-4.5},{60,-4.5}}, color={0,127,255}));
   connect(powlaw_V.port_b, Sen_powlaw_V.port_a)
-    annotation (Line(points={{-20,-46},{-8,-46}},
+    annotation (Line(points={{-20,-50},{-8,-50}},
                                                 color={0,127,255}));
-  connect(Sen_powlaw_V.port_b, bouB.ports[6]) annotation (Line(points={{12,-46},
-          {28,-46},{28,-5.5},{60,-5.5}},
+  connect(Sen_powlaw_V.port_b, bouB.ports[6]) annotation (Line(points={{12,-50},
+          {28,-50},{28,-5.5},{60,-5.5}},
                                 color={0,127,255}));
-  connect(TabDat_M.port_b, Sen_tabdat_M.port_a)
-    annotation (Line(points={{-20,-80},{-8,-80}},
+  connect(tabdat_M.port_b, Sen_tabdat_M.port_a)
+    annotation (Line(points={{-20,-86},{-8,-86}},
                                                 color={0,127,255}));
-  connect(Sen_tabdat_M.port_b, bouB.ports[7]) annotation (Line(points={{12,-80},
-          {28,-80},{28,-6.5},{60,-6.5}}, color={0,127,255}));
-  connect(TabDat_V.port_b, Sen_tabdat_V.port_a)
-    annotation (Line(points={{-20,-118},{-8,-118}}, color={0,127,255}));
-  connect(Sen_tabdat_V.port_b, bouB.ports[8]) annotation (Line(points={{12,-118},
-          {24,-118},{24,-7.5},{60,-7.5}}, color={0,127,255}));
+  connect(Sen_tabdat_M.port_b, bouB.ports[7]) annotation (Line(points={{12,-86},
+          {28,-86},{28,-6.5},{60,-6.5}}, color={0,127,255}));
+  connect(tabdat_V.port_b, Sen_tabdat_V.port_a)
+    annotation (Line(points={{-20,-120},{-8,-120}}, color={0,127,255}));
+  connect(Sen_tabdat_V.port_b, bouB.ports[8]) annotation (Line(points={{12,-120},
+          {24,-120},{24,-7.5},{60,-7.5}}, color={0,127,255}));
 
-  connect(Sen_ela.m_flow, m_flow_data[1]) annotation (Line(points={{2,117},{36,
-          117},{36,83.25},{126,83.25}},
+  connect(Sen_ela.m_flow, m_flow_data[1]) annotation (Line(points={{2,137},{36,
+          137},{36,83.25},{126,83.25}},
                                  color={0,0,127}));
-  connect(Sen_ori.m_flow, m_flow_data[2]) annotation (Line(points={{2,89},{36,
-          89},{36,85.75},{126,85.75}},
+  connect(Sen_ori.m_flow, m_flow_data[2]) annotation (Line(points={{2,103},{36,
+          103},{36,85.75},{126,85.75}},
                                 color={0,0,127}));
   connect(Sen_powlaw_M.m_flow, m_flow_data[3]) annotation (Line(points={{2,-7},{
           36,-7},{36,88.25},{126,88.25}},
                                     color={0,0,127}));
-  connect(Sen_powlaw_V.m_flow, m_flow_data[4]) annotation (Line(points={{2,-35},
-          {36,-35},{36,90.75},{126,90.75}},
+  connect(Sen_powlaw_V.m_flow, m_flow_data[4]) annotation (Line(points={{2,-39},
+          {36,-39},{36,90.75},{126,90.75}},
                                      color={0,0,127}));
-  connect(Sen_tabdat_M.m_flow, m_flow_data[5]) annotation (Line(points={{2,-69},
-          {36,-69},{36,93.25},{126,93.25}},
+  connect(Sen_tabdat_M.m_flow, m_flow_data[5]) annotation (Line(points={{2,-75},
+          {36,-75},{36,93.25},{126,93.25}},
                                      color={0,0,127}));
-  connect(Sen_tabdat_V.m_flow, m_flow_data[6]) annotation (Line(points={{2,-107},
-          {36,-107},{36,95.75},{126,95.75}},
+  connect(Sen_tabdat_V.m_flow, m_flow_data[6]) annotation (Line(points={{2,-109},
+          {36,-109},{36,95.75},{126,95.75}},
                                       color={0,0,127}));
-  connect(Sen_powlaw_2dat.m_flow, m_flow_data[7]) annotation (Line(points={{2,21},{
-          36,21},{36,98.25},{126,98.25}},
+  connect(Sen_powlaw_2dat.m_flow, m_flow_data[7]) annotation (Line(points={{2,27},{
+          36,27},{36,98.25},{126,98.25}},
                                         color={0,0,127}));
-  connect(Sen_powlaw_1dat.m_flow, m_flow_data[8]) annotation (Line(points={{2,59},{
-          36,59},{36,100.75},{126,100.75}},
+  connect(Sen_powlaw_1dat.m_flow, m_flow_data[8]) annotation (Line(points={{2,67},{
+          36,67},{36,100.75},{126,100.75}},
                                         color={0,0,127}));
   connect(IntTestData.y, m_flow_testdata) annotation (Line(points={{-69,76},{-62,
           76},{-62,30},{36,30},{36,68},{126,68}}, color={0,0,127}));

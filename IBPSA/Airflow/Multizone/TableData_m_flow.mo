@@ -15,24 +15,11 @@ m_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp, table=table[:,
 
   annotation (Icon(graphics={
         Rectangle(
-          extent={{-50,44},{50,-46}},
+          extent={{-50,80},{50,-80}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-74,12},{50,-12}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-60,94},{60,50}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="F vs P"),
         Rectangle(
           extent={{-100,6},{-50,-6}},
           lineColor={0,0,255},
@@ -44,7 +31,31 @@ m_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp, table=table[:,
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,127,0},
-          fillPattern=FillPattern.Solid)}), Documentation(info="<html>
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-24,78},{0,-78}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{0,78},{26,-78}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-78,13},{78,-13}},
+          lineColor={0,0,127},
+          textString="m_flow",
+          origin={13,0},
+          rotation=90),
+        Rectangle(
+          extent={{-24,78},{26,58}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Forward),
+        Line(points={{0,78},{0,-78}}, color={28,108,200})}),
+           defaultComponentName="tabdat_M",
+           Documentation(info="<html>
           <p>This model describes the one-directional pressure driven air flow through an opening based on fixed tabular input describing the relation between mass flow and the pressure difference over the component.</p>
 <p><img src=\"modelica://IBPSA/Resources/Images/equations/equation-e8kZTJdc.png\" alt=\"m_flow = f(dp)\"/></p>
 <p><i>dp = the pressure difference over the flow element</i></p>

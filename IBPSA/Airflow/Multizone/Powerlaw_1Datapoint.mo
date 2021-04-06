@@ -18,27 +18,13 @@ protected
 
      annotation (Icon(graphics={
         Text(
-          extent={{-80,-40},{0,-80}},
-          lineColor={0,0,255},
+          extent={{-120,-160},{120,-220}},
+          lineColor={0,0,127},
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="C=%C"),
-        Text(
-          extent={{10,-40},{86,-78}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString=
-               "m=%m"),
-        Text(
-          extent={{-86,100},{44,40}},
-          lineColor={28,108,200},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.None,
-          textString="F=C*dp^m"),
-        Rectangle(
+          textString="dP1=%dP1, m1=%m1_flow
+m=%m"), Rectangle(
           extent={{-52,34},{50,-34}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
@@ -74,7 +60,7 @@ protected
           pattern=LinePattern.None,
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid)}),
-defaultComponentName="lea",
+defaultComponentName="powlaw_1dat",
 Documentation(info="<html>
 <p><br><br><br>Model that fits the flow coeffici&euml;nt of the massflow version of the orifice equation based on 1 measured datapoint and given flow exponent. </p>
 <p><br><br><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015).</p>

@@ -38,7 +38,6 @@ equation
   connect(weaBus.pAtm, pWea);
   connect(p_in_internal, pTot);
   connect(weaBus.TDryBul, T_in_internal);
-  // fixme : An example is missing in IBPSA.Fluid.Sources.Examples.
 
   annotation (defaultComponentName="out",
     Documentation(info="<html>

@@ -32,22 +32,14 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-104,92},{-20,54}},
-          lineColor={0,0,255},
+          extent={{-120,-160},{120,-220}},
+          lineColor={0,0,127},
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString=
-               "L=%L"),
-        Text(
-          extent={{22,94},{98,56}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString=
-               "m=%m"),
-        Rectangle(
+          textString="L=%L
+m=%m
+"),     Rectangle(
           extent={{-100,6},{-64,-6}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
