@@ -1,6 +1,6 @@
 within IBPSA.Airflow.Multizone;
 model Orifice "Orifice"
-  extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance(
+  extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance(
     m=0.5,
     k=CD*A*sqrt(2.0/rho_default));
     // fixme : Is it intended for users to change the values of m and k? If not, then they can be hidden with the final keyword.

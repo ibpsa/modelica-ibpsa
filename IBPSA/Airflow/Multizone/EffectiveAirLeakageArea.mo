@@ -1,6 +1,6 @@
 within IBPSA.Airflow.Multizone;
 model EffectiveAirLeakageArea "Effective air leakage area"
-  extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance(
+  extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance(
     m=0.65,
     final k=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m));
 

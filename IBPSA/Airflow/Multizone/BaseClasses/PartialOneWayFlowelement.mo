@@ -13,9 +13,9 @@ partial model PartialOneWayFlowElement
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1"
     annotation(Dialog(tab="Advanced"));
 
-  // fixme : homotopy was changed to a constant in IBPSA issue #1341, PR #1342
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true, Dialog(tab="Advanced"));
 
   Modelica.SIunits.VolumeFlowRate V_flow
     "Volume flow rate through the component";
@@ -40,6 +40,9 @@ protected
 
 initial equation
   mExc=0;
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
 equation
   if forceErrorControlOnFlow then

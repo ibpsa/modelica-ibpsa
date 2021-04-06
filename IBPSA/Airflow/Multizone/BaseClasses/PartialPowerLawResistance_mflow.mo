@@ -1,15 +1,13 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
-partial model PowerLawResistance_mflow
+partial model PartialPowerLawResistance_mflow
   "Partial model for mass flow resistance that uses the power law"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement( final m_flow_nominal=Modelica.Constants.small);
-  // fixme : Partial models usually start with Partial... (for example, PartialPowerLawResistance_mflow). I am not sure if this is a strict requirement (PowerLawResistance does not start with Partial).
-  // fixme : The nomenclature is not uniform in the Multizone package. Some models use _MassFlow and others use _m_flow.
 
-  parameter Real m(min=0.5, max=1)=0.66
+
+  parameter Real m(min=0.5, max=1)
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
+  parameter Real k "Flow coefficient, k = m_flow/ dp^m";
 
-  parameter Real k=0.000015223 "Flow coefficient, k = m_flow/ dp^m";
-  // fixme : Is it correct for the parameter to have the same default value as in the volume flow case (in PowerLawResistance)?
 protected
   constant Real gamma(min=1) = 1.5
     "Normalized flow rate where dphi(0)/dpi intersects phi(1)";
@@ -34,9 +32,6 @@ equation
     d=d,
     dp_turbulent=dp_turbulent);
 
-// fixme : Equations are presented in subsection 3 of "Documentation" in the style guide (https://github.com/ibpsa/modelica-ibpsa/wiki/Style-Guide)
-// fixme : Hyperlinks are presented in subsection 7 of "Documentation" in the style guide (https://github.com/ibpsa/modelica-ibpsa/wiki/Style-Guide)
-// fixme : I have edited the documentation below for both.
   annotation (
     Documentation(info="<html>
 <p>This model describes the mass flow rate and pressure difference relation in the form </p>
@@ -54,4 +49,4 @@ Power law resistance describing mass flow. This model is the same as <a href=\"m
 </li>
 </ul>
 </html>"));
-end PowerLawResistance_mflow;
+end PartialPowerLawResistance_mflow;

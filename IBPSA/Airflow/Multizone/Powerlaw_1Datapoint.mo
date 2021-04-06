@@ -1,7 +1,7 @@
 ﻿within IBPSA.Airflow.Multizone;
 model Powerlaw_1Datapoint
   "Powerlaw with flow coeffient fitted based on flow exponent and 1 datapoint"
-  extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance_mflow(
+  extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance_mflow(
     m=0.5, k=C*sqrt(rho_default)); //mass flow form of orifice equation
     // fixme : Since C is a protected variable, it may be better to directly use the expression for k=F1/dP1^m
     // fixme : Is it intended for users to change the values of m and k? If not, then they can be hidden with the final keyword.

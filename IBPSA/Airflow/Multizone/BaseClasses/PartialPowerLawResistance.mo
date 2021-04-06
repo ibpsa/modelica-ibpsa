@@ -1,13 +1,12 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
-partial model PowerLawResistance "Flow resistance that uses the power law"
+partial model PartialPowerLawResistance
+  "Flow resistance that uses the power law"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
       final m_flow_nominal=Modelica.Constants.small);
 
-  // fixme : Do the coefficients m,k represent standard values? If not, there should not be default values.
-  parameter Real m(min=0.5, max=1)=0.66
+  parameter Real m(min=0.5, max=1)
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
-  // fixme : Does k have a minimum of 0?
-  parameter Real k=0.000015223 "Flow coefficient, k = m_flow/ dp^m";
+  parameter Real k "Flow coefficient, k = m_flow/ dp^m";
 
 protected
   constant Real gamma(min=1) = 1.5
@@ -32,7 +31,6 @@ equation
     c=c,
     d=d,
     dp_turbulent=dp_turbulent);
-
 
   annotation (
     Documentation(info="<html>
@@ -126,4 +124,4 @@ Renamed protected parameters for consistency with the naming conventions.
        Released first version.
 </ul>
 </html>"));
-end PowerLawResistance;
+end PartialPowerLawResistance;
