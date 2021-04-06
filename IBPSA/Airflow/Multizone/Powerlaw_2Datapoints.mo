@@ -3,8 +3,6 @@ model Powerlaw_2Datapoints
   "Powerlaw with flow coefficient and flow exponent fitted based on 2 datapoints"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance_mflow(
     final m=n, final k=C*sqrt(rho_default)); //mass flow form of orifice equation
-    // fixme : Since n,C are protected variables, it may be better to directly use the expressions for k=F1/dP1^m and m=(log(F1)-log(F2))/(log(dP1)-log(dP2)).
-    // fixme : Choose to implement it this way as they also functions as an output for debugging, it can then be directly compared to e.g. contam or literature.
 
   parameter Modelica.SIunits.PressureDifference dP1
       "Pressure difference of first test point"
