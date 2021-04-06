@@ -241,11 +241,19 @@ equation
                                         color={0,0,127}));
   connect(IntTestData.y, m_flow_testdata) annotation (Line(points={{-69,76},{-62,
           76},{-62,30},{36,30},{36,68},{126,68}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},
-            {120,120}})),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{120,120}})),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+            -140},{120,140}})),                                  Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{120,
+            140}})),
     experiment(
       StopTime=500,
       Interval=1,
-      __Dymola_Algorithm="Dassl"));
+      __Dymola_Algorithm="Dassl"),
+    Documentation(revisions="<html>
+<ul>
+<li>Apr 6, 2021, 2020, by Klaas De Jonge (UGent):<br/>
+First implementation</li>
+</ul>
+</html>
+"));
 end OneWayFlow;

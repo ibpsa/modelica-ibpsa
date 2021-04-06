@@ -41,13 +41,11 @@ V_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d
 </ul>
 </html>", revisions="<html>
 <ul>
-<li>
-Jun 26, 2020, by Klaas De Jonge:<br/>
-First release
-</li>
+<li>Apr 6, 2021, 2020, by Klaas De Jonge (UGent):<br/>
+First implementation</li>
 </ul>
-</html>"),
-    Icon(graphics={
+</html>
+"), Icon(graphics={
         Rectangle(
           extent={{-48,80},{52,-80}},
           lineColor={0,0,255},

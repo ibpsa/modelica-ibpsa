@@ -58,9 +58,9 @@ IBPSA.Airflow.Multizone.TableData_V_flow</a>
 </html>", revisions="<html>
 <ul>
 <li>
-Jun 26, 2020, by Klaas De Jonge:<br/>
-Initial implementation
+Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
+First Implementation.
 </li>
-</u1>
+</ul>
 </html>"));
 end flowElementData;

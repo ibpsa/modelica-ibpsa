@@ -40,12 +40,11 @@ algorithm
 
   annotation (Documentation(revisions="<html>
 <ul>
-<li>
-Jun 26, 2020, by Klaas De Jonge:<br/>
-First implementation.
-</li>
+<li>Apr 6, 2021, 2020, by Klaas De Jonge (UGent):<br/>
+First implementation</li>
 </ul>
-</html>", info="<html>
+</html>
+",        info="<html>
 <p>
 This function computes the wind pressure coefficients (<i>C<sub>p</sub></i>)from user-defined table data. The same possibilty is also implemented in CONTAM.
 </p>

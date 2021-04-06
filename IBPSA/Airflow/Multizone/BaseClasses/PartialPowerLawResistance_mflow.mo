@@ -44,9 +44,11 @@ m_flow = k * dp^m,
 revisions="<html>
 <ul>
 <li>
-Jun 26, 2020, by Klaas De Jonge:<br/>
+Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
 Power law resistance describing mass flow. This model is the same as <a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance\"> IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance</a> but with the mass flow rate as a function of dP in stead of volume flow rate
 </li>
 </ul>
-</html>"));
+</html>
+
+"));
 end PartialPowerLawResistance_mflow;

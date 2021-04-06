@@ -42,7 +42,7 @@ equation
 revisions="<html>
 <ul>
 <li>
-Jun 26, 2020, by Klaas De Jonge:<br/>
+Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
 Changed baseclass to PartialOneWayFlowelement
 </li>
 <li>

@@ -1,6 +1,6 @@
 within IBPSA.Airflow.Multizone.BaseClasses.Examples;
 model WindPressureProfile
-  "Test model for wind pressure profila function"
+  "Test model for wind pressure profile function"
   extends Modelica.Icons.Example;
 
 
@@ -44,16 +44,15 @@ experiment(
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This examples demonstrates the
-<a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.windPressureLowRise\">
-IBPSA.Airflow.Multizone.BaseClasses.windPressureLowRise</a>
+<a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile\">
+IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile</a>
 function.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 27, 2011, by Michael Wetter:<br/>
-First implementation.
-</li>
+<li>Apr 6, 2021, 2020, by Klaas De Jonge (UGent):<br/>
+First implementation</li>
 </ul>
-</html>"));
+</html>
+"));
 end WindPressureProfile;

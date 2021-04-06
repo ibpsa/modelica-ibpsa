@@ -70,8 +70,8 @@ Documentation(info="<html>
 revisions="<html>
 <ul>
 <li>
-Jun 26, 2020, by Klaas De Jonge:<br/>
-First release. Model expecting direct input of mass flow powerlaw coefficients.
+Apr 6, 2021, by Klaas De Jonge:<br/>
+First Implementation. Model expecting direct input of mass flow powerlaw coefficients.
 </li>
 </ul>
 </html>"));

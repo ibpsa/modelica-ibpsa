@@ -104,7 +104,7 @@ equation
 revisions="<html>
 <ul>
 <li>
-Jun 26, 2020, by Klaas De Jonge:<br/>
+Apr 06, 2021, by Klaas De Jonge (UGent):<br/>
 First implementation. PartialOneWayFlowelement serves as a baseclass for a clean implementation of m_flow and V_flow models
 </li>
 </ul>

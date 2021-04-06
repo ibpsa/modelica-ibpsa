@@ -92,11 +92,11 @@ pressure at the fluid port <code>ports</code>.
 </html>",
 revisions="<html>
 <ul>
-<li>June 26, 2020, by Klaas De Jonge (UGent):<br/>
+<li>Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
 First implementation</li>
 </ul>
-</html>
-"), Icon(graphics={Text(
+</html>"),
+    Icon(graphics={Text(
           visible=use_Cp_in,
           extent={{-140,92},{-92,62}},
           lineColor={0,0,255},
