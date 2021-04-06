@@ -9,9 +9,20 @@ parameter Real table[:,:]=[-50,-0.08709; -25,-0.06158; -10,-0.03895; -5,-0.02754
       -3,-0.02133; -2,-0.01742; -1,-0.01232; 0,0; 1,0.01232; 2,0.01742; 3,0.02133;
       4.5,0.02613; 50,0.02614] "Table of volume flow rate in m3/s (second column) as a function of pressure difference in Pa (first column)";
 
-equation
+protected
+  parameter   Real[:] xd=table[:,1] "X-axis support points";
+  parameter   Real[size(xd, 1)] yd=table[:,2] "Y-axis support points";
+  parameter   Real[size(xd, 1)] d(each fixed=false)
+                                                   "Derivatives at the support points";
 
-V_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp, table=table[:, :]);
+initial equation
+  d =IBPSA.Utilities.Math.Functions.splineDerivatives(
+    x=xd,
+    y=yd,
+    ensureMonotonicity=true);
+equation
+V_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d);
+
 
   annotation (
           defaultComponentName="tabdat_V",
@@ -24,6 +35,7 @@ V_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp, table=table[:,
 <p>The constructed curve is the direct relation between dp and V_flow</p>
 <p><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015).</p>
 <h4>References</h4>
+
 <ul>
 <li><b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. </li>
 </ul>

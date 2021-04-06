@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Sources;
+﻿within IBPSA.Fluid.Sources;
 model Outside_CpData
   "Boundary that takes weather data as an input and computes wind pressure for low-rise buildings"
   extends IBPSA.Fluid.Sources.BaseClasses.Outside;
@@ -23,12 +23,37 @@ protected
   Modelica.Blocks.Interfaces.RealInput vWin(final unit="m/s")    "Wind speed from weather bus";
   Modelica.Blocks.Interfaces.RealInput winDir(final unit="rad",displayUnit="deg") "Wind direction from weather bus";
 
+
+  parameter Real exTable[:,:]; //Extended table
+  parameter Real[:] xd "Support points x-value";
+  parameter Real[size(xd, 1)] yd "Support points y-value";
+  parameter Real[size(xd, 1)] d "Spline derivative values at the support points";
+
+  //Function for extending the table with 1 point at the beginning and end for correct derivative at 0 and 360
+    function table360 "Extend table with 1 point at the beginning and end for correct derivative at 0° and 360°, making the profile continuous at 0° and 360°"
+      input Real table[:,:];
+      output Real Extable[:,:];
+
+  protected
+      Real Radtable[:,:] = [Modelica.Constants.D2R*table[:,1],table[:,2]];
+      Real prevPoint[1,2] = [Radtable[size(table, 1)-1, 1] - (2*Modelica.Constants.pi), Radtable[size(table, 1)-1, 2]];
+      Real nextPoint[1,2] = [Radtable[2, 1] + (2*Modelica.Constants.pi), Radtable[2, 2]];
+
+    algorithm
+     Extable:=[prevPoint;Radtable;nextPoint];
+    end table360;
+initial equation
+      exTable= table360(table);
+      xd=exTable[:,1];
+      yd=exTable[:,2];
+      d=IBPSA.Utilities.Math.Functions.splineDerivatives(x=xd,y=yd,ensureMonotonicity=false);
+
+      assert(table[1,2]<>0 or table[end,2]<>360, "First and last point in the table must be 0 and 360", level = AssertionLevel.error);
+
 equation
   alpha = winDir-surOut;
 
-  CpAct =IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(u=alpha, table=table[:, :]);
-  //'u' is in radians (input for alpha shows degrees in dialog, but is converted through type Angle)
-  //'table' is a table with the angle of attack in degrees in first column and corresponding Cp values in the second
+  CpAct =IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(u=alpha, xd=xd,yd=yd,d=d);
 
   pWin = Cs*0.5*CpAct*medium.d*vWin*vWin;
   pTot = pWea + pWin;
@@ -38,6 +63,9 @@ equation
   connect(weaBus.pAtm, pWea);
   connect(p_in_internal, pTot);
   connect(weaBus.TDryBul, T_in_internal);
+
+
+
 
   annotation (defaultComponentName="out",
     Documentation(info="<html>

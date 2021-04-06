@@ -1,45 +1,24 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
 function windPressureProfile
-  "Function for the cubic spline interpolation of table input of a wind pressure profile"
+  "Function for the cubic spline interpolation of a wind pressure profile with given support points and spline derivatives at these support points"
 
   input Modelica.SIunits.Angle u "independent variable, wind incidence angle";
-  input Real table[:,:]
-    "First column: wind angle relative to the surface (degrees). Second column: corresponding Cp ";
+
+  input Real[:] xd "Support points x-value";
+  input Real[size(xd, 1)] yd "Support points y-value";
+  input Real[size(xd, 1)] d    "Derivative values at the support points";
+
 
   output Real z "Dependent variable without monotone interpolation, CpAct";
 
-
-
 protected
-  Real Radtable[:,:] = [Modelica.Constants.D2R*table[:,1],table[:,2]];
-  // Extend table with 1 point at the beginning and end for correct derivative at 0 and 360
-  Real prevPoint[1,2] = [Radtable[size(table, 1)-1, 1] - (2*Modelica.Constants.pi), Radtable[size(table, 1)-1, 2]];
-  Real nextPoint[1,2] = [Radtable[2, 1] + (2*Modelica.Constants.pi), Radtable[2, 2]];
-  Real exTable[:,:] = [prevPoint;Radtable;nextPoint]; //Extended table
-
-  Real[:] xd=exTable[:,1] "Support points x-value";
-  Real[size(xd, 1)] yd=exTable[:,2] "Support points y-value";
-  Real[size(xd, 1)] d=IBPSA.Utilities.Math.Functions.splineDerivatives(
-      x=xd,
-      y=yd,
-      ensureMonotonicity=false)
-    "Derivative values at the support points";
-
   Integer i "Integer to select data interval";
   Real aR "u, restricted to 0...2*pi";
 
 algorithm
 
-  // Change sign to positive
-  // fixme : If I am not mistaken, this should be aR := 2*pi-u.
-  // An alternate solution that combines this and the constraint on [0, 2*pi] is to use the modulus : aR = mod(u, 2*pi)
-  // (Symmetry around u=0 is not imposed)
-  aR := if u < 0 then -u else u;
-
-  // Constrain to [0...2*pi]
-  if aR > 2*Modelica.Constants.pi then
-  aR := aR - integer(aR/(2*Modelica.Constants.pi))*(2*Modelica.Constants.pi);
-  end if;
+  // Change sign to positive and constrain to [0...2*pi]
+  aR :=mod(u,2*Modelica.Constants.pi);
 
   i := 1;
   for j in 1:size(xd, 1) - 1 loop
@@ -59,8 +38,6 @@ algorithm
         y1d=d[i],
         y2d=d[i + 1]);
 
-// fixme : The documentation is missing.
-// fixme : An example is also missing in IBPSA.Airflow.Multizone.BaseClasses.Examples.
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -68,5 +45,31 @@ Jun 26, 2020, by Klaas De Jonge:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This function computes the wind pressure coefficients (<i>C<sub>p</sub></i>)from user-defined table data. The same possibilty is also implemented in CONTAM.
+</p>
+
+<p>
+This function is used in
+<a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpData\">
+IBPSA.Fluid.Sources.Outside_CpData</a>
+which can be used directly with components of this package.
+</p>
+<h4>References</h4>
+<ul>
+<li><b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. </li>
+<li>
+<b>Andrew K. Persily and Elizabeth M. Ivy.</b>
+<i>
+<a href=\"http://ws680.nist.gov/publication/get_pdf.cfm?pub_id=860831\">
+Input Data for Multizone Airflow and IAQ Analysis.</a></i>
+NIST, NISTIR 6585.
+January, 2001.
+Gaithersburg, MD.
+</li>
+<li><b>M. W. Liddament, 1996</b>, <i>A guide to energy efficient ventilation</i>. AIVC Annex V. </li>
+</ul>
+
 </html>"));
 end windPressureProfile;
