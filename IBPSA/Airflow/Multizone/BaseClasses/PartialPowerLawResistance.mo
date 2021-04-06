@@ -2,7 +2,7 @@ within IBPSA.Airflow.Multizone.BaseClasses;
 partial model PartialPowerLawResistance
   "Flow resistance that uses the power law"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
-      final m_flow_nominal=Modelica.Constants.small);
+      final m_flow_nominal=rho_default*k*dp_turbulent);
 
   parameter Real m(min=0.5, max=1)
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
