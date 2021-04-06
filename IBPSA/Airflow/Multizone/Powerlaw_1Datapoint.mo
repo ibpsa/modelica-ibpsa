@@ -2,25 +2,23 @@
 model Powerlaw_1Datapoint
   "Powerlaw with flow coeffient fitted based on flow exponent and 1 datapoint"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance_mflow(
-    m=0.5, k=C*sqrt(rho_default)); //mass flow form of orifice equation
+    m=0.5, final k=C*sqrt(rho_default)); //mass flow form of orifice equation
     // fixme : Since C is a protected variable, it may be better to directly use the expression for k=F1/dP1^m
-    // fixme : Is it intended for users to change the values of m and k? If not, then they can be hidden with the final keyword.
+    // fixme : Choose to implement it this way as 'C' also functions as an output for debugging, it can then be directly compared to e.g. contam.
 
   parameter Modelica.SIunits.PressureDifference dP1
       "Pressure difference of test point"
     annotation (Dialog(group="Test data"));
-  // fixme: Is F a commonly used variable for mass flow rate in the zonal air flow litterature? Consider using m1_flow (I assume F1 comes from Contam terminology).
-  parameter Modelica.SIunits.MassFlowRate  F1
+  parameter Modelica.SIunits.MassFlowRate  m1_flow
       "Mass flow rate of test point"
     annotation (Dialog(group="Test data"));
 
 protected
-  parameter Real C=F1/(sqrt(rho_default)*(dP1^m)) "Flow coeffiënt";
+  parameter Real C=m1_flow/(sqrt(rho_default)*(dP1^m)) "Flow coeffiënt";
 
-  // fixme : A validation/test case is missing.
      annotation (Icon(graphics={
         Text(
-          extent={{12,-64},{96,-102}},
+          extent={{-80,-40},{0,-80}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,255},

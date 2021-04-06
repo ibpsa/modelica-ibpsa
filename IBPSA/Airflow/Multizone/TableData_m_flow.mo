@@ -11,7 +11,6 @@ equation
 
 m_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp, table=table[:, :]);
 
-  // fixme : A validation/test case is missing.
   annotation (Icon(graphics={
         Rectangle(
           extent={{-50,44},{50,-46}},

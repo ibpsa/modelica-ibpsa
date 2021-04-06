@@ -2,30 +2,28 @@
 model Powerlaw_2Datapoints
   "Powerlaw with flow coefficient and flow exponent fitted based on 2 datapoints"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance_mflow(
-    m=n, final k=C*sqrt(rho_default)); //mass flow form of orifice equation
+    final m=n, final k=C*sqrt(rho_default)); //mass flow form of orifice equation
     // fixme : Since n,C are protected variables, it may be better to directly use the expressions for k=F1/dP1^m and m=(log(F1)-log(F2))/(log(dP1)-log(dP2)).
-    // fixme : Is it intended for users to change the values of m and k? If not, then they can be hidden with the final keyword.
+    // fixme : Choose to implement it this way as they also functions as an output for debugging, it can then be directly compared to e.g. contam or literature.
 
   parameter Modelica.SIunits.PressureDifference dP1
       "Pressure difference of first test point"
     annotation (Dialog(group="Test data"));
-  // fixme: Is F a commonly used variable for mass flow rate in the zonal air flow litterature? Consider using m1_flow and m2_flow (I assume F1, F2 come from Contam terminology).
-  parameter Modelica.SIunits.MassFlowRate  F1
+  parameter Modelica.SIunits.MassFlowRate  m1_flow
       "Mass flow rate first test point"
     annotation (Dialog(group="Test data"));
   parameter Modelica.SIunits.PressureDifference dP2
       "Pressure difference of second test point"
     annotation (Dialog(group="Test data"));
-  parameter Modelica.SIunits.MassFlowRate  F2
+  parameter Modelica.SIunits.MassFlowRate  m2_flow
       "corresponding mass flow rate
     "
      annotation (Dialog(group="Test data"));
 
 protected
-  parameter Real C=F1/(sqrt(rho_default)*(dP1^m)) "Flow coeffiënt";
-  parameter Real  n=(log(F1)-log(F2))/(log(dP1)-log(dP2)) "Flow exponent";
+  parameter Real C=m1_flow/(sqrt(rho_default)*(dP1^n)) "Flow coeffiënt";
+  parameter Real  n=(log(m1_flow)-log(m2_flow))/(log(dP1)-log(dP2)) "Flow exponent";
 
-  // fixme : A validation/test case is missing.
      annotation (Icon(graphics={
         Text(
           extent={{12,-62},{96,-100}},
