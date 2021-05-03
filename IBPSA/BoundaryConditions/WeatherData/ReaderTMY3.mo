@@ -521,7 +521,7 @@ First implementation.
   block Altitude "Generate constant signal of type Real"
     extends Modelica.Blocks.Icons.Block;
 
-    parameter Modelica.SIunits.Angle Altitude "Altitude";
+    parameter Modelica.SIunits.Length Altitude "Altitude";
 
     Modelica.Blocks.Interfaces.RealOutput y(
       unit="m") "Altitude of the location"
