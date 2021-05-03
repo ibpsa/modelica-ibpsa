@@ -13,7 +13,7 @@ model WD100
     ceiHeiSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,
     ceiHei=alt,
     filNam=Modelica.Utilities.Files.loadResource(
-      "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/725650.mos"),
+      "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/WD100.mos"),
     calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation)
     "Reads all weather data and Tsky using horizontal radiation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,-90})));
@@ -99,7 +99,7 @@ model WD100
     ceiHeiSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,
     ceiHei=alt,
     filNam=Modelica.Utilities.Files.loadResource(
-      "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/725650.mos"),
+      "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/WD100.mos"),
     calTSky=IBPSA.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover)
     "Reads all weather data and Tsky using dry bulb temperature, dew point temperature and sky cover"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={70,-90})));
@@ -150,9 +150,9 @@ equation
     Documentation(
       info="<html>
 <h4>WD100: Base Case</h4>
-<p>Weather data file : 725650.epw</p>
-<p><i>Table 1: Site Data for Weather file 725650.epw</i></p>
-<table summary=\"Site Data for Weather file 725650.epw\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
+<p>Weather data file : WD100.epw</p>
+<p><i>Table 1: Site Data for Weather file WD100.epw</i></p>
+<table summary=\"Site Data for Weather file WD100.epw\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
 <td><p>Latitude</p></td>
 <td><p>39.833&deg; north</p></td>
 </tr>
