@@ -7,6 +7,7 @@ block DiffusePerez
   parameter Real rho(min=0, max=1, final unit="1")=0.2 "Ground reflectance";
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
+  parameter Modelica.SIunits.Length alt = 1 "Altitude";
   parameter Boolean outSkyCon=false
     "Output contribution of diffuse irradiation from sky";
   parameter Boolean outGroCon=false
@@ -30,7 +31,7 @@ protected
     annotation (Placement(transformation(extent={{-62,16},{-54,24}})));
   BaseClasses.BrighteningCoefficient briCoe "Brightening coefficient"
     annotation (Placement(transformation(extent={{-40,-34},{-32,-26}})));
-  BaseClasses.RelativeAirMass relAirMas "Relative air mass"
+  BaseClasses.RelativeAirMass relAirMas(alt=alt) "Relative air mass"
     annotation (Placement(transformation(extent={{-80,-44},{-72,-36}})));
   BaseClasses.SkyBrightness skyBri "Sky brightness"
     annotation (Placement(transformation(extent={{-60,-54},{-52,-46}})));
@@ -167,6 +168,12 @@ Solar Energy, 44(5):271-289.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+May 2, 2021, by Ettore Zanetti:<br/>
+Added altitude to parameters.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+</li>
 <li>
 November 14, 2015, by Michael Wetter:<br/>
 Added <code>min</code>, <code>max</code> and <code>unit</code>
