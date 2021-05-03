@@ -166,7 +166,7 @@ equation
 </tr>
 <tr>
 <td><p>Time Zone</p></td>
-<td><p>7</p></td>
+<td><p>-7</p></td>
 </tr>
 </table>
 <p>This model is a template for all the other test cases.
@@ -187,6 +187,10 @@ First implementation.
 April 14, 2020, by Ettore Zanetti:<br/>
 Rework after comments from pull request
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1339\">#1339</a>.
+</li>
+<li>
+May 2, 2021, by Ettore Zanetti:<br/>
+Updated weather file as explained in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1478\">#1478</a>.
 </li>
 </ul>
 </html>"));
