@@ -7,53 +7,38 @@ model Outside_CpData
   parameter Modelica.SIunits.Angle azi "Surface azimuth (South:0, West:pi/2)"  annotation (choicesAllMatching=true);
   parameter Real Cs=1 "Wind speed modifier";
 
+
+  //Extend table to account for 360° profile and generate spline derivatives at support points
+protected
+  parameter Real Radtable[:,:] = [Modelica.Constants.D2R*table[:,1],table[:,2]];
+  parameter Real prevPoint[1,2] = [Radtable[size(table, 1)-1, 1] - (2*Modelica.Constants.pi), Radtable[size(table, 1)-1, 2]];
+  parameter Real nextPoint[1,2] = [Radtable[2, 1] + (2*Modelica.Constants.pi), Radtable[2, 2]];
+
+  parameter Real exTable[:,:]=[prevPoint;Radtable;nextPoint]; //Extended table
+  parameter Real[size(exTable, 1)] d=IBPSA.Utilities.Math.Functions.splineDerivatives(x=exTable[:,1],y=exTable[:,2],ensureMonotonicity=false);
+
+public
   Modelica.SIunits.Angle alpha "Wind incidence angle (0: normal to wall)";
   Real CpAct(min=0, final unit="1") "Actual wind pressure coefficient";
 
-  Modelica.SIunits.Pressure pWin(displayUnit="Pa")
-    "Change in pressure due to wind force";
-
-  Modelica.Blocks.Interfaces.RealOutput pTot(min=0, nominal=1E5, final unit="Pa")
-    "Sum of atmospheric pressure and wind pressure";
-
+  Modelica.SIunits.Pressure pWin(displayUnit="Pa") "Change in pressure due to wind force";
   Modelica.Blocks.Interfaces.RealInput pWea(min=0, nominal=1E5, final unit="Pa")
-    "Pressure from weather bus";
+                                                                                "Pressure from weather bus";
+
+  Modelica.Blocks.Interfaces.RealOutput pTot(min=0, nominal=1E5, final unit="Pa") "Sum of atmospheric pressure and wind pressure";
+
 protected
   Modelica.SIunits.Angle surOut = azi-Modelica.Constants.pi   "Angle of surface that is used to compute angle of attack of wind";
   Modelica.Blocks.Interfaces.RealInput vWin(final unit="m/s")    "Wind speed from weather bus";
   Modelica.Blocks.Interfaces.RealInput winDir(final unit="rad",displayUnit="deg") "Wind direction from weather bus";
 
-
-  parameter Real exTable[:,:]; //Extended table
-  parameter Real[:] xd "Support points x-value";
-  parameter Real[size(xd, 1)] yd "Support points y-value";
-  parameter Real[size(xd, 1)] d "Spline derivative values at the support points";
-
-  //Function for extending the table with 1 point at the beginning and end for correct derivative at 0 and 360
-    function table360 "Extend table with 1 point at the beginning and end for correct derivative at 0° and 360°, making the profile continuous at 0° and 360°"
-      input Real table[:,:];
-      output Real Extable[:,:];
-
-  protected
-      Real Radtable[:,:] = [Modelica.Constants.D2R*table[:,1],table[:,2]];
-      Real prevPoint[1,2] = [Radtable[size(table, 1)-1, 1] - (2*Modelica.Constants.pi), Radtable[size(table, 1)-1, 2]];
-      Real nextPoint[1,2] = [Radtable[2, 1] + (2*Modelica.Constants.pi), Radtable[2, 2]];
-
-    algorithm
-     Extable:=[prevPoint;Radtable;nextPoint];
-    end table360;
 initial equation
-      exTable= table360(table);
-      xd=exTable[:,1];
-      yd=exTable[:,2];
-      d=IBPSA.Utilities.Math.Functions.splineDerivatives(x=xd,y=yd,ensureMonotonicity=false);
-
-      assert(table[1,2]<>0 or table[end,2]<>360, "First and last point in the table must be 0 and 360", level = AssertionLevel.error);
+  assert(table[1,2]<>0 or table[end,2]<>360, "First and last point in the table must be 0 and 360", level = AssertionLevel.error);
 
 equation
   alpha = winDir-surOut;
 
-  CpAct =IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(u=alpha, xd=xd,yd=yd,d=d);
+  CpAct =IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(u=alpha, xd=exTable[:,1],yd=exTable[:,2],d=d);
 
   pWin = Cs*0.5*CpAct*medium.d*vWin*vWin;
   pTot = pWea + pWin;
