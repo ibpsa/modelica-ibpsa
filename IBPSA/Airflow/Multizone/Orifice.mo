@@ -13,7 +13,8 @@ model Orifice "Orifice"
 
 equation
   v = V_flow/A;
-  annotation (Icon(graphics={
+  annotation (
+    Icon(graphics={
         Rectangle(
           extent={{-100,8},{100,-8}},
           lineColor={0,0,255},
@@ -33,15 +34,14 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-120,-162},{120,-222}},
+          extent={{0,-160},{0,-220}},
           lineColor={0,0,127},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           textString="A=%A
-Cd=%Cd
-")}),
-defaultComponentName="ori",
-Documentation(info="<html>
+Cd=%Cd")}),
+    defaultComponentName="ori",
+    Documentation(info="<html>
 <p>
 This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
@@ -84,8 +84,7 @@ November, 2002.
 </li>
 <li>Michael Wetter. <a href=\"modelica://IBPSA/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">Multizone Airflow Model in Modelica.</a> Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006. </li>
 </ul>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 Apr 6, 2021, by Klaas De Jonge (UGent):<br/>

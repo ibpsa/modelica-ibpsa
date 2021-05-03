@@ -5,9 +5,7 @@ model TableData_V_flow
 extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
        final m_flow_nominal=min(abs(table[:,2]))/rho_default);
 
-parameter Real table[:,:]=[-50,-0.08709; -25,-0.06158; -10,-0.03895; -5,-0.02754;
-      -3,-0.02133; -2,-0.01742; -1,-0.01232; 0,0; 1,0.01232; 2,0.01742; 3,0.02133;
-      4.5,0.02613; 50,0.02614] "Table of volume flow rate in m3/s (second column) as a function of pressure difference in Pa (first column)";
+parameter Real table[:,:] "Table of volume flow rate in m3/s (second column) as a function of pressure difference in Pa (first column)";
 
 protected
   parameter   Real[:] xd=table[:,1] "X-axis support points";
@@ -25,8 +23,8 @@ V_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d
 
 
   annotation (
-          defaultComponentName="tabdat_V",
-          Documentation(info="<html>
+    defaultComponentName="tabdat_V",
+    Documentation(info="<html>
 <p>This model describes the one-directional pressure driven air flow through an opening based on fixed tabular input describing the relation between massflow and the pressure difference over the component.</p>
 <p><br><img src=\"modelica://IBPSA/Resources/Images/equations/equation-tGaXKOnB.png\" alt=\"V_flow = f(dp)\"/></p>
 <p><br><i>dp = the pressure difference over the flow element</i></p>
@@ -75,7 +73,7 @@ First implementation</li>
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-78,13},{78,-13}},
+          extent={{0,13},{0,-13}},
           lineColor={0,0,127},
           origin={15,0},
           rotation=90,

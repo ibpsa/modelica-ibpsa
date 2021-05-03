@@ -5,9 +5,7 @@ model TableData_m_flow
        final m_flow_nominal=min(abs(table[:,2])));
 
 
-parameter Real table[:,:]=[-50,-0.08709; -25,-0.06158; -10,-0.03895; -5,-0.02754;
-      -3,-0.02133; -2,-0.01742; -1,-0.01232; 0,0; 1,0.01232; 2,0.01742; 3,0.02133;
-      4.5,0.02613; 50,0.02614] "Table of mass flow rate in kg/s (second column) as a function of pressure difference in Pa (first column)";
+parameter Real table[:,:]      "Table of mass flow rate in kg/s (second column) as a function of pressure difference in Pa (first column)";
 
 protected
   parameter   Real[:] xd=table[:,1] "X-axis support points";
@@ -23,7 +21,8 @@ initial equation
 equation
 m_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d);
 
-  annotation (Icon(graphics={
+  annotation (
+    Icon(graphics={
         Rectangle(
           extent={{-50,80},{50,-80}},
           lineColor={0,0,255},
@@ -53,7 +52,7 @@ m_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-78,13},{78,-13}},
+          extent={{0,13},{0,-13}},
           lineColor={0,0,127},
           textString="m_flow",
           origin={13,0},
@@ -64,8 +63,8 @@ m_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d
           fillColor={255,255,255},
           fillPattern=FillPattern.Forward),
         Line(points={{0,78},{0,-78}}, color={28,108,200})}),
-           defaultComponentName="tabdat_M",
-           Documentation(info="<html>
+    defaultComponentName="tabdat_M",
+    Documentation(info="<html>
           <p>This model describes the one-directional pressure driven air flow through an opening based on fixed tabular input describing the relation between mass flow and the pressure difference over the component.</p>
 <p><img src=\"modelica://IBPSA/Resources/Images/equations/equation-e8kZTJdc.png\" alt=\"m_flow = f(dp)\"/></p>
 <p><i>dp = the pressure difference over the flow element</i></p>

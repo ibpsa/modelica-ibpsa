@@ -32,7 +32,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-120,-160},{120,-220}},
+          extent={{0,-160},{0,-220}},
           lineColor={0,0,127},
           pattern=LinePattern.None,
           fillColor={255,255,255},

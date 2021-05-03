@@ -4,6 +4,7 @@ model Powerlaw_2Datapoints
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance_mflow(
     final m=n, final k=C*sqrt(rho_default)); //mass flow form of orifice equation
 
+
   parameter Modelica.SIunits.PressureDifference dP1
       "Pressure difference of first test point"
     annotation (Dialog(group="Test data"));
@@ -14,15 +15,13 @@ model Powerlaw_2Datapoints
       "Pressure difference of second test point"
     annotation (Dialog(group="Test data"));
   parameter Modelica.SIunits.MassFlowRate  m2_flow
-      "corresponding mass flow rate
-    "
-     annotation (Dialog(group="Test data"));
-
+      "corresponding mass flow rate" annotation (Dialog(group="Test data"));
 protected
   parameter Real C=m1_flow/(sqrt(rho_default)*(dP1^n)) "Flow coeffiënt";
   parameter Real  n=(log(m1_flow)-log(m2_flow))/(log(dP1)-log(dP2)) "Flow exponent";
 
-     annotation (Icon(graphics={
+     annotation (
+    Icon(graphics={
         Rectangle(
           extent={{-52,34},{50,-34}},
           lineColor={0,0,255},
@@ -60,24 +59,21 @@ protected
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-120,-160},{120,-220}},
+          extent={{0,-160},{0,-220}},
           lineColor={0,0,127},
-          pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          horizontalAlignment=TextAlignment.Left,
           textString="dP1=%dP1, m1=%m1_flow
 dP2=%dP2, m2=%m2_flow")}),
-defaultComponentName="powlaw_2dat",
-Documentation(info="<html>
+    defaultComponentName="powlaw_2dat",
+    Documentation(info="<html>
 <p><br><br><br>Model that fits the flow coeffici&euml;nt and exponent of the orifice equation (mass flow) based on 2 measured datapoints.</p>
 <p><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015).</p>
 <p><b>References</b></p>
 <ul>
 <li><b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. </li>
 </ul>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
 First implementation</li>
