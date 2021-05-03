@@ -64,7 +64,7 @@ equation
       points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,-20},{-66,-20},{-66,-32},
           {-40.8,-32},{-40.8,-32.4}},
       color={0,0,127}));
-  connect(weaBus.HGloHor, skyCle.HGloHor) annotation (Line(
+  connect(weaBus.HDirNor, skyCle.HDirNor) annotation (Line(
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,22.4},{-62.8,22.4}},
       color={255,204,51},
       thickness=0.5), Text(
