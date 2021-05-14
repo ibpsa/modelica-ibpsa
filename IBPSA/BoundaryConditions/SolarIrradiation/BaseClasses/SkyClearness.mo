@@ -39,7 +39,7 @@ equation
   // it makes no sense to simplify the equation for
   // HDirNor < Modelica.Constants.small.
   skyCle = IBPSA.Utilities.Math.Functions.smoothLimit(
-        x = (HDirNor+HDifHorBou/HDifHorBou + tmp1)/(1 + tmp1),
+        x = ((HDirNor+HDifHorBou)/HDifHorBou + tmp1)/(1 + tmp1),
         l = 1,
         u = 8,
         deltaX = 0.01);
