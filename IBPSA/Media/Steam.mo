@@ -13,10 +13,10 @@ package Steam
      reference_X={1},
      AbsolutePressure(start=p_default),
      Temperature(start=T_default),
-     SpecificEnthalpy(start=1.0e5, nominal=5.0e5),
-     Density(start=150, nominal=500),
-     T_default=179.91+273.15,
-     p_default=1000000);
+     SpecificEnthalpy(start=2.7e6, nominal=2.7e6),
+     Density(start=0.6, nominal=1),
+     T_default=Modelica.SIunits.Conversions.from_degC(100),
+     p_default=100000);
   extends Modelica.Icons.Package;
 
   redeclare record ThermodynamicState
