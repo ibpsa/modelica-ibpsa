@@ -5,7 +5,7 @@ model Powerlaw "Model with powerlaw models"
   Powerlaw_m_flow                 powlaw_M(
     redeclare package Medium = Medium,
     m=0.59,
-    C=3.33e-5)
+    C=3.33e-5) "Mass flow rate based on powerlaw, direct input for m and C"
              annotation (Placement(transformation(extent={{-2,74},{18,94}})));
   IBPSA.Fluid.Sources.Boundary_pT roo1(
     redeclare package Medium = Medium,
@@ -44,12 +44,14 @@ model Powerlaw "Model with powerlaw models"
     redeclare package Medium = Medium,
     m=0.59,
     C=3.33e-5/1.2)
+    "Volume flow rate based on powerlaw, direct input for m and C"
     annotation (Placement(transformation(extent={{-2,42},{18,62}})));
   Powerlaw_1Datapoint powlaw_1dat(
     redeclare package Medium = Medium,
     m=0.59,
     dP1(displayUnit="Pa") = 50,
     m1_flow=1.2/3600)
+    "Mass flow rate based on powerlaw, input of m and 1 test data point."
     annotation (Placement(transformation(extent={{-2,10},{18,30}})));
   Powerlaw_2Datapoints powlaw_2dat(
     redeclare package Medium = Medium,
@@ -57,6 +59,7 @@ model Powerlaw "Model with powerlaw models"
     m1_flow=0.12/3600,
     dP2(displayUnit="Pa") = 50,
     m2_flow=1.2/3600)
+    "Mass flow rate based on powerlaw, input 2 test data points."
     annotation (Placement(transformation(extent={{-2,-22},{18,-2}})));
 equation
   connect(Pre.y, Add1.u1) annotation (Line(points={{-79,-50},{26,-50},{26,-44},

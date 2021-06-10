@@ -36,7 +36,7 @@ model PressurizationData
     m=0.66,                                                          dP1(
         displayUnit="Pa") = 50,
     m1_flow=0.5*(Room.V*n50*1.2))
-                                "Self regulating trickle vent"
+    "Crack in envelope representing 50% of the leakage area"
     annotation (Placement(transformation(extent={{-34,6},{-14,26}})));
   Powerlaw_1Datapoint
                    powlaw_1dat1(
@@ -44,7 +44,7 @@ model PressurizationData
     m=0.66,
     dP1(displayUnit="Pa") = 50,
     m1_flow=0.5*(Room.V*n50*1.2))
-    "Self regulating trickle vent"
+    "Crack in envelope representing 50% of the leakage area"
     annotation (Placement(transformation(extent={{34,6},{54,26}})));
 equation
   connect(weaDat.weaBus, west.weaBus) annotation (Line(
