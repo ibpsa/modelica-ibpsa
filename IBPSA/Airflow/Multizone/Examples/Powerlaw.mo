@@ -59,7 +59,7 @@ model Powerlaw "Model with powerlaw models"
     m1_flow=0.12/3600,
     dP2(displayUnit="Pa") = 50,
     m2_flow=1.2/3600)
-    "Mass flow rate based on powerlaw, input 2 test data points."
+    "Mass flow rate based on powerlaw, input of 2 test data points."
     annotation (Placement(transformation(extent={{-2,-22},{18,-2}})));
 equation
   connect(Pre.y, Add1.u1) annotation (Line(points={{-79,-50},{26,-50},{26,-44},
