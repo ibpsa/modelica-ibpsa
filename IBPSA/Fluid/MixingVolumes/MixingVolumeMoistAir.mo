@@ -1,7 +1,7 @@
 within IBPSA.Fluid.MixingVolumes;
 model MixingVolumeMoistAir
   "Mixing volume with heat port for latent heat exchange, to be used if moisture is added or removed"
-  extends BaseClasses.PartialMixingVolume(
+  extends IBPSA.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
     dynBal(
       final use_mWat_flow = true,
       final use_C_flow = use_C_flow),
