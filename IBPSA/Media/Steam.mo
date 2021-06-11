@@ -553,10 +553,12 @@ function rho_pT "Density as function of temperature and pressure"
 algorithm
   R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
   // Region 2 properties
-  g := g2(p, T);
+  g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
   rho := p/(R*T*g.pi*g.gpi);
-  annotation (Inline=true,
-      Documentation(info="<html>
+  annotation (
+    Inline=true,
+    smoothOrder=2,
+    Documentation(info="<html>
 <p>
 Density is computed from temperature and pressure using the
 IAPWS-IF97 relationship via the Gibbs free energy for region 2.
@@ -591,9 +593,10 @@ function cp_pT
 algorithm
   R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
   // Region 2 properties
-  g := g2(p, T);
+  g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
   cp := -R*g.tau*g.tau*g.gtautau;
   annotation (
+    smoothOrder=2,
     Inline=true,
       Documentation(info="<html>
 <p>
@@ -617,10 +620,11 @@ function cv_pT
 algorithm
   R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
   // Region 2 properties
-  g := g2(p, T);
+  g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
   cv := R*(-g.tau*g.tau*g.gtautau + ((g.gpi - g.tau*g.gtaupi)*(g.gpi
      - g.tau*g.gtaupi)/g.gpipi));
   annotation (
+    smoothOrder=2,
     Inline=true,
     LateInline = true,
       Documentation(info="<html>
@@ -643,11 +647,6 @@ does not translate.
 </ul>
 </html>"));
 end cv_pT;
-
-function g2 "Gibbs function for region 2: g(p,T)"
-  extends Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2;
-  annotation(Inline=true);
-end g2;
   annotation (Icon(graphics={
       Line(
         points={{50,30},{30,10},{50,-10},{30,-30}},
