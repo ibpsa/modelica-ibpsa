@@ -148,8 +148,8 @@ surface fit of the IF97 formulation <i>h(p,T)</i> in the ranges of
 <i>100&deg;C &le; T &le; 160&deg;C</i> and
 <i>100 kPa &le; p &le; 550</i> kPa. The fit is scaled by the dataset's
 mean and standard deviation values to improve conditioning.
-The largest error of this linearization is  <i>2.42 kJ/kg</i> (<i>0.09</i>%),  
-which occurs at <i>100.6&deg;C</i> and <i>100 kPa</i>. 
+The largest error of this linearization is  <i>2.42 kJ/kg</i> (<i>0.09</i>%),
+which occurs at <i>100.6&deg;C</i> and <i>100 kPa</i>.
 The root mean square error (RMSE) is <i>0.76 kJ/kg</i>.
 </p>
 </html>", revisions="<html>
@@ -194,8 +194,8 @@ IF97 formulation <i>s(p,T)</i> in the ranges of
 <i>100&deg;C &le; T &le; 160&deg;C</i> and
 <i>100 kPa &le; p &le; 550 kPa</i>. The fit is scaled by the dataset's
 mean and standard deviation values to improve conditioning.
-The largest error of this approximation is <i>0.047 kJ/kg-K</i> (<i>0.70</i>%), 
-which occurs at <i>160&deg;C</i> and <i>550 kPa</i>. 
+The largest error of this approximation is <i>0.047 kJ/kg-K</i> (<i>0.70</i>%),
+which occurs at <i>160&deg;C</i> and <i>550 kPa</i>.
 The root mean square error (RMSE) is <i>12.56 J/kg-K</i>.
 </p>
 </html>"));
@@ -423,11 +423,11 @@ algorithm
 Isentropic enthalpy is computed using the IAPWS-IF97 formulation:
 </p>
 <ol>
-<li> A medium is in a particular state, refState.</li>
-<li> The enthalpy at another state (h_is) shall be computed
-     under the assumption that the state transformation from refState to h_is
-     is performed with a change of specific entropy ds = 0 and the pressure of state h_is
-     is p_downstream and the composition X upstream and downstream is assumed to be the same.</li>
+<li> A medium is in a particular state, <code>refState</code>.</li>
+<li> The enthalpy at another state <code>h_is</code> shall be computed
+     under the assumption that the state transformation from <code>refState</code> to <code>h_is</code>
+     is performed with a change of specific entropy <i>ds = 0</i> and the pressure of state <code>h_is</code>
+     is <code>p_downstream</code> and the composition <code>X</code> upstream and downstream is assumed to be the same.</li>
 </ol>
 </html>"));
 end isentropicEnthalpy;
@@ -475,7 +475,7 @@ IBPSA.Media.Steam.specificEnthalpy</a> and is numerically
 consistent with that forward function.
 </p>
 <p>
-The largest error of this linearization is  <i>1.17&deg;C</i> (<i>0.31</i>%),  
+The largest error of this linearization is  <i>1.17&deg;C</i> (<i>0.31</i>%),
 which occurs at <i>100&deg;C</i> and <i>100 kPa</i>.
 </p>
 </html>", revisions="<html>
@@ -522,7 +522,7 @@ IBPSA.Media.Steam.specificEntropy</a> and is numerically
 consistent with that forward function.
 </p>
 <p>
-The largest error of this linearization is  <i>7.70&deg;C</i> (<i>1.86</i>%),  
+The largest error of this linearization is  <i>7.70&deg;C</i> (<i>1.86</i>%),
 which occurs at <i>137.4&deg;C</i> and <i>100 kPa</i>.
 </p>
 </html>", revisions="<html>
