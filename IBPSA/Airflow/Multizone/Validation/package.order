@@ -1,2 +1,8 @@
-ThreeRoomsContam
+DoorOpenClosed
 OneWayFlow
+OpenDoorBuoyancyDynamic
+OpenDoorBuoyancyPressureDynamic
+OpenDoorPressure
+OpenDoorTemperature
+ThreeRoomsContam
+ThreeRoomsContamDiscretizedDoor
