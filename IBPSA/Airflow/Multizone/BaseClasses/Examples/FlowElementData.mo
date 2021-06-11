@@ -1,14 +1,17 @@
 within IBPSA.Airflow.Multizone.BaseClasses.Examples;
-model FlowElementData "Test model for flowElementData function"
+model FlowElementData "Test model for the function flowElementData"
   extends Modelica.Icons.Example;
 
 
   parameter Real table[:,:]=[-50,-0.08709; -25,-0.06158; -10,-0.03895; -5,-0.02754;
       -3,-0.02133; -2,-0.01742; -1,-0.01232; 0,0; 1,0.01232; 2,0.01742; 3,0.02133;
-      4.5,0.02613; 50,0.02614] "Table of mass flow rate in kg/s (second column) as a function of pressure difference in Pa (first column)";
+      4.5,0.02613; 50,0.02614]
+      "Table of mass flow rate in kg/s (second column) as a function of pressure difference in Pa (first column)";
 
-  Modelica.SIunits.PressureDifference dp;
-  Modelica.SIunits.MassFlowRate m_flow "Wind pressure coefficient";
+  Modelica.SIunits.PressureDifference dp
+    "Pressure difference";
+  Modelica.SIunits.MassFlowRate m_flow
+    "Mass flow rate";
 
 protected
   parameter   Real[:] xd=table[:,1] "X-axis support points";
@@ -18,7 +21,7 @@ protected
   Modelica.Blocks.Sources.Ramp ramp(
     duration=500,
     height=100,
-    offset=-50) "min50pa_plus50pa";
+    offset=-50) "Ramp from 100 to 50";
 initial equation
   d =IBPSA.Utilities.Math.Functions.splineDerivatives(
     x=xd,
@@ -36,15 +39,15 @@ experiment(
   __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-This examples demonstrates the
+This example demonstrates the function
 <a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.flowElementData\">
-IBPSA.Airflow.Multizone.BaseClasses.flowElementData</a>
-function.
+IBPSA.Airflow.Multizone.BaseClasses.flowElementData</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>Apr 6, 2021, 2020, by Klaas De Jonge (UGent):<br/>
-First implementation</li>
+First implementation
+</li>
 </ul>
 </html>
 "));

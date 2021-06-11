@@ -1,6 +1,7 @@
 ﻿within IBPSA.Airflow.Multizone;
 model Powerlaw_V_flow "Powerlaw Volume Flow"
-  extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance( final k=C);
+  extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance_V_flow(
+                                                                        final k=C);
   parameter Real C "Flow coefficiënt";
 
      annotation (
@@ -24,8 +25,7 @@ model Powerlaw_V_flow "Powerlaw Volume Flow"
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="m=%m
-C=%C"),
-        Rectangle(
+C=%C"), Rectangle(
           extent={{-100,6},{-64,-6}},
           lineColor={0,0,255},
           pattern=LinePattern.None,

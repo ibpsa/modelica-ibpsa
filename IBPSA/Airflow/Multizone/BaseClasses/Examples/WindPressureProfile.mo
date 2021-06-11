@@ -4,7 +4,9 @@ model WindPressureProfile
   extends Modelica.Icons.Example;
 
 
-  parameter Real table[:,:]=[0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3; 315,0.1; 360,0.4];
+  parameter Real table[:,:]=
+    [0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3; 315,0.1; 360,0.4]
+    "Table data";
   Modelica.SIunits.Angle  alpha "Wind incidence angle (0: normal to wall)";
   Real Cp "Wind pressure coefficient";
 
@@ -24,7 +26,8 @@ protected
   Modelica.Blocks.Sources.Ramp ramp(
     duration=500,
     height=3*360,
-    offset=-360);
+    offset=-360)
+    "Ramp model";
 
 
 initial equation
@@ -50,8 +53,10 @@ function.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>Apr 6, 2021, 2020, by Klaas De Jonge (UGent):<br/>
-First implementation</li>
+<li>
+Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
+First implementation
+</li>
 </ul>
 </html>
 "));

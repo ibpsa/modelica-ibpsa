@@ -2,8 +2,9 @@ within IBPSA.Airflow.Multizone;
 model TableData_V_flow
   "Volume flow(y-axis) vs Pressure(x-axis) cubic spline fit model based on table data, with last two points linearly interpolated"
 
-extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
-       final m_flow_nominal=min(abs(table[:,2]))/rho_default);
+  extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
+    V_flow = IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d),
+    final m_flow_nominal=min(abs(table[:,2]))/rho_default);
 
 parameter Real table[:,:] "Table of volume flow rate in m3/s (second column) as a function of pressure difference in Pa (first column)";
 
@@ -18,9 +19,6 @@ initial equation
     x=xd,
     y=yd,
     ensureMonotonicity=true);
-equation
-V_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d);
-
 
   annotation (
     defaultComponentName="tabdat_V",

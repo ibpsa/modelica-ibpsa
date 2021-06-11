@@ -1,6 +1,6 @@
 within IBPSA.Airflow.Multizone;
 model Orifice "Orifice"
-  extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance(
+  extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance_V_flow(
     m=0.5,
     final k=CD*A*sqrt(2.0/rho_default));
 
@@ -9,10 +9,8 @@ model Orifice "Orifice"
   parameter Real CD=0.65 "Discharge coefficient"
     annotation (Dialog(group="Orifice characteristics"));
 
-  Modelica.SIunits.Velocity v(nominal=1) "Average velocity";
+  Modelica.SIunits.Velocity v(nominal=1) = V_flow/A "Average velocity";
 
-equation
-  v = V_flow/A;
   annotation (
     Icon(graphics={
         Rectangle(

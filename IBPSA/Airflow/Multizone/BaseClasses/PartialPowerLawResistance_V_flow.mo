@@ -1,50 +1,45 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
-partial model PartialPowerLawResistance
-  "Flow resistance that uses the power law"
+partial model PartialPowerLawResistance_V_flow
+  "Flow resistance that uses the power law for computing volumetric flow rate"
+  extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters;
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
-      final m_flow_nominal=rho_default*k*dp_turbulent);
-
-  parameter Real m(min=0.5, max=1)
-    "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
-  parameter Real k "Flow coefficient, k = m_flow/ dp^m";
-
-protected
-  constant Real gamma(min=1) = 1.5
-    "Normalized flow rate where dphi(0)/dpi intersects phi(1)";
-
-  parameter Real a = gamma
-    "Polynomial coefficient for regularized implementation of flow resistance";
-  parameter Real b = 1/8*m^2 - 3*gamma - 3/2*m + 35.0/8
-    "Polynomial coefficient for regularized implementation of flow resistance";
-  parameter Real c = -1/4*m^2 + 3*gamma + 5/2*m - 21.0/4
-    "Polynomial coefficient for regularized implementation of flow resistance";
-  parameter Real d = 1/8*m^2 - gamma - m + 15.0/8
-    "Polynomial coefficient for regularized implementation of flow resistance";
-equation
-
   V_flow = IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
-    k=k,
-    dp=dp,
-    m=m,
-    a=a,
-    b=b,
-    c=c,
-    d=d,
-    dp_turbulent=dp_turbulent);
+      k=k,
+      dp=dp,
+      m=m,
+      a=a,
+      b=b,
+      c=c,
+      d=d,
+      dp_turbulent=dp_turbulent),
+    final m_flow_nominal=rho_default*k*dp_turbulent,
+    final m_flow_small=1E-4*abs(m_flow_nominal));
+
+
+
+  parameter Real k "Flow coefficient, k = V_flow/ dp^m";
 
   annotation (
     Documentation(info="<html>
-<p>This model describes the mass flow rate and pressure difference relation in the form </p>
-<p><span style=\"font-family: Courier New;\">V_flow = k * dp^m,</span></p>
-<p>where <span style=\"font-family: Courier New;\">k</span>  and <span style=\"font-family: Courier New;\">m</span> are parameters. For turbulent flow, set <span style=\"font-family: Courier New;\">m=1/2</span> and for laminar flow, set <span style=\"font-family: Courier New;\">m=1</span>. </p>
-<p>The model is used as a base for the interzonal air flow models. </p>
+<p>
+This model describes the mass flow rate and pressure difference relation
+of an orifice in the form
+</p>
+<pre>
+    V_flow = k * dp^m,
+</pre>
+<p>
+where <code>k</code> is a variable and
+<code>m</code> a parameter.
+For turbulent flow, set <code>m=1/2</code> and
+for laminar flow, set <code>m=1</code>.
+</p>
+<p>
+The model is used as a base for the interzonal air flow models.
+</p>
 </html>",
 revisions="<html>
 <ul>
-<li>
-Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
-Changed baseclass to PartialOneWayFlowelement
-</li>
 <li>
 May 12, 2020, by Michael Wetter:<br/>
 Changed assignment of <code>m_flow_small</code> to <code>final</code>.
@@ -124,4 +119,4 @@ Renamed protected parameters for consistency with the naming conventions.
        Released first version.
 </ul>
 </html>"));
-end PartialPowerLawResistance;
+end PartialPowerLawResistance_V_flow;

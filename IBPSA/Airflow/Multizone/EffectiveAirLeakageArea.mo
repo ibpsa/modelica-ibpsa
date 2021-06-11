@@ -1,6 +1,6 @@
 within IBPSA.Airflow.Multizone;
 model EffectiveAirLeakageArea "Effective air leakage area"
-  extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance(
+  extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance_V_flow(
     m=0.65,
     final k=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m));
 
@@ -14,10 +14,9 @@ model EffectiveAirLeakageArea "Effective air leakage area"
     annotation (Dialog(group="Rating conditions"));
 
   parameter Modelica.SIunits.Area L(min=0) "Effective leakage area";
-  Modelica.SIunits.Velocity v(nominal=1) "Average velocity";
 
-equation
-   v = V_flow/L;
+  Modelica.SIunits.Velocity v(nominal=1) = V_flow/L "Average velocity";
+
   annotation (Icon(graphics={
         Rectangle(
           extent={{-50,48},{50,-42}},

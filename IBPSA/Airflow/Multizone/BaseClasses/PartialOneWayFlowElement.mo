@@ -2,6 +2,7 @@ within IBPSA.Airflow.Multizone.BaseClasses;
 partial model PartialOneWayFlowElement
   "Partial model for flow resistance with one-way flow"
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
+    m_flow = V_flow*rho,
     final allowFlowReversal=true);
 
   extends IBPSA.Airflow.Multizone.BaseClasses.ErrorControl;
@@ -17,7 +18,7 @@ partial model PartialOneWayFlowElement
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true, Dialog(tab="Advanced"));
 
-  Modelica.SIunits.VolumeFlowRate V_flow
+  Modelica.SIunits.VolumeFlowRate V_flow = m_flow/rho
     "Volume flow rate through the component";
   Modelica.SIunits.Density rho "Fluid density at port_a";
 
@@ -90,16 +91,24 @@ equation
   port_a.C_outflow = inStream(port_b.C_outflow);
   port_b.C_outflow = inStream(port_a.C_outflow);
 
-  //relation between massflow and volumeflow
-  m_flow=V_flow*rho;
+  m_flow=port_a.m_flow;
 
   annotation (
     Documentation(info="<html>
-<p>This partial model is used to model one way flow-elements. It holds the conservation equations and should be extended by definition of <u><b>one</b></u> of the following variables:</p>
-<p><span style=\"font-family: Courier New;\">m_flow = mass flow rate trough the component</span></p>
-<p><span style=\"font-family: Courier New;\">or</span></p>
-<p><span style=\"font-family: Courier New;\">V_flow = volume flow rate through the component</span></p>
-<p><br>The flow from A-&gt;B is the positive flow. This partial model can be used as a base for the interzonal air flow models. </p>
+<p>
+This partial model is used to model one way flow-elements. 
+It holds the conservation equations and should be extended by 
+definition of <u><b>one</b></u> of the following variables:
+</p>
+<p>m_flow = mass flow rate trough the component</p>
+<p>or</p>
+<p>V_flow = volume flow rate through the component</p>
+<p>
+The flow from A-&gt;B is the positive flow. 
+The resulting equation should be in the <code>extends</code> statement, 
+not in the equation section since this model sets both
+<code>m_flow = V_flow*rho</code> and <code>V_flow = m_flow/rho</code>.
+</p>
 </html>",
 revisions="<html>
 <ul>

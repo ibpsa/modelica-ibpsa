@@ -2,7 +2,8 @@ within IBPSA.Airflow.Multizone;
 model TableData_m_flow
   "Mass flow(y-axis) vs Pressure(x-axis) cubic spline fit model based from table data, with last two points linearly interpolated"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
-       final m_flow_nominal=min(abs(table[:,2])));
+    m_flow = IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d),
+    final m_flow_nominal=min(abs(table[:,2])));
 
 
 parameter Real table[:,:]      "Table of mass flow rate in kg/s (second column) as a function of pressure difference in Pa (first column)";
@@ -17,9 +18,6 @@ initial equation
     x=xd,
     y=yd,
     ensureMonotonicity=true);
-
-equation
-m_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d);
 
   annotation (
     Icon(graphics={
