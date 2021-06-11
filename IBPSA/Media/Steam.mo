@@ -178,7 +178,7 @@ algorithm
   pHat := (state.p - pMean)/pSD;
   THat := (state.T - TMean)/TSD;
   s := a[1] + a[2]*pHat + a[3]*THat + pHat*(a[4]*pHat + a[5]*THat);
-annotation (Inline=true,smoothOrder=1,
+annotation (Inline=true,smoothOrder=2,
     Documentation(info="<html>
 <p>
 Returns the specific entropy.
@@ -262,7 +262,7 @@ redeclare replaceable function extends setState_dTX
     "Return the thermodynamic state as function of d and T"
 algorithm
   state := ThermodynamicState(p=pressure_dT(d,T), T=T);
-annotation (Inline=true,smoothOrder=2,
+annotation (Inline=true,
       Documentation(info="<html>
 <p>
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">thermodynamic state record</a>
@@ -464,7 +464,7 @@ function temperature_ph
 algorithm
   pHat := (p - pMean)/pSD;
   T := b[1] + b[2]*pHat + b[3]*h;
-annotation (Inline=true,smoothOrder=1,
+annotation (Inline=true,smoothOrder=2,
       Documentation(info="<html>
 <p>
 Returns temperature from specific enthalpy and pressure.
@@ -511,7 +511,7 @@ algorithm
   pHat := (p - pMean)/pSD;
   THat := (s - a[1] - pHat*(a[2] + a[4]*pHat))/(a[3] + a[5]*pHat);
   T := THat*TSD + TMean;
-annotation (Inline=true,smoothOrder=1,
+annotation (Inline=true,smoothOrder=2,
     Documentation(info="<html>
 <p>
 Returns temperature from specific entropy and pressure.
@@ -555,7 +555,7 @@ algorithm
   // Region 2 properties
   g := g2(p, T);
   rho := p/(R*T*g.pi*g.gpi);
-  annotation (smoothOrder=2,Inline=true,
+  annotation (Inline=true,
       Documentation(info="<html>
 <p>
 Density is computed from temperature and pressure using the
@@ -575,7 +575,7 @@ algorithm
         T=T,
         reldd=1.0e-8,
         region=region);
-  annotation (smoothOrder=1, Inline=true);
+  annotation (Inline=true);
 end pressure_dT;
 
 function cp_pT
@@ -594,7 +594,6 @@ algorithm
   g := g2(p, T);
   cp := -R*g.tau*g.tau*g.gtautau;
   annotation (
-    smoothOrder=2,
     Inline=true,
       Documentation(info="<html>
 <p>
@@ -622,7 +621,6 @@ algorithm
   cv := R*(-g.tau*g.tau*g.gtautau + ((g.gpi - g.tau*g.gtaupi)*(g.gpi
      - g.tau*g.gtaupi)/g.gpipi));
   annotation (
-    smoothOrder=2,
     Inline=true,
     LateInline = true,
       Documentation(info="<html>
@@ -648,7 +646,7 @@ end cv_pT;
 
 function g2 "Gibbs function for region 2: g(p,T)"
   extends Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2;
-  annotation(smoothOrder=1, Inline=true);
+  annotation(Inline=true);
 end g2;
   annotation (Icon(graphics={
       Line(
@@ -670,7 +668,7 @@ This medium package models water vapor (pure steam, region 2, quality=1).
 Thermodynamic properties are calculated primarily in terms of pressure
 and temperature.
 For thermodynamic property functions, the IAPWS-IF97 formulations are adapted,
-as well as approximate relationships for commonly used functions to improve
+and approximate relationships are provided for commonly used functions to improve
 computational efficiency and provide backward compatability.
 </p>
 <p>
