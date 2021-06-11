@@ -19,16 +19,16 @@ model SteamProperties
 
 equation
 
-   // Check setting the states
-    state_pTX = Medium.setState_pTX(p=p, T=T, X=X);
-    state_phX = Medium.setState_phX(p=p, h=h, X=X);
-    state_psX = Medium.setState_psX(p=p, s=s, X=X);
-    checkState(state_pTX, state_phX, errAbs, "state_phX");
-    checkState(state_pTX, state_psX, errAbs, "state_psX");
+  // Check setting the states
+  state_pTX = Medium.setState_pTX(p=p, T=T, X=X);
+  state_phX = Medium.setState_phX(p=p, h=h, X=X);
+  state_psX = Medium.setState_psX(p=p, s=s, X=X);
+  checkState(state_pTX, state_phX, errAbs, "state_phX");
+  checkState(state_pTX, state_psX, errAbs, "state_psX");
 
-    // Check the implementation of the functions
-    ddhp = Medium.density_derh_p(state_pTX);
-    ddph = Medium.density_derp_h(state_pTX);
+  // Check the implementation of the functions
+  ddhp = Medium.density_derh_p(state_pTX);
+  ddph = Medium.density_derp_h(state_pTX);
 
   // Check the implementation of the base properties
   basPro.state.p=p;
