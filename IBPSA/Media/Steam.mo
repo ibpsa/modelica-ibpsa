@@ -24,8 +24,6 @@ package Steam
     AbsolutePressure p "Absolute pressure of medium";
     Temperature T "Temperature of medium";
   end ThermodynamicState;
-  constant Integer region = 2 "Region of IF97";
-  constant Integer phase = 1 "1 for one-phase";
 
 redeclare replaceable model extends BaseProperties(
     preferredMediumStates = true,
@@ -340,10 +338,10 @@ redeclare function extends density_derh_p
   "Density derivative by specific enthalpy"
 algorithm
   ddhp := Modelica.Media.Water.IF97_Utilities.ddhp(
-        state.p,
-        specificEnthalpy(state),
-        phase,
-        region);
+        p = state.p,
+        h = specificEnthalpy(state),
+        phase = 1,
+        region = 2);
   annotation (Inline=true, Documentation(info="<html>
 <p>
 Returns the partial derivative of density with respect
@@ -356,10 +354,10 @@ redeclare function extends density_derp_h
   "Density derivative by pressure"
 algorithm
   ddph := Modelica.Media.Water.IF97_Utilities.ddph(
-        state.p,
-        specificEnthalpy(state),
-        phase,
-        region);
+        p = state.p,
+        h = specificEnthalpy(state),
+        phase = 1,
+        region = 2);
   annotation (Inline=true, Documentation(info="<html>
 <p>
 Returns the partial derivative of density with respect
@@ -372,9 +370,9 @@ redeclare replaceable function extends isentropicExponent
   "Return isentropic exponent"
 algorithm
   gamma := Modelica.Media.Water.IF97_Utilities.isentropicExponent_pT(
-        state.p,
-        state.T,
-        region);
+        p = state.p,
+        T = state.T,
+        region = 2);
   annotation (Inline=true, Documentation(info="<html>
 <p>
 Isentropic exponent is computed from temperature and pressure
@@ -387,9 +385,9 @@ redeclare replaceable function extends isothermalCompressibility
   "Isothermal compressibility of water"
 algorithm
   kappa := Modelica.Media.Water.IF97_Utilities.kappa_pT(
-        state.p,
-        state.T,
-        region);
+        p = state.p,
+        T = state.T,
+        region = 2);
   annotation (Inline=true, Documentation(info="<html>
 <p>
 Isothermal compressibility is computed from temperature and pressure
@@ -402,9 +400,9 @@ redeclare replaceable function extends isobaricExpansionCoefficient
   "Isobaric expansion coefficient of water"
 algorithm
   beta := Modelica.Media.Water.IF97_Utilities.beta_pT(
-        state.p,
-        state.T,
-        region);
+        p = state.p,
+        T = state.T,
+        region = 2);
     annotation (Documentation(info="<html>
 <p>
 Isobaric expansion coefficient is computed from temperature and
@@ -417,9 +415,9 @@ redeclare replaceable function extends isentropicEnthalpy
   "Isentropic enthalpy"
 algorithm
   h_is := Modelica.Media.Water.IF97_Utilities.isentropicEnthalpy(
-        p_downstream,
-        specificEntropy(refState),
-        0);
+        p = p_downstream,
+        s = specificEntropy(refState),
+        phase = 0); // phase 0 means unknown
   annotation (Inline=true, Documentation(info="<html>
 <p>
 Isentropic enthalpy is computed using the IAPWS-IF97 formulation:
@@ -576,7 +574,7 @@ algorithm
         d=d,
         T=T,
         reldd=1.0e-8,
-        region=region);
+        region=2);
   annotation (Inline=true);
 end pressure_dT;
 
@@ -634,7 +632,7 @@ pressure using the IAPWS-IF97 relationship via the Gibbs
 free energy for region 2.
 </p>
 </html>",
-revision="<html>
+revisions="<html>
 <ul>
 <li>
 December 6, 2020, by Michael Wetter:<br/>
