@@ -80,7 +80,10 @@ National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
 </li>
-<li>Michael Wetter. <a href=\"modelica://IBPSA/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">Multizone Airflow Model in Modelica.</a> Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006. </li>
+<li>Michael Wetter. 
+<a href=\"modelica://IBPSA/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">Multizone Airflow Model in Modelica.</a> 
+Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006. 
+</li>
 </ul>
 </html>", revisions="<html>
 <ul>

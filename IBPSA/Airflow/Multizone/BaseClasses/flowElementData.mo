@@ -40,21 +40,30 @@ algorithm
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This function return the value on a cubic hermite spline through the given support points and provided spline derivatives at these points with monotonically increasing values. The last 2 points in the table are linearly interpolated.</p>
-<p> A similar model is also used in the CONTAM software (Dols and Walton, 2015).</p>
+<p>
+This function returns the value on a cubic hermite spline through the given support points 
+and provided spline derivatives at these points with monotonically increasing values. 
+The last 2 points in the table are linearly interpolated.
+</p>
+<p>
+A similar model is also used in the CONTAM software (Dols and Walton, 2015).
+</p>
 <p>
 This function is used in
 <a href=\"modelica://IBPSA.Airflow.Multizone.TableData_m_flow\">
 IBPSA.Airflow.Multizone.TableData_m_flow</a> and <a href=\"modelica://IBPSA.Airflow.Multizone.TableData_V_flow\">
 IBPSA.Airflow.Multizone.TableData_V_flow</a>
 </p>
-
-<h4>References</h4>
+<h4>
+References
+</h4>
 <ul>
-<li><b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. </li>
+<li>
+<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, 
+National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: 
+<a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. 
+</li>
 </ul>
-
-
 </html>", revisions="<html>
 <ul>
 <li>

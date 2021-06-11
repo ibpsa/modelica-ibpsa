@@ -40,15 +40,17 @@ algorithm
 
   annotation (Documentation(revisions="<html>
 <ul>
-<li>Apr 6, 2021, 2020, by Klaas De Jonge (UGent):<br/>
-First implementation</li>
+<li>
+April 6, 2021, by Klaas De Jonge (UGent):<br/>
+First implementation
+</li>
 </ul>
 </html>
 ",        info="<html>
 <p>
-This function computes the wind pressure coefficients (<i>C<sub>p</sub></i>)from user-defined table data. The same possibilty is also implemented in CONTAM.
+This function computes the wind pressure coefficients (<i>C<sub>p</sub></i>)from user-defined table data. 
+The same possibilty is also implemented in CONTAM.
 </p>
-
 <p>
 This function is used in
 <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpData\">
@@ -57,7 +59,10 @@ which can be used directly with components of this package.
 </p>
 <h4>References</h4>
 <ul>
-<li><b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. </li>
+<li>
+<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, 
+National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. 
+</li>
 <li>
 <b>Andrew K. Persily and Elizabeth M. Ivy.</b>
 <i>

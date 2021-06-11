@@ -1,7 +1,7 @@
 ﻿within IBPSA.Airflow.Multizone;
 model Powerlaw_V_flow "Powerlaw Volume Flow"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance_V_flow(
-                                                                        final k=C);
+    final k=C);
   parameter Real C "Flow coefficiënt";
 
      annotation (
@@ -51,10 +51,17 @@ C=%C"), Rectangle(
           fillPattern=FillPattern.Solid)}),
     defaultComponentName="powlaw_V",
     Documentation(info="<html>
-<p>This model describes the one-directional pressure driven air flow through an opening, using the equation </p>
+<p>
+This model describes the one-directional pressure driven air flow through an opening, using the equation 
+</p>
 <p align=\"center\"><i>V̇ = C &Delta;p<sup>m</sup>, </i></p>
-<p>where <i>V̇</i> is the volume flow rate, <i>C</i> is a flow coefficient and <i>m</i> is the flow exponent. </p>
-<p>A similar model is also used in the CONTAM software (Dols and Walton, 2015). Dols and Walton (2002) recommend to use for the flow exponent m=0.6 to m=0.7 if the flow exponent is not reported with the test results. </p>
+<p>
+where <i>V̇</i> is the volume flow rate, <i>C</i> is a flow coefficient and <i>m</i> is the flow exponent. 
+</p>
+<p>
+A similar model is also used in the CONTAM software (Dols and Walton, 2015). 
+Dols and Walton (2002) recommend to use for the flow exponent m=0.6 to m=0.7 if the flow exponent is not reported with the test results. 
+</p>
 <h4>References</h4>
 <ul>
 <li><b>ASHRAE, 1997.</b> <i>ASHRAE Fundamentals</i>, American Society of Heating, Refrigeration and Air-Conditioning Engineers, 1997. </li>

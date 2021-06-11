@@ -50,10 +50,16 @@ C=%C"), Rectangle(
           fillPattern=FillPattern.Solid)}),
     defaultComponentName="powlaw_M",
     Documentation(info="<html>
-<p>This model describes the one-directional pressure driven air flow through an opening, using the equation </p>
+<p>
+This model describes the one-directional pressure driven air flow through an opening, using the equation 
+</p>
 <p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/equations/equation-2w6QbDea.png\" alt=\"m_flow\"/><i> = C &Delta;p<sup>m</sup>, </i></p>
-<p>where m_flow is the mass flow rate, <i>C</i> is a flow coefficient and <i>m</i> is the flow exponent. </p>
-<p><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015). Dols and Walton (2002) recommend to use for the flow exponent <i>m=0.6</i> to <i>m=0.7</i> if the flow exponent is not reported with the test results. </p>
+<p>
+where m_flow is the mass flow rate, <i>C</i> is a flow coefficient and <i>m</i> is the flow exponent. 
+</p>
+<p><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015). 
+Dols and Walton (2002) recommend to use for the flow exponent <i>m=0.6</i> to <i>m=0.7</i> if the flow exponent is not reported with the test results. 
+</p>
 <h4>References</h4>
 <ul>
 <li><b>ASHRAE, 1997.</b> <i>ASHRAE Fundamentals</i>, American Society of Heating, Refrigeration and Air-Conditioning Engineers, 1997. </li>

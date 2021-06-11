@@ -57,11 +57,20 @@ m=%m"), Rectangle(
           fillPattern=FillPattern.Solid)}),
     defaultComponentName="powlaw_1dat",
     Documentation(info="<html>
-<p><br><br><br>Model that fits the flow coeffici&euml;nt of the massflow version of the orifice equation based on 1 measured datapoint and given flow exponent. </p>
-<p><br><br><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015).</p>
-<p><b>References</b></p>
+<p>Model that fits the flow coefficient of the massflow version of the 
+orifice equation based on 1 measured datapoint and given flow exponent. 
+</p>
+<p>
+A similar model is also used in the CONTAM software (Dols and Walton, 2015).
+</p>
+<p>
+<b>References</b>
+</p>
 <ul>
-<li><b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. </li>
+<li>
+<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, 
+National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. 
+</li>
 </ul>
 </html>", revisions="<html>
 <ul>

@@ -105,7 +105,8 @@ experiment(Tolerance=1e-06, StopTime=1),
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model demonstrates the use of the 4 Powerlaw models present in the multizone package. The input data is fit so that all models have equivalent output.
+This model demonstrates the use of the 4 PowerLaw models present in the multizone package. 
+The input data is fit so that all models have equivalent output.
 
 The pressure difference across the models changes
 between <i>-1</i> Pascal and <i>+1</i> Pascal, which

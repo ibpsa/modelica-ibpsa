@@ -67,11 +67,20 @@ protected
 dP2=%dP2, m2=%m2_flow")}),
     defaultComponentName="powlaw_2dat",
     Documentation(info="<html>
-<p><br><br><br>Model that fits the flow coeffici&euml;nt and exponent of the orifice equation (mass flow) based on 2 measured datapoints.</p>
-<p><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015).</p>
+<p>
+Model that fits the flow coefficient and exponent of the orifice 
+equation (mass flow) based on 2 measured datapoints.
+</p>
+<p>
+A similar model is also used in the CONTAM software (Dols and Walton, 2015).
+</p>
 <p><b>References</b></p>
 <ul>
-<li><b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. </li>
+<li>
+<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. 
+<i>CONTAM User Guide and Program Documentation Version 3.2</i>, 
+National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. 
+</li>
 </ul>
 </html>", revisions="<html>
 <ul>

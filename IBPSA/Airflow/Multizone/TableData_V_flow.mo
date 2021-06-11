@@ -23,17 +23,37 @@ initial equation
   annotation (
     defaultComponentName="tabdat_V",
     Documentation(info="<html>
-<p>This model describes the one-directional pressure driven air flow through an opening based on fixed tabular input describing the relation between massflow and the pressure difference over the component.</p>
-<p><br><img src=\"modelica://IBPSA/Resources/Images/equations/equation-tGaXKOnB.png\" alt=\"V_flow = f(dp)\"/></p>
-<p><br><i>dp = the pressure difference over the flow element</i></p>
-<p><i>V_flow = the volume flow through the element (positive from A-&gt;B)</i></p>
-<p>Based on the table input, a cubic hermite spline is constructed between all point except for the second to last and last point. These point are connected linearly.</p>
-<p>The constructed curve is the direct relation between dp and V_flow</p>
-<p><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015).</p>
+<p>
+This model describes the one-directional pressure driven air flow through an 
+opening based on fixed tabular input describing the relation between mass flow rate
+and the pressure difference over the component.
+</p>
+<p>
+<img src=\"modelica://IBPSA/Resources/Images/equations/equation-tGaXKOnB.png\" alt=\"V_flow = f(dp)\"/>
+</p>
+<p>
+<i>dp = the pressure difference over the flow element</i>
+</p>
+<p>
+<i>V_flow = the volume flow through the element (positive from A-&gt;B)</i>
+</p>
+<p>
+Based on the table input, a cubic hermite spline is constructed between all point 
+except for the second to last and last point. These point are connected linearly.
+</p>
+<p>
+The constructed curve is the direct relation between dp and V_flow.
+</p>
+<p>
+A similar model is also used in the CONTAM software (Dols and Walton, 2015).
+</p>
 <h4>References</h4>
-
 <ul>
-<li><b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. </li>
+<li>
+<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, 
+National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: 
+<a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. 
+</li>
 </ul>
 </html>", revisions="<html>
 <ul>
