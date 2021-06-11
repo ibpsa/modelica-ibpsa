@@ -214,9 +214,20 @@ end specificInternalEnergy;
 
 redeclare replaceable function extends specificHeatCapacityCp
   "Specific heat capacity at constant pressure"
+
+protected
+  Modelica.Media.Common.GibbsDerivs g
+    "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
+  SpecificHeatCapacity R "Specific gas constant of water vapor";
 algorithm
-  cp := cp_pT(state.p, state.T);
-  annotation (Inline=true, Documentation(info="<html>
+  R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
+  // Region 2 properties
+  g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(state.p, state.T);
+  cp := -R*g.tau*g.tau*g.gtautau;
+  annotation (
+    smoothOrder=2,
+    Inline=true,
+      Documentation(info="<html>
 <p>
 Specific heat at constant pressure is computed from temperature and
 pressure using the IAPWS-IF97 relationship via the Gibbs
@@ -227,14 +238,39 @@ end specificHeatCapacityCp;
 
 redeclare replaceable function extends specificHeatCapacityCv
   "Specific heat capacity at constant volume"
+
+protected
+  Modelica.Media.Common.GibbsDerivs g
+    "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
+  SpecificHeatCapacity R "Specific gas constant of water vapor";
 algorithm
-  cv := cv_pT(state.p, state.T);
-  annotation (Inline=true, Documentation(info="<html>
+  R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
+  // Region 2 properties
+  g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(state.p, state.T);
+  cv := R*(-g.tau*g.tau*g.gtautau + ((g.gpi - g.tau*g.gtaupi)*(g.gpi
+     - g.tau*g.gtaupi)/g.gpipi));
+  annotation (
+    smoothOrder=2,
+    Inline=true,
+    LateInline = true,
+      Documentation(info="<html>
 <p>
 Specific heat at constant volume is computed from temperature and
 pressure using the IAPWS-IF97 relationship via the Gibbs
 free energy for region 2.
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 6, 2020, by Michael Wetter:<br/>
+Added <code>LateInline=true</code>.
+This is required for OCT-r17595_JM-r14295, otherwise
+<a href=\"modelica://IBPSA.Media.Examples.SteamDerivativeCheck\">
+IBPSA.Media.Examples.SteamDerivativeCheck</a>
+does not translate.
+</li>
+</ul>
 </html>"));
 end specificHeatCapacityCv;
 
@@ -578,73 +614,6 @@ algorithm
   annotation (Inline=true);
 end pressure_dT;
 
-function cp_pT
-  "Specific heat capacity at constant pressure as function of pressure and temperature"
-  extends Modelica.Icons.Function;
-  input AbsolutePressure p "Pressure";
-  input Temperature T "Temperature";
-  output SpecificHeatCapacity cp "Specific heat capacity";
-  protected
-  Modelica.Media.Common.GibbsDerivs g
-    "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
-  SpecificHeatCapacity R "Specific gas constant of water vapor";
-algorithm
-  R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
-  // Region 2 properties
-  g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
-  cp := -R*g.tau*g.tau*g.gtautau;
-  annotation (
-    smoothOrder=2,
-    Inline=true,
-      Documentation(info="<html>
-<p>
-Specific heat at constant pressure is computed from temperature and
-pressure using the IAPWS-IF97 relationship via the Gibbs
-free energy for region 2.
-</p>
-</html>"));
-end cp_pT;
-
-function cv_pT
-  "Specific heat capacity at constant volume as function of pressure and temperature"
-  extends Modelica.Icons.Function;
-  input AbsolutePressure p "Pressure";
-  input Temperature T "Temperature";
-  output SpecificHeatCapacity cv "Specific heat capacity";
-  protected
-  Modelica.Media.Common.GibbsDerivs g
-    "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
-  SpecificHeatCapacity R "Specific gas constant of water vapor";
-algorithm
-  R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
-  // Region 2 properties
-  g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
-  cv := R*(-g.tau*g.tau*g.gtautau + ((g.gpi - g.tau*g.gtaupi)*(g.gpi
-     - g.tau*g.gtaupi)/g.gpipi));
-  annotation (
-    smoothOrder=2,
-    Inline=true,
-    LateInline = true,
-      Documentation(info="<html>
-<p>
-Specific heat at constant volume is computed from temperature and
-pressure using the IAPWS-IF97 relationship via the Gibbs
-free energy for region 2.
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-December 6, 2020, by Michael Wetter:<br/>
-Added <code>LateInline=true</code>.
-This is required for OCT-r17595_JM-r14295, otherwise
-<a href=\"modelica://IBPSA.Media.Examples.SteamDerivativeCheck\">
-IBPSA.Media.Examples.SteamDerivativeCheck</a>
-does not translate.
-</li>
-</ul>
-</html>"));
-end cv_pT;
   annotation (Icon(graphics={
       Line(
         points={{50,30},{30,10},{50,-10},{30,-30}},
