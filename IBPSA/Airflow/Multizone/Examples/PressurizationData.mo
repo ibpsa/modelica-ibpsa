@@ -63,7 +63,7 @@ equation
     annotation (Line(points={{40,10},{12,10},{12,20}},    color={0,127,255}));
   connect(powlaw_1dat1.port_b, west.ports[1])
     annotation (Line(points={{60,10},{80,10}},   color={0,127,255}));
-  annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneEffectiveAirLeakageArea.mos"
+  annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Examples/PressurizationData.mos"
         "Simulate and plot"),
         experiment(
       StopTime=2592000,
