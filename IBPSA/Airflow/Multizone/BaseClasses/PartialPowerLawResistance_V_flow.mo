@@ -1,7 +1,7 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
 partial model PartialPowerLawResistance_V_flow
   "Flow resistance that uses the power law for computing volumetric flow rate"
-  extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters;
+
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
   V_flow = IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
       k=k,
@@ -14,6 +14,7 @@ partial model PartialPowerLawResistance_V_flow
       dp_turbulent=dp_turbulent),
     final m_flow_nominal=rho_default*k*dp_turbulent,
     final m_flow_small=1E-4*abs(m_flow_nominal));
+   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters;
 
 
 
