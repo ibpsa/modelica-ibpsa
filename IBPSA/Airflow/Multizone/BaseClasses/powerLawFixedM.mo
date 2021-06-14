@@ -75,6 +75,10 @@ Buildings.Airflow.Multizone.BaseClasses.powerLaw</a>.
 revisions="<html>
 <ul>
 <li>
+April 6, 2021, by Klaas De Jonge:<br/>
+Generalised the function by removing the units for 'Flow'. This is done because the function is used to compute both mass flow rates and volume flow rates.
+</li>
+<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
