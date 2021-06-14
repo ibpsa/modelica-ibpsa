@@ -23,8 +23,12 @@ algorithm
 
   // Extrapolate or interpolate the data
 
-  if i == (size(xd, 1) - 1) then
+  if i == 1 then
+    z:=yd[1]+(u-xd[1])*(yd[2]-yd[1])/(xd[2]-xd[1]);//Interpolate linearly between first and second point
+
+  elseif i == (size(xd, 1) - 1) then
     z:=yd[end-1]+(u-xd[end-1])*(yd[end]-yd[end-1])/(xd[end]-xd[end-1]);//Interpolate linearly between last and second-to-last point.
+
   else
     z :=IBPSA.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
         x=u,
