@@ -21,7 +21,7 @@ protected
   Modelica.Blocks.Sources.Ramp ramp(
     duration=500,
     height=100,
-    offset=-50) "Ramp from 100 to 50";
+    offset=-50) "Ramp from -50Pa to +50Pa";
 initial equation
   d =IBPSA.Utilities.Math.Functions.splineDerivatives(
     x=xd,
@@ -36,7 +36,7 @@ experiment(
       StopTime=500,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
-  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos"
+  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/FlowElementData.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This example demonstrates the function
