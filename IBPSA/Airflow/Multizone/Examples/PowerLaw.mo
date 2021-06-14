@@ -24,8 +24,8 @@ model PowerLaw "Model with powerlaw models"
         rotation=180)));
   Modelica.Blocks.Sources.Ramp ramp1(
     duration=0.5,
-    height=2,
-    offset=-1,
+    height=6,
+    offset=-3,
     startTime=0.25) "Ramp"
                     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Modelica.Blocks.Sources.Constant pressure(k=100000) "Pressure"
@@ -100,8 +100,11 @@ equation
   connect(powlaw_2dat.port_b, den2.port_a)
     annotation (Line(points={{10,-30},{40,-30},{40,70}}, color={0,127,255}));
   annotation (
-experiment(Tolerance=1e-06, StopTime=1),
-    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Orifice.mos"
+experiment(
+      StopTime=500,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
+    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Examples/PowerLaw.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
