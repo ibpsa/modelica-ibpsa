@@ -1,5 +1,5 @@
 within IBPSA.Airflow.Multizone.Examples;
-model Powerlaw "Model with powerlaw models"
+model PowerLaw "Model with powerlaw models"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air;
   Powerlaw_m_flow                 powlaw_M(
@@ -27,12 +27,11 @@ model Powerlaw "Model with powerlaw models"
     height=2,
     offset=-1,
     startTime=0.25) "Ramp"
-                    annotation (Placement(transformation(extent={{0,-100},{20,
-            -80}})));
+                    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Modelica.Blocks.Sources.Constant pressure(k=100000) "Pressure"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Modelica.Blocks.Math.Add adder "Adder"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
+  Modelica.Blocks.Math.Add add "Add"
+    annotation (Placement(transformation(extent={{40,-86},{60,-66}})));
   IBPSA.Fluid.Sensors.DensityTwoPort den1(
     redeclare package Medium = Medium,
     m_flow_nominal=0.1,
@@ -67,14 +66,15 @@ model Powerlaw "Model with powerlaw models"
     "Mass flow rate based on powerlaw, input of 2 test data points."
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
-  connect(pressure.y, adder.u1) annotation (Line(points={{-79,-70},{26,-70},{26,
-          -64},{38,-64}}, color={0,0,255}));
-  connect(ramp1.y, adder.u2) annotation (Line(points={{21,-90},{26,-90},{26,-76},
-          {38,-76}}, color={0,0,255}));
-  connect(pressure.y, roo1.p_in) annotation (Line(points={{-79,-70},{-60,-70},{
-          -60,40},{-102,40},{-102,78}}, color={0,0,127}));
-  connect(adder.y, roo2.p_in) annotation (Line(points={{61,-70},{104,-70},{104,
-          62},{102,62}}, color={0,0,127}));
+  connect(pressure.y, add.u1)
+    annotation (Line(points={{-99,-70},{38,-70}}, color={0,0,255}));
+  connect(ramp1.y, add.u2) annotation (Line(points={{21,-90},{26,-90},{26,-82},{
+          38,-82}}, color={0,0,255}));
+  connect(pressure.y, roo1.p_in) annotation (Line(points={{-99,-70},{-60,-70},{-60,
+          -40},{-120,-40},{-120,78},{-102,78}},
+                                        color={0,0,127}));
+  connect(add.y, roo2.p_in) annotation (Line(points={{61,-76},{112,-76},{112,62},
+          {102,62}}, color={0,0,127}));
   connect(roo1.ports[1], den1.port_a) annotation (Line(
       points={{-80,70},{-60,70}},
       color={0,127,255}));
@@ -120,5 +120,6 @@ Added example for the four 'Powerlaw' models in the Multizone package.
 </li>
 
 </ul>
-</html>"));
-end Powerlaw;
+</html>"),
+    Diagram(coordinateSystem(extent={{-120,-120},{120,100}})));
+end PowerLaw;
