@@ -15,11 +15,7 @@ protected
 
      annotation (
     Icon(graphics={
-        Text(
-          extent={{0,-160},{0,-220}},
-          lineColor={0,0,127},
-          textString="dP1=%dP1, m1=%m1_flow
-m=%m"), Rectangle(
+        Rectangle(
           extent={{-52,34},{50,-34}},
           lineColor={0,0,255},
           pattern=LinePattern.None,

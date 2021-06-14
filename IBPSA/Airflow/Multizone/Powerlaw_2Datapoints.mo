@@ -57,14 +57,7 @@ protected
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,127,0},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{0,-160},{0,-220}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="dP1=%dP1, m1=%m1_flow
-dP2=%dP2, m2=%m2_flow")}),
+          fillPattern=FillPattern.Solid)}),
     defaultComponentName="powlaw_2dat",
     Documentation(info="<html>
 <p>

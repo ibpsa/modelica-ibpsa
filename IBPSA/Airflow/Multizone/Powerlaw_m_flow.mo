@@ -5,14 +5,7 @@ model Powerlaw_m_flow "Powerlaw Mass Flow"
 
      annotation (
     Icon(graphics={
-        Text(
-          extent={{0,-160},{0,-220}},
-          lineColor={0,0,127},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="m=%m
-C=%C"), Rectangle(
+        Rectangle(
           extent={{-52,34},{50,-34}},
           lineColor={0,0,255},
           pattern=LinePattern.None,

@@ -30,15 +30,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{0,-160},{0,-220}},
-          lineColor={0,0,127},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="L=%L
-m=%m
-"),     Rectangle(
+        Rectangle(
           extent={{-100,6},{-64,-6}},
           lineColor={0,0,255},
           pattern=LinePattern.None,

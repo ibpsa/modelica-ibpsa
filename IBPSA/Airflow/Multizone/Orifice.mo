@@ -30,14 +30,7 @@ model Orifice "Orifice"
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{0,-160},{0,-220}},
-          lineColor={0,0,127},
-          fillColor={0,127,0},
-          fillPattern=FillPattern.Solid,
-          textString="A=%A
-Cd=%Cd")}),
+          fillPattern=FillPattern.Solid)}),
     defaultComponentName="ori",
     Documentation(info="<html>
 <p>
