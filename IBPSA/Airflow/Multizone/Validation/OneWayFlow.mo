@@ -30,20 +30,20 @@ protected
   Fluid.Sources.Boundary_pT bouA(
     redeclare package Medium = Medium,
     use_p_in=true,
-    use_T_in=true,
+    T=293.15,
     nPorts=8) annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Fluid.Sources.Boundary_pT bouB(
     redeclare package Medium = Medium,
     use_p_in=true,
-    use_T_in=true,
+    T=293.15,
     nPorts=8) annotation (Placement(transformation(extent={{120,-20},{100,0}})));
   Modelica.Blocks.Sources.Ramp ramp_min50_50pa(
     duration=500,
     height=100,
-    offset=-50) annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
-  Modelica.Blocks.Sources.Constant AmbP(k=101325) annotation (Placement(transformation(extent={{160,20},{140,40}})));
-  Modelica.Blocks.Sources.Constant Ta(k=20 + 273.15) annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
-  Modelica.Blocks.Sources.Constant Tb(k=20 + 273.15) annotation (Placement(transformation(extent={{160,-40},{140,-20}})));
+    offset=-50) "Block that generates a ramp signal from -50 to +50"
+     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+  Modelica.Blocks.Sources.Constant AmbP(k=101325)
+  "Assumed ambient pressure" annotation (Placement(transformation(extent={{160,20},{140,40}})));
   Modelica.Blocks.Math.Sum sum(nin=2) annotation (Placement(transformation(
         extent={{-2,-2},{2,2}},
         rotation=0,
@@ -117,20 +117,29 @@ protected
     "TableData_V_flow" annotation (Placement(transformation(extent={{-40,-160},{-20,-140}})));
 
   //Mass flow sensors
-  Fluid.Sensors.MassFlowRate Sen_ela(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{0,120},{20,140}})));
-  Fluid.Sensors.MassFlowRate Sen_ori(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Fluid.Sensors.MassFlowRate Sen_powlaw_1dat(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Fluid.Sensors.MassFlowRate Sen_powlaw_2dat(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Fluid.Sensors.MassFlowRate Sen_powlaw_M(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Fluid.Sensors.MassFlowRate Sen_powlaw_V(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Fluid.Sensors.MassFlowRate Sen_tabdat_M(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  Fluid.Sensors.MassFlowRate Sen_tabdat_V(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
+  Fluid.Sensors.MassFlowRate Sen_ela(redeclare package Medium = Medium)
+  "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,120},{20,140}})));
+  Fluid.Sensors.MassFlowRate Sen_ori(redeclare package Medium = Medium)
+  "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,80},{20,100}})));
+  Fluid.Sensors.MassFlowRate Sen_powlaw_1dat(redeclare package Medium = Medium)
+  "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,40},{20,60}})));
+  Fluid.Sensors.MassFlowRate Sen_powlaw_2dat(redeclare package Medium = Medium)
+  "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  Fluid.Sensors.MassFlowRate Sen_powlaw_M(redeclare package Medium = Medium)
+  "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+  Fluid.Sensors.MassFlowRate Sen_powlaw_V(redeclare package Medium = Medium)
+  "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Fluid.Sensors.MassFlowRate Sen_tabdat_M(redeclare package Medium = Medium)
+  "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
+  Fluid.Sensors.MassFlowRate Sen_tabdat_V(redeclare package Medium = Medium)
+  "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
 
   //Checking the data
   Modelica.Blocks.Tables.CombiTable1D IntTestData(
     table=TestData,
     columns=2:9,
-    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative2) annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative2)
+    "Table with CONTAM simulation results for comparisson" annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=IntTestData.n) annotation (Placement(transformation(extent={{-98,164},{-88,176}})));
 
 public
@@ -139,8 +148,6 @@ public
   Modelica.SIunits.MassFlowRate [nTested] m_flow_testdata "mass flow of each flow element of CONTAM simulation";
 equation
 
-  connect(bouA.T_in, Ta.y) annotation (Line(points={{-102,-6},{-110,-6},{-110,-30},{-119,-30}},
-                                               color={0,0,127}));
   connect(ramp_min50_50pa.y, sum.u[1]) annotation (Line(points={{-119,30},{-116,
           30},{-116,-2},{-110.4,-2},{-110.4,-2.2}},
                                              color={0,0,127}));
@@ -148,8 +155,6 @@ equation
           {-114,156},{-114,-2},{-110.4,-2},{-110.4,-1.8}},
                                    color={0,0,127}));
   connect(sum.y, bouA.p_in) annotation (Line(points={{-105.8,-2},{-102,-2}},      color={0,0,127}));
-  connect(Tb.y, bouB.T_in) annotation (Line(points={{139,-30},{130,-30},{130,-6},{122,-6}},
-                                             color={0,0,127}));
   connect(AmbP.y, bouB.p_in) annotation (Line(points={{139,30},{132,30},{132,-2},{122,-2}},
                                                              color={0,0,127}));
   connect(ramp_min50_50pa.y, replicator.u) annotation (Line(points={{-119,30},{-116,30},{-116,170},{-99,170}},
