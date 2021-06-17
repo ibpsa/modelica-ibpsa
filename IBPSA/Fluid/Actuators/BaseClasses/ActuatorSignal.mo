@@ -2,6 +2,8 @@ within IBPSA.Fluid.Actuators.BaseClasses;
 model ActuatorSignal
   "Partial model that implements the filtered opening for valves and dampers"
 
+  constant Integer order(min=1) = 2 "Order of filter";
+
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
@@ -29,6 +31,9 @@ model ActuatorSignal
 
   // Classes used to implement the filtered opening
 protected
+  final parameter Modelica.SIunits.Frequency fCut = 5/(2*Modelica.Constants.pi*riseTime)
+    "Cut-off frequency of filter";
+
   parameter Boolean casePreInd = false
     "In case of PressureIndependent the model I/O is modified"
     annotation(Evaluate=true);
@@ -40,8 +45,8 @@ protected
         iconTransformation(extent={{60,50},{80,70}})));
 
   Modelica.Blocks.Continuous.CriticalDamping filter(
-    final n=2,
-    final f=5/(2*Modelica.Constants.pi*riseTime),
+    final n=order,
+    final f=fCut,
     final normalized=true,
     final initType=Modelica.Blocks.Types.Init.InitialOutput,
     final y_start=y_start,
@@ -114,7 +119,8 @@ for a description of the filter.
 <ul>
 <li>
 June 10, 2021, by Michael Wetter:<br/>
-Changed implementation of the filter and removed the parameter <code>order</code>.<br/>
+Changed implementation of the filter and changed the parameter <code>order</code> to a constant
+as most users need not change this value.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
 </li>
