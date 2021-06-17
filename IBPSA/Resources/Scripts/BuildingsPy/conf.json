@@ -16,5 +16,11 @@
       "simulate": false
   },
   "model_name": "IBPSA.Fluid.Examples.FlowSystem.Simplified2"
+  },
+  {
+    "jmodelica": {
+      "solver": "Radau5ODE"
+  },
+  "model_name": "IBPSA.Media.Examples.SteamDerivativeCheck"
   }
 ]
