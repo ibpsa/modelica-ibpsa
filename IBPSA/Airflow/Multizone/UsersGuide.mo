@@ -33,7 +33,6 @@ wind pressure on the building facade.
 Wind pressure coefficients for different building configurations can be found 
 in Costola <i>et al.</i> (2009), Persily and Ivy (2001), Swami and Chandra (1987) and Liddament (1996) . 
 </p>
-<p>
 <h4>References</h4>
 </p>
 <ul>
