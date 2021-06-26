@@ -102,8 +102,7 @@ equation
   annotation (
 experiment(
       StopTime=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Examples/PowerLaw.mos"
         "Simulate and plot"),
     Documentation(info="<html>

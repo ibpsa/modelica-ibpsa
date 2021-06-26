@@ -231,8 +231,7 @@ equation
     experiment(
       StopTime=500,
       Interval=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
       __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Validation/OneWayFlow.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

@@ -34,8 +34,7 @@ equation
   annotation (
 experiment(
       StopTime=500,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/FlowElementData.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

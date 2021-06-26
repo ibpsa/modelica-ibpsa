@@ -68,8 +68,7 @@ equation
         experiment(
       StopTime=2592000,
       Interval=600,
-      Tolerance=1e-08,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-08),
     Documentation(info="<html>
 <p>
 This model illustrates the use of the Powerlaw_1DataPoint to model 
