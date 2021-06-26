@@ -34,7 +34,6 @@ Wind pressure coefficients for different building configurations can be found
 in Costola <i>et al.</i> (2009), Persily and Ivy (2001), Swami and Chandra (1987) and Liddament (1996) . 
 </p>
 <h4>References</h4>
-</p>
 <ul>
 <li>D. Costola, B. Blocken and J.L.M. Hensen. Overview of pressure coefficient data in building energy simulation and airflow network programs. <i>Building and Environment</i>. Vol. 44(10): 2027-2036. 2009. </li>
 <li>Muthusamy V. Swami and Subrato Chandra. <i><a href=\"http://www.fsec.ucf.edu/en/publications/pdf/FSEC-CR-163-86.pdf\">Procedures for Calculating Natural Ventilation Airflow Rates in Buildings.</a></i> Florida Solar Energy Center, FSEC-CR-163-86. March, 1987. Cape Canaveral, Florida. </li>

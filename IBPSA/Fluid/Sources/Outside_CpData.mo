@@ -62,22 +62,24 @@ from weather data. The model is identical to
 IBPSA.Fluid.Sources.Outside</a>,
 except that it adds the wind pressure to the
 pressure at the fluid port <code>ports</code>.
-
-
+</p>
 <p>The pressure <i>p</i> at the port <span style=\"font-family: Courier New;\">ports</span> is computed as: </p>
-
 <p align=\"center\"><i>p = p<sub>w</sub> + C<sub>p,act</sub> C<sub>s</sub>1 &frasl; 2 v<sup>2</sup> &rho;, </i></p>
-<p>where <i>p<sub>w</i></sub> is the atmospheric pressure from the weather bus, <i>v</i> is the wind speed from the weather bus, and <i>&rho;</i> is the fluid density. </p>
+<p>where <i>p<sub>w</sub></i> is the atmospheric pressure from the weather bus, <i>v</i> is the wind speed from the weather bus, and <i>&rho;</i> is the fluid density. </p>
 <p>
 The wind pressure coefficient (C<sub>p,act</sub>) is a function af the wind incidence 
 angle.The wind direction is computed relative to the azimuth of this surface, 
 which is equal to the parameter <span style=\"font-family: Courier New;\">azi</span>. 
 The relation is defined by a cubic hermite interpolation of the users table input. 
 Typical table values can be obtained from the &quot;AIVC guide to energy efficient ventilation&quot;, 
-appendix 2 (1996). The default table is appendix 2, table 2.2, face 1.</p> 
-<p>The wind speed modifier (C<sub>s</sub>) can be used to incorporate the effect of the surroundings on the local wind speed. 
+appendix 2 (1996). The default table is appendix 2, table 2.2, face 1.
+</p> 
+<p>
+The wind speed modifier (C<sub>s</sub>) can be used to incorporate the effect of the surroundings on the local wind speed. 
 </p>
-<p><b>References</b></p>
+<p>
+<b>References</b>
+</p>
 <ul>
 <li>M. W. Liddament, 1996, <i>A guide to energy efficient ventilation</i>. AIVC Annex V. </li>
 </ul>
