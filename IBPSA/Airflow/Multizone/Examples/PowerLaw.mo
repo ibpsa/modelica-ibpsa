@@ -101,8 +101,7 @@ equation
     annotation (Line(points={{10,-30},{40,-30},{40,70}}, color={0,127,255}));
   annotation (
 experiment(
-      StartTime=-3,
-      StopTime=3,
+      StopTime=1,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Examples/PowerLaw.mos"
