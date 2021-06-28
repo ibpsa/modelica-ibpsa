@@ -1,6 +1,6 @@
 ﻿within IBPSA.Fluid.Sources;
 model Outside_CpData
-  "Boundary that takes weather data as an input and computes wind pressure for low-rise buildings"
+  "Boundary that takes weather data as an input and computes the wind pressure from a given wind pressure profile"
   extends IBPSA.Fluid.Sources.BaseClasses.Outside;
 
   parameter Real table[:,:]=[0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3; 315,0.1; 360,0.4] "Cp at different angles of attack in degrees";
@@ -78,6 +78,12 @@ appendix 2 (1996). The default table is appendix 2, table 2.2, face 1.
 The wind speed modifier (C<sub>s</sub>) can be used to incorporate the effect of the surroundings on the local wind speed. 
 </p>
 <p>
+This model differs from  <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpLowRise\"> 
+IBPSA.Fluid.Sources.Outside_CpLowRise</a> by the calculation of the wind pressure coefficient (C<sub>p,act</sub>).
+The wind pressure coefficient is defined by a user-defined table in stead of a generalized equation 
+such that it can be used for all building sizes and situations with shielding for non-rectangular building shapes.
+</p>
+<p>
 <b>References</b>
 </p>
 <ul>
@@ -86,8 +92,10 @@ The wind speed modifier (C<sub>s</sub>) can be used to incorporate the effect of
 </html>",
 revisions="<html>
 <ul>
-<li>Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
-First implementation</li>
+<li>
+Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
+First implementation
+</li>
 </ul>
 </html>"),
     Icon(graphics={Text(
