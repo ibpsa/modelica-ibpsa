@@ -48,12 +48,12 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside_CpLowRise.mos"
+  annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside_CpData.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model demonstrates the use of a source for ambient conditions that computes
-the wind pressure on a facade of a low-rise building.
+the wind pressure on a facade of a building using a user-defined wind pressure profile.
 Weather data are used for San Francisco, for a period of a week
 where the wind blows primarily from North-West.
 The plot shows that the wind pressure on the north- and west-facing
@@ -63,13 +63,7 @@ whereas it is negative for the south- and east-facing facades.
 </html>", revisions="<html>
 <ul>
 <li>
-December 22, 2014 by Michael Wetter:<br/>
-Removed <code>Modelica.Fluid.System</code>
-to address issue
-<a href=\"https://github.com/lbl-srg/modelica-Buildings/issues/311\">#311</a>.
-</li>
-<li>
-October 26, 2011 by Michael Wetter:<br/>
+Jun 28, 2021 by Klaas De Jonge:<br/>
 First implementation.
 </li>
 </ul>
