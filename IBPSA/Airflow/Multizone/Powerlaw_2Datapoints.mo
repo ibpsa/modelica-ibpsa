@@ -9,13 +9,13 @@ model Powerlaw_2Datapoints
       "Pressure difference of first test point"
     annotation (Dialog(group="Test data"));
   parameter Modelica.SIunits.MassFlowRate  m1_flow
-      "Mass flow rate first test point"
+      "Mass flow rate of first test point"
     annotation (Dialog(group="Test data"));
   parameter Modelica.SIunits.PressureDifference dP2
       "Pressure difference of second test point"
     annotation (Dialog(group="Test data"));
   parameter Modelica.SIunits.MassFlowRate  m2_flow
-      "corresponding mass flow rate" annotation (Dialog(group="Test data"));
+      "Mass flow rate of second test point" annotation (Dialog(group="Test data"));
 protected
   parameter Real C = m1_flow/(sqrt(rho_default)*(dP1^n)) "Flow coeffient";
   parameter Real n = (log(m1_flow)-log(m2_flow))/(log(dP1)-log(dP2)) "Flow exponent";
