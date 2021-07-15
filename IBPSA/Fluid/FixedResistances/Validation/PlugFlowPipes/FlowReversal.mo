@@ -74,7 +74,7 @@ Validation model in which water flows into the pipe and then the flow is reverse
 <ul>
 <li>
 July 12, 2021, by Baptiste Ravache:<br/>
-Change outlet boundary pressure to avoid negative 
+Changed outlet boundary pressure to avoid negative
 pressure at the inlet when flow is reversed.
 </li>
 <li>

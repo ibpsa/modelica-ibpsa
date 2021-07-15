@@ -1,5 +1,6 @@
 within IBPSA.Obsolete.Fluid.FixedResistances;
 model PlugFlowPipe "Pipe model using spatialDistribution for temperature delay"
+  extends IBPSA.Obsolete.BaseClasses.ObsoleteModel;
   extends IBPSA.Fluid.Interfaces.PartialTwoPortVector;
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
