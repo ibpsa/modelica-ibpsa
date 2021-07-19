@@ -119,3 +119,5 @@ convertClass(
 
 convertClass("IBPSA.Fluid.FixedResistances.PlugFlowPipe",
              "IBPSA.Obsolete.Fluid.FixedResistances.PlugFlowPipe");
+convertClass("IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore",
+             "IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore");

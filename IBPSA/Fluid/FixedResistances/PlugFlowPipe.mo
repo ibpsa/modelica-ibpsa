@@ -10,6 +10,11 @@ model PlugFlowPipe
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Advanced"));
 
+  parameter Boolean have_PipCap=true
+    "= true, a mixing volume is added to port_b that corresponds
+    to the heat capacity of the pipe wall"
+    annotation (Dialog(tab="Advanced"));
+
   parameter Modelica.SIunits.Length dh=sqrt(4*m_flow_nominal/rho_default/v_nominal/Modelica.Constants.pi)
     "Hydraulic diameter (assuming a round cross section area)"
     annotation (Dialog(group="Material"));
@@ -45,11 +50,11 @@ model PlugFlowPipe
 
   parameter Modelica.SIunits.SpecificHeatCapacity cPip=2300
     "Specific heat of pipe wall material. 2300 for PE, 500 for steel"
-    annotation (Dialog(group="Material"));
+    annotation (Dialog(group="Material", enable=have_PipCap));
 
   parameter Modelica.SIunits.Density rhoPip(displayUnit="kg/m3")=930
     "Density of pipe wall material. 930 for PE, 8000 for steel"
-    annotation (Dialog(group="Material"));
+    annotation (Dialog(group="Material", enable=have_PipCap));
 
   parameter Modelica.SIunits.Length thickness = 0.0035
     "Pipe wall thickness"
@@ -83,30 +88,6 @@ model PlugFlowPipe
     "Heat transfer to or from surroundings (heat loss from pipe results in a positive heat flow)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
-  IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore cor(
-    redeclare final package Medium = Medium,
-    final dh=dh,
-    final v_nominal=v_nominal,
-    final length=length,
-    final C=C,
-    final R=R,
-    final m_flow_small=m_flow_small,
-    final m_flow_nominal=m_flow_nominal,
-    final T_start_in=T_start_in,
-    final T_start_out=T_start_out,
-    final m_flow_start=m_flow_start,
-    final initDelay=initDelay,
-    final from_dp=from_dp,
-    final fac=fac,
-    final ReC=ReC,
-    final thickness=thickness,
-    final roughness=roughness,
-    final allowFlowReversal=allowFlowReversal,
-    final homotopyInitialization=homotopyInitialization,
-    final linearized=linearized)
-    "Describing the pipe behavior"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   // In the volume, below, we scale down V and use
   // mSenFac. Otherwise, for air, we would get very large volumes
   // which affect the delay of water vapor and contaminants.
@@ -120,10 +101,70 @@ model PlugFlowPipe
     final nPorts=2,
     final T_start=T_start_out,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final mSenFac=if rho_default > 500 then 1 else 10)
+    final mSenFac=if rho_default > 500 then 1 else 10) if have_PipCap
     "Control volume connected to port_b. Represents equivalent pipe wall thermal capacity."
-    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+    annotation (Placement(transformation(extent={{70,20},{90,40}})));
 
+  HydraulicDiameter res(
+    redeclare final package Medium = Medium,
+    final dh=dh,
+    final m_flow_nominal=m_flow_nominal,
+    final from_dp=from_dp,
+    final length=length,
+    final roughness=roughness,
+    final fac=fac,
+    final ReC=ReC,
+    final v_nominal=v_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=false,
+    final homotopyInitialization=homotopyInitialization,
+    final linearized=linearized,
+    dp(nominal=fac*200*length))
+                 "Pressure drop calculation for this pipe"
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  BaseClasses.PlugFlow del(
+    redeclare final package Medium = Medium,
+    final m_flow_small=m_flow_small,
+    final dh=dh,
+    final length=length,
+    final allowFlowReversal=allowFlowReversal,
+    final T_start_in=T_start_in,
+    final T_start_out=T_start_out)
+    "Model for temperature wave propagation"
+    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+  BaseClasses.PlugFlowHeatLoss heaLos_a(
+    redeclare final package Medium = Medium,
+    final C=C,
+    final R=R,
+    final m_flow_small=m_flow_small,
+    final T_start=T_start_in,
+    final m_flow_nominal=m_flow_nominal,
+    final m_flow_start=m_flow_start,
+    final show_T=false,
+    final show_V_flow=false) "Heat loss for flow from port_b to port_a"
+    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
+  BaseClasses.PlugFlowHeatLoss heaLos_b(
+    redeclare final package Medium = Medium,
+    final C=C,
+    final R=R,
+    final m_flow_small=m_flow_small,
+    final T_start=T_start_out,
+    final m_flow_nominal=m_flow_nominal,
+    final m_flow_start=m_flow_start,
+    final show_T=false,
+    final show_V_flow=false) "Heat loss for flow from port_a to port_b"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Sensors.MassFlowRate senMasFlo(redeclare final package Medium =
+        Medium)                              "Mass flow sensor"
+    annotation (Placement(transformation(extent={{-50,10},{-30,-10}})));
+  BaseClasses.PlugFlowTransportDelay timDel(
+    final length=length,
+    final dh=dh,
+    final rho=rho_default,
+    final initDelay=initDelay,
+    final m_flow_nominal=m_flow_nominal,
+    final m_flow_start=m_flow_start) "Time delay"
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 protected
   parameter Modelica.SIunits.HeatCapacity CPip=
     length*((dh + 2*thickness)^2 - dh^2)*Modelica.Constants.pi/4*cPip*rhoPip "Heat capacity of pipe wall";
@@ -157,16 +198,38 @@ initial equation
     level = AssertionLevel.warning);
 
 equation
-  connect(cor.heatPort, heatPort)
-    annotation (Line(points={{0,10},{0,10},{0,100}}, color={191,0,0}));
 
-  connect(cor.port_b, vol.ports[1])
-    annotation (Line(points={{10,0},{48,0},{48,20}}, color={0,127,255}));
-
-  connect(vol.ports[2], port_b) annotation (Line(points={{52,20},{52,20},{52,0},
-          {100,0}}, color={0,127,255}));
-  connect(port_a, cor.port_a)
-    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
+  connect(senMasFlo.m_flow,timDel. m_flow) annotation (Line(
+      points={{-40,-11},{-40,-40},{-12,-40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(timDel.tauRev,heaLos_a. tau) annotation (Line(points={{11,-36},{64,
+          -36},{64,28},{-64,28},{-64,10}},
+                                      color={0,0,127}));
+  connect(timDel.tau,heaLos_b. tau) annotation (Line(points={{11,-44},{34,-44},
+          {34,18},{44,18},{44,10}}, color={0,0,127}));
+  connect(heaLos_a.port_a,senMasFlo. port_a)
+    annotation (Line(points={{-60,0},{-50,0}}, color={0,127,255}));
+  connect(del.port_a,res. port_b)
+    annotation (Line(points={{10,0},{0,0}}, color={0,127,255}));
+  connect(senMasFlo.port_b,res. port_a)
+    annotation (Line(points={{-30,0},{-20,0}}, color={0,127,255}));
+  connect(heaLos_b.port_a,del. port_b)
+    annotation (Line(points={{40,0},{30,0}}, color={0,127,255}));
+  connect(heaLos_b.heatPort, heatPort) annotation (Line(points={{50,10},{50,86},
+          {0,86},{0,100}}, color={191,0,0}));
+  connect(heaLos_a.heatPort, heatPort) annotation (Line(points={{-70,10},{-70,
+          86},{0,86},{0,100}}, color={191,0,0}));
+  connect(heaLos_a.port_b, port_a)
+    annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
+  if have_PipCap then
+    connect(heaLos_b.port_b, vol.ports[1])
+      annotation (Line(points={{60,0},{78,0},{78,20}}, color={0,127,255}));
+    connect(vol.ports[2], port_b)
+      annotation (Line(points={{82,20},{82,0},{100,0}}, color={0,127,255}));
+  else
+    connect(heaLos_b.port_b, port_b);
+  end if;
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
@@ -215,12 +278,15 @@ d = %dh")}),
 July 9, 2021, by Baptiste Ravache:<br/>
 Replaced the vectorized outlet port <code>ports_b</code> with
 a single outlet port <code>port_b</code>.<br/>
+Expanded the core pipe model that was previously a component.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1494\">IBPSA, #1494</a>.<br/>
 This change is not backward compatible.<br/>
-The previous class definition was moved to
+The previous classes definitions was moved to
 <a href=\"modelica://IBPSA.Obsolete.Fluid.FixedResistances.PlugFlowPipe\">
 IBPSA.Obsolete.Fluid.FixedResistances.PlugFlowPipe</a>.
+<a href=\"modelica://IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">
+IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore</a>.
 </li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
@@ -263,14 +329,18 @@ as a plug flow.
 The model also includes thermal inertia of the pipe wall.
 </p>
 <h4>Implementation</h4>
-<p>Heat losses are implemented by
-<a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowHeatLoss\">
-IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowHeatLoss</a>
-at each end of the pipe (see
-<a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">
-IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore</a>).
-Depending on the flow direction, the temperature difference due to heat losses
-is subtracted at the right fluid port.
+<p>
+The
+<code>spatialDistribution</code> operator is used for the temperature wave propagation
+through the length of the pipe. This operator is contained in
+<a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.PlugFlow\">BaseClasses.PlugFlow</a>.
+</p>
+<p>
+The model
+<a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowHeatLoss\">
+PlugFlowHeatLoss</a>
+implements a heat loss in design direction, but leaves the enthalpy unchanged
+in opposite flow direction. Therefore it is used in front of and behind the time delay.
 </p>
 <p>
 The pressure drop is implemented using
@@ -283,10 +353,19 @@ of the fluid in the pipe, of which the thermal capacity
 is equal to that of the pipe wall material.
 In addition, this mixing volume allows the hydraulic separation of subsequent pipes.
 <br/>
-This mixing volume is not present in the
-<a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">PlugFlowCore</a> model,
-which can be used in cases where mixing volumes at pipe junctions need to
-be added manually.
+This mixing volume can be removed from this model with the boolean
+<code>have_PipCap</code>, in cases where the pipe wall heat capacity
+is negligible and a state is not needed at the pipe outlet.
+</p>
+<p>
+Note that in order to model a branched network it is recommended to use 
+<a href=\\\"modelica://IBPSA.Fluid.FixedResistances.Junction\">
+IBPSA.Fluid.FixedResistances.Junction</a> at each junction and to configure 
+that component with a state (see for instance 
+<a href=\\\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT\\\">
+IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a>). 
+This will avoid the numerical Jacobians that are otherwise created when 
+the inlet ports of two instances of the plug flow model are connected together. 
 </p>
 <h4>Assumptions</h4>
 <ul>

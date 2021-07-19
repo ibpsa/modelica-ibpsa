@@ -83,7 +83,7 @@ model PlugFlowPipe "Pipe model using spatialDistribution for temperature delay"
     "Heat transfer to or from surroundings (heat loss from pipe results in a positive heat flow)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
-  IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore cor(
+  IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore cor(
     redeclare final package Medium = Medium,
     final dh=dh,
     final v_nominal=v_nominal,
@@ -103,8 +103,7 @@ model PlugFlowPipe "Pipe model using spatialDistribution for temperature delay"
     final roughness=roughness,
     final allowFlowReversal=allowFlowReversal,
     final homotopyInitialization=homotopyInitialization,
-    final linearized=linearized)
-    "Describing the pipe behavior"
+    final linearized=linearized) "Describing the pipe behavior"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   // In the volume, below, we scale down V and use
@@ -267,8 +266,8 @@ The model also includes thermal inertia of the pipe wall.
 <a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowHeatLoss\">
 IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowHeatLoss</a>
 at each end of the pipe (see
-<a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">
-IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore</a>).
+<a href=\"modelica://IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">
+IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore</a>).
 Depending on the flow direction, the temperature difference due to heat losses
 is subtracted at the right fluid port.
 </p>
@@ -286,7 +285,7 @@ Thanks to the vectorized implementation of the (design) outlet port,
 splits and junctions of pipes can be handled in a numerically efficient way.
 <br/>
 This mixing volume is not present in the
-<a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">PlugFlowCore</a> model,
+<a href=\"modelica://IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">PlugFlowCore</a> model,
 which can be used in cases where mixing volumes at pipe junctions need to
 be added manually.
 </p>
