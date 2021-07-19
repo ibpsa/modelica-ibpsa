@@ -333,11 +333,11 @@ The model also includes thermal inertia of the pipe wall.
 The
 <code>spatialDistribution</code> operator is used for the temperature wave propagation
 through the length of the pipe. This operator is contained in
-<a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.PlugFlow\">BaseClasses.PlugFlow</a>.
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlow\">BaseClasses.PlugFlow</a>.
 </p>
 <p>
 The model
-<a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowHeatLoss\">
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowHeatLoss\">
 PlugFlowHeatLoss</a>
 implements a heat loss in design direction, but leaves the enthalpy unchanged
 in opposite flow direction. Therefore it is used in front of and behind the time delay.
@@ -359,10 +359,10 @@ is negligible and a state is not needed at the pipe outlet.
 </p>
 <p>
 Note that in order to model a branched network it is recommended to use 
-<a href=\\\"modelica://IBPSA.Fluid.FixedResistances.Junction\">
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.Junction\">
 IBPSA.Fluid.FixedResistances.Junction</a> at each junction and to configure 
 that component with a state (see for instance 
-<a href=\\\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT\\\">
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT\">
 IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a>). 
 This will avoid the numerical Jacobians that are otherwise created when 
 the inlet ports of two instances of the plug flow model are connected together. 
