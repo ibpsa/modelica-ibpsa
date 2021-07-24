@@ -30,14 +30,17 @@ block TWetBul_TDryBulPhi
     final unit="K",
     min=0) "Wet bulb temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
+  Modelica.Blocks.Interfaces.RealOutput XiSat(start=0.01,
+                                      nominal=0.01)
+    "Water vapor mass fraction at saturation"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 protected
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
-  Real rh_per(min=0) "Relative humidity in percentage";
+  Real rh_per(min=0)
+    "Relative humidity in percentage";
   Modelica.SIunits.MassFraction XiDryBul
     "Water vapor mass fraction at dry bulb state";
-  Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
   Modelica.SIunits.MassFraction XiSatRefIn
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 
@@ -169,6 +172,11 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 24, 2021, by Filip Jorissen:<br/>
+Added public output for <code>XiSat</code>.
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1508\">#1508</a>.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Changed icon.

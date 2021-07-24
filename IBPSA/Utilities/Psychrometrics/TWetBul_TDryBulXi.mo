@@ -29,15 +29,15 @@ block TWetBul_TDryBulXi
   Modelica.Blocks.Interfaces.RealInput Xi[Medium.nXi]
     "Species concentration at dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-
+  Modelica.Blocks.Interfaces.RealOutput XiSat(start=0.01,
+                                      nominal=0.01)
+    "Water vapor mass fraction at saturation"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 protected
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
-  Real rh_per(min=0) "Relative humidity in percentage";
-
-  Modelica.SIunits.MassFraction XiSat(start=0.01,
-                                      nominal=0.01)
-    "Water vapor mass fraction at saturation";
+  Real rh_per(min=0)
+    "Relative humidity in percentage";
   Modelica.SIunits.MassFraction XiSatRefIn
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 
@@ -171,6 +171,11 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 24, 2021, by Filip Jorissen:<br/>
+Added public output for <code>XiSat</code>.
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1508\">#1508</a>.
+</li>
 <li>
 May 1, 2017, by Filip Jorissen:<br/>
 Revised computation of <code>iWat</code>
