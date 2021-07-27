@@ -105,6 +105,14 @@ model PlugFlowPipe
     "Control volume connected to port_b. Represents equivalent pipe wall thermal capacity."
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
 
+  LosslessPipe noMixPip(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final m_flow_small=m_flow_small,
+    final allowFlowReversal=allowFlowReversal) if not have_pipCap
+    "Lossless pipe for connecting the outlet port when have_pipCap=false"
+    annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
+
   HydraulicDiameter res(
     redeclare final package Medium = Medium,
     final dh=dh,
@@ -165,6 +173,7 @@ model PlugFlowPipe
     final m_flow_nominal=m_flow_nominal,
     final m_flow_start=m_flow_start) "Time delay"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+
 protected
   parameter Modelica.SIunits.HeatCapacity CPip=
     length*((dh + 2*thickness)^2 - dh^2)*Modelica.Constants.pi/4*cPip*rhoPip "Heat capacity of pipe wall";
@@ -222,14 +231,16 @@ equation
           86},{0,86},{0,100}}, color={191,0,0}));
   connect(heaLos_a.port_b, port_a)
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
-  if have_pipCap then
-    connect(heaLos_b.port_b, vol.ports[1])
-      annotation (Line(points={{60,0},{78,0},{78,20}}, color={0,127,255}));
-    connect(vol.ports[2], port_b)
-      annotation (Line(points={{82,20},{82,0},{100,0}}, color={0,127,255}));
-  else
-    connect(heaLos_b.port_b, port_b);
-  end if;
+
+  connect(heaLos_b.port_b, vol.ports[1])
+    annotation (Line(points={{60,0},{78,0},{78,20}}, color={0,127,255}));
+  connect(vol.ports[2], port_b)
+    annotation (Line(points={{82,20},{82,0},{100,0}}, color={0,127,255}));
+  connect(heaLos_b.port_b, noMixPip.port_a) annotation (Line(points={{60,0},{66,
+          0},{66,-20},{70,-20}}, color={0,127,255}));
+  connect(noMixPip.port_b, port_b) annotation (Line(points={{90,-20},{94,-20},{94,
+          0},{100,0}}, color={0,127,255}));
+
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
