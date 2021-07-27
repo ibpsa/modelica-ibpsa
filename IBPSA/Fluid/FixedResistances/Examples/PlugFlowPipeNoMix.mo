@@ -2,7 +2,7 @@ within IBPSA.Fluid.FixedResistances.Examples;
 model PlugFlowPipeNoMix
   "Simple example of plug flow pipe without mixing volume"
   extends IBPSA.Fluid.FixedResistances.Examples.PlugFlowPipe(
-    pip(have_PipCap=false));
+    pip(have_pipCap=false));
   annotation (
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipeNoMix.mos"

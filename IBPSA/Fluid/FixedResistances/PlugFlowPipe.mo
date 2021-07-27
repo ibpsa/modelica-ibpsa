@@ -10,7 +10,7 @@ model PlugFlowPipe
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Boolean have_PipCap=true
+  parameter Boolean have_pipCap=true
     "= true, a mixing volume is added to port_b that corresponds
     to the heat capacity of the pipe wall"
     annotation (Dialog(tab="Advanced"));
@@ -50,11 +50,11 @@ model PlugFlowPipe
 
   parameter Modelica.SIunits.SpecificHeatCapacity cPip=2300
     "Specific heat of pipe wall material. 2300 for PE, 500 for steel"
-    annotation (Dialog(group="Material", enable=have_PipCap));
+    annotation (Dialog(group="Material", enable=have_pipCap));
 
   parameter Modelica.SIunits.Density rhoPip(displayUnit="kg/m3")=930
     "Density of pipe wall material. 930 for PE, 8000 for steel"
-    annotation (Dialog(group="Material", enable=have_PipCap));
+    annotation (Dialog(group="Material", enable=have_pipCap));
 
   parameter Modelica.SIunits.Length thickness = 0.0035
     "Pipe wall thickness"
@@ -101,7 +101,7 @@ model PlugFlowPipe
     final nPorts=2,
     final T_start=T_start_out,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final mSenFac=if rho_default > 500 then 1 else 10) if have_PipCap
+    final mSenFac=if rho_default > 500 then 1 else 10) if have_pipCap
     "Control volume connected to port_b. Represents equivalent pipe wall thermal capacity."
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
 
@@ -222,7 +222,7 @@ equation
           86},{0,86},{0,100}}, color={191,0,0}));
   connect(heaLos_a.port_b, port_a)
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
-  if have_PipCap then
+  if have_pipCap then
     connect(heaLos_b.port_b, vol.ports[1])
       annotation (Line(points={{60,0},{78,0},{78,20}}, color={0,127,255}));
     connect(vol.ports[2], port_b)
@@ -348,7 +348,7 @@ The pressure drop is implemented using
 IBPSA.Fluid.FixedResistances.HydraulicDiameter</a>.
 </p>
 <p>
-The thermal capacity of the pipe wall is implemented as a mixing volume (at  
+The thermal capacity of the pipe wall is implemented as a mixing volume (at
 <code>port_b</code>) of the fluid in the pipe, of which the thermal capacity
 is equal to that of the pipe wall material.
 In addition, this mixing volume allows the hydraulic separation of subsequent pipes.
@@ -359,16 +359,16 @@ is negligible and a state is not needed at the pipe outlet
 (see the note below about numerical Jacobians).
 </p>
 <p>
-Note that in order to model a branched network it is recommended to use 
+Note that in order to model a branched network it is recommended to use
 <a href=\"modelica://IBPSA.Fluid.FixedResistances.Junction\">
-IBPSA.Fluid.FixedResistances.Junction</a> at each junction and to configure 
-that junction model with a state 
-(<code>energyDynamics &lt;&gt; Modelica.Fluid.Types.Dynamics.SteadyState</code>), 
-see for instance 
+IBPSA.Fluid.FixedResistances.Junction</a> at each junction and to configure
+that junction model with a state
+(<code>energyDynamics &lt;&gt; Modelica.Fluid.Types.Dynamics.SteadyState</code>),
+see for instance
 <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT\">
-IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a>. 
-This will avoid the numerical Jacobian that is otherwise created when 
-the inlet ports of two instances of the plug flow model are connected together. 
+IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a>.
+This will avoid the numerical Jacobian that is otherwise created when
+the inlet ports of two instances of the plug flow model are connected together.
 </p>
 <h4>Assumptions</h4>
 <ul>
