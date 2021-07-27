@@ -282,7 +282,7 @@ Expanded the core pipe model that was previously a component.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1494\">IBPSA, #1494</a>.<br/>
 This change is not backward compatible.<br/>
-The previous classes definitions was moved to
+The previous classes definitions were moved to
 <a href=\"modelica://IBPSA.Obsolete.Fluid.FixedResistances.PlugFlowPipe\">
 IBPSA.Obsolete.Fluid.FixedResistances.PlugFlowPipe</a>.
 <a href=\"modelica://IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">
@@ -348,23 +348,26 @@ The pressure drop is implemented using
 IBPSA.Fluid.FixedResistances.HydraulicDiameter</a>.
 </p>
 <p>
-The thermal capacity of the pipe wall is implemented as a mixing volume
-of the fluid in the pipe, of which the thermal capacity
+The thermal capacity of the pipe wall is implemented as a mixing volume (at  
+<code>port_b</code>) of the fluid in the pipe, of which the thermal capacity
 is equal to that of the pipe wall material.
 In addition, this mixing volume allows the hydraulic separation of subsequent pipes.
 <br/>
-This mixing volume can be removed from this model with the boolean
-<code>have_PipCap</code>, in cases where the pipe wall heat capacity
-is negligible and a state is not needed at the pipe outlet.
+This mixing volume can be removed from this model with the Boolean parameter
+<code>have_pipCap</code>, in cases where the pipe wall heat capacity
+is negligible and a state is not needed at the pipe outlet
+(see the note below about numerical Jacobians).
 </p>
 <p>
 Note that in order to model a branched network it is recommended to use 
 <a href=\"modelica://IBPSA.Fluid.FixedResistances.Junction\">
 IBPSA.Fluid.FixedResistances.Junction</a> at each junction and to configure 
-that component with a state (see for instance 
+that junction model with a state 
+(<code>energyDynamics &lt;&gt; Modelica.Fluid.Types.Dynamics.SteadyState</code>), 
+see for instance 
 <a href=\"modelica://IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT\">
-IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a>). 
-This will avoid the numerical Jacobians that are otherwise created when 
+IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a>. 
+This will avoid the numerical Jacobian that is otherwise created when 
 the inlet ports of two instances of the plug flow model are connected together. 
 </p>
 <h4>Assumptions</h4>

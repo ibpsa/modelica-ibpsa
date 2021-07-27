@@ -117,6 +117,7 @@ convertClass(
     "IBPSA.Fluid.Actuators.Dampers.VAVBoxExponential",
     "IBPSA.Fluid.Actuators.Dampers.Exponential");
 
+// Refactoring for https://github.com/ibpsa/modelica-ibpsa/issues/1494
 convertClass("IBPSA.Fluid.FixedResistances.PlugFlowPipe",
              "IBPSA.Obsolete.Fluid.FixedResistances.PlugFlowPipe");
 convertClass("IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore",
