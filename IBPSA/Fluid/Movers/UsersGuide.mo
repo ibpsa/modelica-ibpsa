@@ -89,8 +89,8 @@ Compare
 <a href=\"modelica://IBPSA.Fluid.Movers.Validation.PowerSimplified\">
 IBPSA.Fluid.Movers.Validation.PowerSimplified</a>
 with
-<a href=\"modelica://IBPSA.Fluid.Movers.Validation.PowerSimplified\">
-IBPSA.Fluid.Movers.Validation.PowerSimplified</a>
+<a href=\"modelica://IBPSA.Fluid.Movers.Validation.PowerExact\">
+IBPSA.Fluid.Movers.Validation.PowerExact</a>
 for an illustration of this error.
 </p>
 <p>
