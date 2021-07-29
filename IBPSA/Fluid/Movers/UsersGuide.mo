@@ -539,8 +539,8 @@ This change was done to avoid ambiguities in the parameterization if the models 
 with air as the medium. The original formulation in
 <a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a> converts head
 to pressure using the density <code>medium.d</code>. Therefore, for fans,
-head would be converted to pressure using the density of air. However, for fans,
-manufacturers typically publish the head in millimeters water (mmH20).
+head would be converted to pressure using the density of air. However, for pumps,
+manufacturers typically publish the head in millimeters water (mmH<sub>2</sub>O).
 Therefore, to avoid confusion when using these models with media other than water,
 we changed the models to use total pressure in Pascals instead of head in meters.
 </li>
