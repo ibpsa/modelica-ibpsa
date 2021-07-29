@@ -129,7 +129,7 @@ full speed, the points shown in the table below.
 </p>
   <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr>
-      <th>Volume flow rate [m<sup>3</sup>&frasl;h] </th>
+      <th>Volume flow rate [m<sup>3</sup>&frasl;s] </th>
       <th>Head [Pa]</th>
     </tr>
     <tr>
