@@ -1,12 +1,16 @@
 within IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses;
 block RelativeAirMass "Relative air mass"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Length alt = 1 "location altitude";
+  Modelica.Blocks.Interfaces.RealInput alt(
+    quantity="Length",
+    unit="m") "location altitude" annotation (Placement(transformation(extent={{-140,-16},{-100,24}}),
+        iconTransformation(extent={{-140,-16},{-100,24}})));
   Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",
     displayUnit="deg") "Zenith angle of the sun beam"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-62},{-100,-22}}),
+        iconTransformation(extent={{-140,-62},{-100,-22}})));
   Modelica.Blocks.Interfaces.RealOutput relAirMas "Relative air mass"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
