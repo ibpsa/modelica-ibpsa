@@ -1,7 +1,6 @@
 within IBPSA.BoundaryConditions.SolarGeometry;
 block IncidenceAngle "Solar incidence angle on a tilted surface"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
   parameter Modelica.SIunits.Angle til "Surface tilt";
 
@@ -21,7 +20,6 @@ protected
     solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(
-    final lat=lat,
     final azi=azi,
     final til=til) "Incidence angle"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -50,6 +48,14 @@ equation
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  connect(weaBus.lat, incAng.lat) annotation (Line(
+      points={{-100,0},{38,0}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
     defaultComponentName="incAng",
     Documentation(info="<html>

@@ -1,7 +1,6 @@
 within IBPSA.BoundaryConditions.SolarGeometry.BaseClasses;
 block ZenithAngle "Zenith angle"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Angle lat "Latitude";
   Modelica.Blocks.Interfaces.RealInput solHouAng(quantity="Angle", unit="rad")
     "Solar hour angle"
     annotation (Placement(transformation(extent={{-140,-68},{-100,-28}})));
@@ -14,6 +13,11 @@ block ZenithAngle "Zenith angle"
     final unit="rad",
     displayUnit="deg") "Zenith angle"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealInput lat(
+    quantity="Angle",
+    unit="rad",
+    displayUnit="deg") "Latitude"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 equation
   zen =  Modelica.Math.acos(Modelica.Math.cos(lat)*Modelica.Math.cos(decAng)*
     Modelica.Math.cos(solHouAng) + Modelica.Math.sin(lat)*Modelica.Math.sin(
