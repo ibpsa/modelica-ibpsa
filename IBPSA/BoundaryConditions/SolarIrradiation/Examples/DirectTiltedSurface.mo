@@ -7,19 +7,16 @@ model DirectTiltedSurface
         Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirRoo(
-    til=IBPSA.Types.Tilt.Ceiling,
-    lat=0.6457718232379,
-    azi=0.78539816339745) "Direct irradiation on roof"
+    til=IBPSA.Types.Tilt.Ceiling, azi=0.78539816339745)
+                          "Direct irradiation on roof"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirFlo(
-    til=IBPSA.Types.Tilt.Floor,
-    lat=0.6457718232379,
-    azi=0.78539816339745) "Direct irradiation on floor"
+    til=IBPSA.Types.Tilt.Floor, azi=0.78539816339745)
+                          "Direct irradiation on floor"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirWal(
-    til=IBPSA.Types.Tilt.Wall,
-    lat=0.6457718232379,
-    azi=0.78539816339745) "Direct irradiation on wall"
+    til=IBPSA.Types.Tilt.Wall, azi=0.78539816339745)
+                          "Direct irradiation on wall"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   IBPSA.Utilities.Diagnostics.AssertEquality assEqu
     "Assert to ensure that direct radiation received by floor construction is zero"

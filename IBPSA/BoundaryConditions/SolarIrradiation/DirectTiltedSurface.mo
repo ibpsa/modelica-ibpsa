@@ -3,7 +3,6 @@ block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
   extends
     IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 
-  parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
   Modelica.Blocks.Interfaces.RealOutput inc(
@@ -15,8 +14,7 @@ block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
 protected
   SolarGeometry.IncidenceAngle incAng(
     final azi=azi,
-    final til=til,
-    final lat=lat) "Incidence angle"
+    final til=til) "Incidence angle"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses.DirectTiltedSurface
     HDirTil "Direct irradition on tilted surface"
