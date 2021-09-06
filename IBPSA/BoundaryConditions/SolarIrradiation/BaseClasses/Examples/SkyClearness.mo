@@ -2,8 +2,7 @@ within IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses.Examples;
 model SkyClearness "Test model for sky clearness"
   extends Modelica.Icons.Example;
 
-  IBPSA.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat=
-        0.34906585039887)
+  IBPSA.BoundaryConditions.SolarGeometry.ZenithAngle zen
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness skyCle
     annotation (Placement(transformation(extent={{40,0},{60,20}})));

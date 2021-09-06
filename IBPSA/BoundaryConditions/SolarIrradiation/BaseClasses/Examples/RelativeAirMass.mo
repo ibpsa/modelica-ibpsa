@@ -3,8 +3,7 @@ model RelativeAirMass "Test model for relative air mass"
   extends Modelica.Icons.Example;
   IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass
     relAirMas annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  IBPSA.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat=
-        0.34906585039887)
+  IBPSA.BoundaryConditions.SolarGeometry.ZenithAngle zen
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
