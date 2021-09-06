@@ -16,8 +16,6 @@ model IsotropicAndPerezDiffuseRadiation
   parameter Modelica.SIunits.Angle azi(
     displayUnit="deg")
     "Azimuth angle";
-  parameter Modelica.SIunits.Length alt
-    "Altitude";
   parameter Real rho=0.2
     "Ground reflectance";
   SolarIrradiation.DirectTiltedSurface HDir(
@@ -38,7 +36,6 @@ model IsotropicAndPerezDiffuseRadiation
     rho=rho,
     lat=lat,
     azi=azi,
-	alt=alt,
     outSkyCon=true,
     outGroCon=true)
     "Diffused radiation using Perez"

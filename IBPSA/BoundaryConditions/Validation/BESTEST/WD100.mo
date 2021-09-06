@@ -6,8 +6,6 @@ model WD100
     "Latitude angle";
   parameter Real rho=0
     "Ground reflectance";
-  parameter Modelica.SIunits.Length alt=1650
-    "Altitude";
   WeatherData.ReaderTMY3 weaDatHHorIR(
     pAtmSou=IBPSA.BoundaryConditions.Types.DataSource.File,
     filNam=Modelica.Utilities.Files.loadResource(
@@ -21,7 +19,6 @@ model WD100
   IsotropicAndPerezDiffuseRadiation azi000til00(
     til=IBPSA.Types.Tilt.Ceiling,
     lat=lat,
-	alt=alt,
     azi=IBPSA.Types.Azimuth.S,
     rho=rho)
     "Azimuth = Horizontal, Tilt = 0 °"
@@ -29,7 +26,6 @@ model WD100
   IsotropicAndPerezDiffuseRadiation azi000til90(
     til=IBPSA.Types.Tilt.Wall,
     lat=lat,
-	alt=alt,
     azi=IBPSA.Types.Azimuth.S,
     rho=rho)
     "Azimuth = South, Tilt = 90 °"
@@ -37,7 +33,6 @@ model WD100
   IsotropicAndPerezDiffuseRadiation azi270til90(
     til=IBPSA.Types.Tilt.Wall,
     lat=lat,
-	alt=alt,
     azi=IBPSA.Types.Azimuth.E,
     rho=rho)
     "Azimuth = East, Tilt = 90 °"
@@ -45,7 +40,6 @@ model WD100
   IsotropicAndPerezDiffuseRadiation azi180til90(
     til=IBPSA.Types.Tilt.Wall,
     lat=lat,
-	alt=alt,
     azi=IBPSA.Types.Azimuth.N,
     rho=rho)
     "Azimuth = North, Tilt = 90 °"
@@ -53,7 +47,6 @@ model WD100
   IsotropicAndPerezDiffuseRadiation azi090til90(
     til=IBPSA.Types.Tilt.Wall,
     lat=lat,
-	alt=alt,
     azi=IBPSA.Types.Azimuth.W,
     rho=rho)
     "Azimuth =  West, Tilt = 90 °"
@@ -61,7 +54,6 @@ model WD100
   IsotropicAndPerezDiffuseRadiation azi315til90(
     til=IBPSA.Types.Tilt.Wall,
     lat=lat,
-	alt=alt,
     azi=IBPSA.Types.Azimuth.SE,
     rho=rho)
     "Azimuth = 45 ° SE, Tilt = 0 °"
@@ -69,7 +61,6 @@ model WD100
   IsotropicAndPerezDiffuseRadiation azi045til90(
     til=IBPSA.Types.Tilt.Wall,
     lat=lat,
-	alt=alt,
     azi=IBPSA.Types.Azimuth.SW,
     rho=rho)
     "Azimuth = 45 SW, Tilt = 90 °"
@@ -77,7 +68,6 @@ model WD100
   IsotropicAndPerezDiffuseRadiation azi270til30(
     til=0.5235987755983,
     lat=lat,
-	alt=alt,
     azi=IBPSA.Types.Azimuth.E,
     rho=rho)
     "Azimuth = East, Tilt = 30 °"
@@ -85,7 +75,6 @@ model WD100
   IsotropicAndPerezDiffuseRadiation azi000til30(
     til=0.5235987755983,
     lat=lat,
-	alt=alt,
     azi=IBPSA.Types.Azimuth.S,
     rho=rho)
     "Azimuth = South, Tilt = 0 °"
@@ -93,7 +82,6 @@ model WD100
   IsotropicAndPerezDiffuseRadiation azi090til30(
     til=0.5235987755983,
     lat=lat,
-	alt=alt,
     azi=IBPSA.Types.Azimuth.W,
     rho=rho)
     "Azimuth = West, Tilt = 0 °"

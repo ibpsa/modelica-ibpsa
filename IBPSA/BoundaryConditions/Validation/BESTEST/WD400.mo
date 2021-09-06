@@ -4,7 +4,6 @@ model WD400
   extends WD100(
     lat=1.2441754105767,
     rho=0,
-    alt=10,
     weaDatHHorIR(
       filNam=Modelica.Utilities.Files.loadResource(
         "modelica://IBPSA/Resources/Data/BoundaryConditions/Validation/BESTEST/WD400.mos")),
