@@ -7,7 +7,6 @@ block DiffusePerez
   parameter Real rho(min=0, max=1, final unit="1")=0.2 "Ground reflectance";
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
-  parameter Modelica.SIunits.Length alt = 1 "Altitude";
   parameter Boolean outSkyCon=false
     "Output contribution of diffuse irradiation from sky";
   parameter Boolean outGroCon=false
@@ -31,7 +30,7 @@ protected
     annotation (Placement(transformation(extent={{-62,16},{-54,24}})));
   BaseClasses.BrighteningCoefficient briCoe "Brightening coefficient"
     annotation (Placement(transformation(extent={{-40,-34},{-32,-26}})));
-  BaseClasses.RelativeAirMass relAirMas(alt=alt) "Relative air mass"
+  BaseClasses.RelativeAirMass relAirMas          "Relative air mass"
     annotation (Placement(transformation(extent={{-80,-44},{-72,-36}})));
   BaseClasses.SkyBrightness skyBri "Sky brightness"
     annotation (Placement(transformation(extent={{-60,-54},{-52,-46}})));
@@ -58,7 +57,7 @@ equation
       points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,17.6},{-62.8,17.6}},
       color={0,0,127}));
   connect(weaBus.solZen, relAirMas.zen) annotation (Line(
-      points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,-40},{-80.8,-40}},
+      points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,-41.68},{-80.8,-41.68}},
       color={0,0,127}));
   connect(weaBus.solZen, briCoe.zen) annotation (Line(
       points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,-20},{-66,-20},{-66,-32},
@@ -108,7 +107,7 @@ equation
       points={{-31.6,-28.4},{-28,-28.4},{-28,4.2},{-4.2,4.2}},
       color={0,0,127}));
   connect(weaBus, incAng.weaBus) annotation (Line(
-      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-90.8},{-86,-90.8}},
+      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-91},{-86,-91}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%first",
@@ -141,6 +140,14 @@ equation
       color={0,0,127}));
   connect(weaBus.solTim, skyBri.SolarTime) annotation (Line(
       points={{-100,0},{-96,0},{-96,-53.36},{-60.8,-53.36}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(weaBus.alt, relAirMas.alt) annotation (Line(
+      points={{-100,0},{-84,0},{-84,-39.84},{-80.8,-39.84}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
