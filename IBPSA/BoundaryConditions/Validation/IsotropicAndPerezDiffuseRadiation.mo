@@ -17,7 +17,6 @@ model IsotropicAndPerezDiffuseRadiation
     "Ground reflectance";
   SolarIrradiation.DirectTiltedSurface HDir(
     til=til,
-    lat=lat,
     azi=azi)
     "Direct Irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
