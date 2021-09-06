@@ -10,9 +10,6 @@ model IsotropicAndPerezDiffuseRadiation
   parameter Modelica.SIunits.Angle til(
     displayUnit="deg")
     "Surface tilt angle";
-  parameter Modelica.SIunits.Angle lat(
-    displayUnit="deg")
-    "Latitude angle";
   parameter Modelica.SIunits.Angle azi(
     displayUnit="deg")
     "Azimuth angle";
@@ -34,7 +31,6 @@ model IsotropicAndPerezDiffuseRadiation
   SolarIrradiation.DiffusePerez HDiffPer(
     til=til,
     rho=rho,
-    lat=lat,
     azi=azi,
     outSkyCon=true,
     outGroCon=true)

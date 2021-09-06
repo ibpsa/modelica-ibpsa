@@ -2,7 +2,6 @@ within IBPSA.BoundaryConditions.Validation.BESTEST;
 model WD300
   "Test model for BESTEST weather data: Southern hemisphere case"
   extends WD100(
-    lat=-0.58281779711847,
     rho=0,
     weaDatHHorIR(
       filNam=Modelica.Utilities.Files.loadResource(

@@ -18,70 +18,60 @@ model WD100
     annotation (Placement(transformation(extent={{-14,-82},{16,-54}}),iconTransformation(extent={{-220,70},{-200,90}})));
   IsotropicAndPerezDiffuseRadiation azi000til00(
     til=IBPSA.Types.Tilt.Ceiling,
-    lat=lat,
     azi=IBPSA.Types.Azimuth.S,
     rho=rho)
     "Azimuth = Horizontal, Tilt = 0 °"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
   IsotropicAndPerezDiffuseRadiation azi000til90(
     til=IBPSA.Types.Tilt.Wall,
-    lat=lat,
     azi=IBPSA.Types.Azimuth.S,
     rho=rho)
     "Azimuth = South, Tilt = 90 °"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   IsotropicAndPerezDiffuseRadiation azi270til90(
     til=IBPSA.Types.Tilt.Wall,
-    lat=lat,
     azi=IBPSA.Types.Azimuth.E,
     rho=rho)
     "Azimuth = East, Tilt = 90 °"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   IsotropicAndPerezDiffuseRadiation azi180til90(
     til=IBPSA.Types.Tilt.Wall,
-    lat=lat,
     azi=IBPSA.Types.Azimuth.N,
     rho=rho)
     "Azimuth = North, Tilt = 90 °"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   IsotropicAndPerezDiffuseRadiation azi090til90(
     til=IBPSA.Types.Tilt.Wall,
-    lat=lat,
     azi=IBPSA.Types.Azimuth.W,
     rho=rho)
     "Azimuth =  West, Tilt = 90 °"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   IsotropicAndPerezDiffuseRadiation azi315til90(
     til=IBPSA.Types.Tilt.Wall,
-    lat=lat,
     azi=IBPSA.Types.Azimuth.SE,
     rho=rho)
     "Azimuth = 45 ° SE, Tilt = 0 °"
     annotation (Placement(transformation(extent={{-60,70},{-80,90}})));
   IsotropicAndPerezDiffuseRadiation azi045til90(
     til=IBPSA.Types.Tilt.Wall,
-    lat=lat,
     azi=IBPSA.Types.Azimuth.SW,
     rho=rho)
     "Azimuth = 45 SW, Tilt = 90 °"
     annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
   IsotropicAndPerezDiffuseRadiation azi270til30(
     til=0.5235987755983,
-    lat=lat,
     azi=IBPSA.Types.Azimuth.E,
     rho=rho)
     "Azimuth = East, Tilt = 30 °"
     annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
   IsotropicAndPerezDiffuseRadiation azi000til30(
     til=0.5235987755983,
-    lat=lat,
     azi=IBPSA.Types.Azimuth.S,
     rho=rho)
     "Azimuth = South, Tilt = 0 °"
     annotation (Placement(transformation(extent={{-60,-20},{-80,0}})));
   IsotropicAndPerezDiffuseRadiation azi090til30(
     til=0.5235987755983,
-    lat=lat,
     azi=IBPSA.Types.Azimuth.W,
     rho=rho)
     "Azimuth = West, Tilt = 0 °"

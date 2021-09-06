@@ -2,7 +2,6 @@ within IBPSA.BoundaryConditions.Validation.BESTEST;
 model WD600
   "Test model for BESTEST weather data: ground reflectance"
   extends WD100(
-    lat=0.6952170009469,
     rho=0.2,
     weaDatHHorIR(
       filNam=Modelica.Utilities.Files.loadResource(

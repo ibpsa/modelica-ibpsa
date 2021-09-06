@@ -2,7 +2,6 @@ within IBPSA.BoundaryConditions.Validation.BESTEST;
 model WD200
   "Test model for BESTEST weather data: Low Elevation, Hot and Humid Case"
   extends WD100(
-    lat=0.58700658732325,
     rho=0,
     weaDatHHorIR(
       filNam=Modelica.Utilities.Files.loadResource(

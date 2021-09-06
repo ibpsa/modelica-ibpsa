@@ -2,7 +2,6 @@ within IBPSA.BoundaryConditions.Validation.BESTEST;
 model WD500
   "Test model for BESTEST weather data: time zone case"
   extends WD100(
-    lat=0.49858820742,
     rho=0,
     weaDatHHorIR(
       filNam=Modelica.Utilities.Files.loadResource(
