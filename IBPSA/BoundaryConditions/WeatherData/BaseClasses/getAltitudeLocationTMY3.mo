@@ -21,7 +21,7 @@ algorithm
     unsigned=false);
 
    // Check if altitude is valid
-   assert(Altitude > 0,
+   assert(Altitude >= 0,
        "Wrong value for Altitude. Received Altitude = " +
        String(Altitude));
 
