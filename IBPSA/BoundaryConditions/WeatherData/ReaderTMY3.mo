@@ -390,8 +390,8 @@ protected
     annotation (Placement(transformation(extent={{40,-240},{60,-220}})));
   SolarGeometry.BaseClasses.AltitudeAngle altAng "Solar altitude angle"
     annotation (Placement(transformation(extent={{-28,-226},{-8,-206}})));
-   SolarGeometry.BaseClasses.ZenithAngle zenAng(
-     final lat = lat) "Zenith angle"
+   SolarGeometry.BaseClasses.ZenithAngle zenAng
+                      "Zenith angle"
     annotation (Placement(transformation(extent={{-70,-226},{-50,-206}})));
    SolarGeometry.BaseClasses.Declination decAng "Declination angle"
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
@@ -869,6 +869,8 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
 
+  connect(latitude.y, zenAng.lat) annotation (Line(points={{-129,-280},{-124,
+          -280},{-124,-290},{-90,-290},{-90,-216},{-72,-216}}, color={0,0,127}));
     annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
