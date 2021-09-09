@@ -66,6 +66,12 @@ is such that the regularization is usually not triggered.
 </html>", revisions="<html>
 <ul>
 <li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed lat to real input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+</li>
+<li>
 May 2, 2021, by Ettore Zanetti:<br/>
 Corrected expression for sky clearness <br/>
 This is for

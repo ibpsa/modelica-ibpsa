@@ -32,6 +32,12 @@ Input are the solar hour angle and the declination angle.
 </html>", revisions="<html>
 <ul>
 <li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed lat to real input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+</li>
+<li>
 January 5, 2015, by Michael Wetter:<br/>
 Updated comment of the input connector as this is used in the weather bus connector.
 This is for

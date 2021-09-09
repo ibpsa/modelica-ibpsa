@@ -20,6 +20,12 @@ model WD600
       revisions="<html>
 <ul>
 <li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed alt and lat to real inputs from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+</li>
+<li>
 March 11, 2020, by Ettore Zanetti:<br/>
 First implementation.
 </li>

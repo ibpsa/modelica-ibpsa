@@ -32,6 +32,12 @@ Solar Energy, 44(5):271-289.
 </html>", revisions="<html>
 <ul>
 <li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed lat to real input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+</li>
+<li>
 July 07, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>

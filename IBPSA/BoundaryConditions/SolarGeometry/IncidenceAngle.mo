@@ -67,6 +67,12 @@ For a definition of the parameters, see the User's Guide
 </html>", revisions="<html>
 <ul>
 <li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed lat to real input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+</li>
+<li>
 November 30, 2011, by Michael Wetter:<br/>
 Removed <code>connect(y, y)</code> statement.
 </li>

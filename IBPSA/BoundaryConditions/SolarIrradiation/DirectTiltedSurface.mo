@@ -58,6 +58,12 @@ For a definition of the parameters, see the
 </html>", revisions="<html>
 <ul>
 <li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed alt and lat to real inputs from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+</li>
+<li>
 April 21, 2016, by Michael Wetter:<br/>
 Removed duplicate instance <code>weaBus</code>.
 This is for

@@ -45,6 +45,12 @@ IBPSA.BoundaryConditions.UsersGuide</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed lat to real input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+</li>
+<li>
 February 25, 2012, by Michael Wetter:<br/>
 Changed model to get declination angle and
 solar hour angle from weather bus.

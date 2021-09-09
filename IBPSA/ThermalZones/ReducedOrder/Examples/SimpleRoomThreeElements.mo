@@ -282,6 +282,12 @@ equation
   </html>", revisions="<html>
   <ul>
   <li>
+  September 6, 2021, by Ettore Zanetti:<br/>
+  Changed lat to real input from weather bus.<br/>
+  This is for
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+  </li>
+  <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaWall</code> to <code>hConWall</code>,
   <code>alphaWin</code> to <code>hConWin</code>
