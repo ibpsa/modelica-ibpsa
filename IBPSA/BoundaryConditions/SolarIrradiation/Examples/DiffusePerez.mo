@@ -12,19 +12,16 @@ model DiffusePerez
         transformation(extent={{1,-1},{21,21}}), iconTransformation(extent={{20,
             20},{21,21}})));
   IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifRoo(
-    til=IBPSA.Types.Tilt.Ceiling,
-    lat=0.6457718232379,
-    azi=0.78539816339745) "Diffuse irradiation on roof"
+    til=IBPSA.Types.Tilt.Ceiling, azi=0.78539816339745)
+                          "Diffuse irradiation on roof"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifFlo(
-    til=IBPSA.Types.Tilt.Floor,
-    lat=0.6457718232379,
-    azi=0.78539816339745) "Diffuse irradiation on floor"
+    til=IBPSA.Types.Tilt.Floor, azi=0.78539816339745)
+                          "Diffuse irradiation on floor"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifWal(
-    til=IBPSA.Types.Tilt.Wall,
-    lat=0.6457718232379,
-    azi=0.78539816339745) "Diffuse irradiation on wall"
+    til=IBPSA.Types.Tilt.Wall, azi=0.78539816339745)
+                          "Diffuse irradiation on wall"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(

@@ -25,6 +25,12 @@ This component computes the direct solar irradiation on a tilted surface.
 </html>", revisions="<html>
 <ul>
 <li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed lat to real input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+</li>
+<li>
 April 27, 2018, by Michael Wetter:<br/>
 Corrected <code>displayUnit</code>.<br/>
 This is for
