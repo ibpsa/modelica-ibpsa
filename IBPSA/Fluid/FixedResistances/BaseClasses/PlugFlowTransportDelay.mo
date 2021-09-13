@@ -23,7 +23,8 @@ model PlugFlowTransportDelay "Delay time for given normalized velocity"
     if initDelay and (abs(m_flow_start) > 1E-10*m_flow_nominal)
      then min(-length/m_flow_start*(rho*dh^2/4*Modelica.Constants.pi), 0) else 0
     "Initial value of input time at outlet";
-
+  final parameter Real conUM = length / (rho*(dh^2)/4*Modelica.Constants.pi)
+    "Constant to convert mass flow rate into velocity normalized by the pipe length";
   Modelica.SIunits.Time time_out_rev "Reverse flow direction output time";
   Modelica.SIunits.Time time_out_des "Design flow direction output time";
 
@@ -48,7 +49,7 @@ initial equation
   t0 = time;
 
 equation
-  u = m_flow/(rho*(dh^2)/4*Modelica.Constants.pi)/length;
+  u = m_flow * conUM;
 
   der(x) = u;
   (time_out_rev, time_out_des) = spatialDistribution(
