@@ -211,6 +211,7 @@ equation
           lineColor={0,0,0},
           textString="L = %length
 d = %dh")}),
+    obsolete = "Obsolete model - use IBPSA.Fluid.FixedResistances.PlugFlowPipe instead",
     Documentation(revisions="<html>
 <ul>
 <li>
