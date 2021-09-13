@@ -88,6 +88,41 @@ model PlugFlowPipe
     "Heat transfer to or from surroundings (heat loss from pipe results in a positive heat flow)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
+  Modelica.SIunits.PressureDifference dp(displayUnit="Pa") = res.dp
+    "Pressure difference between port_a and port_b";
+
+  Modelica.SIunits.MassFlowRate m_flow = port_a.m_flow
+    "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
+
+  Modelica.SIunits.Velocity v = del.v "Flow velocity of medium in pipe";
+
+protected
+  parameter Modelica.SIunits.HeatCapacity CPip=
+    length*((dh + 2*thickness)^2 - dh^2)*Modelica.Constants.pi/4*cPip*rhoPip "Heat capacity of pipe wall";
+
+  final parameter Modelica.SIunits.Volume VEqu=CPip/(rho_default*cp_default)
+    "Equivalent water volume to represent pipe wall thermal inertia";
+
+  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default) "Default medium state";
+
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(state=sta_default)
+    "Heat capacity of medium";
+
+  parameter Real C(unit="J/(K.m)")=
+    rho_default*Modelica.Constants.pi*(dh/2)^2*cp_default
+    "Thermal capacity per unit length of water in pipe";
+
+  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default)
+    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
+    annotation (Dialog(group="Advanced"));
+
   // In the volume, below, we scale down V and use
   // mSenFac. Otherwise, for air, we would get very large volumes
   // which affect the delay of water vapor and contaminants.
@@ -128,7 +163,7 @@ model PlugFlowPipe
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
     dp(nominal=fac*200*length))
-                 "Pressure drop calculation for this pipe"
+    "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   BaseClasses.PlugFlow del(
     redeclare final package Medium = Medium,
@@ -173,33 +208,6 @@ model PlugFlowPipe
     final m_flow_nominal=m_flow_nominal,
     final m_flow_start=m_flow_start) "Time delay"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-
-protected
-  parameter Modelica.SIunits.HeatCapacity CPip=
-    length*((dh + 2*thickness)^2 - dh^2)*Modelica.Constants.pi/4*cPip*rhoPip "Heat capacity of pipe wall";
-
-  final parameter Modelica.SIunits.Volume VEqu=CPip/(rho_default*cp_default)
-    "Equivalent water volume to represent pipe wall thermal inertia";
-
-  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default) "Default medium state";
-
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-      Medium.specificHeatCapacityCp(state=sta_default)
-    "Heat capacity of medium";
-
-  parameter Real C(unit="J/(K.m)")=
-    rho_default*Modelica.Constants.pi*(dh/2)^2*cp_default
-    "Thermal capacity per unit length of water in pipe";
-
-  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default)
-    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
-    annotation (Dialog(group="Advanced"));
 
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
