@@ -233,9 +233,9 @@ equation
     annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
 
   connect(heaLos_b.port_b, vol.ports[1])
-    annotation (Line(points={{60,0},{78,0},{78,20}}, color={0,127,255}));
+    annotation (Line(points={{60,0},{79,0},{79,20}}, color={0,127,255}));
   connect(vol.ports[2], port_b)
-    annotation (Line(points={{82,20},{82,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{81,20},{81,0},{100,0}}, color={0,127,255}));
   connect(heaLos_b.port_b, noMixPip.port_a) annotation (Line(points={{60,0},{66,
           0},{66,-20},{70,-20}}, color={0,127,255}));
   connect(noMixPip.port_b, port_b) annotation (Line(points={{90,-20},{94,-20},{94,
@@ -344,12 +344,13 @@ The model also includes thermal inertia of the pipe wall.
 The
 <code>spatialDistribution</code> operator is used for the temperature wave propagation
 through the length of the pipe. This operator is contained in
-<a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlow\">BaseClasses.PlugFlow</a>.
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlow\">
+IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlow</a>.
 </p>
 <p>
 The model
 <a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowHeatLoss\">
-PlugFlowHeatLoss</a>
+IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowHeatLoss</a>
 implements a heat loss in design direction, but leaves the enthalpy unchanged
 in opposite flow direction. Therefore it is used in front of and behind the time delay.
 </p>
