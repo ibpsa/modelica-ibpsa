@@ -5,6 +5,12 @@ clear
 
 convertClear();
 
+// Refactoring for https://github.com/ibpsa/modelica-ibpsa/issues/1494
+convertClass("IBPSA.Fluid.FixedResistances.PlugFlowPipe",
+             "IBPSA.Obsolete.Fluid.FixedResistances.PlugFlowPipe");
+convertClass("IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore",
+             "IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore");
+
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1498
 convertModifiers("IBPSA.Fluid.Movers.FlowControlled_dp",
                 {"y_start"}, fill("",0), true);
@@ -122,9 +128,3 @@ convertModifiers(
 convertClass(
     "IBPSA.Fluid.Actuators.Dampers.VAVBoxExponential",
     "IBPSA.Fluid.Actuators.Dampers.Exponential");
-
-// Refactoring for https://github.com/ibpsa/modelica-ibpsa/issues/1494
-convertClass("IBPSA.Fluid.FixedResistances.PlugFlowPipe",
-             "IBPSA.Obsolete.Fluid.FixedResistances.PlugFlowPipe");
-convertClass("IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore",
-             "IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore");
