@@ -37,9 +37,9 @@ Emailed by R. Perez to F.C. Winkelmann on May 21, 1999.<br/>
 <ul>
 <li>
 September 6, 2021, by Ettore Zanetti:<br/>
-Changed lat to real input from weather bus.<br/>
+Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
 </li>
 <li>
 May 2, 2021, by Ettore Zanetti:

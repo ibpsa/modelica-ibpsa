@@ -185,13 +185,13 @@ Solar Energy, 44(5):271-289.
 September 6, 2021, by Ettore Zanetti:<br/>
 Changed alt and lat to real inputs from weather bus.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
 </li>
 <li>
 May 2, 2021, by Ettore Zanetti:<br/>
 Added altitude to parameters.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
 </li>
 <li>
 November 14, 2015, by Michael Wetter:<br/>

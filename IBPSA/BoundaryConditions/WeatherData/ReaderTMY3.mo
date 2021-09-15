@@ -517,7 +517,7 @@ First implementation.
 </ul>
 </html>"));
   end Longitude;
- 
+
   block Altitude "Generate constant signal of type Real"
     extends Modelica.Blocks.Icons.Block;
 
@@ -1600,13 +1600,13 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 September 6, 2021, by Ettore Zanetti:<br/>
 Changed alt and lat to real inputs.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
 </li>
 <li>
 May 2, 2021, by Ettore Zanetti:<br/>
 Added altitude to parameters.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
 </li>
 <li>
 October 4, 2020, by Ettore Zanetti:<br/>
