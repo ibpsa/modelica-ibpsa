@@ -99,6 +99,12 @@ and buildings - modelling of rooms.</p>
 </html>",   revisions="<html>
 <ul>
 <li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Changed lat to real input from weather bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">#1477</a>.
+</li>
+<li>
 April 15, 2020, by Katharina Brinkmann:<br/>
 First implementation.
 </li>
