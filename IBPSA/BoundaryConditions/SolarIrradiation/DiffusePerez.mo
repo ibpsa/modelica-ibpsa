@@ -7,7 +7,7 @@ block DiffusePerez
   parameter Real rho(min=0, max=1, final unit="1")=0.2 "Ground reflectance";
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
-  parameter Modelica.SIunits.Length alt = 1 "Altitude";
+  parameter Modelica.SIunits.Length alt = 0 "Location altitude above sea level";
   parameter Boolean outSkyCon=false
     "Output contribution of diffuse irradiation from sky";
   parameter Boolean outGroCon=false

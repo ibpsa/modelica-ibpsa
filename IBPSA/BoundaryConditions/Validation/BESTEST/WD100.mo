@@ -6,8 +6,7 @@ model WD100
     "Latitude angle";
   parameter Real rho=0
     "Ground reflectance";
-  parameter Modelica.SIunits.Length alt=1650
-    "Altitude";
+  parameter Modelica.SIunits.Length alt=1650 "Location altitude above sea level";
   WeatherData.ReaderTMY3 weaDatHHorIR(
     pAtmSou=IBPSA.BoundaryConditions.Types.DataSource.File,
     filNam=Modelica.Utilities.Files.loadResource(

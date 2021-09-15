@@ -1,7 +1,7 @@
 within IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses;
 block RelativeAirMass "Relative air mass"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Length alt = 1 "Location altitude above sea level";
+  parameter Modelica.SIunits.Length alt = 0 "Location altitude above sea level";
   Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",

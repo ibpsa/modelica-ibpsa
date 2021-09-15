@@ -233,7 +233,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Time zone";
   final parameter Modelica.SIunits.Length alt(displayUnit="m")=
     IBPSA.BoundaryConditions.WeatherData.BaseClasses.getAltitudeLocationTMY3(filNam)
-    "Altitude";
+    "Location altitude above sea level";
 
 protected
   final parameter Modelica.SIunits.Time[2] timeSpan=
@@ -521,10 +521,10 @@ First implementation.
   block Altitude "Generate constant signal of type Real"
     extends Modelica.Blocks.Icons.Block;
 
-    parameter Modelica.SIunits.Length Altitude "Altitude";
+    parameter Modelica.SIunits.Length Altitude "Location altitude above sea level";
 
     Modelica.Blocks.Interfaces.RealOutput y(
-      unit="m") "Altitude of the location"
+      unit="m") "Location altitude above sea level"
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   equation
     y = Altitude;
@@ -538,8 +538,8 @@ First implementation.
             textString="Altitude")}),
     Documentation(info="<html>
 <p>
-Block to output the Altitude of the location.
-This block is added so that the Altitude is displayed
+Block to output the altitude of the location.
+This block is added so that the altitude is displayed
 with a comment in the GUI of the weather bus connector.
 </p>
 <h4>Implementation</h4>
