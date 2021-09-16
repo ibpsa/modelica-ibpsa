@@ -5,7 +5,7 @@ model SkyBrightness "Test model for sky brightness"
     "Relative air mass"
      annotation (Placement(transformation(extent={{10,20},{30,40}})));
   IBPSA.BoundaryConditions.SolarGeometry.ZenithAngle zen
-                          "Zenith angle"
+    "Zenith angle"
     annotation (Placement(transformation(extent={{-26,20},{-6,40}})));
   IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses.SkyBrightness skyBri
     "Sky brightness"
