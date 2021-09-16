@@ -5,7 +5,7 @@ function getAltitudeLocationTMY3 "Gets the altitude from TMY3 file"
  annotation (Dialog(
         loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
- output Modelica.SIunits.Length Altitude "Altitude of TMY3 location";
+ output Modelica.SIunits.Length alt "Altitude of TMY3 location";
 protected
  Integer nexInd "Next index, used for error handling";
  String element "String representation of the returned element";
@@ -15,18 +15,13 @@ algorithm
       filNam=filNam,
       start="#LOCATION",
       name = "Altitude");
-   (nexInd, Altitude) :=Modelica.Utilities.Strings.Advanced.scanReal(
+   (nexInd, alt) :=Modelica.Utilities.Strings.Advanced.scanReal(
     string=element,
     startIndex=1,
     unsigned=false);
 
-   // Check if altitude is valid
-   assert(Altitude >= 0,
-       "Wrong value for Altitude. Received Altitude = " +
-       String(Altitude));
-
   annotation (Documentation(info="<html>
-This function returns the time zone of the TMY3 weather data file.
+This function returns the altitude of the TMY3 weather data file.
 </html>", revisions="<html>
 <ul>
 <li>
