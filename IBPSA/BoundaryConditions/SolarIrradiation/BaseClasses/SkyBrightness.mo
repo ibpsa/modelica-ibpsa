@@ -34,6 +34,7 @@ Solar Energy, 44(5):271-289.
 <li>
 September 6, 2021, by Ettore Zanetti:<br/>
 Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
+Added input connector <code>soltime</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
 </li>
