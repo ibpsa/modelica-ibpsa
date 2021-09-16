@@ -13,10 +13,6 @@ model IsotropicAndPerezDiffuseRadiation
   parameter Modelica.SIunits.Angle azi(
     displayUnit="deg")
     "Azimuth angle";
-<<<<<<< HEAD
-=======
-  parameter Modelica.SIunits.Length alt "Location altitude above sea level";
->>>>>>> issue1478_BESTEST_weatherfiles
   parameter Real rho=0.2
     "Ground reflectance";
   SolarIrradiation.DirectTiltedSurface HDir(
