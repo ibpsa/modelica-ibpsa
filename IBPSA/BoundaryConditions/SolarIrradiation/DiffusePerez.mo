@@ -11,8 +11,6 @@ block DiffusePerez
   parameter Boolean outGroCon=false
     "Output contribution of diffuse irradiation from ground";
 
-  Modelica.Blocks.Math.Add add "Block to add radiations"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Interfaces.RealOutput HSkyDifTil if outSkyCon
     "Hemispherical diffuse solar irradiation on a tilted surface from the sky"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
@@ -29,7 +27,7 @@ protected
     annotation (Placement(transformation(extent={{-62,16},{-54,24}})));
   BaseClasses.BrighteningCoefficient briCoe "Brightening coefficient"
     annotation (Placement(transformation(extent={{-40,-34},{-32,-26}})));
-  BaseClasses.RelativeAirMass relAirMas          "Relative air mass"
+  BaseClasses.RelativeAirMass relAirMas "Relative air mass"
     annotation (Placement(transformation(extent={{-80,-44},{-72,-36}})));
   BaseClasses.SkyBrightness skyBri "Sky brightness"
     annotation (Placement(transformation(extent={{-60,-54},{-52,-46}})));
@@ -37,7 +35,8 @@ protected
     final azi=azi,
     final til=til) "Incidence angle"
     annotation (Placement(transformation(extent={{-86,-96},{-76,-86}})));
-
+  Modelica.Blocks.Math.Add add "Block to add radiations"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(relAirMas.relAirMas, skyBri.relAirMas) annotation (Line(
       points={{-71.6,-40},{-66,-40},{-66,-48.4},{-60.8,-48.4}},
@@ -184,12 +183,6 @@ Solar Energy, 44(5):271-289.
 <li>
 September 6, 2021, by Ettore Zanetti:<br/>
 Removed parameter <code>lat</code> as it is now obtained from the weather data bus.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
-</li>
-<li>
-May 2, 2021, by Ettore Zanetti:<br/>
-Added altitude to parameters.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
 </li>
