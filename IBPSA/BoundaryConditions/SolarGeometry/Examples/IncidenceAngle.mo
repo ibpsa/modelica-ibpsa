@@ -3,7 +3,7 @@ model IncidenceAngle "Test model for solar incidence angle"
   extends Modelica.Icons.Example;
   IBPSA.BoundaryConditions.SolarGeometry.IncidenceAngle incAngHor(
     til=IBPSA.Types.Tilt.Ceiling, azi=0.3)
-             "Incidence angle on horizontal surface"
+    "Incidence angle on horizontal surface"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
