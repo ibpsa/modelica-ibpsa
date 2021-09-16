@@ -2,8 +2,7 @@ within IBPSA.BoundaryConditions.Validation.BESTEST;
 model WD100
   "Test model for BESTEST weather data: base case"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Angle lat=0.6952170009469
-    "Latitude angle";
+
   parameter Real rho=0
     "Ground reflectance";
   WeatherData.ReaderTMY3 weaDatHHorIR(
