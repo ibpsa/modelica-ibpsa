@@ -10,7 +10,7 @@ model IncidenceAngle "Test model for incidence angle"
   IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(
     azi=IBPSA.Types.Azimuth.S,
     til=IBPSA.Types.Tilt.Wall)
-                          "Incidence angle"
+    "Incidence angle"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
