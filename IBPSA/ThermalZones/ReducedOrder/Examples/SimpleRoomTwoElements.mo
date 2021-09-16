@@ -17,8 +17,8 @@ model SimpleRoomTwoElements
     "Calculates diffuse solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-68,20},{-48,40}})));
   BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[2](
-    each til(displayUnit="deg") = 1.5707963267949, azi={3.1415926535898,
-        4.7123889803847})
+    each til(displayUnit="deg") = 1.5707963267949,
+    azi={3.1415926535898, 4.7123889803847})
     "Calculates direct solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-68,52},{-48,72}})));
   SolarGain.CorrectionGDoublePane corGDouPan(n=2, UWin=2.1)
