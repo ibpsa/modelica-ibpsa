@@ -9,14 +9,14 @@ block SkyBrightness "Sky brightness"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealOutput skyBri "Sky brightness"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput SolarTime(quantity="Time", unit="s")
+  Modelica.Blocks.Interfaces.RealInput solTim(quantity="Time", unit="s")
     "Solar time"
     annotation (Placement(transformation(extent={{-140,-104},{-100,-64}})));
-  Real ExtRadCor "Correction for extraterrestrial radiation";
+  Real extRadCor "Correction for extraterrestrial radiation";
 equation
-  ExtRadCor = 1 + 0.033*cos(2*Modelica.Constants.pi*(SolarTime/86400+1)/365);
+  extRadCor =1 + 0.033*cos(2*Modelica.Constants.pi*(solTim/86400 + 1)/365);
   skyBri = IBPSA.Utilities.Math.Functions.smoothMin(
-    HDifHor*relAirMas/(1366.1*ExtRadCor),
+    HDifHor*relAirMas/(1366.1*extRadCor),
     1,
     0.025);
   annotation (

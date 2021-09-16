@@ -46,7 +46,7 @@ equation
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(weaBus.solTim, skyBri.SolarTime) annotation (Line(
+  connect(weaBus.solTim, skyBri.solTim) annotation (Line(
       points={{-40,-10},{-40,-14.4},{58,-14.4}},
       color={255,204,51},
       thickness=0.5), Text(

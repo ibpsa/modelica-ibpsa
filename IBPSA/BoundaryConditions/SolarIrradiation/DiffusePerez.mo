@@ -136,7 +136,7 @@ equation
   connect(HDifTil.HGroDifTil, HGroDifTil) annotation (Line(
       points={{44.1,-8.4},{52,-8.4},{52,-60},{110,-60}},
       color={0,0,127}));
-  connect(weaBus.solTim, skyBri.SolarTime) annotation (Line(
+  connect(weaBus.solTim, skyBri.solTim) annotation (Line(
       points={{-100,0},{-96,0},{-96,-53.36},{-60.8,-53.36}},
       color={255,204,51},
       thickness=0.5), Text(
