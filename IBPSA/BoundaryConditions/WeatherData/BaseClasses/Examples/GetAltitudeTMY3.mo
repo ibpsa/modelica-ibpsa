@@ -6,15 +6,12 @@ model GetAltitudeTMY3 "Test model to get Altitude of TMY3"
   "modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Name of weather data file";
 
-  Modelica.SIunits.Length Altitude
+  Modelica.SIunits.Length alt
     "Altitude of TMY3 location";
 
-
-
 equation
-  Altitude = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getAltitudeLocationTMY3(
+  alt = IBPSA.BoundaryConditions.WeatherData.BaseClasses.getAltitudeLocationTMY3(
   filNam);
-
 
   annotation (
     Documentation(info="<html>
@@ -36,6 +33,6 @@ First implementation.
 </ul>
 </html>"),
 experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAltitudeTMY3.mos"
         "Simulate and plot"));
 end GetAltitudeTMY3;
