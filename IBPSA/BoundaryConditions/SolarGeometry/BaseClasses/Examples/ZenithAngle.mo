@@ -2,7 +2,7 @@ within IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model ZenithAngle "Test model for zenith angle"
   extends Modelica.Icons.Example;
   IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen
-                          "Zenith angle"
+    "Zenith angle"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
