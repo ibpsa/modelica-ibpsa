@@ -6,6 +6,7 @@ ConvertTimeNegativeStart
 ConvertTimePositiveStart
 EquationOfTime
 GetAbsolutePath
+GetAltitudeTMY3
 GetHeaderElement
 GetTimeSpanTMY3
 GetTimeSpanTMY3LongHeader
@@ -13,4 +14,3 @@ GetTimeSpanTMY3_NonzeroStart
 LimitMin
 LocalCivilTime
 SolarTime
-GetAltitudeTMY3
