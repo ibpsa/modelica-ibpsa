@@ -75,7 +75,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, skyBri.HDifHor) annotation (Line(
-      points={{-100,0},{-92,0},{-92,-50},{-60.8,-50}},
+      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-50},{-60.8,-50}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%first",

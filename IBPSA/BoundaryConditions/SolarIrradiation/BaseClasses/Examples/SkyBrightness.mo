@@ -3,13 +3,13 @@ model SkyBrightness "Test model for sky brightness"
   extends Modelica.Icons.Example;
   IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass relAirMas
     "Relative air mass"
-     annotation (Placement(transformation(extent={{10,26},{30,46}})));
+     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   IBPSA.BoundaryConditions.SolarGeometry.ZenithAngle zen
     "Zenith angle"
     annotation (Placement(transformation(extent={{-26,20},{-6,40}})));
   IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses.SkyBrightness skyBri
     "Sky brightness"
-    annotation (Placement(transformation(extent={{60,-16},{80,4}})));
+    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data"
@@ -20,10 +20,10 @@ model SkyBrightness "Test model for sky brightness"
             -22,-20},{-22,-20}})));
 equation
   connect(zen.y, relAirMas.zen) annotation (Line(
-      points={{-5,30},{8,30}},
+      points={{-5,30},{8,30},{8,34},{18,34}},
       color={0,0,127}));
   connect(relAirMas.relAirMas, skyBri.relAirMas) annotation (Line(
-      points={{31,36},{40,36},{40,0},{58,0}},
+      points={{41,40},{50,40},{50,-4},{58,-4}},
       color={0,0,127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-60,-10},{-40,-10}},
@@ -33,7 +33,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.HDifHor, skyBri.HDifHor) annotation (Line(
-      points={{-40,-10},{10,-10},{10,-6},{58,-6}},
+      points={{-40,-10},{58,-10}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%first",
@@ -47,7 +47,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.solTim, skyBri.solTim) annotation (Line(
-      points={{-40,-10},{-40,-12},{58,-12}},
+      points={{-40,-10},{-40,-16},{58,-16}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -55,7 +55,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus.alt, relAirMas.alt) annotation (Line(
-      points={{-40,-10},{-40,50},{0,50},{0,42},{8,42}},
+      points={{-40,-10},{-40,50},{8,50},{8,46},{18,46}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

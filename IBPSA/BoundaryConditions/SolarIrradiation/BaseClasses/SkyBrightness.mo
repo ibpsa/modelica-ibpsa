@@ -61,7 +61,7 @@ First implementation.
           lineColor={0,0,127},
           textString="relAirMas"),
         Text(
-          extent={{-44,-6},{-96,6}},
+          extent={{-46,-6},{-98,6}},
           lineColor={0,0,127},
           textString="HDifHor"),
         Text(

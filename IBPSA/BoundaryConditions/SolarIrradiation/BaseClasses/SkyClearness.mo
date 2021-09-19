@@ -52,7 +52,7 @@ This component computes the sky clearness.
 </p>
 <h4>Implementation</h4>
 <p>
-In the <code>IBPSA</code> library, <code>HGloHor</code>
+The quantity <code>HGloHor</code>
 is always larger than <i>1E-4</i>,
 minus some small undershoot due to regularization. Hence,
 the implementation is not simplified for
