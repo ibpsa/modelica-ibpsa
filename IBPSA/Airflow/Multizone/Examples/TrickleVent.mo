@@ -95,7 +95,7 @@ equation
           -30},{14,-20},{12,-20}}, color={0,127,255}));
   connect(tabdat_V.port_b, west.ports[1])
     annotation (Line(points={{50,-30},{60,-30}}, color={0,127,255}));
-  annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneEffectiveAirLeakageArea.mos"
+  annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Examples/TrickleVent.mos"
         "Simulate and plot"),
         experiment(
       StopTime=2592000,
