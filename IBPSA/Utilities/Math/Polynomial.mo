@@ -1,5 +1,5 @@
 within IBPSA.Utilities.Math;
-block Polynominal "Polynominal function"
+block Polynomial "Polynominal function"
   extends Modelica.Blocks.Interfaces.SISO;
  parameter Real a[:] "Coefficients";
 equation
@@ -15,4 +15,4 @@ equation
           extent={{-90,38},{90,-34}},
           lineColor={160,160,164},
           textString="polynominal()")}));
-end Polynominal;
+end Polynomial;
