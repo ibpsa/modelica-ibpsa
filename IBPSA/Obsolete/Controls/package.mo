@@ -1,5 +1,5 @@
 within IBPSA.Obsolete;
-package Controls "fixme: add brief description"
+package Controls "Package with obsolete models for controls"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>

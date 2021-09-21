@@ -1,10 +1,10 @@
 within IBPSA.Obsolete.Controls;
-package Continuous "fixme: add brief description"
+package Continuous "Package with obsolete models for continuous time control"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains obsolete models for continuous time controls.
+This package contains obsolete models for continuous time control.
 </p>
 </html>"));
 end Continuous;
