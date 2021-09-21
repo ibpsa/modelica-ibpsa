@@ -61,7 +61,7 @@ model PIDHysteresisTimer
   Modelica.Blocks.Interfaces.RealOutput tOff "Time since boiler switched off"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
-  LimPID con(
+  IBPSA.Controls.Continuous.LimPID con(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -79,7 +79,7 @@ model PIDHysteresisTimer
     final reverseActing=reverseActing,
     final strict=strict) "Controller to track setpoint"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
-  OffTimer offHys
+  IBPSA.Controls.Continuous.OffTimer offHys
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Modelica.Blocks.Logical.Timer onTimer
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));

@@ -52,7 +52,7 @@ model PIDHysteresis
   parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
 
-  LimPID PID(
+  IBPSA.Controls.Continuous.LimPID PID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
