@@ -9,7 +9,16 @@ equation
 <p align=\"center\"><i>y = a1 + a2 x + a3 x2 + ... </i></p>
 </html>", revisions="<html>
 <ul>
-<li>November 28, 2013, by Marcus Fuchs:<br/>First implementation. </li>
+<li>
+September 21, 2021, by Michael Wetter:<br/>
+Renamed class to correct typo in class name.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1524\">IBPSA, #1524</a>.
+</li>
+<li>
+November 28, 2013, by Marcus Fuchs:<br/>
+First implementation.
+</li>
 </ul>
 </html>"), Icon(graphics={   Text(
           extent={{-90,38},{90,-34}},
