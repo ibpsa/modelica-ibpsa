@@ -1,9 +1,9 @@
-within IBPSA.Controls.Continuous.Examples;
+within IBPSA.Obsolete.Controls.Continuous.Examples;
 model PIDHysteresisTimer
   "Example model for PID controller with hysteresis and timer"
   extends Modelica.Icons.Example;
 
-  IBPSA.Controls.Continuous.PIDHysteresisTimer con(
+  IBPSA.Obsolete.Controls.Continuous.PIDHysteresisTimer con(
     yMin=0.3,
     minOffTime=10000,
     Ti=60,
@@ -59,7 +59,7 @@ equation
   connect(sine.y, TBC.T) annotation (Line(
       points={{-59,70},{-2,70}},
       color={0,0,127}));
- annotation (                      __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresisTimer.mos"
+ annotation (                      __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Obsolete/Controls/Continuous/Examples/PIDHysteresisTimer.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=86400),
     Documentation(info="<html>
@@ -67,8 +67,8 @@ equation
 Example that demonstrates the use of the PID controller
 with hysteresis and off timer.
 The example is identical to
-<a href=\"modelica://IBPSA.Controls.Continuous.Examples.PIDHysteresis\">
-IBPSA.Controls.Continuous.Examples.PIDHysteresis</a>,
+<a href=\"modelica://IBPSA.Obsolete.Controls.Continuous.Examples.PIDHysteresis\">
+IBPSA.Obsolete.Controls.Continuous.Examples.PIDHysteresis</a>,
 except that the controller also has an off timer.
 This timer keeps the control signal at <i>y=0</i>
 for a period of <code>minOffTime=1000</code> seconds.
@@ -81,8 +81,8 @@ The figure below shows the control error
 <code>con.y</code>.
 </p>
 <p align=\"center\">
-<img src=\"modelica://IBPSA/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerError.png\" border=\"1\" alt=\"Control error.\"/><br/>
-<img src=\"modelica://IBPSA/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerOutput.png\" border=\"1\" alt=\"Control signal.\"/>
+<img src=\"modelica://IBPSA/Resources/Images/Obsolete/Controls/Continuous/Examples/PIDHysteresisTimerError.png\" border=\"1\" alt=\"Control error.\"/><br/>
+<img src=\"modelica://IBPSA/Resources/Images/Obsolete/Controls/Continuous/Examples/PIDHysteresisTimerOutput.png\" border=\"1\" alt=\"Control signal.\"/>
 </p>
 </html>", revisions="<html>
 <ul>

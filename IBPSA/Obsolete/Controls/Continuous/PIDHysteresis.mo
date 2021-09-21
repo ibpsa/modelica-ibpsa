@@ -1,4 +1,4 @@
-within IBPSA.Controls.Continuous;
+within IBPSA.Obsolete.Controls.Continuous;
 model PIDHysteresis
   "PID controller with anti-windup, output limiter and output hysteresis"
   extends Modelica.Blocks.Interfaces.SVcontrol;
@@ -183,8 +183,8 @@ used in the PID controller.
 April 13, 2016, by Michael Wetter:<br/>
 Set <code>zer(final k=0)</code> and made swi, zer and zer1 protected
 which they are also for
-<a href=\"modelica://IBPSA.Controls.Continuous.PIDHysteresis\">
-IBPSA.Controls.Continuous.PIDHysteresis</a>.
+<a href=\"modelica://IBPSA.Obsolete.Controls.Continuous.PIDHysteresis\">
+IBPSA.Obsolete.Controls.Continuous.PIDHysteresis</a>.
 These changes are not backwards compatible.
 </li>
 <li>

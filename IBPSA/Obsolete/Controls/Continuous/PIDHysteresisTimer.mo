@@ -1,4 +1,4 @@
-within IBPSA.Controls.Continuous;
+within IBPSA.Obsolete.Controls.Continuous;
 model PIDHysteresisTimer
   "PID controller with anti-windup, hysteresis and timer to prevent short cycling"
   extends Modelica.Blocks.Interfaces.SVcontrol;
@@ -208,8 +208,8 @@ controller to short cycle.
 </p>
 <p>
 The controller is similar to
-<a href=\"modelica://IBPSA.Controls.Continuous.PIDHysteresis\">
-IBPSA.Controls.Continuous.PIDHysteresis</a> but in addition,
+<a href=\"modelica://IBPSA.Obsolete.Controls.Continuous.PIDHysteresis\">
+IBPSA.Obsolete.Controls.Continuous.PIDHysteresis</a> but in addition,
 it has a timer that prevents the controller from switching to on
 too fast. When the controller switches off, the timer starts and
 avoids the controller from switching on until <code>minOffTime</code> seconds elapsed.
