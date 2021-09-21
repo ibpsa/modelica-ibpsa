@@ -54,7 +54,7 @@ model PlugFlowCore
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts";
+    "Reynolds number where transition to turbulence starts";
 
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -207,6 +207,12 @@ equation
     obsolete = "Obsolete model - use IBPSA.Fluid.FixedResistances.PlugFlowPipe instead",
     Documentation(revisions="<html>
 <ul>
+<li>
+September 21, 2021, by Michael Wetter:<br/>
+Corrected typo in comments.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1525\">#1525</a>.
+</li>
 <li>
 July 12, 2021, by Baptiste Ravache:<br/>
 This class is obsolete and replaced by
