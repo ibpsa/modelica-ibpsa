@@ -2,6 +2,7 @@ within IBPSA.Obsolete.Controls.Continuous;
 model PIDHysteresisTimer
   "PID controller with anti-windup, hysteresis and timer to prevent short cycling"
   extends Modelica.Blocks.Interfaces.SVcontrol;
+  extends IBPSA.Obsolete.BaseClasses.ObsoleteModel;
 
   parameter Real minOffTime=600
     "Minimum time that devices needs to be off before it can run again"
@@ -199,7 +200,8 @@ equation
         Line(points={{-80,84},{-80,-84}}, color={192,192,192}),
         Line(points={{-80,-76},{-48,-76},{-48,30},{2,40},{54,-42},{54,-76},{64,
               -76}}, color={0,0,127})}),
-   defaultComponentName="conPID",
+defaultComponentName="conPID",
+obsolete = "Obsolete model - use IBPSA.Controls.Continuous.LimPID instead",
 Documentation(
 info="<html>
 <p>

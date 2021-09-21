@@ -2,6 +2,7 @@ within IBPSA.Obsolete.Controls.Continuous;
 model PIDHysteresis
   "PID controller with anti-windup, output limiter and output hysteresis"
   extends Modelica.Blocks.Interfaces.SVcontrol;
+  extends IBPSA.Obsolete.BaseClasses.ObsoleteModel;
 
   parameter Real eOn = 1
     "if off and control error > eOn, switch to set point tracking"
@@ -152,6 +153,7 @@ equation
         Line(points={{12,68},{12,34}}),
         Line(points={{-60,34},{12,34}})}),
 defaultComponentName="conPID",
+obsolete = "Obsolete model - use IBPSA.Controls.Continuous.LimPID instead",
 Documentation(info="<html>
 <p>
 Block of a controller for set point tracking with a hysteresis element that switches the
