@@ -12,6 +12,12 @@ convertClass("IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore",
              "IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore");
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1498
+convertClass("IBPSA.Utilities.Math.Polynominal",
+             "IBPSA.Utilities.Math.Polynomial");
+convertClass("IBPSA.Utilities.Math.Examples.Polynominal",
+             "IBPSA.Utilities.Math.Examples.Polynomial");
+
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1498
 convertModifiers("IBPSA.Fluid.Movers.FlowControlled_dp",
                 {"y_start"}, fill("",0), true);
 convertModifiers("IBPSA.Fluid.Movers.FlowControlled_m_flow",
