@@ -43,16 +43,19 @@ model PlugFlowPipe "Simple example of plug flow pipe"
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTemOut(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
+    tau=0,
     T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTemIn(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
+    tau=0,
     T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   Sensors.TemperatureTwoPort senTemInNoMix(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
+    tau=0,
     T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
   IBPSA.Fluid.FixedResistances.PlugFlowPipe pipNoMix(
@@ -74,6 +77,7 @@ model PlugFlowPipe "Simple example of plug flow pipe"
   Sensors.TemperatureTwoPort senTemOutNoMix(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
+    tau=0,
     T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Sources.MassFlowSource_T souNoMix(
