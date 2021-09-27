@@ -1,5 +1,7 @@
 CheckValve
 FlowJunction
 HydraulicDiameter
+MultiPlugFlowPipe
+MultiPlugFlowPipeSymmetrical
 PlugFlowPipe
 PressureDrop
