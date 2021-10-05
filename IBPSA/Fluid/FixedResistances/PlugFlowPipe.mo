@@ -416,11 +416,14 @@ The pressure drop is implemented using
 IBPSA.Fluid.FixedResistances.HydraulicDiameter</a>.
 </p>
 <p>
-The thermal capacity of the pipe wall is implemented as a mixing volume (at
-<code>port_b</code>) of the fluid in the pipe, of which the thermal capacity
-is equal to that of the pipe wall material.
+The thermal capacity of the pipe wall is implemented as a mixing volume 
+of the fluid in the pipe, of which the thermal capacity is equal to that 
+of the pipe wall material.
 In addition, this mixing volume allows the hydraulic separation of subsequent pipes.
 <br/>
+The mixing volume is either split between the inlet and outlet ports 
+(port_a and port_b) or lumped in at the outlet (port_b) 
+if <code>have_symmetry</code> is set to false.
 This mixing volume can be removed from this model with the Boolean parameter
 <code>have_pipCap</code>, in cases where the pipe wall heat capacity
 is negligible and a state is not needed at the pipe outlet
