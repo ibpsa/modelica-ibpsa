@@ -76,7 +76,8 @@ model PlugFlowPipe
     annotation (Dialog(group="Thermal resistance"));
 
   parameter Real fac=1
-    "Factor to take into account flow resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
+    "Factor to take into account flow resistance of bends etc., 
+    fac=dp_nominal/dpStraightPipe_nominal";
 
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -92,71 +93,6 @@ model PlugFlowPipe
     "Heat transfer to or from surroundings (positive if pipe is colder than surrounding)";
 
   Modelica.SIunits.Velocity v = del.v "Flow velocity of medium in pipe";
-
-  // In the volume, below, we scale down V and use
-  // mSenFac. Otherwise, for air, we would get very large volumes
-  // which affect the delay of water vapor and contaminants.
-  // See also IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.TransportWaterAir
-  // for why mSenFac is 10 and not 1000, as this gives more reasonable
-  // temperature step response
-  Fluid.MixingVolumes.MixingVolume vol_b(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final V=if rho_default > 500 then VEqu else VEqu/1000,
-    final nPorts=2,
-    final T_start=T_start_out,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final mSenFac=if rho_default > 500 then 1 else 10) if have_pipCap
-    "Control volume connected to port_b. 
-    Represents equivalent pipe wall thermal capacity."
-    annotation (Placement(transformation(extent={{70,20},{90,40}})));
-  LosslessPipe noMixPip_b(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final m_flow_small=m_flow_small,
-    final allowFlowReversal=allowFlowReversal) if not have_pipCap
-    "Lossless pipe for connecting the outlet port when have_pipCap=false"
-    annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
-
-  MixingVolumes.MixingVolume vol_a(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final V=if rho_default > 500 then VEqu else VEqu/1000,
-    final nPorts=2,
-    final T_start=T_start_out,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final mSenFac=if rho_default > 500 then 1 else 10) if have_pipCap_a
-    "Control volume connected to port_a. 
-    Represents equivalent pipe wall thermal capacity."
-    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
-  LosslessPipe noMixPip_a(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final m_flow_small=m_flow_small,
-    final allowFlowReversal=allowFlowReversal) if not have_pipCap_a
-    "Lossless pipe for connecting the outlet port when have_pipCap=false 
-    or have_symmetry=false"
-    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-
-  IBPSA.Fluid.FixedResistances.HydraulicDiameter res(
-    redeclare final package Medium = Medium,
-    final dh=dh,
-    final m_flow_nominal=m_flow_nominal,
-    final from_dp=from_dp,
-    final length=length,
-    final roughness=roughness,
-    final fac=fac,
-    final ReC=ReC,
-    final v_nominal=v_nominal,
-    final allowFlowReversal=allowFlowReversal,
-    final show_T=false,
-    final homotopyInitialization=homotopyInitialization,
-    final linearized=linearized,
-    dp(nominal=fac*200*length))
-    "Pressure drop calculation for this pipe"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={0,40})));
 
 protected
   parameter Modelica.SIunits.HeatCapacity CPip=
@@ -231,6 +167,71 @@ protected
     final m_flow_nominal=m_flow_nominal,
     final m_flow_start=m_flow_start) "Time delay"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+
+  // In the volume, below, we scale down V and use
+  // mSenFac. Otherwise, for air, we would get very large volumes
+  // which affect the delay of water vapor and contaminants.
+  // See also IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.TransportWaterAir
+  // for why mSenFac is 10 and not 1000, as this gives more reasonable
+  // temperature step response
+  Fluid.MixingVolumes.MixingVolume vol_b(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final V=if rho_default > 500 then VEqu else VEqu/1000,
+    final nPorts=2,
+    final T_start=T_start_out,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final mSenFac=if rho_default > 500 then 1 else 10) if have_pipCap
+    "Control volume connected to port_b. 
+    Represents equivalent pipe wall thermal capacity."
+    annotation (Placement(transformation(extent={{70,20},{90,40}})));
+  LosslessPipe noMixPip_b(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final m_flow_small=m_flow_small,
+    final allowFlowReversal=allowFlowReversal) if not have_pipCap
+    "Lossless pipe for connecting the outlet port when have_pipCap=false"
+    annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
+
+  MixingVolumes.MixingVolume vol_a(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final V=if rho_default > 500 then VEqu else VEqu/1000,
+    final nPorts=2,
+    final T_start=T_start_out,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final mSenFac=if rho_default > 500 then 1 else 10) if have_pipCap_a
+    "Control volume connected to port_a. 
+    Represents equivalent pipe wall thermal capacity."
+    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
+  LosslessPipe noMixPip_a(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final m_flow_small=m_flow_small,
+    final allowFlowReversal=allowFlowReversal) if not have_pipCap_a
+    "Lossless pipe for connecting the outlet port when have_pipCap=false 
+    or have_symmetry=false"
+    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
+
+  IBPSA.Fluid.FixedResistances.HydraulicDiameter res(
+    redeclare final package Medium = Medium,
+    final dh=dh,
+    final m_flow_nominal=m_flow_nominal,
+    final from_dp=from_dp,
+    final length=length,
+    final roughness=roughness,
+    final fac=fac,
+    final ReC=ReC,
+    final v_nominal=v_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=false,
+    final homotopyInitialization=homotopyInitialization,
+    final linearized=linearized,
+    dp(nominal=fac*200*length))
+    "Pressure drop calculation for this pipe"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={0,40})));
 
 
 initial equation
@@ -333,6 +334,9 @@ equation
 d = %dh")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+October 05, 2021, by Baptiste Ravache:<br/>
+Made model symmetrical and extends from PartialTwoPortInterface</li>
 <li>
 September 14, 2021, by Michael Wetter:<br/>
 Made most instances protected and exposed main variables of interest.
