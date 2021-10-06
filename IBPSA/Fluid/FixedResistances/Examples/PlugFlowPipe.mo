@@ -4,7 +4,8 @@ model PlugFlowPipe "Simple example of plug flow pipe"
   replaceable package Medium = IBPSA.Media.Water "Medium in the pipe" annotation (
       choicesAllMatching=true);
 
-  final parameter Modelica.SIunits.MassFlowRate m_flow = 3 "Mass flow rate";
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3
+    "Mass flow rate";
 
   Modelica.Blocks.Sources.Ramp Tin(
     height=20,
@@ -24,11 +25,11 @@ model PlugFlowPipe "Simple example of plug flow pipe"
     length=100,
     dIns=0.05,
     kIns=0.028,
-    m_flow_nominal=m_flow,
+    m_flow_nominal=m_flow_nominal,
     cPip=500,
     thickness=0.0032,
     initDelay=true,
-    m_flow_start=m_flow,
+    m_flow_start=m_flow_nominal,
     rhoPip=8000,
     T_start_in=323.15,
     T_start_out=323.15) "Pipe"
@@ -39,25 +40,25 @@ model PlugFlowPipe "Simple example of plug flow pipe"
   IBPSA.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_T_in=true,
-    m_flow=m_flow,
+    m_flow=m_flow_nominal,
     nPorts=1) "Flow source"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTemOut(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow,
+    m_flow_nominal=m_flow_nominal,
     tau=0,
     T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTemIn(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow,
+    m_flow_nominal=m_flow_nominal,
     tau=0,
     T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   Sensors.TemperatureTwoPort senTemInNoMix(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow,
+    m_flow_nominal=m_flow_nominal,
     tau=0,
     T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
@@ -68,25 +69,25 @@ model PlugFlowPipe "Simple example of plug flow pipe"
     length=100,
     dIns=0.05,
     kIns=0.028,
-    m_flow_nominal=m_flow,
+    m_flow_nominal=m_flow_nominal,
     cPip=500,
     thickness=0.0032,
     initDelay=true,
-    m_flow_start=m_flow,
+    m_flow_start=m_flow_nominal,
     rhoPip=8000,
     T_start_in=323.15,
     T_start_out=323.15) "Pipe"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Sensors.TemperatureTwoPort senTemOutNoMix(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow,
+    m_flow_nominal=m_flow_nominal,
     tau=0,
     T_start=323.15) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Sources.MassFlowSource_T souNoMix(
     redeclare package Medium = Medium,
     use_T_in=true,
-    m_flow=m_flow,
+    m_flow=m_flow_nominal,
     nPorts=1) "Flow source"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
@@ -97,7 +98,7 @@ equation
     annotation (Line(points={{20,20},{40,20}},
                                              color={0,127,255}));
   connect(senTemOut.port_b, sin.ports[1])
-    annotation (Line(points={{60,20},{76,20},{76,2},{80,2}},
+    annotation (Line(points={{60,20},{76,20},{76,-1},{80,-1}},
                                              color={0,127,255}));
   connect(senTemIn.port_b, pip.port_a)
     annotation (Line(points={{-10,20},{0,20}},
@@ -107,7 +108,7 @@ equation
   connect(pipNoMix.port_b, senTemOutNoMix.port_a)
     annotation (Line(points={{20,-20},{40,-20}}, color={0,127,255}));
   connect(senTemOutNoMix.port_b, sin.ports[2]) annotation (Line(points={{60,-20},
-          {76,-20},{76,-2},{80,-2}}, color={0,127,255}));
+          {76,-20},{76,1},{80,1}},   color={0,127,255}));
   connect(bou[1].port, pip.heatPort)
     annotation (Line(points={{-20,70},{-4,70},{-4,40},{10,40},{10,30}},
                                                         color={191,0,0}));
