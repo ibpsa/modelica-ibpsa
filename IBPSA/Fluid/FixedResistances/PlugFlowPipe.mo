@@ -339,7 +339,10 @@ equation
 <ul>
 <li>
 October 05, 2021, by Baptiste Ravache:<br/>
-Made model symmetrical and extends from PartialTwoPortInterface</li>
+Made model symmetrical and extends from
+<a href=\"IBPSA.Fluid.Interfaces.PartialTwoPortInterface\">
+IBPSA.Fluid.Interfaces.PartialTwoPortInterface</a>.
+</li>
 <li>
 September 14, 2021, by Michael Wetter:<br/>
 Made most instances protected and exposed main variables of interest.
