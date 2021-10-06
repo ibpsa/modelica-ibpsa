@@ -16,7 +16,7 @@ model PlugFlowPipe
     to the heat capacity of the pipe wall"
     annotation (Dialog(tab="Advanced"));
   parameter Boolean have_symmetry=true
-    "= false, the mixing volume is only on port_b, 
+    "= false, the mixing volume is only on port_b,
     which improve performances, but reduces dynamic accuracy."
     annotation (Dialog(tab="Advanced", enable=have_pipCap));
 
@@ -76,7 +76,7 @@ model PlugFlowPipe
     annotation (Dialog(group="Thermal resistance"));
 
   parameter Real fac=1
-    "Factor to take into account flow resistance of bends etc., 
+    "Factor to take into account flow resistance of bends etc.,
     fac=dp_nominal/dpStraightPipe_nominal";
 
   parameter Boolean linearized = false
@@ -182,7 +182,7 @@ protected
     final T_start=T_start_out,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final mSenFac=if rho_default > 500 then 1 else 10) if have_pipCap
-    "Control volume connected to port_b. 
+    "Control volume connected to port_b.
     Represents equivalent pipe wall thermal capacity."
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
   LosslessPipe noMixPip_b(
@@ -201,7 +201,7 @@ protected
     final T_start=T_start_out,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final mSenFac=if rho_default > 500 then 1 else 10) if have_pipCap_a
-    "Control volume connected to port_a. 
+    "Control volume connected to port_a.
     Represents equivalent pipe wall thermal capacity."
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
   LosslessPipe noMixPip_a(
@@ -209,7 +209,7 @@ protected
     final m_flow_nominal=m_flow_nominal,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal) if not have_pipCap_a
-    "Lossless pipe for connecting the outlet port when have_pipCap=false 
+    "Lossless pipe for connecting the outlet port when have_pipCap=false
     or have_symmetry=false"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
 
@@ -236,7 +236,7 @@ protected
 
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization has been modified from its default 
+    ": The constant homotopyInitialization has been modified from its default
     value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);
 
@@ -422,13 +422,13 @@ The pressure drop is implemented using
 IBPSA.Fluid.FixedResistances.HydraulicDiameter</a>.
 </p>
 <p>
-The thermal capacity of the pipe wall is implemented as a mixing volume 
-of the fluid in the pipe, of which the thermal capacity is equal to that 
+The thermal capacity of the pipe wall is implemented as a mixing volume
+of the fluid in the pipe, of which the thermal capacity is equal to that
 of the pipe wall material.
 In addition, this mixing volume allows the hydraulic separation of subsequent pipes.
 <br/>
-The mixing volume is either split between the inlet and outlet ports 
-(port_a and port_b) or lumped in at the outlet (port_b) 
+The mixing volume is either split between the inlet and outlet ports
+(port_a and port_b) or lumped in at the outlet (port_b)
 if <code>have_symmetry</code> is set to false.
 This mixing volume can be removed from this model with the Boolean parameter
 <code>have_pipCap</code>, in cases where the pipe wall heat capacity
