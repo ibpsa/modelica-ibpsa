@@ -14,8 +14,16 @@ convertModifiers("IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
 
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1498
-convertModifiers("IBPSA.Fluid.Movers.FlowControlled_dp",{"y_start"}, fill("",0), true);
-convertModifiers("IBPSA.Fluid.Movers.FlowControlled_m_flow",{"y_start"}, fill("",0), true);
+convertClass("IBPSA.Utilities.Math.Polynominal",
+             "IBPSA.Utilities.Math.Polynomial");
+convertClass("IBPSA.Utilities.Math.Examples.Polynominal",
+             "IBPSA.Utilities.Math.Examples.Polynomial");
+
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1498
+convertModifiers("IBPSA.Fluid.Movers.FlowControlled_dp",
+                {"y_start"}, fill("",0), true);
+convertModifiers("IBPSA.Fluid.Movers.FlowControlled_m_flow",
+                {"y_start"}, fill("",0), true);
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1365
 convertModifiers("IBPSA.Controls.Continuous.LimPID", {"reverseAction"}, {"reverseActing=not %reverseAction%"});
