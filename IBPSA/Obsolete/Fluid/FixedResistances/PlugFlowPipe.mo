@@ -19,7 +19,7 @@ model PlugFlowPipe "Pipe model using spatialDistribution for temperature delay"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts";
+    "Reynolds number where transition to turbulence starts";
 
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
@@ -214,6 +214,12 @@ d = %dh")}),
     obsolete = "Obsolete model - use IBPSA.Fluid.FixedResistances.PlugFlowPipe instead",
     Documentation(revisions="<html>
 <ul>
+<li>
+September 21, 2021, by Michael Wetter:<br/>
+Corrected typo in comments.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1525\">#1525</a>.
+</li>
 <li>
 July 12, 2021, by Baptiste Ravache:<br/>
 This class is obsolete and replaced by
