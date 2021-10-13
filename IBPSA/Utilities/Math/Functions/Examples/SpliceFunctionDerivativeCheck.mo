@@ -38,6 +38,7 @@ equation
 
  annotation(experiment(
       StartTime=-1,
+      StopTime=1,
       Tolerance=1e-06),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SpliceFunctionDerivativeCheck.mos"
         "Simulate and plot"),
