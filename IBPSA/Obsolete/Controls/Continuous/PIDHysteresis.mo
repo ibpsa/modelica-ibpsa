@@ -171,6 +171,11 @@ is small enough.
 </html>", revisions="<html>
 <ul>
 <li>
+September 21, 2021, by Michael Wetter:<br/>
+Moved model to <code>IBPSA.Obsolete</code> package.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1522\">IBPSA, issue 1522</a>.
+</li>
+<li>
 June 1, 2020, by Michael Wetter:<br/>
 Corrected wrong convention of reverse and direct action.<br/>
 Changed default configuration from PID to PI.<br/>

@@ -85,6 +85,11 @@ The figure below shows the control error
 </html>", revisions="<html>
 <ul>
 <li>
+September 21, 2021, by Michael Wetter:<br/>
+Moved model to <code>IBPSA.Obsolete</code> package.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1522\">IBPSA, issue 1522</a>.
+</li>
+<li>
 November 21, 2011, by Michael Wetter:<br/>
 Added documentation.
 </li>
