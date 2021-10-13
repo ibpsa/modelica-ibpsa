@@ -1,4 +1,4 @@
-within IBPSA.Fluid.FixedResistances.BaseClasses.Validation;
+within IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.Validation;
 model PlugFlowCore "Simple example of plug flow pipe core"
   extends Modelica.Icons.Example;
   replaceable package Medium = IBPSA.Media.Water "Medium in pipes"
@@ -45,13 +45,13 @@ model PlugFlowCore "Simple example of plug flow pipe core"
     offset=273.15 + 50,
     startTime=100) "Ramp temperature signal"
     annotation (Placement(transformation(extent={{-92,-6},{-72,14}})));
-  Sources.Boundary_pT sin(
+  IBPSA.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     T=273.15 + 10,
     nPorts=1,
     p(displayUnit="Pa") = 101325) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{82,-10},{62,10}})));
-  IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore pip(
+  IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore pip(
     redeclare package Medium = Medium,
     from_dp=true,
     dh=0.1,
@@ -108,12 +108,18 @@ equation
     Documentation(info="<html>
 <p>
 Basic test of model
-<a href=\"modelica://IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">
-IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore</a>.
+<a href=\"modelica://IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore\">
+IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore</a>.
 This test includes an inlet temperature step under a constant mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 12, 2021, by Baptiste Ravache:<br/>
+This validation is for a class that is now obsolete.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1494\">IBPSA, #1494</a>.
+</li>
 <li>
 October 23, 2017, by Michael Wetter:<br/>
 Corrected wrong hyperlink, updated example for new set of parameters that

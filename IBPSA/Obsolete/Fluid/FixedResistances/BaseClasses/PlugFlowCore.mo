@@ -1,6 +1,7 @@
-within IBPSA.Fluid.FixedResistances.BaseClasses;
+within IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses;
 model PlugFlowCore
   "Pipe model using spatialDistribution for temperature delay with modified delay tracker"
+  extends IBPSA.Obsolete.BaseClasses.ObsoleteModel;
   extends IBPSA.Fluid.Interfaces.PartialTwoPort;
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -35,7 +36,6 @@ model PlugFlowCore
   parameter Real fac=1
     "Factor to take into account flow resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
 
-
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
@@ -54,7 +54,7 @@ model PlugFlowCore
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts";
+    "Reynolds number where transition to turbulence starts";
 
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -204,8 +204,23 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={215,202,187})}),
+    obsolete = "Obsolete model - use IBPSA.Fluid.FixedResistances.PlugFlowPipe instead",
     Documentation(revisions="<html>
 <ul>
+<li>
+September 21, 2021, by Michael Wetter:<br/>
+Corrected typo in comments.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1525\">#1525</a>.
+</li>
+<li>
+July 12, 2021, by Baptiste Ravache:<br/>
+This class is obsolete and replaced by
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.PlugFlowPipe\">
+IBPSA.Fluid.FixedResistances.PlugFlowPipe</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1494\">IBPSA, #1494</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

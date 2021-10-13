@@ -11,6 +11,18 @@ convertClass("IBPSA.Controls.Continuous.PIDHysteresisTimer",
 convertClass("IBPSA.Controls.Continuous.PIDHysteresis",
              "IBPSA.Obsolete.Controls.Continuous.PIDHysteresis");
 
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1477
+convertModifiers("IBPSA.BoundaryConditions.SolarGeometry.IncidenceAngle", {"lat"}, fill("",0), true);
+convertModifiers("IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle", {"lat"}, fill("",0), true);
+convertModifiers("IBPSA.BoundaryConditions.SolarGeometry.ZenithAngle", {"lat"}, fill("",0), true);
+convertModifiers("IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez", {"lat"}, fill("",0), true);
+convertModifiers("IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface", {"lat"}, fill("",0), true);
+
+// Refactoring for https://github.com/ibpsa/modelica-ibpsa/issues/1494
+convertClass("IBPSA.Fluid.FixedResistances.PlugFlowPipe",
+             "IBPSA.Obsolete.Fluid.FixedResistances.PlugFlowPipe");
+convertClass("IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore",
+             "IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore");
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1498
 convertClass("IBPSA.Utilities.Math.Polynominal",
