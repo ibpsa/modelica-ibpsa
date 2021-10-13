@@ -48,7 +48,7 @@ revisions="<html>
 <ul>
 <li>
 October 13, 2021, by Michael Wetter:<br/>
-Changed implementation to not use <code>cosh</code> which overflow around <i>800</i>.<br/>
+Changed implementation to not use <code>cosh</code> which overflows around <i>800</i>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1531\">IBPSA, issue 1531</a>.
 </li>
