@@ -2,31 +2,26 @@ within IBPSA.BoundaryConditions.SolarGeometry.Examples;
 model IncidenceAngle "Test model for solar incidence angle"
   extends Modelica.Icons.Example;
   IBPSA.BoundaryConditions.SolarGeometry.IncidenceAngle incAngHor(
-    til=IBPSA.Types.Tilt.Ceiling,
-    lat=0.73097781993588,
-    azi=0.3) "Incidence angle on horizontal surface"
+    til=IBPSA.Types.Tilt.Ceiling, azi=0.3)
+    "Incidence angle on horizontal surface"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data (Chicago)"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   IBPSA.BoundaryConditions.SolarGeometry.IncidenceAngle incAngNor(
-    lat=0.73097781993588,
     azi=IBPSA.Types.Azimuth.N,
     til=IBPSA.Types.Tilt.Wall) "Incidence angle on North-facing surface"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   IBPSA.BoundaryConditions.SolarGeometry.IncidenceAngle incAngWes(
-    lat=0.73097781993588,
     azi=IBPSA.Types.Azimuth.W,
     til=IBPSA.Types.Tilt.Wall) "Incidence angle on West-facing surface"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   IBPSA.BoundaryConditions.SolarGeometry.IncidenceAngle incAngSou(
-    lat=0.73097781993588,
     azi=IBPSA.Types.Azimuth.S,
     til=IBPSA.Types.Tilt.Wall) "Incidence angle on South-facing surface"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   IBPSA.BoundaryConditions.SolarGeometry.IncidenceAngle incAngEas(
-    lat=0.73097781993588,
     azi=IBPSA.Types.Azimuth.E,
     til=IBPSA.Types.Tilt.Wall) "Incidence angle on East-facing surface"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
