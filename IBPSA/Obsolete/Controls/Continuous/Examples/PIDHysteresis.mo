@@ -1,8 +1,8 @@
-within IBPSA.Controls.Continuous.Examples;
+within IBPSA.Obsolete.Controls.Continuous.Examples;
 model PIDHysteresis "Example model for PID controller with hysteresis"
   extends Modelica.Icons.Example;
 
-  IBPSA.Controls.Continuous.PIDHysteresis con(
+  IBPSA.Obsolete.Controls.Continuous.PIDHysteresis con(
     pre_y_start=false,
     yMin=0.3,
     Ti=600,
@@ -59,7 +59,7 @@ equation
   connect(sine.y, TBC.T) annotation (Line(
       points={{-59,70},{-2,70}},
       color={0,0,127}));
- annotation (                      __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresis.mos"
+ annotation (                      __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Obsolete/Controls/Continuous/Examples/PIDHysteresis.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=86400),
     Documentation(info="<html>
@@ -80,10 +80,15 @@ The figure below shows the control error
 <code>con.y</code>.
 </p>
 <p align=\"center\">
-<img src=\"modelica://IBPSA/Resources/Images/Controls/Continuous/Examples/PIDHysteresis.png\" border=\"1\" alt=\"Control error.\"/>
+<img src=\"modelica://IBPSA/Resources/Images/Obsolete/Controls/Continuous/Examples/PIDHysteresis.png\" border=\"1\" alt=\"Control error.\"/>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 21, 2021, by Michael Wetter:<br/>
+Moved model to <code>IBPSA.Obsolete</code> package.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1522\">IBPSA, issue 1522</a>.
+</li>
 <li>
 November 21, 2011, by Michael Wetter:<br/>
 Added documentation.
