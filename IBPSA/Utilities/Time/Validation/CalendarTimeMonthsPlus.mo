@@ -4,7 +4,7 @@ model CalendarTimeMonthsPlus
   extends IBPSA.Utilities.Time.Validation.CalendarTimeMonths;
 
   annotation (
-    __Dymola_Commands(file="modelica://IBPSA.Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsPlus.mos"
+    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsPlus.mos"
         "Simulate and plot"),
   Documentation(
     info="<html>

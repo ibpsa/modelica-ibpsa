@@ -26,6 +26,6 @@ First implementation for
       StopTime=3600,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://IBPSA.Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesGlycol47.mos"
+      file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesGlycol47.mos"
            "Simulate and plot"));
 end CoupledVolumesGlycol47;
