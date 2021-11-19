@@ -1,4 +1,3 @@
-translateModel("IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.Validation.PlugFlowCore");
 simulateModel("IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.Validation.PlugFlowCore", stopTime=1000, method="CVode", tolerance=1e-006, resultFile="PlugFlowCore");
 createPlot(id=1, position={15, 10, 584, 397},
 	y={"senTemIn.T", "senTemOut.T"}, range={0.0, 1000.0, 48.0, 72.0},
