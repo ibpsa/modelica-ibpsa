@@ -196,14 +196,14 @@ equation
   TAirInDewPoi=TDewIn.T;
 
   mu_FW= IBPSA.Utilities.Math.Functions.spliceFunction(
-  pos=0,neg=1,x=fullyWet.TSurAirIn-TAirInDewPoi,
-  deltax=IBPSA.Utilities.Math.Functions.smoothMax(abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
-  //max(abs(fullyDry.TSurAirOut- fullyWet.TSurAirIn),1e-3));
+    pos=0,neg=1,x=fullyWet.TSurAirIn-TAirInDewPoi,
+    deltax=IBPSA.Utilities.Math.Functions.smoothMax(
+      abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
 
   mu_FD= IBPSA.Utilities.Math.Functions.spliceFunction(
-  pos=1,neg=0,x=fullyDry.TSurAirOut-TAirInDewPoi,
-  deltax=IBPSA.Utilities.Math.Functions.smoothMax(abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
-  //max(abs(fullyDry.TSurAirOut- fullyWet.TSurAirIn),1e-3));
+    pos=1,neg=0,x=fullyDry.TSurAirOut-TAirInDewPoi,
+    deltax=IBPSA.Utilities.Math.Functions.smoothMax(
+      abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
 
   w_FW=mu_FW/(mu_FW+mu_FD);
   w_FD=mu_FD/(mu_FW+mu_FD);

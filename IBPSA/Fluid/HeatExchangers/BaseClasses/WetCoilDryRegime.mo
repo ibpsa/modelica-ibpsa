@@ -76,8 +76,7 @@ equation
   QTot_flow = eps*CMin_flow*(TAirIn-TWatIn);
   TAirOut=TAirIn-QTot_flow/(mAirNonZer_flow*cpAir);
   TWatOut=TWatIn+QTot_flow/(mWatNonZer_flow*cpWat);
-
-  (TAirOut-TSurAirOut)*UAAir=(TSurAirOut-TWatIn)*UAWat;
+  TSurAirOut = (TAirOut * UAAir + TWatIn * UAWat) / (UAAir + UAWat);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
