@@ -126,21 +126,24 @@ initial equation
   if use_Q_flow_nominal then
     if isFulDry then
       TAirOut = TAirIn + QTot_flow / mAir_flow / cpAir;
-      LMED=IBPSA.Fluid.HeatExchangers.BaseClasses.lmtd(
-        TWatIn,
-        TWatOut,
-        TAirIn,
-        TAirOut) / TUnit * hUnit;
+      LMED = (if abs(TWatIn - TAirOut - (TWatOut - TAirIn)) < Modelica.Constants.small then
+        TWatIn - TAirOut else IBPSA.Fluid.HeatExchangers.BaseClasses.lmtd(
+          TWatIn,
+          TWatOut,
+          TAirIn,
+          TAirOut)) / TUnit * hUnit;
       QTot_flow=LMED*UASta;
       cpEff = 0;
       UA = UASta*cpUnit;
     else //fully wet
       // calculation of overall UAsta based on log mean enthalpy difference
-      LMED=IBPSA.Fluid.HeatExchangers.BaseClasses.lmtd(
-        hSatTWatIn/hUnit*TUnit,
-        hSatTWatOut/hUnit*TUnit,
-        hAirIn/hUnit*TUnit,
-        hAirOut/hUnit*TUnit) / TUnit * hUnit;
+      LMED = (if abs(hSatTWatIn - hAirOut - (hSatTWatOut - hAirIn)) < Modelica.Constants.small then
+        (hSatTWatIn - hAirOut)/hUnit*TUnit else
+        IBPSA.Fluid.HeatExchangers.BaseClasses.lmtd(
+          hSatTWatIn/hUnit*TUnit,
+          hSatTWatOut/hUnit*TUnit,
+          hAirIn/hUnit*TUnit,
+          hAirOut/hUnit*TUnit)) / TUnit * hUnit;
       QTot_flow=LMED*UASta;
       cpEff= (hSatTWatOut-hSatTWatIn)/(TWatOut-TWatIn);
       UASta = (UAAir/cpAir)/(1 + (cpEff*UAAir)/(cpAir*UAWat));
