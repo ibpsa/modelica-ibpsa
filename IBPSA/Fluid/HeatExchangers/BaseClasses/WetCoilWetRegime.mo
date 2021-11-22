@@ -174,7 +174,8 @@ annotation (Icon(graphics={
         fillColor={170,213,255},
         fillPattern=FillPattern.Solid)}), Documentation(revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation.
+<li>
+Jan 21, 2021, by Donghun Kim:<br/>First implementation.
 </li>
 </ul>
 </html>", info="<html>

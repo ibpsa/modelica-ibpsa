@@ -626,7 +626,9 @@ Fuzzy identification of systems and its applications to modeling and control.
 &nbsp;IEEE transactions on systems, man, and cybernetics, (1), pp.116-132.</p>
 </html>",                    revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation.</li>
+<li>
+Jan 21, 2021, by Donghun Kim:<br/>First implementation.
+</li>
 </ul>
 </html>"));
 end WetCoilEffectivenessNTU;
