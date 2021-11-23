@@ -3,7 +3,6 @@ model WallSolarAzimuth "Test model for wall solar azimuth angle"
 extends Modelica.Icons.Example;
   IBPSA.BoundaryConditions.SolarGeometry.IncidenceAngle incAng(
     azi=0,
-    lat=lat,
     til=1.5707963267949) "solar incidence angle"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
