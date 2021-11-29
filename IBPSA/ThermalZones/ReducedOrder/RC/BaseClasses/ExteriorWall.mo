@@ -136,7 +136,7 @@ equation
    pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None),
    Text(
      extent = {{-90, 142}, {90, 104}},
-     lineColor = {0, 0, 255},
+     textColor = {0, 0, 255},
      textString = "%name"),
    Line(points = {{18, -32}, {-20, -32}}, color = {0, 0, 0}, thickness = 0.5,
    smooth = Smooth.None),
