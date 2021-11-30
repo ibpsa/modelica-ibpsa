@@ -2,10 +2,9 @@ within IBPSA.Fluid.BaseClasses.Validation;
 model ActuatorFilter "Validation model for the actuator filter"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Time riseTime = 10
-    "Cut-off frequency of filter";
-  final parameter Modelica.SIunits.Frequency fCut = 5/(2*Modelica.Constants.pi*riseTime)
-    "Cut-off frequency of filter";
+  parameter Modelica.Units.SI.Time riseTime=10 "Cut-off frequency of filter";
+  final parameter Modelica.Units.SI.Frequency fCut=5/(2*Modelica.Constants.pi*
+      riseTime) "Cut-off frequency of filter";
 
   IBPSA.Fluid.BaseClasses.ActuatorFilter act_1(f=fCut, initType=Modelica.Blocks.Types.Init.InitialState)
     "Filter with u_nominal not set"

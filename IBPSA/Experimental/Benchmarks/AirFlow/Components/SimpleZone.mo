@@ -6,11 +6,11 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
 
   parameter Medium.Temperature TRoom(start=293.15) = 293.15
     "Indoor air temperature of room in K";
-  parameter Modelica.SIunits.Height heightRoom = 3 "Height of room in m";
-  parameter Modelica.SIunits.Length lengthRoom = 5 "Length of room in m";
-  parameter Modelica.SIunits.Length widthRoom = 5 "Width of room in m";
+  parameter Modelica.Units.SI.Height heightRoom=3 "Height of room in m";
+  parameter Modelica.Units.SI.Length lengthRoom=5 "Length of room in m";
+  parameter Modelica.Units.SI.Length widthRoom=5 "Width of room in m";
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer UValue = 1
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer UValue=1
     "Heat transfer coefficient for outside wall";
 
   parameter Real doorOpening = 1

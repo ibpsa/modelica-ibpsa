@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Sensors;
 model SpecificEntropy "Ideal one port specific entropy sensor"
   extends IBPSA.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)")
     "Specific entropy in port medium"
