@@ -34,8 +34,3 @@ test-dymola:
 	(cd $(ROOT)/IBPSA && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/IBPSA/Resources/Python-Sources && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola)
-
-test-jmodelica:
-	(cd $(ROOT)/IBPSA && \
-	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/IBPSA/Resources/Python-Sources && \
-	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool jmodelica --skip-verification)
