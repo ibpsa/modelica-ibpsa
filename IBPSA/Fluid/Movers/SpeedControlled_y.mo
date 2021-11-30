@@ -69,7 +69,7 @@ equation
          graphics={
         Text(
           extent={{-40,126},{-160,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=inputType == IBPSA.Fluid.Types.InputType.Continuous or inputType == IBPSA.Fluid.Types.InputType.Stages,
           textString=DynamicSelect("y", if inputType == IBPSA.Fluid.Types.InputType.Continuous then String(y, format=".2f") else String(stage)))}),
     Documentation(info="<html>
