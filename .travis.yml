@@ -49,7 +49,7 @@ before_install:
 install:
   - pip3 install --upgrade pip wheel
   - pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.13.3 scipy==0.19.1 matplotlib==2.1.0
-  - pip3 install git+https://github.com/lbl-srg/BuildingsPy@208c37e
+  - pip3 install git+https://github.com/lbl-srg/BuildingsPy@4291001
 
 # Execute tests
 script:
