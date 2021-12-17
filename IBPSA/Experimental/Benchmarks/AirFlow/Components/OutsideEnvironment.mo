@@ -5,7 +5,7 @@ model OutsideEnvironment
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component";
 
-  parameter Modelica.SIunits.Height heightRoom = 3
+  parameter Modelica.Units.SI.Height heightRoom=3
     "Height of room connected to outdoor air in m";
 
   Airflow.Multizone.MediumColumn colOutBot(
