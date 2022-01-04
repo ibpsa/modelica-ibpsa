@@ -1,8 +1,10 @@
+clusterBoreholes
 cylindricalHeatSource
 cylindricalHeatSource_Integrand
 finiteLineSource
 finiteLineSource_Erfint
 finiteLineSource_Integrand
+finiteLineSource_SteadyState
 gFunction
 infiniteLineSource
 shaGFunction
