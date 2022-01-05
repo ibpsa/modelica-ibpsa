@@ -91,7 +91,7 @@ User's Guide</a> for more information.
 <ul>
 <li>
 January 5, 2022, by Jianjun Hu:<br/>
-Changed the rotational speed unit to be consistent with the one in standard library.<br/>
+Changed the rotational speed unit to be consistent with the one in the Modelica Standard Library.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1570\">#1570</a>.
 </li>
