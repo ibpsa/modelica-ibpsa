@@ -2,10 +2,13 @@ clusterBoreholes
 cylindricalHeatSource
 cylindricalHeatSource_Integrand
 finiteLineSource
+finiteLineSource_equivalentBoreholes
 finiteLineSource_Erfint
 finiteLineSource_Integrand
+finiteLineSource_Integrand_equivalentBoreholes
 finiteLineSource_SteadyState
 gFunction
+gFunction_equivalentBoreholes
 infiniteLineSource
 shaGFunction
 timeGeometric

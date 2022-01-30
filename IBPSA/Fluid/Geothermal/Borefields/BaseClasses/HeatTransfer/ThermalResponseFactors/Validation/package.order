@@ -6,6 +6,7 @@ FiniteLineSource_Erfint
 FiniteLineSource_Integrand
 FiniteLineSource_Integrand_Length
 GFunction_100boreholes
+GFunction_100boreholes_equivalentBoreholes
 GFunction_1borehole_5meters
 GFunction_SmallScaleValidation
 InfiniteLineSource
