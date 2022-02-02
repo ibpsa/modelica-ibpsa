@@ -9,21 +9,29 @@ model Outside_CpData
 
   IBPSA.Fluid.Sources.Outside_CpData west(
     redeclare package Medium = Medium,
+    table=[0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3;
+        315,0.1; 360,0.4],
     azi=IBPSA.Types.Azimuth.W)
              "Model with outside conditions"
     annotation (Placement(transformation(extent={{-42,0},{-22,20}})));
   IBPSA.Fluid.Sources.Outside_CpData north(
     redeclare package Medium = Medium,
+    table=[0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3;
+        315,0.1; 360,0.4],
     azi=IBPSA.Types.Azimuth.N)
              "Model with outside conditions"
     annotation (Placement(transformation(extent={{-4,40},{16,60}})));
   IBPSA.Fluid.Sources.Outside_CpData south(
     redeclare package Medium = Medium,
+    table=[0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3;
+        315,0.1; 360,0.4],
     azi=IBPSA.Types.Azimuth.S)
              "Model with outside conditions"
     annotation (Placement(transformation(extent={{-6,-40},{14,-20}})));
   IBPSA.Fluid.Sources.Outside_CpData east(
     redeclare package Medium = Medium,
+    table=[0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3;
+        315,0.1; 360,0.4],
     azi=IBPSA.Types.Azimuth.E)
              "Model with outside conditions"
     annotation (Placement(transformation(extent={{40,-2},{60,18}})));

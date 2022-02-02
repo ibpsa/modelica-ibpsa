@@ -3,7 +3,7 @@ model Outside_CpData
   "Boundary that takes weather data as an input and computes the wind pressure from a given wind pressure profile"
   extends IBPSA.Fluid.Sources.BaseClasses.Outside;
 
-  parameter Real table[:,:]=[0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3; 315,0.1; 360,0.4]
+  parameter Real table[:,2]
   "Cp at different angles of attack. First column are Cp values, second column are wind angles of attack in degrees";
   parameter Modelica.Units.SI.Angle azi "Surface azimuth (South:0, West:pi/2)"  annotation (choicesAllMatching=true);
   parameter Real Cs=1 "Wind speed modifier";
@@ -11,21 +11,31 @@ model Outside_CpData
   Modelica.Units.SI.Pressure pWin(displayUnit="Pa") = Cs*0.5*CpAct*d*vWin*vWin
    "Change in pressure due to wind force";
 
-  Real CpAct(min=0, final unit="1") = IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(
+  Real CpAct(
+    min=0,
+    final unit="1") = IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(
     incAng=alpha,
-    xd=exTable[:, 1],
-    yd=exTable[:, 2],
-    d=deri)
-    "Actual wind pressure coefficient";
+    xd=tableExt[:, 1],
+    yd=tableExt[:, 2],
+    d=deri) "Actual wind pressure coefficient";
 
   //Extend table to account for 360° profile and generate spline derivatives at support points
 protected
-  parameter Real Radtable[:,:] = [Modelica.Constants.D2R*table[:,1],table[:,2]];
-  parameter Real prevPoint[1,2] = [Radtable[size(table, 1)-1, 1] - (2*Modelica.Constants.pi), Radtable[size(table, 1)-1, 2]];
-  parameter Real nextPoint[1,2] = [Radtable[2, 1] + (2*Modelica.Constants.pi), Radtable[2, 2]];
+  parameter Real tableRad[:,:]=[Modelica.Constants.D2R*table[:, 1],table[:, 2]]
+    "Table in rad for units of incidence angle";
+  parameter Real prevPoint[1,2] = [tableRad[size(table, 1)-1, 1] - (2*Modelica.Constants.pi),tableRad [size(table, 1)-1, 2]]
+    "Previous point for interpolation";
+  parameter Real nextPoint[1,2] = [tableRad[2, 1] + (2*Modelica.Constants.pi),tableRad [2, 2]]
+    "Next point for interpolation";
 
-  parameter Real exTable[:,:]=[prevPoint;Radtable;nextPoint]; //Extended table
-  parameter Real[size(exTable, 1)] deri=IBPSA.Utilities.Math.Functions.splineDerivatives(x=exTable[:,1],y=exTable[:,2],ensureMonotonicity=false);
+  parameter Real tableExt[:,:]=[prevPoint; tableRad; nextPoint]
+    "Extended table";
+
+  parameter Real[size(tableExt, 1)] deri=
+      IBPSA.Utilities.Math.Functions.splineDerivatives(
+      x=tableExt[:, 1],
+      y=tableExt[:, 2],
+      ensureMonotonicity=false) "Derivatives for table interpolation";
 
   Modelica.Units.SI.Angle alpha = winDir-surOut "Wind incidence angle (0: normal to wall)";
 
@@ -129,12 +139,6 @@ First implementation.
               36,6},{42,12},{50,14}},
                             color={255,255,255},
           smooth=Smooth.Bezier),
-        Text(
-          extent={{4,-44},{76,-58}},
-          lineColor={255,255,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.None,
-          textString="Alpha"),
         Text(
           extent={{-54,66},{2,22}},
           lineColor={255,255,255},
