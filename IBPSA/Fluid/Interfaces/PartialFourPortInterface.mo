@@ -104,6 +104,14 @@ mass transfer and pressure drop equations.
 </html>", revisions="<html>
 <ul>
 <li>
+February 2, 2022, by Hongxiang Fu:<br/>
+If <code>allowFlowReversal==false</code>, replaced <code>actualStream()</code>
+with <code>inStream()</code> for <code>sta_a</code>'s and
+removed <code>actualStream()</code> for <code>sta_b</code>'s.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1578\">IBPSA, #1578</a>.
+</li>
+<li>
 March 30, 2021, by Michael Wetter:<br/>
 Added annotation <code>HideResult=true</code>.<br/>
 This is for
