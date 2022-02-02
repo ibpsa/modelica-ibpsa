@@ -5,7 +5,7 @@ model PressurizationData
   package Medium = IBPSA.Media.Air;
 
 
-  parameter Real n50=3 "ACH50, air changes at 50Pa";
+  parameter Real n50=3 "ACH50, air changes at 50 Pa";
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
@@ -24,7 +24,7 @@ model PressurizationData
     Cp0=0.6,
     nPorts=1) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Fluid.MixingVolumes.MixingVolume       room(
+  Fluid.MixingVolumes.MixingVolume room(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     nPorts=2,
@@ -32,14 +32,14 @@ model PressurizationData
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01) "Room model"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Powerlaw_1Datapoint powlaw_1dat(
+  IBPSA.Airflow.Multizone.Powerlaw_1Datapoint powlaw_1dat(
     redeclare package Medium = Medium,
     m=0.66,
     dP1(displayUnit="Pa") = 50,
     m1_flow=0.5*(room.V*n50*1.2))
     "Crack in envelope representing 50% of the leakage area"
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
-  Powerlaw_1Datapoint
+  IBPSA.Airflow.Multizone.Powerlaw_1Datapoint
     powlaw_1dat1(redeclare package Medium = Medium,
     m=0.66,
     dP1(displayUnit="Pa") = 50,
@@ -71,11 +71,16 @@ equation
       Tolerance=1e-08),
     Documentation(info="<html>
 <p>
-This model illustrates the use of the Powerlaw_1DataPoint to model
-infiltration through the building evelope for a known <i>n50 value</i> (also known as ACH50).
-As the n50 value and the building volume is known,
-the flow at 50Pa is known. Dividing this flow accross the entire envelope
-(typically surface weighted) and using this Powerlaw_1DataPoint,
+This model illustrates the use of
+<a href=\"modelica://IBPSA.Airflow.Multizone.Powerlaw_1Datapoint\">
+IBPSA.Airflow.Multizone.Powerlaw_1Datapoint</a>
+to model
+infiltration through the building evelope for a known <i>n<sub>50</sub></i> value (also known as ACH50).
+As the <i>n<sub>50</sub></i> value and the building volume is known,
+the flow at 50 Pa is known. Dividing this flow accross the entire envelope
+(typically surface weighted) and using
+<a href=\"modelica://IBPSA.Airflow.Multizone.Powerlaw_1Datapoint\">
+IBPSA.Airflow.Multizone.Powerlaw_1Datapoint</a>,
 the infiltration airflow at lower pressure differences can be modelled.
 <br/>
 In this example, the two models each represent 50% of the surface where airflow occured due to the pressurization test.
