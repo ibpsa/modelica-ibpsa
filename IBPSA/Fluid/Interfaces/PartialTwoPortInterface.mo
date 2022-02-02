@@ -26,15 +26,25 @@ partial model PartialTwoPortInterface
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a=
+    if allowFlowReversal then
       Medium.setState_phX(port_a.p,
                           noEvent(actualStream(port_a.h_outflow)),
                           noEvent(actualStream(port_a.Xi_outflow)))
+    else
+      Medium.setState_phX(port_a.p,
+                          noEvent(inStream(port_a.h_outflow)),
+                          noEvent(inStream(port_a.Xi_outflow)))
       if show_T "Medium properties in port_a";
 
   Medium.ThermodynamicState sta_b=
+    if allowFlowReversal then
       Medium.setState_phX(port_b.p,
                           noEvent(actualStream(port_b.h_outflow)),
                           noEvent(actualStream(port_b.Xi_outflow)))
+    else
+      Medium.setState_phX(port_b.p,
+                          noEvent(port_b.h_outflow),
+                          noEvent(port_b.Xi_outflow))
        if show_T "Medium properties in port_b";
 
 protected
