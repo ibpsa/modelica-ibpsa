@@ -1,5 +1,5 @@
 within IBPSA.Airflow.Multizone.BaseClasses.Examples;
-model FlowElementData "Test model for the function flowElementData"
+model Interpolate "Test model for the function flowElementData"
   extends Modelica.Icons.Example;
 
   parameter Real table[:,:]=[-50,-0.08709; -25,-0.06158; -10,-0.03895; -5,-0.02754;
@@ -28,18 +28,18 @@ initial equation
     ensureMonotonicity=true);
 equation
    dp=ramp.y;
-   m_flow =IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d);
+   m_flow =IBPSA.Airflow.Multizone.BaseClasses.interpolate(u=dp,xd=xd,yd=yd,d=d);
 
   annotation (
 experiment(
       StopTime=500,
       Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/FlowElementData.mos"
+  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/Interpolate.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This example demonstrates the function
-<a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.flowElementData\">
-IBPSA.Airflow.Multizone.BaseClasses.flowElementData</a>.
+<a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.interpolate\">
+IBPSA.Airflow.Multizone.BaseClasses.interpolate</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -56,4 +56,4 @@ First implementation
 </ul>
 </html>
 "));
-end FlowElementData;
+end Interpolate;

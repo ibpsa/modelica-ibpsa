@@ -1,5 +1,5 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
-model PartialPowerLawResistance_V_flow
+model PowerLawResistance_V_flow
   "Flow resistance that uses the power law for computing volumetric flow rate"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
   m_flow = V_flow*rho,
@@ -120,4 +120,4 @@ Renamed protected parameters for consistency with the naming conventions.
        Released first version.
 </ul>
 </html>"));
-end PartialPowerLawResistance_V_flow;
+end PowerLawResistance_V_flow;

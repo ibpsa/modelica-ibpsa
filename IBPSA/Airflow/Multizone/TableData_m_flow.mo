@@ -2,7 +2,7 @@ within IBPSA.Airflow.Multizone;
 model TableData_m_flow
   "Mass flow(y-axis) vs Pressure(x-axis) cubic spline fit model based from table data, with last two points linearly interpolated"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
-    m_flow = IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d),
+    m_flow = IBPSA.Airflow.Multizone.BaseClasses.interpolate(u=dp,xd=xd,yd=yd,d=d),
     final m_flow_nominal=min(abs(table[:,2])));
 
   parameter Real table[:,2]

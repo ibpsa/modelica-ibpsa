@@ -1,5 +1,5 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
-function flowElementData
+function interpolate
   "Function for the interpolation of table data for airflow models"
   extends Modelica.Icons.Function;
 
@@ -78,4 +78,4 @@ First Implementation.
 </li>
 </ul>
 </html>"));
-end flowElementData;
+end interpolate;
