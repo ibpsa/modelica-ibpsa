@@ -13,7 +13,8 @@ model PartialPowerLawResistance_V_flow
       dp_turbulent=dp_turbulent),
     final m_flow_nominal=rho_default*k*dp_turbulent,
     final m_flow_small=1E-4*abs(m_flow_nominal));
-   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters;
+   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters(
+     m = 0.5);
 
 
   parameter Real k "Flow coefficient, k = V_flow/ dp^m";
