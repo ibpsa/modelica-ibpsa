@@ -1,7 +1,7 @@
 within IBPSA.BoundaryConditions;
-package Validation
-  "Collection of validation models Validation"
+package Validation "Collection of validation models Validation"
   extends Modelica.Icons.ExamplesPackage;
+
   annotation (
     Documentation(
       info="<html>

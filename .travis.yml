@@ -22,34 +22,24 @@ env:
   - TEST_ARG="make test-bestest"
   # The documentation is tested using github actions.
   - TEST_ARG="make test-dymola    PACKAGE=\"IBPSA.Experimental\""
-##  - TEST_ARG="make test-jmodelica PACKAGE=\"IBPSA.Experimental\""
   - TEST_ARG="make test-dymola    PACKAGE=\"IBPSA.Fluid.{Actuators,BaseClasses,Chillers,Delays,Geothermal,Examples,FMI,FixedResistances}\""
-##  - TEST_ARG="make test-jmodelica PACKAGE=\"IBPSA.Fluid.{Actuators,BaseClasses,Chillers,Delays,Geothermal,Examples,FMI,FixedResistances}\""
   - TEST_ARG="make test-dymola    PACKAGE=\"IBPSA.Fluid.{HeatExchangers,HeatPumps,Interfaces,MassExchangers,MixingVolumes,Movers,Sensors,Sources,Storage}\""
-##  - TEST_ARG="make test-jmodelica PACKAGE=\"IBPSA.Fluid.{HeatExchangers,HeatPumps,Interfaces,MassExchangers,MixingVolumes,Movers,Sensors,Sources,Storage}\""
   - TEST_ARG="make test-dymola    PACKAGE=\"IBPSA.ThermalZones\""
-##  - TEST_ARG="make test-jmodelica PACKAGE=\"IBPSA.ThermalZones\""
   - TEST_ARG="make test-dymola    PACKAGE=\"IBPSA.{Airflow,BoundaryConditions,Controls}\""
-##  - TEST_ARG="make test-jmodelica PACKAGE=\"IBPSA.{Airflow,BoundaryConditions,Controls}\""
   - TEST_ARG="make test-dymola    PACKAGE=\"IBPSA.{Media,Utilities}\""
-##  - TEST_ARG="make test-jmodelica PACKAGE=\"IBPSA.{Media,Utilities}\""
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - if [[ "$TEST_ARG" == *test-dymola* || "$TEST_ARG" == *test-bestest* ]]; then
-       docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola:2022-x86_64;
+       docker pull "$DOCKER_USERNAME"/travis_ubuntu-2004_dymola:2022x-x86_64;
        cp IBPSA/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
-##  - if [[ "$TEST_ARG" == *test-jmodelica* ]]; then
-##       docker pull "$DOCKER_USERNAME"/ubuntu-1804_jmodelica_trunk;
-##       cp IBPSA/Resources/Scripts/travis/jmodelica/jm_ipython.sh $HOME/bin/;
-##    fi;
 
 # Install dependencies
 install:
   - pip3 install --upgrade pip wheel
   - pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.13.3 scipy==0.19.1 matplotlib==2.1.0
-  - pip3 install git+https://github.com/lbl-srg/BuildingsPy@27d3c76
+  - pip3 install git+https://github.com/lbl-srg/BuildingsPy@v3.0.0
 
 # Execute tests
 script:

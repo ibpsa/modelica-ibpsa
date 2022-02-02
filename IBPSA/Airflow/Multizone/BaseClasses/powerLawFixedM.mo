@@ -1,15 +1,16 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
 function powerLawFixedM
   "Power law used in orifice equations when m is constant"
-  input Real k "Flow coefficient, k = flow/ dp^m";
-  input Modelica.SIunits.PressureDifference dp(displayUnit="Pa") "Pressure difference";
+  input Real k "Flow coefficient, k = V_flow/ dp^m";
+  input Modelica.Units.SI.PressureDifference dp(displayUnit="Pa")
+    "Pressure difference";
   input Real m(min=0.5, max=1)
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
   input Real a "Polynomial coefficient";
   input Real b "Polynomial coefficient";
   input Real c "Polynomial coefficient";
   input Real d "Polynomial coefficient";
-  input Modelica.SIunits.PressureDifference dp_turbulent(min=0)=0.001
+  input Modelica.Units.SI.PressureDifference dp_turbulent(min=0) = 0.001
     "Pressure difference where regularization starts";
   output Real flowRate "Mass or volume flow rate";
 protected

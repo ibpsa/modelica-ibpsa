@@ -4,7 +4,7 @@ model Orifice "Orifice"
     m=0.5,
     final k=CD*A*sqrt(2.0/rho_default));
 
-  parameter Modelica.SIunits.Area A "Area of orifice"
+  parameter Modelica.Units.SI.Area A "Area of orifice"
     annotation (Dialog(group="Orifice characteristics"));
   parameter Real CD=0.65 "Discharge coefficient"
     annotation (Dialog(group="Orifice characteristics"));
@@ -30,9 +30,15 @@ model Orifice "Orifice"
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
-    defaultComponentName="ori",
-    Documentation(info="<html>
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{24,-24},{96,-100}},
+          textColor={0,0,255},
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid,
+          textString="A=%A")}),
+defaultComponentName="ori",
+Documentation(info="<html>
 <p>
 This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
@@ -73,16 +79,16 @@ National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
 </li>
-<li>Michael Wetter. 
-<a href=\"modelica://IBPSA/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">Multizone Airflow Model in Modelica.</a> 
-Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006. 
+<li>Michael Wetter.
+<a href=\"modelica://IBPSA/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">Multizone Airflow Model in Modelica.</a>
+Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006.
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
 <li>
 Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
-Changes due to changes in the baseclass, 'velocity' is now a top-level output. 
+Changes due to changes in the baseclass, 'velocity' is now a top-level output.
 </li>
 <li>
 June 27, 2018, by Michael Wetter:<br/>

@@ -4,7 +4,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
     m=0.65,
     final k=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m));
 
-  parameter Modelica.SIunits.PressureDifference dpRat(
+  parameter Modelica.Units.SI.PressureDifference dpRat(
     min=0,
     displayUnit="Pa") = 4 "Pressure drop"
     annotation (Dialog(group="Rating conditions"));
@@ -13,7 +13,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
     max=1) = 1 "Discharge coefficient"
     annotation (Dialog(group="Rating conditions"));
 
-  parameter Modelica.SIunits.Area L(min=0) "Effective leakage area";
+  parameter Modelica.Units.SI.Area L(min=0) "Effective leakage area";
 
   Modelica.SIunits.Velocity v(nominal=1) = V_flow/L "Average velocity";
 
@@ -30,6 +30,22 @@ model EffectiveAirLeakageArea "Effective air leakage area"
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-104,92},{-20,54}},
+          textColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString=
+               "L=%L"),
+        Text(
+          extent={{22,94},{98,56}},
+          textColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString=
+               "m=%m"),
         Rectangle(
           extent={{-100,6},{-64,-6}},
           lineColor={0,0,255},
@@ -115,7 +131,7 @@ revisions="<html>
 <ul>
 <li>
 Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
-Changes due to changes in the baseclass, 'velocity' is now a top-level output. 
+Changes due to changes in the baseclass, 'velocity' is now a top-level output.
 </li>
 <li>
 June 24, 2018, by Michael Wetter:<br/>
