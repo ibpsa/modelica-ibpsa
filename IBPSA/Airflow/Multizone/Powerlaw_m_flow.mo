@@ -46,9 +46,11 @@ model Powerlaw_m_flow "Powerlaw Mass Flow"
 <p>
 This model describes the one-directional pressure driven air flow through an opening, using the equation 
 </p>
-<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/equations/equation-2w6QbDea.png\" alt=\"m_flow\"/><i> = C &Delta;p<sup>m</sup>, </i></p>
+<p align=\"center\" style=\"font-style:italic;\">
+m_flow = C * dp^m,
+</p>
 <p>
-where m_flow is the mass flow rate, <i>C</i> is a flow coefficient and <i>m</i> is the flow exponent. 
+where <i>m_flow</i> is the mass flow rate, <i>C</i> is a flow coefficient and <i>m</i> is the flow exponent.
 </p>
 <p><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015). 
 Dols and Walton (2002) recommend to use for the flow exponent <i>m=0.6</i> to <i>m=0.7</i> if the flow exponent is not reported with the test results. 
