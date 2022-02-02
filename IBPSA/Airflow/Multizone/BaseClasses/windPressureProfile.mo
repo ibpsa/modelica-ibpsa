@@ -4,11 +4,9 @@ function windPressureProfile
   extends Modelica.Icons.Function;
 
   input Modelica.Units.SI.Angle incAng "Wind incidence angle";
-
   input Real[:] xd "Support points x-value";
   input Real[size(xd, 1)] yd "Support points y-value";
   input Real[size(xd, 1)] d    "Derivative values at the support points";
-
 
   output Real z "Dependent variable without monotone interpolation, CpAct";
 
@@ -53,17 +51,16 @@ April 6, 2021, by Klaas De Jonge:<br/>
 First implementation
 </li>
 </ul>
-</html>
-",        info="<html>
+</html>",
+info="<html>
 <p>
-This function computes the wind pressure coefficients (<i>C<sub>p</sub></i>)from user-defined table data.
-The same possibilty is also implemented in CONTAM.
+This function computes the wind pressure coefficients <i>C<sub>p</sub></i> from a user-defined table data.
+The same functionality is also implemented in CONTAM.
 </p>
 <p>
 This function is used in
 <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpData\">
-IBPSA.Fluid.Sources.Outside_CpData</a>
-which can be used directly with components of this package.
+IBPSA.Fluid.Sources.Outside_CpData</a>.
 </p>
 <h4>References</h4>
 <ul>

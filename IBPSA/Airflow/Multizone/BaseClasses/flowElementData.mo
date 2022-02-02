@@ -1,6 +1,6 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
 function flowElementData
-  "Function for the interpolation of table input for TableData airflow models, Cubic hermite spline interpolation for most, Linearly interpolated between second-to-last and last point"
+  "Function for the interpolation of table data for airflow models"
   extends Modelica.Icons.Function;
 
   input Real u "Independent variable";
@@ -14,7 +14,6 @@ protected
   Integer i "Integer to select data interval";
 
 algorithm
-
   i := 1;
   for j in 1:size(xd, 1) - 1 loop
     if u > xd[j] then

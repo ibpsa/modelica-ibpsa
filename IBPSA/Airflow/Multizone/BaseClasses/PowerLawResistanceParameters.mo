@@ -6,7 +6,6 @@ protected
   constant Real gamma(min=1) = 1.5
     "Normalized flow rate where dphi(0)/dpi intersects phi(1)";
 
-
   parameter Real a = gamma
     "Polynomial coefficient for regularized implementation of flow resistance";
   parameter Real b = 1/8*m^2 - 3*gamma - 3/2*m + 35.0/8
@@ -29,6 +28,5 @@ First implementation.
 </li>
 </ul>
 </html>
-
 "));
 end PowerLawResistanceParameters;
