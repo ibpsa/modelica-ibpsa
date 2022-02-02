@@ -31,25 +31,47 @@ partial model PartialFourPortInterface
     port_b2.p "Pressure difference between port_a2 and port_b2";
 
   Medium1.ThermodynamicState sta_a1=
+    if allowFlowReversal1 then
       Medium1.setState_phX(port_a1.p,
-                           noEvent(actualStream(port_a1.h_outflow)),
-                           noEvent(actualStream(port_a1.Xi_outflow)))
+                          noEvent(actualStream(port_a1.h_outflow)),
+                          noEvent(actualStream(port_a1.Xi_outflow)))
+    else
+      Medium1.setState_phX(port_a1.p,
+                          noEvent(inStream(port_a1.h_outflow)),
+                          noEvent(inStream(port_a1.Xi_outflow)))
       if show_T "Medium properties in port_a1";
   Medium1.ThermodynamicState sta_b1=
+    if allowFlowReversal1 then
       Medium1.setState_phX(port_b1.p,
-                           noEvent(actualStream(port_b1.h_outflow)),
-                           noEvent(actualStream(port_b1.Xi_outflow)))
-      if show_T "Medium properties in port_b1";
+                          noEvent(actualStream(port_b1.h_outflow)),
+                          noEvent(actualStream(port_b1.Xi_outflow)))
+    else
+      Medium1.setState_phX(port_b1.p,
+                          noEvent(port_b1.h_outflow),
+                          noEvent(port_b1.Xi_outflow))
+       if show_T "Medium properties in port_b1";
+
   Medium2.ThermodynamicState sta_a2=
+    if allowFlowReversal2 then
       Medium2.setState_phX(port_a2.p,
-                           noEvent(actualStream(port_a2.h_outflow)),
-                           noEvent(actualStream(port_a2.Xi_outflow)))
+                          noEvent(actualStream(port_a2.h_outflow)),
+                          noEvent(actualStream(port_a2.Xi_outflow)))
+    else
+      Medium2.setState_phX(port_a2.p,
+                          noEvent(inStream(port_a2.h_outflow)),
+                          noEvent(inStream(port_a2.Xi_outflow)))
       if show_T "Medium properties in port_a2";
   Medium2.ThermodynamicState sta_b2=
+    if allowFlowReversal2 then
       Medium2.setState_phX(port_b2.p,
-                           noEvent(actualStream(port_b2.h_outflow)),
-                           noEvent(actualStream(port_b2.Xi_outflow)))
-      if show_T "Medium properties in port_b2";
+                          noEvent(actualStream(port_b2.h_outflow)),
+                          noEvent(actualStream(port_b2.Xi_outflow)))
+    else
+      Medium2.setState_phX(port_b2.p,
+                          noEvent(port_b2.h_outflow),
+                          noEvent(port_b2.Xi_outflow))
+       if show_T "Medium properties in port_b2";
+
 protected
   Medium1.ThermodynamicState state_a1_inflow=
     Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow))
