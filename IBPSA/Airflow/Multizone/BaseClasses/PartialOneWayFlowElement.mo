@@ -2,10 +2,11 @@ within IBPSA.Airflow.Multizone.BaseClasses;
 partial model PartialOneWayFlowElement
   "Partial model for flow resistance with one-way flow"
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
-    m_flow = V_flow*rho,
     final allowFlowReversal=true);
-
   extends IBPSA.Airflow.Multizone.BaseClasses.ErrorControl;
+
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true, Dialog(tab="Advanced"));
 
   parameter Boolean useDefaultProperties=true
     "Set to false to use density and viscosity based on actual medium state, rather than using default values"
@@ -13,10 +14,6 @@ partial model PartialOneWayFlowElement
   parameter Modelica.Units.SI.PressureDifference dp_turbulent(min=0, displayUnit="Pa") = 0.1
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1"
     annotation(Dialog(tab="Advanced"));
-
-
-  constant Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(HideResult=true, Dialog(tab="Advanced"));
 
   Modelica.Units.SI.VolumeFlowRate V_flow = m_flow/rho
     "Volume flow rate through the component";
@@ -113,8 +110,14 @@ not in the equation section since this model sets both
 revisions="<html>
 <ul>
 <li>
-Apr 06, 2021, by Klaas De Jonge (UGent):<br/>
-First implementation. PartialOneWayFlowelement serves as a baseclass for a clean implementation of m_flow and V_flow models
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
+<li>
+Apr 06, 2021, by Klaas De Jonge:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

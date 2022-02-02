@@ -2,7 +2,7 @@ within IBPSA.Airflow.Multizone.Examples;
 model PowerLaw "Model with powerlaw models"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air;
-  Powerlaw_m_flow                 powlaw_M(
+  Powerlaw_m_flow powlaw_M(
     redeclare package Medium = Medium,
     m=0.59,
     C=3.33e-5) "Mass flow rate based on powerlaw, direct input for m and C"
@@ -107,7 +107,7 @@ experiment(
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model demonstrates the use of the 4 PowerLaw models present in the multizone package. 
+This model demonstrates the use of the 4 PowerLaw models present in the multizone package.
 The input data is fit so that all models have equivalent output.
 
 The pressure difference across the models changes

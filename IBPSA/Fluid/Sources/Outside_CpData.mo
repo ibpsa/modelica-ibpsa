@@ -38,7 +38,11 @@ initial equation
 equation
   alpha = winDir-surOut;
 
-  CpAct =IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(u=alpha, xd=exTable[:,1],yd=exTable[:,2],d=d);
+  CpAct =IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(
+    incAng=alpha,
+    xd=exTable[:, 1],
+    yd=exTable[:, 2],
+    d=d);
 
   pWin = Cs*0.5*CpAct*medium.d*vWin*vWin;
   pTot = pWea + pWin;
@@ -93,8 +97,14 @@ such that it can be used for all building sizes and situations with shielding fo
 revisions="<html>
 <ul>
 <li>
-Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
-First implementation
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
+<li>
+Apr 6, 2021, by Klaas De Jonge:<br/>
+First implementation.
 </li>
 </ul>
 </html>"),

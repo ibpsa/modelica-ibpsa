@@ -76,8 +76,15 @@ Buildings.Airflow.Multizone.BaseClasses.powerLaw</a>.
 revisions="<html>
 <ul>
 <li>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
+<li>
 April 6, 2021, by Klaas De Jonge:<br/>
-Generalised the function by removing the units for 'Flow'. This is done because the function is used to compute both mass flow rates and volume flow rates.
+Generalised the function by removing the units for flow.
+This is done because the function is used to compute both mass flow rates and volume flow rates.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>

@@ -4,7 +4,6 @@ model OneWayFlow
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Specialized.Air.PerfectGas;
 
-
 protected
   parameter Integer nTested=8 "Number of tested flow elements";
 
@@ -243,8 +242,16 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
-<li>Apr 6, 2021, 2020, by Klaas De Jonge (UGent):<br/>
-First implementation</li>
+<li>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
+<li>
+Apr 6, 2021, 2020, by Klaas De Jonge:<br/>
+First implementation.
+</li>
 </ul>
 </html>
 "), Icon(coordinateSystem(extent={{-100,-100},{100,100}})));

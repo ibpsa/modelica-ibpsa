@@ -7,22 +7,22 @@ model Outside_CpData
     filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
-  IBPSA.Fluid.Sources.Outside_CpData    west(
+  IBPSA.Fluid.Sources.Outside_CpData west(
     redeclare package Medium = Medium,
     azi=IBPSA.Types.Azimuth.W)
              "Model with outside conditions"
     annotation (Placement(transformation(extent={{-42,0},{-22,20}})));
-  IBPSA.Fluid.Sources.Outside_CpData    north(
+  IBPSA.Fluid.Sources.Outside_CpData north(
     redeclare package Medium = Medium,
     azi=IBPSA.Types.Azimuth.N)
              "Model with outside conditions"
     annotation (Placement(transformation(extent={{-4,40},{16,60}})));
-  IBPSA.Fluid.Sources.Outside_CpData    south(
+  IBPSA.Fluid.Sources.Outside_CpData south(
     redeclare package Medium = Medium,
     azi=IBPSA.Types.Azimuth.S)
              "Model with outside conditions"
     annotation (Placement(transformation(extent={{-6,-40},{14,-20}})));
-  IBPSA.Fluid.Sources.Outside_CpData    east(
+  IBPSA.Fluid.Sources.Outside_CpData east(
     redeclare package Medium = Medium,
     azi=IBPSA.Types.Azimuth.E)
              "Model with outside conditions"
@@ -62,6 +62,12 @@ whereas it is negative for the south- and east-facing facades.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
 <li>
 Jun 28, 2021 by Klaas De Jonge:<br/>
 First implementation.

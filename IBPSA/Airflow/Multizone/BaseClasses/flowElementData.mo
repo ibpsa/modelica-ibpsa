@@ -22,12 +22,10 @@ algorithm
   end for;
 
   // Extrapolate or interpolate the data
-
   if i == 1 then
-    z:=yd[1]+(u-xd[1])*(yd[2]-yd[1])/(xd[2]-xd[1]);//Interpolate linearly between first and second point
-
+    z:=yd[1]+(u-xd[1])*(yd[2]-yd[1])/(xd[2]-xd[1]); //Interpolate linearly between first and second point
   elseif i == (size(xd, 1) - 1) then
-    z:=yd[end-1]+(u-xd[end-1])*(yd[end]-yd[end-1])/(xd[end]-xd[end-1]);//Interpolate linearly between last and second-to-last point.
+    z:=yd[end-1]+(u-xd[end-1])*(yd[end]-yd[end-1])/(xd[end]-xd[end-1]); //Interpolate linearly between last and second-to-last point.
 
   else
     z :=IBPSA.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
@@ -41,12 +39,10 @@ algorithm
   end if;
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This function returns the value on a cubic hermite spline through the given support points 
-and provided spline derivatives at these points with monotonically increasing values. 
+This function returns the value on a cubic hermite spline through the given support points
+and provided spline derivatives at these points with monotonically increasing values.
 The last 2 points in the table are linearly interpolated.
 </p>
 <p>
@@ -63,15 +59,21 @@ References
 </h4>
 <ul>
 <li>
-<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, 
-National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: 
-<a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. 
+<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>,
+National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi:
+<a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>.
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
 <li>
-Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
+<li>
+Apr 6, 2021, by Klaas De Jonge:<br/>
 First Implementation.
 </li>
 </ul>

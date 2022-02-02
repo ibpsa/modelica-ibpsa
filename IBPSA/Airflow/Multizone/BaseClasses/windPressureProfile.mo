@@ -2,7 +2,7 @@ within IBPSA.Airflow.Multizone.BaseClasses;
 function windPressureProfile
   "Function for the cubic spline interpolation of a wind pressure profile with given support points and spline derivatives at these support points"
 
-  input Modelica.Units.SI.Angle u "independent variable, wind incidence angle";
+  input Modelica.Units.SI.Angle incAng "Wind incidence angle";
 
   input Real[:] xd "Support points x-value";
   input Real[size(xd, 1)] yd "Support points y-value";
@@ -18,7 +18,7 @@ protected
 algorithm
 
   // Change sign to positive and constrain to [0...2*pi]
-  aR :=mod(u,2*Modelica.Constants.pi);
+  aR :=mod(incAng, 2*Modelica.Constants.pi);
 
   i := 1;
   for j in 1:size(xd, 1) - 1 loop
@@ -41,7 +41,13 @@ algorithm
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
-April 6, 2021, by Klaas De Jonge (UGent):<br/>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
+<li>
+April 6, 2021, by Klaas De Jonge:<br/>
 First implementation
 </li>
 </ul>

@@ -57,7 +57,7 @@ model Powerlaw_m_flow "Powerlaw Mass Flow"
     defaultComponentName="powlaw_M",
     Documentation(info="<html>
 <p>
-This model describes the one-directional pressure driven air flow through an opening, using the equation 
+This model describes the one-directional pressure driven air flow through an opening, using the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 m&#775; = C &Delta;p<sup>m</sup>,
@@ -65,8 +65,8 @@ m&#775; = C &Delta;p<sup>m</sup>,
 <p>
 where <i>m&#775;</i> is the mass flow rate, <i>C</i> is a flow coefficient and <i>m</i> is the flow exponent.
 </p>
-<p><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015). 
-Dols and Walton (2002) recommend to use for the flow exponent <i>m=0.6</i> to <i>m=0.7</i> if the flow exponent is not reported with the test results. 
+<p><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015).
+Dols and Walton (2002) recommend to use for the flow exponent <i>m=0.6</i> to <i>m=0.7</i> if the flow exponent is not reported with the test results.
 </p>
 <h4>References</h4>
 <ul>
@@ -76,6 +76,12 @@ Dols and Walton (2002) recommend to use for the flow exponent <i>m=0.6</i> to <i
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
 <li>
 Apr 6, 2021, by Klaas De Jonge:<br/>
 First Implementation. Model expecting direct input of mass flow powerlaw coefficients.

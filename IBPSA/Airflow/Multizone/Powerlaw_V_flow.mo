@@ -45,17 +45,17 @@ model Powerlaw_V_flow "Powerlaw Volume Flow"
     defaultComponentName="powlaw_V",
     Documentation(info="<html>
 <p>
-This model describes the one-directional pressure driven air flow through an opening, using the equation 
+This model describes the one-directional pressure driven air flow through an opening, using the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 V&#775; = C &Delta;p<sup>m</sup>,
 </p>
 <p>
-where <i>V&#775;</i> is the volume flow rate, <i>C</i> is a flow coefficient and <i>m</i> is the flow exponent. 
+where <i>V&#775;</i> is the volume flow rate, <i>C</i> is a flow coefficient and <i>m</i> is the flow exponent.
 </p>
 <p>
-A similar model is also used in the CONTAM software (Dols and Walton, 2015). 
-Dols and Walton (2002) recommend to use for the flow exponent m=0.6 to m=0.7 if the flow exponent is not reported with the test results. 
+A similar model is also used in the CONTAM software (Dols and Walton, 2015).
+Dols and Walton (2002) recommend to use for the flow exponent m=0.6 to m=0.7 if the flow exponent is not reported with the test results.
 </p>
 <h4>References</h4>
 <ul>
@@ -65,6 +65,12 @@ Dols and Walton (2002) recommend to use for the flow exponent m=0.6 to m=0.7 if 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
 <li>
 Apr 6, 2021, by Klaas De Jonge:<br/>
 First Implementation. Model expecting direct input of volume flow powerlaw coefficients.

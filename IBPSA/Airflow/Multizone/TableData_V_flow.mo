@@ -2,7 +2,7 @@ within IBPSA.Airflow.Multizone;
 model TableData_V_flow
   "Volume flow(y-axis) vs Pressure(x-axis) cubic spline fit model based on table data, with last two points linearly interpolated"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
-    V_flow = IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d),
+    m_flow = IBPSA.Airflow.Multizone.BaseClasses.flowElementData(u=dp,xd=xd,yd=yd,d=d)*rho_default,
     final m_flow_nominal=min(abs(table[:,2]))/rho_default);
 
   parameter Real table[:,2]
@@ -23,7 +23,7 @@ initial equation
     defaultComponentName="tabdat_V",
     Documentation(info="<html>
 <p>
-This model describes the one-directional pressure driven air flow through an 
+This model describes the one-directional pressure driven air flow through an
 opening based on user-provided tabular data describing the relation between volume flow rate
 and pressure difference over the component.
 </p>
@@ -46,15 +46,22 @@ A similar model is also used in the CONTAM software (Dols and Walton, 2015).
 <h4>References</h4>
 <ul>
 <li>
-<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, 
-National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: 
-<a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. 
+<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>,
+National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi:
+<a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>.
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
-<li>Apr 6, 2021, 2020, by Klaas De Jonge (UGent):<br/>
-First implementation</li>
+<li>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
+<li>Apr 6, 2021, 2020, by Klaas De Jonge:<br/>
+First implementation.
+</li>
 </ul>
 </html>
 "), Icon(graphics={

@@ -130,8 +130,14 @@ November, 2002.
 revisions="<html>
 <ul>
 <li>
-Apr 6, 2021, by Klaas De Jonge (UGent):<br/>
-Changes due to changes in the baseclass, 'velocity' is now a top-level output.
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
+<li>
+Apr 6, 2021, by Klaas De Jonge:<br/>
+Changes due to changes in the baseclass, velocity is now a top-level variable.
 </li>
 <li>
 June 24, 2018, by Michael Wetter:<br/>

@@ -4,12 +4,12 @@ model TrickleVent
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air;
 
-  BoundaryConditions.WeatherData.ReaderTMY3       weaDat(filNam=
-        Modelica.Utilities.Files.loadResource(
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+      filNam=Modelica.Utilities.Files.loadResource(
         "modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
-  Fluid.Sources.Outside_CpLowRise       west(
+  Fluid.Sources.Outside_CpLowRise west(
     redeclare package Medium = Medium,
     s=5,
     azi=IBPSA.Types.Azimuth.W,
@@ -23,7 +23,7 @@ model TrickleVent
     Cp0=0.6,
     nPorts=1) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
-  Fluid.MixingVolumes.MixingVolume       room(
+  Fluid.MixingVolumes.MixingVolume room(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     nPorts=2,
@@ -75,7 +75,7 @@ equation
       points={{-59,70},{-42,70}},
       color={0,0,127}));
   connect(temSen.T,con. u_m) annotation (Line(
-      points={{-40,40},{-30,40},{-30,58}},
+      points={{-39,40},{-30,40},{-30,58}},
       color={0,0,127}));
   connect(gain.u,con. y) annotation (Line(
       points={{-2,70},{-19,70}},
@@ -103,13 +103,19 @@ equation
       Tolerance=1e-08),
     Documentation(info="<html>
 <p>
-This model illustrates the use of the TableData models of the 
-Airflow.MultiZone package to model self regulating inlet vents. 
-The models are connected to a common volume/room on one side and 
+This model illustrates the use of the TableData models of the
+Airflow.MultiZone package to model self regulating inlet vents.
+The models are connected to a common volume/room on one side and
 to outside conditions on the other side (east and west oriëntation respectively).
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
 <li>
 May 03, 2021 by Klaas De Jonge:<br/>
 Added example for simulating a trickle vent using the TableData models

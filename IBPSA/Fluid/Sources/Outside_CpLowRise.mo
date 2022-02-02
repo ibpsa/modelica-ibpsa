@@ -113,9 +113,9 @@ where
 </p>
 
 <p>
-This model differs from  <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpData\"> 
+This model differs from <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpData\">
 IBPSA.Fluid.Sources.Outside_CpData</a> by the calculation of the wind pressure coefficient (C<sub>p,act</sub>).
-The wind pressure coefficient is defined by a generalized equation in stead of a user-defined table. 
+The wind pressure coefficient is defined by a generalized equation in stead of a user-defined table.
 This model is only suited for low-rise rectangular buildings.
 </p>
 
@@ -147,9 +147,16 @@ Gaithersburg, MD.
 revisions="<html>
 <ul>
 <li>
-Jun 28, 2021, by Klaas De Jonge (UGent):<br/>
-Documentation changes to explain the difference with <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpData\"> 
-IBPSA.Fluid.Sources.Outside_CpData</a></li>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
+<li>
+Jun 28, 2021, by Klaas De Jonge:<br/>
+Documentation changes to explain the difference with <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpData\">
+IBPSA.Fluid.Sources.Outside_CpData</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Added <code>unit</code> and <code>quantity</code> attributes.

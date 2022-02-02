@@ -2,7 +2,6 @@ within IBPSA.Airflow.Multizone.BaseClasses.Examples;
 model FlowElementData "Test model for the function flowElementData"
   extends Modelica.Icons.Example;
 
-
   parameter Real table[:,:]=[-50,-0.08709; -25,-0.06158; -10,-0.03895; -5,-0.02754;
       -3,-0.02133; -2,-0.01742; -1,-0.01232; 0,0; 1,0.01232; 2,0.01742; 3,0.02133;
       4.5,0.02613; 50,0.02614]
@@ -14,9 +13,9 @@ model FlowElementData "Test model for the function flowElementData"
     "Mass flow rate";
 
 protected
-  parameter   Real[:] xd=table[:,1] "X-axis support points";
-  parameter   Real[size(xd, 1)] yd=table[:,2] "Y-axis support points";
-  parameter   Real[size(xd, 1)] d(each fixed=false) "Derivatives at the support points";
+  parameter Real[:] xd=table[:,1] "X-axis support points";
+  parameter Real[size(xd, 1)] yd=table[:,2] "Y-axis support points";
+  parameter Real[size(xd, 1)] d(each fixed=false) "Derivatives at the support points";
 
   Modelica.Blocks.Sources.Ramp ramp(
     duration=500,
@@ -44,7 +43,14 @@ IBPSA.Airflow.Multizone.BaseClasses.flowElementData</a>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>Apr 6, 2021, 2020, by Klaas De Jonge (UGent):<br/>
+<li>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
+<li>
+Apr 6, 2021, 2020, by Klaas De Jonge:<br/>
 First implementation
 </li>
 </ul>

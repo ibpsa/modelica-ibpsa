@@ -5,33 +5,33 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-The package <code>Buildings.Airflow.Multizone</code> contains models for 
-multizone airflow and contaminant transport. 
+The package <code>Buildings.Airflow.Multizone</code> contains models for
+multizone airflow and contaminant transport.
 </p>
 <p>
-The models can be used to compute the air flow between different rooms 
-and between a room and the exterior environment. In multizone airflow models, typically each room volume is assumed 
-to be completely mixed. 
-The driving force for the air flow are pressure differences that 
-can be induced, e.g., by 
+The models can be used to compute the air flow between different rooms
+and between a room and the exterior environment. In multizone airflow models, typically each room volume is assumed
+to be completely mixed.
+The driving force for the air flow are pressure differences that
+can be induced, e.g., by
 </p>
 <ul>
 <li>
-flow imbalance of the HVAC system, 
+flow imbalance of the HVAC system,
 </li>
 <li>
-density difference across large openings such as doors or open windows, 
+density difference across large openings such as doors or open windows,
 </li>
 <li>
-stack effects in high rise buildings, and 
+stack effects in high rise buildings, and
 </li>
 <li>
-wind pressure on the building facade. 
+wind pressure on the building facade.
 </li>
 </ul>
 <p>
-Wind pressure coefficients for different building configurations can be found 
-in Costola <i>et al.</i> (2009), Persily and Ivy (2001), Swami and Chandra (1987) and Liddament (1996) . 
+Wind pressure coefficients for different building configurations can be found
+in Costola <i>et al.</i> (2009), Persily and Ivy (2001), Swami and Chandra (1987) and Liddament (1996) .
 </p>
 <h4>References</h4>
 <ul>
@@ -40,7 +40,7 @@ in Costola <i>et al.</i> (2009), Persily and Ivy (2001), Swami and Chandra (1987
 <li>Andrew K. Persily and Elizabeth M. Ivy. <i><a href=\"http://ws680.nist.gov/publication/get_pdf.cfm?pub_id=860831\">Input Data for Multizone Airflow and IAQ Analysis.</a></i> NIST, NISTIR 6585. January, 2001. Gaithersburg, MD. </li>
 <li>Michael Wetter. <a href=\"modelica://IBPSA/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">Multizone Airflow Model in Modelica.</a> Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006. </li>
 <li>W. S. Dols and B. J. Polidoro,2015. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. </li>
-<li>M. W. Liddament, 1996, <i><a href=\"https://www.aivc.org/sites/default/files/members_area/medias/pdf/Guides/GU03%20GUIDE%20TO%20ENERGY%20EFFICIENT%20VENTILATION.pdf\">A guide to energy efficient ventilation</a></i>. AIVC Annex V. </li>   
+<li>M. W. Liddament, 1996, <i><a href=\"https://www.aivc.org/sites/default/files/members_area/medias/pdf/Guides/GU03%20GUIDE%20TO%20ENERGY%20EFFICIENT%20VENTILATION.pdf\">A guide to energy efficient ventilation</a></i>. AIVC Annex V. </li>
 </ul>
 <h4>Acknowledgements</h4>
 <p>
@@ -49,7 +49,8 @@ United Technologies Research Center</a> for contributing the original package
 to the <code>IBSA</code> library.
 </p>
 <p>
-We would like to thank Research Foundation Flanders (FWO) and Ghent University for providing the oportunity to further develop this package.                                                                                                  
+We would like to thank the Research Foundation Flanders (FWO) and Ghent University for providing
+the oportunity to further develop this package.
 </p>
 </html>", revisions="<html>
 <ul>
