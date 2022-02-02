@@ -1,6 +1,8 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
 function powerLawFixedM
   "Power law used in orifice equations when m is constant"
+  extends Modelica.Icons.Function;
+
   input Real k "Flow coefficient, k = V_flow/ dp^m";
   input Modelica.Units.SI.PressureDifference dp(displayUnit="Pa")
     "Pressure difference";

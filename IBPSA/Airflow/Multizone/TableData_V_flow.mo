@@ -20,7 +20,7 @@ initial equation
     ensureMonotonicity=true);
 
   annotation (
-    defaultComponentName="tabdat_V",
+    defaultComponentName="tabDat",
     Documentation(info="<html>
 <p>
 This model describes the one-directional pressure driven air flow through an

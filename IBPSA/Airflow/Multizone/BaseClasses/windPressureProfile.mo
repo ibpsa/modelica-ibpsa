@@ -1,6 +1,7 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
 function windPressureProfile
   "Function for the cubic spline interpolation of a wind pressure profile with given support points and spline derivatives at these support points"
+  extends Modelica.Icons.Function;
 
   input Modelica.Units.SI.Angle incAng "Wind incidence angle";
 
@@ -28,7 +29,6 @@ algorithm
   end for;
 
   // Interpolate the data
-
   z :=IBPSA.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
         x=aR,
         x1=xd[i],
@@ -38,7 +38,9 @@ algorithm
         y1d=d[i],
         y2d=d[i + 1]);
 
-  annotation (Documentation(revisions="<html>
+  annotation (
+smoothOrder=1,
+Documentation(revisions="<html>
 <ul>
 <li>
 February 2, 2022, by Michael Wetter:<br/>

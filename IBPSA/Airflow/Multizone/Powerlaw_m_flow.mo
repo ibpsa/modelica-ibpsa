@@ -54,7 +54,7 @@ model Powerlaw_m_flow "Powerlaw Mass Flow"
           pattern=LinePattern.None,
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid)}),
-    defaultComponentName="powlaw_M",
+    defaultComponentName="powLaw",
     Documentation(info="<html>
 <p>
 This model describes the one-directional pressure driven air flow through an opening, using the equation

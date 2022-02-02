@@ -61,7 +61,7 @@ initial equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Forward),
         Line(points={{0,78},{0,-78}}, color={28,108,200})}),
-    defaultComponentName="tabdat_M",
+    defaultComponentName="tabDat",
     Documentation(info="<html>
 <p>
 This model describes the one-directional pressure driven air flow through an

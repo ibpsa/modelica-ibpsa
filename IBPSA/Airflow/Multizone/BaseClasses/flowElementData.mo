@@ -1,6 +1,7 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
 function flowElementData
   "Function for the interpolation of table input for TableData airflow models, Cubic hermite spline interpolation for most, Linearly interpolated between second-to-last and last point"
+  extends Modelica.Icons.Function;
 
   input Real u "Independent variable";
   input Real[:] xd "X-axis support points";
