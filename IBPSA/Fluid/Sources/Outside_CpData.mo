@@ -3,10 +3,21 @@ model Outside_CpData
   "Boundary that takes weather data as an input and computes the wind pressure from a given wind pressure profile"
   extends IBPSA.Fluid.Sources.BaseClasses.Outside;
 
-  parameter Real table[:,:]=[0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3; 315,0.1; 360,0.4] "Cp at different angles of attack in degrees";
+  parameter Real table[:,:]=[0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3; 315,0.1; 360,0.4]
+  "Cp at different angles of attack. First column are Cp values, second column are wind angles of attack in degrees";
   parameter Modelica.Units.SI.Angle azi "Surface azimuth (South:0, West:pi/2)"  annotation (choicesAllMatching=true);
   parameter Real Cs=1 "Wind speed modifier";
 
+
+  Modelica.Units.SI.Pressure pWin(displayUnit="Pa") = Cs*0.5*CpAct*d*vWin*vWin
+   "Change in pressure due to wind force";
+
+  Real CpAct(min=0, final unit="1") = IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(
+    incAng=alpha,
+    xd=exTable[:, 1],
+    yd=exTable[:, 2],
+    d=deri)
+    "Actual wind pressure coefficient";
 
   //Extend table to account for 360° profile and generate spline derivatives at support points
 protected
@@ -15,46 +26,30 @@ protected
   parameter Real nextPoint[1,2] = [Radtable[2, 1] + (2*Modelica.Constants.pi), Radtable[2, 2]];
 
   parameter Real exTable[:,:]=[prevPoint;Radtable;nextPoint]; //Extended table
-  parameter Real[size(exTable, 1)] d=IBPSA.Utilities.Math.Functions.splineDerivatives(x=exTable[:,1],y=exTable[:,2],ensureMonotonicity=false);
+  parameter Real[size(exTable, 1)] deri=IBPSA.Utilities.Math.Functions.splineDerivatives(x=exTable[:,1],y=exTable[:,2],ensureMonotonicity=false);
 
-public
-  Modelica.Units.SI.Angle alpha "Wind incidence angle (0: normal to wall)";
-  Real CpAct(min=0, final unit="1") "Actual wind pressure coefficient";
+  Modelica.Units.SI.Angle alpha = winDir-surOut "Wind incidence angle (0: normal to wall)";
 
-  Modelica.Units.SI.Pressure pWin(displayUnit="Pa") "Change in pressure due to wind force";
   Modelica.Blocks.Interfaces.RealInput pWea(min=0, nominal=1E5, final unit="Pa")
-                                                                                "Pressure from weather bus";
+   "Pressure from weather bus";
 
-  Modelica.Blocks.Interfaces.RealOutput pTot(min=0, nominal=1E5, final unit="Pa") "Sum of atmospheric pressure and wind pressure";
+  Modelica.Blocks.Interfaces.RealOutput pTot(min=0, nominal=1E5, final unit="Pa") = pWea + pWin "Sum of atmospheric pressure and wind pressure";
+  Modelica.Units.SI.Density d = Medium.density(
+    Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal))
+    "Air density";
 
-protected
   Modelica.Units.SI.Angle surOut = azi-Modelica.Constants.pi   "Angle of surface that is used to compute angle of attack of wind";
   Modelica.Blocks.Interfaces.RealInput vWin(final unit="m/s")    "Wind speed from weather bus";
   Modelica.Blocks.Interfaces.RealInput winDir(final unit="rad",displayUnit="deg") "Wind direction from weather bus";
-
 initial equation
   assert(table[1,2]<>0 or table[end,2]<>360, "First and last point in the table must be 0 and 360", level = AssertionLevel.error);
 
 equation
-  alpha = winDir-surOut;
-
-  CpAct =IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(
-    incAng=alpha,
-    xd=exTable[:, 1],
-    yd=exTable[:, 2],
-    d=d);
-
-  pWin = Cs*0.5*CpAct*medium.d*vWin*vWin;
-  pTot = pWea + pWin;
-
   connect(weaBus.winDir, winDir);
   connect(weaBus.winSpe, vWin);
   connect(weaBus.pAtm, pWea);
   connect(p_in_internal, pTot);
   connect(weaBus.TDryBul, T_in_internal);
-
-
-
 
   annotation (defaultComponentName="out",
     Documentation(info="<html>
@@ -65,27 +60,38 @@ from weather data. The model is identical to
 <a href=\"modelica://IBPSA.Fluid.Sources.Outside\">
 IBPSA.Fluid.Sources.Outside</a>,
 except that it adds the wind pressure to the
-pressure at the fluid port <code>ports</code>.
+pressure at the fluid ports <code>ports</code>.
 </p>
-<p>The pressure <i>p</i> at the port <span style=\"font-family: Courier New;\">ports</span> is computed as: </p>
-<p align=\"center\"><i>p = p<sub>w</sub> + C<sub>p,act</sub> C<sub>s</sub>1 &frasl; 2 v<sup>2</sup> &rho;, </i></p>
-<p>where <i>p<sub>w</sub></i> is the atmospheric pressure from the weather bus, <i>v</i> is the wind speed from the weather bus, and <i>&rho;</i> is the fluid density. </p>
 <p>
-The wind pressure coefficient (C<sub>p,act</sub>) is a function af the wind incidence
-angle.The wind direction is computed relative to the azimuth of this surface,
-which is equal to the parameter <span style=\"font-family: Courier New;\">azi</span>.
+The pressure <i>p</i> at the fluid ports is computed as:
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+p = p<sub>w</sub> + C<sub>p,act</sub> C<sub>s</sub>1 &frasl; 2 v<sup>2</sup> &rho;,
+</p>
+<p>
+where <i>p<sub>w</sub></i> is the atmospheric pressure from the weather bus,
+<i>v</i> is the wind speed from the weather bus, and
+<i>&rho;</i> is the fluid density.
+</p>
+<p>
+The wind pressure coefficient <i>C<sub>p,act</sub></i> is a function af the wind incidence
+angle.
+The wind direction is computed relative to the azimuth of this surface,
+which is equal to the parameter <code>azi</code>.
 The relation is defined by a cubic hermite interpolation of the users table input.
 Typical table values can be obtained from the &quot;AIVC guide to energy efficient ventilation&quot;,
 appendix 2 (1996). The default table is appendix 2, table 2.2, face 1.
 </p>
 <p>
-The wind speed modifier (C<sub>s</sub>) can be used to incorporate the effect of the surroundings on the local wind speed.
+The wind speed modifier <i>C<sub>s</sub></i> can be used to incorporate the effect of the surroundings on the local wind speed.
 </p>
 <p>
-This model differs from  <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpLowRise\">
-IBPSA.Fluid.Sources.Outside_CpLowRise</a> by the calculation of the wind pressure coefficient (C<sub>p,act</sub>).
-The wind pressure coefficient is defined by a user-defined table in stead of a generalized equation
-such that it can be used for all building sizes and situations with shielding for non-rectangular building shapes.
+This model differs from <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpLowRise\">
+IBPSA.Fluid.Sources.Outside_CpLowRise</a> by the calculation of the wind pressure coefficient
+<i>C<sub>p,act</sub></i>.
+The wind pressure coefficient is defined by a user-defined table instead of a generalized equation
+such that it can be used for all building sizes and situations, for shielded buildings,
+and for buildings with non-rectangular shapes.
 </p>
 <p>
 <b>References</b>

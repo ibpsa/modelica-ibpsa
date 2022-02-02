@@ -29,8 +29,9 @@ protected
     "Wind direction from weather bus";
   Modelica.Units.SI.Angle surOut=azi - Modelica.Constants.pi
     "Angle of surface that is used to compute angle of attack of wind";
-  Modelica.Blocks.Interfaces.RealInput d = Medium.density(
-    Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal));
+  Modelica.Units.SI.Density d = Medium.density(
+    Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal))
+    "Air density";
 
 equation
   alpha = winDir-surOut;
