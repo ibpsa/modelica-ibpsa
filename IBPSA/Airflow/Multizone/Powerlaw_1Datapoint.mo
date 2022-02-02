@@ -1,8 +1,8 @@
 within IBPSA.Airflow.Multizone;
 model Powerlaw_1Datapoint
   "Powerlaw with flow coeffient fitted based on flow exponent and 1 datapoint"
-  extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance_m_flow(
-    final k=C*sqrt(rho_default)); //mass flow form of orifice equation
+  extends IBPSA.Airflow.Multizone.Powerlaw_m_flow(
+    final C=C1*sqrt(rho_default));
   parameter Modelica.Units.SI.PressureDifference dP1
       "Pressure difference of test point"
     annotation (Dialog(group="Test data"));
@@ -11,9 +11,8 @@ model Powerlaw_1Datapoint
     annotation (Dialog(group="Test data"));
 
 protected
-  parameter Real C = m1_flow/(sqrt(rho_default)*(dP1^m)) "Flow coeffient";
-
-     annotation (
+  parameter Real C1 = m1_flow/(sqrt(rho_default)*(dP1^m)) "Flow coefficient";
+annotation (
     Icon(graphics={
         Rectangle(
           extent={{-52,34},{50,-34}},
@@ -51,7 +50,7 @@ protected
           pattern=LinePattern.None,
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid)}),
-    defaultComponentName="powlaw_1dat",
+    defaultComponentName="powLaw",
     Documentation(info="<html>
 <p>Model that fits the flow coefficient of the massflow version of the
 orifice equation based on 1 measured datapoint and given flow exponent.

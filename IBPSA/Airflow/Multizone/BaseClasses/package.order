@@ -3,7 +3,6 @@ DoorDiscretized
 ErrorControl
 PartialOneWayFlowElement
 PartialPowerLawResistance_V_flow
-PartialPowerLawResistance_m_flow
 PowerLawResistanceParameters
 TwoWayFlowElement
 TwoWayFlowElementBuoyancy

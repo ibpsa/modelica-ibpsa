@@ -2,7 +2,7 @@
 model Powerlaw_V_flow "Powerlaw Volume Flow"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance_V_flow(
     final k=C);
-  parameter Real C "Flow coefficiënt";
+  parameter Real C "Flow coefficient";
 
      annotation (
     Icon(graphics={
