@@ -52,8 +52,9 @@ annotation (
           fillPattern=FillPattern.Solid)}),
     defaultComponentName="powLaw",
     Documentation(info="<html>
-<p>Model that fits the flow coefficient of the massflow version of the
-orifice equation based on 1 measured datapoint and given flow exponent.
+<p>
+Model that fits the flow coefficient of the massflow version of the
+orifice equation based on 1 datapoint of mass flow rate and pressure difference, and given flow exponent.
 </p>
 <p>
 A similar model is also used in the CONTAM software (Dols and Walton, 2015).

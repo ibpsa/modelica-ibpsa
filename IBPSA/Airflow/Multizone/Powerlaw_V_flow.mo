@@ -1,4 +1,4 @@
-﻿within IBPSA.Airflow.Multizone;
+within IBPSA.Airflow.Multizone;
 model Powerlaw_V_flow "Powerlaw Volume Flow"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance_V_flow(
     final k=C);
@@ -47,9 +47,11 @@ model Powerlaw_V_flow "Powerlaw Volume Flow"
 <p>
 This model describes the one-directional pressure driven air flow through an opening, using the equation 
 </p>
-<p align=\"center\"><i>V̇ = C &Delta;p<sup>m</sup>, </i></p>
+<p align=\"center\" style=\"font-style:italic;\">
+V&#775; = C &Delta;p<sup>m</sup>,
+</p>
 <p>
-where <i>V̇</i> is the volume flow rate, <i>C</i> is a flow coefficient and <i>m</i> is the flow exponent. 
+where <i>V&#775;</i> is the volume flow rate, <i>C</i> is a flow coefficient and <i>m</i> is the flow exponent. 
 </p>
 <p>
 A similar model is also used in the CONTAM software (Dols and Walton, 2015). 

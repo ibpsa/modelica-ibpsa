@@ -61,8 +61,8 @@ protected
     defaultComponentName="powlaw_2dat",
     Documentation(info="<html>
 <p>
-Model that fits the flow coefficient and exponent of the orifice
-equation (mass flow) based on 2 measured datapoints.
+Model that fits the flow coefficient of the massflow version of the
+orifice equation based on 2 datapoints of mass flow rate and pressure difference.
 </p>
 <p>
 A similar model is also used in the CONTAM software (Dols and Walton, 2015).

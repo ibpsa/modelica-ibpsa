@@ -44,7 +44,7 @@ This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-    V&#775; = k &Delta;p<sup>m</sup>,
+V&#775; = k &Delta;p<sup>m</sup>,
 </p>
 <p>
 where
