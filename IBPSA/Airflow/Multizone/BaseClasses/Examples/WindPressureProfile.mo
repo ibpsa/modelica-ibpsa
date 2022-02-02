@@ -7,7 +7,7 @@ model WindPressureProfile
   parameter Real table[:,:]=
     [0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3; 315,0.1; 360,0.4]
     "Table data";
-  Modelica.SIunits.Angle  alpha "Wind incidence angle (0: normal to wall)";
+  Modelica.Units.SI.Angle  alpha "Wind incidence angle (0: normal to wall)";
   Real Cp "Wind pressure coefficient";
 
 

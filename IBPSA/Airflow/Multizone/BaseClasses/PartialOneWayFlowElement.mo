@@ -10,7 +10,7 @@ partial model PartialOneWayFlowElement
   parameter Boolean useDefaultProperties=true
     "Set to false to use density and viscosity based on actual medium state, rather than using default values"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.PressureDifference dp_turbulent(min=0, displayUnit="Pa") = 0.1
+  parameter Modelica.Units.SI.PressureDifference dp_turbulent(min=0, displayUnit="Pa") = 0.1
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1"
     annotation(Dialog(tab="Advanced"));
 
@@ -18,9 +18,9 @@ partial model PartialOneWayFlowElement
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true, Dialog(tab="Advanced"));
 
-  Modelica.SIunits.VolumeFlowRate V_flow = m_flow/rho
+  Modelica.Units.SI.VolumeFlowRate V_flow = m_flow/rho
     "Volume flow rate through the component";
-  Modelica.SIunits.Density rho "Fluid density at port_a";
+  Modelica.Units.SI.Density rho "Fluid density at port_a";
 
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -28,14 +28,14 @@ protected
       p=Medium.p_default,
       X=Medium.X_default)
     "State of the medium at the medium default properties";
-  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
+  parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
     "Density at the medium default properties";
-  parameter Modelica.SIunits.DynamicViscosity dynVis_default=
+  parameter Modelica.Units.SI.DynamicViscosity dynVis_default=
     Medium.dynamicViscosity(sta_default)
     "Dynamic viscosity at the medium default properties";
 
   Medium.ThermodynamicState sta "State of the medium in the component";
-  Modelica.SIunits.DynamicViscosity dynVis "Dynamic viscosity";
+  Modelica.Units.SI.DynamicViscosity dynVis "Dynamic viscosity";
   Real mExc(quantity="Mass", final unit="kg")
     "Air mass exchanged (for purpose of error control only)";
 
@@ -96,16 +96,16 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-This partial model is used to model one way flow-elements. 
-It holds the conservation equations and should be extended by 
+This partial model is used to model one way flow-elements.
+It holds the conservation equations and should be extended by
 definition of <u><b>one</b></u> of the following variables:
 </p>
 <p>m_flow = mass flow rate trough the component</p>
 <p>or</p>
 <p>V_flow = volume flow rate through the component</p>
 <p>
-The flow from A-&gt;B is the positive flow. 
-The resulting equation should be in the <code>extends</code> statement, 
+The flow from A-&gt;B is the positive flow.
+The resulting equation should be in the <code>extends</code> statement,
 not in the equation section since this model sets both
 <code>m_flow = V_flow*rho</code> and <code>V_flow = m_flow/rho</code>.
 </p>

@@ -4,7 +4,7 @@ model Outside_CpData
   extends IBPSA.Fluid.Sources.BaseClasses.Outside;
 
   parameter Real table[:,:]=[0,0.4; 45,0.1; 90,-0.3; 135,-0.35; 180,-0.2; 225,-0.35; 270,-0.3; 315,0.1; 360,0.4] "Cp at different angles of attack in degrees";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth (South:0, West:pi/2)"  annotation (choicesAllMatching=true);
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth (South:0, West:pi/2)"  annotation (choicesAllMatching=true);
   parameter Real Cs=1 "Wind speed modifier";
 
 
@@ -18,17 +18,17 @@ protected
   parameter Real[size(exTable, 1)] d=IBPSA.Utilities.Math.Functions.splineDerivatives(x=exTable[:,1],y=exTable[:,2],ensureMonotonicity=false);
 
 public
-  Modelica.SIunits.Angle alpha "Wind incidence angle (0: normal to wall)";
+  Modelica.Units.SI.Angle alpha "Wind incidence angle (0: normal to wall)";
   Real CpAct(min=0, final unit="1") "Actual wind pressure coefficient";
 
-  Modelica.SIunits.Pressure pWin(displayUnit="Pa") "Change in pressure due to wind force";
+  Modelica.Units.SI.Pressure pWin(displayUnit="Pa") "Change in pressure due to wind force";
   Modelica.Blocks.Interfaces.RealInput pWea(min=0, nominal=1E5, final unit="Pa")
                                                                                 "Pressure from weather bus";
 
   Modelica.Blocks.Interfaces.RealOutput pTot(min=0, nominal=1E5, final unit="Pa") "Sum of atmospheric pressure and wind pressure";
 
 protected
-  Modelica.SIunits.Angle surOut = azi-Modelica.Constants.pi   "Angle of surface that is used to compute angle of attack of wind";
+  Modelica.Units.SI.Angle surOut = azi-Modelica.Constants.pi   "Angle of surface that is used to compute angle of attack of wind";
   Modelica.Blocks.Interfaces.RealInput vWin(final unit="m/s")    "Wind speed from weather bus";
   Modelica.Blocks.Interfaces.RealInput winDir(final unit="rad",displayUnit="deg") "Wind direction from weather bus";
 
@@ -67,20 +67,20 @@ pressure at the fluid port <code>ports</code>.
 <p align=\"center\"><i>p = p<sub>w</sub> + C<sub>p,act</sub> C<sub>s</sub>1 &frasl; 2 v<sup>2</sup> &rho;, </i></p>
 <p>where <i>p<sub>w</sub></i> is the atmospheric pressure from the weather bus, <i>v</i> is the wind speed from the weather bus, and <i>&rho;</i> is the fluid density. </p>
 <p>
-The wind pressure coefficient (C<sub>p,act</sub>) is a function af the wind incidence 
-angle.The wind direction is computed relative to the azimuth of this surface, 
-which is equal to the parameter <span style=\"font-family: Courier New;\">azi</span>. 
-The relation is defined by a cubic hermite interpolation of the users table input. 
-Typical table values can be obtained from the &quot;AIVC guide to energy efficient ventilation&quot;, 
+The wind pressure coefficient (C<sub>p,act</sub>) is a function af the wind incidence
+angle.The wind direction is computed relative to the azimuth of this surface,
+which is equal to the parameter <span style=\"font-family: Courier New;\">azi</span>.
+The relation is defined by a cubic hermite interpolation of the users table input.
+Typical table values can be obtained from the &quot;AIVC guide to energy efficient ventilation&quot;,
 appendix 2 (1996). The default table is appendix 2, table 2.2, face 1.
-</p> 
-<p>
-The wind speed modifier (C<sub>s</sub>) can be used to incorporate the effect of the surroundings on the local wind speed. 
 </p>
 <p>
-This model differs from  <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpLowRise\"> 
+The wind speed modifier (C<sub>s</sub>) can be used to incorporate the effect of the surroundings on the local wind speed.
+</p>
+<p>
+This model differs from  <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpLowRise\">
 IBPSA.Fluid.Sources.Outside_CpLowRise</a> by the calculation of the wind pressure coefficient (C<sub>p,act</sub>).
-The wind pressure coefficient is defined by a user-defined table in stead of a generalized equation 
+The wind pressure coefficient is defined by a user-defined table in stead of a generalized equation
 such that it can be used for all building sizes and situations with shielding for non-rectangular building shapes.
 </p>
 <p>

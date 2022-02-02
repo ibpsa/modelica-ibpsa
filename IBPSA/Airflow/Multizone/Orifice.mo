@@ -9,7 +9,7 @@ model Orifice "Orifice"
   parameter Real CD=0.65 "Discharge coefficient"
     annotation (Dialog(group="Orifice characteristics"));
 
-  Modelica.SIunits.Velocity v(nominal=1) = V_flow/A "Average velocity";
+  Modelica.Units.SI.Velocity v(nominal=1) = V_flow/A "Average velocity";
 
   annotation (
     Icon(graphics={

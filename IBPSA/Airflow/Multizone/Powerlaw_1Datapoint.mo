@@ -3,10 +3,10 @@ model Powerlaw_1Datapoint
   "Powerlaw with flow coeffient fitted based on flow exponent and 1 datapoint"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialPowerLawResistance_m_flow(
     m=0.5, final k=C*sqrt(rho_default)); //mass flow form of orifice equation
-  parameter Modelica.SIunits.PressureDifference dP1
+  parameter Modelica.Units.SI.PressureDifference dP1
       "Pressure difference of test point"
     annotation (Dialog(group="Test data"));
-  parameter Modelica.SIunits.MassFlowRate  m1_flow
+  parameter Modelica.Units.SI.MassFlowRate  m1_flow
       "Mass flow rate of test point"
     annotation (Dialog(group="Test data"));
 
@@ -53,8 +53,8 @@ protected
           fillPattern=FillPattern.Solid)}),
     defaultComponentName="powlaw_1dat",
     Documentation(info="<html>
-<p>Model that fits the flow coefficient of the massflow version of the 
-orifice equation based on 1 measured datapoint and given flow exponent. 
+<p>Model that fits the flow coefficient of the massflow version of the
+orifice equation based on 1 measured datapoint and given flow exponent.
 </p>
 <p>
 A similar model is also used in the CONTAM software (Dols and Walton, 2015).
@@ -64,8 +64,8 @@ A similar model is also used in the CONTAM software (Dols and Walton, 2015).
 </p>
 <ul>
 <li>
-<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, 
-National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. 
+<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>,
+National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>.
 </li>
 </ul>
 </html>", revisions="<html>

@@ -15,7 +15,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
 
   parameter Modelica.Units.SI.Area L(min=0) "Effective leakage area";
 
-  Modelica.SIunits.Velocity v(nominal=1) = V_flow/L "Average velocity";
+  Modelica.Units.SI.Velocity v(nominal=1) = V_flow/L "Average velocity";
 
   annotation (Icon(graphics={
         Rectangle(

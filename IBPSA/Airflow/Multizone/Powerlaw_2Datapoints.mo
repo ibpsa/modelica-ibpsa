@@ -5,16 +5,16 @@ model Powerlaw_2Datapoints
     final m=n, final k=C*sqrt(rho_default)); //mass flow form of orifice equation
 
 
-  parameter Modelica.SIunits.PressureDifference dP1
+  parameter Modelica.Units.SI.PressureDifference dP1
       "Pressure difference of first test point"
     annotation (Dialog(group="Test data"));
-  parameter Modelica.SIunits.MassFlowRate  m1_flow
+  parameter Modelica.Units.SI.MassFlowRate  m1_flow
       "Mass flow rate of first test point"
     annotation (Dialog(group="Test data"));
-  parameter Modelica.SIunits.PressureDifference dP2
+  parameter Modelica.Units.SI.PressureDifference dP2
       "Pressure difference of second test point"
     annotation (Dialog(group="Test data"));
-  parameter Modelica.SIunits.MassFlowRate  m2_flow
+  parameter Modelica.Units.SI.MassFlowRate  m2_flow
       "Mass flow rate of second test point" annotation (Dialog(group="Test data"));
 protected
   parameter Real C = m1_flow/(sqrt(rho_default)*(dP1^n)) "Flow coeffient";
@@ -61,7 +61,7 @@ protected
     defaultComponentName="powlaw_2dat",
     Documentation(info="<html>
 <p>
-Model that fits the flow coefficient and exponent of the orifice 
+Model that fits the flow coefficient and exponent of the orifice
 equation (mass flow) based on 2 measured datapoints.
 </p>
 <p>
@@ -70,9 +70,9 @@ A similar model is also used in the CONTAM software (Dols and Walton, 2015).
 <p><b>References</b></p>
 <ul>
 <li>
-<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. 
-<i>CONTAM User Guide and Program Documentation Version 3.2</i>, 
-National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. 
+<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>.
+<i>CONTAM User Guide and Program Documentation Version 3.2</i>,
+National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>.
 </li>
 </ul>
 </html>", revisions="<html>

@@ -31,23 +31,24 @@ protected
     redeclare package Medium = Medium,
     use_p_in=true,
     T=293.15,
-    nPorts=8) annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+    nPorts=8) annotation (Placement(transformation(extent={{-100,-28},{-80,-8}})));
   Fluid.Sources.Boundary_pT bouB(
     redeclare package Medium = Medium,
     use_p_in=true,
     T=293.15,
-    nPorts=8) annotation (Placement(transformation(extent={{120,-20},{100,0}})));
+    nPorts=8) annotation (Placement(transformation(extent={{100,-20},{80,0}})));
   Modelica.Blocks.Sources.Ramp ramp_min50_50pa(
     duration=500,
     height=100,
     offset=-50) "Block that generates a ramp signal from -50 to +50"
-     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   Modelica.Blocks.Sources.Constant AmbP(k=101325)
-  "Assumed ambient pressure" annotation (Placement(transformation(extent={{160,20},{140,40}})));
+  "Assumed ambient pressure" annotation (Placement(transformation(extent={{-180,18},
+            {-160,38}})));
   Modelica.Blocks.Math.Sum sum(nin=2) annotation (Placement(transformation(
-        extent={{-2,-2},{2,2}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-108,-2})));
+        origin={-122,-10})));
 
   //Flow models
   EffectiveAirLeakageArea ela(
@@ -135,82 +136,88 @@ protected
   "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
 
   //Checking the data
-  Modelica.Blocks.Tables.CombiTable1D IntTestData(
+  Modelica.Blocks.Tables.CombiTable1Dv IntTestData(
     table=TestData,
     columns=2:9,
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative2)
     "Table with CONTAM simulation results for comparisson" annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-  Modelica.Blocks.Routing.Replicator replicator(nout=IntTestData.n) annotation (Placement(transformation(extent={{-98,164},{-88,176}})));
+  Modelica.Blocks.Routing.Replicator replicator(nout=nTested) annotation (Placement(transformation(extent={{-120,
+            160},{-100,180}})));
 
 public
-  Modelica.SIunits.PressureDifference dP "Pressure difference over the tested elements";
-  Modelica.SIunits.MassFlowRate[nTested]  m_flow_data "simulated mass flow of each flow element";
-  Modelica.SIunits.MassFlowRate [nTested] m_flow_testdata "mass flow of each flow element of CONTAM simulation";
+  Modelica.Units.SI.PressureDifference dP "Pressure difference over the tested elements";
+  Modelica.Units.SI.MassFlowRate[nTested]  m_flow_data "simulated mass flow of each flow element";
+  Modelica.Units.SI.MassFlowRate [nTested] m_flow_testdata "mass flow of each flow element of CONTAM simulation";
 equation
 
-  connect(ramp_min50_50pa.y, sum.u[1]) annotation (Line(points={{-119,30},{-116,
-          30},{-116,-2},{-110.4,-2},{-110.4,-2.2}},
-                                             color={0,0,127}));
-  connect(AmbP.y, sum.u[2]) annotation (Line(points={{139,30},{132,30},{132,156},
-          {-114,156},{-114,-2},{-110.4,-2},{-110.4,-1.8}},
-                                   color={0,0,127}));
-  connect(sum.y, bouA.p_in) annotation (Line(points={{-105.8,-2},{-102,-2}},      color={0,0,127}));
-  connect(AmbP.y, bouB.p_in) annotation (Line(points={{139,30},{132,30},{132,-2},{122,-2}},
-                                                             color={0,0,127}));
-  connect(ramp_min50_50pa.y, replicator.u) annotation (Line(points={{-119,30},{-116,30},{-116,170},{-99,170}},
-                                                             color={0,0,127}));
-  connect(replicator.y, IntTestData.u) annotation (Line(points={{-87.5,170},{-82,170}},
+  connect(ramp_min50_50pa.y, sum.u[1]) annotation (Line(points={{-159,-10},{-134,
+          -10},{-134,-10.5}},                color={0,0,127}));
+  connect(AmbP.y, sum.u[2]) annotation (Line(points={{-159,28},{-140,28},{-140,-10},
+          {-134,-10},{-134,-9.5}}, color={0,0,127}));
+  connect(sum.y, bouA.p_in) annotation (Line(points={{-111,-10},{-102,-10}},      color={0,0,127}));
+  connect(AmbP.y, bouB.p_in) annotation (Line(points={{-159,28},{-140,28},{-140,
+          150},{112,150},{112,-2},{102,-2}},                 color={0,0,127}));
+  connect(ramp_min50_50pa.y, replicator.u) annotation (Line(points={{-159,-10},{
+          -150,-10},{-150,170},{-122,170}},                  color={0,0,127}));
+  connect(replicator.y, IntTestData.u) annotation (Line(points={{-99,170},{-82,170}},
                                                    color={0,0,127}));
-  connect(bouA.ports[1],ela. port_a) annotation (Line(points={{-80,-6.5},{-62,-6.5},
-          {-62,130},{-40,130}},
+  connect(bouA.ports[1],ela. port_a) annotation (Line(points={{-80,-19.75},{-62,
+          -19.75},{-62,130},{-40,130}},
                               color={0,127,255}));
-  connect(bouA.ports[2], ori.port_a) annotation (Line(points={{-80,-7.5},{-60,-7.5},
-          {-60,90},{-40,90}}, color={0,127,255}));
-  connect(bouA.ports[3], powlaw_1dat.port_a) annotation (Line(points={{-80,-8.5},
-          {-58,-8.5},{-58,50},{-40,50}}, color={0,127,255}));
-  connect(bouA.ports[4], powlaw_2dat.port_a) annotation (Line(points={{-80,-9.5},
-          {-56,-9.5},{-56,10},{-40,10}}, color={0,127,255}));
-  connect(bouA.ports[5], powlaw_M.port_a) annotation (Line(points={{-80,-10.5},{
-          -56,-10.5},{-56,-30},{-40,-30}},
+  connect(bouA.ports[2], ori.port_a) annotation (Line(points={{-80,-19.25},{-60,
+          -19.25},{-60,90},{-40,90}},
+                              color={0,127,255}));
+  connect(bouA.ports[3], powlaw_1dat.port_a) annotation (Line(points={{-80,-18.75},
+          {-58,-18.75},{-58,50},{-40,50}},
+                                         color={0,127,255}));
+  connect(bouA.ports[4], powlaw_2dat.port_a) annotation (Line(points={{-80,-18.25},
+          {-56,-18.25},{-56,10},{-40,10}},
+                                         color={0,127,255}));
+  connect(bouA.ports[5], powlaw_M.port_a) annotation (Line(points={{-80,-17.75},
+          {-56,-17.75},{-56,-30},{-40,-30}},
                                       color={0,127,255}));
-  connect(bouA.ports[6], powlaw_V.port_a) annotation (Line(points={{-80,-11.5},{
-          -58,-11.5},{-58,-70},{-40,-70}},
+  connect(bouA.ports[6], powlaw_V.port_a) annotation (Line(points={{-80,-17.25},
+          {-58,-17.25},{-58,-70},{-40,-70}},
                                       color={0,127,255}));
-  connect(bouA.ports[7],tabdat_M. port_a) annotation (Line(points={{-80,-12.5},{
-          -60,-12.5},{-60,-110},{-40,-110}},
+  connect(bouA.ports[7],tabdat_M. port_a) annotation (Line(points={{-80,-16.75},
+          {-60,-16.75},{-60,-110},{-40,-110}},
                                       color={0,127,255}));
-  connect(bouA.ports[8],tabdat_V. port_a) annotation (Line(points={{-80,-13.5},{
-          -62,-13.5},{-62,-150},{-40,-150}},
+  connect(bouA.ports[8],tabdat_V. port_a) annotation (Line(points={{-80,-16.25},
+          {-62,-16.25},{-62,-150},{-40,-150}},
                                         color={0,127,255}));
   connect(ela.port_b, Sen_ela.port_a)    annotation (Line(points={{-20,130},{0,130}},
                                               color={0,127,255}));
   connect(Sen_ela.port_b, bouB.ports[1]) annotation (Line(points={{20,130},{60,130},
-          {60,-6.5},{100,-6.5}},color={0,127,255}));
+          {60,-11.75},{80,-11.75}},
+                                color={0,127,255}));
   connect(ori.port_b, Sen_ori.port_a)    annotation (Line(points={{-20,90},{0,90}},color={0,127,255}));
   connect(Sen_ori.port_b, bouB.ports[2]) annotation (Line(points={{20,90},{58,90},
-          {58,-7.5},{100,-7.5}},color={0,127,255}));
+          {58,-11.25},{80,-11.25}},
+                                color={0,127,255}));
   connect(powlaw_1dat.port_b, Sen_powlaw_1dat.port_a) annotation (Line(points={{-20,50},{0,50}},color={0,127,255}));
   connect(Sen_powlaw_1dat.port_b, bouB.ports[3]) annotation (Line(points={{20,50},
-          {56,50},{56,-8.5},{100,-8.5}},color={0,127,255}));
+          {56,50},{56,-10.75},{80,-10.75}},
+                                        color={0,127,255}));
   connect(powlaw_2dat.port_b, Sen_powlaw_2dat.port_a) annotation (Line(points={{-20,10},{0,10}},color={0,127,255}));
   connect(Sen_powlaw_2dat.port_b, bouB.ports[4]) annotation (Line(points={{20,10},
-          {54,10},{54,-9.5},{100,-9.5}},color={0,127,255}));
+          {54,10},{54,-10.25},{80,-10.25}},
+                                        color={0,127,255}));
   connect(powlaw_M.port_b, Sen_powlaw_M.port_a) annotation (Line(points={{-20,-30},{0,-30}},color={0,127,255}));
   connect(Sen_powlaw_M.port_b, bouB.ports[5]) annotation (Line(points={{20,-30},
-          {54,-30},{54,-10.5},{100,-10.5}},
+          {54,-30},{54,-9.75},{80,-9.75}},
                                          color={0,127,255}));
   connect(powlaw_V.port_b, Sen_powlaw_V.port_a) annotation (Line(points={{-20,-70},{0,-70}},color={0,127,255}));
   connect(Sen_powlaw_V.port_b, bouB.ports[6]) annotation (Line(points={{20,-70},
-          {56,-70},{56,-11.5},{100,-11.5}},
+          {56,-70},{56,-9.25},{80,-9.25}},
                                 color={0,127,255}));
   connect(tabdat_M.port_b, Sen_tabdat_M.port_a) annotation (Line(points={{-20,-110},{0,-110}},
                                                 color={0,127,255}));
   connect(Sen_tabdat_M.port_b, bouB.ports[7]) annotation (Line(points={{20,-110},
-          {58,-110},{58,-12.5},{100,-12.5}},
+          {58,-110},{58,-8.75},{80,-8.75}},
                                          color={0,127,255}));
   connect(tabdat_V.port_b, Sen_tabdat_V.port_a) annotation (Line(points={{-20,-150},{0,-150}},  color={0,127,255}));
   connect(Sen_tabdat_V.port_b, bouB.ports[8]) annotation (Line(points={{20,-150},
-          {60,-150},{60,-13.5},{100,-13.5}},
+          {60,-150},{60,-8.25},{80,-8.25}},
                                           color={0,127,255}));
 
   dP=ela.dp;
@@ -227,7 +234,7 @@ equation
   IntTestData.y= m_flow_testdata;
 
   annotation (Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-180},{160,200}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{160,200}})),
     experiment(
       StopTime=500,
       Interval=1,
@@ -240,5 +247,5 @@ equation
 First implementation</li>
 </ul>
 </html>
-"));
+"), Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end OneWayFlow;

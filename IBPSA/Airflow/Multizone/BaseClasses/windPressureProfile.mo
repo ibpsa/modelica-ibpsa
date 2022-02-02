@@ -2,7 +2,7 @@ within IBPSA.Airflow.Multizone.BaseClasses;
 function windPressureProfile
   "Function for the cubic spline interpolation of a wind pressure profile with given support points and spline derivatives at these support points"
 
-  input Modelica.SIunits.Angle u "independent variable, wind incidence angle";
+  input Modelica.Units.SI.Angle u "independent variable, wind incidence angle";
 
   input Real[:] xd "Support points x-value";
   input Real[size(xd, 1)] yd "Support points y-value";
@@ -48,7 +48,7 @@ First implementation
 </html>
 ",        info="<html>
 <p>
-This function computes the wind pressure coefficients (<i>C<sub>p</sub></i>)from user-defined table data. 
+This function computes the wind pressure coefficients (<i>C<sub>p</sub></i>)from user-defined table data.
 The same possibilty is also implemented in CONTAM.
 </p>
 <p>
@@ -60,8 +60,8 @@ which can be used directly with components of this package.
 <h4>References</h4>
 <ul>
 <li>
-<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, 
-National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. 
+<b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>,
+National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>.
 </li>
 <li>
 <b>Andrew K. Persily and Elizabeth M. Ivy.</b>

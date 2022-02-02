@@ -8,9 +8,9 @@ model FlowElementData "Test model for the function flowElementData"
       4.5,0.02613; 50,0.02614]
       "Table of mass flow rate in kg/s (second column) as a function of pressure difference in Pa (first column)";
 
-  Modelica.SIunits.PressureDifference dp
+  Modelica.Units.SI.PressureDifference dp
     "Pressure difference";
-  Modelica.SIunits.MassFlowRate m_flow
+  Modelica.Units.SI.MassFlowRate m_flow
     "Mass flow rate";
 
 protected
