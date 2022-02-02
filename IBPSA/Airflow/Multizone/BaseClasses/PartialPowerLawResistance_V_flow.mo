@@ -1,7 +1,6 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
-partial model PartialPowerLawResistance_V_flow
+model PartialPowerLawResistance_V_flow
   "Flow resistance that uses the power law for computing volumetric flow rate"
-
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
   V_flow = IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
       k=k,
@@ -17,7 +16,6 @@ partial model PartialPowerLawResistance_V_flow
    extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters;
 
 
-
   parameter Real k "Flow coefficient, k = V_flow/ dp^m";
 
   annotation (
@@ -27,7 +25,7 @@ This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
 </p>
 <pre>
-    V_flow = k * dp^m,
+V_flow = k * dp^m,
 </pre>
 <p>
 where <code>k</code> is a variable and

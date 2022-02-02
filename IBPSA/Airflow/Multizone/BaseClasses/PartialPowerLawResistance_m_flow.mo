@@ -1,5 +1,5 @@
 within IBPSA.Airflow.Multizone.BaseClasses;
-partial model PartialPowerLawResistance_m_flow
+model PartialPowerLawResistance_m_flow
   "Partial model for mass flow resistance that uses the power law for computing mass flow rate"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
     m_flow = IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
@@ -14,7 +14,6 @@ partial model PartialPowerLawResistance_m_flow
     final m_flow_nominal=k*dp_turbulent,
     final m_flow_small=1E-4*abs(m_flow_nominal));
   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters;
-
 
   parameter Real k "Flow coefficient, k = m_flow/ dp^m";
 
