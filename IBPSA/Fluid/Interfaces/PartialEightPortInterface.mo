@@ -32,20 +32,20 @@ partial model PartialEightPortInterface
       HideResult=true);
   Medium1.MassFlowRate m1_flow = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
-  Modelica.Units.SI.Pressure dp1(displayUnit="Pa")
+  Modelica.Units.SI.Pressure dp1(displayUnit="Pa") = port_a1.p - port_b1.p
     "Pressure difference between port_a1 and port_b1";
   Medium2.MassFlowRate m2_flow = port_a2.m_flow
     "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)";
-  Modelica.Units.SI.Pressure dp2(displayUnit="Pa")
+  Modelica.Units.SI.Pressure dp2(displayUnit="Pa") = port_a2.p - port_b2.p
     "Pressure difference between port_a2 and port_b2";
 
   Medium3.MassFlowRate m3_flow = port_a3.m_flow
     "Mass flow rate from port_a3 to port_b3 (m3_flow > 0 is design flow direction)";
-  Modelica.Units.SI.Pressure dp3(displayUnit="Pa")
+  Modelica.Units.SI.Pressure dp3(displayUnit="Pa") = port_a3.p - port_b3.p
     "Pressure difference between port_a3 and port_b3";
   Medium4.MassFlowRate m4_flow = port_a4.m_flow
     "Mass flow rate from port_a4 to port_b4 (m4_flow > 0 is design flow direction)";
-  Modelica.Units.SI.Pressure dp4(displayUnit="Pa")
+  Modelica.Units.SI.Pressure dp4(displayUnit="Pa") = port_a4.p - port_b4.p
     "Pressure difference between port_a4 and port_b4";
 
   Medium1.ThermodynamicState sta_a1=
@@ -157,11 +157,8 @@ protected
   Medium4.ThermodynamicState state_b4_inflow=
     Medium4.setState_phX(port_b4.p, inStream(port_b4.h_outflow), inStream(port_b4.Xi_outflow))
     "state for medium inflowing through port_b4";
-equation
-  dp1 = port_a1.p - port_b1.p;
-  dp2 = port_a2.p - port_b2.p;
-  dp3 = port_a3.p - port_b3.p;
-  dp4 = port_a4.p - port_b4.p;
+
+
   annotation (
   preferredView="info",
     Documentation(info="<html>
