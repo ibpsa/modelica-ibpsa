@@ -126,12 +126,12 @@ First implementation.
     Icon(graphics={Text(
           visible=use_Cp_in,
           extent={{-140,92},{-92,62}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="C_p"),
           Text(
           visible=use_C_in,
           extent={{-154,-28},{-102,-62}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="C"),
         Line(points={{-56,54},{-56,-44},{52,-44}}, color={255,255,255}),
         Line(points={{-56,16},{-50,16},{-44,12},{-38,-2},{-28,-24},{-20,-40},
@@ -141,6 +141,6 @@ First implementation.
           smooth=Smooth.Bezier),
         Text(
           extent={{-54,66},{2,22}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="Cp")}));
 end Outside_CpData;

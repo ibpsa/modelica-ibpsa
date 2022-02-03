@@ -95,7 +95,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{0,13},{0,-13}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           origin={15,0},
           rotation=90,
           textString="V_flow"),

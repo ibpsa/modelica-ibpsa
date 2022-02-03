@@ -51,7 +51,7 @@ initial equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{0,13},{0,-13}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="m_flow",
           origin={13,0},
           rotation=90),
