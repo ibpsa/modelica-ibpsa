@@ -1,4 +1,4 @@
-within IBPSA.Airflow.Multizone.Examples;
+﻿within IBPSA.Airflow.Multizone.Examples;
 model TrickleVent
   "Model with a trickle vent modelled using the models with flow based on tabulated data"
   extends Modelica.Icons.Example;
@@ -52,13 +52,13 @@ model TrickleVent
         origin={-50,40})));
   Modelica.Blocks.Math.Gain gain(k=3000) "Gain block"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  IBPSA.Airflow.Multizone.TableData_m_flow tabdat_M(
+  IBPSA.Airflow.Multizone.TableData_m_flow tabDat_m_flow(
     redeclare package Medium = Medium,
     dpMea_nominal = {-50,  -25,  -10,  -5,  -3,  -2,  -1,  0,  1,  2,  3,  4.5,  50},
     mMea_flow_nominal = {-0.08709, -0.06158, -0.03895, -0.02754, -0.02133, -0.01742, -0.01232, 0, 0.01232, 0.01742, 0.02133, 0.02613, 0.02614})
     "Self regulating trickle vent"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  IBPSA.Airflow.Multizone.TableData_V_flow tabdat_V(
+  IBPSA.Airflow.Multizone.TableData_V_flow tabDat_V_flow(
     redeclare package Medium = Medium,
     dpMea_nominal = {-50,  -25,  -10,  -5,  -3,  -2,  -1,  0,  1,  2,  3,  4.5,  50},
     VMea_flow_nominal = {-0.104508, -0.073896, -0.04674, -0.033048, -0.025596, -0.020904, -0.014784, 0, 0.014784, 0.020904, 0.025596, 0.031356,  0.031368})
@@ -89,13 +89,13 @@ equation
           {-60,20},{-60,40}},         color={191,0,0}));
   connect(preHea.port,room. heatPort) annotation (Line(points={{30,40},{30,20},
           {10,20},{10,-10}},        color={191,0,0}));
-  connect(east.ports[1], tabdat_M.port_a)
+  connect(east.ports[1], tabDat_m_flow.port_a)
     annotation (Line(points={{-30,-30},{-20,-30}}, color={0,127,255}));
-  connect(tabdat_M.port_b,room. ports[1])
+  connect(tabDat_m_flow.port_b,room. ports[1])
     annotation (Line(points={{0,-30},{19,-30},{19,-20}},  color={0,127,255}));
-  connect(tabdat_V.port_a,room. ports[2]) annotation (Line(points={{40,-30},{24,
+  connect(tabDat_V_flow.port_a,room. ports[2]) annotation (Line(points={{40,-30},{24,
           -30},{24,-20},{21,-20}}, color={0,127,255}));
-  connect(tabdat_V.port_b, west.ports[1])
+  connect(tabDat_V_flow.port_b, west.ports[1])
     annotation (Line(points={{60,-30},{70,-30}}, color={0,127,255}));
   annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Examples/TrickleVent.mos"
         "Simulate and plot"),

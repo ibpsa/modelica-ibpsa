@@ -32,14 +32,14 @@ model PressurizationData
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01) "Room model"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  IBPSA.Airflow.Multizone.Powerlaw_1Datapoint powlaw_1dat(
+  IBPSA.Airflow.Multizone.Powerlaw_1Datapoint pow_1dat(
     dpMea_nominal(displayUnit="Pa") = 50,
     redeclare package Medium = Medium,
     m=0.66,
     mMea_flow_nominal=0.5*(room.V*n50*1.2))
     "Crack in envelope representing 50% of the leakage area"
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
-  IBPSA.Airflow.Multizone.Powerlaw_1Datapoint powlaw_1dat1(
+  IBPSA.Airflow.Multizone.Powerlaw_1Datapoint pow_1dat1(
     dpMea_nominal(displayUnit="Pa") = 50,
     redeclare package Medium = Medium,
     m=0.66,
@@ -55,13 +55,13 @@ equation
       points={{-60,10.2},{-60,10},{-68,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(east.ports[1], powlaw_1dat.port_a)
+  connect(east.ports[1], pow_1dat.port_a)
     annotation (Line(points={{-40,10},{-30,10}},   color={0,127,255}));
-  connect(powlaw_1dat.port_b,room. ports[1])
+  connect(pow_1dat.port_b,room. ports[1])
     annotation (Line(points={{-10,10},{9,10},{9,20}},      color={0,127,255}));
-  connect(powlaw_1dat1.port_a,room. ports[2])
+  connect(pow_1dat1.port_a,room. ports[2])
     annotation (Line(points={{30,10},{11,10},{11,20}},    color={0,127,255}));
-  connect(powlaw_1dat1.port_b, west.ports[1])
+  connect(pow_1dat1.port_b, west.ports[1])
     annotation (Line(points={{50,10},{62,10}},   color={0,127,255}));
   annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/Examples/PressurizationData.mos"
         "Simulate and plot"),

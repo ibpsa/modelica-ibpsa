@@ -51,7 +51,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid)}),
-    defaultComponentName="powLaw",
+    defaultComponentName="pow",
     Documentation(info="<html>
 <p>
 Model that fits the flow coefficient of the massflow version of the
