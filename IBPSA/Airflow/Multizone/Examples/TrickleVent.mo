@@ -100,7 +100,7 @@ equation
         experiment(
       StopTime=2592000,
       Interval=600,
-      Tolerance=1e-08),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model illustrates the use of the TableData models of the
