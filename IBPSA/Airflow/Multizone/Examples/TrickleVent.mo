@@ -106,7 +106,7 @@ equation
 This model illustrates the use of the TableData models of the
 Airflow.MultiZone package to model self regulating inlet vents.
 The models are connected to a common volume/room on one side and
-to outside conditions on the other side (east and west oriëntation respectively).
+to outside conditions on the other side (east and west orientation respectively).
 </p>
 </html>", revisions="<html>
 <ul>
