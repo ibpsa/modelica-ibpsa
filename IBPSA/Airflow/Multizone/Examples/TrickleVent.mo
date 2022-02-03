@@ -1,6 +1,6 @@
-﻿within IBPSA.Airflow.Multizone.Examples;
+within IBPSA.Airflow.Multizone.Examples;
 model TrickleVent
-  "Model with a trickle vent modelled using the TableData models"
+  "Model with a trickle vent modelled using the models with flow based on tabulated data"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air;
 
@@ -52,15 +52,17 @@ model TrickleVent
         origin={-50,40})));
   Modelica.Blocks.Math.Gain gain(k=3000) "Gain block"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  TableData_m_flow tabdat_M(redeclare package Medium = Medium, table=[-50,-0.08709;
-        -25,-0.06158; -10,-0.03895; -5,-0.02754; -3,-0.02133; -2,-0.01742; -1,-0.01232;
-        0,0; 1,0.01232; 2,0.01742; 3,0.02133; 4.5,0.02613; 50,0.02614])
+  IBPSA.Airflow.Multizone.TableData_m_flow tabdat_M(
+    redeclare package Medium = Medium,
+    dpMea_nominal = {-50,  -25,  -10,  -5,  -3,  -2,  -1,  0,  1,  2,  3,  4.5,  50},
+    mMea_flow_nominal = {-0.08709, -0.06158, -0.03895, -0.02754, -0.02133, -0.01742, -0.01232, 0, 0.01232, 0.01742, 0.02133, 0.02613, 0.02614})
     "Self regulating trickle vent"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  TableData_V_flow tabdat_V(redeclare package Medium = Medium, table=[-50,-0.104508;
-        -25,-0.073896; -10,-0.04674; -5,-0.033048; -3,-0.025596; -2,-0.020904;
-        -1,-0.014784; 0,0; 1,0.014784; 2,0.020904; 3,0.025596; 4.5,0.031356; 50,
-        0.031368]) "Self regulating trickle vent"
+  IBPSA.Airflow.Multizone.TableData_V_flow tabdat_V(
+    redeclare package Medium = Medium,
+    dpMea_nominal = {-50,  -25,  -10,  -5,  -3,  -2,  -1,  0,  1,  2,  3,  4.5,  50},
+    VMea_flow_nominal = {-0.104508, -0.073896, -0.04674, -0.033048, -0.025596, -0.020904, -0.014784, 0, 0.014784, 0.020904, 0.025596, 0.031356,  0.031368})
+   "Self regulating trickle vent"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 equation
   connect(weaDat.weaBus, west.weaBus) annotation (Line(
@@ -103,9 +105,14 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This model illustrates the use of the TableData models of the
-Airflow.MultiZone package to model self regulating inlet vents.
-The models are connected to a common volume/room on one side and
+This model illustrates the use of the models
+<a href=\"modelica://IBPSA.Airflow.Multizone.TableData_V_flow\">
+IBPSA.Airflow.Multizone.TableData_V_flow</a>
+and
+<a href=\"modelica://IBPSA.Airflow.Multizone.TableData_m_flow\">
+IBPSA.Airflow.Multizone.TableData_m_flow</a>
+to model self regulating inlet vents.
+The models are connected to a common volume that emulates a room on one side and
 to outside conditions on the other side (east and west orientation respectively).
 </p>
 </html>", revisions="<html>

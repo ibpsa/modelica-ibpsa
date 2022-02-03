@@ -1,23 +1,16 @@
 within IBPSA.Airflow.Multizone;
 model TableData_V_flow
   "Volume flow(y-axis) vs Pressure(x-axis) cubic spline fit model based on table data, with last two points linearly interpolated"
-  extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
-    m_flow = IBPSA.Airflow.Multizone.BaseClasses.interpolate(u=dp,xd=xd,yd=yd,d=d)*rho_default,
-    final m_flow_nominal=min(abs(table[:,2]))/rho_default);
+  extends IBPSA.Airflow.Multizone.TableData_m_flow(
+    final mMea_flow_nominal = VMea_flow_nominal*rho_default);
 
-  parameter Real table[:,2]
-    "Table with pressure difference in Pa in first column, and volume flow rate in m3/s in second column";
-
-protected
-  parameter Real[:] xd=table[:,1] "X-axis support points";
-  parameter Real[size(xd, 1)] yd=table[:,2] "Y-axis support points";
-  parameter Real[size(xd, 1)] d(each fixed=false) "Derivatives at the support points";
-
+  parameter Modelica.Units.SI.VolumeFlowRate VMea_flow_nominal[:]
+    "Volume flow rate of test points"
+    annotation (Dialog(group="Test data"));
 initial equation
-  d =IBPSA.Utilities.Math.Functions.splineDerivatives(
-    x=xd,
-    y=yd,
-    ensureMonotonicity=true);
+  assert(size(dpMea_nominal, 1) == size(VMea_flow_nominal, 1),
+    "Size of parameters are size(dpMea_nominal, 1) = " + String(size(dpMea_nominal, 1)) +
+    " and size(VMea_flow_nominal, 1) = " + String(size(VMea_flow_nominal, 1)) + ". They must be equal.");
 
   annotation (
     defaultComponentName="tabDat",

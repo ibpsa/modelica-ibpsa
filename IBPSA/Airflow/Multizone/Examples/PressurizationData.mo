@@ -33,17 +33,17 @@ model PressurizationData
     m_flow_nominal=0.01) "Room model"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   IBPSA.Airflow.Multizone.Powerlaw_1Datapoint powlaw_1dat(
+    dpMea_nominal(displayUnit="Pa") = 50,
     redeclare package Medium = Medium,
     m=0.66,
-    dP1(displayUnit="Pa") = 50,
-    m1_flow=0.5*(room.V*n50*1.2))
+    mMea_flow_nominal=0.5*(room.V*n50*1.2))
     "Crack in envelope representing 50% of the leakage area"
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
-  IBPSA.Airflow.Multizone.Powerlaw_1Datapoint
-    powlaw_1dat1(redeclare package Medium = Medium,
+  IBPSA.Airflow.Multizone.Powerlaw_1Datapoint powlaw_1dat1(
+    dpMea_nominal(displayUnit="Pa") = 50,
+    redeclare package Medium = Medium,
     m=0.66,
-    dP1(displayUnit="Pa") = 50,
-    m1_flow=0.5*(room.V*n50*1.2))
+    mMea_flow_nominal=0.5*(room.V*n50*1.2))
     "Crack in envelope representing 50% of the leakage area"
     annotation (Placement(transformation(extent={{30,0},{50,20}})));
 equation

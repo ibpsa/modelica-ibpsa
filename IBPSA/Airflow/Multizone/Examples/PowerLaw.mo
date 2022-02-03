@@ -52,17 +52,15 @@ model PowerLaw "Model with powerlaw models"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Powerlaw_1Datapoint powlaw_1dat(
     redeclare package Medium = Medium,
+    dpMea_nominal = 50,
     m=0.59,
-    dP1(displayUnit="Pa") = 50,
-    m1_flow=1.2/3600)
+    mMea_flow_nominal=1.2/3600)
     "Mass flow rate based on powerlaw, input of m and 1 test data point."
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Powerlaw_2Datapoints powlaw_2dat(
     redeclare package Medium = Medium,
-    dP1(displayUnit="Pa") = 1,
-    m1_flow=0.12/3600,
-    dP2(displayUnit="Pa") = 50,
-    m2_flow=1.2/3600)
+    dpMea_nominal = {1, 50},
+    mMea_flow_nominal={0.12, 1.2}/3600)
     "Mass flow rate based on powerlaw, input of 2 test data points."
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation

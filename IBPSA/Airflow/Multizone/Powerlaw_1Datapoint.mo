@@ -3,15 +3,16 @@ model Powerlaw_1Datapoint
   "Powerlaw with flow coeffient fitted based on flow exponent and 1 datapoint"
   extends IBPSA.Airflow.Multizone.Powerlaw_m_flow(
     final C=C1*sqrt(rho_default));
-  parameter Modelica.Units.SI.PressureDifference dP1
-      "Pressure difference of test point"
+  parameter Modelica.Units.SI.PressureDifference dpMea_nominal(displayUnit="Pa")
+    "Pressure difference of test point"
     annotation (Dialog(group="Test data"));
-  parameter Modelica.Units.SI.MassFlowRate  m1_flow
-      "Mass flow rate of test point"
+  parameter Modelica.Units.SI.MassFlowRate mMea_flow_nominal
+    "Mass flow rate of test point"
     annotation (Dialog(group="Test data"));
 
 protected
-  parameter Real C1 = m1_flow/(sqrt(rho_default)*(dP1^m)) "Flow coefficient";
+  parameter Real C1=mMea_flow_nominal/(sqrt(rho_default)*(dpMea_nominal^m))
+    "Flow coefficient";
 annotation (
     Icon(graphics={
         Rectangle(

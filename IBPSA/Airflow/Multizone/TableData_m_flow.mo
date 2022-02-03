@@ -2,23 +2,29 @@ within IBPSA.Airflow.Multizone;
 model TableData_m_flow
   "Mass flow(y-axis) vs Pressure(x-axis) cubic spline fit model based from table data, with last two points linearly interpolated"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
-    m_flow = IBPSA.Airflow.Multizone.BaseClasses.interpolate(u=dp,xd=xd,yd=yd,d=d),
-    final m_flow_nominal=min(abs(table[:,2])));
+    m_flow = IBPSA.Airflow.Multizone.BaseClasses.interpolate(
+      u=dp,
+      xd=dpMea_nominal,
+      yd=mMea_flow_nominal,
+      d=d),
+    final m_flow_nominal=max(abs(dpMea_nominal[1]), abs(dpMea_nominal[end])));
 
-  parameter Real table[:,2]
-    "Table with pressure difference in Pa in first column, and mass flow rate in kg/s in second column";
-
+  parameter Modelica.Units.SI.PressureDifference dpMea_nominal[:](each displayUnit="Pa")
+    "Pressure difference of test points"
+    annotation (Dialog(group="Test data"));
+  parameter Modelica.Units.SI.MassFlowRate mMea_flow_nominal[:]
+    "Mass flow rate of test points"
+    annotation (Dialog(group="Test data"));
 protected
-  parameter Real[:] xd=table[:,1] "X-axis support points";
-  parameter Real[size(xd, 1)] yd=table[:,2] "Y-axis support points";
-  parameter Real[size(xd, 1)] d(each fixed=false) "Derivatives at the support points";
-
+  parameter Real[size(dpMea_nominal, 1)] d = IBPSA.Utilities.Math.Functions.splineDerivatives(
+    x=dpMea_nominal,
+    y=mMea_flow_nominal,
+    ensureMonotonicity=true)
+    "Derivatives at the support points";
 initial equation
-  d =IBPSA.Utilities.Math.Functions.splineDerivatives(
-    x=xd,
-    y=yd,
-    ensureMonotonicity=true);
-
+  assert(size(dpMea_nominal, 1) == size(mMea_flow_nominal, 1),
+    "Size of parameters are size(dpMea_nominal, 1) = " + String(size(dpMea_nominal, 1)) +
+    " and size(mMea_flow_nominal, 1) = " + String(size(mMea_flow_nominal, 1)) + ". They must be equal.");
   annotation (
     Icon(graphics={
         Rectangle(
