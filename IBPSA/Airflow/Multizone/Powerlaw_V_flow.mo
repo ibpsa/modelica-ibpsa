@@ -51,7 +51,10 @@ This model describes the one-directional pressure driven air flow through an ope
 V&#775; = C &Delta;p<sup>m</sup>,
 </p>
 <p>
-where <i>V&#775;</i> is the volume flow rate, <i>C</i> is a flow coefficient and <i>m</i> is the flow exponent.
+where <i>V&#775;</i> is the volume flow rate in m<sup>3</sup>/s,
+<i>C</i> is a flow coefficient,
+<i>&Delta;p</i> is the pressure difference in Pa,
+and <i>m</i> is the flow exponent.
 </p>
 <p>
 A similar model is also used in the CONTAM software (Dols and Walton, 2015).
