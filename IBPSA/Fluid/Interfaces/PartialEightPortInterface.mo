@@ -55,8 +55,8 @@ partial model PartialEightPortInterface
                           noEvent(actualStream(port_a1.Xi_outflow)))
     else
       Medium1.setState_phX(port_a1.p,
-                          noEvent(inStream(port_a1.h_outflow)),
-                          noEvent(inStream(port_a1.Xi_outflow)))
+                          inStream(port_a1.h_outflow),
+                          inStream(port_a1.Xi_outflow))
       if show_T "Medium properties in port_a1";
   Medium1.ThermodynamicState sta_b1=
     if allowFlowReversal1 then
@@ -65,8 +65,8 @@ partial model PartialEightPortInterface
                           noEvent(actualStream(port_b1.Xi_outflow)))
     else
       Medium1.setState_phX(port_b1.p,
-                          noEvent(port_b1.h_outflow),
-                          noEvent(port_b1.Xi_outflow))
+                          port_b1.h_outflow,
+                          port_b1.Xi_outflow)
        if show_T "Medium properties in port_b1";
 
   Medium2.ThermodynamicState sta_a2=
@@ -76,8 +76,8 @@ partial model PartialEightPortInterface
                           noEvent(actualStream(port_a2.Xi_outflow)))
     else
       Medium2.setState_phX(port_a2.p,
-                          noEvent(inStream(port_a2.h_outflow)),
-                          noEvent(inStream(port_a2.Xi_outflow)))
+                          inStream(port_a2.h_outflow),
+                          inStream(port_a2.Xi_outflow))
       if show_T "Medium properties in port_a2";
   Medium2.ThermodynamicState sta_b2=
     if allowFlowReversal2 then
@@ -86,8 +86,8 @@ partial model PartialEightPortInterface
                           noEvent(actualStream(port_b2.Xi_outflow)))
     else
       Medium2.setState_phX(port_b2.p,
-                          noEvent(port_b2.h_outflow),
-                          noEvent(port_b2.Xi_outflow))
+                          port_b2.h_outflow,
+                          port_b2.Xi_outflow)
        if show_T "Medium properties in port_b2";
 
   Medium3.ThermodynamicState sta_a3=
@@ -97,8 +97,8 @@ partial model PartialEightPortInterface
                           noEvent(actualStream(port_a3.Xi_outflow)))
     else
       Medium3.setState_phX(port_a.p,
-                          noEvent(inStream(port_a3.h_outflow)),
-                          noEvent(inStream(port_a3.Xi_outflow)))
+                          inStream(port_a3.h_outflow),
+                          inStream(port_a3.Xi_outflow))
       if show_T "Medium properties in port_a3";
   Medium3.ThermodynamicState sta_b3=
     if allowFlowReversal3 then
@@ -107,8 +107,8 @@ partial model PartialEightPortInterface
                           noEvent(actualStream(port_b3.Xi_outflow)))
     else
       Medium3.setState_phX(port_b3.p,
-                          noEvent(port_b3.h_outflow),
-                          noEvent(port_b3.Xi_outflow))
+                          port_b3.h_outflow,
+                          port_b3.Xi_outflow)
        if show_T "Medium properties in port_b3";
 
   Medium4.ThermodynamicState sta_a4=
@@ -118,8 +118,8 @@ partial model PartialEightPortInterface
                           noEvent(actualStream(port_a4.Xi_outflow)))
     else
       Medium4.setState_phX(port_a4.p,
-                          noEvent(inStream(port_a4.h_outflow)),
-                          noEvent(inStream(port_a4.Xi_outflow)))
+                          inStream(port_a4.h_outflow),
+                          inStream(port_a4.Xi_outflow))
       if show_T "Medium properties in port_a4";
   Medium4.ThermodynamicState sta_b4=
     if allowFlowReversal4 then
@@ -128,8 +128,8 @@ partial model PartialEightPortInterface
                           noEvent(actualStream(port_b4.Xi_outflow)))
     else
       Medium4.setState_phX(port_b4.p,
-                          noEvent(port_b4.h_outflow),
-                          noEvent(port_b4.Xi_outflow))
+                          port_b4.h_outflow,
+                          port_b4.Xi_outflow)
        if show_T "Medium properties in port_b4";
 
 protected
@@ -175,6 +175,15 @@ mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2022, by Michael Wetter:<br/>
+If <code>allowFlowReversal==false</code>, removed <code>noEvent()</code> declaration
+for <code>sta_a</code> and for <code>sta_b</code> because the variable is either
+already used with <code>inStream()</code> in the computation of <code>state_*_inflow</code>,
+or the result of a variable of the model that already may generate an event.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1578\">IBPSA, #1578</a>.
+</li>
 <li>
 February 2, 2022, by Hongxiang Fu:<br/>
 If <code>allowFlowReversal==false</code>, replaced <code>actualStream()</code>
