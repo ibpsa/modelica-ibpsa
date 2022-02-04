@@ -29,7 +29,7 @@ model PowerLaw "Model with powerlaw models"
     startTime=0.25) "Ramp"
                     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Modelica.Blocks.Sources.Constant pressure(k=100000) "Pressure"
-    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-110,-80},{-90,-60}})));
   Modelica.Blocks.Math.Add add "Add"
     annotation (Placement(transformation(extent={{40,-86},{60,-66}})));
   IBPSA.Fluid.Sensors.DensityTwoPort den1(
@@ -65,11 +65,11 @@ model PowerLaw "Model with powerlaw models"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
   connect(pressure.y, add.u1)
-    annotation (Line(points={{-99,-70},{38,-70}}, color={0,0,255}));
+    annotation (Line(points={{-89,-70},{38,-70}}, color={0,0,255}));
   connect(ramp1.y, add.u2) annotation (Line(points={{21,-90},{26,-90},{26,-82},{
           38,-82}}, color={0,0,255}));
-  connect(pressure.y, roo1.p_in) annotation (Line(points={{-99,-70},{-60,-70},{-60,
-          -40},{-120,-40},{-120,78},{-102,78}},
+  connect(pressure.y, roo1.p_in) annotation (Line(points={{-89,-70},{-50,-70},{
+          -50,-40},{-110,-40},{-110,78},{-102,78}},
                                         color={0,0,127}));
   connect(add.y, roo2.p_in) annotation (Line(points={{61,-76},{112,-76},{112,62},
           {102,62}}, color={0,0,127}));

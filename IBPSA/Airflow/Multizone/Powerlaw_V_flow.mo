@@ -1,8 +1,8 @@
 within IBPSA.Airflow.Multizone;
-model Powerlaw_V_flow "Powerlaw Volume Flow"
+model Powerlaw_V_flow "Power law with coefficient for volume flow rate"
   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance_V_flow(
     final k=C);
-  parameter Real C "Flow coefficient, k = V_flow/ dp^m";
+  parameter Real C "Flow coefficient, C = V_flow/ dp^m";
 
      annotation (
     Icon(graphics={

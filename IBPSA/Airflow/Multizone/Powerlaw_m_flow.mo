@@ -1,5 +1,5 @@
 within IBPSA.Airflow.Multizone;
-model Powerlaw_m_flow "Powerlaw Mass Flow"
+model Powerlaw_m_flow "Powerlaw with coefficient for mass flow rate"
    extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
     m_flow = IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
       k=k,
