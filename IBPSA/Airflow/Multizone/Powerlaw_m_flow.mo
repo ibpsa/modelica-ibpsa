@@ -2,7 +2,7 @@ within IBPSA.Airflow.Multizone;
 model Powerlaw_m_flow "Powerlaw Mass Flow"
    extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
     m_flow = IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
-      k=C,
+      k=k,
       dp=dp,
       m=m,
       a=a,
@@ -10,11 +10,11 @@ model Powerlaw_m_flow "Powerlaw Mass Flow"
       c=c,
       d=d,
       dp_turbulent=dp_turbulent),
-    final m_flow_nominal=C*dp_turbulent,
+    final m_flow_nominal=k*dp_turbulent,
     final m_flow_small=1E-4*abs(m_flow_nominal));
   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters(
     m = 0.5);
-  parameter Real C "Flow coefficient";
+  parameter Real k "Flow coefficient, k = m_flow/ dp^m";
 
      annotation (
     Icon(graphics={
@@ -60,11 +60,11 @@ model Powerlaw_m_flow "Powerlaw Mass Flow"
 This model describes the one-directional pressure driven air flow through an opening, using the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-m&#775; = C &Delta;p<sup>m</sup>,
+m&#775; = k &Delta;p<sup>m</sup>,
 </p>
 <p>
 where <i>m&#775;</i> is the mass flow rate in kg/s,
-<i>C</i> is a flow coefficient,
+<i>k</i> is a flow coefficient,
 <i>&Delta;p</i> is the pressure difference in Pa,
 and <i>m</i> is the flow exponent.
 </p>
