@@ -89,7 +89,7 @@ protected
   Powerlaw_m_flow pow_m_flow(
     redeclare package Medium = Medium,
     m=0.5,
-    C=0.01)
+    k=0.01)
     "Powerlaw_m_flow" annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Powerlaw_V_flow pow_V_flow(
     redeclare package Medium = Medium,
