@@ -49,7 +49,7 @@ before_install:
     fi;
   - if [[ "$TEST_ARG" == *test-openmodelica* ]]; then
        docker pull "$DOCKER_USERNAME"/${OMC_VERSION};
-       cp Buildings/Resources/Scripts/travis/omc/omc $HOME/bin/omc;
+       cp IBPSA/Resources/Scripts/travis/omc/omc $HOME/bin/omc;
     fi;
 
 # Install dependencies
