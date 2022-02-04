@@ -43,5 +43,5 @@ test-dymola:
 
 test-openmodelica:
 	(cd $(ROOT)/Buildings && \
-	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
+	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/IBPSA/Resources/Python-Sources && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool openmodelica --skip-verification)
