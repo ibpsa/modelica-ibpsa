@@ -46,3 +46,7 @@
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
+- model_name: Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
+  openmodelica:
+    comment: returned non-zero exit status 139
+    simulate: false
