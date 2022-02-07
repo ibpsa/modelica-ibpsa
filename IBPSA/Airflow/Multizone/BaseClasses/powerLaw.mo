@@ -46,11 +46,11 @@ This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  V = k sign(&Delta;p) |&Delta;p|<sup>m</sup>
+  V&#775; = k sign(&Delta;p) |&Delta;p|<sup>m</sup>
 </p>
 <p>
 where
-<i>V</i> is the volume flow rate,
+<i>V&#775;</i> is the volume flow rate,
 <i>k &gt; 0</i> is a flow coefficient
 <i>&Delta; p</i> is the pressure drop and
 <i>m &isin; [0.5, 1]</i> is a flow coefficient.
@@ -74,7 +74,7 @@ If <i>m</i> is not a function of time, then
 <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i> can be pre-computed.
 In this situation, use
 <a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM\">
-Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>, which allows
+IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM</a>, which allows
 to compute these values outside of this function, for example as parameters
 of a model.
 </p>

@@ -38,11 +38,11 @@ This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  V = k sign(&Delta;p) |&Delta;p|<sup>m</sup>
+  V&#775; = k sign(&Delta;p) |&Delta;p|<sup>m</sup>
 </p>
 <p>
 where
-<i>V</i> is the volume flow rate,
+<i>V&#775;</i> is the volume flow rate,
 <i>k &gt; 0</i> is a flow coefficient
 <i>&Delta; p</i> is the pressure drop and
 <i>m &isin; [0.5, 1]</i> is a flow coefficient.
@@ -56,7 +56,7 @@ for laminar flow, set <i>m=1</i>.
 The model is used for the interzonal air flow models.
 It is identical to
 <a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.powerLaw\">
-Buildings.Airflow.Multizone.BaseClasses.powerLaw</a> but it
+IBPSA.Airflow.Multizone.BaseClasses.powerLaw</a> but it
 requires the polynomial coefficients as an input.
 This allows a more efficient simulation if <i>m</i> and therefore also
 <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i> are constant.
@@ -72,7 +72,7 @@ If <i>m</i>, and therefore also
 <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i>, change with time, then
 it is more convenient and efficient to use
 <a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.powerLaw\">
-Buildings.Airflow.Multizone.BaseClasses.powerLaw</a>.
+IBPSA.Airflow.Multizone.BaseClasses.powerLaw</a>.
 </p>
 </html>",
 revisions="<html>
