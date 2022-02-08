@@ -2,7 +2,7 @@ within IBPSA.Airflow.Multizone.Examples;
 model PowerLaw "Model with powerlaw models"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air;
-  Powerlaw_m_flow pow_m_flow(
+  Coefficient_m_flow pow_m_flow(
     redeclare package Medium = Medium,
     m=0.59,
     C=3.33e-5) "Mass flow rate based on powerlaw, direct input for m and C"
@@ -44,20 +44,20 @@ model PowerLaw "Model with powerlaw models"
     tau=0,
     initType=Modelica.Blocks.Types.Init.InitialState) "Density sensor"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Powerlaw_V_flow pow_V_flow(
+  Coefficient_V_flow pow_V_flow(
     redeclare package Medium = Medium,
     m=0.59,
     k=3.33e-5/1.2)
     "Volume flow rate based on powerlaw, direct input for m and C"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  Powerlaw_1Datapoint pow_1dat(
+  Point_m_flow pow_1dat(
     redeclare package Medium = Medium,
     dpMea_nominal = 50,
     m=0.59,
     mMea_flow_nominal=1.2/3600)
     "Mass flow rate based on powerlaw, input of m and 1 test data point."
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Powerlaw_2Datapoints pow_2dat(
+  Points_m_flow pow_2dat(
     redeclare package Medium = Medium,
     dpMea_nominal = {1, 50},
     mMea_flow_nominal={0.12, 1.2}/3600)

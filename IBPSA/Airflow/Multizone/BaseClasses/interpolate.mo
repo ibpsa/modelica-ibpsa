@@ -50,9 +50,9 @@ A similar model is also used in the CONTAM software (Dols and Walton, 2015).
 </p>
 <p>
 This function is used in
-<a href=\"modelica://IBPSA.Airflow.Multizone.TableData_m_flow\">
-IBPSA.Airflow.Multizone.TableData_m_flow</a> and <a href=\"modelica://IBPSA.Airflow.Multizone.TableData_V_flow\">
-IBPSA.Airflow.Multizone.TableData_V_flow</a>
+<a href=\"modelica://IBPSA.Airflow.Multizone.Table_m_flow\">
+IBPSA.Airflow.Multizone.Table_m_flow</a> and <a href=\"modelica://IBPSA.Airflow.Multizone.Table_V_flow\">
+IBPSA.Airflow.Multizone.Table_V_flow</a>
 </p>
 <h4>
 References

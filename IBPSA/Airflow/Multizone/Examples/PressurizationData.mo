@@ -32,14 +32,14 @@ model PressurizationData
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01) "Room model"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  IBPSA.Airflow.Multizone.Powerlaw_1Datapoint pow_1dat(
+  IBPSA.Airflow.Multizone.Point_m_flow pow_1dat(
     dpMea_nominal(displayUnit="Pa") = 50,
     redeclare package Medium = Medium,
     m=0.66,
     mMea_flow_nominal=0.5*(room.V*n50*1.2))
     "Crack in envelope representing 50% of the leakage area"
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
-  IBPSA.Airflow.Multizone.Powerlaw_1Datapoint pow_1dat1(
+  IBPSA.Airflow.Multizone.Point_m_flow pow_1dat1(
     dpMea_nominal(displayUnit="Pa") = 50,
     redeclare package Medium = Medium,
     m=0.66,
@@ -72,15 +72,15 @@ equation
     Documentation(info="<html>
 <p>
 This model illustrates the use of
-<a href=\"modelica://IBPSA.Airflow.Multizone.Powerlaw_1Datapoint\">
-IBPSA.Airflow.Multizone.Powerlaw_1Datapoint</a>
+<a href=\"modelica://IBPSA.Airflow.Multizone.Point_m_flow\">
+IBPSA.Airflow.Multizone.Point_m_flow</a>
 to model
 infiltration through the building evelope for a known <i>n<sub>50</sub></i> value (also known as ACH50).
 As the <i>n<sub>50</sub></i> value and the building volume is known,
 the flow at 50 Pa is known. Dividing this flow accross the entire envelope
 (typically surface weighted) and using
-<a href=\"modelica://IBPSA.Airflow.Multizone.Powerlaw_1Datapoint\">
-IBPSA.Airflow.Multizone.Powerlaw_1Datapoint</a>,
+<a href=\"modelica://IBPSA.Airflow.Multizone.Point_m_flow\">
+IBPSA.Airflow.Multizone.Point_m_flow</a>,
 the infiltration airflow at lower pressure differences can be modelled.
 <br/>
 In this example, the two models each represent 50% of the surface where airflow occured due to the pressurization test.

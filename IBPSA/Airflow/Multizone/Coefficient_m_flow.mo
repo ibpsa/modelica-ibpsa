@@ -1,41 +1,57 @@
 within IBPSA.Airflow.Multizone;
-model Powerlaw_V_flow "Power law with coefficient for volume flow rate"
-  extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance_V_flow;
+model Coefficient_m_flow "Powerlaw with coefficient for mass flow rate"
+  extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
+    m_flow=rho*IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
+        k=k,
+        dp=dp,
+        m=m,
+        a=a,
+        b=b,
+        c=c,
+        d=d,
+        dp_turbulent=dp_turbulent),
+    final m_flow_nominal=C*dp_turbulent,
+    final m_flow_small=1E-4*abs(m_flow_nominal));
+  extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters(
+    m = 0.5);
+  parameter Real C "Flow coefficient, C = m_flow/ dp^m";
+protected
+  parameter Real k=C/rho_default "Flow coefficient, k = V_flow/dp^m";
 
      annotation (
     Icon(graphics={
         Rectangle(
-          extent={{-54,34},{48,-34}},
+          extent={{-52,34},{50,-34}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-62,14},{76,-12}},
+          extent={{-60,14},{78,-12}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-100,6},{-64,-6}},
+          extent={{-98,6},{-62,-6}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{48,8},{100,-6}},
+          extent={{50,8},{102,-6}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-70,4},{-52,-4}},
+          extent={{-68,4},{-50,-4}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-88,6},{-52,-6}},
+          extent={{-86,6},{-50,-6}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,127,0},
@@ -46,22 +62,21 @@ model Powerlaw_V_flow "Power law with coefficient for volume flow rate"
 This model describes the one-directional pressure driven air flow through an opening, using the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-V&#775; = C &Delta;p<sup>m</sup>,
+m&#775; = k &Delta;p<sup>m</sup>,
 </p>
 <p>
-where <i>V&#775;</i> is the volume flow rate in m<sup>3</sup>/s,
-<i>C</i> is a flow coefficient,
+where <i>m&#775;</i> is the mass flow rate in kg/s,
+<i>k</i> is a flow coefficient,
 <i>&Delta;p</i> is the pressure difference in Pa,
 and <i>m</i> is the flow exponent.
 </p>
-<p>
-A similar model is also used in the CONTAM software (Dols and Walton, 2015).
-Dols and Walton (2002) recommend to use for the flow exponent m=0.6 to m=0.7 if the flow exponent is not reported with the test results.
+<p><br>A similar model is also used in the CONTAM software (Dols and Walton, 2015).
+Dols and Walton (2002) recommend to use for the flow exponent <i>m=0.6</i> to <i>m=0.7</i> if the flow exponent is not reported with the test results.
 </p>
 <h4>References</h4>
 <ul>
 <li><b>ASHRAE, 1997.</b> <i>ASHRAE Fundamentals</i>, American Society of Heating, Refrigeration and Air-Conditioning Engineers, 1997. </li>
-<li><b>Dols and Walton, 2002.</b> W. Stuart Dols and George N. Walton, <i>CONTAMW 2.0 User Manual, Multizone Airflow and Contaminant Transport Analysis Software</i>, Building and Fire Research Laboratory, National Institute of Standards and Technology, Tech. Report NISTIR 6921, November, 2002. </li>
+<li><b>Dols and Walton, 2002.</b> W. Stuart Dols and George N. Walton, <i>CONTAMW 2.0 User Manual, Multizone Airflow and Contaminant Transport Analysis Software</i>, Building and Fire Research Laboratory, National Institute of Standards and Technology, Tech. Report NISTIR 6921, November, 2002. [1]</li>
 <li><b>W. S. Dols and B. J. Polidoro</b>,<b>2015</b>. <i>CONTAM User Guide and Program Documentation Version 3.2</i>, National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi: <a href=\"https://doi.org/10.6028/NIST.TN.1887\">10.6028/NIST.TN.1887</a>. </li>
 </ul>
 </html>", revisions="<html>
@@ -74,8 +89,8 @@ This is for
 </li>
 <li>
 Apr 6, 2021, by Klaas De Jonge:<br/>
-First Implementation. Model expecting direct input of volume flow powerlaw coefficients.
+First Implementation. Model expecting direct input of mass flow powerlaw coefficients.
 </li>
 </ul>
 </html>"));
-end Powerlaw_V_flow;
+end Coefficient_m_flow;

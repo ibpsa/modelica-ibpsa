@@ -1,7 +1,7 @@
 within IBPSA.Airflow.Multizone;
-model TableData_V_flow
+model Table_V_flow
   "Volume flow(y-axis) vs Pressure(x-axis) cubic spline fit model based on table data, with last two points linearly interpolated"
-  extends IBPSA.Airflow.Multizone.TableData_m_flow(
+  extends IBPSA.Airflow.Multizone.Table_m_flow(
     final mMea_flow_nominal = VMea_flow_nominal*rho_default);
 
   parameter Modelica.Units.SI.VolumeFlowRate VMea_flow_nominal[:]
@@ -98,4 +98,4 @@ First implementation.
           fillColor={255,255,255},
           fillPattern=FillPattern.Forward),
         Line(points={{2,78},{2,-78}}, color={28,108,200})}));
-end TableData_V_flow;
+end Table_V_flow;

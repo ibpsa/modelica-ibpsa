@@ -76,32 +76,32 @@ protected
     redeclare package Medium = Medium,
     A=0.01,
     CD=0.6) "Orifice" annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Powerlaw_1Datapoint pow_1dat(
+  Point_m_flow pow_1dat(
     dpMea_nominal(displayUnit="Pa") = 4,
     redeclare package Medium = Medium,
     mMea_flow_nominal=0.019) "Powerlaw_1Datapoint"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Powerlaw_2Datapoints pow_2dat(
+  Points_m_flow pow_2dat(
     redeclare package Medium = Medium,
     mMea_flow_nominal={0.019, 0.029},
     dpMea_nominal(displayUnit="Pa") = {4, 10}) "Powerlaw_2Datapoints"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Powerlaw_m_flow pow_m_flow(
+  Coefficient_m_flow pow_m_flow(
     redeclare package Medium = Medium,
     m=0.5,
     C=0.01) "Powerlaw_m_flow"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Powerlaw_V_flow pow_V_flow(
+  Coefficient_V_flow pow_V_flow(
     redeclare package Medium = Medium,
     m=0.5,
     k=0.01)
     "Powerlaw_V_flow" annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  TableData_m_flow tabDat_m_flow(
+  Table_m_flow tabDat_m_flow(
    redeclare package Medium = Medium,
    mMea_flow_nominal = {-0.08709, -0.06158, -0.03895, -0.02754, -0.02133, -0.01742, -0.01232, 0, 0.01232, 0.01742, 0.02133, 0.02613, 0.02614},
    dpMea_nominal =     {-50, -25, -10, -5, -3, -2, -1, 0, 1, 2, 3, 4.5, 50})
     "TableData_m_flow" annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
-  TableData_V_flow tabDat_V_flow(
+  Table_V_flow tabDat_V_flow(
     redeclare package Medium = Medium,
     VMea_flow_nominal = {-0.08709, -0.06158, -0.03895, -0.02754, -0.02133, -0.01742, -0.01232, 0, 0.01232, 0.01742, 0.02133, 0.02613, 0.02614},
     dpMea_nominal = {-50, -25, -10, -5, -3, -2, -1, 0, 1, 2, 3, 4.5, 50})

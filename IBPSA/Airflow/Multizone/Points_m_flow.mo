@@ -1,8 +1,9 @@
 within IBPSA.Airflow.Multizone;
-model Powerlaw_2Datapoints
+model Points_m_flow
   "Powerlaw with flow coefficient and flow exponent fitted based on 2 datapoints"
-  extends IBPSA.Airflow.Multizone.Powerlaw_m_flow(final C=mMea_flow_nominal[1]/
-        (dpMea_nominal[1]^m2), final m=m2);
+  extends IBPSA.Airflow.Multizone.Coefficient_m_flow(
+    final C=mMea_flow_nominal[1]/(dpMea_nominal[1]^m2),
+    final m=m2);
 
   parameter Modelica.Units.SI.PressureDifference dpMea_nominal[2](each displayUnit="Pa")
     "Pressure difference of two test points"
@@ -83,4 +84,4 @@ First implementation.
 </ul>
 </html>
 "));
-end Powerlaw_2Datapoints;
+end Points_m_flow;
