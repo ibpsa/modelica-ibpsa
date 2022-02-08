@@ -3,7 +3,7 @@ function powerLawFixedM
   "Power law used in orifice equations when m is constant"
   extends Modelica.Icons.Function;
 
-  input Real k "Flow coefficient, k = V_flow/ dp^m";
+  input Real C "Flow coefficient, C = V_flow/ dp^m";
   input Modelica.Units.SI.PressureDifference dp(displayUnit="Pa")
     "Pressure difference";
   input Real m(min=0.5, max=1)
@@ -22,13 +22,13 @@ protected
   Real pi2 "Square of normalized pressure";
 algorithm
  if (dp >= dp_turbulent) then
-   V_flow := k*dp^m;
+   V_flow :=C *dp^m;
  elseif (dp <= -dp_turbulent) then
-   V_flow :=-k*(-dp)^m;
+   V_flow :=-C*(-dp)^m;
  else
    pi  := dp/dp_turbulent;
    pi2 := pi*pi;
-   V_flow := k*dp_turbulent^m * pi * ( a + pi2 * ( b + pi2 * ( c + pi2 * d)));
+   V_flow :=C *dp_turbulent^m * pi * ( a + pi2 * ( b + pi2 * ( c + pi2 * d)));
  end if;
 
   annotation (smoothOrder=2,
@@ -38,12 +38,12 @@ This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  V&#775; = k sign(&Delta;p) |&Delta;p|<sup>m</sup>
+  V&#775; = C sign(&Delta;p) |&Delta;p|<sup>m</sup>
 </p>
 <p>
 where
 <i>V&#775;</i> is the volume flow rate,
-<i>k &gt; 0</i> is a flow coefficient
+<i>C &gt; 0</i> is a flow coefficient
 <i>&Delta; p</i> is the pressure drop and
 <i>m &isin; [0.5, 1]</i> is a flow coefficient.
 The equation is regularized for
@@ -77,6 +77,13 @@ IBPSA.Airflow.Multizone.BaseClasses.powerLaw</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 8, 2022, by Michael Wetter:<br/>
+Changed to use <code>C</code> for volume flow coefficient (<i>C = V_flow/dp^m</i>),
+and <code>k</code> for mass flow coefficient (<i>k = m_flow/dp^m</i>).
+This is for consistency with
+<a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels\">IBPSA.Fluid.BaseClasses.FlowModels</a>.
+</li>
 <li>
 February 2, 2022, by Michael Wetter:<br/>
 Revised implementation.<br/>

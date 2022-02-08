@@ -2,9 +2,9 @@ within IBPSA.Airflow.Multizone.BaseClasses;
 model PowerLawResistance_V_flow
   "Flow resistance that uses the power law for computing volumetric flow rate"
   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
-  m_flow = V_flow*rho,
-  V_flow = IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
-      k=k,
+    m_flow = V_flow*rho,
+    V_flow = IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
+      C=C,
       dp=dp,
       m=m,
       a=a,
@@ -12,13 +12,13 @@ model PowerLawResistance_V_flow
       c=c,
       d=d,
       dp_turbulent=dp_turbulent),
-    final m_flow_nominal=rho_default*k*dp_turbulent,
+    final m_flow_nominal=rho_default*C*dp_turbulent,
     final m_flow_small=1E-4*abs(m_flow_nominal));
    extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters(
      m = 0.5);
 
 
-  parameter Real k "Flow coefficient, k = V_flow/ dp^m";
+  parameter Real C "Flow coefficient, C = V_flow/ dp^m";
 
   annotation (
     Documentation(info="<html>
@@ -27,10 +27,10 @@ This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
 </p>
 <pre>
-V_flow = k * dp^m,
+V_flow = C * dp^m,
 </pre>
 <p>
-where <code>k</code> is a variable and
+where <code>C</code> is a variable and
 <code>m</code> a parameter.
 For turbulent flow, set <code>m=1/2</code> and
 for laminar flow, set <code>m=1</code>.
@@ -41,6 +41,13 @@ The model is used as a base for the interzonal air flow models.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 8, 2022, by Michael Wetter:<br/>
+Changed to use <code>C</code> for volume flow coefficient (<i>C = V_flow/dp^m</i>),
+and <code>k</code> for mass flow coefficient (<i>k = m_flow/dp^m</i>).
+This is for consistency with
+<a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels\">IBPSA.Fluid.BaseClasses.FlowModels</a>.
+</li>
 <li>
 May 12, 2020, by Michael Wetter:<br/>
 Changed assignment of <code>m_flow_small</code> to <code>final</code>.

@@ -2,7 +2,7 @@ within IBPSA.Airflow.Multizone;
 model EffectiveAirLeakageArea "Effective air leakage area"
   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance_V_flow(
     m=0.65,
-    final k=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m));
+    final C=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m));
 
   parameter Modelica.Units.SI.PressureDifference dpRat(
     min=0,
@@ -77,17 +77,17 @@ This model describes the one-directional pressure driven
 air flow through a crack-like opening, using the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-    V&#775; = k &Delta;p<sup>m</sup>,
+    V&#775; = C &Delta;p<sup>m</sup>,
 </p>
 <p>
 where
 <i>V&#775;</i> is the volume flow rate,
-<i>k</i> is a flow coefficient and
+<i>C</i> is a flow coefficient and
 <i>m</i> is the flow exponent.
 The flow coefficient is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-k = L C<sub>D,Rat</sub> &Delta;p<sub>Rat</sub><sup>(0.5-m)</sup> (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
+C = L C<sub>D,Rat</sub> &Delta;p<sub>Rat</sub><sup>(0.5-m)</sup> (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
 </p>
 <p>
 where

@@ -1,8 +1,8 @@
 within IBPSA.Airflow.Multizone;
 model Point_m_flow
   "Powerlaw with flow coeffient fitted based on flow exponent and 1 datapoint"
-  extends IBPSA.Airflow.Multizone.Coefficient_m_flow(
-    final C=mMea_flow_nominal/(dpMea_nominal^m));
+  extends IBPSA.Airflow.Multizone.Coefficient_m_flow(final k=mMea_flow_nominal/
+        (dpMea_nominal^m));
   parameter Modelica.Units.SI.PressureDifference dpMea_nominal(displayUnit="Pa")
     "Pressure difference of test point"
     annotation (Dialog(group="Test data"));

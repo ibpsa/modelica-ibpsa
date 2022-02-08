@@ -2,7 +2,7 @@ within IBPSA.Airflow.Multizone;
 model Orifice "Orifice"
   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance_V_flow(
     m=0.5,
-    final k=CD*A*sqrt(2.0/rho_default));
+    final C=CD*A*sqrt(2.0/rho_default));
 
   parameter Modelica.Units.SI.Area A "Area of orifice"
     annotation (Dialog(group="Orifice characteristics"));
@@ -44,17 +44,17 @@ This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-V&#775; = k &Delta;p<sup>m</sup>,
+V&#775; = C &Delta;p<sup>m</sup>,
 </p>
 <p>
 where
 <i>V&#775;</i> is the volume flow rate,
-<i>k</i> is a flow coefficient and
+<i>C</i> is a flow coefficient and
 <i>m</i> is the flow exponent.
 The flow coefficient is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-k = C<sub>D</sub> A (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
+C = C<sub>D</sub> A (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
 </p>
 <p>
 where
