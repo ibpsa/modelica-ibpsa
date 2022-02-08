@@ -14,7 +14,7 @@ function powerLawFixedM
   input Real d "Polynomial coefficient";
   input Modelica.Units.SI.PressureDifference dp_turbulent(min=0) = 0.001
     "Pressure difference where regularization starts";
-  output Real flowRate "Mass or volume flow rate";
+  output Modelica.Units.SI.VolumeFlowRate V_flow "Volume flow rate";
 protected
   constant Real gamma(min=1) = 1.5
     "Normalized flow rate where dphi(0)/dpi intersects phi(1)";
@@ -22,13 +22,13 @@ protected
   Real pi2 "Square of normalized pressure";
 algorithm
  if (dp >= dp_turbulent) then
-   flowRate := k*dp^m;
+   V_flow := k*dp^m;
  elseif (dp <= -dp_turbulent) then
-   flowRate :=-k*(-dp)^m;
+   V_flow :=-k*(-dp)^m;
  else
    pi  := dp/dp_turbulent;
    pi2 := pi*pi;
-   flowRate := k*dp_turbulent^m * pi * ( a + pi2 * ( b + pi2 * ( c + pi2 * d)));
+   V_flow := k*dp_turbulent^m * pi * ( a + pi2 * ( b + pi2 * ( c + pi2 * d)));
  end if;
 
   annotation (smoothOrder=2,

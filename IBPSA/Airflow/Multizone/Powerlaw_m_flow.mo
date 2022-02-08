@@ -1,20 +1,22 @@
 within IBPSA.Airflow.Multizone;
 model Powerlaw_m_flow "Powerlaw with coefficient for mass flow rate"
-   extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
-    m_flow = IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
-      k=k,
-      dp=dp,
-      m=m,
-      a=a,
-      b=b,
-      c=c,
-      d=d,
-      dp_turbulent=dp_turbulent),
-    final m_flow_nominal=k*dp_turbulent,
+  extends IBPSA.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
+    m_flow=rho*IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
+        k=k,
+        dp=dp,
+        m=m,
+        a=a,
+        b=b,
+        c=c,
+        d=d,
+        dp_turbulent=dp_turbulent),
+    final m_flow_nominal=C*dp_turbulent,
     final m_flow_small=1E-4*abs(m_flow_nominal));
   extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters(
     m = 0.5);
-  parameter Real k "Flow coefficient, k = m_flow/ dp^m";
+  parameter Real C "Flow coefficient, C = m_flow/ dp^m";
+protected
+  parameter Real k=C/rho_default "Flow coefficient, k = V_flow/dp^m";
 
      annotation (
     Icon(graphics={
