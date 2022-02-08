@@ -3,40 +3,51 @@ model Outside_CpData
   "Boundary that takes weather data as an input and computes the wind pressure from a given wind pressure profile"
   extends IBPSA.Fluid.Sources.BaseClasses.Outside;
 
-  parameter Real table[:,2]
-  "Cp at different angles of attack. First column are Cp values, second column are wind angles of attack in degrees";
+  parameter Modelica.Units.SI.Angle incAng[:](each displayUnit="deg") "Wind incidence angle, first and last point must by 0 and 2 pi (=360 deg)";
+  parameter Real Cp[:](each unit="1") "Cp values at the angles of attack";
+//  parameter Real table[:,2]
+//  "Cp at different angles of attack. First column are Cp values, second column are wind angles of attack in degrees";
   parameter Modelica.Units.SI.Angle azi "Surface azimuth (South:0, West:pi/2)"  annotation (choicesAllMatching=true);
   parameter Real Cs=1 "Wind speed modifier";
 
   Modelica.Units.SI.Pressure pWin(displayUnit="Pa") = Cs*0.5*CpAct*d*vWin*vWin
    "Change in pressure due to wind force";
 
+  // fixme: Should this just use incAng=incAng?
   Real CpAct(
     min=0,
     final unit="1") = IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(
     incAng=alpha,
-    xd=tableExt[:, 1],
-    yd=tableExt[:, 2],
+    xd=incAngExt,
+    yd=CpExt,
     d=deri) "Actual wind pressure coefficient";
 
   //Extend table to account for 360° profile and generate spline derivatives at support points
+//  parameter Real tableRad[:,:]=[Modelica.Constants.D2R*table[:, 1],table[:, 2]]
+//    "Table in rad for units of incidence angle";
+//  parameter Real prevPoint[1,2] = [tableRad[size(table, 1)-1, 1] - (2*Modelica.Constants.pi),tableRad [size(table, 1)-1, 2]]
+//    "Previous point for interpolation";
+//  parameter Real nextPoint[1,2] = [tableRad[2, 1] + (2*Modelica.Constants.pi),tableRad [2, 2]]
+//    "Next point for interpolation";
+//
+//  parameter Real tableExt[:,:]=[prevPoint; tableRad; nextPoint]
+//    "Extended table";
+
 protected
-  parameter Real tableRad[:,:]=[Modelica.Constants.D2R*table[:, 1],table[:, 2]]
-    "Table in rad for units of incidence angle";
-  parameter Real prevPoint[1,2] = [tableRad[size(table, 1)-1, 1] - (2*Modelica.Constants.pi),tableRad [size(table, 1)-1, 2]]
-    "Previous point for interpolation";
-  parameter Real nextPoint[1,2] = [tableRad[2, 1] + (2*Modelica.Constants.pi),tableRad [2, 2]]
-    "Next point for interpolation";
+  final parameter Integer n = size(incAng, 1) "Number of data points provided by user";
+  final parameter Modelica.Units.SI.Angle incAngExt[:](each displayUnit="deg")=
+    cat(1, {incAng[n-1]- (2*Modelica.Constants.pi)}, incAng, {incAng[2] + (2*Modelica.Constants.pi)})
+    "Extended number of incidence angles";
+  final parameter Real CpExt[n+2]=cat(1, {Cp[n-1]}, Cp, {Cp[2]})
+    "Extended number of Cp values";
 
-  parameter Real tableExt[:,:]=[prevPoint; tableRad; nextPoint]
-    "Extended table";
-
-  parameter Real[size(tableExt, 1)] deri=
+  final parameter Real[n+2] deri=
       IBPSA.Utilities.Math.Functions.splineDerivatives(
-      x=tableExt[:, 1],
-      y=tableExt[:, 2],
+      x=incAngExt,
+      y=CpExt,
       ensureMonotonicity=false) "Derivatives for table interpolation";
 
+  // fixme: This is not clear: the original table (now called incAng) are already the wind incidence angle, so why is the surface outward normal used?
   Modelica.Units.SI.Angle alpha = winDir-surOut "Wind incidence angle (0: normal to wall)";
 
   Modelica.Blocks.Interfaces.RealInput pWea(min=0, nominal=1E5, final unit="Pa")
@@ -47,11 +58,17 @@ protected
     Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal))
     "Air density";
 
+  // fixme: This is not clear: the original table (now called incAng) are already the wind incidence angle, so why is the surface outward normal used?
   Modelica.Units.SI.Angle surOut = azi-Modelica.Constants.pi   "Angle of surface that is used to compute angle of attack of wind";
   Modelica.Blocks.Interfaces.RealInput vWin(final unit="m/s")    "Wind speed from weather bus";
   Modelica.Blocks.Interfaces.RealInput winDir(final unit="rad",displayUnit="deg") "Wind direction from weather bus";
 initial equation
-  assert(table[1,2]<>0 or table[end,2]<>360, "First and last point in the table must be 0 and 360", level = AssertionLevel.error);
+  assert(size(incAng, 1) == size(Cp, 1),
+    "Size of parameters are size(incAng, 1) = " + String(size(incAng, 1)) +
+    " and size(Cp, 1) = " + String(size(Cp, 1)) + ". They must be equal.");
+
+  assert(abs(incAng[1]) < 1E-8 and abs(incAng[end]-2*Modelica.Constants.pi) < 1E-8,
+    "First and last point in the table must be 0 and 360", level = AssertionLevel.error);
 
 equation
   connect(weaBus.winDir, winDir);
