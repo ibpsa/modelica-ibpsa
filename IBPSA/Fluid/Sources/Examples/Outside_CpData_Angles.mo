@@ -5,6 +5,8 @@ model Outside_CpData_Angles
   package Medium = IBPSA.Media.Air "Medium model for air";
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"),
+    winSpeSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,
+    winSpe=1,
       winDirSou=IBPSA.BoundaryConditions.Types.DataSource.Input)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
@@ -18,44 +20,44 @@ model Outside_CpData_Angles
     redeclare package Medium = Medium,
     incAng=incAng,
     Cp=Cp_sym,
-    azi=IBPSA.Types.Azimuth.N) "Model with outside conditions"
+    azi=IBPSA.Types.Azimuth.N) "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   IBPSA.Fluid.Sources.Outside_CpData Asymmetric_N(
     redeclare package Medium = Medium,
     incAng=incAng,
     Cp=Cp_Asym,
-    azi=IBPSA.Types.Azimuth.N) "Model with outside conditions"
+    azi=IBPSA.Types.Azimuth.N) "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica.Blocks.Sources.Ramp Winddir(
+  Modelica.Blocks.Sources.Ramp winDir(
     height=2*Modelica.Constants.pi,
     duration=10,
-    startTime=5)
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    startTime=5) "Wind direction"
+    annotation (Placement(transformation(extent={{-80,-6},{-60,14}})));
   IBPSA.Fluid.Sources.Outside_CpData Asymmetric_W(
     redeclare package Medium = Medium,
     incAng=incAng,
     Cp=Cp_Asym,
-    azi=IBPSA.Types.Azimuth.W) "Model with outside conditions"
+    azi=IBPSA.Types.Azimuth.W) "Model to compute wind pressure on West-facing surface"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   IBPSA.Fluid.Sources.Outside_CpData Symmetric_W(
     redeclare package Medium = Medium,
     incAng=incAng,
     Cp=Cp_sym,
-    azi=IBPSA.Types.Azimuth.W) "Model with outside conditions"
+    azi=IBPSA.Types.Azimuth.W) "Model to compute wind pressure on West-facing surface"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 equation
   connect(weaDat.weaBus, Symmetric_N.weaBus) annotation (Line(
-      points={{-20,10},{-8,10},{-8,-9.8},{0,-9.8}},
+      points={{-20,10},{-10,10},{-10,-10},{-6,-10},{-6,-9.8},{0,-9.8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaDat.weaBus, Asymmetric_N.weaBus) annotation (Line(
-      points={{-20,10},{-6,10},{-6,30.2},{0,30.2}},
+      points={{-20,10},{-10,10},{-10,30.2},{0,30.2}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(Winddir.y, weaDat.winDir_in) annotation (Line(points={{-59,10},{-48,10},
-          {-48,4},{-41,4}}, color={0,0,127}));
+  connect(winDir.y, weaDat.winDir_in)
+    annotation (Line(points={{-59,4},{-41,4}}, color={0,0,127}));
   connect(Asymmetric_W.weaBus, weaDat.weaBus) annotation (Line(
       points={{0,70.2},{-10,70.2},{-10,10},{-20,10}},
       color={255,204,51},

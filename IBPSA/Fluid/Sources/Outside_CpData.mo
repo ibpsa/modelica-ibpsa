@@ -17,10 +17,14 @@ model Outside_CpData
   Real CpAct(
     min=0,
     final unit="1") = IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(
-    incAng=alpha,
+    incAng=winSurAng,
     xd=incAngExt,
     yd=CpExt,
     d=deri) "Actual wind pressure coefficient";
+
+  // fixme: This is not clear: the original table (now called incAng) are already the wind incidence angle, so why is the surface outward normal used?
+  Modelica.Units.SI.Angle winSurAng = winDir-surOut "Wind incidence angle (0: normal to wall)";
+
 
   //Extend table to account for 360° profile and generate spline derivatives at support points
 //  parameter Real tableRad[:,:]=[Modelica.Constants.D2R*table[:, 1],table[:, 2]]
@@ -46,9 +50,6 @@ protected
       x=incAngExt,
       y=CpExt,
       ensureMonotonicity=false) "Derivatives for table interpolation";
-
-  // fixme: This is not clear: the original table (now called incAng) are already the wind incidence angle, so why is the surface outward normal used?
-  Modelica.Units.SI.Angle alpha = winDir-surOut "Wind incidence angle (0: normal to wall)";
 
   Modelica.Blocks.Interfaces.RealInput pWea(min=0, nominal=1E5, final unit="Pa")
    "Pressure from weather bus";
@@ -102,16 +103,53 @@ where <i>p<sub>w</sub></i> is the atmospheric pressure from the weather bus,
 <p>
 The wind pressure coefficient <i>C<sub>p,act</sub></i> is a function af the wind incidence
 angle.
-The wind incidence angle (<code>incAng</code>) is computed from the wind direction obtained from the wheatherfile 
-with the surface azimuth (<code>azi</code>) as the base of the angle. 
-The relation between the wind pressure coefficient <i>C<sub>p,act</sub></i> and the incidence angle (<code>incAng</code>) is defined by a cubic hermite interpolation of the users table input.
+The wind incidence angle <code>incAng</code> is computed from the wind direction obtained from the weatherfile 
+with the surface azimuth <code>azi</code> as the base of the angle.
+The relation between the wind pressure coefficient <i>C<sub>p,act</sub></i> and the incidence angle <code>incAng</code>
+is defined by a cubic hermite interpolation of the users table input.
 Typical table values can be obtained from the &quot;AIVC guide to energy efficient ventilation&quot;,
 appendix 2 (1996). The default table is appendix 2, table 2.2, face 1.
 </p>
-<p align=\"center\"><img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Sources/Cp_data.png\"/> </p>
 <p>
 The wind speed modifier <i>C<sub>s</sub></i> can be used to incorporate the effect of the surroundings on the local wind speed.
 </p>
+<h4>Definition of angles</h4>
+<p>
+The wind incidence angle and surface azimuths are defined as follows:
+The wind indicience angle is obtained directly from the weather data bus <code>weaBus.winDir</code>.
+This variable contains the data from the weather data file that was read, such as a TMY3 file.
+In accordance to TMY3, the data is as shown in the table below.
+</p>
+<p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<caption>Value of <code>winDir</code> if the wind blows from different directions.</caption>
+<tr><td></td>  <td style=\"text-align: center\">Wind from North:<br/>0 <br/> 0&deg;</td>  <td></td> </tr>
+<tr><td style=\"text-align: center\">Wind from West:<br/>3&pi;/2 <br/> 270&deg;</td>  <td></td>  <td style=\"text-align: center\">Wind from East:<br/>&pi;/2 <br/> 90&deg;</td></tr>
+<tr><td></td>  <td style=\"text-align: center\">Wind from South:<br/>&pi; <br/> 180&deg;</td>  <td></td></tr>
+</table>
+</p>
+<p>
+For the surface azimuth <code>azi</code>, the specification from
+<a href=\"modelica://IBPSA.Types.Azimuth\">IBPSA.Types.Azimuth</a> is
+used, which is as shown in the table below.
+</p>
+
+<p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<caption>Value of <code>azi</code> if the exterior wall faces in the different directions.</caption>
+<tr><td></td>  <td style=\"text-align: center\">Wall facing north:<br> &pi; <br/> 180&deg;</td>  <td></td> </tr>
+<tr><td style=\"text-align: center\">Wall facing West:<br/> &pi;/2 <br/> 90&deg;</td>  <td></td>  <td style=\"text-align: center\">Wall facing east:<br/> 3&pi;/2 <br/> 270&deg;</td></tr>
+<tr><td></td>  <td style=\"text-align: center\">Wall facing South:<br/>0; <br/> 0&deg;</td>  <td></td></tr>
+</table>
+</p>
+
+<p>
+fixme: Not clear what these angles are. They seem to be not consistent with TMY3 and IBPSA.Types.Azimuth.
+Is that the variable <code>winSurAng</code>?
+</p>
+<p align=\"center\"><img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Sources/Cp_data.png\"/> </p>
+
+<h4>Related model</h4>
 <p>
 This model differs from <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpLowRise\">
 IBPSA.Fluid.Sources.Outside_CpLowRise</a> by the calculation of the wind pressure coefficient
