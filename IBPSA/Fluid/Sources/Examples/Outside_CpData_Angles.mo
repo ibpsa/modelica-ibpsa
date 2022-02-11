@@ -54,8 +54,8 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(Winddir.y, weaDat.winDir_in) annotation (Line(points={{-59,10},{-48,
-          10},{-48,4},{-41,4}}, color={0,0,127}));
+  connect(Winddir.y, weaDat.winDir_in) annotation (Line(points={{-59,10},{-48,10},
+          {-48,4},{-41,4}}, color={0,0,127}));
   connect(Asymmetric_W.weaBus, weaDat.weaBus) annotation (Line(
       points={{0,70.2},{-10,70.2},{-10,10},{-20,10}},
       color={255,204,51},
@@ -64,7 +64,7 @@ equation
       points={{0,-49.8},{-10,-49.8},{-10,10},{-20,10}},
       color={255,204,51},
       thickness=0.5));
-  annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside_CpData.mos"
+  annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside_CpData_Angles.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
