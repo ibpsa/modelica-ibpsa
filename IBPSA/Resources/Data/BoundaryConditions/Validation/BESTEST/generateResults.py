@@ -51,21 +51,21 @@ except TypeError as e:
     BRANCH = None
 
 # Software specifications
-# Set LIBRARY_NAME to IBPSA, or Buildings, etc.
-LIBRARY_NAME = LIBPATH.split(os.path.sep)[-1]
+# Set library_name to IBPSA, or Buildings, etc.
+library_name = LIBPATH.split(os.path.sep)[-1]
 library_version = 'v4.0.0dev'
 modeler_organization = 'LBNL'
 modeler_organization_for_tables_and_charts = 'LBNL'
-program_name_for_tables_and_charts = LIBRARY_NAME
+program_name_for_tables_and_charts = library_name
 results_submission_date = str(date.today().strftime('%m/%d/%Y'))
 
 # Make sure script is run from correct directory
-if os.path.abspath(".").split(os.path.sep)[-1] != LIBRARY_NAME:
+if os.path.abspath(".").split(os.path.sep)[-1] != library_name:
     raise ValueError(f"Script must be run from directory \
-                     {LIBRARY_NAME}")
+                     {library_name}")
 
 # List of cases and result cases
-PACKAGES = f'{LIBRARY_NAME}.BoundaryConditions.Validation.BESTEST'
+PACKAGES = f'{library_name}.BoundaryConditions.Validation.BESTEST'
 
 CASES = ['WD100', 'WD200', 'WD300', 'WD400', 'WD500', 'WD600']
 
@@ -246,7 +246,7 @@ def _simulate(spec):
     # Set MODELICAPATH
     #os.environ['MODELICAPATH'] = LIBPATH
     # Set Model to simulate, the output dir and the package directory
-    s = Simulator(spec["model"], packagePath=os.path.join(wor_dir, LIBRARY_NAME))
+    s = Simulator(spec["model"], packagePath=os.path.join(wor_dir, library_name))
     # Add all necessary parameters from Case Dict
     s.addPreProcessingStatement("OutputCPUtime:= true;")
     s.setSolver(spec["solver"])
@@ -1057,7 +1057,7 @@ if __name__ == '__main__':
                  'LIBPATH': LIBPATH,
                  'DEL_EVR': DEL_EVR or CI_TESTING,
                  'CODE_VERBOSE': CODE_VERBOSE,
-                 'lib_name': LIBRARY_NAME,
+                 'lib_name': library_name,
                  'TestN': TestN}
     if CI_TESTING or not POST_PROCESS_ONLY:
         # Get list of case to simulate with their parameters
@@ -1068,8 +1068,8 @@ if __name__ == '__main__':
         # Copy library to temporary directories
         for case in list_of_cases:
             shutil.copytree(
-                os.path.join(temp_lib_dir, LIBRARY_NAME),
-                os.path.join(case['wor_dir'], LIBRARY_NAME))
+                os.path.join(temp_lib_dir, library_name),
+                os.path.join(case['wor_dir'], library_name))
 
         program_version_release_date = d['commit_time']
         program_name_and_version = d['lib_name'] + ' ' + library_version +\
