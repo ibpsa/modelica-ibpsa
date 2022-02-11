@@ -102,12 +102,13 @@ where <i>p<sub>w</sub></i> is the atmospheric pressure from the weather bus,
 <p>
 The wind pressure coefficient <i>C<sub>p,act</sub></i> is a function af the wind incidence
 angle.
-The wind direction is computed relative to the azimuth of this surface,
-which is equal to the parameter <code>azi</code>.
-The relation is defined by a cubic hermite interpolation of the users table input.
+The wind incidence angle (<code>incAng</code>) is computed from the wind direction obtained from the wheatherfile 
+with the surface azimuth (<code>azi</code>) as the base of the angle. 
+The relation between the wind pressure coefficient <i>C<sub>p,act</sub></i> and the incidence angle (<code>incAng</code>) is defined by a cubic hermite interpolation of the users table input.
 Typical table values can be obtained from the &quot;AIVC guide to energy efficient ventilation&quot;,
 appendix 2 (1996). The default table is appendix 2, table 2.2, face 1.
 </p>
+<p align=\"center\"><img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Sources/Cp_data.png\"/> </p>
 <p>
 The wind speed modifier <i>C<sub>s</sub></i> can be used to incorporate the effect of the surroundings on the local wind speed.
 </p>
