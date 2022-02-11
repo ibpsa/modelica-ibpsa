@@ -1,5 +1,5 @@
-within IBPSA.Fluid.Sources.Examples;
-model Outside_CpData_ConstantProfile
+within IBPSA.Fluid.Sources.Validation;
+model Outside_CpData_Directions
   "Test model for source and sink with outside weather data and wind pressure using a constant wind pressure profile"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air "Medium model for air";
@@ -65,7 +65,7 @@ equation
       points={{-20,50},{-10,50},{-10,-69.8},{0,-69.8}},
       color={255,204,51},
       thickness=0.5));
-  annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside_CpData_ConstantProfile.mos"
+  annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Sources/Validation/Outside_CpData_Directions.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -88,4 +88,4 @@ This is for
       StopTime=86400,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
-end Outside_CpData_ConstantProfile;
+end Outside_CpData_Directions;
