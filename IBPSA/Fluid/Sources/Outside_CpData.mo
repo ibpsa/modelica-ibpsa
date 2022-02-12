@@ -3,8 +3,8 @@ model Outside_CpData
   "Boundary that takes weather data as an input and computes the wind pressure from a given wind pressure profile"
   extends IBPSA.Fluid.Sources.BaseClasses.Outside;
 
-  parameter Modelica.Units.SI.Angle incAng[:](each displayUnit="deg") "Wind incidence angle, first and last point must by 0 and 2 pi (=360 deg)";
-  parameter Real Cp[:](each unit="1") "Cp values at the angles of attack";
+  parameter Modelica.Units.SI.Angle CpincAng[:](displayUnit="deg")      "Wind incidence angles relative to the surface normal (normal=0), first and last point must by 0 and 2 pi(=360 deg)";
+  parameter Real Cp[:](unit="1")      "Cp values at the corresponding CpincAang";
 //  parameter Real table[:,2]
 //  "Cp at different angles of attack. First column are Cp values, second column are wind angles of attack in degrees";
   parameter Modelica.Units.SI.Angle azi "Surface azimuth (South:0, West:pi/2)"  annotation (choicesAllMatching=true);
@@ -38,9 +38,9 @@ model Outside_CpData
 //    "Extended table";
 
 protected
-  final parameter Integer n = size(incAng, 1) "Number of data points provided by user";
+  final parameter Integer n = size(CpincAng, 1) "Number of data points provided by user";
   final parameter Modelica.Units.SI.Angle incAngExt[:](each displayUnit="deg")=
-    cat(1, {incAng[n-1]- (2*Modelica.Constants.pi)}, incAng, {incAng[2] + (2*Modelica.Constants.pi)})
+    cat(1, {CpincAng[n-1]- (2*Modelica.Constants.pi)}, CpincAng, {CpincAng[2] + (2*Modelica.Constants.pi)})
     "Extended number of incidence angles";
   final parameter Real CpExt[n+2]=cat(1, {Cp[n-1]}, Cp, {Cp[2]})
     "Extended number of Cp values";
@@ -64,11 +64,11 @@ protected
   Modelica.Blocks.Interfaces.RealInput vWin(final unit="m/s")    "Wind speed from weather bus";
   Modelica.Blocks.Interfaces.RealInput winDir(final unit="rad",displayUnit="deg") "Wind direction from weather bus";
 initial equation
-  assert(size(incAng, 1) == size(Cp, 1),
-    "Size of parameters are size(incAng, 1) = " + String(size(incAng, 1)) +
+  assert(size(CpincAng, 1) == size(Cp, 1),
+    "Size of parameters are size(CpincAng, 1) = " + String(size(CpincAng, 1)) +
     " and size(Cp, 1) = " + String(size(Cp, 1)) + ". They must be equal.");
 
-  assert(abs(incAng[1]) < 1E-8 and abs(incAng[end]-2*Modelica.Constants.pi) < 1E-8,
+  assert(abs(CpincAng[1]) < 1E-8 and abs(CpincAng[end]-2*Modelica.Constants.pi) < 1E-8,
     "First and last point in the table must be 0 and 360", level = AssertionLevel.error);
 
 equation
@@ -101,8 +101,8 @@ where <i>p<sub>w</sub></i> is the atmospheric pressure from the weather bus,
 <i>&rho;</i> is the fluid density.
 </p>
 <p>
-The wind pressure coefficient <i>C<sub>p,act</sub></i> is a function af the wind incidence
-angle.
+The wind pressure coefficient <i>C<sub>p,act</sub></i> is a function af the surface wind incidence
+angle and are defined relative to the surface azimuth (normal to the surface is 0).
 The wind incidence angle <code>incAng</code> is computed from the wind direction obtained from the weatherfile 
 with the surface azimuth <code>azi</code> as the base of the angle.
 The relation between the wind pressure coefficient <i>C<sub>p,act</sub></i> and the incidence angle <code>incAng</code>
