@@ -13,26 +13,26 @@ model Outside_CpData
     "Cp values";
   IBPSA.Fluid.Sources.Outside_CpData west(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.W) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-42,0},{-22,20}})));
   IBPSA.Fluid.Sources.Outside_CpData north(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.N) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-4,40},{16,60}})));
   IBPSA.Fluid.Sources.Outside_CpData south(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.S)
     "Model with outside conditions"
     annotation (Placement(transformation(extent={{-6,-40},{14,-20}})));
   IBPSA.Fluid.Sources.Outside_CpData east(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.E)
     "Model with outside conditions"

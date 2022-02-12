@@ -15,28 +15,28 @@ model Outside_CpData_ConstantProfile
     "Wind incidence angles";
   IBPSA.Fluid.Sources.Outside_CpData nor(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.N)
     "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   IBPSA.Fluid.Sources.Outside_CpData eas(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.E)
     "Model to compute wind pressure on East-facing surface"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   IBPSA.Fluid.Sources.Outside_CpData sou(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.S)
     "Model to compute wind pressure on South-facing surface"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   IBPSA.Fluid.Sources.Outside_CpData wes(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.W)
     "Model to compute wind pressure on West-facing surface"

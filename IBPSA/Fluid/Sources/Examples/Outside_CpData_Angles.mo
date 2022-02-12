@@ -18,13 +18,13 @@ model Outside_CpData_Angles
     "Cp values";
   IBPSA.Fluid.Sources.Outside_CpData Symmetric_N(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp_sym,
     azi=IBPSA.Types.Azimuth.N) "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   IBPSA.Fluid.Sources.Outside_CpData Asymmetric_N(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp_Asym,
     azi=IBPSA.Types.Azimuth.N) "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -35,13 +35,13 @@ model Outside_CpData_Angles
     annotation (Placement(transformation(extent={{-80,-6},{-60,14}})));
   IBPSA.Fluid.Sources.Outside_CpData Asymmetric_W(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp_Asym,
     azi=IBPSA.Types.Azimuth.W) "Model to compute wind pressure on West-facing surface"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   IBPSA.Fluid.Sources.Outside_CpData Symmetric_W(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp_sym,
     azi=IBPSA.Types.Azimuth.W) "Model to compute wind pressure on West-facing surface"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
