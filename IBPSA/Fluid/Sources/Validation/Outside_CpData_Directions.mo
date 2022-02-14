@@ -10,33 +10,34 @@ model Outside_CpData_Directions
     winDirSou=IBPSA.BoundaryConditions.Types.DataSource.Input)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
-  parameter Modelica.Units.SI.Angle incAng[:] = {0, 90, 180, 315, 360}*2*Modelica.Constants.pi/360
+  parameter Modelica.Units.SI.Angle incAng[:]={0,1,5,90,180,315,355,359,360}*2*
+      Modelica.Constants.pi/360
     "Wind incidence angles";
   IBPSA.Fluid.Sources.Outside_CpData nor(
     redeclare package Medium = Medium,
-    incAng=incAng,
-    Cp={1, 0, 0, 0, 1},
+    CpincAng=incAng,
+    Cp=Cp,
     azi=IBPSA.Types.Azimuth.N)
     "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   IBPSA.Fluid.Sources.Outside_CpData eas(
     redeclare package Medium = Medium,
-    incAng=incAng,
-    Cp={0, 0, 1, 0, 0},
+    CpincAng=incAng,
+    Cp=Cp,
     azi=IBPSA.Types.Azimuth.E)
     "Model to compute wind pressure on East-facing surface"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   IBPSA.Fluid.Sources.Outside_CpData sou(
     redeclare package Medium = Medium,
-    incAng=incAng,
-    Cp={0, 0, 1, 0, 0},
+    CpincAng=incAng,
+    Cp=Cp,
     azi=IBPSA.Types.Azimuth.S)
     "Model to compute wind pressure on South-facing surface"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   IBPSA.Fluid.Sources.Outside_CpData wes(
     redeclare package Medium = Medium,
-    incAng=incAng,
-    Cp={0, 1, 0, 0, 0},
+    CpincAng=incAng,
+    Cp=Cp,
     azi=IBPSA.Types.Azimuth.W)
     "Model to compute wind pressure on West-facing surface"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
@@ -46,6 +47,8 @@ model Outside_CpData_Directions
     height=2*Modelica.Constants.pi, duration=24*3600)
                  "Wind direction"
     annotation (Placement(transformation(extent={{-80,34},{-60,54}})));
+  parameter Real Cp[:]={1,0.01,0,0,0,0,0,0.01,1}
+    "Cp values at the relative surface wind incidence angeles";
 equation
   connect(weaDat.winDir_in, winDir.y)
     annotation (Line(points={{-41,44},{-59,44}}, color={0,0,127}));

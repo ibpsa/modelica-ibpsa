@@ -18,13 +18,13 @@ model Outside_CpData_Angles
     "Cp values";
   IBPSA.Fluid.Sources.Outside_CpData Symmetric_N(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp_sym,
     azi=IBPSA.Types.Azimuth.N) "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   IBPSA.Fluid.Sources.Outside_CpData Asymmetric_N(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp_Asym,
     azi=IBPSA.Types.Azimuth.N) "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -35,13 +35,13 @@ model Outside_CpData_Angles
     annotation (Placement(transformation(extent={{-80,-6},{-60,14}})));
   IBPSA.Fluid.Sources.Outside_CpData Asymmetric_W(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp_Asym,
     azi=IBPSA.Types.Azimuth.W) "Model to compute wind pressure on West-facing surface"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   IBPSA.Fluid.Sources.Outside_CpData Symmetric_W(
     redeclare package Medium = Medium,
-    incAng=incAng,
+    CpincAng=incAng,
     Cp=Cp_sym,
     azi=IBPSA.Types.Azimuth.W) "Model to compute wind pressure on West-facing surface"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
@@ -72,11 +72,12 @@ equation
 <p>
 This model demonstrates the use of a source for ambient conditions that computes
 the wind pressure on a facade of a building using a user-defined wind pressure profile.
-Weather data are used for San Francisco, for a period of a week
-where the wind blows primarily from North-West.
-The plot shows that the wind pressure on the north- and west-facing
-facade is positive,
-whereas it is negative for the south- and east-facing facades.
+
+The model showcases the possibility to use assymmetrical wind pressure profiles.
+It also shows how <i>C<sub>p,act</sub></i> shifts with regards to the wind direction and azimuth based on the <i>C<sub>p</sub></i> values which are defined relative to the surface azimuth.
+
+
+The plot shows <i>C<sub>p,act</sub></i> of each boundary for each wind direction. Notice how the profile is shifted based on the surface azimuth.
 </p>
 </html>", revisions="<html>
 <ul>
