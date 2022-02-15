@@ -47,7 +47,7 @@ INVALID_IN_ALL=["fixme", "import \"",
                 ">>>>>>",
                 "<<<<<<"]
 
-if LIBNAME is not "IBPSA":
+if LIBNAME != "IBPSA":
     INVALID_IN_ALL.append("modelica://IBPSA")
 
 # List of invalid strings in .mos files
