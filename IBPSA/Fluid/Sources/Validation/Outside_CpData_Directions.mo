@@ -4,35 +4,35 @@ model Outside_CpData_Directions
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air "Medium model for air";
 
-  parameter Modelica.Units.SI.Angle incAng[:]=
+  parameter Modelica.Units.SI.Angle incAngSurNor[:]=
     {0,1,5,90,180,315,355,359}*2*Modelica.Constants.pi/360
     "Wind incidence angles";
   parameter Real Cp[:]={1,0.01,0,0,0,0,0,0.01}
     "Cp values at the relative surface wind incidence angles";
   IBPSA.Fluid.Sources.Outside_CpData nor(
     redeclare package Medium = Medium,
-    incAngSurNor=incAng,
+    incAngSurNor=incAngSurNor,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.N)
     "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   IBPSA.Fluid.Sources.Outside_CpData eas(
     redeclare package Medium = Medium,
-    incAngSurNor=incAng,
+    incAngSurNor=incAngSurNor,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.E)
     "Model to compute wind pressure on East-facing surface"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   IBPSA.Fluid.Sources.Outside_CpData sou(
     redeclare package Medium = Medium,
-    incAngSurNor=incAng,
+    incAngSurNor=incAngSurNor,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.S)
     "Model to compute wind pressure on South-facing surface"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   IBPSA.Fluid.Sources.Outside_CpData wes(
     redeclare package Medium = Medium,
-    incAngSurNor=incAng,
+    incAngSurNor=incAngSurNor,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.W)
     "Model to compute wind pressure on West-facing surface"

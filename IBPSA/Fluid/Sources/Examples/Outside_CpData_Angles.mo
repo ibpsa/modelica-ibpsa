@@ -4,7 +4,8 @@ model Outside_CpData_Angles
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air "Medium model for air";
 
-  parameter Modelica.Units.SI.Angle incAng[:] = {0, 45, 90, 135, 180, 225, 270, 315}*2*Modelica.Constants.pi/360
+  parameter Modelica.Units.SI.Angle incAngSurNor[:]=
+    {0, 45, 90, 135, 180, 225, 270, 315}*2*Modelica.Constants.pi/360
     "Wind incidence angles";
   parameter Real CpSym[:]={0.4, 0.1, -0.3, -0.35, -0.2, -0.35, -0.3, 0.1}
     "Cp values that are symmetric";
@@ -12,28 +13,28 @@ model Outside_CpData_Angles
     "Cp values that are asymmetric";
   IBPSA.Fluid.Sources.Outside_CpData symNor(
     redeclare package Medium = Medium,
-    incAngSurNor=incAng,
+    incAngSurNor=incAngSurNor,
     Cp=CpSym,
     azi=IBPSA.Types.Azimuth.N)
     "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   IBPSA.Fluid.Sources.Outside_CpData asyNor(
     redeclare package Medium = Medium,
-    incAngSurNor=incAng,
+    incAngSurNor=incAngSurNor,
     Cp=CpAsy,
     azi=IBPSA.Types.Azimuth.N)
     "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   IBPSA.Fluid.Sources.Outside_CpData asyWes(
     redeclare package Medium = Medium,
-    incAngSurNor=incAng,
+    incAngSurNor=incAngSurNor,
     Cp=CpAsy,
     azi=IBPSA.Types.Azimuth.W)
     "Model to compute wind pressure on West-facing surface"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   IBPSA.Fluid.Sources.Outside_CpData symWes(
     redeclare package Medium = Medium,
-    incAngSurNor=incAng,
+    incAngSurNor=incAngSurNor,
     Cp=CpSym,
     azi=IBPSA.Types.Azimuth.W)
     "Model to compute wind pressure on West-facing surface"
