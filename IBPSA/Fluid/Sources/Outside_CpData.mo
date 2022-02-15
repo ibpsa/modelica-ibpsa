@@ -3,17 +3,16 @@ model Outside_CpData
   "Boundary that takes weather data as an input and computes the wind pressure from a given wind pressure profile"
   extends IBPSA.Fluid.Sources.BaseClasses.Outside;
 
-  parameter Modelica.Units.SI.Angle CpincAng[:](displayUnit="deg")      "Wind incidence angles relative to the surface normal (normal=0), first and last point must by 0 and 2 pi(=360 deg)";
-  parameter Real Cp[:](unit="1")      "Cp values at the corresponding CpincAang";
-//  parameter Real table[:,2]
-//  "Cp at different angles of attack. First column are Cp values, second column are wind angles of attack in degrees";
+  parameter Modelica.Units.SI.Angle CpAngAtt[:](displayUnit="deg")
+    "Wind incidence angles of attack, relative to the surface normal (normal=0), first and last point must by 0 and 2 pi(=360 deg)";
+  parameter Real Cp[:](unit="1")
+    "Cp values at the corresponding CpincAang";
   parameter Modelica.Units.SI.Angle azi "Surface azimuth (South:0, West:pi/2)"  annotation (choicesAllMatching=true);
   parameter Real Cs=1 "Wind speed modifier";
 
   Modelica.Units.SI.Pressure pWin(displayUnit="Pa") = Cs*0.5*CpAct*d*vWin*vWin
    "Change in pressure due to wind force";
 
-  // fixme: Should this just use incAng=incAng?
   Real CpAct(
     min=0,
     final unit="1") = IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(
@@ -38,43 +37,55 @@ model Outside_CpData
 //    "Extended table";
 
 protected
-  final parameter Integer n = size(CpincAng, 1) "Number of data points provided by user";
-  final parameter Modelica.Units.SI.Angle incAngExt[:](each displayUnit="deg")=
-    cat(1, {CpincAng[n-1]- (2*Modelica.Constants.pi)}, CpincAng, {CpincAng[2] + (2*Modelica.Constants.pi)})
+  final parameter Modelica.Units.SI.Angle surOut = azi-Modelica.Constants.pi
+    "Angle of surface that is used to compute angle of attack of wind";
+
+  final parameter Integer n = size(CpAngAtt, 1) "Number of data points provided by user";
+  final parameter Modelica.Units.SI.Angle incAngExt[n+3](each displayUnit="deg")=
+    cat(1,
+      {CpAngAtt[n-1]- (2*Modelica.Constants.pi)},
+       CpAngAtt,
+       2*Modelica.Constants.pi .+ {CpAngAtt[1], CpAngAtt[2]})
     "Extended number of incidence angles";
-  final parameter Real CpExt[n+2]=cat(1, {Cp[n-1]}, Cp, {Cp[2]})
+  final parameter Real CpExt[n+3]=cat(1, {Cp[n-1]}, Cp, {Cp[1], Cp[2]})
     "Extended number of Cp values";
 
-  final parameter Real[n+2] deri=
+  final parameter Real[n+3] deri=
       IBPSA.Utilities.Math.Functions.splineDerivatives(
       x=incAngExt,
       y=CpExt,
       ensureMonotonicity=false) "Derivatives for table interpolation";
 
-  Modelica.Blocks.Interfaces.RealInput pWea(min=0, nominal=1E5, final unit="Pa")
-   "Pressure from weather bus";
+  Modelica.Blocks.Interfaces.RealInput pAtm(
+    min=0,
+    nominal=1E5,
+    final unit="Pa") "Atmospheric pressure";
+  Modelica.Blocks.Interfaces.RealInput vWin(final unit="m/s")
+    "Wind speed from weather bus";
+  Modelica.Blocks.Interfaces.RealInput winDir(final unit="rad",displayUnit="deg") "Wind direction from weather bus";
 
-  Modelica.Blocks.Interfaces.RealOutput pTot(min=0, nominal=1E5, final unit="Pa") = pWea + pWin "Sum of atmospheric pressure and wind pressure";
+  Modelica.Blocks.Interfaces.RealOutput pTot(min=0, nominal=1E5, final unit="Pa")=pAtm + pWin
+    "Sum of atmospheric pressure and wind pressure";
+
   Modelica.Units.SI.Density d = Medium.density(
     Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal))
     "Air density";
 
-  // fixme: This is not clear: the original table (now called incAng) are already the wind incidence angle, so why is the surface outward normal used?
-  Modelica.Units.SI.Angle surOut = azi-Modelica.Constants.pi   "Angle of surface that is used to compute angle of attack of wind";
-  Modelica.Blocks.Interfaces.RealInput vWin(final unit="m/s")    "Wind speed from weather bus";
-  Modelica.Blocks.Interfaces.RealInput winDir(final unit="rad",displayUnit="deg") "Wind direction from weather bus";
 initial equation
-  assert(size(CpincAng, 1) == size(Cp, 1),
-    "Size of parameters are size(CpincAng, 1) = " + String(size(CpincAng, 1)) +
+  assert(size(CpAngAtt, 1) == size(Cp, 1),
+    "Size of parameters are size(CpincAng, 1) = " + String(size(CpAngAtt, 1)) +
     " and size(Cp, 1) = " + String(size(Cp, 1)) + ". They must be equal.");
 
-  assert(abs(CpincAng[1]) < 1E-8 and abs(CpincAng[end]-2*Modelica.Constants.pi) < 1E-8,
-    "First and last point in the table must be 0 and 360", level = AssertionLevel.error);
+  assert(abs(CpAngAtt[1]) < 1E-4,
+    "First point in the table CpAngAtt must be 0.");
+
+  assert(2*Modelica.Constants.pi - CpAngAtt[end] > 1E-4,
+    "Last point in the table CpAngAtt must be smaller than 2 pi (360 deg).");
 
 equation
   connect(weaBus.winDir, winDir);
   connect(weaBus.winSpe, vWin);
-  connect(weaBus.pAtm, pWea);
+  connect(weaBus.pAtm,pAtm);
   connect(p_in_internal, pTot);
   connect(weaBus.TDryBul, T_in_internal);
 
@@ -93,7 +104,7 @@ pressure at the fluid ports <code>ports</code>.
 The pressure <i>p</i> at the fluid ports is computed as:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-p = p<sub>w</sub> + C<sub>p,act</sub> C<sub>s</sub>1 &frasl; 2 v<sup>2</sup> &rho;,
+p = p<sub>w</sub> + C<sub>p,act</sub> C<sub>s</sub> v<sup>2</sup> &rho; &frasl; 2,
 </p>
 <p>
 where <i>p<sub>w</sub></i> is the atmospheric pressure from the weather bus,
@@ -101,9 +112,9 @@ where <i>p<sub>w</sub></i> is the atmospheric pressure from the weather bus,
 <i>&rho;</i> is the fluid density.
 </p>
 <p>
-The wind pressure coefficient <i>C<sub>p,act</sub></i> is a function af the surface wind incidence
-angle and are defined relative to the surface azimuth (normal to the surface is 0).
-The wind incidence angle <code>incAng</code> is computed from the wind direction obtained from the weatherfile 
+The wind pressure coefficient <i>C<sub>p,act</sub></i> is a function of the surface wind incidence
+angle and is defined relative to the surface azimuth (normal to the surface is <i>0</i>).
+The wind incidence angle <code>incAng</code> is computed from the wind direction obtained from the weather file 
 with the surface azimuth <code>azi</code> as the base of the angle.
 The relation between the wind pressure coefficient <i>C<sub>p,act</sub></i> and the incidence angle <code>incAng</code>
 is defined by a cubic hermite interpolation of the users table input.
@@ -120,32 +131,51 @@ The wind indicience angle is obtained directly from the weather data bus <code>w
 This variable contains the data from the weather data file that was read, such as a TMY3 file.
 In accordance to TMY3, the data is as shown in the table below.
 </p>
-<p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <caption>Value of <code>winDir</code> if the wind blows from different directions.</caption>
 <tr><td></td>  <td style=\"text-align: center\">Wind from North:<br/>0 <br/> 0&deg;</td>  <td></td> </tr>
 <tr><td style=\"text-align: center\">Wind from West:<br/>3&pi;/2 <br/> 270&deg;</td>  <td></td>  <td style=\"text-align: center\">Wind from East:<br/>&pi;/2 <br/> 90&deg;</td></tr>
 <tr><td></td>  <td style=\"text-align: center\">Wind from South:<br/>&pi; <br/> 180&deg;</td>  <td></td></tr>
 </table>
-</p>
 <p>
 For the surface azimuth <code>azi</code>, the specification from
 <a href=\"modelica://IBPSA.Types.Azimuth\">IBPSA.Types.Azimuth</a> is
 used, which is as shown in the table below.
 </p>
 
-<p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <caption>Value of <code>azi</code> if the exterior wall faces in the different directions.</caption>
 <tr><td></td>  <td style=\"text-align: center\">Wall facing north:<br> &pi; <br/> 180&deg;</td>  <td></td> </tr>
 <tr><td style=\"text-align: center\">Wall facing West:<br/> &pi;/2 <br/> 90&deg;</td>  <td></td>  <td style=\"text-align: center\">Wall facing east:<br/> 3&pi;/2 <br/> 270&deg;</td></tr>
 <tr><td></td>  <td style=\"text-align: center\">Wall facing South:<br/>0; <br/> 0&deg;</td>  <td></td></tr>
 </table>
-</p>
 
 <p>
-fixme: Not clear what these angles are. They seem to be not consistent with TMY3 and IBPSA.Types.Azimuth.
-Is that the variable <code>winSurAng</code>?
+The angles <code>CpAngAtt</code> for the angles of attack are measured counter-clock wise to the
+surface outward normal. For example, suppose a surface has the values for <code>CpAngAtt</code>
+as shown below:
+<p align=\"center\"><img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Sources/Outside_CpData.png\"/>
+</p>
+<p>
+Then, the entries should look as follows:
+</p>
+<pre>
+parameter Modelica.Units.SI.Angle CpAngAtt[:](displayUnit=\"deg\") = 
+  {0, 90, 180, 270} * 2*Modelica.Constants.pi
+  \"Wind incidence angles of attack\";
+
+  parameter Real Cp[:](unit=\"1\") = {1, 0.2, 0.5, 0.8}
+    \"Cp values at the corresponding CpincAang\";
+    
+</pre>
+<p>
+See the model
+<a href=\\\"modelica://IBPSA.Fluid.Sources.Validation.Outside_CpData_Specification\\\">
+IBPSA.Fluid.Sources.Validation.Outside_CpData_Specification</a>
+that demonstrates this specification for a North-facing surface.
+</p>
+<p>
+The figure below shows the incidence angles that are used internally in the model.
 </p>
 <p align=\"center\"><img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Sources/Cp_data.png\"/> </p>
 
@@ -179,16 +209,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={Text(
-          visible=use_Cp_in,
-          extent={{-140,92},{-92,62}},
-          textColor={0,0,255},
-          textString="C_p"),
-          Text(
-          visible=use_C_in,
-          extent={{-154,-28},{-102,-62}},
-          textColor={0,0,255},
-          textString="C"),
+    Icon(graphics={
         Line(points={{-56,54},{-56,-44},{52,-44}}, color={255,255,255}),
         Line(points={{-56,16},{-50,16},{-44,12},{-38,-2},{-28,-24},{-20,-40},
               {-12,-42},{-6,-36},{0,-34},{6,-36},{12,-42},{20,-40},{28,-14},{

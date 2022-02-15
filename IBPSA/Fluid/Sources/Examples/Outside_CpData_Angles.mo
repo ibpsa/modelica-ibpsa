@@ -12,57 +12,61 @@ model Outside_CpData_Angles
 
   parameter Modelica.Units.SI.Angle incAng[:] = {0, 45, 90, 135, 180, 225, 270, 315, 360}*2*Modelica.Constants.pi/360
     "Wind incidence angles";
-  parameter Real Cp_sym[:] = {0.4, 0.1, -0.3, -0.35, -0.2, -0.35, -0.3, 0.1, 0.4}
-    "Cp values";
-  parameter Real Cp_Asym[:]={0.4,0.1,-0.3,-0.35,-0.2,-0.6,-0.9,-0.1,0.4}
-    "Cp values";
-  IBPSA.Fluid.Sources.Outside_CpData Symmetric_N(
+  parameter Real CpSym[:]={0.4,0.1,-0.3,-0.35,-0.2,-0.35,-0.3,  0.1,0.4}
+    "Cp values that are symmetric";
+  parameter Real CpAsy[:]={0.4,0.1,-0.3,-0.35,-0.2, -0.6 -0.9, -0.1, 0.4}
+    "Cp values that are asymmetric";
+  IBPSA.Fluid.Sources.Outside_CpData symNor(
     redeclare package Medium = Medium,
-    CpincAng=incAng,
-    Cp=Cp_sym,
-    azi=IBPSA.Types.Azimuth.N) "Model to compute wind pressure on North-facing surface"
+    CpAngAtt=incAng,
+    Cp=CpSym,
+    azi=IBPSA.Types.Azimuth.N)
+    "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  IBPSA.Fluid.Sources.Outside_CpData Asymmetric_N(
+  IBPSA.Fluid.Sources.Outside_CpData asyNor(
     redeclare package Medium = Medium,
-    CpincAng=incAng,
-    Cp=Cp_Asym,
-    azi=IBPSA.Types.Azimuth.N) "Model to compute wind pressure on North-facing surface"
+    CpAngAtt=incAng,
+    Cp=CpAsy,
+    azi=IBPSA.Types.Azimuth.N)
+    "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.Ramp winDir(
     height=2*Modelica.Constants.pi,
     duration=10,
     startTime=5) "Wind direction"
     annotation (Placement(transformation(extent={{-80,-6},{-60,14}})));
-  IBPSA.Fluid.Sources.Outside_CpData Asymmetric_W(
+  IBPSA.Fluid.Sources.Outside_CpData asyWes(
     redeclare package Medium = Medium,
-    CpincAng=incAng,
-    Cp=Cp_Asym,
-    azi=IBPSA.Types.Azimuth.W) "Model to compute wind pressure on West-facing surface"
+    CpAngAtt=incAng,
+    Cp=CpAsy,
+    azi=IBPSA.Types.Azimuth.W)
+    "Model to compute wind pressure on West-facing surface"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  IBPSA.Fluid.Sources.Outside_CpData Symmetric_W(
+  IBPSA.Fluid.Sources.Outside_CpData symWes(
     redeclare package Medium = Medium,
-    CpincAng=incAng,
-    Cp=Cp_sym,
-    azi=IBPSA.Types.Azimuth.W) "Model to compute wind pressure on West-facing surface"
+    CpAngAtt=incAng,
+    Cp=CpSym,
+    azi=IBPSA.Types.Azimuth.W)
+    "Model to compute wind pressure on West-facing surface"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 equation
-  connect(weaDat.weaBus, Symmetric_N.weaBus) annotation (Line(
+  connect(weaDat.weaBus, symNor.weaBus) annotation (Line(
       points={{-20,10},{-10,10},{-10,-10},{-6,-10},{-6,-9.8},{0,-9.8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaDat.weaBus, Asymmetric_N.weaBus) annotation (Line(
+  connect(weaDat.weaBus, asyNor.weaBus) annotation (Line(
       points={{-20,10},{-10,10},{-10,30.2},{0,30.2}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(winDir.y, weaDat.winDir_in)
     annotation (Line(points={{-59,4},{-41,4}}, color={0,0,127}));
-  connect(Asymmetric_W.weaBus, weaDat.weaBus) annotation (Line(
+  connect(asyWes.weaBus, weaDat.weaBus) annotation (Line(
       points={{0,70.2},{-10,70.2},{-10,10},{-20,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(Symmetric_W.weaBus, weaDat.weaBus) annotation (Line(
+  connect(symWes.weaBus, weaDat.weaBus) annotation (Line(
       points={{0,-49.8},{-10,-49.8},{-10,10},{-20,10}},
       color={255,204,51},
       thickness=0.5));
@@ -72,12 +76,15 @@ equation
 <p>
 This model demonstrates the use of a source for ambient conditions that computes
 the wind pressure on a facade of a building using a user-defined wind pressure profile.
-
-The model showcases the possibility to use assymmetrical wind pressure profiles.
-It also shows how <i>C<sub>p,act</sub></i> shifts with regards to the wind direction and azimuth based on the <i>C<sub>p</sub></i> values which are defined relative to the surface azimuth.
-
-
-The plot shows <i>C<sub>p,act</sub></i> of each boundary for each wind direction. Notice how the profile is shifted based on the surface azimuth.
+</p>
+<p>
+The model showcases the possibility to use asymmetrical wind pressure profiles.
+It also shows how <i>C<sub>p,act</sub></i> shifts with regards to the wind direction and azimuth
+based on the <i>C<sub>p</sub></i> values which are defined relative to the surface normal.
+</p>
+<p>
+The plot shows <i>C<sub>p,act</sub></i> of each boundary for each wind direction.
+Notice how the profile is shifted based on the surface azimuth.
 </p>
 </html>", revisions="<html>
 <ul>
