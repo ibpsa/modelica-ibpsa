@@ -30,8 +30,14 @@ wind pressure on the building facade.
 </li>
 </ul>
 <p>
+Models for air flow through openings are in this package, while the models
+for wind pressure and outdoor air conditions are in the package
+<a href=\\\"modelica://IBPSA.Fluid.Sources\\\">IBPSA.Fluid.Sources</a>.
+</p>
+<p>
+Most models in this package are as described in Wetter (2005).
 Wind pressure coefficients for different building configurations can be found
-in Costola <i>et al.</i> (2009), Persily and Ivy (2001), Swami and Chandra (1987) and Liddament (1996) .
+in Costola <i>et al.</i> (2009), Persily and Ivy (2001), Swami and Chandra (1987) and Liddament (1996).
 </p>
 <h4>References</h4>
 <ul>
@@ -46,7 +52,7 @@ in Costola <i>et al.</i> (2009), Persily and Ivy (2001), Swami and Chandra (1987
 <p>
 We would like to thank the <a href=\"http://www.utrc.utc.com\">
 United Technologies Research Center</a> for contributing the original package
-to the <code>IBSA</code> library.
+to the <code>IBPSA</code> library.
 </p>
 <p>
 We would like to thank the Research Foundation Flanders (FWO) and Ghent University for providing

@@ -130,8 +130,8 @@ The wind speed modifier <i>C<sub>s</sub></i> can be used to incorporate the effe
 The angles <code>incAngSurNor</code> for the wind incidence angle relative to the surface normal
 are measured counter-clock wise.
 The figure below shows an example entry, which is also used in the model
-<a href=\"modelica://IBPSA.Fluid.Sources.Validation.Outside_CpData_Specification\">
-IBPSA.Fluid.Sources.Validation.Outside_CpData_Specification</a>.
+<a href=\"modelica://IBPSA.Fluid.Sources.Examples.Outside_CpData_Specification\">
+IBPSA.Fluid.Sources.Examples.Outside_CpData_Specification</a>.
 </p>
 <p align=\"center\"><img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Sources/Outside_CpData.png\"/> </p>
 
