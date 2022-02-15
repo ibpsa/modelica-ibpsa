@@ -1,6 +1,6 @@
 within IBPSA.Airflow.Multizone;
 model Orifice "Orifice"
-  extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistance_V_flow(
+  extends IBPSA.Airflow.Multizone.Coefficient_V_flow(
     m=0.5,
     final C=CD*A*sqrt(2.0/rho_default));
 
