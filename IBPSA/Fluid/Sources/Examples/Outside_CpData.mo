@@ -7,35 +7,33 @@ model Outside_CpData
     filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
-  parameter Modelica.Units.SI.Angle incAng[:] = {0, 45, 90, 135, 180, 225, 270, 315, 360}*2*Modelica.Constants.pi/360
+  parameter Modelica.Units.SI.Angle incAng[:] = {0, 45, 90, 135, 180, 225, 270, 315}*2*Modelica.Constants.pi/360
     "Wind incidence angles";
-  parameter Real Cp[:] = {0.4, 0.1, -0.3, -0.35, -0.2, -0.35, -0.3, 0.1, 0.4}
+  parameter Real Cp[:] = {0.4, 0.1, -0.3, -0.35, -0.2, -0.35, -0.3, 0.1}
     "Cp values";
   IBPSA.Fluid.Sources.Outside_CpData west(
     redeclare package Medium = Medium,
-    CpAngAtt=incAng,
+    incAngSurNor=incAng,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.W) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-42,0},{-22,20}})));
   IBPSA.Fluid.Sources.Outside_CpData north(
     redeclare package Medium = Medium,
-    CpAngAtt=incAng,
+    incAngSurNor=incAng,
     Cp=Cp,
     azi=IBPSA.Types.Azimuth.N) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-4,40},{16,60}})));
   IBPSA.Fluid.Sources.Outside_CpData south(
     redeclare package Medium = Medium,
-    CpAngAtt=incAng,
+    incAngSurNor=incAng,
     Cp=Cp,
-    azi=IBPSA.Types.Azimuth.S)
-    "Model with outside conditions"
+    azi=IBPSA.Types.Azimuth.S) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-6,-40},{14,-20}})));
   IBPSA.Fluid.Sources.Outside_CpData east(
     redeclare package Medium = Medium,
-    CpAngAtt=incAng,
+    incAngSurNor=incAng,
     Cp=Cp,
-    azi=IBPSA.Types.Azimuth.E)
-    "Model with outside conditions"
+    azi=IBPSA.Types.Azimuth.E) "Model with outside conditions"
     annotation (Placement(transformation(extent={{40,-2},{60,18}})));
 equation
   connect(weaDat.weaBus, west.weaBus)     annotation (Line(

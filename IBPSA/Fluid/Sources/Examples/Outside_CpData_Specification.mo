@@ -6,11 +6,10 @@ model Outside_CpData_Specification
 
   IBPSA.Fluid.Sources.Outside_CpData nor(
     redeclare package Medium = Medium,
-    CpAngAtt={0,90,180,315}*2*Modelica.Constants.pi/360,
-    Cp={1, 0.2, 0.5, 0.8},
+    incAngSurNor={0,90,180,315}*2*Modelica.Constants.pi/360,
+    Cp={1,0.2,0.5,0.8},
     azi=IBPSA.Types.Azimuth.N,
-    Cs=2/1.2)
-    "Model to compute wind pressure on North-facing surface"
+    Cs=2/1.2) "Model to compute wind pressure on North-facing surface"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -33,8 +32,8 @@ equation
       points={{0,0},{10,0},{10,0.2},{20,0.2}},
       color={255,204,51},
       thickness=0.5));
-  annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Sources/Validation/Outside_CpData_Specification.mos"
-        "Simulate and plot", file="plot.mos" "plot"),
+  annotation (__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside_CpData_Specification.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model validates the specification of the wind pressure profile

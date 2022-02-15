@@ -3,6 +3,48 @@ model Outside_CpData_Angles
   "Test model for source and sink with outside weather data and wind pressure using user-defined Cp values"
   extends Modelica.Icons.Example;
   package Medium = IBPSA.Media.Air "Medium model for air";
+
+  parameter Modelica.Units.SI.Angle incAng[:] = {0, 45, 90, 135, 180, 225, 270, 315}*2*Modelica.Constants.pi/360
+    "Wind incidence angles";
+  parameter Real CpSym[:]={0.4, 0.1, -0.3, -0.35, -0.2, -0.35, -0.3, 0.1}
+    "Cp values that are symmetric";
+  parameter Real CpAsy[:]={0.4, 0.1, -0.3, -0.35, -0.2, -0.6, -0.9, -0.1}
+    "Cp values that are asymmetric";
+  IBPSA.Fluid.Sources.Outside_CpData symNor(
+    redeclare package Medium = Medium,
+    incAngSurNor=incAng,
+    Cp=CpSym,
+    azi=IBPSA.Types.Azimuth.N)
+    "Model to compute wind pressure on North-facing surface"
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+  IBPSA.Fluid.Sources.Outside_CpData asyNor(
+    redeclare package Medium = Medium,
+    incAngSurNor=incAng,
+    Cp=CpAsy,
+    azi=IBPSA.Types.Azimuth.N)
+    "Model to compute wind pressure on North-facing surface"
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+  IBPSA.Fluid.Sources.Outside_CpData asyWes(
+    redeclare package Medium = Medium,
+    incAngSurNor=incAng,
+    Cp=CpAsy,
+    azi=IBPSA.Types.Azimuth.W)
+    "Model to compute wind pressure on West-facing surface"
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+  IBPSA.Fluid.Sources.Outside_CpData symWes(
+    redeclare package Medium = Medium,
+    incAngSurNor=incAng,
+    Cp=CpSym,
+    azi=IBPSA.Types.Azimuth.W)
+    "Model to compute wind pressure on West-facing surface"
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+
+  Modelica.Blocks.Sources.Ramp winDir(
+    height=2*Modelica.Constants.pi,
+    duration=10,
+    startTime=5) "Wind direction"
+    annotation (Placement(transformation(extent={{-80,-6},{-60,14}})));
+
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"),
     winSpeSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,
@@ -10,45 +52,6 @@ model Outside_CpData_Angles
       winDirSou=IBPSA.BoundaryConditions.Types.DataSource.Input)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
-  parameter Modelica.Units.SI.Angle incAng[:] = {0, 45, 90, 135, 180, 225, 270, 315, 360}*2*Modelica.Constants.pi/360
-    "Wind incidence angles";
-  parameter Real CpSym[:]={0.4,0.1,-0.3,-0.35,-0.2,-0.35,-0.3,  0.1,0.4}
-    "Cp values that are symmetric";
-  parameter Real CpAsy[:]={0.4,0.1,-0.3,-0.35,-0.2, -0.6 -0.9, -0.1, 0.4}
-    "Cp values that are asymmetric";
-  IBPSA.Fluid.Sources.Outside_CpData symNor(
-    redeclare package Medium = Medium,
-    CpAngAtt=incAng,
-    Cp=CpSym,
-    azi=IBPSA.Types.Azimuth.N)
-    "Model to compute wind pressure on North-facing surface"
-    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  IBPSA.Fluid.Sources.Outside_CpData asyNor(
-    redeclare package Medium = Medium,
-    CpAngAtt=incAng,
-    Cp=CpAsy,
-    azi=IBPSA.Types.Azimuth.N)
-    "Model to compute wind pressure on North-facing surface"
-    annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica.Blocks.Sources.Ramp winDir(
-    height=2*Modelica.Constants.pi,
-    duration=10,
-    startTime=5) "Wind direction"
-    annotation (Placement(transformation(extent={{-80,-6},{-60,14}})));
-  IBPSA.Fluid.Sources.Outside_CpData asyWes(
-    redeclare package Medium = Medium,
-    CpAngAtt=incAng,
-    Cp=CpAsy,
-    azi=IBPSA.Types.Azimuth.W)
-    "Model to compute wind pressure on West-facing surface"
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  IBPSA.Fluid.Sources.Outside_CpData symWes(
-    redeclare package Medium = Medium,
-    CpAngAtt=incAng,
-    Cp=CpSym,
-    azi=IBPSA.Types.Azimuth.W)
-    "Model to compute wind pressure on West-facing surface"
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 equation
   connect(weaDat.weaBus, symNor.weaBus) annotation (Line(
       points={{-20,10},{-10,10},{-10,-10},{-6,-10},{-6,-9.8},{0,-9.8}},

@@ -10,16 +10,26 @@ model Outside_CpLowRise
   parameter Modelica.Units.SI.Angle azi "Surface azimuth (South:0, West:pi/2)"
     annotation (choicesAllMatching=true);
 
-  Modelica.Units.SI.Angle alpha "Wind incidence angle (0: normal to wall)";
-  Real CpAct(min=0, final unit="1") "Actual wind pressure coefficient";
-  Modelica.Units.SI.Pressure pWin(displayUnit="Pa")
+  Modelica.Units.SI.Angle alpha = winDir-surOut
+    "Wind incidence angle (0: normal to wall)";
+  Real CpAct(min=0, final unit="1")=
+   IBPSA.Airflow.Multizone.BaseClasses.windPressureLowRise(
+     Cp0=Cp0,
+     incAng=alpha,
+     G=G)
+   "Actual wind pressure coefficient";
+  Modelica.Units.SI.Pressure pWin(displayUnit="Pa")=
+    0.5*CpAct*d*vWin*vWin
     "Change in pressure due to wind force";
 protected
   Modelica.Blocks.Interfaces.RealInput pWea(min=0, nominal=1E5, final unit="Pa")
     "Pressure from weather bus";
   Modelica.Blocks.Interfaces.RealInput vWin(final unit="m/s")
     "Wind speed from weather bus";
-  Modelica.Blocks.Interfaces.RealOutput pTot(min=0, nominal=1E5, final unit="Pa")
+  Modelica.Blocks.Interfaces.RealOutput pTot(
+    min=0,
+    nominal=1E5,
+    final unit="Pa") = pWea + pWin
     "Sum of atmospheric pressure and wind pressure";
   final parameter Real G = Modelica.Math.log(s)
     "Natural logarithm of side ratio";
@@ -34,12 +44,6 @@ protected
     "Air density";
 
 equation
-  alpha = winDir-surOut;
-  CpAct = IBPSA.Airflow.Multizone.BaseClasses.windPressureLowRise(
-            Cp0=Cp0, incAng=alpha, G=G);
-  pWin = 0.5*CpAct*d*vWin*vWin;
-  pTot = pWea + pWin;
-
   connect(weaBus.winDir, winDir);
   connect(weaBus.winSpe, vWin);
   connect(weaBus.pAtm, pWea);
@@ -61,9 +65,12 @@ with rectangular shape.
 The same correlation is also implemented in CONTAM (Persily and Ivy, 2001).
 <!-- @include_Buildings
 For other buildings, the model
+<a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpData\">
+IBPSA.Fluid.Sources.Outside_CpData</a> or
 <a href=\"modelica://IBPSA.Fluid.Sources.Outside_Cp\">
-IBPSA.Fluid.Sources.Outside_Cp</a> should be used that takes
-the wind pressure coefficient as an input or parameter.
+IBPSA.Fluid.Sources.Outside_Cp</a> 
+should be used that takes
+the wind pressure coefficient as a parameter or an input.
 -->
 </p>
 <p>

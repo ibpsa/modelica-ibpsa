@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="69.092392mm"
-   height="46.9091mm"
-   viewBox="0 0 69.092392 46.9091"
+   width="116.10975mm"
+   height="86.53685mm"
+   viewBox="0 0 116.10975 86.53685"
    version="1.1"
    id="svg5"
    inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
@@ -26,14 +26,14 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="5.0600449"
-     inkscape:cx="-16.007763"
-     inkscape:cy="155.23578"
-     inkscape:window-width="3768"
-     inkscape:window-height="2096"
+     inkscape:zoom="2.5300225"
+     inkscape:cx="228.45647"
+     inkscape:cy="128.0621"
+     inkscape:window-width="2742"
+     inkscape:window-height="1255"
      inkscape:window-x="72"
      inkscape:window-y="559"
-     inkscape:window-maximized="1"
+     inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -41,6 +41,28 @@
      fit-margin-bottom="0" />
   <defs
      id="defs2">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect46095"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect42225"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
     <marker
        style="overflow:visible"
        id="Arrow1Lend"
@@ -206,7 +228,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-60.744771,-62.887159)">
+     transform="translate(-18.285549,-62.887159)">
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -227,10 +249,10 @@
        y="92.914246" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 82.0976,69.259596 c 6.140946,-4.499067 9.508638,-1.641939 11.238323,3.904288 1.729685,5.546226 1.8215,13.780911 1.681737,20.410788 -0.139764,6.629878 -0.511069,11.654188 -6.697693,12.035768 -6.186625,0.38158 -18.188118,-3.87948 -19.732464,-11.938049 -1.544346,-8.05857 7.369151,-19.913727 13.510097,-24.412795 z"
+       d="m 82.171281,69.481151 c 6.067265,-4.720622 9.434957,-1.863494 11.164642,3.682733 1.729685,5.546226 1.8215,13.780911 1.774992,20.329018 -0.04651,6.548108 -0.23132,11.408868 -6.344268,12.011988 -6.112947,0.60312 -18.153569,-3.05131 -19.791166,-11.028096 -1.637597,-7.976784 7.128535,-20.275021 13.1958,-24.995643 z"
        id="path20637"
        inkscape:path-effect="#path-effect20639"
-       inkscape:original-d="m 84.870474,61.903078 c 3.368053,2.857474 6.735744,5.714602 10.10331,8.571584 0.0921,8.235445 0.183914,16.47013 0.275457,24.705039 -0.371048,5.024869 -0.742353,10.049179 -1.113959,15.073529 C 82.133291,105.99216 70.131796,101.73111 58.129255,97.469516 67.043453,85.614043 75.95695,73.758886 84.870474,61.903078 Z"
+       inkscape:original-d="m 84.870474,61.903078 c 3.368053,2.857474 6.735744,5.714602 10.10331,8.571584 0.0921,8.235445 0.183914,16.47013 0.275457,24.705039 -0.184559,4.861319 -0.369372,9.722079 -0.554461,14.582879 C 82.653648,106.10818 70.613026,102.45375 58.571351,98.79881 67.338184,86.500224 76.104317,74.201987 84.870474,61.903078 Z"
        sodipodi:nodetypes="cccccc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Lstart)"
@@ -259,23 +281,18 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="96.702263"
-       y="67.275253"
+       x="97.17981"
+       y="71.541359"
        id="text24711"><tspan
          sodipodi:role="line"
-         id="tspan24709"
          style="font-size:4.23333px;stroke-width:0.264583"
-         x="96.702263"
-         y="67.275253">CpAngAtt for</tspan><tspan
+         x="97.17981"
+         y="71.541359"
+         id="tspan38236">Cp for given wind</tspan><tspan
          sodipodi:role="line"
          style="font-size:4.23333px;stroke-width:0.264583"
-         x="96.702263"
-         y="72.566917"
-         id="tspan38236">given wind</tspan><tspan
-         sodipodi:role="line"
-         style="font-size:4.23333px;stroke-width:0.264583"
-         x="96.702263"
-         y="77.858582"
+         x="97.17981"
+         y="76.833023"
          id="tspan38238">incidence angle</tspan></text>
     <text
        xml:space="preserve"
@@ -312,9 +329,102 @@
          y="109.73631">0.5</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
-       d="m 129.80084,79.093178 c -13.81375,0 -27.62777,0 -41.442049,0"
+       d="m 134.3953,79.093178 c -15.34521,0 -30.69071,0 -46.036509,0"
        id="path39445"
        inkscape:path-effect="#path-effect39447"
-       inkscape:original-d="m 129.80084,79.093178 c -13.81375,2.65e-4 -27.62777,2.65e-4 -41.442049,0" />
+       inkscape:original-d="m 134.3953,79.093178 c -15.34521,2.65e-4 -30.69071,2.65e-4 -46.036509,0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="98.645012"
+       y="46.253956"
+       id="text3532"><tspan
+         sodipodi:role="line"
+         id="tspan3530"
+         style="stroke-width:0.264583"
+         x="98.645012"
+         y="46.253956" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="18.285549"
+       y="116.79347"
+       id="text6388"><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;stroke-width:0.264583"
+         x="18.285549"
+         y="116.79347"
+         id="tspan6386"><tspan
+   style="fill:#0000ff"
+   id="tspan18559">parameter</tspan> <tspan
+   style="fill:#ff0000"
+   id="tspan23795">Modelica.Units.SI.Angle</tspan> incAngSurNor[:] = </tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;stroke-width:0.264583"
+         x="18.285549"
+         y="122.08514"
+         id="tspan10683">  {0, 90, 180, 270} * 2 * Modelica.Constants.pi</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;stroke-width:0.264583"
+         x="18.285549"
+         y="127.3768"
+         id="tspan10685">  <tspan
+   style="fill:#008000"
+   id="tspan36431">&quot;Wind incidence angles relative to surface normal&quot;</tspan>;</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;stroke-width:0.264583"
+         x="18.285549"
+         y="132.66846"
+         id="tspan10687"></tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;stroke-width:0.264583"
+         x="18.285549"
+         y="137.96011"
+         id="tspan10689"><tspan
+   style="fill:#0000ff"
+   id="tspan20535">parameter</tspan> <tspan
+   style="fill:#ff0000"
+   id="tspan27115">Real</tspan> Cp[:] =</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;stroke-width:0.264583"
+         x="18.285549"
+         y="143.25179"
+         id="tspan39993">  {1, 0.2, 0.5, 0.8}</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;stroke-width:0.264583"
+         x="18.285549"
+         y="148.54344"
+         id="tspan10691">  <tspan
+   style="fill:#008000"
+   id="tspan32755">&quot;Cp values at the corresponding incAngSurNor&quot;</tspan>;</tspan></text>
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.165;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Lstart)"
+       d="M 87.767511,92.737866 C 83.022892,88.339409 78.27832,83.940997 73.533724,79.542562"
+       id="path42221"
+       inkscape:path-effect="#path-effect42225"
+       inkscape:original-d="M 87.767511,92.737866 C 83.022882,88.33942 73.533724,79.542562 73.533724,79.542562"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="18.232868"
+       y="76.521317"
+       id="text42541"><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;stroke-width:0.264583"
+         x="18.232868"
+         y="76.521317"
+         id="tspan42537">Intermediate values</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:4.23333px;stroke-width:0.264583"
+         x="18.232868"
+         y="81.812981"
+         id="tspan42539">are interpolated</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="m 18.70487,82.99382 c 19.255834,0 38.512038,0 57.768618,0"
+       id="path46091"
+       inkscape:path-effect="#path-effect46095"
+       inkscape:original-d="m 18.70487,82.99382 c 19.255834,2.65e-4 38.512038,2.65e-4 57.768618,0" />
   </g>
 </svg>
