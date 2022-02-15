@@ -17,7 +17,6 @@ model PowerLawResistance_V_flow
    extends IBPSA.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters(
      m = 0.5);
 
-
   parameter Real C "Flow coefficient, C = V_flow/ dp^m";
 
   annotation (
