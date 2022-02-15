@@ -106,6 +106,5 @@ First implementation.
 </html>"),
     experiment(
       StopTime=20,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+      Tolerance=1e-06));
 end Outside_CpData_Angles;

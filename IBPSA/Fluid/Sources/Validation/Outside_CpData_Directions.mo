@@ -91,6 +91,5 @@ This is for
 </html>"),
     experiment(
       StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end Outside_CpData_Directions;
