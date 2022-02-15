@@ -43,6 +43,7 @@ model Outside_CpData_Directions
     winSpeSou=IBPSA.BoundaryConditions.Types.DataSource.Parameter,
     winSpe=1,
     winDirSou=IBPSA.BoundaryConditions.Types.DataSource.Input)
+    "Weather data"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Modelica.Blocks.Sources.Ramp winDir(
