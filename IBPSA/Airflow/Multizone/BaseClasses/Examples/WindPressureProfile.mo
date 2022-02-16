@@ -4,12 +4,12 @@ model WindPressureProfile
   extends Modelica.Icons.Example;
 
   parameter Modelica.Units.SI.Angle incAngSurNor[:](
-    each displayUnit="deg") =
+    each displayUnit="deg")=
       {0, 45, 90, 135, 180, 225, 270, 315}*Modelica.Constants.pi/180
     "Wind incidence angles, relative to the surface normal (normal=0), first point must be 0, last smaller than 2 pi(=360 deg)";
   parameter Real Cp[:](
-    each final unit="1") =
-      {0.4, 0.1, -0.3, -0.35, -0.2, -0.35 ,-0.3 ,0.1}
+    each final unit="1")=
+      {0.4, 0.1, -0.3, -0.35, -0.2, -0.35, -0.3, 0.1}
     "Cp values at the corresponding incAngSurNor";
 
   Modelica.Units.SI.Angle  alpha "Wind incidence angle (0: normal to wall)";
@@ -54,10 +54,10 @@ initial equation
 
 equation
    alpha=Modelica.Constants.D2R*ramp.y;
-   CpAct = IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(
-    incAng=alpha,
-    xd=incAngExt,
-    yd=CpExt,
+   CpAct =IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(
+    alpha=alpha,
+    incAngTab=incAngExt,
+    CpTab=CpExt,
     d=deri) "Actual wind pressure coefficient";
 
 

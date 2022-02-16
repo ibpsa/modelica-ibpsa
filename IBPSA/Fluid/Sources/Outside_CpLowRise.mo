@@ -15,7 +15,7 @@ model Outside_CpLowRise
   Real CpAct(final unit="1")=
    IBPSA.Airflow.Multizone.BaseClasses.windPressureLowRise(
      Cp0=Cp0,
-     incAng=alpha,
+     alpha=alpha,
      G=G)
    "Actual wind pressure coefficient";
   Modelica.Units.SI.Pressure pWin(displayUnit="Pa")=
@@ -68,7 +68,7 @@ For other buildings, the model
 <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpData\">
 IBPSA.Fluid.Sources.Outside_CpData</a> or
 <a href=\"modelica://IBPSA.Fluid.Sources.Outside_Cp\">
-IBPSA.Fluid.Sources.Outside_Cp</a> 
+IBPSA.Fluid.Sources.Outside_Cp</a>
 should be used that takes
 the wind pressure coefficient as a parameter or an input.
 -->

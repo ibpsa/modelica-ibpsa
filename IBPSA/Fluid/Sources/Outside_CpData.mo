@@ -23,10 +23,10 @@ model Outside_CpData
 
   Real CpAct(
     final unit="1") = IBPSA.Airflow.Multizone.BaseClasses.windPressureProfile(
-    incAng=alpha,
-    xd=incAngExt,
-    yd=CpExt,
-    d=deri) "Actual wind pressure coefficient";
+      alpha=alpha,incAngTab=
+      incAngExt,
+      CpTab=CpExt,
+      d=deri) "Actual wind pressure coefficient";
 
   Modelica.Units.SI.Angle alpha = winDir-surOut
     "Wind incidence angle (0: normal to wall)";
