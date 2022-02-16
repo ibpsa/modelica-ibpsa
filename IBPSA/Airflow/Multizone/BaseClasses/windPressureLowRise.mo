@@ -2,7 +2,7 @@ within IBPSA.Airflow.Multizone.BaseClasses;
 function windPressureLowRise "Wind pressure coefficient for low-rise buildings"
   extends Modelica.Icons.Function;
 
-  input Real Cp0(min=0)
+  input Real Cp0
     "Wind pressure coefficient for normal wind incidence angle";
   input Modelica.Units.SI.Angle incAng
     "Wind incidence angle (0: normal to wall)";

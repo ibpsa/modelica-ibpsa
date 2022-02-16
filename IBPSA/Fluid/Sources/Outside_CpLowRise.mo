@@ -12,7 +12,7 @@ model Outside_CpLowRise
 
   Modelica.Units.SI.Angle alpha = winDir-surOut
     "Wind incidence angle (0: normal to wall)";
-  Real CpAct(min=0, final unit="1")=
+  Real CpAct(final unit="1")=
    IBPSA.Airflow.Multizone.BaseClasses.windPressureLowRise(
      Cp0=Cp0,
      incAng=alpha,

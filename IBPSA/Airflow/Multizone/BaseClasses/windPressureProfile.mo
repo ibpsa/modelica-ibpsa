@@ -15,7 +15,6 @@ protected
   Real aR "u, restricted to 0...2*pi";
 
 algorithm
-
   // Change sign to positive and constrain to [0...2*pi]
   aR :=mod(incAng, 2*Modelica.Constants.pi);
 
