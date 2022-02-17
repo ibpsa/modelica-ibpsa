@@ -4,6 +4,9 @@ block Overwrite "Block that allows a signal to overwritten by an FMU input"
 
   parameter String description "Description of the signal being overwritten";
 
+  final parameter Boolean boptestOverwrite = true
+    "Parameter that is used by tools to search for overwrite block in models";
+
   Modelica.Blocks.Logical.Switch swi
     "Switch between external signal and direct feedthrough signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -12,8 +15,6 @@ block Overwrite "Block that allows a signal to overwritten by an FMU input"
   Modelica.Blocks.Sources.BooleanExpression activate
     "Block to activate use of external signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  final parameter Boolean boptestOverwrite = true
-    "Protected parameter, used by tools to search for overwrite block in models";
 
 equation
   connect(activate.y, swi.u2)
