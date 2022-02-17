@@ -55,6 +55,11 @@ by modifying its attributes.
 revisions="<html>
 <ul>
 <li>
+February 17, 2022 by David Blum:<br/>
+Made parameter <code>boptestOverwrite</code> unprotected.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1585\">#1585</a>.
+</li>
+<li>
 July 17, 2019 by Michael Wetter:<br/>
 Changed parameter name from <code>Description</code> to <code>description</code>.
 </li>

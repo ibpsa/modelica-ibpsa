@@ -58,6 +58,11 @@ the parameter <code>zone</code> for more details.
 revisions="<html>
 <ul>
 <li>
+February 17, 2022 by David Blum:<br/>
+Made parameter <code>boptestRead</code> unprotected.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1585\">#1585</a>.
+</li>
+<li>
 February 23, 2020 by David Blum:<br/>
 Added zone designation for KPI calculation by parameter <code>zone</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1257\">#1257</a>.
