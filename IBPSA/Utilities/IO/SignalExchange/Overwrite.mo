@@ -12,7 +12,6 @@ block Overwrite "Block that allows a signal to overwritten by an FMU input"
   Modelica.Blocks.Sources.BooleanExpression activate
     "Block to activate use of external signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-protected
   final parameter Boolean boptestOverwrite = true
     "Protected parameter, used by tools to search for overwrite block in models";
 

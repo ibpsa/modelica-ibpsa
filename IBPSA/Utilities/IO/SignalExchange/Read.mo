@@ -23,7 +23,6 @@ model Read "Block that allows a signal to be read as an FMU output"
     KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RelativeHumidity or
     KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.CO2Concentration)));
 
-protected
   final parameter Boolean boptestRead = true
     "Protected parameter, used by tools to search for read block in models";
   annotation (Documentation(info="<html>
