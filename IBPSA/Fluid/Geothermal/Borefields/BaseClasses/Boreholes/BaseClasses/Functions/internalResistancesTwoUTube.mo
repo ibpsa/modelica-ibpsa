@@ -107,17 +107,6 @@ algorithm
             Rgg1  = " + String(Rgg1) + " K/W
             Rgg2  = " + String(Rgg2) + " K/W");
 
-  if printDebug then
-    pure(Modelica.Utilities.Streams.print("
-      Rb = " + String(Rb_internal) + " m K / W
-      RCondPipe = "+ String(RCondPipe) + " m K / W
-      RConv = " +String(RConv) +"m K / W
-      hSeg = " + String(hSeg) + " m
-      Rg = "+String(Rg) + " K / W
-      Ra = " + String(Ra)  + " m K / W
-      x = " + String(x) + "
-      i = "  + String(i)));
-  end if;
 annotation (
   Documentation(info="<html>
 <p>
