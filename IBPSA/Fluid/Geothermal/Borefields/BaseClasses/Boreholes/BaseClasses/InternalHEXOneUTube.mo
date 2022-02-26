@@ -92,8 +92,7 @@ initial equation
       kMed=kMed,
       muMed=muMed,
       cpMed=cpMed,
-      m_flow_nominal=m1_flow_nominal,
-      printDebug=false);
+      m_flow_nominal=m1_flow_nominal);
 
 equation
     assert(borFieDat.conDat.borCon == IBPSA.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
