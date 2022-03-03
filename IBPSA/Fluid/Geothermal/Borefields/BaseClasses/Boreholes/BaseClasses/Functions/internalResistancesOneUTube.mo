@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions;
-pure function internalResistancesOneUTube
+function internalResistancesOneUTube
   "Thermal resistances for single U-tube, according to Bauer et al. (2011)"
   extends
     IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.partialInternalResistances;
@@ -81,7 +81,7 @@ algorithm
       i := i + 1;
     end while;
   end if;
-  assert(test,
+  assert(test, "In " + getInstanceName() + ":\n" +
   "Maximum number of iterations exceeded. Check the borehole geometry.
   The tubes may be too close to the borehole wall.
   Input to the function
