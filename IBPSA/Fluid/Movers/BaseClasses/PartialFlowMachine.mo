@@ -2,6 +2,7 @@ within IBPSA.Fluid.Movers.BaseClasses;
 partial model PartialFlowMachine
   "Partial model to interface fan or pump models with the medium"
   extends IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final massDynamics=energyDynamics,
     final mSenFac=1);
   extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
     m_flow_nominal(final min=Modelica.Constants.small),
