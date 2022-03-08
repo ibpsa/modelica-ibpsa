@@ -30,8 +30,19 @@ convertClass("IBPSA.ThermalZones.ReducedOrder.RC.FourElements", {"massDynamics"}
 convertClass("IBPSA.ThermalZones.ReducedOrder.RC.OneElement", {"massDynamics"}, fill("",0), true);
 convertClass("IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements", {"massDynamics"}, fill("",0), true);
 convertClass("IBPSA.ThermalZones.ReducedOrder.RC.TwoElements", {"massDynamics"}, fill("",0), true);
+convertClass("IBPSA.Fluid.HeatExchangers.ActiveBeams.Cooling", {"massDynamics"}, fill("",0), true);
+convertClass("IBPSA.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating", {"massDynamics"}, fill("",0), true);
+convertClass("IBPSA.Fluid.HeatExchangers.WetCoilEffectivenessNTU", {"massDynamics"}, fill("",0), true);
+convertClass("IBPSA.Fluid.Delays.DelayFirstOrder", {"massDynamics"}, fill("",0), true);
 
+convertClass("IBPSA.Fluid.Storage.StratifiedEnhancedInternalHex", {"massDynamicsHex"}, fill("",0), true);
 
+convertElement("IBPSA.Fluid.Humidifiers.SteamHumidifier_X",
+  "massDynamics",
+  "energyDynamics");
+convertElement("IBPSA.Fluid.Humidifiers.SprayAirWasher_X",
+  "massDynamics",
+  "energyDynamics");
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1522
 convertClass("IBPSA.Controls.Continuous.PIDHysteresisTimer",
@@ -44,7 +55,7 @@ convertModifiers("IBPSA.BoundaryConditions.SolarGeometry.IncidenceAngle", {"lat"
 convertModifiers("IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle", {"lat"}, fill("",0), true);
 convertModifiers("IBPSA.BoundaryConditions.SolarGeometry.ZenithAngle", {"lat"}, fill("",0), true);
 convertModifiers("IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez", {"lat"}, fill("",0), true);
-convertModifiers("IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface", {"lat"}, fill("",0), true);IBPSA.Fluid.Actuators.Valves.TwoWayButterfly
+convertModifiers("IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface", {"lat"}, fill("",0), true);
 
 // Refactoring for https://github.com/ibpsa/modelica-ibpsa/issues/1494
 convertClass("IBPSA.Fluid.FixedResistances.PlugFlowPipe",
