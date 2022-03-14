@@ -158,7 +158,7 @@ In actuators such as valves and air dampers, <i>k</i> is a function of the contr
 
 <h4>Computation of mass and energy balance</h4>
 <p>
-Most models have parameters
+Some models have parameters
 <code>massDynamics</code> and <code>energyDynamics</code>
 that allow using a dynamic or a
 steady-state equation for the mass and energy balance.
