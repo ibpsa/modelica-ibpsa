@@ -224,8 +224,25 @@ equation
           lineColor={0,0,255},
           textString="%name")}),Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-140,-140},{140,140}})),
-    experiment(
-      StopTime=31536000,
-      Interval=3600,
-      __Dymola_Algorithm="Dassl"));
+    Documentation(info="<html>
+<p>
+This is a lumped-capacitance simplified building model based  on the 5R1C 
+network presented in the ISO 13790:2008 Standard. The simplified 5R1C model uses
+five thermal resistances and one thermal capacitance to reproduce the 
+transient thermal behaviour of buildings. 
+<code>nExt,</code> the vector of the capacities <code>CExt[nExt]</code> that is
+connected via the vector of resistances <code>RExt[nExt]</code> and
+<code>RExtRem</code> to the ambient and indoor air.
+By default, the model neglects all
+internal thermal masses that are not directly connected to the ambient.
+However, the thermal capacity of the room air can be increased by
+using the parameter <code>mSenFac</code>.
+</p>
+<p>
+The image below shows the RC-network of this model.
+</p>
+<p align=\"center\">
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Zone/5R1CNetwork_v2.png\" alt=\"image\"/>
+</p>
+  </html>"));
 end Zone;
