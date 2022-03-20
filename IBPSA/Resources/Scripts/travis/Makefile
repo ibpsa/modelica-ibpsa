@@ -2,6 +2,12 @@
 # Makefile for the regression tests that are run on travis
 ############################################################
 # $(TRAVIS_BUILD_DIR) is /home/travis/build/ibpsa/modelica-ibpsa
+# Set it to top-level directory of the IBPSA library if not set. (This is used for local testing.)
+TRAVIS_BUILD_DIR ?= $(shell dirname \
+  $(shell dirname \
+  $(shell dirname \
+  $(shell dirname \
+  $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))))))
 ROOT = $(TRAVIS_BUILD_DIR)
 
 test-documentation:
@@ -34,3 +40,8 @@ test-dymola:
 	(cd $(ROOT)/IBPSA && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/IBPSA/Resources/Python-Sources && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola)
+
+test-openmodelica:
+	(cd $(ROOT)/IBPSA && \
+	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/IBPSA/Resources/Python-Sources && \
+	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool openmodelica --skip-verification)
