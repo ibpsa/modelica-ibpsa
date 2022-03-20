@@ -31,6 +31,10 @@ model GFunction_SmallScaleValidation
   Real gFun_int "Interpolated value of g-function";
   Real lntts_int "Non-dimensional logarithmic time for interpolation";
 
+  parameter Integer n_clusters=1 "Number of clusters to be generated";
+  parameter Integer labels[nBor](each fixed=false) "Cluster label associated with each data point";
+  parameter Integer cluster_size[n_clusters](each fixed=false);
+
   discrete Integer k "Current interpolation interval";
   discrete Modelica.Units.SI.Time t1 "Previous value of time for interpolation";
   discrete Modelica.Units.SI.Time t2 "Next value of time for interpolation";
@@ -41,6 +45,13 @@ model GFunction_SmallScaleValidation
 
 initial equation
   // Evaluate g-function for the specified bore field configuration
+  (labels, cluster_size) = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.clusterBoreholes(
+    nBor = nBor,
+    cooBor = cooBor,
+    hBor = hBor,
+    dBor = dBor,
+    rBor = rBor,
+    n_clusters = n_clusters);
   (tGFun,gFun) =
     IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction(
       nBor = nBor,
@@ -52,7 +63,10 @@ initial equation
       nSeg = nSeg,
       nTimSho = nTimSho,
       nTimLon = nTimLon,
-      ttsMax = ttsMax);
+      ttsMax = ttsMax,
+      n_clusters = n_clusters,
+      labels = labels,
+      cluster_size = cluster_size);
   lntts = log(tGFun/ts .+ Modelica.Constants.small);
   // Initialize parameters for interpolation
   dspline = IBPSA.Utilities.Math.Functions.splineDerivatives(

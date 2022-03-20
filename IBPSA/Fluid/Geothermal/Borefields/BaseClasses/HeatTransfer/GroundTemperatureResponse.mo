@@ -1,8 +1,11 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer;
 model GroundTemperatureResponse "Model calculating discrete load aggregation"
-  parameter Modelica.Units.SI.Time tLoaAgg(final min=Modelica.Constants.eps) =
+  parameter Modelica.Units.SI.Time tLoaAgg(final min=Modelica.Constants.eps)=
     3600 "Time resolution of load aggregation";
   parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
+  parameter Integer nSeg=12
+    "Number of segments per borehole for g-function calculation";
+  parameter Integer nClusters=5 "Number of clusters for g-function calculation";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether it has been pre-computed";
   parameter IBPSA.Fluid.Geothermal.Borefields.Data.Borefield.Template borFieDat
@@ -19,9 +22,6 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
         iconTransformation(extent={{-120,-10},{-100,10}})));
 
 protected
-  constant Integer nSegMax = 1500 "Max total number of segments in g-function calculation";
-  final parameter Integer nSeg = integer(if 12*borFieDat.conDat.nBor<nSegMax then 12 else floor(nSegMax/borFieDat.conDat.nBor))
-    "Number of segments per borehole for g-function calculation";
   constant Integer nTimSho = 26 "Number of time steps in short time region";
   constant Integer nTimLon = 50 "Number of time steps in long time region";
   constant Real ttsMax = exp(5) "Maximum non-dimensional time for g-function calculation";
@@ -38,6 +38,7 @@ protected
       rBor=borFieDat.conDat.rBor,
       aSoi=borFieDat.soiDat.aSoi,
       nSeg=nSeg,
+      nClusters=nClusters,
       nTimSho=nTimSho,
       nTimLon=nTimLon,
       ttsMax=ttsMax) "String with encrypted g-function arguments";
@@ -114,6 +115,7 @@ initial equation
       aSoi=borFieDat.soiDat.aSoi,
       kSoi=borFieDat.soiDat.kSoi,
       nSeg=nSeg,
+      nClusters=nClusters,
       nTimSho=nTimSho,
       nTimLon=nTimLon,
       nTimTot=nTimTot,

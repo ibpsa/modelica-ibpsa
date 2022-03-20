@@ -10,6 +10,7 @@ function shaGFunction
   input Modelica.Units.SI.ThermalDiffusivity aSoi
     "Ground thermal diffusivity used in g-function evaluation";
   input Integer nSeg "Number of line source segments per borehole";
+  input Integer nClusters "Number of clusters for g-function calculation";
   input Integer nTimSho "Number of time steps in short time region";
   input Integer nTimLon "Number of time steps in long time region";
   input Real ttsMax "Maximum adimensional time for gfunc calculation";
@@ -27,6 +28,7 @@ algorithm
   sha := IBPSA.Utilities.Cryptographics.sha(sha + String(rBor, format=formatStrGen));
   sha := IBPSA.Utilities.Cryptographics.sha(sha + String(aSoi, format=formatStrGen));
   sha := IBPSA.Utilities.Cryptographics.sha(sha + String(nSeg, format=formatStrGen));
+  sha := IBPSA.Utilities.Cryptographics.sha(sha + String(nClusters, format=formatStrGen));
   sha := IBPSA.Utilities.Cryptographics.sha(sha + String(nTimSho, format=formatStrGen));
   sha := IBPSA.Utilities.Cryptographics.sha(sha + String(nTimLon, format=formatStrGen));
   sha := IBPSA.Utilities.Cryptographics.sha(sha + String(ttsMax, format=formatStrGen));

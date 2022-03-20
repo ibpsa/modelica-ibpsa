@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation;
+﻿within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation;
 model Analytic_20Years
   "Long term validation of ground temperature response model"
   extends Modelica.Icons.Example;
@@ -32,6 +32,8 @@ model Analytic_20Years
   IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse groTemRes(
     tLoaAgg=3600,
     nCel=5,
+    nSeg=12,
+    nClusters=1,
     borFieDat=borFieDat,
     forceGFunCalc=true) "Ground temperature response of borehole"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));

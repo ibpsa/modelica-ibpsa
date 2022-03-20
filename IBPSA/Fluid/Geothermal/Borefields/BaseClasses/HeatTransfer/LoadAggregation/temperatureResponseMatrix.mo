@@ -12,6 +12,7 @@ impure function temperatureResponseMatrix
   input Modelica.Units.SI.ThermalConductivity kSoi
     "Thermal conductivity of soil";
   input Integer nSeg "Number of line source segments per borehole";
+  input Integer nClusters "Number of clusters for g-function calculation";
   input Integer nTimSho "Number of time steps in short time region";
   input Integer nTimLon "Number of time steps in long time region";
   input Integer nTimTot "Number of g-function points";
@@ -28,11 +29,21 @@ protected
   Modelica.Units.SI.Time[nTimTot] tGFun "g-function evaluation times";
   Real[nTimTot] gFun "g-function vector";
   Boolean writegFun = false "True if g-function was succesfully written to file";
+  Integer labels[nBor](each fixed=false) "Cluster label associated with each data point";
+  Integer cluster_size[nClusters](each fixed=false);
 
 algorithm
   pathSave := "tmp/temperatureResponseMatrix/" + sha + "TStep.mat";
 
   if forceGFunCalc or not Modelica.Utilities.Files.exist(pathSave) then
+    (labels, cluster_size) :=
+      IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.clusterBoreholes(
+      nBor=nBor,
+      cooBor=cooBor,
+      hBor=hBor,
+      dBor=dBor,
+      rBor=rBor,
+      n_clusters=nClusters);
     (tGFun,gFun) :=
       IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction(
       nBor=nBor,
@@ -42,9 +53,12 @@ algorithm
       rBor=rBor,
       aSoi=aSoi,
       nSeg=nSeg,
+      n_clusters=nClusters,
       nTimSho=nTimSho,
       nTimLon=nTimLon,
-      ttsMax=ttsMax);
+      ttsMax=ttsMax,
+      labels = labels,
+      cluster_size = cluster_size);
 
     for i in 1:nTimTot loop
       TStep[i,1] := tGFun[i];

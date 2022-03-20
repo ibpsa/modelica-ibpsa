@@ -10,6 +10,8 @@ model Measured_SmallScale
 
   IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse groTemRes(
     nCel=5,
+    nSeg=12,
+    nClusters=1,
     borFieDat=borFieDat,
     forceGFunCalc=true,
     tLoaAgg=360000) "Ground temperature response of borehole"

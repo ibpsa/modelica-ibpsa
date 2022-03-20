@@ -8,7 +8,6 @@ finiteLineSource_Integrand
 finiteLineSource_Integrand_equivalentBoreholes
 finiteLineSource_SteadyState
 gFunction
-gFunction_equivalentBoreholes
 infiniteLineSource
 shaGFunction
 timeGeometric
