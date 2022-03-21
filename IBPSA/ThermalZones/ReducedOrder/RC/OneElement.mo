@@ -402,8 +402,7 @@ equation
     0,0}));
   connect(senTRad.T, TRad)
     annotation (Line(points={{210,121},{210,128},{228,128},{228,128},{228,120},
-          {250,120}},
-                color={0,0,127}));
+          {250,120}}, color={0,0,127}));
   connect(solRad, eConvSol.u)
     annotation (Line(
     points={{-260,140},{-226,140},{-226,124},{-207,124}},
