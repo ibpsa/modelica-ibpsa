@@ -386,7 +386,7 @@ equation
   connect(volMoiAir.heatPort, senTAir.port)
     annotation (Line(points={{-20,-16},{-20,0},{80,0}}, color={191,0,0}));
   connect(senTAir.T, TAir)
-    annotation (Line(points={{100,0},{108,0},{108,160},{250,160}},
+    annotation (Line(points={{101,0},{108,0},{108,160},{250,160}},
     color={0,0,127}));
   connect(convWin.solid, windowIndoorSurface)
     annotation (Line(points={{-116,40},{-130,40},{-130,-10},{-212,-10},{-212,
@@ -401,8 +401,9 @@ equation
     Line(points={{210,100},{210,100},{210,100},{210,86}}, color={191,
     0,0}));
   connect(senTRad.T, TRad)
-    annotation (Line(points={{210,120},{210,128},{228,128},{228,128},{228,120},
-    {250,120}}, color={0,0,127}));
+    annotation (Line(points={{210,121},{210,128},{228,128},{228,128},{228,120},
+          {250,120}},
+                color={0,0,127}));
   connect(solRad, eConvSol.u)
     annotation (Line(
     points={{-260,140},{-226,140},{-226,124},{-207,124}},

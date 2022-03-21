@@ -1,13 +1,24 @@
 within IBPSA.ThermalZones.ISO13790.Examples;
-model HeatingCooling
-  extends Modelica.Icons.Example;
+model HeatingCooling "Illustrates the use of the 5R1C thermal zone with heating and cooling"
+  extends FreeFloating(zon5R1C(
+      nVe=0.5,
+      Awin={0,0,3,0},
+      Uwin=1.8,
+      Awal={12,12,9,12},
+      Aroo=16,
+      Uwal=1.3,
+      Uroo=1.3,
+      Af=16,
+      Vroo=16*3,
+      f_ms=2.5,
+      redeclare IBPSA.ThermalZones.ISO13790.Data.Light buiMas,
+      gFactor=0.5), weaDat(filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")));
 
-  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/DRYCOLD.mos"))
+  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
 
-  Zone5R1C.Zone zone(redeclare Data.Medium buiMas)
-    annotation (Placement(transformation(extent={{26,-12},{54,16}})));
   Modelica.Blocks.Sources.Constant intGains(k=10)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Math.Sum sumHeaCoo(nin=2)   annotation (
@@ -56,11 +67,11 @@ model HeatingCooling
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir annotation (
     Placement(visible = true, transformation(extent={{0,20},{8,28}},        rotation = 0)));
 equation
-  connect(zone.weaBus, weaDat.weaBus) annotation (Line(
+  connect(zon5R1C.weaBus, weaDat.weaBus) annotation (Line(
       points={{30.6,13},{-50.7,13},{-50.7,70},{-60,70}},
       color={255,204,51},
       thickness=0.5));
-  connect(intGains.y, zone.intGains) annotation (Line(points={{-59,-70},{-50,
+  connect(intGains.y, zon5R1C.intGains) annotation (Line(points={{-59,-70},{-50,
           -70},{-50,-10},{24,-10}}, color={0,0,127}));
   connect(sumHeaCoo.y, preHeaCoo.Q_flow)
     annotation (Line(points={{52.4,60},{58,60}}, color={0,0,127}));
@@ -92,12 +103,31 @@ equation
   connect(TRooAir.T, conCooPID.u_m) annotation (Line(points={{8.4,24},{18,24},{
           18,32},{-10,32},{-10,38.8}},
                                     color={0,0,127}));
-  connect(TRooAir.port, zone.Tair) annotation (Line(points={{0,24},{-8,24},{-8,
+  connect(TRooAir.port, zon5R1C.Tair) annotation (Line(points={{0,24},{-8,24},{-8,
           10},{44,10}}, color={191,0,0}));
-  connect(preHeaCoo.port, zone.Tair) annotation (Line(points={{70,60},{80,60},{
-          80,10},{44,10}}, color={191,0,0}));
+  connect(preHeaCoo.port, zon5R1C.Tair) annotation (Line(points={{70,60},{80,60},
+          {80,10},{44,10}}, color={191,0,0}));
   annotation (experiment(
       StopTime=31536000,
       Interval=3600,
-      __Dymola_Algorithm="Dassl"));
+      __Dymola_Algorithm="Dassl"),
+  Documentation(info="<html>
+<p>
+This model illustrates the use of <a href=\"modelica://IBPSA.ThermalZones.ISO13790.Zone5R1C.Zone\">
+IBPSA.ThermalZones.ISO13790.Zone5R1C.Zone</a> with heating and cooling.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+Mar 16, 2022, by Alessandro Maccarini:<br/>
+First implementation.
+</li>
+</ul>
+</html>",
+        info="<html>
+<p>
+Mass data for heavy building
+</p>
+</html>"));
 end HeatingCooling;

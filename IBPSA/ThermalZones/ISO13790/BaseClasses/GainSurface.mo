@@ -2,11 +2,11 @@ within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model GainSurface "Surface node heat flow"
 
   Real Am;
-  Real At;
+  parameter Real At;
   parameter Real HwinG;
   parameter Real f_ms;
   parameter Real Af;
-  parameter Real f_at;
+
 
   Modelica.Blocks.Interfaces.RealInput intG
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
@@ -18,7 +18,7 @@ model GainSurface "Surface node heat flow"
 
 equation
   Am  = f_ms*Af;
-  At  = f_at*Af;
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -35,5 +35,17 @@ equation
           extent={{-110,138},{112,106}},
           lineColor={0,0,255},
           textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This model calculates the heat gains injected to the surface node. More information
+can be found in the documentation of <a href=\"modelica://IBPSA.ThermalZones.ISO13790.Zone5R1C.Zone\">
+IBPSA.ThermalZones.ISO13790.Zone5R1C.Zone</a>
+</p>
+</html>", revisions="<html><ul>
+<li>
+Mar 16, 2022, by Alessandro Maccarini:<br/>
+First implementation.
+</li>
+</ul></html>"));
 end GainSurface;

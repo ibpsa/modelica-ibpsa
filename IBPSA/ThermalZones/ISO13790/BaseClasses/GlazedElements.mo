@@ -245,5 +245,44 @@ equation
           extent={{-110,198},{112,166}},
           lineColor={0,0,255},
           textString="%name")}),Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-140,-140},{140,140}})));
+            false, extent={{-140,-140},{140,140}})),
+         Documentation(info="<html>
+<p>
+This model calculates the solar heat gains through glazed elements. The heat flow by solar gains through building element k is given by
+<p align=\"center\" style=\"font-style:italic;\">
+&Phi;<sub>sol,k</sub> = F<sub>sh,ob,k</sub>A<sub>sol,k</sub>I<sub>sol,k</sub>-F<sub>r,k</sub>&Phi;<sub>r,k</sub>
+</p>
+where <i>F<sub>sh,ob,k</sub></i> is the shading reduction factor for external obstacles, 
+<i>A<sub>sol,k</sub></i> is the effective collecting area of surface k,
+<i>I<sub>sol,k</sub></i> is the solar irradiance per square meter, 
+<i>F<sub>r,k</sub></i> is the form factor between the building element and the sky, and 
+<i>&Phi;<sub>r,k</sub></i> is the extra heat flow due to thermal radiation to the sky. 
+The effective collecting area of glazed elements <i>A<sub>sol</sub></i> is calculated as
+<p align=\"center\" style=\"font-style:italic;\">
+A<sub>sol</sub> = F<sub>sh,gl</sub>F<sub>w</sub>g<sub>n</sub>(1-F<sub>f</sub>)A<sub>w</sub>
+</p>
+where <i>F<sub>sh,gl</sub></i> is the shading reduction factor for venetian blind or shades (equal to 1 in this model implementation),
+<i>F<sub>w</sub></i> is a correction factor (equal to 0.9 in this model implementation),
+<i>g<sub>n</sub></i> is the solar energy transmittance for radiation perpendicular to the window,
+<i>F<sub>f</sub></i> is the frame fraction, and
+<i>A<sub>w</sub></i> is the window area.
+In this model implementation, the extra radiative heat flow due to thermal radiation to the sky was neglected.
+
+
+
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+Mar 16, 2022, by Alessandro Maccarini:<br/>
+First implementation.
+</li>
+</ul>
+</html>",
+        info="<html>
+<p>
+Mass data for heavy building
+</p>
+</html>"));
 end GlazedElements;

@@ -1,4 +1,4 @@
-within IBPSA.ThermalZones.ISO13790.BaseClasses;
+﻿within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model OpaqueElements "Solar heat gains of opaque elements"
   IBPSA.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-200,-20},{-160,20}}),iconTransformation(extent={{-230,
@@ -100,8 +100,8 @@ model OpaqueElements "Solar heat gains of opaque elements"
   Modelica.Blocks.Math.Sum sum1(nin=5)
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
   Modelica.Blocks.Interfaces.RealOutput y
-    annotation (Placement(transformation(extent={{220,-40},{240,-20}}),
-        iconTransformation(extent={{220,-40},{240,-20}})));
+    annotation (Placement(transformation(extent={{220,-10},{240,10}}),
+        iconTransformation(extent={{220,-10},{240,10}})));
   IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil4(
     til=surfaceTilt[5],
     azi=surfaceAzimuth[5])
@@ -237,8 +237,7 @@ equation
   connect(HDifTil1.H, Irradiance_north1.u2) annotation (Line(points={{-99,70},{-90,
           70},{-90,74},{-82,74}}, color={0,0,127}));
   connect(sum1.y, y)
-    annotation (Line(points={{201,0},{216,0},{216,-30},{230,-30}},
-                                               color={0,0,127}));
+    annotation (Line(points={{201,0},{230,0}}, color={0,0,127}));
   connect(Irradiance_roof.y, A_op_roof.u)
     annotation (Line(points={{-59,-160},{-42,-160}}, color={0,0,127}));
   connect(A_op_roof.y, alpha_roof.u)
@@ -383,8 +382,8 @@ equation
           -86},{160,0.8},{178,0.8}}, color={0,0,127}));
   connect(q_sol_op_south2.y, sum1.u[5]) annotation (Line(points={{141,-166},{
           160,-166},{160,1.6},{178,1.6}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-220,
-            -220},{220,160}}), graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-220,-220},
+            {220,200}}),       graphics={
         Rectangle(
           extent={{-220,160},{220,-220}},
           lineColor={95,95,95},
@@ -437,5 +436,47 @@ equation
           extent={{-110,218},{112,186}},
           lineColor={0,0,255},
           textString="%name")}),Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-220,-220},{220,160}})));
+            false, extent={{-220,-220},{220,200}})),
+    Documentation(info="<html>
+<p>
+This model calculates the solar heat gains through opaque elements. The heat flow by solar gains through building element k is given by
+<p align=\"center\" style=\"font-style:italic;\">
+&Phi;<sub>sol,k</sub> = F<sub>sh,ob,k</sub>A<sub>sol,k</sub>I<sub>sol,k</sub>-F<sub>r,k</sub>&Phi;<sub>r,k</sub>
+</p>
+where <i>F<sub>sh,ob,k</sub></i> is the shading reduction factor for external obstacles, 
+<i>A<sub>sol,k</sub></i> is the effective collecting area of surface k,
+<i>I<sub>sol,k</sub></i> is the solar irradiance per square meter, 
+<i>F<sub>r,k</sub></i> is the form factor between the building element and the sky, and 
+<i>&Phi;<sub>r,k</sub></i> is the extra heat flow due to thermal radiation to the sky. 
+The effective collecting area of opaque elements <i>A<sub>sol</sub></i> is calculated as
+<p align=\"center\" style=\"font-style:italic;\">
+A<sub>sol</sub> = &alpha;<sub>s</sub>R<sub>se</sub>U<sub>op</sub>A<sub>op</sub>
+</p>
+where <i>&alpha;<sub>s</sub></i> is the dimensionless absoprtion coefficient for solar radiation of the opaque element,
+<i>R<sub>se</sub></i> is the external surface heat resistance of the opaque element,
+<i>U<sub>op</sub></i> is the thermal transmittance of the opaque element,
+<i>A<sub>op</sub></i> is area of the opaque element. The extra heat flow due to thermal radiation is given by
+<p align=\"center\" style=\"font-style:italic;\">
+&Phi;<sub>r</sub> = R<sub>se</sub>U<sub>op</sub>A<sub>op</sub>h<sub>r</sub>∆T<sub>es</sub>
+</p>
+where <i>h<sub>r</sub></i> is the external radiative heat transfer coefficient, and
+<i>∆T<sub>es</sub></i> is the average difference between the external air temperature and 
+the apparent sky temperature (assumed equal to 11 K)
+
+
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+Mar 16, 2022, by Alessandro Maccarini:<br/>
+First implementation.
+</li>
+</ul>
+</html>",
+        info="<html>
+<p>
+Mass data for heavy building
+</p>
+</html>"));
 end OpaqueElements;

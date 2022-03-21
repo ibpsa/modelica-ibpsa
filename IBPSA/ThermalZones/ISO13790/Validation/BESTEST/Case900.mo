@@ -1,11 +1,15 @@
-within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
+﻿within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
 model Case900
   extends Modelica.Icons.Example;
   Zone5R1C.Zone          zone(
+    nVe=0.5,
+    Awin={0,0,12,0},
     Uwin=2.984,
     Awal={21.6,16.2,9.6,16.2},
+    Aroo=48,
     Uwal=0.51,
     Uroo=0.32,
+    Af=48,
     Vroo=129.6,
     f_ms=2.7,
     redeclare ISO13790.Data.BESTEST900 buiMas,
@@ -79,8 +83,8 @@ equation
       points={{-60,70},{-38,70},{-38,11},{-9.4,11}},
       color={255,204,51},
       thickness=0.5));
-  connect(intGains.y, zone.intGains) annotation (Line(points={{-39,-30},{-30,
-          -30},{-30,-12},{-16,-12}}, color={0,0,127}));
+  connect(intGains.y, zone.intGains) annotation (Line(points={{-39,-30},{-22,
+          -30},{-22,-12},{-16,-12}}, color={0,0,127}));
   connect(sumHeaCoo.y,preHeaCoo. Q_flow)
     annotation (Line(points={{62.4,60},{68,60}}, color={0,0,127}));
   connect(conHeaPID.y,gaiHea. u)
@@ -117,4 +121,23 @@ equation
     annotation (Line(points={{80,60},{84,60},{84,8},{4,8}}, color={191,0,0}));
   connect(conHeaPID.u_m, TRooAir.T) annotation (Line(points={{0,64.8},{0,60},{
           10,60},{10,34},{24,34},{24,24},{20.4,24}}, color={0,0,127}));
+
+ annotation(experiment(
+      StopTime=31536000,
+      Interval=3600,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600FF.mos"
+        "Simulate and plot"), Documentation(info="<html>
+<p>
+This model is used for the basic test case 900 of the BESTEST validation suite. 
+Case 900 is a heavy-weight building with room temperature control set to 20°C 
+for heating and 27°C for cooling. The room has no shade and a window that faces south. 
+</p>
+</html>", revisions="<html><ul>
+<li>
+Mar 16, 2022, by Alessandro Maccarini:<br/>
+First implementation.
+</li>
+</ul></html>"));
 end Case900;
