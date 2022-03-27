@@ -13,12 +13,12 @@ function clusterBoreholes
 
   output Integer labels[nBor] "Cluster label associated with each data point";
   output Integer cluster_size[n_clusters];
+  output Integer N "Number of unique clusters";
 
 protected
   Real TBor[nBor,1] "Steady-state borehole wall temperatures";
   Real TBor_Unique[nBor] "Unique borehole wall temperatures under tolerance";
   Real dis "Distance between boreholes";
-  Integer N "Number of unique borehole wall temperatures";
 
 algorithm
   // ---- Evaluate borehole wall temperatures
@@ -52,7 +52,7 @@ algorithm
   end if;
 
   // ---- Identify borehole clusters
-  (,labels,cluster_size) := IBPSA.Utilities.Clustering.KMeans(
+  (,labels,cluster_size[1:min(N, n_clusters)]) := IBPSA.Utilities.Clustering.KMeans(
     TBor,
     min(N, n_clusters),
     nBor,

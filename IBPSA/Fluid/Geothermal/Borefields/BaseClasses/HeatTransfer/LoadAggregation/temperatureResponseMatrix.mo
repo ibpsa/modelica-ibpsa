@@ -31,12 +31,13 @@ protected
   Boolean writegFun = false "True if g-function was succesfully written to file";
   Integer labels[nBor](each fixed=false) "Cluster label associated with each data point";
   Integer cluster_size[nClusters](each fixed=false);
+  Integer nClustersUnique "Number of unique borehole clusters";
 
 algorithm
   pathSave := "tmp/temperatureResponseMatrix/" + sha + "TStep.mat";
 
   if forceGFunCalc or not Modelica.Utilities.Files.exist(pathSave) then
-    (labels, cluster_size) :=
+    (labels, cluster_size, nClustersUnique) :=
       IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.clusterBoreholes(
       nBor=nBor,
       cooBor=cooBor,
@@ -53,12 +54,12 @@ algorithm
       rBor=rBor,
       aSoi=aSoi,
       nSeg=nSeg,
-      n_clusters=nClusters,
+      n_clusters=nClustersUnique,
       nTimSho=nTimSho,
       nTimLon=nTimLon,
       ttsMax=ttsMax,
       labels = labels,
-      cluster_size = cluster_size);
+      cluster_size = cluster_size[1:nClustersUnique]);
 
     for i in 1:nTimTot loop
       TStep[i,1] := tGFun[i];
