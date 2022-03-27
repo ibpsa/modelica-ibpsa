@@ -38,7 +38,7 @@ algorithm
   // The number of clusters is min(N, n_clusters)
   N := 1;
   TBor_Unique[1] := TBor[1,1];
-  if n_clusters > 1 then
+  if n_clusters > 1 and nBor > 1 then
     for i in 2:nBor loop
       for j in 1:N loop
         if abs(TBor[i,1] - TBor_Unique[j]) < TTol then
@@ -50,11 +50,12 @@ algorithm
       end for;
     end for;
   end if;
+  N := min(N, n_clusters);
 
   // ---- Identify borehole clusters
-  (,labels,cluster_size[1:min(N, n_clusters)]) := IBPSA.Utilities.Clustering.KMeans(
+  (,labels,cluster_size[1:N]) := IBPSA.Utilities.Clustering.KMeans(
     TBor,
-    min(N, n_clusters),
+    N,
     nBor,
     1);
 
