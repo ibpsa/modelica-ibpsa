@@ -9,13 +9,16 @@ function clusterBoreholes
   input Modelica.Units.SI.Height dBor "Borehole buried depth";
   input Modelica.Units.SI.Radius rBor "Borehole radius";
   input Integer n_clusters "Number of clusters to be generated";
+  input Real TTol = 0.001 "Absolute tolerance on the borehole wall temperature for the identification of clusters";
 
   output Integer labels[nBor] "Cluster label associated with each data point";
   output Integer cluster_size[n_clusters];
 
 protected
   Real TBor[nBor,1] "Steady-state borehole wall temperatures";
+  Real TBor_Unique[nBor] "Unique borehole wall temperatures under tolerance";
   Real dis "Distance between boreholes";
+  Integer N "Number of unique borehole wall temperatures";
 
 algorithm
   // ---- Evaluate borehole wall temperatures
@@ -31,10 +34,27 @@ algorithm
     end for;
   end for;
 
+  // ---- Find all unique borehole wall temperatures under tolerance
+  // The number of clusters is min(N, n_clusters)
+  N := 1;
+  TBor_Unique[1] := TBor[1,1];
+  if n_clusters > 1 then
+    for i in 2:nBor loop
+      for j in 1:N loop
+        if abs(TBor[i,1] - TBor_Unique[j]) < TTol then
+          break;
+        elseif j == N then
+          TBor_Unique[N+1] := TBor[i,1];
+          N := N + 1;
+        end if;
+      end for;
+    end for;
+  end if;
+
   // ---- Identify borehole clusters
   (,labels,cluster_size) := IBPSA.Utilities.Clustering.KMeans(
     TBor,
-    n_clusters,
+    min(N, n_clusters),
     nBor,
     1);
 
