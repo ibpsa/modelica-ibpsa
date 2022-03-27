@@ -13,6 +13,7 @@ model ShaGFunction
     0.075,
     1e-6,
     12,
+    1,
     26,
     50,
     exp(5)) "SHA1-encrypted g-function inputs";

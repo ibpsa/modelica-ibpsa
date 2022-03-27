@@ -13,6 +13,7 @@ model TemperatureResponseMatrix
       aSoi=1e-6,
       kSoi=3,
       nSeg=12,
+      nClusters=1,
       nTimSho=26,
       nTimLon=50,
       nTimTot=26 + 50,
