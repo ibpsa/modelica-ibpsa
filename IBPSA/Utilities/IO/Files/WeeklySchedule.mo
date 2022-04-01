@@ -41,7 +41,7 @@ First implementation.
 </html>", info="<html>
 <p>
 This model interprets a specific file and performs a cyclic (weekly) extrapolation on the source data.
-See <a href=\"modelica://IDEAS/Resources/Data/schedule.txt\">IDEAS/Resources/Data/schedule.txt</a> 
+See <a href=\"modelica://IBPSA/Resources/Data/schedule.txt\">IBPSA/Resources/Data/schedule.txt</a> 
 for an example of the supported file format.
 </p>
 </html>"));
