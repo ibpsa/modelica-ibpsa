@@ -14,9 +14,15 @@ extends ExternalObject;
 
     annotation(Documentation(info="<html>
 <p>
+Object for storing weekly schedules.
 </p>
 </html>", revisions="<html>
-c
+<ul>
+ <li>
+ March 9 2022, by Filip Jorissen:<br/>
+ First implementation.
+ </li>
+ </ul>
 </html>"));
   end constructor;
 
