@@ -144,7 +144,7 @@ void* weeklyScheduleInit(const char* name, const double t_offset) {
 					source = source + ncharsRow + 1;
 					ncharsCol = strcspn(source, ")");
 					if (tokenLen == ncharsCol + ncharsRow + 5 + 1) {
-						ModelicaFormatError("Incorrect header when reading weekly schedule '%s'. No closing colon was found in the header.", name);
+						ModelicaFormatError("Incorrect header when reading weekly schedule '%s'. No closing bracket was found in the header.", name);
 					} else if (tokenLen > ncharsCol + ncharsRow + 5 + 1 + 1) {
 						ModelicaFormatError("Incorrect header when reading weekly schedule '%s'. It has trailing characters: '%s'.", name, token + ncharsRow + ncharsCol + 7);
 					}
