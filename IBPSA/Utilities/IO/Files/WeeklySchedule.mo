@@ -6,7 +6,7 @@ model WeeklySchedule "Weekly schedule model"
   parameter String fileName
     "Filename";
   parameter Modelica.Units.SI.Time t_offset=0
-    "Timestamp that corresponds to Monday midnight";
+    "Timestamp that corresponds to midnight from Sunday to Monday";
 
   Modelica.Blocks.Interfaces.RealOutput[n_columns] y = {getCalendarValue(cal, iCol-1, time) for iCol in columns} "Outputs"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -15,13 +15,14 @@ model WeeklySchedule "Weekly schedule model"
     "Schedule object";
 protected
   parameter Integer n_columns = size(columns,1) "Number of columns";
-  function getCalendarValue
+
+  pure function getCalendarValue
     "Returns the interpolated (zero order hold) value"
     extends Modelica.Icons.Function;
     input IBPSA.Utilities.IO.Files.BaseClasses.WeeklyScheduleObject ID "Pointer to file writer object";
-    input Integer iCol;
-    input Real timeIn;
-    output Real y;
+    input Integer iCol "Column index";
+    input Real timeIn "Time for look-up";
+    output Real y "Schedule value";
     external "C" y=getScheduleValue(ID, iCol, timeIn)
     annotation(Include=" #include <WeeklySchedule.c>",
     IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
@@ -30,7 +31,8 @@ protected
   annotation (experiment(
       StartTime=-10000,
       StopTime=1000000,
-      Interval=100),                                     Documentation(
+      Interval=100),
+      Documentation(
         revisions="<html>
 <ul>
 <li>
@@ -40,7 +42,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model interprets a specific file and performs a cyclic (weekly) extrapolation on the source data.
+This model interprets a schedule file and performs a weekly, cyclic extrapolation on the source data.
 See <a href=\"modelica://IBPSA/Resources/Data/schedule.txt\">IBPSA/Resources/Data/schedule.txt</a> 
 for an example of the supported file format.
 </p>
