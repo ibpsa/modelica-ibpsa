@@ -1,14 +1,15 @@
 within IBPSA.Utilities.IO.Files;
-model WeeklySchedule "Weekly schedule model"
+model WeeklySchedule "Weekly schedule"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Integer[:] columns
-    "Columns that should be loaded from file";
+    "Columns to be loaded from file";
   parameter String fileName
     "Filename";
   parameter Modelica.Units.SI.Time t_offset=0
     "Timestamp that corresponds to midnight from Sunday to Monday";
 
-  Modelica.Blocks.Interfaces.RealOutput[n_columns] y = {getCalendarValue(cal, iCol-1, time) for iCol in columns} "Outputs"
+  Modelica.Blocks.Interfaces.RealOutput[n_columns] y =
+    {getCalendarValue(cal, iCol-1, time) for iCol in columns} "Outputs"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   IBPSA.Utilities.IO.Files.BaseClasses.WeeklyScheduleObject cal=
       IBPSA.Utilities.IO.Files.BaseClasses.WeeklyScheduleObject(fileName, t_offset)
@@ -24,11 +25,13 @@ protected
     input Real timeIn "Time for look-up";
     output Real y "Schedule value";
     external "C" y=getScheduleValue(ID, iCol, timeIn)
-    annotation(Include=" #include <WeeklySchedule.c>",
+    annotation(Include="#include <WeeklySchedule.c>",
     IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
   end getCalendarValue;
 
-  annotation (experiment(
+  annotation (
+  defaultComponentName = "sch",
+  experiment(
       StartTime=-10000,
       StopTime=1000000,
       Interval=100),
