@@ -52,7 +52,7 @@ public
       stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
       "Temperature of medium in [degC]";
     Modelica.Units.NonSI.Pressure_bar p_bar=
-        Modelica.SIunits.Conversions.to_bar(p)
+        Modelica.Units.Conversions.to_bar(p)
       "Absolute pressure of medium in [bar]";
 
     // Local connector definition, used for equation balancing check
