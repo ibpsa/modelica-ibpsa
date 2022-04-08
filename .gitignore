@@ -28,6 +28,13 @@ stat
 status
 stop
 success
+
+# Ignore certain sphinx-generated files #
+#########################################
+.buildinfo
+IBPSA/Resources/src/fluid/heatpumps/calibration/doc/build/doctrees
+
+######################################
 # Ignore files created by BuildingsPy
 *.py[cod]
 simulator*.log

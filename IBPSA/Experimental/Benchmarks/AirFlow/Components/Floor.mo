@@ -7,17 +7,17 @@ model Floor
 
   parameter Integer nZones(min=1) = 4 "Number of zone elements";
 
-  parameter Modelica.SIunits.Temperature TRoom = 298.15
+  parameter Modelica.Units.SI.Temperature TRoom=298.15
     "Indoor air temperature of room in K";
-  parameter Modelica.SIunits.Temperature THallway = 293.15
+  parameter Modelica.Units.SI.Temperature THallway=293.15
     "Indoor air temperature of hallway in K";
-  parameter Modelica.SIunits.Temperature TStaircase = 293.15
+  parameter Modelica.Units.SI.Temperature TStaircase=293.15
     "Indoor air temperature of staircase in K";
-  parameter Modelica.SIunits.Height heightRooms = 3 "Height of rooms in m";
+  parameter Modelica.Units.SI.Height heightRooms=3 "Height of rooms in m";
 
-  parameter Modelica.SIunits.Length lengthZone = 5 "Length of room in m";
-  parameter Modelica.SIunits.Length widthZone = 5 "Width of room in m";
-  parameter Modelica.SIunits.Length widthHallway = 3 "Width of room in m";
+  parameter Modelica.Units.SI.Length lengthZone=5 "Length of room in m";
+  parameter Modelica.Units.SI.Length widthZone=5 "Width of room in m";
+  parameter Modelica.Units.SI.Length widthHallway=3 "Width of room in m";
   parameter Real doorOpening = 1
     "Opening of door (between 0:closed and 1:open)";
 

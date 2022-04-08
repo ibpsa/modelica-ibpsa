@@ -486,9 +486,9 @@ annotation (
 version="3.0.0",
 versionDate="2018-09-28",
 dateModified = "2018-09-28",
-uses(Modelica(version="3.2.3")),
+uses(Modelica(version="4.0.0")),
 conversion(from(version="3.0.0",
-                script="modelica://IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_from_3.0_to_4.0.mos")),
+                script="modelica://IBPSA/Resources/Scripts/Conversion/ConvertIBPSA_from_3.0_to_4.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>

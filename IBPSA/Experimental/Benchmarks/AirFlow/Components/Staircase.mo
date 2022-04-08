@@ -5,15 +5,15 @@ model Staircase
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component";
 
-  parameter Modelica.SIunits.Temperature TRoom = 293.15
+  parameter Modelica.Units.SI.Temperature TRoom=293.15
     "Indoor air temperature of room in K";
-  parameter Modelica.SIunits.Height heightRoom = 3 "Height of room in m";
-  parameter Modelica.SIunits.Length lengthRoom = 3 "Length of room in m";
-  parameter Modelica.SIunits.Length widthRoom = 3 "Width of room in m";
+  parameter Modelica.Units.SI.Height heightRoom=3 "Height of room in m";
+  parameter Modelica.Units.SI.Length lengthRoom=3 "Length of room in m";
+  parameter Modelica.Units.SI.Length widthRoom=3 "Width of room in m";
   parameter Real doorOpening = 1
     "Opening of door (between 0:closed and 1:open)";
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer UValue = 1
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer UValue=1
     "Heat transfer coefficient for outside wall";
 
   parameter Boolean forceErrorControlOnFlow = true
