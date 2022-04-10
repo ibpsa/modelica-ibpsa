@@ -16,9 +16,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  Changelog:
-     March 9, 2022 by Filip Jorissen, KU Leuven
+    March 9, 2022 by Filip Jorissen, KU Leuven
          Initial version.
-
+    April 10, 2022 by Filip Jorissen, KU Leuven
+        Added tableOnFile option.
 
 */
 
@@ -39,7 +40,7 @@ int cmpfun(const void * tuple1, const void * tuple2) {
   return  (time1 - time2);
 }
 
-void* weeklyScheduleInit(const char* name, const double t_offset) {
+void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t_offset, char* stringData) {
   WeeklySchedule* scheduleID = (WeeklySchedule*)calloc(1, sizeof(WeeklySchedule));
   if ( scheduleID == NULL)
     ModelicaFormatError("Failed to allocate memory for scheduleID in WeeklySchedule.c.");
@@ -51,7 +52,7 @@ void* weeklyScheduleInit(const char* name, const double t_offset) {
     ModelicaFormatError("Failed to allocate memory for token in WeeklySchedule.c.");
 
   struct TimeDataTuple **rules;
-  int i = 0;              /* iterator */
+  int i = 0, j=0;              /* iterators */
   int index = 0;          /* index in the token buffer where we are currently writing */
   int line = 0;           /* number of parsed lines */
   int rule_i = 0;         /* rule index where we are currently writing */
@@ -63,11 +64,15 @@ void* weeklyScheduleInit(const char* name, const double t_offset) {
   int n_rulesInRow = 0;   /* number of rules that exist in the current row */
   int n_rowsUnpacked = 0; /* total number of unpacked rules */
   int n_rowsPacked = 0;   /* number of rules */
+  char c;                 /* the character that is being parsed in this iteration */
 
-  fp = fopen(name, "r");
-  if (fp == NULL) {
-    ModelicaFormatError("Failed to open weekly schedule '%s'.", name);
+  if (tableOnFile){
+      fp = fopen(name, "r");
+    if (fp == NULL) {
+      ModelicaFormatError("Failed to open weekly schedule '%s'.", name);
+    }
   }
+
 
   /* Identify 'tokens' by splitting on (one or more) whitespace characters. */
   /* Each token is parsed and special behaviour is created for comments and the header. */
@@ -79,9 +84,16 @@ void* weeklyScheduleInit(const char* name, const double t_offset) {
     int parseToken = 0;
     double timeStamp;
 
-    char c = fgetc ( fp ) ; /* read a character from the file */
-    if ( c == EOF ) {
-      if (feof(fp)) {
+    if (tableOnFile){
+      c = fgetc ( fp ); /* read a character from the file */
+    }else{ 
+      c = stringData[j]; /* read a character from the string */
+      j++;
+    }
+    if ( c == EOF || c == '\0') {
+      if (!tableOnFile && c == '\0'){
+        break;
+      }else if (tableOnFile && feof(fp)) {
         break; /* exit the while loop */
       } else {
         ModelicaFormatError("Error while reading file '%s'.", name);
@@ -319,7 +331,9 @@ void* weeklyScheduleInit(const char* name, const double t_offset) {
       }
     }
   }
-  fclose(fp);
+  if (tableOnFile){
+    fclose(fp);
+  }
 
   if (n_rowsPacked != scheduleID->n_rows_in) {
     ModelicaFormatError("Incorrect number of rows when reading weekly schedule '%s': %i instead of %i.", name, n_rowsPacked, scheduleID->n_rows_in);

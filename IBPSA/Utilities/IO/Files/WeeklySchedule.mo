@@ -3,19 +3,30 @@ model WeeklySchedule "Weekly schedule"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Integer[:] columns
     "Columns to be loaded from file";
-  parameter String fileName
-    "Filename";
+  parameter Boolean tableOnFile=true
+    "= true, if table is defined on file or in function usertab"
+    annotation(Dialog(group="Data source"));
+  parameter String fileName = ""
+    "Filename"
+    annotation(Dialog(group="Data source",enable=tableOnFile));
+  parameter String data = "double tab1(3,3)
+wed 1 0
+tue 0 1
+sat 0 -"
+    "String data"
+    annotation(Dialog(group="Data source",enable=not tableOnFile));
   parameter Modelica.Units.SI.Time t_offset=0
     "Timestamp that corresponds to midnight from Sunday to Monday";
 
-  Modelica.Blocks.Interfaces.RealOutput[n_columns] y =
+  Modelica.Blocks.Interfaces.RealOutput[n_columns] y=
     {getCalendarValue(cal, iCol-1, time) for iCol in columns} "Outputs"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   IBPSA.Utilities.IO.Files.BaseClasses.WeeklyScheduleObject cal=
-      IBPSA.Utilities.IO.Files.BaseClasses.WeeklyScheduleObject(fileName, t_offset)
+      IBPSA.Utilities.IO.Files.BaseClasses.WeeklyScheduleObject(tableOnFile, sourceName, t_offset, data)
     "Schedule object";
 protected
   parameter Integer n_columns = size(columns,1) "Number of columns";
+  parameter String sourceName = if tableOnFile then fileName else getInstanceName() +".data";
 
   pure function getCalendarValue
     "Returns the interpolated (zero order hold) value"
@@ -38,6 +49,10 @@ protected
       Documentation(
         revisions="<html>
 <ul>
+<li>
+April 10 2022, by Filip Jorissen:<br/>
+Added parameter source implementation.
+</li>
 <li>
 March 9 2022, by Filip Jorissen:<br/>
 First implementation.

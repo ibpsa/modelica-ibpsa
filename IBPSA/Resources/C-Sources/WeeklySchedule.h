@@ -26,6 +26,8 @@ wed,sat,sun             12      1       4       -
  Changelog:
  		March 9, 2022 by Filip Jorissen, KU Leuven
  				Initial version.
+    April 10, 2022 by Filip Jorissen, KU Leuven
+        Added tableOnFile option.
 
 
 */
@@ -54,7 +56,7 @@ typedef struct WeeklySchedule {
 
 
 
-void *weeklyScheduleInit(const char* name, const double t_offset);
+void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t_offset, char* stringData);
 
 void weeklyScheduleFree(void * ID);
 
