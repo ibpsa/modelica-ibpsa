@@ -2,11 +2,11 @@ within IBPSA.Utilities.IO.Files.BaseClasses;
 class WeeklyScheduleObject "Class that loads a weekly schedule"
 extends ExternalObject;
   impure function constructor
-    "Verify whether a file writer with  the same path exists and cache variable keys"
+    "Creates an object for the weekly schedule"
     extends Modelica.Icons.Function;
     input Boolean tableOnFile "Table is on file";
     input String sourceName "Data source";
-    input Real t_offset "";
+    input Real t_offset "When time=t_offset, the time is assumed to be monday at midnight";
     input String data "Data, when tableOnFile=false";
     output WeeklyScheduleObject weeklySchedule "Pointer to the weekly schedule";
     external"C" weeklySchedule = weeklyScheduleInit(tableOnFile, sourceName, t_offset, data)
