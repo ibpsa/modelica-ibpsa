@@ -126,7 +126,7 @@ public
       "Temperature difference used to compute enthalpy";
     Modelica.Units.SI.PressureDifference dp(
       stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
-      nominal=1000) = p - reference_p
+      nominal=100) = p - reference_p
       "Differential pressure";
   equation
     MM = 1/(X[1]/steam.MM+(X[2])/dryair.MM);
@@ -907,7 +907,6 @@ First implementation.
 </ul>
 </html>"));
   end GasProperties;
-
   constant Modelica.Units.SI.SpecificEnergy h_fg=IBPSA.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of evaporation of water";
   constant Modelica.Units.SI.SpecificHeatCapacity cpWatLiq=IBPSA.Utilities.Psychrometrics.Constants.cpWatLiq
