@@ -5,21 +5,28 @@ model WeeklySchedule "Weekly schedule example"
 mon:0:0:10          -  3   1  -
 tue,thu:20:30:59  123  -  45  -
 wed                12  1   4  -" "Contents of schedule.txt";
-  IBPSA.Utilities.IO.Files.WeeklySchedule weeklyScheduleFile(columns={2,3,4,5},
-      fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/Data/schedule.txt"),
-    t_offset=1e6)
-    "Weekly schedule example using file data source"
+  IBPSA.Utilities.IO.Files.WeeklySchedule weeSchFil(
+    columns={2,3,4,5},
+    tableOnFile=true,
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/Data/schedule.txt"),
+    t_offset=1e6) "Weekly schedule example using file data source"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  IBPSA.Utilities.IO.Files.WeeklySchedule weeklyScheduleParameter(columns={2,3,4,5},
-      tableOnFile=false,
+
+  IBPSA.Utilities.IO.Files.WeeklySchedule weeSchStri(
+    columns={2,3,4,5},
     data=data,
-    t_offset=1e6)
-    "Weekly schedule example using parameter data source"
+    t_offset=1e6) "Weekly schedule example using parameter data source"
     annotation (Placement(transformation(extent={{-10,-32},{10,-12}})));
+  Diagnostics.AssertEquality assEqu[4](
+    each startTime=-10000,
+    each threShold=Modelica.Constants.small)
+    "Trigger an assertion if the outputs differ"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  for i in 1:size(weeklyScheduleFile.y,1) loop
-    assert(abs(weeklyScheduleFile.y[i]-weeklyScheduleParameter.y[i])< Modelica.Constants.small, "Consistency error between WeeklySchedule implementations");
-  end for;
+  connect(weeSchFil.y, assEqu.u1)
+    annotation (Line(points={{11,30},{24,30},{24,6},{38,6}}, color={0,0,127}));
+  connect(weeSchStri.y, assEqu.u2) annotation (Line(points={{11,-22},{24,-22},{24,
+          -6},{38,-6}}, color={0,0,127}));
   annotation (
     Documentation(revisions="<html>
 <ul>

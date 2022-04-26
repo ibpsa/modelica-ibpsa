@@ -86,7 +86,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
 
     if (tableOnFile){
       c = fgetc ( fp ); /* read a character from the file */
-    }else{ 
+    }else{
       c = stringData[j]; /* read a character from the string */
       j++;
     }
@@ -241,7 +241,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
             int nchars = strcspn(startIndex, ",");
 
             if (nchars != 3 ) {
-              ModelicaFormatError("Unexpected day formatting when reading weekly schedule '%s': %s.", name, startIndex);
+              ModelicaFormatError("Unexpected day format when reading weekly schedule '%s': %s.", name, startIndex);
             }
 
             if (strncmp("mon", startIndex, 3) == 0) {
@@ -259,7 +259,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
             } else if (strncmp("sun", startIndex, 3) == 0) {
               t_day = 6 * 3600 * 24;
             } else {
-              ModelicaFormatError("Unexpected day format when reading weekly schedule '%s': %s.", name, startIndex);
+              ModelicaFormatError("Unexpected day format when parsing weekday '%s': %s.", name, startIndex);
             }
 
             /* expand the memory if the initially assigned memory block does not suffice*/
