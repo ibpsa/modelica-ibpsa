@@ -13,7 +13,7 @@ model WeeklySchedule "Weekly schedule"
 # For week-day, output 1 between 7:00 and 19:00, and 0 otherwise
 mon,tue,wed,thu,fri:7:00:00  1
 mon,tue,wed,thu,fri:19:00:00  0
-# For week-end, output always 0
+# For week-end, output always 0. Note that this line is redundant in this example.
 sat,sun:0:00:00 0"
     "String data with weekly schedule"
     annotation(Dialog(group="Data source",enable=not tableOnFile));
