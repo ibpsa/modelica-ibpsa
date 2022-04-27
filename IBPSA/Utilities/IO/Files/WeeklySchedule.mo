@@ -81,6 +81,8 @@ the time column is considered the first column.<br/>
 Lines that start with '#' are comments.<br/>
 The list of week-days is separated by a comma, and ends with a colon, after which
 the time format for the start is listed in the format <code>hour:minute:second</code>.
+Week-day, hour, minute and second are optional fields, but if one of these fields is used,
+the fields coming before it in the sequence (week-day, hour, minute, second) must be used too.
 </p>
 <p>
 By default, schedules are read from the parameter <code>data</code> but optionally schedules can be read from a file.
