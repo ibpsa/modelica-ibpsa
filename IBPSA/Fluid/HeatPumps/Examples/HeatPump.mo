@@ -74,8 +74,8 @@ model HeatPump "Example for the reversible heat pump model."
   Modelica.Blocks.Sources.BooleanStep     booleanStep(startTime=1800,
       startValue=true)
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
-        rotation=270,
-        origin={-4,84})));
+        rotation=180,
+        origin={50,88})));
 
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTAct(
     final m_flow_nominal=heatPump.m1_flow_nominal,
@@ -98,8 +98,8 @@ model HeatPump "Example for the reversible heat pump model."
     annotation (Placement(transformation(extent={{66,58},{56,68}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal
     annotation (Placement(transformation(extent={{5,-5},{-5,5}},
-        rotation=90,
-        origin={7,29})));
+        rotation=0,
+        origin={19,71})));
   Modelica.Blocks.Sources.Sine sine(
     f=1/3600,
     amplitude=3000,
@@ -160,9 +160,9 @@ model HeatPump "Example for the reversible heat pump model."
         transformation(
         extent={{8,8},{-8,-8}},
         rotation=180,
-        origin={-66,38})));
+        origin={-88,38})));
   Modelica.Blocks.Logical.LogicalSwitch logicalSwitch
-    annotation (Placement(transformation(extent={{24,48},{14,58}})));
+    annotation (Placement(transformation(extent={{30,48},{20,58}})));
   Modelica.Blocks.Logical.Hysteresis hysCooling(
     pre_y_start=false,
     uLow=273.15 + 15,
@@ -171,6 +171,21 @@ model HeatPump "Example for the reversible heat pump model."
   IBPSA.Fluid.Interfaces.VapourCompressionMachineControlBus sigBus annotation (
       Placement(transformation(extent={{-34,22},{-4,56}}), iconTransformation(
           extent={{-22,30},{-4,56}})));
+  SafetyControls.SafetyControl safetyControl(
+    minRunTime(displayUnit="min") = 600,
+    minLocTime(displayUnit="min") = 900,
+    maxRunPerHou=3,
+    use_opeEnvFroRec=true,
+    dataTable=IBPSA.Fluid.HeatPumps.BlackBoxData.EN14511.Vitocal200AWO201(),
+    tableUpp=[-40,70; 40,70],
+    use_deFro=false,
+    minIceFac=0,
+    use_chiller=true,
+    calcPel_deFro=0,
+    use_antFre=false) annotation (Placement(transformation(
+        extent={{21,-19},{-21,19}},
+        rotation=0,
+        origin={-27,79})));
 equation
 
   connect(sourceSideMassFlowSource.ports[1], heatPump.port_a2) annotation (Line(
@@ -202,35 +217,24 @@ equation
   connect(TsuSourceRamp.y, sourceSideMassFlowSource.T_in) annotation (Line(
         points={{-73,-80},{-66,-80},{-66,-66},{-56,-66}}, color={0,0,127},
         smooth=Smooth.None));
-  connect(logicalSwitch.u1, not2.y) annotation (Line(points={{25,57},{36,57},{
+  connect(logicalSwitch.u1, not2.y) annotation (Line(points={{31,57},{36,57},{
           36,63},{39.5,63}}, color={255,0,255}));
   connect(hysCooling.y, logicalSwitch.u3) annotation (Line(points={{47.5,45},{
-          36,45},{36,49},{25,49}}, color={255,0,255}));
+          36,45},{36,49},{31,49}}, color={255,0,255}));
   connect(senTAct.T, hysCooling.u) annotation (Line(points={{54,-53},{54,-54},{
           54,-54},{54,-54},{54,-54},{54,-54},{54,-8},{70,-8},{70,45},{59,45}},
         color={0,0,127}));
-  connect(booleanStep.y, logicalSwitch.u2) annotation (Line(points={{-4,77.4},{
-          -4,66},{32,66},{32,53},{25,53}}, color={255,0,255}));
+  connect(booleanStep.y, logicalSwitch.u2) annotation (Line(points={{43.4,88},{
+          36,88},{36,53},{31,53}},         color={255,0,255}));
   connect(logicalSwitch.y, booleanToReal.u)
-    annotation (Line(points={{13.5,53},{7,53},{7,35}}, color={255,0,255}));
-  connect(booleanStep.y, sigBus.modeSet) annotation (Line(points={{-4,77.4},{
-          -10,77.4},{-10,39},{-19,39}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(iceFac.y, sigBus.iceFacMea) annotation (Line(points={{-57.2,38},{-34,
-          38},{-34,39},{-19,39}}, color={0,0,127}), Text(
+    annotation (Line(points={{19.5,53},{14,53},{14,66},{30,66},{30,71},{25,71}},
+                                                       color={255,0,255}));
+  connect(iceFac.y, sigBus.iceFacMea) annotation (Line(points={{-79.2,38},{
+          -79.2,39},{-19,39}},    color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(booleanToReal.y, sigBus.nSet) annotation (Line(points={{7,23.5},{-19,
-          23.5},{-19,39}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(sigBus, heatPump.sigBus) annotation (Line(
       points={{-19,39},{-19,16},{-10,16},{-10,2.76},{-7.425,2.76}},
       color={255,204,51},
@@ -239,6 +243,31 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+  connect(booleanStep.y, safetyControl.modeSet) annotation (Line(points={{43.4,
+          88},{32,88},{32,90},{8,90},{8,75.2},{-3.2,75.2}}, color={255,0,255}));
+  connect(booleanToReal.y, safetyControl.nSet) annotation (Line(points={{13.5,
+          71},{4,71},{4,82.8},{-3.2,82.8}}, color={0,0,127}));
+  connect(safetyControl.modeOut, sigBus.modeSet) annotation (Line(points={{
+          -49.75,75.2},{-64,75.2},{-64,46},{-19,46},{-19,39}}, color={255,0,255}),
+      Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(safetyControl.nOut, sigBus.nSet) annotation (Line(points={{-49.75,
+          82.8},{-70,82.8},{-70,44},{-19,44},{-19,39}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(sigBus, safetyControl.sigBusHP) annotation (Line(
+      points={{-19,39},{8,39},{8,65.89},{-4.425,65.89}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(Tolerance=1e-6, StopTime=3600),
