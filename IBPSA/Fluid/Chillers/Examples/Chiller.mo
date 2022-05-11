@@ -29,7 +29,8 @@ model Chiller "Example for the reversible chiller model."
     "Ramp signal for the temperature input of the sink side's ideal mass flow source"
     annotation (Placement(transformation(extent={{-94,-76},{-74,-56}})));
   IBPSA.Fluid.Chillers.Chiller chiller(
-    refIneFre_constant=1,
+    redeclare model vapComIne =
+        IBPSA.Fluid.BaseClasses.VapourCompressionInertias.NoInertia,
     GConIns=0,
     CEva=100,
     GEvaOut=5,
@@ -43,7 +44,6 @@ model Chiller "Example for the reversible chiller model."
     use_evaCap=false,
     redeclare package Medium_con = Medium_sin,
     redeclare package Medium_eva = Medium_sou,
-    use_refIne=false,
     GEvaIns=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model PerDataMainChi =

@@ -25,7 +25,10 @@ partial model PartialReversibleVapourCompressionMachine
         extent={{-27,-26},{27,26}},
         rotation=90,
         origin={0,-1})));
-
+  replaceable model vapComIne =
+      VapourCompressionInertias.BaseClasses.PartialInertia
+    constrainedby VapourCompressionInertias.BaseClasses.PartialInertia "Model for the inertia between the stationary black box data outputs and the inputs into the heat exchangers."
+    annotation (choicesAllMatching=true, Dialog(group="Inertia"));
   parameter Boolean use_rev=true "Is the vapour compression machine reversible?"   annotation(choices(checkBox=true), Dialog(descriptionLabel=true));
   parameter Boolean use_autoCalc=false
     "Enable automatic estimation of volumes and mass flows?"
@@ -34,15 +37,7 @@ partial model PartialReversibleVapourCompressionMachine
     "Nominal usable heat flow of the vapour compression machine (HP: Heating; Chiller: Cooling)"
     annotation (Dialog(enable=use_autoCalc));
   parameter Real scalingFactor=1 "Scaling-factor of vapour compression machine";
-  parameter Boolean use_refIne=true
-    "Consider the inertia of the refrigerant cycle"
-    annotation(choices(checkBox=true), Dialog(
-        group="Refrigerant inertia"));
-  parameter Modelica.Units.SI.Frequency refIneFre_constant
-    "Cut off frequency for inertia of refrigerant cycle" annotation (Dialog(
-        enable=use_refIne, group="Refrigerant inertia"), Evaluate=true);
-  parameter Integer nthOrder=3 "Order of refrigerant cycle interia" annotation (Dialog(enable=
-          use_refIne, group="Refrigerant inertia"));
+
   parameter Boolean useBusConnectorOnly = false "Set true to use bus connector for modeSet, ySet and iceFac input"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors"));
 
@@ -198,12 +193,7 @@ partial model PartialReversibleVapourCompressionMachine
   parameter Modelica.Media.Interfaces.Types.MassFraction XEva_start[Medium_eva.nX]=
      Medium_eva.X_default "Start value of mass fractions m_i/m"
     annotation (Evaluate=true,Dialog(tab="Initialization", group="Evaporator"));
-  parameter Real x_start[nthOrder]=zeros(nthOrder)
-    "Initial or guess values of states"
-    annotation (Dialog(tab="Initialization", group="Refrigerant inertia", enable=use_refIne));
-  parameter Real yRefIne_start=0 "Initial or guess value of output (= state)"
-    annotation (Dialog(tab="Initialization", group="Refrigerant inertia",enable=initType ==
-          Init.InitialOutput and use_refIne));
+
 //Dynamics
   parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of mass balance: dynamic (3 initialization options) or steady state (only affects fluid-models)"
@@ -268,43 +258,6 @@ partial model PartialReversibleVapourCompressionMachine
     final GOut=GEvaOut*scalingFactor,
     final GInn=GEvaIns*scalingFactor) "Heat exchanger model for the evaporator"
     annotation (Placement(transformation(extent={{16,-70},{-16,-102}})));
-  Modelica.Blocks.Continuous.CriticalDamping heatFlowIneEva(
-    final initType=initType,
-    final normalized=true,
-    final n=nthOrder,
-    final f=refIneFre_constant,
-    final x_start=x_start,
-    final y_start=yRefIne_start)
-                                if use_refIne
-    "This n-th order block represents the inertia of the refrigerant cycle and delays the heat flow"
-    annotation (Placement(transformation(
-        extent={{6,6},{-6,-6}},
-        rotation=90,
-        origin={-14,-52})));
-  Modelica.Blocks.Routing.RealPassThrough realPassThroughySetCon
-                                                              if not use_refIne
-    "Use default ySet value" annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=90,
-        origin={16,58})));
-  Modelica.Blocks.Continuous.CriticalDamping heatFlowIneCon(
-    final initType=initType,
-    final normalized=true,
-    final n=nthOrder,
-    final f=refIneFre_constant,
-    final x_start=x_start,
-    final y_start=yRefIne_start)
-                                if use_refIne
-    "This n-th order block represents the inertia of the refrigerant cycle and delays the heat flow"
-    annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=90,
-        origin={-16,58})));
-  Modelica.Blocks.Routing.RealPassThrough realPassThroughySetEva if not use_refIne
-    "Use default ySet value" annotation (Placement(transformation(
-        extent={{6,-6},{-6,6}},
-        rotation=90,
-        origin={16,-52})));
   Modelica.Blocks.Interfaces.RealInput iceFac_in if not useBusConnectorOnly
     "Input signal for icing factor" annotation (Placement(transformation(
         extent={{-16,-16},{16,16}},
@@ -432,6 +385,16 @@ partial model PartialReversibleVapourCompressionMachine
         rotation=180,
         origin={-66,-28})));
 
+
+  vapComIne vapComIneCon annotation(Placement(transformation(
+        extent={{-7,-6},{7,6}},
+        rotation=90,
+        origin={0,53})));
+  vapComIne vapComIneEva annotation (Placement(transformation(
+        extent={{-6,-6},{6,6}},
+        rotation=270,
+        origin={0,-50})));
+
 protected
   parameter Modelica.Units.SI.MassFlowRate autoCalc_mFlow_min=0.3
     "Realistic mass flow minimum for simulation plausibility";
@@ -509,22 +472,6 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
 
-  connect(innerCycle.QEva, realPassThroughySetEva.u) annotation (Line(
-      points={{-1.77636e-15,-30.7},{-1.77636e-15,-38},{16,-38},{16,-44.8}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(innerCycle.QEva, heatFlowIneEva.u) annotation (Line(
-      points={{-1.77636e-15,-30.7},{-1.77636e-15,-38},{-14,-38},{-14,-44.8}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(innerCycle.QCon, heatFlowIneCon.u) annotation (Line(
-      points={{1.77636e-15,28.7},{1.77636e-15,30},{0,30},{0,40},{-16,40},{-16,50.8}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(innerCycle.QCon, realPassThroughySetCon.u) annotation (Line(
-      points={{1.77636e-15,28.7},{0,28.7},{0,40},{16,40},{16,50.8}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(innerCycle.sigBus, sigBus) annotation (Line(
       points={{-26.78,-0.73},{-54,-0.73},{-54,-43},{-105,-43}},
       color={255,204,51},
@@ -575,18 +522,6 @@ equation
       pattern=LinePattern.Dash));
   connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-100,-60},{-100,
           -60}}, color={0,127,255}));
-  connect(realPassThroughySetCon.y, con.QFlow_in) annotation (Line(
-      points={{16,64.6},{16,77.04},{0,77.04}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(heatFlowIneCon.y, con.QFlow_in) annotation (Line(
-      points={{-16,64.6},{-16,77.04},{0,77.04}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(realPassThroughySetEva.y, eva.QFlow_in) annotation (Line(points={{16,-58.6},
-          {16,-69.04},{0,-69.04}}, color={0,0,127}));
-  connect(heatFlowIneEva.y, eva.QFlow_in) annotation (Line(points={{-14,-58.6},{
-          -14,-69.04},{0,-69.04}}, color={0,0,127}));
   connect(senT_a2.port_b, eva.port_a)
     annotation (Line(points={{28,-86},{16,-86}}, color={0,127,255}));
   connect(senT_b2.port_a, eva.port_b)
@@ -637,6 +572,18 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+  connect(innerCycle.QEva, vapComIneEva.u) annotation (Line(points={{-1.77636e-15,
+          -30.7},{-1.77636e-15,-36.55},{1.33227e-15,-36.55},{1.33227e-15,-42.8}},
+        color={0,0,127}));
+  connect(eva.QFlow_in, vapComIneEva.y) annotation (Line(points={{1.11022e-16,-69.04},
+          {1.11022e-16,-64.92},{-1.11022e-15,-64.92},{-1.11022e-15,-56.6}},
+        color={0,0,127}));
+  connect(vapComIneCon.y, con.QFlow_in) annotation (Line(points={{3.33067e-16,60.7},
+          {3.33067e-16,65.77},{-1.11022e-16,65.77},{-1.11022e-16,77.04}}, color=
+         {0,0,127}));
+  connect(vapComIneCon.u, innerCycle.QCon) annotation (Line(points={{-3.33067e-16,
+          44.6},{-3.33067e-16,35.85},{1.77636e-15,35.85},{1.77636e-15,28.7}},
+        color={0,0,127}));
   annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},

@@ -33,7 +33,8 @@ model HeatPump "Example for the reversible heat pump model."
         rotation=-90,
         origin={2,-76})));
   IBPSA.Fluid.HeatPumps.HeatPump heatPump(
-    refIneFre_constant=1,
+    redeclare model vapComIne =
+        IBPSA.Fluid.BaseClasses.VapourCompressionInertias.NoInertia,
     useBusConnectorOnly=true,
     GConIns=0,
     CEva=100,
@@ -46,7 +47,6 @@ model HeatPump "Example for the reversible heat pump model."
     use_conCap=false,
     redeclare package Medium_con = Medium_sin,
     redeclare package Medium_eva = Medium_sou,
-    use_refIne=false,
     use_rev=true,
     GEvaIns=0,
     redeclare model PerDataMainHP =
