@@ -223,7 +223,9 @@ partial model PartialReversibleVapourCompressionMachine
   parameter Boolean linearized=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Advanced", group="Flow resistance"));
-
+  parameter Real ySet_small=0.01
+    "Value of ySet at which the device is considered turned on. Default is 1 % as heat pumps and chillers currently invert down to 15 %."
+    annotation (Dialog(tab="Advanced", group="Diagnostics"));
   IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity con(
     redeclare final package Medium = Medium_con,
     final allowFlowReversal=allowFlowReversalCon,
@@ -421,12 +423,15 @@ partial model PartialReversibleVapourCompressionMachine
 
   //Automatic calculation of mass flow rates and volumes of the evaporator and condenser using linear regressions from data sheets of heat pumps and chillers (water to water)
 
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(final threshold=
-        Modelica.Constants.eps)
-    "Use default nSet value" annotation (Placement(transformation(
+  Modelica.Blocks.Logical.Hysteresis hysteresis(
+    final uLow=Modelica.Constants.eps,
+    final uHigh=ySet_small,
+    final pre_y_start=false) "Use default nSet value" annotation (Placement(
+        transformation(
         extent={{6,-6},{-6,6}},
         rotation=180,
         origin={-66,-28})));
+
 protected
   parameter Modelica.Units.SI.MassFlowRate autoCalc_mFlow_min=0.3
     "Realistic mass flow minimum for simulation plausibility";
@@ -604,8 +609,8 @@ equation
                                                color={0,127,255}));
   connect(port_b1, senT_b1.port_b) annotation (Line(points={{100,60},{72,60},{72,
           92},{48,92}}, color={0,127,255}));
-  connect(greaterThreshold.y, sigBus.onOffMea) annotation (Line(points={{-59.4,-28},
-          {-56,-28},{-56,-43},{-105,-43}},             color={255,0,255}), Text(
+  connect(hysteresis.y, sigBus.onOffMea) annotation (Line(points={{-59.4,-28},{-56,
+          -28},{-56,-43},{-105,-43}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
@@ -626,8 +631,8 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(greaterThreshold.u, sigBus.nSet) annotation (Line(points={{-73.2,-28},
-          {-76,-28},{-76,-43},{-105,-43}},            color={0,0,127}), Text(
+  connect(hysteresis.u, sigBus.nSet) annotation (Line(points={{-73.2,-28},{-76,-28},
+          {-76,-43},{-105,-43}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
