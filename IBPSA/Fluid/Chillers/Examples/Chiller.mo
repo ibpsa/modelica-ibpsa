@@ -31,6 +31,7 @@ model Chiller "Example for the reversible chiller model."
   IBPSA.Fluid.Chillers.Chiller chiller(
     redeclare model vapComIne =
         IBPSA.Fluid.BaseClasses.VapourCompressionInertias.NoInertia,
+    use_TSet=false,
     GConIns=0,
     CEva=100,
     GEvaOut=5,
@@ -198,8 +199,8 @@ equation
     annotation (Line(points={{54,-49},{54,-76},{47.2,-76}}, color={0,0,127}));
   connect(hysCooling.u, senTAct.T)
     annotation (Line(points={{47.2,-92},{54,-92},{54,-49}}, color={0,0,127}));
-  connect(booleanStep.y, chiller.modeSet) annotation (Line(points={{23.2,-54},{12,
-          -54},{12,-40},{6.83333,-40},{6.83333,-26.84}}, color={255,0,255}));
+  connect(booleanStep.y, chiller.modeSet) annotation (Line(points={{23.2,-54},{
+          12,-54},{12,-40},{23.75,-40},{23.75,-26.84}},  color={255,0,255}));
   connect(logicalSwitch.y, booleanToReal.u) annotation (Line(points={{-0.5,-83},
           {-3,-83},{-3,-61.4}}, color={255,0,255}));
   connect(not2.y, logicalSwitch.u3) annotation (Line(points={{19.6,-76},{16,-76},

@@ -38,8 +38,13 @@ partial model PartialReversibleVapourCompressionMachine
     annotation (Dialog(enable=use_autoCalc));
   parameter Real scalingFactor=1 "Scaling-factor of vapour compression machine";
 
-  parameter Boolean useBusConnectorOnly = false "Set true to use bus connector for modeSet, ySet and iceFac input"
+  parameter Boolean use_busConnectorOnly=false
+    "=true to use bus connector for modeSet, ySet and iceFac input"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors"));
+  parameter Boolean use_TSet=false
+    "=true to use black-box internal control for supply temperature of device with the given temperature setpoint TSet"
+    annotation(choices(checkBox=true), Dialog(group="Input Connectors"));
+
 
 //Condenser
   parameter Modelica.Units.SI.MassFlowRate mFlow_conNominal
@@ -258,7 +263,7 @@ partial model PartialReversibleVapourCompressionMachine
     final GOut=GEvaOut*scalingFactor,
     final GInn=GEvaIns*scalingFactor) "Heat exchanger model for the evaporator"
     annotation (Placement(transformation(extent={{16,-70},{-16,-102}})));
-  Modelica.Blocks.Interfaces.RealInput iceFac_in if not useBusConnectorOnly
+  Modelica.Blocks.Interfaces.RealInput iceFac_in if not use_busConnectorOnly
     "Input signal for icing factor" annotation (Placement(transformation(
         extent={{-16,-16},{16,16}},
         rotation=90,
@@ -276,7 +281,8 @@ partial model PartialReversibleVapourCompressionMachine
         rotation=0,
         origin={-52,114})));
 
-  Modelica.Blocks.Interfaces.RealInput ySet if not useBusConnectorOnly
+  Modelica.Blocks.Interfaces.RealInput ySet
+    if not use_busConnectorOnly and not use_TSet
     "Input signal speed for compressor relative between 0 and 1" annotation (Placement(
         transformation(extent={{-132,4},{-100,36}})));
   Interfaces.VapourCompressionMachineControlBus                sigBus annotation (
@@ -284,22 +290,31 @@ partial model PartialReversibleVapourCompressionMachine
         iconTransformation(extent={{-108,-52},{-90,-26}})));
 
   Modelica.Blocks.Interfaces.RealInput T_amb_eva(final unit="K", final
-      displayUnit="degC") if use_evaCap and not useBusConnectorOnly
+      displayUnit="degC") if use_evaCap and not use_busConnectorOnly
     "Ambient temperature on the evaporator side"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,-100})));
   Modelica.Blocks.Interfaces.RealInput T_amb_con(final unit="K", final
-      displayUnit="degC") if use_conCap and not useBusConnectorOnly
+      displayUnit="degC") if use_conCap and not use_busConnectorOnly
     "Ambient temperature on the condenser side"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=180,
         origin={110,100})));
 
-  Modelica.Blocks.Interfaces.BooleanInput modeSet if not useBusConnectorOnly
-     and use_rev
-    "Set value of operation mode"
+  Modelica.Blocks.Interfaces.RealInput TSet(final unit="K", final
+      displayUnit="degC")
+    if not use_busConnectorOnly and use_TSet
+    "Input signal temperature for internal control"
+    annotation (Placement(transformation(extent={{-132,24},{-100,56}})));
+  Modelica.Blocks.Interfaces.BooleanInput onOffSet
+    if not use_busConnectorOnly and use_TSet
+    "Set value of operation mode if internal temperature control is used"
     annotation (Placement(transformation(extent={{-132,-36},{-100,-4}})));
+  Modelica.Blocks.Interfaces.BooleanInput modeSet
+    if not use_busConnectorOnly and use_rev
+    "Set value of operation mode"
+    annotation (Placement(transformation(extent={{-132,-106},{-100,-74}})));
 
   IBPSA.Fluid.Sensors.TemperatureTwoPort senT_a2(
     redeclare final package Medium = Medium_eva,
@@ -486,7 +501,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
 
-  connect(modeSet, sigBus.modeSet) annotation (Line(points={{-116,-20},{-76,-20},
+  connect(modeSet, sigBus.modeSet) annotation (Line(points={{-116,-90},{-76,-90},
           {-76,-43},{-105,-43}},        color={255,0,255}), Text(
       string="%second",
       index=1,
@@ -584,6 +599,12 @@ equation
   connect(vapComIneCon.u, innerCycle.QCon) annotation (Line(points={{-3.33067e-16,
           44.6},{-3.33067e-16,35.85},{1.77636e-15,35.85},{1.77636e-15,28.7}},
         color={0,0,127}));
+  connect(onOffSet, sigBus.onOffSet) annotation (Line(points={{-116,-20},{-76,
+          -20},{-76,-43},{-105,-43}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},

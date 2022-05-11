@@ -19,6 +19,13 @@ model Chiller
   "Performance data of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
+equation
+  connect(TSet, sigBus.TEvaOutSet) annotation (Line(points={{-116,40},{-76,40},
+          {-76,-42},{-106,-42},{-106,-43},{-105,-43}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},
