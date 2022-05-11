@@ -1,5 +1,5 @@
 ﻿within IBPSA.Fluid.HeatPumps.Controls.BaseClasses;
-partial model PartialTSetToNSet
+partial model PartialTSetToYSet
   "Partial model to convert set temperature to compressor speed of heat pump"
   parameter Boolean use_secHeaGen=false
                                        "True to choose a bivalent system" annotation(choices(checkBox=true));
@@ -101,4 +101,4 @@ equation
   </li>
 </ul>
 </html>"));
-end PartialTSetToNSet;
+end PartialTSetToYSet;

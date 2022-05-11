@@ -71,7 +71,7 @@ block DefrostControl
 equation
   connect(swiErr.y, nOut) annotation (Line(points={{107,0},{96,0},{96,20},{130,
           20}}, color={0,0,127}));
-  connect(nSet, swiErr.u1) annotation (Line(points={{-136,20},{-26,20},{-26,8},
+  connect(ySet, swiErr.u1) annotation (Line(points={{-136,20},{-26,20},{-26,8},
           {84,8}},
                color={0,0,127}));
   connect(sigBusHP.iceFacMea, iceFacGreMinHea.u) annotation (Line(

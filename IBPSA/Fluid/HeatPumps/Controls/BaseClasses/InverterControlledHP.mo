@@ -1,6 +1,6 @@
 ﻿within IBPSA.Fluid.HeatPumps.Controls.BaseClasses;
 model InverterControlledHP "Converter model for an inverter / speed controlled HP modulating between 0 and 1"
-  extends PartialTSetToNSet;
+  extends PartialTSetToYSet;
   parameter Real hys "Hysteresis of controller";
   Modelica.Blocks.Logical.OnOffController onOffController(bandwidth=hys,
       pre_y_start=false)                                                                    "Hysteresis controller for set temperature"

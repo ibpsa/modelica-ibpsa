@@ -15,7 +15,7 @@ model OnOffControl
     annotation (Dialog(enable=use_runPerHou));
   parameter Boolean pre_n_start=true "Start value of pre(n) at initial time";
   Modelica.Blocks.Logical.GreaterThreshold
-                                  nSetGreaterZero(final threshold=Modelica.Constants.eps)
+                                  ySetGreaterZero(final threshold=Modelica.Constants.eps)
                                                   "True if device is set on"
     annotation (Placement(transformation(extent={{-110,56},{-94,72}})));
   Modelica.Blocks.Logical.And andRun
@@ -56,7 +56,7 @@ model OnOffControl
   Modelica.Blocks.Logical.And andIsOn
     "Check if both set and actual value are greater zero"
     annotation (Placement(transformation(extent={{16,12},{28,24}})));
-  Modelica.Blocks.Interfaces.RealInput nSet
+  Modelica.Blocks.Interfaces.RealInput ySet
     "Set value relative speed of compressor. Analog from 0 to 1"
     annotation (Placement(transformation(extent={{-152,-16},{-120,16}})));
   Modelica.Blocks.Interfaces.RealOutput nOut
@@ -64,11 +64,11 @@ model OnOffControl
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   IBPSA.Controls.Interfaces.VapourCompressionMachineControlBus sigBusHP
     annotation (Placement(transformation(extent={{-152,-84},{-118,-54}})));
-  IBPSA.Utilities.Logical.SmoothSwitch swinOutnSet
-    "If any of the ornSet conditions is true, nSet will be passed. Else nOut will stay the same"
+  IBPSA.Utilities.Logical.SmoothSwitch swinOutySet
+    "If any of the orySet conditions is true, ySet will be passed. Else nOut will stay the same"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.MathBoolean.Or orSetN(nu=4)
-    "Output is true if nSet value is correct"
+    "Output is true if ySet value is correct"
     annotation (Placement(transformation(extent={{52,-10},{72,10}})));
   Modelica.Blocks.Logical.And andIsOff
     "Check if both set and actual value are equal to zero"
@@ -102,25 +102,25 @@ equation
       color={255,0,255},
       pattern=LinePattern.Dash));
 
-  connect(nSet,nSetGreaterZero. u) annotation (Line(points={{-136,0},{-120,0},{-120,
+  connect(ySet,ySetGreaterZero. u) annotation (Line(points={{-136,0},{-120,0},{-120,
           64},{-111.6,64}}, color={0,0,127}));
-  connect(nSetGreaterZero.y, notSetOn.u) annotation (Line(points={{-93.2,64},{-78,
+  connect(ySetGreaterZero.y, notSetOn.u) annotation (Line(points={{-93.2,64},{-78,
           64},{-78,77},{-67,77}}, color={255,0,255}));
   connect(pre1.y, andIsOn.u2) annotation (Line(points={{-71.4,-42},{-71.4,12},{-72,
           12},{-72,14},{-42,14},{-42,13.2},{14.8,13.2}},
                                       color={255,0,255}));
-  connect(nSetGreaterZero.y, andIsOn.u1) annotation (Line(points={{-93.2,64},{-86,
+  connect(ySetGreaterZero.y, andIsOn.u1) annotation (Line(points={{-93.2,64},{-86,
           64},{-86,18},{14.8,18}},                             color={255,0,255}));
   connect(nOut, nOut)
     annotation (Line(points={{130,0},{130,0}}, color={0,0,127}));
-  connect(swinOutnSet.y, nOut)
+  connect(swinOutySet.y, nOut)
     annotation (Line(points={{111,0},{130,0}}, color={0,0,127}));
-  connect(nSet, swinOutnSet.u1) annotation (Line(points={{-136,0},{-120,0},{
+  connect(ySet, swinOutySet.u1) annotation (Line(points={{-136,0},{-120,0},{
           -120,98},{78,98},{78,8},{88,8}},
                                         color={0,0,127}));
   connect(andTurnOff.y, andRun.u1) annotation (Line(points={{0.6,86},{8,86},{8,78},
           {16.8,78}}, color={255,0,255}));
-  connect(orSetN.y, swinOutnSet.u2)
+  connect(orSetN.y, swinOutySet.u2)
     annotation (Line(points={{73.5,0},{88,0}}, color={255,0,255}));
   connect(notSetOn.y, andIsOff.u1) annotation (Line(points={{-55.5,77},{-50,77},
           {-50,42},{16,42},{16,38},{14.8,38}}, color={255,0,255}));
@@ -143,13 +143,13 @@ equation
           {-50,81.2},{-13.2,81.2}}, color={255,0,255}));
   connect(pre1.y, andTurnOff.u1) annotation (Line(points={{-71.4,-42},{-72,-42},
           {-72,86},{-13.2,86}}, color={255,0,255}));
-  connect(nSetGreaterZero.y, andTurnOn.u2) annotation (Line(points={{-93.2,64},{
+  connect(ySetGreaterZero.y, andTurnOn.u2) annotation (Line(points={{-93.2,64},{
           -86,64},{-86,-98},{24,-98},{24,-88.8},{26.8,-88.8}}, color={255,0,255}));
   connect(notIsOn.y, andTurnOn.u1) annotation (Line(points={{-57.6,-18},{-56,-18},
           {-56,-96},{22,-96},{22,-84},{26.8,-84}}, color={255,0,255}));
   connect(notIsOn.y, andIsOff.u2) annotation (Line(points={{-57.6,-18},{-56,-18},
           {-56,33.2},{14.8,33.2}}, color={255,0,255}));
-  connect(sigBusHP.nSet, swinOutnSet.u3) annotation (Line(
+  connect(sigBusHP.ySet, swinOutySet.u3) annotation (Line(
       points={{-134.915,-68.925},{-134.915,-104},{78,-104},{78,-8},{88,-8}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -168,11 +168,11 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   annotation (Documentation(info="<html><p>
-  Checks if the nSet value is legal by checking if the device can
+  Checks if the ySet value is legal by checking if the device can
   either be turned on or off, depending on which state it was in.
 </p>
 <p>
-  E.g. If it is turned on, and the new nSet value is 0, it will only
+  E.g. If it is turned on, and the new ySet value is 0, it will only
   turn off if current runtime is longer than the minimal runtime. Else
   it will keep the current rotating speed.
 </p>

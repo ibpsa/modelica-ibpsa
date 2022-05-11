@@ -178,7 +178,7 @@ equation
         points={{64,-38},{78,-38}},                   color={0,127,255}));
   connect(senTAct.port_b, Room.ports[2]) annotation (Line(points={{64,-38},{66,-38},
           {66,1},{76,1}},          color={0,127,255}));
-  connect(chiller.nSet, booleanToReal.y) annotation (Line(points={{-2.83333,
+  connect(chiller.ySet, booleanToReal.y) annotation (Line(points={{-2.83333,
           -26.84},{-3,-26.84},{-3,-45.3}}, color={0,0,127}));
           connect(sinkSideMassFlowSource.ports[1], chiller.port_a1) annotation (Line(
         points={{-34,-48},{-12.5,-48},{-12.5,-23}}, color={0,127,255}));

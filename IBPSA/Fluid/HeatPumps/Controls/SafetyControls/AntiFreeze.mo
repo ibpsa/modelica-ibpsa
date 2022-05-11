@@ -23,7 +23,7 @@ model AntiFreeze "Model to prevent source from freezing"
     annotation (Placement(transformation(extent={{-104,-24},{-84,-4}})));
 
 equation
-  connect(nSet,swiErr.u1)  annotation (Line(points={{-136,20},{32,20},{32,8},{84,
+  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,20},{32,20},{32,8},{84,
           8}},    color={0,0,127}));
   connect(booConAntFre.y, swiErr.u2) annotation (Line(
       points={{16.7,-29},{16.7,-28},{42,-28},{42,0},{84,0}},

@@ -32,7 +32,7 @@ block OperationalEnvelope
 equation
   connect(boundaryMap.noErr, swiErr.u2) annotation (Line(points={{-1.1,-3},{42,
           -3},{42,0},{84,0}},     color={255,0,255}));
-  connect(nSet,swiErr.u1)  annotation (Line(points={{-136,20},{32,20},{32,8},
+  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,20},{32,20},{32,8},
           {84,8}},color={0,0,127}));
   connect(booConOpeEnv.y, swiErr.u2) annotation (Line(
       points={{24.7,-29},{24.7,-28},{42,-28},{42,0},{84,0}},

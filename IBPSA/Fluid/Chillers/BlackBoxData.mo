@@ -261,7 +261,7 @@ package BlackBoxData "Collection of Chiller Database Records"
               -30},{0,-110}},          color={0,0,127}));
       connect(realCorr.y, nTimesSF.u2) annotation (Line(points={{-13,39.7},{-13,
               31.4},{-13.2,31.4}}, color={0,0,127}));
-      connect(sigBus.nSet, nTimesSF.u1) annotation (Line(
+      connect(sigBus.ySet, nTimesSF.u1) annotation (Line(
           points={{1,104},{-4,104},{-4,31.4},{-4.8,31.4}},
           color={255,204,51},
           thickness=0.5), Text(
@@ -513,7 +513,7 @@ package BlackBoxData "Collection of Chiller Database Records"
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-      connect(sigBus.nSet, greaterThreshold.u) annotation (Line(
+      connect(sigBus.ySet, greaterThreshold.u) annotation (Line(
           points={{1,104},{-72,104},{-72,71.2}},
           color={255,204,51},
           thickness=0.5), Text(
@@ -526,7 +526,7 @@ package BlackBoxData "Collection of Chiller Database Records"
       connect(greaterThreshold.y, switchPel.u2) annotation (Line(points={{-72,57.4},
               {-72,-18},{38,-18},{38,-34},{50,-34},{50,-48}},
                                             color={255,0,255}));
-      connect(sigBus.nSet, nConGain.u) annotation (Line(
+      connect(sigBus.ySet, nConGain.u) annotation (Line(
           points={{1,104},{1.77636e-15,104},{1.77636e-15,95.6}},
           color={255,204,51},
           thickness=0.5), Text(
@@ -659,12 +659,12 @@ package BlackBoxData "Collection of Chiller Database Records"
       Real Char[2];
     equation
       Char =PolyData(
-        sigBus.nSet,
+        sigBus.ySet,
         sigBus.TEvaOutMea,
         sigBus.TConInMea,
         sigBus.m_flowEvaMea,
         sigBus.m_flowConMea);
-      if sigBus.nSet > Modelica.Constants.eps then
+      if sigBus.ySet > Modelica.Constants.eps then
         //Get's the data from the signal Bus and calculates the power and heat flow based on the function one chooses.
         QEva = Char[2];
         Pel = Char[1];

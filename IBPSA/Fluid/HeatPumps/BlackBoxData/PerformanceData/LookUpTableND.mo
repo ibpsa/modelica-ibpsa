@@ -143,7 +143,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(sigBus.nSet, nConGain.u) annotation (Line(
+  connect(sigBus.ySet, nConGain.u) annotation (Line(
       points={{1,104},{-22,104},{-22,84.8}},
       color={255,204,51},
       thickness=0.5), Text(

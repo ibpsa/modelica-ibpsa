@@ -165,7 +165,7 @@ equation
           36},{50,39}}, color={0,0,127}));
   connect(const_minCOP.y, max.u2) annotation (Line(points={{5,39.5},{5,36},{27.6,
           36},{27.6,32.8}}, color={0,0,127}));
-  connect(multiplex3_1.u1[1], sigBus.nSet) annotation (Line(points={{4.2,85.2},
+  connect(multiplex3_1.u1[1], sigBus.ySet) annotation (Line(points={{4.2,85.2},
           {4.2,90},{14,90},{14,104},{1,104}},           color={0,0,127}), Text(
       string="%second",
       index=1,

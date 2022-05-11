@@ -101,7 +101,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(passThroughYSet.u, sigBus.nSet) annotation (Line(points={{-34,81.2},{-34,
+  connect(passThroughYSet.u, sigBus.ySet) annotation (Line(points={{-34,81.2},{-34,
           104},{1,104}}, color={0,0,127}), Text(
       string="%second",
       index=1,

@@ -1,6 +1,6 @@
 ﻿within IBPSA.Fluid.HeatPumps.Controls.SafetyControls.BaseClasses;
 partial block PartialSafetyControl "Base Block"
-  Modelica.Blocks.Interfaces.RealInput nSet
+  Modelica.Blocks.Interfaces.RealInput ySet
     "Set value relative speed of compressor. Analog from 0 to 1"
     annotation (Placement(transformation(extent={{-152,4},{-120,36}})));
   Modelica.Blocks.Interfaces.RealOutput nOut

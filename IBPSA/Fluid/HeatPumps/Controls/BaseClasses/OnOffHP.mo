@@ -1,6 +1,6 @@
 ﻿within IBPSA.Fluid.HeatPumps.Controls.BaseClasses;
 model OnOffHP "Controller gives full speed or stop signal depending on temperature hysteresis"
-  extends IBPSA.Fluid.HeatPumps.Controls.BaseClasses.PartialTSetToNSet;
+  extends IBPSA.Fluid.HeatPumps.Controls.BaseClasses.PartialTSetToYSet;
   parameter Real hys "Hysteresis of controller";
   Modelica.Blocks.Logical.OnOffController onOffController(bandwidth=hys, pre_y_start=false) "Hysteresis controller for set temperature"
     annotation (Placement(transformation(extent={{-54,10},{-26,38}})));

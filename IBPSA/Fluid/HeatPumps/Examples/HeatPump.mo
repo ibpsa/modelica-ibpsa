@@ -245,7 +245,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(booleanStep.y, safetyControl.modeSet) annotation (Line(points={{43.4,
           88},{32,88},{32,90},{8,90},{8,75.2},{-3.2,75.2}}, color={255,0,255}));
-  connect(booleanToReal.y, safetyControl.nSet) annotation (Line(points={{13.5,
+  connect(booleanToReal.y, safetyControl.ySet) annotation (Line(points={{13.5,
           71},{4,71},{4,82.8},{-3.2,82.8}}, color={0,0,127}));
   connect(safetyControl.modeOut, sigBus.modeSet) annotation (Line(points={{
           -49.75,75.2},{-64,75.2},{-64,46},{-19,46},{-19,39}}, color={255,0,255}),
@@ -254,7 +254,7 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(safetyControl.nOut, sigBus.nSet) annotation (Line(points={{-49.75,
+  connect(safetyControl.nOut, sigBus.ySet) annotation (Line(points={{-49.75,
           82.8},{-70,82.8},{-70,44},{-19,44},{-19,39}}, color={0,0,127}), Text(
       string="%second",
       index=1,

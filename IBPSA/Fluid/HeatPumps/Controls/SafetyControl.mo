@@ -82,7 +82,7 @@ block SafetyControl "Block including all safety levels"
     annotation (Placement(transformation(extent={{-92,32},{-76,48}})),
       choicesAllMatching=true);
   Modelica.Blocks.Sources.BooleanConstant conTru(final k=true)
-    "Always true as the two blocks OperationalEnvelope and OnOffControl deal with whether the nSet value is correct or not"
+    "Always true as the two blocks OperationalEnvelope and OnOffControl deal with whether the ySet value is correct or not"
     annotation (Placement(transformation(extent={{58,-6},{70,6}})));
   Modelica.Blocks.Interfaces.RealOutput Pel_deFro if not use_chiller and
     use_deFro
@@ -113,7 +113,7 @@ block SafetyControl "Block including all safety levels"
 equation
   connect(conTru.y,swiErr.u2)
     annotation (Line(points={{70.6,0},{84,0}}, color={255,0,255}));
-  connect(onOffController.nOut, operationalEnvelope.nSet) annotation (Line(
+  connect(onOffController.nOut, operationalEnvelope.ySet) annotation (Line(
         points={{-24.5,1.63636},{-24,1.63636},{-24,3.2},{-11.6,3.2}},     color=
          {0,0,127}));
 
@@ -141,15 +141,15 @@ equation
       index=-1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(nSet, defrostControl.nSet) annotation (Line(
+  connect(ySet, defrostControl.ySet) annotation (Line(
       points={{-136,20},{-124,20},{-124,4},{-114.88,4}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(nSet, realPasThrDef.u) annotation (Line(
+  connect(ySet, realPasThrDef.u) annotation (Line(
       points={{-136,20},{-116,20},{-116,40},{-93.6,40}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(realPasThrDef.y, onOffController.nSet) annotation (Line(
+  connect(realPasThrDef.y, onOffController.ySet) annotation (Line(
       points={{-75.2,40},{-60,40},{-60,1.63636},{-64.4,1.63636}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -157,7 +157,7 @@ equation
       points={{-136,-20},{-120,-20},{-120,-2.66667},{-114.88,-2.66667}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(defrostControl.nOut, onOffController.nSet) annotation (Line(
+  connect(defrostControl.nOut, onOffController.ySet) annotation (Line(
       points={{-74.2,4},{-74.2,1.63636},{-64.4,1.63636}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -179,7 +179,7 @@ equation
       points={{-94,19},{-94,28},{-54,28},{-54,80},{130,80}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(antiFreeze.nSet, operationalEnvelope.nOut)
+  connect(antiFreeze.ySet, operationalEnvelope.nOut)
     annotation (Line(points={{22.4,4},{18,4},{18,3.2},{15,3.2}},
                                                color={0,0,127}));
   connect(antiFreeze.modeSet, operationalEnvelope.modeOut)

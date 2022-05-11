@@ -37,7 +37,7 @@ block DefrostControl
         origin={10,52})));
   Modelica.Blocks.Interfaces.BooleanInput modeSet "Set value of HP mode"
     annotation (Placement(transformation(extent={{-132,-36},{-100,-4}})));
-  Modelica.Blocks.Interfaces.RealInput nSet
+  Modelica.Blocks.Interfaces.RealInput ySet
     "Set value relative speed of compressor. Analog from 0 to 1"
     annotation (Placement(transformation(extent={{-132,4},{-100,36}})));
   IBPSA.Utilities.Logical.SmoothSwitch swiErr
@@ -89,7 +89,7 @@ equation
           {56,4}},        color={0,0,127}));
   connect(swiErr.y, nOut) annotation (Line(points={{79,12},{96,12},{96,20},{110,
           20}}, color={0,0,127}));
-  connect(nSet, swiErr.u1) annotation (Line(points={{-116,20},{56,20}},
+  connect(ySet, swiErr.u1) annotation (Line(points={{-116,20},{56,20}},
                color={0,0,127}));
   connect(sigBusHP.iceFacMea, iceFacGreMinHea.u) annotation (Line(
       points={{-105.93,-61.93},{-68,-61.93},{-68,-78},{-40.6,-78}},

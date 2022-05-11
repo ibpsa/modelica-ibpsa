@@ -43,7 +43,7 @@ partial model PartialReversibleVapourCompressionMachine
         enable=use_refIne, group="Refrigerant inertia"), Evaluate=true);
   parameter Integer nthOrder=3 "Order of refrigerant cycle interia" annotation (Dialog(enable=
           use_refIne, group="Refrigerant inertia"));
-  parameter Boolean useBusConnectorOnly = false "Set true to use bus connector for modeSet, nSet and iceFac input"
+  parameter Boolean useBusConnectorOnly = false "Set true to use bus connector for modeSet, ySet and iceFac input"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors"));
 
 //Condenser
@@ -281,9 +281,9 @@ partial model PartialReversibleVapourCompressionMachine
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={-14,-52})));
-  Modelica.Blocks.Routing.RealPassThrough realPassThroughnSetCon
+  Modelica.Blocks.Routing.RealPassThrough realPassThroughySetCon
                                                               if not use_refIne
-    "Use default nSet value" annotation (Placement(transformation(
+    "Use default ySet value" annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={16,58})));
@@ -300,8 +300,8 @@ partial model PartialReversibleVapourCompressionMachine
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-16,58})));
-  Modelica.Blocks.Routing.RealPassThrough realPassThroughnSetEva if not use_refIne
-    "Use default nSet value" annotation (Placement(transformation(
+  Modelica.Blocks.Routing.RealPassThrough realPassThroughySetEva if not use_refIne
+    "Use default ySet value" annotation (Placement(transformation(
         extent={{6,-6},{-6,6}},
         rotation=90,
         origin={16,-52})));
@@ -323,7 +323,7 @@ partial model PartialReversibleVapourCompressionMachine
         rotation=0,
         origin={-52,114})));
 
-  Modelica.Blocks.Interfaces.RealInput nSet if not useBusConnectorOnly
+  Modelica.Blocks.Interfaces.RealInput ySet if not useBusConnectorOnly
     "Input signal speed for compressor relative between 0 and 1" annotation (Placement(
         transformation(extent={{-132,4},{-100,36}})));
   Interfaces.VapourCompressionMachineControlBus                sigBus annotation (
@@ -426,7 +426,7 @@ partial model PartialReversibleVapourCompressionMachine
   Modelica.Blocks.Logical.Hysteresis hysteresis(
     final uLow=Modelica.Constants.eps,
     final uHigh=ySet_small,
-    final pre_y_start=false) "Use default nSet value" annotation (Placement(
+    final pre_y_start=false) "Use default ySet value" annotation (Placement(
         transformation(
         extent={{6,-6},{-6,6}},
         rotation=180,
@@ -509,7 +509,7 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
 
-  connect(innerCycle.QEva, realPassThroughnSetEva.u) annotation (Line(
+  connect(innerCycle.QEva, realPassThroughySetEva.u) annotation (Line(
       points={{-1.77636e-15,-30.7},{-1.77636e-15,-38},{16,-38},{16,-44.8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -521,7 +521,7 @@ equation
       points={{1.77636e-15,28.7},{1.77636e-15,30},{0,30},{0,40},{-16,40},{-16,50.8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(innerCycle.QCon, realPassThroughnSetCon.u) annotation (Line(
+  connect(innerCycle.QCon, realPassThroughySetCon.u) annotation (Line(
       points={{1.77636e-15,28.7},{0,28.7},{0,40},{16,40},{16,50.8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -545,7 +545,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(nSet,sigBus.nSet)  annotation (Line(points={{-116,20},{-76,20},{-76,-43},
+  connect(ySet,sigBus.ySet)  annotation (Line(points={{-116,20},{-76,20},{-76,-43},
           {-105,-43}},         color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -575,7 +575,7 @@ equation
       pattern=LinePattern.Dash));
   connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-100,-60},{-100,
           -60}}, color={0,127,255}));
-  connect(realPassThroughnSetCon.y, con.QFlow_in) annotation (Line(
+  connect(realPassThroughySetCon.y, con.QFlow_in) annotation (Line(
       points={{16,64.6},{16,77.04},{0,77.04}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -583,7 +583,7 @@ equation
       points={{-16,64.6},{-16,77.04},{0,77.04}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(realPassThroughnSetEva.y, eva.QFlow_in) annotation (Line(points={{16,-58.6},
+  connect(realPassThroughySetEva.y, eva.QFlow_in) annotation (Line(points={{16,-58.6},
           {16,-69.04},{0,-69.04}}, color={0,0,127}));
   connect(heatFlowIneEva.y, eva.QFlow_in) annotation (Line(points={{-14,-58.6},{
           -14,-69.04},{0,-69.04}}, color={0,0,127}));
@@ -631,7 +631,7 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(hysteresis.u, sigBus.nSet) annotation (Line(points={{-73.2,-28},{-76,-28},
+  connect(hysteresis.u, sigBus.ySet) annotation (Line(points={{-73.2,-28},{-76,-28},
           {-76,-43},{-105,-43}}, color={0,0,127}), Text(
       string="%second",
       index=1,
