@@ -34,10 +34,18 @@ Object for storing weekly schedules.
     annotation(Include=" #include <WeeklySchedule.c>",
     IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
   annotation(Documentation(info="<html>
+<p>
+Destructor for weekly schedule object.
+</p>
 </html>"));
   end destructor;
 
 annotation(Documentation(info="<html>
+<p>
+Class definition for weekly schedule object used by
+<a href=\"modelica://IBPSA.Utilities.IO.Files.WeeklySchedule\">
+IBPSA.Utilities.IO.Files.WeeklySchedule</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
