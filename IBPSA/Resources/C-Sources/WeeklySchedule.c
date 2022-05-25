@@ -22,24 +22,20 @@
 
 
 int cmpfun(const void * tuple1, const void * tuple2) {
-  double time1 = (*(const TimeDataTuple **)tuple1)->time;
-  double time2 = (*(const TimeDataTuple **)tuple2)->time;
+  const double time1 = (*(const TimeDataTuple **)tuple1)->time;
+  const double time2 = (*(const TimeDataTuple **)tuple2)->time;
   return  (time1 - time2);
 }
 
 void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t_offset, char* stringData) {
-  WeeklySchedule* scheduleID = (WeeklySchedule*)calloc(1, sizeof(WeeklySchedule));
-  if ( scheduleID == NULL)
-    ModelicaFormatError("Failed to allocate memory for scheduleID in WeeklySchedule.c.");
-
-  FILE *fp;
+  FILE* fp;
   const int bufLen = 255;
-  char *token = calloc(sizeof(char), bufLen);
-  if ( token == NULL)
-    ModelicaFormatError("Failed to allocate memory for token in WeeklySchedule.c.");
+  WeeklySchedule* scheduleID = NULL;
+  char* token = NULL;
 
   struct TimeDataTuple **rules;
-  int i = 0, j=0;              /* iterators */
+  int i = 0;
+  int j=0;              /* iterators */
   int index = 0;          /* index in the token buffer where we are currently writing */
   int line = 0;           /* number of parsed lines */
   int rule_i = 0;         /* rule index where we are currently writing */
@@ -52,6 +48,20 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
   int n_rowsUnpacked = 0; /* total number of unpacked rules */
   int n_rowsPacked = 0;   /* number of rules */
   char c;                 /* the character that is being parsed in this iteration */
+
+  int parseToken = 0;
+  double timeStamp;
+  char* buff2;
+  int tokenLen;
+  int offset = 0;
+
+  scheduleID = (WeeklySchedule*)calloc(1, sizeof(WeeklySchedule));
+  if ( scheduleID == NULL)
+    ModelicaFormatError("Failed to allocate memory for scheduleID in WeeklySchedule.c.");
+
+  token = calloc(sizeof(char), bufLen);
+  if ( token == NULL)
+    ModelicaFormatError("Failed to allocate memory for token in WeeklySchedule.c.");
 
   if (tableOnFile){
       fp = fopen(name, "r");
@@ -68,11 +78,10 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
   /* All later columns contain data, where '-' serves as a wildcard, where data from the previous rule is reused. */
   /* Rules are sorted by timestamp and then expanded, where '-' is filled in. */
   while ( 1 ) {
-    int parseToken = 0;
-    double timeStamp;
+    parseToken = 0;
 
     if (tableOnFile){
-      c = fgetc ( fp ); /* read a character from the file */
+      c = fgetc( fp ); /* read a character from the file */
     }else{
       c = stringData[j]; /* read a character from the string */
       j++;
@@ -107,11 +116,10 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
       /* Parse a token if needed. */
       if (parseToken == 1 && index > 0) {
         /* shouldn't require an overflow check since token is already checked */
-        char *buff2 = calloc(sizeof(char), bufLen);
-        if ( buff2 == NULL)
+        buff2 = calloc(sizeof(char), bufLen);
+        if (buff2 == NULL)
           ModelicaFormatError("Failed to allocate memory for buff in WeeklySchedule.c.");
-        int tokenLen;
-        int offset = 0;
+        offset = 0;
 
         token[index] = '\0';
         index++;
