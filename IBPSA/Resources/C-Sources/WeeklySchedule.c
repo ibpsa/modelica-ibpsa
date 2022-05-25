@@ -34,8 +34,9 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
   char* token = NULL;
 
   struct TimeDataTuple **rules;
-  int i = 0;
-  int j=0;              /* iterators */
+  int i = 0;              /* iterator */
+  int j = 0;              /* iterator */
+  int k = 0;              /* iterator */
   int index = 0;          /* index in the token buffer where we are currently writing */
   int line = 0;           /* number of parsed lines */
   int rule_i = 0;         /* rule index where we are currently writing */
@@ -54,6 +55,8 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
   char* buff2;
   int tokenLen;
   int offset = 0;
+
+  double* lastData = NULL;
 
   scheduleID = (WeeklySchedule*)calloc(1, sizeof(WeeklySchedule));
   if ( scheduleID == NULL)
@@ -339,10 +342,9 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
 
   {
     /* working vector with zero initial value*/
-    int j, k;
-    double *lastData = calloc(sizeof(double), scheduleID->n_cols_in - 1);
-    if ( lastData == NULL)
-      ModelicaFormatError("Failed to allocate memory for lastData in WeeklySchedule.c.");
+    lastData = calloc(sizeof(double), scheduleID->n_cols_in - 1);
+    if (lastData == NULL)
+      ModelicaFormatError("Failed to allocate memory for lastData in WeeklySchedule.c., scheduleID->n_cols_in = %d");
     memset(lastData, (char)(double)0, scheduleID->n_cols_in - 1); /* set vector to zero initial guess*/
 
     /* Loop over all data and fill in wildcards using the last preceeding value.*/
