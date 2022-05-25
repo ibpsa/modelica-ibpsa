@@ -1,8 +1,10 @@
 /*
 
-  This code implements a weekly schedule. Header file.
+  This code implements a weekly schedule.
 
   Changelog:
+    May 25, 2022 by Michael Wetter, LBNL
+          Refactored to comply with C89.
     March 9, 2022 by Filip Jorissen, KU Leuven
          Initial version.
     April 10, 2022 by Filip Jorissen, KU Leuven

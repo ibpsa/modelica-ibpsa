@@ -1,13 +1,7 @@
 /*
 
-  This code implements a weekly schedule. Input text example:
-
-#some comment
-double  tab1(3,5) # another comment
-# blabla
-mon:0:0:10              -       3       1       -
-tue,thu:20:30:59        123     -       45      -
-wed,sat,sun             12      1       4       -
+  This code implements a weekly schedule.
+  See modelica model for documentation.
 
 
   Changelog:
@@ -15,7 +9,6 @@ wed,sat,sun             12      1       4       -
         Initial version.
     April 10, 2022 by Filip Jorissen, KU Leuven
         Added tableOnFile option.
-
 
 */
 
