@@ -195,7 +195,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
               ModelicaFormatError("Error in float conversion in hours when reading weekly schedule '%s'. Found token %s with length %i", name, buff2, ncharsHour);
             }
             if (val > 24 || val < 0) {
-              ModelicaFormatError("Unexpected value for hour: '%lf' when reading weekly schedule '%s', should be between 0 and 24.", val, name);
+              ModelicaFormatError("Unexpected value for hour: '%f' when reading weekly schedule '%s', should be between 0 and 24.", val, name);
             }
             timeStamp += val * 3600;
 
@@ -207,7 +207,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
                 ModelicaFormatError("Error in float conversion in minutes when reading weekly schedule '%s'.", name);
               }
               if (val > 60 || val < 0) {
-                ModelicaFormatError("Unexpected value for minute: '%lf' when reading weekly schedule '%s', should be between 0 and 60.", val, name);
+                ModelicaFormatError("Unexpected value for minute: '%f' when reading weekly schedule '%s', should be between 0 and 60.", val, name);
               }
               timeStamp += val * 60;
 
@@ -219,7 +219,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
                   ModelicaFormatError("Error in float conversion in seconds when reading weekly schedule '%s'.", name);
                 }
                 if (val > 60 || val < 0) {
-                  ModelicaFormatError("Unexpected value for seconds: '%lf' when reading weekly schedule '%s', should be between 0 and 60.", val, name);
+                  ModelicaFormatError("Unexpected value for seconds: '%f' when reading weekly schedule '%s', should be between 0 and 60.", val, name);
                 }
                 timeStamp += val;
               }
