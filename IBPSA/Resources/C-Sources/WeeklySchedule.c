@@ -344,7 +344,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
     /* working vector with zero initial value*/
     lastData = calloc(sizeof(double), scheduleID->n_cols_in - 1);
     if (lastData == NULL)
-      ModelicaFormatError("Failed to allocate memory for lastData in WeeklySchedule.c., scheduleID->n_cols_in = %d");
+      ModelicaFormatError("Failed to allocate memory for lastData in WeeklySchedule.c., scheduleID->n_cols_in -1 = %d", scheduleID->n_cols_in - 1);
     memset(lastData, (char)(double)0, scheduleID->n_cols_in - 1); /* set vector to zero initial guess*/
 
     /* Loop over all data and fill in wildcards using the last preceeding value.*/

@@ -4,7 +4,7 @@ model WeeklySchedule "Weekly schedule"
   parameter Integer[:] columns = {2}
     "Columns of the schedule to be produced at the output y. First column is time, hence value must be 2 or larger";
   parameter Boolean tableOnFile=false
-    "= true, if table is defined on file or in function usertab"
+    "= true, if table is defined on file; false if defined through parameter data"
     annotation(Dialog(group="Data source"));
   parameter String fileName = ""
     "Filename"
@@ -29,7 +29,7 @@ protected
       IBPSA.Utilities.IO.Files.BaseClasses.WeeklyScheduleObject(tableOnFile, sourceName, t_offset, data)
     "Schedule object";
 
-  parameter Integer n_columns = size(columns,1) "Number of columns";
+  final parameter Integer n_columns = size(columns,1) "Number of columns";
   parameter String sourceName = if tableOnFile then fileName else getInstanceName() +".data";
 
   pure function getCalendarValue
