@@ -30,7 +30,8 @@ model Chiller "Example for the reversible chiller model."
     annotation (Placement(transformation(extent={{-94,-76},{-74,-56}})));
   IBPSA.Fluid.Chillers.Chiller chiller(
     redeclare model vapComIne =
-        IBPSA.Fluid.BaseClasses.VapourCompressionInertias.NoInertia,
+        IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
+
     use_TSet=false,
     GConIns=0,
     CEva=100,
@@ -48,12 +49,12 @@ model Chiller "Example for the reversible chiller model."
     GEvaIns=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model PerDataMainChi =
-        IBPSA.Fluid.Chillers.BlackBoxData.PerformanceData.LookUpTable2D (
-          dataTable=IBPSA.Fluid.Chillers.BlackBoxData.EN14511.Vitocal200AWO201()),
+        IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.LookUpTable2D (dataTable=
+            IBPSA.Fluid.Chillers.BlackBoxData.EN14511.Vitocal200AWO201()),
     redeclare model PerDataRevChi =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.PerformanceData.LookUpTable2D (
-          smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments, dataTable=
-           IBPSA.Fluid.HeatPumps.BlackBoxData.EN14511.Vitocal200AWO201()),
+        IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.LookUpTable2D (smoothness=
+            Modelica.Blocks.Types.Smoothness.LinearSegments, dataTable=
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EN14511.Vitocal200AWO201()),
     use_rev=true,
     use_autoCalc=false,
     VEva=0.4,

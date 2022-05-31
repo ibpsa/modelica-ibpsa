@@ -1,4 +1,4 @@
-within IBPSA.Fluid.BaseClasses;
+within IBPSA.Fluid.HeatPumps.BlackBoxData;
 package VapourCompressionInertias
   "Package with approaches to model inertia of vapour compression cycles"
   model NoInertia "No inertia"
@@ -39,7 +39,6 @@ package VapourCompressionInertias
     extends Modelica.Icons.BasesPackage;
     partial model PartialInertia "Partial inertia model"
       extends Modelica.Blocks.Interfaces.SISO;
-
 
       annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
             coordinateSystem(preserveAspectRatio=false)));

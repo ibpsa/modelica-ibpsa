@@ -1,6 +1,6 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.PerformanceData.BaseClasses;
-partial model PartialPerformanceData
-  "Model with a replaceable for different methods of data aggregation"
+﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.BaseClasses;
+partial model PartialBlackBox
+  "Partial black box model of vapour compression cycles used for heat pump applications"
 
   Modelica.Blocks.Interfaces.RealOutput Pel(final unit="W", final displayUnit="kW")
                                                       "Electrical Power consumed by HP" annotation (Placement(
@@ -8,8 +8,9 @@ partial model PartialPerformanceData
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-110})));
-  Modelica.Blocks.Interfaces.RealOutput QCon(final unit="W", final displayUnit="kW")
-    "Heat flow rate through Condenser" annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final unit="W", final
+      displayUnit="kW") "Heat flow rate through Condenser" annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-80,-110})));
@@ -19,9 +20,9 @@ partial model PartialPerformanceData
         extent={{-15,-14},{15,14}},
         rotation=0,
         origin={1,104})));
-  Modelica.Blocks.Interfaces.RealOutput QEva(final unit="W", final displayUnit="kW")
-                                                                         "Heat flow rate through Evaporator"  annotation (Placement(
-        transformation(
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final unit="W", final
+      displayUnit="kW") "Heat flow rate through Evaporator" annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={80,-110})));
@@ -52,13 +53,13 @@ equation
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(proRedQEva.y, QEva) annotation (Line(points={{-80,-66.6},{-80,-84},
+  connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-80,-66.6},{-80,-84},
           {80,-84},{80,-110}}, color={0,0,127}));
   connect(proRedQEva.y, calcRedQCon.u1) annotation (Line(points={{-80,-66.6},
           {-80,-70},{-66,-70},{-66,-54},{83.6,-54},{83.6,-60.8}}, color={0,0,
           127}));
-  connect(calcRedQCon.y, QCon) annotation (Line(points={{80,-74.6},{80,-78},{
-          -62,-78},{-62,-90},{-80,-90},{-80,-110}}, color={0,0,127}));
+  connect(calcRedQCon.y, QCon_flow) annotation (Line(points={{80,-74.6},{80,-78},
+          {-62,-78},{-62,-90},{-80,-90},{-80,-110}}, color={0,0,127}));
   connect(proRedQEva.u2, feedbackHeatFlowEvaporator.y) annotation (Line(
         points={{-76.4,-52.8},{-76,-52.8},{-76,-43.4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -89,4 +90,4 @@ equation
   <span style=\"font-family: Courier New;\">sigBusHP</span>.
 </p>
 </html>"));
-end PartialPerformanceData;
+end PartialBlackBox;

@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Chillers;
 model Chiller
   "Grey-box model for reversible chillers using a black-box to simulate the refrigeration cycle"
-  extends IBPSA.Fluid.BaseClasses.PartialReversibleVapourCompressionMachine(
+  extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
   use_rev=true,
   final machineType = false,
   redeclare IBPSA.Fluid.Chillers.BaseClasses.InnerCycle_Chiller innerCycle(
@@ -11,11 +11,11 @@ model Chiller
       redeclare model PerDataRevChi = PerDataRevChi));
 
   replaceable model PerDataMainChi =
-      IBPSA.Fluid.Chillers.BlackBoxData.PerformanceData.BaseClasses.PartialPerformanceData
+      IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
   "Performance data of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
   replaceable model PerDataRevChi =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.PerformanceData.BaseClasses.PartialPerformanceData
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
   "Performance data of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 

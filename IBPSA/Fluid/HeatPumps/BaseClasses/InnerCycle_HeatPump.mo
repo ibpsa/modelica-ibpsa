@@ -1,29 +1,27 @@
 ﻿within IBPSA.Fluid.HeatPumps.BaseClasses;
 model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
-  extends IBPSA.Fluid.BaseClasses.PartialInnerCycle;
+  extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle;
 
-  replaceable model PerDataMainHP =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.PerformanceData.BaseClasses.PartialPerformanceData
+  replaceable model BlaBoxHPHeating =
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
     constrainedby
-    IBPSA.Fluid.HeatPumps.BlackBoxData.PerformanceData.BaseClasses.PartialPerformanceData(
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox(
      final scalingFactor = scalingFactor)
-    "Replaceable model for performance data of a heat pump in main operation mode"
+    "Replaceable model for black box data of a heat pump in main operation mode"
     annotation (choicesAllMatching=true);
 
-  replaceable model PerDataRevHP =
-      IBPSA.Fluid.Chillers.BlackBoxData.PerformanceData.BaseClasses.PartialPerformanceData
+  replaceable model BlaBoxHPCooling =
+      IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
     constrainedby
-    IBPSA.Fluid.Chillers.BlackBoxData.PerformanceData.BaseClasses.PartialPerformanceData(
+    IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox(
      final scalingFactor = scalingFactor)
-    "Replaceable model for performance data of a heat pump in reversible operation mode"
+    "Replaceable model for black box data of a heat pump in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
-  PerDataMainHP PerformanceDataHPHeating
-  annotation (Placement(transformation(
-  extent={{7,20},{61,76}},  rotation=0)));
-  PerDataRevHP PerformanceDataHPCooling if use_rev
-  annotation (Placement(transformation(extent={{-27,-28},{27,28}},
-  rotation=0,origin={-34,48})));
+  BlaBoxHPHeating BlackBoxHeaPumHeating
+  annotation (Placement(transformation(extent={{7,20},{61,76}}, rotation=0)));
+  BlaBoxHPCooling BlackBoxHeaPumCooling if use_rev
+  annotation (Placement(transformation(extent={{-27,-28},{27,28}}, rotation=0)));
   Modelica.Blocks.Math.Gain gainEva(final k=-1)
     "Negate QEva to match definition of heat flow direction" annotation (
       Placement(transformation(
@@ -39,18 +37,16 @@ model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
 
 equation
 
-  connect(PerformanceDataHPHeating.QCon, switchQCon.u1)
+  connect(BlackBoxHeaPumHeating.QCon_flow, switchQCon.u1)
     annotation (Line(points={{12.4,17.2},{12.4,-4},{68,-4}}, color={0,0,127}));
-  connect(PerformanceDataHPHeating.Pel, switchPel.u1) annotation (Line(
-        points={{34,17.2},{34,-30},{8,-30},{8,-68}}, color={0,0,127}));
-  connect(PerformanceDataHPCooling.Pel, switchPel.u3) annotation (
-      Line(
-      points={{-34,17.2},{-34,-30},{-8,-30},{-8,-68}},
+  connect(BlackBoxHeaPumHeating.Pel, switchPel.u1) annotation (Line(points={{34,
+          17.2},{34,-30},{8,-30},{8,-68}}, color={0,0,127}));
+  connect(BlackBoxHeaPumCooling.Pel, switchPel.u3) annotation (Line(
+      points={{0,-30.8},{0,-30},{-8,-30},{-8,-68}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(PerformanceDataHPCooling.QEva, switchQEva.u3) annotation (
-      Line(
-      points={{-12.4,17.2},{-12.4,-22},{-68,-22}},
+  connect(BlackBoxHeaPumCooling.QEva_flow, switchQEva.u3) annotation (Line(
+      points={{21.6,-30.8},{21.6,-22},{-68,-22}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(constZero.y, switchPel.u3)
@@ -68,17 +64,17 @@ equation
       points={{68,-20},{62.4,-20}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(PerformanceDataHPCooling.QCon, gainCon.u) annotation (Line(
-      points={{-55.6,17.2},{-55.6,2},{-24,2},{-24,-20},{53.2,-20}},
+  connect(BlackBoxHeaPumCooling.QCon_flow, gainCon.u) annotation (Line(
+      points={{-21.6,-30.8},{-21.6,2},{-24,2},{-24,-20},{53.2,-20}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(PerformanceDataHPHeating.QEva, gainEva.u) annotation (Line(points={{55.6,
-          17.2},{55.6,-6},{-51.2,-6}},       color={0,0,127}));
-  connect(sigBus, PerformanceDataHPCooling.sigBus) annotation (Line(
-      points={{0,102},{0,86},{-33.73,86},{-33.73,77.12}},
+  connect(BlackBoxHeaPumHeating.QEva_flow, gainEva.u) annotation (Line(points={{
+          55.6,17.2},{55.6,-6},{-51.2,-6}}, color={0,0,127}));
+  connect(sigBus, BlackBoxHeaPumCooling.sigBus) annotation (Line(
+      points={{0,102},{0,86},{0.27,86},{0.27,29.12}},
       color={255,204,51},
       thickness=0.5));
-  connect(sigBus, PerformanceDataHPHeating.sigBus) annotation (Line(
+  connect(sigBus, BlackBoxHeaPumHeating.sigBus) annotation (Line(
       points={{0,102},{0,86},{34.27,86},{34.27,77.12}},
       color={255,204,51},
       thickness=0.5));

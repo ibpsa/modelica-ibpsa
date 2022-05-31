@@ -1,7 +1,7 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.PerformanceData;
+﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox;
 model VCLibMap
   "Multi-dimensional performance map encompasing choices of fluid and flowsheet based on steady state calculations using the Vapour Compression Library"
-  extends BaseClasses.PartialPerformanceData;
+  extends BaseClasses.PartialBlackBox;
   // Parameters Heat pump operation
   parameter Modelica.Units.SI.Power QCon_flow_nominal=5000
     "Nominal heating power of heat pump"                                                 annotation(Dialog(group=

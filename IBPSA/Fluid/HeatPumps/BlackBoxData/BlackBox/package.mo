@@ -1,5 +1,5 @@
 ﻿within IBPSA.Fluid.HeatPumps.BlackBoxData;
-package PerformanceData "Different models used for a black box heat pump model"
+package BlackBox "Different models used for a black box heat pump model"
 
 
 
@@ -18,4 +18,4 @@ annotation (Documentation(revisions="<html><ul>
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.HeatPump\">IBPSA.Fluid.HeatPumps.HeatPump</a>.
 </p>
 </html>"));
-end PerformanceData;
+end BlackBox;

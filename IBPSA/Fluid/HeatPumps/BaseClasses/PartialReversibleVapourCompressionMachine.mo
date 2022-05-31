@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.BaseClasses;
+﻿within IBPSA.Fluid.HeatPumps.BaseClasses;
 partial model PartialReversibleVapourCompressionMachine
   "Grey-box model for reversible heat pumps and chillers using a black-box to simulate the vapour compression cycle"
   extends IBPSA.Fluid.Interfaces.PartialFourPortInterface(
@@ -19,15 +19,15 @@ partial model PartialReversibleVapourCompressionMachine
   replaceable package Medium_eva =
     Modelica.Media.Interfaces.PartialMedium "Medium at source side"
     annotation (Dialog(tab = "Evaporator"),choicesAllMatching=true);
-  replaceable IBPSA.Fluid.BaseClasses.PartialInnerCycle innerCycle constrainedby
-    IBPSA.Fluid.BaseClasses.PartialInnerCycle  "Blackbox model of refrigerant cycle of a vapour compression machine"
-    annotation (Placement(transformation(
-        extent={{-27,-26},{27,26}},
-        rotation=90,
-        origin={0,-1})));
+  replaceable IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle innerCycle
+    constrainedby IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle
+    "Blackbox model of refrigerant cycle of a vapour compression machine"
+    annotation (Placement(transformation(extent={{-18,-18},{18,18}}, rotation=90)));
   replaceable model vapComIne =
-      VapourCompressionInertias.BaseClasses.PartialInertia
-    constrainedby VapourCompressionInertias.BaseClasses.PartialInertia "Model for the inertia between the stationary black box data outputs and the inputs into the heat exchangers."
+      HeatPumps.BlackBoxData.VapourCompressionInertias.BaseClasses.PartialInertia
+    constrainedby
+    HeatPumps.BlackBoxData.VapourCompressionInertias.BaseClasses.PartialInertia
+                                                                       "Model for the inertia between the stationary black box data outputs and the inputs into the heat exchangers."
     annotation (choicesAllMatching=true, Dialog(group="Inertia"));
   parameter Boolean use_rev=true "Is the vapour compression machine reversible?"   annotation(choices(checkBox=true), Dialog(descriptionLabel=true));
   parameter Boolean use_autoCalc=false
@@ -44,7 +44,6 @@ partial model PartialReversibleVapourCompressionMachine
   parameter Boolean use_TSet=false
     "=true to use black-box internal control for supply temperature of device with the given temperature setpoint TSet"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors"));
-
 
 //Condenser
   parameter Modelica.Units.SI.MassFlowRate mFlow_conNominal
@@ -129,42 +128,12 @@ partial model PartialReversibleVapourCompressionMachine
       tab="Evaporator",
       enable=use_evaCap));
 //Assumptions
-  parameter Modelica.Units.SI.Time tauSenT=1
-    "Time constant at nominal flow rate (use tau=0 for steady-state sensor, but see user guide for potential problems)"
-    annotation (Dialog(tab="Assumptions", group="Temperature sensors"));
-  parameter Boolean transferHeat=true
-    "If true, temperature T converges towards TAmb when no flow"
-    annotation (Dialog(tab="Assumptions", group="Temperature sensors"),choices(checkBox=true));
   parameter Boolean allowFlowReversalEva=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Dialog(group="Evaporator", tab="Assumptions"));
   parameter Boolean allowFlowReversalCon=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Dialog(group="Condenser", tab="Assumptions"));
-  parameter Modelica.Units.SI.Time tauHeaTraEva=1200
-    "Time constant for heat transfer in temperature sensors in evaporator, default 20 minutes"
-    annotation (Dialog(
-      tab="Assumptions",
-      group="Temperature sensors",
-      enable=transferHeat), Evaluate=true);
-  parameter Modelica.Units.SI.Temperature TAmbEva_nominal=273.15
-    "Fixed ambient temperature for heat transfer of sensors at the evaporator side"
-    annotation (Dialog(
-      tab="Assumptions",
-      group="Temperature sensors",
-      enable=transferHeat));
-  parameter Modelica.Units.SI.Time tauHeaTraCon=1200
-    "Time constant for heat transfer in temperature sensors in condenser, default 20 minutes"
-    annotation (Dialog(
-      tab="Assumptions",
-      group="Temperature sensors",
-      enable=transferHeat), Evaluate=true);
-  parameter Modelica.Units.SI.Temperature TAmbCon_nominal=291.15
-    "Fixed ambient temperature for heat transfer of sensors at the condenser side"
-    annotation (Dialog(
-      tab="Assumptions",
-      group="Temperature sensors",
-      enable=transferHeat));
 
 //Initialization
   parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
@@ -200,9 +169,6 @@ partial model PartialReversibleVapourCompressionMachine
     annotation (Evaluate=true,Dialog(tab="Initialization", group="Evaporator"));
 
 //Dynamics
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Type of mass balance: dynamic (3 initialization options) or steady state (only affects fluid-models)"
-    annotation (Dialog(tab="Dynamics", group="Equation"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state (only affects fluid-models)"
     annotation (Dialog(tab="Dynamics", group="Equation"));
@@ -241,7 +207,7 @@ partial model PartialReversibleVapourCompressionMachine
     final m_flow_nominal=mFlow_conNominal_final*scalingFactor,
     final dp_nominal=dpCon_nominal*scalingFactor,
     final GInn=GConIns*scalingFactor) "Heat exchanger model for the condenser"
-    annotation (Placement(transformation(extent={{-16,78},{16,110}})));
+    annotation (Placement(transformation(extent={{-20,72},{20,112}})));
   IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity eva(
     redeclare final package Medium = Medium_eva,
     final deltaM=deltaM_eva,
@@ -262,7 +228,7 @@ partial model PartialReversibleVapourCompressionMachine
     final TCap_start=TEvaCap_start,
     final GOut=GEvaOut*scalingFactor,
     final GInn=GEvaIns*scalingFactor) "Heat exchanger model for the evaporator"
-    annotation (Placement(transformation(extent={{16,-70},{-16,-102}})));
+    annotation (Placement(transformation(extent={{20,-72},{-20,-112}})));
   Modelica.Blocks.Interfaces.RealInput iceFac_in if not use_busConnectorOnly
     "Input signal for icing factor" annotation (Placement(transformation(
         extent={{-16,-16},{16,16}},
@@ -271,15 +237,15 @@ partial model PartialReversibleVapourCompressionMachine
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTempOutEva
  if use_evaCap "Foreces heat losses according to ambient temperature"
     annotation (Placement(transformation(
-        extent={{-8,-8},{8,8}},
-        rotation=0,
-        origin={-32,-110})));
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={70,-100})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTempOutCon
  if use_conCap "Foreces heat losses according to ambient temperature"
     annotation (Placement(transformation(
-        extent={{-8,-8},{8,8}},
-        rotation=0,
-        origin={-52,114})));
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={70,110})));
 
   Modelica.Blocks.Interfaces.RealInput ySet
     if not use_busConnectorOnly and not use_TSet
@@ -316,76 +282,16 @@ partial model PartialReversibleVapourCompressionMachine
     "Set value of operation mode"
     annotation (Placement(transformation(extent={{-132,-106},{-100,-74}})));
 
-  IBPSA.Fluid.Sensors.TemperatureTwoPort senT_a2(
-    redeclare final package Medium = Medium_eva,
-    final allowFlowReversal=allowFlowReversalEva,
-    final m_flow_small=1E-4*mFlow_evaNominal_final,
-    final initType=initType,
-    final T_start=TEva_start,
-    final transferHeat=transferHeat,
-    final TAmb=TAmbEva_nominal,
-    final tauHeaTra=tauHeaTraEva,
-    final tau=tauSenT,
-    final m_flow_nominal=mFlow_evaNominal_final*scalingFactor)
-    "Temperature at sink inlet" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={38,-86})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort senT_b2(
-    redeclare final package Medium = Medium_eva,
-    final allowFlowReversal=allowFlowReversalEva,
-    final m_flow_small=1E-4*mFlow_evaNominal_final,
-    final initType=initType,
-    final T_start=TEva_start,
-    final transferHeat=transferHeat,
-    final TAmb=TAmbEva_nominal,
-    final tauHeaTra=tauHeaTraEva,
-    final tau=tauSenT,
-    final m_flow_nominal=mFlow_evaNominal_final*scalingFactor)
-    "Temperature at sink outlet" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-52,-86})));
   IBPSA.Fluid.Sensors.MassFlowRate mFlow_eva(redeclare final package Medium =
         Medium_eva, final allowFlowReversal=allowFlowReversalEva)
     "Mass flow sensor at the evaporator" annotation (Placement(transformation(
         origin={72,-60},
         extent={{10,-10},{-10,10}},
         rotation=0)));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort senT_b1(
-    final initType=initType,
-    final transferHeat=transferHeat,
-    final TAmb=TAmbCon_nominal,
-    redeclare final package Medium = Medium_con,
-    final allowFlowReversal=allowFlowReversalCon,
-    final m_flow_small=1E-4*mFlow_conNominal_final,
-    final T_start=TCon_start,
-    final tau=tauSenT,
-    final tauHeaTra=tauHeaTraCon,
-    final m_flow_nominal=mFlow_conNominal_final*scalingFactor)
-    "Temperature at sink outlet" annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={38,92})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort senT_a1(
-    final initType=initType,
-    final transferHeat=transferHeat,
-    redeclare final package Medium = Medium_con,
-    final allowFlowReversal=allowFlowReversalCon,
-    final m_flow_small=1E-4*mFlow_conNominal_final,
-    final T_start=TCon_start,
-    final TAmb=TAmbCon_nominal,
-    final tau=tauSenT,
-    final m_flow_nominal=mFlow_conNominal_final*scalingFactor,
-    final tauHeaTra=tauHeaTraCon) "Temperature at sink inlet" annotation (
-      Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={-34,90})));
   IBPSA.Fluid.Sensors.MassFlowRate mFlow_con(final allowFlowReversal=
         allowFlowReversalEva, redeclare final package Medium = Medium_con)
     "Mass flow sensor at the evaporator" annotation (Placement(transformation(
-        origin={-76,60},
+        origin={-50,92},
         extent={{-10,10},{10,-10}},
         rotation=0)));
 
@@ -396,20 +302,39 @@ partial model PartialReversibleVapourCompressionMachine
     final uHigh=ySet_small,
     final pre_y_start=false) "Use default ySet value" annotation (Placement(
         transformation(
-        extent={{6,-6},{-6,6}},
+        extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-66,-28})));
+        origin={-50,-30})));
 
-
-  vapComIne vapComIneCon annotation(Placement(transformation(
-        extent={{-7,-6},{7,6}},
+  vapComIne vapComIneCon "Inertia model for condenser side"
+                         annotation(Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,53})));
-  vapComIne vapComIneEva annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
+        origin={0,50})));
+  vapComIne vapComIneEva "Inertia model for evaporator side"
+                         annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-50})));
 
+  SenTempInflow senTConIn(y=Medium_con.temperature(Medium_con.setState_phX(
+        port_a1.p,
+        inStream(port_a1.h_outflow),
+        inStream(port_a1.Xi_outflow))))
+    "Real expression for condenser inlet temperature" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-90,90})));
+  SenTempInflow senTEvaIn(y=Medium_eva.temperature(Medium_eva.setState_phX(
+        port_a2.p,
+        inStream(port_a2.h_outflow),
+        inStream(port_a2.Xi_outflow))))
+    "Real expression for evaporator inlet temperature" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={90,-40})));
 protected
   parameter Modelica.Units.SI.MassFlowRate autoCalc_mFlow_min=0.3
     "Realistic mass flow minimum for simulation plausibility";
@@ -448,54 +373,32 @@ equation
   "Given nominal power (Q_useNominal) for auto-calculation of evaporator and condenser data is outside the range of data sheets considered. Please control the auto-calculated volumes!",
   level = AssertionLevel.warning);
 
-  connect(senT_a1.T, sigBus.TConInMea) annotation (Line(points={{-34,79},{-34,
-          40},{-76,40},{-76,-43},{-105,-43}},             color={0,0,127}),
-      Text(
-      string="%second",
-      index=1,
-      extent={{-3,-6},{-3,-6}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(senT_b1.T, sigBus.TConOutMea) annotation (Line(points={{38,81},{38,
-          -36},{-52,-36},{-52,-43},{-105,-43}},        color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-3,-6},{-3,-6}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(senT_a2.T, sigBus.TEvaInMea) annotation (Line(points={{38,-75},{38,
-          -36},{-52,-36},{-52,-43},{-105,-43}},        color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(senT_b2.T, sigBus.TEvaOutMea) annotation (Line(points={{-52,-75},{-52,
-          -43},{-105,-43}},             color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
   connect(mFlow_eva.m_flow, sigBus.m_flowEvaMea) annotation (Line(points={{72,-49},
-          {72,-36},{-52,-36},{-52,-43},{-105,-43}},             color={0,0,127}),
+          {72,-40},{26,-40},{26,-30},{-30,-30},{-30,-52},{-76,-52},{-76,-43},{-105,
+          -43}},                                                color={0,0,127}),
       Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(mFlow_con.m_flow, sigBus.m_flowConMea) annotation (Line(points={{-76,49},
-          {-76,-43},{-105,-43}},                 color={0,0,127}), Text(
+  connect(mFlow_con.m_flow, sigBus.m_flowConMea) annotation (Line(points={{-50,81},
+          {-50,32},{-76,32},{-76,-43},{-105,-43}},
+                                                 color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
 
   connect(innerCycle.sigBus, sigBus) annotation (Line(
-      points={{-26.78,-0.73},{-54,-0.73},{-54,-43},{-105,-43}},
+      points={{-18.54,0.18},{-30,0.18},{-30,-52},{-76,-52},{-76,-43},{-105,-43}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(innerCycle.Pel, sigBus.PelMea) annotation (Line(points={{28.73,-0.865},
-          {38,-0.865},{38,-36},{-52,-36},{-52,-43},{-105,-43}},         color={0,
+  connect(innerCycle.Pel, sigBus.PelMea) annotation (Line(points={{19.89,0.09},{
+          26,0.09},{26,-30},{-30,-30},{-30,-52},{-76,-52},{-76,-43},{-105,-43}},
+                                                                        color={0,
           0,127}), Text(
       string="%second",
       index=1,
@@ -520,53 +423,38 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(T_amb_con, varTempOutCon.T) annotation (Line(
-      points={{110,100},{80,100},{80,126},{-76,126},{-76,114},{-61.6,114}},
+      points={{110,100},{88,100},{88,110},{82,110}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(varTempOutCon.port, con.port_out) annotation (Line(
-      points={{-44,114},{0,114},{0,110}},
+      points={{60,110},{40,110},{40,118},{0,118},{0,112}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(T_amb_eva, varTempOutEva.T) annotation (Line(
-      points={{110,-100},{80,-100},{80,-120},{-48,-120},{-48,-110},{-41.6,-110}},
+      points={{110,-100},{82,-100}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(eva.port_out, varTempOutEva.port) annotation (Line(
-      points={{0,-102},{0,-110},{-24,-110}},
+      points={{0,-112},{0,-118},{54,-118},{54,-100},{60,-100}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-100,-60},{-100,
           -60}}, color={0,127,255}));
-  connect(senT_a2.port_b, eva.port_a)
-    annotation (Line(points={{28,-86},{16,-86}}, color={0,127,255}));
-  connect(senT_b2.port_a, eva.port_b)
-    annotation (Line(points={{-42,-86},{-16,-86}}, color={0,127,255}));
-  connect(senT_b2.port_b, port_b2) annotation (Line(points={{-62,-86},{-62,-60},
-          {-100,-60}}, color={0,127,255}));
   connect(mFlow_eva.port_a, port_a2)
     annotation (Line(points={{82,-60},{100,-60}}, color={0,127,255}));
-  connect(mFlow_eva.port_b, senT_a2.port_a) annotation (Line(points={{62,-60},{58,
-          -60},{58,-86},{48,-86}}, color={0,127,255}));
-  connect(con.port_a, senT_a1.port_b)
-    annotation (Line(points={{-16,94},{-20,94},{-20,90},{-24,90}},
-                                                 color={0,127,255}));
-  connect(senT_a1.port_a, mFlow_con.port_b) annotation (Line(points={{-44,90},{-56,
-          90},{-56,60},{-66,60}},     color={0,127,255}));
   connect(port_a1, mFlow_con.port_a)
-    annotation (Line(points={{-100,60},{-86,60}}, color={0,127,255}));
-  connect(con.port_b, senT_b1.port_a)
-    annotation (Line(points={{16,94},{22,94},{22,92},{28,92}},
-                                               color={0,127,255}));
-  connect(port_b1, senT_b1.port_b) annotation (Line(points={{100,60},{72,60},{72,
-          92},{48,92}}, color={0,127,255}));
-  connect(hysteresis.y, sigBus.onOffMea) annotation (Line(points={{-59.4,-28},{-56,
-          -28},{-56,-43},{-105,-43}}, color={255,0,255}), Text(
+    annotation (Line(points={{-100,60},{-68,60},{-68,92},{-60,92}},
+                                                  color={0,127,255}));
+  connect(hysteresis.y, sigBus.onOffMea) annotation (Line(points={{-39,-30},{-30,
+          -30},{-30,-52},{-76,-52},{-76,-43},{-105,-43}},
+                                      color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(varTempOutCon.T, sigBus.TConAmbMea) annotation (Line(
-      points={{-61.6,114},{-76,114},{-76,-43},{-105,-43}},
+      points={{82,110},{88,110},{88,98},{38,98},{38,32},{-76,32},{-76,-43},{-105,
+          -43}},
       color={0,0,127},
       pattern=LinePattern.Dash), Text(
       string="%second",
@@ -574,30 +462,30 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(varTempOutEva.T, sigBus.TEvaAmbMea) annotation (Line(
-      points={{-41.6,-110},{-76,-110},{-76,-43},{-105,-43}},
+      points={{82,-100},{88,-100},{88,-118},{-76,-118},{-76,-43},{-105,-43}},
       color={0,0,127},
       pattern=LinePattern.Dash), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(hysteresis.u, sigBus.ySet) annotation (Line(points={{-73.2,-28},{-76,-28},
+  connect(hysteresis.u, sigBus.ySet) annotation (Line(points={{-62,-30},{-76,-30},
           {-76,-43},{-105,-43}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(innerCycle.QEva, vapComIneEva.u) annotation (Line(points={{-1.77636e-15,
-          -30.7},{-1.77636e-15,-36.55},{1.33227e-15,-36.55},{1.33227e-15,-42.8}},
+  connect(innerCycle.QEva, vapComIneEva.u) annotation (Line(points={{-1.22125e-15,
+          -19.8},{-1.22125e-15,-28.9},{2.22045e-15,-28.9},{2.22045e-15,-38}},
         color={0,0,127}));
-  connect(eva.QFlow_in, vapComIneEva.y) annotation (Line(points={{1.11022e-16,-69.04},
-          {1.11022e-16,-64.92},{-1.11022e-15,-64.92},{-1.11022e-15,-56.6}},
+  connect(eva.QFlow_in, vapComIneEva.y) annotation (Line(points={{2.22045e-16,-70.8},
+          {2.22045e-16,-65.9},{-1.9984e-15,-65.9},{-1.9984e-15,-61}},
         color={0,0,127}));
-  connect(vapComIneCon.y, con.QFlow_in) annotation (Line(points={{3.33067e-16,60.7},
-          {3.33067e-16,65.77},{-1.11022e-16,65.77},{-1.11022e-16,77.04}}, color=
+  connect(vapComIneCon.y, con.QFlow_in) annotation (Line(points={{7.21645e-16,61},
+          {7.21645e-16,69.9},{-2.22045e-16,69.9},{-2.22045e-16,70.8}},    color=
          {0,0,127}));
-  connect(vapComIneCon.u, innerCycle.QCon) annotation (Line(points={{-3.33067e-16,
-          44.6},{-3.33067e-16,35.85},{1.77636e-15,35.85},{1.77636e-15,28.7}},
+  connect(vapComIneCon.u, innerCycle.QCon) annotation (Line(points={{-6.66134e-16,
+          38},{-6.66134e-16,28.9},{1.22125e-15,28.9},{1.22125e-15,19.8}},
         color={0,0,127}));
   connect(onOffSet, sigBus.onOffSet) annotation (Line(points={{-116,-20},{-76,
           -20},{-76,-43},{-105,-43}}, color={255,0,255}), Text(
@@ -605,6 +493,39 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(con.T, sigBus.TConOutMea) annotation (Line(points={{22.4,82},{38,82},{
+          38,32},{-76,32},{-76,-43},{-105,-43}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(con.port_b, port_b1) annotation (Line(points={{20,92},{78,92},{78,60},
+          {100,60}}, color={0,127,255}));
+  connect(senTConIn.y, sigBus.TConInMea) annotation (Line(points={{-79,90},{-72,
+          90},{-72,32},{-76,32},{-76,-43},{-105,-43}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,-6},{-3,-6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(mFlow_con.port_b, con.port_a)
+    annotation (Line(points={{-40,92},{-20,92}}, color={0,127,255}));
+  connect(eva.T, sigBus.TEvaOutMea) annotation (Line(points={{-22.4,-82},{-76,-82},
+          {-76,-43},{-105,-43}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(senTEvaIn.y, sigBus.TEvaInMea) annotation (Line(points={{79,-40},{26,-40},
+          {26,-30},{-30,-30},{-30,-52},{-76,-52},{-76,-43},{-105,-43}}, color={0,
+          0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(mFlow_eva.port_b, eva.port_a) annotation (Line(points={{62,-60},{32,-60},
+          {32,-92},{20,-92}}, color={0,127,255}));
+  connect(eva.port_b, port_b2) annotation (Line(points={{-20,-92},{-70,-92},{-70,
+          -60},{-100,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},

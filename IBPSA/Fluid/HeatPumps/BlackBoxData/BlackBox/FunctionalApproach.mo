@@ -1,8 +1,8 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.PerformanceData;
-model PolynomalApproach
-  "Calculating heat pump data based on a polynomal approach"
+﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox;
+model FunctionalApproach
+  "Calculating heat pump data based on a avaiable functional relationships"
   extends
-    IBPSA.Fluid.HeatPumps.BlackBoxData.PerformanceData.BaseClasses.PartialPerformanceData;
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox;
 
   replaceable function PolyData =
       IBPSA.Fluid.HeatPumps.BlackBoxData.Functions.Characteristics.PartialBaseFct
@@ -173,4 +173,4 @@ equation
   <i>QEva = QCon - P_el</i>
 </p>
 </html>"));
-end PolynomalApproach;
+end FunctionalApproach;

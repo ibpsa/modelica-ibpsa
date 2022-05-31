@@ -5,6 +5,3 @@ PartialResistance
 PartialThreeWayResistance
 FlowModels
 Validation
-PartialReversibleVapourCompressionMachine
-PartialInnerCycle
-VapourCompressionInertias

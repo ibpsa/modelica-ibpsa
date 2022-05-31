@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.PerformanceData;
+﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox;
 model IcingBlock
   "Block which decreases evaporator power by an icing factor"
   IBPSA.Utilities.Time.CalendarTime calTim(zerTim=zerTim, yearRef=yearRef);

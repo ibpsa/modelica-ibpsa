@@ -1,7 +1,7 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.PerformanceData;
+﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox;
 model LookUpTableND "N-dimensional table with data for heat pump"
   extends
-    IBPSA.Fluid.HeatPumps.BlackBoxData.PerformanceData.BaseClasses.PartialPerformanceData;
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox;
   parameter Real nConv=100
     "Gain value multiplied with relative compressor speed n to calculate matching value based on sdf tables";
   parameter SDF.Types.InterpolationMethod interpMethod=SDF.Types.InterpolationMethod.Linear

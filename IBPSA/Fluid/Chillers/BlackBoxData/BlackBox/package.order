@@ -1,6 +1,4 @@
 BaseClasses
-IcingBlock
-VCLibMap
 LookUpTable2D
 LookUpTableND
 PolynomalApproach

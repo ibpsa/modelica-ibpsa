@@ -34,7 +34,7 @@ model HeatPump "Example for the reversible heat pump model."
         origin={2,-76})));
   IBPSA.Fluid.HeatPumps.HeatPump heatPump(
     redeclare model vapComIne =
-        IBPSA.Fluid.BaseClasses.VapourCompressionInertias.NoInertia,
+        IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
     use_busConnectorOnly=true,
     GConIns=0,
     CEva=100,
@@ -49,14 +49,13 @@ model HeatPump "Example for the reversible heat pump model."
     redeclare package Medium_eva = Medium_sou,
     use_rev=true,
     GEvaIns=0,
-    redeclare model PerDataMainHP =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.PerformanceData.LookUpTable2D (
-          dataTable=IBPSA.Fluid.HeatPumps.BlackBoxData.EN14511.Vitocal200AWO201
-            ()),
-    redeclare model PerDataRevHP =
-        IBPSA.Fluid.Chillers.BlackBoxData.PerformanceData.LookUpTable2D (
-          smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments, dataTable
-          =IBPSA.Fluid.Chillers.BlackBoxData.EN14511.Vitocal200AWO201()),
+    redeclare model BlaBoxHPHeating =
+        IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.LookUpTable2D (dataTable=
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EN14511.Vitocal200AWO201()),
+    redeclare model BlaBoxHPCooling =
+        IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.LookUpTable2D (smoothness=
+            Modelica.Blocks.Types.Smoothness.LinearSegments, dataTable=
+            IBPSA.Fluid.Chillers.BlackBoxData.EN14511.Vitocal200AWO201()),
     VEva=0.04,
     use_evaCap=false,
     scalingFactor=1,

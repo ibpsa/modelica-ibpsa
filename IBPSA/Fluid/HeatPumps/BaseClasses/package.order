@@ -1,2 +1,5 @@
 PartialWaterToWater
 InnerCycle_HeatPump
+PartialInnerCycle
+PartialReversibleVapourCompressionMachine
+SenTempInflow

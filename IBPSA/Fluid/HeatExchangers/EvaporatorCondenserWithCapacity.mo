@@ -27,15 +27,15 @@ model EvaporatorCondenserWithCapacity
           "Heat losses",                                                                                         enable=use_cap));
   Modelica.Thermal.HeatTransfer.Components.Convection conIns if use_cap
     "Convection between fluid and solid" annotation (Placement(transformation(
-        extent={{-8,-8},{8,8}},
+        extent={{-12,-12},{12,12}},
         rotation=90,
-        origin={-12,28})));
+        origin={-10,30})));
   Modelica.Thermal.HeatTransfer.Components.Convection conOut if use_cap
     "Convection and conduction between solid and ambient air" annotation (
       Placement(transformation(
-        extent={{8,8},{-8,-8}},
+        extent={{12,12},{-12,-12}},
         rotation=270,
-        origin={-12,78})));
+        origin={-10,70})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCap(
     final C=C,
     final T(
@@ -44,15 +44,15 @@ model EvaporatorCondenserWithCapacity
     final der_T(final fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial),
         start=0)) if use_cap "Heat Capacity" annotation (Placement(
         transformation(
-        extent={{-12,-12},{12,12}},
+        extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={12,52})));
+        origin={30,50})));
   Modelica.Blocks.Sources.RealExpression heatLossIns(final y=GInn) if use_cap
     "Nominal heat loss coefficient to the inside" annotation (Placement(
         transformation(
-        extent={{-15,-10},{15,10}},
+        extent={{-20,-10},{20,10}},
         rotation=0,
-        origin={-61,28})));
+        origin={-60,30})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_out if use_cap
     "Temperature and heat flow to the ambient"
     annotation (Placement(transformation(extent={{-5,105},{5,95}}),
@@ -60,16 +60,16 @@ model EvaporatorCondenserWithCapacity
   Modelica.Blocks.Sources.RealExpression heatLossOut(final y=GOut) if use_cap
     "Nominal heat loss coefficient to the inside" annotation (Placement(
         transformation(
-        extent={{-15,-10},{15,10}},
+        extent={{-20,-10},{20,10}},
         rotation=0,
-        origin={-61,78})));
+        origin={-60,70})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea(final alpha=0,
       final T_ref=293.15) "Heat flow rate of the condenser" annotation (
       Placement(transformation(
-        extent={{12,-12},{-12,12}},
+        extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={0,-68})));
+        origin={0,-70})));
   Modelica.Blocks.Interfaces.RealInput QFlow_in "Heat flow rate to the medium"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -79,33 +79,44 @@ model EvaporatorCondenserWithCapacity
         rotation=90,
         origin={-8.88178e-16,-106})));
 
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senT
+    "Heat flow rate of the condenser" annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={50,-50})));
+  Modelica.Blocks.Interfaces.RealOutput T(unit="K", displayUnit="degC")
+    "Absolute temperature as output signal" annotation (Placement(
+        transformation(extent={{100,-62},{124,-38}}), iconTransformation(extent
+          ={{100,-62},{124,-38}})));
 equation
   connect(conIns.fluid, heatCap.port)
-    annotation (Line(points={{-12,36},{-12,52},{1.77636e-15,52}},
-                                                          color={191,0,0},
+    annotation (Line(points={{-10,42},{-10,50},{20,50}},  color={191,0,0},
       pattern=LinePattern.Dash));
   connect(heatCap.port, conOut.solid)
-    annotation (Line(points={{1.77636e-15,52},{-12,52},{-12,70}},
-                                                          color={191,0,0},
+    annotation (Line(points={{20,50},{-10,50},{-10,58}},  color={191,0,0},
       pattern=LinePattern.Dash));
   connect(conIns.Gc, heatLossIns.y)
-    annotation (Line(points={{-20,28},{-44.5,28}}, color={0,0,127},
+    annotation (Line(points={{-22,30},{-38,30}},   color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conOut.fluid, port_out)
-    annotation (Line(points={{-12,86},{-12,100},{0,100}},
+    annotation (Line(points={{-10,82},{-10,90},{0,90},{0,100}},
                                                   color={191,0,0},
       pattern=LinePattern.Dash));
   connect(conOut.Gc, heatLossOut.y)
-    annotation (Line(points={{-20,78},{-44.5,78}}, color={0,0,127},
+    annotation (Line(points={{-22,70},{-38,70}},   color={0,0,127},
       pattern=LinePattern.Dash));
   connect(vol.heatPort, conIns.solid) annotation (Line(
-      points={{-9,-10},{-12,-10},{-12,20}},
+      points={{-9,-10},{-14,-10},{-14,12},{-10,12},{-10,18}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(vol.heatPort, preHea.port) annotation (Line(points={{-9,-10},{-12,-10},
-          {-12,-34},{0,-34},{0,-56},{2.22045e-15,-56}},   color={191,0,0}));
-  connect(preHea.Q_flow, QFlow_in) annotation (Line(points={{-2.22045e-15,-80},{
-          -2.22045e-15,-99},{0,-99},{0,-118}}, color={0,0,127}));
+          {-12,-34},{0,-34},{0,-60},{1.77636e-15,-60}},   color={191,0,0}));
+  connect(preHea.Q_flow, QFlow_in) annotation (Line(points={{-1.77636e-15,-80},
+          {-1.77636e-15,-99},{0,-99},{0,-118}},color={0,0,127}));
+  connect(senT.port, vol.heatPort) annotation (Line(points={{40,-50},{0,-50},{0,
+          -34},{-12,-34},{-12,-10},{-9,-10}}, color={191,0,0}));
+  connect(senT.T, T)
+    annotation (Line(points={{61,-50},{112,-50}}, color={0,0,127}));
   annotation (Icon(graphics={ Ellipse(
           extent={{-48,46},{46,-42}},
           lineColor={0,0,0},

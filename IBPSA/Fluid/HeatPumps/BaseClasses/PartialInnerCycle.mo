@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.BaseClasses;
+﻿within IBPSA.Fluid.HeatPumps.BaseClasses;
 partial model PartialInnerCycle
   "Blackbox model of refrigerant cycle of a vapour compression machine (heat pump or chiller)"
 
