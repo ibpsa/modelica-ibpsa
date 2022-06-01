@@ -50,8 +50,11 @@ model HeatPump "Example for the reversible heat pump model."
     use_rev=true,
     GEvaIns=0,
     redeclare model BlaBoxHPHeating =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.LookUpTable2D (dataTable=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EN14511.Vitocal200AWO201()),
+        IBPSA.Fluid.HeatPumps.BlackBoxData.LookUpTable2D (redeclare
+          IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting iceFacCalc,
+          dataTable=
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201
+            ()),
     redeclare model BlaBoxHPCooling =
         IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.LookUpTable2D (smoothness=
             Modelica.Blocks.Types.Smoothness.LinearSegments, dataTable=
@@ -60,11 +63,9 @@ model HeatPump "Example for the reversible heat pump model."
     use_evaCap=false,
     scalingFactor=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    mFlow_conNominal=0.5,
-    mFlow_evaNominal=0.5,
+    mCon_flow_nominal=0.5,
+    mEva_flow_nominal=0.5,
     use_autoCalc=false,
-    TAmbEva_nominal=273.15,
-    TAmbCon_nominal=288.15,
     TCon_start=303.15) annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=270,
@@ -154,12 +155,6 @@ model HeatPump "Example for the reversible heat pump model."
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={88,-64})));
-  Modelica.Blocks.Sources.Constant iceFac(final k=1)
-    "Fixed value for icing factor. 1 means no icing/frosting (full heat transfer in heat exchanger)" annotation (Placement(
-        transformation(
-        extent={{8,8},{-8,-8}},
-        rotation=180,
-        origin={-88,38})));
   Modelica.Blocks.Logical.LogicalSwitch logicalSwitch
     annotation (Placement(transformation(extent={{30,48},{20,58}})));
   Modelica.Blocks.Logical.Hysteresis hysCooling(
@@ -175,7 +170,8 @@ model HeatPump "Example for the reversible heat pump model."
     minLocTime(displayUnit="min") = 900,
     maxRunPerHou=3,
     use_opeEnvFroRec=true,
-    dataTable=IBPSA.Fluid.HeatPumps.BlackBoxData.EN14511.Vitocal200AWO201(),
+    dataTable=
+        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201(),
     tableUpp=[-40,70; 40,70],
     use_deFro=false,
     minIceFac=0,
@@ -228,12 +224,6 @@ equation
   connect(logicalSwitch.y, booleanToReal.u)
     annotation (Line(points={{19.5,53},{14,53},{14,66},{30,66},{30,71},{25,71}},
                                                        color={255,0,255}));
-  connect(iceFac.y, sigBus.iceFacMea) annotation (Line(points={{-79.2,38},{
-          -79.2,39},{-19,39}},    color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(sigBus, heatPump.sigBus) annotation (Line(
       points={{-19,39},{-19,16},{-10,16},{-10,2.76},{-7.425,2.76}},
       color={255,204,51},

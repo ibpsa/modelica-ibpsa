@@ -11,7 +11,7 @@ model HeatPump
       redeclare model BlaBoxHPCooling = BlaBoxHPCooling));
 
   replaceable model BlaBoxHPHeating =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
   "Black box data of a heat pump in heating mode"
     annotation (choicesAllMatching=true);
   replaceable model BlaBoxHPCooling =

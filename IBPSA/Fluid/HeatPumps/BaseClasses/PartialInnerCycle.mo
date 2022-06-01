@@ -10,23 +10,25 @@ partial model PartialInnerCycle
           extent={{-16,88},{18,118}})));
   Modelica.Blocks.Sources.Constant constZero(final k=0) if not use_rev
     "If no heating is used, the switches may still be connected"
-    annotation (Placement(transformation(extent={{-80,-78},{-60,-58}})));
-  Modelica.Blocks.Interfaces.RealOutput QCon(unit="W", displayUnit="kW") "Heat Flow to condenser"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(unit="W", displayUnit="kW")
+    "Heat Flow to condenser"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput QEva(unit="W", displayUnit="kW") "Heat flow from evaporator"
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(unit="W", displayUnit="kW")
+    "Heat flow from evaporator"
     annotation (Placement(transformation(extent={{-100,-10},{-120,10}})));
   Modelica.Blocks.Logical.Switch       switchQEva(
     u1(unit="W", displayUnit="kW"),
     u3(unit="W", displayUnit="kW"),
     y(unit="W", displayUnit="kW"))
     "If mode is false, Condenser becomes Evaporator and vice versa"
-    annotation (Placement(transformation(extent={{-70,-24},{-90,-4}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
   Modelica.Blocks.Logical.Switch       switchQCon(
     y(unit="W", displayUnit="kW"),
     u1(unit="W", displayUnit="kW"),
     u3(unit="W", displayUnit="kW"))
     "If mode is false, Condenser becomes Evaporator and vice versa"
-    annotation (Placement(transformation(extent={{70,-22},{90,-2}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Interfaces.RealOutput Pel(unit="W", displayUnit="kW")
     "Electrical power consumed by compressor" annotation (Placement(
         transformation(
@@ -42,7 +44,7 @@ partial model PartialInnerCycle
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={0,-80})));
+        origin={0,-70})));
 
   Modelica.Blocks.Routing.BooleanPassThrough modeSetAssert
     "Pass through to enable assertion for non-reversible device";
@@ -51,27 +53,26 @@ equation
     "Can't turn to reversible operation mode on irreversible vapour compression machine",
     level=AssertionLevel.error);
 
-  connect(switchQEva.y, QEva) annotation (Line(points={{-91,-14},{-94,-14},{-94,
-          0},{-110,0}}, color={0,0,127}));
-  connect(switchPel.y, Pel) annotation (Line(points={{-2.22045e-15,-91},{
-          -2.22045e-15,-110.5},{0.5,-110.5}},
-                                 color={0,0,127}));
+  connect(switchQEva.y, QEva_flow)
+    annotation (Line(points={{-81,0},{-110,0}}, color={0,0,127}));
+  connect(switchPel.y, Pel) annotation (Line(points={{-1.9984e-15,-81},{
+          -1.9984e-15,-95.75},{0.5,-95.75},{0.5,-110.5}}, color={0,0,127}));
   connect(sigBus.modeSet,  switchPel.u2) annotation (Line(
-      points={{0,102},{0,-68},{2.22045e-15,-68}},
+      points={{0,102},{0,22},{2.22045e-15,22},{2.22045e-15,-58}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
 
-  connect(switchQCon.y, QCon) annotation (Line(points={{91,-12},{94,-12},{94,0},
-          {110,0}}, color={0,0,127}));
+  connect(switchQCon.y, QCon_flow)
+    annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
   connect(sigBus.modeSet, switchQEva.u2) annotation (Line(
-      points={{0,102},{-64,102},{-64,-14},{-68,-14}},
+      points={{0,102},{0,0},{-58,0}},
       color={255,204,51},
       thickness=0.5));
   connect(sigBus.modeSet, switchQCon.u2) annotation (Line(
-      points={{0,102},{64,102},{64,-12},{68,-12}},
+      points={{0,102},{0,0},{58,0}},
       color={255,204,51},
       thickness=0.5));
   connect(modeSetAssert.u, sigBus.modeSet);

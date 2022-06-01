@@ -40,8 +40,8 @@ model Chiller "Example for the reversible chiller model."
     GConOut=5,
     dpEva_nominal=0,
     dpCon_nominal=0,
-    mFlow_conNominal=0.5,
-    mFlow_evaNominal=0.5,
+    mCon_flow_nominal=0.5,
+    mEva_flow_nominal=0.5,
     use_conCap=false,
     use_evaCap=false,
     redeclare package Medium_con = Medium_sin,
@@ -52,9 +52,10 @@ model Chiller "Example for the reversible chiller model."
         IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.LookUpTable2D (dataTable=
             IBPSA.Fluid.Chillers.BlackBoxData.EN14511.Vitocal200AWO201()),
     redeclare model PerDataRevChi =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.LookUpTable2D (smoothness=
-            Modelica.Blocks.Types.Smoothness.LinearSegments, dataTable=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EN14511.Vitocal200AWO201()),
+        IBPSA.Fluid.HeatPumps.BlackBoxData.LookUpTable2D (smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+          dataTable=
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201
+            ()),
     use_rev=true,
     use_autoCalc=false,
     VEva=0.4,

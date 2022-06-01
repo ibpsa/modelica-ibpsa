@@ -15,7 +15,7 @@ model Chiller
   "Performance data of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
   replaceable model PerDataRevChi =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
   "Performance data of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 

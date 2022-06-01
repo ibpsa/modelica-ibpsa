@@ -23,7 +23,8 @@ block SafetyControl "Block including all safety levels"
   parameter Boolean use_opeEnvFroRec=true
     "Use a the operational envelope given in the datasheet"
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv),choices(checkBox=true));
-  parameter IBPSA.Fluid.HeatPumps.BlackBoxData.HeatPumpBaseDataDefinition
+  parameter
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition
     dataTable "Data Table of HP" annotation (Dialog(group=
           "Operational Envelope", enable=use_opeEnv and use_opeEnvFroRec),
       choicesAllMatching=true);

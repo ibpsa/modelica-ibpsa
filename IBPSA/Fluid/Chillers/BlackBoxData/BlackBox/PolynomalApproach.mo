@@ -5,7 +5,7 @@ model PolynomalApproach
     IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox;
 
   replaceable function PolyData =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.Functions.Characteristics.PartialBaseFct
+      IBPSA.Fluid.HeatPumps.BlackBoxData.Functions.BaseClasses.PartialBaseFct
                                                                            "Function to calculate peformance Data" annotation(choicesAllMatching=true);
 protected
   Real Char[2];

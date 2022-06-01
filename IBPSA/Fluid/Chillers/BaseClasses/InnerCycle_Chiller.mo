@@ -11,9 +11,9 @@ model InnerCycle_Chiller "Blackbox model of refrigerant cycle of a chiller"
     annotation (choicesAllMatching=true);
 
   replaceable model PerDataRevChi =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
     constrainedby
-    IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox(
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox(
      final scalingFactor = scalingFactor)
     "Replaceable model for performance data of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);

@@ -3,9 +3,9 @@ model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle;
 
   replaceable model BlaBoxHPHeating =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
     constrainedby
-    IBPSA.Fluid.HeatPumps.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox(
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox(
      final scalingFactor = scalingFactor)
     "Replaceable model for black box data of a heat pump in main operation mode"
     annotation (choicesAllMatching=true);
@@ -19,63 +19,65 @@ model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
   BlaBoxHPHeating BlackBoxHeaPumHeating
-  annotation (Placement(transformation(extent={{7,20},{61,76}}, rotation=0)));
+  annotation (Placement(transformation(extent={{60,40},{20,80}},rotation=0)));
   BlaBoxHPCooling BlackBoxHeaPumCooling if use_rev
-  annotation (Placement(transformation(extent={{-27,-28},{27,28}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-19,40},{-60,80}}, rotation=0)));
   Modelica.Blocks.Math.Gain gainEva(final k=-1)
     "Negate QEva to match definition of heat flow direction" annotation (
       Placement(transformation(
-        extent={{-4,-4},{4,4}},
+        extent={{-8,-8},{8,8}},
         rotation=180,
-        origin={-56,-6})));
+        origin={-32,8})));
   Modelica.Blocks.Math.Gain gainCon(final k=-1) if use_rev
     "Negate QCon to match definition of heat flow direction" annotation (
       Placement(transformation(
-        extent={{-4,-4},{4,4}},
+        extent={{-8,-8},{8,8}},
         rotation=0,
-        origin={58,-20})));
+        origin={30,-8})));
 
 equation
 
   connect(BlackBoxHeaPumHeating.QCon_flow, switchQCon.u1)
-    annotation (Line(points={{12.4,17.2},{12.4,-4},{68,-4}}, color={0,0,127}));
-  connect(BlackBoxHeaPumHeating.Pel, switchPel.u1) annotation (Line(points={{34,
-          17.2},{34,-30},{8,-30},{8,-68}}, color={0,0,127}));
+    annotation (Line(points={{56,38},{56,8},{58,8}},         color={0,0,127}));
+  connect(BlackBoxHeaPumHeating.Pel, switchPel.u1) annotation (Line(points={{40,38},
+          {40,30},{86,30},{86,-52},{8,-52},{8,-58}},
+                                           color={0,0,127}));
   connect(BlackBoxHeaPumCooling.Pel, switchPel.u3) annotation (Line(
-      points={{0,-30.8},{0,-30},{-8,-30},{-8,-68}},
+      points={{-39.5,38},{-40,38},{-40,30},{-90,30},{-90,-50},{-8,-50},{-8,-58}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(BlackBoxHeaPumCooling.QEva_flow, switchQEva.u3) annotation (Line(
-      points={{21.6,-30.8},{21.6,-22},{-68,-22}},
+      points={{-55.9,38},{-56,38},{-56,24},{-52,24},{-52,-8},{-58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(constZero.y, switchPel.u3)
-    annotation (Line(points={{-59,-68},{-34,-68},{-34,-68},{-8,-68}},
+    annotation (Line(points={{-59,-70},{-40,-70},{-40,-50},{-8,-50},{-8,-58}},
                                                   color={0,0,127}));
-  connect(constZero.y, switchQEva.u3) annotation (Line(points={{-59,-68},{-52,-68},
-          {-52,-22},{-68,-22}},      color={0,0,127},
+  connect(constZero.y, switchQEva.u3) annotation (Line(points={{-59,-70},{-52,
+          -70},{-52,-8},{-58,-8}},   color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(constZero.y, switchQCon.u3) annotation (Line(points={{-59,-68},{-52,-68},
-          {-52,-38},{68,-38},{68,-20}},      color={0,0,127},
+  connect(constZero.y, switchQCon.u3) annotation (Line(points={{-59,-70},{-20,
+          -70},{-20,-20},{50,-20},{50,-8},{58,-8}},
+                                             color={0,0,127},
       pattern=LinePattern.Dash));
   connect(gainEva.y, switchQEva.u1)
-    annotation (Line(points={{-60.4,-6},{-68,-6}}, color={0,0,127}));
+    annotation (Line(points={{-40.8,8},{-58,8}},   color={0,0,127}));
   connect(switchQCon.u3, gainCon.y) annotation (Line(
-      points={{68,-20},{62.4,-20}},
+      points={{58,-8},{38.8,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(BlackBoxHeaPumCooling.QCon_flow, gainCon.u) annotation (Line(
-      points={{-21.6,-30.8},{-21.6,2},{-24,2},{-24,-20},{53.2,-20}},
+      points={{-23.1,38},{-24,38},{-24,32},{10,32},{10,-8},{20.4,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(BlackBoxHeaPumHeating.QEva_flow, gainEva.u) annotation (Line(points={{
-          55.6,17.2},{55.6,-6},{-51.2,-6}}, color={0,0,127}));
+  connect(BlackBoxHeaPumHeating.QEva_flow, gainEva.u) annotation (Line(points={{24,38},
+          {24,8},{-22.4,8}},                color={0,0,127}));
   connect(sigBus, BlackBoxHeaPumCooling.sigBus) annotation (Line(
-      points={{0,102},{0,86},{0.27,86},{0.27,29.12}},
+      points={{0,102},{0,90},{-40,90},{-40,86},{-39.705,86},{-39.705,80.8}},
       color={255,204,51},
       thickness=0.5));
   connect(sigBus, BlackBoxHeaPumHeating.sigBus) annotation (Line(
-      points={{0,102},{0,86},{34.27,86},{34.27,77.12}},
+      points={{0,102},{0,90},{39.8,90},{39.8,80.8}},
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={

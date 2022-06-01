@@ -105,7 +105,8 @@ For the boundaries of the y-input value, a dynamic hysteresis is used to ensure 
 
     parameter Boolean use_opeEnvFroRec=true
       "Use a the operational envelope given in the datasheet" annotation(Dialog(tab="Safety Control", group="Operational Envelope"),choices(checkBox=true));
-    parameter IBPSA.Fluid.HeatPumps.BlackBoxData.HeatPumpBaseDataDefinition
+    parameter
+      IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition
       dataTable "Data Table of HP" annotation (choicesAllMatching=true, Dialog(
         tab="Safety Control",
         group="Operational Envelope",

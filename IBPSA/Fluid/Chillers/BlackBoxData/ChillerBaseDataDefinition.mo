@@ -1,6 +1,6 @@
 ﻿within IBPSA.Fluid.Chillers.BlackBoxData;
 record ChillerBaseDataDefinition "Basic chiller data"
-    extends IBPSA.Fluid.HeatPumps.BlackBoxData.HeatPumpBaseDataDefinition(
+    extends IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition(
                                                                 tableQdot_con = tableQdot_eva);
 
   parameter Real tableQdot_eva[:,:] "Cooling power table; T in degC; Q_flow in W";
