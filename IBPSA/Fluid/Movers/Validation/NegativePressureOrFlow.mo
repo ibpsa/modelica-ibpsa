@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Movers.Validation;
 model NegativePressureOrFlow
-  "A validation model that tests the fan behaviour when the pressure rise or flow is negative"
+  "A validation model that tests the mover behaviour when the pressure rise or flow is negative"
   extends Modelica.Icons.Example;
 
   package Medium = IBPSA.Media.Air;
@@ -50,5 +50,26 @@ annotation(__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Flu
         "Simulate and plot"),
    experiment(
       StopTime=3600,
-      Tolerance=1e-06));
+      Tolerance=1e-06),
+   Documentation(info="<html>
+<p>
+Without the constraint that
+<i>W<sub>flo</sub> = V&#775; &Delta;p &ge; 0</i>,
+this validation model would produce negative computed mover power
+when the pressure rise or the flow rate is forced to be negative,
+as shown below.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Movers/Validation/NegativePressureOrFlow.png\"/>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 6, 2022, by Hongxiang Fu:<br/>
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
+</li>
+</ul>
+</html>"));
 end NegativePressureOrFlow;

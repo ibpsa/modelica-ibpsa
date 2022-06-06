@@ -672,6 +672,12 @@ to be used during the simulation.
 revisions="<html>
 <ul>
 <li>
+June 6, 2022, by Hongxiang Fu:<br/>
+Added a constraint that <i>W<sub>flo</sub> = V&#775; &Delta;p &ge; 0</i>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
+</li>
+<li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
