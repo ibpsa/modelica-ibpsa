@@ -484,7 +484,10 @@ equation
   end if;
 
   // Flow work
-  WFlo = dp_internal*V_flow;
+  WFlo = IBPSA.Utilities.Math.Functions.smoothMax(
+           x1=dp_internal*V_flow,
+           x2=0,
+           deltaX=1E-6*dpMax*V_flow_max);
 
   // Power consumption
   if per.use_powerCharacteristic then
