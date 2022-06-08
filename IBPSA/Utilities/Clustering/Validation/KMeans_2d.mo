@@ -1,9 +1,8 @@
 within IBPSA.Utilities.Clustering.Validation;
-model KMeans_2d "Model that verifies the k-means clustering function"
+model KMeans_2d "Model that verifies the k-means clustering function for 2d data"
   extends Modelica.Icons.Example;
 
-  // Test strings
-  parameter Integer k = 3;
+  parameter Integer n_clusters = 3 "Number of clusters to be generated";
   parameter Real data[:,:]=
     [ 1, 1;
       1, 2;
@@ -11,23 +10,37 @@ model KMeans_2d "Model that verifies the k-means clustering function"
       2, 1.2;
       3, 0;
       4, 0]
-    "First test data";
+     "Test data to be clustered";
 
-  parameter Integer nDat = size(data,1);
-  parameter Integer nDim = size(data,2);
-  parameter Real[k,nDim] centroids(fixed=false);
-  parameter Integer[nDat] labels(fixed=false);
-  parameter Integer[k] cluster_size(fixed=false);
+  parameter Integer nDat = size(data,1) "Number of samples";
+  parameter Integer nDim = size(data,2) "Number of features";
+  parameter Real[n_clusters,nDim] centroids(fixed=false)
+    "Centroids of the clusters";
+  parameter Integer[nDat] labels(fixed=false)
+    "Cluster label associated with each data point";
+  parameter Integer[n_clusters] cluster_size(fixed=false)
+    "Size of the clusters";
+
+  parameter Integer labelsExp[nDat]=
+    {2,2,1,2,1,3}
+    "Expected cluster labels";
+
+  // Comparison result
+  Boolean cmp "Comparison result";
 
 initial equation
+  (centroids, labels, cluster_size) = IBPSA.Utilities.Clustering.KMeans(
+    data, n_clusters, nDat, nDim);
 
-  (centroids, labels, cluster_size) = IBPSA.Utilities.Clustering.KMeans(data, k, nDat, nDim);
+equation
+  cmp = Modelica.Math.Vectors.isEqual(labels, labelsExp);
 
-  // fixme : Add .mos script
-  annotation(experiment(Tolerance=1e-6, StopTime=1.0),
+annotation (experiment(Tolerance=1e-6, StopTime=1.0),
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Clustering/Validation/KMeans_2d.mos"
+        "Simulate and plot"),
       Documentation(info="<html>
 <p>
-
+This example tests the k-means clustering algorithm on 2d data.
 </p>
 </html>",
 revisions="<html>

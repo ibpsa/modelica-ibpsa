@@ -3,12 +3,12 @@ function KMeans "k-means clustering algorithm"
   extends Modelica.Icons.Function;
   input Real data[n_samples,n_features] "Data to be clustered";
   input Integer n_clusters "Number of clusters to be generated";
-  input Integer n_samples;
-  input Integer n_features;
+  input Integer n_samples "Number of samples";
+  input Integer n_features "Number of features";
   input Real relTol=1e-5 "Relative tolerance on cluster positions";
   input Integer max_iter=500 "Maximum number of k-means iterations";
   input Integer n_init=10 "Number of runs with randomized centroid seeds";
-  output Real centroids[n_clusters,n_features] "Centroids of the k clusters";
+  output Real centroids[n_clusters,n_features] "Centroids of the clusters";
   output Integer labels[n_samples] "Cluster label associated with each data point";
   output Integer cluster_size[n_clusters] "Size of the clusters";
 

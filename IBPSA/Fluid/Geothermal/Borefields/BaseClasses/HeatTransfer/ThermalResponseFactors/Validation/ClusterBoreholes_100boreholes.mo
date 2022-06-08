@@ -14,14 +14,29 @@ model ClusterBoreholes_100boreholes
   parameter Integer labels[nBor](each fixed=false) "Cluster label associated with each data point";
   parameter Integer cluster_size[k](each fixed=false);
 
+  parameter Integer labelsExp[nBor]=
+    {3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 4, 4, 2, 2, 2, 2, 4, 4, 3, 3, 4, 2, 2, 1,
+     1, 2, 2, 4, 3, 4, 2, 2, 1, 1, 1, 1, 2, 2, 4, 4, 2, 1, 1, 1, 1, 1, 1, 2, 4,
+     4, 2, 1, 1, 1, 1, 1, 1, 2, 4, 4, 2, 2, 1, 1, 1, 1, 2, 2, 4, 3, 4, 2, 2, 1,
+     1, 2, 2, 4, 3, 3, 4, 4, 2, 2, 2, 2, 4, 4, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3}
+    "Expected cluster labels";
+
+  // Comparison result
+  Boolean cmp "Comparison result";
+
 initial equation
   (labels, cluster_size) = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.clusterBoreholes(nBor,cooBor,hBor,dBor,rBor,k);
 
-  // fixme : Add .mos script
-   annotation(experiment(Tolerance=1e-6, StopTime=1),
+equation
+  cmp = Modelica.Math.Vectors.isEqual(labels, labelsExp);
+
+annotation (experiment(Tolerance=1e-6, StopTime=1.0),
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/ClusterBoreholes_100boreholes.mos"
+        "Simulate and plot"),
       Documentation(info="<html>
 <p>
-
+This example uses a rectangular field of 10 by 10 boreholes to test the
+identification borehole clusters.
 </p>
 </html>",
 revisions="<html>
