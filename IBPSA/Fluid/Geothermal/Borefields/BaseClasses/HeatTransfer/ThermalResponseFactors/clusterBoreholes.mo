@@ -12,7 +12,7 @@ function clusterBoreholes
   input Real TTol = 0.001 "Absolute tolerance on the borehole wall temperature for the identification of clusters";
 
   output Integer labels[nBor] "Cluster label associated with each data point";
-  output Integer cluster_size[n_clusters];
+  output Integer cluster_size[n_clusters] "Size of the clusters";
   output Integer N "Number of unique clusters";
 
 protected
@@ -63,12 +63,39 @@ annotation (
 Inline=true,
 Documentation(info="<html>
 <p>
-
+This function identifies groups of similarly behaving boreholes using a
+<i>k</i>-means clustering algorithm. Boreholes are clustered based on their
+steady-state dimensionless borehole wall temperatures obtained from the spatial
+superposition of the steady-state finite line source solution (see
+<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_SteadyState\">
+IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_SteadyState</a>).
+</p>
+<h4>Implementation</h4>
+<p>
+The implemented method differs from the method presented by Prieto and Cimmino
+(2021). They used a hierarchical agglomerative clustering method with complete
+linkage to identify the borehole clusters. The <i>optimal</i> number of clusters
+was identified by cutting the dendrogram generated during the clustering
+process.
+</p>
+<p>
+Here, a <i>k</i>-means algorithm is used instead, using the euclidian distance
+between steady-state borehole wall temperatures. The number of clusters is a
+parameter in this approach. However, as observed by Prieto and Cimmino (2021),
+<code>n_clusters=5</code> clusters should provide acceptable accuracy in most
+practical cases. This number can be increased without significant change in the
+computational cost.
+</p>
+<h4>References</h4>
+<p>
+Prieto, C. and Cimmino, M. 2021. <i>Thermal interactions in large irregular
+fields of geothermal boreholes: the method of equivalent boreholes</i>. Journal
+of Building Performance Simulation 14(4): 446-460.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January 4, 2022 by Massimo Cimmino:<br/>
+June 9, 2022 by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>

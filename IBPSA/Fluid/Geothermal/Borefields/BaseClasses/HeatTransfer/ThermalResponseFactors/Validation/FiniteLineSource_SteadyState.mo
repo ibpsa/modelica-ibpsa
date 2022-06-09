@@ -55,7 +55,7 @@ distances between the emitting and receiving boreholes.
 </html>", revisions="<html>
 <ul>
 <li>
-June 8, 2022, by Massimo Cimmino:<br/>
+June 9, 2022, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>

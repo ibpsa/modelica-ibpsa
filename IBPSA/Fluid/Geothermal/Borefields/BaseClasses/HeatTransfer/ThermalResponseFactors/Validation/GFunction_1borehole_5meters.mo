@@ -105,6 +105,11 @@ g-function of a borefield of <i>100</i> boreholes in a <i>1</i> configuration.
 revisions="<html>
 <ul>
 <li>
+June 9, 2022, by Massimo Cimmino:<br/>
+Added parameters to define the number of clusters for the method of Prieto and
+Cimmino (2021).
+</li>
+<li>
 March 15, 2019, by Massimo Cimmino:<br/>
 First implementation.
 </li>

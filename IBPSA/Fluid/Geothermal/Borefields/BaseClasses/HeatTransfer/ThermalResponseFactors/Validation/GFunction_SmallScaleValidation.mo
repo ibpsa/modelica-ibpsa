@@ -117,6 +117,11 @@ g-functions of a small-scale geothermal borehole</i>. Geothermics 56: 60-71.
 revisions="<html>
 <ul>
 <li>
+June 9, 2022, by Massimo Cimmino:<br/>
+Added parameters to define the number of clusters for the method of Prieto and
+Cimmino (2021).
+</li>
+<li>
 July 18, 2018, by Massimo Cimmino:<br/>
 First implementation.
 </li>

@@ -220,8 +220,9 @@ annotation (
 Documentation(info="<html>
 <p>
 This function implements the <i>g</i>-function evaluation method introduced by
-Cimmino and Bernier (see: Cimmino and Bernier (2014), and Cimmino (2018)) based
-on the <i>g</i>-function function concept first introduced by Eskilson (1987).
+Cimmino and Bernier (see: Cimmino and Bernier (2014), Cimmino (2018), and Prieto
+and Cimmino (2021)) based on the <i>g</i>-function function concept first
+introduced by Eskilson (1987).
 The <i>g</i>-function gives the relation between the variation of the borehole
 wall temperature at a time <i>t</i> and the heat extraction and injection rates
 at all times preceding time <i>t</i> as
@@ -247,16 +248,18 @@ IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactor
 and the infinite line source (ILS) solution (see
 <a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.infiniteLineSource\">
 IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.infiniteLineSource</a>).
-To obtain the <i>g</i>-function of a bore field, each borehole is divided into a
-series of <code>nSeg</code> segments of equal length, each modeled as a line
-source of finite length. The finite line source solution is superimposed in
-space to obtain a system of equations that gives the relation between the heat
-injection rate at each of the segments and the borehole wall temperature at each
-of the segments. The system is solved to obtain the uniform borehole wall
-temperature required at any time to maintain a constant total heat injection
-rate (<i>Q<sub>tot</sub> = 2&pi;k<sub>s</sub>H<sub>tot</sub>)</i> into the bore
-field. The uniform borehole wall temperature is then equal to the finite line
-source based <i>g</i>-function.
+To obtain the <i>g</i>-function of a bore field, the bore field is first divided
+into <code>n_clusters</code> groups of similarly behaving boreholes. Each group
+is represented by a single <i>equivalent</i> borehole. Each equivalent borehole
+is then divided into a series of <code>nSeg</code> segments of equal length,
+each modeled as a line source of finite length. The finite line source solution
+is superimposed in space to obtain a system of equations that gives the relation
+between the heat injection rate at each of the segments and the borehole wall
+temperature at each of the segments. The system is solved to obtain the uniform
+borehole wall temperature required at any time to maintain a constant total heat
+injection rate (<i>Q<sub>tot</sub> = 2&pi;k<sub>s</sub>H<sub>tot</sub>)</i> into
+the bore field. The uniform borehole wall temperature is then equal to the
+finite line source based <i>g</i>-function.
 </p>
 <p>
 Since this <i>g</i>-function is based on line sources of heat, rather than
@@ -288,8 +291,7 @@ Mass Transfer 70: 641-650.
 <p>
 Cimmino, M. 2018. <i>Fast calculation of the g-functions of geothermal borehole
 fields using similarities in the evaluation of the finite line source
-solution</i>. Journal of Building Performance Simulation. DOI:
-10.1080/19401493.2017.1423390.
+solution</i>. Journal of Building Performance Simulation 11(6): 655-668.
 </p>
 <p>
 Eskilson, P. 1987. <i>Thermal analysis of heat extraction boreholes</i>. Ph.D.
@@ -300,8 +302,18 @@ Li, M., Li, P., Chan, V. and Lai, A.C.K. 2014. <i>Full-scale temperature
 response function (G-function) for heat transfer by borehole heat exchangers
 (GHEs) from sub-hour to decades</i>. Applied Energy 136: 197-205.
 </p>
+<p>
+Prieto, C. and Cimmino, M. 2021. <i>Thermal interactions in large irregular
+fields of geothermal boreholes: the method of equivalent boreholes</i>. Journal
+of Building Performance Simulation 14(4): 446-460.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2022 by Massimo Cimmino:<br/>
+Updated the function to use the more efficient method of Prieto and Cimmino
+(2021).
+</li>
 <li>
 March 22, 2018 by Massimo Cimmino:<br/>
 First implementation.

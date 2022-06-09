@@ -59,22 +59,18 @@ rate per unit length, <i>k<sub>s</sub></i> is the soil thermal conductivity and
 <i>h<sub>FLS</sub></i> is the finite line source solution.
 </p>
 <p>
-The finite line source solution is given by:
+The steady-state finite line source solution is given by:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/FiniteLineSource_02.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/FiniteLineSource_SteadyState_01.png\" />
 </p>
-<p>
-where <i>&alpha;<sub>s</sub></i> is the ground thermal diffusivity and
-<i>erfint</i> is the integral of the error function, defined in
-<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint\">IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_erfint</a>.
-The integral is solved numerically, with the integrand defined in
-<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand\">IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand</a>.
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/FiniteLineSource_SteadyState_02.png\" />
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January 4, 2022 by Massimo Cimmino:<br/>
+June 9, 2022 by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>

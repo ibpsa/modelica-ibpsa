@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors;
 function finiteLineSource_equivalentBoreholes
-  "Finite line source solution of Claesson and Javed"
+  "Finite line source solution of Prieto and Cimmino"
   extends Modelica.Icons.Function;
 
   input Modelica.Units.SI.Time t "Time";
@@ -94,20 +94,22 @@ Documentation(info="<html>
 <p>
 This function evaluates the finite line source solution. This solution
 gives the relation between the constant heat transfer rate (per unit length)
-injected by a line source of finite length <i>H<sub>1</sub></i> buried at a
-distance <i>D<sub>1</sub></i> from a constant temperature surface
-(<i>T=0</i>) and the average temperature raise over a line of finite length
-<i>H<sub>2</sub></i> buried at a distance <i>D<sub>2</sub></i> from the constant
-temperature surface.
+injected by a group of line sources of finite length <i>H<sub>1</sub></i> buried
+at a distance <i>D<sub>1</sub></i> from a constant temperature surface
+(<i>T=0</i>) and the average temperature raise over a group of
+<i>N<sub>2</sub></i> lines of finite length <i>H<sub>2</sub></i> buried at a
+distance <i>D<sub>2</sub></i> from the constant temperature surface.
 The finite line source solution is defined by:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/FiniteLineSource_01.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/FiniteLineSource_EquivalentBoreholes_01.png\" />
 </p>
 <p>
-where <i>&Delta;T<sub>1-2</sub>(t,r,H<sub>1</sub>,D<sub>1</sub>,H<sub>2</sub>,D<sub>2</sub>)</i>
-is the temperature raise after a time <i>t</i> of constant heat injection and at
-a distance <i>r</i> from the line heat source, <i>Q'</i> is the heat injection
+where <i>&Delta;T<sub>1-2</sub>(t,r<sub>1->2</sub>,H<sub>1</sub>,D<sub>1</sub>,H<sub>2</sub>,D<sub>2</sub>,N<sub>2</sub>)</i>
+is the temperature raise over lines in group <i>2</i> after a time <i>t</i> of
+constant heat injection, <i>r<sub>1->2</sub></i> is the list of distance between
+all pairs of lines in groups <i>1</i> and <i>2</i>, <i>N<sub>1->2</sub></i> is
+the number of distances, <i>Q'</i> is the heat injection
 rate per unit length, <i>k<sub>s</sub></i> is the soil thermal conductivity and
 <i>h<sub>FLS</sub></i> is the finite line source solution.
 </p>
@@ -115,26 +117,19 @@ rate per unit length, <i>k<sub>s</sub></i> is the soil thermal conductivity and
 The finite line source solution is given by:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/FiniteLineSource_02.png\" />
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Borefields/FiniteLineSource_EquivalentBoreholes_02.png\" />
 </p>
 <p>
 where <i>&alpha;<sub>s</sub></i> is the ground thermal diffusivity and
 <i>erfint</i> is the integral of the error function, defined in
 <a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint\">IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_erfint</a>.
 The integral is solved numerically, with the integrand defined in
-<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand\">IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand</a>.
+<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_equivalentBoreholes\">IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_equivalentBoreholes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 17, 2019, by Massimo Cimmino:<br/>
-Modified the upper bound of integration to avoid underestimating the value of
-the integral.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1107\">IBPSA, issue 1107</a>.
-</li>
-<li>
-March 22, 2018 by Massimo Cimmino:<br/>
+June 9, 2022 by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>

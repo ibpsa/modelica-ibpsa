@@ -50,18 +50,14 @@ algorithm
 annotation (
 Documentation(info="<html>
 <p>
-Integrand of the cylindrical heat source solution for use in
-<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource\">
-IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource</a>.
+Integrand of the finite line source solution for use in
+<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_equivalentBoreholes\">
+IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_equivalentBoreholes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-August 23, 2018 by Michael Wetter:<br/>
-Reformulated function to use <code>sum</code>.
-</li>
-<li>
-March 22, 2018 by Massimo Cimmino:<br/>
+June 9, 2022 by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>

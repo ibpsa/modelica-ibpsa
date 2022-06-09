@@ -46,7 +46,7 @@ This example tests the k-means clustering algorithm on 2d data.
 revisions="<html>
 <ul>
 <li>
-January 4, 2022, by Massimo Cimmino<br/>
+June 9, 2022 by Massimo Cimmino<br/>
 First implementation.
 </li>
 </ul>

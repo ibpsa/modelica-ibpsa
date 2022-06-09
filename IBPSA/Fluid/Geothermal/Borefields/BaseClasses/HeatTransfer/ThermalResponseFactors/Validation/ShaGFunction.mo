@@ -40,6 +40,10 @@ arguments required to determine the borehole's thermal response factor.
 </html>", revisions="<html>
 <ul>
 <li>
+June 9, 2022, by Massimo Cimmino:<br/>
+Added number of clusters to the function call.
+</li>
+<li>
 July 18, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.
 </li>

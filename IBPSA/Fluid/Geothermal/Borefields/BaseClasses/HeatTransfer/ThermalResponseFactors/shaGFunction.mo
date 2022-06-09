@@ -59,6 +59,10 @@ The SHA1 encryption is computed using
 </html>", revisions="<html>
 <ul>
 <li>
+June 9, 2022, by Massimo Cimmino:<br/>
+Added the number of clusters to the encryption.
+</li>
+<li>
 November 1, 2019 by Michael Wetter:<br/>
 Declared string as a constant due to JModelica's tigther type checking.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1230\">#1230</a>.

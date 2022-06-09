@@ -115,12 +115,19 @@ algorithm
 annotation (
     Documentation(info="<html>
 <p>
-// fixme: add documentation.
+This function applies <i>k</i>-means clustering to <i>n</i>-dimentional data and
+returns the centroid of the clusters, the cluster labels for each sample, and
+the size of each cluster.
+</p>
+<h4>Implementation</h4>
+<p>
+The seed for random number generation is constant. It can be changed by
+modifying the cosntant <code>seed</code>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January 4, 2022 by Massimo Cimmino:<br/>
+June 9, 2022 by Massimo Cimmino:<br/>
 First Implementation
 </li>
 </ul>

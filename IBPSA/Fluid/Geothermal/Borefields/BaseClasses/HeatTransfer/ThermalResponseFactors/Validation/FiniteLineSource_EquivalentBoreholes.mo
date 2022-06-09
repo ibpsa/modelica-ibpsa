@@ -77,7 +77,7 @@ with coordinates (x,y) = {(0,0), (0,7), (7,0)}.
 </html>", revisions="<html>
 <ul>
 <li>
-June 8, 2022, by Massimo Cimmino:<br/>
+June 9, 2022, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>

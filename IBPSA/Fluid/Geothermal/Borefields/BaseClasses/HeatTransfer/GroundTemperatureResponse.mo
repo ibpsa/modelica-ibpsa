@@ -333,8 +333,18 @@ Ph.D. Thesis, &Eacute;cole Polytechnique de Montr&eacute;al.
 <p>
 Claesson, J. and Javed, S. 2012. <i>A load-aggregation method to calculate extraction temperatures of borehole heat exchangers</i>. ASHRAE Transactions 118(1): 530-539.
 </p>
+<p>
+Prieto, C. and Cimmino, M. 2021. <i>Thermal interactions in large irregular
+fields of geothermal boreholes: the method of equivalent boreholes</i>. Journal
+of Building Performance Simulation 14(4): 446-460.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2022 by Massimo Cimmino:<br/>
+Updated the function to use the more efficient method of Prieto and Cimmino
+(2021).
+</li>
 <li>
 August 30, 2018, by Michael Wetter:<br/>
 Refactored model to compute the temperature difference relative to the initial temperature,
