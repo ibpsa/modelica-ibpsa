@@ -41,7 +41,7 @@ equation
     annotation (Line(points={{-19,30},{0,30},{0,12}}, color={0,0,127}));
 
   connect(ram.y, sin.p_in)
-    annotation (Line(points={{61,30},{82,30},{82,8}}, color={0,0,127}));
+    annotation (Line(points={{61,30},{88,30},{88,8},{82,8}}, color={0,0,127}));
   connect(fan.port_b, sin.ports[1])
     annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
   connect(sou.ports[1], fan.port_a)
