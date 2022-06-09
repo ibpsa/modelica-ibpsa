@@ -322,7 +322,7 @@ Michael Wetter, Lawrence Berkeley National Laboratory, Berkeley, CA, USA
     Documentation(info="<html>
 <h4>License</h4>
 <p>
-Modelica IBPSA Library. Copyright (c) 1998-2018
+Modelica IBPSA Library. Copyright (c) 1998-2022
 Modelica Association,
 International Building Performance Simulation Association (IBPSA) and
 contributors.
@@ -488,7 +488,7 @@ versionDate="2018-09-28",
 dateModified = "2018-09-28",
 uses(Modelica(version="4.0.0")),
 conversion(from(version="3.0.0",
-                script="modelica://IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_from_3.0_to_4.0.mos")),
+                script="modelica://IBPSA/Resources/Scripts/Conversion/ConvertIBPSA_from_3.0_to_4.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>
