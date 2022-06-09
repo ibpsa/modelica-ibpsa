@@ -5,7 +5,7 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
   parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
   parameter Integer nSeg=12
     "Number of segments per borehole for g-function calculation";
-  parameter Integer nClusters=5 "Number of clusters for g-function calculation";
+  parameter Integer nClu=5 "Number of clusters for g-function calculation";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether it has been pre-computed";
   parameter IBPSA.Fluid.Geothermal.Borefields.Data.Borefield.Template borFieDat
@@ -38,7 +38,7 @@ protected
       rBor=borFieDat.conDat.rBor,
       aSoi=borFieDat.soiDat.aSoi,
       nSeg=nSeg,
-      nClusters=nClusters,
+      nClu=nClu,
       nTimSho=nTimSho,
       nTimLon=nTimLon,
       ttsMax=ttsMax) "String with encrypted g-function arguments";
@@ -115,7 +115,7 @@ initial equation
       aSoi=borFieDat.soiDat.aSoi,
       kSoi=borFieDat.soiDat.kSoi,
       nSeg=nSeg,
-      nClusters=nClusters,
+      nClu=nClu,
       nTimSho=nTimSho,
       nTimLon=nTimLon,
       nTimTot=nTimTot,

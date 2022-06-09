@@ -42,7 +42,7 @@ partial model PartialBorefield
     annotation (Dialog(tab="Advanced", group="g-function"));
   parameter Integer nSegGFun(min=1)=12 "Number of segments to use in the calculation of the g-function"
     annotation (Dialog(tab="Advanced", group="g-function"));
-  parameter Integer nClusters(min=1)=5
+  parameter Integer nClu(min=1)=5
     "Number of borehole clusters to use in the calculation of the g-function"
     annotation (Dialog(tab="Advanced", group="g-function"));
 
@@ -89,7 +89,7 @@ partial model PartialBorefield
     final tLoaAgg=tLoaAgg,
     final nCel=nCel,
     final nSeg=nSegGFun,
-    final nClusters=nClusters,
+    final nClu=nClu,
     final borFieDat=borFieDat,
     final forceGFunCalc=forceGFunCalc)
     "Ground temperature response"

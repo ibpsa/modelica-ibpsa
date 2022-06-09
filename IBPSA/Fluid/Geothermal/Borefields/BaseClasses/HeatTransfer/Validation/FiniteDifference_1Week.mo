@@ -53,7 +53,6 @@ model FiniteDifference_1Week
     annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
   IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse groTemRes(
     nSeg=12,
-    nClusters=1,
     borFieDat=borFieDat,
     nCel=5,
     tLoaAgg=30) "Heat conduction in the soil"

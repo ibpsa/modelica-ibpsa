@@ -8,11 +8,11 @@ function clusterBoreholes
   input Modelica.Units.SI.Height hBor "Borehole length";
   input Modelica.Units.SI.Height dBor "Borehole buried depth";
   input Modelica.Units.SI.Radius rBor "Borehole radius";
-  input Integer n_clusters "Number of clusters to be generated";
+  input Integer nClu "Number of clusters to be generated";
   input Real TTol = 0.001 "Absolute tolerance on the borehole wall temperature for the identification of clusters";
 
   output Integer labels[nBor] "Cluster label associated with each data point";
-  output Integer cluster_size[n_clusters] "Size of the clusters";
+  output Integer cluSiz[nClu] "Size of the clusters";
   output Integer N "Number of unique clusters";
 
 protected
@@ -35,10 +35,10 @@ algorithm
   end for;
 
   // ---- Find all unique borehole wall temperatures under tolerance
-  // The number of clusters is min(N, n_clusters)
+  // The number of clusters is min(N, nClu)
   N := 1;
   TBor_Unique[1] := TBor[1,1];
-  if n_clusters > 1 and nBor > 1 then
+  if nClu > 1 and nBor > 1 then
     for i in 2:nBor loop
       for j in 1:N loop
         if abs(TBor[i,1] - TBor_Unique[j]) < TTol then
@@ -50,10 +50,10 @@ algorithm
       end for;
     end for;
   end if;
-  N := min(N, n_clusters);
+  N := min(N, nClu);
 
   // ---- Identify borehole clusters
-  (,labels,cluster_size[1:N]) := IBPSA.Utilities.Clustering.KMeans(
+  (,labels,cluSiz[1:N]) := IBPSA.Utilities.Clustering.KMeans(
     TBor,
     N,
     nBor,
@@ -82,7 +82,7 @@ process.
 Here, a <i>k</i>-means algorithm is used instead, using the euclidian distance
 between steady-state borehole wall temperatures. The number of clusters is a
 parameter in this approach. However, as observed by Prieto and Cimmino (2021),
-<code>n_clusters=5</code> clusters should provide acceptable accuracy in most
+<code>nClu=5</code> clusters should provide acceptable accuracy in most
 practical cases. This number can be increased without significant change in the
 computational cost.
 </p>

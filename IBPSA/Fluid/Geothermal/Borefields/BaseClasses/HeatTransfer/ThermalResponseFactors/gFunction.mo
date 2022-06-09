@@ -14,9 +14,9 @@ function gFunction
   input Integer nTimSho "Number of time steps in short time region";
   input Integer nTimLon "Number of time steps in long time region";
   input Real ttsMax "Maximum adimensional time for gfunc calculation";
-  input Integer n_clusters "Number of clusters";
+  input Integer nClu "Number of clusters";
   input Integer labels[nBor];
-  input Integer cluster_size[n_clusters];
+  input Integer cluSiz[nClu];
   input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
 
   output Modelica.Units.SI.Time tGFun[nTimSho + nTimLon]
@@ -35,19 +35,19 @@ protected
   Modelica.Units.SI.Time tSho[nTimSho]
     "Time vector for short time calculations";
   Modelica.Units.SI.Time tLon[nTimLon] "Time vector for long time calculations";
-  Integer n_max = max(cluster_size.*cluster_size);
-  Modelica.Units.SI.Distance dis[n_clusters,n_clusters,n_max] "Separation distance between boreholes";
+  Integer n_max = max(cluSiz.*cluSiz);
+  Modelica.Units.SI.Distance dis[nClu,nClu,n_max] "Separation distance between boreholes";
   Modelica.Units.SI.Distance dis_ij "Separation distance between boreholes";
-  Integer wDis[n_clusters,n_clusters,n_max] "Number of occurence of separation distances";
-  Integer n_dis[n_clusters,n_clusters];
+  Integer wDis[nClu,nClu,n_max] "Number of occurence of separation distances";
+  Integer n_dis[nClu,nClu];
   Modelica.Units.SI.Radius rLin=0.0005*hBor
     "Radius for evaluation of same-borehole line source solutions";
   Real hSegRea[nSeg] "Real part of the FLS solution";
   Real hSegMir[2*nSeg-1] "Mirror part of the FLS solution";
   Modelica.Units.SI.Height dSeg "Buried depth of borehole segment";
-  Real A[nSeg*n_clusters+1, nSeg*n_clusters+1] "Coefficient matrix for system of equations";
-  Real B[nSeg*n_clusters+1] "Coefficient vector for system of equations";
-  Real X[nSeg*n_clusters+1] "Solution vector for system of equations";
+  Real A[nSeg*nClu+1, nSeg*nClu+1] "Coefficient matrix for system of equations";
+  Real B[nSeg*nClu+1] "Coefficient vector for system of equations";
+  Real X[nSeg*nClu+1] "Solution vector for system of equations";
   Real FLS "Finite line source solution";
   Real ILS "Infinite line source solution";
   Real CHS "Cylindrical heat source solution";
@@ -55,8 +55,8 @@ protected
 
 algorithm
   // Distances between borehole clusters
-  n_dis := zeros(n_clusters,n_clusters);
-  wDis := zeros(n_clusters,n_clusters,n_max);
+  n_dis := zeros(nClu,nClu);
+  wDis := zeros(nClu,nClu,n_max);
   for i in 1:nBor loop
     for j in i:nBor loop
       // Distance between boreholes
@@ -135,22 +135,22 @@ algorithm
   // Long time calculations
   // ----------------------
   // Initialize coefficient matrix A
-  for m in 1:n_clusters loop
+  for m in 1:nClu loop
     for u in 1:nSeg loop
       // Tb coefficient in spatial superposition equations
-      A[(m-1)*nSeg+u,n_clusters*nSeg+1] := -1;
+      A[(m-1)*nSeg+u,nClu*nSeg+1] := -1;
       // Q coefficient in heat balance equation
-      A[n_clusters*nSeg+1,(m-1)*nSeg+u] := cluster_size[m];
+      A[nClu*nSeg+1,(m-1)*nSeg+u] := cluSiz[m];
     end for;
   end for;
   // Initialize coefficient vector B
   // The total heat extraction rate is constant
-  B[n_clusters*nSeg+1] := nBor*nSeg;
+  B[nClu*nSeg+1] := nBor*nSeg;
 
   // Evaluate thermal response matrix at all times
   for k in 1:nTimLon-1 loop
-    for i in 1:n_clusters loop
-      for j in i:n_clusters loop
+    for i in 1:nClu loop
+      for j in i:nClu loop
         // Evaluate Real and Mirror parts of FLS solution
         // Real part
         for m in 1:nSeg loop
@@ -164,7 +164,7 @@ algorithm
             dBor,
             hBor/nSeg,
             dBor + (m - 1)*hBor/nSeg,
-            cluster_size[i],
+            cluSiz[i],
             n_dis[i,j],
             includeMirrorSource=false);
         end for;
@@ -180,7 +180,7 @@ algorithm
             dBor,
             hBor/nSeg,
             dBor + (m - 1)*hBor/nSeg,
-            cluster_size[i],
+            cluSiz[i],
             n_dis[i,j],
             includeRealSource=false);
         end for;
@@ -188,7 +188,7 @@ algorithm
         for u in 1:nSeg loop
           for v in 1:nSeg loop
             A[(i-1)*nSeg+u,(j-1)*nSeg+v] := hSegRea[abs(u-v)+1] + hSegMir[u+v-1];
-            A[(j-1)*nSeg+v,(i-1)*nSeg+u] := (hSegRea[abs(u-v)+1] + hSegMir[u+v-1]) * cluster_size[i] / cluster_size[j];
+            A[(j-1)*nSeg+v,(i-1)*nSeg+u] := (hSegRea[abs(u-v)+1] + hSegMir[u+v-1]) * cluSiz[i] / cluSiz[j];
           end for;
         end for;
       end for;
@@ -196,7 +196,7 @@ algorithm
     // Solve the system of equations
     X := Modelica.Math.Matrices.solve(A,B);
     // The g-function is equal to the borehole wall temperature
-    g[nTimSho+k+1] := X[n_clusters*nSeg+1];
+    g[nTimSho+k+1] := X[nClu*nSeg+1];
   end for;
   // Correct finite line source solution for cylindrical geometry
   for k in 2:nTimLon loop
@@ -249,7 +249,7 @@ and the infinite line source (ILS) solution (see
 <a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.infiniteLineSource\">
 IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.infiniteLineSource</a>).
 To obtain the <i>g</i>-function of a bore field, the bore field is first divided
-into <code>n_clusters</code> groups of similarly behaving boreholes. Each group
+into <code>nClu</code> groups of similarly behaving boreholes. Each group
 is represented by a single <i>equivalent</i> borehole. Each equivalent borehole
 is then divided into a series of <code>nSeg</code> segments of equal length,
 each modeled as a line source of finite length. The finite line source solution

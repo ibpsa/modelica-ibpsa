@@ -33,7 +33,6 @@ model Analytic_20Years
     tLoaAgg=3600,
     nCel=5,
     nSeg=12,
-    nClusters=1,
     borFieDat=borFieDat,
     forceGFunCalc=true) "Ground temperature response of borehole"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));

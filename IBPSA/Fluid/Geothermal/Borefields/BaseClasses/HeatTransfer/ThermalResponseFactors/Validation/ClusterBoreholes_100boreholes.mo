@@ -12,7 +12,7 @@ model ClusterBoreholes_100boreholes
   parameter Integer k=4 "Number of clusters to be generated";
 
   parameter Integer labels[nBor](each fixed=false) "Cluster label associated with each data point";
-  parameter Integer cluster_size[k](each fixed=false);
+  parameter Integer cluSiz[k](each fixed=false);
 
   parameter Integer labelsExp[nBor]=
     {3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 4, 4, 2, 2, 2, 2, 4, 4, 3, 3, 4, 2, 2, 1,
@@ -25,7 +25,7 @@ model ClusterBoreholes_100boreholes
   Boolean cmp "Comparison result";
 
 initial equation
-  (labels, cluster_size) = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.clusterBoreholes(nBor,cooBor,hBor,dBor,rBor,k);
+  (labels, cluSiz) = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.clusterBoreholes(nBor,cooBor,hBor,dBor,rBor,k);
 
 equation
   cmp = Modelica.Math.Vectors.isEqual(labels, labelsExp);
