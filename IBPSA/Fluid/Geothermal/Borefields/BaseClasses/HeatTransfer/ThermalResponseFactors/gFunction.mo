@@ -155,34 +155,34 @@ algorithm
         // Real part
         for m in 1:nSeg loop
           hSegRea[m] :=
-            IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_equivalentBoreholes(
-            tLon[k + 1],
-            aSoi,
-            dis[i,j,1:n_dis[i,j]],
-            wDis[i,j,1:n_dis[i,j]],
-            hBor/nSeg,
-            dBor,
-            hBor/nSeg,
-            dBor + (m - 1)*hBor/nSeg,
-            cluSiz[i],
-            n_dis[i,j],
-            includeMirrorSource=false);
+            IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_EquivalentBoreholes(
+              tLon[k + 1],
+              aSoi,
+              dis[i,j,1:n_dis[i,j]],
+              wDis[i,j,1:n_dis[i,j]],
+              hBor/nSeg,
+              dBor,
+              hBor/nSeg,
+              dBor + (m - 1)*hBor/nSeg,
+              cluSiz[i],
+              n_dis[i,j],
+              includeMirrorSource=false);
         end for;
         // Mirror part
         for m in 1:(2*nSeg-1) loop
           hSegMir[m] :=
-            IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_equivalentBoreholes(
-            tLon[k + 1],
-            aSoi,
-            dis[i,j,1:n_dis[i,j]],
-            wDis[i,j,1:n_dis[i,j]],
-            hBor/nSeg,
-            dBor,
-            hBor/nSeg,
-            dBor + (m - 1)*hBor/nSeg,
-            cluSiz[i],
-            n_dis[i,j],
-            includeRealSource=false);
+            IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_EquivalentBoreholes(
+              tLon[k + 1],
+              aSoi,
+              dis[i,j,1:n_dis[i,j]],
+              wDis[i,j,1:n_dis[i,j]],
+              hBor/nSeg,
+              dBor,
+              hBor/nSeg,
+              dBor + (m - 1)*hBor/nSeg,
+              cluSiz[i],
+              n_dis[i,j],
+              includeRealSource=false);
         end for;
         // Add thermal response factor to coefficient matrix A
         for u in 1:nSeg loop

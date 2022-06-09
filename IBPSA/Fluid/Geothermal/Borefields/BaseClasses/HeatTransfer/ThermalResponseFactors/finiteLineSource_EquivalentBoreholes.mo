@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors;
-function finiteLineSource_equivalentBoreholes
+function finiteLineSource_EquivalentBoreholes
   "Finite line source solution of Prieto and Cimmino"
   extends Modelica.Icons.Function;
 
@@ -53,7 +53,7 @@ algorithm
       lowBou := 1.0/sqrt(4*aSoi*t);
       h_21 := Modelica.Math.Nonlinear.quadratureLobatto(
         function
-          IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_equivalentBoreholes(
+          IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes(
           dis=dis,
           wDis=wDis,
           len1=len1,
@@ -72,7 +72,7 @@ algorithm
       lowBou := 1.0/sqrt(4*aSoi*timTre);
       h_21 := t/timTre*Modelica.Math.Nonlinear.quadratureLobatto(
         function
-          IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_equivalentBoreholes(
+          IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes(
           dis=dis,
           wDis=wDis,
           len1=len1,
@@ -124,7 +124,7 @@ where <i>&alpha;<sub>s</sub></i> is the ground thermal diffusivity and
 <i>erfint</i> is the integral of the error function, defined in
 <a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint\">IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_erfint</a>.
 The integral is solved numerically, with the integrand defined in
-<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_equivalentBoreholes\">IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_equivalentBoreholes</a>.
+<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes\">IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -134,4 +134,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end finiteLineSource_equivalentBoreholes;
+end finiteLineSource_EquivalentBoreholes;

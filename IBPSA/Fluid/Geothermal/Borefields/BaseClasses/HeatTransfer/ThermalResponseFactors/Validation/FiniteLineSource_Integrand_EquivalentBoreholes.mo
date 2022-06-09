@@ -25,7 +25,7 @@ model FiniteLineSource_Integrand_EquivalentBoreholes
 
 equation
   u = time;
-  yRea = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_equivalentBoreholes(
+  yRea = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes(
     u=u,
     dis=dis,
     wDis=wDis,
@@ -36,7 +36,7 @@ equation
     nBor2=nBor2,
     n_dis=n_dis,
     includeMirrorSource=false);
-  yMir = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_equivalentBoreholes(
+  yMir = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes(
     u=u,
     dis=dis,
     wDis=wDis,
@@ -47,7 +47,7 @@ equation
     nBor2=nBor2,
     n_dis=n_dis,
     includeRealSource=false);
-  y = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_equivalentBoreholes(
+  y = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes(
     u=u,
     dis=dis,
     wDis=wDis,
