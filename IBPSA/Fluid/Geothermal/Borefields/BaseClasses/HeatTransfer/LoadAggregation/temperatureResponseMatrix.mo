@@ -30,7 +30,7 @@ protected
   Real[nTimTot] gFun "g-function vector";
   Boolean writegFun = false "True if g-function was succesfully written to file";
   Integer labels[nBor](each fixed=false) "Cluster label associated with each data point";
-  Integer cluSiz[nClu](each fixed=false);
+  Integer cluSiz[nClu](each fixed=false) "Size of the clusters";
   Integer nCluUni "Number of unique borehole clusters";
 
 algorithm

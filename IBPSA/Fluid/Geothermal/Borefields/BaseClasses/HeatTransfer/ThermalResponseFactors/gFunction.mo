@@ -16,7 +16,7 @@ function gFunction
   input Real ttsMax "Maximum adimensional time for gfunc calculation";
   input Integer nClu "Number of clusters";
   input Integer labels[nBor];
-  input Integer cluSiz[nClu];
+  input Integer cluSiz[nClu] "Size of the clusters";
   input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
 
   output Modelica.Units.SI.Time tGFun[nTimSho + nTimLon]

@@ -12,7 +12,7 @@ model ClusterBoreholes_100boreholes
   parameter Integer k=4 "Number of clusters to be generated";
 
   parameter Integer labels[nBor](each fixed=false) "Cluster label associated with each data point";
-  parameter Integer cluSiz[k](each fixed=false);
+  parameter Integer cluSiz[k](each fixed=false) "Size of the clusters";
 
   parameter Integer labelsExp[nBor]=
     {3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 4, 4, 2, 2, 2, 2, 4, 4, 3, 3, 4, 2, 2, 1,

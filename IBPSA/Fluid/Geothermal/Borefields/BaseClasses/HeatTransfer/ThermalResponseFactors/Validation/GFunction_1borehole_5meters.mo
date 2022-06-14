@@ -24,7 +24,7 @@ model GFunction_1borehole_5meters
 
   parameter Integer nClu=1 "Number of clusters to be generated";
   parameter Integer labels[nBor](each fixed=false) "Cluster label associated with each data point";
-  parameter Integer cluSiz[nClu](each fixed=false);
+  parameter Integer cluSiz[nClu](each fixed=false) "Size of the clusters";
 
   Real gFun_int "Interpolated value of g-function";
   Real lntts_int "Non-dimensional logarithmic time for interpolation";

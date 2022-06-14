@@ -33,7 +33,7 @@ model GFunction_SmallScaleValidation
 
   parameter Integer nClu=1 "Number of clusters to be generated";
   parameter Integer labels[nBor](each fixed=false) "Cluster label associated with each data point";
-  parameter Integer cluSiz[nClu](each fixed=false);
+  parameter Integer cluSiz[nClu](each fixed=false) "Size of the clusters";
 
   discrete Integer k "Current interpolation interval";
   discrete Modelica.Units.SI.Time t1 "Previous value of time for interpolation";
