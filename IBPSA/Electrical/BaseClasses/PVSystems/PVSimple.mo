@@ -2,15 +2,15 @@ within IBPSA.Electrical.BaseClasses.PVSystems;
 model PVSimple "Simple PV model with internal or external MPP tracking"
 
   replaceable model ElectricalModel =
-    IBPSA.Electrical.BaseClasses.BaseClasses.PartialPVElectrical
+    IBPSA.Electrical.BaseClasses.PVSystems.BaseClasses.PartialPVElectrical
    "Model with electrical characteristics";
 
   replaceable model ThermalModel =
-    IBPSA.Electrical.BaseClasses.BaseClasses.PartialPVThermal
+    IBPSA.Electrical.BaseClasses.PVSystems.BaseClasses.PartialPVThermal
     "Model with thermal characteristics";
 
   replaceable model OpticalModel =
-    IBPSA.Electrical.BaseClasses.BaseClasses.PartialPVOptical
+    IBPSA.Electrical.BaseClasses.PVSystems.BaseClasses.PartialPVOptical
     "Model with optical characteristics"
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
