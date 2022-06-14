@@ -15,7 +15,7 @@ function gFunction
   input Integer nTimLon "Number of time steps in long time region";
   input Real ttsMax "Maximum adimensional time for gfunc calculation";
   input Integer nClu "Number of clusters";
-  input Integer labels[nBor];
+  input Integer labels[nBor] "Cluster label associated with each data point";
   input Integer cluSiz[nClu] "Size of the clusters";
   input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
 
