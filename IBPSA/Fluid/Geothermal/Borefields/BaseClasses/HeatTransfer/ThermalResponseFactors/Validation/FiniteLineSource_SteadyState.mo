@@ -16,9 +16,11 @@ model FiniteLineSource_SteadyState
   Real hMir "Finite line source solution (Mirror part)";
   Real h "Finite line source solution";
 
+protected
+  constant Real uniCon(unit="m/s") = 1 "Constant to satisify unit check";
 equation
 
-  dis = 0.075 + time;
+  dis = 0.075 + uniCon*time;
 
   hRea = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_SteadyState(
     dis = dis,
