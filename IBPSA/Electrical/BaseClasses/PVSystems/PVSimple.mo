@@ -1,5 +1,8 @@
 within IBPSA.Electrical.BaseClasses.PVSystems;
-model PVSimple "Simple PV model with internal or external MPP tracking"
+model PVSimple
+  "Simple PV model with internal or external MPP tracking"
+
+  extends IBPSA.Electrical.BaseClasses.PVSystems.BaseClasses.Icons.partialPVIcon;
 
   replaceable model ElectricalModel =
     IBPSA.Electrical.BaseClasses.PVSystems.BaseClasses.PartialPVElectrical
