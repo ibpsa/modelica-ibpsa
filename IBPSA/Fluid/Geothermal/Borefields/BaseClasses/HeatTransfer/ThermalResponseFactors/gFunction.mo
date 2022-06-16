@@ -51,7 +51,7 @@ protected
   Real FLS "Finite line source solution";
   Real ILS "Infinite line source solution";
   Real CHS "Cylindrical heat source solution";
-  Boolean found;
+  Boolean found "Flag, true if a cluster has been found";
 
 algorithm
   // Distances between borehole clusters
