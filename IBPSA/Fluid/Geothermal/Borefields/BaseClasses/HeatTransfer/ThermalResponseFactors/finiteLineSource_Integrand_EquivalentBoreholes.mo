@@ -6,12 +6,12 @@ function finiteLineSource_Integrand_EquivalentBoreholes
   input Real u(unit="1/m") "Integration variable";
   input Modelica.Units.SI.Distance dis[n_dis] "Radial distance between borehole axes";
   input Integer wDis[n_dis];
-  input Modelica.Units.SI.Height len1 "Length of emitting borehole";
-  input Modelica.Units.SI.Height burDep1 "Buried depth of emitting borehole";
-  input Modelica.Units.SI.Height len2 "Length of receiving borehole";
-  input Modelica.Units.SI.Height burDep2 "Buried depth of receiving borehole";
-  input Integer nBor2;
-  input Integer n_dis;
+  input Modelica.Units.SI.Height len1 "Length of emitting boreholes";
+  input Modelica.Units.SI.Height burDep1 "Buried depth of emitting boreholes";
+  input Modelica.Units.SI.Height len2 "Length of receiving boreholes";
+  input Modelica.Units.SI.Height burDep2 "Buried depth of receiving boreholes";
+  input Integer nBor2 "Number of receiving boreholes over which the response is averaged";
+  input Integer n_dis "Number of unique distances between emitting and receiving boreholes";
   input Boolean includeRealSource = true "true if contribution of real source is included";
   input Boolean includeMirrorSource = true "true if contribution of mirror source is included";
 

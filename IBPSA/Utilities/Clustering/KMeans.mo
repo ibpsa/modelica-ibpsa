@@ -15,20 +15,22 @@ function KMeans "k-means clustering algorithm"
 protected
   Real old_centroids[n_clusters,n_features] "Previous iteration centroids";
   Real new_centroids[n_clusters,n_features] "Next iteration centroids";
-  Real delta_centroids;
+  Real delta_centroids "Maximum relative displacement of cluster centroids between two k-means iterations";
   Integer new_labels[n_samples] "Next iteration cluster labels";
-  Real new_inertia;
-  Real inertia;
+  Real new_inertia "Inertia of the samples during the current run";
+  Real inertia "Minimum inertia of the samples since first run";
   // Integer seed "Arbitrary seed value";
   Integer id "Id of the random integer generator";
-  Integer k_iter;
-  Real min_dis;
-  Real dis;
-  Integer n;
+  Integer k_iter "Index of k-means iteration";
+  Real min_dis "Minimum distance between a sample (or a centroid) and a cluster centroid";
+  Real dis "Distance between a sample (or a centroid) and a cluster centroid";
+  Integer n "Random integer";
   constant Integer seed = 2 "Arbitrary seed value";
 
 algorithm
   // ---- Generate random seed
+  // Uncomment the line below to generate a random seed. Also, comment the
+  // constant seed from the protected block and replace with a variable.
   // seed := Modelica.Math.Random.Utilities.automaticGlobalSeed();
   id := Modelica.Math.Random.Utilities.initializeImpureRandom(seed);
 
