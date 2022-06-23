@@ -4,17 +4,11 @@ model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
 
   replaceable model BlaBoxHPHeating =
       IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
-    constrainedby
-    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox(
-     final scalingFactor = scalingFactor)
     "Replaceable model for black box data of a heat pump in main operation mode"
     annotation (choicesAllMatching=true);
 
   replaceable model BlaBoxHPCooling =
       IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
-    constrainedby
-    IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox(
-     final scalingFactor = scalingFactor)
     "Replaceable model for black box data of a heat pump in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 

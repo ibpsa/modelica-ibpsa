@@ -21,8 +21,8 @@ model VCLibMap
     annotation (Dialog(tab="SDF File", group="Variable names"));
   parameter String tableName_QCon="Q_con" "String identifier in sdf table for QCon" annotation (Dialog(tab="SDF File", group="Variable names"));
   parameter String tableName_QConNominal="Q_flow_con_nominal" "String identifier in sdf table for QConNominal" annotation (Dialog(tab="SDF File", group="Variable names"));
-  parameter String tableName_mFlowEvaNominal="m_flow_eva" "String identifier in sdf table for mFlow_evaNominal" annotation (Dialog(tab="SDF File", group="Variable names"));
-  parameter String tableName_mFlowConNominal="m_flow_con" "String identifier in sdf table for mFlow_conNominal" annotation (Dialog(tab="SDF File", group="Variable names"));
+  parameter String tableName_mFlowEvaNominal="m_flow_eva" "String identifier in sdf table for mEva_flow_nominalinal" annotation (Dialog(tab="SDF File", group="Variable names"));
+  parameter String tableName_mFlowConNominal="m_flow_con" "String identifier in sdf table for mCon_flow_nominalinal" annotation (Dialog(tab="SDF File", group="Variable names"));
   parameter Modelica.Units.SI.Power Q_flowTableNom = SDF.Functions.readDatasetDouble(fileref, dataset_QflowNom, "W")
   "Nominal heat flow in map. Doesn't need to be changed."  annotation(Dialog(tab="SDF File", group="Variable names"));
   parameter Real minCOP=0.1
@@ -105,13 +105,13 @@ model VCLibMap
 
 protected
   parameter String fileref = Modelica.Utilities.Files.loadResource(filename);
-  parameter Modelica.Units.SI.MassFlowRate mFlow_evaNominal=
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominalinal=
       SDF.Functions.readDatasetDouble(
       fileref,
       dataset_mFlowEvaNominal,
       "kg/s") "Nominal mass flow rate";
 
-  parameter Modelica.Units.SI.MassFlowRate mFlow_conNominal=
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominalinal=
       SDF.Functions.readDatasetDouble(
       fileref,
       dataset_mFlowConNominal,

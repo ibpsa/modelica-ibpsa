@@ -16,38 +16,38 @@ block DefrostControl
                   if not use_chiller
     "Check if icing factor is greater than a boundary" annotation (Placement(
         transformation(
-        extent={{-8,-9},{8,9}},
+        extent={{-10.5,-10.5},{10.5,10.5}},
         rotation=0,
-        origin={-31,-78})));
+        origin={-29.5,-69.5})));
  Modelica.Blocks.Interfaces.RealOutput Pel_deFro if not use_chiller
     "Relative speed of compressor. From 0 to 1" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={0,110})));
+        origin={0,128})));
   Modelica.Blocks.Sources.BooleanConstant conTrueNotUseChi(final k=true)
  if not use_chiller
     "If ice is melted with an additional heater, HP can continue running"
-    annotation (Placement(transformation(extent={{-36,-6},{-24,6}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Sources.Constant constPel_deFro(final k=calcPel_deFro)
                                                                         if not
     use_chiller "Calculate how much eletrical energy is used to melt ice"
     annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
+        extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={10,52})));
+        origin={30,50})));
 
   Modelica.Blocks.Logical.Switch       swiPel if not use_chiller
     "If defrost is on, output will be positive" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,84})));
+        origin={0,90})));
   Modelica.Blocks.Sources.Constant conZero(final k=0) if not use_chiller
     "If Defrost is enabled, HP runs at full power"
-    annotation (Placement(transformation(extent={{-6,-6},{6,6}},
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-12,52})));
+        origin={-30,50})));
   Modelica.Blocks.Logical.Hysteresis iceFacGreMinChi(
     final uLow=minIceFac,
     final uHigh=minIceFac + deltaIceFac,
@@ -55,12 +55,12 @@ block DefrostControl
                   if use_chiller
     "Check if icing factor is greater than a boundary" annotation (Placement(
         transformation(
-        extent={{-8,-9},{8,9}},
+        extent={{-10.5,-10.5},{10.5,10.5}},
         rotation=0,
-        origin={-31,-46})));
+        origin={-29.5,-29.5})));
   Modelica.Blocks.Logical.LogicalSwitch logicalSwitch
     "If a chiller is used to defrost, mode will be false"
-    annotation (Placement(transformation(extent={{64,-54},{84,-34}})));
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Modelica.Blocks.Sources.BooleanConstant conFalseNotUseChi(final k=true)
                                                                        if not
     use_chiller "Just to omit warnings"
@@ -69,13 +69,11 @@ block DefrostControl
  if use_chiller "Set mode to false to simulate the defrost cycle"
     annotation (Placement(transformation(extent={{30,-88},{40,-78}})));
 equation
-  connect(swiErr.y, nOut) annotation (Line(points={{107,0},{96,0},{96,20},{130,
-          20}}, color={0,0,127}));
-  connect(ySet, swiErr.u1) annotation (Line(points={{-136,20},{-26,20},{-26,8},
-          {84,8}},
+  connect(ySet, swiErr.u1) annotation (Line(points={{-136,20},{74,20},{74,8},{
+          78,8}},
                color={0,0,127}));
   connect(sigBusHP.iceFacMea, iceFacGreMinHea.u) annotation (Line(
-      points={{-129,-69},{-68,-69},{-68,-78},{-40.6,-78}},
+      points={{-129,-69},{-82.8,-69},{-82.8,-69.5},{-42.1,-69.5}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash), Text(
@@ -84,26 +82,28 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(Pel_deFro, swiPel.y)
-    annotation (Line(points={{0,110},{0,95}}, color={0,0,127}));
+    annotation (Line(points={{0,128},{0,111.5},{8.88178e-16,111.5},{8.88178e-16,
+          101}},                              color={0,0,127}));
   connect(conTrueNotUseChi.y, swiErr.u2) annotation (Line(
-      points={{-23.4,0},{0,0},{0,0},{84,0}},
+      points={{-19,0},{78,0}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(iceFacGreMinHea.y, swiPel.u2) annotation (Line(
-      points={{-22.2,-78},{-10,-78},{-10,34},{-6.66134e-16,34},{-6.66134e-16,72}},
+      points={{-17.95,-69.5},{-8,-69.5},{-8,-70},{0,-70},{0,4},{-6.66134e-16,4},
+          {-6.66134e-16,78}},
       color={255,0,255},
       pattern=LinePattern.Dash));
 
   connect(constPel_deFro.y, swiPel.u3) annotation (Line(
-      points={{10,58.6},{10,68},{8,68},{8,72}},
+      points={{30,61},{30,70},{8,70},{8,78}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(swiPel.u1, conZero.y) annotation (Line(
-      points={{-8,72},{-8,58.6},{-12,58.6}},
+      points={{-8,78},{-8,70},{-30,70},{-30,61}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(sigBusHP.iceFacMea, iceFacGreMinChi.u) annotation (Line(
-      points={{-129,-69},{-68,-69},{-68,-46},{-40.6,-46}},
+      points={{-129,-69},{-50,-69},{-50,-29.5},{-42.1,-29.5}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash), Text(
@@ -112,33 +112,35 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(iceFacGreMinChi.y, swiErr.u2) annotation (Line(
-      points={{-22.2,-46},{8,-46},{8,0},{84,0}},
+      points={{-17.95,-29.5},{-12,-29.5},{-12,0},{78,0}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(logicalSwitch.y, modeOut) annotation (Line(points={{85,-44},{98,-44},
-          {98,-20},{130,-20}}, color={255,0,255}));
-  connect(modeSet, logicalSwitch.u1) annotation (Line(points={{-136,-20},{52,
-          -20},{52,-36},{62,-36}},  color={255,0,255}));
+  connect(logicalSwitch.y, modeOut) annotation (Line(points={{101,-50},{116,-50},
+          {116,-20},{130,-20}},color={255,0,255}));
+  connect(modeSet, logicalSwitch.u1) annotation (Line(points={{-136,-20},{-110,
+          -20},{-110,18},{12,18},{12,-42},{78,-42}},
+                                    color={255,0,255}));
   connect(conTrueNotUseChi.y, logicalSwitch.u2) annotation (Line(
-      points={{-23.4,0},{8,0},{8,-32},{50,-32},{50,-44},{62,-44}},
+      points={{-19,0},{72,0},{72,-36},{78,-36},{78,-50}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(conFalseNotUseChi.y, logicalSwitch.u3) annotation (Line(
-      points={{40.5,-95},{50,-95},{50,-52},{62,-52}},
+      points={{40.5,-95},{26,-95},{26,-58},{78,-58}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(iceFacGreMinChi.y, logicalSwitch.u2) annotation (Line(
-      points={{-22.2,-46},{8,-46},{8,-32},{50,-32},{50,-44},{62,-44}},
+      points={{-17.95,-29.5},{-12,-29.5},{-12,0},{10,0},{10,-50},{78,-50}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(conTrueUseChi.y, logicalSwitch.u3) annotation (Line(
-      points={{40.5,-83},{50,-83},{50,-52},{62,-52}},
+      points={{40.5,-83},{66,-83},{66,-58},{78,-58}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(not1.u, logicalSwitch.y) annotation (Line(points={{-21,-63},{-21,-56},
-          {98,-56},{98,-44},{85,-44}}, color={255,0,255}));
+  connect(not1.u, logicalSwitch.y) annotation (Line(points={{-42,-100},{-48,
+          -100},{-48,-116},{108,-116},{108,-50},{101,-50}},
+                                       color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -100},{120,100}}),                                  graphics={
+            -120},{120,120}}),                                  graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
@@ -223,8 +225,8 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,
-            100}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
+            120}})),
     Documentation(info="<html><p>
   Basic model for a defrost control. The icing factor is calculated in
   the heat pump based on functions or other models.

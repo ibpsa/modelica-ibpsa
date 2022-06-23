@@ -19,7 +19,7 @@ partial model PartialReversibleVapourCompressionMachine
     Modelica.Media.Interfaces.PartialMedium "Medium at source side"
     annotation (Dialog(tab = "Evaporator"),choicesAllMatching=true);
   replaceable IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle innerCycle
-    constrainedby IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle
+    constrainedby PartialInnerCycle(final use_rev=use_rev)
     "Blackbox model of refrigerant cycle of a vapour compression machine"
     annotation (Placement(transformation(extent={{-18,-18},{18,18}}, rotation=90)));
   replaceable model vapComIne =
@@ -35,26 +35,32 @@ partial model PartialReversibleVapourCompressionMachine
   parameter Modelica.Units.SI.Power Q_useNominal(start=0)
     "Nominal usable heat flow of the vapour compression machine (HP: Heating; Chiller: Cooling)"
     annotation (Dialog(enable=use_autoCalc));
-  parameter Real scalingFactor=1 "Scaling-factor of vapour compression machine";
+  parameter Boolean use_safetyControl=true "=true to enable internal heat pump safety control" annotation (Dialog(group="Safety Control"), choices(checkBox=true));
 
   parameter Boolean use_busConnectorOnly=false
-    "=true to use bus connector for model inputs (modeSet, ySet, TSet, onOffSet). =false to use the bus connector for outputs only."
-    annotation(choices(checkBox=true), Dialog(group="Input Connectors"));
+    "=true to use bus connector for model inputs (modeSet, ySet, TSet, onOffSet). =false to use the bus connector for outputs only. Only possible if no internal safety control is used."
+    annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=
+          not use_safetyControl));
   parameter Boolean use_TSet=false
     "=true to use black-box internal control for supply temperature of device with the given temperature set point TSet"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors"));
 
-//Condenser
+  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal "Nominal heat flow rate at condenser" annotation (Dialog(group="Nominal Design"));
+
+  parameter Real y_nominal "Nominal relative compressor speed" annotation (Dialog(group="Nominal Design"));
+  //Condenser
+  parameter Modelica.Units.SI.Temperature TCon_nominal "Nominal flow temperature at secondary condenser side" annotation (Dialog(group="Nominal Design", tab="Condenser"));
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal "Nominal temperature difference at secondary condenser side" annotation (Dialog(group="Nominal Design", tab="Condenser"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Manual input of the nominal mass flow rate (if not automatically calculated)"
     annotation (Dialog(
-      group="Parameters",
+      group="Nominal Design",
       tab="Condenser",
       enable=not use_autoCalc), Evaluate=true);
+
   parameter Modelica.Units.SI.Volume VCon
     "Manual input of the condenser volume (if not automatically calculated)"
     annotation (Evaluate=true, Dialog(
-      group="Parameters",
       tab="Condenser",
       enable=not use_autoCalc));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal
@@ -85,17 +91,27 @@ partial model PartialReversibleVapourCompressionMachine
       group="Heat Losses",
       tab="Condenser",
       enable=use_conCap));
-//Evaporator
+
+  parameter Modelica.Units.SI.Density rhoCon=Medium_con.density(sta_nominal)
+    "Density of medium / fluid in condenser"
+    annotation (Dialog(tab="Condenser", group="Medium properties"));
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpCon=
+      Medium_con.specificHeatCapacityCp(sta_nominal)
+    "Specific heat capacaity of medium / fluid in condenser"
+    annotation (Dialog(tab="Condenser", group="Medium properties"));
+
+  //Evaporator
+  parameter Modelica.Units.SI.Temperature TEva_nominal "Nominal flow temperature at secondary evaporator side" annotation (Dialog(group="Nominal Design", tab="Evaporator"));
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal "Nominal temperature difference at secondary evaporator side" annotation (Dialog(group="Nominal Design", tab="Evaporator"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Manual input of the nominal mass flow rate (if not automatically calculated)"
     annotation (Dialog(
-      group="Parameters",
+      group="Nominal Design",
       tab="Evaporator",
       enable=not use_autoCalc), Evaluate=true);
   parameter Modelica.Units.SI.Volume VEva
     "Manual input of the evaporator volume (if not automatically calculated)"
     annotation (Evaluate=true, Dialog(
-      group="Parameters",
       tab="Evaporator",
       enable=not use_autoCalc));
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal
@@ -126,6 +142,14 @@ partial model PartialReversibleVapourCompressionMachine
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
+  parameter Modelica.Units.SI.Density rhoEva=Medium_eva.density(sta_nominal)
+    "Density of medium / fluid in evaporator"
+    annotation (Dialog(tab="Evaporator", group="Medium properties"));
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpEva=
+      Medium_eva.specificHeatCapacityCp(sta_nominal)
+    "Specific heat capacaity of medium / fluid in evaporator"
+    annotation (Dialog(tab="Evaporator", group="Medium properties"));
+
 //Assumptions
   parameter Boolean allowFlowReversalEva=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
@@ -297,7 +321,7 @@ partial model PartialReversibleVapourCompressionMachine
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-50,-30})));
+        origin={-50,-50})));
 
   vapComIne vapComIneCon "Inertia model for condenser side"
                          annotation(Placement(transformation(
@@ -328,7 +352,16 @@ partial model PartialReversibleVapourCompressionMachine
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={90,-40})));
+
 protected
+  parameter Real scalingFactor "Scaling-factor of vapour compression machine";
+  parameter Medium_con.ThermodynamicState sta_nominal=Medium_con.setState_pTX(
+      T=Medium_con.T_default, p=Medium_con.p_default, X=Medium_con.X_default) "Nominal / default state of condenser medium";
+
+  parameter Medium_eva.ThermodynamicState staEva_nominal=Medium_eva.setState_pTX(
+      T=Medium_eva.T_default, p=Medium_eva.p_default, X=Medium_eva.X_default) "Nominal / default state of evaporator medium";
+
+
   parameter Modelica.Units.SI.MassFlowRate autoCalc_mMin_flow=0.3
     "Realistic mass flow minimum for simulation plausibility";
   parameter Modelica.Units.SI.Volume autoCalc_VMin=0.003
@@ -369,7 +402,7 @@ equation
   level = AssertionLevel.warning);
 
   connect(mFlow_eva.m_flow, sigBus.m_flowEvaMea) annotation (Line(points={{72,-49},
-          {72,-40},{26,-40},{26,-30},{-30,-30},{-30,-52},{-76,-52},{-76,-43},{-105,
+          {72,-40},{26,-40},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,
           -43}},                                                color={0,0,127}),
       Text(
       string="%second",
@@ -385,31 +418,19 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(innerCycle.sigBus, sigBus) annotation (Line(
-      points={{-18.54,0.18},{-30,0.18},{-30,-52},{-76,-52},{-76,-43},{-105,-43}},
+      points={{-18.54,0.18},{-30,0.18},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(innerCycle.Pel, sigBus.PelMea) annotation (Line(points={{19.89,0.09},{
-          26,0.09},{26,-30},{-30,-30},{-30,-52},{-76,-52},{-76,-43},{-105,-43}},
+          26,0.09},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
         color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
 
-  connect(modeSet, sigBus.modeSet) annotation (Line(points={{-116,-90},{-76,-90},
-          {-76,-43},{-105,-43}},        color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(ySet,sigBus.ySet)  annotation (Line(points={{-116,20},{-76,20},{-76,-43},
-          {-105,-43}},         color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(TConAmb, varTempOutCon.T) annotation (Line(
       points={{110,100},{88,100},{88,110},{82,110}},
       color={0,0,127},
@@ -433,8 +454,8 @@ equation
   connect(port_a1, mFlow_con.port_a)
     annotation (Line(points={{-100,60},{-68,60},{-68,92},{-60,92}},
                                                   color={0,127,255}));
-  connect(hysteresis.y, sigBus.onOffMea) annotation (Line(points={{-39,-30},{-30,
-          -30},{-30,-52},{-76,-52},{-76,-43},{-105,-43}},
+  connect(hysteresis.y, sigBus.onOffMea) annotation (Line(points={{-39,-50},{-30,
+          -50},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
                                       color={255,0,255}), Text(
       string="%second",
       index=1,
@@ -457,7 +478,7 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(hysteresis.u, sigBus.ySet) annotation (Line(points={{-62,-30},{-76,-30},
+  connect(hysteresis.u, sigBus.ySet) annotation (Line(points={{-62,-50},{-76,-50},
           {-76,-43},{-105,-43}}, color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -475,12 +496,6 @@ equation
   connect(vapComIneCon.u, innerCycle.QCon_flow) annotation (Line(points={{-6.66134e-16,
           38},{-6.66134e-16,28.9},{1.22125e-15,28.9},{1.22125e-15,19.8}}, color=
          {0,0,127}));
-  connect(onOffSet, sigBus.onOffSet) annotation (Line(points={{-116,-20},{-76,
-          -20},{-76,-43},{-105,-43}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(con.T, sigBus.TConOutMea) annotation (Line(points={{22.4,82},{38,82},{
           38,32},{-76,32},{-76,-43},{-105,-43}}, color={0,0,127}), Text(
       string="%second",
@@ -504,7 +519,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(senTEvaIn.y, sigBus.TEvaInMea) annotation (Line(points={{79,-40},{26,-40},
-          {26,-30},{-30,-30},{-30,-52},{-76,-52},{-76,-43},{-105,-43}}, color={0,
+          {26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,-43}}, color={0,
           0,127}), Text(
       string="%second",
       index=1,

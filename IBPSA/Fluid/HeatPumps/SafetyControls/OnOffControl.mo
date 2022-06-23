@@ -17,152 +17,158 @@ model OnOffControl
   Modelica.Blocks.Logical.GreaterThreshold
                                   ySetGreaterZero(final threshold=Modelica.Constants.eps)
                                                   "True if device is set on"
-    annotation (Placement(transformation(extent={{-110,56},{-94,72}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Logical.And andRun
-    annotation (Placement(transformation(extent={{18,72},{30,84}})));
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
   Modelica.Blocks.Logical.Pre pre1(final pre_u_start=pre_n_start)
-    annotation (Placement(transformation(extent={{-84,-48},{-72,-36}})));
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   BaseClasses.RunPerHouBoundary runPerHouBoundary(final maxRunPer_h=
         maxRunPerHou, final delayTime=3600) if use_runPerHou
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   BaseClasses.TimeControl locTimControl(final minRunTime=minLocTime)
     if use_minLocTime
-    annotation (Placement(transformation(extent={{-40,-24},{-20,-4}})));
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Modelica.Blocks.Logical.Not notIsOn
-    annotation (Placement(transformation(extent={{-66,-22},{-58,-14}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   BaseClasses.TimeControl runTimControl(final minRunTime=minRunTime)
     if use_minRunTime
-    annotation (Placement(transformation(extent={{-40,52},{-20,72}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Logical.And andLoc
-    annotation (Placement(transformation(extent={{28,-66},{40,-54}})));
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
   Modelica.Blocks.Sources.BooleanConstant booleanConstantRunPerHou(final k=true) if not
     use_runPerHou
-    annotation (Placement(transformation(extent={{0,-90},{14,-76}})));
+    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstantLocTim(final k=true) if not
     use_minLocTime
-    annotation (Placement(transformation(extent={{-34,-44},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstantRunTim(final k=true) if not
     use_minRunTime
-    annotation (Placement(transformation(extent={{-4,52},{10,66}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Modelica.Blocks.Logical.Not notSetOn
-    annotation (Placement(transformation(extent={{-66,72},{-56,82}})));
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Logical.And andTurnOff
     "Check if HP is on and is set to be turned off"
-    annotation (Placement(transformation(extent={{-12,80},{0,92}})));
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
   Modelica.Blocks.Logical.And andTurnOn
     "Check if HP is Off and is set to be turned on"
-    annotation (Placement(transformation(extent={{28,-90},{40,-78}})));
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Modelica.Blocks.Logical.And andIsOn
     "Check if both set and actual value are greater zero"
-    annotation (Placement(transformation(extent={{16,12},{28,24}})));
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Interfaces.RealInput ySet
     "Set value relative speed of compressor. Analog from 0 to 1"
-    annotation (Placement(transformation(extent={{-152,-16},{-120,16}})));
-  Modelica.Blocks.Interfaces.RealOutput nOut
+    annotation (Placement(transformation(extent={{-132,-16},{-100,16}})));
+  Modelica.Blocks.Interfaces.RealOutput yOut
     "Relative speed of compressor. From 0 to 1"
-    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Interfaces.VapourCompressionMachineControlBus                sigBusHP
-    annotation (Placement(transformation(extent={{-152,-84},{-118,-54}})));
+    annotation (Placement(transformation(extent={{-116,-88},{-82,-58}})));
   Modelica.Blocks.Logical.Switch       swinOutySet
     "If any of the orySet conditions is true, ySet will be passed. Else nOut will stay the same"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+    annotation (Placement(transformation(extent={{72,-10},{92,10}})));
   Modelica.Blocks.MathBoolean.Or orSetN(nu=4)
     "Output is true if ySet value is correct"
-    annotation (Placement(transformation(extent={{52,-10},{72,10}})));
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Modelica.Blocks.Logical.And andIsOff
     "Check if both set and actual value are equal to zero"
-    annotation (Placement(transformation(extent={{16,32},{28,44}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Modelica.Blocks.Logical.And andLocOff
-    annotation (Placement(transformation(extent={{52,-78},{64,-66}})));
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 equation
-  connect(pre1.y, runPerHouBoundary.u) annotation (Line(points={{-71.4,-42},{-71.4,
-          -70},{-42,-70}},         color={255,0,255}));
-  connect(pre1.y, notIsOn.u) annotation (Line(points={{-71.4,-42},{-71.4,-28},{-72,
-          -28},{-72,-18},{-66.8,-18}}, color={255,0,255}));
-  connect(notIsOn.y, locTimControl.u) annotation (Line(points={{-57.6,-18},{-50,
-          -18},{-50,-14},{-42,-14}}, color={255,0,255}));
-  connect(runTimControl.y, andRun.u2) annotation (Line(points={{-19,62},{-8,62},
-          {-8,73.2},{16.8,73.2}},color={255,0,255},
+  connect(pre1.y, runPerHouBoundary.u) annotation (Line(points={{-59,-90},{-42,-90}},
+                                   color={255,0,255}));
+  connect(pre1.y, notIsOn.u) annotation (Line(points={{-59,-90},{-52,-90},{-52,-54},
+          {-88,-54},{-88,-30},{-82,-30}},
+                                       color={255,0,255}));
+  connect(notIsOn.y, locTimControl.u) annotation (Line(points={{-59,-30},{-52,-30},
+          {-52,-10},{-42,-10}},      color={255,0,255}));
+  connect(runTimControl.y, andRun.u2) annotation (Line(points={{-19,50},{-14,50},
+          {-14,72},{52,72},{52,82},{58,82}},
+                                 color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(runTimControl.u, pre1.y) annotation (Line(points={{-42,62},{-71.4,62},
-          {-71.4,-42}},                color={255,0,255}));
-  connect(locTimControl.y, andLoc.u1) annotation (Line(points={{-19,-14},{6,-14},
-          {6,-60},{26.8,-60}},         color={255,0,255},
+  connect(runTimControl.u, pre1.y) annotation (Line(points={{-42,50},{-52,50},{-52,
+          -90},{-59,-90}},             color={255,0,255}));
+  connect(locTimControl.y, andLoc.u1) annotation (Line(points={{-19,-10},{22,-10},
+          {22,-30},{38,-30}},          color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(runPerHouBoundary.y, andLoc.u2) annotation (Line(points={{-19,-70},{6,
-          -70},{6,-64.8},{26.8,-64.8}}, color={255,0,255},
+  connect(runPerHouBoundary.y, andLoc.u2) annotation (Line(points={{-19,-90},{-4,
+          -90},{-4,-68},{28,-68},{28,-38},{38,-38}},
+                                        color={255,0,255},
       pattern=LinePattern.Dash));
   connect(booleanConstantRunPerHou.y, andLoc.u2) annotation (Line(
-      points={{14.7,-83},{16,-83},{16,-64.8},{26.8,-64.8}},
+      points={{21,-90},{28,-90},{28,-38},{38,-38}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(booleanConstantRunTim.y, andRun.u2) annotation (Line(
-      points={{10.7,59},{10.7,73.2},{16.8,73.2}},
+      points={{61,50},{64,50},{64,72},{52,72},{52,82},{58,82}},
       color={255,0,255},
       pattern=LinePattern.Dash));
 
-  connect(ySet,ySetGreaterZero. u) annotation (Line(points={{-136,0},{-120,0},{-120,
-          64},{-111.6,64}}, color={0,0,127}));
-  connect(ySetGreaterZero.y, notSetOn.u) annotation (Line(points={{-93.2,64},{-78,
-          64},{-78,77},{-67,77}}, color={255,0,255}));
-  connect(pre1.y, andIsOn.u2) annotation (Line(points={{-71.4,-42},{-71.4,12},{-72,
-          12},{-72,14},{-42,14},{-42,13.2},{14.8,13.2}},
-                                      color={255,0,255}));
-  connect(ySetGreaterZero.y, andIsOn.u1) annotation (Line(points={{-93.2,64},{-86,
-          64},{-86,18},{14.8,18}},                             color={255,0,255}));
-  connect(nOut, nOut)
-    annotation (Line(points={{130,0},{130,0}}, color={0,0,127}));
-  connect(swinOutySet.y, nOut)
-    annotation (Line(points={{111,0},{130,0}}, color={0,0,127}));
-  connect(ySet, swinOutySet.u1) annotation (Line(points={{-136,0},{-120,0},{
-          -120,98},{78,98},{78,8},{88,8}},
-                                        color={0,0,127}));
-  connect(andTurnOff.y, andRun.u1) annotation (Line(points={{0.6,86},{8,86},{8,78},
-          {16.8,78}}, color={255,0,255}));
+  connect(ySet,ySetGreaterZero. u) annotation (Line(points={{-116,0},{-94,0},{-94,
+          34},{-88,34},{-88,70},{-82,70}},
+                            color={0,0,127}));
+  connect(ySetGreaterZero.y, notSetOn.u) annotation (Line(points={{-59,70},{-52,
+          70},{-52,90},{-42,90}}, color={255,0,255}));
+  connect(pre1.y, andIsOn.u2) annotation (Line(points={{-59,-90},{-52,-90},{-52,
+          6},{-10,6},{-10,2},{-2,2}}, color={255,0,255}));
+  connect(ySetGreaterZero.y, andIsOn.u1) annotation (Line(points={{-59,70},{-52,
+          70},{-52,10},{-2,10}},                               color={255,0,255}));
+  connect(yOut,yOut)
+    annotation (Line(points={{110,0},{110,0}}, color={0,0,127}));
+  connect(swinOutySet.y,yOut)
+    annotation (Line(points={{93,0},{110,0}},  color={0,0,127}));
+  connect(ySet, swinOutySet.u1) annotation (Line(points={{-116,0},{-94,0},{-94,34},
+          {66,34},{66,8},{70,8}},       color={0,0,127}));
+  connect(andTurnOff.y, andRun.u1) annotation (Line(points={{21,90},{58,90}},
+                      color={255,0,255}));
   connect(orSetN.y, swinOutySet.u2)
-    annotation (Line(points={{73.5,0},{88,0}}, color={255,0,255}));
-  connect(notSetOn.y, andIsOff.u1) annotation (Line(points={{-55.5,77},{-50,77},
-          {-50,42},{16,42},{16,38},{14.8,38}}, color={255,0,255}));
-  connect(andIsOff.y, orSetN.u[1]) annotation (Line(points={{28.6,38},{40,38},
-          {40,-2.625},{52,-2.625}},
+    annotation (Line(points={{61.5,10},{61.5,0},{70,0}},
+                                               color={255,0,255}));
+  connect(notSetOn.y, andIsOff.u1) annotation (Line(points={{-19,90},{-12,90},{-12,
+          50},{-2,50}},                        color={255,0,255}));
+  connect(andIsOff.y, orSetN.u[1]) annotation (Line(points={{21,50},{30,50},{30,
+          7.375},{40,7.375}},
                             color={255,0,255}));
-  connect(andIsOn.y, orSetN.u[2]) annotation (Line(points={{28.6,18},{38,18},{
-          38,-0.875},{52,-0.875}},
-                            color={255,0,255}));
-  connect(andRun.y, orSetN.u[3]) annotation (Line(points={{30.6,78},{46,78},{46,
-          0.875},{52,0.875}}, color={255,0,255}));
-  connect(andLoc.y, andLocOff.u1) annotation (Line(points={{40.6,-60},{46,-60},{
-          46,-72},{50.8,-72}}, color={255,0,255}));
-  connect(andTurnOn.y, andLocOff.u2) annotation (Line(points={{40.6,-84},{46,-84},
-          {46,-76.8},{50.8,-76.8}}, color={255,0,255}));
-  connect(andLocOff.y, orSetN.u[4]) annotation (Line(points={{64.6,-72},{64.6,
-          -32},{40,-32},{40,2.625},{52,2.625}},
+  connect(andIsOn.y, orSetN.u[2]) annotation (Line(points={{21,10},{30,10},{30,9.125},
+          {40,9.125}},      color={255,0,255}));
+  connect(andRun.y, orSetN.u[3]) annotation (Line(points={{81,90},{86,90},{86,32},
+          {30,32},{30,10.875},{40,10.875}},
+                              color={255,0,255}));
+  connect(andLoc.y, andLocOff.u1) annotation (Line(points={{61,-30},{70,-30},{70,
+          -50},{78,-50}},      color={255,0,255}));
+  connect(andTurnOn.y, andLocOff.u2) annotation (Line(points={{61,-70},{68,-70},
+          {68,-58},{78,-58}},       color={255,0,255}));
+  connect(andLocOff.y, orSetN.u[4]) annotation (Line(points={{101,-50},{104,-50},
+          {104,-12},{30,-12},{30,12.625},{40,12.625}},
                                            color={255,0,255}));
-  connect(notSetOn.y, andTurnOff.u2) annotation (Line(points={{-55.5,77},{-50,77},
-          {-50,81.2},{-13.2,81.2}}, color={255,0,255}));
-  connect(pre1.y, andTurnOff.u1) annotation (Line(points={{-71.4,-42},{-72,-42},
-          {-72,86},{-13.2,86}}, color={255,0,255}));
-  connect(ySetGreaterZero.y, andTurnOn.u2) annotation (Line(points={{-93.2,64},{
-          -86,64},{-86,-98},{24,-98},{24,-88.8},{26.8,-88.8}}, color={255,0,255}));
-  connect(notIsOn.y, andTurnOn.u1) annotation (Line(points={{-57.6,-18},{-56,-18},
-          {-56,-96},{22,-96},{22,-84},{26.8,-84}}, color={255,0,255}));
-  connect(notIsOn.y, andIsOff.u2) annotation (Line(points={{-57.6,-18},{-56,-18},
-          {-56,33.2},{14.8,33.2}}, color={255,0,255}));
-  connect(sigBusHP.ySet, swinOutySet.u3) annotation (Line(
-      points={{-135,-69},{-135,-104},{78,-104},{78,-8},{88,-8}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+  connect(notSetOn.y, andTurnOff.u2) annotation (Line(points={{-19,90},{-12,90},
+          {-12,82},{-2,82}},        color={255,0,255}));
+  connect(pre1.y, andTurnOff.u1) annotation (Line(points={{-59,-90},{-52,-90},{-52,
+          74},{-10,74},{-10,90},{-2,90}},
+                                color={255,0,255}));
+  connect(ySetGreaterZero.y, andTurnOn.u2) annotation (Line(points={{-59,70},{-52,
+          70},{-52,10},{-12,10},{-12,-78},{38,-78}},           color={255,0,255}));
+  connect(notIsOn.y, andTurnOn.u1) annotation (Line(points={{-59,-30},{-4,-30},{
+          -4,-54},{30,-54},{30,-70},{38,-70}},     color={255,0,255}));
+  connect(notIsOn.y, andIsOff.u2) annotation (Line(points={{-59,-30},{-52,-30},{
+          -52,22},{-8,22},{-8,42},{-2,42}},
+                                   color={255,0,255}));
   connect(booleanConstantLocTim.y, andLoc.u1) annotation (Line(
-      points={{-19.3,-37},{6,-37},{6,-60},{26.8,-60}},
+      points={{-19,-50},{22,-50},{22,-30},{38,-30}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(pre1.u, sigBusHP.onOffMea) annotation (Line(points={{-85.2,-42},{-135,
-          -42},{-135,-69}},         color={255,0,255}), Text(
+  connect(pre1.u, sigBusHP.onOffMea) annotation (Line(points={{-82,-90},{-82,-72},
+          {-84,-72},{-84,-74},{-86,-74},{-86,-73},{-99,-73}},
+                                    color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+
+  connect(swinOutySet.u3, sigBusHP.ySet) annotation (Line(points={{70,-8},{58,
+          -8},{58,-14},{108,-14},{108,-114},{-99,-114},{-99,-73}}, color={0,0,
+          127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
@@ -184,8 +190,8 @@ equation
   </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-120,-120},{120,100}})),
-    Icon(coordinateSystem(extent={{-120,-120},{120,100}}), graphics={
+    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
+    Icon(coordinateSystem(extent={{-120,-120},{120,120}}), graphics={
         Polygon(
           points={{-42,20},{0,62},{-42,20}},
           lineColor={28,108,200},
@@ -224,7 +230,7 @@ equation
           fillPattern=FillPattern.None,
           textString="%name"),
         Rectangle(
-          extent={{-120,100},{120,-100}},
+          extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
           lineThickness=0.5,
           fillColor={255,255,255},

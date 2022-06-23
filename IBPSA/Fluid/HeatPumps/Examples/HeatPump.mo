@@ -35,8 +35,17 @@ model HeatPump "Example for the reversible heat pump model."
   IBPSA.Fluid.HeatPumps.HeatPump heatPump(
     redeclare model vapComIne =
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
-    use_busConnectorOnly=true,
+
+    use_safetyControl=true,
+    use_busConnectorOnly=false,
+    QUse_flow_nominal=1000,
+    mEva_flow_nominal=sourceSideMassFlowSource.m_flow,
+    y_nominal=1,
+    TCon_nominal=313.15,
+    dTCon_nominal=7,
     GConIns=0,
+    TEva_nominal=278.15,
+    dTEva_nominal=3,
     CEva=100,
     GEvaOut=5,
     CCon=100,
@@ -50,23 +59,23 @@ model HeatPump "Example for the reversible heat pump model."
     use_rev=true,
     GEvaIns=0,
     redeclare model BlaBoxHPHeating =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.LookUpTable2D (redeclare
+        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (redeclare
           IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting iceFacCalc,
           dataTable=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201
-            ()),
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201()),
     redeclare model BlaBoxHPCooling =
         IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.LookUpTable2D (smoothness=
             Modelica.Blocks.Types.Smoothness.LinearSegments, dataTable=
             IBPSA.Fluid.Chillers.BlackBoxData.EN14511.Vitocal200AWO201()),
     VEva=0.04,
     use_evaCap=false,
-    scalingFactor=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    mCon_flow_nominal=0.5,
-    mEva_flow_nominal=0.5,
     use_autoCalc=false,
-    TCon_start=303.15) annotation (Placement(transformation(
+    TCon_start=303.15,
+    redeclare
+      IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultSafetyControl
+      safetyControlParameters)
+                       annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=270,
         origin={2,-21})));
@@ -162,25 +171,6 @@ model HeatPump "Example for the reversible heat pump model."
     uLow=273.15 + 15,
     uHigh=273.15 + 19)
     annotation (Placement(transformation(extent={{58,40},{48,50}})));
-  IBPSA.Fluid.Interfaces.VapourCompressionMachineControlBus sigBus annotation (
-      Placement(transformation(extent={{-34,22},{-4,56}}), iconTransformation(
-          extent={{-22,30},{-4,56}})));
-  SafetyControls.SafetyControl safetyControl(
-    minRunTime(displayUnit="min") = 600,
-    minLocTime(displayUnit="min") = 900,
-    maxRunPerHou=3,
-    use_opeEnvFroRec=true,
-    dataTable=
-        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201(),
-    tableUpp=[-40,70; 40,70],
-    use_deFro=false,
-    minIceFac=0,
-    use_chiller=true,
-    calcPel_deFro=0,
-    use_antFre=false) annotation (Placement(transformation(
-        extent={{21,-19},{-21,19}},
-        rotation=0,
-        origin={-27,79})));
 equation
 
   connect(sourceSideMassFlowSource.ports[1], heatPump.port_a2) annotation (Line(
@@ -224,39 +214,10 @@ equation
   connect(logicalSwitch.y, booleanToReal.u)
     annotation (Line(points={{19.5,53},{14,53},{14,66},{30,66},{30,71},{25,71}},
                                                        color={255,0,255}));
-  connect(sigBus, heatPump.sigBus) annotation (Line(
-      points={{-19,39},{-19,16},{-10,16},{-10,2.76},{-7.425,2.76}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(booleanStep.y, safetyControl.modeSet) annotation (Line(points={{43.4,
-          88},{32,88},{32,90},{8,90},{8,75.2},{-3.2,75.2}}, color={255,0,255}));
-  connect(booleanToReal.y, safetyControl.ySet) annotation (Line(points={{13.5,
-          71},{4,71},{4,82.8},{-3.2,82.8}}, color={0,0,127}));
-  connect(safetyControl.modeOut, sigBus.modeSet) annotation (Line(points={{
-          -49.75,75.2},{-64,75.2},{-64,46},{-19,46},{-19,39}}, color={255,0,255}),
-      Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(safetyControl.nOut, sigBus.ySet) annotation (Line(points={{-49.75,
-          82.8},{-70,82.8},{-70,44},{-19,44},{-19,39}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(sigBus, safetyControl.sigBusHP) annotation (Line(
-      points={{-19,39},{8,39},{8,65.89},{-4.425,65.89}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+  connect(booleanStep.y, heatPump.modeSet) annotation (Line(points={{43.4,88},{-20,
+          88},{-20,22},{-19.75,22},{-19.75,6.84}}, color={255,0,255}));
+  connect(booleanToReal.y, heatPump.ySet) annotation (Line(points={{13.5,71},{6.83333,
+          71},{6.83333,6.84}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(Tolerance=1e-6, StopTime=3600),

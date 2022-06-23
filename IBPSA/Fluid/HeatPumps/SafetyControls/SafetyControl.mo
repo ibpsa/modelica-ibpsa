@@ -1,126 +1,77 @@
 ﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
 block SafetyControl "Block including all safety levels"
   extends BaseClasses.PartialSafetyControl;
-
-  parameter Boolean use_minRunTime=true
-    "False if minimal runtime of HP is not considered"
-    annotation (Dialog(group="OnOffControl"), choices(checkBox=true));
-  parameter Modelica.Units.SI.Time minRunTime "Mimimum runtime of heat pump"
-    annotation (Dialog(group="OnOffControl", enable=use_minRunTime));
-  parameter Boolean use_minLocTime=true
-    "False if minimal locktime of HP is not considered"
-    annotation (Dialog(group="OnOffControl"), choices(checkBox=true));
-  parameter Modelica.Units.SI.Time minLocTime "Minimum lock time of heat pump"
-    annotation (Dialog(group="OnOffControl", enable=use_minLocTime));
-  parameter Boolean use_runPerHou=true
-    "False if maximal runs per hour HP are not considered"
-    annotation (Dialog(group="OnOffControl"), choices(checkBox=true));
-  parameter Integer maxRunPerHou "Maximal number of on/off cycles in one hour"
-    annotation (Dialog(group="OnOffControl",enable=use_runPerHou));
-  parameter Boolean use_opeEnv=true
-    "False to allow HP to run out of operational envelope"
-    annotation (Dialog(group="Operational Envelope"), choices(checkBox=true));
-  parameter Boolean use_opeEnvFroRec=true
-    "Use a the operational envelope given in the datasheet"
-    annotation (Dialog(group="Operational Envelope", enable=use_opeEnv),choices(checkBox=true));
-  parameter
-    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition
-    dataTable "Data Table of HP" annotation (Dialog(group=
-          "Operational Envelope", enable=use_opeEnv and use_opeEnvFroRec),
-      choicesAllMatching=true);
-  parameter Real tableUpp[:,2] "Upper boundary of envelope"
-    annotation (Dialog(group="Operational Envelope", enable=use_opeEnv and not use_opeEnvFroRec));
-  parameter Modelica.Units.SI.TemperatureDifference dTHystOperEnv=5
-    "Temperature difference used for both upper and lower hysteresis in the operational envelope."
-    annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
-  parameter Boolean pre_n_start=true "Start value of pre(n) at initial time"
-    annotation (Dialog(group="OnOffControl", descriptionLabel=true),choices(checkBox=true));
-  parameter Boolean use_deFro
-    "True if defrost control should be enabled(only air-source HPs)"
-    annotation (Dialog(group="Defrost"), choices(checkBox=true));
-  parameter Real minIceFac "Minimal value above which no defrost is necessary"
-    annotation (Dialog(group="Defrost", enable=use_deFro));
-  parameter Real deltaIceFac = 0.1 "Bandwitdth for hystereses. If the icing factor is based on the duration of defrost, this value is necessary to avoid state-events." annotation (Dialog(group="Defrost", enable=use_deFro));
-  parameter Boolean use_chiller=true
-    "True if defrost operates by changing mode to cooling. False to use an electrical heater"
-    annotation (Dialog(group="Defrost", enable=use_deFro),
-                                        choices(checkBox=true));
-  parameter Modelica.Units.SI.Power calcPel_deFro
-    "Calculate how much eletrical energy is used to melt ice"
-    annotation (Dialog(enable=not use_chiller and use_deFro, group="Defrost"));
-  parameter Boolean use_antFre=true
-    "True if anti freeze control is part of safety control"
-    annotation (Dialog(group="Anti Freeze Control"), choices(checkBox=true));
-  parameter Modelica.Units.SI.ThermodynamicTemperature TantFre=276.15
-    "Limit temperature for anti freeze control"
-    annotation (Dialog(group="Anti Freeze Control", enable=use_antFre));
-
+  replaceable parameter RecordsCollection.DefaultSafetyControl
+    safetyControlParameters constrainedby RecordsCollection.HeatPumpSafetyControlBaseDataDefinition
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{-118,102},{-104,118}})));
   IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope
     operationalEnvelope(
-    final use_opeEnv=use_opeEnv,
-    final tableUpp=tableUpp,
-    final use_opeEnvFroRec=use_opeEnvFroRec,
-    final dataTable=dataTable,
-    final dTHyst=dTHystOperEnv)
-    annotation (Placement(transformation(extent={{-10,-10},{14,12}})));
+    final use_opeEnv=safetyControlParameters.use_opeEnv,
+    final tableUpp=safetyControlParameters.tableUpp,
+    final use_opeEnvFroRec=safetyControlParameters.use_opeEnvFroRec,
+    final dataTable=safetyControlParameters.dataTable,
+    final dTHyst=safetyControlParameters.dTHystOperEnv)
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl onOffController(
-    final minRunTime=minRunTime,
-    final minLocTime=minLocTime,
-    final use_minRunTime=use_minRunTime,
-    final use_minLocTime=use_minLocTime,
-    final use_runPerHou=use_runPerHou,
-    final maxRunPerHou=maxRunPerHou,
-    final pre_n_start=pre_n_start)
-    annotation (Placement(transformation(extent={{-62,-18},{-26,18}})));
+    final minRunTime=safetyControlParameters.minRunTime,
+    final minLocTime=safetyControlParameters.minLocTime,
+    final use_minRunTime=safetyControlParameters.use_minRunTime,
+    final use_minLocTime=safetyControlParameters.use_minLocTime,
+    final use_runPerHou=safetyControlParameters.use_runPerHou,
+    final maxRunPerHou=safetyControlParameters.maxRunPerHou,
+    final pre_n_start=safetyControlParameters.pre_n_start)
+    annotation (Placement(transformation(extent={{-62,18},{-38,42}})));
 
   IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl defrostControl(
-    final minIceFac=minIceFac,
-    final deltaIceFac=deltaIceFac,
-    final use_chiller=use_chiller,
-    final calcPel_deFro=calcPel_deFro) if use_deFro
-    annotation (Placement(transformation(extent={{-112,-16},{-76,14}})));
-  Modelica.Blocks.Routing.RealPassThrough realPasThrDef if not use_deFro
+    final minIceFac=safetyControlParameters.minIceFac,
+    final deltaIceFac=safetyControlParameters.deltaIceFac,
+    final use_chiller=safetyControlParameters.use_chiller,
+    final calcPel_deFro=safetyControlParameters.calcPel_deFro) if safetyControlParameters.use_deFro
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+  Modelica.Blocks.Routing.RealPassThrough realPasThrDef if not safetyControlParameters.use_deFro
     "No 2. Layer"
-    annotation (Placement(transformation(extent={{-92,32},{-76,48}})),
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})),
       choicesAllMatching=true);
   Modelica.Blocks.Sources.BooleanConstant conTru(final k=true)
     "Always true as the two blocks OperationalEnvelope and OnOffControl deal with whether the ySet value is correct or not"
-    annotation (Placement(transformation(extent={{58,-6},{70,6}})));
-  Modelica.Blocks.Interfaces.RealOutput Pel_deFro if not use_chiller and
-    use_deFro
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+  Modelica.Blocks.Interfaces.RealOutput Pel_deFro if not safetyControlParameters.use_chiller and
+    safetyControlParameters.use_deFro
     "Relative speed of compressor. From 0 to 1" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={130,80})));
-  IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze antiFreeze(final TAntFre=
-        TantFre, final use_antFre=use_antFre)
-    annotation (Placement(transformation(extent={{24,-8},{48,12}})));
+  IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze antiFreeze(final TAntFre=safetyControlParameters.TantFre, final use_antFre=safetyControlParameters.use_antFre)
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Routing.BooleanPassThrough boolPasThrDef
-                                                        if not use_deFro
-    "No 2. Layer" annotation (Placement(transformation(extent={{-92,-50},{-76,
-            -34}})), choicesAllMatching=true);
+                                                        if not safetyControlParameters.use_deFro
+    "No 2. Layer" annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})),
+                     choicesAllMatching=true);
   Modelica.Blocks.Interfaces.IntegerOutput ERR_opeEnv
-                                                  if use_opeEnv annotation (
+                                                  if safetyControlParameters.use_opeEnv annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={60,-110})));
+        origin={60,-130})));
   Modelica.Blocks.Interfaces.IntegerOutput ERR_antFre
-                                                  if use_antFre annotation (
+                                                  if safetyControlParameters.use_antFre annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={100,-110})));
+        origin={100,-130})));
+
 equation
   connect(conTru.y,swiErr.u2)
-    annotation (Line(points={{70.6,0},{84,0}}, color={255,0,255}));
-  connect(onOffController.nOut, operationalEnvelope.ySet) annotation (Line(
-        points={{-24.5,1.63636},{-24,1.63636},{-24,3.2},{-11.6,3.2}},     color=
+    annotation (Line(points={{21,-30},{34,-30},{34,0},{78,0}},
+                                               color={255,0,255}));
+  connect(onOffController.yOut, operationalEnvelope.ySet) annotation (Line(
+        points={{-39,30},{-39,31.6667},{-21.3333,31.6667}},               color=
          {0,0,127}));
 
   connect(sigBusHP, onOffController.sigBusHP) annotation (Line(
-      points={{-129,-69},{-64.25,-69},{-64.25,-9.65455}},
+      points={{-129,-69},{-112,-69},{-112,-24},{-106,-24},{-106,-10},{-66,-10},
+          {-66,22.7},{-59.9,22.7}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -128,7 +79,8 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(sigBusHP, operationalEnvelope.sigBusHP) annotation (Line(
-      points={{-129,-69},{-10.9,-69},{-10.9,-6.59}},
+      points={{-129,-69},{-112,-69},{-112,-24},{-106,-24},{-106,-10},{-28,-10},{
+          -28,24.25},{-20.75,24.25}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -136,7 +88,8 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(sigBusHP, defrostControl.sigBusHP) annotation (Line(
-      points={{-129,-69},{-113.35,-69},{-113.35,-11.35}},
+      points={{-129,-69},{-112,-69},{-112,-24},{-106,-24},{-106,24.25},{-100.75,
+          24.25}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -144,66 +97,75 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(ySet, defrostControl.ySet) annotation (Line(
-      points={{-136,20},{-124,20},{-124,2},{-114.4,2}},
+      points={{-136,20},{-124,20},{-124,2},{-118,2},{-118,8},{-116,8},{-116,
+          31.6667},{-101.333,31.6667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(ySet, realPasThrDef.u) annotation (Line(
-      points={{-136,20},{-116,20},{-116,40},{-93.6,40}},
+      points={{-136,20},{-124,20},{-124,2},{-118,2},{-118,8},{-116,8},{-116,30},
+          {-110,30},{-110,70},{-102,70}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(realPasThrDef.y, onOffController.ySet) annotation (Line(
-      points={{-75.2,40},{-60,40},{-60,1.63636},{-64.4,1.63636}},
+      points={{-79,70},{-74,70},{-74,30},{-61.6,30}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(modeSet, defrostControl.modeSet) annotation (Line(
-      points={{-136,-20},{-120,-20},{-120,-4},{-114.4,-4}},
+      points={{-136,-20},{-114,-20},{-114,28.3333},{-101.333,28.3333}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(defrostControl.nOut, onOffController.ySet) annotation (Line(
-      points={{-74.5,2},{-74.5,1.63636},{-64.4,1.63636}},
+  connect(defrostControl.yOut, onOffController.ySet) annotation (Line(
+      points={{-79.1667,31.6667},{-72,31.6667},{-72,30},{-61.6,30}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(defrostControl.modeOut, operationalEnvelope.modeSet) annotation (
       Line(
-      points={{-74.5,-4},{-68,-4},{-68,-32},{-22,-32},{-22,-1.2},{-11.6,-1.2}},
+      points={{-79.1667,28.3333},{-74,28.3333},{-74,12},{-34,12},{-34,28.3333},
+          {-21.3333,28.3333}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(modeSet, boolPasThrDef.u) annotation (Line(
-      points={{-136,-20},{-120,-20},{-120,-42},{-93.6,-42}},
+      points={{-136,-20},{-114,-20},{-114,-50},{-102,-50}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(boolPasThrDef.y, operationalEnvelope.modeSet) annotation (Line(
-      points={{-75.2,-42},{-22,-42},{-22,-1.2},{-11.6,-1.2}},
+      points={{-79,-50},{-72,-50},{-72,12},{-34,12},{-34,28.3333},{-21.3333,
+          28.3333}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(defrostControl.Pel_deFro, Pel_deFro) annotation (Line(
-      points={{-94,15.5},{-94,28},{-54,28},{-54,80},{130,80}},
+      points={{-90,40.6667},{-90,48},{116,48},{116,80},{130,80}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(antiFreeze.ySet, operationalEnvelope.nOut)
-    annotation (Line(points={{22.4,4},{18,4},{18,3.2},{15,3.2}},
-                                               color={0,0,127}));
+  connect(antiFreeze.ySet,operationalEnvelope.yOut)
+    annotation (Line(points={{18.6667,31.6667},{14,31.6667},{14,32},{10,32},{10,
+          31.6667},{0.833333,31.6667}},        color={0,0,127}));
   connect(antiFreeze.modeSet, operationalEnvelope.modeOut)
-    annotation (Line(points={{22.4,0},{18,0},{18,-1.2},{15,-1.2}},
+    annotation (Line(points={{18.6667,28.3333},{14,28.3333},{14,28},{10,28},{10,
+          28.3333},{0.833333,28.3333}},        color={255,0,255}));
+  connect(antiFreeze.yOut, swiErr.u1) annotation (Line(points={{40.8333,31.6667},
+          {78,31.6667},{78,8}},       color={0,0,127}));
+  connect(antiFreeze.modeOut, modeOut) annotation (Line(points={{40.8333,
+          28.3333},{114,28.3333},{114,-20},{130,-20}},
                                                color={255,0,255}));
-  connect(antiFreeze.nOut, swiErr.u1) annotation (Line(points={{49,4},{54,4},{54,
-          18},{76,18},{76,8},{84,8}}, color={0,0,127}));
-  connect(antiFreeze.modeOut, modeOut) annotation (Line(points={{49,0},{52,0},{52,
-          -36},{100,-36},{100,-20},{130,-20}}, color={255,0,255}));
   connect(sigBusHP, antiFreeze.sigBusHP) annotation (Line(
-      points={{-129,-69},{18,-69},{18,-4.9},{23.1,-4.9}},
+      points={{-129,-69},{-112,-69},{-112,-24},{-106,-24},{-106,-10},{14,-10},{14,
+          24.25},{19.25,24.25}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(conTru.y, not1.u) annotation (Line(points={{70.6,0},{76,0},{76,-54},{
-          -21,-54},{-21,-63}}, color={255,0,255}));
-  connect(antiFreeze.ERR, ERR_antFre) annotation (Line(points={{36,-9},{36,-50},
-          {100,-50},{100,-110}}, color={255,127,0}));
-  connect(operationalEnvelope.ERR, ERR_opeEnv) annotation (Line(points={{2,-11.1},
-          {2,-50},{60,-50},{60,-110}}, color={255,127,0}));
+  connect(conTru.y, not1.u) annotation (Line(points={{21,-30},{30,-30},{30,-54},
+          {-48,-54},{-48,-100},{-42,-100}},
+                               color={255,0,255}));
+  connect(antiFreeze.ERR, ERR_antFre) annotation (Line(points={{30,19.1667},{30,
+          -32},{36,-32},{36,-74},{100,-74},{100,-130}},
+                                 color={255,127,0}));
+  connect(operationalEnvelope.ERR, ERR_opeEnv) annotation (Line(points={{-10,
+          19.1667},{-10,-76},{64,-76},{64,-116},{60,-116},{60,-130}},
+                                       color={255,127,0}));
   annotation (Documentation(revisions="<html><ul>
   <li>
     <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>

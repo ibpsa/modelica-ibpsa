@@ -1,11 +1,12 @@
 ﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D;
 record HeatPumpBaseDataDefinition "Basic heat pump data"
     extends Modelica.Icons.Record;
-  parameter Real tableQdot_con[:,:] "Heating power table; T in degC; Q_flow in W";
-  parameter Real tableP_ele[:,:] "Electrical power table; T in degC; Q_flow in W";
-  parameter Modelica.Units.SI.MassFlowRate mFlow_conNom
+  parameter Real tableQCon_flow[:,:]
+    "Heating power table; T in degC; Q_flow in W";
+  parameter Real tablePel[:,:] "Electrical power table; T in degC; Q_flow in W";
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate in condenser";
-  parameter Modelica.Units.SI.MassFlowRate mFlow_evaNom
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate in evaporator";
   parameter Real tableUppBou[:,2] "Points to define upper boundary for sink temperature";
 
@@ -29,7 +30,7 @@ defined as parameters.
   ΔT
   </li>
 </ul><b>Condenser</b> <span style=
-\"font-family: Courier New;\">mFlow_conNom</span>
+\"font-family: Courier New;\">mCon_flow_nominal</span>
 <ul>
   <li>According to <b>EN 14511</b> on <b>water</b> bound condenser side
   <span style=\"font-family: Courier New;\">ΔT = 5 K</span>
@@ -38,7 +39,7 @@ defined as parameters.
   side <span style=\"font-family: Courier New;\">ΔT = 10 K</span>
   </li>
 </ul><b>Evaporator</b> <span style=
-\"font-family: Courier New;\">mFlow_evaNom:</span>
+\"font-family: Courier New;\">mEva_flow_nominal:</span>
 <ul>
   <li>According to <b>EN 14511</b> on <b>water/glycol</b> bound
   evaporator side <span style=\"font-family: Courier New;\">ΔT = 3

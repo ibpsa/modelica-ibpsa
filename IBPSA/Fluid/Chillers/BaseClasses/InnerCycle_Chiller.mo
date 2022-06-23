@@ -5,16 +5,14 @@ model InnerCycle_Chiller "Blackbox model of refrigerant cycle of a chiller"
   replaceable model PerDataMainChi =
       IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
     constrainedby
-    IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox(
-     final scalingFactor = scalingFactor)
+    IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
     "Replaceable model for performance data of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
 
   replaceable model PerDataRevChi =
       IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
     constrainedby
-    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox(
-     final scalingFactor = scalingFactor)
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
     "Replaceable model for performance data of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
@@ -42,20 +40,21 @@ model InnerCycle_Chiller "Blackbox model of refrigerant cycle of a chiller"
 equation
 
   connect(PerformanceDataChillerCooling.Pel, switchPel.u1) annotation (Line(
-        points={{34,17.2},{34,-30},{8,-30},{8,-68}}, color={0,0,127}));
+        points={{34,17.2},{34,-30},{8,-30},{8,-58}}, color={0,0,127}));
   connect(PerformanceDataChillerHeating.Pel, switchPel.u3) annotation (Line(
-      points={{-34,17.2},{-34,-30},{-8,-30},{-8,-68}},
+      points={{-34,17.2},{-34,-30},{-8,-30},{-8,-58}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(constZero.y, switchPel.u3) annotation (Line(points={{-59,-68},{-34,-68},{-34,-68},{-8,-68}},
+  connect(constZero.y, switchPel.u3) annotation (Line(points={{-59,-70},{-34,-70},
+          {-34,-58},{-8,-58}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(constZero.y, switchQEva.u3) annotation (Line(
-      points={{-59,-68},{-52,-68},{-52,-22},{-68,-22}},
+      points={{-59,-70},{-52,-70},{-52,-8},{-58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(constZero.y, switchQCon.u3) annotation (Line(points={{-59,-68},{-52,-68},
-          {-52,-38},{68,-38},{68,-20}},      color={0,0,127},
+  connect(constZero.y, switchQCon.u3) annotation (Line(points={{-59,-70},{-52,-70},
+          {-52,-38},{58,-38},{58,-8}},       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(sigBus, PerformanceDataChillerHeating.sigBus) annotation (Line(
       points={{0,102},{0,86},{-33.73,86},{-33.73,77.12}},
@@ -69,10 +68,11 @@ equation
   connect(PerformanceDataChillerCooling.QEva_flow, gainEva.u) annotation (Line(
         points={{55.6,17.2},{55.6,-6},{-45.2,-6}}, color={0,0,127}));
   connect(gainEva.y, switchQEva.u1)
-    annotation (Line(points={{-54.4,-6},{-68,-6}}, color={0,0,127}));
+    annotation (Line(points={{-54.4,-6},{-56,-6},{-56,8},{-58,8}},
+                                                   color={0,0,127}));
   connect(PerformanceDataChillerHeating.QEva_flow, switchQEva.u3) annotation (
       Line(
-      points={{-12.4,17.2},{-12.4,-22},{-68,-22}},
+      points={{-12.4,17.2},{-12.4,-8},{-58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(PerformanceDataChillerHeating.QCon_flow, gainCon.u) annotation (Line(
@@ -80,10 +80,11 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(gainCon.y, switchQCon.u3)
-    annotation (Line(points={{54.4,-20},{68,-20}}, color={0,0,127},
+    annotation (Line(points={{54.4,-20},{56,-20},{56,-8},{58,-8}},
+                                                   color={0,0,127},
         pattern=LinePattern.Dash));
   connect(PerformanceDataChillerCooling.QCon_flow, switchQCon.u1) annotation (
-      Line(points={{12.4,17.2},{12.4,4},{62,4},{62,-4},{68,-4}}, color={0,0,127}));
+      Line(points={{12.4,17.2},{12.4,4},{62,4},{62,8},{58,8}},   color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

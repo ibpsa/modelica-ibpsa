@@ -2,14 +2,14 @@ within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN255;
 record Vitocal350BWH113 "Vitocal 350 BWH 113"
   extends
     IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition(
-    tableP_ele=[0,-5.0,0.0,5.0,10.0,15.0; 35,3750,3750,3750,3750,3833; 45,4833,
+    tablePel=[0,-5.0,0.0,5.0,10.0,15.0; 35,3750,3750,3750,3750,3833; 45,4833,
         4917,4958,5042,5125; 55,5583,5667,5750,5833,5958; 65,7000,7125,7250,
         7417,7583],
-    tableQdot_con=[0,-5.0,0.0,5.0,10.0,15.0; 35,14500,16292,18042,19750,21583;
+    tableQCon_flow=[0,-5.0,0.0,5.0,10.0,15.0; 35,14500,16292,18042,19750,21583;
         45,15708,17167,18583,20083,21583; 55,15708,17167,18583,20083,21583; 65,
         15708,17167,18583,20083,21583],
-    mFlow_conNom=16292/4180/10,
-    mFlow_evaNom=12300/3600/3,
+    mCon_flow_nominal=16292/4180/10,
+    mEva_flow_nominal=12300/3600/3,
     tableUppBou=[-5,55; 25,55]);
 
   annotation(preferedView="text", DymolaStoredErrors,

@@ -1,6 +1,13 @@
 ﻿within IBPSA.Fluid.HeatPumps.BlackBoxData;
-model LookUpTable2D "Performance data coming from manufacturer"
-  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox;
+model EuropeanNorm2D "Data from European Norm in two dimensions"
+  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox(
+    mEva_flow_nominal=dataTable.mEva_flow_nominal*scalingFactor,
+    mCon_flow_nominal=dataTable.mCon_flow_nominal*scalingFactor,
+    QConBlackBox_flow_nominal=
+        Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
+        tableConID,
+        TCon_nominal - 273.15,
+        TEva_nominal - 273.15));
 
   parameter EuropeanNom2D.HeatPumpBaseDataDefinition dataTable=
       IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN255.Vitocal350AWI114()
@@ -10,115 +17,129 @@ model LookUpTable2D "Performance data coming from manufacturer"
   parameter Modelica.Blocks.Types.Extrapolation extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints
     "Extrapolation of data outside the definition range";
 
-  Modelica.Blocks.Tables.CombiTable2Ds  Qdot_ConTable(
+  Modelica.Blocks.Tables.CombiTable2Ds tableQCon_flow(
     final smoothness=smoothness,
     final u1(unit="degC"),
     final u2(unit="degC"),
     final y(unit="W", displayUnit="kW"),
-    final table=dataTable.tableQdot_con,
-    final extrapolation=extrapolation)         annotation (extent=[-60,40; -40,60],
+    final table=dataTable.tableQCon_flow,
+    final extrapolation=extrapolation) annotation (extent=[-60,40; -40,60],
       Placement(transformation(
-        extent={{-14,-14},{14,14}},
+        extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={46,34})));
-  Modelica.Blocks.Tables.CombiTable2Ds P_eleTable(
+        origin={50,50})));
+  Modelica.Blocks.Tables.CombiTable2Ds tablePel(
     final smoothness=smoothness,
     final u1(unit="degC"),
     final u2(unit="degC"),
     final y(unit="W", displayUnit="kW"),
-    final table=dataTable.tableP_ele,
-    final extrapolation=extrapolation)      "Electrical power table" annotation (
+    final table=dataTable.tablePel,
+    final extrapolation=extrapolation) "Electrical power table" annotation (
       extent=[-60,-20; -40,0], Placement(transformation(
-        extent={{-14,-14},{14,14}},
+        extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-60,36})));
+        origin={-50,50})));
 
   Modelica.Blocks.Math.UnitConversions.To_degC t_Ev_in
-    annotation (extent=[-88,38; -76,50], Placement(transformation(extent={{-6,-6},
-            {6,6}},
+    annotation (extent=[-88,38; -76,50], Placement(transformation(extent={{-10,-10},
+            {10,10}},
         rotation=270,
-        origin={52,72})));
+        origin={50,90})));
   Modelica.Blocks.Math.UnitConversions.To_degC t_Co_ou annotation (extent=[-88,38;
-        -76,50], Placement(transformation(extent={{-6,-6},{6,6}},
+        -76,50], Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-54,76})));
+        origin={-50,90})));
   Modelica.Blocks.Math.Product nTimesPel annotation (Placement(transformation(
-        extent={{-7,-7},{7,7}},
+        extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-47,-3})));
+        origin={-30,-10})));
   Modelica.Blocks.Math.Product nTimesQCon annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
+        extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={40,-10})));
+        origin={50,-10})));
 
   Modelica.Blocks.Math.Product nTimesSF
     "Create the product of the scaling factor and relative compressor speed"
     annotation (Placement(transformation(
-        extent={{-7,-7},{7,7}},
+        extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-11,23})));
+        origin={10,10})));
 
 protected
+  final parameter Real perDevMasFloCon = (mCon_flow_nominal - dataTable.mCon_flow_nominal*scalingFactor)/mCon_flow_nominal*100 "Deviation of nominal mass flow rate at condenser in percent";
+  final parameter Real perDevMasFloEva = (mEva_flow_nominal - dataTable.mEva_flow_nominal*scalingFactor)/mEva_flow_nominal*100 "Deviation of nominal mass flow rate at evaporator in percent";
+
   Modelica.Blocks.Sources.Constant realCorr(final k=scalingFactor)
     "Calculates correction of table output based on scaling factor"
     annotation (Placement(transformation(
-        extent={{-3,-3},{3,3}},
+        extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-15,43})));
+        origin={-10,50})));
+  parameter Modelica.Blocks.Types.ExternalCombiTable2D tableConID=
+      Modelica.Blocks.Types.ExternalCombiTable2D("NoName", "NoName", dataTable.tableQCon_flow, smoothness, extrapolation, false) "External table object";
+initial equation
+  assert(perDevMasFloCon < 1,
+      "The deviation of the given mCon_flow_nominal to the table data is " +
+      String(perDevMasFloCon) + " %. Carefully check results, you are extrapolating the table data!",
+    AssertionLevel.warning);
+  assert(perDevMasFloEva < 1,
+    "The deviation of the given mEva_flow_nominal to the table data is " +
+      String(perDevMasFloEva) + " %. Carefully check results, you are extrapolating the table data!",
+    AssertionLevel.warning);
+
 
 equation
-  connect(t_Ev_in.y, Qdot_ConTable.u2) annotation (Line(points={{52,65.4},{52,
-          60},{37.6,60},{37.6,50.8}},      color={0,0,127}));
-  connect(t_Ev_in.y, P_eleTable.u2) annotation (Line(points={{52,65.4},{-68.4,
-          65.4},{-68.4,52.8}},  color={0,0,127}));
-  connect(t_Co_ou.y, P_eleTable.u1) annotation (Line(points={{-54,69.4},{-54,
-          52.8},{-51.6,52.8}},  color={0,0,127}));
-  connect(t_Co_ou.y, Qdot_ConTable.u1) annotation (Line(points={{-54,69.4},{-54,
-          60},{52,60},{52,50.8},{54.4,50.8}},
-                                  color={0,0,127}));
+  connect(t_Ev_in.y, tableQCon_flow.u2) annotation (Line(points={{50,79},{50,74},
+          {44,74},{44,62}}, color={0,0,127}));
+  connect(t_Ev_in.y, tablePel.u2) annotation (Line(points={{50,79},{50,74},{-56,
+          74},{-56,62}}, color={0,0,127}));
+  connect(t_Co_ou.y, tablePel.u1) annotation (Line(points={{-50,79},{-50,68},{-44,
+          68},{-44,62}}, color={0,0,127}));
+  connect(t_Co_ou.y, tableQCon_flow.u1) annotation (Line(points={{-50,79},{-50,68},
+          {56,68},{56,62}}, color={0,0,127}));
   connect(sigBus.TConOutMea, t_Co_ou.u) annotation (Line(
-      points={{1,104},{-54,104},{-54,83.2}},
+      points={{1,104},{0,104},{0,88},{-4,88},{-4,86},{-34,86},{-34,110},{-50,110},
+          {-50,102}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(sigBus.TEvaInMea, t_Ev_in.u) annotation (Line(
-      points={{1,104},{2,104},{2,104},{52,104},{52,79.2}},
+      points={{1,104},{0,104},{0,86},{34,86},{34,108},{50,108},{50,102}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(P_eleTable.y, nTimesPel.u2) annotation (Line(points={{-60,20.6},{-60,
-          10},{-51.2,10},{-51.2,5.4}},
-                                     color={0,0,127}));
-  connect(Qdot_ConTable.y, nTimesQCon.u1) annotation (Line(points={{46,18.6},{
-          46,8},{44,8},{44,-2},{43.6,-2},{43.6,-2.8}},
-                                        color={0,0,127}));
-  connect(nTimesPel.y, Pel) annotation (Line(points={{-47,-10.7},{-47,-80},{0,
-          -80},{0,-110}},          color={0,0,127}));
-  connect(realCorr.y, nTimesSF.u2) annotation (Line(points={{-15,39.7},{-15,
-          31.4},{-15.2,31.4}}, color={0,0,127}));
+  connect(tablePel.y, nTimesPel.u2) annotation (Line(points={{-50,39},{-50,8},{-36,
+          8},{-36,2}}, color={0,0,127}));
+  connect(tableQCon_flow.y, nTimesQCon.u1)
+    annotation (Line(points={{50,39},{50,8},{56,8},{56,2}}, color={0,0,127}));
+  connect(nTimesPel.y, Pel) annotation (Line(points={{-30,-21},{-30,-80},{0,-80},
+          {0,-110}},               color={0,0,127}));
+  connect(realCorr.y, nTimesSF.u2) annotation (Line(points={{-10,39},{-10,30},{4,
+          30},{4,22}},         color={0,0,127}));
   connect(sigBus.ySet, nTimesSF.u1) annotation (Line(
-      points={{1,104},{-2,104},{-2,31.4},{-6.8,31.4}},
+      points={{1,104},{0,104},{0,64},{16,64},{16,22}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(nTimesSF.y, nTimesPel.u1) annotation (Line(points={{-11,15.3},{-11,
-          8},{-42.8,8},{-42.8,5.4}}, color={0,0,127}));
-  connect(nTimesSF.y, nTimesQCon.u2) annotation (Line(points={{-11,15.3},{-11,
-          8},{36.4,8},{36.4,-2.8}}, color={0,0,127}));
-  connect(nTimesPel.y, calcRedQCon.u2) annotation (Line(points={{-47,-10.7},{-47,
-          -22},{64,-22},{64,-58}},           color={0,0,127}));
-  connect(nTimesPel.y, feedbackHeatFlowEvaporator.u2) annotation (Line(points={{-47,
-          -10.7},{-47,-22},{-94,-22},{-94,-18},{-70,-18}},        color={0,0,
+  connect(nTimesSF.y, nTimesPel.u1) annotation (Line(points={{10,-1},{10,-6},{-14,
+          -6},{-14,10},{-24,10},{-24,2}},
+                                     color={0,0,127}));
+  connect(nTimesSF.y, nTimesQCon.u2) annotation (Line(points={{10,-1},{10,-6},{34,
+          -6},{34,8},{44,8},{44,2}},color={0,0,127}));
+  connect(nTimesPel.y, calcRedQCon.u2) annotation (Line(points={{-30,-21},{-30,-48},
+          {64,-48},{64,-58}},                color={0,0,127}));
+  connect(nTimesPel.y, feedbackHeatFlowEvaporator.u2) annotation (Line(points={{-30,-21},
+          {-30,-20},{-56,-20},{-56,-24},{-70,-24},{-70,-18}},     color={0,0,
           127}));
-  connect(nTimesQCon.y, feedbackHeatFlowEvaporator.u1) annotation (Line(points={{40,
-          -16.6},{40,-28},{-78,-28},{-78,-10}},        color={0,0,127}));
+  connect(nTimesQCon.y, feedbackHeatFlowEvaporator.u1) annotation (Line(points={{50,-21},
+          {50,-26},{-96,-26},{-96,-10},{-78,-10}},     color={0,0,127}));
   annotation (Icon(graphics={
     Line(points={{-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},{30.0,40.0},{30.0,-40.0},{-30.0,-40.0},{-30.0,40.0},{-60.0,40.0},{-60.0,20.0},{60.0,20.0},{60.0,0.0},{-60.0,0.0},{-60.0,-20.0},{60.0,-20.0},{60.0,-40.0},{-60.0,-40.0},{-60.0,40.0},{60.0,40.0},{60.0,-40.0}}),
     Line(points={{0.0,40.0},{0.0,-40.0}}),
@@ -194,4 +215,4 @@ equation
   computing time.</b>
 </p>
 </html>"));
-end LookUpTable2D;
+end EuropeanNorm2D;

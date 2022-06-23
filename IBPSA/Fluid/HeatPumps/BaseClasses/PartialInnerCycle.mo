@@ -3,8 +3,6 @@ partial model PartialInnerCycle
   "Blackbox model of refrigerant cycle of a vapour compression machine (heat pump or chiller)"
 
   parameter Boolean use_rev=true "True if the vapour compression machine is reversible";
-  parameter Real scalingFactor=1 "Scaling factor of vapour compression machine";
-
   IBPSA.Fluid.Interfaces.VapourCompressionMachineControlBus sigBus annotation (
       Placement(transformation(extent={{-18,86},{18,118}}), iconTransformation(
           extent={{-16,88},{18,118}})));

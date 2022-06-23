@@ -1,12 +1,13 @@
 within IBPSA.Fluid.Chillers;
 model Chiller
   "Grey-box model for reversible chillers using a black-box to simulate the refrigeration cycle"
-  extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
+  extends
+    IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
+    mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
+    final use_safetyControl=false,
   use_rev=true,
   final machineType = false,
   redeclare IBPSA.Fluid.Chillers.BaseClasses.InnerCycle_Chiller innerCycle(
-      final use_rev=use_rev,
-      final scalingFactor=scalingFactor,
       redeclare model PerDataMainChi = PerDataMainChi,
       redeclare model PerDataRevChi = PerDataRevChi));
 
@@ -22,6 +23,30 @@ model Chiller
 equation
   connect(TSet, sigBus.TEvaOutSet) annotation (Line(points={{-116,40},{-76,40},
           {-76,-42},{-106,-42},{-106,-43},{-105,-43}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(modeSet, sigBus.modeSet) annotation (Line(points={{-116,-90},{-80,-90},
+          {-80,-43},{-105,-43}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(onOffSet, sigBus.onOffSet) annotation (Line(points={{-116,-20},{-80,-20},
+          {-80,-43},{-105,-43}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(ySet, sigBus.ySet) annotation (Line(points={{-116,20},{-80,20},{-80,-43},
+          {-105,-43}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(onOffSet, sigBus.onOffMea) annotation (Line(points={{-116,-20},{-80,-20},
+          {-80,-43},{-105,-43}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},

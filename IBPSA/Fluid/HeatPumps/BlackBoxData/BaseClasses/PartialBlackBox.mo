@@ -1,6 +1,18 @@
 ﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses;
 partial model PartialBlackBox
   "Partial black box model of vapour compression cycles used for heat pump applications"
+
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal "Nominal heat flow rate at condenser" annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.Temperature TCon_nominal "Nominal temperature at secondary condenser side" annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.Temperature TEva_nominal "Nominal temperature at secondary evaporator side" annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal "Nominal temperature difference at secondary condenser side" annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal "Nominal temperature difference at secondary evaporator side" annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal "Nominal mass flow rate in secondary condenser side" annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal "Nominal mass flow rate in secondary evaporator side" annotation (Dialog(group="Nominal Design"));
+  parameter Real y_nominal "Nominal relative compressor speed" annotation (Dialog(group="Nominal Design"));
+  final parameter Real scalingFactor=QCon_flow_nominal/QConBlackBox_flow_nominal "Scaling factor of heat pump" annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.HeatFlowRate QConBlackBox_flow_nominal "Nominal heat flow rate at condenser in the unscaled black box data model. Used to calculate the scaling factor." annotation (Dialog(group="Nominal Design"));
+
   replaceable Frosting.BaseClasses.PartialIceFac iceFacCalc
     constrainedby Frosting.BaseClasses.PartialIceFac
     "Replaceable model to calculate the icing factor"
@@ -44,8 +56,7 @@ partial model PartialBlackBox
         rotation=270,
         origin={-50,-70})));
 
-protected
-  parameter Real scalingFactor=1 "Scaling factor of heat pump";
+
   Modelica.Blocks.Math.Feedback feedbackHeatFlowEvaporator
     "Calculates evaporator heat flow with total energy balance"                 annotation(Placement(transformation(extent={{-10,-10},
             {10,10}},

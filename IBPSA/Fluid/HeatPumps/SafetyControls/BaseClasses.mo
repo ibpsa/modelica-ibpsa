@@ -21,64 +21,67 @@ For the boundaries of the y-input value, a dynamic hysteresis is used to ensure 
       final table=tableUpp_internal,
       final smoothness= Modelica.Blocks.Types.Smoothness.LinearSegments,
       final tableOnFile=false)
-      annotation (Placement(transformation(extent={{-48,68},{-28,88}})));
+      annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
     Modelica.Blocks.MathBoolean.Nor
                                nor1(
                                    nu=3)
-      annotation (Placement(transformation(extent={{72,-10},{92,10}})));
+      annotation (Placement(transformation(extent={{60,-10},{80,10}})));
     IBPSA.Utilities.Logical.DynamicHysteresis lessUpp(final pre_y_start=false)
-      annotation (Placement(transformation(extent={{30,68},{50,88}})));
+      annotation (Placement(transformation(extent={{20,60},{40,80}})));
     Modelica.Blocks.Logical.Less lessLef
-      annotation (Placement(transformation(extent={{26,-40},{46,-20}})));
+      annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     Modelica.Blocks.Logical.Greater greaterRig
-      annotation (Placement(transformation(extent={{26,-70},{46,-50}})));
+      annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
     Modelica.Blocks.Sources.Constant conXMin(k=xMin)
-      annotation (Placement(transformation(extent={{-50,-46},{-38,-34}})));
+      annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
     Modelica.Blocks.Sources.Constant conXMax(k=xMax)
-      annotation (Placement(transformation(extent={{-50,-76},{-38,-64}})));
+      annotation (Placement(transformation(extent={{-58,-98},{-40,-80}})));
 
     Modelica.Blocks.Math.Add addUpp(final k2=-1)
-      annotation (Placement(transformation(extent={{-18,56},{-8,66}})));
+      annotation (Placement(transformation(extent={{-20,40},{0,60}})));
     Modelica.Blocks.Sources.Constant constDx(final k=dx)
-      annotation (Placement(transformation(extent={{-50,46},{-36,60}})));
+      annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
   equation
     connect(x_in, uppCombiTable1Ds.u)
-      annotation (Line(points={{-114,60},{-84,60},{-84,78},{-50,78}},
+      annotation (Line(points={{-114,60},{-70,60},{-70,70},{-62,70}},
                                                     color={0,0,127}));
     connect(nor1.y, noErr)
-      annotation (Line(points={{93.5,0},{110,0}}, color={255,0,255}));
-    connect(lessUpp.y, nor1.u[1]) annotation (Line(points={{51,78},{64,78},{64,
-            -2.33333},{72,-2.33333}},
+      annotation (Line(points={{81.5,0},{110,0}}, color={255,0,255}));
+    connect(lessUpp.y, nor1.u[1]) annotation (Line(points={{41,70},{50,70},{50,
+            -2.33333},{60,-2.33333}},
                         color={255,0,255}));
-    connect(lessLef.y, nor1.u[2]) annotation (Line(points={{47,-30},{64,-30},{64,2.22045e-16},
-            {72,2.22045e-16}},  color={255,0,255}));
-    connect(greaterRig.y, nor1.u[3]) annotation (Line(points={{47,-60},{64,-60},
-            {64,2.33333},{72,2.33333}},
+    connect(lessLef.y, nor1.u[2]) annotation (Line(points={{41,-30},{50,-30},{
+            50,0},{60,0}},      color={255,0,255}));
+    connect(greaterRig.y, nor1.u[3]) annotation (Line(points={{41,-70},{50,-70},
+            {50,2.33333},{60,2.33333}},
                                     color={255,0,255}));
-    connect(x_in, lessLef.u1) annotation (Line(points={{-114,60},{-72,60},{-72,-30},
-            {24,-30}},
+    connect(x_in, lessLef.u1) annotation (Line(points={{-114,60},{-72,60},{-72,
+            -30},{18,-30}},
                    color={0,0,127}));
-    connect(x_in, greaterRig.u1) annotation (Line(points={{-114,60},{-72,60},{-72,
-            -60},{24,-60}},
+    connect(x_in, greaterRig.u1) annotation (Line(points={{-114,60},{-72,60},{
+            -72,-30},{-64,-30},{-64,-70},{18,-70}},
                        color={0,0,127}));
-    connect(conXMax.y, greaterRig.u2) annotation (Line(points={{-37.4,-70},{-22,-70},
-            {-22,-68},{24,-68}},
+    connect(conXMax.y, greaterRig.u2) annotation (Line(points={{-39.1,-89},{10,
+            -89},{10,-78},{18,-78}},
                             color={0,0,127}));
-    connect(conXMin.y, lessLef.u2) annotation (Line(points={{-37.4,-40},{-24,-40},
-            {-24,-38},{24,-38}},
+    connect(conXMin.y, lessLef.u2) annotation (Line(points={{-39,-50},{-10,-50},
+            {-10,-38},{18,-38}},
                             color={0,0,127}));
-    connect(y_in, lessUpp.u) annotation (Line(points={{-114,-60},{-114,-60},{-94,-60},
-            {-94,-60},{-90,-60},{-90,100},{16,100},{16,78},{16,78},{16,78},{28,78},
-            {28,78}},color={0,0,127}));
-    connect(uppCombiTable1Ds.y[1], lessUpp.uHigh) annotation (Line(points={{-27,78},
-            {6,78},{6,60},{43,60},{43,66}}, color={0,0,127}));
-    connect(lessUpp.uLow, addUpp.y) annotation (Line(points={{35,66},{32,66},{32,61},
-            {-7.5,61}}, color={0,0,127}));
-    connect(uppCombiTable1Ds.y[1], addUpp.u1) annotation (Line(points={{-27,78},{-24,
-            78},{-24,64},{-19,64}}, color={0,0,127}));
-    connect(addUpp.u2, constDx.y) annotation (Line(points={{-19,58},{-26,58},{-26,
-            53},{-35.3,53}}, color={0,0,127}));
+    connect(y_in, lessUpp.u) annotation (Line(points={{-114,-60},{-90,-60},{-90,
+            94},{12,94},{12,70},{18,70}},
+                     color={0,0,127}));
+    connect(uppCombiTable1Ds.y[1], lessUpp.uHigh) annotation (Line(points={{-39,70},
+            {8,70},{8,52},{33,52},{33,58}}, color={0,0,127}));
+    connect(lessUpp.uLow, addUpp.y) annotation (Line(points={{25,58},{24,58},{
+            24,50},{1,50}},
+                        color={0,0,127}));
+    connect(uppCombiTable1Ds.y[1], addUpp.u1) annotation (Line(points={{-39,70},
+            {-34,70},{-34,56},{-22,56}},
+                                    color={0,0,127}));
+    connect(addUpp.u2, constDx.y) annotation (Line(points={{-22,44},{-34,44},{
+            -34,30},{-39,30}},
+                             color={0,0,127}));
     annotation (Diagram(
           coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
       Documentation(info="<html><p>
@@ -179,15 +182,15 @@ For the boundaries of the y-input value, a dynamic hysteresis is used to ensure 
     Modelica.Blocks.Interfaces.RealInput ySet
       "Set value relative speed of compressor. Analog from 0 to 1"
       annotation (Placement(transformation(extent={{-152,4},{-120,36}})));
-    Modelica.Blocks.Interfaces.RealOutput nOut
+    Modelica.Blocks.Interfaces.RealOutput yOut
       "Relative speed of compressor. From 0 to 1"
       annotation (Placement(transformation(extent={{120,10},{140,30}})));
     Modelica.Blocks.Logical.Switch       swiErr
       "If an error occurs, the value of the conZero block will be used(0)"
-      annotation (Placement(transformation(extent={{86,-10},{106,10}})));
+      annotation (Placement(transformation(extent={{80,-10},{100,10}})));
     Modelica.Blocks.Sources.Constant conZer(final k=0)
       "If an error occurs, the compressor speed is set to zero"
-      annotation (Placement(transformation(extent={{58,-24},{70,-12}})));
+      annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
     Interfaces.VapourCompressionMachineControlBus                sigBusHP
       "Bus-connector for the heat pump"
       annotation (Placement(transformation(extent={{-146,-84},{-112,-54}})));
@@ -202,36 +205,37 @@ For the boundaries of the y-input value, a dynamic hysteresis is used to ensure 
       use_set=false)
                  "Used to show if the error was triggered" annotation (Placement(
           transformation(
-          extent={{-8,-8},{8,8}},
+          extent={{-10,-10},{10,10}},
           rotation=270,
-          origin={0,-80})));
+          origin={0,-100})));
     Modelica.Blocks.Interfaces.IntegerOutput ERR
       "Integer for displaying number off Errors during simulation"
                                                  annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
           rotation=270,
-          origin={0,-110})));
+          origin={0,-130})));
     Modelica.Blocks.Logical.Not not1 annotation (Placement(transformation(
-          extent={{-5,-5},{5,5}},
-          rotation=270,
-          origin={-21,-69})));
+          extent={{-10,-10},{10,10}},
+          rotation=0,
+          origin={-30,-100})));
     Modelica.Blocks.Sources.IntegerConstant intConOne(final k=1)
       "Used for display of current error"
-      annotation (Placement(transformation(extent={{36,-70},{24,-58}})));
+      annotation (Placement(transformation(extent={{60,-110},{40,-90}})));
   equation
-    connect(conZer.y,swiErr. u3) annotation (Line(points={{70.6,-18},{78,-18},
-            {78,-8},{84,-8}}, color={0,0,127}));
-    connect(swiErr.y, nOut) annotation (Line(points={{107,0},{118,0},{118,20},{
+    connect(conZer.y,swiErr. u3) annotation (Line(points={{61,-30},{70,-30},{70,
+            -8},{78,-8}},     color={0,0,127}));
+    connect(swiErr.y,yOut)  annotation (Line(points={{101,0},{110,0},{110,20},{
             130,20}}, color={0,0,127}));
-    connect(disErr.y, ERR) annotation (Line(points={{-1.77636e-15,-89.6},{
-            -1.77636e-15,-100},{0,-100},{0,-110}}, color={255,127,0}));
-    connect(not1.y, disErr.trigger) annotation (Line(points={{-21,-74.5},{-21,
-            -75.2},{-9.6,-75.2}}, color={255,0,255}));
-    connect(intConOne.y, disErr.u) annotation (Line(points={{23.4,-64},{0,-64},{0,
-            -68.8}}, color={255,127,0}));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{
-              -120,-100},{120,100}}), graphics={
+    connect(disErr.y, ERR) annotation (Line(points={{-2.22045e-15,-112},{
+            -2.22045e-15,-119},{0,-119},{0,-130}}, color={255,127,0}));
+    connect(not1.y, disErr.trigger) annotation (Line(points={{-19,-100},{-12,
+            -100},{-12,-94}},     color={255,0,255}));
+    connect(intConOne.y, disErr.u) annotation (Line(points={{39,-100},{20,-100},
+            {20,-78},{0,-78},{0,-86}},
+                     color={255,127,0}));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+              -120},{120,120}}),      graphics={
           Polygon(
             points={{-42,20},{0,62},{-42,20}},
             lineColor={28,108,200},
@@ -270,13 +274,13 @@ For the boundaries of the y-input value, a dynamic hysteresis is used to ensure 
             fillPattern=FillPattern.None,
             textString="%name"),
           Rectangle(
-            extent={{-120,100},{120,-100}},
+            extent={{-120,120},{120,-120}},
             lineColor={28,108,200},
             lineThickness=0.5,
             fillColor={255,255,255},
             fillPattern=FillPattern.None)}),
                                        Diagram(coordinateSystem(
-            preserveAspectRatio=false, extent={{-120,-100},{120,100}})),
+            preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
       Documentation(revisions="<html><ul>
   <li>
     <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
@@ -305,36 +309,37 @@ For the boundaries of the y-input value, a dynamic hysteresis is used to ensure 
    Modelica.Blocks.Logical.LessThreshold
                                 runCouLesMax(threshold=maxRunPer_h)
       "Checks if the count of total runs is lower than the maximal value"
-      annotation (Placement(transformation(extent={{74,-8},{90,8}})));
+      annotation (Placement(transformation(extent={{70,-10},{90,10}})));
     Modelica.Blocks.MathInteger.TriggeredAdd triggeredAdd
-      annotation (Placement(transformation(extent={{-36,6},{-24,-6}})));
+      annotation (Placement(transformation(extent={{-60,10},{-40,-10}})));
     Modelica.Blocks.Sources.IntegerConstant intConPluOne(final k=1)
       "Value for counting"
-      annotation (Placement(transformation(extent={{-62,-6},{-50,6}})));
+      annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
     Modelica.Blocks.Math.IntegerToReal intToReal
-      annotation (Placement(transformation(extent={{-14,-6},{-2,6}})));
+      annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
     Modelica.Blocks.Math.Add sub(k2=-1)
-      annotation (Placement(transformation(extent={{44,0},{60,16}})));
+      annotation (Placement(transformation(extent={{40,-10},{60,10}})));
     Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(final delayTime(displayUnit=
             "h") = delayTime)
-                 annotation (Placement(transformation(extent={{14,-14},{24,-4}})));
+                 annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
   equation
     connect(intConPluOne.y, triggeredAdd.u)
-      annotation (Line(points={{-49.4,0},{-38.4,0}}, color={255,127,0}));
+      annotation (Line(points={{-79,-20},{-74,-20},{-74,0},{-64,0}},
+                                                     color={255,127,0}));
     connect(intToReal.u, triggeredAdd.y)
-      annotation (Line(points={{-15.2,0},{-22.8,0}}, color={255,127,0}));
-    connect(intToReal.y, sub.u1) annotation (Line(points={{-1.4,0},{0.15,0},{0.15,
-            12.8},{42.4,12.8}}, color={0,0,127}));
+      annotation (Line(points={{-22,0},{-38,0}},     color={255,127,0}));
+    connect(intToReal.y, sub.u1) annotation (Line(points={{1,0},{30,0},{30,6},{
+            38,6}},             color={0,0,127}));
     connect(intToReal.y, fixedDelay.u)
-      annotation (Line(points={{-1.4,0},{0,0},{0,-9},{13,-9}}, color={0,0,127}));
-    connect(fixedDelay.y, sub.u2) annotation (Line(points={{24.5,-9},{34,-9},{34,3.2},
-            {42.4,3.2}}, color={0,0,127}));
+      annotation (Line(points={{1,0},{6,0},{6,-20},{8,-20}},   color={0,0,127}));
+    connect(fixedDelay.y, sub.u2) annotation (Line(points={{31,-20},{31,-6},{38,
+            -6}},        color={0,0,127}));
     connect(runCouLesMax.y, y)
-      annotation (Line(points={{90.8,0},{110,0},{110,0}}, color={255,0,255}));
-    connect(u, triggeredAdd.trigger) annotation (Line(points={{-120,0},{-82,0},{
-            -82,24},{-33.6,24},{-33.6,7.2}}, color={255,0,255}));
-    connect(sub.y, runCouLesMax.u) annotation (Line(points={{60.8,8},{68,8},{68,0},
-            {72.4,0}}, color={0,0,127}));
+      annotation (Line(points={{91,0},{110,0}},           color={255,0,255}));
+    connect(u, triggeredAdd.trigger) annotation (Line(points={{-120,0},{-80,0},
+            {-80,20},{-56,20},{-56,12}},     color={255,0,255}));
+    connect(sub.y, runCouLesMax.u) annotation (Line(points={{61,0},{68,0}},
+                       color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                   Rectangle(
           extent={{-100,-100},{100,100}},
@@ -387,19 +392,19 @@ For the boundaries of the y-input value, a dynamic hysteresis is used to ensure 
       "Minimal time the device is turned on or off";
     Modelica.Blocks.Logical.Timer runTim
       "Counts the seconds the heat pump is locked still"
-      annotation (Placement(transformation(extent={{-22,-8},{-6,8}})));
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     Modelica.Blocks.Logical.GreaterEqualThreshold
                                          runTimGreaterMin(final threshold=
           minRunTime)
       "Checks if the runtime is greater than the minimal runtime"
-      annotation (Placement(transformation(extent={{22,-8},{36,8}})));
+      annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   equation
     connect(runTimGreaterMin.y, y)
-      annotation (Line(points={{36.7,0},{110,0}}, color={255,0,255}));
-    connect(u,runTim. u) annotation (Line(points={{-120,0},{-23.6,0}},
+      annotation (Line(points={{41,0},{110,0}},   color={255,0,255}));
+    connect(u,runTim. u) annotation (Line(points={{-120,0},{-42,0}},
                         color={255,0,255}));
     connect(runTim.y, runTimGreaterMin.u)
-      annotation (Line(points={{-5.2,0},{20.6,0}}, color={0,0,127}));
+      annotation (Line(points={{-19,0},{18,0}},    color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                   Rectangle(
           extent={{-100,-100},{100,100}},

@@ -52,7 +52,7 @@ model Chiller "Example for the reversible chiller model."
         IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.LookUpTable2D (dataTable=
             IBPSA.Fluid.Chillers.BlackBoxData.EN14511.Vitocal200AWO201()),
     redeclare model PerDataRevChi =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.LookUpTable2D (smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
           dataTable=
             IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201
             ()),
