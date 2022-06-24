@@ -1,11 +1,13 @@
 ﻿within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model VCLibMap
   "Multi-dimensional performance map encompasing choices of fluid and flowsheet based on steady state calculations using the Vapour Compression Library"
-  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox;
+  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox(
+  QConBlackBox_flow_nominal=evaluate(
+    externalTable,
+    {y_nominal, TCon_nominal, TEva_nominal},
+    Table_QCon.interpMethod,
+    Table_QCon.extrapMethod));
   // Parameters Heat pump operation
-  parameter Modelica.Units.SI.Power QCon_flow_nominal=5000
-    "Nominal heating power of heat pump"                                                 annotation(Dialog(group=
-          "Heat pump specification"));
   parameter String refrigerant="R410A" "Identifier for the refrigerant" annotation(Dialog(group=
           "Heat pump specification"));
   parameter String flowsheet="StandardFlowsheet" "Identifier for the flowsheet" annotation(Dialog(group=
@@ -128,6 +130,22 @@ protected
        + tableName_mFlowConNominal;
   parameter String dataset_mFlowEvaNominal="/" + flowsheet + "/" + refrigerant + "/"
        + tableName_mFlowEvaNominal;
+  function evaluate
+    input SDF.Types.ExternalNDTable table;
+    input Real[:] params;
+    input SDF.Types.InterpolationMethod interpMethod;
+    input SDF.Types.ExtrapolationMethod extrapMethod;
+    output Real value;
+    external "C" value = ModelicaNDTable_evaluate(table, size(params, 1), params, interpMethod, extrapMethod) annotation (
+      Include="#include <ModelicaNDTable.c>",
+      IncludeDirectory="modelica://SDF/Resources/C-Sources");
+  end evaluate;
+
+  parameter SDF.Types.ExternalNDTable externalTable=SDF.Types.ExternalNDTable(Table_QCon.nin, SDF.Functions.readTableData(
+        Modelica.Utilities.Files.loadResource(Table_QCon.filename),
+        Table_QCon.dataset,
+        Table_QCon.dataUnit,
+        Table_QCon.scaleUnits));
 equation
   connect(constZero.y,switchPel. u3) annotation (Line(points={{-10,19},{-10,6},
           {62,6},{62,2}},

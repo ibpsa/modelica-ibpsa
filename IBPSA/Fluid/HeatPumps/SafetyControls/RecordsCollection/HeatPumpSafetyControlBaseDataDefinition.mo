@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection;
-partial record HeatPumpSafetyControlBaseDataDefinition "Base data definition for heat pump safety models"
+record HeatPumpSafetyControlBaseDataDefinition "Base data definition for heat pump safety models"
   extends Modelica.Icons.Record;
   parameter Boolean use_minRunTime
     "False if minimal runtime of HP is not considered"

@@ -22,19 +22,16 @@ partial model PartialReversibleVapourCompressionMachine
     constrainedby PartialInnerCycle(final use_rev=use_rev)
     "Blackbox model of refrigerant cycle of a vapour compression machine"
     annotation (Placement(transformation(extent={{-18,-18},{18,18}}, rotation=90)));
+  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal "Nominal heat flow rate at condenser" annotation (Dialog(group="Nominal Design"));
+
+  parameter Real y_nominal "Nominal relative compressor speed" annotation (Dialog(group="Nominal Design"));
   replaceable model vapComIne =
       HeatPumps.BlackBoxData.VapourCompressionInertias.BaseClasses.PartialInertia
     constrainedby
     HeatPumps.BlackBoxData.VapourCompressionInertias.BaseClasses.PartialInertia
-                                                                       "Model for the inertia between the stationary black box data outputs and the inputs into the heat exchangers."
+                                                                       "Inertia between the black-box outputs and the heat exchangers."
     annotation (choicesAllMatching=true, Dialog(group="Inertia"));
-  parameter Boolean use_rev=true "Is the vapour compression machine reversible?"   annotation(choices(checkBox=true), Dialog(descriptionLabel=true));
-  parameter Boolean use_autoCalc=false
-    "Enable automatic estimation of volumes and mass flows?"
-    annotation(choices(checkBox=true), Dialog(descriptionLabel=true));
-  parameter Modelica.Units.SI.Power Q_useNominal(start=0)
-    "Nominal usable heat flow of the vapour compression machine (HP: Heating; Chiller: Cooling)"
-    annotation (Dialog(enable=use_autoCalc));
+  parameter Boolean use_rev=true "Is the vapour compression machine reversible?"   annotation(choices(checkBox=true));
   parameter Boolean use_safetyControl=true "=true to enable internal heat pump safety control" annotation (Dialog(group="Safety Control"), choices(checkBox=true));
 
   parameter Boolean use_busConnectorOnly=false
@@ -44,10 +41,10 @@ partial model PartialReversibleVapourCompressionMachine
   parameter Boolean use_TSet=false
     "=true to use black-box internal control for supply temperature of device with the given temperature set point TSet"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors"));
+  parameter Boolean use_autoCalc=false
+    "Enable automatic estimation of volumes and mass flows for water-to-water devices in a range of 25 kW to 1 MW"
+    annotation(choices(checkBox=true), Dialog(group="Water-to-water Parameterization"));
 
-  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal "Nominal heat flow rate at condenser" annotation (Dialog(group="Nominal Design"));
-
-  parameter Real y_nominal "Nominal relative compressor speed" annotation (Dialog(group="Nominal Design"));
   //Condenser
   parameter Modelica.Units.SI.Temperature TCon_nominal "Nominal flow temperature at secondary condenser side" annotation (Dialog(group="Nominal Design", tab="Condenser"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal "Nominal temperature difference at secondary condenser side" annotation (Dialog(group="Nominal Design", tab="Condenser"));
@@ -92,11 +89,11 @@ partial model PartialReversibleVapourCompressionMachine
       tab="Condenser",
       enable=use_conCap));
 
-  parameter Modelica.Units.SI.Density rhoCon=Medium_con.density(sta_nominal)
+  parameter Modelica.Units.SI.Density rhoCon=Medium_con.density(staCon_nominal)
     "Density of medium / fluid in condenser"
     annotation (Dialog(tab="Condenser", group="Medium properties"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpCon=
-      Medium_con.specificHeatCapacityCp(sta_nominal)
+      Medium_con.specificHeatCapacityCp(staCon_nominal)
     "Specific heat capacaity of medium / fluid in condenser"
     annotation (Dialog(tab="Condenser", group="Medium properties"));
 
@@ -142,11 +139,11 @@ partial model PartialReversibleVapourCompressionMachine
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
-  parameter Modelica.Units.SI.Density rhoEva=Medium_eva.density(sta_nominal)
+  parameter Modelica.Units.SI.Density rhoEva=Medium_eva.density(staEva_nominal)
     "Density of medium / fluid in evaporator"
     annotation (Dialog(tab="Evaporator", group="Medium properties"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpEva=
-      Medium_eva.specificHeatCapacityCp(sta_nominal)
+      Medium_eva.specificHeatCapacityCp(staEva_nominal)
     "Specific heat capacaity of medium / fluid in evaporator"
     annotation (Dialog(tab="Evaporator", group="Medium properties"));
 
@@ -196,8 +193,6 @@ partial model PartialReversibleVapourCompressionMachine
     "Type of energy balance: dynamic (3 initialization options) or steady state (only affects fluid-models)"
     annotation (Dialog(tab="Dynamics", group="Equation"));
 //Advanced
-  parameter Boolean machineType "=true if heat pump; =false if chiller"
-    annotation (Dialog(tab="Advanced", group="General machine information"));
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Advanced", group="Flow resistance"));
@@ -355,50 +350,41 @@ partial model PartialReversibleVapourCompressionMachine
 
 protected
   parameter Real scalingFactor "Scaling-factor of vapour compression machine";
-  parameter Medium_con.ThermodynamicState sta_nominal=Medium_con.setState_pTX(
+  parameter Medium_con.ThermodynamicState staCon_nominal=Medium_con.setState_pTX(
       T=Medium_con.T_default, p=Medium_con.p_default, X=Medium_con.X_default) "Nominal / default state of condenser medium";
 
   parameter Medium_eva.ThermodynamicState staEva_nominal=Medium_eva.setState_pTX(
       T=Medium_eva.T_default, p=Medium_eva.p_default, X=Medium_eva.X_default) "Nominal / default state of evaporator medium";
 
-
   parameter Modelica.Units.SI.MassFlowRate autoCalc_mMin_flow=0.3
     "Realistic mass flow minimum for simulation plausibility";
   parameter Modelica.Units.SI.Volume autoCalc_VMin=0.003
     "Realistic volume minimum for simulation plausibility";
-
-  parameter Modelica.Units.SI.MassFlowRate autoCalc_mEva_flow=if machineType
-       then max(0.00004*Q_useNominal - 0.3177, autoCalc_mMin_flow) else max(0.00005
-      *Q_useNominal - 0.5662, autoCalc_mMin_flow);
-  parameter Modelica.Units.SI.MassFlowRate autoCalc_mCon_flow=if machineType
-       then max(0.00004*Q_useNominal - 0.6162, autoCalc_mMin_flow) else max(0.00005
-      *Q_useNominal + 0.3161, autoCalc_mMin_flow);
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal_final=if
       use_autoCalc then autoCalc_mEva_flow else mEva_flow_nominal;
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal_final=if
       use_autoCalc then autoCalc_mCon_flow else mCon_flow_nominal;
-  parameter Modelica.Units.SI.Volume autoCalc_VEva=if machineType then max(0.0000001
-      *Q_useNominal - 0.0075,autoCalc_VMin)  else max(0.0000001*Q_useNominal - 0.0066,
-      autoCalc_VMin);
-  parameter Modelica.Units.SI.Volume autoCalc_VCon=if machineType then max(0.0000001
-      *Q_useNominal - 0.0094,autoCalc_VMin)  else max(0.0000002*Q_useNominal - 0.0084,
-      autoCalc_VMin);
   parameter Modelica.Units.SI.Volume VEva_final=if use_autoCalc then
       autoCalc_VEva else VEva;
   parameter Modelica.Units.SI.Volume VCon_final=if use_autoCalc then
       autoCalc_VCon else VCon;
 
+  parameter Modelica.Units.SI.MassFlowRate autoCalc_mEva_flow;
+  parameter Modelica.Units.SI.MassFlowRate autoCalc_mCon_flow;
+  parameter Modelica.Units.SI.Volume autoCalc_VEva;
+  parameter Modelica.Units.SI.Volume autoCalc_VCon;
+
 equation
   //Control and feedback for the auto-calculation of condenser and evaporator data
-  assert(not use_autoCalc or (use_autoCalc and Q_useNominal>0), "Can't auto-calculate evaporator and condenser data without a given nominal power flow (Q_useNominal)!",
+  assert(not use_autoCalc or (use_autoCalc and QUse_flow_nominal>0), "Can't auto-calculate evaporator and condenser data without a given nominal power flow (QUse_flow_nominal)!",
   level = AssertionLevel.error);
   assert(
     not use_autoCalc or (autoCalc_mEva_flow > autoCalc_mMin_flow and
       autoCalc_mEva_flow < 90),
-    "Given nominal power (Q_useNominal) for auto-calculation of evaporator and condenser data is outside the range of data sheets considered. Please control the auto-calculated mass flows!",
+    "Given nominal power (QUse_flow_nominal) for auto-calculation of evaporator and condenser data is outside the range of data sheets considered. Please control the auto-calculated mass flows!",
     level=AssertionLevel.warning);
   assert(not use_autoCalc or (autoCalc_VEva>autoCalc_VMin and autoCalc_VEva<0.43),
-  "Given nominal power (Q_useNominal) for auto-calculation of evaporator and condenser data is outside the range of data sheets considered. Please control the auto-calculated volumes!",
+  "Given nominal power (QUse_flow_nominal) for auto-calculation of evaporator and condenser data is outside the range of data sheets considered. Please control the auto-calculated volumes!",
   level = AssertionLevel.warning);
 
   connect(mFlow_eva.m_flow, sigBus.m_flowEvaMea) annotation (Line(points={{72,-49},

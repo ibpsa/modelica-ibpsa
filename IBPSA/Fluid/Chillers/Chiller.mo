@@ -3,13 +3,16 @@ model Chiller
   "Grey-box model for reversible chillers using a black-box to simulate the refrigeration cycle"
   extends
     IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
-    mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
-    final use_safetyControl=false,
-  use_rev=true,
-  final machineType = false,
-  redeclare IBPSA.Fluid.Chillers.BaseClasses.InnerCycle_Chiller innerCycle(
-      redeclare model PerDataMainChi = PerDataMainChi,
-      redeclare model PerDataRevChi = PerDataRevChi));
+      final autoCalc_mCon_flow=max(0.00005*QUse_flow_nominal + 0.3161, autoCalc_mMin_flow),
+      final autoCalc_mEva_flow= max(0.00005*QUse_flow_nominal - 0.5662, autoCalc_mMin_flow),
+      final autoCalc_VCon=max(0.0000002*QUse_flow_nominal - 0.0084, autoCalc_VMin),
+      final autoCalc_VEva=max(0.0000001*QUse_flow_nominal - 0.0066, autoCalc_VMin),
+      mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
+      final use_safetyControl=false,
+      use_rev=true,
+      redeclare IBPSA.Fluid.Chillers.BaseClasses.InnerCycle_Chiller innerCycle(
+          redeclare model PerDataMainChi = PerDataMainChi,
+          redeclare model PerDataRevChi = PerDataRevChi));
 
   replaceable model PerDataMainChi =
       IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox

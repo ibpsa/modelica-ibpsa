@@ -3,10 +3,13 @@ model HeatPump
   "Grey-box model for reversible heat pumps using a black-box to simulate the refrigeration cycle"
   extends
     IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
+    final autoCalc_mCon_flow=max(0.00004*QUse_flow_nominal - 0.6162, autoCalc_mMin_flow),
+    final autoCalc_mEva_flow=max(0.00004*QUse_flow_nominal - 0.3177, autoCalc_mMin_flow),
+    final autoCalc_VCon=max(0.0000001*QUse_flow_nominal - 0.0094,autoCalc_VMin),
+    final autoCalc_VEva=max(0.0000001*QUse_flow_nominal - 0.0075,autoCalc_VMin),
     mCon_flow_nominal=QUse_flow_nominal/(dTCon_nominal*cpCon),
     final scalingFactor=innerCycle.BlackBoxHeaPumHeating.scalingFactor,
     use_rev=true,
-    final machineType = true,
     redeclare IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle_HeatPump innerCycle(
         redeclare model BlaBoxHPHeating = BlaBoxHPHeating,
         redeclare model BlaBoxHPCooling = BlaBoxHPCooling));
@@ -26,6 +29,9 @@ model HeatPump
     annotation (choicesAllMatching=true);
   replaceable model BlaBoxHPCooling =
       IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
+      constrainedby
+      IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox(
+        final scalingFactor=scalingFactor)
   "Black box data of a heat pump in cooling operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
   replaceable parameter

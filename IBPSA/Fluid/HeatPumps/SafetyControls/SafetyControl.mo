@@ -1,7 +1,7 @@
 ﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
 block SafetyControl "Block including all safety levels"
   extends BaseClasses.PartialSafetyControl;
-  replaceable parameter RecordsCollection.DefaultSafetyControl
+  replaceable parameter RecordsCollection.HeatPumpSafetyControlBaseDataDefinition
     safetyControlParameters constrainedby RecordsCollection.HeatPumpSafetyControlBaseDataDefinition
     annotation (choicesAllMatching=true, Placement(transformation(extent={{-118,102},{-104,118}})));
   IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope
