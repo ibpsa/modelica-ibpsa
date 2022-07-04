@@ -382,7 +382,7 @@ equation
           -86},{160,0.8},{178,0.8}}, color={0,0,127}));
   connect(q_sol_op_south2.y, sum1.u[5]) annotation (Line(points={{141,-166},{
           160,-166},{160,1.6},{178,1.6}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-220,-220},
+  annotation (defaultComponentName="opaEle",Icon(coordinateSystem(preserveAspectRatio=false, extent={{-220,-220},
             {220,200}}),       graphics={
         Rectangle(
           extent={{-220,160},{220,-220}},

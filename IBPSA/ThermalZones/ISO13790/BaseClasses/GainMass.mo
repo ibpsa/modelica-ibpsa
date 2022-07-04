@@ -18,7 +18,7 @@ model GainMass "Mass node heat flow"
 equation
   Am  = f_ms*Af;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName="phiMas",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={255,255,255},

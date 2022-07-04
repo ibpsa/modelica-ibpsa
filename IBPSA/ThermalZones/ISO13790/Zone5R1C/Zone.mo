@@ -36,32 +36,32 @@ model Zone "Thermal zone based on 5R1C network"
   parameter Real gFactor(min=0, max=1) "Energy transmittance of glazings"
     annotation(Dialog(group="Windows"));
 
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor Hve(G=nVe*Vroo*1005*
-        1.2/3600) "Heat transfer due to ventilation"
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HVen(G=nVe*Vroo*
+        1005*1.2/3600) "Heat transfer due to ventilation"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor Htrasm(G=1/(1/(Uwal*
-        Awal[1] + Uwal*Awal[2] + Uwal*Awal[3] + Uwal*Awal[4] + Uroo*Aroo) - 1/(9.1
-        *f_ms*Af))) "Heat transfere through opaque elements"
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HTra(G=1/(1/(Uwal*
+        Awal[1] + Uwal*Awal[2] + Uwal*Awal[3] + Uwal*Awal[4] + Uroo*Aroo) - 1/(
+        9.1*f_ms*Af))) "Heat transfere through opaque elements"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor Hwin(G=Uwin*Awin[1] +
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HWin(G=Uwin*Awin[1] +
         Uwin*Awin[2] + Uwin*Awin[3] + Uwin*Awin[4])
     "Heat transfer through glazed elements"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor Htherm(G=3.45*(Awal[
-        1] + Awin[1] + Awal[2] + Awin[2] + Awal[3] + Awin[3] + Awal[4] + Awin[4]
-         + Af + Aroo))
-    "Coupling conductancec betwee air and surface nodes" annotation (Placement(
-        transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HThe(G=3.45*(Awal[1]
+         + Awin[1] + Awal[2] + Awin[2] + Awal[3] + Awin[3] + Awal[4] + Awin[4]
+         + Af + Aroo)) "Coupling conductancec betwee air and surface nodes"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,40})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor Hmass(G=9.1*f_ms*Af)
-    "Coupling conductancec between surface and mass nodes"      annotation (
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HMas(G=9.1*f_ms*Af)
+    "Coupling conductancec between surface and mass nodes" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,-40})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor Cm(C=buiMas.heaC*Af, T(
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capMas(C=buiMas.heaC*
+        Af, T(
       displayUnit="K",
       fixed=true,
       start=293.15)) "Zone thermal capacity" annotation (Placement(
@@ -69,86 +69,86 @@ model Zone "Thermal zone based on 5R1C network"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={40,-120})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a Tair "Air node"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a TAir "Air node"
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a Tsur "Surface node"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a TSur "Surface node"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow qNodAir
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaAir
     annotation (Placement(transformation(extent={{80,70},{60,90}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow qNodSur
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaSur
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow qNodMas
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaMas
     annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
   IBPSA.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-140,100},{-100,140}}),
                                                       iconTransformation(extent={{-126,78},
             {-62,142}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature Text
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TExt
     "External air temperature"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
-  Modelica.Blocks.Math.Add solGains "Total solar heat gains"
+  Modelica.Blocks.Math.Add solGai "Total solar heat gains"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
 
 
-  BaseClasses.GlazedElements glazedElements(
+  BaseClasses.GlazedElements glaEle(
     Awin=Awin,
     winFrame=winFrame,
     surfaceTilt=surfaceTilt,
     surfaceAzimuth=surfaceAzimuth,
     gFactor=gFactor) "Solar heat gains of glazed elements"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  BaseClasses.OpaqueElements opaqueElements(
+  BaseClasses.OpaqueElements opaEle(
     Awal=Awal,
     Uwal=Uwal,
     Aroo=Aroo,
     Uroo=Uroo,
-    surfaceTilt={1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949,
-        0},
+    surfaceTilt={1.5707963267949,1.5707963267949,1.5707963267949,
+        1.5707963267949,0},
     surfaceAzimuth={surfaceAzimuth[1],surfaceAzimuth[2],surfaceAzimuth[3],
         surfaceAzimuth[4],0}) "Solar heat gains of opaque elements"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Modelica.Blocks.Interfaces.RealInput intGains "Internal heat gains"
+  Modelica.Blocks.Interfaces.RealInput intGai "Internal heat gains"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}})));
-  BaseClasses.GainSurface qSur(
+  BaseClasses.GainSurface phiSur(
     At=Awal[1] + Awin[1] + Awal[2] + Awin[2] + Awal[3] + Awin[3] + Awal[4] +
         Awin[4] + Af + Aroo,
     f_ms=f_ms,
     Af=Af,
-    HwinG=Hwin.G) "Heat flow injected to surface node"
+    HwinG=HWin.G) "Heat flow injected to surface node"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
 
-  Modelica.Blocks.Math.Gain qAir(k=0.5) "Heat flow injected to air node"
+  Modelica.Blocks.Math.Gain phiAir(k=0.5) "Heat flow injected to air node"
     annotation (Placement(transformation(extent={{120,70},{100,90}})));
-  BaseClasses.GainMass qMas(
+  BaseClasses.GainMass phiMas(
     At=Awal[1] + Awin[1] + Awal[2] + Awin[2] + Awal[3] + Awin[3] + Awal[4] +
         Awin[4] + Af + Aroo,
-    HwinG=Hwin.G,
+    HwinG=HWin.G,
     f_ms=f_ms,
     Af=Af) "Heat flow injected to mass node"
     annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
 
 
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature Tsup
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TSup
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 equation
 
-  connect(Tsur, Hwin.port_b)
+  connect(TSur,HWin. port_b)
     annotation (Line(points={{40,0},{20,0}}, color={191,0,0}));
-  connect(Tair, Hve.port_b)
+  connect(TAir, HVen.port_b)
     annotation (Line(points={{40,80},{20,80}}, color={191,0,0}));
-  connect(Tair, Htherm.port_b)
+  connect(TAir, HThe.port_b)
     annotation (Line(points={{40,80},{40,50}}, color={191,0,0}));
-  connect(Tair, qNodAir.port)
+  connect(TAir, heaAir.port)
     annotation (Line(points={{40,80},{60,80}}, color={191,0,0}));
-  connect(qNodSur.port, Tsur)
+  connect(heaSur.port, TSur)
     annotation (Line(points={{60,0},{40,0}}, color={191,0,0}));
-  connect(Tsur, Hmass.port_b)
+  connect(TSur, HMas.port_b)
     annotation (Line(points={{40,0},{40,-30}}, color={191,0,0}));
-  connect(weaBus.TDryBul, Text.T) annotation (Line(
+  connect(weaBus.TDryBul,TExt. T) annotation (Line(
       points={{-120,120},{-120,0},{-102,0}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -156,11 +156,11 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(Tsur, Htherm.port_a)
+  connect(TSur, HThe.port_a)
     annotation (Line(points={{40,0},{40,30}}, color={191,0,0}));
-  connect(Tsur, Tsur)
+  connect(TSur,TSur)
     annotation (Line(points={{40,0},{40,0}}, color={191,0,0}));
-  connect(glazedElements.weaBus, weaBus) annotation (Line(
+  connect(glaEle.weaBus, weaBus) annotation (Line(
       points={{-100,-50},{-120,-50},{-120,120}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -168,7 +168,7 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(opaqueElements.weaBus, weaBus) annotation (Line(
+  connect(opaEle.weaBus, weaBus) annotation (Line(
       points={{-100,-90.9524},{-120,-90.9524},{-120,120}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -176,40 +176,39 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(glazedElements.y, solGains.u1) annotation (Line(points={{-79.2857,-50},
-          {-70,-50},{-70,-64},{-62,-64}}, color={0,0,127}));
-  connect(opaqueElements.y, solGains.u2) annotation (Line(points={{-79.5455,
-          -89.5238},{-70,-89.5238},{-70,-76},{-62,-76}},
-                                          color={0,0,127}));
-  connect(Hwin.port_a, Text.port)
+  connect(glaEle.y, solGai.u1) annotation (Line(points={{-79.2857,-50},{-70,-50},
+          {-70,-64},{-62,-64}}, color={0,0,127}));
+  connect(opaEle.y, solGai.u2) annotation (Line(points={{-79.5455,-89.5238},{
+          -70,-89.5238},{-70,-76},{-62,-76}}, color={0,0,127}));
+  connect(HWin.port_a,TExt. port)
     annotation (Line(points={{0,0},{-80,0}}, color={191,0,0}));
-  connect(Htrasm.port_a, Text.port) annotation (Line(points={{0,-80},{-20,-80},{
-          -20,0},{-80,0}}, color={191,0,0}));
-  connect(qNodMas.port, Htrasm.port_b)
+  connect(HTra.port_a, TExt.port) annotation (Line(points={{0,-80},{-20,-80},{-20,
+          0},{-80,0}}, color={191,0,0}));
+  connect(heaMas.port, HTra.port_b)
     annotation (Line(points={{60,-80},{20,-80}}, color={191,0,0}));
-  connect(Cm.port, Htrasm.port_b)
+  connect(capMas.port, HTra.port_b)
     annotation (Line(points={{40,-110},{40,-80},{20,-80}}, color={191,0,0}));
-  connect(Hmass.port_a, Htrasm.port_b)
+  connect(HMas.port_a, HTra.port_b)
     annotation (Line(points={{40,-50},{40,-80},{20,-80}}, color={191,0,0}));
-  connect(qNodSur.Q_flow,qSur. y)
+  connect(heaSur.Q_flow, phiSur.y)
     annotation (Line(points={{80,0},{99,0}}, color={0,0,127}));
-  connect(qSur.intG, intGains) annotation (Line(points={{122,-4},{132,-4},{132,
+  connect(phiSur.intG, intGai) annotation (Line(points={{122,-4},{132,-4},{132,
           -136},{-74,-136},{-74,-120},{-160,-120}}, color={0,0,127}));
-  connect(qAir.y, qNodAir.Q_flow)
+  connect(phiAir.y, heaAir.Q_flow)
     annotation (Line(points={{99,80},{80,80}}, color={0,0,127}));
-  connect(qAir.u, intGains) annotation (Line(points={{122,80},{132,80},{132,-136},
+  connect(phiAir.u, intGai) annotation (Line(points={{122,80},{132,80},{132,-136},
           {-74,-136},{-74,-120},{-160,-120}}, color={0,0,127}));
-  connect(qMas.y, qNodMas.Q_flow)
+  connect(phiMas.y, heaMas.Q_flow)
     annotation (Line(points={{99,-80},{80,-80}}, color={0,0,127}));
-  connect(qMas.intG, intGains) annotation (Line(points={{122,-84},{132,-84},{
+  connect(phiMas.intG, intGai) annotation (Line(points={{122,-84},{132,-84},{
           132,-136},{-74,-136},{-74,-120},{-160,-120}}, color={0,0,127}));
-  connect(solGains.y,qSur. solG) annotation (Line(points={{-39,-70},{-30,-70},{
+  connect(solGai.y, phiSur.solG) annotation (Line(points={{-39,-70},{-30,-70},{
           -30,-100},{132,-100},{132,-8},{122,-8}}, color={0,0,127}));
-  connect(solGains.y,qMas. solG) annotation (Line(points={{-39,-70},{-30,-70},{
+  connect(solGai.y, phiMas.solG) annotation (Line(points={{-39,-70},{-30,-70},{
           -30,-100},{132,-100},{132,-88},{122,-88}}, color={0,0,127}));
-  connect(Tsup.port, Hve.port_a)
+  connect(TSup.port, HVen.port_a)
     annotation (Line(points={{-80,80},{0,80}}, color={191,0,0}));
-  connect(weaBus.TDryBul, Tsup.T) annotation (Line(
+  connect(weaBus.TDryBul,TSup. T) annotation (Line(
       points={{-120,120},{-120,80},{-102,80}},
       color={255,204,51},
       thickness=0.5), Text(

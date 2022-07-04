@@ -221,7 +221,7 @@ equation
     annotation (Line(points={{38,-80},{31,-80}}, color={0,0,127}));
   connect(cFactor_west.y, frame_win_west.u)
     annotation (Line(points={{61,-80},{70,-80}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},
+  annotation (defaultComponentName="glaEle",Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},
             {140,140}}), graphics={
         Rectangle(
           extent={{-140,140},{140,-142}},

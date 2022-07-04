@@ -1,8 +1,8 @@
 within IBPSA.ThermalZones.ISO13790.Zone5R1C;
 model ZoneHVAC "Thermal zone for HVAC based on 5R1C network"
-  extends Zone(Cm(C=buiMas.heaC*Af-Vroo*1.2*1014))
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  extends Zone(capMas(C=buiMas.heaC*Af - Vroo*1.2*1014)) annotation (Icon(
+        coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(
+          preserveAspectRatio=false)));
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium;
   parameter Integer nPorts=0 "Number of fluid ports" annotation (Evaluate=true,
@@ -44,7 +44,7 @@ equation
           {-130,50},{-70,50},{-70,120},{-42,120}}, color={0,0,127}));
   connect(mWat_flow.y, vol.mWat_flow) annotation (Line(points={{-19,120},{28,120},
           {28,128},{48,128}}, color={0,0,127}));
-  connect(Tair, vol.heatPort)
+  connect(TAir, vol.heatPort)
     annotation (Line(points={{40,80},{40,120},{50,120}}, color={191,0,0}));
   connect(vol.ports, ports_b) annotation (Line(points={{60,110},{60,100},{94,100},
           {94,119},{140,119}}, color={0,127,255}));
