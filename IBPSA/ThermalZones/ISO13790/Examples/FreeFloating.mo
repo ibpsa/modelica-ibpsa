@@ -28,12 +28,12 @@ equation
       points={{30.6,13},{-50.7,13},{-50.7,70},{-60,70}},
       color={255,204,51},
       thickness=0.5));
-  connect(zon5R1C.intGai, intGains.y) annotation (Line(points={{24,-10},{-40,
-          -10},{-40,-70},{-59,-70}}, color={0,0,127}));
-  annotation (experiment(
-      StopTime=31536000,
-      Interval=3600,
-      __Dymola_Algorithm="Dassl"),
+  connect(zon5R1C.intGai, intGains.y) annotation (Line(points={{24,-10},{-40,-10},
+          {-40,-70},{-59,-70}}, color={0,0,127}));
+  annotation (experiment(Tolerance=1e-6, StopTime=3.1536e+007, Interval=3600),
+  __Dymola_Commands(file=
+  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomOneElement.mos"
+        "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This model illustrates the use of <a href=\"modelica://IBPSA.ThermalZones.ISO13790.Zone5R1C.Zone\">
