@@ -30,10 +30,10 @@ equation
       points={{30.6,13},{-50.7,13},{-50.7,70},{-60,70}},
       color={255,204,51},
       thickness=0.5));
-  connect(intGains.y, zonHVAC.intGains) annotation (Line(points={{-59,-70},{-50,
-          -70},{-50,-10},{24,-10}}, color={0,0,127}));
   connect(latGains.y, zonHVAC.latGains) annotation (Line(points={{-59,-10},{-54,
           -10},{-54,-6},{24,-6}}, color={0,0,127}));
+  connect(zonHVAC.intGai, intGains.y) annotation (Line(points={{24,-10},{-40,
+          -10},{-40,-70},{-59,-70}}, color={0,0,127}));
   annotation (experiment(
       StopTime=31536000,
       Interval=3600,

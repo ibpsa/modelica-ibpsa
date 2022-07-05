@@ -71,8 +71,6 @@ equation
       points={{30.6,13},{-50.7,13},{-50.7,70},{-60,70}},
       color={255,204,51},
       thickness=0.5));
-  connect(intGains.y, zon5R1C.intGains) annotation (Line(points={{-59,-70},{-50,
-          -70},{-50,-10},{24,-10}}, color={0,0,127}));
   connect(sumHeaCoo.y, preHeaCoo.Q_flow)
     annotation (Line(points={{52.4,60},{58,60}}, color={0,0,127}));
   connect(conHeaPID.y, gaiHea.u)
@@ -103,10 +101,10 @@ equation
   connect(TRooAir.T, conCooPID.u_m) annotation (Line(points={{8.4,24},{18,24},{
           18,32},{-10,32},{-10,38.8}},
                                     color={0,0,127}));
-  connect(TRooAir.port, zon5R1C.Tair) annotation (Line(points={{0,24},{-8,24},{-8,
-          10},{44,10}}, color={191,0,0}));
-  connect(preHeaCoo.port, zon5R1C.Tair) annotation (Line(points={{70,60},{80,60},
-          {80,10},{44,10}}, color={191,0,0}));
+  connect(TRooAir.port, zon5R1C.TAir) annotation (Line(points={{0,24},{-10,24},
+          {-10,10},{44,10}}, color={191,0,0}));
+  connect(preHeaCoo.port, zon5R1C.TAir) annotation (Line(points={{70,60},{76,60},
+          {76,10},{44,10}}, color={191,0,0}));
   annotation (experiment(
       StopTime=31536000,
       Interval=3600,

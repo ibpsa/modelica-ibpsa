@@ -63,10 +63,6 @@ equation
     annotation (Line(points={{-27.4,72},{-17.2,72}}, color={0,0,127}));
   connect(conHeaPID.y,gaiHea. u)
     annotation (Line(points={{-3.4,72},{4.8,72}}, color={0,0,127}));
-  connect(preHeaCoo.port, zonHVAC.Tair) annotation (Line(points={{70,60},{80,60},
-          {80,38},{44,38},{44,10}}, color={191,0,0}));
-  connect(TRooAir.port, zonHVAC.Tair) annotation (Line(points={{0,24},{-4,24},{-4,
-          10},{44,10}}, color={191,0,0}));
   connect(gaiHea.y, preHeaCoo.Q_flow) annotation (Line(points={{18.6,72},{40,72},
           {40,60},{58,60}}, color={0,0,127}));
   connect(bou.ports[1], fan.port_a)
@@ -85,6 +81,10 @@ equation
           -70},{48,12.05},{52.95,12.05}}, color={0,127,255}));
   connect(bou1.ports[1], zonHVAC.ports_b[2]) annotation (Line(points={{70,-70},{
           66,-70},{66,12.05},{52.95,12.05}}, color={0,127,255}));
+  connect(TRooAir.port, zonHVAC.TAir) annotation (Line(points={{0,24},{-4,24},{
+          -4,10},{44,10}}, color={191,0,0}));
+  connect(preHeaCoo.port, zonHVAC.TAir) annotation (Line(points={{70,60},{74,60},
+          {74,10},{44,10}}, color={191,0,0}));
   annotation (experiment(
       StopTime=31536000,
       Interval=3600,
