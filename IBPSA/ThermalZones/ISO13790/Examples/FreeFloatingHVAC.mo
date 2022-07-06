@@ -34,10 +34,10 @@ equation
           -10},{-54,-6},{24,-6}}, color={0,0,127}));
   connect(zonHVAC.intGai, intGains.y) annotation (Line(points={{24,-10},{-40,
           -10},{-40,-70},{-59,-70}}, color={0,0,127}));
-  annotation (experiment(
-      StopTime=31536000,
-      Interval=3600,
-      __Dymola_Algorithm="Dassl"),
+  annotation (experiment(Tolerance=1e-6, StopTime=3.1536e+007),
+  __Dymola_Commands(file=
+  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Examples/FreeFloatingHVAC.mos"
+        "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This model illustrates the use of <a href=\"modelica://IBPSA.ThermalZones.ISO13790.Zone5R1C.ZoneHVAC\">
@@ -51,10 +51,5 @@ Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.
 </li>
 </ul>
-</html>",
-        info="<html>
-<p>
-Mass data for heavy building
-</p>
 </html>"));
 end FreeFloatingHVAC;

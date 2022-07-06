@@ -30,9 +30,9 @@ equation
       thickness=0.5));
   connect(zon5R1C.intGai, intGains.y) annotation (Line(points={{24,-10},{-40,-10},
           {-40,-70},{-59,-70}}, color={0,0,127}));
-  annotation (experiment(Tolerance=1e-6, StopTime=3.1536e+007, Interval=3600),
+  annotation (experiment(Tolerance=1e-6, StopTime=3.1536e+007),
   __Dymola_Commands(file=
-  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomOneElement.mos"
+  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Examples/FreeFloating.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -48,10 +48,5 @@ Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.
 </li>
 </ul>
-</html>",
-        info="<html>
-<p>
-Mass data for heavy building
-</p>
 </html>"));
 end FreeFloating;

@@ -105,10 +105,10 @@ equation
           {-10,10},{44,10}}, color={191,0,0}));
   connect(preHeaCoo.port, zon5R1C.TAir) annotation (Line(points={{70,60},{76,60},
           {76,10},{44,10}}, color={191,0,0}));
-  annotation (experiment(
-      StopTime=31536000,
-      Interval=3600,
-      __Dymola_Algorithm="Dassl"),
+  annotation (experiment(Tolerance=1e-6, StopTime=3.1536e+007),
+  __Dymola_Commands(file=
+  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Examples/HeatingCooling.mos"
+        "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This model illustrates the use of <a href=\"modelica://IBPSA.ThermalZones.ISO13790.Zone5R1C.Zone\">
@@ -122,10 +122,5 @@ Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.
 </li>
 </ul>
-</html>",
-        info="<html>
-<p>
-Mass data for heavy building
-</p>
 </html>"));
 end HeatingCooling;
