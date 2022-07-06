@@ -93,17 +93,14 @@ equation
           {28.6,46}}, color={0,0,127}));
   connect(conHeaPID.u_m, TRooAir.T) annotation (Line(points={{0,64.8},{0,60},{
           10,60},{10,34},{24,34},{24,24},{20.4,24}}, color={0,0,127}));
-  connect(zon5R1C.Tair, TRooAir.port)
-    annotation (Line(points={{4,8},{4,24},{12,24}}, color={191,0,0}));
-  connect(zon5R1C.Tair, preHeaCoo.port)
-    annotation (Line(points={{4,8},{84,8},{84,60},{80,60}}, color={191,0,0}));
 
- annotation(experiment(
-      StopTime=31536000,
-      Interval=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600FF.mos"
+  connect(TRooAir.port, zon5R1C.TAir)
+    annotation (Line(points={{12,24},{4,24},{4,8}}, color={191,0,0}));
+  connect(preHeaCoo.port, zon5R1C.TAir)
+    annotation (Line(points={{80,60},{88,60},{88,8},{4,8}}, color={191,0,0}));
+ annotation(experiment(Tolerance=1e-6, StopTime=3.1536e+007),
+  __Dymola_Commands(file=
+  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Case600.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is used for the basic test case 600 of the BESTEST validation suite. 
