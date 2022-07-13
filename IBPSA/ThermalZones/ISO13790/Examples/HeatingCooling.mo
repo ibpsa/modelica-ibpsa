@@ -12,11 +12,9 @@ model HeatingCooling "Illustrates the use of the 5R1C thermal zone with heating 
       Vroo=16*3,
       f_ms=2.5,
       redeclare IBPSA.ThermalZones.ISO13790.Data.Light buiMas,
-      gFactor=0.5), weaDat(filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")));
+      gFactor=0.5));
 
-  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+
 
 
   Modelica.Blocks.Sources.Constant intGains(k=10)
