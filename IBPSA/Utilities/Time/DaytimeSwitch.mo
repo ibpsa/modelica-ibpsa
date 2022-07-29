@@ -29,10 +29,13 @@ equation
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid), Text(
-        extent={{-150,150},{150,110}},
-        textString="%name",
-        lineColor={0,0,255}),
+        fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-151,147},{149,107}},
+          textColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          textString="%name"),
         Ellipse(extent={{-80,80},{80,-80}}, lineColor={160,160,164},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),

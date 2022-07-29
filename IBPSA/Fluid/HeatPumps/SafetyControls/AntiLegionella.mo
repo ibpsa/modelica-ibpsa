@@ -147,15 +147,15 @@ equation
           extent={{-94,0},{56,-154}},
           lineColor={28,108,200},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
+          fillPattern=FillPattern.HorizontalCylinder,
           textString="Day of week: %trigWeekDay
 Hour of Day: %trigHour",
           horizontalAlignment=TextAlignment.Left),
         Text(
-          extent={{-104,146},{100,92}},
-          lineColor={28,108,200},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
+          extent={{-151,147},{149,107}},
+          textColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
           textString="%name")}),                                                           Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html><p>

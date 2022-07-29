@@ -50,51 +50,7 @@ equation
   connect(swiErr.y, yOut) annotation (Line(points={{101,0},{110,0},{110,20},{
           130,20}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -120},{120,120}}),      graphics={
-        Polygon(
-          points={{-42,20},{0,62},{-42,20}},
-          lineColor={28,108,200},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-48,-26},{48,66}},
-          lineColor={0,0,0},
-          fillColor={91,91,91},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-36,-14},{36,54}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-60,20},{60,-80}},
-          lineColor={0,0,0},
-          fillColor={91,91,91},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-10,-30},{10,-70}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-14,-40},{16,-12}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-104,100},{106,76}},
-          lineColor={28,108,200},
-          lineThickness=0.5,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
-          textString="%name"),
-        Rectangle(
-          extent={{-120,120},{120,-120}},
-          lineColor={28,108,200},
-          lineThickness=0.5,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None)}),
-                                     Diagram(coordinateSystem(
+            -120},{120,120}})),      Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
   <li>

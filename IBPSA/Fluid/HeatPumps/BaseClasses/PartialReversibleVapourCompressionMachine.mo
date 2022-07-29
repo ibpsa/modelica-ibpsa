@@ -531,12 +531,12 @@ equation
           origin={1,61},
           rotation=90),
         Text(
-          extent={{-76,6},{74,-36}},
-          lineColor={28,108,200},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          textString="%name
-"),     Line(
+          extent={{-151,147},{149,107}},
+          textColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          textString="%name"),
+        Line(
           points={{-9,40},{9,40},{-5,-2},{9,-40},{-9,-40}},
           color={0,0,0},
           smooth=Smooth.None,

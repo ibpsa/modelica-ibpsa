@@ -27,7 +27,7 @@ equation
   QCon_flow = -(QCon_flow - Pel);
   annotation (Icon(graphics={
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-136,109},{164,149}},
           textString="%name"),
         Ellipse(
@@ -36,7 +36,7 @@ equation
           fillPattern = FillPattern.Solid,
           extent={{-86,-96},{88,64}}),
         Text(
-          lineColor={108,88,49},
+          textColor={108,88,49},
           extent={{-90,-108},{90,72}},
           textString="f")}), Documentation(revisions="<html><ul>
   <li>

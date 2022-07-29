@@ -88,8 +88,10 @@ equation
   connect(passThroughMFlowCon.u, sigBus.m_flowConMea);
   annotation (Icon(graphics={
         Text(
-          lineColor={0,0,255},
-          extent={{-136,109},{164,149}},
+          extent={{-151,147},{149,107}},
+          textColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
           textString="%name"),
         Ellipse(
           lineColor = {108,88,49},
@@ -97,8 +99,10 @@ equation
           fillPattern = FillPattern.Solid,
           extent={{-86,-96},{88,64}}),
         Text(
-          lineColor={108,88,49},
-          extent={{-90,-108},{90,72}},
+          extent={{-157,59},{152,-74}},
+          textColor={0,140,72},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
           textString="f")}), Documentation(revisions="<html><ul>
   <li>
     <i>May 21, 2021ф</i> by Fabian Wüllhorst:<br/>
