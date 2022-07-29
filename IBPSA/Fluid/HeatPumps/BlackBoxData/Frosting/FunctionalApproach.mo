@@ -30,7 +30,7 @@ equation
           fillPattern = FillPattern.Solid,
           extent = {{-100,-100},{100,100}}),
         Text(
-          lineColor={108,88,49},
+          textColor={108,88,49},
           extent={{-90.0,-90.0},{90.0,90.0}},
           textString="f")}),                                     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
