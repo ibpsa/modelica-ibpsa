@@ -168,7 +168,7 @@ equation
           {-1.9984e-15,54},{92,54},{92,88},{110,88},{110,82}},
                                             color={0,0,127}));
   connect(QScaling.y, product_scaling.u1) annotation (Line(points={{-50,59},{
-          -50,50},{-44,50},{-44,42}},
+          -50,48},{-44,48},{-44,42}},
                                   color={0,0,127}));
   connect(Table_QCon.y, product_scaling.u2) annotation (Line(points={{-110,59},
           {-110,48},{-56,48},{-56,42}},
@@ -183,8 +183,8 @@ equation
   connect(divisionPel.u2, max.y) annotation (Line(points={{104,2},{104,14},{110,
           14},{110,19}},
                       color={0,0,127}));
-  connect(max.u1, Table_COP.y) annotation (Line(points={{116,42},{116,54},{110,
-          54},{110,59}},color={0,0,127}));
+  connect(max.u1, Table_COP.y) annotation (Line(points={{116,42},{116,48},{110,
+          48},{110,59}},color={0,0,127}));
   connect(const_minCOP.y, max.u2) annotation (Line(points={{70,59},{70,48},{104,
           48},{104,42}},    color={0,0,127}));
   connect(multiplex3_1.u1[1], sigBus.ySet) annotation (Line(points={{7,82},{12,

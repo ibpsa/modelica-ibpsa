@@ -7,6 +7,7 @@ model HeatPump "Example for the reversible heat pump model."
   replaceable package Medium_sou = IBPSA.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
   IBPSA.Fluid.Sources.MassFlowSource_T                sourceSideMassFlowSource(
+    use_m_flow_in=true,
     use_T_in=true,
     m_flow=1,
     nPorts=1,
@@ -26,7 +27,7 @@ model HeatPump "Example for the reversible heat pump model."
     startTime=500,
     height=25,
     offset=278)
-    "Ramp signal for the temperature input of the source side's ideal mass flow source"
+    "Ramp signal for the temperature input of the source side's ideal flow"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Modelica.Blocks.Sources.Constant T_amb_internal(k=291.15)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
@@ -39,7 +40,7 @@ model HeatPump "Example for the reversible heat pump model."
     use_busConnectorOnly=false,
     QUse_flow_nominal=1000,
     cpCon=4184,
-    mEva_flow_nominal=sourceSideMassFlowSource.m_flow,
+    mEva_flow_nominal=mSouStep.offset,
     y_nominal=1,
     TCon_nominal=313.15,
     dTCon_nominal=7,
@@ -61,12 +62,10 @@ model HeatPump "Example for the reversible heat pump model."
     cpEva=4184,
     redeclare model BlaBoxHPHeating =
         IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (
-        QConBlackBox_flow_nominal=3315,
         redeclare IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
           iceFacCalc,
         dataTable=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201
-            ()),
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201()),
     redeclare model BlaBoxHPCooling =
         IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.LookUpTable2D (smoothness=
             Modelica.Blocks.Types.Smoothness.LinearSegments, dataTable=
@@ -179,6 +178,14 @@ model HeatPump "Example for the reversible heat pump model."
     uLow=273.15 + 15,
     uHigh=273.15 + 19)
     annotation (Placement(transformation(extent={{40,60},{20,80}})));
+  Modelica.Blocks.Sources.Pulse mSouStep(
+    amplitude=-1,
+    width=50,
+    period=500,
+    startTime=500,
+    offset=1)
+    "Step signal for the mass flow rate source side's ideal mass flow source"
+    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 equation
 
   connect(sourceSideMassFlowSource.ports[1], heatPump.port_a2) annotation (Line(
@@ -229,6 +236,8 @@ equation
   connect(booleanToReal.y, heatPump.ySet) annotation (Line(points={{-10,-1},{
           -10,-4},{4.83333,-4},{4.83333,-11.16}},
                                color={0,0,127}));
+  connect(mSouStep.y, sourceSideMassFlowSource.m_flow_in)
+    annotation (Line(points={{-79,-50},{-62,-50},{-62,-62}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(Tolerance=1e-6, StopTime=3600),

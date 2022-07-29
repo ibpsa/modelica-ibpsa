@@ -1,7 +1,7 @@
 ﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
 block OperationalEnvelope
   "Block which computes an error if the current values are outside of the given operatinal envelope"
-  extends BaseClasses.PartialSafetyControl;
+  extends BaseClasses.PartialSafetyControlWithErrors;
   extends BaseClasses.BoundaryMapIcon(final iconMin=-70, final iconMax=70);
   parameter Boolean use_opeEnv
     "False to allow HP to run out of operational envelope" annotation(choices(checkBox=true));
@@ -28,15 +28,8 @@ block OperationalEnvelope
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 equation
-  connect(boundaryMap.noErr, swiErr.u2) annotation (Line(points={{5.2,70},{5.2,
-          68},{54,68},{54,0},{78,0}},
-                                  color={255,0,255}));
   connect(ySet,swiErr.u1)  annotation (Line(points={{-136,20},{32,20},{32,8},{
           78,8}}, color={0,0,127}));
-  connect(booConOpeEnv.y, swiErr.u2) annotation (Line(
-      points={{1,-30},{34,-30},{34,0},{78,0}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
 
   connect(modeSet, modeOut) annotation (Line(points={{-136,-20},{-114,-20},{
           -114,-52},{110,-52},{110,-20},{130,-20}}, color={255,0,255}));
@@ -62,12 +55,14 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(boundaryMap.noErr, not1.u) annotation (Line(points={{5.2,70},{5.2,68},
-          {16,68},{16,28},{-44,28},{-44,-102},{-46,-102},{-46,-100},{-42,-100}},
-                                         color={255,0,255}));
-  connect(booConOpeEnv.y, not1.u) annotation (Line(points={{1,-30},{6,-30},{6,
-          -56},{-50,-56},{-50,-100},{-42,-100}},
-                                         color={255,0,255}));
+  connect(booleanPassThrough.u, booConOpeEnv.y) annotation (Line(
+      points={{38,0},{6,0},{6,-30},{1,-30}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
+  connect(boundaryMap.noErr, booleanPassThrough.u) annotation (Line(
+      points={{5.2,70},{24,70},{24,0},{38,0}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,120}})), Icon(
         coordinateSystem(extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>

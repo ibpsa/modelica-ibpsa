@@ -1,6 +1,7 @@
 AntiLegionella
 AntiFreeze
 DefrostControl
+MinimalVolumeFlowRateSafety
 OnOffControl
 OperationalEnvelope
 SafetyControl

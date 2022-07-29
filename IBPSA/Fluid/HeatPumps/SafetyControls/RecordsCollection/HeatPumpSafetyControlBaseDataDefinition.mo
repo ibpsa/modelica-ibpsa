@@ -56,7 +56,15 @@ record HeatPumpSafetyControlBaseDataDefinition "Base data definition for heat pu
   parameter Modelica.Units.SI.ThermodynamicTemperature TantFre
     "Limit temperature for anti freeze control"
     annotation (Dialog(group="Anti Freeze Control", enable=use_antFre));
-
+  parameter Boolean use_minFlowCtrl
+    "=false to disable minimal mass flow rate requirements"
+    annotation (choices(checkBox=true), Dialog(group="Mass flow rates"));
+  parameter Real m_flowEvaMinPer
+    "Percentage of mass flow rate in evaporator required to operate the device"
+    annotation (Dialog(group="Mass flow rates", enable=use_minFlowCtrl));
+  parameter Real m_flowConMinPer
+    "Percentage of mass flow rate in condenser required to operate the device"
+    annotation (Dialog(group="Mass flow rates", enable=use_minFlowCtrl));
   annotation (Icon(graphics,
                    coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)));

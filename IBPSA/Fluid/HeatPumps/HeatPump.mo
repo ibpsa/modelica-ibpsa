@@ -41,6 +41,8 @@ model HeatPump
     "Safety control parameters"
     annotation (Dialog(enable=use_safetyControl, group="Safety Control"), choicesAllMatching=true);
   IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl safetyControl(
+    final mEva_flow_nominal=mEva_flow_nominal_final*scalingFactor,
+    final mCon_flow_nominal=mCon_flow_nominal_final*scalingFactor,
       safetyControlParameters=safetyControlParameters)             if use_safetyControl
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
