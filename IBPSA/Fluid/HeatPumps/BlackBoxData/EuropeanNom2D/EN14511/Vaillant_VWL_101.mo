@@ -11,7 +11,7 @@ record Vaillant_VWL_101 "Vaillant VWL10-1"
     tableUppBou=[-25,65; 40,65]);
     //These boundary-tables are not from the datasheet but default values.
 
-  annotation(preferedView="text", DymolaStoredErrors,
+  annotation(", "DymolaStoredErrors,
     Icon,
     Documentation(revisions="<html><ul>
   <li>

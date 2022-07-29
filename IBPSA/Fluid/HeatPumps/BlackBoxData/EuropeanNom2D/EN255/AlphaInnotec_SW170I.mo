@@ -8,7 +8,7 @@ record AlphaInnotec_SW170I "Alpha Innotec SW 170 I"
     mEva_flow_nominal=13600/3600/3,
     tableUppBou=[-22,65; 45,65]);
 
-  annotation(preferedView="text", DymolaStoredErrors,
+  annotation(", "DymolaStoredErrors,
     Icon,
     Documentation(info="<html><p>
   According to data from WPZ Buchs, Swiss; EN 255.

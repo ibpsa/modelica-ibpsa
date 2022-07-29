@@ -63,5 +63,5 @@ defined as parameters.
   </li>
 </ul>
 </html>
-"),Icon,     preferedView="info");
+"),Icon);
 end HeatPumpBaseDataDefinition;

@@ -10,7 +10,7 @@ record Ochsner_GMSW_15plus "Ochsner GMSW 15 plus"
     mEva_flow_nominal=(14500 - 3300)/3600/3,
     tableUppBou=[-8,52; 0,65; 20,65]);
 
-  annotation(preferedView="text", DymolaStoredErrors,
+  annotation(", "DymolaStoredErrors,
     Icon,
     Documentation(revisions="<html><ul>
   <li>
