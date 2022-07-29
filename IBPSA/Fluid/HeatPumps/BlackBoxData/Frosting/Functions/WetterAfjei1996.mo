@@ -1,8 +1,8 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.Functions.IcingFactor;
+﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions;
 function WetterAfjei1996
   "Correction of CoP (Icing, Defrost) according to Wetter,Afjei 1996"
   extends
-    IBPSA.Fluid.HeatPumps.BlackBoxData.Functions.IcingFactor.PartialBaseFct;
+    IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct;
 
 parameter Real A=0.03;
 parameter Real B=-0.004;
@@ -14,8 +14,8 @@ Real factor;
 Real linear_term;
 Real gauss_curve;
 algorithm
-linear_term:=A + B*T_flow_ev;
-gauss_curve:=C*Modelica.Math.exp(-(T_flow_ev - D)*(T_flow_ev - D)/E);
+linear_term:=A + B*TEvaInMea;
+gauss_curve:=C*Modelica.Math.exp(-(TEvaInMea - D)*(TEvaInMea - D)/E);
 if linear_term>0 then
   factor:=linear_term + gauss_curve;
 else
