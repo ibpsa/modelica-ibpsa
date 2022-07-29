@@ -236,10 +236,10 @@ equation
 <p>
   The publications regarding this model are currenlty in review.
 </p>
-</html>", revisions="<html><ul>
+</html>", revisions="<html>
 <ul>
   <li>
-    <i>May 05, 2021&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>May 05, 2021</i> by Fabian Wüllhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/1092\">#1092</a>)
   </li>
