@@ -2,7 +2,8 @@ within IBPSA;
 package Electrical "Package with models for electrical systems and components"
   extends Modelica.Icons.Package;
 
-annotation (Icon(graphics={Line(points={{6,82},{-60,0},{12,0},{-24,-62},{-36,
-            -56},{-28,-90},{2,-76},{-8,-70},{52,20},{52,20},{-14,20},{40,82},{6,
-            82}}, color={0,0,0})}));
+annotation (Icon(graphics={Line(points={{8,84},{-58,2},{18,2},{-22,-60},{-36,
+            -52},{-26,-88},{10,-76},{-6,-68},{60,20},{48,20},{-18,20},{36,84},{
+            8,84}},
+                  color={0,0,0})}));
 end Electrical;
