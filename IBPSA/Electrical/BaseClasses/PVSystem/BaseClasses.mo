@@ -1,4 +1,4 @@
-within IBPSA.Electrical.BaseClasses.PVSystems;
+within IBPSA.Electrical.BaseClasses.PVSystem;
 package BaseClasses "Base parameters for PV Model"
   extends Modelica.Icons.BasesPackage;
 
@@ -46,8 +46,7 @@ package BaseClasses "Base parameters for PV Model"
   partial model PartialPVThermal
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                Text(extent={{-40,-68},{44,-102}},
-                                                                lineColor={0,0,255},textString
-              =                                                                                 "%name"),
+                                                                lineColor={0,0,255},textString= "%name"),
       Rectangle(extent={{-94,86},{6,-72}}, lineColor={215,215,215},fillColor={215,215,215},
               fillPattern =                                                                              FillPattern.Solid),
       Rectangle(extent={{-90,24},{-62,-4}},
@@ -133,8 +132,7 @@ package BaseClasses "Base parameters for PV Model"
   package Icons
     partial model partialPVIcon "Partial model for basic PV model icon"
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                                 Text(extent={{-38,-64},{46,-98}},lineColor={0,0,255},textString
-                =                                                                                 "%name"),
+                                 Text(extent={{-38,-64},{46,-98}},lineColor={0,0,255},textString= "%name"),
         Rectangle(extent={{-50,90},{50,-68}},lineColor={215,215,215},fillColor={215,215,215},
                 fillPattern =                                                                              FillPattern.Solid),
         Rectangle(extent={{-46,28},{-18,0}},lineColor={0,0,255},fillColor={0,0,255},
