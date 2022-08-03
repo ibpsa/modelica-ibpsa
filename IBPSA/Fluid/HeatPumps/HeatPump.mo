@@ -41,6 +41,8 @@ model HeatPump
     "Safety control parameters"
     annotation (Dialog(enable=use_safetyControl, group="Safety Control"), choicesAllMatching=true);
   IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl safetyControl(
+    final mEva_flow_nominal=mEva_flow_nominal_final*scalingFactor,
+    final mCon_flow_nominal=mCon_flow_nominal_final*scalingFactor,
       safetyControlParameters=safetyControlParameters)             if use_safetyControl
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
@@ -126,10 +128,10 @@ equation
           origin={1,61},
           rotation=90),
         Text(
-          extent={{-76,6},{74,-36}},
-          lineColor={28,108,200},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
+          extent={{-151,147},{149,107}},
+          textColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
           textString="%name"),
         Line(
           points={{-9,40},{9,40},{-5,-2},{9,-40},{-9,-40}},

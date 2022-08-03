@@ -8,7 +8,7 @@ record Ochsner_GMLW_19 "Ochsner GMLW 19"
     mEva_flow_nominal=1,
     tableUppBou=[-15,55; 40,55]);
 
-  annotation(preferedView="text", DymolaStoredErrors,
+  annotation(", "DymolaStoredErrors,
     Icon,
     Documentation(revisions="<html><ul>
   <li>

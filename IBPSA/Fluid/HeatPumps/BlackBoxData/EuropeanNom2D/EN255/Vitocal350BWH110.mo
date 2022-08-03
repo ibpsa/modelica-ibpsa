@@ -12,7 +12,7 @@ record Vitocal350BWH110 "Vitocal 350 BWH 110"
     mEva_flow_nominal=8400/3600/3,
     tableUppBou=[-5,55; 25,55]);
 
-  annotation(preferedView="text", DymolaStoredErrors,
+  annotation(", "DymolaStoredErrors,
     Icon,
     Documentation(info="<html><p>
   Data from manufacturer's data sheet (Viessmann). These exact curves

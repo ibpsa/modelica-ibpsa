@@ -1,6 +1,7 @@
 ﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
 model OnOffControl
   "Controlls if the minimal runtime, stoptime and max. runs per hour are inside given boundaries"
+  extends BaseClasses.PartialSafetyControl;
   parameter Boolean use_minRunTime
     "False if minimal runtime of HP is not considered" annotation(choices(checkBox=true));
   parameter Modelica.Units.SI.Time minRunTime(displayUnit="min")
@@ -56,14 +57,6 @@ model OnOffControl
   Modelica.Blocks.Logical.And andIsOn
     "Check if both set and actual value are greater zero"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Interfaces.RealInput ySet
-    "Set value relative speed of compressor. Analog from 0 to 1"
-    annotation (Placement(transformation(extent={{-132,-16},{-100,16}})));
-  Modelica.Blocks.Interfaces.RealOutput yOut
-    "Relative speed of compressor. From 0 to 1"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Interfaces.VapourCompressionMachineControlBus                sigBusHP
-    annotation (Placement(transformation(extent={{-116,-88},{-82,-58}})));
   Modelica.Blocks.Logical.Switch       swinOutySet
     "If any of the orySet conditions is true, ySet will be passed. Else nOut will stay the same"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
@@ -105,21 +98,12 @@ equation
       color={255,0,255},
       pattern=LinePattern.Dash));
 
-  connect(ySet,ySetGreaterZero. u) annotation (Line(points={{-116,0},{-94,0},{-94,
-          34},{-88,34},{-88,70},{-82,70}},
-                            color={0,0,127}));
   connect(ySetGreaterZero.y, notSetOn.u) annotation (Line(points={{-59,70},{-52,
           70},{-52,90},{-42,90}}, color={255,0,255}));
   connect(pre1.y, andIsOn.u2) annotation (Line(points={{-59,-90},{-52,-90},{-52,
           6},{-10,6},{-10,2},{-2,2}}, color={255,0,255}));
   connect(ySetGreaterZero.y, andIsOn.u1) annotation (Line(points={{-59,70},{-52,
           70},{-52,10},{-2,10}},                               color={255,0,255}));
-  connect(yOut,yOut)
-    annotation (Line(points={{110,0},{110,0}}, color={0,0,127}));
-  connect(swinOutySet.y,yOut)
-    annotation (Line(points={{93,0},{110,0}},  color={0,0,127}));
-  connect(ySet, swinOutySet.u1) annotation (Line(points={{-116,0},{-94,0},{-94,34},
-          {66,34},{66,8},{70,8}},       color={0,0,127}));
   connect(andTurnOff.y, andRun.u1) annotation (Line(points={{21,90},{58,90}},
                       color={255,0,255}));
   connect(orSetN.y, swinOutySet.u2)
@@ -158,21 +142,28 @@ equation
       points={{-19,-50},{22,-50},{22,-30},{38,-30}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(pre1.u, sigBusHP.onOffMea) annotation (Line(points={{-82,-90},{-82,-72},
-          {-84,-72},{-84,-74},{-86,-74},{-86,-73},{-99,-73}},
-                                    color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
 
-  connect(swinOutySet.u3, sigBusHP.ySet) annotation (Line(points={{70,-8},{58,
-          -8},{58,-14},{108,-14},{108,-114},{-99,-114},{-99,-73}}, color={0,0,
-          127}), Text(
+  connect(swinOutySet.y, yOut) annotation (Line(points={{93,0},{110,0},{110,20},
+          {130,20}}, color={0,0,127}));
+  connect(modeSet, modeOut) annotation (Line(points={{-136,-20},{-114,-20},{
+          -114,-116},{114,-116},{114,-20},{130,-20}}, color={255,0,255}));
+  connect(swinOutySet.u3, sigBusHP.ySet) annotation (Line(points={{70,-8},{64,
+          -8},{64,-18},{108,-18},{108,-114},{-108,-114},{-108,-69},{-129,-69}},
+        color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+  connect(pre1.u, sigBusHP.onOffMea) annotation (Line(points={{-82,-90},{-129,
+          -90},{-129,-69}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(ySetGreaterZero.u, ySet) annotation (Line(points={{-82,70},{-114,70},
+          {-114,20},{-136,20}}, color={0,0,127}));
+  connect(swinOutySet.u1, ySet) annotation (Line(points={{70,8},{70,32},{-104,
+          32},{-104,20},{-136,20}}, color={0,0,127}));
   annotation (Documentation(info="<html><p>
   Checks if the ySet value is legal by checking if the device can
   either be turned on or off, depending on which state it was in.
@@ -192,26 +183,6 @@ equation
 </html>"),
     Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
     Icon(coordinateSystem(extent={{-120,-120},{120,120}}), graphics={
-        Polygon(
-          points={{-42,20},{0,62},{-42,20}},
-          lineColor={28,108,200},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-48,-26},{48,66}},
-          lineColor={0,0,0},
-          fillColor={91,91,91},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-36,-14},{36,54}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-60,20},{60,-80}},
-          lineColor={0,0,0},
-          fillColor={91,91,91},
-          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-10,-30},{10,-70}},
           lineColor={0,0,0},
@@ -221,18 +192,5 @@ equation
           extent={{-14,-40},{16,-12}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-104,100},{106,76}},
-          lineColor={28,108,200},
-          lineThickness=0.5,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
-          textString="%name"),
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={28,108,200},
-          lineThickness=0.5,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None)}));
+          fillPattern=FillPattern.Solid)}));
 end OnOffControl;

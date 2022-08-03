@@ -28,5 +28,5 @@ record ChillerBaseDataDefinition "Basic chiller data"
   </li>
 </ul>
 </html>"),
-   Icon,     preferedView="info");
+   Icon);
 end ChillerBaseDataDefinition;

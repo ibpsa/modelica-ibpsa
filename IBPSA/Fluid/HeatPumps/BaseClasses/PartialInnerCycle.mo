@@ -133,12 +133,12 @@ equation
           color={28,108,200},
           thickness=0.5),
         Text(
-          extent={{-30,28},{30,-28}},
-          lineColor={28,108,200},
-          lineThickness=0.5,
-          textString="%name",
-          origin={0,-8},
-          rotation=90)}), Diagram(coordinateSystem(preserveAspectRatio=false)),
+          extent={{-151,147},{149,107}},
+          textColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          textString="%name")}),
+                          Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html><ul>
   <li>
     <i>May 22, 2019</i> by Julian Matthes:<br/>

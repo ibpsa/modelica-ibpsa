@@ -19,8 +19,10 @@ equation
   connect(passThroughMFlowEva.u, sigBus.m_flowEvaMea);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
-          lineColor={0,0,255},
-          extent={{-150,105},{150,145}},
+          extent={{-151,147},{149,107}},
+          textColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
           textString="%name"),
         Ellipse(
           lineColor = {108,88,49},
@@ -28,7 +30,7 @@ equation
           fillPattern = FillPattern.Solid,
           extent = {{-100,-100},{100,100}}),
         Text(
-          lineColor={108,88,49},
+          textColor={108,88,49},
           extent={{-90.0,-90.0},{90.0,90.0}},
           textString="f")}),                                     Diagram(
         coordinateSystem(preserveAspectRatio=false)),

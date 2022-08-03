@@ -154,14 +154,15 @@ equation
       extent={{-60.0,-20.0},{-30.0,0.0}}),
     Rectangle(fillColor={255,215,136},
       fillPattern=FillPattern.Solid,
-      extent={{-60.0,-40.0},{-30.0,-20.0}})}), Documentation(revisions="<html><ul>
+      extent={{-60.0,-40.0},{-30.0,-20.0}})}), Documentation(revisions="<html>
+<ul>
   <li>
-    <i>May 21, 2021ф</i> by Fabian Wüllhorst:<br/>
+    <i>May 21, 2021</i> by Fabian Wüllhorst:<br/>
     Make use of BaseClasses (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/1092\">#1092</a>)
   </li>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018</i> by Fabian Wüllhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
   </li>

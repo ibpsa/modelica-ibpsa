@@ -1,6 +1,6 @@
 ﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
 model AntiFreeze "Model to prevent source from freezing"
-  extends BaseClasses.PartialSafetyControl;
+  extends BaseClasses.PartialSafetyControlWithErrors;
 
   parameter Boolean use_antFre=true
     "True if anti freeze control is part of safety control" annotation(choices(checkBox=true));
@@ -25,14 +25,6 @@ model AntiFreeze "Model to prevent source from freezing"
 equation
   connect(ySet,swiErr.u1)  annotation (Line(points={{-136,20},{32,20},{32,8},{
           78,8}}, color={0,0,127}));
-  connect(booConAntFre.y, swiErr.u2) annotation (Line(
-      points={{21,-30},{42,-30},{42,0},{78,0}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(hysteresis.y, swiErr.u2) annotation (Line(
-      points={{-39,-10},{6,-10},{6,0},{78,0}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
   connect(modeSet, modeOut) annotation (Line(points={{-136,-20},{-114,-20},{
           -114,-64},{96,-64},{96,-20},{130,-20}}, color={255,0,255}));
   connect(min.y, hysteresis.u) annotation (Line(points={{-79,-10},{-62,-10}},
@@ -55,11 +47,14 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
 
-  connect(hysteresis.y, not1.u) annotation (Line(points={{-39,-10},{-28,-10},{
-          -28,-56},{-42,-56},{-42,-100}},
-                 color={255,0,255}));
-  connect(booConAntFre.y, not1.u) annotation (Line(points={{21,-30},{36,-30},{
-          36,-56},{-42,-56},{-42,-100}},           color={255,0,255}));
+  connect(booConAntFre.y, booleanPassThrough.u) annotation (Line(
+      points={{21,-30},{28,-30},{28,0},{38,0}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
+  connect(hysteresis.y, booleanPassThrough.u) annotation (Line(
+      points={{-39,-10},{0,-10},{0,0},{38,0}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
   annotation (Documentation(revisions="<html><ul>
   <li>
     <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>

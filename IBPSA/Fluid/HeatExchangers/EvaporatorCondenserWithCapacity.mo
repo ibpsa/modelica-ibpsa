@@ -86,8 +86,8 @@ model EvaporatorCondenserWithCapacity
         origin={50,-50})));
   Modelica.Blocks.Interfaces.RealOutput T(unit="K", displayUnit="degC")
     "Absolute temperature as output signal" annotation (Placement(
-        transformation(extent={{100,-62},{124,-38}}), iconTransformation(extent
-          ={{100,-62},{124,-38}})));
+        transformation(extent={{100,-62},{124,-38}}), iconTransformation(extent=
+           {{100,-62},{124,-38}})));
 equation
   connect(conIns.fluid, heatCap.port)
     annotation (Line(points={{-10,42},{-10,50},{20,50}},  color={191,0,0},
@@ -132,7 +132,7 @@ equation
           visible=use_cap),
         Text(
           extent={{-36,52},{36,82}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           pattern=LinePattern.Dash,
           fillColor={255,215,136},
           fillPattern=FillPattern.Solid,
@@ -140,7 +140,7 @@ equation
           visible=use_cap),
         Text(
           extent={{-36,-18},{36,12}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           pattern=LinePattern.Dash,
           fillColor={255,215,136},
           fillPattern=FillPattern.Solid,

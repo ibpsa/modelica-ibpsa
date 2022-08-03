@@ -9,7 +9,7 @@ record Dimplex_LA11AS "Dimplex LA 11 AS"
     mEva_flow_nominal=1,
     tableUppBou=[-25,58; 35,58]);
 
-  annotation(preferedView="text", DymolaStoredErrors,
+  annotation(", "DymolaStoredErrors,
     Icon,
     Documentation(revisions="<html><ul>
   <li>

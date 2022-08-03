@@ -1,8 +1,15 @@
 ﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
 block SafetyControl "Block including all safety levels"
   extends BaseClasses.PartialSafetyControl;
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
+    "Minimal mass flow rate in evaporator required to operate the device"
+    annotation (Dialog(group="Mass flow rates"));
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
+    "Minimal mass flow rate in condenser required to operate the device"
+    annotation (Dialog(group="Mass flow rates"));
   replaceable parameter RecordsCollection.HeatPumpSafetyControlBaseDataDefinition
-    safetyControlParameters constrainedby RecordsCollection.HeatPumpSafetyControlBaseDataDefinition
+    safetyControlParameters constrainedby
+    RecordsCollection.HeatPumpSafetyControlBaseDataDefinition
     annotation (choicesAllMatching=true, Placement(transformation(extent={{-118,102},{-104,118}})));
   IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope
     operationalEnvelope(
@@ -20,7 +27,7 @@ block SafetyControl "Block including all safety levels"
     final use_runPerHou=safetyControlParameters.use_runPerHou,
     final maxRunPerHou=safetyControlParameters.maxRunPerHou,
     final pre_n_start=safetyControlParameters.pre_n_start)
-    annotation (Placement(transformation(extent={{-62,18},{-38,42}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
   IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl defrostControl(
     final minIceFac=safetyControlParameters.minIceFac,
@@ -32,9 +39,6 @@ block SafetyControl "Block including all safety levels"
     "No 2. Layer"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})),
       choicesAllMatching=true);
-  Modelica.Blocks.Sources.BooleanConstant conTru(final k=true)
-    "Always true as the two blocks OperationalEnvelope and OnOffControl deal with whether the ySet value is correct or not"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Blocks.Interfaces.RealOutput Pel_deFro if not safetyControlParameters.use_chiller and
     safetyControlParameters.use_deFro
     "Relative speed of compressor. From 0 to 1" annotation (Placement(
@@ -53,25 +57,34 @@ block SafetyControl "Block including all safety levels"
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={60,-130})));
+        origin={-10,-130})));
   Modelica.Blocks.Interfaces.IntegerOutput ERR_antFre
                                                   if safetyControlParameters.use_antFre annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={100,-130})));
+        origin={30,-130})));
 
+  MinimalVolumeFlowRateSafety minimalVolumeFlowRateSafety(
+    final use_minFlowCtrl=safetyControlParameters.use_minFlowCtrl,
+    final m_flowEvaMin=safetyControlParameters.m_flowEvaMinPer*mEva_flow_nominal,
+    final m_flowConMin=safetyControlParameters.m_flowConMinPer*mCon_flow_nominal)
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+
+  Modelica.Blocks.Interfaces.IntegerOutput ERR_minFlow
+    "Integer for displaying number off Errors during simulation" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={70,-130})));
 equation
-  connect(conTru.y,swiErr.u2)
-    annotation (Line(points={{21,-30},{34,-30},{34,0},{78,0}},
-                                               color={255,0,255}));
   connect(onOffController.yOut, operationalEnvelope.ySet) annotation (Line(
-        points={{-39,30},{-39,31.6667},{-21.3333,31.6667}},               color=
+        points={{-39.1667,31.6667},{-34,31.6667},{-34,32},{-30,32},{-30,31.6667},
+          {-21.3333,31.6667}},                                            color=
          {0,0,127}));
 
   connect(sigBusHP, onOffController.sigBusHP) annotation (Line(
-      points={{-129,-69},{-112,-69},{-112,-24},{-106,-24},{-106,-10},{-66,-10},
-          {-66,22.7},{-59.9,22.7}},
+      points={{-129,-69},{-112,-69},{-112,-10},{-66,-10},{-66,24.25},{-60.75,24.25}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -79,8 +92,7 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(sigBusHP, operationalEnvelope.sigBusHP) annotation (Line(
-      points={{-129,-69},{-112,-69},{-112,-24},{-106,-24},{-106,-10},{-28,-10},{
-          -28,24.25},{-20.75,24.25}},
+      points={{-129,-69},{-112,-69},{-112,-10},{-28,-10},{-28,24.25},{-20.75,24.25}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -88,8 +100,7 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(sigBusHP, defrostControl.sigBusHP) annotation (Line(
-      points={{-129,-69},{-112,-69},{-112,-24},{-106,-24},{-106,24.25},{-100.75,
-          24.25}},
+      points={{-129,-69},{-112,-69},{-112,24.25},{-100.75,24.25}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -107,7 +118,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(realPasThrDef.y, onOffController.ySet) annotation (Line(
-      points={{-79,70},{-74,70},{-74,30},{-61.6,30}},
+      points={{-79,70},{-74,70},{-74,31.6667},{-61.3333,31.6667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(modeSet, defrostControl.modeSet) annotation (Line(
@@ -115,7 +126,8 @@ equation
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(defrostControl.yOut, onOffController.ySet) annotation (Line(
-      points={{-79.1667,31.6667},{-72,31.6667},{-72,30},{-61.6,30}},
+      points={{-79.1667,31.6667},{-74,31.6667},{-74,32},{-70,32},{-70,31.6667},
+          {-61.3333,31.6667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(defrostControl.modeOut, operationalEnvelope.modeSet) annotation (
@@ -143,29 +155,40 @@ equation
   connect(antiFreeze.modeSet, operationalEnvelope.modeOut)
     annotation (Line(points={{18.6667,28.3333},{14,28.3333},{14,28},{10,28},{10,
           28.3333},{0.833333,28.3333}},        color={255,0,255}));
-  connect(antiFreeze.yOut, swiErr.u1) annotation (Line(points={{40.8333,31.6667},
-          {78,31.6667},{78,8}},       color={0,0,127}));
-  connect(antiFreeze.modeOut, modeOut) annotation (Line(points={{40.8333,
-          28.3333},{114,28.3333},{114,-20},{130,-20}},
-                                               color={255,0,255}));
   connect(sigBusHP, antiFreeze.sigBusHP) annotation (Line(
-      points={{-129,-69},{-112,-69},{-112,-24},{-106,-24},{-106,-10},{14,-10},{14,
-          24.25},{19.25,24.25}},
+      points={{-129,-69},{-112,-69},{-112,-10},{14,-10},{14,24.25},{19.25,24.25}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(conTru.y, not1.u) annotation (Line(points={{21,-30},{30,-30},{30,-54},
-          {-48,-54},{-48,-100},{-42,-100}},
-                               color={255,0,255}));
   connect(antiFreeze.ERR, ERR_antFre) annotation (Line(points={{30,19.1667},{30,
-          -32},{36,-32},{36,-74},{100,-74},{100,-130}},
-                                 color={255,127,0}));
+          -130}},                color={255,127,0}));
   connect(operationalEnvelope.ERR, ERR_opeEnv) annotation (Line(points={{-10,
-          19.1667},{-10,-76},{64,-76},{64,-116},{60,-116},{60,-130}},
-                                       color={255,127,0}));
+          19.1667},{-10,-130}},        color={255,127,0}));
+  connect(antiFreeze.yOut, minimalVolumeFlowRateSafety.ySet) annotation (Line(
+        points={{40.8333,31.6667},{46,31.6667},{46,32},{50,32},{50,31.6667},{
+          58.6667,31.6667}},
+                     color={0,0,127}));
+  connect(antiFreeze.modeOut, minimalVolumeFlowRateSafety.modeSet) annotation (
+      Line(points={{40.8333,28.3333},{46,28.3333},{46,28},{50,28},{50,28.3333},
+          {58.6667,28.3333}},color={255,0,255}));
+  connect(minimalVolumeFlowRateSafety.modeOut, modeOut) annotation (Line(points={{80.8333,
+          28.3333},{112,28.3333},{112,-20},{130,-20}},          color={255,0,255}));
+  connect(minimalVolumeFlowRateSafety.yOut, yOut) annotation (Line(points={{80.8333,
+          31.6667},{116,31.6667},{116,20},{130,20}}, color={0,0,127}));
+  connect(sigBusHP, minimalVolumeFlowRateSafety.sigBusHP) annotation (Line(
+      points={{-129,-69},{-112,-69},{-112,-10},{56,-10},{56,24.25},{59.25,24.25}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+
+  connect(minimalVolumeFlowRateSafety.ERR, ERR_minFlow)
+    annotation (Line(points={{70,19.1667},{70,-130}}, color={255,127,0}));
   annotation (Documentation(revisions="<html><ul>
   <li>
     <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>

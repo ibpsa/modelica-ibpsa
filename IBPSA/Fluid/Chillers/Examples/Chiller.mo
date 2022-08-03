@@ -31,7 +31,6 @@ model Chiller "Example for the reversible chiller model."
   IBPSA.Fluid.Chillers.Chiller chiller(
     redeclare model vapComIne =
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
-
     use_TSet=false,
     GConIns=0,
     CEva=100,
@@ -54,8 +53,7 @@ model Chiller "Example for the reversible chiller model."
     redeclare model PerDataRevChi =
         IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
           dataTable=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201
-            ()),
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201()),
     use_rev=true,
     use_autoCalc=false,
     VEva=0.4,
@@ -240,6 +238,6 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
   </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="Modelica://AixLib/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/HeatPump.mos" "Simulate and plot"),
+    __Dymola_Commands(file="Modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/HeatPump.mos" "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,80}})));
 end Chiller;

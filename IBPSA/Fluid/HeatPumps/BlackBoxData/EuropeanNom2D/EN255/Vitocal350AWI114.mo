@@ -16,7 +16,7 @@ record Vitocal350AWI114 "Vitocal 350 AWI 114"
     mEva_flow_nominal=1,
     tableUppBou=[-20,55; -5,65; 35,65]);
 
-  annotation(preferedView="text", DymolaStoredErrors,
+  annotation(", "DymolaStoredErrors,
     Icon,
     Documentation(info="<html><p>
   Data from manufacturer's data sheet (Viessmann). These exact curves
