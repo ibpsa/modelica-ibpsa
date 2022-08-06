@@ -50,6 +50,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
   int n_rulesInRow = 0;   /* number of rules that exist in the current row */
   int n_rowsUnpacked = 0; /* total number of unpacked rules */
   int n_rowsPacked = 0;   /* number of rules */
+  int n_newLines = 0;     /* number of newlines */
   char c;                 /* the character that is being parsed in this iteration */
 
   int parseToken = 0;
@@ -107,6 +108,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
 
       if (c == '\n') { /* Check whether a token ends */
         parseToken = 1;
+        n_newLines++;
       } else if (comment == 1 || c == '#') {
         comment = 1;
         continue; /* ignore this character and the next characters until a newline is detected, then parse the token */
@@ -335,9 +337,15 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
     fclose(fp);
   }
 
+  if (n_newLines==0){
+    ModelicaFormatError("In weekly schedule '%s': The provided %s is incorrectly formatted since it does not contain newline characters.", name, tableOnFile ? "file": "string parameter");
+  }
+
   if (n_rowsPacked != scheduleID->n_rows_in) {
     ModelicaFormatError("Incorrect number of rows when reading weekly schedule '%s': %i instead of %i.", name, n_rowsPacked, scheduleID->n_rows_in);
   }
+  if (scheduleID->n_cols_in < 1)
+      ModelicaFormatError("The number of columns in the weekly schedule '%s' is %i, which is too small. ", name, scheduleID->n_cols_in);
 
   /* sort all data by time stamp*/
   qsort(rules, rule_i, sizeof(TimeDataTuple*), cmpfun);
