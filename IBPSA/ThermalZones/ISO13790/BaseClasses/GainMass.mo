@@ -1,7 +1,7 @@
 within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model GainMass "Mass node heat flow"
 
-  Real Am;
+  Real AMas;
   parameter Real At;
   parameter Real HwinG;
   parameter Real f_ms;
@@ -12,11 +12,11 @@ model GainMass "Mass node heat flow"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput solG
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput y=((Am/At)*(0.5*intG + solG))
+  Modelica.Blocks.Interfaces.RealOutput y=((AMas/At)*(0.5*intG + solG))
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  Am  = f_ms*Af;
+  AMas  = f_ms*Af;
 
   annotation (defaultComponentName="phiMas",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
