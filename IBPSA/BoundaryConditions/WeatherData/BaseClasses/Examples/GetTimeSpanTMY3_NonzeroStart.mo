@@ -2,7 +2,8 @@ within IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model GetTimeSpanTMY3_NonzeroStart
   "Test model to get time span of a weather file, start time is non zero"
   extends Modelica.Icons.Example;
-  extends IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples.GetTimeSpanTMY3(
+  extends
+    IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples.GetTimeSpanTMY3(
     filNam = Modelica.Utilities.Files.loadResource(
  "modelica://IBPSA/Resources/Data/BoundaryConditions/WeatherData/Validation/DecemberToJanuary.mos"),
     staTim = 30992400,

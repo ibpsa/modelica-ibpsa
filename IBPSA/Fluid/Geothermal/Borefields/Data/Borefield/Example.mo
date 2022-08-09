@@ -1,8 +1,7 @@
 within IBPSA.Fluid.Geothermal.Borefields.Data.Borefield;
 record Example
   "Example definition of a borefield data record"
-  extends
-    IBPSA.Fluid.Geothermal.Borefields.Data.Borefield.Template(
+  extends IBPSA.Fluid.Geothermal.Borefields.Data.Borefield.Template(
       filDat=IBPSA.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(),
       soiDat=IBPSA.Fluid.Geothermal.Borefields.Data.Soil.SandStone(),
       conDat=IBPSA.Fluid.Geothermal.Borefields.Data.Configuration.Example());

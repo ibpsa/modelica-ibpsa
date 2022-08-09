@@ -1,8 +1,7 @@
 within IBPSA.Fluid.Geothermal.Borefields.Data.Filling;
 record Bentonite
   "Filling data record of Bentonite heat transfer properties"
-  extends
-    IBPSA.Fluid.Geothermal.Borefields.Data.Filling.Template(
+  extends IBPSA.Fluid.Geothermal.Borefields.Data.Filling.Template(
       kFil=1.15,
       dFil=1600,
       cFil=800);

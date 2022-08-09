@@ -157,8 +157,8 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     tau=0)
     "Inlet borehole temperature"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  IBPSA.Fluid.Sensors.TemperatureTwoPort TBor2UTubDyn(redeclare package Medium =
-        Medium, m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal,
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TBor2UTubDyn(redeclare package Medium
+      = Medium, m_flow_nominal=borFie2UTubDat.conDat.mBor_flow_nominal,
     tau=0)
     "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));

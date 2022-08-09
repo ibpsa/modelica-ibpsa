@@ -1,6 +1,7 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes;
 model OneUTube "Single U-tube borehole heat exchanger"
-  extends IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PartialBorehole;
+  extends
+    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PartialBorehole;
 
   IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalHEXOneUTube
     intHex[nSeg](

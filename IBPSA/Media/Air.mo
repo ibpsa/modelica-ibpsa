@@ -892,7 +892,6 @@ First implementation.
 </ul>
 </html>"));
   end GasProperties;
-
   constant Modelica.Units.SI.SpecificEnergy h_fg=IBPSA.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of evaporation of water";
   constant Modelica.Units.SI.SpecificHeatCapacity cpWatLiq=IBPSA.Utilities.Psychrometrics.Constants.cpWatLiq

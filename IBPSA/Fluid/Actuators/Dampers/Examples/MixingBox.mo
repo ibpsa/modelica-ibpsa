@@ -20,8 +20,8 @@ model MixingBox
     dpFixRec_nominal=20)
              "mixing box"
     annotation (Placement(transformation(extent={{14,-22},{34,-2}})));
-    IBPSA.Fluid.Sources.Boundary_pT bouIn(             redeclare package
-      Medium = Medium, T=273.15 + 10,
+    IBPSA.Fluid.Sources.Boundary_pT bouIn(             redeclare package Medium
+      =        Medium, T=273.15 + 10,
     use_p_in=true,
     nPorts=2)                                             annotation (Placement(
         transformation(extent={{-60,2},{-40,22}})));

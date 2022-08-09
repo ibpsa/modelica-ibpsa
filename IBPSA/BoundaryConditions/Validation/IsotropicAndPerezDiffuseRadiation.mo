@@ -1,7 +1,8 @@
 within IBPSA.BoundaryConditions.Validation;
 model IsotropicAndPerezDiffuseRadiation
   "Partial model to run BESTEST validation case studies for weather data processing"
-  extends IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
+  extends
+    IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
   Modelica.Blocks.Interfaces.RealOutput HPer(
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2")

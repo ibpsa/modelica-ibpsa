@@ -65,8 +65,7 @@ model FourPortHeatMassExchanger
     "Heat flow rate into medium 2";
 
   replaceable IBPSA.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol1
-    constrainedby
-    IBPSA.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+    constrainedby IBPSA.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
         redeclare final package Medium = Medium1,
         nPorts = 2,
         V=m1_flow_nominal*tau1/rho1_nominal,
@@ -87,8 +86,7 @@ model FourPortHeatMassExchanger
     annotation (Placement(transformation(extent={{-10,70}, {10,50}})));
 
   replaceable IBPSA.Fluid.MixingVolumes.MixingVolume vol2
-    constrainedby
-    IBPSA.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+    constrainedby IBPSA.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
         redeclare final package Medium = Medium2,
         nPorts = 2,
         V=m2_flow_nominal*tau2/rho2_nominal,

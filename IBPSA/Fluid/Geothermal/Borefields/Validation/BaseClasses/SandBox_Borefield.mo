@@ -1,8 +1,7 @@
 within IBPSA.Fluid.Geothermal.Borefields.Validation.BaseClasses;
 record SandBox_Borefield
   "Borefield data record for the Beier et al. (2011) experiment"
-  extends
-    IBPSA.Fluid.Geothermal.Borefields.Data.Borefield.Template(
+  extends IBPSA.Fluid.Geothermal.Borefields.Data.Borefield.Template(
       filDat=IBPSA.Fluid.Geothermal.Borefields.Validation.BaseClasses.SandBox_Filling(),
       soiDat=IBPSA.Fluid.Geothermal.Borefields.Validation.BaseClasses.SandBox_Soil(),
       conDat=IBPSA.Fluid.Geothermal.Borefields.Validation.BaseClasses.SandBox_Configuration());

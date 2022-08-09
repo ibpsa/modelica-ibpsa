@@ -26,8 +26,8 @@ model OneEffectiveAirLeakageArea "Model with an effective air leakage area"
   Modelica.Blocks.Math.Gain gai(k=100)
     "Gain for heat flow rate boundary condition"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  IBPSA.Airflow.Multizone.EffectiveAirLeakageArea cra(redeclare package
-      Medium = Medium, L=20E-4)
+  IBPSA.Airflow.Multizone.EffectiveAirLeakageArea cra(redeclare package Medium
+      =        Medium, L=20E-4)
     "Crack model, parameterized with effective leakage area"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   IBPSA.Fluid.Sources.MassFlowSource_T sou(

@@ -1,7 +1,8 @@
 within IBPSA.Fluid.MixingVolumes.BaseClasses.Validation;
 model MixingVolumeHeatPortAir
   "Validation model for setting the initialization of the pressure for air"
-  extends IBPSA.Fluid.MixingVolumes.BaseClasses.Validation.MixingVolumeHeatPortWater(
+  extends
+    IBPSA.Fluid.MixingVolumes.BaseClasses.Validation.MixingVolumeHeatPortWater(
     redeclare package Medium = IBPSA.Media.Air);
 
   annotation (Documentation(info="<html>

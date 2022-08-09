@@ -1,8 +1,7 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.BaseClasses;
 record SmallScale_Borefield
   "Borefield data record for the Cimmino and Bernier (2015) experiment"
-  extends
-    IBPSA.Fluid.Geothermal.Borefields.Data.Borefield.Template(
+  extends IBPSA.Fluid.Geothermal.Borefields.Data.Borefield.Template(
       filDat=IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.BaseClasses.SmallScale_Filling(),
       soiDat=IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.BaseClasses.SmallScale_Soil(),
       conDat=IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.BaseClasses.SmallScale_Configuration());

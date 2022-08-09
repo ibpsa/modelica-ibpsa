@@ -24,8 +24,8 @@ model ZoneHVAC "Thermal zone for HVAC based on 5R1C network"
     nPorts=nPorts)       "Air volume"
               annotation (Placement(transformation(extent={{50,110},{70,130}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports_b[nPorts](redeclare
-      each final package
-                    Medium = Medium)
+      each final package Medium =
+                             Medium)
     "fluid port for adding HVAC system"                         annotation (
       Placement(transformation(
         extent={{-34,-9},{34,9}},
