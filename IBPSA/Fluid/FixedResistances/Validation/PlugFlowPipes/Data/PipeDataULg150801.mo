@@ -1,8 +1,7 @@
-﻿within IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
+within IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
 record PipeDataULg150801
   "Experimental data from ULg's pipe test bench from August 1"
-  extends
-    IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses.PipeDataULg(
+  extends IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses.PipeDataULg(
     T_start_in=16.6,
     T_start_out=16.8,
     m_flowIni=1.245,

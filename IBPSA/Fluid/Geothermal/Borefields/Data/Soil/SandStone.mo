@@ -1,7 +1,8 @@
 within IBPSA.Fluid.Geothermal.Borefields.Data.Soil;
 record SandStone
   "Soil data record of sandstone heat transfer properties"
-  extends IBPSA.Fluid.Geothermal.Borefields.Data.Soil.Template(
+  extends
+    IBPSA.Fluid.Geothermal.Borefields.Data.Soil.Template(
     kSoi=2.5,
     dSoi=1800,
     cSoi=1200);

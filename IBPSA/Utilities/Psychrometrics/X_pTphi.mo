@@ -1,7 +1,8 @@
 within IBPSA.Utilities.Psychrometrics;
 block X_pTphi
   "Return steam mass fraction as a function of relative humidity phi and temperature T"
-  extends IBPSA.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
+  extends
+    IBPSA.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
 
   package Medium = IBPSA.Media.Air "Medium model";
   Modelica.Blocks.Interfaces.RealInput T(final unit="K",

@@ -1,8 +1,7 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.Examples;
 model BoreholeTwoUTube "Test for the double U-tube borehole model"
   extends Modelica.Icons.Example;
-  extends
-    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.Examples.BaseClasses.PartialBorehole(
+  extends IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.Examples.BaseClasses.PartialBorehole(
       redeclare IBPSA.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.TwoUTube
         borHol(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
       borFieDat(

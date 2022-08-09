@@ -1,7 +1,6 @@
-﻿within IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
+within IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data;
 record PipeDataULg160104_2 "Experimental data from ULg's pipe test bench from 4 January 2016. Low mass flow"
-  extends
-    IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses.PipeDataULg(
+  extends IBPSA.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses.PipeDataULg(
     T_start_out=15.0,
     T_start_in=17.9,
     m_flowIni=0.2494,
