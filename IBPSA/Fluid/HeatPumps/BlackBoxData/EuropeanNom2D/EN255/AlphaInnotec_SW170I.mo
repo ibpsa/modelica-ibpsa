@@ -8,16 +8,5 @@ record AlphaInnotec_SW170I "Alpha Innotec SW 170 I"
     mEva_flow_nominal=13600/3600/3,
     tableUppBou=[-22,65; 45,65]);
 
-  annotation(", "DymolaStoredErrors,
-    Icon,
-    Documentation(info="<html><p>
-  According to data from WPZ Buchs, Swiss; EN 255.
-</p>
-<ul>
-  <li>
-    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
-    Transferred to IBPSA.
-  </li>
-</ul>
-</html>"));
+  annotation ();
 end AlphaInnotec_SW170I;

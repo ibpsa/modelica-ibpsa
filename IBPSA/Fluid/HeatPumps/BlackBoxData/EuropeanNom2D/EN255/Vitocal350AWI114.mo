@@ -16,18 +16,5 @@ record Vitocal350AWI114 "Vitocal 350 AWI 114"
     mEva_flow_nominal=1,
     tableUppBou=[-20,55; -5,65; 35,65]);
 
-  annotation(", "DymolaStoredErrors,
-    Icon,
-    Documentation(info="<html><p>
-  Data from manufacturer's data sheet (Viessmann). These exact curves
-  are given in the data sheet for measurement procedure according to EN
-  255.
-</p>
-<ul>
-  <li>
-    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
-    Transferred to IBPSA.
-  </li>
-</ul>
-</html>"));
+  annotation ();
 end Vitocal350AWI114;

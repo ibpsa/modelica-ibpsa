@@ -55,4 +55,7 @@ equation
           {72,76},{72,8},{78,8}}, color={0,0,127}));
   connect(conBool.y, booleanPassThrough.u)
     annotation (Line(points={{1,0},{38,0}}, color={255,0,255}));
+  annotation (Documentation(info="<html>
+<p>Safety control to prevent the heat pump from turning on if the volumen flow rate (or mass) is too low in either condenser or evaporator.</p>
+</html>"));
 end MinimalVolumeFlowRateSafety;

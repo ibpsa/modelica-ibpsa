@@ -24,4 +24,7 @@ record DefaultSafetyControl
     maxRunPerHou=3,
     minLocTime=1200,
     minRunTime=600);
+  annotation (Documentation(info="<html>
+<p><span style=\"font-family: Courier New;\">Default&nbsp;values&nbsp;according&nbsp;to&nbsp;the&nbsp;conference&nbsp;publication&nbsp;by&nbsp;W&uuml;llhorst&nbsp;et.&nbsp;al.</span></p>
+</html>"));
 end DefaultSafetyControl;

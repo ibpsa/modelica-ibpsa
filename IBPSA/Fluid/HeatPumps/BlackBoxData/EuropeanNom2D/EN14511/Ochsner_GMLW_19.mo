@@ -8,17 +8,5 @@ record Ochsner_GMLW_19 "Ochsner GMLW 19"
     mEva_flow_nominal=1,
     tableUppBou=[-15,55; 40,55]);
 
-  annotation(", "DymolaStoredErrors,
-    Icon,
-    Documentation(revisions="<html><ul>
-  <li>
-    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
-    Transferred to IBPSA.
-  </li>
-</ul>
-</html>", info="<html>
-<p>
-  According to data from Ochsner data sheets; EN14511
-</p>
-</html>"));
+  annotation ();
 end Ochsner_GMLW_19;

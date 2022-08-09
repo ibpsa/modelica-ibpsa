@@ -10,17 +10,5 @@ record Ochsner_GMSW_15plus "Ochsner GMSW 15 plus"
     mEva_flow_nominal=(14500 - 3300)/3600/3,
     tableUppBou=[-8,52; 0,65; 20,65]);
 
-  annotation(", "DymolaStoredErrors,
-    Icon,
-    Documentation(revisions="<html><ul>
-  <li>
-    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
-    Transferred to IBPSA.
-  </li>
-</ul>
-</html>", info="<html>
-<p>
-  According to data from WPZ Buchs, Swiss; EN14511
-</p>
-</html>"));
+  annotation ();
 end Ochsner_GMSW_15plus;

@@ -11,17 +11,5 @@ record StiebelEltron_WPL18 "Stiebel Eltron WPL 18"
     tableUppBou=[-25,65; 40,65]);
     //These boundary-tables are not from the datasheet but default values.
 
-  annotation(", "DymolaStoredErrors,
-    Icon,
-    Documentation(revisions="<html><ul>
-  <li>
-    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
-    Transferred to IBPSA.
-  </li>
-</ul>
-</html>", info="<html>
-<p>
-  According to data from WPZ Buchs, Swiss; EN14511
-</p>
-</html>"));
+  annotation ();
 end StiebelEltron_WPL18;

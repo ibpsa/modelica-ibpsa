@@ -24,4 +24,10 @@ equation
     annotation (Line(points={{-120,0},{-19.2,0}}, color={0,0,127}));
   connect(criticalDamping.y, y)
     annotation (Line(points={{17.6,0},{110,0}}, color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>Model that uses a variable order delay to account for inertia.</p>
+<p>Following the associated publication by W&uuml;llhorst et. al., this model was used to calibrate the heat pump model.</p>
+<p>In usage, be careful with the order of the delay. While a second or third order delay may result in a better fit in calibration, simulation speed is impacted. </p>
+<p>See the discussion in the paper for more information.</p>
+</html>"));
 end VariableOrderInertia;

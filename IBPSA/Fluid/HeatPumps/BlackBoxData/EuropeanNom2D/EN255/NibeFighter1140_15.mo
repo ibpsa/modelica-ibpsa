@@ -10,16 +10,5 @@ record NibeFighter1140_15 "Nibe Fighter 1140-15"
     mEva_flow_nominal=(15420 - 3380)/3600/3,
     tableUppBou=[-35,65; 50,65]);
 
-  annotation(", "DymolaStoredErrors,
-    Icon,
-    Documentation(info="<html><p>
-  According to manufacturer's data; EN 255.
-</p>
-<ul>
-  <li>
-    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
-    Transferred to IBPSA.
-  </li>
-</ul>
-</html>"));
+  annotation ();
 end NibeFighter1140_15;

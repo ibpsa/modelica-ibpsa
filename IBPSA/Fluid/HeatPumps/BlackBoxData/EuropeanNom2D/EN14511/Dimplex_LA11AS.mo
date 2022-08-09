@@ -9,17 +9,5 @@ record Dimplex_LA11AS "Dimplex LA 11 AS"
     mEva_flow_nominal=1,
     tableUppBou=[-25,58; 35,58]);
 
-  annotation(", "DymolaStoredErrors,
-    Icon,
-    Documentation(revisions="<html><ul>
-  <li>
-    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
-    Transferred to IBPSA.
-  </li>
-</ul>
-</html>", info="<html>
-<p>
-  According to data from Dimplex data sheets; EN14511
-</p>
-</html>"));
+  annotation ();
 end Dimplex_LA11AS;
