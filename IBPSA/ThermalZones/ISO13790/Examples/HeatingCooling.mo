@@ -1,30 +1,34 @@
 within IBPSA.ThermalZones.ISO13790.Examples;
 model HeatingCooling "Illustrates the use of the 5R1C thermal zone with heating and cooling"
   extends FreeFloating(zon5R1C(
-      nVe=0.5,
-      Awin={0,0,3,0},
-      Uwin=1.8,
-      Awal={12,12,9,12},
-      Aroo=16,
-      Uwal=1.3,
-      Uroo=1.3,
-      Af=16,
-      Vroo=16*3,
-      f_ms=2.5,
+      airRat=0.5,
+      AWin={0,0,3,0},
+      UWin=1.8,
+      AWal={12,12,9,12},
+      ARoo=16,
+      UWal=1.3,
+      URoo=1.3,
+      AFlo=16,
+      VRoo=16*3,
+      facMas=2.5,
       redeclare IBPSA.ThermalZones.ISO13790.Data.Light buiMas,
-      gFactor=0.5));
+      gFac=0.5) "Thermal zone");
 
 
 
 
   Modelica.Blocks.Sources.Constant intGains(k=10)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Modelica.Blocks.Math.Sum sumHeaCoo(nin=2)   annotation (
+  Modelica.Blocks.Math.Sum sumHeaCoo(nin=2)
+    "Sum of heating and cooling heat flow rate"
+                                              annotation (
     Placement(visible = true, transformation(extent={{44,56},{52,64}},      rotation = 0)));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaCoo
+    "Prescribed heat flow for heating and cooling"
     annotation (Placement(visible=true, transformation(extent={{58,54},{70,66}},
           rotation=0)));
-  Modelica.Blocks.Math.Gain gaiHea(k=1E6) annotation (Placement(visible=true,
+  Modelica.Blocks.Math.Gain gaiHea(k=1E6) "Gain for heating"
+                                          annotation (Placement(visible=true,
         transformation(
         origin={12,72},
         extent={{-6,-6},{6,6}},
@@ -33,23 +37,27 @@ model HeatingCooling "Illustrates the use of the 5R1C thermal zone with heating 
     Ti=300,
     k=0.1,
     reverseActing=true,
-    strict=true) annotation (Placement(visible=true, transformation(
+    strict=true) "Controller for heating"
+                 annotation (Placement(visible=true, transformation(
         origin={-10,72},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 20) annotation (Placement(
+  Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 20)
+    "Set-point for heating"                               annotation (Placement(
         visible=true, transformation(
         origin={-34,72},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 27) annotation (Placement(
+  Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 27)
+    "Set-point for cooling"                               annotation (Placement(
         visible=true, transformation(
         origin={-34,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
   Modelica.Blocks.Routing.Multiplex2 multiplex2 annotation (
     Placement(visible = true, transformation(extent={{28,56},{36,64}},      rotation = 0)));
-  Modelica.Blocks.Math.Gain gaiCoo(k=-1E6) annotation (Placement(visible=true,
+  Modelica.Blocks.Math.Gain gaiCoo(k=-1E6) "Gain for cooling"
+                                           annotation (Placement(visible=true,
         transformation(
         origin={12,46},
         extent={{-6,-6},{6,6}},
@@ -58,11 +66,13 @@ model HeatingCooling "Illustrates the use of the 5R1C thermal zone with heating 
     Ti=300,
     k=0.1,
     reverseActing=false,
-    strict=true) annotation (Placement(visible=true, transformation(
+    strict=true) "Controller for cooling"
+                 annotation (Placement(visible=true, transformation(
         origin={-10,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir annotation (
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
+    "Room air temperature"                                        annotation (
     Placement(visible = true, transformation(extent={{0,20},{8,28}},        rotation = 0)));
 equation
   connect(zon5R1C.weaBus, weaDat.weaBus) annotation (Line(

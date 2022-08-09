@@ -1,6 +1,7 @@
 within IBPSA.ThermalZones.ISO13790.Zone5R1C;
 model ZoneHVAC "Thermal zone for HVAC based on 5R1C network"
-  extends Zone(capMas(C=buiMas.heaC*Af - Vroo*1.2*1014)) annotation (Icon(
+  extends Zone(capMas(C=buiMas.heaC*AFlo - VRoo*1.2*1014))
+                                                         annotation (Icon(
         coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(
           preserveAspectRatio=false)));
 
@@ -19,7 +20,7 @@ model ZoneHVAC "Thermal zone for HVAC based on 5R1C network"
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=1,
-    V=Vroo,
+    V=VRoo,
     nPorts=nPorts)       "Air volume"
               annotation (Placement(transformation(extent={{50,110},{70,130}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports_b[nPorts](redeclare

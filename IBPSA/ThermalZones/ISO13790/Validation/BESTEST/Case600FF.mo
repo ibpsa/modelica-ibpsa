@@ -2,23 +2,24 @@ within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
 model Case600FF "Basic test with light-weight construction and free floating temperature"
   extends Modelica.Icons.Example;
   Zone5R1C.Zone zon5R1C(
-    nVe=0.5,
-    Awin={0,0,12,0},
-    Uwin=2.984,
-    Awal={21.6,16.2,9.6,16.2},
-    Aroo=48,
-    Uwal=0.51,
-    Uroo=0.32,
-    Af=48,
-    Vroo=129.6,
-    f_ms=4.52,
+    airRat=0.5,
+    AWin={0,0,12,0},
+    UWin=2.984,
+    AWal={21.6,16.2,9.6,16.2},
+    ARoo=48,
+    UWal=0.51,
+    URoo=0.32,
+    AFlo=48,
+    VRoo=129.6,
+    facMas=4.52,
     redeclare ISO13790.Data.BESTEST600 buiMas,
-    winFrame=0.01,
-    gFactor=0.789)
+    winFra=0.01,
+    gFac=0.789) "Thermal zone"
     annotation (Placement(transformation(extent={{-14,-14},{14,14}})));
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/DRYCOLD.mos"))
+    "weather data"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Sources.Constant intGains(k=200)
+  Modelica.Blocks.Sources.Constant intGains(k=200) "Internal heat gains"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(weaDat.weaBus, zon5R1C.weaBus) annotation (Line(

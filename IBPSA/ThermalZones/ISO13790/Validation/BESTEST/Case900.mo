@@ -1,12 +1,16 @@
 ﻿within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
 model Case900
   extends Case900FF;
-  Modelica.Blocks.Math.Sum sumHeaCoo(nin=2)   annotation (
+  Modelica.Blocks.Math.Sum sumHeaCoo(nin=2)
+    "Sum of heating and cooling heat flow rate"
+                                              annotation (
     Placement(visible = true, transformation(extent={{54,56},{62,64}},      rotation = 0)));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaCoo
+    "Prescribed heat flow for heating and cooling"
     annotation (Placement(visible=true, transformation(extent={{68,54},{80,66}},
           rotation=0)));
-  Modelica.Blocks.Math.Gain gaiHea(k=1E6) annotation (Placement(visible=true,
+  Modelica.Blocks.Math.Gain gaiHea(k=1E6) "Gain for heating"
+                                          annotation (Placement(visible=true,
         transformation(
         origin={22,72},
         extent={{-6,-6},{6,6}},
@@ -15,23 +19,27 @@ model Case900
     Ti=300,
     k=0.1,
     reverseActing=true,
-    strict=true) annotation (Placement(visible=true, transformation(
+    strict=true) "Controller for heating"
+                 annotation (Placement(visible=true, transformation(
         origin={0,72},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 20) annotation (Placement(
+  Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 20)
+    "Set-point for heating"                               annotation (Placement(
         visible=true, transformation(
         origin={-24,72},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 27) annotation (Placement(
+  Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 27)
+    "Set-point for cooling"                               annotation (Placement(
         visible=true, transformation(
         origin={-24,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
   Modelica.Blocks.Routing.Multiplex2 multiplex2 annotation (
     Placement(visible = true, transformation(extent={{38,56},{46,64}},      rotation = 0)));
-  Modelica.Blocks.Math.Gain gaiCoo(k=-1E6) annotation (Placement(visible=true,
+  Modelica.Blocks.Math.Gain gaiCoo(k=-1E6) "Gain for cooling"
+                                           annotation (Placement(visible=true,
         transformation(
         origin={22,46},
         extent={{-6,-6},{6,6}},
@@ -40,25 +48,27 @@ model Case900
     Ti=300,
     k=0.1,
     reverseActing=false,
-    strict=true) annotation (Placement(visible=true, transformation(
+    strict=true) "Controller for cooling"
+                 annotation (Placement(visible=true, transformation(
         origin={0,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
   Modelica.Blocks.Continuous.Integrator ECoo(
-    k=1/3600000000,
+    k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0,
     u(unit="W"),
     y(unit="J")) "Cooling energy in Joules"
     annotation (Placement(transformation(extent={{54,34},{66,46}})));
   Modelica.Blocks.Continuous.Integrator EHea(
-    k=1/3600000000,
+    k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0,
     u(unit="W"),
     y(unit="J")) "Heating energy in Joules"
     annotation (Placement(transformation(extent={{54,74},{66,86}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir annotation (
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
+    "Room air temperature"                                        annotation (
     Placement(visible = true, transformation(extent={{12,20},{20,28}},      rotation = 0)));
 equation
   connect(sumHeaCoo.y,preHeaCoo. Q_flow)

@@ -3,9 +3,11 @@ model HeatingCoolingHVAC "Illustrates the use of the 5R1C HVAC thermal zone conn
   extends FreeFloatingHVAC(zonHVAC(nPorts=2));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaCoo
+    "Prescribed heat flow for heating and cooling"
     annotation (Placement(visible=true, transformation(extent={{58,54},{70,66}},
           rotation=0)));
-  Modelica.Blocks.Math.Gain gaiHea(k=1E6) annotation (Placement(visible=true,
+  Modelica.Blocks.Math.Gain gaiHea(k=1E6) "Gain for heating"
+                                          annotation (Placement(visible=true,
         transformation(
         origin={12,72},
         extent={{-6,-6},{6,6}},
@@ -14,27 +16,32 @@ model HeatingCoolingHVAC "Illustrates the use of the 5R1C HVAC thermal zone conn
     Ti=300,
     k=0.1,
     reverseActing=true,
-    strict=true) annotation (Placement(visible=true, transformation(
+    strict=true) "Controller for heating"
+                 annotation (Placement(visible=true, transformation(
         origin={-10,72},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 20) annotation (Placement(
+  Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 20)
+    "Set-point for heating"                               annotation (Placement(
         visible=true, transformation(
         origin={-34,72},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir annotation (
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
+    "Room air temperature"                                        annotation (
     Placement(visible = true, transformation(extent={{0,20},{8,28}},        rotation = 0)));
   Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = IBPSA.Media.Air,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=0.03)
+    m_flow_nominal=0.03) "fan"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Fluid.Sources.Boundary_pT bou(
+  Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = IBPSA.Media.Air,
     T=280.15,
-    nPorts=1) annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 27) annotation (Placement(
+    nPorts=1) "source of air"
+              annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+  Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 27)
+    "Set-point for cooling"                               annotation (Placement(
         visible=true, transformation(
         origin={-34,46},
         extent={{-6,-6},{6,6}},
@@ -44,17 +51,19 @@ model HeatingCoolingHVAC "Illustrates the use of the 5R1C HVAC thermal zone conn
     k=0.1,
     yMax=0.07,
     reverseActing=false,
-    strict=true) annotation (Placement(visible=true, transformation(
+    strict=true) "Controller for cooling"
+                 annotation (Placement(visible=true, transformation(
         origin={-10,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Blocks.Math.Gain gaiCoo(k=1)    annotation (Placement(visible=true,
+  Modelica.Blocks.Math.Gain gaiCoo(k=1) "Gain for cooling"
+                                           annotation (Placement(visible=true,
         transformation(
         origin={12,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Fluid.Sources.Boundary_pT bou1(redeclare package Medium = IBPSA.Media.Air,
-      nPorts=1)
+  Fluid.Sources.Boundary_pT sin(redeclare package Medium = IBPSA.Media.Air,
+      nPorts=1) "sink"
     annotation (Placement(transformation(extent={{90,-80},{70,-60}})));
 equation
   connect(conHeaPID.y,gaiHea. u)
@@ -65,7 +74,7 @@ equation
     annotation (Line(points={{-3.4,72},{4.8,72}}, color={0,0,127}));
   connect(gaiHea.y, preHeaCoo.Q_flow) annotation (Line(points={{18.6,72},{40,72},
           {40,60},{58,60}}, color={0,0,127}));
-  connect(bou.ports[1], fan.port_a)
+  connect(sou.ports[1], fan.port_a)
     annotation (Line(points={{0,-70},{20,-70}}, color={0,127,255}));
   connect(conCooPID.u_s,TSetCoo. y)
     annotation (Line(points={{-17.2,46},{-27.4,46}}, color={0,0,127}));
@@ -79,7 +88,7 @@ equation
           24},{16,24},{16,-42},{30,-42},{30,-58}}, color={0,0,127}));
   connect(fan.port_b, zonHVAC.ports_b[1]) annotation (Line(points={{40,-70},{48,
           -70},{48,12.05},{52.95,12.05}}, color={0,127,255}));
-  connect(bou1.ports[1], zonHVAC.ports_b[2]) annotation (Line(points={{70,-70},{
+  connect(sin.ports[1], zonHVAC.ports_b[2]) annotation (Line(points={{70,-70},{
           66,-70},{66,12.05},{52.95,12.05}}, color={0,127,255}));
   connect(TRooAir.port, zonHVAC.TAir) annotation (Line(points={{0,24},{-4,24},{
           -4,10},{44,10}}, color={191,0,0}));

@@ -3,23 +3,23 @@ model FreeFloating "Illustrates the use of the 5R1C thermal zone in free-floatin
   extends Modelica.Icons.Example;
 
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+        Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")) "weather data"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
 
   Zone5R1C.Zone zon5R1C(
-    nVe=0.5,
-    Awin={0,0,3,0},
-    Uwin=1.8,
-    Awal={12,12,9,12},
-    Aroo=16,
-    Uwal=1.3,
-    Uroo=1.3,
-    Af=16,
-    Vroo=16*3,
-    f_ms=2.5,
+    airRat=0.5,
+    AWin={0,0,3,0},
+    UWin=1.8,
+    AWal={12,12,9,12},
+    ARoo=16,
+    UWal=1.3,
+    URoo=1.3,
+    AFlo=16,
+    VRoo=16*3,
+    facMas=2.5,
     redeclare IBPSA.ThermalZones.ISO13790.Data.Light buiMas,
-    gFactor=0.5)
+    gFac=0.5) "Thermal zone"
     annotation (Placement(transformation(extent={{26,-12},{54,16}})));
   Modelica.Blocks.Sources.Constant intGains(k=10) "internal heat gains in Watt"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
