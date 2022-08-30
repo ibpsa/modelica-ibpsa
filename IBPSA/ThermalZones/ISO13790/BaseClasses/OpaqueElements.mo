@@ -487,11 +487,11 @@ where <i>&alpha;<sub>s</sub></i> is the dimensionless absoprtion coefficient for
 <i>U<sub>op</sub></i> is the thermal transmittance of the opaque element,
 <i>A<sub>op</sub></i> is area of the opaque element. The extra heat flow due to thermal radiation is given by
 <p align=\"center\" style=\"font-style:italic;\">
-&Phi;<sub>r</sub> = R<sub>se</sub>U<sub>op</sub>A<sub>op</sub>h<sub>r</sub>∆T<sub>es</sub>
+&Phi;<sub>r</sub> = R<sub>se</sub>U<sub>op</sub>A<sub>op</sub>h<sub>r</sub>&#8710;T<sub>es</sub>
 </p>
 <p>
 where <i>h<sub>r</sub></i> is the external radiative heat transfer coefficient, and
-<i>∆T<sub>es</sub></i> is the average difference between the external air temperature and
+<i>&#8710;T<sub>es</sub></i> is the average difference between the external air temperature and
 the apparent sky temperature (assumed equal to <i>11</i> K).
 </p>
 </html>",
