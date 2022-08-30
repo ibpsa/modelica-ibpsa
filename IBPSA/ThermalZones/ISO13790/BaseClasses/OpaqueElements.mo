@@ -470,15 +470,18 @@ This model calculates the solar heat gains through opaque elements. The heat flo
 <p align=\"center\" style=\"font-style:italic;\">
 &Phi;<sub>sol,k</sub> = F<sub>sh,ob,k</sub>A<sub>sol,k</sub>I<sub>sol,k</sub>-F<sub>r,k</sub>&Phi;<sub>r,k</sub>
 </p>
-where <i>F<sub>sh,ob,k</sub></i> is the shading reduction factor for external obstacles, 
+<p>
+where <i>F<sub>sh,ob,k</sub></i> is the shading reduction factor for external obstacles,
 <i>A<sub>sol,k</sub></i> is the effective collecting area of surface k,
-<i>I<sub>sol,k</sub></i> is the solar irradiance per square meter, 
-<i>F<sub>r,k</sub></i> is the form factor between the building element and the sky, and 
-<i>&Phi;<sub>r,k</sub></i> is the extra heat flow due to thermal radiation to the sky. 
+<i>I<sub>sol,k</sub></i> is the solar irradiance per square meter,
+<i>F<sub>r,k</sub></i> is the form factor between the building element and the sky, and
+<i>&Phi;<sub>r,k</sub></i> is the extra heat flow due to thermal radiation to the sky.
 The effective collecting area of opaque elements <i>A<sub>sol</sub></i> is calculated as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 A<sub>sol</sub> = &alpha;<sub>s</sub>R<sub>se</sub>U<sub>op</sub>A<sub>op</sub>
 </p>
+<p>
 where <i>&alpha;<sub>s</sub></i> is the dimensionless absoprtion coefficient for solar radiation of the opaque element,
 <i>R<sub>se</sub></i> is the external surface heat resistance of the opaque element,
 <i>U<sub>op</sub></i> is the thermal transmittance of the opaque element,
@@ -486,11 +489,10 @@ where <i>&alpha;<sub>s</sub></i> is the dimensionless absoprtion coefficient for
 <p align=\"center\" style=\"font-style:italic;\">
 &Phi;<sub>r</sub> = R<sub>se</sub>U<sub>op</sub>A<sub>op</sub>h<sub>r</sub>∆T<sub>es</sub>
 </p>
+<p>
 where <i>h<sub>r</sub></i> is the external radiative heat transfer coefficient, and
-<i>∆T<sub>es</sub></i> is the average difference between the external air temperature and 
-the apparent sky temperature (assumed equal to 11 K)
-
-
+<i>∆T<sub>es</sub></i> is the average difference between the external air temperature and
+the apparent sky temperature (assumed equal to <i>11</i> K).
 </p>
 </html>",
 revisions="<html>
@@ -500,10 +502,5 @@ Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.
 </li>
 </ul>
-</html>",
-        info="<html>
-<p>
-Mass data for heavy building
-</p>
 </html>"));
 end OpaqueElements;
