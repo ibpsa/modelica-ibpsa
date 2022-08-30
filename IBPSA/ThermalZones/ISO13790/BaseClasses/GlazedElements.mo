@@ -87,7 +87,7 @@ model GlazedElements "Solar heat gains of glazed elements"
     "frame fraction of the windows on surface 3"
     annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
   Modelica.Blocks.Math.Add irr4
-    "total of direct and diffuse radiation on the west facade"
+    "total of direct and diffuse radiation on surface 4"
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
   Modelica.Blocks.Math.Gain AWin4( k=AWin[4])
     "Windows area on surface 4"
@@ -103,13 +103,13 @@ model GlazedElements "Solar heat gains of glazed elements"
   Modelica.Blocks.Interfaces.RealOutput solRadWin "Total solar irradiation through windows"
     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
         iconTransformation(extent={{140,-10},{160,10}})));
-  Modelica.Blocks.Math.Gain corFac1(k=0.9) "correction factor north"
+  Modelica.Blocks.Math.Gain corFac1(k=0.9) "correction factor surface 1"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Modelica.Blocks.Math.Gain corFac2(k=0.9) "correction factor east"
+  Modelica.Blocks.Math.Gain corFac2(k=0.9) "correction factor surface 2"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Modelica.Blocks.Math.Gain corFac3(k=0.9) "correction factor south"
+  Modelica.Blocks.Math.Gain corFac3(k=0.9) "correction factor surface 3"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Modelica.Blocks.Math.Gain corFac4(k=0.9) "correction factor west"
+  Modelica.Blocks.Math.Gain corFac4(k=0.9) "correction factor surface 4"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 equation
   connect(weaBus, HDirTil.weaBus) annotation (Line(
