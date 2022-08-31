@@ -1,4 +1,4 @@
-﻿within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
+within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
 model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
   extends Case600FF;
   Modelica.Blocks.Math.Sum sumHeaCoo(nin=2)
@@ -114,8 +114,8 @@ equation
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is used for the basic test case 600 of the BESTEST validation suite. 
-Case 600 is a light-weight building with room temperature control set to 20°C 
-for heating and 27°C for cooling. The room has no shade and a window that faces south. 
+Case 600 is a light-weight building with room temperature control set to <i>20</i>&deg;C 
+for heating and <i>27</i>&deg;C for cooling. The room has no shade and a window that faces south. 
 </p>
 </html>", revisions="<html><ul>
 <li>
