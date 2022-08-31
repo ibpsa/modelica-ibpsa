@@ -1,4 +1,4 @@
-﻿within IBPSA.ThermalZones.ISO13790.BaseClasses;
+within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model OpaqueElements "Solar heat gains of opaque elements"
   IBPSA.BoundaryConditions.WeatherData.Bus weaBus "weather data" annotation (Placement(
         transformation(extent={{-200,-20},{-160,20}}),iconTransformation(extent={{-230,
@@ -461,7 +461,7 @@ equation
           fillPattern=FillPattern.Sphere),
         Text(
           extent={{-110,218},{112,186}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-220,-220},{220,200}})),
     Documentation(info="<html>

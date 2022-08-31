@@ -229,7 +229,7 @@ equation
           fillPattern=FillPattern.Sphere),
         Text(
           extent={{-104,174},{118,142}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
