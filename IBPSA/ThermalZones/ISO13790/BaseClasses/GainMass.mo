@@ -31,7 +31,7 @@ equation
           lineColor={0,0,0}),
         Text(
           extent={{-108,136},{114,104}},
-          lineColor={0,0,255},
+          testColor={0,0,255},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
