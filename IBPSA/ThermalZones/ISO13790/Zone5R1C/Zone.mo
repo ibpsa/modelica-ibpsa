@@ -245,9 +245,9 @@ condition nodes, supply air temperature <code>Tsup</code> and the external air t
 windows <code>Hwin</code>, opaque components (split between <code>Htrasm</code> and <code>Hmass</code>) and heat 
 transfer between the internal surfaces of walls and the air temperature <code>Htherm</code>.
 The thermal capacitance <code>Cm</code> includes the thermal capacity of the entire building. The heating and/or 
-cooling demand is found by calculating the heating and/or cooling power ΦHC that
+cooling demand is found by calculating the heating and/or cooling power &Phi;HC that
 needs to be supplied to, or extracted from, the internal air node to maintain a 
-certain set-point. Internal, Φint , and solar, Φsol, heat gains are input values,
+certain set-point. Internal, &Phi;int , and solar, &Phi;sol, heat gains are input values,
 which are split in three components.
 </p>
 <br>
