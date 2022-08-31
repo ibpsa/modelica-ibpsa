@@ -1,4 +1,4 @@
-﻿within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
+within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
 model Case900
   extends Case900FF;
   Modelica.Blocks.Math.Sum sumHeaCoo(nin=2)
@@ -114,8 +114,8 @@ equation
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is used for the basic test case 900 of the BESTEST validation suite. 
-Case 900 is a heavy-weight building with room temperature control set to 20°C 
-for heating and 27°C for cooling. The room has no shade and a window that faces south. 
+Case 900 is a heavy-weight building with room temperature control set to <i>20</i>&deg;C 
+for heating and <i>27</i>&deg;C for cooling. The room has no shade and a window that faces south. 
 </p>
 </html>", revisions="<html><ul>
 <li>

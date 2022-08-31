@@ -1,4 +1,4 @@
-﻿within IBPSA.ThermalZones.ISO13790.Examples;
+within IBPSA.ThermalZones.ISO13790.Examples;
 model HeatingCoolingHVAC "Illustrates the use of the 5R1C HVAC thermal zone connected to a ventilation system"
   extends FreeFloatingHVAC(zonHVAC(nPorts=2));
 
@@ -102,7 +102,7 @@ equation
 <p>
 This model illustrates the use of <a href=\"modelica://IBPSA.ThermalZones.ISO13790.Zone5R1C.ZoneHVAC\">
 IBPSA.ThermalZones.ISO13790.Zone5R1C.ZoneHVAC</a> with heating and cooling. Cooling is delivered by
-a ventilation system with supply air temperature of 7°C.
+a ventilation system with supply air temperature of <i>7</i>&deg;C.
 </p>
 </html>",
 revisions="<html>
