@@ -1,4 +1,4 @@
-﻿within IBPSA.ThermalZones.ISO13790.Zone5R1C;
+within IBPSA.ThermalZones.ISO13790.Zone5R1C;
 model Zone "Thermal zone based on 5R1C network"
 
   parameter Real airRat(unit="1/h") "Air change rate"
@@ -260,11 +260,11 @@ The ventilation heat transfer coefficient <code>Hve</code> is calculated using
 H<sub>ve</sub> =
   &rho;<sub>a</sub>c<sub>a</sub>&sum;<sub>k</sub>V&#775;<sub>k</sub>
   </p>
-  where <i>ρ<sub>a</sub></i> is density of air, <i>c<sub>a</sub></i> is specific 
+  where <i>&rho;<sub>a</sub></i> is density of air, <i>c<sub>a</sub></i> is specific 
   heat of air and <i>V&#775;<sub>k</sub></i> is the k-th volumetric external air
   flow rate.
   
-  The coupling conductance <code>Htherm</code> is given by
+  The coupling conductance <code>H<sub>therm</sub></code> is given by
 <p align=\"center\" style=\"font-style:italic;\">
 H<sub>therm</sub> =
   h<sub>as</sub>A<sub>tot</sub>
