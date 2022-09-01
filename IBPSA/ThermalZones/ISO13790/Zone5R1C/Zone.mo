@@ -47,9 +47,7 @@ model Zone "Thermal zone based on 5R1C network"
         UWin*AWin[2] + UWin*AWin[3] + UWin*AWin[4])
     "Heat transfer through glazed elements"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HThe(G=3.45*(AWal[1]
-         + AWin[1] + AWal[2] + AWin[2] + AWal[3] + AWin[3] + AWal[4] + AWin[4]
-         + AFlo + ARoo)) "Coupling conductancec betwee air and surface nodes"
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HThe(G=3.45*AFlo*4.5) "Coupling conductancec betwee air and surface nodes"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -111,8 +109,7 @@ model Zone "Thermal zone based on 5R1C network"
   Modelica.Blocks.Interfaces.RealInput intGai "Internal heat gains"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}})));
   BaseClasses.GainSurface phiSur(
-    ATot=AWal[1] + AWin[1] + AWal[2] + AWin[2] + AWal[3] + AWin[3] + AWal[4] +
-        AWin[4] + AFlo + ARoo,
+    ATot=AFlo*4.5,
     facMas=facMas,
     AFlo=AFlo,
     HWinGai=HWin.G) "Heat flow injected to surface node"
@@ -121,8 +118,7 @@ model Zone "Thermal zone based on 5R1C network"
   Modelica.Blocks.Math.Gain phiAir(k=0.5) "Heat flow injected to air node"
     annotation (Placement(transformation(extent={{120,70},{100,90}})));
   BaseClasses.GainMass phiMas(
-    ATot=AWal[1] + AWin[1] + AWal[2] + AWin[2] + AWal[3] + AWin[3] + AWal[4] +
-        AWin[4] + AFlo + ARoo,
+    ATot=AFlo*4.5,
     facMas=facMas,
     AFlo=AFlo) "Heat flow injected to mass node"
     annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
