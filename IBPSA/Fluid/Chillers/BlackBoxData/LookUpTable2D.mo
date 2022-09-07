@@ -1,13 +1,22 @@
-within IBPSA.Fluid.Chillers.BlackBoxData.BlackBox;
+within IBPSA.Fluid.Chillers.BlackBoxData;
 model LookUpTable2D "Performance data coming from manufacturer"
-  extends
-    IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox;
+  extends IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
+    datasource=dataTable.device_id,
+    mEva_flow_nominal=dataTable.mEva_flow_nominal*finalScalingFactor,
+    mCon_flow_nominal=dataTable.mCon_flow_nominal*finalScalingFactor,
+    QUseBlackBox_flow_nominal=
+        Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
+        tableConID,
+        TCon_nominal - 273.15,
+        TEva_nominal - 273.15));
 
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments
     "Smoothness of table interpolation";
-  parameter IBPSA.Fluid.Chillers.BlackBoxData.ChillerBaseDataDefinition dataTable=
-      IBPSA.Fluid.Chillers.BlackBoxData.EN14511.Vitocal200AWO201()
-    "Data Table of Chiller" annotation (choicesAllMatching=true);
+  parameter
+    IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D.ChillerBaseDataDefinition
+    dataTable=
+      IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D.EN14511.Vitocal200AWO201
+      () "Data Table of Chiller" annotation (choicesAllMatching=true);
   parameter Modelica.Blocks.Types.Extrapolation extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints
     "Extrapolation of data outside the definition range";
 
@@ -46,23 +55,11 @@ model LookUpTable2D "Performance data coming from manufacturer"
   Modelica.Blocks.Math.Product nTimesPel annotation (Placement(transformation(
         extent={{-7,-7},{7,7}},
         rotation=-90,
-        origin={-41,-11})));
+        origin={-33,-5})));
   Modelica.Blocks.Math.Product nTimesQEva annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={40,-10})));
-  Modelica.Blocks.Math.Product proRedQEva
-    "Based on the icing factor, the heat flow to the evaporator is reduced"
-    annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=270,
-        origin={68,-62})));
-  Modelica.Blocks.Math.Add calcRedQCon
-    "Based on redcued heat flow to the evaporator, the heat flow to the condenser is also reduced"
-    annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=270,
-        origin={-80,-80})));
 
   Modelica.Blocks.Math.Product nTimesSF
     "Create the product of the scaling factor and relative compressor speed"
@@ -75,9 +72,21 @@ protected
   Modelica.Blocks.Sources.Constant realCorr(final k=scalingFactor)
     "Calculates correction of table output based on scaling factor"
     annotation (Placement(transformation(
-        extent={{-3,-3},{3,3}},
+        extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-13,43})));
+        origin={-10,50})));
+
+protected
+  Modelica.Blocks.Sources.Constant constZero(final k=0)
+    "For chilling, evaporator heat flow is calculated"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-90,10})));
+
+protected
+    parameter Modelica.Blocks.Types.ExternalCombiTable2D tableConID=
+      Modelica.Blocks.Types.ExternalCombiTable2D("NoName", "NoName", dataTable.tableQdot_eva,  smoothness, extrapolation, false) "External table object";
 
 equation
 
@@ -104,27 +113,15 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(P_eleTable.y, nTimesPel.u2) annotation (Line(points={{-60,20.6},{
-          -60,10},{-45.2,10},{-45.2,-2.6}},
-                                     color={0,0,127}));
+  connect(P_eleTable.y, nTimesPel.u2) annotation (Line(points={{-60,20.6},{-60,8},
+          {-37.2,8},{-37.2,3.4}},    color={0,0,127}));
   connect(Qdot_EvaTable.y,nTimesQEva. u1) annotation (Line(points={{46,18.6},{
           46,-2.8},{43.6,-2.8}},        color={0,0,127}));
-  connect(proRedQEva.y, calcRedQCon.u1) annotation (Line(points={{68,-68.6},{
-          68,-70},{-76.4,-70},{-76.4,-72.8}},                             color=
-         {0,0,127}));
-  connect(sigBus.iceFacMea, proRedQEva.u1) annotation (Line(
-      points={{1,104},{20,104},{20,-42},{72,-42},{72,-54.8},{71.6,-54.8}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
 
-  connect(nTimesPel.y, Pel) annotation (Line(points={{-41,-18.7},{-41,-30},{0,
-          -30},{0,-110}},          color={0,0,127}));
-  connect(realCorr.y, nTimesSF.u2) annotation (Line(points={{-13,39.7},{-13,
-          31.4},{-13.2,31.4}}, color={0,0,127}));
+  connect(nTimesPel.y, Pel) annotation (Line(points={{-33,-12.7},{-33,-94},{0,-94},
+          {0,-110}},               color={0,0,127}));
+  connect(realCorr.y, nTimesSF.u2) annotation (Line(points={{-10,39},{-10,36},{-13.2,
+          36},{-13.2,31.4}},   color={0,0,127}));
   connect(sigBus.ySet, nTimesSF.u1) annotation (Line(
       points={{1,104},{-4,104},{-4,31.4},{-4.8,31.4}},
       color={255,204,51},
@@ -133,18 +130,18 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(nTimesQEva.y, proRedQEva.u2) annotation (Line(points={{40,-16.6},{
-          40,-54.8},{64.4,-54.8}}, color={0,0,127}));
-  connect(proRedQEva.y, QEva_flow) annotation (Line(points={{68,-68.6},{68,-80},
-          {80,-80},{80,-110}}, color={0,0,127}));
-  connect(calcRedQCon.y, QCon_flow)
-    annotation (Line(points={{-80,-86.6},{-80,-110}}, color={0,0,127}));
-  connect(nTimesPel.y, calcRedQCon.u2) annotation (Line(points={{-41,-18.7},{
-          -41,-30},{-83.6,-30},{-83.6,-72.8}}, color={0,0,127}));
-  connect(nTimesSF.y, nTimesPel.u1) annotation (Line(points={{-9,15.3},{-9,10},
-          {-36.8,10},{-36.8,-2.6}}, color={0,0,127}));
+  connect(nTimesSF.y, nTimesPel.u1) annotation (Line(points={{-9,15.3},{-9,8},{-28.8,
+          8},{-28.8,3.4}},          color={0,0,127}));
   connect(nTimesSF.y, nTimesQEva.u2) annotation (Line(points={{-9,15.3},{-9,
           10},{36.4,10},{36.4,-2.8}}, color={0,0,127}));
+  connect(nTimesQEva.y, feedbackHeatFlowEvaporator.u1) annotation (Line(points={
+          {40,-16.6},{42,-16.6},{42,-18},{-84,-18},{-84,-10},{-78,-10}}, color={
+          0,0,127}));
+  connect(nTimesPel.y, calcRedQCon.u2) annotation (Line(points={{-33,-12.7},{-33,
+          -48},{64,-48},{64,-58}}, color={0,0,127}));
+  connect(constZero.y, feedbackHeatFlowEvaporator.u2) annotation (Line(points={{
+          -79,10},{-62,10},{-62,4},{-56,4},{-56,-24},{-70,-24},{-70,-18}},
+        color={0,0,127}));
   annotation (Icon(graphics={
     Line(points={{-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},{30.0,40.0},{30.0,-40.0},{-30.0,-40.0},{-30.0,40.0},{-60.0,40.0},{-60.0,20.0},{60.0,20.0},{60.0,0.0},{-60.0,0.0},{-60.0,-20.0},{60.0,-20.0},{60.0,-40.0},{-60.0,-40.0},{-60.0,40.0},{60.0,40.0},{60.0,-40.0}}),
     Line(points={{0.0,40.0},{0.0,-40.0}}),

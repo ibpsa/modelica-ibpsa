@@ -8,30 +8,41 @@ model HeatPump
     final autoCalc_VCon=max(0.0000001*QUse_flow_nominal - 0.0094,autoCalc_VMin),
     final autoCalc_VEva=max(0.0000001*QUse_flow_nominal - 0.0075,autoCalc_VMin),
     mCon_flow_nominal=QUse_flow_nominal/(dTCon_nominal*cpCon),
-    final scalingFactor=innerCycle.BlackBoxHeaPumHeating.scalingFactor,
+    final scalingFactor=innerCycle.BlackBoxHeaPumHeating.finalScalingFactor,
     use_rev=true,
     redeclare IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle_HeatPump innerCycle(
         redeclare model BlaBoxHPHeating = BlaBoxHPHeating,
         redeclare model BlaBoxHPCooling = BlaBoxHPCooling));
   replaceable model BlaBoxHPHeating =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
      constrainedby
-    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox(
-       final QCon_flow_nominal=QUse_flow_nominal,
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+       final QUse_flow_nominal=QUse_flow_nominal,
+       final scalingFactor=0,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
        final dTCon_nominal=dTCon_nominal,
        final dTEva_nominal=dTEva_nominal,
+       final primaryOperation=true,
        final mCon_flow_nominal=mCon_flow_nominal,
        final mEva_flow_nominal=mEva_flow_nominal,
        final y_nominal=y_nominal)
   "Black box data of a heat pump in heating mode"
     annotation (choicesAllMatching=true);
   replaceable model BlaBoxHPCooling =
-      IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
       constrainedby
-      IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox(
-        final scalingFactor=scalingFactor)
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
+       final QUse_flow_nominal=0,
+       final scalingFactor=scalingFactor,
+       final TCon_nominal=TEva_nominal,
+       final TEva_nominal=TCon_nominal,
+       final dTCon_nominal=dTEva_nominal,
+       final dTEva_nominal=dTCon_nominal,
+       final mCon_flow_nominal=mEva_flow_nominal,
+       final mEva_flow_nominal=mCon_flow_nominal,
+       final primaryOperation=false,
+       final y_nominal=y_nominal)
   "Black box data of a heat pump in cooling operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
   replaceable parameter

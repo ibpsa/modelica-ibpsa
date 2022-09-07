@@ -3,6 +3,7 @@ record Vitocal200AWO201
   "Vitocal200AWO201"
   extends
     IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition(
+    device_id="Vitocal200AWO201",
     tablePel=[0,-15,-7,2,7,10,20,30; 35,1290.0,1310.0,730.0,870.0,850.0,830.0,
         780.0; 45,1550.0,1600.0,870.0,1110.0,1090.0,1080.0,1040.0; 55,1870.0,
         1940.0,1170.0,1370.0,1370.0,1370.0,1350.0],

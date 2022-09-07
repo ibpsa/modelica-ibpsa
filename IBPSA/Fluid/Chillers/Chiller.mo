@@ -8,18 +8,43 @@ model Chiller
       final autoCalc_VCon=max(0.0000002*QUse_flow_nominal - 0.0084, autoCalc_VMin),
       final autoCalc_VEva=max(0.0000001*QUse_flow_nominal - 0.0066, autoCalc_VMin),
       mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
+      final scalingFactor=innerCycle.BlackBoxChillerCooling.finalScalingFactor,
       final use_safetyControl=false,
       use_rev=true,
       redeclare IBPSA.Fluid.Chillers.BaseClasses.InnerCycle_Chiller innerCycle(
-          redeclare model PerDataMainChi = PerDataMainChi,
-          redeclare model PerDataRevChi = PerDataRevChi));
+          redeclare model BlaBoxChiCooling = BlaBoxChiCooling,
+          redeclare model BlaBoxChiHeating = BlaBoxChiHeating));
 
-  replaceable model PerDataMainChi =
-      IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
+  replaceable model BlaBoxChiCooling =
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
+      constrainedby
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
+       final QUse_flow_nominal=QUse_flow_nominal,
+       final scalingFactor=0,
+       final primaryOperation=true,
+       final TCon_nominal=TCon_nominal,
+       final TEva_nominal=TEva_nominal,
+       final dTCon_nominal=dTCon_nominal,
+       final dTEva_nominal=dTEva_nominal,
+       final mCon_flow_nominal=mCon_flow_nominal,
+       final mEva_flow_nominal=mEva_flow_nominal,
+       final y_nominal=y_nominal)
   "Performance data of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
-  replaceable model PerDataRevChi =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
+  replaceable model BlaBoxChiHeating =
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
+       constrainedby
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+       final QUse_flow_nominal=0,
+       final scalingFactor=scalingFactor,
+       final primaryOperation=false,
+       final TCon_nominal=TEva_nominal,
+       final TEva_nominal=TCon_nominal,
+       final dTCon_nominal=dTEva_nominal,
+       final dTEva_nominal=dTCon_nominal,
+       final mCon_flow_nominal=mEva_flow_nominal,
+       final mEva_flow_nominal=mCon_flow_nominal,
+       final y_nominal=y_nominal)
   "Performance data of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 

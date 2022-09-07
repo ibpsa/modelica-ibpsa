@@ -348,6 +348,13 @@ partial model PartialReversibleVapourCompressionMachine
         rotation=180,
         origin={90,-40})));
 
+  Modelica.Blocks.Sources.BooleanConstant conModeTrue(final k=true)
+    if not use_busConnectorOnly and not use_rev
+    "Real expression for condenser inlet temperature" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-90,-110})));
 protected
   parameter Real scalingFactor "Scaling-factor of vapour compression machine";
   parameter Medium_con.ThermodynamicState staCon_nominal=Medium_con.setState_pTX(
@@ -515,6 +522,12 @@ equation
           {32,-92},{20,-92}}, color={0,127,255}));
   connect(eva.port_b, port_b2) annotation (Line(points={{-20,-92},{-70,-92},{-70,
           -60},{-100,-60}}, color={0,127,255}));
+  connect(conModeTrue.y, sigBus.modeSet) annotation (Line(points={{-79,-110},{
+          -76,-110},{-76,-42},{-105,-42},{-105,-43}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},

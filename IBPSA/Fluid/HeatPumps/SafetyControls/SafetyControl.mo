@@ -130,19 +130,8 @@ equation
           {-61.3333,31.6667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(defrostControl.modeOut, operationalEnvelope.modeSet) annotation (
-      Line(
-      points={{-79.1667,28.3333},{-74,28.3333},{-74,12},{-34,12},{-34,28.3333},
-          {-21.3333,28.3333}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
   connect(modeSet, boolPasThrDef.u) annotation (Line(
       points={{-136,-20},{-114,-20},{-114,-50},{-102,-50}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(boolPasThrDef.y, operationalEnvelope.modeSet) annotation (Line(
-      points={{-79,-50},{-72,-50},{-72,12},{-34,12},{-34,28.3333},{-21.3333,
-          28.3333}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(defrostControl.Pel_deFro, Pel_deFro) annotation (Line(
@@ -189,6 +178,15 @@ equation
 
   connect(minimalVolumeFlowRateSafety.ERR, ERR_minFlow)
     annotation (Line(points={{70,19.1667},{70,-130}}, color={255,127,0}));
+  connect(defrostControl.modeOut, onOffController.modeSet) annotation (Line(
+        points={{-79.1667,28.3333},{-74,28.3333},{-74,28},{-70,28},{-70,28.3333},
+          {-61.3333,28.3333}}, color={255,0,255}));
+  connect(onOffController.modeOut, operationalEnvelope.modeSet) annotation (
+      Line(points={{-39.1667,28.3333},{-34,28.3333},{-34,28},{-30,28},{-30,
+          28.3333},{-21.3333,28.3333}}, color={255,0,255}));
+  connect(onOffController.modeSet, boolPasThrDef.y) annotation (Line(points={{
+          -61.3333,28.3333},{-74,28.3333},{-74,-50},{-79,-50}}, color={255,0,
+          255}));
   annotation (Documentation(revisions="<html><ul>
   <li>
     <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>

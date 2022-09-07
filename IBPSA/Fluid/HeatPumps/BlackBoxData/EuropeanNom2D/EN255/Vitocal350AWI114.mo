@@ -2,6 +2,7 @@ within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN255;
 record Vitocal350AWI114 "Vitocal 350 AWI 114"
   extends
     IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition(
+    device_id="Vitocal350AWI114",
     tablePel=[0,-20,-15,-10,-5,0,5,10,15,20,25,30; 35,3295.500,3522.700,3750,
         3977.300,4034.100,4090.900,4204.500,4375,4488.600,4488.600,4545.500; 50,
         4659.100,4886.400,5113.600,5227.300,5511.400,5568.200,5738.600,5909.100,
@@ -16,5 +17,7 @@ record Vitocal350AWI114 "Vitocal 350 AWI 114"
     mEva_flow_nominal=1,
     tableUppBou=[-20,55; -5,65; 35,65]);
 
-  annotation ();
+  annotation (Documentation(info="<html>
+<p><span style=\"font-family: Courier New; color: #006400;\">Data for VitoCal350 air-to-water heat pump, around 11 kW</span></p>
+</html>"));
 end Vitocal350AWI114;

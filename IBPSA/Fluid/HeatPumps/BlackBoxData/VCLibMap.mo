@@ -1,8 +1,9 @@
 ﻿within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model VCLibMap
   "Multi-dimensional performance map encompasing choices of fluid and flowsheet based on steady state calculations using the Vapour Compression Library"
-  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox(
-  QConBlackBox_flow_nominal=evaluate(
+  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+  datasource="VCLib",
+  QUseBlackBox_flow_nominal=evaluate(
     externalTable,
     {y_nominal, TCon_nominal, TEva_nominal},
     Table_QCon.interpMethod,
@@ -48,7 +49,7 @@ model VCLibMap
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-10,30})));
-  Modelica.Blocks.Sources.Constant       QScaling(k=scalingFactor)
+  Modelica.Blocks.Sources.Constant       QScaling(k=finalScalingFactor)
     "Scaling for heat pump power " annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,

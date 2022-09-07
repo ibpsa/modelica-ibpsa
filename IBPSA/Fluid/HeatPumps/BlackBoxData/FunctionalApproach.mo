@@ -1,19 +1,20 @@
 ﻿within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model FunctionalApproach
   "Calculating heat pump data based on a avaiable functional relationships"
-  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox;
+  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+  QUseBlackBox_flow_nominal=CharForScaling[2]);
 
   replaceable function PolyData =
       IBPSA.Fluid.HeatPumps.BlackBoxData.Functions.BaseClasses.PartialBaseFct
                                                                            "Function to calculate peformance Data" annotation(choicesAllMatching=true);
   Modelica.Blocks.Sources.RealExpression internal_Pel(final y=Char[1]*
-        scalingFactor)                                                 annotation (Placement(
+        finalScalingFactor)                                                 annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,50})));
   Modelica.Blocks.Sources.RealExpression internal_QCon(final y=Char[2]*
-        scalingFactor)                                 annotation (Placement(
+        finalScalingFactor)                                 annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -43,6 +44,12 @@ model FunctionalApproach
   Modelica.Blocks.Routing.RealPassThrough passThroughMFlowCon;
 protected
   Real Char[2];
+  parameter Real CharForScaling[2] = PolyData(
+    y_nominal,
+    TCon_nominal,
+    TEva_nominal,
+    mCon_flow_nominal,
+    mEva_flow_nominal);
 equation
   Char =PolyData(
     passThroughYSet.y,

@@ -61,15 +61,16 @@ model HeatPump "Example for the reversible heat pump model."
     GEvaIns=0,
     cpEva=4184,
     redeclare model BlaBoxHPHeating =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (
+        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (dataTable=
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201
+            ()),
+    redeclare model BlaBoxHPCooling =
+        IBPSA.Fluid.Chillers.BlackBoxData.LookUpTable2D (
         redeclare IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
           iceFacCalc,
+        smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
         dataTable=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201()),
-    redeclare model BlaBoxHPCooling =
-        IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.LookUpTable2D (smoothness=
-            Modelica.Blocks.Types.Smoothness.LinearSegments, dataTable=
-            IBPSA.Fluid.Chillers.BlackBoxData.EN14511.Vitocal200AWO201()),
+            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D.EN14511.Vitocal200AWO201()),
     VEva=0.04,
     use_evaCap=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -77,8 +78,7 @@ model HeatPump "Example for the reversible heat pump model."
     TCon_start=303.15,
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultSafetyControl
-      safetyControlParameters)
-                       annotation (Placement(transformation(
+      safetyControlParameters) annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=270,
         origin={0,-39})));

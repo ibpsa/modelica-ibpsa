@@ -4,6 +4,8 @@ Carnot_TCon_etaPL
 Carnot_TCon_reverseFlow
 Carnot_y_etaCar
 Carnot_y_etaPL
+HeatPump_CarnotConstantQuality
+HeatPump_EuropeanNormData
 ReciprocatingWaterToWater_Dynamic
 ReciprocatingWaterToWater_ScalingFactor
 ReciprocatingWaterToWater_Static
@@ -13,3 +15,4 @@ ScrollWaterToWater_ScalingFactor
 ScrollWaterToWater_Static
 ScrollWaterToWater_TemperatureProtection
 ScrollWaterToWater_VariableSpeed
+BaseClasses

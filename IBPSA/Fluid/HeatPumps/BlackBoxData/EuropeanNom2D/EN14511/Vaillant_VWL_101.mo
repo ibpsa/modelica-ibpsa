@@ -2,6 +2,7 @@ within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511;
 record Vaillant_VWL_101 "Vaillant VWL10-1"
   extends
     IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition(
+    device_id="Vaillant_VWL_101",
     tablePel=[0,-15,-7,2,7; 35,2138,2177,2444,2444; 45,2558,2673,2864,3055;
         55,2902,3131,3360,3513],
     tableQCon_flow=[0,-15,-7,2,7; 35,5842,7523,9776,10807; 45,5842,7332,9050,
@@ -11,5 +12,7 @@ record Vaillant_VWL_101 "Vaillant VWL10-1"
     tableUppBou=[-25,65; 40,65]);
     //These boundary-tables are not from the datasheet but default values.
 
-  annotation ();
+  annotation (Documentation(info="<html>
+<p><span style=\"font-family: Courier New; color: #006400;\">Data for a Vaillaint VLW_101 air-to-water heat pump</span></p>
+</html>"));
 end Vaillant_VWL_101;

@@ -12,13 +12,15 @@ block MinimalVolumeFlowRateSafety
     annotation (Dialog(enable=use_minFlowCtrl));
   Modelica.Blocks.Logical.Hysteresis hysteresisCon(
     final uLow=m_flowConMin,
-    final uHigh=m_flowConMin*1.1,                  final pre_y_start=false)
+    final uHigh=max(m_flowConMin*1.1, Modelica.Constants.eps),
+                                                   final pre_y_start=false)
     if use_minFlowCtrl
     "Check if condenser mass flow rate is high enough"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Logical.Hysteresis hysteresisEva(
     final uLow=m_flowEvaMin,
-    final uHigh=m_flowEvaMin*1.1,                  final pre_y_start=false)
+    final uHigh=max(m_flowEvaMin*1.1, Modelica.Constants.eps),
+                                                   final pre_y_start=false)
     if use_minFlowCtrl
     "Check if evaporator mass flow rate is high enough"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));

@@ -2,23 +2,23 @@ within IBPSA.Fluid.Chillers.BaseClasses;
 model InnerCycle_Chiller "Blackbox model of refrigerant cycle of a chiller"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle;
 
-  replaceable model PerDataMainChi =
-      IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
+  replaceable model BlaBoxChiCooling =
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
     constrainedby
-    IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
+    IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
     "Replaceable model for performance data of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
 
-  replaceable model PerDataRevChi =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
+  replaceable model BlaBoxChiHeating =
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
     constrainedby
-    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
     "Replaceable model for performance data of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
-  PerDataMainChi PerformanceDataChillerCooling
+  BlaBoxChiCooling BlackBoxChillerCooling
     annotation (Placement(transformation(extent={{7,20},{61,76}}, rotation=0)));
-  PerDataRevChi PerformanceDataChillerHeating if use_rev
+  BlaBoxChiHeating BlackBoxChillerHeating if use_rev
     annotation (Placement(
         transformation(
         extent={{-27,-28},{27,28}},
@@ -37,11 +37,14 @@ model InnerCycle_Chiller "Blackbox model of refrigerant cycle of a chiller"
         extent={{-4,-4},{4,4}},
         rotation=0,
         origin={50,-20})));
+initial equation
+  assert(BlackBoxChillerCooling.datasource == BlackBoxChillerHeating.datasource, "Data sources for reversible operation are not equal! Only continue if this is intendet", AssertionLevel.warning);
+
 equation
 
-  connect(PerformanceDataChillerCooling.Pel, switchPel.u1) annotation (Line(
+  connect(BlackBoxChillerCooling.Pel, switchPel.u1) annotation (Line(
         points={{34,17.2},{34,-30},{8,-30},{8,-58}}, color={0,0,127}));
-  connect(PerformanceDataChillerHeating.Pel, switchPel.u3) annotation (Line(
+  connect(BlackBoxChillerHeating.Pel, switchPel.u3) annotation (Line(
       points={{-34,17.2},{-34,-30},{-8,-30},{-8,-58}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -56,26 +59,26 @@ equation
   connect(constZero.y, switchQCon.u3) annotation (Line(points={{-59,-70},{-52,-70},
           {-52,-38},{58,-38},{58,-8}},       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(sigBus, PerformanceDataChillerHeating.sigBus) annotation (Line(
+  connect(sigBus, BlackBoxChillerHeating.sigBus) annotation (Line(
       points={{0,102},{0,86},{-33.73,86},{-33.73,77.12}},
       color={255,204,51},
       thickness=0.5));
-  connect(sigBus, PerformanceDataChillerCooling.sigBus) annotation (Line(
+  connect(sigBus, BlackBoxChillerCooling.sigBus) annotation (Line(
       points={{0,102},{0,86},{34.27,86},{34.27,77.12}},
       color={255,204,51},
       thickness=0.5));
 
-  connect(PerformanceDataChillerCooling.QEva_flow, gainEva.u) annotation (Line(
+  connect(BlackBoxChillerCooling.QEva_flow, gainEva.u) annotation (Line(
         points={{55.6,17.2},{55.6,-6},{-45.2,-6}}, color={0,0,127}));
   connect(gainEva.y, switchQEva.u1)
     annotation (Line(points={{-54.4,-6},{-56,-6},{-56,8},{-58,8}},
                                                    color={0,0,127}));
-  connect(PerformanceDataChillerHeating.QEva_flow, switchQEva.u3) annotation (
+  connect(BlackBoxChillerHeating.QEva_flow, switchQEva.u3) annotation (
       Line(
       points={{-12.4,17.2},{-12.4,-8},{-58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(PerformanceDataChillerHeating.QCon_flow, gainCon.u) annotation (Line(
+  connect(BlackBoxChillerHeating.QCon_flow, gainCon.u) annotation (Line(
       points={{-55.6,17.2},{-55.6,2},{-24,2},{-24,-20},{45.2,-20}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -83,7 +86,7 @@ equation
     annotation (Line(points={{54.4,-20},{56,-20},{56,-8},{58,-8}},
                                                    color={0,0,127},
         pattern=LinePattern.Dash));
-  connect(PerformanceDataChillerCooling.QCon_flow, switchQCon.u1) annotation (
+  connect(BlackBoxChillerCooling.QCon_flow, switchQCon.u1) annotation (
       Line(points={{12.4,17.2},{12.4,4},{62,4},{62,8},{58,8}},   color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -171,26 +174,20 @@ equation
 <p>
   The user can choose between different types of performance data or
   implement a new black-box model by extending from the <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.BaseClasses.PartialPerformanceData\">
+  \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox\">
   partial</a> model.
 </p>
 <ul>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTable2D\">
+    \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.LookUpTable2D\">
     LookUpTable2D</a>: Use 2D-data based on the DIN EN 14511
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTableND\">
+    \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.LookUpTableND\">
     LookUpTableND</a>: Use SDF-data tables to model invertercontroller
     chillers or include other dependencies (ambient temperature etc.)
-  </li>
-  <li>
-    <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.PolynomalApproach\">
-    PolynomalApproach</a>: Use a function based approach to calculate
-    the ouputs. Different functions are already implemented.
   </li>
 </ul>
 </html>"));

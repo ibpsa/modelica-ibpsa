@@ -17,8 +17,11 @@ model VariableOrderInertia
   Modelica.Blocks.Continuous.CriticalDamping criticalDamping(
     final n=nthOrder,
     final f=refIneFre_constant,
+    initType=initType,
     final x_start=x_start)
     annotation (Placement(transformation(extent={{-16,-16},{16,16}})));
+  parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.NoInit
+    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)";
 equation
   connect(u, criticalDamping.u)
     annotation (Line(points={{-120,0},{-19.2,0}}, color={0,0,127}));

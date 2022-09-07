@@ -3,12 +3,12 @@ model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle;
 
   replaceable model BlaBoxHPHeating =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
     "Replaceable model for black box data of a heat pump in main operation mode"
     annotation (choicesAllMatching=true);
 
   replaceable model BlaBoxHPCooling =
-      IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
     "Replaceable model for black box data of a heat pump in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
@@ -29,6 +29,11 @@ model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
         rotation=0,
         origin={30,-8})));
 
+/*initial equation 
+  if use_rev then
+    assert( BlackBoxHeaPumCooling.datasource == BlackBoxHeaPumHeating.datasource, "Data sources for reversible operation are not equal! Only continue if this is intendet", AssertionLevel.warning);
+  end if;
+*/
 equation
 
   connect(BlackBoxHeaPumHeating.QCon_flow, switchQCon.u1)

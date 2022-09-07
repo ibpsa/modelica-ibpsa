@@ -9,7 +9,7 @@ record HeatPumpBaseDataDefinition "Basic heat pump data"
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate in evaporator";
   parameter Real tableUppBou[:,2] "Points to define upper boundary for sink temperature";
-
+  parameter String device_id "Name of the device";
   annotation (Documentation(info="<html><h4>
   <span style=\"color: #008000\">Overview</span>
 </h4>Base data definition used in the heat pump model. It defines the

@@ -2,7 +2,9 @@
 partial model PartialBlackBox
   "Partial black box model of vapour compression cycles used for heat pump applications"
 
-  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal "Nominal heat flow rate at condenser" annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal
+    "Nominal heat flow rate at useful heat exchanger side"                                         annotation (Dialog(group=
+          "Nominal Design"));
   parameter Modelica.Units.SI.Temperature TCon_nominal "Nominal temperature at secondary condenser side" annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.Temperature TEva_nominal "Nominal temperature at secondary evaporator side" annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal "Nominal temperature difference at secondary condenser side" annotation (Dialog(group="Nominal Design"));
@@ -10,10 +12,15 @@ partial model PartialBlackBox
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal "Nominal mass flow rate in secondary condenser side" annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal "Nominal mass flow rate in secondary evaporator side" annotation (Dialog(group="Nominal Design"));
   parameter Real y_nominal "Nominal relative compressor speed" annotation (Dialog(group="Nominal Design"));
-  final parameter Real scalingFactor=QCon_flow_nominal/QConBlackBox_flow_nominal "Scaling factor of heat pump" annotation (Dialog(group="Nominal Design"));
-  parameter Modelica.Units.SI.HeatFlowRate QConBlackBox_flow_nominal "Nominal heat flow rate at condenser in the unscaled black box data model. Used to calculate the scaling factor." annotation (Dialog(group="Nominal Design"));
+  parameter Real scalingFactor "Scaling factor of heat pump" annotation (Dialog(group="Nominal Design", enable=not primaryOperation));
+  final parameter Real finalScalingFactor = if primaryOperation then QUse_flow_nominal/QUseBlackBox_flow_nominal else scalingFactor "Scaling factor applied to the data";
+  parameter Modelica.Units.SI.HeatFlowRate QUseBlackBox_flow_nominal
+    "Nominal heat flow rate at useful heat exchanger in the unscaled black box data model. Used to calculate the scaling factor."   annotation (Dialog(group=
+          "Nominal Design", enable=primaryOperation));
+  parameter Boolean primaryOperation "Indicate if this black box data is used for the primary operation (e.g. heat pump -> heating)";
+  parameter String datasource="" "Indicate where the data is coming from. If reversible machines are used, these strings have to match";
 
-  replaceable Frosting.BaseClasses.PartialIceFac iceFacCalc
+  replaceable Frosting.NoFrosting iceFacCalc
     constrainedby Frosting.BaseClasses.PartialIceFac
     "Replaceable model to calculate the icing factor"
     annotation (choicesAllMatching=true, Dialog(group="Frosting supression", enable=calc_iceFac), Placement(transformation(extent={{-100,
@@ -79,8 +86,6 @@ equation
       points={{-100.1,-42},{-102,-42},{-102,104},{1,104}},
       color={255,204,51},
       thickness=0.5));
-  connect(iceFacCalc.iceFac, sigBus.iceFacMea) annotation (Line(points={{-79,-42},
-          {-72,-42},{-72,-28},{-102,-28},{-102,104},{1,104}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
@@ -101,12 +106,6 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>
-  Partial model for calculation of <span style=
-  \"font-family: Courier New;\">P_el</span>, <span style=
-  \"font-family: Courier New;\">QCon</span> and <span style=
-  \"font-family: Courier New;\">QEva</span> based on the values in the
-  <span style=\"font-family: Courier New;\">sigBusHP</span>.
-</p>
+<p>Partial model for calculation of electrical power <span style=\"font-family: Courier New;\">P_el</span>, condenser heat flow <span style=\"font-family: Courier New;\">QCon</span> and evaporator heat flow <span style=\"font-family: Courier New;\">QEva</span> based on the values in the <span style=\"font-family: Courier New;\">sigBus</span><span style=\"font-family: (Default);\"> for a heat pump.</span></p>
 </html>"));
 end PartialBlackBox;
