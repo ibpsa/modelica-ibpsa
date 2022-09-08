@@ -100,12 +100,12 @@ equation
           rotation=180)}),Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html><ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    November 26, 2018 by Fabian Wüllhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
   </li>
 </ul>
 </html>", info="<html>
-<p>Partial model for calculation of electrical power <span style=\"font-family: Courier New;\">P_el</span>, condenser heat flow <span style=\"font-family: Courier New;\">QCon</span> and evaporator heat flow <span style=\"font-family: Courier New;\">QEva</span> based on the values in the <span style=\"font-family: Courier New;\">sigBus</span><span style=\"font-family: (Default);\"> for a heat pump.</span></p>
+<p>Partial model for calculation of electrical power <span style=\"font-family: Courier New;\">P_el</span>, condenser heat flow <span style=\"font-family: Courier New;\">QCon</span> and evaporator heat flow <span style=\"font-family: Courier New;\">QEva</span> based on the values in the <span style=\"font-family: Courier New;\">sigBus</span> for a vapour compression machine.</p>
 </html>"));
 end PartialBlackBox;
