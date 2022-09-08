@@ -30,7 +30,7 @@ model HeatPump
   "Black box data of a heat pump in heating mode"
     annotation (choicesAllMatching=true);
   replaceable model BlaBoxHPCooling =
-      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling
       constrainedby
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
        final QUse_flow_nominal=0,

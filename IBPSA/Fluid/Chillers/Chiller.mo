@@ -32,7 +32,7 @@ model Chiller
   "Performance data of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
   replaceable model BlaBoxChiHeating =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.NoHeating
        constrainedby
       IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
        final QUse_flow_nominal=0,

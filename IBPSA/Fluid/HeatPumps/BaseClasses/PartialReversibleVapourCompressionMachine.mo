@@ -26,7 +26,7 @@ partial model PartialReversibleVapourCompressionMachine
 
   parameter Real y_nominal "Nominal relative compressor speed" annotation (Dialog(group="Nominal Design"));
   replaceable model vapComIne =
-      HeatPumps.BlackBoxData.VapourCompressionInertias.BaseClasses.PartialInertia
+      HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia
     constrainedby
     HeatPumps.BlackBoxData.VapourCompressionInertias.BaseClasses.PartialInertia
                                                                        "Inertia between the black-box outputs and the heat exchangers."
