@@ -147,7 +147,7 @@ equation
     \"https://github.com/RWTH-EBC/IBPSA/issues/715\">#715</a>)
   </li>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/IBPSA/issues/577\">#577</a>)
   </li>

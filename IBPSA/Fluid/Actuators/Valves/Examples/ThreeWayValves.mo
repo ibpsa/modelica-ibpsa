@@ -117,7 +117,7 @@ To use common values, use the default values.
 </html>", revisions="<html>
 <ul>
 <li>
-December 17, 2019, by Alexander Kümpel:<br/>
+December 17, 2019, by Alexander Kuempel:<br/>
 Added <a href=\"modelica://IBPSA.Fluid.Actuators.Valves.ThreeWayTable\">IBPSA.Fluid.Actuators.Valves.ThreeWayTable</a>
 to example.
 </li>

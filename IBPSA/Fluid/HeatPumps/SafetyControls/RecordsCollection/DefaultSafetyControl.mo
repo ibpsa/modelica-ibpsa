@@ -1,6 +1,6 @@
 ﻿within IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection;
 record DefaultSafetyControl
-  "Apply the default values according to the conference publication by Wüllhorst et. al."
+  "Apply the default values according to the conference publication by Wuellhorst et. al."
   extends HeatPumpSafetyControlBaseDataDefinition(
     m_flowConMinPer=0.1,
     m_flowEvaMinPer=0.1,

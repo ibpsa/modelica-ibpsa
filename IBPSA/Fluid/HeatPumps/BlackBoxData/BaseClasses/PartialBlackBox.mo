@@ -100,7 +100,7 @@ equation
           rotation=180)}),Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html><ul>
   <li>
-    November 26, 2018 by Fabian Wüllhorst:<br/>
+    November 26, 2018 by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
   </li>

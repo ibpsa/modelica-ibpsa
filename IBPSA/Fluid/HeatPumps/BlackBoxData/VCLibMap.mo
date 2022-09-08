@@ -228,7 +228,7 @@ equation
   calculate the relevant outputs of the inner refrigeration cycle.
 </p>
 <p>
-  If of interest, contact Fabian Wüllhorst or Christian Vering for more
+  If of interest, contact Fabian Wuellhorst or Christian Vering for more
   information on how the maps are generated.
 </p>
 <p>
@@ -237,7 +237,7 @@ equation
 </html>", revisions="<html>
 <ul>
   <li>
-    <i>May 05, 2021</i> by Fabian Wüllhorst:<br/>
+    <i>May 05, 2021</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/1092\">#1092</a>)
   </li>

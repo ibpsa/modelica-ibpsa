@@ -127,7 +127,7 @@ equation
           {-66,22},{-58,22}}, color={0,0,127}));
   annotation (Documentation(revisions="<html><ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
   </li>

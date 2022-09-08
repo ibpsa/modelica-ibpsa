@@ -11,7 +11,7 @@ partial function PartialBaseFct "Base function for all icing factor functions"
 
   annotation (Documentation(revisions="<html><ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
   </li>

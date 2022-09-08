@@ -112,12 +112,12 @@ equation
           fillColor={0,127,255},
           textString="f")}), Documentation(revisions="<html><ul>
   <li>
-    <i>May 21, 2021ф</i> by Fabian Wüllhorst:<br/>
+    <i>May 21, 2021ф</i> by Fabian Wuellhorst:<br/>
     Make use of BaseClasses (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/1092\">#1092</a>)
   </li>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
   </li>

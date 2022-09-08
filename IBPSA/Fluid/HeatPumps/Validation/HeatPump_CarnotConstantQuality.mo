@@ -37,7 +37,7 @@ model HeatPump_CarnotConstantQuality
 </html>",     revisions="<html>
     <ul>
     <li>
-    September 09, 2022, by Fabian Wüllhorst:<br/>
+    September 09, 2022, by Fabian Wuellhorst:<br/>
     First implementation.
     </li>
     </ul>
