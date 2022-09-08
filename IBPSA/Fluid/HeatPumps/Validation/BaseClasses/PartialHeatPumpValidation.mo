@@ -160,8 +160,6 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://AixLib/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/HeatPump.mos"
-        "Simulate and plot"),
     Documentation(info="<html>
 <p>Partial model for the validation of different modular heat pump approaches based on measured data of a brine-to-water heat pump at the Institute for Energy Efficient Building and Indoor Climate.</p>
 <p>If questions regarding the data or model arises, please contact Fabian W&uuml;llhorst.</p>

@@ -125,12 +125,7 @@ equation
     annotation (Line(points={{-90,59},{-90,52},{-76,52}}, color={0,0,127}));
   connect(division.y, switchQCon.u1) annotation (Line(points={{-70,29},{-66,29},
           {-66,22},{-58,22}}, color={0,0,127}));
-  annotation (Icon(graphics={
-        Text(
-          lineColor={0,0,255},
-          extent={{-136,109},{164,149}},
-          textString="%name")}),
-                             Documentation(revisions="<html><ul>
+  annotation (Documentation(revisions="<html><ul>
   <li>
     <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
     First implementation (see issue <a href=

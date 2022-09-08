@@ -9,4 +9,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  annotation (Documentation(info="<html>
+<p>Partial model for calculation of electrical power P_el, condenser heat flow QCon and evaporator heat flow QEva based on the values in the sigBus for a heat pump.</p>
+</html>"));
 end PartialHeatPumpBlackBox;
