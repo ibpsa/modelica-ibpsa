@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.Validation.BaseClasses;
+within IBPSA.Fluid.HeatPumps.Validation.BaseClasses;
 partial model PartialHeatPumpValidation
   "Validation base case for the reversible heat pump model."
  extends Modelica.Icons.Example;

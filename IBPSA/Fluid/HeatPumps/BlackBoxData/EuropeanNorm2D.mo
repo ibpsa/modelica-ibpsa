@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData;
+within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model EuropeanNorm2D "Data from European Norm in two dimensions"
   extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
     datasource=dataTable.device_id,
@@ -11,8 +11,8 @@ model EuropeanNorm2D "Data from European Norm in two dimensions"
         TEva_nominal - 273.15));
 
   parameter EuropeanNorm2DData.HeatPumpBaseDataDefinition dataTable=
-      IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN255.Vitocal350AWI114
-      () "Data Table of HP" annotation (choicesAllMatching=true);
+      IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN255.Vitocal350AWI114()
+         "Data Table of HP" annotation (choicesAllMatching=true);
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments
     "Smoothness of table interpolation";
   parameter Modelica.Blocks.Types.Extrapolation extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints

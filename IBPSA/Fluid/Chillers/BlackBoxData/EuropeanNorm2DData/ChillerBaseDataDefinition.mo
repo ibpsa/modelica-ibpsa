@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData;
+within IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData;
 record ChillerBaseDataDefinition "Basic chiller data"
     extends
     IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition(

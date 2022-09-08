@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses;
 partial model PartialBlackBox
   "Partial black box model of vapour compression cycles used for heat pump applications"
 

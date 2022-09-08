@@ -1,4 +1,4 @@
-﻿within IBPSA.Utilities.Time;
+within IBPSA.Utilities.Time;
 model DaytimeSwitch
   "Set the output to true if the given daytime stamp is equal to current daytime"
   parameter Boolean weekly=true

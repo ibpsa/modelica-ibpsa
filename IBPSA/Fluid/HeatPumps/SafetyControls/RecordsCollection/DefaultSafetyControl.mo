@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection;
+within IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection;
 record DefaultSafetyControl
   "Apply the default values according to the conference publication by Wuellhorst et. al."
   extends HeatPumpSafetyControlBaseDataDefinition(

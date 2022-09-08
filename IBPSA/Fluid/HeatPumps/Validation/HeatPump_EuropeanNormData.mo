@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.Validation;
+within IBPSA.Fluid.HeatPumps.Validation;
 model HeatPump_EuropeanNormData
   extends BaseClasses.PartialHeatPumpValidation(heatPump(
       redeclare model vapComIne =

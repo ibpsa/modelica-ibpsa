@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting;
 package Functions "Package with functions to calculate current icing factor on evaporator"
 
 annotation (Documentation(revisions="<html><ul>

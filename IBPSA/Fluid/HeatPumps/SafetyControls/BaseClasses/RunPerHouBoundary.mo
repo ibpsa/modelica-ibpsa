@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
+within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
 block RunPerHouBoundary "Checks if a maximal run per hour value is in boundary"
   extends Modelica.Blocks.Interfaces.BooleanSISO;
   parameter Integer maxRunPer_h "Number of maximal on/off cycles per hour";

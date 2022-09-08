@@ -16,8 +16,8 @@ model EuropeanNorm2D
   parameter
     IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.ChillerBaseDataDefinition
     dataTable=
-      IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201
-      () "Data Table of Chiller" annotation (choicesAllMatching=true);
+      IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()
+         "Data Table of Chiller" annotation (choicesAllMatching=true);
   parameter Modelica.Blocks.Types.Extrapolation extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints
     "Extrapolation of data outside the definition range";
 

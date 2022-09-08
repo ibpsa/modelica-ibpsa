@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
+within IBPSA.Fluid.HeatPumps.SafetyControls;
 package BaseClasses "Package with base classes for IBPSA.Controls.HeatPump.SafetyControls"
 
 

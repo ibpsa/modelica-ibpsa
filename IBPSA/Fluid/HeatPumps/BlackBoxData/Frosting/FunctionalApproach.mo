@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting;
 model FunctionalApproach
   "Estimate the frosting supression using a function"
   extends BaseClasses.PartialIceFac;

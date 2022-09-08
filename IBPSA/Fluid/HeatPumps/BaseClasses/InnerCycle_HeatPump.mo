@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BaseClasses;
+within IBPSA.Fluid.HeatPumps.BaseClasses;
 model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle;
 

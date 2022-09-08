@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
+within IBPSA.Fluid.HeatPumps.SafetyControls;
 model AntiFreeze "Model to prevent source from freezing"
   extends BaseClasses.PartialSafetyControlWithErrors;
 

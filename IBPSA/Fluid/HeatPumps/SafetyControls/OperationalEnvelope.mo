@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
+within IBPSA.Fluid.HeatPumps.SafetyControls;
 block OperationalEnvelope
   "Block which computes an error if the current values are outside of the given operatinal envelope"
   extends BaseClasses.PartialSafetyControlWithErrors;

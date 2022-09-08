@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.Validation;
+within IBPSA.Fluid.HeatPumps.Validation;
 model HeatPump_CarnotConstantQuality
   extends BaseClasses.PartialHeatPumpValidation(heatPump(
       QUse_flow_nominal=qualityGrade*PEl_nominal*heatPump.TCon_nominal/(

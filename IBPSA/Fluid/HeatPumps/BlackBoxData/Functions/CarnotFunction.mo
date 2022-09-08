@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.Functions;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.Functions;
 function CarnotFunction
   "Function to emulate the polynomal approach of the Carnot_y heat pump model"
   extends

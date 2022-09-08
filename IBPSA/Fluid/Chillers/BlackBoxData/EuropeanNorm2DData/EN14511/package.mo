@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData;
+within IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData;
 package EN14511
 
 annotation (Documentation(revisions="<html><ul>

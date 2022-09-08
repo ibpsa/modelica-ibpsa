@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions;
 function WetterAfjei1996
   "Correction of CoP (Icing, Defrost) according to Wetter,Afjei 1996"
   extends

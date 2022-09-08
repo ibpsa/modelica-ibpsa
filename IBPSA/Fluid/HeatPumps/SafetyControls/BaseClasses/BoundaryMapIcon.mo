@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
+within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
 partial block BoundaryMapIcon "PartialModel for the icon of a boundary map"
 
   parameter Boolean use_opeEnvFroRec=true

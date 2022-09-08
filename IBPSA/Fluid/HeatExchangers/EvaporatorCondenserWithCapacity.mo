@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatExchangers;
+within IBPSA.Fluid.HeatExchangers;
 model EvaporatorCondenserWithCapacity
   extends IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final IBPSA.Fluid.MixingVolumes.MixingVolume vol(

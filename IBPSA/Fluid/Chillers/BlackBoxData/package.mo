@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.Chillers;
+within IBPSA.Fluid.Chillers;
 package BlackBoxData "Collection of Chiller Database Records"
    extends Modelica.Icons.MaterialPropertiesPackage;
 

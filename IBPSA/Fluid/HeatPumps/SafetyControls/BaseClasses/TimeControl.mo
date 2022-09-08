@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
+within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
 block TimeControl
   "Counts seconds a device is turned on and returns true if the time is inside given boundaries"
   extends Modelica.Blocks.Interfaces.BooleanSISO;

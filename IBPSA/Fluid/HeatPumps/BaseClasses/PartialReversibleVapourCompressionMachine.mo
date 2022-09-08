@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BaseClasses;
+within IBPSA.Fluid.HeatPumps.BaseClasses;
 partial model PartialReversibleVapourCompressionMachine
   "Grey-box model for reversible heat pumps and chillers using a black-box to simulate the vapour compression cycle"
   extends IBPSA.Fluid.Interfaces.PartialFourPortInterface(

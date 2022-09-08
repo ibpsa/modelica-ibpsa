@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
+within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
 partial block PartialSafetyControlWithErrors "Safety control which adds an error counter to the I/O"
   extends PartialSafetyControl;
 

@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.Functions;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.Functions;
 function PolynomalApproach
   "Function to emulate the polynomal approach of the TRNSYS Type 401 heat pump model"
   extends

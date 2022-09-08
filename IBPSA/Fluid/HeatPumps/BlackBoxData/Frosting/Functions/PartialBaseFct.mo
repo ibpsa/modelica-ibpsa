@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions;
 partial function PartialBaseFct "Base function for all icing factor functions"
   extends Modelica.Icons.Function;
   input Modelica.Units.SI.ThermodynamicTemperature TEvaInMea
